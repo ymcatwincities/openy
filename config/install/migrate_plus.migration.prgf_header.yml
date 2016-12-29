@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_prgf_header
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Creates Header Paragraphs'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Growing Healthier Together'
+      description: 'Descriptive text about program details. Laborum netus, hendrerit maiores nibh atque parturient modi. Sit! Atque, cillum adipisicing, magni pretium sequi vero maiores senectus, porta magni hac in tenetur illo, eum soluta, lacinia cum laudantium incidunt incididunt.'
+      link_uri: 'base:program'
+      link_title: 'Learn More'
+  ids:
+    id:
+      type: integer
+process:
+  field_prgf_header_description:
+    -
+      plugin: get
+      source: description
+  field_prgf_header_title:
+    -
+      plugin: get
+      source: title
+  field_prgf_header_link/uri:
+    -
+      plugin: get
+      source: link_uri
+  field_prgf_header_link/title:
+    -
+      plugin: get
+      source: link_title
+destination:
+  plugin: entity_reference_revisions:paragraph
+  default_bundle: header
+migration_dependencies:
+  required: {  }
