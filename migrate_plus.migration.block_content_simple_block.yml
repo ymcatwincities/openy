@@ -12,17 +12,45 @@ source:
     -
       id: 1
       code:
-      description: 'Bock #1 description'
-      title: 'Block #1'
-      body: 'Body for block #1...'
+      description: '2-col paragraph Block #1'
+      title: 'The Y Stands for Strong Communities'
+      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Learn More About the YMCA >'
     -
       id: 2
       code:
-      description: 'Bock #2 description'
-      title: 'Block #2'
-      body: 'Body for block #2...'
+      description: '2-col paragraph Block #2'
+      title: 'The YMCA is for Everyone'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
     -
       id: 3
+      code:
+      description: '4-col paragraph Block #1'
+      title: 'Unlimited Access'
+      body: 'Get access to all 13 Seattle area branches includin heater indoor poolsand fitness equipment.'
+    -
+      id: 4
+      code:
+      description: '4-col paragraph Block #2'
+      title: 'Coaching and Training'
+      body: 'Free personalized wellness plan with a health coach.'
+    -
+      id: 5
+      code:
+      description: '4-col paragraph Block #3'
+      title: 'Child Care'
+      body: 'Take advantage of Kids Zone programs while you work out. Leave your kids with us for active and engaging fun.'
+    -
+      id: 6
+      code:
+      description: '4-col paragraph Block #4'
+      title: 'Savings for Your Whole Family'
+      body: 'Get discounts on swim lessons, day camp, youth sports and more with your membership.'
+    -
+      id: 7
       code: 'e350fe26-bc73-4c69-af18-a51a052dbcd3'
       description: 'Footer Social Block'
       title: ''
@@ -67,5 +95,13 @@ process:
     -
       plugin: default_value
       default_value: html
+  field_sb_link/uri:
+    -
+      plugin: get
+      source: link_url
+  field_sb_link/title:
+    -
+      plugin: get
+      source: link_title
 destination:
   plugin: entity:block_content
