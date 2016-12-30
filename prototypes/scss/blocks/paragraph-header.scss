@@ -1,0 +1,104 @@
+.paragraph--type--header {
+  position: relative;
+
+  display: flex;
+  flex-direction: row-reverse;
+
+  @media screen and (min-width: 0) and (max-width: $screen-sm) {
+    flex-direction: column;
+  }
+
+  .paragraph--image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+
+    @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+      flex-basis: 60%;
+    }
+
+    @media screen and (min-width: 0) and (max-width: $screen-sm) {
+      flex-basis: 100%;
+    }
+
+    img {
+      height: auto;
+      max-width: inherit;
+      width: 100%;
+      vertical-align: top;
+      margin: auto;
+    }
+  }
+
+  .cta-group-wrapper {
+    max-height: 100%;
+    width: 100%;
+    display: flex;
+    
+    background: linear-gradient(to top, $color-blue, $color-violet);
+
+    @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+      flex-basis: 40%;
+    }
+
+    @media screen and (min-width: 0) and (max-width: $screen-sm) {
+      flex-basis: 100%;
+
+      padding: 30px 0;
+    }
+
+    .cta-group {
+      margin: auto;
+      width: 60%;
+
+      @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+        width: 90%;
+      }
+
+      h1 {
+        margin: 0;
+        color: white;
+        font-size: 48px;
+        font-family: $font-cachet-bold;
+        text-transform: uppercase;
+
+        @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+          width: 90%;
+
+          font-size: 32px;
+        }
+      }
+
+      .text {
+        font-size: 18px;
+        font-family: $font-cachet-bold;
+        color: white;
+        line-height: 22px;
+        margin-bottom: 15px;
+
+        @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
+          width: 90%;
+
+          font-size: 16px;
+        }
+      }
+
+      .btn {
+        white-space: normal;
+        font-size: 18px;
+        padding: 0;
+        width: 100%;
+
+        background: white;
+
+        a {
+          display: block;
+          padding: 12px;
+          color: $color-blue;
+          font-family: $font-cachet-bold;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
