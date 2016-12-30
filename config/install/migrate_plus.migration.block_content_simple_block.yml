@@ -65,7 +65,17 @@ source:
                       <li>
                         <a class="item-share--youtube" href="#">youtube</a>
                       </li>
-                    </ul>
+        </ul>
+    -
+      id: 8
+      code: 'cb76bc7c-a957-4b69-96fb-e565ee85f38a'
+      description: 'Footer Copyright Block'
+      title: ''
+      body: |
+      <div class="body">
+      <p>© 2016 YMCA of Greater Houston</p>
+      <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
+      </div>
   ids:
     id:
       type: integer
@@ -74,7 +84,6 @@ process:
     -
       plugin: default_value
       default_value: simple_block
-
   uuid:
     -
       plugin: get
