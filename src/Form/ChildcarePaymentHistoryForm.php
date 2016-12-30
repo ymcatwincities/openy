@@ -100,7 +100,11 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
     // Collect all children from available receipts.
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
-      foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+      $receipts = $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'];
+      if (array_key_exists('BillMasterCustomerId', $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
+        $receipts = [$data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts']];
+      }
+      foreach ($receipts as $receipt) {
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
         $options[$receipt['ShipMasterCustomerId']] = $name;
       }
