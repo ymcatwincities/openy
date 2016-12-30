@@ -17,16 +17,16 @@ source:
           id: 1
       body:
         -
-          migration: yghc_prgf_1_nu
+          migration: yghc_prgf_nu
           id: 1
         -
-          migration: yghc_prgf_2_2c
+          migration: yghc_prgf_2c
           id: 1
         -
-          migration: yghc_prgf_3_4c
+          migration: yghc_prgf_4c
           id: 1
         -
-          migration: yghc_prgf_4_lto
+          migration: yghc_prgf_lto
           id: 1
   ids:
     id:
@@ -62,8 +62,8 @@ destination:
   default_bundle: landing_page
 migration_dependencies:
   required:
-    - yghc_prgf_1_nu
-    - yghc_prgf_4_lto
-    - yghc_prgf_2_2c
-    - yghc_prgf_3_4c
+    - yghc_prgf_nu
+    - yghc_prgf_lto
+    - yghc_prgf_2c
+    - yghc_prgf_4c
     - yghc_prgf_header

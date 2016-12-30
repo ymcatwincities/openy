@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: yghc_prgf_2_2c
+id: yghc_prgf_2c
 migration_tags: {  }
 migration_group: ygh_content
 label: 'Creates Paragraphs (2 columns)'
