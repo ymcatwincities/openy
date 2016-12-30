@@ -17,11 +17,6 @@ use GuzzleHttp\Client;
 class ChildcarePaymentHistoryRequest {
 
   /**
-   * Test childcare user ID.
-   */
-  const TEST_USER_ID = '2015228900';
-
-  /**
    * Http client.
    *
    * @var Client
@@ -64,7 +59,7 @@ class ChildcarePaymentHistoryRequest {
     $this->config = $config;
     $this->logger = $logger_factory->get('ymca_personify');
     $settings = $this->config->get('ymca_personify.settings');
-    $this->isEnabledTestUser = (bool) $settings->get('is_enabled_childcare_test_user');
+    $this->isEnabledTestUser = $settings->get('is_enabled_childcare_test_user');
   }
 
   /**
@@ -82,8 +77,8 @@ class ChildcarePaymentHistoryRequest {
     $start_date = !empty($parameters['start_date']) ? DrupalDateTime::createFromTimestamp(strtotime($parameters['start_date']))->format('Y-m-d') . 'T12:00:00' : '';
     $end_date = !empty($parameters['end_date']) ? DrupalDateTime::createFromTimestamp(strtotime($parameters['end_date']))->format('Y-m-d') . 'T12:00:00' : '';
     $client_id = isset($_COOKIE['Drupal_visitor_personify_id']) ? $_COOKIE['Drupal_visitor_personify_id'] : '';
-    if ($this->isEnabledTestUser) {
-      $client_id = self::TEST_USER_ID;
+    if (!empty($this->isEnabledTestUser)) {
+      $client_id = $this->isEnabledTestUser;
     }
     $options = [
       'body' => '<CL_ChildcarePaymentInfoInput>
