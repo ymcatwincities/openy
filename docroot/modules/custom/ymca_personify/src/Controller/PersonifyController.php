@@ -198,10 +198,14 @@ class PersonifyController extends ControllerBase {
       'childcare_pdf_tax_id' => parent::config('ymca_personify.settings')->get('childcare_pdf_tax_id'),
     ];
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
+      $receipts = $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'];
+      if (array_key_exists('BillMasterCustomerId', $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
+        $receipts = [$data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts']];
+      }
       $content['start_date'] = $parameters['start_date'];
       $content['end_date'] = $parameters['end_date'];
       $content['child'] = $parameters['child'];
-      foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+      foreach ($receipts as $receipt) {
         // Skip not chosen children, skip receipts with 0.00 Paid Amount.
         if ($receipt['ActualPostedPaidAmount'] == 0.00 || ($parameters['child'] !== 'all' && $parameters['child'] !== $receipt['ShipMasterCustomerId'])) {
           continue;
