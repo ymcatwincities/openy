@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: yghc_prgf_1_nu
+id: yghc_prgf_nu
 migration_tags: {  }
 migration_group: ygh_content
 label: 'Creates Latest News and Updates Paragraph'
