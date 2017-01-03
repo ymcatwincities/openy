@@ -96,7 +96,7 @@ class ProgramsSearchBlockForm extends FormBase {
       '#title' => $this->t('Select type'),
       '#options' => [
         'child' => $this->t('Child Care'),
-        'adult' => $this->t('Adult'),
+        'adult' => $this->t('Programs'),
       ],
       '#ajax' => $this->getAjaxDefaults(),
     ];
