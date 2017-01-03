@@ -29,7 +29,7 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
    *   Link plugin instance.
    */
   protected function loadLinkByProperties(array $properties) {
-    // @todo Inject serivces via constructor.
+    // @todo Inject services via constructor.
     $link_manager = \Drupal::service('plugin.manager.menu.link');
     $connection = \Drupal::service('database');
     $cache_backend_interface = \Drupal::service('cache.menu');
@@ -37,6 +37,9 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
 
     $storage = new MenuTreeStorage($connection, $cache_backend_interface, $cache_tags_invalidator, 'menu_tree');
     $links = $storage->loadByProperties($properties);
+    if (empty($links)) {
+      return NULL;
+    }
 
     $keys = array_keys($links);
     $plugin_id = $keys[0];
