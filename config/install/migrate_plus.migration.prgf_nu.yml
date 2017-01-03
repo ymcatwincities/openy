@@ -13,6 +13,11 @@ source:
       title: 'What Happening At the Y?'
       more_uri: 'base:see_more'
       more_title: 'See more stories...'
+    -
+      id: 2
+      title: 'What Happening At the Camp Cullen?'
+      more_uri: 'base:see_more'
+      more_title: 'See more stories...'
   ids:
     id:
       type: integer

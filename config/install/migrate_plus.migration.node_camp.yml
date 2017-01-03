@@ -1,33 +1,30 @@
 langcode: en
 status: true
 dependencies: {  }
-id: yghc_node_landing
+id: yghc_node_camp
 migration_tags: {  }
 migration_group: ygh_content
-label: 'Create Landing content'
+label: 'Create Camp content'
 source:
   plugin: embedded_data
   data_rows:
     -
       id: 1
-      title: 'Home Page'
+      title: 'YMCA CAMP CULLEN'
       header:
         -
           migration: yghc_prgf_header
-          id: 1
+          id: 2
       body:
         -
-          migration: yghc_prgf_nu
+          migration: yghc_prgf_3c
           id: 1
+        -
+          migration: yghc_prgf_nu
+          id: 2
         -
           migration: yghc_prgf_2c
-          id: 1
-        -
-          migration: yghc_prgf_4c
-          id: 1
-        -
-          migration: yghc_prgf_lto
-          id: 1
+          id: 2
   ids:
     id:
       type: integer
@@ -40,7 +37,7 @@ process:
   type:
     -
       plugin: default_value
-      default_value: landing
+      default_value: camp
   status:
     -
       plugin: default_value
@@ -49,21 +46,21 @@ process:
     -
       plugin: default_value
       default_value: 1
-  field_landing_header:
+  field_camp_header:
     -
       plugin: paragraph_migration
       paragraphs: header
-  field_landing_body:
+  field_camp_body:
     -
       plugin: paragraph_migration
       paragraphs: body
 destination:
   plugin: 'entity:node'
-  default_bundle: landing_page
+  default_bundle: camp
 migration_dependencies:
   required:
-    - yghc_prgf_2c
-    - yghc_prgf_4c
-    - yghc_prgf_nu
-    - yghc_prgf_lto
     - yghc_prgf_header
+    - yghc_prgf_2c
+    - yghc_prgf_3c
+    - yghc_prgf_nu
+
