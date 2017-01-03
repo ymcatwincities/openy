@@ -72,10 +72,8 @@ source:
       description: 'Footer Copyright Block'
       title: ''
       body: |
-      <div class="body">
-      <p>© 2016 YMCA of Greater Houston</p>
-      <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
-      </div>
+        <p>© 2016 YMCA of Greater Houston</p>
+        <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
   ids:
     id:
       type: integer
