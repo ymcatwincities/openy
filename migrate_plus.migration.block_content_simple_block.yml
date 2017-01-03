@@ -12,7 +12,7 @@ source:
     -
       id: 1
       code:
-      description: '2-col paragraph Block #1'
+      description: '2-col paragraph Block #1 for Home'
       title: 'The Y Stands for Strong Communities'
       body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
       link_url: 'base:learn_more'
@@ -20,7 +20,7 @@ source:
     -
       id: 2
       code:
-      description: '2-col paragraph Block #2'
+      description: '2-col paragraph Block #2 for Home'
       title: 'The YMCA is for Everyone'
       body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
       link_url: 'base:support'
@@ -28,25 +28,25 @@ source:
     -
       id: 3
       code:
-      description: '4-col paragraph Block #1'
+      description: '4-col paragraph Block #1 for Home'
       title: 'Unlimited Access'
       body: 'Get access to all 13 Seattle area branches includin heater indoor poolsand fitness equipment.'
     -
       id: 4
       code:
-      description: '4-col paragraph Block #2'
+      description: '4-col paragraph Block #2 for Home'
       title: 'Coaching and Training'
       body: 'Free personalized wellness plan with a health coach.'
     -
       id: 5
       code:
-      description: '4-col paragraph Block #3'
+      description: '4-col paragraph Block #3 for Home'
       title: 'Child Care'
       body: 'Take advantage of Kids Zone programs while you work out. Leave your kids with us for active and engaging fun.'
     -
       id: 6
       code:
-      description: '4-col paragraph Block #4'
+      description: '4-col paragraph Block #4 for Home'
       title: 'Savings for Your Whole Family'
       body: 'Get discounts on swim lessons, day camp, youth sports and more with your membership.'
     -
@@ -74,6 +74,52 @@ source:
       body: |
         <p>© 2016 YMCA of Greater Houston</p>
         <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
+    -
+      id: 9
+      code:
+      description: '3-col paragraph Block #1 for Camp Cullen'
+      title: 'Camp Amenities'
+      body: |
+            'Fitness and Cardio equipment
+             Olympic swimming poll
+             Kids gym and play area
+             Personalized training
+             Teen center'
+      link_url: 'base:see_amen'
+      link_title: 'See all amenities >'
+    -
+      id: 10
+      code:
+      description: '3-col paragraph Block #2 for Camp Cullen'
+      title: 'Jobs You Might Like'
+      body: 'Working at the YMCA may be one of the most rewarding things you will ever do!'
+      link_url: 'base:join'
+      link_title: 'Join the Y >'
+    -
+      id: 11
+      code:
+      description: '3-col paragraph Block #3 for Camp Cullen'
+      title: 'The YMCA is for Everyone'
+      body: 'Have an event coming up? Planning a retreat? Need a place for teambuilding? YMCA Camp Cullen serves outside groups and organizations throughout the year. Our variety of program offerings are customizable to fit the needs and goals of your group. Our staff will work with you to plan and execute a memorable day or overnight stay'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+    -
+      id: 12
+      code:
+      description: '2-col paragraph Block #1 for Camp Cullen'
+      title: 'Volunteers needed'
+      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Explore Volunteers Opportunity >'
+    -
+      id: 13
+      code:
+      description: '2-col paragraph Block #2 for Camp Cullen'
+      title: 'We appreciate your support'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+
   ids:
     id:
       type: integer

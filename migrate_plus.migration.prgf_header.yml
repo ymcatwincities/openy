@@ -14,6 +14,12 @@ source:
       description: 'Descriptive text about program details. Laborum netus, hendrerit maiores nibh atque parturient modi. Sit! Atque, cillum adipisicing, magni pretium sequi vero maiores senectus, porta magni hac in tenetur illo, eum soluta, lacinia cum laudantium incidunt incididunt.'
       link_uri: 'base:program'
       link_title: 'Learn More'
+    -
+      id: 2
+      title: 'Headline About Camp Cullen'
+      descrition: 'Swim lessons and aquatic programs are gearing up for fall season. Decriptive copy continues here...'
+      link_uri: 'base:call'
+      link_title: 'Call to action'
   ids:
     id:
       type: integer
