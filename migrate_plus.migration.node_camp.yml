@@ -11,7 +11,7 @@ source:
     -
       id: 1
       title: 'YMCA Camp Cullen'
-      alias: '/camp/cullen'
+      alias: '/camp/camp_cullen'
       header:
         -
           migration: yghc_prgf_header
