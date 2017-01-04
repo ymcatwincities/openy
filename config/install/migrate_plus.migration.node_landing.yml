@@ -28,6 +28,15 @@ source:
         -
           migration: yghc_prgf_lto
           id: 1
+    -
+      id: 2
+      title: 'Program Search'
+      alias: '/program'
+      body:
+        -
+          migration: yghc_prgf_pgm_reg
+          id: 1
+
   ids:
     id:
       type: integer
@@ -37,6 +46,10 @@ process:
     -
       plugin: get
       source: title
+  path:
+    -
+      plugin: get
+      source: alias
   type:
     -
       plugin: default_value
@@ -67,3 +80,4 @@ migration_dependencies:
     - yghc_prgf_nu
     - yghc_prgf_lto
     - yghc_prgf_header
+    - yghc_prgf_pgm_reg
