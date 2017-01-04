@@ -10,7 +10,8 @@ source:
   data_rows:
     -
       id: 1
-      title: 'YMCA CAMP CULLEN'
+      title: 'YMCA Camp Cullen'
+      alias: '/camp/cullen'
       header:
         -
           migration: yghc_prgf_header
@@ -34,6 +35,10 @@ process:
     -
       plugin: get
       source: title
+  path:
+    -
+      plugin: get
+      source: alias
   type:
     -
       plugin: default_value
@@ -63,4 +68,3 @@ migration_dependencies:
     - yghc_prgf_2c
     - yghc_prgf_3c
     - yghc_prgf_nu
-
