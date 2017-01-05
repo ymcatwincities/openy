@@ -36,20 +36,16 @@ abstract class SimplesitemapTestBase extends UnitTestCase {
     // Initial config set up. These are the settings the module sets upon
     // installation (see sitemap_settings.settings.yml).
     $this->config = [
-      'custom' => [
-        ['path' => '/', 'priority' => '1.0'],
+      'max_links' => 2000,
+      'cron_generate' => TRUE,
+      'remove_duplicates' => TRUE,
+      'batch_process_limit' => 1500,
+      'enabled_entity_types' => [
+        'node',
+        'taxonomy_term',
+        'menu_link_content',
       ],
-      'entity_types' => [
-        'node' => [],
-        'taxonomy_term' => [],
-        'menu_link_content' => [],
-      ],
-      'settings' => [
-        'max_links' => 2000,
-        'cron_generate' => TRUE,
-        'remove_duplicates' => TRUE,
-        'batch_process_limit' => 1500,
-      ],
+      'base_url' => '',
     ];
 
     // Mock the digtap service with the above settings.
