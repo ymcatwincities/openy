@@ -15,7 +15,7 @@
         {{ 'No results found.'|t }}
       {% else %}
       <div class="download-pdf-wrapper">
-        <a href="{{ content.pdf_link }}" class="btn btn-primary btn-lg download_pdf">{{ 'Download PDF'|t }}</a>
+        <a href="{{ content.pdf_link }}" target="_blank" class="btn btn-primary btn-lg download_pdf">{{ 'Download PDF'|t }}</a>
       </div>
       {% for key, child in content.children %}
         <table class="table-responsive child child-{{ child.id }}">

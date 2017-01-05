@@ -59,6 +59,7 @@ class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
 
       // Checking if internal path exists.
       if (!$this->pathValidator->isValid($link_config['path'])
+//      if (!$this->pathValidator->getUrlIfValidWithoutAccessCheck($link_config['path']) //todo
       // Path validator does not see a double slash as an error. Catching this to prevent breaking path generation.
        || strpos($link_config['path'], '//') !== FALSE) {
         $form_state->setErrorByName('', $this->t("<strong>Line @line</strong>: The path <em>@path</em> does not exist.", $placeholders));
