@@ -100,7 +100,11 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $data = \Drupal::service('ymca_personify_childcare_request')->personifyRequest($parameters);
     // Collect all children from available receipts.
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
-      foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+      $receipts = $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'];
+      if (array_key_exists('BillMasterCustomerId', $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
+        $receipts = [$data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts']];
+      }
+      foreach ($receipts as $receipt) {
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
         $options[$receipt['ShipMasterCustomerId']] = $name;
       }
@@ -213,10 +217,18 @@ class ChildcarePaymentHistoryForm extends FormBase {
     $content = [];
     $content['total'] = 0;
     if (isset($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
-      foreach ($data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'] as $receipt) {
+      $receipts = $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'];
+      if (array_key_exists('BillMasterCustomerId', $data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts'])) {
+        $receipts = [$data['ChildcarePaymentReceipts']['CL_ChildcarePaymentReceipts']];
+      }
+      foreach ($receipts as $receipt) {
+        // Skip receipts with 0.00 Paid Amount.
+        if ($receipt['ActualPostedPaidAmount'] == 0.00) {
+          continue;
+        }
         $name = str_replace(',', '', $receipt['ShipCustomerLastFirstName']);
         $key = $name . ', ' . $receipt['ShipMasterCustomerId'];
-        $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['OrderDate']))->format('Y-m-d');
+        $date = DrupalDateTime::createFromTimestamp(strtotime($receipt['ReceiptStatusDate']))->format('Y-m-d');
         $content['total'] += $receipt['ActualPostedPaidAmount'];
         $content['pdf_link'] = Url::fromRoute('ymca_personify.childcare_payment_history_pdf', [], [
           'query' => [
@@ -237,6 +249,15 @@ class ChildcarePaymentHistoryForm extends FormBase {
         ];
       }
       $content['total'] = number_format($content['total'], 2, '.', '');
+    }
+    // Sort by date.
+    if (!empty($content['children'])) {
+      foreach ($content['children'] as $key => $child) {
+        usort($child['receipts'], function ($a, $b) {
+          return strtotime($a["date"]) - strtotime($b["date"]);
+        });
+        $content['children'][$key]['receipts'] = $child['receipts'];
+      }
     }
     return $content;
   }

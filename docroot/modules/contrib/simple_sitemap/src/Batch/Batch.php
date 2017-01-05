@@ -65,7 +65,7 @@ class Batch {
         batch_set($this->batch);
         $this->batch =& batch_get();
         $this->batch['progressive'] = FALSE;
-        // todo: Does not take advantage of batch API and eventually runs out of memory on very large sites.
+        // todo: Does not take advantage of batch API and eventually runs out of memory on very large sites. Use queue API instead?
         batch_process();
         break;
 
