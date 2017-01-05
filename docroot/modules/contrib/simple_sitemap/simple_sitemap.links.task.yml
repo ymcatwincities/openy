@@ -4,6 +4,11 @@ simple_sitemap.settings:
   base_route: simple_sitemap.settings
   weight: -1
 
+simple_sitemap.settings_entities:
+  route_name: simple_sitemap.settings_entities
+  title: 'Sitemap entities'
+  base_route: simple_sitemap.settings
+
 simple_sitemap.settings_custom:
   route_name: simple_sitemap.settings_custom
   title: 'Custom links'

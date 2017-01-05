@@ -12,3 +12,10 @@ ymca_alters.admin_config_ymca_services:
     _title: 'YMCA Services'
   requirements:
     _permission: 'access administration pages'
+simple_sitemap.settings_skip:
+  path: '/admin/config/search/simplesitemap/skip'
+  defaults:
+    _form: '\Drupal\ymca_alters\Form\SimplesitemapSkipLinksForm'
+    _title: 'Simple XML Sitemap Settings'
+  requirements:
+    _permission: 'administer sitemap settings'
