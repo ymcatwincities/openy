@@ -380,7 +380,7 @@ class Simplesitemap {
     $custom_links[$link_key]['path'] = $path;
     $this->addLinkSettings('custom', $settings, $custom_links[$link_key]); //todo: dirty
     $this->configFactory->getEditable("simple_sitemap.custom")
-      ->setData($custom_links)->save();
+      ->set('links', $custom_links)->save();
     return $this;
   }
 
@@ -413,8 +413,7 @@ class Simplesitemap {
   public function getCustomLinks() {
     $custom_links = $this->configFactory
       ->get('simple_sitemap.custom')
-      ->get();
-    unset($custom_links['_core']);
+      ->get('links');
     return $custom_links;
   }
 
@@ -448,7 +447,7 @@ class Simplesitemap {
         unset($custom_links[$key]);
         $custom_links = array_values($custom_links);
         $this->configFactory->getEditable("simple_sitemap.custom")
-          ->setData($custom_links)->save();
+          ->set('links', $custom_links)->save();
         break;
       }
     }
@@ -462,7 +461,7 @@ class Simplesitemap {
    */
   public function removeCustomLinks() {
     $this->configFactory->getEditable("simple_sitemap.custom")
-      ->setData([])->save();
+      ->set('links', [])->save();
     return $this;
   }
 

@@ -45,13 +45,13 @@ services:
 
   simple_sitemap.logger:
     class: Drupal\simple_sitemap\Logger
-    prublic: false
+    public: false
     arguments:
       - '@logger.channel.simple_sitemap'
       - '@current_user'
 
   logger.channel.simple_sitemap:
     parent: logger.channel_base
-    prublic: false
+    public: false
     arguments:
       - simple_sitemap
