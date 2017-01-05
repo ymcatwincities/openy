@@ -1,16 +1,15 @@
 <?php
-/**
- * @file
- * The code processing mail in the smtp module.
- *
- */
 
 namespace Drupal\smtp\Plugin\Mail;
 
 use Drupal\Component\Utility\Unicode;
-use Drupal\Core\Mail\MailInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Mail\MailFormatHelper;
+use Drupal\Core\Mail\MailInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\smtp\PHPMailer\PHPMailer;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Modify the drupal mail system to use smtp when sending emails.
@@ -22,15 +21,45 @@ use Drupal\smtp\PHPMailer\PHPMailer;
  *   description = @Translation("Sends the message, using SMTP.")
  * )
  */
-class SMTPMailSystem implements MailInterface {
+class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
   protected $AllowHtml;
   protected $smtpConfig;
 
   /**
-   * Constructs a SMPTMailSystem object.
+   * Logger
+   * @var LoggerInterface
    */
-  public function __construct() {
+  protected $logger;
+
+  /**
+   * Constructs a SMPTMailSystem object.
+   * @param array $configuration
+   * @param $plugin_id
+   * @param $plugin_definition
+   * @param \Psr\Log\LoggerInterface $logger
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, LoggerChannelFactoryInterface $logger) {
     $this->smtpConfig = \Drupal::config('smtp.settings');
+    $this->logger = $logger;
+  }
+
+  /**
+   * Creates an instance of the plugin.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The container to pull out services used in the plugin.
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin ID for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   *
+   * @return static
+   *   Returns an instance of this plugin.
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('logger.factory'));
   }
 
   /**
@@ -67,7 +96,6 @@ class SMTPMailSystem implements MailInterface {
    *   TRUE if the mail was successfully accepted, otherwise FALSE.
    */
   public function mail(array $message) {
-    $id = $message['id'];
     $to = $message['to'];
     $from = $message['from'];
     $body = $message['body'];
@@ -89,48 +117,18 @@ class SMTPMailSystem implements MailInterface {
       $from_name = \Drupal::config('system.site')->get('name');
     }
 
-    //Hack to fix reply-to issue.
-    $properfrom = $this->smtpConfig->get('site_mail');
-    if (!empty($properfrom)) {
-      $headers['From'] = $properfrom;
-    }
-    if (!isset($headers['Reply-To']) || empty($headers['Reply-To'])) {
-      if (strpos($from, '<')) {
-        $reply = preg_replace('/>.*/', '', preg_replace('/.*</', '', $from));
-      }
-      else {
-        $reply = $from;
-      }
-      $headers['Reply-To'] = $reply;
-    }
-
-    // Blank value will let the e-mail address appear.
-
-    if ($from == NULL || $from == '') {
-      // If from e-mail address is blank, use smtp_from config option.
-      if (($from = $this->smtpConfig->get('smtp_from')) == '') {
-        // If smtp_from config option is blank, use site_email.
-        if (($from = $this->smtpConfig->get('site_mail')) == '') {
-          drupal_set_message(t('There is no submitted from address.'), 'error');
-          watchdog('smtp', 'There is no submitted from address.', array(), WATCHDOG_ERROR);
-          return FALSE;
-        }
-      }
-    }
-
-    $from_comp = $this->_get_components($from);
-
-    if (!valid_email_address($from_comp['email'])) {
-      drupal_set_message(t('The submitted from address (@from) is not valid.', array('@from' => $from)), 'error');
-      watchdog('smtp', 'The submitted from address (@from) is not valid.', array('@from' => $from), WATCHDOG_ERROR);
-      return FALSE;
+    // Set SMTP module email from.
+    if (\Drupal::service('email.validator')->isValid($this->smtpConfig->get('smtp_from'))) {
+        $from = $this->smtpConfig->get('smtp_from');
+        $headers['Sender'] = $from;
+        $headers['Return-Path'] = $from;
+        $headers['Reply-To'] = $from;
     }
 
     // Defines the From value to what we expect.
     $mailer->From = $from;
-    $mailer->FromName = $from_comp['name'];
-    $mailer->Sender = $from_comp['email'];
-
+    $mailer->FromName = $from_name;
+    $mailer->Sender = $from;
 
     // Create the list of 'To:' recipients.
     $torecipients = explode(',', $to);
@@ -138,7 +136,6 @@ class SMTPMailSystem implements MailInterface {
       $to_comp = $this->_get_components($torecipient);
       $mailer->AddAddress($to_comp['email'], $to_comp['name']);
     }
-
 
     // Parse the headers of the message and set the PHPMailer object's settings
     // accordingly.
@@ -209,7 +206,7 @@ class SMTPMailSystem implements MailInterface {
             default:
               // Everything else is unsuppored by PHPMailer.
               drupal_set_message(t('The %header of your message is not supported by PHPMailer and will be sent as text/plain instead.', array('%header' => "Content-Type: $value")), 'error');
-              watchdog('smtp', 'The %header of your message is not supported by PHPMailer and will be sent as text/plain instead.', array('%header' => "Content-Type: $value"), WATCHDOG_ERROR);
+              $this->logger->error(t('The %header of your message is not supported by PHPMailer and will be sent as text/plain instead.', array('%header' => "Content-Type: $value")));
 
               // Force the Content-Type to be text/plain.
               $mailer->IsHTML(FALSE);
@@ -419,9 +416,9 @@ class SMTPMailSystem implements MailInterface {
                 $attachment = $body_part;
               }
 
-              $attachment_new_filename = drupal_tempnam('temporary://', 'smtp');
+              $attachment_new_filename = \Drupal::service('file_system')->tempnam('temporary://', 'smtp');
               $file_path = file_save_data($attachment, $attachment_new_filename, FILE_EXISTS_REPLACE);
-              $real_path = drupal_realpath($file_path->uri);
+              $real_path = \Drupal::service('file_system')->realpath($file_path->uri);
 
               if (!$mailer->AddAttachment($real_path, $file_name)) {
                 drupal_set_message(t('Attachment could not be found or accessed.'));
@@ -488,7 +485,7 @@ class SMTPMailSystem implements MailInterface {
       'from' => $from,
     );
     if ($this->smtpConfig->get('smtp_queue')) {
-      watchdog('smtp', 'Queue sending mail to: @to', array('@to' => $to));
+      $this->logger->info(t('Queue sending mail to: @to', array('@to' => $to)));
       smtp_send_queue($mailerArr);
     }
     else {
