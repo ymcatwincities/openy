@@ -211,7 +211,9 @@ function simple_sitemap_update_8202() {
 function simple_sitemap_update_8203() {
   $old_config = $config = \Drupal::config('simple_sitemap.settings');
   foreach (['entity_types', 'custom'] as $config_name) {
-    $config = $old_config->get($config_name);
+    if (!$config = $old_config->get($config_name)) {
+      continue;
+    }
     \Drupal::service('config.factory')->getEditable("simple_sitemap.$config_name")
       ->setData($config)->save();
   }
@@ -272,4 +274,18 @@ function simple_sitemap_update_8205() {
   \Drupal::service('config.factory')
     ->getEditable('simple_sitemap.entity_types')
     ->delete();
+}
+
+/**
+ * Placing custom links in a subkey of simple_sitemap.custom configuration.
+ */
+function simple_sitemap_update_8206() {
+  $custom_links = \Drupal::config('simple_sitemap.custom')->get();
+  foreach($custom_links as $i => $custom_link) {
+    if (!isset($custom_link['path'])) {
+      unset($custom_links[$i]);
+    }
+  }
+  \Drupal::service('config.factory')->getEditable("simple_sitemap.custom")
+    ->setData(['links' => $custom_links])->save();
 }

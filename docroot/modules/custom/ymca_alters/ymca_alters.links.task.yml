@@ -1,0 +1,6 @@
+simple_sitemap.settings_skip:
+  route_name: simple_sitemap.settings_skip
+  title: 'Skip links'
+  base_route: simple_sitemap.settings
+
+

@@ -26,7 +26,8 @@ class SimplesitemapTest extends WebTestBase {
   protected $node2;
   protected $privilegedUser;
 
-  protected $strictConfigSchema = FALSE; //todo: Fix schema and remove variable
+  // Uncomment to disable strict schema checks.
+//  protected $strictConfigSchema = FALSE;
 
   /**
    * Implements setup().
@@ -186,6 +187,31 @@ class SimplesitemapTest extends WebTestBase {
     $this->drupalGet('sitemaps/2/sitemap.xml');
     $this->assertText('node/' . $this->node2->id());
     $this->assertText('0.5');
+  }
+
+  /**
+   * Test setting the base URL.
+   */
+  public function testSetBaseUrl() {
+    $this->generator->setBundleSettings('node', 'page', ['index' => TRUE, 'priority' => 0.5])
+      ->saveSetting('base_url', 'http://base_url_test')
+      ->generateSitemap('nobatch');
+
+    $this->drupalGet('sitemap.xml');
+    $this->assertText('http://base_url_test');
+  }
+
+  /**
+   * Test setting the base URL in the sitemap index.
+   */
+  public function testSetBaseUrlInSitemapIndex() {
+    $this->generator->setBundleSettings('node', 'page', ['index' => TRUE, 'priority' => 0.5])
+      ->saveSetting('max_links', 1)
+      ->saveSetting('base_url', 'http://base_url_test')
+      ->generateSitemap('nobatch');
+
+    $this->drupalGet('sitemap.xml');
+    $this->assertText('http://base_url_test');
   }
 
   /**
