@@ -119,7 +119,22 @@ source:
       body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
       link_url: 'base:support'
       link_title: 'Support your local YMCA today >'
-
+    -
+      id: 14
+      code:
+      description: '2-col paragraph Block #1 for Blog Home'
+      title: 'Volunteers needed'
+      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Explore Volunteers Opportunity >'
+    -
+      id: 15
+      code:
+      description: '2-col paragraph Block #2 for Blog Home'
+      title: 'We appreciate your support'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
   ids:
     id:
       type: integer

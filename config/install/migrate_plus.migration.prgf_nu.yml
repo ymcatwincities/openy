@@ -18,6 +18,10 @@ source:
       title: 'What Happening At the Camp Cullen?'
       more_uri: 'base:see_more'
       more_title: 'See more stories...'
+    -
+      id: 3
+      title: 'Latest News and Updates'
+
   ids:
     id:
       type: integer

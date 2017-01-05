@@ -36,6 +36,20 @@ source:
         -
           migration: yghc_prgf_pgm_reg
           id: 1
+    -
+      id: 3
+      title: 'YMCA Of Greater Houston Blog'
+      alias: '/blog'
+      body:
+        -
+          migration: yghc_prgf_fc
+          id: 1
+        -
+          migration: yghc_prgf_nu
+          id: 3
+        -
+          migration: yghc_prgf_2c
+          id: 3
 
   ids:
     id:
@@ -81,3 +95,4 @@ migration_dependencies:
     - yghc_prgf_lto
     - yghc_prgf_header
     - yghc_prgf_pgm_reg
+    - yghc_prgf_fc
