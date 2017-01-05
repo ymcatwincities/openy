@@ -60,7 +60,8 @@ class SitemapGenerator {
   }
 
   /**
-   *
+   * @param $from
+   * @return $this
    */
   public function setGenerateFrom($from) {
     $this->generateFrom = $from;
@@ -79,6 +80,7 @@ class SitemapGenerator {
       'skip_untranslated' => $this->generator->getSetting('skip_untranslated', FALSE),
       'remove_duplicates' => $this->generator->getSetting('remove_duplicates', TRUE),
       'entity_types' => $this->generator->getBundleSettings(),
+      'base_url' => $this->generator->getSetting('base_url', ''),
     ]);
     // Add custom link generating operation.
     $this->batch->addOperation('generateCustomUrls', $this->getCustomUrlsData());
@@ -179,14 +181,18 @@ class SitemapGenerator {
 
     foreach ($chunks as $chunk_id => $chunk_data) {
       $writer->startElement('sitemap');
-      $writer->writeElement('loc', $GLOBALS['base_url'] . '/sitemaps/'
-        . $chunk_id . '/' . 'sitemap.xml');
+      $writer->writeElement('loc', $this->getCustomBaseUrl() . '/sitemaps/' . $chunk_id . '/' . 'sitemap.xml');
       $writer->writeElement('lastmod', date_iso8601($chunk_data->sitemap_created));
       $writer->endElement();
     }
     $writer->endElement();
     $writer->endDocument();
     return $writer->outputMemory();
+  }
+
+  public function getCustomBaseUrl() {
+    $customBaseUrl = $this->generator->getSetting('base_url', '');
+    return !empty($customBaseUrl) ? $customBaseUrl : $GLOBALS['base_url'];
   }
 
   /**

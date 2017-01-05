@@ -3,6 +3,7 @@
 namespace Drupal\simple_sitemap\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\UrlHelper;
 
 /**
  * Class SimplesitemapSettingsForm.
@@ -17,6 +18,7 @@ class SimplesitemapSettingsForm extends SimplesitemapFormBase {
     'remove_duplicates',
     'skip_untranslated',
     'batch_process_limit',
+    'base_url',
   ];
 
   /**
@@ -65,6 +67,14 @@ class SimplesitemapSettingsForm extends SimplesitemapFormBase {
       '#open' => TRUE,
     ];
 
+    $form['simple_sitemap_settings']['advanced']['base_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Default base URL'),
+      '#default_value' => $this->generator->getSetting('base_url', ''),
+      '#size' => 30,
+      '#description' => $this->t('On some hosting providers it is impossible to pass parameters to cron to tell Drupal which URL to bootstrap with. In this case the base URL of sitemap links can be set here.'),
+    ];
+
     $form['simple_sitemap_settings']['advanced']['remove_duplicates'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Exclude duplicate links'),
@@ -104,7 +114,13 @@ class SimplesitemapSettingsForm extends SimplesitemapFormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {}
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $base_url = $form_state->getValue('base_url');
+    $form_state->setValue('base_url', rtrim($base_url, '/'));
+    if ($base_url != '' && !UrlHelper::isValid($base_url, TRUE)) {
+      $form_state->setErrorByName('base_url', t('The base URL is invalid.'));
+    }
+  }
 
   /**
    * {@inheritdoc}
