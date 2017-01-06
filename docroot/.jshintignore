@@ -3,3 +3,6 @@ modules/custom/ggp/js/gardengnome_player.jquery.js
 themes/custom/multipurpose_business_theme/includes/quicksand/jquery.easing.1.3.js
 themes/custom/multipurpose_business_theme/includes/bootstrap/js/
 themes/custom/multipurpose_business_theme/includes/owl
+modules/custom/ymca_styleguide/js/docs.min.js
+modules/custom/ymca_styleguide/vendor/lightbox2/js/lightbox.min.js
+
