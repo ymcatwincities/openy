@@ -11,17 +11,12 @@ source:
     -
       id: 1
       title: 'What Happening At the Y?'
-      more_uri: 'base:see_more'
-      more_title: 'See more stories...'
     -
       id: 2
       title: 'What Happening At the Camp Cullen?'
-      more_uri: 'base:see_more'
-      more_title: 'See more stories...'
     -
       id: 3
       title: 'Latest News and Updates'
-
   ids:
     id:
       type: integer
@@ -30,14 +25,6 @@ process:
     -
       plugin: get
       source: title
-  field_prgf_nu_more/uri:
-    -
-      plugin: get
-      source: more_uri
-  field_prgf_nu_more/title:
-    -
-      plugin: get
-      source: more_title
 destination:
   plugin: entity_reference_revisions:paragraph
   default_bundle: latest_news_and_updates
