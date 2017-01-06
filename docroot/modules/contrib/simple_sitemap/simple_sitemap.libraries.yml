@@ -10,3 +10,10 @@ form:
     js/simple_sitemap.form.js: {}
   dependencies:
     - core/jquery
+sitemapEntities:
+  version: VERSION
+  js:
+    js/simple_sitemap.sitemapEntities.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

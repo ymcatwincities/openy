@@ -1,10 +1,5 @@
 <?php
-/**
- * @file
- * SMTP mail transport class for the smtp module,based on code of the phpmailer
- * library, customized and relicensed to GPLv2
- *
- */
+
 /*~ class.smtp.php
 Orginal release information:
 .---------------------------------------------------------------------------.

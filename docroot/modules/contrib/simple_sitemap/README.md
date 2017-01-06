@@ -5,6 +5,7 @@ CONTENTS OF THIS FILE
  * Installation
  * Configuration
  * Usage
+ * Extending the module
  * How Can You Contribute?
  * Maintainers
 
@@ -15,17 +16,17 @@ INTRODUCTION
 Author and maintainer: Pawel Ginalski (gbyte.co) https://www.drupal.org/u/gbyte.co
 
 The module generates a multilingual XML sitemap which adheres to Google's new
-hreflang standard. Out of the box the sitemap is able to index the following
-content:
+hreflang standard. Out of the box the sitemap is able to index most of Drupal's
+content entity types including:
 
  * nodes
  * taxonomy terms
  * menu links
  * users
- * custom links
+ * ...
 
-The above functionalities are implemented as Drupal 8 plugins and it is easy to
-add support to custom entity types through implementing your own plugins.
+Contributed entity types like commerce products or media entities can be indexed
+as well. On top of that custom links can be added to the sitemap.
 
 To learn about XML sitemaps, see https://en.wikipedia.org/wiki/Sitemaps.
 
@@ -44,20 +45,23 @@ The module permission 'administer sitemap settings' can be configured under
 /admin/people/permissions.
 
 Initially only the home page is indexed in the sitemap. To include content into
-the sitemap, visit the corresponding entity bundle edit pages, e.g.
+the sitemap, visit /admin/config/search/simplesitemap/entities to enable support
+for entity types of your choosing. Entity types which feature bundles can then
+be configured on a per-bundle basis, e.g.
 
- * /admin/structure/types/manage/[content type] for nodes,
- * /admin/structure/taxonomy/manage/[taxonomy vocabulary] for taxonomy terms,
- * /admin/structure/menu/manage/[menu] for menu items,
- * /admin/config/people/accounts for users
+ * /admin/structure/types/manage/[content type] for nodes
+ * /admin/structure/taxonomy/manage/[taxonomy vocabulary] for taxonomy terms
+ * /admin/structure/menu/manage/[menu] for menu items
+ * ...
 
-When including an entity bundle into the sitemap, the priority setting can be
-set which will set the 'priority' parameter for all entities of that type. See
-https://en.wikipedia.org/wiki/Sitemaps to learn more about this parameter.
+When including an entity type or bundle into the sitemap, the priority setting
+can be set which will set the 'priority' parameter for all entities of that
+type. See https://en.wikipedia.org/wiki/Sitemaps to learn more about this
+parameter.
 
 Inclusion and priority settings of bundles can be overridden on a per-entity
-basis. Just head over to a bundle instance edit form (node/1/edit) and override
-the bundle settings there. ATM this only works for nodes and taxonomy terms.
+basis. Just head over to a bundle instance edit form (e.g. node/1/edit) to
+override its sitemap settings.
 
 If you wish for the sitemap to reflect the new configuration instantly, check
 'Regenerate sitemap after clicking save'. This setting only appears if a change
@@ -94,24 +98,12 @@ It is possible to hook into link generation by implementing
 hook_simple_sitemap_links_alter(&$links){} in a custom module and altering the
 link array.
 
-Need to support a non-core entity type? In case you would like to support an
-entity type provided by a contrib module:
-
- * Create a feature request in simple_sitemap's issue queue and submit a plugin
-   (as patch), or wait until a patch is submitted by the community or a
-   maintainer.
-
- * As soon as a patch is found working, create an issue in the contrib module's
-   queue and submit a slightly altered patch created against that module.
-
- * Link the contrib module's issue on the simple_sitemap issue created earlier.
-
 
 HOW CAN YOU CONTRIBUTE?
 -----------------------
 
- * Report any bugs, feature or support requests in the issue tracker, if possible
-   help out by submitting patches.
+ * Report any bugs, feature or support requests in the issue tracker, if
+   possible help out by submitting patches.
    http://drupal.org/project/issues/simple_sitemap
 
  * Do you know a non-English language? Help translating the module.
@@ -127,3 +119,4 @@ MAINTAINERS
 
 Current maintainers:
  * Pawel Ginalski (gbyte.co) - https://www.drupal.org/u/gbyte.co
+ * Sam Becker (Sam152) - https://www.drupal.org/u/sam152

@@ -97,7 +97,7 @@ function _smtp_mailer_send($variables) {
 
   // Try to send e-mail. If it fails, set watchdog entry.
   if (!$mailer->Send()) {
-    $logger->error('Error sending e-mail from @from to @to : !error_message', array('@from' => $from, '@to' => $to, '!error_message' => $mailer->ErrorInfo));
+    $logger->error('Error sending e-mail from @from to @to: @error_message', array('@from' => $from, '@to' => $to, '@error_message' => $mailer->ErrorInfo));
     return FALSE;
   }
 
