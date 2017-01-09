@@ -2,7 +2,7 @@
   position: relative;
 
   .carousel {
-    margin: 0px -135px;
+    margin: 0;
 
     @include breakpoint (768px) {
       margin: 0;
@@ -53,7 +53,7 @@
       &.left {
         text-align: right;
         top: 50%;
-        left: 135px;
+        left: 0;
         margin-top: -23px;
 
         @include breakpoint (768px) {
@@ -73,7 +73,7 @@
       &.right {
         text-align: left;
         top: 50%;
-        right: 135px;
+        right: 0;
         margin-top: -23px;
 
         @include breakpoint (768px) {
