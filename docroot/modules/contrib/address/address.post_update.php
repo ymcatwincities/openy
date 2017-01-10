@@ -17,6 +17,11 @@ function address_post_update_convert_names_subdivisions(&$sandbox = NULL) {
   if (!isset($sandbox['fields'])) {
     $sandbox['fields'] = \Drupal::state()->get('address_8101_processed');
     $sandbox['count'] = count($sandbox['fields']);
+    // No fields were updated.
+    if (empty($sandbox['fields'])) {
+      $sandbox['#finished'] = 1;
+      return;
+    }
   }
 
   $field = array_pop($sandbox['fields']);

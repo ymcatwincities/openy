@@ -35,6 +35,11 @@ abstract class DraggableListBuilder extends ConfigEntityListBuilder implements F
   protected $weightKey = FALSE;
 
   /**
+   * {@inheritdoc}
+   */
+  protected $limit = FALSE;
+
+  /**
    * The form builder.
    *
    * @var \Drupal\Core\Form\FormBuilderInterface
@@ -135,7 +140,7 @@ abstract class DraggableListBuilder extends ConfigEntityListBuilder implements F
     $form['actions']['#type'] = 'actions';
     $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Save order'),
+      '#value' => t('Save'),
       '#button_type' => 'primary',
     );
 

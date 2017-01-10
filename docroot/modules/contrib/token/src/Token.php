@@ -1,12 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Token.
- */
-
 namespace Drupal\token;
 
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Utility\Token as TokenBase;
 
 /**
@@ -34,34 +31,64 @@ class Token extends TokenBase implements TokenInterface {
    */
   public function getInfo() {
     if (empty($this->tokenInfo)) {
-      $token_info = parent::getInfo();
+      $cache_id = 'token_info_sorted:' . $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+      $cache = $this->cache->get($cache_id);
+      if ($cache) {
+        $this->tokenInfo = $cache->data;
+      }
+      else {
+        $token_info = $this->moduleHandler->invokeAll('token_info');
+        $this->moduleHandler->alter('token_info', $token_info);
 
-      foreach (array_keys($token_info['types']) as $type_key) {
-        if (isset($token_info['types'][$type_key]['type'])) {
-          $base_type = $token_info['types'][$type_key]['type'];
-          // If this token type extends another token type, then merge in
-          // the base token type's tokens.
-          if (isset($token_info['tokens'][$base_type])) {
-            $token_info['tokens'] += [$type_key => []];
-            $token_info['tokens'][$type_key] += $token_info['tokens'][$base_type];
+        foreach (array_keys($token_info['types']) as $type_key) {
+          if (isset($token_info['types'][$type_key]['type'])) {
+            $base_type = $token_info['types'][$type_key]['type'];
+            // If this token type extends another token type, then merge in
+            // the base token type's tokens.
+            if (isset($token_info['tokens'][$base_type])) {
+              $token_info['tokens'] += [$type_key => []];
+              $token_info['tokens'][$type_key] += $token_info['tokens'][$base_type];
+            }
+          }
+          else {
+            // Add a 'type' value to each token type information.
+            $token_info['types'][$type_key]['type'] = $type_key;
           }
         }
-        else {
-          // Add a 'type' value to each token type information.
-          $token_info['types'][$type_key]['type'] = $type_key;
+
+        // Pre-sort tokens.
+        $by_name = $this->prepareMultisort($token_info['types']);
+        array_multisort($by_name, SORT_ASC, SORT_NATURAL | SORT_FLAG_CASE, $token_info['types']);
+        foreach (array_keys($token_info['tokens']) as $type) {
+          $by_name = $this->prepareMultisort($token_info['tokens'][$type]);
+          array_multisort($by_name, SORT_ASC, SORT_NATURAL | SORT_FLAG_CASE, $token_info['tokens'][$type]);
         }
-      }
 
-      // Pre-sort tokens.
-      uasort($token_info['types'], [$this, 'sortTokens']);
-      foreach (array_keys($token_info['tokens']) as $type) {
-        uasort($token_info['tokens'][$type], [$this, 'sortTokens']);
+        $this->tokenInfo = $token_info;
+        $this->cache->set($cache_id, $this->tokenInfo, CacheBackendInterface::CACHE_PERMANENT, array(
+          static::TOKEN_INFO_CACHE_TAG,
+        ));
       }
-
-      $this->tokenInfo = $token_info;
     }
 
     return $this->tokenInfo;
+  }
+
+  /**
+   * Extracts data from the token data for use in array_multisort().
+   *
+   * @param array $token_info
+   *   List of tokens or token types, each element must have a name key.
+   *
+   * @return string[]
+   *   List of the names keyed by the token key.
+   */
+  protected function prepareMultisort($token_info) {
+    $by_name = [];
+    foreach ($token_info as $key => $token_info_element) {
+      $by_name[$key] = $token_info_element['name'];
+    }
+    return $by_name;
   }
 
   /**
@@ -183,10 +210,4 @@ class Token extends TokenBase implements TokenInterface {
     $this->globalTokenTypes = NULL;
   }
 
-  /**
-   * uasort() callback to sort tokens by the 'name' property.
-   */
-  protected function sortTokens($token_a, $token_b) {
-    return strnatcmp($token_a['name'], $token_b['name']);
-  }
 }

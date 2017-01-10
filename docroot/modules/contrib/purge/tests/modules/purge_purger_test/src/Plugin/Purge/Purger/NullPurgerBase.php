@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_test\Plugin\Purge\Purger\NullPurgerBase.
- */
-
 namespace Drupal\purge_purger_test\Plugin\Purge\Purger;
 
 use Drupal\purge\Plugin\Purge\Purger\PurgerBase;
@@ -40,8 +35,8 @@ abstract class NullPurgerBase extends PurgerBase implements PurgerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getTimeHint() {
-    return 1.0;
+  public function hasRuntimeMeasurement() {
+    return TRUE;
   }
 
 }

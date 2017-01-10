@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\libraries\ExternalLibrary\Utility\LibraryIdAccessorTrait.
- */
-
 namespace Drupal\libraries\ExternalLibrary\Utility;
 
 /**
@@ -13,14 +8,14 @@ namespace Drupal\libraries\ExternalLibrary\Utility;
 trait LibraryIdAccessorTrait {
 
   /**
-   * The library ID of the library that caused the exception.
+   * The ID of the library.
    *
    * @var string
    */
   protected $libraryId;
 
   /**
-   * Returns the library ID of the library that caused the exception.
+   * Returns the ID of the library.
    *
    * @return string
    *   The library ID.

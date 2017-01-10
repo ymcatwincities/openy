@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @file
- *
- * Contains \Drupal\Tests\csv_serialization\Unit\CsvEncoderTest.
- */
-
 namespace Drupal\Tests\csv_serialization\Unit;
 
 use Drupal\csv_serialization\Encoder\CsvEncoder;

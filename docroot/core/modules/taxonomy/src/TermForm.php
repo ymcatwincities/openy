@@ -26,7 +26,7 @@ class TermForm extends ContentEntityForm {
     $form['relations'] = array(
       '#type' => 'details',
       '#title' => $this->t('Relations'),
-      '#open' => $vocabulary->getHierarchy() == TAXONOMY_HIERARCHY_MULTIPLE,
+      '#open' => $vocabulary->getHierarchy() == VocabularyInterface::HIERARCHY_MULTIPLE,
       '#weight' => 10,
     );
 
@@ -123,15 +123,16 @@ class TermForm extends ContentEntityForm {
 
     $result = $term->save();
 
-    $link = $term->link($this->t('Edit'), 'edit-form');
+    $edit_link = $term->link($this->t('Edit'), 'edit-form');
+    $view_link = $term->link($term->getName());
     switch ($result) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created new term %term.', array('%term' => $term->getName())));
-        $this->logger('taxonomy')->notice('Created new term %term.', array('%term' => $term->getName(), 'link' => $link));
+        drupal_set_message($this->t('Created new term %term.', array('%term' => $view_link)));
+        $this->logger('taxonomy')->notice('Created new term %term.', array('%term' => $term->getName(), 'link' => $edit_link));
         break;
       case SAVED_UPDATED:
-        drupal_set_message($this->t('Updated term %term.', array('%term' => $term->getName())));
-        $this->logger('taxonomy')->notice('Updated term %term.', array('%term' => $term->getName(), 'link' => $link));
+        drupal_set_message($this->t('Updated term %term.', array('%term' => $view_link)));
+        $this->logger('taxonomy')->notice('Updated term %term.', array('%term' => $term->getName(), 'link' => $edit_link));
         break;
     }
 
@@ -151,8 +152,8 @@ class TermForm extends ContentEntityForm {
     }
     // If we've increased the number of parents and this is a single or flat
     // hierarchy, update the vocabulary immediately.
-    elseif ($current_parent_count > $previous_parent_count && $vocabulary->getHierarchy() != TAXONOMY_HIERARCHY_MULTIPLE) {
-      $vocabulary->setHierarchy($current_parent_count == 1 ? TAXONOMY_HIERARCHY_SINGLE : TAXONOMY_HIERARCHY_MULTIPLE);
+    elseif ($current_parent_count > $previous_parent_count && $vocabulary->getHierarchy() != VocabularyInterface::HIERARCHY_MULTIPLE) {
+      $vocabulary->setHierarchy($current_parent_count == 1 ? VocabularyInterface::HIERARCHY_SINGLE : VocabularyInterface::HIERARCHY_MULTIPLE);
       $vocabulary->save();
     }
 

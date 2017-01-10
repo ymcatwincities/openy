@@ -35,7 +35,7 @@ class YmcaOfficeHoursItem extends FieldItemBase implements FieldItemInterface {
 
     foreach (self::$days as $day) {
       $properties['hours_' . $day] = DataDefinition::create('string')
-        ->setLabel(t('Hours for !day', array('!day' => $day)));
+        ->setLabel(t('Hours for %day', array('%day' => $day)));
     }
 
     return $properties;

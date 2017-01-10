@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_http\Entity\HttpPurgerSettings.
- */
-
 namespace Drupal\purge_purger_http\Entity;
 
 use Drupal\purge\Plugin\Purge\Purger\PurgerSettingsBase;
@@ -15,6 +10,7 @@ use Drupal\purge\Plugin\Purge\Purger\PurgerSettingsInterface;
  *
  * @ConfigEntityType(
  *   id = "httppurgersettings",
+ *   label = @Translation("Http purger settings"),
  *   config_prefix = "settings",
  *   static_cache = TRUE,
  *   entity_keys = {"id" = "id"},
@@ -22,9 +18,9 @@ use Drupal\purge\Plugin\Purge\Purger\PurgerSettingsInterface;
  */
 class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInterface {
 
-  //
-  // Instance metadata:
-  //
+  /**
+   * Instance metadata.
+   */
 
   /**
    * The readable name of this purger.
@@ -40,9 +36,9 @@ class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInt
    */
   public $invalidationtype = 'tag';
 
-  //
-  // Primary request information:
-  //
+  /**
+   * Primary request information.
+   */
 
   /**
    * The host or IP-address to connect to.
@@ -82,15 +78,15 @@ class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInt
   /**
    * Whether to verify SSL certificates or not.
    *
-   * @see http://docs.guzzlephp.org/en/latest/request-options.html#verify
-   *
    * @var bool
+   *
+   * @see http://docs.guzzlephp.org/en/latest/request-options.html#verify
    */
   public $verify = TRUE;
 
-  //
-  // Request headers (outbound):
-  //
+  /**
+   * Request headers (outbound).
+   */
 
   /**
    * Configured outgoing HTTP headers.
@@ -99,9 +95,9 @@ class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInt
    */
   public $headers = [];
 
-  //
-  // Body (request payload):
-  //
+  /**
+   * Body (request payload).
+   */
 
   /**
    * The body payload to send.
@@ -117,9 +113,19 @@ class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInt
    */
   public $body_content_type = 'text/plain';
 
-  //
-  // Performance settings:
-  //
+  /**
+   * Performance settings.
+   */
+
+  /**
+   * Runtime measurement.
+   *
+   * When FALSE, dynamic capacity calculation will be disabled and based upon
+   * the connect_timeout and timeout settings.
+   *
+   * @var bool
+   */
+  public $runtime_measurement = TRUE;
 
   /**
    * The timeout of the request in seconds.
@@ -136,6 +142,8 @@ class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInt
   public $connect_timeout = 1.0;
 
   /**
+   * Cooldown time.
+   *
    * Number of seconds to wait after one or more invalidations took place (so
    * that other purgers get fresh content).'
    *
@@ -144,6 +152,8 @@ class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInt
   public $cooldown_time = 0.0;
 
   /**
+   * Maximum requests.
+   *
    * Maximum number of HTTP requests that can be made during Drupal's execution
    * lifetime. Usually PHP resource restraints lower this value dynamically, but
    * can be met at the CLI.
@@ -152,16 +162,16 @@ class HttpPurgerSettings extends PurgerSettingsBase implements PurgerSettingsInt
    */
   public $max_requests = 100;
 
-  //
-  // Success resolution:
-  //
+  /**
+   * Success resolution.
+   */
 
   /**
    * Whether 4xx and 5xx responses need to be treated as failures or not.
    *
-   * @see http://docs.guzzlephp.org/en/latest/request-options.html#http-errors
-   *
    * @var bool
+   *
+   * @see http://docs.guzzlephp.org/en/latest/request-options.html#http-errors
    */
   public $http_errors = TRUE;
 

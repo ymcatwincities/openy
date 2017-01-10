@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\QueueEmptyForm.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -29,7 +24,7 @@ class QueueEmptyForm extends ConfirmFormBase {
   /**
    * Constructs a QueueClearForm object.
    *
-   * @param \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface
+   * @param \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface $purge_queue
    *   The purge queue service.
    *
    * @return void
@@ -73,13 +68,13 @@ class QueueEmptyForm extends ConfirmFormBase {
       '#type' => 'submit',
       '#button_type' => 'primary',
       '#value' => $this->getConfirmText(),
-      '#ajax' => ['callback' => '::emptyQueue']
+      '#ajax' => ['callback' => '::emptyQueue'],
     ];
     $form['actions']['cancel'] = [
       '#type' => 'submit',
       '#value' => $this->t('No'),
       '#weight' => -10,
-      '#ajax' => ['callback' => '::closeDialog']
+      '#ajax' => ['callback' => '::closeDialog'],
     ];
     return $form;
   }

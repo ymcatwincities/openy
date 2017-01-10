@@ -176,7 +176,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
    *
    * @return string
    */
-  protected function getNextOp() {
+  public function getNextOp() {
     return $this->t('Next');
   }
 
@@ -230,7 +230,12 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
    * {@inheritdoc}
    */
   public function getFormId() {
-    $cached_values = $this->getTempstore()->get($this->getMachineName());
+    if (!$this->getMachineName() || !$this->getTempstore()->get($this->getMachineName())) {
+      $cached_values = $this->initValues();
+    }
+    else {
+      $cached_values = $this->getTempstore()->get($this->getMachineName());
+    }
     $operation = $this->getOperation($cached_values);
     /* @var $operation \Drupal\Core\Form\FormInterface */
     $operation = $this->classResolver->getInstanceFromDefinition($operation['form']);

@@ -107,6 +107,16 @@
   margin: 0;
 }
 
+/* Remove focus outlines on known elements, if they are otherwise indicated. */
+.ipe-tabs-content:focus,
+.ipe-tab a:focus,
+.ipe-category:focus,
+a.ipe-layout:focus,
+.ipe-blockpicker-item a:focus,
+.ipe-category-picker-bottom:focus {
+  outline: none;
+}
+
 /* Add a box shadow to the IPE tabs. */
 .ipe-tabs-content {
   box-shadow: 3px -1px 2px 0 rgba(0, 0, 0, 0.3333);
@@ -220,6 +230,11 @@
   display: inline-block;
   margin-right: 10px;
   vertical-align: top;
+}
+
+/* Reset anchor tag styles. */
+.ipe-layout, .ipe-layout:hover {
+  border: none;
 }
 
 /* Show the layout's label on hover. */

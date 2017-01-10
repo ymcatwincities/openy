@@ -283,7 +283,7 @@ EOD;
 
     $dom = new \DOMDocument();
     // Ignore warnings during HTML soup loading.
-    libxml_use_internal_errors(TRUE);
+    libxml_use_internal_errors(true);
     $dom->loadHTML($document);
     libxml_clear_errors();
 

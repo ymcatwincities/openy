@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\token\Kernel\DateTest.
- */
-
 namespace Drupal\Tests\token\Kernel;
 
 /**

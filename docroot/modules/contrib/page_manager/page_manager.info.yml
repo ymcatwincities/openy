@@ -4,11 +4,12 @@ description: 'Provides a way to place blocks on a custom page.'
 package: Layout
 # core: 8.x
 dependencies:
+  - system (>=8.0.5)
   - block
   - ctools
 
-# Information added by Drupal.org packaging script on 2016-02-16
-version: '8.x-1.0-alpha23'
+# Information added by Drupal.org packaging script on 2016-08-20
+version: '8.x-1.0-alpha24'
 core: '8.x'
 project: 'page_manager'
-datestamp: 1455652444
+datestamp: 1471724835

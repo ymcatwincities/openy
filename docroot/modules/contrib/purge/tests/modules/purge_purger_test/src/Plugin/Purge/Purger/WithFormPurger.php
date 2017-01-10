@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_test\Plugin\Purge\Purger\WithFormPurger.
- */
-
 namespace Drupal\purge_purger_test\Plugin\Purge\Purger;
 
 use Drupal\purge_purger_test\Plugin\Purge\Purger\NullPurgerBase;

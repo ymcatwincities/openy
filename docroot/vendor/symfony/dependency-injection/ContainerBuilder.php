@@ -449,7 +449,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
         }
 
         if (!array_key_exists($id, $this->definitions) && isset($this->aliasDefinitions[$id])) {
-            return $this->get($this->aliasDefinitions[$id]);
+            return $this->get($this->aliasDefinitions[$id], $invalidBehavior);
         }
 
         try {
@@ -859,6 +859,10 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      */
     public function createService(Definition $definition, $id, $tryProxy = true)
     {
+        if ($definition instanceof DefinitionDecorator) {
+            throw new RuntimeException(sprintf('Constructing service "%s" from a parent definition is not supported at build time.', $id));
+        }
+
         if ($definition->isSynthetic()) {
             throw new RuntimeException(sprintf('You have requested a synthetic service ("%s"). The DIC does not know how to construct this service.', $id));
         }
@@ -933,13 +937,13 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
             $this->shareService($definition, $service, $id);
         }
 
-        foreach ($definition->getMethodCalls() as $call) {
-            $this->callMethod($service, $call);
-        }
-
         $properties = $this->resolveServices($parameterBag->unescapeValue($parameterBag->resolveValue($definition->getProperties())));
         foreach ($properties as $name => $value) {
             $service->$name = $value;
+        }
+
+        foreach ($definition->getMethodCalls() as $call) {
+            $this->callMethod($service, $call);
         }
 
         if ($callable = $definition->getConfigurator()) {

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels_ipe\PanelsStorageManagerInterface.
- */
-
 namespace Drupal\panels\Storage;
 
 use Drupal\Core\Session\AccountInterface;

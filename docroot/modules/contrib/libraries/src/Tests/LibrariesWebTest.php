@@ -1,13 +1,8 @@
 <?php
 
-/**
- * @file
- * Definition of \Drupal\libraries\Tests\LibrariesWebTest.
- */
-
 namespace Drupal\libraries\Tests;
 
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -27,7 +22,7 @@ class LibrariesWebTest extends WebTestBase {
    *
    * @var array
    */
-  static $modules = array('libraries', 'libraries_test');
+  public static $modules = array('libraries', 'libraries_test');
 
   /**
    * The URL generator used in this test.
@@ -512,11 +507,11 @@ class LibrariesWebTest extends WebTestBase {
         list($prefix, $suffix) = $html[$extension];
         $raw = $prefix . $filepath . $suffix;
         if ($expected) {
-          $html_expected[] = SafeMarkup::checkPlain($raw);
+          $html_expected[] = Html::escape($raw);
           $this->assertRaw($raw, "$label$name.$extension found.");
         }
         else {
-          $html_not_expected[] = SafeMarkup::checkPlain($raw);
+          $html_not_expected[] = Html::escape($raw);
           $this->assertNoRaw($raw, "$label$name.$extension not found.");
         }
       }
@@ -526,4 +521,5 @@ class LibrariesWebTest extends WebTestBase {
     $html_not_expected = '<ul><li><pre>' . implode('</pre></li><li><pre>', $html_not_expected) . '</pre></li></ul>';
     $this->verbose("Strings of HTML that are expected to be present:{$html_expected}Strings of HTML that are expected to not be present:{$html_not_expected}");
   }
+
 }

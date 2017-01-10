@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Tests\DashboardTestBase.
- */
-
 namespace Drupal\purge_ui\Tests;
 
 use Drupal\Core\Url;
@@ -37,7 +32,7 @@ abstract class DashboardTestBase extends WebTestBase {
   /**
    * Setup the test.
    */
-  function setUp() {
+  public function setUp() {
     parent::setUp();
     $this->admin_user = $this->drupalCreateUser(['administer site configuration']);
     if (is_string($this->route)) {

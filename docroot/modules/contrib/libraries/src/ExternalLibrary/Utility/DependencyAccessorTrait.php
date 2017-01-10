@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\libraries\ExternalLibrary\Utility\DependencyAccessorTrait.
- */
-
 namespace Drupal\libraries\ExternalLibrary\Utility;
 
 /**
@@ -15,14 +10,14 @@ trait DependencyAccessorTrait {
   /**
    * The dependency.
    *
-   * @var \Drupal\libraries\ExternalLibrary\ExternalLibraryInterface
+   * @var \Drupal\libraries\ExternalLibrary\LibraryInterface
    */
   protected $dependency;
 
   /**
    * Returns the dependency.
    *
-   * @return \Drupal\libraries\ExternalLibrary\ExternalLibraryInterface
+   * @return \Drupal\libraries\ExternalLibrary\LibraryInterface
    *   The library.
    */
   public function getLibrary() {

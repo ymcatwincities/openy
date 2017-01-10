@@ -9,16 +9,9 @@ namespace Drupal\mailsystem;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Core\Cache\CacheBackendInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Mail\MailInterface;
 use Drupal\Core\Mail\MailManager;
-use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\Core\Theme\Registry;
 use Drupal\Core\Theme\ThemeInitializationInterface;
-use Drupal\Core\Theme\ThemeManager;
 use Drupal\Core\Theme\ThemeManagerInterface;
 
 /**
@@ -34,13 +27,6 @@ class MailsystemManager extends MailManager {
   const MAILSYSTEM_MODULES_CONFIG = 'modules';
 
   /**
-   * Config object for mailsystem configuration.
-   *
-   * @var \Drupal\Core\Config\Config
-   */
-  protected $mailsystemConfig;
-
-  /**
    * @var \Drupal\Core\Theme\ThemeManagerInterface
    */
   protected $themeManager;
@@ -53,25 +39,23 @@ class MailsystemManager extends MailManager {
   protected $themeInitialization;
 
   /**
-   * @var \Drupal\Core\Theme\Registry
+   * Sets the theme manager for mailsystem.
+   *
+   * @param \Drupal\Core\Theme\ThemeManagerInterface $theme_manager
+   *   The theme manager.
    */
-  protected $defaultThemeRegistry;
-
-  /**
-   * @var \Drupal\Core\Theme\Registry
-   */
-  protected $mailThemeRegistry;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory, LoggerChannelFactoryInterface $logger_factory, TranslationInterface $string_translation, ThemeManagerInterface $theme_manager, ThemeInitializationInterface $theme_initialization, Registry $default_theme_registry, Registry $mail_theme_registry) {
-    parent::__construct($namespaces, $cache_backend, $module_handler, $config_factory, $logger_factory, $string_translation);
-    $this->mailsystemConfig = $config_factory->get('mailsystem.settings');
+  public function setThemeManager(ThemeManagerInterface $theme_manager) {
     $this->themeManager = $theme_manager;
+  }
+
+  /**
+   * Sets the theme initialization for mailsystem.
+   *
+   * @param \Drupal\Core\Theme\ThemeInitializationInterface $theme_initialization
+   *   The theme initialization.
+   */
+  public function setThemeInitialization(ThemeInitializationInterface $theme_initialization) {
     $this->themeInitialization = $theme_initialization;
-    $this->defaultThemeRegistry = $default_theme_registry;
-    $this->mailThemeRegistry = $mail_theme_registry;
   }
 
   /**
@@ -81,17 +65,8 @@ class MailsystemManager extends MailManager {
     // Switch the theme to the configured mail theme.
     $mail_theme = $this->getMailTheme();
     $current_active_theme = $this->themeManager->getActiveTheme();
-    if ($mail_theme != $current_active_theme->getName()) {
+    if ($mail_theme && $mail_theme != $current_active_theme->getName()) {
       $this->themeManager->setActiveTheme($this->themeInitialization->initTheme($mail_theme));
-
-      // The theme registry returns the same registry object no matter which
-      // theme is currently active. This works around that by having a duplicate
-      // service, that is only called when the mail theme is acive.
-      // @todo: This will not work if this can not be called. Remove this once
-      //   https://www.drupal.org/node/2640962 is committed.
-      if ($this->themeManager instanceof ThemeManager) {
-        $this->themeManager->setThemeRegistry($this->mailThemeRegistry);
-      }
     }
 
     try {
@@ -102,9 +77,6 @@ class MailsystemManager extends MailManager {
       // executed even if an exception is thrown during sending a mail.
       if ($mail_theme != $current_active_theme->getName()) {
         $this->themeManager->setActiveTheme($current_active_theme);
-        if ($this->themeManager instanceof ThemeManager) {
-          $this->themeManager->setThemeRegistry($this->defaultThemeRegistry);
-        }
       }
     }
     return $message;
@@ -152,8 +124,10 @@ class MailsystemManager extends MailManager {
       'defaults'
     );
 
+    $config = $this->configFactory->get('mailsystem.settings');
+
     foreach($message_id_list as $message_id) {
-      $plugin_id = $this->mailsystemConfig->get($message_id);
+      $plugin_id = $config->get($message_id);
       if (!is_null($plugin_id)) {
         break;
       }
@@ -180,7 +154,7 @@ class MailsystemManager extends MailManager {
    * Retrieves the key of the theme used to render the emails.
    */
   public function getMailTheme() {
-    $theme = $this->mailsystemConfig->get('theme');
+    $theme = $this->configFactory->get('mailsystem.settings')->get('theme');
     switch ($theme) {
       case 'default':
         $theme = $this->configFactory->get('system.theme')->get('default');

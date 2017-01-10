@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\libraries\ExternalLibrary\PhpFile\PhpRequireLoader.
- */
-
 namespace Drupal\libraries\ExternalLibrary\PhpFile;
 
 /**
