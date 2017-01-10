@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\CloseDialogTrait.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Drupal\Core\Form\FormStateInterface;

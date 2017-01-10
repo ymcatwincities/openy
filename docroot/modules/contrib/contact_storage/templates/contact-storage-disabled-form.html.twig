@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * The template file for a disabled contact form.
+ *
+ * Template used to display a message when a contact form is disabled. The
+ * provided example displays a standard error message showing the message
+ * defined when creating or disabling the form, for the Bartik theme.
+ *
+ * Available variables:
+ * - contact_message: The contact message entity. Some useful methods available
+ * are :
+ *   - contact_form.getRecipients will return the list of recipients.
+ *   - contact_form.label will return the label of the contact form.
+ *   See \Drupal\contact\Entity\ContactForm for a full list of public
+ *   properties and methods for the contact form object. Other available
+ *   variables :
+ *   - redirect_uri : The redirect URI of the contact form, an empty string if
+ *   not defined.
+ *   - disabled_form_message : The disabled form message, configured when
+ *   creating or disabling the form. Bu default "This contact form has been
+ *   disabled.".
+ */
+#}
+
+<div class="messages messages--error">
+  {{ disabled_form_message }}
+</div>

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\DiagnosticCheck\HookRequirementsTest.
- */
-
 namespace Drupal\purge\Tests\DiagnosticCheck;
 
 use Drupal\purge\Tests\KernelTestBase;
@@ -25,7 +20,7 @@ class HookRequirementsTest extends KernelTestBase {
     'system',
     'purge_check_test',
     'purge_check_error_test',
-    'purge_check_warning_test'
+    'purge_check_warning_test',
   ];
 
   /**
@@ -46,13 +41,13 @@ class HookRequirementsTest extends KernelTestBase {
     $this->assertTrue(isset($r['alwayserror']));
     $this->assertTrue(isset($r['alwayswarning']));
     // Assert a couple of titles.
-    $this->assertEqual('Purge - Always ok', (string)$r['alwaysok']['title']);
-    $this->assertEqual('Purge - Always a warning', (string)$r['alwayswarning']['title']);
-    $this->assertEqual('Purge - Always an error', (string)$r['alwayserror']['title']);
+    $this->assertEqual('Purge - Always ok', (string) $r['alwaysok']['title']);
+    $this->assertEqual('Purge - Always a warning', (string) $r['alwayswarning']['title']);
+    $this->assertEqual('Purge - Always an error', (string) $r['alwayserror']['title']);
     // Assert that the descriptions come through.
-    $this->assertEqual('This is an ok for testing.', (string)$r['alwaysok']['description']);
-    $this->assertEqual('This is a warning for testing.', (string)$r['alwayswarning']['description']);
-    $this->assertEqual('This is an error for testing.', (string)$r['alwayserror']['description']);
+    $this->assertEqual('This is an ok for testing.', (string) $r['alwaysok']['description']);
+    $this->assertEqual('This is a warning for testing.', (string) $r['alwayswarning']['description']);
+    $this->assertEqual('This is an error for testing.', (string) $r['alwayserror']['description']);
     // Assert that the severities come through properly.
     $this->assertEqual(0, $r['alwaysok']['severity']);
     $this->assertEqual(1, $r['alwayswarning']['severity']);

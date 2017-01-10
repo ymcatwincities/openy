@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Annotation\PanelsStorage
- */
-
 namespace Drupal\panels\Annotation;
 
 use Drupal\Component\Annotation\PluginID;

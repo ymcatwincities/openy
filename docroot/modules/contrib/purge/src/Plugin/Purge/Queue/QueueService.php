@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queue\QueueService.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queue;
 
 use Drupal\Core\DestructableInterface;
@@ -12,6 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\purge\ServiceBase;
 use Drupal\purge\ModifiableServiceBaseTrait;
+use Drupal\purge\Logger\LoggerServiceInterface;
 use Drupal\purge\Plugin\Purge\Invalidation\InvalidationsServiceInterface;
 use Drupal\purge\Plugin\Purge\Invalidation\InvalidationInterface;
 use Drupal\purge\Plugin\Purge\Purger\PurgersServiceInterface;
@@ -41,9 +37,21 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
   protected $configFactory;
 
   /**
+   * Logger channel specific to the queue service.
+   *
+   * @var \Drupal\purge\Logger\LoggerChannelPartInterface
+   */
+  protected $logger;
+
+  /**
    * @var \Drupal\purge\Plugin\Purge\Invalidation\InvalidationsServiceInterface
    */
   protected $purgeInvalidationFactory;
+
+  /**
+   * @var \Drupal\purge\Logger\LoggerServiceInterface
+   */
+  protected $purgeLogger;
 
   /**
    * @var \Drupal\purge\Plugin\Purge\Purger\PurgersServiceInterface
@@ -63,7 +71,12 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
   protected $queue;
 
   /**
-   * The plugin ID of the fallback backend.
+   * The default backend that gets loaded on empty configuration.
+   */
+  const DEFAULT_PLUGIN = 'database';
+
+  /**
+   * The backend that gets loaded when the configured backend disappeared.
    */
   const FALLBACK_PLUGIN = 'null';
 
@@ -72,24 +85,28 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
    *
    * @param \Drupal\Component\Plugin\PluginManagerInterface $plugin_manager
    *   The plugin manager for this service.
+   * @param \Drupal\purge\Logger\LoggerServiceInterface $purge_logger
+   *   Logging services for the purge module and its submodules.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
    * @param \Drupal\purge\Plugin\Purge\Queue\TxBufferInterface $purge_queue_txbuffer
    *   The transaction buffer.
-   * @param \Drupal\purge\Plugin\Purge\Queue\StatsTrackerInterface
+   * @param \Drupal\purge\Plugin\Purge\Queue\StatsTrackerInterface $purge_queue_stats
    *   The queue statistics tracker.
    * @param \Drupal\purge\Plugin\Purge\Invalidation\InvalidationsServiceInterface $purge_invalidation_factory
    *   The service that instantiates invalidation objects for queue items.
    * @param \Drupal\purge\Plugin\Purge\Purger\PurgersServiceInterface $purge_purgers
    *   The purgers service.
    */
-  function __construct(PluginManagerInterface $plugin_manager, ConfigFactoryInterface $config_factory, TxBufferInterface $purge_queue_txbuffer, StatsTrackerInterface $purge_queue_stats,InvalidationsServiceInterface $purge_invalidation_factory, PurgersServiceInterface $purge_purgers) {
+  public function __construct(PluginManagerInterface $plugin_manager, LoggerServiceInterface $purge_logger, ConfigFactoryInterface $config_factory, TxBufferInterface $purge_queue_txbuffer, StatsTrackerInterface $purge_queue_stats,InvalidationsServiceInterface $purge_invalidation_factory, PurgersServiceInterface $purge_purgers) {
     $this->pluginManager = $plugin_manager;
+    $this->purgeLogger = $purge_logger;
     $this->configFactory = $config_factory;
     $this->purgeInvalidationFactory = $purge_invalidation_factory;
     $this->purgePurgers = $purge_purgers;
     $this->purgeQueueStats = $purge_queue_stats;
     $this->buffer = $purge_queue_txbuffer;
+    $this->logger = $this->purgeLogger->get('queue');
   }
 
   /**
@@ -101,7 +118,9 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
         $this->buffer->set($invalidation, TxBuffer::ADDING);
       }
     }
-    $this->purgeQueueStats->total()->increment(count($invalidations));
+    $this->purgeQueueStats->total()->increment($count = count($invalidations));
+    $this->logger->debug("@queuer: added @no items.", [
+      '@queuer' => $queuer->getPluginId(), '@no' => $count]);
   }
 
   /**
@@ -117,6 +136,7 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
     $tracker = $this->purgePurgers->capacityTracker();
     if (is_null($claims)) {
       if (!($claims = $tracker->getRemainingInvalidationsLimit())) {
+        $this->logger->debug("no more items can be claimed within this request.");
         return [];
       }
     }
@@ -131,11 +151,13 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
     $this->initializeQueue();
     if ($claims === 1) {
       if (!($item = $this->queue->claimItem($lease_time))) {
+        $this->logger->debug("attempt to claim 1 item failed.");
         return [];
       }
       $items = [$item];
     }
     elseif (!($items = $this->queue->claimItemMultiple($claims, $lease_time))) {
+      $this->logger->debug("attempt to claim @no items failed.", ['@no' => $claims]);
       return [];
     }
 
@@ -153,7 +175,8 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
       $this->buffer->setProperty($inv, 'created', $item->created);
       $items[$i] = $inv;
     }
-    $this->purgeQueueStats->claimed()->increment(count($items));
+    $this->purgeQueueStats->claimed()->increment($count = count($items));
+    $this->logger->debug("claimed @no items.", ['@no' => $count]);
     return $items;
   }
 
@@ -183,7 +206,7 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
 
     // Small anonymous function that fetches the 'data' field for createItem()
     // and createItemMultiple() - keeps queue plugins out of Purge specifics.
-    $getProxiedData = function($invalidation) {
+    $getProxiedData = function ($invalidation) {
       $proxy = new ProxyItem($invalidation, $this->buffer);
       return $proxy->data;
     };
@@ -203,24 +226,23 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
 
     // Add multiple at once to the queue using createItemMultiple() on the queue.
     else {
-      $data_items = [];
-      foreach ($items as $invalidation) {
-        $data_items[] = $getProxiedData($invalidation);
-      }
-      if (!($ids = $this->queue->createItemMultiple($data_items))) {
-        throw new UnexpectedServiceConditionException(
-          "The queue returned FALSE on createItemMultiple().");
-      }
-      foreach ($items as $invalidation) {
-        if (!isset($i)) {
-          $i = 0;
+      $item_chunks = array_chunk($items, 1000);
+      if ($item_chunks) {
+        foreach ($item_chunks as $chunk) {
+          $data_items = [];
+          foreach ($chunk as $invalidation) {
+            $data_items[] = $getProxiedData($invalidation);
+          }
+          if (!($ids = $this->queue->createItemMultiple($data_items))) {
+            throw new UnexpectedServiceConditionException(
+              "The queue returned FALSE on createItemMultiple().");
+          }
+          foreach ($chunk as $key => $invalidation) {
+            $this->buffer->set($invalidation, TxBuffer::ADDED);
+            $this->buffer->setProperty($invalidation, 'item_id', $ids[$key]);
+            $this->buffer->setProperty($invalidation, 'created', time());
+          }
         }
-        else {
-          $i++;
-        }
-        $this->buffer->set($invalidation, TxBuffer::ADDED);
-        $this->buffer->setProperty($invalidation, 'item_id', $ids[$i]);
-        $this->buffer->setProperty($invalidation, 'created', time());
       }
     }
   }
@@ -278,8 +300,10 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
    */
   public function delete(array $invalidations) {
     $this->buffer->set($invalidations, TxBuffer::DELETING);
-    $this->purgeQueueStats->claimed()->decrement(count($invalidations));
-    $this->purgeQueueStats->deleted()->increment(count($invalidations));
+    $count = count($invalidations);
+    $this->purgeQueueStats->claimed()->decrement($count);
+    $this->purgeQueueStats->deleted()->increment($count);
+    $this->logger->debug("deleting @no items.", ['@no' => $count]);
   }
 
   /**
@@ -304,6 +328,7 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
     $this->buffer->deleteEverything();
     $this->queue->deleteQueue();
     $this->purgeQueueStats->wipe();
+    $this->logger->debug("emptied the queue.");
   }
 
   /**
@@ -340,10 +365,13 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
       $this->plugins_enabled = [];
 
       // The queue service always interacts with just one underlying queue,
-      // which is stored in configuration. When configuration is invalid - which
-      // for instance occurs during module installation - we use the fallback.
+      // which is stored in configuration. By default, we use the DEFAULT_PLUGIN
+      // or the FALLBACK_PLUGIN in case nothing else loads.
       $plugin_id = $this->configFactory->get('purge.plugins')->get('queue');
-      if (is_null($plugin_id) || !in_array($plugin_id, $plugin_ids)) {
+      if (is_null($plugin_id)) {
+        $this->plugins_enabled[] = SELF::DEFAULT_PLUGIN;
+      }
+      elseif (!in_array($plugin_id, $plugin_ids)) {
         $this->plugins_enabled[] = SELF::FALLBACK_PLUGIN;
       }
       else {
@@ -363,6 +391,7 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
 
     // Lookup the plugin ID and instantiate the queue.
     $plugin_id = current($this->getPluginsEnabled());
+    $this->logger->debug("backend: @plugin_id.", ['@plugin_id' => $plugin_id]);
     $this->queue = $this->pluginManager->createInstance($plugin_id);
   }
 
@@ -370,7 +399,9 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
    * {@inheritdoc}
    */
   public function handleResults(array $invalidations) {
-    foreach($invalidations as $invalidation) {
+    $counters = ['succeeded' => 0, 'failed' => 0, 'new' => 0,];
+
+    foreach ($invalidations as $invalidation) {
 
       // Although PurgersServiceInterface::invalidate() always resets context
       // after purging, we cannot rely on what happened in between. By making
@@ -382,19 +413,27 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
         $this->buffer->set($invalidation, TxBuffer::DELETING);
         $this->purgeQueueStats->deleted()->increment();
         $this->purgeQueueStats->claimed()->decrement();
+        $counters['succeeded']++;
       }
       // FRESH, PROCESSING, FAILED and NOT_SUPPORTED all go back to the queue.
       else {
         if (!$this->buffer->has($invalidation)) {
           $this->buffer->set($invalidation, TxBuffer::ADDING);
           $this->purgeQueueStats->total()->increment();
+          $counters['new']++;
         }
         else {
           $this->buffer->set($invalidation, TxBuffer::RELEASING);
           $this->purgeQueueStats->claimed()->decrement();
+          $counters['failed']++;
         }
       }
     }
+
+    // Log what happened (but only if info logging is enabled).
+    $this->logger->debug(
+      "handled @no returned items: @results",
+      ['@no' => count($invalidations), '@results' => json_encode($counters)]);
   }
 
   /**
@@ -411,7 +450,8 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
    */
   public function release(array $invalidations) {
     $this->buffer->set($invalidations, TxBuffer::RELEASING);
-    $this->purgeQueueStats->claimed()->decrement(count($invalidations));
+    $this->purgeQueueStats->claimed()->decrement($no = count($invalidations));
+    $this->logger->debug("deleting @no items.", ['@no' => $no]);
   }
 
   /**
@@ -469,15 +509,9 @@ class QueueService extends ServiceBase implements QueueServiceInterface, Destruc
       throw new \LogicException('Invalid plugin_id.');
     }
     $this->configFactory->getEditable('purge.plugins')->set('queue', $plugin_id)->save();
+    $this->logger->debug("switched backend to @id.", ['@id' => $plugin_id]);
     $this->reload();
     $this->emptyQueue();
-  }
-
-  /**
-   * In case PHP's destructor gets called, call our own destruct.
-   */
-  function __destruct() {
-    $this->destruct();
   }
 
 }

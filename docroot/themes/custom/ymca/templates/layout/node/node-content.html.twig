@@ -1,6 +1,6 @@
-{% if content.field_sidebar_navigation.0['#markup'] == '1' %}
+{% if content.field_sidebar_navigation[0]['#markup'] == '1' %}
   {% set template = 'content-3col.html.twig' %}
-{% elseif content.field_sidebar.0 is defined %}
+{% elseif content.field_sidebar[0] is defined %}
   {% set template = 'content-2col.html.twig' %}
 {% else %}
   {% set template = is_front ? 'content-1col-frontpage.html.twig' : 'content-1col.html.twig' %}

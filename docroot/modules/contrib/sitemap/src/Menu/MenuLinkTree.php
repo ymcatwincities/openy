@@ -31,7 +31,7 @@ class MenuLinkTree extends CoreMenuLinkTree {
    *   A data structure representing the tree as returned from menu_tree_data.
    *
    * @return array
-   *   A structured array to be rendered by drupal_render().
+   *   A structured array to be rendered by RendererInterface::render.
    */
   public function buildForSitemap(array $tree) {
     $config = \Drupal::config('sitemap.settings');
@@ -101,7 +101,7 @@ class MenuLinkTree extends CoreMenuLinkTree {
       $build[$link->getPluginId()] = $element;
     }
     if ($build) {
-      // Make sure drupal_render() does not re-order the links.
+      // Make sure RendererInterface::render does not re-order the links.
       $build['#sorted'] = TRUE;
       // Get the menu name from the last link.
       $menu_name = $link->getMenuName();

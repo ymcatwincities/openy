@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\Queue\TxBufferTest.
- */
-
 namespace Drupal\purge\Tests\Queue;
 
 use Drupal\purge\Tests\KernelTestBase;
@@ -217,7 +212,7 @@ class TxBufferTest extends KernelTestBase {
     $this->assertNull($this->purgeQueueTxbuffer->key());
     $this->purgeQueueTxbuffer->set($objects, TxBufferInterface::CLAIMED);
     $this->assertEqual($objects[0]->getId(), $this->purgeQueueTxbuffer->key());
-    foreach ($this->purgeQueueTxbuffer as $id => $i) {
+    foreach ($this->purgeQueueTxbuffer as $i) {
       // Just iterate, to advance the internal pointer.
     }
     $this->purgeQueueTxbuffer->rewind();

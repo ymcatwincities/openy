@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Plugin\PanelsStorage\PageManagerPanelsStorage.
- */
-
 namespace Drupal\panels\Plugin\PanelsStorage;
 
 use Drupal\Core\Access\AccessResult;

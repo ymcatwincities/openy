@@ -1,0 +1,13 @@
+name: Generic HTTP Tags Header
+type: module
+description: 'Exports the Purge-Cache-Tags response header to support tag-based invalidation. You only need this for custom setups under your own control.'
+package: "Purge - reverse proxies & CDNs"
+# core: 8.x
+dependencies:
+  - purge
+
+# Information added by Drupal.org packaging script on 2016-09-07
+version: '8.x-1.0-beta4'
+core: '8.x'
+project: 'purge_purger_http'
+datestamp: 1473237240

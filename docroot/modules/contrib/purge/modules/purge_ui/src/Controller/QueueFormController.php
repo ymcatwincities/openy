@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Controller\QueueFormController.
- */
-
 namespace Drupal\purge_ui\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -28,7 +23,7 @@ class QueueFormController extends ControllerBase {
    * @param \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface $purge_queue
    *   The purge queue service.
    */
-  function __construct(QueueServiceInterface $purge_queue) {
+  public function __construct(QueueServiceInterface $purge_queue) {
     $this->purgeQueue = $purge_queue;
   }
 

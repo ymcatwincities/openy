@@ -1,12 +1,12 @@
 
 (function ($) {
 
-  "use strict";
+  'use strict';
 
   Drupal.behaviors.tokenTree = {
     attach: function (context, settings) {
       $('table.token-tree', context).once('token-tree').each(function () {
-        $(this).treeTable();
+        $(this).treetable({ expandable: true });
       });
     }
   };

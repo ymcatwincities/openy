@@ -3,6 +3,7 @@
 namespace Drupal\ymca_menu;
 
 use Drupal\Core\Menu\MenuActiveTrail;
+use Drupal\Core\Menu\MenuTreeStorage;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Routing\RouteMatch;
 use Drupal\Core\ParamConverter\ParamNotConvertedException;
@@ -17,6 +18,35 @@ define('TERM_NEWS_TID', 6);
  * Extend the MenuActiveTrail class.
  */
 class YmcaMenuActiveTrail extends MenuActiveTrail {
+
+  /**
+   * Load link by properties.
+   *
+   * @param array $properties
+   *   Associative array of properties.
+   *
+   * @return mixed
+   *   Link plugin instance.
+   */
+  protected function loadLinkByProperties(array $properties) {
+    // @todo Inject services via constructor.
+    $link_manager = \Drupal::service('plugin.manager.menu.link');
+    $connection = \Drupal::service('database');
+    $cache_backend_interface = \Drupal::service('cache.menu');
+    $cache_tags_invalidator = \Drupal::service('cache_tags.invalidator');
+
+    $storage = new MenuTreeStorage($connection, $cache_backend_interface, $cache_tags_invalidator, 'menu_tree');
+    $links = $storage->loadByProperties($properties);
+    if (empty($links)) {
+      return NULL;
+    }
+
+    $keys = array_keys($links);
+    $plugin_id = $keys[0];
+    $instance = $link_manager->createInstance($plugin_id);
+
+    return $instance;
+  }
 
   /**
    * {@inheritdoc}
@@ -35,6 +65,15 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
       if ($links) {
         $found = reset($links);
       }
+    }
+
+    // Path-based active trail detection.
+    if (!$found) {
+      $context = \Drupal::service('router.request_context');
+      $path = trim($context->getPathInfo(), '/');
+      $url = "base:$path";
+      $link = $this->loadLinkByProperties(['url' => $url]);
+      return $link;
     }
 
     // Only override active link detection for Top menu.
@@ -104,7 +143,7 @@ class YmcaMenuActiveTrail extends MenuActiveTrail {
       while (count($path_elements) > 1) {
         array_pop($path_elements);
         $path = '/' . implode('/', $path_elements);
-        // Retrive request for the page.
+        // Retrieve request for the page.
         $route_request = $this->getRequestForPath($path);
         if ($route_request) {
           $route_match = RouteMatch::createFromRequest($route_request);

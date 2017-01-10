@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\layout_plugin\Annotation\Layout.
- */
-
 namespace Drupal\layout_plugin\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
@@ -25,6 +20,7 @@ use Drupal\Component\Annotation\Plugin;
  * @Annotation
  */
 class Layout extends Plugin {
+
   /**
    * The plugin ID.
    *
@@ -47,7 +43,7 @@ class Layout extends Plugin {
   /**
    * The human-readable name.
    *
-   * @war \Drupal\Core\Annotation\Translation
+   * @var \Drupal\Core\Annotation\Translation
    *
    * @ingroup plugin_translatable
    */
@@ -103,7 +99,7 @@ class Layout extends Plugin {
   public $template;
 
   /**
-   * Base path (relative to current module) to all resources (like the icon).
+   * Path (relative to the module or theme) to resources like icon or template.
    *
    * @var string optional
    */
@@ -129,11 +125,13 @@ class Layout extends Plugin {
    * can't specify both.
    *
    * @var string optional
+   *
+   * @deprecated when moving layout plugin to core
    */
   public $css;
 
   /**
-   * The path to the preview image (relative to the base path).
+   * The path to the preview image (relative to the 'path' given).
    *
    * @var string optional
    */
@@ -146,8 +144,8 @@ class Layout extends Plugin {
    * an associative array with the following keys:
    * - label: (string) The human-readable name of the region.
    *
-   * An remaining keys may have special meaning for the given layout plugin, but
-   * are undefined here.
+   * Any remaining keys may have special meaning for the given layout plugin,
+   * but are undefined here.
    *
    * @var array
    */

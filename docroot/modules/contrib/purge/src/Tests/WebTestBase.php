@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\WebTestBase.
- */
-
 namespace Drupal\purge\Tests;
 
 use Drupal\purge\Tests\TestTrait;
@@ -33,7 +28,7 @@ abstract class WebTestBase extends RealWebTestBase {
    *   Whether to switch the default queue to the memory backend or not.
    *
    */
-  function setUp($switch_to_memory_queue = TRUE) {
+  public function setUp($switch_to_memory_queue = TRUE) {
     parent::setUp();
 
     // The default 'database' queue backend gives issues, switch to 'memory'.

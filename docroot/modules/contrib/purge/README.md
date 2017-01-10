@@ -13,18 +13,22 @@ not least, it enforces a separation of concerns and should be seen as a
 ##### Drush commands
 The ``purge_drush`` module adds the following commands for Drush administration:
 
-| Command                | Alias    | Description                                                  |
-|------------------------|----------|--------------------------------------------------------------|
-| **``p-diagnostics``**  | ``pdia`` | Generate a diagnostic self-service report.                   |
-| **``p-invalidate``**   | ``pinv`` | Directly invalidate an item without going through the queue. |
-| **``p-processors``**   | ``ppro`` | List all enabled processors.                                 |
-| **``p-queue-add``**    | ``pqa``  | Schedule an item for later processing.                       |
-| **``p-queue-browse``** | ``pqb``  | Inspect what is in the queue by paging through it.           |
-| **``p-queue-empty``**  | ``pqe``  | Clear the queue and reset all statistics.                    |
-| **``p-queue-stats``**  | ``pqs``  | Retrieve the queue statistics.                               |
-| **``p-queue-work``**   | ``pqw``  | Claim a chunk of items from the queue and process them.      |
-| **``p-queuers``**      | ``pqrs`` | List all enabled queuers.                                    |
-| **``p-types``**        | ``ptyp`` | List all supported cache invalidation types.                 |
+| Command                     | Alias    | Description                                                  |
+|-----------------------------|----------|--------------------------------------------------------------|
+| **``p-diagnostics``**       | ``pdia`` | Generate a diagnostic self-service report.                   |
+| **``p-invalidate``**        | ``pinv`` | Directly invalidate an item without going through the queue. |
+| **``p-processors``**        | ``ppro`` | List all enabled processors.                                 |
+| **``p-purgers``**           | ``ppu``  | List all configured purgers in order of execution.           |
+| **``p-purgers-available``** | ``ppua`` | List all plugin IDs for which purgers can be created.        |
+| **``p-purger-add``**        | ``ppa``  | Create a new purger instance.                                |
+| **``p-purger-rm``**         | ``ppr``  | Remove a purger instance.                                    |
+| **``p-queue-add``**         | ``pqa``  | Schedule an item for later processing.                       |
+| **``p-queue-browse``**      | ``pqb``  | Inspect what is in the queue by paging through it.           |
+| **``p-queue-empty``**       | ``pqe``  | Clear the queue and reset all statistics.                    |
+| **``p-queue-stats``**       | ``pqs``  | Retrieve the queue statistics.                               |
+| **``p-queue-work``**        | ``pqw``  | Claim a chunk of items from the queue and process them.      |
+| **``p-queuers``**           | ``pqrs`` | List all enabled queuers.                                    |
+| **``p-types``**             | ``ptyp`` | List all supported cache invalidation types.                 |
 
 Several commands understand the ``--format`` parameter allowing you to integrate
 the commands in external scripts with JSON or YAML output. See the respective
@@ -115,6 +119,18 @@ collects timing estimates from the actual purgers. The intelligence it has
 is used by the queue service and exceeding the limit isn't possible as the
 purgers service refuses to operate when the limits are near zero.
 
+**Runtime measurement**
+
+Purgers are required to provide timing estimates for a single invalidation,
+the capacity tracker operates based on this information. Runtime measurement is
+a feature available to purgers (most use it) which performs live time tracking
+of invalidation processing, and reports gathered measurements back to the
+capacity tracker. When a single invalidation was exceptionally slow - let's say
+a server was under load - the capacity for this purger drastically drops, but
+every faster measure collected after that will result in slow 10% upwards
+adjustments. Combined with the capacity tracker, this provides the best balance
+between performance and safety.
+
 #### Diagnostic checks
 External cache invalidation usually depends on many parameters, for instance
 configuration settings such as hostname or CDN API keys. In order to prevent
@@ -135,6 +151,14 @@ Possibilities:
 * **``ajaxui``** AJAX-based progress bar working the queue after a piece of
 content has been updated.
 * **``lateruntime``** purges items from the queue on every request (**SLOW**).
+
+#### Tags Headers
+By default, Purge sends a response header ``Purge-Cache-Tags`` on all pages to
+allow reverse proxies and CDNs to save these _tags_. These headers are not
+standardized across the web and different systems can require differently named
+headers or with specialized formatting. Therefore Purge allows the creation of
+tiny plugins that can set their own header name and override the tag formatting
+if required.
 
 API examples
 ------------------------------------------------------------------------------

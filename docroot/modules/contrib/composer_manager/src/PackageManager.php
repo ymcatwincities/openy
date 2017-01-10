@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\composer_manager\PackageManager.
- */
-
 namespace Drupal\composer_manager;
 
 /**
@@ -210,8 +205,9 @@ class PackageManager implements PackageManagerInterface {
     $root_package = JsonFile::read($this->root . '/composer.json');
     // Initialize known start values. These should match what's already in
     // the root composer.json shipped with Drupal.
+    $core_requirement = $root_package['replace']['drupal/core'];
     $root_package['replace'] = [
-      'drupal/core' => '~8.0',
+      'drupal/core' => $core_requirement,
     ];
     $root_package['repositories'] = [];
     $root_package['extra']['merge-plugin']['include'] = [
