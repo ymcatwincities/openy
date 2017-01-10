@@ -1,0 +1,5 @@
+name: OpenY Mappings
+type: module
+description: OpenY data mappings.
+core: 8.x
+package: OpenY
