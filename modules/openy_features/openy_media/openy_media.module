@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Wrapper module for all YMCA Media related stuff.
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function ymca_media_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'views_exposed_form') {
+    if ($form['#id'] == 'views-exposed-form-media-library-global-media-library-page') {
+      $form['#attached']['library'][] = 'ymca_media/ymca_media';
+    }
+  }
+  if ($form_id == 'entity_browser_media_embed_form') {
+    $form['#attached']['library'][] = 'ymca_media/ymca_media';
+  }
+}

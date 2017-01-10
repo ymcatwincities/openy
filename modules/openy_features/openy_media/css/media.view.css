@@ -1,0 +1,106 @@
+.view-content, .entities-list{
+    margin: 1.5em 0;
+    padding: 0;
+    -moz-column-gap: 1.5em;
+    -webkit-column-gap: 1.5em;
+    column-gap: 1.5em;
+}
+.grid-item:hover {
+    border: 1px solid #37802f !important;
+    cursor : pointer;
+}
+
+.grid-item.checked {
+    border: 1px solid #37802f !important;
+    background: url("../images/checkmark.svg") no-repeat center center !important;
+}
+.grid-item img, .grid-item-library img {
+    vertical-align: bottom;
+}
+
+.grid-item img::selection , .grid-item-library img::selection{
+    background: transparent;
+}
+
+.views-field-entity-browser-select{
+    display: none;
+}
+
+.grid-item-library, .grid-item, .item-container{
+    display: inline-block;
+    background: #fff;
+    padding: 1.5em;
+    margin: 0 0 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.18);
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    text-align:center;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    height: 320px;
+    position: relative;
+}
+@media only screen and (min-width: 700px) {
+    .view-content, .entities-list{
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .view-content, .entities-list{
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    .view-content, .entities-list{
+        -moz-column-count: 4;
+        -webkit-column-count: 4;
+        column-count: 4;
+    }
+}
+#edit-actions{
+    text-align:center;
+}
+.grid-item-library .dropbutton-widget {
+    position: absolute;
+    width: 100%;
+}
+#views-exposed-form-media-library-media-select-modal #edit-actions,
+#views-exposed-form-media-library-global-media-library-page #edit-actions {
+    clear: none;
+    text-align: left;
+    float: left;
+    line-height: 60px;
+}
+#entity-browser-media-embed-form .grid-item {
+    height: 220px;
+}
+#entity-browser-media-embed-form .field--name-created {
+    position: absolute;
+    bottom: 2em;
+    width: calc(100% - 3em);
+}
+.image-style-thumbnail[src*="document.png"] {
+    display: none;
+}
+.field--name-name {
+    min-height: 4em;
+}
+.views-field.views-field-operations {
+    position: absolute;
+    width: calc(100% - 3em);
+    bottom: 4em;
+}
+.image-style-media-library-item {
+    max-height: 75px;
+    width: auto;
+}
