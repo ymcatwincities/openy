@@ -1,15 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManager.
- */
-
 namespace Drupal\layout_plugin\Plugin\Layout;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
+use Drupal\Core\Plugin\CategorizingPluginManagerTrait;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Plugin\Discovery\YamlDiscoveryDecorator;
 
@@ -18,6 +14,7 @@ use Drupal\Core\Plugin\Discovery\YamlDiscoveryDecorator;
  */
 class LayoutPluginManager extends DefaultPluginManager implements LayoutPluginManagerInterface {
 
+  use CategorizingPluginManagerTrait;
 
   /**
    * The theme handler.
@@ -85,6 +82,17 @@ class LayoutPluginManager extends DefaultPluginManager implements LayoutPluginMa
     }
     $definition['path'] = !empty($definition['path']) ? $base_path . '/' . $definition['path'] : $base_path;
 
+    // Add a dependency on the provider of the library.
+    if (!empty($definition['library'])) {
+      list ($library_provider, ) = explode('/', $definition['library']);
+      if ($this->moduleHandler->moduleExists($library_provider)) {
+        $definition['dependencies'] = ['module' => [$library_provider]];
+      }
+      elseif ($this->themeHandler->themeExists($library_provider)) {
+        $definition['dependencies'] = ['theme' => [$library_provider]];
+      }
+    }
+
     // Add the path to the icon filename.
     if (!empty($definition['icon'])) {
       $definition['icon'] = $definition['path'] . '/' . $definition['icon'];
@@ -122,24 +130,25 @@ class LayoutPluginManager extends DefaultPluginManager implements LayoutPluginMa
    */
   public function getLayoutOptions(array $params = []) {
     $group_by_category = !empty($params['group_by_category']);
-    $plugins = $this->getDefinitions();
+    $plugins = $group_by_category ? $this->getGroupedDefinitions() : ['default' => $this->getDefinitions()];
+    $categories = $group_by_category ? $this->getCategories() : ['default'];
 
-    // Sort the plugins first by category, then by label.
+    // Go through each category, sort it, and get just the labels out.
     $options = array();
-    foreach ($plugins as $id => $plugin) {
-      if ($group_by_category) {
-        $category = isset($plugin['category']) ? (string) $plugin['category'] : 'default';
-        if (!isset($options[$category])) {
-          $options[$category] = array();
-        }
+    foreach ($categories as $category) {
+      // Convert from a translation to a real string.
+      $category = (string) $category;
+
+      // Sort the category.
+      $plugins[$category] = $this->getSortedDefinitions($plugins[$category]);
+
+      // Put only the label in the options array.
+      foreach ($plugins[$category] as $id => $plugin) {
         $options[$category][$id] = $plugin['label'];
-      }
-      else {
-        $options[$id] = $plugin['label'];
       }
     }
 
-    return $options;
+    return $group_by_category ? $options : $options['default'];
   }
 
   /**
@@ -199,6 +208,24 @@ class LayoutPluginManager extends DefaultPluginManager implements LayoutPluginMa
   }
 
   /**
+   * Gets the version of the given provider.
+   *
+   * Wraps system_get_info() so that we can mock it in our tests.
+   *
+   * @param string $provider_type
+   *   The provider type (ex. module or theme).
+   * @param string $provider
+   *   The name of the provider.
+   *
+   * @return string
+   *   The version string for the provider or 'VERSION' if it can't be found.
+   */
+  protected function getProviderVersion($provider_type, $provider) {
+    $info = system_get_info($provider_type, $provider);
+    return !empty($info['version']) ? $info['version'] : 'VERSION';
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getLibraryInfo() {
@@ -215,8 +242,7 @@ class LayoutPluginManager extends DefaultPluginManager implements LayoutPluginMa
         }
 
         $library_info[$library_name] = [
-          // @todo: Should be the version of the provider module or theme.
-          'version' => 'VERSION',
+          'version' => $this->getProviderVersion($definition['provider_type'], $definition['provider']),
           'css' => [
             'theme' => [
               '/' . $definition['css'] => [],

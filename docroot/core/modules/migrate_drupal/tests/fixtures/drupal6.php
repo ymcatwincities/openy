@@ -9812,7 +9812,7 @@ $connection->insert('languages')
   'enabled' => '1',
   'plurals' => '2',
   'formula' => '($n>1)',
-  'domain' => '',
+  'domain' => 'http://fr.drupal.org',
   'prefix' => 'fr',
   'weight' => '0',
   'javascript' => '047746d30d76aa44a54db9923c7c5fb0',
@@ -9825,7 +9825,7 @@ $connection->insert('languages')
   'enabled' => '1',
   'plurals' => '0',
   'formula' => '',
-  'domain' => '',
+  'domain' => 'http://zu.drupal.org',
   'prefix' => 'zu',
   'weight' => '0',
   'javascript' => '',
@@ -41378,6 +41378,40 @@ $connection->insert('node')
   'tnid' => '10',
   'translate' => '0',
 ))
+->values(array(
+  'nid' => '12',
+  'vid' => '15',
+  'type' => 'page',
+  'language' => 'zu',
+  'title' => 'Abantu zulu',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1444238800',
+  'changed' => '1444238808',
+  'comment' => '0',
+  'promote' => '0',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '12',
+  'translate' => '0',
+))
+->values(array(
+  'nid' => '13',
+  'vid' => '16',
+  'type' => 'page',
+  'language' => 'en',
+  'title' => 'The Zulu People',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1444239050',
+  'changed' => '1444239050',
+  'comment' => '0',
+  'promote' => '0',
+  'moderate' => '0',
+  'sticky' => '0',
+  'tnid' => '12',
+  'translate' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('node_access', array(
@@ -41807,6 +41841,28 @@ $connection->insert('node_revisions')
   'timestamp' => '1444239050',
   'format' => '1',
 ))
+->values(array(
+  'nid' => '12',
+  'vid' => '15',
+  'uid' => '1',
+  'title' => 'Abantu zulu',
+  'body' => "Mr. Crusher, ready a collision course with the Borg ship.",
+  'teaser' => "Mr. Crusher, ready a collision course with the Borg ship.",
+  'log' => '',
+  'timestamp' => '1444238808',
+  'format' => '1',
+))
+->values(array(
+  'nid' => '13',
+  'vid' => '16',
+  'uid' => '1',
+  'title' => 'The Zulu People',
+  'body' => 'Mr. Crusher, ready a collision course with the Borg ship.',
+  'teaser' => 'Mr. Crusher, ready a collision course with the Borg ship.',
+  'log' => '',
+  'timestamp' => '1444239050',
+  'format' => '1',
+))
 ->execute();
 
 $connection->schema()->createTable('node_type', array(
@@ -42136,13 +42192,13 @@ $connection->insert('permission')
 ->values(array(
   'pid' => '1',
   'rid' => '1',
-  'perm' => 'migrate test anonymous permission',
+  'perm' => 'access content, migrate test anonymous permission',
   'tid' => '0',
 ))
 ->values(array(
   'pid' => '2',
   'rid' => '2',
-  'perm' => 'migrate test authenticated permission',
+  'perm' => 'access comments, access content, post comments, post comments without approval, migrate test authenticated permission',
   'tid' => '0',
 ))
 ->values(array(
@@ -42155,18 +42211,6 @@ $connection->insert('permission')
   'pid' => '4',
   'rid' => '4',
   'perm' => 'migrate test role 2 test permission, use PHP for settings, administer contact forms, skip comment approval, edit own blog content, edit any blog content, delete own blog content, delete any blog content, create forum content, delete any forum content, delete own forum content, edit any forum content, edit own forum content, administer nodes',
-  'tid' => '0',
-))
-->values(array(
-  'pid' => '5',
-  'rid' => '1',
-  'perm' => 'access content',
-  'tid' => '0',
-))
-->values(array(
-  'pid' => '6',
-  'rid' => '2',
-  'perm' => 'access comments, access content, post comments, post comments without approval',
   'tid' => '0',
 ))
 ->execute();

@@ -1,0 +1,16 @@
+name: 'Default content export test'
+type: module
+hidden: TRUE
+description: 'Used in testing to ensure modules can declare content.'
+package: Web services
+# core: 8.x
+
+default_content:
+  node:
+    - 0e45d92f-1919-47cd-8b60-964a8a761292
+
+# Information added by Drupal.org packaging script on 2016-09-15
+version: '8.x-1.0-alpha3'
+core: '8.x'
+project: 'default_content'
+datestamp: 1473976449

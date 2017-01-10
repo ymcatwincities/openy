@@ -29,8 +29,8 @@ class YmcaRestExport extends RestExport implements ResponseDisplayPluginInterfac
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteProviderInterface $route_provider, StateInterface $state, RendererInterface $renderer) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $route_provider, $state, $renderer);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteProviderInterface $route_provider, StateInterface $state, RendererInterface $renderer, array $authentication_providers) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $route_provider, $state, $renderer, $authentication_providers);
   }
 
   /**

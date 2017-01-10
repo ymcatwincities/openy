@@ -1,4 +1,14 @@
  # Schema for the configuration files of the Purge module.
+purge.logger_channels:
+ type: config_object
+ label: 'Purge logger channels'
+ mapping:
+   channels:
+     label: 'Purge logger channels'
+     type: sequence
+     translatable: false
+     sequence:
+       type: purge_log_channel
 purge.plugins:
   type: config_object
   label: 'Purge plugins'

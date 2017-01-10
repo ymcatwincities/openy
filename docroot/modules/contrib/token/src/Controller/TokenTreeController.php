@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Controller\TokenTreeController.
- */
-
 namespace Drupal\token\Controller;
 
 use Drupal\Component\Serialization\Json;

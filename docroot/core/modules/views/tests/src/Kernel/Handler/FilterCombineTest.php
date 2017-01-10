@@ -13,11 +13,16 @@ use Drupal\views\Views;
 class FilterCombineTest extends ViewsKernelTestBase {
 
   /**
+   * {@inheritdoc}
+   */
+  public static $modules = array('entity_test');
+
+  /**
    * Views used by this test.
    *
    * @var array
    */
-  public static $testViews = array('test_view');
+  public static $testViews = array('test_view', 'entity_test_fields');
 
   /**
    * Map column names.
@@ -28,6 +33,15 @@ class FilterCombineTest extends ViewsKernelTestBase {
     'views_test_data_name' => 'name',
     'views_test_data_job' => 'job',
   );
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp($import_test_views = TRUE) {
+    parent::setUp($import_test_views);
+
+    $this->installEntitySchema('entity_test');
+  }
 
   public function testFilterCombineContains() {
     $view = Views::getView('test_view');
@@ -82,6 +96,101 @@ class FilterCombineTest extends ViewsKernelTestBase {
   }
 
   /**
+   * Tests the Combine field filter with the 'word' operator.
+   */
+  public function testFilterCombineWord() {
+    $view = Views::getView('test_view');
+    $view->setDisplay();
+
+    $fields = $view->displayHandlers->get('default')->getOption('fields');
+    $view->displayHandlers->get('default')->overrideOption('fields', $fields + array(
+        'job' => array(
+          'id' => 'job',
+          'table' => 'views_test_data',
+          'field' => 'job',
+          'relationship' => 'none',
+        ),
+      ));
+
+    // Change the filtering.
+    $view->displayHandlers->get('default')->overrideOption('filters', array(
+      'age' => array(
+        'id' => 'combine',
+        'table' => 'views',
+        'field' => 'combine',
+        'relationship' => 'none',
+        'operator' => 'word',
+        'fields' => array(
+          'name',
+          'job',
+        ),
+        'value' => 'singer ringo',
+      ),
+    ));
+
+    $this->executeView($view);
+    $resultset = array(
+      array(
+        'name' => 'John',
+        'job' => 'Singer',
+      ),
+      array(
+        'name' => 'George',
+        'job' => 'Singer',
+      ),
+      array(
+        'name' => 'Ringo',
+        'job' => 'Drummer',
+      ),
+    );
+    $this->assertIdenticalResultset($view, $resultset, $this->columnMap);
+  }
+
+  /**
+   * Tests the Combine field filter with the 'allwords' operator.
+   */
+  public function testFilterCombineAllWords() {
+    $view = Views::getView('test_view');
+    $view->setDisplay();
+
+    $fields = $view->displayHandlers->get('default')->getOption('fields');
+    $view->displayHandlers->get('default')->overrideOption('fields', $fields + array(
+        'job' => array(
+          'id' => 'job',
+          'table' => 'views_test_data',
+          'field' => 'job',
+          'relationship' => 'none',
+        ),
+      ));
+
+    // Set the filtering to allwords and simulate searching for a phrase.
+    $view->displayHandlers->get('default')->overrideOption('filters', array(
+      'age' => array(
+        'id' => 'combine',
+        'table' => 'views',
+        'field' => 'combine',
+        'relationship' => 'none',
+        'operator' => 'allwords',
+        'fields' => array(
+          'name',
+          'job',
+          'age',
+        ),
+        'value' => '25 "john   singer"',
+      ),
+    ));
+
+    $this->executeView($view);
+    $resultset = array(
+      array(
+        'name' => 'John',
+        'job' => 'Singer',
+      ),
+    );
+    $this->assertIdenticalResultset($view, $resultset, $this->columnMap);
+  }
+
+  /**
    * Tests if the filter can handle removed fields.
    *
    * Tests the combined filter handler when a field overwrite is done
@@ -126,7 +235,42 @@ class FilterCombineTest extends ViewsKernelTestBase {
     $this->assertTrue($view->build_info['fail'], "View build has been marked as failed.");
     // Make sure this view does not pass validation with the right error.
     $errors = $view->validate();
-    $this->assertEqual(reset($errors['default']), t('Field %field set in %filter is not set in this display.', array('%field' => 'dummy', '%filter' => 'Global: Combine fields filter')));
+    $this->assertEquals(t('Field %field set in %filter is not set in display %display.', array('%field' => 'dummy', '%filter' => 'Global: Combine fields filter', '%display' => 'Master')), reset($errors['default']));
+  }
+
+  /**
+   * Tests that the combine field filter is not valid on displays that don't use
+   * fields.
+   */
+  public function testNonFieldsRow() {
+    $view = Views::getView('entity_test_fields');
+    $view->setDisplay();
+
+    // Set the rows to a plugin type that doesn't support fields.
+    $view->displayHandlers->get('default')->overrideOption('row', array(
+      'type' => 'entity:entity_test',
+      'options' => array(
+        'view_mode' => 'teaser',
+      ),
+    ));
+    // Change the filtering.
+    $view->displayHandlers->get('default')->overrideOption('filters', array(
+      'name' => array(
+        'id' => 'combine',
+        'table' => 'views',
+        'field' => 'combine',
+        'relationship' => 'none',
+        'operator' => 'contains',
+        'fields' => array(
+          'name',
+        ),
+        'value' => 'ing',
+      ),
+    ));
+    $this->executeView($view);
+    $errors = $view->validate();
+    // Check that the right error is shown.
+    $this->assertEquals(t('%display: %filter can only be used on displays that use fields. Set the style or row format for that display to one using fields to use the combine field filter.', array('%filter' => 'Global: Combine fields filter', '%display' => 'Master')), reset($errors['default']));
   }
 
   /**

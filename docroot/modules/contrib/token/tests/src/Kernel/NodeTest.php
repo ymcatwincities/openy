@@ -1,14 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\token\Kernel\NodeTest.
- */
-
 namespace Drupal\Tests\token\Kernel;
 
-use Drupal\node\Entity\NodeType;
 use Drupal\node\Entity\Node;
+use Drupal\node\Entity\NodeType;
+use Drupal\Core\Url;
 
 /**
  * Test the node and content type tokens.
@@ -50,7 +46,7 @@ class NodeTest extends KernelTestBase {
   function testNodeTokens() {
     $page = Node::create([
       'type' => 'page',
-      'title' => $this->randomMachineName(),
+      'title' => 'Source Title',
       'revision_log' => $this->randomMachineName(),
       'path' => array('alias' => '/content/source-node')
     ]);
@@ -58,15 +54,16 @@ class NodeTest extends KernelTestBase {
     $tokens = array(
       'log' => $page->revision_log->value,
       'url:path' => '/content/source-node',
-      'url:absolute' => \Drupal::url('entity.node.canonical', ['node' => $page->id()], array('absolute' => TRUE)),
-      'url:relative' => \Drupal::url('entity.node.canonical', ['node' => $page->id()], array('absolute' => FALSE)),
+      'url:absolute' => Url::fromRoute('entity.node.canonical', ['node' => $page->id()], array('absolute' => TRUE))->toString(),
+      'url:relative' => Url::fromRoute('entity.node.canonical', ['node' => $page->id()], array('absolute' => FALSE))->toString(),
       'url:unaliased:path' => "/node/{$page->id()}",
       'content-type' => 'Basic page',
       'content-type:name' => 'Basic page',
       'content-type:machine-name' => 'page',
       'content-type:description' => "Use <em>basic pages</em> for your static content, such as an 'About us' page.",
       'content-type:node-count' => 1,
-      'content-type:edit-url' => \Drupal::url('entity.node_type.edit_form', ['node_type' => 'page'], array('absolute' => TRUE)),
+      'content-type:edit-url' => Url::fromRoute('entity.node_type.edit_form', ['node_type' => 'page'], array('absolute' => TRUE))->toString(),
+      'source:title' => 'Source Title',
       // Deprecated tokens.
       'type' => 'page',
       'type-name' => 'Basic page',
@@ -76,21 +73,22 @@ class NodeTest extends KernelTestBase {
 
     $article = Node::create([
       'type' => 'article',
-      'title' => $this->randomMachineName()
+      'title' => 'Source Title',
     ]);
     $article->save();
     $tokens = array(
       'log' => '',
       'url:path' => "/node/{$article->id()}",
-      'url:absolute' => \Drupal::url('entity.node.canonical', ['node' => $article->id()], array('absolute' => TRUE)),
-      'url:relative' => \Drupal::url('entity.node.canonical', ['node' => $article->id()], array('absolute' => FALSE)),
+      'url:absolute' => Url::fromRoute('entity.node.canonical', ['node' => $article->id()], array('absolute' => TRUE))->toString(),
+      'url:relative' => Url::fromRoute('entity.node.canonical', ['node' => $article->id()], array('absolute' => FALSE))->toString(),
       'url:unaliased:path' => "/node/{$article->id()}",
       'content-type' => 'Article',
       'content-type:name' => 'Article',
       'content-type:machine-name' => 'article',
       'content-type:description' => "Use <em>articles</em> for time-sensitive content like news, press releases or blog posts.",
       'content-type:node-count' => 1,
-      'content-type:edit-url' => \Drupal::url('entity.node_type.edit_form', ['node_type' => 'article'], array('absolute' => TRUE)),
+      'content-type:edit-url' => Url::fromRoute('entity.node_type.edit_form', ['node_type' => 'article'], array('absolute' => TRUE))->toString(),
+      'source:title' => 'Source Title',
       // Deprecated tokens.
       'type' => 'article',
       'type-name' => 'Article',

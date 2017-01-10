@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\PanelsDisplayManagerInterface.
- */
-
 namespace Drupal\panels;
 
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;

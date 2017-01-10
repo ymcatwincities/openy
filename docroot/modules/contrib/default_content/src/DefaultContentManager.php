@@ -1,20 +1,21 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\default_content\DefaultContentManager.
- */
-
 namespace Drupal\default_content;
 
 use Drupal\Component\Graph\Graph;
-use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Core\Config\Entity\ConfigEntityInterface;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\EntityManager;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Extension\InfoParserInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\default_content\Event\DefaultContentEvents;
+use Drupal\default_content\Event\ExportEvent;
+use Drupal\default_content\Event\ImportEvent;
 use Drupal\rest\LinkManager\LinkManagerInterface;
 use Drupal\rest\Plugin\Type\ResourcePluginManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Serializer\Serializer;
 
 /**
@@ -47,11 +48,32 @@ class DefaultContentManager implements DefaultContentManagerInterface {
   protected $currentUser;
 
   /**
-   * The entity manager.
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityManager;
+
+  /**
+   * The entity repository.
+   *
+   * @var \Drupal\Core\Entity\EntityRepositoryInterface
+   */
+  protected $entityRepository;
+
+  /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * The info file parser.
+   *
+   * @var \Drupal\Core\Extension\InfoParserInterface
+   */
+  protected $infoParser;
 
   /**
    * The file system scanner.
@@ -82,6 +104,13 @@ class DefaultContentManager implements DefaultContentManagerInterface {
   protected $linkManager;
 
   /**
+   * The event dispatcher.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
    * Constructs the default content manager.
    *
    * @param \Symfony\Component\Serializer\Serializer $serializer
@@ -90,16 +119,28 @@ class DefaultContentManager implements DefaultContentManagerInterface {
    *   The rest resource plugin manager.
    * @param \Drupal\Core\Session|AccountInterface $current_user
    *   The current user.
-   * @param \Drupal\Core\Entity\EntityManager $entity_manager
-   *   The entity manager service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   The entity repository service.
    * @param \Drupal\rest\LinkManager\LinkManagerInterface $link_manager
    *   The link manager service.
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
+   * @param \Drupal\Core\Extension\InfoParserInterface $info_parser
+   *   The info file parser.
    */
-  public function __construct(Serializer $serializer, ResourcePluginManager $resource_plugin_manager, AccountInterface $current_user, EntityManager $entity_manager, LinkManagerInterface $link_manager) {
+  public function __construct(Serializer $serializer, ResourcePluginManager $resource_plugin_manager, AccountInterface $current_user, EntityTypeManagerInterface $entity_manager, EntityRepositoryInterface $entity_repository, LinkManagerInterface $link_manager, EventDispatcherInterface $event_dispatcher, ModuleHandlerInterface $module_handler, InfoParserInterface $info_parser) {
     $this->serializer = $serializer;
     $this->resourcePluginManager = $resource_plugin_manager;
     $this->entityManager = $entity_manager;
+    $this->entityRepository = $entity_repository;
     $this->linkManager = $link_manager;
+    $this->eventDispatcher = $event_dispatcher;
+    $this->moduleHandler = $module_handler;
+    $this->infoParser = $info_parser;
   }
 
   /**
@@ -130,36 +171,37 @@ class DefaultContentManager implements DefaultContentManagerInterface {
           // Decode the file contents.
           $decoded = $this->serializer->decode($contents, 'hal_json');
           // Get the link to this entity.
-          $self = $decoded['_links']['self']['href'];
+          $item_uuid = $decoded['uuid'][0]['value'];
 
-          // Throw an exception when this URL already exists.
-          if (isset($file_map[$self])) {
+          // Throw an exception when this UUID already exists.
+          if (isset($file_map[$item_uuid])) {
             $args = array(
-              '@href' => $self,
-              '@first' => $file_map[$self]->uri,
+              '@uuid' => $item_uuid,
+              '@first' => $file_map[$item_uuid]->uri,
               '@second' => $file->uri,
             );
             // Reset link domain.
             $this->linkManager->setLinkDomain(FALSE);
-            throw new \Exception(SafeMarkup::format('Default content with href @href exists twice: @first @second', $args));
+            throw new \Exception(new FormattableMarkup('Default content with uuid @uuid exists twice: @first @second', $args));
           }
 
           // Store the entity type with the file.
           $file->entity_type_id = $entity_type_id;
           // Store the file in the file map.
-          $file_map[$self] = $file;
+          $file_map[$item_uuid] = $file;
           // Create a vertex for the graph.
-          $vertex = $this->getVertex($self);
-          $this->graph[$vertex->link]['edges'] = [];
+          $vertex = $this->getVertex($item_uuid);
+          $this->graph[$vertex->id]['edges'] = [];
           if (empty($decoded['_embedded'])) {
             // No dependencies to resolve.
             continue;
           }
-          // Here we need to resolve our dependencies;
+          // Here we need to resolve our dependencies:
           foreach ($decoded['_embedded'] as $embedded) {
             foreach ($embedded as $item) {
-              $edge = $this->getVertex($item['_links']['self']['href']);
-              $this->graph[$vertex->link]['edges'][$edge->link] = TRUE;
+              $uuid = $item['uuid'][0]['value'];
+              $edge = $this->getVertex($uuid);
+              $this->graph[$vertex->id]['edges'][$edge->id] = TRUE;
             }
           }
         }
@@ -178,9 +220,10 @@ class DefaultContentManager implements DefaultContentManagerInterface {
           $entity = $this->serializer->deserialize($contents, $class, 'hal_json', array('request_method' => 'POST'));
           $entity->enforceIsNew(TRUE);
           $entity->save();
-          $created[] = $entity;
+          $created[$entity->uuid()] = $entity;
         }
       }
+      $this->eventDispatcher->dispatch(DefaultContentEvents::IMPORT, new ImportEvent($created, $module));
     }
     // Reset the tree.
     $this->resetTree();
@@ -200,6 +243,8 @@ class DefaultContentManager implements DefaultContentManagerInterface {
     $return = $this->serializer->serialize($entity, 'hal_json', ['json_encode_options' => JSON_PRETTY_PRINT]);
     // Reset link domain.
     $this->linkManager->setLinkDomain(FALSE);
+    $this->eventDispatcher->dispatch(DefaultContentEvents::EXPORT, new ExportEvent($entity));
+
     return $return;
   }
 
@@ -211,13 +256,14 @@ class DefaultContentManager implements DefaultContentManagerInterface {
     $entity = $storage->load($entity_id);
 
     if (!$entity) {
-      throw new \InvalidArgumentException(SafeMarkup::format('Entity @type with ID @id does not exist', ['@type' => $entity_type_id, '@id' => $entity_id]));
+      throw new \InvalidArgumentException(new FormattableMarkup('Entity @type with ID @id does not exist', ['@type' => $entity_type_id, '@id' => $entity_id]));
+    }
+    if (!($entity instanceof ContentEntityInterface)) {
+      throw new \InvalidArgumentException(new FormattableMarkup('Entity @type with ID @id should be a content entity', ['@type' => $entity_type_id, '@id' => $entity_id]));
     }
 
-    /** @var \Drupal\Core\Entity\ContentEntityInterface[] $entities */
-    $entities = [$entity];
-
-    $entities = array_merge($entities, $this->getEntityReferencesRecursive($entity));
+    $entities = [$entity->uuid() => $entity];
+    $entities = $this->getEntityReferencesRecursive($entity, 0, $entities);
 
     $serialized_entities_per_type = [];
     $this->linkManager->setLinkDomain(static::LINK_DOMAIN);
@@ -231,38 +277,78 @@ class DefaultContentManager implements DefaultContentManagerInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function exportModuleContent($module_name) {
+    $info_file = $this->moduleHandler->getModule($module_name)->getPathname();
+    $info = $this->infoParser->parse($info_file);
+    $exported_content = [];
+    if (empty($info['default_content'])) {
+      return $exported_content;
+    }
+    foreach ($info['default_content'] as $entity_type => $uuids) {
+      foreach ($uuids as $uuid) {
+        $entity = $this->entityRepository->loadEntityByUuid($entity_type, $uuid);
+        $exported_content[$entity_type][$uuid] = $this->exportContent($entity_type, $entity->id());
+      }
+    }
+    return $exported_content;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function writeDefaultContent($serialized_by_type, $folder) {
+    foreach ($serialized_by_type as $entity_type => $serialized_entities) {
+      // Ensure that the folder per entity type exists.
+      $entity_type_folder = "$folder/$entity_type";
+      file_prepare_directory($entity_type_folder, FILE_CREATE_DIRECTORY);
+      foreach ($serialized_entities as $uuid => $serialized_entity) {
+        file_put_contents($entity_type_folder . '/' . $uuid . '.json', $serialized_entity);
+      }
+    }
+  }
+
+  /**
    * Returns all referenced entities of an entity.
    *
-   * This method is also recursive to support usecases like a node -> media
+   * This method is also recursive to support use-cases like a node -> media
    * -> file.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The entity.
    * @param int $depth
    *   Guard against infinite recursion.
+   * @param \Drupal\Core\Entity\ContentEntityInterface[] $indexed_dependencies
+   *   Previously discovered dependencies.
    *
-   * @return \Drupal\Core\Entity\EntityInterface[]
+   * @return \Drupal\Core\Entity\ContentEntityInterface[]
+   *   Keyed array of entities indexed by entity type and ID.
    */
-  protected function getEntityReferencesRecursive(ContentEntityInterface $entity, $depth = 0) {
+  protected function getEntityReferencesRecursive(ContentEntityInterface $entity, $depth = 0, array &$indexed_dependencies = []) {
     $entity_dependencies = $entity->referencedEntities();
 
-    foreach ($entity_dependencies as $id => $dependent_entity) {
+    foreach ($entity_dependencies as $dependent_entity) {
       // Config entities should not be exported but rather provided by default
       // config.
-      if ($dependent_entity instanceof ConfigEntityInterface) {
-        unset($entity_dependencies[$id]);
+      if (!($dependent_entity instanceof ContentEntityInterface)) {
+        continue;
       }
-      else {
-        $entity_dependencies = array_merge($entity_dependencies, $this->getEntityReferencesRecursive($dependent_entity, $depth + 1));
+      // Using UUID to keep dependencies unique to prevent recursion.
+      $key = $dependent_entity->uuid();
+      if (isset($indexed_dependencies[$key])) {
+        // Do not add already indexed dependencies.
+        continue;
+      }
+      $indexed_dependencies[$key] = $dependent_entity;
+      // Build in some support against infinite recursion.
+      if ($depth < 6) {
+        // @todo Make $depth configurable.
+        $indexed_dependencies += $this->getEntityReferencesRecursive($dependent_entity, $depth + 1, $indexed_dependencies);
       }
     }
 
-    // Build in some support against infinite recursion.
-    if ($depth > 5) {
-      return $entity_dependencies;
-    }
-
-    return array_unique($entity_dependencies, SORT_REGULAR);
+    return $indexed_dependencies;
   }
 
   /**
@@ -317,7 +403,7 @@ class DefaultContentManager implements DefaultContentManagerInterface {
    */
   protected function getVertex($item_link) {
     if (!isset($this->vertexes[$item_link])) {
-      $this->vertexes[$item_link] = (object) array('link' => $item_link);
+      $this->vertexes[$item_link] = (object) array('id' => $item_link);
     }
     return $this->vertexes[$item_link];
   }

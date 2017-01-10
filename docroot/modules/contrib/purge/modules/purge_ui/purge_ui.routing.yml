@@ -5,6 +5,13 @@ purge_ui.dashboard:
     _controller: '\Drupal\purge_ui\Controller\DashboardController::build'
   requirements:
     _permission: 'administer site configuration'
+purge_ui.logging_config_form:
+  path: '/admin/config/development/performance/purge/logging'
+  defaults:
+    _title: 'Configure logging'
+    _form: 'Drupal\purge_ui\Form\LoggingConfigForm'
+  requirements:
+    _permission: 'administer site configuration'
 purge_ui.purger_add_form:
   path: '/admin/config/development/performance/purge/purger/add'
   defaults:

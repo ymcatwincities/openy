@@ -7,6 +7,7 @@
 
 namespace Drupal\page_manager\Plugin\DisplayVariant;
 
+use Drupal\Component\Render\HtmlEscapedText;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\BlockManager;
@@ -18,9 +19,12 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Utility\Token;
 use Drupal\ctools\Plugin\DisplayVariant\BlockDisplayVariant;
+use Drupal\ctools\Plugin\PluginWizardInterface;
+use Drupal\page_manager_ui\Form\VariantPluginContentForm;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,7 +35,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   admin_label = @Translation("Block page")
  * )
  */
-class PageBlockDisplayVariant extends BlockDisplayVariant {
+class PageBlockDisplayVariant extends BlockDisplayVariant implements PluginWizardInterface {
 
   /**
    * The module handler.
@@ -248,6 +252,18 @@ class PageBlockDisplayVariant extends BlockDisplayVariant {
   /**
    * {@inheritdoc}
    */
+  public function getWizardOperations($cached_values) {
+    return [
+      'content' => [
+        'title' => $this->t('Content'),
+        'form' => VariantPluginContentForm::class,
+      ],
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function defaultConfiguration() {
     return parent::defaultConfiguration() + [
       'page_title' => '',
@@ -265,7 +281,13 @@ class PageBlockDisplayVariant extends BlockDisplayVariant {
    */
   protected function renderPageTitle($page_title) {
     $data = $this->getContextAsTokenData();
-    return $this->token->replace($page_title, $data);
+    // Token replace only escapes replacement values, ensure a consistent
+    // behavior by also escaping the input and then returning it as a Markup
+    // object to avoid double escaping.
+    // @todo: Simplify this when core provides an API for this in
+    //   https://www.drupal.org/node/2580723.
+    $title = (string) $this->token->replace(new HtmlEscapedText($page_title), $data);
+    return Markup::create($title);
   }
 
   /**
@@ -298,6 +320,20 @@ class PageBlockDisplayVariant extends BlockDisplayVariant {
       'top' => 'Top',
       'bottom' => 'Bottom',
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __sleep() {
+    $vars = parent::__sleep();
+
+    // Gathered contexts objects should not be serialized.
+    if (($key = array_search('contexts', $vars)) !== FALSE) {
+      unset($vars[$key]);
+    }
+
+    return $vars;
   }
 
 }

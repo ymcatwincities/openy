@@ -33,14 +33,23 @@ class TempstoreAccess implements CoreAccessInterface {
   }
 
   public function access(Route $route, RouteMatch $match, AccountInterface $account) {
-    $tempstore_id = $route->getDefault('tempstore_id');
+    $tempstore_id = $match->getParameter('tempstore_id') ? $match->getParameter('tempstore_id') : $route->getDefault('tempstore_id');
     $id = $match->getParameter($route->getRequirement('_ctools_access'));
     if ($tempstore_id && $id) {
       $cached_values = $this->getTempstore()->get($tempstore_id)->get($id);
-      if (!empty ($cached_values['access']) && ($cached_values['access'] instanceof CToolsAccessInterface)) {
-        return $cached_values['access']->access($account);
+      if (!empty($cached_values['access']) && ($cached_values['access'] instanceof CToolsAccessInterface)) {
+        $access = $cached_values['access']->access($account);
+      }
+      else {
+        $access = AccessResult::allowed();
       }
     }
-    return AccessResult::forbidden();
+    else {
+      $access = AccessResult::forbidden();
+    }
+    // The different wizards will have different tempstore ids and adding this
+    // cache context allows us to nuance the access per wizard.
+    $access->addCacheContexts(['url.query_args:tempstore_id']);
+    return $access;
   }
 }

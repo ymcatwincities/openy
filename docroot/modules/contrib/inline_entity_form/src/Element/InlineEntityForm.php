@@ -4,10 +4,10 @@ namespace Drupal\inline_entity_form\Element;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\inline_entity_form\ElementSubmit;
+use Drupal\inline_entity_form\TranslationHelper;
 
 /**
  * Provides an inline entity form element.
@@ -39,7 +39,7 @@ class InlineEntityForm extends RenderElement {
       '#ief_id' => '',
       '#entity_type' => NULL,
       '#bundle' => NULL,
-      '#language' => LanguageInterface::LANGCODE_NOT_SPECIFIED,
+      '#langcode' => NULL,
       // Instance of \Drupal\Core\Entity\EntityInterface. If NULL, a new
       // entity will be created.
       '#default_value' => NULL,
@@ -87,9 +87,6 @@ class InlineEntityForm extends RenderElement {
     if (empty($entity_form['#entity_type'])) {
       throw new \InvalidArgumentException('The inline_entity_form element requires the #entity_type property.');
     }
-    if (empty($entity_form['#bundle'])) {
-      throw new \InvalidArgumentException('The inline_entity_form element requires the #bundle property.');
-    }
     if (isset($entity_form['#default_value']) && !($entity_form['#default_value'] instanceof EntityInterface)) {
       throw new \InvalidArgumentException('The inline_entity_form #default_value property must be an entity object.');
     }
@@ -105,9 +102,12 @@ class InlineEntityForm extends RenderElement {
       // This is an add operation, create a new entity.
       $entity_type = \Drupal::entityTypeManager()->getDefinition($entity_form['#entity_type']);
       $storage = \Drupal::entityTypeManager()->getStorage($entity_form['#entity_type']);
-      $values = [
-        'langcode' => $entity_form['#language'],
-      ];
+      $values = [];
+      if ($langcode_key = $entity_type->getKey('langcode')) {
+        if (!empty($entity_form['#langcode'])) {
+          $values[$langcode_key] = $entity_form['#langcode'];
+        }
+      }
       if ($bundle_key = $entity_type->getKey('bundle')) {
         $values[$bundle_key] = $entity_form['#bundle'];
       }
@@ -116,6 +116,9 @@ class InlineEntityForm extends RenderElement {
     if (!isset($entity_form['#op'])) {
       $entity_form['#op'] = $entity_form['#entity']->isNew() ? 'add' : 'edit';
     }
+    // Prepare the entity form and the entity itself for translating.
+    $entity_form['#entity'] = TranslationHelper::prepareEntity($entity_form['#entity'], $form_state);
+    $entity_form['#translating'] = TranslationHelper::isTranslating($form_state) && $entity_form['#entity']->isTranslatable();
 
     $inline_form_handler = static::getInlineFormHandler($entity_form['#entity_type']);
     $entity_form = $inline_form_handler->entityForm($entity_form, $form_state);

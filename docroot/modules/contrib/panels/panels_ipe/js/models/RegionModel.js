@@ -47,9 +47,10 @@
      * @param {string} block_uuid
      *   The universally unique identifier of the block.
      *
-     * @returns {boolean}
+     * @return {boolean}
+     *   Whether the BlockCollection contains the block.
      */
-    hasBlock: function(block_uuid) {
+    hasBlock: function (block_uuid) {
       return this.get('blockCollection').get(block_uuid) ? true : false;
     },
 
@@ -59,10 +60,10 @@
      * @param {string} block_uuid
      *   The universally unique identifier of the block.
      *
-     * @returns {Drupal.panels_ipe.BlockModel|undefined}
+     * @return {Drupal.panels_ipe.BlockModel|undefined}
      *   The block if it is inside this region.
      */
-    getBlock: function(block_uuid) {
+    getBlock: function (block_uuid) {
       return this.get('blockCollection').get(block_uuid);
     },
 
@@ -72,8 +73,9 @@
      * @param {Drupal.panels_ipe.BlockModel|string} block
      *   The block or it's universally unique identifier.
      * @param {object} options
+     *   Block related configuration.
      */
-    removeBlock: function(block, options) {
+    removeBlock: function (block, options) {
       this.get('blockCollection').remove(block, options);
     },
 
@@ -81,7 +83,9 @@
      * Adds a new BlockModel to our BlockCollection.
      *
      * @param {Drupal.panels_ipe.BlockModel} block
+     *   The block that needs to be added.
      * @param {object} options
+     *   Block related configuration.
      */
     addBlock: function (block, options) {
       this.get('blockCollection').add(block, options);

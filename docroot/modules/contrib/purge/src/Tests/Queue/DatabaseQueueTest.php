@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\Queue\DatabaseQueueTest.
- */
-
 namespace Drupal\purge\Tests\Queue;
 
 use Drupal\purge\Tests\Queue\PluginTestBase;
@@ -19,66 +14,13 @@ class DatabaseQueueTest extends PluginTestBase {
   protected $plugin_id = 'database';
 
   /**
-   * Modules to enable.
-   *
-   * @var array
-   */
-  public static $modules = ['system'];
-
-  /**
-   * Set up the test.
-   */
-  function setUp() {
-    parent::setUp();
-    $this->installSchema('system', ['queue']);
-  }
-
-  /**
    * {@inheritdoc}
    */
   protected function setUpQueuePlugin() {
+    // Override parent::setUpQueuePlugin() to always recreate the instance, else
+    // the tests fail: "failed to instantiate user-supplied statement class".
     $this->queue = $this->pluginManagerPurgeQueue->createInstance($this->plugin_id);
-    $this->assertNull($this->queue->createQueue(), 'createQueue returns NULL');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function testDataStorageIntegrity() {
-    $this->setUpQueuePlugin();
-    parent::testDataStorageIntegrity();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function testQueueCountBehavior() {
-    $this->setUpQueuePlugin();
-    parent::testQueueCountBehavior();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function testCreateQueue() {
-    $this->setUpQueuePlugin();
-    parent::testCreateQueue();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function testCreatingClaimingAndReleasing() {
-    $this->setUpQueuePlugin();
-    parent::testCreatingClaimingAndReleasing();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  function testLeaseTime() {
-    $this->setUpQueuePlugin();
-    parent::testLeaseTime();
+    $this->assertNull($this->queue->createQueue());
   }
 
 }

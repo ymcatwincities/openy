@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_queuer_coretags\Form\ConfigurationForm.
- */
-
 namespace Drupal\purge_queuer_coretags\Form;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -41,7 +36,7 @@ class ConfigurationForm extends QueuerConfigFormBase {
     $form['blacklist'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Tag blacklist'),
-      '#description' => $this->t('You can exclude tags that Drupal invalidated by listing them here, only change this <b>if you know what you are doing!</b> The strings are matched as prefixes, so for example <code>config:</code> will match tags as <code>config:core.extension</code> and <code>config:block_list</code>.')
+      '#description' => $this->t('You can exclude tags that Drupal invalidated by listing them here, only change this <b>if you know what you are doing!</b> The strings are matched as prefixes, so for example <code>config:</code> will match tags as <code>config:core.extension</code> and <code>config:block_list</code>.'),
     ];
 
     // Retrieve the existing blacklist and initiatlize the counter.
@@ -60,13 +55,13 @@ class ConfigurationForm extends QueuerConfigFormBase {
     $form['blacklist']['blacklist'] = [
       '#tree' => TRUE,
       '#prefix' => '<div id="blacklist-wrapper">',
-      '#suffix' => '</div>'
+      '#suffix' => '</div>',
     ];
     for ($delta = 0; $delta < $max; $delta++) {
       if (!isset($form['blacklist']['blacklist'][$delta])) {
         $element = [
           '#type' => 'textfield',
-          '#default_value' => isset($blacklist[$delta]) ? $blacklist[$delta] : ''
+          '#default_value' => isset($blacklist[$delta]) ? $blacklist[$delta] : '',
         ];
         $form['blacklist']['blacklist'][$delta] = $element;
       }
@@ -122,7 +117,7 @@ class ConfigurationForm extends QueuerConfigFormBase {
 
     // Remove empty values from the blacklist so this doesn't cause issues.
     $blacklist = [];
-    foreach ($form_state->getValue('blacklist') as $i => $prefix) {
+    foreach ($form_state->getValue('blacklist') as $prefix) {
       if (!empty(trim($prefix))) {
         $blacklist[] = $prefix;
       }

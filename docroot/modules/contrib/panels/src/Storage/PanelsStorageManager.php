@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels_ipe\PanelsStorageManager.
- */
-
 namespace Drupal\panels\Storage;
 
 use Drupal\Core\Cache\CacheBackendInterface;

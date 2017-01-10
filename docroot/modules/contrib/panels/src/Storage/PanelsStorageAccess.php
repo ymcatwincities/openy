@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Storage\PanelsStorageAccess.
- */
-
 namespace Drupal\panels\Storage;
 
 use Drupal\Core\Routing\RouteMatchInterface;

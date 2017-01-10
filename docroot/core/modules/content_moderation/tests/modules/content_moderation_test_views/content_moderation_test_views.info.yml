@@ -1,0 +1,16 @@
+name: 'Content moderation test views'
+type: module
+description: 'Provides default views for views Content moderation tests.'
+package: Testing
+# version: VERSION
+# core: 8.x
+dependencies:
+  - content_moderation
+  - node
+  - views
+
+# Information added by Drupal.org packaging script on 2016-12-07
+version: '8.2.4'
+core: '8.x'
+project: 'drupal'
+datestamp: 1481136831
