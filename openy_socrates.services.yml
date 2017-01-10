@@ -1,0 +1,4 @@
+services:
+  socrates:
+    class: Drupal\openy_socrates\OpenySocratesFacade
+    arguments: []
