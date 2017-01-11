@@ -2,12 +2,15 @@
 
 namespace Drupal\Core\Plugin\Context;
 
+use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\TypedData\TypedDataTrait;
 
 /**
  * Defines a class for context definitions.
  */
 class ContextDefinition implements ContextDefinitionInterface {
+
+  use DependencySerializationTrait;
 
   use TypedDataTrait;
 
@@ -85,7 +88,7 @@ class ContextDefinition implements ContextDefinitionInterface {
    *
    * @param string $data_type
    *   The required data type.
-   * @param mixed string|null $label
+   * @param string|null $label
    *   The label of this context definition for the UI.
    * @param bool $required
    *   Whether the context definition is required.
@@ -245,7 +248,7 @@ class ContextDefinition implements ContextDefinitionInterface {
       ->setDescription($this->getDescription())
       ->setRequired($this->isRequired());
     $constraints = $definition->getConstraints() + $this->getConstraints();
-      $definition->setConstraints($constraints);
+    $definition->setConstraints($constraints);
     return $definition;
   }
 

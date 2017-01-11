@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Tests\QueuerAddFormTest.
- */
-
 namespace Drupal\purge_ui\Tests;
 
 use Drupal\Core\Url;
@@ -39,7 +34,7 @@ class QueuerAddFormTest extends WebTestBase {
   /**
    * Setup the test.
    */
-  function setUp() {
+  public function setUp() {
     parent::setUp();
     $this->admin_user = $this->drupalCreateUser(['administer site configuration']);
   }
@@ -57,7 +52,7 @@ class QueuerAddFormTest extends WebTestBase {
     $this->initializeQueuersService(['a', 'b', 'c']);
     $this->drupalGet(Url::fromRoute($this->route));
     $this->assertResponse(200);
-    $this->initializeQueuersService(['a', 'b', 'c', 'withform']);
+    $this->initializeQueuersService(['a', 'b', 'c', 'withform', 'purge_ui_block_queuer']);
     $this->drupalGet(Url::fromRoute($this->route));
     $this->assertResponse(404);
     $this->initializeQueuersService(['a', 'b']);

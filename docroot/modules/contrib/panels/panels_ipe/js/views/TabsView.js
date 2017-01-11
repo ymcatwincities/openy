@@ -16,7 +16,7 @@
      */
     template_tab: _.template(
       '<li class="ipe-tab<% if (active) { %> active<% } %>" data-tab-id="<%- id %>">' +
-      '  <a title="<%- title %>">' +
+      '  <a href="javascript:;" title="<%- title %>">' +
       '    <span class="ipe-icon ipe-icon-<% if (loading) { %>loading<% } else { print(id) } %>"></span>' +
       '    <span class="ipe-tab-title"><%- title %></span>' +
       '  </a>' +
@@ -59,6 +59,9 @@
      */
     initialize: function (options) {
       this.tabViews = options.tabViews;
+
+      // Bind our global key down handler to the document.
+      $(document).bind('keydown', $.proxy(this.keydownHandler, this));
     },
 
     /**
@@ -73,7 +76,7 @@
 
       // Setup the initial wrapping elements.
       this.$el.append('<ul class="ipe-tabs"></ul>');
-      this.$el.append('<div class="ipe-tabs-content"></div>');
+      this.$el.append('<div class="ipe-tabs-content" tabindex="-1"></div>');
 
       // Remove any previously added body classes.
       $('body').removeClass('panels-ipe-tabs-open');
@@ -100,6 +103,9 @@
           this.tabViews[id].setElement('[data-tab-content-id="' + id + '"]').render();
         }
       }, this);
+
+      // Focus on the current tab.
+      this.$('.ipe-tab.active a').focus();
 
       return this;
     },
@@ -170,6 +176,32 @@
       }
       else {
         this.render();
+      }
+    },
+
+    /**
+     * Handles keypress events, checking for contextual commands in IPE.
+     *
+     * @param {Object} e
+     *   The event object.
+     */
+    keydownHandler: function (e) {
+      if (e.keyCode === 27) {
+        // Get the currently focused element.
+        var $focused = $(':focus');
+
+        // If a tab is currently open and we are in focus, close the tab.
+        if (this.$el.has($focused).length) {
+          var active_tab = false;
+          this.collection.each(function (tab) {
+            if (tab.get('active')) {
+              active_tab = tab.get('id');
+            }
+          });
+          if (active_tab) {
+            this.switchTab(active_tab);
+          }
+        }
       }
     },
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\PurgerAddForm.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -86,22 +81,22 @@ class PurgerAddForm extends ConfigFormBase {
     $form['plugin_id'] = [
       '#default_value' => count($plugins) ? key($plugins) : NULL,
       '#type' => 'radios',
-      '#options' => $plugins
+      '#options' => $plugins,
     ];
 
     // Update the buttons and bind callbacks.
     $form['actions']['submit'] = [
-      '#access' => (bool)count($plugins),
+      '#access' => (bool) count($plugins),
       '#type' => 'submit',
       '#button_type' => 'primary',
       '#value' => $this->t("Add"),
-      '#ajax' => ['callback' => '::addPurger']
+      '#ajax' => ['callback' => '::addPurger'],
     ];
     $form['actions']['cancel'] = [
       '#type' => 'submit',
       '#value' => $this->t('Cancel'),
       '#weight' => -10,
-      '#ajax' => ['callback' => '::closeDialog']
+      '#ajax' => ['callback' => '::closeDialog'],
     ];
     return $form;
   }

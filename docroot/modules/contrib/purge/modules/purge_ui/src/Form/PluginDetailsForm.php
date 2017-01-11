@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\PluginDetailsForm.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Drupal\Core\Form\FormStateInterface;
@@ -49,7 +44,7 @@ class PluginDetailsForm extends FormBase {
       '#button_type' => 'primary',
       '#value' => $this->t('Close'),
       '#weight' => -10,
-      '#ajax' => ['callback' => '::closeDialog']
+      '#ajax' => ['callback' => '::closeDialog'],
     ];
     return $form;
   }

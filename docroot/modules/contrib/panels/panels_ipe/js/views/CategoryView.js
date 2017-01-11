@@ -41,7 +41,7 @@
       '  <input type="submit" value="' + Drupal.t('Search') + '" />' +
       '</div>' +
       '<div class="ipe-category-picker-top"></div>' +
-      '<div class="ipe-category-picker-bottom">' +
+      '<div class="ipe-category-picker-bottom" tabindex="-1">' +
       '  <div class="ipe-categories"></div>' +
       '</div>'
     ),
@@ -50,7 +50,7 @@
      * @type {function}
      */
     template_category: _.template(
-      '<a class="ipe-category<% if (active) { %> active<% } %>" data-category="<%- name %>">' +
+      '<a href="javascript:;" class="ipe-category<% if (active) { %> active<% } %>" data-category="<%- name %>">' +
       '  <%- name %>' +
       '  <% if (count) { %><div class="ipe-category-count"><%- count %></div><% } %>' +
       '</a>'
@@ -147,10 +147,16 @@
 
         // Add a top-level body class.
         $('body').addClass('panels-ipe-category-picker-top-open');
+
+        // Focus on the active category.
+        this.$('.ipe-category.active').focus();
       }
       else {
         // Remove our top-level body class.
         $('body').removeClass('panels-ipe-category-picker-top-open');
+
+        // Focus on the bottom region.
+        this.$('.ipe-category-picker-bottom').focus();
       }
 
       this.setTopMaxHeight();
@@ -201,6 +207,9 @@
       else {
         this.render();
       }
+
+      // Focus on the first focusable element.
+      this.$('.ipe-category-picker-top :focusable:first').focus();
     },
 
     /**
@@ -208,11 +217,8 @@
      *
      * @param {Object} e
      *   The event object.
-     *
-     * @return {Object}
-     *   An object containing the properties "url" and "model".
      */
-    getFormInfo: function(e) {},
+    getFormInfo: function (e) {},
 
     /**
      * Determines form info from the current click event and displays a form.
@@ -230,22 +236,25 @@
     /**
      * Reacts to the search field changing and displays category items based on
      * our search.
+     *
+     * @param {Object} e
+     *   The event object.
      */
     searchCategories: function (e) {
       // Grab the formatted search from out input field.
       var search = $(e.currentTarget).val().trim().toLowerCase();
 
       // If the search is empty, re-render the view.
-      if (search.length == 0) {
+      if (search.length === 0) {
         this.render();
         this.$('.ipe-category-picker-search input').focus();
         return;
       }
 
       // Filter our collection based on the input.
-      var results = this.collection.filter(function(model) {
+      var results = this.collection.filter(function (model) {
         var attribute = model.get(this.searchAttribute);
-        return attribute.toLowerCase().indexOf(search) != -1;
+        return attribute.toLowerCase().indexOf(search) !== -1;
       }, this);
 
       // Empty ourselves.
@@ -287,7 +296,7 @@
      * @param {function} template
      *   An optional callback function for the form template.
      */
-    loadForm: function(info, template) {
+    loadForm: function (info, template) {
       template = template || this.template_form;
       var self = this;
 
@@ -301,7 +310,7 @@
         // Setup the Drupal.Ajax instance.
         var ajax = Drupal.ajax({
           url: info.url,
-          submit: { js: true }
+          submit: {js: true}
         });
 
         // Remove our throbber on load.
@@ -315,6 +324,9 @@
 
           self.$('.ipe-category-picker-top').hide().fadeIn();
           self.$('.ipe-category-picker-bottom').addClass('top-open');
+
+          // Focus on the first focusable element.
+          self.$('.ipe-category-picker-top :focusable:first').focus();
         };
 
         // Make the Drupal AJAX request.

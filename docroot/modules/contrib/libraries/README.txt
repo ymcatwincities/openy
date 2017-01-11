@@ -1,38 +1,40 @@
 
--- SUMMARY --
+# Libraries API
+
+## General information
 
 Libraries API provides external library handling for Drupal modules.
 
-For a full description visit the project page:
-  http://drupal.org/project/libraries
-Bug reports, feature suggestions and latest developments:
-  http://drupal.org/project/issues/libraries
+Relevant links:
+- [Project page](https://www.drupal.org/project/libraries)
+- [Issue tracker](https://www.drupal.org/project/issues/libraries)
+- [Repository viewer](http://cgit.drupalcode.org/libraries)
+
+### Installation
+
+Install like any module, see the
+[Drupal.org handbook](https://www.drupal.org/documentation/install/modules-themes/modules-8)
+for further information. Note that installing external libraries is separate from
+installing this module and should happen in the top-level `libraries` directory.
+See the online [module documentation](https://www.drupal.org/node/1440066) for more
+information.
 
 
--- REQUIREMENTS --
-
-* None.
-
-
--- INSTALLATION --
-
-* Install as usual, see
-  https://www.drupal.org/documentation/install/modules-themes/modules-8 for
-  further information. Note that installing external libraries is separate from
-  installing this module and should happen in the /libraries directory. See
-  http://drupal.org/node/1440066 for more information.
-
-
--- CONTACT --
+### Maintainers
 
 Current maintainers:
-* Daniel F. Kudwien (sun) - http://drupal.org/user/54136
-* Tobias Stöckler (tstoeckler) - http://drupal.org/user/107158
+- Daniel F. Kudwien ([sun](https://www.drupal.org/u/sun))
+- Tobias Stöckler ([tstoeckler](http://www.drupal.org/u/tstoeckler))
+- Ryan Jacobs ([rjacobs](http://www.drupal.org/u/rjacobs))
+- Pol Dellaiera ([pol](http://www.drupal.org/u/pol))
 
+### Sponsorship
 
 This project has been sponsored by:
-* UNLEASHED MIND
+- **UNLEASHED MIND**
   Specialized in consulting and planning of Drupal powered sites, UNLEASHED
   MIND offers installation, development, theming, customization, and hosting
-  to get you started. Visit http://www.unleashedmind.com for more information.
+  to get you started. Visit
+  [http://www.unleashedmind.com](http://www.unleashedmind.com) for more
+  information.
 

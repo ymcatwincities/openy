@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queuer\QueuerBase.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queuer;
 
 use Drupal\Core\Plugin\PluginBase;

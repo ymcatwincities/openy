@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Tests\Tree\HelpPageTest.
- */
-
 namespace Drupal\token\Tests\Tree;
 
 use Drupal\token\Tests\TokenTestBase;
@@ -42,9 +37,8 @@ class HelpPageTest extends TokenTestBase {
    */
   public function testHelpPageTree() {
     $this->drupalGet('admin/help/token');
-    $this->assertText('List of the currently available tokens on this site');
+    $this->assertText('The list of the currently available tokens on this site are shown below.');
 
-    $this->assertTokenGroup('Array');
     $this->assertTokenGroup('Current date');
     $this->assertTokenGroup('Site information');
 
@@ -63,5 +57,13 @@ class HelpPageTest extends TokenTestBase {
     // Assert some of the restricted tokens to ensure they are shown.
     $this->assertTokenInTree('[user:one-time-login-url]', 'user');
     $this->assertTokenInTree('[user:original:cancel-url]', 'user--original');
+
+    // The Array token is marked as nested, so it should not show up as a top
+    // level token, only nested under another token. For instance, user:roles
+    // is of type Array and tokens of type Array have 'nested' setting true.
+    $this->assertTokenNotGroup('Array');
+    $this->assertTokenNotGroup('user:roles');
+    $this->assertTokenInTree('[user:roles]', 'user');
   }
+
 }

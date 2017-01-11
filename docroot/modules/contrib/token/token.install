@@ -18,11 +18,15 @@ function token_requirements($phase = 'runtime') {
     foreach ($token_problems as $problem_key => $problem) {
       if (!empty($problem['problems'])) {
         $problems = array_unique($problem['problems']);
-        $problems = array_map('\Drupal\Component\Utility\SafeMarkup::checkPlain', $problems);
+
+        $build = [
+          '#theme' => 'item_list',
+          '#items' => $problems,
+        ];
+
         $requirements['token-' . $problem_key] = array(
           'title' => $problem['label'],
-          // @todo Use render arrays. See https://drupal.org/node/2195739
-          'value' => \Drupal::theme()->render('item_list', array('items' => $problems)),
+          'value' => \Drupal::service('renderer')->renderPlain($build),
           'severity' => $problem['severity'],
         );
       }
@@ -37,14 +41,14 @@ function token_requirements($phase = 'runtime') {
  */
 function token_install() {
   // Create a token view mode for each entity type.
-  $info = \Drupal::entityManager()->getDefinitions();
+  $info = \Drupal::entityTypeManager()->getDefinitions();
   foreach ($info as $entity_type => $entity_type_info) {
     // We're only interested in entity types with a view builder.
     if (!$entity_type_info->getViewBuilderClass()) {
       continue;
     }
     // Try to find a token view mode for that entity type.
-    $storage = \Drupal::entityManager()->getStorage('entity_view_mode');
+    $storage = \Drupal::entityTypeManager()->getStorage('entity_view_mode');
     // Add a token view mode if it does not already exist.
     if (!$storage->load("$entity_type.token")) {
       $storage->create(array(
@@ -279,7 +283,7 @@ function token_get_token_problems() {
       $token_problems['duplicate']['problems'][] = "\$info['types']['$type']";
     }
     elseif (empty($token_info['tokens'][$real_type])) {
-      $token_problems['type-no-tokens']['problems'][] = "\$info['tokens']['$real_type']";
+      $token_problems['type-no-tokens']['problems'][] = "\$info['types']['$real_type']";
     }
   }
 

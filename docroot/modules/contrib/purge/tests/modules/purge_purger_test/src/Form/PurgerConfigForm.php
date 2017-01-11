@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_test\Form\PurgerConfigForm.
- */
-
 namespace Drupal\purge_purger_test\Form;
 
 use Drupal\Core\Form\FormStateInterface;

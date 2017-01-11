@@ -4,7 +4,7 @@ sitemap.settings:
     _form: '\Drupal\sitemap\Form\SitemapSettingsForm'
     _title: 'Sitemap'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer sitemap'
 
 sitemap.page:
   path: '/sitemap'

@@ -1,0 +1,19 @@
+<html>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      {% if css %}
+      <style type="text/css">
+          <!--
+          {{ css }}
+         -->
+      </style>
+      {% endif %}
+  </head>
+  <body id="mimemail-body" {% if ( module | length > 0 ) and ( key | length > 0 ) %}  {% set class = 'class="' ~ module ~ '-' ~ key ~ '"' %} {% endif %} >
+    <div id="center">
+      <div id="main">
+        {{ body }}
+      </div>
+    </div>
+  </body>
+</html>
