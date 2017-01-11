@@ -2,7 +2,8 @@ name: YGH Content
 type: module
 description: Implements static migrations to add YMCA Houston content.
 core: 8.x
-package: OpenY
+package: YGH
 version: 8.x-1.0
 dependencies:
   - openy_migrate
+  - migrate_source_csv
