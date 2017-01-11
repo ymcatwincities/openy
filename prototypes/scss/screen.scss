@@ -5,6 +5,7 @@
 @import "./base/mixins-sprite";
 @import "./base/fonts";
 @import "./base/decor";
+@import "./base/utilities";
 
 @import "./structs/front";
 @import "./structs/header";
@@ -17,21 +18,3 @@
 @import "./blocks/paragraph-header";
 
 @import "./modules/gallery";
-
-/// @todo Below is a list of temporary elements to be removed after the theming header
-
-.toolbar-horizontal {
-  .navbar-fixed-top {
-    top: 79px;
-  }
-
-  header {
-    padding-bottom: 40px;
-  }
-}
-
-.toolbar-vertical {
-  .navbar-fixed-top {
-    position: static;
-  }
-}

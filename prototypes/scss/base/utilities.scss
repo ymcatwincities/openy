@@ -1,0 +1,24 @@
+.clearfix {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+.pull-right-lg {
+  @include breakpoint(laptop) {
+    float: right !important;
+  }
+}
+
+.ajax-progress-throbber {
+  position: absolute;
+  opacity: 0.2;
+}
