@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_http\Tests\HttpPurgerFormTestBase.
- */
-
 namespace Drupal\purge_purger_http\Tests;
 
 use Drupal\purge_ui\Tests\PurgerConfigFormTestBase;
@@ -41,6 +36,7 @@ abstract class HttpPurgerFormTestBase extends PurgerConfigFormTestBase {
       'edit-show-body-form' => '1',
       'edit-body-content-type' => 'text/plain',
       'edit-body' => '',
+      'edit-runtime-measurement' => '1',
       'edit-timeout' => 1.0,
       'edit-connect-timeout' => 1.0,
       'edit-cooldown-time' => 0.0,
@@ -71,32 +67,38 @@ abstract class HttpPurgerFormTestBase extends PurgerConfigFormTestBase {
     // Assert that valid timeout values don't cause validation errors.
     $form_state = $this->getFormStateInstance();
     $form_state->addBuildInfo('args', [$this->formArgs]);
-    $form_state->setValues([
+    $form_state->setValues(
+      [
         'connect_timeout' => 0.3,
         'timeout' => 0.1,
         'name' => 'foobar',
-      ]);
+      ]
+    );
     $form = $this->getFormInstance();
     $this->formBuilder->submitForm($form, $form_state);
     $this->assertEqual(0, count($form_state->getErrors()));
     $form_state = $this->getFormStateInstance();
     $form_state->addBuildInfo('args', [$this->formArgs]);
-    $form_state->setValues([
+    $form_state->setValues(
+      [
         'connect_timeout' => 2.3,
         'timeout' => 7.7,
         'name' => 'foobar',
-      ]);
+      ]
+    );
     $form = $this->getFormInstance();
     $this->formBuilder->submitForm($form, $form_state);
     $this->assertEqual(0, count($form_state->getErrors()));
     // Submit timeout values that are too low and confirm the validation error.
     $form_state = $this->getFormStateInstance();
     $form_state->addBuildInfo('args', [$this->formArgs]);
-    $form_state->setValues([
+    $form_state->setValues(
+      [
         'connect_timeout' => 0.0,
         'timeout' => 0.0,
         'name' => 'foobar',
-      ]);
+      ]
+    );
     $form = $this->getFormInstance();
     $this->formBuilder->submitForm($form, $form_state);
     $errors = $form_state->getErrors();
@@ -106,11 +108,13 @@ abstract class HttpPurgerFormTestBase extends PurgerConfigFormTestBase {
     // Submit timeout values that are too high and confirm the validation error.
     $form_state = $this->getFormStateInstance();
     $form_state->addBuildInfo('args', [$this->formArgs]);
-    $form_state->setValues([
+    $form_state->setValues(
+      [
         'connect_timeout' => 2.4,
         'timeout' => 7.7,
         'name' => 'foobar',
-      ]);
+      ]
+    );
     $form = $this->getFormInstance();
     $this->formBuilder->submitForm($form, $form_state);
     $errors = $form_state->getErrors();
@@ -138,6 +142,7 @@ abstract class HttpPurgerFormTestBase extends PurgerConfigFormTestBase {
       'body_content_type' => 'foo/bar',
       'body' => 'baz',
       'timeout' => 6,
+      'runtime_measurement' => 1,
       'connect_timeout' => 0.5,
       'cooldown_time' => 0.8,
       'max_requests' => 25,

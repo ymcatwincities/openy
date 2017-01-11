@@ -9,6 +9,7 @@ use Drupal\system\Entity\Menu;
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Link;
 
 /**
  * Implements hook_theme().
@@ -41,11 +42,6 @@ function sitemap_theme() {
       'function' => 'theme_sitemap_menu_tree',
       'file' => 'sitemap.theme.inc',
     ),
-    'sitemap_order' => array(
-      'render element' => 'element',
-      'function' => 'theme_sitemap_order',
-      'file' => 'sitemap.theme.inc',
-    ),
   );
 }
 
@@ -59,7 +55,7 @@ function _sitemap_front_page() {
   $config = \Drupal::config('sitemap.settings');
 
   $title = t('Front page');
-  $content = \Drupal::l(t('Front page of %sn', array('%sn' => \Drupal::config('system.site')->get('name'))), Url::fromRoute('<front>', [], array('html' => TRUE)));
+  $content = Link::fromTextAndUrl(t('Front page of %sn', array('%sn' => \Drupal::config('system.site')->get('name'))), Url::fromRoute('<front>', [], array('html' => TRUE)))->toString();
   $attributes = new Attribute();
   $options = array();
 
@@ -69,7 +65,7 @@ function _sitemap_front_page() {
       '#url' => $config->get('rss_front'),
       '#name' => 'front page',
     );
-    $rss_link = drupal_render($feed_icon);
+    $rss_link = \Drupal::service('renderer')->render($feed_icon);
 
     if ($config->get('show_rss_links') == 1) {
       $content .= ' ' . $rss_link;
@@ -119,10 +115,10 @@ function _sitemap_books() {
           // @see https://www.drupal.org/node/2615642
           $tree = \Drupal::service('book.manager')->bookTreeAllData($book['bid']);
           $tree_output = \Drupal::service('book.manager')->bookTreeOutput($tree);
-          $content .= drupal_render($tree_output);
+          $content .= \Drupal::service('renderer')->render($tree_output);
         }
         else {
-          $book_titles[] = \Drupal::l($book['title'], Url::fromRoute('entity.node.canonical', array('node' => $book['bid'])));
+          $book_titles[] = Link::fromTextAndUrl($book['title'], Url::fromRoute('entity.node.canonical', array('node' => $book['bid'])))->toString();
         }
       }
     }
@@ -133,7 +129,7 @@ function _sitemap_books() {
         '#theme' => 'item_list',
         '#items' => $book_titles,
       );
-      $content .= drupal_render($book_titles);
+      $content .= \Drupal::service('renderer')->render($book_titles);
     }
 
     if (!empty($content)) {
@@ -179,7 +175,7 @@ function _sitemap_menus($mid) {
     \Drupal::moduleHandler()->alter(array('sitemap_menu_tree', 'sitemap_menu_tree_' . $alter_mid), $tree, $menu);
 
     $menu_display = \Drupal::service('menu.link_tree')->buildForSitemap($tree);
-    $menu_html = drupal_render($menu_display);
+    $menu_html = \Drupal::service('renderer')->render($menu_display);
     if (!empty($menu_html)) {
       $title = $menu->label();
 

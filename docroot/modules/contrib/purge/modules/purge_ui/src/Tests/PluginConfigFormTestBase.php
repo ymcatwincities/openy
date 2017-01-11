@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Tests\PluginConfigFormTestBase.
- */
-
 namespace Drupal\purge_ui\Tests;
 
 use Drupal\Core\Form\FormState;

@@ -1,0 +1,9 @@
+services:
+  contact_storage.settings_form_save:
+    class: \Drupal\contact_storage\EventSubscriber\ContactStorageSettingsFormSave
+    tags:
+      - { name: event_subscriber }
+  contact_storage.route_subscriber:
+    class: Drupal\contact_storage\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

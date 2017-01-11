@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Plugin\DisplayBuilder\DisplayBuilderInterface.
- */
-
 namespace Drupal\panels\Plugin\DisplayBuilder;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;

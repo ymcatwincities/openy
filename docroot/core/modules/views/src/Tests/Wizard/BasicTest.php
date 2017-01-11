@@ -26,7 +26,7 @@ class BasicTest extends WizardTestBase {
 
     // Check if we can access the main views admin page.
     $this->drupalGet('admin/structure/views');
-    $this->assertText(t('Add new view'));
+    $this->assertText(t('Add view'));
 
     // Create a simple and not at all useful view.
     $view1 = array();
@@ -168,26 +168,6 @@ class BasicTest extends WizardTestBase {
     $this->assertEqual(count($data), 1, 'Only the node of type page is exported.');
     $node = reset($data);
     $this->assertEqual($node['nid'][0]['value'], $node1->id(), 'The node of type page is exported.');
-  }
-
-  /**
-   * Tests the actual wizard form.
-   *
-   * @see \Drupal\views_ui\ViewAddForm::form()
-   */
-  public function testWizardForm() {
-    $this->drupalGet('admin/structure/views/add');
-
-    $result = $this->xpath('//small[@id = "edit-label-machine-name-suffix"]');
-    $this->assertTrue(count($result), 'Ensure that the machine name is applied to the name field.');
-
-    $this->drupalPostAjaxForm(NULL, array('show[wizard_key]' => 'users'), 'show[wizard_key]');
-    $this->assertNoFieldByName('show[type]', NULL, 'The "of type" filter is not added for users.');
-    $this->drupalPostAjaxForm(NULL, array('show[wizard_key]' => 'node'), 'show[wizard_key]');
-    $this->assertNoFieldByName('show[type]', 'all', 'The "of type" filter is not added for nodes when there are no node types.');
-    $this->drupalCreateContentType(array('type' => 'page'));
-    $this->drupalPostAjaxForm(NULL, array('show[wizard_key]' => 'node'), 'show[wizard_key]');
-    $this->assertFieldByName('show[type]', 'all', 'The "of type" filter is added for nodes when there is at least one node type.');
   }
 
   /**

@@ -6,8 +6,8 @@
  */
 
 use Drupal\Core\Template\Attribute;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Preprocesses variables for sitemap-feed-icon.html.twig.
@@ -29,18 +29,18 @@ function template_preprocess_sitemap_feed_icon(array &$variables) {
         '#title' => t('Syndicated feed icon'),
         '#alt' => t('Syndicated feed icon'),
       );
-      $output = drupal_render($image);
+      $output = \Drupal::service('renderer')->render($image);
       break;
   }
 
   if (!empty($variables['url'])) {
-    $output = \Drupal::l($output, Url::fromUri('base://' . $variables['url'], array(
+    $output = Link::fromTextAndUrl($output, Url::fromUri('base://' . $variables['url'], array(
       'attributes' => array(
         'class' => 'feed-link',
         'title' => t('Syndicated feed for @feed_name', array('@feed_name' => $variables['name'])),
       ),
       'html' => TRUE,
-    )));
+    )))->toString();
   }
 
   $variables['icon'] = $output;
@@ -100,7 +100,7 @@ function theme_sitemap_menu_link(array $variables) {
   $sub_menu = '';
 
   if ($element['#below']) {
-    $sub_menu = drupal_render($element['#below']);
+    $sub_menu = \Drupal::service('renderer')->render($element['#below']);
   }
   /** @var \Drupal\Core\Url $url */
   $url = $element['#url'];
@@ -178,52 +178,4 @@ function template_preprocess_sitemap(array &$variables) {
   foreach ($additional as $themed_sitemap_code) {
     $variables['additional'] = $themed_sitemap_code;
   }
-}
-
-/**
- * Returns HTML for the sitemap order form.
- *
- * Copied from the core theme_filter_admin_format_filter_order() function.
- *
- * @param array $variables
- *   An associative array containing:
- *   - element: A render element representing the form.
- *
- * @ingroup themeable
- *
- * @return string
- *   Returns html string.
- */
-function theme_sitemap_order(array $variables) {
-  $element = $variables['element'];
-
-  // Sitemap order (tabledrag).
-  $rows = array();
-  foreach (Element::children($element, TRUE) as $name) {
-    $element[$name]['weight']['#attributes']['class'][] = 'sitemap-order-weight';
-    $rows[] = array(
-      'data' => array(
-        drupal_render($element[$name]['content']),
-        drupal_render($element[$name]['weight']),
-      ),
-      'class' => array('draggable'),
-    );
-  }
-  $output = drupal_render_children($element);
-  $table = array(
-    '#type' => 'table',
-    '#rows' => $rows,
-    '#attributes' => array('id' => 'sitemap-order'),
-    '#tabledrag' => array(
-      array(
-        'action' => 'order',
-        'relationship' => 'sibling',
-        'group' => 'sitemap-order-weight',
-        'hidden' => TRUE,
-      ),
-    ),
-  );
-  $output .= drupal_render($table);
-
-  return $output;
 }

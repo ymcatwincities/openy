@@ -1,20 +1,18 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Purger\PurgerBase.
- */
-
 namespace Drupal\purge\Plugin\Purge\Purger;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\PluginBase;
+use Drupal\purge\Logger\PurgeLoggerAwareTrait;
 use Drupal\purge\Plugin\Purge\Purger\PurgerInterface;
+use Drupal\purge\Plugin\Purge\Purger\RuntimeMeasurementInterface;
 
 /**
  * Provides a base class for all purgers - the cache invalidation executors.
  */
 abstract class PurgerBase extends PluginBase implements PurgerInterface {
+  use PurgeLoggerAwareTrait;
 
   /**
    * Unique instance ID for this purger.
@@ -22,6 +20,13 @@ abstract class PurgerBase extends PluginBase implements PurgerInterface {
    * @var string
    */
   protected $id;
+
+  /**
+   * The runtime measurement counter.
+   *
+   * @var null|\Drupal\purge\Plugin\Purge\Purger\RuntimeMeasurementInterface
+   */
+  protected $runtimeMeasurement = NULL;
 
   /**
    * Constructs a \Drupal\Component\Plugin\PluginBase derivative.
@@ -107,6 +112,33 @@ abstract class PurgerBase extends PluginBase implements PurgerInterface {
   /**
    * {@inheritdoc}
    */
+  public function getRuntimeMeasurement() {
+    return $this->runtimeMeasurement;
+  }
+
+  /**
+  * {@inheritdoc}
+  */
+  public function getTimeHint() {
+    if (!$this->hasRuntimeMeasurement()) {
+      throw new \LogicException('Since ::hasRuntimeMeasurement() returns FALSE, ::getTimeHint() needs to be implemented! Please read the PurgerCapacityDataInterface::hasRuntimeMeasurement() documentation.');
+    }
+
+    // Return the measured number of seconds, if stored of course.
+    if (!is_null($this->runtimeMeasurement)) {
+      if (($measured_time = $this->runtimeMeasurement->get()) > 0.0) {
+        return $measured_time;
+      }
+    }
+
+    // A single invalidation lasting 4.0 seconds is quite terrible, but a safe
+    // default to use as hint when no measurement was stored yet.
+    return 4.0;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getTypes() {
     return $this->getPluginDefinition()['types'];
   }
@@ -116,6 +148,13 @@ abstract class PurgerBase extends PluginBase implements PurgerInterface {
    */
   public function routeTypeToMethod($type) {
     return 'invalidate';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setRuntimeMeasurement(RuntimeMeasurementInterface $measurement) {
+    $this->runtimeMeasurement = $measurement;
   }
 
 }

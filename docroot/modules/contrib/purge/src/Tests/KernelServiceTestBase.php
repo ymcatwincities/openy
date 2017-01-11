@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\KernelServiceTestBase.
- */
-
 namespace Drupal\purge\Tests;
 
 use Drupal\purge\Tests\KernelTestBase;

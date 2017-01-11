@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Invalidation\InvalidationBase.
- */
-
 namespace Drupal\purge\Plugin\Purge\Invalidation;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -64,8 +59,36 @@ abstract class InvalidationBase extends ImmutableInvalidationBase implements Inv
   /**
    * {@inheritdoc}
    */
+  public function deleteProperty($key) {
+    if (is_null($this->context)) {
+      throw new \LogicException('Call ::setStateContext() before deleting properties!');
+    }
+    if (isset($this->properties[$this->context][$key])) {
+      unset($this->properties[$this->context][$key]);
+      if (empty($this->properties[$this->context])) {
+        unset($this->properties[$this->context]);
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getId() {
     return $this->id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setProperty($key, $value) {
+    if (is_null($this->context)) {
+      throw new \LogicException('Call ::setStateContext() before deleting properties!');
+    }
+    if (!isset($this->properties[$this->context])) {
+      $this->properties[$this->context] = [];
+    }
+    $this->properties[$this->context][$key] = $value;
   }
 
   /**

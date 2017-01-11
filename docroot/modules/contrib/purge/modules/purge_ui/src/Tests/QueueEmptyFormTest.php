@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Tests\QueueEmptyFormTest.
- */
-
 namespace Drupal\purge_ui\Tests;
 
 use Drupal\Core\Url;
@@ -46,7 +41,7 @@ class QueueEmptyFormTest extends WebTestBase {
   /**
    * Setup the test.
    */
-  function setUp() {
+  public function setUp() {
     parent::setUp();
     $this->initializeQueuersService();
     $this->queuer = $this->purgeQueuers->get('a');

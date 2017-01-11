@@ -205,4 +205,18 @@ abstract class BlockDisplayVariant extends VariantBase implements ContextAwareVa
     return $this->uuidGenerator;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function __sleep() {
+    $vars = parent::__sleep();
+
+    // Gathered contexts objects should not be serialized.
+    if (($key = array_search('contexts', $vars)) !== FALSE) {
+      unset($vars[$key]);
+    }
+
+    return $vars;
+  }
+
 }

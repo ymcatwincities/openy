@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\token\Kernel\UnitTest.
- */
 namespace Drupal\Tests\token\Kernel;
 
 /**
@@ -109,5 +105,15 @@ class UnitTest extends KernelTestBase {
       sort($test['invalid tokens']);
       $this->assertEqual($invalid_tokens, $test['invalid tokens'], 'Invalid tokens detected properly: ' . implode(', ', $invalid_tokens));
     }
+  }
+
+  /**
+   * Test that tokens are generated only for content entities.
+   */
+  public function testContentEntityOnlyTokens() {
+    // Verify that type and token info for a config entity is not generated.
+    $this->assertNull($this->tokenService->getTokenInfo('user_role', 'original'));
+    $this->assertNull($this->tokenService->getTokenInfo('user_role', 'url'));
+    $this->assertNull($this->tokenService->getTypeInfo('user_role'));
   }
 }

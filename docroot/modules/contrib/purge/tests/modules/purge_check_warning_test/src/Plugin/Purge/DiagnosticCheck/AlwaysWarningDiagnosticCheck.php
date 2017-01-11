@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_check_warning_test\Plugin\Purge\DiagnosticCheck\AlwaysWarningDiagnosticCheck.
- */
-
 namespace Drupal\purge_check_warning_test\Plugin\Purge\DiagnosticCheck;
 
 use Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticCheckInterface;
@@ -30,4 +25,5 @@ class AlwaysWarningDiagnosticCheck extends DiagnosticCheckBase implements Diagno
     $this->recommendation = $this->t("This is a warning for testing.");
     return SELF::SEVERITY_WARNING;
   }
+
 }

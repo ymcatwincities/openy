@@ -8,7 +8,6 @@ use Drupal\Component\Serialization\Json;
 use Drupal\Component\Utility\DiffArray;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\Core\Utility\Token;
 
 /**
  * Theme a link to a token tree shown as a dialog.
@@ -28,6 +27,7 @@ function template_preprocess_token_tree_link(&$variables) {
     'global_types' => TRUE,
     'click_insert' => TRUE,
     'show_restricted' => FALSE,
+    'show_nested' => FALSE,
     'recursion_limit' => 3,
   ];
   $query_options = array_intersect_key($variables, $tree_variables);

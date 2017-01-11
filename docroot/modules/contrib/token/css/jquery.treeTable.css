@@ -1,44 +1,28 @@
+table.treetable span.indenter {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  text-align: right;
 
-/* jQuery TreeTable Core 2.0 stylesheet
- *
- * This file contains styles that are used to display the tree table. Each tree
- * table is assigned the +treeTable+ class.
- * ========================================================================= */
+  /* Disable text selection of nodes (for better D&D UX) */
+  user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -webkit-user-select: none;
 
-/* jquery.treeTable.collapsible
- * ------------------------------------------------------------------------- */
-.treeTable tr td .expander {
+  /* Force content-box box model for indenter (Bootstrap compatibility) */
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+
+  width: 19px;
+}
+
+table.treetable span.indenter a {
   background-position: left center;
   background-repeat: no-repeat;
-  cursor: pointer;
-  padding: 0;
-  zoom: 1; /* IE7 Hack */
-}
-
-.treeTable tr.collapsed td .expander {
-  background-image: url(../arrow-right.png);
-}
-
-.treeTable tr.expanded td .expander {
-  background-image: url(../arrow-down.png);
-}
-
-/* jquery.treeTable.sortable
- * ------------------------------------------------------------------------- */
-.treeTable tr.selected, .treeTable tr.accept {
-  background-color: #3875d7;
-  color: #fff;
-}
-
-.treeTable tr.collapsed.selected td .expander, .treeTable tr.collapsed.accept td .expander {
-  background-image: url(../images/toggle-expand-light.png);
-}
-
-.treeTable tr.expanded.selected td .expander, .treeTable tr.expanded.accept td .expander {
-  background-image: url(../images/toggle-collapse-light.png);
-}
-
-.treeTable .ui-draggable-dragging {
-  color: #000;
-  z-index: 1;
+  display: inline-block;
+  text-decoration: none;
+  width: 19px;
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\libraries\StreamWrapper\LocalHiddenStreamTrait.
- */
-
 namespace Drupal\libraries\StreamWrapper;
 
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
