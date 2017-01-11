@@ -4,7 +4,12 @@ defaults[projects][subdir] = contrib
 
 projects[blazy] = 1.0-beta6
 projects[crop] = 1.0
+
 projects[dropzonejs] = 1.0-alpha3
+libraries[dropzone][download][type] = get
+libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/master.zip
+libraries[dropzone][destination] = libraries
+
 projects[embed] = 1.0-rc3
 projects[entity] = 1.0-alpha4
 projects[entity_browser] = 1.0-beta2
