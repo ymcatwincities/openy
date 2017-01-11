@@ -13,6 +13,13 @@ namespace Drupal\openy_socrates;
  */
 class OpenySocratesFacade {
 
+  /**
+   * Magic method call
+   * @param $name
+   * @param $arguments
+   * @return string
+   * @throws \Drupal\openy_socrates\OpenySocratesException
+   */
   public function __call($name, $arguments) {
     switch ($name) {
       case 'getLocationLongtitude':
