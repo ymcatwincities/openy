@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_purger_http\Plugin\Purge\DiagnosticCheck\ConfigurationCheck.
- */
-
 namespace Drupal\purge_purger_http\Plugin\Purge\DiagnosticCheck;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -27,6 +22,8 @@ use Drupal\purge_purger_http\Entity\HttpPurgerSettings;
 class ConfigurationCheck extends DiagnosticCheckBase implements DiagnosticCheckInterface {
 
   /**
+   * The purgers service.
+   *
    * @var \Drupal\purge\Plugin\Purge\Purger\PurgersServiceInterface
    */
   protected $purgePurgers;
@@ -45,7 +42,6 @@ class ConfigurationCheck extends DiagnosticCheckBase implements DiagnosticCheckI
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, PurgersServiceInterface $purge_purgers) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    // $this->configFactory = $config_factory;
     $this->purgePurgers = $purge_purgers;
   }
 
@@ -78,7 +74,7 @@ class ConfigurationCheck extends DiagnosticCheckBase implements DiagnosticCheckI
     $labels  = $this->purgePurgers->getLabels();
     foreach ($plugins as $id => $settings) {
       $t = ['@purger' => $labels[$id]];
-       foreach (['name', 'hostname', 'port', 'request_method', 'scheme'] as $f) {
+      foreach (['name', 'hostname', 'port', 'request_method', 'scheme'] as $f) {
         if (empty($settings->$f)) {
           $this->recommendation = $this->t("@purger not configured.", $t);
           return SELF::SEVERITY_ERROR;

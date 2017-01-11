@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\QueuerConfigFormBase.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Drupal\purge_ui\Form\PluginConfigFormBase;

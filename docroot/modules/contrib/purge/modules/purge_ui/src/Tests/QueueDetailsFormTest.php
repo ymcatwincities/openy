@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Tests\QueueDetailsFormTest.
- */
-
 namespace Drupal\purge_ui\Tests;
 
 use Drupal\Core\Url;
@@ -42,7 +37,7 @@ class QueueDetailsFormTest extends WebTestBase {
   /**
    * Setup the test.
    */
-  function setUp() {
+  public function setUp() {
     parent::setUp();
     $this->admin_user = $this->drupalCreateUser(['administer site configuration']);
   }
@@ -51,7 +46,6 @@ class QueueDetailsFormTest extends WebTestBase {
    * Tests permissions, the form controller and general form returning.
    */
   public function testAccess() {
-    $this->initializeQueueService('a');
     $this->drupalGet(Url::fromRoute($this->route, []));
     $this->assertResponse(403);
     $this->drupalLogin($this->admin_user);
@@ -66,11 +60,10 @@ class QueueDetailsFormTest extends WebTestBase {
    * @see \Drupal\purge_ui\Form\CloseDialogTrait::closeDialog
    */
   public function testDetailForm() {
-    $this->initializeQueueService('a');
     $this->drupalLogin($this->admin_user);
     $this->drupalGet(Url::fromRoute($this->route, []));
-    $this->assertRaw('Memqueue A');
-    $this->assertRaw('A volatile and non-persistent memory queue');
+    $this->assertRaw('Memory');
+    $this->assertRaw('A non-persistent, per-request memory queue (not useful on production systems).');
     $this->assertRaw(t('Close'));
     $json = $this->drupalPostAjaxForm(Url::fromRoute($this->route, [])->toString(), [], ['op' => t('Close')]);
     $this->assertEqual('closeDialog', $json[1]['command']);

@@ -6,7 +6,9 @@
  * Core functionality for the Panels engine.
  */
 
-use \Drupal\page_manager\PageVariantInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\page_manager\PageVariantInterface;
+use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 
 define('PANELS_REQUIRED_CTOOLS_API', '2.0-alpha');
 
@@ -68,6 +70,31 @@ function panels_page_variant_presave(PageVariantInterface $page_variant) {
     // configuration from $panels_display to $page_variant again manually for
     // it to be saved.
     $page_variant->set('variant_settings', $panels_display->getConfiguration());
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function panels_form_page_manager_add_variant_form_alter(array &$form, FormStateInterface $form_state) {
+  $pos = array_search('::submitForm', $form['actions']['submit']['#submit']);
+  $handlers_top = array_slice($form['actions']['submit']['#submit'], 0, $pos);
+  $handlers_bottom = array_slice($form['actions']['submit']['#submit'], $pos);
+  $panels_handler = ['panels_form_page_manager_add_variant_form_submit'];
+  $handlers = array_merge($handlers_top, $panels_handler, $handlers_bottom);
+  $form['actions']['submit']['#submit'] = $handlers;
+}
+
+/**
+ * Form submit handler to set page_manager storage for panels display variants.
+ */
+function panels_form_page_manager_add_variant_form_submit(array &$form, FormStateInterface $form_state) {
+  $cached_values = $form_state->getTemporaryValue('wizard');
+  /** @var $page_variant \Drupal\page_manager\Entity\PageVariant */
+  $page_variant = $cached_values['page_variant'];
+  $plugin = $page_variant->getVariantPlugin();
+  if ($plugin instanceof PanelsDisplayVariant) {
+    $plugin->setStorage('page_manager', $page_variant->id());
   }
 }
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\TokenInterface
- */
-
 namespace Drupal\token;
 
 interface TokenInterface {

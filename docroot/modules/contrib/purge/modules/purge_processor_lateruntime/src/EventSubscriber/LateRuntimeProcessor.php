@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\purge_processor_lateruntime\EventSubscriber\LateRuntimeProcessor.
- */
 
 namespace Drupal\purge_processor_lateruntime\EventSubscriber;
 

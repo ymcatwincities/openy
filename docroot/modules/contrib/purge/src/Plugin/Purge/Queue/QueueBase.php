@@ -1,34 +1,17 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queue\QueueBase.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queue;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\purge\Plugin\Purge\Queue\QueueInterface;
+use Drupal\purge\Plugin\Purge\Queue\QueueBasePageTrait;
 
 /**
  * Provides a ReliableQueueInterface compliant queue that holds queue items.
  */
 abstract class QueueBase extends PluginBase implements QueueInterface {
-
-  /**
-   * The configured limit of items on selected data pages.
-   *
-   * @var int
-   */
-  protected $selectPageLimit = 15;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getPluginName() {
-    return basename(str_replace('\\', '/', get_class($this)));
-  }
+  use QueueBasePageTrait;
 
   /**
    * {@inheritdoc}
@@ -105,24 +88,6 @@ abstract class QueueBase extends PluginBase implements QueueInterface {
       }
     }
     return $failures;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function selectPageLimit($set_limit_to = NULL) {
-    if (is_int($set_limit_to)) {
-      $this->selectPageLimit = $set_limit_to;
-    }
-    return $this->selectPageLimit;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function selectPageMax() {
-    $max = ( (int)$this->numberOfItems() ) / $this->selectPageLimit();
-    return intval(ceil($max));
   }
 
 }

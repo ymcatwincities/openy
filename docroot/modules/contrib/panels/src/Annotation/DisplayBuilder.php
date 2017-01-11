@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Annotation\DisplayBuilder.
- */
-
 namespace Drupal\panels\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
