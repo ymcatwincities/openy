@@ -12,6 +12,7 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
+    - telephone
     - user
 id: node.camp.default
 targetEntityType: node
@@ -20,7 +21,7 @@ mode: default
 content:
   field_camp_body:
     type: entity_reference_revisions_entity_view
-    weight: 2
+    weight: 5
     label: hidden
     settings:
       view_mode: default
@@ -35,31 +36,33 @@ content:
       link: ''
     third_party_settings: {  }
   field_ct_address:
-    weight: 3
-    label: above
+    weight: 1
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_ct_email:
-    weight: 4
-    label: above
+    weight: 2
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
   field_ct_fax:
-    weight: 5
-    label: above
-    settings: {  }
+    weight: 3
+    label: hidden
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
+    type: telephone_link
   field_ct_phone:
-    weight: 6
-    label: above
-    settings: {  }
+    weight: 4
+    label: hidden
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
+    type: telephone_link
   links:
-    weight: 1
+    weight: 6
     settings: {  }
     third_party_settings: {  }
 hidden:

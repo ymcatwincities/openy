@@ -37,26 +37,26 @@ content:
     third_party_settings: {  }
   field_ct_address:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_ct_email:
     weight: 2
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
   field_ct_fax:
     weight: 4
-    label: above
+    label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
   field_ct_phone:
     weight: 3
-    label: above
+    label: hidden
     settings:
       title: ''
     third_party_settings: {  }
