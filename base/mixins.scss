@@ -126,3 +126,15 @@
 @function lh($lh, $fontSizeDefault: $fontSizeRoot) {
   @return $lh / $fontSizeDefault;
 }
+
+@mixin cachet() {
+  font-family: "CachetBook", Verdana, sans-serif;
+}
+
+@mixin cachet-medium() {
+  font-family: "CachetMedium", Verdana, sans-serif;
+}
+
+@mixin cachet-bold() {
+  font-family: "CachetBold", Verdana, sans-serif;
+}
