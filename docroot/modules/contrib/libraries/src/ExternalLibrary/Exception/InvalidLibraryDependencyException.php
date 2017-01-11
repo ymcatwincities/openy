@@ -1,17 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\libraries\ExternalLibrary\Exception\InvalidLibraryDependencyException.
- */
-
 namespace Drupal\libraries\ExternalLibrary\Exception;
-use Drupal\libraries\ExternalLibrary\DependencyAccessorTrait;
-use Drupal\libraries\ExternalLibrary\ExternalLibraryInterface;
-use Drupal\libraries\ExternalLibrary\LibraryAccessorTrait;
+
+use Drupal\libraries\ExternalLibrary\Utility\DependencyAccessorTrait;
+use Drupal\libraries\ExternalLibrary\LibraryInterface;
+use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorTrait;
 
 /**
- *
+ * Provides an exception for an invalid library exception.
  */
 class InvalidLibraryDependencyException extends \UnexpectedValueException {
 
@@ -21,9 +17,9 @@ class InvalidLibraryDependencyException extends \UnexpectedValueException {
   /**
    * Constructs a library exception.
    *
-   * @param \Drupal\libraries\ExternalLibrary\ExternalLibraryInterface $library
+   * @param \Drupal\libraries\ExternalLibrary\LibraryInterface $library
    *   The library with the invalid dependency.
-   * @param \Drupal\libraries\ExternalLibrary\ExternalLibraryInterface $dependency
+   * @param \Drupal\libraries\ExternalLibrary\LibraryInterface $dependency
    *   The dependency.
    * @param string $message
    *   (optional) The exception message.
@@ -33,8 +29,8 @@ class InvalidLibraryDependencyException extends \UnexpectedValueException {
    *   (optional) The previous exception.
    */
   public function __construct(
-    ExternalLibraryInterface $library,
-    ExternalLibraryInterface $dependency,
+    LibraryInterface $library,
+    LibraryInterface $dependency,
     $message = '',
     $code = 0,
     \Exception $previous = NULL
@@ -46,4 +42,3 @@ class InvalidLibraryDependencyException extends \UnexpectedValueException {
   }
 
 }
-

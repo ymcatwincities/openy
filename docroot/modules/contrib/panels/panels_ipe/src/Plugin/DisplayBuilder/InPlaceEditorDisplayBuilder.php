@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels_ipe\Plugin\DisplayBuilder\InPlaceEditorDisplayBuilder.
- */
-
 namespace Drupal\panels_ipe\Plugin\DisplayBuilder;
 
 use Drupal\Component\Utility\Html;
@@ -135,7 +130,12 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
       'id' => $layout->getPluginId(),
       'label' => $layout_definition['label'],
       'original' => true,
-      'changeable' => $this->panelsStorage->access($storage_type, $storage_id, 'change layout', $this->account)->isAllowed(),
+    ];
+
+    // Add information about the current user's permissions.
+    $settings['user_permission'] = [
+      'change_layout' => $this->panelsStorage->access($storage_type, $storage_id, 'change layout', $this->account)->isAllowed(),
+      'create_content' => $this->account->hasPermission('administer blocks'),
     ];
 
     // Add the display variant's config.
@@ -157,6 +157,9 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
   public function build(PanelsDisplayVariant $panels_display) {
     // Check to see if the current user has permissions to use the IPE.
     $has_permission = $this->account->hasPermission('access panels in-place editing') && $this->panelsStorage->access($panels_display->getStorageType(), $panels_display->getStorageId(), 'update', $this->account)->isAllowed();
+    if ($has_permission) {
+      $has_permission = \Drupal::service('plugin.manager.ipe_access')->access($panels_display);
+    }
 
     // Attach the Panels In-place editor library based on permissions.
     if ($has_permission) {

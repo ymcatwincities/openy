@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels_ipe\Form\PanelsIPEBlockContentForm.
- */
-
 namespace Drupal\panels_ipe\Form;
 
 use Drupal\block_content\BlockContentForm;

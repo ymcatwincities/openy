@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\composer_manager\Controller\Packages.
- */
-
 namespace Drupal\composer_manager\Controller;
 
 use Drupal\composer_manager\PackageManagerInterface;
@@ -79,7 +74,8 @@ class PackageController implements ContainerInjectionInterface {
    */
   public function page() {
     if (!composer_manager_initialized()) {
-      $message = t("Composer Manager needs to be initialized before usage. Run the module's <code>init.php</code> script on the command line.");
+      $path = drupal_get_path('module', 'composer_manager');
+      $message = t("Composer Manager needs to be initialized before usage. Run <code>php %path/scripts/init.php</code> from the command line.", ['%path' => $path]);
       drupal_set_message($message, 'warning');
       return [];
     }
@@ -194,7 +190,7 @@ class PackageController implements ContainerInjectionInterface {
     elseif (empty($drupal_required_by)) {
       // The package is here as a requirement of other packages, list them.
       $constraint = $this->t('N/A');
-      $description = $this->t('Required by: ') . join(', ', $required_by);
+      $description = $this->t('Required by: ') . implode(', ', $required_by);
     }
     else {
       if (!isset($this->moduleData)) {
@@ -217,7 +213,7 @@ class PackageController implements ContainerInjectionInterface {
         }
       }
 
-      $description = $this->t('Required by: ') . join(', ', $modules);
+      $description = $this->t('Required by: ') . implode(', ', $modules);
     }
 
     $required_version = [];

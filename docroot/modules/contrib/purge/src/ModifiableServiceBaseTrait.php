@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\ModifiableServiceBaseTrait.
- */
-
 namespace Drupal\purge;
 
 /**

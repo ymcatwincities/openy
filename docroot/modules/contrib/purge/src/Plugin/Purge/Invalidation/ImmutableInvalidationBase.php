@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Invalidation\ImmutableInvalidationBase.
- */
-
 namespace Drupal\purge\Plugin\Purge\Invalidation;
 
 use Drupal\Core\Plugin\PluginBase;
@@ -44,6 +39,14 @@ abstract class ImmutableInvalidationBase extends PluginBase implements Immutable
   protected $expression = NULL;
 
   /**
+   * Associative array in which the keys point to purger instances and where
+   * each value represents a associative array with key-value stored metadata.
+   *
+   * @var array[]
+   */
+  protected $properties = [];
+
+  /**
    * Associative list of which the keys refer to purger instances and the values
    * are \Drupal\purge\Plugin\Purge\Invalidation\InvStatesInterface constants.
    *
@@ -61,7 +64,7 @@ abstract class ImmutableInvalidationBase extends PluginBase implements Immutable
     SELF::NOT_SUPPORTED,
     SELF::PROCESSING,
     SELF::SUCCEEDED,
-    SELF::FAILED
+    SELF::FAILED,
   ];
 
   /**
@@ -76,6 +79,29 @@ abstract class ImmutableInvalidationBase extends PluginBase implements Immutable
    */
   public function getExpression() {
     return $this->expression;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getProperties() {
+    if (!is_null($this->context)) {
+      throw new \LogicException('Cannot retrieve properties in purger context.');
+    }
+    return $this->properties;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getProperty($key) {
+    if (is_null($this->context)) {
+      throw new \LogicException('Call ::setStateContext() before retrieving properties!');
+    }
+    if (isset($this->properties[$this->context][$key])) {
+      return $this->properties[$this->context][$key];
+    }
+    return NULL;
   }
 
   /**
@@ -113,6 +139,19 @@ abstract class ImmutableInvalidationBase extends PluginBase implements Immutable
       }
       elseif (in_array(SELF::PROCESSING, $this->states)) {
         return SELF::PROCESSING;
+      }
+      // Catch combination states where one or more purgers added NOT_SUPPORTED
+      // but other purgers added states as well.
+      elseif (in_array(SELF::NOT_SUPPORTED, $this->states)) {
+        if (in_array(SELF::FAILED, $this->states)) {
+          return SELF::FAILED;
+        }
+        elseif (in_array(SELF::PROCESSING, $this->states)) {
+          return SELF::PROCESSING;
+        }
+        elseif (in_array(SELF::SUCCEEDED, $this->states)) {
+          return SELF::SUCCEEDED;
+        }
       }
       throw new \LogicException("Invalidation state data integrity violation");
     }

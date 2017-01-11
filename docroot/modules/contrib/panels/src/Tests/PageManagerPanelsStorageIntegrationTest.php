@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels\Tests\PageManagerPanelsStorageIntegrationTest.
- */
-
 namespace Drupal\panels\Tests;
 
 use Drupal\page_manager\Entity\PageVariant;
@@ -49,28 +44,34 @@ class PageManagerPanelsStorageIntegrationTest extends WebTestBase {
       'id' => 'foo',
       'label' => 'foo',
       'path' => 'testing',
+      'variant_plugin_id' => 'panels_variant',
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->drupalPostForm(NULL, $edit, 'Next');
 
     // Add a Panels variant which uses the IPE.
-    $this->clickLink('Add new variant');
-    $this->clickLink('Panels');
     $edit = [
-      'id' => 'panels_1',
-      'label' => 'Default',
       // This option won't be present at all if our integration isn't working!
       'variant_settings[builder]' => 'ipe',
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->drupalPostForm(NULL, $edit, 'Next');
+
+    // Choose a layout.
+    $edit = [
+      'layout' => 'twocol',
+    ];
+    $this->drupalPostForm(NULL, $edit, 'Next');
+
+    // Finish without adding any blocks.
+    $this->drupalPostForm(NULL, [], 'Finish');
 
     /** @var \Drupal\page_manager\PageVariantInterface $page_variant */
-    $page_variant = PageVariant::load('panels_1');
+    $page_variant = PageVariant::load('foo-panels_variant-0');
     /** @var \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display */
     $panels_display = $page_variant->getVariantPlugin();
 
     // Make sure the storage type and id were set to the right value.
     $this->assertEqual($panels_display->getStorageType(), 'page_manager');
-    $this->assertEqual($panels_display->getStorageId(), 'panels_1');
+    $this->assertEqual($panels_display->getStorageId(), 'foo-panels_variant-0');
   }
 
 }

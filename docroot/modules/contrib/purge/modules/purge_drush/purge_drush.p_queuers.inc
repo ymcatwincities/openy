@@ -23,9 +23,9 @@ function purge_drush_p_queuers($format, QueuersServiceInterface $purgeQueuers) {
   if (in_array($format, ['table', 'yaml', 'json'])) {
     foreach ($purgeQueuers as $queuer) {
       $output[] = [
-        'id' => (string)$queuer->getPluginId(),
-        'label' => (string)$queuer->getLabel(),
-        'description' => (string)$queuer->getDescription(),
+        'id' => (string) $queuer->getPluginId(),
+        'label' => (string) $queuer->getLabel(),
+        'description' => (string) $queuer->getDescription(),
       ];
     }
   }

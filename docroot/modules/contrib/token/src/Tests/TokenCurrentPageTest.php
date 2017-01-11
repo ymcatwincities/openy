@@ -1,11 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Tests\TokenCurrentPageTest.
- */
-
 namespace Drupal\token\Tests;
+
+use Drupal\Core\Url;
 
 /**
  * Test the [current-page:*] tokens.
@@ -24,14 +21,14 @@ class TokenCurrentPageTest extends TokenTestBase {
   function testCurrentPageTokens() {
     $tokens = array(
       '[current-page:title]' => t('Log in'),
-      '[current-page:url]' => \Drupal::url('user.login', [], array('absolute' => TRUE)),
-      '[current-page:url:absolute]' => \Drupal::url('user.login', [], array('absolute' => TRUE)),
-      '[current-page:url:relative]' => \Drupal::url('user.login'),
+      '[current-page:url]' => Url::fromRoute('user.login', [], array('absolute' => TRUE))->toString(),
+      '[current-page:url:absolute]' => Url::fromRoute('user.login', [], array('absolute' => TRUE))->toString(),
+      '[current-page:url:relative]' => Url::fromRoute('user.login')->toString(),
       '[current-page:url:path]' => '/user/login',
       '[current-page:url:args:value:0]' => 'user',
       '[current-page:url:args:value:1]' => 'login',
       '[current-page:url:args:value:2]' => NULL,
-      '[current-page:url:unaliased]' => \Drupal::url('user.login', [], array('absolute' => TRUE, 'alias' => TRUE)),
+      '[current-page:url:unaliased]' => Url::fromRoute('user.login', [], array('absolute' => TRUE, 'alias' => TRUE))->toString(),
       '[current-page:page-number]' => 1,
       '[current-page:query:foo]' => NULL,
       '[current-page:query:bar]' => NULL,

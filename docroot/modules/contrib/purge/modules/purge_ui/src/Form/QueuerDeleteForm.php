@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_ui\Form\QueuerDeleteForm.
- */
-
 namespace Drupal\purge_ui\Form;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -82,13 +77,13 @@ class QueuerDeleteForm extends ConfirmFormBase {
       '#type' => 'submit',
       '#button_type' => 'primary',
       '#value' => $this->getConfirmText(),
-      '#ajax' => ['callback' => '::deleteQueuer']
+      '#ajax' => ['callback' => '::deleteQueuer'],
     ];
     $form['actions']['cancel'] = [
       '#type' => 'submit',
       '#value' => $this->t('No'),
       '#weight' => -10,
-      '#ajax' => ['callback' => '::closeDialog']
+      '#ajax' => ['callback' => '::closeDialog'],
     ];
     return $form;
   }

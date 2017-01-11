@@ -43,7 +43,7 @@ class PageNodeSelectionTest extends WebTestBase {
   public function testAdmin() {
     // Create two nodes, and view their pages.
     $node1 = $this->drupalCreateNode(['type' => 'page']);
-    $node2 = $this->drupalCreateNode(['type' => 'article']);
+    $node2 = $this->drupalCreateNode(['title' => '<em>First</em> & <Second>', 'type' => 'article']);
     $node3 = $this->drupalCreateNode(['type' => 'article']);
     $this->drupalGet('node/' . $node1->id());
     $this->assertResponse(200);
@@ -52,8 +52,9 @@ class PageNodeSelectionTest extends WebTestBase {
     $this->drupalGet('node/' . $node2->id());
     $this->assertResponse(200);
     $this->assertCacheTag('page_manager_route_name:entity.node.canonical');
-    $this->assertText($node2->label());
-    $this->assertTitle($node2->label() . ' | Drupal');
+    $expected_title = '&lt;em&gt;First&lt;/em&gt; &amp; &lt;Second&gt;';
+    $this->assertRaw($expected_title);
+    $this->assertTitle($expected_title . ' | Drupal');
 
     // Create a new variant to always return 404, the node_view page exists by
     // default.
@@ -84,7 +85,11 @@ class PageNodeSelectionTest extends WebTestBase {
       'page' => 'node_view',
     ]);
     $block_page_plugin = $block_page_variant->getVariantPlugin();
+    $this->assertTrue(!empty($block_page_plugin->getConfiguration()['uuid']));
+    $uuid = $block_page_plugin->getConfiguration()['uuid'];
     $block_page_plugin->setConfiguration(['page_title' => '[node:title]']);
+    $second_uuid = $block_page_plugin->getConfiguration()['uuid'];
+    $this->assertEqual($uuid, $second_uuid);
     /** @var \Drupal\page_manager\Plugin\DisplayVariant\PageBlockDisplayVariant $block_page_plugin */
     $block_page_plugin->addBlock([
       'id' => 'entity_view:node',
@@ -116,12 +121,24 @@ class PageNodeSelectionTest extends WebTestBase {
 
     $this->drupalGet('node/' . $node2->id());
     $this->assertResponse(200);
-    $this->assertTitle($node2->label() . ' | Drupal');
+    $this->assertTitle($expected_title . ' | Drupal');
     $this->assertText($node2->body->value);
+    $this->assertRaw('<h1 class="page-title">' . $expected_title . '</h1>');
 
     // Test cacheability metadata.
     $this->drupalGet('node/' . $node3->id());
+    $this->assertTitle($node3->label() . ' | Drupal');
+    $this->assertText($node3->body->value);
     $this->assertNoText($node2->label());
+
+    // Ensure that setting the same title directly in the block display results
+    // in the same output.
+    $block_page_plugin->setConfiguration(['page_title' => '<em>First</em> & <Second>']);
+    $block_page_variant->save();
+    $this->drupalGet('node/' . $node2->id());
+    $this->assertResponse(200);
+    $this->assertTitle($expected_title . ' | Drupal');
+    $this->assertRaw('<h1 class="page-title">' . $expected_title . '</h1>');
 
     // Ensure this doesn't affect the /node/add page.
     $this->drupalGet('node/add');

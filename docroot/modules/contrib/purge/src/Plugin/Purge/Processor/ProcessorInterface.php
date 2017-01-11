@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Processor\ProcessorInterface.
- */
-
 namespace Drupal\purge\Plugin\Purge\Processor;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;

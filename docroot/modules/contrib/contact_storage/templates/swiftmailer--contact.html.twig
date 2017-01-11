@@ -1,0 +1,54 @@
+{#
+/**
+ * @file
+ * The template file for contact_storage e-mails.
+ *
+ * The table / HTML structure is taken from swiftmailer's default template file
+ * for e-mails, only the CSS has been added.
+ */
+#}
+
+<style type="text/css">
+ table tr td {
+   font-family: Arial;
+   font-size: 12px;
+ }
+
+ .form-item, .field--label-inline, .field--label-above {
+   margin-top: 10px;
+ }
+
+ .label, label {
+   font-weight: bold;
+ }
+
+ label {
+   display: block;
+ }
+
+ .field--label-inline .label {
+   float:left; /*LTR*/
+   margin-right: 0.5em; /*LTR*/
+ }
+
+ .field--label-inline .label::after {
+   content: ':';
+ }
+
+
+ .clearfix {
+   clear: both;
+ }
+ </style>
+
+ <div>
+   <table width="800px" cellpadding="0" cellspacing="0">
+     <tr>
+       <td>
+         <div style="padding: 0px 0px 0px 0px;">
+           {{ body }}
+         </div>
+       </td>
+     </tr>
+   </table>
+ </div>

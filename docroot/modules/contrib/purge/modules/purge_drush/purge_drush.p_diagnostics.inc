@@ -30,13 +30,13 @@ function purge_drush_p_diagnostics($format, DiagnosticsServiceInterface $purgeDi
       $output[] = [];
     }
     $output[] = [
-      'id' => (string)$check->getPluginId(),
-      'title' => (string)$check->getTitle(),
-      'value' => (string)$check->getValue(),
+      'id' => (string) $check->getPluginId(),
+      'title' => (string) $check->getTitle(),
+      'value' => (string) $check->getValue(),
       'severity_int' => $check->getSeverity(),
-      'severity' => (string)$check->getSeverityString(),
-      'description' => (string)$check->getDescription(),
-      'recommendation' => (string)$check->getRecommendation(),
+      'severity' => (string) $check->getSeverityString(),
+      'description' => (string) $check->getDescription(),
+      'recommendation' => (string) $check->getRecommendation(),
       'blocks_processing' => $check->getSeverity() === DiagnosticCheckInterface::SEVERITY_ERROR,
     ];
   }
