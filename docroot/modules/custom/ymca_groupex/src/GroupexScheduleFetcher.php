@@ -281,8 +281,8 @@ class GroupexScheduleFetcher {
           }
         }
 
-        $schedule['instructor_location'] = t('Schedule for !name', [
-          '!name' => '<span class="name"><span class="icon icon-user"></span>' . reset($schedule['days'])['classes'][0]['#class']['instructor'] . '</span>',
+        $schedule['instructor_location'] = t('Schedule for <span class="name"><span class="icon icon-user"></span>@name</span>', [
+          '@name' => reset($schedule['days'])['classes'][0]['#class']['instructor'],
         ]);
 
         // Pass 'View This Week’s PDF' href if some location selected.

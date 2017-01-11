@@ -313,8 +313,8 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
       ->get('path');
 
     if (!is_dir($extract_path) && !file_prepare_directory($extract_path, FILE_CREATE_DIRECTORY)) {
-      drupal_set_message(t('Unable to create directory !dir for Gardengnome player files.', [
-        '!dir' => $extract_path,
+      drupal_set_message(t('Unable to create directory @dir for Gardengnome player files.', [
+        '@dir' => $extract_path,
       ]), 'error');
       return FALSE;
     }
@@ -323,8 +323,8 @@ class GardengnomePlayerFieldFormatter extends FormatterBase implements Container
     $directory = $extract_path . '/' . file_uri_target($uri);
     if (!file_exists($directory)) {
       if (!file_prepare_directory($directory, FILE_CREATE_DIRECTORY)) {
-        drupal_set_message(t('Unable to create directory !dir for Gardengnome player files.', [
-          '!dir' => $directory,
+        drupal_set_message(t('Unable to create directory @dir for Gardengnome player files.', [
+          '@dir' => $directory,
         ]), 'error');
         return FALSE;
       }
