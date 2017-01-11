@@ -184,7 +184,7 @@
       var first_region = layout.get('regionCollection').at(0);
 
       // Merge our block collection with the existing block collection.
-      block_collection.each(function(block) {
+      block_collection.each(function (block) {
         first_region.get('blockCollection').add(block);
       });
 
@@ -329,7 +329,7 @@
      * @param {string} block_content_uuid
      *   The UUID of the Block Content entity that was edited.
      */
-    editContentBlockDone: function(block_content_uuid) {
+    editContentBlockDone: function (block_content_uuid) {
       // Find all on-screen Blocks that render this Content Block and refresh
       // them from the server.
       this.layoutView.model.get('regionCollection').each(function (region) {
@@ -337,9 +337,12 @@
         var blocks = region.get('blockCollection').where({id: id});
 
         for (var i in blocks) {
-          blocks[i].set('syncing', true);
-          blocks[i].fetch();
+          if (blocks.hasOwnProperty(i)) {
+            blocks[i].set('syncing', true);
+            blocks[i].fetch();
+          }
         }
+
       });
 
       this.tabsView.switchTab('edit');
@@ -348,7 +351,7 @@
     /**
      * Hides/shows certain elements if our unsaved state changes.
      */
-    unsavedChange: function() {
+    unsavedChange: function () {
       // Show/hide the cancel tab based on our saved status.
       this.model.get('cancelTab').set('hidden', !this.model.get('unsaved'));
       this.model.get('saveTab').set('hidden', !this.model.get('unsaved'));

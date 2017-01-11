@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\Invalidation\TagInvalidationTest.
- */
-
 namespace Drupal\purge\Tests\Invalidation;
 
 use Drupal\purge\Tests\Invalidation\PluginTestBase;
@@ -20,13 +15,13 @@ class TagInvalidationTest extends PluginTestBase {
   protected $expressions = [
     'tag',
     'user:1',
-    'menu:footer'
+    'menu:footer',
   ];
   protected $expressionsInvalid = [
     NULL,
     '',
     ['node', '1'],
-    'wildtag:*'
+    'wildtag:*',
   ];
 
 }

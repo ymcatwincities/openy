@@ -31,6 +31,8 @@ class SimpleWidgetWebTest extends InlineEntityFormTestBase {
       'edit any ief_simple_single content',
       'edit own ief_test_custom content',
       'view own unpublished content',
+      'create ief_simple_entity_no_bundle content',
+      'administer entity_test__without_bundle content',
     ]);
   }
 
@@ -225,6 +227,22 @@ class SimpleWidgetWebTest extends InlineEntityFormTestBase {
       $child_node = $host_node->single[$delta]->entity;
       $this->assertEqual($child_node->label(), $new_title, "Child $delta node title updated");
     }
+  }
+
+  /**
+   * Ensures that an entity without bundles can be used with the simple widget.
+   */
+  public function testEntityWithoutBundle() {
+    $this->drupalLogin($this->user);
+
+    $edit = [
+      'title[0][value]' => 'Node title',
+      'field_ief_entity_no_bundle[0][inline_entity_form][name][0][value]' => 'Entity title',
+    ];
+    $this->drupalPostForm('node/add/ief_simple_entity_no_bundle', $edit, 'Save');
+
+    $this->assertNodeByTitle('Node title', 'ief_simple_entity_no_bundle');
+    $this->assertEntityByLabel('Entity title', 'entity_test__without_bundle');
   }
 
 }

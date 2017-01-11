@@ -1,0 +1,64 @@
+contact.form.*.third_party.contact_storage:
+  type: mapping
+  label: 'Contact form redirection'
+  mapping:
+    redirect_uri:
+      type: string
+      label: 'Redirect URI'
+    submit_text:
+      type: label
+      label: 'Submit Text'
+    show_preview:
+      type: boolean
+      label: 'Show preview button'
+    disabled_form_message:
+      type: string
+      label: 'Disabled contact form message'
+    maximum_submissions_user:
+      type: integer
+      label: 'Maximum submission limit per user'
+
+field.storage_settings.contact_storage_options_email:
+  type: mapping
+  label: 'Options email item settings'
+  mapping:
+    allowed_values:
+      type: sequence
+      label: 'Allowed values list'
+      sequence:
+        type: mapping
+        label: 'Allowed value with label'
+        mapping:
+          value:
+            type: string
+          key:
+            type: string
+          emails:
+            type: string
+    allowed_values_function:
+      type: string
+      label: 'Allowed values function'
+
+field.field_settings.contact_storage_options_email:
+  label: 'Options email item settings'
+  type: mapping
+
+field.value.contact_storage_options_email:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    value:
+      type: string
+      label: 'Value'
+
+contact_storage.settings:
+  type: config_object
+  label: 'Contact Storage settings'
+  mapping:
+    send_html:
+      type: boolean
+      label: 'Whether the mail should be sent as HTML'
+
+action.configuration.message_delete_action:
+  type: action_configuration_default
+  label: 'Delete message configuration'

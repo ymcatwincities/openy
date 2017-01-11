@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Tests\Invalidation\RegularExpressionInvalidationTest.
- */
-
 namespace Drupal\purge\Tests\Invalidation;
 
 use Drupal\purge\Tests\Invalidation\PluginTestBase;

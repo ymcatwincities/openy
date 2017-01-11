@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge_check_error_test\Plugin\Purge\DiagnosticCheck\AlwaysErrorDiagnosticCheck.
- */
-
 namespace Drupal\purge_check_error_test\Plugin\Purge\DiagnosticCheck;
 
 use Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticCheckInterface;
@@ -30,4 +25,5 @@ class AlwaysErrorDiagnosticCheck extends DiagnosticCheckBase implements Diagnost
     $this->recommendation = $this->t("This is an error for testing.");
     return SELF::SEVERITY_ERROR;
   }
+
 }

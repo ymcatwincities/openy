@@ -31,7 +31,7 @@ class SitemapCssTest extends WebTestBase {
 
     // Create user then login.
     $this->user = $this->drupalCreateUser(array(
-      'administer site configuration',
+      'administer sitemap',
       'access sitemap',
     ));
     $this->drupalLogin($this->user);

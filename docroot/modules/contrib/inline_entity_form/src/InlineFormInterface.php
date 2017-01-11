@@ -68,6 +68,17 @@ interface InlineFormInterface extends EntityHandlerInterface {
   public function getTableFields($bundles);
 
   /**
+   * Checks whether tabledrag should be enabled for the given table.
+   *
+   * @param array $element
+   *   The form element representing the IEF table.
+   *
+   * @return bool
+   *   TRUE if tabledrag should be enabled, FALSE otherwise.
+   */
+  public function isTableDragEnabled($element);
+
+  /**
    * Builds the entity form.
    *
    * @param array $entity_form

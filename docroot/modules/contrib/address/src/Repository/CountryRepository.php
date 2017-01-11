@@ -23,13 +23,6 @@ class CountryRepository extends ExternalCountryRepository implements ExternalCou
   protected $cache;
 
   /**
-   * The language manager.
-   *
-   * @var \Drupal\Core\Language\LanguageManagerInterface
-   */
-  protected $languageManager;
-
-  /**
    * Creates a CountryRepository instance.
    *
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
@@ -38,10 +31,12 @@ class CountryRepository extends ExternalCountryRepository implements ExternalCou
    *   The language manager.
    */
   public function __construct(CacheBackendInterface $cache, LanguageManagerInterface $language_manager) {
-    $this->cache = $cache;
-    $this->languageManager = $language_manager;
-
     parent::__construct();
+
+    $this->cache = $cache;
+    // The getCurrentLanguage() fallback is a workaround for core bug #2684873.
+    $language = $language_manager->getConfigOverrideLanguage() ?: $language_manager->getCurrentLanguage();
+    $this->defaultLocale = $language->getId();
   }
 
   /**
@@ -90,15 +85,6 @@ class CountryRepository extends ExternalCountryRepository implements ExternalCou
     }
 
     return $this->baseDefinitions;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getDefaultLocale() {
-    // The getCurrentLanguage() fallback is a workaround for core bug #2684873.
-    $language = $this->languageManager->getConfigOverrideLanguage() ?: $this->languageManager->getCurrentLanguage();
-    return $language->getId();
   }
 
 }

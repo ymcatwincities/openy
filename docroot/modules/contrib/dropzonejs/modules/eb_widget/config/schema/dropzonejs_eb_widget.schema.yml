@@ -1,0 +1,65 @@
+entity_browser.browser.widget.dropzonejs:
+  type: mapping
+  label: 'DropzoneJS widget configuration'
+  mapping:
+    submit_text:
+      type: string
+      label: 'Submit button text'
+    upload_location:
+      type: string
+      label: 'Upload location'
+    dropzone_description:
+      type: string
+      label: 'Dropzone drag-n-drop zone text'
+    max_filesize:
+      type: string
+      label: 'Maximum size of files'
+    extensions:
+      type: string
+      label: 'Allowed file extensions'
+
+entity_browser.browser.widget.dropzonejs_media_entity:
+  type: mapping
+  label: 'Media Entity DropzoneJS widget configuration'
+  mapping:
+    media_entity_bundle:
+      type: string
+      label: 'Media type'
+    submit_text:
+      type: string
+      label: 'Submit button text'
+    upload_location:
+      type: string
+      label: 'Upload location'
+    dropzone_description:
+      type: string
+      label: 'Dropzone drag-n-drop zone text'
+    max_filesize:
+      type: string
+      label: 'Maximum size of files'
+    extensions:
+      type: string
+      label: 'Allowed file extensions'
+
+entity_browser.browser.widget.dropzonejs_media_entity_inline_entity_form:
+  type: mapping
+  label: 'Media Entity DropzoneJS with edit widget configuration'
+  mapping:
+    media_entity_bundle:
+      type: string
+      label: 'Media type'
+    submit_text:
+      type: string
+      label: 'Submit button text'
+    upload_location:
+      type: string
+      label: 'Upload location'
+    dropzone_description:
+      type: string
+      label: 'Dropzone drag-n-drop zone text'
+    max_filesize:
+      type: string
+      label: 'Maximum size of files'
+    extensions:
+      type: string
+      label: 'Allowed file extensions'

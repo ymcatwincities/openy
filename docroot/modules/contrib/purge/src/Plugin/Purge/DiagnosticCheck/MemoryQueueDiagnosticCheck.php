@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\DiagnosticCheck\MemoryQueueDiagnosticCheck.
- */
-
 namespace Drupal\purge\Plugin\Purge\DiagnosticCheck;
 
 use Drupal\purge\Plugin\Purge\DiagnosticCheck\DiagnosticCheckInterface;

@@ -36,7 +36,7 @@ class SitemapMenuTest extends WebTestBase {
 
     // Create user then login.
     $this->user = $this->drupalCreateUser(array(
-      'administer site configuration',
+      'administer sitemap',
       'access sitemap',
       'administer menu',
       'administer nodes',
@@ -84,7 +84,7 @@ class SitemapMenuTest extends WebTestBase {
     $this->drupalPostForm('node/add/article', $edit, t('Save and publish'));
 
     // Disable menu item.
-    $menu_links = entity_load_multiple_by_properties('menu_link_content', array('title' => $node_2_title));
+    $menu_links = \Drupal::entityTypeManager()->getStorage('menu_link_content')->loadByProperties(array('title' => $node_2_title));
     $menu_link = reset($menu_links);
     $mlid = $menu_link->id();
     $edit = array(

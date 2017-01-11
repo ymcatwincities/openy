@@ -35,7 +35,7 @@ function purge_drush_p_queue_stats($format, StatsTrackerInterface $purgeQueueSta
         'title' => dt('Total'),
         'description' => dt('The total number of items currently in the queue.'),
         'value' => $purgeQueueStats->total()->getInteger(),
-      ]
+      ],
     ];
   }
   else {

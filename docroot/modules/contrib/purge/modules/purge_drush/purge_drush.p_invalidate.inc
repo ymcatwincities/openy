@@ -93,5 +93,6 @@ function purge_drush_p_invalidate($format, InvalidationsServiceInterface $purgeI
     return FALSE;
   }
   return dt('Invalidation failed, its return state is: @state.', [
-    '@state' => $invalidations[0]->getStateString()]);
+    '@state' => $invalidations[0]->getStateString()
+  ]);
 }

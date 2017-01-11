@@ -30,10 +30,8 @@ class MailsystemServiceProvider implements ServiceProviderInterface, ServiceModi
     // Overrides mail-factory class to use our own mail manager.
     $container->getDefinition('plugin.manager.mail')
       ->setClass('Drupal\mailsystem\MailsystemManager')
-      ->addArgument(new Reference('theme.manager'))
-      ->addArgument(new Reference('theme.initialization'))
-      ->addArgument(new Reference('theme.registry'))
-      ->addArgument(new Reference('mailsystem.theme.registry'));
+      ->addMethodCall('setThemeManager', [new Reference('theme.manager')])
+      ->addMethodCall('setThemeInitialization', [new Reference('theme.initialization')]);
   }
 
 }

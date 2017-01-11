@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\Routing\RouteSubscriber.
- */
-
 namespace Drupal\token\Routing;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
