@@ -1,0 +1,27 @@
+name: 'OpenY Camp '
+description: 'Implements camp bundle feature.'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - content_moderation
+  - content_translation
+  - entity_reference_revisions
+  - field
+  - language
+  - menu_ui
+  - node
+  - openy_gallery_feature
+  - openy_latest_news_feature
+  - openy_location_core
+  - openy_prgf_2c_feature
+  - openy_prgf_3c_feature
+  - openy_prgf_4c_feature
+  - openy_prgf_fc_feature
+  - openy_prgf_header_feature
+  - openy_prgf_simple_content
+  - paragraphs
+  - path
+  - telephone
+  - user
+version: 8.x-1.0

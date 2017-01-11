@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.camp.field_camp_body
+    - field.field.node.camp.field_camp_header
+    - node.type.camp
+  module:
+    - user
+id: node.camp.teaser
+targetEntityType: node
+bundle: camp
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_camp_body: true
+  field_camp_header: true
+  langcode: true

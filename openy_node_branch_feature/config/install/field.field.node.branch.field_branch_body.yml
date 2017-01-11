@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_branch_body
+    - node.type.branch
+    - paragraphs.paragraphs_type.2c
+    - paragraphs.paragraphs_type.3c
+    - paragraphs.paragraphs_type.4c
+    - paragraphs.paragraphs_type.featured_stories
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.latest_news_and_updates
+    - paragraphs.paragraphs_type.simple_content
+  module:
+    - entity_reference_revisions
+id: node.branch.field_branch_body
+field_name: field_branch_body
+entity_type: node
+bundle: branch
+label: 'Branch Body'
+description: 'Enter branch content.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      2c: 2c
+      3c: 3c
+      4c: 4c
+      featured_stories: featured_stories
+      gallery: gallery
+      latest_news_and_updates: latest_news_and_updates
+      simple_content: simple_content
+    target_bundles_drag_drop:
+      2c:
+        enabled: true
+        weight: -17
+      3c:
+        enabled: true
+        weight: -16
+      4c:
+        enabled: true
+        weight: -15
+      featured_stories:
+        enabled: true
+        weight: -14
+      gallery:
+        enabled: true
+        weight: -13
+      latest_news_and_updates:
+        enabled: true
+        weight: -12
+      simple_content:
+        enabled: true
+        weight: -11
+      header:
+        weight: -10
+        enabled: false
+field_type: entity_reference_revisions
