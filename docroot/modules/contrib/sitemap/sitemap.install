@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for Sitemap module.
+ */
+
+/**
+ * Change sitemap configuration page permission to administer sitemap.
+ */
+function sitemap_update_8101() {
+  $roles = user_roles(FALSE, 'administer site configuration');
+  if (!empty($roles)) {
+    foreach ($roles as $rid => $role) {
+      user_role_grant_permissions($rid, array('administer sitemap'));
+    }
+  }
+}

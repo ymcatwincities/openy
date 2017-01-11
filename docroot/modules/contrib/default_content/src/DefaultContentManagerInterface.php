@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\default_content\DefaultContentManager.
- */
-
 namespace Drupal\default_content;
 
 
@@ -56,5 +51,26 @@ interface DefaultContentManagerInterface {
    *   The serialized entities keyed by entity type and UUID.
    */
   public function exportContentWithReferences($entity_type_id, $entity_id);
+
+  /**
+   * Exports all of the content defined in a module's info file.
+   *
+   * @param string $module_name
+   *   The name of the module.
+   *
+   * @return string[][]
+   *   The serialized entities keyed by entity type and UUID.
+   */
+  public function exportModuleContent($module_name);
+
+  /**
+   * Writes an array of serialized entities to a given folder.
+   *
+   * @param string[][] $serialized_by_type
+   *   An array of serialized entities keyed by entity type and UUID
+   * @param $folder
+   *   The folder to write files into.
+   */
+  public function writeDefaultContent($serialized_by_type, $folder);
 
 }

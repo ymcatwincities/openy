@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels_ipe\Form\PanelsIPELayoutForm.
- */
-
 namespace Drupal\panels_ipe\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -182,7 +177,8 @@ class PanelsIPELayoutForm extends FormBase {
     // Shift our blocks to the first available region. The IPE can control
     // re-assigning blocks in a smarter way.
     $region_definitions = $this->layout->getRegionDefinitions();
-    $first_region = reset(array_keys($region_definitions));
+    $region_ids = array_keys($region_definitions);
+    $first_region = reset($region_ids);
 
     // For each block, set the region to match the new layout.
     foreach ($panels_display->getRegionAssignments() as $region => $region_assignment) {
@@ -229,7 +225,7 @@ class PanelsIPELayoutForm extends FormBase {
 
     $data = [
       'id' => $this->layout->getPluginId(),
-      'label' => $layout_config['label'],
+      'label' => $this->layout->getLabel(),
       'current' => TRUE,
       'html' => $this->renderer->render($build),
       'regions' => $region_data,

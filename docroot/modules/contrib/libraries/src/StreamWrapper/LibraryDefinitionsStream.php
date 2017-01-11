@@ -1,22 +1,31 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\libraries\StreamWrapper\LibraryDefinitionsStream.
- */
-
 namespace Drupal\libraries\StreamWrapper;
 
 use Drupal\Core\StreamWrapper\LocalStream;
-use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 
 /**
  * Provides a stream wrapper for library definitions.
  *
  * Can be used with the 'library-definitions' scheme, for example
- * 'library-definitions://example.json'.
+ * 'library-definitions://example.json' for a library ID of 'example'.
+ *
+ * By default this stream wrapper reads from a single directory that is
+ * configurable and points to the 'library-definitions' directory within the
+ * public files directory by default. This makes library definitions writable
+ * by the webserver by default, which is in anticipation of a user interface
+ * that fetches definitions from a remote repository and stores them locally.
+ * For improved security the library definitions can be managed manually (or put
+ * under version control) and placed in a directory that is not writable by the
+ * webserver.
+ *
+ * The idea of using a stream wrapper for this as well as the default location
+ * is taken from the 'translations' stream wrapper provided by the Interface
+ * Translation module.
  *
  * @see \Drupal\locale\StreamWrapper\TranslationsStream
+ *
+ * @todo Use a setting instead of configuration for the directory.
  */
 class LibraryDefinitionsStream extends LocalStream {
 
@@ -71,7 +80,7 @@ class LibraryDefinitionsStream extends LocalStream {
   protected function getConfig($key) {
     return $this->configFactory
       ->get('libraries.settings')
-      ->get("library_definitions.$key");
+      ->get("definitions.$key");
   }
 
 }

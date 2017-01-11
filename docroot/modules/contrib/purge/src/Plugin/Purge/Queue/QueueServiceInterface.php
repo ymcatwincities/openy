@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\purge\Plugin\Purge\Queue\QueueServiceInterface.
- */
-
 namespace Drupal\purge\Plugin\Purge\Queue;
 
 use Drupal\purge\ServiceInterface;

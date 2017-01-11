@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\layout_plugin\Unit\PluginManagerTest.
- */
-
 namespace Drupal\Tests\layout_plugin\Unit;
 
 use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManager;
@@ -67,6 +62,7 @@ class PluginManagerTest extends UnitTestCase {
       'label' => 'Complex layout',
       'category' => 'Test layouts',
       'template' => 'complex-layout',
+      'library' => 'library_module/library_name',
       'provider' => 'layout_plugin_test',
       'path' => 'layout/complex',
       'icon' => 'complex-layout.png',
@@ -80,6 +76,7 @@ class PluginManagerTest extends UnitTestCase {
     $this->assertEquals('modules/layout_plugin_test/layout/complex', $definition['template_path']);
     $this->assertEquals('modules/layout_plugin_test/layout/complex/complex-layout.png', $definition['icon']);
     $this->assertEquals('complex_layout', $definition['theme']);
+    $this->assertEquals(['module' => ['library_module']], $definition['dependencies']);
 
     // A layout with a template path.
     $definition = [
@@ -315,10 +312,10 @@ class PluginManagerTest extends UnitTestCase {
    * @covers ::getLibraryInfo
    */
   public function testGetLibraryInfo() {
-    /** @var LayoutPluginManager|\PHPUnit_Framework_MockObject_MockBuilder $layout_manager */
+    /** @var \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManager|\PHPUnit_Framework_MockObject_MockObject $layout_manager */
     $layout_manager = $this->getMockBuilder('Drupal\layout_plugin\Plugin\Layout\LayoutPluginManager')
       ->disableOriginalConstructor()
-      ->setMethods(['getDefinitions'])
+      ->setMethods(['getDefinitions', 'getProviderVersion'])
       ->getMock();
 
     $layout_manager->method('getDefinitions')
@@ -327,19 +324,41 @@ class PluginManagerTest extends UnitTestCase {
         'simple_layout' => [
           'css' => 'modules/layout_plugin_test/layouts/simple_layout/simple-layout.css',
           'library' => 'layout_plugin/simple_layout',
+          'provider_type' => 'module',
+          'provider' => 'layout_plugin_test',
+        ],
+        'theme_layout' => [
+          'css' => 'themes/theme_with_layout/layouts/theme_layout/theme-layout.css',
+          'library' => 'layout_plugin/theme_layout',
+          'provider_type' => 'theme',
+          'provider' => 'theme_with_layout',
         ],
         'complex_layout' => [
           'library' => 'layout_plugin_test/complex_layout',
         ],
       ]);
 
+    $layout_manager->method('getProviderVersion')
+      ->willReturnMap([
+        ['module', 'layout_plugin_test', '1.2.3'],
+        ['theme', 'theme_with_layout', '2.3.4'],
+      ]);
+
     $library_info = $layout_manager->getLibraryInfo();
     $this->assertEquals([
       'simple_layout' => [
-        'version' => 'VERSION',
+        'version' => '1.2.3',
         'css' => [
           'theme' => [
             '/modules/layout_plugin_test/layouts/simple_layout/simple-layout.css' => [],
+          ],
+        ],
+      ],
+      'theme_layout' => [
+        'version' => '2.3.4',
+        'css' => [
+          'theme' => [
+            '/themes/theme_with_layout/layouts/theme_layout/theme-layout.css' => [],
           ],
         ],
       ],

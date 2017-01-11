@@ -26,7 +26,7 @@ function inline_entity_form_entity_type_build(array &$entity_types) {
   }
 
   foreach ($entity_types as &$entity_type) {
-    if (!$entity_type->getHandlerClass('inline_form')) {
+    if (!$entity_type->hasHandlerClass('inline_form')) {
       $entity_type->setHandlerClass('inline_form', '\Drupal\inline_entity_form\Form\EntityInlineForm');
     }
   }
@@ -176,7 +176,7 @@ function inline_entity_form_reference_form_submit($reference_form, FormStateInte
 
   $entities[] = [
     'entity' => $entity,
-    '_weight' => $weight,
+    'weight' => $weight,
     'form' => NULL,
     'needs_save' => FALSE,
   ];
@@ -199,15 +199,15 @@ function inline_entity_form_open_form($form, FormStateInterface $form_state) {
   $form_state->setRebuild();
 
   // Get the current form values.
-  $parents = array_merge($element['#field_parents'], array($element['#field_name']));
+  $parents = array_merge($element['#field_parents'], [$element['#field_name']]);
   $form_values = NestedArray::getValue($form_state->getUserInput(), $parents);
 
   $triggering_element = $form_state->getTriggeringElement();
   $form_state->set(['inline_entity_form', $ief_id, 'form'], $triggering_element['#ief_form']);
   if (!empty($form_values['actions']['bundle'])) {
-    $form_state->set(['inline_entity_form', $ief_id, 'form settings'], array(
+    $form_state->set(['inline_entity_form', $ief_id, 'form settings'], [
       'bundle' => $form_values['actions']['bundle'],
-    ));
+    ]);
   }
 }
 
@@ -295,7 +295,7 @@ function inline_entity_form_cleanup_row_form_state($form, FormStateInterface $fo
  * Returns an IEF widget nearest to the triggering element.
  */
 function inline_entity_form_get_element($form, FormStateInterface $form_state) {
-  $element = array();
+  $element = [];
   $triggering_element = $form_state->getTriggeringElement();
 
   // Remove the action and the actions container.
@@ -319,8 +319,10 @@ function theme_inline_entity_form_entity_table($variables) {
   $renderer = \Drupal::service('renderer');
   $form = $variables['form'];
   $entity_type = $form['#entity_type'];
+
   $fields = $form['#table_fields'];
-  $has_tabledrag = inline_entity_form_has_tabledrag($form);
+  $has_tabledrag = \Drupal::entityTypeManager()->getHandler($entity_type, 'inline_form')->isTableDragEnabled($form);
+
   // Sort the fields by weight.
   uasort($fields, '\Drupal\Component\Utility\SortArray::sortByWeightElement');
 
@@ -425,29 +427,4 @@ function theme_inline_entity_form_entity_table($variables) {
 
     return $renderer->render($table);
   }
-}
-
-/**
- * Checks whether tabledrag should be enabled for the given table.
- *
- * @param array $element
- *   The form element representing the IEF table.
- *
- * @return bool
- *   TRUE if tabledrag should be enabled, FALSE otherwise.
- */
-function inline_entity_form_has_tabledrag($element) {
-  $children = Element::children($element);
-  // If there is only one row, disable tabledrag.
-  if (count($children) == 1) {
-    return FALSE;
-  }
-  // If one of the rows is in form context, disable tabledrag.
-  foreach ($children as $key) {
-    if (!empty($element[$key]['form'])) {
-      return FALSE;
-    }
-  }
-
-  return TRUE;
 }

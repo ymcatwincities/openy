@@ -8,6 +8,7 @@ use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Render\AttachmentsInterface;
 use Drupal\Core\Render\BubbleableMetadata;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Render\RenderableInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
@@ -272,6 +273,11 @@ class TwigExtension extends \Twig_Extension {
         $attributes = array_merge($existing_attributes, $attributes);
       }
       $url->setOption('attributes', $attributes);
+    }
+    // The text has been processed by twig already, convert it to a safe object
+    // for the render system.
+    if ($text instanceof \Twig_Markup) {
+      $text = Markup::create($text);
     }
     $build = [
       '#type' => 'link',
@@ -573,7 +579,7 @@ class TwigExtension extends \Twig_Extension {
    *
    * @param \Twig_Environment $env
    *   A Twig_Environment instance.
-   * @param mixed[]|\Traversable|NULL $value
+   * @param mixed[]|\Traversable|null $value
    *   The pieces to join.
    * @param string $glue
    *   The delimiter with which to join the string. Defaults to an empty string.

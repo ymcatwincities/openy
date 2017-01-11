@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\token\TokenEntityMapperInterface.
- */
-
 namespace Drupal\token;
 
 interface TokenEntityMapperInterface {

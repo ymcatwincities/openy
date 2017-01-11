@@ -526,7 +526,7 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
         $all_fields = $revisioned_fields;
         if ($data_fields) {
           $all_fields = array_merge($revisioned_fields, $data_fields);
-          $query->leftJoin($this->dataTable, 'data', "(revision.$this->idKey = data.$this->idKey)");
+          $query->leftJoin($this->dataTable, 'data', "(revision.$this->idKey = data.$this->idKey and revision.$this->langcodeKey = data.$this->langcodeKey)");
           $column_names = [];
           // Some fields can have more then one columns in the data table so
           // column names are needed.
@@ -1257,7 +1257,11 @@ class SqlContentEntityStorage extends ContentEntityStorageBase implements SqlEnt
           foreach ($storage_definition->getColumns() as $column => $attributes) {
             $column_name = $table_mapping->getFieldColumnName($storage_definition, $column);
             // Serialize the value if specified in the column schema.
-            $record[$column_name] = !empty($attributes['serialize']) ? serialize($item->$column) : $item->$column;
+            $value = $item->$column;
+            if (!empty($attributes['serialize'])) {
+              $value = serialize($value);
+            }
+            $record[$column_name] = drupal_schema_get_field_value($attributes, $value);
           }
           $query->values($record);
           if ($this->entityType->isRevisionable()) {

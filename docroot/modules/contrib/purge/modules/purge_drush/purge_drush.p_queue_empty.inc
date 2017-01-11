@@ -22,7 +22,7 @@ use Drupal\purge\Plugin\Purge\Queue\StatsTrackerInterface;
  *   Drush render/format array.
  */
 function purge_drush_p_queue_empty($format, StatsTrackerInterface $purgeQueueStats, QueueServiceInterface $purgeQueue) {
-  $total = (int)$purgeQueueStats->total()->get();
+  $total = (int) $purgeQueueStats->total()->get();
   $purgeQueue->emptyQueue();
   if (in_array($format, ['yaml', 'json'])) {
     return $total;
