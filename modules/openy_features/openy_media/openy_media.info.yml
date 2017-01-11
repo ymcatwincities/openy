@@ -1,0 +1,24 @@
+name: YMCA Media
+type: module
+description: YMCA media configuration.
+core: 8.x
+package: YGS
+# Dependencies from Media module, but bundled in OpenY feature.
+dependencies:
+  - media_entity:media_entity
+  - media_entity_image:media_entity_image
+  - video_embed_field:video_embed_field
+  - video_embed_field:video_embed_media
+  - media_entity_slideshow:media_entity_slideshow
+  - media_entity_instagram:media_entity_instagram
+  - media_entity_twitter:media_entity_twitter
+  - media_entity_document:media_entity_document
+  - slick_media:slick_media
+  - entity_browser:entity_browser
+  - entity_browser:entity_browser_entity_form
+  - entity_embed:entity_embed
+  - dropzonejs:dropzonejs_eb_widget
+  - image_widget_crop:image_widget_crop
+  - link:link
+  - editor:editor
+  - inline_entity_form:inline_entity_form

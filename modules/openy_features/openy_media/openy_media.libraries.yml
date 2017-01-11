@@ -1,0 +1,10 @@
+openy_media:
+  version: VERSION
+  js:
+    js/media.view.js: {}
+  css:
+    theme:
+      css/media.view.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
