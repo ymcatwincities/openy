@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.camp.field_ct_address
     - field.field.node.camp.field_ct_email
     - field.field.node.camp.field_ct_fax
+    - field.field.node.camp.field_ct_coordinates
     - field.field.node.camp.field_ct_phone
     - node.type.camp
   module:
     - address
     - entity_reference_revisions
+    - geolocation
     - telephone
     - user
 id: node.camp.default
@@ -21,7 +23,7 @@ mode: default
 content:
   field_camp_body:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 6
     label: hidden
     settings:
       view_mode: default
@@ -54,6 +56,12 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+  field_ct_coordinates:
+    weight: 5
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
   field_ct_phone:
     weight: 4
     label: hidden
@@ -62,7 +70,7 @@ content:
     third_party_settings: {  }
     type: telephone_link
   links:
-    weight: 6
+    weight: 7
     settings: {  }
     third_party_settings: {  }
 hidden:

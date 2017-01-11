@@ -5,6 +5,10 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.camp.field_camp_body
     - field.field.node.camp.field_camp_header
+    - field.field.node.camp.field_ct_address
+    - field.field.node.camp.field_ct_email
+    - field.field.node.camp.field_ct_fax
+    - field.field.node.camp.field_ct_phone
     - node.type.camp
   module:
     - user
@@ -18,4 +22,8 @@ content:
 hidden:
   field_camp_body: true
   field_camp_header: true
+  field_ct_address: true
+  field_ct_email: true
+  field_ct_fax: true
+  field_ct_phone: true
   langcode: true

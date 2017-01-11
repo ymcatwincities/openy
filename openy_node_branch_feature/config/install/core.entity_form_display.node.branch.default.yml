@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.branch.field_ct_address
     - field.field.node.branch.field_ct_email
     - field.field.node.branch.field_ct_fax
+    - field.field.node.branch.field_ct_coordinates
     - field.field.node.branch.field_ct_phone
     - node.type.branch
   module:
     - address
     - content_moderation
+    - geolocation
     - paragraphs
     - path
     - telephone
@@ -27,7 +29,7 @@ content:
     third_party_settings: {  }
   field_branch_body:
     type: entity_reference_paragraphs
-    weight: 13
+    weight: 14
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -64,6 +66,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+  field_ct_coordinates:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
   field_ct_phone:
     weight: 11
     settings:

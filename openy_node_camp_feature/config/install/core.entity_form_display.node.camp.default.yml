@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.camp.field_ct_address
     - field.field.node.camp.field_ct_email
     - field.field.node.camp.field_ct_fax
+    - field.field.node.camp.field_ct_coordinates
     - field.field.node.camp.field_ct_phone
     - node.type.camp
   module:
     - address
     - content_moderation
+    - geolocation
     - paragraphs
     - path
     - telephone
@@ -64,6 +66,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+  field_ct_coordinates:
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
   field_ct_phone:
     weight: 29
     settings:
