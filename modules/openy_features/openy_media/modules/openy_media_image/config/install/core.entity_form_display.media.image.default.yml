@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.image.field_media_caption
     - field.field.media.image.field_media_image
     - field.field.media.image.field_media_tags
     - image.style.thumbnail
@@ -18,6 +19,13 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+  field_media_caption:
+    weight: 13
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
   field_media_image:
     weight: 12
     settings:

@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.image.field_media_caption
     - field.field.media.image.field_media_image
     - field.field.media.image.field_media_tags
     - image.style.thumbnail
@@ -23,6 +24,13 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+  field_media_caption:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_media_image:
     weight: 3
     label: above
