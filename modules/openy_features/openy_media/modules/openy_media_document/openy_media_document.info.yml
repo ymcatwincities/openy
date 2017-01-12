@@ -3,6 +3,10 @@ description: 'Document media features.'
 type: module
 core: 8.x
 dependencies:
+  - field
+  - image
   - media_entity
   - media_entity_document
+  - openy_media
+  - user
 version: 8.x-1.0
