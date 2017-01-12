@@ -5,7 +5,7 @@ dependencies:
     - media_entity_image
 id: image
 label: Image
-description: Image.
+description: 'Use Image for uploading locally hosted images.'
 type: image
 queue_thumbnail_downloads: false
 new_revision: true
