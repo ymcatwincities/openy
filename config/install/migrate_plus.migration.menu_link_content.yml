@@ -16,6 +16,7 @@ source:
       link: 'base:program'
       weight: -10
       parent_id: 0
+      expanded: 1
     -
       id: 2
       title: 'Locations'
@@ -177,7 +178,7 @@ source:
       link: 'base:programs/health-fitness'
       weight: 1
       parent_id: 1
-
+      expanded: 1
     -
       id: 27
       title: 'Swimming'
@@ -185,6 +186,7 @@ source:
       link: 'base:programs/swimming'
       weight: 3
       parent_id: 1
+      expanded: 1
     -
       id: 28
       title: 'Kid & Teens Activities'
@@ -192,6 +194,7 @@ source:
       link: 'base:programs/kid-and-teens-activities'
       weight: 4
       parent_id: 1
+      expanded: 1
     -
       id: 29
       title: 'Camps'
@@ -199,6 +202,7 @@ source:
       link: 'base:programs/camps'
       weight: 5
       parent_id: 1
+      expanded: 1
     -
       id: 30
       title: 'Childcare'
@@ -206,6 +210,7 @@ source:
       link: 'base:programs/childcare'
       weight: 6
       parent_id: 1
+      expanded: 1
     -
       id: 31
       title: 'Social Services'
@@ -213,7 +218,7 @@ source:
       link: 'base:programs/social'
       weight: 7
       parent_id: 1
-
+      expanded: 1
     -
       id: 32
       title: 'Group Exercise Classes'
@@ -416,6 +421,7 @@ process:
   menu_name: menu_name
   link: link
   weight: weight
+  expanded: expanded
   parent:
     -
       plugin: migration
