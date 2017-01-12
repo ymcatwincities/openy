@@ -1,0 +1,20 @@
+name: 'OpenY Branch'
+description: 'OpenY Branch'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - entity_reference_revisions
+  - field
+  - field_group
+  - link
+  - menu_ui
+  - node
+  - openy_location_core
+  - openy_node_core
+  - paragraphs
+  - path
+  - pathauto
+  - telephone
+  - user
+version: 8.x-1.0

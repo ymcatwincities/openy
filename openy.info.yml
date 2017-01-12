@@ -28,6 +28,7 @@ dependencies:
   - options
   - path
   - page_cache
+  - telephone
   - taxonomy
   - text
   - dblog
@@ -41,9 +42,18 @@ dependencies:
   # Contrib modules.
   - features
   - features_ui
+  - field_group
+  - address
+  - paragraphs
+  - pathauto
   # OpenY modules.
   - openy_media_image
   - openy_media_document
+  - openy_node_core
+  - openy_location_core
+  - openy_branch
+  - openy_camp
+  - openy_facility
 
 themes:
   - bartik
