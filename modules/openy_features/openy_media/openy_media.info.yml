@@ -1,0 +1,8 @@
+name: 'OpenY Media'
+description: 'Media features.'
+type: module
+core: 8.x
+package: OpenY
+version: 8.x-1.0
+dependencies:
+  - media_entity:media_entity
