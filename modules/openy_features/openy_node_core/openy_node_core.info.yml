@@ -1,0 +1,9 @@
+name: 'OpenY node core'
+description: 'OpenY node core'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+  - paragraphs
+version: 8.x-1.0
