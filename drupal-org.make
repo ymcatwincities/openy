@@ -6,3 +6,4 @@ projects[features] = 3.2
 projects[config_update] = 1.2
 projects[entity] = 1.0-alpha4
 projects[media_entity] = 1.6
+projects[media_entity_image] = 1.2
