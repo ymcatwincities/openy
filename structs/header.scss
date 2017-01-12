@@ -83,7 +83,7 @@
 
     a {
       @include cachet();
-      color: $white;
+      color: $color-white;
       font-size: 16px;
       font-style: normal;
       font-stretch: normal;
@@ -107,7 +107,7 @@
 
     a {
       @include cachet();
-      color: $white;
+      color: $color-white;
       font-size: 18px;
       font-weight: 500;
       font-style: normal;
@@ -128,7 +128,7 @@
       .nav-level-2,
       .nav-level-3 {
         > a {
-          color: $white;
+          color: $color-white;
           text-shadow: none;
           text-transform: uppercase;
           white-space: normal;
