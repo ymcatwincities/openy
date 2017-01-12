@@ -4,7 +4,7 @@ Landing Page content type is used for adding landing pages on the site.
 ### Fields
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
-| Title  | drupal's default  | Yes | Title of the branch item. |
+| Title  | drupal's default  | Yes | Title of the landing page item. |
 | Layout | field\_lp_layout  | Yes | Select list with the options: <ul><li>one\_column\_clean\|One Column - Full width</li><li>one\_column\|One Column</li><li>two\_column\|Two Column</li><li>two\_column\_fixed\|Two column with fixed sidebar</li></ul> |
 | **Header Area** ||||
 | Content | field\_header_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |

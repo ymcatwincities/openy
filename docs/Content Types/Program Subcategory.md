@@ -4,7 +4,7 @@ Program Subcategory content type is used for adding program subcategories on the
 ### Fields
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
-| Title  | drupal's default  | Yes | Title of the blog item. |
+| Title  | drupal's default  | Yes | Title of the program subcategory item. |
 | Program  | field\_category_program  | Yes | A reference field for selecting the program. |
 | **Header Area** ||||
 | Image | field\_category_image | No | A image field, for uploading the category image. |
