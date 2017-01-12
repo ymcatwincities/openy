@@ -48,6 +48,7 @@ dependencies:
   - pathauto
   # OpenY modules.
   - openy_media_image
+  - openy_media_document
   - openy_node_core
   - openy_location_core
   - openy_branch
