@@ -11,6 +11,7 @@ source:
     -
       id: 1
       title: 'Home Page'
+      alias: '/home'
       header:
         -
           migration: yghc_prgf_header

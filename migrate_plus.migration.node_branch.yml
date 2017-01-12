@@ -1,0 +1,74 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_node_branch
+migration_tags:
+  - CSV
+migration_group: ygh_content
+label: 'Create Branch content'
+source:
+  plugin: csv
+  path: modules/custom/ygh_content/assets/csv/location.csv
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    -
+      id: guid
+    -
+      location_name: location_name
+    -
+      description: description
+    -
+      contact: contact
+    -
+      address_line1: address
+    -
+      address_line2: address2
+    -
+      locality: city
+    -
+      administrative_area: state
+    -
+      postal_code: zipcode
+    -
+      country: country
+    -
+      phone: phone
+    -
+      fax: fax
+    -
+      email: email
+    -
+      alias: website
+
+process:
+  type:
+    -
+      plugin: default_value
+      default_value: branch
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  title: location_name
+  field_ct_address/country_code:
+    -
+      plugin: default_value
+      default_value: US
+  field_ct_address/address_line1: address_line1
+  field_ct_address/address_line2: address_line2
+  field_ct_address/locality: locality
+  field_ct_address/administrative_area: administrative_area
+  field_ct_address/postal_code: postal_code
+  field_ct_phone/value: phone
+  field_ct_fax/value: fax
+  field_ct_email/value: email
+destination:
+  plugin: 'entity:node'
+  default_bundle: branch
+migration_dependencies: {  }
