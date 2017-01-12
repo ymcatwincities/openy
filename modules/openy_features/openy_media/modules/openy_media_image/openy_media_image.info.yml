@@ -3,7 +3,10 @@ description: 'Image media features.'
 type: module
 core: 8.x
 dependencies:
-  - openy_media
+  - field
+  - image
   - media_entity
   - media_entity_image
+  - openy_media
+  - user
 version: 8.x-1.0
