@@ -2,8 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.image.field_media_image
     - field.field.media.image.field_media_tags
+    - image.style.thumbnail
     - media_entity.bundle.image
+  module:
+    - image
 id: media.image.default
 targetEntityType: media
 bundle: image
@@ -14,6 +18,13 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+  field_media_image:
+    weight: 12
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
   field_media_tags:
     weight: 11
     settings:
