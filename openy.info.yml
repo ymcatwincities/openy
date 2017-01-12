@@ -42,6 +42,7 @@ dependencies:
   - features
   - features_ui
   # OpenY modules.
+  - openy_media_image
 
 themes:
   - bartik
