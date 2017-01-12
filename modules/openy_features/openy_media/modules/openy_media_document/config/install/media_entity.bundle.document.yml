@@ -10,5 +10,7 @@ type: document
 queue_thumbnail_downloads: false
 new_revision: true
 type_configuration:
-  source_field: ''
-field_map: {  }
+  source_field: field_media_document
+field_map:
+  mime: field_media_mime
+  size: field_media_size
