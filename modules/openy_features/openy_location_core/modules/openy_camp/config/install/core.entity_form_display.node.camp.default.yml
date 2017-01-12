@@ -1,0 +1,126 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.camp.field_camp_menu_links
+    - field.field.node.camp.field_content
+    - field.field.node.camp.field_header_content
+    - field.field.node.camp.field_location_address
+    - field.field.node.camp.field_location_directions
+    - field.field.node.camp.field_location_email
+    - field.field.node.camp.field_location_fax
+    - field.field.node.camp.field_location_latitude
+    - field.field.node.camp.field_location_longitude
+    - field.field.node.camp.field_location_phone
+    - node.type.camp
+  module:
+    - address
+    - link
+    - path
+    - telephone
+id: node.camp.default
+targetEntityType: node
+bundle: camp
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  field_camp_menu_links:
+    weight: 31
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_content:
+    weight: 40
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_header_content:
+    weight: 39
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_location_address:
+    weight: 32
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_location_directions:
+    weight: 38
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_location_email:
+    weight: 37
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_location_fax:
+    weight: 36
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_location_latitude:
+    weight: 33
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_longitude:
+    weight: 34
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_phone:
+    weight: 35
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

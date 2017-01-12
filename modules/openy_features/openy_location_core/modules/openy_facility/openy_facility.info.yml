@@ -1,0 +1,18 @@
+name: 'OpenY Facility'
+description: 'OpenY Facility'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - field
+  - link
+  - menu_ui
+  - node
+  - openy_location_core
+  - openy_node_core
+  - path
+  - pathauto
+  - taxonomy
+  - telephone
+  - user
+version: 8.x-1.0

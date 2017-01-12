@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.branch
+  module:
+    - user
+id: node.branch.teaser
+targetEntityType: node
+bundle: branch
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }

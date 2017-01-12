@@ -1,0 +1,133 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.facility.field_content
+    - field.field.node.facility.field_facility_type
+    - field.field.node.facility.field_header_content
+    - field.field.node.facility.field_location_address
+    - field.field.node.facility.field_location_area
+    - field.field.node.facility.field_location_directions
+    - field.field.node.facility.field_location_email
+    - field.field.node.facility.field_location_fax
+    - field.field.node.facility.field_location_latitude
+    - field.field.node.facility.field_location_longitude
+    - field.field.node.facility.field_location_phone
+    - node.type.facility
+  module:
+    - address
+    - link
+    - path
+    - telephone
+id: node.facility.default
+targetEntityType: node
+bundle: facility
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  field_content:
+    weight: 40
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_facility_type:
+    weight: 32
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_header_content:
+    weight: 41
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_location_address:
+    weight: 33
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_location_area:
+    weight: 31
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_location_directions:
+    weight: 39
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_location_email:
+    weight: 38
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_location_fax:
+    weight: 37
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_location_latitude:
+    weight: 34
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_longitude:
+    weight: 35
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_location_phone:
+    weight: 36
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
