@@ -1,0 +1,13 @@
+name: 'OpenY Media Image'
+description: 'Image media features.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - file
+  - image
+  - media_entity
+  - media_entity_image
+  - openy_media
+  - user
+version: 8.x-1.0
