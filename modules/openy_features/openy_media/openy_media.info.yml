@@ -5,5 +5,9 @@ core: 8.x
 package: OpenY
 version: 8.x-1.0
 dependencies:
+  - field
+  - image
   - media_entity
+  - openy_media_image
   - taxonomy
+  - user
