@@ -40,7 +40,11 @@ source:
     -
       email: email
     -
-      alias: website
+      website: website
+    -
+      latitude: latitude
+    -
+      longitude: longitude
 
 process:
   type:
@@ -68,6 +72,8 @@ process:
   field_ct_phone/value: phone
   field_ct_fax/value: fax
   field_ct_email/value: email
+  field_ct_coordinates/lat: latitude
+  field_ct_coordinates/lng: longitude
 destination:
   plugin: 'entity:node'
   default_bundle: branch
