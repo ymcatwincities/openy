@@ -5,8 +5,8 @@ dependencies:
     - entity_reference_revisions
     - node
     - paragraphs
-id: node.field_header_content
-field_name: field_header_content
+id: node.field_sidebar_content
+field_name: field_sidebar_content
 entity_type: node
 type: entity_reference_revisions
 settings:

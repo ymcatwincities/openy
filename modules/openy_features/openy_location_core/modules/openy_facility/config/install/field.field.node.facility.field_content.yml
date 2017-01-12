@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.node.field_content
     - node.type.facility
+  module:
+    - entity_reference_revisions
 id: node.facility.field_content
 field_name: field_content
 entity_type: node
@@ -15,8 +17,7 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:paragraphs_type'
+  handler: 'default:paragraph'
   handler_settings:
     target_bundles: null
-    auto_create: false
-field_type: entity_reference
+field_type: entity_reference_revisions

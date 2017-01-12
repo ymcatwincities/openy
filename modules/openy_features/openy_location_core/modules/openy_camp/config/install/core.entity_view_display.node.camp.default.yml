@@ -15,6 +15,7 @@ dependencies:
     - node.type.camp
   module:
     - address
+    - entity_reference_revisions
     - link
     - user
 id: node.camp.default
@@ -34,19 +35,21 @@ content:
     third_party_settings: {  }
     type: link
   field_content:
-    weight: 110
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-  field_header_content:
     weight: 109
     label: above
     settings:
-      link: true
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_revisions_entity_view
+  field_header_content:
+    weight: 110
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
   field_location_address:
     weight: 102
     label: above

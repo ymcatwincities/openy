@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_content
-    - node.type.branch
+    - field.storage.node.field_sidebar_content
+    - node.type.facility
   module:
     - entity_reference_revisions
-id: node.branch.field_content
-field_name: field_content
+id: node.facility.field_sidebar_content
+field_name: field_sidebar_content
 entity_type: node
-bundle: branch
-label: Content
+bundle: facility
+label: 'Sidebar content'
 description: ''
 required: false
 translatable: false
