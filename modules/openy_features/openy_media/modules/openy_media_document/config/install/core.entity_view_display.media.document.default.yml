@@ -2,11 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.document.field_media_document
     - field.field.media.document.field_media_in_library
+    - field.field.media.document.field_media_mime
+    - field.field.media.document.field_media_size
     - field.field.media.document.field_media_tags
     - image.style.thumbnail
     - media_entity.bundle.document
   module:
+    - file
     - image
     - user
 id: media.document.default
@@ -23,6 +27,12 @@ content:
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
+  field_media_document:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
   field_media_in_library:
     weight: 3
     label: above
@@ -32,6 +42,21 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+  field_media_mime:
+    weight: 5
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_media_size:
+    weight: 6
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
   field_media_tags:
     weight: 2
     label: above
