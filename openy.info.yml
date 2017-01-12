@@ -42,6 +42,7 @@ dependencies:
   # Contrib modules.
   - features
   - features_ui
+  - field_group
   - address
   - paragraphs
   - pathauto
