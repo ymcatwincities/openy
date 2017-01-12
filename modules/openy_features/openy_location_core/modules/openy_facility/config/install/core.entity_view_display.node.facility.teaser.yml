@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.facility.field_facility_type
+    - field.field.node.facility.field_location_address
+    - field.field.node.facility.field_location_area
+    - field.field.node.facility.field_location_directions
+    - field.field.node.facility.field_location_email
+    - field.field.node.facility.field_location_fax
+    - field.field.node.facility.field_location_latitude
+    - field.field.node.facility.field_location_longitude
+    - field.field.node.facility.field_location_phone
+    - node.type.facility
+  module:
+    - user
+id: node.facility.teaser
+targetEntityType: node
+bundle: facility
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_facility_type: true
+  field_location_address: true
+  field_location_area: true
+  field_location_directions: true
+  field_location_email: true
+  field_location_fax: true
+  field_location_latitude: true
+  field_location_longitude: true
+  field_location_phone: true
