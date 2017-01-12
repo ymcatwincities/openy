@@ -40,6 +40,8 @@ dependencies:
   - views
   - views_ui
   # Contrib modules.
+  - features
+  - features_ui
   - address
   - paragraphs
   - pathauto
