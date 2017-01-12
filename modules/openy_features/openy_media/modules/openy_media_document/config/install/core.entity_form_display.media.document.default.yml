@@ -2,9 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.media.document.field_media_document
     - field.field.media.document.field_media_in_library
+    - field.field.media.document.field_media_mime
+    - field.field.media.document.field_media_size
     - field.field.media.document.field_media_tags
     - media_entity.bundle.document
+  module:
+    - file
 id: media.document.default
 targetEntityType: media
 bundle: document
@@ -15,12 +20,31 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+  field_media_document:
+    weight: 13
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
   field_media_in_library:
     weight: 12
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+  field_media_mime:
+    weight: 14
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_media_size:
+    weight: 15
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
   field_media_tags:
     weight: 11
     settings:

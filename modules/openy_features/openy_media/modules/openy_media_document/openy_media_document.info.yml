@@ -4,6 +4,7 @@ type: module
 core: 8.x
 dependencies:
   - field
+  - file
   - image
   - media_entity
   - media_entity_document
