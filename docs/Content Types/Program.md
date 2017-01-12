@@ -4,7 +4,7 @@ Program content type is used for adding Programs on the site.
 ### Fields
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
-| Title  | drupal's default  | Yes | Title of the blog item. |
+| Title  | drupal's default  | Yes | Title of the program item. |
 | **Header Area** ||||
 | Icon | field\_program_icon | Yes | A image field, supporting .svg for uploading the program icon. |
 | Image | field\_program_image | No | A image field, for uploading the program image. |
