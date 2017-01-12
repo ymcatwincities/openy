@@ -1,7 +1,7 @@
 
 .nav.dropdown-menu {
   background-color: $color-blue-a;
-  border: 1px solid $white;
+  border: 1px solid $color-white;
 }
 
 .nav-home {
@@ -170,13 +170,13 @@
 
   .navbar-nav .open .dropdown-menu > li > a,
   .navbar-nav .open .dropdown-menu .dropdown-header {
-    color: $white;
+    color: $color-white;
     padding: 12px 15px 12px 23px;
   }
 
   .dropdown-menu > li > a:hover,
   .dropdown-menu > li > a:focus {
-    color: $white;
+    color: $color-white;
     background: none;
   }
 
@@ -204,7 +204,7 @@
     .dropdown-menu>li>a:focus,
     .dropdown-menu>li>a:hover {
       background: none;
-      color: $white;
+      color: $color-white;
     }
 
     .nav-level-3 {
@@ -272,7 +272,7 @@
 
       > a,
       > a:focus {
-        color: $white;
+        color: $color-white;
         position: relative;
         z-index: 1001;
         padding: 10px 14px 24px 14px;
