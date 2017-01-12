@@ -208,6 +208,12 @@
   @extend %decor--flex-wrap;
   margin: 0 0 14px 0;
 
+  form {
+    @extend %decor--flex;
+    @extend %decor--align-end;
+    @extend %decor--flex-wrap;
+  }
+
   h3 {
     font-size: 20px;
     font-weight: normal;
@@ -215,9 +221,10 @@
     display: block;
     margin: 0 0 14px 0;
     white-space: nowrap;
+    width: 100%;
   }
 
-  .form-email {
+  .form-text {
     font-size: 12px;
     font-style: italic;
     font-weight: normal;
@@ -234,23 +241,28 @@
 
   .form-item {
     width: calc(100% - 96px);
+
+    label {
+      display: none;
+    }
   }
 
-  .form-action {
+  .form-actions {
     width: 96px;
   }
 
-  .btn {
+  .button {
     font-size: 16px;
     line-height: lh(22, 16);
     text-transform: uppercase;
     border-radius: 0;
     display: block;
     width: 100%;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 9px;
+    padding-bottom: 9px;
     background-color: $color-blue;
     outline: none;
+    border: none;
 
     &:hover {
       color: $color-white;
