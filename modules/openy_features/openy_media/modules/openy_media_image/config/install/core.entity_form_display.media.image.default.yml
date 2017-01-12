@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.media.image.field_media_caption
     - field.field.media.image.field_media_image
+    - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_tags
     - image.style.thumbnail
     - media_entity.bundle.image
@@ -33,6 +34,12 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+  field_media_in_library:
+    weight: 14
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
   field_media_tags:
     weight: 11
     settings:
