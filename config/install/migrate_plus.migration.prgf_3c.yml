@@ -10,7 +10,7 @@ source:
   data_rows:
     -
       id: 1
-      title: 'Membership Has its Privileges'
+      title: 'Welcome to Camp Cullen!'
       left: 9
       center: 10
       right: 11
