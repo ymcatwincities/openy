@@ -1,3 +1,5 @@
+
+@import "./base/_colors";
 @import "./base/variables";
 @import "./bootstrap";
 @import "./base/mixins";
@@ -13,8 +15,10 @@
 @import "./structs/sidebars";
 @import "./structs/content";
 @import "./structs/footer";
+@import "./structs/blog_page";
 
 @import "./blocks/block-description";
 @import "./blocks/paragraph-header";
 
 @import "./modules/gallery";
+@import "./paragraphs/featured_stories";
