@@ -1,0 +1,8 @@
+name: 'OpenY paragraph core'
+description: 'OpenY paragraph core'
+type: module
+core: 8.x
+dependencies:
+  - paragraphs
+  - text
+version: 8.x-1.0
