@@ -3,10 +3,10 @@
   "description": "prototypes",
   "main": "js.js",
   "authors": [
-    "Alexey Strekalov"
+    "YGH team"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/ryter/ymcahouston",
+  "homepage": "https://github.com/propeoplemd/ymcahouston",
   "ignore": [
     "**/.*",
     "node_modules",

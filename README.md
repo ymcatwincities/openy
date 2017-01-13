@@ -8,7 +8,15 @@
 
 Restart sh client.
 
-`rvm install ruby-2.2.5`
+`source /home/vagrant/.rvm/scripts/rvm`
+
+`sudo rvm install ruby-2.2.5`
+
+`
+sudo npm install -g npm
+ sudo npm cache  clean -f
+ sudo npm install -g n
+ `
 
 Set as default ruby:
 
@@ -18,9 +26,9 @@ Set as default ruby:
 
 `sudo gem install bundler`
 
-3. Go to the theme folder
+3. Go to the theme folder (This will take some time)
 
-`bundle install`
+`npm install`
 
 4. To compile css use
 
