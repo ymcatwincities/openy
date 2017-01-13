@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_calc_theme() {
+  return [
+    'form_element_type' => array(
+      'render element' => 'element',
+    ),
+  ];
+}
+
+/**
+ * Preprocess variables.
+ */
+function template_preprocess_form_element_type(&$variables) {
+  template_preprocess_form_element($variables);
+  $element = &$variables['element'];
+  $variables['element_variables'] = $element['#element_variables'];
+}
