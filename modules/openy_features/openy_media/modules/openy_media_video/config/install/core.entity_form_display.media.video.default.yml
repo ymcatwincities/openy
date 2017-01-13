@@ -5,6 +5,7 @@ dependencies:
     - field.field.media.video.field_media_in_library
     - field.field.media.video.field_media_source
     - field.field.media.video.field_media_tags
+    - field.field.media.video.field_media_video_embed_field
     - field.field.media.video.field_media_video_id
     - media_entity.bundle.video
 id: media.video.default
@@ -36,5 +37,6 @@ content:
 hidden:
   created: true
   field_media_source: true
+  field_media_video_embed_field: true
   field_media_video_id: true
   uid: true
