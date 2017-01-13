@@ -1,5 +1,5 @@
-name: 'OpenY paragraph core'
-description: 'OpenY paragraph core'
+name: 'OpenY paragraph banner'
+description: 'OpenY paragraph banner'
 type: module
 core: 8.x
 dependencies:
@@ -8,4 +8,5 @@ dependencies:
   - link
   - paragraphs
   - text
+  - openy_prgf_core
 version: 8.x-1.0
