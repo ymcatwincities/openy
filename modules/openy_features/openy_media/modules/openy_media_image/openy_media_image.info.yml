@@ -11,4 +11,5 @@ dependencies:
   - media_entity_image
   - openy_media
   - user
+  - views
 version: 8.x-1.0
