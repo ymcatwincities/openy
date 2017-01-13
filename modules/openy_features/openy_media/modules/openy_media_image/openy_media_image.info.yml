@@ -3,6 +3,7 @@ description: 'Image media features.'
 type: module
 core: 8.x
 dependencies:
+  - entity_browser
   - field
   - file
   - image
