@@ -8,5 +8,6 @@ dependencies:
   - media_entity
   - openy_media
   - user
+  - video_embed_field
   - video_embed_media
 version: 8.x-1.0
