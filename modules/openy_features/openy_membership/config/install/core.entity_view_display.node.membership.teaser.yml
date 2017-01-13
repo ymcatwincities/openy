@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - node.type.membership
+  module:
+    - user
+id: node.membership.teaser
+targetEntityType: node
+bundle: membership
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden: {  }
