@@ -6,13 +6,11 @@ dependencies:
     - field.field.media.video.field_media_source
     - field.field.media.video.field_media_tags
     - field.field.media.video.field_media_video_id
-    - field.field.media.video.field_media_video_url
     - image.style.thumbnail
     - media_entity.bundle.video
   module:
     - image
     - user
-    - video_embed_field
 id: media.video.default
 targetEntityType: media
 bundle: video
@@ -57,16 +55,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_media_video_url:
-    weight: 6
-    label: above
-    settings:
-      responsive: true
-      width: 854
-      height: 480
-      autoplay: true
-    third_party_settings: {  }
-    type: video_embed_field_video
   name:
     label: hidden
     type: string
