@@ -14,12 +14,21 @@ source:
       description: 'Descriptive text about program details. Laborum netus, hendrerit maiores nibh atque parturient modi. Sit! Atque, cillum adipisicing, magni pretium sequi vero maiores senectus, porta magni hac in tenetur illo, eum soluta, lacinia cum laudantium incidunt incididunt.'
       link_uri: 'base:program'
       link_title: 'Learn More'
+      header_image: 1
     -
       id: 2
       title: 'Headline About Camp Cullen'
-      descrition: 'Swim lessons and aquatic programs are gearing up for fall season. Decriptive copy continues here...'
+      description: 'Swim lessons and aquatic programs are gearing up for fall season. Descriptive copy continues here...'
       link_uri: 'base:call'
       link_title: 'Call to action'
+      header_image: 1
+    -
+      id: 3
+      title: 'Make A Splash at Baytown'
+      description: 'Swim lessons and aquatic programs are gearing up for fall season. Descriptive copy continues here...'
+      link_uri: 'http://example.com'
+      link_title: 'View swim and aquatic program'
+      header_image: 1
   ids:
     id:
       type: integer
@@ -40,8 +49,14 @@ process:
     -
       plugin: get
       source: link_title
+  field_prgf_header_image:
+    plugin: migration
+    migration: yghc_image
+    source: header_image
+    no_stub: true
 destination:
   plugin: entity_reference_revisions:paragraph
   default_bundle: header
 migration_dependencies:
-  required: {  }
+  required:
+    - yghc_image
