@@ -1,0 +1,15 @@
+@mixin cachet() {
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
+}
+
+@mixin cachet-medium() {
+  font-family: "Cachet W01 Medium", Verdana, sans-serif;
+}
+
+@mixin cachet-bold() {
+  font-family: "Cachet W01 Bold", Verdana, sans-serif;
+}
+
+@mixin helvetica-neue() {
+  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+}

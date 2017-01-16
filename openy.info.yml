@@ -61,4 +61,5 @@ dependencies:
 
 themes:
   - bartik
+  - openy_rose
   - seven
