@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.media.teaser
-    - media_entity.bundle.image
+    - media_entity.bundle.video
   module:
     - entity_browser
     - media_entity
     - user
-id: images_library
-label: 'Images Library'
+id: videos_library
+label: 'Videos Library'
 module: views
 description: 'Provides images library for images_library entity browser.'
 tag: ''
@@ -232,7 +232,7 @@ display:
           admin_label: ''
           operator: in
           value:
-            image: image
+            video: video
           group: 1
           exposed: false
           expose:
@@ -375,7 +375,7 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      title: 'Images Library'
+      title: 'Videos Library'
       filter_groups:
         operator: AND
         groups:
@@ -391,12 +391,14 @@ display:
         - user.permissions
       tags:
         - 'config:core.entity_view_display.media.document.default'
-        - 'config:core.entity_view_display.media.video.default'
+        - 'config:core.entity_view_display.media.document.teaser'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.teaser'
-  images_library:
+        - 'config:core.entity_view_display.media.video.default'
+        - 'config:core.entity_view_display.media.video.teaser'
+  videos_library:
     display_plugin: entity_browser
-    id: images_library
+    id: videos_library
     display_title: 'Entity browser'
     position: 1
     display_options:
@@ -412,6 +414,8 @@ display:
         - user.permissions
       tags:
         - 'config:core.entity_view_display.media.document.default'
+        - 'config:core.entity_view_display.media.document.teaser'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.teaser'
         - 'config:core.entity_view_display.media.video.default'
+        - 'config:core.entity_view_display.media.video.teaser'
