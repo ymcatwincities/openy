@@ -54,3 +54,45 @@ function openy_rose_preprocess_select(&$variables) {
   $variables['attributes']['class'][] = 'form-control';
   $variables['attributes']['class'][] = 'text';
 }
+
+/**
+ * Prepares variables for input templates.
+ *
+ * Default template: input.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes.
+ */
+function openy_rose_preprocess_input(&$variables) {
+  $element = $variables['element'];
+  $variables['children'] = $element['#children'];
+
+  $types = array('url', 'textfield', 'tel', 'password', 'date');
+  if (in_array($element['#type'], $types)) {
+    $classes = array(
+      'form-control',
+      'text',
+    );
+  }
+  elseif ($element['#type'] == 'submit' && $element['#ajax_processed'] != TRUE) {
+    $classes = array(
+      'form_submit',
+      'btn',
+      'btn-lg',
+      'btn-primary',
+    );
+  }
+  elseif ($element['#type'] == 'email') {
+    $classes = array(
+      'form-control',
+      'text',
+      'email',
+    );
+  }
+
+  if (isset($classes)) {
+    $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  }
+}

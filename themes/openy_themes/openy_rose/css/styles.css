@@ -5252,7 +5252,7 @@ a[href="#step2"] {
 .user-login {
   margin: 10px 0;
 }
-.user-login #block-tabs > ul {
+.user-login .openy-page-tabs > ul {
   margin: 10px 0;
   padding-left: 0;
 }
@@ -5294,18 +5294,18 @@ a[href="#step2"] {
   margin-bottom: 20px;
 }
 
-#block-tabs .is-active {
+.openy-page-tabs .is-active {
   color: #fff;
   background: #00aeef;
 }
-#block-tabs > ul {
+.openy-page-tabs > ul {
   display: table;
   margin: 10px auto;
   padding: 0;
   font-size: 0;
   list-style: none;
 }
-#block-tabs > ul li {
+.openy-page-tabs > ul li {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   display: inline-block;
   font-size: 16px;
@@ -5316,14 +5316,14 @@ a[href="#step2"] {
   border-right: 0;
 }
 @media (max-width: 480px) {
-  #block-tabs > ul li {
+  .openy-page-tabs > ul li {
     font-size: 12px;
   }
 }
-#block-tabs > ul li:last-child {
+.openy-page-tabs > ul li:last-child {
   border-right: solid 1px #00aeef;
 }
-#block-tabs > ul li a {
+.openy-page-tabs > ul li a {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   display: block;
   padding: 9px;
@@ -5331,7 +5331,7 @@ a[href="#step2"] {
   text-align: center;
 }
 @media (max-width: 480px) {
-  #block-tabs > ul li a {
+  .openy-page-tabs > ul li a {
     padding: 6px;
   }
 }
