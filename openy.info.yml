@@ -58,6 +58,8 @@ dependencies:
   - openy_camp
   - openy_facility
   - openy_landing
+  - openy_program
+  - openy_program_subcategory
 
 themes:
   - bartik
