@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Default theme implementation for field collection items.
+ *
+ * Available variables:
+ * - content: An array of comment items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {% hide(content.field_example) %} to temporarily suppress the printing
+ *   of a given element.
+ * - title: The (sanitized) field collection item label.
+ * - url: Direct url of the current entity if specified.
+ * - page: Flag for the full page state.
+ * - attributes: HTML attributes for the surrounding element.
+ *    Attributes include the 'class' information.
+ * - content_attributes: HTML attributes for the content element.
+ *
+ * @see template_preprocess()
+ * @see template_preprocess_entity()
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+set classes = [
+'field-collection-item',
+'row',
+'field-collection-item--name-' ~ field_collection_item.name|clean_class,
+'field-collection-item--view-mode-' ~ field_collection_item.view_mode|clean_class,
+]
+%}
+{%
+set item_class = [
+'row-eq-height',
+]
+%}
+{% if  content.field_paragraph_field_style.0['#markup'] == '2' %}
+  {% set item_class = item_class|merge(['col-xs-12 col-sm-6']) %}
+{% endif %}
+{% if content.field_paragraph_field_style.0['#markup'] == '3' %}
+  {% set item_class = item_class|merge(['col-xs-12 col-sm-4']) %}
+{% endif %}
+{% if content.field_paragraph_field_style.0['#markup'] == '4' %}
+  {% set item_class = item_class|merge(['col-xs-12 col-sm-3']) %}
+{% endif %}
+{{ attach_library('openy_orchid/featured_slider') }}
+<div{{ attributes.addClass(classes) }}>
+  {% for key, item in content.field_grid_content %}
+    {% if key matches '/^\\d+$/' %}
+      <div {{ content_attributes.addClass(item_class) }}>
+        {{ item }}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+

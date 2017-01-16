@@ -1,0 +1,60 @@
+program_two_column:
+  label: Program Two column with Header
+  category: YMCA Seattle Layouts
+  template: templates/layout/program
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main content
+    sidebar:
+      label: Sidebar
+program_sub_category:
+  label: Program Subcategory
+  category: YMCA Seattle Layouts
+  template: templates/layout/program_subcategory
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main content
+branch_layout:
+  label: Branch
+  category: YMCA Seattle Layouts
+  template: templates/layout/branch
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main content
+one_column:
+  label: One column with Header
+  category: YMCA Seattle Layouts
+  template: templates/layout/one_column
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main content
+two_columns_container:
+  label: General Two column fixed width
+  category: YMCA Seattle Layouts
+  template: templates/layout/two_columns_container
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main content
+    sidebar:
+      label: Sidebar
+class_page:
+  label: Class page Two column fixed width
+  category: YMCA Seattle Layouts
+  template: templates/layout/class_page
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main content
+    sidebar:
+      label: Sidebar

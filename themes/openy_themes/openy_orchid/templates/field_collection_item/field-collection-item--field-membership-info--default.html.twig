@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default theme implementation for field collection items.
+ *
+ * Available variables:
+ * - content: An array of comment items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {% hide(content.field_example) %} to temporarily suppress the printing
+ *   of a given element.
+ * - title: The (sanitized) field collection item label.
+ * - url: Direct url of the current entity if specified.
+ * - page: Flag for the full page state.
+ * - attributes: HTML attributes for the surrounding element.
+ *    Attributes include the 'class' information.
+ * - content_attributes: HTML attributes for the content element.
+ *
+ * @see template_preprocess()
+ * @see template_preprocess_entity()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="radio-block" data-branch-name="{{ content.field_location.0['#plain_text'] }}">
+  <input type="radio" name="locations_list" value="" id="{{ content.field_location.0['#plain_text']|clean_class }}">
+  <label for="{{ content.field_location.0['#plain_text']|clean_class }}">{{ content }}</label>
+</div>
+
+
+

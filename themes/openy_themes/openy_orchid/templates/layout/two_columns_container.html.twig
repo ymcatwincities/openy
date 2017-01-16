@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default two column layout wrapped with container.
+ *
+ * Available variables:
+ * - content: The content.
+
+ * @ingroup themeable
+ */
+#}
+
+<div class="container two-columns-container">
+  <div class="row">
+    <div class="col-sm-12">
+      {{ content.header }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="two-column">
+      <div class="main-region col-sm-8">
+        {{ content.main }}
+      </div>
+      <div class="sidebar-region col-sm-4">
+        {{ content.sidebar }}
+      </div>
+    </div>
+  </div>
+</div>

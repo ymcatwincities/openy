@@ -1,0 +1,99 @@
+global-styling:
+  version: VERSION
+  css:
+    base:
+      //fast.fonts.net/cssapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.css: {}
+      css/vendor/bootstrap/bootstrap.css: {}
+      css/vendor/bootstrap/bootstrap-theme.min.css: {}
+    theme:
+      css/styles.css: {}
+  js:
+    //fast.fonts.net/jsapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.js: {}
+    //use.fontawesome.com/95fd5fcc01.js: {}
+    scripts/vendor/bootstrap.min.js: {}
+    scripts/openy_orchid.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.tabs
+    - core/jquery.ui.core
+    - core/jquery.ui.widget
+    - core/drupal
+    - core/drupalSettings
+
+subcategory-search-form:
+  version: VERSION
+  js:
+    scripts/openy_orchid_subcategory_classes.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+blog:
+  version: VERSION
+  js:
+    scripts/openy_orchid_blog.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+landing:
+  version: VERSION
+  js:
+    scripts/openy_orchid_landing.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+membership:
+  version: VERSION
+  js:
+    scripts/openy_orchid_membership.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+camp_menu:
+  version: VERSION
+  js:
+    scripts/vendor/iscroll/iscroll.js: {}
+    scripts/openy_orchid_camp_menu.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+featured_slider:
+  version: VERSION
+  js:
+    scripts/openy_orchid_featured_paragraph.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+    - slick/slick
+    - slick/slick.theme
+    - slick/slick.arrow.down
+    - core/drupalSettings
+blog_slider:
+  version: VERSION
+  js:
+    scripts/openy_orchid_blog_slider.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+    - slick/slick
+    - slick/slick.theme
+    - slick/slick.arrow.down
