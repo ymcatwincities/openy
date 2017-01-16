@@ -43,7 +43,7 @@ function openy_rose_preprocess_paragraph(&$variables) {
  *     Properties used: #title, #value, #options, #description, #extra,
  *     #multiple, #required, #name, #attributes, #size.
  */
-function openy_rose_preprocess_select(&$variables) {
+function openy_rose_preprocess_select(array &$variables) {
   $element = $variables['element'];
   Element::setAttributes($element, array('id', 'name', 'size'));
   RenderElement::setAttributes($element, array('form-select'));
@@ -65,7 +65,7 @@ function openy_rose_preprocess_select(&$variables) {
  *   - element: An associative array containing the properties of the element.
  *     Properties used: #attributes.
  */
-function openy_rose_preprocess_input(&$variables) {
+function openy_rose_preprocess_input(array &$variables) {
   $element = $variables['element'];
   $variables['children'] = $element['#children'];
 
