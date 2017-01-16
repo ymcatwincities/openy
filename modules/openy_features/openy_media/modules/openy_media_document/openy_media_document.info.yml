@@ -3,6 +3,8 @@ description: 'Document media features.'
 type: module
 core: 8.x
 dependencies:
+  - dropzonejs_eb_widget
+  - entity_browser
   - field
   - file
   - image
@@ -10,4 +12,5 @@ dependencies:
   - media_entity_document
   - openy_media
   - user
+  - views
 version: 8.x-1.0
