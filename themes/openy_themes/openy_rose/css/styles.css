@@ -984,7 +984,7 @@ body {
   -moz-appearance: none;
   -ms-appearance: none;
   appearance: none;
-  background: url('../img/arrow_down.svg');
+  background: url('../img/icons/arrow_down.svg');
   background-position: 100% 50%;
   background-repeat: no-repeat;
   background-color: white;
@@ -1566,7 +1566,7 @@ body {
   }
 }
 .story-card .quote .icon {
-  background: url("../img/quote_purple.svg") no-repeat 0 0;
+  background: url("../img/icons/quote_purple.svg") no-repeat 0 0;
   display: block;
   height: 24px;
   margin: 13px 0 0px;
@@ -3413,7 +3413,7 @@ html.js .branch__updates_queue__button {
   color: #636466;
 }
 .branch-sessions-group .included-in-membership {
-  background: url("../img/included-in-membership.png") no-repeat 0 0;
+  background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
   background-size: contain;
   position: absolute;
   top: 47px;
@@ -4405,7 +4405,7 @@ html.js .branch__updates_queue__button {
   width: 100%;
 }
 #schedules-search-form-wrapper .js-form-type-textfield .hasDatepicker {
-  background: #fff url("../img/input_calc_icon.png") no-repeat 95% center;
+  background: #fff url("../img/icons/input_calc_icon.png") no-repeat 95% center;
   padding-right: 20px;
   padding-left: 5px;
 }
@@ -4663,7 +4663,7 @@ html.js .branch__updates_queue__button {
   position: relative;
 }
 #schedules-search-form-wrapper .results .views-row .included-in-membership {
-  background: url("../img/included-in-membership.png") no-repeat 0 0;
+  background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
   background-size: contain;
   position: absolute;
   top: 0;
