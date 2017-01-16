@@ -47,6 +47,7 @@ dependencies:
   - address
   - paragraphs
   - pathauto
+  - dropzonejs_eb_widget
   # OpenY modules.
   - openy_media_image
   - openy_media_document
