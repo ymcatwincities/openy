@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_mbrshp_description
+    - node.type.membership
+  module:
+    - text
+id: node.membership.field_mbrshp_description
+field_name: field_mbrshp_description
+entity_type: node
+bundle: membership
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
