@@ -1,3 +1,4 @@
+uuid: 549079bc-1ef1-4ea8-95ba-13ae35dfed8f
 langcode: en
 status: true
 dependencies:
@@ -6,19 +7,20 @@ dependencies:
     - field.field.paragraph.banner.field_prgf_headline
     - field.field.paragraph.banner.field_prgf_image
     - field.field.paragraph.banner.field_prgf_link
-    - image.style.thumbnail
     - paragraphs.paragraphs_type.banner
   module:
-    - image
+    - entity_browser
     - link
     - text
+_core:
+  default_config_hash: Gr28bnP4MXLcxNuyQQwEHhaIojT-b79FfCnpZ1eQ4p4
 id: paragraph.banner.default
 targetEntityType: paragraph
 bundle: banner
 mode: default
 content:
   field_prgf_description:
-    weight: 2
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
@@ -32,12 +34,17 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_prgf_image:
-    weight: 1
+    weight: 2
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      entity_browser: null
+      open: false
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      field_widget_display_settings: {  }
+      selection_mode: selection_append
     third_party_settings: {  }
-    type: image_image
+    type: entity_browser_entity_reference
   field_prgf_link:
     weight: 3
     settings:

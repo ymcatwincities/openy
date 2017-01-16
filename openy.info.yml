@@ -39,6 +39,7 @@ dependencies:
   - rdf
   - views
   - views_ui
+  - link
   # Contrib modules.
   - features
   - features_ui
