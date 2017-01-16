@@ -389,9 +389,7 @@ display:
         - 'url.query_args:sort_order'
         - user.permissions
       tags:
-        - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.image.default'
-        - 'config:core.entity_view_display.media.video.default'
   images_library:
     display_plugin: entity_browser
     id: images_library
@@ -409,6 +407,4 @@ display:
         - 'url.query_args:sort_order'
         - user.permissions
       tags:
-        - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.image.default'
-        - 'config:core.entity_view_display.media.video.default'
