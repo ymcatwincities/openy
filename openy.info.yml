@@ -59,4 +59,5 @@ dependencies:
 
 themes:
   - bartik
+  - openy_orchid
   - seven
