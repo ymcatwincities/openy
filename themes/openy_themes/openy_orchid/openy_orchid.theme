@@ -113,7 +113,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_field().
  */
-/*function ymca_seattle_preprocess_field__paragraph__field_updates_queue_home__frontpage_updates_queue(&$variables) {
+/*function openy_orchid_preprocess_field__paragraph__field_updates_queue_home__frontpage_updates_queue(&$variables) {
   _openy_orchid_preprocess_field__remove_unpublished_and_empty_fc_items($variables);
 }*/
 
