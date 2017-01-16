@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_calc\Plugin\Block;
 
+use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -18,6 +19,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class CalcBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
+   * Form builder.
+   *
+   * @var \Drupal\Core\Form\FormBuilderInterface
+   */
+  protected $formBuilder;
+
+  /**
    * Constructs a new Programs Search Block instance.
    *
    * @param array $configuration
@@ -26,9 +34,12 @@ class CalcBlock extends BlockBase implements ContainerFactoryPluginInterface {
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
+   * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
+   *   Form builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->formBuilder = $formBuilder;
   }
 
   /**
@@ -38,7 +49,8 @@ class CalcBlock extends BlockBase implements ContainerFactoryPluginInterface {
     return new static(
       $configuration,
       $plugin_id,
-      $plugin_definition
+      $plugin_definition,
+      $container->get('form_builder')
     );
   }
 
@@ -46,7 +58,7 @@ class CalcBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function build() {
-    $form = \Drupal::formBuilder()->getForm('Drupal\openy_calc\Form\CalcBlockForm');
+    $form = $this->formBuilder->getForm('Drupal\openy_calc\Form\CalcBlockForm');
     return [
       'form' => $form,
     ];

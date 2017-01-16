@@ -108,7 +108,7 @@ class CalcBlockForm extends FormBase {
 
     $form['type'] = [
       '#element_variables' => $types,
-      '#subtype' => 'type_radio',
+      '#subtype' => 'membership_type_radio',
       '#type' => 'calc_radios',
       '#title' => $this->t('Which option best describes the type of membership you need?'),
       '#options' => $types_options,

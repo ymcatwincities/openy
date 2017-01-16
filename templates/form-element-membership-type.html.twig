@@ -46,7 +46,9 @@
  * @ingroup themeable
  */
 #}
-{#{{ dump() }}#}
+
+{% set data = element_variables[element['#return_value']] %}
+
 {%
   set classes = [
     'js-form-item',
@@ -82,12 +84,11 @@
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
   {% if label_display == 'after' %}
-      {% set data = element_variables[element['#return_value']] %}
-      <div>
-        <h3>{{ data.title }}</h3>
-        <p>{{ data.description }}</p>
-        <div class="btn btn-default">select</div>
-      </div>
+    <div>
+      <h3>{{ data.title }}</h3>
+      <p>{{ data.description }}</p>
+      <div class="btn btn-default">select</div>
+    </div>
   {% endif %}
   {% if errors %}
     <div class="form-item--error-message">

@@ -7,16 +7,16 @@ use Drupal\Core\Render\Element\Radio;
 /**
  * Provides a form element for a single radio button (membership type).
  *
- * @FormElement("type_radio")
+ * @FormElement("membership_type_radio")
  */
-class TypeRadio extends Radio {
+class MembershipTypeRadio extends Radio {
 
   /**
    * {@inheritdoc}
    */
   public function getInfo() {
     $info = parent::getInfo();
-    $info['#theme_wrappers'] = ['form_element_type'];
+    $info['#theme_wrappers'] = ['form_element_membership_type'];
     return $info;
   }
 
