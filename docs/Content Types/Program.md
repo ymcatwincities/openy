@@ -6,7 +6,7 @@ Program content type is used for adding Programs on the site.
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the program item. |
 | **Header Area** | Field group |||
-| Icon | field\_program_icon | Yes | A image field, supporting .svg for uploading the program icon. |
+| Icon | field\_program_icon | No | A image field, supporting .svg for uploading the program icon. |
 | Image | field\_program_image | No | A image field, for uploading the program image. |
 | Color | field\_program_color | No | Reference field for choosing the term from "Color" vocabulary. |
 | **Content Area** | Field group |||
