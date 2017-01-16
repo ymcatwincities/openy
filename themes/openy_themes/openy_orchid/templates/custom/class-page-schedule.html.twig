@@ -1,0 +1,61 @@
+<div class="class-page-schedule row">
+  <!-- Schedule -->
+  <div class="col-xs-12">
+    <div class="data-wrapper ng-hide sidebar-card" data-ng-show="current_session.nid">
+      <div>
+        <h3>{{ 'Schedule'|t }}</h3>
+        <div><h2>{{ '{{current_session.location.name}}' }} <a href="#" class="edit-class-sch ng-hide" data-ng-show="available_locations.length > 1">{{ 'change'|t }}</a></h2> </div>
+        <div class="ng-hide phone" data-ng-show="current_session.location.phone">{{ 'Phone:'|t }} {{ '{{current_session.location.phone}}' }}</div>
+        <div class="ng-hide facility-name" data-ng-show="current_session.facility.name">{{ '{{current_session.facility.name}}' }}</div>
+        <div class="ng-hide phone" data-ng-show="current_session.facility.phone">{{ 'Phone:'|t }} {{ '{{current_session.facility.phone}}' }}</div>
+        <div class="ng-hide facility-text" data-ng-show="current_session.facility.text">{{ '{{current_session.facility.text}}' }}</div>
+        <div class="ng-hide" data-ng-show="class.type == 'activity'" >{{ 'Every'|t }}</div>
+        <div>
+          <ul>
+            <li data-ng-repeat="schedule_item in (current_session.schedule.dates)">
+              <div class="class_days">{{ '{{ schedule_item.days_formatted }}' }}</div>
+              <div class="class_time">{{ '{{ schedule_item.time_formatted }}' }}</div>
+              <div class="class_end">{{ '{{ schedule_item.deadline }}' }}</div>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <a href="{{ '{{ current_session.similar_offerings_url }}' }}" target="_blank" data-ng-show="current_session.similar_offerings_url" class="btn btn-default blue ng-hide">{{ 'See similar offerings'|t }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Schedule -->
+
+  <!-- Register today-->
+  <div class="col-xs-12">
+    <div class="data-wrapper ng-hide sidebar-card" data-ng-show="current_session.nid">
+      <h3 class="ng-hide" data-ng-show="current_session.online_registration && class.type == 'activity'">{{ 'Register today'|t }}</h3>
+      <h3 class="ng-hide" data-ng-show="current_session.online_registration && class.type == 'flexreg'">{{ 'Registration information'|t }}</h3>
+      <h3 class="ng-hide" data-ng-show="!current_session.online_registration">{{ 'Online registration isn\'t available'|t }}</h3>
+      <div class="ng-hide" data-ng-show="class.type == 'activity'"><h2>{{ '{{current_session.spots_available}}' }}</h2></div>
+      <div class="ng-hide" data-ng-show="class.type == 'activity'">
+        <div class="class_price ng-hide" data-ng-show="current_session.member_price">{{ 'Member price:'|t }} {{ '{{ current_session.member_price }}' }}</div>
+        <div class="class_price ng-hide" data-ng-show="current_session.non_member_price">{{ 'Non-member price:'|t }} {{ '{{ current_session.non_member_price }}' }}</div>
+      </div>
+      <div class="ng-hide" data-ng-show="class.type == 'flexreg'">
+        <div class="starting-from ng-hide" data-ng-show="current_session.price">{{ 'Starting from:'|t }} {{ '{{ current_session.price }}' }}</div>
+        <div class="tier-prices ng-hide" data-ng-show="current_session.tier_1 || current_session.tier_2 || current_session.tier_3">
+          <div class="tier-price ng-hide" data-ng-show="current_session.tier_1">{{ 'Tier I:'|t }} {{ '{{ current_session.tier_1 }}' }}</div>
+          <div class="tier-price ng-hide" data-ng-show="current_session.tier_2">{{ 'Tier II:'|t }} {{ '{{ current_session.tier_2 }}' }}</div>
+          <div class="tier-price ng-hide" data-ng-show="current_session.tier_3">{{ 'Tier III:'|t }} {{ '{{ current_session.tier_3 }}' }}</div>
+        </div>
+        <div class="reg-date ng-hide" data-ng-show="current_session.std_reg_begins">{{ 'Standard Registration Begins:'|t }} {{ '{{ current_session.std_reg_begins }}' }}</div>
+        <div class="reg-date end ng-hide" data-ng-show="current_session.std_reg_ends">{{ 'Standard Registration Ends:'|t }} {{ '{{ current_session.std_reg_ends }}' }}</div>
+        <div class="reg-date ng-hide" data-ng-show="current_session.online_reg_begins">{{ 'Online Registration Begins:'|t }} {{ '{{ current_session.online_reg_begins }}' }}</div>
+        <div class="reg-date end ng-hide" data-ng-show="current_session.online_reg_ends">{{ 'Online Registration Ends:'|t }} {{ '{{ current_session.online_reg_ends }}' }}</div>
+      </div>
+      <div class="ticket ng-hide" data-ng-show="current_session.ticket_required">{{ 'Ticket Required'|t }}</div>
+      <div class="ng-hide" data-ng-show="current_session.online_registration">
+        <a href="{{ '{{ current_session.register_url.url }}' }}" data-ng-show="class.type == 'activity'" target="_blank" class="btn btn-default blue ng-hide">{{ '{{ current_session.register_url.title }}' }}</a>
+        <a href="{{ '{{ current_session.register_url }}' }}" data-ng-show="class.type == 'flexreg'" target="_blank" class="btn btn-default blue ng-hide">{{ 'See more'|t }}</a>
+      </div>
+    </div>
+  </div>
+  <!-- /Register today-->
+</div>
