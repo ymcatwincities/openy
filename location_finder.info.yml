@@ -1,0 +1,4 @@
+name: Location Finder
+type: module
+description: Locations page functionality
+core: 8.x

@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * YGS Locations module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function location_finder_theme($existing, $type, $theme, $path) {
+  return [
+    'location_finder_element' => [
+      'render element' => 'element',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function location_finder_library_info_alter(&$libraries, $extension) {
+  if ($extension != 'location_finder') {
+    return;
+  }
+
+  // Adding Google Maps API key.
+  foreach ($libraries['location_finder']['js'] as $key => $value) {
+    if ($key != 'https://maps.googleapis.com/maps/api/js') {
+      continue;
+    }
+
+    unset($libraries['location_finder']['js'][$key]);
+    $libraries['location_finder']['js'][$key . '?key=' . 'AIzaSyCEAofyJsyH72hr4h7wQkzQ8xi-AeIU9s0'] = $value;
+  }
+}
