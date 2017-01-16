@@ -19,3 +19,4 @@ projects[field_collection] = 1.0-alpha1
 projects[video_embed_field] = 1.4
 projects[entity_browser] = 1.0-beta3
 projects[dropzonejs] = 1.0-alpha3
+projects[inline_entity_form] = 1.0-beta1
