@@ -37,7 +37,7 @@ function openy_rose_preprocess_paragraph(&$variables) {
  * $options to an associative array in which the keys are group labels, and the
  * values are associative arrays in the normal $options format.
  *
- * @param $variables
+ * @param array $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
  *     Properties used: #title, #value, #options, #description, #extra,
