@@ -5,9 +5,9 @@ dependencies:
   module:
     - system
   theme:
-    - openy_orchid
-id: openy_orchid_branding
-theme: openy_orchid
+    - openy_rose
+id: openy_rose_branding
+theme: openy_rose
 region: logo
 weight: 0
 provider: null

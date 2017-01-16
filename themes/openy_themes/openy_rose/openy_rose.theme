@@ -26,7 +26,7 @@ use Drupal\image\Entity\ImageStyle;
  *     Properties used: #title, #value, #options, #description, #extra,
  *     #multiple, #required, #name, #attributes, #size.
  */
-/*function openy_orchid_preprocess_select(&$variables) {
+/*function openy_rose_preprocess_select(&$variables) {
   $element = $variables['element'];
   Element::setAttributes($element, array('id', 'name', 'size'));
   RenderElement::setAttributes($element, array('form-select'));
@@ -41,7 +41,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_node().
  */
-/*function openy_orchid_preprocess_node(&$variables) {
+/*function openy_rose_preprocess_node(&$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['node']->bundle())) {
     $function = __FUNCTION__ . '_' . $variables['node']->bundle();
     $function($variables);
@@ -51,7 +51,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implement hook_preprocess_paragraph().
  */
-/*function openy_orchid_preprocess_paragraph(&$variables) {
+/*function openy_rose_preprocess_paragraph(&$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['paragraph']->bundle())) {
     $function = __FUNCTION__ . '_' . $variables['paragraph']->bundle();
     $function($variables);
@@ -61,7 +61,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implement hook_preprocess_paragraph() for small_banner bundle.
  */
-/*function openy_orchid_preprocess_paragraph_small_banner(&$variables) {
+/*function openy_rose_preprocess_paragraph_small_banner(&$variables) {
   // Passing color scheme to template.
   if ($variables['paragraph']->hasField('field_color')) {
     $paragraph = $variables['paragraph'];
@@ -75,7 +75,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Helper function; removes unpublished and empty field collection items.
  */
-/*function _openy_orchid_preprocess_field__remove_unpublished_and_empty_fc_items(&$variables) {
+/*function _openy_rose_preprocess_field__remove_unpublished_and_empty_fc_items(&$variables) {
   $user = \Drupal::currentUser();
 
   $children = Element::children($variables['items']);
@@ -101,20 +101,20 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_field().
  */
-/*function openy_orchid_preprocess_field__paragraph__field_updates_queue_item_collect__branch_updates_queue(&$variables) {
+/*function openy_rose_preprocess_field__paragraph__field_updates_queue_item_collect__branch_updates_queue(&$variables) {
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
     $branch = $node->getTitle();
     $variables['block_title'] = t('What’s New at the @branch?', ['@branch' => $branch]);
   }
 
-  _openy_orchid_preprocess_field__remove_unpublished_and_empty_fc_items($variables);
+  _openy_rose_preprocess_field__remove_unpublished_and_empty_fc_items($variables);
 }*/
 
 /**
  * Implements hook_preprocess_field().
  */
-/*function openy_orchid_preprocess_field__paragraph__field_updates_queue_home__frontpage_updates_queue(&$variables) {
-  _openy_orchid_preprocess_field__remove_unpublished_and_empty_fc_items($variables);
+/*function openy_rose_preprocess_field__paragraph__field_updates_queue_home__frontpage_updates_queue(&$variables) {
+  _openy_rose_preprocess_field__remove_unpublished_and_empty_fc_items($variables);
 }*/
 
 /**
@@ -127,7 +127,7 @@ use Drupal\image\Entity\ImageStyle;
  *   - element: An associative array containing the properties of the element.
  *     Properties used: #attributes.
  */
-/*function openy_orchid_preprocess_input(&$variables) {
+/*function openy_rose_preprocess_input(&$variables) {
   $element = $variables['element'];
   $variables['children'] = $element['#children'];
 
@@ -162,7 +162,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_field().
  */
-/*function openy_orchid_preprocess_field__node__field_locations(&$variables) {
+/*function openy_rose_preprocess_field__node__field_locations(&$variables) {
   if (function_exists('ygs_locations_get_all_locations')) {
     $all_ids = ygs_locations_get_all_locations();
     // Check if all fields are selected.
@@ -175,7 +175,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_field().
  */
-/*function openy_orchid_preprocess_field__node__field_directions(&$variables) {
+/*function openy_rose_preprocess_field__node__field_directions(&$variables) {
   // Change link title to Directions.
   $variables['items'][0]['content']['#title'] = t('Directions');
 }*/
@@ -183,7 +183,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_template().
  */
-/*function openy_orchid_preprocess_views_view_unformatted__membership__membership_locations(&$variables) {
+/*function openy_rose_preprocess_views_view_unformatted__membership__membership_locations(&$variables) {
   $config = \Drupal::config('ygs_popups.settings');
   $img_src = '';
   if ($config->get('img')) {
@@ -199,7 +199,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_radios().
  */
-/*function openy_orchid_preprocess_radios(&$variables) {
+/*function openy_rose_preprocess_radios(&$variables) {
   if (isset($variables['element']['#branches'], $variables['element']['#camps'])) {
     $variables['children'] = [];
     if ($variables['element']['#branches']) {
@@ -228,7 +228,7 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Implements hook_preprocess_template().
  */
-/*function openy_orchid_preprocess_views_view__membership__membership_teasers(&$variables) {
+/*function openy_rose_preprocess_views_view__membership__membership_teasers(&$variables) {
   $config = \Drupal::config('ygs_membership.settings');
   $variables['membership_title'] = $config->get('title');
   $variables['membership_description'] = $config->get('description');

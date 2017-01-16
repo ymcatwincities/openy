@@ -16,7 +16,7 @@ function openy_install() {
   // Set the default and admin theme.
   \Drupal::configFactory()
     ->getEditable('system.theme')
-    ->set('default', 'openy_orchid')
+    ->set('default', 'openy_rose')
     ->set('admin', 'seven')
     ->save(TRUE);
 
