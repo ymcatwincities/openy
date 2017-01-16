@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.media.teaser
     - media_entity.bundle.image
   module:
     - entity_browser
@@ -178,7 +179,7 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          view_mode: default
+          view_mode: teaser
           entity_type: media
           plugin_id: rendered_entity
       filters:
@@ -389,7 +390,10 @@ display:
         - 'url.query_args:sort_order'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.media.document.default'
+        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.teaser'
   images_library:
     display_plugin: entity_browser
     id: images_library
@@ -407,4 +411,7 @@ display:
         - 'url.query_args:sort_order'
         - user.permissions
       tags:
+        - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.teaser'
+        - 'config:core.entity_view_display.media.video.default'
