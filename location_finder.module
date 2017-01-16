@@ -32,8 +32,8 @@ function location_finder_library_info_alter(&$libraries, $extension) {
     if ($key != 'https://maps.googleapis.com/maps/api/js') {
       continue;
     }
-
+    $api_key = \Drupal::configFactory()->get('location_finder.settings')->get('google_map_api_key');
     unset($libraries['location_finder']['js'][$key]);
-    $libraries['location_finder']['js'][$key . '?key=' . 'AIzaSyCEAofyJsyH72hr4h7wQkzQ8xi-AeIU9s0'] = $value;
+    $libraries['location_finder']['js'][$key . '?key=' . $api_key] = $value;
   }
 }

@@ -1,5 +1,5 @@
 location_finder:
-  version: VERSION
+  version: 1.0
   js:
     https://maps.googleapis.com/maps/api/js: { type: external }
     js/location_finder.js: {}
