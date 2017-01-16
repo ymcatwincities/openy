@@ -11,7 +11,7 @@ global-styling:
     //fast.fonts.net/jsapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.js: {}
     //use.fontawesome.com/95fd5fcc01.js: {}
     scripts/vendor/bootstrap.min.js: {}
-    scripts/openy_orchid.js: {}
+    scripts/openy_rose.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -24,7 +24,7 @@ global-styling:
 subcategory-search-form:
   version: VERSION
   js:
-    scripts/openy_orchid_subcategory_classes.js: {}
+    scripts/openy_rose_subcategory_classes.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -34,7 +34,7 @@ subcategory-search-form:
 blog:
   version: VERSION
   js:
-    scripts/openy_orchid_blog.js: {}
+    scripts/openy_rose_blog.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -44,7 +44,7 @@ blog:
 landing:
   version: VERSION
   js:
-    scripts/openy_orchid_landing.js: {}
+    scripts/openy_rose_landing.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -54,7 +54,7 @@ landing:
 membership:
   version: VERSION
   js:
-    scripts/openy_orchid_membership.js: {}
+    scripts/openy_rose_membership.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -65,7 +65,7 @@ camp_menu:
   version: VERSION
   js:
     scripts/vendor/iscroll/iscroll.js: {}
-    scripts/openy_orchid_camp_menu.js: {}
+    scripts/openy_rose_camp_menu.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -75,7 +75,7 @@ camp_menu:
 featured_slider:
   version: VERSION
   js:
-    scripts/openy_orchid_featured_paragraph.js: {}
+    scripts/openy_rose_featured_paragraph.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -88,7 +88,7 @@ featured_slider:
 blog_slider:
   version: VERSION
   js:
-    scripts/openy_orchid_blog_slider.js: {}
+    scripts/openy_rose_blog_slider.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once

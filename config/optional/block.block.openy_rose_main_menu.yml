@@ -7,9 +7,9 @@ dependencies:
   module:
     - system
   theme:
-    - openy_orchid
-id: openy_orchid_main_menu
-theme: openy_orchid
+    - openy_rose
+id: openy_rose_main_menu
+theme: openy_rose
 region: primary_menu
 weight: 0
 provider: null

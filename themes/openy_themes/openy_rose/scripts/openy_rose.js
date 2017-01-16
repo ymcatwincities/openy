@@ -1,8 +1,8 @@
 (function ($) {
   "use strict";
-  Drupal.openy_orchid =  Drupal.openy_orchid || {};
+  Drupal.openy_rose =  Drupal.openy_rose || {};
 
-  Drupal.behaviors.openy_orchid_theme = {
+  Drupal.behaviors.openy_rose_theme = {
     attach: function (context, settings) {
       $('.ui-tabs').tabs({
         active: false,
@@ -13,17 +13,17 @@
 
       });
       $(window).resize(function () {
-        Drupal.openy_orchid.branch__updates_queue_mobile();
-        Drupal.openy_orchid.location__timeschedule_mobile();
+        Drupal.openy_rose.branch__updates_queue_mobile();
+        Drupal.openy_rose.location__timeschedule_mobile();
       });
 
-      Drupal.openy_orchid.branch__updates_queue();
-      Drupal.openy_orchid.branch__updates_queue_mobile();
-      Drupal.openy_orchid.location__timeschedule_mobile();
+      Drupal.openy_rose.branch__updates_queue();
+      Drupal.openy_rose.branch__updates_queue_mobile();
+      Drupal.openy_rose.location__timeschedule_mobile();
     }
   };
 
-  Drupal.openy_orchid.branch__updates_queue = function () {
+  Drupal.openy_rose.branch__updates_queue = function () {
     // Branch Updates queue.
     var cards = 0;
     $('.branch__updates_queue .cards .content').each(function() {
@@ -41,7 +41,7 @@
     });
   };
 
-  Drupal.openy_orchid.branch__updates_queue_mobile = function () {
+  Drupal.openy_rose.branch__updates_queue_mobile = function () {
     $('.branch__updates_queue').each(function () {
       var view = $(this);
 
@@ -73,7 +73,7 @@
     });
   };
 
-  Drupal.openy_orchid.location__timeschedule_mobile = function () {
+  Drupal.openy_rose.location__timeschedule_mobile = function () {
     $('.timeshift').each(function () {
       var view = $(this);
 

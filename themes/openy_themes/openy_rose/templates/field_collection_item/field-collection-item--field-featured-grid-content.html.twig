@@ -43,7 +43,7 @@ set item_class = [
 {% if content.field_paragraph_field_style.0['#markup'] == '4' %}
   {% set item_class = item_class|merge(['col-xs-12 col-sm-3']) %}
 {% endif %}
-{{ attach_library('openy_orchid/featured_slider') }}
+{{ attach_library('openy_rose/featured_slider') }}
 <div{{ attributes.addClass(classes) }}>
   {% for key, item in content.field_grid_content %}
     {% if key matches '/^\\d+$/' %}

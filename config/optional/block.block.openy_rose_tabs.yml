@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - openy_orchid
-id: openy_orchid_tabs
-theme: openy_orchid
+    - openy_rose
+id: openy_rose_tabs
+theme: openy_rose
 region: content
 weight: -2
 provider: null

@@ -1,7 +1,7 @@
 (function($) {
   "use strict";
 
-  Drupal.behaviors.openy_orchid_subcategory_classes_theme = {
+  Drupal.behaviors.openy_rose_subcategory_classes_theme = {
     attach: function(context, settings) {
 
       $(document)
