@@ -8,6 +8,8 @@ dependencies:
     - field.field.media.video.field_media_video_embed_field
     - field.field.media.video.field_media_video_id
     - media_entity.bundle.video
+  module:
+    - video_embed_field
 id: media.video.default
 targetEntityType: media
 bundle: video
@@ -27,6 +29,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete_tags
+  field_media_video_embed_field:
+    type: video_embed_field_textfield
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
   name:
     type: string_textfield
     weight: 0
@@ -37,6 +44,5 @@ content:
 hidden:
   created: true
   field_media_source: true
-  field_media_video_embed_field: true
   field_media_video_id: true
   uid: true
