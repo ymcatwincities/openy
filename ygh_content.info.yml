@@ -1,6 +1,6 @@
 name: YGH Content
 type: module
-description: Implements static migrations to add YMCA Houston content.
+description: Implements static migrations to add YMCA Houston content. Imports blog posts from WordPress export file.
 core: 8.x
 package: YGH
 version: 8.x-1.0
