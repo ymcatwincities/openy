@@ -3,6 +3,7 @@ description: 'Image media features.'
 type: module
 core: 8.x
 dependencies:
+  - dropzonejs_eb_widget
   - entity_browser
   - field
   - file
