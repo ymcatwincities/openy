@@ -10,6 +10,7 @@ use Drupal\Core\Render\Element\RenderElement;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 
+// @codingStandardsIgnoreStart
 /**
  * Prepares variables for select element templates.
  *
@@ -234,3 +235,4 @@ use Drupal\image\Entity\ImageStyle;
   $variables['membership_tab1_title'] = $config->get('tab1_title');
   $variables['membership_tab2_title'] = $config->get('tab2_title');
 }*/
+// @codingStandardsIgnoreEnd
