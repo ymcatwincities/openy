@@ -11,7 +11,7 @@ source:
     -
       id: 1
       title: 'Placeholder'
-      alt: 'Header image placeholder'
+      alt: 'Image placeholder'
   ids:
     id:
       type: integer
