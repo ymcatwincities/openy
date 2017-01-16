@@ -10,7 +10,7 @@
  */
 function openy_calc_theme() {
   return [
-    'form_element_type' => array(
+    'form_element_membership_type' => array(
       'render element' => 'element',
     ),
   ];
@@ -19,7 +19,7 @@ function openy_calc_theme() {
 /**
  * Preprocess variables.
  */
-function template_preprocess_form_element_type(&$variables) {
+function template_preprocess_form_element_membership_type(&$variables) {
   template_preprocess_form_element($variables);
   $element = &$variables['element'];
   $variables['element_variables'] = $element['#element_variables'];
