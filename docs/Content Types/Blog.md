@@ -10,10 +10,10 @@ Blog Post content type is used for adding blog posts on the site.
 | Category | field\_blog_category | No | Reference field for choosing the term from "Blog Category" vocabulary. Multiple Values. |
 | **Content Area** | Field group |||
 | Image | field\_blog_image | No | Image field for the Blog item. Entity reference to Media bundle. |
-| Description | field_body | No | Textarea for the description/body with WYSIWYG, without summary. |
+| Description | field_blog_description | No | Textarea for the description/body with WYSIWYG, without summary. |
 | Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Sidebar Area** | Field group |||
-| Related Blog posts | field\_blog\_posts_related | No | Reference field for choosing related Blog nodes. Multiple Values. |
+| Related Blog posts | field\_blog_related | No | Reference field for choosing related Blog nodes. Multiple Values. |
 | Content | field\_sidebar_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 
 ### URL pattern

@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.membership.field_mbrshp_description
+    - field.field.node.membership.field_mbrshp_image
+    - field.field.node.membership.field_mbrshp_info
+    - node.type.membership
+  module:
+    - field_collection
+    - text
+    - user
+id: node.membership.default
+targetEntityType: node
+bundle: membership
+mode: default
+content:
+  field_mbrshp_description:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_mbrshp_image:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_mbrshp_info:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_list
+  links:
+    weight: 100
+hidden: {  }

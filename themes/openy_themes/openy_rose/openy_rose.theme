@@ -1,0 +1,98 @@
+<?php
+
+/**
+ * @file
+ * Theme file.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Element\RenderElement;
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function openy_rose_preprocess_node(&$variables) {
+  if (function_exists(__FUNCTION__ . '_' . $variables['node']->bundle())) {
+    $function = __FUNCTION__ . '_' . $variables['node']->bundle();
+    $function($variables);
+  }
+}
+
+/**
+ * Implement hook_preprocess_paragraph().
+ */
+function openy_rose_preprocess_paragraph(&$variables) {
+  if (function_exists(__FUNCTION__ . '_' . $variables['paragraph']->bundle())) {
+    $function = __FUNCTION__ . '_' . $variables['paragraph']->bundle();
+    $function($variables);
+  }
+}
+
+/**
+ * Prepares variables for select element templates.
+ *
+ * Default template: select.html.twig.
+ *
+ * It is possible to group options together; to do this, change the format of
+ * $options to an associative array in which the keys are group labels, and the
+ * values are associative arrays in the normal $options format.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #extra,
+ *     #multiple, #required, #name, #attributes, #size.
+ */
+function openy_rose_preprocess_select(array &$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, array('id', 'name', 'size'));
+  RenderElement::setAttributes($element, array('form-select'));
+
+  $variables['attributes'] = $element['#attributes'];
+  $variables['options'] = form_select_options($element);
+
+  $variables['attributes']['class'][] = 'form-control';
+  $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Prepares variables for input templates.
+ *
+ * Default template: input.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes.
+ */
+function openy_rose_preprocess_input(array &$variables) {
+  $element = $variables['element'];
+  $variables['children'] = $element['#children'];
+
+  $types = array('url', 'textfield', 'tel', 'password', 'date');
+  if (in_array($element['#type'], $types)) {
+    $classes = array(
+      'form-control',
+      'text',
+    );
+  }
+  elseif ($element['#type'] == 'submit' && $element['#ajax_processed'] != TRUE) {
+    $classes = array(
+      'form_submit',
+      'btn',
+      'btn-lg',
+      'btn-primary',
+    );
+  }
+  elseif ($element['#type'] == 'email') {
+    $classes = array(
+      'form-control',
+      'text',
+      'email',
+    );
+  }
+
+  if (isset($classes)) {
+    $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  }
+}

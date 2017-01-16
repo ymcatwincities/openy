@@ -1,0 +1,74 @@
+{#
+/**
+ * @file
+ * Class page specific two column layout wrapped with container.
+ *
+ * Available variables:
+ * - content: The content.
+
+ * @ingroup themeable
+ */
+#}
+
+<div class="container two-columns-container">
+  <div class="row">
+    <div class="col-sm-12">
+      {{ content.header }}
+    </div>
+  </div>
+  <div class="row" data-ng-controller="ScheduleController">
+    <div class="two-column">
+      <div class="main-region col-sm-8">
+        {{ content.main }}
+      </div>
+      <div class="sidebar-region col-sm-4">
+        {{ content.sidebar }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="session-expired-modal" tabindex="-1" role="dialog" aria-labelledby="session-expired-label">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="session-expired-label">{{ 'The session has expired.' }}</h4>
+      </div>
+      <div class="modal-body">
+        {{ 'The session you are looking for is no longer available. This is the next available session.'|t }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="class-unavailable-modal" tabindex="-2" role="dialog" aria-labelledby="class-unavailable-label">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="class-unavailable-label">{{ 'Class isn’t available.' }}</h4>
+      </div>
+      <div class="modal-body">
+        {{ 'Unfortunately it looks like this class isn’t available at your preferred location. Please see where you could take this class.'|t }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="class-expired-modal" tabindex="-2" role="dialog" aria-labelledby="class-expired-label">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="class-expired-label">{{ 'Class isn’t available.' }}</h4>
+      </div>
+      <div class="modal-body">
+        {{ 'We’re sorry, but it looks like this class isn’t offered anymore.'|t }}
+      </div>
+    </div>
+  </div>
+</div>

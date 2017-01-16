@@ -43,6 +43,7 @@ dependencies:
   - features
   - features_ui
   - field_group
+  - field_collection
   - address
   - paragraphs
   - pathauto
@@ -50,12 +51,17 @@ dependencies:
   - openy_media_image
   - openy_media_document
   - openy_media_video
+  - openy_membership
   - openy_node_core
   - openy_location_core
   - openy_branch
   - openy_camp
   - openy_facility
+  - openy_landing
+  - openy_program
+  - openy_program_subcategory
 
 themes:
   - bartik
+  - openy_rose
   - seven

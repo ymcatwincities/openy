@@ -7,4 +7,5 @@ dependencies:
   - field
   - node
   - paragraphs
+  - taxonomy
 version: 8.x-1.0
