@@ -1,0 +1,21 @@
+name: 'OpenY session'
+description: 'OpenY session'
+type: module
+core: 8.x
+dependencies:
+  - datetime_range
+  - field
+  - field_collection
+  - field_group
+  - link
+  - menu_ui
+  - node
+  - openy_branch
+  - openy_camp
+  - openy_class
+  - openy_facility
+  - options
+  - path
+  - text
+  - user
+version: 8.x-1.0
