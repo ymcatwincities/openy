@@ -35,6 +35,12 @@
       @include breakpoint(tablet) {
         width: 40%;
       }
+
+      .item-share--uwa {
+        font-family: $font-family-sans-serif;
+        font-size: 12px;
+        line-height: lh(18, 12);
+      }
     }
 
     &--bottom {
@@ -199,6 +205,14 @@
         @include sprite(icon-youtube);
       }
     }
+
+    &--uwa {
+      &:before {
+        content: url(../images/logo_footer.svg);
+        vertical-align: -12px;
+        padding-right: 15px;
+      }
+    }
   }
 }
 
@@ -282,4 +296,12 @@
   p {
     margin: 0;
   }
+}
+
+#block-footeraddressblock {
+  font-family:  $font-family-sans-serif;
+  font-size: 12px;
+  line-height: lh(18, 12);
+  clear: both;
+  padding: 10px 15px;
 }
