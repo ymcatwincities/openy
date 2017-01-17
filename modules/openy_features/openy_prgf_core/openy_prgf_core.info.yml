@@ -3,9 +3,9 @@ description: 'OpenY paragraph core'
 type: module
 core: 8.x
 dependencies:
-  - file
-  - image
+  - field
   - link
+  - media_entity
   - paragraphs
   - text
 version: 8.x-1.0
