@@ -2,7 +2,6 @@ core = 8.x
 api = 2
 defaults[projects][subdir] = contrib
 
-# Modules.
 projects[features] = 3.2
 projects[config_update] = 1.2
 projects[entity] = 1.0-alpha4
@@ -24,7 +23,6 @@ projects[inline_entity_form] = 1.0-beta1
 projects[embed] = 1.0-rc3
 projects[entity_embed] = 1.0-beta2
 
-# Libraries.
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
 libraries[dropzone][destination] = libraries
