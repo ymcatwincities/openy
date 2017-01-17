@@ -2,6 +2,8 @@
 
 namespace Drupal\openy_field_holiday_hours\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -24,6 +26,49 @@ use Drupal\Component\Render\FormattableMarkup;
 class HolidayHoursFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
+   * Offset to show field before a holiday.
+   */
+  const SHOW_BEFORE_OFFSET = 1209600;
+
+  /**
+   * Offset to show field after a holiday.
+   */
+  const SHOW_AFTER_OFFSET = 86400;
+
+  /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * HolidayHoursFormatter constructor.
+   *
+   * @param string $plugin_id
+   *   Plugin ID.
+   * @param mixed $plugin_definition
+   *   Plugin definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   Field definition.
+   * @param array $settings
+   *   Settings.
+   * @param string $label
+   *   Label.
+   * @param string $view_mode
+   *   View mode.
+   * @param array $third_party_settings
+   *   Third party settings.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   Config factory.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, ConfigFactoryInterface $configFactory) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+
+    $this->configFactory = $configFactory;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -34,7 +79,8 @@ class HolidayHoursFormatter extends FormatterBase implements ContainerFactoryPlu
       $configuration['settings'],
       $configuration['label'],
       $configuration['view_mode'],
-      $configuration['third_party_settings']
+      $configuration['third_party_settings'],
+      $container->get('config.factory')
     );
   }
 
@@ -43,18 +89,19 @@ class HolidayHoursFormatter extends FormatterBase implements ContainerFactoryPlu
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $rows = [];
+    $config = $this->configFactory->get('openy_field_holiday_hours.settings');
 
     // Calculate timezone offset.
-    $tz = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
+    $tz = new \DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
     $dt = new \DateTime(NULL, $tz);
     $tz_offset = $dt->getOffset();
 
-    // The Holiday Hours should be shown before 14 days.
-    $holidays_offset = \Drupal::config('ymca_hours.settings')->get('holidays_offset');
-    $before_offset = $tz_offset + $holidays_offset;
+    // The Holiday Hours should be shown before N days.
+    $show_before_offset = $config->get('show_before_offset') ? $config->get('show_before_offset') : self::SHOW_BEFORE_OFFSET;
+    $show_before_offset = $tz_offset + $show_before_offset;
 
-    // Also the Holiday Hours should be shown during the day.
-    $after_offset = 60 * 60 * 24;
+    // Also the Holiday Hours should be shown during N offset after a holiday.
+    $show_after_offset = $config->get('show_after_offset') ? $config->get('show_after_offset') : self::SHOW_AFTER_OFFSET;
 
     foreach ($items as $item) {
       $values = $item->getValue();
@@ -66,11 +113,11 @@ class HolidayHoursFormatter extends FormatterBase implements ContainerFactoryPlu
 
       $holiday_timestamp = $values['date'];
 
-      if (REQUEST_TIME < ($holiday_timestamp + $after_offset) && ($holiday_timestamp - REQUEST_TIME) <= $before_offset) {
+      if (REQUEST_TIME < ($holiday_timestamp + $show_after_offset) && ($holiday_timestamp - REQUEST_TIME) <= $show_before_offset) {
         $title = Html::escape($values['holiday']);
         $rows[] = [
           'data' => [
-            new FormattableMarkup('<span>' . $title . '</span>:', []),
+            new FormattableMarkup('<span>' . $title . '</span>: ', []),
             $values['hours'],
           ],
           'data-timestamp' => $holiday_timestamp,
