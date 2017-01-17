@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - entity_browser.browser.images_library
     - field.field.field_collection_item.field_grid_columns.field_prgf_clm_description
     - field.field.field_collection_item.field_grid_columns.field_prgf_clm_headline
     - field.field.field_collection_item.field_grid_columns.field_prgf_clm_icon
@@ -9,6 +10,7 @@ dependencies:
     - field.field.field_collection_item.field_grid_columns.field_prgf_column_class
     - field_collection.field_collection.field_grid_columns
   module:
+    - entity_browser
     - link
     - text
 id: field_collection_item.field_grid_columns.default
@@ -33,11 +35,15 @@ content:
   field_prgf_clm_icon:
     weight: 2
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      entity_browser: images_library
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      open: false
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: entity_browser_entity_reference
   field_prgf_clm_link:
     weight: 3
     settings:
