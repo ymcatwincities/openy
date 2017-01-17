@@ -115,6 +115,7 @@ source:
       link: 'base:'
       weight: 0
       parent_id: 0
+      expanded: 1
     -
       id: 16
       title: 'Health & Fitness'
