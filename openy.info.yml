@@ -16,6 +16,7 @@ dependencies:
   - contact
   - menu_link_content
   - datetime
+  - datetime_range
   - block_content
   - quickedit
   - editor
