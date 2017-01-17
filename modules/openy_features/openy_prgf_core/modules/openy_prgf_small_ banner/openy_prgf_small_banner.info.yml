@@ -1,0 +1,11 @@
+name: 'OpenY paragraph small banner'
+description: 'OpenY paragraph small banner'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - openy_media_image
+  - openy_node_core
+  - openy_prgf_core
+  - paragraphs
+version: 8.x-1.0

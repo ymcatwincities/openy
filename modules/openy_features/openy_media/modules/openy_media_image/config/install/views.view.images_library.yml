@@ -390,8 +390,6 @@ display:
         - 'url.query_args:sort_order'
         - user.permissions
       tags:
-        - 'config:core.entity_view_display.media.document.default'
-        - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.teaser'
   images_library:
@@ -411,7 +409,5 @@ display:
         - 'url.query_args:sort_order'
         - user.permissions
       tags:
-        - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.teaser'
-        - 'config:core.entity_view_display.media.video.default'
