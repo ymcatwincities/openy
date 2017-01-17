@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.featured_blogs.field_prgf_headline
+    - paragraphs.paragraphs_type.featured_blogs
+id: paragraph.featured_blogs.default
+targetEntityType: paragraph
+bundle: featured_blogs
+mode: default
+content:
+  field_prgf_headline:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  created: true
+  status: true
+  uid: true
