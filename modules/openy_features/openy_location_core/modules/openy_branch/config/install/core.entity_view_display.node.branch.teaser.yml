@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.branch.field_content
+    - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_directions
@@ -24,6 +26,8 @@ content:
   links:
     weight: 100
 hidden:
+  field_content: true
+  field_header_content: true
   field_location_address: true
   field_location_area: true
   field_location_directions: true

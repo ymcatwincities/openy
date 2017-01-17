@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
@@ -17,6 +18,7 @@ dependencies:
     - node.type.branch
   module:
     - address
+    - field_collection
     - field_group
     - link
     - paragraphs
@@ -59,6 +61,45 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'General Info'
+    group_branch_hours:
+      children:
+        - field_branch_hours
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Branch Hours'
+    group_header_area:
+      children:
+        - field_header_content
+      parent_name: ''
+      weight: 3
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Header Area'
+    group_content_area:
+      children:
+        - field_content
+      parent_name: ''
+      weight: 4
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Content Area'
 id: node.branch.default
 targetEntityType: node
 bundle: branch
@@ -66,12 +107,17 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 5
+    weight: 7
     settings: {  }
     third_party_settings: {  }
+  field_branch_hours:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_embed
   field_content:
     type: entity_reference_paragraphs
-    weight: 3
+    weight: 5
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -81,7 +127,7 @@ content:
     third_party_settings: {  }
   field_header_content:
     type: entity_reference_paragraphs
-    weight: 2
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -158,20 +204,20 @@ content:
     type: link_default
   path:
     type: path
-    weight: 8
+    weight: 10
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 6
+    weight: 8
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 9
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -182,7 +228,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60

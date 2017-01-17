@@ -55,6 +55,32 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Contact Info'
+    group_header_area:
+      children:
+        - field_header_content
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Header Area'
+    group_content_area:
+      children:
+        - field_content
+      parent_name: ''
+      weight: 3
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Content Area'
 id: node.camp.default
 targetEntityType: node
 bundle: camp
@@ -73,7 +99,7 @@ content:
     third_party_settings: {  }
     type: link_default
   field_content:
-    weight: 2
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -83,7 +109,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_paragraphs
   field_header_content:
-    weight: 3
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs

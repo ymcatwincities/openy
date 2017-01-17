@@ -71,6 +71,9 @@ dependencies:
   - openy_prgf_promo_card
   - openy_prgf_featured_blogs
   - openy_prgf_gallery
+  - openy_activity
+  - openy_class
+
 themes:
   - bartik
   - openy_rose

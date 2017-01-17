@@ -12,8 +12,6 @@ dependencies:
     - link
     - media_entity
     - text
-_core:
-  default_config_hash: MgrURS2Cjl4yji2DSj4mRp90d8y2vmM3D7uNwoYGHRc
 id: paragraph.banner.default
 targetEntityType: paragraph
 bundle: banner
