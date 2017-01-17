@@ -1,0 +1,157 @@
+#membership-calc-wrapper {
+  h2 {
+    @include cachet();
+    font-weight: normal;
+    font-size: 40px;
+    color: $default-grey;
+  }
+  fieldset {
+    clear: both;
+    legend {
+      @include cachet();
+      border: none;
+      font-size: 18px;
+      line-height: 1.22;
+      letter-spacing: -1px;
+      margin-bottom: 0;
+      padding: 0 15px;
+      color: $dark-grey;
+      @include breakpoint(tablet) {
+        font-size: 36px;
+        color: $purple;
+      }
+    }
+  }
+
+  .js-form-type-membership-type-radio {
+    > div {
+      padding-bottom: 30px;
+      margin-bottom: 30px;
+      @include breakpoint(tablet) {
+        border-bottom: 1px solid $darker-grey;
+      }
+    }
+    input {
+      display: none;
+    }
+    h3 {
+      @include cachet();
+      font-size: 28px;
+      letter-spacing: -1px;
+      color: $purple;
+      @include breakpoint(tablet) {
+        font-size: 36px;
+      }
+    }
+    p {
+      @include helvetica-neue();
+      font-size: 15px;
+      line-height: 1.47;
+      color: $darker-grey;
+      margin-bottom: 15px;
+    }
+    .btn {
+      @include btn-large-purple();
+      width: 100%;
+      @include breakpoint(tablet) {
+        width: 260px;
+      }
+    }
+  }
+
+  a[href="#step2"],
+  a[href="#step3"] {
+    pointer-events: none;
+  }
+  .description {
+    color: $purple;
+    @include cachet();
+    padding-bottom: 1em;
+    font-size: 20px;
+    line-height: 1.45em;
+  }
+  .nav-pills {
+    display: table;
+    width: 100%;
+    @include cachet();
+    overflow: hidden;
+    margin-bottom: 20px;
+    font-size: 13px;
+    @include breakpoint(tablet) {
+      font-size: 20px;
+      line-height: 42px;
+    }
+    & > li {
+      display: table-cell;
+      float: none;
+      vertical-align: middle;
+
+      &:last-child {
+        a {
+          padding-left: 25px;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        position: relative;
+        white-space: nowrap;
+        border-radius: 0;
+        color: $white;
+        background-color: #92278f;
+        width: calc(100% - 30px);
+        text-align: center;
+        @include breakpoint(tablet) {
+          display: block;
+        }
+        &:before {
+          content: " ";
+          display: block;
+          width: 0;
+          height: 0;
+          border-top: 60px solid transparent;
+          border-bottom: 60px solid transparent;
+          border-left: 30px solid $white;
+          position: absolute;
+          top: 50%;
+          margin-top: -60px;
+          margin-left: 1px;
+          left: 100%;
+          z-index: 1;
+        }
+        &:after {
+          content: " ";
+          display: block;
+          width: 0;
+          height: 0;
+          border-top: 60px solid transparent;
+          border-bottom: 60px solid transparent;
+          border-left: 30px solid  #92278f;
+          position: absolute;
+          top: 50%;
+          margin-top: -60px;
+          margin-left: -1px;
+          left: 100%;
+          z-index: 2;
+        }
+
+        .nav-pills__text {
+          position: relative;
+          z-index: 3;
+        }
+      }
+      a[href="#step1"],
+      a[href="#step2"] {
+        width: calc(100% - 15px);
+      }
+      &.active a,
+      &:first-child a{
+        background-color: $purple;
+      }
+      &:first-child a:after,
+      &.active a:after {
+        border-left: 30px solid $purple;
+      }
+    }
+  }
+}
