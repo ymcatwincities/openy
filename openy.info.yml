@@ -71,6 +71,7 @@ dependencies:
   - openy_prgf_promo_card
   - openy_prgf_featured_blogs
   - openy_prgf_gallery
+  - openy_prgf_teaser
   - openy_activity
   - openy_class
 
