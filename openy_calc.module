@@ -10,9 +10,15 @@
  */
 function openy_calc_theme() {
   return [
-    'form_element_membership_type' => array(
+    'form_element_membership_type' => [
       'render element' => 'element',
-    ),
+    ],
+    'openy_calc_form_header' => [
+      'variables' => [
+        'steps' => [],
+      ],
+      'template' => 'openy-calc-form-header',
+    ],
   ];
 }
 
