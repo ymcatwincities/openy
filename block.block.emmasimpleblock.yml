@@ -1,0 +1,20 @@
+uuid: 61d73440-03c3-430a-92db-2b11d7dc428b
+langcode: en
+status: true
+dependencies:
+  module:
+    - emma_block
+  theme:
+    - ygh
+id: emmasimpleblock
+theme: ygh
+region: footer_social
+weight: -9
+provider: null
+plugin: emma_block_simple_block
+settings:
+  id: emma_block_simple_block
+  label: 'Sign up for email updates!'
+  provider: emma_block
+  label_display: visible
+visibility: {  }
