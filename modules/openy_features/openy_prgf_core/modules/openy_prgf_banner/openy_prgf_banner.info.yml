@@ -3,10 +3,12 @@ description: 'OpenY paragraph banner'
 type: module
 core: 8.x
 dependencies:
-  - file
-  - image
+  - entity_browser
+  - field
   - link
+  - media_entity
+  - openy_media_image
+  - openy_prgf_core
   - paragraphs
   - text
-  - openy_prgf_core
 version: 8.x-1.0
