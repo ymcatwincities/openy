@@ -9,7 +9,7 @@ id: node.class.field_class_activity
 field_name: field_class_activity
 entity_type: node
 bundle: class
-label: 'Program Subcategory'
+label: Activity
 description: ''
 required: false
 translatable: false
