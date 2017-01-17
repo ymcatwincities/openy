@@ -67,7 +67,10 @@ dependencies:
   - openy_prgf_simple_content
   - openy_prgf_featured_content
   - openy_prgf_grid_content
-
+  - openy_prgf_story_card
+  - openy_prgf_promo_card
+  - openy_prgf_featured_blogs
+  - openy_prgf_gallery
 themes:
   - bartik
   - openy_rose
