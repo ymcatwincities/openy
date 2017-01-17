@@ -1,13 +1,11 @@
-name: 'OpenY paragraph core'
-description: 'OpenY paragraph core'
+name: 'OpenY paragraph featured content'
+description: 'OpenY paragraph featured content'
 type: module
 core: 8.x
 dependencies:
   - field_collection
-  - file
-  - image
   - link
-  - media_entity
+  - openy_prgf_core
   - options
   - paragraphs
   - text
