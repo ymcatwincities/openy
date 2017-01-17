@@ -1,1 +1,3 @@
+excluded:
+  - core.entity_form_display.paragraph.small_banner.default
 required: true
