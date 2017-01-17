@@ -1,0 +1,11 @@
+name: 'OpenY paragraph gallery'
+description: 'OpenY paragraph gallery'
+type: module
+core: 8.x
+dependencies:
+  - link
+  - media_entity
+  - openy_prgf_core
+  - paragraphs
+  - text
+version: 8.x-1.0
