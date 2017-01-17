@@ -9,6 +9,7 @@ use Drupal\file\Entity\File;
  * Class that helps in uploading icons for embed buttons.
  */
 class EmbedButtonIconHelper {
+
   /**
    * Helper that upload icon for embed button and add it to configuration.
    *
