@@ -148,7 +148,7 @@ source:
       description: 'Footer United Way Agency block'
       title: ''
       body: |
-        <p>A United Way Agency</p>
+        <p class="item-share--uwa">A United Way Agency</p>
 
   ids:
     id:
