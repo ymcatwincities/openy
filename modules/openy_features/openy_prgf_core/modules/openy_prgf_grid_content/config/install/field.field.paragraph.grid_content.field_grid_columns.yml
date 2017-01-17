@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_grid_columns
+    - paragraphs.paragraphs_type.grid_content
+  module:
+    - field_collection
+id: paragraph.grid_content.field_grid_columns
+field_name: field_grid_columns
+entity_type: paragraph
+bundle: grid_content
+label: Content
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: field_collection
