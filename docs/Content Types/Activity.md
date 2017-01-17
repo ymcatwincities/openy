@@ -11,4 +11,4 @@ Activity content type is used for adding Activities on the site.
 
 ### URL pattern
 Content type is using following pattern:
-`/programs/[node:field_category_program:title]/[node:field_activity_category:title]/[node:title]`
+`/programs/[node:field_activity_category:entity:field_category_program:entity:title]/[node:field_activity_category:entity:title]/[node:title]`

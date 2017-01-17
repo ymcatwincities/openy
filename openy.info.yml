@@ -64,6 +64,8 @@ dependencies:
   - openy_prgf_core
   - openy_prgf_banner
   - openy_prgf_simple_content
+  - openy_activity
+  - openy_class
 
 themes:
   - bartik
