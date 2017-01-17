@@ -6,6 +6,7 @@ dependencies:
   - field_collection
   - link
   - media_entity
+  - openy_media
   - openy_prgf_core
   - options
   - paragraphs
