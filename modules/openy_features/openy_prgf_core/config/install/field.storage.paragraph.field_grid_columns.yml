@@ -1,0 +1,19 @@
+uuid: f992d520-c9c8-4b39-b78e-e20528c62477
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_collection
+    - paragraphs
+id: paragraph.field_grid_columns
+field_name: field_grid_columns
+entity_type: paragraph
+type: field_collection
+settings: {  }
+module: field_collection
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
