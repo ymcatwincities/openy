@@ -57,6 +57,33 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Contact Info'
+    group_content_area:
+      children:
+        - field_content
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Content Area'
+    group_header_area:
+      children:
+        - field_sidebar_content
+      parent_name: ''
+      weight: 3
+      format_type: tab
+      format_settings:
+        label: 'Sidebar Area'
+        formatter: closed
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Sidebar Area'
 id: node.facility.default
 targetEntityType: node
 bundle: facility
@@ -64,11 +91,11 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
   field_content:
-    weight: 2
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -138,7 +165,7 @@ content:
     type: telephone_default
   field_sidebar_content:
     type: entity_reference_paragraphs
-    weight: 3
+    weight: 4
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -148,20 +175,20 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 6
+    weight: 7
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 8
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -172,7 +199,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60
