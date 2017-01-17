@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.grid_content.field_grid_columns
+    - field.field.paragraph.grid_content.field_prgf_grid_style
+    - paragraphs.paragraphs_type.grid_content
+  module:
+    - field_collection
+    - options
+id: paragraph.grid_content.default
+targetEntityType: paragraph
+bundle: grid_content
+mode: default
+content:
+  field_grid_columns:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: field_collection_list
+  field_prgf_grid_style:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+hidden:
+  created: true
+  uid: true
