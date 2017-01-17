@@ -106,6 +106,32 @@ class CalcBlockForm extends FormBase {
       $types_options[$id] = $type['title'];
     }
 
+    $steps = [
+      [
+        'title' => $this->t('Membership Type'),
+        'number' => '1',
+        'active' => $step == 1 ? TRUE : FALSE,
+      ],
+      [
+        'title' => $this->t('Primary Location'),
+        'number' => '2',
+        'active' => $step == 2 ? TRUE : FALSE,
+      ],
+      [
+        'title' => $this->t('Summary'),
+        'number' => '3',
+        'active' => $step == 3 ? TRUE : FALSE,
+      ],
+    ];
+    $header = [
+      '#theme' => 'openy_calc_form_header',
+      '#steps' => $steps,
+    ];
+    $header = $this->renderer->renderRoot($header);
+    $form['header'] = [
+      '#markup' => $header,
+    ];
+
     $form['type'] = [
       '#element_variables' => $types,
       '#subtype' => 'membership_type_radio',
