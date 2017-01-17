@@ -18,4 +18,4 @@ Program Subcategory content type is used for adding program subcategories on the
 ### URL pattern
 
 Content type is using following pattern:
-`/programs/[node:field_category_program:title]/[node:title]`
+`/programs/[node:field_category_program:entity:title]/[node:title]`

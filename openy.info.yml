@@ -60,6 +60,8 @@ dependencies:
   - openy_landing
   - openy_program
   - openy_program_subcategory
+  - openy_activity
+  - openy_class
 
 themes:
   - bartik

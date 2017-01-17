@@ -5,7 +5,7 @@ Class content type is used for adding Classes on the site.
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the class item. |
-| Program Subcategory  | field\_class_activity  | No | A reference field for selecting the class. |
+| Activity  | field\_class_activity  | No | A reference field for selecting the class. |
 | **Content Area** | Field group|||
 | Description | field\_class_description | No | Textarea for the description/body with WYSIWYG, without summary. |
 | Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
@@ -14,4 +14,4 @@ Class content type is used for adding Classes on the site.
 
 ### URL pattern
 Content type is using following pattern:
-`/programs/[node:field_category_program:title]/[node:field_activity_category:title]/[node:field_class_activity:title]/[node:title]`
+`/programs/[node:field_class_activity:entity:field_activity_category:entity:field_category_program:entity:title]/[node:field_class_activity:entity:field_activity_category:entity:title]/[node:field_class_activity:entity:title]/[node:title]`
