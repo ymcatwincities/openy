@@ -39,6 +39,7 @@ dependencies:
   - rdf
   - views
   - views_ui
+  - link
   # Contrib modules.
   - features
   - features_ui
@@ -60,6 +61,9 @@ dependencies:
   - openy_landing
   - openy_program
   - openy_program_subcategory
+  - openy_prgf_core
+  - openy_prgf_banner
+  - openy_prgf_simple_content
   - openy_activity
   - openy_class
 
