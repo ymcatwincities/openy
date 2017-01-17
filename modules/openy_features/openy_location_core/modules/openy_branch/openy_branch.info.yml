@@ -6,12 +6,14 @@ dependencies:
   - address
   - entity_reference_revisions
   - field
+  - field_collection
   - field_group
   - link
   - menu_ui
   - node
   - openy_location_core
   - openy_node_core
+  - options
   - paragraphs
   - path
   - pathauto
