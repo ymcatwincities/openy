@@ -3,6 +3,7 @@ description: 'OpenY paragraph gallery'
 type: module
 core: 8.x
 dependencies:
+  - entity_browser
   - field
   - link
   - openy_media_image
