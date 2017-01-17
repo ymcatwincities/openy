@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_grid_style
+    - paragraphs.paragraphs_type.grid_content
+  module:
+    - options
+id: paragraph.grid_content.field_prgf_grid_style
+field_name: field_prgf_grid_style
+entity_type: paragraph
+bundle: grid_content
+label: Style
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_integer

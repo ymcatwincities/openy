@@ -1,1 +1,4 @@
+excluded:
+  - field.storage.paragraph.field_fcontent_columns
+  - field.storage.paragraph.field_grid_columns
 required: true
