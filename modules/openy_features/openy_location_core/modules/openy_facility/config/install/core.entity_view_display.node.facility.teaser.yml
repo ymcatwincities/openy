@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.facility.field_content
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
     - field.field.node.facility.field_location_area
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.facility.field_location_latitude
     - field.field.node.facility.field_location_longitude
     - field.field.node.facility.field_location_phone
+    - field.field.node.facility.field_sidebar_content
     - node.type.facility
   module:
     - user
@@ -23,6 +25,7 @@ content:
   links:
     weight: 100
 hidden:
+  field_content: true
   field_facility_type: true
   field_location_address: true
   field_location_area: true
@@ -32,3 +35,4 @@ hidden:
   field_location_latitude: true
   field_location_longitude: true
   field_location_phone: true
+  field_sidebar_content: true

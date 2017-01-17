@@ -3,10 +3,10 @@ description: 'OpenY paragraph grid content'
 type: module
 core: 8.x
 dependencies:
+  - field
   - field_collection
   - link
-  - media_entity
-  - openy_media
+  - openy_media_image
   - openy_prgf_core
   - options
   - paragraphs
