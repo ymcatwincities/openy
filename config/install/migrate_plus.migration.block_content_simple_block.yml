@@ -72,8 +72,8 @@ source:
       description: 'Footer Copyright Block'
       title: ''
       body: |
-        <p>© 2016 YMCA of Greater Houston</p>
-        <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
+        <p>© 2016 Greater Houston YMCA</p>
+        <p>Our Mission: To put Judeo-Christian principles into practice through programs that build healthy spirit, mind and body for all. Everyone is Welcome.</p>
     -
       id: 9
       code:
@@ -135,6 +135,21 @@ source:
       body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
       link_url: 'base:support'
       link_title: 'Support your local YMCA today >'
+    -
+      id: 16
+      code: 'c0225569-e804-4235-9c1b-f786a9a8a372'
+      description: 'Footer Address block'
+      title: ''
+      body: |
+        <p>YMCA of Greater Houston | PO Box 3007 | Houston, Texas 77253 | 713-659-5566</p>
+    -
+      id: 17
+      code: 'b4c1c75a-fdc9-4aea-838b-a98440f40bdf'
+      description: 'Footer United Way Agency block'
+      title: ''
+      body: |
+        <p>A United Way Agency</p>
+
   ids:
     id:
       type: integer
