@@ -6,7 +6,9 @@ dependencies:
   - file
   - image
   - link
+  - media_entity
+  - openy_media
+  - openy_prgf_core
   - paragraphs
   - text
-  - openy_prgf_core
 version: 8.x-1.0

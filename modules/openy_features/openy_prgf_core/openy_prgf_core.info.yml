@@ -8,6 +8,7 @@ dependencies:
   - image
   - link
   - media_entity
+  - openy_media
   - options
   - paragraphs
   - text
