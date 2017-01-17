@@ -6,16 +6,16 @@ dependencies:
 id: class
 label: Class
 type: 'canonical_entities:node'
-pattern: '/programs/[node:field_category_program:entity:title]/[node:field_activity_category:entity:title]/[node:field_class_activity:entity:title]/[node:title]'
+pattern: '/programs/[node:field_class_activity:entity:field_activity_category:entity:field_category_program:entity:title]/[node:field_class_activity:entity:field_activity_category:entity:title]/[node:field_class_activity:entity:title]/[node:title]'
 selection_criteria:
-  8acdfe99-c035-4609-a556-93791b60f8d9:
+  184c9469-6fb6-40f6-ac4b-29256219ae7f:
     id: node_type
     bundles:
       class: class
     negate: false
     context_mapping:
       node: node
-    uuid: 8acdfe99-c035-4609-a556-93791b60f8d9
+    uuid: 184c9469-6fb6-40f6-ac4b-29256219ae7f
 selection_logic: and
 weight: -5
 relationships: {  }

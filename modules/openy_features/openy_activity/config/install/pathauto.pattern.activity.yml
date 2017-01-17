@@ -6,16 +6,16 @@ dependencies:
 id: activity
 label: Activity
 type: 'canonical_entities:node'
-pattern: '/programs/[node:field_category_program:entity:title]/[node:field_activity_category:entity:title]/[node:title]'
+pattern: '/programs/[node:field_activity_category:entity:field_category_program:entity:title]/[node:field_activity_category:entity:title]/[node:title]'
 selection_criteria:
-  d0c38a23-1509-4b14-a3e6-3c69c1d50bf4:
+  70e163fc-366d-49c9-a1fd-85a995e7fbec:
     id: node_type
     bundles:
       activity: activity
     negate: false
     context_mapping:
       node: node
-    uuid: d0c38a23-1509-4b14-a3e6-3c69c1d50bf4
+    uuid: 70e163fc-366d-49c9-a1fd-85a995e7fbec
 selection_logic: and
 weight: -5
 relationships: {  }
