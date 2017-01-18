@@ -3,8 +3,6 @@
 namespace Drupal\ymca_mindbody;
 
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
@@ -19,7 +17,7 @@ use Drupal\Core\Render\Renderer;
  *
  * @package Drupal\ymca_mindbody
  */
-class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifierInterface, ContainerInjectionInterface {
+class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifierInterface {
 
   /**
    * Logger.
@@ -116,22 +114,6 @@ class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifi
     $this->entityQuery = $entity_query;
     $this->renderer = $renderer;
     $this->personifyMindbodyCacheEntityStorage = $this->entityTypeManager->getStorage('personify_mindbody_cache');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('logger.factory'),
-      $container->get('config.factory'),
-      $container->get('ymca_errors.error_manager'),
-      $container->get('plugin.manager.mail'),
-      $container->get('language_manager'),
-      $container->get('entity_type.manager'),
-      $container->get('entity.query'),
-      $container->get('renderer')
-    );
   }
 
   /**
