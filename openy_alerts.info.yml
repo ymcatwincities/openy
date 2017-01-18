@@ -1,4 +1,4 @@
-name: 'Openy Alerts'
+name: 'OpenY Alerts'
 description: 'Provide alters for OpenY.'
 type: module
 core: 8.x
@@ -14,7 +14,7 @@ dependencies:
   - openy_node_blog
   - openy_node_branch_feature
   - openy_node_camp_feature
-  - openy_node_landing_feature
+  - openy_node_landing
   - options
   - path
   - scheduled_updates
