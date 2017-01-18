@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ygh_content_install() {
+  $file = DRUPAL_ROOT . '/' . drupal_get_path('module', 'ygh_content') . '/misc/data.xml';
+  file_unmanaged_copy($file);
+}

@@ -45,7 +45,6 @@ source:
       latitude: latitude
     -
       longitude: longitude
-
 process:
   type:
     -
@@ -60,6 +59,30 @@ process:
       plugin: default_value
       default_value: 1
   title: location_name
+  field_branch_header/target_id:
+    -
+      plugin: default_value
+      default_value: 3
+    -
+      plugin: migration
+      migration: yghc_prgf_header
+      no_stub: true
+    -
+      plugin: extract
+      index:
+        - '0'
+  field_branch_header/target_revision_id:
+    -
+      plugin: default_value
+      default_value: 3
+    -
+      plugin: migration
+      migration: yghc_prgf_header
+      no_stub: true
+    -
+      plugin: extract
+      index:
+        - 1
   field_ct_address/country_code:
     -
       plugin: default_value
@@ -77,4 +100,6 @@ process:
 destination:
   plugin: 'entity:node'
   default_bundle: branch
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - yghc_prgf_header
