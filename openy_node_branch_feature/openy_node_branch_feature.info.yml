@@ -19,7 +19,7 @@ dependencies:
   - openy_prgf_3c_feature
   - openy_prgf_4c_feature
   - openy_prgf_fc
-  - openy_prgf_header_feature
+  - openy_prgf_header
   - openy_prgf_simple_content
   - paragraphs
   - path
