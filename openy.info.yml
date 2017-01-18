@@ -16,6 +16,7 @@ dependencies:
   - contact
   - menu_link_content
   - datetime
+  - datetime_range
   - block_content
   - quickedit
   - editor
@@ -47,8 +48,10 @@ dependencies:
   - field_collection
   - address
   - paragraphs
+  - plugin
   - pathauto
   - media_entity
+  - views_block_filter_block
   # OpenY modules.
   - openy_media_image
   - openy_media_document
@@ -72,8 +75,10 @@ dependencies:
   - openy_prgf_promo_card
   - openy_prgf_featured_blogs
   - openy_prgf_gallery
+  - openy_prgf_classes_listing
   - openy_activity
   - openy_class
+  - openy_session
 
 themes:
   - bartik
