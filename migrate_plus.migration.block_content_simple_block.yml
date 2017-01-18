@@ -149,7 +149,22 @@ source:
       title: ''
       body: |
         <p class="item-share--uwa">A United Way Agency</p>
-
+    -
+      id: 18
+      code:
+      description: '2-col paragraph Block #1 for Join'
+      title: 'Volunteers needed!'
+      body: 'Are you interested in coaching? Want to help with youth programs? Looking for a volunteer opportunity your whole family can participate in? When we all join in, we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Explore Volunteer Opportunities >'
+    -
+      id: 19
+      code:
+      description: '2-col paragraph Block #2 for Join'
+      title: 'We Appreciate Your Support'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
   ids:
     id:
       type: integer
