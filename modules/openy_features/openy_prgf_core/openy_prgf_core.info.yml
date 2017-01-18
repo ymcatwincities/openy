@@ -9,5 +9,6 @@ dependencies:
   - media_entity
   - options
   - paragraphs
+  - plugin
   - text
 version: 8.x-1.0
