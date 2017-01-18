@@ -57,6 +57,21 @@ function ymca_mindbody_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_cron().
+ */
+function ymca_mindbody_cron() {
+  /** @var \Drupal\ymca_mindbody\YmcaMindbodyFailedOrdersNotifierInterface $regular_notifier */
+  $regular_notifier = \Drupal::service('ymca_mindbody.failed_orders_notifier');
+
+  // Check if cron was run today.
+  if (!$regular_notifier->isAllowed()) {
+    return;
+  }
+
+  $regular_notifier->run();
+}
+
+/**
  * Implements hook_token_info().
  */
 function ymca_mindbody_token_info() {
@@ -472,6 +487,16 @@ function ymca_mindbody_mail($key, &$message, $params) {
 
       $message['subject'] = "MINDBODY refund for $params[client_name] for $params[item_name].";
       $message['body'][] = implode('', $body);
+      break;
+
+    case 'notify_of_failed_orders':
+      $body = [
+        $params['data'],
+      ];
+
+      $message['subject'] = 'New failed orders since ' . $params['last_run_date'];
+      $message['body'][] = implode('', $body);
+
       break;
   }
 }
