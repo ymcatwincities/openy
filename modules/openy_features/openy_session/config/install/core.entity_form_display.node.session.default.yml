@@ -37,7 +37,7 @@ third_party_settings:
         - field_session_max_age
         - field_session_reg_link
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: tab
       format_settings:
         id: ''
@@ -52,7 +52,7 @@ third_party_settings:
         - field_session_mbr_price
         - field_session_nmbr_price
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: tab
       format_settings:
         id: ''
@@ -66,7 +66,7 @@ third_party_settings:
         - field_session_location
         - field_session_plocation
       parent_name: ''
-      weight: 4
+      weight: 2
       format_type: tab
       format_settings:
         id: ''
@@ -96,7 +96,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 13
+    weight: 7
     settings: {  }
     third_party_settings: {  }
   field_session_class:
@@ -196,20 +196,20 @@ content:
     type: field_collection_embed
   path:
     type: path
-    weight: 16
+    weight: 10
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 14
+    weight: 8
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 9
     third_party_settings: {  }
   title:
     type: string_textfield

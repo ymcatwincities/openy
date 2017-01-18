@@ -3,6 +3,12 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.program_subcategory.field_category_color
+    - field.field.node.program_subcategory.field_category_description
+    - field.field.node.program_subcategory.field_category_image
+    - field.field.node.program_subcategory.field_category_program
+    - field.field.node.program_subcategory.field_content
+    - field.field.node.program_subcategory.field_sidebar_content
     - node.type.program_subcategory
   module:
     - user
@@ -13,4 +19,10 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden: {  }
+hidden:
+  field_category_color: true
+  field_category_description: true
+  field_category_image: true
+  field_category_program: true
+  field_content: true
+  field_sidebar_content: true
