@@ -3,6 +3,7 @@ description: 'OpenY paragraph small banner'
 type: module
 core: 8.x
 dependencies:
+  - entity_browser
   - field
   - openy_media_image
   - openy_node_core
