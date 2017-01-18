@@ -16,6 +16,7 @@ dependencies:
   - contact
   - menu_link_content
   - datetime
+  - datetime_range
   - block_content
   - quickedit
   - editor
@@ -73,6 +74,7 @@ dependencies:
   - openy_prgf_gallery
   - openy_activity
   - openy_class
+  - openy_session
 
 themes:
   - bartik
