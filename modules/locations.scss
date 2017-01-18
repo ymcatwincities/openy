@@ -1,0 +1,45 @@
+.form__locations {
+  background-color: $lighter-grey;
+  height: 92px;
+  display: table;
+  width: 100%;
+  padding: 35px 0px 17px;
+  @include breakpoint(tablet) {
+    padding: 35px 25px 17px;
+  }
+  .form-group {
+    @include breakpoint(tablet) {
+      margin-bottom: 0px;
+    }
+  }
+  label {
+    text-transform: none;
+    padding: 6px 8px;
+    left: -1px;
+    margin: 10px 10px 0 0;
+    @include breakpoint(tablet) {
+      left: -20px;
+      margin: 0 10px 0 0;
+    }
+  }
+  input[type="checkbox"] {
+    margin: 0 10px 0px 0;
+    vertical-align: middle;
+  }
+  .btn-group-justified {
+    border-spacing: 1px;
+    margin: -1px -1px 5px 1px;
+    min-width: 234px;
+    @include breakpoint(tablet) {
+      border-spacing: 10px;
+      margin: -10px -10px -10px 10px;
+    }
+  }
+
+  .zip-code,
+  .distance {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+}
