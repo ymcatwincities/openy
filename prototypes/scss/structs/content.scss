@@ -7,3 +7,17 @@ body {
   position: relative;
   margin: 0;
 }
+
+.field-prgf-title {
+  text-align: center;
+  width: 100%;
+  h2 {
+    font-family: $font-cachet-book;
+    font-weight: 600;
+    line-height: lh(30, 26);
+    color: $default-grey;
+    font-size: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}
