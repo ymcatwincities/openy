@@ -5,6 +5,7 @@ dependencies:
     - field.field.taxonomy_term.color.field_color
     - taxonomy.vocabulary.color
   module:
+    - jquery_colorpicker
     - path
     - text
 id: taxonomy_term.color.default
@@ -21,9 +22,10 @@ content:
     third_party_settings: {  }
   field_color:
     weight: 31
-    settings: {  }
+    settings:
+      color: FFFFFF
     third_party_settings: {  }
-    type: null
+    type: jquery_colorpicker
   name:
     type: string_textfield
     weight: -5
