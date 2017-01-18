@@ -1,8 +1,1 @@
-excluded:
-  - field.storage.paragraph.field_fcontent_columns
-  - field.storage.paragraph.field_grid_columns
-  - field.field.paragraph.small_banner.field_prgf_headline
-  - field.field.paragraph.small_banner.field_prgf_image
-  - field.field.paragraph.small_banner.field_prgf_color
-  - core.entity_view_display.paragraph.small_banner.default
 required: true
