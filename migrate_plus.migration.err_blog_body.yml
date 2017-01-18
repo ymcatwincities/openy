@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ygh_node_blog_err_blog_body
+migration_tags:
+  - WordPress
+migration_group: ygh_node_blog
+label: 'Import body paragraphs from WordPress XML'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: xml
+  item_selector: '/rss/channel/item[wp:post_type="post"]'
+  fields:
+    -
+      name: post_id
+      label: 'Unique content ID'
+      selector: 'wp:post_id'
+    -
+      name: content
+      label: 'Body of the content'
+      selector: 'content:encoded'
+  ids:
+    post_id:
+      type: integer
+process:
+  field_prgf_sc_body/value:
+    -
+      plugin: get
+      source: content
+  field_prgf_sc_body/format:
+    -
+      plugin: default_value
+      default_value: html
+destination:
+  plugin: entity_reference_revisions:paragraph
+  default_bundle: simple_content
+migration_dependencies:
+  required: { }
