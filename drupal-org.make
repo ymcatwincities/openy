@@ -29,3 +29,6 @@ projects[plugin] = 2.4
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
 libraries[dropzone][destination] = libraries
+libraries[jquery_colorpicker][download][type] = get
+libraries[jquery_colorpicker][download][url] = http://www.eyecon.ro/colorpicker/colorpicker.zip
+libraries[jquery_colorpicker][destination] = modules/contrib/jquery_colorpicker/vendor/jaypan
