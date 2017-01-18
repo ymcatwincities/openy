@@ -168,7 +168,6 @@ class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifi
     if (empty($last_run_time)) {
       $last_run_time = time() - 86400*7;
     }
-    $last_run_time = time() - 86400*7;
     $ids = $this->entityQuery->get('personify_mindbody_cache')->execute();
     $entities = $this->personifyMindbodyCacheEntityStorage->loadMultiple($ids);
     $new_failed_orders = [];
