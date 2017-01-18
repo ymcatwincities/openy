@@ -9,6 +9,7 @@ Program Subcategory content type is used for adding program subcategories on the
 | **Header Area** | Field group |||
 | Image | field\_category_image | No | A image field, for uploading the category image. |
 | Color | field\_category_color | No | Reference field for choosing the term from "Color" vocabulary. |
+| Content | field\_header_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Content Area** | Field group |||
 | Description | field\_category_description | No | Textarea for the description/body with WYSIWYG, without summary. |
 | Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
