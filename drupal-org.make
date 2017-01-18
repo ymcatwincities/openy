@@ -23,6 +23,8 @@ projects[dropzonejs] = 1.0-alpha3
 projects[inline_entity_form] = 1.0-beta1
 projects[embed] = 1.0-rc3
 projects[entity_embed] = 1.0-beta2
+projects[views_block_filter_block] = 1.x-dev
+projects[plugin] = 2.4
 
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
