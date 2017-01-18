@@ -51,6 +51,21 @@ source:
         -
           migration: yghc_prgf_2c
           id: 3
+    -
+      id: 4
+      title: 'Membership Page'
+      alias: '/join'
+      header:
+        -
+          migration: yghc_prgf_header
+          id: 4
+      body:
+        -
+          migration: yghc_prgf_mc
+          id: 1
+        -
+          migration: yghc_prgf_2c
+          id: 4
 
   ids:
     id:

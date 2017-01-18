@@ -29,6 +29,13 @@ source:
       link_uri: 'http://example.com'
       link_title: 'View swim and aquatic program'
       header_image: 1
+    -
+      id: 4
+      title: 'JOIN THE YMCA'
+      description: 'Descriptive copy regarding membership details and benefits. Descriptive copy regarding membership details and benefits.'
+      link_uri: ''
+      link_title: ''
+      header_image: 1
   ids:
     id:
       type: integer
