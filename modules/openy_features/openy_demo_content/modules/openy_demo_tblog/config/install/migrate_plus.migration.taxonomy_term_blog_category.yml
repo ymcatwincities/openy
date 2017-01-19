@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_taxonomy_term_blog_category
+migration_tags: {  }
+migration_group: openy_demo_term
+label: 'Create demo blog category term(s)'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: Blog
+  ids:
+    id:
+      type: integer
+process:
+  name: name
+  vid:
+    plugin: default_value
+    default_value: blog_category
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required: {  }
+  optional: {  }
