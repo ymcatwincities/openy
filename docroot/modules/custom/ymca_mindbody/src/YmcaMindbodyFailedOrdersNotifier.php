@@ -150,6 +150,9 @@ class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifi
    * {@inheritdoc}
    */
   public function run() {
+    if (!$this->isAllowed()) {
+      return;
+    }
     $config = $this->configFactory->get('ymca_mindbody.settings');
     $last_run_time = $config->get('failed_orders_notifier_last_run');
     if (empty($last_run_time)) {
