@@ -12,7 +12,7 @@ dependencies:
   - node
   - openy_branch
   - openy_camp
-  - openy_class
+  - openy_node_class
   - openy_facility
   - options
   - path

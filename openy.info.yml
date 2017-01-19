@@ -77,7 +77,7 @@ dependencies:
   - openy_prgf_gallery
   - openy_prgf_classes_listing
   - openy_node_activity
-  - openy_class
+  - openy_node_class
   - openy_session
 
 themes:
