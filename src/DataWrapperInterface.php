@@ -18,10 +18,13 @@ interface DataWrapperInterface {
   /**
    * Get the list of locations.
    *
+   * @param string $membership_type
+   *   Membership type.
+   *
    * @return array
    *   The list of locations keyed by location ID.
    */
-  public function getLocations();
+  public function getLocations($membership_type);
 
   /**
    * Get price.
@@ -35,5 +38,13 @@ interface DataWrapperInterface {
    *   Price.
    */
   public function getPrice($location_id, $membership_type);
+
+  /**
+   * Return price matrix.
+   *
+   * @return array
+   *   Price matrix.
+   */
+  public function getMembershipPriceMatrix();
 
 }

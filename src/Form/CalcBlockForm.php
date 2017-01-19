@@ -146,7 +146,7 @@ class CalcBlockForm extends FormBase {
         '#markup' => $this->t('Here you should see a map!'),
       ];
 
-      $locations = $this->dataWrapper->getLocations();
+      $locations = $this->dataWrapper->getLocations($form_state->getValue('type'));
       $locations_options = [];
       foreach ($locations as $id => $location) {
         $locations_options[$id] = $location['title'];
