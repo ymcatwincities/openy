@@ -100,6 +100,8 @@ class MindbodyClient implements MindbodyClientInterface {
     $endpointUrl = "https://" . $this->hostname . "/0_5/" . $service . ".asmx";
     $wsdlUrl = $endpointUrl . "?wsdl";
 
+    $this->debug = TRUE;
+
     $option = [];
     if ($this->debug) {
       $option = [
@@ -120,6 +122,11 @@ class MindbodyClient implements MindbodyClientInterface {
 
     try {
       $result = $this->client->{$endpoint}($this->getMindbodyParams($params));
+
+      if ($this->debug) {
+        $last_request = $this->client->__getLastRequest();
+        $last_response = $this->client->__getLastResponse();
+      }
 
       // Check whether the results are OK.
       $property = $endpoint . 'Result';

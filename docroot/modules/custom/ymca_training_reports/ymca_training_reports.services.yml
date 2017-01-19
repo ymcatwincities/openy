@@ -1,0 +1,4 @@
+services:
+  ymca_training_reports.poc:
+    class: Drupal\ymca_training_reports\YmcaTrainingReportsPoc
+    arguments: ['@config.factory', '@mindbody_cache_proxy.client']
