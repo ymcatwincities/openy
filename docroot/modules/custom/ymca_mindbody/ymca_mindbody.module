@@ -494,7 +494,7 @@ function ymca_mindbody_mail($key, &$message, $params) {
         $params['data'],
       ];
 
-      $message['subject'] = 'New failed orders since ' . $params['last_run_date'];
+      $message['subject'] = t('New failed orders since @date', ['@date' => $params['last_run_date']]);
       $message['body'][] = implode('', $body);
 
       break;
