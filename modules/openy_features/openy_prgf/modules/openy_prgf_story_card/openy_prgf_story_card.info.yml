@@ -5,6 +5,6 @@ core: 8.x
 dependencies:
   - field
   - link
-  - openy_prgf_core
+  - openy_prgf
   - paragraphs
 version: 8.x-1.0

@@ -4,7 +4,7 @@ type: module
 core: 8.x
 dependencies:
   - field
-  - openy_prgf_core
+  - openy_prgf
   - paragraphs
   - text
 version: 8.x-1.0
