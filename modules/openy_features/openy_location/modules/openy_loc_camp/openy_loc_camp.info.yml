@@ -1,0 +1,20 @@
+name: 'OpenY Camp'
+description: 'OpenY Camp'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - entity_reference_revisions
+  - field
+  - field_group
+  - link
+  - menu_ui
+  - node
+  - openy_location
+  - openy_node
+  - paragraphs
+  - path
+  - pathauto
+  - telephone
+  - user
+version: 8.x-1.0
