@@ -128,15 +128,15 @@
 }
 
 @mixin cachet() {
-  font-family: "Cachet W01 Book", Verdana, sans-serif;
+  font-family: "CachetBook", Verdana, sans-serif;
 }
 
 @mixin cachet-medium() {
-  font-family: "Cachet W01 Medium", Verdana, sans-serif;
+  font-family: "CachetMedium", Verdana, sans-serif;
 }
 
 @mixin cachet-bold() {
-  font-family: "Cachet W01 Bold", Verdana, sans-serif;
+  font-family: "CachetBold", Verdana, sans-serif;
 }
 
 @mixin helvetica-neue() {
@@ -151,8 +151,7 @@
   color: $white;
   font-size: 20px;
   height: 60px;
-  padding: 0;
+  padding: 0 10px;
   line-height: 60px;
   text-transform: uppercase;
-  width: 260px;
 }
