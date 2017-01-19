@@ -7,7 +7,7 @@ dependencies:
   - field_group
   - menu_ui
   - node
-  - openy_program_subcategory
+  - openy_node_category
   - path
   - pathauto
   - text
