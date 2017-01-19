@@ -63,7 +63,7 @@ dependencies:
   - openy_location
   - openy_loc_branch
   - openy_loc_camp
-  - openy_facility
+  - openy_loc_facility
   - openy_node_landing
   - openy_node_program
   - openy_node_category

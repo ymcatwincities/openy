@@ -13,7 +13,7 @@ dependencies:
   - openy_loc_branch
   - openy_loc_camp
   - openy_node_class
-  - openy_facility
+  - openy_loc_facility
   - options
   - path
   - text
