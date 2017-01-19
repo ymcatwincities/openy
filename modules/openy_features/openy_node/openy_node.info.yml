@@ -1,0 +1,14 @@
+name: 'OpenY node package'
+description: 'OpenY node package'
+type: module
+core: 8.x
+dependencies:
+  - entity_reference_revisions
+  - field
+  - jquery_colorpicker
+  - node
+  - paragraphs
+  - path
+  - taxonomy
+  - text
+version: 8.x-1.0

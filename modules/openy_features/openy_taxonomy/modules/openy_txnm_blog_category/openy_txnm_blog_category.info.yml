@@ -1,0 +1,7 @@
+name: 'OpenY Taxonomy Blog Category'
+description: 'OpenY blog category taxonomy.'
+type: module
+core: 8.x
+dependencies:
+  - taxonomy
+version: 8.x-1.0
