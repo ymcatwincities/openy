@@ -6,7 +6,7 @@ dependencies:
   - field
   - field_collection
   - link
-  - openy_prgf_core
+  - openy_prgf
   - options
   - paragraphs
   - text

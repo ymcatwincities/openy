@@ -8,7 +8,7 @@ dependencies:
   - link
   - media_entity
   - openy_media_image
-  - openy_prgf_core
+  - openy_prgf
   - paragraphs
   - text
 version: 8.x-1.0

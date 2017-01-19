@@ -1,5 +1,5 @@
-name: 'OpenY paragraph core'
-description: 'OpenY paragraph core'
+name: 'OpenY paragraph package'
+description: 'OpenY paragraph package'
 type: module
 core: 8.x
 dependencies:
