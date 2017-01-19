@@ -12,7 +12,7 @@ source:
       id: 1
       title: 'All Are Welcome at the Y'
       description: 'You don’t have to be a member to take classes here. Every member of the community is welcome.'
-      column: 3
+      column: 20
   ids:
     id:
       type: integer
