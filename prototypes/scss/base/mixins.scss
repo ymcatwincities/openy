@@ -143,3 +143,16 @@
   font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
 }
 
+@mixin btn-large-purple() {
+  @include cachet-medium();
+  background-image: linear-gradient(to bottom, $dark-magenta, $purple);
+  border-radius: 0;
+  border: none;
+  color: $white;
+  font-size: 20px;
+  height: 60px;
+  padding: 0;
+  line-height: 60px;
+  text-transform: uppercase;
+  width: 260px;
+}
