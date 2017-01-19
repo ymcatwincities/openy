@@ -10,7 +10,7 @@ dependencies:
   - link
   - menu_ui
   - node
-  - openy_location_core
+  - openy_location
   - openy_node_core
   - paragraphs
   - path
