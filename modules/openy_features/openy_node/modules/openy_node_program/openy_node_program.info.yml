@@ -11,7 +11,7 @@ dependencies:
   - menu_ui
   - node
   - openy_media_image
-  - openy_node_core
+  - openy_node
   - paragraphs
   - path
   - pathauto

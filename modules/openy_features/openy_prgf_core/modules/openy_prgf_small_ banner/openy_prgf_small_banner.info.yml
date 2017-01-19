@@ -6,7 +6,7 @@ dependencies:
   - entity_browser
   - field
   - openy_media_image
-  - openy_node_core
+  - openy_node
   - openy_prgf_core
   - paragraphs
 version: 8.x-1.0
