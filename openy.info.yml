@@ -62,7 +62,7 @@ dependencies:
   - openy_taxonomy
   - openy_location
   - openy_loc_branch
-  - openy_camp
+  - openy_loc_camp
   - openy_facility
   - openy_node_landing
   - openy_node_program

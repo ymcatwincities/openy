@@ -11,7 +11,7 @@ dependencies:
   - menu_ui
   - node
   - openy_loc_branch
-  - openy_camp
+  - openy_loc_camp
   - openy_node_class
   - openy_facility
   - options
