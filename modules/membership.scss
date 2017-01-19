@@ -13,7 +13,7 @@
       font-size: 18px;
       line-height: 1.22;
       letter-spacing: -1px;
-      margin-bottom: 0;
+      margin-bottom: 30px;
       padding: 0 15px;
       color: $dark-grey;
       @include breakpoint(tablet) {
@@ -24,12 +24,25 @@
   }
 
   .js-form-type-membership-type-radio {
-    > div {
+    .ajax-progress-throbber {
+      position: absolute;
+      left: 29px;
+      bottom: 30px;
+    }
+    .form-element-wrapper {
+      position: relative;
       padding-bottom: 30px;
       margin-bottom: 30px;
       @include breakpoint(tablet) {
         border-bottom: 1px solid $darker-grey;
       }
+      .left {
+        padding-left: 0;
+        padding-right: 15px;
+      }
+      .right {
+        padding: 0;
+      };
     }
     input {
       display: none;
@@ -39,6 +52,7 @@
       font-size: 28px;
       letter-spacing: -1px;
       color: $purple;
+      margin: 0 0 15px;
       @include breakpoint(tablet) {
         font-size: 36px;
       }
@@ -50,11 +64,14 @@
       color: $darker-grey;
       margin-bottom: 15px;
     }
+    label {
+      width: 100%;
+    }
     .btn {
       @include btn-large-purple();
       width: 100%;
       @include breakpoint(tablet) {
-        width: 260px;
+
       }
     }
   }
@@ -89,6 +106,7 @@
       &:last-child {
         a {
           padding-left: 25px;
+          width: 100%;
         }
       }
 
