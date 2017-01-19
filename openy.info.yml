@@ -58,6 +58,8 @@ dependencies:
   - openy_media_video
   - openy_node_mbrshp
   - openy_node
+  - openy_block
+  - openy_taxonomy
   - openy_location
   - openy_branch
   - openy_camp
