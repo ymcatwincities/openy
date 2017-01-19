@@ -78,7 +78,7 @@ dependencies:
   - openy_prgf_classes_listing
   - openy_node_activity
   - openy_node_class
-  - openy_session
+  - openy_node_session
 
 themes:
   - bartik
