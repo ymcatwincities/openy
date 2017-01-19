@@ -1,5 +1,5 @@
-name: 'OpenY location core'
-description: 'OpenY location core'
+name: 'OpenY location package'
+description: 'OpenY location package'
 type: module
 core: 8.x
 dependencies:

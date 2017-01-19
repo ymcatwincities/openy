@@ -58,7 +58,7 @@ dependencies:
   - openy_media_video
   - openy_node_mbrshp
   - openy_node_core
-  - openy_location_core
+  - openy_location
   - openy_branch
   - openy_camp
   - openy_facility
