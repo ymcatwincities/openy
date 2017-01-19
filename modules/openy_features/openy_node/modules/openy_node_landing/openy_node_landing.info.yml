@@ -1,5 +1,5 @@
-name: 'OpenY class'
-description: 'OpenY class'
+name: 'OpenY landing'
+description: 'OpenY landing'
 type: module
 core: 8.x
 dependencies:
@@ -8,11 +8,10 @@ dependencies:
   - field_group
   - menu_ui
   - node
-  - openy_node_activity
-  - openy_node_core
+  - openy_node
+  - options
   - paragraphs
   - path
   - pathauto
-  - text
   - user
 version: 8.x-1.0
