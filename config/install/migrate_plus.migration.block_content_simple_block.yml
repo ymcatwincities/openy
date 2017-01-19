@@ -165,6 +165,14 @@ source:
       body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
       link_url: 'base:support'
       link_title: 'Support your local YMCA today >'
+    -
+      id: 20
+      code:
+      description: '1-col paragraph Block for Join'
+      title: ''
+      body: ''
+      link_url: 'base:classes'
+      link_title: 'Browse classes >'
   ids:
     id:
       type: integer
