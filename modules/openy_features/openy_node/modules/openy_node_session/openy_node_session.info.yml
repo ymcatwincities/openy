@@ -10,7 +10,7 @@ dependencies:
   - link
   - menu_ui
   - node
-  - openy_branch
+  - openy_loc_branch
   - openy_camp
   - openy_node_class
   - openy_facility
