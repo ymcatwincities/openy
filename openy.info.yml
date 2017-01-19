@@ -63,7 +63,7 @@ dependencies:
   - openy_camp
   - openy_facility
   - openy_node_landing
-  - openy_program
+  - openy_node_program
   - openy_program_subcategory
   - openy_prgf_core
   - openy_prgf_small_banner
