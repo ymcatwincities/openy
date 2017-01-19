@@ -85,10 +85,16 @@
     <span class="field-suffix">{{ suffix }}</span>
   {% endif %}
   {% if label_display == 'after' %}
-    <div>
-      <h3>{{ data.title }}</h3>
-      <p>{{ data.description }}</p>
-      <div class="btn btn-default">select</div>
+    <div class="clearfix form-element-wrapper">
+      <div class="col-md-6 left">
+        <h3>{{ data.title }}</h3>
+        <p>{{ data.description }}</p>
+      </div>
+      <div class="col-md-6 right">
+        <label for="{{ element['#attributes'].id }}">
+          <div class="btn btn-default">{{ 'select'|t }}</div>
+        </label>
+      </div>
     </div>
   {% endif %}
   {% if errors %}
