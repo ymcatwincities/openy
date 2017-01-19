@@ -12,7 +12,7 @@ dependencies:
   - node
   - openy_media_image
   - openy_node_core
-  - openy_program
+  - openy_node_program
   - paragraphs
   - path
   - pathauto
