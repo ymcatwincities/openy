@@ -8,7 +8,7 @@ dependencies:
   - field_group
   - menu_ui
   - node
-  - openy_activity
+  - openy_node_activity
   - openy_node_core
   - paragraphs
   - path
