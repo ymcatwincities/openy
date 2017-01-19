@@ -18,7 +18,7 @@ source:
           id: 1
       body:
         -
-          migration: yghc_prgf_nu
+          migration: yghc_prgf_whay
           id: 1
         -
           migration: yghc_prgf_2c
@@ -116,3 +116,4 @@ migration_dependencies:
     - yghc_prgf_header
     - yghc_prgf_pgm_reg
     - yghc_prgf_fc
+    - yghc_prgf_whay
