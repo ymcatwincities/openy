@@ -3,41 +3,14 @@
 namespace Drupal\openy_calc;
 
 /**
- * Class DataWrapper.
+ * Class DataWrapperBase.
  */
-class DataWrapper implements DataWrapperInterface {
+abstract class DataWrapperBase implements DataWrapperInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function getMembershipPriceMatrix() {
-    $matrix = [
-      [
-        'id' => 'youth',
-        'title' => 'Youth',
-        'description' => 'Here short description',
-        'locations' => [
-          [
-            'title' => 'Loc #1',
-            'id' => 12,
-            'price' => 100,
-          ],
-          [
-            'title' => 'Loc #2',
-            'id' => 13,
-            'price' => 200,
-          ],
-          [
-            'title' => 'Loc #3',
-            'id' => 14,
-            'price' => 300,
-          ],
-        ],
-      ],
-    ];
-
-    return $matrix;
-  }
+  abstract public function getMembershipPriceMatrix();
 
   /**
    * {@inheritdoc}

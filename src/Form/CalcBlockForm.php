@@ -46,7 +46,7 @@ class CalcBlockForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('openy_calc.data_wrapper')
+      $container->get('openy_calc.dummy_data_wrapper')
     );
   }
 

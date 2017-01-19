@@ -1,4 +1,4 @@
 services:
-  openy_calc.data_wrapper:
-    class: Drupal\openy_calc\DataWrapper
+  openy_calc.dummy_data_wrapper:
+    class: Drupal\openy_calc\DummyDataWrapper
     arguments: []
