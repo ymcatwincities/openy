@@ -64,6 +64,9 @@ source:
           migration: yghc_prgf_mc
           id: 1
         -
+          migration: yghc_prgf_1c
+          id: 1
+        -
           migration: yghc_prgf_2c
           id: 4
 
@@ -105,6 +108,7 @@ destination:
   default_bundle: landing_page
 migration_dependencies:
   required:
+    - yghc_prgf_1c
     - yghc_prgf_2c
     - yghc_prgf_4c
     - yghc_prgf_nu
