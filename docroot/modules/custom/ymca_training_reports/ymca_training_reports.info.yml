@@ -1,0 +1,8 @@
+name: YMCA Training Reports
+type: module
+description: YMCA reports based on data from MindBody and Kronos.
+core: 8.x
+package: YMCA
+dependencies:
+  - mindbody
+  - mindbody_cache_proxy
