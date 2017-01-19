@@ -5,7 +5,7 @@ core: 8.x
 dependencies:
   - field
   - node
-  - openy_class
+  - openy_node_class
   - openy_prgf_core
   - paragraphs
   - plugin
