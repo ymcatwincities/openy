@@ -1,0 +1,13 @@
+name: 'OpenY paragraph featured content'
+description: 'OpenY paragraph featured content'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - field_collection
+  - link
+  - openy_prgf
+  - options
+  - paragraphs
+  - text
+version: 8.x-1.0
