@@ -4,9 +4,9 @@ dependencies:
   config:
     - entity_browser.browser.images_library
     - field.field.paragraph.teaser.field_prgf_description
-    - field.field.paragraph.teaser.field_prgf_headline
     - field.field.paragraph.teaser.field_prgf_image
     - field.field.paragraph.teaser.field_prgf_link
+    - field.field.paragraph.teaser.field_prgf_title
     - paragraphs.paragraphs_type.teaser
   module:
     - entity_browser
@@ -24,13 +24,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_prgf_headline:
-    weight: 0
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_prgf_image:
     weight: 1
     settings:
@@ -50,6 +43,13 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+  field_prgf_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
 hidden:
   created: true
   status: true

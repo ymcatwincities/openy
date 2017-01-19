@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_prgf_headline
+    - field.storage.paragraph.field_prgf_title
     - paragraphs.paragraphs_type.teaser
-id: paragraph.teaser.field_prgf_headline
-field_name: field_prgf_headline
+id: paragraph.teaser.field_prgf_title
+field_name: field_prgf_title
 entity_type: paragraph
 bundle: teaser
-label: Headline
+label: Title
 description: ''
 required: false
 translatable: true
