@@ -56,7 +56,7 @@ dependencies:
   - openy_media_image
   - openy_media_document
   - openy_media_video
-  - openy_membership
+  - openy_node_mbrshp
   - openy_node_core
   - openy_location_core
   - openy_branch
