@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_taxonomy_term_area
+migration_tags: {  }
+migration_group: openy_demo_term
+label: 'Create demo area terms'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: Beacon Hill
+    -
+      id: 2
+      name: Bellevue
+    -
+      id: 3
+      name: Capitol Hill and Central District
+    -
+      id: 4
+      name: Kenmore
+    -
+      id: 5
+      name: Newcastle
+    -
+      id: 6
+      name: Shoreline
+    -
+      id: 7
+      name: Wallingford
+  ids:
+    id:
+      type: integer
+process:
+  name: name
+  vid:
+    plugin: default_value
+    default_value: area
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required: {  }
+  optional: {  }
