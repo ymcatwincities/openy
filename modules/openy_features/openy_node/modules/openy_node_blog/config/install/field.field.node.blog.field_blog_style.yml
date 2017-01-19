@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_blog_style
+    - node.type.blog
+  module:
+    - options
+id: node.blog.field_blog_style
+field_name: field_blog_style
+entity_type: node
+bundle: blog
+label: Style
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: fuchisia_card
+default_value_callback: ''
+settings: {  }
+field_type: list_string
