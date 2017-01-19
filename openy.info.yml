@@ -16,6 +16,7 @@ dependencies:
   - contact
   - menu_link_content
   - datetime
+  - datetime_range
   - block_content
   - quickedit
   - editor
@@ -47,22 +48,28 @@ dependencies:
   - field_collection
   - address
   - paragraphs
+  - plugin
   - pathauto
   - media_entity
+  - views_block_filter_block
   # OpenY modules.
   - openy_media_image
   - openy_media_document
   - openy_media_video
-  - openy_membership
-  - openy_node_core
-  - openy_location_core
-  - openy_branch
-  - openy_camp
-  - openy_facility
-  - openy_landing
-  - openy_program
-  - openy_program_subcategory
-  - openy_prgf_core
+  - openy_node_mbrshp
+  - openy_node
+  - openy_block
+  - openy_taxonomy
+  - openy_location
+  - openy_loc_branch
+  - openy_loc_camp
+  - openy_loc_facility
+  - openy_node_landing
+  - openy_node_program
+  - openy_node_category
+  - openy_node_blog
+  - openy_prgf
+  - openy_prgf_small_banner
   - openy_prgf_banner
   - openy_prgf_simple_content
   - openy_prgf_featured_content
@@ -72,8 +79,12 @@ dependencies:
   - openy_prgf_featured_blogs
   - openy_prgf_gallery
   - openy_prgf_teaser
+  - openy_prgf_classes_listing
   - openy_activity
   - openy_class
+  - openy_node_activity
+  - openy_node_class
+  - openy_node_session
 
 themes:
   - bartik

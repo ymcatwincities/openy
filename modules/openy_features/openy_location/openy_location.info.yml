@@ -1,0 +1,12 @@
+name: 'OpenY location package'
+description: 'OpenY location package'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - field
+  - link
+  - node
+  - taxonomy
+  - telephone
+version: 8.x-1.0

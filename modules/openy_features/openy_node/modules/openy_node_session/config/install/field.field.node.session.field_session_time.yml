@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_session_time
+    - node.type.session
+  module:
+    - field_collection
+id: node.session.field_session_time
+field_name: field_session_time
+entity_type: node
+bundle: session
+label: Time
+description: ''
+required: false
+translatable: false
+default_value:
+  - {  }
+  - {  }
+  - {  }
+default_value_callback: ''
+settings: {  }
+field_type: field_collection

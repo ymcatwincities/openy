@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_blog_location
+    - node.type.blog
+    - node.type.branch
+id: node.blog.field_blog_location
+field_name: field_blog_location
+entity_type: node
+bundle: blog
+label: Location
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      branch: branch
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
