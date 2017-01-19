@@ -1,5 +1,5 @@
-name: 'OpenY block core'
-description: 'OpenY block core'
+name: 'OpenY block package'
+description: 'OpenY block package'
 type: module
 core: 8.x
 version: 8.x-1.0
