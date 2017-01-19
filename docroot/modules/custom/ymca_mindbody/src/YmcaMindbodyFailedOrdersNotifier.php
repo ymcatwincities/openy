@@ -20,6 +20,16 @@ use Drupal\Core\Render\Renderer;
 class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifierInterface {
 
   /**
+   * Interval in seconds for first run.
+   */
+  const FIRST_RUN_INTERVAL = 604800;
+
+  /**
+   * Interval in hours how often notifier should be triggered.
+   */
+  const RUN_INTERVAL = 24;
+
+  /**
    * Logger.
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
@@ -122,22 +132,18 @@ class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifi
   public function isAllowed() {
     $config = $this->configFactory->get('ymca_mindbody.settings');
     $last_run_time = $config->get('failed_orders_notifier_last_run');
-    // Set timestamp value based on date notifier first run.
     if (empty($last_run_time)) {
-      $this->configFactory->getEditable('ymca_mindbody.settings')->set('failed_orders_notifier_last_run', time())->save();
       return TRUE;
     }
     $last_run = new \DateTime();
     $last_run->setTimestamp($last_run_time);
     $diff = $last_run->diff(new \DateTime());
-    $diff_hrs = $diff->d * 24 + $diff->h;
+    $diff_hrs = $diff->d * self::RUN_INTERVAL + $diff->h;
     // Check if cron was run less then 24 hrs ago.
-    if ($diff_hrs < 24) {
+    if ($diff_hrs < self::RUN_INTERVAL) {
       return FALSE;
     }
-    else {
-      return TRUE;
-    }
+    return TRUE;
   }
 
   /**
@@ -146,40 +152,43 @@ class YmcaMindbodyFailedOrdersNotifier implements YmcaMindbodyFailedOrdersNotifi
   public function run() {
     $config = $this->configFactory->get('ymca_mindbody.settings');
     $last_run_time = $config->get('failed_orders_notifier_last_run');
-    // For the first run set time range as 1 week.
     if (empty($last_run_time)) {
-      $last_run_time = time() - 86400 * 7;
+      $last_run_time = time() - self::FIRST_RUN_INTERVAL;
     }
     $ids = $this->entityQuery->get('personify_mindbody_cache')->execute();
-    $entities = $this->personifyMindbodyCacheEntityStorage->loadMultiple($ids);
+    $ids = array_chunk($ids, 100, TRUE);
+
     $new_failed_orders = [];
-    foreach ($entities as $entity) {
-      // Select failed entities after last notifier run.
-      if ($entity->field_pmc_status->value !== 'Order: Success' && $entity->getCreatedTime() >= $last_run_time) {
-        // Select fields to be send in email.
-        $data = unserialize($entity->field_pmc_prs_data->value);
-        $branch_id = explode('_', $data->ProductCode);
-        $branch_id = $branch_id[0];
-        $new_failed_orders[] = [
-          'Date' => date('m/d/Y g:ia', $entity->field_pmc_ord_date->value),
-          'OrderNo' => $entity->field_pmc_order_num->value,
-          'OrderLineNo' => $entity->field_pmc_ord_l_num->value,
-          'CustomerID' => $entity->field_pmc_user_id->value,
-          'PersonifyBranchId' => $branch_id,
-          'ProductCode' => $data->ProductCode,
-          'ErrorMessage' => $entity->field_pmc_status->value,
-          'EditLink' => Link::createFromRoute(
-            t('Edit'),
-            'entity.personify_mindbody_cache.edit_form',
-            ['personify_mindbody_cache' => $entity->id()],
-            [
-              'absolute' => TRUE,
-              'attributes' => [
-                'target' => '_blank',
-              ],
-            ]
-          ),
-        ];
+    foreach ($ids as $chunk) {
+      $entities = $this->personifyMindbodyCacheEntityStorage->loadMultiple($chunk);
+      foreach ($entities as $entity) {
+        // Select failed entities after last notifier run.
+        if ($entity->field_pmc_status->value !== 'Order: Success' && $entity->getCreatedTime() >= $last_run_time) {
+          // Select fields to be send in email.
+          $data = unserialize($entity->field_pmc_prs_data->value);
+          $branch_id = explode('_', $data->ProductCode);
+          $branch_id = $branch_id[0];
+          $new_failed_orders[] = [
+            'Date' => date('m/d/Y g:ia', $entity->field_pmc_ord_date->value),
+            'OrderNo' => $entity->field_pmc_order_num->value,
+            'OrderLineNo' => $entity->field_pmc_ord_l_num->value,
+            'CustomerID' => $entity->field_pmc_user_id->value,
+            'PersonifyBranchId' => $branch_id,
+            'ProductCode' => $data->ProductCode,
+            'ErrorMessage' => $entity->field_pmc_status->value,
+            'EditLink' => Link::createFromRoute(
+              t('Edit'),
+              'entity.personify_mindbody_cache.edit_form',
+              ['personify_mindbody_cache' => $entity->id()],
+              [
+                'absolute' => TRUE,
+                'attributes' => [
+                  'target' => '_blank',
+                ],
+              ]
+            ),
+          ];
+        }
       }
     }
 
