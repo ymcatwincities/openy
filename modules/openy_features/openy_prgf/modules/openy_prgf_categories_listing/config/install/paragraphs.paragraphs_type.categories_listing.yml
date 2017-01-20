@@ -2,4 +2,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: categories_listing
-label: 'Categories listing'
+label: 'Categories Listing'
