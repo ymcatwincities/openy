@@ -13,7 +13,7 @@ mode: default
 content:
   field_prgf_description:
     weight: 0
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
