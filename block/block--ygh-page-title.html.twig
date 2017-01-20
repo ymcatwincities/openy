@@ -28,13 +28,18 @@
   */
   #}
 <div{{ attributes }}>
-  {{ title_prefix }}
-  {% if label %}
-    <h1{{ title_attributes }}>{{ label }}</h1>
-  {% endif %}
-  {{ title_suffix }}
-  {% block content %}
-    {{ content }}
-    <h3>Risus in hendrerit gravida rutrum quisque non tellus orci, ac auctor. Pharetra convallis posuere morbi leo urna, molestie at elementum eu, facilisis sed odio morbi quis commodo odio aenean sed?</h3>
-  {% endblock %}
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        {{ title_prefix }}
+        {% if label %}
+          <h1{{ title_attributes }}>{{ label }}</h1>
+        {% endif %}
+        {{ title_suffix }}
+        {% block content %}
+          {{ content }}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
 </div>
