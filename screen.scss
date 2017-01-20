@@ -6,8 +6,11 @@
 @import "./base/sprite";
 @import "./base/mixins-sprite";
 @import "./base/fonts";
+@import "./base/typography";
 @import "./base/decor";
 @import "./base/utilities";
+
+@import "./ui/forms";
 
 @import "./structs/front";
 @import "./structs/header";
@@ -20,7 +23,9 @@
 @import "./blocks/block-description";
 @import "./blocks/paragraph-header";
 
+@import "./paragraphs/featured_stories";
+
 @import "./modules/gallery";
 @import "./modules/membership";
 @import "./modules/locations";
-@import "./paragraphs/featured_stories";
+@import "./modules/testimonials";
