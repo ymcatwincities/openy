@@ -15,3 +15,6 @@ services:
   ymca_mindbody.results_searcher:
     class: Drupal\ymca_mindbody\YmcaMindbodyResultsSearcher
     arguments: [ '@config.factory', '@entity.query', '@entity_type.manager', '@logger.factory', '@mindbody_cache_proxy.client', '@ymca_mindbody.trainings_mapping', '@keyvalue.expirable.database', '@current_user']
+  ymca_mindbody.failed_orders_notifier:
+    class: Drupal\ymca_mindbody\YmcaMindbodyFailedOrdersNotifier
+    arguments: ['@logger.factory', '@config.factory', '@ymca_errors.error_manager', '@plugin.manager.mail' , '@language_manager' , '@entity_type.manager', '@entity.query', '@renderer']
