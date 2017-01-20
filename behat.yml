@@ -1,0 +1,28 @@
+default:
+  autoload:
+    '': tests/features/bootstrap
+  suites:
+    default:
+      paths:
+        features: '%paths.base%/tests/features'
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+  extensions:
+    Behat\MinkExtension:
+      goutte: ~
+      selenium2: ~
+    Drupal\DrupalExtension:
+      api_driver: drupal
+      blackbox: ~
+      subcontexts:
+        paths:
+          - tests/features/bootstrap
+        autoload: false
+      selectors:
+        login_form_selector: '#user-login-form'
+imports:
+  - behat.local.yml
