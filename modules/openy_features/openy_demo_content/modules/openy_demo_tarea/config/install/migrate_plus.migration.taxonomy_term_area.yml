@@ -29,6 +29,30 @@ source:
     -
       id: 7
       name: Wallingford
+    -
+      id: 8
+      name: Auburn
+    -
+      id: 9
+      name: Bothell
+    -
+      id: 10
+      name: Burien
+    -
+      id: 11
+      name: Edmonds
+    -
+      id: 12
+      name: Federal Way
+    -
+      id: 13
+      name: Lake Forest Park
+    -
+      id: 14
+      name: Mountlake Terrace
+    -
+      id: 15
+      name: North Bend
   ids:
     id:
       type: integer
