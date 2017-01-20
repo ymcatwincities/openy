@@ -10,7 +10,49 @@ source:
   data_rows:
     -
       id: 1
-      name: Blog
+      name: Adults
+    -
+      id: 2
+      name: Community Outreach
+    -
+      id: 3
+      name: Family
+    -
+      id: 4
+      name: General Wellness
+    -
+      id: 5
+      name: Healthy Eating
+    -
+      id: 6
+      name: Kids & Teens
+    -
+      id: 7
+      name: Outdoor
+    -
+      id: 8
+      name: Personal Y Stories
+    -
+      id: 9
+      name: Philanthropy
+    -
+      id: 10
+      name: Physical Activities
+    -
+      id: 11
+      name: Seniors
+    -
+      id: 12
+      name: Social Services
+    -
+      id: 13
+      name: Volunteer
+    -
+      id: 14
+      name: Y Events
+    -
+      id: 15
+      name: Y News
   ids:
     id:
       type: integer
