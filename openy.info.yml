@@ -43,6 +43,8 @@ dependencies:
   - link
   - migrate
   # Contrib modules.
+  - adminimal_admin_toolbar
+  - admin_toolbar_tools
   - features
   - features_ui
   - field_group
@@ -101,3 +103,4 @@ themes:
   - bartik
   - openy_rose
   - seven
+  - adminimal_theme
