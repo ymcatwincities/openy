@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
@@ -11,43 +12,40 @@ dependencies:
     - entity_reference_revisions
     - options
     - user
-id: node.landing_page.default
+id: node.landing_page.full
 targetEntityType: node
 bundle: landing_page
-mode: default
+mode: full
 content:
   field_content:
-    weight: 103
-    label: above
+    weight: 2
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_header_content:
-    weight: 102
-    label: above
+    weight: 1
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_lp_layout:
-    weight: 101
-    label: above
+    type: list_key
+    weight: 0
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
   field_sidebar_content:
-    weight: 104
-    label: above
+    weight: 3
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
-  links:
-    weight: 100
-    settings: {  }
-    third_party_settings: {  }
-hidden: {  }
+hidden:
+  links: true
