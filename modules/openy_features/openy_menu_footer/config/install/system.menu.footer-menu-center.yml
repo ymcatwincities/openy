@@ -3,5 +3,5 @@ status: true
 dependencies: {  }
 id: footer-menu-center
 label: 'Footer menu center'
-description: ''
+description: 'Center footer menu'
 locked: false

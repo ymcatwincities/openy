@@ -7,6 +7,8 @@ dependencies:
     - system
   theme:
     - openy_rose
+_core:
+  default_config_hash: SHUYoVMFq5DsQ8IT1k1L-EPCc2cEPXQj60tJBYoqc98
 id: footermenucenter
 theme: openy_rose
 region: footer_menus
@@ -17,7 +19,7 @@ settings:
   id: 'system_menu_block:footer-menu-center'
   label: 'Footer menu center'
   provider: system
-  label_display: visible
+  label_display: '0'
   level: 1
   depth: 0
 visibility: {  }
