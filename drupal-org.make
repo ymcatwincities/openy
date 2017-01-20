@@ -29,6 +29,7 @@ projects[migrate_plus] = 3.0-beta1
 projects[migrate_tools] = 3.0-beta1
 projects[verf] = 1.0-beta6
 projects[simple_menu_icons] = 1.x-dev
+projects[views_infinite_scroll] = 1.3
 
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
