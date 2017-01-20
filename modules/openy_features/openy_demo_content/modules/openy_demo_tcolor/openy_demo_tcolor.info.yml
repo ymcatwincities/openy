@@ -1,0 +1,11 @@
+name: 'OpenY demo taxonomy color'
+description: 'OpenY demo taxonomy color'
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_node
+  - taxonomy
+version: 8.x-1.0
