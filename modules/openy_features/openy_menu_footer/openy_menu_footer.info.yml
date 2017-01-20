@@ -3,6 +3,5 @@ description: 'OpenY menu footer'
 type: module
 core: 8.x
 dependencies:
-  - menu
   - system
 version: 8.x-1.0
