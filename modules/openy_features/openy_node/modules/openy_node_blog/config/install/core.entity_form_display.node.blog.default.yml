@@ -110,7 +110,7 @@ content:
       title: Paragraph
       title_plural: Paragraphs
       edit_mode: open
-      add_mode: dropdown
+      add_mode: select
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
@@ -120,7 +120,7 @@ content:
       title: Paragraph
       title_plural: Paragraphs
       edit_mode: open
-      add_mode: dropdown
+      add_mode: select
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
