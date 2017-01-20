@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * FeatureContent for OpenY project.
+ */
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
@@ -20,4 +24,5 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function __construct() {
   }
+
 }
