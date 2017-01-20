@@ -20,3 +20,13 @@ global-styling:
     - core/jquery.ui.widget
     - core/drupal
     - core/drupalSettings
+
+landing:
+  version: VERSION
+  js:
+    scripts/openy_rose_landing.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

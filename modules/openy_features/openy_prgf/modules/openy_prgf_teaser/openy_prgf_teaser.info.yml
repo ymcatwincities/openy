@@ -1,0 +1,13 @@
+name: 'OpenY paragraph teaser'
+description: 'OpenY paragraph teaser'
+type: module
+core: 8.x
+dependencies:
+  - entity_browser
+  - field
+  - link
+  - openy_media_image
+  - openy_prgf
+  - paragraphs
+  - text
+version: 8.x-1.0

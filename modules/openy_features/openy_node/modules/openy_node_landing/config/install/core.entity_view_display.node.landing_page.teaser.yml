@@ -3,6 +3,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.landing_page.field_content
+    - field.field.node.landing_page.field_header_content
+    - field.field.node.landing_page.field_lp_layout
+    - field.field.node.landing_page.field_sidebar_content
     - node.type.landing_page
   module:
     - user
@@ -13,4 +17,8 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden: {  }
+hidden:
+  field_content: true
+  field_header_content: true
+  field_lp_layout: true
+  field_sidebar_content: true
