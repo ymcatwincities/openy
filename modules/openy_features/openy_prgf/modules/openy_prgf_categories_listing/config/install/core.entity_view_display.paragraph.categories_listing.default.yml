@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.categories_listing.field_prgf_block
+    - paragraphs.paragraphs_type.categories_listing
+  module:
+    - plugin
+id: paragraph.categories_listing.default
+targetEntityType: paragraph
+bundle: categories_listing
+mode: default
+content:
+  field_prgf_block:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+hidden:
+  created: true
+  uid: true
