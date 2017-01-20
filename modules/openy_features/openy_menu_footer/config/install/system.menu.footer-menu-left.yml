@@ -3,5 +3,5 @@ status: true
 dependencies: {  }
 id: footer-menu-left
 label: 'Footer menu left'
-description: ''
+description: 'Left footer menu'
 locked: false
