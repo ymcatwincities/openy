@@ -12,8 +12,8 @@ dependencies:
   - menu_ui
   - node
   - openy_node_blog
-  - openy_node_branch_feature
-  - openy_node_camp_feature
+  - openy_node_branch
+  - openy_node_camp
   - openy_node_landing
   - options
   - path
