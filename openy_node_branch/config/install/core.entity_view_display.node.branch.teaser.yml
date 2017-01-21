@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.branch.field_branch_body
     - field.field.node.branch.field_branch_header
     - field.field.node.branch.field_ct_address
+    - field.field.node.branch.field_ct_coordinates
     - field.field.node.branch.field_ct_email
     - field.field.node.branch.field_ct_fax
     - field.field.node.branch.field_ct_phone
@@ -23,6 +24,7 @@ hidden:
   field_branch_body: true
   field_branch_header: true
   field_ct_address: true
+  field_ct_coordinates: true
   field_ct_email: true
   field_ct_fax: true
   field_ct_phone: true
