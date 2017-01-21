@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ct_phone
+    - node.type.branch
+  module:
+    - telephone
+id: node.branch.field_ct_phone
+field_name: field_ct_phone
+entity_type: node
+bundle: branch
+label: 'Branch Phone'
+description: 'Enter branch phone.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone
