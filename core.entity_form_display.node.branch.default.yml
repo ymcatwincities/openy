@@ -1,0 +1,140 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.branch.field_branch_body
+    - field.field.node.branch.field_branch_header
+    - field.field.node.branch.field_ct_address
+    - field.field.node.branch.field_ct_coordinates
+    - field.field.node.branch.field_ct_email
+    - field.field.node.branch.field_ct_fax
+    - field.field.node.branch.field_ct_phone
+    - node.type.branch
+  module:
+    - address
+    - content_moderation
+    - field_group
+    - geolocation
+    - paragraphs
+    - path
+    - telephone
+third_party_settings:
+  field_group:
+    group_branch_contact:
+      children:
+        - field_ct_address
+        - field_ct_email
+        - field_ct_phone
+        - field_ct_fax
+        - field_ct_coordinates
+      parent_name: ''
+      weight: 2
+      label: 'Contact info'
+      format_type: fieldset
+      format_settings:
+        description: ''
+        classes: ''
+        id: ''
+        required_fields: true
+id: node.branch.default
+targetEntityType: node
+bundle: branch
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  field_branch_body:
+    type: entity_reference_paragraphs
+    weight: 4
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+  field_branch_header:
+    type: entity_reference_paragraphs
+    weight: 3
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+  field_ct_address:
+    weight: 10
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
+  field_ct_coordinates:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+  field_ct_email:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_ct_fax:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  field_ct_phone:
+    weight: 12
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+  langcode:
+    type: language_select
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ct_coordinates
+    - node.type.branch
+  module:
+    - geolocation
+id: node.branch.field_ct_coordinates
+field_name: field_ct_coordinates
+entity_type: node
+bundle: branch
+label: 'Branch Coordinates'
+description: 'Enter latitude and longitude of the branch.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation
