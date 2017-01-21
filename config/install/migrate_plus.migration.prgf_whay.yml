@@ -4,18 +4,18 @@ dependencies: {  }
 id: yghc_prgf_whay
 migration_tags: {  }
 migration_group: ygh_content
-label: 'Creates What Happening At the Y Paragraph'
+label: 'Creates What''s Happening At the Y Paragraph'
 source:
   plugin: embedded_data
   data_rows:
     -
       id: 1
-      title: 'What Happening At the Y?'
+      title: 'What''s Happening At the Y?'
   ids:
     id:
       type: integer
 process:
-  field_prgf_nu_title:
+  field_prgf_whay_title:
     -
       plugin: get
       source: title
