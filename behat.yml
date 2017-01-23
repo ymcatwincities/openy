@@ -11,6 +11,9 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
+  formatters:
+    html:
+      output_path: %paths.base%/build
   extensions:
     Behat\MinkExtension:
       goutte: ~
@@ -24,5 +27,12 @@ default:
         autoload: false
       selectors:
         login_form_selector: '#user-login-form'
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      renderer: Twig
+      name: html
+      file_name: behat_report
+      print_args: true
+      print_outp: true
+      loop_break: true
 imports:
   - behat.local.yml
