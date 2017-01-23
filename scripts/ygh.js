@@ -20,7 +20,7 @@
       Drupal.ymca_seattle.branch__updates_queue_mobile();
 
       // Set active language text.
-      var active_lang = $('.page-head__language-switcher:not(.mobile) .is-active a').text();
+      var active_lang = $('.page-head__language-switcher .is-active a:eq(0)').text();
       $('.page-head__language-switcher .lang').text(active_lang);
       $('.top-navs__language-switcher .lang').text(active_lang);
     }
