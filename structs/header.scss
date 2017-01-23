@@ -121,6 +121,12 @@
     }
   }
 
+  #block-ygh-account-menu {
+    @include breakpoint(laptop) {
+      float: right;
+    }
+  }
+
   &__main-menu {
 
     a {
