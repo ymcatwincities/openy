@@ -55,6 +55,7 @@ dependencies:
   - views_block_filter_block
   - migrate_plus
   - migrate_tools
+  - verf
   # OpenY modules.
   - openy_media_image
   - openy_media_document
