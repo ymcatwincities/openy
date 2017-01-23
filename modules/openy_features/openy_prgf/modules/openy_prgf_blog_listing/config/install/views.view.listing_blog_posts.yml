@@ -6,6 +6,7 @@ dependencies:
     - node.type.blog
     - taxonomy.vocabulary.blog_category
   module:
+    - entity_reference_exposed_filters
     - node
     - taxonomy
     - user
@@ -146,6 +147,7 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          group: 1
         sticky:
           id: sticky
           table: node_field_data
@@ -184,27 +186,24 @@ display:
           entity_type: node
           entity_field: sticky
           plugin_id: boolean
-        field_blog_location_target_id:
-          id: field_blog_location_target_id
-          table: node__field_blog_location
-          field: field_blog_location_target_id
-          relationship: none
+        eref_node_titles:
+          id: eref_node_titles
+          table: node_field_data
+          field: eref_node_titles
+          relationship: field_blog_location
           group_type: group
           admin_label: ''
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
+          operator: or
+          value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: field_blog_location_target_id_op
+            operator_id: ''
             label: Location
             description: ''
             use_operator: false
-            operator: field_blog_location_target_id_op
-            identifier: field_blog_location_target_id
+            operator: ''
+            identifier: eref_node_titles
             required: false
             remember: false
             multiple: false
@@ -212,6 +211,7 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -224,7 +224,13 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: numeric
+          reduce_duplicates: 0
+          entity_type: node
+          plugin_id: eref_node_titles
+          sort_order: '0'
+          sort_by: '1'
+          get_unpublished: '1'
+          get_filter_no_results: '0'
         field_blog_category_target_id:
           id: field_blog_category_target_id
           table: node__field_blog_category
@@ -328,10 +334,23 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships: {  }
+      relationships:
+        field_blog_location:
+          id: field_blog_location
+          table: node__field_blog_location
+          field: field_blog_location
+          relationship: none
+          group_type: group
+          admin_label: 'field_blog_location: Content'
+          required: true
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
       use_ajax: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
