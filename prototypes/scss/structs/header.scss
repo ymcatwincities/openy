@@ -103,6 +103,30 @@
     }
   }
 
+  &__language-switcher {
+    position: relative;
+    margin-left: 15px;
+    > div {
+      padding-top: 10px;
+    }
+
+    .dropdown-toggle {
+      border-left: 1px solid $white;
+      padding-left: 25px;
+      text-decoration: none;
+      margin-right: 8px;
+      .lang {
+        margin: 0 20px 0 15px;
+      }
+    }
+  }
+
+  #block-ygh-account-menu {
+    @include breakpoint(laptop) {
+      float: right;
+    }
+  }
+
   &__main-menu {
 
     a {
@@ -164,11 +188,42 @@
     border-bottom: none;
   }
 
+  .row {
+    position: relative;
+  }
+
   .navbar-default {
     background: none;
     border: none;
     box-shadow: none;
     top: 0 !important;
+  }
+
+  &__language-switcher {
+    position: absolute;
+    right: 75px;
+    top: 15px;
+    > div {
+      padding-top: 10px;
+      position: relative;
+    }
+
+    .dropdown-toggle {
+      @include cachet();
+      color: $white;
+      font-size: 12px;
+      font-style: normal;
+      font-stretch: normal;
+      font-weight: 500;
+      line-height: 1.06;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-right: 8px;
+
+      .lang {
+        margin: 0 5px 0 10px;
+      }
+    }
   }
 }
 
