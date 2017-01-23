@@ -56,6 +56,7 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - verf
+  - simple_menu_icons
   # OpenY modules.
   - openy_media_image
   - openy_media_document
