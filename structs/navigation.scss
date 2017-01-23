@@ -68,18 +68,7 @@
   }
 
   .dropdown-menu {
-    position: relative;
-    top: 0;
-    z-index: 0;
-    display: block;
-    float: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    box-shadow: none;
-    background-color: $color-blue;
+    display: none;
   }
 
   .active > a {
