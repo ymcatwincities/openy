@@ -55,6 +55,7 @@ dependencies:
   - views_block_filter_block
   - migrate_plus
   - migrate_tools
+  - entity_reference_exposed_filters
   # OpenY modules.
   - openy_media_image
   - openy_media_document
@@ -84,6 +85,10 @@ dependencies:
   - openy_prgf_gallery
   - openy_prgf_teaser
   - openy_prgf_classes_listing
+  - openy_prgf_blog_latest
+  - openy_prgf_blog_camp
+  - openy_prgf_blog_branch
+  - openy_prgf_blog_listing
   - openy_node_activity
   - openy_node_class
   - openy_node_session
