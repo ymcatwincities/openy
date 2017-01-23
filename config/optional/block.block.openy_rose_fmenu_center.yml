@@ -7,8 +7,6 @@ dependencies:
     - system
   theme:
     - openy_rose
-_core:
-  default_config_hash: SHUYoVMFq5DsQ8IT1k1L-EPCc2cEPXQj60tJBYoqc98
 id: footermenucenter
 theme: openy_rose
 region: footer_menus
