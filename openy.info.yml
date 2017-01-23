@@ -41,6 +41,7 @@ dependencies:
   - views
   - views_ui
   - link
+  - migrate
   # Contrib modules.
   - features
   - features_ui
@@ -52,6 +53,8 @@ dependencies:
   - pathauto
   - media_entity
   - views_block_filter_block
+  - migrate_plus
+  - migrate_tools
   # OpenY modules.
   - openy_media_image
   - openy_media_document
@@ -84,6 +87,11 @@ dependencies:
   - openy_node_activity
   - openy_node_class
   - openy_node_session
+  - openy_demo_tarea
+  - openy_demo_tblog
+  - openy_demo_tcolor
+  - openy_demo_tfacility
+  - openy_prgf_categories_listing
 
 themes:
   - bartik
