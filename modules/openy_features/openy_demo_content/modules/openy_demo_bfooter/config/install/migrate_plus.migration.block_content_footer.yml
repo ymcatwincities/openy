@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_block_content_footer
+migration_tags: {  }
+migration_group: openy_demo_fblock
+label: 'Create basic blocks in the footer'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 7
+      code: 'e350fe26-bc73-4c69-af18-a51a052dbcd3'
+      description: 'Footer Social Block'
+      title: ''
+      body: |
+        <ul>
+                      <li>
+                        <a class="item-share--facebook" href="#">facebook</a>
+                      </li>
+                      <li>
+                        <a class="item-share--twitter" href="#">twitter</a>
+                      </li>
+                      <li>
+                        <a class="item-share--youtube" href="#">youtube</a>
+                      </li>
+        </ul>
+    -
+      id: 8
+      code: 'cb76bc7c-a957-4b69-96fb-e565ee85f38a'
+      description: 'Footer Copyright Block'
+      title: ''
+      body: |
+        <p>© 2017 Greater Houston YMCA</p>
+        <p>Our Mission: To put Judeo-Christian principles into practice through programs that build healthy spirit, mind and body for all. Everyone is Welcome.</p>
+  ids:
+    id:
+      type: integer
+process:
+  type:
+    plugin: default_value
+    default_value: basic_block
+  uuid: code
+  info: description
+  field_block_content/value: body
+  field_block_content/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: entity:block_content
