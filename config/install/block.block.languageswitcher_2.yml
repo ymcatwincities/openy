@@ -1,0 +1,20 @@
+uuid: 3c511ef9-13b9-40ba-8af8-e14187a903f1
+langcode: en
+status: true
+dependencies:
+  module:
+    - language
+  theme:
+    - ygh
+id: languageswitcher_2
+theme: ygh
+region: logo
+weight: -10
+provider: null
+plugin: 'language_block:language_interface'
+settings:
+  id: 'language_block:language_interface'
+  label: 'Language switcher'
+  provider: language
+  label_display: '0'
+visibility: {  }
