@@ -31,9 +31,14 @@ projects[verf] = 1.0-beta6
 projects[simple_menu_icons] = 1.x-dev
 projects[views_infinite_scroll] = 1.3
 
+projects[entity_reference_exposed_filters][type] = module
+projects[entity_reference_exposed_filters][download][type] = get
+projects[entity_reference_exposed_filters][download][url] = https://github.com/mlibrary/Entity-Reference-Exposed-Filters/archive/master.zip
+
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
 libraries[dropzone][destination] = libraries
+
 libraries[jquery_colorpicker][download][type] = get
 libraries[jquery_colorpicker][download][url] = http://www.eyecon.ro/colorpicker/colorpicker.zip
 libraries[jquery_colorpicker][destination] = modules/contrib/jquery_colorpicker/vendor/jaypan
