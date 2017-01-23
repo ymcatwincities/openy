@@ -9,12 +9,14 @@ dependencies:
     - field.field.node.branch.field_ct_email
     - field.field.node.branch.field_ct_fax
     - field.field.node.branch.field_ct_phone
+    - field.field.node.branch.field_wh
     - node.type.branch
   module:
     - address
     - content_moderation
     - field_group
     - geolocation
+    - openy_field_custom_hours
     - paragraphs
     - path
     - telephone
@@ -96,6 +98,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+  field_wh:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: openy_custom_hours_default
   langcode:
     type: language_select
     weight: 1
