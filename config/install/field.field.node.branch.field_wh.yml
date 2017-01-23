@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_wh
+    - node.type.branch
+  module:
+    - openy_field_custom_hours
+id: node.branch.field_wh
+field_name: field_wh
+entity_type: node
+bundle: branch
+label: 'Branch Working Hours'
+description: 'Enter working Hours for the current branch.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: openy_custom_hours
