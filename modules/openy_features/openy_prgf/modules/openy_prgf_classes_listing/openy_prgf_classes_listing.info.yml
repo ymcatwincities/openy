@@ -10,5 +10,6 @@ dependencies:
   - paragraphs
   - plugin
   - user
+  - verf
   - views
 version: 8.x-1.0
