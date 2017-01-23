@@ -1,0 +1,7 @@
+name: 'OpenY menu footer'
+description: 'OpenY menu footer'
+type: module
+core: 8.x
+dependencies:
+  - system
+version: 8.x-1.0
