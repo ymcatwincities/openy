@@ -86,6 +86,9 @@ dependencies:
   - openy_prgf_gallery
   - openy_prgf_teaser
   - openy_prgf_classes_listing
+  - openy_prgf_blog_latest
+  - openy_prgf_blog_camp
+  - openy_prgf_blog_branch
   - openy_node_activity
   - openy_node_class
   - openy_node_session
