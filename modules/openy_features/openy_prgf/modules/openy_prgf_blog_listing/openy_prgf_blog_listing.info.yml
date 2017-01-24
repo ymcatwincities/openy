@@ -1,0 +1,18 @@
+name: 'Openy Blog Posts listing'
+description: 'Blog posts listing.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+  - openy_node_blog
+  - openy_prgf
+  - openy_txnm_blog_category
+  - paragraphs
+  - plugin
+  - taxonomy
+  - user
+  - verf
+  - views
+  - views_infinite_scroll
+version: 8.x-1.0
