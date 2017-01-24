@@ -1,6 +1,6 @@
 openy_map:
   js:
-    https://maps.googleapis.com/maps/api/js?key=AIzaSyCEAofyJsyH72hr4h7wQkzQ8xi-AeIU9s0: { type: external }
+    https://maps.googleapis.com/maps/api/js: { type: external }
     js/map.js: {}
   css:
     component:
