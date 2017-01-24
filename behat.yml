@@ -13,7 +13,7 @@ default:
         - Drupal\DrupalExtension\Context\DrushContext
   formatters:
     html:
-      output_path: %paths.base%/build
+      output_path: %paths.base%/build/reports/behat
   extensions:
     Behat\MinkExtension:
       goutte: ~
@@ -30,7 +30,7 @@ default:
     emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
       renderer: Twig
       name: html
-      file_name: behat_report
+      file_name: index
       print_args: true
       print_outp: true
       loop_break: true
