@@ -45,7 +45,7 @@
       var map = new Drupal.openyMap();
 
       map.drawMap({
-          element: '#openy-map-canvas',
+          element: '.openy-map-canvas',
           data: data
       });
 

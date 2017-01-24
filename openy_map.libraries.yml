@@ -1,7 +1,10 @@
 openy_map:
   js:
     https://maps.googleapis.com/maps/api/js?key=AIzaSyCEAofyJsyH72hr4h7wQkzQ8xi-AeIU9s0: { type: external }
-    js/main.js: {}
+    js/map.js: {}
+  css:
+    component:
+      css/map.css: {}
   dependencies:
     - core/jquery
     - core/jquery.once
