@@ -32,6 +32,8 @@
         state: started
       sudo: yes
       when: run_javascript_tests == 'yes'
+      tags:
+        - run_selenium
 
     - name: Wait for Selenium container to be run
       wait_for:
@@ -59,6 +61,8 @@
         state: stopped
       sudo: yes
       when: run_javascript_tests == 'yes'
+      tags:
+        - stop_selenium
 
     - name: Remove Selenium container
       docker:
@@ -67,3 +71,5 @@
         state: absent
       sudo: yes
       when: run_javascript_tests == 'yes'
+      tags:
+        - stop_selenium
