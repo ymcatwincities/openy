@@ -4,4 +4,4 @@ contrib
 libraries
 vendor
 bin
-build
+build/reports
