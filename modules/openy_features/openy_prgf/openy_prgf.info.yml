@@ -9,7 +9,7 @@ dependencies:
   - media_entity
   - options
   - paragraphs
-  - taxonomy
   - plugin
+  - taxonomy
   - text
 version: 8.x-1.0
