@@ -1,6 +1,5 @@
 # Running Tests
-These instructions exmplain how you can run tests.
-
+These instructions explain how you can run tests.
 
 
 ## Behat
