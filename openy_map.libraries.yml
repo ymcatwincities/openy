@@ -1,0 +1,9 @@
+openy_map:
+  js:
+    https://maps.googleapis.com/maps/api/js?key=AIzaSyCEAofyJsyH72hr4h7wQkzQ8xi-AeIU9s0: { type: external }
+    js/main.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

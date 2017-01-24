@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_map_theme() {
+  $items = [
+    'openy_map' => [
+      'render element' => 'element',
+    ],
+  ];
+  return $items;
+}
