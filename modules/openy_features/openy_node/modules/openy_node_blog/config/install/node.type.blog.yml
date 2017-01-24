@@ -7,7 +7,7 @@ third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
-name: Blog
+name: 'Blog Post'
 type: blog
 description: 'Blog Post content type is used for adding blog posts on the site.'
 help: ''
