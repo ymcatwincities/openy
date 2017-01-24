@@ -6,10 +6,10 @@ dependencies:
     - node.type.blog
     - taxonomy.vocabulary.blog_category
   module:
-    - entity_reference_exposed_filters
     - node
     - taxonomy
     - user
+    - verf
     - views_infinite_scroll
 id: listing_blog_posts
 label: 'Listing Blog Posts'
@@ -148,24 +148,24 @@ display:
           entity_field: type
           plugin_id: bundle
           group: 1
-        eref_node_titles:
-          id: eref_node_titles
-          table: node_field_data
-          field: eref_node_titles
-          relationship: field_blog_location
+        field_blog_location_target_id_verf:
+          id: field_blog_location_target_id_verf
+          table: node__field_blog_location
+          field: field_blog_location_target_id_verf
+          relationship: none
           group_type: group
           admin_label: ''
-          operator: or
+          operator: in
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: ''
-            label: Location
+            operator_id: field_blog_location_target_id_verf_op
+            label: 'Location (VERF selector)'
             description: ''
             use_operator: false
-            operator: ''
-            identifier: eref_node_titles
+            operator: field_blog_location_target_id_verf_op
+            identifier: field_blog_location_target_id_verf
             required: false
             remember: false
             multiple: false
@@ -186,13 +186,19 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: 0
-          entity_type: node
-          plugin_id: eref_node_titles
-          sort_order: '0'
-          sort_by: '1'
-          get_unpublished: '1'
-          get_filter_no_results: '0'
+          verf_target_bundles:
+            branch: branch
+            camp: camp
+            activity: '0'
+            blog: '0'
+            class: '0'
+            facility: '0'
+            landing_page: '0'
+            membership: '0'
+            program: '0'
+            program_subcategory: '0'
+            session: '0'
+          plugin_id: verf
         field_blog_category_target_id:
           id: field_blog_category_target_id
           table: node__field_blog_category
@@ -310,16 +316,7 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships:
-        field_blog_location:
-          id: field_blog_location
-          table: node__field_blog_location
-          field: field_blog_location
-          relationship: none
-          group_type: group
-          admin_label: 'field_blog_location: Content'
-          required: true
-          plugin_id: standard
+      relationships: {  }
       arguments: {  }
       display_extenders: {  }
       use_ajax: true
@@ -337,7 +334,9 @@ display:
         - user
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:views.view.listing_blog_posts'
+        - node_list
   block:
     display_plugin: block
     id: block
@@ -355,4 +354,6 @@ display:
         - user
         - 'user.node_grants:view'
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:views.view.listing_blog_posts'
+        - node_list

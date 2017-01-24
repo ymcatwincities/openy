@@ -55,7 +55,6 @@ dependencies:
   - views_block_filter_block
   - migrate_plus
   - migrate_tools
-  - entity_reference_exposed_filters
   - verf
   - simple_menu_icons
   # OpenY modules.
