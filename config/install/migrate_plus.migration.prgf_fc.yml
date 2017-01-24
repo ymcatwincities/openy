@@ -10,10 +10,15 @@ source:
   data_rows:
     -
       id: 1
+      title: 'Featured Stories'
   ids:
     id:
       type: integer
-process: {  }
+process:
+  field_prgf_nu_title:
+    -
+      plugin: get
+      source: title
 destination:
   plugin: entity_reference_revisions:paragraph
   default_bundle: featured_stories
