@@ -85,10 +85,6 @@ class CalcBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['pre'] = [
-      '#markup' => '<h2>pre</h2>',
-    ];
-
     $form['map'] = [
       '#type' => 'openy_map',
       '#element_variables' => [
@@ -112,12 +108,6 @@ class CalcBlockForm extends FormBase {
         ],
       ],
     ];
-
-    $form['post'] = [
-      '#markup' => '<h2>post</h2>',
-    ];
-
-    $form['#attached']['library'][] = 'openy_map/openy_map';
 
 //    $step = 1;
 //    $trigger = $form_state->getTriggeringElement();
