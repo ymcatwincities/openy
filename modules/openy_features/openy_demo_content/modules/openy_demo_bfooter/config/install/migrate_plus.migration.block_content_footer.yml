@@ -15,16 +15,10 @@ source:
       description: 'Footer Social Block'
       title: ''
       body: |
-        <ul>
-                      <li>
-                        <a class="item-share--facebook" href="#">facebook</a>
-                      </li>
-                      <li>
-                        <a class="item-share--twitter" href="#">twitter</a>
-                      </li>
-                      <li>
-                        <a class="item-share--youtube" href="#">youtube</a>
-                      </li>
+        <ul class="list-inline">
+        	<li><a class="fa fa-facebook" href="#">Facebook</a></li>
+        	<li><a class="fa fa-twitter" href="#">Twitter</a></li>
+        	<li><a class="fa fa-youtube href="#">Youtube</a></li>
         </ul>
     -
       id: 8
@@ -32,8 +26,8 @@ source:
       description: 'Footer Copyright Block'
       title: ''
       body: |
-        <p>© 2017 Greater Houston YMCA</p>
-        <p>Our Mission: To put Judeo-Christian principles into practice through programs that build healthy spirit, mind and body for all. Everyone is Welcome.</p>
+        <p>© 2017 YMCA</p>
+        <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
   ids:
     id:
       type: integer
