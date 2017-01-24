@@ -13,6 +13,7 @@ dependencies:
   - plugin
   - taxonomy
   - user
+  - verf
   - views
   - views_infinite_scroll
 version: 8.x-1.0
