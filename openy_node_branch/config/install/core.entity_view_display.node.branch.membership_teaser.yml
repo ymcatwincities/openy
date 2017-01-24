@@ -14,7 +14,6 @@ dependencies:
     - node.type.branch
   module:
     - address
-    - entity_reference_revisions
     - openy_field_custom_hours
     - telephone
     - user
@@ -23,35 +22,28 @@ targetEntityType: node
 bundle: branch
 mode: membership_teaser
 content:
-  field_branch_header:
-    type: entity_reference_revisions_entity_view
-    weight: 0
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
   field_ct_address:
-    weight: 1
+    weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_ct_phone:
-    weight: 2
+    weight: 0
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
   field_wh:
-    weight: 3
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: openy_custom_hours_default
 hidden:
   field_branch_body: true
+  field_branch_header: true
   field_ct_coordinates: true
   field_ct_email: true
   field_ct_fax: true

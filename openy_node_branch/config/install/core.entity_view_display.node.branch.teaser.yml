@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.branch.field_ct_email
     - field.field.node.branch.field_ct_fax
     - field.field.node.branch.field_ct_phone
+    - field.field.node.branch.field_wh
     - node.type.branch
   module:
     - user
@@ -28,4 +29,5 @@ hidden:
   field_ct_email: true
   field_ct_fax: true
   field_ct_phone: true
+  field_wh: true
   langcode: true
