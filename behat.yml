@@ -14,6 +14,13 @@ default:
   formatters:
     html:
       output_path: %paths.base%/build/reports/behat
+    pretty:
+      decorated: true
+      verbose: false
+      time: true
+      language: en
+      output_path: null
+      multiline_arguments: true
   extensions:
     Behat\MinkExtension:
       goutte: ~
