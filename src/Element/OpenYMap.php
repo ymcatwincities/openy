@@ -35,6 +35,7 @@ class OpenYMap extends RenderElement {
    */
   public static function processElement($element) {
 
+    $element['#attached']['library'][] = 'openy_map/openy_map';
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];
 
     return $element;
