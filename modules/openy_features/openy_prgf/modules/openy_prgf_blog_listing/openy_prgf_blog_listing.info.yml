@@ -3,7 +3,6 @@ description: 'Blog posts listing.'
 type: module
 core: 8.x
 dependencies:
-  - entity_reference_exposed_filters
   - field
   - node
   - openy_node_blog
