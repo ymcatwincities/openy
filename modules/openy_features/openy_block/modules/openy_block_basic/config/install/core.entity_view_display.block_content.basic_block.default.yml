@@ -13,7 +13,7 @@ mode: default
 content:
   field_block_content:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
