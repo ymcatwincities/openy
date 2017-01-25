@@ -51,7 +51,7 @@ process:
     -
       plugin: default_value
       default_value: 1
-  field_camp_header:
+  field_header_content:
     -
       plugin: paragraph_migration
       paragraphs: header

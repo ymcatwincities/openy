@@ -59,7 +59,7 @@ process:
       plugin: default_value
       default_value: 1
   title: location_name
-  field_branch_header/target_id:
+  field_header_content/target_id:
     -
       plugin: default_value
       default_value: 3
@@ -71,7 +71,7 @@ process:
       plugin: extract
       index:
         - '0'
-  field_branch_header/target_revision_id:
+  field_header_content/target_revision_id:
     -
       plugin: default_value
       default_value: 3
@@ -83,20 +83,20 @@ process:
       plugin: extract
       index:
         - 1
-  field_ct_address/country_code:
+  field_location_address/country_code:
     -
       plugin: default_value
       default_value: US
-  field_ct_address/address_line1: address_line1
-  field_ct_address/address_line2: address_line2
-  field_ct_address/locality: locality
-  field_ct_address/administrative_area: administrative_area
-  field_ct_address/postal_code: postal_code
-  field_ct_phone/value: phone
-  field_ct_fax/value: fax
-  field_ct_email/value: email
-  field_ct_coordinates/lat: latitude
-  field_ct_coordinates/lng: longitude
+  field_location_address/address_line1: address_line1
+  field_location_address/address_line2: address_line2
+  field_location_address/locality: locality
+  field_location_address/administrative_area: administrative_area
+  field_location_address/postal_code: postal_code
+  field_location_phone/value: phone
+  field_location_fax/value: fax
+  field_location_email/value: email
+  field_location_coordinates/lat: latitude
+  field_location_coordinates/lng: longitude
 destination:
   plugin: 'entity:node'
   default_bundle: branch
