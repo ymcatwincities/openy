@@ -1,0 +1,49 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nprogram
+id: openy_demo_paragraph_category_listing
+migration_tags: {  }
+migration_group: openy_demo_nprogram
+label: 'Create category listing paragraphs for demo program nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+    -
+      id: 2
+    -
+      id: 3
+    -
+      id: 4
+    -
+      id: 5
+    -
+      id: 6
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_type:
+    plugin: default_value
+    default_value: node
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: categories_listing
