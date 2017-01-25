@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class OpenySocratesCompilerPass implements CompilerPassInterface {
 
   const OPENYINTERFACE = 'Drupal\openy_socrates\OpenyDataServiceInterface';
+
   /**
    * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
    *
@@ -21,6 +22,7 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
     $definition = $container->getDefinition('socrates');
     $dds = array();
     // Retrieve registered OpenY Data Services from the container.
+    // @see openy_socrates.services.yml for example of tags usages.
     $openyds = $container->findTaggedServiceIds(
       'openy_data_service'
     );
@@ -28,7 +30,9 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
       $dsdefinition = $container->getDefinition($id);
       $dsclass = $dsdefinition->getClass();
       if (!in_array(self::OPENYINTERFACE, class_implements($dsclass))) {
-        throw new OpenySocratesException("Service $id should implement OpenyDataServiceInterface");
+        throw new OpenySocratesException(
+          "Service $id should implement OpenyDataServiceInterface"
+        );
       }
       $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
       $dds['priorities'][$priority][] = new Reference($id);

@@ -1,15 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: podarok
- * Date: 25.01.17
- * Time: 16:32
+ * Here you can find a super simple example of the Data Service which is added
+ * to Socrates service by default for demo purposes.
  */
 
 namespace Drupal\openy_socrates;
 
-
-class TestSocrates implements OpenyDataServiceInterface{
+/**
+ * Class ExampleSocratesDataService.
+ *
+ * @package Drupal\openy_socrates
+ */
+class ExampleSocratesDataService implements OpenyDataServiceInterface {
 
   /**
    * Dummy method call for exporting to Socrates service.
