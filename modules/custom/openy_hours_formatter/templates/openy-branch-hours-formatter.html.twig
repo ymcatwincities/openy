@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a formatted hours field.
+ *
+ * Available variables:
+ * - week: an array with values.
+ *
+ * @see template_preprocess_openy_hours_formatter()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if week %}
+<div class="branch-hours">
+  <table>
+    {% for key, value in week %}
+      <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}

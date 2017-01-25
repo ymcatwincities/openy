@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - field_collection
     - paragraphs
-id: paragraph.field_fcontent_columns
-field_name: field_fcontent_columns
+    - text
+id: paragraph.field_prgf_clm_description
+field_name: field_prgf_clm_description
 entity_type: paragraph
-type: field_collection
+type: text_long
 settings: {  }
-module: field_collection
+module: text
 locked: false
 cardinality: -1
 translatable: true
