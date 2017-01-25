@@ -28,42 +28,42 @@ class HoursToday extends FieldCollectionItemsFormatter {
     $lazy_hours = [];
     $week = [];
     $days = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+      'sunday',
     ];
-    $weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-    $weekend = ['Saturday', 'Sunday'];
+    $weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+    $weekend = ['saturday', 'sunday'];
     $count = 0;
     // Check if weekdays have the same working time.
     foreach ($render_items as $delta => $item) {
-      if (isset($item['field_day_of_the_week'][0]['#markup']) && isset($item['field_start_end_time'][0]['#context']['value'])) {
-        if (in_array($item['field_day_of_the_week'][0]['#markup'], $weekdays) && empty($time)) {
-          $time = $item['field_start_end_time'][0]['#context']['value'];
+      if ($item['#field_collection_item']->field_branch_hours_day->value && $item['#field_collection_item']->field_branch_hours_time->value) {
+        if (in_array($item['#field_collection_item']->field_branch_hours_day->value, $weekdays) && empty($time)) {
+          $time = $item['#field_collection_item']->field_branch_hours_time->value;
         }
-        if (in_array($item['field_day_of_the_week'][0]['#markup'], $weekdays) && $time == $item['field_start_end_time'][0]['#context']['value']) {
+        if (in_array($item['#field_collection_item']->field_branch_hours_day->value, $weekdays) && $time == $item['#field_collection_item']->field_branch_hours_time->value) {
           $count++;
         }
       }
     }
 
     foreach ($render_items as $delta => $item) {
-      if (isset($item['field_day_of_the_week'][0]['#markup']) && isset($item['field_start_end_time'][0]['#context']['value'])) {
-        $day = $item['field_day_of_the_week'][0]['#markup'];
-        $lazy_hours[array_search($day, $days)] = $item['field_start_end_time'][0]['#context']['value'];
+      if ($item['#field_collection_item']->field_branch_hours_day->value && $item['#field_collection_item']->field_branch_hours_time->value) {
+        $day = $item['#field_collection_item']->field_branch_hours_day->value;
+        $lazy_hours[array_search($day, $days)] = $item['#field_collection_item']->field_branch_hours_time->value;
         // This means we have the same working time during work week.
         if ($count == 5) {
           $week['Monday - Friday'] = $time;
           if (in_array($day, $weekend)) {
-            $week[$day] = $item['field_start_end_time'][0]['#context']['value'];
+            $week[ucfirst($day)] = $item['#field_collection_item']->field_branch_hours_time->value;
           }
         }
         else {
-          $week[$day] = $item['field_start_end_time'][0]['#context']['value'];
+          $week[ucfirst($day)] = $item['#field_collection_item']->field_branch_hours_time->value;
         }
       }
     }
