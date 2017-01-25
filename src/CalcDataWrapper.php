@@ -126,6 +126,9 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
       'getLocationPins',
       'getMembershipPriceMatrix',
       'getMembershipTypes',
+      'getLocations',
+      // @todo consider to extend Socrates with service_name:method instead of just method or to make methods more longer in names.
+      'getPrice',
     ];
   }
 }
