@@ -11,7 +11,7 @@
       drawMap: function (config) {
         // Let's center map on the first point.
         var map = new google.maps.Map(config.element, {
-          zoom: 13,
+          zoom: 10,
           center: config.data[0]
         });
 
