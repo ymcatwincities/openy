@@ -81,7 +81,7 @@ content.field_blog_color ? 'blog-' ~ content.field_blog_color|clean_class : 'blo
 ] %}
 {% set color = content.field_blog_color ? content.field_blog_color : 'photo' %}
 
-{% set category = content.field_blog_category ? content.field_blog_category : 'Blog'|t %}
+{% set category = content.field_blog_categories ? content.field_blog_categories : 'Blog'|t %}
 
 <article{{ attributes.addClass(classes) }}>
   <div class="inner-wrapper">
