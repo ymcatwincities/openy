@@ -12,7 +12,3 @@ Feature: Landing page Content type
     And I should see "Sidebar Area"
     When I press "Save and publish"
     Then I should see the message "Landing Page Basic Landing has been created."
-
-
-
-
