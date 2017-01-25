@@ -19,6 +19,7 @@ source:
       id: 1
       title: 'Health and Fitness'
       color: 7
+      listing_id: 1
       body: |
         <p>
         At the Y, we believe health and fitness means taking care of the whole
@@ -35,6 +36,7 @@ source:
       id: 2
       title: 'Swimming'
       color: 2
+      listing_id: 2
       body: |
         <p>
         Swimming at the Y helps people thrive—in and out of the water. Swim
@@ -48,6 +50,7 @@ source:
       id: 3
       title: 'Kids and Family Activities'
       color: 3
+      listing_id: 3
       body: |
         <p>
         The Y is a great place to grow up. We have an enormous variety of
@@ -64,6 +67,7 @@ source:
       id: 4
       title: 'Camps'
       color: 4
+      listing_id: 4
       body: |
         <p>
         YMCA camps offer kids a chance to explore places, activities and ideas
@@ -79,6 +83,7 @@ source:
       id: 5
       title: 'Child Care'
       color: 5
+      listing_id: 5
       body: |
         <p>
         The values and skills learned early in life are vital building blocks
@@ -92,6 +97,7 @@ source:
       id: 6
       title: 'Youth Programs'
       color: 6
+      listing_id: 6
       body: |
         <p>
         The Y nurtures the potential of every child and teen by supporting
@@ -122,11 +128,14 @@ process:
   field_program_description/format:
     plugin: default_value
     default_value: full_html
-  field_content:
-    plugin: iterator
+  field_content/target_id:
     plugin: migration
     migration: openy_demo_paragraph_category_listing
-    source: id
+    source: listing_id
+  field_content/target_revision_id:
+    plugin: migration
+    migration: openy_demo_paragraph_category_listing
+    source: listing_id
 destination:
   plugin: 'entity:node'
   default_bundle: program
