@@ -29,13 +29,11 @@ default:
         header: '#page-head'
         content: '#main-content'
         footer: '#footer'
-
       selectors:
         login_form_selector: '#user-login-form'
         message_selector: '.status-message'
         error_message_selector: 'status-message__alert p'
         success_message_selector: '.status-message ul, .status-message p'
-
     emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
       renderer: Twig
       name: html
