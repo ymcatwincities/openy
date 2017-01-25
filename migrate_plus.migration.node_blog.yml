@@ -87,7 +87,7 @@ process:
     -
       plugin: default_value
       default_value: blog
-  field_blog_category:
+  field_blog_categories:
     -
       plugin: default_value
       default_value: 1
@@ -99,7 +99,7 @@ process:
       plugin: migration
       migration: ygh_node_blog_taxonomy_term_blog_tags
       source: post_tag
-  field_blog_body:
+  field_blog_description:
     -
       plugin: migration
       migration: ygh_node_blog_err_blog_body
