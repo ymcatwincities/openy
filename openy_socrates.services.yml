@@ -2,3 +2,7 @@ services:
   socrates:
     class: Drupal\openy_socrates\OpenySocratesFacade
     arguments: []
+  test_socrates:
+    class: Drupal\openy_socrates\TestSocrates
+    tags:
+      - { name: openy_data_service, priority: 1000 }
