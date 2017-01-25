@@ -17,27 +17,27 @@ bundle: featured_content
 mode: default
 content:
   field_fcontent_columns:
-    weight: 3
-    label: above
+    weight: 2
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: field_collection_list
+    type: field_collection_items
   field_prgf_description:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_prgf_headline:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_prgf_link:
-    weight: 2
-    label: above
+    weight: 3
+    label: hidden
     settings:
       trim_length: 80
       url_only: false
