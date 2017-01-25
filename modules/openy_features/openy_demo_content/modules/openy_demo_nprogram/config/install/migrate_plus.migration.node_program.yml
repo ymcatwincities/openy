@@ -1,0 +1,132 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nprogram
+id: openy_demo_node_program
+migration_tags: {  }
+migration_group: openy_demo_nprogram
+label: 'Create demo program nodes'
+migration_dependencies:
+  required:
+    - openy_demo_taxonomy_term_color
+    - openy_demo_paragraph_category_listing
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Health and Fitness'
+      color: 7
+      body: |
+        <p>
+        At the Y, we believe health and fitness means taking care of the whole
+        you, and we know that even small changes can make a big difference.
+        We're invested in your health and helping you meet your goals,
+        whether that means losing weight, gaining strength, or simply finding
+        ways to increase energy and decrease stress. You're not only supported
+        by our staff, you're part of a community committed to helping you learn
+        new things, explore new activities, and discover your best self at any
+        stage in your life.
+        </p>
+
+    -
+      id: 2
+      title: 'Swimming'
+      color: 2
+      body: |
+        <p>
+        Swimming at the Y helps people thrive—in and out of the water. Swim
+        lessons provide kids and teens with the opportunity to set goals and
+        achieve success, learn water safety and enjoy&nbsp;swimming as a form
+        of exercise. Through swimming lessons, swim teams,&nbsp;lap swimming
+        and more, the YMCA of the Greater Seattle provides a safe environment
+        for swimmers of all ages and abilities.
+        </p>
+    -
+      id: 3
+      title: 'Kids and Family Activities'
+      color: 3
+      body: |
+        <p>
+        The Y is a great place to grow up. We have an enormous variety of
+        activities for kids of all ages and interests, from basketball, to rock
+        climbing, chess club to dance class, and everything in between. The Y
+        is the place where any kid can come to cultivate the skills and
+        relationships that lead to positive behaviors, better health, and
+        lifelong success—and have fun doing it. We pride ourselves on meeting
+        the needs of all different types of families, so no matter what your
+        background, your financial situation, or your schedule, there’s a place
+        for your kids at the Y.
+        </p>
+    -
+      id: 4
+      title: 'Camps'
+      color: 4
+      body: |
+        <p>
+        YMCA camps offer kids a chance to explore places, activities and ideas
+        outside their normal lives. At camp, they discover new talents, new
+        interests and new friends. Parents have trusted YMCA camps for
+        generations, because, they are experiences that help foster leadership,
+        self-confidence, and deepen respect for the environments and
+        communities we live in. We offer a huge variety of camp locations,
+        options and formats, so no matter what your background or summer
+        schedule, there’s a place for your kids at a Y camp.
+        </p>
+    -
+      id: 5
+      title: 'Child Care'
+      color: 5
+      body: |
+        <p>
+        The values and skills learned early in life are vital building blocks
+        for a successful adulthood, and we believe all kids deserve a strong
+        start and a safe place to grow. Parents trust the Y’s child care
+        programs to support and nurture their children from infancy through
+        the teen years and help them become strong, capable and engaged young
+        people.
+        </p>
+    -
+      id: 6
+      title: 'Youth Programs'
+      color: 6
+      body: |
+        <p>
+        The Y nurtures the potential of every child and teen by supporting
+        their unique youth development journey through holistic programming.
+        From cradle to career, the Y provides all youth with the tools and
+        resources they need to succeed in life.
+        </p>
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_program_color:
+    plugin: migration
+    migration: openy_demo_taxonomy_term_color
+    source: color
+  field_program_description/value: body
+  field_program_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_content:
+    plugin: iterator
+    plugin: migration
+    migration: openy_demo_paragraph_category_listing
+    source: id
+destination:
+  plugin: 'entity:node'
+  default_bundle: program

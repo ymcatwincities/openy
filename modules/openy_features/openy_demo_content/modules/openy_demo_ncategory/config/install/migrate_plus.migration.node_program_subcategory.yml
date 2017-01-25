@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncategory
+id: openy_demo_node_program_subcategory
+migration_tags: {  }
+migration_group: openy_demo_ncategory
+label: 'Create demo program subcategory nodes'
+migration_dependencies:
+  required:
+    - openy_demo_taxonomy_term_color
+    - openy_demo_node_program
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Kids Zone Activity Centers'
+      color: 3
+      program: 3
+      body: |
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+        tincidunt rhoncus odio vitae porta. Donec magna leo, scelerisque vitae
+        leo ut, lobortis egestas sapien. Sed vel nisi at erat cursus molestie
+        fringilla a justo. Nulla ac nisi ultricies, porttitor ante nec, porta
+        dui. Mauris pharetra mi in lobortis pellentesque. Suspendisse ultricies
+        dignissim viverra. Morbi cursus tincidunt justo, sit amet pharetra
+        turpis maximus et. Duis vulputate ligula dapibus elementum ornare.
+        </p>
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_category_color:
+    plugin: migration
+    migration: openy_demo_taxonomy_term_color
+    source: color
+  field_category_description/value: body
+  field_category_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_category_program:
+    plugin: migration
+    migration: openy_demo_node_program
+    source: program
+destination:
+  plugin: 'entity:node'
+  default_bundle: program_subcategory
