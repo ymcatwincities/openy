@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a formatted image field with its title as a caption.
+ *
+ * Available variables:
+ * - caption: The image title to be used as a caption
+ *
+ * @see template_preprocess_openy_hours_formatter()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if hours %}
+<div class="today-hours">
+  {{ hours }}
+  <a href="#" class="show-link">{{ 'View all hours'|t }}</a>
+  <a href="#" class="hide-link hidden">{{ 'View Less'|t }}</a>
+  <div class="branch-hours hidden">
+    <table>
+      <tr>
+        <td colspan="2">
+          <h4>{{ 'Branch hours'|t }}</h4>
+        </td>
+      </tr>
+      {% for key, value in week %}
+        <tr>
+          <td>{{ key }}</td>
+          <td>{{ value }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endif %}
