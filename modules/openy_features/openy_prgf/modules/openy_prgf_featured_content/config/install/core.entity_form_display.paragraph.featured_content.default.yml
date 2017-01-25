@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.featured_content.field_fcontent_columns
+    - field.field.paragraph.featured_content.field_prgf_clm_description
     - field.field.paragraph.featured_content.field_prgf_description
+    - field.field.paragraph.featured_content.field_prgf_grid_style
     - field.field.paragraph.featured_content.field_prgf_headline
     - field.field.paragraph.featured_content.field_prgf_link
     - paragraphs.paragraphs_type.featured_content
   module:
-    - field_collection
     - link
     - text
 id: paragraph.featured_content.default
@@ -16,20 +16,27 @@ targetEntityType: paragraph
 bundle: featured_content
 mode: default
 content:
-  field_fcontent_columns:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: field_collection_embed
-  field_prgf_description:
-    weight: 1
+  field_prgf_clm_description:
+    weight: 4
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_prgf_headline:
+  field_prgf_description:
     weight: 0
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_prgf_grid_style:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_prgf_headline:
+    weight: 1
     settings:
       size: 60
       placeholder: ''
