@@ -2,12 +2,14 @@
 
 namespace Drupal\openy_calc;
 
+use Drupal\openy_socrates\OpenyDataServiceInterface;
+
 /**
  * Class CalcDataWrapper.
  *
  * Provides example of membership matrix.
  */
-class CalcDataWrapper extends DataWrapperBase {
+class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterface{
 
   /**
    * {@inheritdoc}
@@ -116,4 +118,10 @@ class CalcDataWrapper extends DataWrapperBase {
     return $pins;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function addDataServices($services) {
+    return array('getLocationPins');
+  }
 }
