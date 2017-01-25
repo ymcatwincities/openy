@@ -42,6 +42,54 @@ source:
       category: 2
       related: 1
       image: 1
+    -
+      id: 5
+      title: 'Example post #5'
+      body: 'Example body #5'
+      style: story_card
+      category: 2
+      related: 1
+      image: 1
+    -
+      id: 6
+      title: 'Example post #6'
+      body: 'Example body #6'
+      style: story_card
+      category: 2
+      related: 1
+      image: 1
+    -
+      id: 7
+      title: 'Example post #7'
+      body: 'Example body #7'
+      style: story_card
+      category: 2
+      related: 1
+      image: 1
+    -
+      id: 8
+      title: 'Example post #8'
+      body: 'Example body #8'
+      style: story_card
+      category: 2
+      related: 1
+      image: 1
+    -
+      id: 9
+      title: 'Example post #9'
+      body: 'Example body #9'
+      style: story_card
+      category: 2
+      related: 1
+      image: 1
+    -
+      id: 10
+      title: 'Example post #10'
+      body: 'Example body #10'
+      style: story_card
+      category: 2
+      related: 1
+      image: 1
   ids:
     id:
       type: integer
