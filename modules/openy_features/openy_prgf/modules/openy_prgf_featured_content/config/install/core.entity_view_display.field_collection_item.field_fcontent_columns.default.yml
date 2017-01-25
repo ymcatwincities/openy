@@ -15,14 +15,14 @@ mode: default
 content:
   field_prgf_clm_description:
     weight: 0
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_prgf_grid_style:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    type: list_key
 hidden: {  }
