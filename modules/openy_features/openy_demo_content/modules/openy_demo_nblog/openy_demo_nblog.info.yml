@@ -1,0 +1,9 @@
+name: 'OpenY Demo Node Blog'
+description: 'OpenY wemo node blog.'
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_demo_tblog

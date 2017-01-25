@@ -1,0 +1,86 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_node_blog
+migration_tags: {  }
+migration_group: openy_demo_nblog
+label: 'Import demo blog posts'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Example post #1'
+      body: 'Example body #1'
+      style: fuchisia_card
+      category: 1
+      related: null
+    -
+      id: 2
+      title: 'Example post #2'
+      body: 'Example body #2'
+      style: story_card
+      category: 2
+      related: null
+    -
+      id: 3
+      title: 'Example post #3'
+      body: 'Example body #3'
+      style: fuchisia_card
+      category: 3
+      related: 2
+    -
+      id: 4
+      title: 'Example post #4'
+      body: 'Example body #4'
+      style: story_card
+      category: 2
+      related: 1
+  ids:
+    id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  type:
+    -
+      plugin: default_value
+      default_value: blog
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  field_blog_style:
+    -
+      plugin: get
+      source: style
+  field_blog_description/value:
+    -
+      plugin: get
+      source: body
+  field_blog_description/format:
+    -
+      plugin: default_value
+      default_value: full_html
+  field_blog_category:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_blog_category
+      source: category
+  field_blog_related:
+    -
+      plugin: migration
+      migration: openy_demo_node_blog
+      source: related
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - openy_demo_taxonomy_term_blog_category
+  optional: {  }
