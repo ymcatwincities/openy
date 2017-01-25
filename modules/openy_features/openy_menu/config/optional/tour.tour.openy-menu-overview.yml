@@ -1,0 +1,71 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+id: openy-menu-overview
+label: 'OpenY Menu Overview'
+module: openy_menu
+routes:
+  - route_name: entity.menu.collection
+tips:
+  menu-overview:
+    id: menu-overview
+    plugin: text
+    label: 'Menu management page'
+    body: 'This page allows administrators to customize the site navigation menu. Each menu item has a corresponding block, which can be edited in Blocks Page.'
+    weight: 1
+  main-navigation:
+    id: main-navigation
+    plugin: text
+    label: 'Main navigation menu'
+    body: 'Here is where you add menu items to the main navigation and configure there order.'
+    weight: 2
+    attributes:
+      data-class: 'menu-label:contains("Main navigation")'
+  user-account-menu:
+    id: user-account-menu
+    plugin: text
+    label: 'User account menu'
+    body: 'Here is where you add menu items to the user account menu and configure there order.'
+    weight: 3
+    attributes:
+      data-class: 'menu-label:contains("User account menu")'
+  footer-menu-center:
+    id: footer-menu-center
+    plugin: text
+    label: 'Footer menu center'
+    body: 'Here is where you add menu items to the Footer menu center and configure there order.'
+    weight: 4
+    attributes:
+      data-class: 'menu-label:contains("Footer menu center")'
+  footer-menu-left:
+    id: footer-menu-left
+    plugin: text
+    label: 'Footer menu left'
+    body: 'Here is where you add menu items to the Footer menu left and configure there order.'
+    weight: 5
+    attributes:
+      data-class: 'menu-label:contains("Footer menu left")'
+  footer-menu-right:
+    id: footer-menu-right
+    plugin: text
+    label: 'Footer menu right'
+    body: 'Here is where you add menu items to the Footer menu right and configure there order.'
+    weight: 6
+    attributes:
+      data-class: 'menu-label:contains("Footer menu right")'
+  dropbutton-widget:
+    id: dropbutton-widget
+    plugin: text
+    label: 'Dropdown widget'
+    body: 'This button allows users to manage menu and add menu link items.'
+    weight: 7
+    attributes:
+      data-class: 'dropbutton-widget'
+  next-tutorial:
+    id: next-tutorial
+    plugin: text
+    label: 'Next tutorial'
+    body: '<a href="/admin/structure/menu/manage/main?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to manage menu.'
+    weight: 8
