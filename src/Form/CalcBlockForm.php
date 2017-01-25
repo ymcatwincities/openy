@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\openy_calc\DataWrapperInterface;
+use Drupal\openy_socrates\OpenySocratesFacade;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,14 +29,13 @@ class CalcBlockForm extends FormBase {
   protected $dataWrapper;
 
   /**
-   * ProgramsSearchBlockForm constructor.
-   *
+   * CalcBlockForm constructor.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
-   * @param \Drupal\openy_calc\DataWrapperInterface $dataWrapper
-   *   Renderer.
+   * @param \Drupal\openy_socrates\OpenySocratesFacade $dataWrapper
+   *   Socrates.
    */
-  public function __construct(RendererInterface $renderer, DataWrapperInterface $dataWrapper) {
+  public function __construct(RendererInterface $renderer, OpenySocratesFacade $dataWrapper) {
     $this->renderer = $renderer;
     $this->dataWrapper = $dataWrapper;
   }
