@@ -4,8 +4,8 @@ dependencies:
   module:
     - node
     - openy_field_custom_hours
-id: node.field_wh
-field_name: field_wh
+id: node.field_branch_hours
+field_name: field_branch_hours
 entity_type: node
 type: openy_custom_hours
 settings: {  }

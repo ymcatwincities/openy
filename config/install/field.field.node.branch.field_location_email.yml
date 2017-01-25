@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ct_email
+    - field.storage.node.field_location_email
     - node.type.branch
-id: node.branch.field_ct_email
-field_name: field_ct_email
+id: node.branch.field_location_email
+field_name: field_location_email
 entity_type: node
 bundle: branch
 label: 'Branch Email'

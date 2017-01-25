@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_branch_header
+    - field.storage.node.field_header_content
     - node.type.branch
     - paragraphs.paragraphs_type.header
   module:
     - entity_reference_revisions
-id: node.branch.field_branch_header
-field_name: field_branch_header
+id: node.branch.field_header_content
+field_name: field_header_content
 entity_type: node
 bundle: branch
 label: 'Branch Header'
