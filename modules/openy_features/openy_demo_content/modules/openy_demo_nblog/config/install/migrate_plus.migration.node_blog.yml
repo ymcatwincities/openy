@@ -17,6 +17,7 @@ source:
       style: fuchisia_card
       category: 1
       related: null
+      image: 1
     -
       id: 2
       title: 'Example post #2'
@@ -24,6 +25,7 @@ source:
       style: story_card
       category: 2
       related: null
+      image: 1
     -
       id: 3
       title: 'Example post #3'
@@ -31,6 +33,7 @@ source:
       style: fuchisia_card
       category: 3
       related: 2
+      image: 1
     -
       id: 4
       title: 'Example post #4'
@@ -38,6 +41,7 @@ source:
       style: story_card
       category: 2
       related: 1
+      image: 1
   ids:
     id:
       type: integer
@@ -80,9 +84,15 @@ process:
       plugin: migration
       migration: openy_demo_node_blog
       source: related
+  field_blog_image:
+    -
+      plugin: migration
+      migration: openy_demo_nblog_media_image
+      source: image
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - openy_demo_taxonomy_term_blog_category
+    - openy_demo_nblog_media_image
   optional: {  }

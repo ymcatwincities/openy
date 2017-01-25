@@ -36,5 +36,6 @@ process:
 destination:
   plugin: 'entity:media'
 migration_dependencies:
-  required: {  }
+  required:
+    - openy_demo_nblog_file
   optional: {  }
