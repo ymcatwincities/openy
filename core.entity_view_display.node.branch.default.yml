@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.field.node.branch.field_branch_body
-    - field.field.node.branch.field_branch_header
-    - field.field.node.branch.field_ct_address
-    - field.field.node.branch.field_ct_coordinates
-    - field.field.node.branch.field_ct_email
-    - field.field.node.branch.field_ct_fax
-    - field.field.node.branch.field_ct_phone
-    - field.field.node.branch.field_wh
+    - field.field.node.branch.field_header_content
+    - field.field.node.branch.field_location_address
+    - field.field.node.branch.field_location_coordinates
+    - field.field.node.branch.field_location_email
+    - field.field.node.branch.field_location_fax
+    - field.field.node.branch.field_location_phone
+    - field.field.node.branch.field_branch_hours
     - node.type.branch
   module:
     - address
@@ -31,7 +31,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-  field_branch_header:
+  field_header_content:
     type: entity_reference_revisions_entity_view
     weight: 0
     label: hidden
@@ -39,39 +39,39 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-  field_ct_address:
+  field_location_address:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_default
-  field_ct_coordinates:
+  field_location_coordinates:
     weight: 5
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
-  field_ct_email:
+  field_location_email:
     weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_ct_fax:
+  field_location_fax:
     weight: 4
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
-  field_ct_phone:
+  field_location_phone:
     weight: 3
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
-  field_wh:
+  field_branch_hours:
     weight: 7
     label: hidden
     settings: {  }
