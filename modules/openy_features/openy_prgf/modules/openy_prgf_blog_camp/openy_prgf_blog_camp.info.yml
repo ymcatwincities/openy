@@ -1,0 +1,16 @@
+name: 'Openy Latest Blog Posts (Branch)'
+description: 'Provides latest blog posts for camp.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+  - openy_loc_camp
+  - openy_node_blog
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - user
+  - views
+  - views_infinite_scroll
+version: 8.x-1.0

@@ -13,7 +13,14 @@ default:
         - Drupal\DrupalExtension\Context\DrushContext
   formatters:
     html:
-      output_path: %paths.base%/build
+      output_path: %paths.base%/build/reports/behat
+    pretty:
+      decorated: true
+      verbose: false
+      time: true
+      language: en
+      output_path: null
+      multiline_arguments: true
   extensions:
     Behat\MinkExtension:
       goutte: ~
@@ -25,12 +32,19 @@ default:
         paths:
           - tests/features/bootstrap
         autoload: false
+      region_map:
+        header: '#page-head'
+        content: '#main-content'
+        footer: '#footer'
       selectors:
         login_form_selector: '#user-login-form'
+        message_selector: '.status-message'
+        error_message_selector: 'status-message__alert p'
+        success_message_selector: '.status-message ul, .status-message p'
     emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
       renderer: Twig
       name: html
-      file_name: behat_report
+      file_name: index
       print_args: true
       print_outp: true
       loop_break: true

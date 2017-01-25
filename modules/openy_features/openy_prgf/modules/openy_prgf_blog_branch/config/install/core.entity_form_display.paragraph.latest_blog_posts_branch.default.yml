@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.latest_blog_posts_branch.field_prgf_block
+    - paragraphs.paragraphs_type.latest_blog_posts_branch
+id: paragraph.latest_blog_posts_branch.default
+targetEntityType: paragraph
+bundle: latest_blog_posts_branch
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_block: true
+  status: true
+  uid: true
