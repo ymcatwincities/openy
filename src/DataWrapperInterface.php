@@ -15,4 +15,12 @@ interface DataWrapperInterface {
    */
   public function getMembershipPriceMatrix();
 
+  /**
+   * Return location pins.
+   *
+   * @return array
+   *   Location pins.
+   */
+  public function getLocationPins();
+
 }

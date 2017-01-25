@@ -3,11 +3,11 @@
 namespace Drupal\openy_calc;
 
 /**
- * Class DummyDataWrapper.
+ * Class CalcDataWrapper.
  *
  * Provides example of membership matrix.
  */
-class DummyDataWrapper extends DataWrapperBase {
+class CalcDataWrapper extends DataWrapperBase {
 
   /**
    * {@inheritdoc}
@@ -89,26 +89,31 @@ class DummyDataWrapper extends DataWrapperBase {
    * {@inheritdoc}
    */
   public function getLocationPins() {
-    return [
-      [
-        'lat' => 49.969547,
-        'lng' => 33.607193,
-        'title' => 'Location #1 (dummY)',
-        'markup' => '<p><strong>Markup</strong> here for location #1</p>',
-      ],
-      [
-        'lat' => 49.968147,
-        'lng' => 33.608649,
-        'title' => 'Location #2',
-        'markup' => '<p><strong>Markup</strong> here for location #2</p>',
-      ],
-      [
-        'lat' => 49.965815,
-        'lng' => 33.611157,
-        'title' => 'Location #3',
-        'markup' => '<p><strong>Markup</strong> here for location #3</p>',
-      ],
-    ];
+    $location_ids = $this->queryFactory->get('node')
+      ->condition('type', 'branch')
+      ->execute();
+
+    if (!$location_ids) {
+      return [];
+    }
+
+    $storage = $this->entityTypeManager->getStorage('node');
+    $builder = $this->entityTypeManager->getViewBuilder('node');
+    $locations = $storage->loadMultiple($location_ids);
+
+    $pins = [];
+    foreach ($locations as $location) {
+      $view = $builder->view($location, 'membership_teaser');
+      $coordinates = $location->get('field_ct_coordinates')->getValue();
+      $pins[] = [
+        'lat' => round($coordinates[0]['lat'], 5),
+        'lng' => round($coordinates[0]['lng'], 5),
+        'title' => $location->label(),
+        'markup' => $this->renderer->renderRoot($view),
+      ];
+    }
+
+    return $pins;
   }
 
 }
