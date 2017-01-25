@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - geolocation
     - node
-id: node.field_ct_coordinates
-field_name: field_ct_coordinates
+id: node.field_location_email
+field_name: field_location_email
 entity_type: node
-type: geolocation
+type: email
 settings: {  }
-module: geolocation
+module: core
 locked: false
 cardinality: 1
 translatable: true
