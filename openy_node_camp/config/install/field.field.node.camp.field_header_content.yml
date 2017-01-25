@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_branch_header
-    - node.type.branch
+    - field.storage.node.field_header_content
+    - node.type.camp
     - paragraphs.paragraphs_type.header
   module:
     - entity_reference_revisions
-id: node.branch.field_branch_header
-field_name: field_branch_header
+id: node.camp.field_header_content
+field_name: field_header_content
 entity_type: node
-bundle: branch
-label: 'Branch Header'
-description: 'Add Header Paragraph for the branch.'
+bundle: camp
+label: 'Camp Header'
+description: 'Add Header Paragraph for the Camp.'
 required: false
 translatable: false
 default_value: {  }

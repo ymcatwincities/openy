@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_wh
+    - field.storage.node.field_branch_hours
     - node.type.branch
   module:
     - openy_field_custom_hours
-id: node.branch.field_wh
-field_name: field_wh
+id: node.branch.field_branch_hours
+field_name: field_branch_hours
 entity_type: node
 bundle: branch
 label: 'Branch Working Hours'

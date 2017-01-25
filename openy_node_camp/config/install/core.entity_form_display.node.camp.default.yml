@@ -3,12 +3,12 @@ status: true
 dependencies:
   config:
     - field.field.node.camp.field_camp_body
-    - field.field.node.camp.field_camp_header
-    - field.field.node.camp.field_ct_address
-    - field.field.node.camp.field_ct_email
-    - field.field.node.camp.field_ct_fax
-    - field.field.node.camp.field_ct_coordinates
-    - field.field.node.camp.field_ct_phone
+    - field.field.node.camp.field_header_content
+    - field.field.node.camp.field_location_address
+    - field.field.node.camp.field_location_email
+    - field.field.node.camp.field_location_fax
+    - field.field.node.camp.field_location_coordinates
+    - field.field.node.camp.field_location_phone
     - node.type.camp
   module:
     - address
@@ -37,7 +37,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
-  field_camp_header:
+  field_header_content:
     type: entity_reference_paragraphs
     weight: 0
     settings:
@@ -47,31 +47,31 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
-  field_ct_address:
+  field_location_address:
     weight: 26
     settings:
       default_country: null
     third_party_settings: {  }
     type: address_default
-  field_ct_email:
+  field_location_email:
     weight: 27
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: email_default
-  field_ct_fax:
+  field_location_fax:
     weight: 28
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-  field_ct_coordinates:
+  field_location_coordinates:
     weight: 30
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
-  field_ct_phone:
+  field_location_phone:
     weight: 29
     settings:
       placeholder: ''

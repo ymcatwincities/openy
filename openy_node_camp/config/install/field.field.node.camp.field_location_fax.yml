@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ct_phone
+    - field.storage.node.field_location_fax
     - node.type.camp
   module:
     - telephone
-id: node.camp.field_ct_phone
-field_name: field_ct_phone
+id: node.camp.field_location_fax
+field_name: field_location_fax
 entity_type: node
 bundle: camp
-label: 'Camp Phone'
-description: 'Enter camp phone.'
+label: 'Camp Fax'
+description: 'Enter camp fax.'
 required: false
 translatable: true
 default_value: {  }

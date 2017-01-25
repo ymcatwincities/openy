@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_ct_address
-    - node.type.camp
+    - field.storage.node.field_location_address
+    - node.type.branch
   module:
     - address
-id: node.camp.field_ct_address
-field_name: field_ct_address
+id: node.branch.field_location_address
+field_name: field_location_address
 entity_type: node
-bundle: camp
-label: 'Camp Address'
-description: 'Enter camp address.'
+bundle: branch
+label: 'Branch Address'
+description: 'Enter branch address.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:

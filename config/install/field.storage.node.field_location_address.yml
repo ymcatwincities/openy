@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - address
     - node
-    - telephone
-id: node.field_ct_phone
-field_name: field_ct_phone
+id: node.field_location_address
+field_name: field_location_address
 entity_type: node
-type: telephone
+type: address
 settings: {  }
-module: telephone
+module: address
 locked: false
 cardinality: 1
 translatable: true

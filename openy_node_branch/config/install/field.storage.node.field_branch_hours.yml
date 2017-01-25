@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - geolocation
     - node
-id: node.field_ct_coordinates
-field_name: field_ct_coordinates
+    - openy_field_custom_hours
+id: node.field_branch_hours
+field_name: field_branch_hours
 entity_type: node
-type: geolocation
+type: openy_custom_hours
 settings: {  }
-module: geolocation
+module: openy_field_custom_hours
 locked: false
 cardinality: 1
 translatable: true

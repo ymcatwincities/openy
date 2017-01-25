@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.field_ct_email
-field_name: field_ct_email
+id: node.field_location_email
+field_name: field_location_email
 entity_type: node
 type: email
 settings: {  }

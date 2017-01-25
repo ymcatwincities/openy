@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.field.node.branch.field_branch_body
-    - field.field.node.branch.field_branch_header
-    - field.field.node.branch.field_ct_address
-    - field.field.node.branch.field_ct_coordinates
-    - field.field.node.branch.field_ct_email
-    - field.field.node.branch.field_ct_fax
-    - field.field.node.branch.field_ct_phone
-    - field.field.node.branch.field_wh
+    - field.field.node.branch.field_header_content
+    - field.field.node.branch.field_location_address
+    - field.field.node.branch.field_location_coordinates
+    - field.field.node.branch.field_location_email
+    - field.field.node.branch.field_location_fax
+    - field.field.node.branch.field_location_phone
+    - field.field.node.branch.field_branch_hours
     - node.type.branch
   module:
     - address
@@ -24,11 +24,11 @@ third_party_settings:
   field_group:
     group_branch_contact:
       children:
-        - field_ct_address
-        - field_ct_email
-        - field_ct_phone
-        - field_ct_fax
-        - field_ct_coordinates
+        - field_location_address
+        - field_location_email
+        - field_location_phone
+        - field_location_fax
+        - field_location_coordinates
       parent_name: ''
       weight: 2
       label: 'Contact info'
@@ -41,7 +41,7 @@ third_party_settings:
         required_fields: true
     group_header_area:
       children:
-        - field_branch_header
+        - field_header_content
       parent_name: ''
       weight: 4
       format_type: tab
@@ -67,7 +67,7 @@ third_party_settings:
       label: 'Content Area'
     group_branch_hours:
       children:
-        - field_wh
+        - field_branch_hours
       parent_name: ''
       weight: 3
       format_type: tab
@@ -98,7 +98,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
-  field_branch_header:
+  field_header_content:
     type: entity_reference_paragraphs
     weight: 6
     settings:
@@ -108,37 +108,37 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
-  field_ct_address:
+  field_location_address:
     weight: 10
     settings:
       default_country: null
     third_party_settings: {  }
     type: address_default
-  field_ct_coordinates:
+  field_location_coordinates:
     weight: 14
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
-  field_ct_email:
+  field_location_email:
     weight: 11
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: email_default
-  field_ct_fax:
+  field_location_fax:
     weight: 13
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-  field_ct_phone:
+  field_location_phone:
     weight: 12
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-  field_wh:
+  field_branch_hours:
     weight: 12
     settings: {  }
     third_party_settings: {  }

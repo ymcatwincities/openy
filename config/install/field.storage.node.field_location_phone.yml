@@ -3,13 +3,13 @@ status: true
 dependencies:
   module:
     - node
-    - openy_field_custom_hours
-id: node.field_wh
-field_name: field_wh
+    - telephone
+id: node.field_location_phone
+field_name: field_location_phone
 entity_type: node
-type: openy_custom_hours
+type: telephone
 settings: {  }
-module: openy_field_custom_hours
+module: telephone
 locked: false
 cardinality: 1
 translatable: true
