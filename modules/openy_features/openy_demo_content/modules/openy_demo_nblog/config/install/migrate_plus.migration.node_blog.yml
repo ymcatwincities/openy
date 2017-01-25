@@ -1,6 +1,8 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - openy_node_blog
 id: openy_demo_node_blog
 migration_tags: {  }
 migration_group: openy_demo_nblog
