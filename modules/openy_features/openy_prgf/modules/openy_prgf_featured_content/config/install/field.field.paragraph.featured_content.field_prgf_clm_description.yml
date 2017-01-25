@@ -2,21 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_fcontent_columns
+    - field.storage.paragraph.field_prgf_clm_description
     - paragraphs.paragraphs_type.featured_content
   module:
-    - field_collection
-id: paragraph.featured_content.field_fcontent_columns
-field_name: field_fcontent_columns
+    - text
+id: paragraph.featured_content.field_prgf_clm_description
+field_name: field_prgf_clm_description
 entity_type: paragraph
 bundle: featured_content
-label: Content
+label: 'Column description'
 description: ''
 required: false
 translatable: false
-default_value:
-  - {  }
-  - {  }
+default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: field_collection
+field_type: text_long

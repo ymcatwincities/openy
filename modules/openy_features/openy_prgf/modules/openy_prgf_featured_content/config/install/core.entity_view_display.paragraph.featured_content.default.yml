@@ -2,32 +2,39 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.featured_content.field_fcontent_columns
+    - field.field.paragraph.featured_content.field_prgf_clm_description
     - field.field.paragraph.featured_content.field_prgf_description
+    - field.field.paragraph.featured_content.field_prgf_grid_style
     - field.field.paragraph.featured_content.field_prgf_headline
     - field.field.paragraph.featured_content.field_prgf_link
     - paragraphs.paragraphs_type.featured_content
   module:
-    - field_collection
     - link
+    - options
     - text
 id: paragraph.featured_content.default
 targetEntityType: paragraph
 bundle: featured_content
 mode: default
 content:
-  field_fcontent_columns:
-    weight: 2
-    label: hidden
+  field_prgf_clm_description:
+    weight: 5
+    label: above
     settings: {  }
     third_party_settings: {  }
-    type: field_collection_items
+    type: text_default
   field_prgf_description:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_prgf_grid_style:
+    weight: 4
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
   field_prgf_headline:
     weight: 0
     label: hidden
