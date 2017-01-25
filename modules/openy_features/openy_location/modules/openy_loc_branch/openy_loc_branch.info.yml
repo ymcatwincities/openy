@@ -11,6 +11,7 @@ dependencies:
   - link
   - menu_ui
   - node
+  - openy_hours_formatter
   - openy_location
   - openy_node
   - options
