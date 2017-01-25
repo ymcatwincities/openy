@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-name: subprogram_teaser
-label: 'Subprogram Teaser'
+name: prgf_teaser
+label: 'Paragraph teaser'
 effects:
   b299f657-447b-444e-8fb0-2c933a89f225:
     uuid: b299f657-447b-444e-8fb0-2c933a89f225
