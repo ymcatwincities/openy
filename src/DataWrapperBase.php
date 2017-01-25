@@ -2,10 +2,51 @@
 
 namespace Drupal\openy_calc;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Render\RendererInterface;
+
 /**
  * Class DataWrapperBase.
  */
 abstract class DataWrapperBase implements DataWrapperInterface {
+
+  /**
+   * Query factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $queryFactory;
+
+  /**
+   * Entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * DataWrapperBase constructor.
+   *
+   * @param \Drupal\Core\Entity\Query\QueryFactory $queryFactory
+   *   Query factory.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   Renderer.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   Entity type manager.
+   */
+  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager) {
+    $this->queryFactory = $queryFactory;
+    $this->renderer = $renderer;
+    $this->entityTypeManager = $entityTypeManager;
+  }
 
   /**
    * {@inheritdoc}
@@ -34,30 +75,30 @@ abstract class DataWrapperBase implements DataWrapperInterface {
   /**
    * Get the list of locations.
    *
-   * @param string $membership_type
-   *   Membership type.
-   *
    * @return array
    *   The list of locations keyed by location ID.
    */
-  public function getLocations($membership_type) {
-    $locations = [];
-    $membership_definition = FALSE;
+  public function getLocations() {
+    $data = [];
 
-    foreach ($this->getMembershipPriceMatrix() as $membership_type_item) {
-      if ($membership_type_item['id'] == $membership_type) {
-        $membership_definition = $membership_type_item;
-        break;
-      }
+    $location_ids = $this->queryFactory->get('node')
+      ->condition('type', 'branch')
+      ->execute();
+
+    if (!$location_ids) {
+      return [];
     }
 
-    foreach ($membership_definition['locations'] as $location) {
-      $locations[$location['id']] = [
-        'title' => $location['title'],
+    $storage = $this->entityTypeManager->getStorage('node');
+    $locations = $storage->loadMultiple($location_ids);
+
+    foreach ($locations as $location) {
+      $data[$location->id()] = [
+        'title' => $location->label(),
       ];
     }
 
-    return $locations;
+    return $data;
   }
 
   /**

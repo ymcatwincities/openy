@@ -46,7 +46,7 @@ class CalcBlockForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('openy_calc.dummy_data_wrapper')
+      $container->get('openy_calc.data_wrapper')
     );
   }
 
@@ -144,29 +144,10 @@ class CalcBlockForm extends FormBase {
     if ($step > 1) {
       $form['map'] = [
         '#type' => 'openy_map',
-        '#element_variables' => [
-          [
-            'lat' => 49.969547,
-            'lng' => 33.607193,
-            'title' => 'Location #1',
-            'markup' => '<p><strong>Markup</strong> here for location #1</p>',
-          ],
-          [
-            'lat' => 49.968147,
-            'lng' => 33.608649,
-            'title' => 'Location #2',
-            'markup' => '<p><strong>Markup</strong> here for location #2</p>',
-          ],
-          [
-            'lat' => 49.965815,
-            'lng' => 33.611157,
-            'title' => 'Location #3',
-            'markup' => '<p><strong>Markup</strong> here for location #3</p>',
-          ],
-        ],
+        '#element_variables' => $this->dataWrapper->getLocationPins(),
       ];
 
-      $locations = $this->dataWrapper->getLocations($form_state->getValue('type'));
+      $locations = $this->dataWrapper->getLocations();
       $locations_options = [];
       foreach ($locations as $id => $location) {
         $locations_options[$id] = $location['title'];
