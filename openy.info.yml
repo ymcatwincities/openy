@@ -105,6 +105,8 @@ dependencies:
   - openy_demo_tblog
   - openy_demo_tcolor
   - openy_demo_tfacility
+  - openy_demo_nprogram
+  - openy_demo_ncategory
   - openy_prgf_categories_listing
   - openy_hours_formatter
 
