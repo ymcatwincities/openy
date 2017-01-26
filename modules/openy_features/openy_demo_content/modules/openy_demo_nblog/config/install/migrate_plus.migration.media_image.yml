@@ -10,8 +10,44 @@ source:
   data_rows:
     -
       id: 1
-      name: 'Name here...'
+      name: 'Blog post image 1'
       file: 1
+    -
+      id: 2
+      name: 'Blog post image 2'
+      file: 2
+    -
+      id: 3
+      name: 'Blog post image 3'
+      file: 3
+    -
+      id: 4
+      name: 'Blog post image 4'
+      file: 4
+    -
+      id: 5
+      name: 'Blog post image 5'
+      file: 5
+    -
+      id: 6
+      name: 'Blog post image 6'
+      file: 6
+    -
+      id: 7
+      name: 'Blog post image 7'
+      file: 7
+    -
+      id: 8
+      name: 'Blog post image 8'
+      file: 8
+    -
+      id: 9
+      name: 'Blog post image 9'
+      file: 9
+    -
+      id: 10
+      name: 'Blog post image 10'
+      file: 10
   ids:
     id:
       type: integer
