@@ -18,33 +18,33 @@ bundle: featured_content
 mode: default
 content:
   field_prgf_clm_description:
-    weight: 5
-    label: above
+    weight: 2
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_prgf_description:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
   field_prgf_grid_style:
+    type: list_key
     weight: 4
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
   field_prgf_headline:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_prgf_link:
-    weight: 2
-    label: above
+    weight: 3
+    label: hidden
     settings:
       trim_length: 80
       url_only: false
