@@ -13,93 +13,280 @@ source:
     -
       id: 1
       title: 'Mood-boosting foods'
-      body: 'Example body #1'
       style: fuchisia_card
       category: 1
       related: null
       image: 1
       promote: 1
+      body: >
+        <strong>Tip:</strong> Stave off the winter blues by loading up on foods that elevate your mood, fight depression, prevent seasonal affective disorder and add color to the dark, cold days of winter.
+
+        By the Chef Marshall O’Brien Group
+
+        The holidays have passed, the novelty of the new year is wearing off and the days are cold and dark. For many of us, the winter doldrums bring the winter blues. Don’t wait until spring to add color to your days! Fill your plate with a rainbow of mood-boosting foods to elevate your spirits and bring a blast of color to winter’s whites and greys. The foods you eat have a powerful impact on your mood. When you eat colorful, nutritionally uplifting foods, you can beat the winter blues right at your dining room table.
+
+        <strong>Eat a Rainbow</strong> – Against the backdrop of winter’s greys and whites, a burst of color on your plate enlivens your senses and takes you on a culinary vacation to warmer climes. The color of a food reflects which nutrients it contains, so eating an array of colorful fruits and vegetables ensures you are getting the full spectrum of nutrients and antioxidants to keep you energized and buoyant through the dark winter months. Chef Marshal’s Mango-Avocado Salsa offers a rainbow of flavors to brighten up any meal – try it scooped up on blue corn tortilla chips or as an accompaniment to chicken. Incorporate these colorful mood-boosters in your winter meals:
+
+        <ul>
+          <li>Pomegranates</li>
+          <li>Citrus</li>
+          <li>Winter squash</li>
+          <li>Tropical fruits, like mango and pineapple</li>
+          <li>Kale</li>
+          <li>Frozen berries</li>
+          <li>Purple cabbage</li>
+        </ul>
     -
       id: 2
       title: 'Mango-Avocado Salsa'
-      body: 'Example body #2'
       style: story_card
       category: 2
       related: null
       image: 1
       promote: 1
+      body: >
+        By the Chef Marshall O’Brien Group
+
+        Serves 4
+
+        Ingredients
+
+        <ul>
+          <li>1 cup fresh or frozen mango, chopped</li>
+          <li>1 cup avocado, chopped</li>
+          <li>1/2 cup Roma tomato (1 medium), diced</li>
+          <li>1/4 cup red onion, diced</li>
+          <li>1 jalapeño pepper, seeded and minced</li>
+          <li>1 tablespoon fresh garlic, minced</li>
+          <li>1/4 cup fresh cilantro, chopped</li>
+          <li>1/4 cup fresh lime juice</li>
+          <li>1/8 teaspoon kosher salt</li>
+          <li>Directions</li>
+        </ul>
+
+        <ol>
+          <li>Combine mango, avocado, tomato, onion, pepper, garlic cilantro, lime juice and salt; mix well.</li>
+          <li>Let sit at least 15 minutes before serving.</li>
+          <li>Serve with corn tortilla chips, either purchased or homemade.</li>
+          <li>Our recipe for homemade corn chips is included below.</li>
+        </ol>
     -
       id: 3
-      title: 'Lifestyle changes beyond the first two weeks'
-      body: 'Example body #3'
+      title: 'Cheddar-Cannelini Fondue'
       style: fuchisia_card
       category: 3
       related: 2
       image: 1
       promote: 1
+      body: >
+        By the Chef Marshall O’Brien Group
+
+        Serves 8
+
+        Ingredients
+
+        <ul>
+          <li>1 15-ounce can cannellini beans, rinsed and drained</li>
+          <li>12 ounces low-sodium vegetable stock, divided</li>
+          <li>1 1/2 cup extra-sharp cheddar cheese, grated or shredded</li>
+          <li>2 teaspoons tabasco sauce</li>
+          <li>1 teaspoon dry mustard</li>
+          <li>1/2 teaspoon Worcestershire sauce</li>
+          <li>Directions</li>
+        </ul>
+
+        <ol>
+          <li>Place beans and 6 ounces of stock in a blender and blend until smooth.</li>
+          <li>Combine blended beans and remaining stock in a saucepan and heat to a simmer.</li>
+          <li>Add cheese, a small amount at a time, stirring until fully incorporated; repeat until all cheese is blended.</li>
+          <li>Add hot sauce, dry mustard and Worcestershire sauce and mix well.</li>
+          <li>Bring to a simmer, transfer to a fondue pot or slow cooker, and serve with chunks of rustic whole wheat bread and a variety of raw vegetables.</li>
+        <ol>
     -
       id: 4
-      title: 'Where Did All the Fish Go? Changes to Y Swim Lessons'
-      body: 'Example body #4'
+      title: 'Nourish yourself with healthy fats'
       style: story_card
       category: 2
       related: 1
       image: 1
       promote: 1
+      body: >
+        <strong>Tip:</strong> Don’t avoid fat in your food – choose healthy fats that nourish you, support your health and comfort you through the cold days of winter.
+
+        By the Chef Marshall O’Brien Group
+
+        Decades of dietary advice recommending a low-fat diet has left many of us thinking fat is “bad.” In truth, fat is an essential part of your diet that plays an important role in your body’s functions. Instead of avoiding fat, learn which fats help you thrive and which ones lead to disease. With healthy fats in your diet, you can have your comfort food and nourish yourself at the same time!
+
+        <strong>Benefits of Dietary Fat</strong>
+
+        Fat is an essential part of a balanced diet that is needed to keep your body healthy and functioning properly. Dietary fat:
+
+        <ul>
+          <li>Helps absorb vitamins A, D, E and K, as well as antioxidants like carotenoids and lycopene – you get more nourishment from vegetables when you eat them with fat</li>
+          <li>Helps regulate blood sugar and insulin levels</li>
+          <li>Is an important building block for cell membranes</li>
+          <li>Helps keep hair, skin and nails from becoming brittle and dry</li>
+          <li>Helps you feel full and satisfied after a meal, which may limit overeating</li>
+          <li>Improves the flavor of food</li>
+        </ul>
     -
       id: 5
-      title: 'Nourish yourself with healthy fats'
-      body: 'Example body #5'
+      title: 'Grown-up fun in Adult Sports Leagues'
       style: story_card
       category: 2
       related: 1
       image: 1
       promote: 1
+      body: >
+        At the Y, kids don’t have all the fun—adults can participate in sports leagues, too.
+
+        In addition to having a great time, sports can help you:
+
+        <strong>Automatically build physical exercise into your week</strong>
+
+        Through practice and play you’ll get a great workout. Adding a sport to your regular routine of running, walking or cycling can help you cross-train your body.
+
+        Not only do you get the body benefits of working out regularly, you have built-in accountability to your team to show up each week, which can help you build fitness into your regular routine.
+
+        <strong>Work on your mental health</strong>
+
+        The benefits aren’t all physical. Participating in sports can be a great way to:
+
+        <ul>
+          <li>Improve your mood</li>
+          <li>Manage stress</li>
+          <li>Boost confidence</li>
+          <li>Get better sleep</li>
+          <li>Strengthen leadership skills</li>
+        </ul>
     -
       id: 6
-      title: 'Grown-up fun in Adult Sports Leagues'
-      body: 'Example body #6'
+      title: 'Add a water workout to your routine'
       style: story_card
       category: 2
       related: 1
       image: 1
       promote: 1
+      body: >
+        In addition to tackling treadmill boredom, a workout in the pool offers lots of benefits:
+
+        <ul>
+          <li>Water takes pressure off your joints</li>
+          <li>Water offers natural resistance to help with strength</li>
+          <li>Water exercise is fun</li>
+        </ul>
+
+        If you’re interested in trying a water workout, check out guidelines for using the pool and find a location near you. Once you’re ready to dive in, here are some ideas to get you moving in the water:
+
+        <strong>Get creative during open swim</strong>
+
+        In addition to swimming laps, you can try lots of different exercises to strengthen your muscles and your endurance. Check out sample workouts from:
+
+        <ul>
+          <li>Mayo Clinic Aquatic Exercises, including moves you can do with hand webs, water weights, kickboards and noodles</li>
+          <li>U.S. Masters Swimming Workouts, that provide high intensity, focus on specific strokes and are appropriate for expectant mothers and those with limited mobility</li>
+          <li>Water Walking 101 from the Arthritis Foundation, including how to do it, how you can add intensity and safety tips</li>
+        </ul>
     -
       id: 7
-      title: 'Add a water workout to your routine'
-      body: 'Example body #7'
+      title: 'Don’t let summer sneak up on your family'
       style: story_card
       category: 2
       related: 1
       image: 1
       promote: 1
+      body: >
+        <strong>Five steps to start planning summer fun</strong>
+
+        In Minnesota, summer is often long awaited—with an anxious countdown to sunshine, warm weather and time to take in the natural beauty that surrounds us.
+
+        However, in February and March, when summer’s long days are still firmly in the future, it’s time to plan and sign up for activities and programs that keep kids engaged and entertained for 12 weeks of summer fun.
+
+        Try these five steps for planning a summer that’s sure to be a smash-hit:
+
+        <ol>
+          <li>Start with goals</li>
+          <li>Schedule a family brainstorm</li>
+          <li>Gather more ideas</li>
+          <li>Pick the ideas for this summer</li>
+          <li>Mark your calendar</li>
+        </ol>
     -
       id: 8
-      title: 'Don’t let summer sneak up on your family'
-      body: 'Example body #8'
+      title: 'Why you should give walking a try'
       style: story_card
       category: 2
       related: 1
       image: 1
       promote: 1
+      body: >
+        <strong>Learn about the very real benefits that walking can bring.</strong>
+
+        According to Harvard Medical School, “Walking doesn’t get the respect it deserves, either for its health benefits, its value for transportation, or its role in recreation.” Harvard explains the primary difference between walking and running—and it’s not simply pace. At any speed, walkers have one foot on the ground at all times—runners spend time in each stride being airborne, which makes it a more high-impact activity (meaning it’s more stressful on joints and can bring a higher risk for injury).
+
+        If you’re not convinced that walking can be a good workout, you can always kick things up a notch by walking with weights, taking your walk to the stairs or walking in the pool.
+
+        <strong>Health benefits</strong>
+
+        The Mayo Clinic says that regular brisk walking can help you:
+
+        <ul>
+          <li>Maintain a healthy weight</li>
+          <li>Prevent or manage conditions like heart disease, high blood pressure and type 2 diabetes</li>
+          <li>Strengthen your bones</li>
+          <li>Lift your mood</li>
+          <li>Improve balance and coordination</li>
+        </ul>
     -
       id: 9
-      title: 'Why you should give walking a try'
-      body: 'Example body #9'
+      title: 'Start training now for the Y Run'
       style: story_card
       category: 2
       related: 1
       image: 1
       promote: 1
+      body: >
+        <strong>Save the date for Saturday, April 15.</strong>
+
+        If you’re planning to participate in the annual Y Run in mid-April, now is a good time to start training—experts typically recommend at least two months of training for races in the 5-10K distance range. That means that to run on April 15, you should be training by February 15 (if not before).
+
+        You can train to walk or run the race, depending on your personal fitness goals. Choose from race options including:
+
+        <ul>
+          <li>One mile for kids and families</li>
+          <li>5K, which is 3.1 miles</li>
+          <li>10K, which is 6.2 miles</li>
+        </ul>
+
+        If you’re ready to start training, check out these running tips from a Y Personal Trainer, including how to find the right gear for winter training runs.
+
+        In addition to the amazing feeling of finishing a race—whether it’s your first race or a personal best—there will all kinds of family-friendly activities to enjoy after the Y Run. Past activities have included obstacle courses, soccer clinics, chair massages and selfie booths.
+
+        See what you can expect at the Y Run with highlights from the 2016 event.
     -
       id: 10
-      title: 'Start training now for the Y Run'
-      body: 'Example body #10'
+      title: 'Lifestyle changes beyond the first two weeks'
       style: story_card
       category: 2
       related: 1
       image: 1
       promote: 1
+      body: >
+        <strong>Tip:</strong> Staying motivated once the novelty of making changes wears off can be challenging – reinforce your successes, revise your plan to fit your changing needs and fill the gaps left by discarding old habits to keep moving forward toward a lifetime of feeling your best.
+
+        By the Chef Marshall O’Brien Group
+
+        After a couple weeks following your Personal Wellness Plan, you are falling into a rhythm and you have had some success. But when the novelty of making lifestyle change wears off, it is easy to slip back into apathy and old habits. This week, we discuss ways to stay motivated and what to do when you feel yourself slipping. Look over your completed 2-Week Personal Plan Towards Wellness before addressing the items below. Keep moving forward so your first two weeks become a permanent new reality of healthier living and feeling your best!
+
+        <strong>Reinforce Your Successes</strong>
+
+        First and foremost, recognize the goals you have met over the past couple weeks and examine what enabled you to succeed. Making permanent changes is challenging, and you should feel proud when you successfully take a step to improve your life. The longer these changes are part of your routine, the easier and more natural they are to maintain. Reinforce your successes by rewarding yourself. Steer clear of food rewards; choose something that supports your wellness and motivates you to keep working towards change:
+
+        <ul>
+          <li>Buy a new workout outfit</li>
+          <li>Pamper yourself with a massage or other body treatment</li>
+          <li>Carve out some time for a favorite hobby</li>
+        </ul>
   ids:
     id:
       type: integer
