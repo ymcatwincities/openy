@@ -12,6 +12,7 @@ migration_dependencies:
   required:
     - openy_demo_taxonomy_term_color
     - openy_demo_paragraph_category_listing
+    - openy_demo_paragraph_promo_card
 source:
   plugin: embedded_data
   data_rows:
@@ -20,6 +21,9 @@ source:
       title: 'Health and Fitness'
       color: 7
       listing_id: 1
+      card_ids:
+        -
+          card_id: 1
       body: |
         <p>
         At the Y, we believe health and fitness means taking care of the whole
@@ -37,6 +41,11 @@ source:
       title: 'Swimming'
       color: 2
       listing_id: 2
+      card_ids:
+        -
+          card_id: 2
+        -
+          card_id: 3
       body: |
         <p>
         Swimming at the Y helps people thrive—in and out of the water. Swim
@@ -51,6 +60,7 @@ source:
       title: 'Kids and Family Activities'
       color: 3
       listing_id: 3
+      card_ids: {  }
       body: |
         <p>
         The Y is a great place to grow up. We have an enormous variety of
@@ -68,6 +78,7 @@ source:
       title: 'Camps'
       color: 4
       listing_id: 4
+      card_ids: {  }
       body: |
         <p>
         YMCA camps offer kids a chance to explore places, activities and ideas
@@ -84,6 +95,7 @@ source:
       title: 'Child Care'
       color: 5
       listing_id: 5
+      card_ids: {  }
       body: |
         <p>
         The values and skills learned early in life are vital building blocks
@@ -98,6 +110,7 @@ source:
       title: 'Youth Programs'
       color: 6
       listing_id: 6
+      card_ids: {  }
       body: |
         <p>
         The Y nurtures the potential of every child and teen by supporting
@@ -136,6 +149,18 @@ process:
     plugin: migration
     migration: openy_demo_paragraph_category_listing
     source: listing_id
+  field_sidebar_content:
+    plugin: iterator
+    source: card_ids
+    process:
+       target_id:
+         plugin: migration
+         migration: openy_demo_paragraph_promo_card
+         source: card_id
+       target_revision_id:
+         plugin: migration
+         migration: openy_demo_paragraph_promo_card
+         source: card_id
 destination:
   plugin: 'entity:node'
   default_bundle: program
