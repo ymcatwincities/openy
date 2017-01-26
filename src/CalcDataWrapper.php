@@ -9,7 +9,7 @@ use Drupal\openy_socrates\OpenyDataServiceInterface;
  *
  * Provides example of membership matrix.
  */
-class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterface{
+class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterface {
 
   /**
    * {@inheritdoc}
