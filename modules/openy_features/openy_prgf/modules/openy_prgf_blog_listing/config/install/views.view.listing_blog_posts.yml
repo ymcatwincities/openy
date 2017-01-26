@@ -161,7 +161,7 @@ display:
           exposed: true
           expose:
             operator_id: field_blog_location_target_id_verf_op
-            label: 'Location (VERF selector)'
+            label: Location
             description: ''
             use_operator: false
             operator: field_blog_location_target_id_verf_op

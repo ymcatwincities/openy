@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: prgf_teaser
+label: 'Paragraph teaser'
+effects:
+  b299f657-447b-444e-8fb0-2c933a89f225:
+    uuid: b299f657-447b-444e-8fb0-2c933a89f225
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 260
+      height: 220
