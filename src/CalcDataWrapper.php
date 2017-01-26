@@ -106,7 +106,7 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
     $pins = [];
     foreach ($locations as $location) {
       $view = $builder->view($location, 'membership_teaser');
-      $coordinates = $location->get('field_ct_coordinates')->getValue();
+      $coordinates = $location->get('field_location_coordinates')->getValue();
       $pins[] = [
         'lat' => round($coordinates[0]['lat'], 5),
         'lng' => round($coordinates[0]['lng'], 5),
