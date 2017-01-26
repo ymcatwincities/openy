@@ -8,3 +8,12 @@ Feature: OpenY main pages
       | page |
       | / |
       | user |
+
+  @javascript
+  Scenario Outline: Check Log In text
+    When I go to "<page>"
+    Then I should see "Log In"
+    Examples:
+      | page |
+      | / |
+      | user |
