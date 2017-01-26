@@ -46,6 +46,7 @@ source:
     -
       longitude: longitude
 process:
+  uuid: id
   type:
     -
       plugin: default_value
