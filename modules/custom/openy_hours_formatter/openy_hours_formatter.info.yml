@@ -1,0 +1,6 @@
+name: Today\'s Hours
+type: module
+description: Displays today\'s working hours
+core: 8.x
+dependencies:
+  - field_collection
