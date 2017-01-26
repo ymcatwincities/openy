@@ -14,7 +14,7 @@ mode: default
 content:
   field_status:
     weight: 11
-    label: above
+    label: hidden
     settings:
       format: default
       format_custom_false: ''
@@ -22,13 +22,13 @@ content:
     third_party_settings: {  }
     type: boolean
   status:
-    label: inline
+    label: hidden
     type: list_default
     weight: -100
     settings: {  }
     third_party_settings: {  }
   update_timestamp:
-    label: above
+    label: hidden
     type: timestamp
     weight: 10
     settings:
@@ -37,7 +37,7 @@ content:
       timezone: ''
     third_party_settings: {  }
   user_id:
-    label: inline
+    label: hidden
     type: author
     weight: 0
     settings: {  }
