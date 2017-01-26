@@ -42,6 +42,7 @@ dependencies:
   - views_ui
   - link
   - migrate
+  - tour
   # Contrib modules.
   - features
   - features_ui
@@ -57,6 +58,10 @@ dependencies:
   - migrate_tools
   - verf
   - simple_menu_icons
+  - slick
+  - slick_ui
+  - blazy
+  - blazy_ui
   # OpenY modules.
   - openy_media_image
   - openy_media_document
@@ -93,6 +98,7 @@ dependencies:
   - openy_node_activity
   - openy_node_class
   - openy_node_session
+  - openy_menu
   - openy_menu_main
   - openy_menu_footer
   - openy_demo_tarea
@@ -101,6 +107,7 @@ dependencies:
   - openy_demo_tfacility
   - openy_demo_nblog
   - openy_prgf_categories_listing
+  - openy_hours_formatter
 
 themes:
   - bartik
