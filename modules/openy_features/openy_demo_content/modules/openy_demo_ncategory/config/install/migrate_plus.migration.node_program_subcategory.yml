@@ -30,6 +30,71 @@ source:
         dignissim viverra. Morbi cursus tincidunt justo, sit amet pharetra
         turpis maximus et. Duis vulputate ligula dapibus elementum ornare.
         </p>
+    -
+      id: 2
+      title: 'Active Older Adults'
+      color: 7
+      program: 1
+      body: |
+        <p>
+        The YMCA offers all kinds of wellness opportunities for older
+        adults—from baby boomers to seniors—including physical fitness, social
+        activities and more.
+        </p>
+    -
+      id: 3
+      title: 'Swim Team'
+      color: 2
+      program: 2
+      body: |
+        <p>
+        Want to swim competitively in a fun and positive environment? Join the
+        team! Serving ages 6 to adult, swim team participants improve
+        individual skills while swimming competitively both at the local and
+        national levels. Your coaches will focus on proper technique while you
+        improve your endurance, learn teamwork and make friends.
+        </p>
+    -
+      id: 4
+      title: 'BOLD & GOLD'
+      color: 4
+      program: 4
+      body: |
+        <p>
+        Through outdoor adventures and wilderness experiences, the BOLD & GOLD
+        program inspires courage and multi-cultural leadership in diverse
+        groups of boys and girls ages 11-18 years old. The challenge, glory,
+        and beauty of the wilderness come together on our exciting adventures,
+        which range from weekend clubs to 1 to 3 week expeditions.
+        </p>
+    -
+      id: 5
+      title: 'Before & After School'
+      color: 5
+      program: 5
+      body: |
+        <p>
+        Get high-quality Y care right at your school and keep your child active
+        physically, intellectually and socially the whole day. When school's
+        out, you can trust the Y to provide an engaging experience for your
+        child right at school. Y School Age Programs give your child the
+        opportunity to get to know some of their classmates better as they
+        engage in active play and collaborate on fun projects. In the process,
+        they'll continue to develop the physical, educational, emotional and
+        social skills that are essential for success.
+        </p>
+    -
+      id: 6
+      title: 'Earth Service Corps'
+      color: 6
+      program: 6
+      body: |
+        <p>
+        The mission of the YMCA Earth Service Corps is to empower young people
+        to become effective, responsible, global citizens by providing
+        opportunities for service learning, environmental education, leadership
+        development and cross-cultural awareness. 
+        </p>
   ids:
     id:
       type: integer

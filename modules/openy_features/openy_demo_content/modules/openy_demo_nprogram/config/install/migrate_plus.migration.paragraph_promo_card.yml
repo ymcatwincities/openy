@@ -54,6 +54,8 @@ process:
     default_value: field_content
   field_prgf_title: title
   field_prgf_headline: headline
+  # TODO: field_prgf_desription
+  # TODO: field_prgf_link?
 destination:
   plugin: 'entity:paragraph'
   default_bundle: promo_card
