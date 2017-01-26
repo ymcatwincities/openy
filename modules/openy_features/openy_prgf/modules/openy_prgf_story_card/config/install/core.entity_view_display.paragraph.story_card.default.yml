@@ -15,14 +15,14 @@ mode: default
 content:
   field_prgf_headline:
     weight: 1
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_prgf_link:
     weight: 2
-    label: hidden
+    label: above
     settings:
       trim_length: 80
       url_only: false
@@ -33,7 +33,7 @@ content:
     type: link
   field_prgf_title:
     weight: 0
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
