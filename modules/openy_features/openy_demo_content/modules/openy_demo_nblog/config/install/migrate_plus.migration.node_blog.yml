@@ -12,84 +12,94 @@ source:
   data_rows:
     -
       id: 1
-      title: 'Example post #1'
+      title: 'Mood-boosting foods'
       body: 'Example body #1'
       style: fuchisia_card
       category: 1
       related: null
       image: 1
+      promote: 1
     -
       id: 2
-      title: 'Example post #2'
+      title: 'Mango-Avocado Salsa'
       body: 'Example body #2'
       style: story_card
       category: 2
       related: null
       image: 1
+      promote: 1
     -
       id: 3
-      title: 'Example post #3'
+      title: 'Lifestyle changes beyond the first two weeks'
       body: 'Example body #3'
       style: fuchisia_card
       category: 3
       related: 2
       image: 1
+      promote: 1
     -
       id: 4
-      title: 'Example post #4'
+      title: 'Where Did All the Fish Go? Changes to Y Swim Lessons'
       body: 'Example body #4'
       style: story_card
       category: 2
       related: 1
       image: 1
+      promote: 1
     -
       id: 5
-      title: 'Example post #5'
+      title: 'Nourish yourself with healthy fats'
       body: 'Example body #5'
       style: story_card
       category: 2
       related: 1
       image: 1
+      promote: 1
     -
       id: 6
-      title: 'Example post #6'
+      title: 'Grown-up fun in Adult Sports Leagues'
       body: 'Example body #6'
       style: story_card
       category: 2
       related: 1
       image: 1
+      promote: 1
     -
       id: 7
-      title: 'Example post #7'
+      title: 'Add a water workout to your routine'
       body: 'Example body #7'
       style: story_card
       category: 2
       related: 1
       image: 1
+      promote: 1
     -
       id: 8
-      title: 'Example post #8'
+      title: 'Don’t let summer sneak up on your family'
       body: 'Example body #8'
       style: story_card
       category: 2
       related: 1
       image: 1
+      promote: 1
     -
       id: 9
-      title: 'Example post #9'
+      title: 'Why you should give walking a try'
       body: 'Example body #9'
       style: story_card
       category: 2
       related: 1
       image: 1
+      promote: 1
     -
       id: 10
-      title: 'Example post #10'
+      title: 'Start training now for the Y Run'
       body: 'Example body #10'
       style: story_card
       category: 2
       related: 1
       image: 1
+      promote: 1
   ids:
     id:
       type: integer
@@ -106,6 +116,10 @@ process:
     -
       plugin: default_value
       default_value: 1
+  promote:
+    -
+      plugin: get
+      source: promote
   uid:
     -
       plugin: default_value
