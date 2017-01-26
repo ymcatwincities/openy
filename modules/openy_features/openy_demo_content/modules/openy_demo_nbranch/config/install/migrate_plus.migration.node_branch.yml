@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_loc_branch
+id: openy_demo_node_branch
+migration_tags: {  }
+migration_group: openy_demo_nbranch
+label: 'Import demo branch posts'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'West YMCA'
+      promote: 1
+  ids:
+    id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  type:
+    -
+      plugin: default_value
+      default_value: branch
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  promote:
+    -
+      plugin: get
+      source: promote
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required: {  }
+  optional: {  }
