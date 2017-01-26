@@ -1,8 +1,8 @@
 (function ($) {
   "use strict";
-  Drupal.ymca_seattle =  Drupal.ymca_seattle || {};
+  Drupal.ygh =  Drupal.ygh || {};
 
-  Drupal.behaviors.ymca_seattle_theme = {
+  Drupal.behaviors.ygh = {
     attach: function (context, settings) {
       $('.ui-tabs').tabs({
         active: false,
@@ -13,11 +13,13 @@
 
       });
       $(window).resize(function () {
-        Drupal.ymca_seattle.branch__updates_queue_mobile();
+        Drupal.ygh.branch__updates_queue_mobile();
+        Drupal.ygh.paragraph_4c();
       });
 
-      Drupal.ymca_seattle.branch__updates_queue();
-      Drupal.ymca_seattle.branch__updates_queue_mobile();
+      Drupal.ygh.branch__updates_queue();
+      Drupal.ygh.branch__updates_queue_mobile();
+      Drupal.ygh.paragraph_4c();
 
       // Set active language text.
       var active_lang = $('.page-head__language-switcher .is-active a:eq(0)').text();
@@ -26,7 +28,39 @@
     }
   };
 
-  Drupal.ymca_seattle.branch__updates_queue = function () {
+  Drupal.ygh.paragraph_4c = function () {
+    $('.block-description--4').each(function () {
+      var view = $(this);
+
+      // Initialize Slick.
+      if (!view.find('.wrapper').hasClass('slick-initialized')) {
+        if ($(window).width() < 768) {
+          view.find('.wrapper').slick({
+            responsive: [
+              {
+                breakpoint: 768,
+                settings: {
+                  slidesToShow: 1,
+                  slidesToScroll: 1,
+                  infinite: false,
+                  speed: 300,
+                  arrows: true,
+                  dots: true,
+                  prevArrow: '<i class="slick-prev fa fa-chevron-left"></i>',
+                  nextArrow: '<i class="slick-next fa fa-chevron-right"></i>'
+                }
+              }]
+          });
+        }
+      }
+      // Slick is initialised but we check if it fits screen size.
+      if ($(window).width() >= 768) {console.log('abu1');
+        view.find('.wrapper').slick('unslick');
+      }
+    });
+  };
+
+  Drupal.ygh.branch__updates_queue = function () {
     // Branch Updates queue.
     var cards = 0;
     $('.branch__updates_queue .cards .content').each(function() {
@@ -44,7 +78,7 @@
     });
   };
 
-  Drupal.ymca_seattle.branch__updates_queue_mobile = function () {
+  Drupal.ygh.branch__updates_queue_mobile = function () {
     $('.branch__updates_queue').each(function () {
       var view = $(this);
 

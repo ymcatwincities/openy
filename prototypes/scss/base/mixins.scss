@@ -154,4 +154,9 @@
   padding: 0 10px;
   line-height: 60px;
   text-transform: uppercase;
+
+  a {
+    color: $white;
+    text-decoration: none;
+  }
 }
