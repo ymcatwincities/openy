@@ -1,0 +1,8 @@
+name: 'OpenY Demo Node Branch'
+description: 'OpenY demo node branch.'
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
