@@ -1,0 +1,50 @@
+.paragraph--type--lto {
+  background-color: $dark-blue;
+  padding: 20px 0;
+
+  .field-lto-title {
+    @include cachet();
+    color: $white;
+    font-size: 24px;
+
+    @include breakpoint(tablet) {
+      padding-top: 10px;
+    }
+
+    @include breakpoint(mobileonly) {
+      margin: 0 0 0px 10px;
+    }
+  }
+
+  .field-lto-subtitle {
+    @include cachet();
+    color: $white;
+    font-size: 20px;
+
+    @include breakpoint(tablet) {
+      padding-top: 14px;
+    }
+
+    @include breakpoint(mobileonly) {
+      margin: 0 0 20px 10px;
+    }
+  }
+
+  .btn {
+    white-space: normal;
+    font-size: 20px;
+    padding: 0;
+    width: 100%;
+    background: white;
+    @include breakpoint(mobileonly) {
+      padding-top: 14px;
+    }
+    a {
+      display: block;
+      padding: 12px;
+      color: $color-blue;
+      @include cachet-medium();
+      text-transform: uppercase;
+    }
+  }
+}
