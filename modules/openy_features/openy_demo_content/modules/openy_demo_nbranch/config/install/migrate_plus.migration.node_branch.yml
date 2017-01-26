@@ -14,6 +14,42 @@ source:
       id: 1
       title: 'West YMCA'
       promote: 1
+      country_code: US
+      address_line1: '1111 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
+    -
+      id: 2
+      title: 'Downtown YMCA'
+      promote: 1
+      country_code: US
+      address_line1: '2222 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
+    -
+      id: 3
+      title: 'East YMCA'
+      promote: 1
+      country_code: US
+      address_line1: '3333 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
+    -
+      id: 4
+      title: 'South YMCA'
+      promote: 1
+      country_code: US
+      address_line1: '4444 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
   ids:
     id:
       type: integer
@@ -38,6 +74,30 @@ process:
     -
       plugin: default_value
       default_value: 1
+  field_location_address/country_code:
+    -
+      plugin: get
+      source: country_code
+  field_location_address/address_line1:
+    -
+      plugin: get
+      source: address_line1
+  field_location_address/address_line2:
+    -
+      plugin: get
+      source: address_line2
+  field_location_address/locality:
+    -
+      plugin: get
+      source: locality
+  field_location_address/administrative_area:
+    -
+      plugin: get
+      source: administrative_area
+  field_location_address/postal_code:
+    -
+      plugin: get
+      source: postal_code
 destination:
   plugin: 'entity:node'
 migration_dependencies:
