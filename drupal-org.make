@@ -30,6 +30,8 @@ projects[migrate_tools] = 3.0-beta1
 projects[verf] = 1.0-beta6
 projects[simple_menu_icons] = 1.x-dev
 projects[views_infinite_scroll] = 1.3
+projects[slick] = 1.0-rc1
+projects[blazy] = 1.0-rc1
 
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
@@ -38,3 +40,15 @@ libraries[dropzone][destination] = libraries
 libraries[jquery_colorpicker][download][type] = get
 libraries[jquery_colorpicker][download][url] = http://www.eyecon.ro/colorpicker/colorpicker.zip
 libraries[jquery_colorpicker][destination] = modules/contrib/jquery_colorpicker/vendor/jaypan
+
+libraries[slick][download][type] = get
+libraries[slick][download][url] = https://github.com/kenwheeler/slick/archive/1.6.0.zip
+libraries[slick][destination] = libraries
+
+libraries[blazy][download][type] = get
+libraries[blazy][download][url] = https://github.com/dinbror/blazy/archive/1.8.2.zip
+libraries[blazy][destination] = libraries
+
+libraries[jquery.easing][download][type] = get
+libraries[jquery.easing][download][url] = https://github.com/gdsmith/jquery.easing/archive/1.4.1.zip
+libraries[jquery.easing][destination] = libraries
