@@ -1,0 +1,67 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nbranch
+id: openy_demo_prgf_gallery
+migration_tags: {  }
+migration_group: openy_demo_nbranch
+label: 'Create Gallery paragraphs for branches'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      parent_id: 1
+      images: 1
+      description: 'Example gallery #1'
+      headline: 'Example headline'
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    -
+      plugin: default_value
+      source: language
+      default_value: en
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  parent_id:
+    -
+      plugin: migration
+      migration: openy_demo_node_branch
+      no_stub: true
+      source: parent_id
+  parent_type:
+    -
+      plugin: default_value
+      default_value: node
+  parent_field_name:
+    -
+      plugin: default_value
+      default_value: field_header_content
+  field_prgf_images:
+    -
+      plugin: migration
+      migration: openy_demo_nbranch_media_image
+      source: images
+  field_prgf_description:
+    -
+      plugin: get
+      source: description
+  field_prgf_headline:
+    -
+      plugin: get
+      source: headline
+destination:
+  plugin: entity:paragraph
+  default_bundle: gallery
