@@ -18,6 +18,7 @@ source:
       related: null
       image: 1
       promote: 1
+      branch: 1
       body: >
         <strong>Tip:</strong> Stave off the winter blues by loading up on foods that elevate your mood, fight depression, prevent seasonal affective disorder and add color to the dark, cold days of winter.
 
@@ -44,6 +45,7 @@ source:
       related: null
       image: 1
       promote: 1
+      branch: 2
       body: >
         By the Chef Marshall O’Brien Group
 
@@ -78,6 +80,7 @@ source:
       related: 2
       image: 1
       promote: 1
+      branch: 3
       body: >
         By the Chef Marshall O’Brien Group
 
@@ -110,6 +113,7 @@ source:
       related: 1
       image: 1
       promote: 1
+      branch: 4
       body: >
         <strong>Tip:</strong> Don’t avoid fat in your food – choose healthy fats that nourish you, support your health and comfort you through the cold days of winter.
 
@@ -137,6 +141,7 @@ source:
       related: 1
       image: 1
       promote: 1
+      branch: 1
       body: >
         At the Y, kids don’t have all the fun—adults can participate in sports leagues, too.
 
@@ -167,6 +172,7 @@ source:
       related: 1
       image: 1
       promote: 1
+      branch: 2
       body: >
         In addition to tackling treadmill boredom, a workout in the pool offers lots of benefits:
 
@@ -195,6 +201,7 @@ source:
       related: 1
       image: 1
       promote: 1
+      branch: 3
       body: >
         <strong>Five steps to start planning summer fun</strong>
 
@@ -219,6 +226,7 @@ source:
       related: 1
       image: 1
       promote: 1
+      branch: 4
       body: >
         <strong>Learn about the very real benefits that walking can bring.</strong>
 
@@ -245,6 +253,7 @@ source:
       related: 1
       image: 1
       promote: 1
+      branch: 1
       body: >
         <strong>Save the date for Saturday, April 15.</strong>
 
@@ -271,6 +280,7 @@ source:
       related: 1
       image: 1
       promote: 1
+      branch: 2
       body: >
         <strong>Tip:</strong> Staying motivated once the novelty of making changes wears off can be challenging – reinforce your successes, revise your plan to fit your changing needs and fill the gaps left by discarding old habits to keep moving forward toward a lifetime of feeling your best.
 
@@ -338,10 +348,16 @@ process:
       plugin: migration
       migration: openy_demo_nblog_media_image
       source: image
+  field_blog_location:
+    -
+      plugin: migration
+      migration: openy_demo_node_branch
+      source: branch
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - openy_demo_taxonomy_term_blog_category
     - openy_demo_nblog_media_image
+    - openy_demo_node_branch
   optional: {  }
