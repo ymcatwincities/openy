@@ -30,3 +30,17 @@ landing:
     - core/jquery.once
     - core/drupal
     - core/drupalSettings
+
+featured_slider:
+  version: VERSION
+  js:
+    scripts/openy_rose_featured_paragraph.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+    - slick/slick
+    - slick/slick.theme
+    - slick/slick.arrow.down
+    - core/drupalSettings

@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
@@ -22,10 +23,10 @@ dependencies:
     - openy_hours_formatter
     - telephone
     - user
-id: node.branch.default
+id: node.branch.full
 targetEntityType: node
 bundle: branch
-mode: default
+mode: full
 content:
   field_branch_hours:
     type: openy_hours_formatter

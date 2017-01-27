@@ -1798,11 +1798,11 @@ body {
   font-size: 18px;
   font-weight: normal;
 }
-.paragraph.featured-content .field-collection-item {
+.paragraph.featured-content .wrapper-field-prgf-clm-description {
   font-size: 15px;
   position: relative;
 }
-.paragraph.featured-content .field-collection-item h3 {
+.paragraph.featured-content .wrapper-field-prgf-clm-description h3 {
   font-size: 20px;
   font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
