@@ -17,16 +17,34 @@ source:
       parent_id: 1
       title: 'LOSE WEIGHT FEEL GREAT'
       headline: 'WE''LL HELP YOU ON YOUR JOURNEY TO A NEW YOU'
+      body: |
+        <p>
+        You're ready for change and looking for some options. Wonderful! At the
+        Y we believe you owe it to yourself to be healthy and happy. We believe
+        even small lifestyle changes can lead to great results and the
+        community you'll find at the Y can be a powerful force in helping you
+        achieve those results.
+        </p>
     -
       id: 2
       parent_id: 2
       title: 'Swimming'
       headline: 'Program Overview'
+      body: |
+        <p>
+        Learn about our new swimming program!
+        </p>
     -
       id: 3
       parent_id: 2
       title: 'Training'
       headline: 'Lifeguard Training Courses'
+      body: |
+        <p>
+        The course offers up-to-date information on how to lifeguard by
+        anticipating and preventing problems before they occur and by taking
+        action to help those in danger when necessary.
+        </p>
   ids:
     id:
       type: integer
@@ -54,8 +72,12 @@ process:
     default_value: field_content
   field_prgf_title: title
   field_prgf_headline: headline
-  # TODO: field_prgf_desription
-  # TODO: field_prgf_link?
+  field_prgf_description/value: body
+  field_prgf_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_prgf_link/uri: '/'
+  field_prgf_link/title: 'Learn More'
 destination:
   plugin: 'entity:paragraph'
   default_bundle: promo_card
