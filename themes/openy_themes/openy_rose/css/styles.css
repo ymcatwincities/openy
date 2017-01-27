@@ -4115,29 +4115,29 @@ html.js .branch__updates_queue__button {
   content: none;
 }
 
-.paragraph--type--featured-blog-posts .slick-prev {
+.paragraph--type--featured-blogs .slick-prev {
   left: 15px;
 }
-.paragraph--type--featured-blog-posts .slick-next {
+.paragraph--type--featured-blogs .slick-next {
   right: 15px;
 }
-.paragraph--type--featured-blog-posts .slick-arrow {
+.paragraph--type--featured-blogs .slick-arrow {
   top: 55%;
 }
 
 @media (min-width: 0) and (max-width: 30em) {
-  .container .paragraph--type--featured-blog-posts {
+  .container .paragraph--type--featured-blogs {
     padding-left: 15px;
     padding-right: 15px;
   }
 }
 @media (min-width: 0) and (max-width: 30em) {
-  .container .paragraph--type--featured-blog-posts .slick-prev {
+  .container .paragraph--type--featured-blogs .slick-prev {
     left: -17px;
   }
 }
 @media (min-width: 0) and (max-width: 30em) {
-  .container .paragraph--type--featured-blog-posts .slick-next {
+  .container .paragraph--type--featured-blogs .slick-next {
     right: -17px;
   }
 }
