@@ -6,9 +6,11 @@ dependencies:
   - entity_browser
   - field
   - image
+  - jquery_colorpicker
   - media_entity
   - openy_media_image
   - openy_node
   - openy_prgf
   - paragraphs
+  - taxonomy
 version: 8.x-1.0
