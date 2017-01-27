@@ -7,6 +7,7 @@ dependencies:
   - entity_reference_revisions
   - field
   - field_group
+  - image
   - media_entity
   - menu_ui
   - node
