@@ -32,27 +32,21 @@ function location_finder_entity_view_alter(&$build, EntityInterface $entity, Ent
     return;
   }
 
-    // Add attribute with location data.
-    $tags = [];
-    $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_blue.png');
-    switch ($entity->getType()) {
-      case 'branch':
-        $tags[] = t('YMCA');
-        break;
+  // Add attribute with location data.
+  $tags = [];
+  switch ($entity->getType()) {
+    case 'branch':
+      $tags[] = t('YMCA');
+      break;
 
-      case 'camp':
-        $tags[] = t('Camps');
-        $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_green.png');
-        break;
-    }
-
-    $values = [
+    case 'camp':
+      $tags[] = t('Camps');
+      break;
+  }
+  $values = [
     'tags' => $tags,
-    //'latitude' => $entity->get('field_latitude')->value,
-    //'longitude' => $entity->get('field_longitude')->value,
-    //'icon' => $icon,
-    ];
-    $build['#attributes']['data-locations'] = json_encode($values);
+  ];
+  $build['#attributes']['data-locations'] = json_encode($values);
 }
 
 /**
