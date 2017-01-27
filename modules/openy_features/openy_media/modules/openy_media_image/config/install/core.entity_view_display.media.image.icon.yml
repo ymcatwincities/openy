@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.media.icon
     - field.field.media.image.field_media_caption
     - field.field.media.image.field_media_image
     - field.field.media.image.field_media_in_library
@@ -9,10 +10,10 @@ dependencies:
     - media_entity.bundle.image
   module:
     - image
-id: media.image.default
+id: media.image.icon
 targetEntityType: media
 bundle: image
-mode: default
+mode: icon
 content:
   field_media_image:
     weight: 0
