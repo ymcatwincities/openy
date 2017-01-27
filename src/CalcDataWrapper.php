@@ -92,7 +92,7 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
    */
   public function getLocationPins() {
     $location_ids = $this->queryFactory->get('node')
-      ->condition('type', 'branch')
+      ->condition('type', ['branch', 'camp'], 'IN')
       ->execute();
 
     if (!$location_ids) {
@@ -107,11 +107,26 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
     foreach ($locations as $location) {
       $view = $builder->view($location, 'membership_teaser');
       $coordinates = $location->get('field_location_coordinates')->getValue();
+      $tags = [];
+      switch ($location->getType()) {
+        case 'branch':
+          $tags[] = t('YMCA');
+          $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_blue.png');
+          break;
+
+        case 'camp':
+          $tags[] = t('Camps');
+          $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_green.png');
+          break;
+      }
       $pins[] = [
+        'icon' => $icon,
+        'tags' => $tags,
         'lat' => round($coordinates[0]['lat'], 5),
         'lng' => round($coordinates[0]['lng'], 5),
-        'title' => $location->label(),
+        'name' => $location->label(),
         'markup' => $this->renderer->renderRoot($view),
+        'element' => '',
       ];
     }
 
