@@ -20,6 +20,7 @@ source:
       title: 'Kids Zone Activity Centers'
       color: 3
       program: 3
+      image: kids_zone_activity_centers
       body: |
         <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -35,6 +36,7 @@ source:
       title: 'Active Older Adults'
       color: 7
       program: 1
+      image: active_older_adults
       body: |
         <p>
         The YMCA offers all kinds of wellness opportunities for older
@@ -46,6 +48,7 @@ source:
       title: 'Swim Team'
       color: 2
       program: 2
+      image: swim_team
       body: |
         <p>
         Want to swim competitively in a fun and positive environment? Join the
@@ -55,45 +58,95 @@ source:
         improve your endurance, learn teamwork and make friends.
         </p>
     -
-      id: 4
-      title: 'BOLD & GOLD'
-      color: 4
-      program: 4
+      id: 3
+      title: 'Group Exercise Classe'
+      color: 7
+      program: 1
+      image: group_exercise_classes
       body: |
         <p>
-        Through outdoor adventures and wilderness experiences, the BOLD & GOLD
-        program inspires courage and multi-cultural leadership in diverse
-        groups of boys and girls ages 11-18 years old. The challenge, glory,
-        and beauty of the wilderness come together on our exciting adventures,
-        which range from weekend clubs to 1 to 3 week expeditions.
+        The secret to sticking with a health and fitness program is finding
+        activities you enjoy and that keep you moving. At the Y you have
+        hundreds of free choices – from low-impact activities like strength
+        training, stretching and water exercise to high intensity classes like
+        boot camp, interval training and indoor cycling.
+        </p>
+    -
+      id: 4
+      title: 'Health & Fitness for Kids & Teens'
+      color: 7
+      program: 1
+      image: health_and_fitness_for_kids_and_teens
+      body: |
+        <p>
+        The Y is the starting point for many youth to learn about becoming and
+        staying active, and developing healthy habits they’ll carry with them
+        throughout their lives. The benefits gained through early exposure to
+        fitness are far greater than just physical health.
         </p>
     -
       id: 5
-      title: 'Before & After School'
-      color: 5
-      program: 5
+      title: 'Personal Training'
+      color: 7
+      program: 1
+      image: personal_training
       body: |
         <p>
-        Get high-quality Y care right at your school and keep your child active
-        physically, intellectually and socially the whole day. When school's
-        out, you can trust the Y to provide an engaging experience for your
-        child right at school. Y School Age Programs give your child the
-        opportunity to get to know some of their classmates better as they
-        engage in active play and collaborate on fun projects. In the process,
-        they'll continue to develop the physical, educational, emotional and
-        social skills that are essential for success.
+        Want some ongoing personal attention? Get a little extra help from a
+        certified Y fitness trainer who will develop, monitor and modify your
+        exercise program to meet your individual needs.
         </p>
     -
       id: 6
-      title: 'Earth Service Corps'
-      color: 6
-      program: 6
+      title: 'Programs for Health'
+      color: 7
+      program: 1
+      image: programs_for_health
       body: |
         <p>
-        The mission of the YMCA Earth Service Corps is to empower young people
-        to become effective, responsible, global citizens by providing
-        opportunities for service learning, environmental education, leadership
-        development and cross-cultural awareness. 
+        Prevent or manage chronic conditions like diabetes, arthritis and
+        cancer through a variety of wellness classes and programs.
+        </p>
+    -
+      id: 7
+      title: 'Recreation'
+      color: 7
+      program: 1
+      image: recreation
+      body: |
+        <p>
+        Be active, meet new people and have fun playing team, doubles and
+        individual sports.
+        </p>
+    -
+      id: 8
+      title: 'Small Group & Specialty Training'
+      color: 7
+      program: 1
+      image: small_group_and_specialty_training
+      body: |
+        <p>
+        Small Group Training is a great way to stay motivated while reaching
+        your goals. You will work with a personal trainer in a group of 3-6
+        people. You can participate with an existing group or create your own
+        with at least two other people.
+        </p>
+        <p>
+        Specialty training using TRX, Pilates Reformers and Queenax functional
+        equipment is a great workout whether one-on-one or in a small group.
+        </p>
+    -
+      id: 9
+      title: 'Weight Loss'
+      color: 7
+      program: 1
+      image: weight_loss
+      body: |
+        <p>
+        If you're looking for a way to safely lose weight and keep it off, the Y
+        provides a great option and best of all, it's free! Lose to Win is
+        12-week, group-based program that meets at the Y and taps a supportive
+        network of others working on similar goals.
         </p>
   ids:
     id:
@@ -122,6 +175,10 @@ process:
     plugin: migration
     migration: openy_demo_node_program
     source: program
+  field_category_image:
+    plugin: migration
+    migration: openy_demo_ncategory_media_image
+    source: image
 destination:
   plugin: 'entity:node'
   default_bundle: program_subcategory
