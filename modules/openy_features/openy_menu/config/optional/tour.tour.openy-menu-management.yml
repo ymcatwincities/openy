@@ -69,5 +69,5 @@ tips:
     id: next-tutorial
     plugin: text
     label: 'Next tutorial'
-    body: '<a href="/admin/structure/menu/manage/main/add?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to add menu link.'
+    body: '<a href="[site:url]admin/structure/menu/manage/main/add?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to add menu link.'
     weight: 8
