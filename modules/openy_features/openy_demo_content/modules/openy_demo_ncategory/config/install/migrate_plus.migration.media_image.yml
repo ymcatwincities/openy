@@ -72,6 +72,18 @@ source:
       id: weight_loss
       name: 'Weight Loss'
       file: weight_loss
+    -
+      id: bold_and_gold
+      name: 'Bold & Gold'
+      file: bold_and_gold
+    -
+      id: before_and_after_school_child_care
+      name: 'Before & After School Child Care'
+      file: before_and_after_school_child_care
+    -
+      id: earth service_corps
+      name: 'Earth Service Corps'
+      file: earth_service_corps
   ids:
     id:
       type: string
