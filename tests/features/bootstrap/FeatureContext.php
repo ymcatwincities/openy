@@ -27,13 +27,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function __construct() {
   }
-  
+
   /**
-   * Create a node of Branch CT with name "Test Branch"
+   * Create a node of Branch CT with name "Test Branch".
    *
    * @Given /^I create a branch$/
    */
-  public function iCreateABranch() {
+  public function iCreateBranch() {
     $this->getSession()->visit($this->locatePath('/node/add/branch'));
     $element = $this->getSession()->getPage();
     $element->fillField('Title', 'Test Branch');
@@ -48,9 +48,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Creates a term "Category One" in Category taxonomy
-   * 
-   * @Given /^I create a Category term$/
+   * Creates a term "Category One" in Category taxonomy.
+   *
+   * @Given /^I create a category term$/
    */
   public function iCreateCategoryTerm() {
     $this->getSession()->visit($this->locatePath('/admin/structure/taxonomy/manage/blog_category/add'));
