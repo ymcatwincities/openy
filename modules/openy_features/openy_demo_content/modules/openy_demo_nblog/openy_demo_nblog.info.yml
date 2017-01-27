@@ -7,3 +7,4 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_demo_tblog
+  - openy_demo_nbranch
