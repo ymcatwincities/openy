@@ -50,7 +50,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iCreateACategoryTerm()
   {
-    $this->getSession()->visit($this->locatePath('/node/add/branch'));
+    $this->getSession()->visit($this->locatePath('/admin/structure/taxonomy/manage/blog_category/add'));
     $element = $this->getSession()->getPage();
     $element->fillField('Name', 'Category One');
     $element->findButton('Save')->click();
