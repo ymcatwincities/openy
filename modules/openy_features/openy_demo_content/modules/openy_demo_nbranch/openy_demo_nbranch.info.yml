@@ -6,3 +6,4 @@ dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
+  - openy_demo_tarea
