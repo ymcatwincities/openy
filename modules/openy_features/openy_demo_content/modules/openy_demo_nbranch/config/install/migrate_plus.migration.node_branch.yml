@@ -26,6 +26,7 @@ source:
       longitude: 88
       area: 1
       prgf_blog_branch: 1
+      prgf_gallery: 1
     -
       id: 2
       title: 'Downtown YMCA'
@@ -42,6 +43,7 @@ source:
       longitude: 88
       area: 2
       prgf_blog_branch: 2
+      prgf_gallery: null
     -
       id: 3
       title: 'East YMCA'
@@ -58,6 +60,7 @@ source:
       longitude: 88
       area: 3
       prgf_blog_branch: 3
+      prgf_gallery: null
     -
       id: 4
       title: 'South YMCA'
@@ -74,6 +77,7 @@ source:
       longitude: 88
       area: 4
       prgf_blog_branch: 4
+      prgf_gallery: null
   ids:
     id:
       type: integer
@@ -153,9 +157,20 @@ process:
       plugin: migration
       migration: openy_demo_prgf_blog_branch
       source: prgf_blog_branch
+  field_header_content/target_id:
+    -
+      plugin: migration
+      migration: openy_demo_prgf_gallery
+      source: prgf_gallery
+  field_header_content/target_revision_id:
+    -
+      plugin: migration
+      migration: openy_demo_prgf_gallery
+      source: prgf_gallery
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - openy_demo_taxonomy_term_area
+    - openy_demo_prgf_gallery
   optional: {  }
