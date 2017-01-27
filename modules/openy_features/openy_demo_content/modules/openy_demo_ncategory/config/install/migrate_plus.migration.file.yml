@@ -56,6 +56,15 @@ source:
     -
       id: weight_loss
       name: weight_loss.jpg
+    -
+      id: bold_and_gold
+      name: bold_and_gold.jpg
+    -
+      id: before_and_after_school_child_care
+      name: before_and_after_school_child_care.jpg
+    -
+      id: earth_service_corps
+      name: earth_service_corps.jpg
   ids:
     id:
       type: string

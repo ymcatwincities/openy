@@ -23,13 +23,11 @@ source:
       image: kids_zone_activity_centers
       body: |
         <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-        tincidunt rhoncus odio vitae porta. Donec magna leo, scelerisque vitae
-        leo ut, lobortis egestas sapien. Sed vel nisi at erat cursus molestie
-        fringilla a justo. Nulla ac nisi ultricies, porttitor ante nec, porta
-        dui. Mauris pharetra mi in lobortis pellentesque. Suspendisse ultricies
-        dignissim viverra. Morbi cursus tincidunt justo, sit amet pharetra
-        turpis maximus et. Duis vulputate ligula dapibus elementum ornare.
+        While you're increasing your heart rate your kids can play, release
+        some energy and make new friends in a supervised, caring environment -
+        all free with your Y family membership. Your kids will have fun with
+        age-appropriate toys, games and activities. Children may be checked in
+        for up to 120 minutes per day and parent/guardian must remain at the Y.
         </p>
     -
       id: 2
@@ -147,6 +145,144 @@ source:
         provides a great option and best of all, it's free! Lose to Win is
         12-week, group-based program that meets at the Y and taps a supportive
         network of others working on similar goals.
+        </p>
+    -
+      id: 10
+      title: 'Cooking & Crafts'
+      color: 3
+      program: 3
+      image: cooking_and_crafts
+      body: |
+        <p>
+        Whether it's a craft night or learning basics of cooking there's a Y
+        activity to capture the imagination of any kid - and the kid inside any
+        adult. The Y is a great getaway during the school year, allowing you to
+        reconnect with each other and meet other families without the
+        distractions of home life. And summer offers great outdoor adventures,
+        picnics and family field trips.
+        </p>
+    -
+      id: 11
+      title: 'Family Activities'
+      color: 3
+      program: 3
+      image: family_activities
+      body: |
+        <p>
+        The Y has a long-standing commitment to building strong families. If
+        you're searching for active, healthy, affordable fun your family can
+        enjoy together, you'll find it at the Y.
+        </p>
+    -
+      id: 12
+      title: 'Kids University & Enrichment Classes'
+      color: 3
+      program: 3
+      image: kids_university_and_enrichment_classes
+      body: |
+        <p>
+        Make the most of afterschool time with active learning opportunities
+        designed to engage and expand young minds.  Choose from a menu of
+        multi-week experiences taught by caring, certified staff like sports,
+        arts and other hands-on learning activities!  Y programs have the
+        flexibility you need - come once a week or every day.
+        </p>
+    -
+      id: 13
+      title: 'Sports'
+      color: 3
+      program: 3
+      image: cooking_and_crafts
+      body: |
+        <p>
+        At the Y there are no tryouts - everybody plays and everybody wins!
+        Kids as young as three begin learning basic skills and working together
+        as a team. Y Youth Sports provide a fun introduction to soccer,
+        volleyball, baseball and basketball and help keep kids active. In the
+        process, kids learn to care about others, be honest, show respect and
+        be responsible.
+        </p>
+    -
+      id: 14
+      title: 'Swim Team'
+      color: 2
+      program: 2
+      image: swim_team
+      body: |
+        <p>
+        Want to swim competitively in a fun and positive environment? Join the
+        team! Serving ages 6 to adult, swim team participants improve
+        individual skills while swimming competitively both at the local and
+        national levels. Your coaches will focus on proper technique while you
+        improve your endurance, learn teamwork and make friends.
+        </p>
+    -
+      id: 15
+      title: 'Drop-In Swim'
+      color: 2
+      program: 2
+      image: drop-in_swim
+      body: |
+        <p>
+        Whether you are a beginning swimmer or on your way to the Olympics,
+        your Y is a great place to make a splash!
+        </p>
+    -
+      id: 16
+      title: 'Swim Lessons'
+      color: 2
+      program: 2
+      image: swim_lessons
+      body: |
+        <p>
+        The Y is your source for progressive swim lessons for children and
+        adults. The Y's 8 different levels of instruction mean that your child
+        can begin with the most appropriate level of caring instruction. Adult
+        lessons are for beginning and intermediate level swimmers. Whether
+        you're just starting out or want to improve your stroke technique, your
+        instructor will focus on your specific goals.
+        </p>
+    -
+      id: 17
+      title: 'Bold & Gold'
+      color: 4
+      program: 4
+      image: bold_and_gold
+      body: |
+        <p>
+        Through outdoor adventures and wilderness experiences, the BOLD & GOLD
+        program inspires courage and multi-cultural leadership in diverse
+        groups of boys and girls ages 11-18 years old. The challenge, glory,
+        and beauty of the wilderness come together on our exciting adventures,
+        which range from weekend clubs to 1 to 3 week expeditions.
+        </p>
+    -
+      id: 18
+      title: 'Before & After School Child Care'
+      color: 5
+      program: 5
+      image: before_and_after_school_child_care
+      body: |
+        <p>
+        Get high-quality Y care right at your school and keep your child active
+        physically, intellectually and socially the whole day. When school's
+        out, you can trust the Y to provide an engaging experience for your
+        child right at school. Y School Age Programs give your child the
+        opportunity to get to know some of their classmates better as they
+        engage in active play and collaborate on fun project
+        </p>
+    -
+      id: 19
+      title: 'Earth Service Corps'
+      color: 6
+      program: 6
+      image: earth_service_corps
+      body: |
+        <p>
+        The mission of the YMCA Earth Service Corps is to empower young people
+        to become effective, responsible, global citizens by providing
+        opportunities for service learning, environmental education, leadership
+        development and cross-cultural awareness.
         </p>
   ids:
     id:
