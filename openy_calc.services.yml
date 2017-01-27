@@ -3,4 +3,4 @@ services:
     class: Drupal\openy_calc\CalcDataWrapper
     arguments: ['@entity.query', '@renderer', '@entity.manager']
     tags:
-      - { name: openy_data_service, priority: 100 }
+      - { name: "openy_data_service", priority: 100 }
