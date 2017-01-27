@@ -7,6 +7,7 @@
 
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_preprocess_node().
@@ -26,6 +27,19 @@ function openy_rose_preprocess_paragraph(&$variables) {
     $function = __FUNCTION__ . '_' . $variables['paragraph']->bundle();
     $function($variables);
   }
+}
+
+/**
+ * Implements a custom paragraph preprocess function, defined by
+ * openy_rose_preprocess_paragraph().
+ */
+function openy_rose_preprocess_paragraph_small_banner(array &$variables) {
+  // Get the referenced term id.
+  $term_id = $variables['paragraph']->get('field_prgf_color')->getValue()[0]['target_id'];
+  // Get the actual color value from the taxonomy term.
+  $color_value = \Drupal\taxonomy\Entity\Term::load($term_id)->get('field_color')->getValue()[0]['value'];
+  // Pass the color value to the template for use as a background color.
+  $variables['color'] = $color_value;
 }
 
 /**
