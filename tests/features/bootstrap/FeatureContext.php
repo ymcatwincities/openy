@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * FeatureContent for OpenY project.
+ */
+
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
@@ -38,6 +43,17 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element->fillField('Longitude', '-122.238717');
     $element->fillField('Phone', '+1234567890');
     $element->findButton('Save and publish')->click();
+  }
+
+  /**
+   * @Given /^I create a Category term$/
+   */
+  public function iCreateACategoryTerm()
+  {
+    $this->getSession()->visit($this->locatePath('/node/add/branch'));
+    $element = $this->getSession()->getPage();
+    $element->fillField('Name', 'Category One');
+    $element->findButton('Save')->click();
   }
 
 }
