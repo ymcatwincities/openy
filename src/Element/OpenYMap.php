@@ -18,6 +18,7 @@ class OpenYMap extends RenderElement {
     $class = get_class($this);
     return [
       '#theme' => 'openy_map',
+      '#show_controls' => FALSE,
       '#pre_render' => [
         [$class, 'processElement'],
       ],
