@@ -15,11 +15,11 @@ dependencies:
   - openy_node_branch
   - openy_node_camp
   - openy_node_landing
+  - openy_node_testimonial
   - options
   - path
   - scheduled_updates
   - slick_views
-  - testimonial
   - text
   - user
   - views
