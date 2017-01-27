@@ -15,9 +15,43 @@ source:
     -
       id: 1
       parent_id: 1
-      images: 1
-      description: 'Example gallery #1'
-      headline: 'Example headline'
+      images:
+        - 1
+        - 2
+        - 3
+        - 4
+      description: 'Gallery for West YMCA'
+      headline: 'West YMCA'
+    -
+      id: 2
+      parent_id: 2
+      images:
+        - 5
+        - 6
+        - 7
+        - 8
+      description: 'Gallery for Downtown YMCA'
+      headline: 'Downtown YMCA'
+    -
+      id: 3
+      parent_id: 3
+      images:
+        - 9
+        - 10
+        - 11
+        - 12
+      description: 'Gallery for East YMCA'
+      headline: 'East YMCA'
+    -
+      id: 4
+      parent_id: 4
+      images:
+        - 13
+        - 14
+        - 15
+        - 16
+      description: 'Gallery for South YMCA'
+      headline: 'South YMCA'
   ids:
     id:
       type: integer
