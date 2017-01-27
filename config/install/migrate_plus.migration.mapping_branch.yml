@@ -37,7 +37,7 @@ source:
       id: 6
       daxco: 93
       name: 'Center For Leadership Development'
-      drupal:
+      drupal: 2ce5e346-9af4-11e2-acdf-12313d334d0f
     -
       id: 7
       daxco: 169
@@ -82,7 +82,7 @@ source:
       id: 15
       daxco: 124
       name: 'East Montgomery County Family YMCA'
-      drupal:
+      drupal: 097125d4-3bc7-11e1-952a-12313b0f39a2
     -
       id: 16
       daxco: 330
@@ -267,10 +267,7 @@ source:
       id: 52
       daxco: 117
       name: 'YMCA International Services'
-      drupal:
-
-
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      drupal: 099f4748-3bc7-11e1-952a-12313b0f39a2
   ids:
     id:
       type: integer
@@ -298,9 +295,12 @@ process:
       source: daxco
   field_ref_branch_id/target_id:
     -
+      plugin: skip_on_empty
+      method: row
+      source: drupal
+    -
       plugin: migration
       migration: yghc_node_branch
-      source: drupal
 destination:
   plugin: 'entity:mapping'
   default_bundle: branch
