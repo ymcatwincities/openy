@@ -5,6 +5,8 @@ core: 8.x
 dependencies:
   - entity_browser
   - field
+  - image
+  - media_entity
   - openy_media_image
   - openy_node
   - openy_prgf
