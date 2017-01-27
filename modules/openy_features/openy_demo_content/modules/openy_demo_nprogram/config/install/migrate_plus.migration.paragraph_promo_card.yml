@@ -76,8 +76,12 @@ process:
   field_prgf_description/format:
     plugin: default_value
     default_value: full_html
-  field_prgf_link/uri: '/'
-  field_prgf_link/title: 'Learn More'
+  field_prgf_link/uri:
+    plugin: default_value
+    default_value: 'internal:/'
+  field_prgf_link/title:
+    plugin: default_value
+    default_value: 'Learn More'
 destination:
   plugin: 'entity:paragraph'
   default_bundle: promo_card
