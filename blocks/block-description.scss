@@ -91,13 +91,22 @@
     .block-description--text {
       @include breakpoint(tablet){
         width: calc(100% / 3 - 40px);
-
+        position: relative;
+        .block-share {
+          margin: 0 0 40px 0;
+        }
+        .field-sb-link a {
+          position: absolute;
+          bottom:20px;
+        }
         &:first-child,
         &:last-child {
           width: calc(100% / 3 - 20px);
         }
+
       }
     }
+
   }
 
   &--4 {
