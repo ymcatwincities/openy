@@ -6861,7 +6861,13 @@ body {
 @media (min-width: 768px) {
   .block-description--3 .block-description--text {
     width: -webkit-calc(100% / 3 - 40px);
-    width: calc(100% / 3 - 40px); }
+    width: calc(100% / 3 - 40px);
+    position: relative; }
+    .block-description--3 .block-description--text .block-share {
+      margin: 0 0 40px 0; }
+    .block-description--3 .block-description--text .field-sb-link a {
+      position: absolute;
+      bottom: 20px; }
     .block-description--3 .block-description--text:first-child, .block-description--3 .block-description--text:last-child {
       width: -webkit-calc(100% / 3 - 20px);
       width: calc(100% / 3 - 20px); } }
