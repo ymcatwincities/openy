@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
@@ -18,13 +19,13 @@ dependencies:
     - entity_reference_revisions
     - telephone
     - user
-id: node.camp.default
+id: node.camp.full
 targetEntityType: node
 bundle: camp
-mode: default
+mode: full
 content:
   field_content:
-    weight: 4
+    weight: 109
     label: hidden
     settings:
       view_mode: default
@@ -32,7 +33,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_header_content:
-    weight: 3
+    weight: 110
     label: hidden
     settings:
       view_mode: default
@@ -40,20 +41,20 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_location_address:
-    weight: 0
+    weight: 102
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_plain
   field_location_fax:
-    weight: 2
+    weight: 106
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
   field_location_phone:
-    weight: 1
+    weight: 105
     label: hidden
     settings:
       title: ''
