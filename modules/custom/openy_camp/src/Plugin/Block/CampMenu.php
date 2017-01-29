@@ -17,8 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Block(
  *   id = "camp_menu",
- *   admin_label = @Translation("YGS Camp menu block"),
- *   category = @Translation("Custom")
+ *   admin_label = @Translation("Camp menu block"),
+ *   category = @Translation("Paragraph Blocks")
  * )
  */
 class CampMenu extends BlockBase implements ContainerFactoryPluginInterface {
