@@ -1,0 +1,5 @@
+name: YGS Camp page
+type: module
+description: Camp page related blocks and services.
+core: 8.x
+package: YGS
