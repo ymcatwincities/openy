@@ -89,7 +89,7 @@ class CampMenuService implements CampMenuServiceInterface {
     }
 
     $links = [];
-    foreach ($node->field_menu_links->getValue() as $link) {
+    foreach ($node->field_camp_menu_links->getValue() as $link) {
       $links[] = $link;
     }
 
