@@ -25,7 +25,7 @@ class HoursToday extends FieldCollectionItemsFormatter {
     $render_items = parent::viewElements($items, $langcode);
 
     $time = '';
-    $lazy_hours = [];
+    $lazy_hours = [NULL, NULL, NULL, NULL, NULL, NULL, NULL];
     $week = [];
     $days = [
       'monday',
