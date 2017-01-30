@@ -53,11 +53,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @Given /^I create a "([^"]*)" term$/
    */
   public function iCreateTaxonomyTerm($taxonomy_name) {
-    $taxonomy = strtolower(str_replace(' ','_',$taxonomy_name));
-    $path = '/admin/structure/taxonomy/manage/'.$taxonomy.'/add';
+    $taxonomy = strtolower(str_replace(' ', '_', $taxonomy_name));
+    $path = '/admin/structure/taxonomy/manage/' . $taxonomy . '/add';
     $this->getSession()->visit($this->locatePath($path));
     $element = $this->getSession()->getPage();
-    $element->fillField('Name', $taxonomy_name.' One');
+    $element->fillField('Name', $taxonomy_name . ' One');
     $element->findButton('Save')->click();
   }
 
@@ -66,8 +66,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    *
    * @Given /^I create a color term$/
    */
-  public function iCreateAColorTerm()
-  {
+  public function iCreateColorTerm() {
     $path = '/admin/structure/taxonomy/manage/color/add';
     $this->getSession()->visit($this->locatePath($path));
     $element = $this->getSession()->getPage();
