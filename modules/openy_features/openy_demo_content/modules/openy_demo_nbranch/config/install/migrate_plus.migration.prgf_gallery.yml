@@ -1,0 +1,101 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nbranch
+id: openy_demo_prgf_gallery
+migration_tags: {  }
+migration_group: openy_demo_nbranch
+label: 'Create Gallery paragraphs for branches'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      parent_id: 1
+      images:
+        - 1
+        - 2
+        - 3
+        - 4
+      description: 'Gallery for West YMCA'
+      headline: 'West YMCA'
+    -
+      id: 2
+      parent_id: 2
+      images:
+        - 5
+        - 6
+        - 7
+        - 8
+      description: 'Gallery for Downtown YMCA'
+      headline: 'Downtown YMCA'
+    -
+      id: 3
+      parent_id: 3
+      images:
+        - 9
+        - 10
+        - 11
+        - 12
+      description: 'Gallery for East YMCA'
+      headline: 'East YMCA'
+    -
+      id: 4
+      parent_id: 4
+      images:
+        - 13
+        - 14
+        - 15
+        - 16
+      description: 'Gallery for South YMCA'
+      headline: 'South YMCA'
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    -
+      plugin: default_value
+      source: language
+      default_value: en
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  parent_id:
+    -
+      plugin: migration
+      migration: openy_demo_node_branch
+      no_stub: true
+      source: parent_id
+  parent_type:
+    -
+      plugin: default_value
+      default_value: node
+  parent_field_name:
+    -
+      plugin: default_value
+      default_value: field_header_content
+  field_prgf_images:
+    -
+      plugin: migration
+      migration: openy_demo_nbranch_media_image
+      source: images
+  field_prgf_description:
+    -
+      plugin: get
+      source: description
+  field_prgf_headline:
+    -
+      plugin: get
+      source: headline
+destination:
+  plugin: entity:paragraph
+  default_bundle: gallery

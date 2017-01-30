@@ -12,14 +12,15 @@ mode: default
 content:
   field_fblog_posts:
     weight: 1
-    label: above
+    label: hidden
     settings:
-      link: true
+      view_mode: teaser
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
   field_prgf_headline:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }

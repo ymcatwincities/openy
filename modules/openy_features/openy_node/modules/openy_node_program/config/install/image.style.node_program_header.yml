@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: node_program_header
+label: 'Node Program Header (500×260)'
+effects:
+  205ea77e-1bcc-4c4e-9966-1446d6979429:
+    uuid: 205ea77e-1bcc-4c4e-9966-1446d6979429
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 500
+      height: 260

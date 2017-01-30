@@ -1,0 +1,176 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_loc_branch
+id: openy_demo_node_branch
+migration_tags: {  }
+migration_group: openy_demo_nbranch
+label: 'Import demo branch posts'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'West YMCA'
+      promote: 1
+      country_code: US
+      address_line1: '1111 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
+      email: info@example.com
+      phone: 9999999999
+      latitude: 88
+      longitude: 88
+      area: 1
+      prgf_blog_branch: 1
+      prgf_gallery: 1
+    -
+      id: 2
+      title: 'Downtown YMCA'
+      promote: 1
+      country_code: US
+      address_line1: '2222 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
+      email: info@example.com
+      phone: 9999999999
+      latitude: 88
+      longitude: 88
+      area: 2
+      prgf_blog_branch: 2
+      prgf_gallery: 2
+    -
+      id: 3
+      title: 'East YMCA'
+      promote: 1
+      country_code: US
+      address_line1: '3333 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
+      email: info@example.com
+      phone: 9999999999
+      latitude: 88
+      longitude: 88
+      area: 3
+      prgf_blog_branch: 3
+      prgf_gallery: 3
+    -
+      id: 4
+      title: 'South YMCA'
+      promote: 1
+      country_code: US
+      address_line1: '4444 Perimeter Rd SW'
+      address_line2: null
+      locality: Houston
+      administrative_area: TX
+      postal_code: 77001
+      email: info@example.com
+      phone: 9999999999
+      latitude: 88
+      longitude: 88
+      area: 4
+      prgf_blog_branch: 4
+      prgf_gallery: 4
+  ids:
+    id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  type:
+    -
+      plugin: default_value
+      default_value: branch
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  promote:
+    -
+      plugin: get
+      source: promote
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  field_location_address/country_code:
+    -
+      plugin: get
+      source: country_code
+  field_location_address/address_line1:
+    -
+      plugin: get
+      source: address_line1
+  field_location_address/address_line2:
+    -
+      plugin: get
+      source: address_line2
+  field_location_address/locality:
+    -
+      plugin: get
+      source: locality
+  field_location_address/administrative_area:
+    -
+      plugin: get
+      source: administrative_area
+  field_location_address/postal_code:
+    -
+      plugin: get
+      source: postal_code
+  field_location_email:
+    -
+      plugin: get
+      source: email
+  field_location_phone:
+    -
+      plugin: get
+      source: phone
+  field_location_latitude:
+    -
+      plugin: get
+      source: latitude
+  field_location_longitude:
+    -
+      plugin: get
+      source: longitude
+  field_location_area:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_area
+      source: area
+  field_content/target_id:
+    -
+      plugin: migration
+      migration: openy_demo_prgf_blog_branch
+      source: prgf_blog_branch
+  field_content/target_revision_id:
+    -
+      plugin: migration
+      migration: openy_demo_prgf_blog_branch
+      source: prgf_blog_branch
+  field_header_content/target_id:
+    -
+      plugin: migration
+      migration: openy_demo_prgf_gallery
+      source: prgf_gallery
+  field_header_content/target_revision_id:
+    -
+      plugin: migration
+      migration: openy_demo_prgf_gallery
+      source: prgf_gallery
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - openy_demo_taxonomy_term_area
+    - openy_demo_prgf_gallery
+  optional: {  }
