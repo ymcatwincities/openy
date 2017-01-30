@@ -2,9 +2,12 @@
 
 namespace Drupal\openy_calc;
 
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\daxko\DaxkoClientInterface;
+use Drupal\openy_mappings\LocationMappingRepository;
 
 /**
  * Class DataWrapperBase.
@@ -33,6 +36,27 @@ abstract class DataWrapperBase implements DataWrapperInterface {
   protected $renderer;
 
   /**
+   * Daxko client.
+   *
+   * @var \Drupal\daxko\DaxkoClientInterface
+   */
+  protected $daxkoClient;
+
+  /**
+   * Cache backend.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cacheBackend;
+
+  /**
+   * Location mapping repository.
+   *
+   * @var \Drupal\openy_mappings\LocationMappingRepository
+   */
+  protected $locationRepo;
+
+  /**
    * DataWrapperBase constructor.
    *
    * @param \Drupal\Core\Entity\Query\QueryFactory $queryFactory
@@ -41,11 +65,20 @@ abstract class DataWrapperBase implements DataWrapperInterface {
    *   Renderer.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   Entity type manager.
+   * @param \Drupal\daxko\DaxkoClientInterface $daxkoClient
+   *   Daxko client.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cacheBackend
+   *   Cache backend.
+   * @param \Drupal\openy_mappings\LocationMappingRepository $locationRepo
+   *   Location mapping repository.
    */
-  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, DaxkoClientInterface $daxkoClient, CacheBackendInterface $cacheBackend, LocationMappingRepository $locationRepo) {
     $this->queryFactory = $queryFactory;
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
+    $this->daxkoClient = $daxkoClient;
+    $this->cacheBackend = $cacheBackend;
+    $this->locationRepo = $locationRepo;
   }
 
   /**
