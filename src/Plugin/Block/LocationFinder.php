@@ -54,7 +54,7 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
         '#element_variables' => $this->socrates->getLocationPins(),
       ],
       [
-       '#type' => 'view',
+        '#type' => 'view',
         '#name' => 'locations',
         '#display_id' => 'locations_branches_block',
       ],
