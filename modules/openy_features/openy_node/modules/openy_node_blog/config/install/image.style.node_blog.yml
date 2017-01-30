@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: node_blog
-label: 'Node blog (762×451)'
+label: 'Node blog'
 effects:
   dd6b02aa-6378-4d42-a2b3-57eaa0c52019:
     uuid: dd6b02aa-6378-4d42-a2b3-57eaa0c52019
