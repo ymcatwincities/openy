@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "61395d622140e81c61f5844d3b0e5d4b",
-    "content-hash": "b8090c754de2158797ee8ec860e08dfe",
+    "hash": "302a7b4342b2b5c81b4b1a8f635d8561",
+    "content-hash": "f412c75887ea345a2b54090393d737ce",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1939,21 +1939,20 @@
         },
         {
             "name": "drupal/jquery_colorpicker",
-            "version": "1.0.0-rc1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/jquery_colorpicker",
-                "reference": "8.x-1.0-rc1"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/jquery_colorpicker-8.x-1.0-rc1.zip",
+                "url": "https://ftp.drupal.org/files/projects/jquery_colorpicker-8.x-1.0.zip",
                 "reference": null,
-                "shasum": "16e5cebe548034522f773ec609d46d194df13045"
+                "shasum": "bebcae397246871bad4eacca03eae2dfa09087ef"
             },
             "require": {
-                "drupal/core": "~8.0",
-                "jaypan/jquery_colorpicker": "^1.0.1"
+                "drupal/core": "~8.0"
             },
             "type": "drupal-module",
             "extra": {
@@ -1961,8 +1960,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-rc1",
-                    "datestamp": "1484483583"
+                    "version": "8.x-1.0",
+                    "datestamp": "1485573787"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1979,7 +1978,7 @@
                     "homepage": "https://www.drupal.org/user/282415"
                 }
             ],
-            "description": "The jQuery Colorpicker library",
+            "description": "Creates a jQuery colorpicker field and form element",
             "homepage": "https://www.drupal.org/project/jquery_colorpicker",
             "support": {
                 "source": "http://cgit.drupalcode.org/jquery_colorpicker"
@@ -2479,7 +2478,9 @@
                     "version": "8.x-1.0-beta5+3-dev",
                     "datestamp": "1475508576"
                 },
-                "patches_applied": []
+                "patches_applied": {
+                    "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
+                }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -3153,31 +3154,57 @@
             "time": "2014-11-20 16:49:30"
         },
         {
-            "name": "jaypan/jquery_colorpicker",
+            "name": "library:dinbror/blazy",
+            "version": "1.8.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dinbror/blazy",
+                "reference": "1.8.2"
+            },
+            "type": "drupal-library"
+        },
+        {
+            "name": "library:enyo/dropzone",
+            "version": "4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/enyo/dropzone",
+                "reference": "v4.3.0"
+            },
+            "type": "drupal-library"
+        },
+        {
+            "name": "library:gdsmith/jquery.easing",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gdsmith/jquery.easing",
+                "reference": "1.4.1"
+            },
+            "type": "drupal-library"
+        },
+        {
+            "name": "library:jaypan/jquery_colorpicker",
             "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jaypan/jquery_colorpicker_composer.git",
-                "reference": "e8f7511bbce099d03e7e2533f3ce0fd4c930f38d"
+                "url": "https://github.com/jaypan/jquery_colorpicker_composer",
+                "reference": "1.0.1"
             },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jaypan/jquery_colorpicker_composer/zipball/e8f7511bbce099d03e7e2533f3ce0fd4c930f38d",
-                "reference": "e8f7511bbce099d03e7e2533f3ce0fd4c930f38d",
-                "shasum": ""
+            "require": {
+                "composer/installers": "~1.0"
             },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Provides the jQuery Colorpicker library",
-            "homepage": "http://www.eyecon.ro/colorpicker",
-            "keywords": [
-                "colorpicker",
-                "jquery"
-            ],
-            "time": "2017-01-07 14:37:47"
+            "type": "drupal-library"
+        },
+        {
+            "name": "library:kenwheeler/slick",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kenwheeler/slick",
+                "reference": "1.6.0"
+            },
+            "type": "drupal-library"
         },
         {
             "name": "masterminds/html5",
