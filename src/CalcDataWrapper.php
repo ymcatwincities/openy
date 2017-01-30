@@ -126,7 +126,6 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
         'lng' => round($coordinates[0]['lng'], 5),
         'name' => $location->label(),
         'markup' => $this->renderer->renderRoot($view),
-        'element' => '',
       ];
     }
 
