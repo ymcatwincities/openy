@@ -144,7 +144,7 @@ class CalcBlockForm extends FormBase {
     if ($step > 1) {
       $form['map'] = [
         '#type' => 'openy_map',
-        '#element_variables' => $this->dataWrapper->getLocationPins(),
+        '#element_variables' => $this->dataWrapper->getBranchPins(),
       ];
 
       $locations = $this->dataWrapper->getLocations();

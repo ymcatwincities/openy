@@ -21,6 +21,6 @@ interface DataWrapperInterface {
    * @return array
    *   Location pins.
    */
-  public function getLocationPins();
+  public function getBranchPins();
 
 }
