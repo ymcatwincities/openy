@@ -1,0 +1,102 @@
+dependencies:
+  module:
+    - file
+id: openy_demo_nbranch_file
+migration_tags: { }
+migration_group: openy_demo_nbranch
+label: Files
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: 1.jpg
+    -
+      id: 2
+      name: 2.jpg
+    -
+      id: 3
+      name: 3.jpg
+    -
+      id: 4
+      name: 4.jpg
+    -
+      id: 5
+      name: 5.jpg
+    -
+      id: 6
+      name: 6.jpg
+    -
+      id: 7
+      name: 7.jpg
+    -
+      id: 8
+      name: 8.jpg
+    -
+      id: 9
+      name: 9.jpg
+    -
+      id: 10
+      name: 10.jpg
+    -
+      id: 11
+      name: 11.jpg
+    -
+      id: 12
+      name: 12.jpg
+    -
+      id: 13
+      name: 13.jpg
+    -
+      id: 14
+      name: 14.jpg
+    -
+      id: 15
+      name: 15.jpg
+    -
+      id: 16
+      name: 16.jpg
+  ids:
+    id:
+      type: integer
+  constants:
+    source_base_path: profiles/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nbranch/assets/images
+    uri_file: 'public:/'
+process:
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - name
+    -
+      plugin: urlencode
+  filename: name
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }

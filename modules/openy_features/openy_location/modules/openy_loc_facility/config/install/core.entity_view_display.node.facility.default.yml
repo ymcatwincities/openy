@@ -18,6 +18,7 @@ dependencies:
     - address
     - entity_reference_revisions
     - link
+    - telephone
     - user
 id: node.facility.default
 targetEntityType: node
@@ -72,9 +73,10 @@ content:
   field_location_fax:
     weight: 107
     label: above
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
+    type: telephone_link
   field_location_latitude:
     weight: 104
     label: above
@@ -92,9 +94,10 @@ content:
   field_location_phone:
     weight: 106
     label: above
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
+    type: telephone_link
   field_sidebar_content:
     type: entity_reference_revisions_entity_view
     weight: 111
@@ -105,4 +108,6 @@ content:
     third_party_settings: {  }
   links:
     weight: 100
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }
