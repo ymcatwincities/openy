@@ -48,16 +48,16 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Creates a term "<taxonomy name> One" in respective taxonomy.
+   * Creates a term in the respective taxonomy.
    *
-   * @Given /^I create a "([^"]*)" term$/
+   * @Given /^I create a "([^"]*)" term in the "([^"]*)" taxonomy$/
    */
-  public function iCreateTaxonomyTerm($taxonomy_name) {
+  public function iCreateTaxonomyTerm($term, $taxonomy_name) {
     $taxonomy = strtolower(str_replace(' ', '_', $taxonomy_name));
     $path = '/admin/structure/taxonomy/manage/' . $taxonomy . '/add';
     $this->getSession()->visit($this->locatePath($path));
     $element = $this->getSession()->getPage();
-    $element->fillField('Name', $taxonomy_name . ' One');
+    $element->fillField('Name', $term);
     $element->findButton('Save')->click();
   }
 

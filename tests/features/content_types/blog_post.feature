@@ -5,7 +5,7 @@ Feature: Blog Content type
   Scenario: Create basic blog and check fields
     Given I am logged in as a user with the Administrator role
     And I create a branch
-    And I create a "Blog category" term
+    And I create a "Category One" term in the "Blog Category" taxonomy
     When I go to "/node/add/blog"
     And I fill in "Title" with "From OpenY Automation Blogger"
     And I select "Test Branch" from "Location"
