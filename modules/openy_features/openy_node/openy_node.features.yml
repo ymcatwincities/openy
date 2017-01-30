@@ -1,7 +1,1 @@
-excluded:
-  - core.entity_form_display.taxonomy_term.color.default
-  - core.entity_view_display.taxonomy_term.color.default
-  - field.field.taxonomy_term.color.field_color
-  - field.storage.taxonomy_term.field_color
-  - taxonomy.vocabulary.color
 required: true
