@@ -12,6 +12,8 @@ use GuzzleHttp\Client;
  * @method mixed getBranches(array $args)
  * @method mixed getSessions(array $args)
  * @method mixed getPrograms(array $args)
+ * @method mixed getChildCarePrograms(array $args)
+ * @method mixed getMembershipTypes(array $args)
  */
 class DaxkoClient extends Client implements DaxkoClientInterface {
 
@@ -91,6 +93,9 @@ class DaxkoClient extends Client implements DaxkoClientInterface {
 
       case 'getChildCarePrograms':
         return $this->makeRequest('get', 'childcare/programs' . $suffix);
+
+      case 'getMembershipTypes':
+        return $this->makeRequest('get', 'membershiptypes' . $suffix);
     }
 
     throw new DaxkoClientException(sprintf('Method %s not implemented yet.', $method));
