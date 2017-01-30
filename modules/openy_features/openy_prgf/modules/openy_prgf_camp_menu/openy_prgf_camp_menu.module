@@ -8,7 +8,7 @@
 /**
  * Implements hook_theme().
  */
-function openy_camp_theme($existing, $type, $theme, $path) {
+function openy_prgf_camp_menu_theme($existing, $type, $theme, $path) {
   return [
     'camp_menu' => [
       'variables' => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_camp\Plugin\Block;
+namespace Drupal\openy_prgf_camp_menu\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
@@ -9,7 +9,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\node\NodeInterface;
-use Drupal\openy_camp\CampMenuServiceInterface;
+use Drupal\openy_prgf_camp_menu\CampMenuServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,7 +26,7 @@ class CampMenu extends BlockBase implements ContainerFactoryPluginInterface {
   /**
    * The Camp menu service.
    *
-   * @var \Drupal\openy_camp\CampMenuServiceInterface
+   * @var \Drupal\openy_prgf_camp_menu\CampMenuServiceInterface
    */
   protected $campMenuService;
 
@@ -65,7 +65,7 @@ class CampMenu extends BlockBase implements ContainerFactoryPluginInterface {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('openy_camp.menu_handler'),
+      $container->get('openy_prgf_camp_menu.menu_handler'),
       $container->get('current_route_match')
     );
   }
