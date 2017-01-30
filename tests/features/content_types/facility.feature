@@ -4,7 +4,7 @@ Feature: Facility Content type
 
   Scenario: Create basic facility
     Given I am logged in as a user with the "Administrator" role
-    And I create a "Facility type" term
+    And I create a "Facility type One" term in the "Facility type" taxonomy
     When I go to "/node/add/facility"
     And I select "Facility type One" from "Type"
     And I fill in "Title" with "Facility One"
