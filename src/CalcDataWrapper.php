@@ -12,77 +12,65 @@ use Drupal\openy_socrates\OpenyDataServiceInterface;
 class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterface {
 
   /**
+   * Get membership data from Daxko.
+   *
+   * This method creates a cache bin with the data.
+   * Please, use this method with cron to populate the data.
+   *
+   * @return array
+   *   Data.
+   */
+  public function getMembershipData() {
+    // @todo fix cache life time.
+    $cid = __METHOD__;
+    if ($cache = $this->cacheBackend->get($cid)) {
+      $data = $cache->data;
+    }
+    else {
+      $data = [];
+
+      $daxko_branch_ids = $this->locationRepo->getAllDaxkoBranchIds();
+      foreach ($daxko_branch_ids as $branch_id) {
+        $data[$branch_id] = $this->daxkoClient->getMembershipTypes(['branch_id' => $branch_id]);
+      }
+
+      $this->cacheBackend->set($cid, $data);
+    }
+
+    return $data;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getMembershipPriceMatrix() {
-    $matrix = [
-      [
-        'id' => 'youth',
-        'title' => 'Youth',
-        'description' => 'Youth membership',
-        'locations' => [
-          [
-            'title' => 'Location #1',
-            'id' => 1,
-            'price' => 10,
-          ],
-          [
-            'title' => 'Location #2',
-            'id' => 2,
-            'price' => 20,
-          ],
-          [
-            'title' => 'Location #3',
-            'id' => 3,
-            'price' => 30,
-          ],
-        ],
-      ],
-      [
-        'id' => 'adult',
-        'title' => 'Adult',
-        'description' => 'Adult membership',
-        'locations' => [
-          [
-            'title' => 'Location #1',
-            'id' => 1,
-            'price' => 100,
-          ],
-          [
-            'title' => 'Location #2',
-            'id' => 2,
-            'price' => 200,
-          ],
-          [
-            'title' => 'Location #3',
-            'id' => 3,
-            'price' => 300,
-          ],
-        ],
-      ],
-      [
-        'id' => 'family',
-        'title' => 'Family',
-        'description' => 'Family membership',
-        'locations' => [
-          [
-            'title' => 'Location #1',
-            'id' => 1,
-            'price' => 1000,
-          ],
-          [
-            'title' => 'Location #2',
-            'id' => 2,
-            'price' => 2000,
-          ],
-          [
-            'title' => 'Location #3',
-            'id' => 3,
-            'price' => 3000,
-          ],
-        ],
-      ],
-    ];
+    $matrix = [];
+    $data = $this->getMembershipData();
+
+    // Get generic data for membership types.
+    foreach ($data as $branch_id => $branch) {
+      $node = $this->locationRepo->getBranchByDaxkoBranchId($branch_id);
+
+      foreach ($branch as $membership_type) {
+        $matrix[$membership_type->name]['id'] = $membership_type->name;
+        $matrix[$membership_type->name]['title'] = $membership_type->name;
+        $matrix[$membership_type->name]['description'] = '';
+
+        // Get "JOIN" fee.
+        $price = NULL;
+        foreach ($membership_type->fees as $fee) {
+          if ($fee->type == 'JOIN') {
+            $price = $fee->amount;
+          }
+        }
+
+        $matrix[$membership_type->name]['locations'][$branch_id] = [
+          'title' => $node->label(),
+          'id' => $node->id(),
+          'price' => $price,
+        ];
+      }
+    }
 
     return $matrix;
   }
@@ -145,4 +133,5 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
       'getPrice',
     ];
   }
+
 }
