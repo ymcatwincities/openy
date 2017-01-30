@@ -8,7 +8,7 @@ id: node.blog.field_blog_related
 field_name: field_blog_related
 entity_type: node
 bundle: blog
-label: 'Related Blog posts'
+label: 'Related content'
 description: ''
 required: false
 translatable: false
