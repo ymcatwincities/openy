@@ -87,11 +87,9 @@
       <div class="main-region col-sm-8">
         <article{{ attributes.addClass(classes) }}>
           {{ title_prefix }}
-          {% if view_mode == 'full' %}
-            <h1{{ title_attributes }}>
-               {{ label }}
-            </h1>
-          {% endif %}
+          <h1{{ title_attributes }}>
+             {{ label }}
+          </h1>
           {{ title_suffix }}
 
           <div{{ content_attributes.addClass('node__content') }}>
