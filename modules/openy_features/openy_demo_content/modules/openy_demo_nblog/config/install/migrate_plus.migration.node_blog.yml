@@ -13,7 +13,7 @@ source:
     -
       id: 1
       title: 'Mood-boosting foods'
-      style: fuchisia_card
+      style: fuchisia
       category: 1
       related: null
       image: 1
@@ -39,7 +39,7 @@ source:
     -
       id: 2
       title: 'Mango-Avocado Salsa'
-      style: story_card
+      style: story
       category: 2
       related: null
       image: 1
@@ -73,7 +73,7 @@ source:
     -
       id: 3
       title: 'Cheddar-Cannelini Fondue'
-      style: fuchisia_card
+      style: fuchisia
       category: 3
       related: 2
       image: 1
@@ -105,7 +105,7 @@ source:
     -
       id: 4
       title: 'Nourish yourself with healthy fats'
-      style: story_card
+      style: story
       category: 2
       related: 1
       image: 1
@@ -132,7 +132,7 @@ source:
     -
       id: 5
       title: 'Grown-up fun in Adult Sports Leagues'
-      style: story_card
+      style: story
       category: 2
       related: 1
       image: 1
@@ -162,7 +162,7 @@ source:
     -
       id: 6
       title: 'Add a water workout to your routine'
-      style: story_card
+      style: story
       category: 2
       related: 1
       image: 1
@@ -190,7 +190,7 @@ source:
     -
       id: 7
       title: 'Don’t let summer sneak up on your family'
-      style: story_card
+      style: story
       category: 2
       related: 1
       image: 1
@@ -214,7 +214,7 @@ source:
     -
       id: 8
       title: 'Why you should give walking a try'
-      style: story_card
+      style: story
       category: 2
       related: 1
       image: 1
@@ -240,7 +240,7 @@ source:
     -
       id: 9
       title: 'Start training now for the Y Run'
-      style: story_card
+      style: story
       category: 2
       related: 1
       image: 1
@@ -266,7 +266,7 @@ source:
     -
       id: 10
       title: 'Lifestyle changes beyond the first two weeks'
-      style: story_card
+      style: story
       category: 2
       related: 1
       image: 1
