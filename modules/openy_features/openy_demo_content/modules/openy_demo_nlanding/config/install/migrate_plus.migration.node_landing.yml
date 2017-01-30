@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nprogram
+id: openy_demo_node_landing
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create demo landing page nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: homepage
+      title: 'Open Y'
+    -
+      id: blog
+      title: 'Blog'
+    -
+      id: accelerator
+      title: 'Accelerator'
+    -
+      id: about
+      title: 'About the YMCA'
+    -
+      id: give
+      title: 'Give'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+destination:
+  plugin: 'entity:node'
+  default_bundle: landing_page
