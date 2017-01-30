@@ -324,7 +324,7 @@
   }
 }
 
-.paragraph--type--featured-blog-posts {
+.paragraph--type--featured-blogs {
   .slick-prev {
     left: 15px;
   }
@@ -339,7 +339,7 @@
 }
 
 .container {
-  .paragraph--type--featured-blog-posts {
+  .paragraph--type--featured-blogs {
     @include breakpoint(0 $screen-xs) {
       padding-left: 15px;
       padding-right: 15px;
