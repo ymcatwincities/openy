@@ -90,9 +90,9 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
   /**
    * {@inheritdoc}
    */
-  public function getLocationPins() {
+  public function getBranchPins() {
     $location_ids = $this->queryFactory->get('node')
-      ->condition('type', ['branch', 'camp'], 'IN')
+      ->condition('type', 'branch')
       ->execute();
 
     if (!$location_ids) {
@@ -137,7 +137,7 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
    */
   public function addDataServices($services) {
     return [
-      'getLocationPins',
+      'getBranchPins',
       'getMembershipPriceMatrix',
       'getMembershipTypes',
       'getLocations',
