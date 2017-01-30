@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.full
     - field.field.node.facility.field_content
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
@@ -17,97 +18,63 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
-    - link
     - telephone
     - user
-id: node.facility.default
+id: node.facility.full
 targetEntityType: node
 bundle: facility
-mode: default
+mode: full
 content:
   field_content:
-    weight: 110
-    label: above
+    weight: 1
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_facility_type:
-    weight: 102
-    label: above
+    weight: 4
+    label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     type: entity_reference_label
   field_location_address:
-    weight: 103
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_location_area:
-    weight: 101
-    label: above
+    weight: 3
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_location_directions:
-    weight: 109
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-  field_location_email:
-    weight: 108
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_location_fax:
-    weight: 107
-    label: above
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
-  field_location_latitude:
-    weight: 104
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-  field_location_longitude:
-    weight: 105
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
   field_location_phone:
-    weight: 106
-    label: above
+    weight: 7
+    label: inline
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
   field_sidebar_content:
     type: entity_reference_revisions_entity_view
-    weight: 111
-    label: above
+    weight: 11
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
   links:
-    weight: 100
+    weight: 0
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_location_directions: true
+  field_location_email: true
+  field_location_fax: true
+  field_location_latitude: true
+  field_location_longitude: true
