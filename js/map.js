@@ -26,8 +26,7 @@
       // Marker designating the center point.
       search_center_marker: null,
       // Geocoder.
-      geocoder: new google.maps.Geocoder(),
-
+      geocoder: typeof google !== 'undefined' ? new google.maps.Geocoder() : {},
       // Normalizes a map-vendor specicific representation of
       // a coordinate point to a {lat:x, lon:y} object.
       normalize_point: function (point) {
@@ -437,13 +436,16 @@
 
       // Render the list of locations.
       draw_list_locations: function () {
+
         var list_locations_html = '',
             locations = this.apply_filters(this.locations);
 
         // Hide all locations.
         for (var l = 0; l < this.locations.length; l++) {
-          this.locations[l].element.hide();
-          $(this.locations[l].element).parents('.locations-list').find('h1').hide();
+          if (typeof this.locations[l].element !== 'undefined') {
+            this.locations[l].element.hide();
+            $(this.locations[l].element).parents('.locations-list').find('h1').hide();
+          }
         }
 
         if (!locations.length) {
@@ -451,17 +453,12 @@
           return;
         }
 
-        // Sorting by distance.
-        // if (locations[0].distance >= 0) {
-        //   locations.sort(function (a, b) {
-        //     return a.distance - b.distance;
-        //   });
-        // }
-
         // Show filtered locations.
-        for (var l = 0; l < locations.length; l++) {
-          locations[l].element.show();
-          $(locations[l].element).parents('.locations-list').find('h1').show();
+        for (var k = 0; k < locations.length; k++) {
+          if (typeof locations[k].element !== 'undefined') {
+            locations[k].element.show();
+            $(locations[k].element).parents('.locations-list').find('h1').show();
+          }
         }
       },
 
@@ -561,10 +558,9 @@
       $('.locations-list .node--view-mode-teaser').each(function() {
         var $self = $(this);
         if (typeof(data[i]) !== 'undefined') {
+          data[i].element = {};
           data[i].element = $self.parent();
         }
-        //data.markup = $self.get(0).outerHTML;
-        //locations.locations.push(data);
         i++;
       });
 
