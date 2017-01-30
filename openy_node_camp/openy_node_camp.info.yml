@@ -12,12 +12,12 @@ dependencies:
   - language
   - menu_ui
   - node
-  - openy_gallery_feature
-  - openy_latest_news_feature
+  - openy_gallery
+  - openy_latest_news
   - openy_location_core
   - openy_prgf_2c
-  - openy_prgf_3c_feature
-  - openy_prgf_4c_feature
+  - openy_prgf_3c
+  - openy_prgf_4c
   - openy_prgf_fc
   - openy_prgf_header
   - openy_prgf_simple_content
