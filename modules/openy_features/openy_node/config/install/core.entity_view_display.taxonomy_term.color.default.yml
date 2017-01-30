@@ -5,22 +5,17 @@ dependencies:
     - field.field.taxonomy_term.color.field_color
     - taxonomy.vocabulary.color
   module:
-    - text
+    - jquery_colorpicker
 id: taxonomy_term.color.default
 targetEntityType: taxonomy_term
 bundle: color
 mode: default
 content:
-  description:
-    label: hidden
-    type: text_default
-    weight: 0
-    settings: {  }
-    third_party_settings: {  }
   field_color:
-    weight: 1
-    label: above
+    weight: 0
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: null
-hidden: {  }
+    type: jquery_colorpicker_raw_hex_display
+hidden:
+  description: true

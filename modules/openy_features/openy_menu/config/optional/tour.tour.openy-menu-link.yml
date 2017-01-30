@@ -92,5 +92,5 @@ tips:
     id: next-tutorial
     plugin: text
     label: 'Next tutorial'
-    body: '<a href="/admin/structure/taxonomy?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to manage taxonomy terms.'
+    body: '<a href="[site:url]admin/structure/taxonomy?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to manage taxonomy terms.'
     weight: 11
