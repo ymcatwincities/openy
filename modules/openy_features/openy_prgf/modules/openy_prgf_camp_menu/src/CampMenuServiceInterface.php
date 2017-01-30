@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\openy_camp;
+namespace Drupal\openy_prgf_camp_menu;
 
 use Drupal\node\NodeInterface;
 
 /**
  * Class CampMenuService.
  *
- * @package Drupal\openy_camp
+ * @package Drupal\openy_prgf_camp_menu
  */
 interface CampMenuServiceInterface {
 

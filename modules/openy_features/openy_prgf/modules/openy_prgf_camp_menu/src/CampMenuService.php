@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_camp;
+namespace Drupal\openy_prgf_camp_menu;
 
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 /**
  * Class CampMenuService.
  *
- * @package Drupal\openy_camp
+ * @package Drupal\openy_prgf_camp_menu
  */
 class CampMenuService implements CampMenuServiceInterface {
 

@@ -109,7 +109,6 @@ dependencies:
   - openy_demo_nblog
   - openy_prgf_categories_listing
   - openy_hours_formatter
-  - openy_camp
   - openy_prgf_camp_menu
 
 themes:

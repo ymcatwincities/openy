@@ -1,4 +1,0 @@
-services:
-  openy_camp.menu_handler:
-    class: Drupal\openy_camp\CampMenuService
-    arguments: ['@entity_type.manager']
