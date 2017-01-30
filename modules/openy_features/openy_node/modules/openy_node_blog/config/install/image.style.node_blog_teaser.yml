@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: node_blog_teaser
-label: 'Node blog teaser (362×362)'
+label: 'Node blog teaser'
 effects:
   d029a509-0ee4-4230-b595-9f373357e571:
     uuid: d029a509-0ee4-4230-b595-9f373357e571
