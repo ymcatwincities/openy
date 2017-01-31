@@ -15,12 +15,12 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: 1
+      id: homepage
       title: 'OpenY'
-      header_content_id: 1
+      header_content_id: homepage_banner
   ids:
     id:
-      type: integer
+      type: string
 process:
   langcode:
     plugin: default_value
