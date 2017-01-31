@@ -11,19 +11,19 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: story_card
+      value: story
       label: 'Story Card'
     -
-      value: photo_card
+      value: photo
       label: 'Photo Card'
     -
-      value: news_card
+      value: news
       label: 'News Card'
     -
-      value: fuchisia_card
+      value: fuchsia
       label: 'Fuchsia Card (default)'
     -
-      value: green_card
+      value: green
       label: 'Green Card'
   allowed_values_function: ''
 module: options
