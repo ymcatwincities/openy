@@ -76,10 +76,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * Creates a menu item with specified name in the specified menu
+   *
    * @Given /^I create an item "([^"]*)" in the "([^"]*)" menu$/
    */
-  public function iCreateItemInTheMenu($menu_item, $menu_name)
-  {
+  public function iCreateItemInTheMenu($menu_item, $menu_name) {
     $path = '/admin/structure/menu/manage/' . $menu_name . '/add';
     $this->getSession()->visit($this->locatePath($path));
     $element = $this->getSession()->getPage();
