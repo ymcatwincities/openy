@@ -1,0 +1,35 @@
+dependencies:
+  module:
+    - openy_media_image
+id: openy_demo_lp_media_image
+migration_tags: { }
+migration_group: openy_demo_nlanding
+label: 'Demo landing page media images'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: home_page_banner
+      name: 'Home page banner'
+      file: home_page_banner
+  ids:
+    id:
+      type: string
+process:
+  name: name
+  bundle:
+    plugin: default_value
+    default_value: image
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_media_image:
+    plugin: migration
+    migration: openy_demo_lp_file
+    source: file
+destination:
+  plugin: 'entity:media'
+migration_dependencies:
+  required:
+    - openy_demo_lp_file
+  optional: {  }

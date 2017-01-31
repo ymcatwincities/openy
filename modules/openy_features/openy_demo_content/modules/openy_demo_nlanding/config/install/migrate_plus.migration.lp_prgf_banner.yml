@@ -1,0 +1,70 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+id: openy_demo_lp_paragraph_banner
+migration_tags: {  }
+migration_group: openy_demo_nlocation
+label: 'Create banner paragraph(s) for demo landing pages'
+migration_dependencies:
+  - openy_demo_lp_media_image
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: homepage_banner
+      parent_id: homepage
+      parent_field_name: field_header_content
+      title: 'LOSE WEIGHT FEEL GREAT'
+      headline: 'WE''LL HELP YOU ON YOUR JOURNEY TO A NEW YOU'
+      body: |
+        <p>
+        You're ready for change and looking for some options. Wonderful! At the
+        Y we believe you owe it to yourself to be healthy and happy. We believe
+        even small lifestyle changes can lead to great results and the
+        community you'll find at the Y can be a powerful force in helping you
+        achieve those results.
+        </p>
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_landing
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  parent_field_name: parent_field_name
+  field_prgf_headline: title
+  field_prgf_description/value: body
+  field_prgf_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_prgf_link/uri:
+    plugin: default_value
+    default_value: 'base:learn_more'
+  field_prgf_link/title:
+    plugin: default_value
+    default_value: 'Learn More'
+  field_prgf_image:
+    plugin: migration
+    migration: openy_demo_lp_media_image
+    source: image
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: promo_card
