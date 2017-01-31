@@ -27,8 +27,12 @@ class OpenySocratesFacade {
    */
   public function __call($name, $arguments) {
     if (isset($this->services[$name])) {
-      $data = $this->services[$name];
-      $service = array_shift(array_values($data));
+      // Get array of possible variants for the call.
+      $calls_data = $this->services[$name];
+      // Reset key values for easier access.
+      $reset_keys_data = array_values($calls_data);
+      // Proceed with first, highest priority item.
+      $service = array_shift($reset_keys_data);
       return call_user_func_array([$service, $name], $arguments);
     }
     else {
