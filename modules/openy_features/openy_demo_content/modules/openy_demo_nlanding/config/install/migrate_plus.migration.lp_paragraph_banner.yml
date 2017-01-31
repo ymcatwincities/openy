@@ -15,8 +15,8 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: 1
-      parent_id: 1
+      id: homepage_banner
+      parent_id: homepage
       headline: 'Explore the Open Y!'
       image: homepage_banner
       description: |
@@ -26,7 +26,7 @@ source:
         </p>
   ids:
     id:
-      type: integer
+      type: string
 process:
   langcode:
     plugin: default_value
