@@ -16,6 +16,7 @@ source:
       id: 1
       parent_id: 1
       headline: 'WE''LL HELP YOU ON YOUR JOURNEY TO A NEW YOU'
+      image: homepage_banner
   ids:
     id:
       type: integer
@@ -49,6 +50,10 @@ process:
   field_prgf_link/title:
     plugin: default_value
     default_value: 'Learn More'
+  field_prgf_image:
+    plugin: migration
+    migration: openy_demo_lp_media_image
+    source: image
 destination:
   plugin: 'entity:paragraph'
   default_bundle: banner
