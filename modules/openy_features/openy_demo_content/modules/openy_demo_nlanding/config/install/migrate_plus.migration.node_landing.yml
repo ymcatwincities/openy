@@ -3,7 +3,9 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_nprogram
+      - openy_demo_nlanding
+  module:
+    - openy_node_landing
 id: openy_demo_node_landing
 migration_tags: {  }
 migration_group: openy_demo_nlanding
@@ -16,18 +18,23 @@ source:
     -
       id: homepage
       title: 'Open Y'
+      header_content: homepage_banner
     -
       id: blog
       title: 'Blog'
+      header_content: homepage_banner
     -
       id: accelerator
       title: 'Accelerator'
+      header_content: homepage_banner
     -
       id: about
       title: 'About the YMCA'
+      header_content: homepage_banner
     -
       id: give
       title: 'Give'
+      header_content: homepage_banner
   ids:
     id:
       type: string
@@ -46,16 +53,16 @@ process:
   field_lp_layout:
     plugin: default_value
     default_value: one_column_clean
-  field_header_content/target_id:
-    plugin: migration
-    migration:
-      - openy_demo_lp_paragraph_banner
-    source: header_content
-  field_header_content/target_revision_id:
-    plugin: migration
-    migration:
-      - openy_demo_lp_paragraph_banner
-    source: header_content
+#  field_header_content/target_id:
+#    plugin: migration
+#    migration:
+#      - openy_demo_lp_paragraph_banner
+#    source: header_content
+#  field_header_content/target_revision_id:
+#    plugin: migration
+#    migration:
+#      - openy_demo_lp_paragraph_banner
+#    source: header_content
 destination:
   plugin: 'entity:node'
   default_bundle: landing_page

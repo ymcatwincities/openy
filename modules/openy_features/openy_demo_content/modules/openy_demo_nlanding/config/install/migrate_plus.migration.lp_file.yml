@@ -1,4 +1,7 @@
 dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
   module:
     - file
 id: openy_demo_lp_file
@@ -9,8 +12,8 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: home_page_banner
-      name: home_page_banner.jpg
+      id: homepage_banner
+      name: homepage_banner.jpg
   ids:
     id:
       type: string
