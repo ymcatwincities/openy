@@ -32,12 +32,14 @@ set classes = [
 <div{{ attributes.addClass(classes) }}>
   <div class="content"{{ content_attributes }}>
     <div class="inner">
-      {% if content.field_prgf_column_class.0 %}
-        <i class="fa fa-{{ content.field_prgf_column_class.0 }}"></i>
-        <h2 {% if content.field_prgf_column_class.0 %}class="with-icon"{% endif %}>{{ content.field_prgf_clm_headline }}</h2>
-      {% else %}
+      {% if content.field_prgf_column_class|render|trim %}
+        <i class="fa fa-{{ content.field_prgf_column_class }}"></i>
+        <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
+      {% elseif content.field_prgf_clm_icon|render|trim %}
         {{ content.field_prgf_clm_icon }}
-        <h2 {% if content.field_prgf_clm_icon.0 %}class="with-icon"{% endif %}>{{ content.field_prgf_clm_headline }}</h2>
+        <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
+      {% else %}
+        <h2>{{ content.field_prgf_clm_headline }}</h2>
       {% endif %}
       <div class="text">{{ content.field_prgf_clm_description }}</div>
       <div class="more-link">{{ content.field_prgf_clm_link }}</div>
