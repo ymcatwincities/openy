@@ -22,6 +22,10 @@ source:
       id: about
       name: 'About'
       file: about
+    -
+      id: give
+      name: 'Give'
+      file: give
   ids:
     id:
       type: string

@@ -17,6 +17,9 @@ source:
     -
       id: about
       name: about.jpg
+    -
+      id: give
+      name: give.jpg
   ids:
     id:
       type: string
