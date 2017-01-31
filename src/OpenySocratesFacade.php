@@ -57,7 +57,7 @@ class OpenySocratesFacade {
        * @var OpenyDataServiceInterface $service
        */
       foreach ($allservices as $key => $service) {
-        foreach ($service->addDataServices() as $method) {
+        foreach ($service->addDataServices([]) as $method) {
           $this->services[$method][$priority] = $service;
           krsort($this->services[$method]);
         }
