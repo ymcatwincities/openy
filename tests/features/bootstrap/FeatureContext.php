@@ -76,7 +76,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Creates a menu item with specified name in the specified menu
+   * Creates a menu item with specified name in the specified menu.
    *
    * @Given /^I create an item "([^"]*)" in the "([^"]*)" menu$/
    */
