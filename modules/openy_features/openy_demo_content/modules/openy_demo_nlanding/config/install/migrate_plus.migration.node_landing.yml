@@ -17,6 +17,7 @@ source:
     -
       id: 1
       title: 'OpenY'
+      header_content_id: 1
   ids:
     id:
       type: integer
@@ -35,6 +36,14 @@ process:
   field_lp_layout:
     plugin: default_value
     default_value: one_column_clean
+  field_header_content/target_id:
+    plugin: migration
+    migration: openy_demo_lp_paragraph_banner
+    source: header_content_id
+  field_header_content/target_revision_id:
+    plugin: migration
+    migration: openy_demo_lp_paragraph_banner
+    source: header_content_id
 destination:
   plugin: 'entity:node'
   default_bundle: landing_page
