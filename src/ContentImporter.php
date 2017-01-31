@@ -60,7 +60,8 @@ class ContentImporter implements ContentImporterInterface {
    */
   protected function importMigration(Migration $migration) {
     // Run dependencies first.
-    $required_ids = $migration->get('requirements');
+    $dependencies = $migration->getMigrationDependencies();
+    $required_ids = $dependencies['required'];
     if ($required_ids) {
       $required_migrations = $this->migrationManager->createInstances($required_ids);
       array_walk($required_migrations, [$this, 'importMigration']);
