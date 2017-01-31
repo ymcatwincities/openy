@@ -8,7 +8,9 @@ id: openy_demo_lp_paragraph_banner
 migration_tags: {  }
 migration_group: openy_demo_nlanding
 label: 'Create banner paragraph(s) for demo landing page nodes'
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - openy_demo_lp_media_image
 source:
   plugin: embedded_data
   data_rows:
