@@ -4,9 +4,11 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
+  module:
+    - openy_prgf_banner
 id: openy_demo_lp_paragraph_banner
 migration_tags: {  }
-migration_group: openy_demo_nlocation
+migration_group: openy_demo_nlanding
 label: 'Create banner paragraph(s) for demo landing pages'
 migration_dependencies:
   - openy_demo_lp_media_image
@@ -17,15 +19,12 @@ source:
       id: homepage_banner
       parent_id: homepage
       parent_field_name: field_header_content
-      title: 'LOSE WEIGHT FEEL GREAT'
-      headline: 'WE''LL HELP YOU ON YOUR JOURNEY TO A NEW YOU'
+      headline: '$0 JOINING FEE. 7 DAYS LEFT TO SAVE.'
+      image: homepage_banner
       body: |
         <p>
-        You're ready for change and looking for some options. Wonderful! At the
-        Y we believe you owe it to yourself to be healthy and happy. We believe
-        even small lifestyle changes can lead to great results and the
-        community you'll find at the Y can be a powerful force in helping you
-        achieve those results.
+        Being active builds your physical and mental strength. At the Y, you're
+        also supporting the values and programs that strengthen your community.
         </p>
   ids:
     id:
@@ -50,7 +49,7 @@ process:
     plugin: default_value
     default_value: node
   parent_field_name: parent_field_name
-  field_prgf_headline: title
+  field_prgf_headline: headline
   field_prgf_description/value: body
   field_prgf_description/format:
     plugin: default_value
