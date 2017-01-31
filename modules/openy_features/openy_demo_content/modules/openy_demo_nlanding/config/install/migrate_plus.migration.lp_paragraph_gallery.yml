@@ -29,6 +29,17 @@ source:
         community, and for our most vulnerable young people to get the care and
         support they need.
         </p>
+    -
+      id: give_gallery
+      parent_id: give
+      headline: 'Give'
+      image_ids:
+        - give
+      description: |
+        <p>
+        Every day, our community continues to face challenges that create a
+        greater need for the work we do
+        </p>
   ids:
     id:
       type: string
