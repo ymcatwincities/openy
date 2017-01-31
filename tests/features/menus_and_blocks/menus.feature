@@ -22,7 +22,7 @@ Feature: Menus
     When I am an anonymous user
     And I go to the homepage
     Then I should see "Childcare" in the "dropdown_menu"
-    
+
   Scenario: Create footer menu left item and check
     Given I am logged in as a user with the "Administrator" role
     And I create an item "LOCATIONS" in the "footer-menu-left" menu
@@ -32,7 +32,7 @@ Feature: Menus
 
   Scenario: Create footer menu right item and check
     Given I am logged in as a user with the "Administrator" role
-    And I create an item "JOIN" in the "footer-menu-center" menu
+    And I create an item "JOIN" in the "footer-menu-right" menu
     When I am an anonymous user
     And I go to homepage
     Then I should see "JOIN" in the "footer"
