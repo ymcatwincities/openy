@@ -7,6 +7,7 @@ dependencies:
   - field
   - openy_media_image
   - openy_node
+  - openy_txnm_color
   - openy_prgf
   - paragraphs
 version: 8.x-1.0
