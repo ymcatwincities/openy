@@ -35,7 +35,8 @@ class OpenySocratesFacade {
         return '30';
       default:
         if (isset($this->services[$name])) {
-          $service = array_shift(array_values($this->services[$name]));
+          $data = $this->services[$name];
+          $service = array_shift(array_values($data));
           return call_user_func_array([$service, $name], $arguments);
         }
         else {
@@ -51,13 +52,14 @@ class OpenySocratesFacade {
    * @param array $services
    */
   public function collectDataServices($services) {
+    $todo_services = [];
     foreach ($services as $priority => $allservices) {
       /**
        * @var integer $key
        * @var OpenyDataServiceInterface $service
        */
       foreach ($allservices as $key => $service) {
-        foreach ($service->addDataServices([]) as $method) {
+        foreach ($service->addDataServices($todo_services) as $method) {
           $this->services[$method][$priority] = $service;
           krsort($this->services[$method]);
         }
