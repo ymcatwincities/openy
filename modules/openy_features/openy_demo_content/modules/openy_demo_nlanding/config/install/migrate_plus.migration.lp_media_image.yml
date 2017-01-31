@@ -8,6 +8,9 @@ id: openy_demo_lp_media_image
 migration_tags: { }
 migration_group: openy_demo_nlanding
 label: 'Demo landing page media images'
+migration_dependencies:
+  required:
+    - openy_demo_lp_file
 source:
   plugin: embedded_data
   data_rows:
@@ -32,7 +35,3 @@ process:
     source: file
 destination:
   plugin: 'entity:media'
-migration_dependencies:
-  required:
-    - openy_demo_lp_file
-  optional: {  }

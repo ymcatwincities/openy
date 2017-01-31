@@ -38,11 +38,13 @@ process:
     default_value: one_column_clean
   field_header_content/target_id:
     plugin: migration
-    migration: openy_demo_lp_paragraph_banner
+    migration:
+      - openy_demo_lp_paragraph_banner
     source: header_content_id
   field_header_content/target_revision_id:
     plugin: migration
-    migration: openy_demo_lp_paragraph_banner
+    migration:
+      - openy_demo_lp_paragraph_banner
     source: header_content_id
 destination:
   plugin: 'entity:node'
