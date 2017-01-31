@@ -33,7 +33,7 @@ class ContentImporter implements ContentImporterInterface {
   public function __construct() {
     $this->map = $this->getMap();
 
-    // Service container are not available on the first steps of profile installation
+    // Service container are not available on the first steps of profile installation.
     $this->migrationManager = \Drupal::service('plugin.manager.config_entity_migration');
   }
 
