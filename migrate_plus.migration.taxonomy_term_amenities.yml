@@ -1,0 +1,80 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_amenities
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Create amenities vocabulary terms'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      term_name: Adaptive programs
+    -
+      term_name: Adult enrichment programs
+    -
+      term_name: After school child care
+    -
+      term_name: Child watch
+    -
+      term_name: Community garden
+    -
+      term_name: Community health
+    -
+      term_name: Day camp
+    -
+      term_name: Family pool/splash pad
+    -
+      term_name: Group exercise classes
+    -
+      term_name: Gymnasium
+    -
+      term_name: Hot tub
+    -
+      term_name: Indoor pool
+    -
+      term_name: Indoor track
+    -
+      term_name: Meeting rooms
+    -
+      term_name: Outdoor pool
+    -
+      term_name: Outdoor track
+    -
+      term_name: Personal training
+    -
+      term_name: Playground
+    -
+      term_name: Racquetball/handball courts
+    -
+      term_name: Sauna
+    -
+      term_name: Steam room
+    -
+      term_name: Strength/cardio equipment
+    -
+      term_name: Swim lessons
+    -
+      term_name: Teen programs
+    -
+      term_name: YMCA children’s academy
+    -
+      term_name: Youth enrichment
+  ids:
+    term_name:
+      type: string
+process:
+  name:
+    -
+      plugin: get
+      source: term_name
+  vid:
+    -
+      plugin: default_value
+      default_value: amenities
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: amenities
+migration_dependencies:
+  required: {  }
+  optional: {  }
