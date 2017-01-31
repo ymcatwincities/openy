@@ -14,6 +14,9 @@ source:
     -
       id: homepage_banner
       name: homepage_banner.jpg
+    -
+      id: about
+      name: about.jpg
   ids:
     id:
       type: string

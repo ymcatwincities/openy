@@ -18,6 +18,10 @@ source:
       id: homepage_banner
       name: 'Home page banner'
       file: homepage_banner
+    -
+      id: about
+      name: 'About'
+      file: about
   ids:
     id:
       type: string
