@@ -8,7 +8,8 @@ id: openy_demo_node_landing
 migration_tags: {  }
 migration_group: openy_demo_nlanding
 label: 'Create demo landing page nodes'
-migration_dependencies: {  }
+migration_dependencies:
+  - openy_demo_lp_paragraph_banner
 source:
   plugin: embedded_data
   data_rows:
@@ -42,6 +43,19 @@ process:
     plugin: default_value
     default_value: 1
   title: title
+  field_lp_layout:
+    plugin: default_value
+    default_value: one_column_clean
+  field_header_content/target_id:
+    plugin: migration
+    migration:
+      - openy_demo_lp_paragraph_banner
+    source: header_content
+  field_header_content/target_revision_id:
+    plugin: migration
+    migration:
+      - openy_demo_lp_paragraph_banner
+    source: header_content
 destination:
   plugin: 'entity:node'
   default_bundle: landing_page
