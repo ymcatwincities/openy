@@ -38,16 +38,17 @@ process:
   parent_type:
     plugin: default_value
     default_value: node
+  # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
     default_value: field_header_content
   field_prgf_headline: headline
-#  field_prgf_link/uri:
-#    plugin: default_value
-#    default_value: 'base:learn_more'
-#  field_prgf_link/title:
-#    plugin: default_value
-#    default_value: 'Learn More'
+  field_prgf_link/uri:
+    plugin: default_value
+    default_value: 'base:learn_more'
+  field_prgf_link/title:
+    plugin: default_value
+    default_value: 'Learn More'
 destination:
   plugin: 'entity:paragraph'
   default_bundle: banner
