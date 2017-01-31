@@ -53,7 +53,7 @@ process:
   field_prgf_headline: headline
   field_prgf_link/uri:
     plugin: default_value
-    default_value: 'internal:/admin/structure/menu'
+    default_value: 'internal:/admin/structure/menu?tour=1'
   field_prgf_link/title:
     plugin: default_value
     default_value: 'Start guided tour'
