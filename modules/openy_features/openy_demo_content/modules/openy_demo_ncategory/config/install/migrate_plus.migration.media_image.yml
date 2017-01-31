@@ -81,9 +81,21 @@ source:
       name: 'Before & After School Child Care'
       file: before_and_after_school_child_care
     -
-      id: earth service_corps
+      id: earth_service_corps
       name: 'Earth Service Corps'
       file: earth_service_corps
+    -
+      id: academic_success
+      name: 'Academic Success'
+      file: academic_success
+    -
+      id: day_camps
+      name: 'Day Camps'
+      file: day_camps
+    -
+      id: preschool
+      name: 'Preschool'
+      file: preschool
   ids:
     id:
       type: string

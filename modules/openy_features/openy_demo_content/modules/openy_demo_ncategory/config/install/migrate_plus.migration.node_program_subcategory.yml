@@ -57,7 +57,7 @@ source:
         </p>
     -
       id: 3
-      title: 'Group Exercise Classe'
+      title: 'Group Exercise Classes'
       color: 7
       program: 1
       image: group_exercise_classes
@@ -203,20 +203,6 @@ source:
         be responsible.
         </p>
     -
-      id: 14
-      title: 'Swim Team'
-      color: 2
-      program: 2
-      image: swim_team
-      body: |
-        <p>
-        Want to swim competitively in a fun and positive environment? Join the
-        team! Serving ages 6 to adult, swim team participants improve
-        individual skills while swimming competitively both at the local and
-        national levels. Your coaches will focus on proper technique while you
-        improve your endurance, learn teamwork and make friends.
-        </p>
-    -
       id: 15
       title: 'Drop-In Swim'
       color: 2
@@ -283,6 +269,50 @@ source:
         to become effective, responsible, global citizens by providing
         opportunities for service learning, environmental education, leadership
         development and cross-cultural awareness.
+        </p>
+    -
+      id: 20
+      title: 'Day Camps'
+      color: 4
+      program: 4
+      image: day_camps
+      body: |
+        <p>
+        Y kids stay active and stretch in new ways at summer camp. Whether it’s
+        learning a new skill or game, working on a project with new-found
+        friends or just enjoying some undirected play time, camps provide room
+        to grow and help kids build resilience and confidence.
+        </p>
+    -
+      id: 21
+      title: 'Preschool'
+      color: 5
+      program: 5
+      image: preschool
+      body: |
+        <p>
+        Get the support you need with Preschool Child Care at the Y. Our YMCA
+        values-based program will help your young child learn essential social,
+        physical, and intellectual building blocks. In Y Preschool programs
+        your child will develop skills to build character values and
+        self-esteem, and improve kindergarten readiness. We base our
+        educational and guidance decisions for children on our knowledge of
+        child development.
+        </p>
+    -
+      id: 22
+      title: 'Academic Success'
+      color: 6
+      program: 6
+      image: academic_success
+      body: |
+        <p>
+        Through partnerships with public schools and preschools, YMCA Powerful
+        Schools creates opportunities for young children that they would not
+        ordinarily have access to. We work closely with the school district,
+        school leadership, parents/guardians, and the community to provide
+        programs that align with school curriculum and goals creating vibrant
+        learning centers.
         </p>
   ids:
     id:

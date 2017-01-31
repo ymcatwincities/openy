@@ -65,6 +65,15 @@ source:
     -
       id: earth_service_corps
       name: earth_service_corps.jpg
+    -
+      id: academic_success
+      name: academic_success.jpg
+    -
+      id: day_camps
+      name: day_camps.jpg
+    -
+      id: preschool
+      name: preschool.jpg
   ids:
     id:
       type: string
