@@ -107,9 +107,6 @@
         "patches": {
             "drupal/simple_menu_icons": {
                 "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
-            },
-            "drupal/jquery_colorpicker": {
-                "2848347 - PHP 7.* and YAML format of jquery_colorpicker.services.yml": "https://www.drupal.org/files/issues/jquery_colorpicker-yaml-2848347-3.patch"
             }
         }
     },
@@ -133,7 +130,7 @@
         "drupal/field_group": "1.0-rc6",
         "drupal/field_collection": "1.0-alpha1",
         "drupal/video_embed_field": "1.4",
-        "drupal/jquery_colorpicker": "1.0",
+        "drupal/jquery_colorpicker": "1.2",
         "drupal/entity_browser": "1.0-beta3",
         "drupal/dropzonejs": "1.0-alpha3",
         "drupal/inline_entity_form": "1.0-beta1",
