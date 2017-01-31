@@ -1,0 +1,75 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+id: openy_demo_lp_paragraph_gallery
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create gallery paragraphs for demo landing page nodes'
+migration_dependencies:
+  required:
+    - openy_demo_lp_media_image
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: about_gallery
+      parent_id: about
+      headline: 'Our Mission'
+      image_ids:
+        - about
+      description: |
+        <p>
+        Everyone knows the Y as a place to camp, swim, or exercise, but we’re
+        so much more. We’re working side-by-side with our neighbors to address
+        critical community needs that help kids develop into smart, resilient
+        adults, for people to improve their health and build a sense of
+        community, and for our most vulnerable young people to get the care and
+        support they need.
+        </p>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_landing
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_header_content
+  field_prgf_headline: headline
+  field_prgf_link/uri:
+    plugin: default_value
+    default_value: 'base:learn_more'
+  field_prgf_link/title:
+    plugin: default_value
+    default_value: 'Learn more'
+  field_prgf_images:
+    plugin: migration
+    migration: openy_demo_lp_media_image
+    source: image_ids
+  field_prgf_description/value: description
+  field_prgf_description/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: gallery
