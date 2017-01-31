@@ -14,6 +14,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_grid
     - openy_demo_lp_paragraph_gallery
     - openy_demo_lp_paragraph_banner
+    - openy_demo_lp_paragraph_simple
 source:
   plugin: embedded_data
   data_rows:
@@ -31,6 +32,8 @@ source:
       title: 'About the YMCA'
       header_content_id: about_gallery
       content_ids:
+        -
+          content_id: about_simple
         -
           content_id: about_grid
     -
@@ -79,12 +82,14 @@ process:
         migration:
           - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_grid
+          - openy_demo_lp_paragraph_simple
         source: content_id
       target_revision_id:
         plugin: migration
         migration:
           - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_grid
+          - openy_demo_lp_paragraph_simple
         source: content_id
 destination:
   plugin: 'entity:node'
