@@ -107,6 +107,9 @@
         "patches": {
             "drupal/simple_menu_icons": {
                 "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
+            },
+            "drupal/jquery_colorpicker": {
+                "2848347 - PHP 7.* and YAML format of jquery_colorpicker.services.yml": "https://www.drupal.org/files/issues/jquery_colorpicker-yaml-2848347-3.patch"
             }
         }
     },
