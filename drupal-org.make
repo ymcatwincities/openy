@@ -20,6 +20,7 @@ projects[video_embed_field] = 1.4
 projects[jquery_colorpicker][subdir] = contrib
 projects[jquery_colorpicker][version] = 1.0
 projects[jquery_colorpicker][patch][] = "https://www.drupal.org/files/issues/jquery_colorpicker-yaml-2848347-3.patch"
+projects[jquery_colorpicker][patch][] = "https://www.drupal.org/files/issues/jquery_colorpicker-background-2848370-2.patch"
 projects[entity_browser] = 1.0-beta3
 projects[dropzonejs] = 1.0-alpha3
 projects[inline_entity_form] = 1.0-beta1
