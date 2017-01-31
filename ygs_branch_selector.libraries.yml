@@ -4,6 +4,7 @@ selector:
     js/ygs-branch-selector.js: {}
   dependencies:
     - core/jquery
+    - core/jquery.cookie
     - core/jquery.history
     - core/drupal
     - core/drupalSettings
