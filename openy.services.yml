@@ -1,5 +1,3 @@
 services:
   openy.content_importer:
     class: 'Drupal\openy\ContentImporter'
-    arguments:
-      - '@plugin.manager.config_entity_migration'
