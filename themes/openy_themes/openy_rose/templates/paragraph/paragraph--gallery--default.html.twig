@@ -44,7 +44,6 @@ set classes = [
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-{{ kint(content.field_prgf_images) }}
 {% if content.field_prgf_images['#items']|length >= 1 %}
 <div{{ attributes.addClass(classes) }}>
   <div id="carousel" class="carousel slide" data-ride="carousel">
@@ -75,7 +74,6 @@ set classes = [
     </a>
     {% endif %}
   </div>
-  {% if content.field_prgf_headline['#field_name'] is not empty %}
   <div class="cta-group-wrapper">
     <div class="container">
       <div class="row">
@@ -87,6 +85,5 @@ set classes = [
       </div>
     </div>
   </div>
-  {% endif %}
 </div>
 {% endif %}
