@@ -75,4 +75,18 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element->findButton('Save')->click();
   }
 
+  /**
+   * @Given /^I create an item "([^"]*)" in the "([^"]*)" menu$/
+   */
+  public function iCreateItemInTheMenu($menu_item, $menu_name)
+  {
+    $path = '/admin/structure/menu/manage/' . $menu_name . '/add';
+    $this->getSession()->visit($this->locatePath($path));
+    $element = $this->getSession()->getPage();
+    $element->fillField('Menu link title', $menu_item);
+    $element->fillField('Link', 'http://example.com');
+    $element->checkField("Show as expanded");
+    $element->findButton('Save')->click();
+  }
+
 }
