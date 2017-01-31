@@ -15,7 +15,15 @@ source:
     -
       id: homepage_grid
       parent_id: homepage
-      style: 4
+      style: 2
+    -
+      id: about_grid
+      parent_id: about
+      style: 2
+    -
+      id: give_grid
+      parent_id: give
+      style: 3
   ids:
     id:
       type: string

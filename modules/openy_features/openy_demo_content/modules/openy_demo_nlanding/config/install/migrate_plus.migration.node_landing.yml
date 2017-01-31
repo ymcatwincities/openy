@@ -25,6 +25,24 @@ source:
           content_id: homepage_latest
         -
           content_id: homepage_grid
+    -
+      id: about
+      title: 'About the YMCA'
+      header_content_id: homepage_banner
+      content_ids:
+        -
+          content_id: homepage_latest
+        -
+          content_id: about_grid
+    -
+      id: give
+      title: 'Give'
+      header_content_id: homepage_banner
+      content_ids:
+        -
+          content_id: homepage_latest
+        -
+          content_id: give_grid
   ids:
     id:
       type: string
