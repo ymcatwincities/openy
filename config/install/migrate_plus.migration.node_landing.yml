@@ -69,7 +69,14 @@ source:
         -
           migration: yghc_prgf_2c
           id: 4
-
+    -
+      id: 5
+      title: 'Location finder'
+      alias: '/locations'
+      body:
+        -
+          migration: yghc_prgf_location_finder
+          id: 1
   ids:
     id:
       type: integer
@@ -117,3 +124,4 @@ migration_dependencies:
     - yghc_prgf_pgm_reg
     - yghc_prgf_fc
     - yghc_prgf_whay
+    - yghc_prgf_location_finder
