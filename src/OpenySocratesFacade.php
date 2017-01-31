@@ -26,24 +26,15 @@ class OpenySocratesFacade {
    * @throws \Drupal\openy_socrates\OpenySocratesException
    */
   public function __call($name, $arguments) {
-    switch ($name) {
-      // These are for simple calls which could be kept within Socrates.
-      case 'getLocationLongtitude':
-        return '50';
-
-      case 'getLocationLatitude':
-        return '30';
-      default:
-        if (isset($this->services[$name])) {
-          $data = $this->services[$name];
-          $service = array_shift(array_values($data));
-          return call_user_func_array([$service, $name], $arguments);
-        }
-        else {
-          throw new OpenySocratesException(
-            sprintf('Method %s not implemented yet.', $name)
-          );
-        }
+    if (isset($this->services[$name])) {
+      $data = $this->services[$name];
+      $service = array_shift(array_values($data));
+      return call_user_func_array([$service, $name], $arguments);
+    }
+    else {
+      throw new OpenySocratesException(
+        sprintf('Method %s not implemented yet.', $name)
+      );
     }
   }
 
