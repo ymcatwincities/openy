@@ -4,7 +4,6 @@ namespace Drupal\openy;
 
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\Migration;
-use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
 use Drupal\migrate_tools\MigrateExecutable;
 
 /**
@@ -30,14 +29,12 @@ class ContentImporter implements ContentImporterInterface {
 
   /**
    * ContentImporter constructor.
-   *
-   * @param \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager $migrationManager
-   *   Migration manager.
    */
-  public function __construct(MigrationConfigEntityPluginManager $migrationManager) {
+  public function __construct() {
     $this->map = $this->getMap();
 
-    $this->migrationManager = $migrationManager;
+    // Service container are not available on the first steps of profile installation
+    $this->migrationManager = \Drupal::service('plugin.manager.config_entity_migration');
   }
 
   /**
@@ -45,10 +42,16 @@ class ContentImporter implements ContentImporterInterface {
    */
   public function getMap() {
     // @todo Move the map into config.
+    // @todo Set dependencies for "landing" and "programs".
     return [
+      'landing' => [],
+      'branches' => [
+        'openy_demo_node_branch'
+      ],
       'blog' => [
         'openy_demo_node_blog',
       ],
+      'programs' => [],
     ];
   }
 
