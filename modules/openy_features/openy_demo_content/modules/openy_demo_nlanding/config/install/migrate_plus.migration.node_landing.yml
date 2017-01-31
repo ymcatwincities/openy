@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+id: openy_demo_node_landing
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create demo landing page nodes'
+migration_dependencies:
+  required:
+    - openy_demo_lp_paragraph_banner
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'OpenY'
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_lp_layout:
+    plugin: default_value
+    default_value: one_column_clean
+destination:
+  plugin: 'entity:node'
+  default_bundle: landing_page
