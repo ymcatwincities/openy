@@ -22,8 +22,7 @@ Feature: Menus
     When I am an anonymous user
     And I go to the homepage
     Then I should see "Childcare" in the "dropdown_menu"
-
-
+    
   Scenario: Create footer menu left item and check
     Given I am logged in as a user with the "Administrator" role
     And I create an item "LOCATIONS" in the "footer-menu-left" menu
