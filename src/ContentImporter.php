@@ -41,17 +41,25 @@ class ContentImporter implements ContentImporterInterface {
    * {@inheritdoc}
    */
   public function getMap() {
-    // @todo Move the map into config.
-    // @todo Set dependencies for "landing" and "programs".
     return [
-      'landing' => [],
+      'default' => [
+        // @todo Fix migrations and then uncomment it.
+        //'footercopyrightblock',
+        //'footersocialblock',
+      ],
+      'landing' => [
+        'openy_demo_node_landing',
+      ],
       'branches' => [
         'openy_demo_node_branch'
       ],
       'blog' => [
         'openy_demo_node_blog',
       ],
-      'programs' => [],
+      'programs' => [
+        'openy_demo_node_program',
+        'openy_demo_node_program_subcategory',
+      ],
     ];
   }
 
