@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "85f6ce9d8e69439f34919d9fd9c187c4",
-    "content-hash": "f1a2157cdffdfacbc1f73064688477f9",
+    "hash": "38184382cfc4db6c246cadf3bb8f5e37",
+    "content-hash": "d2076480df8fb1a0889f74c2f0bebe14",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3150,7 +3150,7 @@
             "time": "2014-11-20 16:49:30"
         },
         {
-            "name": "library:dinbror/blazy",
+            "name": "library/dinbror/blazy",
             "version": "1.8.2",
             "source": {
                 "type": "git",
@@ -3160,7 +3160,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library:enyo/dropzone",
+            "name": "library/enyo/dropzone",
             "version": "4.3.0",
             "source": {
                 "type": "git",
@@ -3170,7 +3170,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library:gdsmith/jquery.easing",
+            "name": "library/gdsmith/jquery.easing",
             "version": "1.4.1",
             "source": {
                 "type": "git",
@@ -3180,7 +3180,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library:jaypan/jquery_colorpicker",
+            "name": "library/jaypan/jquery_colorpicker",
             "version": "1.0.1",
             "source": {
                 "type": "git",
@@ -3193,7 +3193,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library:kenwheeler/slick",
+            "name": "library/kenwheeler/slick",
             "version": "1.6.0",
             "source": {
                 "type": "git",
