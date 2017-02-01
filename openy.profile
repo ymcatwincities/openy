@@ -40,6 +40,9 @@ function openy_import_content(array &$install_state) {
     $batch['operations'][] = ['openy_import_content_item', (array) $item];
   }
 
+  // Always add `default` migrations
+  $batch['operations'][] = ['openy_import_content_item', (array) 'default'];
+
   return $batch;
 }
 
