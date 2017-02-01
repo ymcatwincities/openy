@@ -15,6 +15,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_gallery
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_simple
+    - openy_demo_lp_paragraph_featured_content
 source:
   plugin: embedded_data
   data_rows:
@@ -41,6 +42,8 @@ source:
       title: 'Give'
       header_content_id: give_gallery
       content_ids:
+        -
+          content_id: give_featured_content
         -
           content_id: give_grid
   ids:
@@ -83,6 +86,7 @@ process:
           - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_grid
           - openy_demo_lp_paragraph_simple
+          - openy_demo_lp_paragraph_featured_content
         source: content_id
       target_revision_id:
         plugin: migration
@@ -90,6 +94,7 @@ process:
           - openy_demo_lp_paragraph_latest
           - openy_demo_lp_paragraph_grid
           - openy_demo_lp_paragraph_simple
+          - openy_demo_lp_paragraph_featured_content
         source: content_id
 destination:
   plugin: 'entity:node'
