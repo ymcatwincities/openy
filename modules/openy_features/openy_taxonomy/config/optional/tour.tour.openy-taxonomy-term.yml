@@ -44,6 +44,7 @@ tips:
     plugin: text
     label: 'Term color'
     body: 'In the color widget you can specify color. This field is specific for "Color" vocabulary and won`t be available in other taxonomy vocabularies.'
+    location: top
     weight: 5
     attributes:
       data-class: 'color_picker'
@@ -52,6 +53,7 @@ tips:
     plugin: text
     label: 'Save taxonomy term'
     body: 'Click on save to commit all changes made on the page.'
+    location: top
     weight: 6
     attributes:
       data-class: 'button--primary[value="Save"]'
@@ -59,5 +61,5 @@ tips:
     id: next-tutorial
     plugin: text
     label: 'Next tutorial'
-    body: '<a href="[site:url]node/add?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to add new content.'
+    body: '<a href="[site:url]admin/content?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to add new content.'
     weight: 7
