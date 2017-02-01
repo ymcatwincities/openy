@@ -19,7 +19,7 @@ A core team led by a small group of YMCAs including the [Greater Twin Cities](ht
 Open Y is similar to the [Thunder Coalition](http://www.thunder.org) for the publishing industry, which has generously agreed to share some of the same concepts and content that you see used on this site.
 
 # Documentation
-Documentation is available at https://github.com/propeoplemd/openy/tree/8.x-2.x/docs
+Documentation is available at https://github.com/propeoplemd/openy/tree/8.x-1.x/docs
 
 # Details
 For details please visit http://www.openymca.org
