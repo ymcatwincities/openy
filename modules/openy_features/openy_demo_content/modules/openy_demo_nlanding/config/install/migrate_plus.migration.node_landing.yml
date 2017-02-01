@@ -18,6 +18,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_featured_content
     - openy_demo_lp_paragraph_featured_blogs
     - openy_demo_lp_paragraph_blog_listing
+    - openy_demo_lp_paragraph_teaser
   optional:
     - openy_demo_node_blog
 source:
@@ -67,7 +68,9 @@ source:
         -
           content_id: accelerator_featured_content
         -
-          content_id: blog_blog_listing
+          content_id: accelerator_housing
+        -
+          content_id: accelerator_education
   ids:
     id:
       type: string
@@ -113,6 +116,7 @@ process:
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
           - openy_demo_lp_paragraph_blog_listing
+          - openy_demo_lp_paragraph_teaser
         source: content_id
       target_revision_id:
         plugin: migration
@@ -123,6 +127,7 @@ process:
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
           - openy_demo_lp_paragraph_blog_listing
+          - openy_demo_lp_paragraph_teaser
         source: content_id
 destination:
   plugin: 'entity:node'

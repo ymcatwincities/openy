@@ -38,6 +38,14 @@ source:
       id: accelerator_three
       name: 'Accelerator Three'
       file: accelerator_three
+    -
+      id: education_and_employment
+      name: 'Education & Employment'
+      file: education_and_employment
+    -
+      id: housing_and_transition_planning
+      name: 'Housing & Transition Planning'
+      file: housing_and_transition_planning
   ids:
     id:
       type: string

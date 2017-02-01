@@ -29,6 +29,12 @@ source:
     -
       id: accelerator_three
       name: accelerator_three.jpg
+    -
+      id: education_and_employment
+      name: education_and_employment.jpg
+    -
+      id: housing_and_transition_planning
+      name: housing_and_transition_planning.jpg
   ids:
     id:
       type: string
