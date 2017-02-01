@@ -77,6 +77,14 @@ source:
         -
           migration: yghc_prgf_location_finder
           id: 1
+    -
+      id: 6
+      title: 'Search'
+      alias: '/search'
+      body:
+        -
+          migration: yghc_prgf_global_search
+          id: 1
   ids:
     id:
       type: integer
