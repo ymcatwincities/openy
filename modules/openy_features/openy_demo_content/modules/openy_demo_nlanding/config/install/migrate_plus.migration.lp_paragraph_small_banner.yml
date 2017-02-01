@@ -4,19 +4,21 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-id: openy_demo_lp_paragraph_latest
+id: openy_demo_lp_paragraph_small_banner
 migration_tags: {  }
 migration_group: openy_demo_nlanding
-label: 'Create latest blog post paragraph(s) for demo landing page nodes'
+label: 'Create small banner paragraph(s) for demo landing page nodes'
 migration_dependencies:
-  optional:
-    - openy_demo_node_blog
+  required:
+    - openy_demo_taxonomy_term_color
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: homepage_latest
-      parent_id: homepage
+      id: blog_small_banner
+      parent_id: blog
+      headline: 'YMCA of Greater Seattle Blog'
+      color: 14
   ids:
     id:
       type: string
@@ -42,7 +44,12 @@ process:
   # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
-    default_value: field_content
+    default_value: field_header_content
+  field_prgf_headline: headline
+  field_prgf_color:
+    plugin: migration
+    migration: openy_demo_taxonomy_term_color
+    source: color
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: latest_blog_post
+  default_bundle: small_banner
