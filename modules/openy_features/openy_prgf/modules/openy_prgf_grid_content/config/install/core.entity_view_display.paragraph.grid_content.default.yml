@@ -15,16 +15,16 @@ mode: default
 content:
   field_grid_columns:
     weight: 1
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: field_collection_list
+    type: field_collection_items
   field_prgf_grid_style:
     weight: 0
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
+    type: list_key
 hidden:
   created: true
   uid: true
