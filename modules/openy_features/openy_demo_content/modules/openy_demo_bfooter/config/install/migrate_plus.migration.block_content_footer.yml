@@ -4,7 +4,7 @@ dependencies: {  }
 id: openy_demo_block_content_footer
 migration_tags: {  }
 migration_group: openy_demo_fblock
-label: 'Create basic blocks in the footer'
+label: 'Create demo basic blocks in the footer'
 migration_dependencies: {}
 source:
   plugin: embedded_data
