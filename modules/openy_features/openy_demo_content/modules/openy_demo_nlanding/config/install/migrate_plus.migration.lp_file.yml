@@ -20,6 +20,15 @@ source:
     -
       id: give
       name: give.jpg
+    -
+      id: accelerator_one
+      name: accelerator_one.jpg
+    -
+      id: accelerator_two
+      name: accelerator_two.jpg
+    -
+      id: accelerator_three
+      name: accelerator_three.jpg
   ids:
     id:
       type: string
