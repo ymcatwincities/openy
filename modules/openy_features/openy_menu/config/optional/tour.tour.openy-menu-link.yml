@@ -59,7 +59,7 @@ tips:
     id: menu-link-form-icon
     plugin: text
     label: 'Menu link icon'
-    body: 'Upload a menu icon if you want one to appear next to the menu.'
+    body: 'Upload a menu icon if you want one to appear next to the 2nd level of main menu.'
     weight: 7
     attributes:
       data-class: 'form-item-icon-upload'
@@ -75,7 +75,7 @@ tips:
     id: menu-link-form-weight
     plugin: text
     label: 'Menu link weight'
-    body: 'Select save to add the menu link to the parent item selected above.'
+    body: 'This field determines order of menu items. You can also drag & drop menu items on menu management screen.'
     weight: 9
     attributes:
       data-class: 'field--name-weight'
@@ -83,7 +83,7 @@ tips:
     id: menu-link-form-save
     plugin: text
     label: 'Save Link'
-    body: 'This field determines order of menu items. You can also drag & drop menu items on menu management screen.'
+    body: 'Select save to add the menu link to the parent item selected above.'
     weight: 10
     location: top
     attributes:

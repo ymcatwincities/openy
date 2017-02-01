@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: prgf_banner
+label: 'Paragraph banner'
+effects:
+  a9d66de2-0904-401a-a673-0ef835575e1a:
+    uuid: a9d66de2-0904-401a-a673-0ef835575e1a
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 960
+      height: 854
