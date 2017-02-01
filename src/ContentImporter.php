@@ -41,12 +41,9 @@ class ContentImporter implements ContentImporterInterface {
    * {@inheritdoc}
    */
   public function getMap() {
+    // @todo Fix block migrations and then add them to 'default'.
     return [
-      'default' => [
-        // @todo Fix migrations and then uncomment it.
-        //'footercopyrightblock',
-        //'footersocialblock',
-      ],
+      'default' => [],
       'landing' => [
         'openy_demo_node_landing',
       ],
