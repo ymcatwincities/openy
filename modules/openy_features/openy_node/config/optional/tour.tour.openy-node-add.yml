@@ -59,7 +59,7 @@ tips:
     id:
     plugin: text
     label: 'Blog post Content'
-    body: 'Here a user can add a blog. The Blog contains a title, style(teaser appearance), location of the blog, category; a taxonomy fields that groups the blog, a content area which is the main piece of content for the blog and a sidebar area.'
+    body: 'Here a user can add a blog. The Blog contains a title, style(teaser appearance), location of the blog, category, a taxonomy fields that groups the blog, a content area which is the main piece of content for the blog and a sidebar area.'
     weight: 7
     attributes:
       data-class: 'label:contains("Blog Post")'

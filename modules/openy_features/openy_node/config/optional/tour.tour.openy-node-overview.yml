@@ -36,7 +36,7 @@ tips:
     id: filters
     plugin: text
     label: 'Filters'
-    body: 'Filters allows you to easily find necessary content and improve navigation.'
+    body: 'Filters allow you to easily find necessary content and improve navigation.'
     location: bottom
     weight: 4
     attributes:
