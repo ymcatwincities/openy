@@ -8,6 +8,8 @@ label: 'OpenY Taxonomy term'
 module: openy_taxonomy
 routes:
   - route_name: entity.taxonomy_term.add_form
+    route_params:
+      taxonomy_vocabulary: color
 tips:
   term-overview:
     id: term-overview
