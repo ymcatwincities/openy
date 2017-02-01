@@ -27,7 +27,7 @@ tips:
     id: terms-re-order
     plugin: text
     label: 'Re-order taxonomy terms'
-    body: 'In this area you can re-order menu items. Select icon and move up and down to re-order menu items.'
+    body: 'In this area you can re-order taxonomy terms. Select icon and move up and down to re-order taxonomy terms.'
     weight: 3
     attributes:
       data-id: 'taxonomy'
