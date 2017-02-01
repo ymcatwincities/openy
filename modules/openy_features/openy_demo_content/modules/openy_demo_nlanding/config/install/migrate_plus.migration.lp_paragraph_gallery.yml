@@ -40,6 +40,21 @@ source:
         Every day, our community continues to face challenges that create a
         greater need for the work we do
         </p>
+    -
+      id: accelerator_gallery
+      parent_id: accelerator
+      headline: 'Accelerator'
+      image_ids:
+        - accelerator_one
+        - accelerator_two
+        - accelerator_three
+      description: |
+        <p>
+        We offer a full spectrum of services for young people and their
+        families, including mental health and substance use, housing,
+        education, employment, violence prevention, family support and
+        leadership development. These programs rely on community support.
+        </p>
   ids:
     id:
       type: string

@@ -17,6 +17,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_simple
     - openy_demo_lp_paragraph_featured_content
     - openy_demo_lp_paragraph_featured_blogs
+    - openy_demo_lp_paragraph_blog_listing
   optional:
     - openy_demo_node_blog
 source:
@@ -57,7 +58,16 @@ source:
         -
           content_id: blog_featured_blogs
         -
-          content_id: give_grid
+          content_id: blog_blog_listing
+    -
+      id: accelerator
+      title: 'Accelerator'
+      header_content_id: accelerator_gallery
+      content_ids:
+        -
+          content_id: accelerator_featured_content
+        -
+          content_id: blog_blog_listing
   ids:
     id:
       type: string
@@ -102,6 +112,7 @@ process:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
+          - openy_demo_lp_paragraph_blog_listing
         source: content_id
       target_revision_id:
         plugin: migration
@@ -111,6 +122,7 @@ process:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
+          - openy_demo_lp_paragraph_blog_listing
         source: content_id
 destination:
   plugin: 'entity:node'

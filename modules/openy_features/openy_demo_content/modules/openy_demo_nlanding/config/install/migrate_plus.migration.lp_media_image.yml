@@ -26,6 +26,18 @@ source:
       id: give
       name: 'Give'
       file: give
+    -
+      id: accelerator_one
+      name: 'Accelerator One'
+      file: accelerator_one
+    -
+      id: accelerator_two
+      name: 'Accelerator Two'
+      file: accelerator_two
+    -
+      id: accelerator_three
+      name: 'Accelerator Three'
+      file: accelerator_three
   ids:
     id:
       type: string

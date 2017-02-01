@@ -28,6 +28,20 @@ source:
 
         <p><strong><font face="Verdana" size="5">Addressing Critical Local
         Needs</font></strong></p>
+    -
+      id: accelerator_featured_content
+      parent_id: accelerator
+      headline: 'About Accelerator YMCA'
+      description: |
+        <p>
+        At the Y, strengthening community is our cause. We provide crucial
+        programs and services to more than 230,000 people every year, including
+        safe, stable housing for more than 350 homeless young people, crisis
+        intervention for 3,500 young people and their families, and 115,000
+        healthy meals to school-age kids. We make it our mission to serve the
+        most underserved populations in our community and ensure that every
+        young person has the opportunity to be safe, successful and happy.
+        </p>
   ids:
     id:
       type: string
