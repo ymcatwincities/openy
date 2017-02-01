@@ -11,4 +11,5 @@ dependencies:
   - path
   - taxonomy
   - text
+  - tour
 version: 8.x-1.0
