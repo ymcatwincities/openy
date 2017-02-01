@@ -1,0 +1,79 @@
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+  module:
+    - file
+id: openy_demo_lp_file
+migration_tags: { }
+migration_group: openy_demo_nlanding
+label: 'Demo landing page files'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: homepage_banner
+      name: homepage_banner.jpg
+    -
+      id: about
+      name: about.jpg
+    -
+      id: give
+      name: give.jpg
+    -
+      id: accelerator_one
+      name: accelerator_one.jpg
+    -
+      id: accelerator_two
+      name: accelerator_two.jpg
+    -
+      id: accelerator_three
+      name: accelerator_three.jpg
+    -
+      id: education_and_employment
+      name: education_and_employment.jpg
+    -
+      id: housing_and_transition_planning
+      name: housing_and_transition_planning.jpg
+  ids:
+    id:
+      type: string
+  constants:
+    source_base_path: profiles/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nlanding/assets/images
+    uri_file: 'public:/'
+process:
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - name
+    -
+      plugin: urlencode
+  filename: name
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }

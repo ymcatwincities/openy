@@ -1397,6 +1397,7 @@ body {
 }
 .paragraph-gallery .carousel .carousel-inner > .item img,
 .paragraph-gallery .carousel .carousel-inner > .item a img {
+  height: auto;
   width: 100%;
 }
 @media (min-width: 48em) {
