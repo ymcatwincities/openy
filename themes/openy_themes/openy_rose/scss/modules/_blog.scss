@@ -338,23 +338,28 @@
   }
 }
 
-.container {
-  .paragraph--type--featured-blogs {
+.paragraph--type--featured-blogs {
+  @include breakpoint(0 $screen-xs) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .description {
+    @include breakpoint($screen-sm) {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+
+  .slick-prev {
     @include breakpoint(0 $screen-xs) {
-      padding-left: 15px;
-      padding-right: 15px;
+      left: -17px;
     }
+  }
 
-    .slick-prev {
-      @include breakpoint(0 $screen-xs) {
-        left: -17px;
-      }
-    }
-
-    .slick-next {
-      @include breakpoint(0 $screen-xs) {
-        right: -17px;
-      }
+  .slick-next {
+    @include breakpoint(0 $screen-xs) {
+      right: -17px;
     }
   }
 }
