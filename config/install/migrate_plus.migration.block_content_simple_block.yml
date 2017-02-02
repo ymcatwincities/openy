@@ -56,15 +56,15 @@ source:
       title: ''
       body: |
         <ul>
-                      <li>
-                        <a class="item-share--facebook" href="#">facebook</a>
-                      </li>
-                      <li>
-                        <a class="item-share--twitter" href="#">twitter</a>
-                      </li>
-                      <li>
-                        <a class="item-share--youtube" href="#">youtube</a>
-                      </li>
+          <li>
+            <a class="item-share--facebook" href="https://www.facebook.com/YMCAHouston">facebook</a>
+          </li>
+          <li>
+            <a class="item-share--twitter" href="https://twitter.com/ymcahouston">twitter</a>
+          </li>
+          <li>
+            <a class="item-share--youtube" href="https://www.youtube.com/user/YMCAHouston">youtube</a>
+          </li>
         </ul>
     -
       id: 8
