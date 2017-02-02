@@ -8,9 +8,9 @@
 $info = array(
   // Available colors and color labels used in theme.
   'fields' => array(
-    'header_bg' => t('Header background'),
-    'header_hover' => t('Header menu hover'),
-    'main_bg' => t('Main background'),
+    'headerbg' => t('Header background'),
+    'headerhover' => t('Header menu hover'),
+    'bg' => t('Main background'),
     'footer' => t('Footer background'),
     'text' => t('Text color'),
     'link' => t('Link color'),
@@ -21,13 +21,37 @@ $info = array(
     'default' => array(
       'title' => t('Lochmara (default)'),
       'colors' => array(
-        'header_bg' => '#0089d0',
-        'header_hover' => '#0060af',
-        'main_bg' => '#ffffff',
+        'headerbg' => '#0089d0',
+        'headerhover' => '#0060af',
+        'bg' => '#ffffff',
         'footer' => '#4f4f4f',
         'text' => '#636466',
         'link' => '#337ab7',
         'button' => '#00aeef',
+      ),
+    ),
+    'endeavour' => array(
+      'title' => t('Endeavour'),
+      'colors' => array(
+        'headerbg' => '#0060af',
+        'headerhover' => '#3983c1',
+        'bg' => '#ffffff',
+        'footer' => '#434343',
+        'text' => '#636466',
+        'link' => '#428bca',
+        'button' => '#00aeef',
+      ),
+    ),
+    'vividviolet' => array(
+      'title' => t('Vivid Violet'),
+      'colors' => array(
+        'headerbg' => '#822a92',
+        'headerhover' => '#9950a6',
+        'bg' => '#ffffff',
+        'footer' => '#434343',
+        'text' => '#636466',
+        'link' => '#822a92',
+        'button' => '#991f76',
       ),
     ),
   ),
