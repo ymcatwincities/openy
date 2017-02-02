@@ -742,3 +742,9 @@
     font-weight: bold;
   }
 }
+
+.paragraph--type--blog-posts-listing {
+  .node--type-blog.node--view-mode-teaser {
+    width: 100%;
+  }
+}

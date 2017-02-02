@@ -1898,6 +1898,10 @@ body {
   font-weight: bold;
 }
 
+.paragraph--type--blog-posts-listing .node--type-blog.node--view-mode-teaser {
+  width: 100%;
+}
+
 .site-alert {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   background-color: #00aeef;
@@ -4123,18 +4127,24 @@ html.js .branch__updates_queue__button {
 }
 
 @media (min-width: 0) and (max-width: 30em) {
-  .container .paragraph--type--featured-blogs {
+  .paragraph--type--featured-blogs {
     padding-left: 15px;
     padding-right: 15px;
   }
 }
+@media (min-width: 48em) {
+  .paragraph--type--featured-blogs .description {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
 @media (min-width: 0) and (max-width: 30em) {
-  .container .paragraph--type--featured-blogs .slick-prev {
+  .paragraph--type--featured-blogs .slick-prev {
     left: -17px;
   }
 }
 @media (min-width: 0) and (max-width: 30em) {
-  .container .paragraph--type--featured-blogs .slick-next {
+  .paragraph--type--featured-blogs .slick-next {
     right: -17px;
   }
 }
