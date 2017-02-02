@@ -44,7 +44,11 @@
       %}
       <li{{ item.attributes.addClass(classes) }}>
         {% if not item.below %}
-          {{ link(item.title, item.url) }}
+          {% if item.title == "Log in" %}
+            {{ link('Sign in'|t, item.url) }}
+          {% else %}
+            {{ link(item.title, item.url) }}
+          {% endif %}
         {% else %}
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             {{ item.title }}
