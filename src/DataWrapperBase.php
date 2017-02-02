@@ -5,9 +5,12 @@ namespace Drupal\openy_calc;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\daxko\DaxkoClientInterface;
 use Drupal\openy_mappings\LocationMappingRepository;
+use Drupal\openy_mappings\MappingRepository;
+use Drupal\openy_mappings\MembershipTypeMappingRepository;
 
 /**
  * Class DataWrapperBase.
@@ -50,11 +53,32 @@ abstract class DataWrapperBase implements DataWrapperInterface {
   protected $cacheBackend;
 
   /**
+   * Mapping repository.
+   *
+   * @var \Drupal\openy_mappings\MappingRepository
+   */
+  protected $mappingRepo;
+
+  /**
    * Location mapping repository.
    *
    * @var \Drupal\openy_mappings\LocationMappingRepository
    */
   protected $locationRepo;
+
+  /**
+   * MembershipType Repo.
+   *
+   * @var \Drupal\openy_mappings\MembershipTypeMappingRepository
+   */
+  protected $membershipTypeRepo;
+
+  /**
+   * Logger channel.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   */
+  protected $loggerChannel;
 
   /**
    * DataWrapperBase constructor.
@@ -69,16 +93,35 @@ abstract class DataWrapperBase implements DataWrapperInterface {
    *   Daxko client.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cacheBackend
    *   Cache backend.
+   * @param \Drupal\openy_mappings\MappingRepository $mappingRepo
+   *   Mapping repository.
    * @param \Drupal\openy_mappings\LocationMappingRepository $locationRepo
    *   Location mapping repository.
+   * @param \Drupal\openy_mappings\MembershipTypeMappingRepository $membershipTypeRepo
+   *   Membership type mapping repository.
+   * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
+   *   Logger channel.
    */
-  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, DaxkoClientInterface $daxkoClient, CacheBackendInterface $cacheBackend, LocationMappingRepository $locationRepo) {
+  public function __construct(
+    QueryFactory $queryFactory,
+    RendererInterface $renderer,
+    EntityTypeManagerInterface $entityTypeManager,
+    DaxkoClientInterface $daxkoClient,
+    CacheBackendInterface $cacheBackend,
+    MappingRepository $mappingRepo,
+    LocationMappingRepository $locationRepo,
+    MembershipTypeMappingRepository $membershipTypeRepo,
+    LoggerChannelInterface $loggerChannel
+  ) {
     $this->queryFactory = $queryFactory;
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
     $this->daxkoClient = $daxkoClient;
     $this->cacheBackend = $cacheBackend;
+    $this->mappingRepo = $mappingRepo;
     $this->locationRepo = $locationRepo;
+    $this->membershipTypeRepo = $membershipTypeRepo;
+    $this->loggerChannel = $loggerChannel;
   }
 
   /**

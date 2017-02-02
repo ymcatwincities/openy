@@ -88,7 +88,7 @@ class DummyDataWrapper extends DataWrapperBase {
   /**
    * {@inheritdoc}
    */
-  public function getLocationPins() {
+  public function getBranchPins() {
     return [
       [
         'lat' => 49.969547,
