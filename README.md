@@ -1,3 +1,5 @@
+Welcome to OpenY. Thank you for taking your time to read the documentation. Here you can find all needed information that shows the big picture of what is OpenY and how to use it from scratch to build your own site.
+
 # Open Y Distribution
 The Open Y platform is a content management system that uses Drupal 8 functionality and useful modules from YMCAs and digital partners. It’s easy and free to use — everyone is welcome to implement Open Y and run Open Y projects.
 
@@ -15,6 +17,7 @@ The Open Y platform is a content management system that uses Drupal 8 functional
 - Installed [Composer](https://getcomposer.org/download/)
 
 ### Installation of Open Y
+We are using [composer](https://getcomposer.org/) for initiating new project tree.
 
 ```
 composer create-project ymcatwincities/openy-project MY_PROJECT --no-interaction
