@@ -6938,6 +6938,10 @@ body {
       width: 100%;
       vertical-align: top;
       margin: auto; }
+    .paragraph--type--header .paragraph--image .field-prgf-header-image {
+      height: 100%; }
+      .paragraph--type--header .paragraph--image .field-prgf-header-image img {
+        height: 100%; }
   .paragraph--type--header .cta-group-wrapper {
     max-height: 100%;
     width: 100%;
@@ -6993,6 +6997,7 @@ body {
         font-size: 18px;
         padding: 0;
         width: 100%;
+        margin: 0 0 5px;
         background: white; }
         .paragraph--type--header .cta-group-wrapper .cta-group .btn a {
           display: block;
