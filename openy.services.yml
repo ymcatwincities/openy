@@ -1,0 +1,3 @@
+services:
+  openy.content_importer:
+    class: 'Drupal\openy\ContentImporter'
