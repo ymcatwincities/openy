@@ -5,6 +5,9 @@ services:
   openy_mappings.location_repository:
     class: Drupal\openy_mappings\LocationMappingRepository
     arguments: ['@entity.query', '@entity_type.manager']
+  openy_mappings.membership_type_repository:
+    class: Drupal\openy_mappings\MembershipTypeMappingRepository
+    arguments: ['@entity.query', '@entity_type.manager']
   openy_mappings.trainer_repository:
     class: Drupal\openy_mappings\TrainerMappingRepository
     arguments: ['@entity.query']
