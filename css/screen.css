@@ -7584,7 +7584,8 @@ body {
     -webkit-align-items: stretch;
         -ms-flex-align: stretch;
             align-items: stretch;
-    min-height: 100%; }
+    min-height: 100%;
+    margin: 0 0 20px; }
   .locations-list .views-row {
     display: -webkit-box;
     display: -webkit-flex;
