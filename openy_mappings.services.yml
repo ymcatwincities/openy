@@ -1,4 +1,7 @@
 services:
+  openy_mappings.repository:
+    class: Drupal\openy_mappings\MappingRepository
+    arguments: ['@entity.query', '@entity_type.manager']
   openy_mappings.location_repository:
     class: Drupal\openy_mappings\LocationMappingRepository
     arguments: ['@entity.query', '@entity_type.manager']
