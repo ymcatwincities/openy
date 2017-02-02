@@ -14,7 +14,9 @@ a,
 .top-navs {
   background-color: #0089d0;
 }
-.nav.dropdown-menu {
+.nav.dropdown-menu,
+.viewport .nav-level-2.open > a,
+.viewport .nav-level-2.open > a:focus {
   background-color: #0060af;
 }
 .footer {
