@@ -61,10 +61,7 @@ $info = array(
     'css/colors.css',
   ),
 
-  /**
-   * This copies the logo file from the theme. It is needed because the logo
-   * gets overridden by the Color module automatically.
-   * */
+  // Copy the logo file from the theme. Color module forces this behavior.
   'copy' => array(
     'logo.svg',
   ),
