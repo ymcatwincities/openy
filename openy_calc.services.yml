@@ -1,4 +1,7 @@
 services:
+  logger.channel.openy_calc:
+    parent: logger.channel_base
+    arguments: ['openy_calc']
   openy_calc.data_wrapper:
     class: Drupal\openy_calc\CalcDataWrapper
     arguments:
@@ -7,6 +10,9 @@ services:
       - '@entity.manager'
       - '@daxko.client'
       - '@cache.data'
+      - '@openy_mappings.repository'
       - '@openy_mappings.location_repository'
+      - '@openy_mappings.membership_type_repository'
+      - '@logger.channel.openy_calc'
     tags:
       - { name: "openy_data_service", priority: 100 }
