@@ -9,7 +9,6 @@ dependencies:
   - jquery_colorpicker
   - media_entity
   - openy_media_image
-  - openy_node
   - openy_txnm_color
   - openy_prgf
   - paragraphs
