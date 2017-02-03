@@ -109,12 +109,10 @@ destination:
   default_bundle: landing_page
 migration_dependencies:
   required:
-    - openy_demo_lp_paragraph_latest
     - openy_demo_lp_paragraph_gallery
     - openy_demo_lp_paragraph_simple
     - openy_demo_lp_paragraph_featured_content
     - openy_demo_lp_paragraph_featured_blogs
-    - openy_demo_lp_paragraph_blog_listing
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
   optional:
