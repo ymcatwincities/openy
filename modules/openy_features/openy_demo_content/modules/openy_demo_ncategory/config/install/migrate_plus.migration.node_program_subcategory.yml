@@ -8,10 +8,6 @@ id: openy_demo_node_program_subcategory
 migration_tags: {  }
 migration_group: openy_demo_ncategory
 label: 'Create demo program subcategory nodes'
-migration_dependencies:
-  required:
-    - openy_demo_taxonomy_term_color
-    - openy_demo_node_program
 source:
   plugin: embedded_data
   data_rows:
@@ -348,3 +344,8 @@ process:
 destination:
   plugin: 'entity:node'
   default_bundle: program_subcategory
+migration_dependencies:
+  required:
+    - openy_demo_taxonomy_term_color
+    - openy_demo_ncategory_media_image
+    - openy_demo_node_program
