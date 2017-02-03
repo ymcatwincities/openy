@@ -71,7 +71,7 @@ process:
   field_prgf_title: title
   field_prgf_link/uri:
     plugin: default_value
-    default_value: 'base:learn_more'
+    default_value: 'base:/openy'
   field_prgf_link/title:
     plugin: default_value
     default_value: 'Learn more'
