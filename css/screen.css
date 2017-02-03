@@ -7036,7 +7036,6 @@ body {
     .node--type-blog.node--view-mode-teaser .inner-wrapper {
       position: relative;
       overflow: hidden;
-      height: 250px;
       max-width: 362px;
       margin: 14px; }
     .node--type-blog.node--view-mode-teaser img {
