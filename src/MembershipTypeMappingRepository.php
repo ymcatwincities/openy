@@ -70,8 +70,8 @@ class MembershipTypeMappingRepository {
       return NULL;
     }
 
-    $id = reset($ids);
-    return $this->storageMapping->load($id);
+    $ids = reset($ids);
+    return $this->storageMapping->load($ids);
   }
 
 }
