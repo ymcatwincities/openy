@@ -19,7 +19,7 @@ tips:
     id: new-menu-item
     plugin: text
     label: 'Add new menu item'
-    body: 'Using  this button to add new main navigation menu items for your site.'
+    body: 'Use this button to add new main navigation menu items to your site.'
     weight: 2
     attributes:
       data-class: 'button-action'
@@ -27,7 +27,7 @@ tips:
     id: menu-title
     plugin: text
     label: 'Menu title'
-    body: 'Here you can edit the name of the menu item.'
+    body: 'You can edit the name of the menu item here.'
     weight: 3
     attributes:
       data-class: 'form-item-label'
@@ -43,7 +43,7 @@ tips:
     id: tool-drag-and-drop
     plugin: text
     label: 'Re-order menu'
-    body: 'In this area you can re-order menu items. Select icon and move up and down to re-order menu items.'
+    body: 'In this area you can re-order menu items. Select the icon and move up and down to re-order menu items.'
     weight: 5
     attributes:
       data-id: 'menu-overview'
