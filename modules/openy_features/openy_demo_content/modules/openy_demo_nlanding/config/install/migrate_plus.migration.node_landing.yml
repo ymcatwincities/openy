@@ -11,7 +11,6 @@ label: 'Create demo landing page nodes'
 migration_dependencies:
   required:
     - openy_demo_lp_paragraph_latest
-    - openy_demo_lp_paragraph_grid
     - openy_demo_lp_paragraph_gallery
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_simple
@@ -31,8 +30,6 @@ source:
       content_ids:
         -
           content_id: homepage_latest
-        -
-          content_id: homepage_grid
     -
       id: about
       title: 'About the YMCA'
@@ -40,8 +37,6 @@ source:
       content_ids:
         -
           content_id: about_simple
-        -
-          content_id: about_grid
     -
       id: give
       title: 'Give'
@@ -49,8 +44,6 @@ source:
       content_ids:
         -
           content_id: give_featured_content
-        -
-          content_id: give_grid
     -
       id: blog
       title: 'Blog'
@@ -88,7 +81,7 @@ process:
   title: title
   field_lp_layout:
     plugin: default_value
-    default_value: one_column_clean
+    default_value: one_column
   field_header_content/target_id:
     plugin: migration
     migration:
@@ -111,7 +104,6 @@ process:
         plugin: migration
         migration:
           - openy_demo_lp_paragraph_latest
-          - openy_demo_lp_paragraph_grid
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
@@ -122,7 +114,6 @@ process:
         plugin: migration
         migration:
           - openy_demo_lp_paragraph_latest
-          - openy_demo_lp_paragraph_grid
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
