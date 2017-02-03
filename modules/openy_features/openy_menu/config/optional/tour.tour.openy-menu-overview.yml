@@ -27,7 +27,7 @@ tips:
     id: user-account-menu
     plugin: text
     label: 'User account menu'
-    body: 'Here is where you add menu items to the user account menu and configure there order.'
+    body: 'Here is where you add menu items to the user account menu and configure their order.'
     weight: 3
     attributes:
       data-class: 'menu-label:contains("User account menu")'
@@ -35,7 +35,7 @@ tips:
     id: footer-menu-center
     plugin: text
     label: 'Footer menu center'
-    body: 'Here is where you add menu items to the Footer menu center and configure there order.'
+    body: 'Here is where you add menu items to the Footer menu center and configure their order.'
     weight: 4
     attributes:
       data-class: 'menu-label:contains("Footer menu center")'
@@ -43,7 +43,7 @@ tips:
     id: footer-menu-left
     plugin: text
     label: 'Footer menu left'
-    body: 'Here is where you add menu items to the Footer menu left and configure there order.'
+    body: 'Here is where you add menu items to the Footer menu left and configure their order.'
     weight: 5
     attributes:
       data-class: 'menu-label:contains("Footer menu left")'
@@ -51,7 +51,7 @@ tips:
     id: footer-menu-right
     plugin: text
     label: 'Footer menu right'
-    body: 'Here is where you add menu items to the Footer menu right and configure there order.'
+    body: 'Here is where you add menu items to the Footer menu right and configure their order.'
     weight: 6
     attributes:
       data-class: 'menu-label:contains("Footer menu right")'
@@ -59,7 +59,7 @@ tips:
     id: dropbutton-widget
     plugin: text
     label: 'Dropdown widget'
-    body: 'This button allows users to manage menu and add menu link items.'
+    body: 'This button allows users to manage a menu and add menu link items.'
     weight: 7
     attributes:
       data-class: 'dropbutton-widget'
