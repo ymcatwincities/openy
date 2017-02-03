@@ -12,6 +12,11 @@ use Drupal\openy_socrates\OpenyDataServiceInterface;
 class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterface {
 
   /**
+   * The owner of mapping entities.
+   */
+  const MAPPING_OWNER_ID = 1;
+
+  /**
    * Get membership data from Daxko.
    *
    * This method creates a cache bin with the data.
@@ -179,7 +184,7 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
 
         $entity = $storage->create($values);
         $entity->setName($membership_item_name);
-        $entity->setOwnerId(1);
+        $entity->setOwnerId(self::MAPPING_OWNER_ID);
         $entity->save();
       }
     }
