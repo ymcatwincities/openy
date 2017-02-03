@@ -13,7 +13,7 @@ source:
     -
       id: 1
       title: 'Mood-boosting foods'
-      style: fuchisia
+      style: story
       category: 1
       related: null
       image: 1
@@ -75,7 +75,7 @@ source:
     -
       id: 3
       title: 'Cheddar-Cannelini Fondue'
-      style: fuchisia
+      style: story
       category: 3
       related: 2
       image: 3
