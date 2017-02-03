@@ -63,7 +63,7 @@ dependencies:
   - slick_ui
   - blazy
   - blazy_ui
-  # OpenY modules.
+  # OpenY features.
   - openy_media_image
   - openy_media_document
   - openy_media_video
@@ -114,9 +114,11 @@ dependencies:
   - openy_demo_nblog
   - openy_demo_nlanding
   - openy_prgf_categories_listing
-  - openy_hours_formatter
   - openy_prgf_camp_menu
   - openy_user
+  # OpenY custom modules
+  - openy_hours_formatter
+  - openy_migrate
 
 themes:
   - bartik

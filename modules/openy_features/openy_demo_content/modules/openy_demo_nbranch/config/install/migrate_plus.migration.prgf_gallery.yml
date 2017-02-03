@@ -8,7 +8,6 @@ id: openy_demo_prgf_gallery
 migration_tags: {  }
 migration_group: openy_demo_nbranch
 label: 'Create Gallery paragraphs for branches'
-migration_dependencies: {  }
 source:
   plugin: embedded_data
   data_rows:
@@ -99,3 +98,6 @@ process:
 destination:
   plugin: entity:paragraph
   default_bundle: gallery
+migration_dependencies:
+  required:
+    - openy_demo_nbranch_media_image

@@ -36,23 +36,61 @@ function openy_install_tasks() {
 function openy_import_content(array &$install_state) {
   $batch = [];
 
-  foreach ($install_state['openy']['content'] as $item) {
-    $batch['operations'][] = ['openy_import_content_item', (array) $item];
+  // @todo Fix block migrations and then add them here.
+  // Required migrations. Will be imported anyway.
+  $required = [];
+
+  // Optional. Will be imported only if some content will be selected for import.
+  $optional = [
+    'openy_demo_taxonomy_term_facility_type'
+  ];
+
+  // Maps selection to migrations.
+  $map = [
+    'branches' => [
+      'openy_demo_node_branch'
+    ],
+    'blog' => [
+      'openy_demo_node_blog',
+    ],
+    'landing' => [
+      'openy_demo_node_landing',
+    ],
+    'programs' => [
+      'openy_demo_node_program',
+      'openy_demo_node_program_subcategory',
+    ],
+  ];
+
+  // Run required migrations.
+  foreach ($required as $migration) {
+    $batch['operations'][] = ['openy_import_migration', (array) $migration];
   }
 
-  // Always add `default` migrations.
-  $batch['operations'][] = ['openy_import_content_item', (array) 'default'];
+  // Run optional migrations.
+  if (!empty($install_state['openy']['content'])) {
+    foreach ($optional as $migration) {
+      $batch['operations'][] = ['openy_import_migration', (array) $migration];
+    }
+  }
+
+  // Run migrations for selected content.
+  foreach ($install_state['openy']['content'] as $content) {
+    foreach ($map[$content] as $migration) {
+      $batch['operations'][] = ['openy_import_migration', (array) $migration];
+    }
+  }
 
   return $batch;
 }
 
 /**
- * Import single content item.
+ * Import single migration (with dependencies).
  *
- * @param string $item
- *   Content item name. Example: 'blog'.
+ * @param string $migration_id
+ *   Migration ID.
  */
-function openy_import_content_item($item) {
-  $importer = \Drupal::service('openy.content_importer');
-  $importer->import($item);
+function openy_import_migration($migration_id) {
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import($migration_id);
 }
