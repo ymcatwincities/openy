@@ -38,7 +38,8 @@ default:
       region_map:
         header: '#page-head'
         content: '#main-content'
-        footer: '#footer'
+        footer: 'footer'
+        dropdown_menu: 'ul.nav.dropdown-menu'
       selectors:
         login_form_selector: '#user-login-form'
         message_selector: '.status-message'

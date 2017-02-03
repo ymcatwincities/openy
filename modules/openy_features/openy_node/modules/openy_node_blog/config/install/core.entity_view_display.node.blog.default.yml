@@ -79,4 +79,6 @@ content:
     type: entity_reference_revisions_entity_view
   links:
     weight: 100
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

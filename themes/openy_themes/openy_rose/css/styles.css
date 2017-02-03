@@ -846,10 +846,6 @@ body {
     padding: 10px 24px 24px 24px;
   }
 }
-.viewport .nav-level-2.open > a:hover,
-.viewport .nav-level-2.open > a:focus:hover {
-  color: #00aeef;
-}
 .viewport .row-level-3,
 .viewport .nav-level-4 {
   list-style: none;
@@ -1397,6 +1393,7 @@ body {
 }
 .paragraph-gallery .carousel .carousel-inner > .item img,
 .paragraph-gallery .carousel .carousel-inner > .item a img {
+  height: auto;
   width: 100%;
 }
 @media (min-width: 48em) {
