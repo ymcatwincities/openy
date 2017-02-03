@@ -42,7 +42,8 @@ function openy_import_content(array &$install_state) {
 
   // Optional. Will be imported only if some content will be selected for import.
   $optional = [
-    'openy_demo_taxonomy_term_facility_type'
+    'openy_demo_taxonomy_term_facility_type',
+    'openy_demo_block_content_footer',
   ];
 
   // Maps selection to migrations.
