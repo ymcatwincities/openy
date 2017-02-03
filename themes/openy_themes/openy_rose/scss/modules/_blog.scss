@@ -30,27 +30,13 @@
   }
 
   &.node--view-mode-teaser {
-    width: 310px;
+    width: 100%;
     max-width: 100%;
-    display: inline-block;
-
-    @include breakpoint(0 $screen-xs) {
-      padding: 10px;
-    }
-
-    @media (min-width: 1024px) {
-      float: left;
-      display: block;
-      width: 33.3%;
-    }
 
     .inner-wrapper {
       position: relative;
-
       overflow: hidden;
       height: 250px;
-      max-width: 362px;
-      margin: 14px;
 
       @include breakpoint(0 $screen-sm) {
         margin: 0 auto;
@@ -314,52 +300,11 @@
 }
 
 .comma-list {
-
   .item:after {
     content: ",";
   }
 
   .item:last-child:after {
     content: none;
-  }
-}
-
-.paragraph--type--featured-blogs {
-  .slick-prev {
-    left: 15px;
-  }
-
-  .slick-next {
-    right: 15px;
-  }
-
-  .slick-arrow {
-    top: 55%;
-  }
-}
-
-.paragraph--type--featured-blogs {
-  @include breakpoint(0 $screen-xs) {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .description {
-    @include breakpoint($screen-sm) {
-      margin-left: -15px;
-      margin-right: -15px;
-    }
-  }
-
-  .slick-prev {
-    @include breakpoint(0 $screen-xs) {
-      left: -17px;
-    }
-  }
-
-  .slick-next {
-    @include breakpoint(0 $screen-xs) {
-      right: -17px;
-    }
   }
 }
