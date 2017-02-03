@@ -43,7 +43,7 @@ source:
       style: story
       category: 2
       related: null
-      image: 1
+      image: 2
       promote: 1
       branch: 2
       body: >
@@ -78,7 +78,7 @@ source:
       style: fuchisia
       category: 3
       related: 2
-      image: 1
+      image: 3
       promote: 1
       branch: 3
       body: >
@@ -111,7 +111,7 @@ source:
       style: story
       category: 2
       related: 1
-      image: 1
+      image: 4
       promote: 1
       branch: 4
       body: >
@@ -139,7 +139,7 @@ source:
       style: story
       category: 2
       related: 1
-      image: 1
+      image: 5
       promote: 1
       branch: 1
       body: >
@@ -170,7 +170,7 @@ source:
       style: story
       category: 2
       related: 1
-      image: 1
+      image: 6
       promote: 1
       branch: 2
       body: >
@@ -199,7 +199,7 @@ source:
       style: story
       category: 2
       related: 1
-      image: 1
+      image: 7
       promote: 1
       branch: 3
       body: >
@@ -224,7 +224,7 @@ source:
       style: story
       category: 2
       related: 1
-      image: 1
+      image: 8
       promote: 1
       branch: 4
       body: >
@@ -251,7 +251,7 @@ source:
       style: story
       category: 2
       related: 1
-      image: 1
+      image: 9
       promote: 1
       branch: 1
       body: >
@@ -278,7 +278,7 @@ source:
       style: story
       category: 2
       related: 1
-      image: 1
+      image: 10
       promote: 1
       branch: 2
       body: >
