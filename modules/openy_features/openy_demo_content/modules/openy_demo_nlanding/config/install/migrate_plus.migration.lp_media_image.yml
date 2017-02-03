@@ -1,0 +1,65 @@
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+  module:
+    - openy_media_image
+id: openy_demo_lp_media_image
+migration_tags: { }
+migration_group: openy_demo_nlanding
+label: 'Demo landing page media images'
+migration_dependencies:
+  required:
+    - openy_demo_lp_file
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: homepage_banner
+      name: 'Home page banner'
+      file: homepage_banner
+    -
+      id: about
+      name: 'About'
+      file: about
+    -
+      id: give
+      name: 'Give'
+      file: give
+    -
+      id: accelerator_one
+      name: 'Accelerator One'
+      file: accelerator_one
+    -
+      id: accelerator_two
+      name: 'Accelerator Two'
+      file: accelerator_two
+    -
+      id: accelerator_three
+      name: 'Accelerator Three'
+      file: accelerator_three
+    -
+      id: education_and_employment
+      name: 'Education & Employment'
+      file: education_and_employment
+    -
+      id: housing_and_transition_planning
+      name: 'Housing & Transition Planning'
+      file: housing_and_transition_planning
+  ids:
+    id:
+      type: string
+process:
+  name: name
+  bundle:
+    plugin: default_value
+    default_value: image
+  uid:
+    plugin: default_value
+    default_value: 1
+  field_media_image:
+    plugin: migration
+    migration: openy_demo_lp_file
+    source: file
+destination:
+  plugin: 'entity:media'
