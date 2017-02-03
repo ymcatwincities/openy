@@ -43,7 +43,9 @@ class ContentImporter implements ContentImporterInterface {
   public function getMap() {
     // @todo Fix block migrations and then add them to 'default'.
     return [
-      'default' => [],
+      'default' => [
+        'openy_demo_taxonomy_term_facility_type',
+      ],
       'landing' => [
         'openy_demo_node_landing',
       ],
