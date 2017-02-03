@@ -4,7 +4,6 @@ namespace Drupal\openy_mappings;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\node\NodeInterface;
 
 /**
  * Class LocationMappingRepository.
@@ -37,7 +36,7 @@ class LocationMappingRepository {
    * @param int $id
    *   Daxko branch ID.
    *
-   * @return NodeInterface
+   * @return \Drupal\node\NodeInterface;
    *   Branch node.
    */
   public function getBranchByDaxkoBranchId($id) {
@@ -59,8 +58,7 @@ class LocationMappingRepository {
       $mapping = $mapping_storage->load(reset($ids));
 
       // Get node.
-      $field_data = $mapping->get('field_ref_branch_id')->getValue();
-      $node_id = $field_data[0]['target_id'];
+      $node_id = $mapping->field_ref_branch_id->target_id;
       $node_storage = $this->entityTypeManager->getStorage('node');
       $cache[$id] = $node_storage->load($node_id);
     }
@@ -89,8 +87,7 @@ class LocationMappingRepository {
     $storage = $this->entityTypeManager->getStorage('mapping');
     $entities = $storage->loadMultiple($ids);
     foreach ($entities as $entity) {
-      $field_data = $entity->get('field_daxko_branch_id')->getValue();
-      $daxko_ids[] = $field_data[0]['value'];
+      $daxko_ids[] = $entity->field_daxko_branch_id->value;
     }
 
     return $daxko_ids;
