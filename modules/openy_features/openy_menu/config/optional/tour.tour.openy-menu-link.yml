@@ -13,13 +13,13 @@ tips:
     id: menu-link-form
     plugin: text
     label: 'Menu link form'
-    body: 'On this page you can create new menu link. When you open already existing menu links, form will be populated with values.'
+    body: 'On this page you can create a new menu link. When you open an existing menu link, this form will be populated with values.'
     weight: 1
   menu-link-form-title:
     id: menu-link-form-title
     plugin: text
     label: 'Menu link title'
-    body: 'Add name of the menu link title that you want to see in the main navigation.'
+    body: 'Add the name of the menu link title that you want to see in the main navigation.'
     weight: 2
     attributes:
       data-class: 'field--name-title'
@@ -27,7 +27,7 @@ tips:
     id: menu-link-form-link
     plugin: text
     label: 'Menu link URL'
-    body: 'Add a link to a piece of content or page for the menu link title added above. It supports internal and external URLs.'
+    body: 'Add a link to a piece of content or page for the menu link title added above. Internal and external URLs are supported'
     weight: 3
     attributes:
       data-class: 'field--name-link'
@@ -35,7 +35,7 @@ tips:
     id: menu-link-form-enabeld
     plugin: text
     label: 'Enabled checkbox'
-    body: 'This option displays whether your menu item is active or deactiveated.'
+    body: 'This option displays whether the menu item is active or deactiveated.'
     weight: 4
     attributes:
       data-class: 'field--name-enabled'
@@ -43,7 +43,7 @@ tips:
     id: menu-link-form-description
     plugin: text
     label: 'Menu link description'
-    body: 'Add description here that will appear when a user hovers over the menu.'
+    body: 'Add a description here, that will appear when a user hovers over the menu.'
     weight: 5
     attributes:
       data-class: 'field--name-description'
@@ -59,7 +59,7 @@ tips:
     id: menu-link-form-icon
     plugin: text
     label: 'Menu link icon'
-    body: 'Upload a menu icon if you want one to appear next to the 2nd level of main menu.'
+    body: 'Upload a menu icon if you want one to appear next to the 2nd level of the main menu.'
     weight: 7
     attributes:
       data-class: 'form-item-icon-upload'
@@ -75,7 +75,7 @@ tips:
     id: menu-link-form-weight
     plugin: text
     label: 'Menu link weight'
-    body: 'This field determines order of menu items. You can also drag & drop menu items on menu management screen.'
+    body: 'This field determines the order of menu items. You can also drag & drop menu items on menu management screen.'
     weight: 9
     attributes:
       data-class: 'field--name-weight'
