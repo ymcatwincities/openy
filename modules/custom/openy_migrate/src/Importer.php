@@ -12,7 +12,7 @@ use Drupal\migrate_tools\MigrateExecutable;
  *
  * @package Drupal\openy
  */
-class Importer implements ImporterInterface  {
+class Importer implements ImporterInterface {
 
   /**
    * Migration manager.
