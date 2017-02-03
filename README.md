@@ -20,7 +20,7 @@ The Open Y platform is a content management system that uses Drupal 8 functional
 We are using [composer](https://getcomposer.org/) for initiating new project tree.
 
 ```
-composer create-project ymcatwincities/openy-project MY_PROJECT --no-interaction
+composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
 ```
 
 # Development
