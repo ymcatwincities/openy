@@ -133,3 +133,4 @@ migration_dependencies:
     - yghc_prgf_fc
     - yghc_prgf_whay
     - yghc_prgf_location_finder
+    - yghc_prgf_global_search
