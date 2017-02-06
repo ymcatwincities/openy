@@ -92,7 +92,7 @@
       font-size: 14px;
       line-height: 1.28;
       letter-spacing: 2px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      @include helvetica-neue();
 
       a {
         position: relative;
