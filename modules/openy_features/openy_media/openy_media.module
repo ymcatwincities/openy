@@ -4,3 +4,26 @@
  * @file
  * OpenY Media module file.
  */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_media_form_entity_browser_images_library_embed_form_alter(array &$form, FormStateInterface $form_state) {
+  $form['#attached']['library'][] = 'openy_media/browser';
+}
+
+/**
+ * Preprocess function for grid views of the media library.
+ *
+ * @param array $variables
+ *   Template variables.
+ */
+function openy_media_preprocess_views_view_grid__images_library(array &$variables) {
+  foreach ($variables['items'] as &$item) {
+    foreach ($item['content'] as &$column) {
+      $column['attributes']['data-selectable'] = 'true';
+    }
+  }
+}

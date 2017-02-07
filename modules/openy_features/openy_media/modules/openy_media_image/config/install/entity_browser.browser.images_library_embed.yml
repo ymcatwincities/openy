@@ -11,7 +11,7 @@ name: images_library_embed
 label: 'Images Library Embed'
 display: iframe
 display_configuration:
-  width: '950'
+  width: 99%
   height: '600'
   link_text: 'Select images'
   auto_open: true
