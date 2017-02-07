@@ -1,0 +1,139 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_menu_link_footer
+migration_tags: {  }
+migration_group: openy_demo_menu
+label: 'Create demo menu links'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Programs'
+      menu_name: 'footer-menu-left'
+      link: 'base:openy'
+      weight: 1
+      parent_id: 0
+      expanded: 1
+      parent_link_path: ''
+    -
+      id: 2
+      title: 'Health and Fitness'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/health-and-fitness'
+      weight: 1
+      parent_id: 1
+      expanded: 0
+      parent_link_path: 'openy'
+    -
+      id: 3
+      title: 'Swimming'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/swimming'
+      weight: 2
+      parent_id: 1
+      expanded: 0
+      parent_link_path: 'openy'
+    -
+      id: 4
+      title: 'Kids and Family Activities'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/kids-and-family-activities'
+      weight: 3
+      parent_id: 1
+      expanded: 0
+      parent_link_path: 'openy'
+    -
+      id: 5
+      title: 'Child Care'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/child-care'
+      weight: 4
+      parent_id: 1
+      expanded: 0
+      parent_link_path: 'openy'
+    -
+      id: 6
+      title: 'Camps'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/camps'
+      weight: 5
+      parent_id: 1
+      expanded: 0
+      parent_link_path: 'openy'
+    -
+      id: 7
+      title: 'Youth Programs'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/youth-programs'
+      weight: 6
+      parent_id: 1
+      expanded: 0
+      parent_link_path: 'openy'
+    -
+      id: 8
+      title: 'Home'
+      menu_name: 'footer-menu-center'
+      link: 'base:openy'
+      weight: 1
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 9
+      title: 'Blog'
+      menu_name: 'footer-menu-center'
+      link: 'base:blog'
+      weight: 2
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 10
+      title: 'Accelerator'
+      menu_name: 'footer-menu-center'
+      link: 'base:accelerator'
+      weight: 3
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 11
+      title: 'About'
+      menu_name: 'footer-menu-right'
+      link: 'base:about-ymca'
+      weight: 1
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 12
+      title: 'Give'
+      menu_name: 'footer-menu-right'
+      link: 'base:give'
+      weight: 2
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+  ids:
+    id:
+      type: integer
+process:
+  bundle:
+    plugin: default_value
+    default_value: menu_link_content
+  title: title
+  menu_name: menu_name
+  link: link
+  weight: weight
+  expanded: expanded
+  parent:
+    plugin: menu_link_parent
+    source:
+      - parent_id
+      - menu_name
+      - parent_link_path
+destination:
+  plugin: entity:menu_link_content
