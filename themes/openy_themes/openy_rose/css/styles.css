@@ -1926,11 +1926,17 @@ body {
   }
 }
 
-.paragraph--type--blog-posts-listing .views-exposed-form {
+.paragraph--type--blog-posts-listing .views-exposed-form,
+.paragraph--type--latest-blog-posts .views-exposed-form,
+.paragraph--type--latest-blog-posts-camp .views-exposed-form,
+.paragraph--type--latest-blog-posts-branch .views-exposed-form {
   margin-bottom: 30px;
 }
 @media (min-width: 48em) {
-  .paragraph--type--blog-posts-listing .blog-more-teaser-results-wrapper {
+  .paragraph--type--blog-posts-listing .blog-more-teaser-results-wrapper,
+  .paragraph--type--latest-blog-posts .blog-more-teaser-results-wrapper,
+  .paragraph--type--latest-blog-posts-camp .blog-more-teaser-results-wrapper,
+  .paragraph--type--latest-blog-posts-branch .blog-more-teaser-results-wrapper {
     margin-left: -15px;
     margin-right: -15px;
   }

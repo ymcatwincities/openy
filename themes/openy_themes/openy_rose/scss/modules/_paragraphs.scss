@@ -771,7 +771,10 @@
   }
 }
 
-.paragraph--type--blog-posts-listing {
+.paragraph--type--blog-posts-listing,
+.paragraph--type--latest-blog-posts,
+.paragraph--type--latest-blog-posts-camp,
+.paragraph--type--latest-blog-posts-branch {
   .views-exposed-form {
     margin-bottom: 30px;
   }

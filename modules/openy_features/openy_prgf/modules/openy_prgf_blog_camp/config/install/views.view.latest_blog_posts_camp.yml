@@ -226,6 +226,7 @@ display:
           plugin_id: numeric
       display_extenders: {  }
       use_ajax: true
+      css_class: blog-more-teaser
     cache_metadata:
       max-age: -1
       contexts:
