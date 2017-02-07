@@ -87,8 +87,8 @@ tips:
     weight: 10
     attributes:
       data-class: 'label:contains("Membership")'
-  landing-page:
-    id: landing-page
+  landing:
+    id: landing
     plugin: text
     label: 'Landing Page'
     body: 'Here a user can add landing pages to the site these are jump off`s to other areas of the site. Landing pages are made up of paragraphs which will be explained in a later tour.'
