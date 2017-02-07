@@ -43,12 +43,12 @@
   {% if multiple %}
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>
       {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>{{ item.content }}</div>
+        <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12', 'col-sm-6', 'col-md-4', 'row-eq-height').removeClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>{{ item.content }}</div>
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      <div{{ attributes.addClass(field_name|clean_class) }}>{{ item.content }}</div>
+      <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12', 'col-sm-6', 'col-md-4', 'row-eq-height') }}>{{ item.content }}</div>
     {% endfor %}
   {% endif %}
 {% else %}
@@ -58,7 +58,7 @@
     <div class="description slick-mobile">
       {% endif %}
       {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>{{ item.content }}</div>
+        <div{{ attributes.addClass(field_name|clean_class, 'col-xs-12', 'col-sm-6', 'col-md-4', 'row-eq-height').removeClass('wrapper-' ~ field_name|clean_class, 'description', 'slick-mobile') }}>{{ item.content }}</div>
       {% endfor %}
       {% if multiple %}
     </div>
