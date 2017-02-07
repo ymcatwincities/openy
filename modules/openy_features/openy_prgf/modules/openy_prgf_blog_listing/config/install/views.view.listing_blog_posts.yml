@@ -73,7 +73,11 @@ display:
             button_text: 'Load More'
             automatically_load_content: false
       style:
-        type: grid
+        type: default
+        options:
+          row_class: ''
+          default_row_class: true
+          uses_fields: false
       row:
         type: 'entity:node'
         options:
@@ -324,6 +328,7 @@ display:
         operator: AND
         groups:
           1: AND
+      css_class: blog-more-teaser
     cache_metadata:
       max-age: -1
       contexts:
