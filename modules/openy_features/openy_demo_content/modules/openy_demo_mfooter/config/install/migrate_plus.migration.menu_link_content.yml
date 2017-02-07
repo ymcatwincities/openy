@@ -1,0 +1,434 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_menu_link_content
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Create Menu'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Program'
+      menu_name: 'main'
+      link: 'base:program'
+      weight: -10
+      parent_id: 0
+      expanded: 1
+    -
+      id: 2
+      title: 'Locations'
+      menu_name: 'main'
+      link: 'base:locations'
+      weight: -9
+      parent_id: 0
+    -
+      id: 3
+      title: 'Schedules'
+      menu_name: 'main'
+      link: 'base:schedules'
+      weight: -8
+      parent_id: 0
+    -
+      id: 4
+      title: 'About'
+      menu_name: 'main'
+      link: 'base:about'
+      weight: -7
+      parent_id: 0
+    -
+      id: 5
+      title: 'Join'
+      menu_name: 'main'
+      link: 'base:join'
+      weight: -5
+      parent_id: 0
+    -
+      id: 6
+      title: 'Blog'
+      menu_name: 'footer-menu-center'
+      link: 'base:blog'
+      weight: 0
+      parent_id: 0
+    -
+      id: 7
+      title: 'About'
+      menu_name: 'footer-menu-center'
+      link: 'base:about'
+      weight: 1
+      parent_id: 0
+    -
+      id: 8
+      title: 'Carrers'
+      menu_name: 'footer-menu-center'
+      link: 'base:careers'
+      weight: 2
+      parent_id: 0
+    -
+      id: 9
+      title: 'Contact'
+      menu_name: 'footer-menu-center'
+      link: 'base:contact'
+      weight: 3
+      parent_id: 0
+    -
+      id: 10
+      title: 'My Account'
+      menu_name: 'footer-menu-center'
+      link: 'base:my_account'
+      weight: 4
+      parent_id: 0
+    -
+      id: 11
+      title: 'Give'
+      menu_name: 'footer-menu-right'
+      link: 'base:give'
+      weight: 0
+      parent_id: 0
+    -
+      id: 12
+      title: 'Volunteer'
+      menu_name: 'footer-menu-right'
+      link: 'base:volunteer'
+      weight: 1
+      parent_id: 0
+    -
+      id: 13
+      title: 'Join the YMCA'
+      menu_name: 'footer-menu-right'
+      link: 'base:join'
+      weight: 2
+      parent_id: 0
+    -
+      id: 14
+      title: 'Financial Assistance'
+      menu_name: 'footer-menu-right'
+      link: 'base:assistance'
+      weight: 3
+      parent_id: 0
+    -
+      id: 15
+      title: 'Programs'
+      menu_name: 'footer-menu-left'
+      link: 'base:'
+      weight: 0
+      parent_id: 0
+      expanded: 1
+    -
+      id: 16
+      title: 'Health & Fitness'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/health-fitness'
+      weight: 1
+      parent_id: 15
+    -
+      id: 17
+      title: 'Swimming'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/swimming'
+      weight: 1
+      parent_id: 15
+    -
+      id: 18
+      title: 'Kids, Teens & Families'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/kid-and-teens-activities'
+      weight: 2
+      parent_id: 15
+    -
+      id: 19
+      title: 'Camps'
+      menu_name: 'footer-menu-right'
+      link: 'base:programs/camps'
+      weight: 3
+      parent_id: 15
+    -
+      id: 20
+      title: 'Childcare'
+      menu_name: 'footer-menu-right'
+      link: 'base:programs/childcare'
+      weight: 4
+      parent_id: 15
+    -
+      id: 21
+      title: 'Social Responsibility'
+      menu_name: 'footer-menu-right'
+      link: 'base:programs/social'
+      weight: 5
+      parent_id: 15
+    -
+      id: 22
+      title: 'Schedules'
+      menu_name: 'footer-menu-left'
+      link: 'base:childcare'
+      weight: 6
+      parent_id: 0
+    -
+      id: 23
+      title: 'Locations'
+      menu_name: 'footer-menu-left'
+      link: 'base:locations'
+      weight: 7
+      parent_id: 0
+    -
+      id: 25
+      title: 'Health & Fitness'
+      menu_name: 'main'
+      link: 'base:programs/health-fitness'
+      weight: 1
+      parent_id: 1
+      expanded: 1
+    -
+      id: 27
+      title: 'Swimming'
+      menu_name: 'main'
+      link: 'base:programs/swimming'
+      weight: 3
+      parent_id: 1
+      expanded: 1
+    -
+      id: 28
+      title: 'Kid & Teens Activities'
+      menu_name: 'main'
+      link: 'base:programs/kid-and-teens-activities'
+      weight: 4
+      parent_id: 1
+      expanded: 1
+    -
+      id: 29
+      title: 'Camps'
+      menu_name: 'main'
+      link: 'base:programs/camps'
+      weight: 5
+      parent_id: 1
+      expanded: 1
+    -
+      id: 30
+      title: 'Childcare'
+      menu_name: 'main'
+      link: 'base:programs/childcare'
+      weight: 6
+      parent_id: 1
+      expanded: 1
+    -
+      id: 31
+      title: 'Social Services'
+      menu_name: 'main'
+      link: 'base:programs/social'
+      weight: 7
+      parent_id: 1
+      expanded: 1
+    -
+      id: 32
+      title: 'Group Exercise Classes'
+      menu_name: 'main'
+      link: 'base:programs/group'
+      weight: 3
+      parent_id: 25
+    -
+      id: 33
+      title: 'Trainer-Led Classes'
+      menu_name: 'main'
+      link: 'base:programs/trainer'
+      weight: 4
+      parent_id: 25
+    -
+      id: 34
+      title: 'Personal Training'
+      menu_name: 'main'
+      link: 'base:programs/personal'
+      weight: 5
+      parent_id: 25
+    -
+      id: 35
+      title: 'Diabetes Prevention'
+      menu_name: 'main'
+      link: 'base:programs/diabet'
+      weight: 5
+      parent_id: 25
+    -
+      id: 36
+      title: 'Active Older Adults'
+      menu_name: 'main'
+      link: 'base:programs/active_older'
+      weight: 2
+      parent_id: 25
+    -
+      id: 36
+      title: 'Swim Lessons'
+      menu_name: 'main'
+      link: 'base:swimlesson'
+      weight: 6
+      parent_id: 27
+    -
+      id: 37
+      title: 'Swim Team'
+      menu_name: 'main'
+      link: 'base:swimteam'
+      weight: 7
+      parent_id: 27
+    -
+      id: 38
+      title: 'Certifications And Training'
+      menu_name: 'main'
+      link: 'base:certification'
+      weight: 1
+      parent_id: 27
+    -
+      id: 39
+      title: 'Swim Tests, Policies And Facilities'
+      menu_name: 'main'
+      link: 'base:policies'
+      weight: 2
+      parent_id: 27
+    -
+      id: 40
+      title: 'Sports'
+      menu_name: 'main'
+      link: 'base:sports'
+      weight: 3
+      parent_id: 28
+    -
+      id: 41
+      title: 'Arts'
+      menu_name: 'main'
+      link: 'base:arts'
+      weight: 4
+      parent_id: 28
+    -
+      id: 42
+      title: 'Teen Leadership'
+      menu_name: 'main'
+      link: 'base:teenleader'
+      weight: 5
+      parent_id: 28
+    -
+      id: 43
+      title: 'Family Fun & Fitness'
+      menu_name: 'main'
+      link: 'base:familyfun'
+      weight: 6
+      parent_id: 28
+    -
+      id: 44
+      title: 'Day Camp'
+      menu_name: 'main'
+      link: 'base:daycamp'
+      weight: 7
+      parent_id: 29
+    -
+      id: 45
+      title: 'Overnight Camp'
+      menu_name: 'main'
+      link: 'base:overnight'
+      weight: 4
+      parent_id: 29
+    -
+      id: 46
+      title: 'Teen Wilderness'
+      menu_name: 'main'
+      link: 'base:teenwild'
+      weight: 5
+      parent_id: 29
+    -
+      id: 47
+      title: 'Family Camp'
+      menu_name: 'main'
+      link: 'base:familycamp'
+      weight: 6
+      parent_id: 29
+    -
+      id: 48
+      title: 'Infants & Toddlers'
+      menu_name: 'main'
+      link: 'base:infant'
+      weight: 7
+      parent_id: 30
+    -
+      id: 49
+      title: 'Preschool'
+      menu_name: 'main'
+      link: 'base:preschool'
+      weight: 7
+      parent_id: 30
+    -
+      id: 50
+      title: 'Before And After-School'
+      menu_name: 'main'
+      link: 'base:beforeschool'
+      weight: 4
+      parent_id: 30
+    -
+      id: 51
+      title: 'YMCA Accelerator'
+      menu_name: 'main'
+      link: 'base:ymcaacelerator'
+      weight: 5
+      parent_id: 31
+    -
+      id: 52
+      title: 'Education & Employment'
+      menu_name: 'main'
+      link: 'base:education'
+      weight: 6
+      parent_id: 31
+    -
+      id: 53
+      title: 'Mental Health & Substance Abuse'
+      menu_name: 'main'
+      link: 'base:mental'
+      weight: 7
+      parent_id: 31
+    -
+      id: 54
+      title: 'Housing & Transistion Planning'
+      menu_name: 'main'
+      link: 'base:housing'
+      weight: 4
+      parent_id: 31
+    -
+      id: 55
+      title: 'Family Support'
+      menu_name: 'main'
+      link: 'base:famsupport'
+      weight: 5
+      parent_id: 31
+    -
+      id: 56
+      title: 'Street Outreach'
+      menu_name: 'main'
+      link: 'base:familyc'
+      weight: 6
+      parent_id: 31
+    -
+      id: 57
+      title: 'Leadership Development'
+      menu_name: 'main'
+      link: 'base:daycamp'
+      weight: 7
+      parent_id: 31
+
+
+  ids:
+    id:
+      type: integer
+process:
+  bundle:
+    plugin: default_value
+    default_value: menu_link_content
+  title: title
+  menu_name: menu_name
+  link: link
+  weight: weight
+  expanded: expanded
+  parent:
+    -
+      plugin: migration
+      migration: yghc_menu_link_content
+      source: parent_id
+    -
+      plugin: menu_link_content_parent
+destination:
+  plugin: entity:menu_link_content
