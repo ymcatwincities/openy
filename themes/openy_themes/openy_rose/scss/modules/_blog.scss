@@ -30,17 +30,15 @@
   }
 
   &.node--view-mode-teaser {
+    margin: auto;
+    max-width: 373px;
     width: 100%;
-    max-width: 100%;
 
     .inner-wrapper {
+      margin: 15px 0;
       position: relative;
       overflow: hidden;
       height: 250px;
-
-      @include breakpoint(0 $screen-sm) {
-        margin: 0 auto;
-      }
     }
 
     img {
@@ -180,16 +178,8 @@
 .blog-more-teaser {
   margin-top: 40px;
 
-  @media (min-width: 1024px) {
-
-  }
-
   .h1 {
     padding-bottom: 0;
-  }
-
-  h2 {
-
   }
 
   .views-view-grid {
