@@ -2,14 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - image.style.medium
+    - image.style.browser_thumbnail
     - media_entity.bundle.image
   module:
     - entity_browser
     - image
     - media_entity
     - user
-    - views_infinite_scroll
 id: images_library
 label: 'Images Library'
 module: views
@@ -51,7 +50,7 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: infinite_scroll
+        type: mini
         options:
           items_per_page: 12
           offset: 0
@@ -68,9 +67,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          views_infinite_scroll:
-            button_text: 'Load More'
-            automatically_load_content: false
       style:
         type: grid
         options:
@@ -141,7 +137,7 @@ display:
           click_sort_column: target_id
           type: image
           settings:
-            image_style: medium
+            image_style: browser_thumbnail
             image_link: ''
           group_column: ''
           group_columns: {  }

@@ -8,10 +8,19 @@
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Implements hook_form_alter().
  */
-function openy_media_form_entity_browser_images_library_embed_form_alter(array &$form, FormStateInterface $form_state) {
-  $form['#attached']['library'][] = 'openy_media/browser';
+function openy_media_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  switch ($form_id) {
+    case 'entity_browser_images_library_embed_form':
+    case 'entity_browser_images_library_form':
+    case 'entity_browser_documents_library_embed_form':
+    case 'entity_browser_documents_library_form':
+    case 'entity_browser_videos_library_embed_form':
+    case 'entity_browser_videos_library_form':
+      $form['#attached']['library'][] = 'openy_media/browser';
+      break;
+  }
 }
 
 /**
@@ -20,10 +29,16 @@ function openy_media_form_entity_browser_images_library_embed_form_alter(array &
  * @param array $variables
  *   Template variables.
  */
-function openy_media_preprocess_views_view_grid__images_library(array &$variables) {
-  foreach ($variables['items'] as &$item) {
-    foreach ($item['content'] as &$column) {
-      $column['attributes']['data-selectable'] = 'true';
-    }
+function openy_media_preprocess_views_view_grid(array &$variables) {
+  switch ($variables['view']->storage->id()) {
+    case 'images_library':
+    case 'documents_library':
+    case 'videos_library':
+      foreach ($variables['items'] as &$item) {
+        foreach ($item['content'] as &$column) {
+          $column['attributes']['data-selectable'] = 'true';
+        }
+      }
+      break;
   }
 }
