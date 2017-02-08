@@ -16,7 +16,9 @@ a,
 }
 .nav.dropdown-menu,
 .viewport .nav-level-2.open > a,
-.viewport .nav-level-2.open > a:focus {
+.viewport .nav-level-2.open > a:focus,
+.nav > li > a:hover,
+.nav > li > a:focus {
   background-color: #0060af;
 }
 .footer {
