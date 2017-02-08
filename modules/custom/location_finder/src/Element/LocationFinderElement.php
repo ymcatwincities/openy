@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\location_finder\Element\LocationFinderElement.
- */
 
 namespace Drupal\location_finder\Element;
 
@@ -14,6 +10,7 @@ use Drupal\Core\Render\Element\RenderElement;
  * @RenderElement("location_finder_element")
  */
 class LocationFinderElement extends RenderElement {
+
   /**
    * {@inheritdoc}
    */
@@ -32,4 +29,5 @@ class LocationFinderElement extends RenderElement {
   public static function preRenderLocationFinderElement($element) {
     return $element;
   }
+
 }

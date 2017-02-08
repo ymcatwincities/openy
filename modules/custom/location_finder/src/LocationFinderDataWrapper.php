@@ -16,6 +16,8 @@ use Drupal\Core\Render\RendererInterface;
 class LocationFinderDataWrapper implements OpenyDataServiceInterface {
 
   /**
+   * Openy Socrates Facade.
+   *
    * @var OpenySocratesFacade
    */
   protected $socrates;
@@ -116,4 +118,5 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
       // @todo consider to extend Socrates with service_name:method instead of just method or to make methods more longer in names.
     ];
   }
+
 }

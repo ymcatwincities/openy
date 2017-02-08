@@ -19,6 +19,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class LocationFinder extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
+   * Openy Socrates Facade.
+   *
    * @var OpenySocratesFacade
    */
   protected $socrates;
@@ -62,7 +64,7 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
         '#type' => 'view',
         '#name' => 'locations',
         '#display_id' => 'locations_camps_block',
-      ]
+      ],
     ];
   }
 
