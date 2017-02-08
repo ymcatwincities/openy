@@ -1,0 +1,469 @@
+$alert-black: #231f20;
+
+$module: 'site-alert';
+
+.#{$module} {
+  @include cachet();
+  background-color: $light-blue;
+  width: 100%;
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__title {
+    color: $white;
+    font-size: 18px;
+  }
+
+  &__content {
+    p {
+      margin: 0;
+    }
+  }
+
+  &__cta {
+    margin-top: 15px;
+
+    @include breakpoint($screen-sm) {
+      margin-bottom: 15px;
+    }
+
+    @include breakpoint($screen-md) {
+      margin: 0;
+    }
+
+    .btn-outline-inverse {
+      border: 1px solid $white;
+      color: $white;
+      display: block;
+      padding: 12px 16px;
+
+      &:hover {
+        background-color: $white;
+        color: $dark-blue;
+      }
+    }
+  }
+
+  &__dismiss {
+    color: $white;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    text-shadow: 0 0 2px $dark-grey;
+  }
+
+  &--header {
+    border: 1px solid $default-grey;
+
+    .#{$module} {
+
+      &__wrapper {
+        padding: 10px 35px 11px 59px;
+      }
+
+      &__title {
+        display: inline;
+        padding-right: 0.7em;
+      }
+
+      &__icon {
+        font-size: 26px;
+        color: $red;
+        position: absolute;
+        top: 10px;
+        left: 25px;
+
+        &:before {
+          content: " ";
+          background-color: $white;
+          border-radius: 10px;
+          height: 15px;
+          left: 5px;
+          position: absolute;
+          top: 7px;
+          width: 15px;
+          z-index: 2;
+        }
+
+        .fa {
+          position: absolute;
+          z-index: 3;
+        }
+      }
+
+      &__content {
+        color: $alert-black;
+        display: inline;
+        font-size: 16px;
+
+        .field-body-no-summary {
+          a {
+            color: $white;
+          }
+        }
+
+        @include breakpoint(0 $screen-md) {
+          * {
+            display: inline;
+          }
+        }
+      }
+
+      &__cta {
+        a {
+          color: $white;
+        }
+      }
+    }
+    // Variations.
+
+    &--yellow {
+      background: $yellow;
+      border: 1px solid $gray;
+    }
+
+    &--dark_blue {
+      background: $dark-blue;
+      border: 1px solid $gray;
+    }
+
+    &--dark_blue {
+      background-color: $dark-blue;
+    }
+
+    &--transparent {
+      background: none;
+      border: 1px solid $black;
+
+      .#{$module}__title {
+        color: $default-grey;
+      }
+
+      .#{$module}__content {
+        color: $default-grey;
+      }
+
+      .#{$module}__cta {
+        .btn-outline-inverse {
+          &:hover {
+            color: $blue;
+          }
+        }
+
+        a {
+          color: $blue;
+        }
+      }
+    }
+  }
+
+  &--footer {
+    background-color: $dark-blue;
+
+    .#{$module} {
+
+      &__wrapper {
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        @include breakpoint($screen-md) {
+          padding-top: 25px;
+          padding-bottom: 25px;
+        }
+      }
+
+      &__title {
+        display: block;
+        font-size: 24px;
+        line-height: 28px;
+        padding-right: 1em;
+
+        @include breakpoint($screen-sm) {
+          margin-top: 14px;
+        }
+
+        @include breakpoint($screen-md) {
+          display: inline-block;
+          font-size: 28px;
+          line-height: 50px;
+          margin-top: 0px;
+        }
+      }
+
+      &__content {
+        color: $white;
+        display: block;
+        font-size: 18px;
+        line-height: 22px;
+
+        @include breakpoint($screen-md) {
+          display: inline-block;
+          font-size: 20px;
+          line-height: 46px;
+        }
+      }
+
+      &__icon,
+      &__dismiss {
+        display: none;
+      }
+
+    }
+    // Variations.
+    &--yellow {
+      background: $yellow;
+      border: 1px solid $gray;
+
+      .#{$module}__cta {
+        .btn-outline-inverse {
+          &:hover {
+            color: $yellow;
+          }
+        }
+      }
+    }
+
+    &--dark_blue {
+      background: $dark-blue;
+      border: 1px solid $gray;
+    }
+
+    &--blue {
+      background-color: $blue;
+
+      .#{$module}__cta {
+        .btn-outline-inverse {
+          &:hover {
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+}
+
+.header-alerts-list {
+
+  .slick-slider {
+    margin-bottom: 0;
+  }
+
+  .slick-track {
+    display: flex;
+
+    .slick-slide {
+      display: flex;
+      height: auto;
+    }
+  }
+
+  .slick__arrow {
+    display: block;
+    position: relative;
+    margin-top: -25px;
+  }
+
+  /* Arrows */
+
+  .slick-prev,
+  .slick-next {
+    position: absolute;
+    display: block;
+    height: 20px;
+    width: 20px;
+    line-height: 0px;
+    font-size: 0px;
+    cursor: pointer;
+    background: transparent;
+    color: transparent;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    border: none;
+    outline: none;
+
+    &:hover, &:focus {
+      outline: none;
+      background: transparent;
+      color: transparent;
+      &:before {
+        opacity: 1;
+      }
+    }
+
+    &.slick-disabled:before {
+      opacity: 0.25;
+    }
+
+    &:before {
+      font-family: "FontAwesome";
+      font-size: 20px;
+      line-height: 1;
+      color: $white;
+      opacity: 0.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  .slick-arrow {
+    text-shadow: 0 0 2px $black;
+  }
+
+  .slick-prev {
+    left: auto;
+    right: 25px;
+
+    &:before {
+      content: "\f104";
+    }
+  }
+
+  .slick-next {
+    left: auto;
+    right: 0;
+
+    &:before {
+      content: "\f105";
+    }
+  }
+
+  .slick-dots {
+    bottom: auto;
+    display: none !important;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: -6px;
+    width: 100%;
+    
+    @include breakpoint($screen-md) {
+      display: none !important;
+    }
+
+    li {
+      position: relative;
+      display: inline-block;
+      height: 20px;
+      width: 20px;
+      margin: 0 5px;
+      padding: 0;
+      cursor: pointer;
+
+      button {
+        border: 0;
+        background: transparent;
+        display: block;
+        height: 20px;
+        width: 20px;
+        outline: none;
+        line-height: 0px;
+        font-size: 0px;
+        color: transparent;
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover, &:focus {
+          outline: none;
+
+          &:before {
+            opacity: 1;
+          }
+        }
+
+        &:before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: "\f111";
+          width: 20px;
+          height: 20px;
+          font-family: "FontAwesome";
+          font-size: 6px;
+          line-height: 20px;
+          text-align: center;
+          color: $white;
+          opacity: 0.5;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+
+          text-shadow: 0 0 2px #000;
+
+        }
+      }
+      &.slick-active button {
+
+        &:before {
+          color: $white;
+          opacity: 0.75;
+        }
+
+        &:hover {
+
+          &:before {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+.specific-alerts-list {
+ padding: 20px 0;
+
+  .container {
+    width: auto;
+  }
+
+  .#{$module}__cta {
+    line-height: 23px;
+    text-align: right;
+
+    @include breakpoint($screen-tablet) {
+     padding-right: 20px;
+    }
+  }
+}
+
+// Schedules depending alerts.
+#schedules-search-form-wrapper {
+  .alerts-wrapper {
+    background-color: $white;
+    margin-bottom: 30px;
+    .site-alert--header--yellow {
+      background-color: $white;
+      border: 1px solid $yellow;
+    }
+    .site-alert--header--blue {
+      background-color: $white;
+      border: 1px solid $blue;
+    }
+    .site-alert--header--dark_blue {
+      background-color: $white;
+      border: 1px solid $dark_blue;
+    }
+    .site-alert__title {
+      color: $default-grey;
+    }
+    .site-alert__content {
+      color: $default-grey;
+    }
+    .site-alert__cta {
+      a {
+        color: $blue;
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+    }
+    .site-alert__icon {
+      color: $orange;
+    }
+  }
+}
