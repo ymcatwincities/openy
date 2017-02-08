@@ -15,11 +15,16 @@
       var input = 'input[name ^= "entity_browser_select"]';
 
       $selectables.on('click', function () {
-        // Select this one...
-        $(this).addClass('selected').find(input).prop('checked', true);
+        // Allow unselecting and multiselect.
+        if ($(this).hasClass('selected')) {
+          $(this).removeClass('selected').find(input).prop('checked', false);
+        } else {
+          // Select this one...
+          $(this).addClass('selected').find(input).prop('checked', true);
+        }
 
         // ...and unselect everything else.
-        $selectables.not(this).removeClass('selected').find(input).prop('checked', false);
+        //$selectables.not(this).removeClass('selected').find(input).prop('checked', false);
       });
     }
 
