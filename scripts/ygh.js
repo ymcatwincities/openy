@@ -54,7 +54,7 @@
         }
       }
       // Slick is initialised but we check if it fits screen size.
-      if ($(window).width() >= 768) {console.log('abu1');
+      if ($(window).width() >= 768) {
         view.find('.wrapper').slick('unslick');
       }
     });

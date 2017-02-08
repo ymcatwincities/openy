@@ -15,3 +15,7 @@ global-styling:
     - core/jquery.ui.widget
     - core/drupal
     - core/drupalSettings
+bootstrap.swipe:
+  js:
+    scripts/vendor/bs-carousel-touch-swipe-support.min.js: {}
+    scripts/vendor/jquery-mobile-touch-support.min.js: {}
