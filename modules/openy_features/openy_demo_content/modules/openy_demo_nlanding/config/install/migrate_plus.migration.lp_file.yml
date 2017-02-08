@@ -22,13 +22,13 @@ source:
       name: give.jpg
     -
       id: accelerator_one
-      name: accelerator_one.jpg
+      name: accelerator_one.png
     -
       id: accelerator_two
-      name: accelerator_two.jpg
+      name: accelerator_two.png
     -
       id: accelerator_three
-      name: accelerator_three.jpg
+      name: accelerator_three.png
     -
       id: education_and_employment
       name: education_and_employment.jpg
