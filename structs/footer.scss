@@ -151,6 +151,10 @@
       @include breakpoint(laptop){
         display: block;
       }
+
+      .top-navs__language-switcher {
+        display: none;
+      }
     }
 
     @include breakpoint(tablet){
