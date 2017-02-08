@@ -7,6 +7,6 @@ namespace Drupal\openy_socrates;
  *
  * @package Drupal\openy_socrates
  */
-class OpenySocratesException extends \Exception{
+class OpenySocratesException extends \Exception {
 
 }

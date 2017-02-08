@@ -9,20 +9,24 @@ namespace Drupal\openy_socrates;
  *
  * @method mixed getLocationLongtitude(array $args)
  * @method mixed getLocationLatitude(array $args)
- *
  */
 class OpenySocratesFacade {
 
   /**
+   * Services.
+   *
    * @var array
    */
   private $services;
 
   /**
-   * Magic method call
+   * Magic method call.
+   *
    * @param $name
    * @param $arguments
+   *
    * @return string
+   *
    * @throws \Drupal\openy_socrates\OpenySocratesException
    */
   public function __call($name, $arguments) {
@@ -44,12 +48,14 @@ class OpenySocratesFacade {
 
   /**
    * Setter for services tagged with 'openy_data_service' tag.
+   *
    * @param array $services
+   *   Services.
    */
   public function collectDataServices($services) {
     $todo_services = [];
     foreach ($services as $priority => $allservices) {
-      /**
+      /*
        * @var integer $key
        * @var OpenyDataServiceInterface $service
        */
@@ -61,4 +67,5 @@ class OpenySocratesFacade {
       }
     }
   }
+
 }
