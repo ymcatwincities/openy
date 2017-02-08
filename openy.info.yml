@@ -63,6 +63,7 @@ dependencies:
   - slick_ui
   - blazy
   - blazy_ui
+  - geolocation
   # OpenY features.
   - openy_media_image
   - openy_media_document
@@ -119,6 +120,9 @@ dependencies:
   # OpenY custom modules
   - openy_hours_formatter
   - openy_migrate
+  - openy_map
+  - openy_socrates
+  - location_finder
 
 themes:
   - bartik
