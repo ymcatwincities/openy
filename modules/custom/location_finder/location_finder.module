@@ -19,7 +19,6 @@ function location_finder_theme($existing, $type, $theme, $path) {
   ];
 }
 
-
 /**
  * Implements hook_entity_view_alter().
  */
