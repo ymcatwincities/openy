@@ -3,7 +3,7 @@
 
   Drupal.behaviors.alert_dismiss = {
     attach: function (context, settings) {
-      $('.header-alerts-list', context).once('header-alert-list-arrows').each(function () {
+      $('.header-alerts-list, .footer-alerts-list', context).once('header-alert-list-arrows').each(function () {
         $('.slick__arrow', this).wrap('<div class="container"></div>');
       });
 
