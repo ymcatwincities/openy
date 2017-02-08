@@ -58,7 +58,7 @@ source:
       title: 'Child Care'
       menu_name: 'main'
       link: 'base:programs/child-care'
-      weight: 4
+      weight: 5
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
@@ -68,7 +68,7 @@ source:
       title: 'Camps'
       menu_name: 'main'
       link: 'base:programs/camps'
-      weight: 5
+      weight: 4
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
@@ -128,6 +128,195 @@ source:
       parent_id: 0
       expanded: 0
       parent_link_path: ''
+    -
+      id: 13
+      title: 'Active Older Adults'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/active-older-adults'
+      weight: 1
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 14
+      title: 'Health & Fitness for Kids & Teens'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/health-fitness-kids-teens'
+      weight: 2
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 15
+      title: 'Personal Training'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/personal-training'
+      weight: 3
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 16
+      title: 'Programs for Health'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/programs-health'
+      weight: 4
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 17
+      title: 'Recreation'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/recreation'
+      weight: 5
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 18
+      title: 'Small Group & Specialty Training'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/small-group-specialty-training'
+      weight: 6
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 19
+      title: 'Swim Team'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/swim-team'
+      weight: 7
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 20
+      title: 'Weight Loss'
+      menu_name: 'main'
+      link: 'programs/health-and-fitness/weight-loss'
+      weight: 8
+      parent_id: 2
+      expanded: 0
+      parent_link_path: 'programs/health-and-fitness'
+    -
+      id: 21
+      title: 'Drop-In Swim'
+      menu_name: 'main'
+      link: 'programs/swimming/drop-swim'
+      weight: 1
+      parent_id: 3
+      expanded: 0
+      parent_link_path: 'programs/swimming'
+    -
+      id: 22
+      title: 'Swim Lessons'
+      menu_name: 'main'
+      link: 'programs/swimming/swim-lessons'
+      weight: 2
+      parent_id: 3
+      expanded: 0
+      parent_link_path: 'programs/swimming'
+    -
+      id: 23
+      title: 'Cooking & Crafts'
+      menu_name: 'main'
+      link: 'programs/kids-and-family-activities/cooking-crafts'
+      weight: 1
+      parent_id: 4
+      expanded: 0
+      parent_link_path: 'programs/kids-and-family-activities'
+    -
+      id: 24
+      title: 'Family Activities'
+      menu_name: 'main'
+      link: 'programs/kids-and-family-activities/family-activities'
+      weight: 2
+      parent_id: 4
+      expanded: 0
+      parent_link_path: 'programs/kids-and-family-activities'
+    -
+      id: 25
+      title: 'Kids University & Enrichment Classes'
+      menu_name: 'main'
+      link: 'programs/kids-and-family-activities/kids-university-enrichment-classes'
+      weight: 3
+      parent_id: 4
+      expanded: 0
+      parent_link_path: 'programs/kids-and-family-activities'
+    -
+      id: 26
+      title: 'Kids Zone Activity Centers'
+      menu_name: 'main'
+      link: 'programs/kids-and-family-activities/kids-zone-activity-centers'
+      weight: 4
+      parent_id: 4
+      expanded: 0
+      parent_link_path: 'programs/kids-and-family-activities'
+    -
+      id: 27
+      title: 'Sports'
+      menu_name: 'main'
+      link: 'programs/kids-and-family-activities/sports'
+      weight: 5
+      parent_id: 4
+      expanded: 0
+      parent_link_path: 'programs/kids-and-family-activities'
+    -
+      id: 28
+      title: 'Bold & Gold'
+      menu_name: 'main'
+      link: 'programs/camps/bold-gold'
+      weight: 1
+      parent_id: 6
+      expanded: 0
+      parent_link_path: 'programs/camps'
+    -
+      id: 29
+      title: 'Day Camps'
+      menu_name: 'main'
+      link: 'programs/camps/day-camps'
+      weight: 2
+      parent_id: 6
+      expanded: 0
+      parent_link_path: 'programs/camps'
+    -
+      id: 30
+      title: 'Before & After School Child Care'
+      menu_name: 'main'
+      link: 'programs/child-care/before-after-school-child-care'
+      weight: 1
+      parent_id: 5
+      expanded: 0
+      parent_link_path: 'programs/child-care'
+    -
+      id: 31
+      title: 'Preschool'
+      menu_name: 'main'
+      link: 'programs/child-care/preschool'
+      weight: 2
+      parent_id: 5
+      expanded: 0
+      parent_link_path: 'programs/child-care'
+    -
+      id: 32
+      title: 'Academic Success'
+      menu_name: 'main'
+      link: 'programs/youth-programs/academic-success'
+      weight: 1
+      parent_id: 7
+      expanded: 0
+      parent_link_path: 'programs/youth-programs'
+    -
+      id: 33
+      title: 'Earth Service Corps'
+      menu_name: 'main'
+      link: 'programs/youth-programs/earth-service-corps'
+      weight: 2
+      parent_id: 7
+      expanded: 0
+      parent_link_path: 'programs/youth-programs'
   ids:
     id:
       type: integer
