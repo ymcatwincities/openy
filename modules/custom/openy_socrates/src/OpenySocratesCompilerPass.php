@@ -1,21 +1,20 @@
 <?php
 
-
 namespace Drupal\openy_socrates;
-
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Openy Socrates Compiler Pass.
+ */
 class OpenySocratesCompilerPass implements CompilerPassInterface {
 
   const OPENYINTERFACE = 'Drupal\openy_socrates\OpenyDataServiceInterface';
 
   /**
-   * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-   *
-   * @throws \Drupal\openy_socrates\OpenySocratesException
+   * {@inheritdoc}
    */
   public function process(ContainerBuilder $container) {
     // TODO: Implement process() method.
@@ -40,4 +39,5 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
 
     $definition->addMethodCall('collectDataServices', $dds);
   }
+
 }
