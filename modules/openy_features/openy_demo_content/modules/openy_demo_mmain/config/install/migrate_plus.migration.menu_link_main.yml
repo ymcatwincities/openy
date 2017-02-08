@@ -1,11 +1,16 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_demo_mmain
 id: openy_demo_menu_link_main
 migration_tags: {  }
 migration_group: openy_demo_menu
 label: 'Create demo main menu links'
-migration_dependencies: {}
+migration_dependencies:
+  required:
+    - openy_demo_menu_main_file
 source:
   plugin: embedded_data
   data_rows:
@@ -27,6 +32,7 @@ source:
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
+      icon_id: health_and_fitness
     -
       id: 3
       title: 'Swimming'
@@ -36,6 +42,7 @@ source:
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
+      icon_id: swimming
     -
       id: 4
       title: 'Kids and Family Activities'
@@ -45,6 +52,7 @@ source:
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
+      icon_id: kids_and_family_activities
     -
       id: 5
       title: 'Child Care'
@@ -54,6 +62,7 @@ source:
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
+      icon_id: child_care
     -
       id: 6
       title: 'Camps'
@@ -63,6 +72,7 @@ source:
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
+      icon_id: camps
     -
       id: 7
       title: 'Youth Programs'
@@ -72,6 +82,7 @@ source:
       parent_id: 1
       expanded: 1
       parent_link_path: 'openy'
+      icon_id: youth_programs
     -
       id: 8
       title: 'Home'
@@ -126,7 +137,10 @@ process:
     default_value: menu_link_content
   title: title
   menu_name: menu_name
-  link: link
+  link/uri:
+    plugin: link_uri
+    source:
+      - link
   weight: weight
   expanded: expanded
   parent:
@@ -135,5 +149,22 @@ process:
       - parent_id
       - menu_name
       - parent_link_path
+  file_id:
+    plugin: migration
+    migration: openy_demo_menu_main_file
+    source: icon_id
+  opts:
+    plugin: openy_menu_icon
+    source: '@file_id'
+  link/options: '@opts'
+  route:
+    plugin: route
+    source:
+      - link_path
+      - '@opts'
+  route_name: '@route/route_name'
+  route_parameters: '@route/route_parameters'
+  url: '@route/url'
+  options: '@route/options'
 destination:
   plugin: entity:menu_link_content
