@@ -8,9 +8,6 @@ id: openy_demo_lp_paragraph_gallery
 migration_tags: {  }
 migration_group: openy_demo_nlanding
 label: 'Create gallery paragraphs for demo landing page nodes'
-migration_dependencies:
-  required:
-    - openy_demo_lp_media_image
 source:
   plugin: embedded_data
   data_rows:
@@ -99,3 +96,6 @@ process:
 destination:
   plugin: 'entity:paragraph'
   default_bundle: gallery
+migration_dependencies:
+  required:
+    - openy_demo_lp_media_image
