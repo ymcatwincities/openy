@@ -1,13 +1,10 @@
 global-styling:
   version: VERSION
   css:
-    base:
-      //fast.fonts.net/cssapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.css: {}
     theme:
       css/screen.css: {}
       css/vendor/font-awesome/font-awesome.css: {}
   js:
-    //fast.fonts.net/jsapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.js: {}
     scripts/vendor/bootstrap.js: {}
     scripts/ygh.js: {}
   dependencies:
