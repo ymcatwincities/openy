@@ -7,7 +7,7 @@ use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
- * Fills in link options with icon information
+ * Fills in link options with icon information.
  *
  * @MigrateProcessPlugin(
  *   id = "openy_menu_icon"
