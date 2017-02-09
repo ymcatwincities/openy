@@ -11,7 +11,12 @@ a,
 .btn {
   background-color: #00aeef;
 }
-.top-navs {
+.top-navs,
+.sidebar,
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active {
   background-color: #0089d0;
 }
 .nav.dropdown-menu,
