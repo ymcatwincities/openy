@@ -15,6 +15,7 @@ dependencies:
     - node.type.event
   module:
     - content_moderation
+    - datetime
     - paragraphs
     - path
 id: node.event.default
@@ -24,7 +25,12 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 4
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+  field_event_date:
+    type: datetime_default
+    weight: 2
     settings: {  }
     third_party_settings: {  }
   field_landing_body:
@@ -39,12 +45,12 @@ content:
     type: entity_reference_paragraphs
   langcode:
     type: language_select
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
   title:
@@ -55,11 +61,10 @@ content:
       placeholder: ''
     third_party_settings: {  }
   translation:
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_event_date: true
   promote: true
   rng_capacity: true
   rng_registrants_duplicate: true
