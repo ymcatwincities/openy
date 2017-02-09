@@ -16,7 +16,6 @@ Feature: Static Paragraphs
     And I select "Green" from "Color"
     And I press "Save and publish"
     Then I should see "MY SMALL BANNER"
-    And I wait 5000 seconds
     And I should see a ".banner-image img" element
 
   Scenario: Create Banner
@@ -64,7 +63,6 @@ Feature: Static Paragraphs
       | Link text   | Donate                       |
     And I press "Save and publish"
     Then I should see the heading "We Appreciate Your Support"
-    And I wait 6000 seconds
     And I should see a "i.fa-flag" element
     And I should see "Every year, we rely on donations."
     And I should see the link "Donate"
