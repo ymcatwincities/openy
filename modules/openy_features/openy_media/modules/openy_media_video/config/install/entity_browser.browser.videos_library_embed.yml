@@ -8,7 +8,7 @@ name: videos_library_embed
 label: 'Videos Library Embed'
 display: iframe
 display_configuration:
-  width: '950'
+  width: 99%
   height: '600'
   link_text: 'Select videos'
   auto_open: true
