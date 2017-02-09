@@ -7,6 +7,7 @@ dependencies:
     - paragraphs.paragraphs_type.2c
     - paragraphs.paragraphs_type.3c
     - paragraphs.paragraphs_type.4c
+    - paragraphs.paragraphs_type.blackbaud
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
@@ -34,6 +35,7 @@ settings:
       gallery: gallery
       latest_news_and_updates: latest_news_and_updates
       simple_content: simple_content
+      blackbaud: blackbaud
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -58,5 +60,32 @@ settings:
         weight: -11
       header:
         weight: -10
+        enabled: false
+      1c:
+        weight: 18
+        enabled: false
+      blackbaud:
+        enabled: true
+        weight: 22
+      contact_us:
+        weight: 23
+        enabled: false
+      global_search:
+        weight: 26
+        enabled: false
+      location_finder:
+        weight: 29
+        enabled: false
+      lto:
+        weight: 30
+        enabled: false
+      membership_calculator:
+        weight: 31
+        enabled: false
+      program_registration:
+        weight: 32
+        enabled: false
+      whay:
+        weight: 34
         enabled: false
 field_type: entity_reference_revisions
