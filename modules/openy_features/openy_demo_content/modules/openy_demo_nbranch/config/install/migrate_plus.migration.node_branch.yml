@@ -22,8 +22,8 @@ source:
       postal_code: 77001
       email: info@example.com
       phone: 9999999999
-      latitude: 88
-      longitude: 88
+      latitude: 29.694257
+      longitude: -95.634528
       area: 1
       prgf_blog_branch: 1
       prgf_gallery: 1
@@ -39,8 +39,8 @@ source:
       postal_code: 77001
       email: info@example.com
       phone: 9999999999
-      latitude: 88
-      longitude: 88
+      latitude: 29.924057
+      longitude: -95.411635
       area: 2
       prgf_blog_branch: 2
       prgf_gallery: 2
@@ -56,8 +56,8 @@ source:
       postal_code: 77001
       email: info@example.com
       phone: 9999999999
-      latitude: 88
-      longitude: 88
+      latitude: 29.694257
+      longitude: -95.634528
       area: 3
       prgf_blog_branch: 3
       prgf_gallery: 3
@@ -73,8 +73,8 @@ source:
       postal_code: 77001
       email: info@example.com
       phone: 9999999999
-      latitude: 88
-      longitude: 88
+      latitude: 29.831879
+      longitude: -95.554497
       area: 4
       prgf_blog_branch: 4
       prgf_gallery: 4
@@ -134,11 +134,11 @@ process:
     -
       plugin: get
       source: phone
-  field_location_latitude:
+  field_location_coordinates/lat:
     -
       plugin: get
       source: latitude
-  field_location_longitude:
+  field_location_coordinates/lng:
     -
       plugin: get
       source: longitude
