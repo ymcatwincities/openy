@@ -22,10 +22,13 @@ class OpenySocratesFacade {
   /**
    * Magic method call.
    *
-   * @param $name
-   * @param $arguments
+   * @param string $name
+   *   Service name.
+   * @param array $arguments
+   *   Service arguments.
    *
-   * @return string
+   * @return mixed
+   *   Service result.
    *
    * @throws \Drupal\openy_socrates\OpenySocratesException
    */
@@ -52,7 +55,7 @@ class OpenySocratesFacade {
    * @param array $services
    *   Services.
    */
-  public function collectDataServices($services) {
+  public function collectDataServices(array $services) {
     $todo_services = [];
     foreach ($services as $priority => $allservices) {
       /*

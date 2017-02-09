@@ -18,6 +18,6 @@ interface OpenyDataServiceInterface {
    * @param array $services
    *   Services.
    */
-  public function addDataServices($services);
+  public function addDataServices(array $services);
 
 }
