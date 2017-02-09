@@ -12,13 +12,13 @@ tips:
     id: theme-overview
     plugin: text
     label: 'Overview'
-    body: 'This page allows administrators to customize the site appearance and select necessary color set or set custom color schema.'
+    body: 'This page allows administrators to customise the site appearance and select the necessary colour set or set custom colour schema.'
     weight: 1
   theme-color-schema:
     id: theme-color-schema
     plugin: text
     label: 'Color schema'
-    body: 'Here is where you specify branded color schema for website.'
+    body: 'Here is where you specify a branded colour schema for website.'
     weight: 2
     location: top
     attributes:
@@ -27,7 +27,7 @@ tips:
     id: theme-preview
     plugin: text
     label: 'Preview'
-    body: 'Here is where you can see preview of your new color schema.'
+    body: 'Here is where you can see a preview of your new colour schema.'
     weight: 3
     location: top
     attributes:
@@ -36,7 +36,7 @@ tips:
     id: theme-logo
     plugin: text
     label: 'Logo'
-    body: 'Here is where you can upload custom logo for the site.'
+    body: 'Here is where you can upload a custom logo for the site.'
     weight: 4
     location: top
     attributes:
@@ -45,7 +45,7 @@ tips:
      id: theme-favicon
      plugin: text
      label: 'Favicon'
-     body: 'Here is where you can upload favicon for the site.'
+     body: 'Here is where you can upload the favicon for the site.'
      weight: 5
      location: top
      attributes:
@@ -63,5 +63,5 @@ tips:
      id: open-tour
      plugin: text
      label: 'Open tour'
-     body: 'If you would like to open tour on page where it`s available, you can use "Tour" button at the top-right corner.'
+     body: 'If you would like to open a tour on a page, where one is available, you can use "Tour" button at the top-right corner.'
      weight: 7
