@@ -66,18 +66,31 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
    * {@inheritdoc}
    */
   public function getLocationPins() {
-    $branch_pins = $this->socrates->getBranchPins();
-    $camp_pins = $this->socrates->getCampPins();
-    $pins = array_merge($branch_pins, $camp_pins);
+    $branch_pins = $this->socrates->getPins('branch', t('YMCA'), 'blue');
+    $camp_pins = $this->socrates->getPins('camp', t('Camps'), 'green');
+    // TODO: Add icon with new color for facility.
+    $facility_pins = $this->socrates->getPins('facility', t('Facilities'), 'green');
+    $pins = array_merge($branch_pins, $camp_pins, $facility_pins);
     return $pins;
   }
 
   /**
-   * {@inheritdoc}
+   * Get pins.
+   *
+   * @param string $type
+   *   Location node type (branch, camp or facility).
+   * @param string $tag
+   *   Pin tag.
+   * @param string $icon_color
+   *   Icon color(see possible options in img directory).
+   *
+   * @return array
+   *   Pins
    */
-  public function getCampPins() {
+  public function getPins($type, $tag, $icon_color) {
     $location_ids = $this->queryFactory->get('node')
-      ->condition('type', 'camp')
+      ->condition('type', $type)
+      ->condition('status', 1)
       ->execute();
 
     if (!$location_ids) {
@@ -95,47 +108,8 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
       if (!$coordinates) {
         continue;
       }
-      $tags = [];
-      $tags[] = t('Camps');
-      $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_green.png');
-      $pins[] = [
-        'icon' => $icon,
-        'tags' => $tags,
-        'lat' => round($coordinates[0]['lat'], 5),
-        'lng' => round($coordinates[0]['lng'], 5),
-        'name' => $location->label(),
-        'markup' => $this->renderer->renderRoot($view),
-      ];
-    }
-
-    return $pins;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getBranchPins() {
-    $location_ids = $this->queryFactory->get('node')
-      ->condition('type', 'branch')
-      ->execute();
-
-    if (!$location_ids) {
-      return [];
-    }
-
-    $storage = $this->entityTypeManager->getStorage('node');
-    $builder = $this->entityTypeManager->getViewBuilder('node');
-    $locations = $storage->loadMultiple($location_ids);
-
-    $pins = [];
-    foreach ($locations as $location) {
-      $view = $builder->view($location, 'teaser');
-      $coordinates = $location->get('field_location_coordinates')->getValue();
-      if (!$coordinates) {
-        continue;
-      }
-      $tags[] = t('YMCA');
-      $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_blue.png');
+      $tags = [$tag];
+      $icon = file_create_url(drupal_get_path('module', 'location_finder') . "/img/map_icon_$icon_color.png");
       $pins[] = [
         'icon' => $icon,
         'tags' => $tags,
@@ -155,8 +129,7 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
   public function addDataServices($services) {
     return [
       'getLocationPins',
-      'getCampPins',
-      'getBranchPins',
+      'getPins',
       // @todo consider to extend Socrates with service_name:method instead of just method or to make methods more longer in names.
     ];
   }
