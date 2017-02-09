@@ -92,14 +92,14 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 
   /**
    * Quickly adding existing media to the field.
+   *
    * Supported values have format like "media:1".
    *
    * @Given /^I fill media field "([^"]*)" with "([^"]*)"$/
    */
-  public function iFillMediaFieldWith($field, $value)
-  {
+  public function iFillMediaFieldWith($field, $value) {
     $this->getSession()->getPage()->find('css',
-        'input[id="'.$field.'"]')->setValue($value);
+        'input[id="' . $field . '"]')->setValue($value);
   }
 
   /**

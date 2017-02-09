@@ -16,6 +16,7 @@ Feature: Static Paragraphs
     And I select "Green" from "Color"
     And I press "Save and publish"
     Then I should see "MY SMALL BANNER"
+    And I wait 5000 seconds
     And I should see a ".banner-image img" element
 
   Scenario: Create Banner
@@ -83,9 +84,9 @@ Feature: Static Paragraphs
     And I should see the link "Go!"
 
   Scenario: Create Story Card
-    When I press "Add Story Card"
+    When I press "Add Story Card" in the "sidebar_area"
+    And I fill in "Title" with "New Story" in the "sidebar_area"
     And I fill in the following:
-      | Title  | New Story |
       | Headline | I discovered OpenY. And that looks great! |
       | URL      | http://openymca.org                       |
       | Link text| Discover OpenY                            |
@@ -96,8 +97,8 @@ Feature: Static Paragraphs
 
   Scenario: Create Teaser
     When I press "Add Teaser" in the "content_area"
+    And I fill in "Title" with "My Teaser" in the "content_area"
     And I fill in the following:
-      | Title | My Teaser |
       | Description | Lorem ipsum dolor sit. |
       | URL         | /test                  |
       | Link text   | Test link              |
@@ -105,5 +106,5 @@ Feature: Static Paragraphs
     And I press "Save and publish"
     Then I should see the heading "My Teaser"
     And I should see "Lorem ipsum dolor sit."
-    And I should see ".subprogram-listing-item img"
+    And I should see a ".subprogram-listing-item img" element
     And I should see the link "Test link"
