@@ -126,7 +126,7 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function addDataServices($services) {
+  public function addDataServices(array $services) {
     return [
       'getLocationPins',
       'getPins',
