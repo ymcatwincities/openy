@@ -65,6 +65,11 @@ class LocationFinder extends BlockBase implements ContainerFactoryPluginInterfac
         '#name' => 'locations',
         '#display_id' => 'locations_camps_block',
       ],
+      [
+        '#type' => 'view',
+        '#name' => 'locations',
+        '#display_id' => 'locations_facilities_block',
+      ],
     ];
   }
 
