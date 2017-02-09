@@ -32,7 +32,7 @@ class OpenySocratesFacade {
    *
    * @throws \Drupal\openy_socrates\OpenySocratesException
    */
-  public function __call($name, $arguments) {
+  public function __call($name, array $arguments) {
     if (isset($this->services[$name])) {
       // Get array of possible variants for the call.
       $calls_data = $this->services[$name];
