@@ -16,89 +16,53 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
-    - link
+    - telephone
     - user
 id: node.camp.default
 targetEntityType: node
 bundle: camp
 mode: default
 content:
-  field_camp_menu_links:
-    weight: 101
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
   field_content:
-    weight: 109
-    label: above
+    weight: 4
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_header_content:
-    weight: 110
-    label: above
+    weight: 3
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_location_address:
-    weight: 102
-    label: above
+    weight: 0
+    label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: address_default
-  field_location_directions:
-    weight: 108
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-  field_location_email:
-    weight: 107
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
+    type: address_plain
   field_location_fax:
-    weight: 106
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: basic_string
-  field_location_latitude:
-    weight: 103
-    label: above
+    weight: 2
+    label: hidden
     settings:
-      link_to_entity: false
+      title: ''
     third_party_settings: {  }
-    type: string
-  field_location_longitude:
-    weight: 104
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
+    type: telephone_link
   field_location_phone:
-    weight: 105
-    label: above
-    settings: {  }
+    weight: 1
+    label: hidden
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
-  links:
-    weight: 100
-hidden: {  }
+    type: telephone_link
+hidden:
+  field_camp_menu_links: true
+  field_location_directions: true
+  field_location_email: true
+  field_location_latitude: true
+  field_location_longitude: true
+  links: true

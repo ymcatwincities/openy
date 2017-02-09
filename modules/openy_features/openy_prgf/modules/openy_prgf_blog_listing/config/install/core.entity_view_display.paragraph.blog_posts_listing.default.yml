@@ -13,7 +13,7 @@ mode: default
 content:
   field_prgf_block:
     weight: 0
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: plugin_block_built

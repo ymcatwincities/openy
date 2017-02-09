@@ -48,14 +48,45 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Creates a term "Category One" in Category taxonomy.
+   * Creates a term in the respective taxonomy.
    *
-   * @Given /^I create a category term$/
+   * @Given /^I create a "([^"]*)" term in the "([^"]*)" taxonomy$/
    */
-  public function iCreateCategoryTerm() {
-    $this->getSession()->visit($this->locatePath('/admin/structure/taxonomy/manage/blog_category/add'));
+  public function iCreateTaxonomyTerm($term, $taxonomy_name) {
+    $taxonomy = strtolower(str_replace(' ', '_', $taxonomy_name));
+    $path = '/admin/structure/taxonomy/manage/' . $taxonomy . '/add';
+    $this->getSession()->visit($this->locatePath($path));
     $element = $this->getSession()->getPage();
-    $element->fillField('Name', 'Category One');
+    $element->fillField('Name', $term);
+    $element->findButton('Save')->click();
+  }
+
+  /**
+   * Creates a term Color taxonomy. And specify HEX value.
+   *
+   * @Given /^I create a color term$/
+   */
+  public function iCreateColorTerm() {
+    $path = '/admin/structure/taxonomy/manage/color/add';
+    $this->getSession()->visit($this->locatePath($path));
+    $element = $this->getSession()->getPage();
+    $element->fillField('Name', 'Magenta');
+    $element->fillField('Color', 'cc4ecc');
+    $element->findButton('Save')->click();
+  }
+
+  /**
+   * Creates a menu item with specified name in the specified menu.
+   *
+   * @Given /^I create an item "([^"]*)" in the "([^"]*)" menu$/
+   */
+  public function iCreateItemInTheMenu($menu_item, $menu_name) {
+    $path = '/admin/structure/menu/manage/' . $menu_name . '/add';
+    $this->getSession()->visit($this->locatePath($path));
+    $element = $this->getSession()->getPage();
+    $element->fillField('Menu link title', $menu_item);
+    $element->fillField('Link', 'http://example.com');
+    $element->checkField("Show as expanded");
     $element->findButton('Save')->click();
   }
 
