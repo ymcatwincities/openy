@@ -5,6 +5,7 @@ core: 8.x
 dependencies:
   - address
   - field
+  - geolocation
   - link
   - node
   - taxonomy
