@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.rng_capacity
+    - node.type.event
+id: node.event.rng_capacity
+field_name: rng_capacity
+entity_type: node
+bundle: event
+label: 'Maximum registrations'
+description: 'Maximum amount of registrations for this event.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

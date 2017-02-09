@@ -1,0 +1,9 @@
+uuid: 4c0d881f-3c24-437e-b0b7-4e96a805f32f
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: XegZmL6lRYy5ZZxz9H3zl5bKxkMwGSbXg_WNT5fAwDU
+label: 'Site event'
+id: site_event
+description: 'Site events are entities aimed to approach registrations for the events, organized by Site crew.'

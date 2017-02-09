@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.rng_contact.event_contact.field_contact_email
+    - field.field.rng_contact.event_contact.field_contact_name
+    - rng_contact.rng_contact_type.event_contact
+id: rng_contact.event_contact.default
+targetEntityType: rng_contact
+bundle: event_contact
+mode: default
+content:
+  field_contact_email:
+    weight: 1
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: email_mailto
+  field_contact_name:
+    weight: 0
+    label: inline
+    settings:
+      link_to_entity: true
+    third_party_settings: {  }
+    type: string
+hidden: {  }

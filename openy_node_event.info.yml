@@ -1,0 +1,35 @@
+name: 'OpenY Event'
+type: module
+core: 8.x
+description: 'Implements event bundle feature.'
+dependencies:
+  - block
+  - content_moderation
+  - content_translation
+  - courier
+  - ctools
+  - datetime
+  - entity_reference_revisions
+  - field
+  - language
+  - menu_ui
+  - node
+  - openy_gallery
+  - openy_node_landing
+  - openy_prgf_1c
+  - openy_prgf_2c
+  - openy_prgf_3c
+  - openy_prgf_4c
+  - openy_prgf_header
+  - openy_prgf_lto
+  - openy_prgf_simple_content
+  - paragraphs
+  - path
+  - rng
+  - rng_contact
+  - rng_quick
+  - unlimited_number
+  - user
+  - veoa
+  - views
+version: 8.x-1.0

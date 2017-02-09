@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+label: Registrant
+id: registrant
+description: 'Default type of Registrant. Could be used for exporting data in the future.'

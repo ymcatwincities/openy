@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.rng_contact.event_contact.field_contact_email
+    - field.field.rng_contact.event_contact.field_contact_name
+    - rng_contact.rng_contact_type.event_contact
+id: rng_contact.event_contact.default
+targetEntityType: rng_contact
+bundle: event_contact
+mode: default
+content:
+  field_contact_email:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: email_for_registrations@example.com
+    third_party_settings: {  }
+    type: email_default
+  field_contact_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: 'Registrant''s Name'
+    third_party_settings: {  }
+    type: string_textfield
+hidden: {  }
