@@ -1,0 +1,27 @@
+.paragraph--type--all-amenities {
+  .views-element-container {
+    margin: auto 2em;
+    legend {
+      color: $default-grey;
+    }
+    #views-exposed-form-branches-default {
+      margin-bottom: 1em;
+      .webform-options-display-one-column.form-checkboxes {
+        -webkit-columns: 4;
+        -moz-columns: 4;
+        columns: 4;
+      }
+    }
+    table {
+      width: 100%;
+      tr {
+        border-bottom: 1px solid $lighter-grey;
+        padding-right: 1em;
+        padding-top: 0.5em;
+      }
+      tr:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
