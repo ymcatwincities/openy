@@ -90,11 +90,52 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
 
     $pins = [];
     foreach ($locations as $location) {
-      $view = $builder->view($location, 'membership_teaser');
+      $view = $builder->view($location, 'teaser');
       $coordinates = $location->get('field_location_coordinates')->getValue();
+      if (!$coordinates) {
+        continue;
+      }
       $tags = [];
       $tags[] = t('Camps');
       $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_green.png');
+      $pins[] = [
+        'icon' => $icon,
+        'tags' => $tags,
+        'lat' => round($coordinates[0]['lat'], 5),
+        'lng' => round($coordinates[0]['lng'], 5),
+        'name' => $location->label(),
+        'markup' => $this->renderer->renderRoot($view),
+      ];
+    }
+
+    return $pins;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBranchPins() {
+    $location_ids = $this->queryFactory->get('node')
+      ->condition('type', 'branch')
+      ->execute();
+
+    if (!$location_ids) {
+      return [];
+    }
+
+    $storage = $this->entityTypeManager->getStorage('node');
+    $builder = $this->entityTypeManager->getViewBuilder('node');
+    $locations = $storage->loadMultiple($location_ids);
+
+    $pins = [];
+    foreach ($locations as $location) {
+      $view = $builder->view($location, 'teaser');
+      $coordinates = $location->get('field_location_coordinates')->getValue();
+      if (!$coordinates) {
+        continue;
+      }
+      $tags[] = t('YMCA');
+      $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_blue.png');
       $pins[] = [
         'icon' => $icon,
         'tags' => $tags,
@@ -115,6 +156,7 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
     return [
       'getLocationPins',
       'getCampPins',
+      'getBranchPins',
       // @todo consider to extend Socrates with service_name:method instead of just method or to make methods more longer in names.
     ];
   }
