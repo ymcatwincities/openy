@@ -26,6 +26,10 @@ a,
 .nav > li > a:focus {
   background-color: #0060af;
 }
+.viewport .nav-level-2.open {
+  background-color: #0060af;
+  border-bottom: #0060af;
+}
 .footer {
   background-color: #4f4f4f;
 }
