@@ -7,6 +7,7 @@ dependencies:
     - paragraphs.paragraphs_type.2c
     - paragraphs.paragraphs_type.3c
     - paragraphs.paragraphs_type.4c
+    - paragraphs.paragraphs_type.blackbaud
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
@@ -34,29 +35,57 @@ settings:
       gallery: gallery
       latest_news_and_updates: latest_news_and_updates
       simple_content: simple_content
+      blackbaud: blackbaud
     target_bundles_drag_drop:
       2c:
         enabled: true
-        weight: -17
+        weight: -35
       3c:
         enabled: true
-        weight: -16
+        weight: -34
       4c:
         enabled: true
-        weight: -15
+        weight: -33
       featured_stories:
         enabled: true
-        weight: -14
+        weight: -32
       gallery:
         enabled: true
-        weight: -13
+        weight: -31
       latest_news_and_updates:
         enabled: true
-        weight: -12
+        weight: -30
       simple_content:
         enabled: true
-        weight: -11
+        weight: -29
+      blackbaud:
+        enabled: true
+        weight: -28
       header:
-        weight: -10
+        weight: -27
+        enabled: false
+      1c:
+        weight: -26
+        enabled: false
+      contact_us:
+        weight: -25
+        enabled: false
+      global_search:
+        weight: -24
+        enabled: false
+      location_finder:
+        weight: -23
+        enabled: false
+      lto:
+        weight: -22
+        enabled: false
+      membership_calculator:
+        weight: -21
+        enabled: false
+      program_registration:
+        weight: -20
+        enabled: false
+      whay:
+        weight: -19
         enabled: false
 field_type: entity_reference_revisions
