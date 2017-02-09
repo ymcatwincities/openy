@@ -5,8 +5,6 @@ dependencies:
     - 'block_content:basic_block:cb76bc7c-a957-4b69-96fb-e565ee85f38a'
   module:
     - block_content
-  theme:
-    - openy_rose
 id: footercopyrightblock
 theme: openy_rose
 region: footer_social

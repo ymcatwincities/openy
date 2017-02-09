@@ -7,6 +7,7 @@ global-styling:
       css/vendor/bootstrap/bootstrap-theme.min.css: {}
     theme:
       css/styles.css: {}
+      css/colors.css: {}
   js:
     //fast.fonts.net/jsapi/3ab9b18f-e8c9-4cf2-9541-2476051b3754.js: {}
     //use.fontawesome.com/95fd5fcc01.js: {}

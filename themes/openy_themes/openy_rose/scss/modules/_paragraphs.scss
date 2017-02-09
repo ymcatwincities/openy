@@ -198,6 +198,7 @@
 
     .carousel-inner > .item img,
     .carousel-inner > .item a img {
+      height: auto;
       width: 100%;
     }
   }
@@ -739,5 +740,48 @@
   h1,
   .h1 {
     font-weight: bold;
+  }
+}
+
+.paragraph--type--featured-blogs {
+  .slick-prev {
+    left: 15px;
+  }
+  .slick-next {
+    right: 15px;
+  }
+  .slick-arrow {
+    top: 55%;
+  }
+  @include breakpoint(0 $screen-sm) {
+    padding-left: 15px;
+    padding-right: 15px;
+    .slick-prev {
+      left: -17px;
+    }
+    .slick-next {
+      right: -17px;
+    }
+  }
+  @include breakpoint($screen-sm) {
+    .description {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
+}
+
+.paragraph--type--blog-posts-listing,
+.paragraph--type--latest-blog-posts,
+.paragraph--type--latest-blog-posts-camp,
+.paragraph--type--latest-blog-posts-branch {
+  .views-exposed-form {
+    margin-bottom: 30px;
+  }
+  @include breakpoint($screen-sm) {
+    .blog-more-teaser-results-wrapper {
+      margin-left: -15px;
+      margin-right: -15px;
+    }
   }
 }
