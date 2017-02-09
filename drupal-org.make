@@ -38,6 +38,7 @@ projects[simple_menu_icons][patch][] = "https://www.drupal.org/files/issues/clea
 projects[views_infinite_scroll] = 1.3
 projects[slick] = 1.0-rc1
 projects[blazy] = 1.0-rc1
+projects[geolocation] = 1.9
 
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get

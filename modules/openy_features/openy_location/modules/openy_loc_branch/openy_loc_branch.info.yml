@@ -8,6 +8,7 @@ dependencies:
   - field
   - field_collection
   - field_group
+  - geolocation
   - link
   - menu_ui
   - node
