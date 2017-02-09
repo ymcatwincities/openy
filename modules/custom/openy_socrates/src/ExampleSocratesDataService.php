@@ -18,15 +18,15 @@ class ExampleSocratesDataService implements OpenyDataServiceInterface {
    * @return array
    *   Test data.
    */
-  public function TestDummyMethodAddToSocrates() {
+  public function testDummyMethodAddToSocrates() {
     return ['dummy data'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function addDataServices($services) {
-    return array('TestDummyMethodAddToSocrates');
+  public function addDataServices(array $services) {
+    return array('testDummyMethodAddToSocrates');
   }
 
 }
