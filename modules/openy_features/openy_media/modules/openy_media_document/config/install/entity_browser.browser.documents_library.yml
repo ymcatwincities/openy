@@ -11,7 +11,7 @@ name: documents_library
 label: 'Documents Library'
 display: modal
 display_configuration:
-  width: '950'
+  width: '1166'
   height: '600'
   link_text: 'Select documents'
   auto_open: false

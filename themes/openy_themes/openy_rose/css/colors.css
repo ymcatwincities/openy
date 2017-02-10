@@ -11,13 +11,24 @@ a,
 .btn {
   background-color: #00aeef;
 }
-.top-navs {
+.top-navs,
+.sidebar,
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active {
   background-color: #0089d0;
 }
 .nav.dropdown-menu,
 .viewport .nav-level-2.open > a,
-.viewport .nav-level-2.open > a:focus {
+.viewport .nav-level-2.open > a:focus,
+.nav > li > a:hover,
+.nav > li > a:focus {
   background-color: #0060af;
+}
+.viewport .nav-level-2.open {
+  background-color: #0060af;
+  border-bottom: #0060af;
 }
 .footer {
   background-color: #4f4f4f;

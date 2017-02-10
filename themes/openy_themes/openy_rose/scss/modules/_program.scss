@@ -141,9 +141,11 @@
   }
   .image {
     margin-bottom: 20px;
+    @include breakpoint($screen-sm) {
+      text-align: right;
+    }
     @include breakpoint($screen-lg) {
       margin-bottom: 0;
-      width: 300px;
       img {
         max-width: 260px;
       }
