@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_header_content
     - node.type.branch
+    - paragraphs.paragraphs_type.all_amenities
     - paragraphs.paragraphs_type.header
   module:
     - entity_reference_revisions
@@ -22,6 +23,7 @@ settings:
   handler_settings:
     target_bundles:
       header: header
+      all_amenities: all_amenities
     target_bundles_drag_drop:
       2c:
         weight: 9
@@ -46,5 +48,35 @@ settings:
         enabled: false
       simple_content:
         weight: 16
+        enabled: false
+      1c:
+        weight: 19
+        enabled: false
+      all_amenities:
+        enabled: true
+        weight: 23
+      blackbaud:
+        weight: 24
+        enabled: false
+      contact_us:
+        weight: 25
+        enabled: false
+      global_search:
+        weight: 28
+        enabled: false
+      location_finder:
+        weight: 31
+        enabled: false
+      lto:
+        weight: 32
+        enabled: false
+      membership_calculator:
+        weight: 33
+        enabled: false
+      program_registration:
+        weight: 34
+        enabled: false
+      whay:
+        weight: 36
         enabled: false
 field_type: entity_reference_revisions
