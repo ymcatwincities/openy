@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.field_collection_item.field_branch_hours_time
-    - field_collection.field_collection.field_branch_hours
-id: field_collection_item.field_branch_hours.field_branch_hours_time
+    - field.storage.paragraph.field_branch_hours_time
+    - paragraphs.paragraphs_type.branch_hours
+id: paragraph.branch_hours.field_branch_hours_time
 field_name: field_branch_hours_time
-entity_type: field_collection_item
-bundle: field_branch_hours
+entity_type: paragraph
+bundle: branch_hours
 label: 'Start/End Time'
 description: 'e.g. 9am - 5pm, closed.'
 required: false
