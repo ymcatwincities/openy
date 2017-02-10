@@ -5,7 +5,7 @@ This is a paragraph type that will be used for the grid content stories.
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
 | Style | field\_prgf\_grid_style | Yes | Select list with following values: 2:2 items per row, 3:3 items per row, 4:4 items per row |
-| **Content** | field\_grid_columns | Field collection | Grid columns |
+| **Content** | field\_grid_columns | Paragraph | Grid columns |
 | Description| field\_prgf\_clm_description | No | Textarea for the description/body with WYSIWYG, without summary. |
 | Headline | field\_prgf\_clm_headline | No | Headline of the grid content. |
 | Icon | field\_prgf\_clm_icon | No | Entityreference to media asset. Should allow to upload svgs.|
