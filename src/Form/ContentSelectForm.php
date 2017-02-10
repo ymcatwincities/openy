@@ -28,6 +28,7 @@ class ContentSelectForm extends FormBase {
       'blog' => $this->t('Demo Blog Posts'),
       'programs' => $this->t('Demo Programs & Categories'),
       'landing' => $this->t('Demo Landing Pages'),
+      'menus' => $this->t('Demo menus'),
     ];
 
     $form['content'] = [
