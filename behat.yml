@@ -37,7 +37,11 @@ default:
         autoload: false
       region_map:
         header: '#page-head'
-        content: '#main-content'
+        header_area: '#edit-group-header-area'
+        content: '.main-region'
+        content_area: '#edit-group-content-area'
+        sidebar: '.sidebar-rigeon'
+        sidebar_area: '#edit-group-sidebar-area'
         footer: 'footer'
         dropdown_menu: 'ul.nav.dropdown-menu'
       selectors:
