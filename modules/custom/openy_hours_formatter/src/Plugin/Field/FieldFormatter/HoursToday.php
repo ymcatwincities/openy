@@ -3,7 +3,7 @@
 namespace Drupal\openy_hours_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\field_collection\Plugin\Field\FieldFormatter\FieldCollectionItemsFormatter;
+use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceEntityFormatter;
 
 /**
  * Plugin implementation of the 'openy_hours_formatter' formatter.
@@ -12,11 +12,11 @@ use Drupal\field_collection\Plugin\Field\FieldFormatter\FieldCollectionItemsForm
  *   id = "openy_hours_formatter",
  *   label = @Translation("Today's hours"),
  *   field_types = {
- *     "field_collection"
+ *     "entity_reference_revisions"
  *   }
  * )
  */
-class HoursToday extends FieldCollectionItemsFormatter {
+class HoursToday extends EntityReferenceEntityFormatter {
 
   /**
    * {@inheritdoc}
@@ -41,29 +41,29 @@ class HoursToday extends FieldCollectionItemsFormatter {
     $count = 0;
     // Check if weekdays have the same working time.
     foreach ($render_items as $delta => $item) {
-      if ($item['#field_collection_item']->field_branch_hours_day->value && $item['#field_collection_item']->field_branch_hours_time->value) {
-        if (in_array($item['#field_collection_item']->field_branch_hours_day->value, $weekdays) && empty($time)) {
-          $time = $item['#field_collection_item']->field_branch_hours_time->value;
+      if ($item['#paragraph']->field_branch_hours_day->value && $item['#paragraph']->field_branch_hours_time->value) {
+        if (in_array($item['#paragraph']->field_branch_hours_day->value, $weekdays) && empty($time)) {
+          $time = $item['#paragraph']->field_branch_hours_time->value;
         }
-        if (in_array($item['#field_collection_item']->field_branch_hours_day->value, $weekdays) && $time == $item['#field_collection_item']->field_branch_hours_time->value) {
+        if (in_array($item['#paragraph']->field_branch_hours_day->value, $weekdays) && $time == $item['#paragraph']->field_branch_hours_time->value) {
           $count++;
         }
       }
     }
 
     foreach ($render_items as $delta => $item) {
-      if ($item['#field_collection_item']->field_branch_hours_day->value && $item['#field_collection_item']->field_branch_hours_time->value) {
-        $day = $item['#field_collection_item']->field_branch_hours_day->value;
-        $lazy_hours[array_search($day, $days)] = $item['#field_collection_item']->field_branch_hours_time->value;
+      if ($item['#paragraph']->field_branch_hours_day->value && $item['#paragraph']->field_branch_hours_time->value) {
+        $day = $item['#paragraph']->field_branch_hours_day->value;
+        $lazy_hours[array_search($day, $days)] = $item['#paragraph']->field_branch_hours_time->value;
         // This means we have the same working time during work week.
         if ($count == 5) {
           $week['Monday - Friday'] = $time;
           if (in_array($day, $weekend)) {
-            $week[ucfirst($day)] = $item['#field_collection_item']->field_branch_hours_time->value;
+            $week[ucfirst($day)] = $item['#paragraph']->field_branch_hours_time->value;
           }
         }
         else {
-          $week[ucfirst($day)] = $item['#field_collection_item']->field_branch_hours_time->value;
+          $week[ucfirst($day)] = $item['#paragraph']->field_branch_hours_time->value;
         }
       }
     }

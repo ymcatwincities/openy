@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - field_collection
-id: field_collection_item.field_branch_hours_time
+    - paragraphs
+id: paragraph.field_branch_hours_time
 field_name: field_branch_hours_time
-entity_type: field_collection_item
+entity_type: paragraph
 type: string
 settings:
   max_length: 255
