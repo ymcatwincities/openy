@@ -2477,10 +2477,14 @@ body {
 .subprogram-listing-item .image {
   margin-bottom: 20px;
 }
+@media (min-width: 48em) {
+  .subprogram-listing-item .image {
+    text-align: right;
+  }
+}
 @media (min-width: 75em) {
   .subprogram-listing-item .image {
     margin-bottom: 0;
-    width: 300px;
   }
   .subprogram-listing-item .image img {
     max-width: 260px;
