@@ -15,7 +15,6 @@ projects[pathauto] = 1.0-rc1
 projects[ctools] = 3.0-alpha27
 projects[token] = 1.0-rc1
 projects[field_group] = 1.0-rc6
-projects[field_collection] = 1.0-alpha1
 projects[video_embed_field] = 1.4
 projects[jquery_colorpicker] = 1.3
 projects[entity_browser][subdir] = contrib

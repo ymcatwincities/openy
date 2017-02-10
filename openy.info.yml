@@ -48,7 +48,6 @@ dependencies:
   - features
   - features_ui
   - field_group
-  - field_collection
   - address
   - paragraphs
   - plugin
