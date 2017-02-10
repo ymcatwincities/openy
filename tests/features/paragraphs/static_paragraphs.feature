@@ -43,7 +43,7 @@ Feature: Static Paragraphs
     And I press "Save and publish"
     Then I should see the heading "My Gallery"
     And I should see "The description is here."
-    And I should see ".carousel img"
+    And I should see a ".carousel img" element
     And I should see the link "Read about OpenY"
 
   Scenario: Create Simple Content
