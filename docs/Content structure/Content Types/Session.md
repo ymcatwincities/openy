@@ -23,7 +23,7 @@ Session content type is used for adding Sessions on the site.
 | Physical Location | field\_session\_plocation  | No | A reference field for selecting the facility. |
 | **Time** | Field group |-|-|
 | Exclusions | field\_session_exclusions | No | A date field that identifies dates that would normally have an instance of the session but won’t. Needs to be able to have multiple exclusions. Supports multiple values. Should be handled by a single date field with 'end date' option enabled. Its widget should be adjust to not to show period end date, but show period end time (to keep period start/end date equal). |
-| **Time** | field\_session_time | Field collection | Session schedule. |
+| **Time** | field\_session_time | Paragraph | Session schedule. |
 | Date & Time  | field\_session\_time_date  | No | This will use Drupal date/time fields & should be a single date field with 'end date' and 'end time' option enabled. |
 | Days  | field\_session\_time_days  | No | Checkboxes with following values: <ul><li>sunday\|Sunday</li><li>monday\|Monday</li><li>tuesday\|Tuesday</li><li>wednesday\|Wednesday</li><li>thursday\|Thursday</li><li>friday\|Friday</li><li>saturday\|Saturday</li></ul> Should support multiple values. |
 

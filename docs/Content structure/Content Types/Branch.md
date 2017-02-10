@@ -16,7 +16,7 @@ Branch content type is used for adding Branches on the site.
 | Email | field\_location_email | No | Input for providing the email information. |
 | Directions | field\_location_directions | No | A link field for adding the directions link. |
 | **Branch Hours** | Field group |||
-| Branch Hours | field\_branch_hours | Field collection | Field Collection to indicate the branch hours. |
+| Branch Hours | field\_branch_hours | Paragraph | Paragraph to indicate the branch hours. |
 | Day of the week | field\_branch\_hours_day | No | Select list with following values: <ul><li>sunday\|Sunday</li><li>monday\|Monday</li><li>tuesday\|Tuesday</li><li>wednesday\|Wednesday</li><li>thursday\|Thursday</li><li>friday\|Friday</li><li>saturday\|Saturday</li></ul> |
 | Start/End Time | field\_branch\_hours_time | No | Textfield with description "e.g. 9am - 5pm, closed." |
 | **Header Area** | Field group |||
