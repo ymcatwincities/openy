@@ -47,12 +47,7 @@
     }
   }
 
-  .field-image {
-    text-align: center;
-    img {
-      display: inline;
-    }
-  }
+
 
   .field-icon-class {
     text-align: center;
@@ -62,6 +57,22 @@
       font-size: 36px;
     }
   }
+
+  .field-icon {
+    text-align: center;
+    margin-bottom: 15px;
+    .field-image {
+      text-align: center;
+      height: 36px;
+      margin: auto;
+      img {
+        display: inline;
+        max-height: 100%;
+        width: auto;
+      }
+    }
+  }
+
   .slick-dotted {
     margin-bottom: 25px;
   }
