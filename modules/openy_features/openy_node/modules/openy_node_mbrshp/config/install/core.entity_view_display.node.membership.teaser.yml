@@ -5,7 +5,6 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.membership.field_mbrshp_description
     - field.field.node.membership.field_mbrshp_image
-    - field.field.node.membership.field_mbrshp_info
     - node.type.membership
   module:
     - user
@@ -19,4 +18,3 @@ content:
 hidden:
   field_mbrshp_description: true
   field_mbrshp_image: true
-  field_mbrshp_info: true

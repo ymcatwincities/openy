@@ -9,7 +9,7 @@ dependencies:
     - node.type.membership
   module:
     - entity_browser
-    - field_collection
+    - paragraphs
     - path
     - text
 id: node.membership.default
@@ -42,10 +42,15 @@ content:
     third_party_settings: {  }
     type: entity_browser_entity_reference
   field_mbrshp_info:
+    type: entity_reference_paragraphs
     weight: 26
-    settings: {  }
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
     third_party_settings: {  }
-    type: field_collection_embed
   path:
     type: path
     weight: 7

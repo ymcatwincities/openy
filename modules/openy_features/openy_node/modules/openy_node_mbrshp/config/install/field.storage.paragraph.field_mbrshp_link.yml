@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - field_collection
     - link
-id: field_collection_item.field_mbrshp_link
+    - paragraphs
+id: paragraph.field_mbrshp_link
 field_name: field_mbrshp_link
-entity_type: field_collection_item
+entity_type: paragraph
 type: link
 settings: {  }
 module: link

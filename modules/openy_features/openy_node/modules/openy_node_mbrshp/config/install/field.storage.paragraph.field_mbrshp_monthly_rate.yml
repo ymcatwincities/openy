@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - field_collection
-id: field_collection_item.field_mbrshp_monthly_rate
+    - paragraphs
+id: paragraph.field_mbrshp_monthly_rate
 field_name: field_mbrshp_monthly_rate
-entity_type: field_collection_item
+entity_type: paragraph
 type: decimal
 settings:
   precision: 10
