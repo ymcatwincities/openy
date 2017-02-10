@@ -3,19 +3,19 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.images_library
-    - field.field.field_collection_item.field_grid_columns.field_prgf_clm_description
-    - field.field.field_collection_item.field_grid_columns.field_prgf_clm_headline
-    - field.field.field_collection_item.field_grid_columns.field_prgf_clm_icon
-    - field.field.field_collection_item.field_grid_columns.field_prgf_clm_link
-    - field.field.field_collection_item.field_grid_columns.field_prgf_column_class
-    - field_collection.field_collection.field_grid_columns
+    - field.field.paragraph.grid_columns.field_prgf_clm_description
+    - field.field.paragraph.grid_columns.field_prgf_clm_headline
+    - field.field.paragraph.grid_columns.field_prgf_clm_icon
+    - field.field.paragraph.grid_columns.field_prgf_clm_link
+    - field.field.paragraph.grid_columns.field_prgf_column_class
+    - paragraphs.paragraphs_type.grid_columns
   module:
     - entity_browser
     - link
     - text
-id: field_collection_item.field_grid_columns.default
-targetEntityType: field_collection_item
-bundle: field_grid_columns
+id: paragraph.grid_columns.default
+targetEntityType: paragraph
+bundle: grid_columns
 mode: default
 content:
   field_prgf_clm_description:
@@ -40,8 +40,9 @@ content:
       field_widget_edit: true
       field_widget_remove: true
       selection_mode: selection_append
+      field_widget_display_settings:
+        view_mode: icon
       open: false
-      field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
   field_prgf_clm_link:
@@ -58,4 +59,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-hidden: {  }
+hidden:
+  created: true
+  status: true
+  uid: true
