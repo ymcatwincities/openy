@@ -39,7 +39,7 @@ content:
     type: entity_reference_entity_view
   field_prgf_clm_link:
     weight: 4
-    label: above
+    label: hidden
     settings:
       trim_length: 80
       url_only: false
@@ -50,7 +50,7 @@ content:
     type: link
   field_prgf_column_class:
     weight: 3
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
