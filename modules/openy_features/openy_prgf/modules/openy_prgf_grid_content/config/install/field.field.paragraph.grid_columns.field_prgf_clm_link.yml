@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.field_collection_item.field_prgf_clm_link
-    - field_collection.field_collection.field_grid_columns
+    - field.storage.paragraph.field_prgf_clm_link
+    - paragraphs.paragraphs_type.grid_columns
   module:
     - link
-id: field_collection_item.field_grid_columns.field_prgf_clm_link
+id: paragraph.grid_columns.field_prgf_clm_link
 field_name: field_prgf_clm_link
-entity_type: field_collection_item
-bundle: field_grid_columns
+entity_type: paragraph
+bundle: grid_columns
 label: Link
 description: ''
 required: false

@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.field_collection_item.field_prgf_clm_description
-    - field_collection.field_collection.field_grid_columns
+    - field.storage.paragraph.field_prgf_clm_description
+    - paragraphs.paragraphs_type.grid_columns
   module:
     - text
-id: field_collection_item.field_grid_columns.field_prgf_clm_description
+id: paragraph.grid_columns.field_prgf_clm_description
 field_name: field_prgf_clm_description
-entity_type: field_collection_item
-bundle: field_grid_columns
+entity_type: paragraph
+bundle: grid_columns
 label: Description
 description: ''
 required: false
