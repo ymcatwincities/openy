@@ -3,10 +3,10 @@ status: true
 dependencies:
   module:
     - datetime_range
-    - field_collection
-id: field_collection_item.field_session_time_date
+    - paragraphs
+id: paragraph.field_session_time_date
 field_name: field_session_time_date
-entity_type: field_collection_item
+entity_type: paragraph
 type: daterange
 settings:
   datetime_type: datetime

@@ -2,14 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
-    - field_collection
+    - entity_reference_revisions
     - node
+    - paragraphs
 id: node.field_session_time
 field_name: field_session_time
 entity_type: node
-type: field_collection
-settings: {  }
-module: field_collection
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
 locked: false
 cardinality: -1
 translatable: true
