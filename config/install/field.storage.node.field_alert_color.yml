@@ -12,16 +12,10 @@ settings:
   allowed_values:
     -
       value: yellow
-      label: Yellow
+      label: Yellow: Severe
     -
       value: blue
-      label: Blue
-    -
-      value: dark_blue
-      label: 'Dark Blue'
-    -
-      value: transparent
-      label: Transparent
+      label: Blue: Moderate
   allowed_values_function: ''
 module: options
 locked: false
