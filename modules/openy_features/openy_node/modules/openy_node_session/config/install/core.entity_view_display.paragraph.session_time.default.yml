@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.field_collection_item.field_session_time.field_session_time_date
-    - field.field.field_collection_item.field_session_time.field_session_time_days
-    - field_collection.field_collection.field_session_time
+    - field.field.paragraph.session_time.field_session_time_date
+    - field.field.paragraph.session_time.field_session_time_days
+    - paragraphs.paragraphs_type.session_time
   module:
     - datetime_range
     - options
-id: field_collection_item.field_session_time.default
-targetEntityType: field_collection_item
-bundle: field_session_time
+id: paragraph.session_time.default
+targetEntityType: paragraph
+bundle: session_time
 mode: default
 content:
   field_session_time_date:
@@ -28,4 +28,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: list_default
-hidden: {  }
+hidden:
+  created: true
+  uid: true

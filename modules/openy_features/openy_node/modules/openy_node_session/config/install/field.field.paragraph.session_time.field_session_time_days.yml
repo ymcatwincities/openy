@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.field_collection_item.field_session_time_days
-    - field_collection.field_collection.field_session_time
+    - field.storage.paragraph.field_session_time_days
+    - paragraphs.paragraphs_type.session_time
   module:
     - options
-id: field_collection_item.field_session_time.field_session_time_days
+id: paragraph.session_time.field_session_time_days
 field_name: field_session_time_days
-entity_type: field_collection_item
-bundle: field_session_time
+entity_type: paragraph
+bundle: session_time
 label: Days
 description: ''
 required: false
