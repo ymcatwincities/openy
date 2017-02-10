@@ -1,0 +1,9 @@
+name: 'OpenY demo menu footer'
+description: 'OpenY demo menu footer'
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+version: 8.x-1.0
