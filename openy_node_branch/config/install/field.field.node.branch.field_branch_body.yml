@@ -7,6 +7,7 @@ dependencies:
     - paragraphs.paragraphs_type.2c
     - paragraphs.paragraphs_type.3c
     - paragraphs.paragraphs_type.4c
+    - paragraphs.paragraphs_type.all_amenities
     - paragraphs.paragraphs_type.blackbaud
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.gallery
@@ -36,6 +37,7 @@ settings:
       latest_news_and_updates: latest_news_and_updates
       simple_content: simple_content
       blackbaud: blackbaud
+      all_amenities: all_amenities
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -88,4 +90,7 @@ settings:
       whay:
         weight: -19
         enabled: false
+      all_amenities:
+        enabled: true
+        weight: 23
 field_type: entity_reference_revisions
