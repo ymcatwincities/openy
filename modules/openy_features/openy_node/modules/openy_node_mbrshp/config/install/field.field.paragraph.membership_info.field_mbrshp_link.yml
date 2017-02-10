@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.field_collection_item.field_mbrshp_link
-    - field_collection.field_collection.field_mbrshp_info
+    - field.storage.paragraph.field_mbrshp_link
+    - paragraphs.paragraphs_type.membership_info
   module:
     - link
-id: field_collection_item.field_mbrshp_info.field_mbrshp_link
+id: paragraph.membership_info.field_mbrshp_link
 field_name: field_mbrshp_link
-entity_type: field_collection_item
-bundle: field_mbrshp_info
+entity_type: paragraph
+bundle: membership_info
 label: Link
 description: ''
 required: false
