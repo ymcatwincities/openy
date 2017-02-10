@@ -12,8 +12,8 @@ $module: 'site-alert';
   }
 
   &__title {
-    color: $white;
-    font-size: 18px;
+    color: $brown;
+    font-size: 20px;
   }
 
   &__content {
@@ -48,7 +48,7 @@ $module: 'site-alert';
 
   &__icon {
     font-size: 26px;
-    color: $red;
+    color: $yellow;
     position: absolute;
     top: 10px;
     left: 25px;
@@ -57,10 +57,10 @@ $module: 'site-alert';
       content: " ";
       background-color: $white;
       border-radius: 10px;
-      height: 15px;
-      left: 5px;
+      height: 18px;
+      left: 3px;
       position: absolute;
-      top: 7px;
+      top: 4px;
       width: 15px;
       z-index: 2;
     }
@@ -72,11 +72,10 @@ $module: 'site-alert';
   }
 
   &__dismiss {
-    color: $white;
+    color: $black;
     position: absolute;
     right: 20px;
     top: 10px;
-    text-shadow: 0 0 2px $dark-grey;
   }
 
   &--header {
@@ -94,7 +93,7 @@ $module: 'site-alert';
       }
 
       &__content {
-        color: $alert-black;
+        color: $brown;
         display: inline;
         font-size: 16px;
 
@@ -122,39 +121,8 @@ $module: 'site-alert';
     &--yellow {
       background: $yellow;
       border: 1px solid $gray;
-    }
-
-    &--dark_blue {
-      background: $dark-blue;
-      border: 1px solid $gray;
-    }
-
-    &--dark_blue {
-      background-color: $dark-blue;
-    }
-
-    &--transparent {
-      background: none;
-      border: 1px solid $black;
-
-      .#{$module}__title {
-        color: $default-grey;
-      }
-
-      .#{$module}__content {
-        color: $default-grey;
-      }
-
-      .#{$module}__cta {
-        .btn-outline-inverse {
-          &:hover {
-            color: $blue;
-          }
-        }
-
-        a {
-          color: $blue;
-        }
+      .#{$module}__icon {
+        color: $red;
       }
     }
   }
@@ -179,6 +147,7 @@ $module: 'site-alert';
         font-size: 24px;
         line-height: 28px;
         padding-right: 1em;
+        color: $white;
 
         @include breakpoint($screen-sm) {
           margin-top: 14px;
@@ -221,11 +190,6 @@ $module: 'site-alert';
           }
         }
       }
-    }
-
-    &--dark_blue {
-      background: $dark-blue;
-      border: 1px solid $gray;
     }
 
     &--blue {
@@ -302,15 +266,8 @@ $module: 'site-alert';
       font-family: "FontAwesome";
       font-size: 20px;
       line-height: 1;
-      color: $white;
-      opacity: 0.5;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      color: $black;
     }
-  }
-
-  .slick-arrow {
-    text-shadow: 0 0 2px $black;
   }
 
   .slick-prev {
@@ -388,12 +345,6 @@ $module: 'site-alert';
           line-height: 20px;
           text-align: center;
           color: $white;
-          opacity: 0.5;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-
-          text-shadow: 0 0 2px #000;
-
         }
       }
       &.slick-active button {
@@ -443,10 +394,6 @@ $module: 'site-alert';
     .site-alert--header--blue {
       background-color: $white;
       border: 1px solid $blue;
-    }
-    .site-alert--header--dark_blue {
-      background-color: $white;
-      border: 1px solid $dark_blue;
     }
     .site-alert__title {
       color: $default-grey;
