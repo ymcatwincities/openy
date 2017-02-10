@@ -4,25 +4,25 @@ dependencies:
   enforced:
     module:
       - openy_demo_nbranch
-id: openy_demo_prgf_blog_branch
+id: openy_demo_prgf_latest_blog_posts_camp
 migration_tags: {  }
 migration_group: openy_demo_nbranch
-label: 'Create latest blog posts (branch) paragraph(s) for demo branch page nodes'
+label: 'Create latest blog posts (camp) paragraph(s) for demo branch page nodes'
 migration_dependencies: {  }
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: blog_branch_1
+      id: latest_blog_posts_camp_1
       parent_id: 1
     -
-      id: blog_branch_2
+      id: latest_blog_posts_camp_2
       parent_id: 2
     -
-      id: blog_branch_3
+      id: latest_blog_posts_camp_3
       parent_id: 3
     -
-      id: blog_branch_4
+      id: latest_blog_posts_camp_4
       parent_id: 4
   ids:
     id:
@@ -31,7 +31,7 @@ process:
   langcode:
     plugin: default_value
     source: language
-    default_value: en
+    default_value: und
   status:
     plugin: default_value
     default_value: 1
@@ -46,9 +46,10 @@ process:
   parent_type:
     plugin: default_value
     default_value: node
+  # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
     default_value: field_content
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: latest_blog_posts_branch
+  default_bundle: latest_blog_posts_camp

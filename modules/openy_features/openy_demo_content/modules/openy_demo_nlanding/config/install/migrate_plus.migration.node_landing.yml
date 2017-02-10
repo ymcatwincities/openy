@@ -15,7 +15,9 @@ source:
       id: homepage
       title: 'OpenY'
       header_content_id: homepage_banner
-      content_ids: null
+      content_ids:
+        -
+          content_id: homepage_latest_blog_posts
     -
       id: about
       title: 'About the YMCA'
@@ -37,6 +39,8 @@ source:
       content_ids:
         -
           content_id: blog_featured_blogs
+        -
+          content_id: blog_blog_posts_listing
     -
       id: accelerator
       title: 'Accelerator'
@@ -93,6 +97,8 @@ process:
           - openy_demo_lp_paragraph_featured_blogs
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
+          - openy_demo_lp_paragraph_blog_posts_listing
+          - openy_demo_lp_paragraph_latest_blog_posts
         source: content_id
       target_revision_id:
         plugin: migration
@@ -103,6 +109,8 @@ process:
           - openy_demo_lp_paragraph_featured_blogs
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
+          - openy_demo_lp_paragraph_blog_posts_listing
+          - openy_demo_lp_paragraph_latest_blog_posts
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -115,5 +123,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_featured_blogs
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
+    - openy_demo_lp_paragraph_blog_posts_listing
+    - openy_demo_lp_paragraph_latest_blog_posts
   optional:
     - openy_demo_node_blog
