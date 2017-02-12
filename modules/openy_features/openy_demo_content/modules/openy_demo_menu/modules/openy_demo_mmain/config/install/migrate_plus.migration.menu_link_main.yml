@@ -346,14 +346,5 @@ process:
     plugin: openy_menu_icon
     source: '@file_id'
   link/options: '@opts'
-  route:
-    plugin: route
-    source:
-      - link_path
-      - '@opts'
-  route_name: '@route/route_name'
-  route_parameters: '@route/route_parameters'
-  url: '@route/url'
-  options: '@route/options'
 destination:
   plugin: entity:menu_link_content
