@@ -116,8 +116,8 @@ dependencies:
   - openy_demo_nblog
   - openy_demo_nlanding
   - openy_demo_menu
-  - openy_demo_mmain
-  - openy_demo_mfooter
+  - openy_demo_menu_main
+  - openy_demo_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
   - openy_user

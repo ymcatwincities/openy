@@ -62,8 +62,8 @@ function openy_import_content(array &$install_state) {
       'openy_demo_node_program_subcategory',
     ],
     'menus' => [
-      'openy_demo_mfooter',
-      'openy_demo_mmain',
+      'openy_demo_menu_link_main',
+      'openy_demo_menu_link_footer',
     ],
   ];
 

@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_mmain
+      - openy_demo_menu_main
 id: openy_demo_menu_link_main
 migration_tags: {  }
 migration_group: openy_demo_menu

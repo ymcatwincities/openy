@@ -34,7 +34,7 @@ class ContentSelectForm extends FormBase {
     $form['content'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Choose content to import'),
-      '#default_value' => ['landing', 'branches', 'blog', 'programs'],
+      '#default_value' => array_keys($options),
       '#options' => $options,
     ];
 
