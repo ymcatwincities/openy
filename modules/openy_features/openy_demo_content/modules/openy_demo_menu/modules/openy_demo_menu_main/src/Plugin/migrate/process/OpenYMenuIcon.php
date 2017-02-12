@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_demo_mmain\Plugin\migrate\process;
+namespace Drupal\openy_demo_menu_main\Plugin\migrate\process;
 
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
