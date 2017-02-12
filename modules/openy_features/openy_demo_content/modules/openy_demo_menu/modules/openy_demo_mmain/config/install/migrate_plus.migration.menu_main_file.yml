@@ -33,7 +33,7 @@ source:
     id:
       type: string
   constants:
-    source_base_path: profiles/openy/modules/openy_features/openy_demo_content/modules/openy_demo_mmain/assets/images
+    source_base_path: profiles/openy/modules/openy_features/openy_demo_content/modules/openy_demo_menu/modules/openy_demo_mmain/assets/images
     uri_file: 'public:/menu_icons/'
 process:
   source_full_path:

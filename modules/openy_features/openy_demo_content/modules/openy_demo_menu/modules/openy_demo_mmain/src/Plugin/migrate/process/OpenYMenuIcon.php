@@ -19,7 +19,11 @@ class OpenYMenuIcon extends ProcessPluginBase {
    * {@inheritdoc}
    */
   public function transform($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    $options = ['menu_icon' => array('fid' => $value)];
+    $options = [
+      'menu_icon' => [
+        'fid' => $value,
+      ],
+    ];
     return serialize($options);
   }
 
