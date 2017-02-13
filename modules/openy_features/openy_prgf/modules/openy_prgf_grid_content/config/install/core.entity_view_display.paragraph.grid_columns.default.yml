@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.grid_columns.field_prgf_clm_description
     - field.field.paragraph.grid_columns.field_prgf_clm_headline
     - field.field.paragraph.grid_columns.field_prgf_clm_icon
     - field.field.paragraph.grid_columns.field_prgf_clm_link
     - field.field.paragraph.grid_columns.field_prgf_column_class
+    - field.field.paragraph.grid_columns.field_prgf_grid_clm_description
     - paragraphs.paragraphs_type.grid_columns
   module:
     - link
@@ -16,21 +16,15 @@ targetEntityType: paragraph
 bundle: grid_columns
 mode: default
 content:
-  field_prgf_clm_description:
-    weight: 0
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
   field_prgf_clm_headline:
-    weight: 1
+    weight: 2
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_prgf_clm_icon:
-    weight: 2
+    weight: 3
     label: hidden
     settings:
       view_mode: icon
@@ -38,7 +32,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_entity_view
   field_prgf_clm_link:
-    weight: 4
+    weight: 5
     label: hidden
     settings:
       trim_length: 80
@@ -49,12 +43,18 @@ content:
     third_party_settings: {  }
     type: link
   field_prgf_column_class:
-    weight: 3
+    weight: 4
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_prgf_grid_clm_description:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
 hidden:
   created: true
   uid: true
