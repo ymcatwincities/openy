@@ -30,8 +30,6 @@ source:
       content_ids:
         -
           content_id: blog_branch_1
-        -
-          content_id: latest_blog_posts_camp_1
     -
       id: 2
       title: 'Downtown YMCA'
@@ -52,8 +50,6 @@ source:
       content_ids:
         -
           content_id: blog_branch_2
-        -
-          content_id: latest_blog_posts_camp_2
     -
       id: 3
       title: 'East YMCA'
@@ -74,8 +70,6 @@ source:
       content_ids:
         -
           content_id: blog_branch_3
-        -
-          content_id: latest_blog_posts_camp_3
     -
       id: 4
       title: 'South YMCA'
@@ -96,8 +90,6 @@ source:
       content_ids:
         -
           content_id: blog_branch_4
-        -
-          content_id: latest_blog_posts_camp_4
   ids:
     id:
       type: integer
@@ -200,5 +192,4 @@ migration_dependencies:
     - openy_demo_taxonomy_term_area
     - openy_demo_prgf_gallery
     - openy_demo_prgf_blog_branch
-    - openy_demo_prgf_latest_blog_posts_camp
   optional: {  }
