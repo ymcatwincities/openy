@@ -7,10 +7,6 @@
     color: $white;
     font-size: 24px;
 
-    @include breakpoint(tablet) {
-      padding-top: 10px;
-    }
-
     @include breakpoint(mobileonly) {
       margin: 0 0 0px 10px;
     }
@@ -21,12 +17,23 @@
     color: $white;
     font-size: 20px;
 
-    @include breakpoint(tablet) {
-      padding-top: 14px;
+    @media (max-width: $screen-sm) {
+      padding-bottom: 14px;
     }
 
     @include breakpoint(mobileonly) {
-      margin: 0 0 20px 10px;
+      margin: 0 0 0 10px;
+    }
+  }
+
+  @media  (min-width: $screen-sm) and (max-width: $screen-desktop) {
+    .block--subtitle {
+      clear: both;
+    }
+    .block--btn {
+      display: inline-block;
+      float: none;
+      padding: 25px 20px 0 20px;
     }
   }
 
@@ -36,9 +43,6 @@
     padding: 0;
     width: 100%;
     background: white;
-    @include breakpoint(mobileonly) {
-      padding-top: 14px;
-    }
     a {
       display: block;
       padding: 12px;

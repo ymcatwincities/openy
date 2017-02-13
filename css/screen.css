@@ -7295,9 +7295,6 @@ body {
     font-family: "CachetBook", Verdana, sans-serif;
     color: #fff;
     font-size: 24px; }
-    @media (min-width: 768px) {
-      .paragraph--type--lto .field-lto-title {
-        padding-top: 10px; } }
     @media (max-width: 480px) {
       .paragraph--type--lto .field-lto-title {
         margin: 0 0 0px 10px; } }
@@ -7305,21 +7302,25 @@ body {
     font-family: "CachetBook", Verdana, sans-serif;
     color: #fff;
     font-size: 20px; }
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
       .paragraph--type--lto .field-lto-subtitle {
-        padding-top: 14px; } }
+        padding-bottom: 14px; } }
     @media (max-width: 480px) {
       .paragraph--type--lto .field-lto-subtitle {
-        margin: 0 0 20px 10px; } }
+        margin: 0 0 0 10px; } }
+  @media (min-width: 768px) and (max-width: 992px) {
+    .paragraph--type--lto .block--subtitle {
+      clear: both; }
+    .paragraph--type--lto .block--btn {
+      display: inline-block;
+      float: none;
+      padding: 25px 20px 0 20px; } }
   .paragraph--type--lto .btn {
     white-space: normal;
     font-size: 20px;
     padding: 0;
     width: 100%;
     background: white; }
-    @media (max-width: 480px) {
-      .paragraph--type--lto .btn {
-        padding-top: 14px; } }
     .paragraph--type--lto .btn a {
       display: block;
       padding: 12px;
