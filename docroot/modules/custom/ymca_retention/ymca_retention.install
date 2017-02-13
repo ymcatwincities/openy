@@ -375,3 +375,16 @@ function ymca_retention_update_8020() {
     ]
   );
 }
+
+/**
+ * Enable datepicker widget.
+ */
+function ymca_retention_update_8021() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('module_installer')->install(['better_exposed_filters'], TRUE);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.ymca_members.yml',
+    ]
+  );
+}
