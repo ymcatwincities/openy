@@ -7262,16 +7262,23 @@ body {
       @media (min-width: 768px) {
         .block-description--4 .field-prgf-4c-button .btn {
           font-size: 20px; } }
-  .block-description--4 .field-image {
-    text-align: center; }
-    .block-description--4 .field-image img {
-      display: inline; }
   .block-description--4 .field-icon-class {
     text-align: center;
     margin-bottom: 15px; }
     .block-description--4 .field-icon-class .fa {
       color: #5c2e91;
       font-size: 36px; }
+  .block-description--4 .field-icon {
+    text-align: center;
+    margin-bottom: 15px; }
+    .block-description--4 .field-icon .field-image {
+      text-align: center;
+      height: 36px;
+      margin: auto; }
+      .block-description--4 .field-icon .field-image img {
+        display: inline;
+        max-height: 100%;
+        width: auto; }
   .block-description--4 .slick-dotted {
     margin-bottom: 25px; }
   .block-description--4 .slick-slide {
