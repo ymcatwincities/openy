@@ -12,8 +12,8 @@ $module: 'site-alert';
   }
 
   &__title {
-    color: $white;
-    font-size: 18px;
+    color: $brown;
+    font-size: 20px;
   }
 
   &__content {
@@ -48,7 +48,7 @@ $module: 'site-alert';
 
   &__icon {
     font-size: 26px;
-    color: $red;
+    color: $yellow;
     position: absolute;
     top: 10px;
     left: 25px;
@@ -57,10 +57,10 @@ $module: 'site-alert';
       content: " ";
       background-color: $white;
       border-radius: 10px;
-      height: 15px;
-      left: 5px;
+      height: 18px;
+      left: 3px;
       position: absolute;
-      top: 7px;
+      top: 4px;
       width: 15px;
       z-index: 2;
     }
@@ -72,20 +72,20 @@ $module: 'site-alert';
   }
 
   &__dismiss {
-    color: $white;
+    color: $black;
     position: absolute;
     right: 20px;
     top: 10px;
-    text-shadow: 0 0 2px $dark-grey;
   }
 
-  &--header {
+  &--header,
+  &--footer {
     border: 1px solid $default-grey;
 
     .#{$module} {
 
       &__wrapper {
-        padding: 10px 35px 11px 59px;
+        padding: 10px 35px 35px 59px;
       }
 
       &__title {
@@ -94,7 +94,7 @@ $module: 'site-alert';
       }
 
       &__content {
-        color: $alert-black;
+        color: $brown;
         display: inline;
         font-size: 16px;
 
@@ -122,128 +122,20 @@ $module: 'site-alert';
     &--yellow {
       background: $yellow;
       border: 1px solid $gray;
-    }
-
-    &--dark_blue {
-      background: $dark-blue;
-      border: 1px solid $gray;
-    }
-
-    &--dark_blue {
-      background-color: $dark-blue;
-    }
-
-    &--transparent {
-      background: none;
-      border: 1px solid $black;
-
-      .#{$module}__title {
-        color: $default-grey;
-      }
-
-      .#{$module}__content {
-        color: $default-grey;
-      }
-
-      .#{$module}__cta {
-        .btn-outline-inverse {
-          &:hover {
-            color: $blue;
-          }
-        }
-
-        a {
-          color: $blue;
-        }
-      }
-    }
-  }
-
-  &--footer {
-    background-color: $dark-blue;
-
-    .#{$module} {
-
-      &__wrapper {
-        padding-top: 10px;
-        padding-bottom: 10px;
-
-        @include breakpoint($screen-md) {
-          padding-top: 25px;
-          padding-bottom: 25px;
-        }
-      }
-
-      &__title {
-        display: block;
-        font-size: 24px;
-        line-height: 28px;
-        padding-right: 1em;
-
-        @include breakpoint($screen-sm) {
-          margin-top: 14px;
-        }
-
-        @include breakpoint($screen-md) {
-          display: inline-block;
-          font-size: 28px;
-          line-height: 50px;
-          margin-top: 0px;
-        }
-      }
-
-      &__content {
-        color: $white;
-        display: block;
-        font-size: 18px;
-        line-height: 22px;
-
-        @include breakpoint($screen-md) {
-          display: inline-block;
-          font-size: 20px;
-          line-height: 46px;
-        }
-      }
-
-      &__icon {
-        display: none;
-      }
-    }
-    // Variations.
-    &--yellow {
-      background: $yellow;
-      border: 1px solid $gray;
-
-      .#{$module}__cta {
-        .btn-outline-inverse {
-          &:hover {
-            color: $yellow;
-          }
-        }
-      }
-    }
-
-    &--dark_blue {
-      background: $dark-blue;
-      border: 1px solid $gray;
-    }
-
-    &--blue {
-      background-color: $blue;
-
-      .#{$module}__cta {
-        .btn-outline-inverse {
-          &:hover {
-            color: $blue;
-          }
-        }
+      .#{$module}__icon {
+        color: $red;
       }
     }
   }
 }
-
 .header-alerts-list,
 .footer-alerts-list {
+
+  .unslick {
+    .#{$module}__wrapper {
+      padding: 10px 35px 11px 59px;
+    }
+  }
 
   .slick-slider {
     margin-bottom: 0;
@@ -261,9 +153,23 @@ $module: 'site-alert';
   .slick__arrow {
     display: block;
     position: relative;
-    margin-top: -25px;
+    margin-top: -35px;
   }
 
+  .slick {
+    .container {
+      position: relative;
+    }
+  }
+
+  .slick__counter {
+    position: absolute;
+    top: -65px;
+    right: 20px;
+    font-size: 16px;
+    color: $black;
+    @include cachet();
+  }
   /* Arrows */
 
   .slick-prev,
@@ -302,15 +208,8 @@ $module: 'site-alert';
       font-family: "FontAwesome";
       font-size: 20px;
       line-height: 1;
-      color: $white;
-      opacity: 0.5;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      color: $black;
     }
-  }
-
-  .slick-arrow {
-    text-shadow: 0 0 2px $black;
   }
 
   .slick-prev {
@@ -319,6 +218,7 @@ $module: 'site-alert';
 
     &:before {
       content: "\f104";
+      font-size: 30px;
     }
   }
 
@@ -328,6 +228,7 @@ $module: 'site-alert';
 
     &:before {
       content: "\f105";
+      font-size: 30px;
     }
   }
 
@@ -388,12 +289,6 @@ $module: 'site-alert';
           line-height: 20px;
           text-align: center;
           color: $white;
-          opacity: 0.5;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-
-          text-shadow: 0 0 2px #000;
-
         }
       }
       &.slick-active button {
@@ -443,10 +338,6 @@ $module: 'site-alert';
     .site-alert--header--blue {
       background-color: $white;
       border: 1px solid $blue;
-    }
-    .site-alert--header--dark_blue {
-      background-color: $white;
-      border: 1px solid $dark_blue;
     }
     .site-alert__title {
       color: $default-grey;
