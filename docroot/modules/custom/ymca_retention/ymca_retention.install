@@ -362,3 +362,16 @@ function ymca_retention_update_8019() {
     $member->save();
   }
 }
+
+/**
+ * Provide link for csv export.
+ */
+function ymca_retention_update_8020() {
+  $path = 'sites/default/config/staging/';
+  \Drupal::service('module_installer')->install(['ymca_export'], TRUE);
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      $path . 'views.view.ymca_members.yml',
+    ]
+  );
+}
