@@ -6529,6 +6529,31 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px; }
 
+nav {
+  clear: both; }
+  nav > ul.js-pager__items {
+    display: table;
+    margin: 10px auto;
+    font-size: 0;
+    list-style: none; }
+    nav > ul.js-pager__items li {
+      font-family: "CachetBook", Verdana, sans-serif;
+      display: inline-block;
+      font-size: 16px;
+      text-align: center; }
+      @media (max-width: 480px) {
+        nav > ul.js-pager__items li {
+          font-size: 12px; } }
+      nav > ul.js-pager__items li a {
+        font-family: "CachetBook", Verdana, sans-serif;
+        display: block;
+        padding: 9px;
+        text-decoration: none;
+        text-align: center; }
+        @media (max-width: 480px) {
+          nav > ul.js-pager__items li a {
+            padding: 6px; } }
+
 .footer {
   font-family: "CachetMedium";
   background: #4f4f4f;
