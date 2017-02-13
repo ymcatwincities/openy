@@ -11,47 +11,47 @@ source:
   data_rows:
     -
       id: 1
-      title: 'Locations'
-      menu_name: 'footer-menu-left'
-      link: 'base:locations'
-      weight: 1
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 2
       title: 'Programs'
       menu_name: 'footer-menu-left'
       link: 'base:openy'
-      weight: 2
+      weight: 1
       parent_id: 0
       expanded: 1
       parent_link_path: ''
     -
-      id: 3
+      id: 2
       title: 'Health and Fitness'
       menu_name: 'footer-menu-left'
       link: 'base:programs/health-and-fitness'
       weight: 1
-      parent_id: 2
+      parent_id: 1
       expanded: 0
       parent_link_path: 'openy'
     -
-      id: 4
+      id: 3
       title: 'Swimming'
       menu_name: 'footer-menu-left'
       link: 'base:programs/swimming'
       weight: 2
-      parent_id: 2
+      parent_id: 1
       expanded: 0
       parent_link_path: 'openy'
     -
-      id: 5
+      id: 4
       title: 'Kids and Family Activities'
       menu_name: 'footer-menu-left'
       link: 'base:programs/kids-and-family-activities'
       weight: 3
-      parent_id: 2
+      parent_id: 1
+      expanded: 0
+      parent_link_path: 'openy'
+    -
+      id: 5
+      title: 'Child Care'
+      menu_name: 'footer-menu-left'
+      link: 'base:programs/child-care'
+      weight: 4
+      parent_id: 1
       expanded: 0
       parent_link_path: 'openy'
     -
@@ -60,123 +60,60 @@ source:
       menu_name: 'footer-menu-left'
       link: 'base:programs/camps'
       weight: 5
-      parent_id: 2
+      parent_id: 1
       expanded: 0
       parent_link_path: 'openy'
     -
       id: 7
-      title: 'Child Care'
-      menu_name: 'footer-menu-left'
-      link: 'base:programs/child-care'
-      weight: 4
-      parent_id: 2
-      expanded: 0
-      parent_link_path: 'openy'
-    -
-      id: 8
       title: 'Youth Programs'
       menu_name: 'footer-menu-left'
       link: 'base:programs/youth-programs'
       weight: 6
-      parent_id: 2
+      parent_id: 1
       expanded: 0
       parent_link_path: 'openy'
     -
+      id: 8
+      title: 'Home'
+      menu_name: 'footer-menu-center'
+      link: 'base:openy'
+      weight: 1
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
       id: 9
-      title: 'Social Services'
-      menu_name: 'footer-menu-left'
+      title: 'Blog'
+      menu_name: 'footer-menu-center'
+      link: 'base:blog'
+      weight: 2
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 10
+      title: 'Accelerator'
+      menu_name: 'footer-menu-center'
       link: 'base:accelerator'
       weight: 3
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
-      id: 10
-      title: 'Careers'
-      menu_name: 'footer-menu-center'
-      link: 'base:careers'
-      weight: 1
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
       id: 11
-      title: 'Contact'
-      menu_name: 'footer-menu-center'
-      link: 'base:contact'
-      weight: 2
+      title: 'About'
+      menu_name: 'footer-menu-right'
+      link: 'base:about-ymca'
+      weight: 1
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
       id: 12
-      title: 'My Account'
-      menu_name: 'footer-menu-center'
-      link: 'base:user'
-      weight: 3
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 13
-      title: 'About'
-      menu_name: 'footer-menu-center'
-      link: 'base:about-ymca'
-      weight: 4
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 14
-      title: 'Blog'
-      menu_name: 'footer-menu-center'
-      link: 'base:blog'
-      weight: 5
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 15
-      title: 'Join The YMCA'
-      menu_name: 'footer-menu-right'
-      link: 'base:membership'
-      weight: 1
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 16
-      title: 'Financial Assistance'
-      menu_name: 'footer-menu-right'
-      link: 'base:membership/financialassistance'
-      weight: 2
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 17
-      title: 'FAQ'
-      menu_name: 'footer-menu-right'
-      link: 'base:membership/faq'
-      weight: 3
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 18
       title: 'Give'
       menu_name: 'footer-menu-right'
       link: 'base:give'
-      weight: 4
-      parent_id: 0
-      expanded: 0
-      parent_link_path: ''
-    -
-      id: 19
-      title: 'Privacy Policy'
-      menu_name: 'footer-menu-right'
-      link: 'base:privacy-policy'
-      weight: 5
+      weight: 2
       parent_id: 0
       expanded: 0
       parent_link_path: ''
