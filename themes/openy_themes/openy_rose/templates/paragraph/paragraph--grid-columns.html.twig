@@ -48,7 +48,7 @@ set classes = [
   <div class="content"{{ content_attributes }}>
     <div class="inner">
       {% if content.field_prgf_column_class|render|trim %}
-        <i class="fa fa-{{ content.field_prgf_column_class }}"></i>
+        <i class="fa fa-{{ paragraph.field_prgf_column_class.value }}"></i>
         <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
       {% elseif content.field_prgf_clm_icon|render|trim %}
         {{ content.field_prgf_clm_icon }}
