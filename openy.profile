@@ -6,6 +6,7 @@
  */
 
 use Drupal\openy\Form\ContentSelectForm;
+use Drupal\openy\Form\SetGoogleMapsApiKey;
 
 /**
  * Implements hook_install_tasks().
@@ -20,6 +21,12 @@ function openy_install_tasks() {
     ],
     'openy_import_content' => [
       'type' => 'batch',
+    ],
+    'openy_set_google_maps_api_key' => [
+      'display_name' => t('Set Google Maps API Key'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => SetGoogleMapsApiKey::class,
     ],
   ];
 }
