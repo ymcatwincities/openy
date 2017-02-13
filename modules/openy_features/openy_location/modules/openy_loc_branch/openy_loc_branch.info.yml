@@ -6,7 +6,6 @@ dependencies:
   - address
   - entity_reference_revisions
   - field
-  - field_collection
   - field_group
   - geolocation
   - link
