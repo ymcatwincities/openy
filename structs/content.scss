@@ -26,35 +26,16 @@ body {
 }
 
 
-nav {
+.views-element-container .pager {
   clear: both;
-  > ul.js-pager__items {
-    display: table;
-    margin: 10px auto;
-    font-size: 0;
-    list-style: none;
-
-    li {
+  li {
+    @include cachet();
+    font-size: 16px;
+    @media (max-width: $screen-xs-min) {
+      font-size: 12px;
+    }
+    a {
       @include cachet();
-      display: inline-block;
-      font-size: 16px;
-      text-align: center;
-
-      @media (max-width: $screen-xs-min) {
-        font-size: 12px;
-      }
-
-      a {
-        @include cachet();
-
-        display: block;
-        padding: 9px;
-        text-decoration: none;
-        text-align: center;
-        @media (max-width: $screen-xs-min) {
-          padding: 6px;
-        }
-      }
     }
   }
 }
