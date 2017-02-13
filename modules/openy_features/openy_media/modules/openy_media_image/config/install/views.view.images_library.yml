@@ -374,7 +374,7 @@ display:
           exposed: true
           expose:
             operator_id: field_media_tags_target_id_op
-            label: 'Media Tags (field_media_tags)'
+            label: 'Media Tags'
             description: ''
             use_operator: false
             operator: field_media_tags_target_id_op
