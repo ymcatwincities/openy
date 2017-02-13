@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a taxonomy term.
+ *
+ * Available variables:
+ * - content: an array with amenities.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+  'block-description--wrapper',
+  'block-description--2'
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+{% for amenity in content %}
+  <div class="block-description--text">
+    {{ amenity }}
+  </div>
+{% endfor %}
+</div>

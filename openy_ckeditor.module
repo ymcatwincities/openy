@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_ckeditor.module.
+ */
+
+use Drupal\paragraphs\ParagraphInterface;
+use Drupal\Core\Render\BubbleableMetadata;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_ckeditor_theme($existing, $type, $theme, $path) {
+  return [
+    'list_branch_amenities' => [
+      'variables' => [
+        'content' => [],
+      ],
+      'template' => 'list-branch-amenities',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function openy_ckeditor_token_info() {
+  $info['tokens']['node']['list-branch-amenities'] = [
+    'name' => t('List of branch Amenities'),
+    'description' => t('Provides token for displaying list of branch amenities'),
+  ];
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function openy_ckeditor_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+  if ($type == 'paragraph') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'list-branch-amenities':
+          if (isset($data['paragraph']) && $data['paragraph'] instanceof ParagraphInterface) {
+            /** @var \Drupal\Core\Field\FieldItemList $nid */
+            if ($nid = $data['paragraph']->parent_id->value) {
+              $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
+              $amenities_values = $node->field_location_amenities->getValue();
+              $amenities_ids = [];
+              foreach ($amenities_values as $id) {
+                $amenities_ids[] = $id['target_id'];
+              }
+              $amenities = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadMultiple($amenities_ids);
+              $amenities_view = [];
+              foreach ($amenities as $amenity) {
+                $amenities_view[] = \Drupal::service('entity.manager')->getViewBuilder('taxonomy_term')->view($amenity);
+              }
+              $render_array = [
+                '#theme' => 'list_branch_amenities',
+                '#content' => $amenities_view,
+              ];
+              $replacements[$original] = render($render_array);
+            }
+          }
+        break;
+      }
+    }
+  }
+  return $replacements;
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function openy_ckeditor_page_attachments_alter(array &$attachments) {
+  $attachments['#attached']['library'][] = 'openy_ckeditor/openy-ckeditor';
+}
