@@ -72,12 +72,12 @@
             "type": "package",
             "package": {
                 "name": "library/jaypan/jquery_colorpicker",
-                "version": "1.0.1",
+                "version": "*",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/jaypan/jquery_colorpicker",
                     "type": "git",
-                    "reference": "1.0.1"
+                    "reference": "*"
                 }
             }
         }
