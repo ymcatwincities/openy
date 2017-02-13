@@ -75,7 +75,7 @@
                 "version": "1.0.1",
                 "type": "drupal-library",
                 "source": {
-                    "url": "https://github.com/jaypan/jquery_colorpicker_composer",
+                    "url": "https://github.com/jaypan/jquery_colorpicker",
                     "type": "git",
                     "reference": "1.0.1"
                 }
