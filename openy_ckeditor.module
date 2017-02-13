@@ -38,13 +38,15 @@ function openy_ckeditor_token_info() {
  */
 function openy_ckeditor_tokens($type, $tokens, array $data, array $options, BubbleableMetadata $bubbleable_metadata) {
   $replacements = [];
-  if ($type == 'paragraph') {
+  if ($type == 'openy') {
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'list-branch-amenities':
-          if (isset($data['paragraph']) && $data['paragraph'] instanceof ParagraphInterface) {
+          /** @var \Drupal\Core\Entity\EntityInterface $entity */
+          $entity = reset($data);
+          if (!empty($entity) && !empty($entity->getEntityTypeId())) {
             /** @var \Drupal\Core\Field\FieldItemList $nid */
-            if ($nid = $data['paragraph']->parent_id->value) {
+            if (!empty($nid = $entity->parent_id->value)) {
               $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
               $amenities_values = $node->field_location_amenities->getValue();
               $amenities_ids = [];
