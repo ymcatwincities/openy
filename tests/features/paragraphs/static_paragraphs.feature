@@ -55,7 +55,7 @@ Feature: Static Paragraphs
   Scenario: Create Grid Content
     When I press "Add Grid Content"
     And I select "2 items per row" from "Style"
-    And I press "Add Grid Columns"
+    And I press "Add Grid columns"
     And I fill in the following:
       | Headline | We Appreciate Your Support |
       | Icon Class | flag                     |
