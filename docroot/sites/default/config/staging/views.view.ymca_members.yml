@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - better_exposed_filters
     - csv_serialization
     - rest
     - serialization
@@ -1638,6 +1639,7 @@ display:
         filters: true
         filter_groups: true
         footer: false
+        exposed_form: false
       display_description: ''
       footer:
         area_text_custom:
@@ -1651,6 +1653,68 @@ display:
           tokenize: false
           content: "<div class=\"feed-icons\">\n      <div class=\"csv-feed views-rest-feed\">\n<a href=\"[site:url]ymca_export\" class=\"feed-generate-icon\">\n  Generate csv file\n</a>\n</div>\n\n    </div>"
           plugin_id: text_custom
+      exposed_form:
+        type: bef
+        options:
+          submit_button: Apply
+          reset_button: true
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          bef:
+            general:
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              autosubmit: false
+              autosubmit_hide: false
+            membership_id:
+              bef_format: default
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            branch:
+              bef_format: default
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            mail:
+              bef_format: default
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            created:
+              bef_format: bef_datepicker
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            created_1:
+              bef_format: bef_datepicker
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            created_by_staff:
+              bef_format: default
+              more_options:
+                bef_select_all_none: false
+                bef_collapsible: false
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            created_on_mobile:
+              bef_format: default
+              more_options:
+                bef_select_all_none: false
+                bef_collapsible: false
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
     cache_metadata:
       max-age: 0
       contexts:
