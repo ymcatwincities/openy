@@ -78,13 +78,14 @@ $module: 'site-alert';
     top: 10px;
   }
 
-  &--header {
+  &--header,
+  &--footer {
     border: 1px solid $default-grey;
 
     .#{$module} {
 
       &__wrapper {
-        padding: 10px 35px 11px 59px;
+        padding: 10px 35px 35px 59px;
       }
 
       &__title {
@@ -126,88 +127,15 @@ $module: 'site-alert';
       }
     }
   }
-
-  &--footer {
-    background-color: $dark-blue;
-
-    .#{$module} {
-
-      &__wrapper {
-        padding-top: 10px;
-        padding-bottom: 10px;
-
-        @include breakpoint($screen-md) {
-          padding-top: 25px;
-          padding-bottom: 25px;
-        }
-      }
-
-      &__title {
-        display: block;
-        font-size: 24px;
-        line-height: 28px;
-        padding-right: 1em;
-        color: $white;
-
-        @include breakpoint($screen-sm) {
-          margin-top: 14px;
-        }
-
-        @include breakpoint($screen-md) {
-          display: inline-block;
-          font-size: 28px;
-          line-height: 50px;
-          margin-top: 0px;
-        }
-      }
-
-      &__content {
-        color: $white;
-        display: block;
-        font-size: 18px;
-        line-height: 22px;
-
-        @include breakpoint($screen-md) {
-          display: inline-block;
-          font-size: 20px;
-          line-height: 46px;
-        }
-      }
-
-      &__icon {
-        display: none;
-      }
-    }
-    // Variations.
-    &--yellow {
-      background: $yellow;
-      border: 1px solid $gray;
-
-      .#{$module}__cta {
-        .btn-outline-inverse {
-          &:hover {
-            color: $yellow;
-          }
-        }
-      }
-    }
-
-    &--blue {
-      background-color: $blue;
-
-      .#{$module}__cta {
-        .btn-outline-inverse {
-          &:hover {
-            color: $blue;
-          }
-        }
-      }
-    }
-  }
 }
-
 .header-alerts-list,
 .footer-alerts-list {
+
+  .unslick {
+    .#{$module}__wrapper {
+      padding: 10px 35px 11px 59px;
+    }
+  }
 
   .slick-slider {
     margin-bottom: 0;
@@ -225,9 +153,23 @@ $module: 'site-alert';
   .slick__arrow {
     display: block;
     position: relative;
-    margin-top: -25px;
+    margin-top: -35px;
   }
 
+  .slick {
+    .container {
+      position: relative;
+    }
+  }
+
+  .slick__counter {
+    position: absolute;
+    top: -65px;
+    right: 20px;
+    font-size: 16px;
+    color: $black;
+    @include cachet();
+  }
   /* Arrows */
 
   .slick-prev,
@@ -276,6 +218,7 @@ $module: 'site-alert';
 
     &:before {
       content: "\f104";
+      font-size: 30px;
     }
   }
 
@@ -285,6 +228,7 @@ $module: 'site-alert';
 
     &:before {
       content: "\f105";
+      font-size: 30px;
     }
   }
 
