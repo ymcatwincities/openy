@@ -1,12 +1,30 @@
 (function ($) {
   "use strict";
-
-  Drupal.behaviors.alert_dismiss = {
+  Drupal.behaviors.build_counter = {
     attach: function (context, settings) {
       $('.header-alerts-list, .footer-alerts-list', context).once('header-alert-list-arrows').each(function () {
         $('.slick__arrow', this).wrap('<div class="container"></div>');
+        if ($(this).find('.slick__counter').length === 0) {
+          var current = $(this).find('.slick-active button').text(),
+              total = $(this).find('.slick-dots li:last').text();
+          $('<div class="slick__counter">' + Drupal.t('<span class="current">@current</span> of <span class="total">@total</span>', {
+                '@current': current,
+                '@total': total
+              }) +
+              '</div>').insertBefore($(this).find('.slick__arrow'));
+        }
+        $(this).on('afterChange', function (event, slick, direction) {
+          var current = $(this).find('.slick-active button').text(),
+              total = $(this).find('.slick-dots li:last').text();
+          $(this).find('.slick__counter .current').text(current);
+          $(this).find('.slick__counter .total').text(total);
+        });
       });
+    }
+  };
 
+  Drupal.behaviors.alert_dismiss = {
+    attach: function (context, settings) {
       var dismissed = Drupal.behaviors.alert_dismiss.getDismissed();
       $('.site-alert', context).once('alert-dismiss').each(function () {
         var self = $(this);
@@ -51,7 +69,9 @@
     setDismissed: function (dismissed) {
       var jQueryCookieJson = $.cookie.json;
       $.cookie.json = true;
-      $.cookie('alerts_dismiss', dismissed, {expires: 7});
+      $.cookie('alerts_dismiss', dismissed, {
+        expires: 7
+      });
       $.cookie.json = jQueryCookieJson;
     }
   };

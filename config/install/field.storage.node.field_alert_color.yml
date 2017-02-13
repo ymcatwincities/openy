@@ -12,10 +12,10 @@ settings:
   allowed_values:
     -
       value: yellow
-      label: Yellow: Severe
+      label: 'Yellow: Severe'
     -
       value: blue
-      label: Blue: Moderate
+      label: 'Blue: Moderate'
   allowed_values_function: ''
 module: options
 locked: false
