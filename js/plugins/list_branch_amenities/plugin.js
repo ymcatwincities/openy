@@ -14,7 +14,7 @@
       editor.addCommand('list_branch_amenities', {
         canUndo: true,
         exec: function (editor) {
-          editor.insertHtml('[paragraph:list-branch-amenities]');
+          editor.insertHtml('[openy:list-branch-amenities]');
         }
       });
 
