@@ -44,28 +44,35 @@ function openy_ckeditor_tokens($type, $tokens, array $data, array $options, Bubb
         case 'list-branch-amenities':
           /** @var \Drupal\Core\Entity\EntityInterface $entity */
           $entity = reset($data);
-          if (!empty($entity) && !empty($entity->getEntityTypeId())) {
-            /** @var \Drupal\Core\Field\FieldItemList $nid */
-            if (!empty($nid = $entity->parent_id->value)) {
-              $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
-              $amenities_values = $node->field_location_amenities->getValue();
-              $amenities_ids = [];
-              foreach ($amenities_values as $id) {
-                $amenities_ids[] = $id['target_id'];
-              }
-              $amenities = \Drupal::service('entity_type.manager')->getStorage('taxonomy_term')->loadMultiple($amenities_ids);
-              $amenities_view = [];
-              foreach ($amenities as $amenity) {
-                $amenities_view[] = \Drupal::service('entity.manager')->getViewBuilder('taxonomy_term')->view($amenity);
-              }
-              $render_array = [
-                '#theme' => 'list_branch_amenities',
-                '#content' => $amenities_view,
-              ];
-              $replacements[$original] = render($render_array);
-            }
+          if (empty($entity->getEntityTypeId())) {
+            return $replacements;
           }
-        break;
+          /** @var \Drupal\node\NodeInterface $node */
+          if (empty($node = \Drupal::routeMatch()->getParameter('node'))) {
+            return $replacements;
+          }
+          if (empty($amenities_values = $node->field_location_amenities->getValue())) {
+            return $replacements;
+          }
+          $amenities_ids = [];
+          foreach ($amenities_values as $id) {
+            $amenities_ids[] = $id['target_id'];
+          }
+          $amenities = \Drupal::service('entity_type.manager')
+            ->getStorage('taxonomy_term')
+            ->loadMultiple($amenities_ids);
+          $amenities_view = [];
+          foreach ($amenities as $amenity) {
+            $amenities_view[] = \Drupal::service('entity.manager')
+              ->getViewBuilder('taxonomy_term')
+              ->view($amenity);
+          }
+          $render_array = [
+            '#theme' => 'list_branch_amenities',
+            '#content' => $amenities_view,
+          ];
+          $replacements[$original] = render($render_array);
+          break;
       }
     }
   }
