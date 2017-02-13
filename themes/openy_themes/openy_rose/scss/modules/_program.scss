@@ -141,6 +141,7 @@
   }
   .image {
     margin-bottom: 20px;
+    text-align: center;
     @include breakpoint(0 $screen-xs) {
       img {
         height: auto;
