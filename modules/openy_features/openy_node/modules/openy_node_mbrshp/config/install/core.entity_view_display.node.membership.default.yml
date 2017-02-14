@@ -7,7 +7,7 @@ dependencies:
     - field.field.node.membership.field_mbrshp_info
     - node.type.membership
   module:
-    - field_collection
+    - entity_reference_revisions
     - text
     - user
 id: node.membership.default
@@ -29,11 +29,13 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
   field_mbrshp_info:
+    type: entity_reference_revisions_entity_view
     weight: 103
     label: above
-    settings: {  }
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: field_collection_list
   links:
     weight: 100
 hidden: {  }

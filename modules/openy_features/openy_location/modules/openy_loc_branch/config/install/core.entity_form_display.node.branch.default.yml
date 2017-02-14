@@ -17,7 +17,6 @@ dependencies:
     - node.type.branch
   module:
     - address
-    - field_collection
     - field_group
     - geolocation
     - link
@@ -112,10 +111,15 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_branch_hours:
-    weight: 3
-    settings: {  }
+    type: entity_reference_paragraphs
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
     third_party_settings: {  }
-    type: field_collection_embed
   field_content:
     type: entity_reference_paragraphs
     weight: 5

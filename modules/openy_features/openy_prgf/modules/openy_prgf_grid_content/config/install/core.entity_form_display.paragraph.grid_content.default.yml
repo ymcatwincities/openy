@@ -6,17 +6,22 @@ dependencies:
     - field.field.paragraph.grid_content.field_prgf_grid_style
     - paragraphs.paragraphs_type.grid_content
   module:
-    - field_collection
+    - paragraphs
 id: paragraph.grid_content.default
 targetEntityType: paragraph
 bundle: grid_content
 mode: default
 content:
   field_grid_columns:
+    type: entity_reference_paragraphs
     weight: 1
-    settings: {  }
+    settings:
+      title: Columns
+      title_plural: 'Grid column'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
     third_party_settings: {  }
-    type: field_collection_embed
   field_prgf_grid_style:
     weight: 0
     settings: {  }

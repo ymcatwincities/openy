@@ -29,9 +29,11 @@ mode: full
 content:
   field_branch_hours:
     type: openy_hours_formatter
-    weight: 4
+    weight: 2
     label: hidden
-    settings: {  }
+    settings:
+      view_mode: default
+      link: false
     third_party_settings: {  }
   field_content:
     type: entity_reference_revisions_entity_view
@@ -43,7 +45,7 @@ content:
     third_party_settings: {  }
   field_header_content:
     type: entity_reference_revisions_entity_view
-    weight: 2
+    weight: 4
     label: hidden
     settings:
       view_mode: default
@@ -56,12 +58,12 @@ content:
     third_party_settings: {  }
     type: address_plain
   field_location_phone:
+    type: telephone_link
     weight: 1
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
-    type: telephone_link
 hidden:
   field_location_area: true
   field_location_coordinates: true

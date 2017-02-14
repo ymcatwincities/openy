@@ -19,7 +19,6 @@ dependencies:
     - address
     - entity_reference_revisions
     - geolocation
-    - openy_hours_formatter
     - telephone
     - user
 id: node.branch.default
@@ -28,10 +27,12 @@ bundle: branch
 mode: default
 content:
   field_branch_hours:
-    type: openy_hours_formatter
-    weight: 4
-    label: hidden
-    settings: {  }
+    type: entity_reference_revisions_entity_view
+    weight: 6
+    label: above
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
   field_content:
     type: entity_reference_revisions_entity_view

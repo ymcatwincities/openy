@@ -4,17 +4,18 @@ type: module
 core: 8.x
 dependencies:
   - datetime_range
+  - entity_reference_revisions
   - field
-  - field_collection
   - field_group
   - link
   - menu_ui
   - node
   - openy_loc_branch
   - openy_loc_camp
-  - openy_node_class
   - openy_loc_facility
+  - openy_node_class
   - options
+  - paragraphs
   - path
   - text
   - user

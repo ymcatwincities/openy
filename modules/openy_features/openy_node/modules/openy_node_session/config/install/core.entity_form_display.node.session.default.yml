@@ -20,9 +20,9 @@ dependencies:
     - node.type.session
   module:
     - datetime_range
-    - field_collection
     - field_group
     - link
+    - paragraphs
     - path
     - text
 third_party_settings:
@@ -115,7 +115,7 @@ content:
     third_party_settings: {  }
     type: text_textarea
   field_session_exclusions:
-    weight: 20
+    weight: 27
     settings: {  }
     third_party_settings: {  }
     type: daterange_default
@@ -190,10 +190,15 @@ content:
     third_party_settings: {  }
     type: boolean_checkbox
   field_session_time:
-    weight: 19
-    settings: {  }
+    type: entity_reference_paragraphs
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
     third_party_settings: {  }
-    type: field_collection_embed
   path:
     type: path
     weight: 10
