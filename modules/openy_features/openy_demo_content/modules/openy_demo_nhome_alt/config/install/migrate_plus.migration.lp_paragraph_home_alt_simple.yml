@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nhome_alt
+id: openy_demo_lp_paragraph_home_alt_simple
+migration_tags: {  }
+migration_group: openy_demo_nhome_alt
+label: 'Create banner paragraph(s) for demo home landing page node'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: home_alt_simple
+      parent_id: about
+      description: |
+        <h1>Explore the Open Y!</h1>
+        <p>Learn how to use the Open Y content management system to deliver brand-compliant digital experiences.<br />
+        <br />
+        <i>* please login as admin user</i></p>
+        <p><a class="btn btn-link blue" href="/admin/structure/menu?tour=1">Start guided tour</a></p>
+        <p>This is default installation without demo content.</p>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_home_alt_landing
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+  field_prgf_description/value: description
+  field_prgf_description/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: simple_content
