@@ -1,114 +1,129 @@
-.paragraph--type--header {
+.banner {
+  background: linear-gradient(to top, $color-blue, $color-violet);
+  overflow: hidden;
   position: relative;
 
-  display: flex;
-  flex-direction: row-reverse;
+  &-image {
 
-  @media screen and (min-width: 0) and (max-width: $screen-sm) {
-    flex-direction: column;
-  }
-
-  .paragraph--image {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    flex-basis: 50%;
-
-    @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
-      flex-basis: 60%;
+    @include breakpoint(laptop) {
+      position: absolute;
+      right: 0;
+      width: calc(50% + #{ceil($container-desktop/6 - $grid-gutter-width)});
     }
 
-    @media screen and (min-width: 0) and (max-width: $screen-sm) {
-      flex-basis: 100%;
+    @include breakpoint(desktop) {
+      width: calc(50% + #{ceil($container-large-desktop/6 - $grid-gutter-width)});
     }
 
     img {
-      height: auto;
-      max-width: inherit;
-      width: 100%;
-      vertical-align: top;
-      margin: auto;
-    }
+      width: 100% !important;
+      height: auto !important;
 
-    .field-prgf-header-image {
-      height: 100%;
-
-      img {
-        height: 100%;
+      @include breakpoint(laptop) {
+        width: 120% !important;
       }
     }
   }
 
-  .cta-group-wrapper {
-    max-height: 100%;
+  &-cta-section {
+    padding-bottom: 18px;
+
+    @include breakpoint(laptop) {
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    @include breakpoint(desktop) {
+      padding-bottom: 75px;
+    }
+  }
+
+  &-title {
+    @include cachet;
+    color: $white;
+    font-size: 32px;
+    line-height: 36px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+
+    @include breakpoint(laptop) {
+      font-size: 48px;
+      line-height: 48px;
+    }
+
+    @include breakpoint(desktop) {
+      font-size: 50px;
+      line-height: 50px;
+    }
+  }
+
+  &-description {
+    @include cachet;
+    color: $white;
+    font-size: 18px;
+    font-style: normal;
+    font-stretch: normal;
+    font-weight: 500;
+    line-height: 1.22;
+
+    @include breakpoint(tablet) {
+      font-size: 20px;
+      line-height: 25px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .btn {
+    white-space: normal;
+    font-size: 18px;
+    padding: 0;
     width: 100%;
-    display: flex;
-    flex-basis: 50%;
-    
-    background: linear-gradient(to top, $color-blue, $color-violet);
+    margin: 0 0 5px;
+    background: $white;
 
-    @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
-      flex-basis: 40%;
+    a {
+      display: block;
+      padding: 12px;
+      color: $color-blue;
+      font-family: $font-cachet-bold;
+      text-transform: uppercase;
+    }
+  }
+
+  &--small {
+    min-height: 105px;
+
+    @include breakpoint(laptop) {
+      min-height: 160px;
     }
 
-    @media screen and (min-width: 0) and (max-width: $screen-sm) {
-      flex-basis: 100%;
+    .banner-image {
+      display: none;
 
-      padding: 30px 0;
-    }
-
-    .cta-group {
-      margin: auto;
-      width: 60%;
-
-      @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
-        width: 90%;
+      @include breakpoint(laptop) {
+        display: block;
+        position: absolute;
+        right: 0;
+        width: calc(50% - #{ceil($container-desktop/6 + 0*$grid-gutter-width)});
       }
 
-      h1 {
-        margin: 0;
-        color: white;
-        font-size: 48px;
-        font-family: $font-cachet-bold;
-        text-transform: uppercase;
-
-        @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
-          width: 90%;
-
-          font-size: 32px;
-        }
-      }
-
-      .text {
-        font-size: 18px;
-        font-family: $font-cachet-bold;
-        color: white;
-        line-height: 22px;
-        margin-bottom: 15px;
-
-        @media screen and (min-width: $screen-sm) and (max-width: $screen-md) {
-          width: 90%;
-
-          font-size: 16px;
-        }
-      }
-
-      .btn {
-        white-space: normal;
-        font-size: 18px;
-        padding: 0;
-        width: 100%;
-        margin: 0 0 5px;
-        background: white;
-
-        a {
-          display: block;
-          padding: 12px;
-          color: $color-blue;
-          font-family: $font-cachet-bold;
-          text-transform: uppercase;
-        }
+      @include breakpoint(desktop) {
+        width: calc(50% - #{ceil($container-large-desktop/6 + 0*$grid-gutter-width)});
       }
     }
+
+    .banner-cta-section {
+      padding: 13px 0;
+
+      @include breakpoint(laptop) {
+        padding: 30px 0;
+      }
+    }
+
+    .banner-title {
+      margin: 0;
+      max-width: 700px;
+    }
+
   }
 }
