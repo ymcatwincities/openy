@@ -77,7 +77,7 @@
                 "source": {
                     "url": "https://github.com/jaypan/jquery_colorpicker",
                     "type": "git",
-                    "reference": "1.0.1"
+                    "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
         }
