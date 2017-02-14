@@ -61,11 +61,19 @@ function openy_import_content(array &$install_state) {
       'openy_demo_node_program',
       'openy_demo_node_program_subcategory',
     ],
+    'home_alt' => [
+      'openy_demo_node_home_alt_landing',
+    ],
     'menus' => [
       'openy_demo_menu_link_main',
       'openy_demo_menu_link_footer',
     ],
   ];
+
+  // Add home_alt if landing is not included.
+  if (!in_array('landing', $install_state['openy']['content'])) {
+    $install_state['openy']['content'][] = 'home_alt';
+  }
 
   // Run required migrations.
   foreach ($required as $migration) {
