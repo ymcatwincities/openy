@@ -63,7 +63,11 @@ function openy_import_content(array &$install_state) {
     ],
     'home_alt' => [
       'openy_demo_node_home_alt_landing',
-    ]
+    ],
+    'menus' => [
+      'openy_demo_menu_link_main',
+      'openy_demo_menu_link_footer',
+    ],
   ];
 
   // Add home_alt if landing is not included.
