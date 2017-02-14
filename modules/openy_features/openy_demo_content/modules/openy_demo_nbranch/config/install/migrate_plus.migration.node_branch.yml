@@ -167,13 +167,11 @@ process:
           plugin: migration
           migration:
             - openy_demo_prgf_blog_branch
-            - openy_demo_prgf_latest_blog_posts_camp
           source: content_id
         target_revision_id:
           plugin: migration
           migration:
             - openy_demo_prgf_blog_branch
-            - openy_demo_prgf_latest_blog_posts_camp
           source: content_id
   field_header_content/target_id:
     -
