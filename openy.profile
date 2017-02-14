@@ -6,6 +6,7 @@
  */
 
 use Drupal\openy\Form\ContentSelectForm;
+use Drupal\openy\Form\ThirdPartyServicesForm;
 
 /**
  * Implements hook_install_tasks().
@@ -20,6 +21,12 @@ function openy_install_tasks() {
     ],
     'openy_import_content' => [
       'type' => 'batch',
+    ],
+    'openy_third_party_services' => [
+      'display_name' => t('3rd party services'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => ThirdPartyServicesForm::class,
     ],
   ];
 }
