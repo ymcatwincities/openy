@@ -13,14 +13,6 @@
     @include breakpoint(tablet){
       margin: 0 20px;
       padding: 24px 0;
-
-      &:first-child {
-        margin-left: 0;
-      }
-
-      &:last-child {
-        margin-right: 0;
-      }
     }
 
 
@@ -78,11 +70,6 @@
     .block-description--text {
       @include breakpoint(tablet){
         width: calc(100% / 2 - 40px);
-
-        &:first-child,
-        &:last-child {
-          width: calc(100% / 2 - 20px);
-        }
       }
     }
   }
