@@ -30,7 +30,7 @@ class ThirdPartyServicesForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Google Maps API key'),
       '#default_value' => $config->get('google_map_api_key'),
-      '#description' => $this->t('For help see the <a href="https://developers.google.com/maps/documentation/javascript/get-api-key#key">Google Maps API documentation</a>.'),
+      '#description' => $this->t('Google Maps requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis" target="_blank">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
     ];
 
     $form['actions'] = [
