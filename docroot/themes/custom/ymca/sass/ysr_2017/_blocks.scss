@@ -1,0 +1,9 @@
+.yfr-info-blocks {
+  @include rem(margin-bottom, 35px);
+  @include rem(margin-top, 15px);
+
+  @include breakpoint($tablet) {
+    align-items: stretch;
+    display: flex;
+  }
+}

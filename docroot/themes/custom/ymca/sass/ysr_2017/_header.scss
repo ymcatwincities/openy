@@ -1,0 +1,191 @@
+.compain-header {
+  @include rem(height, 208px);
+  @include rem(padding, 0 0 50px 0);
+  position: relative;
+  background: #fff url(../prototypes/ysr_2017/img/hero/hero-mobile.jpg) 50% 50% no-repeat;
+  @include background-size(cover);
+
+  @include breakpoint($tablet) {
+    @include rem(height, 380px);
+    background: #fff url(../prototypes/ysr_2017/img/hero/hero-1400.jpg) 50% 0 no-repeat;
+    @include background-size(cover);
+  }
+
+  &--content {
+    .logo {
+      display: none;
+    }
+
+    @include breakpoint($tablet){
+      height: calc(100% - 62px + 50px);
+      width: 100%;
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-direction: normal;
+      -moz-box-direction: normal;
+      -webkit-box-orient: vertical;
+      -moz-box-orient: vertical;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-box-pack: end;
+      -moz-box-pack: end;
+      -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+      -webkit-align-content: flex-start;
+      -ms-flex-line-pack: start;
+      align-content: flex-start;
+      -webkit-box-align: start;
+      -moz-box-align: start;
+      -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+    }
+
+    .container {
+      @include breakpoint($tablet) {
+        width: 100%;
+      }
+    }
+  }
+
+  .content {
+    @include cachet-bold();
+    @include rem(font-size, 26px);
+    @include rem(line-height, 30px);
+    background: none;
+    text-align: center;
+    color: $white;
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 50px);
+      @include rem(line-height, 54px);
+      text-align: left;
+    }
+
+    .date {
+      color: $green-light;
+
+      @include breakpoint($tablet) {
+        @include rem(font-size, 36px);
+      }
+    }
+  }
+}
+
+
+.compain-top-nav {
+  @include rem(margin, 0 0 12px 0);
+  width: 100%;
+  z-index: 102;
+  text-align: center;
+
+  @include breakpoint($tablet) {
+    @include rem(padding, 0 48px 0 74px);
+    margin: 0;
+    text-align: left;
+    background: $green-light;
+  }
+
+  .logo {
+    @include rem(width, 40px);
+    @include rem(margin, 12px auto 10px);
+    display: block;
+
+    @include breakpoint($tablet) {
+      @include rem(width, 74px);
+      @include rem(padding, 12px);
+      @include rem(margin, 0 0 0 -74px);
+      float: left;
+      top: 0;
+      left: 0;
+      background: $green-medium;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .link-back {
+    @include cachet-bold();
+    @include rem(padding, 0 0 0 18px);
+    @include rem(line-height, 20px);
+    color: $white;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    position: relative;
+    vertical-align: top;
+    opacity: 0.5;
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 62px);
+      @include rem(margin, 0 0 0 16px);
+      opacity: initial;
+    }
+
+    &:before {
+      @include rem(height, 10px);
+      @include rem(width, 12px);
+      background-image: url(../prototypes/yfr/img/hero/back-arrow.png);
+      background-size: cover;
+      content: ' ';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.compain-user-menu {
+  @include rem(padding, 0 44px);
+  @include rem(height, 50px);
+  background: $green-light;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: $white;
+
+  @include breakpoint($tablet) {
+    @include rem(margin, 0 48px 0 0);
+    left: initial;
+    bottom: initial;
+    top: 0;
+    padding: 0;
+    height: initial;
+  }
+
+  a {
+    @include cachet-normal();
+    @include rem(font-size, 16px);
+    @include rem(line-height, 50px);
+    color: inherit;
+    text-transform: uppercase;
+    display: block;
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 62px);
+    }
+  }
+
+  .link--register {
+    float: left;
+  }
+
+  .link--sign-in {
+    float: right;
+  }
+
+  @include breakpoint($desktop-small) {}
+}
