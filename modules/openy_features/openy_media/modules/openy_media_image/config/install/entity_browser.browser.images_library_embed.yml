@@ -25,6 +25,7 @@ widgets:
       view: images_library
       view_display: images_library
       submit_text: 'Select images'
+      auto_select: false
     uuid: 066bf7d9-6d8d-46cd-ac5c-a0944058e8c4
     weight: -9
     label: 'All Images'
