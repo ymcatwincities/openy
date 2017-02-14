@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_prgf_column_class
+    - field.storage.paragraph.field_prgf_clm_class
     - paragraphs.paragraphs_type.grid_columns
-id: paragraph.grid_columns.field_prgf_column_class
-field_name: field_prgf_column_class
+id: paragraph.grid_columns.field_prgf_clm_class
+field_name: field_prgf_clm_class
 entity_type: paragraph
 bundle: grid_columns
 label: 'Icon Class'

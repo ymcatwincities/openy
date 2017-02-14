@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.grid_columns.field_prgf_clm_class
     - field.field.paragraph.grid_columns.field_prgf_clm_headline
     - field.field.paragraph.grid_columns.field_prgf_clm_icon
     - field.field.paragraph.grid_columns.field_prgf_clm_link
-    - field.field.paragraph.grid_columns.field_prgf_column_class
     - field.field.paragraph.grid_columns.field_prgf_grid_clm_description
     - paragraphs.paragraphs_type.grid_columns
   module:
@@ -16,6 +16,13 @@ targetEntityType: paragraph
 bundle: grid_columns
 mode: default
 content:
+  field_prgf_clm_class:
+    weight: 6
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_prgf_clm_headline:
     weight: 2
     label: hidden
@@ -42,13 +49,6 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
-  field_prgf_column_class:
-    weight: 4
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
   field_prgf_grid_clm_description:
     weight: 1
     label: hidden

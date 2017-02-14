@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_prgf_column_class
-field_name: field_prgf_column_class
+id: paragraph.field_prgf_clm_class
+field_name: field_prgf_clm_class
 entity_type: paragraph
 type: string
 settings:
