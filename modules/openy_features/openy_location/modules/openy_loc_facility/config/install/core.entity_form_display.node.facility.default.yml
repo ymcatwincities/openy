@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.facility.field_content
+    - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
     - field.field.node.facility.field_location_area
@@ -28,6 +29,7 @@ third_party_settings:
         - title
         - field_location_area
         - field_facility_type
+        - field_facility_loc
       parent_name: ''
       weight: 0
       format_type: tab
@@ -105,6 +107,14 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+  field_facility_loc:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_facility_type:
     weight: 3
     settings: {  }
