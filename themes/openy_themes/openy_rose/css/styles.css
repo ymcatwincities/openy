@@ -2476,6 +2476,13 @@ body {
 }
 .subprogram-listing-item .image {
   margin-bottom: 20px;
+  text-align: center;
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .subprogram-listing-item .image img {
+    height: auto;
+    width: 100%;
+  }
 }
 @media (min-width: 48em) {
   .subprogram-listing-item .image {

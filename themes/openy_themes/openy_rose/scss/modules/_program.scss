@@ -141,6 +141,13 @@
   }
   .image {
     margin-bottom: 20px;
+    text-align: center;
+    @include breakpoint(0 $screen-xs) {
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
     @include breakpoint($screen-sm) {
       text-align: right;
     }
