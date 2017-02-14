@@ -422,7 +422,20 @@ display:
           plugin_id: standard
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No results found'
+            format: full_html
+          plugin_id: text
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
@@ -445,19 +458,19 @@ display:
       tags:
         - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.document.teaser'
-        - 'config:core.entity_view_display.media.image.default'
         - 'config:core.entity_view_display.media.image.icon'
         - 'config:core.entity_view_display.media.image.node_blog'
         - 'config:core.entity_view_display.media.image.node_blog_teaser'
         - 'config:core.entity_view_display.media.image.node_program_header'
         - 'config:core.entity_view_display.media.image.node_program_subcategory_teaser'
-        - 'config:core.entity_view_display.media.image.prgf_banner'
         - 'config:core.entity_view_display.media.image.prgf_gallery'
         - 'config:core.entity_view_display.media.image.prgf_small_banner'
         - 'config:core.entity_view_display.media.image.prgf_teaser'
         - 'config:core.entity_view_display.media.image.teaser'
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.teaser'
+        - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.prgf_banner'
   documents_library:
     display_plugin: entity_browser
     id: documents_library
