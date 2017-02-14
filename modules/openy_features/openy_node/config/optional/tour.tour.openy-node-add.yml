@@ -27,7 +27,7 @@ tips:
     id: program-sub-category
     plugin: text
     label: 'Program sub category'
-    body: 'The program sub category content type allows a user to create program sub category pages these pages group together activities in the programme sub category. A program sub category contains a reference to a program page, this should auto fill as you type the program in, there can be more than 1 program sub category on a program page. The rest of the content layout is the same as the program page.'
+    body: 'The program sub category content type allows a user to create program sub category pages. These pages group together activities in the program sub category. A program sub category contains a reference to a program page, this should auto fill as you type the program in, there can be couple program sub categories on a program page. The rest of the content layout is the same as the program page.'
     weight: 3
     attributes:
       data-class: 'label:contains("Program Subcategory")'
