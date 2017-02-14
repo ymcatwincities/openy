@@ -35,7 +35,7 @@ tips:
     id: activity
     plugin: text
     label: 'Activity Content'
-    body: 'Activity content groups together classes and consist of a title for the activity and which program sub category it belongs to, this should auto fill as you type the program sub category. The rest of the page layout is similar to Program and program sub category pages.'
+    body: 'Activity content groups together classes and consists of the title for the activity and which program sub category it belongs to. This should auto fill as you type the program sub category. The rest of the page layout is similar to Program and program sub category pages.'
     weight: 4
     attributes:
       data-class: 'label:contains("Activity")'
