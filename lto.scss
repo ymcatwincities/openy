@@ -5,7 +5,7 @@
   .field-lto-title {
     @include cachet();
     color: $white;
-    font-size: 24px;
+    font-size: 36px;
 
     @include breakpoint(mobileonly) {
       margin: 0 0 0px 10px;
