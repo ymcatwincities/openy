@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.prgf_location_finder_filters.field_prgf_location_finder
+    - paragraphs.paragraphs_type.prgf_location_finder_filters
+id: paragraph.prgf_location_finder_filters.default
+targetEntityType: paragraph
+bundle: prgf_location_finder_filters
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_location_finder: true
+  status: true
+  uid: true
