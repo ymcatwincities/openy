@@ -1,0 +1,17 @@
+name: 'OpenY Block Custom Simple'
+description: 'Implements simple block with a body.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - content_moderation
+  - content_translation
+  - entity_browser
+  - field
+  - language
+  - link
+  - media_entity
+  - openy_gallery
+  - openy_node_blog
+  - text
+version: 8.x-1.0-dev
