@@ -123,6 +123,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_featured_blogs
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
+    - openy_demo_lp_paragraph_small_banner
     - openy_demo_lp_paragraph_blog_posts_listing
     - openy_demo_lp_paragraph_latest_blog_posts
   optional:
