@@ -19,7 +19,7 @@ tips:
     id: program
     plugin: text
     label: 'Program Content'
-    body: 'The program content type allows a user to create program pages for swimming, camps ect these pages group the programs sub categories for a program together. For example the swimming program could have a sub program drop in swim. The content area or sidebar area if needed, can be customised using paragraphs.'
+    body: 'The program content type allows a user to create program pages for swimming, camps etc. These pages group the programs sub categories for a program together. For example the swimming program could have a sub program drop in swim. The content area or sidebar area if needed, can be customised using paragraphs.'
     weight: 2
     attributes:
       data-class: 'label:contains("Program")'
