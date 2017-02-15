@@ -19,7 +19,7 @@ tips:
     id: program
     plugin: text
     label: 'Program Content'
-    body: 'The program content type allows a user to create program pages for swimming, camps ect these pages group the programs sub categories for a program together. For example the swimming program could have a sub program drop in swim. The content area or sidebar area if needed, can be customised using paragraphs.'
+    body: 'The program content type allows a user to create program pages for swimming, camps etc. These pages group the programs sub categories for a program together. For example the swimming program could have a sub program drop in swim. The content area or sidebar area if needed, can be customised using paragraphs.'
     weight: 2
     attributes:
       data-class: 'label:contains("Program")'
@@ -27,7 +27,7 @@ tips:
     id: program-sub-category
     plugin: text
     label: 'Program sub category'
-    body: 'The program sub category content type allows a user to create program sub category pages these pages group together activities in the programme sub category. A program sub category contains a reference to a program page, this should auto fill as you type the program in, there can be more than 1 program sub category on a program page. The rest of the content layout is the same as the program page.'
+    body: 'The program sub category content type allows a user to create program sub category pages. These pages group together activities in the program sub category. A program sub category contains a reference to a program page, this should auto fill as you type the program in, there can be couple program sub categories on a program page. The rest of the content layout is the same as the program page.'
     weight: 3
     attributes:
       data-class: 'label:contains("Program Subcategory")'
@@ -35,7 +35,7 @@ tips:
     id: activity
     plugin: text
     label: 'Activity Content'
-    body: 'Activity content groups together classes and consist of a title for the activity and which program sub category it belongs to, this should auto fill as you type the program sub category. The rest of the page layout is similar to Program and program sub category pages.'
+    body: 'Activity content groups together classes and consists of the title for the activity and which program sub category it belongs to. This should auto fill as you type the program sub category. The rest of the page layout is similar to Program and program sub category pages.'
     weight: 4
     attributes:
       data-class: 'label:contains("Activity")'
