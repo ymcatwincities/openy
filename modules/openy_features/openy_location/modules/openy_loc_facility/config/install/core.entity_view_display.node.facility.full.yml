@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.facility.field_content
+    - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
     - field.field.node.facility.field_location_area
@@ -32,6 +33,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+  field_facility_loc:
+    type: entity_reference_entity_view
+    weight: 7
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
   field_facility_type:
     weight: 4
     label: hidden
@@ -53,7 +62,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
   field_location_phone:
-    weight: 7
+    weight: 5
     label: inline
     settings:
       title: ''
@@ -61,7 +70,7 @@ content:
     type: telephone_link
   field_sidebar_content:
     type: entity_reference_revisions_entity_view
-    weight: 11
+    weight: 6
     label: hidden
     settings:
       view_mode: default
