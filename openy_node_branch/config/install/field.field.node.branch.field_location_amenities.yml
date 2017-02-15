@@ -12,7 +12,7 @@ bundle: branch
 label: 'Location Amenities'
 description: 'Provide a list of Amenities, available within current location.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

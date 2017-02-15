@@ -14,7 +14,7 @@ bundle: camp
 label: 'Camp Header'
 description: 'Add Header Paragraph for the Camp.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
