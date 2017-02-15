@@ -1,0 +1,21 @@
+<div class="calc-summary">
+  <div class="row">
+    <div class="col-md-6 col-sm-12 selected-branch calc-summary-col">
+      <h2>{{ 'Your selected branch'|t }}</h2>
+      <div>{{ result.location }}</div>
+    </div>
+    <div class="col-md-6 col-sm-12 selected-membership calc-summary-col">
+      <h2>{{ 'Your selected membership'|t }}</h2>
+      <div>{{ result.membership }}</div>
+      {% if result.price %}
+        <div class="price">
+          <div class="col-md-6 col-sm-12">
+            <h4>{{ 'Membership price:'|t }}</h4>
+            <h2>${{ result.price.monthly_rate }}/{{ 'month'|t }}</h2>
+            <div>+ ${{ result.price.join_fee }} {{ 'one time joining fee'|t }}</div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
