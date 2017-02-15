@@ -1,0 +1,7 @@
+services:
+  plugin.manager.custom_formatters.formatter_extras:
+    class: Drupal\custom_formatters\FormatterExtrasManager
+    parent: default_plugin_manager
+  plugin.manager.custom_formatters.formatter_type:
+    class: Drupal\custom_formatters\FormatterTypeManager
+    parent: default_plugin_manager

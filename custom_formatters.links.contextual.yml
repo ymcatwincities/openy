@@ -1,0 +1,4 @@
+entity.formatter.edit_form:
+  title: 'Edit'
+  group: custom_formatters
+  route_name: 'entity.formatter.edit_form'

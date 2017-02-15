@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * Core functions for the Custom Formatters module.
+ */
+
+use Drupal\Core\Link;
+
+/**
+ * Implements hook_theme().
+ */
+function custom_formatters_theme() {
+  $themes['formatter_add_list'] = [
+    'variables' => ['content' => NULL],
+  ];
+
+  return $themes;
+}
+
+/**
+ * Prepares variables for list of available formatter type templates.
+ *
+ * Default template: formatter-add-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - content: An array of formatter types.
+ */
+function template_preprocess_formatter_add_list(&$variables) {
+  $variables['types'] = [];
+  if (!empty($variables['content'])) {
+    foreach ($variables['content'] as $type) {
+      $variables['types'][$type['id']] = [
+        'type'        => $type['id'],
+        'add_link'    => Link::createFromRoute($type['label'], 'custom_formatters.add', ['formatter_type' => $type['id']]),
+        'description' => [
+          '#markup' => $type['description'],
+        ],
+      ];
+    }
+  }
+}
