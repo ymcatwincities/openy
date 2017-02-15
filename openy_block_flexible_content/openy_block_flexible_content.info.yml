@@ -7,10 +7,10 @@ dependencies:
   - field
   - language
   - node
- // - openy_node_blog
- // - openy_node_branch
- // - openy_node_camp
- // - openy_node_event
- // - openy_node_testimonial
+# - openy_node_blog
+# - openy_node_branch
+# - openy_node_camp
+# - openy_node_event
+# - openy_node_testimonial
 description: 'Implements Flexible Content Block'
 version: 8.x-1.0
