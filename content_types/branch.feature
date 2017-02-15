@@ -3,6 +3,7 @@ Feature: Branch Content type
   As Admin I want to make sure that Branch content type is available with needed fields.
 
   Scenario: Create basic branch
+    When I go to "/user/login"
     Given I am logged in as a user with the "Administrator" role
     When I go to "/node/add/branch"
     And I fill in "Title" with "Branch One"
