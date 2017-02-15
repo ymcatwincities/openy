@@ -2,6 +2,7 @@
 Feature: OpenY main pages
 
   Scenario Outline: Check all main are OK
+    Given that I log in with "admin" and "ffw"
     When I go to "<page>"
     Then I should get a 200 HTTP response
     Examples:

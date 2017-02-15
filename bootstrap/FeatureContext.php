@@ -29,6 +29,16 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * See https://blog.phpdeveloper.org/2012/03/21/behat-and-http-auth-and-goutte/
+   * 
+   * @Given /^that I log in with "([^"]*)" and "([^"]*)"$/
+   */
+  public function thatILogInWithAnd($username, $password)
+  {
+    $this->getSession()->setBasicAuth($username,$password);
+  }
+
+  /**
    * Create a node of Branch CT with name "Test Branch".
    *
    * @Given /^I create a branch$/
