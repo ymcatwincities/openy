@@ -9,7 +9,7 @@ field_name: field_branch_am
 entity_type: block_content
 bundle: branch_amenities
 label: 'Branch Amenities'
-description: ''
+description: 'Field that uses only Custom Formatter to display a list of amenities within Paragraph block. Hidden from content managers by default.'
 required: true
 translatable: true
 default_value:
