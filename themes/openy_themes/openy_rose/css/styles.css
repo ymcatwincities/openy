@@ -1754,12 +1754,25 @@ body {
   padding-bottom: 1em;
 }
 
-.paragraph--type--dynamic-content {
+.paragraph--type--dynamic-content,
+.paragraph--type--prgf-location-finder-filters {
   padding: 20px 0;
   overflow: hidden;
 }
-.one-column-clean .paragraph--type--dynamic-content:first-child, .landing-header .paragraph--type--dynamic-content {
+.one-column-clean .paragraph--type--dynamic-content:first-child, .landing-header .paragraph--type--dynamic-content, .one-column-clean
+.paragraph--type--prgf-location-finder-filters:first-child, .landing-header
+.paragraph--type--prgf-location-finder-filters {
   padding-top: 0;
+}
+
+.paragraph--type--prgf-location-finder .views-element-container {
+  padding: 20px 0;
+}
+.paragraph--type--prgf-location-finder .views-element-container:before, .paragraph--type--prgf-location-finder .views-element-container:after {
+  clear: both;
+  content: '';
+  display: table;
+  width: 0;
 }
 
 .color-purple, .description.purple, .paragraph.featured-content .description {
@@ -3642,6 +3655,7 @@ html.js .branch__updates_queue__button {
   flex-basis: 100%;
   align-self: stretch;
 }
+.locations-list header h1,
 .locations-list header h2,
 .locations-list header h2.h1 {
   padding-left: 20px;
@@ -3650,7 +3664,11 @@ html.js .branch__updates_queue__button {
   margin-top: 0;
   font-weight: bold;
 }
-.locations-list h2.color-purple, .locations-list h2.description.purple, .locations-list .paragraph.featured-content h2.description, .paragraph.featured-content .locations-list h2.description {
+.locations-list h1.color-purple, .locations-list h1.description.purple, .locations-list .paragraph.featured-content h1.description, .paragraph.featured-content .locations-list h1.description,
+.locations-list h2.color-purple,
+.locations-list h2.description.purple,
+.locations-list .paragraph.featured-content h2.description,
+.paragraph.featured-content .locations-list h2.description {
   color: #5c2e91;
 }
 .locations-list .field_state {
@@ -3731,9 +3749,9 @@ html.js .branch__updates_queue__button {
 .node--type-camp.node--view-mode-teaser .branch-hours td:first-child {
   padding-right: 10px;
 }
-.node--type-facility.node--view-mode-teaser .field-branch-area,
-.node--type-branch.node--view-mode-teaser .field-branch-area,
-.node--type-camp.node--view-mode-teaser .field-branch-area {
+.node--type-facility.node--view-mode-teaser .field-location-area,
+.node--type-branch.node--view-mode-teaser .field-location-area,
+.node--type-camp.node--view-mode-teaser .field-location-area {
   position: static;
   top: 15px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -3742,15 +3760,15 @@ html.js .branch__updates_queue__button {
   text-transform: uppercase;
 }
 @media (min-width: 48em) and (max-width: 62em) {
-  .node--type-facility.node--view-mode-teaser .field-branch-area,
-  .node--type-branch.node--view-mode-teaser .field-branch-area,
-  .node--type-camp.node--view-mode-teaser .field-branch-area {
+  .node--type-facility.node--view-mode-teaser .field-location-area,
+  .node--type-branch.node--view-mode-teaser .field-location-area,
+  .node--type-camp.node--view-mode-teaser .field-location-area {
     letter-spacing: 1.1px;
   }
 }
-.node--type-facility.node--view-mode-teaser .field-branch-area a,
-.node--type-branch.node--view-mode-teaser .field-branch-area a,
-.node--type-camp.node--view-mode-teaser .field-branch-area a {
+.node--type-facility.node--view-mode-teaser .field-location-area a,
+.node--type-branch.node--view-mode-teaser .field-location-area a,
+.node--type-camp.node--view-mode-teaser .field-location-area a {
   color: inherit;
   text-decoration: none;
 }
