@@ -314,7 +314,7 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
   /**
    * {@inheritdoc}
    */
-  public function addDataServices($services) {
+  public function addDataServices(array $services) {
     return [
       'getBranchPins',
       'getMembershipPriceMatrix',
