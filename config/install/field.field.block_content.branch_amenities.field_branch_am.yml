@@ -10,8 +10,8 @@ entity_type: block_content
 bundle: branch_amenities
 label: 'Branch Amenities'
 description: ''
-required: false
-translatable: false
+required: true
+translatable: true
 default_value:
   -
     value: 0
