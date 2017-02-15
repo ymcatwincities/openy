@@ -11,7 +11,6 @@ dependencies:
   - language
   - link
   - media_entity
-  - openy_gallery
-  - openy_node_blog
+  - openy_block
   - text
-version: 8.x-1.0-dev
+version: 8.x-1.1
