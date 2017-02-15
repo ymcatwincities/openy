@@ -13,7 +13,7 @@ bundle: event
 label: 'Event Date'
 description: 'Enter the date of the event when it is going to be started.'
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     default_date_type: now

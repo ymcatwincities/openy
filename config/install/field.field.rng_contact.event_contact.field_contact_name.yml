@@ -11,7 +11,7 @@ bundle: event_contact
 label: 'Contact Name'
 description: 'Enter your contact information, Name and Surname.'
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

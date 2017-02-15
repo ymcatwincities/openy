@@ -11,7 +11,7 @@ bundle: event_contact
 label: 'Contact Email'
 description: 'Enter email for registration. This email will be used for contacting you about event''s details.'
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
