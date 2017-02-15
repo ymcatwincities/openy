@@ -7293,24 +7293,32 @@ body {
     font-size: 36px; }
     @media (max-width: 480px) {
       .paragraph--type--lto .field-lto-title {
-        margin: 0 0 0px 10px; } }
+        margin: 0 0 0 10px;
+        font-size: 24px; } }
+    @media (min-width: 480px) and (max-width: 992px) {
+      .paragraph--type--lto .field-lto-title {
+        font-size: 28px; } }
   .paragraph--type--lto .field-lto-subtitle {
     font-family: "CachetBook", Verdana, sans-serif;
     color: #fff;
     font-size: 20px; }
+    @media (min-width: 992px) {
+      .paragraph--type--lto .field-lto-subtitle {
+        padding: 15px 0 0 0; } }
     @media (max-width: 768px) {
       .paragraph--type--lto .field-lto-subtitle {
         padding-bottom: 14px; } }
     @media (max-width: 480px) {
       .paragraph--type--lto .field-lto-subtitle {
-        margin: 0 0 0 10px; } }
+        margin: 0 0 0 10px;
+        font-size: 18px; } }
   @media (min-width: 768px) and (max-width: 992px) {
     .paragraph--type--lto .block--subtitle {
       clear: both; }
     .paragraph--type--lto .block--btn {
       display: inline-block;
       float: none;
-      padding: 25px 20px 0 20px; } }
+      padding: 10px 20px 0 20px; } }
   .paragraph--type--lto .btn {
     white-space: normal;
     font-size: 20px;
