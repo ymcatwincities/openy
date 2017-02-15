@@ -1,1 +1,4 @@
+excluded:
+  - image.style.full
+  - image.style.half
 required: true
