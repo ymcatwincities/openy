@@ -81,13 +81,12 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
-
   {{ content.field_location_area }}
 
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      <a href="{{ node.field_location_temp_url.0.url ? node.field_location_temp_url.0.url : url }}" rel="bookmark">{{ label }}</a>
     </h2>
   {% endif %}
   {{ title_suffix }}
