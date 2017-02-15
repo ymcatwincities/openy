@@ -11,6 +11,9 @@ a,
 .btn {
   background-color: #00aeef;
 }
+.btn-default {
+  background-color: #ffffff;
+}
 .top-navs,
 .sidebar,
 .navbar-default .navbar-toggle,
