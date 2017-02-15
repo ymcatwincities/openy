@@ -83,24 +83,33 @@ source:
       parent_link_path: ''
     -
       id: 9
-      title: 'Blog'
+      title: 'Locations'
       menu_name: 'footer-menu-center'
-      link: 'base:blog'
+      link: 'base:locations'
       weight: 2
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
       id: 10
-      title: 'Accelerator'
+      title: 'Blog'
       menu_name: 'footer-menu-center'
-      link: 'base:accelerator'
+      link: 'base:blog'
       weight: 3
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
       id: 11
+      title: 'Accelerator'
+      menu_name: 'footer-menu-center'
+      link: 'base:accelerator'
+      weight: 4
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 12
       title: 'About'
       menu_name: 'footer-menu-right'
       link: 'base:about-ymca'
@@ -109,7 +118,7 @@ source:
       expanded: 0
       parent_link_path: ''
     -
-      id: 12
+      id: 13
       title: 'Give'
       menu_name: 'footer-menu-right'
       link: 'base:give'
