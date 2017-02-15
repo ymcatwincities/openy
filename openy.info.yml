@@ -127,6 +127,10 @@ dependencies:
   - openy_map
   - openy_socrates
   - location_finder
+  - daxko
+  - openy_mappings
+  - openy_calc
+  - openy_data_wrapper
 
 themes:
   - bartik
