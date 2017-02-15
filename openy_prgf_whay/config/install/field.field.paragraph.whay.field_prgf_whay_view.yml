@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_whay_view
     - paragraphs.paragraphs_type.whay
-    - views.view.whay
 id: paragraph.whay.field_prgf_whay_view
 field_name: field_prgf_whay_view
 entity_type: paragraph

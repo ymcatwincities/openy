@@ -61,17 +61,14 @@ display:
             offset: false
             offset_label: Offset
           views_infinite_scroll:
-            button_text: 'Load More'
+            button_text: 'See more stories'
             automatically_load_content: false
       style:
-        type: html_list
+        type: default
         options:
-          grouping: {  }
           row_class: ''
-          default_row_class: true
-          type: ul
-          wrapper_class: item-list
-          class: ''
+          default_row_class: false
+          uses_fields: false
       row:
         type: search_api
         options:
@@ -206,6 +203,7 @@ display:
         operator: AND
         groups:
           1: AND
+      css_class: branch__updates-queue
     cache_metadata:
       max-age: 0
       contexts:

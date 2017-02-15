@@ -5,6 +5,7 @@ core: 8.x
 dependencies:
   - content_moderation
   - field
+  - language
   - openy_latest_news
   - paragraphs
   - search_api

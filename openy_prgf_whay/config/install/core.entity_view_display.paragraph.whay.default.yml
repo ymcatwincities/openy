@@ -5,6 +5,7 @@ dependencies:
     - field.field.paragraph.whay.field_prgf_whay_title
     - field.field.paragraph.whay.field_prgf_whay_view
     - paragraphs.paragraphs_type.whay
+    - views.view.whay
   module:
     - views_field_formatter
 id: paragraph.whay.default
