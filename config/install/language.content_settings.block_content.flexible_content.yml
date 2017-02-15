@@ -7,4 +7,4 @@ id: block_content.flexible_content
 target_entity_type_id: block_content
 target_bundle: flexible_content
 default_langcode: site_default
-language_alterable: false
+language_alterable: true
