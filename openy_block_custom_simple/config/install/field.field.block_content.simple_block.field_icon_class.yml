@@ -11,7 +11,7 @@ bundle: simple_block
 label: 'Icon class'
 description: 'Provide a "Font Awesome" icon name, e.g. flag, car, info. Overrides image icon. See complete set of icons at <a href="http://fontawesome.io/icons/">Font Awesome page</a>.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
