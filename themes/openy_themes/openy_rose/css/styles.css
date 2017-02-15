@@ -3671,7 +3671,7 @@ html.js .branch__updates_queue__button {
 .paragraph.featured-content .locations-list h2.description {
   color: #5c2e91;
 }
-.locations-list .field_state {
+.locations-list .field_location_state {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -3685,14 +3685,14 @@ html.js .branch__updates_queue__button {
   line-height: 1.2;
   font-style: italic;
 }
-.locations-list .field_state .fa {
+.locations-list .field_location_state .fa {
   color: white;
   height: 32px;
   float: left;
   font-size: 16px;
   padding-right: 6px;
 }
-.locations-list .field_state span {
+.locations-list .field_location_state span {
   display: block;
 }
 
