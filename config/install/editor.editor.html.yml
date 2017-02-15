@@ -48,10 +48,6 @@ settings:
             - SpecialChar
             - Maximize
             - Language
-        -
-          name: 'OpenY Buttons'
-          items:
-            - ListBranchAmenities
   plugins:
     language:
       language_list: un
