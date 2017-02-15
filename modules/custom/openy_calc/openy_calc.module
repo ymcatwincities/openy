@@ -19,6 +19,12 @@ function openy_calc_theme() {
       ],
       'template' => 'openy-calc-form-header',
     ],
+    'openy_calc_form_summary' => [
+      'variables' => [
+        'result' => [],
+      ],
+      'template' => 'openy-calc-form-summary',
+    ],
   ];
 }
 

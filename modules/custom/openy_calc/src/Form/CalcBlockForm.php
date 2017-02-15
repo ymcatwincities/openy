@@ -161,14 +161,17 @@ class CalcBlockForm extends FormBase {
     }
 
     if ($step > 2) {
-      $form['price'] = [
-        '#prefix' => '<h1>',
-        '#suffix' => '</h1>',
-        '#markup' => $this->dataWrapper->getPrice($form_state->getValue('location'), $form_state->getValue('type')),
+      $summary = [
+        '#theme' => 'openy_calc_form_summary',
+        '#result' => $this->dataWrapper->getSummary($form_state->getValue('location'), $form_state->getValue('type')),
+      ];
+      $summary = $this->renderer->renderRoot($summary);
+      $form['summary'] = [
+        '#markup' => $summary,
       ];
 
       $form['select'] = [
-        '#markup' => $this->t('select'),
+        '#markup' => $this->t('Complete registration'),
         '#theme_wrappers' => [
           'container' => [
             '#attributes' => [
