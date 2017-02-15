@@ -6,15 +6,16 @@ html, body {
   min-height: 100%;
 }
 
-.theme_ymca_2016_fall_retention {
+.theme-ymca--2017-compain {
   font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: $grey7;
 
   .viewport {
     padding-top: 0;
   }
 
   .content {
-    background-color: $white;
+    background: $white;
   }
 
   @include breakpoint($mobile-tablet-portrait-only) {
@@ -29,11 +30,15 @@ html, body {
   }
 
   .inner-container {
-    @include rem(padding, 0 15px);
+    @include rem(padding, 0 20px);
     transition: padding .3s;
 
     @include breakpoint($tablet) {
       @include rem(padding, 0 30px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding, 0 50px);
     }
 
     @include breakpoint($desktop) {
@@ -42,19 +47,8 @@ html, body {
   }
 
   .btn {
-    &.orange-medium {
-      background-image: none;
-      background-color: $orange-medium;
-    }
-
-    &.orange-light-lighter {
-      background-image: none;
-      background-color: $orange-light-lighter;
-    }
-
-    &.red-medium {
-      background-image: none;
-      background-color: $red-disabled;
+    &.compain-green {
+      background: $green-medium;
     }
   }
 }
