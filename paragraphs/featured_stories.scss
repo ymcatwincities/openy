@@ -34,8 +34,16 @@
     max-width: 100%;
     display: inline-block;
 
-    @include breakpoint(0 $screen-xs) {
+    @media (max-width: 768px) {
       padding: 10px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      float: left;
+      display: block;
+      width: 50%;
     }
 
     @media (min-width: 1024px) {
@@ -71,7 +79,10 @@
       text-align: left;
 
       h2 {
-        font-size: 32px;
+        font-size: 28px;
+        @include breakpoint(tablet) {
+          font-size: 32px;
+        }
       }
     }
 
@@ -361,5 +372,59 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+  }
+}
+
+.branch--updates-queue {
+  margin: 0 0 25px;
+  .slick-slider {
+    margin: 0 15px 50px;
+
+    @include breakpoint(tablet) {
+      margin: 0 0 50px;
+    }
+  }
+  .btn {
+    display: none;
+    @include breakpoint(tablet) {
+      margin: 30px auto 30px;
+      max-width: 360px;
+      display: block;
+    }
+  }
+  .slick-arrow {
+    background: none;
+    color: $light-blue;
+    padding: 0;
+    z-index: 1;
+    height: 40px;
+    width: 40px;
+    margin-top: -15px;
+    .fa {
+      font-size: 30px;
+    }
+    &.slick-prev {
+      left: -25px;
+    }
+    &.slick-next {
+      right: -25px;
+    }
+  }
+  .slick-dots {
+    bottom: -15px;
+    li {
+      button {
+        &:before {
+          opacity: 1;
+          color: $lighter-grey;
+        }
+      }
+      &.slick-active {
+        button:before {
+          opacity: 1;
+          color: $pink;
+        }
+      }
+    }
   }
 }
