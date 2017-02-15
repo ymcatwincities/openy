@@ -7,7 +7,7 @@ Feature: Landing page Content type
 
   Scenario: Create basic landing page and check fields
     Given I am logged in as a user with the "Administrator" role
-    When I go to "/node/add/landing_page"
+    When I go to "/node/add/landing"
     And I fill in "Title" with "Basic Landing"
     And I select "One Column" from "Layout"
     Then I should see "Header Area"
