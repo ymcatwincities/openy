@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.contact_us
+id: paragraph.contact_us
+target_entity_type_id: paragraph
+target_bundle: contact_us
+default_langcode: site_default
+language_alterable: true

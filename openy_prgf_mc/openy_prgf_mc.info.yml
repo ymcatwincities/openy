@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Membership Calculator'
+description: 'Provide a paragraph with a Membership Calculator block for Membership Landing page.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - paragraphs
+  - plugin
+version: '8.x-1.0'

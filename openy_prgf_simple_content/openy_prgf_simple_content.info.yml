@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Simple Content'
+description: 'Simple content paragraph bundle.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - language
+  - paragraphs
+  - text
+version: 8.x-1.0-dev

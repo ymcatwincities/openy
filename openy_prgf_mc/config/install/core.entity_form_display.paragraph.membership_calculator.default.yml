@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.membership_calculator.field_prgf_mc
+    - paragraphs.paragraphs_type.membership_calculator
+  module:
+    - content_moderation
+id: paragraph.membership_calculator.default
+targetEntityType: paragraph
+bundle: membership_calculator
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_mc: true
+  status: true
+  uid: true

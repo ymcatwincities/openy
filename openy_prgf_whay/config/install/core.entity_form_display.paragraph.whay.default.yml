@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.whay.field_prgf_whay_title
+    - field.field.paragraph.whay.field_prgf_whay_view
+    - paragraphs.paragraphs_type.whay
+  module:
+    - content_moderation
+id: paragraph.whay.default
+targetEntityType: paragraph
+bundle: whay
+mode: default
+content:
+  field_prgf_whay_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  created: true
+  field_prgf_whay_view: true
+  status: true
+  uid: true

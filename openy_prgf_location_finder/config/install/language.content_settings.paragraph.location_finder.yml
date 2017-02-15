@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.location_finder
+id: paragraph.location_finder
+target_entity_type_id: paragraph
+target_bundle: location_finder
+default_langcode: site_default
+language_alterable: true

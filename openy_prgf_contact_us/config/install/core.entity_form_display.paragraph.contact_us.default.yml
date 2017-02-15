@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.contact_us.field_prgf_contact
+    - paragraphs.paragraphs_type.contact_us
+  module:
+    - content_moderation
+    - webform
+id: paragraph.contact_us.default
+targetEntityType: paragraph
+bundle: contact_us
+mode: default
+content:
+  field_prgf_contact:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: webform_entity_reference_select
+hidden:
+  created: true
+  status: true
+  uid: true

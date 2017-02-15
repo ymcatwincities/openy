@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_header_link
+    - paragraphs.paragraphs_type.header
+  module:
+    - link
+id: paragraph.header.field_prgf_header_link
+field_name: field_prgf_header_link
+entity_type: paragraph
+bundle: header
+label: Link
+description: 'Add link to the header'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

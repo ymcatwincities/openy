@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_mc
+    - paragraphs.paragraphs_type.membership_calculator
+  module:
+    - plugin
+id: paragraph.membership_calculator.field_prgf_mc
+field_name: field_prgf_mc
+entity_type: paragraph
+bundle: membership_calculator
+label: 'Membership Calculator'
+description: 'Default Membership Calculator block to display on Join Us landing page. Change this value only if necessary.'
+required: true
+translatable: true
+default_value:
+  -
+    plugin_id: calc_block
+    plugin_configuration:
+      id: calc_block
+      label: 'Membership Calculator'
+      provider: null
+      label_display: null
+    plugin_configuration_schema_id: block.settings.calc_block
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:block'

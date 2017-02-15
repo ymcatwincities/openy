@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.membership_calculator
+id: paragraph.membership_calculator
+target_entity_type_id: paragraph
+target_bundle: membership_calculator
+default_langcode: site_default
+language_alterable: true

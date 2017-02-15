@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.global_search.field_search_view
+    - paragraphs.paragraphs_type.global_search
+  module:
+    - content_moderation
+id: paragraph.global_search.default
+targetEntityType: paragraph
+bundle: global_search
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_search_view: true
+  status: true
+  uid: true

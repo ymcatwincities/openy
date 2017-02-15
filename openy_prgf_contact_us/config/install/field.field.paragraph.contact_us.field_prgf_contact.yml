@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_contact
+    - paragraphs.paragraphs_type.contact_us
+    - webform.webform.contact_us_for_more_information
+  module:
+    - webform
+id: paragraph.contact_us.field_prgf_contact
+field_name: field_prgf_contact
+entity_type: paragraph
+bundle: contact_us
+label: 'Contact Us for More Information'
+description: 'Default Contact web-form to display on Join landing page. Change this value only if necessary.'
+required: true
+translatable: true
+default_value:
+  -
+    default_data: ''
+    status: '1'
+    target_uuid: 2a396e5f-8f38-4ef3-a4bd-bca24f61892e
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+  default_data: ''
+  status: true
+field_type: webform

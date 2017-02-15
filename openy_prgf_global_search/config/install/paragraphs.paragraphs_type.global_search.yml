@@ -1,0 +1,5 @@
+langcode: en
+status: true
+dependencies: {  }
+id: global_search
+label: 'Global Search'

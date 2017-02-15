@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.whay
+id: paragraph.whay
+target_entity_type_id: paragraph
+target_bundle: whay
+default_langcode: site_default
+language_alterable: true
