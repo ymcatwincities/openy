@@ -39,3 +39,19 @@ body {
     }
   }
 }
+
+.user-login-form,
+.user-pass,
+.user-form {
+  margin-bottom: 25px;
+  @include breakpoint(tablet) {
+    margin-bottom: 50px;
+  }
+
+  .form-item {
+    margin-bottom: 20px;
+    @include breakpoint(tablet) {
+      margin-bottom: 40px;
+    }
+  }
+}
