@@ -94,42 +94,51 @@ source:
       icon_id: youth_programs
     -
       id: 9
-      title: 'About'
+      title: 'Locations'
       menu_name: 'main'
-      link: 'base:about-ymca'
+      link: 'base:locations'
       weight: 3
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
       id: 10
-      title: 'Give'
+      title: 'About'
       menu_name: 'main'
-      link: 'base:give'
+      link: 'base:about-ymca'
       weight: 4
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
       id: 11
-      title: 'Accelerator'
+      title: 'Give'
       menu_name: 'main'
-      link: 'base:accelerator'
+      link: 'base:give'
       weight: 5
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
       id: 12
-      title: 'Blog'
+      title: 'Accelerator'
       menu_name: 'main'
-      link: 'base:blog'
+      link: 'base:accelerator'
       weight: 6
       parent_id: 0
       expanded: 0
       parent_link_path: ''
     -
       id: 13
+      title: 'Blog'
+      menu_name: 'main'
+      link: 'base:blog'
+      weight: 7
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 14
       title: 'Active Older Adults'
       menu_name: 'main'
       link: 'programs/health-and-fitness/active-older-adults'
@@ -138,7 +147,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/health-and-fitness'
     -
-      id: 14
+      id: 15
       title: 'Health & Fitness for Kids & Teens'
       menu_name: 'main'
       link: 'programs/health-and-fitness/health-fitness-kids-teens'
@@ -147,7 +156,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/health-and-fitness'
     -
-      id: 15
+      id: 16
       title: 'Personal Training'
       menu_name: 'main'
       link: 'programs/health-and-fitness/personal-training'
@@ -156,7 +165,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/health-and-fitness'
     -
-      id: 16
+      id: 17
       title: 'Programs for Health'
       menu_name: 'main'
       link: 'programs/health-and-fitness/programs-health'
@@ -165,7 +174,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/health-and-fitness'
     -
-      id: 17
+      id: 18
       title: 'Recreation'
       menu_name: 'main'
       link: 'programs/health-and-fitness/recreation'
@@ -174,7 +183,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/health-and-fitness'
     -
-      id: 18
+      id: 19
       title: 'Small Group and Specialty Training'
       menu_name: 'main'
       link: 'programs/health-and-fitness/small-group-specialty-training'
@@ -183,7 +192,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/health-and-fitness'
     -
-      id: 19
+      id: 20
       title: 'Swim Team'
       menu_name: 'main'
       link: 'programs/swimming/swim-team'
@@ -192,7 +201,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/swimming'
     -
-      id: 20
+      id: 21
       title: 'Weight Loss'
       menu_name: 'main'
       link: 'programs/health-and-fitness/weight-loss'
@@ -201,7 +210,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/health-and-fitness'
     -
-      id: 21
+      id: 22
       title: 'Drop-In Swim'
       menu_name: 'main'
       link: 'programs/swimming/drop-swim'
@@ -210,7 +219,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/swimming'
     -
-      id: 22
+      id: 23
       title: 'Swim Lessons'
       menu_name: 'main'
       link: 'programs/swimming/swim-lessons'
@@ -219,7 +228,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/swimming'
     -
-      id: 23
+      id: 24
       title: 'Cooking & Crafts'
       menu_name: 'main'
       link: 'programs/kids-and-family-activities/cooking-crafts'
@@ -228,7 +237,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/kids-and-family-activities'
     -
-      id: 24
+      id: 25
       title: 'Family Activities'
       menu_name: 'main'
       link: 'programs/kids-and-family-activities/family-activities'
@@ -237,7 +246,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/kids-and-family-activities'
     -
-      id: 25
+      id: 26
       title: 'Kids University & Enrichment Classes'
       menu_name: 'main'
       link: 'programs/kids-and-family-activities/kids-university-enrichment-classes'
@@ -246,7 +255,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/kids-and-family-activities'
     -
-      id: 26
+      id: 27
       title: 'Kids Zone Activity Centers'
       menu_name: 'main'
       link: 'programs/kids-and-family-activities/kids-zone-activity-centers'
@@ -255,7 +264,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/kids-and-family-activities'
     -
-      id: 27
+      id: 28
       title: 'Sports'
       menu_name: 'main'
       link: 'programs/kids-and-family-activities/sports'
@@ -264,7 +273,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/kids-and-family-activities'
     -
-      id: 28
+      id: 29
       title: 'Bold & Gold'
       menu_name: 'main'
       link: 'programs/camps/bold-gold'
@@ -273,7 +282,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/camps'
     -
-      id: 29
+      id: 30
       title: 'Day Camps'
       menu_name: 'main'
       link: 'programs/camps/day-camps'
@@ -282,7 +291,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/camps'
     -
-      id: 30
+      id: 31
       title: 'Before & After School Child Care'
       menu_name: 'main'
       link: 'programs/child-care/after-school-child-care'
@@ -291,7 +300,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/child-care'
     -
-      id: 31
+      id: 32
       title: 'Preschool'
       menu_name: 'main'
       link: 'programs/child-care/preschool'
@@ -300,7 +309,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/child-care'
     -
-      id: 32
+      id: 33
       title: 'Academic Success'
       menu_name: 'main'
       link: 'programs/youth-programs/academic-success'
@@ -309,7 +318,7 @@ source:
       expanded: 0
       parent_link_path: 'programs/youth-programs'
     -
-      id: 33
+      id: 34
       title: 'Earth Service Corps'
       menu_name: 'main'
       link: 'programs/youth-programs/earth-service-corps'
