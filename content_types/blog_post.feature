@@ -2,6 +2,9 @@
 Feature: Blog Content type
   As Admin I want to make sure that Blog content type is OK
 
+  Background: Login BasicAuth
+    Given that I log in with "admin" and "ffw"
+
   Scenario: Create basic blog and check fields
     Given I am logged in as a user with the Administrator role
     And I create a branch

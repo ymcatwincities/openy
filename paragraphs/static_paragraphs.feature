@@ -3,6 +3,7 @@ Feature: Static Paragraphs
   Check that static paragraphs can be created and displayed
 
   Background: Create basic landing page
+    Given that I log in with "admin" and "ffw"
     Given I am logged in as a user with the "Administrator" role
     And I go to "/node/add/landing_page"
     And I fill in "Title" with "Landing"

@@ -2,6 +2,9 @@
 Feature: Facility Content type
   As Admin I want to make sure that Facility content type is available with needed fields.
 
+  Background: Login BasicAuth
+    Given that I log in with "admin" and "ffw"
+
   Scenario: Create basic facility
     Given I am logged in as a user with the "Administrator" role
     And I create a "Facility type One" term in the "Facility type" taxonomy

@@ -1,6 +1,9 @@
 @openy @api
 Feature: OpenY main pages
 
+  Background: Login BasicAuth
+    Given that I log in with "admin" and "ffw"
+
   Scenario Outline: Check all main are OK
     Given that I log in with "admin" and "ffw"
     When I go to "<page>"

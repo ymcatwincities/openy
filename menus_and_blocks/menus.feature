@@ -2,6 +2,9 @@
 Feature: Menus
   Check that menus items are available and displayed in right regions
 
+  Background: Login BasicAuth
+    Given that I log in with "admin" and "ffw"
+
   Scenario: Create main menu item and check
     Given I am logged in as a user with the "Administrator" role
     And I create an item "Give" in the "main" menu

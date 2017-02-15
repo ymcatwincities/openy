@@ -2,6 +2,9 @@
 Feature: Program Content type
   As Admin I want to make sure that Program content type is OK
 
+  Background: Login BasicAuth
+    Given that I log in with "admin" and "ffw"
+
   Scenario: Create basic program and subcategory and check fields
     Given I am logged in as a user with the "Administrator" role
     And I create a color term

@@ -2,6 +2,9 @@
 Feature: Branch Content type
   As Admin I want to make sure that Branch content type is available with needed fields.
 
+  Background: Login BasicAuth
+    Given that I log in with "admin" and "ffw"
+
   Scenario: Create basic branch
     When I go to "/user/login"
     Given I am logged in as a user with the "Administrator" role
