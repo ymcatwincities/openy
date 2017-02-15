@@ -17,7 +17,6 @@
         Drupal.ygh.paragraph_4c();
       });
 
-      Drupal.ygh.branch__updates_queue();
       Drupal.ygh.branch__updates_queue_mobile();
       Drupal.ygh.paragraph_4c();
 
@@ -54,38 +53,20 @@
         }
       }
       // Slick is initialised but we check if it fits screen size.
-      if ($(window).width() >= 768) {
+      if ($(window).width() >= 768 && view.find('.wrapper').hasClass('slick-initialized')) {
         view.find('.wrapper').slick('unslick');
       }
     });
   };
 
-  Drupal.ygh.branch__updates_queue = function () {
-    // Branch Updates queue.
-    var cards = 0;
-    $('.branch__updates_queue .cards .content').each(function() {
-      if ($(this).find('*').length > 0) {
-        cards++;
-      }
-    });
-    if (cards > 6 ) {
-      $('.branch__updates_queue__button').show();
-    }
-    $('.branch__updates_queue__button a').on('click', function (e) {
-      e.preventDefault();
-      $(this).parents('.branch__updates_queue').find('.cards').fadeIn('fast');
-      $(this).parent().remove();
-    });
-  };
-
   Drupal.ygh.branch__updates_queue_mobile = function () {
-    $('.branch__updates_queue').each(function () {
+    $('.branch--updates-queue').each(function () {
       var view = $(this);
 
       // Initialize Slick.
-      if (!view.find('.row').hasClass('slick-initialized')) {
+      if (!view.find('> div').hasClass('slick-initialized')) {
         if ($(window).width() < 768) {
-          view.find('.row').slick({
+          view.find('> div').slick({
             responsive: [
               {
                 breakpoint: 768,
@@ -104,8 +85,8 @@
         }
       }
       // Slick is initialised but we check if it fits screen size.
-      else if ($(window).width() >= 768) {
-        view.find('.row').slick('unslick');
+      else if ($(window).width() >= 768 && view.find('> div').hasClass('slick-initialized')) {
+        view.find('> div').slick('unslick');
       }
     });
   };
