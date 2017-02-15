@@ -1,9 +1,60 @@
-.yfr-info-blocks {
-  @include rem(margin-bottom, 35px);
-  @include rem(margin-top, 15px);
+.compain-info-blocks {
+
 
   @include breakpoint($tablet) {
-    align-items: stretch;
-    display: flex;
+    max-width: 1100px;
+  }
+}
+
+.compain-info-block {
+  @include rem(margin, 0 0 46px 0);
+
+  @include breakpoint($tablet) {
+    width: calc(100% / 3);
+    float: left;
+  }
+
+  .content {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 24px);
+  }
+
+  h3 {
+    @include cachet-bold();
+    @include rem(font-size, 18px);
+    @include rem(line-height, 30px);
+    @include rem(margin, 0 0 16px);
+    text-transform: uppercase;
+  }
+
+  p {
+    @include rem(margin, 0 0 18px);
+  }
+
+  .img {
+    @include rem(padding, 0 0 120px 0);
+    @include rem(margin, 0 0 18px 0);
+    display: block;
+    background: $grey20;
+    position: relative;
+
+    img {
+      display: block;
+      height: calc(100% - 32px);
+      width: auto;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .description {
+    @include cachet-normal();
+    color: $green-dark;
+
+    p {
+      margin: 0;
+    }
   }
 }
