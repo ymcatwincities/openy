@@ -52,6 +52,13 @@ source:
           content_id: accelerator_housing
         -
           content_id: accelerator_education
+    -
+      id: locations
+      title: 'Locations'
+      header_content_id: locations_location_finder_filters
+      content_ids:
+        -
+          content_id: locations_location_finder
   ids:
     id:
       type: string
@@ -76,6 +83,7 @@ process:
       - openy_demo_lp_paragraph_banner
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
+      - openy_demo_lp_paragraph_location_finder_filters
     source: header_content_id
   field_header_content/target_revision_id:
     plugin: migration
@@ -83,6 +91,7 @@ process:
       - openy_demo_lp_paragraph_banner
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
+      - openy_demo_lp_paragraph_location_finder_filters
     source: header_content_id
   field_content:
     plugin: iterator
@@ -99,6 +108,7 @@ process:
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
           - openy_demo_lp_paragraph_latest_blog_posts
+          - openy_demo_lp_paragraph_location_finder
         source: content_id
       target_revision_id:
         plugin: migration
@@ -111,6 +121,7 @@ process:
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
           - openy_demo_lp_paragraph_latest_blog_posts
+          - openy_demo_lp_paragraph_location_finder
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -126,5 +137,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_small_banner
     - openy_demo_lp_paragraph_blog_posts_listing
     - openy_demo_lp_paragraph_latest_blog_posts
+    - openy_demo_lp_paragraph_location_finder_filters
+    - openy_demo_lp_paragraph_location_finder
   optional:
     - openy_demo_node_blog
