@@ -2,7 +2,13 @@
   border-bottom: 1px solid $green-medium;
 
 
-  @include breakpoint($desktop-small) {}
+  @include breakpoint($tablet) {
+    @include rem(padding, 30px 0 0 0);
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 50px 0 0 0);
+  }
 
   > li {
     @include rem(margin, 0 14px 0 0);

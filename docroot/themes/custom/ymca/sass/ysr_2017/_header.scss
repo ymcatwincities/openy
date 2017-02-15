@@ -2,52 +2,55 @@
   @include rem(height, 208px);
   @include rem(padding, 0 0 50px 0);
   position: relative;
-  background: #fff url(../prototypes/ysr_2017/img/hero/hero-mobile.jpg) 50% 50% no-repeat;
+  background: #fff url('../prototypes/ysr_2017/img/hero/hero-mobile.jpg') 50% 50% no-repeat;
   @include background-size(cover);
 
   @include breakpoint($tablet) {
     @include rem(height, 380px);
-    background: #fff url(../prototypes/ysr_2017/img/hero/hero-1400.jpg) 50% 0 no-repeat;
+    background: #fff url('../prototypes/ysr_2017/img/hero/hero-1400.jpg') 50% 0 no-repeat;
     @include background-size(cover);
   }
 
   &--content {
     .logo {
       display: none;
+
+      @include breakpoint($tablet) {
+        @include rem(margin, 0 50px 60px 0);
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+      }
     }
 
     @include breakpoint($tablet){
       height: calc(100% - 62px + 50px);
       width: 100%;
-      display: -webkit-box;
-      display: -moz-box;
       display: -ms-flexbox;
       display: -webkit-flex;
       display: flex;
-      -webkit-box-direction: normal;
-      -moz-box-direction: normal;
-      -webkit-box-orient: vertical;
-      -moz-box-orient: vertical;
-      -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-      flex-direction: column;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
       -webkit-flex-wrap: nowrap;
       -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-      -webkit-box-pack: end;
-      -moz-box-pack: end;
-      -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-      justify-content: flex-end;
-      -webkit-align-content: flex-start;
-      -ms-flex-line-pack: start;
-      align-content: flex-start;
-      -webkit-box-align: start;
-      -moz-box-align: start;
-      -webkit-align-items: flex-start;
-      -ms-flex-align: start;
-      align-items: flex-start;
+      -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
+      justify-content: flex-start;
+      -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+      align-content: center;
+      -webkit-align-items: flex-end;
+      -ms-flex-align: end;
+      align-items: flex-end;
     }
+
 
     .container {
       @include breakpoint($tablet) {
@@ -68,7 +71,10 @@
     @include breakpoint($tablet) {
       @include rem(font-size, 50px);
       @include rem(line-height, 54px);
+      @include rem(margin, 60px 0 0 0);
       text-align: left;
+      display: inline-block;
+      vertical-align: top;
     }
 
     .date {
@@ -135,8 +141,8 @@
 
     &:before {
       @include rem(height, 10px);
-      @include rem(width, 12px);
-      background-image: url(../prototypes/yfr/img/hero/back-arrow.png);
+      @include rem(width, 14px);
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-arrow-left.svg');
       background-size: cover;
       content: ' ';
       position: absolute;
@@ -176,15 +182,57 @@
 
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
+      @include rem(margin, 0 0 0 48px);
+    }
+
+    &:before {
+      opacity: 0.8;
+    }
+
+    &:hover {
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+
+  .link--register,
+  .link--sign-in {
+    @include rem(padding, 0 0 0 24px);
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
     }
   }
 
   .link--register {
     float: left;
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-register.svg');
+      width: 18px;
+      height: 22px;
+      background-size: auto 100%;
+    }
   }
 
   .link--sign-in {
     float: right;
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-login.svg');
+      width: 20px;
+      height: 16px;
+      background-size: auto 100%;
+    }
   }
 
   @include breakpoint($desktop-small) {}
