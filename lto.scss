@@ -8,7 +8,11 @@
     font-size: 36px;
 
     @include breakpoint(mobileonly) {
-      margin: 0 0 0px 10px;
+      margin: 0 0 0 10px;
+      font-size: 24px;
+    }
+    @media (min-width: $screen-xs) and (max-width: $screen-md) {
+      font-size: 28px;
     }
   }
 
@@ -16,24 +20,27 @@
     @include cachet();
     color: $white;
     font-size: 20px;
-
+    @media (min-width: $screen-md) {
+      padding: 15px 0 0 0;
+    }
     @media (max-width: $screen-sm) {
       padding-bottom: 14px;
-    }
 
+    }
     @include breakpoint(mobileonly) {
       margin: 0 0 0 10px;
+      font-size: 18px;
     }
   }
 
-  @media  (min-width: $screen-sm) and (max-width: $screen-desktop) {
+  @media (min-width: $screen-sm) and (max-width: $screen-desktop) {
     .block--subtitle {
       clear: both;
     }
     .block--btn {
       display: inline-block;
       float: none;
-      padding: 25px 20px 0 20px;
+      padding: 10px 20px 0 20px;
     }
   }
 
