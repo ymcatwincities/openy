@@ -3,8 +3,17 @@ description: 'OpenY paragraph membership calc'
 type: module
 core: 8.x
 dependencies:
+  - address
   - field
+  - image
+  - openy_hours_formatter
+  - openy_loc_branch
+  - openy_media_image
+  - openy_node_mbrshp
   - openy_prgf
   - paragraphs
   - plugin
+  - telephone
+  - text
+  - user
 version: 8.x-1.0
