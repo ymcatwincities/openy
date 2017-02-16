@@ -37,27 +37,6 @@
   .views-row {
     margin-bottom: 20px;
   }
-  .pager {
-    margin: 50px 0;
-    li {
-      margin: 0 5px;
-      > a {
-        border-radius: 0;
-      }
-    }
-    .pager__item--first,
-    .pager__item--last {
-      display: none;
-    }
-    .pager__item--previous,
-    .pager__item--next {
-      text-transform: uppercase;
-      a {
-        border: none;
-        padding: 5px 0;
-      }
-    }
-  }
 }
 
 .node--view-mode-search-results {

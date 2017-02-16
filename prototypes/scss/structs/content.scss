@@ -25,21 +25,6 @@ body {
   }
 }
 
-
-.views-element-container .pager {
-  clear: both;
-  li {
-    @include cachet();
-    font-size: 16px;
-    @media (max-width: $screen-xs-min) {
-      font-size: 12px;
-    }
-    a {
-      @include cachet();
-    }
-  }
-}
-
 .user-login-form,
 .user-pass,
 .user-form {

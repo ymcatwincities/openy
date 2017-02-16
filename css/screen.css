@@ -6529,17 +6529,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px; }
 
-.views-element-container .pager {
-  clear: both; }
-  .views-element-container .pager li {
-    font-family: "CachetBook", Verdana, sans-serif;
-    font-size: 16px; }
-    @media (max-width: 480px) {
-      .views-element-container .pager li {
-        font-size: 12px; } }
-    .views-element-container .pager li a {
-      font-family: "CachetBook", Verdana, sans-serif; }
-
 .user-login-form,
 .user-pass,
 .user-form {
@@ -6844,6 +6833,78 @@ body {
         font-size: 13px;
         line-height: 17px;
         font-weight: 700; }
+
+.pager > ul {
+  float: left;
+  margin: 10px 0;
+  list-style: none;
+  text-align: center; }
+  .pager > ul:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .pager > ul li {
+    font-family: "CachetBook", Verdana, sans-serif;
+    font-size: 16px;
+    display: inline;
+    line-height: 17px;
+    text-align: center;
+    font-weight: 500; }
+    @media (max-width: 480px) {
+      .pager > ul li {
+        font-size: 12px; } }
+    .pager > ul li > a,
+    .pager > ul li > span {
+      width: 32px;
+      height: 32px;
+      display: inline-block;
+      padding: 8px 0 0 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 0;
+      font-family: "CachetBook", Verdana, sans-serif;
+      text-transform: uppercase;
+      color: #0089d0; }
+    .pager > ul li > a:hover,
+    .pager > ul li > a:focus {
+      text-decoration: none;
+      color: #23527c;
+      background-color: inherit; }
+  .pager > ul .pager__item--next > a,
+  .pager > ul .pager__item--next > span {
+    width: 58px;
+    border: none; }
+  .pager > ul .pager__item--next a:after {
+    font-family: FontAwesome;
+    content: "\f105"; }
+  .pager > ul .pager__item--previous > a,
+  .pager > ul .pager__item--previous > span {
+    width: 90px;
+    border: none; }
+  .pager > ul .pager__item--previous a:before {
+    font-family: FontAwesome;
+    content: "\f104 "; }
+  .pager > ul .pager__item--first > a,
+  .pager > ul .pager__item--first > span {
+    display: none; }
+  .pager > ul .pager__item--last > a,
+  .pager > ul .pager__item--last > span {
+    display: none; }
+  .pager > ul .pager__item--ellipsis {
+    display: none; }
+  .pager > ul .is-active > a,
+  .pager > ul .is-active > span {
+    color: #636466; }
+  .pager > ul .disabled > a,
+  .pager > ul .disabled > a:hover,
+  .pager > ul .disabled > a:focus,
+  .pager > ul .disabled > span {
+    color: #777777;
+    background-color: #fff;
+    cursor: not-allowed; }
+
+.views-element-container .pager {
+  clear: both; }
 
 .block-description--text {
   border-top: 2px solid #333;
