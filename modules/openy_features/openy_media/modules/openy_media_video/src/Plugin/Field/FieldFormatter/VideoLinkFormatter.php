@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_media\Plugin\Field\FieldFormatter;
+namespace Drupal\openy_media_video\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -89,6 +89,7 @@ class VideoLinkFormatter extends FormatterBase implements ContainerFactoryPlugin
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
     $title = $items->getEntity()->get('name')->value;
+
     foreach ($items as $delta => $item) {
       $element[$delta] = [
         '#title' => $title,
@@ -97,6 +98,7 @@ class VideoLinkFormatter extends FormatterBase implements ContainerFactoryPlugin
         '#attributes' => ['target' => '_blank'],
       ];
     }
+
     return $element;
   }
 

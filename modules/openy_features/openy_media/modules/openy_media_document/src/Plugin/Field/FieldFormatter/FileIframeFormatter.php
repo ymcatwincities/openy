@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_media\Plugin\Field\FieldFormatter;
+namespace Drupal\openy_media_document\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Url;

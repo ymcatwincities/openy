@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_media\Plugin\Field\FieldFormatter;
+namespace Drupal\openy_media_document\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Url;
@@ -24,12 +24,13 @@ class FileLinkFormatter extends FileFormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = array();
+    $title = $items->getEntity()->get('name')->value;
 
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $file) {
       $image_uri = $file->getFileUri();
       $url = Url::fromUri(file_create_url($image_uri));
       $elements[$delta] = [
-        '#title' => $file->getFilename(),
+        '#title' => $title,
         '#type' => 'link',
         '#url' => $url,
         '#attributes' => ['target' => '_blank'],

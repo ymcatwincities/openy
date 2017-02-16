@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-name: full
-label: Full
+name: media_full
+label: Media Full
 effects:
   3893d5fb-bc7d-4743-9da4-064f79d06458:
     uuid: 3893d5fb-bc7d-4743-9da4-064f79d06458
