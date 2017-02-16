@@ -30,6 +30,7 @@ class CalcBlockForm extends FormBase {
 
   /**
    * CalcBlockForm constructor.
+   *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
    * @param \Drupal\openy_socrates\OpenySocratesFacade $dataWrapper
