@@ -3725,6 +3725,7 @@ html.js .branch__updates_queue__button {
   padding: 0;
   margin: 0;
   height: auto;
+  min-height: auto;
 }
 .node--type-facility.node--view-mode-teaser h2,
 .node--type-branch.node--view-mode-teaser h2,
