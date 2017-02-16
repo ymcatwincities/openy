@@ -6,6 +6,7 @@ dependencies:
     - node.type.branch
     - paragraphs.paragraphs_type.all_amenities
     - paragraphs.paragraphs_type.header
+    - paragraphs.paragraphs_type.small_banner
   module:
     - entity_reference_revisions
 id: node.branch.field_header_content
@@ -24,59 +25,63 @@ settings:
     target_bundles:
       header: header
       all_amenities: all_amenities
+      small_banner: small_banner
     target_bundles_drag_drop:
+      1c:
+        weight: -39
+        enabled: false
       2c:
-        weight: 9
+        weight: -38
         enabled: false
       3c:
-        weight: 10
+        weight: -37
         enabled: false
       4c:
-        weight: 11
+        weight: -36
         enabled: false
       featured_stories:
-        weight: 12
+        weight: -35
         enabled: false
       gallery:
-        weight: 13
+        weight: -34
         enabled: false
       header:
         enabled: true
-        weight: 14
+        weight: -33
       latest_news_and_updates:
-        weight: 15
+        weight: -32
         enabled: false
       simple_content:
-        weight: 16
-        enabled: false
-      1c:
-        weight: 19
+        weight: -31
         enabled: false
       all_amenities:
         enabled: true
-        weight: 23
+        weight: -30
       blackbaud:
-        weight: 24
+        weight: -29
         enabled: false
       contact_us:
-        weight: 25
+        weight: -28
         enabled: false
       global_search:
-        weight: 28
+        weight: -27
         enabled: false
       location_finder:
-        weight: 31
+        weight: -26
         enabled: false
       lto:
-        weight: 32
+        weight: -25
         enabled: false
       membership_calculator:
-        weight: 33
+        weight: -24
         enabled: false
       program_registration:
-        weight: 34
+        weight: -23
         enabled: false
       whay:
-        weight: 36
+        weight: -22
         enabled: false
+      small_banner:
+        enabled: true
+        weight: -21
 field_type: entity_reference_revisions
