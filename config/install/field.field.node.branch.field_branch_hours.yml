@@ -13,7 +13,7 @@ bundle: branch
 label: 'Branch Working Hours'
 description: 'Enter working Hours for the current branch.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

@@ -9,6 +9,7 @@ dependencies:
   - entity_reference_revisions
   - field
   - field_group
+  - file
   - geolocation
   - language
   - menu_ui
@@ -26,10 +27,12 @@ dependencies:
   - openy_prgf_fc
   - openy_prgf_header
   - openy_prgf_simple_content
+  - openy_svg_formatter
   - paragraphs
   - path
   - taxonomy
   - telephone
+  - text
   - user
   - views
 version: 8.x-1.0

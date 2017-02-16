@@ -13,7 +13,7 @@ bundle: branch
 label: 'Branch Phone'
 description: 'Enter branch phone.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
