@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_calc_theme() {
+  return [
+    'form_element_membership_type' => [
+      'render element' => 'element',
+    ],
+    'openy_calc_form_header' => [
+      'variables' => [
+        'steps' => [],
+      ],
+      'template' => 'openy-calc-form-header',
+    ],
+    'openy_calc_form_summary' => [
+      'variables' => [
+        'result' => [],
+      ],
+      'template' => 'openy-calc-form-summary',
+    ],
+  ];
+}
+
+/**
+ * Preprocess variables.
+ */
+function template_preprocess_form_element_membership_type(&$variables) {
+  template_preprocess_form_element($variables);
+  $element = &$variables['element'];
+  $variables['element_variables'] = $element['#element_variables'];
+}
