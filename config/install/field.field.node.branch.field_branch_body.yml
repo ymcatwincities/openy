@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_branch_body
     - node.type.branch
+    - paragraphs.paragraphs_type.1c
     - paragraphs.paragraphs_type.2c
     - paragraphs.paragraphs_type.3c
     - paragraphs.paragraphs_type.4c
@@ -13,6 +14,7 @@ dependencies:
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
     - paragraphs.paragraphs_type.simple_content
+    - paragraphs.paragraphs_type.small_banner
   module:
     - entity_reference_revisions
 id: node.branch.field_branch_body
@@ -37,7 +39,9 @@ settings:
       latest_news_and_updates: latest_news_and_updates
       simple_content: simple_content
       blackbaud: blackbaud
+      1c: 1c
       all_amenities: all_amenities
+      small_banner: small_banner
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -67,8 +71,8 @@ settings:
         weight: -27
         enabled: false
       1c:
+        enabled: true
         weight: -26
-        enabled: false
       contact_us:
         weight: -25
         enabled: false
@@ -93,4 +97,7 @@ settings:
       all_amenities:
         enabled: true
         weight: 23
+      small_banner:
+        enabled: true
+        weight: 37
 field_type: entity_reference_revisions
