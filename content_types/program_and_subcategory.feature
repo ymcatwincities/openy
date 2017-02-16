@@ -1,4 +1,4 @@
-@openy @api
+@openy @api @houston_ignore
 Feature: Program Content type
   As Admin I want to make sure that Program content type is OK
 

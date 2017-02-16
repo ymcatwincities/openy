@@ -1,4 +1,4 @@
-@openy @api
+@openy @api @houston_ignore
 Feature: Facility Content type
   As Admin I want to make sure that Facility content type is available with needed fields.
 

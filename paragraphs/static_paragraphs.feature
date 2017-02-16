@@ -53,6 +53,7 @@ Feature: Static Paragraphs
     And I press "Save and publish"
     Then I should see "Simple text is here."
 
+  @houston_ignore
   Scenario: Create Grid Content
     When I press "Add Grid Content"
     And I select "2 items per row" from "Style"
@@ -69,6 +70,7 @@ Feature: Static Paragraphs
     And I should see "Every year, we rely on donations."
     And I should see the link "Donate"
 
+  @houston_ignore
   Scenario: Create Promo Card
     When I press "Add Promo Card" in the "sidebar_area"
     And I fill in "Title" with "Promo" in the "sidebar_area"
@@ -83,6 +85,7 @@ Feature: Static Paragraphs
     And I should see "Setup a website and see how it works."
     And I should see the link "Go!"
 
+  @houston_ignore
   Scenario: Create Story Card
     When I press "Add Story Card" in the "sidebar_area"
     And I fill in "Title" with "New Story" in the "sidebar_area"
@@ -95,6 +98,7 @@ Feature: Static Paragraphs
     And I should see "I discovered OpenY. And that looks great!"
     And I should see the link "Discover OpenY"
 
+  @houston_ignore
   Scenario: Create Teaser
     When I press "Add Teaser" in the "content_area"
     And I fill in "Title" with "My Teaser" in the "content_area"
