@@ -82,6 +82,8 @@
 %}
 <article{{ attributes.addClass(classes) }}>
 
+  {{ content.field_location_area }}
+
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
@@ -101,7 +103,7 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+    {{ content|without('field_location_area') }}
   </div>
 
 </article>

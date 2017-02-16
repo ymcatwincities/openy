@@ -566,12 +566,25 @@
   }
 }
 
-.paragraph--type--dynamic-content {
+.paragraph--type--dynamic-content,
+.paragraph--type--prgf-location-finder-filters {
   padding: 20px 0;
   overflow: hidden;
   .one-column-clean &:first-child,
   .landing-header & {
     padding-top: 0;
+  }
+}
+.paragraph--type--prgf-location-finder {
+  .views-element-container {
+    padding: 20px 0;
+    &:before,
+    &:after {
+      clear: both;
+      content: '';
+      display: table;
+      width: 0;
+    }
   }
 }
 
