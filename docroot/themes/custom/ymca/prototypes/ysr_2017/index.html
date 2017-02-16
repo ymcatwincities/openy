@@ -471,6 +471,7 @@
     <script src="../../../../../core/misc/drupal.js?v=8.1.2"></script>
     <script src="../../../../../libraries/equalize/js/equalize.min.js?v=8.1.2"></script>
     <script src="../../../../../themes/custom/ymca/scripts/vendor/iframeSizer.min.js?v=8.1.2"></script>
+    <script src="../../../../../themes/custom/ymca/scripts/vendor/jquery.matchHeight.js?v=8.1.2"></script>
     <script src="../../../../../themes/custom/ymca/scripts/legacy/modernizr-2.6.2-respond-1.1.0.min.js?v=8.1.2"></script>
     <script src="../../../../../themes/custom/ymca/scripts/legacy/jquery-clockwork.min.js?v=8.1.2"></script>
     <script src="../../../../../themes/custom/ymca/scripts/legacy/jquery-migrate.min.js?v=8.1.2"></script>
@@ -608,6 +609,18 @@
               .tabCollapse({
                 tabsClass: 'hidden-xs',
                 accordionClass: 'visible-xs compain-accordion'
+              });
+          }
+        };
+
+        Drupal.behaviors.blockHeight = {
+          attach: function (context, settings) {
+            $('.content-text', context)
+              .once('content-text').matchHeight({
+                byRow: true,
+                property: 'height',
+                target: null,
+                remove: false
               });
           }
         };

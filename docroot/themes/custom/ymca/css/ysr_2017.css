@@ -569,6 +569,8 @@ html, body {
   .compain-info-block .content-text {
     min-height: 330px;
     min-height: 33rem;
+    margin-bottom: 30px;
+    margin-bottom: 3rem;
   }
 }
 @media (min-width: 64em) {
