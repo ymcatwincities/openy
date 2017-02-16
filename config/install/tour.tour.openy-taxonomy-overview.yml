@@ -2,17 +2,18 @@ langcode: en
 status: true
 dependencies:
   module:
-    - taxonomy
+    - openy_taxonomy
 id: openy-taxonomy-overview
 label: 'OpenY Taxonomy Overview'
 module: openy_taxonomy
 routes:
-  - route_name: entity.taxonomy_vocabulary.collection
+  -
+    route_name: entity.taxonomy_vocabulary.collection
 tips:
   taxonomy-overview:
     id: taxonomy-overview
     plugin: text
-    label: 'Overview'
+    label: Overview
     body: 'This page allows a user to add taxonomies also know as Vocabularies. Vocabularies consist of terms. The terms in a vocabulary allows content to be grouped. For example the vocabulary could be food and the term meat.'
     weight: 1
   add-vocabulary:

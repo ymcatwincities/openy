@@ -2,17 +2,18 @@ langcode: en
 status: true
 dependencies:
   module:
-    - taxonomy
+    - openy_taxonomy
 id: openy-taxonomy-vocabulary
 label: 'OpenY Taxonomy vocabulary'
 module: openy_taxonomy
 routes:
-  - route_name: entity.taxonomy_vocabulary.overview_form
+  -
+    route_name: entity.taxonomy_vocabulary.overview_form
 tips:
   vocabulary-overview:
     id: vocabulary-overview
     plugin: text
-    label: 'Overview'
+    label: Overview
     body: 'This page allows administrators to manage taxonomy vocabulary.'
     weight: 1
   add-term:
@@ -30,7 +31,7 @@ tips:
     body: 'In this area you can re-order taxonomy terms. Select icon and move up and down to re-order taxonomy terms.'
     weight: 3
     attributes:
-      data-id: 'taxonomy'
+      data-id: taxonomy
   save-vocabulary:
     id: save-vocabulary
     plugin: text

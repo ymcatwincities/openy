@@ -2,12 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - taxonomy
+    - openy_taxonomy
 id: openy-taxonomy-term
 label: 'OpenY Taxonomy term'
 module: openy_taxonomy
 routes:
-  - route_name: entity.taxonomy_term.add_form
+  -
+    route_name: entity.taxonomy_term.add_form
     route_params:
       taxonomy_vocabulary: blog_categories
 tips:
@@ -24,7 +25,7 @@ tips:
     body: 'This is the name given to the term in the Vocabulary.'
     weight: 2
     attributes:
-      data-class: 'field--name-name'
+      data-class: field--name-name
   term-description:
     id: term-description
     plugin: text
@@ -32,7 +33,7 @@ tips:
     body: 'This is a description of the term.'
     weight: 3
     attributes:
-      data-class: 'field--name-description'
+      data-class: field--name-description
   term-relations:
     id: term-relations
     plugin: text
@@ -40,7 +41,7 @@ tips:
     body: 'In the relations drop down a user can select the parent of the term they are creating. The Root specifies the top level of the Vocabulary.'
     weight: 4
     attributes:
-      data-id: 'edit-relations'
+      data-id: edit-relations
   save-term:
     id: save-term
     plugin: text
