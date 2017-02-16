@@ -826,9 +826,9 @@ html.js {
     color: $purple;
   }
   .field_location_state {
-    position: absolute;
-    top: 0px;
-    right: 0px;
+    float: right;
+    margin-right: -20px;
+    margin-top: -20px;
     padding: 5px;
     font-size: 10px;
     color: #231f20;
