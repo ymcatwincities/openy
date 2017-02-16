@@ -15,7 +15,7 @@ bundle: branch
 label: 'Branch Header'
 description: 'Add Header Paragraph for the branch.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
