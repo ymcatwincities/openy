@@ -115,15 +115,22 @@ class DataWrapper implements OpenyDataServiceInterface {
    *   Pin tag.
    * @param string $icon_color
    *   Icon color(see possible options in img directory).
+   * @param int $id
+   *   Node ID (if set return pin only for specified node ID).
    *
    * @return array
    *   Pins
    */
-  public function getPins($type, $tag, $icon_color) {
-    $location_ids = $this->queryFactory->get('node')
-      ->condition('type', $type)
-      ->condition('status', 1)
-      ->execute();
+  public function getPins($type, $tag, $icon_color, $id = NULL) {
+    if ($id) {
+      $location_ids[] = $id;
+    }
+    else {
+      $location_ids = $this->queryFactory->get('node')
+        ->condition('type', $type)
+        ->condition('status', 1)
+        ->execute();
+    }
 
     if (!$location_ids) {
       return [];
@@ -246,6 +253,8 @@ class DataWrapper implements OpenyDataServiceInterface {
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $location = $storage->load($location_id);
     $result['location'] = $builder->view($location, 'calc_summary');
+    // TODO: Add map for this $location_id.
+    // TODO: Fix map (two maps can't display one one page).
     $membership = $storage->load($membership_id);
     $result['membership'] = $builder->view($membership, 'calc_summary');
 
