@@ -36,7 +36,7 @@ class LocationMappingRepository {
    * @param int $id
    *   Daxko branch ID.
    *
-   * @return \Drupal\node\NodeInterface;
+   * @return \Drupal\node\NodeInterface
    *   Branch node.
    */
   public function getBranchByDaxkoBranchId($id) {

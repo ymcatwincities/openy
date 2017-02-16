@@ -42,7 +42,7 @@ function template_preprocess_mapping(array &$variables) {
  *
  * @see block_content_add_page()
  */
-function template_preprocess_mapping_content_add_list(&$variables) {
+function template_preprocess_mapping_content_add_list(array &$variables) {
   $variables['types'] = array();
   $query = \Drupal::request()->query->all();
   foreach ($variables['content'] as $type) {
