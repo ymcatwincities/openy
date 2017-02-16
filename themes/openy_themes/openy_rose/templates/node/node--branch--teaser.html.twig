@@ -81,6 +81,7 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
+  {{ content.field_location_state }}
   {{ content.field_location_area }}
 
   {{ title_prefix }}
@@ -109,7 +110,7 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without('field_location_area') }}
+    {{ content|without('field_location_area', 'field_location_state') }}
   </div>
 
 </article>
