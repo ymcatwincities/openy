@@ -1,0 +1,170 @@
+.compain-intro-block {
+  @include background-image(linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(37,131,127,0.1) 100%));
+  @include rem(margin, 0 -20px 30px);
+  @include rem(padding, 30px 20px);
+
+  @include breakpoint($tablet) {
+    @include rem(margin, 0 -30px 60px);
+    @include rem(padding, 60px 30px);
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(margin-left, -50px);
+    @include rem(margin-right, -50px);
+    @include rem(padding-left, 50px);
+    @include rem(padding-right, 50px);
+  }
+
+  @include breakpoint($desktop) {
+    @include rem(margin-left, -100px);
+    @include rem(margin-right, -100px);
+    @include rem(padding-left, 100px);
+    @include rem(padding-right, 100px);
+  }
+
+  .content {
+    background: none;
+
+    @include breakpoint($tablet) {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  }
+
+  .content-text {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 24px);
+    @include rem(margin, 0 0 30px);
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 20px);
+      @include rem(line-height, 32px);
+      @include rem(margin, 0 0 0);
+      @include rem(max-width, 530px);
+      width: 60%;
+      float: left;
+    }
+  }
+
+  .compain-btn {
+    @include breakpoint($tablet) {
+      @include rem(margin, 16px 0 0 0);
+      float: right;
+      width: 40%;
+    }
+  }
+
+  .btn {
+    display: block;
+
+    @include breakpoint($tablet) {
+      @include rem(min-width, 280px);
+      max-width: 100%;
+      float: right;
+    }
+  }
+}
+
+
+.content-video-wrapper {
+  @include rem(margin, 20px 0 30px 0);
+
+  @include breakpoint($tablet) {
+    @include rem(margin, 60px 0 40px 0);
+  }
+
+  .content-video {
+    img {
+      width: 100%;
+      display: block;
+      vertical-align: top;
+    }
+  }
+
+  .content-video--label {
+    .label {
+      @include cachet-normal();
+      @include rem(font-size, 20px);
+      @include rem(line-height, 24px);
+      @include rem(padding, 8px 24px 8px 58px);
+      text-transform: uppercase;
+      background: $green-medium;
+      color: $white;
+      border-radius: 0;
+      display: inline-block;
+      vertical-align: top;
+      position: relative;
+
+      &:before {
+        @include rem(width, 40px);
+        @include rem(height, 40px);
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: $green-dark inline-image('../prototypes/ysr_2017/img/icons/icon-hint.svg') 50% 50% no-repeat;
+        background-size: 76% 76%;
+      }
+    }
+  }
+}
+
+.content-item {
+  @include rem(margin, 0 0 40px 0);
+
+  h3 {
+    @include cachet-bold();
+    @include rem(font-size, 24px);
+    @include rem(line-height, 30px);
+    @include rem(margin, 0 0 10px 0);
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 30px);
+      @include rem(line-height, 44px);
+    }
+  }
+
+  p {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 24px);
+    @include rem(margin, 0 0 20px 0);
+
+    a {
+      font-size: inherit;
+      line-height: inherit;
+      color: $green-medium;
+    }
+  }
+
+  .content-list--decor {
+    @include rem(margin, 0 0 40px 6px);
+    list-style: none;
+    padding: 0;
+
+    li {
+      @include rem(padding, 0 0 0 24px);
+      position: relative;
+
+      &:before {
+        @include rem(width, 14px);
+        @include rem(height, 12px);
+        content: '';
+        display: block;
+        position: absolute;
+        top: 6px;
+        left: 0;
+        background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-check.svg') 50% 50% no-repeat;
+        background-size: 100% 100%;
+      }
+    }
+  }
+}
+
+.content-wrapper--small {
+  @include breakpoint($tablet) {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+}
