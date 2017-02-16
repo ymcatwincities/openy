@@ -57,6 +57,7 @@
   .content-text {
     @include breakpoint($tablet) {
       @include rem(min-height, 330px);
+      @include rem(margin-bottom, 30px);
     }
 
     @include breakpoint($desktop-small) {
