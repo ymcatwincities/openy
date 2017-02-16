@@ -1,0 +1,176 @@
+.compain-footer {
+  @include rem(padding, 40px 0);
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 70px 0);
+  }
+
+  .inner-container {}
+
+  .compain-footer--content {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  &--left {
+    @include rem(padding, 0 16px);
+
+    @include breakpoint($tablet) {
+
+    }
+
+    @include breakpoint($desktop-small) {
+      padding: 0;
+      float: left;
+      width: 60%;
+    }
+  }
+
+  &--right {
+    @include breakpoint($desktop-small) {
+      float: right;
+      width: 40%;
+    }
+  }
+
+  &--social {
+    @include rem(margin, 0 0 22px 0);
+
+    ul {
+      @include rem(max-width, 280px);
+      width: 100%;
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+      -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+      align-content: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+
+      @include breakpoint($desktop-small) {
+        float: right;
+      }
+    }
+
+    a {
+      @include rem(width, 48px);
+      @include rem(height, 48px);
+      display: block;
+      border: 3px solid $green-light;
+      text-indent: -9999px;
+      overflow: hidden;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      background-size: 100% 100%;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
+    .item-social {
+      &--facebook {
+        a {
+          background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-facebook.svg');
+        }
+      }
+
+      &--twitter {
+        a {
+          background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-twitter.svg');
+        }
+      }
+
+      &--youtube {
+        a {
+          background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-youtube.svg');
+        }
+      }
+
+      &--flickr {
+        a {
+          background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-flickr.svg');
+        }
+      }
+    }
+  }
+
+  &--navigation {
+    @include cachet-normal();
+    @include rem(font-size, 20px);
+    @include rem(line-height, 28px);
+    @include rem(margin, 0 0 22px 0);
+    color: $green-light;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      @include breakpoint($tablet) {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-align-content: center;
+        -ms-flex-line-pack: center;
+        align-content: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+    }
+
+    li {
+      a {
+        @include rem(padding, 8px 0);
+        font-family: inherit;
+        line-height: inherit;
+        font-size: inherit;
+        color: inherit;
+        display: block;
+      }
+    }
+  }
+
+  &--copyright {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 26px);
+    color: $grey4;
+
+    br {
+      display: none;
+    }
+
+    strong {
+      color: $grey5;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

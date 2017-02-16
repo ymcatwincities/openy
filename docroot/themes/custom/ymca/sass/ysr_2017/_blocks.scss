@@ -1,0 +1,116 @@
+.compain-info-blocks {
+
+  .content-wrapper {
+    background: none;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-left, -30px);
+      @include rem(margin-right, -30px);
+      clear: both;
+      overflow: hidden;
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin-left, -50px);
+      @include rem(margin-right, -50px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin-left, -66px);
+      @include rem(margin-right, -66px);
+    }
+  }
+
+  @include breakpoint($tablet) {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+
+.compain-info-block {
+  @include rem(margin, 0 0 46px 0);
+
+  @include breakpoint($tablet) {
+    @include rem(padding, 0 30px);
+    width: calc(100% / 3);
+    float: left;
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 0 50px);
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 0 66px);
+  }
+
+  .content {
+    @include rem(font-size, 16px);
+    @include rem(line-height, 24px);
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 16px);
+      @include rem(line-height, 24px);
+    }
+  }
+
+  .content-text {
+    @include breakpoint($tablet) {
+      @include rem(min-height, 330px);
+      @include rem(margin-bottom, 30px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(min-height, 300px);
+    }
+
+
+    @include breakpoint($desktop) {
+      @include rem(min-height, 266px);
+    }
+  }
+
+  h3 {
+    @include cachet-bold();
+    @include rem(font-size, 18px);
+    @include rem(line-height, 30px);
+    @include rem(margin, 0 0 16px);
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 24px);
+      @include rem(line-height, 36px);
+    }
+  }
+
+  p {
+    @include rem(margin, 0 0 18px);
+  }
+
+  .img {
+    @include rem(padding, 0 0 120px 0);
+    @include rem(margin, 0 0 18px 0);
+    display: block;
+    background: $grey20;
+    position: relative;
+
+    img {
+      display: block;
+      height: calc(100% - 32px);
+      width: auto;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .description {
+    @include cachet-normal();
+    color: $green-dark;
+
+    p {
+      margin: 0;
+    }
+  }
+}
