@@ -1170,6 +1170,12 @@ html, body {
   padding: 40px 0;
   padding: 4rem 0;
 }
+@media (min-width: 64em) {
+  .compain-footer {
+    padding: 70px 0;
+    padding: 7rem 0;
+  }
+}
 .compain-footer .compain-footer--content {
   max-width: 1100px;
   margin: 0 auto;
@@ -1178,18 +1184,22 @@ html, body {
   padding: 0 16px;
   padding: 0 1.6rem;
 }
-@media (min-width: 48em) {
+@media (min-width: 64em) {
   .compain-footer--left {
     padding: 0;
     float: left;
     width: 60%;
   }
 }
-@media (min-width: 48em) {
+@media (min-width: 64em) {
   .compain-footer--right {
     float: right;
     width: 40%;
   }
+}
+.compain-footer--social {
+  margin: 0 0 22px 0;
+  margin: 0 0 2.2rem 0;
 }
 .compain-footer--social ul {
   max-width: 280px;
@@ -1216,6 +1226,11 @@ html, body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+}
+@media (min-width: 64em) {
+  .compain-footer--social ul {
+    float: right;
+  }
 }
 .compain-footer--social a {
   width: 48px;
@@ -1254,12 +1269,32 @@ html, body {
   font-size: 2rem;
   line-height: 28px;
   line-height: 2.8rem;
+  margin: 0 0 22px 0;
+  margin: 0 0 2.2rem 0;
   color: #20bdbe;
 }
 .compain-footer--navigation ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 .compain-footer--navigation li a {
   padding: 8px 0;
