@@ -56,16 +56,16 @@
 
   .content-text {
     @include breakpoint($tablet) {
-      @include rem(min-height, 300px);
+      @include rem(min-height, 330px);
     }
 
     @include breakpoint($desktop-small) {
-      @include rem(min-height, 274px);
+      @include rem(min-height, 300px);
     }
 
 
     @include breakpoint($desktop) {
-      @include rem(min-height, 250px);
+      @include rem(min-height, 266px);
     }
   }
 
