@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.embedded_half
+    - field.field.media.image.field_media_caption
+    - field.field.media.image.field_media_image
+    - field.field.media.image.field_media_in_library
+    - field.field.media.image.field_media_tags
+    - image.style.media_half
+    - media_entity.bundle.image
+  module:
+    - image
+id: media.image.embedded_half
+targetEntityType: media
+bundle: image
+mode: embedded_half
+content:
+  field_media_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: media_half
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+hidden:
+  created: true
+  field_media_caption: true
+  field_media_in_library: true
+  field_media_tags: true
+  name: true
+  thumbnail: true
+  uid: true
