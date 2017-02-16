@@ -50,7 +50,7 @@ content:
   field_location_address:
     weight: 26
     settings:
-      default_country: null
+      default_country: US
     third_party_settings: {  }
     type: address_default
   field_location_coordinates:

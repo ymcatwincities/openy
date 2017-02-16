@@ -23,6 +23,7 @@ dependencies:
   - openy_prgf_fc
   - openy_prgf_header
   - openy_prgf_simple_content
+  - openy_prgf_small_banner
   - paragraphs
   - path
   - telephone

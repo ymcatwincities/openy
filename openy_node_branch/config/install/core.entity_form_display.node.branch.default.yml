@@ -117,7 +117,7 @@ content:
   field_location_address:
     weight: 10
     settings:
-      default_country: null
+      default_country: US
     third_party_settings: {  }
     type: address_default
   field_location_amenities:
