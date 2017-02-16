@@ -81,11 +81,20 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
+  {{ content.field_location_state }}
+  {{ content.field_location_area }}
 
   {{ title_prefix }}
   {% if not page %}
+
+    {% if content.field_location_state|render|trim %}
+      {% set title_url =  node.field_location_temp_url.0.url ? node.field_location_temp_url.0.url : url %}
+    {% else %}
+      {% set title_url = url %}
+    {% endif %}
+
     <h2{{ title_attributes }}>
-      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
     </h2>
   {% endif %}
   {{ title_suffix }}
@@ -101,7 +110,7 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+    {{ content|without('field_location_area', 'field_location_state') }}
   </div>
 
 </article>
