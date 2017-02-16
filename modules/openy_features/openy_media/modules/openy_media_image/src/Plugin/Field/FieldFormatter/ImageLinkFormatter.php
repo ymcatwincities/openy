@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_media\Plugin\Field\FieldFormatter;
+namespace Drupal\openy_media_image\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -82,12 +82,13 @@ class ImageLinkFormatter extends ImageFormatterBase implements ContainerFactoryP
       return $elements;
     }
     $url = NULL;
+    $title = $items->getEntity()->get('name')->value;
 
     foreach ($files as $delta => $file) {
       $image_uri = $file->getFileUri();
       $url = Url::fromUri(file_create_url($image_uri));
       $elements[$delta] = [
-        '#title' => $file->getFilename(),
+        '#title' => $title,
         '#type' => 'link',
         '#url' => $url,
         '#attributes' => ['target' => '_blank'],

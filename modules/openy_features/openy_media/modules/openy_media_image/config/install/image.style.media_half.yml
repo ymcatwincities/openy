@@ -1,8 +1,8 @@
 langcode: en
 status: true
 dependencies: {  }
-name: half
-label: Half
+name: media_half
+label: Media Half
 effects:
   dcfb6c34-88c2-4cdd-9c6b-50c6e5c17a94:
     uuid: dcfb6c34-88c2-4cdd-9c6b-50c6e5c17a94
