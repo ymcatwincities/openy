@@ -9,11 +9,13 @@
       <div>{{ result.membership }}</div>
       {% if result.price %}
         <div class="price">
-          <div class="col-md-6 col-sm-12">
-            <h4>{{ 'Membership price:'|t }}</h4>
-            <h2>${{ result.price.monthly_rate }}/{{ 'month'|t }}</h2>
-            <div>+ ${{ result.price.join_fee }} {{ 'one time joining fee'|t }}</div>
-          </div>
+          <h4>{{ 'Membership price:'|t }}</h4>
+          <h2>${{ result.price.monthly_rate }}/{{ 'month'|t }}</h2>
+          <div>+ ${{ result.price.join_fee }} {{ 'one time joining fee'|t }}</div>
+        </div>
+      {% else %}
+        <div class="price">
+          {{ 'Unfortunately, selected branch doesn`t provide needed membership type. Please select other membership type or branch.'|t }}
         </div>
       {% endif %}
     </div>

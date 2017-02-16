@@ -175,13 +175,14 @@ class DataWrapper implements OpenyDataServiceInterface {
     }
 
     $storage = $this->entityTypeManager->getStorage('node');
+    $builder = $this->entityTypeManager->getViewBuilder('node');
     $memberships = $storage->loadMultiple($membership_ids);
 
     foreach ($memberships as $membership) {
       $membership_id = $membership->id();
       $types[$membership_id] = [
         'title' => $membership->title->value,
-        'description' => strip_tags($membership->field_mbrshp_description->value),
+        'description' => $builder->view($membership, 'calc_preview'),
       ];
     }
 
@@ -244,9 +245,9 @@ class DataWrapper implements OpenyDataServiceInterface {
     $storage = $this->entityTypeManager->getStorage('node');
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $location = $storage->load($location_id);
-    $result['location'] = $builder->view($location, 'teaser');
+    $result['location'] = $builder->view($location, 'calc_summary');
     $membership = $storage->load($membership_id);
-    $result['membership'] = $builder->view($membership, 'teaser');
+    $result['membership'] = $builder->view($membership, 'calc_summary');
 
     $info = $membership->field_mbrshp_info->referencedEntities();
     foreach ($info as $value) {
