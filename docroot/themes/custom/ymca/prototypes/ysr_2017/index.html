@@ -441,34 +441,6 @@
       </div>
     </div>
 
-    <div class="yfr-ticker">
-      <marquee class="yfr-ticker__marquee clearfix">
-        <div class="item-ticker">
-          <div class="content-ticker">
-            Lucky Winner: <span class="user">kelly n.</span>
-          </div>
-          <div class="time">30 min ago</div>
-        </div>
-
-        <div class="item-ticker">
-          <div class="content-ticker">
-            Lucky Winner: <span class="user">CHrishpoher R.</span>
-          </div>
-          <div class="time">2 hours ago</div>
-        </div>
-
-        <div class="item-ticker">
-          <div class="content-ticker">
-            Lucky Winner: <span class="user">ARchie</span>
-          </div>
-          <div class="time">30 min ago</div>
-        </div>
-      </marquee>
-      <div class="yfr-ticker__btn">
-        <button class="btn-close">close</button>
-      </div>
-    </div>
-
     <!-- Optimize.ly -->
     <script>
       (function(projectId) {
@@ -636,16 +608,6 @@
               .tabCollapse({
                 tabsClass: 'hidden-xs',
                 accordionClass: 'visible-xs compain-accordion'
-              });
-          }
-        };
-
-        Drupal.behaviors.tickerClose = {
-          attach: function (context, settings) {
-            $('.yfr-ticker', context)
-              .once('yfr-ticker')
-              .cookieBar({
-                closeButton : '.btn-close'
               });
           }
         };

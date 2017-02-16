@@ -16,7 +16,15 @@
     transition: margin-right .5s, border-bottom .2s;
 
     @include breakpoint($desktop-small) {
-      @include rem(margin, 0 30px 0 0);
+      @include rem(margin, 0 60px 0 0);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(margin, 0 60px 0 0);
+    }
+
+    @include breakpoint($desktop) {
+      @include rem(margin, 0 80px 0 0);
     }
 
     &:hover {
