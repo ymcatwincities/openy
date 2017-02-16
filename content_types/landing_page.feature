@@ -9,9 +9,9 @@ Feature: Landing page Content type
     Given I am logged in as a user with the "Administrator" role
     When I go to "/node/add/landing"
     And I fill in "Title" with "Basic Landing"
-    And I select "One Column" from "Layout"
-    Then I should see "Header Area"
-    And I should see "Content Area"
-    And I should see "Sidebar Area"
+#    And I select "One Column" from "Layout"
+    Then I should see "Landing Header"
+    And I should see "Body"
+    And I should see "Sidebar Content"
     When I press "Save and publish"
     Then I should see the message "Landing Page Basic Landing has been created."

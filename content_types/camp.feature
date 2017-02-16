@@ -13,7 +13,7 @@ Feature: Camp Content type
 #      | URL | /register |
 #      | Link text | Registration |
     And I fill in the following:
-      | Country        | United States  |
+      | Country        | US             |
       | Street address | Wood road 115  |
       | City           | Seattle        |
       | State          | WA             |
