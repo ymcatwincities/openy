@@ -13,7 +13,7 @@ bundle: branch
 label: 'Branch Coordinates'
 description: 'Enter latitude and longitude of the branch.'
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
