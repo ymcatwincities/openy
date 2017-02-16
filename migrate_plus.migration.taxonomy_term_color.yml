@@ -1,7 +1,7 @@
 langcode: en
 status: true
 dependencies: {  }
-id: ygh_taxonomy_term_color
+id: yghc_taxonomy_term_color
 migration_tags: {  }
 migration_group: ygh_content
 label: 'Create color terms'
