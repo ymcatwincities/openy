@@ -1,0 +1,77 @@
+html {
+  height: 100%;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+.theme-ymca--2017-compain {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: $grey7;
+
+  .viewport {
+    padding-top: 0;
+    background: $white;
+  }
+
+  .content {
+    background: $white;
+  }
+
+  .main--content {
+    @include rem(padding, 0 0 60px 0);
+    @include background-image(linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(244,244,244,0.8) 100%));
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 60px;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 0 70px 0);
+      background-size: 100% 70px;
+    }
+  }
+
+  @include breakpoint($mobile-tablet-portrait-only) {
+    .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .container {
+    transition: padding .3s;
+  }
+
+  .inner-container {
+    @include rem(padding, 0 20px);
+    transition: padding .3s;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 30px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding, 0 50px);
+    }
+
+    @include breakpoint($desktop) {
+      @include rem(padding, 0 100px);
+    }
+  }
+
+  .btn {
+    &.compain-green {
+      background: $green-medium;
+    }
+  }
+
+
+  .page-footer {
+    &.footer-themes-b {
+      .richtext {
+        text-align: left;
+      }
+    }
+  }
+}
