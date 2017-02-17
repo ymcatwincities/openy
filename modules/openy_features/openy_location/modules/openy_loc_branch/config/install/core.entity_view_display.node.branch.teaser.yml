@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
@@ -19,7 +18,6 @@ dependencies:
   module:
     - address
     - link
-    - openy_hours_formatter
     - telephone
     - user
 id: node.branch.teaser
@@ -27,14 +25,6 @@ targetEntityType: node
 bundle: branch
 mode: teaser
 content:
-  field_branch_hours:
-    type: openy_branch_hours_formatter
-    weight: 4
-    label: hidden
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
   field_location_address:
     type: address_plain
     weight: 1
