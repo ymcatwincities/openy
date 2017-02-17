@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Alert
+type: alert
+description: 'Alert content type is used for adding alerts on the site.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

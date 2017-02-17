@@ -1,0 +1,10 @@
+alert:
+  version: VERSION
+  js:
+    js/openy_node_alert.js: {}
+  css:
+    component:
+      css/openy_node_alert.css: {}
+  dependencies:
+    - core/jquery.cookie
+    - core/jquery.once
