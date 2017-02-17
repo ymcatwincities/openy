@@ -1,4 +1,4 @@
-.compain-intro-block {
+.compain-tab-header {
   @include background-image(linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(37,131,127,0.1) 100%));
   @include rem(margin, 0 -20px 30px);
   @include rem(padding, 30px 20px);
@@ -160,11 +160,231 @@
       }
     }
   }
+
+  .btn {
+    display: block;
+
+    @include breakpoint($tablet) {
+      display: inline-block;
+    }
+  }
 }
 
 .content-wrapper--small {
   @include breakpoint($tablet) {
     max-width: 780px;
     margin: 0 auto;
+  }
+}
+
+.compain-progress {
+  @include rem(margin, 0 0 12px 0);
+  position: relative;
+  color:  $green-light;
+  clear: both;
+  overflow: hidden;
+
+  @include breakpoint($tablet) {
+    @include rem(margin, 0 0 30px 0);
+  }
+
+  &--info {
+    @include cachet-bold();
+    @include rem(width, 30px);
+    @include rem(height, 30px);
+    @include rem(font-size, 16px);
+    @include rem(line-height, 28px);
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: $white;
+    text-align: center;
+
+    .text {
+      color: $green-dark;
+    }
+  }
+
+
+  .line {
+    width: 0;
+  }
+
+  &--fill {
+    &-1 {
+      .line {
+        width: calc(100% / 9);
+      }
+    }
+
+    &-2 {
+      .line {
+        width: calc(100% / 9 * 2);
+      }
+    }
+
+    &-3 {
+      .line {
+        width: calc(100% / 9 * 3);
+      }
+    }
+
+    &-4 {
+      .line {
+        width: calc(100% / 9 * 4);
+      }
+    }
+
+    &-5 {
+      .line {
+        width: calc(100% / 9 * 5);
+      }
+    }
+
+    &-6 {
+      .line {
+        width: calc(100% / 9 * 6);
+      }
+    }
+
+    &-7 {
+      .line {
+        width: calc(100% / 9 * 7);
+      }
+    }
+
+    &-8 {
+      .line {
+        width: calc(100% / 9 * 8);
+      }
+    }
+
+    &-9 {
+      .line {
+        width: 100%;
+      }
+    }
+  }
+
+  &--line {
+    @include rem(height, 10px);
+    @include rem(margin, 10px 0);
+    width: 100%;
+    border-radius: 5px;
+    background-color: $white;
+
+    .line {
+      background: currentColor;
+      border-radius: inherit;
+      height: 100%;
+    }
+
+    .point {
+      @include rem(width, 16px);
+      @include rem(height, 16px);
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      background-color: $white;
+      display: none;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      @include breakpoint($tablet) {
+        display: block;
+      }
+
+      &--1 {
+        left: calc(100% / 9);
+      }
+
+      &--2 {
+        left: calc(100% / 9 * 2);
+      }
+
+      &--3 {
+        left: calc(100% / 9 * 3);
+      }
+
+      &--4 {
+        left: calc(100% / 9 * 4);
+      }
+
+      &--5 {
+        left: calc(100% / 9 * 5);
+      }
+
+      &--6 {
+        left: calc(100% / 9 * 6);
+      }
+
+      &--7 {
+        left: calc(100% / 9 * 7);
+      }
+
+      &--8 {
+        left: calc(100% / 9 * 8);
+      }
+    }
+  }
+
+  &--description {
+    @include cachet-normal();
+    @include rem(font-size, 16px);
+    @include rem(line-height, 22px);
+    text-align: center;
+    color: $grey5;
+
+    @include breakpoint($tablet) {
+      @include rem(font-size, 20px);
+      @include rem(line-height, 28px);
+      text-align: left;
+    }
+
+    b {
+      @include cachet-bold();
+      color: $green-dark;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    br {
+      @include breakpoint($tablet) {
+        display: none;
+      }
+    }
+
+    .description-item {
+      + .description-item {
+        @include rem(margin, 18px 0 0 0);
+
+        @include breakpoint($tablet) {
+          margin: 0;
+        }
+      }
+
+      &:not(:last-child) {
+        @include breakpoint($tablet) {
+          @include rem(margin, 0 10px 0 0);
+        }
+
+        @include breakpoint($desktop-small) {
+          @include rem(margin, 0 36px 0 0);
+        }
+
+        @include breakpoint($desktop-small) {
+          @include rem(margin, 0 58px 0 0);
+        }
+      }
+
+      @include breakpoint($tablet) {
+        display: inline-block;
+        vertical-align: top;
+      }
+    }
   }
 }
