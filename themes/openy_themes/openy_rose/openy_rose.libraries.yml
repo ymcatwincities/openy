@@ -57,3 +57,13 @@ blog_slider:
     - slick/slick
     - slick/slick.theme
     - slick/slick.arrow.down
+
+membership:
+  version: VERSION
+  js:
+    scripts/openy_rose_membership.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

@@ -2,7 +2,65 @@
 a[href="#step2"] {
   pointer-events: none;
 }
-.views-element-container .nav-pills {
+
+#membership-calc-wrapper {
+  .h1 {
+    margin-bottom: 30px;
+    padding-bottom: 4px;
+  }
+  .description {
+    margin-bottom: -0.5em;
+  }
+  legend {
+    border: none;
+    color: inherit;
+    font-size: 36px;
+  }
+  .btn {
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 10px;
+  }
+  .text-center {
+    margin-top: 40px;
+  }
+  .form-element-wrapper .btn {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    width: calc(100% - 30px);
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      background-color: #333;
+      height: 1px;
+      position: absolute;
+      bottom: -30px;
+      left:0;
+    }
+  }
+  input[name="type"] {
+    display: none;
+  }
+  .col-sm-6 {
+    margin-bottom: 20px;
+    @include breakpoint($screen-xs $screen-sm) {
+      width: 50%;
+    }
+    .contextual-region {
+      position: static;
+    }
+    .node--view-mode-calc-preview {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+#membership-calc-wrapper .nav-pills {
   display: table;
   width: 100%;
   @include cachet();
@@ -17,13 +75,12 @@ a[href="#step2"] {
     display: table-cell;
     float: none;
     vertical-align: middle;
-
+    width: 34%;
     &:last-child {
       a {
         padding-left: 25px;
       }
     }
-
     a {
       text-decoration: none;
       position: relative;
@@ -66,14 +123,19 @@ a[href="#step2"] {
         left: 100%;
         z-index: 2;
       }
-
       .nav-pills__text {
         position: relative;
         z-index: 3;
       }
     }
-    a[href="#step1"] {
+    a[href="#step1"],
+    a[href="#step2"] {
       width: calc(100% - 15px);
+    }
+    a[href="#step2"] {
+      .nav-pills__text {
+        margin-left: 5px;
+      }
     }
     &.active a,
     &:first-child a{
@@ -88,66 +150,11 @@ a[href="#step2"] {
 
 .views-view-membership {
 
-  .h1 {
-    padding-bottom: 4px;
-  }
-
   .field-body-no-summary {
     font-size: 15px;
     padding-bottom: 110px;
   }
 
-  .btn {
-    line-height: 40px;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px 10px;
-  }
-
-  .text-center {
-    margin-top: 40px;
-  }
-
-  .inner-wrapper .btn {
-    display: block;
-    position: absolute;
-    bottom: 30px;
-    width: calc(100% - 30px);
-
-    &:after {
-      content: "";
-      display: block;
-      width: 100%;
-      background-color: #333;
-      height: 1px;
-      position: absolute;
-      bottom: -30px;
-      left:0;
-    }
-  }
-
-  .description {
-    margin-bottom: -0.5em;
-  }
-
-  .col-sm-6 {
-    margin-bottom: 20px;
-
-    @include breakpoint($screen-xs $screen-sm) {
-      width: 50%;
-    }
-
-    .contextual-region {
-      position: static;
-    }
-
-    .node--view-mode-teaser {
-
-      img {
-        width: 100%;
-      }
-    }
-  }
 }
 
 .view-mode-thumb-262-233 {
