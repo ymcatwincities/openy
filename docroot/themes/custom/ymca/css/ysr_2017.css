@@ -197,7 +197,7 @@ html, body {
     padding: 0 4.8rem 0 7.4rem;
     margin: 0;
     text-align: left;
-    background: #20bdbe;
+    background: #006b6b;
   }
 }
 .compain-top-nav .logo {
@@ -218,7 +218,7 @@ html, body {
     float: left;
     top: 0;
     left: 0;
-    background: #01a490;
+    background: #057777;
   }
 }
 .compain-top-nav .logo img {
@@ -268,7 +268,7 @@ html, body {
   padding: 0 4.4rem;
   height: 50px;
   height: 5rem;
-  background: #20bdbe;
+  background: #006b6b;
   position: absolute;
   left: 0;
   right: 0;
@@ -427,9 +427,6 @@ html, body {
 .compain-tabs > li.compain-tabs--detailed {
   margin: 0;
   float: right;
-}
-.compain-tabs > li.compain-tabs--detailed a {
-  color: #a7a7a7;
 }
 
 .compain-accordion .panel,
@@ -757,8 +754,8 @@ html, body {
   padding: 8px 24px 8px 58px;
   padding: 0.8rem 2.4rem 0.8rem 5.8rem;
   text-transform: uppercase;
-  background: #01a490;
-  color: #fff;
+  background: #ededed;
+  color: #006b6b;
   border-radius: 0;
   display: inline-block;
   vertical-align: top;
