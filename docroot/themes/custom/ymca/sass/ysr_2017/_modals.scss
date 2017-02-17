@@ -1,4 +1,4 @@
-.theme_ymca_2016_fall_retention {
+.theme-ymca--2017-compain {
 
   .modal-dialog {
     @include rem(max-width, 600px);
@@ -10,6 +10,7 @@
       @include translate(-50%, -50%);
     }
   }
+
   .modal-header {
     @include border-radius(6px 6px 0 0);
     @include rem(height, 60px);
@@ -66,7 +67,7 @@
     padding: 0;
   }
 
-  .yfr-modal {
+  .compain-modal {
 
     .row {
       margin-left: -15px;
@@ -284,6 +285,79 @@
   .row {
     + .row {
       @include rem(margin-top, 28px);
+    }
+  }
+}
+
+
+///NEW CODE///
+
+.theme-ymca--2017-compain {
+  &.modal-open {
+    .viewport {
+      width: 100%;
+    }
+  }
+
+  .modal-dialog {
+    @include rem(padding-left, 20px);
+    @include rem(padding-right, 20px);
+    width: 100%;
+  }
+
+  .modal-content {
+    border-radius: 4px;
+  }
+
+  .compain-content-bonus {
+    @include rem(padding, 98px 38px 38px);
+    text-align: center;
+    position: relative;
+
+    &:before {
+      @include rem(width, 38px);
+      @include rem(height, 38px);
+      @include rem(top, 68px);
+      content: '';
+      display: block;
+      position: absolute;
+      left: 50%;
+      background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-hint-modal.svg') 50% 50% no-repeat;
+      background-size: cover;
+      transform: translate(-50%, -50%);
+    }
+
+    p {
+      @include cachet-bold();
+      @include rem(font-size, 18px);
+      @include rem(line-height, 24px);
+      color: $grey5;
+    }
+
+    b {
+      color: $green-dark;
+      text-transform: uppercase;
+    }
+  }
+}
+
+#bonus-modal {
+  .modal-header {
+    display: none;
+  }
+
+  .modal-dialog  {
+    max-width: 478px;
+  }
+
+  .btn {
+    @include rem(margin, 38px 0 0 0);
+    width: 100%;
+
+    @include breakpoint($tablet) {
+      max-width: 118px;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }
