@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - block_content.type.flexible_content
     - block_content.type.simple_block
     - field.storage.paragraph.field_prgf_4c_4th
     - paragraphs.paragraphs_type.4c
@@ -19,9 +20,10 @@ settings:
   handler: 'default:block_content'
   handler_settings:
     target_bundles:
+      flexible_content: flexible_content
       simple_block: simple_block
     sort:
       field: _none
     auto_create: true
-    auto_create_bundle: ''
+    auto_create_bundle: simple_block
 field_type: entity_reference

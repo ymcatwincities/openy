@@ -11,6 +11,8 @@ dependencies:
   - language
   - link
   - openy_block_custom_simple
+  - openy_block_flexible_content
+  - openy_prgf_3c
   - paragraphs
   - text
 version: 8.x-1.0
