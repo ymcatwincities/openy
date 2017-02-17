@@ -1,26 +1,105 @@
 .paragraph--type--all-amenities {
-  .views-element-container {
-    margin: auto 2em;
-    legend {
-      color: $default-grey;
-    }
-    #views-exposed-form-branches-default {
-      margin-bottom: 1em;
-      .webform-options-display-one-column.form-checkboxes {
-        -webkit-columns: 4;
-        -moz-columns: 4;
-        columns: 4;
-      }
-    }
+  .field-field-prgf-amnts-view {
     table {
       width: 100%;
       tr {
-        border-bottom: 1px solid $lighter-grey;
-        padding-right: 1em;
-        padding-top: 0.5em;
+        border: none;
+        padding: 0;
       }
-      tr:last-child {
-        border-bottom: none;
+      td {
+        padding: 7px 10px;
+      }
+      tr:nth-child(odd) {
+        td {
+          background-color: $green;
+        }
+      }
+      tr:nth-child(even) {
+        td {
+          background-color: #1eacad;
+        }
+      }
+    }
+    .views-field-title {
+      font-size: 16px;
+      a {
+        color: $white;
+        @include cachet();
+      }
+    }
+  }
+  .views-field-field-location-amenities {
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin: 1px 5px;
+    }
+  }
+
+  .field-amenities-icon {
+    background-color: $white;
+    border-radius: 32px;
+    padding: 4px;
+    width: 32px;
+    height: 32px;
+    svg {
+      * {
+        fill: $dark-green;
+      }
+    }
+  }
+
+  .views-element-container {
+    margin: 0 15px 40px;
+    legend {
+      color: $default-grey;
+    }
+    form {
+      margin-bottom: 1em;
+      .webform-options-display-one-column.form-checkboxes {
+        -webkit-columns: 2;
+        -moz-columns: 2;
+        columns: 2;
+        @include breakpoint(mobileonly) {
+          -webkit-columns: 1;
+          -moz-columns: 1;
+          columns: 1;
+        }
+        @include breakpoint(tablet) {
+          -webkit-columns: 2;
+          -moz-columns: 2;
+          columns: 2;
+        }
+        @include breakpoint(laptiop) {
+          -webkit-columns: 4;
+          -moz-columns: 4;
+          columns: 4;
+        }
+      }
+      .form-item {
+        .field-amenities-icon {
+          padding: 0;
+          width: 20px;
+          height: 20px;
+          margin: 0 4px;
+          position: relative;
+          top: 3px;
+        }
+        label {
+          vertical-align: middle;
+          div {
+            display: inline-block;
+            svg {
+              * {
+                fill: $blue;
+              }
+            }
+          }
+        }
       }
     }
   }
