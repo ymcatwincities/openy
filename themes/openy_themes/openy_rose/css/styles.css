@@ -3782,35 +3782,35 @@ html.js .branch__updates_queue__button {
   display: none;
 }
 
-.node--view-mode-sidebar.node--type-facility {
+.node--view-mode-full.node--type-facility {
   margin-top: -20px;
 }
-.node--view-mode-sidebar.node--type-facility .label-for-field-address {
+.node--view-mode-full.node--type-facility .label-for-field-location-address {
   display: block;
 }
-.node--view-mode-sidebar .wrapper-field-phone {
+.node--view-mode-full .wrapper-field-location-phone {
   letter-spacing: 2px;
   padding-bottom: 35px;
 }
-.node--view-mode-sidebar .wrapper-field-phone .label-for-field-phone,
-.node--view-mode-sidebar .wrapper-field-phone .field-phone {
+.node--view-mode-full .wrapper-field-location-phone .label-for-field-location-phone,
+.node--view-mode-full .wrapper-field-location-phone .field-location-phone {
   display: inline;
 }
-.node--view-mode-sidebar .label-for-field-address:after,
-.node--view-mode-sidebar .label-for-field-phone:after {
+.node--view-mode-full .label-for-field-location-address:after,
+.node--view-mode-full .label-for-field-location-phone:after {
   content: ":";
 }
-.node--view-mode-sidebar h2 {
+.node--view-mode-full h2 {
   font-size: 22px;
   margin-bottom: 33px;
 }
-.node--view-mode-sidebar .sidebar-card_h3 {
+.node--view-mode-full .sidebar-card_h3 {
   position: absolute;
   margin-bottom: -20px;
   margin-left: 20px;
   margin-top: 18px;
 }
-.node--view-mode-sidebar .field-branch-area {
+.node--view-mode-full .field-location-area {
   display: none;
 }
 
