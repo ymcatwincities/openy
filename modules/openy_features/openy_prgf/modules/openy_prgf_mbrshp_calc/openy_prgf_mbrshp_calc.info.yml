@@ -8,6 +8,7 @@ dependencies:
   - image
   - media_entity
   - node
+  - openy_field_custom_hours
   - openy_hours_formatter
   - openy_loc_branch
   - openy_media_image
