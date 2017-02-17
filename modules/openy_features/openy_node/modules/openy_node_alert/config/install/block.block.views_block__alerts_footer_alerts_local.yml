@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.alerts
+  module:
+    - views
+  theme:
+    - openy_rose
+id: views_block__alerts_footer_alerts_local
+theme: openy_rose
+region: pre_footer
+weight: 0
+provider: null
+plugin: 'views_block:alerts-footer_alerts_local'
+settings:
+  id: 'views_block:alerts-footer_alerts_local'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility: {  }
