@@ -51,8 +51,10 @@ function openy_ckeditor_tokens($type, $tokens, array $data, array $options, Bubb
           if (empty($node = \Drupal::routeMatch()->getParameter('node'))) {
             return $replacements;
           }
-          if (empty($amenities_values = $node->field_location_amenities->getValue())) {
-            return $replacements;
+          if ($node->hasField('field_location_amenities')) {
+            if (empty($amenities_values = $node->field_location_amenities->getValue())) {
+              return $replacements;
+            }
           }
           $amenities_ids = [];
           foreach ($amenities_values as $id) {
@@ -65,7 +67,7 @@ function openy_ckeditor_tokens($type, $tokens, array $data, array $options, Bubb
           foreach ($amenities as $amenity) {
             $amenities_view[] = \Drupal::service('entity.manager')
               ->getViewBuilder('taxonomy_term')
-              ->view($amenity);
+              ->view($amenity, 'default');
           }
           $render_array = [
             '#theme' => 'list_branch_amenities',
