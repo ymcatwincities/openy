@@ -1,0 +1,8 @@
+name: OpenY Membership Calculator
+type: module
+description: OpenY membership calculator.
+core: 8.x
+package: OpenY
+dependencies:
+  - openy_map
+  - openy_socrates

@@ -66,31 +66,18 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
    * {@inheritdoc}
    */
   public function getLocationPins() {
-    $branch_pins = $this->socrates->getPins('branch', t('YMCA'), 'blue');
-    $camp_pins = $this->socrates->getPins('camp', t('Camps'), 'green');
-    // TODO: Add icon with new color for facility.
-    $facility_pins = $this->socrates->getPins('facility', t('Facilities'), 'green');
-    $pins = array_merge($branch_pins, $camp_pins, $facility_pins);
+    $branch_pins = $this->socrates->getBranchPins();
+    $camp_pins = $this->socrates->getCampPins();
+    $pins = array_merge($branch_pins, $camp_pins);
     return $pins;
   }
 
   /**
-   * Get pins.
-   *
-   * @param string $type
-   *   Location node type (branch, camp or facility).
-   * @param string $tag
-   *   Pin tag.
-   * @param string $icon_color
-   *   Icon color(see possible options in img directory).
-   *
-   * @return array
-   *   Pins
+   * {@inheritdoc}
    */
-  public function getPins($type, $tag, $icon_color) {
+  public function getCampPins() {
     $location_ids = $this->queryFactory->get('node')
-      ->condition('type', $type)
-      ->condition('status', 1)
+      ->condition('type', 'camp')
       ->execute();
 
     if (!$location_ids) {
@@ -103,13 +90,11 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
 
     $pins = [];
     foreach ($locations as $location) {
-      $view = $builder->view($location, 'teaser');
+      $view = $builder->view($location, 'membership_teaser');
       $coordinates = $location->get('field_location_coordinates')->getValue();
-      if (!$coordinates) {
-        continue;
-      }
-      $tags = [$tag];
-      $icon = file_create_url(drupal_get_path('module', 'location_finder') . "/img/map_icon_$icon_color.png");
+      $tags = [];
+      $tags[] = t('Camps');
+      $icon = file_create_url(drupal_get_path('module', 'location_finder') . '/img/map_icon_green.png');
       $pins[] = [
         'icon' => $icon,
         'tags' => $tags,
@@ -129,7 +114,7 @@ class LocationFinderDataWrapper implements OpenyDataServiceInterface {
   public function addDataServices(array $services) {
     return [
       'getLocationPins',
-      'getPins',
+      'getCampPins',
       // @todo consider to extend Socrates with service_name:method instead of just method or to make methods more longer in names.
     ];
   }
