@@ -7,10 +7,9 @@ Feature: Static Paragraphs
     Given I am logged in as a user with the "Administrator" role
     And I go to "/node/add/landing"
     And I fill in "Title" with "Landing"
-    And I select "One Column" from "Layout"
 
   Scenario: Create Small Banner
-    When I press "Add Small Banner" in the "header_area"
+    When I press "Add Small Banner"
     And I fill in the following:
       |Headline | MY SMALL BANNER |
     And I fill media field "edit-field-prgf-image-target-id" with "media:1"
