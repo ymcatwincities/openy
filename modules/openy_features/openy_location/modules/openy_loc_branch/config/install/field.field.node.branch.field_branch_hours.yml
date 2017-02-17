@@ -14,7 +14,16 @@ label: 'Branch Hours'
 description: ''
 required: false
 translatable: false
-default_value: {  }
+default_value:
+  -
+    hours_label: 'Branch Hours'
+    hours_mon: ''
+    hours_tue: ''
+    hours_wed: ''
+    hours_thu: ''
+    hours_fri: ''
+    hours_sat: ''
+    hours_sun: ''
 default_value_callback: ''
 settings: {  }
 field_type: openy_custom_hours
