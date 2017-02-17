@@ -32,3 +32,14 @@ function ygh_theme_suggestions_input_alter(array &$suggestions, array $variables
     array_push($suggestions, 'input__' . $variables['element']['#attributes']['name']);
   }
 }
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function ygh_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $variables) {
+  if (isset($variables['elements']['#view_mode'])) {
+    array_push($suggestions, 'taxonomy_term__' . $variables['elements']['#view_mode']);
+    array_push($suggestions, 'taxonomy_term__' . $variables['elements']['name']['#bundle'] . '__' . $variables['elements']['#view_mode']);
+
+  }
+}
