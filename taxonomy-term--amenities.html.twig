@@ -26,6 +26,10 @@
  */
 #}
 <div{{ attributes }}>
-  <h4>{{ name }}</h4>
-  {{ content }}
+  {% if view_mode == 'icon' %}
+    <div title="{{ name.0['#context']['value'] }}">{{ content }}</div>
+  {% else %}
+    <h4>{{ name }}</h4>
+    {{ content }}
+  {% endif %}
 </div>
