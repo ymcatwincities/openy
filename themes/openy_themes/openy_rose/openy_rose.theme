@@ -104,3 +104,47 @@ function openy_rose_preprocess_field__node__field_location_directions(&$variable
   // Change link title to Directions.
   $variables['items'][0]['content']['#title'] = t('Directions');
 }
+
+function openy_rose_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
+  $form['openy_rose_footer_logo'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Footer Logo'),
+    '#description' => t("To display a logo in the footer area, upload it here."),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array("png jpg jpeg gif"),
+    ),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('openy_rose_footer_logo'),
+  );
+
+  // Submission handler is not working on theme form
+  // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
+  // Setting the status to saved permanently.
+  $image_custom_index = theme_get_setting('openy_rose_footer_logo');
+  if (isset($image_custom_index)) {
+    $fid = theme_get_setting('openy_rose_footer_logo');
+    if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
+      $file = \Drupal\file\Entity\File::load(reset($fid));
+      if (!$file->isPermanent()) {
+        $file->setPermanent();
+        $file->save();
+        // Sets a Drupal message just for clarity .
+        drupal_set_message(t('Footer Logo saved.'), 'status');
+      }
+    }
+  }
+}
+
+function openy_rose_preprocess_page(&$variables) {
+  $variables = $variables;
+  $fid = theme_get_setting('openy_rose_footer_logo');
+  if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
+    $file = \Drupal\file\Entity\File::load(reset($fid));
+    $variables['footer_logo'] = $file->getFileUri();
+  }
+}
