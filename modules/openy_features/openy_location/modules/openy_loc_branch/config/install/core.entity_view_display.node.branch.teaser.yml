@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
@@ -66,6 +67,7 @@ content:
       format_custom_false: ''
     third_party_settings: {  }
 hidden:
+  field_branch_hours: true
   field_content: true
   field_header_content: true
   field_location_coordinates: true
