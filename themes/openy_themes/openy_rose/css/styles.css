@@ -1,11 +1,11 @@
 @charset "UTF-8";
 body {
   color: #636466;
-  font-family: "Helvetica Neue LT W01_55 Roman", sans-serif;
+  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
 }
 
 h1, .h1, h2, .h2, h3, h4, h5, h6 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 
 h1,
@@ -134,7 +134,7 @@ body {
 }
 .footer .footer__nav nav ul li a {
   color: #fff;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 20px;
   text-transform: uppercase;
   line-height: 22px;
@@ -207,7 +207,7 @@ body {
   max-width: 400px;
 }
 .footer .footer__social form label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #fff;
   font-size: 20px;
   line-height: 25px;
@@ -311,7 +311,7 @@ body {
   }
 }
 .page-head__top-menu a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #fff;
   font-size: 16px;
   font-style: normal;
@@ -330,7 +330,7 @@ body {
   }
 }
 .page-head__main-menu a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #fff;
   font-size: 18px;
   font-weight: 500;
@@ -919,7 +919,7 @@ body {
 }
 
 .btn, .button {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background-image: none;
   border-radius: 0;
   border: none;
@@ -1037,7 +1037,7 @@ body {
   padding: 15px 0;
 }
 .yamlform-submission-guest-pass-form-form label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 18px;
   line-height: 23px;
 }
@@ -1454,7 +1454,7 @@ body {
   }
 }
 .paragraph-gallery .cta-group-wrapper .cta-group .text {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 18px;
   line-height: 22px;
   margin-bottom: 15px;
@@ -1550,7 +1550,7 @@ body {
 }
 .story-card .quote {
   color: #5c2e91;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 30px;
   line-height: 38px;
   letter-spacing: -1px;
@@ -1658,7 +1658,7 @@ body {
   }
 }
 .banner-title {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #fff;
   font-size: 32px;
   line-height: 36px;
@@ -1678,7 +1678,7 @@ body {
   }
 }
 .banner-description {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #fff;
   font-size: 18px;
   font-style: normal;
@@ -1780,7 +1780,7 @@ body {
 }
 
 .description.purple, .paragraph.featured-content .description {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   padding-bottom: 1em;
   font-size: 20px;
   max-width: 840px;
@@ -1814,7 +1814,7 @@ body {
 }
 .paragraph.featured-content .wrapper-field-prgf-clm-description h3 {
   font-size: 20px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .paragraph.featured-content center {
   margin-top: 1em;
@@ -1956,7 +1956,7 @@ body {
 }
 
 .site-alert {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background-color: #00aeef;
   width: 100%;
 }
@@ -2367,7 +2367,7 @@ body {
 .program-header .description {
   font-size: 18px;
   line-height: 27px;
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Verdana, sans-serif;
 }
 @media (min-width: 48em) {
   .program-header .description {
@@ -2586,7 +2586,7 @@ body {
 .sub-category-classes-view .js-form-type-select label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -2598,7 +2598,7 @@ body {
 .sub-category-classes-view .js-form-type-select select {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .sub-category-classes-view .selects-container hr {
   border-color: #636466;
@@ -2653,7 +2653,7 @@ body {
   }
 }
 .sub-category-classes-view .filters-container .reset-wrapper .clear {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background: none;
   border: none;
   color: #0089d0;
@@ -2681,7 +2681,7 @@ body {
   }
 }
 .sub-category-classes-view .filters-wrapper .label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #4f4f4f;
   display: block;
   font-size: 14px;
@@ -2699,7 +2699,7 @@ body {
   display: inline-block;
 }
 .sub-category-classes-view .filters-wrapper .filters .filter {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background: #fff;
   border-radius: 4px;
   color: #00aeef;
@@ -2740,7 +2740,7 @@ body {
   padding: 0;
 }
 .sub-category-classes-view .activity-group h3 {
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Verdana, sans-serif;
   font-size: 30px;
   line-height: 1.6;
   letter-spacing: -0.8px;
@@ -2763,7 +2763,7 @@ body {
   color: #333333;
 }
 .sub-category-classes-view .activity-group .views-field-title {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -2867,13 +2867,13 @@ body {
   }
 }
 .branch-header .desktop .column .field-phone a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .branch-header .desktop .column .ygs-branch-selector {
   margin-top: 22px;
 }
 .branch-header .desktop .column .ygs-branch-selector a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .branch-header .desktop h4 {
   font-size: 16px;
@@ -2885,7 +2885,7 @@ body {
   font-size: 16px;
   line-height: 1.1;
   margin: 0;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 @media (min-width: 48em) and (max-width: 62em) {
   .branch-header .desktop p {
@@ -2900,7 +2900,7 @@ body {
 }
 .branch-header .desktop .today-hours .show-link,
 .branch-header .desktop .today-hours .hide-link {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .branch-header .desktop .today-hours .branch-hours {
   position: absolute;
@@ -2966,7 +2966,7 @@ body {
 .branch-header .mobile p {
   font-size: 16px;
   line-height: 1.1;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   margin: 0 0 5px;
 }
 .branch-header .mobile .ui-tabs {
@@ -3018,13 +3018,13 @@ body {
   font-size: 16px;
   line-height: 1.1;
   margin: 0;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .branch-header .mobile .ui-tabs .ui-tabs-panel a {
   color: #fff;
 }
 .branch-header .mobile .ui-tabs .today-hours {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .branch-header .mobile .ui-tabs .today-hours .today {
   margin-right: 10px;
@@ -3049,7 +3049,7 @@ body {
 }
 .branch-header .mobile #save-location a {
   color: #fff;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 
 .branch__updates_queue {
@@ -3183,7 +3183,7 @@ html.js .branch__updates_queue__button {
 .ygs-branch-sessions-form label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -3223,7 +3223,7 @@ html.js .branch__updates_queue__button {
 .ygs-branch-sessions-form .js-form-type-select select {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .ygs-branch-sessions-form .form-item-when-day {
   display: inline-block;
@@ -3348,7 +3348,7 @@ html.js .branch__updates_queue__button {
   }
 }
 .ygs-branch-sessions-form .filters-main-wrapper .reset-wrapper .clear {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background: none;
   border: none;
   color: #0089d0;
@@ -3376,7 +3376,7 @@ html.js .branch__updates_queue__button {
   }
 }
 .ygs-branch-sessions-form .filters-wrapper .label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #4f4f4f;
   display: block;
   font-size: 14px;
@@ -3394,7 +3394,7 @@ html.js .branch__updates_queue__button {
   display: inline-block;
 }
 .ygs-branch-sessions-form .filters-wrapper .filters .filter {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background: #fff;
   border-radius: 4px;
   color: #00aeef;
@@ -3436,7 +3436,7 @@ html.js .branch__updates_queue__button {
   padding: 0;
 }
 .branch-sessions-group h3 {
-  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Medium", Verdana, sans-serif;
   font-size: 30px;
   line-height: 1.6;
   letter-spacing: -0.8px;
@@ -3498,7 +3498,7 @@ html.js .branch__updates_queue__button {
   color: #333333;
 }
 .branch-sessions-group .group_time {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background: #fff;
   border-bottom: 1px solid #c6168d;
   color: #5c2e91;
@@ -3731,7 +3731,7 @@ html.js .branch__updates_queue__button {
 .node--type-branch.node--view-mode-teaser h2,
 .node--type-camp.node--view-mode-teaser h2 {
   font-size: 22px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   margin: 20px 0 33px;
   font-weight: bold;
 }
@@ -4130,13 +4130,13 @@ html.js .branch__updates_queue__button {
 }
 .blog-more-teaser label {
   display: block;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .blog-more-teaser label[for="edit-combine"] {
   opacity: 0;
 }
 .blog-more-teaser select {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .blog-more-teaser .form-text {
   width: 100%;
@@ -4157,7 +4157,7 @@ html.js .branch__updates_queue__button {
   font-size: 16px;
   font-weight: 600;
   color: #ffffff;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   text-transform: uppercase;
 }
 
@@ -4218,7 +4218,7 @@ html.js .branch__updates_queue__button {
   white-space: normal;
 }
 .class-page-schedule .starting-from {
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Verdana, sans-serif;
   margin-bottom: 15px;
   font-size: 16px;
 }
@@ -4232,14 +4232,14 @@ html.js .branch__updates_queue__button {
   margin-bottom: 15px;
 }
 .class-page-schedule .tier-prices .tier-price {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
 .class-page-schedule .ticket {
   color: #5c2e91;
   margin-top: 10px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
@@ -4247,7 +4247,7 @@ html.js .branch__updates_queue__button {
 .class_price,
 .class_time,
 .class_days {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
@@ -4257,7 +4257,7 @@ html.js .branch__updates_queue__button {
 }
 
 .node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser h3 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -4270,7 +4270,7 @@ html.js .branch__updates_queue__button {
 }
 
 .class-page-other-sessions .session .name {
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Verdana, sans-serif;
 }
 
 .active-net__teasers .active-net__teasers-list,
@@ -4283,7 +4283,7 @@ html.js .branch__updates_queue__button {
 .active-net__teaser,
 .flexreg__teaser {
   border-bottom: 1px solid #eeeeee;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .active-net__teaser td,
 .flexreg__teaser td {
@@ -4291,7 +4291,7 @@ html.js .branch__updates_queue__button {
 }
 .active-net__teaser .name,
 .flexreg__teaser .name {
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Verdana, sans-serif;
 }
 .active-net__teaser .description,
 .flexreg__teaser .description {
@@ -4318,7 +4318,7 @@ html.js .branch__updates_queue__button {
 .flexreg__teaser .register a {
   color: #4f4f4f;
   text-decoration: underline;
-  font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Bold", Verdana, sans-serif;
 }
 
 .table-sessions {
@@ -4364,7 +4364,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-select label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -4376,7 +4376,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-select select {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 #schedules-search-form-wrapper .js-form-type-select.form-item-location {
   padding: 15px 0 25px;
@@ -4415,7 +4415,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-textfield label {
   font-size: 14px;
   line-height: 1.6;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #4f4f4f;
   margin-bottom: 0;
 }
@@ -4427,7 +4427,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .js-form-type-textfield input {
   text-transform: uppercase;
   color: #4f4f4f;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   width: 100%;
 }
 #schedules-search-form-wrapper .js-form-type-textfield .hasDatepicker {
@@ -4488,7 +4488,7 @@ html.js .branch__updates_queue__button {
   }
 }
 #schedules-search-form-wrapper .filters-container .reset-wrapper .clear {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background: none;
   border: none;
   color: #0089d0;
@@ -4516,7 +4516,7 @@ html.js .branch__updates_queue__button {
   }
 }
 #schedules-search-form-wrapper .filters-wrapper .label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #4f4f4f;
   display: block;
   font-size: 14px;
@@ -4534,7 +4534,7 @@ html.js .branch__updates_queue__button {
   display: inline-block;
 }
 #schedules-search-form-wrapper .filters-wrapper .filters .filter {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   background: #fff;
   border-radius: 4px;
   color: #00aeef;
@@ -4587,7 +4587,7 @@ html.js .branch__updates_queue__button {
   font-style: normal;
 }
 #schedules-search-form-wrapper .results .group_time {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #5c2e91;
   font-size: 18px;
   margin-bottom: 10px;
@@ -4703,7 +4703,7 @@ html.js .branch__updates_queue__button {
   display: block;
 }
 #schedules-search-form-wrapper .results .views-row h3 {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 22px;
   line-height: 1;
   color: #0089d0;
@@ -4785,7 +4785,7 @@ html.js .branch__updates_queue__button {
 #schedules-search-form-wrapper .branch-hours-wrapper .card p {
   font-size: 30px;
   line-height: 1.15;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 #schedules-search-form-wrapper .branch-hours-wrapper .col-sm-2 h4 {
   font-size: 14px;
@@ -4888,7 +4888,7 @@ body .branch-popup + .ui-widget-overlay {
   margin-top: -10px;
 }
 .modal-body .fieldset-legend {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 @media (min-width: 48em) {
   .modal-body .fieldset-legend {
@@ -4896,7 +4896,7 @@ body .branch-popup + .ui-widget-overlay {
   }
 }
 .modal-body .button {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   height: 40px;
   float: right;
   padding: 10px 20px;
@@ -4978,7 +4978,7 @@ a[href="#step2"] {
 .views-element-container .nav-pills {
   display: table;
   width: 100%;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   overflow: hidden;
   margin-bottom: 20px;
   font-size: 13px;
@@ -5206,7 +5206,7 @@ a[href="#step2"] {
   list-style: none;
 }
 .camp-menu__item a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   line-height: 50px;
   line-height: 5rem;
   padding: 0 15px;
@@ -5283,7 +5283,7 @@ a[href="#step2"] {
   padding-left: 0;
 }
 .user-login label {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   display: inline-block;
   max-width: 100%;
   margin-bottom: 10px;
@@ -5332,7 +5332,7 @@ a[href="#step2"] {
   list-style: none;
 }
 .openy-page-tabs > ul li {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   display: inline-block;
   font-size: 16px;
   line-height: 17px;
@@ -5350,7 +5350,7 @@ a[href="#step2"] {
   border-right: solid 1px #00aeef;
 }
 .openy-page-tabs > ul li a {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   display: block;
   padding: 9px;
   text-decoration: none;
@@ -5482,7 +5482,7 @@ html.js .flag-waiting .flag-throbber {
 }
 
 .status-message ul, .status-message p {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
   margin: 0 auto;
   padding: 20px;
   color: #fff;
