@@ -172,7 +172,7 @@
     height: initial;
   }
 
-  a {
+  a, span {
     @include cachet-normal();
     @include rem(font-size, 16px);
     @include rem(line-height, 50px);
@@ -197,7 +197,9 @@
   }
 
   .link--register,
-  .link--sign-in {
+  .link--sign-in,
+  .login--user,
+  .link--log-out {
     @include rem(padding, 0 0 0 24px);
     position: relative;
 
@@ -213,6 +215,11 @@
     }
   }
 
+  .login--user,
+  .link--register {
+    float: left;
+  }
+
   .link--register {
     float: left;
 
@@ -220,6 +227,35 @@
       background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-register.svg');
       width: 18px;
       height: 22px;
+      background-size: auto 100%;
+    }
+  }
+
+  .login--user {
+    @include rem(padding, 0 0 0 44px);
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-signedin-user.svg');
+      width: 30px;
+      height: 30px;
+      background-size: cover;
+      opacity: 1;
+    }
+  }
+
+  .link--log-out,
+  .link--sign-in {
+    float: right;
+  }
+
+  .link--log-out {
+    color: $green8;
+    text-transform: initial;
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-logout.svg');
+      width: 20px;
+      height: 16px;
       background-size: auto 100%;
     }
   }
