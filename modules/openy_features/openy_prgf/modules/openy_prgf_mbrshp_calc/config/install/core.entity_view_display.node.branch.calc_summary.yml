@@ -18,7 +18,7 @@ dependencies:
     - node.type.branch
   module:
     - address
-    - openy_hours_formatter
+    - openy_field_custom_hours
     - telephone
     - user
 id: node.branch.calc_summary
@@ -27,12 +27,10 @@ bundle: branch
 mode: calc_summary
 content:
   field_branch_hours:
-    type: openy_branch_hours_formatter
+    type: openy_custom_hours_default
     weight: 2
-    label: above
-    settings:
-      view_mode: default
-      link: false
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
   field_location_address:
     weight: 0
