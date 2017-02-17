@@ -383,10 +383,11 @@ function ymca_retention_update_8020() {
  * Update campaign dates.
  */
 function ymca_retention_update_8021() {
-  $path = 'sites/default/config/staging/';
-  \Drupal::service('config_import.importer')->importConfigs(
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
     [
-      $path . 'ymca_retention.general_settings.yml',
+      'ymca_retention.general_settings',
     ]
   );
 }
