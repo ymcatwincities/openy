@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Config Import (Test).
+ */
+
+/**
+ * Implements hook_config_import_configs_alter().
+ */
+function config_import_test_config_import_configs_alter(array &$configs) {
+  $configs[] = 'core.extension';
+}
