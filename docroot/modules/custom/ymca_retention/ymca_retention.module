@@ -231,6 +231,14 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-register-form-modal',
     ],
+    'ymca_retention_email_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-email-form',
+    ],
+    'ymca_retention_email_form_modal' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-email-form-modal',
+    ],
 
     // Pages templates.
     'page__challenge' => [
