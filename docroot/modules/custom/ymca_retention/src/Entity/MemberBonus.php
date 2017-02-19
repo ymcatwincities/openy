@@ -6,27 +6,27 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 
-use Drupal\ymca_retention\MemberCheckInInterface;
+use Drupal\ymca_retention\MemberBonusInterface;
 
 /**
- * Defines the Member Check-in entity.
+ * Defines the Member Bonus entity.
  *
  * @ingroup ymca_retention
  *
  * @ContentEntityType(
- *   id = "ymca_retention_member_checkin",
- *   label = @Translation("Member Check-in entity"),
+ *   id = "ymca_retention_member_bonus",
+ *   label = @Translation("Member Bonus entity"),
  *   handlers = {
  *     "views_data" = "Drupal\views\EntityViewsData",
  *   },
- *   base_table = "ymca_retention_member_checkin",
+ *   base_table = "ymca_retention_member_bonus",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "id",
  *   },
  * )
  */
-class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface {
+class MemberBonus extends ContentEntityBase implements MemberBonusInterface {
 
   /**
    * {@inheritdoc}
@@ -36,7 +36,7 @@ class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface 
     // Standard field, used as unique if primary index.
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the Member Check-in entity.'))
+      ->setDescription(t('The ID of the Member Bonus entity.'))
       ->setReadOnly(TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
@@ -45,7 +45,7 @@ class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface 
 
     $fields['date'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Date'))
-      ->setDescription(t('The timestamp of the day when check-in was logged.'));
+      ->setDescription(t('The timestamp of the day when bonus was claimed.'));
 
     $fields['member'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Member ID'))
@@ -55,13 +55,14 @@ class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface 
         'default_value' => 0,
       ]);
 
-    $fields['checkin'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Status of check-in for the day.'))
-      ->setDefaultValue(FALSE)
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'boolean',
-        'weight' => -1,
+    $fields[''] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Bonus code'))
+      ->setDescription(t('Claimed bonus code.'))
+      ->setDefaultValue('')
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+        'text_processing' => 0,
       ]);
 
     return $fields;
