@@ -19,4 +19,5 @@ Feature: Branch Content type
       | Longitude      | -122.238717    |
       | Phone          | +1234567890    |
     When I press "Save and publish"
-    Then I should see the message "Branch Branch One has been created."
+    Then I should see "Branch One"
+    And I should see " has been created."

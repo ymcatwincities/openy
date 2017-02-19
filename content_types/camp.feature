@@ -22,4 +22,5 @@ Feature: Camp Content type
       | Longitude      | -123.238717    |
       | Phone          | +1234567890    |
     When I press "Save and publish"
-    Then I should see the message "Camp Camp One has been created."
+    Then I should see "Camp One"
+    And I should see " has been created."
