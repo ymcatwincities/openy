@@ -383,6 +383,14 @@ function ymca_retention_update_8020() {
  * Update campaign dates.
  */
 function ymca_retention_update_8021() {
+  // Create Member bonus entity, update other entities.
+  try {
+    \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+  }
+  catch (EntityStorageException $e) {
+    watchdog_exception('update', $e);
+  }
+
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
