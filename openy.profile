@@ -36,6 +36,7 @@ function openy_install_tasks() {
  *
  * @param null|string $key
  *   Name of the section with demo content.
+ *
  * @return array
  *   Mapping array.
  */
