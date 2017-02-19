@@ -62,6 +62,10 @@
         else if (type === 'login') {
           $('#ymca-retention-user-menu-login-form').appendTo($modal_body);
         }
+        else if (type === 'email') {
+          title = 'Email Addrress Change';
+            $('#ymca-retention-user-email-change-form').appendTo($modal_body);
+        }
 
         // Assign modal title.
         $modal.find('.modal-title').text(Drupal.t(title));
