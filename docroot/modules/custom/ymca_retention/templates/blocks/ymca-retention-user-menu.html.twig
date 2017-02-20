@@ -5,7 +5,11 @@
  */
 #}
 <div class="compain-user-menu">
-  <span class="login--user ng-hide" data-ng-show="retentionC.storage.member">{{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}</span>
+  <span class="login--user ng-hide" data-ng-show="retentionC.storage.member">
+    <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">
+      {{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}
+    </a>
+  </span>
   <a class="link--log-out ng-hide" href="#"
      data-ng-show="retentionC.storage.member"
      data-ng-click="retentionC.storage.memberCookieRemove()">{{ 'Sign Out'|t }}</a>
@@ -21,6 +25,9 @@
     </div>
     <div id="ymca-retention-user-menu-login-form" class="ysr-user-menu__form" data-type="login">
       {{ content.login_form }}
+    </div>
+    <div id="ymca-retention-user-email-change-form" class="ysr-user-menu__form" data-type="email">
+      {{ content.email_form }}
     </div>
     <div id="ymca-retention-user-menu-reg-confirmation-form" class="ysr-user-menu__form" data-type="reg-confirmation">
       {% include '@ymca_retention/blocks/ymca-retention-register-confirmation-modal.html.twig' %}
