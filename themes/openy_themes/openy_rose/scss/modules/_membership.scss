@@ -16,6 +16,20 @@ a[href="#step2"] {
     color: inherit;
     font-size: 36px;
   }
+  .label-for-field-mbrshp-join-fee,
+  .label-for-field-mbrshp-monthly-rate {
+    float: left;
+    margin-right: 0.5em;
+    &:after {
+      content: ":";
+    }
+  }
+  .membership-type label {
+    bottom: 30px;
+    display: block;
+    position: absolute;
+    width: calc(100% - 30px);
+  }
   .btn {
     line-height: 40px;
     font-size: 20px;
@@ -25,11 +39,13 @@ a[href="#step2"] {
   .text-center {
     margin-top: 40px;
   }
+  .fieldset-wrapper > div {
+    @include breakpoint($screen-xs) {
+      //display: flex;
+    }
+  }
   .form-element-wrapper .btn {
     display: block;
-    position: absolute;
-    bottom: 30px;
-    width: calc(100% - 30px);
     &:after {
       content: "";
       display: block;
@@ -45,7 +61,7 @@ a[href="#step2"] {
     display: none;
   }
   .col-sm-6 {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     @include breakpoint($screen-xs $screen-sm) {
       width: 50%;
     }
@@ -53,7 +69,9 @@ a[href="#step2"] {
       position: static;
     }
     .node--view-mode-calc-preview {
+      margin-bottom: 110px;
       img {
+        height: auto;
         width: 100%;
       }
     }
@@ -148,6 +166,10 @@ a[href="#step2"] {
   }
 }
 
+.openy-map-wrapper {
+  margin-bottom: 20px;
+}
+
 .views-view-membership {
 
   .field-body-no-summary {
@@ -166,7 +188,7 @@ a[href="#step2"] {
   flex-wrap: wrap;
 }
 
-.field-membership-info {
+.form-item-location {
   flex-basis: 25%;
   margin-bottom: 5px;
 

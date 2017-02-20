@@ -2,21 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.paragraph.preview
     - field.field.paragraph.membership_info.field_mbrshp_join_fee
     - field.field.paragraph.membership_info.field_mbrshp_link
     - field.field.paragraph.membership_info.field_mbrshp_location
     - field.field.paragraph.membership_info.field_mbrshp_monthly_rate
     - paragraphs.paragraphs_type.membership_info
-  module:
-    - link
-id: paragraph.membership_info.default
+id: paragraph.membership_info.preview
 targetEntityType: paragraph
 bundle: membership_info
-mode: default
+mode: preview
 content:
   field_mbrshp_join_fee:
     weight: 0
-    label: hidden
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -24,27 +23,9 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
-  field_mbrshp_link:
-    weight: 2
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-  field_mbrshp_location:
-    weight: 3
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
   field_mbrshp_monthly_rate:
     weight: 1
-    label: hidden
+    label: inline
     settings:
       thousand_separator: ''
       decimal_separator: .
@@ -54,4 +35,6 @@ content:
     type: number_decimal
 hidden:
   created: true
+  field_mbrshp_link: true
+  field_mbrshp_location: true
   uid: true
