@@ -19,9 +19,10 @@ services:
       - { name: 'event_subscriber' }
   page_manager.variant_route_filter:
     class: Drupal\page_manager\Routing\VariantRouteFilter
-    arguments: ['@entity_type.manager', '@path.current']
+    arguments: ['@entity_type.manager', '@path.current', '@request_stack']
     tags:
-      - { name: route_filter }
+      # Run as late as possible to allow all other filters to run first.
+      - { name: non_lazy_route_filter, priority: -1024 }
       - { name: service_collector, tag: non_lazy_route_enhancer, call: addRouteEnhancer }
   page_manager.route_name_response_subscriber:
     class: Drupal\page_manager\EventSubscriber\RouteNameResponseSubscriber
