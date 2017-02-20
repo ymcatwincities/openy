@@ -16,6 +16,7 @@ dependencies:
   - openy_media_image
   - openy_node
   - openy_txnm_blog_category
+  - openy_txnm_color
   - options
   - paragraphs
   - path
