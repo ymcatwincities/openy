@@ -13,7 +13,7 @@ source:
     -
       id: 1
       title: 'Mood-boosting foods'
-      style: story
+      style: photo
       category: 1
       related: null
       image: 1
@@ -40,7 +40,7 @@ source:
     -
       id: 2
       title: 'Mango-Avocado Salsa'
-      style: story
+      style: photo
       category: 2
       related: null
       image: 2
@@ -75,7 +75,9 @@ source:
     -
       id: 3
       title: 'Cheddar-Cannelini Fondue'
-      style: story
+      style: color
+      bg_color: 4
+      color: 1
       category: 3
       related: 2
       image: 3
@@ -108,7 +110,9 @@ source:
     -
       id: 4
       title: 'Nourish yourself with healthy fats'
-      style: story
+      style: color
+      bg_color: 14
+      color: 3
       category: 2
       related: 1
       image: 4
@@ -136,7 +140,7 @@ source:
     -
       id: 5
       title: 'Grown-up fun in Adult Sports Leagues'
-      style: story
+      style: news
       category: 2
       related: 1
       image: 5
@@ -167,7 +171,9 @@ source:
     -
       id: 6
       title: 'Add a water workout to your routine'
-      style: story
+      style: color
+      bg_color: 8
+      color: 1
       category: 2
       related: 1
       image: 6
@@ -196,7 +202,7 @@ source:
     -
       id: 7
       title: 'Don’t let summer sneak up on your family'
-      style: story
+      style: photo
       category: 2
       related: 1
       image: 7
@@ -221,7 +227,7 @@ source:
     -
       id: 8
       title: 'Why you should give walking a try'
-      style: story
+      style: photo
       category: 2
       related: 1
       image: 8
@@ -248,7 +254,9 @@ source:
     -
       id: 9
       title: 'Start training now for the Y Run'
-      style: story
+      style: color
+      bg_color: 13
+      color: 1
       category: 2
       related: 1
       image: 9
@@ -325,6 +333,16 @@ process:
     -
       plugin: get
       source: style
+  field_blog_color:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_color
+      source: bg_color
+  field_blog_text_color:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_color
+      source: color
   field_blog_description/value:
     -
       plugin: get
