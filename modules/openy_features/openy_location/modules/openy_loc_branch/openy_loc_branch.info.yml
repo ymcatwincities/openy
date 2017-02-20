@@ -15,6 +15,7 @@ dependencies:
   - openy_location
   - openy_node
   - openy_node_mbrshp
+  - openy_prgf
   - options
   - paragraphs
   - path
