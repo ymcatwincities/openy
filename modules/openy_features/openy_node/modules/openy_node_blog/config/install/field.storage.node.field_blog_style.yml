@@ -20,11 +20,8 @@ settings:
       value: news
       label: 'News Card'
     -
-      value: fuchsia
-      label: 'Fuchsia Card (default)'
-    -
-      value: green
-      label: 'Green Card'
+      value: color
+      label: 'Color Card'
   allowed_values_function: ''
 module: options
 locked: false
