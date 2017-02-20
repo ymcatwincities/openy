@@ -14,8 +14,9 @@ use \Drupal\file\Entity\File;
  * Implements hook_preprocess_node().
  *
  * @param array $variables
+ *   Variables array.
  */
-function openy_rose_preprocess_node(&$variables) {
+function openy_rose_preprocess_node(array &$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['node']->bundle())) {
     $function = __FUNCTION__ . '_' . $variables['node']->bundle();
     $function($variables);
@@ -26,8 +27,9 @@ function openy_rose_preprocess_node(&$variables) {
  * Implement hook_preprocess_paragraph().
  *
  * @param array $variables
+ *   Variables array.
  */
-function openy_rose_preprocess_paragraph(&$variables) {
+function openy_rose_preprocess_paragraph(array &$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['paragraph']->bundle())) {
     $function = __FUNCTION__ . '_' . $variables['paragraph']->bundle();
     $function($variables);
@@ -107,8 +109,9 @@ function openy_rose_preprocess_input(array &$variables) {
  * Implements hook_preprocess_field().
  *
  * @param array $variables
+ *   Variables array.
  */
-function openy_rose_preprocess_field__node__field_location_directions(&$variables) {
+function openy_rose_preprocess_field__node__field_location_directions(array &$variables) {
   // Change link title to Directions.
   $variables['items'][0]['content']['#title'] = t('Directions');
 }
@@ -117,10 +120,13 @@ function openy_rose_preprocess_field__node__field_location_directions(&$variable
  * Implements hook_form_system_theme_settings_alter().
  *
  * @param array $form
+ *   Form array.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state object.
  * @param string|null $form_id
+ *   Form ID string.
  */
-function openy_rose_form_system_theme_settings_alter(&$form, FormStateInterface &$form_state, $form_id = NULL) {
+function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
@@ -158,8 +164,9 @@ function openy_rose_form_system_theme_settings_alter(&$form, FormStateInterface 
  * Implements template_preprocess_page().
  *
  * @param array $variables
+ *   Variables array.
  */
-function openy_rose_preprocess_page(&$variables) {
+function openy_rose_preprocess_page(array &$variables) {
   $fid = theme_get_setting('openy_rose_footer_logo');
   if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
     $file = File::load(reset($fid));
