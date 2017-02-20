@@ -7,9 +7,13 @@
 
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
+use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\file\Entity\File;
 
 /**
  * Implements hook_preprocess_node().
+ *
+ * @param $variables
  */
 function openy_rose_preprocess_node(&$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['node']->bundle())) {
@@ -20,6 +24,8 @@ function openy_rose_preprocess_node(&$variables) {
 
 /**
  * Implement hook_preprocess_paragraph().
+ *
+ * @param $variables
  */
 function openy_rose_preprocess_paragraph(&$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['paragraph']->bundle())) {
@@ -99,24 +105,33 @@ function openy_rose_preprocess_input(array &$variables) {
 
 /**
  * Implements hook_preprocess_field().
+ *
+ * @param $variables
  */
 function openy_rose_preprocess_field__node__field_location_directions(&$variables) {
   // Change link title to Directions.
   $variables['items'][0]['content']['#title'] = t('Directions');
 }
 
-function openy_rose_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface &$form_state, $form_id = NULL) {
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param null $form_id
+ */
+function openy_rose_form_system_theme_settings_alter(&$form, FormStateInterface &$form_state, $form_id = NULL) {
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
   }
 
-  $form['openy_rose_footer_logo'] = array(
+  $form['logo']['openy_rose_footer_logo'] = array(
     '#type' => 'managed_file',
     '#title' => t('Footer Logo'),
     '#description' => t("To display a logo in the footer area, upload it here."),
     '#upload_validators' => array(
-      'file_validate_extensions' => array("png jpg jpeg gif"),
+      'file_validate_extensions' => array("png jpg jpeg gif svg"),
     ),
     '#upload_location' => 'public://',
     '#default_value' => theme_get_setting('openy_rose_footer_logo'),
@@ -129,22 +144,25 @@ function openy_rose_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\F
   if (isset($image_custom_index)) {
     $fid = theme_get_setting('openy_rose_footer_logo');
     if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
-      $file = \Drupal\file\Entity\File::load(reset($fid));
+      $file = File::load(reset($fid));
       if (!$file->isPermanent()) {
+        // Set logo permanent flag and save.
         $file->setPermanent();
         $file->save();
-        // Sets a Drupal message just for clarity .
-        drupal_set_message(t('Footer Logo saved.'), 'status');
       }
     }
   }
 }
 
+/**
+ * Implements template_preprocess_page().
+ *
+ * @param $variables
+ */
 function openy_rose_preprocess_page(&$variables) {
-  $variables = $variables;
   $fid = theme_get_setting('openy_rose_footer_logo');
   if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
-    $file = \Drupal\file\Entity\File::load(reset($fid));
+    $file = File::load(reset($fid));
     $variables['footer_logo'] = $file->getFileUri();
   }
 }
