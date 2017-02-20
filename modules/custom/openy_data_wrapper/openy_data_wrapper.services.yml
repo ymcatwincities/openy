@@ -12,4 +12,4 @@ services:
       - '@cache.data'
       - '@logger.channel.openy_data_wrapper'
     tags:
-      - { name: "openy_data_service", priority: 1000 }
+      - { name: "openy_data_service", priority: 110 }

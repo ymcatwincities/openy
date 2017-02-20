@@ -19,7 +19,7 @@ dependencies:
   module:
     - address
     - link
-    - openy_hours_formatter
+    - openy_field_custom_hours
     - telephone
     - user
 id: node.branch.teaser
@@ -28,12 +28,10 @@ bundle: branch
 mode: teaser
 content:
   field_branch_hours:
-    type: openy_branch_hours_formatter
-    weight: 4
+    type: openy_custom_hours_default
+    weight: 5
     label: hidden
-    settings:
-      view_mode: default
-      link: false
+    settings: {  }
     third_party_settings: {  }
   field_location_address:
     type: address_plain
@@ -68,7 +66,7 @@ content:
     third_party_settings: {  }
   field_location_state:
     type: boolean
-    weight: 5
+    weight: 4
     label: hidden
     settings:
       format: custom

@@ -28,16 +28,14 @@ bundle: branch
 mode: full
 content:
   field_branch_hours:
-    type: openy_hours_formatter
-    weight: 2
+    type: openy_today_custom_hours
+    weight: 4
     label: hidden
-    settings:
-      view_mode: default
-      link: false
+    settings: {  }
     third_party_settings: {  }
   field_content:
     type: entity_reference_revisions_entity_view
-    weight: 3
+    weight: 2
     label: hidden
     settings:
       view_mode: default
@@ -45,7 +43,7 @@ content:
     third_party_settings: {  }
   field_header_content:
     type: entity_reference_revisions_entity_view
-    weight: 4
+    weight: 3
     label: hidden
     settings:
       view_mode: default
