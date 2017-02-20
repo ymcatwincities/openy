@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.paragraph.preview
+    - core.entity_view_mode.paragraph.calc_preview
     - field.field.paragraph.membership_info.field_mbrshp_join_fee
     - field.field.paragraph.membership_info.field_mbrshp_link
     - field.field.paragraph.membership_info.field_mbrshp_location
     - field.field.paragraph.membership_info.field_mbrshp_monthly_rate
     - paragraphs.paragraphs_type.membership_info
-id: paragraph.membership_info.preview
+id: paragraph.membership_info.calc_preview
 targetEntityType: paragraph
 bundle: membership_info
-mode: preview
+mode: calc_preview
 content:
   field_mbrshp_join_fee:
     weight: 0

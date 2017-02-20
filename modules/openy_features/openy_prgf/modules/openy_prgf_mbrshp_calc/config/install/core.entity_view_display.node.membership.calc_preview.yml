@@ -36,7 +36,7 @@ content:
     weight: 3
     label: hidden
     settings:
-      view_mode: preview
+      view_mode: calc_preview
       link: ''
     third_party_settings: {  }
   links:
