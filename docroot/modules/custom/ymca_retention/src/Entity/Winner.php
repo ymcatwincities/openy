@@ -38,13 +38,12 @@ class Winner extends ContentEntityBase implements WinnerInterface {
       ->setDescription(t('The ID of the Winner entity.'))
       ->setReadOnly(TRUE);
 
-    $fields['branch'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Branch ID'))
+    $fields['branch'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Branch'))
       ->setDescription(t('Member branch ID.'))
       ->setSettings([
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
+        'target_type' => 'mapping',
+        'default_value' => 0,
       ]);
 
     $fields['member'] = BaseFieldDefinition::create('entity_reference')
