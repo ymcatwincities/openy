@@ -165,12 +165,14 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     // Blocks templates.
     'ymca_retention_navigation' => [
       'variables' => [
+        'base_path' => base_path(),
         'content' => NULL,
       ],
       'template' => 'blocks/ymca-retention-navigation',
     ],
     'ymca_retention_intro' => [
       'variables' => [
+        'base_path' => base_path(),
         'content' => NULL,
       ],
       'template' => 'blocks/ymca-retention-intro',
@@ -254,7 +256,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_html().
  */
 function ymca_retention_preprocess_html(&$variables) {
-  $classes = ['theme_ymca_2016_fall_retention'];
+  $classes = ['theme-ymca--2017-compain'];
   $current_route_name = \Drupal::service('current_route_match')->getRouteName();
 
   if (empty($variables['attributes'])) {
