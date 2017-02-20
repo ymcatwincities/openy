@@ -44,3 +44,33 @@
 .button {
   @extend .btn;
 }
+
+// Embedded items.
+.embedded-entity {
+  display: block;
+  margin-bottom: 10px;
+  max-width: 100%;
+  &.align-center {
+    text-align: center;
+  }
+  &.align-left {
+    @include breakpoint(0 $screen-xs) {
+      float: none;
+      text-align: center;
+    }
+    @include breakpoint($screen-xs) {
+      float: left;
+      margin-right: 20px;
+    }
+  }
+  &.align-right {
+    @include breakpoint(0 $screen-xs) {
+      float: none;
+      text-align: center;
+    }
+    @include breakpoint($screen-xs) {
+      float: right;
+      margin-left: 20px;
+    }
+  }
+}

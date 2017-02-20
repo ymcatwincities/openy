@@ -62,6 +62,39 @@ p {
   display: none !important;
 }
 
+.embedded-entity {
+  display: block;
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+.embedded-entity.align-center {
+  text-align: center;
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .embedded-entity.align-left {
+    float: none;
+    text-align: center;
+  }
+}
+@media (min-width: 30em) {
+  .embedded-entity.align-left {
+    float: left;
+    margin-right: 20px;
+  }
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .embedded-entity.align-right {
+    float: none;
+    text-align: center;
+  }
+}
+@media (min-width: 30em) {
+  .embedded-entity.align-right {
+    float: right;
+    margin-left: 20px;
+  }
+}
+
 body {
   padding-top: 70px !important;
 }
@@ -4960,9 +4993,6 @@ body .branch-popup + .ui-widget-overlay {
   top: 166px;
 }
 
-.embedded-entity {
-  display: inline;
-}
 .embedded-entity .media-image.view-mode-link {
   display: inline;
 }
