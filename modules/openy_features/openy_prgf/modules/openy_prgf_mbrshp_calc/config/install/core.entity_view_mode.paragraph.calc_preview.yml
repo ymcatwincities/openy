@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.preview
-label: Preview
+id: paragraph.calc_preview
+label: 'Calculator Preview'
 targetEntityType: paragraph
 cache: true
