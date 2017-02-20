@@ -4,20 +4,18 @@ ymca-retention:
   template: templates/layouts/ymca-retention
   class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetention'
   regions:
-    navigation:
-      label: Navigation
-    hero:
-      label: Hero section
+    header:
+      label: Header
     main:
       label: Main section
-    tab_about:
-      label: About tab
-    tab_track:
-      label: Track tab
-    tab_progress:
-      label: Progress tab
-    tab_instant_win:
-      label: Instant win tab
-    tab_rules_prizes:
-      label: Rules and Prizes tab
+    tab_1:
+      label: Tab 1
+    tab_2:
+      label: Tab 2
+    tab_3:
+      label: Tab 3
+    tab_4:
+      label: Tab 4
+    tab_5:
+      label: Tab 5
   library: ymca_retention/angular-app
