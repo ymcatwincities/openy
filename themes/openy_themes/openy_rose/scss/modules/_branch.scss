@@ -913,23 +913,23 @@ html.js {
   }
 }
 
-.node--view-mode-sidebar {
+.node--view-mode-full {
   &.node--type-facility {
     margin-top: -20px;
-    .label-for-field-address {
+    .label-for-field-location-address {
       display: block;
     }
   }
-  .wrapper-field-phone {
+  .wrapper-field-location-phone {
     letter-spacing: 2px;
     padding-bottom: 35px;
-    .label-for-field-phone,
-    .field-phone {
+    .label-for-field-location-phone,
+    .field-location-phone {
       display: inline;
     }
   }
-  .label-for-field-address:after,
-  .label-for-field-phone:after {
+  .label-for-field-location-address:after,
+  .label-for-field-location-phone:after {
     content: ":";
   }
   h2 {
@@ -942,7 +942,7 @@ html.js {
     margin-left: 20px;
     margin-top: 18px;
   }
-  .field-branch-area {
+  .field-location-area {
     display: none;
   }
 }
