@@ -61,7 +61,7 @@
 <div id="top"></div>
 <div class="viewport">
   <div id="main" role="main">
-    <section class="content">
+    <section class="main--content">
       <div class="container-full-width" style="position: relative;">
         {% block content %}
           {{ page.content }}
@@ -71,22 +71,36 @@
   </div>
 
   <!--googleoff: index-->
-  <footer id="page-footer" class="page-footer footer-themes-b">
-    <div class="container">
-      {% if page.footer %}
-        {{ page.footer }}
-      {% endif %}
-      <div class="col-sm-3 text-center">
-        {% include "@ymca/brand-link.html.twig" %}
-      </div>
-      <nav class="col-sm-6">
-        <nav class="nav-footer row">
-          {{ page.footer_menu }}
-        </nav>
-      </nav>
-      <div class="col-sm-3 social-disclaimer">
-        {{ page.footer_social }}
-        <p id="cw"></p>
+  <footer class="compain-footer clearfix">
+    <div class="inner-container">
+      <div class="compain-footer--content clearfix">
+        <div class="compain-footer--right">
+          <div class="compain-footer--social">
+            <ul class="lists-social">
+              <li class="item-social--facebook"><a href="#">facebook</a></li>
+              <li class="item-social--twitter"><a href="#">twitter</a></li>
+              <li class="item-social--youtube"><a href="#">youtube</a></li>
+              <li class="item-social--flickr"><a href="#">flickr</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="compain-footer--left">
+          <nav class="compain-footer--navigation">
+            <ul class="menu">
+              <li><a href="#">Our Cause</a></li>
+              <li><a href="#">Give</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">News</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+            </ul>
+          </nav>
+          <div class="compain-footer--copyright">
+            <p><strong>&copy; 2017 YMCA Twin Cities</strong></p>
+            <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth <br/> Development, Healthy Living, and Social Responsibility.</p>
+            <p></p>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
