@@ -1,16 +1,16 @@
 Welcome to OpenY Alerts project.
 
 ### About
-This module aims to implement display of alerts block for OpenY site. You can set alert content, choose alert color, place, date.
+This module aims to implement display of alerts block for OpenY site. You can set alert content, choose color, place, and date.
 
 ### QuickStart
-For starting to use the module, enable it. Go to node/add/alert to add new alert and fill all required fields.
+To start using the module, enable it. Go to node/add/alert to add new alert and fill all required fields.
 
 ### Technical information
-Implemented Alert Content Type and Views with blocks to display it.
+Implemented Alert Content Type and Views with blocks to display them.
 
 ### Disclaimer
-Module has hard dependencies with modules:
+Module has hard dependencies with other modules:
   - block
   - content_moderation
   - field
@@ -31,4 +31,3 @@ Module has hard dependencies with modules:
   - text
   - user
   - views
-
