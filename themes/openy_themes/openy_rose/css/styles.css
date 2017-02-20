@@ -1955,6 +1955,10 @@ body {
   }
 }
 
+.paragraph--type--openy-prgf-mbrshp-calc {
+  padding: 20px 0;
+}
+
 .site-alert {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   background-color: #00aeef;
@@ -4987,6 +4991,21 @@ a[href="#step2"] {
   color: inherit;
   font-size: 36px;
 }
+#membership-calc-wrapper .label-for-field-mbrshp-join-fee,
+#membership-calc-wrapper .label-for-field-mbrshp-monthly-rate {
+  float: left;
+  margin-right: 0.5em;
+}
+#membership-calc-wrapper .label-for-field-mbrshp-join-fee:after,
+#membership-calc-wrapper .label-for-field-mbrshp-monthly-rate:after {
+  content: ":";
+}
+#membership-calc-wrapper .membership-type label {
+  bottom: 30px;
+  display: block;
+  position: absolute;
+  width: calc(100% - 30px);
+}
 #membership-calc-wrapper .btn, #membership-calc-wrapper .button {
   line-height: 40px;
   font-size: 20px;
@@ -4998,9 +5017,6 @@ a[href="#step2"] {
 }
 #membership-calc-wrapper .form-element-wrapper .btn, #membership-calc-wrapper .form-element-wrapper .button {
   display: block;
-  position: absolute;
-  bottom: 30px;
-  width: calc(100% - 30px);
 }
 #membership-calc-wrapper .form-element-wrapper .btn:after, #membership-calc-wrapper .form-element-wrapper .button:after {
   content: "";
@@ -5016,7 +5032,7 @@ a[href="#step2"] {
   display: none;
 }
 #membership-calc-wrapper .col-sm-6 {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 @media (min-width: 30em) and (max-width: 48em) {
   #membership-calc-wrapper .col-sm-6 {
@@ -5026,7 +5042,11 @@ a[href="#step2"] {
 #membership-calc-wrapper .col-sm-6 .contextual-region {
   position: static;
 }
+#membership-calc-wrapper .col-sm-6 .node--view-mode-calc-preview {
+  margin-bottom: 110px;
+}
 #membership-calc-wrapper .col-sm-6 .node--view-mode-calc-preview img {
+  height: auto;
   width: 100%;
 }
 
@@ -5116,6 +5136,10 @@ a[href="#step2"] {
   border-left: 30px solid #5c2e91;
 }
 
+.openy-map-wrapper {
+  margin-bottom: 20px;
+}
+
 .views-view-membership .field-body-no-summary {
   font-size: 15px;
   padding-bottom: 110px;
@@ -5130,35 +5154,35 @@ a[href="#step2"] {
   flex-wrap: wrap;
 }
 
-.field-membership-info {
+.form-item-location {
   flex-basis: 25%;
   margin-bottom: 5px;
 }
 @media (min-width: 48em) and (max-width: 62em) {
-  .field-membership-info {
+  .form-item-location {
     flex-basis: 33.33%;
   }
 }
 @media (min-width: 0) and (max-width: 48em) {
-  .field-membership-info {
+  .form-item-location {
     flex-basis: 100%;
   }
 }
-.field-membership-info input {
+.form-item-location input {
   vertical-align: middle;
   display: inline-block;
   margin: 10px;
 }
-.field-membership-info [class^="wrapper-"] > div {
+.form-item-location [class^="wrapper-"] > div {
   display: inline-block;
 }
-.field-membership-info [class^="label-"]:after {
+.form-item-location [class^="label-"]:after {
   content: ":";
 }
-.field-membership-info .field-link {
+.form-item-location .field-link {
   display: none;
 }
-.field-membership-info label {
+.form-item-location label {
   max-width: calc(100% - 40px);
   margin-bottom: 0;
   vertical-align: middle;
