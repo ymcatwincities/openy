@@ -13,7 +13,7 @@ bundle: document
 label: Document
 description: 'This field stores the document file.'
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
