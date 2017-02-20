@@ -22,6 +22,7 @@ dependencies:
   - openy_txnm_color
   - options
   - path
+  - pathauto
   - taxonomy
   - text
   - user

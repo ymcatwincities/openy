@@ -3,18 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_alert_belongs
-    - node.type.activity
     - node.type.alert
-    - node.type.blog
-    - node.type.branch
-    - node.type.camp
-    - node.type.class
-    - node.type.facility
-    - node.type.landing_page
-    - node.type.membership
-    - node.type.program
-    - node.type.program_subcategory
-    - node.type.session
 id: node.alert.field_alert_belongs
 field_name: field_alert_belongs
 entity_type: node
@@ -26,23 +15,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: views
   handler_settings:
-    target_bundles:
-      activity: activity
-      alert: alert
-      blog: blog
-      branch: branch
-      camp: camp
-      class: class
-      facility: facility
-      landing_page: landing_page
-      membership: membership
-      program: program
-      program_subcategory: program_subcategory
-      session: session
-    sort:
-      field: _none
-    auto_create: false
-    auto_create_bundle: activity
+    view:
+      view_name: alert_belongs_reference
+      display_name: entity_reference_1
+      arguments: {  }
 field_type: entity_reference
