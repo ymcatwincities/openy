@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.membership.field_mbrshp_info
     - node.type.membership
   module:
-    - entity_reference_revisions
     - text
     - user
 id: node.membership.calc_preview
@@ -31,16 +30,9 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
-  field_mbrshp_info:
-    type: entity_reference_revisions_entity_view
-    weight: 3
-    label: hidden
-    settings:
-      view_mode: calc_preview
-      link: ''
-    third_party_settings: {  }
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_mbrshp_info: true
