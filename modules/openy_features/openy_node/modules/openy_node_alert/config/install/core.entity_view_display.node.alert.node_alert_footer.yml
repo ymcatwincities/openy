@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.node_alert_footer
     - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_description
@@ -15,10 +16,10 @@ dependencies:
     - options
     - text
     - user
-id: node.alert.default
+id: node.alert.node_alert_footer
 targetEntityType: node
 bundle: alert
-mode: default
+mode: node_alert_footer
 content:
   field_alert_belongs:
     type: entity_reference_label
