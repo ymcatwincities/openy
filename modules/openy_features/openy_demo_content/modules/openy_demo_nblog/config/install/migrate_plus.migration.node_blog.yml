@@ -110,9 +110,7 @@ source:
     -
       id: 4
       title: 'Nourish yourself with healthy fats'
-      style: color
-      bg_color: 14
-      color: 3
+      style: photo
       category: 2
       related: 1
       image: 4
@@ -202,7 +200,9 @@ source:
     -
       id: 7
       title: 'Don’t let summer sneak up on your family'
-      style: photo
+      style: color
+      bg_color: 14
+      color: 1
       category: 2
       related: 1
       image: 7
