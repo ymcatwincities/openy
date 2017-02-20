@@ -4,27 +4,17 @@
  * Display user menu on the page.
  */
 #}
-<div class="ysr-user-menu">
-  <div class="ysr-user-menu__greetings login ng-hide"
-       data-ng-show="retentionC.storage.member">
-    <span>
-      <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">
-        {{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}
-      </a>
-    </span>
-
-  </div>
-  <div class="ysr-user-menu__logout ng-hide"
-       data-ng-show="retentionC.storage.member"
-       data-ng-click="retentionC.storage.memberCookieRemove()">
-    <a href="#">{{ 'Sign Out'|t }}</a>
-  </div>
-  <div class="ysr-user-menu__logout ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
-    <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ 'Register'|t }}</a>
-  </div>
-  <div class="ysr-user-menu__greetings ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
-    <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">{{ 'Sign In'|t }}</a>
-  </div>
+<div class="compain-user-menu">
+  <span class="login--user ng-hide" data-ng-show="retentionC.storage.member">{{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}</span>
+  <a class="link--log-out ng-hide" href="#"
+     data-ng-show="retentionC.storage.member"
+     data-ng-click="retentionC.storage.memberCookieRemove()">{{ 'Sign Out'|t }}</a>
+  <a class="link--register ng-hide" href="#"
+     data-toggle="modal" data-target="#ymca-retention-modal" data-type="register"
+     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Register'|t }}</a>
+  <a class="link--sign-in ng-hide" href="#"
+     data-toggle="modal" data-target="#ymca-retention-modal" data-type="login"
+     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Sign In'|t }}</a>
   <div class="ysr-user-menu__forms" style="display: none;">
     <div id="ymca-retention-user-menu-register-form" class="ysr-user-menu__form" data-type="register">
       {{ content.register_form }}
