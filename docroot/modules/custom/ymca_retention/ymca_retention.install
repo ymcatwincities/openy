@@ -388,8 +388,8 @@ function ymca_retention_update_8021() {
   $config_importer->importConfigs(
     [
       'ymca_retention.general_settings',
-      'page_manager.page.ymca_retention_challenge.yml',
-      'page_manager.page_variant.ymca_retention_challenge.yml',
+      'page_manager.page.ymca_retention_challenge',
+      'page_manager.page_variant.ymca_retention_challenge',
     ]
   );
 }
