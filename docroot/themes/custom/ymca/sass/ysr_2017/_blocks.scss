@@ -114,3 +114,247 @@
     }
   }
 }
+
+.compain-progress--grid {
+  @include breakpoint($tablet) {
+    @include rem(margin-left, -10px);
+    @include rem(margin-right, -10px);
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(margin-left, -20px);
+    @include rem(margin-right, -20px);
+  }
+
+
+  .compain-progress--col {
+    @include rem(margin, 0 0 20px 0);
+
+    @include breakpoint($tablet){
+      @include rem(padding-left, 10px);
+      @include rem(padding-right, 10px);
+      width: calc(100% / 3);
+      float: left;
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding-left, 20px);
+      @include rem(padding-right, 20px);
+      @include rem(margin, 0 0 40px 0);
+    }
+
+    @include breakpoint($desktop) {
+      width: calc(100% / 5);
+    }
+  }
+}
+
+.compain-progress-block {
+  @include cachet-normal();
+  border: 1px solid $grey22;
+  background-position: -9999px -9999px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+
+
+  &--header {
+    @include rem(height, 180px);
+    @include rem(padding, 30px 0 0 0);
+    margin: -1px -1px auto -1px;
+
+    @include breakpoint($tablet) {
+      @include rem(height, 200px);
+    }
+
+    .content {
+      background: none;
+    }
+
+    .day {
+      @include rem(width, 90px);
+      @include rem(height, 90px);
+      @include rem(margin, 0 auto 6px auto);
+      border-radius: 50%;
+      border: 2px solid $grey22;
+      text-align: center;
+      color: $grey4;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+      align-content: center;
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+
+      @include breakpoint($tablet) {
+        @include rem(margin, 0 auto 20px auto);
+      }
+
+      .number-day,
+      .week-day {
+        display: block;
+        width: 100%;
+      }
+
+      .number-day {
+        @include rem(font-size, 40px);
+        @include rem(line-height, 40px);
+      }
+
+      .week-day {
+        @include rem(font-size, 16px);
+        @include rem(line-height, 18px);
+        text-transform: uppercase;
+      }
+    }
+
+    .status {
+      @include rem(font-size, 18px);
+      @include rem(line-height, 22px);
+      text-transform: uppercase;
+      text-align: center;
+      color: $grey4;
+      font-weight: bold;
+    }
+  }
+
+  &--footer {
+    @include rem(height, 120px);
+    @include rem(font-size, 16px);
+    @include rem(line-height, 22px);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    color: $grey23;
+
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+
+    .content {
+      background: none;
+
+      b {
+        color: $green-medium;
+      }
+    }
+
+    .description {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+      color: $grey7;
+      text-transform: initial;
+      font-weight: normal;
+    }
+  }
+
+  &--upcoming {
+
+    .compain-progress-block--header {
+      position: relative;
+
+      .status {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: $green-medium;
+      }
+    }
+  }
+
+  &--missed {
+    .compain-progress-block--header {
+      background-color: $grey21;
+
+      .day {
+        border-color: $green-light;
+        color: $grey7;
+      }
+    }
+
+    &.compain-progress-block--img {
+      .day {
+        border-color: $white;
+        color: $white;
+      }
+
+      .status {
+        color: $white;
+      }
+    }
+
+    .compain-progress-block--footer {
+      .content {
+        color: $grey4;
+      }
+    }
+  }
+
+  &--checked {
+    .compain-progress-block--header {
+      background-color: $grey21;
+
+      .day {
+        border-color: $green-medium;
+        color: $white;
+        background-color: $green-medium;
+      }
+
+      .status {
+        color: $green-medium;
+      }
+    }
+
+    &.compain-progress-block--img {
+      .status {
+        color: $white;
+      }
+    }
+
+    .compain-progress-block--footer {
+      .content {
+        color: $grey4;
+      }
+    }
+  }
+
+  &--img {
+    .compain-progress-block--header {
+      background-position: 50% 0;
+      background-image: inherit;
+      background-repeat: inherit;
+      background-size: cover;
+    }
+  }
+}
