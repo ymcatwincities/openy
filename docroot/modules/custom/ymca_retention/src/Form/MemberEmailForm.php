@@ -59,11 +59,6 @@ class MemberEmailForm extends FormBase {
       ],
     ];
 
-    $form['created_on_mobile'] = [
-      '#type' => 'hidden',
-      '#value' => array_key_exists('mobile', $_GET) && $_GET['mobile'] ? 1 : 0,
-    ];
-
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Confirm'),
@@ -124,40 +119,6 @@ class MemberEmailForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Get retention settings.
-    $settings = \Drupal::config('ymca_retention.general_settings');
-    $open_date = new \DateTime($settings->get('date_registration_open'));
-    $close_date = new \DateTime($settings->get('date_registration_close'));
-    $current_date = new \DateTime();
-
-    // Validate dates.
-    if ($current_date < $open_date) {
-      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y spirit challenge open.', [
-        '%date' => $open_date->format('F j'),
-      ]));
-      return;
-    }
-    if ($current_date > $close_date) {
-      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
-      return;
-    }
-    // Check if id is already registered member.
-    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
-    $query = \Drupal::entityQuery('ymca_retention_member')
-      ->condition('id', $member_id);
-    $result = $query->execute();
-    if (empty($result)) {
-      $form_state->setErrorByName(
-        'form',
-        $this->t('Sorry, we can not locate this member ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
-      return;
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $member_id = AnonymousCookieStorage::get('ymca_retention_member');
     $query = \Drupal::entityQuery('ymca_retention_member')
@@ -166,22 +127,9 @@ class MemberEmailForm extends FormBase {
     if (!empty($result)) {
       $entity = $this->updateEntity($member_id, $form_state);
       drupal_set_message($this->t('Confirmed email address @email.', [
-        '@email' => $this->obfuscateEmail($entity->getEmail()),
+        '@email' => $entity->getEmail(),
       ]));
     }
-  }
-
-  /**
-   * Obfuscate email address.
-   *
-   * @param string $email
-   *   Email address to obfuscate.
-   *
-   * @return string
-   *   Obfuscated email address.
-   */
-  protected function obfuscateEmail($email) {
-    return preg_replace('/(?<=.{2}).(?=.+@)/u', '*', $email);
   }
 
   /**

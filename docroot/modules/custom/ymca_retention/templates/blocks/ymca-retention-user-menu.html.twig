@@ -8,9 +8,8 @@
   <div class="ysr-user-menu__greetings login ng-hide"
        data-ng-show="retentionC.storage.member">
     <span>
-      {{ 'Hi, '|t }}
       <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">
-        {{ '@first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}
+        {{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}
       </a>
     </span>
 

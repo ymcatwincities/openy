@@ -35,7 +35,6 @@ class UserMenu extends BlockBase {
       ->getForm('\Drupal\ymca_retention\Form\MemberRegisterForm', $config);
 
     $config = [
-      'yteam' => 0,
       'theme' => 'ymca_retention_email_form_modal',
       'wrapper' => 'ymca-retention-user-email-change-form form',
     ];
