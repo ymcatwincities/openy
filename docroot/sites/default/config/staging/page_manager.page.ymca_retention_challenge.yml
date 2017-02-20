@@ -4,6 +4,7 @@ status: true
 dependencies: {  }
 id: ymca_retention_challenge
 label: 'YMCA Y Spirit'
+description: null
 use_admin_theme: null
 path: /challenge
 access_logic: and
