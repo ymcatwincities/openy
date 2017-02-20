@@ -135,7 +135,7 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   $form['logo']['openy_rose_footer_logo'] = array(
     '#type' => 'managed_file',
     '#title' => t('Footer Logo'),
-    '#description' => t("To display a logo in the footer area, upload it here."),
+    '#description' => t("To display a logo in the footer area, upload it here.</br>Image size suggested 99 x 75 pixels."),
     '#upload_validators' => array(
       'file_validate_extensions' => array("png jpg jpeg gif svg"),
     ),
