@@ -11,7 +11,7 @@ bundle: branch_hours
 label: 'Start/End Time'
 description: 'e.g. 9am - 5pm, closed.'
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }
