@@ -10,6 +10,7 @@ env:
     - { name: '$databases["amm_source"]["default"]["driver"]', status: true, value: 'mysql' }
     - { name: '$config_directories["staging"]', status: true, value: 'sites/default/config/staging' }
     - { name: '$settings["install_profile"]', status: true, value: 'pp' }
+    - { name: '$config["system.file"]["path"]["temporary"]', status: true, value: '/tmp' }
   modules:
     - { name: 'config_inspector dblog stage_file_proxy', status: true }
   drush_commands:
