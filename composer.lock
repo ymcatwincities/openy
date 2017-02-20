@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "beaa5617bcf80253ffede40adfefade9",
-    "content-hash": "60b2e90e1181b1c6594dfdd5a6566fc0",
+    "hash": "278a46f3584c5456a94de1e4a2e5801d",
+    "content-hash": "336a2541a88d7502293adac66f18df7e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1335,7 +1335,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha3",
-                    "datestamp": "1478516039"
+                    "datestamp": "1487251383"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1530,7 +1530,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-rc1",
-                    "datestamp": "1486242784"
+                    "datestamp": "1487581984"
                 },
                 "patches_applied": {
                     "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
@@ -1766,57 +1766,6 @@
             "homepage": "https://www.drupal.org/project/features",
             "support": {
                 "source": "http://cgit.drupalcode.org/features"
-            }
-        },
-        {
-            "name": "drupal/field_collection",
-            "version": "1.0.0-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/field_collection",
-                "reference": "8.x-1.0-alpha1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/field_collection-8.x-1.0-alpha1.zip",
-                "reference": null,
-                "shasum": "4d529021cf113e3026b3fd88ac2571dc72e70e8d"
-            },
-            "require": {
-                "drupal/core": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0-alpha1",
-                    "datestamp": "1460462939"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "fago",
-                    "homepage": "https://www.drupal.org/user/16747"
-                },
-                {
-                    "name": "jmuzz",
-                    "homepage": "https://www.drupal.org/user/2607886"
-                },
-                {
-                    "name": "larowlan",
-                    "homepage": "https://www.drupal.org/user/395439"
-                }
-            ],
-            "description": "Provides a field collection field, to which any number of fields can be attached.",
-            "homepage": "https://www.drupal.org/project/field_collection",
-            "support": {
-                "source": "http://cgit.drupalcode.org/field_collection"
             }
         },
         {
@@ -2362,7 +2311,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0",
-                    "datestamp": "1469726249"
+                    "datestamp": "1487331784"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2493,6 +2442,10 @@
                 "GPL-2.0"
             ],
             "authors": [
+                {
+                    "name": "Berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
                 {
                     "name": "Xano",
                     "homepage": "https://www.drupal.org/user/62965"
@@ -3203,7 +3156,7 @@
             "time": "2014-11-20 16:49:30"
         },
         {
-            "name": "library/dinbror/blazy",
+            "name": "library-dinbror/blazy",
             "version": "1.8.2",
             "source": {
                 "type": "git",
@@ -3213,7 +3166,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library/enyo/dropzone",
+            "name": "library-enyo/dropzone",
             "version": "4.3.0",
             "source": {
                 "type": "git",
@@ -3223,7 +3176,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library/gdsmith/jquery.easing",
+            "name": "library-gdsmith/jquery.easing",
             "version": "1.4.1",
             "source": {
                 "type": "git",
@@ -3233,7 +3186,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library/jaypan/jquery_colorpicker",
+            "name": "library-jaypan/jquery_colorpicker",
             "version": "1.0.1",
             "source": {
                 "type": "git",
@@ -3243,7 +3196,7 @@
             "type": "drupal-library"
         },
         {
-            "name": "library/kenwheeler/slick",
+            "name": "library-kenwheeler/slick",
             "version": "1.6.0",
             "source": {
                 "type": "git",
@@ -5707,7 +5660,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -5764,16 +5717,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "2ffa7b84d647b8be1788d46b44e438cb3d62056c"
+                "reference": "9f99453e77771e629af8a25eeb0a6c4ed1e19da2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/2ffa7b84d647b8be1788d46b44e438cb3d62056c",
-                "reference": "2ffa7b84d647b8be1788d46b44e438cb3d62056c",
+                "url": "https://api.github.com/repos/symfony/config/zipball/9f99453e77771e629af8a25eeb0a6c4ed1e19da2",
+                "reference": "9f99453e77771e629af8a25eeb0a6c4ed1e19da2",
                 "shasum": ""
             },
             "require": {
@@ -5816,11 +5769,11 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2017-02-06 12:04:21"
+            "time": "2017-02-14 16:27:43"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -5873,7 +5826,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -5929,7 +5882,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.2.3",
+            "version": "v3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",

@@ -13,10 +13,10 @@ bundle: blog
 label: Style
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value:
   -
-    value: fuchsia
+    value: news
 default_value_callback: ''
 settings: {  }
 field_type: list_string
