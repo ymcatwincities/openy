@@ -17,19 +17,7 @@
   <a href="#" class="show-link">{{ 'View all hours'|t }}</a>
   <a href="#" class="hide-link hidden">{{ 'View Less'|t }}</a>
   <div class="branch-hours hidden">
-    <table>
-      <tr>
-        <td colspan="2">
-          <h4>{{ 'Branch hours'|t }}</h4>
-        </td>
-      </tr>
-      {% for key, value in week %}
-        <tr>
-          <td>{{ key }}</td>
-          <td>{{ value }}</td>
-        </tr>
-      {% endfor %}
-    </table>
+    {{ week }}
   </div>
 </div>
 {% endif %}

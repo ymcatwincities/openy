@@ -80,15 +80,23 @@
   node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class,
 ] %}
 
+{% if (node.field_blog_style.value == 'color') %}
+  {% set color = 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value %}
+  {% set bg_color = 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value %}
+{% else %}
+  {% set color = '' %}
+  {% set bg_color = '' %}
+{% endif %}
+
 <article{{ attributes.addClass(classes) }}>
-  <div class="inner-wrapper">
+  <div class="inner-wrapper" style="{{ color }}; {{ bg_color }};">
     {% if ( node.field_blog_style.value == "photo" ) %}
       <div>
     {{ content.field_blog_image }}
   </div>
     {% endif %}
     <div class="blog-heading">
-      <h4>{{ content.field_blog_category.0 }}</h4>
+      <h4 style="{{ color }};">{{ content.field_blog_category.0 }}</h4>
       {% if ( node.field_blog_style.value == "story" ) %}
         <div class="story-card">
           <div class="quote">
@@ -96,7 +104,7 @@
           </div>
         </div>
       {% endif %}
-      <h2>
+      <h2 style="{{ color }};">
         <a href="{{ url }}" rel="bookmark">
           {{ label }}
         </a>
