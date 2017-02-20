@@ -34,7 +34,7 @@ ymca-retention:
   version: VERSION
   css:
     theme:
-      css/yfr.css: {}
+      css/ysr_2017.css: {}
 
 admin-side:
   version: VERSION
