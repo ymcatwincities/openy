@@ -11,8 +11,10 @@ use Drupal\Component\Plugin\Exception\ContextException;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
-use Drupal\Core\Routing\RouteFilterInterface;
+use Symfony\Cmf\Component\Routing\NestedMatcher\RouteFilterInterface;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
@@ -42,105 +44,135 @@ class VariantRouteFilter implements RouteFilterInterface {
   protected $currentPath;
 
   /**
+   * The current request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a new VariantRouteFilter.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\Core\Path\CurrentPathStack $current_path
    *   The current path stack.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The current request stack.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, CurrentPathStack $current_path) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, CurrentPathStack $current_path, RequestStack $request_stack) {
     $this->pageVariantStorage = $entity_type_manager->getStorage('page_variant');
     $this->currentPath = $current_path;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function applies(Route $route) {
-    $parameters = $route->getOption('parameters');
-    return !empty($parameters['page_manager_page_variant']);
+    $this->requestStack = $request_stack;
   }
 
   /**
    * {@inheritdoc}
    *
-   * Invalid page manager routes will be removed. Routes not controlled by page
-   * manager will be moved to the end of the collection. Once a valid page
-   * manager route has been found, all other page manager routes will also be
-   * removed.
+   * Ensures only one page manager route remains in the collection.
    */
   public function filter(RouteCollection $collection, Request $request) {
-    // Only proceed if the collection is non-empty.
-    if (!$collection->count()) {
+    $routes = $collection->all();
+    // Only continue if at least one route has a page manager variant.
+    if (!array_filter($routes, function (Route $route) {
+      return $route->hasDefault('page_manager_page_variant');
+    })) {
       return $collection;
     }
 
-    // Store the unaltered request attributes.
-    $original_attributes = $request->attributes->all();
+    // Sort routes by variant weight.
+    $routes = $this->sortRoutes($routes);
 
-    // First get all routes and sort them by variant weight. Note that routes
-    // without a weight will have an undefined order, they are ignored here.
-    $routes = $collection->all();
-    uasort($routes, [$this, 'routeWeightSort']);
-
-    // Find the first route that is accessible.
-    $accessible_route_name = NULL;
+    $variant_route_name = $this->getVariantRouteName($routes, $request);
     foreach ($routes as $name => $route) {
-      $attributes = $this->getRequestAttributes($route, $name, $request);
-      // Add the enhanced attributes to the request.
-      $request->attributes->add($attributes);
-      if ($page_variant_id = $route->getDefault('page_manager_page_variant')) {
-        if ($this->checkPageVariantAccess($page_variant_id)) {
-          // Access granted, use this route. Do not restore request attributes
-          // but keep those from this route by breaking out.
-          $accessible_route_name = $name;
-          break;
-        }
+      if (!$route->hasDefault('page_manager_page_variant')) {
+        continue;
       }
 
-      // Restore the original request attributes, this must be done in the loop
-      // or the request attributes will not be calculated correctly for the
-      // next route.
-      $request->attributes->replace($original_attributes);
-    }
-
-    // Because the sort order of $routes is unreliable for a route without a
-    // variant weight, rely on the original order of $collection here.
-    foreach ($collection as $name => $route) {
-      if ($route->getDefault('page_manager_page_variant')) {
-        if ($accessible_route_name !== $name) {
-          // Remove all other page manager routes.
-          $collection->remove($name);
-        }
+      // If this page manager route isn't the one selected, remove it.
+      if ($variant_route_name !== $name) {
+        unset($routes[$name]);
       }
-      else {
-        // This is not page manager route, move it to the end of the collection,
-        // those will only be used if there is no accessible variant route.
-        $collection->add($name, $route);
+      // If the selected route is overriding another route, remove the
+      // overridden route.
+      elseif ($overridden_route_name = $route->getDefault('overridden_route_name')) {
+        unset($routes[$overridden_route_name]);
       }
     }
 
-    return $collection;
+    // Create a new route collection by iterating over the sorted routes, using
+    // the overridden_route_name if available.
+    $result_collection = new RouteCollection();
+    foreach ($routes as $name => $route) {
+      $overridden_route_name = $route->getDefault('overridden_route_name') ?: $name;
+      $result_collection->add($overridden_route_name, $route);
+    }
+    return $result_collection;
   }
 
   /**
-   * Sort callback for routes based on the variant weight.
+   * Gets the route name of the first valid variant.
+   *
+   * @param \Symfony\Component\Routing\Route[] $routes
+   *   An array of sorted routes.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   A current request.
+   *
+   * @return string|null
+   *   A route name, or NULL if none are found.
    */
-  protected function routeWeightSort(Route $a, Route $b) {
-    $a_weight = $a->getDefault('page_manager_page_variant_weight');
-    $b_weight = $b->getDefault('page_manager_page_variant_weight');
-    if ($a_weight === $b_weight) {
-      return 0;
-    }
-    elseif ($a_weight === NULL) {
-      return 1;
-    }
-    elseif ($b_weight === NULL) {
-      return -1;
-    }
+  protected function getVariantRouteName(array $routes, Request $request) {
+    // Store the unaltered request attributes.
+    $original_attributes = $request->attributes->all();
+    foreach ($routes as $name => $route) {
+      if (!$page_variant_id = $route->getDefault('page_manager_page_variant')) {
+        continue;
+      }
 
-    return ($a_weight < $b_weight) ? -1 : 1;
+      if ($attributes = $this->getRequestAttributes($route, $name, $request)) {
+        // Use the overridden route name if available.
+        $attributes[RouteObjectInterface::ROUTE_NAME] = $route->getDefault('overridden_route_name') ?: $name;
+        // Add the enhanced attributes to the request.
+        $request->attributes->add($attributes);
+        $this->requestStack->push($request);
+
+        if ($this->checkPageVariantAccess($page_variant_id)) {
+          $this->requestStack->pop();
+          return $name;
+        }
+
+        // Restore the original request attributes, this must be done in the loop
+        // or the request attributes will not be calculated correctly for the
+        // next route.
+        $request->attributes->replace($original_attributes);
+        $this->requestStack->pop();
+      }
+    }
+  }
+
+  /**
+   * Sorts routes based on the variant weight.
+   *
+   * @param \Symfony\Component\Routing\Route[] $unsorted_routes
+   *   An array of unsorted routes.
+   *
+   * @return \Symfony\Component\Routing\Route[]
+   *   An array of sorted routes.
+   */
+  protected function sortRoutes(array $unsorted_routes) {
+    // Create a mapping of route names to their weights.
+    $weights_by_key = array_map(function (Route $route) {
+      return $route->getDefault('page_manager_page_variant_weight') ?: 0;
+    }, $unsorted_routes);
+
+    // Create an array holding the route names to be sorted.
+    $keys = array_keys($unsorted_routes);
+
+    // Sort $keys first by the weights and then by the original order.
+    array_multisort($weights_by_key, array_keys($keys), $keys);
+
+    // Return the routes using the sorted order of $keys.
+    return array_replace(array_combine($keys, $keys), $unsorted_routes);
   }
 
   /**
@@ -181,8 +213,8 @@ class VariantRouteFilter implements RouteFilterInterface {
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The current request.
    *
-   * @return array
-   *   An array of request attributes.
+   * @return array|false
+   *   An array of request attributes or FALSE if any route enhancers fail.
    */
   protected function getRequestAttributes(Route $route, $name, Request $request) {
     // Extract the raw attributes from the current path. This performs the same
@@ -195,7 +227,12 @@ class VariantRouteFilter implements RouteFilterInterface {
     // Run the route enhancers on the raw attributes. This performs the same
     // functionality as \Symfony\Cmf\Component\Routing\DynamicRouter::match().
     foreach ($this->getRouteEnhancers() as $enhancer) {
-      $attributes = $enhancer->enhance($attributes, $request);
+      try {
+        $attributes = $enhancer->enhance($attributes, $request);
+      }
+      catch (\Exception $e) {
+        return FALSE;
+      }
     }
 
     return $attributes;
