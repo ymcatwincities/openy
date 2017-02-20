@@ -11,12 +11,12 @@
       }
       tr:nth-child(odd) {
         td {
-          background-color: $green;
+          background-color: $green-aa;
         }
       }
       tr:nth-child(even) {
         td {
-          background-color: #1eacad;
+          background-color: $dark-green-aa;
         }
       }
     }
@@ -96,11 +96,20 @@
             svg {
               * {
                 fill: $blue;
+                color: $green-aa;
               }
             }
           }
         }
       }
     }
+  }
+}
+
+.list-branch-amenities-wrapper {
+  margin-bottom: 30px;
+  h5 {
+    font-size: 15px;
+    @include helvetica-neue();
   }
 }

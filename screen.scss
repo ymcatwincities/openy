@@ -20,6 +20,8 @@
 @import "./structs/footer";
 @import "./structs/blog_page";
 @import "./structs/pager";
+@import "./structs/administrative_tabs";
+@import "./structs/taxonomyterm";
 @import "./structs/status-messages";
 
 @import "./blocks/block-description";
@@ -37,4 +39,4 @@
 @import "./modules/slick";
 @import "./modules/search";
 @import "./modules/alerts";
-@import "./modules/administrative_tabs";
+
