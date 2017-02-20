@@ -52,15 +52,19 @@
           $modal_body.find('.ysr-user-menu__form').appendTo($('.ysr-user-menu__forms'));
         }
 
-        var title = 'Login';
+        var title = Drupal.t('Login');
 
         // Add requested form to the modal body.
         if (type === 'register') {
-          title = 'Register';
+          title = Drupal.t('Register');
           $('#ymca-retention-user-menu-register-form').appendTo($modal_body);
         }
         else if (type === 'login') {
           $('#ymca-retention-user-menu-login-form').appendTo($modal_body);
+        }
+        else if (type === 'email') {
+          title = Drupal.t('Email Address Change');
+          $('#ymca-retention-user-email-change-form').appendTo($modal_body);
         }
 
         // Assign modal title.
