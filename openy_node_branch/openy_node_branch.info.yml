@@ -13,6 +13,7 @@ dependencies:
   - geolocation
   - language
   - menu_ui
+  - metatag
   - node
   - openy_field_custom_hours
   - openy_gallery

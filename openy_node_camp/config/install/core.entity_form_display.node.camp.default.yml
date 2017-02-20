@@ -9,11 +9,13 @@ dependencies:
     - field.field.node.camp.field_location_email
     - field.field.node.camp.field_location_fax
     - field.field.node.camp.field_location_phone
+    - field.field.node.camp.field_meta
     - node.type.camp
   module:
     - address
     - content_moderation
     - geolocation
+    - metatag
     - paragraphs
     - path
     - telephone
@@ -77,6 +79,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
+  field_meta:
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   langcode:
     type: language_select
     weight: 2
