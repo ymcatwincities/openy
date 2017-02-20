@@ -111,8 +111,8 @@
               </div>
 
               <div class="compain-user-menu">
-                <a class="link--register" href="#">Register</a>
-                <a class="link--sign-in" href="#">Sign In</a>
+                <a class="link--register" data-toggle="modal" data-target="#register-one-modal" href="#">Register</a>
+                <a class="link--sign-in" data-toggle="modal" data-target="#login-modal" href="#">Sign In</a>
               </div>
             </header>
 
@@ -134,10 +134,12 @@
                     <div class="content clearfix">
                       <div class="content-text">
                         <p>Spring! It’s time to regain your energy. We gladly present the new Y challenge to make your upcoming trainings fun and exciting.</p>
+
+                        <p><a class="link--register" data-toggle="modal" data-target="#register-two-modal" href="#">Special links: Register</a></p>
                       </div>
 
                       <div class="compain-btn">
-                        <a href="#" class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#register-modal">Register now</a>
+                        <a href="#" class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#register-now-modal">Register now</a>
                       </div>
                     </div>
                   </div>
@@ -246,6 +248,10 @@
 
                     <div class="content-item">
                       <a class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#bonus-modal" href="#">click to redeem bonus</a>
+                    </div>
+
+                    <div class="content-item">
+                      <a class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#bonus-modal-no-register" href="#">click to redeem bonus</a>
                     </div>
                   </div>
                 </div>
@@ -369,36 +375,18 @@
       </div>
     </div>
 
-    <div id="login-modal" class="modal fade yfr-modal">
+    <div id="bonus-modal-no-register" class="modal fade compain-modal">
       <div class="modal-cover"></div>
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
             <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
-
-            <div class="modal-title">Login</div>
           </div>
           <div class="modal-body">
-            <div class="yfr-login-form">
-              <form action="#">
-                <div class="row">
-                  <div class="col-sm-9">
-                    <input type="email" name="email" class="form-item" placeholder="Your e-mail">
-                  </div>
-                  <div class="col-sm-3 yfr-login-form__submit-wrapper">
-                    <input type="submit" value="ok" class="btn btn-lg btn-primary orange-light-lighter">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6 col-sm-5 remember-me-wrapper">
-                    <input type="checkbox" id="remember-me">
-                    <label for="remember-me">Remember me</label>
-                  </div>
-                  <div class="col-xs-6 col-sm-6">
-                    <a href="#" class="" data-toggle="modal" data-target="#register-modal">Registration</a>
-                  </div>
-                </div>
-              </form>
+            <div class="compain-content-bonus">
+              <p>This info avalable for challengers only, You have to <a href="#">signin</a> or <a href="#">register</a> first.</p>
+
+              <a class="btn btn-lg btn-primary compain-green" data-dismiss="modal" href="#">ok</a>
             </div>
           </div>
         </div>
@@ -436,7 +424,7 @@
       </div>
     </div>
 
-    <div id="register-modal" class="modal fade yfr-modal">
+    <div id="register-now-modal" class="modal fade compain-modal">
       <div class="modal-cover"></div>
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -446,23 +434,24 @@
             <div class="modal-title">Registration</div>
           </div>
           <div class="modal-body">
-            <div class="yfr-register-form">
+            <div class="compain-register-now-form">
               <form action="#">
                 <div class="form-item">
                   <input type="text" name="facility_id" class="form-text error" placeholder="Your facility access ID">
                 </div>
-                <div class="row">
-                  <div class="col-sm-6">
-                    <input type="submit" value="ok" class="btn btn-lg btn-primary orange-light-lighter">
-                  </div>
-                  <div class="col-sm-6 hidden-xs">
-                    <a href="#" class="yfr-facility-access-hint-link" data-toggle="collapse" data-target=".yfr-facility-access-hint-wrapper">Where can I find my Facility Access ID?</a>
-                  </div>
+
+                <div class="form-btn">
+                  <input type="submit" value="ok" class="btn btn-lg btn-primary compain-green">
+                </div>
+
+
+                <div class="compain-link-collapsed hidden-xs">
+                  <a href="#" class="compain-facility-access-hint-link" data-toggle="collapse" data-target=".compain-facility-access-hint-wrapper">Where can I find my Facility Access ID?</a>
                 </div>
               </form>
             </div>
-            <div class="yfr-facility-access-hint-wrapper collapse">
-              <div class="yfr-facility-access-hint">
+            <div class="compain-facility-access-hint-wrapper collapse">
+              <div class="compain-facility-access-hint">
                 <p>
                   Please find your facility access ID below the barcode.
                 </p>
@@ -472,6 +461,102 @@
                   membership cards.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="login-modal" class="modal fade compain-modal">
+      <div class="modal-cover"></div>
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+
+            <div class="modal-title">REgistration</div>
+          </div>
+          <div class="modal-body">
+            <div class="compain-login-form">
+              <form action="#">
+                <div class="form-item">
+                  <input type="email" name="email" class="form-text" placeholder="Your e-mail">
+                </div>
+                <div class="form-btn">
+                  <input type="submit" value="ok" class="btn btn-lg btn-primary compain-green">
+                </div>
+
+
+                <div class="form-item">
+                  <input type="checkbox" id="remember-me">
+                  <label for="remember-me">Remember me</label>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="register-one-modal" class="modal fade compain-modal">
+      <div class="modal-cover"></div>
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+
+            <div class="modal-title">REgistration</div>
+          </div>
+          <div class="modal-body">
+            <div class="compain-register-form">
+              <form action="#">
+                <div class="form-item">
+                  <input type="email" name="email" class="form-text" placeholder="Your e-mail">
+                </div>
+
+                <div class="description">
+                  <p>Please confirm that this is your <b>valid active email</b>. <br/>
+                    We need it to send prize notifications only. </p>
+                </div>
+
+                <div class="form-btn-wrapper">
+                  <input type="submit" value="yes, all fine" class="btn btn-lg btn-primary compain-green pull-left">
+
+                  <a href="#" class="btn btn-lg btn-primary compain-grey pull-right" data-dismiss="modal" aria-hidden="true">no, change</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="register-two-modal" class="modal fade compain-modal">
+      <div class="modal-cover"></div>
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+
+            <div class="modal-title">Login</div>
+          </div>
+          <div class="modal-body">
+            <div class="compain-register-form">
+              <form action="#">
+                <div class="form-item">
+                  <input type="email" name="email" class="form-text" placeholder="Your e-mail">
+                </div>
+
+                <div class="description">
+                  <p>Please provide your <b>valid active email</b>. <br/>
+                    We need it to send prize notifications only.</p>
+                </div>
+
+                <div class="form-btn-wrapper">
+                  <input type="submit" value="ok" class="btn btn-lg btn-primary compain-green">
+                </div>
+              </form>
             </div>
           </div>
         </div>
