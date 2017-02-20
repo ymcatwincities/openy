@@ -19,6 +19,6 @@ function ygh_content_prepare_data(array $ids) {
     'entity' => [
       'target_id' => $ids[0],
       'target_revision_id' => $ids[1],
-    ]
+    ],
   ];
 }
