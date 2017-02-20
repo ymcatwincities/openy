@@ -3,14 +3,14 @@ description: 'Implements simple block with a body.'
 type: module
 core: 8.x
 dependencies:
-  - block_content
-  - content_moderation
-  - content_translation
-  - entity_browser
-  - field
-  - language
-  - link
-  - media_entity
-  - openy_block
-  - text
+  - drupal:block_content
+  - drupal:content_moderation
+  - drupal:content_translation
+  - entity_browser_patched:entity_browser
+  - drupal:field
+  - drupal:language
+  - drupal:link
+  - media_entity:media_entity
+  - openy:openy_block
+  - drupal:text
 version: 8.x-1.1
