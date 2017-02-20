@@ -11,11 +11,13 @@ dependencies:
     - field.field.node.branch.field_location_email
     - field.field.node.branch.field_location_fax
     - field.field.node.branch.field_location_phone
+    - field.field.node.branch.field_meta
     - node.type.branch
   module:
     - address
     - entity_reference_revisions
     - geolocation
+    - metatag
     - openy_field_custom_hours
     - telephone
     - user
@@ -85,6 +87,12 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+  field_meta:
+    weight: 10
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
   links:
     weight: 9
     settings: {  }
