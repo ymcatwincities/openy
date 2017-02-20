@@ -98,3 +98,9 @@
     bottom: -15px;
   }
 }
+
+.content-sidebar-region {
+  @include breakpoint(tablet) {
+    margin-top: 25px;
+  }
+}
