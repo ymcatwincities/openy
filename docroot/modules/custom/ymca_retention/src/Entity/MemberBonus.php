@@ -55,7 +55,7 @@ class MemberBonus extends ContentEntityBase implements MemberBonusInterface {
         'default_value' => 0,
       ]);
 
-    $fields[''] = BaseFieldDefinition::create('string')
+    $fields['bonus_code'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Bonus code'))
       ->setDescription(t('Claimed bonus code.'))
       ->setDefaultValue('')
