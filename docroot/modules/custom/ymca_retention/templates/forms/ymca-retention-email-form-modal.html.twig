@@ -1,0 +1,30 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="yfr-register-form">
+  {% if form.messages is defined %}
+    <div class="row">
+      {{ form.messages }}
+    </div>
+  {% endif %}
+  {% if form.email is defined %}
+    {{ form.email }}
+  {% endif %}
+  <div class="row">
+    <div class="col-sm-6">
+      {{ form.submit }}
+    </div>
+  </div>
+</div>
+{{ form|without('email', 'submit', 'messages') }}
