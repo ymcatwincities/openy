@@ -13,7 +13,7 @@ bundle: color
 label: Color
 description: 'The hex value for the color.'
 required: true
-translatable: false
+translatable: true
 default_value:
   -
     value: {  }
