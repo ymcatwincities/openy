@@ -788,6 +788,237 @@ html, body {
   margin: 0;
 }
 
+@media (min-width: 48em) {
+  .compain-progress--grid {
+    margin-left: -10px;
+    margin-left: -1rem;
+    margin-right: -10px;
+    margin-right: -1rem;
+  }
+}
+@media (min-width: 64em) {
+  .compain-progress--grid {
+    margin-left: -20px;
+    margin-left: -2rem;
+    margin-right: -20px;
+    margin-right: -2rem;
+  }
+}
+.compain-progress--grid .compain-progress--col {
+  margin: 0 0 20px 0;
+  margin: 0 0 2rem 0;
+}
+@media (min-width: 48em) {
+  .compain-progress--grid .compain-progress--col {
+    padding-left: 10px;
+    padding-left: 1rem;
+    padding-right: 10px;
+    padding-right: 1rem;
+    width: calc(100% / 3);
+    float: left;
+  }
+}
+@media (min-width: 64em) {
+  .compain-progress--grid .compain-progress--col {
+    padding-left: 20px;
+    padding-left: 2rem;
+    padding-right: 20px;
+    padding-right: 2rem;
+    margin: 0 0 40px 0;
+    margin: 0 0 4rem 0;
+  }
+}
+@media (min-width: 75em) {
+  .compain-progress--grid .compain-progress--col {
+    width: calc(100% / 5);
+  }
+}
+
+.compain-progress-block {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: normal;
+  border: 1px solid #f4f4f4;
+  background-position: -9999px -9999px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.compain-progress-block--header {
+  height: 180px;
+  height: 18rem;
+  padding: 30px 0 0 0;
+  padding: 3rem 0 0 0;
+  margin: -1px -1px auto -1px;
+}
+@media (min-width: 48em) {
+  .compain-progress-block--header {
+    height: 200px;
+    height: 20rem;
+  }
+}
+.compain-progress-block--header .content {
+  background: none;
+}
+.compain-progress-block--header .day {
+  width: 90px;
+  width: 9rem;
+  height: 90px;
+  height: 9rem;
+  margin: 0 auto 6px auto;
+  margin: 0 auto 0.6rem auto;
+  border-radius: 50%;
+  border: 2px solid #f4f4f4;
+  text-align: center;
+  color: #a7a7a7;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+@media (min-width: 48em) {
+  .compain-progress-block--header .day {
+    margin: 0 auto 20px auto;
+    margin: 0 auto 2rem auto;
+  }
+}
+.compain-progress-block--header .day .number-day,
+.compain-progress-block--header .day .week-day {
+  display: block;
+  width: 100%;
+}
+.compain-progress-block--header .day .number-day {
+  font-size: 40px;
+  font-size: 4rem;
+  line-height: 40px;
+  line-height: 4rem;
+}
+.compain-progress-block--header .day .week-day {
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 18px;
+  line-height: 1.8rem;
+  text-transform: uppercase;
+}
+.compain-progress-block--header .status {
+  font-size: 18px;
+  font-size: 1.8rem;
+  line-height: 22px;
+  line-height: 2.2rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: #a7a7a7;
+  font-weight: bold;
+}
+.compain-progress-block--footer {
+  height: 120px;
+  height: 12rem;
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 22px;
+  line-height: 2.2rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  color: #d2d2d2;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.compain-progress-block--footer p {
+  margin: 0;
+}
+.compain-progress-block--footer .content {
+  background: none;
+}
+.compain-progress-block--footer .content b {
+  color: #01a490;
+}
+.compain-progress-block--footer .description {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: #424242;
+  text-transform: initial;
+  font-weight: normal;
+}
+.compain-progress-block--upcoming .compain-progress-block--header {
+  position: relative;
+}
+.compain-progress-block--upcoming .compain-progress-block--header .status {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: #01a490;
+}
+.compain-progress-block--missed .compain-progress-block--header {
+  background-color: #ededed;
+}
+.compain-progress-block--missed .compain-progress-block--header .day {
+  border-color: #20bdbe;
+  color: #424242;
+}
+.compain-progress-block--missed.compain-progress-block--img .day {
+  border-color: #fff;
+  color: #fff;
+}
+.compain-progress-block--missed.compain-progress-block--img .status {
+  color: #fff;
+}
+.compain-progress-block--missed .compain-progress-block--footer .content {
+  color: #a7a7a7;
+}
+.compain-progress-block--checked .compain-progress-block--header {
+  background-color: #ededed;
+}
+.compain-progress-block--checked .compain-progress-block--header .day {
+  border-color: #01a490;
+  color: #fff;
+  background-color: #01a490;
+}
+.compain-progress-block--checked .compain-progress-block--header .status {
+  color: #01a490;
+}
+.compain-progress-block--checked.compain-progress-block--img .status {
+  color: #fff;
+}
+.compain-progress-block--checked .compain-progress-block--footer .content {
+  color: #a7a7a7;
+}
+.compain-progress-block--img .compain-progress-block--header {
+  background-position: 50% 0;
+  background-image: inherit;
+  background-repeat: inherit;
+  background-size: cover;
+}
+
 .compain-tab-header {
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyNTgzN2YiIHN0b3Atb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
