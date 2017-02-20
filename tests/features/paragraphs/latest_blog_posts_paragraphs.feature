@@ -11,7 +11,7 @@ Feature: Latest Blogs Paragraphs
     And I select "One Column" from "Layout"
     When I press "Add Latest blog posts"
     And I press "Save and publish"
-    Then I should see "Lifestyle changes beyond the first two weeks"
+    Then I should see "Mood-boosting foods"
     And I should see "Start training now for the Y Run"
     And I should see "Why you should give walking a try"
     And I should see "Don’t let summer sneak up on your family"
@@ -47,7 +47,6 @@ Feature: Latest Blogs Paragraphs
       | Latitude       | 46.293433      |
       | Longitude      | -123.238717    |
       | Phone          | +1234567890    |
-
     And I press "Add Latest blog posts (camp)"
     And I press "Save and publish"
 
@@ -60,5 +59,3 @@ Feature: Latest Blogs Paragraphs
     When I press "Save and publish"
     When I go to "/camps/camp-one"
     And I should see "OpenY Blog post"
-    And I am viewing a "sldkf" with the title "sldk"
-
