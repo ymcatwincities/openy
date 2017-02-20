@@ -5,7 +5,6 @@
  * Contains openy_ckeditor.module.
  */
 
-use Drupal\paragraphs\ParagraphInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 
 /**
