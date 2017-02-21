@@ -5,6 +5,7 @@ dependencies:
   - content_moderation
   - field
   - node
+  - openy_node
   - openy_node_testimonial
   - paragraphs
   - user
