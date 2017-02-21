@@ -197,6 +197,14 @@ class CalcBlockForm extends FormBase {
       $form['actions']['submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Complete registration'),
+        '#attributes' => [
+          'class' => [
+            'btn',
+            'btn-default',
+            'blue',
+            'complete-registration',
+          ],
+        ],
       ];
     }
 
