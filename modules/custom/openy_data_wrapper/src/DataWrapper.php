@@ -253,8 +253,10 @@ class DataWrapper implements OpenyDataServiceInterface {
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $location = $storage->load($location_id);
     $result['location'] = $builder->view($location, 'calc_summary');
-    // TODO: Add map for this $location_id.
-    // TODO: Fix map (two maps can't display one one page).
+    $result['location_map'] = [
+      '#type' => 'openy_map',
+      '#element_variables' => $this->getPins('branch', t('YMCA'), 'blue', $location_id),
+    ];
     $membership = $storage->load($membership_id);
     $result['membership'] = $builder->view($membership, 'calc_summary');
 
