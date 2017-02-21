@@ -253,13 +253,25 @@
                     <div class="content-item">
                       <a class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#bonus-modal-no-register" href="#">click to redeem bonus</a>
                     </div>
+
+                    <div class="content-item">
+                      <a class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#bonus-modal-day" href="#">click to redeem bonus</a>
+                    </div>
+
+                    <!-- <div class="compain-alert-bonus">
+                         <a href class="btn btn-timer">Bonus unlocked in <span class="timer">00:37</span></a>
+                         </div> -->
+
+                    <div class="compain-alert-bonus compain-alert-bonus--active">
+                      <a href class="btn btn-bonus">Click here to redeem you bonus</a>
+                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="tab-pane fade" id="progress">
                 <div class="inner-container">
-                  <div class="compain-tab-header clearfix">
+                  <div class="compain-tab-header compain-tab-header--progress clearfix">
                     <div class="compain-progress compain-progress--fill-1">
                       <div class="compain-progress--line">
                         <div class="line"></div>
@@ -281,14 +293,21 @@
                       <div class="description-item">
                         <p>You need <b>6 more visits</b> <br/> to achive your goal.</p>
                       </div>
-
-                      <div class="description-item">
-                        <p><b>+ 3 bonuses</b> earned <br/> from daily tips.</p>
+                    </div>
+                    <div class="compain-progress--label ">
+                      <div class="description-label">
+                        <span class="label">3 tip bonuses</span>
                       </div>
                     </div>
                   </div>
 
                   <div class="compain-progress-container clearfix">
+                    <div class="compain-progress--label">
+                      <div class="description-label">
+                        <span class="label">3 tip bonuses</span>
+                      </div>
+                    </div>
+
                     <div class="compain-progress--grid">
                       <div class="compain-progress--col">
                         <div class="compain-progress-block compain-progress-block--missed">
@@ -304,7 +323,7 @@
                           </div>
                           <div class="compain-progress-block--footer">
                             <div class="content">
-                              <p>Daily tip<br/>unrevealed</p>
+                              <p><span>Read <i>tip #1</i></span></p>
                             </div>
                           </div>
                         </div>
@@ -319,7 +338,7 @@
                                 <span class="week-day">thu</span>
                               </div>
 
-                              <div class="status">Checked in</div>
+                              <div class="status">Visited</div>
                             </div>
                           </div>
                           <div class="compain-progress-block--footer">
@@ -359,7 +378,7 @@
                       </div>
 
                       <div class="compain-progress--col">
-                        <div class="compain-progress-block compain-progress-block--missed">
+                        <div class="compain-progress-block compain-progress-block--missed compain-progress-block--no-bonus compain-progress-block--img" style="background-image: url('./img/_tmp-progress-4.jpg');">
                           <div class="compain-progress-block--header">
                             <div class="content">
                               <div class="day">
@@ -372,7 +391,11 @@
                           </div>
                           <div class="compain-progress-block--footer">
                             <div class="content">
-                              <p>Daily tip<br/>unrevealed</p>
+                              <p>without bonus</p>
+
+                              <div class="description">
+                                <p>“Nutrition for mental clarity”</p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -387,12 +410,12 @@
                                 <span class="week-day">sun</span>
                               </div>
 
-                              <div class="status">Checked in</div>
+                              <div class="status">Visited</div>
                             </div>
                           </div>
                           <div class="compain-progress-block--footer">
                             <div class="content">
-                              <p>Daily tip<br/>unrevealed</p>
+                              <p><span>Read <i>tip #5</i></span></p>
                             </div>
                           </div>
                         </div>
@@ -407,7 +430,7 @@
                                 <span class="week-day">mon</span>
                               </div>
 
-                              <div class="status">Checked in</div>
+                              <div class="status">Visited</div>
                             </div>
                           </div>
                           <div class="compain-progress-block--footer">
@@ -436,7 +459,7 @@
                           </div>
                           <div class="compain-progress-block--footer">
                             <div class="content">
-                              <p>Daily tip<br/>unrevealed</p>
+                              <p><span>Read <i>tip #7</i></span></p>
                             </div>
                           </div>
                         </div>
@@ -766,6 +789,24 @@
       </div>
     </div>
 
+    <div id="bonus-modal-day" class="modal fade compain-modal">
+      <div class="modal-cover"></div>
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+          </div>
+          <div class="modal-body">
+            <div class="compain-content-bonus">
+              <p><b>4 days left</b></p>
+              <p>Not available yet,<br/>the challenge will start soon. </p>
+              <a class="btn btn-lg btn-primary compain-green" data-dismiss="modal" href="#">ok</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="info-modal" class="modal fade yfr-modal">
       <div class="modal-cover"></div>
       <div class="modal-dialog modal-sm">
@@ -847,7 +888,7 @@
           <div class="modal-header">
             <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
 
-            <div class="modal-title">REgistration</div>
+            <div class="modal-title">Sign In</div>
           </div>
           <div class="modal-body">
             <div class="compain-login-form">
