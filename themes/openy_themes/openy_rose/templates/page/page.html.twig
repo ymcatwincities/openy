@@ -152,10 +152,11 @@
     <footer class="footer">
       <div class="container">
         <div class="col-sm-2 col-xs-4 hidden-sm hidden-md">
+          {% set background_image = '' %}
           {% if footer_logo %}
-            {% set background_image = "style='background-image: url(" ~ file_url(footer_logo) ~ ")'" %}
+            {% set background_image = " style='background-image: url(" ~ file_url(footer_logo) ~ ")'" %}
           {% endif %}
-          <a href="{{ base }}" class="footer__brand brand" title="{{ "YMCA"|t }}" {{ background_image|raw }}></a>
+          <a href="{{ base }}" class="footer__brand brand" title="{{ "YMCA"|t }}"{{ background_image|raw }}></a>
         </div>
         <nav class="col-xs-8 col-sm-12 col-md-7 col-lg-6">
           <nav class="footer__nav row">
