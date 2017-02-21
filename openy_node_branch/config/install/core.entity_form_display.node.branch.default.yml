@@ -123,7 +123,7 @@ content:
     third_party_settings: {  }
     type: address_default
   field_location_amenities:
-    weight: 26
+    weight: 12
     settings:
       match_operator: CONTAINS
       size: 60
@@ -155,10 +155,10 @@ content:
     third_party_settings: {  }
     type: telephone_default
   field_meta:
-    weight: 27
+    type: metatag_firehose
+    weight: 13
     settings: {  }
     third_party_settings: {  }
-    type: metatag_firehose
   langcode:
     type: language_select
     weight: 1
