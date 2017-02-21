@@ -51,6 +51,20 @@ class CampMenuService implements CampMenuServiceInterface {
             $camp = reset($value);
           }
         }
+        // Else if a camp links to this landing page use the linking camp.
+        else {
+          // Query
+          $query = \Drupal::entityQuery('node')
+            ->condition('status', 1)
+            ->condition('type', 'camp')
+            ->condition('field_camp_menu_links', 'entity:node/' . $node->id())
+            ->range(0,1);
+          $entity_ids = $query->execute();
+          // If results
+          if (!empty($entity_ids)) {
+            $camp = \Drupal\node\Entity\Node::load(reset($entity_ids));
+          }
+        }
         break;
     }
 
