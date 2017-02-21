@@ -123,7 +123,7 @@ class MemberRegisterForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'orange-light-lighter',
+          'compain-dark-green',
         ],
       ],
       '#ajax' => [
