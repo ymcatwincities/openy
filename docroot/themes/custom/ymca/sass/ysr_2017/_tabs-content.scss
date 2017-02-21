@@ -2,6 +2,7 @@
   @include background-image(linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(37,131,127,0.1) 100%));
   @include rem(margin, 0 -20px 30px);
   @include rem(padding, 30px 20px);
+  position: relative;
 
   @include breakpoint($tablet) {
     @include rem(margin, 0 -30px 60px);
@@ -61,6 +62,62 @@
       @include rem(min-width, 280px);
       max-width: 100%;
       float: right;
+    }
+  }
+
+  .compain-progress--label {
+    display: none;
+
+    @include breakpoint($tablet) {
+      @include rem(bottom, -60px);
+      display: block;
+      position: relative;
+    }
+
+    .description-label {
+      @include breakpoint($tablet) {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: auto;
+        right: 0;
+        @include rem(padding, 14px 20px);
+      }
+    }
+  }
+}
+
+.compain-progress--label {
+  .description-label {
+    @include rem(padding, 0 0 24px 0);
+    background-color: #fff;
+    text-align: center;
+
+    @include breakpoint($tablet) {
+      display: none;
+    }
+
+    .label {
+      @include rem(font-size, 16px);
+      @include rem(line-height, 22px);
+      @include rem(padding, 0 0 0 24px);
+      text-transform: uppercase;
+      display: inline-block;
+      vertical-align: top;
+      color: $green-dark;
+      position: relative;
+
+      &:before {
+        content: '';
+        width: 22px;
+        height: 22px;
+        display: block;
+        background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-hint-modal.svg') 50% 50% no-repeat;
+        background-size: 98% 98%;
+        position: absolute;
+        top: -2px;
+        left: 0;
+      }
     }
   }
 }
@@ -334,6 +391,7 @@
     @include cachet-normal();
     @include rem(font-size, 16px);
     @include rem(line-height, 22px);
+    @include rem(margin, 0 0 30px 0);
     text-align: center;
     color: $grey5;
 
@@ -359,14 +417,6 @@
     }
 
     .description-item {
-      + .description-item {
-        @include rem(margin, 18px 0 0 0);
-
-        @include breakpoint($tablet) {
-          margin: 0;
-        }
-      }
-
       &:not(:last-child) {
         @include breakpoint($tablet) {
           @include rem(margin, 0 10px 0 0);
@@ -423,6 +473,8 @@
 
     @include breakpoint($tablet) {
       @include rem(margin, 42px 0 22px 0);
+      @include rem(font-size, 20px);
+      @include rem(line-height, 30px);
     }
   }
 
@@ -499,9 +551,9 @@
     color: $grey7;
 
     @include breakpoint($tablet) {
-        @include rem(font-size, 40px);
-        @include rem(line-height, 52px);
-        @include rem(margin-bottom, 20px);
+      @include rem(font-size, 40px);
+      @include rem(line-height, 52px);
+      @include rem(margin-bottom, 20px);
     }
   }
 
