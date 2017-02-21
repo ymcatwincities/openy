@@ -264,9 +264,18 @@
 
     .content {
       background: none;
-
       b {
         color: $green-medium;
+      }
+
+      span {
+        font-weight: normal;
+        color: $green-medium;
+      }
+
+      i {
+        font-style: normal;
+        color: $green-dark;
       }
     }
 
@@ -355,6 +364,19 @@
       background-image: inherit;
       background-repeat: inherit;
       background-size: cover;
+    }
+  }
+
+  &--no-bonus {
+    .compain-progress-block--header {
+      .day {
+        border-color: $green-light;
+        color: $grey7;
+      }
+
+      .status {
+        color: $grey4;
+      }
     }
   }
 }
