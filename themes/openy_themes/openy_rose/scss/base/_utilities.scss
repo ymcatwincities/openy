@@ -50,6 +50,15 @@
   display: block;
   margin-bottom: 10px;
   max-width: 100%;
+  .view-mode-embedded-full {
+    width: 100%;
+    &.media-document {
+      iframe {
+        height: 500px;
+        width: 100%;
+      }
+    }
+  }
   &.align-center {
     text-align: center;
   }
