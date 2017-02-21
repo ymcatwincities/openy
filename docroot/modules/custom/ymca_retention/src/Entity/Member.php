@@ -234,6 +234,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDescription(t('Number of visits.'))
       ->setDefaultValue(0);
 
+    $fields['total_bonuses'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Bonuses'))
+      ->setDescription(t('Number of bonuses.'))
+      ->setDefaultValue(0);
+
     $fields['created_by_staff'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Created by Staff'))
       ->setDescription(t('Created by Staff'))
@@ -377,6 +382,13 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function setBranchId($target_id) {
+    return $this->set('branch', $target_id);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getVisits() {
     return $this->get('total_visits')->value;
   }
@@ -384,8 +396,23 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function getBonuses() {
+    return $this->get('total_bonuses')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setVisits($value) {
     $this->set('total_visits', $value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBonuses($value) {
+    $this->set('total_bonuses', $value);
     return $this;
   }
 
