@@ -37,15 +37,19 @@
  */
 #}
 {%
+  set color = content.field_prgf_color|render|striptags
+%}
+{%
   set classes = [
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     'banner',
     'banner--small',
+    color is not empty ? 'color-assigned' : '',
   ]
 %}
-<div{{ attributes.addClass(classes) }} style="background-color:# {{- content.field_prgf_color -}}">
+<div{{ attributes.addClass(classes) }} style="background-color: {{ color }};">
   <div class="banner-image">
     <div class="banner-image-wrapper">
       {{ content.field_prgf_image }}
