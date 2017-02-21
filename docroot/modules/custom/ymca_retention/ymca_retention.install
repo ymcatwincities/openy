@@ -403,17 +403,7 @@ function ymca_retention_update_8022() {
       'ymca_retention.general_settings',
       'page_manager.page.ymca_retention_challenge',
       'page_manager.page_variant.ymca_retention_challenge',
+      'ymca_retention.bonus_codes_settings',
     ]
   );
-}
-
-/**
- * Import bonus codes config.
- */
-function ymca_retention_update_8023() {
-  $config_importer = \Drupal::service('config_import.importer');
-  $config_importer->setDirectory('sites/default/config/staging/');
-  $config_importer->importConfigs([
-    'ymca_retention.bonus_codes_settings',
-  ]);
 }
