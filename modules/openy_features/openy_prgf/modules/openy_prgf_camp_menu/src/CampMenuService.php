@@ -4,6 +4,7 @@ namespace Drupal\openy_prgf_camp_menu;
 
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use \Drupal\node\Entity\Node;
 
 /**
  * Class CampMenuService.
@@ -53,16 +54,16 @@ class CampMenuService implements CampMenuServiceInterface {
         }
         // Else if a camp links to this landing page use the linking camp.
         else {
-          // Query
+          // Query 1 Camp nodes that link to this landing page.
           $query = \Drupal::entityQuery('node')
             ->condition('status', 1)
             ->condition('type', 'camp')
             ->condition('field_camp_menu_links', 'entity:node/' . $node->id())
-            ->range(0,1);
+            ->range(0, 1);
           $entity_ids = $query->execute();
-          // If results
+          // If results returned.
           if (!empty($entity_ids)) {
-            $camp = \Drupal\node\Entity\Node::load(reset($entity_ids));
+            $camp = Node::load(reset($entity_ids));
           }
         }
         break;
