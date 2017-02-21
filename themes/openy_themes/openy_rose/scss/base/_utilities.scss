@@ -47,16 +47,27 @@
 
 // Embedded items.
 .embedded-entity {
+  clear: both;
   display: block;
   margin-bottom: 10px;
   max-width: 100%;
-  .view-mode-embedded-full {
+  img {
+    height: auto;
     width: 100%;
-    &.media-document {
-      iframe {
-        height: 500px;
-        width: 100%;
-      }
+  }
+  .media-document {
+    iframe {
+      height: 500px;
+      width: 100%;
+    }
+  }
+  &.view-mode-media-embedded-full {
+    width: 100%;
+  }
+  &.view-mode-media-embedded-half {
+    width: 50%;
+    @include breakpoint(0 $screen-xs) {
+      width: 100%;
     }
   }
   &.align-center {

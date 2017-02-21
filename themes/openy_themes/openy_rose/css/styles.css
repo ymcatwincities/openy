@@ -63,16 +63,29 @@ p {
 }
 
 .embedded-entity {
+  clear: both;
   display: block;
   margin-bottom: 10px;
   max-width: 100%;
 }
-.embedded-entity .view-mode-embedded-full {
+.embedded-entity img {
+  height: auto;
   width: 100%;
 }
-.embedded-entity .view-mode-embedded-full.media-document iframe {
+.embedded-entity .media-document iframe {
   height: 500px;
   width: 100%;
+}
+.embedded-entity.view-mode-media-embedded-full {
+  width: 100%;
+}
+.embedded-entity.view-mode-media-embedded-half {
+  width: 50%;
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .embedded-entity.view-mode-media-embedded-half {
+    width: 100%;
+  }
 }
 .embedded-entity.align-center {
   text-align: center;
