@@ -59,35 +59,39 @@ class SettingsBonusCodesForm extends ConfigFormBase {
     $config = $this->config('ymca_retention.bonus_codes_settings');
     $general_config = $this->config('ymca_retention.general_settings');
 
-    $date = new \DateTime($general_config->get('date_campaign_open'));
-    $date->setTime(0, 0);
-
-    $date_end = new \DateTime($general_config->get('date_campaign_close'));
-    $date_end->setTime(0, 0);
+    $date = (new \DateTime($general_config->get('date_campaign_open')))->setTime(0, 0);
+    $date_end = (new \DateTime($general_config->get('date_campaign_close')))->setTime(0, 0);
 
     $bonus_codes = $config->get('bonus_codes');
     $form['bonus_codes'] = ['#type' => 'container', '#tree' => TRUE];
 
+    $delta = 0;
     while ($date <= $date_end) {
-      $title = $date->format('m/d/Y');
-
-      if (!isset($bonus_codes[$title])) {
-        $bonus_codes[$title] = ['code' => '', 'reference' => ''];
+      if (!isset($bonus_codes[$delta])) {
+        $bonus_codes[$delta] = ['code' => '', 'reference' => ''];
       }
 
-      $form['bonus_codes'][$title] = [
-        '#type' => 'details',
-        '#title' => $title,
+      $group = [
+        '#type' => 'fieldset',
+        '#title' => $this->t('Day @n', ['@n' => $delta + 1]),
         '#tree' => TRUE,
-      ];
-      $form['bonus_codes'][$title]['code'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Bonus code'),
-        '#default_value' => $bonus_codes[$title]['code'],
+        '#attributes' => [
+          'style' => 'float: left;',
+        ],
       ];
 
-      $nid = $bonus_codes[$title]['reference'];
-      $form['bonus_codes'][$title]['reference'] = [
+      if ($delta % 2) {
+        $group['#attributes']['style'] .= ' margin-left: 2em;';
+      }
+
+      $group['code'] = [
+        '#type' => 'textfield',
+        '#title' => $this->t('Bonus code'),
+        '#default_value' => $bonus_codes[$delta]['code'],
+      ];
+
+      $nid = $bonus_codes[$delta]['reference'];
+      $group['reference'] = [
         '#type' => 'entity_autocomplete',
         '#title' => $this->t('Blog post'),
         '#target_type' => 'node',
@@ -97,7 +101,12 @@ class SettingsBonusCodesForm extends ConfigFormBase {
         ],
       ];
 
+      $form['bonus_codes'][$delta++] = $group;
       $date->modify('+1 day');
+    }
+
+    if ($delta % 2) {
+      $form['bonus_codes'][$delta - 1]['#attributes']['style'] = 'display: inline-block';
     }
 
     return parent::buildForm($form, $form_state);
