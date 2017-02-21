@@ -406,3 +406,14 @@ function ymca_retention_update_8022() {
     ]
   );
 }
+
+/**
+ * Import bonus codes config.
+ */
+function ymca_retention_update_8023() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs([
+    'ymca_retention.bonus_codes_settings',
+  ]);
+}
