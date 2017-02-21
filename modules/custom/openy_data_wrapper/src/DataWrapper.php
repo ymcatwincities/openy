@@ -268,6 +268,31 @@ class DataWrapper implements OpenyDataServiceInterface {
   }
 
   /**
+   * Get Redirect Link.
+   *
+   * @param int $location_id
+   *   Location ID.
+   * @param string $membership_id
+   *   Membership type ID.
+   *
+   * @return \Drupal\Core\Url
+   *   Redirect url.
+   */
+  public function getRedirectUrl($location_id, $membership_id) {
+    $storage = $this->entityTypeManager->getStorage('node');
+    $membership = $storage->load($membership_id);
+    $info = $membership->field_mbrshp_info->referencedEntities();
+    foreach ($info as $value) {
+      if ($value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
+        if ($value->field_mbrshp_link) {
+          return $value->field_mbrshp_link->first()->getUrl();
+        }
+      }
+    }
+    return NULL;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function addDataServices(array $services) {
@@ -277,6 +302,7 @@ class DataWrapper implements OpenyDataServiceInterface {
       'getBranchPins',
       'getLocations',
       'getSummary',
+      'getRedirectUrl',
     ];
   }
 

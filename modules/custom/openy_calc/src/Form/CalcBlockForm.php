@@ -5,6 +5,7 @@ namespace Drupal\openy_calc\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\openy_calc\DataWrapperInterface;
 use Drupal\openy_socrates\OpenySocratesFacade;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -238,7 +239,16 @@ class CalcBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // TODO: Redirect to selected membership.
+    $storage = $form_state->getStorage();
+    $url = $this->dataWrapper->getRedirectUrl($storage['location'], $storage['type']);
+    if ($url) {
+      // Redirect to membership registration path.
+      $response = new TrustedRedirectResponse($url->getUri());
+      $form_state->setResponse($response);
+    }
+    else {
+      drupal_set_message($this->t('Unfortunately, selected branch doesn`t provide needed membership type. Please select other membership type or branch.'), 'error');
+    }
   }
 
 }
