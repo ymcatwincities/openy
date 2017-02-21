@@ -12,11 +12,39 @@ use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
+use Drupal\ymca_mappings\LocationMappingRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Member registration form.
  */
 class MemberRegisterForm extends FormBase {
+
+  /**
+   * The location mapping repository.
+   *
+   * @var \Drupal\ymca_mappings\LocationMappingRepository
+   */
+  protected $locationRepository;
+
+  /**
+   * MemberRegisterForm constructor.
+   *
+   * @param \Drupal\ymca_mappings\LocationMappingRepository $location_repository
+   *   The location mapping repository.
+   */
+  public function __construct(LocationMappingRepository $location_repository) {
+    $this->locationRepository = $location_repository;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('ymca_mappings.location_repository')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -313,6 +341,11 @@ class MemberRegisterForm extends FormBase {
     // Identify if user is employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
+    $location = $this->locationRepository->findByLocationPersonifyBranchCode($personify_member->BranchId);
+    if (is_array($location)) {
+      $location = key($location);
+    }
+
     // Create a new entity.
     /** @var Member $entity */
     $entity = \Drupal::entityTypeManager()
@@ -325,7 +358,7 @@ class MemberRegisterForm extends FormBase {
         'first_name' => $personify_member->FirstName,
         'last_name' => $personify_member->LastName,
         'birth_date' => $personify_member->BirthDate,
-        'branch' => (int) $personify_member->BranchId,
+        'branch' => (int) $location,
         'is_employee' => $is_employee,
         'visit_goal' => $visit_goal,
         'total_visits' => $total_visits,

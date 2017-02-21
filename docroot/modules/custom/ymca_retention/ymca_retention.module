@@ -32,8 +32,9 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $form['created_from']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $date->add(new \DateInterval('P1D'));
       $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
-      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
+      $form['field_location_personify_brcode_value']['#attributes']['placeholder'] = t('Branch ID');
       $form['membership_id']['#attributes']['placeholder'] = t('Member ID');
+      $form['combine']['#attributes']['placeholder'] = t('Name');
       // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
       if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
         $form['created_by_staff']['#value'] = 'All';
