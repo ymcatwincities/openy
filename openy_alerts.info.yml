@@ -1,5 +1,5 @@
 name: 'OpenY Alerts'
-description: 'Provide alters for OpenY.'
+description: 'Provide alerts for OpenY.'
 type: module
 core: 8.x
 dependencies:
