@@ -67,6 +67,13 @@ p {
   margin-bottom: 10px;
   max-width: 100%;
 }
+.embedded-entity .view-mode-embedded-full {
+  width: 100%;
+}
+.embedded-entity .view-mode-embedded-full.media-document iframe {
+  height: 500px;
+  width: 100%;
+}
 .embedded-entity.align-center {
   text-align: center;
 }
