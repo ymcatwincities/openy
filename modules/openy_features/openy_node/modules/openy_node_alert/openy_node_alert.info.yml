@@ -23,6 +23,7 @@ dependencies:
   - options
   - path
   - pathauto
+  - slick_views
   - taxonomy
   - text
   - user

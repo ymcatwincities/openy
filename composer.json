@@ -152,6 +152,7 @@
         "library-enyo/dropzone": "4.3.0",
         "library-kenwheeler/slick": "1.6.0",
         "library-dinbror/blazy": "1.8.2",
-        "library-gdsmith/jquery.easing": "1.4.1"
+        "library-gdsmith/jquery.easing": "1.4.1",
+        "drupal/slick_views": "1.0-rc2"
     }
 }

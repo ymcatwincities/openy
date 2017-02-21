@@ -8,6 +8,7 @@ dependencies:
   module:
     - node
     - options
+    - slick_views
     - user
 id: alerts
 label: Alerts
@@ -183,12 +184,42 @@ display:
         filter_groups: false
         css_class: false
       style:
-        type: default
+        type: slick
         options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
+          vanilla: true
+          optionset: default
+          skin: ''
+          layout: ''
+          caption:
+            title: '0'
+          optionset_thumbnail: ''
+          skin_thumbnail: ''
+          thumbnail_caption: ''
+          grid_header: ''
+          grid: null
+          grid_medium: null
+          grid_small: null
+          visible_items: null
+          preserve_keys: false
+          image: ''
+          thumbnail: ''
+          overlay: ''
+          title: ''
+          link: ''
+          class: ''
+          id: ''
+          override: true
+          overridables:
+            arrows: arrows
+            draggable: draggable
+            autoplay: '0'
+            dots: '0'
+            infinite: '0'
+            mouseWheel: '0'
+            randomize: '0'
+            variableWidth: '0'
+          cache: 0
+          current_view_mode: footer_alerts
       row:
         type: 'entity:node'
         options:
@@ -326,12 +357,42 @@ display:
         css_class: false
       block_hide_empty: true
       style:
-        type: default
+        type: slick
         options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
+          vanilla: true
+          optionset: default
+          skin: ''
+          layout: ''
+          caption:
+            title: '0'
+          optionset_thumbnail: ''
+          skin_thumbnail: ''
+          thumbnail_caption: ''
+          grid_header: ''
+          grid: null
+          grid_medium: null
+          grid_small: null
+          visible_items: null
+          preserve_keys: false
+          image: ''
+          thumbnail: ''
+          overlay: ''
+          title: ''
+          link: ''
+          class: ''
+          id: ''
+          override: true
+          overridables:
+            arrows: arrows
+            draggable: draggable
+            autoplay: '0'
+            dots: '0'
+            infinite: '0'
+            mouseWheel: '0'
+            randomize: '0'
+            variableWidth: '0'
+          cache: 0
+          current_view_mode: footer_alerts_local
       row:
         type: 'entity:node'
         options:
@@ -610,12 +671,42 @@ display:
       css_class: header-alerts-list
       title: ''
       style:
-        type: default
+        type: slick
         options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
+          vanilla: true
+          optionset: default
+          skin: ''
+          layout: ''
+          caption:
+            title: '0'
+          optionset_thumbnail: ''
+          skin_thumbnail: ''
+          thumbnail_caption: ''
+          grid_header: ''
+          grid: null
+          grid_medium: null
+          grid_small: null
+          visible_items: null
+          preserve_keys: false
+          image: ''
+          thumbnail: ''
+          overlay: ''
+          title: ''
+          link: ''
+          class: ''
+          id: ''
+          override: true
+          overridables:
+            arrows: arrows
+            draggable: draggable
+            autoplay: '0'
+            dots: '0'
+            infinite: '0'
+            mouseWheel: '0'
+            randomize: '0'
+            variableWidth: '0'
+          cache: 0
+          current_view_mode: header_alerts
       row:
         type: 'entity:node'
         options:
@@ -648,12 +739,42 @@ display:
         css_class: false
         arguments: false
       style:
-        type: default
+        type: slick
         options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
+          vanilla: true
+          optionset: default
+          skin: ''
+          layout: ''
+          caption:
+            title: '0'
+          optionset_thumbnail: ''
+          skin_thumbnail: ''
+          thumbnail_caption: ''
+          grid_header: ''
+          grid: null
+          grid_medium: null
+          grid_small: null
+          visible_items: null
+          preserve_keys: false
+          image: ''
+          thumbnail: ''
+          overlay: ''
+          title: ''
+          link: ''
+          class: ''
+          id: ''
+          override: true
+          overridables:
+            arrows: arrows
+            draggable: draggable
+            autoplay: '0'
+            dots: '0'
+            infinite: '0'
+            mouseWheel: '0'
+            randomize: '0'
+            variableWidth: '0'
+          cache: 0
+          current_view_mode: header_alerts_local
       row:
         type: 'entity:node'
         options:

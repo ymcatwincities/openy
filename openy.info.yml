@@ -60,6 +60,7 @@ dependencies:
   - simple_menu_icons
   - slick
   - slick_ui
+  - slick_views
   - blazy
   - blazy_ui
   - geolocation
