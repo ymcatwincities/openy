@@ -312,6 +312,39 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
   }
 
   /**
+   * Get Summary.
+   *
+   * @param int $location_id
+   *   Location ID.
+   * @param string $membership_id
+   *   Membership type ID.
+   *
+   * @return string
+   *   Price.
+   */
+  public function getSummary($location_id, $membership_id) {
+    $result['location'] = NULL;
+    $result['membership'] = NULL;
+
+    return $result;
+  }
+
+  /**
+   * Get Redirect Link.
+   *
+   * @param int $location_id
+   *   Location ID.
+   * @param string $membership_id
+   *   Membership type ID.
+   *
+   * @return \Drupal\Core\Url
+   *   Redirect url.
+   */
+  public function getRedirectUrl($location_id, $membership_id) {
+    return NULL;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function addDataServices(array $services) {
@@ -321,7 +354,8 @@ class CalcDataWrapper extends DataWrapperBase implements OpenyDataServiceInterfa
       'getMembershipTypes',
       'getLocations',
       // @todo consider to extend Socrates with service_name:method instead of just method or to make methods more longer in names.
-      'getPrice',
+      'getSummary',
+      'getRedirectUrl',
     ];
   }
 
