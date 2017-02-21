@@ -107,6 +107,7 @@ html, body {
   background-color: #fff;
   border: 1px solid #e5e5e5;
   border-radius: 3px;
+  height: auto;
 }
 .theme-ymca--2017-compain .form-text:-moz-placeholder,
 .theme-ymca--2017-compain .form-email:-moz-placeholder {
@@ -143,7 +144,9 @@ html, body {
 .theme-ymca--2017-compain-register #main {
   height: 100%;
   background: none;
+  margin-top: auto;
 }
+.theme-ymca--2017-compain-register #block-mainpagecontent,
 .theme-ymca--2017-compain-register .compain-register {
   padding: 20px;
   padding: 2rem;
@@ -154,13 +157,16 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.theme-ymca--2017-compain-register #block-mainpagecontent .compain-header,
 .theme-ymca--2017-compain-register .compain-register .compain-header {
   background: none;
   height: auto;
 }
+.theme-ymca--2017-compain-register #block-mainpagecontent .compain-header--content .logo,
 .theme-ymca--2017-compain-register .compain-register .compain-header--content .logo {
   margin-bottom: 0;
 }
+.theme-ymca--2017-compain-register #block-mainpagecontent .container,
 .theme-ymca--2017-compain-register .compain-register .container {
   padding: 0;
 }

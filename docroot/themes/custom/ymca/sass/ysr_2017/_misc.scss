@@ -100,6 +100,7 @@ html, body {
     background-color: $white;
     border: 1px solid $grey12;
     border-radius: 3px;
+    height: auto;
 
     @include input-placeholder {
       color: $grey4;
@@ -119,8 +120,10 @@ html, body {
   #main {
     height: 100%;
     background: none;
+    margin-top: auto;
   }
 
+  #block-mainpagecontent,
   .compain-register {
     @include rem(padding, 20px);
     position: absolute;
