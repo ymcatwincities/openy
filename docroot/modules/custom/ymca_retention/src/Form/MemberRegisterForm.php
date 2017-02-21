@@ -80,13 +80,13 @@ class MemberRegisterForm extends FormBase {
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
-            $config['yteam'] ? $this->t('Member ID') : $this->t('Your member ID'),
+            $config['yteam'] ? $this->t('Facility access ID') : $this->t('Your member ID'),
           ],
           'class' => [
             'facility-access-id',
           ],
         ],
-        '#element_required_error' => $this->t('Member ID is required.'),
+        '#element_required_error' => $this->t('Facility access ID is required.'),
         '#element_validate' => [
           $validate_required,
         ],
