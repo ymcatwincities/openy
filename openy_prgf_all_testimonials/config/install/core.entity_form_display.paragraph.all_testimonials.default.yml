@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.all_testimonials.field_prgf_atstmnls_view
+    - paragraphs.paragraphs_type.all_testimonials
+  module:
+    - content_moderation
+id: paragraph.all_testimonials.default
+targetEntityType: paragraph
+bundle: all_testimonials
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_atstmnls_view: true
+  status: true
+  uid: true
