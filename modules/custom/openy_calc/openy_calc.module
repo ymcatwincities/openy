@@ -22,6 +22,7 @@ function openy_calc_theme() {
     'openy_calc_form_summary' => [
       'variables' => [
         'result' => [],
+        'map' => [],
       ],
       'template' => 'openy-calc-form-summary',
     ],

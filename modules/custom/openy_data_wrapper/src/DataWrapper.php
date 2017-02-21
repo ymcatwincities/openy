@@ -201,8 +201,8 @@ class DataWrapper implements OpenyDataServiceInterface {
    *
    * Used in membership calc block.
    */
-  public function getBranchPins() {
-    $branch_pins = $this->getPins('branch', t('YMCA'), 'blue');
+  public function getBranchPins($id = NULL) {
+    $branch_pins = $this->getPins('branch', t('YMCA'), 'blue', $id);
     return $branch_pins;
   }
 
@@ -253,10 +253,6 @@ class DataWrapper implements OpenyDataServiceInterface {
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $location = $storage->load($location_id);
     $result['location'] = $builder->view($location, 'calc_summary');
-    $result['location_map'] = [
-      '#type' => 'openy_map',
-      '#element_variables' => $this->getPins('branch', t('YMCA'), 'blue', $location_id),
-    ];
     $membership = $storage->load($membership_id);
     $result['membership'] = $builder->view($membership, 'calc_summary');
 

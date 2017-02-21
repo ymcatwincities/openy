@@ -163,13 +163,13 @@ class CalcBlockForm extends FormBase {
 
       case 3:
         // Summary step.
-        $summary = [
+        $form['summary'] = [
           '#theme' => 'openy_calc_form_summary',
           '#result' => $this->dataWrapper->getSummary($storage['location'], $storage['type']),
-        ];
-        $summary = $this->renderer->renderRoot($summary);
-        $form['summary'] = [
-          '#markup' => $summary,
+          '#map' => [
+            '#type' => 'openy_map',
+            '#element_variables' => $this->dataWrapper->getBranchPins($storage['location']),
+          ],
         ];
         break;
     }
@@ -181,6 +181,9 @@ class CalcBlockForm extends FormBase {
         '#name' => 'step-' . ($step - 1),
         '#submit' => [[$this, 'navButtonSubmit']],
         '#ajax' => $this->getAjaxDefaults(),
+        '#attributes' => [
+          'class' => ['btn', 'blue', 'pull-left'],
+        ],
       ];
     }
 
@@ -191,6 +194,9 @@ class CalcBlockForm extends FormBase {
         '#name' => 'step-' . ($step + 1),
         '#submit' => [[$this, 'navButtonSubmit']],
         '#ajax' => $this->getAjaxDefaults(),
+        '#attributes' => [
+          'class' => ['btn', 'blue', 'pull-right'],
+        ],
       ];
     }
     else {
@@ -203,6 +209,7 @@ class CalcBlockForm extends FormBase {
             'btn-default',
             'blue',
             'complete-registration',
+            'pull-right',
           ],
         ],
       ];
@@ -216,6 +223,7 @@ class CalcBlockForm extends FormBase {
    */
   public function navButtonSubmit(array &$form, FormStateInterface &$form_state) {
     $storage = $form_state->getStorage();
+    // Save steps values to storage.
     if ($form_state->getValue('location')) {
       $storage['location'] = $form_state->getValue('location');
     }
