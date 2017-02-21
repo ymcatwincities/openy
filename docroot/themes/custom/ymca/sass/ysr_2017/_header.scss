@@ -182,7 +182,7 @@
 
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
-      @include rem(margin, 0 0 0 48px);
+      @include rem(margin, 0 0 0 38px);
     }
 
     &:before {
@@ -307,9 +307,11 @@
       float: right;
       clear: initial;
       margin: 0;
+      @include rem(margin-left, 48px);
+      @include rem(padding, 0 0 0 28px);
 
       &:before {
-        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-login.svg');
+        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-mail.svg');
         width: 20px;
         height: 16px;
         background-size: auto 100%;
