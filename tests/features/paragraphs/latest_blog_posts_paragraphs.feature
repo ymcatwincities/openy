@@ -11,7 +11,7 @@ Feature: Latest Blogs Paragraphs
     And I select "One Column" from "Layout"
     When I press "Add Latest blog posts"
     And I press "Save and publish"
-    Then I should see "Mood-boosting foods"
+    Then I should see "Community Outreach"
     And I should see "Start training now for the Y Run"
     And I should see "Why you should give walking a try"
     And I should see "Don’t let summer sneak up on your family"
