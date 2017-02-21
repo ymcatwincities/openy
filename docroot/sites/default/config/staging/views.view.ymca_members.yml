@@ -2,12 +2,16 @@ uuid: 34d2e08d-db9a-4c63-9500-0e3fded60234
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.storage.mapping.field_location_name
+    - field.storage.mapping.field_location_personify_brcode
   module:
     - better_exposed_filters
     - csv_serialization
     - rest
     - serialization
     - user
+    - ymca_mappings
     - ymca_retention
 _core:
   default_config_hash: jxB-IV9xHRTMFAtaAhB1hKYgrHTgESZEytqDJZCVaO8
@@ -152,7 +156,8 @@ display:
           columns:
             id: id
             created: created
-            branch: branch
+            field_location_personify_brcode: field_location_personify_brcode
+            field_location_name: field_location_name
             membership_id: membership_id
             personify_id: personify_id
             first_name: first_name
@@ -166,6 +171,7 @@ display:
             activity_track_fitness: activity_track_fitness
             activity_track_groupx: activity_track_groupx
             activity_track_community: activity_track_community
+            total_bonuses: total_bonuses
           info:
             id:
               sortable: true
@@ -181,7 +187,14 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            branch:
+            field_location_personify_brcode:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_location_name:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -273,6 +286,13 @@ display:
               empty_column: false
               responsive: ''
             activity_track_community:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            total_bonuses:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -417,11 +437,11 @@ display:
           entity_type: ymca_retention_member
           entity_field: created
           plugin_id: field
-        branch:
-          id: branch
-          table: ymca_retention_member
-          field: branch
-          relationship: none
+        field_location_personify_brcode:
+          id: field_location_personify_brcode
+          table: mapping__field_location_personify_brcode
+          field: field_location_personify_brcode
+          relationship: branch
           group_type: group
           admin_label: ''
           label: 'Branch ID'
@@ -479,8 +499,69 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: ymca_retention_member
-          entity_field: branch
+          plugin_id: field
+        field_location_name:
+          id: field_location_name
+          table: mapping__field_location_name
+          field: field_location_name
+          relationship: branch
+          group_type: group
+          admin_label: ''
+          label: 'Branch Name'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
           plugin_id: field
         membership_id:
           id: membership_id
@@ -1337,6 +1418,72 @@ display:
           entity_type: ymca_retention_member
           entity_field: activity_track_community
           plugin_id: field
+        total_bonuses:
+          id: total_bonuses
+          table: ymca_retention_member
+          field: total_bonuses
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Bonuses
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: ymca_retention_member
+          entity_field: total_bonuses
+          plugin_id: field
       filters:
         membership_id:
           id: membership_id
@@ -1382,11 +1529,11 @@ display:
           entity_type: ymca_retention_member
           entity_field: membership_id
           plugin_id: string
-        branch:
-          id: branch
-          table: ymca_retention_member
-          field: branch
-          relationship: none
+        field_location_personify_brcode_value:
+          id: field_location_personify_brcode_value
+          table: mapping__field_location_personify_brcode
+          field: field_location_personify_brcode_value
+          relationship: branch
           group_type: group
           admin_label: ''
           operator: '='
@@ -1394,12 +1541,12 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: branch_op
+            operator_id: field_location_personify_brcode_value_op
             label: 'Branch ID'
             description: ''
             use_operator: false
-            operator: branch_op
-            identifier: branch_id
+            operator: field_location_personify_brcode_value_op
+            identifier: field_location_personify_brcode_value
             required: false
             remember: false
             multiple: false
@@ -1423,8 +1570,6 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: ymca_retention_member
-          entity_field: branch
           plugin_id: string
         combine:
           id: combine
@@ -1763,7 +1908,18 @@ display:
       header: {  }
       footer: {  }
       empty: {  }
-      relationships: {  }
+      relationships:
+        branch:
+          id: branch
+          table: ymca_retention_member
+          field: branch
+          relationship: none
+          group_type: group
+          admin_label: Mapping
+          required: false
+          entity_type: ymca_retention_member
+          entity_field: branch
+          plugin_id: standard
       arguments: {  }
       display_extenders: {  }
       filter_groups:
@@ -1778,7 +1934,9 @@ display:
         - url
         - url.query_args
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.mapping.field_location_name'
+        - 'config:field.storage.mapping.field_location_personify_brcode'
   ymca_retention_members:
     display_plugin: page
     id: ymca_retention_members
@@ -1823,7 +1981,9 @@ display:
         - url
         - url.query_args
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.mapping.field_location_name'
+        - 'config:field.storage.mapping.field_location_personify_brcode'
   ymca_retention_members_export:
     display_plugin: ymca_retention_rest_export_feed
     id: ymca_retention_members_export
@@ -1917,4 +2077,6 @@ display:
         - 'languages:language_interface'
         - request_format
         - user.permissions
-      tags: {  }
+      tags:
+        - 'config:field.storage.mapping.field_location_name'
+        - 'config:field.storage.mapping.field_location_personify_brcode'
