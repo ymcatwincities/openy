@@ -73,7 +73,7 @@ class SettingsBonusCodesForm extends ConfigFormBase {
 
       $group = [
         '#type' => 'fieldset',
-        '#title' => $this->t('Day @n', ['@n' => $delta + 1]),
+        '#title' => $this->t('Day @n - @date', ['@n' => $delta + 1, '@date' => $date->format('m/d/Y')]),
         '#tree' => TRUE,
         '#attributes' => [
           'style' => 'float: left;',
