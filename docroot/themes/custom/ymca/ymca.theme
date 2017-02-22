@@ -816,6 +816,10 @@ function ymca_preprocess_input(&$variables) {
   $element = $variables['element'];
   $variables['children'] = $element['#children'];
 
+  if (isset($element['#skip_ymca_preprocess']) && $element['#skip_ymca_preprocess']) {
+    return;
+  }
+
   $types = array('url', 'textfield', 'tel', 'password', 'date');
   if (in_array($element['#type'], $types)) {
     $classes = array(
