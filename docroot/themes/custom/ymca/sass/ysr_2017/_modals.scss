@@ -346,6 +346,12 @@
 
       .btn {
         width: 100%;
+        max-width: 100% !important;
+        display: block;
+
+        @include breakpoint($tablet){
+          max-width: 156px !important;
+        }
 
         + .btn {
           @include rem(margin, 20px 0 0 0);
@@ -379,6 +385,10 @@
 
       .compain-grey { }
     }
+  }
+
+  .compain-register-form {
+
   }
 
   .compain-email-form {
