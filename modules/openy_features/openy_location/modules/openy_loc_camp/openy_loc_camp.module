@@ -8,7 +8,7 @@
 use Drupal\openy_loc_camp\CampHelper;
 
 /**
- * Implements hook_theme_suggestions_page_alter
+ * Implements hook_theme_suggestions_page_alter().
  */
 function openy_loc_camp_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   // Add content type suggestion for Landing pages related to a camp.
