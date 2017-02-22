@@ -1,6 +1,6 @@
 .compain-header {
-  @include rem(height, 208px);
-  @include rem(padding, 0 0 50px 0);
+  @include rem(height, 226px);
+  @include rem(padding, 0 0 68px 0);
   position: relative;
   background: #fff url('../prototypes/ysr_2017/img/hero/hero-mobile.jpg') 50% 50% no-repeat;
   @include background-size(cover);
@@ -98,7 +98,7 @@
     @include rem(padding, 0 48px 0 74px);
     margin: 0;
     text-align: left;
-    background: $green-dark;
+    background: $green-medium;
   }
 
   .logo {
@@ -113,7 +113,7 @@
       float: left;
       top: 0;
       left: 0;
-      background: $green7;
+      background: $green10;
     }
 
     img {
@@ -155,7 +155,7 @@
 
 .compain-user-menu {
   @include rem(padding, 0 44px);
-  @include rem(height, 50px);
+  @include rem(height, 68px);
   background: $green-dark;
   position: absolute;
   left: 0;
@@ -164,25 +164,25 @@
   color: $white;
 
   @include breakpoint($tablet) {
-    @include rem(margin, 0 48px 0 0);
+    @include rem(padding, 0 48px 0 0);
+    @include rem(height, 62px);
     left: initial;
     bottom: initial;
     top: 0;
-    padding: 0;
-    height: initial;
+    margin: 0;
   }
 
   a, span {
     @include cachet-normal();
     @include rem(font-size, 16px);
-    @include rem(line-height, 50px);
+    @include rem(line-height, 68px);
     color: inherit;
     text-transform: uppercase;
     display: block;
 
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
-      @include rem(margin, 0 0 0 48px);
+      @include rem(margin, 0 0 0 38px);
     }
 
     &:before {
@@ -199,7 +199,8 @@
   .link--register,
   .link--sign-in,
   .login--user,
-  .link--log-out {
+  .link--log-out,
+  .link--email {
     @include rem(padding, 0 0 0 24px);
     position: relative;
 
@@ -233,6 +234,7 @@
 
   .login--user {
     @include rem(padding, 0 0 0 44px);
+    @include rem(line-height, 50px);
 
     &:before {
       background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-signedin-user.svg');
@@ -241,6 +243,13 @@
       background-size: cover;
       opacity: 1;
     }
+
+    @include breakpoint($tablet) {
+      background: $green-medium;
+      @include rem(line-height, 62px);
+      @include rem(padding-right, 18px);
+      margin: 0;
+    }
   }
 
   .link--log-out,
@@ -248,9 +257,13 @@
     float: right;
   }
 
-  .link--log-out {
+  .link--log-out,
+  .link--email {
     color: $green8;
-    text-transform: initial;
+  }
+
+  .link--log-out {
+    text-transform: uppercase;
 
     &:before {
       background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-logout.svg');
@@ -269,6 +282,42 @@
       height: 16px;
       background-size: auto 100%;
     }
+  }
+
+  .link-wrapper {
+    float: left;
+
+    @include breakpoint($tablet) {
+
+    }
+  }
+
+  .link--email {
+    @include rem(line-height, 20px);
+    @include rem(padding, 0 0 0 44px);
+    @include rem(top, -12px);
+    text-transform: inherit;
+    display: block;
+    clear: left;
+    position: relative;
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 62px);
+      top: initial;
+      float: right;
+      clear: initial;
+      margin: 0;
+      @include rem(margin-left, 48px);
+      @include rem(padding, 0 0 0 28px);
+
+      &:before {
+        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-mail.svg');
+        width: 20px;
+        height: 16px;
+        background-size: auto 100%;
+      }
+    }
+
   }
 
   @include breakpoint($desktop-small) {}
