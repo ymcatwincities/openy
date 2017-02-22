@@ -179,7 +179,8 @@
 
 
   .compain-register-now-form,
-  .compain-login-form {
+  .compain-login-form,
+  .compain-email-form {
     @include rem(padding, 20px 20px 30px);
     transition: padding .3s;
 
@@ -311,7 +312,8 @@
     }
   }
 
-  .compain-register-form {
+  .compain-register-form,
+  .compain-email-form {
     @include rem(padding, 20px 20px 30px);
     transition: padding .3s;
 
@@ -344,6 +346,12 @@
 
       .btn {
         width: 100%;
+        max-width: 100% !important;
+        display: block;
+
+        @include breakpoint($tablet){
+          max-width: 156px !important;
+        }
 
         + .btn {
           @include rem(margin, 20px 0 0 0);
@@ -376,6 +384,32 @@
       .compain-green { }
 
       .compain-grey { }
+    }
+  }
+
+  .compain-register-form {
+
+  }
+
+  .compain-email-form {
+    .description {
+      @include rem(margin-bottom, 20px);
+    }
+
+    .form-item {
+      .form-text {
+        text-align: left;
+      }
+    }
+
+    .form-btn-wrapper {
+      .btn {
+        max-width: 100% !important;
+
+        @include breakpoint($tablet) {
+          max-width: 156px !important;
+        }
+      }
     }
   }
 }
