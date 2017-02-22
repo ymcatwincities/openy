@@ -426,6 +426,20 @@ function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $en
 /**
  * Implements hook_ENTITY_TYPE_insert().
  */
+function ymca_retention_ymca_retention_member_bonus_insert(EntityInterface $entity) {
+  /** @var MemberBonus $entity */
+  $bonuses_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_bonus');
+  $bonuses = $bonuses_storage->loadByProperties(['member' => $entity->getMember()]);
+  // Update number of bonuses in member entity.
+  $member = Member::load($entity->getMember());
+  $member->setBonuses(count($bonuses));
+  $member->save();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
 function ymca_retention_ymca_retention_member_activity_insert(EntityInterface $entity) {
   _ymca_retention_activity_track_update($entity);
 
