@@ -575,6 +575,8 @@
             map_data: data
           });
 
+          // Reset openyMap data (fix for old pins on new map after ajax call).
+          settings.openyMap = [];
           clearInterval(timer);
         }, 100);
       });
