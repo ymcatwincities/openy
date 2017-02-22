@@ -8,7 +8,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Provides form for generating content: members, checking, bonuses.
  */
-class GenerateContentForm extends FormBase  {
+class GenerateContentForm extends FormBase {
 
   /**
    * {@inheritdoc}
