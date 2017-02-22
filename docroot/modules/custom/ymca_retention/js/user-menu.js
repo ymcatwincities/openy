@@ -56,7 +56,7 @@
 
         // Add requested form to the modal body.
         if (type === 'register') {
-          title = Drupal.t('Register');
+          title = Drupal.t('Sign Up');
           $('#ymca-retention-user-menu-register-form').appendTo($modal_body);
         }
         else if (type === 'login') {
