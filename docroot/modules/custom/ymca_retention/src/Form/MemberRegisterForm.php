@@ -79,9 +79,9 @@ class MemberRegisterForm extends FormBase {
     $step_value = $form_state->getTemporaryValue('step');
 
     // Determine step of the form - which screen to show.
-    // 1 - enter Member ID
-    // 2 - confirm email address from Personify
-    // 3 - manually enter email address
+    // 1 - enter Member ID.
+    // 2 - confirm email address from Personify.
+    // 3 - manually enter email address.
     if ($step_value) {
       $step = $step_value;
     }
