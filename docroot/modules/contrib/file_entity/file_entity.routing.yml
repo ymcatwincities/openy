@@ -77,16 +77,6 @@ file_entity.file_add_upload_file:
   options:
     _admin_route: TRUE
 
-file_entity.file_add_upload_archive:
-  path: /file/add/upload/archive
-  defaults:
-    _controller: '\Drupal\file_entity\Controller\FileController::FileAddUploadArchive'
-    _title: 'Archive'
-  requirements:
-    _permission: 'administer files'
-  options:
-    _admin_route: TRUE
-
 entity.file.canonical:
   path: /file/{file}
   defaults:
@@ -144,3 +134,14 @@ file_entity.settings:
     _title: 'File settings'
   requirements:
     _permission: 'administer files'
+
+file_entity.file_add_archive_form:
+  path: /admin/content/files/archive
+  defaults:
+    _form: '\Drupal\file_entity\Form\FileAddArchiveForm'
+    _title: 'Upload archive'
+  requirements:
+    _permission: 'administer files'
+  options:
+    _admin_route: TRUE
+
