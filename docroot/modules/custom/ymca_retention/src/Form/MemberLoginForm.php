@@ -59,6 +59,7 @@ class MemberLoginForm extends FormBase {
           ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
           $validate,
         ],
+        '#skip_ymca_preprocess' => TRUE,
       ];
     }
     else {
@@ -75,6 +76,7 @@ class MemberLoginForm extends FormBase {
         ],
         '#element_required_error' => $this->t('Member ID is required.'),
         '#element_validate' => [$validate],
+        '#skip_ymca_preprocess' => TRUE,
       ];
     }
 

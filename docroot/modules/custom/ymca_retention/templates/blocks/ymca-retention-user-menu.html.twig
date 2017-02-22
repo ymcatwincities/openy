@@ -5,11 +5,11 @@
  */
 #}
 <div class="compain-user-menu">
-  <span class="login--user ng-hide" data-ng-show="retentionC.storage.member">
-    <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">
-      {{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}
-    </a>
-  </span>
+  <div class="link-wrapper ng-hide" data-ng-show="retentionC.storage.member">
+    <span class="login--user">{{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}</span>
+    <a class="link--email" href="#"
+       data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">{{ 'Change email'|t }}</a>
+  </div>
   <a class="link--log-out ng-hide" href="#"
      data-ng-show="retentionC.storage.member"
      data-ng-click="retentionC.storage.memberCookieRemove()">{{ 'Sign Out'|t }}</a>
