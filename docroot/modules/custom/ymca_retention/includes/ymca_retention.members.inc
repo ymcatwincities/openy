@@ -38,7 +38,7 @@ function _ymca_retention_members_create() {
     $member->save();
 
     // Create activities for the member.
-    //_ymca_retention_activities_create($member);
+    // _ymca_retention_activities_create($member);
 
     // Create checkins for the member.
     _ymca_retention_checkins_create($member);
@@ -46,8 +46,9 @@ function _ymca_retention_members_create() {
     // Create bonuses for the member.
     _ymca_retention_bonuses_create($member);
 
-    if (10 <= $count++)
+    if (10 <= $count++) {
       return;
+    }
   }
 }
 
