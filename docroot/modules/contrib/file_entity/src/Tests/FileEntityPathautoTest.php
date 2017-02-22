@@ -6,6 +6,9 @@
 
 namespace Drupal\file_entity\Tests;
 
+use Drupal\Component\Utility\Unicode;
+use Drupal\pathauto\Entity\PathautoPattern;
+
 /**
  * Tests Pathauto support.
  *
@@ -26,14 +29,18 @@ class FileEntityPathautoTest extends FileEntityTestBase {
    * Tests Pathauto support.
    */
   public function testPathauto() {
-    $this->config('pathauto.pattern')
-      ->set('patterns.file.default', 'files/[file:name]')
-      ->save();
+    $pattern = PathautoPattern::create([
+      'id' => Unicode::strtolower($this->randomMachineName()),
+      'type' => 'canonical_entities:file',
+      'pattern' => '/files/[file:name]',
+      'weight' => 0,
+    ]);
+    $pattern->save();
 
-    $file = $this->createFileEntity();
+    $file = $this->createFileEntity(['filename' => 'example.png']);
 
     $path = \Drupal::service('path.alias_storage')->load(array('source' => '/' . $file->urlInfo()->getInternalPath()));
-    $this->assertTrue($path, t('Alias for file found.'));
+    $this->assertEqual($path['alias'], '/files/examplepng', t('Alias for file found.'));
   }
 
 }

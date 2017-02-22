@@ -1,15 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Tests\FileEntityCreationTest.
- */
-
 namespace Drupal\file_entity\Tests;
 
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\file_entity\Entity\FileEntity;
+use Drupal\Core\Archiver\Tar;
 
 /**
  * Tests creating and saving a file.
@@ -129,6 +125,10 @@ class FileEntityCreationTest extends FileEntityTestBase {
       $edit[$field . '[0][value]'] = $value;
     }
     $this->drupalPostForm(NULL, $edit, t('Save'));
+    $file = $this->getFileByFilename('image-test.png');
+    $this->drupalGet('file/' . $file->id());
+    $this->assertRaw('alt="A test image"', 'Alt attribute is shown and has the correct value.');
+    $this->assertRaw('title="My image"', 'Title attribute is shown and has the correct value.');
 
     // Make sure the field values are saved.
     $created_file = FileEntity::load(1)->getTranslation(LanguageInterface::LANGCODE_DEFAULT);
@@ -136,4 +136,65 @@ class FileEntityCreationTest extends FileEntityTestBase {
       $this->assertEqual($value, $created_file->get($field)->value);
     }
   }
+
+  /**
+   * Test archive upload.
+   */
+  public function testArchiveUpload() {
+    $file_storage = \Drupal::service('entity.manager')->getStorage('file');
+    // Create files for the archive.
+    file_unmanaged_save_data($this->randomString(), 'temporary://test_text.txt');
+    file_unmanaged_save_data($this->randomString(), 'temporary://test_png.png');
+    file_unmanaged_save_data($this->randomString(), 'temporary://test_jpg.jpg');
+
+    $text_file_path = file_directory_temp() . '/test_text.txt';
+    $png_file_path = file_directory_temp() . '/test_png.png';
+    $jpg_file_path = file_directory_temp() . '/test_jpg.jpg';
+
+    $archive_path = file_directory_temp() . '/archive.tar.gz';
+    $archiver = new Tar($archive_path);
+    $archiver->add($text_file_path);
+    $archiver->add($png_file_path);
+    $archiver->add($jpg_file_path);
+
+    $edit = [
+      'files[upload]' => $archive_path,
+      'pattern' => '.*jpg|.*gif',
+      'remove_archive' => TRUE,
+    ];
+    $this->drupalGet('admin/content/files/archive');
+    $this->drupalPostForm(NULL, $edit, t('Submit'));
+
+    $this->assertText('Extracted archive.tar.gz and added 1 new files.');
+
+    $this->assertTrue($file = !empty($file_storage->loadByProperties(['filename' => 'test_jpg.jpg'])), "File that matches the pattern can be found in the database.");
+    $this->assertTrue($file ? $this->getFileByFilename('test_jpg.jpg')->isPermanent() : FALSE, "File that matches the pattern is permanent.");
+    $this->assertFalse(!empty($file_storage->loadByProperties(['filename' => 'test_png.png'])), "File that doesn't match the pattern is not in the database.");
+    $this->assertFalse(!empty($file_storage->loadByProperties(['filename' => 'test_text.txt'])), "File that doesn't match the pattern is not in the database.");
+    $this->assertFalse(!empty($file_storage->loadByProperties(['filename' => 'archive.tar.gz'])), "Archive is removed since we checked the remove_archive checkbox.");
+
+    $all_files = file_scan_directory('public://', '/.*/');
+    $this->assertTrue(array_key_exists('public://archive.tar/' . $jpg_file_path, $all_files), "File that matches the pattern is in the public directory.");
+    $this->assertFalse(array_key_exists('public://archive.tar/' . $png_file_path, $all_files), "File that doesn't match the pattern is removed from the public directory.");
+    $this->assertFalse(array_key_exists('public://archive.tar/' . $text_file_path, $all_files), "File that doesn't match the pattern is removed from the public directory.");
+    $this->assertFalse(array_key_exists('public://archive.tar.gz', $all_files), "Archive is removed from the public directory since we checked the remove_archive checkbox.");
+
+    $archive_path = file_directory_temp() . '/archive2.tar.gz';
+    $archiver = new Tar($archive_path);
+    $archiver->add($text_file_path);
+
+    $edit = [
+      'files[upload]' => $archive_path,
+      'remove_archive' => FALSE,
+    ];
+    $this->drupalGet('admin/content/files/archive');
+    $this->drupalPostForm(NULL, $edit, t('Submit'));
+
+    $this->assertTrue($file = !empty($file_storage->loadByProperties(['filename' => 'archive2.tar.gz'])), "Archive is in the database since value for remove_checkbox is FALSE.");
+    $this->assertTrue($file ? $this->getFileByFilename('archive2.tar.gz')->isPermanent() : FALSE, "Archive is permanent since value for remove_checkbox is FALSE.");
+
+    $all_files = file_scan_directory('public://', '/.*/');
+    $this->assertTrue(array_key_exists('public://archive2.tar.gz', $all_files), "Archive is in the public directory since value for remove_checkbox is FALSE.");
+  }
+
 }

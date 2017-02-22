@@ -1,18 +1,15 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Form\FileSettingsForm.
- */
 
 namespace Drupal\file_entity\Form;
-use Drupal\Core\Form\FormBase;
+
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Class FileSettingsForm
  * @package Drupal\file_entity\Form
  */
-class FileSettingsForm extends FormBase {
+class FileSettingsForm extends ConfigFormBase {
 
   /**
    * Returns a unique string identifying the form.
@@ -27,13 +24,22 @@ class FileSettingsForm extends FormBase {
   /**
    * {@inheritdoc}
    */
+  protected function getEditableConfigNames() {
+    return [
+      'file_entity.settings',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['max_filesize'] = array(
       '#type' => 'textfield',
       '#title' => t('Maximum upload size'),
       '#default_value' => \Drupal::config('file_entity.settings')->get('max_filesize'),
       '#description' => t('Enter a value like "512" (bytes), "80 KB" (kilobytes) or "50 MB" (megabytes) in order to restrict the allowed file size. If left empty the file sizes will be limited only by PHP\'s maximum post and file upload sizes (current max limit <strong>%limit</strong>).', array('%limit' => format_size(file_upload_max_size()))),
-      '#element_validate' => '\Drupal\file\Plugin\Field\FieldType\FileItem::validateMaxFilesize',
+      '#element_validate' => ['\Drupal\file\Plugin\Field\FieldType\FileItem::validateMaxFilesize'],
       '#size' => 10,
     );
 
@@ -42,7 +48,7 @@ class FileSettingsForm extends FormBase {
       '#title' => t('Default allowed file extensions'),
       '#default_value' => \Drupal::config('file_entity.settings')->get('default_allowed_extensions'),
       '#description' => t('Separate extensions with a space or comma and do not include the leading dot.'),
-      '#element_validate' => '\Drupal\file\Plugin\Field\FieldType\FileItem::validateExtensions',
+      '#element_validate' => ['\Drupal\file\Plugin\Field\FieldType\FileItem::validateExtensions'],
       '#maxlength' => NULL,
     );
 
@@ -63,12 +69,11 @@ class FileSettingsForm extends FormBase {
     // Provide default token values.
     if (\Drupal::moduleHandler()->moduleExists('token')) {
       $form['token_help'] = array(
-        '#theme' => 'token_tree',
+        '#theme' => 'token_tree_link',
         '#token_types' => array('file'),
-        '#dialog' => TRUE,
       );
-      $form['file_entity_alt']['#description'] .= t('This field supports tokens.');
-      $form['file_entity_title']['#description'] .= t('This field supports tokens.');
+      $form['file_entity_alt']['#description'] .= t('This field supports tokens. Default tokens depend on the <a href=":token">Token module</a> to work correctly. The ":value" version of the token (just raw value, no markup) should be used for performance and to avoid theme issues.', [':token' => 'https://drupal.org/project/token']);
+      $form['file_entity_title']['#description'] .= t('This field supports tokens. Default tokens depend on the <a href=":token">Token module</a> to work correctly. The ":value" version of the token (just raw value, no markup) should be used for performance and to avoid theme issues', [':token' => 'https://drupal.org/project/token']);
     }
 
     $form['file_upload_wizard'] = array(
