@@ -5029,6 +5029,10 @@ a[href="#step2"] {
   pointer-events: none;
 }
 
+#membership-calc-wrapper img {
+  height: auto;
+  max-width: 100%;
+}
 #membership-calc-wrapper .h1 {
   margin-bottom: 30px;
   padding-bottom: 4px;
@@ -5051,10 +5055,12 @@ a[href="#step2"] {
   content: ":";
 }
 #membership-calc-wrapper .membership-type label {
-  bottom: 30px;
+  border-bottom: 1px solid #333;
+  bottom: 0;
   display: block;
+  padding-bottom: 30px;
   position: absolute;
-  width: calc(100% - 30px);
+  width: 100%;
 }
 #membership-calc-wrapper .btn, #membership-calc-wrapper .button {
   line-height: 40px;
@@ -5065,18 +5071,12 @@ a[href="#step2"] {
 #membership-calc-wrapper .text-center {
   margin-top: 40px;
 }
+#membership-calc-wrapper .form-element-wrapper {
+  height: 100%;
+  position: relative;
+}
 #membership-calc-wrapper .form-element-wrapper .btn, #membership-calc-wrapper .form-element-wrapper .button {
   display: block;
-}
-#membership-calc-wrapper .form-element-wrapper .btn:after, #membership-calc-wrapper .form-element-wrapper .button:after {
-  content: "";
-  display: block;
-  width: 100%;
-  background-color: #333;
-  height: 1px;
-  position: absolute;
-  bottom: -30px;
-  left: 0;
 }
 #membership-calc-wrapper input[name="type"] {
   display: none;
@@ -5092,12 +5092,25 @@ a[href="#step2"] {
 #membership-calc-wrapper .col-sm-6 .contextual-region {
   position: static;
 }
-#membership-calc-wrapper .col-sm-6 .node--view-mode-calc-preview {
-  margin-bottom: 110px;
-}
 #membership-calc-wrapper .col-sm-6 .node--view-mode-calc-preview img {
   height: auto;
+  margin-bottom: 10px;
   width: 100%;
+}
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn, #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button {
+  background-color: #5c2e91;
+  box-shadow: 0 0 5px #5c2e91;
+}
+#membership-calc-wrapper .pull-left,
+#membership-calc-wrapper .pull-right {
+  margin: 20px 0 10px 0;
+}
+#membership-calc-wrapper .node--type-membership.node--view-mode-calc-preview {
+  margin-bottom: 90px;
+}
+#membership-calc-wrapper .pull-right,
+#membership-calc-wrapper .complete-registration {
+  background-color: #5c2e91;
 }
 
 #membership-calc-wrapper .nav-pills {
@@ -5120,10 +5133,10 @@ a[href="#step2"] {
   vertical-align: middle;
   width: 34%;
 }
-#membership-calc-wrapper .nav-pills > li:last-child a {
+#membership-calc-wrapper .nav-pills > li:last-child div {
   padding-left: 25px;
 }
-#membership-calc-wrapper .nav-pills > li a {
+#membership-calc-wrapper .nav-pills > li div {
   text-decoration: none;
   position: relative;
   white-space: nowrap;
@@ -5132,13 +5145,14 @@ a[href="#step2"] {
   background-color: #92278f;
   width: calc(100% - 30px);
   text-align: center;
+  padding: 9px;
 }
 @media (min-width: 30em) {
-  #membership-calc-wrapper .nav-pills > li a {
+  #membership-calc-wrapper .nav-pills > li div {
     display: block;
   }
 }
-#membership-calc-wrapper .nav-pills > li a:before {
+#membership-calc-wrapper .nav-pills > li div:before {
   content: " ";
   display: block;
   width: 0;
@@ -5153,7 +5167,7 @@ a[href="#step2"] {
   left: 100%;
   z-index: 1;
 }
-#membership-calc-wrapper .nav-pills > li a:after {
+#membership-calc-wrapper .nav-pills > li div:after {
   content: " ";
   display: block;
   width: 0;
@@ -5168,21 +5182,21 @@ a[href="#step2"] {
   left: 100%;
   z-index: 2;
 }
-#membership-calc-wrapper .nav-pills > li a .nav-pills__text {
+#membership-calc-wrapper .nav-pills > li div .nav-pills__text {
   position: relative;
   z-index: 3;
 }
-#membership-calc-wrapper .nav-pills > li a[href="#step1"],
-#membership-calc-wrapper .nav-pills > li a[href="#step2"] {
+#membership-calc-wrapper .nav-pills > li .step-1,
+#membership-calc-wrapper .nav-pills > li .step-2 {
   width: calc(100% - 15px);
 }
-#membership-calc-wrapper .nav-pills > li a[href="#step2"] .nav-pills__text {
+#membership-calc-wrapper .nav-pills > li .step-2 .nav-pills__text {
   margin-left: 5px;
 }
-#membership-calc-wrapper .nav-pills > li.active a, #membership-calc-wrapper .nav-pills > li:first-child a {
+#membership-calc-wrapper .nav-pills > li.active div, #membership-calc-wrapper .nav-pills > li:first-child div {
   background-color: #5c2e91;
 }
-#membership-calc-wrapper .nav-pills > li:first-child a:after, #membership-calc-wrapper .nav-pills > li.active a:after {
+#membership-calc-wrapper .nav-pills > li:first-child div:after, #membership-calc-wrapper .nav-pills > li.active div:after {
   border-left: 30px solid #5c2e91;
 }
 
