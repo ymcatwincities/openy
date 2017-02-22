@@ -1,0 +1,8 @@
+name: 'OpenY Demo Node Camp'
+description: 'OpenY demo node camp.'
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools

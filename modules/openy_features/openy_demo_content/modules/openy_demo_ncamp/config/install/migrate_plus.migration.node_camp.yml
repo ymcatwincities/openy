@@ -1,0 +1,220 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_loc_camp
+id: openy_demo_node_camp
+migration_tags: {  }
+migration_group: openy_demo_ncamp
+label: 'Import demo camp posts'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Camp Colman'
+      promote: 1
+      country_code: US
+      address_line1: '20016 Bay Road KPS'
+      address_line2: null
+      locality: Longbranch
+      administrative_area: WA
+      postal_code: 98351
+      email: info@example.com
+      phone: 9999999999
+      latitude: 47.188070
+      longitude: -122.787783
+      links:
+        -
+          uri: '<front>'
+          title: Home
+        -
+          uri: '<front>'
+          title: About
+        -
+          uri: 'http://openymca.org'
+          title: Register
+      header_content_ids:
+        -
+          header_content_id: camp_gallery_1
+        -
+          header_content_id: menu_camp_1
+      content_ids:
+        -
+          content_id: blog_camp_1
+    -
+      id: 2
+      title: 'Camp Orkila'
+      promote: 1
+      country_code: US
+      address_line1: '484 Camp Orkila Road'
+      address_line2: null
+      locality: Eastsound
+      administrative_area: WA
+      postal_code: 98245
+      email: info@example.com
+      phone: 9999999999
+      latitude: 48.700318
+      longitude: -122.939275
+      links:
+        -
+          uri: '<front>'
+          title: Home
+        -
+          uri: '<front>'
+          title: About
+        -
+          uri: 'http://openymca.org'
+          title: Register
+      header_content_ids:
+        -
+          header_content_id: camp_gallery_2
+        -
+          header_content_id: menu_camp_2
+      content_ids:
+        -
+          content_id: blog_camp_2
+    -
+      id: 3
+      title: 'Camp Terry'
+      promote: 1
+      country_code: US
+      address_line1: '13750 Newcastle Golf Club Rd'
+      address_line2: null
+      locality: Newcastle
+      administrative_area: WA
+      postal_code: 98059
+      email: info@example.com
+      phone: 9999999999
+      latitude: 47.541070
+      longitude: -122.155898
+      links:
+        -
+          uri: '<front>'
+          title: Home
+        -
+          uri: '<front>'
+          title: About
+        -
+          uri: 'http://openymca.org'
+          title: Register
+      header_content_ids:
+        -
+          header_content_id: camp_gallery_3
+        -
+          header_content_id: menu_camp_3
+      content_ids:
+        -
+          content_id: blog_camp_3
+  ids:
+    id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  type:
+    -
+      plugin: default_value
+      default_value: camp
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  promote:
+    -
+      plugin: get
+      source: promote
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  field_location_address/country_code:
+    -
+      plugin: get
+      source: country_code
+  field_location_address/address_line1:
+    -
+      plugin: get
+      source: address_line1
+  field_location_address/address_line2:
+    -
+      plugin: get
+      source: address_line2
+  field_location_address/locality:
+    -
+      plugin: get
+      source: locality
+  field_location_address/administrative_area:
+    -
+      plugin: get
+      source: administrative_area
+  field_location_address/postal_code:
+    -
+      plugin: get
+      source: postal_code
+  field_location_email:
+    -
+      plugin: get
+      source: email
+  field_location_phone:
+    -
+      plugin: get
+      source: phone
+  field_location_coordinates/lat:
+    -
+      plugin: get
+      source: latitude
+  field_location_coordinates/lng:
+    -
+      plugin: get
+      source: longitude
+  field_camp_menu_links:
+    plugin: iterator
+    source: links
+    process:
+      uri:
+        plugin: get
+        source: uri
+      title:
+        plugin: get
+        source: title
+  field_content:
+    plugin: iterator
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_blog_camp
+        source: content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_blog_camp
+        source: content_id
+  field_header_content:
+    plugin: iterator
+    source: header_content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_camp_gallery
+          - openy_demo_prgf_menu_camp
+        source: header_content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_camp_gallery
+          - openy_demo_prgf_menu_camp
+        source: header_content_id
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - openy_demo_prgf_camp_gallery
+    - openy_demo_prgf_menu_camp
+    - openy_demo_prgf_blog_camp
+  optional: {  }
