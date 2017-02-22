@@ -66,9 +66,13 @@
     display: block;
 
     @include breakpoint($tablet) {
-      @include rem(min-width, 280px);
+      @include rem(min-width, 215px);
       max-width: 100%;
       float: right;
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(min-width, 280px);
     }
   }
 
