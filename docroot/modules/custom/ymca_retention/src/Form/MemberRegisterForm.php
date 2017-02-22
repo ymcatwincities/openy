@@ -166,7 +166,7 @@ class MemberRegisterForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'compain-green',
+          $config['yteam'] ? 'compain-dark-green' : 'compain-green',
         ],
       ],
       '#ajax' => $ajax,
