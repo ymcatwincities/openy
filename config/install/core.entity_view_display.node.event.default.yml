@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.event.field_event_date
     - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
     - field.field.node.event.rng_registrants_duplicate
     - field.field.node.event.rng_registrants_maximum
@@ -23,27 +24,32 @@ bundle: event
 mode: default
 content:
   field_event_date:
-    weight: 0
+    type: datetime_default
+    weight: 2
     label: inline
     settings:
+      format_type: medium
       timezone_override: ''
-      format_type: long
     third_party_settings: {  }
-    type: datetime_default
   field_landing_body:
-    weight: 1
-    label: visually_hidden
+    weight: 0
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
-  links:
-    weight: 2
-    settings: {  }
+  field_sidebar_content:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
 hidden:
   langcode: true
+  links: true
   rng_capacity: true
   rng_registrants_duplicate: true
   rng_registrants_maximum: true
