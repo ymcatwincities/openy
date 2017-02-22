@@ -136,6 +136,7 @@
                         <p>Spring! It’s time to regain your energy. We gladly present the new Y challenge to make your upcoming trainings fun and exciting.</p>
 
                         <p><a class="link--register" data-toggle="modal" data-target="#register-two-modal" href="#">Special links: Register</a></p>
+                        <p><a class="link--register" data-toggle="modal" data-target="#change-email" href="#">Special links: change email</a></p>
                       </div>
 
                       <div class="compain-btn">
@@ -209,11 +210,29 @@
                   <div class="content-wrapper content-wrapper--small clearfix">
                     <div class="content-item">
                       <div class="content-video-wrapper">
-                        <div class="content-video">
-                          <img alt="video" src="./img/_tmp-content-video.jpg"/>
+                        <div class="content-video-item">
+                          <div class="content-video">
+                            <img alt="video" src="./img/_tmp-content-video.jpg"/>
+                          </div>
+                          <div class="content-video--label">
+                            <div class="info">
+                              <span class="label">TIP #5</span>
+                              <span class="data">MAR 15</span>
+                            </div>
+                          </div>
                         </div>
-                        <div class="content-video--label">
-                          <span class="label">TIP #5</span>
+
+
+                        <div class="content-video-item">
+                          <div class="content-video">
+                            <img alt="video" src="./img/_tmp-content-video.jpg"/>
+                          </div>
+                          <div class="content-video--label">
+                            <div class="info">
+                              <span class="label">TIP #5</span>
+                              <span class="data">MAR 15</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
 
@@ -945,6 +964,35 @@
       </div>
     </div>
 
+    <div id="change-email" class="modal fade compain-modal">
+      <div class="modal-cover"></div>
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+
+            <div class="modal-title">change email</div>
+          </div>
+          <div class="modal-body">
+            <div class="compain-email-form">
+              <form action="#">
+                <div class="description">
+                  <p>Your current email is <b>user@gmail.com</b>.</p>
+                </div>
+                <div class="form-item">
+                  <input type="email" name="email" class="form-text" placeholder="New email...">
+                </div>
+
+                <div class="form-btn-wrapper">
+                  <input type="submit" value="confirm" class="btn btn-lg btn-primary compain-green">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div id="register-two-modal" class="modal fade compain-modal">
       <div class="modal-cover"></div>
@@ -1158,7 +1206,8 @@
               .once('tab-collapse')
               .tabCollapse({
                 tabsClass: 'hidden-xs',
-                accordionClass: 'visible-xs compain-accordion'
+                accordionClass: 'visible-xs compain-accordion',
+
               });
           }
         };
@@ -1171,6 +1220,30 @@
                 property: 'height',
                 target: null,
                 remove: false
+              });
+          }
+        };
+
+        Drupal.behaviors.blockVideo = {
+          attach: function (context, settings) {
+            $('.content-video-wrapper', context)
+              .once('content-video-wrapper').slick({
+                infinite: false,
+              });
+          }
+        };
+
+
+        Drupal.behaviors.updateSlick = {
+          attach: function (context, settings) {
+            $('.compain-tabs', context)
+              .once('tab-content').on('shown.bs.tab', function(e){
+                $('.content-video-wrapper').slick('setPosition');
+              });
+
+            $('.panel-group', context)
+              .once('panel-group').on('shown.bs.collapse', function(e){
+                $('.content-video-wrapper').slick('setPosition');
               });
           }
         };

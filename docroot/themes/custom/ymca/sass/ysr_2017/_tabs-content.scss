@@ -128,6 +128,7 @@
 
   @include breakpoint($tablet) {
     @include rem(margin, 60px 0 40px 0);
+    @include rem(padding, 0 32px);
   }
 
   .content-video {
@@ -138,12 +139,98 @@
     }
   }
 
+  .slick-arrow {
+    @include rem(width, 48px);
+    @include rem(height, 48px);
+    border: none;
+    background: $green-medium;
+    text-indent: -9999px;
+    overflow: hidden;
+    position: absolute;
+    z-index: 2;
+    display: block;
+    outline: none !important;
+
+    @include breakpoint($tablet) {
+      @include rem(width, 64px);
+      @include rem(height, 64px);
+      top: 20%;
+    }
+
+    &.slick-disabled {
+      background-color: $grey12;
+    }
+
+    &:after {
+      @include rem(width, 10px);
+      @include rem(height, 14px);
+      content: '';
+      display: block;
+      top: 50%;
+      left: 50%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+
+      @include breakpoint($tablet) {
+        @include rem(width, 10px);
+        @include rem(height, 14px);
+      }
+    }
+
+    &.slick-prev {
+      left: 0;
+      bottom: 0;
+
+      &:after {
+        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-btn-arrow-right.svg');
+      }
+    }
+
+    &.slick-next {
+      right: 0;
+      bottom: 0;
+
+      &:after {
+        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-btn-arrow-left.svg');
+      }
+    }
+  }
+
   .content-video--label {
-    .label {
+    @include  rem(padding, 0 50px);
+    background: $grey21;
+    text-align: center;
+    overflow: hidden;
+
+    @include breakpoint($tablet) {
+      text-align: left;
+      padding: 0;
+      background: none;
+    }
+
+    .label, .data {
       @include cachet-normal();
-      @include rem(font-size, 20px);
+      @include rem(font-size, 18px);
       @include rem(line-height, 24px);
-      @include rem(padding, 8px 24px 8px 58px);
+      @include rem(padding, 12px 4px 12px 4px);
+      display: inline-block;
+      vertical-align: top;
+      color: $green-dark;
+
+      @include breakpoint($tablet) {
+        @include rem(padding, 12px 0 12px 18px);
+      }
+    }
+
+    .data {
+      color: $green-medium;
+    }
+
+    .info {
+      @include rem(padding, 0 0 0 40px);
       text-transform: uppercase;
       background: $grey21;
       color: $green-dark;
@@ -152,16 +239,25 @@
       vertical-align: top;
       position: relative;
 
+      @include breakpoint($tablet) {
+        @include rem(padding, 0 24px 0 48px);
+      }
+
       &:before {
-        @include rem(width, 40px);
-        @include rem(height, 40px);
+        @include rem(width, 48px);
+        @include rem(height, 48px);
         content: '';
         display: block;
         position: absolute;
-        top: 0;
+        top: -2px;
         left: 0;
-        background: $green-dark inline-image('../prototypes/ysr_2017/img/icons/icon-hint.svg') 50% 50% no-repeat;
-        background-size: 76% 76%;
+        background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-hint-green.svg') 50% 50% no-repeat;
+        background-size: 65% 65%;
+
+        @include breakpoint($tablet) {
+          background: $green-dark inline-image('../prototypes/ysr_2017/img/icons/icon-hint.svg') 50% 50% no-repeat;
+          background-size: 65% 65%;
+        }
       }
     }
   }
