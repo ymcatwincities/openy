@@ -49,7 +49,7 @@
 
         // Check for already existing content and save it.
         if ($.trim($modal_body.html())) {
-          $modal_body.find('.ysr-user-menu__form').appendTo($('.ysr-user-menu__forms'));
+          $modal_body.find('.ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
         }
 
         var title = Drupal.t('Login');
@@ -73,7 +73,7 @@
       on('hidden.bs.modal', function (event) {
         // Save the form back.
         var $modal = $(this);
-        $modal.find('.modal-body .ysr-user-menu__form').appendTo($('.ysr-user-menu__forms'));
+        $modal.find('.modal-body .ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
       });
   };
 
