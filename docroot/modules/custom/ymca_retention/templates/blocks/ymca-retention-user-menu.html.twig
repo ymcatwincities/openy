@@ -5,11 +5,11 @@
  */
 #}
 <div class="compain-user-menu">
-  <span class="login--user ng-hide" data-ng-show="retentionC.storage.member">
-    <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">
-      {{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}
-    </a>
-  </span>
+  <div class="link-wrapper ng-hide" data-ng-show="retentionC.storage.member">
+    <span class="login--user">{{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}</span>
+    <a class="link--email" href="#"
+       data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">{{ 'Change email'|t }}</a>
+  </div>
   <a class="link--log-out ng-hide" href="#"
      data-ng-show="retentionC.storage.member"
      data-ng-click="retentionC.storage.memberCookieRemove()">{{ 'Sign Out'|t }}</a>
@@ -19,17 +19,27 @@
   <a class="link--sign-in ng-hide" href="#"
      data-toggle="modal" data-target="#ymca-retention-modal" data-type="login"
      data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Sign In'|t }}</a>
-  <div class="ysr-user-menu__forms" style="display: none;">
-    <div id="ymca-retention-user-menu-register-form" class="ysr-user-menu__form" data-type="register">
+  <div class="ymca-retention-user-menu-forms" style="display: none;">
+    <div id="ymca-retention-user-menu-register-form" class="ymca-retention-modal-form" data-type="register">
       {{ content.register_form }}
+      <div class="compain-facility-access-hint-wrapper collapse">
+        <div class="compain-facility-access-hint">
+          <p>
+            {{ 'Please find your member ID below the barcode.'|t }}
+          </p>
+          <p class="small">
+            {{ 'Please note it might be on the front of the card on older membership cards.'|t }}
+          </p>
+        </div>
+      </div>
     </div>
-    <div id="ymca-retention-user-menu-login-form" class="ysr-user-menu__form" data-type="login">
+    <div id="ymca-retention-user-menu-login-form" class="compain-login-form ymca-retention-modal-form" data-type="login">
       {{ content.login_form }}
     </div>
-    <div id="ymca-retention-user-email-change-form" class="ysr-user-menu__form" data-type="email">
+    <div id="ymca-retention-user-email-change-form" class="ymca-retention-modal-form" data-type="email">
       {{ content.email_form }}
     </div>
-    <div id="ymca-retention-user-menu-reg-confirmation-form" class="ysr-user-menu__form" data-type="reg-confirmation">
+    <div id="ymca-retention-user-menu-reg-confirmation-form" class="ymca-retention-modal-form" data-type="reg-confirmation">
       {% include '@ymca_retention/blocks/ymca-retention-register-confirmation-modal.html.twig' %}
     </div>
   </div>
