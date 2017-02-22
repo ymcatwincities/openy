@@ -57,6 +57,7 @@ class MemberEmailForm extends FormBase {
         ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
         $validate_required,
       ],
+      '#skip_ymca_preprocess' => TRUE,
     ];
 
     $form['submit'] = [
