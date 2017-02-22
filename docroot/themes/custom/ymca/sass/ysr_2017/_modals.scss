@@ -381,7 +381,8 @@
 }
 
 #bonus-modal,
-#bonus-modal-no-register {
+#bonus-modal-no-register,
+#bonus-modal-day {
   .modal-header {
     display: none;
   }
@@ -414,9 +415,25 @@
   .compain-content-bonus {
     &:before {
       background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-signedin-user.svg');
+      background-repeat: no-repeat;
       border: 2px solid $green-light;
       border-radius: 50%;
       background-size: cover;
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+#bonus-modal-day {
+  .compain-content-bonus {
+    &:before {
+      background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-calendar.svg') 50% 50% no-repeat;
+      border: 2px solid $green-light;
+      border-radius: 50%;
+      background-size: cover;
+      width: 48px;
+      height: 48px;
     }
   }
 }

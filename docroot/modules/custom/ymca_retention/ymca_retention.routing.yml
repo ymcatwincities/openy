@@ -86,6 +86,14 @@ ymca_retention.settings_instant_win:
   requirements:
     _permission: 'administer site configuration'
 
+ymca_retention.settings_bonus_codes:
+  path: '/admin/config/system/ymca-retention/bonus-codes'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\SettingsBonusCodesForm'
+    _title: 'YMCA Retention Bonus Codes'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.settings_generate_content:
   path: '/admin/config/system/ymca-retention/generate-content'
   defaults:
