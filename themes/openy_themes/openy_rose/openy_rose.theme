@@ -7,7 +7,6 @@
 
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
-use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_preprocess_node().
@@ -104,20 +103,4 @@ function openy_rose_preprocess_input(array &$variables) {
 function openy_rose_preprocess_field__node__field_location_directions(&$variables) {
   // Change link title to Directions.
   $variables['items'][0]['content']['#title'] = t('Directions');
-}
-
-/**
- * Prepares variables for entity embed container templates.
- *
- * Default template: entity-embed-container.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - element: An associative array containing the properties of the element.
- *     Properties used: #attributes, #children.
- */
-function openy_rose_preprocess_entity_embed_container(&$variables) {
-  $view_mode = $variables['element']['#context']['data-entity-embed-display'];
-  // Make the view mode context CSS class name compatible.
-  $variables['attributes']['class'][] = Html::cleanCssIdentifier($view_mode, array(':' => '-', '.' => '-', '_' => '-'));
 }
