@@ -35,7 +35,7 @@ function openy_rose_preprocess_paragraph(array &$variables) {
 }
 
 /**
- * Implements hook_theme_suggestions_page_alter
+ * Implements hook_theme_suggestions_page_alter().
  */
 function openy_rose_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   // Add content type suggestions for node types.
@@ -43,7 +43,7 @@ function openy_rose_theme_suggestions_page_alter(array &$suggestions, array $var
     $node_type = $node->getType();
     $page__node_pos = array_search('page__node', $suggestions);
     $page__node__type = 'page__node__' . $node_type;
-    array_splice($suggestions, $page__node_pos +1, 0, $page__node__type);
+    array_splice($suggestions, $page__node_pos + 1, 0, $page__node__type);
   }
 }
 
