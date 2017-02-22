@@ -411,4 +411,11 @@ function ymca_retention_update_8022() {
       'views.view.ymca_retention_member_prizes.yml'
     ]
   );
+
+  // Update rules.
+  $content = file_get_contents(drupal_get_path('module', 'ymca_retention') . '/includes/ymca-retention-rules.html');
+  $uuid = 'bbad4f73-e28a-423c-849a-5ba4f04710ce';
+  $block_content = \Drupal::entityManager()->loadEntityByUuid('block_content', $uuid);
+  $block_content->set('body', ['value' => $content, 'format' => 'full_html']);
+  $block_content->save();
 }

@@ -79,8 +79,8 @@ class MemberRegisterForm extends FormBase {
     $step_value = $form_state->getTemporaryValue('step');
 
     // Determine step of the form - which screen to show.
-    // 1 - enter Member ID.
-    // 2 - confirm email address from Personify.
+    // 1 - enter Member ID;
+    // 2 - confirm email address from Personify;
     // 3 - manually enter email address.
     if ($step_value) {
       $step = $step_value;
@@ -290,7 +290,7 @@ class MemberRegisterForm extends FormBase {
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please sign in.'));
+      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please log in.'));
       return;
     }
     if (empty($membership_id)) {
