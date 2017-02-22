@@ -59,6 +59,27 @@ source:
       content_ids:
         -
           content_id: locations_location_finder
+    -
+      id: lp_camp_page_1
+      title: 'Camp Colman page'
+      header_content_id: lp_camp_menu_1
+      content_ids:
+        -
+          content_id: camp_page_1_simple
+    -
+      id: lp_camp_page_2
+      title: 'Camp Orkila page'
+      header_content_id: lp_camp_menu_2
+      content_ids:
+        -
+          content_id: camp_page_2_simple
+    -
+      id: lp_camp_page_3
+      title: 'Camp Terry page'
+      header_content_id: lp_camp_menu_3
+      content_ids:
+        -
+          content_id: camp_page_3_simple
   ids:
     id:
       type: string
@@ -84,6 +105,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_header_content/target_revision_id:
     plugin: migration
@@ -92,6 +114,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_content:
     plugin: iterator
@@ -139,5 +162,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_latest_blog_posts
     - openy_demo_lp_paragraph_location_finder_filters
     - openy_demo_lp_paragraph_location_finder
+    - openy_demo_lp_paragraph_menu_camp
   optional:
     - openy_demo_node_blog

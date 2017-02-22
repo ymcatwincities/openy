@@ -54,6 +54,30 @@ source:
         and more than $9.5 million in financial assistance to more than 27,000
         people to ensure everyone has a chance to succeed and belong at the Y.
         </h4>
+    -
+      id: camp_page_1_simple
+      parent_id: lp_camp_page_1
+      description: |
+        <h4>Do you love Camp Colman? Or maybe you have never been here before
+        and you can't wait to learn more? This page will give you some great
+        insight into our rich history.</h4>
+    -
+      id: camp_page_2_simple
+      parent_id: lp_camp_page_2
+      description: |
+        <h4>Do you love Camp Orkila? Or maybe you have never been here before
+        and you can't wait to learn more? This page will give you some great
+        insight into our rich history.</h4>
+    -
+      id: camp_page_3_simple
+      parent_id: lp_camp_page_3
+      description: |
+        <h4>Have you been dreaming about sleeping under the stars?  Are you
+        wanting to learn archery and play on the giant swing?  Then this Family
+        Campout is perfect for you!  We provide the games, camp fire, food and
+        fun!  You just need your sleeping bags, tent, and energy. Our goal is
+        to bring the fun of camping to you without the worry of planning what
+        to do.  </h4>
   ids:
     id:
       type: string
