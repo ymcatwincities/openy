@@ -99,8 +99,10 @@
   }
 }
 
-.content-sidebar-region {
-  @include breakpoint(tablet) {
-    margin-top: 25px;
+.node--type-landing {
+  .content-sidebar-region {
+    @include breakpoint(tablet) {
+      margin-top: 25px;
+    }
   }
 }
