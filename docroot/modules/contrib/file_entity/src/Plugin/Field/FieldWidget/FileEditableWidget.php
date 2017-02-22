@@ -32,6 +32,7 @@ class FileEditableWidget extends FileWidget {
     }
 
     foreach ($element['#files'] as $fid => $file) {
+      /** @var \Drupal\file\FileInterface $file */
       $element['edit_button'] = [
         '#name' => "file_editable_$fid",
         '#type' => 'submit',
@@ -39,6 +40,7 @@ class FileEditableWidget extends FileWidget {
         '#ajax' => [
           'url' => Url::fromRoute('entity.file.inline_edit_form', ['file' => $fid]),
         ],
+        '#access' => $file->access('update'),
       ];
     }
 

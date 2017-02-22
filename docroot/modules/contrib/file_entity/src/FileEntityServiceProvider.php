@@ -21,7 +21,9 @@ class FileEntityServiceProvider extends ServiceProviderBase {
    */
   public function alter(ContainerBuilder $container) {
     $modules = $container->getParameter('container.modules');
-    if (isset($modules['rest'])) {
+    // Check for installed REST and HAL modules. HAL does not require REST
+    // anymore in 8.3 and later.
+    if (isset($modules['hal']) && isset($modules['rest'])) {
       // Add a normalizer service for file entities.
       $service_definition = new Definition('Drupal\file_entity\Normalizer\FileEntityNormalizer', array(
         new Reference('rest.link_manager'),
