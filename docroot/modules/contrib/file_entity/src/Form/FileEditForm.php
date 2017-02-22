@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\file_entity\Form\FileEditForm.
- */
-
 namespace Drupal\file_entity\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
@@ -14,11 +9,23 @@ use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\file_entity\Entity\FileEntity;
 use Drupal\file_entity\Entity\FileType;
+use Drupal\file_entity\UploadValidatorsTrait;
 
 /**
  * Form controller for file type forms.
  */
 class FileEditForm extends ContentEntityForm {
+
+  use UploadValidatorsTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareEntity() {
+    if ($this->entity->bundle() == FILE_TYPE_NONE) {
+      $this->entity->updateBundle();
+    }
+  }
 
   /**
    * {@inheritdoc}
@@ -41,7 +48,7 @@ class FileEditForm extends ContentEntityForm {
       ));
 
       // Add a 'replace this file' upload field if the file is writeable.
-      if (file_entity_file_is_writeable($file)) {
+      if ($file->isWritable()) {
         // Set up replacement file validation.
         $replacement_options = array();
         // Replacement file must have the same extension as the original file.
@@ -50,7 +57,7 @@ class FileEditForm extends ContentEntityForm {
         $form['replace_upload'] = array(
           '#type' => 'managed_file',
           '#title' => $this->t('Replace file'),
-          '#upload_validators' => FileAddForm::getUploadValidators($replacement_options),
+          '#upload_validators' => $this->getUploadValidators($replacement_options),
         );
 
         $file_upload_help = array(
