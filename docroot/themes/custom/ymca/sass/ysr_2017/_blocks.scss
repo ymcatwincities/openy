@@ -41,7 +41,7 @@
   }
 
   @include breakpoint($desktop-small) {
-    @include rem(padding, 0 66px);
+    @include rem(padding, 0 60px);
   }
 
   .content {
