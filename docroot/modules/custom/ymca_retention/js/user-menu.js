@@ -55,16 +55,20 @@
         var title = Drupal.t('Login');
 
         // Add requested form to the modal body.
-        if (type === 'register') {
+        if (type === 'login') {
+          $('#ymca-retention-user-menu-login-form').appendTo($modal_body);
+        }
+        else if (type === 'register') {
           title = Drupal.t('Sign Up');
           $('#ymca-retention-user-menu-register-form').appendTo($modal_body);
-        }
-        else if (type === 'login') {
-          $('#ymca-retention-user-menu-login-form').appendTo($modal_body);
         }
         else if (type === 'email') {
           title = Drupal.t('Change email');
           $('#ymca-retention-user-email-change-form').appendTo($modal_body);
+        }
+        else if (type === 'tabs-lock') {
+          $modal.find('.modal-header').hide();
+          $('#ymca-retention-user-menu-tabs-lock').appendTo($modal_body);
         }
 
         // Assign modal title.
@@ -74,6 +78,8 @@
         // Save the form back.
         var $modal = $(this);
         $modal.find('.modal-body .ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
+        // Restore the modal header.
+        $modal.find('.modal-header').show();
       });
   };
 
