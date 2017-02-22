@@ -285,6 +285,10 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
+    if (empty($membership_id)) {
+      $membership_id = trim($form_state->getValue('membership_id'));
+    }
+
     // Check for already registered member.
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('membership_id', $membership_id);
@@ -293,8 +297,8 @@ class MemberRegisterForm extends FormBase {
       $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please log in.'));
       return;
     }
-    if (empty($membership_id)) {
-      $membership_id = trim($form_state->getValue('membership_id'));
+
+    if (!empty($membership_id)) {
       $form_state->set('membership_id', $membership_id);
     }
 
