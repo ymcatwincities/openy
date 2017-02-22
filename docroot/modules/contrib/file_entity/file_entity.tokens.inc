@@ -89,7 +89,7 @@ function file_entity_tokens($type, $tokens, array $data, array $options, Bubblea
           break;
 
         case 'download-url':
-          $replacements[$original] = file_entity_download_url($file, $url_options)->toString();
+          $replacements[$original] = $file->downloadUrl($url_options)->toString();
           break;
       }
     }
@@ -100,7 +100,7 @@ function file_entity_tokens($type, $tokens, array $data, array $options, Bubblea
       $replacements += $token_service->generate('file-type', $file_type_tokens, array('file_type' => $file_type), $options, $bubbleable_metadata);
     }
     if ($download_url_tokens = $token_service->findWithPrefix($tokens, 'download-url')) {
-      $replacements += $token_service->generate('url', $download_url_tokens, file_entity_download_url($file)->toString(), $options, $bubbleable_metadata);
+      $replacements += $token_service->generate('url', $download_url_tokens, $file->downloadUrl()->toString(), $options, $bubbleable_metadata);
     }
   }
 
