@@ -4,12 +4,13 @@
  * @file
  * Contains the file RSS row style plugin.
  */
+use Drupal\views\Plugin\views\row\RowPluginBase;
 
 /**
  * Plugin which performs a file_view on the resulting object
  * and formats it as an RSS item.
  */
-class views_plugin_row_file_rss extends views_plugin_row {
+class views_plugin_row_file_rss extends RowPluginBase {
   // Basic properties that let the row style follow relationships.
   var $base_table = 'file_managed';
   var $base_field = 'fid';
