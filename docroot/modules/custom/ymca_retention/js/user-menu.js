@@ -63,7 +63,7 @@
           $('#ymca-retention-user-menu-login-form').appendTo($modal_body);
         }
         else if (type === 'email') {
-          title = Drupal.t('Email Address Change');
+          title = Drupal.t('Change email');
           $('#ymca-retention-user-email-change-form').appendTo($modal_body);
         }
 
