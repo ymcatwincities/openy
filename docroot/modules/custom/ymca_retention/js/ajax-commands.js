@@ -29,7 +29,7 @@
   Drupal.AjaxCommands.prototype.ymcaRetentionModalSetContent = function(ajax, response, status) {
     var $modal_body = $('#ymca-retention-modal .modal-body');
 
-    $modal_body.find('.ysr-user-menu__form').appendTo($('.ysr-user-menu__forms'));
+    $modal_body.find('.ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
     $('#' + response.arguments.targetId).appendTo($modal_body);
   };
 
