@@ -62,6 +62,59 @@ p {
   display: none !important;
 }
 
+.embedded-entity {
+  clear: both;
+  display: block;
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+.embedded-entity img {
+  height: auto;
+  width: 100%;
+}
+.embedded-entity .media-document iframe {
+  height: 500px;
+  width: 100%;
+}
+.embedded-entity.view-mode-media-embedded-full {
+  width: 100%;
+}
+.embedded-entity.view-mode-media-embedded-half {
+  width: 50%;
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .embedded-entity.view-mode-media-embedded-half {
+    width: 100%;
+  }
+}
+.embedded-entity.align-center {
+  text-align: center;
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .embedded-entity.align-left {
+    float: none;
+    text-align: center;
+  }
+}
+@media (min-width: 30em) {
+  .embedded-entity.align-left {
+    float: left;
+    margin-right: 20px;
+  }
+}
+@media (min-width: 0) and (max-width: 30em) {
+  .embedded-entity.align-right {
+    float: none;
+    text-align: center;
+  }
+}
+@media (min-width: 30em) {
+  .embedded-entity.align-right {
+    float: right;
+    margin-left: 20px;
+  }
+}
+
 body {
   padding-top: 70px !important;
 }
@@ -4964,9 +5017,6 @@ body .branch-popup + .ui-widget-overlay {
   top: 166px;
 }
 
-.embedded-entity {
-  display: inline;
-}
 .embedded-entity .media-image.view-mode-link {
   display: inline;
 }
