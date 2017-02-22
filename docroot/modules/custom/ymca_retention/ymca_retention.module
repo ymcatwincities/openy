@@ -270,7 +270,6 @@ function ymca_retention_preprocess_html(&$variables) {
     }
   }
   if ($current_route_name == 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_team') {
-    $variables['attributes']->addClass(['page-register__fall_retention']);
     $variables['attributes']->addClass(['theme-ymca--2017-compain-register']);
   }
 }
