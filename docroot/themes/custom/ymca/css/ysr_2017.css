@@ -2307,6 +2307,14 @@ html, body {
 .theme-ymca--2017-compain .compain-register-form .form-btn-wrapper .btn,
 .theme-ymca--2017-compain .compain-email-form .form-btn-wrapper .btn {
   width: 100%;
+  max-width: 100% !important;
+  display: block;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain .compain-register-form .form-btn-wrapper .btn,
+  .theme-ymca--2017-compain .compain-email-form .form-btn-wrapper .btn {
+    max-width: 156px !important;
+  }
 }
 .theme-ymca--2017-compain .compain-register-form .form-btn-wrapper .btn + .btn,
 .theme-ymca--2017-compain .compain-email-form .form-btn-wrapper .btn + .btn {
