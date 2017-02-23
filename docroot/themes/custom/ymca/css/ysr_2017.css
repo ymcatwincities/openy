@@ -143,6 +143,7 @@ html, body {
 .theme-ymca--2017-compain-register #main {
   height: 100%;
   background: none;
+  margin-top: auto;
 }
 .theme-ymca--2017-compain-register .compain-register {
   padding: 20px;
