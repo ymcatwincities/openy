@@ -162,7 +162,8 @@ recent-winners:
     - ymca_retention/cookie-bar
     - ymca_retention/livestampjs
 
-match-height:
-  version: 8.1.2
+introduction:
+  version: VERSION
   js:
     /themes/custom/ymca/scripts/vendor/jquery.matchHeight.js: { }
+    js/introduction.js: {}
