@@ -33,7 +33,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: open
-        description: ''
+        description: 'Fill in here general info about a group.'
         required_fields: true
       label: 'General Info'
     group_contact_info:
@@ -53,7 +53,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: ''
+        description: 'Fill in here contact info about a group.'
         required_fields: true
       label: 'Contact Info'
     group_header_area:
@@ -95,8 +95,8 @@ content:
   field_camp_menu_links:
     weight: 2
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: '/camp_subpage_uri'
+      placeholder_title: 'Camp subpage title'
     third_party_settings: {  }
     type: link_default
   field_content:
@@ -133,27 +133,27 @@ content:
   field_location_directions:
     weight: 14
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: '/location_directions_uri'
+      placeholder_title: 'Location directions title'
     third_party_settings: {  }
     type: link_default
   field_location_email:
     weight: 13
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'location_email@example.com'
     third_party_settings: {  }
     type: email_default
   field_location_fax:
     weight: 12
     settings:
-      placeholder: ''
+      placeholder: '0123456789'
     third_party_settings: {  }
     type: telephone_default
   field_location_phone:
     weight: 11
     settings:
-      placeholder: ''
+      placeholder: '0123456789'
     third_party_settings: {  }
     type: telephone_default
   path:
@@ -178,7 +178,7 @@ content:
     weight: 1
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide a title here'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
