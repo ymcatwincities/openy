@@ -60,6 +60,7 @@ dependencies:
   - simple_menu_icons
   - slick
   - slick_ui
+  - slick_views
   - blazy
   - blazy_ui
   - geolocation
@@ -100,6 +101,7 @@ dependencies:
   - openy_prgf_loc_finder
   - openy_prgf_mbrshp_calc
   - openy_node_activity
+  - openy_node_alert
   - openy_node_class
   - openy_node_session
   - openy_menu
