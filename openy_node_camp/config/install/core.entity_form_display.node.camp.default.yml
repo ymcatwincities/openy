@@ -73,19 +73,19 @@ content:
     weight: 11
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'location_email@example.com'
     third_party_settings: {  }
     type: email_default
   field_location_fax:
     weight: 12
     settings:
-      placeholder: ''
+      placeholder: '0123456789'
     third_party_settings: {  }
     type: telephone_default
   field_location_phone:
     weight: 13
     settings:
-      placeholder: ''
+      placeholder: '0123456789'
     third_party_settings: {  }
     type: telephone_default
   field_meta:
@@ -120,7 +120,7 @@ content:
     weight: 1
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide a title here'
     third_party_settings: {  }
   translation:
     weight: 4
