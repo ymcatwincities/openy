@@ -68,7 +68,7 @@ source:
     -
       id: lp_camp_page_1
       title: 'Camp Colman page'
-      alias: '/lp-camp-page-1'
+      alias: '/camps/camp-colman/about'
       header_content_id: lp_camp_menu_1
       content_ids:
         -
@@ -76,7 +76,7 @@ source:
     -
       id: lp_camp_page_2
       title: 'Camp Orkila page'
-      alias: '/lp-camp-page-2'
+      alias: '/camps/camp-orkila/about'
       header_content_id: lp_camp_menu_2
       content_ids:
         -
@@ -84,7 +84,7 @@ source:
     -
       id: lp_camp_page_3
       title: 'Camp Terry page'
-      alias: '/lp-camp-page-3'
+      alias: '/camps/camp-terry/about'
       header_content_id: lp_camp_menu_3
       content_ids:
         -
