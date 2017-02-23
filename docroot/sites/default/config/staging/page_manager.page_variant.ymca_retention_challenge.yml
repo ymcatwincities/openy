@@ -83,6 +83,15 @@ variant_settings:
       weight: -3
       uuid: 729d18e6-e7d4-485c-8e2d-39e6ceb6a432
       context_mapping: {  }
+    868aeac9-e753-4371-ae80-4c8bcdf3c7fb:
+      id: retention_todays_insight_block
+      label: '[YMCA Retention] Today''s insight'
+      provider: ymca_retention
+      label_display: '0'
+      region: tab_2
+      weight: 0
+      uuid: 868aeac9-e753-4371-ae80-4c8bcdf3c7fb
+      context_mapping: {  }
   id: panels_variant
   uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
   label: null
