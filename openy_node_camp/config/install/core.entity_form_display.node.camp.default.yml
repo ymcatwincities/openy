@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.camp.field_camp_body
+    - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
     - field.field.node.camp.field_location_coordinates
@@ -15,6 +16,7 @@ dependencies:
     - address
     - content_moderation
     - geolocation
+    - link
     - metatag
     - paragraphs
     - path
@@ -38,6 +40,13 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+    third_party_settings: {  }
+  field_camp_menu_links:
+    type: link_default
+    weight: 16
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   field_header_content:
     type: entity_reference_paragraphs

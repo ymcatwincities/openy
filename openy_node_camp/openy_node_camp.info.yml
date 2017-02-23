@@ -10,6 +10,7 @@ dependencies:
   - field
   - geolocation
   - language
+  - link
   - menu_ui
   - metatag
   - node

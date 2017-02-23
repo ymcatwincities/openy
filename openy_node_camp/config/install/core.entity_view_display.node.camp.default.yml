@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.camp.field_camp_body
+    - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
     - field.field.node.camp.field_location_coordinates
@@ -82,4 +83,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_camp_menu_links: true
   langcode: true
