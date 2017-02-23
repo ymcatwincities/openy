@@ -10,8 +10,6 @@ use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
-use Drupal\openy_prgf_camp_menu\CampMenuService;
-use Drupal\openy_loc_camp\CampHelper;
 use Drupal\Component\Utility\UrlHelper;
 
 /**
@@ -146,6 +144,7 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   $form['camp_section'] = array(
     '#type' => 'details',
     '#title' => t('Camp section'),
+    '#description' => t('Contains theme configuration for camp and camp related content.'),
     '#open' => TRUE,
   );
   $form['camp_section']['openy_rose_camp_section_logo'] = array(
@@ -182,12 +181,7 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_rose theme.
-  $image_fields = [
-    'openy_rose_footer_logo',
-    'openy_rose_camp_section_logo',
-    'openy_rose_camp_footer_logo',
-    'openy_rose_camp_favicon',
-  ];
+  $image_fields = theme_get_setting('oepny_rose_image_fields');
 
   foreach ($image_fields as $image_field) {
     $fid_array = theme_get_setting($image_field);
@@ -207,22 +201,13 @@ function openy_rose_page_attachments_alter(array &$page) {
   // Remove and replace the favicon if this page is a camp node or landing page
   // related to a camp, and the custom camp favicon has been set for the theme.
 
-  // Exit if not a node page.
-  if (!$node = \Drupal::request()->attributes->get('node')) {
+  // Exit if not a node page, or if the 'openy_loc_camp.camp_service' is not available.
+  if (!($node = \Drupal::request()->attributes->get('node')) || !($camp_service = \Drupal::service('openy_loc_camp.camp_service'))) {
     return;
   }
 
-  // Is this page a camp node or landing_page related to a camp?
-  $camp = NULL;
-  if ($node->bundle() == 'landing_page') {
-    $camp = CampHelper::getLandingPageCampNode($node);
-  }
-  elseif ($node->bundle() == 'camp') {
-    $camp = $node;
-  }
-
-  // Exit if not a camp or landing_page related to a camp.
-  if ($camp == NULL) {
+  // Exit if not a camp or related to a camp.
+  if (!$camp_service->nodeHasOrIsCamp($node)) {
     return;
   }
 
@@ -241,15 +226,16 @@ function openy_rose_page_attachments_alter(array &$page) {
   // Remove default favicon.
   if (!empty($page['#attached']['html_head_link'])) {
     foreach ($page['#attached']['html_head_link'] as $key => $value) {
-      if (!empty($value)) {
-        foreach ($page['#attached']['html_head_link'][$key] as $sub_key => $sub_value) {
-          if (!empty($sub_value['rel']) && $sub_value['rel'] == 'shortcut icon') {
-            unset($page['#attached']['html_head_link'][$key][$sub_key]);
-            if (empty($page['#attached']['html_head_link'][$key])) {
-              unset($page['#attached']['html_head_link'][$key]);
-            }
-          }
+      if (empty($value)) {
+        continue;
+      }
+      foreach ($page['#attached']['html_head_link'][$key] as $sub_key => $sub_value) {
+        if (!empty($sub_value['rel']) && $sub_value['rel'] == 'shortcut icon') {
+          unset($page['#attached']['html_head_link'][$key][$sub_key]);
         }
+      }
+      if (empty($page['#attached']['html_head_link'][$key])) {
+        unset($page['#attached']['html_head_link'][$key]);
       }
     }
   }
@@ -271,19 +257,14 @@ function openy_rose_page_attachments_alter(array &$page) {
  */
 function openy_rose_preprocess_page(array &$variables) {
   // Set custom theme variables for page when they are set.
-  $images = [
-    'footer_logo' => 'openy_rose_footer_logo',
-    'camp_section_logo' => 'openy_rose_camp_section_logo',
-    'camp_footer_logo' => 'openy_rose_camp_footer_logo',
-    'camp_favicon' => 'openy_rose_camp_favicon',
-  ];
+  $image_fields = theme_get_setting('oepny_rose_image_fields');
 
-  foreach ($images as $image_key => $theme_setting_key) {
+  foreach ($image_fields as $image_template_variable => $theme_setting_key) {
     $fid = theme_get_setting($theme_setting_key);
     if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
       $file = File::load(reset($fid));
       if ($file !== NULL) {
-        $variables[$image_key] = $file->getFileUri();
+        $variables[$image_template_variable] = $file->getFileUri();
       }
     }
   }
