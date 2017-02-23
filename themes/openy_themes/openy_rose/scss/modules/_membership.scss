@@ -103,10 +103,17 @@ a[href="#step2"] {
     display: table-cell;
     float: none;
     vertical-align: middle;
-    width: 34%;
-    &:last-child {
-      div {
-        padding-left: 25px;
+    @include breakpoint(0 $screen-xs) {
+      margin-bottom: 5px;
+      display: block;
+      overflow: hidden;
+    }
+    @include breakpoint($screen-xs) {
+      width: 34%;
+      &:last-child {
+        div {
+          padding-left: 25px;
+        }
       }
     }
     div {
@@ -116,11 +123,12 @@ a[href="#step2"] {
       border-radius: 0;
       color: white;
       background-color: #92278f;
-      width: calc(100% - 30px);
       text-align: center;
       padding: 9px;
+      width: 90%;
       @include breakpoint($screen-xs) {
         display: block;
+        width: calc(100% - 30px);
       }
       &:before {
         content: " ";
@@ -159,7 +167,9 @@ a[href="#step2"] {
     }
     .step-1,
     .step-2 {
-      width: calc(100% - 15px);
+      @include breakpoint($screen-xs) {
+        width: calc(100% - 15px);
+      }
     }
     .step-2 {
       .nav-pills__text {
@@ -174,6 +184,9 @@ a[href="#step2"] {
     &.active div:after {
       border-left: 30px solid $purple;;
     }
+  }
+  li + li {
+    margin-left: 0;
   }
 }
 
