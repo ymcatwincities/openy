@@ -772,22 +772,8 @@ html, body {
 }
 @media (min-width: 48em) {
   .compain-info-block .content-text {
-    min-height: 330px;
-    min-height: 33rem;
     margin-bottom: 30px;
     margin-bottom: 3rem;
-  }
-}
-@media (min-width: 64em) {
-  .compain-info-block .content-text {
-    min-height: 300px;
-    min-height: 30rem;
-  }
-}
-@media (min-width: 75em) {
-  .compain-info-block .content-text {
-    min-height: 266px;
-    min-height: 26.6rem;
   }
 }
 .compain-info-block h3 {
@@ -1272,10 +1258,16 @@ html, body {
 }
 @media (min-width: 48em) {
   .compain-tab-header .btn {
-    min-width: 280px;
-    min-width: 28rem;
+    min-width: 215px;
+    min-width: 21.5rem;
     max-width: 100%;
     float: right;
+  }
+}
+@media (min-width: 64em) {
+  .compain-tab-header .btn {
+    min-width: 280px;
+    min-width: 28rem;
   }
 }
 .compain-tab-header .compain-progress--label {
