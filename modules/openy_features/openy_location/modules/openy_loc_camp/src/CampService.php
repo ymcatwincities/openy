@@ -2,7 +2,6 @@
 
 namespace Drupal\openy_loc_camp;
 
-use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
@@ -37,7 +36,7 @@ class CampService {
    *   The node.
    *
    * @return bool
-   *  True when a camp or related to a camp, else False.
+   *   True when a camp or related to a camp, else False.
    */
   public function nodeHasOrIsCamp(NodeInterface $node) {
     if ($this->getNodeCampNode($node) == NULL) {
@@ -106,7 +105,6 @@ class CampService {
       if (!empty($entity_ids)) {
         $node_storage = $this->entityTypeManager->getStorage('node');
         $camp = $node_storage->load(reset($entity_ids));
-//        $camp = Node::load();
       }
     }
 
