@@ -26,10 +26,10 @@ source:
       longitude: -122.787783
       links:
         -
-          uri: '<front>'
+          uri: '#'
           title: Home
         -
-          uri: '<front>'
+          uri: 'base:lp-camp-page-1'
           title: About
         -
           uri: 'http://openymca.org'
@@ -58,10 +58,10 @@ source:
       longitude: -122.939275
       links:
         -
-          uri: '<front>'
+          uri: '#'
           title: Home
         -
-          uri: '<front>'
+          uri: 'base:lp-camp-page-2'
           title: About
         -
           uri: 'http://openymca.org'
@@ -90,10 +90,10 @@ source:
       longitude: -122.155898
       links:
         -
-          uri: '<front>'
+          uri: '#'
           title: Home
         -
-          uri: '<front>'
+          uri: 'base:lp-camp-page-3'
           title: About
         -
           uri: 'http://openymca.org'
