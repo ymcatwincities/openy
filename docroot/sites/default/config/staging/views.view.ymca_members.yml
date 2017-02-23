@@ -11,6 +11,7 @@ dependencies:
     - rest
     - serialization
     - user
+    - views_data_export
     - ymca_mappings
     - ymca_retention
 _core:
@@ -1764,7 +1765,7 @@ display:
           group_type: group
           admin_label: ''
           operator: '='
-          value: '1'
+          value: All
           group: 1
           exposed: true
           expose:
@@ -1808,7 +1809,7 @@ display:
           group_type: group
           admin_label: ''
           operator: '='
-          value: '1'
+          value: All
           group: 1
           exposed: true
           expose:
@@ -1985,7 +1986,7 @@ display:
         - 'config:field.storage.mapping.field_location_name'
         - 'config:field.storage.mapping.field_location_personify_brcode'
   ymca_retention_members_export:
-    display_plugin: ymca_retention_rest_export_feed
+    display_plugin: data_export
     id: ymca_retention_members_export
     display_title: 'YMCA Retention Members Export'
     position: 2
@@ -1993,89 +1994,107 @@ display:
       display_extenders:
         views_advanced_routing_route:
           route: ''
+      path: admin/content/ymca-retention-members/export.csv
+      filename: export.csv
       style:
-        type: serializer
+        type: data_export
         options:
-          uses_fields: 0
           formats:
             csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+          xls_settings:
+            xls_format: Excel2007
+            metadata:
+              creator: ''
+              last_modified_by: ''
+              title: ''
+              description: ''
+              subject: ''
+              keywords: ''
+              category: ''
+              manager: ''
+              company: ''
+      displays:
+        ymca_retention_members: ymca_retention_members
+        default: '0'
       row:
         type: data_field
         options:
           field_options:
             id:
               alias: ''
-              raw_output: 0
+              raw_output: false
             created:
               alias: ''
-              raw_output: 0
+              raw_output: false
             branch:
               alias: ''
-              raw_output: 0
+              raw_output: false
             membership_id:
               alias: member_id
-              raw_output: 0
+              raw_output: false
             personify_id:
               alias: master_customer_id
-              raw_output: 0
+              raw_output: false
             first_name:
               alias: ''
-              raw_output: 0
+              raw_output: false
             last_name:
               alias: ''
-              raw_output: 0
+              raw_output: false
             mail:
               alias: ''
-              raw_output: 0
+              raw_output: false
             is_employee:
               alias: ''
-              raw_output: 0
+              raw_output: false
             total_visits:
               alias: ''
-              raw_output: 0
+              raw_output: false
             created_by_staff:
               alias: ''
-              raw_output: 0
+              raw_output: false
             created_on_mobile:
               alias: ''
-              raw_output: 0
+              raw_output: false
             activity_track_swimming:
               alias: ''
-              raw_output: 0
+              raw_output: false
             activity_track_fitness:
               alias: ''
-              raw_output: 0
+              raw_output: false
             activity_track_groupx:
               alias: ''
-              raw_output: 0
+              raw_output: false
             activity_track_community:
               alias: ''
-              raw_output: 0
-      path: admin/content/ymca-retention-members/export.csv
-      displays:
-        ymca_retention_members: ymca_retention_members
-        default: 0
-      pager:
-        type: some
-        options:
-          items_per_page: '0'
-          offset: '0'
-      display_description: ''
-      title: 'YMCA Retention Members Export'
+              raw_output: false
       defaults:
+        filters: true
+        filter_groups: true
         title: false
-        filters: false
-        filter_groups: false
-      filters: {  }
-      filter_groups:
-        operator: AND
-        groups: {  }
+      title: 'YMCA Retention Members Export'
+      display_description: ''
+      pager:
+        type: none
+        options:
+          offset: 0
+      export_method: batch
+      export_batch_size: '100'
+      automatic_download: 0
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - request_format
+        - url
         - user.permissions
       tags:
         - 'config:field.storage.mapping.field_location_name'
