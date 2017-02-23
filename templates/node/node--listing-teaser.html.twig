@@ -29,9 +29,7 @@
     <div{{ content_attributes.addClass('node__content') }}>
       {{ content|without('field_blog_image') }}
     </div>
-    <div class="read-more"><a href="{{ url }}">{{ 'Read more'|t }}</a></div>
   </div>
-
-  <div class="btn btn-default browse-classes-btn">{{ 'Browse classes'|t }}</div>
+  <div class="btn btn-default browse-classes-btn"><a href="{{ url }}">{{ 'Read more'|t }}</a></div>
 
 </article>
