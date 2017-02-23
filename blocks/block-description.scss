@@ -165,5 +165,22 @@
         width: calc(100% / 4 - 30px);
       }
     }
+
+    .fa-icon {
+      text-align: center;
+      .fa {
+        float: none;
+        margin: 15px auto;
+        width: 100%;
+      }
+    }
+
+    .field-icon {
+      float: none;
+      margin: 10px auto;
+      .field-image {
+        width: 100%;
+      }
+    }
   }
 }
