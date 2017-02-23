@@ -66,6 +66,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_branch',
       ],
     ],
+    'camps' => [
+      'openy_demo_ncamp' => [
+        'openy_demo_node_camp',
+      ],
+    ],
     'blog' => [
       'openy_demo_nblog' => [
         'openy_demo_node_blog',
