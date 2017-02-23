@@ -45,8 +45,8 @@ content:
     type: link_default
     weight: 16
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: '/camp_subpage_url'
+      placeholder_title: 'Camp subpage Title'
     third_party_settings: {  }
   field_header_content:
     type: entity_reference_paragraphs
