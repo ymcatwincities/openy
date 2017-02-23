@@ -88,8 +88,11 @@
     {{ content.field_landing_header }}
     <div class="container">
       <div class="row">
+        <div class="col-sm-{{ main_col_count }}">
+          <h1>{{ label }}</h1>
+        </div>
         <div class="content-main-region col-sm-{{ main_col_count }}">
-          {{ content.field_landing_body }}
+          {{ content|without('field_sidebar_content') }}
         </div>
         {% if node.field_sidebar_content.getValue() is not empty %}
         <div class="content-sidebar-region col-sm-4">
