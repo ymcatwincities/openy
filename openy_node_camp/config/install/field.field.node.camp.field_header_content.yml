@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_header_content
     - node.type.camp
+    - paragraphs.paragraphs_type.camp_menu
     - paragraphs.paragraphs_type.header
     - paragraphs.paragraphs_type.small_banner
   module:
@@ -24,6 +25,7 @@ settings:
     target_bundles:
       header: header
       small_banner: small_banner
+      camp_menu: camp_menu
     target_bundles_drag_drop:
       1c:
         weight: -39
@@ -82,4 +84,10 @@ settings:
       whay:
         weight: -21
         enabled: false
+      all_testimonials:
+        weight: 27
+        enabled: false
+      camp_menu:
+        enabled: true
+        weight: 29
 field_type: entity_reference_revisions

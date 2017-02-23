@@ -22,6 +22,7 @@ dependencies:
   - openy_prgf_3c
   - openy_prgf_4c
   - openy_prgf_blackbaud
+  - openy_prgf_camp_menu
   - openy_prgf_fc
   - openy_prgf_header
   - openy_prgf_simple_content

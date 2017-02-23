@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.3c
     - paragraphs.paragraphs_type.4c
     - paragraphs.paragraphs_type.blackbaud
+    - paragraphs.paragraphs_type.camp_menu
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
@@ -36,6 +37,7 @@ settings:
       latest_news_and_updates: latest_news_and_updates
       simple_content: simple_content
       blackbaud: blackbaud
+      camp_menu: camp_menu
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -73,9 +75,18 @@ settings:
       global_search:
         weight: 26
         enabled: false
+      all_amenities:
+        weight: 26
+        enabled: false
+      all_testimonials:
+        weight: 27
+        enabled: false
       location_finder:
         weight: 29
         enabled: false
+      camp_menu:
+        enabled: true
+        weight: 29
       lto:
         weight: 30
         enabled: false
@@ -87,5 +98,8 @@ settings:
         enabled: false
       whay:
         weight: 34
+        enabled: false
+      small_banner:
+        weight: 41
         enabled: false
 field_type: entity_reference_revisions
