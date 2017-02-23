@@ -63,7 +63,7 @@
           {% if item.content.field_icon_class.0 %}
             <i class="fa fa-{{ item.content.field_icon_class.0 }}"></i>
             <h4 {% if item.content.field_icon_class.0 %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|render|striptags }}</h4>
-          {% elseif item.content.field_icon.0 %}
+          {% else %}
             {{ item.content.field_icon }}
             <h4 {% if item.content.field_icon.0 %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|render|striptags }}</h4>
           {% endif %}
