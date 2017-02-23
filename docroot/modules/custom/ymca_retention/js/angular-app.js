@@ -194,6 +194,20 @@
         return deferred.promise;
       }
 
+      function getTodaysInsight() {
+        var deferred = $q.defer();
+        $http.get(settings.ymca_retention.resources.todays_insight).then(function(response) {
+          if ($.isEmptyObject(response.data)) {
+            deferred.resolve(null);
+            return;
+          }
+
+          deferred.resolve(response.data);
+        });
+
+        return deferred.promise;
+      }
+
       return {
         getCampaign: getCampaign,
         getMember: getMember,
@@ -202,7 +216,8 @@
         setMemberActivities: setMemberActivities,
         getMemberChances: getMemberChances,
         getMemberPrize: getMemberPrize,
-        getRecentWinners: getRecentWinners
+        getRecentWinners: getRecentWinners,
+        getTodaysInsight: getTodaysInsight
       };
     });
 
@@ -223,6 +238,7 @@
         self.member_checkins = null;
         self.recent_winners = null;
         self.last_played_chance = null;
+        self.todays_insight = null;
         // Game state.
         self.state = 'game';
       };
@@ -245,6 +261,7 @@
         // self.getMemberActivities(newVal);
         self.getMemberCheckIns(newVal);
         self.state = 'game';
+        self.getTodaysInsight();
       });
 
       // Watch member activities and update counts.
@@ -358,6 +375,12 @@
       self.getRecentWinners = function() {
         courier.getRecentWinners().then(function(data) {
           self.recent_winners = data;
+        });
+      };
+
+      self.getTodaysInsight = function() {
+        courier.getTodaysInsight().then(function(data) {
+          self.todays_insight = data;
         });
       };
 
