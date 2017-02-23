@@ -1,14 +1,14 @@
 .paragraph--type--all-testimonials {
   .views-row {
     clear: both;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
   }
 }
 
 .node--view-mode-listing-teaser {
   &.node--type-testimonial {
     h2 {
-      margin-bottom: 20px;
+      margin-bottom: 13px;
     }
   }
 
@@ -18,25 +18,24 @@
       color: $blue;
       font-size: 20px;
     }
-    a:hover {
+    a:hover, a:visited, a:link, a:active {
       text-decoration: none;
     }
   }
 
   .field-blog-image-wrapper {
-    width: 160px;
+    width: 261px;
     min-height: 220px;
     float: left;
-    margin-right: 40px;
-    margin-bottom: 20px;
+    margin-right: 39px;
+    margin-bottom: 50px;
+    img {
+      margin: 0;
+    }
   }
 
   .conent-wrapper {
-    min-height: 165px;
-  }
-
-  .read-more {
-    @include read-more-link();
+    min-height: 103px;
   }
 
   .browse-classes-btn {
