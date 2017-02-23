@@ -239,7 +239,7 @@ class MemberRegisterForm extends FormBase {
         ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
-      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form', $new_form));
+      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form .ymca-retention-register-form', $new_form));
 
       return $ajax_response;
     }
