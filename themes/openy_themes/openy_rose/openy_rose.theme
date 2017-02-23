@@ -154,3 +154,10 @@ function openy_rose_preprocess_page(array &$variables) {
     $variables['footer_logo'] = $file->getFileUri();
   }
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_rose_theme_suggestions_radios_alter(array &$suggestions, array $variables, $hook) {
+  $suggestions[] = 'radios__' . $variables['element']['#name'];
+}

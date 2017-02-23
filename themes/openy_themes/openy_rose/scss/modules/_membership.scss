@@ -4,6 +4,10 @@ a[href="#step2"] {
 }
 
 #membership-calc-wrapper {
+  img {
+    height: auto;
+    max-width: 100%;
+  }
   .h1 {
     margin-bottom: 30px;
     padding-bottom: 4px;
@@ -25,10 +29,12 @@ a[href="#step2"] {
     }
   }
   .membership-type label {
-    bottom: 30px;
+    border-bottom: 1px solid #333;
+    bottom: 0;
     display: block;
+    padding-bottom: 30px;
     position: absolute;
-    width: calc(100% - 30px);
+    width: 100%;
   }
   .btn {
     line-height: 40px;
@@ -39,22 +45,11 @@ a[href="#step2"] {
   .text-center {
     margin-top: 40px;
   }
-  .fieldset-wrapper > div {
-    @include breakpoint($screen-xs) {
-      //display: flex;
-    }
-  }
-  .form-element-wrapper .btn {
-    display: block;
-    &:after {
-      content: "";
+  .form-element-wrapper {
+    height: 100%;
+    position: relative;
+    .btn {
       display: block;
-      width: 100%;
-      background-color: #333;
-      height: 1px;
-      position: absolute;
-      bottom: -30px;
-      left:0;
     }
   }
   input[name="type"] {
@@ -69,12 +64,27 @@ a[href="#step2"] {
       position: static;
     }
     .node--view-mode-calc-preview {
-      margin-bottom: 110px;
       img {
         height: auto;
+        margin-bottom: 10px;
         width: 100%;
       }
     }
+  }
+  input[type="radio"]:checked + .form-element-wrapper label .btn {
+    background-color: $purple;
+    box-shadow: 0 0 5px $purple;
+  }
+  .pull-left,
+  .pull-right {
+    margin: 20px 0 10px 0;
+  }
+  .node--type-membership.node--view-mode-calc-preview {
+    margin-bottom: 90px;
+  }
+  .pull-right,
+  .complete-registration {
+    background-color: $purple;
   }
 }
 
@@ -93,23 +103,32 @@ a[href="#step2"] {
     display: table-cell;
     float: none;
     vertical-align: middle;
-    width: 34%;
-    &:last-child {
-      a {
-        padding-left: 25px;
+    @include breakpoint(0 $screen-xs) {
+      margin-bottom: 5px;
+      display: block;
+      overflow: hidden;
+    }
+    @include breakpoint($screen-xs) {
+      width: 34%;
+      &:last-child {
+        div {
+          padding-left: 25px;
+        }
       }
     }
-    a {
+    div {
       text-decoration: none;
       position: relative;
       white-space: nowrap;
       border-radius: 0;
       color: white;
       background-color: #92278f;
-      width: calc(100% - 30px);
       text-align: center;
+      padding: 9px;
+      width: 90%;
       @include breakpoint($screen-xs) {
         display: block;
+        width: calc(100% - 30px);
       }
       &:before {
         content: " ";
@@ -146,23 +165,28 @@ a[href="#step2"] {
         z-index: 3;
       }
     }
-    a[href="#step1"],
-    a[href="#step2"] {
-      width: calc(100% - 15px);
+    .step-1,
+    .step-2 {
+      @include breakpoint($screen-xs) {
+        width: calc(100% - 15px);
+      }
     }
-    a[href="#step2"] {
+    .step-2 {
       .nav-pills__text {
         margin-left: 5px;
       }
     }
-    &.active a,
-    &:first-child a{
+    &.active div,
+    &:first-child div {
       background-color: $purple;
     }
-    &:first-child a:after,
-    &.active a:after {
+    &:first-child div:after,
+    &.active div:after {
       border-left: 30px solid $purple;;
     }
+  }
+  li + li {
+    margin-left: 0;
   }
 }
 
@@ -219,7 +243,6 @@ a[href="#step2"] {
   label {
     max-width: calc(100% - 40px);
     margin-bottom: 0;
-
     vertical-align: middle;
   }
 }
