@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+
+  <div class="field-blog-image-wrapper">{{ content.field_blog_image }}</div>
+
+  {{ title_prefix }}
+  <h2{{ title_attributes }}>
+    <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+  </h2>
+  {{ title_suffix }}
+
+  <div class="conent-wrapper">
+    <div{{ content_attributes.addClass('node__content') }}>
+      {{ content|without('field_blog_image') }}
+    </div>
+    <div class="read-more"><a href="{{ url }}">{{ 'Read more'|t }}</a></div>
+  </div>
+
+  <div class="btn btn-default browse-classes-btn">{{ 'Browse classes'|t }}</div>
+
+</article>
