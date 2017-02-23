@@ -23,7 +23,7 @@ class Introduction extends BlockBase {
       '#theme' => 'ymca_retention_introduction',
       '#attached' => [
         'library' => [
-          'ymca_retention/match-height',
+          'ymca_retention/introduction',
         ],
       ],
     ];
