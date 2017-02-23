@@ -14,6 +14,7 @@ source:
     -
       id: homepage
       title: 'OpenY'
+      alias: '/openy'
       header_content_id: homepage_banner
       content_ids:
         -
@@ -21,6 +22,7 @@ source:
     -
       id: about
       title: 'About the YMCA'
+      alias: '/about'
       header_content_id: about_gallery
       content_ids:
         -
@@ -28,6 +30,7 @@ source:
     -
       id: give
       title: 'Give'
+      alias: '/give'
       header_content_id: give_gallery
       content_ids:
         -
@@ -35,6 +38,7 @@ source:
     -
       id: blog
       title: 'Blog'
+      alias: '/blog'
       header_content_id: blog_small_banner
       content_ids:
         -
@@ -44,6 +48,7 @@ source:
     -
       id: accelerator
       title: 'Accelerator'
+      alias: '/accelerator'
       header_content_id: accelerator_gallery
       content_ids:
         -
@@ -55,6 +60,7 @@ source:
     -
       id: locations
       title: 'Locations'
+      alias: '/locations'
       header_content_id: locations_location_finder_filters
       content_ids:
         -
@@ -62,6 +68,7 @@ source:
     -
       id: lp_camp_page_1
       title: 'Camp Colman page'
+      alias: '/lp-camp-page-1'
       header_content_id: lp_camp_menu_1
       content_ids:
         -
@@ -69,6 +76,7 @@ source:
     -
       id: lp_camp_page_2
       title: 'Camp Orkila page'
+      alias: '/lp-camp-page-2'
       header_content_id: lp_camp_menu_2
       content_ids:
         -
@@ -76,6 +84,7 @@ source:
     -
       id: lp_camp_page_3
       title: 'Camp Terry page'
+      alias: '/lp-camp-page-3'
       header_content_id: lp_camp_menu_3
       content_ids:
         -
@@ -95,6 +104,12 @@ process:
     plugin: default_value
     default_value: 1
   title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias:
+    plugin: get
+    source: alias
   field_lp_layout:
     plugin: default_value
     default_value: one_column
