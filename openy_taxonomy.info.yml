@@ -4,8 +4,9 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
+  - ctools
   - node
-  - openy_taxonomy
+  - pathauto
   - taxonomy
   - tour
   - user
