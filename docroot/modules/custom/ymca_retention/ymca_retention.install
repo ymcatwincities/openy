@@ -400,6 +400,10 @@ function ymca_retention_update_8022() {
     'views_data_export',
   ], TRUE);
 
+  \Drupal::service('module_installer')->uninstall([
+    'ymca_export',
+  ], TRUE);
+
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
