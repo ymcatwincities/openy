@@ -268,17 +268,6 @@
     }
   }
 
-
-  .compain-facility-access-hint-wrapper {
-
-    @include breakpoint($mobile-max) {
-      &.collapse {
-        display: block;
-        height: auto !important;
-      }
-    }
-  }
-
   .compain-facility-access-hint {
     @include rem(background-position, 20px bottom);
     @include rem(background-size, auto 190px);
