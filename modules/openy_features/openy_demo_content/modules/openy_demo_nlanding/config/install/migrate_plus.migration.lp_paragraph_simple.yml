@@ -61,13 +61,49 @@ source:
         <h4>Do you love Camp Colman? Or maybe you have never been here before
         and you can't wait to learn more? This page will give you some great
         insight into our rich history.</h4>
+        <br>
+        <ul>
+          <li>
+            <h4>Explore nature, learn new skills, make new friends and gain
+            respect for the environment.</h4>
+          </li>
+          <li>
+            <h4>Hear stories from our parents and campers.</h4>
+          </li>
+        </ul>
+        <br>
+        <h4>Are you ready to grow, learn, and have the time of your life?
+        Do you want to change the world, one child at a time? Camp Colman
+        summer camp staff applications are up and running, so what are you
+        waiting for?! </h4>
+        <br>
+        <h4>We're looking for dedicated, creative, responsible people to
+        inspire children to discover possibilities and become themselves.
+        Staff training starts in mid-June and will go until the end of August.
+        Check out the positions tab and see all of the possibilities then fill
+        out that app so we can chat. I can't wait to get to know you!</h4>
     -
       id: camp_page_2_simple
       parent_id: lp_camp_page_2
       description: |
+        <h4>There's no place like overnight camp to discover who you are and
+        the gifts you have to share. Hear stories from our parents and
+        campers.</h4>
+        <br>
         <h4>Do you love Camp Orkila? Or maybe you have never been here before
         and you can't wait to learn more? This page will give you some great
         insight into our rich history.</h4>
+        <br>
+        <h4>There are a lot of really wonderful things about being here on
+        Orcas Island. There's the opportunity for adventure in the woods,
+        mountains, and sea. We have astounding views of the Salish Sea right
+        here at camp. That's just to name a couple of the features we value
+        so much about this island. We can't mention these merits without
+        highlighting one of the greatest things one can find here:
+        An abundantly welcoming and vibrant island community. The people,
+        businesses, schools, organizations, and sense of place all come
+        together to make Orcas Island the gem that it is. </h4>
+
     -
       id: camp_page_3_simple
       parent_id: lp_camp_page_3
@@ -78,6 +114,29 @@ source:
         fun!  You just need your sleeping bags, tent, and energy. Our goal is
         to bring the fun of camping to you without the worry of planning what
         to do.  </h4>
+        <br>
+        <ul>
+          <li>
+            <h4>Make Friends.</h4>
+          </li>
+          <li>
+            <h4>Have Fun.</h4>
+          </li>
+          <li>
+            <h4>Explore Nature.</h4>
+          </li>
+        </ul>
+        <br>
+        <h4>Camp Terry serves as the perfect place for a family reunion,
+        church outing, staff retreat, educational opportunity or any other
+        group gathering that wishes to take advantage the camp's beautiful
+        placement along Raging River. Also, Camp Terry has two comfortable
+        yurts that can accommodate up to 25 people for staff straining
+        and workshops. </h4>
+        <br>
+        <h4> Does your child dream of being an archer, rock climber, or chef?
+        These high-quality programs take some favorite Camp Terry activities
+         to the next level with fun, week-long, learning adventures.</h4>
   ids:
     id:
       type: string
