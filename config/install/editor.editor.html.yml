@@ -38,7 +38,9 @@ settings:
           name: Media
           items:
             - Blockquote
-            - DrupalImage
+            - embed_video
+            - embed_image
+            - embed_document
             - media
         -
           name: Tools
