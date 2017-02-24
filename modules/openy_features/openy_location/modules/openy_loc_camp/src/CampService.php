@@ -134,7 +134,7 @@ class CampService {
       $query = \Drupal::entityQuery('node');
       $group = $query->orConditionGroup()
         ->condition('field_camp_menu_links', 'entity:node/' . $node->id())
-        ->condition('field_camp_menu_links', 'internal:/node/' . $node->id());
+        ->condition('field_camp_menu_links', 'internal:' . $system_path);
 
       // Since the link field allows internal links we must check if this node's
       // aliases are linked also.
