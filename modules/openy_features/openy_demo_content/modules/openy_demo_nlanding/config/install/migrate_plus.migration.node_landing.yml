@@ -14,6 +14,7 @@ source:
     -
       id: homepage
       title: 'OpenY'
+      alias: '/openy'
       header_content_id: homepage_banner
       content_ids:
         -
@@ -21,6 +22,7 @@ source:
     -
       id: about
       title: 'About the YMCA'
+      alias: '/about'
       header_content_id: about_gallery
       content_ids:
         -
@@ -28,6 +30,7 @@ source:
     -
       id: give
       title: 'Give'
+      alias: '/give'
       header_content_id: give_gallery
       content_ids:
         -
@@ -35,6 +38,7 @@ source:
     -
       id: blog
       title: 'Blog'
+      alias: '/blog'
       header_content_id: blog_small_banner
       content_ids:
         -
@@ -44,6 +48,7 @@ source:
     -
       id: accelerator
       title: 'Accelerator'
+      alias: '/accelerator'
       header_content_id: accelerator_gallery
       content_ids:
         -
@@ -55,10 +60,35 @@ source:
     -
       id: locations
       title: 'Locations'
+      alias: '/locations'
       header_content_id: locations_location_finder_filters
       content_ids:
         -
           content_id: locations_location_finder
+    -
+      id: lp_camp_page_1
+      title: 'Camp Colman page'
+      alias: '/camps/camp-colman/about'
+      header_content_id: lp_camp_menu_1
+      content_ids:
+        -
+          content_id: camp_page_1_simple
+    -
+      id: lp_camp_page_2
+      title: 'Camp Orkila page'
+      alias: '/camps/camp-orkila/about'
+      header_content_id: lp_camp_menu_2
+      content_ids:
+        -
+          content_id: camp_page_2_simple
+    -
+      id: lp_camp_page_3
+      title: 'Camp Terry page'
+      alias: '/camps/camp-terry/about'
+      header_content_id: lp_camp_menu_3
+      content_ids:
+        -
+          content_id: camp_page_3_simple
   ids:
     id:
       type: string
@@ -74,6 +104,12 @@ process:
     plugin: default_value
     default_value: 1
   title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias:
+    plugin: get
+    source: alias
   field_lp_layout:
     plugin: default_value
     default_value: one_column
@@ -84,6 +120,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_header_content/target_revision_id:
     plugin: migration
@@ -92,6 +129,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_content:
     plugin: iterator
@@ -139,5 +177,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_latest_blog_posts
     - openy_demo_lp_paragraph_location_finder_filters
     - openy_demo_lp_paragraph_location_finder
+    - openy_demo_lp_paragraph_menu_camp
   optional:
     - openy_demo_node_blog
