@@ -52,7 +52,9 @@
       <div class="container">
         <div class="row">
           <div class="page-head__logo">
-            {{ page.logo }}
+            {% block page_logo %}
+              {{ page.logo }}
+            {% endblock %}
           </div>
 
           <a class="navbar-toggle visible-xs visible-sm" data-toggle="collapse" data-target=".sidebar-left" href="#">
@@ -89,7 +91,9 @@
           <div class="container">
             <div class="row">
               <div class="page-head__logo">
-                {{ page.logo }}
+                {% block page_logo_2 %}
+                  {{ page.logo }}
+                {% endblock %}
               </div>
 
               <a class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
@@ -152,11 +156,13 @@
     <footer class="footer">
       <div class="container">
         <div class="col-sm-2 col-xs-4 hidden-sm hidden-md">
-          {% set background_image = '' %}
-          {% if footer_logo %}
-            {% set background_image = " style='background-image: url(" ~ file_url(footer_logo) ~ ")'" %}
-          {% endif %}
-          <a href="{{ base }}" class="footer__brand brand" title="{{ "YMCA"|t }}"{{ background_image|raw }}></a>
+          {% block footer_image_link %}
+            {% set background_image = '' %}
+            {% if footer_logo %}
+              {% set background_image = " style='background-image: url(" ~ file_url(footer_logo) ~ ")'" %}
+            {% endif %}
+            <a href="{{ front_page }}" class="footer__brand brand" title="{{ "YMCA"|t }}"{{ background_image|raw }}></a>
+          {% endblock %}
         </div>
         <nav class="col-xs-8 col-sm-12 col-md-7 col-lg-6">
           <nav class="footer__nav row">

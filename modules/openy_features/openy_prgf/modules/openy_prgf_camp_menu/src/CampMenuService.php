@@ -4,7 +4,7 @@ namespace Drupal\openy_prgf_camp_menu;
 
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use \Drupal\node\Entity\Node;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class CampMenuService.
@@ -21,13 +21,23 @@ class CampMenuService implements CampMenuServiceInterface {
   protected $entityTypeManager;
 
   /**
+   * The service container.
+   *
+   * @var \Symfony\Component\DependencyInjection\ContainerInterface
+   */
+  protected $container;
+
+  /**
    * Constructs a new CampMenuService.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The current service container.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container) {
     $this->entityTypeManager = $entity_type_manager;
+    $this->container = $container;
   }
 
   /**
@@ -41,32 +51,8 @@ class CampMenuService implements CampMenuServiceInterface {
    */
   public function getNodeCampNode(NodeInterface $node) {
     $camp = NULL;
-    switch ($node->bundle()) {
-      case 'camp':
-        $camp = $node;
-        break;
-
-      case 'landing_page':
-        if ($node->hasField('field_location')) {
-          if ($value = $node->field_location->referencedEntities()) {
-            $camp = reset($value);
-          }
-        }
-        // Else if a camp links to this landing page use the linking camp.
-        else {
-          // Query 1 Camp nodes that link to this landing page.
-          $query = \Drupal::entityQuery('node')
-            ->condition('status', 1)
-            ->condition('type', 'camp')
-            ->condition('field_camp_menu_links', 'entity:node/' . $node->id())
-            ->range(0, 1);
-          $entity_ids = $query->execute();
-          // If results returned.
-          if (!empty($entity_ids)) {
-            $camp = Node::load(reset($entity_ids));
-          }
-        }
-        break;
+    if ($camp_service = $this->container->get('openy_loc_camp.camp_service')) {
+      $camp = $camp_service->getNodeCampNode($node);
     }
 
     return $camp;
@@ -82,7 +68,7 @@ class CampMenuService implements CampMenuServiceInterface {
    *   Array of menu links.
    */
   public function getNodeCampMenu(NodeInterface $node) {
-    if (!$camp = $this->getNodeCampNode($node)) {
+    if (!($camp = $this->getNodeCampNode($node))) {
       return [];
     }
 
