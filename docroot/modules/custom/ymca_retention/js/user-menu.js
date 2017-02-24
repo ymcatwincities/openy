@@ -77,9 +77,13 @@
       on('hidden.bs.modal', function (event) {
         // Save the form back.
         var $modal = $(this);
+        $refresh_button_selector = '#' + $modal.find('.modal-body .ymca-retention-modal-form').attr('id') + " .refresh";
+        console.log($refresh_button_selector);
         $modal.find('.modal-body .ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
         // Restore the modal header.
         $modal.find('.modal-header').show();
+        // Refresh form.
+        $( $refresh_button_selector ).click();
       });
   };
 
