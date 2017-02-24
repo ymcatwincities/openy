@@ -166,7 +166,8 @@ class CampService {
   }
 
   /**
-   * Returns all aliases of Drupal system URL.
+   * Returns all aliases of Drupal system URL. Neither AliasManagerInterface or
+   * AliasStorageInterface have a method to get all aliases for a path.
    *
    * @param string $path
    *   The path to investigate for corresponding path aliases.
@@ -177,7 +178,6 @@ class CampService {
    * @return string|false
    *   A path alias, or FALSE if no path was found.
    *
-   * Neither have a method to get all aliases for a path.
    * @see \Drupal\Core\Path\AliasManagerInterface
    * @see \Drupal\Core\Path\AliasStorageInterface
    * @see \Drupal\Core\Path\AliasStorage::lookupPathAlias
