@@ -36,9 +36,21 @@
  * @ingroup themeable
  */
 #}
+
 {%
-  set color = content.field_prgf_color|render|striptags
+  set colors = [
+    content.field_prgf_color.0|render|striptags|trim,
+    content.field_prgf_color.1|render|striptags|trim,
+  ]
 %}
+
+{% set backgroud_style = "" %}
+{% if colors.0 is not empty and colors.1  is not empty %}
+  {% set backgroud_style = "background: linear-gradient(to top, color1, color2);" %}
+{% elseif colors.0 is not empty and colors.1 is empty %}
+  {% set backgroud_style = "background-color: color1;" %}
+{% endif %}
+
 {%
   set classes = [
     'paragraph',
@@ -46,10 +58,10 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     'banner',
     'banner--small',
-    color is not empty ? 'color-assigned' : '',
+    (colors.0 is not empty and colors.1 is empty) ? 'color-assigned' : '',
   ]
 %}
-<div{{ attributes.addClass(classes) }} style="background-color: {{ color }};">
+<div{{ attributes.addClass(classes) }} style="{{ backgroud_style|replace({'color1': colors.0, 'color2': colors.1}) }}">
   <div class="banner-image">
     <div class="banner-image-wrapper">
       {{ content.field_prgf_image }}
