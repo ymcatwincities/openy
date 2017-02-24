@@ -44,7 +44,7 @@ function openy_update_8001() {
 /**
  * Enable Alerts.
  */
-function openy_update_8004() {
+function openy_update_8002() {
   if (\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
     return;
   }
