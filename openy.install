@@ -27,7 +27,7 @@ function openy_install() {
 /**
  * Upgrade from 8.x-0.2 version.
  */
-function openy_update_8003() {
+function openy_update_8001() {
   if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
     // Enable modules.
     \Drupal::service('module_installer')->install([
