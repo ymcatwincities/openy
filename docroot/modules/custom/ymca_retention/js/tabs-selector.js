@@ -10,14 +10,15 @@
    */
   Drupal.behaviors.ymca_retention_tabs_selector = {};
   Drupal.behaviors.ymca_retention_tabs_selector.attach = function (context, settings) {
-    $('.yfr-tabs', context)
+    $('.compain-tabs', context)
       .once('tab-collapse')
       .tabCollapse({
         tabsClass: 'hidden-xs',
-        accordionClass: 'visible-xs yfr-accordion'
+        accordionClass: 'visible-xs compain-accordion',
+
       });
 
-    $(document).on('show.bs.collapse', '.panel-collapse, a[data-toggle="tab"]', function (event) {
+    $(document).on('show.bs.collapse', '.panel-collapse, a[data-toggle="collapse"]', function (event) {
       // Get accordion item.
       var $target = $(event.currentTarget);
 
@@ -33,18 +34,18 @@
       $('a[href="#' + tab_id + '-collapse"]').addClass('collapsed');
 
       // Displaying login form on modal.
-      $link = $('.yfr-tabs a[href="#' + tab_id + '"]').click();
+      $link = $('.nav-tabs a[href="#' + tab_id + '"]').click();
+      $('#ymca-retention-modal .modal-header').show();
 
       event.preventDefault();
     });
+
     // Scroll to just opened tab.
     $(document).on('shown.bs.collapse', function (event) {
       $('body').animate({
         scrollTop: $(this.activeElement).offset().top
       });
     });
-
-
   };
 
 })(jQuery);
