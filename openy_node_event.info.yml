@@ -22,6 +22,7 @@ dependencies:
   - openy_prgf_3c
   - openy_prgf_4c
   - openy_prgf_contact_us
+  - openy_prgf_event_reg
   - openy_prgf_header
   - openy_prgf_lto
   - openy_prgf_simple_content
