@@ -4,6 +4,9 @@ namespace Drupal\openy_loc_camp;
 
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Class CampService contains methods for camp related processes.
@@ -20,13 +23,33 @@ class CampService {
   protected $entityTypeManager;
 
   /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
+   * Site config object.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $config;
+
+  /**
    * Constructs a EntityCreateAccessCheck object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   Entity type manager.
+   * @param \Drupal\Core\Database\Connection $connection
+   *   A database connection for reading and writing path aliases.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, Connection $connection, ConfigFactoryInterface $config_factory) {
     $this->entityTypeManager = $entityTypeManager;
+    $this->connection = $connection;
+    $this->config = $config_factory->get('system.site');
   }
 
   /**
@@ -95,10 +118,40 @@ class CampService {
     }
     // Else if a camp links to this landing page use the linking camp.
     else {
+      // Need to get <front> path if set & is a node.
+      $front = $this->config->get('page.front');
+      // To track if this node is the front page.
+      $is_front = FALSE;
+
+      // Setup to lookup all aliases for this node.
+      $langcode = $node->language()->getId();
+      $system_path = '/node/' . $node->id();
+
+      // If the front is set to this node directly.
+      $is_front = ($front == $system_path) ? TRUE : $is_front;
+
       // Query 1 Camp nodes that link to this landing page.
-      $query = \Drupal::entityQuery('node')
-        ->condition('status', 1)
-        ->condition('field_camp_menu_links', 'entity:node/' . $node->id())
+      $query = \Drupal::entityQuery('node');
+      $group = $query->orConditionGroup()
+        ->condition('field_camp_menu_links', 'entity:node/' . $node->id());
+
+      // Since the link field allows internal links we must check if this node's
+      // aliases are linked also.
+      if ($aliases = $this->lookupPathAliases($system_path, $langcode)) {
+        foreach ($aliases as $alias) {
+          $group->condition('field_camp_menu_links', 'internal:' . $alias->alias);
+          // Checking to see if the alias is the front page config value.
+          $is_front = ($front == $alias->alias) ? TRUE : $is_front;
+        }
+      }
+
+      // If this node is the front page we add the '/' path. This is how <front>
+      // is represented in the link field storage.
+      if ($is_front) {
+        $group->condition('field_camp_menu_links', 'internal:' . '/');
+      }
+      $query->condition('status', 1)
+        ->condition($group)
         ->range(0, 1);
       $entity_ids = $query->execute();
       // If results returned.
@@ -109,6 +162,54 @@ class CampService {
     }
 
     return $camp;
+  }
+
+  /**
+   * Returns all aliases of Drupal system URL.
+   *
+   * @see \Drupal\Core\Path\AliasStorage::lookupPathAlias
+   *
+   * Neither @see \Drupal\Core\Path\AliasManagerInterface or
+   * @see \Drupal\Core\Path\AliasStorageInterface have a method to get all
+   * aliases for a path.
+   *
+   * @param string $path
+   *   The path to investigate for corresponding path aliases.
+   * @param string $langcode
+   *   Language code to search the path with. If there's no path defined for
+   *   that language it will search paths without language.
+   *
+   * @return string|false
+   *   A path alias, or FALSE if no path was found.
+   */
+  public function lookupPathAliases($path, $langcode) {
+    $source = $this->connection->escapeLike($path);
+    $langcode_list = [$langcode, LanguageInterface::LANGCODE_NOT_SPECIFIED];
+    $alias_table = 'url_alias';
+
+    // See the queries above. Use LIKE for case-insensitive matching.
+    $select = $this->connection->select($alias_table)
+      ->fields($alias_table, ['alias'])
+      ->condition('source', $source, 'LIKE');
+    if ($langcode == LanguageInterface::LANGCODE_NOT_SPECIFIED) {
+      array_pop($langcode_list);
+    }
+    elseif ($langcode > LanguageInterface::LANGCODE_NOT_SPECIFIED) {
+      $select->orderBy('langcode', 'DESC');
+    }
+    else {
+      $select->orderBy('langcode', 'ASC');
+    }
+
+    $select->orderBy('pid', 'DESC');
+    $select->condition('langcode', $langcode_list, 'IN');
+    try {
+      return $select->execute()->fetchall();
+    }
+    catch (\Exception $e) {
+      $this->catchException($e);
+      return FALSE;
+    }
   }
 
 }
