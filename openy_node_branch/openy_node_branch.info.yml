@@ -6,6 +6,7 @@ dependencies:
   - address
   - content_moderation
   - content_translation
+  - ctools
   - entity_reference_revisions
   - field
   - field_group
@@ -33,6 +34,7 @@ dependencies:
   - openy_svg_formatter
   - paragraphs
   - path
+  - pathauto
   - taxonomy
   - telephone
   - text
