@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.event_registration.field_prgf_event_reg_block
+    - paragraphs.paragraphs_type.event_registration
+  module:
+    - content_moderation
+    - plugin
+id: paragraph.event_registration.default
+targetEntityType: paragraph
+bundle: event_registration
+mode: default
+content:
+  field_prgf_event_reg_block:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: 'plugin_selector:plugin_select_list'
+hidden:
+  created: true
+  status: true
+  uid: true

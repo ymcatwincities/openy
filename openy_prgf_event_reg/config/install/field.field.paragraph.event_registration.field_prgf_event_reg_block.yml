@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_event_reg_block
+    - paragraphs.paragraphs_type.event_registration
+  module:
+    - plugin
+id: paragraph.event_registration.field_prgf_event_reg_block
+field_name: field_prgf_event_reg_block
+entity_type: paragraph
+bundle: event_registration
+label: 'Event Registration block'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    plugin_id: rng_registration
+    plugin_configuration:
+      id: rng_registration
+      label: 'Event Registration block'
+      provider: null
+      label_display: null
+    plugin_configuration_schema_id: block.settings.rng_registration
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:block'
