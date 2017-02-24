@@ -1960,20 +1960,8 @@ display:
       defaults:
         filters: true
         filter_groups: true
-        footer: false
+        footer: true
       display_description: ''
-      footer:
-        area_text_custom:
-          id: area_text_custom
-          table: views
-          field: area_text_custom
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          tokenize: false
-          content: "<div class=\"feed-icons\">\n      <div class=\"csv-feed views-rest-feed\">\n<a href=\"[site:url]ymca_export\" class=\"feed-generate-icon\">\n  Generate csv file\n</a>\n</div>\n    </div>"
-          plugin_id: text_custom
     cache_metadata:
       max-age: 0
       contexts:
