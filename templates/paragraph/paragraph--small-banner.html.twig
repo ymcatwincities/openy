@@ -53,11 +53,11 @@
   }
 %}
 
-{% set backgroud_style = "" %}
+{% set background_style = "" %}
 {% if colors.bottom is not empty and colors.top  is not empty %}
-  {% set backgroud_style = "background: linear-gradient(to top, color_bottom, color_top);" %}
+  {% set background_style = "background: linear-gradient(to top, color_bottom, color_top);" %}
 {% elseif colors.bottom is not empty and colors.top is empty %}
-  {% set backgroud_style = "background-color: color_bottom;" %}
+  {% set background_style = "background-color: color_bottom;" %}
 {% endif %}
 
 {%
@@ -70,7 +70,7 @@
     (colors.bottom is not empty and colors.top is empty) ? 'color-assigned' : '',
   ]
 %}
-<div{{ attributes.addClass(classes) }} style="{{ backgroud_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
+<div{{ attributes.addClass(classes) }} style="{{ background_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
   <div class="banner-image">
     <div class="banner-image-wrapper">
       {{ content.field_prgf_image }}
