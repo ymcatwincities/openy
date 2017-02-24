@@ -10,7 +10,7 @@ field_name: field_prgf_color
 entity_type: paragraph
 bundle: small_banner
 label: Color
-description: ''
+description: 'Select one color to set a uniform background or two for ''bottom to top'' gradient.'
 required: true
 translatable: false
 default_value: {  }
