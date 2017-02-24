@@ -60,12 +60,14 @@
     {% else %}
       {% for item in items %}
         <div{{ attributes.addClass(classes) }}>
-          {% if item.content.field_icon_class.0 %}
-            <i class="fa fa-{{ item.content.field_icon_class.0 }}"></i>
-            <h4 {% if item.content.field_icon_class.0 %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|render|striptags }}</h4>
+          {% set icon_class = item.content.field_icon_class.0 ? item.content.field_icon_class.0 : '' %}
+          {% set icon = item.content.field_icon.0 ? item.content.field_icon.0 : '' %}
+          {% if icon_class %}
+            <i class="fa fa-{{ icon_class }}"></i>
+            <h4 {% if icon_class %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|render|striptags }}</h4>
           {% else %}
             {{ item.content.field_icon }}
-            <h4 {% if item.content.field_icon.0 %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|render|striptags }}</h4>
+            <h4 {% if icon %}class="with-icon"{% endif %}>{{ item.content.field_sb_title|render|striptags }}</h4>
           {% endif %}
           {{ item.content|without('field_icon', 'field_icon_class', 'field_sb_title') }}
         </div>
