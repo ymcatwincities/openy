@@ -148,7 +148,7 @@ class CampService {
       // If this node is the front page we add the '/' path. This is how <front>
       // is represented in the link field storage.
       if ($is_front) {
-        $group->condition('field_camp_menu_links', 'internal:' . '/');
+        $group->condition('field_camp_menu_links', 'internal:/');
       }
       $query->condition('status', 1)
         ->condition($group)
@@ -167,12 +167,6 @@ class CampService {
   /**
    * Returns all aliases of Drupal system URL.
    *
-   * @see \Drupal\Core\Path\AliasStorage::lookupPathAlias
-   *
-   * Neither @see \Drupal\Core\Path\AliasManagerInterface or
-   * @see \Drupal\Core\Path\AliasStorageInterface have a method to get all
-   * aliases for a path.
-   *
    * @param string $path
    *   The path to investigate for corresponding path aliases.
    * @param string $langcode
@@ -181,6 +175,11 @@ class CampService {
    *
    * @return string|false
    *   A path alias, or FALSE if no path was found.
+   *
+   * Neither have a method to get all aliases for a path.
+   * @see \Drupal\Core\Path\AliasManagerInterface
+   * @see \Drupal\Core\Path\AliasStorageInterface
+   * @see \Drupal\Core\Path\AliasStorage::lookupPathAlias
    */
   public function lookupPathAliases($path, $langcode) {
     $source = $this->connection->escapeLike($path);
