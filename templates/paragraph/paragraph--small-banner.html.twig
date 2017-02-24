@@ -35,20 +35,29 @@
  *
  * @ingroup themeable
  */
+
+ {%
+  set colors = {
+    bottom: content.field_prgf_color.0|render|striptags|trim,
+    top   : content.field_prgf_color.1|render|striptags|trim}
+  }
+%}
 #}
 
+
+
 {%
-  set colors = [
-    content.field_prgf_color.0|render|striptags|trim,
-    content.field_prgf_color.1|render|striptags|trim,
-  ]
+  set colors = {
+    bottom: content.field_prgf_color.0|render|striptags|trim,
+    top: content.field_prgf_color.1|render|striptags|trim
+  }
 %}
 
 {% set backgroud_style = "" %}
-{% if colors.0 is not empty and colors.1  is not empty %}
-  {% set backgroud_style = "background: linear-gradient(to top, color1, color2);" %}
-{% elseif colors.0 is not empty and colors.1 is empty %}
-  {% set backgroud_style = "background-color: color1;" %}
+{% if colors.bottom is not empty and colors.top  is not empty %}
+  {% set backgroud_style = "background: linear-gradient(to top, color_bottom, color_top);" %}
+{% elseif colors.bottom is not empty and colors.top is empty %}
+  {% set backgroud_style = "background-color: color_bottom;" %}
 {% endif %}
 
 {%
@@ -58,10 +67,10 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     'banner',
     'banner--small',
-    (colors.0 is not empty and colors.1 is empty) ? 'color-assigned' : '',
+    (colors.bottom is not empty and colors.top is empty) ? 'color-assigned' : '',
   ]
 %}
-<div{{ attributes.addClass(classes) }} style="{{ backgroud_style|replace({'color1': colors.0, 'color2': colors.1}) }}">
+<div{{ attributes.addClass(classes) }} style="{{ backgroud_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
   <div class="banner-image">
     <div class="banner-image-wrapper">
       {{ content.field_prgf_image }}
