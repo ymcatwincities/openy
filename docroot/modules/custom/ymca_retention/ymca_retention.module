@@ -202,6 +202,10 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'variables' => [],
       'template' => 'blocks/ymca-retention-progress',
     ],
+    'ymca_retention_my_progress' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-my-progress',
+    ],
     'ymca_retention_instant_win' => [
       'variables' => [
         'content' => NULL,

@@ -186,6 +186,37 @@ class MemberController extends ControllerBase {
   }
 
   /**
+   * Returns member bonuses history.
+   */
+  public function memberBonusesJson() {
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (!$member_id) {
+      return new JsonResponse();
+    }
+
+    // Check that member exists.
+    $member = Member::load($member_id);
+    if (!$member) {
+      return new JsonResponse();
+    }
+
+    $bonus_ids = \Drupal::entityQuery('ymca_retention_member_bonus')
+      ->condition('member', $member_id)
+      ->execute();
+
+    $bonuses = $this->entityTypeManager()
+      ->getStorage('ymca_retention_member_bonus')
+      ->loadMultiple($bonus_ids);
+
+    $bonus_values = [];
+    foreach ($bonuses as $bonus) {
+      $bonus_values[$bonus->getDate()] = $bonus->getBonusCode();
+    }
+
+    return new JsonResponse($bonus_values);
+  }
+
+  /**
    * Returns recent winners.
    */
   public function recentWinnersJson() {

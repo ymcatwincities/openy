@@ -1,0 +1,93 @@
+{#
+/**
+ * @file
+ * Display member "My progress" report.
+ */
+#}
+<div class="inner-container"
+     data-ng-controller="MyProgressController as myProgressC">
+    <div class="compain-tab-header compain-tab-header--progress clearfix">
+        <div class="compain-progress"
+             data-ng-class="myProgressC.visitsCountClass()">
+            <div class="compain-progress--line">
+                <div class="line"></div>
+                <span class="point point--1"></span>
+                <span class="point point--2"></span>
+                <span class="point point--3"></span>
+                <span class="point point--4"></span>
+                <span class="point point--5"></span>
+                <span class="point point--6"></span>
+                <span class="point point--7"></span>
+                <span class="point point--8"></span>
+            </div>
+            <div class="compain-progress--info">
+                <span class="text">9</span>
+            </div>
+        </div>
+
+        <div class="compain-progress--description">
+            <div class="description-item">
+                <p>You need <b>{{ '{{ myProgressC.visitsLeft() }}' }} more visits</b> <br/> to achive your goal.</p>
+            </div>
+        </div>
+        <div class="compain-progress--label ">
+            <div class="description-label">
+                <span class="label">{{ '{{ myProgressC.bonusesCount() }}' }} tip bonuses</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="compain-progress-container clearfix">
+        <div class="compain-progress--label">
+            <div class="description-label">
+                <span class="label">{{ '{{ myProgressC.bonusesCount() }}' }} tip bonuses</span>
+            </div>
+        </div>
+
+        <div class="compain-progress--grid"
+             data-ng-repeat="date in myProgressC.storage.campaign.dates">
+            <div class="compain-progress--col">
+                <div class="compain-progress-block"
+                     data-ng-class="myProgressC.checkInBonusImageClass(date)"
+                     ng-style="myProgressC.bonusImage(date)">
+                    <div class="compain-progress-block--header">
+                        <div class="content">
+                            <div class="day">
+                                <span class="number-day">{{ '{{date.month_day}}' }}</span>
+                                <span class="week-day">{{ '{{date.weekday}}' }}</span>
+                            </div>
+
+                            <div class="status">{{ '{{myProgressC.checkInStatus(date) }}' }}</div>
+                        </div>
+                    </div>
+                    <div class="compain-progress-block--footer">
+                        <div class="content">
+                            <ng-show ng-show="date.future"><p>Don’t miss<br/>your chance!</p></ng-show>
+                            <ng-show ng-show="date.past">
+                                <ng-show ng-show="myProgressC.isBonus(date)">
+                                    <p><b>+1 bonus</b> for </p>
+
+                                    <div class="description">
+                                        <p>{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
+                                    </div>
+                                </ng-show>
+                                <ng-show ng-show="!myProgressC.isBonus(date)">
+                                    <ng-show ng-show="date.today">
+                                        <p><span>Read <i>tip #{{ '{{myProgressC.tipNumber(date) }}' }}</i></span></p>
+                                    </ng-show>
+                                    <ng-show ng-show="!date.today">
+                                        <p>without bonus</p>
+
+                                        <div class="description">
+                                            <p>{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
+                                        </div>
+                                    </ng-show>
+                                </ng-show>
+                            </ng-show>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div></div>
+</div>

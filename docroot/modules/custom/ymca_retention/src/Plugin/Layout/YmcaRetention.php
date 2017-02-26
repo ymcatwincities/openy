@@ -70,6 +70,7 @@ class YmcaRetention extends LayoutBase {
       'member_activities' => $service->getUrl(),
       'member_chances' => Url::fromRoute('ymca_retention.member_chances_json')->toString(),
       'member_checkins' => Url::fromRoute('ymca_retention.member_checkins_json')->toString(),
+      'member_bonuses' => Url::fromRoute('ymca_retention.member_bonuses_json')->toString(),
       'recent_winners' => Url::fromRoute('ymca_retention.recent_winners_json')->toString(),
     ];
 
