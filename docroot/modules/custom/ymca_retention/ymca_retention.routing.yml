@@ -151,6 +151,14 @@ ymca_retention.member_checkins_json:
   requirements:
     _permission: 'access content'
 
+ymca_retention.member_bonuses_json:
+  path: '/ymca-retention/member-bonuses'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::memberBonusesJson'
+    _title: 'YMCA Retention Member Bonuses JSON'
+  requirements:
+    _permission: 'access content'
+
 ymca_retention.recent_winners_json:
   path: '/ymca-retention/recent-winners'
   defaults:
