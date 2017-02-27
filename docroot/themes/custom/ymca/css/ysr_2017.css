@@ -234,6 +234,7 @@ html, body {
     margin: 0 5rem 6rem 0;
     display: inline-block;
     vertical-align: top;
+    max-width: 102px;
   }
 }
 .compain-header--content .logo img {
@@ -268,6 +269,7 @@ html, body {
 @media (min-width: 48em) {
   .compain-header--content .container {
     width: 100%;
+    height: auto;
   }
 }
 .compain-header .content {
@@ -403,8 +405,8 @@ html, body {
     padding: 0 4.8rem 0 0;
     height: 62px;
     height: 6.2rem;
-    left: initial;
-    bottom: initial;
+    left: auto;
+    bottom: auto;
     top: 0;
     margin: 0;
   }
@@ -1600,31 +1602,139 @@ html, body {
 .compain-progress .line {
   width: 0;
 }
-.compain-progress--fill-1 .line {
+.compain-progress--fill-5--1 .line {
+  width: calc(100% / 5);
+}
+.compain-progress--fill-5--2 .line {
+  width: calc(100% / 5 * 2);
+}
+.compain-progress--fill-5--3 .line {
+  width: calc(100% / 5 * 3);
+}
+.compain-progress--fill-5--4 .line {
+  width: calc(100% / 5 * 4);
+}
+.compain-progress--fill-5--5 .line {
+  width: 100%;
+}
+.compain-progress--fill-6--1 .line {
+  width: calc(100% / 6);
+}
+.compain-progress--fill-6--2 .line {
+  width: calc(100% / 6 * 2);
+}
+.compain-progress--fill-6--3 .line {
+  width: calc(100% / 6 * 3);
+}
+.compain-progress--fill-6--4 .line {
+  width: calc(100% / 6 * 4);
+}
+.compain-progress--fill-6--5 .line {
+  width: calc(100% / 6 * 5);
+}
+.compain-progress--fill-6--6 .line {
+  width: 100%;
+}
+.compain-progress--fill-7--1 .line {
+  width: calc(100% / 7);
+}
+.compain-progress--fill-7--2 .line {
+  width: calc(100% / 7 * 2);
+}
+.compain-progress--fill-7--3 .line {
+  width: calc(100% / 7 * 3);
+}
+.compain-progress--fill-7--4 .line {
+  width: calc(100% / 7 * 4);
+}
+.compain-progress--fill-7--5 .line {
+  width: calc(100% / 7 * 5);
+}
+.compain-progress--fill-7--6 .line {
+  width: calc(100% / 7 * 6);
+}
+.compain-progress--fill-7--7 .line {
+  width: 100%;
+}
+.compain-progress--fill-8--1 .line {
+  width: calc(100% / 8);
+}
+.compain-progress--fill-8--2 .line {
+  width: calc(100% / 8 * 2);
+}
+.compain-progress--fill-8--3 .line {
+  width: calc(100% / 8 * 3);
+}
+.compain-progress--fill-8--4 .line {
+  width: calc(100% / 8 * 4);
+}
+.compain-progress--fill-8--5 .line {
+  width: calc(100% / 8 * 5);
+}
+.compain-progress--fill-8--6 .line {
+  width: calc(100% / 8 * 6);
+}
+.compain-progress--fill-8--7 .line {
+  width: calc(100% / 8 * 7);
+}
+.compain-progress--fill-8--8 .line {
+  width: 100%;
+}
+.compain-progress--fill-9--1 .line {
   width: calc(100% / 9);
 }
-.compain-progress--fill-2 .line {
+.compain-progress--fill-9--2 .line {
   width: calc(100% / 9 * 2);
 }
-.compain-progress--fill-3 .line {
+.compain-progress--fill-9--3 .line {
   width: calc(100% / 9 * 3);
 }
-.compain-progress--fill-4 .line {
+.compain-progress--fill-9--4 .line {
   width: calc(100% / 9 * 4);
 }
-.compain-progress--fill-5 .line {
+.compain-progress--fill-9--5 .line {
   width: calc(100% / 9 * 5);
 }
-.compain-progress--fill-6 .line {
+.compain-progress--fill-9--6 .line {
   width: calc(100% / 9 * 6);
 }
-.compain-progress--fill-7 .line {
+.compain-progress--fill-9--7 .line {
   width: calc(100% / 9 * 7);
 }
-.compain-progress--fill-8 .line {
+.compain-progress--fill-9--8 .line {
   width: calc(100% / 9 * 8);
 }
-.compain-progress--fill-9 .line {
+.compain-progress--fill-9--9 .line {
+  width: 100%;
+}
+.compain-progress--fill-10--1 .line {
+  width: calc(100% / 10);
+}
+.compain-progress--fill-10--2 .line {
+  width: calc(100% / 10 * 2);
+}
+.compain-progress--fill-10--3 .line {
+  width: calc(100% / 10 * 3);
+}
+.compain-progress--fill-10--4 .line {
+  width: calc(100% / 10 * 4);
+}
+.compain-progress--fill-10--5 .line {
+  width: calc(100% / 10 * 5);
+}
+.compain-progress--fill-10--6 .line {
+  width: calc(100% / 10 * 6);
+}
+.compain-progress--fill-10--7 .line {
+  width: calc(100% / 10 * 7);
+}
+.compain-progress--fill-10--8 .line {
+  width: calc(100% / 10 * 8);
+}
+.compain-progress--fill-10--9 .line {
+  width: calc(100% / 10 * 9);
+}
+.compain-progress--fill-10--10 .line {
   width: 100%;
 }
 .compain-progress--line {
@@ -1659,29 +1769,122 @@ html, body {
     display: block;
   }
 }
-.compain-progress--line .point--1 {
+.compain-progress--line .point--5-1 {
+  left: calc(100% / 5);
+}
+.compain-progress--line .point--5-2 {
+  left: calc(100% / 5 * 2);
+}
+.compain-progress--line .point--5-3 {
+  left: calc(100% / 5 * 3);
+}
+.compain-progress--line .point--5-4 {
+  left: calc(100% / 5 * 4);
+}
+.compain-progress--line .point--6-1 {
+  left: calc(100% / 6);
+}
+.compain-progress--line .point--6-2 {
+  left: calc(100% / 6 * 2);
+}
+.compain-progress--line .point--6-3 {
+  left: calc(100% / 6 * 3);
+}
+.compain-progress--line .point--6-4 {
+  left: calc(100% / 6 * 4);
+}
+.compain-progress--line .point--6-5 {
+  left: calc(100% / 6 * 5);
+}
+.compain-progress--line .point--7-1 {
+  left: calc(100% / 7);
+}
+.compain-progress--line .point--7-2 {
+  left: calc(100% / 7 * 2);
+}
+.compain-progress--line .point--7-3 {
+  left: calc(100% / 7 * 3);
+}
+.compain-progress--line .point--7-4 {
+  left: calc(100% / 7 * 4);
+}
+.compain-progress--line .point--7-5 {
+  left: calc(100% / 7 * 5);
+}
+.compain-progress--line .point--7-6 {
+  left: calc(100% / 7 * 6);
+}
+.compain-progress--line .point--8-1 {
+  left: calc(100% / 8);
+}
+.compain-progress--line .point--8-2 {
+  left: calc(100% / 8 * 2);
+}
+.compain-progress--line .point--8-3 {
+  left: calc(100% / 8 * 3);
+}
+.compain-progress--line .point--8-4 {
+  left: calc(100% / 8 * 4);
+}
+.compain-progress--line .point--8-5 {
+  left: calc(100% / 8 * 5);
+}
+.compain-progress--line .point--8-6 {
+  left: calc(100% / 8 * 6);
+}
+.compain-progress--line .point--8-7 {
+  left: calc(100% / 8 * 7);
+}
+.compain-progress--line .point--9-1 {
   left: calc(100% / 9);
 }
-.compain-progress--line .point--2 {
+.compain-progress--line .point--9-2 {
   left: calc(100% / 9 * 2);
 }
-.compain-progress--line .point--3 {
+.compain-progress--line .point--9-3 {
   left: calc(100% / 9 * 3);
 }
-.compain-progress--line .point--4 {
+.compain-progress--line .point--9-4 {
   left: calc(100% / 9 * 4);
 }
-.compain-progress--line .point--5 {
+.compain-progress--line .point--9-5 {
   left: calc(100% / 9 * 5);
 }
-.compain-progress--line .point--6 {
+.compain-progress--line .point--9-6 {
   left: calc(100% / 9 * 6);
 }
-.compain-progress--line .point--7 {
+.compain-progress--line .point--9-7 {
   left: calc(100% / 9 * 7);
 }
-.compain-progress--line .point--8 {
+.compain-progress--line .point--9-8 {
   left: calc(100% / 9 * 8);
+}
+.compain-progress--line .point--10-1 {
+  left: calc(100% / 10);
+}
+.compain-progress--line .point--10-2 {
+  left: calc(100% / 10 * 2);
+}
+.compain-progress--line .point--10-3 {
+  left: calc(100% / 10 * 3);
+}
+.compain-progress--line .point--10-4 {
+  left: calc(100% / 10 * 4);
+}
+.compain-progress--line .point--10-5 {
+  left: calc(100% / 10 * 5);
+}
+.compain-progress--line .point--10-6 {
+  left: calc(100% / 10 * 6);
+}
+.compain-progress--line .point--10-7 {
+  left: calc(100% / 10 * 7);
+}
+.compain-progress--line .point--10-8 {
+  left: calc(100% / 10 * 8);
+}
+.compain-progress--line .point--10-9 {
+  left: calc(100% / 10 * 9);
 }
 .compain-progress--description {
   font-family: "Cachet",Arial,sans-serif;
