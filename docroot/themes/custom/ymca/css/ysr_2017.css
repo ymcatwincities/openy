@@ -2218,12 +2218,6 @@ html, body {
   text-decoration: underline;
   outline: none;
 }
-@media (max-width: 47.9375em) {
-  .theme-ymca--2017-compain .compain-facility-access-hint-wrapper.collapse {
-    display: block;
-    height: auto !important;
-  }
-}
 .theme-ymca--2017-compain .compain-facility-access-hint {
   background-position: 20px bottom;
   background-position: 2rem bottom;
