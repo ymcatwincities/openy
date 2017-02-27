@@ -48,16 +48,16 @@
 
 {%
   set colors = {
-    bottom: content.field_prgf_color.0|render|striptags|trim,
-    top: content.field_prgf_color.1|render|striptags|trim
+    top: content.field_prgf_color.0|render|striptags|trim,
+    bottom: content.field_prgf_color.1|render|striptags|trim
   }
 %}
 
 {% set background_style = "" %}
-{% if colors.bottom is not empty and colors.top  is not empty %}
+{% if colors.bottom is not empty and colors.top is not empty %}
   {% set background_style = "background: linear-gradient(to top, color_bottom, color_top);" %}
-{% elseif colors.bottom is not empty and colors.top is empty %}
-  {% set background_style = "background-color: color_bottom;" %}
+{% elseif colors.top is not empty and colors.bottom is empty %}
+  {% set background_style = "background-color: color_top;" %}
 {% endif %}
 
 {%
@@ -67,7 +67,7 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     'banner',
     'banner--small',
-    (colors.bottom is not empty and colors.top is empty) ? 'color-assigned' : '',
+    (colors.top is not empty and colors.bottom is empty) ? 'color-assigned' : '',
   ]
 %}
 <div{{ attributes.addClass(classes) }} style="{{ background_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
