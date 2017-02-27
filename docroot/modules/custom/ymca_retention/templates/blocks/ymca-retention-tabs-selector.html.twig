@@ -5,38 +5,73 @@
  */
 #}
 <div class="container">
-  <ul class="nav nav-tabs compain-tabs">
+  <ul class="nav nav-tabs compain-tabs hidden-xs">
+
     <li class="active">
-      <a href="#tab_1" data-toggle="tab">{{ 'About the Campaign'|t }}</a>
+      <a href="#tab_1" data-toggle="tab">{{ 'Introduction'|t }}</a>
     </li>
-    <li class="ng-hide" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#tab_2" data-toggle="tab">{{ "Today's Insight"|t }}</a>
+
+    <li class="ng-hide"
+        data-ng-show="!retentionC.storage.campaign.started">
+      <a href="#tab_2" class="campaign-not-started" data-toggle="modal" data-target="#ymca-retention-modal" data-type="tabs-lock">
+        {{ 'Enter prize drawing'|t }}
+      </a>
     </li>
-    <li class="ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+    <li class="ng-hide"
+        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member">
+      <a href="#tab_2" data-toggle="tab">
+        {{ 'Enter prize drawing'|t }}
+      </a>
+    </li>
+    <li class="ng-hide"
+        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && !retentionC.storage.member">
       <a href="#tab_2" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
-        {{ "Today's Insight"|t }}
+        {{ 'Enter prize drawing'|t }}
       </a>
     </li>
-    <li class="ng-hide" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#tab_3" data-toggle="tab">{{ 'My Progress'|t }}</a>
+
+    <li class="ng-hide"
+        data-ng-show="!retentionC.storage.campaign.started">
+      <a href="#tab_3" class="campaign-not-started" data-toggle="modal" data-target="#ymca-retention-modal" data-type="tabs-lock">
+        {{ 'Goals & progress'|t }}
+      </a>
     </li>
-    <li class="ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+    <li class="ng-hide"
+        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member">
+      <a href="#tab_3" data-toggle="tab">
+        {{ 'Goals & progress'|t }}
+      </a>
+    </li>
+    <li class="ng-hide"
+        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && !retentionC.storage.member">
       <a href="#tab_3" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
-        {{ 'My Progress'|t }}
+        {{ 'Goals & progress'|t }}
       </a>
     </li>
-    <li class="yfr-tabs__instant-win ng-hide" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
+
+    <li class="ng-hide"
+        data-ng-show="!retentionC.storage.campaign.started">
+      <a href="#tab_4" class="campaign-not-started" data-toggle="modal" data-target="#ymca-retention-modal" data-type="tabs-lock">
+        {{ 'Winners'|t }}
+      </a>
+    </li>
+    <li class="ng-hide"
+        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member">
       <a href="#tab_4" data-toggle="tab">
         {{ 'Winners'|t }}
       </a>
     </li>
-    <li class="yfr-tabs__instant-win ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+    <li class="ng-hide"
+        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && !retentionC.storage.member">
       <a href="#tab_4" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
         {{ 'Winners'|t }}
       </a>
     </li>
+
     <li class="compain-tabs--detailed">
       <a href="#tab_5" data-toggle="tab">{{ 'Detailed Rules'|t }}</a>
     </li>
+
   </ul>
+  <div class="panel-group visible-xs compain-accordion"></div>
 </div>
