@@ -233,6 +233,7 @@ html, body {
     margin: 0 5rem 6rem 0;
     display: inline-block;
     vertical-align: top;
+    max-width: 102px;
   }
 }
 .compain-header--content .logo img {
@@ -267,6 +268,7 @@ html, body {
 @media (min-width: 48em) {
   .compain-header--content .container {
     width: 100%;
+    height: auto;
   }
 }
 .compain-header .content {
@@ -402,8 +404,8 @@ html, body {
     padding: 0 4.8rem 0 0;
     height: 62px;
     height: 6.2rem;
-    left: initial;
-    bottom: initial;
+    left: auto;
+    bottom: auto;
     top: 0;
     margin: 0;
   }
