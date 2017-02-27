@@ -10,10 +10,18 @@
     Drupal.ymca_retention = Drupal.ymca_retention || {};
     Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ajoslin.promise-tracker']);
 
-    Drupal.ymca_retention.angular_app.controller('RetentionController', function (storage) {
+    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($sce, storage) {
       var self = this;
       // Shared information.
       self.storage = storage;
+
+      self.daysLeftMessage = function() {
+        return $sce.trustAsHtml(Drupal.formatPlural(
+          self.storage.campaign.days_left,
+          '1 day left',
+          '@count days left'
+        ));
+      };
 
       self.instantWinClass = function() {
         var classes = [];
@@ -26,6 +34,15 @@
 
     // Service to communicate with backend.
     Drupal.ymca_retention.angular_app.factory('courier', function($http, $q, $cookies, $httpParamSerializerJQLike) {
+      function getCampaign() {
+        var deferred = $q.defer();
+        $http.get(settings.ymca_retention.resources.campaign).then(function(response) {
+          deferred.resolve(response.data);
+        });
+
+        return deferred.promise;
+      }
+
       function getMember(id) {
         var deferred = $q.defer();
         if (typeof id === 'undefined') {
@@ -178,6 +195,7 @@
       }
 
       return {
+        getCampaign: getCampaign,
         getMember: getMember,
         getMemberCheckIns: getMemberCheckIns,
         getMemberActivities: getMemberActivities,
@@ -192,6 +210,24 @@
     Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, courier) {
       var self = this;
 
+      self.setInitialValues = function() {
+        // self.dates = settings.ymca_retention.activity.dates;
+        // self.activity_groups = settings.ymca_retention.activity.activity_groups;
+        self.campaign = {started: false, days_left: 50};
+        self.loss_messages = settings.ymca_retention.loss_messages;
+        self.member = null;
+        self.member_activities = null;
+        self.member_activities_counts = null;
+        self.member_chances = null;
+        self.instantWinCount = 0;
+        self.member_checkins = null;
+        self.recent_winners = null;
+        self.last_played_chance = null;
+        // Game state.
+        self.state = 'game';
+      };
+      self.setInitialValues();
+
       // Initiate the promise tracker to track submissions.
       self.progress = promiseTracker();
 
@@ -205,8 +241,8 @@
         return $cookies.get('Drupal.visitor.ymca_retention_member');
       }, function(newVal, oldVal) {
         self.getMember(newVal);
-        self.getMemberChancesById(newVal);
-        self.getMemberActivities(newVal);
+        // self.getMemberChancesById(newVal);
+        // self.getMemberActivities(newVal);
         self.getMemberCheckIns(newVal);
         self.state = 'game';
       });
@@ -230,22 +266,6 @@
         }
       });
 
-      self.setInitialValues = function() {
-        // self.dates = settings.ymca_retention.activity.dates;
-        // self.activity_groups = settings.ymca_retention.activity.activity_groups;
-        self.loss_messages = settings.ymca_retention.loss_messages;
-        self.member = null;
-        self.member_activities = null;
-        self.member_activities_counts = null;
-        self.member_chances = null;
-        self.instantWinCount = 0;
-        self.member_checkins = null;
-        self.recent_winners = null;
-        self.last_played_chance = null;
-        // Game state.
-        self.state = 'game';
-      }();
-
       self.calculateLastPlayedChance = function(data) {
         var timestamp = 0;
         var last_played_chance;
@@ -258,6 +278,13 @@
 
         return last_played_chance;
       };
+
+      self.getCampaign = function() {
+        courier.getCampaign().then(function(data) {
+          self.campaign = data;
+        });
+      };
+      self.getCampaign();
 
       self.getMember = function(id) {
         courier.getMember(id).then(function(data) {

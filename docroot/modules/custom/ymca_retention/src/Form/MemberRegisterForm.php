@@ -79,9 +79,9 @@ class MemberRegisterForm extends FormBase {
     $step_value = $form_state->getTemporaryValue('step');
 
     // Determine step of the form - which screen to show.
-    // 1 - enter Member ID
-    // 2 - confirm email address from Personify
-    // 3 - manually enter email address
+    // 1 - enter Member ID;
+    // 2 - confirm email address from Personify;
+    // 3 - manually enter email address.
     if ($step_value) {
       $step = $step_value;
     }
@@ -166,7 +166,7 @@ class MemberRegisterForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'compain-green',
+          $config['yteam'] ? 'compain-dark-green' : 'compain-green',
         ],
       ],
       '#ajax' => $ajax,
@@ -197,7 +197,51 @@ class MemberRegisterForm extends FormBase {
       ];
     }
 
+    $form['refresh'] = [
+      '#type' => 'button',
+      '#attributes' => [
+        'style' => [
+          'display:none',
+        ],
+        'class' => [
+          'refresh'
+        ]
+      ],
+      '#value' => t('Refresh'),
+      '#ajax' => [
+        'callback' => [$this, 'ajaxFormRefreshCallback'],
+        'event' => 'click',
+      ],
+    ];
+
     return $form;
+  }
+
+  /**
+   * Ajax form callback for clearing and refreshing form.
+   *
+   * @param array $form
+   *   Form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse|array
+   *   Ajax response.
+   */
+  public function ajaxFormRefreshCallback(array &$form, FormStateInterface $form_state) {
+    // Clear error messages.
+    drupal_get_messages('error');
+
+    $ajax_response = new AjaxResponse();
+
+    $this->refreshValues($form_state);
+    $new_form = \Drupal::formBuilder()
+      ->rebuildForm($this->getFormId(), $form_state, $form);
+
+    // Refreshing form.
+    $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form .ymca-retention-register-form', $new_form));
+
+    return $ajax_response;
   }
 
   /**
@@ -239,7 +283,7 @@ class MemberRegisterForm extends FormBase {
         ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
-      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form', $new_form));
+      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form .ymca-retention-register-form', $new_form));
 
       return $ajax_response;
     }
@@ -285,16 +329,20 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
+    if (empty($membership_id)) {
+      $membership_id = trim($form_state->getValue('membership_id'));
+    }
+
     // Check for already registered member.
     $query = \Drupal::entityQuery('ymca_retention_member')
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please sign in.'));
+      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please log in.'));
       return;
     }
-    if (empty($membership_id)) {
-      $membership_id = trim($form_state->getValue('membership_id'));
+
+    if (!empty($membership_id)) {
       $form_state->set('membership_id', $membership_id);
     }
 

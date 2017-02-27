@@ -143,6 +143,7 @@ html, body {
 .theme-ymca--2017-compain-register #main {
   height: 100%;
   background: none;
+  margin-top: auto;
 }
 .theme-ymca--2017-compain-register .compain-register {
   padding: 20px;
@@ -753,8 +754,8 @@ html, body {
 }
 @media (min-width: 64em) {
   .compain-info-block {
-    padding: 0 66px;
-    padding: 0 6.6rem;
+    padding: 0 60px;
+    padding: 0 6rem;
   }
 }
 .compain-info-block .content {
@@ -773,22 +774,8 @@ html, body {
 }
 @media (min-width: 48em) {
   .compain-info-block .content-text {
-    min-height: 330px;
-    min-height: 33rem;
     margin-bottom: 30px;
     margin-bottom: 3rem;
-  }
-}
-@media (min-width: 64em) {
-  .compain-info-block .content-text {
-    min-height: 300px;
-    min-height: 30rem;
-  }
-}
-@media (min-width: 75em) {
-  .compain-info-block .content-text {
-    min-height: 266px;
-    min-height: 26.6rem;
   }
 }
 .compain-info-block h3 {
@@ -1231,6 +1218,14 @@ html, body {
     margin: 0 auto;
   }
 }
+@media (min-width: 48em) {
+  .compain-tab-header .content h2 {
+    font-size: 40px;
+    font-size: 4rem;
+    margin: 23px 0 16px;
+    margin: 2.3rem 0 1.6rem;
+  }
+}
 .compain-tab-header .content-text {
   font-size: 16px;
   font-size: 1.6rem;
@@ -1265,10 +1260,16 @@ html, body {
 }
 @media (min-width: 48em) {
   .compain-tab-header .btn {
-    min-width: 280px;
-    min-width: 28rem;
+    min-width: 215px;
+    min-width: 21.5rem;
     max-width: 100%;
     float: right;
+  }
+}
+@media (min-width: 64em) {
+  .compain-tab-header .btn {
+    min-width: 280px;
+    min-width: 28rem;
   }
 }
 .compain-tab-header .compain-progress--label {
@@ -2218,12 +2219,6 @@ html, body {
   color: #01a490;
   text-decoration: underline;
   outline: none;
-}
-@media (max-width: 47.9375em) {
-  .theme-ymca--2017-compain .compain-facility-access-hint-wrapper.collapse {
-    display: block;
-    height: auto !important;
-  }
 }
 .theme-ymca--2017-compain .compain-facility-access-hint {
   background-position: 20px bottom;

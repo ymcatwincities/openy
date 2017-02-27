@@ -34,22 +34,23 @@ class MemberEmailForm extends FormBase {
       $form['#theme'] = $config['theme'];
     }
 
+    // TODO: Do we really need this tab_id here?
     if (!$tab_id = $form_state->get('tab_id')) {
       $tab_id = 'about';
     }
-
     $form['tab_id'] = ['#type' => 'hidden', '#default_value' => $tab_id];
 
     $validate_required = [get_class($this), 'elementValidateRequired'];
 
     $form['email'] = [
       '#type' => 'email',
-      '#title' => $this->t('Please confirm your email address below:'),
+      '#title' => $this->t('Email'),
+      '#title_display' => 'hidden',
       '#default_value' => '',
       '#required' => TRUE,
       '#attributes' => [
         'placeholder' => [
-          $this->t('Your email'),
+          $this->t('New email...'),
         ],
       ],
       '#element_required_error' => $this->t('Email is required.'),
@@ -59,6 +60,10 @@ class MemberEmailForm extends FormBase {
       ],
       '#skip_ymca_preprocess' => TRUE,
     ];
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if ($member_id && $member = Member::load($member_id)) {
+      $form['email_value'] = ['#type' => 'hidden', '#value' => $member->getEmail()];
+    }
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -68,7 +73,7 @@ class MemberEmailForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'orange-light-lighter',
+          'compain-green',
         ],
       ],
       '#ajax' => [
@@ -82,7 +87,51 @@ class MemberEmailForm extends FormBase {
       ],
     ];
 
+    $form['refresh'] = [
+      '#type' => 'button',
+      '#attributes' => [
+        'style' => [
+          'display:none',
+        ],
+        'class' => [
+          'refresh'
+        ]
+      ],
+      '#value' => t('Refresh'),
+      '#ajax' => [
+        'callback' => [$this, 'ajaxFormRefreshCallback'],
+        'event' => 'click',
+      ],
+    ];
+
     return $form;
+  }
+
+  /**
+   * Ajax form callback for clearing and refreshing form.
+   *
+   * @param array $form
+   *   Form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse|array
+   *   Ajax response.
+   */
+  public function ajaxFormRefreshCallback(array &$form, FormStateInterface $form_state) {
+    // Clear error messages.
+    drupal_get_messages('error');
+
+    $ajax_response = new AjaxResponse();
+
+    $this->refreshValues($form_state);
+    $new_form = \Drupal::formBuilder()
+      ->rebuildForm($this->getFormId(), $form_state, $form);
+
+    // Refreshing form.
+    $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-email-change-form', $new_form));
+
+    return $ajax_response;
   }
 
   /**
@@ -127,6 +176,8 @@ class MemberEmailForm extends FormBase {
     $result = $query->execute();
     if (!empty($result)) {
       $entity = $this->updateEntity($member_id, $form_state);
+      $this->refreshValues($form_state);
+      $form_state->setRebuild();
       drupal_set_message($this->t('Confirmed email address @email.', [
         '@email' => $entity->getEmail(),
       ]));
@@ -151,6 +202,15 @@ class MemberEmailForm extends FormBase {
     $entity->save();
 
     return $entity;
+  }
+
+  /**
+   * Refresh values.
+   */
+  protected function refreshValues(FormStateInterface $form_state) {
+    $user_input = $form_state->getUserInput();
+    unset($user_input['email']);
+    $form_state->setUserInput($user_input);
   }
 
 }

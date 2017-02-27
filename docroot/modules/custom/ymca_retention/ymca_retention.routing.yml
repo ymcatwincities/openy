@@ -94,6 +94,14 @@ ymca_retention.settings_bonus_codes:
   requirements:
     _permission: 'administer site configuration'
 
+ymca_retention.settings_generate_content:
+  path: '/admin/config/system/ymca-retention/generate-content'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\GenerateContentForm'
+    _title: 'YMCA Retention Generate content'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.leaderboard_json:
   path: '/ymca-retention/leaderboard/{branch_id}'
   defaults:
@@ -102,6 +110,14 @@ ymca_retention.leaderboard_json:
   requirements:
     _permission: 'access content'
     branch_id: ^[0-9]+
+
+ymca_retention.campaign_json:
+  path: '/ymca_retention/campaign'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\CampaignController::campaignJson'
+    _title: 'YMCA Retention Campaign JSON'
+  requirements:
+    _permission: 'access content'
 
 ymca_retention.member_json:
   path: '/ymca_retention/member'
