@@ -82,13 +82,10 @@ set classes = [
 ]
 %}
 
+{# Branch header #}
 <article{{ attributes }}>
-  <div class="row">
-    <div class="col-md-4 col-sm-12">
-      <h3{{ title_attributes }}>{{ label }}</h3>
-    </div>
-    <div{{ content_attributes.addClass(['col-md-8', 'col-sm-12']) }}>
-      {{ content }}
-    </div>
+  <h3{{ title_attributes }}>{{ label }}</h3>
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content }}
   </div>
 </article>
