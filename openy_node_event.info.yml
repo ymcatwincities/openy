@@ -15,11 +15,13 @@ dependencies:
   - menu_ui
   - node
   - openy_gallery
+  - openy_node
   - openy_node_landing
   - openy_prgf_1c
   - openy_prgf_2c
   - openy_prgf_3c
   - openy_prgf_4c
+  - openy_prgf_contact_us
   - openy_prgf_header
   - openy_prgf_lto
   - openy_prgf_simple_content
