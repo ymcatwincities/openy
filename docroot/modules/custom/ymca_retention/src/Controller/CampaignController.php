@@ -105,7 +105,7 @@ class CampaignController extends ControllerBase {
           'bonus_code' => $bonus_codes[$delta]['code'],
           'title' => $title,
           'image' => $image_url,
-          'tip' => $delta,
+          'tip' => $delta + 1,
         ];
       }
 
