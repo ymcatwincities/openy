@@ -22,20 +22,20 @@
       // Get accordion item.
       var $target = $(event.currentTarget);
 
+      // Checking whether private content is available.
+      if ($target.find('.login-required.ng-hide').length === 0) {
+        return;
+      }
+
       // Getting accordion item ID.
       var tab_id = $target.attr('id').replace('-collapse', '');
 
       // Collapsing accordion item.
       $('a[href="#' + tab_id + '-collapse"]').addClass('collapsed');
 
-      $link = $('.nav-tabs a[href="#' + tab_id + '"]');
-      if (!$link.hasClass('login-required')) {
-        return;
-      }
-
       if (settings.ymca_retention.tabs_selector.campaign_started) {
         // Displaying login form on modal.
-        $link.click();
+        $('.nav-tabs a[href="#' + tab_id + '"]').click();
         $('#ymca-retention-modal .modal-header').show();
       }
       else {
