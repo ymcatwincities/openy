@@ -19,6 +19,7 @@
         @include rem(margin, 0 50px 60px 0);
         display: inline-block;
         vertical-align: top;
+        max-width: 102px;
       }
 
       img {
@@ -55,6 +56,7 @@
     .container {
       @include breakpoint($tablet) {
         width: 100%;
+        height: auto;
       }
     }
   }
@@ -166,8 +168,8 @@
   @include breakpoint($tablet) {
     @include rem(padding, 0 48px 0 0);
     @include rem(height, 62px);
-    left: initial;
-    bottom: initial;
+    left: auto;
+    bottom: auto;
     top: 0;
     margin: 0;
   }
