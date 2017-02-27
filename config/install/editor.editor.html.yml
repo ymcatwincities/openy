@@ -41,7 +41,6 @@ settings:
             - embed_video
             - embed_image
             - embed_document
-            - media
         -
           name: Tools
           items:
