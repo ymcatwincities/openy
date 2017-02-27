@@ -6,9 +6,11 @@ The Open Y platform is a content management system that uses Drupal 8 functional
 # Features
 - Flexible and decoupled YMCA content structure
 - Customizable theme for YMCA brand
-- Media management
+- Media management & WYSIWYG Embed
 - User guide & tour around distribution
 - Optional demo content
+- Location finder
+- Membership calculator
 
 # Installation
 
