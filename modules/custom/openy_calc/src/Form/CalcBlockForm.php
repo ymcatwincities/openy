@@ -164,9 +164,10 @@ class CalcBlockForm extends FormBase {
 
       case 3:
         // Summary step.
+        $summary = $this->dataWrapper->getSummary($storage['location'], $storage['type']);
         $form['summary'] = [
           '#theme' => 'openy_calc_form_summary',
-          '#result' => $this->dataWrapper->getSummary($storage['location'], $storage['type']),
+          '#result' => $summary,
           '#map' => [
             '#type' => 'openy_map',
             '#element_variables' => $this->dataWrapper->getBranchPins($storage['location']),
@@ -200,7 +201,7 @@ class CalcBlockForm extends FormBase {
         ],
       ];
     }
-    else {
+    elseif (isset($summary['link'])) {
       $form['actions']['submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Complete registration'),
