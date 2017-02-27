@@ -14,7 +14,7 @@ field_name: field_sidebar_content
 entity_type: node
 bundle: event
 label: 'Sidebar Content'
-description: ''
+description: 'Select content to be displayed in a sidebar.'
 required: false
 translatable: true
 default_value: {  }
