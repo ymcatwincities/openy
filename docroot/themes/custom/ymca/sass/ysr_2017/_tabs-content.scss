@@ -30,6 +30,13 @@
       max-width: 1100px;
       margin: 0 auto;
     }
+
+    h2 {
+      @include breakpoint($tablet) {
+        @include rem(font-size, 40px);
+        @include rem(margin, 23px 0 16px);
+      }
+    }
   }
 
   .content-text {
@@ -59,9 +66,13 @@
     display: block;
 
     @include breakpoint($tablet) {
-      @include rem(min-width, 280px);
+      @include rem(min-width, 215px);
       max-width: 100%;
       float: right;
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(min-width, 280px);
     }
   }
 

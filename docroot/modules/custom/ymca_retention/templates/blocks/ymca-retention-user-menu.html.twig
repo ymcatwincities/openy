@@ -15,10 +15,10 @@
      data-ng-click="retentionC.storage.memberCookieRemove()">{{ 'Sign Out'|t }}</a>
   <a class="link--register ng-hide" href="#"
      data-toggle="modal" data-target="#ymca-retention-modal" data-type="register"
-     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Register'|t }}</a>
+     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Sign Up'|t }}</a>
   <a class="link--sign-in ng-hide" href="#"
      data-toggle="modal" data-target="#ymca-retention-modal" data-type="login"
-     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Sign In'|t }}</a>
+     data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Log In'|t }}</a>
   <div class="ymca-retention-user-menu-forms" style="display: none;">
     <div id="ymca-retention-user-menu-register-form" class="ymca-retention-modal-form" data-type="register">
       {{ content.register_form }}
@@ -40,7 +40,10 @@
       {{ content.email_form }}
     </div>
     <div id="ymca-retention-user-menu-reg-confirmation-form" class="ymca-retention-modal-form" data-type="reg-confirmation">
-      {% include '@ymca_retention/blocks/ymca-retention-register-confirmation-modal.html.twig' %}
+      {% include '@ymca_retention/modals/ymca-retention-register-confirmation-modal.html.twig' %}
+    </div>
+    <div id="ymca-retention-user-menu-tabs-lock" class="ymca-retention-modal-form" data-type="tabs-lock">
+      {% include '@ymca_retention/modals/ymca-retention-tabs-lock-modal.html.twig' %}
     </div>
   </div>
 </div>
