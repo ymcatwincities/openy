@@ -26,7 +26,7 @@ function openy_prgf_amenities_form_views_exposed_form_alter(&$form, FormStateInt
         ->view($amenity, 'icon');
     }
     foreach ($form['field_location_amenities_target_id']['#options'] as $key => $option) {
-      $option = render($amenities_view[$key]) . $option;
+      $option = \Drupal::service('renderer')->renderRoot($amenities_view[$key]) . $option;
       $form['field_location_amenities_target_id']['#options'][$key] = $option;
     }
   }
