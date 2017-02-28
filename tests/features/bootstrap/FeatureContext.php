@@ -19,6 +19,20 @@ use Symfony\Component\Process\Process;
 class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
+   * Storage Engine, a stdClass object to store values by key.
+   *
+   * @var \stdClass
+   */
+  private $storageEngine;
+
+  /**
+   * Valid $node_key values for test validation.
+   *
+   * @var array
+   */
+  private $node_keys;
+
+  /**
    * Initializes context.
    *
    * Every scenario gets its own context instance.
@@ -26,6 +40,64 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * context constructor through behat.yml.
    */
   public function __construct() {
+    $this->storageEngine = new stdClass();
+    $this->node_keys = [
+      'reference_fill',
+      'system_url',
+      'alias_url',
+      'edit_url',
+    ];
+  }
+
+  public function validateStorageEngineKey($storage_key) {
+    if(!property_exists($this, $storage_key)) {
+      $msg = 'Invalid $storage_key value used.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * Throw exception if invalid $node_key is provided.
+   *
+   * @param string $node_key
+   *
+   * @throws \Exception
+   */
+  public function validateNodeKey($node_key) {
+    if (!in_array($node_key, $this->node_keys)) {
+      $msg = 'Invalid $node_key value used.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * Get stored Node values based on node key and storage key.
+   *
+   * @param string $node_key
+   * @param string $storage_key
+   *
+   * @return \Drupal\Core\GeneratedUrl|null|string
+   */
+  public function getNodeValueFromStorageEngine($node_key, $storage_key) {
+    $this->validateNodeKey($node_key);
+    $value = NULL;
+    /* @var \Drupal\node\Entity\Node $node */
+    $node = $this->storageEngine->{$storage_key};
+    switch ($node_key) {
+      case 'reference_fill':
+        $value = $node->getTitle() . ' (' . $node->id() . ')';
+        break;
+      case 'system_url':
+        $value = $node->url();
+        break;
+      case 'alias_url':
+        $value = \Drupal::service('path.alias_manager')->getAliasByPath($node->url());
+        break;
+      case 'edit_url':
+        $value = $node->url('edit-form');
+    }
+
+    return $value;
   }
 
   /**
@@ -112,6 +184,42 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function waitSeconds($seconds) {
     sleep($seconds);
+  }
+
+  /**
+   * @Given /^I store the Node as "(?P<storage_key>[^"]*)"$/
+   */
+  public function iStoreTheNodeAs($storage_key) {
+    $node = node_get_recent(1);
+    $this->storageEngine->{$storage_key}['url'] = $node;
+    throw new PendingException();
+  }
+
+  /**
+   * @Given /^I fill in "(?P<field>[^"]*)" with stored Node "([^"]*)" from "(?P<storage_key>[^"]*)"$/
+   */
+  public function iFillInWithStoredNodeFrom($field, $node_key, $storage_key) {
+
+    $value = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
+
+    if (!empty($field) && !empty($value)) {
+      $mink = $this->getMink();
+      $mink->fillField($field, $value);
+    }
+    else {
+      $msg = 'Unable to fill ' . $field . ' from stored node data in "' . $storage_key . '"';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * Opens page based on the stored Node and node key value.
+   *
+   * @Given /^I go to stored Node "([^"]*)" from "(?P<storage_key>[^"]*)"$/
+   */
+  public function iGoToStoredNodeFrom($node_key, $storage_key) {
+    $path = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
+    $this->visitPath($path);
   }
 
 }
