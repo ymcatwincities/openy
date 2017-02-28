@@ -342,7 +342,7 @@ html, body {
     float: left;
     top: 0;
     left: 0;
-    background: #019183;
+    background: #006b6b;
   }
 }
 .compain-top-nav .logo img {
@@ -732,6 +732,9 @@ html, body {
     max-width: 1100px;
     margin: 0 auto;
   }
+}
+.compain-info-blocks a {
+  color: #006b6b;
 }
 
 .compain-info-block {
@@ -2011,7 +2014,7 @@ html, body {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
-  color: #01a490;
+  color: #006b6b;
 }
 .content-wrapper--detailed ul {
   margin: 0 0 18px 0;
