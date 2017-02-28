@@ -138,7 +138,7 @@
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
       @include rem(margin, 0 0 0 16px);
-      opacity: initial;
+      opacity: 1;
     }
 
     &:before {
@@ -305,9 +305,9 @@
 
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
-      top: initial;
+      top: auto;
       float: right;
-      clear: initial;
+      clear: none;
       margin: 0;
       @include rem(margin-left, 48px);
       @include rem(padding, 0 0 0 28px);
