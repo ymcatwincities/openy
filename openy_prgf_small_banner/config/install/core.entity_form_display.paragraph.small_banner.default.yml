@@ -8,6 +8,7 @@ dependencies:
     - field.field.paragraph.small_banner.field_prgf_image
     - paragraphs.paragraphs_type.small_banner
   module:
+    - content_moderation
     - entity_browser
 id: paragraph.small_banner.default
 targetEntityType: paragraph
@@ -15,9 +16,12 @@ bundle: small_banner
 mode: default
 content:
   field_prgf_color:
-    type: options_select
+    type: entity_reference_autocomplete
     weight: 2
-    settings: {  }
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_prgf_headline:
     type: string_textfield
