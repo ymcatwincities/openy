@@ -112,7 +112,7 @@
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
             },
             "drupal/confi": {
-                "2856366 - Revert only specific property from config": "https://www.drupal.org/files/issues/2856366-8-revert-only-specific-property.patch"
+                "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
             }
         }
     },
