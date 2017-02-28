@@ -272,7 +272,7 @@ html, body {
     height: auto;
   }
 }
-.compain-header .content {
+.compain-header--content .container .content {
   font-family: "Cachet",Arial,sans-serif;
   letter-spacing: -0.025em;
   font-weight: bold;
@@ -286,7 +286,7 @@ html, body {
   text-transform: uppercase;
 }
 @media (min-width: 48em) {
-  .compain-header .content {
+  .compain-header--content .container .content {
     font-size: 50px;
     font-size: 5rem;
     line-height: 54px;
@@ -298,11 +298,11 @@ html, body {
     vertical-align: top;
   }
 }
-.compain-header .content .date {
+.compain-header--content .container .content .date {
   color: #20bdbe;
 }
 @media (min-width: 48em) {
-  .compain-header .content .date {
+  .compain-header--content .container .content .date {
     font-size: 36px;
     font-size: 3.6rem;
   }
