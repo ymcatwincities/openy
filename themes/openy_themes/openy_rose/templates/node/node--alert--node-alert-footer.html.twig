@@ -95,7 +95,9 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 site-alert__cta">
-        {{ content.field_alert_link }}
+        <div class="field-alert-link" style="">
+          <a href="{{ content.field_alert_link.0['#url'] }}" style="color: {{ text_color }}; border-color: {{ text_color}}">{{ content.field_alert_link.0['#title'] }}</a>
+        </div>
       </div>
       <a href="#" class="site-alert__dismiss"><i class="fa fa-times"></i></a>
     </div>
