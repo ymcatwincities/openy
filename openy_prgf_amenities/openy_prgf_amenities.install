@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Update All amenities view.
+ */
+function openy_prgf_amenities_update_8001() {
+  \Drupal::service('config_import.features_importer')->import('openy_prgf_amenities');
+}
