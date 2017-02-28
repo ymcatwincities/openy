@@ -109,3 +109,13 @@ Feature: Camp menu on camp and landing page
     And I should see "Landing page with camp link"
     Then I go to "/landing-page-new-alias"
     And I should see "Landing page with camp link"
+
+    # Set homepage back to /openy
+    Given I go to "/admin/config/system/site-information"
+    And I fill in "Default front page" with "/openy"
+    Then I press the "Save configuration" button
+    # Because "I should see the message" was not working on this page.
+    And I go to "/admin/config/system/site-information"
+    And the "Default front page" field should contain "/openy"
+    Then I go to "/"
+    And I should get a 200 HTTP response
