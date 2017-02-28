@@ -31,7 +31,9 @@ With [config_import module](https://www.drupal.org/project/confi) help we can up
 For updating specific property in config:
 
 1) go to related to this config module
+
 2) create new hook_update_N in openy_*.install file
+
 3) in update add next code (this is example):
 
 ```
