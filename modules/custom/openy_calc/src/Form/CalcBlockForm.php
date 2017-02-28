@@ -158,7 +158,6 @@ class CalcBlockForm extends FormBase {
           '#title' => $this->t('Location'),
           '#options' => $locations_options,
           '#default_value' => isset($storage['location']) ? $storage['location'] : NULL,
-          '#required' => TRUE,
         ];
         break;
 
@@ -233,6 +232,19 @@ class CalcBlockForm extends FormBase {
     }
     $form_state->setStorage($storage);
     $form_state->setRebuild();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $trigger = $form_state->getTriggeringElement();
+    if ($trigger['#name'] != 'step-3') {
+      return;
+    }
+    if ($form_state->isValueEmpty('location')) {
+      $form_state->setErrorByName('location', $this->t('Please set location'));
+    }
   }
 
   /**
