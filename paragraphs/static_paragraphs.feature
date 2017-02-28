@@ -13,7 +13,8 @@ Feature: Static Paragraphs
     And I fill in the following:
       |Headline | MY SMALL BANNER |
     And I fill media field "edit-field-prgf-image-target-id" with "media:1"
-    And I select "Green" from "Color"
+    And I enter "Red" for "Color"
+    And I enter "Black" for "Color"
     And I press "Save and publish"
     Then I should see "MY SMALL BANNER"
     And I should see a ".banner-image img" element
