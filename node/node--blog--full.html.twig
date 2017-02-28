@@ -80,8 +80,8 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{% set main_col_count = node.field_sidebar_content.getValue() is empty ? '12' : '8' %}
-{% set sidebar = node.field_sidebar_content.getValue() is empty ? false : true %}
+{% set main_col_count = node.field_sidebar_content.getValue() is not empty ? '8' : '12' %}
+{% set sidebar = node.field_sidebar_content.getValue() is not empty ? true : false %}
 <article{{ attributes.addClass(classes) }}>
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content.field_landing_header }}
