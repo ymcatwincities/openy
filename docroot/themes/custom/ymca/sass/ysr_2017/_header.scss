@@ -58,32 +58,32 @@
         width: 100%;
         height: auto;
       }
-    }
-  }
 
-  .content {
-    @include cachet-bold();
-    @include rem(font-size, 26px);
-    @include rem(line-height, 30px);
-    background: none;
-    text-align: center;
-    color: $white;
-    text-transform: uppercase;
+      .content {
+        @include cachet-bold();
+        @include rem(font-size, 26px);
+        @include rem(line-height, 30px);
+        background: none;
+        text-align: center;
+        color: $white;
+        text-transform: uppercase;
 
-    @include breakpoint($tablet) {
-      @include rem(font-size, 50px);
-      @include rem(line-height, 54px);
-      @include rem(margin, 60px 0 0 0);
-      text-align: left;
-      display: inline-block;
-      vertical-align: top;
-    }
+        @include breakpoint($tablet) {
+          @include rem(font-size, 50px);
+          @include rem(line-height, 54px);
+          @include rem(margin, 60px 0 0 0);
+          text-align: left;
+          display: inline-block;
+          vertical-align: top;
+        }
 
-    .date {
-      color: $green-light;
+        .date {
+          color: $green-light;
 
-      @include breakpoint($tablet) {
-        @include rem(font-size, 36px);
+          @include breakpoint($tablet) {
+            @include rem(font-size, 36px);
+          }
+        }
       }
     }
   }
