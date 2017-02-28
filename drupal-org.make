@@ -39,6 +39,9 @@ projects[slick] = 1.0-rc1
 projects[slick_views] = 1.0-rc2
 projects[blazy] = 1.0-rc1
 projects[geolocation] = 1.9
+projects[confi][subdir] = contrib
+projects[confi][version] = 1.x-dev
+projects[confi][patch][] = "https://www.drupal.org/files/issues/2856366-8-revert-only-specific-property.patch"
 
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
