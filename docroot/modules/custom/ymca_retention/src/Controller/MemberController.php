@@ -39,6 +39,31 @@ class MemberController extends ControllerBase {
   }
 
   /**
+   * Register member bonus.
+   */
+  public function addBonus($post) {
+    // Check the timestamp is within campaign dates.
+    $general_config = $this->config('ymca_retention.general_settings');
+    $open_date = (new \DateTime($general_config->get('date_campaign_open')))->setTime(0, 0);
+    $close_date = (new \DateTime($general_config->get('date_campaign_close')))->setTime(0, 0);
+
+    if ($post['timestamp'] < $open_date->getTimestamp() || $post['timestamp'] > $close_date->getTimestamp()) {
+      return;
+    }
+
+    // Register bonus.
+    $bonus = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_bonus')
+      ->create([
+        'created' => REQUEST_TIME,
+        'date' => $post['timestamp'],
+        'member' => $post['member_id'],
+        'bonus_code' => $post['bonus_code'],
+      ]);
+    $bonus->save();
+  }
+
+  /**
    * Returns member activities.
    */
   public function memberActivitiesJson(Request $request) {
