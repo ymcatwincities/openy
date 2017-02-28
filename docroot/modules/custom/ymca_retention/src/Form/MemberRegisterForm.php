@@ -313,7 +313,7 @@ class MemberRegisterForm extends FormBase {
     $config = $form_state->getBuildInfo()['args'][0];
     // Use membership_id from storage if it is empty.
     $membership_id = empty($membership_id) ? $form_state->get('membership_id') : $membership_id;
-    $personify_member =  $form_state->get('personify_member');
+    $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
     // Get retention settings.
