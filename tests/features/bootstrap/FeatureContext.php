@@ -58,10 +58,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @throws \Exception
    */
   public function validateStorageEngineKey($storage_key) {
-    $storage_engine = var_export($this->storageEngine);
-    if (!isset($this->storageEngine->{$storage_key})) {
+    if (!property_exists($this->storageEngine, $storage_key)) {
       $msg = 'Invalid $storage_key value "' . $storage_key . '" used.';
-      $msg .= ' ' . $storage_engine;
       throw new \Exception($msg);
     }
   }
@@ -111,6 +109,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 
       case 'alias_url':
         $value = \Drupal::service('path.alias_manager')->getAliasByPath($node->url());
+        print var_export($value);
         break;
 
       case 'edit_url':
@@ -219,7 +218,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iStoreTheNodeAs($storage_key) {
     $node = node_get_recent(1);
-    $this->storageEngine->{$storage_key} = $node;
+    // Reset the array of node since it has only one object.
+    $this->storageEngine->{$storage_key} = reset($node);
     $this->validateStorageEngineKey($storage_key);
   }
 
@@ -233,8 +233,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $value = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
 
     if (!empty($field) && !empty($value)) {
-      $mink = $this->getMink();
-      $mink->fillField($field, $value);
+      $this->getSession()->getPage()->fillField($field, $value);
     }
     else {
       $msg = 'Unable to fill ' . $field . ' from stored node data in "' . $storage_key . '"';
@@ -250,6 +249,16 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function iGoToStoredNodeFrom($node_key, $storage_key) {
     $path = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
     $this->visitPath($path);
+  }
+
+  /**
+   * Validate the field provided has the Node key value from stored key Node.
+   *
+   * @Given /^The "(?P<field>[^"]*)" field should contain stored Node "([^"]*)" from "(?P<storage_key>[^"]*)"$/
+   */
+  public function theFieldShouldContainStoredNodeFrom($field, $node_key, $storage_key) {
+    $path = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
+    $this->assertSession()->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
   }
 
 }
