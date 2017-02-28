@@ -272,7 +272,7 @@ html, body {
     height: auto;
   }
 }
-.compain-header .content {
+.compain-header--content .container .content {
   font-family: "Cachet",Arial,sans-serif;
   letter-spacing: -0.025em;
   font-weight: bold;
@@ -286,7 +286,7 @@ html, body {
   text-transform: uppercase;
 }
 @media (min-width: 48em) {
-  .compain-header .content {
+  .compain-header--content .container .content {
     font-size: 50px;
     font-size: 5rem;
     line-height: 54px;
@@ -298,11 +298,11 @@ html, body {
     vertical-align: top;
   }
 }
-.compain-header .content .date {
+.compain-header--content .container .content .date {
   color: #20bdbe;
 }
 @media (min-width: 48em) {
-  .compain-header .content .date {
+  .compain-header--content .container .content .date {
     font-size: 36px;
     font-size: 3.6rem;
   }
@@ -370,7 +370,7 @@ html, body {
     line-height: 6.2rem;
     margin: 0 0 0 16px;
     margin: 0 0 0 1.6rem;
-    opacity: initial;
+    opacity: 1;
   }
 }
 .compain-top-nav .link-back:before {
@@ -541,9 +541,9 @@ html, body {
   .compain-user-menu .link--email {
     line-height: 62px;
     line-height: 6.2rem;
-    top: initial;
+    top: auto;
     float: right;
-    clear: initial;
+    clear: none;
     margin: 0;
     margin-left: 48px;
     margin-left: 4.8rem;
