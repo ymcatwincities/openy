@@ -306,9 +306,14 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
+    // Use membership_id from form.
+    $membership_id = $form_state->getValue('membership_id');
+
+    // Load values from storage.
     $config = $form_state->getBuildInfo()['args'][0];
-    $membership_id = $form_state->get('membership_id');
-    $personify_member = $form_state->get('personify_member');
+    // Use membership_id from storage if it is empty.
+    $membership_id = empty($membership_id) ? $form_state->get('membership_id') : $membership_id;
+    $personify_member =  $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
     // Get retention settings.
@@ -327,10 +332,6 @@ class MemberRegisterForm extends FormBase {
     if ($current_date > $close_date) {
       $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
       return;
-    }
-
-    if (empty($membership_id)) {
-      $membership_id = trim($form_state->getValue('membership_id'));
     }
 
     // Check for already registered member.
