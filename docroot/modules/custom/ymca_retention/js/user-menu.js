@@ -75,6 +75,8 @@
         var $modal = $(this);
         $refresh_button_selector = '#' + $modal.find('.modal-body .ymca-retention-modal-form').attr('id') + " .refresh";
         $modal.find('.modal-body .ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
+        // Hide "Where can I find my Member ID?" info.
+        $('.compain-facility-access-hint-wrapper').removeClass('in').addClass('collapse');
         // Refresh form.
         $( $refresh_button_selector ).click();
       });
