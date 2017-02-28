@@ -153,6 +153,36 @@
         return deferred.promise;
       }
 
+      function setMemberBonus(data) {
+        var id = $cookies.get('Drupal.visitor.ymca_retention_member'),
+          deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          toSend = data;
+          toSend.member_id = id;
+          toSend.bonus_code = '';
+          $http({
+            method: 'POST',
+            url: settings.ymca_retention.resources.member_add_bonus,
+            data: $httpParamSerializerJQLike(toSend),
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function(response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
       function getMemberChances(id) {
         var deferred = $q.defer();
         if (typeof id === 'undefined') {
@@ -354,7 +384,14 @@
           self.member_checkins = data;
         });
       };
+      self.setMemberBonus = function(data) {
+        var $promise = courier.setMemberBonus(data).then(function(data) {
+          // Update member bonuses.
+        });
 
+        // Track the request and show its progress to the user.
+        self.progress.addPromise($promise);
+      };
       self.getMemberActivities = function(id) {
         courier.getMemberActivities(id).then(function(data) {
           self.member_activities = data;

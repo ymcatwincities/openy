@@ -159,11 +159,27 @@ ymca_retention.member_bonuses_json:
   requirements:
     _permission: 'access content'
 
+ymca_retention.member_add_bonus:
+  path: '/ymca-retention/member-add-bonus'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::addBonus'
+    _title: 'YMCA Retention Member Add Bonus'
+  requirements:
+    _permission: 'access content'
+
 ymca_retention.recent_winners_json:
   path: '/ymca-retention/recent-winners'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\MemberController::recentWinnersJson'
     _title: 'YMCA Retention Recent Winners JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.todays_insight_json:
+  path: '/ymca-retention/todays-insight'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\TodaysInsightController::todaysInsightJson'
+    _title: 'YMCA Retention Todays Insight JSON'
   requirements:
     _permission: 'access content'
 

@@ -16,6 +16,17 @@
         return $sce.trustAsHtml(self.storage.todays_insight);
       }
 
+      self.addBonus = function () {
+        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins || date.future) {
+          return '—';
+        }
+        if (self.storage.member_checkins[date.timestamp] == 1) {
+          return Drupal.t('check-in');
+        }
+
+        return Drupal.t('no records');
+      };
+
     });
   };
 
