@@ -243,7 +243,7 @@ class CalcBlockForm extends FormBase {
     $url = $this->dataWrapper->getRedirectUrl($storage['location'], $storage['type']);
     if ($url) {
       // Redirect to membership registration path.
-      $response = new TrustedRedirectResponse($url->getUri());
+      $response = new TrustedRedirectResponse($url->toString());
       $form_state->setResponse($response);
     }
     else {
