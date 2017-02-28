@@ -58,7 +58,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @throws \Exception
    */
   public function validateStorageEngineKey($storage_key) {
-    if (!property_exists($this, $storage_key)) {
+    if (!property_exists($this->storageEngine, $storage_key)) {
       $msg = 'Invalid $storage_key value used.';
       throw new \Exception($msg);
     }
