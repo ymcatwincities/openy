@@ -58,8 +58,10 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @throws \Exception
    */
   public function validateStorageEngineKey($storage_key) {
+    $storage_engine = var_export($this->storageEngine);
     if (!isset($this->storageEngine->{$storage_key})) {
       $msg = 'Invalid $storage_key value "' . $storage_key . '" used.';
+      $msg .= ' ' . $storage_engine;
       throw new \Exception($msg);
     }
   }
@@ -218,6 +220,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function iStoreTheNodeAs($storage_key) {
     $node = node_get_recent(1);
     $this->storageEngine->{$storage_key} = $node;
+    $this->validateStorageEngineKey($storage_key);
   }
 
   /**
