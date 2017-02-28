@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.event.field_event_date
     - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
     - field.field.node.event.rng_registrants_duplicate
     - field.field.node.event.rng_registrants_maximum
@@ -25,12 +26,12 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
   field_event_date:
     type: datetime_default
-    weight: 2
+    weight: 3
     settings: {  }
     third_party_settings: {  }
   field_landing_body:
@@ -43,14 +44,24 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+  field_sidebar_content:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
   langcode:
     type: language_select
-    weight: 3
+    weight: 4
     settings: {  }
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 7
     settings: {  }
     third_party_settings: {  }
   title:
@@ -61,7 +72,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   translation:
-    weight: 4
+    weight: 5
     settings: {  }
     third_party_settings: {  }
 hidden:

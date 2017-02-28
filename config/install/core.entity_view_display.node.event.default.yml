@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.event.field_event_date
     - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
     - field.field.node.event.rng_registrants_duplicate
     - field.field.node.event.rng_registrants_maximum
@@ -38,8 +39,16 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
-  links:
+  field_sidebar_content:
     weight: 2
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+  links:
+    weight: 3
     settings: {  }
     third_party_settings: {  }
 hidden:
