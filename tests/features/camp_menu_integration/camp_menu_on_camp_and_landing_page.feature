@@ -11,7 +11,7 @@ Feature: Camp menu on camp and landing page
     When I select "One Column" from "Layout"
     And I press "Save and publish"
     Then I should see "Landing Page With Camp"
-    Then I should see the message "Landing page Landing Page With Camp has been created."
+    Then I should see the message "Landing Page Landing page with camp has been created."
     And I store the Node as "landing-page-node"
 
   Scenario: Create Camp with camp menu
@@ -36,7 +36,7 @@ Feature: Camp menu on camp and landing page
     Given I go to stored Node "edit_url" from "landing-page-node"
     And I press "Add Camp menu" in the "header_area"
     Then I press "Save and publish"
-    And I should see the message "Camp Camp with camp menu has been updated."
+    And I should see the message "Landing Page Landing page with camp has been updated."
     And I should see "Landing page with camp link"
 
   Scenario: Set homepage to Landing page with camp by alias
