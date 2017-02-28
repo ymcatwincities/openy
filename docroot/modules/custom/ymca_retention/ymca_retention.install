@@ -411,18 +411,16 @@ function ymca_retention_update_8022() {
       // YMCA Retention pages.
       'page_manager.page.ymca_retention_challenge',
       'page_manager.page_variant.ymca_retention_challenge',
+      'page_manager.page.ymca_retention_challenge_pages',
+      'page_manager.page_variant.ymca_retention_challenge',
+      'page_manager.page_variant.ymca_retention_challenge_default',
+      'page_manager.page_variant.ymca_retention_challenge_team',
       // YMCA Retention settings.
       'ymca_retention.general_settings',
       'ymca_retention.bonus_codes_settings',
       // YMCA Retention views.
-      'views.view.ymca_members.yml',
-      'views.view.ymca_retention_member_prizes.yml',
-      // Campaign name update.
-      'page_manager.page.ymca_retention_challenge_pages.yml',
-      'page_manager.page_variant.ymca_retention_challenge.yml',
-      'page_manager.page_variant.ymca_retention_challenge_default.yml',
-      'page_manager.page_variant.ymca_retention_challenge_team.yml',
-      'ymca_retention.instant_win.yml',
+      'views.view.ymca_members',
+      'views.view.ymca_retention_member_prizes',
     ]
   );
 
