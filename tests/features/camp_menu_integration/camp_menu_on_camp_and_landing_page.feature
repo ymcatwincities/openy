@@ -90,7 +90,11 @@ Feature: Camp menu on camp and landing page
     And I fill in "Existing system path" with stored Node "system_url" from "landing-page-node"
     And I fill in "Path alias" with "/landing-page-new-alias"
     Then I press "Save"
-    And I should see the message "The alias has been saved."
+    # Because "I should see the message" was not working on this page.
+    And I go to "/admin/config/search/path"
+    And I fill in "filter" with stored Node "system_url" from "landing-page-node"
+    And I press the "Filter" button
+    And I should not see "/landing-page-new-alias"
     Then I go to homepage
     And I should see "Landing page with camp link"
     Then I go to stored Node "alias_url" from "landing-page-node"

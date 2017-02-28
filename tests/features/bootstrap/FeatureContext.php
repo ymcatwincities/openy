@@ -109,7 +109,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 
       case 'alias_url':
         $value = \Drupal::service('path.alias_manager')->getAliasByPath($node->url());
-        print var_export($value);
         break;
 
       case 'edit_url':
