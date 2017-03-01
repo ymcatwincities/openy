@@ -261,6 +261,9 @@ class DataWrapper implements OpenyDataServiceInterface {
       if ($value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
         $result['price']['monthly_rate'] = $value->field_mbrshp_monthly_rate->value;
         $result['price']['join_fee'] = $value->field_mbrshp_join_fee->value;
+        if ($value->field_mbrshp_link) {
+          $result['link'] = $value->field_mbrshp_link->first()->getUrl();
+        }
       }
     }
 
