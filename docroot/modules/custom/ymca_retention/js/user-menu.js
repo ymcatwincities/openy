@@ -25,6 +25,10 @@
       }
     });
 
+    $('.nav-tabs__logout').click(function () {
+      $('.nav-tabs a[href="#tab_1"]').click();
+    });
+
     // Populate modal content depending on the clicked link.
     $('#ymca-retention-modal', context)
       .on('show.bs.modal', function (event) {
