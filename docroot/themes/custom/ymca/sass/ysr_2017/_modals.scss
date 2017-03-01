@@ -333,6 +333,16 @@
       overflow: hidden;
       text-align: center;
 
+      .ajax-progress-throbber {
+        + .btn {
+          @include rem(margin, 20px 0 0 0);
+
+          @include breakpoint($tablet) {
+            margin-top: 0;
+          }
+        }
+      }
+
       .btn {
         width: 100%;
         max-width: 100% !important;
