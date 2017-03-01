@@ -66,10 +66,6 @@
           title = Drupal.t('Change email');
           $('#ymca-retention-user-email-change-form').appendTo($modal_body);
         }
-        else if (type === 'tabs-lock') {
-          $modal.find('.modal-header').hide();
-          $('#ymca-retention-user-menu-tabs-lock').appendTo($modal_body);
-        }
 
         // Assign modal title.
         $modal.find('.modal-title').text(Drupal.t(title));
@@ -79,10 +75,23 @@
         var $modal = $(this);
         $refresh_button_selector = '#' + $modal.find('.modal-body .ymca-retention-modal-form').attr('id') + " .refresh";
         $modal.find('.modal-body .ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
-        // Restore the modal header.
-        $modal.find('.modal-header').show();
+        // Hide "Where can I find my Member ID?" info.
+        $('.compain-facility-access-hint-wrapper').removeClass('in').addClass('collapse');
         // Refresh form.
         $( $refresh_button_selector ).click();
+      });
+
+    $('#bonus-modal-day', context)
+      .on('show.bs.modal', function (event) {
+        var $button = $(event.relatedTarget),
+          type = $button.data('type'),
+          $modal = $(this),
+          $modal_body = $modal.find('.modal-body');
+
+        // Add requested form to the modal body.
+        if (type === 'tabs-lock') {
+          $('#ymca-retention-user-menu-tabs-lock').appendTo($modal_body);
+        }
       });
   };
 
