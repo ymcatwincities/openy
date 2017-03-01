@@ -12,11 +12,39 @@ use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
+use Drupal\ymca_mappings\LocationMappingRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Member registration form.
  */
 class MemberRegisterForm extends FormBase {
+
+  /**
+   * The location mapping repository.
+   *
+   * @var \Drupal\ymca_mappings\LocationMappingRepository
+   */
+  protected $locationRepository;
+
+  /**
+   * MemberRegisterForm constructor.
+   *
+   * @param \Drupal\ymca_mappings\LocationMappingRepository $location_repository
+   *   The location mapping repository.
+   */
+  public function __construct(LocationMappingRepository $location_repository) {
+    $this->locationRepository = $location_repository;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('ymca_mappings.location_repository')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -34,19 +62,52 @@ class MemberRegisterForm extends FormBase {
       $form['#theme'] = $config['theme'];
     }
 
+    // TODO: leave comment explaining what this tab_id is.
     if (!$tab_id = $form_state->get('tab_id')) {
       $tab_id = 'about';
     }
-
     $form['tab_id'] = ['#type' => 'hidden', '#default_value' => $tab_id];
+
+    // Set the flag if user accessed the page with "mobile" query parameter.
+    $form['created_on_mobile'] = [
+      '#type' => 'hidden',
+      '#value' => array_key_exists('mobile', $_GET) && $_GET['mobile'] ? 1 : 0,
+    ];
 
     $membership_id = $form_state->get('membership_id');
     $personify_email = $form_state->get('personify_email');
+    $step_value = $form_state->getTemporaryValue('step');
 
-    $obfuscated_email = $this->obfuscateEmail($personify_email);
+    // Determine step of the form - which screen to show.
+    // 1 - enter Member ID;
+    // 2 - confirm email address from Personify;
+    // 3 - manually enter email address.
+    if ($step_value) {
+      $step = $step_value;
+    }
+    elseif (empty($membership_id)) {
+      $step = 1;
+    }
+    else {
+      if (empty($personify_email)) {
+        $step = 3;
+      }
+      else {
+        $step = 2;
+      }
+    }
+    // If it is registration by YTeam - then the step is always 1.
+    if ($config['yteam']) {
+      $step = 1;
+    }
+    $form['step'] = array(
+      '#type' => 'hidden',
+      '#value' => $step,
+    );
+
     $validate_required = [get_class($this), 'elementValidateRequired'];
 
-    if (empty($membership_id) || $config['yteam']) {
+    if ($step == 1) {
       $form['membership_id'] = [
         '#type' => 'textfield',
         '#required' => TRUE,
@@ -54,21 +115,20 @@ class MemberRegisterForm extends FormBase {
           'placeholder' => [
             $config['yteam'] ? $this->t('Member ID') : $this->t('Your member ID'),
           ],
-          'class' => [
-            'facility-access-id',
-          ],
         ],
         '#element_required_error' => $this->t('Member ID is required.'),
         '#element_validate' => [
           $validate_required,
         ],
+        '#skip_ymca_preprocess' => TRUE,
       ];
     }
-    else {
+
+    if ($step == 2 || $step == 3) {
       $form['email'] = [
         '#type' => 'email',
-        '#title' => $this->t('Please confirm your email address below:'),
-        '#default_value' => $obfuscated_email,
+        '#title' => $this->t('Email'),
+        '#title_display' => 'hidden',
         '#required' => TRUE,
         '#attributes' => [
           'placeholder' => [
@@ -80,36 +140,108 @@ class MemberRegisterForm extends FormBase {
           ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
           $validate_required,
         ],
+        '#skip_ymca_preprocess' => TRUE,
       ];
+      if ($step == 2) {
+        $form['email']['#default_value'] = $personify_email;
+        $form['email']['#attributes']['disabled'] = TRUE;
+      }
     }
-    $form['created_on_mobile'] = [
-      '#type' => 'hidden',
-      '#value' => array_key_exists('mobile', $_GET) && $_GET['mobile'] ? 1 : 0,
-    ];
 
-    $form['submit'] = [
+    $ajax = [
+      'callback' => [$this, 'ajaxFormCallback'],
+      'method' => 'replaceWith',
+      'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
+      'progress' => [
+        'type' => 'throbber',
+        'message' => NULL,
+      ],
+    ];
+    $form['submit_ok'] = [
       '#type' => 'submit',
-      '#value' => $config['yteam'] ? $this->t('Register') : (empty($membership_id) ? $this->t('Join now') : $this->t('Confirm')),
+      '#name' => 'submit_ok',
+      '#value' => $config['yteam'] ? $this->t('Register') : $this->t('OK'),
       '#attributes' => [
         'class' => [
           'btn',
           'btn-lg',
           'btn-primary',
-          'orange-light-lighter',
+          $config['yteam'] ? 'compain-dark-green' : 'compain-green',
         ],
       ],
-      '#ajax' => [
-        'callback' => [$this, 'ajaxFormCallback'],
-        'method' => 'replaceWith',
-        'wrapper' => isset($config['wrapper']) ? $config['wrapper'] : 'registration .registration-form form',
-        'progress' => [
-          'type' => 'throbber',
-          'message' => NULL,
+      '#ajax' => $ajax,
+    ];
+    if ($step == 2) {
+      $form['submit_ok']['#value'] = $this->t('Yes, all fine');
+      $form['submit_ok']['#attributes']['class'][] = 'pull-left';
+    }
+    if ($step == 3) {
+      $form['submit_ok']['#value'] = $this->t('OK');
+    }
+
+    if ($step == 2) {
+      $form['submit_change'] = [
+        '#type' => 'submit',
+        '#name' => 'submit_change',
+        '#value' => $this->t('No, change'),
+        '#attributes' => [
+          'class' => [
+            'btn',
+            'btn-lg',
+            'btn-primary',
+            'compain-grey',
+            'pull-right',
+          ],
         ],
+        '#ajax' => $ajax,
+      ];
+    }
+
+    $form['refresh'] = [
+      '#type' => 'button',
+      '#attributes' => [
+        'style' => [
+          'display:none',
+        ],
+        'class' => [
+          'refresh'
+        ]
+      ],
+      '#value' => t('Refresh'),
+      '#ajax' => [
+        'callback' => [$this, 'ajaxFormRefreshCallback'],
+        'event' => 'click',
       ],
     ];
 
     return $form;
+  }
+
+  /**
+   * Ajax form callback for clearing and refreshing form.
+   *
+   * @param array $form
+   *   Form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse|array
+   *   Ajax response.
+   */
+  public function ajaxFormRefreshCallback(array &$form, FormStateInterface $form_state) {
+    // Clear error messages.
+    drupal_get_messages('error');
+
+    $ajax_response = new AjaxResponse();
+
+    $this->refreshValues($form_state);
+    $new_form = \Drupal::formBuilder()
+      ->rebuildForm($this->getFormId(), $form_state, $form);
+
+    // Refreshing form.
+    $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form .ymca-retention-register-form', $new_form));
+
+    return $ajax_response;
   }
 
   /**
@@ -151,7 +283,7 @@ class MemberRegisterForm extends FormBase {
         ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
-      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form', $new_form));
+      $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-register-form .ymca-retention-register-form', $new_form));
 
       return $ajax_response;
     }
@@ -167,8 +299,20 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
+    $triggering_element = $form_state->getTriggeringElement();
+    if ($triggering_element['#name'] == 'submit_change') {
+      $form_state->setTemporaryValue('step', 3);
+      $form_state->setRebuild();
+      return;
+    }
+
+    // Use membership_id from form.
+    $membership_id = $form_state->getValue('membership_id');
+
+    // Load values from storage.
     $config = $form_state->getBuildInfo()['args'][0];
-    $membership_id = $form_state->get('membership_id');
+    // Use membership_id from storage if it is empty.
+    $membership_id = empty($membership_id) ? $form_state->get('membership_id') : $membership_id;
     $personify_member = $form_state->get('personify_member');
     $personify_email = $form_state->get('personify_email');
 
@@ -195,11 +339,11 @@ class MemberRegisterForm extends FormBase {
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please sign in.'));
+      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please log in.'));
       return;
     }
-    if (empty($membership_id)) {
-      $membership_id = trim($form_state->getValue('membership_id'));
+
+    if (!empty($membership_id)) {
       $form_state->set('membership_id', $membership_id);
     }
 
@@ -234,12 +378,7 @@ class MemberRegisterForm extends FormBase {
 
     // Either use email address from Personify or manually entered email address.
     $submitted_email = trim($form_state->getValue('email'));
-    if ($submitted_email === $this->obfuscateEmail($personify_email)) {
-      $form_state->set('email', $personify_email);
-    }
-    else {
-      $form_state->set('email', $submitted_email);
-    }
+    $form_state->set('email', $submitted_email);
   }
 
   /**
@@ -313,6 +452,11 @@ class MemberRegisterForm extends FormBase {
     // Identify if user is employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
+    $location = $this->locationRepository->findByLocationPersonifyBranchCode($personify_member->BranchId);
+    if (is_array($location)) {
+      $location = key($location);
+    }
+
     // Create a new entity.
     /** @var Member $entity */
     $entity = \Drupal::entityTypeManager()
@@ -325,7 +469,7 @@ class MemberRegisterForm extends FormBase {
         'first_name' => $personify_member->FirstName,
         'last_name' => $personify_member->LastName,
         'birth_date' => $personify_member->BirthDate,
-        'branch' => (int) $personify_member->BranchId,
+        'branch' => (int) $location,
         'is_employee' => $is_employee,
         'visit_goal' => $visit_goal,
         'total_visits' => $total_visits,
