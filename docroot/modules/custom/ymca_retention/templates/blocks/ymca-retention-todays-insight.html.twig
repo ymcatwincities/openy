@@ -4,14 +4,18 @@
  * Display Instant Win game and history.
  */
 #}
-<div class="ng-hide login-required"
+<div class="inner-container ng-hide login-required"
      data-ng-controller="TodaysInsightController as todayInC"
      data-ng-show="retentionC.storage.member">
-  <div data-ng-bind-html="getArticle()"> </div>
+  <div class="content-wrapper content-wrapper--small clearfix">
+    <div class="content-item">
+      <div data-ng-bind-html="getArticle()"> </div>
+    </div>
 
-  <div class="content-item">
-    <a class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#bonus-modal" href="#"
-       ng-click="todayInC.addBonus()">click to redeem bonus</a>
+    <div class="content-item">
+      <a class="btn btn-lg btn-primary compain-green" data-toggle="modal" data-target="#bonus-modal" href="#"
+         data-ng-click="todayInC.addBonus()"
+         data-ng-show="!todayInC.isBonus()">click to redeem bonus</a>
+    </div>
   </div>
-
 </div>
