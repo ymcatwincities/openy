@@ -16,7 +16,8 @@
         </div>
       {% else %}
         <div class="price">
-          {{ 'Unfortunately, selected branch doesn`t provide needed membership type. Please select other membership type or branch.'|t }}
+          <p>{{ 'Selected branch doesn\'t provide needed membership type or it wasn\'t configured yet. Please select other membership type or branch.'|t }}</p>
+          <p>{{ 'Call to the branch to get additional details.'|t }}</p>
         </div>
       {% endif %}
     </div>

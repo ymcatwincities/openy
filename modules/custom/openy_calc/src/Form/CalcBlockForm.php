@@ -158,15 +158,15 @@ class CalcBlockForm extends FormBase {
           '#title' => $this->t('Location'),
           '#options' => $locations_options,
           '#default_value' => isset($storage['location']) ? $storage['location'] : NULL,
-          '#required' => TRUE,
         ];
         break;
 
       case 3:
         // Summary step.
+        $summary = $this->dataWrapper->getSummary($storage['location'], $storage['type']);
         $form['summary'] = [
           '#theme' => 'openy_calc_form_summary',
-          '#result' => $this->dataWrapper->getSummary($storage['location'], $storage['type']),
+          '#result' => $summary,
           '#map' => [
             '#type' => 'openy_map',
             '#element_variables' => $this->dataWrapper->getBranchPins($storage['location']),
@@ -200,7 +200,7 @@ class CalcBlockForm extends FormBase {
         ],
       ];
     }
-    else {
+    elseif (isset($summary['link'])) {
       $form['actions']['submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Complete registration'),
@@ -237,12 +237,25 @@ class CalcBlockForm extends FormBase {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $trigger = $form_state->getTriggeringElement();
+    if ($trigger['#name'] != 'step-3') {
+      return;
+    }
+    if ($form_state->isValueEmpty('location')) {
+      $form_state->setErrorByName('location', $this->t('Please set location'));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $storage = $form_state->getStorage();
     $url = $this->dataWrapper->getRedirectUrl($storage['location'], $storage['type']);
     if ($url) {
       // Redirect to membership registration path.
-      $response = new TrustedRedirectResponse($url->getUri());
+      $response = new TrustedRedirectResponse($url->toString());
       $form_state->setResponse($response);
     }
     else {
