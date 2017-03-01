@@ -2505,6 +2505,17 @@ html, body {
   overflow: hidden;
   text-align: center;
 }
+.theme-ymca--2017-compain .compain-register-form .form-btn-wrapper .ajax-progress-throbber + .btn,
+.theme-ymca--2017-compain .compain-email-form .form-btn-wrapper .ajax-progress-throbber + .btn {
+  margin: 20px 0 0 0;
+  margin: 2rem 0 0 0;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain .compain-register-form .form-btn-wrapper .ajax-progress-throbber + .btn,
+  .theme-ymca--2017-compain .compain-email-form .form-btn-wrapper .ajax-progress-throbber + .btn {
+    margin-top: 0;
+  }
+}
 .theme-ymca--2017-compain .compain-register-form .form-btn-wrapper .btn,
 .theme-ymca--2017-compain .compain-email-form .form-btn-wrapper .btn {
   width: 100%;
