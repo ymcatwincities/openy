@@ -95,7 +95,7 @@ content:
   field_camp_menu_links:
     weight: 2
     settings:
-      placeholder_url: '/camp_subpage_uri'
+      placeholder_url: /camp_subpage_uri
       placeholder_title: 'Camp subpage title'
     third_party_settings: {  }
     type: link_default
@@ -133,7 +133,7 @@ content:
   field_location_directions:
     weight: 14
     settings:
-      placeholder_url: '/location_directions_uri'
+      placeholder_url: /location_directions_uri
       placeholder_title: 'Location directions title'
     third_party_settings: {  }
     type: link_default
@@ -141,7 +141,7 @@ content:
     weight: 13
     settings:
       size: 60
-      placeholder: 'location_email@example.com'
+      placeholder: location_email@example.com
     third_party_settings: {  }
     type: email_default
   field_location_fax:

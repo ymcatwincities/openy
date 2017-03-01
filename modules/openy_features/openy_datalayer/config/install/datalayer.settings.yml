@@ -1,6 +1,6 @@
 add_page_meta: true
 output_terms: true
-output_fields: false
+output_fields: true
 group: false
 lib_helper: false
 entity_meta:
@@ -36,3 +36,4 @@ drupal_country: drupalCountry
 site_name: ''
 label_replacements:
   '': null
+key_replacements: {  }
