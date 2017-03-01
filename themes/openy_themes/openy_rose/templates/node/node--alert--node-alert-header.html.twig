@@ -75,6 +75,8 @@
 {% set text_color = '#' ~ content.field_alert_text_color['#items'].entity.field_color.value %}
 {% set bg_color = 'background-color: '  ~  background_color %}
 {% set txt_color = 'color: ' ~ text_color %}
+{% set link_title = content.field_alert_link.0['#title'] %}
+{% set link_url = content.field_alert_link.0['#url'] %}
 
 {% if content.field_alert_icon_color['#items'].entity.field_color.value is not empty %}
   {% set icon_color = '#' ~ content.field_alert_icon_color['#items'].entity.field_color.value %}
@@ -94,8 +96,10 @@
           {{ content.field_alert_description }}
         </div>
       </div>
-      <div class="site-alert__cta">
-        {{ content.field_alert_link }}
+      <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3 site-alert__cta">
+        <div class="field-alert-link">
+          <a href="{{ link_url }}" style="color: {{ text_color }}; border-color: {{ text_color}}">{{ link_title }}</a>
+        </div>
       </div>
       <a href="#" class="site-alert__dismiss"><i class="fa fa-times"></i></a>
     </div>
