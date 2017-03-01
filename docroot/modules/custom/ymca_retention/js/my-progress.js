@@ -173,6 +173,9 @@
 
       self.todayInsight = function () {
         $('a[href$="#tab_2"]').each(function() {
+          if ($(this).attr('data-toggle') == 'tab') {
+            $(this).click();
+          }
         });
       }
 
