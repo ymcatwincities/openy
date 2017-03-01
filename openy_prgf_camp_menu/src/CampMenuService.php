@@ -4,7 +4,7 @@ namespace Drupal\openy_prgf_camp_menu;
 
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use \Drupal\node\Entity\Node;
+use Drupal\node\Entity\Node;
 
 /**
  * Class CampMenuService.
