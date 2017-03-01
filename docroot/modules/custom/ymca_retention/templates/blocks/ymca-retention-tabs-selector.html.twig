@@ -5,13 +5,15 @@
  */
 #}
 <div class="container">
-  <ul class="nav nav-tabs compain-tabs">
+  <ul class="nav nav-tabs compain-tabs hidden-xs">
+
     <li class="active">
       <a href="#tab_1" data-toggle="tab">{{ 'Introduction'|t }}</a>
     </li>
+
     <li class="ng-hide"
         data-ng-show="!retentionC.storage.campaign.started">
-      <a href="#tab_2" data-toggle="modal" data-target="#ymca-retention-modal" data-type="tabs-lock">
+      <a href="#tab_2" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">
         {{ 'Enter prize drawing'|t }}
       </a>
     </li>
@@ -27,9 +29,10 @@
         {{ 'Enter prize drawing'|t }}
       </a>
     </li>
+
     <li class="ng-hide"
         data-ng-show="!retentionC.storage.campaign.started">
-      <a href="#tab_2" data-toggle="modal" data-target="#ymca-retention-modal" data-type="tabs-lock">
+      <a href="#tab_3" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">
         {{ 'Goals & progress'|t }}
       </a>
     </li>
@@ -45,9 +48,10 @@
         {{ 'Goals & progress'|t }}
       </a>
     </li>
+
     <li class="ng-hide"
         data-ng-show="!retentionC.storage.campaign.started">
-      <a href="#tab_2" data-toggle="modal" data-target="#ymca-retention-modal" data-type="tabs-lock">
+      <a href="#tab_4" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">
         {{ 'Winners'|t }}
       </a>
     </li>
@@ -63,8 +67,11 @@
         {{ 'Winners'|t }}
       </a>
     </li>
+
     <li class="compain-tabs--detailed">
       <a href="#tab_5" data-toggle="tab">{{ 'Detailed Rules'|t }}</a>
     </li>
+
   </ul>
+  <div class="panel-group visible-xs compain-accordion"></div>
 </div>

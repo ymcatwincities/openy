@@ -268,17 +268,6 @@
     }
   }
 
-
-  .compain-facility-access-hint-wrapper {
-
-    @include breakpoint($mobile-max) {
-      &.collapse {
-        display: block;
-        height: auto !important;
-      }
-    }
-  }
-
   .compain-facility-access-hint {
     @include rem(background-position, 20px bottom);
     @include rem(background-size, auto 190px);
@@ -343,6 +332,16 @@
       clear: both;
       overflow: hidden;
       text-align: center;
+
+      .ajax-progress-throbber {
+        + .btn {
+          @include rem(margin, 20px 0 0 0);
+
+          @include breakpoint($tablet) {
+            margin-top: 0;
+          }
+        }
+      }
 
       .btn {
         width: 100%;

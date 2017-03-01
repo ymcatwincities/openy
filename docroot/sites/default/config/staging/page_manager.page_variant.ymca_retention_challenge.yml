@@ -20,7 +20,7 @@ variant_settings:
       label: '[YMCA Retention] Campaign intro'
       provider: ymca_retention
       label_display: '0'
-      slogan: 'Recharge Challenge'
+      slogan: 'Y Recharge Challenge'
       show_picture: true
       region: header
       weight: -3
