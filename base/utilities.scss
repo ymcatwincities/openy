@@ -39,29 +39,31 @@
   }
   &.view-mode-media-embedded-half {
     width: 50%;
-    @include breakpoint(0 $screen-xs) {
+    @media (min-width: 0) and (max-width: $screen-xs) {
       width: 100%;
     }
   }
   &.align-center {
     text-align: center;
   }
+
   &.align-left {
-    @include breakpoint(0 $screen-xs) {
+    @media (min-width: 0) and (max-width: $screen-xs) {
       float: none;
       text-align: center;
     }
-    @include breakpoint($screen-xs) {
+    @media (min-width: $screen-xs) {
       float: left;
       margin-right: 20px;
     }
   }
+
   &.align-right {
-    @include breakpoint(0 $screen-xs) {
+    @media (min-width: 0) and (max-width: $screen-xs) {
       float: none;
       text-align: center;
     }
-    @include breakpoint($screen-xs) {
+    @media (min-width: $screen-xs) {
       float: right;
       margin-left: 20px;
     }
