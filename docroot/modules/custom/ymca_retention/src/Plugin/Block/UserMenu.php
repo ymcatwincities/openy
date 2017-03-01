@@ -34,11 +34,19 @@ class UserMenu extends BlockBase {
     $register_form = \Drupal::formBuilder()
       ->getForm('\Drupal\ymca_retention\Form\MemberRegisterForm', $config);
 
+    $config = [
+      'theme' => 'ymca_retention_email_form_modal',
+      'wrapper' => 'ymca-retention-user-email-change-form form',
+    ];
+    $email_form = \Drupal::formBuilder()
+      ->getForm('\Drupal\ymca_retention\Form\MemberEmailForm', $config);
+
     return [
       '#theme' => 'ymca_retention_user_menu',
       '#content' => [
         'login_form' => $login_form,
         'register_form' => $register_form,
+        'email_form' => $email_form,
       ],
       '#attached' => [
         'library' => [

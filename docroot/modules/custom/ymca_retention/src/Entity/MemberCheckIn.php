@@ -45,7 +45,7 @@ class MemberCheckIn extends ContentEntityBase implements MemberCheckInInterface 
 
     $fields['date'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Date'))
-      ->setDescription(t('The time of the day when check-in was logged.'));
+      ->setDescription(t('The timestamp of the day when check-in was logged.'));
 
     $fields['member'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Member ID'))
