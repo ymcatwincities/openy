@@ -177,6 +177,12 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'variables' => [],
       'template' => 'blocks/ymca-retention-recent-winners',
     ],
+    'ymca_retention_todays_insight' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-todays-insight',
+    ],
 
     // Forms templates.
     'ymca_retention_login_form' => [

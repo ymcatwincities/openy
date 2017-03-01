@@ -167,6 +167,14 @@ ymca_retention.recent_winners_json:
   requirements:
     _permission: 'access content'
 
+ymca_retention.todays_insight_json:
+  path: '/ymca-retention/todays-insight'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\TodaysInsightController::todaysInsightJson'
+    _title: 'YMCA Retention Todays Insight JSON'
+  requirements:
+    _permission: 'access content'
+
 ymca_retention.settings_fix_members:
   path: '/admin/config/system/ymca-retention/fix-members'
   defaults:
