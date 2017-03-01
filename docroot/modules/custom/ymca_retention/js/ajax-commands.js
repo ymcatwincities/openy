@@ -8,6 +8,12 @@
   Drupal.AjaxCommands.prototype.ymcaRetentionSetTab = function(ajax, response, status) {
     var tab_id = response.arguments.tabId;
 
+    $('.nav-tabs a[href="#' + tab_id + '"]').each(function () {
+      if ($(this).attr('data-toggle') == 'tab') {
+        $(this).click();
+      }
+    });
+
     if ($('.yfr-tabs').is(':visible')) {
       var $link = $('.yfr-tabs a[href="#' + tab_id + '"]');
 
