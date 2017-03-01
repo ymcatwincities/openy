@@ -77,6 +77,7 @@ class MemberController extends ControllerBase {
           'member' => $member_id,
           'bonus_code' => $post['bonus_code'],
         ]);
+      $bonus->save();
       $bonus_values[$post['timestamp']] = $post['bonus_code'];
     }
 
