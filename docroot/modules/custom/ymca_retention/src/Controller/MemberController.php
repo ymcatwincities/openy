@@ -33,6 +33,7 @@ class MemberController extends ControllerBase {
     $member_values = [
       'firstName' => $member->getFirstName(),
       'email' => $member->getEmail(),
+      'visitsGoal' => $member->getVisitGoal(),
     ];
 
     return new JsonResponse($member_values);
