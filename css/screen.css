@@ -5916,8 +5916,27 @@ p {
     width: 100%; }
   .embedded-entity.view-mode-media-embedded-half {
     width: 50%; }
+    @media (min-width: 0) and (max-width: 480px) {
+      .embedded-entity.view-mode-media-embedded-half {
+        width: 100%; } }
   .embedded-entity.align-center {
     text-align: center; }
+  @media (min-width: 0) and (max-width: 480px) {
+    .embedded-entity.align-left {
+      float: none;
+      text-align: center; } }
+  @media (min-width: 480px) {
+    .embedded-entity.align-left {
+      float: left;
+      margin-right: 20px; } }
+  @media (min-width: 0) and (max-width: 480px) {
+    .embedded-entity.align-right {
+      float: none;
+      text-align: center; } }
+  @media (min-width: 480px) {
+    .embedded-entity.align-right {
+      float: right;
+      margin-left: 20px; } }
 
 ::-webkit-input-placeholder {
   font-style: italic; }
