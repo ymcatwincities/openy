@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.camp.field_camp_body
+    - field.field.node.camp.field_camp_menu
     - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
@@ -40,12 +41,24 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_camp_menu:
+    type: entity_reference_paragraphs
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: camp_menu
     third_party_settings: {  }
   field_camp_menu_links:
     type: link_default
     weight: 16
     settings:
-      placeholder_url: '/camp_subpage_url'
+      placeholder_url: /camp_subpage_url
       placeholder_title: 'Camp subpage Title'
     third_party_settings: {  }
   field_header_content:
@@ -57,6 +70,7 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
   field_location_address:
     weight: 10
@@ -73,7 +87,7 @@ content:
     weight: 11
     settings:
       size: 60
-      placeholder: 'location_email@example.com'
+      placeholder: location_email@example.com
     third_party_settings: {  }
     type: email_default
   field_location_fax:

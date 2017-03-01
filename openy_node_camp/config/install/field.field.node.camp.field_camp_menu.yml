@@ -1,0 +1,92 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_camp_menu
+    - node.type.camp
+    - paragraphs.paragraphs_type.camp_menu
+  module:
+    - entity_reference_revisions
+id: node.camp.field_camp_menu
+field_name: field_camp_menu
+entity_type: node
+bundle: camp
+label: 'Camp Menu'
+description: 'Camp Menu Paragraph block display list of Landing pages referenced from "Menu links" field by alias or id.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      camp_menu: camp_menu
+    target_bundles_drag_drop:
+      1c:
+        weight: 23
+        enabled: false
+      2c:
+        weight: 24
+        enabled: false
+      3c:
+        weight: 25
+        enabled: false
+      4c:
+        weight: 26
+        enabled: false
+      all_amenities:
+        weight: 27
+        enabled: false
+      all_testimonials:
+        weight: 28
+        enabled: false
+      blackbaud:
+        weight: 29
+        enabled: false
+      camp_menu:
+        enabled: true
+        weight: 30
+      contact_us:
+        weight: 31
+        enabled: false
+      featured_stories:
+        weight: 32
+        enabled: false
+      gallery:
+        weight: 33
+        enabled: false
+      global_search:
+        weight: 34
+        enabled: false
+      header:
+        weight: 35
+        enabled: false
+      latest_news_and_updates:
+        weight: 36
+        enabled: false
+      location_finder:
+        weight: 37
+        enabled: false
+      lto:
+        weight: 38
+        enabled: false
+      membership_calculator:
+        weight: 39
+        enabled: false
+      prgf_location_finder_filters:
+        weight: 40
+        enabled: false
+      program_registration:
+        weight: 41
+        enabled: false
+      simple_content:
+        weight: 42
+        enabled: false
+      small_banner:
+        weight: 43
+        enabled: false
+      whay:
+        weight: 44
+        enabled: false
+field_type: entity_reference_revisions
