@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
@@ -59,6 +60,7 @@ class MemberLoginForm extends FormBase {
           ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
           $validate,
         ],
+        '#skip_ymca_preprocess' => TRUE,
       ];
     }
     else {
@@ -75,6 +77,7 @@ class MemberLoginForm extends FormBase {
         ],
         '#element_required_error' => $this->t('Member ID is required.'),
         '#element_validate' => [$validate],
+        '#skip_ymca_preprocess' => TRUE,
       ];
     }
 
@@ -86,7 +89,7 @@ class MemberLoginForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'orange-light-lighter',
+          'compain-green',
         ],
       ],
       '#ajax' => [
@@ -97,6 +100,24 @@ class MemberLoginForm extends FormBase {
           'type' => 'throbber',
           'message' => NULL,
         ],
+      ],
+    ];
+
+    $form['refresh'] = [
+      '#type' => 'button',
+      '#attributes' => [
+        'style' => [
+          'display:none',
+        ],
+        'class' => [
+          'refresh'
+        ],
+      ],
+      '#value' => t('Refresh'),
+      'method' => 'replaceWith',
+      '#ajax' => [
+        'callback' => [$this, 'ajaxFormRefreshCallback'],
+        'event' => 'click',
       ],
     ];
 
@@ -145,6 +166,33 @@ class MemberLoginForm extends FormBase {
     if (!empty($element['#required_but_empty']) && isset($element['#element_required_error'])) {
       $form_state->setError($element, $element['#element_required_error']);
     }
+  }
+
+  /**
+   * Ajax form callback for clearing and refreshing form.
+   *
+   * @param array $form
+   *   Form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse|array
+   *   Ajax response.
+   */
+  public function ajaxFormRefreshCallback(array &$form, FormStateInterface $form_state) {
+    // Clear error messages.
+    drupal_get_messages('error');
+
+    $ajax_response = new AjaxResponse();
+
+    $this->refreshValues($form_state);
+    $new_form = \Drupal::formBuilder()
+      ->rebuildForm($this->getFormId(), $form_state, $form);
+
+    // Refreshing form.
+    $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-login-form', $new_form));
+
+    return $ajax_response;
   }
 
   /**
@@ -276,6 +324,17 @@ class MemberLoginForm extends FormBase {
       $member->setPersonifyEmail($lost_mail);
       $member->save();
     }
+  }
+
+  /**
+   * Refresh values.
+   */
+  protected function refreshValues(FormStateInterface $form_state) {
+    $user_input = $form_state->getUserInput();
+    unset($user_input['membership_id']);
+    $form_state->setUserInput($user_input);
+    $form_state->set('membership_id', NULL);
+    $form_state->set('mail', NULL);
   }
 
 }

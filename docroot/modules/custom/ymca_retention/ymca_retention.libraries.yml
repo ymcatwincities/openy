@@ -161,3 +161,9 @@ recent-winners:
   dependencies:
     - ymca_retention/cookie-bar
     - ymca_retention/livestampjs
+
+introduction:
+  version: VERSION
+  js:
+    /themes/custom/ymca/scripts/vendor/jquery.matchHeight.js: { }
+    js/introduction.js: {}

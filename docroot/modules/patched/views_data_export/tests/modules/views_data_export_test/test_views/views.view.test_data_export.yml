@@ -1,0 +1,54 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - rest
+    - user
+id: test_data_export
+label: 'Test serialize display entity rows'
+module: views_data_export
+description: ''
+tag: ''
+base_table: entity_test
+base_field: id
+core: 8.x
+display:
+  default:
+    display_plugin: default
+    id: default
+    display_title: Master
+    position: null
+    display_options:
+      access:
+        type: perm
+        options:
+          perm: 'access content'
+      cache:
+        type: tag
+      query:
+        type: views_query
+      exposed_form:
+        type: basic
+      style:
+        type: data_export
+      row:
+        type: data_entity
+      sorts:
+        id:
+          id: standard
+          table: entity_test
+          field: id
+          order: DESC
+          plugin_id: date
+          entity_type: entity_test
+          entity_field: id
+      title: 'Test serialize'
+      arguments: {  }
+  data_export_1:
+    display_plugin: data_export
+    id: data_export_1
+    display_title: serializer
+    position: null
+    display_options:
+      path: test/data_export/entity
+      filename: foo.csv
