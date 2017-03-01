@@ -1,0 +1,38 @@
+{#
+/**
+* @file
+* Default theme implementation to display the file entity as a download link.
+*
+* Available variables:
+* - file: The full file object.
+* - download_link: The download link.
+* - icon: a string identifying the type of the file, which can be used for
+*   example to show an icon (see the comment below on how to do that).
+* - file_size: The formatted file size.
+* - attributes: An array of HTML attributes, intended to be added to the main
+*   container of this template.
+*
+* @ingroup themeable
+*/
+#}
+
+{#
+ In order to have the file icons from the classy theme, you can just extend this
+ template and add:
+
+ {{ attach_library('classy/file') }}
+
+ to the beginning of your file.
+#}
+
+{%
+  set classes = [
+    'file',
+    'file--mime-' ~ file.getMimeType()|clean_class,
+    'file--' ~ icon|clean_class
+  ]
+%}
+<span {{ attributes.addClass(classes) }}>
+    {{ download_link }}
+    <span class="file-size">({{ file_size }})</span>
+</span>

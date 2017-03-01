@@ -1,0 +1,181 @@
+html {
+  height: 100%;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+.theme-ymca--2017-compain {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  color: $grey7;
+
+  .viewport {
+    padding-top: 0;
+    background: $white;
+  }
+
+  .content {
+    background: $white;
+  }
+
+  .main--content {
+    @include rem(padding, 0 0 60px 0);
+    @include background-image(linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(244,244,244,0.8) 100%));
+    background-position: 50% 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 60px;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 0 70px 0);
+      background-size: 100% 70px;
+    }
+  }
+
+  @include breakpoint($mobile-tablet-portrait-only) {
+    .container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .container {
+    transition: padding .3s;
+  }
+
+  .inner-container {
+    @include rem(padding, 0 20px);
+    transition: padding .3s;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 0 30px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding, 0 50px);
+    }
+
+    @include breakpoint($desktop) {
+      @include rem(padding, 0 100px);
+    }
+  }
+
+  .btn {
+    &.compain-green {
+      background: $green-medium;
+    }
+
+    &.compain-dark-green {
+      background: $green-dark;
+    }
+
+    &.compain-grey {
+      background: $grey7;
+    }
+  }
+
+
+  .page-footer {
+    &.footer-themes-b {
+      .richtext {
+        text-align: left;
+      }
+    }
+  }
+
+  .form-item {
+    margin: 0;
+  }
+
+  .form-text,
+  .form-email {
+    @include rem(font-size, 14px);
+    @include rem(line-height, 20px);
+    @include rem(padding, 14px);
+    @include transition(border-color ease-in-out .15s,box-shadow ease-in-out .15s);
+    display: block;
+    width: 100%;
+    color: $grey7;
+    vertical-align: top;
+    background-color: $white;
+    border: 1px solid $grey12;
+    border-radius: 3px;
+
+    @include input-placeholder {
+      color: $grey4;
+      font-style: italic;
+      line-height: 26px;
+    }
+  }
+}
+
+.theme-ymca--2017-compain-register {
+  height: 100%;
+  position: relative;
+  background: $green-dark url('../prototypes/ysr_2017/img/bg-page-register.jpg') 50% 0 no-repeat;
+  background-size: cover;
+
+  .viewport,
+  #main {
+    height: 100%;
+    background: none;
+    margin-top: auto;
+  }
+
+  .compain-register {
+    @include rem(padding, 20px);
+    position: absolute;
+    width: 100%;
+    max-width: 740px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .compain-header {
+      background: none;
+      height: auto;
+
+      &--content {
+        .logo {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .container {
+      padding: 0;
+    }
+  }
+
+  .compain-form-register {
+    @include rem(padding, 20px);
+    background-color: $green9;
+    border-radius: 8px;
+
+    @include breakpoint($tablet) {
+      @include rem(padding, 30px);
+    }
+
+    @include breakpoint($desktop-small) {
+      @include rem(padding, 40px);
+    }
+
+    .btn {
+      @include rem(line-height, 26px);
+      display: block;
+      width: 100%;
+    }
+
+    .form-item {
+      @include rem(margin, 0 0 20px 0);
+
+      @include breakpoint($tablet) {
+        margin-bottom: 0;
+      }
+    }
+
+    + .compain-form-register--alert {
+      margin-top: 20px;
+    }
+  }
+}

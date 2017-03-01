@@ -12,25 +12,32 @@
  * @ingroup themeable
  */
 #}
-<div class="col-xs-1 col-sm-1 col-sm-push-2">
-  <a href="#register-or-report" class="icon-back slide-controller"></a>
-</div>
-{% if form.membership_id is defined %}
-  <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
-    {{ form.membership_id }}
-  </div>
-{% endif %}
-  {% if form.email is defined %}
-    <div class="col-xs-10 col-xs-push-1 col-sm-5 col-sm-push-2">
-      {{ form.email }}
+<div class="compain-form-register">
+  <div class="container">
+    <div class="row">
+      {% if form.messages is defined %}
+        <div class="ysr-form-messages ysr-register-form-messages col-xs-12">
+          {{ form.messages }}
+        </div>
+      {% endif %}
+      <div class="col-xs-12">
+        <a href="#register-or-report" class="icon-back slide-controller"></a>
+      </div>
+      {% if form.membership_id is defined %}
+        <div class="col-sm-8">
+            {{ form.membership_id }}
+        </div>
+      {% endif %}
+      {% if form.email is defined %}
+        <div class="col-sm-8">
+            {{ form.email }}
+        </div>
+      {% endif %}
+
+      <div class="col-sm-4">
+        {{ form.submit_ok }}
+      </div>
+      {{ form|without('email', 'membership_id', 'submit', 'submit_ok', 'messages') }}
     </div>
-  {% endif %}
-<div class="col-xs-10 col-xs-push-1 col-sm-2 col-sm-push-2">
-  {{ form.submit }}
-</div>
-{% if form.messages is defined %}
-  <div class="ysr-form-messages ysr-register-form-messages col-xs-10 col-xs-push-2 col-sm-7 col-sm-push-2">
-    {{ form.messages }}
   </div>
-{% endif %}
-{{ form|without('email', 'membership_id', 'submit', 'messages') }}
+</div>

@@ -139,17 +139,6 @@ interface MemberInterface extends ContentEntityInterface {
   public function getBranchId();
 
   /**
-   * Sets user Branch ID.
-   *
-   * @param string $value
-   *   Branch ID.
-   *
-   * @return \Drupal\ymca_retention\MemberInterface
-   *   The called member entity.
-   */
-  public function setBranchId($value);
-
-  /**
    * Returns user visits number.
    *
    * @return string
