@@ -8,7 +8,7 @@ dependencies:
   module:
     - better_exposed_filters
     - node
-    - taxonomy
+    - openy_taxonomy
     - user
 id: branches
 label: Branches
@@ -39,7 +39,8 @@ display:
           distinct: true
           replica: false
           query_comment: ''
-          query_tags: {  }
+          query_tags:
+            - amenities
       exposed_form:
         type: bef
         options:
@@ -53,10 +54,10 @@ display:
           bef:
             general:
               allow_secondary: false
-              secondary_label: 'Advanced options'
+              secondary_label: ''
               autosubmit: true
               autosubmit_hide: true
-            field_location_amenities_target_id:
+            tid:
               bef_format: bef
               more_options:
                 bef_select_all_none: false
@@ -230,23 +231,24 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-        field_location_amenities_target_id:
-          id: field_location_amenities_target_id
-          table: node__field_location_amenities
-          field: field_location_amenities_target_id
+          group: 1
+        tid:
+          id: tid
+          table: taxonomy_index
+          field: tid
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
+          operator: and
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: field_location_amenities_target_id_op
+            operator_id: tid_op
             label: Features
             description: ''
             use_operator: false
-            operator: field_location_amenities_target_id_op
+            operator: tid_op
             identifier: field_location_amenities_target_id
             required: false
             remember: false
@@ -254,7 +256,8 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
-            reduce: false
+              administrator: '0'
+            reduce: 0
           is_grouped: false
           group_info:
             label: ''
@@ -267,13 +270,13 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          reduce_duplicates: false
+          reduce_duplicates: 0
           type: select
           limit: true
           vid: amenities
-          hierarchy: false
-          error_message: true
-          plugin_id: taxonomy_index_tid
+          hierarchy: 0
+          error_message: 1
+          plugin_id: better_taxonomy_index_tid
       sorts:
         title:
           id: title
@@ -295,10 +298,15 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      rendering_language: '***LANGUAGE_language_interface***'
+      group_by: false
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: 0
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - url
         - user
