@@ -32,6 +32,9 @@ class CampaignController extends ControllerBase {
     return $response;
   }
 
+  /**
+   * Return array with all dates of campaign.
+   */
   private function getDates() {
     $config = \Drupal::config('ymca_retention.general_settings');
     $current_date = new \DateTime();
@@ -71,6 +74,9 @@ class CampaignController extends ControllerBase {
     return $dates;
   }
 
+  /**
+   * Return array with bonuses and articles for all dates of campaign.
+   */
   private function getBonusesSettings() {
     $bonuses_settings = [];
     $config = $this->config('ymca_retention.bonus_codes_settings');
