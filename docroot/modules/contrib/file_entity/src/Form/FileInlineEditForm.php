@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Form\FileInlineEditForm.
- */
 
 namespace Drupal\file_entity\Form;
 
@@ -42,6 +38,5 @@ class FileInlineEditForm extends FileEditForm {
     ];
     return $elements;
   }
-
 
 }

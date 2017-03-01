@@ -200,14 +200,12 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // @todo Make branch id as reference field to mapping entity, which has branch id from personify.
-    $fields['branch'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Branch ID'))
+    $fields['branch'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Branch'))
       ->setDescription(t('Member branch ID.'))
       ->setSettings([
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
+        'target_type' => 'mapping',
+        'default_value' => 0,
       ]);
 
     $fields['visit_goal'] = BaseFieldDefinition::create('integer')
@@ -234,6 +232,11 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['total_visits'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visits'))
       ->setDescription(t('Number of visits.'))
+      ->setDefaultValue(0);
+
+    $fields['total_bonuses'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Bonuses'))
+      ->setDescription(t('Number of bonuses.'))
       ->setDefaultValue(0);
 
     $fields['created_by_staff'] = BaseFieldDefinition::create('boolean')
@@ -373,15 +376,14 @@ class Member extends ContentEntityBase implements MemberInterface {
    * {@inheritdoc}
    */
   public function getBranchId() {
-    return $this->get('branch')->value;
+    return $this->get('branch')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setBranchId($value) {
-    $this->set('branch', $value);
-    return $this;
+  public function setBranchId($target_id) {
+    return $this->set('branch', $target_id);
   }
 
   /**
@@ -394,8 +396,23 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function getBonuses() {
+    return $this->get('total_bonuses')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setVisits($value) {
     $this->set('total_visits', $value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBonuses($value) {
+    $this->set('total_bonuses', $value);
     return $this;
   }
 
