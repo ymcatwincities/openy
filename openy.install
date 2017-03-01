@@ -52,3 +52,11 @@ function openy_update_8002() {
   // Enable module.
   \Drupal::service('module_installer')->install(['openy_node_alert']);
 }
+
+/**
+ * Enable config_import module.
+ */
+function openy_update_8003() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['config_import']);
+}

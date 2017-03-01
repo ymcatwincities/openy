@@ -47,6 +47,7 @@ dependencies:
   # Contrib modules.
   - features
   - features_ui
+  - config_import
   - field_group
   - address
   - paragraphs
