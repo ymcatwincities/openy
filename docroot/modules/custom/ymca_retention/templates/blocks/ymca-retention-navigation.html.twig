@@ -4,5 +4,9 @@
  * Display menu navigation on the page.
  */
 #}
-<a href="{{ content.back_url }}" class="back-link">{{ 'Home'|t }}</a>
-
+<nav class="compain-top-nav clearfix">
+  <a class="logo" href="{{ content.back_url }}">
+    <img alt="" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/ymca-logo.svg"/>
+  </a>
+  <a href="{{ content.back_url }}" class="link-back">{{ 'BACK TO YMCA TWIN CITIES'|t }}</a>
+</nav>

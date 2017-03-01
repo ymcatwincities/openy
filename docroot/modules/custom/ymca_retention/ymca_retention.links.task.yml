@@ -43,3 +43,15 @@ ymca_retention.instant_win:
   description: 'Instant win settings.'
   route_name: ymca_retention.settings_instant_win
   parent_id: ymca_retention.settings
+
+ymca_retention.bonus_codes:
+  title: 'Bonus Codes'
+  description: 'Bonus codes settings.'
+  route_name: ymca_retention.settings_bonus_codes
+  parent_id: ymca_retention.settings
+
+ymca_retention.generate_content:
+  title: 'Generate content'
+  description: 'Generate members, checkins, bonuses.'
+  route_name: ymca_retention.settings_generate_content
+  parent_id: ymca_retention.settings

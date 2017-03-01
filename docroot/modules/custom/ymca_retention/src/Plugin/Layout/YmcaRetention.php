@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
 use Drupal\layout_plugin\Plugin\Layout\LayoutBase;
 
@@ -48,6 +49,12 @@ class YmcaRetention extends LayoutBase {
   public function build(array $regions) {
     $build = parent::build($regions);
 
+    // Remove prefix and suffix on regions.
+    foreach (Element::children($build) as $key) {
+      unset($build[$key]['#prefix']);
+      unset($build[$key]['#suffix']);
+    }
+
     /** @var \Drupal\ymca_retention\ActivityManager $service */
     $service = \Drupal::service('ymca_retention.activity_manager');
 
@@ -58,6 +65,7 @@ class YmcaRetention extends LayoutBase {
     ];
 
     $build['#attached']['drupalSettings']['ymca_retention']['resources'] = [
+      'campaign' => Url::fromRoute('ymca_retention.campaign_json')->toString(),
       'member' => Url::fromRoute('ymca_retention.member_json')->toString(),
       'member_activities' => $service->getUrl(),
       'member_chances' => Url::fromRoute('ymca_retention.member_chances_json')->toString(),
