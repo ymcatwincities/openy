@@ -30,7 +30,7 @@ tips:
     id: header-area
     plugin: text
     label: 'Header area'
-    body: 'Here a user can add different types of paragraphs to the header area. Paragraphs will be displayed at the top of the page with full width.'
+    body: 'Here a user can add different types of paragraphs to the header area. Paragraphs will be displayed at the top of the page with full width. [openy_tour:click:edit-field-landing-header-add-more-add-more-button-header]'
     weight: 3
     attributes:
       data-class: 'field--name-field-landing-header'
