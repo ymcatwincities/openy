@@ -19,6 +19,7 @@
         @include rem(margin, 0 50px 60px 0);
         display: inline-block;
         vertical-align: top;
+        max-width: 102px;
       }
 
       img {
@@ -55,33 +56,34 @@
     .container {
       @include breakpoint($tablet) {
         width: 100%;
+        height: auto;
       }
-    }
-  }
 
-  .content {
-    @include cachet-bold();
-    @include rem(font-size, 26px);
-    @include rem(line-height, 30px);
-    background: none;
-    text-align: center;
-    color: $white;
-    text-transform: uppercase;
+      .content {
+        @include cachet-bold();
+        @include rem(font-size, 26px);
+        @include rem(line-height, 30px);
+        background: none;
+        text-align: center;
+        color: $white;
+        text-transform: uppercase;
 
-    @include breakpoint($tablet) {
-      @include rem(font-size, 50px);
-      @include rem(line-height, 54px);
-      @include rem(margin, 60px 0 0 0);
-      text-align: left;
-      display: inline-block;
-      vertical-align: top;
-    }
+        @include breakpoint($tablet) {
+          @include rem(font-size, 50px);
+          @include rem(line-height, 54px);
+          @include rem(margin, 60px 0 0 0);
+          text-align: left;
+          display: inline-block;
+          vertical-align: top;
+        }
 
-    .date {
-      color: $green-light;
+        .date {
+          color: $green-light;
 
-      @include breakpoint($tablet) {
-        @include rem(font-size, 36px);
+          @include breakpoint($tablet) {
+            @include rem(font-size, 36px);
+          }
+        }
       }
     }
   }
@@ -113,7 +115,7 @@
       float: left;
       top: 0;
       left: 0;
-      background: $green10;
+      background: $green-dark;
     }
 
     img {
@@ -136,7 +138,7 @@
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
       @include rem(margin, 0 0 0 16px);
-      opacity: initial;
+      opacity: 1;
     }
 
     &:before {
@@ -166,8 +168,8 @@
   @include breakpoint($tablet) {
     @include rem(padding, 0 48px 0 0);
     @include rem(height, 62px);
-    left: initial;
-    bottom: initial;
+    left: auto;
+    bottom: auto;
     top: 0;
     margin: 0;
   }
@@ -303,9 +305,9 @@
 
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
-      top: initial;
+      top: auto;
       float: right;
-      clear: initial;
+      clear: none;
       margin: 0;
       @include rem(margin-left, 48px);
       @include rem(padding, 0 0 0 28px);

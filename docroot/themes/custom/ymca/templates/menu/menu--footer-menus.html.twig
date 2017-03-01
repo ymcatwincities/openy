@@ -32,7 +32,11 @@
   {% import _self as menus %}
   {% if items %}
     {% if menu_level == 0 %}
-      {% set attributes = attributes.addClass('nav nav-stacked') %}
+      {% if attributes.hasClass('challenge') %}
+        {% set attributes = attributes.addClass('menu') %}
+      {% else %}
+        {% set attributes = attributes.addClass('nav nav-stacked') %}
+      {% endif %}
       <ul{{ attributes }}>
     {% else %}
       <ul>

@@ -28,17 +28,21 @@
       // Collapsing accordion item.
       $('a[href="#' + tab_id + '-collapse"]').addClass('collapsed');
 
-      $link = $('.nav-tabs a[href="#' + tab_id + '"]');
-      if (!$link.hasClass('login-required')) {
-        return;
-      }
-
       if (settings.ymca_retention.tabs_selector.campaign_started) {
+        // Checking whether private content is available.
+        if ($target.find('.login-required.ng-hide').length === 0) {
+          return;
+        }
+
         // Displaying login form on modal.
-        $link.click();
+        $('.nav-tabs a[href="#' + tab_id + '"].login-required').click();
         $('#ymca-retention-modal .modal-header').show();
       }
       else {
+        if (!$('.nav-tabs a[href="#' + tab_id + '"]').hasClass('login-required')) {
+          return;
+        }
+
         // Displaying campaign not started message on modal.
         $('.nav-tabs a[href="#' + tab_id + '"].campaign-not-started').click();
       }
@@ -47,7 +51,7 @@
     });
 
     // Scroll to just opened tab.
-    $(document).on('shown.bs.collapse', function (event) {
+    $(document).off('shown.bs.collapse').on('shown.bs.collapse', function (event) {
       $('body').animate({
         scrollTop: $(this.activeElement).offset().top
       });
