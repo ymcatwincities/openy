@@ -165,17 +165,12 @@ class FileEntityAdminTest extends FileEntityTestBase {
     $this->assertResponse(200);
     $this->assertLinkByHref('file/' . $files['public_image']->id());
     $this->assertLinkByHref('file/' . $files['public_document']->id());
-    // @todo: Operations links are currently displayed for all users.
-    // Switch back to assertNoLinkByHref() after www.drupal.org/node/2406533
-    // is resolved.
-    $this->drupalGet('file/' . $files['public_image']->id() . '/edit');
-    $this->assertResponse(403, 'User doesn\'t have permission to edit files');
-    $this->drupalGet('file/' . $files['public_image']->id() . '/delete');
-    $this->assertResponse(403, 'User doesn\'t have permission to delete files');
-    $this->drupalGet('file/' . $files['public_document']->id() . '/edit');
-    $this->assertResponse(403, 'User doesn\'t have permission to edit files');
-    $this->drupalGet('file/' . $files['public_document']->id() . '/delete');
-    $this->assertResponse(403, 'User doesn\'t have permission to delete files');
+    $this->assertNoLinkByHref('file/' . $files['public_document']->id() . '/download');
+    $this->assertNoLinkByHref('file/' . $files['public_document']->id() . '/download');
+    $this->assertNoLinkByHref('file/' . $files['public_image']->id() . '/edit');
+    $this->assertNoLinkByHref('file/' . $files['public_image']->id() . '/delete');
+    $this->assertNoLinkByHref('file/' . $files['public_document']->id() . '/edit');
+    $this->assertNoLinkByHref('file/' . $files['public_document']->id() . '/delete');
 
     // Verify no tableselect.
     $this->assertNoFieldByName('bulk_form[' . $files['public_image']->id() . ']', '', t('No bulk form checkbox found.'));
@@ -196,6 +191,7 @@ class FileEntityAdminTest extends FileEntityTestBase {
     $this->assertNoLinkByHref($files['private_image']->url());
     $this->assertNoLinkByHref($files['private_image']->url('edit-form'));
     $this->assertNoLinkByHref($files['private_image']->url('delete-form'));
+    $this->assertNoLinkByHref($files['private_image']->downloadUrl()->toString());
 
     // Verify no tableselect.
     $this->assertNoFieldByName('bulk_form[' . $files['private_document']->id() . ']', '', t('No bulk form checkbox found.'));
@@ -220,6 +216,7 @@ class FileEntityAdminTest extends FileEntityTestBase {
       $this->assertLinkByHref('file/' . $file->id());
       $this->assertLinkByHref('file/' . $file->id() . '/edit');
       $this->assertLinkByHref('file/' . $file->id() . '/delete');
+      $this->assertLinkByHref('file/' . $file->id() . '/delete');
     }
 
     // Verify file access can be bypassed.
@@ -231,6 +228,7 @@ class FileEntityAdminTest extends FileEntityTestBase {
       $this->assertLinkByHref('file/' . $file->id());
       $this->assertLinkByHref('file/' . $file->id() . '/edit');
       $this->assertLinkByHref('file/' . $file->id() . '/delete');
+      $this->assertLinkByHref('file/' . $file->id() . '/download');
     }
   }
 
@@ -265,7 +263,7 @@ class FileEntityAdminTest extends FileEntityTestBase {
       'bulk_form[1]' => 1,
       'bulk_form[2]' => 1,
     );
-    $this->drupalPostForm(NULL, $edit, t('Apply'));
+    $this->drupalPostForm(NULL, $edit, t('Apply to selected items'));
 
     \Drupal::entityManager()->getStorage('file')->resetCache();
     $this->assertFalse(FileEntity::load(2)->isPermanent());
@@ -279,7 +277,7 @@ class FileEntityAdminTest extends FileEntityTestBase {
       'bulk_form[0]' => 1,
       'bulk_form[1]' => 1,
     );
-    $this->drupalPostForm(NULL, $edit, t('Apply'));
+    $this->drupalPostForm(NULL, $edit, t('Apply to selected items'));
 
     \Drupal::entityManager()->getStorage('file')->resetCache();
     $this->assertTrue(FileEntity::load(2)->isPermanent());
@@ -294,7 +292,7 @@ class FileEntityAdminTest extends FileEntityTestBase {
       'bulk_form[0]' => 1,
       'bulk_form[1]' => 1,
     );
-    $this->drupalPostForm(NULL, $edit, t('Apply'));
+    $this->drupalPostForm(NULL, $edit, t('Apply to selected items'));
     $this->assertTitle(t('Are you sure you want to delete these files? | Drupal'));
     $this->assertLink('Cancel');
     $this->drupalPostForm(NULL, array(), t('Delete'));

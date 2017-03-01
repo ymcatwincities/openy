@@ -12,47 +12,24 @@
  * @ingroup themeable
  */
 #}
-<div class="yfr-login-form">
-  {% if form.messages is defined %}
-    <div class="row">
-      {{ form.messages }}
-    </div>
+{% if form.messages is defined %}
+  <div class="row">
+    {{ form.messages }}
+  </div>
+{% endif %}
+{% if form.membership_id is not defined %}
+  {{ form.mail }}
+{% endif %}
+{% if form.membership_id is defined %}
+  {% if form.mail is defined %}
+    {{ form.mail }}
   {% endif %}
-  <div class="row">
-    {% if form.membership_id is not defined %}
-      <div class="col-sm-9">
-        {{ form.mail }}
-      </div>
-    {% endif %}
-    {% if form.membership_id is defined %}
-      <div class="col-sm-9">
-        {% if form.mail is defined %}
-          {{ form.mail }}
-        {% endif %}
-        {% if form.lost_mail is defined %}
-          {{ form.lost_mail }}
-        {% endif %}
-        {{ form.membership_id }}
-      </div>
-    {% endif %}
-    <div class="col-sm-3 yfr-login-form__submit-wrapper">
-      {{ form.submit }}
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6 col-sm-5 remember-me-wrapper" style="display: none;">
-      <input type="checkbox" id="remember-me">
-      <label for="remember-me">Remember me</label>
-    </div>
-    <div class="col-xs-6 col-sm-6">
-      <a href="#{{ form.tab_id['#value'] }}"
-         class="login-register-link"
-         data-toggle="modal"
-         data-target="#ymca-retention-modal"
-         data-type="register">
-        {{ 'Register'|t }}
-      </a>
-    </div>
-  </div>
-  {{ form|without('mail', 'lost_mail', 'membership_id', 'submit', 'messages') }}
+  {% if form.lost_mail is defined %}
+    {{ form.lost_mail }}
+  {% endif %}
+  {{ form.membership_id }}
+{% endif %}
+<div class="form-btn">
+  {{ form.submit }}
 </div>
+{{ form|without('mail', 'lost_mail', 'membership_id', 'submit', 'messages') }}

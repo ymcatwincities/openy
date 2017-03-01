@@ -34,11 +34,7 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $form['created_to']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
       $form['membership_id']['#attributes']['placeholder'] = t('Member ID');
-      // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
-      if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
-        $form['created_by_staff']['#value'] = 'All';
-        $form['created_on_mobile']['#value'] = 'All';
-      }
+      $form['name']['#attributes']['placeholder'] = t('Name');
       break;
 
     case 'views-exposed-form-ymca-retention-member-prizes-ymca-retention-prizes':
@@ -49,41 +45,7 @@ function ymca_retention_form_alter(&$form, FormStateInterface $form_state, $form
       $form['date_win_end']['#attributes']['placeholder'] = $date->format('Y-m-d H:i:s');
       $form['member_id']['#attributes']['placeholder'] = t('Member ID');
       $form['amount']['#attributes']['placeholder'] = t('Amount');
-      // @todo probably could be deleted after update to 8.2, see https://www.drupal.org/node/2459289.
-      if (!array_key_exists('created_by_staff', $_GET) && !array_key_exists('created_on_mobile', $_GET)) {
-        $form['created_by_staff']['#value'] = 'All';
-        $form['created_on_mobile']['#value'] = 'All';
-      }
       break;
-
-    case 'views-exposed-form-ymca-retention-winners-ymca-retention-winners':
-      $form['mail']['#attributes']['placeholder'] = t('Email');
-      $form['branch_id']['#attributes']['placeholder'] = t('Branch ID');
-      break;
-  }
-}
-
-/**
- * Act on the view before the query is built, but after displays are attached.
- *
- * Output can be added to the view by setting $view->attachment_before
- * and $view->attachment_after.
- *
- * @param \Drupal\views\ViewExecutable $view
- *   The view object about to be processed.
- *
- * @see \Drupal\views\ViewExecutable
- */
-function ymca_retention_views_pre_build(ViewExecutable $view) {
-  $displays = ['ymca_retention_members', 'ymca_retention_prizes'];
-  if (in_array($view->current_display, $displays)) {
-    // Change filter options to Yes/No instead of default options True/False.
-    if (!isset($view->display_handler->handlers['filter']['created_by_staff']->definition['type'])) {
-      $view->display_handler->handlers['filter']['created_by_staff']->definition['type'] = 'yes-no';
-    }
-    if (!isset($view->display_handler->handlers['filter']['created_on_mobile']->definition['type'])) {
-      $view->display_handler->handlers['filter']['created_on_mobile']->definition['type'] = 'yes-no';
-    }
   }
 }
 
@@ -165,12 +127,14 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     // Blocks templates.
     'ymca_retention_navigation' => [
       'variables' => [
+        'base_path' => base_path(),
         'content' => NULL,
       ],
       'template' => 'blocks/ymca-retention-navigation',
     ],
     'ymca_retention_intro' => [
       'variables' => [
+        'base_path' => base_path(),
         'content' => NULL,
       ],
       'template' => 'blocks/ymca-retention-intro',
@@ -205,10 +169,6 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'blocks/ymca-retention-instant-win',
     ],
-    'ymca_retention_register_confirmation_modal' => [
-      'variables' => [],
-      'template' => 'blocks/ymca-retention-register-confirmation-modal',
-    ],
     'ymca_retention_recent_winners' => [
       'variables' => [],
       'template' => 'blocks/ymca-retention-recent-winners',
@@ -231,6 +191,14 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-register-form-modal',
     ],
+    'ymca_retention_email_form' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-email-form',
+    ],
+    'ymca_retention_email_form_modal' => [
+      'render element' => 'form',
+      'template' => 'forms/ymca-retention-email-form-modal',
+    ],
 
     // Pages templates.
     'page__challenge' => [
@@ -246,7 +214,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
  * Implements hook_preprocess_html().
  */
 function ymca_retention_preprocess_html(&$variables) {
-  $classes = ['theme_ymca_2016_fall_retention'];
+  $classes = ['theme-ymca--2017-compain'];
   $current_route_name = \Drupal::service('current_route_match')->getRouteName();
 
   if (empty($variables['attributes'])) {
@@ -259,7 +227,7 @@ function ymca_retention_preprocess_html(&$variables) {
     }
   }
   if ($current_route_name == 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_team') {
-    $variables['attributes']->addClass(['page-register__fall_retention']);
+    $variables['attributes']->addClass(['theme-ymca--2017-compain-register']);
   }
 }
 
@@ -410,6 +378,20 @@ function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $en
     'member' => $entity->getMember(),
   ]);
   $chance->save();
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function ymca_retention_ymca_retention_member_bonus_insert(EntityInterface $entity) {
+  /** @var MemberBonus $entity */
+  $bonuses_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_bonus');
+  $bonuses = $bonuses_storage->loadByProperties(['member' => $entity->getMember()]);
+  // Update number of bonuses in member entity.
+  $member = Member::load($entity->getMember());
+  $member->setBonuses(count($bonuses));
+  $member->save();
 }
 
 /**

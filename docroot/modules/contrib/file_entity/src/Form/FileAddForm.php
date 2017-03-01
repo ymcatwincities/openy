@@ -7,7 +7,6 @@
 
 namespace Drupal\file_entity\Form;
 
-use Drupal\Component\Utility\Bytes;
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Form\FormBase;
@@ -17,11 +16,14 @@ use Drupal\field\FieldConfigInterface;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\file_entity\Entity\FileType;
+use Drupal\file_entity\UploadValidatorsTrait;
 
 /**
  * Form controller for file type forms.
  */
 class FileAddForm extends FormBase {
+
+  use UploadValidatorsTrait;
 
   /**
    * Returns a unique string identifying the form.
@@ -71,11 +73,18 @@ class FileAddForm extends FormBase {
    *   Returns form data
    */
   function stepUpload(array $form, FormStateInterface $form_state) {
+    $options = [
+      'file_extensions' => \Drupal::config('file_entity.settings')
+        ->get('default_allowed_extensions'),
+    ];
+    $options = $form_state->get('options') ? $form_state->get('options') : $options;
+    $validators = $this->getUploadValidators($options);
+
     $form['upload'] = array(
       '#type' => 'managed_file',
       '#title' => t('Upload a new file'),
       '#upload_location' => $this->getUploadDestinationUri($form_state->get('options')),
-      '#upload_validators' => $this->getUploadValidators($form_state->get('options')),
+      '#upload_validators' => $validators,
       '#progress_indicator' => 'bar',
       '#required' => TRUE,
       '#default_value' => $form_state->has('file') ? array($form_state->get('file')->id()) : NULL,
@@ -122,66 +131,6 @@ class FileAddForm extends FormBase {
     $destination = \Drupal::token()->replace($destination, $data);
 
     return $params['uri_scheme'] . '://' . $destination;
-  }
-
-  /**
-   * Retrieves the upload validators for a file.
-   *
-   * @param array $options
-   *   (optional) An array of options for file validation.
-   *
-   * @return array
-   *   An array suitable for passing to file_save_upload() or for a managed_file
-   *   or upload element's '#upload_validators' property.
-   */
-  public static function getUploadValidators(array $options = array()) {
-    // Set up file upload validators.
-    $validators = array();
-
-    // Validate file extensions. If there are no file extensions in $params and
-    // there are no Media defaults, there is no file extension validation.
-    if (!empty($options['file_extensions'])) {
-      $validators['file_validate_extensions'] = array($options['file_extensions']);
-    }
-    else {
-      $validators['file_validate_extensions'] = array(
-        \Drupal::config('file_entity.settings')
-          ->get('default_allowed_extensions')
-      );
-    }
-
-    // Cap the upload size according to the system or user defined limit.
-    $max_filesize = Bytes::toInt(file_upload_max_size());
-    $user_max_filesize = Bytes::toInt(\Drupal::config('file_entity.settings')
-      ->get('max_filesize'));
-
-    // If the user defined a size limit, use the smaller of the two.
-    if (!empty($user_max_filesize)) {
-      $max_filesize = min($max_filesize, $user_max_filesize);
-    }
-
-    if (!empty($options['max_filesize']) && $options['max_filesize'] < $max_filesize) {
-      $max_filesize = Bytes::toInt($options['max_filesize']);
-    }
-
-    // There is always a file size limit due to the PHP server limit.
-    $validators['file_validate_size'] = array($max_filesize);
-
-    // Add image validators.
-    $options += array('min_resolution' => 0, 'max_resolution' => 0);
-    if ($options['min_resolution'] || $options['max_resolution']) {
-      $validators['file_validate_image_resolution'] = array(
-        $options['max_resolution'],
-        $options['min_resolution']
-      );
-    }
-
-    // Add other custom upload validators from options.
-    if (!empty($options['upload_validators'])) {
-      $validators += $options['upload_validators'];
-    }
-
-    return $validators;
   }
 
   /**
@@ -386,7 +335,7 @@ class FileAddForm extends FormBase {
           // Check if we can skip step 3.
           $schemes = \Drupal::service('stream_wrapper_manager')->getWrappers(StreamWrapperInterface::WRITE_VISIBLE);
 
-          if (!file_entity_file_is_writeable($file)) {
+          if (!$file->isWritable()) {
             // The file is read-only (remote) and must use its provided scheme.
             $current_step += ($trigger == 'edit-previous') ? -1 : 1;
             $form_state->set('scheme', file_uri_scheme($file->getFileUri()));
