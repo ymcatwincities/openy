@@ -7,34 +7,32 @@
 <div class="retention-campaign{% if settings.extra_classes is not empty %} {{ settings.extra_classes }}{% endif %}"
      data-ng-app="Retention"
      data-ng-controller="RetentionController as retentionC">
-  <nav id="top-nav" class="top-nav">
-    {{ content.navigation }}
-  </nav>
-  <div id="hero-section" class="hero-section">
-    {{ content.hero }}
-  </div>
+  <header class="compain-header">
+    {{ content.header }}
+  </header>
+
   {{ content.main }}
   <div class="tab-content">
-    <div class="tab-pane fade in active" id="about">
-      {{ content.tab_about }}
+    <div class="tab-pane fade in active" id="tab_1">
+      {{ content.tab_1 }}
     </div>
 
-    <div class="tab-pane fade" id="track">
-      {{ content.tab_track }}
+    <div class="tab-pane fade" id="tab_2">
+      {{ content.tab_2 }}
     </div>
 
-    <div class="tab-pane fade" id="progress">
-      {{ content.tab_progress }}
+    <div class="tab-pane fade" id="tab_3">
+      {{ content.tab_3 }}
     </div>
 
-    <div class="tab-pane fade" id="instant-win">
-      {{ content.tab_instant_win }}
+    <div class="tab-pane fade" id="tab_4">
+      {{ content.tab_4 }}
     </div>
 
-    <div class="tab-pane fade" id="rules-prizes">
+    <div class="tab-pane fade" id="tab_5">
       <div class="inner-container">
-        <div class="yfr-detailed-content clearfix">
-          {{ content.tab_rules_prizes }}
+        <div class="content-wrapper content-wrapper--detailed clearfix">
+          {{ content.tab_5 }}
         </div>
       </div>
     </div>
