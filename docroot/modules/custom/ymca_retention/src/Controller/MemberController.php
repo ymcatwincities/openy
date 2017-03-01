@@ -278,7 +278,9 @@ class MemberController extends ControllerBase {
     return new JsonResponse($winners_values);
   }
 
-
+  /**
+   * Returns member bonuses array.
+   */
   private function getMemberBonuses($member_id) {
     $bonus_values = [];
 
