@@ -6,6 +6,10 @@ dependencies:
     - node.type.program_subcategory
   module:
     - text
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_category_description
 id: node.program_subcategory.field_category_description
 field_name: field_category_description
 entity_type: node

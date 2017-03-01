@@ -13,8 +13,8 @@ dependencies:
   - node
   - openy_media_image
   - openy_node
-  - openy_txnm_color
   - openy_node_program
+  - openy_txnm_color
   - paragraphs
   - path
   - pathauto

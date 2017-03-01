@@ -5,6 +5,10 @@ dependencies:
     - field.storage.node.field_category_program
     - node.type.program
     - node.type.program_subcategory
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_category_program
 id: node.program_subcategory.field_category_program
 field_name: field_category_program
 entity_type: node
