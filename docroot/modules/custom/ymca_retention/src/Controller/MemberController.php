@@ -42,26 +42,45 @@ class MemberController extends ControllerBase {
   /**
    * Register member bonus.
    */
-  public function addBonus($post) {
+  public function addBonus(Request $request) {
+    $member_id = AnonymousCookieStorage::get('ymca_retention_member');
+    if (empty($member_id)) {
+      return new JsonResponse();
+    }
+    $post = $request->request->all();
+
     // Check the timestamp is within campaign dates.
     $general_config = $this->config('ymca_retention.general_settings');
     $open_date = (new \DateTime($general_config->get('date_campaign_open')))->setTime(0, 0);
     $close_date = (new \DateTime($general_config->get('date_campaign_close')))->setTime(0, 0);
 
     if ($post['timestamp'] < $open_date->getTimestamp() || $post['timestamp'] > $close_date->getTimestamp()) {
-      return;
+      return new JsonResponse();
     }
 
-    // Register bonus.
-    $bonus = \Drupal::entityTypeManager()
-      ->getStorage('ymca_retention_member_bonus')
-      ->create([
-        'created' => REQUEST_TIME,
-        'date' => $post['timestamp'],
-        'member' => $post['member_id'],
-        'bonus_code' => $post['bonus_code'],
-      ]);
-    $bonus->save();
+    // Check that member exists.
+    $member = Member::load($member_id);
+    if (!$member) {
+      return new JsonResponse();
+    }
+
+    $bonus_values = $this->getMemberBonuses($member_id);
+
+    // @todo use bonus code from config.
+    if (!isset($bonus_values[$post['timestamp']])) {
+      // Register bonus.
+      $bonus = \Drupal::entityTypeManager()
+        ->getStorage('ymca_retention_member_bonus')
+        ->create([
+          'created' => REQUEST_TIME,
+          'date' => $post['timestamp'],
+          'member' => $member_id,
+          'bonus_code' => $post['bonus_code'],
+        ]);
+      $bonus_values[$post['timestamp']] = $post['bonus_code'];
+    }
+
+    return new JsonResponse($bonus_values);
   }
 
   /**
@@ -220,24 +239,7 @@ class MemberController extends ControllerBase {
       return new JsonResponse();
     }
 
-    // Check that member exists.
-    $member = Member::load($member_id);
-    if (!$member) {
-      return new JsonResponse();
-    }
-
-    $bonus_ids = \Drupal::entityQuery('ymca_retention_member_bonus')
-      ->condition('member', $member_id)
-      ->execute();
-
-    $bonuses = $this->entityTypeManager()
-      ->getStorage('ymca_retention_member_bonus')
-      ->loadMultiple($bonus_ids);
-
-    $bonus_values = [];
-    foreach ($bonuses as $bonus) {
-      $bonus_values[$bonus->getDate()] = $bonus->getBonusCode();
-    }
+    $bonus_values = $this->getMemberBonuses($member_id);
 
     return new JsonResponse($bonus_values);
   }
@@ -273,6 +275,31 @@ class MemberController extends ControllerBase {
     }
 
     return new JsonResponse($winners_values);
+  }
+
+
+  private function getMemberBonuses($member_id) {
+    $bonus_values = [];
+
+    // Check that member exists.
+    $member = Member::load($member_id);
+    if (!$member) {
+      return $bonus_values;
+    }
+
+    $bonus_ids = \Drupal::entityQuery('ymca_retention_member_bonus')
+      ->condition('member', $member_id)
+      ->execute();
+
+    $bonuses = $this->entityTypeManager()
+      ->getStorage('ymca_retention_member_bonus')
+      ->loadMultiple($bonus_ids);
+
+    foreach ($bonuses as $bonus) {
+      $bonus_values[$bonus->getDate()] = $bonus->getBonusCode();
+    }
+
+    return $bonus_values;
   }
 
 }

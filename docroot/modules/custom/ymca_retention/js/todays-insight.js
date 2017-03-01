@@ -12,19 +12,30 @@
       // Shared information.
       self.storage = storage;
 
-      $scope.getArticle = function() {
+      $scope.getArticle = function () {
         return $sce.trustAsHtml(self.storage.todays_insight);
-      }
+      };
 
       self.addBonus = function () {
-        if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins || date.future) {
-          return '—';
-        }
-        if (self.storage.member_checkins[date.timestamp] == 1) {
-          return Drupal.t('check-in');
+        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
+          typeof self.storage.campaign.bonuses_settings === 'undefined' || !self.storage.campaign.bonuses_settings) {
+          return;
         }
 
-        return Drupal.t('no records');
+        var currentDay = self.storage.campaign.dates[self.storage.campaign.days_left - 1];
+        currentDay.bonus_code = self.storage.campaign.bonuses_settings[currentDay.timestamp].bonus_code;
+        self.storage.setMemberBonus(currentDay);
+      };
+
+      self.isBonus = function () {
+        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
+          typeof self.storage.member_bonuses === 'undefined' || !self.storage.member_bonuses) {
+          return false;
+        }
+
+        var currentDay = self.storage.campaign.dates[self.storage.campaign.days_left - 1];
+
+        return typeof self.storage.member_bonuses[currentDay.timestamp] !== 'undefined';
       };
 
     });

@@ -67,7 +67,7 @@
                                 </ng-show>
                                 <ng-show ng-show="!myProgressC.isBonus(date)">
                                     <ng-show ng-show="date.today">
-                                        <p><span>Read <i>tip #{{ '{{myProgressC.tipNumber(date) }}' }}</i></span></p>
+                                        <p><span>Read <i data-ng-click="myProgressC.todayInsight()">tip #{{ '{{myProgressC.tipNumber(date) }}' }}</i></span></p>
                                     </ng-show>
                                     <ng-show ng-show="!date.today">
                                         <p>without bonus</p>

@@ -160,13 +160,10 @@
           deferred.resolve(null);
         }
         else {
-          toSend = data;
-          toSend.member_id = id;
-          toSend.bonus_code = '';
           $http({
             method: 'POST',
             url: settings.ymca_retention.resources.member_add_bonus,
-            data: $httpParamSerializerJQLike(toSend),
+            data: $httpParamSerializerJQLike(data),
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -264,6 +261,7 @@
         getMemberBonuses: getMemberBonuses,
         getMemberActivities: getMemberActivities,
         setMemberActivities: setMemberActivities,
+        setMemberBonus: setMemberBonus,
         getMemberChances: getMemberChances,
         getMemberPrize: getMemberPrize,
         getRecentWinners: getRecentWinners,
@@ -387,6 +385,7 @@
       self.setMemberBonus = function(data) {
         var $promise = courier.setMemberBonus(data).then(function(data) {
           // Update member bonuses.
+          self.member_bonuses = data;
         });
 
         // Track the request and show its progress to the user.
