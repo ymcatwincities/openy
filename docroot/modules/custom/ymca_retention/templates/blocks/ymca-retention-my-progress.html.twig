@@ -11,17 +11,11 @@
              data-ng-class="myProgressC.visitsCountClass()">
             <div class="compain-progress--line">
                 <div class="line"></div>
-                <span class="point point--1"></span>
-                <span class="point point--2"></span>
-                <span class="point point--3"></span>
-                <span class="point point--4"></span>
-                <span class="point point--5"></span>
-                <span class="point point--6"></span>
-                <span class="point point--7"></span>
-                <span class="point point--8"></span>
-            </div>
+                <span data-ng-repeat="i in myProgressC.points()"
+                      data-ng-class="myProgressC.pointClass(i)"></span>
+             </div>
             <div class="compain-progress--info">
-                <span class="text">9</span>
+                <span class="text">{{ '{{ myProgressC.visitsGoal() }}' }}</span>
             </div>
         </div>
 
