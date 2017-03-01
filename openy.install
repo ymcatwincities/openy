@@ -57,10 +57,6 @@ function openy_update_8002() {
  * Enable config_import module.
  */
 function openy_update_8003() {
-  if (\Drupal::service('module_handler')->moduleExists('config_import')) {
-    return;
-  }
-
   // Enable module.
   \Drupal::service('module_installer')->install(['config_import']);
 }

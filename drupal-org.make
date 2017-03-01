@@ -40,7 +40,7 @@ projects[slick_views] = 1.0-rc2
 projects[blazy] = 1.0-rc1
 projects[geolocation] = 1.9
 projects[confi][subdir] = contrib
-projects[confi][version] = 1.x-dev
+projects[confi][version] = 1.3
 projects[confi][patch][] = "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
 
 libraries[dropzone][type] = library
