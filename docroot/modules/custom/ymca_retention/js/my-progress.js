@@ -12,6 +12,27 @@
       // Shared information.
       self.storage = storage;
 
+      self.visitsGoal = function () {
+        if (typeof self.storage.member === 'undefined' || !self.storage.member || typeof self.storage.member.visitsGoal === 'undefined') {
+          return 9;
+        }
+
+        return self.storage.member.visitsGoal;
+      };
+
+      self.pointClass = function (i) {
+        return 'point point--' + self.visitsGoal() + '-' + i;
+      };
+      
+      self.points = function () {
+        var p = [];
+        for (var i = 1; i < self.visitsGoal(); i++) {
+          p.push(i);
+        }
+
+        return p;
+      };
+
       self.checkInClass = function (date) {
         if (typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins) {
           return '';
@@ -112,7 +133,7 @@
       };
 
       self.visitsLeft = function () {
-        return 9 - self.visitsCount();
+        return self.visitsGoal() - self.visitsCount();
       };
 
       self.visitsCount = function () {
@@ -136,7 +157,7 @@
       };
 
       self.visitsCountClass = function () {
-        return 'compain-progress--fill-' + self.visitsCount();
+        return 'compain-progress--fill-' + self.visitsGoal() + '--' + self.visitsCount();
       };
 
       self.bonusImage = function (date) {
@@ -148,7 +169,7 @@
         }
 
         return {};
-      }
+      };
 
     });
   };
