@@ -1,0 +1,16 @@
+services:
+  logger.channel.openy_upgrade_tool:
+    parent: logger.channel_base
+    arguments: ['openy_upgrade_tool']
+  openy_upgrade_tool.event_subscriber:
+    class: Drupal\openy_upgrade_tool\EventSubscriber\ConfigEventSubscriber
+    arguments:
+      - '@features.manager',
+      - '@logger.channel.openy_upgrade_tool'
+    tags:
+      - { name: 'event_subscriber' }
+  openy_upgrade_tool.param_updater:
+    class: Drupal\openy_upgrade_tool\ConfigParamUpgradeTool
+    arguments:
+      - '@config.manager'
+      - '@logger.factory'
