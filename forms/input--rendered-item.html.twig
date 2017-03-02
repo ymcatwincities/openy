@@ -1,0 +1,19 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = [
+'form-control',
+'text',
+] %}
+</i><input{{ attributes.addClass(classes).setAttribute('placeholder', 'Search the blog'|t) }} />{{ children }}

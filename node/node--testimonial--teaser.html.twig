@@ -70,34 +70,32 @@
  *   in different view modes.
  */
 #}
-{%
-  set classes = [
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  ]
-%}
-{%
-  set main_col_count = node.field_sidebar_content.getValue() is empty ? '12' : '8'
-%}
+{% set classes = [
+'node',
+'node--type-' ~ node.bundle|clean_class,
+node.isPromoted() ? 'node--promoted',
+node.isSticky() ? 'node--sticky',
+not node.isPublished() ? 'node--unpublished',
+view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+content.field_blog_color ? 'blog-' ~ content.field_blog_color|clean_class : 'blog-photo',
+] %}
+
+{% set category = content.field_blog_categories ? content.field_blog_categories : 'Testimonial'|t %}
+
 <article{{ attributes.addClass(classes) }}>
-  <div{{ content_attributes.addClass('node__content') }}>
-    {{ content.field_landing_header }}
-    <div class="container">
-      <div class="row">
-        <div class="content-main-region col-sm-{{ main_col_count }}">
-          {{ content.field_landing_body }}
-        </div>
-        {% if node.field_sidebar_content.getValue() is not empty %}
-        <div class="content-sidebar-region col-sm-4">
-          {{ content.field_sidebar_content }}
-        </div>
-        {% endif %}
+  <div class="inner-wrapper">
+
+      <div>
+        {{ content.field_blog_image }}
       </div>
+
+    <div class="blog-heading">
+      <h4>{{ category }}</h4>
+      <h2>
+        <a href="{{ url }}" rel="bookmark">
+          {{ label }}
+        </a>
+      </h2>
     </div>
-    {{ content.field_landing_footer }}
   </div>
 </article>
