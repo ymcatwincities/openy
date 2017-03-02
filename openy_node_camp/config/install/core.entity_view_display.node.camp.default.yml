@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.field.node.camp.field_camp_body
-    - field.field.node.camp.field_camp_menu
     - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
@@ -28,14 +27,6 @@ content:
   field_camp_body:
     type: entity_reference_revisions_entity_view
     weight: 6
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-  field_camp_menu:
-    type: entity_reference_revisions_entity_view
-    weight: 9
     label: hidden
     settings:
       view_mode: default
