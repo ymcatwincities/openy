@@ -1,0 +1,45 @@
+// Houston specific GM infoWindow styles.
+.gm-style-iw {
+  > div:first-child {
+    border-top: 1px solid $yellow;
+    border-bottom: solid 1px $yellow;
+  }
+}
+.gm-openy-hide {
+  display: none;
+}
+.gm-openy-pimp {
+  margin-top: -6px;
+  > div {
+    height: 30px !important;
+    width: 30px !important;
+    div {
+      border-right: solid 1px $yellow;
+      height: 30px !important;
+      width: 30px !important;
+      transform: skewX(-43.6deg) !important;
+    }
+  }
+  > div:first-child {
+    height: 30px !important;
+    width: 1px !important;
+    margin-left: 15px;
+    div {
+      border-right: solid 1px $yellow;
+      height: 30px !important;
+      width: 1px !important;
+      transform: skewX(0deg) !important;
+      left: 0 !important;
+    }
+  }
+}
+
+.gm-openy-close {
+  opacity: 1 !important;
+  right: 42px !important;
+  top: 12px !important;
+}
+
+.marker_tooltip {
+
+}
