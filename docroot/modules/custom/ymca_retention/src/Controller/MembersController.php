@@ -4,6 +4,7 @@ namespace Drupal\ymca_retention\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\ymca_retention\Entity\Member;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
@@ -85,22 +86,35 @@ class MembersController extends ControllerBase {
 
       $context['sandbox']['members'] = array_values($member_ids);
       $context['sandbox']['max'] = count($member_ids);
-//      $context['sandbox']['max'] = 100;
     }
-    // Get member id.
-    $member_id = $context['sandbox']['members'][$context['sandbox']['progress']];
 
-//    // Get entity manager.
-//    $storage = \Drupal::entityTypeManager()
-//      ->getStorage('ymca_retention_member');
-//
-//    // Delete member entity.
-//    $entities = $storage->loadMultiple(array($member_id));
-//    $storage->delete($entities);
+    $limit = 50;
 
-    // Save results.
-    $context['results'][] = $member_id;
-    $context['sandbox']['progress']++;
+    $member_ids = [];
+    for ($i = 1; $i <= $limit; $i++) {
+      if (!isset($context['sandbox']['members'][$context['sandbox']['progress']])) {
+        break;
+      }
+      $member_id = $context['sandbox']['members'][$context['sandbox']['progress']];
+      $member_ids[] = $member_id;
+      $context['results'][] = $member_id;
+      $context['sandbox']['progress']++;
+    }
+
+    $members = Member::loadMultiple($member_ids);
+    $master_ids = [];
+    /** @var Member $member */
+    foreach ($members as $member) {
+      $master_ids[] = $member->getPersonifyId();
+    }
+
+    if ($goals = Member::calculateVisitGoal($master_ids)) {
+      foreach ($members as $member) {
+        $member->setVisitGoal($goals[$member->getPersonifyId()]);
+        $member->save();
+      }
+    }
+
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
     }
