@@ -60,3 +60,28 @@ function openy_update_8003() {
   // Enable module.
   \Drupal::service('module_installer')->install(['config_import']);
 }
+
+/**
+ * Enable Data layer modules & revert needed configuration.
+ */
+function openy_update_8004() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['libraries', 'datalayer', 'openy_datalayer']);
+
+  // Feature revert updated features.
+  $modules = [
+    'openy_loc_branch',
+    'openy_loc_camp',
+    'openy_loc_facility',
+    'openy_node_blog',
+    'openy_node_category',
+    'openy_node_mbrshp',
+    'openy_node_program',
+  ];
+  $module_handler = \Drupal::service('module_handler');
+  $modules = array_filter($modules, function($module) use ($module_handler) {
+      return $module_handler->moduleExists($module);
+    }
+  );
+  \Drupal::service('features.manager')->import($modules);
+}
