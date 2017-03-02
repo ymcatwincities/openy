@@ -436,13 +436,15 @@ class MemberRegisterForm extends FormBase {
     // Calculate visit goal.
     $visit_goal = 0;
     if ($settings->get('calculate_visit_goal')) {
-      $visit_goal = $this->calculateVisitGoal($membership_id, $settings);
+      if ($result = Member::calculateVisitGoal([$personify_member->MasterCustomerId])) {
+        $visit_goal = $result[$personify_member->MasterCustomerId];
+      }
     }
 
     // Get information about number of checkins in period of campaign.
     $from = $settings->get('date_reporting_open');
     $to = $settings->get('date_reporting_close');
-    $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
+    $current_result = PersonifyApi::getPersonifyVisitCountByDate($personify_member->MasterCustomerId, $from, $to);
 
     $total_visits = 0;
     if (empty($current_result->ErrorMessage) && $current_result->TotalVisits > 0) {
@@ -500,59 +502,6 @@ class MemberRegisterForm extends FormBase {
     $entity->save();
 
     return $entity;
-  }
-
-  /**
-   * Calculate visit goals.
-   *
-   * @param string $membership_id
-   *   Membership ID - Facility access ID.
-   *
-   * @return array
-   *   Visit goal and total visits.
-   */
-  protected function calculateVisitGoal($membership_id, $settings) {
-    // Get information about number of checkins before campaign.
-    $current_date = new \DateTime();
-    $from_date = new \DateTime($settings->get('date_checkins_start'));
-    $to_date = new \DateTime($settings->get('date_checkins_end'));
-
-    $to = $to_date->format('m/d/Y g:i A');
-    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
-    if ($to_date > $current_date) {
-      $to = $current_date->format('m/d/Y g:i A');
-      $number_weeks = ceil($from_date->diff($current_date)->days / 7);
-    }
-    $from = $from_date->format('m/d/Y g:i A');
-    $past_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
-
-    // Get first visit date.
-    try {
-      $first_visit = new \DateTime($past_result->FirstVisitDate);
-    }
-    catch (\Exception $e) {
-      $first_visit = $from;
-    }
-    // If user registered after From date, then recalculate number of weeks.
-    if ($first_visit > $from_date) {
-      $number_weeks = ceil($first_visit->diff($current_date)->days / 7);
-    }
-
-    // Calculate a goal for a member.
-    $goal = (int) $settings->get('new_member_goal_number');
-    if (empty($past_result->ErrorMessage) && $past_result->TotalVisits > 0) {
-      $limit_goal = $settings->get('limit_goal_number');
-      $calculated_goal = ceil((($past_result->TotalVisits / $number_weeks) * 2) + 1);
-      $goal = min(max($goal, $calculated_goal), $limit_goal);
-    }
-    // Visit goal for late members.
-    $close_date = new \DateTime($settings->get('date_campaign_close'));
-    $count_days = $current_date->diff($close_date)->days;
-    // Set 1 if current date is a date when campaign will be closed.
-    $count_days = max(1, $count_days);
-    $goal = min($goal, $count_days);
-
-    return $goal;
   }
 
   /**
