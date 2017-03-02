@@ -38,7 +38,39 @@ tips:
     id: body-area
     plugin: text
     label: 'Body area'
-    body: 'Here a user can add different types of paragraphs to the body area. Paragraphs types are added and the content for them is created in the actual content type they are being added to.'
+    body: 'Here a user can add different types of paragraphs to the body area. Paragraphs types are added and the content for them is created in the actual content type they are being added to. Add Blackbaud donation form [openy_tour:click:edit-field-landing-body-add-more-add-more-button-blackbaud]'
     weight: 4
     attributes:
       data-class: 'field--name-field-landing-body'
+  blackbaud-block:
+    id: blackbaud-block
+    plugin: text
+    label: 'BlackBaud Donation Form Block'
+    body: '[openy_tour:click:edit-field-landing-body-0-subform-field-prgf-blackbaud-block-actions-ief-add] to add empty blackbaud form block'
+    weight: 5
+    attributes:
+      data-class: 'field--name-field-prgf-blackbaud-block'
+  blackbaud-descritpion:
+    id: blackbaud-description
+    plugin: text
+    label: 'BlackBaud Block description '
+    body: 'Type here brief administrative description to identify your block. It will not be displayed on the page.'
+    weight: 6
+    attributes:
+      data-class: 'form-item-field-landing-body-0-subform-field-prgf-blackbaud-block-form-inline-entity-form-info-0-value'
+  blackbaud-id:
+    id: blackbaud-id
+    plugin: text
+    label: 'BlackBaud Donation Form ID'
+    body: 'Type here Form ID string for blackbaud widget. It used to insert appropriate form, which will be rendered on page.'
+    weight: 7
+    attributes:
+      data-class: 'field--name-field-formid'
+  save-blackbaud:
+    id: save-blackbaud
+    plugin: text
+    label: 'Save BlackBaud Donation Form'
+    body: 'To add paragraph with BlackBaud Donation Form press the Create custom block button.'
+    weight: 8
+    attributes:
+      data-class: 'form-submit[value="Create custom block"]'
