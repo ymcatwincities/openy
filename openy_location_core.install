@@ -13,7 +13,7 @@ function openy_location_core_update_8001() {
     'openy_node_camp',
     'openy_node_landing',
   ];
-  foreach ($features as $feature) {
-    \Drupal::service('config_import.features_importer')->import($feature);
-  }
+  /* @var \Drupal\config_import\Confi$featuresgFeaturesImporterServiceInterface $features_importer */
+  $features_importer = \Drupal::service('config_import.features_importer');
+  $features_importer->importFeatures($features);
 }
