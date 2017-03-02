@@ -98,11 +98,10 @@ class CampMenu extends BlockBase implements ContainerFactoryPluginInterface {
 
     // Add default home link to the camp node.
     array_unshift($links, [
-        'uri' => 'entity:' . $camp->getEntityTypeId() . '/' . $camp->id(),
-        'title' => 'Home',
-        'options' => [],
-      ]
-    );
+      'uri' => 'entity:' . $camp->getEntityTypeId() . '/' . $camp->id(),
+      'title' => t('Home'),
+      'options' => [],
+    ]);
 
     foreach ($links as &$link) {
       $url = Url::fromUri($link['uri']);
