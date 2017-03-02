@@ -31,7 +31,6 @@ class WinnersIntro extends BlockBase {
     return [
       '#theme' => 'ymca_retention_winners_intro',
       '#description' => $description,
-      '#content' => [],
     ];
   }
 
