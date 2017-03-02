@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_node_event feature.
+ */
+
+/**
+ * Add panorama paragraph to body.
+ */
+function openy_node_event_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.event.field_landing_body',
+    ]);
+}
