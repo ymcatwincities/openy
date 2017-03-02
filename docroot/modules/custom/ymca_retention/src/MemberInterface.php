@@ -200,4 +200,14 @@ interface MemberInterface extends ContentEntityInterface {
    */
   public function setVisitGoal($value);
 
+  /**
+   * Calculate visit goal.
+   *
+   * @param array $member_ids
+   *   Array of Master Customer IDs.
+   *
+   * @return array
+   *   Visit goals for members keyed by Master Customer ID.
+   */
+  public static function calculateVisitGoal($member_ids);
 }
