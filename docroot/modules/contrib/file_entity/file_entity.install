@@ -5,6 +5,7 @@
  * Install, update and uninstall functions for the file_entity module.
  */
 
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\views\Entity\View;
 
 /**
@@ -50,18 +51,12 @@ function file_entity_schema() {
  * Implements hook_install().
  */
 function file_entity_install() {
-  $type_storage_definition = \Drupal::entityManager()->getFieldStorageDefinitions('file')['type'];
-  \Drupal::entityManager()->getStorage('file')->onFieldStorageDefinitionCreate($type_storage_definition);
-
+  $type_storage_definition = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('file')['type'];
+  \Drupal::entityDefinitionUpdateManager()->installFieldStorageDefinition('type', 'file', 'file_entity', $type_storage_definition);
   // Set permissions.
   $roles = user_roles();
   foreach ($roles as $rid => $role) {
     user_role_grant_permissions($rid, array('view files'));
-  }
-
-  // Configure default pathauto variables if it is currently installed.
-  if (\Drupal::moduleHandler()->moduleExists('pathauto')) {
-    \Drupal::configFactory()->getEditable('pathauto.pattern')->set('patterns.file.default', 'files/[file:name]')->save();
   }
 
   // Classify existing files according to the currently defined file types.
@@ -92,4 +87,40 @@ function file_entity_install() {
 function file_entity_uninstall() {
   // Remove the added column to the core {file_managed} table.
   db_drop_field('file_managed', 'type');
+}
+
+/**
+ * Update existing bogus entries for File types Document.
+ */
+function file_entity_update_8002(&$sandbox) {
+  foreach (\Drupal::configFactory()->listAll('file_entity') as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config->set('mimetypes', str_replace("\r", "", $config->get('mimetypes')));
+    $config->save();
+  }
+}
+
+/**
+ * Update entity form displays to use the new entity browser widget.
+ */
+function file_entity_update_8003() {
+
+  /** @var \Drupal\Core\Entity\Entity\EntityFormDisplay $form_display */
+  foreach (EntityFormDisplay::loadMultiple() as $form_display) {
+    $components = $form_display->getComponents();
+
+    $changed = FALSE;
+    foreach ($components as $name => $options) {
+      if (isset($options['type']) && $options['type'] == 'file_entity_browser') {
+        $options['type'] = 'entity_browser_file';
+        $form_display->setComponent($name, $options);
+        $changed = TRUE;
+      }
+    }
+
+    if ($changed) {
+      $form_display->save();
+    }
+  }
+
 }
