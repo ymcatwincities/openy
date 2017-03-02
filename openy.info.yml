@@ -125,6 +125,7 @@ dependencies:
   - openy_mappings
   - openy_calc
   - openy_data_wrapper
+  - openy_upgrade_tool
 
 themes:
   - bartik
