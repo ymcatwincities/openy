@@ -38,7 +38,7 @@ For updating specific property in config:
 
 ```
 $config = drupal_get_path('module', 'openy_media_image') . '/config/install/views.view.images_library.yml';
-$config_importer = \Drupal::service('config_import.param_updater');
+$config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
 $config_importer->update($config, 'views.view.images_library', 'display.default.display_options.pager');
 ```
 Where:
