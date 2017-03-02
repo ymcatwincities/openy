@@ -183,6 +183,25 @@
   @include helvetica-neue();
 }
 
+@mixin btn-blue() {
+  @include cachet();
+  background-color: $blue;
+  background-image: none;
+  border-radius: 0;
+  border: none;
+  color: $white;
+  font-size: 16px;
+  height: 40px;
+  padding: 0 10px;
+  line-height: 40px;
+  text-transform: uppercase;
+
+  a {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
 @mixin read-more-link() {
   a {
     font-size: 15px;
