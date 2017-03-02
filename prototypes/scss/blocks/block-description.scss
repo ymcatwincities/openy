@@ -15,18 +15,76 @@
       padding: 24px 0;
     }
 
+    h2 {
+      @include breakpoint (768px) {
+        font-size: 26px;
+      }
+      @include breakpoint (1024px) {
+        font-size: 30px;
+      }
+      &.with-icon {
+        padding-left: 28px;
+        @include breakpoint (768px) {
+          padding-left: 32px;
+        }
+        @include breakpoint (1024px) {
+          padding-left: 40px;
+        }
+      }
+    }
 
     h4 {
-      font-family: $font-cachet-book;
-      font-weight: normal;
+      @include cachet();
       font-size: 26px;
       line-height: lh(30, 26);
-      color: $color-violet;
+      color: $purple;
       margin: 0 0 10px;
+      vertical-align: middle;
 
       @include breakpoint(tablet) {
         font-size: 36px;
         line-height: lh(40, 36);
+      }
+    }
+
+    .fa {
+      color: $purple;
+      font-size: 24px;
+      vertical-align: middle;
+      margin-right: 10px;
+      max-height: 24px;
+      max-width: 24px;
+      float: left;
+      width: auto;
+      @include breakpoint(tablet) {
+        font-size: 26px;
+        max-height: 26px;
+        max-width: 26px;
+      }
+      @include breakpoint(laptop) {
+        font-size: 30px;
+        max-height: 30px;
+        max-width: 30px;
+      }
+    }
+
+    .field-icon {
+      vertical-align: middle;
+      margin-right: 5px;
+      float: left;
+      img {
+        vertical-align: middle;
+        max-height: 24px;
+        max-width: 24px;
+        width: auto;
+        @include breakpoint(tablet) {
+          max-height: 28px;
+          max-width: 28px;
+        }
+        @include breakpoint(laptop) {
+          max-height: 35px;
+          max-width: 35px;
+        }
       }
     }
 
@@ -89,6 +147,23 @@
     .block-description--text {
       @include breakpoint(tablet) {
         width: calc(100% / 4 - 30px);
+      }
+    }
+
+    .fa-icon {
+      text-align: center;
+      .fa {
+        float: none;
+        margin: 15px auto;
+        width: 100%;
+      }
+    }
+
+    .field-icon {
+      float: none;
+      margin: 10px auto;
+      .field-image {
+        width: 100%;
       }
     }
   }

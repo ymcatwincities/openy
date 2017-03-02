@@ -70,7 +70,17 @@
       </div>
     {% else %}
       {% for item in items %}
-        <div{{ attributes.addClass(classes) }}>{{ item.content }}</div>
+        <div{{ attributes.addClass(classes) }}>
+          {% set icon_class = item.content.field_icon_class.0 ? item.content.field_icon_class.0 : '' %}
+          {% if icon_class %}
+            <div class="fa-icon">
+              <i class="fa fa-{{ icon_class }}"></i>
+            </div>
+          {% else %}
+            {{ item.content.field_icon }}
+          {% endif %}
+          {{ item.content|without('field_icon', 'field_icon_class') }}
+        </div>
       {% endfor %}
     {% endif %}
   {% else %}
