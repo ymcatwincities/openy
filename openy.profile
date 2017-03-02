@@ -76,6 +76,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_blog',
       ],
     ],
+    'facility' => [
+      'openy_demo_nfacility' => [
+        'openy_demo_node_facility',
+      ],
+    ],
     'landing' => [
       'openy_demo_nlanding' => [
         'openy_demo_node_landing',
