@@ -36,10 +36,46 @@ a,
 .footer {
   background-color: #4f4f4f;
 }
-.is-camp .branch-header .desktop {
-  background-color: #c6168d;
-  color: #fff;
+
+/* Camp specific overrides */
+.is-camp {
+  background-color: #fffffe;
+  color: #636465;
 }
-.is-camp .branch-header .desktop a {
-  color: #fff;
+.is-camp a,
+.is-camp .link {
+  color: #337ab6;
+}
+.is-camp .button,
+.is-camp .btn {
+  background-color: #00aeee;
+}
+.is-camp .top-navs,
+.is-camp .sidebar,
+.is-camp .navbar-default .navbar-toggle,
+.is-camp .navbar-default .navbar-toggle:focus,
+.is-camp .navbar-default .navbar-toggle:hover,
+.is-camp .navbar-default .navbar-toggle:active {
+  background-color: #0089d1;
+}
+.is-camp .nav.dropdown-menu,
+.is-camp .viewport .nav-level-2.open > a,
+.is-camp .viewport .nav-level-2.open > a:focus,
+.is-camp .nav > li > a:hover,
+.is-camp .nav > li > a:focus {
+  background-color: #0060ae;
+}
+.is-camp .viewport .nav-level-2.open {
+  background-color: #0060ae;
+  border-bottom: #0060ae;
+}
+.is-camp footer {
+  background-color: #4f4f4e;
+}
+
+.viewport .nav-level-2 > a:hover,
+.viewport .nav-level-2 > a:focus,
+.is-camp .viewport .nav-level-2 > a:hover,
+.is-camp .viewport .nav-level-2 > a:focus {
+  background: none;
 }

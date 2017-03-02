@@ -349,21 +349,21 @@ body {
   font-size: 34px;
   vertical-align: top;
 }
-.page-head__top-menu {
+.is-camp .page-head__top-menu, .page-head__top-menu {
   overflow: hidden;
   *zoom: 1;
   border-bottom: 1px solid #979797;
 }
-.page-head__top-menu .navbar-nav > li > a {
+.is-camp .page-head__top-menu .navbar-nav > li > a, .page-head__top-menu .navbar-nav > li > a {
   text-shadow: none;
 }
 @media (min-width: 48em) {
-  .page-head__top-menu .navbar-nav > li > a {
+  .is-camp .page-head__top-menu .navbar-nav > li > a, .page-head__top-menu .navbar-nav > li > a {
     padding-bottom: 12px;
     padding-top: 12px;
   }
 }
-.page-head__top-menu a {
+.is-camp .page-head__top-menu a, .page-head__top-menu a {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   color: #fff;
   font-size: 16px;
@@ -374,15 +374,15 @@ body {
   text-transform: uppercase;
 }
 @media (min-width: 62em) {
-  .page-head__top-menu {
+  .is-camp .page-head__top-menu, .page-head__top-menu {
     border-bottom: none;
   }
-  .page-head__top-menu a {
+  .is-camp .page-head__top-menu a, .page-head__top-menu a {
     font-size: 12px;
     line-height: 1.42;
   }
 }
-.page-head__main-menu a {
+.is-camp .page-head__main-menu a, .page-head__main-menu a {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   color: #fff;
   font-size: 18px;
@@ -393,15 +393,16 @@ body {
   text-transform: uppercase;
 }
 @media (min-width: 48em) {
-  .page-head__main-menu .navbar-nav > li > a {
+  .is-camp .page-head__main-menu .navbar-nav > li > a, .page-head__main-menu .navbar-nav > li > a {
     padding-top: 10px;
   }
 }
 @media (min-width: 62em) {
-  .page-head__main-menu {
+  .is-camp .page-head__main-menu, .page-head__main-menu {
     border-bottom: none;
   }
-  .page-head__main-menu .nav-level-2 > a,
+  .is-camp .page-head__main-menu .nav-level-2 > a,
+  .is-camp .page-head__main-menu .nav-level-3 > a, .page-head__main-menu .nav-level-2 > a,
   .page-head__main-menu .nav-level-3 > a {
     color: #fff;
     text-shadow: none;

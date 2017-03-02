@@ -45,7 +45,7 @@
  * @ingroup themeable
  */
 #}
-<div class="layout-container">
+<div class="layout-container {{ camp_class }}">
 
   <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
     <nav class="nav-global navbar-default navbar">
@@ -142,7 +142,7 @@
     <main role="main">
       <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
-      <div class="layout-content {{ camp_class }}">
+      <div class="layout-content">
         {% block pagecontent %}
           {{ page.content }}
         {% endblock %}
