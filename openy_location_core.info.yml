@@ -8,4 +8,4 @@ dependencies:
   - geolocation
   - node
   - telephone
-version: '8.x-1.1'
+version: '8.x-1.0'
