@@ -102,6 +102,14 @@ ymca_retention.settings_generate_content:
   requirements:
     _permission: 'administer site configuration'
 
+ymca_retention.settings_calculate_goals:
+  path: '/admin/config/system/ymca-retention/calculate-goals'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\CalculateGoalsForm'
+    _title: 'YMCA Retention Calculate goals'
+  requirements:
+    _permission: 'administer site configuration'
+
 ymca_retention.leaderboard_json:
   path: '/ymca-retention/leaderboard/{branch_id}'
   defaults:

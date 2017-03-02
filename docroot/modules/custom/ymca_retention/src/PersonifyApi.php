@@ -52,8 +52,8 @@ class PersonifyApi {
   /**
    * Get information about member visits for a period.
    *
-   * @param int $facility_id
-   *   Facility Access ID.
+   * @param int $master_id
+   *   Master Customer ID.
    * @param int $date_from
    *   Date From.
    * @param int $date_to
@@ -62,13 +62,13 @@ class PersonifyApi {
    * @return array|\stdClass
    *   Information about Member visits for a period.
    */
-  public static function getPersonifyVisitCountByDate($facility_id, $date_from, $date_to) {
+  public static function getPersonifyVisitCountByDate($master_id, $date_from, $date_to) {
     $config = \Drupal::config('ymca_retention.api')->getRawData();
     $client = \Drupal::httpClient();
     $options = [
       'json' => [
         'CL_GetFacilityVisitCountByDateInput' => [
-          'CardNumber' => $facility_id,
+          'MasterCustomerId' => $master_id,
           'DateFrom' => $date_from,
           'DateTo' => $date_to,
         ],
@@ -88,7 +88,14 @@ class PersonifyApi {
         throw new \LogicException(t('API Method CL_GetFacilityVisitCountByDate is failed.'));
       }
       $body = $response->getBody();
-      return json_decode($body->getContents());
+      $results = json_decode($body->getContents());
+      if (!empty($results->ErrorMessage)) {
+        $logger = \Drupal::logger('ymca_retention_queue');
+        $logger->alert('Could not retrieve visits information for members for batch operation');
+        return [];
+      }
+      $visits = $results->FacilityVisitCustomerRecord;
+      return reset($visits);
     }
     catch (\Exception $e) {
       watchdog_exception('ymca_personify', $e);
