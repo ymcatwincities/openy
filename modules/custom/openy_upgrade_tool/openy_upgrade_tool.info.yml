@@ -1,0 +1,8 @@
+name: OpenY upgrade tool
+type: module
+description: Provide Upgrade path tool.
+core: 8.x
+package: OpenY
+dependencies:
+  - features
+  - config_import
