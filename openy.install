@@ -58,7 +58,10 @@ function openy_update_8002() {
  */
 function openy_update_8003() {
   // Enable module.
-  \Drupal::service('module_installer')->install(['config_import']);
+  \Drupal::service('module_installer')->install([
+    'config_import',
+    'openy_upgrade_tool',
+  ]);
 }
 
 /**
