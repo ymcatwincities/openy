@@ -66,7 +66,9 @@ function openy_update_8003() {
  */
 function openy_update_8004() {
   // Enable module.
-  \Drupal::service('module_installer')->install(['libraries', 'datalayer', 'openy_datalayer']);
+  \Drupal::service('module_installer')->install(
+    ['libraries', 'datalayer', 'openy_datalayer']
+  );
 
   // Feature revert updated features.
   $modules = [
@@ -79,9 +81,8 @@ function openy_update_8004() {
     'openy_node_program',
   ];
   $module_handler = \Drupal::service('module_handler');
-  $modules = array_filter($modules, function($module) use ($module_handler) {
-      return $module_handler->moduleExists($module);
-    }
-  );
+  $modules = array_filter($modules, function ($module) use ($module_handler) {
+    return $module_handler->moduleExists($module);
+  });
   \Drupal::service('features.manager')->import($modules);
 }
