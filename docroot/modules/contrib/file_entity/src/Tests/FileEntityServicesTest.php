@@ -29,16 +29,8 @@ class FileEntityServicesTest extends RESTTestBase {
   public static $modules = array(
     'node',
     'hal',
-    'file_entity',
-    'basic_auth',
+    'file_entity'
   );
-
-  /**
-   * Disable strict schema checking until schema is updated.
-   *
-   * @todo Update schema and remove this.
-   */
-  protected $strictConfigSchema = FALSE;
 
   /**
    * Tests that a file field is correctly handled with REST.
@@ -50,8 +42,6 @@ class FileEntityServicesTest extends RESTTestBase {
     $account = $this->drupalCreateUser(array(
       'access content',
       'create resttest content',
-      'restful get entity:node',
-      'restful post entity:node',
     ));
     $this->drupalLogin($account);
 
@@ -70,7 +60,7 @@ class FileEntityServicesTest extends RESTTestBase {
     $file_field_instance->save();
 
     // Create a file.
-    $file_uri = 'public://' . $this->randomMachineName();
+    $file_uri = 'public://' . $this->randomMachineName() . '.txt';
     file_put_contents($file_uri, 'This is some file contents');
     $file = File::create(array('uri' => $file_uri, 'status' => FILE_STATUS_PERMANENT, 'uid' => $account->id()));
     $file->save();
