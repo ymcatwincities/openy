@@ -10,7 +10,7 @@ field_name: field_prgf_color
 entity_type: paragraph
 bundle: small_banner
 label: Color
-description: ''
+description: 'Enter colors for banner background gradient separated by comma. Start typing a name of color to trigger autocomplete, then select the color from the drop-down list. To set second gradient color, insert a comma and start typing next color name. If you don''t need a gradient enter only one color.'
 required: true
 translatable: false
 default_value: {  }

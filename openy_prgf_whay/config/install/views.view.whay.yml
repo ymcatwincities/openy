@@ -75,6 +75,7 @@ display:
           view_modes:
             'entity:node':
               blog: teaser
+              testimonial: teaser
       fields:
         rendered_item:
           table: search_api_index_blog
