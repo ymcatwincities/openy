@@ -36,3 +36,10 @@ a,
 .footer {
   background-color: #4f4f4f;
 }
+.is-camp .branch-header .desktop {
+  background-color: #c6168d;
+  color: #fff;
+}
+.is-camp .branch-header .desktop a {
+  color: #fff;
+}
