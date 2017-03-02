@@ -38,9 +38,9 @@
     width: 100%;
   }
   &.view-mode-media-embedded-half {
-    width: 50%;
-    @media (min-width: 0) and (max-width: $screen-xs) {
-      width: 100%;
+    width: 100%;
+    @include breakpoint(tablet) {
+      width: 50%;
     }
   }
   &.align-center {
@@ -48,22 +48,18 @@
   }
 
   &.align-left {
-    @media (min-width: 0) and (max-width: $screen-xs) {
-      float: none;
-      text-align: center;
-    }
-    @media (min-width: $screen-xs) {
+    float: none;
+    text-align: center;
+    @include breakpoint(tablet) {
       float: left;
       margin-right: 20px;
     }
   }
 
   &.align-right {
-    @media (min-width: 0) and (max-width: $screen-xs) {
-      float: none;
-      text-align: center;
-    }
-    @media (min-width: $screen-xs) {
+    float: none;
+    text-align: center;
+    @include breakpoint(tablet) {
       float: right;
       margin-left: 20px;
     }
