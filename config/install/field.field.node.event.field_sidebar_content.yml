@@ -15,7 +15,7 @@ field_name: field_sidebar_content
 entity_type: node
 bundle: event
 label: 'Sidebar Content'
-description: ''
+description: 'Select content to be displayed in a sidebar.'
 required: false
 translatable: true
 default_value: {  }
@@ -31,68 +31,65 @@ settings:
     target_bundles_drag_drop:
       1c:
         enabled: true
-        weight: 20
+        weight: 22
       2c:
-        weight: 21
+        weight: 23
         enabled: false
       3c:
-        weight: 22
-        enabled: false
-      event_registration:
-        enabled: true
-        weight: 23
-      4c:
-        weight: 23
-        enabled: false
-      all_amenities:
         weight: 24
         enabled: false
-      blackbaud:
+      4c:
         weight: 25
+        enabled: false
+      all_amenities:
+        weight: 26
+        enabled: false
+      all_testimonials:
+        weight: 27
+        enabled: false
+      blackbaud:
+        weight: 28
+        enabled: false
+      camp_menu:
+        weight: 29
         enabled: false
       contact_us:
         enabled: true
-        weight: 26
-      featured_stories:
-        weight: 27
-        enabled: false
-      gallery:
-        weight: 28
-        enabled: false
-      global_search:
-        weight: 29
-        enabled: false
-      all_testimonials:
-        weight: 29
-        enabled: false
-      header:
         weight: 30
-        enabled: false
-      latest_news_and_updates:
+      featured_stories:
         weight: 31
         enabled: false
-      location_finder:
+      gallery:
         weight: 32
         enabled: false
-      lto:
+      global_search:
         weight: 33
         enabled: false
-      membership_calculator:
+      header:
         weight: 34
         enabled: false
-      program_registration:
+      latest_news_and_updates:
         weight: 35
+        enabled: false
+      location_finder:
+        weight: 36
+        enabled: false
+      lto:
+        weight: 37
+        enabled: false
+      membership_calculator:
+        weight: 38
+        enabled: false
+      program_registration:
+        weight: 39
         enabled: false
       simple_content:
         enabled: true
-        weight: 36
+        weight: 40
       small_banner:
-        weight: 37
+        weight: 41
         enabled: false
       whay:
-        weight: 38
-        enabled: false
-      test:
-        weight: 43
+        weight: 42
         enabled: false
 field_type: entity_reference_revisions
