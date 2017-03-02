@@ -436,13 +436,13 @@ class MemberRegisterForm extends FormBase {
     // Calculate visit goal.
     $visit_goal = 0;
     if ($settings->get('calculate_visit_goal')) {
-      $visit_goal = $this->calculateVisitGoal($membership_id, $settings);
+      $visit_goal = $this->calculateVisitGoal($personify_member->MasterCustomerId, $settings);
     }
 
     // Get information about number of checkins in period of campaign.
     $from = $settings->get('date_reporting_open');
     $to = $settings->get('date_reporting_close');
-    $current_result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);
+    $current_result = PersonifyApi::getPersonifyVisitCountByDate($personify_member->MasterCustomerId, $from, $to);
 
     $total_visits = 0;
     if (empty($current_result->ErrorMessage) && $current_result->TotalVisits > 0) {
