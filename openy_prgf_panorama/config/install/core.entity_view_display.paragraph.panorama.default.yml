@@ -11,9 +11,10 @@ mode: default
 content:
   field_prgf_panorama:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link: true
+      view_mode: default
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
 hidden: {  }
