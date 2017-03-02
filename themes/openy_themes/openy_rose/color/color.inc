@@ -15,6 +15,8 @@ $info = array(
     'text' => t('Text color'),
     'link' => t('Link color'),
     'button' => t('Button color'),
+    'campbg' => t('Camp header'),
+    'camptext' => t('Camp header text')
   ),
   // Pre-defined color schemes.
   'schemes' => array(
@@ -28,6 +30,8 @@ $info = array(
         'text' => '#636466',
         'link' => '#337ab7',
         'button' => '#00aeef',
+        'campbg' => '#c6168d',
+        'camptext' => '#fff',
       ),
     ),
     'endeavour' => array(
@@ -40,6 +44,8 @@ $info = array(
         'text' => '#636466',
         'link' => '#428bca',
         'button' => '#00aeef',
+        'campbg' => '#c6168d',
+        'camptext' => '#fff',
       ),
     ),
     'vividviolet' => array(
@@ -52,6 +58,8 @@ $info = array(
         'text' => '#636466',
         'link' => '#822a92',
         'button' => '#991f76',
+        'campbg' => '#c6168d',
+        'camptext' => '#fff',
       ),
     ),
   ),
