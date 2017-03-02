@@ -177,3 +177,12 @@
     display: none;
   }
 }
+
+.field-prgf-location-finder {
+  .openy-map-canvas {
+    height: 250px;
+    @include breakpoint(tablet) {
+      height: 500px;
+    }
+  }
+}
