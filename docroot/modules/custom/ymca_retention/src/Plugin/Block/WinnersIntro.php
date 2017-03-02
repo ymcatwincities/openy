@@ -5,7 +5,7 @@ namespace Drupal\ymca_retention\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 
 /**
- * Provides an instant win block.
+ * Provides a winners block.
  *
  * @Block(
  *   id = "retention_winners_intro_block",
@@ -32,11 +32,6 @@ class WinnersIntro extends BlockBase {
       '#theme' => 'ymca_retention_winners_intro',
       '#description' => $description,
       '#content' => [],
-      '#attached' => [
-        'library' => [
-          'ymca_retention/angular-app',
-        ],
-      ],
     ];
   }
 
