@@ -2,12 +2,11 @@
 
 namespace Drupal\openy_prgf_camp_menu;
 
-use \Drupal\node\NodeInterface;
-use \Drupal\Core\Entity\EntityTypeManagerInterface;
-use \Drupal\node\Entity\Node;
-use \Drupal\Core\Config\ConfigFactoryInterface;
-use \Drupal\Core\Database\Connection;
-use \Drupal\Core\Language\LanguageInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Language\LanguageInterface;
 
 /**
  * Class CampMenuService.
@@ -42,6 +41,9 @@ class CampMenuService implements CampMenuServiceInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
+   *
+   * @param \Drupal\Core\Database\Connection $connection
+   *   The database connection.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.

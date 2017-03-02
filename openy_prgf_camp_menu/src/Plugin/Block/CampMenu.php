@@ -46,9 +46,9 @@ class CampMenu extends BlockBase implements ContainerFactoryPluginInterface {
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param CampMenuServiceInterface $camp_menu_service
+   * @param \Drupal\openy_prgf_camp_menu\CampMenuServiceInterface $camp_menu_service
    *   The Camp menu service.
-   * @param RouteMatchInterface $route_match
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   The Camp menu service.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, CampMenuServiceInterface $camp_menu_service, RouteMatchInterface $route_match) {
