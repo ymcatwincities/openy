@@ -11,7 +11,7 @@ field_name: field_panorama_archive
 entity_type: block_content
 bundle: panorama_block
 label: 'Panorama Archive'
-description: ''
+description: 'Upload archive of panorama to be displayed.'
 required: false
 translatable: false
 default_value: {  }

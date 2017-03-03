@@ -11,7 +11,7 @@ field_name: body
 entity_type: block_content
 bundle: panorama_block
 label: Body
-description: ''
+description: 'Text which could be displayed at a top of rendered panorama.'
 required: false
 translatable: true
 default_value: {  }
