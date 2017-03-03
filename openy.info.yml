@@ -122,6 +122,7 @@ dependencies:
   - openy_mappings
   - openy_calc
   - openy_data_wrapper
+  - logger_entity
   - openy_upgrade_tool
 
 themes:
