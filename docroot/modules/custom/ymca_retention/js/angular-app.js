@@ -7,13 +7,61 @@
     }
     $('body').addClass('ymca-retention-angular-app-processed');
 
-    Drupal.ymca_retention = Drupal.ymca_retention || {};
-    Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ajoslin.promise-tracker']);
+    // Create base tag for Angular routing.
+    $('head').append('<base href="' + settings.path.baseUrl + '">');
 
-    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($sce, storage) {
+    Drupal.ymca_retention = Drupal.ymca_retention || {};
+    Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ui.router', 'ajoslin.promise-tracker']);
+
+    var defaultStateParams = {
+      active_tab: 'tab_1'
+    };
+    Drupal.ymca_retention.angular_app.config(function($locationProvider, $stateProvider) {
+      $locationProvider.html5Mode({
+        enabled: true,
+        rewriteLinks: false
+      });
+
+      var state = {
+        name: 'main',
+        url: '/challenge?active_tab',
+        params: defaultStateParams,
+        onEnter: function(storage, $stateParams) {
+
+        },
+        resolve: {
+          data: function(storage, $stateParams) {
+            storage.stateParams = $stateParams;
+          }
+        }
+      };
+
+      $stateProvider.state(state);
+    });
+
+    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($sce, storage, $state) {
       var self = this;
       // Shared information.
       self.storage = storage;
+
+      self.tabSelectorClass = function (tab) {
+        var classes = [];
+        if (!angular.isUndefined(self.storage.stateParams) && self.storage.stateParams.active_tab == tab) {
+          classes.push('active');
+        }
+        return classes.join(' ');
+      };
+      self.tabClass = function (tab) {
+        var classes = [];
+        if (!angular.isUndefined(self.storage.stateParams) && self.storage.stateParams.active_tab == tab) {
+          classes.push('active');
+          classes.push('in');
+        }
+        return classes.join(' ');
+      };
+      self.tabSelectorClick = function (tab) {
+        $state.go('main', {active_tab: tab});
+      };
 
       self.daysLeftMessage = function() {
         return $sce.trustAsHtml(Drupal.formatPlural(

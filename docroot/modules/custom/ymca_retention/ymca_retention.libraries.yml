@@ -10,6 +10,20 @@ angular-cookies:
   dependencies:
     - ymca_retention/angular
 
+angular-sanitize:
+  version: 1.6.2
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-ui-router:
+  version: 0.3.2
+  js:
+    //unpkg.com/angular-ui-router@0.3.2/release/angular-ui-router.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular
+
 angular-slick:
   remote: https://github.com/devmark/angular-slick-carousel
   version: 3.1.7
@@ -87,6 +101,7 @@ angular-app:
     - ymca_retention/angular
     - ymca_retention/angular-cookies
     - ymca_retention/angular-promise-tracker
+    - ymca_retention/angular-ui-router
     - core/drupal
     - core/drupalSettings
 
