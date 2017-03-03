@@ -6,6 +6,7 @@ services:
     class: Drupal\openy_upgrade_tool\EventSubscriber\ConfigEventSubscriber
     arguments:
       - '@features.manager'
+      - '@entity_type.manager'
       - '@logger.channel.openy_upgrade_tool'
     tags:
       - { name: 'event_subscriber' }

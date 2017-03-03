@@ -4,9 +4,11 @@ namespace Drupal\openy_upgrade_tool\EventSubscriber;
 
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigEvents;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\features\FeaturesManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Class ConfigEventSubscriber.
@@ -14,6 +16,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Drupal\openy_upgrade_tool
  */
 class ConfigEventSubscriber implements EventSubscriberInterface {
+
+  use StringTranslationTrait;
 
   /**
    * The FeaturesManager.
@@ -23,6 +27,13 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
   protected $featuresManager;
 
   /**
+   * Entity type manger.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * Logger channel.
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
@@ -30,19 +41,31 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
   protected $logger;
 
   /**
+   * Logger Entity Storage.
+   *
+   * @var \Drupal\Core\Entity\Sql\SqlContentEntityStorage
+   */
+  protected $loggerEntityStorage;
+
+  /**
    * ConfigEventSubscriber constructor.
    *
    * @param \Drupal\features\FeaturesManagerInterface $features_manager
    *   Features Manager.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
    *   Logger channel.
    */
   public function __construct(
     FeaturesManagerInterface $features_manager,
+    EntityTypeManagerInterface $entity_type_manager,
     LoggerChannelInterface $loggerChannel) {
 
     $this->logger = $loggerChannel;
     $this->featuresManager = $features_manager;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->loggerEntityStorage = $this->entityTypeManager->getStorage('logger_entity');
   }
 
   /**
@@ -66,6 +89,45 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
+   * Creates logger entity.
+   *
+   * @param string $name
+   *   Config name.
+   * @param array $data
+   *   Data to save.
+   *
+   * @return int|bool
+   *   Entity ID in case of success.
+   */
+  private function saveLoggerEntity($name, array $data) {
+    try {
+      // Load logger entity with this config name.
+      $entities = $this->loggerEntityStorage->loadByProperties([
+        'type' => 'openy_config_upgrade_logs',
+        'name' => $name,
+      ]);
+      if (empty($entities)) {
+        // Create new logger entity for this config name if not exist.
+        $logger_entity = $this->loggerEntityStorage->create([
+          'type' => 'openy_config_upgrade_logs',
+        ]);
+      }
+      else {
+        $logger_entity = array_shift($entities);
+      }
+      $logger_entity->setData($data);
+      $logger_entity->setName($name);
+      $logger_entity->save();
+      return $logger_entity->id();
+    }
+    catch (\Exception $e) {
+      $msg = 'Failed to save logger entity. Message: %msg';
+      $this->logger->error($msg, ['%msg' => $e->getMessage()]);
+      return FALSE;
+    }
+  }
+
+  /**
    * Subscriber Callback for the event.
    *
    * @param ConfigCrudEvent $event
@@ -81,13 +143,14 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
     }
     if (!$config->get('openy_upgrade')) {
       // This config was updated outside openy profile.
-      // TODO: Add this config to logger entity with status "manual change".
-      $this->logger->info('You have manual saved a configuration of ' . $config->getName());
+      $config_data = $config->get();
+      $this->saveLoggerEntity($config_name, $config_data);
+      $this->logger->warning($this->t('You have manual updated @name config from OpenY profile.', ['@name' => $config_name]));
     }
     else {
       // Remove openy_upgrade param from config.
       $config->clear('openy_upgrade');
-      $this->logger->info('You have openy upgrade a configuration of ' . $config->getName());
+      $this->logger->info($this->t('OpenY was upgraded @name config.', ['@name' => $config_name]));
     }
 
   }
