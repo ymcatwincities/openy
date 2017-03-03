@@ -114,6 +114,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
         $logger_entity = array_shift($entities);
       }
       $logger_entity->setName($name);
+      $logger_entity->setData([$name]);
       $logger_entity->save();
       return $logger_entity->id();
     }
