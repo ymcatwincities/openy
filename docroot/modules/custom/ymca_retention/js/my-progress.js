@@ -61,10 +61,10 @@
       };
 
       self.checkInBonusImageClass = function (date) {
-        if (typeof self.storage.campaign.bonuses_settings === 'undefined' || !self.storage.campaign.bonuses_settings || date.future) {
+        if (typeof self.storage.spring2017campaign.bonuses_settings === 'undefined' || !self.storage.spring2017campaign.bonuses_settings || date.future) {
           return self.checkInBonusClass(date);
         }
-        if (typeof self.storage.campaign.bonuses_settings[date.timestamp] !== 'undefined') {
+        if (typeof self.storage.spring2017campaign.bonuses_settings[date.timestamp] !== 'undefined') {
           return self.checkInBonusClass(date) + ' compain-progress-block--img';
         }
 
@@ -91,36 +91,36 @@
       };
 
       self.bonusTitle = function (date) {
-        if (typeof self.storage.campaign.bonuses_settings === 'undefined' || !self.storage.campaign.bonuses_settings || date.future) {
+        if (typeof self.storage.spring2017campaign.bonuses_settings === 'undefined' || !self.storage.spring2017campaign.bonuses_settings || date.future) {
           return '';
         }
-        if (typeof self.storage.campaign.bonuses_settings[date.timestamp] !== 'undefined') {
-          return self.storage.campaign.bonuses_settings[date.timestamp].title;
+        if (typeof self.storage.spring2017campaign.bonuses_settings[date.timestamp] !== 'undefined') {
+          return self.storage.spring2017campaign.bonuses_settings[date.timestamp].title;
         }
 
         return '';
       };
 
       self.tipNumber = function (date) {
-        if (typeof self.storage.campaign.bonuses_settings === 'undefined' || !self.storage.campaign.bonuses_settings || date.future) {
+        if (typeof self.storage.spring2017campaign.bonuses_settings === 'undefined' || !self.storage.spring2017campaign.bonuses_settings || date.future) {
           return '';
         }
-        if (typeof self.storage.campaign.bonuses_settings[date.timestamp] !== 'undefined') {
-          return self.storage.campaign.bonuses_settings[date.timestamp].tip;
+        if (typeof self.storage.spring2017campaign.bonuses_settings[date.timestamp] !== 'undefined') {
+          return self.storage.spring2017campaign.bonuses_settings[date.timestamp].tip;
         }
 
         return '';
       };
 
       self.bonusesCount = function () {
-        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
+        if (typeof self.storage.spring2017campaign.dates === 'undefined' || !self.storage.spring2017campaign.dates ||
           typeof self.storage.member_bonuses === 'undefined' || !self.storage.member_bonuses) {
           return 0;
         }
 
         var bonuses = 0;
-        for (var i = 0; i < self.storage.campaign.dates.length; i++) {
-          var date = self.storage.campaign.dates[i];
+        for (var i = 0; i < self.storage.spring2017campaign.dates.length; i++) {
+          var date = self.storage.spring2017campaign.dates[i];
           if (date.future) {
             break;
           }
@@ -137,14 +137,14 @@
       };
 
       self.visitsCount = function () {
-        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
+        if (typeof self.storage.spring2017campaign.dates === 'undefined' || !self.storage.spring2017campaign.dates ||
           typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins) {
           return 0;
         }
 
         var visits = 0;
-        for (var i = 0; i < self.storage.campaign.dates.length; i++) {
-          var date = self.storage.campaign.dates[i];
+        for (var i = 0; i < self.storage.spring2017campaign.dates.length; i++) {
+          var date = self.storage.spring2017campaign.dates[i];
           if (date.future) {
             break;
           }
@@ -161,11 +161,11 @@
       };
 
       self.bonusImage = function (date) {
-        if (typeof self.storage.campaign.bonuses_settings === 'undefined' || !self.storage.campaign.bonuses_settings || date.future) {
+        if (typeof self.storage.spring2017campaign.bonuses_settings === 'undefined' || !self.storage.spring2017campaign.bonuses_settings || date.future) {
           return {};
         }
-        if (typeof self.storage.campaign.bonuses_settings[date.timestamp] !== 'undefined') {
-          return { 'background-image' : 'url(' + self.storage.campaign.bonuses_settings[date.timestamp].image + ')' };
+        if (typeof self.storage.spring2017campaign.bonuses_settings[date.timestamp] !== 'undefined') {
+          return { 'background-image' : 'url(' + self.storage.spring2017campaign.bonuses_settings[date.timestamp].image + ')' };
         }
 
         return {};

@@ -119,6 +119,14 @@ ymca_retention.campaign_json:
   requirements:
     _permission: 'access content'
 
+ymca_retention.spring2017_campaign_json:
+  path: '/ymca_retention/spring2017campaign'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\Spring2017CampaignController::campaignJson'
+    _title: 'YMCA Retention Spring 2017 Campaign JSON'
+  requirements:
+    _permission: 'access content'
+
 ymca_retention.member_json:
   path: '/ymca_retention/member'
   defaults:
