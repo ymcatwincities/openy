@@ -322,7 +322,6 @@
         self.getMemberCheckIns(newVal);
         self.getMemberBonuses(newVal);
         self.state = 'game';
-        self.getTodaysInsight();
       });
 
       // Watch member activities and update counts.
