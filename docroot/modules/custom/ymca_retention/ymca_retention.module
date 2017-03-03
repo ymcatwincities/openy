@@ -168,9 +168,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'blocks/ymca-retention-my-progress',
     ],
     'ymca_retention_instant_win' => [
-      'variables' => [
-        'content' => NULL,
-      ],
+      'variables' => [],
       'template' => 'blocks/ymca-retention-instant-win',
     ],
     'ymca_retention_recent_winners' => [
