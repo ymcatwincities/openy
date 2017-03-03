@@ -33,6 +33,9 @@ a,
   background-color: #0060af;
   border-bottom: #0060af;
 }
+.branch-header .desktop {
+  background-color: #c6168d;
+}
 .footer {
   background-color: #4f4f4f;
 }
@@ -44,11 +47,11 @@ a,
 }
 .is-camp a,
 .is-camp .link {
-  color: #337ab6;
+  color: #01a491;
 }
 .is-camp .button,
 .is-camp .btn {
-  background-color: #00aeee;
+  background-color: #2fb998;
 }
 .is-camp .top-navs,
 .is-camp .sidebar,
@@ -56,21 +59,34 @@ a,
 .is-camp .navbar-default .navbar-toggle:focus,
 .is-camp .navbar-default .navbar-toggle:hover,
 .is-camp .navbar-default .navbar-toggle:active {
-  background-color: #0089d1;
+  background-color: #f47920;
 }
 .is-camp .nav.dropdown-menu,
 .is-camp .viewport .nav-level-2.open > a,
 .is-camp .viewport .nav-level-2.open > a:focus,
 .is-camp .nav > li > a:hover,
 .is-camp .nav > li > a:focus {
-  background-color: #0060ae;
+  background-color: #f86b05;
+}
+.is-camp .branch-header .desktop {
+  background-color: #c6168c;
 }
 .is-camp .viewport .nav-level-2.open {
-  background-color: #0060ae;
-  border-bottom: #0060ae;
+  background-color: #f86b05;
+  border-bottom: #f86b05;
 }
 .is-camp footer {
-  background-color: #4f4f4e;
+  background-color: #01a490;
+}
+.is-camp .camp-menu-wrapper {
+  background-color: #0060ad;
+}
+.is-camp .camp-menu__item a {
+  color: #fffffd;
+}
+.is-camp .camp-menu-wrapper a:hover,
+.is-camp .camp-menu-wrapper .active {
+  background-color: #0089d1;
 }
 
 .viewport .nav-level-2 > a:hover,

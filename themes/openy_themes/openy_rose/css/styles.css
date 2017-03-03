@@ -1756,20 +1756,20 @@ body {
     margin-bottom: 30px;
   }
 }
-.banner-btn {
+.banner .banner-btn {
   white-space: normal;
   font-size: 20px;
   padding: 0px;
   width: 100%;
 }
-.banner-btn a {
+.banner .banner-btn a {
   border: 1px solid #fff;
   color: #fff;
   display: block;
   padding: 16px;
 }
 @media (min-width: 48em) {
-  .banner-btn a {
+  .banner .banner-btn a {
     padding: 15px;
   }
 }
