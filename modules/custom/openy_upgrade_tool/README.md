@@ -26,5 +26,3 @@ Where:
 - "views.view.images_library" - config name
 - "display.default.display_options.pager" - config specific property (you can set value from a nested array with variable depth)
 
-### Manual changed configs
-TODO: Add documentation.
