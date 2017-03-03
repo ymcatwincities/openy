@@ -31,19 +31,13 @@
     </li>
 
     <li class="ng-hide"
-        data-ng-show="!retentionC.storage.campaign.started">
-      <a href="#tab_3" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">
-        {{ 'Goals & progress'|t }}
-      </a>
-    </li>
-    <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member">
+        data-ng-show="retentionC.storage.member">
       <a href="#tab_3" data-toggle="tab">
         {{ 'Goals & progress'|t }}
       </a>
     </li>
     <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && !retentionC.storage.member">
+        data-ng-show="!retentionC.storage.member">
       <a href="#tab_3" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
         {{ 'Goals & progress'|t }}
       </a>

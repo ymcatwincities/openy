@@ -43,6 +43,15 @@
         return deferred.promise;
       }
 
+      function getSpring2017Campaign() {
+        var deferred = $q.defer();
+        $http.get(settings.ymca_retention.resources.spring2017campaign).then(function(response) {
+          deferred.resolve(response.data);
+        });
+
+        return deferred.promise;
+      }
+
       function getMember(id) {
         var deferred = $q.defer();
         if (typeof id === 'undefined') {
@@ -88,6 +97,25 @@
         return deferred.promise;
       }
 
+      function getMemberBonuses(id) {
+        var deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          $http.get(settings.ymca_retention.resources.member_bonuses).then(function (response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
       function getMemberActivities(id) {
         var deferred = $q.defer();
         if (typeof id === 'undefined') {
@@ -117,6 +145,33 @@
           $http({
             method: 'POST',
             url: settings.ymca_retention.resources.member_activities,
+            data: $httpParamSerializerJQLike(data),
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function(response) {
+            if ($.isEmptyObject(response.data)) {
+              deferred.resolve(null);
+              return;
+            }
+
+            deferred.resolve(response.data);
+          });
+        }
+
+        return deferred.promise;
+      }
+
+      function setMemberBonus(data) {
+        var id = $cookies.get('Drupal.visitor.ymca_retention_member'),
+          deferred = $q.defer();
+        if (typeof id === 'undefined') {
+          deferred.resolve(null);
+        }
+        else {
+          $http({
+            method: 'POST',
+            url: settings.ymca_retention.resources.member_add_bonus,
             data: $httpParamSerializerJQLike(data),
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -194,15 +249,33 @@
         return deferred.promise;
       }
 
+      function getTodaysInsight() {
+        var deferred = $q.defer();
+        $http.get(settings.ymca_retention.resources.todays_insight).then(function(response) {
+          if ($.isEmptyObject(response.data)) {
+            deferred.resolve(null);
+            return;
+          }
+
+          deferred.resolve(response.data);
+        });
+
+        return deferred.promise;
+      }
+
       return {
         getCampaign: getCampaign,
+        getSpring2017Campaign: getSpring2017Campaign,
         getMember: getMember,
         getMemberCheckIns: getMemberCheckIns,
+        getMemberBonuses: getMemberBonuses,
         getMemberActivities: getMemberActivities,
         setMemberActivities: setMemberActivities,
+        setMemberBonus: setMemberBonus,
         getMemberChances: getMemberChances,
         getMemberPrize: getMemberPrize,
-        getRecentWinners: getRecentWinners
+        getRecentWinners: getRecentWinners,
+        getTodaysInsight: getTodaysInsight
       };
     });
 
@@ -214,6 +287,7 @@
         // self.dates = settings.ymca_retention.activity.dates;
         // self.activity_groups = settings.ymca_retention.activity.activity_groups;
         self.campaign = {started: false, days_left: 50};
+        self.spring2017campaign = {};
         self.loss_messages = settings.ymca_retention.loss_messages;
         self.member = null;
         self.member_activities = null;
@@ -221,8 +295,10 @@
         self.member_chances = null;
         self.instantWinCount = 0;
         self.member_checkins = null;
+        self.member_bonuses = null;
         self.recent_winners = null;
         self.last_played_chance = null;
+        self.todays_insight = null;
         // Game state.
         self.state = 'game';
       };
@@ -244,6 +320,7 @@
         // self.getMemberChancesById(newVal);
         // self.getMemberActivities(newVal);
         self.getMemberCheckIns(newVal);
+        self.getMemberBonuses(newVal);
         self.state = 'game';
       });
 
@@ -286,6 +363,13 @@
       };
       self.getCampaign();
 
+      self.getSpring2017Campaign = function() {
+        courier.getSpring2017Campaign().then(function(data) {
+          self.spring2017campaign = data;
+        });
+      };
+      self.getSpring2017Campaign();
+
       self.getMember = function(id) {
         courier.getMember(id).then(function(data) {
           self.member = data;
@@ -304,12 +388,26 @@
         });
       };
 
+      self.getMemberBonuses = function(id) {
+        courier.getMemberBonuses(id).then(function(data) {
+          self.member_bonuses = data;
+        });
+      };
+
       self.getMemberCheckIns = function(id) {
         courier.getMemberCheckIns(id).then(function(data) {
           self.member_checkins = data;
         });
       };
+      self.setMemberBonus = function(data) {
+        var $promise = courier.setMemberBonus(data).then(function(data) {
+          // Update member bonuses.
+          self.member_bonuses = data;
+        });
 
+        // Track the request and show its progress to the user.
+        self.progress.addPromise($promise);
+      };
       self.getMemberActivities = function(id) {
         courier.getMemberActivities(id).then(function(data) {
           self.member_activities = data;
@@ -360,6 +458,13 @@
           self.recent_winners = data;
         });
       };
+
+      self.getTodaysInsight = function() {
+        courier.getTodaysInsight().then(function(data) {
+          self.todays_insight = data;
+        });
+      };
+      self.getTodaysInsight();
 
       self.memberCookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });

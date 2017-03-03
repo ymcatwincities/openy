@@ -3,6 +3,7 @@
 namespace Drupal\ymca_retention\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
