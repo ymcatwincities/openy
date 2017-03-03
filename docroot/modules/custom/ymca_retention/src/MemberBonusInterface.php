@@ -27,4 +27,12 @@ interface MemberBonusInterface extends ContentEntityInterface {
    */
   public function getDate();
 
+  /**
+   * Returns the bonus code.
+   *
+   * @return string
+   *   Bonus code.
+   */
+  public function getBonusCode();
+
 }
