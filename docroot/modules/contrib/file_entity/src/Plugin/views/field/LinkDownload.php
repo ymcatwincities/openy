@@ -35,9 +35,7 @@ class LinkDownload extends Link {
     // Ensure user has access to delete this media item.
     if ($file->access('download')) {
       $this->options['alter']['make_link'] = TRUE;
-      $this->options['alter']['path'] = 'file/' . $file->id() . '/download';
-      $this->options['alter']['query'] = drupal_get_destination();
-
+      $this->options['alter']['path'] = $file->downloadUrl()->toString();
       $text = !empty($this->options['text']) ? $this->options['text'] : t('Download');
     }
 

@@ -103,7 +103,7 @@ class RegularUpdater implements RegularUpdaterInterface {
     /** @var \Drupal\ymca_retention\Entity\Member $member */
     foreach ($members as $member) {
       $stored_visits = $member->getVisits();
-      $membership_id = $member->getMemberId();
+      $membership_id = $member->getPersonifyId();
 
       // Get information about number of checkins in period of the campaign.
       $result = PersonifyApi::getPersonifyVisitCountByDate($membership_id, $from, $to);

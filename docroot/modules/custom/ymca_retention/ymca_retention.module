@@ -168,7 +168,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'blocks/ymca-retention-my-progress',
     ],
     'ymca_retention_instant_win' => [
-      'variables' => [],
+      'variables' => [
+        'content' => NULL,
+      ],
       'template' => 'blocks/ymca-retention-instant-win',
     ],
     'ymca_retention_recent_winners' => [
@@ -176,10 +178,14 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'blocks/ymca-retention-recent-winners',
     ],
     'ymca_retention_todays_insight' => [
-      'variables' => [
-        'content' => NULL,
-      ],
+      'variables' => [],
       'template' => 'blocks/ymca-retention-todays-insight',
+    ],
+    'ymca_retention_winners_intro' => [
+      'variables' => [
+        'description' => '',
+      ],
+      'template' => 'blocks/ymca-retention-winners-intro',
     ],
 
     // Forms templates.
