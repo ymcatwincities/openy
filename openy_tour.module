@@ -7,6 +7,7 @@
 
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Asset\AttachedAssetsInterface;
 
 /**
  * Implements hook_token_info().
@@ -30,7 +31,7 @@ function openy_tour_tokens($type, $tokens, array $data, array $options, Bubbleab
       if (!empty($selector)) {
         switch ($token_name) {
           case 'click':
-            $markup = Markup::create('<a href="#" class="button--primary button openy-click-button" data-tour-selector="' . $selector . '">' . t('Click here') . '</a>');
+            $markup = Markup::create('<p><a href="#" class="button--primary button openy-click-button" data-tour-selector="' . $selector . '">' . t('Next') . '</a></p>');
             $replacements[$original] = $markup;
             break;
         }
@@ -45,4 +46,11 @@ function openy_tour_tokens($type, $tokens, array $data, array $options, Bubbleab
  */
 function openy_tour_page_attachments_alter(array &$attachments) {
   $attachments['#attached']['library'][] = 'openy_tour/openy-tour';
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function openy_tour_js_alter(&$javascript, AttachedAssetsInterface $assets) {
+  $javascript['core/modules/tour/js/tour.js']['data'] = drupal_get_path('module', 'openy_tour') . '/js/tour.js';
 }
