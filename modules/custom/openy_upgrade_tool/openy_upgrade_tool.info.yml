@@ -7,3 +7,4 @@ package: OpenY
 dependencies:
   - features
   - config_import
+  - logger_entity
