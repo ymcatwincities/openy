@@ -43,6 +43,15 @@
         return deferred.promise;
       }
 
+      function getSpring2017Campaign() {
+        var deferred = $q.defer();
+        $http.get(settings.ymca_retention.resources.spring2017campaign).then(function(response) {
+          deferred.resolve(response.data);
+        });
+
+        return deferred.promise;
+      }
+
       function getMember(id) {
         var deferred = $q.defer();
         if (typeof id === 'undefined') {
@@ -256,6 +265,7 @@
 
       return {
         getCampaign: getCampaign,
+        getSpring2017Campaign: getSpring2017Campaign,
         getMember: getMember,
         getMemberCheckIns: getMemberCheckIns,
         getMemberBonuses: getMemberBonuses,
@@ -277,6 +287,7 @@
         // self.dates = settings.ymca_retention.activity.dates;
         // self.activity_groups = settings.ymca_retention.activity.activity_groups;
         self.campaign = {started: false, days_left: 50};
+        self.spring2017campaign = {};
         self.loss_messages = settings.ymca_retention.loss_messages;
         self.member = null;
         self.member_activities = null;
@@ -352,6 +363,13 @@
         });
       };
       self.getCampaign();
+
+      self.getSpring2017Campaign = function() {
+        courier.getSpring2017Campaign().then(function(data) {
+          self.spring2017campaign = data;
+        });
+      };
+      self.getSpring2017Campaign();
 
       self.getMember = function(id) {
         courier.getMember(id).then(function(data) {
