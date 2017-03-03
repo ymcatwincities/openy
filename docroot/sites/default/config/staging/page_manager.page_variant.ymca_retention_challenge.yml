@@ -92,6 +92,15 @@ variant_settings:
       weight: 0
       uuid: 868aeac9-e753-4371-ae80-4c8bcdf3c7fb
       context_mapping: {  }
+    15abb330-cd76-45f8-a719-4f90b6bf3b56:
+      id: retention_winners_intro_block
+      label: '[YMCA Retention] Winners intro'
+      provider: ymca_retention
+      label_display: '0'
+      region: tab_4
+      weight: -3
+      uuid: 15abb330-cd76-45f8-a719-4f90b6bf3b56
+      context_mapping: {  }
   id: panels_variant
   uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
   label: null

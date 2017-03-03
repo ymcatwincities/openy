@@ -20,3 +20,13 @@ entity.file.collection:
   base_route: system.admin_content
   title: 'Files'
   description: 'Manage files for your site.'
+
+entity.file.add_form:
+  route_name: entity.file.add_form
+  base_route: entity.file.add_form
+  title: 'File'
+
+file_entity.file_add_archive_form:
+  route_name: file_entity.file_add_archive_form
+  title: 'Archive'
+  base_route: entity.file.add_form
