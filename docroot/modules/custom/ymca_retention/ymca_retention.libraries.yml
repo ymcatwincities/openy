@@ -1,12 +1,12 @@
 angular:
-  version: 1.5.7
+  version: 1.6.2
   js:
-    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js: { type: external, minified: true }
 
 angular-cookies:
-  version: 1.5.7
+  version: 1.6.2
   js:
-    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js: { type: external, minified: true }
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-cookies.min.js: { type: external, minified: true }
   dependencies:
     - ymca_retention/angular
 
