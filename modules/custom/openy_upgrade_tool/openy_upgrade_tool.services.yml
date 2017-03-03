@@ -14,4 +14,5 @@ services:
     class: Drupal\openy_upgrade_tool\ConfigParamUpgradeTool
     arguments:
       - '@config.manager'
+      - '@entity_type.manager'
       - '@logger.factory'
