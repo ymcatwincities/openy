@@ -17,23 +17,23 @@
       };
 
       self.addBonus = function () {
-        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
-          typeof self.storage.campaign.bonuses_settings === 'undefined' || !self.storage.campaign.bonuses_settings) {
+        if (typeof self.storage.spring2017campaign.dates === 'undefined' || !self.storage.spring2017campaign.dates ||
+          typeof self.storage.spring2017campaign.bonuses_settings === 'undefined' || !self.storage.spring2017campaign.bonuses_settings) {
           return;
         }
 
-        var currentDay = self.storage.campaign.dates[self.storage.campaign.days_left - 1];
-        currentDay.bonus_code = self.storage.campaign.bonuses_settings[currentDay.timestamp].bonus_code;
+        var currentDay = self.storage.spring2017campaign.dates[self.storage.campaign.days_left - 1];
+        currentDay.bonus_code = self.storage.spring2017campaign.bonuses_settings[currentDay.timestamp].bonus_code;
         self.storage.setMemberBonus(currentDay);
       };
 
       self.isBonus = function () {
-        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
+        if (typeof self.storage.spring2017campaign.dates === 'undefined' || !self.storage.spring2017campaign.dates ||
           typeof self.storage.member_bonuses === 'undefined' || !self.storage.member_bonuses) {
           return false;
         }
 
-        var currentDay = self.storage.campaign.dates[self.storage.campaign.days_left - 1];
+        var currentDay = self.storage.spring2017campaign.dates[self.storage.campaign.days_left - 1];
 
         return typeof self.storage.member_bonuses[currentDay.timestamp] !== 'undefined';
       };
