@@ -1,132 +1,54 @@
-.banner {
-  background: linear-gradient(to top, $color-blue, $color-violet);
-  overflow: hidden;
-  position: relative;
+.content-pager--items {
+  border-top: solid 1px $purple;
+  border-bottom: solid 1px $purple;
+  margin-bottom: 2em;
 
-  &-image {
-
-    @include breakpoint(laptop) {
-      position: absolute;
-      right: 0;
-      width: calc(50% + #{ceil($container-desktop/6 - $grid-gutter-width)});
-    }
-
-    @include breakpoint(desktop) {
-      width: calc(50% + #{ceil($container-large-desktop/6 - $grid-gutter-width)});
-    }
-
-    img {
-      width: 100% !important;
-      height: auto !important;
-
-      @include breakpoint(laptop) {
-        width: 120% !important;
-      }
-    }
+  .content-pager--content {
+    margin-top: 24px;
   }
 
-  &-cta-section {
-    padding-bottom: 18px;
-
-    @include breakpoint(laptop) {
-      padding-top: 60px;
-      padding-bottom: 60px;
-    }
-
-    @include breakpoint(desktop) {
-      padding-bottom: 75px;
-    }
-  }
-
-  &-title {
-    @include cachet;
-    color: $white;
-    font-size: 32px;
-    line-height: 36px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-
-    @include breakpoint(laptop) {
-      font-size: 48px;
-      line-height: 48px;
-    }
-
-    @include breakpoint(desktop) {
-      font-size: 50px;
-      line-height: 50px;
-    }
-  }
-
-  &-description {
-    @include cachet;
-    color: $white;
-    font-size: 18px;
+  a {
+    @include cachet();
+    color: $blue;
+    font-size: 20px;
+    font-weight: 500;
     font-style: normal;
     font-stretch: normal;
+    line-height: 0.85;
+  }
+  .content-pager--header {
+    @include helvetica-neue();
+    text-transform: uppercase;
+    font-size: 14px;
     font-weight: 500;
-    line-height: 1.22;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.21;
+    letter-spacing: 2px;
+    color: $dark-grey;
+    height: 17px;
+    margin-top: 1em;
+  }
 
-    @include breakpoint(tablet) {
-      font-size: 20px;
-      line-height: 25px;
-      margin-bottom: 30px;
+  .content-pager--previous,
+  .content-pager--next {
+    width: 50%;
+    min-height: 134px;
+  }
+
+  .content-pager--previous {
+    padding-right: 2em;
+    float: left;
+  }
+  &.both {
+    .content-pager--previous {
+      border-right: solid 1px $purple;
     }
   }
 
-  .btn {
-    white-space: normal;
-    font-size: 18px;
-    padding: 0;
-    width: 100%;
-    margin: 0 0 5px;
-    background: $white;
-
-    a {
-      display: block;
-      padding: 12px;
-      color: $color-blue;
-      font-family: $font-cachet-bold;
-      text-transform: uppercase;
-    }
-  }
-
-  &--small {
-    min-height: 105px;
-
-    @include breakpoint(laptop) {
-      min-height: 160px;
-    }
-
-    .banner-image {
-      display: none;
-
-      @include breakpoint(laptop) {
-        display: block;
-        position: absolute;
-        right: 0;
-        width: calc(50% - #{ceil($container-desktop/6 + 0*$grid-gutter-width)});
-      }
-
-      @include breakpoint(desktop) {
-        width: calc(50% - #{ceil($container-large-desktop/6 + 0*$grid-gutter-width)});
-      }
-    }
-
-    .banner-cta-section {
-      padding: 13px 0;
-
-      @include breakpoint(laptop) {
-        padding: 30px 0;
-      }
-    }
-
-    .banner-title {
-      margin: 0;
-      max-width: 700px;
-    }
-
-    &.color-assigned {
-      background: none;
-    }
+  .content-pager--next {
+    padding-left: 2em;
+    text-align: right;
+    float: right;
   }
 }
