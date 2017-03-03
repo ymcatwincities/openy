@@ -22,6 +22,12 @@ p {
   word-wrap: break-word;
 }
 
+figcaption {
+  font-size: 13px;
+  font-style: italic;
+  text-align: right;
+}
+
 .clearfix {
   *zoom: 1;
 }
@@ -75,6 +81,9 @@ p {
 .embedded-entity .media-document iframe {
   height: 500px;
   width: 100%;
+}
+.embedded-entity .media-video {
+  padding: 10px 0;
 }
 .embedded-entity.view-mode-media-embedded-full {
   width: 100%;
@@ -3803,7 +3812,7 @@ html.js .branch__updates_queue__button {
 .node--type-blog.node--view-mode-sidebar {
   margin-top: 118px;
 }
-.node--type-blog img {
+.node--type-blog .field-blog-image img {
   max-width: 100%;
   height: auto;
   margin-bottom: 50px;
