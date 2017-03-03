@@ -30,7 +30,7 @@ function _ymca_retention_members_create() {
         'personify_id' => _ymca_retention_generate_random_string(6, TRUE),
         'branch' => $locationRepository->findByLocationPersonifyBranchCode($fake_member['branch_id']),
         'is_employee' => $fake_member['is_employee'],
-        'visit_goal' => rand(8, 13),
+        'visit_goal' => rand(5, 10),
         'total_visits' => 0,
         'total_bonuses' => 0,
         'created_by_staff' => FALSE,

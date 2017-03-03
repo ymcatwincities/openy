@@ -66,11 +66,15 @@ class YmcaRetention extends LayoutBase {
 
     $build['#attached']['drupalSettings']['ymca_retention']['resources'] = [
       'campaign' => Url::fromRoute('ymca_retention.campaign_json')->toString(),
+      'spring2017campaign' => Url::fromRoute('ymca_retention.spring2017_campaign_json')->toString(),
       'member' => Url::fromRoute('ymca_retention.member_json')->toString(),
       'member_activities' => $service->getUrl(),
       'member_chances' => Url::fromRoute('ymca_retention.member_chances_json')->toString(),
       'member_checkins' => Url::fromRoute('ymca_retention.member_checkins_json')->toString(),
+      'member_bonuses' => Url::fromRoute('ymca_retention.member_bonuses_json')->toString(),
+      'member_add_bonus' => Url::fromRoute('ymca_retention.member_add_bonus')->toString(),
       'recent_winners' => Url::fromRoute('ymca_retention.recent_winners_json')->toString(),
+      'todays_insight' => Url::fromRoute('ymca_retention.todays_insight_json')->toString(),
     ];
 
     return $build;
