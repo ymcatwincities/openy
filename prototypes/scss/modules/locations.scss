@@ -133,10 +133,13 @@
     }
   }
   .marker_tooltip & {
-    border: 0 none;
-    padding: 0;
-    margin: 0;
+    background: $white;
+    border-bottom: none;
+    border-top: none;
     height: auto;
+    margin: 0;
+    min-height: 0;
+    width: 270px;
   }
   h2 {
     font-size: 22px;
@@ -173,5 +176,14 @@
   .label-for-field-address,
   .label-for-field-phone {
     display: none;
+  }
+}
+
+.field-prgf-location-finder {
+  .openy-map-canvas {
+    height: 250px;
+    @include breakpoint(tablet) {
+      height: 500px;
+    }
   }
 }
