@@ -464,6 +464,7 @@
           self.todays_insight = data;
         });
       };
+      self.getTodaysInsight();
 
       self.memberCookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
