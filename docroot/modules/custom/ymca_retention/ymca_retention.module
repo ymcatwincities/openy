@@ -163,6 +163,10 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'variables' => [],
       'template' => 'blocks/ymca-retention-progress',
     ],
+    'ymca_retention_my_progress' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-my-progress',
+    ],
     'ymca_retention_instant_win' => [
       'variables' => [
         'content' => NULL,
@@ -172,6 +176,10 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'ymca_retention_recent_winners' => [
       'variables' => [],
       'template' => 'blocks/ymca-retention-recent-winners',
+    ],
+    'ymca_retention_todays_insight' => [
+      'variables' => [],
+      'template' => 'blocks/ymca-retention-todays-insight',
     ],
     'ymca_retention_winners_intro' => [
       'variables' => [

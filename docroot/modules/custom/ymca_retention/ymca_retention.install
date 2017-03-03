@@ -442,6 +442,8 @@ function ymca_retention_update_8023() {
     [
       // YMCA Retention pages.
       'page_manager.page_variant.ymca_retention_challenge',
+      // YMCA Retention imagestyles.
+      'image.style.2017_ymca_retention',
     ]
   );
 }
