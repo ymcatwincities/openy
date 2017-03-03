@@ -93,13 +93,11 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
    *
    * @param string $name
    *   Config name.
-   * @param array $data
-   *   Data to save.
    *
    * @return int|bool
    *   Entity ID in case of success.
    */
-  private function saveLoggerEntity($name, array $data) {
+  private function saveLoggerEntity($name) {
     try {
       // Load logger entity with this config name.
       $entities = $this->loggerEntityStorage->loadByProperties([
@@ -115,7 +113,6 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
       else {
         $logger_entity = array_shift($entities);
       }
-      $logger_entity->setData($data);
       $logger_entity->setName($name);
       $logger_entity->save();
       return $logger_entity->id();
@@ -143,8 +140,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
     }
     if (!$config->get('openy_upgrade')) {
       // This config was updated outside openy profile.
-      $config_data = $config->get();
-      $this->saveLoggerEntity($config_name, $config_data);
+      $this->saveLoggerEntity($config_name);
       $this->logger->warning($this->t('You have manual updated @name config from OpenY profile.', ['@name' => $config_name]));
     }
     else {
