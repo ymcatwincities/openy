@@ -52,7 +52,7 @@
     </li>
 
     <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member"
+        data-ng-show="retentionC.storage.campaign.started"
         data-ng-class="retentionC.tabSelectorClass('tab_4')">
       <a href="#tab_4" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_4')">
         {{ 'Winners'|t }}
@@ -61,12 +61,6 @@
     <li class="ng-hide"
         data-ng-show="!retentionC.storage.campaign.started">
       <a href="#tab_4" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">
-        {{ 'Winners'|t }}
-      </a>
-    </li>
-    <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && !retentionC.storage.member">
-      <a href="#tab_4" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
         {{ 'Winners'|t }}
       </a>
     </li>
