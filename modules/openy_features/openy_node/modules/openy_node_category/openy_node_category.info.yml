@@ -13,12 +13,12 @@ dependencies:
   - node
   - openy_media_image
   - openy_node
-  - openy_txnm_color
   - openy_node_program
+  - openy_txnm_color
   - paragraphs
   - path
   - pathauto
   - taxonomy
   - text
   - user
-version: 8.x-1.0
+version: 8.x-1.1

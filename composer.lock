@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b78293dd185d5e4edaf79c399fbd588",
-    "content-hash": "9c96ba361328c482e68ba01de254de94",
+    "hash": "bdb6b448048db445140a44d4e26e2197",
+    "content-hash": "dba85eabc273a1c1f2774f5f19863778",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1373,6 +1373,53 @@
             }
         },
         {
+            "name": "drupal/datalayer",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/datalayer",
+                "reference": "3e73f78f15822f1c758f8f26dd226b7ebc41b42f"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/libraries": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1488333184"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "bighappyface",
+                    "homepage": "https://www.drupal.org/user/2513682"
+                },
+                {
+                    "name": "blake.thompson",
+                    "homepage": "https://www.drupal.org/user/1803642"
+                },
+                {
+                    "name": "doublejosh",
+                    "homepage": "https://www.drupal.org/user/199720"
+                }
+            ],
+            "description": "Output page meta data for client-side availability.",
+            "homepage": "https://www.drupal.org/project/datalayer",
+            "support": {
+                "source": "http://cgit.drupalcode.org/datalayer"
+            },
+            "time": "2017-03-01 17:17:52"
+        },
+        {
             "name": "drupal/dropzonejs",
             "version": "1.0.0-alpha3",
             "source": {
@@ -2042,6 +2089,58 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/jquery_colorpicker"
             }
+        },
+        {
+            "name": "drupal/libraries",
+            "version": "dev-3.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/libraries",
+                "reference": "73f8b99ec74d3ebbb196540a6115584e72f9a640"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-3.x-dev",
+                    "datestamp": "1485834185"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Pol",
+                    "homepage": "https://www.drupal.org/user/47194"
+                },
+                {
+                    "name": "rjacobs",
+                    "homepage": "https://www.drupal.org/user/422459"
+                },
+                {
+                    "name": "sun",
+                    "homepage": "https://www.drupal.org/user/54136"
+                },
+                {
+                    "name": "tstoeckler",
+                    "homepage": "https://www.drupal.org/user/107158"
+                }
+            ],
+            "description": "Allows version-dependent and shared usage of external libraries in Drupal.",
+            "homepage": "http://drupal.org/project/libraries",
+            "support": {
+                "source": "http://cgit.drupalcode.org/libraries",
+                "issues": "http://drupal.org/project/issues/libraries",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            },
+            "time": "2017-02-24 23:18:09"
         },
         {
             "name": "drupal/media_entity",
@@ -6343,6 +6442,8 @@
     "stability-flags": {
         "drupal/views_block_filter_block": 20,
         "drupal/simple_menu_icons": 20,
+        "drupal/libraries": 20,
+        "drupal/datalayer": 20,
         "drupal/tqextension": 20,
         "cevou/behat-screenshot-compare-extension": 20
     },

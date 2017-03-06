@@ -159,6 +159,8 @@
         "library-kenwheeler/slick": "1.6.0",
         "library-dinbror/blazy": "1.8.2",
         "library-gdsmith/jquery.easing": "1.4.1",
-        "drupal/slick_views": "1.0-rc2"
+        "drupal/slick_views": "1.0-rc2",
+        "drupal/libraries": "3.x-dev",
+        "drupal/datalayer": "1.x-dev"
     }
 }
