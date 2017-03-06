@@ -116,6 +116,12 @@
   }
 }
 
+.node--type-branch.node--view-mode-full {
+  .banner {
+    background: linear-gradient(to top, $blue, $lighter-blue);
+  }
+}
+
 .node--type-branch.node--view-mode-teaser,
 .node--type-camp.node--view-mode-teaser {
   border: solid 1px $yellow;
@@ -173,5 +179,254 @@
   .label-for-field-address,
   .label-for-field-phone {
     display: none;
+  }
+}
+
+.branch-header {
+  .ajax-progress-throbber {
+    display: none;
+  }
+  .desktop {
+    background-color: $purple;
+    color: $white;
+    padding: 15px 0;
+    min-height: 70px;
+
+    .column {
+      flex-basis: 20%;
+      width: auto;
+      &:first-child {
+        margin-left: 0;
+      }
+      &.address-wrapper {
+        flex-basis: 25%;
+        br,
+        .country {
+          display: none;
+        }
+      }
+      &.phone-wrapper {
+        flex-basis: 15%;
+      }
+      .field-phone a {
+        @include cachet();
+      }
+      .ygh-branch-selector {
+        margin-top: 22px;
+        a {
+          @include cachet();
+        }
+      }
+    }
+
+    font-size: 16px;
+    line-height: 1.1;
+    margin: 0;
+    @include cachet();
+    @include breakpoint(768px 992px) {
+      font-size: 14px;
+    }
+
+    h4 {
+      font-size: 16px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin: 0 0 5px;
+    }
+
+    a {
+      color: $white;
+    }
+
+    .today-hours {
+      position: relative;
+      .today {
+        margin-right: 10px;
+      }
+      .show-link,
+      .hide-link {
+        @include cachet();
+      }
+      .branch-hours {
+        position: absolute;
+        top: 60px;
+        background: $purple;
+        padding: 5px 15px;
+        width: 240px;
+        left: -15px;
+        z-index: 1;
+        @include breakpoint(laptop) {
+          top: 45px;
+        }
+        td {
+          padding: 0 10px 5px 0;
+          white-space: nowrap;
+        }
+      }
+    }
+    .branch-header-inner {
+      display: flex;
+      justify-content: space-around;
+
+      .branch-header__item {
+        @include breakpoint($screen-lg) {
+          margin-left: 0;
+          float: none;
+        }
+
+        @include breakpoint($screen-sm) {
+          margin-left: 0;
+          float: none;
+
+          flex-basis: 20%;
+          padding: 0 5px;
+        }
+
+        p {
+          line-height: 20px;
+        }
+      }
+
+      .save-link {
+        align-self: center;
+
+        @include breakpoint($screen-sm $screen-desktop) {
+          align-self: flex-end;
+        }
+      }
+
+      .field-branch-hours {
+        h5 {
+          text-transform: uppercase;
+          font-size: 16px;
+        }
+      }
+
+      .ygh-branch-selector {
+        margin-top: 0;
+
+        a {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .mobile {
+    background-color: $purple;
+    color: $white;
+    padding: 12px 0 0;
+    position: relative;
+
+    h4 {
+      font-size: 14px;
+      line-height: 1.2;
+      margin: 0 0 5px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.1;
+      @include cachet();
+      margin: 0 0 5px;
+    }
+
+    .ui-tabs {
+      background: none;
+      border-radius: 0;
+      border: none;
+      clear: both;
+      padding: 0;
+
+      .ui-tabs-nav {
+        padding: 0;
+        background: none;
+        border-radius: 0;
+        border: none;
+
+        li {
+          background: none;
+          border: none;
+          border-radius: 0;
+          margin: 0 10px 0 0;
+        }
+
+        .ui-tabs-active {
+          background: $dark-magenta;
+        }
+
+        .ui-tabs-anchor {
+          color: #fff;
+          font-size: 24px;
+          outline: none;
+          padding: 4px 20px;
+        }
+      }
+
+      .ui-tabs-panel {
+        background: $dark-magenta;
+        border-radius: 0;
+        color: $white;
+        border: none;
+        font-size: 16px;
+        padding: 18px 15px;
+        min-height: 80px;
+
+        h4 {
+          color: $white;
+          font-size: 16px;
+          line-height: 1.1;
+          text-transform: uppercase;
+          margin: 0 0 5px;
+        }
+
+        p {
+          color: $white;
+          font-size: 16px;
+          line-height: 1.1;
+          margin: 0;
+          @include cachet();
+        }
+
+        a {
+          color: $white;
+        }
+      }
+      .field-branch-hours {
+        h5 {
+          text-transform: uppercase;
+          font-size: 16px;
+          margin-bottom: 0;
+        }
+      }
+      .today-hours {
+        @include cachet();
+        .today {
+          margin-right: 10px;
+        }
+        .show-link,
+        .hide-link {
+          color: $light-grey;
+        }
+        .branch-hours {
+          padding: 20px 0 12px;
+          td {
+            padding: 4px 10px 0 2px;
+          }
+        }
+      }
+    }
+    #save-location {
+      position: absolute;
+      right: 15px;
+      text-align: right;
+      top: 8px;
+      max-width: 155px;
+      line-height: 14px;
+      a {
+        color: $white;
+        @include cachet();
+      }
+    }
   }
 }
