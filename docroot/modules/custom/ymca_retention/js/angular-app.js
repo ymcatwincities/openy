@@ -34,7 +34,7 @@
           }
 
           // Handle not protected tabs.
-          if ($stateParams.tab === 'tab_1' || $stateParams.tab === 'tab_5') {
+          if ($stateParams.tab === 'tab_1' || $stateParams.tab === 'tab_4' || $stateParams.tab === 'tab_5') {
             $stateParams.active_tab = $stateParams.tab;
             return;
           }
@@ -43,12 +43,6 @@
           if (storage.member_loaded && storage.campaign_loaded) {
 
             if (storage.campaign.started) {
-              // tab_4 is protected only by campaign started parameter.
-              if ($stateParams.tab === 'tab_4') {
-                $stateParams.active_tab = $stateParams.tab;
-                return;
-              }
-
               if (storage.member) {
                 $stateParams.active_tab = $stateParams.tab;
               }
