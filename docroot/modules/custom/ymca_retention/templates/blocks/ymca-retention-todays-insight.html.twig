@@ -15,7 +15,8 @@
             <img alt="video"
                  data-ng-show="!todayInC.isVideoPresent()"
                  data-ng-src="{{ '{{ todayInC.getImage() }}' }}"/>
-            <div class="videoWrapper">
+            <div class="videoWrapper"
+                 data-ng-show="todayInC.isVideoPresent()">
               <ng-bind-html
                       data-ng-bind-html="todayInC.getVideo()">
               </ng-bind-html>
