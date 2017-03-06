@@ -447,6 +447,9 @@ function ymca_retention_update_8023() {
       'image.style.2017_ymca_retention_big',
       // YMCA Retention bonus codes form config.
       'ymca_retention.bonus_codes_settings',
+      // YMCA Retention views.
+      'views.view.ymca_members',
+      'views.view.ymca_retention_member_prizes',
     ]
   );
 }
