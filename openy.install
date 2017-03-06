@@ -60,3 +60,13 @@ function openy_update_8003() {
   // Enable module.
   \Drupal::service('module_installer')->install(['config_import']);
 }
+
+/**
+ * Enable Data layer modules & revert needed configuration.
+ */
+function openy_update_8004() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(
+    ['libraries', 'datalayer', 'openy_datalayer']
+  );
+}

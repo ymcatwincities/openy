@@ -6,6 +6,10 @@ dependencies:
     - node.type.branch
   module:
     - openy_field_custom_hours
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_branch_hours
 id: node.branch.field_branch_hours
 field_name: field_branch_hours
 entity_type: node
