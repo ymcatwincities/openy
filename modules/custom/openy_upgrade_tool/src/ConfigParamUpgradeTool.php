@@ -66,7 +66,7 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
       $this->updateLoggerEntity($config, $config_name, $param);
       $dashboard_url = Url::fromRoute('view.openy_upgrade_dashboard.page_1');
       $dashboard_link = Link::fromTextAndUrl(t('OpenY upgrade dashboard'), $dashboard_url);
-      $this->logger->error($this->t('Could not update config @name. Please add this changes manual. More info here - @link.',
+      $this->logger->error($this->t('Cannot update config @name. Please add those changes manually. More info here - @link.',
         [
           '@name' => $config_name,
           '@link' => $dashboard_link->toString(),
@@ -79,7 +79,7 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
     $update_value = NestedArray::getValue($storage_config, explode('.', $param));
     if (!$update_value) {
       $this->logger->info(
-        $this->t('Param "@param" not exist in config @name.',
+        $this->t('Param "@param" does not exist in config @name.',
         ['@name' => $config_name, '@param' => $param])
       );
       return;

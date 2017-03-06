@@ -384,7 +384,7 @@ display:
           admin_label: ''
           empty: false
           tokenize: false
-          content: "<h1>OpenY upgrade dashboard</h1>\n<p>These configs have been changed manually, that's why we cannot import them. Please fix this conflict.</p>\n<p>After conflict fixing please delete this config from list.</p>"
+          content: "<h1>OpenY upgrade dashboard</h1>\n<p>These configs have been changed manually, that's why we cannot import them. Please fix conflicts below and then you'll get updates from OpenY for affected components.</p>\n<p>Upon fixing the conflict, please delete message from dashboard to let system know that conflict has been resolved, otherwise all updates for the component will be skipped.</p>"
           plugin_id: text_custom
       footer: {  }
       empty: {  }
