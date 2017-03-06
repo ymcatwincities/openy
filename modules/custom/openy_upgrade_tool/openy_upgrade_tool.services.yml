@@ -16,3 +16,19 @@ services:
       - '@config.manager'
       - '@entity_type.manager'
       - '@logger.factory'
+  openy_upgrade_tool.importer:
+    class: Drupal\openy_upgrade_tool\ConfigUpdater
+    arguments:
+      - '@uuid'
+      - '@config.storage'
+      - '@config.manager'
+      - '@event_dispatcher'
+      - '@lock'
+      - '@config.typed'
+      - '@module_handler'
+      - '@module_installer'
+      - '@theme_handler'
+      - '@string_translation'
+      - '@file_system'
+      - '@entity_type.manager'
+      - '@logger.channel.openy_upgrade_tool'
