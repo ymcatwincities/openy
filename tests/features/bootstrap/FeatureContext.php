@@ -199,18 +199,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * Wait some amount of seconds.
-   *
-   * @param int $seconds
-   *   Amount of seconds when nothing to happens.
-   *
-   * @Given /^(?:|I )wait (\d+) seconds$/
-   */
-  public function waitSeconds($seconds) {
-    sleep($seconds);
-  }
-
-  /**
    * Store the latest edited node in $storageEngine at the storage key given.
    *
    * @Given /^I store the Node as "(?P<storage_key>[^"]*)"$/
