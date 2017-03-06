@@ -30,3 +30,23 @@ function openy_loc_facility_update_8001() {
     );
   }
 }
+
+/**
+ * Remove Facility fields datalayer config from entity reference fields.
+ */
+function openy_loc_facility_update_8002() {
+  $configs = [
+    'field.field.node.facility.field_facility_loc',
+    'field.field.node.facility.field_facility_type',
+    'field.field.node.facility.field_location_area',
+  ];
+  $config_importer = \Drupal::service('config_import.param_updater');
+  foreach ($configs as $config_name) {
+    $config = drupal_get_path('module', 'openy_loc_facility');
+    $config .= '/config/install/' . $config_name . '.yml';
+    $config_importer->update($config,
+      $config_name,
+      'third_party_settings.datalayer'
+    );
+  }
+}
