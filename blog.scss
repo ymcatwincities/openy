@@ -57,7 +57,11 @@
         margin-bottom: 0;
         width: auto;
       }
+      &.form-item-field-belongs-to {
+        margin-bottom: 0;
+      }
     }
+
     .form-item-rendered-item {
       padding-right: 0;
       float: left;
@@ -69,11 +73,14 @@
         top: 37px;
       }
       input {
-        max-width: 250px;
         height: 40px;
+        @include breakpoint(tablet) {
+          max-width: 250px;
+        }
       }
     }
     .form-actions {
+      text-align: center;
       @include breakpoint(laptop) {
         position: absolute;
         right: 35px;
@@ -82,6 +89,10 @@
       input {
         @include btn-blue();
         width: 90px;
+        margin-top: 10px;
+        @include breakpoint(tablet) {
+          margin: 0;
+        }
       }
     }
   }
