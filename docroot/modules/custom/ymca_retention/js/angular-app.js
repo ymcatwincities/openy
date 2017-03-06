@@ -372,7 +372,7 @@
       self.setInitialValues = function() {
         // self.dates = settings.ymca_retention.activity.dates;
         // self.activity_groups = settings.ymca_retention.activity.activity_groups;
-        self.campaign = {started: false, days_left: 50};
+        self.campaign = {started: false, days_left: 50, current_day_timestamp: +new Date()};
         self.campaign_loaded = false;
         self.spring2017campaign = {};
         self.loss_messages = settings.ymca_retention.loss_messages;
@@ -387,6 +387,8 @@
         self.recent_winners = null;
         self.last_played_chance = null;
         self.todays_insight = null;
+        self.todays_insight_timestamp = null;
+        self.todays_insight_timer = 30;
         // Game state.
         self.state = 'game';
       };
@@ -413,6 +415,7 @@
         self.getMember(newVal);
         self.getMemberCheckIns(newVal);
         self.getMemberBonuses(newVal);
+        self.todaysInsightToDefault();
         self.state = 'game';
       });
 
@@ -448,10 +451,20 @@
         return last_played_chance;
       };
 
+      self.todaysInsightToDefault = function () {
+        if (angular.isUndefined(self.campaign.dates)) {
+          return;
+        }
+        var currentDay = self.campaign.dates[self.campaign.days_left - 1];
+        self.todays_insight_timestamp = currentDay.timestamp;
+        self.todays_insight_timer = 30;
+      };
+
       self.getCampaign = function() {
         courier.getCampaign().then(function(data) {
           self.campaign = data;
           self.campaign_loaded = true;
+          self.todaysInsightToDefault();
         });
       };
       self.getCampaign();
