@@ -59,7 +59,9 @@
 {% elseif colors.top is not empty and colors.bottom is empty %}
   {% set background_style = "background-color: color_top;" %}
 {% endif %}
-
+{%
+set main_col_count = content.field_prgf_image|render|trim is empty ? '12' : '8'
+%}
 {%
   set classes = [
     'paragraph',
@@ -70,6 +72,7 @@
     (colors.top is not empty and colors.bottom is empty) ? 'color-assigned' : '',
   ]
 %}
+
 <div{{ attributes.addClass(classes) }} style="{{ background_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
   <div class="banner-image">
     <div class="banner-image-wrapper">
@@ -78,7 +81,7 @@
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-8">
+      <div class="col-sm-12 col-md-{{ main_col_count }}">
         <div class="banner-cta-section">
           <h3 class="banner-title">
             {{ content.field_prgf_headline }}
