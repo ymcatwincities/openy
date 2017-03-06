@@ -1,6 +1,8 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - tour
 id: openy-theme-overview
 label: 'Theme Overview'
 theme: openy_rose
