@@ -474,11 +474,11 @@ class Member extends ContentEntityBase implements MemberInterface {
     $from_date = new \DateTime($settings->get('date_checkins_start'));
     $to_date = new \DateTime($settings->get('date_checkins_end'));
 
-    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
     if ($to_date > $current_date) {
       $to_date = $current_date;
-      $number_weeks = ceil($from_date->diff($current_date)->days / 7);
     }
+    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
+
     $results = PersonifyApi::getPersonifyVisitsBatch($member_ids, $from_date, $to_date);
     if (!empty($results->ErrorMessage)) {
       $logger = \Drupal::logger('ymca_retention_queue');
@@ -498,7 +498,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       $member_weeks = $number_weeks;
       // If user registered after From date, then recalculate number of weeks.
       if ($first_visit > $from_date) {
-        $member_weeks = ceil($first_visit->diff($current_date)->days / 7);
+        $member_weeks = ceil($first_visit->diff($to_date)->days / 7);
       }
 
       // Calculate a goal for a member.
@@ -512,7 +512,9 @@ class Member extends ContentEntityBase implements MemberInterface {
       // Visit goal for late members.
       $close_date = new \DateTime($settings->get('date_campaign_close'));
       $count_days = $current_date->diff($close_date)->days;
-      // Set 1 if current date is a date when campaign will be closed.
+      // Set visit goal not greater than number of days till the campaign end.
+      // TODO: is it correct? As we should still be able to get his visits for
+      // the period of campaign.
       $count_days = max(1, $count_days);
       $goal = min($goal, $count_days);
       $goals[$past_result->MasterCustomerId] = $goal;
