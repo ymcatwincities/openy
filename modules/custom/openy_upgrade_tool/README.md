@@ -1,34 +1,14 @@
-# How to support upgrade path
-All changes in configurations should be added to appropriate hook\_update\_N in order to update already existing environments. We suggest to use https://www.drupal.org/project/confi for working with hook\_update\_N.
+# OpenY upgrade tool
+This module add the ability to upgrade OpenY configs and log manual config changes.
 
-### `openy.install` in profile
-In this file we should put updates that are related to the distribution in general and don't fit into any feature.
-
-- Enable/Disable module
-- General configs
-
-### `openy_*.install` in modules
-In case if you update some configuration for specific feature, make sure that you put updates into appropriate module.
-
-
-### Modules version
-Whenever you change configuration in module, you should increase module version.
-
-Before:
-```
-version: 8.x-1.0
-```
-
-After:
-```
-version: 8.x-1.1
-```
 
 ### Revert only specific property from config
 
-With [config_import module](https://www.drupal.org/project/confi) help we can update only part from full config.
+With [config_import module](https://www.drupal.org/project/confi) help you can update only part from full config.
 
-For updating specific property in config (use service 'openy_upgrade_tool.param_updater'):
+For detecting manual config update used 'openy_upgrade_tool.param_updater' service that extends ConfigParamUpdaterService from config_import module. 
+
+For updating specific property in config:
 
 1) go to related to this config module
 
@@ -45,6 +25,7 @@ Where:
 - $config variable contains path to config with config name
 - "views.view.images_library" - config name
 - "display.default.display_options.pager" - config specific property (you can set value from a nested array with variable depth)
+
 
 ### Revert full configs
 For updating full config or several configs from directory use service 'openy_upgrade_tool.importer'.

@@ -22,6 +22,8 @@ function openy_install() {
 
   // Enable the admin theme.
   \Drupal::configFactory()->getEditable('node.settings')->set('use_admin_theme', TRUE)->save(TRUE);
+  // Enable openy_upgrade_tool.
+  \Drupal::service('module_installer')->install(['openy_upgrade_tool'], TRUE);
 }
 
 /**
@@ -58,13 +60,26 @@ function openy_update_8002() {
  */
 function openy_update_8003() {
   // Enable module.
-  \Drupal::service('module_installer')->install(['config_import']);
+  \Drupal::service('module_installer')->install([
+    'config_import',
+    'logger_entity',
+    'openy_upgrade_tool',
+  ]);
+}
+
+/**
+ * Fix tour config dependencies.
+ */
+function openy_update_8004() {
+  $config = drupal_get_path('theme', 'openy_rose') . '/config/optional/tour.tour.openy-theme-overview.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'tour.tour.openy-theme-overview', 'dependencies');
 }
 
 /**
  * Enable Data layer modules & revert needed configuration.
  */
-function openy_update_8004() {
+function openy_update_8005() {
   // Enable module.
   \Drupal::service('module_installer')->install(
     ['libraries', 'datalayer', 'openy_datalayer']
