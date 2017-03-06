@@ -1366,7 +1366,6 @@ body {
 @media (min-width: 48em) {
   .paragraph-gallery .carousel {
     margin: 0;
-    border-bottom: 3px solid #0089d0;
   }
 }
 @media (min-width: 64em) {
