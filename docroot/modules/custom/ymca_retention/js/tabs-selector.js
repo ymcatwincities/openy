@@ -10,6 +10,11 @@
    */
   Drupal.behaviors.ymca_retention_tabs_selector = {};
   Drupal.behaviors.ymca_retention_tabs_selector.attach = function (context, settings) {
+    if ($('body').hasClass('ymca-retention-tabs-selector-processed')) {
+      return;
+    }
+    $('body').addClass('ymca-retention-tabs-selector-processed');
+
     $('.compain-tabs', context)
       .once('tab-collapse')
       .tabCollapse({
@@ -50,7 +55,7 @@
     });
 
     // Scroll to just opened tab.
-    $(document).off('shown.bs.collapse').on('shown.bs.collapse', function (event) {
+    $(document).on('shown.bs.collapse', function (event) {
       $('body').animate({
         scrollTop: $(this.activeElement).offset().top
       });

@@ -4,8 +4,9 @@
  * Display member "My progress" report.
  */
 #}
-<div class="inner-container"
-     data-ng-controller="MyProgressController as myProgressC">
+<div class="inner-container ng-hide login-required"
+     data-ng-controller="MyProgressController as myProgressC"
+     data-ng-show="retentionC.storage.member">
     <div class="compain-tab-header compain-tab-header--progress clearfix">
         <div class="compain-progress"
              data-ng-class="myProgressC.visitsCountClass()">
