@@ -433,7 +433,7 @@ function ymca_retention_update_8022() {
 }
 
 /**
- * Update YMCA Retention Spring 2017 (add new tab).
+ * Update YMCA Retention Spring 2017.
  */
 function ymca_retention_update_8023() {
   $config_importer = \Drupal::service('config_import.importer');
@@ -442,7 +442,7 @@ function ymca_retention_update_8023() {
     [
       // YMCA Retention pages.
       'page_manager.page_variant.ymca_retention_challenge',
-      // YMCA Retention imagestyles.
+      // YMCA Retention image styles.
       'image.style.2017_ymca_retention',
       'image.style.2017_ymca_retention_big',
       // YMCA Retention bonus codes form config.
