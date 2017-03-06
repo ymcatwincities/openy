@@ -21,7 +21,7 @@ function openy_loc_branch_update_8001() {
     'field.field.node.branch.field_location_state',
     'field.field.node.branch.field_location_temp_url',
   ];
-  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name) {
     $config = drupal_get_path('module', 'openy_loc_branch');
     $config .= '/config/install/' . $config_name . '.yml';
