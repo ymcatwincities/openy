@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.panorama_block
+    - field.storage.paragraph.field_prgf_panorama
+    - paragraphs.paragraphs_type.panorama
+id: paragraph.panorama.field_prgf_panorama
+field_name: field_prgf_panorama
+entity_type: paragraph
+bundle: panorama
+label: Panorama
+description: 'Add here new panorama block or select existing.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      panorama_block: panorama_block
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference
