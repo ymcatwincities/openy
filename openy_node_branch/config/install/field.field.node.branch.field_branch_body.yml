@@ -13,6 +13,7 @@ dependencies:
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
+    - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
     - paragraphs.paragraphs_type.small_banner
   module:
@@ -42,6 +43,7 @@ settings:
       1c: 1c
       all_amenities: all_amenities
       small_banner: small_banner
+      panorama: panorama
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -97,7 +99,19 @@ settings:
       all_amenities:
         enabled: true
         weight: 23
+      all_testimonials:
+        weight: 29
+        enabled: false
+      camp_menu:
+        weight: 31
+        enabled: false
       small_banner:
         enabled: true
         weight: 37
+      panorama:
+        enabled: true
+        weight: 41
+      prgf_location_finder_filters:
+        weight: 42
+        enabled: false
 field_type: entity_reference_revisions

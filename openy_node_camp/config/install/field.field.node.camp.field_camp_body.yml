@@ -12,6 +12,7 @@ dependencies:
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
+    - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
   module:
     - entity_reference_revisions
@@ -38,6 +39,7 @@ settings:
       simple_content: simple_content
       blackbaud: blackbaud
       camp_menu: camp_menu
+      panorama: panorama
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -101,5 +103,11 @@ settings:
         enabled: false
       small_banner:
         weight: 41
+        enabled: false
+      panorama:
+        enabled: true
+        weight: 41
+      prgf_location_finder_filters:
+        weight: 42
         enabled: false
 field_type: entity_reference_revisions
