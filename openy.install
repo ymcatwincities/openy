@@ -22,6 +22,8 @@ function openy_install() {
 
   // Enable the admin theme.
   \Drupal::configFactory()->getEditable('node.settings')->set('use_admin_theme', TRUE)->save(TRUE);
+  // Enable openy_upgrade_tool.
+  \Drupal::service('module_installer')->install(['openy_upgrade_tool'], TRUE);
 }
 
 /**
