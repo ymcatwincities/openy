@@ -15,9 +15,11 @@ class Spring2017CampaignController extends ControllerBase {
    * Return Spring 2017 campaign info.
    */
   public function campaignJson() {
+    $settings = $this->getBonusesSettings();
+
     $info = [
-      'dates' => $this->getDates(),
-      'bonuses_settings' => $this->getBonusesSettings(),
+      'bonuses_settings' => $settings['bonuses'],
+      'today_insights' => $settings['insights'],
     ];
 
     $response = new JsonResponse($info);
@@ -26,57 +28,22 @@ class Spring2017CampaignController extends ControllerBase {
   }
 
   /**
-   * Return array with all dates of campaign.
-   */
-  private function getDates() {
-    $config = \Drupal::config('ymca_retention.general_settings');
-    $current_date = new \DateTime();
-    $current_date->setTime(0, 0, 0);
-    $open_date = new \DateTime($config->get('date_campaign_open'));
-    $close_date = new \DateTime($config->get('date_campaign_close'));
-
-    // Calculate number of days to show.
-    $date_interval = $open_date->diff($close_date);
-    $days = $date_interval->days;
-    if ($date_interval->h > 0 || $date_interval->i > 0) {
-      $days++;
-    }
-
-    // Prepare dates data.
-    $dates = [];
-    $date = $open_date->setTime(0, 0, 0);
-    $day_interval = new \DateInterval('P1D');
-    for ($i = 0; $i < $days; $i++) {
-      $timestamp = $date->getTimestamp();
-      $date_diff_now = $date->diff($current_date);
-      $dates[] = [
-        'index' => $i,
-        'label' => $date->format('l n/j'),
-        'weekday' => $date->format('D'),
-        'month_day' => $date->format('j'),
-        'month' => $date->format('M'),
-        'timestamp' => $timestamp,
-        'past' => !(bool) $date_diff_now->invert,
-        'future' => (bool) $date_diff_now->invert,
-        'today' => $date == $current_date,
-      ];
-
-      $date = $date->add($day_interval);
-    }
-
-    return $dates;
-  }
-
-  /**
    * Return array with bonuses and articles for all dates of campaign.
    */
   private function getBonusesSettings() {
-    $bonuses_settings = [];
+    $bonuses = [];
+    $insights = [];
     $config = $this->config('ymca_retention.bonus_codes_settings');
     $general_config = $this->config('ymca_retention.general_settings');
 
     $date = (new \DateTime($general_config->get('date_campaign_open')))->setTime(0, 0);
     $date_end = (new \DateTime($general_config->get('date_campaign_close')))->setTime(0, 0);
+    $current_date = new \DateTime();
+    $current_date->setTime(0, 0, 0);
+
+    if ($current_date < $date_end) {
+      $date_end = $current_date;
+    }
 
     $bonus_codes = $config->get('bonus_codes');
 
@@ -84,26 +51,40 @@ class Spring2017CampaignController extends ControllerBase {
     $day_interval = new \DateInterval('P1D');
     while ($date <= $date_end) {
       $timestamp = $date->getTimestamp();
-      $bonuses_settings[$timestamp] = [];
+      $bonuses[$timestamp] = [];
 
       if (isset($bonus_codes[$delta])) {
         $nid = $bonus_codes[$delta]['reference'];
         $title = '';
-        $image_url = '';
+        $content = '';
+        $bonus_image_url = '';
+        $insight_image_url = '';
         if (!empty($nid)) {
           $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
           $images = $node->get('field_image')->getValue();
           if (!empty($images[0]['target_id'])) {
             $file = \Drupal::entityTypeManager()->getStorage('file')->load($images[0]['target_id']);
-            $image_url = ImageStyle::load('2017_ymca_retention')->buildUrl($file->getFileUri());
+            $bonus_image_url = ImageStyle::load('2017_ymca_retention')->buildUrl($file->getFileUri());
+            $insight_image_url = ImageStyle::load('2017_ymca_retention_big')->buildUrl($file->getFileUri());
           }
           $title = $node->getTitle();
+          $field_content = $node->get('field_content')->getValue();
+          if (isset($field_content[0]['value'])) {
+            $content = $field_content[0]['value'];
+          }
         }
 
-        $bonuses_settings[$timestamp] = [
+        $bonuses[$timestamp] = [
           'bonus_code' => $bonus_codes[$delta]['code'],
           'title' => $title,
-          'image' => $image_url,
+          'image' => $bonus_image_url,
+          'tip' => $delta + 1,
+        ];
+        $insights[$timestamp] = [
+          'title' => $title,
+          'content' => $content,
+          'image' => $insight_image_url,
+          'video' => $bonus_codes[$delta]['video'],
           'tip' => $delta + 1,
         ];
       }
@@ -112,7 +93,12 @@ class Spring2017CampaignController extends ControllerBase {
       $date = $date->add($day_interval);
     }
 
-    return $bonuses_settings;
+    $settings = [
+      'bonuses' => $bonuses,
+      'insights' => $insights,
+    ];
+
+    return $settings;
   }
 
 }
