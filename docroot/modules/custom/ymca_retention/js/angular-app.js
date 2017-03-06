@@ -7,14 +7,97 @@
     }
     $('body').addClass('ymca-retention-angular-app-processed');
 
-    Drupal.ymca_retention = Drupal.ymca_retention || {};
-    Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ajoslin.promise-tracker']);
+    // Create base tag for Angular UI router.
+    $('head').append('<base href="' + settings.path.baseUrl + '">');
 
-    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($sce, storage) {
+    Drupal.ymca_retention = Drupal.ymca_retention || {};
+    Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ui.router', 'ajoslin.promise-tracker']);
+
+    // Default parameters of Angular UI Router state.
+    var defaultStateParams = {
+      tab: 'tab_1',
+      active_tab: 'tab_1'
+    };
+    Drupal.ymca_retention.angular_app.config(function($locationProvider, $stateProvider) {
+      $locationProvider.html5Mode({
+        enabled: true,
+        rewriteLinks: false
+      });
+
+      var state = {
+        name: 'main',
+        url: '/challenge?tab',
+        params: defaultStateParams,
+        onEnter: function(storage, $stateParams) {
+          if ($stateParams.active_tab === $stateParams.tab) {
+            return;
+          }
+
+          // Handle not protected tabs.
+          if ($stateParams.tab === 'tab_1' || $stateParams.tab === 'tab_5') {
+            $stateParams.active_tab = $stateParams.tab;
+            return;
+          }
+
+          // Handle protected tabs.
+          if (storage.member_loaded && storage.campaign_loaded) {
+
+            if (storage.campaign.started) {
+              // tab_4 is protected only by campaign started parameter.
+              if ($stateParams.tab === 'tab_4') {
+                $stateParams.active_tab = $stateParams.tab;
+                return;
+              }
+
+              if (storage.member) {
+                $stateParams.active_tab = $stateParams.tab;
+              }
+              else {
+                // Activate login popup.
+                $('a[href="#' + $stateParams.tab + '"][data-type="login"]').click();
+              }
+            }
+            else {
+              // Activate days left popup.
+              $('a[href="#' + $stateParams.tab + '"][data-type="tabs-lock"]').click();
+            }
+          }
+        },
+        resolve: {
+          stateParams: function(storage, $stateParams) {
+            storage.stateParams = $stateParams;
+          }
+        }
+      };
+
+      $stateProvider.state(state);
+    });
+
+    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($sce, storage, $state) {
       var self = this;
       // Shared information.
       self.storage = storage;
 
+      self.tabSelectorClass = function (tab) {
+        var classes = [];
+        if (!angular.isUndefined(self.storage.stateParams) && self.storage.stateParams.active_tab == tab) {
+          classes.push('active');
+        }
+        return classes.join(' ');
+      };
+      self.tabClass = function (tab) {
+        var classes = [];
+        if (!angular.isUndefined(self.storage.stateParams) && self.storage.stateParams.active_tab == tab) {
+          classes.push('active');
+          classes.push('in');
+        }
+        return classes.join(' ');
+      };
+      self.tabSelectorClick = function (tab) {
+        $state.go('main', {tab: tab});
+      };
+
+      // Message for days left popup.
       self.daysLeftMessage = function() {
         return $sce.trustAsHtml(Drupal.formatPlural(
           self.storage.campaign.days_left,
@@ -280,16 +363,21 @@
     });
 
     // Service to hold information shared between controllers.
-    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, courier) {
+    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, $state, courier) {
       var self = this;
+      // Initiate the promise tracker to track submissions.
+      self.progress = promiseTracker();
 
+      // TODO: refactor this so that every controller sets his initial values itself.
       self.setInitialValues = function() {
         // self.dates = settings.ymca_retention.activity.dates;
         // self.activity_groups = settings.ymca_retention.activity.activity_groups;
         self.campaign = {started: false, days_left: 50, current_day_timestamp: +new Date()};
+        self.campaign_loaded = false;
         self.spring2017campaign = {};
         self.loss_messages = settings.ymca_retention.loss_messages;
         self.member = null;
+        self.member_loaded = false;
         self.member_activities = null;
         self.member_activities_counts = null;
         self.member_chances = null;
@@ -306,21 +394,25 @@
       };
       self.setInitialValues();
 
-      // Initiate the promise tracker to track submissions.
-      self.progress = promiseTracker();
+      // Watch member_loaded and campaign_loaded to switch state
+      // and either activate requested tabs or show popups.
+      $rootScope.$watch(function () {
+        return self.member_loaded && self.campaign_loaded;
+      }, function (newVal, oldVal) {
+        if (newVal) {
+          $state.go('main', {}, {reload: true});
+        }
+      });
 
       // Force to check cookie value.
       $interval(function() {
         $cookies.get('Drupal.visitor.ymca_retention_member');
       }, 500);
-
       // Watch cookie value and update data on change.
       $rootScope.$watch(function() {
         return $cookies.get('Drupal.visitor.ymca_retention_member');
       }, function(newVal, oldVal) {
         self.getMember(newVal);
-        // self.getMemberChancesById(newVal);
-        // self.getMemberActivities(newVal);
         self.getMemberCheckIns(newVal);
         self.getMemberBonuses(newVal);
         self.todaysInsightToDefault();
@@ -371,6 +463,7 @@
       self.getCampaign = function() {
         courier.getCampaign().then(function(data) {
           self.campaign = data;
+          self.campaign_loaded = true;
           self.todaysInsightToDefault();
         });
       };
