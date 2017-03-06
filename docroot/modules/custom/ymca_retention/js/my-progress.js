@@ -113,14 +113,14 @@
       };
 
       self.bonusesCount = function () {
-        if (typeof self.storage.spring2017campaign.dates === 'undefined' || !self.storage.spring2017campaign.dates ||
+        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
           typeof self.storage.member_bonuses === 'undefined' || !self.storage.member_bonuses) {
           return 0;
         }
 
         var bonuses = 0;
-        for (var i = 0; i < self.storage.spring2017campaign.dates.length; i++) {
-          var date = self.storage.spring2017campaign.dates[i];
+        for (var i = 0; i < self.storage.campaign.dates.length; i++) {
+          var date = self.storage.campaign.dates[i];
           if (date.future) {
             break;
           }
@@ -137,14 +137,14 @@
       };
 
       self.visitsCount = function () {
-        if (typeof self.storage.spring2017campaign.dates === 'undefined' || !self.storage.spring2017campaign.dates ||
+        if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
           typeof self.storage.member_checkins === 'undefined' || !self.storage.member_checkins) {
           return 0;
         }
 
         var visits = 0;
-        for (var i = 0; i < self.storage.spring2017campaign.dates.length; i++) {
-          var date = self.storage.spring2017campaign.dates[i];
+        for (var i = 0; i < self.storage.campaign.dates.length; i++) {
+          var date = self.storage.campaign.dates[i];
           if (date.future) {
             break;
           }
@@ -171,12 +171,23 @@
         return {};
       };
 
-      self.todayInsight = function () {
-        $('a[href$="#tab_2"]').each(function() {
-          if ($(this).attr('data-toggle') == 'tab') {
-            $(this).click();
-          }
-        });
+      self.todayInsight = function (timestamp) {
+        self.storage.todays_insight_timestamp = timestamp;
+
+        if ($('.nav-tabs').is(':visible')) {
+          var $link = $('.nav-tabs a[href="#tab_2"]');
+          $link.tab('show');
+          $link.parent().addClass('active');
+        }
+        else {
+          // Reseting accordion.
+          $('.compain-accordion .collapse.in').removeClass('in');
+          $('.compain-accordion .panel-heading a').addClass('collapsed');
+
+          // Expanding selected accordion item.
+          $('.compain-accordion a[href="##tab_2-collapse"]').removeClass('collapsed');
+          $('.compain-accordion ##tab_2-collapse').addClass('in').css('height', 'auto');
+        }
       }
 
     });

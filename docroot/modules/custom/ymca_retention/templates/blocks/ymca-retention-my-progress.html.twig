@@ -39,7 +39,7 @@
         </div>
 
         <div class="compain-progress--grid"
-             data-ng-repeat="date in myProgressC.storage.spring2017campaign.dates">
+             data-ng-repeat="date in myProgressC.storage.campaign.dates">
             <div class="compain-progress--col">
                 <div class="compain-progress-block"
                      data-ng-class="myProgressC.checkInBonusImageClass(date)"
@@ -61,18 +61,20 @@
                                 <ng-show ng-show="myProgressC.isBonus(date)">
                                     <p><b>+1 bonus</b> for </p>
 
-                                    <div class="description">
+                                    <div class="description"
+                                         data-ng-click="myProgressC.todayInsight(date.timestamp)">
                                         <p>{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
                                     </div>
                                 </ng-show>
                                 <ng-show ng-show="!myProgressC.isBonus(date)">
                                     <ng-show ng-show="date.today">
-                                        <p><span>Read <i data-ng-click="myProgressC.todayInsight()">tip #{{ '{{myProgressC.tipNumber(date) }}' }}</i></span></p>
+                                        <p><span data-ng-click="myProgressC.todayInsight(date.timestamp)">Read <i>tip #{{ '{{myProgressC.tipNumber(date) }}' }}</i></span></p>
                                     </ng-show>
                                     <ng-show ng-show="!date.today">
                                         <p>without bonus</p>
 
-                                        <div class="description">
+                                        <div class="description"
+                                             data-ng-click="myProgressC.todayInsight(date.timestamp)">
                                             <p>{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
                                         </div>
                                     </ng-show>
