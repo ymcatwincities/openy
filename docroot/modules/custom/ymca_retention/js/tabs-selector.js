@@ -25,7 +25,7 @@
       var tab_id = $target.attr('id').replace('-collapse', '');
 
       // Collapsing accordion item.
-      $('a[href="#' + tab_id + '-collapse"]').addClass('collapsed');
+      $('a[href="#' + tab_id + '-collapse"]').removeClass('collapsed');
 
       if (settings.ymca_retention.tabs_selector.campaign_started) {
         // Checking whether private content is available.
@@ -47,6 +47,16 @@
       }
 
       event.preventDefault();
+    });
+
+    $(document).on('hidden.bs.collapse', '.panel-collapse, a[data-toggle="tab"]', function (event) {
+      // Get accordion item.
+      var $target = $(event.currentTarget);
+
+      // Getting accordion item ID.
+      var tab_id = $target.attr('id').replace('-collapse', '');
+
+      $('a[href="#' + tab_id + '-collapse"]').addClass('collapsed');
     });
 
     // Scroll to just opened tab.
