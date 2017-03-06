@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * OpenY Node Program install file.
+ */
+
+/**
+ * Update Node Program fields datalayer config for Data Layer additions.
+ */
+function openy_node_program_update_8001() {
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config = drupal_get_path('module', 'openy_node_program');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.program.field_program_description.yml';
+  $config_importer->update($config,
+    'field.field.node.program.field_program_description',
+    'third_party_settings.datalayer'
+  );
+}
