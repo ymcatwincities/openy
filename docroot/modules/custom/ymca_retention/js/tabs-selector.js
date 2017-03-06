@@ -14,8 +14,7 @@
       .once('tab-collapse')
       .tabCollapse({
         tabsClass: 'hidden-xs',
-        accordionClass: 'visible-xs compain-accordion',
-
+        accordionClass: 'visible-xs compain-accordion'
       });
 
     $(document).on('show.bs.collapse', '.panel-collapse, a[data-toggle="tab"]', function (event) {
