@@ -50,11 +50,13 @@ dependencies:
   - config_import
   - field_group
   - address
+  - datalayer
   - paragraphs
   - plugin
   - pathauto
   - media_entity
   - views_block_filter_block
+  - libraries
   - migrate_plus
   - migrate_tools
   - verf
@@ -73,6 +75,7 @@ dependencies:
   - openy_node
   - openy_block
   - openy_block_basic
+  - openy_datalayer
   - openy_taxonomy
   - openy_txnm_color
   - openy_location
