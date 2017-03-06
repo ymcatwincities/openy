@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * OpenY Node Blog install file.
+ */
+
+/**
+ * Update Node Blog fields datalayer config for Data Layer additions.
+ */
+function openy_node_blog_update_8001() {
+  $configs = [
+    'field.field.node.blog.field_blog_category',
+    'field.field.node.blog.field_blog_description',
+    'field.field.node.blog.field_blog_style',
+  ];
+  $config_importer = \Drupal::service('config_import.param_updater');
+  foreach ($configs as $config_name) {
+    $config = drupal_get_path('module', 'openy_node_blog');
+    $config .= '/config/install/' . $config_name . '.yml';
+    $config_importer->update($config,
+      $config_name,
+      'third_party_settings.datalayer'
+    );
+  }
+}
