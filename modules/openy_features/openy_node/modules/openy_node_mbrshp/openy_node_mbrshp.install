@@ -9,7 +9,7 @@
  * Update Node Membership fields datalayer config for Data Layer additions.
  */
 function openy_node_mbrshp_update_8001() {
-  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_node_mbrshp');
   $config .= '/config/install/';
   $config .= 'field.field.node.membership.field_mbrshp_description.yml';

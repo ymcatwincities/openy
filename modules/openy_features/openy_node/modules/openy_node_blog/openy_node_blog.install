@@ -14,7 +14,7 @@ function openy_node_blog_update_8001() {
     'field.field.node.blog.field_blog_description',
     'field.field.node.blog.field_blog_style',
   ];
-  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name) {
     $config = drupal_get_path('module', 'openy_node_blog');
     $config .= '/config/install/' . $config_name . '.yml';
