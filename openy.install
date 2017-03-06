@@ -64,3 +64,12 @@ function openy_update_8003() {
     'openy_upgrade_tool',
   ]);
 }
+
+/**
+ * Fix tour config dependencies.
+ */
+function openy_update_8004() {
+  $config = drupal_get_path('theme', 'openy_rose') . '/config/optional/tour.tour.openy-theme-overview.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'tour.tour.openy-theme-overview', 'dependencies');
+}
