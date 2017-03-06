@@ -111,7 +111,6 @@
 
     @include breakpoint (768px) {
       margin: 0;
-      border-bottom: 3px solid $blue;
     }
 
     @include breakpoint (1024px) {
