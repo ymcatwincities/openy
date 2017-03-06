@@ -185,8 +185,8 @@
           $('.compain-accordion .panel-heading a').addClass('collapsed');
 
           // Expanding selected accordion item.
-          $('.compain-accordion a[href="##tab_2-collapse"]').removeClass('collapsed');
-          $('.compain-accordion ##tab_2-collapse').addClass('in').css('height', 'auto');
+          $('.compain-accordion a[href="#tab_2-collapse"]').removeClass('collapsed');
+          $('.compain-accordion #tab_2-collapse').addClass('in').css('height', 'auto');
         }
       }
 
