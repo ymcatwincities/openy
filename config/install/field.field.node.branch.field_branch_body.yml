@@ -13,6 +13,7 @@ dependencies:
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
+    - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
     - paragraphs.paragraphs_type.small_banner
     - paragraphs.paragraphs_type.whay
