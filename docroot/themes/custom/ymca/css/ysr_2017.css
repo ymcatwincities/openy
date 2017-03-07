@@ -1763,6 +1763,17 @@ html, body {
   width: 100%;
   border-radius: 5px;
   background-color: #fff;
+  border: 1px solid #20bdbe;
+}
+@media (min-width: 48em) {
+  .compain-progress--line {
+    border: none;
+  }
+}
+@media (min-width: 64em) {
+  .compain-progress--line {
+    border: none;
+  }
 }
 .compain-progress--line .line {
   background: currentColor;
