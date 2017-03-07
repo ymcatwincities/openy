@@ -5,6 +5,8 @@
  * OpenY Node Landing module
  */
 
+use \Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_field_group_build_pre_render_alter().
  */
@@ -12,6 +14,8 @@ function openy_node_landing_field_group_build_pre_render_alter(&$element) {
   if (!isset($element['group_sidebar_area']) || !isset($element['group_sidebar_area']['#bundle']) || $element['group_sidebar_area']['#bundle'] != 'landing_page') {
     return;
   }
+  // Set visible states for Landing page form Group Sidebar Area when Layout has
+  // a two column option selected.
   $element['group_sidebar_area']['#states'] = [
     'visible' => [
       [
@@ -22,4 +26,23 @@ function openy_node_landing_field_group_build_pre_render_alter(&$element) {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_node_landing_form_node_landing_page_form_alter(&$form, FormStateInterface $form_state) {
+  // Unset paragraph add options, by field, based on configuration.
+  $fields_unset_paragraphs = Drupal::configFactory()->get('openy_node_landing.settings')
+    ->get('fields_unset_paragraphs');
+  foreach ($fields_unset_paragraphs as $field_name => $unset_paragraphs) {
+    if (!isset($form[$field_name]) || empty($unset_paragraphs) || !is_array($unset_paragraphs)) {
+      continue;
+    }
+    foreach ($unset_paragraphs as $unset_paragraph) {
+      if (isset($form[$field_name]['widget']['add_more']['add_more_button_' . $unset_paragraph])) {
+        unset($form[$field_name]['widget']['add_more']['add_more_button_' . $unset_paragraph]);
+      }
+    }
+  }
 }
