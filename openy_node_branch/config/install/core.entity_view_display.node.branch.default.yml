@@ -28,18 +28,18 @@ mode: default
 content:
   field_branch_body:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 5
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
   field_branch_hours:
-    weight: 7
+    weight: 6
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: openy_custom_hours_default
+    type: openy_branch_hours_default
   field_header_content:
     type: entity_reference_revisions_entity_view
     weight: 0
@@ -49,53 +49,50 @@ content:
       link: ''
     third_party_settings: {  }
   field_location_address:
-    weight: 1
+    type: address_plain
+    weight: 8
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: address_default
   field_location_amenities:
-    weight: 8
+    weight: 7
     label: hidden
     settings:
       link: false
     third_party_settings: {  }
     type: entity_reference_label
   field_location_coordinates:
-    weight: 5
+    weight: 4
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
   field_location_email:
-    weight: 2
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
   field_location_fax:
-    weight: 4
-    label: hidden
-    settings:
-      title: ''
-    third_party_settings: {  }
-    type: telephone_link
-  field_location_phone:
     weight: 3
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
-  field_meta:
-    weight: 10
+  field_location_phone:
+    weight: 2
     label: hidden
-    settings: {  }
+    settings:
+      title: ''
     third_party_settings: {  }
+    type: telephone_link
+  field_meta:
     type: metatag_empty_formatter
-  links:
     weight: 9
+    label: hidden
     settings: {  }
     third_party_settings: {  }
 hidden:
   langcode: true
+  links: true

@@ -16,6 +16,7 @@ dependencies:
     - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
     - paragraphs.paragraphs_type.small_banner
+    - paragraphs.paragraphs_type.whay
   module:
     - entity_reference_revisions
 id: node.branch.field_branch_body
@@ -41,6 +42,7 @@ settings:
       simple_content: simple_content
       blackbaud: blackbaud
       1c: 1c
+      whay: whay
       all_amenities: all_amenities
       small_banner: small_banner
       panorama: panorama
@@ -94,23 +96,23 @@ settings:
         weight: -20
         enabled: false
       whay:
+        enabled: true
         weight: -19
-        enabled: false
       all_amenities:
         enabled: true
         weight: 23
       all_testimonials:
         weight: 29
         enabled: false
-      camp_menu:
+      branch_top_info:
         weight: 31
+        enabled: false
+      camp_menu:
+        weight: 32
         enabled: false
       small_banner:
         enabled: true
         weight: 37
-      panorama:
-        enabled: true
-        weight: 41
       prgf_location_finder_filters:
         weight: 42
         enabled: false
