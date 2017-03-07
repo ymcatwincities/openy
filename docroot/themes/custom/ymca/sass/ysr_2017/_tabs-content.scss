@@ -683,7 +683,16 @@
     width: 100%;
     border-radius: 5px;
     background-color: $white;
+    border: 1px solid #20bdbe;
 
+    @include breakpoint($tablet) {
+      border: none;
+    }
+
+    @include breakpoint($desktop-small) {
+      border: none;
+    }
+    
     .line {
       background: currentColor;
       border-radius: inherit;
