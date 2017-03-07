@@ -88,7 +88,7 @@
         return classes.join(' ');
       };
       self.tabSelectorClick = function (tab) {
-        $state.go('main', {tab: tab});
+        $state.go('main', {tab: tab}, {reload: true});
       };
 
       // Message for days left popup.
@@ -101,7 +101,6 @@
       };
 
       self.scrollTop = function () {
-        console.log('scrollTop');
         $anchorScroll('top');
       };
 
