@@ -133,6 +133,15 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
    */
   public function onSavingConfig(ConfigCrudEvent $event) {
     $config = $event->getConfig();
+    $original = $config->getOriginal();
+    if (empty($original)) {
+      // Skip new config.
+      return;
+    }
+    if ($original == $config->get()) {
+      // Skip config without updates.
+      return;
+    }
     $config_name = $config->getName();
     $openy_configs = $this->getOpenyConfigList();
     if (!in_array($config_name, $openy_configs)) {
