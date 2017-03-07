@@ -142,6 +142,8 @@
     @include rem(padding, 0 32px);
   }
 
+  position: relative;
+
   .content-video {
     img {
       width: 100%;

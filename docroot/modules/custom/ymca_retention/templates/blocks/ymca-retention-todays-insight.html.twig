@@ -29,14 +29,17 @@
             </div>
           </div>
         </div>
+        <a href="javascript:void(0);"
+           data-ng-click="todayInC.previous()"
+           data-ng-show="todayInC.isPrevious()" class="slick-prev slick-arrow">Previous</a>
+        <a href="javascript:void(0);"
+           data-ng-show="!todayInC.isPrevious()" class="slick-prev slick-arrow slick-disabled">Previous</a>
+        <a href="javascript:void(0);"
+           data-ng-click="todayInC.next()"
+           data-ng-show="todayInC.isNext()" class="slick-next slick-arrow">Next</a>
+        <a href="javascript:void(0);"
+           data-ng-show="!todayInC.isNext()" class="slick-next slick-arrow slick-disabled">Next</a>
       </div>
-
-      <a href="javascript:void(0);"
-         data-ng-click="todayInC.previous()"
-         data-ng-show="todayInC.isPrevious()">Previous</a>
-      <a href="javascript:void(0);"
-         data-ng-click="todayInC.next()"
-         data-ng-show="todayInC.isNext()">Next</a>
 
       <h3>{{ '{{ todayInC.getTitle() }}' }}</h3>
       <ng-bind-html
