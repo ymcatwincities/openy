@@ -75,31 +75,3 @@ Feature: Camp menu on camp and landing page
     And I should see "Aliased Landing page with camp link"
     Given I go to stored Node "system_url" from "camp-node-alias"
     And I should see "Aliased Landing page with camp link"
-
-    # Set homepage to Landing page with camp by alias
-    Given I go to "/admin/config/system/site-information"
-    And I fill in "Default front page" with "/landing-page-with-camp-alias"
-    Then I press the "Save configuration" button
-    # Because "I should see the message" was not working on this page.
-    And I go to "/admin/config/system/site-information"
-    Then the "Default front page" field should contain "/landing-page-with-camp-alias"
-
-    # Check is menu links present on Camp and front (Landing) page.
-    Then I go to homepage
-    And I should see "Aliased Landing page with camp link"
-    Then I go to stored Node "alias_url" from "aliased-landing-node"
-    And I should see "Aliased Landing page with camp link"
-
-    # Set homepage to Landing other page with camp by system path.
-    Given I go to "/admin/config/system/site-information"
-    And I fill in "Default front page" with stored Node "system_url" from "landing-node"
-    Then I press the "Save configuration" button
-    # Because "I should see the message" was not working on this page.
-    And I go to "/admin/config/system/site-information"
-    #Then the "Default front page" field should contain stored Node "system_url" from "landing-node"
-
-    # Check is menu links present on Camp and front (Landing) page.
-    Then I go to homepage
-    And I should see "Landing page with camp link"
-    Then I go to stored Node "system_url" from "landing-node"
-    And I should see "Landing page with camp link"
