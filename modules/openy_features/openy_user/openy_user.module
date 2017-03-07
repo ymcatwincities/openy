@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_user.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+
+/**
+ * Implements hook_node_presave().
+ */
+function openy_user_node_presave(EntityInterface $node) {
+  $roles = \Drupal::currentUser()->getRoles();
+  if (in_array('contributor', $roles)) {
+    // Unpublish node if author is contributor.
+    $node->setPublished(FALSE);
+  }
+}
