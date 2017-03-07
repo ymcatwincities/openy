@@ -17,7 +17,7 @@ function openy_prgf_form_alter(&$form, FormStateInterface $form_state, $form_id)
   }
 
   // Unset paragraph add options, by field, based on configuration.
-  $fields_unset_paragraphs = Drupal::configFactory()->get('openy_pgrf.settings')
+  $fields_unset_paragraphs = Drupal::configFactory()->get('openy_prgf.settings')
     ->get('fields_unset_paragraphs');
   foreach ($fields_unset_paragraphs as $field_name => $unset_paragraphs) {
     if (!isset($form[$field_name]) || empty($unset_paragraphs) || !is_array($unset_paragraphs)) {
