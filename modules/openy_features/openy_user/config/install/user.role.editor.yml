@@ -144,3 +144,8 @@ permissions:
   138: 'view any unpublished program content'
   139: 'view any unpublished program_subcategory content'
   140: 'view any unpublished session content'
+  141: 'access documents_library entity browser pages'
+  142: 'access documents_library_embed entity browser pages'
+  143: 'access images_library_embed entity browser pages'
+  144: 'access videos_library entity browser pages'
+  145: 'access videos_library_embed entity browser pages'

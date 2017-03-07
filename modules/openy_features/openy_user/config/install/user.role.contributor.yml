@@ -109,3 +109,8 @@ permissions:
   101: 'view any unpublished program content'
   102: 'view any unpublished program_subcategory content'
   103: 'view any unpublished session content'
+  104: 'access documents_library entity browser pages'
+  105: 'access documents_library_embed entity browser pages'
+  106: 'access images_library_embed entity browser pages'
+  107: 'access videos_library entity browser pages'
+  108: 'access videos_library_embed entity browser pages'
