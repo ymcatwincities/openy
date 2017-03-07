@@ -59,7 +59,9 @@
 
 <a href="#main" id="skip-link">{{ "Skip to main content"|t }}</a>
 <div id="top"></div>
-<div class="viewport">
+<div class="viewport"
+     data-ng-app="Retention"
+     data-ng-controller="RetentionController as retentionC">
   <div id="main" role="main">
     <section class="main--content">
       <div class="container-full-width" style="position: relative;">
@@ -100,7 +102,7 @@
   </footer>
 
   <div class="text-center return-to-top" data-spy="affix" data-offset-top="39">
-    <a href="#top" class="btn btn-default">
+    <a href="javascript:void(0)" data-ng-click="retentionC.scrollTop()" class="btn btn-default">
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
   </div>

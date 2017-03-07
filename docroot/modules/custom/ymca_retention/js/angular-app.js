@@ -67,7 +67,7 @@
       $stateProvider.state(state);
     });
 
-    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($sce, storage, $state) {
+    Drupal.ymca_retention.angular_app.controller('RetentionController', function ($sce, $anchorScroll, $state, storage) {
       var self = this;
       // Shared information.
       self.storage = storage;
@@ -92,7 +92,7 @@
       };
 
       // Message for days left popup.
-      self.daysLeftMessage = function() {
+      self.daysLeftMessage = function () {
         return $sce.trustAsHtml(Drupal.formatPlural(
           self.storage.campaign.days_left,
           '1 day left',
@@ -100,7 +100,12 @@
         ));
       };
 
-      self.instantWinClass = function() {
+      self.scrollTop = function () {
+        console.log('scrollTop');
+        $anchorScroll('top');
+      };
+
+      self.instantWinClass = function () {
         var classes = [];
         if (!self.storage.instantWinCount) {
           classes.push('empty');
