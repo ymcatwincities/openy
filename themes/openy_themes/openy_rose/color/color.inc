@@ -114,4 +114,17 @@ $info = array(
     'logo.svg',
   ),
 
+  // Preview files.
+  'preview_library' => 'openy_rose/color.preview',
+  'preview_html' => 'color/preview.html',
+
+  // Attachments.
+  '#attached' => [
+    'drupalSettings' => [
+      'color' => [
+        // Put the logo path into JavaScript for the live preview.
+        'logo' => theme_get_setting('logo.url', 'openy_rose'),
+      ],
+    ],
+  ],
 );
