@@ -17,6 +17,7 @@ dependencies:
     - address
     - entity_reference_revisions
     - geolocation
+    - metatag
     - openy_field_custom_hours
     - telephone
     - user
@@ -86,7 +87,12 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+  field_meta:
+    type: metatag_empty_formatter
+    weight: 9
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
 hidden:
-  field_meta: true
   langcode: true
   links: true
