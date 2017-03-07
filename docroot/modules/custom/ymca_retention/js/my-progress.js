@@ -153,7 +153,15 @@
           }
         }
 
+        if (visits > self.visitsGoal()) {
+          visits = self.visitsGoal();
+        }
+
         return visits;
+      };
+
+      self.isGoalAchieved = function () {
+        return self.visitsGoal() == self.visitsCount();
       };
 
       self.visitsCountClass = function () {
