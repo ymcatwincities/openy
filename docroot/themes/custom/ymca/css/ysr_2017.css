@@ -1346,6 +1346,7 @@ html, body {
 .content-video-wrapper {
   margin: 20px 0 30px 0;
   margin: 2rem 0 3rem 0;
+  position: relative;
 }
 @media (min-width: 48em) {
   .content-video-wrapper {
