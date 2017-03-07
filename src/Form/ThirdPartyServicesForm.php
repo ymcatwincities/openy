@@ -73,7 +73,7 @@ class ThirdPartyServicesForm extends FormBase {
     $optimizely_id = $form_state->getValue('optimizely_id');
     $optimizely_config->set('optimizely_id', $optimizely_id);
     $optimizely_config->save();
-    // Update the default project / experiment entry with the account ID value
+    // Update the default project / experiment entry with the account ID value.
     Database::getConnection('default')->update('optimizely')
       ->fields(array(
         'project_code' => $optimizely_id,
