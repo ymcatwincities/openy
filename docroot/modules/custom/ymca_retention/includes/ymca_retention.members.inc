@@ -14,7 +14,7 @@ use Drupal\taxonomy\TermStorage;
 /**
  * Helper function to create fake members and activities.
  */
-function _ymca_retention_members_create() {
+function _ymca_retention_members_create($options) {
   $count = 1;
   foreach (_ymca_retention_fake_members() as $i => $fake_member) {
     $locationRepository = \Drupal::service('ymca_mappings.location_repository');
@@ -41,7 +41,7 @@ function _ymca_retention_members_create() {
     // _ymca_retention_activities_create($member);
 
     // Create checkins for the member.
-    _ymca_retention_checkins_create($member);
+    _ymca_retention_checkins_create($member, !empty($options['everyday']));
 
     // Create bonuses for the member.
     _ymca_retention_bonuses_create($member);
@@ -55,9 +55,12 @@ function _ymca_retention_members_create() {
 /**
  * Helper function to create fake checkins.
  */
-function _ymca_retention_checkins_create($member) {
+function _ymca_retention_checkins_create($member, $everyday = FALSE) {
   $count = rand(3, 8);
-  $dates = _ymca_retention_generate_random_dates($count);
+  $dates = _ymca_retention_generate_random_dates($count, $everyday);
+  if ($everyday) {
+    $count = count($dates);
+  }
   for ($i = 0; $i < $count; $i++) {
     $checkin = \Drupal::entityTypeManager()
       ->getStorage('ymca_retention_member_checkin')
@@ -428,7 +431,7 @@ function _ymca_retention_generate_random_string($length = 10, $only_number = FAL
 /**
  * Return array with random dates.
  */
-function _ymca_retention_generate_random_dates($number_elements = 3) {
+function _ymca_retention_generate_random_dates($number_elements = 3, $everyday = FALSE) {
   $max_array_length = 50;
   $config = \Drupal::config('ymca_retention.general_settings');
   $start_date = new \DateTime($config->get('date_campaign_open'));
@@ -447,6 +450,10 @@ function _ymca_retention_generate_random_dates($number_elements = 3) {
     $dates[] = clone $current_date;
     $current_date->add(new \DateInterval('P1D'));
     $count++;
+  }
+
+  if ($everyday) {
+    return $dates;
   }
 
   $random_keys = array_rand($dates, max(1, min($number_elements, $count)));
