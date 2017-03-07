@@ -189,12 +189,16 @@
         }
         else {
           // Reseting accordion.
-          $('.compain-accordion .collapse.in').removeClass('in');
+          $('.compain-accordion .in').removeClass('in').addClass('collapse');
           $('.compain-accordion .panel-heading a').addClass('collapsed');
 
           // Expanding selected accordion item.
           $('.compain-accordion a[href="#tab_2-collapse"]').removeClass('collapsed');
           $('.compain-accordion #tab_2-collapse').addClass('in').css('height', 'auto');
+
+          $('body').animate({
+            scrollTop: $('a[href="#tab_2-collapse"]').offset().top
+          });
         }
       }
 
