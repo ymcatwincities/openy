@@ -21,5 +21,5 @@ function openy_node_branch_update_8001() {
  * Update display settings.
  */
 function openy_node_branch_update_8002() {
-  \Drupal::service('config_import.features_importer')->import('openy_node_branch');
+  \Drupal::service('config_import.features_importer')->importFeatures(['openy_node_branch']);
 }
