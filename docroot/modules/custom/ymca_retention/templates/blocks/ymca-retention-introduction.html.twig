@@ -30,9 +30,11 @@
               <a href="{{ path('ymca_frontend.locations') }}" target="_blank">{{ 'Find your Y'|t }}</a>.
             </p>
           </div>
-          <figure class="img">
-            <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-phoenix.png"/>
-          </figure>
+          <a href="{{ path('ymca_frontend.locations') }}" target="_blank">
+            <figure class="img">
+              <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-phoenix.png"/>
+            </figure>
+          </a>
         </div>
       </div>
 
@@ -46,9 +48,12 @@
                  data-ng-click="retentionC.tabSelectorClick('tab_3')">{{ 'See your goal & progress'|t }}</a>.
             </p>
           </div>
-          <figure class="img">
-            <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-guestpasses.png"/>
-          </figure>
+          <a href="javascript:void(0)"
+             data-ng-click="retentionC.tabSelectorClick('tab_3')">
+            <figure class="img">
+              <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-guestpasses.png"/>
+            </figure>
+          </a>
         </div>
       </div>
 
@@ -62,9 +67,12 @@
                  data-ng-click="retentionC.tabSelectorClick('tab_2')">{{ 'Find tips'|t }}</a>.
             </p>
           </div>
-          <figure class="img">
-            <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-ybucks.png"/>
-          </figure>
+          <a href="javascript:void(0)"
+             data-ng-click="retentionC.tabSelectorClick('tab_2')">
+            <figure class="img">
+              <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-ybucks.png"/>
+            </figure>
+          </a>
         </div>
       </div>
     </div>
