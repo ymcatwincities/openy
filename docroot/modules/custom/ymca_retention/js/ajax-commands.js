@@ -17,7 +17,7 @@
     }
     else {
       // Reseting accordion.
-      $('.compain-accordion .collapse.in').removeClass('in');
+      $('.compain-accordion .in').removeClass('in').addClass('collapse');
       $('.compain-accordion .panel-heading a').addClass('collapsed');
 
       // Expanding selected accordion item after login.
