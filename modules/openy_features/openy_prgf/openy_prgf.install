@@ -6,15 +6,15 @@
  */
 
 /**
- * Add openy_pgrf.settings fields_unset_paragraphs configuration.
+ * Add openy_prgf.settings fields_unset_paragraphs configuration.
  */
 function openy_prgf_update_8001() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_prgf');
   $config .= '/config/install/';
-  $config .= 'openy_pgrf.settings.yml';
+  $config .= 'openy_prgf.settings.yml';
   $config_importer->update($config,
-    'openy_pgrf.settings',
+    'openy_prgf.settings',
     'fields_unset_paragraphs'
   );
 }
