@@ -59,6 +59,7 @@ dependencies:
   - libraries
   - migrate_plus
   - migrate_tools
+  - optimizely
   - verf
   - simple_menu_icons
   - slick
