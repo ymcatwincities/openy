@@ -21,6 +21,12 @@ class GenerateContentForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $form['options'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Options:'),
+      '#options' => ['everyday' => 'Generate checkin for each day of campaign'],
+    ];
+
     $form['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Create 10 test members with checkins and bonuses'),
@@ -34,7 +40,7 @@ class GenerateContentForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     module_load_include('inc', 'ymca_retention', 'includes/ymca_retention.members');
-    _ymca_retention_members_create();
+    _ymca_retention_members_create($form_state->getValue('options'));
   }
 
 }
