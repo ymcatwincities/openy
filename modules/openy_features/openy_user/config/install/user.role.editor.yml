@@ -149,3 +149,4 @@ permissions:
   143: 'access images_library_embed entity browser pages'
   144: 'access videos_library entity browser pages'
   145: 'access videos_library_embed entity browser pages'
+  146: 'use text format full_html'
