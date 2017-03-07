@@ -5,10 +5,6 @@ dependencies:
     - field.storage.node.field_facility_loc
     - node.type.branch
     - node.type.facility
-third_party_settings:
-  datalayer:
-    expose: 1
-    label: field_facility_loc
 id: node.facility.field_facility_loc
 field_name: field_facility_loc
 entity_type: node
