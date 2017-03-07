@@ -7,7 +7,7 @@
     }
     $('body').addClass('ymca-retention-my-progress-processed');
 
-    Drupal.ymca_retention.angular_app.controller('MyProgressController', function (storage) {
+    Drupal.ymca_retention.angular_app.controller('MyProgressController', function (storage, $state) {
       var self = this;
       // Shared information.
       self.storage = storage;
@@ -182,6 +182,7 @@
       self.todayInsight = function (timestamp) {
         self.storage.todays_insight_timestamp = timestamp;
 
+        $state.go('main', {tab: 'tab_2'}, {reload: true});
         if ($('.nav-tabs').is(':visible')) {
           var $link = $('.nav-tabs a[href="#tab_2"]');
           $link.tab('show');
