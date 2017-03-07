@@ -101,3 +101,11 @@ function openy_update_8006() {
     $importer->import('openy_demo_node_facility');
   }
 }
+
+/**
+ * Enable Optimizely module.
+ */
+function openy_update_8007() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['optimizely']);
+}

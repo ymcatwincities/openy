@@ -32,6 +32,7 @@ projects[plugin] = 2.4
 projects[libraries] = 3.x-dev
 projects[migrate_plus] = 3.0-beta1
 projects[migrate_tools] = 3.0-beta1
+projects[optimizely] = 1.2
 projects[verf] = 1.0-beta6
 projects[simple_menu_icons][subdir] = contrib
 projects[simple_menu_icons][version] = 1.x-dev
