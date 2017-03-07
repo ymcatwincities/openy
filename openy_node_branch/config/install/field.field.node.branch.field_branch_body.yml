@@ -44,6 +44,7 @@ settings:
       whay: whay
       all_amenities: all_amenities
       small_banner: small_banner
+      panorama: panorama
     target_bundles_drag_drop:
       2c:
         enabled: true
