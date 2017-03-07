@@ -896,6 +896,10 @@ html, body {
   background-position: -9999px -9999px;
   background-repeat: no-repeat;
   overflow: hidden;
+  cursor: default;
+}
+.compain-progress-block [data-ng-click] {
+  cursor: pointer;
 }
 .compain-progress-block--header {
   height: 180px;
@@ -1330,6 +1334,7 @@ html, body {
   vertical-align: top;
   color: #006b6b;
   position: relative;
+  cursor: default;
 }
 .compain-progress--label .description-label .label:before {
   content: '';
