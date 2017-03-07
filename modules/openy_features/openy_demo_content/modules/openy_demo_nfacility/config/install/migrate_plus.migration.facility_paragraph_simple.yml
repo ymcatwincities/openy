@@ -17,7 +17,7 @@ source:
       parent_id: 1
       description: |
         <h2>We Appreciate Your Support</h2>
-        <p>Every year, we rely on donations to help ensure that all of the people in our community can access our services. There are lots of ways you can give, and we’re grateful for your help./p>
+        <p>Every year, we rely on donations to help ensure that all of the people in our community can access our services. There are lots of ways you can give, and we’re grateful for your help.</p>
     -
       id: 2
       parent_id: 2
