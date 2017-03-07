@@ -16,3 +16,10 @@ function openy_node_branch_update_8001() {
       'field.field.node.branch.field_branch_body',
     ]);
 }
+
+/**
+ * Update display settings.
+ */
+function openy_node_branch_update_8002() {
+  \Drupal::service('config_import.features_importer')->import('openy_node_branch');
+}
