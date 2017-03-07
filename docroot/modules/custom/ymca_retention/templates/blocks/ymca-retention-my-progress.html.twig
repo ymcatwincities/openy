@@ -21,8 +21,13 @@
         </div>
 
         <div class="compain-progress--description">
-            <div class="description-item">
+            <div class="description-item"
+                 data-ng-show="!myProgressC.isGoalAchieved()">
                 <p>You need <b>{{ '{{ myProgressC.visitsLeft() }}' }} more visits</b> <br/> to achive your goal.</p>
+            </div>
+            <div class="description-item"
+                 data-ng-show="myProgressC.isGoalAchieved()">
+                <p>You have achieved your goal!</p>
             </div>
         </div>
         <div class="compain-progress--label ">
