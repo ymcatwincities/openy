@@ -31,7 +31,7 @@
             </p>
           </div>
           <figure class="img">
-            <img alt="img" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/tabs/icon-phoenix.png"/>
+            <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-phoenix.png"/>
           </figure>
         </div>
       </div>
@@ -42,12 +42,12 @@
             <h3>2. {{ 'Track progress'|t }}</h3>
             <p>
               {{ 'Each visit is one step closer to meeting your goal &mdash; and getting 4 guest passes.'|t }}
-              <a style="display: none;" href="#tab_3" class="campaign-not-started"
-                 data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">{{ 'See your goal & progress'|t }}</a>
+              <a href="javascript:void(0)"
+                 data-ng-click="retentionC.tabSelectorClick('tab_3')">{{ 'See your goal & progress'|t }}</a>.
             </p>
           </div>
           <figure class="img">
-            <img alt="img" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/tabs/icon-guestpasses.png"/>
+            <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-guestpasses.png"/>
           </figure>
         </div>
       </div>
@@ -58,12 +58,12 @@
             <h3>3. {{ 'Check out daily tips'|t }}</h3>
             <p>
               {{ 'Come back to the site daily, March 8-21 for inspiration to integrate wellness in your life. For each tip that you check out, you’ll be entered in a drawing for Y Bucks.'|t }}
-              <a style="display: none;" href="#tab_2" class="campaign-not-started"
-                 data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">{{ 'Find tips'|t }}</a>
+              <a href="javascript:void(0)"
+                 data-ng-click="retentionC.tabSelectorClick('tab_2')">{{ 'Find tips'|t }}</a>.
             </p>
           </div>
           <figure class="img">
-            <img alt="img" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/tabs/icon-ybucks.png"/>
+            <img alt="img" src="{{ base_path ~ directory }}/prototypes/ysr_2017/img/tabs/icon-ybucks.png"/>
           </figure>
         </div>
       </div>
