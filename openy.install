@@ -13,17 +13,23 @@
  * @see system_install()
  */
 function openy_install() {
+  $config_factory = Drupal::configFactory();
+  $module_installer = Drupal::service('module_installer');
+
   // Set the default and admin theme.
-  \Drupal::configFactory()
+  $config_factory
     ->getEditable('system.theme')
     ->set('default', 'openy_rose')
     ->set('admin', 'seven')
     ->save(TRUE);
 
   // Enable the admin theme.
-  \Drupal::configFactory()->getEditable('node.settings')->set('use_admin_theme', TRUE)->save(TRUE);
+  $config_factory->getEditable('node.settings')->set('use_admin_theme', TRUE)->save(TRUE);
   // Enable openy_upgrade_tool.
-  \Drupal::service('module_installer')->install(['openy_upgrade_tool'], TRUE);
+  $module_installer->install(['openy_upgrade_tool'], TRUE);
+
+  // Enable openy_user after all modules are installed.
+  $module_installer->install(['openy_user'], TRUE);
 }
 
 /**
