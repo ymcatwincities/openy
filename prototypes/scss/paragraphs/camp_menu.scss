@@ -1,0 +1,37 @@
+.paragraph--type--camp-menu {
+  .camp-menu-wrapper {
+    position: relative;
+    background-color: $dark-green;
+    padding-left: 137px;
+  }
+
+  .camp-menu {
+    height: 60px;
+    margin-bottom: 0;
+    padding: 0;
+    position: relative;
+    z-index: 6;
+  }
+
+  .camp-menu__item {
+    height: 60px;
+    display: inline-block;
+    list-style: none;
+  }
+
+  .camp-menu-wrapper a:hover,
+  .camp-menu-wrapper .active {
+    background-color: $green-aa;
+  }
+
+  .camp-menu__item a {
+    @include cachet();
+    line-height: 60px;
+    padding: 0 20px;
+    color: $white;
+    display: block;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+}
