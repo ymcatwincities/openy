@@ -89,7 +89,7 @@ function openy_update_8005() {
 /**
  * Enable and import demo Facilities.
  */
-function openy_update_8005() {
+function openy_update_8006() {
   if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
     // Enable modules.
     \Drupal::service('module_installer')->install([
