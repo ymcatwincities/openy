@@ -67,7 +67,7 @@
       }
     }
   }
-
+  .is-camp &__top-menu,
   &__top-menu {
     @include clearfix();
 
@@ -103,7 +103,7 @@
       }
     }
   }
-
+  .is-camp &__main-menu,
   &__main-menu {
 
     a {
