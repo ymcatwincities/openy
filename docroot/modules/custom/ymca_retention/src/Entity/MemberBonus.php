@@ -82,4 +82,11 @@ class MemberBonus extends ContentEntityBase implements MemberBonusInterface {
     return $this->get('date')->value;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getBonusCode() {
+    return $this->get('bonus_code')->value;
+  }
+
 }

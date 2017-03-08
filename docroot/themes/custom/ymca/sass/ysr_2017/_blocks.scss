@@ -149,8 +149,10 @@
   background-position: -9999px -9999px;
   background-repeat: no-repeat;
   overflow: hidden;
-
-
+  cursor: default;
+  [data-ng-click] {
+    cursor: pointer;
+  }
 
   &--header {
     @include rem(height, 180px);
