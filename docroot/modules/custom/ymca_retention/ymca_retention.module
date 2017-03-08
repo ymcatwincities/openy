@@ -5,16 +5,15 @@
  * Contains specific features related to the functionality provided by module.
  */
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Database\Query\AlterableInterface;
-use Drupal\Core\Template\Attribute;
-use Drupal\ymca_retention\Entity\MemberChance;
-use Drupal\ymca_retention\PersonifyApi;
-use Drupal\ymca_retention\Entity\MemberCheckIn;
-use Drupal\ymca_retention\Entity\Member;
-use Drupal\views\ViewExecutable;
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Database\Query\AlterableInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\ymca_retention\Entity\Member;
+use Drupal\ymca_retention\Entity\MemberBonus;
+use Drupal\ymca_retention\Entity\MemberChance;
+use Drupal\ymca_retention\Entity\MemberCheckIn;
+use Drupal\ymca_retention\PersonifyApi;
 
 /**
  * Implements hook_form_alter().
@@ -270,26 +269,28 @@ function ymca_retention_cron() {
 /**
  * Implements hook_ENTITY_TYPE_delete().
  *
- * Remove member activities when deleting the member.
+ * Remove member activities, bonuses, chances, checkins and remove from winners
+ * when deleting the member.
  */
 function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
+  /** @var Member $entity */
+  // Remove member activities.
   /** @var \Drupal\ymca_retention\ActivityManager $service */
   $service = \Drupal::service('ymca_retention.activity_manager');
   $member_activities = $service->getMemberActivities($entity->getId());
 
   if (!empty($member_activities)) {
-    // Remove member activities.
     $storage = \Drupal::entityTypeManager()
       ->getStorage('ymca_retention_member_activity');
     $storage->delete($member_activities);
   }
 
-  // Remove member from the winners list.
-  $winners_storage = \Drupal::entityTypeManager()
-    ->getStorage('ymca_retention_winner');
-  $winners = $winners_storage->loadByProperties(['member' => $entity->getId()]);
-  if (!empty($winners)) {
-    $winners_storage->delete($winners);
+  // Remove member bonuses.
+  $bonuses_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_member_bonus');
+  $bonuses = $bonuses_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($bonuses)) {
+    $bonuses_storage->delete($bonuses);
   }
 
   // Remove member chances.
@@ -307,10 +308,20 @@ function ymca_retention_ymca_retention_member_delete(EntityInterface $entity) {
   if (!empty($checkins)) {
     $checkins_storage->delete($checkins);
   }
+
+  // Remove member from the winners list.
+  $winners_storage = \Drupal::entityTypeManager()
+    ->getStorage('ymca_retention_winner');
+  $winners = $winners_storage->loadByProperties(['member' => $entity->getId()]);
+  if (!empty($winners)) {
+    $winners_storage->delete($winners);
+  }
 }
 
 /**
  * Implements hook_ENTITY_TYPE_insert().
+ *
+ * Create member checkins when member is created.
  */
 function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
   /** @var Member $entity */
@@ -339,23 +350,22 @@ function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
     $date_to = clone $date_from;
     $date_to->setTime(23, 59, 59);
 
-    // Get information about number of checkins in period of the campaign.
+    // Verify the member doesn't yet have checkin for this date.
+    $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
+      ->condition('member', $entity->getId())
+      ->condition('date', $date_from->getTimestamp())
+      ->execute();
+    if (!empty($checkin_ids)) {
+      continue;
+    }
+
+    // Get information about number of visits on this date.
     $results = PersonifyApi::getPersonifyVisitsBatch([$entity->getPersonifyId()], $date_from, $date_to);
     if (!empty($results->ErrorMessage)) {
       continue;
     }
     foreach ($results->FacilityVisitCustomerRecord as $item) {
       if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
-        continue;
-      }
-
-      $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
-        ->condition('member', $entity->getId())
-        ->condition('date', $date_from->getTimestamp())
-        ->execute();
-
-      // Verify checkins for the day.
-      if (!empty($checkin_ids)) {
         continue;
       }
 
@@ -372,8 +382,11 @@ function ymca_retention_ymca_retention_member_insert(EntityInterface $entity) {
 
 /**
  * Implements hook_ENTITY_TYPE_insert().
+ *
+ * Update total number of visits and create member chance.
  */
 function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $entity) {
+  // Update visits count on member entity.
   /** @var MemberCheckIn $entity */
   $checkins_storage = \Drupal::entityTypeManager()
     ->getStorage('ymca_retention_member_checkin');
@@ -396,8 +409,11 @@ function ymca_retention_ymca_retention_member_checkin_insert(EntityInterface $en
 
 /**
  * Implements hook_ENTITY_TYPE_insert().
+ *
+ * Update total number of bonuses.
  */
 function ymca_retention_ymca_retention_member_bonus_insert(EntityInterface $entity) {
+  // Update bonuses count on member entity.
   /** @var MemberBonus $entity */
   $bonuses_storage = \Drupal::entityTypeManager()
     ->getStorage('ymca_retention_member_bonus');
