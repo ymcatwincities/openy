@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_pager.field_prgf_block
+    - paragraphs.paragraphs_type.content_pager
+  module:
+    - plugin
+id: paragraph.content_pager.default
+targetEntityType: paragraph
+bundle: content_pager
+mode: default
+content:
+  field_prgf_block:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+hidden: {  }
