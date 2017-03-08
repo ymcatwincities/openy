@@ -431,3 +431,25 @@ function ymca_retention_update_8022() {
   $block_content->set('body', ['value' => $content, 'format' => 'full_html']);
   $block_content->save();
 }
+
+/**
+ * Update YMCA Retention Spring 2017.
+ */
+function ymca_retention_update_8023() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // YMCA Retention pages.
+      'page_manager.page_variant.ymca_retention_challenge',
+      // YMCA Retention image styles.
+      'image.style.2017_ymca_retention',
+      'image.style.2017_ymca_retention_big',
+      // YMCA Retention bonus codes form config.
+      'ymca_retention.bonus_codes_settings',
+      // YMCA Retention views.
+      'views.view.ymca_members',
+      'views.view.ymca_retention_member_prizes',
+    ]
+  );
+}

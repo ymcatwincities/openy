@@ -7,16 +7,16 @@
 <div class="compain-user-menu">
   <div class="link-wrapper ng-hide" data-ng-show="retentionC.storage.member">
     <span class="login--user">{{ 'Hi, @first_name!'|t({ '@first_name': '{{retentionC.storage.member.firstName}}' }) }}</span>
-    <a class="link--email" href="#"
+    <a class="link--email" href="javascript:void(0)"
        data-toggle="modal" data-target="#ymca-retention-modal" data-type="email">{{ 'Change email'|t }}</a>
   </div>
-  <a class="link--log-out ng-hide" href="#"
+  <a class="link--log-out ng-hide" href="javascript:void(0)"
      data-ng-show="retentionC.storage.member"
      data-ng-click="retentionC.storage.memberCookieRemove()">{{ 'Sign Out'|t }}</a>
-  <a class="link--register ng-hide" href="#"
+  <a class="link--register ng-hide" href="javascript:void(0)"
      data-toggle="modal" data-target="#ymca-retention-modal" data-type="register"
      data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Sign Up'|t }}</a>
-  <a class="link--sign-in ng-hide" href="#"
+  <a class="link--sign-in ng-hide" href="javascript:void(0)"
      data-toggle="modal" data-target="#ymca-retention-modal" data-type="login"
      data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Log In'|t }}</a>
   <div class="ymca-retention-user-menu-forms" style="display: none;">
