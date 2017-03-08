@@ -64,11 +64,11 @@ class DataExport extends RestExport {
     $export_limit = $view->getDisplay()->getOption('export_limit');
 
     $view->build();
-    $view->get_total_rows = TRUE;
+    $count_query = clone $view->query;
+    $total_rows = $count_query->query()->countQuery()->execute()->fetchField();
     // Don't load and instantiate so many entities.
     $view->query->setLimit(1);
     $view->execute();
-    $total_rows = $view->total_rows;
 
     // If export limit is set and the number of rows is greater than the
     // limit, then set the total to limit.

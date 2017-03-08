@@ -10,12 +10,16 @@
    */
   Drupal.behaviors.ymca_retention_tabs_selector = {};
   Drupal.behaviors.ymca_retention_tabs_selector.attach = function (context, settings) {
+    if ($('body').hasClass('ymca-retention-tabs-selector-processed')) {
+      return;
+    }
+    $('body').addClass('ymca-retention-tabs-selector-processed');
+
     $('.compain-tabs', context)
       .once('tab-collapse')
       .tabCollapse({
         tabsClass: 'hidden-xs',
-        accordionClass: 'visible-xs compain-accordion',
-
+        accordionClass: 'visible-xs compain-accordion'
       });
 
     $(document).on('show.bs.collapse', '.panel-collapse, a[data-toggle="tab"]', function (event) {
@@ -26,7 +30,7 @@
       var tab_id = $target.attr('id').replace('-collapse', '');
 
       // Collapsing accordion item.
-      $('a[href="#' + tab_id + '-collapse"]').addClass('collapsed');
+      $('a[href="#' + tab_id + '-collapse"]').removeClass('collapsed');
 
       if (settings.ymca_retention.tabs_selector.campaign_started) {
         // Checking whether private content is available.
@@ -50,8 +54,18 @@
       event.preventDefault();
     });
 
+    $(document).on('hidden.bs.collapse', '.panel-collapse, a[data-toggle="tab"]', function (event) {
+      // Get accordion item.
+      var $target = $(event.currentTarget);
+
+      // Getting accordion item ID.
+      var tab_id = $target.attr('id').replace('-collapse', '');
+
+      $('a[href="#' + tab_id + '-collapse"]').addClass('collapsed');
+    });
+
     // Scroll to just opened tab.
-    $(document).off('shown.bs.collapse').on('shown.bs.collapse', function (event) {
+    $(document).on('shown.bs.collapse', function (event) {
       $('body').animate({
         scrollTop: $(this.activeElement).offset().top
       });
