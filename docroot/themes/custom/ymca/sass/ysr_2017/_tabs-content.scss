@@ -117,6 +117,7 @@
       vertical-align: top;
       color: $green-dark;
       position: relative;
+      cursor: default;
 
       &:before {
         content: '';
@@ -141,6 +142,8 @@
     @include rem(margin, 60px 0 40px 0);
     @include rem(padding, 0 32px);
   }
+
+  position: relative;
 
   .content-video {
     img {
@@ -680,7 +683,16 @@
     width: 100%;
     border-radius: 5px;
     background-color: $white;
+    border: 1px solid #20bdbe;
 
+    @include breakpoint($tablet) {
+      border: none;
+    }
+
+    @include breakpoint($desktop-small) {
+      border: none;
+    }
+    
     .line {
       background: currentColor;
       border-radius: inherit;
@@ -1044,7 +1056,7 @@
   }
 
   .content {
-    max-width: 400px;
+    max-width: 445px;
     margin: 0 auto;
   }
 

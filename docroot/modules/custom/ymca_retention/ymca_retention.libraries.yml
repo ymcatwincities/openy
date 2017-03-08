@@ -1,12 +1,26 @@
 angular:
-  version: 1.5.7
+  version: 1.6.2
   js:
-    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js: { type: external, minified: true }
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js: { type: external, minified: true }
 
 angular-cookies:
-  version: 1.5.7
+  version: 1.6.2
   js:
-    //ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.min.js: { type: external, minified: true }
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-cookies.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-sanitize:
+  version: 1.6.2
+  js:
+    //ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js: { type: external, minified: true }
+  dependencies:
+    - ymca_retention/angular
+
+angular-ui-router:
+  version: 0.3.2
+  js:
+    //unpkg.com/angular-ui-router@0.3.2/release/angular-ui-router.min.js: { type: external, minified: true }
   dependencies:
     - ymca_retention/angular
 
@@ -87,6 +101,7 @@ angular-app:
     - ymca_retention/angular
     - ymca_retention/angular-cookies
     - ymca_retention/angular-promise-tracker
+    - ymca_retention/angular-ui-router
     - core/drupal
     - core/drupalSettings
 
@@ -112,10 +127,24 @@ progress:
   dependencies:
     - ymca_retention/angular-app
 
+my-progress:
+  version: VERSION
+  js:
+    js/my-progress.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+
 instant-win:
   version: VERSION
   js:
     js/instant-win.js: {}
+  dependencies:
+    - ymca_retention/angular-app
+
+todays-insight:
+  version: VERSION
+  js:
+    js/todays-insight.js: {}
   dependencies:
     - ymca_retention/angular-app
 
