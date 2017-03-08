@@ -441,20 +441,10 @@ class MemberRegisterForm extends FormBase {
       }
     }
 
-    // Get information about number of checkins in period of campaign.
-    // TODO: create member checkin entities for every visit.
-    $from = $settings->get('date_reporting_open');
-    $to = $settings->get('date_reporting_close');
-    $current_result = PersonifyApi::getPersonifyVisitCountByDate($personify_member->MasterCustomerId, $from, $to);
-
-    $total_visits = 0;
-    if (empty($current_result->ErrorMessage) && $current_result->TotalVisits > 0) {
-      $total_visits = $current_result->TotalVisits;
-    }
-
     // Identify if user is employee or not.
     $is_employee = !empty($personify_member->ProductCode) && strpos($personify_member->ProductCode, 'STAFF');
 
+    // Find member branch in Mappings.
     $location = $this->locationRepository->findByLocationPersonifyBranchCode($personify_member->BranchId);
     if (is_array($location)) {
       $location = key($location);
@@ -475,7 +465,7 @@ class MemberRegisterForm extends FormBase {
         'branch' => (int) $location,
         'is_employee' => $is_employee,
         'visit_goal' => $visit_goal,
-        'total_visits' => $total_visits,
+        'total_visits' => 0,
         'created_by_staff' => $config['yteam'],
         'created_on_mobile' => $form_state->getValue('created_on_mobile'),
       ]);
