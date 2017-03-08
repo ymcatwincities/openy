@@ -43,3 +43,5 @@ fields_unset_paragraphs:
     - grid_columns
     - membership_info
     - session_time
+    - promo_card
+    - story_card
