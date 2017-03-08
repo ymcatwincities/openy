@@ -101,6 +101,12 @@ class SettingsBonusCodesForm extends ConfigFormBase {
         ],
       ];
 
+      $group['video'] = [
+        '#type' => 'textarea',
+        '#title' => $this->t('Video embed code'),
+        '#default_value' => $bonus_codes[$delta]['video'],
+      ];
+
       $form['bonus_codes'][$delta++] = $group;
       $date->modify('+1 day');
     }
