@@ -442,6 +442,7 @@ class MemberRegisterForm extends FormBase {
     }
 
     // Get information about number of checkins in period of campaign.
+    // TODO: create member checkin entities for every visit.
     $from = $settings->get('date_reporting_open');
     $to = $settings->get('date_reporting_close');
     $current_result = PersonifyApi::getPersonifyVisitCountByDate($personify_member->MasterCustomerId, $from, $to);
