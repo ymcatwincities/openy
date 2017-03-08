@@ -5,7 +5,7 @@
       $('.ui-widget-overlay').on('click', function () {
         $(event.target).dialog('close');
       });
-    }
+    };
   }
 
   var ymca_theme_semaphore = false;
@@ -30,7 +30,7 @@
 
         var menuHeight = $('.top-navs').height();
         var top = $(hash).offset().top;
-        if (menuHeight == 0) {
+        if (menuHeight === 0) {
           // Mobile.
           $(document).scrollTop(top - 52);
         }

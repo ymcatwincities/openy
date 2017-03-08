@@ -201,7 +201,7 @@
             scrollTop: $('a[href="#tab_2-collapse"]').offset().top
           });
         }
-      }
+      };
 
     });
   };
