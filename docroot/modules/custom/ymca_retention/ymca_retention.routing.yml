@@ -52,7 +52,7 @@ ymca_retention.ymca_retention_member.delete_all:
     _form: '\Drupal\ymca_retention\Form\DeleteAllMembersForm'
     _title: 'YMCA Retention Delete All Members'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
 
 ymca_retention.settings:
   path: '/admin/config/system/ymca-retention'
@@ -60,7 +60,7 @@ ymca_retention.settings:
     _form: '\Drupal\ymca_retention\Form\SettingsForm'
     _title: 'YMCA Retention Settings'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
 
 ymca_retention.settings_branches:
   path: '/admin/config/system/ymca-retention/branches'
@@ -68,7 +68,7 @@ ymca_retention.settings_branches:
     _form: '\Drupal\ymca_retention\Form\SettingsBranchesForm'
     _title: 'YMCA Retention Branches'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
 
 ymca_retention.settings_cron:
   path: '/admin/config/system/ymca-retention/cron'
@@ -76,7 +76,7 @@ ymca_retention.settings_cron:
     _form: '\Drupal\ymca_retention\Form\SettingsCronForm'
     _title: 'YMCA Retention Cron'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
 
 ymca_retention.settings_instant_win:
   path: '/admin/config/system/ymca-retention/instant-win'
@@ -84,7 +84,7 @@ ymca_retention.settings_instant_win:
     _form: '\Drupal\ymca_retention\Form\SettingsInstantWinForm'
     _title: 'YMCA Retention Instant Win'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
 
 ymca_retention.settings_bonus_codes:
   path: '/admin/config/system/ymca-retention/bonus-codes'
@@ -92,7 +92,7 @@ ymca_retention.settings_bonus_codes:
     _form: '\Drupal\ymca_retention\Form\SettingsBonusCodesForm'
     _title: 'YMCA Retention Bonus Codes'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
 
 ymca_retention.settings_generate_content:
   path: '/admin/config/system/ymca-retention/generate-content'
@@ -100,7 +100,15 @@ ymca_retention.settings_generate_content:
     _form: '\Drupal\ymca_retention\Form\GenerateContentForm'
     _title: 'YMCA Retention Generate content'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
+
+ymca_retention.settings_calculate_goals:
+  path: '/admin/config/system/ymca-retention/calculate-goals'
+  defaults:
+    _form: '\Drupal\ymca_retention\Form\CalculateGoalsForm'
+    _title: 'YMCA Retention Calculate goals'
+  requirements:
+    _permission: 'administer retention campaign'
 
 ymca_retention.leaderboard_json:
   path: '/ymca-retention/leaderboard/{branch_id}'
@@ -116,6 +124,14 @@ ymca_retention.campaign_json:
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\CampaignController::campaignJson'
     _title: 'YMCA Retention Campaign JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.spring2017_campaign_json:
+  path: '/ymca_retention/spring2017campaign'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\Spring2017CampaignController::campaignJson'
+    _title: 'YMCA Retention Spring 2017 Campaign JSON'
   requirements:
     _permission: 'access content'
 
@@ -151,11 +167,35 @@ ymca_retention.member_checkins_json:
   requirements:
     _permission: 'access content'
 
+ymca_retention.member_bonuses_json:
+  path: '/ymca-retention/member-bonuses'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::memberBonusesJson'
+    _title: 'YMCA Retention Member Bonuses JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.member_add_bonus:
+  path: '/ymca-retention/member-add-bonus'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\MemberController::addBonus'
+    _title: 'YMCA Retention Member Add Bonus'
+  requirements:
+    _permission: 'access content'
+
 ymca_retention.recent_winners_json:
   path: '/ymca-retention/recent-winners'
   defaults:
     _controller: '\Drupal\ymca_retention\Controller\MemberController::recentWinnersJson'
     _title: 'YMCA Retention Recent Winners JSON'
+  requirements:
+    _permission: 'access content'
+
+ymca_retention.todays_insight_json:
+  path: '/ymca-retention/todays-insight'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\TodaysInsightController::todaysInsightJson'
+    _title: 'YMCA Retention Todays Insight JSON'
   requirements:
     _permission: 'access content'
 
@@ -165,7 +205,7 @@ ymca_retention.settings_fix_members:
     _form: '\Drupal\ymca_retention\Form\FixMembersForm'
     _title: 'YMCA Retention Fix Members'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer retention campaign'
 
 # TODO Hide menu item for now, as not used.
 #ymca_retention.ymca_winners.draw_winners:
@@ -174,5 +214,5 @@ ymca_retention.settings_fix_members:
 #    _controller: '\Drupal\ymca_retention\Controller\WinnersController::drawWinners'
 #    _title: 'Draw winners'
 #  requirements:
-#    _permission: 'administer site configuration'
+#    _permission: 'administer retention campaign'
 #    _csrf_token: 'TRUE'
