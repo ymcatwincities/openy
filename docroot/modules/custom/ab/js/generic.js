@@ -49,7 +49,7 @@
             var footerHome = $(document).find('.page-footer');
 
             // Display previously hidden replacements.
-            $.each(drupalSettings['ab'], function (index, value) {
+            $.each(drupalSettings.ab, function (index, value) {
                 $(context).find(value.selector).attr("style", "visibility: visible;");
             });
             if (cookie !== 'a' && cookie !== 'b') {
@@ -65,9 +65,9 @@
                 }
             }
 
-            if (cookie == 'b' && drupalSettings['ab_state'] == 1) {
+            if (cookie == 'b' && drupalSettings.ab_state == 1) {
 
-                $.each(drupalSettings['ab'], function (index, value) {
+                $.each(drupalSettings.ab, function (index, value) {
                     $(context).find(value.selector).once('ab').each(function () {
                         $(context).find('.nav-home').addClass('nav-themes-b');
                         $(context).find('.page-footer').addClass('footer-themes-b');
@@ -75,7 +75,7 @@
                     });
                 });
                 // Set display back in case if we are using id selectors.
-                $.each(drupalSettings['ab'], function (index, value) {
+                $.each(drupalSettings.ab, function (index, value) {
                     $(context).find(value.selector).attr("style", "visibility: visible;");
                 });
             }
