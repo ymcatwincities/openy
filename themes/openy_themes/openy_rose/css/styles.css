@@ -929,8 +929,25 @@ body {
   }
 }
 @media (min-width: 62em) and (max-width: 74.9375em) {
-  .row-level-2 > li:nth-child(3n + 1) {
+  .row-level-2 > li:nth-child(4n + 1) {
     clear: both;
+  }
+}
+@media (min-width: 74.9375em) {
+  .row-level-2 > li:nth-child(6n + 1) {
+    clear: both;
+  }
+  .row-level-2.menu-columns-1 {
+    left: auto;
+  }
+  .row-level-2.menu-columns-2 {
+    left: auto;
+  }
+  .row-level-2.menu-columns-3 {
+    left: auto;
+  }
+  .row-level-2.menu-columns-4, .row-level-2.menu-columns-5, .row-level-2.menu-columns-6 {
+    left: 10%;
   }
 }
 .section-icon {
