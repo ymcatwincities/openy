@@ -26,7 +26,7 @@ mode: default
 content:
   field_camp_body:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 1
     label: hidden
     settings:
       view_mode: default
@@ -41,32 +41,32 @@ content:
       link: ''
     third_party_settings: {  }
   field_location_address:
-    weight: 1
+    weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_default
   field_location_coordinates:
-    weight: 5
+    weight: 6
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
   field_location_email:
-    weight: 2
+    weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
   field_location_fax:
-    weight: 3
+    weight: 4
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
   field_location_phone:
-    weight: 4
+    weight: 5
     label: hidden
     settings:
       title: ''
