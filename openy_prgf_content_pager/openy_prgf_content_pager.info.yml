@@ -4,6 +4,7 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
+  - openy_content_pager
   - content_moderation
   - field
   - openy_prgf
