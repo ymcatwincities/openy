@@ -8,7 +8,6 @@ use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ymca_retention\Ajax\YmcaRetentionModalSetContent;
-use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 use Drupal\ymca_retention\PersonifyApi;
@@ -275,7 +274,6 @@ class MemberRegisterForm extends FormBase {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
 
-      $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
       $ajax_response->addCommand(new YmcaRetentionModalSetContent('ymca-retention-user-menu-reg-confirmation-form'));
 
       $this->refreshValues($form_state);
