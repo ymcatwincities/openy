@@ -8,57 +8,78 @@
   <ul class="nav nav-tabs compain-tabs hidden-xs">
 
     <li data-ng-class="retentionC.tabSelectorClass('tab_1')">
-      <a href="#tab_1" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_1', false)">{{ 'Introduction'|t }}</a>
-    </li>
-
-    <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member"
-        data-ng-class="retentionC.tabSelectorClass('tab_2')">
-      <a href="#tab_2" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_2', false)">
-        {{ 'Enter prize drawing'|t }}
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_1', false)" data-tab-id="tab_1" data-type="tab">
+        {{ 'Introduction'|t }}
       </a>
     </li>
-    <li class="ng-hide"
-        data-ng-show="!retentionC.storage.campaign.started">
-      <a href="#tab_2" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">
-        {{ 'Enter prize drawing'|t }}
-      </a>
-    </li>
-    <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && !retentionC.storage.member">
-      <a href="#tab_2" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
-        {{ 'Enter prize drawing'|t }}
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_1')">
+      <a href="#tab_1" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_1', false)" data-tab-id="tab_1" data-type="accordion">
+        {{ 'Introduction'|t }}
       </a>
     </li>
 
-    <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member"
-        data-ng-class="retentionC.tabSelectorClass('tab_3')">
-      <a href="#tab_3" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_3', false)">
+    <li data-ng-class="retentionC.tabSelectorClass('tab_2')">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_2', false)" data-tab-id="tab_2" data-type="tab">
+        {{ 'Enter prize drawing'|t }}
+      </a>
+    </li>
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_2')">
+      <a href="#tab_2" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_2', false)" data-tab-id="tab_2" data-type="accordion">
+        {{ 'Enter prize drawing'|t }}
+      </a>
+    </li>
+    <li class="ng-hide">
+      <a href="#tab_2" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-tab-id="tab_2" data-type="tabs-lock">
+        {{ 'Enter prize drawing'|t }}
+      </a>
+    </li>
+    <li class="ng-hide">
+      <a href="#tab_2" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-tab-id="tab_2" data-type="login">
+        {{ 'Enter prize drawing'|t }}
+      </a>
+    </li>
+
+    <li data-ng-class="retentionC.tabSelectorClass('tab_3')">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_3', false)" data-tab-id="tab_3" data-type="tab">
         {{ 'Goals & progress'|t }}
       </a>
     </li>
-    <li class="ng-hide"
-        data-ng-show="!retentionC.storage.campaign.started">
-      <a href="#tab_3" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-type="tabs-lock">
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_3')">
+      <a href="#tab_3" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_3', false)" data-tab-id="tab_3" data-type="accordion">
         {{ 'Goals & progress'|t }}
       </a>
     </li>
-    <li class="ng-hide"
-        data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && !retentionC.storage.member">
-      <a href="#tab_3" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
+    <li class="ng-hide">
+      <a href="#tab_3" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-tab-id="tab_3" data-type="tabs-lock">
+        {{ 'Goals & progress'|t }}
+      </a>
+    </li>
+    <li class="ng-hide">
+      <a href="#tab_3" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-tab-id="tab_3" data-type="login">
         {{ 'Goals & progress'|t }}
       </a>
     </li>
 
     <li data-ng-class="retentionC.tabSelectorClass('tab_4')">
-      <a href="#tab_4" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_4', false)">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_4', false)" data-tab-id="tab_4" data-type="tab">
+        {{ 'Winners'|t }}
+      </a>
+    </li>
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_4')">
+      <a href="#tab_4" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_4', false)" data-tab-id="tab_4" data-type="accordion">
         {{ 'Winners'|t }}
       </a>
     </li>
 
     <li class="compain-tabs--detailed" data-ng-class="retentionC.tabSelectorClass('tab_5')">
-      <a href="#tab_5" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_5', false)">{{ 'Detailed Rules'|t }}</a>
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_5', false)" data-tab-id="tab_5" data-type="tab">
+        {{ 'Detailed Rules'|t }}
+      </a>
+    </li>
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_5')">
+      <a href="#tab_5" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_5', false)" data-tab-id="tab_5" data-type="accordion">
+        {{ 'Detailed Rules'|t }}
+      </a>
     </li>
 
   </ul>
