@@ -8,13 +8,13 @@
   <ul class="nav nav-tabs compain-tabs hidden-xs">
 
     <li data-ng-class="retentionC.tabSelectorClass('tab_1')">
-      <a href="#tab_1" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_1')">{{ 'Introduction'|t }}</a>
+      <a href="#tab_1" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_1', false)">{{ 'Introduction'|t }}</a>
     </li>
 
     <li class="ng-hide"
         data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member"
         data-ng-class="retentionC.tabSelectorClass('tab_2')">
-      <a href="#tab_2" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_2')">
+      <a href="#tab_2" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_2', false)">
         {{ 'Enter prize drawing'|t }}
       </a>
     </li>
@@ -34,7 +34,7 @@
     <li class="ng-hide"
         data-ng-show="retentionC.storage.campaign.started && retentionC.storage.member_loaded && retentionC.storage.member"
         data-ng-class="retentionC.tabSelectorClass('tab_3')">
-      <a href="#tab_3" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_3')">
+      <a href="#tab_3" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_3', false)">
         {{ 'Goals & progress'|t }}
       </a>
     </li>
@@ -52,15 +52,14 @@
     </li>
 
     <li data-ng-class="retentionC.tabSelectorClass('tab_4')">
-      <a href="#tab_4" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_4')">
+      <a href="#tab_4" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_4', false)">
         {{ 'Winners'|t }}
       </a>
     </li>
 
     <li class="compain-tabs--detailed" data-ng-class="retentionC.tabSelectorClass('tab_5')">
-      <a href="#tab_5" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_5')">{{ 'Detailed Rules'|t }}</a>
+      <a href="#tab_5" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_5', false)">{{ 'Detailed Rules'|t }}</a>
     </li>
 
   </ul>
-  <div class="panel-group visible-xs compain-accordion"></div>
 </div>

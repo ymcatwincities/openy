@@ -40,7 +40,6 @@
 
         // Displaying login form on modal.
         $('.nav-tabs a[href="#' + tab_id + '"].login-required').click();
-        $('#ymca-retention-modal .modal-header').show();
       }
       else {
         if (!$('.nav-tabs a[href="#' + tab_id + '"]').hasClass('login-required')) {
