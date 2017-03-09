@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * Class CampMenuService.
@@ -37,6 +38,13 @@ class CampMenuService implements CampMenuServiceInterface {
   protected $config;
 
   /**
+   * Entity query object.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $query_factory;
+
+  /**
    * Constructs a new CampMenuService.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -48,10 +56,16 @@ class CampMenuService implements CampMenuServiceInterface {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, Connection $connection, ConfigFactoryInterface $config_factory) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    Connection $connection,
+    ConfigFactoryInterface $config_factory,
+    QueryFactory $query_factory)
+  {
     $this->entityTypeManager = $entity_type_manager;
     $this->connection = $connection;
     $this->config = $config_factory->get('system.site');
+    $this->query_factory = $query_factory;
   }
 
   /**
@@ -167,7 +181,7 @@ class CampMenuService implements CampMenuServiceInterface {
       // If the front is set to this node directly.
       $is_front = ($front == $system_path) ? TRUE : $is_front;
       // Query 1 Camp nodes that link to this landing page.
-      $query = \Drupal::entityQuery('node');
+      $query = $this->query_factory->get('node');
       $group = $query->orConditionGroup()
         ->condition('field_camp_menu_links', 'entity:node/' . $node->id())
         ->condition('field_camp_menu_links', 'internal:' . $system_path);
