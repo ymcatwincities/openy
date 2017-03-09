@@ -1,0 +1,194 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nmbrshp
+id: openy_demo_node_membership
+migration_tags: {  }
+migration_group: openy_demo_nmbrshp
+label: 'Create demo membership page nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: couple
+      title: 'Couple'
+      description: |
+        <p>Two adults in&nbsp;same household</p>
+
+        <p>Join Fee: $125&nbsp;</p>
+
+        <p>Monthly Rate: $120</p>
+      image_id: couple_image
+      mbrshp_info_ids:
+        -
+          mbrshp_info_id: couple_1
+        -
+          mbrshp_info_id: couple_2
+        -
+          mbrshp_info_id: couple_3
+        -
+          mbrshp_info_id: couple_4
+    -
+      id: adult
+      title: 'Adult'
+      description: |
+        <p>Adults (30-64)</p>
+
+        <p>Join Fee: $100&nbsp;&nbsp;</p>
+
+        <p>Monthly Rate: $73</p>
+      image_id: adult_image
+      mbrshp_info_ids:
+        -
+          mbrshp_info_id: adult_1
+        -
+          mbrshp_info_id: adult_2
+        -
+          mbrshp_info_id: adult_3
+        -
+          mbrshp_info_id: adult_4
+    -
+      id: youth
+      title: 'Youth'
+      description: |
+        <p>Youth (0-13)</p>
+
+        <p>Join Fee: $25</p>
+
+        <p>Monthly Rate: $42</p>
+      image_id: youth_image
+      mbrshp_info_ids:
+        -
+          mbrshp_info_id: youth_1
+        -
+          mbrshp_info_id: youth_2
+        -
+          mbrshp_info_id: youth_3
+        -
+          mbrshp_info_id: youth_4
+    -
+      id: teen_young_adult
+      title: 'Teen/Young Adult'
+      description: |
+        <p>Teen/Young Adult&nbsp;(14-29)</p>
+
+        <p>Join Fee: $50&nbsp;<strong>&nbsp;</strong></p>
+
+        <p>Monthly Rate: $52</p>
+      image_id: teen_young_adult_image
+      mbrshp_info_ids:
+        -
+          mbrshp_info_id: teen_young_adult_1
+        -
+          mbrshp_info_id: teen_young_adult_2
+        -
+          mbrshp_info_id: teen_young_adult_3
+        -
+          mbrshp_info_id: teen_young_adult_4
+    -
+      id: family_1
+      title: 'Family 1'
+      description: |
+        <p>One adult plus dependents</p>
+
+        <p>Join Fee: $100 &nbsp;</p>
+
+        <p>Monthly Rate: $109</p>
+      image_id: family_1_image
+      mbrshp_info_ids:
+        -
+          mbrshp_info_id: family_1_1
+        -
+          mbrshp_info_id: family_1_2
+        -
+          mbrshp_info_id: family_1_3
+        -
+          mbrshp_info_id: family_1_4
+    -
+      id: family_2
+      title: 'Family 2'
+      description: |
+        <p>Two adults in same&nbsp;household&nbsp;plus dependents</p>
+
+        <p>Join Fee: $125&nbsp;</p>
+
+        <p>Monthly Rate: $129</p>
+      image_id: family_2_image
+      mbrshp_info_ids:
+        -
+          mbrshp_info_id: family_2_1
+        -
+          mbrshp_info_id: family_2_2
+        -
+          mbrshp_info_id: family_2_3
+        -
+          mbrshp_info_id: family_2_4
+    -
+      id: senior
+      title: 'Senior'
+      description: |
+        <p>Adults (65+)</p>
+
+        <p>Join Fee: $75&nbsp;</p>
+
+        <p>Monthly Rate: $66</p>
+      image_id: senior_image
+      mbrshp_info_ids:
+        -
+          mbrshp_info_id: senior_1
+        -
+          mbrshp_info_id: senior_2
+        -
+          mbrshp_info_id: senior_3
+        -
+          mbrshp_info_id: senior_4
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  field_mbrshp_description/value: description
+  field_mbrshp_description/format:
+      plugin: default_value
+      default_value: full_html
+  field_mbrshp_image:
+    plugin: migration
+    migration: openy_demo_membership_media_image
+    source: image_id
+  field_mbrshp_info:
+    plugin: iterator
+    source: mbrshp_info_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_membership_paragraph_membership_info
+        source: mbrshp_info_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_membership_paragraph_membership_info
+        source: mbrshp_info_id
+destination:
+  plugin: 'entity:node'
+  default_bundle: membership
+migration_dependencies:
+  required:
+    - openy_demo_membership_media_image
+    - openy_demo_membership_paragraph_membership_info
+  optional: { }
