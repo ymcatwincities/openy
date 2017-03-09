@@ -30,48 +30,52 @@
         url: '/challenge?tab',
         params: defaultStateParams,
         onEnter: function(storage, $stateParams) {
+          // Early return if active_tab is the same as requested tab.
           if ($stateParams.active_tab === $stateParams.tab) {
             return;
           }
 
+          // Flag to control if active tab was changed.
+          var active_tab_changed = false;
+
           // Handle not protected tabs.
           if ($stateParams.tab === 'tab_1' || $stateParams.tab === 'tab_4' || $stateParams.tab === 'tab_5') {
             $stateParams.active_tab = $stateParams.tab;
-            return;
+            active_tab_changed = true;
           }
 
           // Handle protected tabs.
           if (storage.member_loaded && storage.campaign_loaded) {
-
             if (storage.campaign.started) {
               if (storage.member) {
                 $stateParams.active_tab = $stateParams.tab;
-
-                // Update mobile accordion.
-                if (!$('.nav-tabs').is(':visible') && $stateParams.update_mobile) {
-                  $stateParams.update_mobile = false;
-                  // // Resetting accordion.
-                  $('.compain-accordion .in').removeClass('in').addClass('collapse');
-                  $('.compain-accordion .panel-heading a').addClass('collapsed');
-
-                  // Expanding selected accordion item.
-                  $('.compain-accordion a[href="#' + $stateParams.tab + '-collapse"]').removeClass('collapsed');
-                  $('.compain-accordion #' + $stateParams.tab + '-collapse').addClass('in').css('height', 'auto');
-
-                  $('body').animate({
-                    scrollTop: $('a[href="#' + $stateParams.tab + '-collapse"]').offset().top
-                  });
-                }
+                active_tab_changed = true;
               }
               else {
                 // Activate login popup.
-                $('a[href="#' + $stateParams.tab + '"][data-type="login"]').click();
+                $('a[data-tab-id="' + $stateParams.tab + '"][data-type="login"]').click();
               }
             }
             else {
               // Activate days left popup.
-              $('a[href="#' + $stateParams.tab + '"][data-type="tabs-lock"]').click();
+              $('a[data-tab-id="' + $stateParams.tab + '"][data-type="tabs-lock"]').click();
             }
+          }
+
+          // Update mobile accordion if it is visible and active tab changed.
+          if ($('.compain-accordion').is(':visible') && $stateParams.update_mobile && active_tab_changed) {
+            $stateParams.update_mobile = false;
+            // Resetting accordion.
+            $('.compain-accordion .in').removeClass('in').addClass('collapse');
+            $('.compain-accordion .panel-heading a').addClass('collapsed');
+
+            // Expanding selected accordion item.
+            $('.compain-accordion a[href="#' + $stateParams.tab + '-collapse"]').removeClass('collapsed');
+            $('.compain-accordion #' + $stateParams.tab + '-collapse').addClass('in').css('height', 'auto');
+
+            $('body').animate({
+              scrollTop: $('a[href="#' + $stateParams.tab + '-collapse"]').offset().top
+            });
           }
         },
         resolve: {
@@ -119,6 +123,13 @@
 
       self.scrollTop = function () {
         $anchorScroll('top');
+      };
+
+      self.logOut = function () {
+        // Activate first tab.
+        $state.go('main', {tab: 'tab_1', update_mobile: true}, {reload: true});
+        // Remove member cookie.
+        self.storage.memberCookieRemove();
       };
 
       self.instantWinClass = function () {
@@ -409,13 +420,21 @@
       };
       self.setInitialValues();
 
-      // Watch member_loaded and campaign_loaded to switch state
+      // Watch campaign_loaded and member_loaded to switch state
       // and either activate requested tabs or show popups.
       $rootScope.$watch(function () {
-        return self.member_loaded && self.campaign_loaded;
+        if (self.campaign_loaded && self.member_loaded) {
+          if (self.member) {
+            return 2;
+          }
+
+          return 1;
+        }
+
+        return 0;
       }, function (newVal, oldVal) {
         if (newVal) {
-          $state.go('main', {}, {reload: true});
+          $state.go('main', {update_mobile: true}, {reload: true});
         }
       });
 
