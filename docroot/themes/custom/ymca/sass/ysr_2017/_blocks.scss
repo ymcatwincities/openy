@@ -273,6 +273,14 @@
         font-style: normal;
         color: $green-dark;
       }
+
+      .tip-title {
+        color: $green-dark;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
     .description {
