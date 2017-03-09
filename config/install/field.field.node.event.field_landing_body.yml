@@ -11,6 +11,7 @@ dependencies:
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.header
     - paragraphs.paragraphs_type.lto
+    - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
   module:
     - entity_reference_revisions
@@ -36,6 +37,7 @@ settings:
       header: header
       lto: lto
       simple_content: simple_content
+      panorama: panorama
     target_bundles_drag_drop:
       1c:
         enabled: true
@@ -73,16 +75,37 @@ settings:
       lto:
         enabled: true
         weight: 28
+      all_amenities:
+        weight: 28
+        enabled: false
+      all_testimonials:
+        weight: 29
+        enabled: false
       membership_calculator:
         weight: 29
         enabled: false
+      blackbaud:
+        weight: 30
+        enabled: false
       program_registration:
         weight: 30
+        enabled: false
+      camp_menu:
+        weight: 31
         enabled: false
       simple_content:
         enabled: true
         weight: 31
       whay:
         weight: 32
+        enabled: false
+      panorama:
+        enabled: true
+        weight: 41
+      prgf_location_finder_filters:
+        weight: 42
+        enabled: false
+      small_banner:
+        weight: 45
         enabled: false
 field_type: entity_reference_revisions
