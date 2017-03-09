@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_amenities feature.
+ */
 
 /**
  * Update All amenities view.

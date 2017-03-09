@@ -1,0 +1,17 @@
+name: 'OpenY Paragraph Panorama'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - content_moderation
+  - crop
+  - entity_browser_entity_form
+  - field
+  - file
+  - gardengnome_player
+  - image
+  - inline_entity_form
+  - language
+  - paragraphs
+  - text
+version: 8.x-1.0

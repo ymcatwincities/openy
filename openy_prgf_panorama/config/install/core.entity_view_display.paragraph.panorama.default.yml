@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.panorama.field_prgf_panorama
+    - paragraphs.paragraphs_type.panorama
+id: paragraph.panorama.default
+targetEntityType: paragraph
+bundle: panorama
+mode: default
+content:
+  field_prgf_panorama:
+    weight: 0
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+hidden: {  }

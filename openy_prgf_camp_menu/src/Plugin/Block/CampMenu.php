@@ -13,7 +13,7 @@ use Drupal\openy_prgf_camp_menu\CampMenuServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a leader board block.
+ * Provides a Camp Menu block.
  *
  * @Block(
  *   id = "camp_menu",

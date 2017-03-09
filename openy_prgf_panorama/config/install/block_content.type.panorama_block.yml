@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: panorama_block
+label: 'Panorama Block'
+revision: 0
+description: 'Contains panorama player.'

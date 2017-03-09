@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: panorama
+label: Panorama
+behavior_plugins: {  }
