@@ -182,25 +182,7 @@
       self.todayInsight = function (timestamp) {
         self.storage.todays_insight_timestamp = timestamp;
 
-        $state.go('main', {tab: 'tab_2'}, {reload: true});
-        if ($('.nav-tabs').is(':visible')) {
-          var $link = $('.nav-tabs a[href="#tab_2"]');
-          $link.tab('show');
-          $link.parent().addClass('active');
-        }
-        else {
-          // Reseting accordion.
-          $('.compain-accordion .in').removeClass('in').addClass('collapse');
-          $('.compain-accordion .panel-heading a').addClass('collapsed');
-
-          // Expanding selected accordion item.
-          $('.compain-accordion a[href="#tab_2-collapse"]').removeClass('collapsed');
-          $('.compain-accordion #tab_2-collapse').addClass('in').css('height', 'auto');
-
-          $('body').animate({
-            scrollTop: $('a[href="#tab_2-collapse"]').offset().top
-          });
-        }
+        $state.go('main', {tab: 'tab_2', update_mobile: true}, {reload: true});
       };
 
     });
