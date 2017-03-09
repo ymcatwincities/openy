@@ -115,3 +115,16 @@ function openy_update_8007() {
   // Enable module.
   \Drupal::service('module_installer')->install(['optimizely']);
 }
+
+/**
+ * Add user and main menu blocks to sidebar region.
+ */
+function openy_update_8008() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/optional';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.mainnavigation',
+    'block.block.useraccountmenu',
+  ]);
+}

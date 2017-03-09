@@ -102,6 +102,10 @@
         line-height: 1.42;
       }
     }
+    &.clearfix {
+      // Fix for menu contextual links.
+      overflow: visible;
+    }
   }
   .is-camp &__main-menu,
   &__main-menu {

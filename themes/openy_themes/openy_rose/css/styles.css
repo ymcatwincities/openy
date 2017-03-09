@@ -391,6 +391,9 @@ body {
     line-height: 1.42;
   }
 }
+.is-camp .page-head__top-menu.clearfix, .page-head__top-menu.clearfix {
+  overflow: visible;
+}
 .is-camp .page-head__main-menu a, .page-head__main-menu a {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   color: #fff;
