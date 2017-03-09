@@ -1,0 +1,174 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nmbrshp
+id: openy_demo_membership_paragraph_membership_info
+migration_tags: {  }
+migration_group: openy_demo_nmbrshp
+label: 'Create membership info paragraph(s) for demo membership nodes'
+migration_dependencies:
+  required:
+    - openy_demo_node_branch
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: couple_1
+      parent_id: couple
+      location_id: 1
+    -
+      id: couple_2
+      parent_id: couple
+      location_id: 2
+    -
+      id: couple_3
+      parent_id: couple
+      location_id: 3
+    -
+      id: couple_4
+      parent_id: couple
+      location_id: 4
+    -
+      id: adult_1
+      parent_id: adult
+      location_id: 1
+    -
+      id: adult_2
+      parent_id: adult
+      location_id: 2
+    -
+      id: adult_3
+      parent_id: adult
+      location_id: 3
+    -
+      id: adult_4
+      parent_id: adult
+      location_id: 4
+    -
+      id: youth_1
+      parent_id: youth
+      location_id: 1
+    -
+      id: youth_2
+      parent_id: youth
+      location_id: 2
+    -
+      id: youth_3
+      parent_id: youth
+      location_id: 3
+    -
+      id: youth_4
+      parent_id: youth
+      location_id: 4
+    -
+      id: teen_young_adult_1
+      parent_id: teen_young_adult
+      location_id: 1
+    -
+      id: teen_young_adult_2
+      parent_id: teen_young_adult
+      location_id: 2
+    -
+      id: teen_young_adult_3
+      parent_id: teen_young_adult
+      location_id: 3
+    -
+      id: teen_young_adult_4
+      parent_id: teen_young_adult
+      location_id: 4
+    -
+      id: family_1_1
+      parent_id: family_1
+      location_id: 1
+    -
+      id: family_1_2
+      parent_id: family_1
+      location_id: 2
+    -
+      id: family_1_3
+      parent_id: family_1
+      location_id: 3
+    -
+      id: family_1_4
+      parent_id: family_1
+      location_id: 4
+    -
+      id: family_2_1
+      parent_id: family_2
+      location_id: 1
+    -
+      id: family_2_2
+      parent_id: family_2
+      location_id: 2
+    -
+      id: family_2_3
+      parent_id: family_2
+      location_id: 3
+    -
+      id: family_2_4
+      parent_id: family_2
+      location_id: 4
+    -
+      id: senior_1
+      parent_id: senior
+      location_id: 1
+    -
+      id: senior_2
+      parent_id: senior
+      location_id: 2
+    -
+      id: senior_3
+      parent_id: senior
+      location_id: 3
+    -
+      id: senior_4
+      parent_id: senior
+      location_id: 4
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_membership
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_header_content
+  field_mbrshp_join_fee:
+     plugin: default_value
+     default_value: NULL
+  field_mbrshp_monthly_rate:
+     plugin: default_value
+     default_value: NULL
+  field_mbrshp_link/uri:
+    plugin: default_value
+    default_value: 'http://openymca.org'
+  field_mbrshp_link/title:
+    plugin: default_value
+    default_value: 'Select'
+  field_mbrshp_location:
+    plugin: migration
+    migration: openy_demo_node_branch
+    source: location_id
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: membership_info

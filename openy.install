@@ -144,3 +144,18 @@ function openy_update_8009() {
     $importer->import('openy_demo_node_alert');
   }
 }
+
+/**
+ * Enable and import demo Membership content and Demo Join page.
+ */
+function openy_update_8010() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_demo_nmbrshp',
+  ], TRUE);
+
+  // Run openy_demo_node_landing & openy_demo_node_membership migrations.
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('openy_demo_node_landing');
+  $importer->import('openy_demo_node_membership');
+}
