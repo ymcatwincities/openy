@@ -6,7 +6,7 @@ dependencies:
     - node.type.event
     - paragraphs.paragraphs_type.1c
     - paragraphs.paragraphs_type.contact_us
-    - paragraphs.paragraphs_type.event_registration
+    - paragraphs.paragraphs_type.openy_event_registration
     - paragraphs.paragraphs_type.simple_content
   module:
     - entity_reference_revisions
@@ -25,7 +25,7 @@ settings:
   handler_settings:
     target_bundles:
       1c: 1c
-      event_registration: event_registration
+      openy_event_registration: openy_event_registration
       contact_us: contact_us
       simple_content: simple_content
     target_bundles_drag_drop:
