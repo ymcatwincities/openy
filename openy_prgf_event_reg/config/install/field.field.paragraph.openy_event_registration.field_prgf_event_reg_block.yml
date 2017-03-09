@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_prgf_event_reg_block
-    - paragraphs.paragraphs_type.event_registration
+    - paragraphs.paragraphs_type.openy_event_registration
   module:
     - plugin
-id: paragraph.event_registration.field_prgf_event_reg_block
+id: paragraph.openy_event_registration.field_prgf_event_reg_block
 field_name: field_prgf_event_reg_block
 entity_type: paragraph
-bundle: event_registration
+bundle: openy_event_registration
 label: 'Event Registration block'
 description: ''
 required: false

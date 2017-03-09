@@ -2,13 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.event_registration.field_prgf_event_reg_block
-    - paragraphs.paragraphs_type.event_registration
+    - field.field.paragraph.openy_event_registration.field_prgf_event_reg_block
+    - paragraphs.paragraphs_type.openy_event_registration
   module:
     - plugin
-id: paragraph.event_registration.default
+id: paragraph.openy_event_registration.default
 targetEntityType: paragraph
-bundle: event_registration
+bundle: openy_event_registration
 mode: default
 content:
   field_prgf_event_reg_block:
