@@ -5,6 +5,10 @@
  * OpenY HF routines.
  */
 
+use Drupal\Component\Utility\Html;
+use Drupal\core\Render\Markup;
+use Symfony\Component\HttpFoundation\Request;
+
 const OPENY_HF_DEFAULT_LIFETIME = 28800;
 
 /**
@@ -37,4 +41,34 @@ function openy_hf_page_attachments(array &$attachments) {
   $attachments['#attached']['drupalSettings']['openy_hf.cookieLifeTime'] = $cookie_lifetime;
 
   $attachments['#attached']['library'][] = 'openy_hf/openy_hf_generic';
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function openy_hf_preprocess_page(&$variables) {
+  $route = \Drupal::service('current_route_match')->getRouteName();
+  if ($route == 'openy_hf.header' || $route == 'openy_hf.footer') {
+    // Make relative to absolute urls.
+    $regions = [
+      'header',
+      'secondary_menu',
+      'primary_menu',
+      'footer',
+      'footer_menu',
+    ];
+    unset($variables['page']['footer_social']['socialiconsfooter']);
+    // There are better ways to grab the $base_url for sure.
+    $base_url = Request::createFromGlobals()->getSchemeAndHttpHost();
+    $variables['base_path'] = $base_url;
+    foreach ($regions as $region) {
+      $variables['page'][$region] = \Drupal::service('renderer')
+        ->renderRoot($variables['page'][$region]);
+      // Convert the whole message body. Returns string.
+      $converted = Html::transformRootRelativeUrlsToAbsolute($variables['page'][$region], $base_url);
+      // In case you need an instance of Markup class prepare it here.
+      $variables['page'][$region] = Markup::create($converted);
+    }
+    $variables['#attached']['library'][] = 'openy_hf/openy_hf_header_footer';
+  }
 }
