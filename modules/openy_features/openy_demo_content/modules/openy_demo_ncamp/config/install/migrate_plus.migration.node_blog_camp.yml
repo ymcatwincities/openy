@@ -13,7 +13,9 @@ source:
     -
       id: 1
       title: 'Camp Colman Stories'
-      style: photo
+      style: color
+      bg_color: 4
+      color: 1
       category: 1
       related: null
       promote: 1
@@ -25,7 +27,9 @@ source:
     -
       id: 2
       title: 'Serving our community for over 100 years!'
-      style: photo
+      style: color
+      bg_color: 4
+      color: 1
       category: 2
       related: null
       promote: 1
@@ -77,7 +81,9 @@ source:
     -
       id: 4
       title: 'How does the camp experience benifit your child?'
-      style: photo
+      style: color
+      bg_color: 8
+      color: 1
       category: 2
       related: 1
       promote: 1
@@ -99,19 +105,19 @@ source:
         <p><strong>What are the three price tiers? What do they mean? How do I choose?</strong></p>
         <p>We recognize that families have different abilities to pay and have developed this voluntary three-tier fee structure to best meet everyone’s needs. Simply select the rate appropriate for your family’s budget. This is completely confidential and does not impact your child’s camp experience in any way.</p>
         <ul><li>Tier III reflects the full cost of sending a camper to the program selected. If you are able to pay this amount, please do. Thank you.&nbsp;</li>
-		<li>Tier II is a partially-subsidized rate to help families who can't afford the full cost of the camp program. Choose this rate if your family needs a partial subsidy&nbsp;</li>
-		<li>Tier I represents a substantial subsidy for families who need assistance to send a child to camp. Choose this rate if your family needs it.</li>
+        		<li>Tier II is a partially-subsidized rate to help families who can't afford the full cost of the camp program. Choose this rate if your family needs a partial subsidy&nbsp;</li>
+        		<li>Tier I represents a substantial subsidy for families who need assistance to send a child to camp. Choose this rate if your family needs it.</li>
         </ul><p>If Tier I presents a barrier, Financial Assistance is available through an application process, which requires income documentation. Financial Assistance is made possible thanks to the generosity of YMCA donors.</p>
         <p><strong>What are your payment and refund policies?</strong></p>
         <ul><li>A deposit of $100 per session per child must accompany the registration form ($50 if applying for Financial Assistance or registering before January 1st). Payment options include Visa, MasterCard, Discover Card, American Express and personal check made out to YMCA Camping &amp; Outdoor Leadership.&nbsp;</li>
-		<li>Deposits are non-refundable after June 1st.&nbsp;</li>
-		<li>Payment in full is due on or by June 1st. We require a minimum of two weeks’ notice prior to the session start date to qualify for a refund of program fees (less the deposit).&nbsp;</li>
-		<li>Cancellations made within two weeks of the session start date are non-refundable. Considerations may be made for extenuating circumstances at the discretion of the Administrative Director</li>
+        		<li>Deposits are non-refundable after June 1st.&nbsp;</li>
+        		<li>Payment in full is due on or by June 1st. We require a minimum of two weeks’ notice prior to the session start date to qualify for a refund of program fees (less the deposit).&nbsp;</li>
+        		<li>Cancellations made within two weeks of the session start date are non-refundable. Considerations may be made for extenuating circumstances at the discretion of the Administrative Director</li>
         </ul><p><strong>What is the transportation fee?</strong></p>
         <p>Campers may be checked-in and picked-up at three different locations: Meridian Park Elementary in Shoreline, the Anacortes Ferry Terminal, or Camp Orkila on Orcas Island.</p>
         <ul><li>Bus from Meridian Park: Charter buses supervised by camp staff and volunteers will transport campers between Meridian Park Elementary and Camp Orkila. If you choose this option, there is a $45 transportation fee* (whether your camper will take the bus one direction or both). If your camper is attending non-consecutive sessions, you’ll need to pay a transportation fee for each session for which they will be taking the bus.&nbsp;</li>
-		<li>Anacortes Ferry: Campers checked-in at the Anacortes Ferry Terminal will walk onto the ferry with Orkila staff and be met by the Orkila bus upon arrival on Orcas. There is a $10 transportation fee* for campers who check-in and walk on to the ferry at Anacortes. Campers departing Orkila at the end of the session will ride the camp bus to the Orcas Ferry Terminal and they’ll walk onto the ferry again as a group. There is no fee associated with this return option.</li>
-		<li>Camp Orkila: Campers may be checked in and picked up at Orkila on Orcas Island. There is no transportation fee associated with this option from our office, however if you walk or drive on to the ferry, tickets are required. More information is available at www.wsdot.gov/ferries.</li>
+        		<li>Anacortes Ferry: Campers checked-in at the Anacortes Ferry Terminal will walk onto the ferry with Orkila staff and be met by the Orkila bus upon arrival on Orcas. There is a $10 transportation fee* for campers who check-in and walk on to the ferry at Anacortes. Campers departing Orkila at the end of the session will ride the camp bus to the Orcas Ferry Terminal and they’ll walk onto the ferry again as a group. There is no fee associated with this return option.</li>
+        		<li>Camp Orkila: Campers may be checked in and picked up at Orkila on Orcas Island. There is no transportation fee associated with this option from our office, however if you walk or drive on to the ferry, tickets are required. More information is available at www.wsdot.gov/ferries.</li>
         </ul><p>*You may pay the transportation fee upon registration or add it later as needed. Note: If your camper will be arriving/departing camp by a method other those listed above (i.e. by boat, plane, etc.), please contact Jen Hitt to discuss details: jhitt@seattleymca.org.</p>
         <p><strong>What is store money?</strong></p>
         <p>At Camp, there is a “Camp Store,” which has Orkila gear (such as t-shirts and sweatshirts), souvenirs and miscellaneous items. All store purchases are made through your camper’s prepaid store account. We suggest $25-50 depending on the session length. You may add store money upon registration or with a later payment.</p>
@@ -129,7 +135,7 @@ source:
       body: >
         <p><span>Located on the Raging River in&nbsp;Preston, Washington, YMCA Camp Terry provides outdoor fun for all. Originally deeded to the YMCA by Clarence C. Terry&nbsp;in 1942 for $10, YMCA Camp Terry has grown&nbsp;to provide&nbsp;a range of programs including Outdoor Day Camp,&nbsp;Family Camp Overnights and Outdoor Environmental Education. Operated by the Sammamish Family YMCA, YMCA Camp Terry most recently&nbsp;added a climbing wall and 250-foot zip line to its facilities producing more summer fun than ever!</span><br>
         YMCA Outdoor Day Camp</p>
-        <ul class="ms-rteStyle-Normal"><li>
+        <ul><li>
 		<p>Sign your child up for Outdoor Day Camp</p>
 		</li>
 		<li>
