@@ -9,7 +9,7 @@ dependencies:
     - openy_rose
 id: useraccountmenu
 theme: openy_rose
-region: sidebar
+region: mobile_menu
 weight: 0
 provider: null
 plugin: 'system_menu_block:account'
