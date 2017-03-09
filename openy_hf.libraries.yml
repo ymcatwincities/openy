@@ -11,3 +11,8 @@ openy_hf_generic:
     - core/drupalSettings
     - core/jquery.once
     - core/jquery.cookie
+openy_hf_header_footer:
+  version: 1.x
+  css:
+    theme:
+      'css/openy_hf.css': {}
