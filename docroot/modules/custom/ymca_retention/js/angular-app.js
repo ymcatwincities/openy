@@ -16,7 +16,8 @@
     // Default parameters of Angular UI Router state.
     var defaultStateParams = {
       tab: 'tab_1',
-      active_tab: 'tab_1'
+      active_tab: 'tab_1',
+      update_mobile: true
     };
     Drupal.ymca_retention.angular_app.config(function($locationProvider, $stateProvider) {
       $locationProvider.html5Mode({
@@ -45,6 +46,22 @@
             if (storage.campaign.started) {
               if (storage.member) {
                 $stateParams.active_tab = $stateParams.tab;
+
+                // Update mobile accordion.
+                if (!$('.nav-tabs').is(':visible') && $stateParams.update_mobile) {
+                  $stateParams.update_mobile = false;
+                  // // Resetting accordion.
+                  $('.compain-accordion .in').removeClass('in').addClass('collapse');
+                  $('.compain-accordion .panel-heading a').addClass('collapsed');
+
+                  // Expanding selected accordion item.
+                  $('.compain-accordion a[href="#' + $stateParams.tab + '-collapse"]').removeClass('collapsed');
+                  $('.compain-accordion #' + $stateParams.tab + '-collapse').addClass('in').css('height', 'auto');
+
+                  $('body').animate({
+                    scrollTop: $('a[href="#' + $stateParams.tab + '-collapse"]').offset().top
+                  });
+                }
               }
               else {
                 // Activate login popup.
@@ -87,8 +104,8 @@
         }
         return classes.join(' ');
       };
-      self.tabSelectorClick = function (tab) {
-        $state.go('main', {tab: tab}, {reload: true});
+      self.tabSelectorClick = function (tab, update_mobile) {
+        $state.go('main', {tab: tab, update_mobile: update_mobile}, {reload: true});
       };
 
       // Message for days left popup.
