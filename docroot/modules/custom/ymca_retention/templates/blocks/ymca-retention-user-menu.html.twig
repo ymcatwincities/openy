@@ -12,7 +12,7 @@
   </div>
   <a class="link--log-out ng-hide" href="javascript:void(0)"
      data-ng-show="retentionC.storage.member"
-     data-ng-click="retentionC.storage.memberCookieRemove()">{{ 'Sign Out'|t }}</a>
+     data-ng-click="retentionC.logOut()">{{ 'Sign Out'|t }}</a>
   <a class="link--register ng-hide" href="javascript:void(0)"
      data-toggle="modal" data-target="#ymca-retention-modal" data-type="register"
      data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">{{ 'Sign Up'|t }}</a>

@@ -8,7 +8,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_retention\Ajax\YmcaRetentionModalHideCommand;
-use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 
@@ -218,7 +217,6 @@ class MemberLoginForm extends FormBase {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
       $ajax_response->addCommand(new YmcaRetentionModalHideCommand());
-      $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
       return $ajax_response;
     }
   }
