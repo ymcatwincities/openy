@@ -145,6 +145,7 @@ class RegularUpdater implements RegularUpdaterInterface {
       'date_to' => $to,
     ];
     foreach ($chunks as $chunk) {
+      $data['items'] = [];
       foreach ($chunk as $member) {
         $data['items'][] = [
           'id' => (int) $member->getId(),
