@@ -92,6 +92,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_landing',
       ],
     ],
+    'membership' => [
+      'openy_demo_nmbrshp' => [
+        'openy_demo_node_membership',
+      ],
+    ],
     'programs' => [
       'openy_demo_nprogram' => [
         'openy_demo_node_program',

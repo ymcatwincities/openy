@@ -35,6 +35,15 @@ source:
     -
       id: housing_and_transition_planning
       name: housing_and_transition_planning.jpg
+    -
+      id: join_one
+      name: join_one.jpg
+    -
+      id: join_two
+      name: join_two.jpg
+    -
+      id: join_three
+      name: join_three.jpg
   ids:
     id:
       type: string

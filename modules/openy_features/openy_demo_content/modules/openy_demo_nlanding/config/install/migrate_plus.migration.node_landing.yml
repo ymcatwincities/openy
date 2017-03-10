@@ -89,6 +89,14 @@ source:
       content_ids:
         -
           content_id: camp_page_3_simple
+    -
+      id: join
+      title: 'Join'
+      alias: '/join'
+      header_content_id: join_gallery
+      content_ids:
+        -
+          content_id: join_member_calc
   ids:
     id:
       type: string
@@ -147,6 +155,7 @@ process:
           - openy_demo_lp_paragraph_blog_posts_listing
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
+          - openy_demo_lp_paragraph_membership_calculator
         source: content_id
       target_revision_id:
         plugin: migration
@@ -160,6 +169,7 @@ process:
           - openy_demo_lp_paragraph_blog_posts_listing
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
+          - openy_demo_lp_paragraph_membership_calculator
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -178,5 +188,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_location_finder_filters
     - openy_demo_lp_paragraph_location_finder
     - openy_demo_lp_paragraph_menu_camp
+    - openy_demo_lp_paragraph_membership_calculator
   optional:
     - openy_demo_node_blog
