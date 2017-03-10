@@ -19,13 +19,13 @@
       var query = getUrlVars();
 
       // Quickly render the page if there is no query & cookies without cookies being set.
-      if (query['dnr'] === undefined && cookie === undefined) {
+      if (query.dnr === undefined && cookie === undefined) {
         doFullRender();
         return;
       }
 
       // Reset any settings if we 'reset' parameter.
-      if (query['dnr'] == 'reset') {
+      if (query.dnr == 'reset') {
         doFullRender();
         $.removeCookie(cookie_name);
         return;
@@ -38,7 +38,7 @@
       }
 
       // Eventually, render by params and set the cookie.
-      doPartialRender(query['dnr']);
+      doPartialRender(query.dnr);
 
       /**
        * Do render header & footer.
