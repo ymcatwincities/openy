@@ -138,7 +138,7 @@
         }
         var previousDay = self.storage.todays_insight_timestamp - self.dayInSeconds;
 
-        return !angular.isUndefined(self.storage.spring2017campaign.today_insights[previousDay])
+        return !angular.isUndefined(self.storage.spring2017campaign.today_insights[previousDay]);
       };
 
       self.isNext = function () {
@@ -147,7 +147,7 @@
         }
         var previousDay = self.storage.todays_insight_timestamp + self.dayInSeconds;
 
-        return !angular.isUndefined(self.storage.spring2017campaign.today_insights[previousDay])
+        return !angular.isUndefined(self.storage.spring2017campaign.today_insights[previousDay]);
       };
 
       $interval(function() {
