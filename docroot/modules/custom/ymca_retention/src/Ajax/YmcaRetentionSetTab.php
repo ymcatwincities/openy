@@ -26,7 +26,7 @@ class YmcaRetentionSetTab implements CommandInterface {
    */
   public function __construct($tab_id = NULL) {
     if (!$tab_id) {
-      $tab_id = 'about';
+      $tab_id = 'tab_1';
     }
 
     $this->tabId = $tab_id;

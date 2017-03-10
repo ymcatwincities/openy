@@ -32,7 +32,12 @@
         </div>
         <div class="compain-progress--label ">
             <div class="description-label">
-                <span class="label">{{ '{{ myProgressC.bonusesCount() }}' }} tip bonuses</span>
+                <span class="label" data-ng-show="myProgressC.bonusesCount() == 1">
+                    {{ '{{ myProgressC.bonusesCount() }}' }} Bonus earned
+                </span>
+                <span class="label" data-ng-show="myProgressC.bonusesCount() != 1">
+                    {{ '{{ myProgressC.bonusesCount() }}' }} Bonuses earned
+                </span>
             </div>
         </div>
     </div>
@@ -40,7 +45,12 @@
     <div class="compain-progress-container clearfix">
         <div class="compain-progress--label">
             <div class="description-label">
-                <span class="label">{{ '{{ myProgressC.bonusesCount() }}' }} tip bonuses</span>
+                <span class="label" data-ng-show="myProgressC.bonusesCount() == 1">
+                    {{ '{{ myProgressC.bonusesCount() }}' }} Bonus earned
+                </span>
+                <span class="label" data-ng-show="myProgressC.bonusesCount() != 1">
+                    {{ '{{ myProgressC.bonusesCount() }}' }} Bonuses earned
+                </span>
             </div>
         </div>
 
@@ -57,7 +67,7 @@
                                 <span class="week-day">{{ '{{date.weekday}}' }}</span>
                             </div>
 
-                            <div class="status">{{ '{{myProgressC.checkInStatus(date) }}' }}</div>
+                            <div class="status"></div>
                         </div>
                     </div>
                     <div class="compain-progress-block--footer">
@@ -69,7 +79,7 @@
 
                                     <div class="description"
                                          data-ng-click="myProgressC.todayInsight(date.timestamp)">
-                                        <p>{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
+                                        <p class="tip-title">{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
                                     </div>
                                 </ng-show>
                                 <ng-show ng-show="!myProgressC.isBonus(date)">
@@ -81,7 +91,7 @@
 
                                         <div class="description"
                                              data-ng-click="myProgressC.todayInsight(date.timestamp)">
-                                            <p>{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
+                                            <p class="tip-title">{{ '{{myProgressC.bonusTitle(date) }}' }}</p>
                                         </div>
                                     </ng-show>
                                 </ng-show>

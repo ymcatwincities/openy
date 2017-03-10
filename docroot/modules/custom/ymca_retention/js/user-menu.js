@@ -8,23 +8,6 @@
     }
     $('body').addClass('ymca-retention-user-menu-processed');
 
-    // Go back to Introduction after logout.
-    $('.link--log-out').click(function () {
-      if ($('.nav-tabs').is(':visible')) {
-        // Displaying about/intro tab.
-        $('.nav-tabs a[href="#tab_1"]').tab('show');
-      }
-      else {
-        // Reseting accordion.
-        $('.compain-accordion .collapse.in').removeClass('in');
-        $('.compain-accordion .panel-heading a').addClass('collapsed');
-
-        // Expanding about/intro item.
-        $('.compain-accordion a[href="#tab_1-collapse"]').removeClass('collapsed');
-        $('.compain-accordion #about-collapse').addClass('in').css('height', 'auto');
-      }
-    });
-
     // Populate modal content depending on the clicked link.
     $('#ymca-retention-modal', context)
       .on('show.bs.modal', function (event) {
