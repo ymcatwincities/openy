@@ -1,0 +1,102 @@
+langcode: en
+status: open
+dependencies: {  }
+open: null
+close: null
+uid: 1
+template: false
+id: financial_aid
+title: 'Financial Aid'
+description: '<p>Financial Aid webform, the part of&nbsp;Financial Aid paragraph.</p>'
+elements: "description:\n  '#type': textarea\n  '#title': Description\n  '#default_value': \"It is the mission of the YMCA to provide service for any person or family who desires to participate in the YMCA, regardless of the ability to pay the standard membership or program fee. Each year, the YMCA raises funds through our Annual Campaign to provide financial assistance to youth and families. Those not able to pay the full program fee may be awarded assistance based on financial need. The YMCA reserves the right to refuse assistance to any applicant.\\n\\nTo be eligible for financial assistance, applicants must work or reside in the YMCA of Greater Houston service area and meet household/yearly income requirements. The YMCA believes a strong sense of ownership is developed if the recipient contributes to the cost of their YMCA involvement; therefore, applicants will be asked to pay some portion of the fees. Financial assistance is awarded for a one-year  period and is valid for all participating programs at any YMCA of Greater Houston location.\"\napplication_how_to:\n  '#type': textarea\n  '#title': 'Application how-to'\n  '#default_value': \"To apply for financial assistance please bring the following information to any YMCA:\\n1.Completed Financial Assistance Application, signed and dated\\n2.Your most recent income tax return with everyone requesting assistance listed (will be reviewed and returned to you)*\\n\\nYou may be asked to provide the following documents where applicable: proof of income for all working household  members; proof of household income received from other sources such as: TANF, child support, SSI, disability, or foster care benefits;proof of current college registration; proof of layoff; etc.\\n\\nPlease note, if you are interested in child care assistance, we do ask that you apply first through Workforce Solutions for assistance before applying with the YMCA. This can be done by visiting wrksolutions.com.\\n\\n* If you do not file a tax return, call the IRS at 800-829-1040 or visit irs.gov to download Form 4506-T and request a Verification of non-filing letter.  Once received, this letter can be submitted in lieu of the tax return. You will then be required to provide other proof of income\"\naddress_container:\n  '#type': fieldset\n  '#title': Address\n  address:\n    '#type': webform_address\n    '#title': Address\n    '#default_value':\n      address: ''\n      address_2: ''\n      city: ''\n      state_province: ''\n      postal_code: ''\n      country: US\n    '#address_2__access': false\n    '#state_province__access': false\n    '#country__placeholder': US\n    '#country__type': textfield\n    '#country__access': false\n  phone:\n    '#type': tel\n    '#title': Phone\n  additional_phone:\n    '#type': tel\n    '#title': 'Additional Phone'\n  email:\n    '#type': email\n    '#title': Email\nplease_indicate_container:\n  '#type': fieldset\n  '#title': 'Please indicate'\n  household_members_number:\n    '#type': textfield\n    '#title': 'Number of household members'\n    '#autocomplete': 'off'\n    '#pattern': ^\\d+$\n  adjusted_gross_income:\n    '#type': textfield\n    '#title': 'Adjusted Gross Income (per tax return)'\n    '#field_prefix': $\n    '#autocomplete': 'off'\n    '#input_mask': '''alias'': ''currency'''\n    '#pattern': '^\\d+\\.?\\d{0,2}$'\n  extenuating_circumstances:\n    '#type': textarea\n    '#title': 'Any extenuating circumstances we should consider'\n  verified:\n    '#type': checkbox\n    '#title': Verified\n    '#default_value': '0'\npolicy_container:\n  '#type': fieldset\n  '#title': Policy\n  policy_agree:\n    '#type': checkbox\n    '#title': Agree\n    '#description': 'I certify that the above information is true and complete to the best of my knowledge. I agree to inform the YMCA immediatelyofany change in my income or family size. I understand that false or incomplete information could jeopardize my scholarship.'\n    '#default_value': '0'\n    '#description_display': before\n"
+css: ''
+javascript: ''
+settings:
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  form_submit_label: ''
+  form_submit_once: false
+  form_submit_attributes: {  }
+  form_exception_message: ''
+  form_closed_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_unsaved: false
+  form_disable_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_next_button_label: ''
+  wizard_next_button_attributes: {  }
+  wizard_prev_button_label: ''
+  wizard_prev_button_attributes: {  }
+  wizard_start_label: ''
+  wizard_complete: true
+  wizard_complete_label: ''
+  preview: 0
+  preview_next_button_label: ''
+  preview_next_button_attributes: {  }
+  preview_prev_button_label: ''
+  preview_prev_button_attributes: {  }
+  preview_message: ''
+  draft: false
+  draft_auto_save: false
+  draft_button_label: ''
+  draft_button_attributes: {  }
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  confirmation_type: page
+  confirmation_title: ''
+  confirmation_message: ''
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  limit_total: null
+  limit_total_message: ''
+  limit_user: null
+  limit_user_message: ''
+  purge: none
+  purge_days: null
+  entity_limit_total: null
+  entity_limit_user: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+handlers: {  }

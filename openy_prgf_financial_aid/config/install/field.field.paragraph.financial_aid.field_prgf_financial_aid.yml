@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_financial_aid
+    - paragraphs.paragraphs_type.financial_aid
+    - webform.webform.financial_aid
+  module:
+    - webform
+id: paragraph.financial_aid.field_prgf_financial_aid
+field_name: field_prgf_financial_aid
+entity_type: paragraph
+bundle: financial_aid
+label: 'Financial Aid'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_data: ''
+    status: '1'
+    target_uuid: 57b48ec3-b35d-477c-aa5f-81dc48b9567b
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+  default_data: ''
+  status: true
+field_type: webform
