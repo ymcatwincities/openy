@@ -74,6 +74,7 @@ function openy_demo_content_configs_map($key = NULL) {
     'camps' => [
       'openy_demo_ncamp' => [
         'openy_demo_node_camp',
+        'openy_demo_node_camp_blog',
       ],
     ],
     'blog' => [
