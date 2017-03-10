@@ -932,8 +932,19 @@ body {
   }
 }
 @media (min-width: 62em) and (max-width: 74.9375em) {
-  .row-level-2 > li:nth-child(3n + 1) {
+  .row-level-2 > li:nth-child(4n + 1) {
     clear: both;
+  }
+}
+@media (min-width: 74.9375em) {
+  .row-level-2 > li:nth-child(6n + 1) {
+    clear: both;
+  }
+}
+@media (min-width: 62em) {
+  .row-level-2 {
+    left: 0;
+    right: 0;
   }
 }
 .section-icon {
