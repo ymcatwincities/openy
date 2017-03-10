@@ -61,6 +61,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_block_content_footer',
       ],
     ],
+    'alerts' => [
+      'openy_demo_nalert' => [
+        'openy_demo_node_alert',
+      ],
+    ],
     'branches' => [
       'openy_demo_nbranch' => [
         'openy_demo_node_branch',
