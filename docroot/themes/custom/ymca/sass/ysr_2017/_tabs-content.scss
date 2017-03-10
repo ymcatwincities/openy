@@ -293,7 +293,8 @@
     }
   }
 
-  p {
+  p,
+  li {
     @include rem(font-size, 16px);
     @include rem(line-height, 24px);
     @include rem(margin, 0 0 20px 0);
@@ -303,6 +304,10 @@
       line-height: inherit;
       color: $green-medium;
     }
+  }
+
+  li {
+    margin: 0;
   }
 
   .content-list--decor {
