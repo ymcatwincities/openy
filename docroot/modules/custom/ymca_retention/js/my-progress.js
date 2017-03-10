@@ -42,11 +42,8 @@
         if (date.future) {
           classes.push('compain-progress-block--upcoming');
         }
-        else if (self.storage.member_checkins[date.timestamp] == 1) {
-          classes.push('compain-progress-block--checked');
-        }
         else {
-          classes.push('compain-progress-block--missed');
+          classes.push('compain-progress-block--checked');
         }
 
         return classes.join(' ');
