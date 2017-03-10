@@ -2068,9 +2068,7 @@ body {
   text-align: center;
 }
 .site-alert__cta .field-alert-link a:hover {
-  background-color: #fff;
-  color: #0060af !important;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .site-alert__dismiss {
   color: #fff;
