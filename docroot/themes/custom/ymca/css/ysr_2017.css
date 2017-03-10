@@ -1028,6 +1028,12 @@ html, body {
   font-style: normal;
   color: #006b6b;
 }
+.compain-progress-block--footer .content .tip-title {
+  color: #006b6b;
+}
+.compain-progress-block--footer .content .tip-title:hover {
+  text-decoration: underline;
+}
 .compain-progress-block--footer .description {
   font-family: Verdana, Arial, Helvetica, sans-serif;
   color: #424242;
@@ -1527,7 +1533,8 @@ html, body {
     line-height: 4.4rem;
   }
 }
-.content-item p {
+.content-item p,
+.content-item li {
   font-size: 16px;
   font-size: 1.6rem;
   line-height: 24px;
@@ -1535,10 +1542,14 @@ html, body {
   margin: 0 0 20px 0;
   margin: 0 0 2rem 0;
 }
-.content-item p a {
+.content-item p a,
+.content-item li a {
   font-size: inherit;
   line-height: inherit;
   color: #01a490;
+}
+.content-item li {
+  margin: 0;
 }
 .content-item .content-list--decor {
   margin: 0 0 40px 6px;

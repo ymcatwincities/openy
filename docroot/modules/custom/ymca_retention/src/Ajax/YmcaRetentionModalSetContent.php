@@ -19,7 +19,7 @@ class YmcaRetentionModalSetContent implements CommandInterface {
   protected $targetId;
 
   /**
-   * Construct YmcaRetentionSetTab object.
+   * Construct YmcaRetentionModalSetContent object.
    *
    * @param string $target_id
    *   The target element identifier.
