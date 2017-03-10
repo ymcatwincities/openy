@@ -37,7 +37,6 @@ fields_unset_paragraphs:
     - session_time
     - teaser
     - promo_card
-    - small_banner
     - story_card
   field_content:
     - grid_columns
