@@ -2,16 +2,12 @@
 
 namespace Drupal\ymca_retention\Form;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\ymca_retention\Ajax\YmcaRetentionModalSetContent;
-use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
-use Drupal\ymca_retention\PersonifyApi;
 
 /**
  * Member email form.
