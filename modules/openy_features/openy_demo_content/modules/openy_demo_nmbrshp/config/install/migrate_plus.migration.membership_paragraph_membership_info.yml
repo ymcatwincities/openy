@@ -18,114 +18,170 @@ source:
       id: couple_1
       parent_id: couple
       location_id: 1
+      join_fee: 125
+      monthly_rate: 120
     -
       id: couple_2
       parent_id: couple
       location_id: 2
+      join_fee: 125
+      monthly_rate: 120
     -
       id: couple_3
       parent_id: couple
       location_id: 3
+      join_fee: 125
+      monthly_rate: 120
     -
       id: couple_4
       parent_id: couple
       location_id: 4
+      join_fee: 125
+      monthly_rate: 120
     -
       id: adult_1
       parent_id: adult
       location_id: 1
+      join_fee: 100
+      monthly_rate: 73
     -
       id: adult_2
       parent_id: adult
       location_id: 2
+      join_fee: 100
+      monthly_rate: 73
     -
       id: adult_3
       parent_id: adult
       location_id: 3
+      join_fee: 100
+      monthly_rate: 73
     -
       id: adult_4
       parent_id: adult
       location_id: 4
+      join_fee: 100
+      monthly_rate: 73
     -
       id: youth_1
       parent_id: youth
       location_id: 1
+      join_fee: 25
+      monthly_rate: 42
     -
       id: youth_2
       parent_id: youth
       location_id: 2
+      join_fee: 25
+      monthly_rate: 42
     -
       id: youth_3
       parent_id: youth
       location_id: 3
+      join_fee: 25
+      monthly_rate: 42
     -
       id: youth_4
       parent_id: youth
       location_id: 4
+      join_fee: 25
+      monthly_rate: 42
     -
       id: teen_young_adult_1
       parent_id: teen_young_adult
       location_id: 1
+      join_fee: 50
+      monthly_rate: 52
     -
       id: teen_young_adult_2
       parent_id: teen_young_adult
       location_id: 2
+      join_fee: 50
+      monthly_rate: 52
     -
       id: teen_young_adult_3
       parent_id: teen_young_adult
       location_id: 3
+      join_fee: 50
+      monthly_rate: 52
     -
       id: teen_young_adult_4
       parent_id: teen_young_adult
       location_id: 4
+      join_fee: 50
+      monthly_rate: 52
     -
       id: family_1_1
       parent_id: family_1
       location_id: 1
+      join_fee: 100
+      monthly_rate: 109
     -
       id: family_1_2
       parent_id: family_1
       location_id: 2
+      join_fee: 100
+      monthly_rate: 109
     -
       id: family_1_3
       parent_id: family_1
       location_id: 3
+      join_fee: 100
+      monthly_rate: 109
     -
       id: family_1_4
       parent_id: family_1
       location_id: 4
+      join_fee: 100
+      monthly_rate: 109
     -
       id: family_2_1
       parent_id: family_2
       location_id: 1
+      join_fee: 125
+      monthly_rate: 129
     -
       id: family_2_2
       parent_id: family_2
       location_id: 2
+      join_fee: 125
+      monthly_rate: 129
     -
       id: family_2_3
       parent_id: family_2
       location_id: 3
+      join_fee: 125
+      monthly_rate: 129
     -
       id: family_2_4
       parent_id: family_2
       location_id: 4
+      join_fee: 125
+      monthly_rate: 129
     -
       id: senior_1
       parent_id: senior
       location_id: 1
+      join_fee: 75
+      monthly_rate: 66
     -
       id: senior_2
       parent_id: senior
       location_id: 2
+      join_fee: 75
+      monthly_rate: 66
     -
       id: senior_3
       parent_id: senior
       location_id: 3
+      join_fee: 75
+      monthly_rate: 66
     -
       id: senior_4
       parent_id: senior
       location_id: 4
+      join_fee: 75
+      monthly_rate: 66
 
   ids:
     id:
@@ -153,12 +209,8 @@ process:
   parent_field_name:
     plugin: default_value
     default_value: field_header_content
-  field_mbrshp_join_fee:
-     plugin: default_value
-     default_value: NULL
-  field_mbrshp_monthly_rate:
-     plugin: default_value
-     default_value: NULL
+  field_mbrshp_join_fee: join_fee
+  field_mbrshp_monthly_rate: monthly_rate
   field_mbrshp_link/uri:
     plugin: default_value
     default_value: 'http://openymca.org'

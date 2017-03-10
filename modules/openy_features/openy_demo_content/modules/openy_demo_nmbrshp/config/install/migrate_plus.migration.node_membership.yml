@@ -16,10 +16,6 @@ source:
       title: 'Couple'
       description: |
         <p>Two adults in&nbsp;same household</p>
-
-        <p>Join Fee: $125&nbsp;</p>
-
-        <p>Monthly Rate: $120</p>
       image_id: couple_image
       mbrshp_info_ids:
         -
@@ -35,10 +31,6 @@ source:
       title: 'Adult'
       description: |
         <p>Adults (30-64)</p>
-
-        <p>Join Fee: $100&nbsp;&nbsp;</p>
-
-        <p>Monthly Rate: $73</p>
       image_id: adult_image
       mbrshp_info_ids:
         -
@@ -54,10 +46,6 @@ source:
       title: 'Youth'
       description: |
         <p>Youth (0-13)</p>
-
-        <p>Join Fee: $25</p>
-
-        <p>Monthly Rate: $42</p>
       image_id: youth_image
       mbrshp_info_ids:
         -
@@ -73,10 +61,6 @@ source:
       title: 'Teen/Young Adult'
       description: |
         <p>Teen/Young Adult&nbsp;(14-29)</p>
-
-        <p>Join Fee: $50&nbsp;<strong>&nbsp;</strong></p>
-
-        <p>Monthly Rate: $52</p>
       image_id: teen_young_adult_image
       mbrshp_info_ids:
         -
@@ -92,10 +76,6 @@ source:
       title: 'Family 1'
       description: |
         <p>One adult plus dependents</p>
-
-        <p>Join Fee: $100 &nbsp;</p>
-
-        <p>Monthly Rate: $109</p>
       image_id: family_1_image
       mbrshp_info_ids:
         -
@@ -111,10 +91,6 @@ source:
       title: 'Family 2'
       description: |
         <p>Two adults in same&nbsp;household&nbsp;plus dependents</p>
-
-        <p>Join Fee: $125&nbsp;</p>
-
-        <p>Monthly Rate: $129</p>
       image_id: family_2_image
       mbrshp_info_ids:
         -
@@ -130,10 +106,6 @@ source:
       title: 'Senior'
       description: |
         <p>Adults (65+)</p>
-
-        <p>Join Fee: $75&nbsp;</p>
-
-        <p>Monthly Rate: $66</p>
       image_id: senior_image
       mbrshp_info_ids:
         -
