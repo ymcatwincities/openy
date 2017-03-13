@@ -17,19 +17,19 @@
 %}
 <article{{ attributes.addClass(classes) }}>
 
-  <div class="field-blog-image-wrapper">{{ content.field_blog_image }}</div>
+  <div class="col-sm-5 image">{{ content.field_blog_image }}</div>
+  <div class="col-sm-7 content">
+    {{ title_prefix }}
+    <h2{{ title_attributes }}>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+    </h2>
+    {{ title_suffix }}
 
-  {{ title_prefix }}
-  <h2{{ title_attributes }}>
-    <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-  </h2>
-  {{ title_suffix }}
-
-  <div class="conent-wrapper">
-    <div{{ content_attributes.addClass('node__content') }}>
-      {{ content|without('field_blog_image') }}
+    <div class="conent-wrapper">
+      <div{{ content_attributes.addClass('node__content') }}>
+        {{ content|without('field_blog_image') }}
+      </div>
     </div>
+    <div class="btn btn-default browse-classes-btn"><a href="{{ url }}">{{ 'Read more'|t }}</a></div>
   </div>
-  <div class="btn btn-default browse-classes-btn"><a href="{{ url }}">{{ 'Read more'|t }}</a></div>
-
 </article>
