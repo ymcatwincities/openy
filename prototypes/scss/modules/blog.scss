@@ -104,3 +104,39 @@
     }
   }
 }
+.node--type-blog {
+  .sidebar-card {
+    border: 1px solid $light-grey;
+    padding: 20px 17px;
+    margin-bottom: 20px;
+    h3 {
+      @include helvetica-neue();
+      text-transform: uppercase;
+      color: $default-grey;
+      margin: 0 0 25px;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.2;
+      letter-spacing: 2px;
+    }
+    h2 {
+      a {
+        color: $purple;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .blog-related {
+    position: relative;
+
+    h2 a:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      left: 0;
+      top: 0;
+    }
+  }
+}

@@ -80,8 +80,8 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{% set main_col_count = node.field_sidebar_content.getValue() is not empty ? '8' : '12' %}
-{% set sidebar = node.field_sidebar_content.getValue() is not empty ? true : false %}
+{% set main_col_count = node.field_sidebar_content.getValue() is not empty or node.field_blog_related.getValue() is not empty ? '8' : '12' %}
+{% set sidebar = node.field_sidebar_content.getValue() is not empty or node.field_blog_related.getValue() is not empty ? true : false %}
 <article{{ attributes.addClass(classes) }}>
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content.field_landing_header }}
@@ -91,10 +91,11 @@
           <h1>{{ label }}</h1>
         </div>
         <div class="content-main-region col-sm-{{ main_col_count }}">
-          {{ content|without('field_sidebar_content') }}
+          {{ content|without('field_sidebar_content', 'field_blog_related') }}
         </div>
         {% if sidebar %}
         <div class="content-sidebar-region col-sm-4">
+          {{ content.field_blog_related }}
           {{ content.field_sidebar_content }}
         </div>
         {% endif %}
