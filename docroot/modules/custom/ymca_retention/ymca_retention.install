@@ -453,3 +453,16 @@ function ymca_retention_update_8023() {
     ]
   );
 }
+
+/**
+ * Update Editor user role files related permissions.
+ */
+function ymca_retention_update_8024() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'user.role.editor',
+    ]
+  );
+}
