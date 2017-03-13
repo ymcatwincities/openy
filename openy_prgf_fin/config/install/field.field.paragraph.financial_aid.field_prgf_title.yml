@@ -14,7 +14,7 @@ required: false
 translatable: true
 default_value:
   -
-    value: 'Financial Assistance Apllication'
+    value: 'Financial Assistance Application'
 default_value_callback: ''
 settings: {  }
 field_type: string
