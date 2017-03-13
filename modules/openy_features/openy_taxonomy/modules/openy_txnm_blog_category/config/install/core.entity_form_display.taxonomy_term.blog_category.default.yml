@@ -1,4 +1,4 @@
-langcode: uk
+langcode: en
 status: true
 dependencies:
   config:
@@ -24,8 +24,8 @@ content:
     type: entity_reference_paragraphs
     weight: 31
     settings:
-      title: Абзац
-      title_plural: Абзаци
+      title: Paragraph
+      title_plural: Paragraphs
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
