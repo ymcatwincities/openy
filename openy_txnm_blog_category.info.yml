@@ -4,6 +4,11 @@ type: module
 core: 8.x
 dependencies:
   - ctools
+  - entity_reference_revisions
+  - field
+  - paragraphs
+  - path
   - pathauto
   - taxonomy
+  - text
 version: 8.x-1.0
