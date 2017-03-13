@@ -61,6 +61,9 @@
 
       .browse-classes-btn {
         display: block;
+        @include breakpoint(tablet) {
+          max-width: 360px;
+        }
       }
     }
 
