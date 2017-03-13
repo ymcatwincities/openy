@@ -45,6 +45,25 @@
       margin-top: 118px;
     }
 
+    &.node--view-mode-listing-teaser {
+      @include clearfix();
+      margin: 20px 0 25px;
+      @include breakpoint(tablet) {
+        margin: 20px 0 45px;
+      }
+
+      .image {
+        text-align: center;
+        @include breakpoint(tablet) {
+          text-align: right;
+        }
+      }
+
+      .browse-classes-btn {
+        display: block;
+      }
+    }
+
     h4.label {
       color: $color-gray;
       font-size: inherit;
@@ -53,7 +72,7 @@
     img {
       max-width: 100%;
       height: auto;
-      margin-bottom: 50px;
+      margin-bottom: 0;
     }
 
     p {
