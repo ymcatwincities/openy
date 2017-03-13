@@ -3,12 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_taxonomy_content
-    - paragraphs.paragraphs_type.banner
-    - paragraphs.paragraphs_type.camp_menu
-    - paragraphs.paragraphs_type.classes_listing_filters
-    - paragraphs.paragraphs_type.gallery
-    - paragraphs.paragraphs_type.simple_content
-    - paragraphs.paragraphs_type.small_banner
     - taxonomy.vocabulary.blog_category
   module:
     - datalayer
