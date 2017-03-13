@@ -11,7 +11,7 @@ field_name: field_taxonomy_content
 entity_type: taxonomy_term
 bundle: blog_category
 label: 'Taxonomy Content'
-description: ''
+description: 'This paragraph will appear in the header of each taxonomy term page of the current vocabulary.'
 required: false
 translatable: true
 default_value: {  }
