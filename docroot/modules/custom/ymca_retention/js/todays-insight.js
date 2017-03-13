@@ -12,8 +12,6 @@
       // Shared information.
       self.storage = storage;
 
-      self.dayInSeconds = 86400;
-
       self.addBonus = function () {
         if (typeof self.storage.campaign.dates === 'undefined' || !self.storage.campaign.dates ||
           typeof self.storage.spring2017campaign.bonuses_settings === 'undefined' || !self.storage.spring2017campaign.bonuses_settings) {
@@ -84,9 +82,8 @@
           return '';
         }
 
-        var firstDay = self.storage.campaign.dates[0].timestamp;
-        var diff = (self.storage.todays_insight_timestamp - firstDay) / self.dayInSeconds;
-        var currentDay = self.storage.campaign.dates[diff];
+        var id = self.storage.timestamp_ids[self.storage.todays_insight_timestamp];
+        var currentDay = self.storage.campaign.dates[id];
         return currentDay.month + ' ' + currentDay.month_day;
       };
 
@@ -122,21 +119,29 @@
         if (!self.isTodaysInsightLoaded()) {
           return;
         }
-        self.storage.todays_insight_timestamp -= self.dayInSeconds;
+        var id = self.storage.timestamp_ids[self.storage.todays_insight_timestamp];
+        self.storage.todays_insight_timestamp = self.storage.campaign.dates[id - 1].timestamp;
       };
 
       self.next = function () {
         if (!self.isTodaysInsightLoaded()) {
           return;
         }
-        self.storage.todays_insight_timestamp += self.dayInSeconds;
+        var id = self.storage.timestamp_ids[self.storage.todays_insight_timestamp];
+        self.storage.todays_insight_timestamp = self.storage.campaign.dates[id + 1].timestamp;
       };
 
       self.isPrevious = function () {
         if (!self.isTodaysInsightLoaded()) {
           return;
         }
-        var previousDay = self.storage.todays_insight_timestamp - self.dayInSeconds;
+        var id = self.storage.timestamp_ids[self.storage.todays_insight_timestamp];
+
+        if (angular.isUndefined(self.storage.campaign.dates[id - 1])) {
+          return false;
+        }
+
+        var previousDay = self.storage.campaign.dates[id - 1].timestamp;
 
         return !angular.isUndefined(self.storage.spring2017campaign.today_insights[previousDay]);
       };
@@ -145,9 +150,15 @@
         if (!self.isTodaysInsightLoaded()) {
           return;
         }
-        var previousDay = self.storage.todays_insight_timestamp + self.dayInSeconds;
+        var id = self.storage.timestamp_ids[self.storage.todays_insight_timestamp];
 
-        return !angular.isUndefined(self.storage.spring2017campaign.today_insights[previousDay]);
+        if (angular.isUndefined(self.storage.campaign.dates[id + 1])) {
+          return false;
+        }
+
+        var nextDay = self.storage.campaign.dates[id + 1].timestamp;
+
+        return !angular.isUndefined(self.storage.spring2017campaign.today_insights[nextDay]);
       };
 
       $interval(function() {
