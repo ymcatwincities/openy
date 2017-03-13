@@ -5,8 +5,8 @@
  */
 
 /**
- * Update All amenities view.
+ * Update All Testimonials view.
  */
-function openy_prgf_amenities_update_8001() {
-  \Drupal::service('config_import.features_importer')->import('openy_prgf_amenities');
+function openy_prgf_all_testimonials_update_8001() {
+  \Drupal::service('config_import.features_importer')->importFeatures(['openy_prgf_amenities']);
 }
