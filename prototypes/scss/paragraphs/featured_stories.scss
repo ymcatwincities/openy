@@ -388,7 +388,8 @@
     display: none;
     @include breakpoint(tablet) {
       margin: 30px auto 30px;
-      max-width: 360px;
+      min-width: 280px;
+      width: 30.8%;
       display: block;
     }
   }

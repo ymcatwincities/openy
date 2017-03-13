@@ -10,6 +10,13 @@
     padding: 20px 0 30px;
   }
 
+  .pager__item .btn {
+    margin: 30px auto 30px;
+    min-width: 280px;
+    width: 30.8%;
+    display: block;
+  }
+
   form {
     background-color: $lighter-grey;
     padding: 20px;
