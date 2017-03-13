@@ -25,6 +25,11 @@
  * @ingroup themeable
  */
 #}
+{%
+  set classes = [
+    'independent-header'
+  ]
+%}
 <!DOCTYPE html>
 <html{{ html_attributes }}>
   <head>
@@ -37,7 +42,7 @@
       {{ style }}
     {% endfor %}
   </head>
-  <body{{ attributes }}>
+  <body{{ attributes.addClass(classes) }}>
     {#
       Keyboard navigation/accessibility link to main content section in
       page.html.twig.
