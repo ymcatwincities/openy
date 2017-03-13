@@ -149,16 +149,38 @@
   border-radius: 0;
   border: none;
   color: $white;
-  font-size: 20px;
-  height: 60px;
+  font-size: 18px;
+  height: 50px;
   padding: 0 10px;
-  line-height: 60px;
+  line-height: 50px;
   text-transform: uppercase;
-
+  @include breakpoint(laptop) {
+    font-size: 20px;
+    height: 60px;
+    line-height: 60px;
+  }
+  &:hover {
+    color: $border-grey;
+  }
   a {
     color: $white;
     text-decoration: none;
+
+    &:hover {
+      color: $border-grey;
+    }
   }
+}
+
+@mixin reset-button-style() {
+  background: none;
+  color: $blue;
+  padding: 0;
+  height: auto;
+  line-height: inherit;
+  font-size: 15px;
+  text-transform: none;
+  @include helvetica-neue();
 }
 
 @mixin btn-blue() {
