@@ -415,6 +415,7 @@
         self.todays_insight = null;
         self.todays_insight_timestamp = null;
         self.todays_insight_timer = 30;
+        self.timestamp_ids = [];
         // Game state.
         self.state = 'game';
       };
@@ -492,6 +493,10 @@
         var currentDay = self.campaign.dates[self.campaign.days_left - 1];
         self.todays_insight_timestamp = currentDay.timestamp;
         self.todays_insight_timer = 30;
+        var i = 0;
+        self.campaign.dates.forEach(function (entry) {
+          self.timestamp_ids[entry.timestamp] = i++;
+        });
       };
 
       self.getCampaign = function() {
