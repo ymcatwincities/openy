@@ -3,9 +3,20 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_taxonomy_content
+    - paragraphs.paragraphs_type.banner
+    - paragraphs.paragraphs_type.camp_menu
+    - paragraphs.paragraphs_type.classes_listing_filters
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.simple_content
+    - paragraphs.paragraphs_type.small_banner
     - taxonomy.vocabulary.blog_category
   module:
+    - datalayer
     - entity_reference_revisions
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_taxonomy_content
 id: taxonomy_term.blog_category.field_taxonomy_content
 field_name: field_taxonomy_content
 entity_type: taxonomy_term
@@ -19,17 +30,23 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    target_bundles: null
+    target_bundles:
+      banner: banner
+      camp_menu: camp_menu
+      classes_listing_filters: classes_listing_filters
+      gallery: gallery
+      simple_content: simple_content
+      small_banner: small_banner
     target_bundles_drag_drop:
       banner:
+        enabled: true
         weight: 25
-        enabled: false
       blog_posts_listing:
         weight: 26
         enabled: false
       camp_menu:
+        enabled: true
         weight: 27
-        enabled: false
       categories_listing:
         weight: 28
         enabled: false
@@ -37,8 +54,8 @@ settings:
         weight: 29
         enabled: false
       classes_listing_filters:
+        enabled: true
         weight: 30
-        enabled: false
       featured_blogs:
         weight: 31
         enabled: false
@@ -46,8 +63,8 @@ settings:
         weight: 32
         enabled: false
       gallery:
+        enabled: true
         weight: 33
-        enabled: false
       grid_columns:
         weight: 34
         enabled: false
@@ -82,11 +99,11 @@ settings:
         weight: 44
         enabled: false
       simple_content:
+        enabled: true
         weight: 45
-        enabled: false
       small_banner:
+        enabled: true
         weight: 46
-        enabled: false
       story_card:
         weight: 47
         enabled: false
