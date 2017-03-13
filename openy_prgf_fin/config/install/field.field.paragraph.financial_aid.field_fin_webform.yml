@@ -14,7 +14,7 @@ bundle: financial_aid
 label: 'Financial Aid'
 description: 'Financial Aid webform reference.'
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     default_data: ''
