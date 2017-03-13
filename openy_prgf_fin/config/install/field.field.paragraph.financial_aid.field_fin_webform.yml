@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_prgf_financial_aid
+    - field.storage.paragraph.field_fin_webform
     - paragraphs.paragraphs_type.financial_aid
     - webform.webform.financial_aid
   module:
     - webform
-id: paragraph.financial_aid.field_prgf_financial_aid
-field_name: field_prgf_financial_aid
+id: paragraph.financial_aid.field_fin_webform
+field_name: field_fin_webform
 entity_type: paragraph
 bundle: financial_aid
 label: 'Financial Aid'
-description: ''
+description: 'Financial Aid webform reference.'
 required: false
 translatable: false
 default_value:

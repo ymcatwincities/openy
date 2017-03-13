@@ -2,27 +2,25 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.financial_aid.field_prgf_financial_aid
+    - field.field.paragraph.financial_aid.field_fin_webform
     - field.field.paragraph.financial_aid.field_prgf_title
     - paragraphs.paragraphs_type.financial_aid
   module:
-    - webform
+    - content_moderation
 id: paragraph.financial_aid.default
 targetEntityType: paragraph
 bundle: financial_aid
 mode: default
 content:
-  field_prgf_financial_aid:
-    weight: 1
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: webform_entity_reference_entity_view
   field_prgf_title:
     weight: 0
-    label: hidden
     settings:
-      link_to_entity: false
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-    type: string
-hidden: {  }
+    type: string_textfield
+hidden:
+  created: true
+  field_fin_webform: true
+  status: true
+  uid: true

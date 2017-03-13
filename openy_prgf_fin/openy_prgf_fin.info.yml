@@ -5,7 +5,6 @@ core: 8.x
 dependencies:
   - content_moderation
   - field
-  - openy_prgf_3c
   - paragraphs
   - webform
 version: 8.x-1.0
