@@ -38,7 +38,7 @@
  * @ingroup themeable
  */
 #}
-
+{{ attach_library('slick/slick.theme') }}
 {% if label_hidden %}
   {% if multiple %}
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
