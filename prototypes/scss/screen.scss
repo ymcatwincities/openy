@@ -26,12 +26,14 @@
 
 @import "./blocks/block-description";
 @import "./blocks/paragraph-header";
+@import "./blocks/openy-content-pager";
 
 @import "./paragraphs/featured_stories";
 @import "./paragraphs/columns";
 @import "./paragraphs/lto";
 @import "./paragraphs/amenities";
 @import "./paragraphs/testimonials";
+@import "./paragraphs/camp_menu";
 
 @import "./modules/gallery";
 @import "./modules/membership";
@@ -40,6 +42,7 @@
 @import "./modules/slick";
 @import "./modules/search";
 @import "./modules/alerts";
+@import "./modules/events";
 @import "./modules/blog";
 @import "./modules/landing";
 @import "./modules/gmap";

@@ -98,3 +98,11 @@
     bottom: -15px;
   }
 }
+
+.node--type-landing {
+  .content-sidebar-region {
+    @include breakpoint(tablet) {
+      margin-top: 25px;
+    }
+  }
+}

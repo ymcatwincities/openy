@@ -1,0 +1,73 @@
+.registration-site-event-form {
+  border: solid 1px $border-grey;
+  padding: 25px;
+  margin-bottom: 15px;
+  @include breakpoint(tablet) {
+    margin-bottom: 30px;
+  }
+
+  h2 {
+    @include helvetica-neue();
+    font-size: 14px;
+    line-height: 1.21;
+    letter-spacing: 2px;
+    color: $default-grey;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+  }
+  
+  summary {
+    display: none;
+  }
+
+  fieldset {
+    margin: 0 0 15px;
+    legend {
+      border: none;
+      margin: 5px 0;
+      font-size: 16px;
+      color: $purple;
+      @include cachet-medium();
+    }
+  }
+
+  .form-wrapper {
+    .js-form-type-radio {
+      display: block;
+      margin: 0 0 0 1em;
+    }
+
+    .registrants-element {
+      font-size: 15px;
+      input[id^=edit-people-registrants-for-change] {
+        @include reset-button-style();
+        vertical-align: baseline;
+        margin-left: 10px;
+      }
+      .person-container {
+        padding: 0;
+        border: none;
+      }
+    }
+
+    .js-form-type-textfield,
+    .js-form-type-email {
+      margin-bottom: 15px;
+      label {
+        color: $darker-grey;
+      }
+    }
+
+    .description {
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    .btn.btn-primary {
+      display: block;
+      margin-top: 15px;
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+}

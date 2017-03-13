@@ -80,79 +80,26 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+{%
+  set main_col_count = node.field_sidebar_content.getValue() is empty ? '12' : '8'
+%}
 <article{{ attributes.addClass(classes) }}>
   <div{{ content_attributes.addClass('node__content') }}>
-    <div class="branch-header">
-      <div class="hidden-xs desktop">
-        <div class="container">
-          <div class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
-            <div class="column col-sm-3 col-md-2 branch-header__item">
-              <h4>{{ 'WELCOME TO THE'|t }}</h4>
-              <p>{{ label }}</p>
-            </div>
-            <div class="column col-sm-3 address-wrapper branch-header__item">
-              <h4>{{ 'ADDRESS'|t }}</h4>
-              {{ content.field_location_address }}
-            </div>
-            <div class="column col-sm-3 phone-wrapper col-md-2 branch-header__item">
-              <h4>{{ 'PHONE'|t }}</h4>
-              {{ content.field_location_phone }}
-            </div>
-            <div class="column col-sm-3 hours-wrapper col-md-2 branch-header__item">
-              <h4>{{ 'TODAY\'S HOURS'|t }}</h4>
-              {{ content.field_branch_hours }}
-            </div>
-            <div class="column col-sm-3 col-md-3 save-link branch-header__item">
-              {{ content.ygh_branch_selector }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hidden-sm hidden-md hidden-lg mobile">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <h4>{{ 'WELCOME TO THE'|t }}</h4>
-              <p>{{ label }}</p>
-            </div>
-            <div class="ui-tabs">
-              <ul class="ui-tabs-nav">
-                <li><a href="#tabs-phone"><i class="fa fa-phone"></i></a></li>
-                <li><a href="#tabs-marker"><i class="fa fa-map-marker"></i></a></li>
-                <li><a href="#tabs-clock"><i class="fa fa-clock-o"></i></a></li>
-              </ul>
-              <div id="tabs-phone" class="ui-tabs-panel col-xs-12">
-                <h4>{{ 'PHONE'|t }}</h4>
-                {{ content.field_location_phone }}
-              </div>
-              <div id="tabs-marker" class="ui-tabs-panel col-xs-12">
-                <h4>{{ 'ADDRESS'|t }}</h4>
-                {{ content.field_location_address }}
-              </div>
-              <div id="tabs-clock" class="ui-tabs-panel col-xs-12">
-                <h4>{{ 'TODAY\'S HOURS'|t }}</h4>
-                {{ content.field_branch_hours }}
-              </div>
-            </div>
-            <div id="save-location">
-              {{ content.ygh_branch_selector }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {{ content.field_header_content }}
-
     <div class="container">
       <div class="row">
-        <div class="content-main-region col-sm-12">
-          {{ content.field_branch_body }}
+        <div class="col-sm-12">
+          <h1{{ title_attributes }}>{{ label }}</h1>
         </div>
+        <div class="content-main-region col-md-{{ main_col_count }}">
+          {{ content|without('field_sidebar_content', 'field_event_date') }}
+        </div>
+        {% if node.field_sidebar_content.getValue() is not empty %}
+        <div class="content-sidebar-region col-md-4">
+          {{ content.field_event_date }}
+          {{ content.field_sidebar_content }}
+        </div>
+        {% endif %}
       </div>
     </div>
-
-
   </div>
-
 </article>
