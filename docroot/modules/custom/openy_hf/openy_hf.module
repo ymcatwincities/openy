@@ -21,9 +21,12 @@ function openy_hf_page_attachments(array &$attachments) {
   // Create CSS from config.
   $css = '';
   foreach ($config->get('header_replacements') as $id => $replacement) {
-    $css .= $replacement['selector'] . " {\r\ndisplay: none !important;\r\n}\r\n";
+    $css .= $replacement['selector'] . " {\r\ndisplay: none;\r\n}\r\n";
   }
   foreach ($config->get('footer_replacements') as $id => $replacement) {
+    $css .= $replacement['selector'] . " {\r\ndisplay: none;\r\n}\r\n";
+  }
+  foreach ($config->get('header_footer_independent_replacements') as $id => $replacement) {
     $css .= $replacement['selector'] . " {\r\ndisplay: none !important;\r\n}\r\n";
   }
   // Save it as CSS file to public directory.
