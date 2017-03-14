@@ -28,3 +28,15 @@ function openy_node_camp_update_8002() {
       'field.field.node.camp.field_camp_body',
     ]);
 }
+
+/**
+ * Add pathauto pattern.
+ */
+function openy_node_camp_update_8003() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_camp') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'pathauto.pattern.camp',
+    ]);
+}
