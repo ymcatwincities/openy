@@ -10,6 +10,7 @@ dependencies:
     - paragraphs.paragraphs_type.blackbaud
     - paragraphs.paragraphs_type.camp_menu
     - paragraphs.paragraphs_type.featured_stories
+    - paragraphs.paragraphs_type.financial_aid
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.latest_news_and_updates
     - paragraphs.paragraphs_type.panorama
@@ -39,6 +40,7 @@ settings:
       simple_content: simple_content
       blackbaud: blackbaud
       camp_menu: camp_menu
+      financial_aid: financial_aid
       panorama: panorama
     target_bundles_drag_drop:
       2c:
@@ -83,12 +85,12 @@ settings:
       all_testimonials:
         weight: 27
         enabled: false
-      location_finder:
-        weight: 29
-        enabled: false
       camp_menu:
         enabled: true
         weight: 29
+      location_finder:
+        weight: 29
+        enabled: false
       lto:
         weight: 30
         enabled: false
@@ -101,6 +103,9 @@ settings:
       whay:
         weight: 34
         enabled: false
+      financial_aid:
+        enabled: true
+        weight: 38
       small_banner:
         weight: 41
         enabled: false
