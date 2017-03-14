@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_alerts module.
+ */
+
+/**
+ * Add pathauto pattern.
+ */
+function openy_alerts_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_alerts') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'pathauto.pattern.alert',
+    ]);
+}
