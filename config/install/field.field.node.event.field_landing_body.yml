@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.2c
     - paragraphs.paragraphs_type.3c
     - paragraphs.paragraphs_type.4c
+    - paragraphs.paragraphs_type.financial_aid
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.header
     - paragraphs.paragraphs_type.lto
@@ -37,6 +38,7 @@ settings:
       header: header
       lto: lto
       simple_content: simple_content
+      financial_aid: financial_aid
       panorama: panorama
     target_bundles_drag_drop:
       1c:
@@ -72,33 +74,36 @@ settings:
       location_finder:
         weight: 27
         enabled: false
+      all_amenities:
+        weight: 28
+        enabled: false
       lto:
         enabled: true
         weight: 28
-      all_amenities:
-        weight: 28
+      membership_calculator:
+        weight: 29
         enabled: false
       all_testimonials:
         weight: 29
         enabled: false
-      membership_calculator:
-        weight: 29
+      program_registration:
+        weight: 30
         enabled: false
       blackbaud:
         weight: 30
         enabled: false
-      program_registration:
-        weight: 30
-        enabled: false
-      camp_menu:
-        weight: 31
-        enabled: false
       simple_content:
         enabled: true
         weight: 31
+      camp_menu:
+        weight: 31
+        enabled: false
       whay:
         weight: 32
         enabled: false
+      financial_aid:
+        enabled: true
+        weight: 38
       panorama:
         enabled: true
         weight: 41

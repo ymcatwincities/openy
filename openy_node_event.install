@@ -16,3 +16,15 @@ function openy_node_event_update_8001() {
       'field.field.node.event.field_landing_body',
     ]);
 }
+
+/**
+ * Add Financial Aid paragraph to body.
+ */
+function openy_node_event_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.event.field_landing_body',
+    ]);
+}
