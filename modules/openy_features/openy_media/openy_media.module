@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_form_alter().
@@ -41,4 +42,24 @@ function openy_media_preprocess_views_view_grid(array &$variables) {
       }
       break;
   }
+}
+
+/**
+ * Prepares variables for entity embed container templates.
+ *
+ * Default template: entity-embed-container.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes, #children.
+ */
+function openy_media_preprocess_entity_embed_container(array &$variables) {
+  $view_mode = $variables['element']['#context']['data-entity-embed-display'];
+  // Make the view mode context CSS class name compatible.
+  $variables['attributes']['class'][] = Html::cleanCssIdentifier($view_mode, [
+    ':' => '-',
+    '.' => '-',
+    '_' => '-',
+  ]);
 }

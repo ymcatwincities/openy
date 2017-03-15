@@ -201,8 +201,8 @@ class DataWrapper implements OpenyDataServiceInterface {
    *
    * Used in membership calc block.
    */
-  public function getBranchPins() {
-    $branch_pins = $this->getPins('branch', t('YMCA'), 'blue');
+  public function getBranchPins($id = NULL) {
+    $branch_pins = $this->getPins('branch', t('YMCA'), 'blue', $id);
     return $branch_pins;
   }
 
@@ -253,8 +253,6 @@ class DataWrapper implements OpenyDataServiceInterface {
     $builder = $this->entityTypeManager->getViewBuilder('node');
     $location = $storage->load($location_id);
     $result['location'] = $builder->view($location, 'calc_summary');
-    // TODO: Add map for this $location_id.
-    // TODO: Fix map (two maps can't display one one page).
     $membership = $storage->load($membership_id);
     $result['membership'] = $builder->view($membership, 'calc_summary');
 
@@ -263,10 +261,38 @@ class DataWrapper implements OpenyDataServiceInterface {
       if ($value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
         $result['price']['monthly_rate'] = $value->field_mbrshp_monthly_rate->value;
         $result['price']['join_fee'] = $value->field_mbrshp_join_fee->value;
+        if ($value->field_mbrshp_link) {
+          $result['link'] = $value->field_mbrshp_link->first()->getUrl();
+        }
       }
     }
 
     return $result;
+  }
+
+  /**
+   * Get Redirect Link.
+   *
+   * @param int $location_id
+   *   Location ID.
+   * @param string $membership_id
+   *   Membership type ID.
+   *
+   * @return \Drupal\Core\Url
+   *   Redirect url.
+   */
+  public function getRedirectUrl($location_id, $membership_id) {
+    $storage = $this->entityTypeManager->getStorage('node');
+    $membership = $storage->load($membership_id);
+    $info = $membership->field_mbrshp_info->referencedEntities();
+    foreach ($info as $value) {
+      if ($value->field_mbrshp_location->first()->get('target_id')->getValue() == $location_id) {
+        if ($value->field_mbrshp_link) {
+          return $value->field_mbrshp_link->first()->getUrl();
+        }
+      }
+    }
+    return NULL;
   }
 
   /**
@@ -279,6 +305,7 @@ class DataWrapper implements OpenyDataServiceInterface {
       'getBranchPins',
       'getLocations',
       'getSummary',
+      'getRedirectUrl',
     ];
   }
 

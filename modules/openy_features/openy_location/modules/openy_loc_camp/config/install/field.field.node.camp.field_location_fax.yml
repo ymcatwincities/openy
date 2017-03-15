@@ -6,6 +6,10 @@ dependencies:
     - node.type.camp
   module:
     - telephone
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_location_fax
 id: node.camp.field_location_fax
 field_name: field_location_fax
 entity_type: node

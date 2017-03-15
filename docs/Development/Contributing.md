@@ -14,6 +14,9 @@ If you have some time to make a contribution to the project, here are the steps 
 - Write steps for review. In this way maintainers can go through steps on build to verify your fix/feature.
 - Wait for a CI build and ask maintainers for review.
 
+
+**Important:** make sure your git email is associated with account on drupal.org, otherwise you won't get commits there.
+
 # Drupal.org credits
 If you would like to get drupal.org credits for your contribution:
 - Create issue on [drupal.org](https://www.drupal.org/project/issues/openy?categories=All)

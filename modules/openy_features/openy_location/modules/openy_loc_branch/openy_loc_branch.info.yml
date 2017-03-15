@@ -11,13 +11,16 @@ dependencies:
   - link
   - menu_ui
   - node
+  - openy_field_custom_hours
   - openy_hours_formatter
   - openy_location
   - openy_node
+  - openy_node_mbrshp
+  - openy_prgf
   - options
   - paragraphs
   - path
   - pathauto
   - telephone
   - user
-version: 8.x-1.0
+version: 8.x-1.1

@@ -8,19 +8,12 @@ dependencies:
     - field.field.node.membership.field_mbrshp_info
     - node.type.membership
   module:
-    - text
     - user
 id: node.membership.calc_summary
 targetEntityType: node
 bundle: membership
 mode: calc_summary
 content:
-  field_mbrshp_description:
-    weight: 2
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
   field_mbrshp_image:
     weight: 1
     label: hidden
@@ -34,4 +27,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_mbrshp_description: true
   field_mbrshp_info: true

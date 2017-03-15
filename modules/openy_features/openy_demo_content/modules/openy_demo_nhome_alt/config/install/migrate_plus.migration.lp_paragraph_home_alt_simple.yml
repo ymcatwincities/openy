@@ -20,7 +20,7 @@ source:
         <p>Learn how to use the Open Y content management system to deliver brand-compliant digital experiences.<br />
         <br />
         <i>* please login as admin user</i></p>
-        <p><a class="btn btn-link blue" href="/admin/structure/menu?tour=1">Start guided tour</a></p>
+        <p><a class="btn btn-link blue" href="/user/login?destination=admin/structure/menu?tour=1">Start guided tour</a></p>
         <p>This is default installation without demo content.</p>
   ids:
     id:

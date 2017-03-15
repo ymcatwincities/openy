@@ -6,6 +6,10 @@ dependencies:
     - node.type.branch
   module:
     - telephone
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_location_phone
 id: node.branch.field_location_phone
 field_name: field_location_phone
 entity_type: node
@@ -13,7 +17,7 @@ bundle: branch
 label: Phone
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

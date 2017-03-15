@@ -7,11 +7,15 @@
 
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
+use Drupal\Component\Utility\UrlHelper;
 
 /**
  * Implements hook_preprocess_node().
  */
-function openy_rose_preprocess_node(&$variables) {
+function openy_rose_preprocess_node(array &$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['node']->bundle())) {
     $function = __FUNCTION__ . '_' . $variables['node']->bundle();
     $function($variables);
@@ -21,10 +25,23 @@ function openy_rose_preprocess_node(&$variables) {
 /**
  * Implement hook_preprocess_paragraph().
  */
-function openy_rose_preprocess_paragraph(&$variables) {
+function openy_rose_preprocess_paragraph(array &$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['paragraph']->bundle())) {
     $function = __FUNCTION__ . '_' . $variables['paragraph']->bundle();
     $function($variables);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function openy_rose_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Add content type suggestions for node types.
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    $node_type = $node->getType();
+    $page__node_pos = array_search('page__node', $suggestions);
+    $page__node__type = 'page__node__' . $node_type;
+    array_splice($suggestions, $page__node_pos + 1, 0, $page__node__type);
   }
 }
 
@@ -100,7 +117,177 @@ function openy_rose_preprocess_input(array &$variables) {
 /**
  * Implements hook_preprocess_field().
  */
-function openy_rose_preprocess_field__node__field_location_directions(&$variables) {
+function openy_rose_preprocess_field__node__field_location_directions(array &$variables) {
   // Change link title to Directions.
   $variables['items'][0]['content']['#title'] = t('Directions');
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
+  $form['logo']['openy_rose_footer_logo'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Footer Logo'),
+    '#description' => t('To display a logo in the footer area, upload it here.</br>Image size suggested 99 x 75 pixels.'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png jpg jpeg gif svg'),
+    ),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('openy_rose_footer_logo'),
+  );
+  $form['camp_section'] = array(
+    '#type' => 'details',
+    '#title' => t('Camp section'),
+    '#description' => t('Contains theme configuration for camp and camp related content.'),
+    '#open' => TRUE,
+  );
+  $form['camp_section']['openy_rose_camp_section_logo'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camp section logo'),
+    '#description' => t('To display a logo in the header area on camp pages, and camp related landing pages, upload it here.</br>Image size suggested 92 x 70 pixels.'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png jpg jpeg gif svg'),
+    ),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('openy_rose_camp_section_logo'),
+  );
+  $form['camp_section']['openy_rose_camp_footer_logo'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camp section footer logo'),
+    '#description' => t('To display a logo in the footer area on camp pages, and camp related landing pages, upload it here.</br>Image size suggested 99 x 75 pixels.'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png jpg jpeg gif svg'),
+    ),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('openy_rose_camp_footer_logo'),
+  );
+  $form['camp_section']['openy_rose_camp_favicon'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camp favicon'),
+    '#description' => t('To display a favicon on camp pages, and camp related landing pages, upload it here.</br>Image sizes must be 16×16, 32×32, 48×48, or 64×64 pixels.</br>Accepted file types ico, png, gif.'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('ico png gif'),
+    ),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('openy_rose_camp_favicon'),
+  );
+
+  // Submission handler is not working on theme form
+  // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
+  // Setting file usage for openy_rose theme.
+  $image_fields = theme_get_setting('oepny_rose_image_fields');
+
+  foreach ($image_fields as $image_field) {
+    $fid_array = theme_get_setting($image_field);
+    if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
+      $file = File::load(reset($fid_array));
+      if ($file !== NULL) {
+        openy_rose_set_theme_file_usage($file);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function openy_rose_page_attachments_alter(array &$page) {
+  // Remove and replace the favicon if this page is a camp node or landing page
+  // related to a camp, and the custom camp favicon has been set for the theme.
+
+  // Exit if not a node page, or if the 'openy_loc_camp.camp_service' is not available.
+  if (!($node = \Drupal::request()->attributes->get('node')) || !($camp_service = \Drupal::service('openy_loc_camp.camp_service'))) {
+    return;
+  }
+
+  // Exit if not a camp or related to a camp.
+  if (!$camp_service->nodeHasOrIsCamp($node)) {
+    return;
+  }
+
+  $fid = theme_get_setting('openy_rose_camp_favicon');
+  // Exit if no Camp Favicon is set.
+  if (empty($fid) || !is_array($fid) || !is_numeric(reset($fid))) {
+    return;
+  }
+
+  $file = File::load(reset($fid));
+  // Exit if no file exists.
+  if ($file == NULL) {
+    return;
+  }
+
+  // Remove default favicon.
+  if (!empty($page['#attached']['html_head_link'])) {
+    foreach ($page['#attached']['html_head_link'] as $key => $value) {
+      if (empty($value)) {
+        continue;
+      }
+      foreach ($page['#attached']['html_head_link'][$key] as $sub_key => $sub_value) {
+        if (!empty($sub_value['rel']) && $sub_value['rel'] == 'shortcut icon') {
+          unset($page['#attached']['html_head_link'][$key][$sub_key]);
+        }
+      }
+      if (empty($page['#attached']['html_head_link'][$key])) {
+        unset($page['#attached']['html_head_link'][$key]);
+      }
+    }
+  }
+
+  // Get Camp section favicon & mime type.
+  $favicon = $file->url();
+  $type = $file->getMimeType();
+
+  // Attach favicon.
+  $page['#attached']['html_head_link'][][] = array(
+    'rel' => 'shortcut icon',
+    'href' => UrlHelper::stripDangerousProtocols($favicon),
+    'type' => $type,
+  );
+}
+
+/**
+ * Implements template_preprocess_page().
+ */
+function openy_rose_preprocess_page(array &$variables) {
+  // Set custom theme variables for page when they are set.
+  $image_fields = theme_get_setting('oepny_rose_image_fields');
+
+  foreach ($image_fields as $image_template_variable => $theme_setting_key) {
+    $fid = theme_get_setting($theme_setting_key);
+    if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
+      $file = File::load(reset($fid));
+      if ($file !== NULL) {
+        $variables[$image_template_variable] = $file->getFileUri();
+      }
+    }
+  }
+}
+
+/**
+ * Set a file usage by the theme.
+ *
+ * @param \Drupal\file\FileInterface $file
+ *   The file to set the usage of.
+ */
+function openy_rose_set_theme_file_usage(FileInterface $file) {
+  $file_usage = \Drupal::service('file.usage');
+  $file_uses = $file_usage->listUsage($file);
+  if (empty($file_uses) || !array_key_exists('openy_rose', $file_uses)) {
+    // Set usage.
+    $file_usage->add($file, 'openy_rose', 'theme', 1);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_rose_theme_suggestions_radios_alter(array &$suggestions, array $variables, $hook) {
+  $suggestions[] = 'radios__' . $variables['element']['#name'];
 }
