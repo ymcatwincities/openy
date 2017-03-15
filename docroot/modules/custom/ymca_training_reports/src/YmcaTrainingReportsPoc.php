@@ -99,7 +99,10 @@ class YmcaTrainingReportsPoc {
     $mb_data = $result->GetStaffAppointmentsResult->Appointments->Appointment;
 
     foreach ($mb_data as $item) {
-      if ($item->Program->ID == 2){
+      // PT - $item->Program->ID == 2
+      // BT - $item->Program->ID == 4
+      if ($item->Program->ID == 4){
+        // @TODO For BT, skip every 2nd item based on start/end date + time(try to find better property.)
         $datetime1 = date_create($item->StartDateTime);
         $datetime2 = date_create($item->EndDateTime);
         $interval = date_diff($datetime1, $datetime2);
