@@ -142,13 +142,21 @@
 }
 
 img.alignleft {
-  float: left;
-  margin: 5px 24px 12px 0;
+  display: block;
+  margin: 10px 0;
+  @include breakpoint(tablet) {
+    float: left;
+    margin: 5px 24px 12px 0;
+  }
 }
 
 img.alignright {
-  float: right;
-  margin: 5px 0 12px 24px;
+  display: block;
+  margin: 10px 0;
+  @include breakpoint(tablet) {
+    float: right;
+    margin: 5px 0 12px 24px;
+  }
 }
 
 .field-prgf-sc-body {
