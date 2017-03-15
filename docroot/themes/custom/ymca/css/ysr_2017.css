@@ -88,6 +88,7 @@ html, body {
 .theme-ymca--2017-compain .form-item {
   margin: 0;
 }
+.theme-ymca--2017-compain .form-select,
 .theme-ymca--2017-compain .form-text,
 .theme-ymca--2017-compain .form-email {
   font-size: 14px;
@@ -108,24 +109,28 @@ html, body {
   border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
+.theme-ymca--2017-compain .form-select:-moz-placeholder,
 .theme-ymca--2017-compain .form-text:-moz-placeholder,
 .theme-ymca--2017-compain .form-email:-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
   line-height: 26px;
 }
+.theme-ymca--2017-compain .form-select::-moz-placeholder,
 .theme-ymca--2017-compain .form-text::-moz-placeholder,
 .theme-ymca--2017-compain .form-email::-moz-placeholder {
   color: #a7a7a7;
   font-style: italic;
   line-height: 26px;
 }
+.theme-ymca--2017-compain .form-select:-ms-input-placeholder,
 .theme-ymca--2017-compain .form-text:-ms-input-placeholder,
 .theme-ymca--2017-compain .form-email:-ms-input-placeholder {
   color: #a7a7a7;
   font-style: italic;
   line-height: 26px;
 }
+.theme-ymca--2017-compain .form-select::-webkit-input-placeholder,
 .theme-ymca--2017-compain .form-text::-webkit-input-placeholder,
 .theme-ymca--2017-compain .form-email::-webkit-input-placeholder {
   color: #a7a7a7;
@@ -215,6 +220,220 @@ html, body {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.theme-ymca--2017-compain-winners {
+  height: 100%;
+  position: relative;
+}
+.theme-ymca--2017-compain-winners .container-winners {
+  height: 100%;
+  background: url("../prototypes/ysr_2017/img/bg-page-winner.jpg") no-repeat;
+  background-size: cover;
+  max-height: 522px;
+  max-height: 52.2rem;
+}
+.theme-ymca--2017-compain-winners .compain-winners {
+  padding: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 740px;
+  max-width: 74rem;
+  padding-top: 39px;
+  padding-top: 3.9rem;
+  padding-bottom: 45px;
+  padding-bottom: 4.5rem;
+  margin: 0 auto;
+}
+.theme-ymca--2017-compain-winners .compain-winners .compain-header {
+  background: none;
+  height: auto;
+  padding-bottom: 0;
+}
+.theme-ymca--2017-compain-winners .compain-winners .compain-header--content {
+  text-align: center;
+}
+.theme-ymca--2017-compain-winners .compain-winners .compain-header--content .content {
+  text-align: center;
+  margin-top: 31px;
+  margin-top: 3.1rem;
+}
+.theme-ymca--2017-compain-winners .compain-winners .compain-header--content .title {
+  padding-bottom: 2px;
+}
+.theme-ymca--2017-compain-winners .compain-winners .compain-header--content .logo {
+  display: block;
+  margin: 0 auto;
+  max-width: 102px;
+}
+.theme-ymca--2017-compain-winners .compain-winners .container {
+  padding: 0;
+}
+.theme-ymca--2017-compain-winners .compain-form-winners {
+  padding: 20px;
+  padding: 2rem;
+  max-width: 453px;
+  max-width: 45.3rem;
+  margin: 0 auto;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-winners .compain-form-winners {
+    padding: 30px;
+    padding: 3rem;
+  }
+}
+@media (min-width: 64em) {
+  .theme-ymca--2017-compain-winners .compain-form-winners {
+    padding: 27px;
+    padding: 2.7rem;
+  }
+}
+.theme-ymca--2017-compain-winners .compain-form-winners .btn {
+  line-height: 26px;
+  line-height: 2.6rem;
+  display: block;
+  width: 100%;
+}
+.theme-ymca--2017-compain-winners .compain-form-winners .form-item {
+  margin: 0 0 20px 0;
+  margin: 0 0 2rem 0;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-winners .compain-form-winners .form-item {
+    margin-bottom: 0;
+  }
+}
+.theme-ymca--2017-compain-winners .compain-form-winners .form-select {
+  height: 50px;
+}
+.theme-ymca--2017-compain-winners .img.center {
+  text-align: center;
+}
+.theme-ymca--2017-compain-winners .compain-info-blocks .content-wrapper {
+  overflow: visible;
+}
+
+.winner {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+.winner .bucks-header {
+  display: table;
+  margin: 0 auto;
+  font-weight: bold;
+  border-bottom: 1px solid #e9e9e9;
+  padding-bottom: 4px;
+  margin-bottom: 16px;
+  margin-bottom: 1.6rem;
+  min-width: 308px;
+}
+.col-sm-4 .winner .bucks-header {
+  padding-left: 40px;
+  padding-left: 4rem;
+}
+@media (max-width: 56.25em) {
+  .col-sm-4 .winner .bucks-header {
+    min-width: initial;
+    padding-left: 0;
+  }
+  .col-sm-4 .winner .bucks-header .cert-description {
+    padding-left: 10px;
+    padding-left: 1rem;
+    font-size: 18px;
+    font-size: 1.8rem;
+  }
+}
+.winner .sum {
+  display: table-cell;
+  color: #01a490;
+  letter-spacing: -6px;
+  font-size: 60px;
+  font-size: 6rem;
+}
+.winner .sum .currency {
+  font-size: 60%;
+}
+.winner .cert-description {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+  font-size: 20px;
+  font-size: 2rem;
+  line-height: 25px;
+  line-height: 2.5rem;
+}
+.winner .winner-name {
+  color: #006b6b;
+  font-size: 30px;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.col-sm-2 .winner .winner-name, .col-sm-4 .winner .winner-name {
+  color: #01a490;
+}
+.col-sm-2 .winner .winner-name {
+  margin-top: 6px;
+  margin-top: 0.6rem;
+}
+.winner .winner-id {
+  color: #777;
+  font-size: 13px;
+  font-size: 1.3rem;
+}
+.col-sm-2 .winner .winner-id {
+  margin-bottom: 57px;
+  margin-bottom: 5.7rem;
+}
+.col-sm-12 .winner {
+  font-size: 21px;
+  font-size: 2.1rem;
+}
+
+@media (min-width: 48em) {
+  .container.bucks-25 {
+    margin-top: -75px;
+    margin-top: -7.5rem;
+    padding: 0;
+  }
+}
+.container.bucks-25 img {
+  max-width: 60px;
+}
+
+.bucks-5 .container {
+  border-bottom: 1px solid #e9e9e9;
+  margin: 0 48px 48px;
+  margin: 0 4.8rem 4.8rem;
+  padding-top: 88px;
+  padding-top: 8.8rem;
+  padding-left: 80px;
+  padding-left: 8rem;
+}
+@media (min-width: 48em) {
+  .bucks-5 .container {
+    padding-left: 188px;
+    padding-left: 18.8rem;
+  }
+}
+.bucks-5 .container .winner {
+  margin-bottom: 0;
+}
+.bucks-5 .container .bucks-header {
+  border: 0 none;
+  margin-bottom: 6px;
+  margin-bottom: 0.6rem;
+}
+.bucks-5 .winner-name {
+  font-size: 20px;
+  font-size: 2rem;
+}
+.bucks-5 .row {
+  margin-right: -100px;
+  margin-left: -100px;
 }
 
 .compain-header {
@@ -313,10 +532,12 @@ html, body {
     vertical-align: top;
   }
 }
+.compain-header--content .container .content .sub-title,
 .compain-header--content .container .content .date {
   color: #20bdbe;
 }
 @media (min-width: 48em) {
+  .compain-header--content .container .content .sub-title,
   .compain-header--content .container .content .date {
     font-size: 36px;
     font-size: 3.6rem;
