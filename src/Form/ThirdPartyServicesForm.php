@@ -84,9 +84,11 @@ class ThirdPartyServicesForm extends FormBase {
     $geo_loc_config->save();
 
     // Set Google Analytics Account TODO: Add other values?
-    $ga_config = $config_factory->getEditable('google_analytics.settings');
-    $ga_config->set('account', $form_state->getValue('google_analytics_account'));
-    $ga_config->save();
+    if (!empty($form_state->getValue('google_analytics_account'))) {
+      $ga_config = $config_factory->getEditable('google_analytics.settings');
+      $ga_config->set('account', $form_state->getValue('google_analytics_account'));
+      $ga_config->save();
+    }
 
     $optimizely_id = $form_state->getValue('optimizely_id');
     $optimizely_config->set('optimizely_id', $optimizely_id);
