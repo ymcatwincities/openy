@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.location_finder.field_prgf_location_finder
-    - paragraphs.paragraphs_type.location_finder
+    - field.field.paragraph.prgf_location_finder.field_prgf_location_finder
+    - paragraphs.paragraphs_type.prgf_location_finder
   module:
     - content_moderation
     - plugin
-id: paragraph.location_finder.default
+id: paragraph.prgf_location_finder.default
 targetEntityType: paragraph
-bundle: location_finder
+bundle: prgf_location_finder
 mode: default
 content:
   field_prgf_location_finder:

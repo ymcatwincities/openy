@@ -1,5 +1,5 @@
-name: 'OpenY Paragraph Location Finder'
-description: 'Implements a paragraph with Location Finder.'
+name: 'OpenY paragraph location finder'
+description: 'OpenY paragraph location finder'
 type: module
 core: 8.x
 dependencies:

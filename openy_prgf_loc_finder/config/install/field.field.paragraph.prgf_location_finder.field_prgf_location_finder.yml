@@ -3,13 +3,13 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_prgf_location_finder
-    - paragraphs.paragraphs_type.location_finder
+    - paragraphs.paragraphs_type.prgf_location_finder
   module:
     - plugin
-id: paragraph.location_finder.field_prgf_location_finder
+id: paragraph.prgf_location_finder.field_prgf_location_finder
 field_name: field_prgf_location_finder
 entity_type: paragraph
-bundle: location_finder
+bundle: prgf_location_finder
 label: 'Location finder'
 description: ''
 required: false

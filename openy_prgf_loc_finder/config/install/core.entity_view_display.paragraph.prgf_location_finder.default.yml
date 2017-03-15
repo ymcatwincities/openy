@@ -2,17 +2,17 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.location_finder.field_prgf_location_finder
-    - paragraphs.paragraphs_type.location_finder
+    - field.field.paragraph.prgf_location_finder.field_prgf_location_finder
+    - paragraphs.paragraphs_type.prgf_location_finder
   module:
     - plugin
-id: paragraph.location_finder.default
+id: paragraph.prgf_location_finder.default
 targetEntityType: paragraph
-bundle: location_finder
+bundle: prgf_location_finder
 mode: default
 content:
   field_prgf_location_finder:
-    weight: 1
+    weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
