@@ -1,0 +1,30 @@
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.alert.field_alert_belongs
+    - field.field.node.alert.field_alert_color
+    - field.field.node.alert.field_alert_description
+    - field.field.node.alert.field_alert_icon_color
+    - field.field.node.alert.field_alert_link
+    - field.field.node.alert.field_alert_place
+    - field.field.node.alert.field_alert_text_color
+    - node.type.alert
+  module:
+    - user
+id: node.alert.teaser
+targetEntityType: node
+bundle: alert
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_alert_belongs: true
+  field_alert_color: true
+  field_alert_description: true
+  field_alert_icon_color: true
+  field_alert_link: true
+  field_alert_place: true
+  field_alert_text_color: true

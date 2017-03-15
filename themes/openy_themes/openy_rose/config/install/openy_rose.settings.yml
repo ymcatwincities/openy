@@ -1,0 +1,6 @@
+# OpenY Rose theme image_template_variable: theme_setting_key configuration.
+oepny_rose_image_fields:
+  footer_logo: openy_rose_footer_logo
+  camp_section_logo: openy_rose_camp_section_logo
+  camp_footer_logo: openy_rose_camp_footer_logo
+  camp_favicon: openy_rose_camp_favicon

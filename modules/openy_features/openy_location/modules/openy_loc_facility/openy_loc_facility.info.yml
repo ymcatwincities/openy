@@ -4,6 +4,7 @@ type: module
 core: 8.x
 dependencies:
   - address
+  - ctools
   - entity_reference_revisions
   - field
   - field_group
@@ -20,4 +21,4 @@ dependencies:
   - taxonomy
   - telephone
   - user
-version: 8.x-1.0
+version: 8.x-1.1

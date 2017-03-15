@@ -11,7 +11,9 @@
         "behat/behat": "^3.0",
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
-        "emuse/behat-html-formatter": "^0.1.0"
+        "emuse/behat-html-formatter": "^0.1.0",
+        "drupal/tqextension": "dev-drupal-8",
+        "cevou/behat-screenshot-compare-extension": "^1.0@dev"
     },
     "config": {
         "bin-dir": "bin/"
@@ -24,7 +26,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/kenwheeler/slick",
+                "name": "library-kenwheeler/slick",
                 "version": "1.6.0",
                 "type": "drupal-library",
                 "source": {
@@ -37,7 +39,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/dinbror/blazy",
+                "name": "library-dinbror/blazy",
                 "version": "1.8.2",
                 "type": "drupal-library",
                 "source": {
@@ -50,7 +52,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/gdsmith/jquery.easing",
+                "name": "library-gdsmith/jquery.easing",
                 "version": "1.4.1",
                 "type": "drupal-library",
                 "source": {
@@ -63,7 +65,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/enyo/dropzone",
+                "name": "library-enyo/dropzone",
                 "version": "4.3.0",
                 "type": "drupal-library",
                 "source": {
@@ -76,7 +78,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/jaypan/jquery_colorpicker",
+                "name": "library-jaypan/jquery_colorpicker",
                 "version": "1.0.1",
                 "type": "drupal-library",
                 "source": {
@@ -110,6 +112,9 @@
             },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
+            },
+            "drupal/confi": {
+                "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
             }
         }
     },
@@ -119,6 +124,7 @@
         "drupal-composer/drupal-scaffold": "^2.0.0",
         "drupal/core": "8.2.6",
         "drupal/features": "3.2",
+        "drupal/confi": "1.3",
         "drupal/config_update": "1.3",
         "drupal/entity": "1.0-alpha4",
         "drupal/media_entity": "1.6",
@@ -148,10 +154,13 @@
         "drupal/slick": "1.0-rc1",
         "drupal/blazy": "1.0-rc1",
         "drupal/geolocation": "1.9",
-        "library/jaypan/jquery_colorpicker": "1.0.1",
-        "library/enyo/dropzone": "4.3.0",
-        "library/kenwheeler/slick": "1.6.0",
-        "library/dinbror/blazy": "1.8.2",
-        "library/gdsmith/jquery.easing": "1.4.1"
+        "library-jaypan/jquery_colorpicker": "1.0.1",
+        "library-enyo/dropzone": "4.3.0",
+        "library-kenwheeler/slick": "1.6.0",
+        "library-dinbror/blazy": "1.8.2",
+        "library-gdsmith/jquery.easing": "1.4.1",
+        "drupal/slick_views": "1.0-rc2",
+        "drupal/libraries": "3.x-dev",
+        "drupal/datalayer": "1.x-dev"
     }
 }

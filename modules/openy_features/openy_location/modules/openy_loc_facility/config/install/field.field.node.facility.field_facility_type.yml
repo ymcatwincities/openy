@@ -5,6 +5,10 @@ dependencies:
     - field.storage.node.field_facility_type
     - node.type.facility
     - taxonomy.vocabulary.facility_type
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_facility_type
 id: node.facility.field_facility_type
 field_name: field_facility_type
 entity_type: node
@@ -12,7 +16,7 @@ bundle: facility
 label: Type
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

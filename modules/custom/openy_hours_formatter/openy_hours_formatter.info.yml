@@ -3,4 +3,4 @@ type: module
 description: Displays today\'s working hours
 core: 8.x
 dependencies:
-  - paragraphs
+  - openy_field_hours

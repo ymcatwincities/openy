@@ -5,6 +5,7 @@ namespace Drupal\openy_calc\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\openy_calc\DataWrapperInterface;
 use Drupal\openy_socrates\OpenySocratesFacade;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -68,7 +69,6 @@ class CalcBlockForm extends FormBase {
     return [
       'callback' => [$this, 'rebuildAjaxCallback'],
       'wrapper' => 'membership-calc-wrapper',
-      'event' => 'change',
       'method' => 'replace',
       'effect' => 'fade',
       'progress' => ['type' => 'throbber'],
@@ -88,14 +88,9 @@ class CalcBlockForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $step = 1;
     $trigger = $form_state->getTriggeringElement();
-    switch ($trigger['#name']) {
-      case 'type':
-        $step = 2;
-        break;
-
-      case 'location':
-        $step = 3;
-        break;
+    $storage = $form_state->getStorage();
+    if ($trigger) {
+      $step = (int) preg_replace('/\D/', '', $trigger['#name']);
     }
 
     $form['#prefix'] = '<div id="membership-calc-wrapper">';
@@ -111,12 +106,12 @@ class CalcBlockForm extends FormBase {
       [
         'title' => $this->t('Membership Type'),
         'number' => '1',
-        'active' => $step == 1 ? TRUE : FALSE,
+        'active' => $step >= 1 ? TRUE : FALSE,
       ],
       [
         'title' => $this->t('Primary Location'),
         'number' => '2',
-        'active' => $step == 2 ? TRUE : FALSE,
+        'active' => $step >= 2 ? TRUE : FALSE,
       ],
       [
         'title' => $this->t('Summary'),
@@ -133,54 +128,88 @@ class CalcBlockForm extends FormBase {
       '#markup' => $header,
     ];
 
-    $form['type'] = [
-      '#element_variables' => $types,
-      '#subtype' => 'membership_type_radio',
-      '#type' => 'calc_radios',
-      '#title' => $this->t('Which option best describes the type of membership you need?'),
-      '#options' => $types_options,
-      '#ajax' => $this->getAjaxDefaults(),
-    ];
+    switch ($step) {
+      case 1:
+        // Membership type step.
+        $form['type'] = [
+          '#element_variables' => $types,
+          '#subtype' => 'membership_type_radio',
+          '#type' => 'calc_radios',
+          '#title' => $this->t('Which option best describes the type of membership you need?'),
+          '#options' => $types_options,
+          '#default_value' => isset($storage['type']) ? $storage['type'] : NULL,
+          '#required' => TRUE,
+        ];
+        break;
+
+      case 2:
+        // Select branch step.
+        $form['map'] = [
+          '#type' => 'openy_map',
+          '#element_variables' => $this->dataWrapper->getBranchPins(),
+        ];
+        $locations = $this->dataWrapper->getLocations();
+        $locations_options = [];
+        foreach ($locations as $id => $location) {
+          $locations_options[$id] = $location['title'];
+        }
+        $form['location'] = [
+          '#type' => 'radios',
+          '#title' => $this->t('Location'),
+          '#options' => $locations_options,
+          '#default_value' => isset($storage['location']) ? $storage['location'] : NULL,
+        ];
+        break;
+
+      case 3:
+        // Summary step.
+        $summary = $this->dataWrapper->getSummary($storage['location'], $storage['type']);
+        $form['summary'] = [
+          '#theme' => 'openy_calc_form_summary',
+          '#result' => $summary,
+          '#map' => [
+            '#type' => 'openy_map',
+            '#element_variables' => $this->dataWrapper->getBranchPins($storage['location']),
+          ],
+        ];
+        break;
+    }
 
     if ($step > 1) {
-      $form['map'] = [
-        '#type' => 'openy_map',
-        '#element_variables' => $this->dataWrapper->getBranchPins(),
-      ];
-
-      $locations = $this->dataWrapper->getLocations();
-      $locations_options = [];
-      foreach ($locations as $id => $location) {
-        $locations_options[$id] = $location['title'];
-      }
-      $form['location'] = [
-        '#type' => 'radios',
-        '#title' => $this->t('Location'),
-        '#options' => $locations_options,
+      $form['actions']['prev'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Prev'),
+        '#name' => 'step-' . ($step - 1),
+        '#submit' => [[$this, 'navButtonSubmit']],
         '#ajax' => $this->getAjaxDefaults(),
+        '#attributes' => [
+          'class' => ['btn', 'blue', 'pull-left'],
+        ],
       ];
     }
 
-    if ($step > 2) {
-      $summary = [
-        '#theme' => 'openy_calc_form_summary',
-        '#result' => $this->dataWrapper->getSummary($form_state->getValue('location'), $form_state->getValue('type')),
+    if ($step < 3) {
+      $form['actions']['next'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Next'),
+        '#name' => 'step-' . ($step + 1),
+        '#submit' => [[$this, 'navButtonSubmit']],
+        '#ajax' => $this->getAjaxDefaults(),
+        '#attributes' => [
+          'class' => ['btn', 'blue', 'pull-right'],
+        ],
       ];
-      $summary = $this->renderer->renderRoot($summary);
-      $form['summary'] = [
-        '#markup' => $summary,
-      ];
-
-      $form['select'] = [
-        '#markup' => $this->t('Complete registration'),
-        '#theme_wrappers' => [
-          'container' => [
-            '#attributes' => [
-              'class' => [
-                'btn',
-                'btn-default',
-              ],
-            ],
+    }
+    elseif (isset($summary['link'])) {
+      $form['actions']['submit'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Complete registration'),
+        '#attributes' => [
+          'class' => [
+            'btn',
+            'btn-default',
+            'complete-registration',
+            'pull-right',
           ],
         ],
       ];
@@ -190,10 +219,48 @@ class CalcBlockForm extends FormBase {
   }
 
   /**
+   * Navigation buttons submit callback.
+   */
+  public function navButtonSubmit(array &$form, FormStateInterface &$form_state) {
+    $storage = $form_state->getStorage();
+    // Save steps values to storage.
+    if ($form_state->getValue('location')) {
+      $storage['location'] = $form_state->getValue('location');
+    }
+    if ($form_state->getValue('type')) {
+      $storage['type'] = $form_state->getValue('type');
+    }
+    $form_state->setStorage($storage);
+    $form_state->setRebuild();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $trigger = $form_state->getTriggeringElement();
+    if ($trigger['#name'] != 'step-3') {
+      return;
+    }
+    if ($form_state->isValueEmpty('location')) {
+      $form_state->setErrorByName('location', $this->t('Please set location'));
+    }
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // This form without submit.
+    $storage = $form_state->getStorage();
+    $url = $this->dataWrapper->getRedirectUrl($storage['location'], $storage['type']);
+    if ($url) {
+      // Redirect to membership registration path.
+      $response = new TrustedRedirectResponse($url->toString());
+      $form_state->setResponse($response);
+    }
+    else {
+      drupal_set_message($this->t('Unfortunately, selected branch doesn`t provide needed membership type. Please select other membership type or branch.'), 'error');
+    }
   }
 
 }
