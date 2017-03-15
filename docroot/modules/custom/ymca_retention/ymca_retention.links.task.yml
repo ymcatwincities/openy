@@ -21,7 +21,7 @@ ymca_retention.settings:
   base_route: system.admin_config_system
 
 ymca_retention.settings_general:
-  title: 'YMCA Retention Settings'
+  title: 'Settings'
   description: 'YMCA Retention Settings'
   route_name: ymca_retention.settings
   parent_id: ymca_retention.settings
@@ -42,4 +42,22 @@ ymca_retention.instant_win:
   title: 'Instant Win'
   description: 'Instant win settings.'
   route_name: ymca_retention.settings_instant_win
+  parent_id: ymca_retention.settings
+
+ymca_retention.bonus_codes:
+  title: 'Bonus Codes'
+  description: 'Bonus codes settings.'
+  route_name: ymca_retention.settings_bonus_codes
+  parent_id: ymca_retention.settings
+
+ymca_retention.generate_content:
+  title: 'Generate content'
+  description: 'Generate members, checkins, bonuses.'
+  route_name: ymca_retention.settings_generate_content
+  parent_id: ymca_retention.settings
+
+ymca_retention.calculate_goals:
+  title: 'Calculate Goals'
+  description: 'Calculate member goals.'
+  route_name: ymca_retention.settings_calculate_goals
   parent_id: ymca_retention.settings

@@ -21,6 +21,11 @@ class Introduction extends BlockBase {
   public function build() {
     return [
       '#theme' => 'ymca_retention_introduction',
+      '#attached' => [
+        'library' => [
+          'ymca_retention/introduction',
+        ],
+      ],
     ];
   }
 

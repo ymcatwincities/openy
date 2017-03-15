@@ -3,11 +3,11 @@
 namespace Drupal\ymca_retention\Form;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\ymca_retention\Ajax\YmcaRetentionModalHideCommand;
-use Drupal\ymca_retention\Ajax\YmcaRetentionSetTab;
 use Drupal\ymca_retention\AnonymousCookieStorage;
 use Drupal\ymca_retention\Entity\Member;
 
@@ -59,6 +59,7 @@ class MemberLoginForm extends FormBase {
           ['\Drupal\Core\Render\Element\Email', 'validateEmail'],
           $validate,
         ],
+        '#skip_ymca_preprocess' => TRUE,
       ];
     }
     else {
@@ -75,6 +76,7 @@ class MemberLoginForm extends FormBase {
         ],
         '#element_required_error' => $this->t('Member ID is required.'),
         '#element_validate' => [$validate],
+        '#skip_ymca_preprocess' => TRUE,
       ];
     }
 
@@ -86,7 +88,7 @@ class MemberLoginForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'orange-light-lighter',
+          'compain-green',
         ],
       ],
       '#ajax' => [
@@ -97,6 +99,24 @@ class MemberLoginForm extends FormBase {
           'type' => 'throbber',
           'message' => NULL,
         ],
+      ],
+    ];
+
+    $form['refresh'] = [
+      '#type' => 'button',
+      '#attributes' => [
+        'style' => [
+          'display:none',
+        ],
+        'class' => [
+          'refresh'
+        ],
+      ],
+      '#value' => t('Refresh'),
+      'method' => 'replaceWith',
+      '#ajax' => [
+        'callback' => [$this, 'ajaxFormRefreshCallback'],
+        'event' => 'click',
       ],
     ];
 
@@ -148,6 +168,33 @@ class MemberLoginForm extends FormBase {
   }
 
   /**
+   * Ajax form callback for clearing and refreshing form.
+   *
+   * @param array $form
+   *   Form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse|array
+   *   Ajax response.
+   */
+  public function ajaxFormRefreshCallback(array &$form, FormStateInterface $form_state) {
+    // Clear error messages.
+    drupal_get_messages('error');
+
+    $ajax_response = new AjaxResponse();
+
+    $this->refreshValues($form_state);
+    $new_form = \Drupal::formBuilder()
+      ->rebuildForm($this->getFormId(), $form_state, $form);
+
+    // Refreshing form.
+    $ajax_response->addCommand(new HtmlCommand('#ymca-retention-user-menu-login-form', $new_form));
+
+    return $ajax_response;
+  }
+
+  /**
    * Ajax form callback for displaying errors or redirecting.
    *
    * @param array $form
@@ -170,7 +217,6 @@ class MemberLoginForm extends FormBase {
       // Instantiate an AjaxResponse Object to return.
       $ajax_response = new AjaxResponse();
       $ajax_response->addCommand(new YmcaRetentionModalHideCommand());
-      $ajax_response->addCommand(new YmcaRetentionSetTab($form_state->getValue('tab_id')));
       return $ajax_response;
     }
   }
@@ -181,19 +227,19 @@ class MemberLoginForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
-    $from_date = new \DateTime($settings->get('date_reporting_open'));
-    $to_date = new \DateTime($settings->get('date_reporting_close'));
+    $from_date = new \DateTime($settings->get('date_registration_open'));
+    $to_date = new \DateTime($settings->get('date_registration_close'));
     $current_date = new \DateTime();
     // Validate that current date is less, than date when tracking activity page will be opened.
     if ($current_date < $from_date) {
-      $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y spirit challenge open.', [
+      $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y Recharge challenge open.', [
         '%date' => $from_date->format('F j'),
       ]));
       return;
     }
     // Validate that current date is higher, than date when tracking activity page was closed.
     if ($current_date > $to_date) {
-      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and activity is no longer able to be tracked.'));
+      $form_state->setErrorByName('form', $this->t('The Y Recharge challenge is now closed and activity is no longer able to be tracked.'));
       return;
     }
 
@@ -276,6 +322,17 @@ class MemberLoginForm extends FormBase {
       $member->setPersonifyEmail($lost_mail);
       $member->save();
     }
+  }
+
+  /**
+   * Refresh values.
+   */
+  protected function refreshValues(FormStateInterface $form_state) {
+    $user_input = $form_state->getUserInput();
+    unset($user_input['membership_id']);
+    $form_state->setUserInput($user_input);
+    $form_state->set('membership_id', NULL);
+    $form_state->set('mail', NULL);
   }
 
 }

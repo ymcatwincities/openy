@@ -69,10 +69,10 @@ global-components:
     theme:
       css/sm-core-css.css: {}
       css/base.css: {}
-      css/font-awesome.css: {}
       css/custom-style.css: {}
       css/custom-media.css: {}
   js:  
+    //use.fontawesome.com/95fd5fcc01.js: {}
     js/jquery.smartmenus.min.js: {}
     js/custom.js: {}
   dependencies:
