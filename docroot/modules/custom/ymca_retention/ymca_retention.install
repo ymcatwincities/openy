@@ -466,3 +466,17 @@ function ymca_retention_update_8024() {
     ]
   );
 }
+
+/**
+ * Update YMCA Retention Spring 2017.
+ */
+function ymca_retention_update_8025() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // YMCA Retention views.
+      'views.view.ymca_retention_winners',
+    ]
+  );
+}
