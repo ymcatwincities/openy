@@ -59,9 +59,11 @@
 
 <a href="#main" id="skip-link">{{ "Skip to main content"|t }}</a>
 <div id="top"></div>
-<div class="viewport">
+<div class="viewport"
+     data-ng-app="Retention"
+     data-ng-controller="RetentionController as retentionC">
   <div id="main" role="main">
-    <section class="content">
+    <section class="main--content">
       <div class="container-full-width" style="position: relative;">
         {% block content %}
           {{ page.content }}
@@ -71,28 +73,36 @@
   </div>
 
   <!--googleoff: index-->
-  <footer id="page-footer" class="page-footer footer-themes-b">
-    <div class="container">
-      {% if page.footer %}
-        {{ page.footer }}
-      {% endif %}
-      <div class="col-sm-3 text-center">
-        {% include "@ymca/brand-link.html.twig" %}
-      </div>
-      <nav class="col-sm-6">
-        <nav class="nav-footer row">
-          {{ page.footer_menu }}
-        </nav>
-      </nav>
-      <div class="col-sm-3 social-disclaimer">
-        {{ page.footer_social }}
-        <p id="cw"></p>
+  <footer class="compain-footer clearfix">
+    <div class="inner-container">
+      <div class="compain-footer--content clearfix">
+        <div class="compain-footer--right">
+          <div class="compain-footer--social">
+            <ul class="lists-social">
+              <li class="item-social--facebook"><a href="http://www.facebook.com/YMCATwinCities" target="_blank">facebook</a></li>
+              <li class="item-social--twitter"><a href="http://twitter.com/ymcatwincities" target="_blank">twitter</a></li>
+              <li class="item-social--youtube"><a href="https://www.youtube.com/user/YMCATwinCities" target="_blank">youtube</a></li>
+              <li class="item-social--flickr"><a href="http://www.flickr.com/photos/ymcatwincities" target="_blank">flickr</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="compain-footer--left">
+          <nav class="compain-footer--navigation">
+            {{ page.footer_menu }}
+          </nav>
+          <div class="compain-footer--copyright">
+            <p><strong>&copy; 2017 YMCA Twin Cities</strong></p>
+            <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth <br/> Development, Healthy Living, and Social Responsibility.</p>
+            <p></p>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
 
   <div class="text-center return-to-top" data-spy="affix" data-offset-top="39">
-    <a href="#top" class="btn btn-default">
+    <a href="javascript:void(0)" data-ng-click="retentionC.scrollTop()" class="btn btn-default">
       <span class="glyphicon glyphicon-chevron-up"></span>
     </a>
   </div>
@@ -103,7 +113,24 @@
 </div>
 
 <!-- viewport -->
-<div id="ymca-retention-modal" class="modal fade yfr-modal">
+<div id="bonus-modal" class="modal fade compain-modal">
+  <div class="modal-cover"></div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+      </div>
+      <div class="modal-body">
+        <div class="compain-content-bonus">
+          <p>You’ve earned <b>1 bonus</b> for <br/>reading daily tip.</p>
+
+          <a class="btn btn-lg btn-primary compain-green" data-dismiss="modal" href="#">ok</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="ymca-retention-modal" class="modal fade compain-modal">
   <div class="modal-cover"></div>
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -112,6 +139,15 @@
         <div id="modal-title" class="modal-title"></div>
       </div>
       <div class="modal-body"></div>
+    </div>
+  </div>
+</div>
+<div id="bonus-modal-day" class="modal fade compain-modal">
+  <div class="modal-cover"></div>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-body">
+      </div>
     </div>
   </div>
 </div>

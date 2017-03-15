@@ -50,6 +50,13 @@ class MindbodySettingsForm extends ConfigFormBase {
       '#description' => $this->t('The amount of minutes when the nearest time slots will be hidden.'),
     );
 
+    $form['failed_orders_recipients'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Recipients emails'),
+      '#default_value' => !empty($config->get('failed_orders_recipients')) ? $config->get('failed_orders_recipients') : '',
+      '#description' => $this->t('List of recipients emails for notifying of failed orders.'),
+    );
+
     $form['pt_form_disabled'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Disable all PT forms'),
@@ -70,6 +77,7 @@ class MindbodySettingsForm extends ConfigFormBase {
       ->set('max_requests', $values['max_requests'])
       ->set('pt_form_disabled', $values['pt_form_disabled'])
       ->set('hide_time', $values['hide_time'])
+      ->set('failed_orders_recipients', $values['failed_orders_recipients'])
       ->save();
 
     parent::submitForm($form, $form_state);

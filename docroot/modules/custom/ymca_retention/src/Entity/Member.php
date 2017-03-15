@@ -6,6 +6,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\ymca_retention\MemberInterface;
+use Drupal\ymca_retention\PersonifyApi;
 
 /**
  * Defines the Member entity.
@@ -200,14 +201,12 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // @todo Make branch id as reference field to mapping entity, which has branch id from personify.
-    $fields['branch'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Branch ID'))
+    $fields['branch'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Branch'))
       ->setDescription(t('Member branch ID.'))
       ->setSettings([
-        'default_value' => '',
-        'max_length' => 255,
-        'text_processing' => 0,
+        'target_type' => 'mapping',
+        'default_value' => 0,
       ]);
 
     $fields['visit_goal'] = BaseFieldDefinition::create('integer')
@@ -234,6 +233,11 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['total_visits'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visits'))
       ->setDescription(t('Number of visits.'))
+      ->setDefaultValue(0);
+
+    $fields['total_bonuses'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Bonuses'))
+      ->setDescription(t('Number of bonuses.'))
       ->setDefaultValue(0);
 
     $fields['created_by_staff'] = BaseFieldDefinition::create('boolean')
@@ -373,15 +377,14 @@ class Member extends ContentEntityBase implements MemberInterface {
    * {@inheritdoc}
    */
   public function getBranchId() {
-    return $this->get('branch')->value;
+    return $this->get('branch')->target_id;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setBranchId($value) {
-    $this->set('branch', $value);
-    return $this;
+  public function setBranchId($target_id) {
+    return $this->set('branch', $target_id);
   }
 
   /**
@@ -394,8 +397,23 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function getBonuses() {
+    return $this->get('total_bonuses')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setVisits($value) {
     $this->set('total_visits', $value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBonuses($value) {
+    $this->set('total_bonuses', $value);
     return $this;
   }
 
@@ -443,6 +461,66 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function getMemberRank() {
     return 0;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function calculateVisitGoal($member_ids) {
+    $goals = [];
+    $settings = \Drupal::config('ymca_retention.general_settings');
+    // Get information about number of checkins before campaign.
+    $current_date = new \DateTime();
+    $from_date = new \DateTime($settings->get('date_checkins_start'));
+    $to_date = new \DateTime($settings->get('date_checkins_end'));
+
+    if ($to_date > $current_date) {
+      $to_date = $current_date;
+    }
+    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
+
+    $results = PersonifyApi::getPersonifyVisitsBatch($member_ids, $from_date, $to_date);
+    if (!empty($results->ErrorMessage)) {
+      $logger = \Drupal::logger('ymca_retention_queue');
+      $logger->alert('Could not retrieve visits information for members for batch operation');
+      return [];
+    }
+
+    foreach ($results->FacilityVisitCustomerRecord as $past_result) {
+      // Get first visit date.
+      try {
+        $first_visit = new \DateTime($past_result->FirstVisitDate);
+      }
+      catch (\Exception $e) {
+        $first_visit = $from_date;
+      }
+
+      $member_weeks = $number_weeks;
+      // If user registered after From date, then recalculate number of weeks.
+      if ($first_visit > $from_date) {
+        $member_weeks = ceil($first_visit->diff($to_date)->days / 7);
+      }
+
+      // Calculate a goal for a member.
+      $goal = (int) $settings->get('new_member_goal_number');
+      if ($past_result->TotalVisits > 0) {
+        $limit_goal = $settings->get('limit_goal_number');
+        $calculated_goal = ceil((($past_result->TotalVisits / $member_weeks) * 2) + 1);
+        $goal = min(max($goal, $calculated_goal), $limit_goal);
+      }
+
+      // Visit goal for late members.
+      $close_date = new \DateTime($settings->get('date_campaign_close'));
+      $count_days = $current_date->diff($close_date)->days;
+      // Set visit goal not greater than number of days till the campaign end.
+      // TODO: is it correct? As we should still be able to get his visits for
+      // the period of campaign.
+      $count_days = max(1, $count_days);
+      $goal = min($goal, $count_days);
+      $goals[$past_result->MasterCustomerId] = $goal;
+    }
+
+    return $goals;
   }
 
 }

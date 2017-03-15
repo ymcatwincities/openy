@@ -3,7 +3,9 @@ langcode: en
 status: true
 dependencies:
   module:
+    - csv_serialization
     - rest
+    - serialization
     - user
     - ymca_retention
 id: ymca_retention_member_prizes
@@ -24,7 +26,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer site configuration'
+          perm: 'administer retention campaign'
       cache:
         type: tag
         options: {  }
