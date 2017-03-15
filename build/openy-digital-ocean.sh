@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script installs OpenY on DigitalOcean Drupal instance.
-# How to run: bash <(curl -s http://openy-dev.ffwua.com/openy.sh)
+# How to run: bash <(curl -s https://raw.githubusercontent.com/ymcatwincities/openy/8.x-1.x/build/openy-digital-ocean.sh)
 
 # Colors.
 Color_Off='\033[0m'       # Text Reset
