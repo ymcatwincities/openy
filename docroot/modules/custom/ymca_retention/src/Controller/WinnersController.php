@@ -266,11 +266,11 @@ class WinnersController extends ControllerBase {
   /**
    * Select one member from member list. The probability of selection is proportional to the number of member bonuses.
    *
-   * @param $member_ids
-   *  List of member ids.
+   * @param array $member_ids
+   *   List of member ids.
    *
    * @return bool|int
-   *  Selected member id or False (if there is no any bonus).
+   *   Selected member id or False (if there is no any bonus).
    */
   private static function selectOneMember($member_ids) {
     $query = \Drupal::entityQuery('ymca_retention_member_bonus')
