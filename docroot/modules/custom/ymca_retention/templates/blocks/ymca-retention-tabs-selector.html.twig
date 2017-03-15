@@ -5,38 +5,82 @@
  */
 #}
 <div class="container">
-  <ul class="nav nav-tabs yfr-tabs">
-    <li class="active">
-      <a href="#about" data-toggle="tab">{{ 'Introduction'|t }}</a>
-    </li>
-    <li class="ng-hide" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#track" data-toggle="tab">{{ 'Track Activities'|t }}</a>
-    </li>
-    <li class="ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#track" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
-        {{ 'Track Activities'|t }}
+  <ul class="nav nav-tabs compain-tabs hidden-xs">
+
+    <li data-ng-class="retentionC.tabSelectorClass('tab_1')">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_1', false)" data-tab-id="tab_1" data-type="tab">
+        {{ 'Introduction'|t }}
       </a>
     </li>
-    <li class="ng-hide" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#progress" data-toggle="tab">{{ 'My Progress'|t }}</a>
-    </li>
-    <li class="ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#progress" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
-        {{ 'My Progress'|t }}
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_1')">
+      <a href="#tab_1" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_1', false)" data-tab-id="tab_1" data-type="accordion">
+        {{ 'Introduction'|t }}
       </a>
     </li>
-    <li class="yfr-tabs__instant-win ng-hide" data-ng-show="retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#instant-win" data-toggle="tab">
-        {% include '@ymca_retention/blocks/ymca-retention-instant-win-link-content.html.twig' %}
+
+    <li data-ng-class="retentionC.tabSelectorClass('tab_2')">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_2', false)" data-tab-id="tab_2" data-type="tab">
+        {{ 'Enter prize drawing'|t }}
       </a>
     </li>
-    <li class="yfr-tabs__instant-win ng-hide" data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
-      <a href="#instant-win" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-type="login">
-        {% include '@ymca_retention/blocks/ymca-retention-instant-win-link-content.html.twig' %}
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_2')">
+      <a href="#tab_2" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_2', false)" data-tab-id="tab_2" data-type="accordion">
+        {{ 'Enter prize drawing'|t }}
       </a>
     </li>
-    <li class="yfr-tabs__detailed">
-      <a href="#rules-prizes" data-toggle="tab">{{ 'Detailed Rules &amp; Prizes'|t }}</a>
+    <li class="ng-hide">
+      <a href="#tab_2" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-tab-id="tab_2" data-type="tabs-lock">
+        {{ 'Enter prize drawing'|t }}
+      </a>
     </li>
+    <li class="ng-hide">
+      <a href="#tab_2" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-tab-id="tab_2" data-type="login">
+        {{ 'Enter prize drawing'|t }}
+      </a>
+    </li>
+
+    <li data-ng-class="retentionC.tabSelectorClass('tab_3')">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_3', false)" data-tab-id="tab_3" data-type="tab">
+        {{ 'Goals & progress'|t }}
+      </a>
+    </li>
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_3')">
+      <a href="#tab_3" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_3', false)" data-tab-id="tab_3" data-type="accordion">
+        {{ 'Goals & progress'|t }}
+      </a>
+    </li>
+    <li class="ng-hide">
+      <a href="#tab_3" class="campaign-not-started" data-toggle="modal" data-target="#bonus-modal-day" data-tab-id="tab_3" data-type="tabs-lock">
+        {{ 'Goals & progress'|t }}
+      </a>
+    </li>
+    <li class="ng-hide">
+      <a href="#tab_3" class="login-required" data-toggle="modal" data-target="#ymca-retention-modal" data-tab-id="tab_3" data-type="login">
+        {{ 'Goals & progress'|t }}
+      </a>
+    </li>
+
+    <li data-ng-class="retentionC.tabSelectorClass('tab_4')">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_4', false)" data-tab-id="tab_4" data-type="tab">
+        {{ 'Winners'|t }}
+      </a>
+    </li>
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_4')">
+      <a href="#tab_4" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_4', false)" data-tab-id="tab_4" data-type="accordion">
+        {{ 'Winners'|t }}
+      </a>
+    </li>
+
+    <li class="compain-tabs--detailed" data-ng-class="retentionC.tabSelectorClass('tab_5')">
+      <a href="javascript:void(0)" data-ng-click="retentionC.tabSelectorClick('tab_5', false)" data-tab-id="tab_5" data-type="tab">
+        {{ 'Detailed Rules'|t }}
+      </a>
+    </li>
+    <li class="ng-hide" data-ng-class="retentionC.tabSelectorClass('tab_5')">
+      <a href="#tab_5" data-toggle="tab" data-ng-click="retentionC.tabSelectorClick('tab_5', false)" data-tab-id="tab_5" data-type="accordion">
+        {{ 'Detailed Rules'|t }}
+      </a>
+    </li>
+
   </ul>
 </div>

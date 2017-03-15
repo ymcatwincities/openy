@@ -139,17 +139,6 @@ interface MemberInterface extends ContentEntityInterface {
   public function getBranchId();
 
   /**
-   * Sets user Branch ID.
-   *
-   * @param string $value
-   *   Branch ID.
-   *
-   * @return \Drupal\ymca_retention\MemberInterface
-   *   The called member entity.
-   */
-  public function setBranchId($value);
-
-  /**
    * Returns user visits number.
    *
    * @return string
@@ -210,5 +199,16 @@ interface MemberInterface extends ContentEntityInterface {
    *   The called member entity.
    */
   public function setVisitGoal($value);
+
+  /**
+   * Calculate visit goal.
+   *
+   * @param array $member_ids
+   *   Array of Master Customer IDs.
+   *
+   * @return array
+   *   Visit goals for members keyed by Master Customer ID.
+   */
+  public static function calculateVisitGoal($member_ids);
 
 }

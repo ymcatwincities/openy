@@ -1024,28 +1024,24 @@ body .features-wrapper .features-alt_intro {
   position: relative;
 }
 .about-open-y .fa:before {
-  content: '';
   display: block;
   position: absolute;
   top: 50%;
   left: 50%;
   width: 46px;
   height: 46px;
-  background-color: red;
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 .about-open-y .fa.fa-info-circle:before {
-  background: url("../images/icon-1.svg") no-repeat 50% 50%;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
   background-size: cover;
 }
 .about-open-y .fa.fa-rocket:before {
-  background: url("../images/icon-2.svg") no-repeat 50% 50%;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
@@ -1054,7 +1050,6 @@ body .features-wrapper .features-alt_intro {
 .about-open-y .fa.fa-question-circle:before {
   width: 38px;
   height: 44px;
-  background: url("../images/icon-3.svg") no-repeat 50% 50%;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
@@ -1063,17 +1058,15 @@ body .features-wrapper .features-alt_intro {
 .about-open-y .fa.fa-envelope:before {
   width: 48px;
   height: 42px;
-  background: url("../images/icon-4.svg") no-repeat 50% 50%;
   -moz-background-size: cover;
   -o-background-size: cover;
   -webkit-background-size: cover;
   background-size: cover;
 }
 .about-open-y .wrapper {
-  width: 25%;
   min-height: 350px;
   border-left: 1px solid #ebebeb;
-  padding: 0 50px 38px;
+  padding: 0 25px 38px;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;

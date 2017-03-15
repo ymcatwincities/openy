@@ -473,5 +473,15 @@ function ymca_mindbody_mail($key, &$message, $params) {
       $message['subject'] = "MINDBODY refund for $params[client_name] for $params[item_name].";
       $message['body'][] = implode('', $body);
       break;
+
+    case 'notify_of_failed_orders':
+      $body = [
+        $params['data'],
+      ];
+
+      $message['subject'] = t('New failed orders since @date', ['@date' => $params['last_run_date']]);
+      $message['body'][] = implode('', $body);
+
+      break;
   }
 }

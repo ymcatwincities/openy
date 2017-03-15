@@ -4540,3 +4540,29 @@ function ymca_master_update_8202() {
     ]
   );
 }
+
+/**
+ * Update YMCA Retention members view.
+ */
+function ymca_master_update_8203() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'views.view.ymca_members',
+    ]
+  );
+}
+
+/**
+ * Update hf settings.
+ */
+function ymca_master_update_8204() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'openy_hf.settings',
+    ]
+  );
+}

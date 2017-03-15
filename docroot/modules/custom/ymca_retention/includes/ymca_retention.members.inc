@@ -14,8 +14,11 @@ use Drupal\taxonomy\TermStorage;
 /**
  * Helper function to create fake members and activities.
  */
-function _ymca_retention_members_create() {
+function _ymca_retention_members_create($options) {
+  $count = 1;
   foreach (_ymca_retention_fake_members() as $i => $fake_member) {
+    $locationRepository = \Drupal::service('ymca_mappings.location_repository');
+
     /** @var Member $member */
     $member = \Drupal::entityTypeManager()
       ->getStorage('ymca_retention_member')
@@ -24,16 +27,69 @@ function _ymca_retention_members_create() {
         'mail' => 'test' . $i . '@test.com',
         'first_name' => $fake_member['first_name'],
         'last_name' => $fake_member['last_name'],
-        'branch' => $fake_member['branch_id'],
+        'personify_id' => _ymca_retention_generate_random_string(6, TRUE),
+        'branch' => $locationRepository->findByLocationPersonifyBranchCode($fake_member['branch_id']),
         'is_employee' => $fake_member['is_employee'],
-        'visit_goal' => rand(8, 13),
-        'total_visits' => rand(3, 10),
+        'visit_goal' => rand(5, 10),
+        'total_visits' => 0,
+        'total_bonuses' => 0,
         'created_by_staff' => FALSE,
       ]);
     $member->save();
 
     // Create activities for the member.
-    _ymca_retention_activities_create($member);
+    // _ymca_retention_activities_create($member);
+
+    // Create checkins for the member.
+    _ymca_retention_checkins_create($member, !empty($options['everyday']));
+
+    // Create bonuses for the member.
+    _ymca_retention_bonuses_create($member);
+
+    if (10 <= $count++) {
+      return;
+    }
+  }
+}
+
+/**
+ * Helper function to create fake checkins.
+ */
+function _ymca_retention_checkins_create($member, $everyday = FALSE) {
+  $count = rand(3, 8);
+  $dates = _ymca_retention_generate_random_dates($count, $everyday);
+  if ($everyday) {
+    $count = count($dates);
+  }
+  for ($i = 0; $i < $count; $i++) {
+    $checkin = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_checkin')
+      ->create([
+        'created' => REQUEST_TIME,
+        'date' => $dates[$i]->getTimestamp(),
+        'member' => $member->id(),
+        'checkin' => TRUE,
+      ]);
+    $checkin->save();
+  }
+}
+
+/**
+ * Helper function to create fake bonuses.
+ */
+function _ymca_retention_bonuses_create($member) {
+  $count = rand(3, 8);
+  $dates = _ymca_retention_generate_random_dates($count);
+  for ($i = 0; $i < $count; $i++) {
+    $bonus = \Drupal::entityTypeManager()
+      ->getStorage('ymca_retention_member_bonus')
+      ->create([
+        'created' => REQUEST_TIME,
+        'date' => $dates[$i]->getTimestamp(),
+        'member' => $member->id(),
+        'bonus_code' => _ymca_retention_generate_random_string(3),
+      ]);
+    $bonus->save();
   }
 }
 
@@ -76,77 +132,77 @@ function _ymca_retention_fake_members() {
       'membership_id' => '4000044307',
       'first_name' => 'Amber',
       'last_name' => 'Richard',
-      'branch_id' => 14,
+      'branch_id' => 20,
       'is_employee' => 1,
     ],
     [
       'membership_id' => '4000301612',
       'first_name' => 'Andrea',
       'last_name' => 'Krohnberg',
-      'branch_id' => 14,
+      'branch_id' => 30,
       'is_employee' => 1,
     ],
     [
       'membership_id' => '4000301611',
       'first_name' => 'Andrew',
       'last_name' => 'Krohnberg',
-      'branch_id' => 14,
+      'branch_id' => 38,
       'is_employee' => 1,
     ],
     [
       'membership_id' => '4000168913',
       'first_name' => 'Robin',
       'last_name' => 'Hedrick',
-      'branch_id' => 14,
+      'branch_id' => 16,
       'is_employee' => 1,
     ],
     [
       'membership_id' => '4000577860',
       'first_name' => 'Kelli',
       'last_name' => 'Teel',
-      'branch_id' => 14,
+      'branch_id' => 89,
       'is_employee' => 0,
     ],
     [
       'membership_id' => '4000314817',
       'first_name' => 'Sarah',
       'last_name' => 'Martinez',
-      'branch_id' => 14,
+      'branch_id' => 82,
       'is_employee' => 0,
     ],
     [
       'membership_id' => '007000015014',
       'first_name' => 'Kevin',
       'last_name' => 'Lagos',
-      'branch_id' => 14,
+      'branch_id' => 34,
       'is_employee' => 0,
     ],
     [
       'membership_id' => '4000545206',
       'first_name' => 'Mai',
       'last_name' => 'Lagos',
-      'branch_id' => 14,
+      'branch_id' => 18,
       'is_employee' => 0,
     ],
     [
       'membership_id' => '077001139605',
       'first_name' => 'Taivy',
       'last_name' => 'Lagos',
-      'branch_id' => 14,
+      'branch_id' => 17,
       'is_employee' => 0,
     ],
     [
       'membership_id' => '076002176700',
       'first_name' => 'Dawn',
       'last_name' => 'Flores',
-      'branch_id' => 14,
+      'branch_id' => 24,
       'is_employee' => 0,
     ],
     [
       'membership_id' => '076002176701',
       'first_name' => 'Robert',
       'last_name' => 'Diaz',
-      'branch_id' => 14,
+      'branch_id' => 22,
       'is_employee' => 0,
     ],
 
@@ -154,7 +210,7 @@ function _ymca_retention_fake_members() {
       'membership_id' => '14044936700',
       'first_name' => 'Veronica',
       'last_name' => 'O\'Connor',
-      'branch_id' => 14,
+      'branch_id' => 36,
       'is_employee' => 0,
     ],
     [
@@ -354,4 +410,57 @@ function _ymca_retention_fake_members() {
       'is_employee' => 0,
     ],
   ];
+}
+
+/**
+ * Return random string.
+ */
+function _ymca_retention_generate_random_string($length = 10, $only_number = FALSE) {
+  $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if ($only_number) {
+    $characters = '0123456789';
+  }
+  $characters_length = strlen($characters);
+  $random_string = '';
+  for ($i = 0; $i < $length; $i++) {
+    $random_string .= $characters[rand(0, $characters_length - 1)];
+  }
+  return $random_string;
+}
+
+/**
+ * Return array with random dates.
+ */
+function _ymca_retention_generate_random_dates($number_elements = 3, $everyday = FALSE) {
+  $max_array_length = 50;
+  $config = \Drupal::config('ymca_retention.general_settings');
+  $start_date = new \DateTime($config->get('date_campaign_open'));
+  $end_date = new \DateTime($config->get('date_campaign_close'));
+  $current_date = clone $start_date;
+  $current_date->setTime(0, 0, 0);
+  $dates = [];
+  $result = [];
+
+  if ($current_date < $start_date) {
+    $current_date->add(new \DateInterval('P1D'));
+  }
+
+  $count = 0;
+  while ($current_date < $end_date && $max_array_length > $count) {
+    $dates[] = clone $current_date;
+    $current_date->add(new \DateInterval('P1D'));
+    $count++;
+  }
+
+  if ($everyday) {
+    return $dates;
+  }
+
+  $random_keys = array_rand($dates, max(1, min($number_elements, $count)));
+
+  foreach ($random_keys as $key) {
+    $result[] = $dates[$key];
+  }
+
+  return $result;
 }

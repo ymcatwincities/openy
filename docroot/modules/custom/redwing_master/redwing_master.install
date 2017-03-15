@@ -345,3 +345,10 @@ function redwing_master_update_8020() {
     ]
   );
 }
+
+/**
+ * YMCA-1446: Remove GA.
+ */
+function redwing_master_update_8021() {
+  $installer = \Drupal::service('module_installer')->uninstall(['google_analytics']);
+}
