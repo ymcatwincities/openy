@@ -68,6 +68,7 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - google_tag
   # OpenY features.
   - openy_media_image
   - openy_media_document
