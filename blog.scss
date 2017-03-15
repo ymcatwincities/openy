@@ -140,3 +140,30 @@
     }
   }
 }
+
+img.alignleft {
+  float: left;
+  margin: 5px 24px 12px 0;
+}
+
+img.alignright {
+  float: right;
+  margin: 5px 0 12px 24px;
+}
+
+.field-prgf-sc-body {
+  table {
+    border: 1px solid $lighter-grey;
+    margin: 0 -1px 24px 0;
+    text-align: left;
+    width: 100%;
+    td {
+      border-top: 1px solid $lighter-grey;
+      padding: 6px 24px;
+    }
+  }
+
+  p {
+    margin-bottom: 25px;
+  }
+}
