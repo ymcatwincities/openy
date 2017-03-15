@@ -207,12 +207,10 @@ ymca_retention.settings_fix_members:
   requirements:
     _permission: 'administer retention campaign'
 
-# TODO Hide menu item for now, as not used.
-#ymca_retention.ymca_winners.draw_winners:
-#  path: '/admin/content/ymca-retention-winners/draw-winners'
-#  defaults:
-#    _controller: '\Drupal\ymca_retention\Controller\WinnersController::drawWinners'
-#    _title: 'Draw winners'
-#  requirements:
-#    _permission: 'administer retention campaign'
-#    _csrf_token: 'TRUE'
+ymca_retention.ymca_winners.draw_winners:
+  path: '/admin/content/ymca-retention-winners/draw-winners'
+  defaults:
+    _controller: '\Drupal\ymca_retention\Controller\WinnersController::drawWinners'
+    _title: 'Draw winners'
+  requirements:
+    _permission: 'administer retention campaign'
