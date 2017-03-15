@@ -43,4 +43,4 @@ MYSQL="$(drush sql-connect -r /var/www/openy/docroot)"
 $MYSQL -e "drop database drupal; create database drupal;"
 IP="$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')"
 
-printf "${Green}Open http://$IP/core/install.php to proceed with OpenY installation.${Color_Off}\n"
+printf "\n${Green}Open http://$IP/core/install.php to proceed with OpenY installation.${Color_Off}\n"
