@@ -16,13 +16,13 @@ required: false
 translatable: false
 default_value:
   -
-    plugin_id: rng_registration
+    plugin_id: openy_rng_registration
     plugin_configuration:
-      id: rng_registration
+      id: openy_rng_registration
       label: 'Event Registration block'
       provider: null
       label_display: null
-    plugin_configuration_schema_id: block.settings.rng_registration
+    plugin_configuration_schema_id: block.settings.openy_rng_registration
 default_value_callback: ''
 settings: {  }
 field_type: 'plugin:block'
