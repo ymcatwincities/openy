@@ -61,6 +61,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_block_content_footer',
       ],
     ],
+    'alerts' => [
+      'openy_demo_nalert' => [
+        'openy_demo_node_alert',
+      ],
+    ],
     'branches' => [
       'openy_demo_nbranch' => [
         'openy_demo_node_branch',
@@ -69,6 +74,7 @@ function openy_demo_content_configs_map($key = NULL) {
     'camps' => [
       'openy_demo_ncamp' => [
         'openy_demo_node_camp',
+        'openy_demo_node_camp_blog',
       ],
     ],
     'blog' => [
@@ -76,9 +82,19 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_blog',
       ],
     ],
+    'facility' => [
+      'openy_demo_nfacility' => [
+        'openy_demo_node_facility',
+      ],
+    ],
     'landing' => [
       'openy_demo_nlanding' => [
         'openy_demo_node_landing',
+      ],
+    ],
+    'membership' => [
+      'openy_demo_nmbrshp' => [
+        'openy_demo_node_membership',
       ],
     ],
     'programs' => [

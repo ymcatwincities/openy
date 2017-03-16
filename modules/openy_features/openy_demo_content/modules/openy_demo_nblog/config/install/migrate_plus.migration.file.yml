@@ -42,7 +42,7 @@ source:
     id:
       type: integer
   constants:
-    source_base_path: profiles/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nblog/assets/images
+    source_base_path: profiles/contrib/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nblog/assets/images
     uri_file: 'public:/'
 process:
   source_full_path:

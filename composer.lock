@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bdb6b448048db445140a44d4e26e2197",
-    "content-hash": "dba85eabc273a1c1f2774f5f19863778",
+    "hash": "df897c05c45e7e74cbcbb42ce54c269d",
+    "content-hash": "730e8cc457deef7bfcf6e8559bce69ae",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2441,6 +2441,57 @@
             "homepage": "https://www.drupal.org/project/migrate_tools",
             "support": {
                 "source": "http://cgit.drupalcode.org/migrate_tools"
+            }
+        },
+        {
+            "name": "drupal/optimizely",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/optimizely",
+                "reference": "8.x-1.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/optimizely-8.x-1.2.zip",
+                "reference": null,
+                "shasum": "b721c201de478724efd2d088aa37ac2af115ff45"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.2",
+                    "datestamp": "1488253385"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "DeeZone",
+                    "homepage": "https://www.drupal.org/user/288060"
+                },
+                {
+                    "name": "tz_earl",
+                    "homepage": "https://www.drupal.org/user/2531114"
+                },
+                {
+                    "name": "yannisc",
+                    "homepage": "https://www.drupal.org/user/1145950"
+                }
+            ],
+            "description": "Manages loading Optimizely generated project javascript files to enable A/B testing.\n",
+            "homepage": "https://www.drupal.org/project/optimizely",
+            "support": {
+                "source": "http://cgit.drupalcode.org/optimizely"
             }
         },
         {

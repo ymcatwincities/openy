@@ -326,6 +326,15 @@ source:
       parent_id: 8
       expanded: 0
       parent_link_path: 'programs/youth-programs'
+    -
+      id: 35
+      title: 'Join'
+      menu_name: 'main'
+      link: 'base:join'
+      weight: 8
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
   ids:
     id:
       type: integer
