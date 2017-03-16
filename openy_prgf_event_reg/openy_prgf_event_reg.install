@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * YGH-430: Configure OpenY RNG registration.
+ */
+function openy_prgf_event_reg_update_8076() {
+  $config_importer = \Drupal::service('config_import.importer');
+
+  // Update paragraph.
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_event_reg') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.paragraph.openy_event_registration.default',
+      'field.field.paragraph.openy_event_registration.field_prgf_event_reg_block',
+      'paragraphs.paragraphs_type.openy_event_registration',
+    ]
+  );
+}
