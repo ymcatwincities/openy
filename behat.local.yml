@@ -9,5 +9,5 @@ default:
     Drupal\DrupalExtension:
       drupal:
         # This assumes that we're running Behat from within
-        # DRUPAL_ROOT/profiles/openy.
-        drupal_root: '../../'
+        # DRUPAL_ROOT/profiles/contrib/openy.
+        drupal_root: '../../../'
