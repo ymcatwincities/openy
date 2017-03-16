@@ -386,3 +386,79 @@ html, body {
     margin-left: -100px;
   }
 }
+
+
+.theme-ymca--2017-compain-upcoming {
+  height: 100%;
+  position: relative;
+  background: $white url('../prototypes/ysr_2017/img/bg-page-upcoming.jpg') 50% 0 no-repeat;
+
+  .viewport,
+  #main {
+    height: 100%;
+    background: none;
+    margin-top: auto;
+  }
+
+  .compain-upcoming {
+    @include rem(padding, 20px);
+    width: 100%;
+    max-width: 740px;
+    text-align: center;
+    @include breakpoint($tablet) {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 40%;
+      left: 50%;
+    }
+
+    .compain-header {
+      background: none;
+      height: auto;
+      .title {
+        color: $orange-medium;
+        margin-bottom: 50px ;
+        @include rem(font-size, 46px);
+        margin-top: 35px;
+        @include breakpoint($tablet) {
+          margin-top: -35px;
+          @include rem(font-size, 50px);
+        }
+      }
+      .sub-title-grey {
+        color: $grey5;
+        @include rem(font-size, 20px);
+      }
+      .container .content {
+        text-align: center;
+        hr {
+          width: 175px;
+          border-bottom: 1px solid $green-light-lighter;
+          opacity: 0.5;
+        }
+        .sub-title {
+          margin-top: 45px;
+          @include rem(font-size, 30px);
+          margin-bottom: 50px ;
+          line-height: 1.2em;
+        }
+      }
+      &--content {
+        .logo {
+          display: block;
+          margin: 0 auto;
+          max-width: 175px;
+          @include breakpoint($tablet) {
+            margin-top: 185px;
+          }
+        }
+      }
+    }
+
+    .container {
+      text-align: center;
+      padding: 0;
+    }
+  }
+
+}
