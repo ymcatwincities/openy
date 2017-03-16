@@ -17,3 +17,16 @@ function openy_prgf_fin_update_8001() {
     ]
   );
 }
+
+/**
+ * YGH-417: Add OpenY Member fields.
+ */
+function openy_prgf_fin_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_fin') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'webform.webform.financial_aid',
+    ]
+  );
+}
