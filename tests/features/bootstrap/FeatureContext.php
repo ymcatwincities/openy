@@ -7,6 +7,7 @@
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Drupal\TqExtension\Context\RawTqContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Tester\Exception\PendingException;
@@ -16,7 +17,7 @@ use Symfony\Component\Process\Process;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+class FeatureContext extends RawTqContext implements SnippetAcceptingContext {
 
   /**
    * Storage Engine, a stdClass object to store values by key.
