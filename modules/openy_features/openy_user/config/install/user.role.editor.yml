@@ -145,3 +145,4 @@ permissions:
   160: 'edit terms in media_tags'
   161: 'administer menu'
   162: 'access tour'
+  163: 'access structure page'
