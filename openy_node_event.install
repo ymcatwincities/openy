@@ -28,3 +28,17 @@ function openy_node_event_update_8002() {
       'field.field.node.event.field_landing_body',
     ]);
 }
+
+/**
+ * Fix registration paragraph.
+ */
+function openy_node_event_update_8003() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'block.block.registration',
+      'field.field.node.event.field_sidebar_content',
+    ]
+  );
+}

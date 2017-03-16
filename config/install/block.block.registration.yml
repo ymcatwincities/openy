@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - ctools
@@ -10,8 +10,8 @@ dependencies:
     - ygh
 id: registration
 theme: ygh
-region: content
-weight: 0
+region: '-1'
+weight: -10
 provider: null
 plugin: rng_registration
 settings:

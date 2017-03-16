@@ -25,9 +25,9 @@ settings:
   handler_settings:
     target_bundles:
       1c: 1c
-      openy_event_registration: openy_event_registration
       contact_us: contact_us
       simple_content: simple_content
+      openy_event_registration: openy_event_registration
     target_bundles_drag_drop:
       1c:
         enabled: true
@@ -74,8 +74,14 @@ settings:
       location_finder:
         weight: 36
         enabled: false
+      content_pager:
+        weight: 36
+        enabled: false
       lto:
         weight: 37
+        enabled: false
+      financial_aid:
+        weight: 38
         enabled: false
       membership_calculator:
         weight: 38
@@ -91,5 +97,14 @@ settings:
         enabled: false
       whay:
         weight: 42
+        enabled: false
+      openy_event_registration:
+        enabled: true
+        weight: 46
+      panorama:
+        weight: 47
+        enabled: false
+      prgf_location_finder_filters:
+        weight: 48
         enabled: false
 field_type: entity_reference_revisions
