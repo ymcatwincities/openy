@@ -8,7 +8,7 @@
 /**
  * YGH-430: Configure OpenY RNG registration.
  */
-function openy_prgf_event_reg_update_8076() {
+function openy_prgf_event_reg_update_8001() {
   $config_importer = \Drupal::service('config_import.importer');
 
   // Update paragraph.
