@@ -1,0 +1,218 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_node_blog
+id: openy_demo_node_camp_blog
+migration_tags: {  }
+migration_group: openy_demo_ncamp
+label: 'Import demo blog posts'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Camp Colman Stories'
+      style: color
+      bg_color: 4
+      color: 1
+      category: 1
+      related: null
+      promote: 1
+      camp: 1
+      body: >
+        <p>"My son came home full of stories about his adventures: the giant swing, drumming, climbing, games. He really appreciated the evening values circle, and enjoyed the campfires. He spoke highly of his counselors, and he looked up to them. My husband and I appreciated the opportunity for our son to spread his wings, try new things, and meet other kids both like and unlike him. Thank you, Camp Colman!"&nbsp;</p>
+        <p>"It was empowering for my son. He felt cared for, the rift of "popular" vs. "unpopular" is not tolerated by the entire culture at Camp Orkila- this is what I most love about this camp. Plus it is beautiful and the kids have a blast."&nbsp;</p>
+        <p>"Camp is a critical part of any child's development.&nbsp;&nbsp;Skills, strengths, self-confidence, leadership all get started and reinforced at camp."&nbsp;&nbsp;-Mat, camper dad&nbsp;</p>
+    -
+      id: 2
+      title: 'Serving our community for over 100 years!'
+      style: color
+      bg_color: 4
+      color: 1
+      category: 2
+      related: null
+      promote: 1
+      camp: 2
+      body: >
+        <p><span>YMCA Camp Orkila has been serving youth and families for over one hundred years! The YMCA of Greater Seattle set up its first permanent camping home in 1906 on a property on Orcas Island, starting what would later be named “Camp Orkila.”<span>&nbsp; </span>The property was owned by the Colman family, who founded Orkila’s sister-camp, Camp Colman, several years later.<span>&nbsp; </span>Its first summer, 30 boys spent four weeks on the property.<span>&nbsp; </span>In its early days, the camp was structured as a “city government,” in which the boys elected a Mayor, Council, Chief of Police, City Engineer, Judge, and Prosecuting Attorney, and a month of camp cost only $35.<span>&nbsp; </span></span></p>
+        <p><span>Until the early 1920s, campers would travel to camp on steamer ships from the Colman dock in Seattle.<span>&nbsp; </span>Campers transferred to smaller launches for the trip between Anacortes and Westsound and hiked the last six miles to the property.<span>&nbsp; </span>Regular ferry transportation to Orcas Island was established in 1923, and has been the primary form of transportation to and from camp ever since.</span><br><br><span>In its first 20 years, the camp grew quickly.<span>&nbsp; </span>In 1927, the YMCA Annual Report noted that 441 boys and 40 leaders had attended the property for six sessions that summer – a huge leap from the mere 30 boys that the camp had started with.<span>&nbsp; </span>In the 1930s, Ruth Norman and Ed Kilbourne created the name “Camp Orcila” while adapting the words to a popular campfire song.<span>&nbsp; </span>Orcila was misspelled so frequently, however, that the spelling was changed to “Orkila” in 1937.<span>&nbsp; </span></span></p>
+        <p><span>Kenneth Colman gifted the property title to the YMCA of Greater Seattle in 1938.<span>&nbsp; </span>In 1939, developments began and volunteers were asked to raise $3,140 for capital improvements – the most exciting of which was electricity.</span></p>
+        <p><span>Advertised as “A Training in Self-Reliance – A Godsend in Wartime,” a 10-14 day session in 1943 cost only $15-$20.</span></p>
+        <p><span>In 1947, Robert Moran and Laurence Colman donated the Twin Lakes Property to Orkila, donating the rest of the surrounding land to make what is now Moran State Park.<span>&nbsp; </span>In the same year, Camp Orkila also purchased the 107-acre Satellite Island for $10,000.<span>&nbsp; </span>Both properties are still used today&nbsp;to give&nbsp;Orkila campers special "out-of-cabin"&nbsp;camping trips and by Orkila’s many expedition groups.<span>&nbsp; </span></span></p>
+        <p><span>Larry Norman Memorial Lodge was built in 1953 and dedicated in memory of Larry Norman and the nearly three dozen other past campers who perished in WWII.</span></p>
+        <p><span>It wasn’t until 1965 that the first session of girls attended Camp Orkila.<span>&nbsp; </span>Only a few years later, in 1968, the Camp’s facilities were in such bad shape that Orkila nearly didn’t open for the summer.<span>&nbsp; </span>Volunteer work parties and dedicated camp staff managed to fix up the property in time to open for the summer.<span>&nbsp; </span>This wasn’t the end of Orkila’s rough patch, however.<span>&nbsp; </span>In the late 60s and early 70s, the recession brought the camp close to closing again when the YMCA considered selling the property to bolster programming in the urban areas.<span>&nbsp; </span>Once again, Orkila was saved by its passionate volunteers, who worked to keep the camp open that year and for future generations.<span>&nbsp; </span>Under the leadership of Don Anderson, Orkila focused on character-building and values education. </span></p>
+        <p><span>In 1970, the first co-ed camp session was offered, and in 1973, all sessions became co-ed.<span>&nbsp; </span>Orkila soon acquired the farm property, which provided space for sports fields, the barn and horses, the demonstration farm, and high ropes course.<span>&nbsp; </span>Outdoor Environmental Education programs also became an increasingly important and growing part of programming.<span>&nbsp; </span>Orkila continued to develop quickly – including the building of the craft shop in 1976, the Dederer Family Conference Center, the launch of the Patsy Collins Adventure in Leadership for Girls of Promise program in 1997 (now called Girls LEAD), and the construction of the Marine-Salmon Center in 2002.<span>&nbsp; </span>In 2006, Orkila celebrated its Centennial and welcomed 16,000 visitors to camp that year. Since the Centennial, Orkila has grown and prospered – adding the Alumni House and the Challenge Tower and Zipline to its many wonderful facilities.</span>&nbsp;</p>
+        <p><span>While Camp Orkila’s been through a lot of changes in the last 100 years, our dedication to strengthening community has been unwavering.&nbsp; The Colman family was rooted in nurturing the potential of youth, promoting healthy living, and fostering social responsibility, and these same goals still drive our Y staff and volunteers every day at Camp Orkila.&nbsp; Continuing to build on such a strong foundation, we look forward to serving our community long into the future.</span></p>
+    -
+      id: 3
+      title: 'Cheddar-Cannelini Fondue'
+      style: color
+      bg_color: 4
+      color: 1
+      category: 3
+      related: 2
+      promote: 1
+      camp: 3
+      body: >
+        By the Chef Marshall O’Brien Group
+
+        Serves 8
+
+        Ingredients
+
+        <ul>
+          <li>1 15-ounce can cannellini beans, rinsed and drained</li>
+          <li>12 ounces low-sodium vegetable stock, divided</li>
+          <li>1 1/2 cup extra-sharp cheddar cheese, grated or shredded</li>
+          <li>2 teaspoons tabasco sauce</li>
+          <li>1 teaspoon dry mustard</li>
+          <li>1/2 teaspoon Worcestershire sauce</li>
+          <li>Directions</li>
+        </ul>
+
+        <ol>
+          <li>Place beans and 6 ounces of stock in a blender and blend until smooth.</li>
+          <li>Combine blended beans and remaining stock in a saucepan and heat to a simmer.</li>
+          <li>Add cheese, a small amount at a time, stirring until fully incorporated; repeat until all cheese is blended.</li>
+          <li>Add hot sauce, dry mustard and Worcestershire sauce and mix well.</li>
+          <li>Bring to a simmer, transfer to a fondue pot or slow cooker, and serve with chunks of rustic whole wheat bread and a variety of raw vegetables.</li>
+        <ol>
+    -
+      id: 4
+      title: 'How does the camp experience benifit your child?'
+      style: color
+      bg_color: 8
+      color: 1
+      category: 2
+      related: 1
+      promote: 1
+      camp: 1
+      body: >
+        <p>“Camp Orkila is a confidence builder for Conor.&nbsp;&nbsp;He seems more mature when he returns from camp, and excited about meeting new young people from other places.” –Malayka and Tom, Mom and Dad&nbsp;</p>
+        <p>“Ellis had the ‘time of her life.’&nbsp;&nbsp;The power of being with young people, nature, and clear values, allows for growth, change and insight.&nbsp;&nbsp;I feel this was a wonderful chance for my daughter to discover her power, beauty and value with other like-minded young adults.” –Josie, Mother&nbsp;</p>
+        <p>“He had two weeks away from cell phones and electronic devices.&nbsp;&nbsp;He did Mariners Sailing and he said he had a lot of time to think about his life and what he wanted for his future.&nbsp;&nbsp;He seemed more certain and mature.” –Kathleen, Mother&nbsp;</p>
+    -
+      id: 5
+      title: 'Camp Orkila FAQ'
+      style: news
+      category: 2
+      related: 1
+      promote: 1
+      camp: 2
+      body: >
+        <p><strong>Orkila’s Frequently Asked Registration Questions:</strong>
+        <p><strong>What are the three price tiers? What do they mean? How do I choose?</strong></p>
+        <p>We recognize that families have different abilities to pay and have developed this voluntary three-tier fee structure to best meet everyone’s needs. Simply select the rate appropriate for your family’s budget. This is completely confidential and does not impact your child’s camp experience in any way.</p>
+        <ul><li>Tier III reflects the full cost of sending a camper to the program selected. If you are able to pay this amount, please do. Thank you.&nbsp;</li>
+            <li>Tier II is a partially-subsidized rate to help families who can't afford the full cost of the camp program. Choose this rate if your family needs a partial subsidy&nbsp;</li>
+            <li>Tier I represents a substantial subsidy for families who need assistance to send a child to camp. Choose this rate if your family needs it.</li>
+        </ul><p>If Tier I presents a barrier, Financial Assistance is available through an application process, which requires income documentation. Financial Assistance is made possible thanks to the generosity of YMCA donors.</p>
+        <p><strong>What are your payment and refund policies?</strong></p>
+        <ul><li>A deposit of $100 per session per child must accompany the registration form ($50 if applying for Financial Assistance or registering before January 1st). Payment options include Visa, MasterCard, Discover Card, American Express and personal check made out to YMCA Camping &amp; Outdoor Leadership.&nbsp;</li>
+            <li>Deposits are non-refundable after June 1st.&nbsp;</li>
+            <li>Payment in full is due on or by June 1st. We require a minimum of two weeks’ notice prior to the session start date to qualify for a refund of program fees (less the deposit).&nbsp;</li>
+            <li>Cancellations made within two weeks of the session start date are non-refundable. Considerations may be made for extenuating circumstances at the discretion of the Administrative Director</li>
+        </ul><p><strong>What is the transportation fee?</strong></p>
+        <p>Campers may be checked-in and picked-up at three different locations: Meridian Park Elementary in Shoreline, the Anacortes Ferry Terminal, or Camp Orkila on Orcas Island.</p>
+        <ul><li>Bus from Meridian Park: Charter buses supervised by camp staff and volunteers will transport campers between Meridian Park Elementary and Camp Orkila. If you choose this option, there is a $45 transportation fee* (whether your camper will take the bus one direction or both). If your camper is attending non-consecutive sessions, you’ll need to pay a transportation fee for each session for which they will be taking the bus.&nbsp;</li>
+            <li>Anacortes Ferry: Campers checked-in at the Anacortes Ferry Terminal will walk onto the ferry with Orkila staff and be met by the Orkila bus upon arrival on Orcas. There is a $10 transportation fee* for campers who check-in and walk on to the ferry at Anacortes. Campers departing Orkila at the end of the session will ride the camp bus to the Orcas Ferry Terminal and they’ll walk onto the ferry again as a group. There is no fee associated with this return option.</li>
+            <li>Camp Orkila: Campers may be checked in and picked up at Orkila on Orcas Island. There is no transportation fee associated with this option from our office, however if you walk or drive on to the ferry, tickets are required. More information is available at www.wsdot.gov/ferries.</li>
+        </ul><p>*You may pay the transportation fee upon registration or add it later as needed. Note: If your camper will be arriving/departing camp by a method other those listed above (i.e. by boat, plane, etc.), please contact Jen Hitt to discuss details: jhitt@seattleymca.org.</p>
+        <p><strong>What is store money?</strong></p>
+        <p>At Camp, there is a “Camp Store,” which has Orkila gear (such as t-shirts and sweatshirts), souvenirs and miscellaneous items. All store purchases are made through your camper’s prepaid store account. We suggest $25-50 depending on the session length. You may add store money upon registration or with a later payment.</p>
+        <p>Unless a refund is requested by September 30th, the balance of your camper’s unspent store money will be donated to our campership fund, which helps send kids to camp. We are unable to give refunds for balances of $5 or less. To request a detailed report of your camper’s store expenses or a refund of unspent store money, please contact the YMCA Camping &amp; Outdoor Leadership Office: 206 382 5009 or colmanorkilainfo@seattleymca.org</p>
+    -
+      id: 6
+      title: "Learn about camp Terry's history"
+      style: color
+      bg_color: 8
+      color: 1
+      category: 2
+      related: 1
+      promote: 1
+      camp: 3
+      body: >
+        <p><span>Located on the Raging River in&nbsp;Preston, Washington, YMCA Camp Terry provides outdoor fun for all. Originally deeded to the YMCA by Clarence C. Terry&nbsp;in 1942 for $10, YMCA Camp Terry has grown&nbsp;to provide&nbsp;a range of programs including Outdoor Day Camp,&nbsp;Family Camp Overnights and Outdoor Environmental Education. Operated by the Sammamish Family YMCA, YMCA Camp Terry most recently&nbsp;added a climbing wall and 250-foot zip line to its facilities producing more summer fun than ever!</span><br>
+        YMCA Outdoor Day Camp</p>
+        <ul><li>
+            <p>Sign your child up for Outdoor Day Camp</p>
+            </li>
+            <li>
+            <p>Host Family and/or Company&nbsp;Events in Nature</p>
+            </li>
+            <li>
+            <p>Bring Students Outdoors to learn about the Environment</p>
+            </li>
+            <li>
+            <p>Join other families at Family Camp every Summer</p>
+            </li>
+        </ul>
+  ids:
+    id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  type:
+    -
+      plugin: default_value
+      default_value: blog
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  promote:
+    -
+      plugin: get
+      source: promote
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  field_blog_style:
+    -
+      plugin: get
+      source: style
+  field_blog_color:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_color
+      source: bg_color
+  field_blog_text_color:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_color
+      source: color
+  field_blog_description/value:
+    -
+      plugin: get
+      source: body
+  field_blog_description/format:
+    -
+      plugin: default_value
+      default_value: full_html
+  field_blog_category:
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_blog_category
+      source: category
+  field_blog_related:
+    -
+      plugin: migration
+      migration: openy_demo_node_blog
+      source: related
+  field_blog_location:
+    -
+      plugin: migration
+      migration: openy_demo_node_camp
+      source: camp
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - openy_demo_taxonomy_term_blog_category
+    - openy_demo_node_camp
+  optional: {  }

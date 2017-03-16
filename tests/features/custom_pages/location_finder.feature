@@ -52,4 +52,6 @@ Feature: Location finder
       | title |
       | Facility One |
     When I go to "/locations"
+    And I check "Facilities"
+    And I uncheck "Camps"
     Then I should see "Facility One"

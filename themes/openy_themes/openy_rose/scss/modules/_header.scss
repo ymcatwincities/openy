@@ -67,7 +67,7 @@
       }
     }
   }
-
+  .is-camp &__top-menu,
   &__top-menu {
     @include clearfix();
 
@@ -102,8 +102,12 @@
         line-height: 1.42;
       }
     }
+    &.clearfix {
+      // Fix for menu contextual links.
+      overflow: visible;
+    }
   }
-
+  .is-camp &__main-menu,
   &__main-menu {
 
     a {
