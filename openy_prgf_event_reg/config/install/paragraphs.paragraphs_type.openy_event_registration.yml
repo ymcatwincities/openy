@@ -3,3 +3,4 @@ status: true
 dependencies: {  }
 id: openy_event_registration
 label: 'OpenY Event Registration'
+behavior_plugins: {  }

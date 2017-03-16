@@ -6,18 +6,13 @@ dependencies:
     - paragraphs.paragraphs_type.openy_event_registration
   module:
     - content_moderation
-    - plugin
 id: paragraph.openy_event_registration.default
 targetEntityType: paragraph
 bundle: openy_event_registration
 mode: default
-content:
-  field_prgf_event_reg_block:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
-    type: 'plugin_selector:plugin_select_list'
+content: {  }
 hidden:
   created: true
+  field_prgf_event_reg_block: true
   status: true
   uid: true
