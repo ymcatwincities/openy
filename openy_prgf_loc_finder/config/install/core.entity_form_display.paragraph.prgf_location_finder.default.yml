@@ -6,18 +6,13 @@ dependencies:
     - paragraphs.paragraphs_type.prgf_location_finder
   module:
     - content_moderation
-    - plugin
 id: paragraph.prgf_location_finder.default
 targetEntityType: paragraph
 bundle: prgf_location_finder
 mode: default
-content:
-  field_prgf_location_finder:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    type: 'plugin_selector:plugin_select_list'
+content: {  }
 hidden:
   created: true
+  field_prgf_location_finder: true
   status: true
   uid: true
