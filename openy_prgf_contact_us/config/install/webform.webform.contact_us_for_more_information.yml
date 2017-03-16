@@ -13,7 +13,7 @@ elements: "text:\n  '#type': markup\n  '#markup': \"For more than 2 adults on a 
 css: ''
 javascript: ''
 settings:
-  page: true
+  page: false
   page_submit_path: ''
   page_confirm_path: ''
   form_submit_label: ''

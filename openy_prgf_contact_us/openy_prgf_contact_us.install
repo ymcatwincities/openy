@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_contact_us feature.
+ */
+
+/**
+ * Disable Contact us for more information web form page.
+ */
+function openy_prgf_contact_us_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_contact_us') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'webform.webform.contact_us_for_more_information',
+    ]
+  );
+}
