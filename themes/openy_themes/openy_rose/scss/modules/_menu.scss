@@ -307,13 +307,28 @@
 
 @include breakpoint($screen-desktop $screen-md-max) {
   .row-level-2 {
-
     > li {
-
-      &:nth-child(3n + 1) {
+      &:nth-child(4n + 1) {
         clear: both;
       }
     }
+  }
+}
+
+@include breakpoint($screen-md-max) {
+  .row-level-2 {
+    > li {
+      &:nth-child(6n + 1) {
+        clear: both;
+      }
+    }
+  }
+}
+
+@include breakpoint($screen-desktop) {
+  .row-level-2 {
+    left: 0;
+    right: 0;
   }
 }
 

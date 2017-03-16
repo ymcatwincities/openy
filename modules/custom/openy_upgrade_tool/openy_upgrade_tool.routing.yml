@@ -1,0 +1,8 @@
+openy_upgrade_tool.logger.diff:
+  path: '/admin/config/openy-upgrade-tool/{logger_entity}/diff'
+  defaults:
+    _controller: '\Drupal\openy_upgrade_tool\Controller\LoggerConfigController::diff'
+    _title: 'Config diff'
+  requirements:
+    _permission: 'access administration pages'
+    logger_entity: \d+

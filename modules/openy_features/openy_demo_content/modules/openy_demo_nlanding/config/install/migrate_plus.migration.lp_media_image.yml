@@ -43,6 +43,18 @@ source:
       id: housing_and_transition_planning
       name: 'Housing & Transition Planning'
       file: housing_and_transition_planning
+    -
+      id: join_one
+      name: 'Join One'
+      file: join_one
+    -
+      id: join_two
+      name: 'Join Two'
+      file: join_two
+    -
+      id: join_three
+      name: 'Join Three'
+      file: join_three
   ids:
     id:
       type: string

@@ -35,11 +35,20 @@ source:
     -
       id: housing_and_transition_planning
       name: housing_and_transition_planning.jpg
+    -
+      id: join_one
+      name: join_one.jpg
+    -
+      id: join_two
+      name: join_two.jpg
+    -
+      id: join_three
+      name: join_three.jpg
   ids:
     id:
       type: string
   constants:
-    source_base_path: profiles/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nlanding/assets/images
+    source_base_path: profiles/contrib/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nlanding/assets/images
     uri_file: 'public:/'
 process:
   source_full_path:
