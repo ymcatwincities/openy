@@ -59,6 +59,7 @@ dependencies:
   - libraries
   - migrate_plus
   - migrate_tools
+  - optimizely
   - verf
   - simple_menu_icons
   - slick
@@ -113,7 +114,6 @@ dependencies:
   - openy_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
-  - openy_user
   # OpenY custom modules
   - openy_field_hours
   - openy_hours_formatter
@@ -125,6 +125,7 @@ dependencies:
   - openy_mappings
   - openy_calc
   - openy_data_wrapper
+  - logger_entity
 
 themes:
   - bartik

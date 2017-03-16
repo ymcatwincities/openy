@@ -52,6 +52,20 @@ source:
         education, employment, violence prevention, family support and
         leadership development. These programs rely on community support.
         </p>
+    -
+      id: join_gallery
+      parent_id: join
+      headline: 'Give the Y a Try'
+      image_ids:
+        - join_one
+        - join_two
+        - join_three
+      description: |
+        <p>
+        Work on yourself and your community at the Y. Memberships include
+        hundreds of group exercises classes, wellness programs, free drop-in
+        childcare for family memberships, and more.
+        </p>
   ids:
     id:
       type: string
