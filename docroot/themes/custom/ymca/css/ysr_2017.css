@@ -436,6 +436,85 @@ html, body {
   margin-left: -100px;
 }
 
+.theme-ymca--2017-compain-upcoming {
+  height: 100%;
+  position: relative;
+  background: #fff url("../prototypes/ysr_2017/img/bg-page-upcoming.jpg") 50% 0 no-repeat;
+}
+.theme-ymca--2017-compain-upcoming .viewport,
+.theme-ymca--2017-compain-upcoming #main {
+  height: 100%;
+  background: none;
+  margin-top: auto;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming {
+  padding: 20px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 740px;
+  text-align: center;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-upcoming .compain-upcoming {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 40%;
+    left: 50%;
+  }
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header {
+  background: none;
+  height: auto;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .title {
+  color: #f47920;
+  margin-bottom: 50px;
+  font-size: 46px;
+  font-size: 4.6rem;
+  margin-top: 35px;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .title {
+    margin-top: -35px;
+    font-size: 50px;
+    font-size: 5rem;
+  }
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .sub-title-grey {
+  color: #777;
+  font-size: 20px;
+  font-size: 2rem;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .container .content {
+  text-align: center;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .container .content hr {
+  width: 175px;
+  border-bottom: 1px solid #37cccc;
+  opacity: 0.5;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .container .content .sub-title {
+  margin-top: 45px;
+  font-size: 30px;
+  font-size: 3rem;
+  margin-bottom: 50px;
+  line-height: 1.2em;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header--content .logo {
+  display: block;
+  margin: 0 auto;
+  max-width: 175px;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header--content .logo {
+    margin-top: 185px;
+  }
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .container {
+  text-align: center;
+  padding: 0;
+}
+
 .compain-header {
   height: 226px;
   height: 22.6rem;
