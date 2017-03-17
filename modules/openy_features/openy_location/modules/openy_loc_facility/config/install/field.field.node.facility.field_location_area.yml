@@ -5,10 +5,6 @@ dependencies:
     - field.storage.node.field_location_area
     - node.type.facility
     - taxonomy.vocabulary.area
-third_party_settings:
-  datalayer:
-    expose: 1
-    label: field_location_area
 id: node.facility.field_location_area
 field_name: field_location_area
 entity_type: node

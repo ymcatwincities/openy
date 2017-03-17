@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * OpneY Paragraph module file.
+ */
+
+use \Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function openy_prgf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Return if not a node form.
+  if (empty($form['#entity_type']) || $form['#entity_type'] !== 'node') {
+    return;
+  }
+
+  // Unset paragraph add options, by field, based on configuration.
+  $fields_unset_paragraphs = Drupal::configFactory()->get('openy_prgf.settings')
+    ->get('fields_unset_paragraphs');
+  foreach ($fields_unset_paragraphs as $field_name => $unset_paragraphs) {
+    if (!isset($form[$field_name]) || empty($unset_paragraphs) || !is_array($unset_paragraphs)) {
+      continue;
+    }
+    foreach ($unset_paragraphs as $unset_paragraph) {
+      if (isset($form[$field_name]['widget']['add_more']['add_more_button_' . $unset_paragraph])) {
+        unset($form[$field_name]['widget']['add_more']['add_more_button_' . $unset_paragraph]);
+      }
+    }
+  }
+}

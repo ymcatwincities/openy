@@ -65,13 +65,10 @@
 {% macro menu_links_level_2(items, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
-    {% set attributes = attributes.addClass(['row-level-2', 'row']) %}
     <ul class="nav dropdown-menu row-level-2 row">
     {% for item in items %}
-      {% set ia = item.attributes %}
-      {% set ia = ia.addClass(['nav-level-3', 'col-md-4', 'col-lg-2', 'menu-item-' ~ item.title|clean_class]) %}
+      {% set ia = item.attributes.addClass(['nav-level-3', 'col-md-3', 'col-lg-2', 'menu-item-' ~ item.title|clean_class]) %}
       <li{{ ia }}>
-
         {% if item.below %}
           <a href="{{ item.url }}">
             <div class="section-icon"></div>

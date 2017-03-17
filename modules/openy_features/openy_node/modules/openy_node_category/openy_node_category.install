@@ -9,7 +9,7 @@
  * Update Node Category fields datalayer config for Data Layer additions.
  */
 function openy_node_category_update_8001() {
-  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_node_category');
   $config .= '/config/install/';
   $config .= 'field.field.node.program_subcategory.field_category_description';

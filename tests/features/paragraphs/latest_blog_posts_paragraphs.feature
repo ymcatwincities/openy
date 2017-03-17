@@ -20,7 +20,7 @@ Feature: Latest Blogs Paragraphs
     When I click "Load More"
     Then I should see "Nourish yourself with healthy fats"
     And I should see "Cheddar-Cannelini Fondue"
-    And I should see "Mango-Avocado Salsa"
+    And I should see "Mood-boosting foods"
 
   Scenario: Paste latest blog post (branch)
     When I go to "node/1/edit"

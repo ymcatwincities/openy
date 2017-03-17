@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.logger_entity.openy_config_upgrade_logs.field_config_path
+    - field.field.logger_entity.openy_config_upgrade_logs.field_config_property
+    - logger_entity.logger_entity_type.openy_config_upgrade_logs
+id: logger_entity.openy_config_upgrade_logs.default
+targetEntityType: logger_entity
+bundle: openy_config_upgrade_logs
+mode: default
+content:
+  field_config_path:
+    weight: -8
+    settings:
+      rows: 1
+      placeholder: profiles/openy/modules/openy_features/openy_media/modules/openy_media_image/config/install/views.view.images_library.yml
+    third_party_settings: {  }
+    type: string_textarea
+  field_config_property:
+    weight: -9
+    settings:
+      size: 60
+      placeholder: display.default.sorts
+    third_party_settings: {  }
+    type: string_textfield
+  name:
+    type: string_textfield
+    weight: -10
+    settings:
+      size: 60
+      placeholder: views.view.images_library
+    third_party_settings: {  }
+hidden:
+  user_id: true
