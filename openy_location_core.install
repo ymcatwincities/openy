@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_all_testimonials feature.
+ */
+
+/**
+ * Change cardinality of Header content.
+ */
+function openy_location_core_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_location_core') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_header_content',
+    ]
+  );
+}
