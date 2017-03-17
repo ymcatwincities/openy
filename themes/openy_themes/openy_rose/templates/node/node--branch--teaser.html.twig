@@ -87,7 +87,7 @@
   {{ title_prefix }}
   {% if not page %}
 
-    {% if content.field_location_state|render|trim %}
+    {% if content.field_location_state|render|trim and node.field_location_temp_url is not empty %}
       {% set title_url =  node.field_location_temp_url.0.url ? node.field_location_temp_url.0.url : url %}
     {% else %}
       {% set title_url = url %}
