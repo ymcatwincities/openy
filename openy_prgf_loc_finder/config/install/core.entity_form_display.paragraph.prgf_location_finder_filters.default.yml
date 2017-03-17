@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.field.paragraph.prgf_location_finder_filters.field_prgf_location_finder
     - paragraphs.paragraphs_type.prgf_location_finder_filters
+  module:
+    - content_moderation
 id: paragraph.prgf_location_finder_filters.default
 targetEntityType: paragraph
 bundle: prgf_location_finder_filters

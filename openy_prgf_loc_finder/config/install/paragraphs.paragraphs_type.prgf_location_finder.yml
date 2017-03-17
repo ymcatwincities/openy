@@ -1,5 +1,5 @@
 langcode: en
 status: true
 dependencies: {  }
-id: location_finder
+id: prgf_location_finder
 label: 'Location finder'
