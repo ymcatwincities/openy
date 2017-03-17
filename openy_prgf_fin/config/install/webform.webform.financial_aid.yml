@@ -12,7 +12,7 @@ elements: "description_container:\n  '#type': fieldset\n  '#title': Description\
 css: ''
 javascript: ''
 settings:
-  page: true
+  page: false
   page_submit_path: ''
   page_confirm_path: ''
   form_submit_label: ''
