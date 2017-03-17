@@ -112,7 +112,7 @@ source:
       id: 12
       title: 'About'
       menu_name: 'footer-menu-right'
-      link: 'base:about-ymca'
+      link: 'base:about'
       weight: 1
       parent_id: 0
       expanded: 0
