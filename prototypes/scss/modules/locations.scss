@@ -432,6 +432,38 @@
       }
     }
   }
+
+  &.camp {
+    .desktop {
+      background-color: $dark-green;
+      .column {
+        width: inherit;
+      }
+      .title-wrapper {
+        padding-right: 40px;
+      }
+      .address-wrapper {
+        padding-right: 40px;
+      }
+    }
+    .mobile {
+      background-color: $dark-green;
+      .ui-tabs {
+        .ui-tabs-panel {
+          background: $green;
+        }
+        .ui-tabs-nav .ui-tabs-active {
+          background: $green;
+        }
+      }
+    }
+  }
+}
+
+.node--type-camp {
+  .banner {
+    background: linear-gradient(to top, #01a490, $light-blue);
+  }
 }
 
 .field-prgf-location-finder {

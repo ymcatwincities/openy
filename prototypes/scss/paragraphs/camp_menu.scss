@@ -2,11 +2,11 @@
   .camp-menu-wrapper {
     position: relative;
     background-color: $dark-green;
-    padding-left: 137px;
+    margin-bottom: 20px;
   }
 
   .camp-menu {
-    height: 60px;
+    min-height: 60px;
     margin-bottom: 0;
     padding: 0;
     position: relative;
