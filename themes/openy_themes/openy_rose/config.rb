@@ -4,7 +4,7 @@ require 'breakpoint'
 require 'bootstrap-sass'
 
 # Set this to the root of your project when deployed:
-http_path = "/profiles/openy/themes/openy_themes/openy_rose"
+http_path = "/profiles/contrib/openy/themes/openy_themes/openy_rose"
 css_dir = "css"
 sass_dir = "scss"
 images_dir = "img"
