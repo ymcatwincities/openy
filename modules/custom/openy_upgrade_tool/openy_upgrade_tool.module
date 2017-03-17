@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_upgrade_tool.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\openy_upgrade_tool\EntityTypeInfo;
+
+/**
+ * Implements hook_entity_operation().
+ */
+function openy_upgrade_tool_entity_operation(EntityInterface $entity) {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(EntityTypeInfo::class)
+    ->entityOperation($entity);
+}
