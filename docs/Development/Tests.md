@@ -11,16 +11,16 @@ These instructions explain how you can run tests.
 1. Execute command
 
     ```
-    $ cd profiles/openy
+    $ cd profiles/contrib/openy
     $ sh runtests.sh
     ```
-2. Open http://site.com/profiles/openy/build/reports/behat in browser.
+2. Open http://site.com/profiles/contrib/openy/build/reports/behat in browser.
 
 ### Run selenium container + Behat tests in usual way
 In order to run only selenium container + behat in usual way:
 
 ```
-$ cd profiles/openy
+$ cd profiles/contrib/openy
 $ sh runtests.sh --tags run_selenium
 $ bin/behat
 ```
@@ -29,7 +29,7 @@ $ bin/behat
 In order to stop  selenium container:
 
 ```
-$ cd profiles/openy
+$ cd profiles/contrib/openy
 $ sh runtests.sh --tags stop_selenium
 ```
 
