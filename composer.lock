@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "df897c05c45e7e74cbcbb42ce54c269d",
-    "content-hash": "730e8cc457deef7bfcf6e8559bce69ae",
+    "hash": "7523bb14f3dc719c36bd12e020323b75",
+    "content-hash": "294ed2d874569d311e8dfb52f2cfd3c1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1378,7 +1378,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/datalayer",
-                "reference": "dd6c2e11106b872143d92f9c91f180a5607907a3"
+                "reference": "3e73f78f15822f1c758f8f26dd226b7ebc41b42f"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -1391,7 +1391,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1487739184"
+                    "datestamp": "1488333184"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1417,7 +1417,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/datalayer"
             },
-            "time": "2017-02-22 05:00:12"
+            "time": "2017-03-01 17:17:52"
         },
         {
             "name": "drupal/dropzonejs",
@@ -2096,7 +2096,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/libraries",
-                "reference": "73f8b99ec74d3ebbb196540a6115584e72f9a640"
+                "reference": "061ead081c92a6209b09eaf23b4e3103f360946e"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2108,7 +2108,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.x-dev",
-                    "datestamp": "1485834185"
+                    "datestamp": "1487978583"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2140,7 +2140,7 @@
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             },
-            "time": "2017-02-24 23:18:09"
+            "time": "2017-03-15 17:04:08"
         },
         {
             "name": "drupal/media_entity",
@@ -2287,17 +2287,11 @@
         },
         {
             "name": "drupal/media_entity_image",
-            "version": "1.2.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_entity_image",
-                "reference": "8.x-1.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/media_entity_image-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "d02d1d793a50ea3b9cb5a3219472fdd27980f4f3"
+                "reference": "98a548e79d86f6f0728f14531045ea551023c768"
             },
             "require": {
                 "drupal/core": "~8.1",
@@ -2312,8 +2306,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1470170939"
+                    "version": "8.x-1.2+6-dev",
+                    "datestamp": "1487497384"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2344,7 +2338,8 @@
             "support": {
                 "source": "https://www.drupal.org/project/media_entity_image",
                 "issues": "https://www.drupal.org/project/issues/media_entity_image"
-            }
+            },
+            "time": "2017-02-19 09:44:14"
         },
         {
             "name": "drupal/migrate_plus",
@@ -2454,7 +2449,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/optimizely-8.x-1.2.zip",
-                "reference": null,
+                "reference": "8.x-1.2",
                 "shasum": "b721c201de478724efd2d088aa37ac2af115ff45"
             },
             "require": {
@@ -6202,6 +6197,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "drupal/media_entity_image": 20,
         "drupal/views_block_filter_block": 20,
         "drupal/simple_menu_icons": 20,
         "drupal/libraries": 20,
