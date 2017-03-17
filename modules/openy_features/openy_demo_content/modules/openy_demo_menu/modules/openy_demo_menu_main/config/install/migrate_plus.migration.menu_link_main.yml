@@ -105,7 +105,7 @@ source:
       id: 10
       title: 'About'
       menu_name: 'main'
-      link: 'base:about-ymca'
+      link: 'base:about'
       weight: 4
       parent_id: 0
       expanded: 0
