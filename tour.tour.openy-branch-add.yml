@@ -1,4 +1,3 @@
-uuid: 4ba13fe4-7da1-46af-9bf3-f71a0275c3b8
 langcode: en
 status: true
 dependencies:
@@ -44,7 +43,7 @@ tips:
     weight: 4
     attributes:
       data-class: 'form-item-field-branch-body-1-subform-field-prgf-3c-left-actions-bundle'
-#      'label:contains("Landing Page")'
+
   create-block:
     id: block-type
     plugin: text
@@ -56,7 +55,7 @@ tips:
     weight: 5
     attributes:
       data-class: 'form-submit[value="Create custom block"]'
-#      'label:contains("Landing Page")'
+
   result:
     id: result
     plugin: text
@@ -65,4 +64,3 @@ tips:
     weight: 6
     attributes:
       data-class: 'form-submit[value="Save and publish"]'
-#      'label:contains("Landing Page")'
