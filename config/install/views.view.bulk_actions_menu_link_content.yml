@@ -6,6 +6,8 @@ dependencies:
     - bulk_actions
     - system
     - user
+_core:
+  default_config_hash: SFQHpRCevZsN7ooQPF5hcBWE5u8E-10aGtGmpfjyEAs
 id: bulk_actions_menu_link_content
 label: 'Bulk Actions (Menu Link Content)'
 module: views
@@ -378,14 +380,14 @@ display:
           group_type: group
           admin_label: ''
           operator: '='
-          value: false
+          value: '0'
           group: 1
           exposed: true
           expose:
-            operator_id: ''
+            operator_id: operator
             label: 'Enabled for display'
             description: ''
-            use_operator: false
+            use_operator: true
             operator: enabled_op
             identifier: enabled
             required: true
@@ -395,10 +397,8 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-              editor: '0'
-              location_editor: '0'
               contributor: '0'
-              intern: '0'
+              editor: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -460,3 +460,4 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
+
