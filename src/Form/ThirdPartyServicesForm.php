@@ -74,6 +74,23 @@ class ThirdPartyServicesForm extends FormBase {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    parent::validateForm($form, $form_state);
+
+    // Trim some text values.
+    $form_state->setValue('google_analytics_account', trim($form_state->getValue('google_analytics_account')));
+
+    // Replace all type of dashes (n-dash, m-dash, minus) with normal dashes.
+    $form_state->setValue('google_analytics_account', str_replace(['–', '—', '−'], '-', $form_state->getValue('google_analytics_account')));
+
+    if (!preg_match('/^UA-\d+-\d+$/', $form_state->getValue('google_analytics_account'))) {
+      $form_state->setErrorByName('google_analytics_account', t('A valid Google Analytics Web Property ID is case sensitive and formatted like UA-xxxxxxx-yy.'));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Save Google Maps API Key.
     $config_factory = \Drupal::service('config.factory');
