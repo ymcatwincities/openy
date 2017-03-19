@@ -3,7 +3,7 @@ Feature: Static Paragraphs
   Check that static paragraphs can be created and displayed
 
   Background: Create basic landing page
-    Given I am logged in as a user with the "Administrator" role
+    Given I am logged in as a user with the "Editor" role
     And I go to "/node/add/landing_page"
     And I fill "Title" with "Landing"
     And I select "One Column" from "Layout"
@@ -70,7 +70,7 @@ Feature: Static Paragraphs
 
   Scenario: Create Promo Card
     When I press "Add Promo Card" in the "sidebar_area"
-    And I fill "Title" with "Promo" in the "sidebar_area"
+    And I fill in "Title" with "Promo" in the "sidebar_area"
     And I fill the following:
       | Headline | OpenY is free to try! |
       | Description | Setup a website and see how it works. |
@@ -84,7 +84,7 @@ Feature: Static Paragraphs
 
   Scenario: Create Story Card
     When I press "Add Story Card" in the "sidebar_area"
-    And I fill "Title" with "New Story" in the "sidebar_area"
+    And I fill in "Title" with "New Story" in the "sidebar_area"
     And I fill the following:
       | Headline | I discovered OpenY. And that looks great! |
       | URL      | http://openymca.org                       |
@@ -96,8 +96,8 @@ Feature: Static Paragraphs
 
   Scenario: Create Teaser
     When I press "Add Teaser" in the "content_area"
-    And I fill "Title" with "My Teaser" in the "content_area"
-    And I fill the following:
+    And I fill in "Title" with "My Teaser" in the "content_area"
+    And I fill in the following:
       | Description | Lorem ipsum dolor sit. |
       | URL         | /test                  |
       | Link text   | Test link              |
