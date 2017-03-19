@@ -160,6 +160,9 @@
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
-        "drupal/optimizely": "1.2"
+        "drupal/optimizely": "1.2",
+        "drupal/simple_sitemap": "^2.8",
+        "drupal/redirect": "^1.0@alpha",
+        "drupal/metatag": "^1.0"
     }
 }
