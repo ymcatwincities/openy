@@ -19,3 +19,15 @@ ymca-retention:
     tab_5:
       label: Tab 5
   library: ymca_retention/angular-app
+
+ymca-retention-winners:
+  label: YMCA Retention Winners
+  category: YMCA layouts
+  template: templates/layouts/ymca-retention-winners-layout
+  class: '\Drupal\ymca_retention\Plugin\Layout\YmcaRetentionWinnersLayout'
+  regions:
+    header:
+      label: Header
+    main:
+      label: Main section
+  library: ymca_retention/ngwinners-app

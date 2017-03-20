@@ -71,4 +71,24 @@ class Winner extends ContentEntityBase implements WinnerInterface {
     return $fields;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberId() {
+    return $this->get('member')->target_id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBranchId() {
+    return $this->get('branch')->target_id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPlace() {
+    return $this->get('place')->value;
+  }
 }
