@@ -83,9 +83,9 @@ source:
       title: 'Be a part of OpenY'
       description: |
         <p>OpenY is growing, be a part of it's success!</p>
-      background_color: 14
-      text_color: 12
-      icon_color: 12
+      background_color: 7
+      text_color: 2
+      icon_color: 2
       placement: 'header'
       link_url: http://www.openymca.org
       link_text: 'Build OpenY'
