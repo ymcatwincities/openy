@@ -18,15 +18,12 @@ class CampaignController extends ControllerBase {
     $config = \Drupal::config('ymca_retention.general_settings');
     $current_date = new \DateTime();
     $open_date = new \DateTime($config->get('date_campaign_open'));
-    $winners_announcement_date = new \DateTime($config->get('date_winners_announcement'));
     $diff = $current_date->diff($open_date);
-    $winners_diff = $current_date->diff($winners_announcement_date);
 
     $info = [
       'started' => $diff->invert,
       'days_left' => $diff->days + 1,
       'dates' => $this->getDates(),
-      'redirect_winners_page' => (bool) $winners_diff->invert,
     ];
 
     $response = new JsonResponse($info);

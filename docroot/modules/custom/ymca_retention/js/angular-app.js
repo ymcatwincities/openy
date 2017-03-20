@@ -503,9 +503,6 @@
         courier.getCampaign().then(function(data) {
           self.campaign = data;
           self.campaign_loaded = true;
-          if (self.campaign.redirect_winners_page) {
-            self.redirectWinnersPage();
-          }
           self.todaysInsightToDefault();
         });
       };
@@ -616,12 +613,6 @@
 
       self.memberCookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
-      };
-
-      self.redirectWinnersPage = function () {
-        var host = $window.location.host;
-        var winnersUrl = "http://" + host + "/challenge/winners";
-        $window.location.href = winnersUrl;
       };
 
     });
