@@ -64,6 +64,14 @@ class YmcaRetentionWinnersLayout extends LayoutBase {
    * Prepare winners.
    */
   private function prepareWinnersData() {
+    $cache_service = \Drupal::service('cache.ymca_retention');
+
+    if ($cache = $cache_service->get('winnersdata')) {
+      $winnersData = $cache->data;
+
+      return $winnersData;
+    }
+
     $winnersData = [
       'branches' => [],
       'winners' => [],
@@ -123,6 +131,8 @@ class YmcaRetentionWinnersLayout extends LayoutBase {
       $winnersData['branches'][$branch_id] = $branch->getName();
     }
     asort($winnersData['branches']);
+
+    $cache_service->set('winnersdata', $winnersData, REQUEST_TIME + 6 * 60 * 60);
 
     return $winnersData;
   }
