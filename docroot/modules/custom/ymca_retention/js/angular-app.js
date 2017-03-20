@@ -389,7 +389,7 @@
     });
 
     // Service to hold information shared between controllers.
-    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, $state, courier) {
+    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, $state, courier, $window) {
       var self = this;
       // Initiate the promise tracker to track submissions.
       self.progress = promiseTracker();
@@ -503,6 +503,9 @@
         courier.getCampaign().then(function(data) {
           self.campaign = data;
           self.campaign_loaded = true;
+          if (self.campaign.redirect_winners_page) {
+            self.redirectWinnersPage();
+          }
           self.todaysInsightToDefault();
         });
       };
@@ -614,6 +617,13 @@
       self.memberCookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
       };
+
+      self.redirectWinnersPage = function () {
+        var host = $window.location.host;
+        var winnersUrl = "http://" + host + "/challenge/winners";
+        $window.location.href = winnersUrl;
+      };
+
     });
   };
 
