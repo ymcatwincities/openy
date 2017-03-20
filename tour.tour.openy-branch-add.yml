@@ -39,10 +39,8 @@ tips:
     id: block-type
     plugin: text
     label: 'Select Block type'
-    body: 'Select "Branch Amenities" and press "Add new custom block." [openy_tour:click:edit-field-branch-body-2-subform-field-prgf-3c-left-actions-ief-add]'
+    body: 'Select "Branch Amenities" and press "Add new custom block." [openy_tour:click:edit-field-branch-body-0-subform-field-prgf-3c-left-actions-ief-add]'
     weight: 4
-    attributes:
-      data-class: 'input[value="Add new custom block"]'
 
   create-block:
     id: block-type
