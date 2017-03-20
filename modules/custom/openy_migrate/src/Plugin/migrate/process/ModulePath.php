@@ -11,7 +11,7 @@ use Drupal\migrate\Row;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Prepend the given module path to the strings in the current value.
+ * Migration process plugin to return the given module path.
  *
  * @MigrateProcessPlugin(
  *   id = "module_path"
@@ -27,7 +27,7 @@ class ModulePath extends ProcessPluginBase implements ContainerFactoryPluginInte
   protected $moduleHandler;
 
   /**
-   * Constructs a prepend_module_path process plugin.
+   * Constructs a module_path process plugin.
    *
    * @param array $configuration
    *   The plugin configuration.
@@ -39,9 +39,6 @@ class ModulePath extends ProcessPluginBase implements ContainerFactoryPluginInte
    *   The module handler service.
    */
   public function __construct(array $configuration, $plugin_id, array $plugin_definition, ModuleHandlerInterface $module_handler) {
-//    $configuration += array(
-//      'module' => FALSE,
-//    );
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->moduleHandler = $module_handler;
   }
