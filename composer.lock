@@ -1392,6 +1392,13 @@
                 "drupal": {
                     "version": "8.x-1.x-dev",
                     "datestamp": "1488333184"
+                },
+                "patches_applied": {
+                    "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
+              }
+          }
+      },
+
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
