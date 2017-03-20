@@ -1,9 +1,9 @@
 .DS_Store
 .sass-cache/
 .idea
-contrib
-libraries
-vendor
-bin
-build/reports
-docroot
+./contrib
+./libraries
+./vendor
+./bin
+./build/reports
+./docroot
