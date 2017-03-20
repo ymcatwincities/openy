@@ -149,10 +149,20 @@ interface PageInterface extends ConfigEntityInterface, EntityWithPluginCollectio
    * @param string $name
    *   The parameter context's unique name.
    *
-   * @return array
-   *   The parameter context array.
+   * @return array|null
+   *   The parameter context array if the parameters exists, null otherwise.
    */
   public function getParameter($name);
+
+  /**
+   * Determines if a parameters exists for the page.
+   *
+   * @param string $name
+   *   The parameter context's unique name.
+   *
+   * @return bool
+   */
+  public function hasParameter($name);
 
   /**
    * Adds/updates a given parameter context.
