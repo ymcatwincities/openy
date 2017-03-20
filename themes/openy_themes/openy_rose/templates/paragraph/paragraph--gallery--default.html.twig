@@ -51,7 +51,7 @@ set classes = [
       {% for key, value in content.field_prgf_images['#items'] %}
       <div class="item{% if key == 0 %} active{% endif %}">
         {{ content.field_prgf_images[key] }}
-        {% if content.field_prgf_images[key]['#media'].field_media_caption.0.value is not empty %}
+        {% if content.field_prgf_images[key]['#media'].field_media_caption is not empty and content.field_prgf_images[key]['#media'].field_media_caption.0.value is not empty %}
           <div class="container item__caption__wrapper hidden-xs">
             <div class="row">
               <div class="item__caption">
