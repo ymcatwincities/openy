@@ -21,6 +21,9 @@
         window.location.hash = 'tour=1';
         Drupal.openy_tour.click_button();
       });
+      $('body').on('tourStop', function () {
+        window.location.hash = '';
+      });
     }
   };
 
