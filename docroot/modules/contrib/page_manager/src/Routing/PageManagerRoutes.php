@@ -60,20 +60,24 @@ class PageManagerRoutes extends RouteSubscriberBase {
         continue;
       }
 
+      $defaults = [];
       $parameters = [];
       $requirements = [];
-      if ($route_name = $this->findPageRouteName($entity, $collection)) {
-        $this->cacheTagsInvalidator->invalidateTags(["page_manager_route_name:$route_name"]);
 
-        $collection_route = $collection->get($route_name);
+      $route_name = "page_manager.page_view_$entity_id";
+      if ($overridden_route_name = $this->findOverriddenRouteName($entity, $collection)) {
+        $base_route_name = $overridden_route_name;
+
+        $collection_route = $collection->get($overridden_route_name);
+
+        // Add the name of the overridden route for use during filtering.
+        $defaults['overridden_route_name'] = $overridden_route_name;
         $path = $collection_route->getPath();
         $parameters = $collection_route->getOption('parameters') ?: [];
         $requirements = $collection_route->getRequirements();
-
-        $collection->remove($route_name);
       }
       else {
-        $route_name = "page_manager.page_view_$entity_id";
+        $base_route_name = $route_name;
         $path = $entity->getPath();
       }
 
@@ -84,26 +88,24 @@ class PageManagerRoutes extends RouteSubscriberBase {
         }
       }
 
+      // When adding multiple variants, the variant ID is added to the route
+      // name. In order to convey the base route name for this set of variants,
+      // add it as a parameter.
+      $defaults['base_route_name'] = $base_route_name;
+
+      $defaults['_entity_view'] = 'page_manager_page_variant';
+      $defaults['_title'] = $entity->label();
+      $defaults['page_manager_page'] = $entity->id();
       $parameters['page_manager_page_variant']['type'] = 'entity:page_variant';
       $parameters['page_manager_page']['type'] = 'entity:page';
       $requirements['_page_access'] = 'page_manager_page.view';
-
-      $page_id = $entity->id();
-      $first = TRUE;
       foreach ($entity->getVariants() as $variant_id => $variant) {
         // Construct and add a new route.
         $route = new Route(
           $path,
-          [
-            '_entity_view' => 'page_manager_page_variant',
-            '_title' => $entity->label(),
+          $defaults + [
             'page_manager_page_variant' => $variant_id,
-            'page_manager_page' => $page_id,
             'page_manager_page_variant_weight' => $variant->getWeight(),
-            // When adding multiple variants, the variant ID is added to the
-            // route name. In order to convey the base route name for this set
-            // of variants, add it as a parameter.
-            'base_route_name' => $route_name,
           ],
           $requirements,
           [
@@ -111,9 +113,12 @@ class PageManagerRoutes extends RouteSubscriberBase {
             '_admin_route' => $entity->usesAdminTheme(),
           ]
         );
-        $collection->add($first ? $route_name : $route_name . '_' . $variant_id, $route);
-        $first = FALSE;
+        $collection->add($route_name . '_' . $variant_id, $route);
       }
+
+      // Invalidate any page with the same base route name. See
+      // \Drupal\page_manager\EventSubscriber\RouteNameResponseSubscriber.
+      $this->cacheTagsInvalidator->invalidateTags(["page_manager_route_name:$base_route_name"]);
     }
   }
 
@@ -128,7 +133,7 @@ class PageManagerRoutes extends RouteSubscriberBase {
    * @return string|null
    *   Either the route name if this is overriding an existing path, or NULL.
    */
-  protected function findPageRouteName(PageInterface $entity, RouteCollection $collection) {
+  protected function findOverriddenRouteName(PageInterface $entity, RouteCollection $collection) {
     // Get the stored page path.
     $path = $entity->getPath();
 
@@ -139,7 +144,10 @@ class PageManagerRoutes extends RouteSubscriberBase {
       $route_path_outline = RouteCompiler::getPatternOutline($route_path);
 
       // Match either the path or the outline, e.g., '/foo/{foo}' or '/foo/%'.
-      if ($path === $route_path || $path === $route_path_outline) {
+      // The route must be a GET route and must not specify a format.
+      if (($path === $route_path || $path === $route_path_outline) &&
+        (!$collection_route->getMethods() || in_array('GET', $collection_route->getMethods())) &&
+        !$collection_route->hasRequirement('_format')) {
         // Return the overridden route name.
         return $name;
       }
