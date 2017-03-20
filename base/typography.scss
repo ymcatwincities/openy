@@ -21,3 +21,8 @@ h2 {
 p {
   word-wrap: break-word;
 }
+
+strong {
+  @include cachet-medium();
+  color: $darker-grey;
+}
