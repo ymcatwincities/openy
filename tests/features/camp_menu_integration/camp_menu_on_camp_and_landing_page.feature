@@ -3,7 +3,7 @@ Feature: Camp menu on camp and landing page
   As an Admin I want to make sure the camp menu links display appropriately on a camp and related landing page.
 
   Background: Log in
-    Given I am logged in as a user with the "Editor" role
+    Given I am logged in as a user with the "Administrator" role
 
   # Since no data persists between scenarios these steps had to be run under one.
   Scenario: Camp menu on camp and landing page
