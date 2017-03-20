@@ -4,7 +4,7 @@ Feature: Program and Subcategory pages
   And I should see paragraph with Subcategory teaser on Program page.
 
   Scenario: Create basic program and subcategory and check fields
-    Given I am logged in as a user with the "Administrator" role
+    Given I am logged in as a user with the "Editor" role
     And I create a color term
     When I go to "/node/add/program"
     And I fill in "Title" with "Fitness"
@@ -15,7 +15,7 @@ Feature: Program and Subcategory pages
     When I press "Save and publish"
     Then I should see the message "Program Fitness has been created."
 
-    Given I am logged in as a user with the "Administrator" role
+    Given I am logged in as a user with the "Editor" role
     When I go to "/node/add/program_subcategory"
     And I fill in "Title" with "Personal Training"
     And I fill in "Program" with "Fitness"

@@ -3,7 +3,7 @@ Feature: Facility Content type
   As Admin I want to make sure that Facility content type is available with needed fields.
 
   Scenario: Create basic facility
-    Given I am logged in as a user with the "Administrator" role
+    Given I am logged in as a user with the "Editor" role
     And I create a "Facility type One" term in the "Facility type" taxonomy
     When I go to "/node/add/facility"
     And I select "Facility type One" from "Type"
