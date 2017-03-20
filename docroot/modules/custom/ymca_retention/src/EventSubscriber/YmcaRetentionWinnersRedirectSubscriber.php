@@ -27,7 +27,7 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
    * Redirect requests for /challenge, if time winners announcement date in the past.
    *
    * @param GetResponseEvent $event
-   * @return void
+   *  Event.
    */
   public function redirectToWinnersPage(GetResponseEvent $event) {
     if ($event->getRequest()->getPathInfo() != base_path() . 'challenge') {

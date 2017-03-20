@@ -113,7 +113,7 @@ class YmcaRetentionWinnersLayout extends LayoutBase {
     }
 
     // Define compare function.
-    $winnersCompare = function($winner1, $winner2) {
+    $winnersCompare = function ($winner1, $winner2) {
       return strcmp($winner1['name'], $winner2['name']);
     };
 
