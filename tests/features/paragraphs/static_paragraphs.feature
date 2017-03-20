@@ -3,14 +3,14 @@ Feature: Static Paragraphs
   Check that static paragraphs can be created and displayed
 
   Background: Create basic landing page
-    Given I am logged in as a user with the "Administrator" role
+    Given I am logged in as a user with the "Editor" role
     And I go to "/node/add/landing_page"
-    And I fill in "Title" with "Landing"
+    And I fill "Title" with "Landing"
     And I select "One Column" from "Layout"
 
   Scenario: Create Small Banner
     When I press "Add Small Banner" in the "header_area"
-    And I fill in the following:
+    And I fill the following:
       |Headline | MY SMALL BANNER |
     And I fill media field "edit-field-prgf-image-target-id" with "media:1"
     And I select "Green" from "Color"
@@ -20,7 +20,7 @@ Feature: Static Paragraphs
 
   Scenario: Create Banner
     When I press "Add Banner" in the "header_area"
-    When I fill in the following:
+    When I fill the following:
       |Headline | MY BANNER |
       |Description | Enjoy the OpenY |
       |URL      | http://openymca.org     |
@@ -34,7 +34,7 @@ Feature: Static Paragraphs
 
   Scenario: Create Gallery
     When I press "Add Gallery" in the "header_area"
-    And I fill in the following:
+    And I fill the following:
       | Headline | My Gallery |
       | Description | The description is here. |
       | URL         | http://openymca.org      |
@@ -48,7 +48,7 @@ Feature: Static Paragraphs
 
   Scenario: Create Simple Content
     When I press "Add Simple content" in the "content_area"
-    And I fill in "Content" with "Simple text is here."
+    And I fill "Content" with "Simple text is here."
     And I press "Save and publish"
     Then I should see "Simple text is here."
 
@@ -56,7 +56,7 @@ Feature: Static Paragraphs
     When I press "Add Grid Content"
     And I select "2 items per row" from "Style"
     And I press "Add Grid columns"
-    And I fill in the following:
+    And I fill the following:
       | Headline | We Appreciate Your Support |
       | Icon Class | flag                     |
       | Description | Every year, we rely on donations. |
@@ -71,7 +71,7 @@ Feature: Static Paragraphs
   Scenario: Create Promo Card
     When I press "Add Promo Card" in the "sidebar_area"
     And I fill in "Title" with "Promo" in the "sidebar_area"
-    And I fill in the following:
+    And I fill the following:
       | Headline | OpenY is free to try! |
       | Description | Setup a website and see how it works. |
       | URL         | http://openymca.org   |
@@ -85,7 +85,7 @@ Feature: Static Paragraphs
   Scenario: Create Story Card
     When I press "Add Story Card" in the "sidebar_area"
     And I fill in "Title" with "New Story" in the "sidebar_area"
-    And I fill in the following:
+    And I fill the following:
       | Headline | I discovered OpenY. And that looks great! |
       | URL      | http://openymca.org                       |
       | Link text| Discover OpenY                            |
