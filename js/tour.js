@@ -160,10 +160,12 @@
           });
           this.model.set({isActive: true, activeTour: $tour});
         }
+        $('body').trigger('tourStart');
       }
       else {
         this.model.get('activeTour').joyride('destroy');
         this.model.set({isActive: false, activeTour: []});
+        $('body').trigger('tourStop');
       }
     },
 
