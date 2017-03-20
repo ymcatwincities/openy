@@ -4,11 +4,10 @@
 
   $(document).ajaxSuccess(function() {
     var queryString = decodeURI(window.location.search);
-    if (/tour=?/i.test(queryString)) {
+    if (/tour=?/i.test(queryString) || window.location.hash == '#tour=1') {
       var processed = true;
       $('.joyride-tip-guide').each(function() {
         if ($(this).css('display') == 'block' && processed) {
-          console.log($(this).css('display'));
           $(this).find('.joyride-next-tip').trigger('click');
           processed = false;
         }
@@ -18,7 +17,10 @@
 
   Drupal.behaviors.openy_tour = {
     attach: function (context, settings) {
-      Drupal.openy_tour.click_button();
+      $('body').on('tourStart', function () {
+        window.location.hash = 'tour=1';
+        Drupal.openy_tour.click_button();
+      });
     }
   };
 
@@ -31,11 +33,18 @@
     });
     $('.openy-click-button').on('click', function (e) {
       e.preventDefault();
-      var selector = $(this).data('tour-selector');
+      var selector = $(this).data('tour-selector'),
+          element = {};
       // Click on link if class/id is provided.
-      $(selector).trigger('click');
+      if ($(selector).length > 0) {
+        element = $(selector);
+      }
       // Click on input if data selector is provided.
-      $('input[data-drupal-selector="' + selector + '"]').trigger('mousedown');
+      if ($('input[data-drupal-selector="' + selector + '"]').length > 0) {
+        element = $('input[data-drupal-selector="' + selector + '"]');
+      }
+      element.parents('details').attr('open', true);
+      element.trigger('mousedown');
     });
   };
 
