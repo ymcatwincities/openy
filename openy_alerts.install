@@ -16,3 +16,16 @@ function openy_alerts_update_8001() {
       'pathauto.pattern.alert',
     ]);
 }
+
+/**
+ * Update settings.
+ */
+function openy_alerts_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_alerts') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_alert_color',
+      'views.view.alerts',
+    ]);
+}
