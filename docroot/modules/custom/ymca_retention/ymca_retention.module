@@ -192,7 +192,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'blocks/ymca-retention-winners-form',
     ],
     'ymca_retention_winners_info' => [
-      'variables' => [],
+      'variables' => [
+        'base_path' => base_path(),
+      ],
       'template' => 'blocks/ymca-retention-winners-info',
     ],
 
@@ -221,6 +223,15 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'render element' => 'form',
       'template' => 'forms/ymca-retention-email-form-modal',
     ],
+
+    // Layouts templates.
+//    'ymca_retention_winners_layout' => [
+//      'render element' => 'elemetnts',
+//      'variables' => [
+//        'base_path' => base_path(),
+//      ],
+//      'template' => 'layouts/ymca-retention-winners-layout',
+//    ],
 
     // Pages templates.
     'page__challenge' => [
