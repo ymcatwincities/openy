@@ -14,7 +14,7 @@ content:
     weight: -8
     settings:
       rows: 1
-      placeholder: profiles/openy/modules/openy_features/openy_media/modules/openy_media_image/config/install/views.view.images_library.yml
+      placeholder: profiles/contrib/openy/modules/openy_features/openy_media/modules/openy_media_image/config/install/views.view.images_library.yml
     third_party_settings: {  }
     type: string_textarea
   field_config_property:
