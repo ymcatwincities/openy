@@ -2,6 +2,7 @@
 
 namespace Drupal\ymca_retention\EventSubscriber;
 
+use Drupal\Core\Url;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -30,7 +31,8 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
    *   Event.
    */
   public function redirectToWinnersPage(GetResponseEvent $event) {
-    if ($event->getRequest()->getPathInfo() != base_path() . 'challenge') {
+    $route = \Drupal::service('current_route_match')->getRouteName();
+    if ($route != 'page_manager.page_view_ymca_retention_challenge') {
       return;
     }
 
@@ -41,7 +43,8 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
 
     // Redirect if time winners announcement date in the past.
     if ($winners_diff->invert) {
-      $response = new RedirectResponse(base_path() . 'challenge/winners', 302);
+      $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge');
+      $response = new RedirectResponse($url->toString() . '/winners', 302);
       $event->setResponse($response);
     }
   }
