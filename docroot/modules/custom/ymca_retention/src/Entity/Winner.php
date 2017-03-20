@@ -91,4 +91,5 @@ class Winner extends ContentEntityBase implements WinnerInterface {
   public function getPlace() {
     return $this->get('place')->value;
   }
+  
 }
