@@ -1122,11 +1122,11 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.2.6",
+            "version": "8.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal-composer/drupal-core.git",
-                "reference": "6cd5d296125a4584d470d75d8e5218ff17c39c22"
+                "reference": "5d3fb8a93514f23198ac6848b2679ef1026d2326"
             },
             "dist": {
                 "type": "zip",
