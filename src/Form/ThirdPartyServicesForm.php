@@ -74,21 +74,24 @@ class ThirdPartyServicesForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    // Trim the text values.
-    $container_id = trim($form_state->getValue('google_tag_manager_id'));
+    parent::validateForm($form, $form_state);
 
-    // Replace all types of dashes (n-dash, m-dash, minus) with a normal dash.
-    $container_id = str_replace(['–', '—', '−'], '-', $container_id);
-    $form_state->setValue('google_tag_manager_id', $container_id);
+    if (!empty(trim($form_state->getValue('google_tag_manager_id')))) {
+      // Trim the text values.
+      $container_id = trim($form_state->getValue('google_tag_manager_id'));
 
-    if (!preg_match('/^GTM-\w{4,}$/', $container_id)) {
-      // @todo Is there a more specific regular expression that applies?
-      // @todo Is there a way to "test the connection" to determine a valid ID for
-      // a container? It may be valid but not the correct one for the website.
-      $form_state->setError($form['google_tag_manager_id'], $this->t('A valid container ID is case sensitive and formatted like GTM-xxxxxx.'));
+      // Replace all types of dashes (n-dash, m-dash, minus) with a normal dash.
+      $container_id = str_replace(['–', '—', '−'], '-', $container_id);
+      $form_state->setValue('google_tag_manager_id', $container_id);
+
+      if (!preg_match('/^GTM-\w{4,}$/', $container_id)) {
+        // @todo Is there a more specific regular expression that applies?
+        // @todo Is there a way to "test the connection" to determine a valid ID for
+        // a container? It may be valid but not the correct one for the website.
+        $form_state->setError($form['google_tag_manager_id'], $this->t('A valid container ID is case sensitive and formatted like GTM-xxxxxx.'));
+      }
     }
 
-    parent::validateForm($form, $form_state);
   }
 
   /**
