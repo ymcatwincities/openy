@@ -614,6 +614,7 @@
       self.memberCookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
       };
+
     });
   };
 
