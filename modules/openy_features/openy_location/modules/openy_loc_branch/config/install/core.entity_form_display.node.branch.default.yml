@@ -14,12 +14,14 @@ dependencies:
     - field.field.node.branch.field_location_phone
     - field.field.node.branch.field_location_state
     - field.field.node.branch.field_location_temp_url
+    - field.field.node.branch.field_meta_tags
     - node.type.branch
   module:
     - address
     - field_group
     - geolocation
     - link
+    - metatag
     - openy_field_custom_hours
     - paragraphs
     - path
@@ -192,6 +194,11 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+  field_meta_tags:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   path:
     type: path
     weight: 10
