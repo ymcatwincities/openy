@@ -8,10 +8,12 @@ dependencies:
     - field.field.node.program_subcategory.field_category_program
     - field.field.node.program_subcategory.field_content
     - field.field.node.program_subcategory.field_header_content
+    - field.field.node.program_subcategory.field_meta_tags
     - field.field.node.program_subcategory.field_sidebar_content
     - node.type.program_subcategory
   module:
     - entity_reference_revisions
+    - metatag
     - text
     - user
 id: node.program_subcategory.default
@@ -62,6 +64,12 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+  field_meta_tags:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
   field_sidebar_content:
     weight: 3
     label: hidden

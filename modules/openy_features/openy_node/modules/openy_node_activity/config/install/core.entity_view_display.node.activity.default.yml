@@ -4,8 +4,10 @@ dependencies:
   config:
     - field.field.node.activity.field_activity_category
     - field.field.node.activity.field_activity_description
+    - field.field.node.activity.field_meta_tags
     - node.type.activity
   module:
+    - metatag
     - text
     - user
 id: node.activity.default
@@ -26,6 +28,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+  field_meta_tags:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
   links:
     weight: 100
 hidden: {  }
