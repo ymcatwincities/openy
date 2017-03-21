@@ -2357,7 +2357,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/metatag-8.x-1.0.zip",
-                "reference": null,
+                "reference": "8.x-1.0",
                 "shasum": "604e45e89c19f5a8960b6a8ae3d80500d4328e6b"
             },
             "require": {
@@ -2402,6 +2402,43 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/metatag",
                 "issues": "http://drupal.org/project/issues/metatag"
+            }
+        },
+        {
+            "name": "drupal/metatag_open_graph",
+            "version": "1.0.0",
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/metatag": "self.version"
+            },
+            "type": "metapackage",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1485902197"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "DamienMcKenna",
+                    "homepage": "https://www.drupal.org/user/108450"
+                },
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                }
+            ],
+            "description": "Provides support for Open Graph Protocol meta tags.",
+            "homepage": "https://www.drupal.org/project/metatag",
+            "support": {
+                "source": "http://cgit.drupalcode.org/metatag"
             }
         },
         {
@@ -2744,7 +2781,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/redirect-8.x-1.0-alpha4.zip",
-                "reference": null,
+                "reference": "8.x-1.0-alpha4",
                 "shasum": "883401f9983a00ac23bfda9830bf6b77d53209ad"
             },
             "require": {
@@ -2852,7 +2889,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/simple_sitemap-8.x-2.8.zip",
-                "reference": null,
+                "reference": "8.x-2.8",
                 "shasum": "f88b904f8e71d849693309b9315f25e7c06a6d77"
             },
             "require": {
