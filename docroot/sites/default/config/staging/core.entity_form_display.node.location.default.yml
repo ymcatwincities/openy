@@ -21,7 +21,6 @@ dependencies:
     - node.type.location
   module:
     - address
-    - entity_browser
     - inline_entity_form
     - metatag
     - path
@@ -136,14 +135,15 @@ content:
   field_schedule_block:
     weight: 18
     settings:
-      entity_browser: browse_block_modal
-      field_widget_display: label
-      field_widget_edit: true
-      field_widget_remove: true
-      open: false
-      field_widget_display_settings: {  }
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
     third_party_settings: {  }
-    type: entity_browser_entity_reference
+    type: inline_entity_form_complex
   field_schedule_content:
     weight: 17
     settings:
