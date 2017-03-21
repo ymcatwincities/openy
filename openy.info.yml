@@ -68,6 +68,10 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - redirect
+  - simple_sitemap
+  - metatag
+  - metatag_open_graph
   # OpenY features.
   - openy_media_image
   - openy_media_document
