@@ -13,18 +13,20 @@ bundle: document
 mode: default
 content:
   filename:
-    type: string
+    type: file_link
     label: hidden
-    weight: -5
+    weight: 0
     settings:
-      link_to_entity: false
+      link_to_file: true
     third_party_settings: {  }
-  uri:
-    type: file_uri
-    label: hidden
-    weight: -5
-    settings:
-      link_to_file: false
-      file_download_path: false
+  filesize:
+    type: file_size
+    weight: 1
+    label: inline
+    settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  filemime: true
+  langcode: true
+  uid: true
+  uri: true
