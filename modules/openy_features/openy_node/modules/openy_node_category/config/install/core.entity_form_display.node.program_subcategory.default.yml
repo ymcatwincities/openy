@@ -9,11 +9,13 @@ dependencies:
     - field.field.node.program_subcategory.field_category_program
     - field.field.node.program_subcategory.field_content
     - field.field.node.program_subcategory.field_header_content
+    - field.field.node.program_subcategory.field_meta_tags
     - field.field.node.program_subcategory.field_sidebar_content
     - node.type.program_subcategory
   module:
     - entity_browser
     - field_group
+    - metatag
     - paragraphs
     - path
     - text
@@ -123,6 +125,11 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+  field_meta_tags:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   field_sidebar_content:
     weight: 14
     settings:

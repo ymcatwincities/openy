@@ -7,9 +7,10 @@ dependencies:
   - field
   - field_group
   - menu_ui
+  - metatag
   - node
-  - openy_node_activity
   - openy_node
+  - openy_node_activity
   - paragraphs
   - path
   - pathauto
