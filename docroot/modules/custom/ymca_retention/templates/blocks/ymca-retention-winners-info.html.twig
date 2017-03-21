@@ -7,73 +7,70 @@
 
 <div class="inner-container ng-hide"
      data-ng-show="selectedBranch">
-    <div class="compain-tab-header clearfix">
-        <div class="content clearfix">
-            <div class="col-sm-12">
-                <div class="winner" data-ng-repeat="winner in winners1place">
-                    <figure class="img center">
-                        <img alt="img" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/bucks.png">
-                    </figure>
-                    <div class="bucks-header">
-                        <span class="sum"><span class="currency">$</span><span class="amount">100</span></span>
-                        <span class="cert-description">{{ 'Y Bucks <br> Certificates'|t }}</span>
-                    </div>
-                    <p class="winner-name">{{ '{{ winner.name }}' }}</p>
-                    <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
-                </div>
-            </div>
+  <div class="compain-tab-header clearfix">
+    <div class="content clearfix">
+      <div class="col-sm-12">
+        <div class="winner" data-ng-repeat="winner in winners1place">
+          <figure class="img center">
+            <img alt="img" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/bucks.png">
+          </figure>
+          <div class="bucks-header">
+            <span class="sum"><span class="currency">$</span><span class="amount">100</span></span>
+            <span class="cert-description">{{ 'Y Bucks <br> Certificates'|t }}</span>
+          </div>
+          <p class="winner-name">{{ '{{ winner.name }}' }}</p>
+          <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
         </div>
-
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="compain-info-blocks clearfix ng-hide"
      data-ng-show="selectedBranch">
-    <div class="content-wrapper">
-        <div class="container bucks-25">
-            <div class="row">
-                <div class="col-sm-4" data-ng-repeat="winner in winners2place">
-                    <div class="winner-wrapper ">
-                        <div class="winner ">
-                            <figure class="img center">
-                                <img alt="img" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/bucks.png">
-                            </figure>
-                            <div class="bucks-header">
-                                                <span class="sum"><span class="currency">$</span><span
-                                                            class="amount">25</span></span>
-                                <span class="cert-description">{{ 'Y Bucks <br> Certificates'|t }}</span>
-                            </div>
-                            <p class="winner-name">{{ '{{ winner.name }}' }}</p>
-                            <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
-                        </div>
-                    </div>
-                </div>
+  <div class="content-wrapper">
+    <div class="container bucks-25">
+      <div class="row">
+        <div class="col-sm-4" data-ng-repeat="winner in winners2place">
+          <div class="winner-wrapper ">
+            <div class="winner ">
+              <figure class="img center">
+                <img alt="img" src="{{ base_path }}themes/custom/ymca/prototypes/ysr_2017/img/bucks.png">
+              </figure>
+              <div class="bucks-header">
+                <span class="sum"><span class="currency">$</span><span class="amount">25</span></span>
+                <span class="cert-description">{{ 'Y Bucks <br> Certificates'|t }}</span>
+              </div>
+              <p class="winner-name">{{ '{{ winner.name }}' }}</p>
+              <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
             </div>
+          </div>
         </div>
-        <div class="bucks-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="winner">
-                            <div class="bucks-header">
-                                                <span class="sum"><span class="currency">$</span><span
-                                                            class="amount">5</span></span>
-                                <span class="cert-description">{{ 'Y Bucks <br> Certificates'|t }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" data-ng-repeat="winner in winners3place" data-ng-if="$index % 5 == 0">
-                <div class="col-sm-2"
-                    data-ng-class="{'col-sm-offset-1': $index % 5 == 0}"
-                     ng-repeat="winner in winners3place.slice($index, ($index + 5 > winners3place.length ? winners3place.length : $index + 5))">
-                    <div class="winner">
-                        <p class="winner-name">{{ '{{ winner.name }}' }}</p>
-                        <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="bucks-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="winner">
+              <div class="bucks-header">
+                <span class="sum"><span class="currency">$</span><span class="amount">5</span></span>
+                <span class="cert-description">{{ 'Y Bucks <br> Certificates'|t }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" data-ng-repeat="winner in winners3place" data-ng-if="$index % 5 == 0">
+        <div class="col-sm-2"
+             data-ng-class="{'col-sm-offset-1': $index % 5 == 0}"
+             data-ng-repeat="winner in winners3place.slice($index, ($index + 5 > winners3place.length ? winners3place.length : $index + 5))">
+          <div class="winner">
+            <p class="winner-name">{{ '{{ winner.name }}' }}</p>
+            <p class="winner-id">ID: {{ '{{ winner.id }}' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
