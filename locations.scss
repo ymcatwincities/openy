@@ -467,10 +467,25 @@
 }
 
 .field-prgf-location-finder {
+
   .openy-map-canvas {
     height: 250px;
     @include breakpoint(tablet) {
       height: 500px;
+    }
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background: url("../img/select-arrows.png");
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-color: $white;
+    padding-right: 25px;
+    @include breakpoint(tablet) {
+      max-width: 225px;
     }
   }
 }
