@@ -474,6 +474,7 @@
       height: 500px;
     }
   }
+
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -484,10 +485,14 @@
     background-repeat: no-repeat;
     background-color: $white;
     padding-right: 25px;
+    &::-ms-expand {
+      display: none;
+    }
     @include breakpoint(tablet) {
       max-width: 225px;
     }
   }
+
 }
 
 .wrapper-field-branch-body {
