@@ -42,15 +42,20 @@ source:
     id:
       type: integer
   constants:
-    source_base_path: profiles/contrib/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nblog/assets/images
+    source_relative_path: assets/images
     uri_file: 'public:/'
+    module: openy_demo_nblog
 process:
+  module_path:
+    plugin: module_path
+    source: constants/module
   source_full_path:
     -
       plugin: concat
       delimiter: /
       source:
-        - constants/source_base_path
+        - '@module_path'
+        - constants/source_relative_path
         - name
     -
       plugin: urlencode
