@@ -4589,6 +4589,7 @@ function ymca_master_update_8206() {
   $config_importer->importConfigs(
     [
       'core.entity_view_display.file.document.default',
+      'core.entity_form_display.node.location.default',
     ]
   );
 }
