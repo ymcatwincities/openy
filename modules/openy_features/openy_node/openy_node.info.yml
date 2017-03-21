@@ -5,7 +5,9 @@ core: 8.x
 dependencies:
   - entity_reference_revisions
   - field
+  - image
   - jquery_colorpicker
+  - metatag
   - node
   - paragraphs
   - path
