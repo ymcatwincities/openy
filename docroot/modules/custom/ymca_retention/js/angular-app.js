@@ -389,7 +389,7 @@
     });
 
     // Service to hold information shared between controllers.
-    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, $state, courier, $window) {
+    Drupal.ymca_retention.angular_app.service('storage', function($rootScope, $interval, $timeout, $cookies, $filter, promiseTracker, $state, courier) {
       var self = this;
       // Initiate the promise tracker to track submissions.
       self.progress = promiseTracker();
