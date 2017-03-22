@@ -3,7 +3,7 @@ Feature: Latest Blogs Paragraphs
   Check that Latest Blog Posts paragraphs output other nodes based on some rules
 
   Background: Log in
-    Given I am logged in as a user with the "Administrator" role
+    Given I am logged in as a user with the "Editor" role
 
   Scenario: Paste latest blog post
     And I go to "/node/add/landing_page"
@@ -23,7 +23,8 @@ Feature: Latest Blogs Paragraphs
     And I should see "Mood-boosting foods"
 
   Scenario: Paste latest blog post (branch)
-    When I go to "node/1/edit"
+    When I go to "/locations/west-ymca"
+    And I click "Edit"
     And I should see "Type: Latest blog posts (branch)" in the "content_area"
     And I press "Save and keep published"
     Then I should see "Mood-boosting foods"
