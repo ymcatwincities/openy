@@ -264,19 +264,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element->focus();
     $element->click();
   }
-  
-  /**
-   * @param string $name
-   *   An iframe name (null for switching back).
-   *
-   * @Given /^(?:|I )switch to an iframe "([^"]*)"$/
-   * @Given /^(?:|I )switch back from an iframe$/
-   */
-   public function iSwitchToAnIframe($name = null)
-   {
-     $this->getSession()->switchToIFrame($name);
-   }
-  
+
   /**
    * Wait some amount of seconds.
    *
