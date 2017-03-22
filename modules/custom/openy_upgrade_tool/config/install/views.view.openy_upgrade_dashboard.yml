@@ -8,6 +8,7 @@ dependencies:
     - system.menu.admin
   module:
     - logger_entity
+    - user
 id: openy_upgrade_dashboard
 label: 'OpenY upgrade dashboard'
 module: views
@@ -24,8 +25,9 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'administer site configuration'
       cache:
         type: tag
         options: {  }
@@ -408,6 +410,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.permissions
       tags:
         - 'config:field.storage.logger_entity.field_config_path'
         - 'config:field.storage.logger_entity.field_config_property'
@@ -434,6 +437,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.permissions
       tags:
         - 'config:field.storage.logger_entity.field_config_path'
         - 'config:field.storage.logger_entity.field_config_property'

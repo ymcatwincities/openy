@@ -7,10 +7,12 @@ default:
         features: '%paths.base%/tests/features'
       contexts:
         - FeatureContext
+        - OpenyDrupalContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
+        - Cevou\Behat\ScreenshotCompareExtension\Context\ScreenshotCompareContext
   formatters:
     html:
       output_path: %paths.base%/build/reports/behat
@@ -31,10 +33,6 @@ default:
       drush:
         root: '/var/www/docroot'
       blackbox: ~
-      subcontexts:
-        paths:
-          - tests/features/bootstrap
-        autoload: false
       region_map:
         header: '#page-head'
         header_area: '#edit-group-header-area'
@@ -49,6 +47,15 @@ default:
         message_selector: '.status-message'
         error_message_selector: 'status-message__alert p'
         success_message_selector: '.status-message ul, .status-message p'
+    Drupal\TqExtension:
+        wait_for_email: 10
+        wait_for_redirect: 60
+    #   email_account_strings: get_account_strings_for_email
+    #   email_accounts:
+    #     example1@email.com:
+    #     imap: imap.gmail.com:993/imap/ssl
+    #     username: example1@email.com
+    #     password: p4sswDstr_1
     emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
       renderer: Twig
       name: html
@@ -56,5 +63,13 @@ default:
       print_args: true
       print_outp: true
       loop_break: true
+    Cevou\Behat\ScreenshotCompareExtension:
+      screenshot_dir: %paths.base%/features/screenshots
+      sessions:
+        default: ~
+      adapters:
+        default:
+          local:
+            directory: %paths.base%/error_screenshots
 imports:
   - behat.local.yml

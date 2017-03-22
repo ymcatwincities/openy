@@ -3,7 +3,7 @@ Feature: Camp Content type
   As Admin I want to make sure that Camp content type is available with needed fields.
 
   Scenario: Create basic Camp
-    Given I am logged in as a user with the "Administrator" role
+    Given I am logged in as a user with the "Editor" role
     When I go to "/node/add/camp"
     And I fill in "Title" with "Camp One"
     And I fill in the following:
