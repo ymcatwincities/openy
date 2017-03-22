@@ -11,7 +11,7 @@
     Drupal.ymca_retention.ngwinners_app = Drupal.ymca_retention.ngwinners_app || angular.module('RetentionWinners', []);
 
     Drupal.ymca_retention.ngwinners_app.controller('RetentionWinnersController', ['$scope', function($scope) {
-      if (settings.ymca_retention.winnersData.branches.length == 0) {
+      if (settings.ymca_retention.winnersData.branches.length === 0) {
         return;
       }
 
@@ -31,7 +31,7 @@
         $scope.winners1place = winners[1];
         $scope.winners2place = winners[2];
         $scope.winners3place = winners[3];
-      }
+      };
 
     }]);
 
