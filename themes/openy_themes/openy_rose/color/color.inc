@@ -127,7 +127,7 @@ $info = array(
       ),
     ),
     'purpleorchid' => array(
-      'title' => t('Purple Ochid'),
+      'title' => t('Purple Orchid'),
       'colors' => array(
         'headerbg' => '#cc66fc',
         'headerhover' => '#be0dc2',
