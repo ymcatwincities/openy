@@ -5,6 +5,7 @@ namespace Drupal\ymca_retention\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\ymca_retention\Entity\Member;
+use Drupal\ymca_retention\Entity\MemberBonus;
 use Drupal\ymca_retention\Entity\Winner;
 
 /**
@@ -17,7 +18,7 @@ class WinnersController extends ControllerBase {
    */
   public function drawWinners() {
     $operations = [
-      [[get_class($this), 'processBatch'], []],
+      [[get_class($this), 'processSpring2017Batch'], []],
     ];
     $batch = [
       'title' => t('Drawing winners'),
@@ -189,6 +190,101 @@ class WinnersController extends ControllerBase {
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
     }
+  }
+
+  /**
+   * Processes the drawing winners batch for Spring2017 campaign.
+   *
+   * @param array $context
+   *   The batch context.
+   */
+  public static function processSpring2017Batch(&$context) {
+    if (empty($context['sandbox'])) {
+      // Remove all winners.
+      $winner_ids = \Drupal::entityQuery('ymca_retention_winner')
+        ->execute();
+      $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_winner');
+      $winners = $storage->loadMultiple($winner_ids);
+      $storage->delete($winners);
+
+      $context['sandbox']['progress'] = 0;
+
+      /** @var \Drupal\ymca_retention\LeaderboardManager $service */
+      $service = \Drupal::service('ymca_retention.leaderboard_manager');
+      // Get all non excluded branches.
+      $branches = $service->getMemberBranches();
+
+      $context['sandbox']['branches'] = $branches;
+      $context['sandbox']['max'] = count($branches);
+    }
+
+    $branch_id = $context['sandbox']['branches'][$context['sandbox']['progress']];
+
+    $query = \Drupal::entityQuery('ymca_retention_member')
+      ->condition('branch', $branch_id)
+      ->condition('is_employee', FALSE);
+    $member_ids = $query->execute();
+
+    $nominations = [
+      '$100' => 1,
+      '$25' => 3,
+      '$5' => 30,
+    ];
+    $count = 0;
+    $place = 1;
+    foreach ($nominations as $nomination => $quantity) {
+      for ($i = 0; $i < $quantity; $i++) {
+        if (empty($member_ids)) {
+          break;
+        }
+        $member_id = self::selectOneMember($member_ids);
+        if (!$member_id) {
+          break;
+        }
+        $winner = Winner::create([
+          'branch' => $branch_id,
+          'member' => $member_id,
+          'place' => $place,
+        ]);
+        $winner->save();
+        $count++;
+        $context['results'][] = $member_id;
+        unset($member_ids[$member_id]);
+      }
+      $place++;
+    }
+
+    $message = \Drupal::translation()->formatPlural($count, 'Created one winner for branch ', 'Created @count winners for branch ') . $branch_id;
+    drupal_set_message($message);
+    $context['sandbox']['progress']++;
+
+    if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+  }
+
+  /**
+   * Select one member from member list. The probability of selection is proportional to the number of member bonuses.
+   *
+   * @param array $member_ids
+   *   List of member ids.
+   *
+   * @return bool|int
+   *   Selected member id or False (if there is no any bonus).
+   */
+  private static function selectOneMember($member_ids) {
+    $query = \Drupal::entityQuery('ymca_retention_member_bonus')
+      ->condition('member', $member_ids, 'IN');
+    $member_bonuses_ids = $query->execute();
+
+    if (empty($member_bonuses_ids)) {
+      return FALSE;
+    }
+
+    $member_bonus_id = array_rand($member_bonuses_ids);
+    $member_bonus = MemberBonus::load($member_bonus_id);
+
+    return $member_bonus->getMember();
   }
 
   /**
