@@ -252,10 +252,17 @@ class Page extends ConfigEntityBase implements PageInterface {
    * {@inheritdoc}
    */
   public function getParameter($name) {
-    if (!isset($this->parameters[$name])) {
-      $this->setParameter($name, '');
+    if ($this->hasParameter($name)) {
+      return $this->parameters[$name];
     }
-    return $this->parameters[$name];
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function hasParameter($name) {
+    return isset($this->parameters[$name]);
   }
 
   /**
@@ -360,7 +367,9 @@ class Page extends ConfigEntityBase implements PageInterface {
           }
           else {
             $this->contexts[$machine_name]->getContextDefinition()->setDataType($configuration['type']);
-            $this->contexts[$machine_name]->getContextDefinition()->setLabel($configuration['label']);
+            if (!empty($configuration['label'])) {
+              $this->contexts[$machine_name]->getContextDefinition()->setLabel($configuration['label']);
+            }
           }
         }
       }

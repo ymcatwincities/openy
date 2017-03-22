@@ -71,7 +71,7 @@ class RouteParamContext implements EventSubscriberInterface {
         }
 
         $parameter = $page->getParameter($route_context_name);
-        $context_name = $parameter['label'] ?: $this->t('{@name} from route', ['@name' => $route_context_name]);
+        $context_name = !empty($parameter['label']) ? $parameter['label'] : $this->t('{@name} from route', ['@name' => $route_context_name]);
         if ($request->attributes->has($route_context_name)) {
           $value = $request->attributes->get($route_context_name);
         }
