@@ -102,6 +102,14 @@ page_manager.block_plugin.*:
       sequence:
         - type: string
 
+# @todo Move to core in https://www.drupal.org/node/2838130.
+display_variant.plugin.*:
+  type: display_variant.plugin
+  label: 'Variant settings'
+condition.plugin.*:
+  type: condition.plugin
+  label: 'Condition settings'
+
 display_variant.plugin.block_display:
   type: display_variant.plugin
   label: 'Block variant plugin'
