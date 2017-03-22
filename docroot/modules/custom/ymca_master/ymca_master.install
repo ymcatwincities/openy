@@ -4579,3 +4579,17 @@ function ymca_master_update_8205() {
     ]
   );
 }
+
+/**
+ * Fix file document display.
+ */
+function ymca_master_update_8206() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.file.document.default',
+      'core.entity_form_display.node.location.default',
+    ]
+  );
+}
