@@ -55,7 +55,7 @@ $info = array(
       ),
     ),
     'endeavour' => array(
-      'title' => t('Endevour Blue'),
+      'title' => t('Endeavor Blue'),
       'colors' => array(
         'headerbg' => '#0060af',
         'headerhover' => '#3983c1',
