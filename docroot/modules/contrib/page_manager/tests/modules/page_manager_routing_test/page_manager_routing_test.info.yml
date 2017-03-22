@@ -1,0 +1,10 @@
+type: module
+name: Page Manager Routing Test
+description: 'Required for Page Manager tests.'
+# core: 8.x
+
+# Information added by Drupal.org packaging script on 2017-01-18
+version: '8.x-1.0-alpha24+4-dev'
+core: '8.x'
+project: 'page_manager'
+datestamp: 1484752103
