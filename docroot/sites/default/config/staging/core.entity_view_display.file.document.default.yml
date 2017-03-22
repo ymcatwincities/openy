@@ -13,7 +13,7 @@ bundle: document
 mode: default
 content:
   filename:
-    type: file_link
+    type: file_entity_link
     label: hidden
     weight: 0
     settings:
