@@ -4553,3 +4553,29 @@ function ymca_master_update_8203() {
     ]
   );
 }
+
+/**
+ * Update hf settings.
+ */
+function ymca_master_update_8204() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'openy_hf.settings',
+    ]
+  );
+}
+
+/**
+ * Update markup text in Membership form.
+ */
+function ymca_master_update_8205() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.field.contact_message.membership_form.field_label',
+    ]
+  );
+}
