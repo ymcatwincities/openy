@@ -264,17 +264,5 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element->focus();
     $element->click();
   }
-
-  /**
-   * Wait some amount of seconds.
-   *
-   * @param int $seconds
-   *   Amount of seconds when nothing to happens.
-   *
-   * @Given /^(?:|I )wait (\d+) seconds$/
-   */
-   public function waitSeconds($seconds) {
-     sleep($seconds);
-   }
   
 }
