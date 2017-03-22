@@ -14,7 +14,7 @@ class YmcaPanelsEditBlockForm extends PanelsEditBlockForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $tempstore_id = NULL, $machine_name = NULL, $block_id = NULL) {
-    $form = parent::buildForm($form, $form_state, $tempstore_id, $machine_name , $block_id);
+    $form = parent::buildForm($form, $form_state, $tempstore_id, $machine_name, $block_id);
 
     // Add link to edit block to Page Manager block edit modal.
     if ($this->block->getBaseId() != 'block_content' || !$uuid = $this->block->getDerivativeId()) {
