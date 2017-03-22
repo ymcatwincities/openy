@@ -54,10 +54,14 @@ class RouteParamContextTest extends PageContextTestBase {
       });
 
     $this->page->getPath()->willReturn('/test_route');
-
     $this->page->getParameter('foo')->willReturn(['machine_name' => 'foo', 'type' => 'integer', 'label' => 'Foo']);
+    $this->page->hasParameter('foo')->willReturn(TRUE);
+    $this->page->getParameter('bar')->willReturn(NULL);
+    $this->page->hasParameter('bar')->willReturn(FALSE);
     $this->page->getParameter('baz')->willReturn(['machine_name' => 'baz', 'type' => 'integer', 'label' => '']);
+    $this->page->hasParameter('baz')->willReturn(TRUE);
     $this->page->getParameter('page')->willReturn(['machine_name' => 'page', 'type' => 'entity:page', 'label' => '']);
+    $this->page->hasParameter('page')->willReturn(TRUE);
 
     $this->page->addContext('foo', Argument::that(function ($context) {
       return $context instanceof Context && $context->getContextDefinition()->getLabel() == 'Foo';

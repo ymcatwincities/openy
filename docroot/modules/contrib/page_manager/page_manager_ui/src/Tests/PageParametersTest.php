@@ -78,7 +78,7 @@ class PageParametersTest extends WebTestBase {
       'type' => 'entity:node',
     ];
     $this->drupalPostForm(NULL, $edit, 'Update parameter');
-    $this->assertText('The Node parameter has been updated.');
+    $this->assertText('The node parameter has been updated.');
 
     // Skip the variant General configuration step.
     $this->drupalPostForm(NULL, [], 'Next');

@@ -6,8 +6,8 @@ package: Layout
 dependencies:
   - page_manager
 
-# Information added by Drupal.org packaging script on 2016-08-20
-version: '8.x-1.0-alpha24'
+# Information added by Drupal.org packaging script on 2017-01-18
+version: '8.x-1.0-alpha24+4-dev'
 core: '8.x'
 project: 'page_manager'
-datestamp: 1471724835
+datestamp: 1484752103
