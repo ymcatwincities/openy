@@ -320,3 +320,43 @@ function yptf_master_update_8018() {
     ]
   );
 }
+
+/**
+ * Populate new location mappings.
+ */
+function yptf_master_update_8019() {
+  $location = [
+    'field_location_name' => 'Maplewood',
+    'field_location_address_1' => '2100 White Bear Avenue',
+    'field_location_address_2' => '',
+    'field_location_city' => 'Maplewood',
+    'field_location_state' => 'MN',
+    'field_location_zip' => '55109',
+    'field_location_phone' => '651-747-0922',
+    'field_location_url' => 'locations/maplewood_ymca/',
+    'field_location_tags' => 'YMCA',
+    'field_location_latitude' => '45.0052465',
+    'field_location_longitude' => '-93.0265559',
+    'field_location_icon' => 'themes/custom/ymca/img/map_icon_blue.png',
+    'field_groupex_id' => '',
+    'field_mindbody_id' => '25',
+    'field_location_personify_brcode' => '87',
+    'field_location_map_shadow' => 'themes/custom/ymca/img/map_shadow.png',
+    'field_location_hrs_mon_fri' => '5:00 a.m. - 10:00 p.m.',
+    'field_location_hrs_sat_sun' => '6:00 a.m. - 7:00 p.m.',
+  ];
+
+  $mapping = Mapping::create([
+    'type' => 'location',
+  ]);
+  $mapping->setName($location['field_location_name']);
+
+  // Set all available fields.
+  foreach ($location as $field => $value) {
+    if (!empty($field)) {
+      $mapping->set($field, $value);
+    }
+  }
+
+  $mapping->save();
+}
