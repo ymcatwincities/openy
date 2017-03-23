@@ -4,11 +4,13 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-id: openy_demo_lp_paragraph_grid
+id: openy_demo_lp_paragraph_grid_content
 migration_tags: {  }
 migration_group: openy_demo_nlanding
 label: 'Create grid content paragraphs for demo landing page nodes'
-migration_dependencies: {  }
+migration_dependencies:
+  required:
+    - openy_demo_lp_paragraph_grid_columns
 source:
   plugin: embedded_data
   data_rows:
@@ -16,14 +18,11 @@ source:
       id: homepage_grid
       parent_id: homepage
       style: 2
-    -
-      id: about_grid
-      parent_id: about
-      style: 2
-    -
-      id: give_grid
-      parent_id: give
-      style: 3
+      column_ids:
+        -
+          column_id: homepage_volunteers_grid_col
+        -
+          column_id: homepage_appreciate_grid_col
   ids:
     id:
       type: string
@@ -51,6 +50,20 @@ process:
     plugin: default_value
     default_value: field_content
   field_prgf_grid_style: style
+  field_grid_columns:
+    plugin: iterator
+    source: column_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_grid_columns
+        source: column_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_grid_columns
+        source: column_id
 destination:
   plugin: 'entity:paragraph'
   default_bundle: grid_content
