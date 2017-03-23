@@ -30,7 +30,7 @@ tips:
     id: header-area
     plugin: text
     label: 'Header area'
-    body: 'Here a user can add different types of paragraphs to the header area. Paragraphs will be displayed at the top of the page with full width. [openy_tour:click:edit-field-landing-header-add-more-add-more-button-header]'
+    body: 'Here a user can add different types of paragraphs to the header area. Paragraphs will be displayed at the top of the page with full width.'
     weight: 3
     attributes:
       data-class: 'field--name-field-landing-header'
@@ -38,7 +38,7 @@ tips:
     id: body-area
     plugin: text
     label: 'Body area'
-    body: 'Here a user can add different types of paragraphs to the body area. Paragraphs types are added and the content for them is created in the actual content type they are being added to. Add Blackbaud donation form [openy_tour:click:edit-field-landing-body-add-more-add-more-button-blackbaud]'
+    body: 'Here a user can add different types of paragraphs to the body area. Paragraphs types are added and the content for them is created in the actual content type they are being added to. Now we add Blackbaud donation form [openy_tour:click:edit-field-landing-body-add-more-add-more-button-blackbaud]'
     weight: 4
     attributes:
       data-class: 'field--name-field-landing-body'
@@ -46,7 +46,7 @@ tips:
     id: blackbaud-block
     plugin: text
     label: 'BlackBaud Donation Form Block'
-    body: '[openy_tour:click:edit-field-landing-body-0-subform-field-prgf-blackbaud-block-actions-ief-add] to add empty blackbaud form block'
+    body: 'Add empty blackbaud form block [openy_tour:click:edit-field-landing-body-0-subform-field-prgf-blackbaud-block-actions-ief-add]'
     weight: 5
     attributes:
       data-class: 'field--name-field-prgf-blackbaud-block'
@@ -66,11 +66,62 @@ tips:
     weight: 7
     attributes:
       data-class: 'field--name-field-formid'
-  save-blackbaud:
-    id: save-blackbaud
+  blackbaud-save:
+    id: blackbaud-save
     plugin: text
     label: 'Save BlackBaud Donation Form'
     body: 'To add paragraph with BlackBaud Donation Form press the Create custom block button.'
     weight: 8
     attributes:
       data-class: 'form-submit[value="Create custom block"]'
+  panorama:
+    id: panorama
+    plugin: text
+    label: 'Panorama Block'
+    body: 'Now we add panorama paragraph to the body for display panorama on page [openy_tour:click:edit-field-landing-body-add-more-add-more-button-panorama]'
+    weight: 9
+    attributes:
+      data-class: 'field--name-field-landing-body'
+  panorama-block:
+    id: panorama-block
+    plugin: text
+    label: 'Panorama Block'
+    body: 'Add new panorama block to paragraph  or use existing one [openy_tour:click:edit-field-landing-body-1-subform-field-prgf-panorama-actions-ief-add]'
+    weight: 10
+    attributes:
+      data-class: 'form-submit[value="Add new custom block"]'
+  panorama-descritpion:
+    id: panorama-description
+    plugin: text
+    label: 'Panorama Block description '
+    body: 'Type here brief administrative description to identify your block. It will not be displayed on the page.'
+    weight: 11
+    attributes:
+      data-class: 'form-item-field-landing-body-1-subform-field-prgf-panorama-form-inline-entity-form-info-0-value'
+  panorama-archive:
+    id: panorama-archive
+    plugin: text
+    label: 'Panorama archive file'
+    body: 'Use this field to select and download panorama archive to server.'
+    weight: 12
+    attributes:
+      data-class: 'form-item-field-landing-body-1-subform-field-prgf-panorama-form-inline-entity-form-field-panorama-archive-0'
+
+  panorama-save:
+    id: panorama-save
+    plugin: text
+    label: 'Save Panorama paragraph'
+    body: 'To add paragraph with panorama press the Create custom block button.'
+    weight: 13
+    location: top
+    attributes:
+      data-class: 'form-item-field-landing-body-1-subform-field-prgf-panorama-form-inline-entity-form-field-panorama-archive-0'
+
+  result:
+    id: result
+    plugin: text
+    label: 'Result'
+    body: 'If all needed content added, then press "Save and publish" and see resulting paragraphs on the page.'
+    weight: 14
+    attributes:
+      data-class: 'form-submit[value="Save and publish"]'
