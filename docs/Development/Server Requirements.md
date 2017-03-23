@@ -6,8 +6,9 @@ Ubuntu LTS (14 or 16) is preferred. CentOS is ok as well. Or even any other Linu
 
 (Drupal 8 server requirements should be met)[https://www.drupal.org/docs/7/system-requirements/overview].
 
-PHP 5.6+ (PHP 7 is better in terms of performance)
- * List of PHP modules server should have:
+ * PHP 5.6+ (PHP 7 is better in terms of performance)
+ 
+### List of PHP modules server should have:
 
   - php{{ php_version }}
   - php{{ php_version }}-mcrypt
