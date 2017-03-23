@@ -873,6 +873,12 @@ body {
   line-height: .4em;
 }
 
+.independent-header .nav .caret:before {
+  font-family: 'YMCA', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+}
+
 .masthead-menu .collapse {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 -1px rgba(0, 0, 0, 0.1);
