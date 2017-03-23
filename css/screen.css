@@ -9146,6 +9146,9 @@ fieldset .fieldset-wrapper {
     left: 0;
     top: 0; }
 
+.node--type-blog .paragraph--type--content-pager {
+  padding-top: 50px; }
+
 img.alignleft {
   display: block;
   margin: 10px 0; }
