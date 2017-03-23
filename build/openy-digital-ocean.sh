@@ -37,7 +37,7 @@ printf "${Green}Installing OpenY...${Color_Off}\n"
 composer create-project ymcatwincities/openy-project:8.1.x-dev /var/www/openy --no-interaction
 cp /var/www/html/drupal/sites/default/settings.php /var/www/openy/docroot/sites/default/settings.php
 mkdir /var/www/openy/docroot/sites/default/files
-echo "\$config['system.logging']['error_level'] = 'verbose';" >> /var/www/openy/docroot/sites/default/settings.php
+echo "\$config['system.logging']['error_level'] = 'hide';" >> /var/www/openy/docroot/sites/default/settings.php
 sudo chmod -R 777 /var/www/openy/docroot/sites/default/settings.php
 sudo chmod -R 777 /var/www/openy/docroot/sites/default/files
 MYSQL="$(drush sql-connect -r /var/www/openy/docroot)"
