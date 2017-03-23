@@ -251,7 +251,7 @@ source:
     -
       id: branch_volunteer_grid_col_1
       parent_id: branch_lower_grid_1
-      headline: 'Volunteers Needed '
+      headline: 'Volunteers Needed'
       icon_class: 'handshake-o'
       description: |
         <p>Are you interested in coaching? Want to help with youth programs for
@@ -284,7 +284,7 @@ source:
     -
       id: branch_volunteer_grid_col_2
       parent_id: branch_lower_grid_2
-      headline: 'Volunteers Needed '
+      headline: 'Volunteers Needed'
       icon_class: 'handshake-o'
       description: |
         <p>Are you interested in coaching? Want to help with youth programs for
@@ -317,7 +317,7 @@ source:
     -
       id: branch_volunteer_grid_col_3
       parent_id: branch_lower_grid_3
-      headline: 'Volunteers Needed '
+      headline: 'Volunteers Needed'
       icon_class: 'handshake-o'
       description: |
         <p>Are you interested in coaching? Want to help with youth programs for
@@ -350,7 +350,7 @@ source:
     -
       id: branch_volunteer_grid_col_4
       parent_id: branch_lower_grid_4
-      headline: 'Volunteers Needed '
+      headline: 'Volunteers Needed'
       icon_class: 'handshake-o'
       description: |
         <p>Are you interested in coaching? Want to help with youth programs for
