@@ -1,0 +1,425 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_loc_branch
+id: openy_demo_prgf_grid_columns
+migration_tags: {  }
+migration_group: openy_demo_nbranch
+label: 'Create grid column paragraphs for demo branch node grid content paragraphs'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: branch_amenities_grid_col_1
+      parent_id: branch_upper_grid_1
+      headline: 'Branch Amenities'
+      icon_class: 'list'
+      description: |
+        <p>Kids Zone</p>
+
+        <p>Fitness Center</p>
+
+        <p>Two Gymnasiums</p>
+
+        <p>Cycling Studio</p>
+
+        <p>2 Swimming Pools with Water Features</p>
+
+        <p>Spa</p>
+
+        <p>Large Outdoor Network of Trails</p>
+
+        <p>Interactive Fitness Room</p>
+      link_uri: 'internal:/'
+      link_text: 'See More'
+    -
+      id: branch_join_grid_col_1
+      parent_id: branch_upper_grid_1
+      headline: 'Become a Member'
+      icon_class: 'user-plus'
+      description: |
+        <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
+        to all 13 Seattle area branches, as well as every YMCA in Washington
+        State!</p>
+      link_uri: 'internal:/'
+      link_text: 'Join the Y'
+    -
+      id: branch_schedules_grid_col_1
+      parent_id: branch_upper_grid_1
+      headline: 'Schedules'
+      icon_class: 'info'
+      description: |
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        </p>
+    -
+      id: branch_amenities_grid_col_2
+      parent_id: branch_upper_grid_2
+      headline: 'Branch Amenities'
+      icon_class: 'list'
+      description: |
+        <p>Kids Zone</p>
+
+        <p>Fitness Center</p>
+
+        <p>Two Gymnasiums</p>
+
+        <p>Cycling Studio</p>
+
+        <p>2 Swimming Pools with Water Features</p>
+
+        <p>Spa</p>
+
+        <p>Large Outdoor Network of Trails</p>
+
+        <p>Interactive Fitness Room</p>
+      link_uri: 'internal:/'
+      link_text: 'See More'
+    -
+      id: branch_join_grid_col_2
+      parent_id: branch_upper_grid_2
+      headline: 'Become a Member'
+      icon_class: 'user-plus'
+      description: |
+        <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
+        to all 13 Seattle area branches, as well as every YMCA in Washington
+        State!</p>
+      link_uri: 'internal:/'
+      link_text: 'Join the Y'
+    -
+      id: branch_schedules_grid_col_2
+      parent_id: branch_upper_grid_2
+      headline: 'Schedules'
+      icon_class: 'info'
+      description: |
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        </p>
+    -
+      id: branch_amenities_grid_col_3
+      parent_id: branch_upper_grid_3
+      headline: 'Branch Amenities'
+      icon_class: 'list'
+      description: |
+        <p>Kids Zone</p>
+
+        <p>Fitness Center</p>
+
+        <p>Two Gymnasiums</p>
+
+        <p>Cycling Studio</p>
+
+        <p>2 Swimming Pools with Water Features</p>
+
+        <p>Spa</p>
+
+        <p>Large Outdoor Network of Trails</p>
+
+        <p>Interactive Fitness Room</p>
+      link_uri: 'internal:/'
+      link_text: 'See More'
+    -
+      id: branch_join_grid_col_3
+      parent_id: branch_upper_grid_3
+      headline: 'Become a Member'
+      icon_class: 'user-plus'
+      description: |
+        <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
+        to all 13 Seattle area branches, as well as every YMCA in Washington
+        State!</p>
+      link_uri: 'internal:/'
+      link_text: 'Join the Y'
+    -
+      id: branch_schedules_grid_col_3
+      parent_id: branch_upper_grid_3
+      headline: 'Schedules'
+      icon_class: 'info'
+      description: |
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        </p>
+    -
+      id: branch_amenities_grid_col_4
+      parent_id: branch_upper_grid_4
+      headline: 'Branch Amenities'
+      icon_class: 'list'
+      description: |
+        <p>Kids Zone</p>
+
+        <p>Fitness Center</p>
+
+        <p>Two Gymnasiums</p>
+
+        <p>Cycling Studio</p>
+
+        <p>2 Swimming Pools with Water Features</p>
+
+        <p>Spa</p>
+
+        <p>Large Outdoor Network of Trails</p>
+
+        <p>Interactive Fitness Room</p>
+      link_uri: 'internal:/'
+      link_text: 'See More'
+    -
+      id: branch_join_grid_col_4
+      parent_id: branch_upper_grid_4
+      headline: 'Become a Member'
+      icon_class: 'user-plus'
+      description: |
+        <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
+        to all 13 Seattle area branches, as well as every YMCA in Washington
+        State!</p>
+      link_uri: 'internal:/'
+      link_text: 'Join the Y'
+    -
+      id: branch_schedules_grid_col_4
+      parent_id: branch_upper_grid_4
+      headline: 'Schedules'
+      icon_class: 'info'
+      description: |
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        </p>
+
+        <p>
+        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        </p>
+    -
+      id: branch_volunteer_grid_col_1
+      parent_id: branch_lower_grid_1
+      headline: 'Volunteers Needed '
+      icon_class: 'handshake-o'
+      description: |
+        <p>Are you interested in coaching? Want to help with youth programs for
+        a volunteer opportunity your whole family can participate in? When we
+        all join, we rise together!</p>
+      link_uri: 'internal:/'
+      link_text: 'Explore Volunteer Opportunities'
+    -
+      id: branch_appreciate_grid_col_1
+      parent_id: branch_lower_grid_1
+      headline: 'We Appreciate Your Support'
+      icon_class: 'thumbs-o-up'
+      description: |
+        <p>Every year, we rely on donations to help ensure that all of the
+        people in our community can access our services. There are lots of ways
+        you can give, and we’re grateful for your help.</p>
+      link_uri: 'internal:/'
+      link_text: 'Support Your Local Y Today'
+    -
+      id: branch_story_grid_col_1
+      parent_id: branch_lower_grid_1
+      headline: 'Our Story'
+      icon_class: 'leanpub'
+      description: |
+        <p>Learn more about the Coal Creek Family YMCA</p>
+
+        <p>&nbsp;</p>
+      link_uri: 'internal:/'
+      link_text: 'Learn More'
+    -
+      id: branch_volunteer_grid_col_2
+      parent_id: branch_lower_grid_2
+      headline: 'Volunteers Needed '
+      icon_class: 'handshake-o'
+      description: |
+        <p>Are you interested in coaching? Want to help with youth programs for
+        a volunteer opportunity your whole family can participate in? When we
+        all join, we rise together!</p>
+      link_uri: 'internal:/'
+      link_text: 'Explore Volunteer Opportunities'
+    -
+      id: branch_appreciate_grid_col_2
+      parent_id: branch_lower_grid_2
+      headline: 'We Appreciate Your Support'
+      icon_class: 'thumbs-o-up'
+      description: |
+        <p>Every year, we rely on donations to help ensure that all of the
+        people in our community can access our services. There are lots of ways
+        you can give, and we’re grateful for your help.</p>
+      link_uri: 'internal:/'
+      link_text: 'Support Your Local Y Today'
+    -
+      id: branch_story_grid_col_2
+      parent_id: branch_lower_grid_2
+      headline: 'Our Story'
+      icon_class: 'leanpub'
+      description: |
+        <p>Learn more about the Coal Creek Family YMCA</p>
+
+        <p>&nbsp;</p>
+      link_uri: 'internal:/'
+      link_text: 'Learn More'
+    -
+      id: branch_volunteer_grid_col_3
+      parent_id: branch_lower_grid_3
+      headline: 'Volunteers Needed '
+      icon_class: 'handshake-o'
+      description: |
+        <p>Are you interested in coaching? Want to help with youth programs for
+        a volunteer opportunity your whole family can participate in? When we
+        all join, we rise together!</p>
+      link_uri: 'internal:/'
+      link_text: 'Explore Volunteer Opportunities'
+    -
+      id: branch_appreciate_grid_col_3
+      parent_id: branch_lower_grid_3
+      headline: 'We Appreciate Your Support'
+      icon_class: 'thumbs-o-up'
+      description: |
+        <p>Every year, we rely on donations to help ensure that all of the
+        people in our community can access our services. There are lots of ways
+        you can give, and we’re grateful for your help.</p>
+      link_uri: 'internal:/'
+      link_text: 'Support Your Local Y Today'
+    -
+      id: branch_story_grid_col_3
+      parent_id: branch_lower_grid_3
+      headline: 'Our Story'
+      icon_class: 'leanpub'
+      description: |
+        <p>Learn more about the Coal Creek Family YMCA</p>
+
+        <p>&nbsp;</p>
+      link_uri: 'internal:/'
+      link_text: 'Learn More'
+    -
+      id: branch_volunteer_grid_col_4
+      parent_id: branch_lower_grid_4
+      headline: 'Volunteers Needed '
+      icon_class: 'handshake-o'
+      description: |
+        <p>Are you interested in coaching? Want to help with youth programs for
+        a volunteer opportunity your whole family can participate in? When we
+        all join, we rise together!</p>
+      link_uri: 'internal:/'
+      link_text: 'Explore Volunteer Opportunities'
+    -
+      id: branch_appreciate_grid_col_4
+      parent_id: branch_lower_grid_4
+      headline: 'We Appreciate Your Support'
+      icon_class: 'thumbs-o-up'
+      description: |
+        <p>Every year, we rely on donations to help ensure that all of the
+        people in our community can access our services. There are lots of ways
+        you can give, and we’re grateful for your help.</p>
+      link_uri: 'internal:/'
+      link_text: 'Support Your Local Y Today'
+    -
+      id: branch_story_grid_col_4
+      parent_id: branch_lower_grid_4
+      headline: 'Our Story'
+      icon_class: 'leanpub'
+      description: |
+        <p>Learn more about the Coal Creek Family YMCA</p>
+
+        <p>&nbsp;</p>
+      link_uri: 'internal:/'
+      link_text: 'Learn More'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_prgf_grid_content
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: paragraph
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_grid_columns
+  field_prgf_clm_headline: headline
+  field_prgf_clm_class: icon_class
+  field_prgf_grid_clm_description/value: description
+  field_prgf_grid_clm_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_prgf_clm_link/uri:
+    plugin: default_value
+    source: link_uri
+    default_value: NULL
+  field_prgf_clm_link/title:
+    plugin: default_value
+    source: link_text
+    default_value: NULL
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: grid_columns

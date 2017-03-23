@@ -13,6 +13,44 @@ source:
   plugin: embedded_data
   data_rows:
     -
+      id: homepage_membership_featured_content
+      parent_id: homepage
+      headline: 'Membership Has its Privileges'
+      description: |
+        <p>With the Y, you’re not just a member of a facility; you’re part of a
+        cause. With a shared commitment to nurturing the potential of kids,
+        improving health and well-being, and giving back and supporting our
+        neighbors, your membership will not just bring about meaningful change
+        in yourself, but also in your community.</p>
+      link_uri: 'internal:/'
+      link_text: 'EXPLORE ALL MEMBER BENEFITS'
+      grid_style: 4
+      column_descriptions:
+        -
+          column_description: |
+            <p><strong>Unlimited Access</strong></p>
+
+            <p>Every “Y” is Your “Y” In Washington. Your membership gives you
+            access to all 13 Seattle area branches, as well as every YMCA in
+            Washington State!</p>
+        -
+          column_description: |
+            <p><strong>Coaching &amp; Training</strong></p>
+
+            <p>Free personalized wellness plan with a health coach.</p>
+        -
+          column_description: |
+            <p><strong>Kids Zone Activity Centers</strong></p>
+
+            <p>Take advantage of Kids Zone programs while you work out. Leave
+            your kids with us for active and engaging fun.</p>
+        -
+          column_description: |
+            <p><strong>Savings for Your Whole Family</strong></p>
+
+            <p>Get discounts on swim lessons, day camp, youth sports and more
+            with your membership.</p>
+    -
       id: give_featured_content
       parent_id: give
       headline: 'Why Give to the Y'
@@ -73,6 +111,30 @@ process:
   field_prgf_description/format:
     plugin: default_value
     default_value: full_html
+  field_prgf_grid_style:
+     plugin: default_value
+     source: grid_style
+     default_value: NULL
+  field_prgf_link/uri:
+     plugin: default_value
+     source: link_uri
+     default_value: NULL
+  field_prgf_link/title:
+     plugin: default_value
+     source: link_text
+     default_value: NULL
+  field_prgf_fc_clm_description:
+    -
+      plugin: iterator
+      source: column_descriptions
+      process:
+        value: column_description
+        format:
+          plugin: default_value
+          default_value: full_html
+    -
+      plugin: default_value
+      default_value: NULL
 destination:
   plugin: 'entity:paragraph'
   default_bundle: featured_content
