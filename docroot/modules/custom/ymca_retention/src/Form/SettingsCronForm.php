@@ -65,13 +65,13 @@ class SettingsCronForm extends FormBase {
     $config = $this->config('ymca_retention.cron_settings');
 
     $date_from = new \DateTime();
-    $date_from->setTime(0, 0, 0);
+    $date_from->sub(new \DateInterval('P1D'))->setTime(0, 0, 0);
     $form['date_from'] = [
       '#type' => 'datetime',
       '#required' => TRUE,
       '#title' => $this->t('Date From'),
       '#default_value' => DrupalDateTime::createFromDateTime($date_from),
-      '#description' => $this->t('Specify a date from what need to import checkins. Currently we support only 1 day import.'),
+      '#description' => $this->t('Start date to import checkins.'),
     ];
     $date_from->setTime(23, 59, 59);
     $form['date_to'] = [
@@ -79,13 +79,13 @@ class SettingsCronForm extends FormBase {
       '#required' => TRUE,
       '#title' => $this->t('Date To'),
       '#default_value' => DrupalDateTime::createFromDateTime($date_from),
-      '#description' => $this->t('Specify a date to what need to import checkins. Currently we support only 1 day import.'),
+      '#description' => $this->t('End date to import checkins.'),
     ];
     $last_run = $this->dateFormatter->format($config->get('last_run'), 'long');
 
     $form['last_run'] = [
       '#type' => '#markup',
-      '#markup' => $this->t('Queue last created: %timestamp', [
+      '#markup' => $this->t('Last time cron populated queue at: %timestamp', [
         '%timestamp' => $last_run,
       ]),
     ];
@@ -94,38 +94,19 @@ class SettingsCronForm extends FormBase {
     $form['actions']['submit'] = array(
       '#type' => 'submit',
       '#value' => $this->t('Create a queue'),
-      '#submit' => [$this, '::createQueueSubmitForm'],
+      '#submit' => ['::createQueueSubmitForm'],
       '#button_type' => 'primary',
     );
     if (\Drupal::moduleHandler()->moduleExists('queue_ui')) {
       $form['actions']['run_queue'] = array(
         '#type' => 'submit',
         '#value' => $this->t('Run queue'),
-        '#submit' => [$this, '::runQueueSubmitForm'],
+        '#submit' => ['::runQueueSubmitForm'],
         '#button_type' => 'secondary',
       );
     }
 
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
-    $button = $form_state->getTriggeringElement();
-    if ($button['#button_type'] != 'primary') {
-      return;
-    }
-    /* @var DrupalDateTime $date_from */
-    $date_from = $form_state->getValue('date_from');
-    /* @var DrupalDateTime $date_to */
-    $date_to = $form_state->getValue('date_to');
-    $diff = $date_from->diff($date_to);
-    if ($diff->days >= 1) {
-      $form_state->setErrorByName('date_to', $this->t('Interval of dates should not be more than 1 day.'));
-    }
   }
 
   /**
@@ -137,10 +118,6 @@ class SettingsCronForm extends FormBase {
    *   Form state.
    */
   public function createQueueSubmitForm(array &$form, FormStateInterface $form_state) {
-    if (!$this->regularUpdater->isAllowed(TRUE)) {
-      drupal_set_message($this->t('Creating queue is not allowed now. Queue is already exist or campaign settings does not allow create queue.'), 'error');
-      return;
-    }
     /* @var DrupalDateTime $date_from */
     $date_from = $form_state->getValue('date_from');
     /* @var DrupalDateTime $date_to */
