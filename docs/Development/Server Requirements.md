@@ -28,7 +28,7 @@ If you need to prepare server for the OpenY instance, here below you should find
   - php{{ php_version }}-zip
 
   
-4. MySQL 5.5+ . Here are the best settings to get it fast and furious
+4. MySQL 5.5+ . Here are the best settings https://github.com/cibox/cibox/blob/master/core/facade-mysql/defaults/main.yml to get it fast and furious
 5. Apache 2 with mod-php (preffered for stability) or nginx with php-fpm (better for speed and scalability)
   - libapache2-mod-php{{ php_version }}
 6. Memcache server (optional)
