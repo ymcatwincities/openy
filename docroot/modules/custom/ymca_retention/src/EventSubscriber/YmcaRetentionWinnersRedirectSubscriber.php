@@ -32,7 +32,7 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
    */
   public function redirectToWinnersPage(GetResponseEvent $event) {
     $route = \Drupal::service('current_route_match')->getRouteName();
-    if ($route != 'page_manager.page_view_ymca_retention_challenge') {
+    if ($route != 'page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge') {
       return;
     }
 
@@ -43,7 +43,7 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
 
     // Redirect if time winners announcement date in the past.
     if ($winners_diff->invert) {
-      $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge');
+      $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge');
       $response = new RedirectResponse($url->toString() . '/winners', 302);
       $event->setResponse($response);
     }
