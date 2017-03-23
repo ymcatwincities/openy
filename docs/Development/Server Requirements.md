@@ -2,11 +2,11 @@ If you need to prepare server for the OpenY instance, here below you should find
 
 ### List of requirements
 
-Ubuntu LTS (14 or 16) is preferred. CentOS is ok as well. Or even any other Linux distribution, but was not tested by OpenY team so far.
+1. Ubuntu LTS (14 or 16) is preferred. CentOS is ok as well. Or even any other Linux distribution, but was not tested by OpenY team so far.
 
-(Drupal 8 server requirements should be met)[https://www.drupal.org/docs/7/system-requirements/overview].
+2. (Drupal 8 server requirements should be met)[https://www.drupal.org/docs/7/system-requirements/overview].
 
- * PHP 5.6+ (PHP 7 is better in terms of performance)
+3. PHP 5.6+ (PHP 7 is better in terms of performance)
  
 ### List of PHP modules server should have:
 
@@ -29,10 +29,11 @@ Ubuntu LTS (14 or 16) is preferred. CentOS is ok as well. Or even any other Linu
 
   - libapache2-mod-php{{ php_version }}
   
- * MySQL 5.5+ . Here are the best settings to get it fast and furious
- * Apache 2 with mod-php (preffered for stability) or nginx with php-fpm (better for speed and scalability)
- * Memcache server
-### Server tools
+4. MySQL 5.5+ . Here are the best settings to get it fast and furious
+5. Apache 2 with mod-php (preffered for stability) or nginx with php-fpm (better for speed and scalability)
+6. Memcache server (optional)
+
+7.  Server tools
  * Ansible (optional) 
  * Docker (optional)
  * SOLR 4.x (if there will be requirement for SOLR search support)
