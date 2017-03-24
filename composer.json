@@ -166,6 +166,7 @@
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
-        "drupal/optimizely": "1.2"
+        "drupal/optimizely": "1.2",
+        "drupal/webform": "^5.0@beta"
     }
 }
