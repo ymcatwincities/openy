@@ -791,21 +791,3 @@
     shadow: themes/custom/ymca/img/map_shadow.png
     HRS Mon-Fri: 
     HRS Sat-Sun:
--
-    name: Maplewood
-    address1: 2100 White Bear Avenue
-    address2:
-    city: Maplewood
-    state: MN
-    zip: 55109
-    phone: 651-747-0922
-    url: locations/maplewood_ymca/
-    tags: YMCA
-    latitude: 45.0052465
-    longitude: -93.0265559
-    icon: themes/custom/ymca/img/map_icon_blue.png
-    geid:
-    personify_brcode: 87
-    shadow: themes/custom/ymca/img/map_shadow.png
-    HRS Mon-Fri: 5:00 a.m. - 10:00 p.m.
-    HRS Sat-Sun: 6:00 a.m. - 7:00 p.m.
