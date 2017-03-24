@@ -68,6 +68,8 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - webform
+  - webform_ui
   # OpenY features.
   - openy_media_image
   - openy_media_document
