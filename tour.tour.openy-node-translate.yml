@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: openy-node-translate
+label: 'OpenY Node Translate'
+module: openy_node
+routes:
+  - route_name: entity.node.content_translation_overview
+tips:
+  translate-overview:
+    id: translate-overview
+    plugin: text
+    label: Overview
+    body: 'This page shows all associated translations for the node.'
+    weight: 1
+  edit-translation:
+    id: edit-translation
+    plugin: text
+    label: 'Edit existing translation'
+    body: 'This button allows the user to edit existing translation.'
+    weight: 2
+    location: left
+    attributes:
+      data-class: 'dropbutton-action:contains("Edit")'
+  add-translation:
+    id: add-translation
+    plugin: text
+    label: 'Add new translation'
+    body: 'Click "Add" to add Spanish translation for existing English page.'
+    location: left
+    weight: 3
+    attributes:
+      data-class: 'dropbutton-action:contains("Add")'
+  result:
+    id: result
+    plugin: text
+    label: 'When translations are added'
+    body: 'User will see the translation based on language that he/she selected in the preferences.'
+    location: bottom
+    weight: 4
+
+
