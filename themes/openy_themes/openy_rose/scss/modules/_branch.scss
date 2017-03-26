@@ -812,6 +812,7 @@ html.js {
       align-self: stretch;
     }
   }
+  header h1,
   header h2,
   header h2.h1 {
     padding-left: 20px;
@@ -820,13 +821,14 @@ html.js {
     margin-top: 0;
     font-weight: bold;
   }
+  h1.color-purple,
   h2.color-purple {
     color: $purple;
   }
-  .field_state {
-    position: absolute;
-    top: 0px;
-    right: 0px;
+  .field_location_state {
+    float: right;
+    margin-right: -20px;
+    margin-top: -20px;
     padding: 5px;
     font-size: 10px;
     color: #231f20;
@@ -871,6 +873,7 @@ html.js {
     padding: 0;
     margin: 0;
     height: auto;
+    min-height: auto;
   }
   h2 {
     font-size: 22px;
@@ -887,7 +890,7 @@ html.js {
       padding-right: 10px;
     }
   }
-  .field-branch-area {
+  .field-location-area {
     position: static;
     top: 15px;
     font-family: $font-family-sans-serif;
@@ -910,23 +913,23 @@ html.js {
   }
 }
 
-.node--view-mode-sidebar {
+.node--view-mode-full {
   &.node--type-facility {
     margin-top: -20px;
-    .label-for-field-address {
+    .label-for-field-location-address {
       display: block;
     }
   }
-  .wrapper-field-phone {
+  .wrapper-field-location-phone {
     letter-spacing: 2px;
     padding-bottom: 35px;
-    .label-for-field-phone,
-    .field-phone {
+    .label-for-field-location-phone,
+    .field-location-phone {
       display: inline;
     }
   }
-  .label-for-field-address:after,
-  .label-for-field-phone:after {
+  .label-for-field-location-address:after,
+  .label-for-field-location-phone:after {
     content: ":";
   }
   h2 {
@@ -939,7 +942,7 @@ html.js {
     margin-left: 20px;
     margin-top: 18px;
   }
-  .field-branch-area {
+  .field-location-area {
     display: none;
   }
 }

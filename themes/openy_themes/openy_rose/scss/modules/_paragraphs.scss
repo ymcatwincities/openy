@@ -111,7 +111,6 @@
 
     @include breakpoint (768px) {
       margin: 0;
-      border-bottom: 3px solid $blue;
     }
 
     @include breakpoint (1024px) {
@@ -502,7 +501,7 @@
     }
   }
 
-  &-btn {
+  .banner-btn {
     white-space: normal;
     font-size: 20px;
     padding: 0px;
@@ -566,12 +565,25 @@
   }
 }
 
-.paragraph--type--dynamic-content {
+.paragraph--type--dynamic-content,
+.paragraph--type--prgf-location-finder-filters {
   padding: 20px 0;
   overflow: hidden;
   .one-column-clean &:first-child,
   .landing-header & {
     padding-top: 0;
+  }
+}
+.paragraph--type--prgf-location-finder {
+  .views-element-container {
+    padding: 20px 0;
+    &:before,
+    &:after {
+      clear: both;
+      content: '';
+      display: table;
+      width: 0;
+    }
   }
 }
 
@@ -784,4 +796,8 @@
       margin-right: -15px;
     }
   }
+}
+
+.paragraph--type--openy-prgf-mbrshp-calc {
+  padding: 20px 0;
 }

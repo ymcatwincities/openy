@@ -4,9 +4,11 @@ dependencies:
   config:
     - core.entity_view_mode.media.teaser
     - media_entity.bundle.video
+    - taxonomy.vocabulary.media_tags
   module:
     - entity_browser
     - media_entity
+    - taxonomy
     - user
 id: videos_library
 label: 'Videos Library'
@@ -51,7 +53,7 @@ display:
       pager:
         type: mini
         options:
-          items_per_page: 8
+          items_per_page: 12
           offset: 0
           id: 0
           total_pages: null
@@ -67,12 +69,16 @@ display:
             offset: false
             offset_label: Offset
       style:
-        type: default
+        type: grid
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
+          columns: 4
+          automatic_width: true
+          alignment: horizontal
+          col_class_default: true
+          col_class_custom: ''
+          row_class_default: true
+          row_class_custom: ''
       row:
         type: fields
         options:
@@ -81,56 +87,6 @@ display:
           hide_empty: false
           default_field_elements: true
       fields:
-        entity_browser_select:
-          id: entity_browser_select
-          table: media
-          field: entity_browser_select
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          entity_type: media
-          plugin_id: entity_browser_select
         rendered_entity:
           id: rendered_entity
           table: media
@@ -182,6 +138,56 @@ display:
           view_mode: teaser
           entity_type: media
           plugin_id: rendered_entity
+        entity_browser_select:
+          id: entity_browser_select
+          table: media
+          field: entity_browser_select
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: visually-hidden
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          entity_type: media
+          plugin_id: entity_browser_select
       filters:
         name:
           id: name
@@ -196,7 +202,7 @@ display:
           exposed: true
           expose:
             operator_id: name_op
-            label: 'Image name'
+            label: 'Video name'
             description: ''
             use_operator: false
             operator: name_op
@@ -339,6 +345,51 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: boolean
+        field_media_tags_target_id:
+          id: field_media_tags_target_id
+          table: media__field_media_tags
+          field: field_media_tags_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_media_tags_target_id_op
+            label: 'Media Tags'
+            description: ''
+            use_operator: false
+            operator: field_media_tags_target_id_op
+            identifier: field_media_tags_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: textfield
+          limit: true
+          vid: media_tags
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
       sorts:
         created:
           id: created
@@ -371,7 +422,20 @@ display:
           plugin_id: standard
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: 'No results found'
+            format: full_html
+          plugin_id: text
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
@@ -380,6 +444,7 @@ display:
         operator: AND
         groups:
           1: AND
+      css_class: eb-media
     cache_metadata:
       max-age: -1
       contexts:
@@ -388,11 +453,21 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
+        - user
         - user.permissions
       tags:
         - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.document.teaser'
         - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.icon'
+        - 'config:core.entity_view_display.media.image.node_blog'
+        - 'config:core.entity_view_display.media.image.node_blog_teaser'
+        - 'config:core.entity_view_display.media.image.node_program_header'
+        - 'config:core.entity_view_display.media.image.node_program_subcategory_teaser'
+        - 'config:core.entity_view_display.media.image.prgf_banner'
+        - 'config:core.entity_view_display.media.image.prgf_gallery'
+        - 'config:core.entity_view_display.media.image.prgf_small_banner'
+        - 'config:core.entity_view_display.media.image.prgf_teaser'
         - 'config:core.entity_view_display.media.image.teaser'
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.teaser'
@@ -411,11 +486,21 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
+        - user
         - user.permissions
       tags:
         - 'config:core.entity_view_display.media.document.default'
         - 'config:core.entity_view_display.media.document.teaser'
         - 'config:core.entity_view_display.media.image.default'
+        - 'config:core.entity_view_display.media.image.icon'
+        - 'config:core.entity_view_display.media.image.node_blog'
+        - 'config:core.entity_view_display.media.image.node_blog_teaser'
+        - 'config:core.entity_view_display.media.image.node_program_header'
+        - 'config:core.entity_view_display.media.image.node_program_subcategory_teaser'
+        - 'config:core.entity_view_display.media.image.prgf_banner'
+        - 'config:core.entity_view_display.media.image.prgf_gallery'
+        - 'config:core.entity_view_display.media.image.prgf_small_banner'
+        - 'config:core.entity_view_display.media.image.prgf_teaser'
         - 'config:core.entity_view_display.media.image.teaser'
         - 'config:core.entity_view_display.media.video.default'
         - 'config:core.entity_view_display.media.video.teaser'

@@ -5,6 +5,10 @@ dependencies:
     - field.storage.node.field_blog_category
     - node.type.blog
     - taxonomy.vocabulary.blog_category
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_blog_category
 id: node.blog.field_blog_category
 field_name: field_blog_category
 entity_type: node
@@ -12,7 +16,7 @@ bundle: blog
 label: Category
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

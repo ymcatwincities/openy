@@ -35,19 +35,33 @@ source:
     -
       id: housing_and_transition_planning
       name: housing_and_transition_planning.jpg
+    -
+      id: join_one
+      name: join_one.jpg
+    -
+      id: join_two
+      name: join_two.jpg
+    -
+      id: join_three
+      name: join_three.jpg
   ids:
     id:
       type: string
   constants:
-    source_base_path: profiles/openy/modules/openy_features/openy_demo_content/modules/openy_demo_nlanding/assets/images
+    source_relative_path: assets/images
     uri_file: 'public:/'
+    module: openy_demo_nlanding
 process:
+  module_path:
+    plugin: module_path
+    source: constants/module
   source_full_path:
     -
       plugin: concat
       delimiter: /
       source:
-        - constants/source_base_path
+        - '@module_path'
+        - constants/source_relative_path
         - name
     -
       plugin: urlencode

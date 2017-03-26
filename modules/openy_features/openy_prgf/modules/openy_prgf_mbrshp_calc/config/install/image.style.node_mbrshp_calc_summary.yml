@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: node_mbrshp_calc_summary
+label: 'Node mbrshp calculator summary'
+effects:
+  76d79abc-d228-4ba8-8b03-db34526dc725:
+    uuid: 76d79abc-d228-4ba8-8b03-db34526dc725
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 555
+      height: 300

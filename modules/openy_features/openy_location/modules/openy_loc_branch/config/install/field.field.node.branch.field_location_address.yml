@@ -6,6 +6,10 @@ dependencies:
     - node.type.branch
   module:
     - address
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_location_address
 id: node.branch.field_location_address
 field_name: field_location_address
 entity_type: node
@@ -13,7 +17,7 @@ bundle: branch
 label: Address
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:

@@ -6,16 +6,16 @@ dependencies:
     - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
     - field.field.node.camp.field_location_address
+    - field.field.node.camp.field_location_coordinates
     - field.field.node.camp.field_location_directions
     - field.field.node.camp.field_location_email
     - field.field.node.camp.field_location_fax
-    - field.field.node.camp.field_location_latitude
-    - field.field.node.camp.field_location_longitude
     - field.field.node.camp.field_location_phone
     - node.type.camp
   module:
     - address
     - field_group
+    - geolocation
     - link
     - paragraphs
     - path
@@ -33,12 +33,13 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: open
-        description: ''
+        description: 'Fill in here general info about a group.'
         required_fields: true
       label: 'General Info'
     group_contact_info:
       children:
         - field_location_address
+        - field_location_coordinates
         - field_location_latitude
         - field_location_longitude
         - field_location_phone
@@ -52,7 +53,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: ''
+        description: 'Fill in here contact info about a group.'
         required_fields: true
       label: 'Contact Info'
     group_header_area:
@@ -88,14 +89,14 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 5
+    weight: 6
     settings: {  }
     third_party_settings: {  }
   field_camp_menu_links:
     weight: 2
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: /camp_subpage_uri
+      placeholder_title: 'Camp subpage title'
     third_party_settings: {  }
     type: link_default
   field_content:
@@ -124,73 +125,64 @@ content:
       default_country: null
     third_party_settings: {  }
     type: address_default
+  field_location_coordinates:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
   field_location_directions:
-    weight: 13
+    weight: 14
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: /location_directions_uri
+      placeholder_title: 'Location directions title'
     third_party_settings: {  }
     type: link_default
   field_location_email:
-    weight: 12
+    weight: 13
     settings:
       size: 60
-      placeholder: ''
+      placeholder: location_email@example.com
     third_party_settings: {  }
     type: email_default
   field_location_fax:
-    weight: 11
+    weight: 12
     settings:
-      placeholder: ''
+      placeholder: '0123456789'
     third_party_settings: {  }
     type: telephone_default
-  field_location_latitude:
-    weight: 8
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-  field_location_longitude:
-    weight: 9
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_location_phone:
-    weight: 10
+    weight: 11
     settings:
-      placeholder: ''
+      placeholder: '0123456789'
     third_party_settings: {  }
     type: telephone_default
   path:
     type: path
-    weight: 8
+    weight: 9
     settings: {  }
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 6
+    weight: 7
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 7
+    weight: 8
     third_party_settings: {  }
   title:
     type: string_textfield
     weight: 1
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide a title here'
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 4
+    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60

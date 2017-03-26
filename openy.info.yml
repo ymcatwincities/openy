@@ -4,7 +4,7 @@ description: 'Open Y Drupal distribution.'
 core: 8.x
 distribution:
   name: OpenY
-
+php: 5.6
 # Required modules
 dependencies:
   # Core modules.
@@ -47,22 +47,27 @@ dependencies:
   # Contrib modules.
   - features
   - features_ui
+  - config_import
   - field_group
-  - field_collection
   - address
+  - datalayer
   - paragraphs
   - plugin
   - pathauto
   - media_entity
   - views_block_filter_block
+  - libraries
   - migrate_plus
   - migrate_tools
+  - optimizely
   - verf
   - simple_menu_icons
   - slick
   - slick_ui
+  - slick_views
   - blazy
   - blazy_ui
+  - geolocation
   # OpenY features.
   - openy_media_image
   - openy_media_document
@@ -71,6 +76,7 @@ dependencies:
   - openy_node
   - openy_block
   - openy_block_basic
+  - openy_datalayer
   - openy_taxonomy
   - openy_txnm_color
   - openy_location
@@ -97,28 +103,29 @@ dependencies:
   - openy_prgf_blog_camp
   - openy_prgf_blog_branch
   - openy_prgf_blog_listing
+  - openy_prgf_loc_finder
+  - openy_prgf_mbrshp_calc
   - openy_node_activity
+  - openy_node_alert
   - openy_node_class
   - openy_node_session
   - openy_menu
   - openy_menu_main
   - openy_menu_footer
-  - openy_demo_bfooter
-  - openy_demo_tarea
-  - openy_demo_tblog
-  - openy_demo_tcolor
-  - openy_demo_tfacility
-  - openy_demo_nprogram
-  - openy_demo_ncategory
-  - openy_demo_nbranch
-  - openy_demo_nblog
-  - openy_demo_nlanding
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
-  - openy_user
   # OpenY custom modules
+  - openy_field_hours
   - openy_hours_formatter
   - openy_migrate
+  - openy_map
+  - openy_socrates
+  - location_finder
+  - daxko
+  - openy_mappings
+  - openy_calc
+  - openy_data_wrapper
+  - logger_entity
 
 themes:
   - bartik

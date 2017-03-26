@@ -1,8 +1,11 @@
 langcode: en
 status: true
+dependencies:
+  module:
+    - openy_node
 id: openy-theme-overview
 label: 'Theme Overview'
-theme: openy_rose
+module: openy_node
 routes:
   - route_name: system.theme_settings_theme
     route_params:

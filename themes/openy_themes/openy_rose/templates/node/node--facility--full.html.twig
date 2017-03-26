@@ -107,6 +107,10 @@ set classes = [
               </div>
             </div>
           </div>
+          {% if content.field_facility_loc %}
+            <h3 class="sidebar-card_h3">{{ "Associated Branch"|t }}</h3>
+            {{ content.field_facility_loc }}
+          {% endif %}
           {{ content.field_sidebar_content }}
         </article>
       </div>

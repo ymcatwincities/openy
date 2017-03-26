@@ -2,8 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.featured_content.field_prgf_clm_description
     - field.field.paragraph.featured_content.field_prgf_description
+    - field.field.paragraph.featured_content.field_prgf_fc_clm_description
     - field.field.paragraph.featured_content.field_prgf_grid_style
     - field.field.paragraph.featured_content.field_prgf_headline
     - field.field.paragraph.featured_content.field_prgf_link
@@ -16,15 +16,15 @@ targetEntityType: paragraph
 bundle: featured_content
 mode: default
 content:
-  field_prgf_clm_description:
-    weight: 4
+  field_prgf_description:
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_prgf_description:
-    weight: 1
+  field_prgf_fc_clm_description:
+    weight: 5
     settings:
       rows: 5
       placeholder: ''

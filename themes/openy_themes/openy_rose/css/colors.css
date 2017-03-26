@@ -11,14 +11,87 @@ a,
 .btn {
   background-color: #00aeef;
 }
-.top-navs {
+.btn-default {
+  background-color: #ffffff;
+}
+.top-navs,
+.sidebar,
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active {
   background-color: #0089d0;
 }
 .nav.dropdown-menu,
 .viewport .nav-level-2.open > a,
-.viewport .nav-level-2.open > a:focus {
+.viewport .nav-level-2.open > a:focus,
+.nav > li > a:hover,
+.nav > li > a:focus {
   background-color: #0060af;
+}
+.viewport .nav-level-2.open {
+  background-color: #0060af;
+  border-bottom: #0060af;
+}
+.branch-header .desktop {
+  background-color: #c6168d;
 }
 .footer {
   background-color: #4f4f4f;
+}
+
+/* Camp specific overrides */
+.is-camp {
+  background-color: #fffffe;
+  color: #636465;
+}
+.is-camp a,
+.is-camp .link {
+  color: #01a491;
+}
+.is-camp .button,
+.is-camp .btn {
+  background-color: #2fb998;
+}
+.is-camp .top-navs,
+.is-camp .sidebar,
+.is-camp .navbar-default .navbar-toggle,
+.is-camp .navbar-default .navbar-toggle:focus,
+.is-camp .navbar-default .navbar-toggle:hover,
+.is-camp .navbar-default .navbar-toggle:active {
+  background-color: #f47920;
+}
+.is-camp .nav.dropdown-menu,
+.is-camp .viewport .nav-level-2.open > a,
+.is-camp .viewport .nav-level-2.open > a:focus,
+.is-camp .nav > li > a:hover,
+.is-camp .nav > li > a:focus {
+  background-color: #f86b05;
+}
+.is-camp .branch-header .desktop {
+  background-color: #c6168c;
+}
+.is-camp .viewport .nav-level-2.open {
+  background-color: #f86b05;
+  border-bottom: #f86b05;
+}
+.is-camp footer {
+  background-color: #01a490;
+}
+.is-camp .camp-menu-wrapper {
+  background-color: #0060ad;
+}
+.is-camp .camp-menu__item a {
+  color: #fffffd;
+}
+.is-camp .camp-menu-wrapper a:hover,
+.is-camp .camp-menu-wrapper .active {
+  background-color: #0089d1;
+}
+
+.viewport .nav-level-2 > a:hover,
+.viewport .nav-level-2 > a:focus,
+.is-camp .viewport .nav-level-2 > a:hover,
+.is-camp .viewport .nav-level-2 > a:focus {
+  background: none;
 }

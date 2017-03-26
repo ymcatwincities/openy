@@ -7,10 +7,10 @@ Facility content type is used for adding facilities on the site.
 | Title  | drupal's default  | Yes | Title of the facility item. |
 | Neighborhood | field\_location_area  | No | A taxonomy reference field using the Area Vocabulary(area). |
 | Type | field\_facility_type  | No | A taxonomy reference field using the "Facility Type" vocabulary. |
+| Facility Branch | field\_facility_loc | No | A entity reference field to reference the related Branch node. |
 | **Contact** | Field group |||
 | Address | field\_location_address | Yes | An address field that will provide the ability to add details about the locations. Details to be completed: <ul><li>Address</li><li>City</li><li>State</li><li>Zip Code</li></ul> |
-| Latitude | field\_location_latitude | No | Input for providing the latitude information. |
-| Longitude | field\_location_longitude | No | Input for providing the longitude information. |
+| Facility Coordinates | field_location_coordinates | No | Input for providing the latitude and longitude information. |
 | Phone | field\_location_phone | Yes | Input for providing the phone information. |
 | Fax | field\_location_fax | No | Input for providing the fax information. |
 | Email | field\_location_email | No | Input for providing the email information. |

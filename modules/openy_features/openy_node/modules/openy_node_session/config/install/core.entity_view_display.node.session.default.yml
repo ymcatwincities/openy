@@ -20,7 +20,7 @@ dependencies:
     - node.type.session
   module:
     - datetime_range
-    - field_collection
+    - entity_reference_revisions
     - link
     - options
     - text
@@ -147,11 +147,15 @@ content:
     third_party_settings: {  }
     type: boolean
   field_session_time:
+    type: entity_reference_revisions_entity_view
     weight: 115
     label: above
-    settings: {  }
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: field_collection_list
   links:
     weight: 100
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

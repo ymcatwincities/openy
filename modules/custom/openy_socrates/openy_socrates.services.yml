@@ -1,0 +1,8 @@
+services:
+  socrates:
+    class: Drupal\openy_socrates\OpenySocratesFacade
+    arguments: []
+  example_socrates_data_service:
+    class: Drupal\openy_socrates\ExampleSocratesDataService
+    tags:
+      - { name: openy_data_service, priority: 1000 }

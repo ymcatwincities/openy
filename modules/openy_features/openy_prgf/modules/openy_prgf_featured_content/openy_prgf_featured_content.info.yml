@@ -5,7 +5,6 @@ core: 8.x
 dependencies:
   - blazy
   - field
-  - field_collection
   - link
   - openy_prgf
   - options
