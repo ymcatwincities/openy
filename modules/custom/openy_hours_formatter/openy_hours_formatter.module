@@ -16,10 +16,5 @@ function openy_hours_formatter_theme() {
         'week' => [],
       ),
     ),
-    'openy_branch_hours_formatter' => array(
-      'variables' => array(
-        'week' => [],
-      ),
-    ),
   );
 }

@@ -13,6 +13,7 @@ dependencies:
   - media_entity
   - media_entity_document
   - openy_media
+  - taxonomy
   - user
   - views
 version: 8.x-1.0

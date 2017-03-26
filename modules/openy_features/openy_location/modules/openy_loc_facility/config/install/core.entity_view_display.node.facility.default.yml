@@ -3,20 +3,21 @@ status: true
 dependencies:
   config:
     - field.field.node.facility.field_content
+    - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
     - field.field.node.facility.field_location_area
+    - field.field.node.facility.field_location_coordinates
     - field.field.node.facility.field_location_directions
     - field.field.node.facility.field_location_email
     - field.field.node.facility.field_location_fax
-    - field.field.node.facility.field_location_latitude
-    - field.field.node.facility.field_location_longitude
     - field.field.node.facility.field_location_phone
     - field.field.node.facility.field_sidebar_content
     - node.type.facility
   module:
     - address
     - entity_reference_revisions
+    - geolocation
     - link
     - telephone
     - user
@@ -33,6 +34,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+  field_facility_loc:
+    weight: 113
+    label: above
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
   field_facility_type:
     weight: 102
     label: above
@@ -53,6 +62,12 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+  field_location_coordinates:
+    weight: 112
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
   field_location_directions:
     weight: 109
     label: above
@@ -77,20 +92,6 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
-  field_location_latitude:
-    weight: 104
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-  field_location_longitude:
-    weight: 105
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
   field_location_phone:
     weight: 106
     label: above

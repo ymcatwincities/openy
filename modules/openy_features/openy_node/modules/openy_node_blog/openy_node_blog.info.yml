@@ -16,6 +16,7 @@ dependencies:
   - openy_media_image
   - openy_node
   - openy_txnm_blog_category
+  - openy_txnm_color
   - options
   - paragraphs
   - path
@@ -23,4 +24,4 @@ dependencies:
   - taxonomy
   - text
   - user
-version: 8.x-1.0
+version: 8.x-1.1

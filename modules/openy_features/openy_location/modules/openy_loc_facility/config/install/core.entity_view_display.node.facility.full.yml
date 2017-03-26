@@ -4,14 +4,14 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.facility.field_content
+    - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
     - field.field.node.facility.field_location_area
+    - field.field.node.facility.field_location_coordinates
     - field.field.node.facility.field_location_directions
     - field.field.node.facility.field_location_email
     - field.field.node.facility.field_location_fax
-    - field.field.node.facility.field_location_latitude
-    - field.field.node.facility.field_location_longitude
     - field.field.node.facility.field_location_phone
     - field.field.node.facility.field_sidebar_content
     - node.type.facility
@@ -33,6 +33,14 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+  field_facility_loc:
+    type: entity_reference_entity_view
+    weight: 7
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
   field_facility_type:
     weight: 4
     label: hidden
@@ -54,7 +62,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
   field_location_phone:
-    weight: 7
+    weight: 5
     label: inline
     settings:
       title: ''
@@ -62,7 +70,7 @@ content:
     type: telephone_link
   field_sidebar_content:
     type: entity_reference_revisions_entity_view
-    weight: 11
+    weight: 6
     label: hidden
     settings:
       view_mode: default
@@ -73,8 +81,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_location_coordinates: true
   field_location_directions: true
   field_location_email: true
   field_location_fax: true
-  field_location_latitude: true
-  field_location_longitude: true

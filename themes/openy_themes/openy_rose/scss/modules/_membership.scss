@@ -2,7 +2,93 @@
 a[href="#step2"] {
   pointer-events: none;
 }
-.views-element-container .nav-pills {
+
+#membership-calc-wrapper {
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+  .h1 {
+    margin-bottom: 30px;
+    padding-bottom: 4px;
+  }
+  .description {
+    margin-bottom: -0.5em;
+  }
+  legend {
+    border: none;
+    color: inherit;
+    font-size: 36px;
+  }
+  .label-for-field-mbrshp-join-fee,
+  .label-for-field-mbrshp-monthly-rate {
+    float: left;
+    margin-right: 0.5em;
+    &:after {
+      content: ":";
+    }
+  }
+  .membership-type label {
+    border-bottom: 1px solid #333;
+    bottom: 0;
+    display: block;
+    padding-bottom: 30px;
+    position: absolute;
+    width: 100%;
+  }
+  .btn {
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 10px;
+  }
+  .text-center {
+    margin-top: 40px;
+  }
+  .form-element-wrapper {
+    height: 100%;
+    position: relative;
+    .btn {
+      display: block;
+    }
+  }
+  input[name="type"] {
+    display: none;
+  }
+  .col-sm-6 {
+    margin-bottom: 40px;
+    @include breakpoint($screen-xs $screen-sm) {
+      width: 50%;
+    }
+    .contextual-region {
+      position: static;
+    }
+    .node--view-mode-calc-preview {
+      img {
+        height: auto;
+        margin-bottom: 10px;
+        width: 100%;
+      }
+    }
+  }
+  input[type="radio"]:checked + .form-element-wrapper label .btn {
+    background-color: $purple;
+    box-shadow: 0 0 5px $purple;
+  }
+  .pull-left,
+  .pull-right {
+    margin: 20px 0 10px 0;
+  }
+  .node--type-membership.node--view-mode-calc-preview {
+    margin-bottom: 90px;
+  }
+  .pull-right,
+  .complete-registration {
+    background-color: $purple;
+  }
+}
+
+#membership-calc-wrapper .nav-pills {
   display: table;
   width: 100%;
   @include cachet();
@@ -17,24 +103,32 @@ a[href="#step2"] {
     display: table-cell;
     float: none;
     vertical-align: middle;
-
-    &:last-child {
-      a {
-        padding-left: 25px;
+    @include breakpoint(0 $screen-xs) {
+      margin-bottom: 5px;
+      display: block;
+      overflow: hidden;
+    }
+    @include breakpoint($screen-xs) {
+      width: 34%;
+      &:last-child {
+        div {
+          padding-left: 25px;
+        }
       }
     }
-
-    a {
+    div {
       text-decoration: none;
       position: relative;
       white-space: nowrap;
       border-radius: 0;
       color: white;
       background-color: #92278f;
-      width: calc(100% - 30px);
       text-align: center;
+      padding: 9px;
+      width: 90%;
       @include breakpoint($screen-xs) {
         display: block;
+        width: calc(100% - 30px);
       }
       &:before {
         content: " ";
@@ -66,88 +160,47 @@ a[href="#step2"] {
         left: 100%;
         z-index: 2;
       }
-
       .nav-pills__text {
         position: relative;
         z-index: 3;
       }
     }
-    a[href="#step1"] {
-      width: calc(100% - 15px);
+    .step-1,
+    .step-2 {
+      @include breakpoint($screen-xs) {
+        width: calc(100% - 15px);
+      }
     }
-    &.active a,
-    &:first-child a{
+    .step-2 {
+      .nav-pills__text {
+        margin-left: 5px;
+      }
+    }
+    &.active div,
+    &:first-child div {
       background-color: $purple;
     }
-    &:first-child a:after,
-    &.active a:after {
+    &:first-child div:after,
+    &.active div:after {
       border-left: 30px solid $purple;;
     }
   }
+  li + li {
+    margin-left: 0;
+  }
+}
+
+.openy-map-wrapper {
+  margin-bottom: 20px;
 }
 
 .views-view-membership {
-
-  .h1 {
-    padding-bottom: 4px;
-  }
 
   .field-body-no-summary {
     font-size: 15px;
     padding-bottom: 110px;
   }
 
-  .btn {
-    line-height: 40px;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 10px 10px;
-  }
-
-  .text-center {
-    margin-top: 40px;
-  }
-
-  .inner-wrapper .btn {
-    display: block;
-    position: absolute;
-    bottom: 30px;
-    width: calc(100% - 30px);
-
-    &:after {
-      content: "";
-      display: block;
-      width: 100%;
-      background-color: #333;
-      height: 1px;
-      position: absolute;
-      bottom: -30px;
-      left:0;
-    }
-  }
-
-  .description {
-    margin-bottom: -0.5em;
-  }
-
-  .col-sm-6 {
-    margin-bottom: 20px;
-
-    @include breakpoint($screen-xs $screen-sm) {
-      width: 50%;
-    }
-
-    .contextual-region {
-      position: static;
-    }
-
-    .node--view-mode-teaser {
-
-      img {
-        width: 100%;
-      }
-    }
-  }
 }
 
 .view-mode-thumb-262-233 {
@@ -159,7 +212,7 @@ a[href="#step2"] {
   flex-wrap: wrap;
 }
 
-.field-membership-info {
+.form-item-location {
   flex-basis: 25%;
   margin-bottom: 5px;
 
@@ -190,7 +243,6 @@ a[href="#step2"] {
   label {
     max-width: calc(100% - 40px);
     margin-bottom: 0;
-
     vertical-align: middle;
   }
 }

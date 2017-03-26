@@ -96,9 +96,17 @@ class CampMenu extends BlockBase implements ContainerFactoryPluginInterface {
     $current_route_url = Url::fromRoute($current_route->getRouteName(), $current_route->getRawParameters()->all());
     $current_internal_path = $current_route_url->getInternalPath();
 
+    // Add default home link to the camp node.
+    array_unshift($links, [
+      'uri' => 'entity:' . $camp->getEntityTypeId() . '/' . $camp->id(),
+      'title' => t('Home'),
+      'options' => [],
+    ]);
+
     foreach ($links as &$link) {
       $url = Url::fromUri($link['uri']);
       $link = (new Link($link['title'], $url))->toRenderable();
+      // If link is to current page set 'active' class.
       if (!$url->isExternal() && $url->isRouted() && $current_internal_path == $url->getInternalPath()) {
         $link['#attributes']['class'] = ['active'];
       }

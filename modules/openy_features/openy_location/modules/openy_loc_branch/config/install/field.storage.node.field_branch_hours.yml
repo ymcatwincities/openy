@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
-    - field_collection
     - node
+    - openy_field_custom_hours
 id: node.field_branch_hours
 field_name: field_branch_hours
 entity_type: node
-type: field_collection
+type: openy_custom_hours
 settings: {  }
-module: field_collection
+module: openy_field_custom_hours
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

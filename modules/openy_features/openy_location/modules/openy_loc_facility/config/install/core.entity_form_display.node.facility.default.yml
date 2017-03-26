@@ -3,20 +3,21 @@ status: true
 dependencies:
   config:
     - field.field.node.facility.field_content
+    - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
     - field.field.node.facility.field_location_area
+    - field.field.node.facility.field_location_coordinates
     - field.field.node.facility.field_location_directions
     - field.field.node.facility.field_location_email
     - field.field.node.facility.field_location_fax
-    - field.field.node.facility.field_location_latitude
-    - field.field.node.facility.field_location_longitude
     - field.field.node.facility.field_location_phone
     - field.field.node.facility.field_sidebar_content
     - node.type.facility
   module:
     - address
     - field_group
+    - geolocation
     - link
     - paragraphs
     - path
@@ -28,6 +29,7 @@ third_party_settings:
         - title
         - field_location_area
         - field_facility_type
+        - field_facility_loc
       parent_name: ''
       weight: 0
       format_type: tab
@@ -41,6 +43,7 @@ third_party_settings:
     group_contact_info:
       children:
         - field_location_address
+        - field_location_coordinates
         - field_location_latitude
         - field_location_longitude
         - field_location_phone
@@ -104,6 +107,14 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+  field_facility_loc:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_facility_type:
     weight: 3
     settings: {  }
@@ -123,42 +134,33 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+  field_location_coordinates:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
   field_location_directions:
-    weight: 13
+    weight: 14
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
   field_location_email:
-    weight: 12
+    weight: 13
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: email_default
   field_location_fax:
-    weight: 11
+    weight: 12
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
-  field_location_latitude:
-    weight: 8
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-  field_location_longitude:
-    weight: 9
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
   field_location_phone:
-    weight: 10
+    weight: 11
     settings:
       placeholder: ''
     third_party_settings: {  }

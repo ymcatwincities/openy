@@ -11,7 +11,9 @@
         "behat/behat": "^3.0",
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
-        "emuse/behat-html-formatter": "^0.1.0"
+        "emuse/behat-html-formatter": "^0.1.0",
+        "drupal/tqextension": "dev-drupal-8",
+        "cevou/behat-screenshot-compare-extension": "^1.0@dev"
     },
     "config": {
         "bin-dir": "bin/"
@@ -24,7 +26,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/kenwheeler/slick",
+                "name": "library-kenwheeler/slick",
                 "version": "1.6.0",
                 "type": "drupal-library",
                 "source": {
@@ -37,7 +39,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/dinbror/blazy",
+                "name": "library-dinbror/blazy",
                 "version": "1.8.2",
                 "type": "drupal-library",
                 "source": {
@@ -50,7 +52,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/gdsmith/jquery.easing",
+                "name": "library-gdsmith/jquery.easing",
                 "version": "1.4.1",
                 "type": "drupal-library",
                 "source": {
@@ -63,7 +65,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/enyo/dropzone",
+                "name": "library-enyo/dropzone",
                 "version": "4.3.0",
                 "type": "drupal-library",
                 "source": {
@@ -76,13 +78,13 @@
         {
             "type": "package",
             "package": {
-                "name": "library/jaypan/jquery_colorpicker",
+                "name": "library-jaypan/jquery_colorpicker",
                 "version": "1.0.1",
                 "type": "drupal-library",
                 "source": {
-                    "url": "https://github.com/jaypan/jquery_colorpicker_composer",
+                    "url": "https://github.com/jaypan/jquery_colorpicker",
                     "type": "git",
-                    "reference": "1.0.1"
+                    "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
         }
@@ -110,19 +112,27 @@
             },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
+            },
+            "drupal/confi": {
+                "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
+            },
+            "drupal/datalayer": {
+                "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
             }
         }
     },
     "require": {
+        "php": ">=5.6",
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
-        "drupal/core": "8.2.6",
+        "drupal/core": "8.2.7",
         "drupal/features": "3.2",
+        "drupal/confi": "1.3",
         "drupal/config_update": "1.3",
         "drupal/entity": "1.0-alpha4",
         "drupal/media_entity": "1.6",
-        "drupal/media_entity_image": "1.2",
+        "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.1",
         "drupal/address": "1.0-rc3",
         "drupal/paragraphs": "1.0",
@@ -131,7 +141,6 @@
         "drupal/ctools": "3.0-alpha27",
         "drupal/token": "1.0-rc1",
         "drupal/field_group": "1.0-rc6",
-        "drupal/field_collection": "1.0-alpha1",
         "drupal/video_embed_field": "1.4",
         "drupal/jquery_colorpicker": "1.3",
         "drupal/entity_browser": "1.0-rc1",
@@ -148,10 +157,15 @@
         "drupal/views_infinite_scroll": "1.3",
         "drupal/slick": "1.0-rc1",
         "drupal/blazy": "1.0-rc1",
-        "library/jaypan/jquery_colorpicker": "1.0.1",
-        "library/enyo/dropzone": "4.3.0",
-        "library/kenwheeler/slick": "1.6.0",
-        "library/dinbror/blazy": "1.8.2",
-        "library/gdsmith/jquery.easing": "1.4.1"
+        "drupal/geolocation": "1.9",
+        "library-jaypan/jquery_colorpicker": "1.0.1",
+        "library-enyo/dropzone": "4.3.0",
+        "library-kenwheeler/slick": "1.6.0",
+        "library-dinbror/blazy": "1.8.2",
+        "library-gdsmith/jquery.easing": "1.4.1",
+        "drupal/slick_views": "1.0-rc2",
+        "drupal/libraries": "3.x-dev",
+        "drupal/datalayer": "1.x-dev",
+        "drupal/optimizely": "1.2"
     }
 }

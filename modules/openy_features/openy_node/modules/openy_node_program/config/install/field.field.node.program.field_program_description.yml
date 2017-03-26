@@ -6,6 +6,10 @@ dependencies:
     - node.type.program
   module:
     - text
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_program_description
 id: node.program.field_program_description
 field_name: field_program_description
 entity_type: node
@@ -13,7 +17,7 @@ bundle: program
 label: Description
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

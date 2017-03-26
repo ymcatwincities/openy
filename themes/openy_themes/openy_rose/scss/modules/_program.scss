@@ -141,9 +141,18 @@
   }
   .image {
     margin-bottom: 20px;
+    text-align: center;
+    @include breakpoint(0 $screen-xs) {
+      img {
+        height: auto;
+        width: 100%;
+      }
+    }
+    @include breakpoint($screen-sm) {
+      text-align: right;
+    }
     @include breakpoint($screen-lg) {
       margin-bottom: 0;
-      width: 300px;
       img {
         max-width: 260px;
       }

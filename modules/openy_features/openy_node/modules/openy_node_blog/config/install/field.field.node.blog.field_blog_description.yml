@@ -6,6 +6,10 @@ dependencies:
     - node.type.blog
   module:
     - text
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_blog_description
 id: node.blog.field_blog_description
 field_name: field_blog_description
 entity_type: node
@@ -13,7 +17,7 @@ bundle: blog
 label: Description
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

@@ -11,7 +11,7 @@ name: documents_library_embed
 label: 'Documents Library Embed'
 display: iframe
 display_configuration:
-  width: '950'
+  width: 99%
   height: '600'
   link_text: 'Select documents'
   auto_open: true
@@ -37,6 +37,7 @@ widgets:
       view: documents_library
       view_display: documents_library
       submit_text: 'Select documents'
+      auto_select: false
     uuid: 91174dcf-a572-4366-8a6d-76f238ffe1eb
     weight: 2
     label: 'Select Documents'

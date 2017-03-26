@@ -7,11 +7,10 @@ dependencies:
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
     - field.field.node.branch.field_location_area
+    - field.field.node.branch.field_location_coordinates
     - field.field.node.branch.field_location_directions
     - field.field.node.branch.field_location_email
     - field.field.node.branch.field_location_fax
-    - field.field.node.branch.field_location_latitude
-    - field.field.node.branch.field_location_longitude
     - field.field.node.branch.field_location_phone
     - field.field.node.branch.field_location_state
     - field.field.node.branch.field_location_temp_url
@@ -19,7 +18,8 @@ dependencies:
   module:
     - address
     - entity_reference_revisions
-    - openy_hours_formatter
+    - geolocation
+    - openy_field_custom_hours
     - telephone
     - user
 id: node.branch.default
@@ -28,11 +28,11 @@ bundle: branch
 mode: default
 content:
   field_branch_hours:
-    type: openy_hours_formatter
-    weight: 4
-    label: hidden
+    weight: 6
+    label: above
     settings: {  }
     third_party_settings: {  }
+    type: openy_custom_hours_default
   field_content:
     type: entity_reference_revisions_entity_view
     weight: 3
@@ -55,6 +55,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: address_plain
+  field_location_coordinates:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
   field_location_phone:
     weight: 1
     label: hidden
@@ -67,8 +73,6 @@ hidden:
   field_location_directions: true
   field_location_email: true
   field_location_fax: true
-  field_location_latitude: true
-  field_location_longitude: true
   field_location_state: true
   field_location_temp_url: true
   links: true

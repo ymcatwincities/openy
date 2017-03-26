@@ -17,7 +17,7 @@ source:
     -
       id: blog_small_banner
       parent_id: blog
-      headline: 'YMCA of Greater Seattle Blog'
+      headline: 'OpenY Blog'
       color: 14
   ids:
     id:

@@ -57,7 +57,7 @@ set classes = [
     have after this was converted from a field collection.
   #}
   {{ attach_library('openy_rose/featured_slider') }}
-  <div class="{{ 'wrapper-' ~ content.field_prgf_clm_description['#field_name']|clean_class}} row">
+  <div class="{{ 'wrapper-' ~ content.field_prgf_fc_clm_description['#field_name']|clean_class}} row">
     {% if content.field_prgf_grid_style.0['#markup'] == '2' %}
       {% set item_class = 'col-xs-12 col-sm-6' %}
     {% elseif content.field_prgf_grid_style.0['#markup'] == '3' %}
@@ -66,7 +66,7 @@ set classes = [
       {% set item_class = 'col-xs-12 col-sm-3' %}
     {% endif %}
 
-    {% for key, item in content.field_prgf_clm_description %}
+    {% for key, item in content.field_prgf_fc_clm_description %}
       {% if key matches '/^\\d+$/' %}
         <div class="{{ item_class }} row-eq-height">
           {{ item }}

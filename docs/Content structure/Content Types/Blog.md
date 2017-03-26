@@ -5,9 +5,12 @@ Blog Post content type is used for adding blog posts on the site.
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the blog item. |
-| Style | field\_blog_style  | Yes | Select list field with multiple options for choosing style: <ul><li>Story Card</li><li>Photo Card</li><li>News Card</li><li>Fuchsia Card (default)</li><li>Green Card</li></ul> |
 | Locations | field\_blog_location | Yes | Reference field to `branch` and `camp` nodes. Multiple Values. |
 | Category | field\_blog_category | No | Reference field for choosing the term from "Blog Category" vocabulary. Multiple Values. |
+| **Styles** | Field group |||
+| Style | field\_blog_style  | Yes | Select list field with multiple options for choosing style: <ul><li>Story Card</li><li>Photo Card</li><li>News Card (default)</li><li>Color Card</li></ul> |
+| Background color | field\_blog\_color  | No | teaser background color  (used when Color Card style is selected.) |
+| Text color | field\_blog\_text\_color | No | teaser text color  (used when Color Card style is selected.) |
 | **Content Area** | Field group |||
 | Image | field\_blog_image | No | Image field for the Blog item. Entity reference to Media bundle. |
 | Description | field_blog_description | No | Textarea for the description/body with WYSIWYG, without summary. |

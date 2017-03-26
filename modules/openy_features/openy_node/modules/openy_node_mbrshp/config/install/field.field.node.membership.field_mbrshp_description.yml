@@ -6,6 +6,10 @@ dependencies:
     - node.type.membership
   module:
     - text
+third_party_settings:
+  datalayer:
+    expose: 1
+    label: field_mbrshp_description
 id: node.membership.field_mbrshp_description
 field_name: field_mbrshp_description
 entity_type: node
@@ -13,7 +17,7 @@ bundle: membership
 label: Description
 description: ''
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

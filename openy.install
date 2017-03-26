@@ -13,13 +13,149 @@
  * @see system_install()
  */
 function openy_install() {
+  $config_factory = Drupal::configFactory();
+  $module_installer = Drupal::service('module_installer');
+
   // Set the default and admin theme.
-  \Drupal::configFactory()
+  $config_factory
     ->getEditable('system.theme')
     ->set('default', 'openy_rose')
     ->set('admin', 'seven')
     ->save(TRUE);
 
   // Enable the admin theme.
-  \Drupal::configFactory()->getEditable('node.settings')->set('use_admin_theme', TRUE)->save(TRUE);
+  $config_factory->getEditable('node.settings')->set('use_admin_theme', TRUE)->save(TRUE);
+  // Enable openy_upgrade_tool.
+  $module_installer->install(['openy_upgrade_tool'], TRUE);
+
+  // Enable openy_user after all modules are installed.
+  $module_installer->install(['openy_user'], TRUE);
+}
+
+/**
+ * Upgrade from 8.x-0.2 version.
+ */
+function openy_update_8001() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable modules.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_ncamp',
+    ], TRUE);
+
+    // Run openy_demo_ncamp migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_camp');
+    $importer->import('openy_demo_node_landing');
+  }
+}
+
+/**
+ * Enable Alerts.
+ */
+function openy_update_8002() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_node_alert')) {
+    return;
+  }
+
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_node_alert']);
+}
+
+/**
+ * Enable config_import module.
+ */
+function openy_update_8003() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'config_import',
+    'logger_entity',
+    'openy_upgrade_tool',
+  ]);
+}
+
+/**
+ * Fix tour config dependencies.
+ */
+function openy_update_8004() {
+  $config = drupal_get_path('theme', 'openy_rose') . '/config/optional/tour.tour.openy-theme-overview.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'tour.tour.openy-theme-overview', 'dependencies');
+}
+
+/**
+ * Enable Data layer modules & revert needed configuration.
+ */
+function openy_update_8005() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(
+    ['libraries', 'datalayer', 'openy_datalayer']
+  );
+}
+
+/**
+ * Enable and import demo Facilities.
+ */
+function openy_update_8006() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable modules.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_nfacility',
+    ], TRUE);
+
+    // Run openy_demo_nfacility migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_facility');
+  }
+}
+
+/**
+ * Enable Optimizely module.
+ */
+function openy_update_8007() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['optimizely']);
+}
+
+/**
+ * Add user and main menu blocks to sidebar region.
+ */
+function openy_update_8008() {
+  $config_dir = drupal_get_path('profile', 'openy') . '/config/optional';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'block.block.mainnavigation',
+    'block.block.useraccountmenu',
+  ]);
+}
+
+/**
+ * Add Demo alerts.
+ */
+function openy_update_8009() {
+  if (\Drupal::service('module_handler')->moduleExists('openy_migrate')) {
+    // Enable module.
+    \Drupal::service('module_installer')->install([
+      'openy_demo_nalert',
+    ], TRUE);
+
+    // Run openy_demo_node_alert migration.
+    $importer = \Drupal::service('openy_migrate.importer');
+    $importer->import('openy_demo_node_alert');
+  }
+}
+
+/**
+ * Enable and import demo Membership content and Demo Join page.
+ */
+function openy_update_8010() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_demo_nmbrshp',
+  ], TRUE);
+
+  // Run openy_demo_node_landing & openy_demo_node_membership migrations.
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('openy_demo_node_landing');
+  $importer->import('openy_demo_node_membership');
 }

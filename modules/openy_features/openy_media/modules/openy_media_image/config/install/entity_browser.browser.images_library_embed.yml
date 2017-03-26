@@ -11,7 +11,7 @@ name: images_library_embed
 label: 'Images Library Embed'
 display: iframe
 display_configuration:
-  width: '950'
+  width: 99%
   height: '600'
   link_text: 'Select images'
   auto_open: true
@@ -25,6 +25,7 @@ widgets:
       view: images_library
       view_display: images_library
       submit_text: 'Select images'
+      auto_select: false
     uuid: 066bf7d9-6d8d-46cd-ac5c-a0944058e8c4
     weight: -9
     label: 'All Images'
