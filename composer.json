@@ -9,6 +9,10 @@
         "drupal-composer/drupal-scaffold": "^2.2",
         "cweagans/composer-patches": "~1.0"
     },
+    "require-dev": {
+        "ymcatwincities/openy-cibox-build": "dev-master",
+        "ymcatwincities/openy-cibox-vm": "dev-master"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [
@@ -84,18 +88,25 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "@composer drupal-scaffold"
+            "@composer drupal-scaffold",
+            "cibox-vm"
         ],
-        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        "post-update-cmd": [
+            "cibox-vm"
+        ],
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "cibox-vm": "([ -d ./vendor/ymcatwincities ] && rsync -r --exclude=composer.json ./vendor/ymcatwincities/openy-cibox-vm/ ./) || true"
     },
     "extra": {
+        "installer-types": ["cibox-build"],
         "installer-paths": {
             "docroot/core": ["type:drupal-core"],
             "docroot/libraries/{$name}": ["type:drupal-library"],
             "docroot/modules/contrib/{$name}": ["type:drupal-module"],
             "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
             "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/contrib/{$name}": ["type:drupal-drush"]
+            "drush/contrib/{$name}": ["type:drupal-drush"],
+            "docroot/": ["type:cibox-build"]
         },
         "enable-patching": true
     },
