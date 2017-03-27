@@ -329,7 +329,7 @@ function yptf_master_update_8019() {
   $config_importer->setDirectory('sites/default/config/staging/');
   $config_importer->importConfigs(
     [
-      // YMCA Retention views.
+      // YMCA locations.
       'ymca_mindbody.trainings_mapping',
     ]
   );
@@ -342,4 +342,18 @@ function yptf_master_update_8019() {
   $mapping->set('field_mindbody_id', '25');
 
   $mapping->save();
+}
+
+/**
+ * Update Mindbody recipient list.
+ */
+function yptf_master_update_8020() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // YMCA notifications.
+      'ymca_mindbody.notifications',
+    ]
+  );
 }
