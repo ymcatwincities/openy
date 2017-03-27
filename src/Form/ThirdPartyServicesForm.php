@@ -5,6 +5,7 @@ namespace Drupal\openy\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Database\Database;
+use Drupal\Core\Url;
 
 /**
  * Defines a form for setting Google Maps API Key during install.
@@ -26,6 +27,8 @@ class ThirdPartyServicesForm extends FormBase {
     $config_factory = \Drupal::service('config.factory');
     // Get Google Maps API settings container.
     $geo_loc_config = $config_factory->get('geolocation.settings');
+    // Get Google Analytics Account settings container.
+    $ga_config = $config_factory->get('google_analytics.settings');
     // Get Google Tag Manager Account settings container.
     $gtm_config = $config_factory->get('google_tag.settings');
     // Get Optimizely settings container.
@@ -39,6 +42,16 @@ class ThirdPartyServicesForm extends FormBase {
       '#title' => $this->t('Google Maps API key'),
       '#default_value' => $geo_loc_config->get('google_map_api_key'),
       '#description' => $this->t('Google Maps requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis" target="_blank">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
+    ];
+
+    // Google Analytics Account ID.
+    $form['google_analytics_account'] = [
+      '#default_value' => $ga_config->get('account'),
+      '#description' => $this->t('This ID is unique to each site you want to track separately, and is in the form of UA-xxxxxxx-yy. To get a Web Property ID, <a href=":analytics">register your site with Google Analytics</a>, or if you already have registered your site, go to your Google Analytics Settings page to see the ID next to every site profile. <a href=":webpropertyid">Find more information in the documentation</a>.', [':analytics' => 'http://www.google.com/analytics/', ':webpropertyid' => Url::fromUri('https://developers.google.com/analytics/resources/concepts/gaConceptsAccounts', ['fragment' => 'webProperty'])->toString()]),
+      '#maxlength' => 20,
+      '#placeholder' => 'UA-',
+      '#title' => $this->t('Google Analytics Web Property ID'),
+      '#type' => 'textfield',
     ];
 
     // Google Tag Manager Account ID.
@@ -76,6 +89,22 @@ class ThirdPartyServicesForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
 
+    if (!empty(trim($form_state->getValue('google_analytics_account')))) {
+      // Trim some text values.
+      $form_state->setValue('google_analytics_account', trim($form_state->getValue('google_analytics_account')));
+
+      // Replace all type of dashes (n-dash, m-dash, minus) with normal dashes.
+      $form_state->setValue('google_analytics_account', str_replace([
+        '–',
+        '—',
+        '−'
+      ], '-', $form_state->getValue('google_analytics_account')));
+
+      if (!preg_match('/^UA-\d+-\d+$/', $form_state->getValue('google_analytics_account'))) {
+        $form_state->setErrorByName('google_analytics_account', t('A valid Google Analytics Web Property ID is case sensitive and formatted like UA-xxxxxxx-yy.'));
+      }
+    }
+
     if (!empty(trim($form_state->getValue('google_tag_manager_id')))) {
       // Trim the text values.
       $container_id = trim($form_state->getValue('google_tag_manager_id'));
@@ -112,6 +141,13 @@ class ThirdPartyServicesForm extends FormBase {
       $gtm_config->set('container_id', $form_state->getValue('google_tag_manager_id'));
       $gtm_config->save();
       $this->saveSnippets();
+    }
+
+    // Set Google Analytics Account TODO: Add other values?
+    if (!empty($form_state->getValue('google_analytics_account'))) {
+      $ga_config = $config_factory->getEditable('google_analytics.settings');
+      $ga_config->set('account', $form_state->getValue('google_analytics_account'));
+      $ga_config->save();
     }
 
     $optimizely_id = $form_state->getValue('optimizely_id');

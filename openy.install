@@ -159,3 +159,12 @@ function openy_update_8010() {
   $importer->import('openy_demo_node_landing');
   $importer->import('openy_demo_node_membership');
 }
+
+/**
+ * Enable Google Analytics module.
+ */
+function openy_update_8011() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['google_analytics']);
+}
+
