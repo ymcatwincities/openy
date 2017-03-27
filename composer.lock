@@ -4,9 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dff059bd5f1e87c330b3ee24d8109a38",
-    "hash": "f7e0208eed8fa1422350c547dcfab55d",
-    "content-hash": "0886e3fa6591918f48bd3db498c25c65",
+    "content-hash": "1d2cd5e50bcd2409d59bb0052ceae1c3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2000,7 +1998,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/google_analytics-8.x-2.1.zip",
-                "reference": null,
+                "reference": "8.x-2.1",
                 "shasum": "9b5c76802ca28d5072bb9bb552bbfeb660b0734a"
             },
             "require": {
@@ -2795,7 +2793,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/redirect-8.x-1.0-alpha4.zip",
-                "reference": "8.x-1.0-alpha4",
+                "reference": null,
                 "shasum": "883401f9983a00ac23bfda9830bf6b77d53209ad"
             },
             "require": {
@@ -5204,8 +5202,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-02-27T00:07:03+00:00"
-            "time": "2017-03-22 15:40:09"
+            "time": "2017-03-22T15:40:09+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
