@@ -19,8 +19,13 @@ interface RegularUpdaterInterface {
   public function isAllowed($allow_often = FALSE);
 
   /**
-   * Runs update.
+   * Create Queue.
+   *
+   * @param int $from
+   *   Timestamp.
+   * @param int $to
+   *   Timestamp.
    */
-  public function runUpdate();
+  public function createQueue($from, $to);
 
 }
