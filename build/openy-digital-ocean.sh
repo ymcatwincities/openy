@@ -16,6 +16,12 @@ White='\033[0;37m'        # White
 printf "${Green}Installing git...${Color_Off}\n"
 sudo apt-get install git -y
 
+printf "${Green}Update PHP to 7.1${Color_Off}\n"
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt-get update
+sudo apt-get install php7.1 php7.1-mysql php7.1-mcrypt php7.1-cli php7.1-common php7.1-curl php7.1-dev php7.1-fpm php7.1-gd php7.1-memcached php7.1-imagick php7.1-xml php7.1-mbstring php7.1-yaml php7.1-fpm zip unzip php7.1-zip -y --force-yes
+sudo sed -i "s/php5-fpm.sock/php\/php7.1-fpm.sock/g" /etc/nginx/sites-enabled/drupal
+
 printf "${Green}Installing composer...${Color_Off}\n"
 wget https://getcomposer.org/composer.phar
 mv composer.phar /usr/local/bin/composer
@@ -37,6 +43,7 @@ printf "${Green}Installing OpenY...${Color_Off}\n"
 composer create-project ymcatwincities/openy-project:8.1.x-dev /var/www/openy --no-interaction
 cp /var/www/html/drupal/sites/default/settings.php /var/www/openy/docroot/sites/default/settings.php
 mkdir /var/www/openy/docroot/sites/default/files
+echo "\$config['system.logging']['error_level'] = 'hide';" >> /var/www/openy/docroot/sites/default/settings.php
 sudo chmod -R 777 /var/www/openy/docroot/sites/default/settings.php
 sudo chmod -R 777 /var/www/openy/docroot/sites/default/files
 MYSQL="$(drush sql-connect -r /var/www/openy/docroot)"

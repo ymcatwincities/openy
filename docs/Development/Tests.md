@@ -35,6 +35,27 @@ $ sh runtests.sh --tags stop_selenium
 
 If necessary, edit behat.local.yml to match your environment.
 
+### Visual debugging - [Video](https://youtu.be/qYtpiA1ClVc)
+
+When you develop JS tests, it's important to see what's going on the Selenium screen. You can easily see this during development.
+
+1. Install [https://www.realvnc.com/download/viewer](https://www.realvnc.com/download/viewer)
+2. Run selenium using command
+
+```
+$ cd profiles/contrib/openy
+$ sh runtests.sh --tags run_selenium
+```
+
+3. Open installed VNC Viewer and connect to the server with IP `192.168.56.132:5901`
+* Password = secret
+
+4. Run tests and you should see everything that is performed by behat tests in VNC client
+```
+$ bin/behat
+```
+
+
 ### Custom Behat functionality
 
 - Create entities in table forms, with key to use in reference and reference entities by key.
