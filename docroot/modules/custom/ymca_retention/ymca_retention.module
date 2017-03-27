@@ -276,11 +276,10 @@ function ymca_retention_cron() {
   }
   // Date From.
   $date_from = new \DateTime();
-  $date_from->setTime(0, 0, 0);
-  $date_from->sub(new \DateInterval('P1D'));
+  $date_from->sub(new \DateInterval('P1D'))->setTime(0, 0, 0);
   // Date To.
-  $date_to = clone $date_from;
-  $date_to->setTime(23, 59, 59);
+  $date_to = new \DateTime();
+  $date_to->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
 
   $regular_updater->createQueue($date_from->getTimestamp(), $date_to->getTimestamp());
 }
