@@ -622,40 +622,35 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
     $map = [
       'Member' => [
         'PT_1_SESS_30_MIN' => '10241',
-        'PT_3_SESS_30_MIN' => '10108',
-        'PT_6_SESS_30_MIN' => '10109',
+        'PT_4_SESS_30_MIN' => '10305',
+        'PT_8_SESS_30_MIN' => '10308',
         'PT_12_SESS_30_MIN' => '10110',
         'PT_20_SESS_30_MIN' => '10111',
         'PT_1_SESS_60_MIN' => '10112',
-        'PT_3_SESS_60_MIN' => '10117',
-        'PT_6_SESS_60_MIN' => '10118',
+        'PT_4_SESS_60_MIN' => '10315',
+        'PT_8_SESS_60_MIN' => '10317',
         'PT_12_SESS_60_MIN' => '10119',
         'PT_20_SESS_60_MIN' => '10120',
         'PT_MP_INTRO' => '10117',
-        // @todo: update right id below
-        'PT_2_30M_MEM' => '99999',
+        // @todo: update '99999' below
+        'PT_2_30M_MEM_PROMO' => '99999',
       ],
       'Regular' => [
         'PT_NMP_1_SESS_30_MIN' => '10101',
-        'PT_NMP_3_SESS_30_MIN' => '10103',
-        'PT_NMP_6_SESS_30_MIN' => '10104',
+        'PT_NMP_4_SESS_30_MIN' => '10306',
+        'PT_NMP_8_SESS_30_MIN' => '10307',
         'PT_NMP_12_SESS_30_MIN' => '10106',
         'PT_NMP_20_SESS_30_MIN' => '10107',
         'PT_NMP_1_SESS_60_MIN' => '10105',
-        'PT_NMP_3_SESS_60_MIN' => '10113',
-        'PT_NMP_6_SESS_60_MIN' => '10114',
+        'PT_NMP_4_SESS_60_MIN' => '10316',
+        'PT_NMP_8_SESS_60_MIN' => '10318',
         'PT_NMP_12_SESS_60_MIN' => '10115',
         'PT_NMP_20_SESS_60_MIN' => '10116',
-        //'PT_NMP_MP_INTRO' => '10117',
       ],
     ];
 
 
-    preg_match("/\d+_(PT_NMP_.*)/", $code, $test);
-    if (!$test[1]) {
-      preg_match("/\d+_(PT_.*)/", $code, $test);
-    }
-
+    preg_match("/\d+_(PT_.*)/", $code, $test);
     if (!$test[1]) {
       return FALSE;
     }
