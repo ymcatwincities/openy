@@ -71,6 +71,8 @@ dependencies:
   - google_analytics
   - webform
   - webform_ui
+  - captcha
+  - recaptcha
   # OpenY features.
   - openy_media_image
   - openy_media_document
