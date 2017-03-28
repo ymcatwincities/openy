@@ -52,7 +52,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
   /**
    * Excluded programs.
    */
-  const PROGRAMS_EXCLUDED = [4];
+  const PROGRAMS_EXCLUDED = 4;
 
   /**
    * Collection name for KeyValue storage.
