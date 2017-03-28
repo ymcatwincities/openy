@@ -160,7 +160,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
           $products_to_display_member = $products_to_display_non_member = [];
 
           foreach ($mappings as $mapping) {
-            $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
+            $product_code_array = ymca_mindbody_product_code_parse($mapping->field_product_code->getValue()[0]['value']);
 
             // Proceed only for mapping without location (for general prices).
             if (empty($mapping->field_location_ref->getValue())) {
@@ -195,14 +195,16 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                 'show_special_prices' => $show_special_prices,
               ];
 
-              // Fill in products for non-members.
-              $products_to_display_non_member[$product_code_array[4]][] = [
-                'price' => $product_non_member_price,
-                'special_price' => $product_non_member_special_price,
-                'session' => $product_code_array[4],
-                'package' => $product_code_array[2],
-                'show_special_prices' => $show_special_prices,
-              ];
+              // Fill in products for non-members, do not show empty price.
+              if (!empty($product_non_member_price)) {
+                $products_to_display_non_member[$product_code_array[4]][] = [
+                  'price' => $product_non_member_price,
+                  'special_price' => $product_non_member_special_price,
+                  'session' => $product_code_array[4],
+                  'package' => $product_code_array[2],
+                  'show_special_prices' => $show_special_prices,
+                ];
+              }
             }
             // If location is not entered changed data for Drupal settings.
             else {
@@ -274,7 +276,7 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
 
               // Filter only detected locations (by product code).
               foreach ($mappings as $mapping) {
-                $product_code_array = explode('_', $mapping->field_product_code->getValue()[0]['value']);
+                $product_code_array = ymca_mindbody_product_code_parse($mapping->field_product_code->getValue()[0]['value']);
                 // Proceed only with detected location.
                 if ($product_code_array[0] == $location) {
                   $product_member_price = $mapping->field_member_price->getValue()[0]['value'];
@@ -305,21 +307,23 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                     'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
                     'show_special_prices' => $show_special_prices,
                   ];
-
-                  $products_to_display_non_member[$product_code_array[4]][$product_code_array[2]] = [
-                    'price' => $product_non_member_price,
-                    'special_price' => $product_non_member_special_price,
-                    'session' => $product_code_array[4],
-                    'package' => $product_code_array[2],
-                    'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
-                    'show_special_prices' => $show_special_prices,
-                  ];
+                  // Fill in products for non-members, do not show empty price.
+                  if (!empty($product_non_member_price)) {
+                    $products_to_display_non_member[$product_code_array[4]][$product_code_array[2]] = [
+                      'price' => $product_non_member_price,
+                      'special_price' => $product_non_member_special_price,
+                      'session' => $product_code_array[4],
+                      'package' => $product_code_array[2],
+                      'url' => $personify_product_url . $mapping->field_productid->getValue()[0]['value'],
+                      'show_special_prices' => $show_special_prices,
+                    ];
+                  }
 
                 }
               }
 
-              ksort($products_to_display_member);
-              ksort($products_to_display_non_member);
+              krsort($products_to_display_member);
+              krsort($products_to_display_non_member);
               if (isset($products_to_display_member[30])) {
                 asort($products_to_display_member[30]);
               }
@@ -484,4 +488,21 @@ function ymca_mindbody_mail($key, &$message, $params) {
 
       break;
   }
+}
+
+/**
+ * Parse product code in right array.
+ */
+function ymca_mindbody_product_code_parse($product_code) {
+  // Location.
+  $product_code_array = explode('_', $product_code);
+  $location = $product_code_array[0];
+
+  if (strpos($product_code, 'PT_MP_INTRO') !== FALSE) {
+    $product_code_array = [0 => $location, 2 => '3', 4 => '60'];
+  }
+  elseif (strpos($product_code, 'MEM_PROMO') !== FALSE) {
+    $product_code_array = [0 => $location, 2 => '2', 4 => '30'];
+  }
+  return $product_code_array;
 }
