@@ -2,28 +2,53 @@
   h2 {
     @include cachet();
     font-weight: normal;
-    font-size: 40px;
+    font-size: 28px;
     color: $default-grey;
+    @include breakpoint(tablet) {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
   }
   fieldset {
     clear: both;
+    margin: 0;
     legend {
-      @include cachet();
-      border: none;
-      font-size: 18px;
-      line-height: 1.22;
-      letter-spacing: -1px;
-      margin-bottom: 30px;
-      padding: 0 15px;
-      color: $dark-grey;
       @include breakpoint(tablet) {
-        font-size: 36px;
-        color: $purple;
+        margin-bottom: 30px;
+      }
+      span {
+        @include cachet();
+        border: none;
+        border: none;
+        font-size: 18px;
+        line-height: 1.22;
+        letter-spacing: -1px;
+        color: $dark-grey;
+        @include breakpoint(tablet) {
+          font-size: 36px;
+          color: $purple;
+        }
       }
     }
   }
 
+  .form-submit {
+    display: none;
+  }
+
   .js-form-type-membership-type-radio {
+    padding: 0;
+    @include breakpoint(tablet) {
+      &:nth-child(odd) {
+        clear: both;
+        padding-right: 15px;
+      }
+      &:nth-child(even) {
+        padding-left: 15px;
+      }
+    }
     .ajax-progress-throbber {
       position: absolute;
       left: 29px;
@@ -34,7 +59,7 @@
       padding-bottom: 30px;
       margin-bottom: 30px;
       @include breakpoint(tablet) {
-        border-bottom: 1px solid $darker-grey;
+        border-bottom: 2px solid $darker-grey;
       }
       .left {
         padding-left: 0;
@@ -70,9 +95,6 @@
     .btn {
       @include btn-large-purple();
       width: 100%;
-      @include breakpoint(tablet) {
-
-      }
     }
   }
 
@@ -83,20 +105,26 @@
   .description {
     color: $purple;
     @include cachet();
-    padding-bottom: 1em;
-    font-size: 20px;
-    line-height: 1.45em;
+    font-size: 18px;
+    line-height: 1.22em;
+    @include breakpoint(tablet) {
+      font-size: 20px;
+      line-height: 1.45em;
+    }
   }
   .nav-pills {
     display: table;
-    width: 100%;
+    width: 111%;
     @include cachet();
     overflow: hidden;
     margin-bottom: 20px;
     font-size: 13px;
+    margin: 0 -15px;
     @include breakpoint(tablet) {
+      width: 100%;
       font-size: 20px;
       line-height: 42px;
+      margin: 0;
     }
     & > li {
       display: table-cell;
@@ -113,14 +141,17 @@
       a {
         text-decoration: none;
         position: relative;
-        white-space: nowrap;
         border-radius: 0;
         color: $white;
-        background-color: #92278f;
+        background-color: #c6168d;
         width: calc(100% - 30px);
-        text-align: center;
+        text-align: left;
+        height: 68px;
         @include breakpoint(tablet) {
           display: block;
+          white-space: nowrap;
+          text-align: center;
+          height: auto;
         }
         &:before {
           content: " ";
@@ -144,7 +175,7 @@
           height: 0;
           border-top: 60px solid transparent;
           border-bottom: 60px solid transparent;
-          border-left: 30px solid  #92278f;
+          border-left: 30px solid  #c6168d;
           position: absolute;
           top: 50%;
           margin-top: -60px;
@@ -161,6 +192,7 @@
       a[href="#step1"],
       a[href="#step2"] {
         width: calc(100% - 15px);
+        padding-left: 25px;
       }
       &.active a,
       &:first-child a{
