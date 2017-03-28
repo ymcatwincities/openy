@@ -33,7 +33,7 @@ source:
         <p>Large Outdoor Network of Trails</p>
 
         <p>Interactive Fitness Room</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/blog'
       link_text: 'See More'
     -
       id: branch_join_grid_col_1
@@ -44,7 +44,7 @@ source:
         <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
         to all 13 Seattle area branches, as well as every YMCA in Washington
         State!</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/join'
       link_text: 'Join the Y'
     -
       id: branch_schedules_grid_col_1
@@ -53,23 +53,23 @@ source:
       icon_class: 'info'
       description: |
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        <a href="/programs/swimming">Pool Schedule &gt;</a>
         </p>
     -
       id: branch_amenities_grid_col_2
@@ -92,7 +92,7 @@ source:
         <p>Large Outdoor Network of Trails</p>
 
         <p>Interactive Fitness Room</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/blog'
       link_text: 'See More'
     -
       id: branch_join_grid_col_2
@@ -103,7 +103,7 @@ source:
         <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
         to all 13 Seattle area branches, as well as every YMCA in Washington
         State!</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/join'
       link_text: 'Join the Y'
     -
       id: branch_schedules_grid_col_2
@@ -112,23 +112,23 @@ source:
       icon_class: 'info'
       description: |
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        <a href="/programs/swimming">Pool Schedule &gt;</a>
         </p>
     -
       id: branch_amenities_grid_col_3
@@ -151,7 +151,7 @@ source:
         <p>Large Outdoor Network of Trails</p>
 
         <p>Interactive Fitness Room</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/blog'
       link_text: 'See More'
     -
       id: branch_join_grid_col_3
@@ -162,7 +162,7 @@ source:
         <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
         to all 13 Seattle area branches, as well as every YMCA in Washington
         State!</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/join'
       link_text: 'Join the Y'
     -
       id: branch_schedules_grid_col_3
@@ -171,23 +171,23 @@ source:
       icon_class: 'info'
       description: |
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        <a href="/programs/swimming">Pool Schedule &gt;</a>
         </p>
     -
       id: branch_amenities_grid_col_4
@@ -210,7 +210,7 @@ source:
         <p>Large Outdoor Network of Trails</p>
 
         <p>Interactive Fitness Room</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/blog'
       link_text: 'See More'
     -
       id: branch_join_grid_col_4
@@ -221,7 +221,7 @@ source:
         <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
         to all 13 Seattle area branches, as well as every YMCA in Washington
         State!</p>
-      link_uri: 'internal:/'
+      link_uri: 'internal:/join'
       link_text: 'Join the Y'
     -
       id: branch_schedules_grid_col_4
@@ -230,23 +230,23 @@ source:
       icon_class: 'info'
       description: |
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Group%20Exercise%20-%20Jan%202017%20updated_0.pdf">Group Exercise Schedule &gt;</a>
+        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Gym_Schedule_Jan_Coal.pdf">Gym Schedule &gt;</a>
+        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/YouthGroupClasses_Jan_Coal.pdf">Youth Group Classes Schedule &gt;</a>
+        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2016-12/Net_Sports_Coal.pdf">Net Sports Activity Schedule &gt;</a>
+        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
         </p>
 
         <p>
-        <a href="http://www.seattleymca.org/sites/default/files/2017-01/Pool%20Schedule%20-%20January%202017.pdf">Pool Schedule &gt;</a>
+        <a href="/programs/swimming">Pool Schedule &gt;</a>
         </p>
     -
       id: branch_volunteer_grid_col_1
