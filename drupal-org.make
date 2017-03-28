@@ -44,6 +44,7 @@ projects[slick] = 1.0-rc1
 projects[slick_views] = 1.0-rc2
 projects[blazy] = 1.0-rc1
 projects[geolocation] = 1.9
+projects[google_tag] = 1.x-dev
 projects[google_analytics] = 2.1
 projects[confi][subdir] = contrib
 projects[confi][version] = 1.3
