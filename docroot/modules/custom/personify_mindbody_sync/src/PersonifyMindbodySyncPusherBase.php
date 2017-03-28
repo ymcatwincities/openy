@@ -635,9 +635,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'PT_8_SESS_60_MIN' => '10317',
         'PT_12_SESS_60_MIN' => '10119',
         'PT_20_SESS_60_MIN' => '10120',
-        'PT_MP_INTRO' => '10117',
-        // @todo: update '99999' below
-        'PT_2_30M_MEM_PROMO' => '99999',
+        'PT_MP_INTRO' => '10319',
+        'PT_2_30M_MEM_PROMO' => '10180',
       ],
       'Regular' => [
         'PT_1_SESS_30_MIN' => '10101',
@@ -650,7 +649,7 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'PT_6_SESS_60_MIN' => '10114',
         'PT_12_SESS_60_MIN' => '10115',
         'PT_20_SESS_60_MIN' => '10116',
-        'PT_MP_INTRO' => '10117',
+        'PT_MP_INTRO' => '10319',
         'PT_NMP_1_SESS_30_MIN' => '10101',
         'PT_NMP_4_SESS_30_MIN' => '10306',
         'PT_NMP_8_SESS_30_MIN' => '10307',
