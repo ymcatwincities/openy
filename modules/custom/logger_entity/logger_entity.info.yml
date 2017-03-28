@@ -2,4 +2,4 @@ name: Logger Entity
 type: module
 description: Provides custom entity for logging.
 core: 8.x
-package: OPENY
+package: OpenY
