@@ -42,3 +42,16 @@ function openy_node_event_update_8003() {
     ]
   );
 }
+
+/**
+ * Fix registration paragraph.
+ */
+function openy_node_event_update_8004() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.node.event.default',
+    ]
+  );
+}
