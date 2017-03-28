@@ -167,7 +167,9 @@
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
         "drupal/optimizely": "1.2",
-        "drupal/webform": "^5.0@beta"
+        "drupal/webform": "^5.0@beta",
+        "drupal/captcha": "^1.0@beta",
+        "drupal/recaptcha": "^2.2",
         "drupal/google_analytics": "^2.1"
     }
 }
