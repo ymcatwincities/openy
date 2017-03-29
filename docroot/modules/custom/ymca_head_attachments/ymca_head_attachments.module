@@ -59,14 +59,14 @@ function ymca_head_attachments_page_attachments(array &$page) {
         },
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "'. $data['address']['locality'] . 'Minneapolis",
-          "addressRegion": "'. $data['address']['region'] . 'MN",
-          "postalCode": "'. $data['address']['postal_code'] . '55402",
-          "streetAddress": "'. $data['address']['street'] . '30 South 9th Street"
+          "addressLocality": "'. $data['address']['locality'] . '",
+          "addressRegion": "'. $data['address']['region'] . '",
+          "postalCode": "'. $data['address']['postal_code'] . '",
+          "streetAddress": "'. $data['address']['street'] . '"
         },
         "name": "YMCA – '. $data['name'] . '",
         "openingHours": [' . $hours . '],
-        "telephone": "'. $data['tel'] . '(612) 371-9622",
+        "telephone": "'. $data['tel'] . '",
         "url": "'. $data['url'] . '"
       }';
       $script = [
