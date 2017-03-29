@@ -56,17 +56,6 @@
       position: relative;
       overflow: hidden;
       margin: 15px;
-
-      //@media (min-width: 768px) and (max-width: 1023px) {
-      //  height: 283px;
-      //}
-      //
-      //@media (min-width: 1024px) {
-      //  height: 350px;
-      //}
-      //.blog-card {
-      //
-      //}
       @include breakpoint(0 $screen-sm) {
         margin: 0 auto;
       }
