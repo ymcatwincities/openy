@@ -357,3 +357,20 @@ function yptf_master_update_8020() {
     ]
   );
 }
+
+/**
+ * Add new field Product Code NonM to the Personify Product Mapping.
+ */
+function yptf_master_update_8021() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'field.storage.mapping.field_product_code_nonm',
+      'field.field.mapping.personify_product.field_product_code_nonm',
+      'core.entity_form_display.mapping.personify_product.default',
+      'core.entity_view_display.mapping.personify_product.default',
+      'views.view.personify_product_mapping',
+    ]
+  );
+}
