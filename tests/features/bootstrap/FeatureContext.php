@@ -108,7 +108,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         break;
 
       case 'alias_url':
-        $value = \Drupal::service('path.alias_manager')->getAliasByPath($node->url());
+        $value = \Drupal::service('path.alias_manager')
+          ->getAliasByPath($node->url());
         break;
 
       case 'edit_url':
@@ -195,7 +196,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iFillMediaFieldWith($field, $value) {
     $this->getSession()->getPage()->find('css',
-        'input[id="' . $field . '"]')->setValue($value);
+      'input[id="' . $field . '"]')->setValue($value);
   }
 
   /**
@@ -245,7 +246,32 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function theFieldShouldContainStoredNodeFrom($field, $node_key, $storage_key) {
     $path = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
-    $this->assertSession()->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+    $this->assertSession()
+      ->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+  }
+
+  /**
+   * Click on the element with the provided CSS Selector
+   *
+   * @Given /^I click on element "(?P<css_selector>[^"]*)"$/
+   */
+  public function iClickOnElement($css_selector) {
+    $element = $this->getSession()->getPage()->find('css', $css_selector);
+    if (NULL === $element) {
+      throw new \InvalidArgumentException(sprintf('Could not find: "%s"', $css_selector));
+    }
+    $element->click();
+  }
+
+  /**
+   * @Given /^The current URL is "(?P<url>[^"]*)"$/
+   */
+  public function theCurrentURLIs($url) {
+    $current_url = $this->getSession()->getCurrentUrl();
+    if (!$current_url == $url) {
+      $msg = 'URL "' . $url . '" does not match the current URL "' . $current_url . '"';
+      throw new \Exception($msg);
+    }
   }
 
   /**

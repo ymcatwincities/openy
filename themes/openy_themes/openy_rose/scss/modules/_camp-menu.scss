@@ -58,7 +58,7 @@
 
   &__item {
     @include rem(height, 50px);
-    display: inline-block;
+    float: left;
     list-style: none;
 
     a {

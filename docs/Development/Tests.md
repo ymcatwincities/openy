@@ -11,16 +11,16 @@ These instructions explain how you can run tests.
 1. Execute command
 
     ```
-    $ cd profiles/openy
+    $ cd profiles/contrib/openy
     $ sh runtests.sh
     ```
-2. Open http://site.com/profiles/openy/build/reports/behat in browser.
+2. Open http://site.com/profiles/contrib/openy/build/reports/behat in browser.
 
 ### Run selenium container + Behat tests in usual way
 In order to run only selenium container + behat in usual way:
 
 ```
-$ cd profiles/openy
+$ cd profiles/contrib/openy
 $ sh runtests.sh --tags run_selenium
 $ bin/behat
 ```
@@ -29,11 +29,32 @@ $ bin/behat
 In order to stop  selenium container:
 
 ```
-$ cd profiles/openy
+$ cd profiles/contrib/openy
 $ sh runtests.sh --tags stop_selenium
 ```
 
 If necessary, edit behat.local.yml to match your environment.
+
+### Visual debugging - [Video](https://youtu.be/qYtpiA1ClVc)
+
+When you develop JS tests, it's important to see what's going on the Selenium screen. You can easily see this during development.
+
+1. Install [https://www.realvnc.com/download/viewer](https://www.realvnc.com/download/viewer)
+2. Run selenium using command
+
+```
+$ cd profiles/contrib/openy
+$ sh runtests.sh --tags run_selenium
+```
+
+3. Open installed VNC Viewer and connect to the server with IP `192.168.56.132:5901`
+* Password = secret
+
+4. Run tests and you should see everything that is performed by behat tests in VNC client
+```
+$ bin/behat
+```
+
 
 ### Custom Behat functionality
 

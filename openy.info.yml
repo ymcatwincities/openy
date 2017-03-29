@@ -4,7 +4,7 @@ description: 'Open Y Drupal distribution.'
 core: 8.x
 distribution:
   name: OpenY
-
+php: 5.6
 # Required modules
 dependencies:
   # Core modules.
@@ -68,6 +68,8 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - google_tag
+  - google_analytics
   # OpenY features.
   - openy_media_image
   - openy_media_document

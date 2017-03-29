@@ -30,6 +30,7 @@ default:
     Drupal\DrupalExtension:
       text:
         log_out: "Log out"
+        log_in: "Log in"
       api_driver: drupal
       drush_driver: drush
       drush:
