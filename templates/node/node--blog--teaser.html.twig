@@ -71,35 +71,39 @@
  */
 #}
 {% set classes = [
-'node',
-'node--type-' ~ node.bundle|clean_class,
-node.isPromoted() ? 'node--promoted',
-node.isSticky() ? 'node--sticky',
-not node.isPublished() ? 'node--unpublished',
-view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-content.field_blog_color ? 'blog-' ~ content.field_blog_color|clean_class : 'blog-photo',
+  'node',
+  'node--type-' ~ node.bundle|clean_class,
+  node.isPromoted() ? 'node--promoted',
+  node.isSticky() ? 'node--sticky',
+  not node.isPublished() ? 'node--unpublished',
+  view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class : 'photo',
 ] %}
-{% set color = content.field_blog_color ? content.field_blog_color : 'photo' %}
 
-{% set category = content.field_blog_categories ? content.field_blog_categories : 'Blog'|t %}
+{% set category_default = node.bundle|clean_class|capitalize %}
+{% set category = content.field_blog_categories ? content.field_blog_categories : category_default|t %}
+{% set color = 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value %}
+{% set bg_color = 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value %}
 
 <article{{ attributes.addClass(classes) }}>
-  <div class="inner-wrapper">
-    {% if ( color == "photo" ) %}
+
+  <div class="inner-wrapper" style="{{ color }}; {{ bg_color }};">
+    {#{{ dump(content) }}#}
+    {% if ( node.field_blog_style.value == "photo" ) %}
       <div>
-        {{ content.field_blog_image }}
+       {{ content.field_blog_image }}
       </div>
     {% endif %}
     <div class="blog-heading">
-      <h4>{{ category }}</h4>
-      {% if ( color == "story" ) %}
+      <h4 style="{{ color }};">{{ category }}</h4>
+      {% if ( node.field_blog_style.value == "story" ) %}
         <div class="story-card">
           <div class="quote">
             <i class="icon"></i>
           </div>
         </div>
       {% endif %}
-      <h2>
+      <h2 style="{{ color }};">
         <a href="{{ url }}" rel="bookmark">
           {{ label }}
         </a>
