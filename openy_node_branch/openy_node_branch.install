@@ -53,3 +53,15 @@ function openy_node_branch_update_8004() {
       'pathauto.pattern.branch',
     ]);
 }
+
+/**
+ * Set cardinality to unlimited for working hours.
+ */
+function openy_node_branch_update_8005() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_branch_hours',
+    ]);
+}
