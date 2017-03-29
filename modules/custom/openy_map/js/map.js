@@ -554,14 +554,16 @@
       var data = settings.openyMap;
       var map = new Drupal.openyMap();
 
-      var i = 0;
       $('.locations-list .node--view-mode-teaser').each(function() {
         var $self = $(this);
-        if (typeof(data[i]) !== 'undefined') {
-          data[i].element = {};
-          data[i].element = $self.parent();
-        }
-        i++;
+        for (var i = 0; i < data.length; i++) {
+          if (typeof(data[i]) !== 'undefined' && $self.find("h2")[0].innerText !== 'undefined') {
+            if ($self.find("h2")[0].innerText == data[i]["name"]){
+              data[i].element = {};
+              data[i].element = $self.parent();
+            }
+          }
+        };
       });
 
       $('.openy-map-canvas', context).once().each(function () {
