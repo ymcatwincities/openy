@@ -20,3 +20,10 @@ Feature: OpenY main pages
       | page |
       | / |
       | user |
+
+  Scenario: Check OpenY Facebook module
+    Given I am on homepage
+    Then I should get "X-Frame-Options" HTTP header
+
+    Given I go to "/facebook_demo"
+    Then I should not get "X-Frame-Options" HTTP header

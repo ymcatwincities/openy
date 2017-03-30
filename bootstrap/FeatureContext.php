@@ -9,7 +9,6 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Behat\Behat\Tester\Exception\PendingException;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
 
@@ -126,7 +125,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 
   /**
    * See https://blog.phpdeveloper.org/2012/03/21/behat-and-http-auth-and-goutte/
-   * 
+   *
    * @Given /^that I log in with "([^"]*)" and "([^"]*)"$/
    */
   public function thatILogInWithAnd($username, $password)
@@ -268,4 +267,23 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->assertSession()->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
   }
 
+  /**
+   * Verify that Response include requested Header.
+   *
+   * @Then /^I should get "([^"]*)" HTTP header$/
+   */
+  public function iShouldGetHTTPHeader($http_header) {
+    $header = $this->getSession()->getResponseHeader($http_header);
+    return !empty($header);
+  }
+
+  /**
+   * Verify that Response do not include requested Header.
+   *
+   * @Then /^I should not get "([^"]*)" HTTP header$/
+   */
+  public function iShouldNotGetHTTPHeader($http_header) {
+    $headers = $this->getSession()->getResponseHeaders();
+    return empty($headers);
+  }
 }
