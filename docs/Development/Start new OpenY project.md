@@ -42,7 +42,7 @@ In this section you can learn how to configure development environment and CI se
 * Setup hosting STAGE environment (it should be a 1:1 copy of existing or expected hosting account for ability to provide performance testing there)
 * Setup deployment plans for CI by reusing DEMO builder job
 
-# Install OpenY on [DigitalOcean](http://digitalocean.com)
+# Install OpenY on [DigitalOcean](http://bit.ly/cibox-digitalocean)
 
 1. Create new Droplet using "One-click apps" image `Drupal 8.*.* on 14.04`
 2. Login to server [via SSH](https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh) or [web console](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-console-to-access-your-droplet)
