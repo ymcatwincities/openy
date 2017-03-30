@@ -1,4 +1,4 @@
-@openy @api @testthis
+@openy @api
 Feature: Latest Blogs Paragraphs
   Check that Latest Blog Posts paragraphs output other nodes based on some rules
 
