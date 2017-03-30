@@ -55,6 +55,8 @@ $ sh runtests.sh --tags run_selenium
 $ bin/behat
 ```
 
+[![OpenY Behat debugging ](https://img.youtube.com/vi/qYtpiA1ClVc/0.jpg)](https://youtu.be/qYtpiA1ClVc)
+
 
 ### Custom Behat functionality
 

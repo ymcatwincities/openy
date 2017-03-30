@@ -42,3 +42,10 @@ In this section you can learn how to configure development environment and CI se
 * Setup hosting STAGE environment (it should be a 1:1 copy of existing or expected hosting account for ability to provide performance testing there)
 * Setup deployment plans for CI by reusing DEMO builder job
 
+# [Install OpenY on DigitalOcean](http://digitalocean.com)
+
+## Video tutorial
+[![Open Y v1.0b - Install Tutorial](https://img.youtube.com/vi/RCvsLANsbm8/0.jpg)](https://youtu.be/RCvsLANsbm8)
+
+## End to end installation
+[![Open Y install - in 16 minutes end to end, no tutorial](https://img.youtube.com/vi/RT6kC38zgvo/0.jpg)](https://youtu.be/RT6kC38zgvo)
