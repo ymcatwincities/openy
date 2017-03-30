@@ -5,9 +5,8 @@
   }
 
   &--text {
-    border-top: 2px solid $color-gray-d;
+    border-top: 1px solid $color-gray-d;
     padding: 12px 0;
-    margin: 0 10px;
     width: calc(100% - 15px);
 
     @include breakpoint(tablet) {

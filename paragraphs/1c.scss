@@ -1,0 +1,24 @@
+.paragraph-1c-wrapper {
+  padding-bottom: 30px;
+  .field-prgf-1c-title {
+    @include cachet();
+    font-weight: normal;
+    font-size: 28px;
+    color: $default-grey;
+    text-align: center;
+    text-transform: uppercase;
+    @include breakpoint(tablet) {
+      font-size: 40px;
+    }
+  }
+
+  .field-prgf-1c-description {
+    color: $purple;
+    @include cachet();
+    font-size: 20px;
+    line-height: 1.45em;
+    p {
+      margin: 0 0 5px;
+    }
+  }
+}
