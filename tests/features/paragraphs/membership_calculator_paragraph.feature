@@ -14,25 +14,25 @@ Feature: Membership Calculator Paragraph
       | field_location_coordinates:lat      | 47.293433     |
       | :lng                                | -122.238717   |
       | field_location_phone                | +1234567890   |
-    And I create "paragraph" of type "membership_info" with key for reference:
+    And I create "paragraph" of type "membership_info":
       | KEY               | field_mbrshp_location | field_mbrshp_join_fee | field_mbrshp_monthly_rate | field_mbrshp_link:uri | :title |
       | mem_in_adult_1    | behat_branch          | 100                   | 73                        | http://openymca.org   | Select |
       | mem_in_family_1_1 | behat_branch          | 100                   | 109                       | http://openymca.org   | Select |
       | mem_in_family_2_1 | behat_branch          | 125                   | 129                       | http://openymca.org   | Select |
-    And I create "media" of type "image" with key for reference:
+    And I create "media" of type "image":
       | KEY            | name         | field_media_image |
       | adult_image    | adult.jpg    | adult.jpg         |
       | family_1_image | family_1.jpg | family_1.jpg      |
       | family_2_image | family_2.jpg | family_2.jpg      |
-    And I create nodes "membership" content:
+    And I create "membership" content:
       | KEY          | title           | status | field_mbrshp_description:value                                | :format   | field_mbrshp_info | field_mbrshp_image |
       | mem_adult    | Behat: Adult    | 1      | <p>Adults (30-64)</p>                                         | full_html | mem_in_adult_1    | adult_image        |
       | mem_family_1 | Behat: Family 1 | 1      | <p>One adult plus dependents</p>                              | full_html | mem_in_family_1_1 | family_1_image     |
       | mem_family_2 | Behat: Family 2 | 0      | <p>Two adults in same&nbsp;household&nbsp;plus dependents</p> | full_html | mem_in_family_2_1 | family_2_image     |
-    And I create "paragraph" of type "openy_prgf_mbrshp_calc" with key for reference:
+    And I create "paragraph" of type "openy_prgf_mbrshp_calc":
       | KEY                    |
       | openy_prgf_mbrshp_calc |
-    And I create nodes "landing_page" content:
+    And I create "landing_page" content:
       | KEY             | title                            | field_lp_layout | field_content          |
       | membership_page | Behat Membership calculator test | one_column      | openy_prgf_mbrshp_calc |
     And I am an anonymous user
