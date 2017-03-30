@@ -44,13 +44,14 @@ In this section you can learn how to configure development environment and CI se
 
 # [Install OpenY on DigitalOcean](http://digitalocean.com)
 
-1. Create Drupal droplet
-2. Login to server via SSH or web console
+1. Create new Droplet using "One-click apps" image `Drupal 8.*.* on 14.04`
+2. Login to server [via SSH](https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh) or [web console](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-console-to-access-your-droplet)
 3. Run command
 
   ```bash
   bash <(curl -s https://raw.githubusercontent.com/ymcatwincities/openy/8.x-1.x/build/openy-digital-ocean.sh)
   ```
+4. Open link(e.g. http://IP/core/install.php) from console output and finish OpenY installation
 
 ## Video tutorial
 [![Open Y v1.0b - Install Tutorial](https://img.youtube.com/vi/RCvsLANsbm8/0.jpg)](https://youtu.be/RCvsLANsbm8)
