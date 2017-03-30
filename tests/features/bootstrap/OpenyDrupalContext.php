@@ -30,7 +30,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * | my node key | My title | 1      | 2014-10-17 8:00am | text key             |
    * | ...         | ...      | ...    | ...               | ...                  |
    *
-   * @Given I create nodes :bundle content:
+   * @Given I create :bundle content:
    */
   public function iCreateNodes($bundle, TableNode $table) {
     $this->createNodes($bundle, $table->getHash());
@@ -87,7 +87,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * | Blue | Blue | 0000FF       | text key              |
    * | ...  | ...  | ...          | ...                   |
    *
-   * @Given I create :entity_type of type :bundle with key for reference:
+   * @Given I create :entity_type of type :bundle:
    */
   public function iCreateEntity($entity_type, $bundle, TableNode $table) {
     $this->createEntities($entity_type, $bundle, $table->getHash());
@@ -100,7 +100,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * | field_color           | 0000FF   | ... |
    * | field_reference_name  | text key | ... |
    *
-   * @Given I create large :entity_type of type :bundle with key for reference:
+   * @Given I create large :entity_type of type :bundle:
    */
   public function iCreateLargeEntity($entity_type, $bundle, TableNode $table) {
     $this->createEntities($entity_type, $bundle, $this->getColumnHashFromRows($table));
