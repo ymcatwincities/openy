@@ -1,0 +1,5 @@
+name: YMCA Head Attachments
+type: module
+description: Performs specific head attachments
+core: 8.x
+package: YMCA
