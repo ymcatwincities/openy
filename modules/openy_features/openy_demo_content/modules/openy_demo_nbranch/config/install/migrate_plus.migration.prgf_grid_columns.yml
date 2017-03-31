@@ -52,24 +52,26 @@ source:
       headline: 'Schedules'
       icon_class: 'info'
       description: |
+        <h2>Classes and Activities for the branch:</h2>
+        <h3>Lap Swim<h3>
         <p>
-        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
+          2 or more lap lanes are available to any members at this time. Please be courteous of other swimmers and choose a lane that best fits your speed or age. Circle swimming is required when two or more swimmers are in one lane.
         </p>
-
+        <h3>Open Gym</h3>
         <p>
-        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
+          Unstructured and unsupervised time in the gym. All members are welcome to use the gym on a first-come, first-serve basis.
         </p>
-
+        <h3>Cycle - All Levels</h3>
         <p>
-        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
+          Enjoy an energizing ride through hills and flat terrain, simulated by different levels of resistance that you control on a stationary bike.
         </p>
-
+        <h3>Adult Swim 5.5 ft</h3>
         <p>
-        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
+          Lap swimming open to members that enjoy swimming for fitness. Please be courteous of other swimmers and choose a lane that best fits your speed or age.
         </p>
-
+        <h3>Aqua Arthritis & Injury</h3>
         <p>
-        <a href="/programs/swimming">Pool Schedule &gt;</a>
+          This class is designed for those living with chronic pain, those recovering from an injury or those with limited mobility. This class takes a non-impact approach by using water resistant exercises to build strength and increase range of motion & flexibility throughout the body. You will feel the benefits of the warm water, slow-paced exercises while enjoying a fun social group setting. This is a fun filled, therapeutic class with others who understand managing pain. Note: This class does not replace physical therapy and participants are encouraged to check in with their physician before starting.
         </p>
     -
       id: branch_amenities_grid_col_2
@@ -111,24 +113,26 @@ source:
       headline: 'Schedules'
       icon_class: 'info'
       description: |
+        <h2>Classes and Activities for the branch:</h2>
+        <h3>Lap Swim<h3>
         <p>
-        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
+          2 or more lap lanes are available to any members at this time. Please be courteous of other swimmers and choose a lane that best fits your speed or age. Circle swimming is required when two or more swimmers are in one lane.
         </p>
-
+        <h3>Open Gym</h3>
         <p>
-        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
+          Unstructured and unsupervised time in the gym. All members are welcome to use the gym on a first-come, first-serve basis.
         </p>
-
+        <h3>Cycle - All Levels</h3>
         <p>
-        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
+          Enjoy an energizing ride through hills and flat terrain, simulated by different levels of resistance that you control on a stationary bike.
         </p>
-
+        <h3>Adult Swim 5.5 ft</h3>
         <p>
-        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
+          Lap swimming open to members that enjoy swimming for fitness. Please be courteous of other swimmers and choose a lane that best fits your speed or age.
         </p>
-
+        <h3>Aqua Arthritis & Injury</h3>
         <p>
-        <a href="/programs/swimming">Pool Schedule &gt;</a>
+          This class is designed for those living with chronic pain, those recovering from an injury or those with limited mobility. This class takes a non-impact approach by using water resistant exercises to build strength and increase range of motion & flexibility throughout the body. You will feel the benefits of the warm water, slow-paced exercises while enjoying a fun social group setting. This is a fun filled, therapeutic class with others who understand managing pain. Note: This class does not replace physical therapy and participants are encouraged to check in with their physician before starting.
         </p>
     -
       id: branch_amenities_grid_col_3
@@ -170,24 +174,26 @@ source:
       headline: 'Schedules'
       icon_class: 'info'
       description: |
+        <h2>Classes and Activities for the branch:</h2>
+        <h3>Lap Swim<h3>
         <p>
-        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
+          2 or more lap lanes are available to any members at this time. Please be courteous of other swimmers and choose a lane that best fits your speed or age. Circle swimming is required when two or more swimmers are in one lane.
         </p>
-
+        <h3>Open Gym</h3>
         <p>
-        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
+          Unstructured and unsupervised time in the gym. All members are welcome to use the gym on a first-come, first-serve basis.
         </p>
-
+        <h3>Cycle - All Levels</h3>
         <p>
-        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
+          Enjoy an energizing ride through hills and flat terrain, simulated by different levels of resistance that you control on a stationary bike.
         </p>
-
+        <h3>Adult Swim 5.5 ft</h3>
         <p>
-        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
+          Lap swimming open to members that enjoy swimming for fitness. Please be courteous of other swimmers and choose a lane that best fits your speed or age.
         </p>
-
+        <h3>Aqua Arthritis & Injury</h3>
         <p>
-        <a href="/programs/swimming">Pool Schedule &gt;</a>
+          This class is designed for those living with chronic pain, those recovering from an injury or those with limited mobility. This class takes a non-impact approach by using water resistant exercises to build strength and increase range of motion & flexibility throughout the body. You will feel the benefits of the warm water, slow-paced exercises while enjoying a fun social group setting. This is a fun filled, therapeutic class with others who understand managing pain. Note: This class does not replace physical therapy and participants are encouraged to check in with their physician before starting.
         </p>
     -
       id: branch_amenities_grid_col_4
@@ -229,24 +235,26 @@ source:
       headline: 'Schedules'
       icon_class: 'info'
       description: |
+        <h2>Classes and Activities for the branch:</h2>
+        <h3>Lap Swim<h3>
         <p>
-        <a href="/programs/camps">Group Exercise Schedule &gt;</a>
+          2 or more lap lanes are available to any members at this time. Please be courteous of other swimmers and choose a lane that best fits your speed or age. Circle swimming is required when two or more swimmers are in one lane.
         </p>
-
+        <h3>Open Gym</h3>
         <p>
-        <a href="/programs/health-and-fitness">Gym Schedule &gt;</a>
+          Unstructured and unsupervised time in the gym. All members are welcome to use the gym on a first-come, first-serve basis.
         </p>
-
+        <h3>Cycle - All Levels</h3>
         <p>
-        <a href="/programs/youth-programs">Youth Group Classes Schedule &gt;</a>
+          Enjoy an energizing ride through hills and flat terrain, simulated by different levels of resistance that you control on a stationary bike.
         </p>
-
+        <h3>Adult Swim 5.5 ft</h3>
         <p>
-        <a href="/programs/kids-and-family-activities">Net Sports Activity Schedule &gt;</a>
+          Lap swimming open to members that enjoy swimming for fitness. Please be courteous of other swimmers and choose a lane that best fits your speed or age.
         </p>
-
+        <h3>Aqua Arthritis & Injury</h3>
         <p>
-        <a href="/programs/swimming">Pool Schedule &gt;</a>
+          This class is designed for those living with chronic pain, those recovering from an injury or those with limited mobility. This class takes a non-impact approach by using water resistant exercises to build strength and increase range of motion & flexibility throughout the body. You will feel the benefits of the warm water, slow-paced exercises while enjoying a fun social group setting. This is a fun filled, therapeutic class with others who understand managing pain. Note: This class does not replace physical therapy and participants are encouraged to check in with their physician before starting.
         </p>
     -
       id: branch_volunteer_grid_col_1
