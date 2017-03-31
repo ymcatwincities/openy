@@ -19,6 +19,7 @@
 
       Drupal.ygh.branch__updates_queue_mobile();
       Drupal.ygh.paragraph_4c();
+      Drupal.ygh.join_form();
 
       // Set active language text.
       var active_lang = $('.page-head__language-switcher .is-active a:eq(0)').text();
@@ -185,6 +186,17 @@
         }
       });
     }
+  };
+
+  // Join form handler.
+  Drupal.ygh.join_form = function () {
+    $('.js-form-type-membership-type-radio').each(function() {
+      var element = $(this);
+      element.find('.btn').on('click', function() {
+        element.find('input').attr('checked', true);
+        $(this).parents('form').find('.js-form-submit').trigger('mousedown');
+      });
+    });
   };
 
 })(jQuery);
