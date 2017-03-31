@@ -182,7 +182,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
     foreach ($entity_hash as $field_name => $field_value) {
       // Get field info.
       $fiend_info = FieldStorageConfig::loadByName($entity_type, $field_name);
-      if ($fiend_info == NULL || !in_array(($field_type = $fiend_info->getType()), ['entity_reference', 'entity_reference_revisions', 'image'])) {
+      if ($fiend_info == NULL || !in_array(($field_type = $fiend_info->getType()), ['entity_reference', 'entity_reference_revisions', 'image', 'file'])) {
         continue;
       }
 
@@ -192,7 +192,8 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
       $value_id = [];
       $target_revision_id = [];
       foreach ($field_values as $value_or_key) {
-        if ($field_type == 'image') {
+        if ($field_type == 'image' || $field_type == 'file') {
+          // TODO Copy file from mink files_path if present.
           $file = File::create([
             'filename' => $value_or_key,
             'uri' => 'public://' . $value_or_key,
