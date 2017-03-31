@@ -9,6 +9,7 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\file\Entity\File;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
 
@@ -104,6 +105,52 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    */
   public function iCreateLargeEntity($entity_type, $bundle, TableNode $table) {
     $this->createEntities($entity_type, $bundle, $this->getColumnHashFromRows($table));
+  }
+
+  /**
+   * Create Menu link content.
+   *
+   * @Given /^I create menu_link_content:$/
+   */
+  public function iCreateMenu_link_content(TableNode $table) {
+    $table_hash = $table->getHash();
+
+    foreach($table_hash as $link_hash) {
+      if (empty($link_hash['title']) || empty($link_hash['uri']) || empty($link_hash['menu_name'])) {
+        throw new \Exception("Menu title, uri, and menu_name are required.");
+      }
+      if (empty($link_hash['expanded'])) {
+        $link_hash['expanded'] = 1;
+      }
+      $menu_array = [
+        'title' => $link_hash['title'],
+        'link' => ['uri' => $link_hash['uri']],
+        'menu_name' => $link_hash['menu_name'],
+        'expanded' => $link_hash['expanded'],
+      ];
+
+      // If parent uri & parent name set search in menu links for it.
+      if (!empty($link_hash['parent_uri']) && !empty($link_hash['parent_title'])) {
+        $query = Drupal::entityQuery('menu_link_content')
+          ->condition('bundle', 'menu_link_content')
+          ->condition('link__uri', $link_hash['parent_uri'])
+          ->condition('menu_name', $link_hash['menu_name'])
+          ->condition('title', $link_hash['parent_title']);
+        $result = $query->execute();
+        if (!empty($result)) {
+          $parent_id = array_pop($result);
+          $parent_menu_link = MenuLinkContent::load($parent_id);
+          if (!empty($parent_menu_link)) {
+            $menu_array['parent'] = 'menu_link_content:'
+              . $parent_menu_link->uuid();
+          }
+        }
+      }
+
+      $menu_link = MenuLinkContent::create($menu_array);
+      $menu_link->save();
+      $this->saveEntity($menu_link);
+    }
   }
 
   /**
