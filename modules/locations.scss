@@ -196,7 +196,7 @@
     min-height: 70px;
 
     .column {
-      flex-basis: 20%;
+      flex-basis: 30%;
       width: auto;
       &:first-child {
         margin-left: 0;
@@ -243,6 +243,7 @@
 
     .today-hours {
       position: relative;
+      margin: 0 0 7px 0;
       .today {
         margin-right: 10px;
       }
@@ -255,7 +256,7 @@
         top: 60px;
         background: $purple;
         padding: 5px 15px;
-        width: 240px;
+        width: 270px;
         left: -15px;
         z-index: 1;
         @include breakpoint(laptop) {
