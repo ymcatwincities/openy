@@ -22,7 +22,7 @@ dependencies:
     - openy_field_custom_hours
     - paragraphs
     - path
-    - telephone
+    - openy_widgets
 third_party_settings:
   field_group:
     group_branch_contact:
@@ -146,14 +146,16 @@ content:
     weight: 13
     settings:
       placeholder: ''
+      min_length: 6
     third_party_settings: {  }
-    type: telephone_default
+    type: telephone_with_length
   field_location_phone:
     weight: 12
     settings:
       placeholder: ''
+      min_length: 6
     third_party_settings: {  }
-    type: telephone_default
+    type: telephone_with_length
   field_meta:
     type: metatag_firehose
     weight: 13
