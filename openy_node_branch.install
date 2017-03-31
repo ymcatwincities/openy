@@ -76,6 +76,7 @@ function openy_node_mbrshp_update_8006() {
   $config_importer->importConfigs(
     [
       'core.entity_view_display.node.branch.calc_summary.yml',
+      'core.entity_view_mode.node.calc_summary.yml',
     ]
   );
 }
