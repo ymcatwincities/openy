@@ -6349,6 +6349,9 @@ body {
 .toolbar-fixed.toolbar-vertical.toolbar-tray-open .viewport .top-navs {
   margin-left: 15rem; }
 
+#toolbar-administration * {
+  z-index: 1050; }
+
 .nav.dropdown-menu {
   background-color: #0060af;
   border: 1px solid #fff; }
