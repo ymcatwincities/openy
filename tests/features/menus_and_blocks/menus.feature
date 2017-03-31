@@ -1,45 +1,25 @@
-@openy @api
+@openy @api @menutest
 Feature: Menus
   Check that menus items are available and displayed in right regions
 
-  Scenario: Create main menu item and check
+  Background: Create menu items for test
     Given I am logged in as a user with the "Editor" role
-    And I create an item "Give" in the "main" menu
-    When I am an anonymous user
-    And I go to homepage
-    Then I should see "Give" in the "header"
+    And I create menu_link_content:
+      | menu_name          | title           | uri                                 | expanded | parent_uri          | parent_title   |
+      | main               | BEHAT PROGRAMS  | base:behat-programs                 | 1        |                     |                |
+      | main               | BEHAT CHILDCARE | base:behat-programs/behat-childcare | 1        | base:behat-programs | BEHAT PROGRAMS |
+      | main               | BEHAT GIVE      | base:behat-give                     | 1        |                     |                |
+      | footer-menu-left   | BEHAT LOCATIONS | base:behat-locations                | 1        |                     |                |
+      | footer-menu-right  | BEHAT JOIN      | base:behat-join                     | 1        |                     |                |
+      | footer-menu-center | BEHAT CAREERS   | base:behat-careers                  | 1        |                     |                |
+    Then I am an anonymous user
 
-  Scenario: Create menu item for second level
-    Given I am logged in as a user with the "Editor" role
-    And I create an item "Programs" in the "main" menu
-    And I go to "/admin/structure/menu/manage/main/add"
-    And I fill in the following:
-      | Menu link title | Childcare   |
-      | Link            | /childcare  |
-    And I select "-- Programs" from "Parent link"
-    And I attach the file "childcare.png" to "Icon image"
-    And I press "Save"
-    When I am an anonymous user
-    And I go to the homepage
-    Then I should see "Childcare" in the "dropdown_menu"
-    
-  Scenario: Create footer menu left item and check
-    Given I am logged in as a user with the "Editor" role
-    And I create an item "LOCATIONS" in the "footer-menu-left" menu
-    When I am an anonymous user
-    And I go to homepage
-    Then I should see "LOCATIONS" in the "footer"
-
-  Scenario: Create footer menu right item and check
-    Given I am logged in as a user with the "Editor" role
-    And I create an item "JOIN" in the "footer-menu-right" menu
-    When I am an anonymous user
-    And I go to homepage
-    Then I should see "JOIN" in the "footer"
-
-  Scenario: Create footer menu center item and check
-    Given I am logged in as a user with the "Editor" role
-    And I create an item "CAREERS" in the "footer-menu-center" menu
-    When I am an anonymous user
-    And I go to homepage
-    Then I should see "CAREERS" in the "footer"
+  Scenario: Check menu items are in the appropriate place
+    Given I am on the homepage
+    And I wait 15 seconds
+    And I should see "BEHAT GIVE" in the "header"
+    And I should see "BEHAT PROGRAMS" in the "header"
+    And I should see "BEHAT CHILDCARE" in the "dropdown_menu"
+    And I should see "BEHAT LOCATIONS" in the "footer"
+    And I should see "BEHAT JOIN" in the "footer"
+    And I should see "BEHAT CAREERS" in the "footer"
