@@ -21,7 +21,6 @@
       span {
         @include cachet();
         border: none;
-        border: none;
         font-size: 18px;
         line-height: 1.22;
         letter-spacing: -1px;
@@ -34,8 +33,31 @@
     }
   }
 
+  .step-1 {
+    .btn.next {
+      display: none;
+    }
+  }
+  .step-2 {
+    margin-bottom: 50px;
+    .btn.prev {
+      display: none;
+    }
+  }
+  .step-3 {
+    margin-bottom: 50px;
+    .btn.prev {
+      display: none;
+    }
+  }
+
+  .form-actions {
+    margin: 40px 0 0;
+    text-align: center;
+  }
+
   .form-submit {
-    display: none;
+    padding: 0 85px;
   }
 
   .js-form-type-membership-type-radio {
@@ -67,7 +89,7 @@
       }
       .right {
         padding: 0;
-      };
+      }
     }
     input {
       display: none;
@@ -143,7 +165,7 @@
         position: relative;
         border-radius: 0;
         color: $white;
-        background-color: #c6168d;
+        background-color: #92278f;
         width: calc(100% - 30px);
         text-align: left;
         height: 68px;
@@ -175,7 +197,7 @@
           height: 0;
           border-top: 60px solid transparent;
           border-bottom: 60px solid transparent;
-          border-left: 30px solid  #c6168d;
+          border-left: 30px solid #92278f;
           position: absolute;
           top: 50%;
           margin-top: -60px;
@@ -194,13 +216,136 @@
         width: calc(100% - 15px);
         padding-left: 25px;
       }
-      &.active a,
-      &:first-child a{
+      &.active a {
         background-color: $purple;
       }
-      &:first-child a:after,
       &.active a:after {
         border-left: 30px solid $purple;
+      }
+    }
+  }
+
+  .openy-map-canvas {
+    height: 500px;
+    margin-bottom: 25px;
+  }
+  .step-3 {
+    .openy-map-canvas {
+      height: 200px;
+      margin-bottom: 25px;
+    }
+  }
+
+  .step-2 {
+    .js-webform-radios {
+      display: -webkit-flex;
+      display: flex;
+      flex-wrap: wrap;
+      .js-form-type-radio {
+        flex-basis: 100%;
+        padding-right: 15px;
+        margin: 0 0 10px;
+        position: relative;
+        padding-left: 20px;
+        line-height: 20px;
+        @include breakpoint(tablet) {
+          flex-basis: 50%;
+        }
+        @include breakpoint(laptop) {
+          flex-basis: 25%;
+        }
+        label {
+          @include helvetica-neue();
+          font-size: 15px;
+          margin: 0 0 0 7px;
+          vertical-align: top;
+        }
+        input {
+          margin: 0;
+          position: absolute;
+          left: 0;
+          top: 0;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+  h3 {
+    font-size: 18px;
+    line-height: 1.22;
+    letter-spacing: -1px;
+    color: $dark-grey;
+    @include breakpoint(tablet) {
+      font-size: 36px;
+      color: $purple;
+    }
+  }
+  article {
+    h3 {
+      font-size: 22px;
+      color: $purple;
+    }
+    .today,
+    .show-link {
+      display: none;
+    }
+    .branch-hours {
+      margin-top: 10px;
+      display: block !important;
+      h5 {
+        color: $purple;
+        font-size: 18px;
+      }
+      td {
+        padding-right: 10px;
+      }
+    }
+    br,
+    .country {
+      display: none;
+    }
+    .field-location-phone {
+      a {
+        color: $default-grey;
+      }
+    }
+  }
+  .calc-summary {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    .calc-summary-col {
+      border-bottom: 1px solid $darker-grey;
+      flex-basis: calc(100% - 15px);
+      padding-bottom: 15px;
+      @include breakpoint(tablet) {
+        margin: 0 15px 0 0;
+      }
+      &:nth-child(2) {
+        @include breakpoint(tablet) {
+          margin: 0 0 0 15px;
+        }
+      }
+      img {
+        height: 200px;
+        max-width: 100%;
+      }
+      @include breakpoint(tablet) {
+        flex-basis: calc(50% - 15px);
+      }
+    }
+    .price {
+      margin-top: 15px;
+      text-align: center;
+      h4 {
+
+      }
+      .monthly_rate {
+        color: $purple;
+        font-size: 22px;
+        font-weight: bold;
+        margin: 10px 0;
+        @include cachet-medium();
       }
     }
   }
