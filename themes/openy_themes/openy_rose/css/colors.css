@@ -12,11 +12,13 @@ a,
 .button.blue,
 .btn.blue,
 .modal-body .button,
+.btn-primary,
 .button:hover,
 .btn:hover,
 .button.blue:hover,
 .btn.blue:hover,
-.modal-body .button:hover {
+.modal-body .button:hover,
+.btn-primary:hover {
   background-color: #00aeef;
 }
 .btn-default {
