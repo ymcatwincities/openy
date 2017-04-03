@@ -1,0 +1,7 @@
+name: OpenY Facebook Sync
+type: module
+description: 'Openy & Facebook sync.'
+package: OpenY
+core: 8.x
+dependencies:
+  - openy_sync:openy_sync
