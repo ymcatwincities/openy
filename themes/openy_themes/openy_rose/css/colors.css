@@ -8,7 +8,15 @@ a,
   color: #337ab7;
 }
 .button,
-.btn {
+.btn,
+.button.blue,
+.btn.blue,
+.modal-body .button,
+.button:hover,
+.btn:hover,
+.button.blue:hover,
+.btn.blue:hover,
+.modal-body .button:hover {
   background-color: #00aeef;
 }
 .btn-default {
