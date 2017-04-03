@@ -84,14 +84,19 @@
 {% set category = content.field_blog_categories ? content.field_blog_categories : category_default|t %}
 {% set color = 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value %}
 {% set bg_color = 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value %}
+{% set image = content.field_blog_image['#items'] ? 'image' : 'placeholder' %}
 
 <article{{ attributes.addClass(classes) }}>
 
   <div class="inner-wrapper" style="{{ color }}; {{ bg_color }};">
-    {#{{ dump(content) }}#}
-    {% if ( node.field_blog_style.value == "photo" ) %}
+    {% if ( node.field_blog_style.value == "photo") %}
       <div>
        {{ content.field_blog_image }}
+      </div>
+    {% endif %}
+    {% if (image == 'placeholder') %}
+      <div>
+        <img src="{{ base_path ~ directory }}/img/blog_image_placeholder.png" alt="" />
       </div>
     {% endif %}
     <div class="blog-heading">
