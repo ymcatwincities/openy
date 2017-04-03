@@ -46,13 +46,14 @@ class OpenyFacebookSyncFactory {
   public function getFacebook() {
     // Check that App ID and secret have been defined in module settings.
     if ($this->validateConfig()) {
-      $sdk_config = array(
+      $sdk_config = [
         'app_id' => $this->getAppId(),
         'app_secret' => $this->getAppSecret(),
         'default_graph_version' => $this->getApiVersion(),
         'persistent_data_handler' => $this->persistentDataHandler,
         'http_client_handler' => $this->getHttpClient(),
-      );
+        'default_access_token' => $this->getDefaultAccessToken(),
+      ];
       return new Facebook($sdk_config);
     }
 
@@ -102,6 +103,19 @@ class OpenyFacebookSyncFactory {
       ->get('openy_facebook_sync.settings')
       ->get('app_id');
     return $app_id;
+  }
+
+  /**
+   * Returns default access token from module settings.
+   *
+   * @return string
+   *   Default access token defined in module settings.
+   */
+  protected function getDefaultAccessToken() {
+    $token = $this->configFactory
+      ->get('openy_facebook_sync.settings')
+      ->get('default_access_token');
+    return $token;
   }
 
   /**
