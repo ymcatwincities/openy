@@ -1,0 +1,11 @@
+services:
+  openy_facebook_sync.data_handler:
+    class: Drupal\openy_facebook_sync\OpenyFacebookSyncDataHandler
+    arguments:
+      - '@session'
+  openy_facebook_sync.factory:
+    class: Drupal\openy_facebook_sync\OpenyFacebookSyncFactory
+    arguments:
+      - '@config.factory'
+      - '@logger.factory'
+      - '@openy_facebook_sync.data_handler'
