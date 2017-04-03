@@ -75,5 +75,5 @@ class OpenyFacebookSyncFetcher {
 
     $this->wrapper->setSourceData($data);
   }
-  
+
 }

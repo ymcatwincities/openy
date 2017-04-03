@@ -10,7 +10,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *
  * @package Drupal\openy_facebook_sync
  */
-class Wrapper implements OpenyFacebookSyncWrapperInterface {
+class OpenyFacebookSyncWrapper implements OpenyFacebookSyncWrapperInterface {
 
   use StringTranslationTrait;
 
