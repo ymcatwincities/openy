@@ -4,7 +4,7 @@
     "type": "project",
     "license": "GPL-2.0+",
     "require": {
-        "ymcatwincities/openy": "8.0.*",
+        "ymcatwincities/openy": "8.*.*",
         "composer/installers": "^1.2",
         "drupal-composer/drupal-scaffold": "^2.2",
         "cweagans/composer-patches": "~1.0"
@@ -29,7 +29,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/kenwheeler/slick",
+                "name": "library-kenwheeler/slick",
                 "version": "1.6.0",
                 "type": "drupal-library",
                 "source": {
@@ -42,7 +42,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/dinbror/blazy",
+                "name": "library-dinbror/blazy",
                 "version": "1.8.2",
                 "type": "drupal-library",
                 "source": {
@@ -55,7 +55,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/gdsmith/jquery.easing",
+                "name": "library-gdsmith/jquery.easing",
                 "version": "1.4.1",
                 "type": "drupal-library",
                 "source": {
@@ -68,7 +68,7 @@
         {
             "type": "package",
             "package": {
-                "name": "library/enyo/dropzone",
+                "name": "library-enyo/dropzone",
                 "version": "4.3.0",
                 "type": "drupal-library",
                 "source": {
@@ -81,13 +81,13 @@
         {
             "type": "package",
             "package": {
-                "name": "library/jaypan/jquery_colorpicker",
-                "version": "*",
+                "name": "library-jaypan/jquery_colorpicker",
+                "version": "1.0.1",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/jaypan/jquery_colorpicker",
                     "type": "git",
-                    "reference": "*"
+                    "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
         }
