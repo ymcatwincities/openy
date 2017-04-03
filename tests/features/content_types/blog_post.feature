@@ -1,4 +1,4 @@
-@openy @api @javascript @blogtest
+@openy @api @javascript
 Feature: Blog Content type
   As Admin I want to make sure that Blog content type is OK
 
@@ -77,4 +77,5 @@ Feature: Blog Content type
     Then I switch back from an iframe
     And I wait for AJAX to finish
     When I press "Save and publish"
+    Then I should see the message "Blog Post Behat Gallery Blog has been created."
     And I should see an ".paragraph-gallery .field-media-image img" element
