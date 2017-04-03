@@ -4,3 +4,10 @@
  * @file
  * Module file.
  */
+
+/**
+ * Shortcut method to run sync.
+ */
+function openy_facebook_sync_run() {
+  openy_sync_run("openy_facebook_sync.syncer", "proceed");
+}
