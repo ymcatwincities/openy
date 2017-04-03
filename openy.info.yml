@@ -72,6 +72,7 @@ dependencies:
   - simple_sitemap
   - metatag
   - metatag_open_graph
+  - google_tag
   - google_analytics
   # OpenY features.
   - openy_media_image

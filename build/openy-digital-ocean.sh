@@ -14,6 +14,7 @@ Cyan='\033[0;36m'         # Cyan
 White='\033[0;37m'        # White
 
 printf "${Green}Installing git...${Color_Off}\n"
+sudo apt-get update
 sudo apt-get install git -y
 
 printf "${Green}Update PHP to 7.1${Color_Off}\n"
