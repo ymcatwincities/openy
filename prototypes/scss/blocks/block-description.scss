@@ -109,8 +109,14 @@
 
   &--2 {
     .block-description--text {
-      @include breakpoint(tablet){
-        width: calc(100% / 2 - 30px);
+      &:nth-child(1) {
+        margin-left: 0;
+      }
+      &:nth-child(2) {
+        margin-right: 0;
+      }
+      @include breakpoint(tablet) {
+        width: calc(100% / 2 - 15px);
       }
     }
   }
