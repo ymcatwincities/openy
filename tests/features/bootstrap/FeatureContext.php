@@ -275,22 +275,6 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * @Given Element :element has a style :css_style value contains :value
-   */
-  public function elementHasAStyle($element, $css_style, $value) {
-
-    // JS script that makes the CSS assertion in the browser.
-    $script = '(function(){';
-    $script .= '  return document.querySelector("' . $element . '").css("' . $css_style . '").includes("' . $value . '");';
-    $script .= '})();';
-
-    if (!$this->getSession()->evaluateScript($script)) {
-      throw new Exception();
-    }
-  }
-
-
-  /**
    * @Given Element :element has text :text
    */
   public function elementHasText($element, $text) {
