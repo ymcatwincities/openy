@@ -1004,7 +1004,6 @@ body {
   text-transform: uppercase;
 }
 .btn.blue, .blue.button, .modal-body .button {
-  background-color: #00aeef;
   color: #fff;
 }
 .btn.blue:hover, .blue.button:hover, .modal-body .button:hover {
@@ -1071,7 +1070,6 @@ body {
   padding: 12px 35px;
   border: none;
   border-radius: 0;
-  background-color: #00aeef;
   font-size: 20px;
 }
 
@@ -4049,7 +4047,6 @@ html.js .branch__updates_queue__button {
   width: 90px;
   height: 34px;
   padding: 7px 16px;
-  background-color: #00aeef;
   border: solid 1px #636466;
   font-size: 16px;
   font-weight: 600;
