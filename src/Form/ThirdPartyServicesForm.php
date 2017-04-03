@@ -29,6 +29,8 @@ class ThirdPartyServicesForm extends FormBase {
     $geo_loc_config = $config_factory->get('geolocation.settings');
     // Get Google Analytics Account settings container.
     $ga_config = $config_factory->get('google_analytics.settings');
+    // Get Google Tag Manager Account settings container.
+    $gtm_config = $config_factory->get('google_tag.settings');
     // Get Optimizely settings container.
     $optimizely_config = $config_factory->get('optimizely.settings');
 
@@ -49,6 +51,16 @@ class ThirdPartyServicesForm extends FormBase {
       '#maxlength' => 20,
       '#placeholder' => 'UA-',
       '#title' => $this->t('Google Analytics Web Property ID'),
+      '#type' => 'textfield',
+    ];
+
+    // Google Tag Manager Account ID.
+    $form['google_tag_manager_id'] = [
+      '#title' => $this->t('Google Tag Manager Container ID'),
+      '#description' => $this->t('The ID assigned by Google Tag Manager (GTM) for this website container. To get a container ID, <a href="https://tagmanager.google.com/">sign up for GTM</a> and create a container for your website.'),
+      '#default_value' => $gtm_config->get('container_id'),
+      '#attributes' => ['placeholder' => ['GTM-xxxxxx']],
+      '#maxlength' => 20,
       '#type' => 'textfield',
     ];
 
@@ -92,6 +104,23 @@ class ThirdPartyServicesForm extends FormBase {
         $form_state->setErrorByName('google_analytics_account', t('A valid Google Analytics Web Property ID is case sensitive and formatted like UA-xxxxxxx-yy.'));
       }
     }
+
+    if (!empty(trim($form_state->getValue('google_tag_manager_id')))) {
+      // Trim the text values.
+      $container_id = trim($form_state->getValue('google_tag_manager_id'));
+
+      // Replace all types of dashes (n-dash, m-dash, minus) with a normal dash.
+      $container_id = str_replace(['–', '—', '−'], '-', $container_id);
+      $form_state->setValue('google_tag_manager_id', $container_id);
+
+      if (!preg_match('/^GTM-\w{4,}$/', $container_id)) {
+        // @todo Is there a more specific regular expression that applies?
+        // @todo Is there a way to "test the connection" to determine a valid ID for
+        // a container? It may be valid but not the correct one for the website.
+        $form_state->setError($form['google_tag_manager_id'], $this->t('A valid container ID is case sensitive and formatted like GTM-xxxxxx.'));
+      }
+    }
+
   }
 
   /**
@@ -105,6 +134,14 @@ class ThirdPartyServicesForm extends FormBase {
 
     $geo_loc_config->set('google_map_api_key', $form_state->getValue('google_map_api_key'));
     $geo_loc_config->save();
+
+    // Set Google Tag Manager Container ID & create snippets.
+    if (!empty($form_state->getValue('google_tag_manager_id'))) {
+      $gtm_config = $config_factory->getEditable('google_tag.settings');
+      $gtm_config->set('container_id', $form_state->getValue('google_tag_manager_id'));
+      $gtm_config->save();
+      $this->saveSnippets();
+    }
 
     // Set Google Analytics Account TODO: Add other values?
     if (!empty($form_state->getValue('google_analytics_account'))) {
@@ -123,6 +160,32 @@ class ThirdPartyServicesForm extends FormBase {
       ))
       ->condition('oid', '1')
       ->execute();
+  }
+
+  /**
+   * Saves JS snippet files based on current settings.
+   *
+   * @return bool
+   *   Whether the files were saved.
+   */
+  public function saveSnippets() {
+    // Save the altered snippets after hook_google_tag_snippets_alter().
+    module_load_include('inc', 'google_tag', 'includes/snippet');
+    $result = TRUE;
+    $snippets = google_tag_snippets();
+    foreach ($snippets as $type => $snippet) {
+      $path = file_unmanaged_save_data($snippet, "public://js/google_tag.$type.js", FILE_EXISTS_REPLACE);
+      $result = !$path ? FALSE : $result;
+    }
+    if (!$result) {
+      drupal_set_message(t('An error occurred saving one or more snippet files. Please try again or contact the site administrator if it persists.'));
+    }
+    else {
+      drupal_set_message(t('Created three snippet files based on configuration.'));
+      \Drupal::service('asset.js.collection_optimizer')->deleteAll();
+      _drupal_flush_css_js();
+    }
+    return TRUE;
   }
 
 }
