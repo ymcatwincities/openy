@@ -20,7 +20,7 @@ dependencies:
     - metatag
     - paragraphs
     - path
-    - telephone
+    - openy_widgets
 id: node.camp.default
 targetEntityType: node
 bundle: camp
@@ -80,14 +80,16 @@ content:
     weight: 12
     settings:
       placeholder: '0123456789'
+      min_length: 6
     third_party_settings: {  }
-    type: telephone_default
+    type: telephone_with_length
   field_location_phone:
     weight: 13
     settings:
       placeholder: '0123456789'
+      min_length: 6
     third_party_settings: {  }
-    type: telephone_default
+    type: telephone_with_length
   field_meta:
     type: metatag_firehose
     weight: 15
