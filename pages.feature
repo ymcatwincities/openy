@@ -12,7 +12,7 @@ Feature: OpenY main pages
       | / |
       | user |
 
-  @javascript
+  @javascript @houston_ignore
   Scenario Outline: Check Log In text
     When I go to "<page>"
     Then I should see "Log In"
