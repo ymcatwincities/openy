@@ -56,7 +56,6 @@
       position: relative;
       overflow: hidden;
       margin: 15px;
-
       @include breakpoint(0 $screen-sm) {
         margin: 0 auto;
       }
@@ -133,6 +132,20 @@
         background-color: rgba(35, 31, 32, 0.5);
       }
     }
+
+    &.blog-color .inner-wrapper {
+      padding-top: 90%;
+      @media (min-width: 768px) and (max-width: 1023px) {
+        padding-top: 94%;
+      }
+      @media (min-width: 1024px) and (max-width: 1199px) {
+        height: 283px
+      }
+      @media (min-width: 1200px) {
+        height: 350px;
+      }
+      }
+
 
     &.blog-story .inner-wrapper {
       border: 1px solid $light-grey;
