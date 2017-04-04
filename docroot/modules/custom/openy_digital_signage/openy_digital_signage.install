@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Module for hook_update_N.
+ */
+
+/**
+ * Initial hook_updates runner.
+ */
+function openy_digital_signage_install() {
+  for ($i = 8000; $i < 9000; $i++) {
+    $function = 'openy_digital_signage_update_' . $i;
+    if (function_exists($function)) {
+      \Drupal::logger('openy_digital_signage_install')->info('running: ' . $function);
+      $function();
+    }
+  }
+}
+
+/**
+ * Dummy hook.
+ */
+function openy_digital_signage_update_8000() {
+  // Intentionally empty.
+}
