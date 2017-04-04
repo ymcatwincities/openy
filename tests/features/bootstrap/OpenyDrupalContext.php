@@ -112,7 +112,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    *
    * @Given /^I create menu_link_content:$/
    */
-  public function iCreateMenu_link_content(TableNode $table) {
+  public function iCreateMenuLinkContent(TableNode $table) {
     $table_hash = $table->getHash();
 
     foreach($table_hash as $link_hash) {
