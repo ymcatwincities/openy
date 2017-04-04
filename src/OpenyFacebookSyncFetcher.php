@@ -79,6 +79,7 @@ class OpenyFacebookSyncFetcher {
       $data = [];
 
       // @todo Implement pager|filtering passed events.
+      // @todo Use page ID from config.
       $result = $this->facebook->sendRequest('GET', "71944364922/events");
       $body = $result->getDecodedBody();
       foreach ($body['data'] as $event) {

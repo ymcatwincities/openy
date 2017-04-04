@@ -78,13 +78,24 @@ class OpenyFacebookSyncSaver {
       // Create event node.
       $node = $this->createEvent([
         'title' => $event['name'],
-        'description' => $event['description'],
       ]);
 
-      // Create mapping entity.
-      $this->eventMappingRepo->create($node, $event);
-    }
+      // Create description paragraph.
+      $paragraph = $this->createDescriptionParagraph([
+        'field_prgf_sc_body' => $event['description'],
+      ]);
 
+      $paragraph_data = [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ];
+
+      $node->field_landing_body->appendItem($paragraph_data);
+      $node->save();
+
+      // Create mapping entity.
+      $this->eventMappingRepo->create($node, $paragraph_data, $event);
+    }
   }
 
   /**
@@ -105,17 +116,7 @@ class OpenyFacebookSyncSaver {
       'uid' => self::DEFAULT_UID,
     ]);
 
-    $paragraph = $this->createDescriptionParagraph([
-      'field_prgf_sc_body' => $data['description'],
-    ]);
-
-    $node->field_landing_body->appendItem([
-      'target_id' => $paragraph->id(),
-      'target_revision_id' => $paragraph->getRevisionId(),
-    ]);
-
     $node->save();
-
     return $node;
   }
 
