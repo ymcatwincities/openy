@@ -193,14 +193,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
       $target_revision_id = [];
       foreach ($field_values as $value_or_key) {
         if ($field_type == 'image' || $field_type == 'file') {
-          // TODO Copy file from mink files_path if present.
-          $file = File::create([
-            'filename' => $value_or_key,
-            'uri' => 'public://' . $value_or_key,
-            'status' => 1,
-          ]);
-          $file->save();
-          $this->saveEntity($file);
+          $file = $this->createTestFile($value_or_key);
           $value_id[] = $file->id();
         }
         else {
@@ -426,6 +419,38 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
         $storage_handler->delete($entities);
       }
     }
+  }
+
+  /**
+   * Create test file from name, it may use a real file from the mink file_path.
+   *
+   * @param $file_name string
+   *   A file name the may exist in the mink file_path folder.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|mixed|static
+   *
+   * @throws \Exception
+   */
+  public function createTestFile($file_name) {
+    $file = str_replace('\\"', '"', $file_name);
+    $file_destination = 'public://' . $file_name;
+    if ($this->getMinkParameter('files_path')) {
+      $file_path = rtrim(realpath($this->getMinkParameter('files_path')), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $file;
+      if (is_file($file_path)) {
+        if (! ($file_destination = @file_unmanaged_copy($file_path, $file_destination))) {
+          $msg = 'File copy fail, "' . $file_path . '" to ' . $file_destination;
+          throw new \Exception($msg);
+        }
+      }
+    }
+    $file = File::create([
+      'filename' => $file_name,
+      'uri' => $file_destination,
+      'status' => 1,
+    ]);
+    $file->save();
+    $this->saveEntity($file);
+    return $file;
   }
 
 }

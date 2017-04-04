@@ -1,4 +1,4 @@
-@openy @javascript @api
+@openy @javascript @api @testwysiwyg
 Feature: WYSIWYG
   Check WYSIWYG
 
@@ -13,9 +13,9 @@ Feature: WYSIWYG
     And I create media of type video:
       | name               | field_media_video_embed_field               | status |
       | BEHAT SAMPLE VIDEO | https://www.youtube.com/watch?v=C0DPdy98e4c | 1      |
-#    And I create media of type document:
-#      | name                  | field_media_document | field_media_mime | field_media_size |
-#      | BEHAT SAMPLE DOCUMENT | sample_document.pdf  | application/pdf  | 0                |
+    And I create media of type document:
+      | name                  | field_media_document | field_media_mime | field_media_size |
+      | BEHAT SAMPLE DOCUMENT | sample_document.pdf  | application/pdf  | 0                |
     And I view a landing_page content:
       | title           | Behat test for WYSIWYG |
       | field_lp_layout | one_column             |
@@ -52,18 +52,17 @@ Feature: WYSIWYG
     Then I press "Save and keep published"
     And I should see an "article.media-video .video-embed-field-responsive-video iframe" element
 
-#  TODO Document test requires a real file to exist.
-#  Scenario: Embed Document
-#    When I click "//*[@id='edit-group-content-area']/summary" xpath element
-#    And I click ".cke_button__embed_document_icon" element
-#    And I wait for AJAX to finish
-#    Then I switch to an iframe "entity_browser_iframe_documents_library_embed"
-#    And I click "Select Documents"
-#    And I click "img.image-style-thumbnail[title='BEHAT SAMPLE DOCUMENT']" element
-#    And I press "Select documents"
-#    Then I switch back from an iframe
-#    And I wait for AJAX to finish
-#    And I select "Full" from "Display as"
-#    And I click "//button/span[.='Embed']" xpath element
-#    Then I press "Save and keep published"
-#    And I should see an "article.media-document .field-media-document iframe" element
+  Scenario: Embed Document
+    When I click "//*[@id='edit-group-content-area']/summary" xpath element
+    And I click ".cke_button__embed_document_icon" element
+    And I wait for AJAX to finish
+    Then I switch to an iframe "entity_browser_iframe_documents_library_embed"
+    And I click "Select Documents"
+    And I click "img.image-style-thumbnail[title='BEHAT SAMPLE DOCUMENT']" element
+    And I press "Select documents"
+    Then I switch back from an iframe
+    And I wait for AJAX to finish
+    And I select "Full" from "Display as"
+    And I click "//button/span[.='Embed']" xpath element
+    Then I press "Save and keep published"
+    And I should see an "article.media-document .field-media-document iframe" element
