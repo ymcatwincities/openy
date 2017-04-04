@@ -55,3 +55,16 @@ function openy_node_event_update_8004() {
     ]
   );
 }
+
+/**
+ * Add tour for event page.
+ */
+function openy_node_event_update_8005() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/optional');
+  $config_importer->importConfigs(
+    [
+      'tour.tour.openy-event-add',
+    ]
+  );
+}
