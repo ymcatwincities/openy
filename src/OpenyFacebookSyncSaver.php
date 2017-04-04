@@ -5,6 +5,7 @@ namespace Drupal\openy_facebook_sync;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\openy_mappings\EventMappingRepository;
 
 /**
  * Class OpenyFacebookSyncSaver.
@@ -37,6 +38,13 @@ class OpenyFacebookSyncSaver {
   private $entityTypeManager;
 
   /**
+   * EventMappingRepo.
+   *
+   * @var \Drupal\openy_mappings\EventMappingRepository
+   */
+  private $eventMappingRepo;
+
+  /**
    * Constructor.
    *
    * @param \Drupal\openy_facebook_sync\OpenyFacebookSyncWrapperInterface $wrapper
@@ -45,18 +53,21 @@ class OpenyFacebookSyncSaver {
    *   Logger Channel.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface
    *   Entity Type Manager.
+   * @param \Drupal\openy_mappings\EventMappingRepository
+   *   EventMappingRepo.
    */
-  public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $logger, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $logger, EntityTypeManagerInterface $entityTypeManager, EventMappingRepository $event_mapping_repo) {
     $this->wrapper = $wrapper;
     $this->logger = $logger;
     $this->entityTypeManager = $entityTypeManager;
+    $this->eventMappingRepo = $event_mapping_repo;
   }
 
   /**
    * {@inheritdoc}
    */
   public function save() {
-    // @todo Save events here.
+    $this->eventMappingRepo->create();
   }
 
 }

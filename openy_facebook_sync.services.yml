@@ -34,6 +34,7 @@ services:
       - '@openy_facebook_sync.wrapper'
       - '@logger.channel.openy_facebook_sync'
       - '@entity.manager'
+      - '@openy_mappings.event_repository'
   logger.channel.openy_facebook_sync:
     parent: logger.channel_base
     arguments:
