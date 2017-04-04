@@ -16,6 +16,8 @@ class OpenyFacebookSyncSaver {
 
   use StringTranslationTrait;
 
+  const DEFAULT_UID = 1;
+
   /**
    * Wrapper.
    *
@@ -67,7 +69,74 @@ class OpenyFacebookSyncSaver {
    * {@inheritdoc}
    */
   public function save() {
-    $this->eventMappingRepo->create();
+    $data = $this->wrapper->getSourceData();
+
+    foreach ($data as $event) {
+      // @todo Check whether we need update the node (paragraph).
+      // @todo Add setting to create nodes in certain status (published|unpublished).
+
+      // Create event node.
+      $node = $this->createEvent([
+        'title' => $event['name'],
+        'description' => $event['description'],
+      ]);
+
+      // Create mapping entity.
+      $this->eventMappingRepo->create($node, $event);
+    }
+
+  }
+
+  /**
+   * Create event node.
+   *
+   * @param array $data
+   *   Event data.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   Event node.
+   */
+  private function createEvent(array $data) {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $node = $storage->create([
+      'type' => 'event',
+      'title' => $data['title'],
+      'uid' => self::DEFAULT_UID,
+    ]);
+
+    $paragraph = $this->createDescriptionParagraph([
+      'field_prgf_sc_body' => $data['description'],
+    ]);
+
+    $node->field_landing_body->appendItem([
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ]);
+
+    $node->save();
+
+    return $node;
+  }
+
+  /**
+   * Create description paragraph.
+   *
+   * @param array $data
+   *   Paragraph data.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   */
+  private function createDescriptionParagraph(array $data) {
+    $storage = $this->entityTypeManager->getStorage('paragraph');
+    $paragraph = $storage->create(['type' => 'simple_content']);
+
+    foreach ($data as $field => $value) {
+      $paragraph->set($field, $value);
+    }
+
+    $paragraph->save();
+    return $paragraph;
   }
 
 }
