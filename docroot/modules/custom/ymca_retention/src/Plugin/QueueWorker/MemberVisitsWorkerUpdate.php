@@ -40,8 +40,8 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
     // Get campaign dates settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
     try {
-      $this->dateOpen = new \DateTime($settings->get('date_campaign_open'));
-      $this->dateClose = new \DateTime($settings->get('date_campaign_close'));
+      $this->dateOpen = new \DateTime($settings->get('date_reporting_open'));
+      $this->dateClose = new \DateTime($settings->get('date_reporting_close'));
     }
     catch (\Exception $e) {
       $this->dateOpen = new \DateTime();
@@ -55,27 +55,21 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
    * {@inheritdoc}
    */
   public function processItem($data) {
-    $list_ids = [];
-    foreach ($data['items'] as $item) {
-      // Load member.
-      $member = Member::load($item['id']);
-      $list_ids[$item['id']] = $member->getPersonifyId();
-    }
     // Date From.
     $date_from = new \DateTime();
     $date_from->setTimestamp($data['date_from']);
     if ($date_from < $this->dateOpen) {
       $date_from = $this->dateOpen;
     }
-    // Date to.
+    // Date To.
     $date_to = new \DateTime();
     $date_to->setTimestamp($data['date_to']);
     if ($date_to > $this->dateClose) {
       $date_to = $this->dateClose;
     }
 
-    // Get information about number of checkins in period of the campaign.
-    $results = PersonifyApi::getPersonifyVisitsBatch($list_ids, $date_from, $date_to);
+    // Request to Personify.
+    $results = PersonifyApi::getPersonifyVisitsBatch($data['items'], $date_from, $date_to);
     if (!empty($results->ErrorMessage)) {
       $logger = \Drupal::logger('ymca_retention_queue');
       $logger->alert('Could not retrieve visits information for members for batch operation');
@@ -85,7 +79,7 @@ class MemberVisitsWorkerUpdate extends QueueWorkerBase {
       if (!isset($item->TotalVisits) || $item->TotalVisits == 0) {
         continue;
       }
-      $member_id = array_search($item->MasterCustomerId, $list_ids);
+      $member_id = array_search($item->MasterCustomerId, $data['items']);
 
       $checkin_ids = \Drupal::entityQuery('ymca_retention_member_checkin')
         ->condition('member', $member_id)

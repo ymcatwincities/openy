@@ -68,6 +68,9 @@ locations:
   15:
     label: 'Woodbury YMCA'
     active: true
+  25:
+    label: 'Maplewood YMCA'
+    active: true
 programs:
   2:
     label: 'Personal Training'

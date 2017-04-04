@@ -9,7 +9,7 @@ id: mapping.personify_product.field_product_code
 field_name: field_product_code
 entity_type: mapping
 bundle: personify_product
-label: ProductCode
+label: 'Member product code'
 description: ''
 required: false
 translatable: false
