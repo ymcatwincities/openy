@@ -1,4 +1,4 @@
-@openy @api @menutest
+@openy @api
 Feature: Menus
   Check that menus items are available and displayed in right regions
 

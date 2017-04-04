@@ -1,4 +1,4 @@
-@openy @javascript @api @testwysiwyg
+@openy @javascript @api
 Feature: WYSIWYG
   Check WYSIWYG
 
