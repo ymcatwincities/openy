@@ -274,4 +274,17 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
   }
 
+  /**
+   * @Given Element :element has text :text
+   */
+  public function elementHasText($element, $text) {
+    $element_obj = $this->getSession()->getPage()->find('css', $element);
+
+    // Find the text within the region
+    $element_text = $element_obj->getText();
+    if (strpos($element_text, $text) === FALSE) {
+      throw new \Exception(sprintf("The text '%s' was not found in the element '%s' on the page %s", $text, $element, $this->getSession()->getCurrentUrl()));
+    }
+  }
+
 }
