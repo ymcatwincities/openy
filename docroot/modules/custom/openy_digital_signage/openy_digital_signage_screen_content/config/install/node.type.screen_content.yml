@@ -1,0 +1,17 @@
+uuid: 25f6f6a0-60cd-448f-86ee-192426f0219b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Screen Content'
+type: screen_content
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false
