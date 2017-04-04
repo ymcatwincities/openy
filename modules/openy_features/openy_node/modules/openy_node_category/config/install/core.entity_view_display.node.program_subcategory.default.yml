@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.program_subcategory.field_bottom_content
     - field.field.node.program_subcategory.field_category_color
     - field.field.node.program_subcategory.field_category_description
     - field.field.node.program_subcategory.field_category_image
@@ -19,6 +20,14 @@ targetEntityType: node
 bundle: program_subcategory
 mode: default
 content:
+  field_bottom_content:
+    weight: 8
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
   field_category_color:
     weight: 7
     label: above
