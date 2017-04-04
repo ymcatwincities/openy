@@ -274,4 +274,21 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
   }
 
+  /**
+   * Clicks on element by css or xpath locator.
+   *
+   * @When I click :selector element
+   * @When I click :selector in :area
+   * @When I click :selector :locator_type element
+   */
+  public function clickElement($selector,$locator_type='css') {
+    $page = $this->getSession()->getPage();
+    $element = $page->find($locator_type, $selector);
+    if (empty($element)) {
+      throw new Exception('There is no element with selector ' . $locator_type . ': "' . $selector . '"');
+    }
+    $element->focus();
+    $element->click();
+  }
+  
 }

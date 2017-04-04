@@ -28,6 +28,9 @@ default:
       goutte: ~
       selenium2: ~
     Drupal\DrupalExtension:
+      text:
+        log_out: "Log out"
+        log_in: "Log in"
       api_driver: drupal
       drush_driver: drush
       drush:
@@ -47,9 +50,6 @@ default:
         message_selector: '.status-message'
         error_message_selector: 'status-message__alert p'
         success_message_selector: '.status-message ul, .status-message p'
-      text:
-        log_out: "Log out"
-        log_in: "Log in"
     Drupal\TqExtension:
         wait_for_email: 10
         wait_for_redirect: 60
