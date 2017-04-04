@@ -1,0 +1,38 @@
+uuid: a208625a-a1fb-4c02-8bb6-617721f20859
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.screen_content.field_screen_content_preview
+    - field.field.node.screen_content.panelizer
+    - image.style.thumbnail
+    - node.type.screen_content
+  module:
+    - image
+id: node.screen_content.default
+targetEntityType: node
+bundle: screen_content
+mode: default
+content:
+  field_screen_content_preview:
+    weight: 26
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  panelizer: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

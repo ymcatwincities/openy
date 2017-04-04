@@ -19,8 +19,10 @@ function openy_digital_signage_install() {
 }
 
 /**
- * Dummy hook.
+ * Enable base modules.
  */
 function openy_digital_signage_update_8000() {
-  // Intentionally empty.
+  \Drupal::service('module_installer')->install([
+    'openy_digital_signage_screen_content',
+  ], TRUE);
 }
