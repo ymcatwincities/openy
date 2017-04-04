@@ -149,13 +149,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
 
       // If icon image set create image file.
       if (!empty($link_hash['icon_image'])) {
-        $file = File::create([
-          'filename' => $link_hash['icon_image'],
-          'uri' => 'public://' . $link_hash['icon_image'],
-          'status' => 1,
-        ]);
-        $file->save();
-        $this->saveEntity($file);
+        $file = $this->createTestFile($link_hash['icon_image']);
         $options = [
           'menu_icon' => [
             'fid' => $file->id(),
