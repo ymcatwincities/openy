@@ -42,6 +42,13 @@ class OpenyFacebookSyncFetcher {
   private $cacheBackend;
 
   /**
+   * Facebook.
+   *
+   * @var \Facebook\Facebook
+   */
+  private $facebook;
+
+  /**
    * Fetcher constructor.
    *
    * @param \Drupal\openy_facebook_sync\OpenyFacebookSyncWrapperInterface $wrapper
@@ -50,11 +57,14 @@ class OpenyFacebookSyncFetcher {
    *   Logger Channel.
    * @param \Drupal\Core\Cache\CacheBackendInterface
    *   Cache Backend.
+   * @param OpenyFacebookSyncFactory
+   *   Facebook factory.
    */
-  public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $loggerChannel, CacheBackendInterface $cacheBackend) {
+  public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $loggerChannel, CacheBackendInterface $cacheBackend, OpenyFacebookSyncFactory $facebook_factory) {
     $this->wrapper = $wrapper;
     $this->logger = $loggerChannel;
     $this->cacheBackend = $cacheBackend;
+    $this->facebook = $facebook_factory->getFacebook();
   }
 
   /**
@@ -68,7 +78,12 @@ class OpenyFacebookSyncFetcher {
     else {
       $data = [];
 
-      // @todo Get data here.
+      // @todo Implement pager|filtering passed events.
+      $result = $this->facebook->sendRequest('GET', "71944364922/events");
+      $body = $result->getDecodedBody();
+      foreach ($body['data'] as $event) {
+        $data[] = $event;
+      }
 
       $this->cacheBackend->set($cid, $data, REQUEST_TIME + self::CACHE_TIME);
     }

@@ -28,6 +28,7 @@ services:
       - '@openy_facebook_sync.wrapper'
       - '@logger.channel.openy_facebook_sync'
       - '@cache.data'
+      - '@openy_facebook_sync.factory'
   openy_facebook_sync.saver:
     class: Drupal\openy_facebook_sync\OpenyFacebookSyncSaver
     arguments:
