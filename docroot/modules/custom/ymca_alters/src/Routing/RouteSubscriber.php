@@ -48,6 +48,9 @@ class RouteSubscriber extends RouteSubscriberBase {
     if ($route = $collection->get('page_manager.variant_edit_block')) {
       $route->setDefault('_form', '\Drupal\ymca_alters\Form\YmcaVariantPluginEditBlockForm');
     }
+    if ($route = $collection->get('panels.edit_block')) {
+      $route->setDefault('_form', '\Drupal\ymca_alters\Form\YmcaPanelsEditBlockForm');
+    }
   }
 
 }

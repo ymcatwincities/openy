@@ -4553,3 +4553,50 @@ function ymca_master_update_8203() {
     ]
   );
 }
+
+/**
+ * Update hf settings.
+ */
+function ymca_master_update_8204() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'openy_hf.settings',
+    ]
+  );
+}
+
+/**
+ * Update markup text in Membership form.
+ */
+function ymca_master_update_8205() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'field.field.contact_message.membership_form.field_label',
+    ]
+  );
+}
+
+/**
+ * Fix file document display.
+ */
+function ymca_master_update_8206() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.file.document.default',
+      'core.entity_form_display.node.location.default',
+    ]
+  );
+}
+
+/**
+ * Enable ymca_head_attachments module.
+ */
+function ymca_master_update_8207() {
+  \Drupal::service('module_installer')->install(['ymca_head_attachments'], TRUE);
+}
