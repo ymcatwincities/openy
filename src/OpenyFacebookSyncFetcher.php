@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_facebook_sync;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -49,8 +50,17 @@ class OpenyFacebookSyncFetcher {
   private $facebook;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Fetcher constructor.
    *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   Used for accessing Drupal configuration.
    * @param \Drupal\openy_facebook_sync\OpenyFacebookSyncWrapperInterface $wrapper
    *   Data wrapper.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
@@ -60,11 +70,25 @@ class OpenyFacebookSyncFetcher {
    * @param OpenyFacebookSyncFactory
    *   Facebook factory.
    */
-  public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $loggerChannel, CacheBackendInterface $cacheBackend, OpenyFacebookSyncFactory $facebook_factory) {
+  public function __construct( ConfigFactoryInterface $config_factory, OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $loggerChannel, CacheBackendInterface $cacheBackend, OpenyFacebookSyncFactory $facebook_factory) {
+    $this->configFactory = $config_factory;
     $this->wrapper = $wrapper;
     $this->logger = $loggerChannel;
     $this->cacheBackend = $cacheBackend;
     $this->facebook = $facebook_factory->getFacebook();
+  }
+
+  /**
+   * Returns app_id from module settings.
+   *
+   * @return string
+   *   Application ID defined in module settings.
+   */
+  protected function getAppId() {
+    $app_id = $this->configFactory
+      ->get('openy_facebook_sync.settings')
+      ->get('app_id');
+    return $app_id;
   }
 
   /**
@@ -79,8 +103,8 @@ class OpenyFacebookSyncFetcher {
       $data = [];
 
       // @todo Implement pager|filtering passed events.
-      // @todo Use page ID from config.
-      $result = $this->facebook->sendRequest('GET', "71944364922/events");
+      $appid = $this->getAppId();
+      $result = $this->facebook->sendRequest('GET', $appid . "/events");
       $body = $result->getDecodedBody();
       foreach ($body['data'] as $event) {
         $data[] = $event;

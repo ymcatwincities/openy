@@ -25,6 +25,7 @@ services:
   openy_facebook_sync.fetcher:
     class: Drupal\openy_facebook_sync\OpenyFacebookSyncFetcher
     arguments:
+      - '@config.factory'
       - '@openy_facebook_sync.wrapper'
       - '@logger.channel.openy_facebook_sync'
       - '@cache.data'
