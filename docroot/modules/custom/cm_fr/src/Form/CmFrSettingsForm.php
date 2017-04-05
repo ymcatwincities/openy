@@ -62,9 +62,18 @@ class CmFrSettingsForm extends ConfigFormBase implements ContainerAwareInterface
       foreach ($list as $id => $finds) {
         foreach (array_keys($tdata['parse_columns']) as $parsed_name) {
           preg_match_all("/<a href=\"https:\/\/ygtcprod2.personifycloud.com.*<\/a>/", $finds->{$parsed_name}, $output_array);
+          if ($output_array[0] == []) {
+            preg_match_all("/^https:\/\/ygtcprod2.personifycloud.com\S+/", $finds->{$parsed_name}, $output_array);
+          }
           foreach ($output_array as $lid => $link) {
             preg_match_all('/<a\s+href=["\']([^"\']+)["\']/i', implode(',', $link), $links);
-            $list_of_links = $links[1];
+            if ($links[1] == []) {
+              $list_of_links = $output_array[0];
+            }
+            else {
+              $list_of_links = $links[1];
+            }
+
             foreach ($list_of_links as $lexport) {
               $csv[] = ['https://www.ymcamn.org/' . str_replace('$id', $finds->{$tdata['id']}, $tdata['edit_pattern']), $lexport];
             }
