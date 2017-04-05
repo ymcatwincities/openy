@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * OpenY Node install file.
+ */
+
+/**
+ * Update Node Category with field_bottom_content.
+ */
+function openy_node_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_node') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_bottom_content',
+  ]);
+}
