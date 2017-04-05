@@ -75,16 +75,17 @@ class OpenyFacebookSyncSaver {
       // @todo Check whether we need update the node (paragraph).
       // @todo Add setting to create nodes in certain status (published|unpublished).
 
-      // Create event node.
+      // Create event node with title, start and end dates.
       $node = $this->createEvent([
         'title' => $event['name'],
+        'start_date' => $event['start_time'],
+        'end_date' => $event['end_time'],
       ]);
 
       // Create description paragraph.
       $paragraph = $this->createDescriptionParagraph([
         'field_prgf_sc_body' => $event['description'],
       ]);
-
       $paragraph_data = [
         'target_id' => $paragraph->id(),
         'target_revision_id' => $paragraph->getRevisionId(),
@@ -110,10 +111,18 @@ class OpenyFacebookSyncSaver {
   private function createEvent(array $data) {
     $storage = $this->entityTypeManager->getStorage('node');
 
+    // Convert date values from 2017-04-08T19:00:00-0500 to 2017-04-08T19:00:00.
+    $event_date_values = [
+      'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])->format('Y-m-d\TH:i:s'),
+      'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['end_date'])->format('Y-m-d\TH:i:s'),
+    ];
+
+    // Create event node.
     $node = $storage->create([
       'type' => 'event',
       'title' => $data['title'],
       'uid' => self::DEFAULT_UID,
+      'field_event_date_range' => $event_date_values,
     ]);
 
     $node->save();
