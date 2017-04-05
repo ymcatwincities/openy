@@ -5,6 +5,7 @@ Feature: Camp menu on camp and landing page
   Background: Log in
     Given I am logged in as a user with the "Administrator" role
 
+  # todo Refactor
   # Since no data persists between scenarios these steps had to be run under one.
   Scenario: Camp menu on camp and landing page
     # Create Landing page with camp menu

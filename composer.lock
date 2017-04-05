@@ -4,9 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a1a36122a7f11360cf56fb5762387ab",
-    "hash": "f7e0208eed8fa1422350c547dcfab55d",
-    "content-hash": "0886e3fa6591918f48bd3db498c25c65",
+    "hash": "f84a5a4dd185abe79d9c7c3a991543e9",
+    "content-hash": "77468c68e55e0186493a3eb67b516334",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1381,7 +1380,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-alpha27",
-                    "datestamp": "1471723439"
+                    "datestamp": "1490677984"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1580,7 +1579,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-rc3",
-                    "datestamp": "1468176563"
+                    "datestamp": "1490755685"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2105,6 +2104,44 @@
             }
         },
         {
+            "name": "drupal/google_tag",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/google_tag",
+                "reference": "aa84353dd6ff1646f501de6290bddbec66b318a1"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1484017086"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "solotandem",
+                    "homepage": "https://www.drupal.org/user/240748"
+                }
+            ],
+            "description": "Allows your website analytics to be managed using Google Tag Manager.",
+            "homepage": "https://www.drupal.org/project/google_tag",
+            "support": {
+                "source": "http://cgit.drupalcode.org/google_tag"
+            },
+            "time": "2017-02-23 14:04:43"
+        },
+        {
             "name": "drupal/inline_entity_form",
             "version": "1.0.0-beta1",
             "source": {
@@ -2263,21 +2300,15 @@
         },
         {
             "name": "drupal/media_entity",
-            "version": "1.6.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_entity",
-                "reference": "8.x-1.6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/media_entity-8.x-1.6.zip",
-                "reference": null,
-                "shasum": "86fd1478f2448c034660faa30ef34c0e8519fecb"
+                "reference": "dedbf05be1dce43cb556bf1dfd458bf6fb57c39d"
             },
             "require": {
-                "drupal/core": "~8.1",
-                "drupal/entity": "^1.0.0-alpha3"
+                "drupal/core": "*",
+                "drupal/entity": "*"
             },
             "require-dev": {
                 "drupal/entity": "*",
@@ -2289,8 +2320,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.6",
-                    "datestamp": "1480363983"
+                    "version": "8.x-1.6+9-dev",
+                    "datestamp": "1490758686"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2301,6 +2332,10 @@
                 {
                     "name": "Berdir",
                     "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "Dave Reid",
+                    "homepage": "https://www.drupal.org/user/53892"
                 },
                 {
                     "name": "Drupal Media Team",
@@ -2343,29 +2378,20 @@
                     "homepage": "https://www.drupal.org/user/744628"
                 }
             ],
-            "description": "Provides a lean and simple way to store media on Drupal 8 sites.",
+            "description": "Media entity API.",
             "homepage": "https://www.drupal.org/project/media_entity",
-            "keywords": [
-                "Drupal"
-            ],
             "support": {
-                "source": "https://www.drupal.org/project/media_entity",
-                "issues": "https://www.drupal.org/project/issues/media_entity"
-            }
+                "source": "http://cgit.drupalcode.org/media_entity"
+            },
+            "time": "2017-03-29 14:21:25"
         },
         {
             "name": "drupal/media_entity_document",
-            "version": "1.1.0",
+            "version": "dev-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_entity_document",
-                "reference": "8.x-1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/media_entity_document-8.x-1.1.zip",
-                "reference": null,
-                "shasum": "88a45820cf0aeb5f8a3ade3338007771191508e4"
+                "reference": "54e25b20cad13a0e11d97c856d28d3d117dde3d1"
             },
             "require": {
                 "drupal/core": "~8.1",
@@ -2377,8 +2403,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1470211995"
+                    "version": "8.x-1.1+2-dev",
+                    "datestamp": "1483286041"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2402,7 +2428,8 @@
             "support": {
                 "source": "https://www.drupal.org/project/media_entity_document",
                 "issues": "https://www.drupal.org/project/issues/media_entity_document"
-            }
+            },
+            "time": "2017-02-02 09:19:38"
         },
         {
             "name": "drupal/media_entity_image",
@@ -2581,7 +2608,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1488253385"
+                    "datestamp": "1490665386"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2800,7 +2827,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/recaptcha-8.x-2.2.zip",
-                "reference": null,
+                "reference": "8.x-2.2",
                 "shasum": "99a3bda62b34ad6dac1d497fcf578e25aad0a3e0"
             },
             "require": {
@@ -3267,17 +3294,17 @@
         },
         {
             "name": "drupal/webform",
-            "version": "5.0.0-beta9",
+            "version": "5.0.0-beta10",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/webform",
-                "reference": "8.x-5.0-beta9"
+                "reference": "8.x-5.0-beta10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.0-beta9.zip",
+                "url": "https://ftp.drupal.org/files/projects/webform-8.x-5.0-beta10.zip",
                 "reference": null,
-                "shasum": "cc1a31b22ae3daca5c2cc05ca729092a90f3835d"
+                "shasum": "72ce691fd0f17fc2a7d66a3ab1a8a2546d50eb5d"
             },
             "require": {
                 "drupal/core": "*"
@@ -3288,8 +3315,8 @@
                     "dev-5.x": "5.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-5.0-beta9",
-                    "datestamp": "1488753784"
+                    "version": "8.x-5.0-beta10",
+                    "datestamp": "1491362286"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -6747,11 +6774,14 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "drupal/media_entity": 20,
         "drupal/media_entity_image": 20,
+        "drupal/media_entity_document": 20,
         "drupal/views_block_filter_block": 20,
         "drupal/simple_menu_icons": 20,
         "drupal/libraries": 20,
         "drupal/datalayer": 20,
+        "drupal/google_tag": 20,
         "drupal/webform": 10,
         "drupal/captcha": 10,
         "drupal/tqextension": 20,
