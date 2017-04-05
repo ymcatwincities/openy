@@ -10,7 +10,7 @@ third_party_settings:
     parent: ''
 name: 'Screen Content'
 type: screen_content
-description: ''
+description: 'A single screen content (frame), that can be shown on the Digital Signage/Entry room screens.'
 help: ''
 new_revision: true
 preview_mode: 1
