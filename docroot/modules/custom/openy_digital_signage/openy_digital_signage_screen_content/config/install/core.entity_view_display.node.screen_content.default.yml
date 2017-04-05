@@ -1,0 +1,88 @@
+uuid: 6ed217cc-eacd-4aa5-9f0b-d5f88440f63e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.screen_content.field_screen_content_preview
+    - field.field.node.screen_content.panelizer
+    - node.type.screen_content
+  module:
+    - image
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: true
+    custom: true
+    allow: true
+    default: default
+    displays:
+      default:
+        blocks:
+          91d79d51-4357-4415-9d1b-d4ff8043f180:
+            id: 'entity_field:node:uid'
+            label: 'Authored by'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: author
+              settings: {  }
+              third_party_settings: {  }
+              weight: 0
+            region: middle
+            weight: 0
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            uuid: 91d79d51-4357-4415-9d1b-d4ff8043f180
+          7b2cf6dd-5be2-4a59-a49a-e0add35a99a7:
+            id: 'entity_field:node:created'
+            label: 'Authored on'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: timestamp
+              settings:
+                date_format: medium
+                custom_date_format: ''
+                timezone: ''
+              third_party_settings: {  }
+              weight: 0
+            region: middle
+            weight: 0
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            uuid: 7b2cf6dd-5be2-4a59-a49a-e0add35a99a7
+        id: panels_variant
+        label: Default
+        uuid: 6afdcad5-3797-423b-b3a0-99f32f622565
+        weight: 0
+        layout: onecol
+        layout_settings: {  }
+        page_title: '[node:title]'
+        storage_type: panelizer_default
+        storage_id: 'node:screen_content:default:default'
+        builder: ipe
+        pattern: panelizer
+        static_context: {  }
+id: node.screen_content.default
+targetEntityType: node
+bundle: screen_content
+mode: default
+content:
+  field_screen_content_preview:
+    weight: 101
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  panelizer: true
