@@ -1139,6 +1139,14 @@ body {
   margin: 10px 0;
 }
 
+.form-item, .form-actions, .captcha {
+  margin: 1em 0.75em;
+}
+
+.form-type-checkbox {
+  padding: 0;
+}
+
 .styleguide .sg-color {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;

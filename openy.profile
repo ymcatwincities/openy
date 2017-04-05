@@ -118,6 +118,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_menu_link_footer',
       ],
     ],
+    'webform' => [
+      'openy_demo_webform' => [
+        'openy_demo_webform_content',
+      ],
+    ],
   ];
 
   return array_key_exists($key, $map) ? $map[$key] : [];

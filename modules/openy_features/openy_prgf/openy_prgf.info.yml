@@ -11,4 +11,5 @@ dependencies:
   - plugin
   - taxonomy
   - text
+  - webform
 version: 8.x-1.0

@@ -32,7 +32,7 @@ class ThirdPartyServicesForm extends FormBase {
     // Get Optimizely settings container.
     $optimizely_config = $config_factory->get('optimizely.settings');
     // Get Recaptcha settings container
-    $recaptcha_config = $config_factory->get('recaptcha.settings')
+    $recaptcha_config = $config_factory->get('recaptcha.settings');
 
     $form['#title'] = $this->t('3rd Party Services');
 
@@ -64,24 +64,27 @@ class ThirdPartyServicesForm extends FormBase {
 
     $form['recaptcha'] = [
       '#type' => 'details',
-      '#title' => $this->t('General settings'),
+      '#title' => $this->t('Recaptcha Settings'),
       '#open' => TRUE,
+    ];
+
+    $form['recaptcha']['markup'] = [
+      '#type' => 'markup',
+      '#markup' => $this->t('<p>If you would like to use the <a href=":url" target="_blank">reCAPTCHA service</a> to reduce potential form spam, create an account and use the provided credentials below.</p>', [':url' => 'http://www.google.com/recaptcha']),
     ];
 
     $form['recaptcha']['recaptcha_site_key'] = [
       '#default_value' => $recaptcha_config->get('site_key'),
-      '#description' => $this->t('The site key given to you when you <a href=":url">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
+      '#description' => $this->t('The site key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
       '#maxlength' => 40,
-      '#required' => TRUE,
       '#title' => $this->t('Site key'),
       '#type' => 'textfield',
     ];
 
     $form['recaptcha']['recaptcha_secret_key'] = [
       '#default_value' => $recaptcha_config->get('secret_key'),
-      '#description' => $this->t('The secret key given to you when you <a href=":url">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
+      '#description' => $this->t('The secret key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
       '#maxlength' => 40,
-      '#required' => TRUE,
       '#title' => $this->t('Secret key'),
       '#type' => 'textfield',
     ];
@@ -119,15 +122,16 @@ class ThirdPartyServicesForm extends FormBase {
       }
     }
 
-    if (!empty($recaptcha_site_key = trim($form_state->getValue('recaptcha_site_key'))) ||
-      !empty($recaptcha_secret_key = trim($form_state->getValue('recaptcha_secret_key')))) {
+    if (!empty(trim($form_state->getValue('recaptcha_site_key'))) || !empty(trim($form_state->getValue('recaptcha_secret_key')))) {
+      $recaptcha_site_key = trim($form_state->getValue('recaptcha_site_key'));
+      $recaptcha_secret_key = trim($form_state->getValue('recaptcha_secret_key'));
       if (!empty($recaptcha_site_key) && empty($recaptcha_secret_key)) {
         //Site key is populated, secret key is not
         $form_state->setErrorByName('recaptcha_secret_key', t('A Secret Key must be provided if a Site Key has been entered.'));
       }
       if (!empty($recaptcha_secret_key) && empty($recaptcha_site_key)) {
         //Site key is not populated, secret key is
-        $form_state->setErrorByName('recaptcha_secret_key', t('A Site Key must be provided if a Secret Key has been entered.'));
+        $form_state->setErrorByName('recaptcha_site_key', t('A Site Key must be provided if a Secret Key has been entered.'));
       }
     }
   }
@@ -168,6 +172,16 @@ class ThirdPartyServicesForm extends FormBase {
       $recaptcha_config
         ->set('site_key', $form_state->getValue('recaptcha_site_key'))
         ->set('secret_key', $form_state->getValue('recaptcha_secret_key'))
+        ->save();
+      
+      //Set default captcha config to use reCaptcha
+      $captcha_config = $config_factory->getEditable('captcha.settings');
+      $captcha_config->set('default_validation', 'recaptcha/reCAPTCHA')
+        ->save();
+    } else {
+      //Set default captcha config to use image captcha
+      $captcha_config = $config_factory->getEditable('captcha.settings');
+      $captcha_config->set('default_validation', 'image_captcha/Image')
         ->save();
     }
   }
