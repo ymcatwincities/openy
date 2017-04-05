@@ -1,0 +1,8 @@
+name: OpenY Digital Signage Screen content
+type: module
+description: OpenY Digital Signage Screen content module.
+core: 8.x
+package: "OpenY: Digital Signage"
+dependencies:
+  - panelizer
+  - openy_digital_signage
