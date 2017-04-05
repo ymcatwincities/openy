@@ -27,7 +27,6 @@
   text-transform: uppercase;
 
   &.blue {
-    background-color: $light-blue;
     color: $white;
 
     &:hover {
@@ -107,7 +106,6 @@
   padding: 12px 35px;
   border: none;
   border-radius: 0;
-  background-color: #00aeef;
   font-size: 20px;
 }
 
