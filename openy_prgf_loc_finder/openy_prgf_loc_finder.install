@@ -4,3 +4,15 @@
  * @file
  * Install, update and uninstall functions for the openy_prgf_loc_finder feature.
  */
+
+/**
+ * Change views title.
+ */
+function ygh_master_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_loc_finder') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'views.view.locations',
+    ]);
+}
