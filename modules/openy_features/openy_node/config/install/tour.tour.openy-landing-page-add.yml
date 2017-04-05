@@ -2,30 +2,31 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - openy_node
 id: openy-landing-page-add
 label: 'OpenY Node landing page add'
 module: openy_node
 routes:
-  - route_name: node.add
+  -
+    route_name: node.add
     route_params:
       node_type: landing_page
 tips:
   overview:
     id: overview
     plugin: text
-    label: 'Overview'
+    label: Overview
     body: 'This page allows a user to add landing pages to the site.'
     weight: 1
   title:
     id: title
     plugin: text
-    label: 'Title'
+    label: Title
     body: 'Here a user can specify Landing Page title.'
     location: bottom
     weight: 2
     attributes:
-      data-class: 'field--name-title'
+      data-class: field--name-title
   layout:
     id: layout
     plugin: text
@@ -34,7 +35,7 @@ tips:
     location: bottom
     weight: 3
     attributes:
-      data-class: 'field--name-field-lp-layout'
+      data-class: field--name-field-lp-layout
   header-area:
     id: header-area
     plugin: text
@@ -42,7 +43,7 @@ tips:
     body: 'Here a user can add different types of paragraphs to the header area. Paragraphs will be displayed at the top of the page with full width.'
     weight: 4
     attributes:
-      data-id: 'edit-group-header-area'
+      data-id: edit-group-header-area
   content-area:
     id: content-area
     plugin: text
@@ -50,7 +51,7 @@ tips:
     body: 'Here a user can add different types of paragraphs to the content area. Paragraphs types are added and the content for them is created in the actual content type they are being added to.'
     weight: 5
     attributes:
-      data-id: 'edit-group-content-area'
+      data-id: edit-group-content-area
   sidebar-area:
     id: sidebar-area
     plugin: text
@@ -58,7 +59,7 @@ tips:
     body: 'Here a user can add different types of paragraphs to the sidebar area. Paragraphs will be displayed in the sidebar, if a layout containing sidebar has been selected.'
     weight: 6
     attributes:
-      data-id: 'edit-group-sidebar-area'
+      data-id: edit-group-sidebar-area
   next-tutorial:
     id: next-tutorial
     plugin: text

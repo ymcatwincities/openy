@@ -4,106 +4,129 @@ Feature: Static Paragraphs
 
   Background: Create basic landing page
     Given I am logged in as a user with the "Editor" role
-    And I go to "/node/add/landing_page"
-    And I fill "Title" with "Landing"
-    And I select "One Column" from "Layout"
+    Then I create media of type image:
+      | KEY              | name             | field_media_image |
+      | image_01         | Image 01         | image_01.png      |
+      | gallery_image_01 | Gallery Image 01 | gallery_01.png    |
+      | gallery_image_02 | Gallery Image 02 | gallery_02.png    |
+      | story_image_01   | Story Image O1   | story_01.png      |
+    And I create taxonomy_term of type color:
+      | KEY     | name          | field_color |
+      | green   | Behat Green   | 00FF00      |
+    And I create large paragraph of type small_banner:
+      | KEY                 | behat_small_banner |
+      | field_prgf_headline | BEHAT SMALL BANNER |
+      | field_prgf_image    | image_01           |
+      | field_prgf_color    | green              |
+    And I create large paragraph of type banner:
+      | KEY                    | behat_banner        |
+      | field_prgf_headline    | BEHAT BANNER        |
+      | field_prgf_image       | image_01            |
+      | field_prgf_description | Enjoy the OpenY     |
+      | field_prgf_link:uri    | http://openymca.org |
+      | :title                 | Read about OpenY    |
+    And I create large paragraph of type gallery:
+      | KEY                    | behat_gallery                      |
+      | field_prgf_headline    | BEHAT GALLERY                      |
+      | field_prgf_images      | gallery_image_01, gallery_image_02 |
+      | field_prgf_description | The description is here.           |
+      | field_prgf_link:uri    | http://openymca.org                |
+      | :title                 | Read about OpenY                   |
+    And I create paragraph of type simple_content:
+      | KEY          | field_prgf_description |
+      | behat_simple | Simple text is here.   |
+    And I create large paragraph of type grid_columns:
+      | KEY                                   | behat_grid_column_01       |
+      | field_prgf_clm_headline               | We Appreciate Your Support |
+      | field_prgf_clm_class                  | flag                       |
+      | field_prgf_grid_clm_description:value | We rely on donations.      |
+      | :format                               | full_html                  |
+      | field_prgf_clm_link:uri               | internal:/donate           |
+      | :title                                | Donate                     |
+    And I create paragraph of type grid_content:
+      | KEY                | field_prgf_grid_style | field_grid_columns   |
+      | behat_grid_content | 2                     | behat_grid_column_01 |
+    And I create large paragraph of type promo_card:
+      | KEY                    | behat_promo_card                      |
+      | field_prgf_title       | BEHAT PROMO                           |
+      | field_prgf_headline    | OpenY is free to try!                 |
+      | field_prgf_description | Setup a website and see how it works. |
+      | field_prgf_link:uri    | http://openymca.org                   |
+      | :title                 | Go!                                   |
+    And I create large paragraph of type story_card:
+      | KEY                 | behat_story_card                          |
+      | field_prgf_title    | BEHAT NEW STORY                           |
+      | field_prgf_headline | I discovered OpenY. And that looks great! |
+      | field_prgf_link:uri | http://openymca.org                       |
+      | :title              | Discover OpenY                            |
+    And I create large paragraph of type teaser:
+      | KEY                    | behat_teaser           |
+      | field_prgf_title       | BEHAT MY TEASER        |
+      | field_prgf_description | Lorem ipsum dolor sit. |
+      | field_prgf_image       | story_image_01         |
+      | field_prgf_link:uri    | internal:/test         |
+      | :title                 | Test link              |
+    And I create landing_page content:
+      | KEY                  | title                      | field_lp_layout | field_header_content |
+      | landing_small_banner | Behat Landing Small Banner | one_column      | behat_small_banner   |
+      | landing_banner       | Behat Landing Banner       | one_column      | behat_banner         |
+      | landing_gallery      | Behat Landing Gallery      | one_column      | behat_gallery        |
+      | landing_simple       | Behat Landing Simple       | one_column      | behat_simple         |
+    And I create landing_page content:
+      | KEY            | title                | field_lp_layout | field_content      |
+      | landing_grid   | Behat Landing Grid   | one_column      | behat_grid_content |
+      | landing_teaser | Behat Landing Teaser | one_column      | behat_teaser       |
+    And I create landing_page content:
+      | KEY           | title               | field_lp_layout | field_sidebar_content |
+      | landing_promo | Behat Landing Promo | two_column      | behat_promo_card      |
+      | landing_story | Behat Landing Story | two_column      | behat_story_card      |
 
-  Scenario: Create Small Banner
-    When I press "Add Small Banner" in the "header_area"
-    And I fill the following:
-      |Headline | MY SMALL BANNER |
-    And I fill media field "edit-field-prgf-image-target-id" with "media:1"
-    And I select "Green" from "Color"
-    And I press "Save and publish"
-    Then I should see "MY SMALL BANNER"
-    And I should see a ".banner-image img" element
+  Scenario: See Small Banner On Landing Page
+    Given I view node "landing_small_banner"
+    Then I should see "BEHAT SMALL BANNER"
+    And I should see a ".paragraph--type--small-banner .banner-image img" element
 
-  Scenario: Create Banner
-    When I press "Add Banner" in the "header_area"
-    When I fill the following:
-      |Headline | MY BANNER |
-      |Description | Enjoy the OpenY |
-      |URL      | http://openymca.org     |
-      |Link text | Read about OpenY |
-    And I fill media field "edit-field-prgf-image-target-id" with "media:1"
-    And I press "Save and publish"
-    Then I should see the heading "MY BANNER"
+  Scenario: See Banner On Landing Page
+    Given I view node "landing_banner"
+    Then I should see the heading "BEHAT BANNER"
+    And I should see a ".paragraph--type--banner .banner-image img" element
     And I should see the text "Enjoy the OpenY"
-    And I should see a ".banner-image img" element
     And I should see the link "Read about OpenY"
 
-  Scenario: Create Gallery
-    When I press "Add Gallery" in the "header_area"
-    And I fill the following:
-      | Headline | My Gallery |
-      | Description | The description is here. |
-      | URL         | http://openymca.org      |
-      | Link text   | Read about OpenY         |
-    And I fill media field "edit-field-prgf-images-target-id" with "media:1 media:3"
-    And I press "Save and publish"
-    Then I should see the heading "My Gallery"
+  Scenario: See Gallery On Landing Page
+    Given I view node "landing_gallery"
+    Then I should see the heading "BEHAT GALLERY"
     And I should see "The description is here."
     And I should see a ".carousel img" element
     And I should see the link "Read about OpenY"
 
-  Scenario: Create Simple Content
-    When I press "Add Simple content" in the "content_area"
-    And I fill "Content" with "Simple text is here."
-    And I press "Save and publish"
+  Scenario: See Simple Content On Landing Page
+    Given I view node "landing_simple"
     Then I should see "Simple text is here."
 
-  Scenario: Create Grid Content
-    When I press "Add Grid Content"
-    And I select "2 items per row" from "Style"
-    And I press "Add Grid columns"
-    And I fill the following:
-      | Headline | We Appreciate Your Support |
-      | Icon Class | flag                     |
-      | Description | Every year, we rely on donations. |
-      | URL         | /donate                          |
-      | Link text   | Donate                       |
-    And I press "Save and publish"
+  Scenario: See Grid Content On Landing Page
+    Given I view node "landing_grid"
     Then I should see the heading "We Appreciate Your Support"
     And I should see a "i.fa-flag" element
-    And I should see "Every year, we rely on donations."
+    And I should see "We rely on donations."
     And I should see the link "Donate"
 
-  Scenario: Create Promo Card
-    When I press "Add Promo Card" in the "sidebar_area"
-    And I fill in "Title" with "Promo" in the "sidebar_area"
-    And I fill the following:
-      | Headline | OpenY is free to try! |
-      | Description | Setup a website and see how it works. |
-      | URL         | http://openymca.org   |
-      | Link text   | Go!                   |
-    And I press "Save and publish"
-    Then I should see the heading "Promo"
+  Scenario: See Promo Card On Landing Page
+    Given I view node "landing_promo"
+    Then I should see the heading "BEHAT PROMO"
     And I should see the heading "OpenY is free to try!"
     And I should see "Setup a website and see how it works."
     And I should see the link "Go!"
 
-  Scenario: Create Story Card
-    When I press "Add Story Card" in the "sidebar_area"
-    And I fill in "Title" with "New Story" in the "sidebar_area"
-    And I fill the following:
-      | Headline | I discovered OpenY. And that looks great! |
-      | URL      | http://openymca.org                       |
-      | Link text| Discover OpenY                            |
-    And I press "Save and publish"
-    Then I should see the heading "New Story"
+  Scenario: See Story Card On Landing Page
+    Given I view node "landing_story"
+    Then I should see the heading "BEHAT NEW STORY"
     And I should see "I discovered OpenY. And that looks great!"
     And I should see the link "Discover OpenY"
 
-  Scenario: Create Teaser
-    When I press "Add Teaser" in the "content_area"
-    And I fill in "Title" with "My Teaser" in the "content_area"
-    And I fill in the following:
-      | Description | Lorem ipsum dolor sit. |
-      | URL         | /test                  |
-      | Link text   | Test link              |
-    And I fill media field "edit-field-prgf-image-target-id" with "media:1"
-    And I press "Save and publish"
-    Then I should see the heading "My Teaser"
+  Scenario: See Teaser On Landing Page
+    Given I view node "landing_teaser"
+    Then I should see the heading "BEHAT MY TEASER"
     And I should see "Lorem ipsum dolor sit."
     And I should see a ".subprogram-listing-item img" element
     And I should see the link "Test link"
