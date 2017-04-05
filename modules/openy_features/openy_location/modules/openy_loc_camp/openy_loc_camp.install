@@ -5,7 +5,7 @@
  * OpenY Camp install file.
  */
 
-function openy_loc_branch_update_dependencies() {
+function openy_loc_camp_update_dependencies() {
   $dependencies['openy_loc_camp'][8002] = [
     'openy_node' => 8001,
   ];

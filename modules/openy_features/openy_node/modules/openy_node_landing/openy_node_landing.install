@@ -5,7 +5,7 @@
  * OpenY Landing install file.
  */
 
-function openy_loc_branch_update_dependencies() {
+function openy_node_landing_update_dependencies() {
   $dependencies['openy_node_landing'][8001] = [
     'openy_node' => 8001,
   ];
