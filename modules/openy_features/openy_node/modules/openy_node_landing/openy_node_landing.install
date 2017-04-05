@@ -5,6 +5,14 @@
  * OpenY Landing install file.
  */
 
+function openy_loc_branch_update_dependencies() {
+  $dependencies['openy_node_landing'][8001] = [
+    'openy_node' => 8001,
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Landing page with field_bottom_content.
  */
