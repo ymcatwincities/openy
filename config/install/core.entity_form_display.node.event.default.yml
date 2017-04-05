@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_date_range
     - field.field.node.event.field_landing_body
     - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
@@ -16,7 +16,7 @@ dependencies:
     - node.type.event
   module:
     - content_moderation
-    - datetime
+    - datetime_range
     - paragraphs
     - path
 id: node.event.default
@@ -29,11 +29,11 @@ content:
     weight: 6
     settings: {  }
     third_party_settings: {  }
-  field_event_date:
-    type: datetime_default
+  field_event_date_range:
     weight: 3
     settings: {  }
     third_party_settings: {  }
+    type: daterange_default
   field_landing_body:
     weight: 1
     settings:

@@ -3,8 +3,9 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.node.rng_event
-    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_date_range
     - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
     - field.field.node.event.rng_registrants_duplicate
     - field.field.node.event.rng_registrants_maximum
@@ -83,8 +84,9 @@ content:
     weight: 10
 hidden:
   created: true
-  field_event_date: true
+  field_event_date_range: true
   field_landing_body: true
+  field_sidebar_content: true
   langcode: true
   path: true
   promote: true

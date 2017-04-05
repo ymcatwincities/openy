@@ -3,8 +3,9 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.flexible_content
-    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_date_range
     - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
     - field.field.node.event.rng_registrants_duplicate
     - field.field.node.event.rng_registrants_maximum
@@ -35,7 +36,8 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_event_date: true
+  field_event_date_range: true
+  field_sidebar_content: true
   langcode: true
   rng_capacity: true
   rng_registrants_duplicate: true

@@ -68,3 +68,36 @@ function openy_node_event_update_8005() {
     ]
   );
 }
+
+/**
+ * Replace Event Date field type with Daterange.
+ */
+function openy_node_event_update_8006() {
+  \Drupal::service('module_installer')->install(['datetime_range'], TRUE);
+
+  // Delete changed configs.
+  $configs = [
+    'core.entity_form_display.node.event.default',
+    'core.entity_view_display.node.event.default',
+    'field.field.node.event.field_event_date',
+    'field.storage.node.field_event_date',
+    'core.entity_form_display.node.event.rng_event',
+    'core.entity_view_display.node.event.flexible_content',
+  ];
+  foreach ($configs as $config) {
+    \Drupal::configFactory()->getEditable($config)->delete();
+  }
+
+  // Import changed configs.
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs([
+    'field.field.node.event.field_event_date_range',
+    'field.storage.node.field_event_date_range',
+    'core.entity_form_display.node.event.default',
+    'core.entity_view_display.node.event.default',
+    'core.entity_form_display.node.event.rng_event',
+    'core.entity_view_display.node.event.flexible_content',
+  ]);
+
+}
