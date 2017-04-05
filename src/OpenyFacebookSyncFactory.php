@@ -40,7 +40,7 @@ class OpenyFacebookSyncFactory {
    * Reads Facebook App ID and App Secret from module settings
    * and creates an instance of Facebook service with these as parameters.
    *
-   * @return \Facebook\Facebook | bool
+   * @return \Facebook\Facebook|bool
    *   Facebook service instance.
    */
   public function getFacebook() {

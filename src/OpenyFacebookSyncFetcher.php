@@ -8,7 +8,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
- * Class OpenyFacebookSyncFetcher
+ * Class OpenyFacebookSyncFetcher.
  *
  * @package Drupal\openy_facebook_sync
  */
@@ -65,12 +65,12 @@ class OpenyFacebookSyncFetcher {
    *   Data wrapper.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $loggerChannel
    *   Logger Channel.
-   * @param \Drupal\Core\Cache\CacheBackendInterface
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cacheBackend
    *   Cache Backend.
-   * @param OpenyFacebookSyncFactory
+   * @param OpenyFacebookSyncFactory $facebook_factory
    *   Facebook factory.
    */
-  public function __construct( ConfigFactoryInterface $config_factory, OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $loggerChannel, CacheBackendInterface $cacheBackend, OpenyFacebookSyncFactory $facebook_factory) {
+  public function __construct(ConfigFactoryInterface $config_factory, OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $loggerChannel, CacheBackendInterface $cacheBackend, OpenyFacebookSyncFactory $facebook_factory) {
     $this->configFactory = $config_factory;
     $this->wrapper = $wrapper;
     $this->logger = $loggerChannel;

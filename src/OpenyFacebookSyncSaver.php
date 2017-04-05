@@ -53,9 +53,9 @@ class OpenyFacebookSyncSaver {
    *   Wrapper.
    * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   Logger Channel.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   Entity Type Manager.
-   * @param \Drupal\openy_mappings\EventMappingRepository
+   * @param \Drupal\openy_mappings\EventMappingRepository $event_mapping_repo
    *   EventMappingRepo.
    */
   public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $logger, EntityTypeManagerInterface $entityTypeManager, EventMappingRepository $event_mapping_repo) {
@@ -136,6 +136,7 @@ class OpenyFacebookSyncSaver {
    *   Paragraph data.
    *
    * @return \Drupal\Core\Entity\EntityInterface
+   *   Paragraph entity.
    */
   private function createDescriptionParagraph(array $data) {
     $storage = $this->entityTypeManager->getStorage('paragraph');

@@ -31,7 +31,7 @@ class OpenyFacebookSyncWrapper implements OpenyFacebookSyncWrapperInterface {
   /**
    * Constructor.
    *
-   * @param LoggerChannelInterface $logger
+   * @param \Drupal\Core\Logger\LoggerChannelInterface $logger
    *   The logger factory.
    */
   public function __construct(LoggerChannelInterface $logger) {
