@@ -10,7 +10,6 @@ Feature: Static Paragraphs
       | gallery_image_01 | Gallery Image 01 | gallery_01.png    |
       | gallery_image_02 | Gallery Image 02 | gallery_02.png    |
       | story_image_01   | Story Image O1   | story_01.png      |
-
     And I create taxonomy_term of type color:
       | KEY     | name          | field_color |
       | green   | Behat Green   | 00FF00      |

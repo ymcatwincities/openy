@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
+    - field.field.node.camp.field_bottom_content
     - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
@@ -23,8 +24,16 @@ targetEntityType: node
 bundle: camp
 mode: full
 content:
+  field_bottom_content:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
   field_content:
-    weight: 109
+    weight: 3
     label: hidden
     settings:
       view_mode: default
@@ -32,7 +41,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_header_content:
-    weight: 110
+    weight: 4
     label: hidden
     settings:
       view_mode: default
@@ -40,20 +49,20 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
   field_location_address:
-    weight: 102
+    weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_plain
   field_location_fax:
-    weight: 106
+    weight: 2
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
   field_location_phone:
-    weight: 105
+    weight: 1
     label: hidden
     settings:
       title: ''

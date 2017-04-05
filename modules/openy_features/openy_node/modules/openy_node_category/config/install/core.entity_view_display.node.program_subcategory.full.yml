@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
+    - field.field.node.program_subcategory.field_bottom_content
     - field.field.node.program_subcategory.field_category_color
     - field.field.node.program_subcategory.field_category_description
     - field.field.node.program_subcategory.field_category_image
@@ -20,6 +21,14 @@ targetEntityType: node
 bundle: program_subcategory
 mode: full
 content:
+  field_bottom_content:
+    type: entity_reference_revisions_entity_view
+    weight: 8
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
   field_category_color:
     weight: 7
     label: hidden
