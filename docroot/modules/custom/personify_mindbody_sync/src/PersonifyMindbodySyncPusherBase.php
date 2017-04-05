@@ -671,7 +671,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       ],
     ];
 
-
     preg_match("/\d+_(PT_.*)/", $code, $test);
     if (!$test[1]) {
       return FALSE;
