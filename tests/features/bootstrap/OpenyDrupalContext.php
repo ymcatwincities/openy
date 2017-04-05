@@ -9,7 +9,7 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\file\Entity\File;
-use Drupal\node\Entity\Node;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\TableNode;
 
@@ -31,7 +31,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * | my node key | My title | 1      | 2014-10-17 8:00am | text key             |
    * | ...         | ...      | ...    | ...               | ...                  |
    *
-   * @Given I create nodes :bundle content:
+   * @Given I create :bundle content:
    */
   public function iCreateNodes($bundle, TableNode $table) {
     $this->createNodes($bundle, $table->getHash());
@@ -68,9 +68,18 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
     // createNodes() returns array of saved nodes we are only concerned about
     // the last one created for this.
     $saved = array_pop($saved_array);
+    $this->goToEntity($saved);
+  }
 
-    // Set internal browser on the node.
-    $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
+  /**
+   * View an existing entity/node by key value.
+   *
+   * @Given /^I view node "(?P<key>[^"]*)"$/
+   * @Given /^I view entity "(?P<key>[^"]*)"$/
+   */
+  public function iViewKey($key) {
+    $saved = $this->getEntityByKey($key);
+    $this->goToEntity($saved);
   }
 
   /**
@@ -79,10 +88,10 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * | Blue | Blue | 0000FF       | text key              |
    * | ...  | ...  | ...          | ...                   |
    *
-   * @Given I create :entity_type of type :bundle with key for reference:
+   * @Given I create :entity_type of type :bundle:
    */
   public function iCreateEntity($entity_type, $bundle, TableNode $table) {
-    $this->createKeyedEntities($entity_type, $bundle, $table->getHash());
+    $this->createEntities($entity_type, $bundle, $table->getHash());
   }
 
   /**
@@ -92,10 +101,73 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * | field_color           | 0000FF   | ... |
    * | field_reference_name  | text key | ... |
    *
-   * @Given I create large :entity_type of type :bundle with key for reference:
+   * @Given I create large :entity_type of type :bundle:
    */
   public function iCreateLargeEntity($entity_type, $bundle, TableNode $table) {
-    $this->createKeyedEntities($entity_type, $bundle, $this->getColumnHashFromRows($table));
+    $this->createEntities($entity_type, $bundle, $this->getColumnHashFromRows($table));
+  }
+
+  /**
+   * Create Menu link content.
+   *
+   * @Given /^I create menu_link_content:$/
+   */
+  public function iCreateMenuLinkContent(TableNode $table) {
+    $table_hash = $table->getHash();
+
+    foreach($table_hash as $link_hash) {
+      if (empty($link_hash['title']) || empty($link_hash['uri']) || empty($link_hash['menu_name'])) {
+        throw new \Exception("Menu title, uri, and menu_name are required.");
+      }
+      if (empty($link_hash['expanded'])) {
+        $link_hash['expanded'] = 1;
+      }
+      $menu_array = [
+        'title' => $link_hash['title'],
+        'link' => ['uri' => $link_hash['uri']],
+        'menu_name' => $link_hash['menu_name'],
+        'expanded' => $link_hash['expanded'],
+      ];
+
+      // If parent uri & parent name set search in menu links for it.
+      if (!empty($link_hash['parent_uri']) && !empty($link_hash['parent_title'])) {
+        $query = Drupal::entityQuery('menu_link_content')
+          ->condition('bundle', 'menu_link_content')
+          ->condition('link__uri', $link_hash['parent_uri'])
+          ->condition('menu_name', $link_hash['menu_name'])
+          ->condition('title', $link_hash['parent_title']);
+        $result = $query->execute();
+        if (!empty($result)) {
+          $parent_id = array_pop($result);
+          $parent_menu_link = MenuLinkContent::load($parent_id);
+          if (!empty($parent_menu_link)) {
+            $menu_array['parent'] = 'menu_link_content:'
+              . $parent_menu_link->uuid();
+          }
+        }
+      }
+
+      // If icon image set create image file.
+      if (!empty($link_hash['icon_image'])) {
+        $file = File::create([
+          'filename' => $link_hash['icon_image'],
+          'uri' => 'public://' . $link_hash['icon_image'],
+          'status' => 1,
+        ]);
+        $file->save();
+        $this->saveEntity($file);
+        $options = [
+          'menu_icon' => [
+            'fid' => $file->id(),
+          ],
+        ];
+        $menu_array['link']['options'] = serialize($options);
+      }
+
+      $menu_link = MenuLinkContent::create($menu_array);
+      $menu_link->save();
+      $this->saveEntity($menu_link);
+    }
   }
 
   /**
@@ -106,7 +178,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * @param $entity_type string
    *   String entity type.
    */
-  protected function processFields(&$entity_hash, $entity_type) {
+  protected function preProcessFields(&$entity_hash, $entity_type) {
     foreach ($entity_hash as $field_name => $field_value) {
       // Get field info.
       $fiend_info = FieldStorageConfig::loadByName($entity_type, $field_name);
@@ -117,7 +189,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
       // Explode field value on ', ' to get values/keys.
       $field_values = explode(', ', $field_value);
       unset($entity_hash[$field_name]);
-      $target_id = [];
+      $value_id = [];
       $target_revision_id = [];
       foreach ($field_values as $value_or_key) {
         if ($field_type == 'image') {
@@ -128,26 +200,27 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
           ]);
           $file->save();
           $this->saveEntity($file);
-          $target_id[] = $file->id();
+          $value_id[] = $file->id();
         }
         else {
           $entity_id = $this->getEntityIDByKey($value_or_key);
+          $entity_revision_id = $this->getEntityRevisionIDByKey($value_or_key);
           if ($field_type == 'entity_reference') {
             // Set the target id.
-            $target_id[] = $entity_id;
+            $value_id[] = $entity_id;
           }
           elseif ($field_type == 'entity_reference_revisions') {
-            // Set the target id.
-            $target_id[] = $entity_id;
             // Set target revision id.
-            $target_revision_id[] = $entity_id;
+            $target_id[] = $entity_id;
+            $target_revision_id[] = $entity_revision_id;
           }
         }
       }
-      if (!empty($target_id)) {
-        $entity_hash[$field_name . ':target_id'] = implode(', ', $target_id);
+      if (!empty($value_id)) {
+        $entity_hash[$field_name] = implode(', ', $value_id);
       }
-      if (!empty($target_revision_id)) {
+      if (!empty($target_revision_id) && !empty($target_id)) {
+        $entity_hash[$field_name . ':target_id'] = implode(', ', $target_id);
         $entity_hash[$field_name . ':target_revision_id'] = implode(', ', $target_revision_id);
       }
     }
@@ -157,40 +230,32 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * Create Nodes from bundle and TableNode column hash.
    *
    * @param $bundle string
-   *   Bundle id.
-   * @param $hash
+   *   Bundle type id.
+   * @param $hash array
+   *   Table hash
+   *
    * @return array
+   *   Saved entities.
    */
   protected function createNodes($bundle, $hash) {
-    $saved = [];
-
-    foreach ($hash as $node_hash) {
-      // Allow KEY as optional.
-      $node_key = NULL;
-      if (!empty($node_hash['KEY'])) {
-        $node_key = $node_hash['KEY'];
-        unset($node_hash['KEY']);
-      }
-      $this->processFields($node_hash, 'node');
-      $node = (object) $node_hash;
-      $node->type = $bundle;
-      $save = $this->nodeCreate($node);
-      $saved_node = Node::load($save->nid);
-      $this->saveEntity($saved_node, $node_key);
-      $saved[] = $save;
-    }
-
-    return $saved;
+    return $this->createEntities('node', $bundle, $hash);
   }
 
   /**
    * Create Keyed Entities
    *
-   * @param $entity_type
-   * @param $bundle
-   * @param $hash
+   * @param $entity_type string
+   *   Entity type id.
+   * @param $bundle string
+   *   Bundle type id.
+   * @param $hash array
+   *   Table hash
+   *
+   * @return array
+   *   Saved entities.
    */
-  protected function createKeyedEntities($entity_type, $bundle, $hash) {
+  protected function createEntities($entity_type, $bundle, $hash) {
+    $saved = [];
     foreach ($hash as $entity_hash) {
       $entity_storage = \Drupal::entityTypeManager()->getStorage($entity_type);
       $entity_storage_keys = $entity_storage->getEntityType()->getKeys();
@@ -204,12 +269,16 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
         $entity_key = $entity_hash['KEY'];
         unset($entity_hash['KEY']);
       }
-      $this->processFields($entity_hash, $entity_type);
+      $this->preProcessFields($entity_hash, $entity_type);
+      $entity_obj = (object) $entity_hash;
+      $this->parseEntityFields($entity_type, $entity_obj);
       // Create entity.
-      $entity = $entity_storage->create($entity_hash);
+      $entity = $entity_storage->create((array) $entity_obj);
       $entity->save();
+      $saved[] = $entity;
       $this->saveEntity($entity, $entity_key);
     }
+    return $saved;
   }
 
   /**
@@ -236,7 +305,7 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    * @param $key string
    *   Key string
    *
-   * @return mixed
+   * @return mixed|\Drupal\Core\Entity\EntityInterface
    *   Entity.
    *
    * @throws \Exception
@@ -260,8 +329,28 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
    *   Entity id.
    */
   protected function getEntityIDByKey($key) {
+    /* @var \Drupal\Core\Entity\EntityInterface $entity */
     if (($entity = $this->getEntityByKey($key)) != NULL) {
       return $entity->id();
+    }
+  }
+
+  /**
+   * Get entity revision id by key.
+   *
+   * @param $key string
+   *   Key string to lookup saved entity.
+   * @return mixed
+   *   Entity revision id.
+   */
+  protected function getEntityRevisionIDByKey($key) {
+    /* @var \Drupal\Core\Entity\EntityInterface $entity */
+    if (($entity = $this->getEntityByKey($key)) != NULL) {
+      if (!method_exists($entity, 'getRevisionId')) {
+        $msg = 'Entity with Key "' . $key . '" entity does not have method getRevisionId()';
+        throw new \Exception($msg);
+      }
+      return $entity->getRevisionId();
     }
   }
 
@@ -287,6 +376,17 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
       }
     }
     return $hash;
+  }
+
+  /**
+   * Load the page belonging to the entity provided.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   Entity object.
+   */
+  public function goToEntity($entity) {
+    // Set internal browser on the node.
+    $this->getSession()->visit($this->locatePath($entity->toUrl()->toString()));
   }
 
   /**

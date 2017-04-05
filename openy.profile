@@ -140,6 +140,12 @@ function openy_demo_content_configs_map($key = NULL) {
 function openy_import_content(array &$install_state) {
   $batch = [];
 
+  if (!empty($install_state['openy']['content']['webform'])) {
+    // Install webform feature - it's not handled as content migration
+    openy_enable_module('openy_webform_demo');
+    unset($install_state['openy']['content']['webform']);
+  }
+
   // Run required migrations.
   _openy_import_content_helper($batch, 'required');
 
