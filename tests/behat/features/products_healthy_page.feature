@@ -11,26 +11,26 @@ Feature: Product on Healthy Living Page
     Then I should see "<product>"
     Examples:
       | product |
-      | $45 for 1 |
-      | $120 for 3 |
-      | $225 for 6 |
-      | $420 for 12 |
-      | $540 for 20 |
-      | $55 for 1 |
-      | $150 for 3 |
-      | $285 for 6 |
-      | $540 for 12 |
-      | $740 for 20 |
+      | $75 for 1 |
+      | $280 for 4 |
+      | $540 for 8 |
+      | $780 for 12 |
+      | $1099 for 20 |
+      | $95 for 1 |
+      | $360 for 4 |
+      | $700 for 8 |
+      | $1020 for 12 |
+      | $1499 for 20 |
+      | $50 for 1 |
+      | $180 for 4 |
+      | $340 for 8 |
+      | $480 for 12 |
+      | $640 for 20 |
       | $70 for 1 |
-      | $195 for 3 |
-      | $375 for 6 |
+      | $260 for 4 |
+      | $500 for 8 |
       | $720 for 12 |
-      | $999 for 20 |
-      | $80 for 1 |
-      | $225 for 3 |
-      | $435 for 6 |
-      | $840 for 12 |
-      | $1199 for 20 |
+      | $1040 for 20 |
 
   @pt-products @pt-products-popup @javascript
   Scenario Outline: Personify products popup
@@ -39,23 +39,23 @@ Feature: Product on Healthy Living Page
     Then I should see "Choose a location"
     Examples:
       | product |
-      | $45 for 1 |
-      | $120 for 3 |
-      | $225 for 6 |
-      | $420 for 12 |
-      | $540 for 20 |
-      | $55 for 1 |
-      | $150 for 3 |
-      | $285 for 6 |
-      | $540 for 12 |
-      | $740 for 20 |
+      | $75 for 1 |
+      | $280 for 4 |
+      | $540 for 8 |
+      | $780 for 12 |
+      | $1099 for 20 |
+      | $95 for 1 |
+      | $360 for 4 |
+      | $700 for 8 |
+      | $1020 for 12 |
+      | $1499 for 20 |
+      | $50 for 1 |
+      | $180 for 4 |
+      | $340 for 8 |
+      | $480 for 12 |
+      | $640 for 20 |
       | $70 for 1 |
-      | $195 for 3 |
-      | $375 for 6 |
+      | $260 for 4 |
+      | $500 for 8 |
       | $720 for 12 |
-      | $999 for 20 |
-      | $80 for 1 |
-      | $225 for 3 |
-      | $435 for 6 |
-      | $840 for 12 |
-      | $1199 for 20 |
+      | $1040 for 20 |
