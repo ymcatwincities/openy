@@ -1,0 +1,110 @@
+$detailed-rules-h3: #e49bbd;
+
+@mixin ysr-rules-text-block() {
+  @include rem(font-size, 15px);
+  @include rem(line-height, 25px);
+  @include rem(margin-bottom, 40px);
+  color: $grey5;
+}
+
+.detailed-rules {
+  @include rem(max-width, 850px);
+  @include rem(margin, 0 auto 100px);
+
+  p {
+    @include rem(font-size, 15px);
+    @include rem(line-height, 25px);
+    @include rem(margin-bottom, 10px);
+    color: $grey5;
+  }
+
+  h3 {
+    @include rem(margin-top, 60px);
+    @include rem(font-size, 30px);
+    @include rem(line-height, 35px);
+    @include rem(padding-bottom, 55px);
+    border-bottom: 1px solid $grey2;
+    color: $detailed-rules-h3;
+    letter-spacing: -0.8px;
+    text-align: center;
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-top, 120px);
+    }
+  }
+
+  h4 {
+    @include rem(margin-top, 40px);
+    @include rem(font-size, 25px);
+    color: $grey7;
+    text-transform: uppercase;
+
+    @include breakpoint($tablet) {
+      @include rem(margin-top, 70px);
+    }
+  }
+
+
+  dl {
+
+    dt {
+      @include cachet-normal();
+      @include rem(font-size, 20px);
+      @include rem(margin-bottom, 5px);
+      @include rem(margin-top, 10px);
+      color: $purple-light;
+      text-transform: uppercase;
+    }
+
+    dd {
+      @include ysr-rules-text-block();
+      @include rem(padding-left, 20px);
+      ul {
+        li {
+          color: $grey5;
+          @include rem(margin-bottom, 0px);
+          @include rem(padding-top, 0px);
+        }
+      }
+    }
+  }
+
+  ol, ul {
+    @include rem(padding-left, 20px);
+
+    li {
+      @include ysr-rules-text-block();
+      @include rem(padding-top, 10px);
+      color: $grey7;
+
+      p {
+        @include ysr-rules-text-block();
+        @include rem(padding-top, 10px);
+        @include rem(margin-bottom, 20px);
+      }
+    }
+
+    ol, ul {
+      padding-left: 0;
+
+      li {
+        list-style-position: inside;
+      }
+    }
+  }
+
+  .container {
+    > ol,
+    > ul {
+      > li {
+        font-weight: bold;
+
+        > * {
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+}

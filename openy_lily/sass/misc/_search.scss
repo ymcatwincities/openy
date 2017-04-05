@@ -1,0 +1,25 @@
+body.path-search {
+  #block-mainpagecontent {
+    background-color: #fff;
+    overflow: hidden;
+
+    > form,
+    > h2 {
+      display: none;
+    }
+    ol {
+      padding: 0;
+    }
+    li {
+      list-style-type: none;
+      list-style-image: none;
+    }
+  }
+}
+
+.path-search-results {
+
+  #block-tabs {
+    display: none;
+  }
+}
