@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * OpenY Lily Theme File
+ */
+
+/**
+ * Detects pages relative to camp node.
+ */
+function openy_lily_detect_camp_pages() {
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+  }
+  if (\Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+    $node = \Drupal::routeMatch()->getParameter('node_preview');
+  }
+  if (isset($node)) {
+    if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+      return ($site_section->bundle() == 'camp' && $node->bundle() != 'camp') ? $site_section : NULL;
+    }
+  }
+  return;
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  if (in_array('node__blog__default', $suggestions)) {
+    array_push($suggestions, 'node__blog__full');
+  }
+//  if (in_array('node__article__default', $suggestions)) {
+//    array_push($suggestions, 'node__article__full');
+//  }
+//  // Detect all pages which referenced to location by context.
+//  if ($data = openy_lily_detect_locations_pages()) {
+//    array_push($suggestions, 'node__article__location__full');
+//  }
+//  if (in_array('node__location__default', $suggestions)) {
+//    array_push($suggestions, 'node__location__full');
+//  }
+//  if (in_array('node__camp__default', $suggestions)) {
+//    array_push($suggestions, 'node__camp__full');
+//  }
+  // Detect all pages which referenced to camp by context.
+  if ($data = openy_lily_detect_camp_pages()) {
+    switch ($variables['elements']['#node']->bundle()) {
+      case 'blog':
+        array_push($suggestions, 'node__blog__camp__full');
+        break;
+//
+//      case 'article':
+//        array_push($suggestions, 'node__article__camp__full');
+//        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_node__blog__camp_blog_teaser().
+ */
+function openy_lily_preprocess_node__blog__camp_blog_teaser(&$vars) {
+  if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+    $vars['page_title'] = $site_section->getTitle();
+  }
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function openy_lily_preprocess_node($variables) {
+  $variables['date_formatted'] = \Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
+
+  // Blog specific preprocessing.
+  if ($variables['node']->bundle() == 'blog') {
+    $back_link_title = t('Back to Blog');
+    $back_link_path = 'blog';
+    if ($field_tags_value = $variables['node']->field_tags->getValue()) {
+// TODO Fix TERM_TID_NEWS. No way to know what TERM_TID_NEWS will point to.
+//      foreach ($field_tags_value as $id) {
+//        if ($id['target_id'] == TERM_TID_NEWS) {
+//          $back_link_title = t('Back to News');
+//          $back_link_path = 'news';
+//        }
+//      }
+    }
+    $variables['back_link_title'] = $back_link_title;
+    $variables['back_link_path'] = \Drupal\Core\Url::fromUri('internal:/' . $back_link_path);
+    // Preprocessing for day camp news.
+    $variables['is_day_camp_news'] = FALSE;
+    if ($variables['node']->hasField('field_related_camps_locations')) {
+      $day_camp = $variables['node']->get('field_related_camps_locations');
+      if (!$day_camp->isEmpty()) {
+        $variables['is_day_camp_news'] = TRUE;
+      }
+    }
+  }
+}
