@@ -24,7 +24,7 @@ function openy_node_category_update_8001() {
  * Update Node Category with field_bottom_content.
  */
 function openy_node_category_update_8002() {
-  $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
+  $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
   // Import new configuration
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
