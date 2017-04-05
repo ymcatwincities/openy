@@ -292,7 +292,7 @@ class DataStorage implements DataStorageInterface {
           $programMap[$program->id][$locsr[$loc]] = $locsr[$loc];
         }
         else {
-          $ranking = array();
+          $ranking = [];
           foreach ($locexp as $k => $exps) {
 
             $ranking[$k] = 0;
@@ -668,14 +668,14 @@ class DataStorage implements DataStorageInterface {
    * @ingroup legacy
    */
   protected function customLocationStem(array $locations) {
-    $locexp = array();
+    $locexp = [];
 
     foreach ($locations as $k => $location) {
       $locexp[$k] = explode(' ', trim($location));
       if (count($locexp[$k]) == 1) {
         $locexp[$k] = explode('-', trim($location));
       }
-      $initial = array();
+      $initial = [];
       foreach ($locexp[$k] as $exp) {
         $initial[] = substr($exp, 0, 1);
       }

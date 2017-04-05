@@ -30,6 +30,13 @@ class ProgramsSearchBlockForm extends FormBase {
   protected $storage;
 
   /**
+   * Enabled locations for the Form instance.
+   *
+   * @var array
+   */
+  private $locations;
+
+  /**
    * ProgramsSearchBlockForm constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
@@ -79,7 +86,9 @@ class ProgramsSearchBlockForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state, $locations = []) {
+    // Put enabled locations to variable for future filtering.
+    $this->locations = $locations;
     // Set step.
     $form_state->setValue('step', 1);
     if ($trigger = $form_state->getTriggeringElement()) {
@@ -152,10 +161,11 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     if ($form_state->getValue('step') >= 2) {
+      $options = array_filter($this->storage->getLocations(), [$this, 'filterLocations'], ARRAY_FILTER_USE_BOTH);
       $form['location'] = [
         '#type' => 'radios',
         '#title' => $this->t('Location'),
-        '#options' => $this->storage->getLocations(),
+        '#options' => $options,
         '#ajax' => $this->getAjaxDefaults(),
       ];
     }
@@ -255,10 +265,11 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     if ($form_state->getValue('step') >= 2) {
+      $options = array_filter($this->storage->getLocations(), [$this, 'filterLocations'], ARRAY_FILTER_USE_BOTH);
       $form['location'] = [
         '#type' => 'radios',
         '#title' => $this->t('Location'),
-        '#options' => $this->storage->getLocations(),
+        '#options' => $options,
         '#ajax' => $this->getAjaxDefaults(),
       ];
     }
@@ -318,6 +329,15 @@ class ProgramsSearchBlockForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // @todo Implement submit.
+  }
+
+  /**
+   * Helper function to filter out disabled locations.
+   */
+  private function filterLocations($value, $key) {
+    if (in_array($key, $this->locations)) {
+      return $value;
+    }
   }
 
 }
