@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_webform_webform
+    - paragraphs.paragraphs_type.webform
+  module:
+    - datalayer
+    - webform
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_webform_webform
+id: paragraph.webform.field_webform_webform
+field_name: field_webform_webform
+entity_type: paragraph
+bundle: webform
+label: 'Embedded Webform'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+  default_data: ''
+  status: true
+field_type: webform
