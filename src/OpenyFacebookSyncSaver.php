@@ -110,13 +110,24 @@ class OpenyFacebookSyncSaver {
    */
   private function createEvent(array $data) {
     $storage = $this->entityTypeManager->getStorage('node');
-
     // Convert date values from 2017-04-08T19:00:00-0500 to 2017-04-08T19:00:00.
-    $event_date_values = [
-      'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])->format('Y-m-d\TH:i:s'),
-      'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['end_date'])->format('Y-m-d\TH:i:s'),
-    ];
-
+    if (!isset($data['end_date'])) {
+      // End date value should not be null so fill it with start date.
+      $event_date_values = [
+        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])
+          ->format('Y-m-d\TH:i:s'),
+        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])
+          ->format('Y-m-d\TH:i:s'),
+      ];
+    }
+    else {
+      $event_date_values = [
+        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])
+          ->format('Y-m-d\TH:i:s'),
+        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['end_date'])
+          ->format('Y-m-d\TH:i:s'),
+      ];
+    }
     // Create event node.
     $node = $storage->create([
       'type' => 'event',
