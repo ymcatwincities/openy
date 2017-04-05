@@ -12,7 +12,7 @@ field_name: field_screen_content_preview
 entity_type: node
 bundle: screen_content
 label: 'Screen content preview'
-description: ''
+description: 'This image should be automatically generated and show the screen content overview.'
 required: false
 translatable: false
 default_value: {  }
