@@ -5,6 +5,14 @@
  * OpenY Node Category install file.
  */
 
+function openy_loc_branch_update_dependencies() {
+  $dependencies['openy_node_category'][8002] = [
+    'openy_node' => 8001,
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Node Category fields datalayer config for Data Layer additions.
  */
