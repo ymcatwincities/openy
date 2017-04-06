@@ -1,0 +1,82 @@
+uuid: ffaee982-5cf8-472b-a611-1e93d99a45df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.openy_digital_signage_screen.openy_digital_signage_screen.field_screen_location
+  module:
+    - openy_digital_signage_screen
+    - options
+    - text
+id: openy_digital_signage_screen.openy_digital_signage_screen.default
+targetEntityType: openy_digital_signage_screen
+bundle: openy_digital_signage_screen
+mode: default
+content:
+  fallback_content:
+    label: above
+    type: entity_reference_label
+    weight: 2
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_screen_location:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  geo_location:
+    label: above
+    type: text_default
+    weight: -2
+    settings: {  }
+    third_party_settings: {  }
+  hardware:
+    label: above
+    type: text_default
+    weight: -1
+    settings: {  }
+    third_party_settings: {  }
+  machine_name:
+    label: above
+    type: string
+    weight: -4
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  orientation:
+    label: above
+    type: list_default
+    weight: -3
+    settings: {  }
+    third_party_settings: {  }
+  placement:
+    label: above
+    type: text_default
+    weight: -2
+    settings: {  }
+    third_party_settings: {  }
+  screen_schedule:
+    label: above
+    type: entity_reference_label
+    weight: 1
+    settings:
+      link: true
+    third_party_settings: {  }
+  title:
+    label: above
+    type: string
+    weight: -5
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  type:
+    label: above
+    type: list_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
