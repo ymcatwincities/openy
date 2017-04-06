@@ -13,5 +13,6 @@ dependencies:
   - paragraphs
   - path
   - pathauto
+  - scheduler
   - user
 version: 8.x-1.1
