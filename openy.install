@@ -168,3 +168,24 @@ function openy_update_8011() {
   \Drupal::service('module_installer')->install(['google_analytics']);
 }
 
+/**
+ * Enable Metatag, Redirect and Simple Sitemap modules.
+ */
+function openy_update_8012() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'metatag',
+    'redirect',
+    'simple_sitemap'
+  ]);
+  // Revert features
+  \Drupal::service('features.manager')->import([
+    'openy_loc_branch',
+    'openy_loc_camp',
+    'openy_loc_facility',
+    'openy_node_blog',
+    'openy_node_landing',
+    'openy_node_program',
+  ]);
+}
+
