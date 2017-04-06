@@ -48,7 +48,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "add-form" = "/admin/digital-signage/screens/add",
  *     "edit-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/edit",
  *     "delete-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/delete",
- *     "collection" = "/admin/digital-signage/screens",
+ *     "collection" = "/admin/digital-signage/screens/list",
  *   },
  *   field_ui_base_route = "openy_digital_signage_screen.settings"
  * )
@@ -266,7 +266,6 @@ class OpenYScreen extends ContentEntityBase implements OpenYScreenInterface {
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
-
 
     $fields['fallback_content'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Fallback Content'))
