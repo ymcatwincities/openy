@@ -30,7 +30,7 @@ add-this:
   js:
     //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e32d757236e8924: { type: external, minified: true }
 
-openy-lily-retention:
+retention:
   version: VERSION
   css:
     theme:
