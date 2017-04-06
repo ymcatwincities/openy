@@ -9,11 +9,9 @@ dependencies:
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
-    - field.field.node.alert.field_meta_tags
     - node.type.alert
   module:
     - link
-    - metatag
     - path
     - text
 id: node.alert.default
@@ -68,11 +66,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
-  field_meta_tags:
-    weight: 39
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
   path:
     type: path
     weight: 30

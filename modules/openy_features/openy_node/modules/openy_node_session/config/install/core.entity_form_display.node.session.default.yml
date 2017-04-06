@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.session.field_meta_tags
     - field.field.node.session.field_session_class
     - field.field.node.session.field_session_description
     - field.field.node.session.field_session_exclusions
@@ -23,7 +22,6 @@ dependencies:
     - datetime_range
     - field_group
     - link
-    - metatag
     - paragraphs
     - path
     - text
@@ -101,11 +99,6 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
-  field_meta_tags:
-    weight: 28
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
   field_session_class:
     weight: 1
     settings:
