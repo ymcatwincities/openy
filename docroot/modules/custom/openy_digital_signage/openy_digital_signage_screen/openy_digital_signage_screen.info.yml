@@ -1,0 +1,7 @@
+name: OpenY Digital Signage Screen Entity
+type: module
+description: OpenY Digital Signage Screen Entity module.
+core: 8.x
+package: "OpenY: Digital Signage"
+dependencies:
+  - openy_digital_signage
