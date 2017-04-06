@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_facebook_sync;
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -66,87 +67,138 @@ class OpenyFacebookSyncSaver {
   }
 
   /**
-   * {@inheritdoc}
+   * Save service callback.
    */
   public function save() {
     $data = $this->wrapper->getSourceData();
 
     foreach ($data as $event) {
-      // @todo Check whether we need update the node (paragraph).
       // @todo Add setting to create nodes in certain status (published|unpublished).
-
-      // Create event node with title, start and end dates.
-      $node = $this->createEvent([
-        'title' => $event['name'],
-        'start_date' => $event['start_time'],
-        'end_date' => $event['end_time'],
+      $stored_event_mappings = $this->eventMappingRepo->getByProperties([
+        'field_fb_event_id' => $event['id'],
       ]);
 
-      // Create description paragraph.
-      $paragraph = $this->createDescriptionParagraph([
-        'field_prgf_sc_body' => $event['description'],
-      ]);
-      $paragraph_data = [
-        'target_id' => $paragraph->id(),
-        'target_revision_id' => $paragraph->getRevisionId(),
-      ];
-      // Create Event registration paragraph for sidebar.
-      $paragraph_event_reg = $this->createEventRegistrationParagraph();
-      $sidebar_content = [
-        [
-          'target_id' => $paragraph_event_reg->id(),
-          'target_revision_id' => $paragraph_event_reg->getRevisionId(),
-        ]
-      ];
-
-      $node->field_landing_body->appendItem($paragraph_data);
-      $node->field_sidebar_content->setValue($sidebar_content);
-      $node->save();
-
-      // Create mapping entity.
-      $this->eventMappingRepo->create($node, $paragraph_data, $event);
+      if ($stored_event_mappings) {
+        // Current Event Hash.
+        $hash = md5(serialize($event));
+        foreach ($stored_event_mappings as $event_mapping_id => $event_mapping) {
+          // Do update if hash differs.
+          if ($event_mapping->get('field_event_hash')->value !== $hash) {
+            $this->updateEvent($event_mapping, $event);
+          }
+        }
+      }
+      else {
+        $this->createEvent($event);
+      }
     }
   }
 
   /**
-   * Create event node.
+   * Prepare Event node default fields.
    *
-   * @param array $data
+   * @param array $event
    *   Event data.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   Event node.
+   * @return array
+   *   Prepared Event data.
    */
-  private function createEvent(array $data) {
-    $storage = $this->entityTypeManager->getStorage('node');
+  private function prepareEvent(array $event) {
     // Convert date values from 2017-04-08T19:00:00-0500 to 2017-04-08T19:00:00.
-    if (!isset($data['end_date'])) {
+    if (!isset($event['end_time'])) {
       // End date value should not be null so fill it with start date.
       $event_date_values = [
-        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])
+        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
           ->format('Y-m-d\TH:i:s'),
-        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])
+        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
           ->format('Y-m-d\TH:i:s'),
       ];
     }
     else {
       $event_date_values = [
-        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['start_date'])
+        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
           ->format('Y-m-d\TH:i:s'),
-        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $data['end_date'])
+        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['end_time'])
           ->format('Y-m-d\TH:i:s'),
       ];
     }
-    // Create event node.
-    $node = $storage->create([
+
+    $event_node = [
       'type' => 'event',
-      'title' => $data['title'],
+      'title' => $event['name'],
       'uid' => self::DEFAULT_UID,
       'field_event_date_range' => $event_date_values,
-    ]);
+    ];
 
-    $node->save();
-    return $node;
+    return $event_node;
+  }
+
+  /**
+   * Create event node.
+   *
+   * @param array $event_data
+   *   Event data.
+   */
+  private function createEvent(array $event_data) {
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    // Create event node.
+    $event = $storage->create($this->prepareEvent($event_data));
+
+    // Create description paragraph.
+    $paragraph = $this->createDescriptionParagraph([
+      'field_prgf_sc_body' => $event_data['description'],
+    ]);
+    $paragraph_data = [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ];
+    // Create Event registration paragraph for sidebar.
+    $paragraph_event_reg = $this->createEventRegistrationParagraph();
+    $sidebar_content = [
+      [
+        'target_id' => $paragraph_event_reg->id(),
+        'target_revision_id' => $paragraph_event_reg->getRevisionId(),
+      ]
+    ];
+
+    $event->field_landing_body->appendItem($paragraph_data);
+    $event->field_sidebar_content->setValue($sidebar_content);
+
+    $event->save();
+
+    // Create mapping entity.
+    $this->eventMappingRepo->create($event, $paragraph_data, $event_data);
+  }
+
+  /**
+   * Update Event and EventMapping.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $event_mapping
+   *   Event Mapping Entity.
+   * @param array $event_data
+   *   Event Data to update.
+   */
+  private function updateEvent(EntityInterface $event_mapping, array $event_data) {
+    $event_node = $this->prepareEvent($event_data);
+    $storage = $this->entityTypeManager->getStorage('paragraph');
+    // Update attached Description paragraph.
+    $paragraph = $storage->load($event_mapping->get('field_desc_prgf_ref')->target_id);
+    $paragraph->set('field_prgf_sc_body', $event_data['description']);
+    $paragraph->save();
+
+    $paragraph_data = [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ];
+    // Update referenced Event node.
+    $storage = $this->entityTypeManager->getStorage('node');
+    $event = $storage->load($event_mapping->get('field_event_ref')->target_id);
+    $event->set('field_event_date_range', $event_node['field_event_date_range']);
+    $event->set('title', $event_node['title']);
+    $event->save();
+    // Update mapping entity.
+    $this->eventMappingRepo->update($event_mapping, $paragraph_data, $event_data);
   }
 
   /**
