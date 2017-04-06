@@ -4600,3 +4600,16 @@ function ymca_master_update_8206() {
 function ymca_master_update_8207() {
   \Drupal::service('module_installer')->install(['ymca_head_attachments'], TRUE);
 }
+
+/**
+ * Update Give menu item weight.
+ */
+function ymca_master_update_8208() {
+  $query = \Drupal::database()
+    ->update('menu_link_content_data')
+    ->fields([
+      'weight' => -1,
+    ]);
+  $query->condition('title', 'Give');
+  $query->execute();
+}
