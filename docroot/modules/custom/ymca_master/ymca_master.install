@@ -4602,8 +4602,21 @@ function ymca_master_update_8207() {
 }
 
 /**
- * Enable openy_digital_signage module.
+ * Update Give menu item weight.
  */
 function ymca_master_update_8208() {
+  $query = \Drupal::database()
+    ->update('menu_link_content_data')
+    ->fields([
+      'weight' => -1,
+    ]);
+  $query->condition('title', 'Give');
+  $query->execute();
+}
+
+/**
+ * Enable openy_digital_signage module.
+ */
+function ymca_master_update_8209() {
   \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
 }
