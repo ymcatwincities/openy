@@ -178,14 +178,5 @@ function openy_update_8012() {
     'redirect',
     'simple_sitemap'
   ]);
-  // Revert features
-  \Drupal::service('features.manager')->import([
-    'openy_loc_branch',
-    'openy_loc_camp',
-    'openy_loc_facility',
-    'openy_node_blog',
-    'openy_node_landing',
-    'openy_node_program',
-  ]);
 }
 
