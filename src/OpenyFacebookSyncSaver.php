@@ -90,8 +90,17 @@ class OpenyFacebookSyncSaver {
         'target_id' => $paragraph->id(),
         'target_revision_id' => $paragraph->getRevisionId(),
       ];
+      // Create Event registration paragraph for sidebar.
+      $paragraph_event_reg = $this->createEventRegistrationParagraph();
+      $sidebar_content = [
+        [
+          'target_id' => $paragraph_event_reg->id(),
+          'target_revision_id' => $paragraph_event_reg->getRevisionId(),
+        ]
+      ];
 
       $node->field_landing_body->appendItem($paragraph_data);
+      $node->field_sidebar_content->setValue($sidebar_content);
       $node->save();
 
       // Create mapping entity.
@@ -157,6 +166,19 @@ class OpenyFacebookSyncSaver {
       $paragraph->set($field, $value);
     }
 
+    $paragraph->save();
+    return $paragraph;
+  }
+
+  /**
+   * Create Event registration paragraph.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   Paragraph entity.
+   */
+  private function createEventRegistrationParagraph() {
+    $storage = $this->entityTypeManager->getStorage('paragraph');
+    $paragraph = $storage->create(['type' => 'openy_event_registration']);
     $paragraph->save();
     return $paragraph;
   }
