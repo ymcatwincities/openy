@@ -8440,6 +8440,27 @@ body .ajax-progress-throbber .throbber {
   max-height: 500px;
 }
 
+.navbar-default .navbar-nav > li:first-child > a {
+  padding: 3px 15px;
+  border-radius: 5px;
+  background-color: #b92f9e;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 17px;
+  margin-top: 26px;
+  line-height: 20px;
+  color: #fff;
+  text-shadow: none;
+  margin-right: 5px;
+}
+.navbar-default .navbar-nav > li:first-child > a:hover {
+  background-color: #9c1f7b;
+}
+
+.affix .navbar-default .navbar-nav > li:first-child > a {
+  margin-top: 10px;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
