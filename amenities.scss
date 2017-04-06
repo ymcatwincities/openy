@@ -74,23 +74,26 @@
           -moz-columns: 2;
           columns: 2;
         }
-        @include breakpoint(laptiop) {
+        @include breakpoint(laptop) {
           -webkit-columns: 4;
           -moz-columns: 4;
           columns: 4;
         }
       }
       .form-item {
+        margin: 0 0 5px;
         .field-amenities-icon {
           padding: 0;
-          width: 20px;
-          height: 20px;
+          width: 30px;
+          height: 30px;
           margin: 0 4px;
           position: relative;
-          top: 3px;
+          top: 8px;
         }
         label {
           vertical-align: middle;
+          line-height: 36px;
+          margin-bottom: 0px;
           div {
             display: inline-block;
             svg {
