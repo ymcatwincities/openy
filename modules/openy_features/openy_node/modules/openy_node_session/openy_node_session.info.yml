@@ -9,7 +9,6 @@ dependencies:
   - field_group
   - link
   - menu_ui
-  - metatag
   - node
   - openy_loc_branch
   - openy_loc_camp

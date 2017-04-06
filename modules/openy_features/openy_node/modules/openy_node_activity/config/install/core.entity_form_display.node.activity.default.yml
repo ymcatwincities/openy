@@ -4,11 +4,9 @@ dependencies:
   config:
     - field.field.node.activity.field_activity_category
     - field.field.node.activity.field_activity_description
-    - field.field.node.activity.field_meta_tags
     - node.type.activity
   module:
     - field_group
-    - metatag
     - path
     - text
 third_party_settings:
@@ -51,11 +49,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-  field_meta_tags:
-    weight: 26
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_firehose
   path:
     type: path
     weight: 7

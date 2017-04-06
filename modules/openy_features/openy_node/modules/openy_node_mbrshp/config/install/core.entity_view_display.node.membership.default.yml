@@ -5,11 +5,9 @@ dependencies:
     - field.field.node.membership.field_mbrshp_description
     - field.field.node.membership.field_mbrshp_image
     - field.field.node.membership.field_mbrshp_info
-    - field.field.node.membership.field_meta_tags
     - node.type.membership
   module:
     - entity_reference_revisions
-    - metatag
     - text
     - user
 id: node.membership.default
@@ -38,12 +36,6 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-  field_meta_tags:
-    weight: 104
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
   links:
     weight: 100
 hidden: {  }

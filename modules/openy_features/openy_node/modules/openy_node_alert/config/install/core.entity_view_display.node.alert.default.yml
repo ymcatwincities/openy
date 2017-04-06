@@ -9,11 +9,9 @@ dependencies:
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
-    - field.field.node.alert.field_meta_tags
     - node.type.alert
   module:
     - link
-    - metatag
     - options
     - text
     - user
@@ -76,12 +74,6 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
-  field_meta_tags:
-    weight: 8
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
   links:
     weight: 0
     settings: {  }

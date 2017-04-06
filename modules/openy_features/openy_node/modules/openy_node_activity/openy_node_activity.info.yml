@@ -6,7 +6,6 @@ dependencies:
   - field
   - field_group
   - menu_ui
-  - metatag
   - node
   - openy_node_category
   - path

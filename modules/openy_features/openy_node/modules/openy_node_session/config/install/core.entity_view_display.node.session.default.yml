@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.session.field_meta_tags
     - field.field.node.session.field_session_class
     - field.field.node.session.field_session_description
     - field.field.node.session.field_session_exclusions
@@ -23,7 +22,6 @@ dependencies:
     - datetime_range
     - entity_reference_revisions
     - link
-    - metatag
     - options
     - text
     - user
@@ -32,12 +30,6 @@ targetEntityType: node
 bundle: session
 mode: default
 content:
-  field_meta_tags:
-    weight: 116
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: metatag_empty_formatter
   field_session_class:
     weight: 101
     label: above
