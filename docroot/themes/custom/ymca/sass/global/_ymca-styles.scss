@@ -870,5 +870,24 @@ body .ajax-progress-throbber {
 .internal-template.node--type-article #carousel .even-heights .active.item {
   min-height: 300px;
   max-height: 500px;
+}
 
+.navbar-default .navbar-nav > li:first-child > a {
+  padding: 3px 15px;
+  border-radius: 5px;
+  background-color: #b92f9e;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 17px;
+  margin-top: 26px;
+  line-height: 20px;
+  color: $white;
+  text-shadow: none;
+  margin-right: 5px;
+  &:hover {
+    background-color: #9c1f7b;
+  }
+}
+.affix .navbar-default .navbar-nav > li:first-child > a {
+  margin-top: 10px;
 }
