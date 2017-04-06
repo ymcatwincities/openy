@@ -22,11 +22,9 @@ class OpenYScreenListBuilder extends EntityListBuilder {
   public function buildHeader() {
     $header['id'] = $this->t('Screen ID');
     $header['name'] = $this->t('Name');
-    $header['created'] = $this->t('Create');
-//    $header['class'] = $this->t('Class');
-//    $header['location'] = $this->t('Location');
-//    $header['from'] = $this->t('Occurence from');
-//    $header['to'] = $this->t('Occurence to');
+    $header['machine_name'] = $this->t('Machine name');
+    $header['created'] = $this->t('Created');
+
     return $header + parent::buildHeader();
   }
 
@@ -44,15 +42,9 @@ class OpenYScreenListBuilder extends EntityListBuilder {
         )
       )
     );
+    $row['machine_name'] = $entity->get('machine_name')->value;
     $row['created'] = $entity->getCreatedTime();
-//    $session = array_values($entity->session->referencedEntities())[0];
-//    $row['session'] = $this->l($session->label(), Url::fromUri('internal:/node/' . $session->id()));
-//    $class = array_values($entity->class->referencedEntities())[0];
-//    $row['class'] = $this->l($class->label(), Url::fromUri('internal:/node/' . $class->id()));
-//    $location = array_values($entity->location->referencedEntities())[0];
-//    $row['location'] = $this->l($location->label(), Url::fromUri('internal:/node/' . $location->id()));
-//    $row['from'] = $entity->getTimestamp();
-//    $row['to'] = $entity->getTimestampTo();
+
     return $row + parent::buildRow($entity);
   }
 
