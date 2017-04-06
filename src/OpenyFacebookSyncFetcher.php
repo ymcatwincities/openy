@@ -107,6 +107,14 @@ class OpenyFacebookSyncFetcher {
       $result = $this->facebook->sendRequest('GET', $appid . "/events");
       $body = $result->getDecodedBody();
       foreach ($body['data'] as $event) {
+        if (isset($event['end_time'])) {
+          // As there is no way to filter out ended events via request to FB API,
+          // skip events that have ended comparing to request time.
+          // @todo: handle Timezone?
+          if (strtotime($event['end_time']) < REQUEST_TIME) {
+            continue;
+          }
+        }
         $data[] = $event;
       }
 
