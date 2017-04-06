@@ -211,6 +211,14 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       $client_id = $this->isProduction ? $order->MasterCustomerId : self::TEST_CLIENT_ID;
 
+      // Change price for PROMO from $0 to $1.
+      // It needs for sync with MindBody.
+      if ($service->ID == "10180" && $order->TotalAmount == 0) {
+        $order->UnitPrice = 1;
+        $order->TotalAmount = $order->OrderQuantity * $order->UnitPrice;
+        $service->Price = 1;
+      }
+
       // Prepare cart items.
       $cart_items = [];
       $cart_items_object = new \ArrayObject();
@@ -662,7 +670,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         'PT_NMP_20_SESS_60_MIN' => '10116',
       ],
     ];
-
 
     preg_match("/\d+_(PT_.*)/", $code, $test);
     if (!$test[1]) {
