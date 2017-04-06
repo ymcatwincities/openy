@@ -170,7 +170,7 @@
         "drupal/google_analytics": "^2.1",
         "drupal/simple_sitemap": "^2.8",
         "drupal/redirect": "^1.0@alpha",
-        "drupal/metatag": "^1.0"
+        "drupal/metatag": "^1.0",
         "drupal/google_tag": "1.x-dev"
     }
 }
