@@ -168,6 +168,7 @@
         "drupal/datalayer": "1.x-dev",
         "drupal/optimizely": "1.2",
         "drupal/google_tag": "1.x-dev",
-        "drupal/google_analytics": "^2.1"
+        "drupal/google_analytics": "^2.1",
+        "drupal/scheduler": "^1.0@alpha"
     }
 }

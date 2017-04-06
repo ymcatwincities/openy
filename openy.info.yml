@@ -8,6 +8,7 @@ php: 5.6
 # Required modules
 dependencies:
   # Core modules.
+  - action
   - block_content
   - breakpoint
   - ckeditor
@@ -70,6 +71,7 @@ dependencies:
   - geolocation
   - google_tag
   - google_analytics
+  - scheduler
   # OpenY features.
   - openy_media_image
   - openy_media_document
