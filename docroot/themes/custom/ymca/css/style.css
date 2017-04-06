@@ -8440,7 +8440,7 @@ body .ajax-progress-throbber .throbber {
   max-height: 500px;
 }
 
-.navbar-default .navbar-nav > li:first-child > a {
+.navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
   padding: 3px 15px;
   border-radius: 5px;
   background-color: #b92f9e;
@@ -8453,11 +8453,11 @@ body .ajax-progress-throbber .throbber {
   text-shadow: none;
   margin-right: 5px;
 }
-.navbar-default .navbar-nav > li:first-child > a:hover {
+.navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a:hover {
   background-color: #9c1f7b;
 }
 
-.affix .navbar-default .navbar-nav > li:first-child > a {
+.affix #block-top-menu-2 .navbar-default .navbar-nav > li:first-child > a {
   margin-top: 10px;
 }
 
