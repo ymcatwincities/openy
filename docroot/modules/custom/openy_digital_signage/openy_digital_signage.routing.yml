@@ -1,0 +1,7 @@
+system.admin_openy_digital_signage:
+  path: '/admin/digital-signage'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Digital Signage'
+  requirements:
+    _permission: 'access OpenY Digital Signage pages'
