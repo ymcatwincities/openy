@@ -18,11 +18,23 @@ a,
 .button.blue:hover,
 .btn.blue:hover,
 .modal-body .button:hover,
-.btn-primary:hover {
+.btn-primary:hover,
+.btn.white-blue:hover,
+.white-blue.button:hover {
   background-color: #00aeef;
+  color: #fffffc;
 }
+.button a,
+.btn a,
+.banner .banner-btn a,
+.button a:hover,
+.btn a:hover {
+  color: #fffffc;
+}
+
 .btn-default {
   background-color: #ffffff;
+  color: #333;
 }
 .top-navs,
 .sidebar,
@@ -46,6 +58,23 @@ a,
 .branch-header .desktop {
   background-color: #c6168d;
 }
+.page-head__main-menu .nav-level-2 > a,
+.page-head__main-menu .nav-level-3 > a,
+.viewport .navbar-default .navbar-nav > li > a,
+.page-head__top-menu a,
+.page-head__main-menu a,
+.viewport .page-head__main-menu .dropdown-menu > li > a:focus,
+.viewport .page-head__main-menu .dropdown-menu > li > a:hover,
+.navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-nav .open .dropdown-menu > li > a:focus {
+  color: #fffffb;
+}
+.viewport .nav-level-2 > a:hover,
+.viewport .nav-level-2 > a:focus
+.viewport .page-head__main-menu .nav-level-2 > a:hover,
+.viewport .page-head__main-menu .nav-level-2 > a:focus {
+  color: #d8d8d8;
+}
 .footer {
   background-color: #4f4f4f;
 }
@@ -60,7 +89,17 @@ a,
   color: #01a491;
 }
 .is-camp .button,
-.is-camp .btn {
+.is-camp .btn,
+.is-camp .button.blue,
+.is-camp .btn.blue,
+.is-camp .modal-body .button,
+.is-camp .btn-primary,
+.is-camp .button:hover,
+.is-camp .btn:hover,
+.is-camp .button.blue:hover,
+.is-camp .btn.blue:hover,
+.is-camp .modal-body .button:hover,
+.is-camp .btn-primary:hover {
   background-color: #2fb998;
 }
 .is-camp .top-navs,
