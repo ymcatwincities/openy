@@ -46,6 +46,7 @@ projects[blazy] = 1.0-rc1
 projects[geolocation] = 1.9
 projects[google_tag] = 1.x-dev
 projects[google_analytics] = 2.1
+projects[scheduler] = 1.0-alpha2
 projects[confi][subdir] = contrib
 projects[confi][version] = 1.3
 projects[confi][patch][] = "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
