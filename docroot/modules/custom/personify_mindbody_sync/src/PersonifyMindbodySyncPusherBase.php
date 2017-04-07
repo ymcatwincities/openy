@@ -429,6 +429,14 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       if (empty($location_nids)) {
         // There is no location mapping for this location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no location mapping for this location.',
+          ]
+        );
         return;
       }
 
@@ -439,6 +447,14 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         ->execute();
       if (empty($staff_nids)) {
         // There is no staff for this location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no staff for this location.',
+          ]
+        );
         return;
       }
       $staff = \Drupal::entityTypeManager()->getStorage('mapping')->loadMultiple($staff_nids);
