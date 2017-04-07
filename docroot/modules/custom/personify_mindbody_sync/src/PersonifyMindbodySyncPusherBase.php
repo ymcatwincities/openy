@@ -411,8 +411,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    */
   public function sendNotification(\stdClass $order, $mb_sale_id, $notification_type = 'notify_location_trainers') {
     try {
-      $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
-
       // Bridge Personify location -> Drupal location -> MindBody location.
       $location_personify = $this->getLocationForOrder($order);
       $location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify);
@@ -422,10 +420,28 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         return;
       }
 
-      if (!isset($mapping[$location_mindbody])) {
-        // There is no mapping for this location.
+      // Location ids.
+      $location_nids = \Drupal::entityQuery('mapping')
+        ->condition('type', 'location')
+        ->condition('field_mindbody_id.value', $location_mindbody)
+        ->execute();
+      $location_nids = reset($location_nids);
+
+      if (empty($location_nids)) {
+        // There is no location mapping for this location.
         return;
       }
+
+      // Staff ids for location.
+      $staff_nids = \Drupal::entityQuery('mapping')
+        ->condition('type', 'staff')
+        ->condition('field_staff_branch.target_id', $location_nids)
+        ->execute();
+      if (empty($staff_nids)) {
+        // There is no staff for this location.
+        return;
+      }
+      $staff = \Drupal::entityTypeManager()->getStorage('mapping')->loadMultiple($staff_nids);
 
       $location_mapping = $this->locationRepo->findByMindBodyId($location_mindbody);
       $tokens = [
@@ -441,10 +457,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       ];
 
       $emails = [];
-      foreach ($mapping[$location_mindbody] as $trainer) {
-        $tokens['trainer_name'] = $trainer['name'];
-        $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer['email'], 'en', $tokens);
-        $emails[] = $trainer['email'];
+      foreach ($staff as $trainer) {
+        $tokens['trainer_name'] = $trainer->get('name')->getString();
+        $trainer_email = $trainer->get('field_staff_email')->getString();
+        $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer_email, 'en', $tokens);
+        $emails[] = $trainer_email;
       }
     }
     catch (\Exception $e) {
