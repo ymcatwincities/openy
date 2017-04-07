@@ -9465,6 +9465,19 @@ body .ajax-progress-throbber .throbber {
   color: #0889cd;
 }
 
+.ui-widget.ui-dialog.confirmation-popup .ui-dialog-content.ui-widget-content {
+  padding-bottom: 20px;
+}
+.ui-widget.ui-dialog.confirmation-popup .popup-content {
+  margin-bottom: 40px;
+}
+.ui-widget.ui-dialog.confirmation-popup .content-button {
+  text-align: center;
+}
+.ui-widget.ui-dialog.confirmation-popup .content-button a {
+  text-transform: uppercase;
+}
+
 .groupex-form-full {
   padding-top: 15px;
 }
