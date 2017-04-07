@@ -419,12 +419,12 @@ function yptf_master_update_8022() {
     ->get('locations');
   foreach ($load_staff as $location => $staff) {
     $name = explode(' ', $staff[0]['name']);
-    $data = array(
+    $data = [
       'type' => 'staff',
       'field_staff_email' => $staff[0]['email'],
       'field_staff_name' => $name[0],
       'field_staff_surname' => $name[1],
-    );
+    ];
     // GEt locations ref.
     $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
     $mapping = $mapping_repository->findByMindBodyId($location);
