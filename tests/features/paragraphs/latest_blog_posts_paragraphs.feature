@@ -4,7 +4,7 @@ Feature: Latest Blogs Paragraphs
 
   Background: Log in
     Given I am logged in as a user with the "Editor" role
-    And I create "taxonomy_term" of type "blog_category":
+    And I create taxonomy_term of type blog_category:
       | name               |
       | BEHAT CATEGORY ONE |
     And I create paragraph of type latest_blog_posts:

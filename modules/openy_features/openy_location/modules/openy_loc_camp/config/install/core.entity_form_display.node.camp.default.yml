@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.camp.field_bottom_content
     - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
@@ -40,8 +41,6 @@ third_party_settings:
       children:
         - field_location_address
         - field_location_coordinates
-        - field_location_latitude
-        - field_location_longitude
         - field_location_phone
         - field_location_fax
         - field_location_email
@@ -82,6 +81,19 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Content Area'
+    group_bottom_area:
+      children:
+        - field_bottom_content
+      parent_name: ''
+      weight: 4
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Bottom Area'
 id: node.camp.default
 targetEntityType: node
 bundle: camp
@@ -92,6 +104,16 @@ content:
     weight: 6
     settings: {  }
     third_party_settings: {  }
+  field_bottom_content:
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
   field_camp_menu_links:
     weight: 2
     settings:
