@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.branch.field_bottom_content
     - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
@@ -27,6 +28,14 @@ targetEntityType: node
 bundle: branch
 mode: default
 content:
+  field_bottom_content:
+    type: entity_reference_revisions_entity_view
+    weight: 7
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
   field_branch_hours:
     weight: 6
     label: above
