@@ -1,5 +1,5 @@
-name: YMCA Blocks
+name: OpenY Blocks
 type: module
-description: YMCA blocks implementation.
+description: OpenY blocks implementation.
 core: 8.x
-package: YMCA
+package: OpenY
