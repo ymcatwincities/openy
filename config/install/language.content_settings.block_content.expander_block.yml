@@ -7,4 +7,4 @@ id: block_content.expander_block
 target_entity_type_id: block_content
 target_bundle: expander_block
 default_langcode: site_default
-language_alterable: false
+language_alterable: true

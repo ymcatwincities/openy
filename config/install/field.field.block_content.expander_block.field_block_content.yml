@@ -16,8 +16,8 @@ field_name: field_block_content
 entity_type: block_content
 bundle: expander_block
 label: 'Block Content'
-description: ''
-required: false
+description: 'Contains main html of the block.'
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''
