@@ -38,6 +38,7 @@
 
       // Footer.
       $colorPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[footer]"]').val());
+      $colorPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[footertext]"]').val());
 
       // Camp customizations.
       var $campPreview = $form.find('.camp-color-preview');
