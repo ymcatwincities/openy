@@ -5,6 +5,14 @@
  * OpenY Branch install file.
  */
 
+function openy_loc_branch_update_dependencies() {
+  $dependencies['openy_loc_branch'][8002] = [
+    'openy_node' => 8001,
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Branch fields datalayer config for Data Layer additions.
  */
@@ -29,5 +37,45 @@ function openy_loc_branch_update_8001() {
       $config_name,
       'third_party_settings.datalayer'
     );
+  }
+}
+
+/**
+ * Update Branch with field_bottom_content.
+ */
+function openy_loc_branch_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.node.branch.field_bottom_content',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.branch.default' =>[
+      'dependencies.config',
+      'third_party_settings.field_group.group_header_area',
+      'third_party_settings.field_group.group_content_area',
+      'third_party_settings.field_group.group_bottom_area',
+      'content.field_bottom_content',
+    ],
+    'core.entity_view_display.node.branch.default' => [
+      'dependencies.config',
+      'content.field_bottom_content',
+    ],
+    'core.entity_view_display.node.branch.full' => [
+      'dependencies.config',
+      'content.field_bottom_content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
   }
 }
