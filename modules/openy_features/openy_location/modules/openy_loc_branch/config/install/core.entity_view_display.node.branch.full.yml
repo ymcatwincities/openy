@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
+    - field.field.node.branch.field_bottom_content
     - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
@@ -27,6 +28,14 @@ targetEntityType: node
 bundle: branch
 mode: full
 content:
+  field_bottom_content:
+    type: entity_reference_revisions_entity_view
+    weight: 5
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
   field_branch_hours:
     type: openy_today_custom_hours
     weight: 4
