@@ -5,9 +5,13 @@
  * OpenY Lily Theme File
  */
 
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Link;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_preprocess_template() for footer menus.
@@ -97,12 +101,63 @@ function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $var
 }
 
 /**
+ * Implements hook_theme_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'form_element__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_form_element_label_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'form_element_label__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'input__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_picture().
+ */
+function openy_lily_preprocess_picture(&$variables) {
+  // Add responsiveness.
+  $variables['attributes']['class'][] = 'img-responsive';
+}
+
+/**
+ * Implements hook_preprocess_image().
+ */
+function openy_lily_preprocess_image(&$variables) {
+  // Add responsiveness.
+  $variables['attributes']['class'][] = 'img-responsive';
+}
+
+/**
+ * Implements hook_preprocess_expander_block().
+ */
+function openy_lily_preprocess_expander_block(&$variables) {
+  $id = 'collapse-' . $variables['entity']->bundle() . '-' . $variables['entity']->id();
+  $variables['block_id'] = \Drupal\Component\Utility\Html::getUniqueId($id);
+}
+
+/**
  * Implements hook_preprocess_node().
  */
 function openy_lily_preprocess_node($variables) {
   $variables['date_formatted'] = Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
 
-  if (!in_array($variables['view_mode'], array('full', 'default'))) {
+  if (!in_array($variables['view_mode'], ['full', 'default'])) {
     return;
   }
   $variables['base_path'] = base_path();
@@ -150,7 +205,7 @@ function openy_lily_preprocess_html(&$variables) {
   }
 
   if (!$variables['is_front'] = Drupal::service('path.matcher')->isFrontPage() && !empty($node)) {
-    if (Drupal::service('current_route_match')->getRouteName() == 'entity.node.preview') {
+    if ($current_route_name == 'entity.node.preview') {
       $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')->get('page.front');
     }
   }
@@ -176,7 +231,7 @@ function openy_lily_preprocess_html(&$variables) {
   $iconFid = reset($favicon_default);
 
   if ($iconFid) {
-    $file = FILE::load($iconFid);
+    $file = File::load($iconFid);
     $variables['page']['#attached']['html_head_link'][][] = [
       'rel' => 'shortcut icon',
       'href' => file_create_url($file->getFileUri()),
@@ -204,12 +259,351 @@ function openy_lily_preprocess_page(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_pager().
+ */
+function openy_lily_preprocess_pager(&$vars) {
+  if (empty($vars['items']['pages'])) {
+    return;
+  }
+  foreach ($vars['items']['pages'] as &$item) {
+    $item['attributes'] = new Attribute();
+  }
+}
+
+/**
  * Implements hook_preprocess_node__blog__camp_blog_teaser().
  */
 function openy_lily_preprocess_node__blog__camp_blog_teaser(&$vars) {
   if ($site_section = Drupal::service('page.context')->getContext()) {
     $vars['page_title'] = $site_section->getTitle();
   }
+}
+
+/**
+ * Prepares variables for input templates.
+ *
+ * Default template: input.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes.
+ */
+function openy_lily_preprocess_input(&$variables) {
+  $element = $variables['element'];
+  $variables['children'] = $element['#children'];
+
+  if (isset($element['#skip_ymca_preprocess']) && $element['#skip_ymca_preprocess']) {
+    return;
+  }
+
+  $types = ['url', 'textfield', 'tel', 'password', 'date'];
+  if (in_array($element['#type'], $types)) {
+    $classes = [
+      'form-control',
+      'text',
+    ];
+  }
+  elseif ($element['#type'] == 'submit' && $element['#ajax_processed'] != TRUE) {
+    $classes = [
+      'form_submit',
+      'btn',
+      'btn-lg',
+      'btn-primary',
+    ];
+  }
+  elseif ($element['#type'] == 'email') {
+    $classes = [
+      'form-control',
+      'text',
+      'email',
+    ];
+  }
+
+  if (isset($classes)) {
+    $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  }
+
+}
+
+/**
+ * Prepares variables for textarea templates.
+ *
+ * Default template: textarea.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #description, #rows, #cols,
+ *     #placeholder, #required, #attributes, #resizable
+ *
+ */
+function openy_lily_preprocess_textarea(&$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, ['id', 'name', 'rows', 'cols', 'placeholder']);
+  Element\RenderElement::setAttributes($element, ['form-textarea']);
+  $variables['wrapper_attributes'] = new Attribute();
+  $variables['attributes'] = new Attribute($element['#attributes']);
+  $variables['value'] = $element['#value'];
+  $variables['resizable'] = !empty($element['#resizable']) ? $element['#resizable'] : NULL;
+  $variables['required'] = !empty($element['#required']) ? $element['#required'] : NULL;
+  $variables['attributes']['class'][] = 'form-control';
+  $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Prepares variables for select element templates.
+ *
+ * Default template: select.html.twig.
+ *
+ * It is possible to group options together; to do this, change the format of
+ * $options to an associative array in which the keys are group labels, and the
+ * values are associative arrays in the normal $options format.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #extra,
+ *     #multiple, #required, #name, #attributes, #size.
+ */
+function openy_lily_preprocess_select(&$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, ['id', 'name', 'size']);
+  Element\RenderElement::setAttributes($element, ['form-select']);
+
+  $variables['attributes'] = $element['#attributes'];
+  $variables['options'] = form_select_options($element);
+  $variables['attributes']['class'][] = 'form-control';
+  $variables['attributes']['class'][] = 'text';
+
+  // Sort location options.
+  if (in_array('option_emails', $variables['element']['#parents'])) {
+    $options = $variables['options'];
+    // Remove empty option from array, due to sort reason.
+    $empty_option = $options[0];
+    unset($options[0]);
+    // Sort options array by location's label.
+    $sort = [];
+    foreach ($options as $key => $row) {
+      $sort[$key] = $row['label'];
+    }
+    array_multisort($sort, SORT_ASC, $options);
+    // Pass back empty option on first position.
+    array_unshift($options, $empty_option);
+    // Finally pass back sorted options array.
+    $variables['options'] = $options;
+  }
+}
+
+/**
+ * Implements hook_preprocess_form_element().
+ */
+function openy_lily_preprocess_form_element(&$variables) {
+  $element = $variables['element'];
+  if (!empty($element['#title_extra'])) {
+    $variables['label']['#title_extra'] = $element['#title_extra'];
+  }
+  // Prepare address field.
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line1') {
+    $variables['label']['#title'] = t('Address 1');
+  }
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line2') {
+    $variables['label']['#title_display'] = $variables['label_display'] = $variables['title_display'] = 'before';
+    $variables['label']['#title'] = t('Address 2 <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level2') {
+    $variables['label']['#title'] = t('City <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level1') {
+    $variables['label']['#title'] = t('State <small>(optional) </small>');
+    $element['#options'][''] = t('Select State or Province');
+    $element['#empty_option'] = t('Select State or Province');
+  }
+  if (isset($element['#attributes']['checked']) && $element['#attributes']['checked'] == 'checked') {
+    $variables['attributes']['class'] = 'checked';
+  }
+  if (in_array($element['#name'], ['mb_session_type', 'mb_program', 'mb_location'])) {
+    $variables['title'] = $element['#title'];
+    $variables['id'] = $element['#id'];
+  }
+  $variables['element'] = $element;
+}
+
+/**
+ * Implements hook_preprocess_form_element_label().
+ */
+function openy_lily_preprocess_form_element_label(&$variables) {
+  if (!empty($variables['element']['#title_extra'])) {
+    $variables['title_extra']['#markup'] = $variables['element']['#title_extra'];
+  }
+}
+
+/**
+ * Prepares variables for form templates.
+ *
+ * Default template: form.html.twig.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #action, #method, #attributes, #children
+ */
+function openy_lily_preprocess_form(&$variables) {
+  $element = $variables['element'];
+  if (isset($element['#action'])) {
+    $element['#attributes']['action'] = UrlHelper::stripDangerousProtocols($element['#action']);
+  }
+  Element::setAttributes($element, ['method', 'id']);
+  if (empty($element['#attributes']['accept-charset'])) {
+    $element['#attributes']['accept-charset'] = "UTF-8";
+  }
+  $variables['attributes'] = $element['#attributes'];
+  $variables['children'] = $element['#children'];
+
+  if ($element['#form_id'] == 'user_login_form' || $element['#form_id'] == 'user_pass') {
+    $variables['attributes']['class'][] = 'container';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function openy_lily_theme() {
+  return [
+    'ymcali_groupex_form_full' => [
+      'render element' => 'form',
+    ],
+    'ymcali_groupex_form_full_refine' => [
+      'render element' => 'form',
+      'template' => 'forms/groupex-form-full-refine',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_lily_form_groupex_form_full_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'openy_lily_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location';
+  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
+  $form['#theme'] = ['openy_lily_groupex_form_full'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_lily_form_groupex_form_full_refine_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'openy_lily_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location__expanded';
+  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
+  $form['#theme'] = ['openy_lily_groupex_form_full_refine'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_lily_form_groupex_form_location_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_lily_form_groupex_form_location_refine_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['location']['#pre_render'][] = 'openy_lily_prerender_checkboxes';
+  $form['location']['#theme'] = 'checkboxes__location__expanded';
+  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
+  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
+  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
+  $form['filter_length']['#theme'] = 'radios__groupex';
+  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
+  $form['#theme'] = ['openy_lily_groupex_form_full_refine'];
+  $form['#attributes']['class'][] = 'group-ex';
+  $form['#attributes']['class'][] = 'search';
+}
+
+/**
+ * Prerender callback from locations checkboxes.
+ */
+function openy_lily_prerender_checkboxes($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#theme'] = 'input__checkbox__location';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Prerender callback from locations checkboxes.
+ */
+function openy_lily_prerender_checkboxes_day($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#theme'] = 'input__checkbox__location_day';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Prerender callback from locations checkboxes.
+ */
+function openy_lily_prerender_radios($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#theme'] = 'input__radio__schedule';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  return $element;
+}
+
+/**
+ * Prerender callback from locations datetime.
+ */
+function openy_lily_prerender_datetime($element) {
+  $children = Element::children($element);
+  foreach ($children as $delta => $child_key) {
+    $element[$child_key]['#type'] = 'textfield';
+    $element[$child_key]['#process'] = [];
+    $element[$child_key]['#pre_render'] = [];
+    $element[$child_key]['#attributes']['type'] = 'text';
+    $element[$child_key]['#attributes']['placeholder'] = 'mm/dd/yy';
+    $element[$child_key]['#attributes']['class'] = ['form-control', 'text'];
+    $element[$child_key]['#attributes']['autocomplete'] = 'off';
+    $element[$child_key]['#attributes']['id'] = $element[$child_key]['#id'];
+    $element[$child_key]['#attributes']['name'] = $element[$child_key]['#name'];
+    $element[$child_key]['#attributes']['value'] = $element[$child_key]['#value'];
+    unset($element[$child_key]['#attributes']['data-drupal-date-format']);
+    unset($element[$child_key]['#attached']);
+    $element[$child_key]['#theme'] = 'input__date__schedule';
+    $element[$child_key]['#theme_wrappers'] = [];
+    $element[$child_key]['#title_display'] = 'hidden';
+  }
+  $element['#theme_wrappers'] = ['datetime_wrapper__groupex'];
+  return $element;
 }
 
 /**
@@ -572,4 +966,30 @@ function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface 
     '#default_value' => (theme_get_setting('hide_mobile_sign_button') === NULL) ? FALSE : theme_get_setting('hide_mobile_sign_button'),
     '#description' => t('Do not show mobile sign in button.'),
   ];
+}
+
+/**
+ * Implements THEME_proprocess_file_link().
+ */
+function openy_lily_preprocess_file_link(&$variables) {
+  $file = $variables['file'];
+  $options = [];
+
+  $file_entity = ($file instanceof File) ? $file : File::load($file->fid);
+  $url = file_create_url($file_entity->getFileUri());
+  $options['query'][$file->getChangedTime()] = '';
+
+  $mime_type = $file->getMimeType();
+  $options['attributes']['type'] = $mime_type . '; length=' . $file->getSize();
+
+  // Use the description as the link text if available.
+  if (empty($variables['description'])) {
+    $link_text = $file_entity->getFilename();
+  }
+  else {
+    $link_text = $variables['description'];
+    $options['attributes']['title'] = $file_entity->getFilename();
+  }
+
+  $variables['link'] = Link::fromTextAndUrl($link_text, Url::fromUri($url, $options));
 }
