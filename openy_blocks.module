@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains yd_blocks.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\text\Plugin\Field\FieldType\TextLongItem;
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_theme().
+ */
+function yd_blocks_theme($existing, $type, $theme, $path) {
+  return [
+    'expander_block' => [
+      'variables' => [
+        'header' => NULL,
+        'content' => NULL,
+        'entity' => NULL,
+      ],
+      'template' => 'expander-block',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function yd_blocks_block_content_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  /** @var \Drupal\block_content\Entity\BlockContent $entity */
+
+  switch ($entity->bundle()) {
+    case 'expander_block':
+      $content = $entity->field_block_content->get(0);
+      if (!$content) {
+        \Drupal::logger('yd_blocks')->notice(t('Content(expander block) is not found for entity: @id', ['@id' => $entity->id()]));
+        break;
+      }
+      $build['expander'] = array(
+        '#theme' => 'expander_block',
+        '#header' => $entity->field_block_header->value,
+        '#content' => array(
+          '#type' => 'processed_text',
+          '#text' => $content->value,
+          '#format' => $content->format,
+          '#langcode' => $content->getLangcode(),
+        ),
+        '#entity' => $entity,
+        '#cache' => [
+          'tags' => ['yd_cron']
+        ],
+      );
+      $build['#attached']['library'][] = 'yd_blocks/expander-block';
+      break;
+  }
+}
