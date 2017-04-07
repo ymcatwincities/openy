@@ -12,6 +12,7 @@ use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Tester\Exception\PendingException;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
+use Behat\Mink\Exception\ResponseTextException;
 
 /**
  * Defines application features from the specific context.
@@ -284,6 +285,19 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element_text = $element_obj->getText();
     if (strpos($element_text, $text) === FALSE) {
       throw new \Exception(sprintf("The text '%s' was not found in the element '%s' on the page %s", $text, $element, $this->getSession()->getCurrentUrl()));
+    }
+  }
+
+  /**
+   * @Then I should see text :text in XML
+   */
+  public function iShouldSeeTextMatchingInXml($text)
+  {
+    $xml = $this->getSession()->getDriver()->getContent();
+    $message = sprintf('The text %s was not found anywhere in the XML.', $text);
+
+    if (strpos($xml, $text) === FALSE) {
+      throw new ResponseTextException($message, $this->session->getDriver());
     }
   }
 
