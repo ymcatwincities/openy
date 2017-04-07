@@ -986,3 +986,21 @@
     }
   }
 }
+
+.ui-widget.ui-dialog.confirmation-popup {
+  .ui-dialog-content.ui-widget-content {
+    padding-bottom: 20px;
+  }
+
+  .popup-content {
+    margin-bottom: 40px;
+  }
+
+  .content-button {
+    text-align: center;
+
+    a {
+      text-transform: uppercase;
+    }
+  }
+}
