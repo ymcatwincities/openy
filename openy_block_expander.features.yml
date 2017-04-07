@@ -1,0 +1,7 @@
+excluded:
+  - core.entity_form_display.paragraph.expander.default
+  - core.entity_view_display.paragraph.expander.default
+  - field.field.paragraph.expander.field_expander_content
+  - field.storage.paragraph.field_expander_content
+  - paragraphs.paragraphs_type.expander
+required: true
