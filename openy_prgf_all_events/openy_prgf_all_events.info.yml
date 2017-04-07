@@ -1,0 +1,15 @@
+name: 'OpenY Paragraph All Events'
+description: 'Provide a paragraph with a view shows Events listing.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - node
+  - openy_node
+  - openy_node_event
+  - paragraphs
+  - user
+  - views
+  - views_field_formatter
+version: 8.x-1.0

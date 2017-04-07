@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.all_events.field_prgf_events_view
+    - paragraphs.paragraphs_type.all_events
+    - views.view.events
+  module:
+    - views_field_formatter
+id: paragraph.all_events.default
+targetEntityType: paragraph
+bundle: all_events
+mode: default
+content:
+  field_prgf_events_view:
+    weight: 0
+    label: hidden
+    settings:
+      view: 'events::default'
+      arguments:
+        field_value:
+          weight: '0'
+          checked: 0
+        entity_id:
+          weight: '0'
+          checked: 0
+        delta:
+          weight: '0'
+          checked: 0
+      implode_character: ''
+      multiple: 0
+    third_party_settings: {  }
+    type: views_field_formatter
+hidden: {  }
