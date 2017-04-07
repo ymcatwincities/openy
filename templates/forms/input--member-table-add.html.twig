@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Default theme implementation for an 'input' #type form element.
+ *
+ * Available variables:
+ * - attributes: A list of HTML attributes for the input element.
+ * - children: Optional additional rendered elements.
+ *
+ * @see template_preprocess_input()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = [
+  'btn',
+  'btn-lg',
+  'btn-primary',
+] %}
+<input{{ attributes.addClass(classes).setAttribute('value', 'Add member'|t ) }} />{{ children }}
