@@ -7120,10 +7120,10 @@ body {
     width: calc(100% / 3 - 30px);
     position: relative; }
     .block-description--3 .block-description--text .block-share {
-      margin: 0 0 40px 0; }
+      margin: 0 0 20px 0; }
     .block-description--3 .block-description--text .field-sb-link a {
       position: absolute;
-      bottom: 20px; } }
+      bottom: 10px; } }
 
 .block-description--4 {
   display: block; }
