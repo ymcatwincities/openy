@@ -6,6 +6,7 @@
  */
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Link;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
@@ -192,7 +193,7 @@ function openy_lily_preprocess_image(&$variables) {
  */
 function openy_lily_preprocess_expander_block(&$variables) {
   $id = 'collapse-' . $variables['entity']->bundle() . '-' . $variables['entity']->id();
-  $variables['block_id'] = \Drupal\Component\Utility\Html::getUniqueId($id);
+  $variables['block_id'] = Html::getUniqueId($id);
 }
 
 /**
@@ -245,16 +246,6 @@ function openy_lily_preprocess_node($variables) {
 
     $back_link_title = t('Back to Blog');
     $back_link_path = 'blog';
-// TODO what has replace field_tags
-//    if ($field_tags_value = $variables['node']->field_tags->getValue()) {
-// TODO Fix TERM_TID_NEWS. No way to know what TERM_TID_NEWS will point to.
-//      foreach ($field_tags_value as $id) {
-//        if ($id['target_id'] == TERM_TID_NEWS) {
-//          $back_link_title = t('Back to News');
-//          $back_link_path = 'news';
-//        }
-//      }
-//    }
     $variables['back_link_title'] = $back_link_title;
     $variables['back_link_path'] = Url::fromUri('internal:/' . $back_link_path);
   }
