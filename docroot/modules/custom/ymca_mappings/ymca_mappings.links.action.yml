@@ -8,10 +8,3 @@ entity.mapping_type.add_form:
   title: 'Add Mapping type'
   appears_on:
     - entity.mapping_type.collection
-entity.mapping.staff.add_form:
-  route_name: 'mapping.add_page'
-  title: 'Add Staff'
-  route_parameters:
-      mapping_type: 'staff'
-  appears_on:
-    - view.staff_mapping.page_1
