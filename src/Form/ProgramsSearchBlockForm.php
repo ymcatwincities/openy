@@ -39,9 +39,9 @@ class ProgramsSearchBlockForm extends FormBase {
   /**
    * ProgramsSearchBlockForm constructor.
    *
-   * @param \Drupal\Core\Render\RendererInterface $renderer
+   * @param \Drupal\Core\Render\RendererInterface
    *   Renderer.
-   * @param \Drupal\ygh_programs_search\DataStorageInterface $storage
+   * @param \Drupal\ygh_programs_search\DataStorageInterface
    *   Data storage.
    */
   public function __construct(RendererInterface $renderer, DataStorageInterface $storage) {
