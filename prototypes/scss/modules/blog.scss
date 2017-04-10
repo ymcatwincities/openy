@@ -39,6 +39,9 @@
       background-color: $white;
       padding-right: 25px;
       height: 32px;
+      &::-ms-expand {
+        display: none;
+      }
       @include breakpoint(tablet) {
         max-width: 225px;
       }
@@ -104,6 +107,7 @@
     }
   }
 }
+
 .node--type-blog {
   .sidebar-card {
     border: 1px solid $light-grey;
@@ -138,6 +142,10 @@
       left: 0;
       top: 0;
     }
+  }
+
+  .paragraph--type--content-pager {
+    padding-top: 50px;
   }
 }
 
