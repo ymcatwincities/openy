@@ -77,13 +77,13 @@
 
 {% if not site_section_bundle %}
 
-  {% include "@ymca/layout/node/node-header.html.twig" %}
+  {% include "@openy_lily/layout/node/node-header.html.twig" %}
 
   {% if (content.field_lead_description[0] or content.field_secondary_sidebar[0]) %}
   <section class="lead-copy">
     <div class="container">
       <div class="row">
-        {% include "@ymca/layout/node/node-lead.html.twig" %}
+        {% include "@openy_lily/layout/node/node-lead.html.twig" %}
       </div>
     </div>
   </section>
@@ -100,10 +100,10 @@
     </section>
 
     {% if is_front %}
-      {% include '@ymca/layout/node/node-content.html.twig' %}
+      {% include '@openy_lily/layout/node/node-content.html.twig' %}
     {% else %}
       <div class="row">
-        {% include '@ymca/layout/node/node-content.html.twig' %}
+        {% include '@openy_lily/layout/node/node-content.html.twig' %}
       </div>
     {% endif %}
   </div>

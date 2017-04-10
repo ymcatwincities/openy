@@ -11,11 +11,11 @@
 {% endif %}
 
 {% if (variant == 'none') %}
-  {% extends '@ymca/layout/header/header-without-image.html.twig' %}
+  {% extends '@openy_lily/layout/header/header-without-image.html.twig' %}
 {% elseif variant == 'front' or variant == 'slideshow' %}
-  {% extends '@ymca/layout/header/header-page-header.html.twig' %}
+  {% extends '@openy_lily/layout/header/header-page-header.html.twig' %}
 {% else %}
-  {% extends '@ymca/layout/header/header-with-image.html.twig' %}
+  {% extends '@openy_lily/layout/header/header-with-image.html.twig' %}
 {% endif %}
 
 {% block label_and_description %}
