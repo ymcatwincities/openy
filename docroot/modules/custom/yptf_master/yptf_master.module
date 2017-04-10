@@ -6,6 +6,9 @@
  */
 
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\views\ViewExecutable;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Update/Populate "Personify Product" mappings.
@@ -64,4 +67,38 @@ function yptf_master_product_updates_april_2017() {
     $mapping->save();
   }
 
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function yptf_master_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+  if ($view->id() == 'staff_mapping' && $display_id === 'page_1') {
+    $url = Url::fromRoute('entity.mapping.add_form', ['mapping_type' => 'staff']);
+    $staff_link = Link::fromTextAndUrl(t('Add Staff'), $url);
+    $staff_link = $staff_link->toRenderable();
+    $staff_link['#attributes'] = [
+      'class' => [
+        'button',
+        'button-action',
+        'button--primary',
+        'button--small',
+      ],
+    ];
+    $staff_link = render($staff_link);
+
+    $options = [
+      'id' => 'area_text_custom',
+      'table' => 'views',
+      'field' => 'area_text_custom',
+      'relationship' => 'none',
+      'group_type' => 'none',
+      'admin_label' => '',
+      'empty' => TRUE,
+      'tokenize' => FALSE,
+      'content' => $staff_link,
+      'plugin_id' => 'text_custom',
+    ];
+    $view->setHandler('page_1', 'header', 'area_text_custom', $options);
+  }
 }

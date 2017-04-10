@@ -55,13 +55,6 @@ class MappingAddController extends ControllerBase {
    */
   public function add(Request $request) {
     $types = $this->typeStorage->loadMultiple();
-    $mapping_type = $request->query->get('mapping_type');
-    if (isset($mapping_type)) {
-      $url = Url::fromRoute('mapping.add_page');
-      $new_url = str_replace('/mapping/add', '/mappings/mapping/add/staff', $url->toString());
-      $response = new RedirectResponse($new_url, 302);
-      return $response;
-    }
 
     if ($types && count($types) == 1) {
       $type = reset($types);
