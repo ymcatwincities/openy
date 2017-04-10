@@ -30,6 +30,24 @@ function openy_lily_theme_suggestions_block_alter(array &$suggestions, array $va
 }
 
 /**
+ * Detects pages relative to location node.
+ */
+function openy_lily_detect_locations_pages() {
+  if (Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
+    $node = Drupal::routeMatch()->getParameter('node');
+  }
+  if (Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+    $node = Drupal::routeMatch()->getParameter('node_preview');
+  }
+  if (isset($node)) {
+    if ($site_section = Drupal::service('page.context')->getContext()) {
+      return ($site_section->bundle() == 'location' && $node->bundle() != 'location') ? $site_section : NULL;
+    }
+  }
+  return;
+}
+
+/**
  * Detects pages relative to camp node.
  */
 function openy_lily_detect_camp_pages() {
@@ -69,6 +87,36 @@ function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $var
 /**
  * Implements hook_theme_HOOK_alter().
  */
+function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $route_name = Drupal::routeMatch()->getRouteName();
+  $node = Drupal::routeMatch()->getParameter('node');
+  if (!empty($node) || $node = Drupal::routeMatch()->getParameter('node_preview')) {
+    if (is_object($node)) {
+      array_unshift($suggestions, 'page__node__' . $node->bundle());
+    }
+    if (!Drupal::service('path.matcher')->isFrontPage()) {
+      if ($route_name == 'entity.node.preview') {
+        $front_page = Drupal::config('system.site')->get('page.front');
+        if ('/node/' . $node->id() == $front_page) {
+          array_push($suggestions, 'page__front');
+        }
+      }
+    }
+    // Detect all pages which referenced to locations by context.
+    if ($data = openy_lily_detect_locations_pages()) {
+      if ($node->bundle() != 'location') {
+        array_push($suggestions, 'page__node__location_inner');
+      }
+      else {
+        array_push($suggestions, 'page__node__location');
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_HOOK_alter().
+ */
 function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $variables) {
   if (in_array('node__blog__default', $suggestions)) {
     array_push($suggestions, 'node__blog__full');
@@ -80,12 +128,9 @@ function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $var
   if ($data = openy_lily_detect_locations_pages()) {
     array_push($suggestions, 'node__article__location__full');
   }
-//  if (in_array('node__location__default', $suggestions)) {
-//    array_push($suggestions, 'node__location__full');
-//  }
-//  if (in_array('node__camp__default', $suggestions)) {
-//    array_push($suggestions, 'node__camp__full');
-//  }
+  if (in_array('node__location__default', $suggestions)) {
+    array_push($suggestions, 'node__location__full');
+  }
   // Detect all pages which referenced to camp by context.
   if ($data = openy_lily_detect_camp_pages()) {
     switch ($variables['elements']['#node']->bundle()) {
@@ -154,7 +199,8 @@ function openy_lily_preprocess_expander_block(&$variables) {
  * Implements hook_preprocess_node().
  */
 function openy_lily_preprocess_node($variables) {
-  $variables['date_formatted'] = Drupal::service('date.formatter')->format($variables['node']->getCreatedTime(), 'blog_date_format');
+  $variables['date_formatted'] = Drupal::service('date.formatter')
+    ->format($variables['node']->getCreatedTime(), 'blog_date_format');
 
   if (!in_array($variables['view_mode'], ['full', 'default'])) {
     return;
@@ -175,7 +221,9 @@ function openy_lily_preprocess_node($variables) {
       $file = Drupal::entityTypeManager()->getStorage('file')->load($id);
       $original_path = $file->getFileUri();
       // Load style.
-      $style = Drupal::entityTypeManager()->getStorage('image_style')->load('2013_masthead');
+      $style = Drupal::entityTypeManager()
+        ->getStorage('image_style')
+        ->load('2013_masthead');
       // Set up derivative file information.
       $thumbnail = $style->buildUri($original_path);
       // Create derivative if necessary.
@@ -183,6 +231,23 @@ function openy_lily_preprocess_node($variables) {
         $style->createDerivative($original_path, $thumbnail);
       }
       $variables['header_image_url'] = file_create_url($thumbnail);
+    }
+  }
+
+  // Location specific preprocessing.
+  if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
+    // Add facebook ID to the template.
+    $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
+    // Add membership block flag.
+    if ($variables['node']->hasField('field_membership_block')) {
+      $variables['show_membership_block'] = $variables['node']->field_membership_block->value;
+      // Display Location Membership block.
+      $membership_block_id = Drupal::config('ymca_alters.config')->get('membership_block_id');
+      $block = Drupal::entityTypeManager()->getStorage('block_content')->load($membership_block_id);
+      if (!is_null($block)) {
+        $view_builder = Drupal::entityTypeManager()->getViewBuilder('block_content');
+        $variables['membership_block'] = $view_builder->view($block);
+      }
     }
   }
 
@@ -222,9 +287,12 @@ function openy_lily_preprocess_html(&$variables) {
     $node = Drupal::routeMatch()->getParameter('node_preview');
   }
 
-  if (!$variables['is_front'] = Drupal::service('path.matcher')->isFrontPage() && !empty($node)) {
+  if (!$variables['is_front'] = Drupal::service('path.matcher')
+      ->isFrontPage() && !empty($node)
+  ) {
     if ($current_route_name == 'entity.node.preview') {
-      $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')->get('page.front');
+      $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')
+          ->get('page.front');
     }
   }
 
@@ -240,13 +308,52 @@ function openy_lily_preprocess_html(&$variables) {
       'theme_ymca_2013_home',
     ];
   }
-
+  elseif ($site_section = Drupal::service('page.context')->getContext()) {
+    $site_section_bundle = $site_section->bundle();
+    switch ($site_section_bundle) {
+      case 'location':
+        // Location itself.
+        if (isset($node) && $node->getType()  == 'location') {
+          $classes = [
+            'locations-camps-template',
+            'ancestor-locations',
+            'page_post_detail',
+            'theme_ymca_2013_location_home',
+            'node--type-location',
+          ];
+        }
+        else {
+          // Referenced nodes and other pages.
+          $classes = [
+            'landing-template',
+            'ancestor-locations',
+            'page_post_detail',
+            'theme_ymca_2013_location_home',
+          ];
+        }
+        // Apply specific class based on value chosen in "Template" field.
+        if (isset($node) && $node->hasField('field_template')) {
+          if ($template = $node->field_template->value) {
+            $classes[] = 'template_' . $template;
+          }
+        }
+        break;
+    }
+  }
   if (!is_array($variables['attributes'])) {
     $variables['attributes']->addClass($classes);
   }
 
   $favicon_default = theme_get_setting('openy_lily_favicon_default');
   $iconFid = reset($favicon_default);
+
+  if (
+    in_array('theme_ymca_2013_location_home', $classes) ||
+    in_array('theme_ymca_2013_location_category_and_detail', $classes)
+  ) {
+    $favicon_location_var = theme_get_setting('openy_lily_favicon_location');
+    $iconFid = reset($favicon_location_var);
+  }
 
   if ($iconFid) {
     $file = File::load($iconFid);
@@ -358,7 +465,13 @@ function openy_lily_preprocess_input(&$variables) {
  */
 function openy_lily_preprocess_textarea(&$variables) {
   $element = $variables['element'];
-  Element::setAttributes($element, ['id', 'name', 'rows', 'cols', 'placeholder']);
+  Element::setAttributes($element, [
+    'id',
+    'name',
+    'rows',
+    'cols',
+    'placeholder'
+  ]);
   Element\RenderElement::setAttributes($element, ['form-textarea']);
   $variables['wrapper_attributes'] = new Attribute();
   $variables['attributes'] = new Attribute($element['#attributes']);
@@ -440,7 +553,11 @@ function openy_lily_preprocess_form_element(&$variables) {
   if (isset($element['#attributes']['checked']) && $element['#attributes']['checked'] == 'checked') {
     $variables['attributes']['class'] = 'checked';
   }
-  if (in_array($element['#name'], ['mb_session_type', 'mb_program', 'mb_location'])) {
+  if (in_array($element['#name'], [
+    'mb_session_type',
+    'mb_program',
+    'mb_location'
+  ])) {
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
   }
@@ -694,10 +811,10 @@ function openy_lily_get_theme_styles() {
 
         if ($header_buttons_color2_camps = theme_get_setting('header_buttons_color2_camps')) {
           $styles[] = 'body.ancestor-camps .masthead .btn, body.ancestor-camps .btn-primary {';
-          $styles[] = 'background-image: -webkit-linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));';
-          $styles[] = 'background-image: -moz-linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));';
-          $styles[] = 'background-image: -ms-linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));';
-          $styles[] = 'background-image: linear-gradient(' . $header_buttons_color2_camps .', rgba(0, 0, 0, 0));}';
+          $styles[] = 'background-image: -webkit-linear-gradient(' . $header_buttons_color2_camps . ', rgba(0, 0, 0, 0));';
+          $styles[] = 'background-image: -moz-linear-gradient(' . $header_buttons_color2_camps . ', rgba(0, 0, 0, 0));';
+          $styles[] = 'background-image: -ms-linear-gradient(' . $header_buttons_color2_camps . ', rgba(0, 0, 0, 0));';
+          $styles[] = 'background-image: linear-gradient(' . $header_buttons_color2_camps . ', rgba(0, 0, 0, 0));}';
         }
         break;
     }
@@ -732,10 +849,10 @@ function openy_lily_get_theme_styles() {
 
   if ($header_buttons_color2_base = theme_get_setting('header_buttons_color2_base')) {
     $styles[] = 'body .carousel-caption .btn, body .btn-primary {';
-    $styles[] = 'background-image: -webkit-linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));';
-    $styles[] = 'background-image: -moz-linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));';
-    $styles[] = 'background-image: -ms-linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));';
-    $styles[] = 'background-image: linear-gradient(' . $header_buttons_color2_base .', rgba(0, 0, 0, 0));}';
+    $styles[] = 'background-image: -webkit-linear-gradient(' . $header_buttons_color2_base . ', rgba(0, 0, 0, 0));';
+    $styles[] = 'background-image: -moz-linear-gradient(' . $header_buttons_color2_base . ', rgba(0, 0, 0, 0));';
+    $styles[] = 'background-image: -ms-linear-gradient(' . $header_buttons_color2_base . ', rgba(0, 0, 0, 0));';
+    $styles[] = 'background-image: linear-gradient(' . $header_buttons_color2_base . ', rgba(0, 0, 0, 0));}';
   }
 
   return implode("\n", $styles);
@@ -942,7 +1059,7 @@ function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface 
     '#title' => t('Default favicon'),
     '#default_value' => theme_get_setting('openy_lily_favicon_default'),
     '#upload_location' => 'public://favicon/',
-    '#upload_validators'  => [
+    '#upload_validators' => [
       'file_validate_extensions' => ['ico png']
     ]
   ];
@@ -953,7 +1070,7 @@ function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface 
     '#title' => t('Camp favicon'),
     '#default_value' => theme_get_setting('openy_lily_favicon_camp'),
     '#upload_location' => 'public://favicon/',
-    '#upload_validators'  => [
+    '#upload_validators' => [
       'file_validate_extensions' => ['ico png']
     ]
   ];
@@ -964,7 +1081,7 @@ function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface 
     '#title' => t('Location favicon'),
     '#default_value' => theme_get_setting('openy_lily_favicon_location'),
     '#upload_location' => 'public://favicon/',
-    '#upload_validators'  => [
+    '#upload_validators' => [
       'file_validate_extensions' => ['ico png']
     ]
   ];
