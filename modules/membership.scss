@@ -2,28 +2,75 @@
   h2 {
     @include cachet();
     font-weight: normal;
-    font-size: 40px;
+    font-size: 28px;
     color: $default-grey;
+    @include breakpoint(tablet) {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
   }
   fieldset {
     clear: both;
+    margin: 0;
     legend {
-      @include cachet();
-      border: none;
-      font-size: 18px;
-      line-height: 1.22;
-      letter-spacing: -1px;
-      margin-bottom: 30px;
-      padding: 0 15px;
-      color: $dark-grey;
       @include breakpoint(tablet) {
-        font-size: 36px;
-        color: $purple;
+        margin-bottom: 30px;
+      }
+      span {
+        @include cachet();
+        border: none;
+        font-size: 18px;
+        line-height: 1.22;
+        letter-spacing: -1px;
+        color: $dark-grey;
+        @include breakpoint(tablet) {
+          font-size: 36px;
+          color: $purple;
+        }
       }
     }
   }
 
+  .step-1 {
+    .btn.next {
+      display: none;
+    }
+  }
+  .step-2 {
+    margin-bottom: 50px;
+    .btn.prev {
+      display: none;
+    }
+  }
+  .step-3 {
+    margin-bottom: 50px;
+    .btn.prev {
+      display: none;
+    }
+  }
+
+  .form-actions {
+    margin: 40px 0 0;
+    text-align: center;
+  }
+
+  .form-submit {
+    padding: 0 85px;
+  }
+
   .js-form-type-membership-type-radio {
+    padding: 0;
+    @include breakpoint(tablet) {
+      &:nth-child(odd) {
+        clear: both;
+        padding-right: 15px;
+      }
+      &:nth-child(even) {
+        padding-left: 15px;
+      }
+    }
     .ajax-progress-throbber {
       position: absolute;
       left: 29px;
@@ -34,7 +81,7 @@
       padding-bottom: 30px;
       margin-bottom: 30px;
       @include breakpoint(tablet) {
-        border-bottom: 1px solid $darker-grey;
+        border-bottom: 2px solid $darker-grey;
       }
       .left {
         padding-left: 0;
@@ -42,7 +89,7 @@
       }
       .right {
         padding: 0;
-      };
+      }
     }
     input {
       display: none;
@@ -70,9 +117,6 @@
     .btn {
       @include btn-large-purple();
       width: 100%;
-      @include breakpoint(tablet) {
-
-      }
     }
   }
 
@@ -83,20 +127,26 @@
   .description {
     color: $purple;
     @include cachet();
-    padding-bottom: 1em;
-    font-size: 20px;
-    line-height: 1.45em;
+    font-size: 18px;
+    line-height: 1.22em;
+    @include breakpoint(tablet) {
+      font-size: 20px;
+      line-height: 1.45em;
+    }
   }
   .nav-pills {
     display: table;
-    width: 100%;
+    width: 111%;
     @include cachet();
     overflow: hidden;
     margin-bottom: 20px;
     font-size: 13px;
+    margin: 0 -15px;
     @include breakpoint(tablet) {
+      width: 100%;
       font-size: 20px;
       line-height: 42px;
+      margin: 0;
     }
     & > li {
       display: table-cell;
@@ -113,14 +163,17 @@
       a {
         text-decoration: none;
         position: relative;
-        white-space: nowrap;
         border-radius: 0;
         color: $white;
         background-color: #92278f;
         width: calc(100% - 30px);
-        text-align: center;
+        text-align: left;
+        height: 68px;
         @include breakpoint(tablet) {
           display: block;
+          white-space: nowrap;
+          text-align: center;
+          height: auto;
         }
         &:before {
           content: " ";
@@ -144,7 +197,7 @@
           height: 0;
           border-top: 60px solid transparent;
           border-bottom: 60px solid transparent;
-          border-left: 30px solid  #92278f;
+          border-left: 30px solid #92278f;
           position: absolute;
           top: 50%;
           margin-top: -60px;
@@ -161,14 +214,143 @@
       a[href="#step1"],
       a[href="#step2"] {
         width: calc(100% - 15px);
+        padding-left: 25px;
       }
-      &.active a,
-      &:first-child a{
+      &.active a {
         background-color: $purple;
       }
-      &:first-child a:after,
       &.active a:after {
         border-left: 30px solid $purple;
+      }
+    }
+  }
+
+  .openy-map-canvas {
+    height: 500px;
+    margin-bottom: 25px;
+  }
+  .step-3 {
+    .openy-map-canvas {
+      height: 200px;
+      margin-bottom: 25px;
+    }
+  }
+
+  .step-2 {
+    .js-webform-radios {
+      display: -webkit-flex;
+      display: flex;
+      flex-wrap: wrap;
+      .js-form-type-radio {
+        flex-basis: 100%;
+        padding-right: 15px;
+        margin: 0 0 10px;
+        position: relative;
+        padding-left: 20px;
+        line-height: 20px;
+        @include breakpoint(tablet) {
+          flex-basis: 50%;
+        }
+        @include breakpoint(laptop) {
+          flex-basis: 25%;
+        }
+        label {
+          @include helvetica-neue();
+          font-size: 15px;
+          margin: 0 0 0 7px;
+          vertical-align: top;
+        }
+        input {
+          margin: 0;
+          position: absolute;
+          left: 0;
+          top: 0;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+  h3 {
+    font-size: 18px;
+    line-height: 1.22;
+    letter-spacing: -1px;
+    color: $dark-grey;
+    @include breakpoint(tablet) {
+      font-size: 36px;
+      color: $purple;
+    }
+  }
+  article {
+    h3 {
+      font-size: 22px;
+      color: $purple;
+    }
+    .today,
+    .show-link {
+      display: none;
+    }
+    .today-hours {
+      h4 {
+        display: none;
+      }
+    }
+    .branch-hours {
+      margin-top: 10px;
+      display: block !important;
+      h5 {
+        color: $purple;
+        font-size: 18px;
+      }
+      td {
+        padding-right: 10px;
+      }
+    }
+    br,
+    .country {
+      display: none;
+    }
+    .field-location-phone {
+      a {
+        color: $default-grey;
+      }
+    }
+  }
+  .calc-summary {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    .calc-summary-col {
+      border-bottom: 1px solid $darker-grey;
+      flex-basis: calc(100% - 15px);
+      padding-bottom: 15px;
+      @include breakpoint(tablet) {
+        margin: 0 15px 0 0;
+      }
+      &:nth-child(2) {
+        @include breakpoint(tablet) {
+          margin: 0 0 0 15px;
+        }
+      }
+      img {
+        height: 200px;
+        max-width: 100%;
+      }
+      @include breakpoint(tablet) {
+        flex-basis: calc(50% - 15px);
+      }
+    }
+    .price {
+      margin-top: 15px;
+      text-align: center;
+      h4 {
+
+      }
+      .monthly_rate {
+        color: $purple;
+        font-size: 22px;
+        font-weight: bold;
+        margin: 10px 0;
+        @include cachet-medium();
       }
     }
   }

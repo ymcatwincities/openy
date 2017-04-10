@@ -497,3 +497,8 @@ body {
     }
   }
 }
+
+// Admin toolbar styles.
+#toolbar-administration * {
+  z-index: 1050;
+}

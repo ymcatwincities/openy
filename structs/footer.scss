@@ -253,8 +253,6 @@
     padding: 9px;
     color: $color-gray-b;
     outline: none;
-
-    @include form-placeholder();
   }
 
   .form-item {

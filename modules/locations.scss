@@ -83,8 +83,9 @@
   header h2 {
     padding-left: 20px;
     padding-bottom: 0px;
+    margin-top: 30px;
+    font-size: 30px;
     clear: both;
-    margin-top: 0;
     font-weight: bold;
   }
   h2.color-purple {
@@ -196,7 +197,7 @@
     min-height: 70px;
 
     .column {
-      flex-basis: 20%;
+      flex-basis: 30%;
       width: auto;
       &:first-child {
         margin-left: 0;
@@ -243,6 +244,7 @@
 
     .today-hours {
       position: relative;
+      margin: 0 0 7px 0;
       .today {
         margin-right: 10px;
       }
@@ -255,7 +257,7 @@
         top: 60px;
         background: $purple;
         padding: 5px 15px;
-        width: 240px;
+        width: 270px;
         left: -15px;
         z-index: 1;
         @include breakpoint(laptop) {
@@ -467,12 +469,32 @@
 }
 
 .field-prgf-location-finder {
+
   .openy-map-canvas {
     height: 250px;
     @include breakpoint(tablet) {
       height: 500px;
     }
   }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    background: url("../img/select-arrows.png");
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-color: $white;
+    padding-right: 25px;
+    &::-ms-expand {
+      display: none;
+    }
+    @include breakpoint(tablet) {
+      max-width: 225px;
+    }
+  }
+
 }
 
 .wrapper-field-branch-body {
