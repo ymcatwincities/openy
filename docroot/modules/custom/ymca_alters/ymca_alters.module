@@ -16,6 +16,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_help().
