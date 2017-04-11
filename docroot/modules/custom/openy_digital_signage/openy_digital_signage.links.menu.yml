@@ -1,0 +1,6 @@
+system.admin_openy_digital_signage:
+  route_name: system.admin_openy_digital_signage
+  parent: system.admin
+  description: 'Administer Digital Signage screens, content, schedule etc.'
+  title: 'Digital Signage'
+  weight: -7
