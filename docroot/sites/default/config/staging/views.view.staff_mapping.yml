@@ -8,8 +8,11 @@ dependencies:
     - field.storage.mapping.field_staff_name
     - field.storage.mapping.field_staff_surname
     - field.storage.mapping.field_staff_type
+    - taxonomy.vocabulary.staff_type
     - ymca_mappings.mapping_type.staff
   module:
+    - better_exposed_filters
+    - taxonomy
     - user
     - ymca_mappings
 id: staff_mapping
@@ -43,7 +46,7 @@ display:
           query_comment: ''
           query_tags: {  }
       exposed_form:
-        type: basic
+        type: bef
         options:
           submit_button: Apply
           reset_button: false
@@ -52,6 +55,38 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          bef:
+            general:
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              autosubmit: false
+              autosubmit_hide: false
+            field_staff_name_value:
+              bef_format: default
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            field_staff_type_target_id:
+              bef_format: default
+              more_options:
+                bef_select_all_none: false
+                bef_collapsible: false
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            field_staff_surname_value:
+              bef_format: default
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
+            field_location_name_value:
+              bef_format: default
+              more_options:
+                is_secondary: false
+                rewrite:
+                  filter_rewrite_values: ''
       pager:
         type: mini
         options:
@@ -142,71 +177,6 @@ display:
       row:
         type: fields
       fields:
-        name:
-          id: name
-          table: mapping
-          field: name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Name
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: mapping
-          entity_field: name
-          plugin_id: field
         field_staff_name:
           id: field_staff_name
           table: mapping__field_staff_name
@@ -277,7 +247,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Surname
+          label: Lastname
           exclude: false
           alter:
             alter_text: false
@@ -614,20 +584,104 @@ display:
           entity_type: mapping
           entity_field: type
           plugin_id: bundle
+        field_staff_name_value:
+          id: field_staff_name_value
+          table: mapping__field_staff_name
+          field: field_staff_name_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_staff_name_value_op
+            label: Firstname
+            description: ''
+            use_operator: false
+            operator: field_staff_name_value_op
+            identifier: field_staff_name_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_staff_surname_value:
+          id: field_staff_surname_value
+          table: mapping__field_staff_surname
+          field: field_staff_surname_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_staff_surname_value_op
+            label: Surname
+            description: ''
+            use_operator: false
+            operator: field_staff_surname_value_op
+            identifier: field_staff_surname_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
         name:
           id: name
           table: mapping
           field: name
-          relationship: none
+          relationship: field_staff_branch
           group_type: group
           admin_label: ''
-          operator: word
+          operator: contains
           value: ''
           group: 1
           exposed: true
           expose:
             operator_id: name_op
-            label: Name
+            label: Branch
             description: ''
             use_operator: false
             operator: name_op
@@ -658,12 +712,70 @@ display:
           entity_type: mapping
           entity_field: name
           plugin_id: string
+        field_staff_type_target_id:
+          id: field_staff_type_target_id
+          table: mapping__field_staff_type
+          field: field_staff_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_staff_type_target_id_op
+            label: 'Staff type'
+            description: ''
+            use_operator: false
+            operator: field_staff_type_target_id_op
+            identifier: field_staff_type_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              editor: '0'
+              location_editor: '0'
+              contributor: '0'
+              intern: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: staff_type
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
       sorts: {  }
       title: 'Staff Mapping'
       header: {  }
       footer: {  }
       empty: {  }
-      relationships: {  }
+      relationships:
+        field_staff_branch:
+          id: field_staff_branch
+          table: mapping__field_staff_branch
+          field: field_staff_branch
+          relationship: none
+          group_type: group
+          admin_label: 'field_staff_branch: Mapping'
+          required: false
+          plugin_id: standard
       arguments: {  }
       display_extenders:
         views_advanced_routing_route:
@@ -679,6 +791,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags:
         - 'config:field.storage.mapping.field_staff_branch'
@@ -716,6 +829,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user
         - user.permissions
       tags:
         - 'config:field.storage.mapping.field_staff_branch'
