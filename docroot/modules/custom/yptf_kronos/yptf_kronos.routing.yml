@@ -2,6 +2,6 @@ yptf_kronos.settings:
   path: '/admin/config/ymca-services/kronos-settings'
   defaults:
     _form: '\Drupal\yptf_kronos\Form\KronosSettingsForm'
-    _title: 'Kronos API settings'
+    _title: 'Kronos settings'
   requirements:
     _permission: 'administer site configuration'
