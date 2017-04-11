@@ -7,6 +7,7 @@
 
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\Core\Datetime\DrupalDateTime;
+use \Drupal\taxonomy\Entity\Term;
 
 /**
  * Initial hook_updates runner.
@@ -376,8 +377,80 @@ function yptf_master_update_8021() {
 }
 
 /**
+ * Add new tax Staff and entity CT Staff Mapping.
+ */
+function yptf_master_update_8022() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // Staff.
+      'taxonomy.vocabulary.staff_type',
+      'field.storage.mapping.field_staff_branch',
+      'field.storage.mapping.field_staff_email',
+      'field.storage.mapping.field_staff_name',
+      'field.storage.mapping.field_staff_surname',
+      'field.storage.mapping.field_staff_type',
+      'field.field.mapping.staff.field_staff_branch',
+      'field.field.mapping.staff.field_staff_email',
+      'field.field.mapping.staff.field_staff_name',
+      'field.field.mapping.staff.field_staff_surname',
+      'field.field.mapping.staff.field_staff_type',
+      'ymca_mappings.mapping_type.staff',
+      'core.entity_form_display.mapping.staff.default',
+      'core.entity_view_display.mapping.staff.default',
+      'views.view.staff_mapping',
+    ]
+  );
+
+  // Create terms.
+  $term_names = ['Leadership', 'PT Manager'];
+  foreach ($term_names as $term_name) {
+    $term = Term::create([
+      'vid' => 'staff_type',
+      'name' => $term_name,
+    ]);
+    $term->save();
+  }
+
+  // Create staff.
+  // 1. Get from config.
+  $load_staff = \Drupal::config('ymca_mindbody.notifications')
+    ->get('locations');
+  foreach ($load_staff as $location => $staff) {
+    $name = explode(' ', $staff[0]['name']);
+    $data = [
+      'type' => 'staff',
+      'field_staff_email' => $staff[0]['email'],
+      'field_staff_name' => $name[0],
+      'field_staff_surname' => $name[1],
+    ];
+    // GEt locations ref.
+    $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
+    $mapping = $mapping_repository->findByMindBodyId($location);
+    $mapping = is_array($mapping) ? reset($mapping) : $mapping;
+    if ($mapping) {
+      $location_id = $mapping->id->getValue()[0]['value'];
+      $data['field_staff_branch'] = $location_id;
+    }
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => 'PT Manager', 'vid' => 'staff_type']);
+    $term = reset($terms);
+
+    if ($term) {
+      $data['field_staff_type'] = $term->id();
+    }
+    $mapping = Mapping::create($data);
+    $mapping->setName($staff[0]['name']);
+    $mapping->save();
+  }
+}
+
+/**
  * Enable Kronos module.
  */
 function yptf_master_update_8023() {
   \Drupal::service('module_installer')->install(['yptf_kronos']);
 }
+
