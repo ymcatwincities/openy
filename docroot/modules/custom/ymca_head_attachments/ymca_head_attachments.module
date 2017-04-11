@@ -131,7 +131,7 @@ function ymca_head_attachments_preprocess_views_view(&$vars) {
       $next_tag = [
         '#tag' => 'link',
         '#attributes' => [
-          'rel' => 'prev',
+          'rel' => 'next',
           'href' => $next_url,
         ],
       ];
