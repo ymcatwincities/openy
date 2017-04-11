@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_prgf_embedded_groupexpro_schedule\Element;
+namespace Drupal\embedded_groupexpro_schedule\Element;
 
 use Drupal\Core\Render\Element\RenderElement;
 
