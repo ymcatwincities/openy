@@ -430,7 +430,7 @@ function yptf_master_update_8022() {
     $mapping = $mapping_repository->findByMindBodyId($location);
     $mapping = is_array($mapping) ? reset($mapping) : $mapping;
     if ($mapping) {
-      $location_id = $mapping->id->getValue()[0]['value'];
+      $location_id = $mapping->field_location_ref->getValue()[0]['target_id'];
       $data['field_staff_branch'] = $location_id;
     }
     $terms = \Drupal::entityTypeManager()

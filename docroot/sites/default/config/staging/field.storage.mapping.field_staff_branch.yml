@@ -3,13 +3,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - node
     - ymca_mappings
 id: mapping.field_staff_branch
 field_name: field_staff_branch
 entity_type: mapping
 type: entity_reference
 settings:
-  target_type: mapping
+  target_type: node
 module: core
 locked: false
 cardinality: 1
