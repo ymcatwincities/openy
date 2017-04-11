@@ -16,12 +16,9 @@ mode: default
 content:
   field_staff_branch:
     weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: options_select
   field_staff_email:
     weight: 2
     settings:
@@ -45,12 +42,9 @@ content:
     type: string_textfield
   field_staff_type:
     weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: options_select
 hidden:
   langcode: true
   name: true
