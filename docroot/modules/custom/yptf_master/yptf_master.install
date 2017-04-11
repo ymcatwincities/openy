@@ -453,4 +453,3 @@ function yptf_master_update_8022() {
 function yptf_master_update_8023() {
   \Drupal::service('module_installer')->install(['yptf_kronos']);
 }
-
