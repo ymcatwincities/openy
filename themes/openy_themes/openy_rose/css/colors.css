@@ -109,6 +109,13 @@ a,
   background-color: #2fb998;
   color: #fffff9;
 }
+.is-camp .button a,
+.is-camp .btn a,
+.is-camp .banner .banner-btn a,
+.is-camp .button a:hover,
+.is-camp .btn a:hover {
+  color: #fffff9;
+}
 .is-camp .top-navs,
 .is-camp .sidebar,
 .is-camp .navbar-default .navbar-toggle,
