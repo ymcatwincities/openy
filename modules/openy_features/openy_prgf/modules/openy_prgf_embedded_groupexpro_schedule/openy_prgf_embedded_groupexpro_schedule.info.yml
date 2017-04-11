@@ -1,0 +1,7 @@
+name: OpenY paragraph Embedded GroupEx Pro Schedule
+description: Embedded GroupEx Pro Schedule
+type: module
+core: 8.x
+dependencies:
+  - openy_prgf
+version: 8.x-1.0
