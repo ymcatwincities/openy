@@ -6,6 +6,8 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use DateTime;
+use DateTimeZone;
 
 /**
  * Class OpenyFacebookSyncFetcher.
@@ -101,7 +103,6 @@ class OpenyFacebookSyncFetcher {
     }
     else {
       $data = [];
-
       // @todo Implement pager|filtering passed events.
       $appid = $this->getAppId();
       $result = $this->facebook->sendRequest('GET', $appid . "/events");
@@ -110,8 +111,10 @@ class OpenyFacebookSyncFetcher {
         if (isset($event['end_time'])) {
           // As there is no way to filter out ended events via request to FB API,
           // skip events that have ended comparing to request time.
-          // @todo: handle Timezone?
-          if (strtotime($event['end_time']) < REQUEST_TIME) {
+          $site_timezone = new DateTimeZone(\Drupal::configFactory()->get('system.date')->get('timezone')['default']);
+          $event_date = new DateTime($event['end_time']);
+          $current_date = DateTime::createFromFormat('U',REQUEST_TIME, $site_timezone);
+          if ($event_date < $current_date) {
             continue;
           }
         }
