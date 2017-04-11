@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.listing_teaser
+    - field.field.node.event.field_event_date
+    - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
+    - field.field.node.event.rng_capacity
+    - field.field.node.event.rng_registrants_duplicate
+    - field.field.node.event.rng_registrants_maximum
+    - field.field.node.event.rng_registrants_minimum
+    - field.field.node.event.rng_registration_groups
+    - field.field.node.event.rng_registration_type
+    - field.field.node.event.rng_reply_to
+    - field.field.node.event.rng_status
+    - node.type.event
+  module:
+    - datetime
+    - user
+id: node.event.listing_teaser
+targetEntityType: node
+bundle: event
+mode: listing_teaser
+content:
+  field_event_date:
+    type: datetime_custom
+    weight: 0
+    label: inline
+    settings:
+      timezone_override: ''
+      date_format: 'F jS g:i a'
+    third_party_settings: {  }
+hidden:
+  field_landing_body: true
+  field_sidebar_content: true
+  langcode: true
+  links: true
+  rng_capacity: true
+  rng_registrants_duplicate: true
+  rng_registrants_maximum: true
+  rng_registrants_minimum: true
+  rng_registration_groups: true
+  rng_registration_type: true
+  rng_reply_to: true
+  rng_status: true
