@@ -43,19 +43,21 @@ class OpenYScreenHtmlRouteProvider extends AdminHtmlRouteProvider {
    *   The generated route, if available.
    */
   protected function getCollectionRoute(EntityTypeInterface $entity_type) {
-    if ($entity_type->hasLinkTemplate('collection') && $entity_type->hasListBuilderClass()) {
-      $entity_type_id = $entity_type->id();
-      $route = new Route($entity_type->getLinkTemplate('collection'));
-      $route
-        ->setDefaults([
-          '_entity_list' => $entity_type_id,
-          '_title' => "{$entity_type->getLabel()} list",
-        ])
-        ->setRequirement('_permission', 'access OpenY Digital Signage Screen overview')
-        ->setOption('_admin_route', TRUE);
-
-      return $route;
+    if (!$entity_type->hasLinkTemplate('collection') || !$entity_type->hasListBuilderClass()) {
+      return;
     }
+
+    $entity_type_id = $entity_type->id();
+    $route = new Route($entity_type->getLinkTemplate('collection'));
+    $route
+      ->setDefaults([
+        '_entity_list' => $entity_type_id,
+        '_title' => "{$entity_type->getLabel()} list",
+      ])
+      ->setRequirement('_permission', 'access OpenY Digital Signage Screen overview')
+      ->setOption('_admin_route', TRUE);
+
+    return $route;
   }
 
   /**
@@ -68,18 +70,20 @@ class OpenYScreenHtmlRouteProvider extends AdminHtmlRouteProvider {
    *   The generated route, if available.
    */
   protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
-    if (!$entity_type->getBundleEntityType()) {
-      $route = new Route("/admin/digital-signage/screens/settings");
-      $route
-        ->setDefaults([
-          '_form' => 'Drupal\openy_digital_signage_screen\Form\OpenYScreenSettingsForm',
-          '_title' => "{$entity_type->getLabel()} settings",
-        ])
-        ->setRequirement('_permission', $entity_type->getAdminPermission())
-        ->setOption('_admin_route', TRUE);
-
-      return $route;
+    if ($entity_type->getBundleEntityType()) {
+      return;
     }
+
+    $route = new Route("/admin/digital-signage/screens/settings");
+    $route
+      ->setDefaults([
+        '_form' => 'Drupal\openy_digital_signage_screen\Form\OpenYScreenSettingsForm',
+        '_title' => "{$entity_type->getLabel()} settings",
+      ])
+      ->setRequirement('_permission', $entity_type->getAdminPermission())
+      ->setOption('_admin_route', TRUE);
+
+    return $route;
   }
 
 }

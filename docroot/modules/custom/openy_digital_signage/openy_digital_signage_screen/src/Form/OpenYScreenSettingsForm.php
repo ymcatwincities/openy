@@ -48,7 +48,7 @@ class OpenYScreenSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['OpenYScreen_settings']['#markup'] = 'Settings form for OpenY Digital Signage Screen entities. Manage field settings here.';
+    $form['OpenYScreen_settings']['#markup'] = $this->t('Settings form for OpenY Digital Signage Screen entities. Manage field settings here.');
     return $form;
   }
 
