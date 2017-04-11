@@ -2,9 +2,6 @@
 
 namespace Drupal\openy_digital_signage_screen;
 
-use Drupal\node\NodeInterface;
-use Drupal\openy_digital_signage_screen\Entity\OpenYScreen;
-
 /**
  * Interface OpenYScreenManagerInterface.
  *

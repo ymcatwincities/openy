@@ -2,15 +2,11 @@
 
 namespace Drupal\openy_digital_signage_screen;
 
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
-use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\node\NodeInterface;
-use Drupal\openy_digital_signage_screen\Entity\OpenYScreen;
 
 /**
  * Class OpenYScreenManager.
@@ -69,7 +65,7 @@ class OpenYScreenManager implements OpenYScreenManagerInterface {
    * {@inheritdoc}
    */
   public function dummy() {
-    // Dummy method.
+    // Intentionally empty.
   }
 
 }
