@@ -45,6 +45,9 @@ class EmbeddedGroupExProScheduleBlock extends BlockBase {
    */
   public function build() {
     $config = $this->getConfiguration();
+
+    // TODO: remove this fallback; block configuration is not saved when
+    // configuring it as a plugin reference field on paragraph entity type.
     if (empty($config['account'])) {
       $config['account'] = 611;
     }
