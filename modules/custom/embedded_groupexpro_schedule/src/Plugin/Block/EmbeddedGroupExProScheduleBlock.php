@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_prgf_embedded_groupexpro_schedule\Plugin\Block;
+namespace Drupal\embedded_groupexpro_schedule\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -15,16 +15,6 @@ use Drupal\Core\Form\FormStateInterface;
  * )
  */
 class EmbeddedGroupExProScheduleBlock extends BlockBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function defaultConfiguration() {
-    $config = parent::defaultConfiguration();
-    $config['account'] = 611;
-
-    return $config;
-  }
 
   /**
    * {@inheritdoc}
@@ -55,14 +45,14 @@ class EmbeddedGroupExProScheduleBlock extends BlockBase {
    */
   public function build() {
     $config = $this->getConfiguration();
+    if (empty($config['account'])) {
+      $config['account'] = 611;
+    }
 
-    // TODO: investigate why configuration is not saved when editing block
-    // settings as paragraph field; remove $default_config usage.
-    $default_config = $this->defaultConfiguration();
     return [
       [
         '#type' => 'embedded_groupexpro_schedule',
-        '#account' => $config['account'] ? $config['account'] : $default_config['account'],
+        '#account' => $config['account'],
       ],
     ];
   }
