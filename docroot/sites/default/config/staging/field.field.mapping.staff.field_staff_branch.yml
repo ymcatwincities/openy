@@ -1,10 +1,10 @@
-uuid: 0b02606a-d665-4591-a58c-950e23ccad03
+uuid: d1355e79-4d3c-41e7-a405-711a1dbbca45
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.mapping.field_staff_branch
-    - ymca_mappings.mapping_type.location
+    - node.type.location
     - ymca_mappings.mapping_type.staff
 id: mapping.staff.field_staff_branch
 field_name: field_staff_branch
@@ -17,12 +17,12 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:mapping'
+  handler: 'default:node'
   handler_settings:
     target_bundles:
       location: location
     sort:
-      field: name
+      field: title
       direction: ASC
     auto_create: false
     auto_create_bundle: ''
