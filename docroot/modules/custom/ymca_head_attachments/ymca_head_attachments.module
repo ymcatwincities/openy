@@ -93,6 +93,7 @@ function ymca_head_attachments_preprocess_views_view(&$vars) {
     $current_page = $pager->getCurrentPage();
     $last_page = $pager->getPagerTotal() - 1;
     $route_match = \Drupal::routeMatch()->getRouteObject();
+
     if ($current_page == 0 && $last_page >= 1) {
       // Add only next tag.
       $next_url = Url::fromRoute($route_match, ['page' => 1])
