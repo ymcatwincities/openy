@@ -459,7 +459,6 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
         return;
       }
 
-
       // Staff ids for location.
       $staff_nids = \Drupal::entityQuery('mapping')
         ->condition('type', 'staff')
@@ -472,7 +471,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
           $msg,
           [
             '%type' => $notification_type,
-            '%error' => 'There is no staff for this location.',
+            '%error' => 'There is no staff for this location. Location id: %lid.',
+            '%lid' => $location_nid,
           ]
         );
         return;
