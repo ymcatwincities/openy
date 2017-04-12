@@ -640,7 +640,7 @@ display:
           exposed: true
           expose:
             operator_id: field_staff_surname_value_op
-            label: Surname
+            label: Lastname
             description: ''
             use_operator: false
             operator: field_staff_surname_value_op

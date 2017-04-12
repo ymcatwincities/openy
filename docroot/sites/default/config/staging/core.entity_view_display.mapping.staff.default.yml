@@ -1,4 +1,4 @@
-uuid: e47d28b3-5e6e-41b6-b306-8bda7dda46dc
+uuid: a0d5bbd2-b71c-4fa4-9599-c5987e7abc3f
 langcode: en
 status: true
 dependencies:
@@ -15,37 +15,39 @@ bundle: staff
 mode: default
 content:
   field_staff_branch:
+    type: entity_reference_label
     weight: 4
-    settings: {  }
+    label: above
+    settings:
+      link: true
     third_party_settings: {  }
-    type: options_select
   field_staff_email:
+    type: basic_string
     weight: 2
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: email_default
-  field_staff_name:
-    weight: 0
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-  field_staff_surname:
-    weight: 1
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-  field_staff_type:
-    weight: 3
+    label: above
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+  field_staff_name:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_staff_surname:
+    type: string
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_staff_type:
+    type: entity_reference_label
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
 hidden:
-  langcode: true
   name: true
   user_id: true
