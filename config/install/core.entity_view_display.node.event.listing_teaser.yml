@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.listing_teaser
-    - field.field.node.event.field_event_date
+    - field.field.node.event.field_event_date_range
     - field.field.node.event.field_landing_body
     - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
