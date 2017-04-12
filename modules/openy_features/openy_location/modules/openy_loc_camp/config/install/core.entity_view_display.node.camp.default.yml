@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.camp.field_bottom_content
     - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_content
     - field.field.node.camp.field_header_content
@@ -25,6 +26,14 @@ targetEntityType: node
 bundle: camp
 mode: default
 content:
+  field_bottom_content:
+    weight: 6
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
   field_content:
     weight: 4
     label: hidden

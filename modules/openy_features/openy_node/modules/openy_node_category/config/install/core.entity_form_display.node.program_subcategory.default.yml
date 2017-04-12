@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - entity_browser.browser.images_library
+    - field.field.node.program_subcategory.field_bottom_content
     - field.field.node.program_subcategory.field_category_color
     - field.field.node.program_subcategory.field_category_description
     - field.field.node.program_subcategory.field_category_image
@@ -63,6 +64,19 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Sidebar Area'
+    group_bottom_area:
+      children:
+        - field_bottom_content
+      parent_name: ''
+      weight: 5
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Bottom Area'
 id: node.program_subcategory.default
 targetEntityType: node
 bundle: program_subcategory
@@ -73,6 +87,16 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
+  field_bottom_content:
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
   field_category_color:
     weight: 11
     settings: {  }

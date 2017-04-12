@@ -145,7 +145,6 @@ body {
 
 .footer {
   background-color: #4f4f4f;
-  color: #fff;
   font-size: 12px;
   padding: 30px 0;
 }
@@ -195,7 +194,6 @@ body {
   padding: 0;
 }
 .footer .footer__nav nav ul li a {
-  color: #fff;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   font-size: 20px;
   text-transform: uppercase;
@@ -374,7 +372,6 @@ body {
 }
 .is-camp .page-head__top-menu a, .page-head__top-menu a {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
-  color: #fff;
   font-size: 16px;
   font-style: normal;
   font-stretch: normal;
@@ -396,7 +393,6 @@ body {
 }
 .is-camp .page-head__main-menu a, .page-head__main-menu a {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
-  color: #fff;
   font-size: 18px;
   font-weight: 500;
   font-style: normal;
@@ -416,7 +412,6 @@ body {
   .is-camp .page-head__main-menu .nav-level-2 > a,
   .is-camp .page-head__main-menu .nav-level-3 > a, .page-head__main-menu .nav-level-2 > a,
   .page-head__main-menu .nav-level-3 > a {
-    color: #fff;
     text-shadow: none;
     text-transform: uppercase;
     white-space: normal;
@@ -645,9 +640,6 @@ body {
   margin-top: 5px;
 }
 
-.viewport .navbar-default .navbar-nav > li > a {
-  color: #fff;
-}
 .viewport .nav-global > .container > .row {
   height: 100px;
   position: relative;
@@ -817,12 +809,10 @@ body {
 }
 .sidebar .navbar-nav .open .dropdown-menu > li > a,
 .sidebar .navbar-nav .open .dropdown-menu .dropdown-header {
-  color: #fff;
   padding: 12px 15px 12px 23px;
 }
 .sidebar .dropdown-menu > li > a:hover,
 .sidebar .dropdown-menu > li > a:focus {
-  color: #fff;
   background: none;
 }
 .sidebar .section-icon {
@@ -836,13 +826,11 @@ body {
 }
 .viewport .page-head__main-menu .nav-level-2 > a:hover,
 .viewport .page-head__main-menu .nav-level-2 > a:focus {
-  color: #D8D8D8;
   text-decoration: none;
 }
 .viewport .page-head__main-menu .dropdown-menu > li > a:focus,
 .viewport .page-head__main-menu .dropdown-menu > li > a:hover {
   background: none;
-  color: #fff;
 }
 .viewport .page-head__main-menu .nav-level-3 {
   padding-top: 25px;
@@ -885,7 +873,6 @@ body {
 }
 .viewport .nav-level-2 > a:hover, .viewport .nav-level-2 > a:focus {
   background: none;
-  color: #D8D8D8;
 }
 .viewport .nav-level-2.open {
   background-color: #0060af;
@@ -900,7 +887,6 @@ body {
 }
 .viewport .nav-level-2.open > a,
 .viewport .nav-level-2.open > a:focus {
-  color: #fff;
   position: relative;
   z-index: 1001;
   padding: 10px 14px 24px 14px;
@@ -1003,49 +989,26 @@ body {
   text-shadow: none;
   text-transform: uppercase;
 }
-.btn.blue, .blue.button, .modal-body .button {
-  background-color: #00aeef;
-  color: #fff;
-}
-.btn.blue:hover, .blue.button:hover, .modal-body .button:hover {
-  color: #0060af;
-}
 .btn.blue a, .blue.button a, .modal-body .button a {
-  color: #fff;
   text-decoration: none;
-}
-.btn.blue a:hover, .blue.button a:hover, .modal-body .button a:hover {
-  color: #0060af;
 }
 .btn.white-blue, .white-blue.button {
   background-color: #fff;
   color: #00aeef;
   border: 1px solid #00aeef;
 }
-.btn.white-blue:hover, .white-blue.button:hover {
-  color: #0060af;
-}
 .btn.white-blue a, .white-blue.button a {
   color: #00aeef;
   text-decoration: none;
-}
-.btn.white-blue a:hover, .white-blue.button a:hover {
-  color: #0060af;
 }
 .btn.transparent-blue, .transparent-blue.button {
   background-color: transparent;
   color: #0089d0;
   border: 1px solid #0089d0;
 }
-.btn.transparent-blue:hover, .transparent-blue.button:hover {
-  color: #0060af;
-}
 .btn.transparent-blue a, .transparent-blue.button a {
   color: #0089d0;
   text-decoration: none;
-}
-.btn.transparent-blue a:hover, .transparent-blue.button a:hover {
-  color: #0060af;
 }
 .btn.btn-link, .btn-link.button {
   text-decoration: none;
@@ -1071,7 +1034,6 @@ body {
   padding: 12px 35px;
   border: none;
   border-radius: 0;
-  background-color: #00aeef;
   font-size: 20px;
 }
 
@@ -4049,11 +4011,9 @@ html.js .branch__updates_queue__button {
   width: 90px;
   height: 34px;
   padding: 7px 16px;
-  background-color: #00aeef;
   border: solid 1px #636466;
   font-size: 16px;
   font-weight: 600;
-  color: #ffffff;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
 }

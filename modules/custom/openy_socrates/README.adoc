@@ -1,17 +1,17 @@
 Welcome to Socrates
 =====
 
-Socrates is a OOP representation of https://en.wikipedia.org/wiki/Strategy_pattern for OpenY to cover needs of
+Socrates is an OOP representation of https://en.wikipedia.org/wiki/Strategy_pattern for OpenY to cover needs of
 pluggable distributed Data Wrapper services by priority.
 
 Basically, if you have a membership calculator which should be used for display same thing but for different Data
-Services, Socrates give you a convenient opportunity to define which service should be used for obtaning data
-on specific project. The highest in priority service will be chosen for retreiving data.
+Services, Socrates gives you a convenient opportunity to define which service should be used for obtaining data
+on specific project. The highest priority service will be chosen for retrieving data.
 
 For connecting your service to Socrates you need to
 
 - implement OpenyDataServiceInterface for the service's class
-- extend your_module.services.yml with a tags
+- extend your_module.services.yml with tags
 
 ```
   example_socrates_data_service:
