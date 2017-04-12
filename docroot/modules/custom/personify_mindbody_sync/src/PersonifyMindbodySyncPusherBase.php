@@ -411,23 +411,92 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
    */
   public function sendNotification(\stdClass $order, $mb_sale_id, $notification_type = 'notify_location_trainers') {
     try {
-      $mapping = $this->config->get('ymca_mindbody.notifications')->get('locations');
-
       // Bridge Personify location -> Drupal location -> MindBody location.
       $location_personify = $this->getLocationForOrder($order);
       $location_mindbody = $this->locationRepo->findMindBodyIdByPersonifyId($location_personify);
 
       if (empty($location_mindbody)) {
         // There is no mindbody id for this personify location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error. Personify location: %id.';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no mindbody id for this personify location.',
+            '%id' => $location_personify,
+          ]
+        );
         return;
       }
 
-      if (!isset($mapping[$location_mindbody])) {
-        // There is no mapping for this location.
-        return;
-      }
-
+      // Location ids.
       $location_mapping = $this->locationRepo->findByMindBodyId($location_mindbody);
+      if (empty($location_mapping)) {
+        // There is no location mapping for this location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error. Mindbody id: %mid.';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no location mapping for this Mindbody id.',
+            '%mid' => $location_mindbody,
+          ]
+        );
+        return;
+      }
+      $location_nid = $location_mapping->get('field_location_ref')->getValue()[0]['target_id'];
+      if (empty($location_nid)) {
+        // There is no location mapping for this location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error. Mindbody id: %mid.';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no location for this mapping location.',
+            '%mid' => $location_mindbody,
+          ]
+        );
+        return;
+      }
+
+      // Staff ids for location.
+      $pt_manager_term = \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->loadByProperties(['name' => 'PT Manager', 'vid' => 'staff_type']);
+      $pt_manager_term = reset($pt_manager_term);
+
+      if (empty($pt_manager_term)) {
+        // There is no location mapping for this location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error. Mindbody id: %mid.';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no "PT manager" term in vocabulary "staff_type".',
+          ]
+        );
+        return;
+      }
+      $staff_nids = \Drupal::entityQuery('mapping')
+        ->condition('type', 'staff')
+        ->condition('field_staff_branch.target_id', $location_nid)
+        ->condition('field_staff_type', $pt_manager_term->id())
+        ->execute();
+      if (empty($staff_nids)) {
+        // There is no staff for this location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no staff for this location. Location id: %lid.',
+            '%lid' => $location_nid,
+          ]
+        );
+        return;
+      }
+      $staff = \Drupal::entityTypeManager()->getStorage('mapping')->loadMultiple($staff_nids);
+
       $tokens = [
         'client_name' => $order->FirstName . ' ' . $order->LastName,
         'item_name' => $order->ProductCode,
@@ -441,10 +510,11 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       ];
 
       $emails = [];
-      foreach ($mapping[$location_mindbody] as $trainer) {
-        $tokens['trainer_name'] = $trainer['name'];
-        $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer['email'], 'en', $tokens);
-        $emails[] = $trainer['email'];
+      foreach ($staff as $trainer) {
+        $tokens['trainer_name'] = $trainer->get('name')->getString();
+        $trainer_email = $trainer->get('field_staff_email')->getString();
+        $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer_email, 'en', $tokens);
+        $emails[] = $trainer_email;
       }
     }
     catch (\Exception $e) {
