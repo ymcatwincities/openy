@@ -9,7 +9,7 @@ id: mapping.staff.field_staff_surname
 field_name: field_staff_surname
 entity_type: mapping
 bundle: staff
-label: Surname
+label: Lastname
 description: ''
 required: true
 translatable: false
