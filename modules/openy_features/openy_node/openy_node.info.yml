@@ -9,9 +9,10 @@ dependencies:
   - jquery_colorpicker
   - metatag
   - node
+  - openy_node
   - paragraphs
   - path
   - taxonomy
   - text
   - tour
-version: 8.x-1.0
+version: 8.x-1.1

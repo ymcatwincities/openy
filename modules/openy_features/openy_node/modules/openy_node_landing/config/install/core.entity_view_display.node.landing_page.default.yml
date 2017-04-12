@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.landing_page.field_bottom_content
     - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
@@ -18,6 +19,14 @@ targetEntityType: node
 bundle: landing_page
 mode: default
 content:
+  field_bottom_content:
+    weight: 105
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
   field_content:
     weight: 103
     label: above

@@ -2,17 +2,18 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - openy_node
 id: openy-node-overview
 label: 'OpenY Node Overview'
 module: openy_node
 routes:
-  - route_name: system.admin_content
+  -
+    route_name: system.admin_content
 tips:
   node-overview:
     id: node-overview
     plugin: text
-    label: 'Overview'
+    label: Overview
     body: 'This page allows a user to manage content that will be available on the website.'
     weight: 1
   add-node:
@@ -26,7 +27,7 @@ tips:
   content:
     id: content
     plugin: text
-    label: 'Content'
+    label: Content
     body: 'In this area you can see list of content that is currently available. Various columns allows to get high-level details.'
     location: top
     weight: 3
@@ -35,7 +36,7 @@ tips:
   filters:
     id: filters
     plugin: text
-    label: 'Filters'
+    label: Filters
     body: 'Filters allow you to easily find necessary content and improve navigation.'
     location: bottom
     weight: 4
