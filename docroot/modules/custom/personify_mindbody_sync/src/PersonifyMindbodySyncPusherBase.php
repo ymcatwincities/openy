@@ -460,9 +460,27 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
       }
 
       // Staff ids for location.
+      $pt_manager_term = \Drupal::entityTypeManager()
+        ->getStorage('taxonomy_term')
+        ->loadByProperties(['name' => 'PT Manager', 'vid' => 'staff_type']);
+      $pt_manager_term = reset($pt_manager_term);
+
+      if (empty($pt_manager_term)) {
+        // There is no location mapping for this location.
+        $msg = 'Failed to send email notification. Type: %type, error: %error. Mindbody id: %mid.';
+        $this->logger->critical(
+          $msg,
+          [
+            '%type' => $notification_type,
+            '%error' => 'There is no "PT manager" term in vocabulary "staff_type".',
+          ]
+        );
+        return;
+      }
       $staff_nids = \Drupal::entityQuery('mapping')
         ->condition('type', 'staff')
         ->condition('field_staff_branch.target_id', $location_nid)
+        ->condition('field_staff_type', $pt_manager_term->id())
         ->execute();
       if (empty($staff_nids)) {
         // There is no staff for this location.
