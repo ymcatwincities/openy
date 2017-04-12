@@ -75,11 +75,7 @@ function openy_node_event_update_8005() {
 function openy_node_event_update_8006() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
-  $config_importer->importConfigs(
-    [
-      'core.entity_view_display.node.event.listing_teaser',
-    ]
-  );
+  $config_importer->importConfigs([ ]);
 }
 
 /**
@@ -109,6 +105,7 @@ function openy_node_event_update_8007() {
     'field.storage.node.field_event_date_range',
     'core.entity_form_display.node.event.default',
     'core.entity_view_display.node.event.default',
+    'core.entity_view_display.node.event.listing_teaser',
     'core.entity_form_display.node.event.rng_event',
     'core.entity_view_display.node.event.flexible_content',
   ]);
