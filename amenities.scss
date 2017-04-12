@@ -82,6 +82,10 @@
       }
       .form-item {
         margin: 0 0 5px;
+        input.form-checkbox {
+          position: relative;
+          top: 4px;
+        }
         .field-amenities-icon {
           padding: 0;
           width: 30px;
@@ -92,8 +96,22 @@
         }
         label {
           vertical-align: middle;
-          line-height: 36px;
           margin-bottom: 0px;
+          .term-name {
+            @include breakpoint(mobileonly) {
+              width: auto;
+            }
+            @include breakpoint(tablet) {
+              width: auto;
+            }
+
+            @include breakpoint(laptop) {
+              width: 155px;
+            }
+            @include breakpoint(desktop) {
+              width: auto;
+            }
+          }
           div {
             display: inline-block;
             svg {
