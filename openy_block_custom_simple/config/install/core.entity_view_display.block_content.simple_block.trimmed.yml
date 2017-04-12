@@ -36,7 +36,7 @@ content:
     weight: 3
     label: hidden
     settings:
-      trim_length: 140
+      trim_length: 255
     third_party_settings: {  }
     type: text_trimmed
   field_sb_link:

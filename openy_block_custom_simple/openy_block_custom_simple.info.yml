@@ -13,4 +13,4 @@ dependencies:
   - media_entity:media_entity
   - openy:openy_block
   - drupal:text
-version: 8.x-1.1
+version: 8.x-1.2
