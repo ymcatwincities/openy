@@ -48,3 +48,10 @@ body {
     }
   }
 }
+
+.node__content .node--view-mode-flexible-content h2 a {
+  color: $purple;
+  &:hover {
+    text-decoration: none;
+  }
+}
