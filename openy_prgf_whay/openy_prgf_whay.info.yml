@@ -12,4 +12,5 @@ dependencies:
   - views
   - views_field_formatter
   - views_infinite_scroll
+  - ygh_alters
 version: 8.x-1.0

@@ -6,6 +6,7 @@ dependencies:
   module:
     - search_api
     - views_infinite_scroll
+    - ygh_alters
 id: whay
 label: 'What''s happening at the Y'
 module: views
@@ -25,7 +26,7 @@ display:
         type: none
         options: {  }
       cache:
-        type: tag
+        type: search_api_tags
         options: {  }
       query:
         type: views_query
@@ -168,6 +169,44 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: search_api_boolean
+        search_api_language:
+          id: search_api_language
+          table: search_api_index_blog
+          field: search_api_language
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            '***LANGUAGE_language_interface***': '***LANGUAGE_language_interface***'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_language
       sorts:
         sticky:
           id: sticky

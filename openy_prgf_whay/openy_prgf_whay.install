@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_whay feature.
+ */
+
+/**
+ * Make latest news page filter use ajax.
+ */
+function openy_prgf_whay_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_whay') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'views.view.whay',
+    ]
+  );
+}
