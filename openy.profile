@@ -102,7 +102,7 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_program',
       ],
       'openy_demo_ncategory' => [
-        'openy_demo_node_program_subcategory',
+        'openy_demo_node_session',
       ],
     ],
     'home_alt' => [
