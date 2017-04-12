@@ -18,11 +18,23 @@ a,
 .button.blue:hover,
 .btn.blue:hover,
 .modal-body .button:hover,
-.btn-primary:hover {
+.btn-primary:hover,
+.btn.white-blue:hover,
+.white-blue.button:hover {
   background-color: #00aeef;
+  color: #fffffc;
 }
+.button a,
+.btn a,
+.banner .banner-btn a,
+.button a:hover,
+.btn a:hover {
+  color: #fffffc;
+}
+
 .btn-default {
   background-color: #ffffff;
+  color: #333;
 }
 .top-navs,
 .sidebar,
@@ -46,8 +58,29 @@ a,
 .branch-header .desktop {
   background-color: #c6168d;
 }
+.page-head__main-menu .nav-level-2 > a,
+.page-head__main-menu .nav-level-3 > a,
+.viewport .navbar-default .navbar-nav > li > a,
+.page-head__top-menu a,
+.page-head__main-menu a,
+.viewport .page-head__main-menu .dropdown-menu > li > a:focus,
+.viewport .page-head__main-menu .dropdown-menu > li > a:hover,
+.navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-nav .open .dropdown-menu > li > a:focus {
+  color: #fffffb;
+}
+.viewport .nav-level-2 > a:hover,
+.viewport .nav-level-2 > a:focus
+.viewport .page-head__main-menu .nav-level-2 > a:hover,
+.viewport .page-head__main-menu .nav-level-2 > a:focus {
+  color: #d8d8d8;
+}
 .footer {
   background-color: #4f4f4f;
+}
+.footer,
+.footer .footer__nav nav ul li a {
+  color: #fffffa;
 }
 
 /* Camp specific overrides */
@@ -60,8 +93,28 @@ a,
   color: #01a491;
 }
 .is-camp .button,
-.is-camp .btn {
+.is-camp .btn,
+.is-camp .button.blue,
+.is-camp .btn.blue,
+.is-camp .modal-body .button,
+.is-camp .btn-primary,
+.is-camp .button:hover,
+.is-camp .btn:hover,
+.is-camp .button.blue:hover,
+.is-camp .btn.blue:hover,
+.is-camp .modal-body .button:hover,
+.is-camp .btn-primary:hover,
+.is-camp .btn.white-blue:hover,
+.is-camp .white-blue.button:hover {
   background-color: #2fb998;
+  color: #fffff9;
+}
+.is-camp .button a,
+.is-camp .btn a,
+.is-camp .banner .banner-btn a,
+.is-camp .button a:hover,
+.is-camp .btn a:hover {
+  color: #fffff9;
 }
 .is-camp .top-navs,
 .is-camp .sidebar,
@@ -78,6 +131,23 @@ a,
 .is-camp .nav > li > a:focus {
   background-color: #f86b05;
 }
+.is-camp .page-head__main-menu .nav-level-2 > a,
+.is-camp .page-head__main-menu .nav-level-3 > a,
+.is-camp .viewport .navbar-default .navbar-nav > li > a,
+.is-camp .page-head__top-menu a,
+.is-camp .page-head__main-menu a,
+.is-camp .viewport .page-head__main-menu .dropdown-menu > li > a:focus,
+.is-camp .viewport .page-head__main-menu .dropdown-menu > li > a:hover,
+.is-camp .navbar-nav .open .dropdown-menu > li > a:hover,
+.is-camp .navbar-nav .open .dropdown-menu > li > a:focus {
+  color: #fffff8;
+}
+.is-camp .viewport .nav-level-2 > a:hover,
+.is-camp .viewport .nav-level-2 > a:focus
+.is-camp .viewport .page-head__main-menu .nav-level-2 > a:hover,
+.is-camp .viewport .page-head__main-menu .nav-level-2 > a:focus {
+  color: #d8d8d7;
+}
 .is-camp .branch-header .desktop {
   background-color: #c6168c;
 }
@@ -87,6 +157,10 @@ a,
 }
 .is-camp footer {
   background-color: #01a490;
+}
+.is-camp .footer,
+.is-camp .footer .footer__nav nav ul li a {
+  color: #fffff7;
 }
 .is-camp .camp-menu-wrapper {
   background-color: #0060ad;
