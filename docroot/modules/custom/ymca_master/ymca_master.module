@@ -5,7 +5,6 @@
  * Contains ymca_master specific functions.
  */
 
-
 /**
  * Implements hook_config_import_configs_alter().
  */

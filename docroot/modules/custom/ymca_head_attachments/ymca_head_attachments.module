@@ -8,8 +8,8 @@
 use Drupal\Core\Url;
 
 /**
-* Implements hook_page_attachments().
-*/
+ * Implements hook_page_attachments().
+ */
 function ymca_head_attachments_page_attachments(array &$page) {
   $route_match = \Drupal::routeMatch();
   if ($route_match->getRouteName() == 'entity.node.canonical') {
@@ -55,19 +55,19 @@ function ymca_head_attachments_page_attachments(array &$page) {
         "@type": "ExerciseGym",
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "'. $data['url'] . '"
+          "@id": "' . $data['url'] . '"
         },
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "'. $data['address']['locality'] . '",
-          "addressRegion": "'. $data['address']['region'] . '",
-          "postalCode": "'. $data['address']['postal_code'] . '",
-          "streetAddress": "'. $data['address']['street'] . '"
+          "addressLocality": "' . $data['address']['locality'] . '",
+          "addressRegion": "' . $data['address']['region'] . '",
+          "postalCode": "' . $data['address']['postal_code'] . '",
+          "streetAddress": "' . $data['address']['street'] . '"
         },
-        "name": "YMCA – '. $data['name'] . '",
+        "name": "YMCA – ' . $data['name'] . '",
         "openingHours": [' . $hours . '],
-        "telephone": "'. $data['tel'] . '",
-        "url": "'. $data['url'] . '"
+        "telephone": "' . $data['tel'] . '",
+        "url": "' . $data['url'] . '"
       }';
       $script = [
         [
