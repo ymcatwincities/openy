@@ -39,6 +39,9 @@
         font-family: $font-family-sans-serif;
         font-size: 12px;
         line-height: lh(18, 12);
+        @include breakpoint(tablet) {
+          position: absolute;
+        }
       }
     }
 
@@ -307,7 +310,11 @@
   font-size: 12px;
   line-height: lh(18, 12);
   clear: both;
-  padding: 10px 15px;
+  padding: 0px 15px;
+  @include breakpoint(tablet) {
+    position: absolute;
+    bottom: 0;
+  }
 }
 
 //Footer social icons centered on mobile

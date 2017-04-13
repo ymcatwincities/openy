@@ -6634,6 +6634,9 @@ body {
         font-family: "Helvetica Neue LT W01_55 Roman", Helvetica, Arial, sans-serif;
         font-size: 12px;
         line-height: 1.5; }
+        @media (min-width: 768px) {
+          .footer .inner-footer--right .item-share--uwa {
+            position: absolute; } }
     .footer .inner-footer--bottom {
       padding: 0 15px;
       font-size: 12px;
@@ -6820,7 +6823,11 @@ body {
   font-size: 12px;
   line-height: 1.5;
   clear: both;
-  padding: 10px 15px; }
+  padding: 0px 15px; }
+  @media (min-width: 768px) {
+    #block-footeraddressblock {
+      position: absolute;
+      bottom: 0; } }
 
 @media (max-width: 480px) {
   #block-footersocialblock {
