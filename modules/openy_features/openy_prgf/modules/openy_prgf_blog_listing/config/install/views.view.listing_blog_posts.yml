@@ -301,7 +301,7 @@ display:
           exposed: true
           expose:
             operator_id: field_blog_location_target_id_verf_op
-            label: Location
+            label: 'Show me stories for:'
             description: ''
             use_operator: false
             operator: field_blog_location_target_id_verf_op
@@ -313,6 +313,8 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
+              contributor: '0'
+              editor: '0'
             reduce: 0
           is_grouped: false
           group_info:
@@ -330,6 +332,7 @@ display:
             branch: branch
             camp: camp
             activity: '0'
+            alert: '0'
             blog: '0'
             class: '0'
             facility: '0'
@@ -352,7 +355,7 @@ display:
           exposed: true
           expose:
             operator_id: field_blog_category_target_id_op
-            label: Category
+            label: 'Topics:'
             description: ''
             use_operator: false
             operator: field_blog_category_target_id_op
@@ -364,6 +367,8 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
+              contributor: '0'
+              editor: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -397,7 +402,7 @@ display:
           exposed: true
           expose:
             operator_id: combine_op
-            label: Text
+            label: ''
             description: ''
             use_operator: false
             operator: combine_op
@@ -409,6 +414,8 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
+              contributor: '0'
+              editor: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -481,9 +488,14 @@ display:
       tags:
         - 'config:core.entity_view_display.node.activity.default'
         - 'config:core.entity_view_display.node.activity.teaser'
+        - 'config:core.entity_view_display.node.alert.default'
+        - 'config:core.entity_view_display.node.alert.node_alert_footer'
+        - 'config:core.entity_view_display.node.alert.node_alert_header'
+        - 'config:core.entity_view_display.node.alert.teaser'
         - 'config:core.entity_view_display.node.blog.default'
         - 'config:core.entity_view_display.node.blog.full'
         - 'config:core.entity_view_display.node.blog.teaser'
+        - 'config:core.entity_view_display.node.branch.calc_summary'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
         - 'config:core.entity_view_display.node.branch.teaser'
@@ -498,6 +510,8 @@ display:
         - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.landing_page.full'
         - 'config:core.entity_view_display.node.landing_page.teaser'
+        - 'config:core.entity_view_display.node.membership.calc_preview'
+        - 'config:core.entity_view_display.node.membership.calc_summary'
         - 'config:core.entity_view_display.node.membership.default'
         - 'config:core.entity_view_display.node.membership.teaser'
         - 'config:core.entity_view_display.node.program.default'
@@ -531,9 +545,14 @@ display:
       tags:
         - 'config:core.entity_view_display.node.activity.default'
         - 'config:core.entity_view_display.node.activity.teaser'
+        - 'config:core.entity_view_display.node.alert.default'
+        - 'config:core.entity_view_display.node.alert.node_alert_footer'
+        - 'config:core.entity_view_display.node.alert.node_alert_header'
+        - 'config:core.entity_view_display.node.alert.teaser'
         - 'config:core.entity_view_display.node.blog.default'
         - 'config:core.entity_view_display.node.blog.full'
         - 'config:core.entity_view_display.node.blog.teaser'
+        - 'config:core.entity_view_display.node.branch.calc_summary'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
         - 'config:core.entity_view_display.node.branch.teaser'
@@ -548,6 +567,8 @@ display:
         - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.landing_page.full'
         - 'config:core.entity_view_display.node.landing_page.teaser'
+        - 'config:core.entity_view_display.node.membership.calc_preview'
+        - 'config:core.entity_view_display.node.membership.calc_summary'
         - 'config:core.entity_view_display.node.membership.default'
         - 'config:core.entity_view_display.node.membership.teaser'
         - 'config:core.entity_view_display.node.program.default'
