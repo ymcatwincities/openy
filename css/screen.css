@@ -6671,7 +6671,7 @@ body {
                     order: initial;
             width: 60%; } }
     .footer .inner-footer--nav {
-      padding: 20px 0 0 0;
+      padding: 20px 0 0 15px;
       overflow: hidden; }
       .footer .inner-footer--nav ul {
         list-style: none;
@@ -6694,7 +6694,7 @@ body {
           vertical-align: top; }
         .footer .inner-footer--nav ul ul a {
           font-size: 14px;
-          line-height: 2;
+          line-height: 1.7;
           text-transform: capitalize; }
       .footer .inner-footer--nav .col-lg-3 + .col-lg-3 ul {
         border-top: 1px solid #979797;
@@ -6740,7 +6740,8 @@ body {
               transform: translate(-50%, -50%); }
   .block-share ul {
     padding: 0;
-    margin: 0; }
+    margin: 0;
+    list-style: none; }
   .block-share li {
     margin: 0 30px 0 0; }
   .block-share .item-share--facebook:before {
@@ -6820,6 +6821,22 @@ body {
   line-height: 1.5;
   clear: both;
   padding: 10px 15px; }
+
+@media (max-width: 480px) {
+  #block-footersocialblock {
+    text-align: center; }
+    #block-footersocialblock ul {
+      display: inline-block; }
+    #block-footersocialblock li {
+      margin: 0 15px 0 15px;
+      float: left; } }
+
+#block-footercopyrightblock {
+  padding-top: 12px;
+  padding-bottom: 12px; }
+  #block-footercopyrightblock .block-description p {
+    margin: 0;
+    max-width: 350px; }
 
 .features-stories__wrapper {
   display: -webkit-box;
@@ -7912,6 +7929,9 @@ input.form-control {
   .form-item label {
     font-family: "CachetBook", Verdana, sans-serif;
     color: #4f4f4f; }
+
+.emma-block-simple-form .form-item {
+  margin: 0; }
 
 .webform-submission-form {
   margin-bottom: 20px; }

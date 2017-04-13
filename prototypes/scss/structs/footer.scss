@@ -31,7 +31,6 @@
       .block-description {
         overflow: hidden;
       }
-
       @include breakpoint(tablet) {
         width: 40%;
       }
@@ -82,7 +81,7 @@
     }
 
     &--nav {
-      padding: 20px 0 0 0;
+      padding: 20px 0 0 15px;
       overflow: hidden;
 
       ul {
@@ -115,7 +114,7 @@
         ul {
           a {
             font-size: 14px;
-            line-height: lh(28, 14);
+            line-height: 1.7;
             text-transform: capitalize;
           }
         }
@@ -185,6 +184,7 @@
     @extend %decor--flex;
     padding: 0;
     margin: 0;
+    list-style: none;
   }
 
   li {
@@ -308,4 +308,27 @@
   line-height: lh(18, 12);
   clear: both;
   padding: 10px 15px;
+}
+
+//Footer social icons centered on mobile
+#block-footersocialblock {
+  @include breakpoint(mobileonly) {
+    text-align: center;
+    ul {
+      display: inline-block;
+    }
+    li {
+      margin: 0 15px 0 15px;
+      float: left;
+    }
+  }
+}
+
+#block-footercopyrightblock {
+  .block-description p {
+    margin: 0;
+    max-width: 350px;
+  }
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
