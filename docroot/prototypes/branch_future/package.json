@@ -9,7 +9,7 @@
   "devDependencies": {
     "backstopjs": "^1.2.1",
     "browser-sync": "^2.13.0",
-    "gulp": "^3.9.0",
+    "gulp": "~3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cheerio": "^0.6.2",
     "gulp-clean": "^0.3.1",

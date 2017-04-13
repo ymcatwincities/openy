@@ -1,0 +1,145 @@
+.page-schedule {
+  background-image: url(../images/bg-body-blue.png);
+  font-family: $fontBold;
+  font-weight: normal;
+  padding: 10.2vw 0 0 0;
+
+  .header {
+    background: none;
+  }
+
+  .all-classes {
+    display: none;
+  }
+}
+
+
+.active-classes {
+
+  .class-next-intro {
+    display: none;
+    font-size: 2vw;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 1.5vw;
+    line-height: 2;
+  }
+
+  &.has-class {
+
+    .class-next-intro {
+      display: block;
+    }
+  }
+
+}
+
+.class {
+  width: 85vw;
+  //height: 40vh;
+  height: 22.7vw;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  margin: auto;
+
+  .trainer {
+    color: #01a490;
+    margin: auto;
+    text-align: center;
+    font-size: 2.45vw;
+    padding-top: 3.9vw;
+  }
+
+  .class-name {
+    color: #0060af;
+    font-size: 5.9vw;
+    margin: auto;
+    text-align: center;
+  }
+
+  .class-time-frame {
+    position: relative;
+    font-size: 2.45vw;
+    text-transform: none;
+    margin-top: 2.5vw;
+  }
+  .class-time-frame-from {
+    color: #00aeef;
+    position: absolute;
+    right: 72%;
+    margin-top: -1.5vw;
+
+    .at {
+      display: none;
+    }
+  }
+  .class-time-frame-to {
+    color: #0060af;
+    position: absolute;
+    left: 72%;
+    margin-top: -1.5vw;
+  }
+  .class-time-frame-progress {
+    width: 41%;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #0060af;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+  }
+  .class-time-frame-progress-bar {
+    background-color: #00aeef;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 75%;
+    height: 100%;
+  }
+}
+
+.class-next {
+  .class {
+    width: 76vw;
+    //height: 40vh;
+    height: 13.4vw;
+    background-color: #75aed7;
+    box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+    //text-transform: uppercase;
+    margin: auto;
+
+    .trainer {
+      display: none;
+    }
+
+    .class-name {
+      color: #0065b3;
+      font-size: 3.4vw;
+      padding-top: 2.7vw;
+    }
+
+    .class-time-frame {
+      position: relative;
+      font-size: 2.45vw;
+      margin-top: 1.2vw;
+    }
+    .class-time-frame-from {
+      color: #0089d0;
+      position: static;
+      text-align: center;
+
+      .at {
+        display: inline;
+      }
+    }
+    .class-time-frame-to {
+      display: none;
+    }
+    .class-time-frame-progress {
+      display: none;
+    }
+  }
+}
