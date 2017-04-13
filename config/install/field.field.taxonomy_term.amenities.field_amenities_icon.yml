@@ -12,13 +12,13 @@ entity_type: taxonomy_term
 bundle: amenities
 label: Icon
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'ai svg'
+  file_extensions: svg
   max_filesize: ''
   description_field: false
   handler: 'default:file'

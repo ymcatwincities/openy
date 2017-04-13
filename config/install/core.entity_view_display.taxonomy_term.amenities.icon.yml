@@ -7,17 +7,23 @@ dependencies:
     - taxonomy.vocabulary.amenities
   module:
     - openy_svg_formatter
+    - text
 id: taxonomy_term.amenities.icon
 targetEntityType: taxonomy_term
 bundle: amenities
 mode: icon
 content:
-  field_amenities_icon:
+  description:
+    type: text_default
     weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_amenities_icon:
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: openy_svg_formatter
 hidden:
-  description: true
   langcode: true
