@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.banner.field_prgf_color
     - field.field.paragraph.banner.field_prgf_description
     - field.field.paragraph.banner.field_prgf_headline
     - field.field.paragraph.banner.field_prgf_image
@@ -15,8 +16,16 @@ targetEntityType: paragraph
 bundle: banner
 mode: default
 content:
-  field_prgf_description:
+  field_prgf_color:
     weight: 1
+    label: hidden
+    settings:
+      view_mode: color
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+  field_prgf_description:
+    weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
@@ -29,7 +38,7 @@ content:
     third_party_settings: {  }
     type: string
   field_prgf_image:
-    weight: 2
+    weight: 3
     label: hidden
     settings:
       view_mode: prgf_banner
@@ -37,7 +46,7 @@ content:
     third_party_settings: {  }
     type: entity_reference_entity_view
   field_prgf_link:
-    weight: 3
+    weight: 4
     label: hidden
     settings:
       trim_length: 80

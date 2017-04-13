@@ -22,6 +22,7 @@ Feature: Static Paragraphs
       | KEY                    | behat_banner        |
       | field_prgf_headline    | BEHAT BANNER        |
       | field_prgf_image       | image_01            |
+      | field_prgf_color       | green               |
       | field_prgf_description | Enjoy the OpenY     |
       | field_prgf_link:uri    | http://openymca.org |
       | :title                 | Read about OpenY    |
