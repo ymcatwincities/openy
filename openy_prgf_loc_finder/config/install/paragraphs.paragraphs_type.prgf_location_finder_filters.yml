@@ -3,3 +3,4 @@ status: true
 dependencies: {  }
 id: prgf_location_finder_filters
 label: 'Location finder filters'
+behavior_plugins: {  }

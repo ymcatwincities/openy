@@ -158,7 +158,7 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: '<h1>Members Get Access to All 30+ Houston Area YMCAs</h1>'
+          content: '<h1>Members get access to all 30+ Houston area YMCAs</h1>'
           plugin_id: text_custom
       footer: {  }
       empty: {  }
@@ -271,9 +271,9 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          empty: true
+          empty: false
           tokenize: false
-          content: '<h2>Camp Locations</h2>'
+          content: '<h1>Camp Locations</h1>'
           plugin_id: text_custom
     cache_metadata:
       max-age: -1
