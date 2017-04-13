@@ -94,6 +94,18 @@ class OpenyFacebookSyncFetcher {
   }
 
   /**
+   * Returns Fetch Passed Events option value.
+   *
+   * @return bool
+   *   Fetch Passed Events.
+   */
+  public function getFetchPassedEventsOption() {
+    return $this->configFactory
+      ->get('openy_facebook_sync.settings')
+      ->get('fetch_passed_events');
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function fetch(array $args) {
@@ -103,15 +115,16 @@ class OpenyFacebookSyncFetcher {
     }
     else {
       $data = [];
-      // @todo Implement pager|filtering passed events.
+      // @todo Implement pager.
       $appid = $this->getAppId();
       $result = $this->facebook->sendRequest('GET', $appid . "/events");
       $body = $result->getDecodedBody();
+
       foreach ($body['data'] as $event) {
-        if (isset($event['end_time'])) {
+        if (!$this->getFetchPassedEventsOption() && isset($event['end_time'])) {
           // As there is no way to filter out ended events via request to FB API,
           // skip events that have ended comparing to request time.
-          $site_timezone = new DateTimeZone(\Drupal::configFactory()->get('system.date')->get('timezone')['default']);
+          $site_timezone = new DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
           $event_date = new DateTime($event['end_time']);
           $current_date = DateTime::createFromFormat('U',REQUEST_TIME, $site_timezone);
           if ($event_date < $current_date) {
@@ -120,7 +133,6 @@ class OpenyFacebookSyncFetcher {
         }
         $data[] = $event;
       }
-
       $this->cacheBackend->set($cid, $data, REQUEST_TIME + self::CACHE_TIME);
     }
 

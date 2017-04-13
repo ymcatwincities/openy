@@ -105,22 +105,18 @@ class OpenyFacebookSyncSaver {
    */
   private function prepareEvent(array $event) {
     // Convert date values from 2017-04-08T19:00:00-0500 to 2017-04-08T19:00:00.
-    if (!isset($event['end_time'])) {
+
+    $event_date_values = [
+      'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
+        ->format('Y-m-d\TH:i:s'),
+      'end_value' => '',
+    ];
+
+    // Set end date value only if it exists.
+    if (isset($event['end_time'])) {
       // End date value should not be null so fill it with start date.
-      $event_date_values = [
-        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
-          ->format('Y-m-d\TH:i:s'),
-        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
-          ->format('Y-m-d\TH:i:s'),
-      ];
-    }
-    else {
-      $event_date_values = [
-        'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
-          ->format('Y-m-d\TH:i:s'),
-        'end_value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['end_time'])
-          ->format('Y-m-d\TH:i:s'),
-      ];
+      $event_date_values['end_value'] = \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['end_time'])
+        ->format('Y-m-d\TH:i:s');
     }
 
     $event_node = [
@@ -129,6 +125,9 @@ class OpenyFacebookSyncSaver {
       'uid' => self::DEFAULT_UID,
       'field_event_date_range' => $event_date_values,
     ];
+
+    $publish_event = \Drupal::configFactory()->get('openy_facebook_sync.settings')->get('publish_event');
+    $event_node['status'] = $publish_event;
 
     return $event_node;
   }
