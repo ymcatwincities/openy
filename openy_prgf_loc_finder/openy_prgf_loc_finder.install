@@ -16,3 +16,15 @@ function openy_prgf_loc_finder_update_8001() {
       'views.view.locations',
     ]);
 }
+
+/**
+ * Update views title.
+ */
+function openy_prgf_loc_finder_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_loc_finder') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'views.view.locations',
+    ]);
+}
