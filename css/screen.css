@@ -6834,8 +6834,7 @@ body {
 #block-footercopyrightblock {
   padding-top: 12px;
   padding-bottom: 12px; }
-  #block-footercopyrightblock .block-description p {
-    margin: 0;
+  #block-footercopyrightblock .field-sb-body p {
     max-width: 350px; }
 
 .features-stories__wrapper {
