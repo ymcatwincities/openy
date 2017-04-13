@@ -50,9 +50,9 @@ class OpenyFacebookSyncSaver {
 
 
   /**
-   * EventMappingRepo.
+   * Config factory.
    *
-   * @var \Drupal\openy_mappings\EventMappingRepository
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   private $configFactory;
 
