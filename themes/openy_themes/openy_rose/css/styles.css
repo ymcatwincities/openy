@@ -3558,7 +3558,7 @@ html.js .branch__updates_queue__button {
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
 .node--type-camp.node--view-mode-teaser {
-  border: solid 1px #fcaf17;
+  border: solid 1px #ccc;
   padding: 20px;
   min-height: 300px;
   margin: 20px;
