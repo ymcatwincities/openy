@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_facebook_sync;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -47,6 +48,14 @@ class OpenyFacebookSyncSaver {
    */
   private $eventMappingRepo;
 
+
+  /**
+   * EventMappingRepo.
+   *
+   * @var \Drupal\openy_mappings\EventMappingRepository
+   */
+  private $configFactory;
+
   /**
    * Constructor.
    *
@@ -59,11 +68,12 @@ class OpenyFacebookSyncSaver {
    * @param \Drupal\openy_mappings\EventMappingRepository $event_mapping_repo
    *   EventMappingRepo.
    */
-  public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $logger, EntityTypeManagerInterface $entityTypeManager, EventMappingRepository $event_mapping_repo) {
-    $this->wrapper = $wrapper;
-    $this->logger = $logger;
-    $this->entityTypeManager = $entityTypeManager;
-    $this->eventMappingRepo = $event_mapping_repo;
+  public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $logger, EntityTypeManagerInterface $entityTypeManager, EventMappingRepository $event_mapping_repo, ConfigFactoryInterface $config_factory) {
+    $this->wrapper            = $wrapper;
+    $this->logger             = $logger;
+    $this->entityTypeManager  = $entityTypeManager;
+    $this->eventMappingRepo   = $event_mapping_repo;
+    $this->configFactory      = $config_factory;
   }
 
   /**
@@ -105,9 +115,9 @@ class OpenyFacebookSyncSaver {
    */
   private function prepareEvent(array $event) {
     // Convert date values from 2017-04-08T19:00:00-0500 to 2017-04-08T19:00:00.
-
+    $site_timezone = new \DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
     $event_date_values = [
-      'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'])
+      'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'], $site_timezone)
         ->format('Y-m-d\TH:i:s'),
       'end_value' => '',
     ];
@@ -115,7 +125,7 @@ class OpenyFacebookSyncSaver {
     // Set end date value only if it exists.
     if (isset($event['end_time'])) {
       // End date value should not be null so fill it with start date.
-      $event_date_values['end_value'] = \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['end_time'])
+      $event_date_values['end_value'] = \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['end_time'], $site_timezone)
         ->format('Y-m-d\TH:i:s');
     }
 
@@ -126,7 +136,7 @@ class OpenyFacebookSyncSaver {
       'field_event_date_range' => $event_date_values,
     ];
 
-    $publish_event = \Drupal::configFactory()->get('openy_facebook_sync.settings')->get('publish_event');
+    $publish_event = $this->configFactory->get('openy_facebook_sync.settings')->get('publish_event');
     $event_node['status'] = $publish_event;
 
     return $event_node;
