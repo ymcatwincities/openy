@@ -325,10 +325,9 @@
 }
 
 #block-footercopyrightblock {
-  .block-description p {
-    margin: 0;
-    max-width: 350px;
-  }
   padding-top: 12px;
   padding-bottom: 12px;
+  .field-sb-body p {
+    max-width: 350px;
+  }
 }
