@@ -19,10 +19,9 @@
   };
 
   function init() {
-    var url = '/prototypes/branch_future/dist/parts/part-2.html?';
+    var url = './parts/part-2.html?';
     setStatus('initializing');
     var t = (new Date()).getTime();
-    console.log(t);
     $.get(url + (new Date()).getTime(), function(data) {
       var dt = (new Date()).getTime() - t;
 
