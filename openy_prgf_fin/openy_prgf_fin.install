@@ -43,3 +43,16 @@ function openy_prgf_fin_update_8003() {
     ]
   );
 }
+
+/**
+ * Fixed field validation.
+ */
+function openy_prgf_fin_update_8004() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_fin') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'webform.webform.financial_aid',
+    ]
+  );
+}
