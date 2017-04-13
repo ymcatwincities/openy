@@ -67,6 +67,8 @@ class OpenyFacebookSyncSaver {
    *   Entity Type Manager.
    * @param \Drupal\openy_mappings\EventMappingRepository $event_mapping_repo
    *   EventMappingRepo.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   Config Factory.
    */
   public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $logger, EntityTypeManagerInterface $entityTypeManager, EventMappingRepository $event_mapping_repo, ConfigFactoryInterface $config_factory) {
     $this->wrapper            = $wrapper;
