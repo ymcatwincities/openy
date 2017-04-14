@@ -147,6 +147,10 @@
   .paragraph--type--content-pager {
     padding-top: 50px;
   }
+
+  .field-blog-description {
+    clear: both;
+  }
 }
 
 img.alignleft {
@@ -181,5 +185,28 @@ img.alignright {
 
   p {
     margin-bottom: 25px;
+  }
+}
+
+.field-prgf-whay-view {
+  .quotes {
+    display: none;
+  }
+
+  .blog-story {
+    .quotes {
+      display: inline-block;
+      font-size: 100px;
+      font-family: Helvetica Neue LT W01_55 Roman;
+      height: 35px;
+      vertical-align: top;
+      position: relative;
+      top: -20px;
+    }
+
+    span:not(.quotes) {
+      display: inline-block;
+      width: 80%;
+    }
   }
 }
