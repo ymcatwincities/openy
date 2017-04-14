@@ -285,6 +285,10 @@
     @include cachet();
     text-transform: uppercase;
   }
+
+  .no-results {
+    margin-bottom: 49px;
+  }
 }
 
 .comma-list {
