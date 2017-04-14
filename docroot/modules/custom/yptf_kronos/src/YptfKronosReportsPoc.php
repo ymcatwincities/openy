@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ymca_training_reports;
+namespace Drupal\yptf_kronos;
 
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
 use Drupal\Core\Config\ConfigFactory;
@@ -13,7 +13,7 @@ use Drupal\Core\Config\ConfigFactory;
  *
  * @package Drupal\mindbody
  */
-class YmcaTrainingReportsPoc {
+class YptfKronosReportsPoc {
 
   /**
    * Config factory.
