@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:ns1="http://clients.mindbodyonline.com/api/0_5"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <SOAP-ENV:Body>
+        <ns1:GetStaffAppointments>
+            <ns1:Request>
+                <ns1:SourceCredentials>
+                    <ns1:SourceName>YMCAoftheGreaterTwinCities</ns1:SourceName>
+                    <ns1:Password>W4aW8jPH1tR1KbdSEyDK1jdiQfY=</ns1:Password>
+                    <ns1:SiteIDs>
+                        <ns1:int>249173</ns1:int>
+                    </ns1:SiteIDs>
+                </ns1:SourceCredentials>
+                <ns1:XMLDetail>Full</ns1:XMLDetail>
+                <ns1:PageSize xsi:nil="true"/>
+                <ns1:CurrentPageIndex xsi:nil="true"/>
+                <ns1:StaffCredentials>
+                    <ns1:Username>alexander.schedrov@ffwagency.com
+                    </ns1:Username>
+                    <ns1:Password>JOkrxVlp3M6em3QTIyYx</ns1:Password>
+                    <ns1:SiteIDs>
+                        <ns1:int>249173</ns1:int>
+                    </ns1:SiteIDs>
+                </ns1:StaffCredentials>
+                <ns1:StartDate>2016-12-18T00:00:00</ns1:StartDate>
+                <ns1:EndDate>2016-12-31T23:59:59</ns1:EndDate>
+                <ns1:StaffIDs>
+                    <ns1:long>8</ns1:long>
+                </ns1:StaffIDs>
+            </ns1:Request>
+        </ns1:GetStaffAppointments>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
