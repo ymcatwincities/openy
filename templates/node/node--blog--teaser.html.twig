@@ -96,7 +96,7 @@
     {% endif %}
     {% if (image == 'placeholder') %}
       <div>
-        <img src="{{ base_path ~ directory }}/img/blog_image_placeholder.png" alt="" />
+        <img src="{{ file_url(directory ~ '/img/blog_image_placeholder.png') }}" alt="" />
       </div>
     {% endif %}
     <div class="blog-heading">
