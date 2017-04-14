@@ -55,12 +55,12 @@ class YptfKronosReportsPoc {
   /**
    * The Kronos data report.
    */
-  protected $kronos_data;
+  protected $kronosData;
 
   /**
    * The MindBody data report.
    */
-  protected $mindbody_data;
+  protected $mindbodyData;
 
   /**
    * The StaffIDs.
@@ -91,14 +91,13 @@ class YptfKronosReportsPoc {
     if (!$kronos_data = $this->getKronosData()) {
       return;
     }
-
     $trainer_reports = [];
     $location_reports = [];
 
     // Calculate Workforce Kronos data.
     foreach ($kronos_data as $item) {
       if ($item->job == 'PT (one on one and buddy)') {
-        $staff_id = $item->empNo;
+        $staff_id = $this->getMindbodyidbyStaffId($item->empNo);
         // @TODO should be used ID from mapping.
         $location_id = $item->locName;
         $trainer_reports[$staff_id]['wf_hours'] += $item->totalHours;
@@ -109,6 +108,13 @@ class YptfKronosReportsPoc {
         $location_reports[$location_id]['name'] = $item->locName;
       }
     }
+    $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $cache_dir = $cache_dir . '/mb_reports';
+    $file = $cache_dir . '/staff_ids.json';
+    if (!file_exists($cache_dir)) {
+      mkdir($cache_dir, 0764, TRUE);
+      file_put_contents($file, json_encode($this->staffIDs));
+    }
 
     // Calculate MB data.
     $user_credentials = [
@@ -116,46 +122,62 @@ class YptfKronosReportsPoc {
       'Password' => $this->credentials->get('user_password'),
       'SiteIDs' => [$this->credentials->get('site_id')],
     ];
-    /*$params = [
-      'StaffCredentials' => $user_credentials,
-    ];*/
-
-    // Figure out StuffID.
-    //$results = $this->proxy->call('StaffService', 'GetStaff', $params, FALSE);
-
     $params = [
-      //'UserCredentials' => $user_credentials,
       'StaffCredentials' => $user_credentials,
-      // date('Y-m-d\TH:i:s', $booking_data['start_time']),
-      //'StartDate' => '2016-12-19T00:00:00',
-      'StartDate' => '2016-12-18T00:00:00',
-      'EndDate' => '2016-12-31T23:59:59',
-      'StaffIDs' => array_keys($trainer_reports),
+      'StartDate' => $this->dates['StartDate'],
+      'EndDate' => $this->dates['EndDate'],
+      'StaffIDs' => [0], //[0 => '100000154'], //Zero is for all staff. [0 => '100000154'],
+      // 'StaffIDs' => array_keys($trainer_reports),
     ];
+    // New service to add.
+    // Saving a file with a path.
+    $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $cache_dir = $cache_dir . '/mb_reports';
+    $file = $cache_dir . '/WFC_' . $this->dates['EndDate'] . '.json';
+    $mb_data_file = file_get_contents($file);
+    if (!$mb_data_file) {
+      $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
+      $mb_data = $result->GetStaffAppointmentsResult->Appointments->Appointment;
 
-    $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
-    $mb_data = $result->GetStaffAppointmentsResult->Appointments->Appointment;
-
-    foreach ($mb_data as $item) {
-      // PT - $item->Program->ID == 2
-      // BT - $item->Program->ID == 4
-      if ($item->Program->ID == 4){
-        // @TODO For BT, skip every 2nd item based on start/end date + time(try to find better property.)
-        $datetime1 = date_create($item->StartDateTime);
-        $datetime2 = date_create($item->EndDateTime);
-        $interval = date_diff($datetime1, $datetime2);
-        $hours = (int)$interval->format("%h");
-        $minutes = (int)$interval->format("%i");
-        // Convert minutes to hours.
-        $diff = $hours + $minutes / 60;
-
-        $staff_id = $item->Staff->ID;
-        // @TODO should be used ID from mapping.
-        $location_id = str_replace(' YMCA', '',$item->Location->Name);
-
-        $trainer_reports[$staff_id]['mb_hours'] += $diff;
-        $location_reports[$location_id]['mb_hours'] += $diff;
+      if (!file_exists($cache_dir)) {
+        mkdir($cache_dir, 0764, TRUE);
       }
+      file_put_contents($file, json_encode($mb_data));
+    }
+    else {
+      $mb_data = json_decode($mb_data_file);
+    }
+
+    $skip_bt = FALSE;
+    foreach ($mb_data as $mb_id => $item) {
+      // PT - $item->Program->ID == 2
+      // BT - $item->Program->ID == 4.
+      $datetime1 = date_create($item->StartDateTime);
+      $datetime2 = date_create($item->EndDateTime);
+      if ($item->Program->ID == 4) {
+        if ($skip_bt) {
+          $skip_bt = !$skip_bt;
+          continue;
+        }
+      }
+      // @TODO For BT, skip every 2nd item based on start/end date + time(try to find better property.)
+
+      $interval = date_diff($datetime1, $datetime2);
+      $hours = (int) $interval->format("%h");
+      $minutes = (int) $interval->format("%i");
+      // Convert minutes to hours.
+      $diff = $hours + $minutes / 60;
+
+      $staff_id = $item->Staff->ID;
+      // @TODO should be used ID from mapping.
+      $location_id = str_replace(' YMCA', '', $item->Location->Name);
+
+      $trainer_reports[$staff_id]['mb_hours'] += $diff;
+      $location_reports[$location_id]['mb_hours'] += $diff;
+
+      // Skip second BT.
+      $skip_bt = !$skip_bt;
+
     }
 
     // Calculate variance.
@@ -166,7 +188,7 @@ class YptfKronosReportsPoc {
       $row['variance'] = number_format((1 - $row['mb_hours'] / $row['wf_hours']) * 100, 2);
     }
 
-    dpm($trainer_reports);
+    dpm($location_reports);
   }
 
   /**
