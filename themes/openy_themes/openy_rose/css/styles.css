@@ -3991,8 +3991,15 @@ html.js .branch__updates_queue__button {
   display: block;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
-.blog-more-teaser label[for="edit-combine"] {
-  opacity: 0;
+.blog-more-teaser .form-item-combine label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 .blog-more-teaser select {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
