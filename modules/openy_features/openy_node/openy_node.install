@@ -21,7 +21,7 @@ function openy_node_update_8001() {
 /**
  * Enable Metatag, Redirect and Simple Sitemap modules.
  */
-function openy_update_8002() {
+function openy_node_update_8002() {
   // Image Style & OG Meta tags defaults
   $config_dir = drupal_get_path('module', 'openy_node') . '/config/install';
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');

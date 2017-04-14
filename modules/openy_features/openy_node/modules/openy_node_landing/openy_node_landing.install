@@ -59,7 +59,7 @@ function openy_node_landing_update_8001() {
 /**
  * Update Landing page with Metatag and Sitemap config.
  */
-function openy_loc_branch_update_8002() {
+function openy_node_landing_update_8002() {
   $module = 'openy_node_landing';
   $bundle = 'landing_page';
   // Field definitions
