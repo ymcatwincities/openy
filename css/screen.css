@@ -6010,11 +6010,17 @@ body {
       position: absolute;
       z-index: 1001; } }
   .page-head__logo img {
-    height: 38px;
+    height: auto;
+    width: auto;
+    max-height: 38px;
+    max-width: 50px;
     margin: 16px; }
     @media (min-width: 992px) {
       .page-head__logo img {
-        height: 70px; } }
+        height: auto;
+        width: auto;
+        max-height: 70px;
+        max-width: 91px; } }
 
 .page-head__search {
   padding-left: 140px;
@@ -6707,7 +6713,10 @@ body {
       max-width: 102px;
       padding: 20px 20px 0 15px; }
       .footer .inner-footer .logo img {
-        width: 100%; }
+        height: auto;
+        width: auto;
+        max-height: 51px;
+        max-width: 67px; }
       @media (min-width: 768px) {
         .footer .inner-footer .logo {
           display: none; } }

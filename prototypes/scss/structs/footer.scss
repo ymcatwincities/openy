@@ -141,7 +141,11 @@
       padding: 20px 20px 0 15px;
 
       img {
-        width: 100%;
+        // For IE11 compatibility
+        height: auto;
+        width: auto;
+        max-height: 51px;
+        max-width: 67px;
       }
 
       @include breakpoint(tablet){
