@@ -82,3 +82,60 @@ function ymca_head_attachments_page_attachments(array &$page) {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function ymca_head_attachments_preprocess_views_view(&$vars) {
+  // Add prev/next link metatags.
+  $pager = $vars['view']->pager;
+  if (method_exists($pager, 'getPagerTotal') && $pager->getPagerTotal() != 0) {
+    $current_page = $pager->getCurrentPage();
+    $last_page = $pager->getPagerTotal() - 1;
+    $route_match = \Drupal::routeMatch()->getRouteObject();
+
+    if ($current_page == 0 && $last_page >= 1) {
+      // Add only next tag.
+      $next_url = Url::fromRoute($route_match, ['page' => 1])
+        ->setAbsolute()
+        ->toString();
+    }
+    if ($current_page == $last_page) {
+      // Add only prev tag.
+      $prev_url = Url::fromRoute($route_match, ['page' => $current_page - 1])
+        ->setAbsolute()
+        ->toString();
+    }
+    if ($current_page > 0 && $current_page != $last_page) {
+      // Add prev/next tags.
+      $prev_url = Url::fromRoute($route_match, ['page' => $current_page - 1])
+        ->setAbsolute()
+        ->toString();
+      $next_url = Url::fromRoute($route_match, ['page' => $current_page + 1])
+        ->setAbsolute()
+        ->toString();
+    }
+
+    if (isset($prev_url)) {
+      $prev_tag = [
+        '#tag' => 'link',
+        '#attributes' => [
+          'rel' => 'prev',
+          'href' => $prev_url,
+        ],
+      ];
+      $vars['#attached']['html_head'][] = [$prev_tag, 'prev_tag'];
+    }
+
+    if (isset($next_url)) {
+      $next_tag = [
+        '#tag' => 'link',
+        '#attributes' => [
+          'rel' => 'next',
+          'href' => $next_url,
+        ],
+      ];
+      $vars['#attached']['html_head'][] = [$next_tag, 'next_tag'];
+    }
+  }
+}
