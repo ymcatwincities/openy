@@ -402,7 +402,7 @@ display:
           exposed: true
           expose:
             operator_id: combine_op
-            label: ''
+            label: 'Search text'
             description: ''
             use_operator: false
             operator: combine_op
