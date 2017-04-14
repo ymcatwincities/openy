@@ -2,7 +2,8 @@
   background-image: url(../images/bg-body-blue.png);
   font-family: $fontBold;
   font-weight: normal;
-  padding: 10.2vw 0 0 0;
+  //padding: 10.2vw 0 0 0;
+  padding: 0;
 
   .header {
     background: none;
@@ -22,8 +23,11 @@
     color: #fff;
     text-align: center;
     text-transform: uppercase;
-    padding-top: 1.5vw;
     line-height: 2;
+    top: 36.2vw;
+    position: absolute;
+    width: 100%;
+    left: 0;
   }
 
   &.has-class {
@@ -41,9 +45,16 @@
   height: 22.7vw;
   border-radius: 10px;
   background-color: #fff;
-  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+  //box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   margin: auto;
+  opacity: 1;
+  position: absolute;
+  top: 10.4vw;
+  left: 50%;
+  margin-left: -42.5vw;
+  transition: top 5s, width 5s, height 5s, margin-left 5s, opacity 5s, background-color 1s;
+  z-index: 10;
 
   .trainer {
     color: #01a490;
@@ -51,13 +62,17 @@
     text-align: center;
     font-size: 2.45vw;
     padding-top: 3.9vw;
+    transition: font-size 5s, padding-top 5s;
   }
 
   .class-name {
     color: #0060af;
     font-size: 5.9vw;
     margin: auto;
+    padding-top: 0;
     text-align: center;
+    transition: font-size 5s, padding-top 5s;
+
   }
 
   .class-time-frame {
@@ -66,6 +81,7 @@
     text-transform: none;
     margin-top: 2.5vw;
   }
+
   .class-time-frame-from {
     color: #00aeef;
     position: absolute;
@@ -76,12 +92,16 @@
       display: none;
     }
   }
+
   .class-time-frame-to {
     color: #0060af;
     position: absolute;
     left: 72%;
     margin-top: -1.5vw;
+    opacity: 1;
+    transition: opacity 1s;
   }
+
   .class-time-frame-progress {
     width: 41%;
     height: 16px;
@@ -90,7 +110,10 @@
     position: relative;
     margin: auto;
     overflow: hidden;
+    opacity: 1;
+    transition: opacity 1s;
   }
+
   .class-time-frame-progress-bar {
     background-color: #00aeef;
     position: absolute;
@@ -101,18 +124,22 @@
   }
 }
 
-.class-next {
+.class-next,
+.class-prev {
   .class {
     width: 76vw;
     //height: 40vh;
     height: 13.4vw;
     background-color: #75aed7;
-    box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
     //text-transform: uppercase;
     margin: auto;
+    top: 40vw;
+    margin-left: -38vw;
+    z-index: 5;
 
     .trainer {
-      display: none;
+      font-size: 0;
+      padding-top: 0;
     }
 
     .class-name {
@@ -136,10 +163,33 @@
       }
     }
     .class-time-frame-to {
-      display: none;
+      opacity: 0;
     }
     .class-time-frame-progress {
-      display: none;
+      opacity: 0;
+    }
+  }
+}
+
+.class-prev {
+  .class {
+    width: 76vw;
+    //height: 40vh;
+    height: 13.4vw;
+    background-color: #75aed7;
+    //box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+    //text-transform: uppercase;
+    margin: auto;
+    top: -40vw;
+    margin-left: -38vw;
+    opacity: 0;
+    z-index: 15;
+
+    .class-time-frame-to {
+      opacity: 0;
+    }
+    .class-time-frame-progress {
+      opacity: 0;
     }
   }
 }
