@@ -86,10 +86,11 @@ class YptfKronosReportsPoc {
    * Calculate/compare data from Kronos & reports.
    */
   public function poc() {
+    // @TODO: Get rid from mindbody $this->debug = TRUE.
     // Get Kronos data.
-    $kronos_file = drupal_get_path('module', 'ymca_training_reports') . '/files/kronos_data_20161231_megan.json';
-    $kronos_data_raw = file_get_contents($kronos_file);
-    $kronos_data = json_decode($kronos_data_raw);
+    if (!$kronos_data = $this->getKronosData()) {
+      return;
+    }
 
     $trainer_reports = [];
     $location_reports = [];
@@ -166,6 +167,49 @@ class YptfKronosReportsPoc {
     }
 
     dpm($trainer_reports);
+  }
+
+  /**
+   * Get Kronos Data from file.
+   *
+   * @return array|bool
+   *   List of trainers hours.
+   */
+  public function getKronosData() {
+    // @TODO: What day we need to run cron?
+    $kronos_report_day = 'last Saturday';
+    $kronos_shift_days = ['', ' -7 days'];
+    if ($week_day = date("w") < 2) {
+      $kronos_shift_days = [' -7 days', ' -14 days'];
+    }
+    $kronos_data_raw = $kronos_file = '';
+    foreach ($kronos_shift_days as $shift) {
+      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift));
+      $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+      $kronos_file = $kronos_path_to_file . '/wf_reports/WFC_' . $kronos_file_name_date . '.json';
+      $kronos_data_raw = file_get_contents($kronos_file);
+      if (!$kronos_data_raw) {
+        $kronos_file = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_' . $kronos_file_name_date . '.json';
+        $kronos_data_raw = file_get_contents($kronos_file);
+      }
+      if ($kronos_data_raw) {
+        break;
+      }
+    }
+
+    if (!$kronos_data_raw) {
+      $msg = 'Failed to get the data from Kronos file %file.';
+      $this->logger->error(
+        $msg,
+        [
+          '%file' => $kronos_file,
+        ]
+      );
+      return FALSE;
+    }
+    $this->dates['EndDate']  = $kronos_file_name_date;
+    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -14 days'));
+    return json_decode($kronos_data_raw);
   }
 
 }
