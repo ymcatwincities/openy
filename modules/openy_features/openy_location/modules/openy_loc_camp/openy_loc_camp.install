@@ -83,7 +83,7 @@ function openy_loc_camp_update_8002() {
 /**
  * Update Camp with Metatag and Sitemap config.
  */
-function openy_loc_branch_update_8003() {
+function openy_loc_camp_update_8003() {
   $module = 'openy_loc_camp';
   $bundle = 'camp';
   // Field definitions

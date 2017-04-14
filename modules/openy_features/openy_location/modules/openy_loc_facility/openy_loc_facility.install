@@ -34,7 +34,7 @@ function openy_loc_facility_update_8001() {
 /**
  * Update Facility with Metatag and Sitemap config.
  */
-function openy_loc_branch_update_8002() {
+function openy_loc_facility_update_8002() {
   $module = 'openy_loc_facility';
   $bundle = 'facility';
   // Field definitions
