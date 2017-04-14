@@ -17,13 +17,14 @@
   function loop() {
     var classes = getCurrentAndNext();
     if (needsActiveClassActualization(classes)) {
-      showProgress(function() {
-        actualizeActiveClasses(classes);
-        updateProgressBars();
-        setTimeout(function() {
-          hideProgress(function() {});
-        }, 1000)
-      });
+      actualizeActiveClasses(classes);
+      updateProgressBars();
+      //showProgress(function() {
+      //  actualizeActiveClasses(classes);
+      //  setTimeout(function() {
+      //    hideProgress(function() {});
+      //  }, 1000)
+      //});
     }
   }
 
@@ -41,6 +42,8 @@
   function needsActiveClassActualization(classes) {
     var $activeClassContainer = $(".active-classes .class-active");
     var $activeClass = $(".class", $activeClassContainer);
+    console.log($activeClass.size());
+    console.log($activeClass.data('from'), classes.last.data('from'));
     if (!$activeClass.size() || $activeClass.data('from') != classes.last.data('from')) {
       return true;
     }
@@ -55,16 +58,32 @@
   }
 
   function actualizeActiveClasses(classes) {
+    var $prevClassContainer = $(".active-classes .class-prev");
     var $activeClassContainer = $(".active-classes .class-active");
     var $activeClass = $(".class", $activeClassContainer);
-    if (!$activeClass.size() || $activeClass.data('from') != classes.last.data('from')) {
-      $activeClassContainer.empty().append(classes.last.clone(true));
-    }
-
     var $upcomingClassContainer = $(".active-classes .class-next");
-    var $upcomingClass = $(".class", $upcomingClassContainer);
-    if (!$upcomingClass.size() || $upcomingClass.data('from') != classes.next.data('from')) {
-      $upcomingClassContainer.empty().append(classes.next.first().clone(true));
+
+    if ($activeClass.size() ) {
+      // Remove previous class.
+      $prevClassContainer.remove();
+
+      // Slide active class up.
+      $activeClassContainer
+        .removeClass('class-active')
+        .addClass('class-prev')
+
+      // Slide Upcomming Class Up
+      $upcomingClassContainer
+        .removeClass('class-next')
+        .addClass('class-active');
+
+      // Create new Upcoming class.
+      $upcomingClassContainer = $("<div class='class-next' />").appendTo('.active-classes');
+      $upcomingClassContainer.append(classes.next.clone(true));
+    }
+    else {
+      $activeClassContainer.empty().append(classes.last.clone(true));
+      $upcomingClassContainer.empty().append(classes.next.clone(true));
     }
   }
 
@@ -116,7 +135,13 @@
 
 
   //init();
-
+  showProgress(function() {
+    actualizeActiveClasses(getCurrentAndNext());
+    updateProgressBars();
+    setTimeout(function() {
+      hideProgress(function() {});
+    }, 1000)
+  });
   setInterval(loop, 1000);
 
   setTimeout(function() {
