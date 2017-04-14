@@ -91,7 +91,8 @@ view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   {{ title_suffix }}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content }}
+      {% set text = content|render|striptags %}
+      {{ text|length > 200 ? text|slice(0, 400) ~ '...' : text }}
   </div>
 
 </article>
