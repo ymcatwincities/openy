@@ -212,4 +212,56 @@ class YptfKronosReportsPoc {
     return json_decode($kronos_data_raw);
   }
 
+  /**
+   * Get MB ID by StaffID.
+   *
+   * @param string $staff_id
+   *   Staff ID.
+   *
+   * @return bool|string
+   *   MindBody ID.
+   */
+  public function getMindbodyidbyStaffId($staff_id) {
+    $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+    $cache_dir = $cache_dir . '/mb_reports';
+    $file = $cache_dir . '/staff_ids.json';
+    $mb_data_file = file_get_contents($file);
+    if ($mb_data_file) {
+      //$this->staffIDs = json_decode($mb_data_file, TRUE);
+    }
+    if (!empty($this->staffIDs[$staff_id])) {
+      return $this->staffIDs[$staff_id];
+    }
+    $staff_params = [
+      'PageSize' => 50,
+      'CurrentPageIndex' => 0,
+      'FunctionName' => 'YMCAGTC_GetEmpID',
+      'FunctionParams' => [
+        'FunctionParam' => [
+          'ParamName' => '@staffID',
+          'ParamValue' => $staff_id,
+          'ParamDataType' => 'string',
+        ],
+      ],
+    ];
+    $staff_id_call = $this->proxy->call('DataService', 'FunctionDataXml', $staff_params, '');
+    $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
+    if (isset($mb_staff_id->Row->EmpID) && !empty($mb_staff_id->Row->EmpID)) {
+      $this->staffIDs[$staff_id] = $mb_staff_id->Row->EmpID;
+      return $mb_staff_id->Row->EmpID;
+    }
+    elseif (isset($staff_id_call->client)) {
+      $last_response = $staff_id_call->client->__getLastResponse();
+      $encoder = new XmlEncoder();
+      $data = $encoder->decode($last_response, 'xml');
+      if (isset($data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult']['Results']['Row']['EmpID'])) {
+        $empID = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult']['Results']['Row']['EmpID'];
+        $this->staffIDs[$staff_id] = $empID;
+        return $empID;
+      }
+    }
+    // @TODO: Log that there is no EmpID.
+    return FALSE;
+  }
+
 }
