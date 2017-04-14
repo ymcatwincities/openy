@@ -4,6 +4,9 @@ namespace Drupal\yptf_kronos;
 
 use Drupal\mindbody_cache_proxy\MindbodyCacheProxy;
 use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Logger\LoggerChannelInterface;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Drupal\mindbody\MindbodyClient;
 
 /**
  * Mindbody Examples.
@@ -37,17 +40,51 @@ class YptfKronosReportsPoc {
   protected $credentials;
 
   /**
+   * The logger channel.
+   *
+   * @var LoggerChannelInterface
+   */
+  protected $logger;
+
+  /**
+   * The dates for report.
+   */
+  protected $dates;
+
+
+  /**
+   * The Kronos data report.
+   */
+  protected $kronos_data;
+
+  /**
+   * The MindBody data report.
+   */
+  protected $mindbody_data;
+
+  /**
+   * The StaffIDs.
+   */
+  protected $staffIDs;
+
+  /**
    * YmcaMindbodyExamples constructor.
    *
    * @param MindbodyCacheProxy $proxy
    *   Cache proxy.
+   * @param LoggerChannelInterface $logger
+   *   Logger factory.
    */
-  public function __construct(ConfigFactory $config_factory, MindbodyCacheProxy $proxy) {
+  public function __construct(ConfigFactory $config_factory, MindbodyCacheProxy $proxy, LoggerChannelInterface $logger) {
     $this->configFactory = $config_factory;
     $this->proxy = $proxy;
+    $this->logger = $logger;
     $this->credentials = $this->configFactory->get('mindbody.settings');
   }
 
+  /**
+   * Calculate/compare data from Kronos & reports.
+   */
   public function poc() {
     // Get Kronos data.
     $kronos_file = drupal_get_path('module', 'ymca_training_reports') . '/files/kronos_data_20161231_megan.json';
