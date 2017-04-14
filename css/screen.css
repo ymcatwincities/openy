@@ -8077,6 +8077,9 @@ fieldset .fieldset-wrapper {
   .webform-submission-financial-aid-form .js-form-item-member-add-more-items,
   .webform-submission-financial-aid-form .js-form-item-members-add-more-items {
     display: none; }
+  @media (min-width: 768px) {
+    .webform-submission-financial-aid-form #edit-actions {
+      padding: 0 0 30px 0; } }
 
 .paragraph-gallery {
   position: relative; }
