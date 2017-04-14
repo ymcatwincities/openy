@@ -78,6 +78,11 @@
     .node--view-mode-teaser {
       flex-basis: 100%;
       align-self: stretch;
+      .field-branch-hours {
+        table td {
+          padding-right: 10px;
+        }
+      }
     }
   }
   header h2 {
@@ -246,18 +251,23 @@
       position: relative;
       margin: 0 0 7px 0;
       .today {
+        display: inline-block;
         margin-right: 10px;
+        margin-bottom: 5px;
       }
       .show-link,
       .hide-link {
         @include cachet();
+      }
+      .show-link {
+        display: inline-block;
       }
       .branch-hours {
         position: absolute;
         top: 60px;
         background: $purple;
         padding: 5px 15px;
-        width: 270px;
+        width: auto;
         left: -15px;
         z-index: 1;
         @include breakpoint(laptop) {
