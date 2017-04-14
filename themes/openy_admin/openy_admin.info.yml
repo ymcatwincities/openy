@@ -9,13 +9,6 @@ libraries-override:
       theme:
         css/theme/install-page.css: css/install-page.css
 
-libraries-extend:
-  tour/tour-styling:
-    - openy_admin/tour-styling
-
-libraries:
-  - openy_admin/global-styling
-
 regions:
   header: 'Header'
   pre_content: 'Pre-content'
