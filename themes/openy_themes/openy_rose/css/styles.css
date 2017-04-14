@@ -4017,6 +4017,9 @@ html.js .branch__updates_queue__button {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
 }
+.blog-more-teaser .no-results {
+  margin-bottom: 49px;
+}
 
 .comma-list .item:after {
   content: ",";
