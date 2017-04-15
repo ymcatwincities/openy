@@ -2848,7 +2848,7 @@ body {
   margin: 0 10px 0 0;
 }
 .branch-header .mobile .ui-tabs .ui-tabs-nav .ui-tabs-active {
-  background: #92278f;
+  background: #c6168d;
 }
 .branch-header .mobile .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
   color: #fff;
@@ -2857,7 +2857,7 @@ body {
   padding: 4px 20px;
 }
 .branch-header .mobile .ui-tabs .ui-tabs-panel {
-  background: #92278f;
+  background: #c6168d;
   border-radius: 0;
   color: #fff;
   border: none;
@@ -4953,7 +4953,7 @@ a[href="#step2"] {
   white-space: nowrap;
   border-radius: 0;
   color: white;
-  background-color: #92278f;
+  background-color: #c6168d;
   text-align: center;
   padding: 9px;
   width: 90%;
@@ -4986,7 +4986,7 @@ a[href="#step2"] {
   height: 0;
   border-top: 60px solid transparent;
   border-bottom: 60px solid transparent;
-  border-left: 30px solid  #92278f;
+  border-left: 30px solid #c6168d;
   position: absolute;
   top: 50%;
   margin-top: -60px;
