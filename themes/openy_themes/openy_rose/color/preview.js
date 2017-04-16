@@ -33,6 +33,8 @@
       // Text preview.
       $colorPreview.find('.color-preview-main').css('color', $colorPalette.find('input[name="palette[text]"]').val());
       $colorPreview.find('.color-preview-main a').css('color', $colorPalette.find('input[name="palette[link]"]').val());
+      $colorPreview.find('.color-preview-main h3').css('color', $colorPalette.find('input[name="palette[primaryhighlight]"]').val());
+      $colorPreview.find('.color-preview-main h4').css('color', $colorPalette.find('input[name="palette[secondaryhighlight]"]').val());
       $colorPreview.find('.preview-button').css('background-color', $colorPalette.find('input[name="palette[button]"]').val());
       $colorPreview.find('.preview-button').css('color', $colorPalette.find('input[name="palette[buttonlink]"]').val());
 

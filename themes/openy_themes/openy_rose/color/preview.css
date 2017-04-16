@@ -31,7 +31,7 @@
   padding: 10px;
 }
 .color-preview-branch-subheader {
-  background-color: #c6168d;
+  background-color: #c6168b;
   color: #ffffff;
   padding: 10px;
 }
@@ -41,6 +41,12 @@
 }
 .color-preview-main a {
   color: #337ab7;
+}
+.color-preview-main h3 {
+  color: #5c2e91;
+}
+.color-preview-main h4 {
+  color: #c6168d;
 }
 .color-preview .preview-button {
   background-color: #00aeef;
