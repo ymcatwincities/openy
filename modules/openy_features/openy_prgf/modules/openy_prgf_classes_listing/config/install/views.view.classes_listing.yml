@@ -481,41 +481,7 @@ display:
           required: false
           entity_type: node
           plugin_id: entity_reverse
-      arguments:
-        field_activity_category_target_id:
-          id: field_activity_category_target_id
-          table: node__field_activity_category
-          field: field_activity_category_target_id
-          relationship: field_class_activity
-          group_type: group
-          admin_label: ''
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: false
-          title: ''
-          default_argument_type: node
-          default_argument_options: {  }
-          default_argument_skip_url: false
-          summary_options:
-            base_path: ''
-            count: true
-            items_per_page: 25
-            override: false
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          break_phrase: false
-          not: false
-          plugin_id: numeric
+      arguments: {  }
       display_extenders: {  }
       use_ajax: true
       css_class: sub-category-classes-view
@@ -530,24 +496,37 @@ display:
       tags:
         - 'config:core.entity_view_display.node.activity.default'
         - 'config:core.entity_view_display.node.activity.teaser'
+        - 'config:core.entity_view_display.node.alert.default'
+        - 'config:core.entity_view_display.node.alert.node_alert_footer'
+        - 'config:core.entity_view_display.node.alert.node_alert_header'
+        - 'config:core.entity_view_display.node.alert.teaser'
         - 'config:core.entity_view_display.node.blog.default'
+        - 'config:core.entity_view_display.node.blog.full'
         - 'config:core.entity_view_display.node.blog.teaser'
+        - 'config:core.entity_view_display.node.branch.calc_summary'
         - 'config:core.entity_view_display.node.branch.default'
+        - 'config:core.entity_view_display.node.branch.full'
         - 'config:core.entity_view_display.node.branch.teaser'
         - 'config:core.entity_view_display.node.camp.default'
+        - 'config:core.entity_view_display.node.camp.full'
         - 'config:core.entity_view_display.node.camp.teaser'
         - 'config:core.entity_view_display.node.class.default'
         - 'config:core.entity_view_display.node.class.teaser'
         - 'config:core.entity_view_display.node.facility.default'
+        - 'config:core.entity_view_display.node.facility.full'
         - 'config:core.entity_view_display.node.facility.teaser'
         - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.landing_page.full'
         - 'config:core.entity_view_display.node.landing_page.teaser'
+        - 'config:core.entity_view_display.node.membership.calc_preview'
+        - 'config:core.entity_view_display.node.membership.calc_summary'
         - 'config:core.entity_view_display.node.membership.default'
         - 'config:core.entity_view_display.node.membership.teaser'
         - 'config:core.entity_view_display.node.program.default'
+        - 'config:core.entity_view_display.node.program.full'
         - 'config:core.entity_view_display.node.program.teaser'
         - 'config:core.entity_view_display.node.program_subcategory.default'
+        - 'config:core.entity_view_display.node.program_subcategory.full'
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
@@ -572,24 +551,37 @@ display:
       tags:
         - 'config:core.entity_view_display.node.activity.default'
         - 'config:core.entity_view_display.node.activity.teaser'
+        - 'config:core.entity_view_display.node.alert.default'
+        - 'config:core.entity_view_display.node.alert.node_alert_footer'
+        - 'config:core.entity_view_display.node.alert.node_alert_header'
+        - 'config:core.entity_view_display.node.alert.teaser'
         - 'config:core.entity_view_display.node.blog.default'
+        - 'config:core.entity_view_display.node.blog.full'
         - 'config:core.entity_view_display.node.blog.teaser'
+        - 'config:core.entity_view_display.node.branch.calc_summary'
         - 'config:core.entity_view_display.node.branch.default'
+        - 'config:core.entity_view_display.node.branch.full'
         - 'config:core.entity_view_display.node.branch.teaser'
         - 'config:core.entity_view_display.node.camp.default'
+        - 'config:core.entity_view_display.node.camp.full'
         - 'config:core.entity_view_display.node.camp.teaser'
         - 'config:core.entity_view_display.node.class.default'
         - 'config:core.entity_view_display.node.class.teaser'
         - 'config:core.entity_view_display.node.facility.default'
+        - 'config:core.entity_view_display.node.facility.full'
         - 'config:core.entity_view_display.node.facility.teaser'
         - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.landing_page.full'
         - 'config:core.entity_view_display.node.landing_page.teaser'
+        - 'config:core.entity_view_display.node.membership.calc_preview'
+        - 'config:core.entity_view_display.node.membership.calc_summary'
         - 'config:core.entity_view_display.node.membership.default'
         - 'config:core.entity_view_display.node.membership.teaser'
         - 'config:core.entity_view_display.node.program.default'
+        - 'config:core.entity_view_display.node.program.full'
         - 'config:core.entity_view_display.node.program.teaser'
         - 'config:core.entity_view_display.node.program_subcategory.default'
+        - 'config:core.entity_view_display.node.program_subcategory.full'
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
