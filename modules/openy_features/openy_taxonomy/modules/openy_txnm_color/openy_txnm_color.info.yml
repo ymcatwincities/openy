@@ -5,7 +5,6 @@ core: 8.x
 dependencies:
   - field
   - jquery_colorpicker
-  - openy_node
   - path
   - taxonomy
   - text
