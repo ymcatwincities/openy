@@ -65,17 +65,3 @@ function openy_node_category_update_8002() {
     }
   }
 }
-
-/**
- * Update Program Subcategory with Metatag config.
- */
-function openy_loc_branch_update_8003() {
-  $module = 'openy_node_category';
-  $bundle = 'program_subcategory';
-  $config_dir = drupal_get_path('module', $module) . '/config/install';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'metatag.metatag_defaults.node__' . $bundle,
-  ]);
-}

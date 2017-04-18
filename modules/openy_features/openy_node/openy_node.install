@@ -17,21 +17,3 @@ function openy_node_update_8001() {
     'field.storage.node.field_bottom_content',
   ]);
 }
-
-/**
- * Enable Metatag, Redirect and Simple Sitemap modules.
- */
-function openy_update_8002() {
-  // Image Style & OG Meta tags defaults
-  $config_dir = drupal_get_path('module', 'openy_node') . '/config/install';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'image.style.facebook',
-    'metatag.metatag_defaults.node',
-    'field.storage.node.field_meta_tags',
-  ]);
-  $config = drupal_get_path('module', 'openy_node') . 'openy_node.info.yml';
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config_importer->update($config, 'openy_node.info', 'dependencies');
-}
