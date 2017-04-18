@@ -206,4 +206,9 @@ fieldset {
   .js-form-item-members-add-more-items {
     display: none;
   }
+  #edit-actions {
+    @include breakpoint(tablet) {
+      padding: 0 0 30px 0;
+    }
+  }
 }
