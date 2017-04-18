@@ -1,6 +1,6 @@
 name: OpenY Admin
 type: theme
-# core: 8.x
+core: '8.x'
 base theme: seven
 
 libraries-override:
@@ -21,6 +21,3 @@ regions:
   sidebar_first: 'First sidebar'
 regions_hidden:
   - sidebar_first
-
-core: '8.x'
-
