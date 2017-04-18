@@ -19,11 +19,19 @@ body {
     }
 
     img {
-      height: 38px;
+      // For IE11 compatibility
+      height: auto;
+      width: auto;
+      max-height: 38px;
+      max-width: 50px;
       margin: 16px;
 
       @include breakpoint(laptop) {
-        height: 70px;
+        // For IE11 compatibility
+        height: auto;
+        width: auto;
+        max-height: 70px;
+        max-width: 91px;
       }
     }
   }
