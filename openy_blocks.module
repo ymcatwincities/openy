@@ -34,6 +34,10 @@ function openy_blocks_block_content_view_alter(array &$build, EntityInterface $e
   /** @var \Drupal\block_content\Entity\BlockContent $entity */
 
   switch ($entity->bundle()) {
+    case 'date_block':
+      \Drupal::service('openy.date_block')->viewAlter($build, $entity);
+      break;
+
     case 'expander_block':
       $content = $entity->field_block_content->get(0);
       if (!$content) {
