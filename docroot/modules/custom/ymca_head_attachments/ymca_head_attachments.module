@@ -89,7 +89,7 @@ function ymca_head_attachments_page_attachments(array &$page) {
 function ymca_head_attachments_preprocess_views_view(&$vars) {
   // Add prev/next link metatags.
   $pager = $vars['view']->pager;
-  if (method_exists($pager, 'getPagerTotal') && $pager->getPagerTotal() != 0) {
+  if (method_exists($pager, 'getPagerTotal') && $pager->getPagerTotal() > 1) {
     $current_page = $pager->getCurrentPage();
     $last_page = $pager->getPagerTotal() - 1;
     $route_match = \Drupal::routeMatch()->getRouteObject();
