@@ -301,7 +301,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $message = sprintf('The text %s was not found anywhere in the XML.', $text);
 
     if (strpos($xml, $text) === FALSE) {
-      throw new ResponseTextException($message, $this->session->getDriver());
+      throw new ResponseTextException($message, $this->getSession()->getDriver());
     }
   }
 
