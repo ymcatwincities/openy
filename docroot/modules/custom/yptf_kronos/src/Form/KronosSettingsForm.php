@@ -72,7 +72,7 @@ class KronosSettingsForm extends ConfigFormBase {
         '#type' => 'text_format',
         '#title' => t('Body'),
         '#default_value' => !empty($config->get($id)['body']['value']) ? $config->get($id)['body']['value'] : '',
-        '#description' => $this->t('Token to use: [leadership-report], [pt-manager-report]. It will be replaced with appropriate report.'),
+        '#description' => $this->t('Tokens to use: [leadership-report], [pt-manager-report]. It will be replaced with appropriate report.'),
         '#format' => 'full_html',
       );
 
