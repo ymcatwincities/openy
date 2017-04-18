@@ -10,8 +10,8 @@ dependencies:
     - ygh
 id: footerunitedwayagencyblock
 theme: ygh
-region: footer_social
-weight: 0
+region: footer_address
+weight: -10
 provider: null
 plugin: 'block_content:b4c1c75a-fdc9-4aea-838b-a98440f40bdf'
 settings:
