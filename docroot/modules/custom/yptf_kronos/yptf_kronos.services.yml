@@ -2,6 +2,6 @@ services:
   logger.channel.yptf_kronos_reports:
     parent: logger.channel_base
     arguments: ['yptf_kronos_reports']
-  ymca_training_reports.poc:
+  yptf_kronos_reports.poc:
     class: Drupal\yptf_kronos\YptfKronosReportsPoc
     arguments: ['@config.factory', '@mindbody_cache_proxy.client', '@logger.channel.yptf_kronos_reports']
