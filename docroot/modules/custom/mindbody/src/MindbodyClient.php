@@ -122,6 +122,9 @@ class MindbodyClient implements MindbodyClientInterface {
 
     try {
       $result = $this->client->{$endpoint}($this->getMindbodyParams($params));
+      if ($service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && $params['FunctionName'] == 'YMCAGTC_GetEmpID') {
+        $result->SoapClient = $this->client;
+      }
 
       if ($this->debug) {
         $last_request = $this->client->__getLastRequest();
