@@ -122,13 +122,6 @@ function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $var
   if (in_array('node__blog__default', $suggestions)) {
     array_push($suggestions, 'node__blog__full');
   }
-  if (in_array('node__article__default', $suggestions)) {
-    array_push($suggestions, 'node__article__full');
-  }
-  // Detect all pages which referenced to location by context.
-  if ($data = openy_lily_detect_locations_pages()) {
-    array_push($suggestions, 'node__article__location__full');
-  }
   if (in_array('node__location__default', $suggestions)) {
     array_push($suggestions, 'node__location__full');
   }
@@ -137,9 +130,6 @@ function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $var
     switch ($variables['elements']['#node']->bundle()) {
       case 'blog':
         array_push($suggestions, 'node__blog__camp__full');
-        break;
-      case 'article':
-        array_push($suggestions, 'node__article__camp__full');
         break;
     }
   }
@@ -212,27 +202,6 @@ function openy_lily_preprocess_node($variables) {
   if (!$variables['is_front']) {
     $front_page = Drupal::config('system.site')->get('page.front');
     $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
-  }
-
-  // Article specific preprocessing.
-  if ($variables['node']->bundle() == 'article') {
-    $variables['header_image_url'] = '';
-    if ($header_image = $variables['node']->field_header_image->getValue()) {
-      $id = $header_image[0]['target_id'];
-      $file = Drupal::entityTypeManager()->getStorage('file')->load($id);
-      $original_path = $file->getFileUri();
-      // Load style.
-      $style = Drupal::entityTypeManager()
-        ->getStorage('image_style')
-        ->load('2013_masthead');
-      // Set up derivative file information.
-      $thumbnail = $style->buildUri($original_path);
-      // Create derivative if necessary.
-      if (!file_exists($thumbnail)) {
-        $style->createDerivative($original_path, $thumbnail);
-      }
-      $variables['header_image_url'] = file_create_url($thumbnail);
-    }
   }
 
   // Location specific preprocessing.

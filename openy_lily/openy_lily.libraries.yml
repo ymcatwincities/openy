@@ -1,10 +1,7 @@
 global-styling:
   version: VERSION
   css:
-    base:
-      css/legacy/bootstrap.min.css: {}
     theme:
-      css/legacy/components.css: {}
       css/style.css: {}
   js:
     /libraries/equalize/js/equalize.min.js: {}
@@ -29,12 +26,6 @@ add-this:
   version: 0
   js:
     //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e32d757236e8924: { type: external, minified: true }
-
-retention:
-  version: VERSION
-  css:
-    theme:
-      css/ysr_2017.css: {}
 
 admin-side:
   version: VERSION
