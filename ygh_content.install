@@ -12,3 +12,17 @@ function ygh_content_install() {
   $file = DRUPAL_ROOT . '/' . drupal_get_path('module', 'ygh_content') . '/misc/data.xml';
   file_unmanaged_copy($file);
 }
+
+/**
+ * Put block in footer address region.
+ */
+function ygh_content_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'ygh_content') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'block.block.footeraddressblock',
+      'block.block.footerunitedwayagencyblock'
+    ]
+  );
+}

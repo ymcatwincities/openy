@@ -10,8 +10,8 @@ dependencies:
     - ygh
 id: footeraddressblock
 theme: ygh
-region: footer_menus
-weight: 0
+region: footer_address
+weight: -11
 provider: null
 plugin: 'block_content:c0225569-e804-4235-9c1b-f786a9a8a372'
 settings:
