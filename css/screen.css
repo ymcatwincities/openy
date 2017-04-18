@@ -6629,14 +6629,8 @@ body {
         overflow: hidden; }
       @media (min-width: 768px) {
         .footer .inner-footer--right {
-          width: 40%; } }
-      .footer .inner-footer--right .item-share--uwa {
-        font-family: "Helvetica Neue LT W01_55 Roman", Helvetica, Arial, sans-serif;
-        font-size: 12px;
-        line-height: 1.5; }
-        @media (min-width: 768px) {
-          .footer .inner-footer--right .item-share--uwa {
-            position: absolute; } }
+          width: 40%;
+          clear: both; } }
     .footer .inner-footer--bottom {
       padding: 0 15px;
       font-size: 12px;
@@ -6708,12 +6702,10 @@ body {
             padding-top: 0; } }
     .footer .inner-footer .logo {
       max-width: 102px;
-      padding: 20px 20px 0 15px; }
+      padding: 20px 20px 0 15px;
+      display: none; }
       .footer .inner-footer .logo img {
         width: 100%; }
-      @media (min-width: 768px) {
-        .footer .inner-footer .logo {
-          display: none; } }
       @media (min-width: 992px) {
         .footer .inner-footer .logo {
           display: block; } }
@@ -6823,11 +6815,45 @@ body {
   font-size: 12px;
   line-height: 1.5;
   clear: both;
+  position: relative;
+  top: 15px;
+  height: 10px;
   padding: 0px 15px; }
   @media (min-width: 768px) {
     #block-footeraddressblock {
-      position: absolute;
-      bottom: 0; } }
+      float: right;
+      clear: both;
+      width: 40%; } }
+  @media (min-width: 845px) and (max-width: 1090px) {
+    #block-footeraddressblock {
+      float: right;
+      clear: both;
+      width: 40%; } }
+  @media (min-width: 992px) {
+    #block-footeraddressblock {
+      position: inherit;
+      top: 0px;
+      float: left;
+      padding: 0px 115px;
+      width: 60%; } }
+  #block-footeraddressblock .block-share {
+    padding-top: 22px; }
+
+#block-footerunitedwayagencyblock {
+  padding: 0px 15px;
+  position: relative;
+  top: -40px;
+  height: 40px; }
+  @media (min-width: 992px) {
+    #block-footerunitedwayagencyblock {
+      position: inherit;
+      top: 0; } }
+  @media (min-width: 768px) {
+    #block-footerunitedwayagencyblock {
+      float: right;
+      clear: both;
+      width: 40%;
+      top: -40px; } }
 
 @media (max-width: 480px) {
   #block-footersocialblock {
@@ -6843,6 +6869,14 @@ body {
   padding-bottom: 12px; }
   #block-footercopyrightblock .field-sb-body p {
     max-width: 350px; }
+
+.inner-footer--address {
+  width: 100%;
+  padding: 24px 15px 0; }
+  .inner-footer--address .item-share--uwa {
+    font-family: "Helvetica Neue LT W01_55 Roman", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5; }
 
 .features-stories__wrapper {
   display: -webkit-box;
