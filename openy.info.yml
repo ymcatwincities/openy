@@ -4,6 +4,8 @@ description: 'Open Y Drupal distribution.'
 core: 8.x
 distribution:
   name: OpenY
+  install:
+      theme: openy_admin
 php: 5.6
 # Required modules
 dependencies:
@@ -136,4 +138,5 @@ dependencies:
 themes:
   - bartik
   - openy_rose
+  - openy_admin
   - seven
