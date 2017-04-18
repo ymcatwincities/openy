@@ -104,9 +104,17 @@ tips:
     weight: 12
     attributes:
       data-class: 'label:contains("Landing Page")'
+  alert:
+    id: alert
+    plugin: text
+    label: 'Alert Content'
+    body: 'Alerts are messages that appear in header or in footer. Can be used to notify about last day of free subscription. Or about holiday hours changed.'
+    weight: 13
+    attributes:
+      data-class: 'label:contains("Alert")'
   next-tutorial:
     id: next-tutorial
     plugin: text
     label: 'Next tutorial'
     body: '<a href="[site:url]node/add/landing_page?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to add landing page.'
-    weight: 13
+    weight: 14
