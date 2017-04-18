@@ -19,9 +19,20 @@ function openy_node_update_8001() {
 }
 
 /**
- * Enable Metatag, Redirect and Simple Sitemap modules.
+ * Update Editor roles permissions.
  */
 function openy_node_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node');
+  $config .= '/config/install/';
+  $config .= 'tour.tour.openy-node-add.yml';
+  $config_importer->update($config, 'tour.tour.openy-node-add', 'tips');
+}
+
+/**
+ * Enable Metatag, Redirect and Simple Sitemap modules.
+ */
+function openy_node_update_8003() {
   // Image Style & OG Meta tags defaults
   $config_dir = drupal_get_path('module', 'openy_node') . '/config/install';
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
