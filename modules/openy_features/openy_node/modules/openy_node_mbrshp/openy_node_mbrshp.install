@@ -18,3 +18,17 @@ function openy_node_mbrshp_update_8001() {
     'third_party_settings.datalayer'
   );
 }
+
+/**
+ * Update Membership with Metatag config.
+ */
+function openy_node_mbrshp_update_8002() {
+  $module = 'openy_node_mbrshp';
+  $bundle = 'membership';
+  $config_dir = drupal_get_path('module', $module) . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'metatag.metatag_defaults.node__' . $bundle,
+  ]);
+}
