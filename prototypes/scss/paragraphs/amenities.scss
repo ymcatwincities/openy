@@ -83,20 +83,18 @@
       .form-item {
         margin: 0 0 5px;
         input.form-checkbox {
-          position: relative;
-          top: 4px;
+
         }
         .field-amenities-icon {
           padding: 0;
           width: 30px;
           height: 30px;
           margin: 0 4px;
-          position: relative;
-          top: 8px;
         }
         label {
-          vertical-align: middle;
-          margin-bottom: 0px;
+          .field-amenities-icon-wrapper {
+            vertical-align: middle;
+          }
           .term-name {
             @include breakpoint(mobileonly) {
               width: auto;
