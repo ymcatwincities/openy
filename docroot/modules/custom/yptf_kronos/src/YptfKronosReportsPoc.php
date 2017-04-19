@@ -132,10 +132,7 @@ class YptfKronosReportsPoc {
    * Calculate/compare data from Kronos & reports.
    */
   public function poc() {
-
-
     //$this->getMindbodyStaff();
-    // @TODO: Get rid from mindbody $this->debug = TRUE.
     // Get Kronos data.
     $trainer_reports = [];
     $location_reports = [];
@@ -454,6 +451,7 @@ class YptfKronosReportsPoc {
     $config = \Drupal::config('yptf_kronos.settings');
     $debug_mode = $config->get('debug');
     $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
+    $report_tokens = ['leadership' => '[leadership-report]', 'pt_managers' => '[pt-manager-report]'];
 
     // Get settings.
     $storage = \Drupal::entityTypeManager()->getStorage('mapping');
@@ -462,11 +460,28 @@ class YptfKronosReportsPoc {
       if (!empty($config->get($report_type)['enabled']) && !empty($config->get($report_type)['staff_type'])) {
         $recipients = $storage->loadByProperties(['type' => 'staff', 'field_staff_type' => $config->get($report_type)['staff_type']]);
         foreach ($recipients as $index => $recipient) {
-          $tokens = $this->createReportTable($recipient, $recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
 
+          $body = $config->get($report_type)['body']['value'];
+          $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
+          if (!$token) {
+            $token = 'No data.';
+          }
+          $tokens['body'] = str_replace($report_tokens[$report_type], $token, $body);
+          $tokens['subject'] = $config->get($report_type)['subject'];
 
-          if (!empty($debug_mode)) {
-            dpm($tokens);
+          // Debug Mode: Print results on screen or send to mail.
+          if (!empty($debug_mode) && $debug_mode == 'dpm') {
+            dpm($token);
+          }
+          elseif (!empty($debug_mode) && $debug_mode == 'mail') {
+            try {
+              // Send notifications.
+              $this->mailManager->mail('yptf_kronos', 'yptf_kronos_reports', $debug_mode, $lang, $tokens);
+            }
+            catch (\Exception $e) {
+              $msg = 'Failed to send email report. Error: %error';
+              $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+            }
           }
           else {
             try {
@@ -483,51 +498,20 @@ class YptfKronosReportsPoc {
 
     }
 
-
-    /*
-    // ==========
-    // Prepare render array with data.
-    $table = [
-      '#type' => 'table',
-      '#attributes' => array(),
-      '#header' => [
-        t('*Trainer Name*'),
-        t('*Workforce* PT <br>Hours Submitted'),
-        t('*MINDBODY* <br>Reported PT Hours<Booked>'),
-        t('*Variance*'),
-        t('*Historical Hours*<br>Corrected time from past report'),
-      ],
-      '#rows' => $report_rows,
-    ];
-    $rendered_data = $this->renderer->renderRoot($table)->__toString();
-
-    $tokens = [
-      'data' => $rendered_data,
-      'last_run_date' => date('m/d/Y', $last_run_time),
-    ];
-    try {
-      // Send notifications.
-      if (!empty($to = $this->configFactory->get('ymca_mindbody.settings')->get('failed_orders_recipients'))) {
-        $lang = $this->languageManager->getCurrentLanguage()->getId();
-        $this->mailManager->mail('ymca_mindbody', 'yptf_kronos', $to, $lang, $tokens);
-      }
-    }
-    catch (\Exception $e) {
-      $msg = 'Failed to send email notification. Error: %error';
-      $this->logger->critical($msg, ['%error' => $e->getMessage()]);
-    }
-    */
   }
 
   /**
-   * @param $recipient
+   * Render report table.
+   *
    * @param int $location_id
    *   Location ID.
    * @param string $type
+   *   Email type.
+   *
    * @return bool|string
+   *   Rendered value.
    */
-
-  public function createReportTable($recipient, $location_id, $type = 'leadership') {
+  public function createReportTable($location_id, $type = 'leadership') {
     $report_type_name = $type != 'leadership' ? 'Trainer Name' : 'Branch Name';
     $style = '
               <style type="text/css">
@@ -577,7 +561,7 @@ class YptfKronosReportsPoc {
         break;
 
       case "leadership":
-        if (empty($this->reports['trainers'][$location_mid])) {
+        if (empty($this->reports['locations'])) {
           return FALSE;
         }
         foreach ($this->reports['locations'] as $loc_id => $branch) {
