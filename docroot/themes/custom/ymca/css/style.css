@@ -8461,6 +8461,31 @@ body .ajax-progress-throbber .throbber {
   margin-top: 10px;
 }
 
+.white-underlined-link {
+  color: #fff;
+}
+.white-underlined-link .underlined {
+  text-decoration: underline;
+}
+.white-underlined-link:hover, .white-underlined-link:focus {
+  text-decoration: none;
+  color: #fff;
+}
+
+span.grey-caret:after {
+  margin-left: 10px;
+  width: 8%;
+  color: #b3b3b3;
+  content: 'o';
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'YMCA';
+  -webkit-transition: color .3s ease-out;
+  -moz-transition: color .3s ease-out;
+  -ms-transition: color .3s ease-out;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
