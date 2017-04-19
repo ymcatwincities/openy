@@ -6,8 +6,13 @@
  */
 
 function openy_loc_camp_update_dependencies() {
-  $dependencies['openy_loc_camp'][8002] = [
-    'openy_node' => 8001,
+  $dependencies['openy_loc_camp'] = [
+    8002 => [
+      'openy_node' => 8001,
+    ],
+    8003 => [
+      'openy_node' => 8003,
+    ]
   ];
 
   return $dependencies;
