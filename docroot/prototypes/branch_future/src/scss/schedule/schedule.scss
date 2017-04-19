@@ -45,7 +45,7 @@
   height: 22.7vw;
   border-radius: 10px;
   background-color: #fff;
-  //box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   margin: auto;
   opacity: 1;
@@ -53,7 +53,7 @@
   top: 10.4vw;
   left: 50%;
   margin-left: -42.5vw;
-  transition: top 5s, width 5s, height 5s, margin-left 5s, opacity 5s, background-color 1s;
+  transition: top 2s, width 2s, height 2s, margin-left 2s, opacity 2s, background-color 1s;
   z-index: 10;
 
   .trainer {
@@ -62,7 +62,7 @@
     text-align: center;
     font-size: 2.45vw;
     padding-top: 3.9vw;
-    transition: font-size 5s, padding-top 5s;
+    transition: font-size 2s, padding-top 2s;
   }
 
   .class-name {
@@ -71,7 +71,7 @@
     margin: auto;
     padding-top: 0;
     text-align: center;
-    transition: font-size 5s, padding-top 5s;
+    transition: font-size 2s, padding-top 2s;
 
   }
 
@@ -130,6 +130,7 @@
     width: 76vw;
     //height: 40vh;
     height: 13.4vw;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     background-color: #75aed7;
     //text-transform: uppercase;
     margin: auto;
@@ -176,8 +177,7 @@
     width: 76vw;
     //height: 40vh;
     height: 13.4vw;
-    background-color: #75aed7;
-    //box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
     //text-transform: uppercase;
     margin: auto;
     top: -40vw;
@@ -192,4 +192,67 @@
       opacity: 0;
     }
   }
+}
+
+.page-schedule {
+  &.scheme-orange {
+    background-image: url(../images/bg-body-orange.png);
+    background-color: #fcaf17;
+  }
+}
+
+.scheme-orange {
+
+  .header--inner .title {
+    color: #f15922;
+  }
+
+  .class {
+
+    .trainer {
+      color: #fcaf17;
+    }
+
+    .class-name {
+      color: #f15922;
+    }
+
+    .class-time-frame-from {
+      color: #fcaf17;
+    }
+
+    .class-time-frame-to {
+      color: #f15922;
+    }
+
+    .class-time-frame-progress {
+      background-color: #f15922;
+    }
+
+    .class-time-frame-progress-bar {
+      background-color: #fcaf17;
+    }
+  }
+
+  .class-next,
+  .class-prev {
+    .class {
+      background-color: #fac791;
+
+      .class-name {
+        color: #f15922;
+      }
+
+      .class-time-frame-from {
+        color: #f15922;
+      }
+    }
+  }
+
+  .class-prev {
+    .class {
+      background-color: #fac791;
+    }
+  }
+
 }
