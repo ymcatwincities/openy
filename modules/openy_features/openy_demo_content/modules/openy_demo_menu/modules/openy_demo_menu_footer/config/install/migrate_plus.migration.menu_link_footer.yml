@@ -13,7 +13,7 @@ source:
       id: 1
       title: 'Programs'
       menu_name: 'footer-menu-left'
-      link: 'base:openy'
+      link: 'openy'
       weight: 1
       parent_id: 0
       expanded: 1
@@ -22,7 +22,7 @@ source:
       id: 2
       title: 'Health and Fitness'
       menu_name: 'footer-menu-left'
-      link: 'base:programs/health-and-fitness'
+      link: 'programs/health-and-fitness'
       weight: 1
       parent_id: 1
       expanded: 0
@@ -31,7 +31,7 @@ source:
       id: 3
       title: 'Swimming'
       menu_name: 'footer-menu-left'
-      link: 'base:programs/swimming'
+      link: 'programs/swimming'
       weight: 2
       parent_id: 1
       expanded: 0
@@ -40,7 +40,7 @@ source:
       id: 4
       title: 'Kids and Family Activities'
       menu_name: 'footer-menu-left'
-      link: 'base:programs/kids-and-family-activities'
+      link: 'programs/kids-and-family-activities'
       weight: 3
       parent_id: 1
       expanded: 0
@@ -49,7 +49,7 @@ source:
       id: 5
       title: 'Child Care'
       menu_name: 'footer-menu-left'
-      link: 'base:programs/child-care'
+      link: 'programs/child-care'
       weight: 4
       parent_id: 1
       expanded: 0
@@ -58,7 +58,7 @@ source:
       id: 6
       title: 'Camps'
       menu_name: 'footer-menu-left'
-      link: 'base:programs/camps'
+      link: 'programs/camps'
       weight: 5
       parent_id: 1
       expanded: 0
@@ -67,7 +67,7 @@ source:
       id: 7
       title: 'Youth Programs'
       menu_name: 'footer-menu-left'
-      link: 'base:programs/youth-programs'
+      link: 'programs/youth-programs'
       weight: 6
       parent_id: 1
       expanded: 0
@@ -76,7 +76,7 @@ source:
       id: 8
       title: 'Home'
       menu_name: 'footer-menu-center'
-      link: 'base:openy'
+      link: 'openy'
       weight: 1
       parent_id: 0
       expanded: 0
@@ -85,7 +85,7 @@ source:
       id: 9
       title: 'Locations'
       menu_name: 'footer-menu-center'
-      link: 'base:locations'
+      link: 'locations'
       weight: 2
       parent_id: 0
       expanded: 0
@@ -94,7 +94,7 @@ source:
       id: 10
       title: 'Blog'
       menu_name: 'footer-menu-center'
-      link: 'base:blog'
+      link: 'blog'
       weight: 3
       parent_id: 0
       expanded: 0
@@ -103,7 +103,7 @@ source:
       id: 11
       title: 'Accelerator'
       menu_name: 'footer-menu-center'
-      link: 'base:accelerator'
+      link: 'accelerator'
       weight: 4
       parent_id: 0
       expanded: 0
@@ -112,7 +112,7 @@ source:
       id: 12
       title: 'About'
       menu_name: 'footer-menu-right'
-      link: 'base:about'
+      link: 'about'
       weight: 1
       parent_id: 0
       expanded: 0
@@ -121,7 +121,7 @@ source:
       id: 13
       title: 'Give'
       menu_name: 'footer-menu-right'
-      link: 'base:give'
+      link: 'give'
       weight: 2
       parent_id: 0
       expanded: 0
@@ -130,7 +130,7 @@ source:
       id: 14
       title: 'Join'
       menu_name: 'footer-menu-right'
-      link: 'base:join'
+      link: 'join'
       weight: 3
       parent_id: 0
       expanded: 0
