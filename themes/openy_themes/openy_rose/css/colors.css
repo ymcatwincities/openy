@@ -56,7 +56,7 @@ a,
   border-bottom: #0060af;
 }
 .branch-header .desktop {
-  background-color: #c6168d;
+  background-color: #c6168db;
 }
 .page-head__main-menu .nav-level-2 > a,
 .page-head__main-menu .nav-level-3 > a,
@@ -81,6 +81,86 @@ a,
 .footer,
 .footer .footer__nav nav ul li a {
   color: #fffffa;
+}
+
+/* Primary highlight color (purple.) */
+.program-header.purple .content,
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn,
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button,
+#membership-calc-wrapper .pull-right,
+#membership-calc-wrapper .complete-registration,
+#membership-calc-wrapper .nav-pills > li.active div,
+#membership-calc-wrapper .nav-pills > li:first-child div {
+  background-color: #5c2e91;
+}
+.paragraph--column-in-a-grid .fa,
+.paragraph-gallery .item__caption,
+.sidebar-card h2,
+.story-card a,
+.story-card .quote,
+.color-purple, .description.purple, .paragraph.featured-content .description,
+.program-header.purple .description,
+.sub-category-classes-view .activity-group h3,
+.branch-sessions-group h3,
+.branch-sessions-group .group_time,
+.locations-list h1.color-purple,
+.locations-list h1.description.purple,
+.locations-list .paragraph.featured-content h1.description,
+.paragraph.featured-content .locations-list h1.description,
+.locations-list h2.color-purple,
+.locations-list h2.description.purple,
+.locations-list .paragraph.featured-content h2.description,
+.paragraph.featured-content .locations-list h2.description,
+[class*="sidebar"] .node--type-facility.node--view-mode-teaser h2 a,
+[class*="sidebar"] .node--type-branch.node--view-mode-teaser h2 a,
+[class*="sidebar"] .node--type-camp.node--view-mode-teaser h2 a,
+.node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h2,
+.node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h4,
+.node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h2,
+.class-page-schedule .ticket,
+#schedules-search-form-wrapper .results .group_time,
+#schedules-search-form-wrapper .results .views-row .ticket,
+body .branch-popup .ui-dialog-content h3 {
+  color: #5c2e91;
+}
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn,
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button {
+  box-shadow: 0 0 5px #5c2e91;
+}
+#membership-calc-wrapper .nav-pills > li:first-child div:after,
+#membership-calc-wrapper .nav-pills > li.active div:after {
+  border-left-color: #5c2e91;
+}
+
+/* Secondary highlight color (pink.) */
+.branch-header .desktop,
+.branch-header .desktop .today-hours .branch-hours,
+.branch-header .mobile,
+.node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
+#membership-calc-wrapper .nav-pills > li div {
+  background-color: #c6168d;
+}
+.paragraph-gallery .cta-group-wrapper .cta-group h1,
+.sub-category-classes-view .activity-group .activity-group-slider .slick-dots li.slick-active button:before,
+.branch__updates_queue .slick-dots li.slick-active button:before,
+.branch-sessions-group .branch-sessions-group-slider .slick-dots li.slick-active button:before,
+.featured-content .slick-dots li.slick-active button:before,
+#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
+  color: #c6168d;
+}
+.paragraph--class-content .cards > a,
+.paragraph--class-content .cards .field-collection-item.without-link,
+.sub-category-classes-view .activity-group .teaser-row,
+.sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity,
+.branch-sessions-group .views-row,
+#schedules-search-form-wrapper .results .views-row {
+  border-color: #c6168d;
+}
+#membership-calc-wrapper .nav-pills > li div:after {
+  border-left-color: #c6168d;
+}
+.branch-sessions-group .group_time {
+  border-bottom-color: #c6168d;
 }
 
 /* Camp specific overrides */
