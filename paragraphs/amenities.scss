@@ -82,18 +82,34 @@
       }
       .form-item {
         margin: 0 0 5px;
+        input.form-checkbox {
+
+        }
         .field-amenities-icon {
           padding: 0;
           width: 30px;
           height: 30px;
           margin: 0 4px;
-          position: relative;
-          top: 8px;
         }
         label {
-          vertical-align: middle;
-          line-height: 36px;
-          margin-bottom: 0px;
+          .field-amenities-icon-wrapper {
+            vertical-align: middle;
+          }
+          .term-name {
+            @include breakpoint(mobileonly) {
+              width: auto;
+            }
+            @include breakpoint(tablet) {
+              width: auto;
+            }
+
+            @include breakpoint(laptop) {
+              width: 155px;
+            }
+            @include breakpoint(desktop) {
+              width: auto;
+            }
+          }
           div {
             display: inline-block;
             svg {
@@ -106,6 +122,10 @@
         }
       }
     }
+  }
+
+  .views-field-field-location-amenities .term-name {
+    display: none;
   }
 }
 
