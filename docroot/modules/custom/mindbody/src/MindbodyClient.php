@@ -118,17 +118,17 @@ class MindbodyClient implements MindbodyClientInterface {
    */
   public function call($service, $endpoint, array $params = []) {
     $this->setCredentials();
+    if ($service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && $params['FunctionName'] == 'YMCAGTC_GetEmpID') {
+      $this->debug = TRUE;
+    }
     $this->setUpClient($service);
 
     try {
       $result = $this->client->{$endpoint}($this->getMindbodyParams($params));
-      if ($service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && $params['FunctionName'] == 'YMCAGTC_GetEmpID') {
+      if (!empty($this->debug) && $service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && $params['FunctionName'] == 'YMCAGTC_GetEmpID') {
+        // Debug mode may be available for other services and
+        // we need SoapClient in result only for FunctionDataXml request.
         $result->SoapClient = $this->client;
-      }
-
-      if ($this->debug) {
-        $last_request = $this->client->__getLastRequest();
-        $last_response = $this->client->__getLastResponse();
       }
 
       // Check whether the results are OK.
