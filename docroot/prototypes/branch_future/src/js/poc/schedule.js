@@ -72,18 +72,23 @@
         .removeClass('class-active')
         .addClass('class-prev')
 
-      // Slide Upcomming Class Up
-      $upcomingClassContainer
-        .removeClass('class-next')
-        .addClass('class-active');
+      setTimeout(function() {
+        // Slide Upcomming Class Up
+        $upcomingClassContainer
+          .removeClass('class-next')
+          .addClass('class-active');
 
-      // Create new Upcoming class.
-      $upcomingClassContainer = $("<div class='class-next' />").appendTo('.active-classes');
-      $upcomingClassContainer.append(classes.next.clone(true));
+        // Create new Upcoming class.
+        $upcomingClassContainer = $("<div class='class-next' />").appendTo('.active-classes');
+        $upcomingClassContainer.append(classes.next.clone(true));
+
+        updateProgressBars();
+      }, 3000);
     }
     else {
       $activeClassContainer.empty().append(classes.last.clone(true));
       $upcomingClassContainer.empty().append(classes.next.clone(true));
+      updateProgressBars();
     }
   }
 
@@ -137,12 +142,11 @@
   //init();
   showProgress(function() {
     actualizeActiveClasses(getCurrentAndNext());
-    updateProgressBars();
     setTimeout(function() {
       hideProgress(function() {});
     }, 1000)
   });
-  setInterval(loop, 1000);
+  setInterval(loop, 5000);
 
   setTimeout(function() {
     location.reload();

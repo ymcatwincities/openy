@@ -48,6 +48,7 @@
   height: 22.7vw;
   border-radius: 10px;
   background-color: #fff;
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
   text-transform: uppercase;
   margin: auto;
   opacity: 1;
@@ -55,8 +56,8 @@
   top: 10.4vw;
   left: 50%;
   margin-left: -42.5vw;
-  -webkit-transition: top 5s, width 5s, height 5s, margin-left 5s, opacity 5s, background-color 1s;
-  transition: top 5s, width 5s, height 5s, margin-left 5s, opacity 5s, background-color 1s;
+  -webkit-transition: top 2s, width 2s, height 2s, margin-left 2s, opacity 2s, background-color 1s;
+  transition: top 2s, width 2s, height 2s, margin-left 2s, opacity 2s, background-color 1s;
   z-index: 10; }
   .class .trainer {
     color: #01a490;
@@ -64,16 +65,16 @@
     text-align: center;
     font-size: 2.45vw;
     padding-top: 3.9vw;
-    -webkit-transition: font-size 5s, padding-top 5s;
-    transition: font-size 5s, padding-top 5s; }
+    -webkit-transition: font-size 2s, padding-top 2s;
+    transition: font-size 2s, padding-top 2s; }
   .class .class-name {
     color: #0060af;
     font-size: 5.9vw;
     margin: auto;
     padding-top: 0;
     text-align: center;
-    -webkit-transition: font-size 5s, padding-top 5s;
-    transition: font-size 5s, padding-top 5s; }
+    -webkit-transition: font-size 2s, padding-top 2s;
+    transition: font-size 2s, padding-top 2s; }
   .class .class-time-frame {
     position: relative;
     font-size: 2.45vw;
@@ -117,6 +118,7 @@
 .class-prev .class {
   width: 76vw;
   height: 13.4vw;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   background-color: #75aed7;
   margin: auto;
   top: 40vw;
@@ -154,7 +156,7 @@
 .class-prev .class {
   width: 76vw;
   height: 13.4vw;
-  background-color: #75aed7;
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
   margin: auto;
   top: -40vw;
   margin-left: -38vw;
@@ -164,3 +166,41 @@
     opacity: 0; }
   .class-prev .class .class-time-frame-progress {
     opacity: 0; }
+
+.page-schedule.scheme-orange {
+  background-image: url(../images/bg-body-orange.png);
+  background-color: #fcaf17; }
+
+.scheme-orange .header--inner .title {
+  color: #f15922; }
+
+.scheme-orange .class .trainer {
+  color: #fcaf17; }
+
+.scheme-orange .class .class-name {
+  color: #f15922; }
+
+.scheme-orange .class .class-time-frame-from {
+  color: #fcaf17; }
+
+.scheme-orange .class .class-time-frame-to {
+  color: #f15922; }
+
+.scheme-orange .class .class-time-frame-progress {
+  background-color: #f15922; }
+
+.scheme-orange .class .class-time-frame-progress-bar {
+  background-color: #fcaf17; }
+
+.scheme-orange .class-next .class,
+.scheme-orange .class-prev .class {
+  background-color: #fac791; }
+  .scheme-orange .class-next .class .class-name,
+  .scheme-orange .class-prev .class .class-name {
+    color: #f15922; }
+  .scheme-orange .class-next .class .class-time-frame-from,
+  .scheme-orange .class-prev .class .class-time-frame-from {
+    color: #f15922; }
+
+.scheme-orange .class-prev .class {
+  background-color: #fac791; }
