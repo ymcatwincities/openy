@@ -100,7 +100,6 @@ class MindbodyClient implements MindbodyClientInterface {
     $endpointUrl = "https://" . $this->hostname . "/0_5/" . $service . ".asmx";
     $wsdlUrl = $endpointUrl . "?wsdl";
 
-
     $option = [];
     if ($this->debug) {
       $option = [

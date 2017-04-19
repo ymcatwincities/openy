@@ -11,9 +11,8 @@
 function yptf_kronos_mail($key, &$message, $params) {
   switch ($key) {
     case 'yptf_kronos_reports':
-      $message['from'] = \Drupal::config('system.site')->get('mail');
-      $message['subject'] = t('Prescription refill reminder');
-      $message['body'][] = 'Please refill your prescription 1 day remaining.';
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['body'];
       break;
   }
 }
