@@ -5,6 +5,16 @@
  * OpenY Node install file.
  */
 
+function openy_node_update_dependencies() {
+  $dependencies['openy_node'] = [
+    8003 => [
+      'openy' => 8012,
+    ]
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Node Category with field_bottom_content.
  */

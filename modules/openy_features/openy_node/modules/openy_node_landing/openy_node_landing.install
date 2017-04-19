@@ -6,8 +6,13 @@
  */
 
 function openy_node_landing_update_dependencies() {
-  $dependencies['openy_node_landing'][8001] = [
-    'openy_node' => 8001,
+  $dependencies['openy_node_landing'] = [
+    8001 => [
+      'openy_node' => 8001,
+    ],
+    8002 => [
+      'openy_node' => 8003,
+    ]
   ];
 
   return $dependencies;

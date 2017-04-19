@@ -5,6 +5,16 @@
  * OpenY Node Program install file.
  */
 
+function openy_node_program_update_dependencies() {
+  $dependencies['openy_node_program'] = [
+    8002 => [
+      'openy_node' => 8003,
+    ]
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Node Program fields datalayer config for Data Layer additions.
  */

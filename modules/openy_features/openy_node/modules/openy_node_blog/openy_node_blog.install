@@ -5,6 +5,16 @@
  * OpenY Node Blog install file.
  */
 
+function openy_node_blog_update_dependencies() {
+  $dependencies['openy_node_blog'] = [
+    8002 => [
+      'openy_node' => 8003,
+    ]
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Node Blog fields datalayer config for Data Layer additions.
  */

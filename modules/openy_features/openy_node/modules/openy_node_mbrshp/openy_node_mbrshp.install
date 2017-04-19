@@ -5,6 +5,16 @@
  * OpenY Node Membership install file.
  */
 
+function openy_node_mbrshp_update_dependencies() {
+  $dependencies['openy_node_mbrshp'] = [
+    8002 => [
+      'openy_node' => 8003,
+    ]
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Node Membership fields datalayer config for Data Layer additions.
  */
