@@ -116,24 +116,28 @@ class OpenyFacebookSyncFetcher {
     else {
       $data = [];
       // @todo Implement pager.
-      $appid = $this->getAppId();
-      $result = $this->facebook->sendRequest('GET', $appid . "/events");
-      $body = $result->getDecodedBody();
-
-      foreach ($body['data'] as $event) {
-        if (!$this->getFetchPassedEventsOption() && isset($event['end_time'])) {
-          // As there is no way to filter out ended events via request to FB API,
-          // skip events that have ended comparing to request time.
-          $site_timezone = new DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
-          $event_date = new DateTime($event['end_time']);
-          $current_date = DateTime::createFromFormat('U',REQUEST_TIME, $site_timezone);
-          if ($event_date < $current_date) {
-            continue;
+      $fb_objects = $this->facebook;
+      foreach ($fb_objects as $fb) {
+        /* @var \Facebook\Facebook $fb */
+        $appid = $fb->getApp()->getId();
+        $result = $fb->sendRequest('GET', $appid . "/events");
+        $body = $result->getDecodedBody();
+        foreach ($body['data'] as $event) {
+          if (!$this->getFetchPassedEventsOption() && isset($event['end_time'])) {
+            // As there is no way to filter out ended events via request to FB API,
+            // skip events that have ended comparing to request time.
+            $site_timezone = new DateTimeZone($this->configFactory->get('system.date')
+              ->get('timezone')['default']);
+            $event_date = new DateTime($event['end_time']);
+            $current_date = DateTime::createFromFormat('U', REQUEST_TIME, $site_timezone);
+            if ($event_date < $current_date) {
+              continue;
+            }
           }
+          $data[] = $event;
         }
-        $data[] = $event;
+        $this->cacheBackend->set($cid, $data, REQUEST_TIME + self::CACHE_TIME);
       }
-      $this->cacheBackend->set($cid, $data, REQUEST_TIME + self::CACHE_TIME);
     }
 
     $this->wrapper->setSourceData($data);

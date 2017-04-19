@@ -46,15 +46,19 @@ class OpenyFacebookSyncFactory {
   public function getFacebook() {
     // Check that App ID and secret have been defined in module settings.
     if ($this->validateConfig()) {
-      $sdk_config = [
-        'app_id' => $this->getAppId(),
-        'app_secret' => $this->getAppSecret(),
-        'default_graph_version' => $this->getApiVersion(),
-        'persistent_data_handler' => $this->persistentDataHandler,
-        'http_client_handler' => $this->getHttpClient(),
-        'default_access_token' => $this->getDefaultAccessToken(),
-      ];
-      return new Facebook($sdk_config);
+      $app_ids = $this->getAppId();
+      foreach ($app_ids as $app_id) {
+        $sdk_config = [
+          'app_id' => $app_id,
+          'app_secret' => $this->getAppSecret(),
+          'default_graph_version' => $this->getApiVersion(),
+          'persistent_data_handler' => $this->getDataHandler(),
+          'http_client_handler' => $this->getHttpClient(),
+          'default_access_token' => $this->getDefaultAccessToken(),
+        ];
+        $facebook[] = new Facebook($sdk_config);
+      }
+      return $facebook;
     }
 
     // Return FALSE if app ID or secret is missing.
