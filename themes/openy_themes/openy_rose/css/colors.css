@@ -131,6 +131,9 @@ body .branch-popup .ui-dialog-content h3 {
 #membership-calc-wrapper .nav-pills > li.active div:after {
   border-left-color: #5c2e91;
 }
+.story-card .quote svg {
+  fill: #5c2e91;
+}
 
 /* Secondary highlight color (pink.) */
 .branch-header .desktop,
