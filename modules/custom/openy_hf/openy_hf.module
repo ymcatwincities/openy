@@ -66,7 +66,9 @@ function openy_hf_preprocess_html(&$variables) {
       $styles = \Drupal::service('asset.css.collection_renderer')->render(\Drupal::service('asset.resolver')->getCssAssets($assets, $optimize_css));
       foreach ($styles as $key => $style) {
         $variables['styles'][] = $style;
-        $variables['styles'][$key]['#attributes']['href'] = $base_url . $style['#attributes']['href'];
+        if (substr($style['#attributes']['href'], 0, 2) !== '//') {
+          $variables['styles'][$key]['#attributes']['href'] = $base_url . $style['#attributes']['href'];
+        }
       }
     }
 
@@ -78,12 +80,16 @@ function openy_hf_preprocess_html(&$variables) {
       $scripts = \Drupal::service('asset.js.collection_renderer')->render($js_assets_header);
       foreach ($scripts as $key => $script) {
         $variables['scripts'][] = $script;
-        $variables['scripts'][$key]['#attributes']['href'] = $base_url . $script['#attributes']['href'];
+        if (substr($script['#attributes']['href'], 0, 2) !== '//') {
+          $variables['scripts'][$key]['#attributes']['href'] = $base_url . $script['#attributes']['href'];
+        }
       }
       $scripts_bottom = \Drupal::service('asset.js.collection_renderer')->render($js_assets_footer);
       foreach ($scripts_bottom as $key => $script_bottom) {
         $variables['scripts_bottom'][] = $script_bottom;
-        $variables['scripts_bottom'][$key]['#attributes']['src'] = $base_url . $script_bottom['#attributes']['src'];
+        if (substr($script_bottom['#attributes']['src'], 0, 2) !== '//') {
+          $variables['scripts_bottom'][$key]['#attributes']['src'] = $base_url . $script_bottom['#attributes']['src'];
+        }
       }
     }
   }
@@ -97,13 +103,15 @@ function openy_hf_preprocess_page(&$variables) {
   if ($route == 'openy_hf.header' || $route == 'openy_hf.footer') {
     // Make relative to absolute urls.
     $regions = [
-      'header',
       'secondary_menu',
       'primary_menu',
       'footer',
-      'footer_menu',
+      'footer_menus',
     ];
-    unset($variables['page']['footer_social']['socialiconsfooter']);
+    unset($variables['page']['header']);
+    unset($variables['page']['secondary_menu']['openy_rose_user_menu']);
+    unset($variables['page']['pre_footer']);
+    unset($variables['page']['footer_social']['footersocialblock']);
     // There are better ways to grab the $base_url for sure.
     $base_url = Request::createFromGlobals()->getSchemeAndHttpHost();
     $variables['base_path'] = $base_url;
