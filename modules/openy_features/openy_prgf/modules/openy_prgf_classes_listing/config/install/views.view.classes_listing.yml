@@ -203,57 +203,7 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
-        field_class_activity_target_id_verf:
-          id: field_class_activity_target_id_verf
-          table: node__field_class_activity
-          field: field_class_activity_target_id_verf
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: in
-          value: {  }
           group: 1
-          exposed: true
-          expose:
-            operator_id: field_class_activity_target_id_verf_op
-            label: Activity
-            description: ''
-            use_operator: false
-            operator: field_class_activity_target_id_verf_op
-            identifier: activity
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-            reduce: 0
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          verf_target_bundles:
-            activity: activity
-            blog: '0'
-            branch: '0'
-            camp: '0'
-            class: '0'
-            facility: '0'
-            landing_page: '0'
-            membership: '0'
-            program: '0'
-            program_subcategory: '0'
-            session: '0'
-          plugin_id: verf
         field_session_location_target_id_verf:
           id: field_session_location_target_id_verf
           table: node__field_session_location
@@ -407,6 +357,57 @@ display:
             program: '0'
             session: '0'
           plugin_id: verf
+        field_class_activity_target_id_verf:
+          id: field_class_activity_target_id_verf
+          table: node__field_class_activity
+          field: field_class_activity_target_id_verf
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_class_activity_target_id_verf_op
+            label: Activity
+            description: ''
+            use_operator: false
+            operator: field_class_activity_target_id_verf_op
+            identifier: activity
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            reduce: 0
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          verf_target_bundles:
+            activity: activity
+            blog: '0'
+            branch: '0'
+            camp: '0'
+            class: '0'
+            facility: '0'
+            landing_page: '0'
+            membership: '0'
+            program: '0'
+            program_subcategory: '0'
+            session: '0'
+          plugin_id: verf
       sorts:
         title:
           id: title
@@ -485,6 +486,10 @@ display:
       display_extenders: {  }
       use_ajax: true
       css_class: sub-category-classes-view
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
