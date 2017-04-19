@@ -6,8 +6,10 @@
  */
 
 function openy_node_category_update_dependencies() {
-  $dependencies['openy_node_category'][8002] = [
-    'openy_node' => 8001,
+  $dependencies['openy_node_category'] = [
+    8002 => [
+      'openy_node' => 8003,
+    ]
   ];
 
   return $dependencies;
