@@ -4,4 +4,4 @@ services:
     arguments: ['yptf_kronos_reports']
   yptf_kronos_reports.poc:
     class: Drupal\yptf_kronos\YptfKronosReportsPoc
-    arguments: ['@config.factory', '@mindbody_cache_proxy.client', '@logger.channel.yptf_kronos_reports']
+    arguments: ['@config.factory', '@mindbody_cache_proxy.client', '@logger.channel.yptf_kronos_reports',  '@plugin.manager.mail', '@renderer', '@language_manager']
