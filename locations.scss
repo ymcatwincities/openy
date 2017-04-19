@@ -164,8 +164,10 @@
   }
   .branch-hours {
     margin-top: 15px;
-    td:first-child {
-      padding-right: 10px;
+    table {
+      td:first-child {
+        padding-right: 10px;
+      }
     }
   }
   .field-branch-area {
@@ -264,7 +266,7 @@
       }
       .branch-hours {
         position: absolute;
-        top: 60px;
+        top: 77px;
         background: $purple;
         padding: 5px 15px;
         width: auto;
@@ -273,9 +275,14 @@
         @include breakpoint(laptop) {
           top: 45px;
         }
-        td {
-          padding: 0 10px 5px 0;
-          white-space: nowrap;
+        table {
+          td {
+            padding: 0 10px 5px 0;
+            white-space: nowrap;
+          }
+          caption {
+            color: $white;
+          }
         }
       }
     }
@@ -425,8 +432,13 @@
         }
         .branch-hours {
           padding: 20px 0 12px;
-          td {
-            padding: 4px 10px 0 2px;
+          table {
+            td {
+              padding: 4px 10px 0 2px;
+            }
+            caption {
+              color: $white;
+            }
           }
         }
       }
