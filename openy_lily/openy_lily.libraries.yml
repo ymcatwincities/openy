@@ -1,6 +1,8 @@
 global-styling:
   version: VERSION
   css:
+    base:
+      css/legacy/bootstrap.min.css: {}
     theme:
       css/style.css: {}
   js:
