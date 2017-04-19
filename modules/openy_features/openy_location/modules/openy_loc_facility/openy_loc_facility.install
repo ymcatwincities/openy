@@ -5,6 +5,16 @@
  * OpenY Facility install file.
  */
 
+function openy_loc_facility_update_dependencies() {
+  $dependencies['openy_loc_facility'] = [
+    8002 => [
+      'openy_node' => 8003,
+    ]
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Facility fields datalayer config for Data Layer additions.
  */
