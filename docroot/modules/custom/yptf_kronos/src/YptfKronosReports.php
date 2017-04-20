@@ -434,19 +434,22 @@ class YptfKronosReports {
     if (!empty($this->staffIDs[$staff_id])) {
       return $this->staffIDs[$staff_id];
     }
-    $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
-    $cache_dir = $cache_dir . '/mb_reports';
-    if (!file_exists($cache_dir)) {
-      mkdir($cache_dir, 0764, TRUE);
+    if (!isset($this->staffIDs)) {
+      $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+      $cache_dir = $cache_dir . '/mb_reports';
+      if (!file_exists($cache_dir)) {
+        mkdir($cache_dir, 0764, TRUE);
+      }
+      $file = $cache_dir . '/staff_ids.json';
+      $mb_data_file = file_get_contents($file);
+      if ($mb_data_file) {
+        $this->staffIDs = json_decode($mb_data_file, TRUE);
+      }
+      if (!empty($this->staffIDs[$staff_id])) {
+        return $this->staffIDs[$staff_id];
+      }
     }
-    $file = $cache_dir . '/staff_ids.json';
-    $mb_data_file = file_get_contents($file);
-    if ($mb_data_file) {
-      $this->staffIDs = json_decode($mb_data_file, TRUE);
-    }
-    if (!empty($this->staffIDs[$staff_id])) {
-      return $this->staffIDs[$staff_id];
-    }
+
     $staff_params = [
       'PageSize' => 50,
       'CurrentPageIndex' => 0,
@@ -473,8 +476,6 @@ class YptfKronosReports {
       $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
 
       if ($parsed_data['Status'] == 'Success') {
-
-
         if ($parsed_data['ResultCount'] == 1) {
           if (isset($parsed_data['Results']['Row']['EmpID'])) {
             $empID = $parsed_data['Results']['Row']['EmpID'];
@@ -507,7 +508,7 @@ class YptfKronosReports {
    * Send reports.
    */
   public function sendReports() {
-    $config = \Drupal::config('yptf_kronos.settings');
+    $config = $this->configFactory->get('yptf_kronos.settings');
     $debug_mode = $config->get('debug');
     $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
     $report_tokens = ['leadership' => '[leadership-report]', 'pt_managers' => '[pt-manager-report]'];
