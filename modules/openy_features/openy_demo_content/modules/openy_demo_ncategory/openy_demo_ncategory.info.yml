@@ -8,5 +8,6 @@ dependencies:
   - migrate_tools
   - openy_demo_nprogram
   - openy_node_category
+  - openy_demo_nbranch
   - openy_demo_tcolor
 version: 8.x-1.0
