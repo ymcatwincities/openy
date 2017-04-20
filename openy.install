@@ -168,3 +168,10 @@ function openy_update_8011() {
   \Drupal::service('module_installer')->install(['google_analytics']);
 }
 
+/**
+ * Enable the Header Footer Template module.
+ */
+function openy_update_8012() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_hf']);
+}
