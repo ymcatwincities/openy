@@ -371,12 +371,13 @@
       line-height: 1.2;
     }
 
-    .icon {
-      background: url("../img/icons/quote_purple.svg") no-repeat 0 0;
+    svg {
       display: block;
+      float: left;
       height: 24px;
-      margin: 13px 0 0px;
-      width: 44px;
+      fill: $purple;
+      margin: 0 16px 0 0;
+      width: 28px;
     }
   }
 

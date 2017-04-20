@@ -11,6 +11,7 @@ label: 'Create banner paragraph(s) for demo landing page nodes'
 migration_dependencies:
   required:
     - openy_demo_lp_media_image
+    - openy_demo_taxonomy_term_color
 source:
   plugin: embedded_data
   data_rows:
@@ -18,6 +19,7 @@ source:
       id: homepage_banner
       parent_id: homepage
       headline: 'Explore the Open Y!'
+      color: 15
       image: homepage_banner
       description: |
         <p>
@@ -53,6 +55,10 @@ process:
     plugin: default_value
     default_value: field_header_content
   field_prgf_headline: headline
+  field_prgf_color:
+    plugin: migration
+    migration: openy_demo_taxonomy_term_color
+    source: color
   field_prgf_link/uri:
     plugin: default_value
     default_value: 'internal:/user/login?destination=admin/structure/menu?tour=1'

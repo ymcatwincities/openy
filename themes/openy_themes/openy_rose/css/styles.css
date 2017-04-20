@@ -1600,12 +1600,13 @@ body {
     line-height: 1.2;
   }
 }
-.story-card .quote .icon {
-  background: url("../img/icons/quote_purple.svg") no-repeat 0 0;
+.story-card .quote svg {
   display: block;
+  float: left;
   height: 24px;
-  margin: 13px 0 0px;
-  width: 44px;
+  fill: #5c2e91;
+  margin: 0 16px 0 0;
+  width: 28px;
 }
 .story-card .link {
   font-size: 15px;
@@ -2848,7 +2849,7 @@ body {
   margin: 0 10px 0 0;
 }
 .branch-header .mobile .ui-tabs .ui-tabs-nav .ui-tabs-active {
-  background: #92278f;
+  background: #c6168d;
 }
 .branch-header .mobile .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
   color: #fff;
@@ -2857,7 +2858,7 @@ body {
   padding: 4px 20px;
 }
 .branch-header .mobile .ui-tabs .ui-tabs-panel {
-  background: #92278f;
+  background: #c6168d;
   border-radius: 0;
   color: #fff;
   border: none;
@@ -3558,7 +3559,7 @@ html.js .branch__updates_queue__button {
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
 .node--type-camp.node--view-mode-teaser {
-  border: solid 1px #fcaf17;
+  border: solid 1px #ccc;
   padding: 20px;
   min-height: 300px;
   margin: 20px;
@@ -3883,9 +3884,7 @@ html.js .branch__updates_queue__button {
   float: left;
   min-height: 360px;
 }
-.node--type-blog.node--view-mode-teaser .quote i {
-  background-size: 27px;
-  background-position: top left;
+.node--type-blog.node--view-mode-teaser .quote svg {
   margin-top: 21px;
 }
 
@@ -3991,8 +3990,15 @@ html.js .branch__updates_queue__button {
   display: block;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
-.blog-more-teaser label[for="edit-combine"] {
-  opacity: 0;
+.blog-more-teaser .form-item-combine label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
 .blog-more-teaser select {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
@@ -4016,6 +4022,9 @@ html.js .branch__updates_queue__button {
   font-weight: 600;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
+}
+.blog-more-teaser .no-results {
+  margin-bottom: 49px;
 }
 
 .comma-list .item:after {
@@ -4953,7 +4962,7 @@ a[href="#step2"] {
   white-space: nowrap;
   border-radius: 0;
   color: white;
-  background-color: #92278f;
+  background-color: #c6168d;
   text-align: center;
   padding: 9px;
   width: 90%;
@@ -4986,7 +4995,7 @@ a[href="#step2"] {
   height: 0;
   border-top: 60px solid transparent;
   border-bottom: 60px solid transparent;
-  border-left: 30px solid  #92278f;
+  border-left: 30px solid #c6168d;
   position: absolute;
   top: 50%;
   margin-top: -60px;

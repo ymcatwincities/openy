@@ -264,7 +264,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       $msg = 'There is no element with selector ' . $locator_type . ': "' . $selector . '"';
       throw new Exception($msg);
     }
-    $element->focus();
+    try {
+      $element->focus();
+    } catch (Exception $e) {
+      // No focus on some drivers ie mink.
+    }
     $element->click();
   }
 

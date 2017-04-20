@@ -4,6 +4,8 @@ description: 'Open Y Drupal distribution.'
 core: 8.x
 distribution:
   name: OpenY
+  install:
+      theme: openy_admin
 php: 5.6
 # Required modules
 dependencies:
@@ -122,6 +124,7 @@ dependencies:
   - openy_prgf_camp_menu
   # OpenY custom modules
   - openy_field_hours
+  - openy_hf
   - openy_hours_formatter
   - openy_migrate
   - openy_map
@@ -136,4 +139,5 @@ dependencies:
 themes:
   - bartik
   - openy_rose
+  - openy_admin
   - seven
