@@ -164,18 +164,33 @@ class YptfKronosReports {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $item) {
         if ($item->job == self::KRONOS_TRAINING_ID) {
-          $staff_id = $this->getMindbodyidbyStaffId($item->empNo);
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
           !$location_id && $location_reports[$item->locNo] = 'Location mapping missed.';
-          if (!empty($item->totalHours) && !isset($trainer_reports[$location_id][$staff_id]['wf_hours'])) {
-            $trainer_reports[$location_id][$staff_id]['wf_hours'] = $item->totalHours;
+          $location_reports[$location_id]['name'] = $item->locName;
+          $empID = $this->getMindbodyidbyStaffId($item->empNo);
+
+          if (!$empID) {
+            $empID = 'No EmpID for:' . $item->empNo . '. Location:' . $item->locName;
+            $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . 'No EmpID for:' . $item->empNo;
           }
-          $trainer_reports[$location_id][$staff_id]['wf_hours'] += $item->totalHours;
-          $trainer_reports[$location_id][$staff_id]['historical_hours'] += $item->historical;
-          $trainer_reports[$location_id][$staff_id]['name'] = $item->lastName . ', ' . $item->firstName;
+          else {
+            $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName;
+          }
+
+          if (isset($item->totalHours)) {
+            !isset($trainer_reports[$location_id][$empID]['wf_hours']) && $trainer_reports[$location_id][$empID]['wf_hours'] = 0;
+            !isset($location_reports[$location_id]['wf_hours']) && $location_reports[$location_id]['wf_hours'] = 0;
+          }
+
+          if (isset($item->historical)) {
+            !isset($trainer_reports[$location_id][$empID]['historical_hours']) && $trainer_reports[$location_id][$empID]['historical_hours'] = 0;
+            !isset($location_reports[$location_id]['historical_hours']) && $location_reports[$location_id]['historical_hours'] = 0;
+          }
+          $trainer_reports[$location_id][$empID]['wf_hours'] += $item->totalHours;
+          $trainer_reports[$location_id][$empID]['historical_hours'] += $item->historical;
           $location_reports[$location_id]['wf_hours'] += $item->totalHours;
           $location_reports[$location_id]['historical_hours'] += $item->historical;
-          $location_reports[$location_id]['name'] = $item->locName;
+
         }
       }
     }
@@ -185,11 +200,11 @@ class YptfKronosReports {
       $skip_bt = FALSE;
       $prev_bt = [];
       foreach ($this->mindbodyData as $mb_id => $item) {
-        // PT - $item->Program->ID == 2
-        // BT - $item->Program->ID == 4.
         $datetime1 = date_create($item->StartDateTime);
         $datetime2 = date_create($item->EndDateTime);
 
+        // PT - $item->Program->ID == 2
+        // BT - $item->Program->ID == 4.
         // Skip every second BT line if time and staff the same.
         if ($item->Program->ID == $this->programmBTID) {
           $current_bt = [
@@ -226,25 +241,38 @@ class YptfKronosReports {
     // Calculate variance.
     foreach ($trainer_reports as $location_id => &$trainers) {
       foreach ($trainers as &$trainer) {
+        $mb_flag = $wf_flag = TRUE;
         if (!isset($trainer['mb_hours'])) {
+          $mb_flag = FALSE;
           $trainer['variance'] = '-';
           $trainer['mb_hours'] = '-';
         }
+        else {
+          $trainer['mb_hours'] = round($trainer['mb_hours'], 2);
+        }
         if (!isset($trainer['wf_hours'])) {
+          $wf_flag = FALSE;
           $trainer['variance'] = '-';
           $trainer['wf_hours'] = '-';
         }
-        elseif (isset($trainer['mb_hours'])) {
+        else {
+          $trainer['wf_hours'] = round($trainer['wf_hours'], 2);
+        }
+        if ($mb_flag && $wf_flag) {
           $trainer['variance'] = round((1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100);
           $trainer['variance'] .= '%';
         }
+
         if (!isset($trainer['historical_hours'])) {
           $trainer['historical_hours'] = '-';
+        }
+        else {
+          $trainer['historical_hours'] = round($trainer['historical_hours'], 2);
         }
       }
     }
 
-    $row['total']['wf_hours'] = $row['total']['mb_hours'] = 0;
+    $loc_total['wf_hours'] = $loc_total['total']['mb_hours'] = 0;
     foreach ($location_reports as &$row) {
       if (!isset($row['mb_hours'])) {
         $row['variance'] = '-';
@@ -260,19 +288,19 @@ class YptfKronosReports {
         $row['variance'] = round((1 - $row['mb_hours'] / $row['wf_hours']) * 100);
         $row['variance'] .= '%';
       }
-      $row['total']['wf_hours'] += intval($row['wf_hours']);
-      $row['total']['mb_hours'] += intval($row['mb_hours']);
-      $row['total']['historical_hours'] += intval($row['historical_hours']);
+      $loc_total['wf_hours'] += intval($row['wf_hours']);
+      $loc_total['mb_hours'] += intval($row['mb_hours']);
+      $loc_total['historical_hours'] += intval($row['historical_hours']);
     }
-    $row['total']['wf_hours'] = round($row['total']['wf_hours'], 2);
-    $row['total']['mb_hours'] = round($row['total']['mb_hours'], 2);
-    $row['total']['historical_hours'] = round($row['total']['historical_hours'], 2);
-    if ($row['total']['wf_hours'] == 0) {
-      $row['total']['variance'] = '-';
+    $location_reports['total']['wf_hours'] = round($loc_total['wf_hours'], 2);
+    $location_reports['total']['mb_hours'] = round($loc_total['mb_hours'], 2);
+    $location_reports['total']['historical_hours'] = round($loc_total['total']['historical_hours'], 2);
+    if ($location_reports['total']['wf_hours'] == 0) {
+      $location_reports['total']['variance'] = '-';
     }
     else {
-      $row['total']['variance'] = round((1 - $row['total']['mb_hours'] / $row['total']['wf_hours']) * 100);
-      $row['total']['variance'] .= '%';
+      $location_reports['total']['variance'] = round((1 - $location_reports['total']['mb_hours'] / $location_reports['total']['wf_hours']) * 100);
+      $location_reports['total']['variance'] .= '%';
     }
 
     $this->reports['trainers'] = $trainer_reports;
@@ -427,11 +455,30 @@ class YptfKronosReports {
       $last_response = $staff_id_call->SoapClient->__getLastResponse();
       $encoder = new XmlEncoder();
       $data = $encoder->decode($last_response, 'xml');
-      if (isset($data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult']['Results']['Row']['EmpID'])) {
-        $empID = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult']['Results']['Row']['EmpID'];
-        $this->staffIDs[$staff_id] = $empID;
-        file_put_contents($file, json_encode($this->staffIDs));
-        return $empID;
+      $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
+
+      if ($parsed_data['Status'] == 'Success') {
+
+
+        if ($parsed_data['ResultCount'] == 1) {
+          if (isset($parsed_data['Results']['Row']['EmpID'])) {
+            $empID = $parsed_data['Results']['Row']['EmpID'];
+            $this->staffIDs[$staff_id] = $empID;
+            file_put_contents($file, json_encode($this->staffIDs));
+            return $empID;
+          }
+        }
+        elseif ($parsed_data['ResultCount'] > 1) {
+          $msg = 'Multiple Employee ID from MindBody. Staff ID: %params.';
+          $this->logger->notice($msg, ['%params' => $staff_id]);
+          $parsed_data_first_id = reset($parsed_data['Results']['Row']);
+          if (isset($parsed_data_first_id['EmpID'])) {
+            $empID = $parsed_data_first_id['EmpID'];
+            $this->staffIDs[$staff_id] = $empID;
+            file_put_contents($file, json_encode($this->staffIDs));
+            return $empID;
+          }
+        }
       }
     }
     if (empty($empID)) {
@@ -554,13 +601,16 @@ class YptfKronosReports {
                      </tr>';
         }
         $summary = $this->reports['locations'][$location_mid];
-        $summary['name'] = 'BRANCH TOTAL';
+        //$summary['name'] = 'BRANCH TOTAL';
         break;
 
       case "leadership":
         if (empty($this->reports['locations'])) {
           return FALSE;
         }
+        $summary = $this->reports['locations']['total'];
+        $summary['name'] = 'ALL BRANCHES';
+        unset($this->reports['locations']['total']);
         foreach ($this->reports['locations'] as $loc_id => $branch) {
           $table .= '<tr>
                         <td class="yptf-kr-white">' . $branch['name'] . '</td>
@@ -570,8 +620,7 @@ class YptfKronosReports {
                         <td class="yptf-kr-lp">' . $branch['historical_hours'] . '</td>
                      </tr>';
         }
-        $summary = $branch['total'];
-        $summary['name'] = 'ALL BRANCHES';
+
         break;
     }
     $table .= '<tr>
