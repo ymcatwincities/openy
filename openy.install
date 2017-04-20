@@ -178,6 +178,22 @@ function openy_update_8013() {
     'redirect',
     'simple_sitemap'
   ]);
+
+  // Set the frontpage to be canonical url instead of alias. We expect node to be there.
+  $config_factory = Drupal::configFactory();
+  $url = $config_factory->getEditable('system.site')->get('page.front');
+
+  if (strpos($url, 'node/') === FALSE) {
+    return;
+  }
+
+  $aliasStorage = \Drupal::service('path.alias_storage');
+  $alias = $aliasStorage->load(['alias' => $url]);
+
+  if (!empty($alias) && strpos($alias['source'], '/node/') !== FALSE) {
+    $config_factory->getEditable('system.site')->set('page.front', $alias['source']);
+  }
+
 }
 
 /**
