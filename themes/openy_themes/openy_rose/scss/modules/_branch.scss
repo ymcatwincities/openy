@@ -163,7 +163,7 @@
         }
 
         .ui-tabs-active {
-          background: $dark-magenta;
+          background: $pink;
         }
 
         .ui-tabs-anchor {
@@ -175,7 +175,7 @@
       }
 
       .ui-tabs-panel {
-        background: $dark-magenta;
+        background: $pink;
         border-radius: 0;
         color: $white;
         border: none;
@@ -854,7 +854,7 @@ html.js {
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
 .node--type-camp.node--view-mode-teaser {
-  border: solid 1px #fcaf17;
+  border: solid 1px $light-grey;
   padding: 20px;
   min-height: 300px;
   margin: 20px;

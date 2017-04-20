@@ -168,10 +168,19 @@ function openy_update_8011() {
   \Drupal::service('module_installer')->install(['google_analytics']);
 }
 
+
+/**
+ * Enable the Header Footer Template module.
+ */
+function openy_update_8012() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_hf']);
+}
+
 /**
  * Enable Metatag, Redirect and Simple Sitemap modules.
  */
-function openy_update_8012() {
+function openy_update_8013() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'metatag',
@@ -246,4 +255,3 @@ function openy_update_8012() {
     ]);
   }
 }
-
