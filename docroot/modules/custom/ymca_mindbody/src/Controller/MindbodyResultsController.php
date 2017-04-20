@@ -11,6 +11,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\KeyValueStore\KeyValueDatabaseExpirableFactory;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Url;
@@ -295,6 +296,74 @@ class MindbodyResultsController extends ControllerBase {
    */
   public function setTitle() {
     return $this->t('Personal Training Schedules');
+  }
+
+  /**
+   * MindBody PT confirmation callback.
+   */
+  public function confirmation() {
+    $response = new AjaxResponse();
+    $query = $this->requestStack->getCurrentRequest()->query->all();
+    if (!YmcaMindbodyResultsSearcher::validateToken($query)) {
+      return $this->invalidTokenResponse();
+    }
+
+    $output[] = $this->t('Token is valid.');
+    if (!$personify_authenticated = $this->requestStack->getCurrentRequest()->cookies->has('Drupal_visitor_personify_authorized')) {
+      // Redirect to Personify login if user isn't authenticated there.
+      return $this->redirectToPersonifyLogin();
+    }
+
+    $storage = $this->keyValueExpirable->get(YmcaMindbodyResultsSearcher::KEY_VALUE_COLLECTION);
+    $booking_data = $storage->get($query['token']);
+    $location_id = $query[self::QUERY_PARAM__LOCATION];
+    $location = $this->locationRepository->findByMindBodyId($location_id);
+
+    // Prepare data about booking.
+    $data = [
+      'trainer_name' => $booking_data['trainer_name'],
+      'time_date' => $this->formatDateTimeString($booking_data['start_date'], 'D, d M Y H:i', 'g:iA'),
+      'start_date' => $this->formatDateTimeString($booking_data['start_date'], 'D, d M Y H:i', 'F d, Y'),
+      'location' => $location->label(),
+    ];
+
+    // Message for confirmation popup.
+    $message = t('Please confirm that you wish to book a session at <strong>@oclock on @date</strong> with <strong>@trainer_name</strong> at <strong>@location</strong>', array(
+      '@oclock' => $data['time_date'],
+      '@date' => $data['start_date'],
+      '@trainer_name' => $data['trainer_name'],
+      '@location' => $data['location'],
+    ));
+
+    // Book options for booking process.
+    $book_options = [
+      'attributes' => [
+        'class' => [
+          'use-ajax',
+          'button',
+        ],
+        'data-dialog-type' => 'modal',
+        'id' => 'bookable-item-' . $query['bid'],
+      ],
+      'query' => $query,
+    ];
+
+    // Prepare link for booking.
+    $url = Url::fromRoute('ymca_mindbody.pt.book', [], $book_options);
+    $confirm_link = Link::fromTextAndUrl(t('Confirm booking'), $url);
+    $confirm_link = $confirm_link->toRenderable();
+
+    $content = '<div class="popup-content">' . $message . '</div>';
+    $content .= '<div class="content-button">' . render($confirm_link) . '</div>';
+    $options = array(
+      'dialogClass' => 'popup-dialog-class confirmation-popup',
+      'width' => '620',
+      'height' => '260',
+    );
+    $title = $this->t('Booking');
+    $response->addCommand(new OpenModalDialogCommand($title, $content, $options));
+
+    return $response;
   }
 
   /**
