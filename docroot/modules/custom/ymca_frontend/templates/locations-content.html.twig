@@ -13,7 +13,11 @@
       <div class="col-sm-12 header-copy">
         <h1>{{ 'Locations'|t }}</h1>
         <article class="richtext">
-          <p>{{ 'Membership includes access to all Minnesota YMCAs, including these metro locations.'|t }}</p>
+          <p>
+            {% trans %}
+              Membership includes access to all <a class="white-underlined-link" href="{{ base_path }}locations/ymcas_outside_the_metro"><span class="underlined">Minnesota Ys</span><span class="grey-caret"></span></a>, including these metro locations.
+            {% endtrans %}
+          </p>
         </article>
       </div>
     </div>
