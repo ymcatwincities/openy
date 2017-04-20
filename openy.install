@@ -168,3 +168,11 @@ function openy_update_8011() {
   \Drupal::service('module_installer')->install(['google_analytics']);
 }
 
+/**
+ * Update WYSIWYG media buttons.
+ */
+function openy_update_8012() {
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
