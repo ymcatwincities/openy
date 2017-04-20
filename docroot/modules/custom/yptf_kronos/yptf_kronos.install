@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Kronos install file.
+ */
+
+/**
+ * Initial hook_updates runner.
+ */
+function yptf_kronos_install() {
+  $source = drupal_get_path('module', 'yptf_kronos');
+  $source .= '/install/staff_ids.json';
+  $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+  $cache_dir = $cache_dir . '/mb_reports';
+  if (!file_exists($cache_dir)) {
+    mkdir($cache_dir, 0764, TRUE);
+  }
+  $file = $cache_dir . '/staff_ids.json';
+  file_unmanaged_copy($source, $file, FILE_EXISTS_ERROR);
+}
