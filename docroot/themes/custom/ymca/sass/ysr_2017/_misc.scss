@@ -441,6 +441,7 @@ html, body {
           @include rem(font-size, 30px);
           margin-bottom: 50px ;
           line-height: 1.2em;
+          text-transform: none;
         }
       }
       &--content {
