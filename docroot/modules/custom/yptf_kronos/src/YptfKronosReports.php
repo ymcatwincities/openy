@@ -47,27 +47,37 @@ class YptfKronosReports {
 
   /**
    * The dates for report.
+   *
+   * @var array
    */
   protected $dates;
 
 
   /**
    * The Kronos data report.
+   *
+   * @var array
    */
   protected $kronosData;
 
   /**
    * The MindBody data report.
+   *
+   * @var array
    */
   protected $mindbodyData;
 
   /**
    * The StaffIDs.
+   *
+   * @var array
    */
   protected $staffIDs;
 
   /**
    * The Reports data.
+   *
+   * @var array
    */
   protected $reports;
 
@@ -94,16 +104,22 @@ class YptfKronosReports {
 
   /**
    * ID of BT program which duplicated in MB response.
+   *
+   * @var int
    */
   protected $programmBTID = 4;
 
   /**
    * Report date of Kronos file.
+   *
+   * @var string
    */
   protected $kronosReportDay = 'last Saturday';
 
   /**
    * Report shift date of Kronos file.
+   *
+   * @var array
    */
   protected $kronosReportShiftDays = [0, -7];
 
@@ -113,10 +129,9 @@ class YptfKronosReports {
   const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_';
 
   /**
-   * Kronos file url.
+   * Kronos Training program.
    */
   const KRONOS_TRAINING_ID = 'PT (one on one and buddy)';
-
 
   /**
    * YmcaMindbodyExamples constructor.
@@ -515,7 +530,7 @@ class YptfKronosReports {
 
           // Debug Mode: Print results on screen or send to mail.
           if (!empty($debug_mode) && $debug_mode == 'dpm') {
-            dpm($token);
+            print ($token);
           }
           elseif (!empty($debug_mode) && $debug_mode == 'mail') {
             try {
@@ -556,30 +571,10 @@ class YptfKronosReports {
    *   Rendered value.
    */
   public function createReportTable($location_id, $type = 'leadership') {
-    $report_type_name = $type != 'leadership' ? 'Trainer Name' : 'Branch Name';
-    $style = '
-              <style type="text/css">
-                .yptf-kr-table{border-collapse:collapse;border-spacing:0;}
-                .yptf-kr-table td{padding:10px5px;border-style:solid;border-width:1px;border-color:#ffffff;overflow:hidden;word-break:normal;}
-                .yptf-kr-table th{padding:10px5px;border-style:solid;border-width:1px;border-color:#ffffff;overflow:hidden;word-break:normal;}
-                .yptf-kr-table .yptf-kr-purple{background-color:#834cad;color:#ffffff;}
-                .yptf-kr-table .yptf-kr-lp{background-color:#e7d7f3;}
-              </style>
-             ';
-    $table = $style . '<table class="yptf-kr-table">
-                <tr>
-                    <th rowspan="2" class="yptf-kr-white"><strong>' . $report_type_name . '</strong></th>
-                    <th colspan="4" class="yptf-kr-purple"><strong>Personal Training Service Hours</strong></th>
-                </tr>
-                <tr>
-                    <td class="yptf-kr-lp"><strong>Workforce</strong> PT <br>Hours Submitted</td>
-                    <td class="yptf-kr-lp"><strong>MINDBODY</strong> <br>Reported PT Hours<br>Booked</td>
-                    <td class="yptf-kr-lp"><strong>Variance</strong></td>
-                    <td class="yptf-kr-lp"><strong>Historical Hours</strong><br>Corrected time<br>from past report</td>
-                </tr>               
-                ';
+    $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
 
-    // GEt locations ref.
+    // Get locations ref.
+    // @TODO: notify if no location.
     $location_repository = \Drupal::service('ymca_mappings.location_repository');
     $location = $location_repository->findByLocationId($location_id);
     $location = is_array($location) ? reset($location) : $location;
@@ -591,46 +586,29 @@ class YptfKronosReports {
         if (empty($this->reports['trainers'][$location_mid])) {
           return FALSE;
         }
-        foreach ($this->reports['trainers'][$location_mid] as $trainer_id => $trainer) {
-          $table .= '<tr>
-                        <td class="yptf-kr-white">' . $trainer['name'] . '</td>
-                        <td class="yptf-kr-lp">' . $trainer['wf_hours'] . '</td>
-                        <td class="yptf-kr-lp">' . $trainer['mb_hours'] . '</td>
-                        <td class="yptf-kr-lp">' . $trainer['variance'] . '</td>
-                        <td class="yptf-kr-lp">' . $trainer['historical_hours'] . '</td>
-                     </tr>';
-        }
-        $summary = $this->reports['locations'][$location_mid];
-        //$summary['name'] = 'BRANCH TOTAL';
+        $data['rows'] = $this->reports['trainers'][$location_mid];
+        $data['summary'] = $this->reports['locations'][$location_mid];;
+        $data['summary']['name'] = t('BRANCH TOTAL');
         break;
 
       case "leadership":
         if (empty($this->reports['locations'])) {
           return FALSE;
         }
-        $summary = $this->reports['locations']['total'];
-        $summary['name'] = 'ALL BRANCHES';
+        $data['summary'] = $this->reports['locations']['total'];
+        $data['summary']['name'] = t('ALL BRANCHES');
         unset($this->reports['locations']['total']);
-        foreach ($this->reports['locations'] as $loc_id => $branch) {
-          $table .= '<tr>
-                        <td class="yptf-kr-white">' . $branch['name'] . '</td>
-                        <td class="yptf-kr-lp">' . $branch['wf_hours'] . '</td>
-                        <td class="yptf-kr-lp">' . $branch['mb_hours'] . '</td>
-                        <td class="yptf-kr-lp">' . $branch['variance'] . '</td>
-                        <td class="yptf-kr-lp">' . $branch['historical_hours'] . '</td>
-                     </tr>';
-        }
+        $data['rows'] = $this->reports['locations'];
 
         break;
     }
-    $table .= '<tr>
-                   <td class="yptf-kr-white"><strong>' . $summary['name'] . '</strong></td>
-                   <td class="yptf-kr-lp"><strong>' . $summary['wf_hours'] . '</strong></td>
-                   <td class="yptf-kr-lp"><strong>' . $summary['mb_hours'] . '</strong></td>
-                   <td class="yptf-kr-lp"><strong>' . $summary['variance'] . '</strong></td>
-                   <td class="yptf-kr-lp"><strong>' . $summary['historical_hours'] . '</td>
-               </tr>';
-    $table .= '</table>';
+
+    $variables = [
+      '#theme' => 'yptf_kronos_report',
+      '#data' => $data,
+    ];
+
+    $table = render($variables);
     return $table;
   }
 

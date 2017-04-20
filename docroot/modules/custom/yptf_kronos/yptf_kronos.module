@@ -16,3 +16,17 @@ function yptf_kronos_mail($key, &$message, $params) {
       break;
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function yptf_kronos_theme($existing, $type, $theme, $path) {
+  return [
+    'yptf_kronos_report' => [
+      'variables' => [
+        'data' => [],
+      ],
+      'template' => 'yptf-kronos-report',
+    ],
+  ];
+}
