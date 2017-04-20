@@ -26,9 +26,7 @@ function openy_hf_page_attachments(array &$attachments) {
   foreach ($config->get('footer_replacements') as $id => $replacement) {
     $css .= $replacement['selector'] . " {\r\ndisplay: none;\r\n}\r\n";
   }
-  foreach ($config->get('header_footer_independent_replacements') as $id => $replacement) {
-    $css .= $replacement['selector'] . " {\r\ndisplay: none !important;\r\n}\r\n";
-  }
+
   // Save it as CSS file to public directory.
   file_unmanaged_save_data($css, 'public://openy_hf.css', FILE_EXISTS_REPLACE);
 
