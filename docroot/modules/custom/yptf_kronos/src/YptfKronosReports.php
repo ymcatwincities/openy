@@ -105,12 +105,17 @@ class YptfKronosReports {
   /**
    * Report shift date of Kronos file.
    */
-  protected $kronosReportShiftDays = [0, 7];
+  protected $kronosReportShiftDays = [0, -7];
 
   /**
    * Kronos file url.
    */
   const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_';
+
+  /**
+   * Kronos file url.
+   */
+  const KRONOS_TRAINING_ID = 'PT (one on one and buddy)';
 
 
   /**
@@ -158,7 +163,7 @@ class YptfKronosReports {
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $item) {
-        if ($item->job == 'PT (one on one and buddy)') {
+        if ($item->job == self::KRONOS_TRAINING_ID) {
           $staff_id = $this->getMindbodyidbyStaffId($item->empNo);
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
           !$location_id && $location_reports[$item->locNo] = 'Location mapping missed.';
@@ -225,11 +230,11 @@ class YptfKronosReports {
           $trainer['variance'] = '-';
           $trainer['mb_hours'] = '-';
         }
-        elseif (!isset($trainer['wf_hours'])) {
+        if (!isset($trainer['wf_hours'])) {
           $trainer['variance'] = '-';
           $trainer['wf_hours'] = '-';
         }
-        else {
+        elseif (isset($trainer['mb_hours'])) {
           $trainer['variance'] = round((1 - $trainer['mb_hours'] / $trainer['wf_hours']) * 100);
           $trainer['variance'] .= '%';
         }
@@ -285,7 +290,7 @@ class YptfKronosReports {
   public function getKronosData() {
     $this->kronosData = FALSE;
     $kronos_report_day = $this->kronosReportDay;
-    $kronos_shift_days = $this->kronosReportShiftDay;
+    $kronos_shift_days = $this->kronosReportShiftDays;
     if ($week_day = date("w") < 2) {
       foreach ($kronos_shift_days as &$kronos_shift_day) {
         $kronos_shift_day -= 7;
