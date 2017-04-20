@@ -168,3 +168,9 @@ function openy_update_8011() {
   \Drupal::service('module_installer')->install(['google_analytics']);
 }
 
+/**
+ * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
+ */
+function openy_update_8012() {
+  \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
+}
