@@ -891,3 +891,31 @@ body .ajax-progress-throbber {
 .affix .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
   margin-top: 10px;
 }
+
+.white-underlined-link {
+  color: $white;
+  .underlined {
+    text-decoration: underline;
+  }
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: $white;
+  }
+}
+
+span.grey-caret {
+  &:after {
+    margin-left: 10px;
+    width: 8%;
+    color: #b3b3b3;
+    content: 'o';
+    vertical-align: baseline;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'YMCA';
+    -webkit-transition: color .3s ease-out;
+    -moz-transition: color .3s ease-out;
+    -ms-transition: color .3s ease-out;
+  }
+}
