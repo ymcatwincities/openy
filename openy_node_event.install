@@ -122,3 +122,16 @@ function openy_node_event_update_8008() {
     'field.field.node.event.field_event_date_range',
   ]);
 }
+
+/**
+ * Use 'YGH paragraph preview' field formatter for paragraph fields in listing_teaser and flexible_content display modes.
+ */
+function openy_node_event_update_8009() {
+  \Drupal::service('module_installer')->install(['ygh_paragraph'], TRUE);
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.event.flexible_content',
+    'core.entity_view_display.node.event.listing_teaser',
+  ]);
+}

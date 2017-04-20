@@ -16,8 +16,9 @@ dependencies:
     - field.field.node.event.rng_status
     - node.type.event
   module:
-    - entity_reference_revisions
     - user
+    - entity_reference_revisions
+    - ygh_paragraph
 id: node.event.flexible_content
 targetEntityType: node
 bundle: event
@@ -26,11 +27,9 @@ content:
   field_landing_body:
     weight: 0
     label: hidden
-    settings:
-      view_mode: preview
-      link: ''
+    settings: {  }
     third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
+    type: ygh_paragraph_preview_formatter
   links:
     weight: 1
     settings: {  }
