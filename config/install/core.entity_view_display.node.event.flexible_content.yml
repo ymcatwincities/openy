@@ -18,7 +18,7 @@ dependencies:
   module:
     - user
     - entity_reference_revisions
-    - ygh_paragraph
+    - ygh_paragraphs
 id: node.event.flexible_content
 targetEntityType: node
 bundle: event
@@ -29,7 +29,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: ygh_paragraph_preview_formatter
+    type: ygh_paragraphs_preview_formatter
   links:
     weight: 1
     settings: {  }

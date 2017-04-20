@@ -18,7 +18,7 @@ dependencies:
   module:
     - datetime
     - user
-    - ygh_paragraph
+    - ygh_paragraphs
 id: node.event.listing_teaser
 targetEntityType: node
 bundle: event
@@ -33,7 +33,7 @@ content:
       date_format: 'F jS g:i a'
     third_party_settings: {  }
   field_landing_body:
-    type: ygh_paragraph_preview_formatter
+    type: ygh_paragraphs_preview_formatter
     weight: 0
     label: hidden
     settings: {  }
