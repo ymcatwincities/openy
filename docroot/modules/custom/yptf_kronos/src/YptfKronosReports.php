@@ -11,14 +11,11 @@ use Drupal\Core\Render\Renderer;
 use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
- * Mindbody Examples.
+ * Class YptfKronosReports.
  *
- * $service = \Drupal::service('ymca_training_reports.poc');
- * $service->poc();
- *
- * @package Drupal\mindbody
+ * @package Drupal\yptf_kronos
  */
-class YptfKronosReportsPoc {
+class YptfKronosReports {
 
   /**
    * Config factory.
@@ -96,6 +93,27 @@ class YptfKronosReportsPoc {
   protected $languageManager;
 
   /**
+   * ID of BT program which duplicated in MB response.
+   */
+  protected $programmBTID = 4;
+
+  /**
+   * Report date of Kronos file.
+   */
+  protected $kronosReportDay = 'last Saturday';
+
+  /**
+   * Report shift date of Kronos file.
+   */
+  protected $kronosReportShiftDays = [0, 7];
+
+  /**
+   * Kronos file url.
+   */
+  const KRONOS_FILE_URL_PATTERN = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_';
+
+
+  /**
    * YmcaMindbodyExamples constructor.
    *
    * @param ConfigFactory $config_factory
@@ -131,8 +149,7 @@ class YptfKronosReportsPoc {
   /**
    * Calculate/compare data from Kronos & reports.
    */
-  public function poc() {
-    //$this->getMindbodyStaff();
+  public function generateReports() {
     // Get Kronos data.
     $trainer_reports = [];
     $location_reports = [];
@@ -148,7 +165,6 @@ class YptfKronosReportsPoc {
           if (!empty($item->totalHours) && !isset($trainer_reports[$location_id][$staff_id]['wf_hours'])) {
             $trainer_reports[$location_id][$staff_id]['wf_hours'] = $item->totalHours;
           }
-
           $trainer_reports[$location_id][$staff_id]['wf_hours'] += $item->totalHours;
           $trainer_reports[$location_id][$staff_id]['historical_hours'] += $item->historical;
           $trainer_reports[$location_id][$staff_id]['name'] = $item->lastName . ', ' . $item->firstName;
@@ -170,7 +186,7 @@ class YptfKronosReportsPoc {
         $datetime2 = date_create($item->EndDateTime);
 
         // Skip every second BT line if time and staff the same.
-        if ($item->Program->ID == 4) {
+        if ($item->Program->ID == $this->programmBTID) {
           $current_bt = [
             'staff_id' => $item->Staff->ID,
             'StartDateTime' => $item->StartDateTime,
@@ -268,19 +284,21 @@ class YptfKronosReportsPoc {
    */
   public function getKronosData() {
     $this->kronosData = FALSE;
-    $kronos_report_day = 'last Saturday';
-    $kronos_shift_days = ['', ' -7 days'];
+    $kronos_report_day = $this->kronosReportDay;
+    $kronos_shift_days = $this->kronosReportShiftDay;
     if ($week_day = date("w") < 2) {
-      $kronos_shift_days = [' -7 days', ' -14 days'];
+      foreach ($kronos_shift_days as &$kronos_shift_day) {
+        $kronos_shift_day -= 7;
+      }
     }
     $kronos_data_raw = $kronos_file = '';
     foreach ($kronos_shift_days as $shift) {
-      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift));
+      $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
       $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
       $kronos_file = $kronos_path_to_file . '/wf_reports/WFC_' . $kronos_file_name_date . '.json';
       $kronos_data_raw = file_get_contents($kronos_file);
       if (!$kronos_data_raw) {
-        $kronos_file = 'https://www.ymcamn.org/sites/default/files/wf_reports/WFC_' . $kronos_file_name_date . '.json';
+        $kronos_file = self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date . '.json';
         $kronos_data_raw = file_get_contents($kronos_file);
       }
       if ($kronos_data_raw) {
@@ -328,7 +346,7 @@ class YptfKronosReportsPoc {
     // Saving a file with a path.
     $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
     $cache_dir = $cache_dir . '/mb_reports';
-    $file = $cache_dir . '/WFC_' . $this->dates['EndDate'] . '.json';
+    $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
     $mb_data_file = file_get_contents($file);
     if (!$mb_data_file) {
       $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
@@ -353,31 +371,6 @@ class YptfKronosReportsPoc {
       );
     }
     return $this->mindbodyData;
-  }
-
-  /**
-   * Get MB data.
-   *
-   * @return bool|string
-   *   MindBody ID.
-   */
-  public function getMindbodyStaff() {
-    $user_credentials = [
-      'Username' => $this->credentials->get('user_name'),
-      'Password' => $this->credentials->get('user_password'),
-      'SiteIDs' => [$this->credentials->get('site_id')],
-    ];
-    $params = [
-      'StaffCredentials' => $user_credentials,
-      'StaffIDs' => ['100000315'],
-    ];
-
-    $result = $this->proxy->call('StaffService', 'GetStaff', $params, FALSE);
-    $staff = FALSE;
-    isset($result->GetStaffResult->StaffMembers->Staff) && $staff = $result->GetStaffResult->StaffMembers->Staff;
-    //$result->GetStaffResult->StaffMembers->Staff->LastName
-
-    return $staff;
   }
 
   /**
@@ -446,8 +439,7 @@ class YptfKronosReportsPoc {
   /**
    * Send reports.
    */
-  public function sendReports($report_rows = '') {
-    //config('yptf_kronos.settings');
+  public function sendReports() {
     $config = \Drupal::config('yptf_kronos.settings');
     $debug_mode = $config->get('debug');
     $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
