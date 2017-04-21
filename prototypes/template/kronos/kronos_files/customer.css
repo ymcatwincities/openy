@@ -1,0 +1,173 @@
+/* 
+Copyrith 2003 - 2011, Kronos Incorporated 
+Pathway Senior Living LLC CI specific stylesheet
+*/
+
+/* --- LAYOUT SPECIFIC --- */
+/* ================ [  extended from CONTAINERS.CSS  ] ========================== */
+ 
+ 
+ #header {
+ 	height: auto; /* this can be removed when a BP static content is in place */	
+ 	margin:0pt auto;
+ 	width:880px;
+ }
+ 
+ #customerHeader {
+ 	height: 135px;
+ }
+
+
+ #wrapper {
+	
+	margin:0pt auto;
+	max-width:900px;
+	min-width:900px;
+	width:900px;
+
+}
+
+#bodyContainer {
+	text-align: left;
+	position: relative;
+	width: 100%;
+	min-width: 100%; 
+	max-width: none;
+}
+
+.fullCol {
+	margin-left:10px; /* *** this must be sidenav width + 10px *** */
+}
+
+#caMain { 
+	margin-left: 10px; /* *** this must be sidenav width + 10px *** */
+}
+
+
+
+#sidenav {
+	display: none; /* hide if not using side navigation */
+}
+
+#customerLeftNav {  
+	display: none;
+}
+
+
+#customerFooter {
+	display:none;
+}
+
+
+#caFooterGroup {
+        margin-bottom: 0px;
+}
+body {
+    background-color: #fff;
+    color: #636446;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+    font-size: 69%;
+    margin: 0;
+    padding: 0;
+}
+
+a, a:link {
+    color: #0089d0;
+}
+a:visited {
+    color: #5C2E91;
+}
+a:hover {
+    color: #0089d0;
+    text-decoration: none;
+}
+
+
+a.nav:link {
+    color: #0089d0;
+}
+a.nav:hover {
+    color: #0089D0;
+    text-decoration: underline;
+}
+a.nav:visited {
+    color: #5c2e91;
+}
+
+#tabHeader li.tabOn a {
+    color: #0089d0;
+}
+.pColor {
+    color: #636446;
+}
+
+h1 {
+    color: #0089d0;
+    font-size: 18px;
+    margin: 0;
+    position: relative;
+    z-index: 100;
+}
+
+h2, .h2Label {
+    border-top: 0 solid #ddd;
+    color: #5c2e91;
+    font-size: 1.27em;
+    margin: 14px 0 6px;
+    padding: 0;
+}
+
+div.bgLight {
+    background: none repeat scroll 0 0 White;
+    color: #0060af;
+}
+
+div.bgLight h3 {
+    background: white;
+}
+
+div.sidebar {
+    border: 1px solid #0060af;
+    margin-bottom: 16px;
+    padding: 0;
+    position: relative;
+    width: auto;
+}
+div.sidebar {
+    background: none repeat scroll 0 0 White;
+    border: 1px solid #aaa;
+    margin-bottom: 16px;
+    padding: 0;
+    position: relative;
+    width: auto;
+}
+div.sidebar h3 {
+    background: none repeat scroll 0 0 White;
+    color: #0060af;
+    margin: 0;
+    padding: 8px;
+}
+a.primary, a.primary:link, a.primary:visited {
+    background-color: #0060af;
+}
+a.primary:hover {
+    background-color: #0089d0;
+}
+a.button, a.button:link, a.button:visited {
+    background-color: #0060af;
+    border-color: #999 #666 #666 #999;
+    border-style: solid;
+    border-width: 1px;
+    margin: 0 6px 0 0;
+    padding: 2px 8px;
+    text-decoration: none;
+}
+a.button:hover {
+    background-color: #0089d0;
+}
+a.button span {
+    color: white;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: none;
+}
