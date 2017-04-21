@@ -24,12 +24,15 @@ class ContentSelectForm extends FormBase {
     $form['#title'] = $this->t('Content');
 
     $options = [
+      'alerts' => $this->t('Demo Alerts'),
       'branches' => $this->t('Demo Branches'),
       'camps' => $this->t('Demo Camps'),
       'blog' => $this->t('Demo Blog Posts'),
       'programs' => $this->t('Demo Programs & Categories'),
       'landing' => $this->t('Demo Landing Pages'),
       'menus' => $this->t('Demo menus'),
+      'facility' => $this->t('Demo Facilities'),
+      'membership' => $this->t('Demo Memberships'),
     ];
 
     $form['content'] = [

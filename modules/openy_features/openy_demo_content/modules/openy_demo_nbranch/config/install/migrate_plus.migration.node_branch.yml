@@ -29,7 +29,11 @@ source:
       prgf_gallery: 1
       content_ids:
         -
+          content_id: branch_upper_grid_1
+        -
           content_id: blog_branch_1
+        -
+          content_id: branch_lower_grid_1
     -
       id: 2
       title: 'Downtown YMCA'
@@ -49,7 +53,11 @@ source:
       prgf_gallery: 2
       content_ids:
         -
+          content_id: branch_upper_grid_2
+        -
           content_id: blog_branch_2
+        -
+          content_id: branch_lower_grid_2
     -
       id: 3
       title: 'East YMCA'
@@ -69,7 +77,11 @@ source:
       prgf_gallery: 3
       content_ids:
         -
+          content_id: branch_upper_grid_3
+        -
           content_id: blog_branch_3
+        -
+          content_id: branch_lower_grid_3
     -
       id: 4
       title: 'South YMCA'
@@ -89,7 +101,11 @@ source:
       prgf_gallery: 4
       content_ids:
         -
+          content_id: branch_upper_grid_4
+        -
           content_id: blog_branch_4
+        -
+          content_id: branch_lower_grid_4
   ids:
     id:
       type: integer
@@ -167,11 +183,13 @@ process:
           plugin: migration
           migration:
             - openy_demo_prgf_blog_branch
+            - openy_demo_prgf_grid_content
           source: content_id
         target_revision_id:
           plugin: migration
           migration:
             - openy_demo_prgf_blog_branch
+            - openy_demo_prgf_grid_content
           source: content_id
   field_header_content/target_id:
     -
@@ -190,4 +208,5 @@ migration_dependencies:
     - openy_demo_taxonomy_term_area
     - openy_demo_prgf_gallery
     - openy_demo_prgf_blog_branch
+    - openy_demo_prgf_grid_content
   optional: {  }

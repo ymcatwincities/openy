@@ -135,9 +135,7 @@
       float: left;
       min-height: 360px;
 
-      i {
-        background-size: 27px;
-        background-position: top left;
+      svg {
         margin-top: 21px;
       }
     }
@@ -255,10 +253,17 @@
   label {
     display: block;
     @include cachet();
+  }
 
-    &[for="edit-combine"] {
-      opacity: 0;
-    }
+  .form-item-combine label {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
   }
 
   select {
@@ -279,13 +284,15 @@
     width: 90px;
     height: 34px;
     padding: 7px 16px;
-    background-color: #00aeef;
     border: solid 1px #636466;
     font-size: 16px;
     font-weight: 600;
-    color: #ffffff;
     @include cachet();
     text-transform: uppercase;
+  }
+
+  .no-results {
+    margin-bottom: 49px;
   }
 }
 

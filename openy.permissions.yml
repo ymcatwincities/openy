@@ -1,0 +1,4 @@
+access structure page:
+  title: 'Access admin structure page'
+  description: 'Grants access to structure page.'
+  restrict access: TRUE

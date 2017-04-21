@@ -4,10 +4,11 @@ dependencies: {  }
 name: node_mbrshp_calc_summary
 label: 'Node mbrshp calculator summary'
 effects:
-  76d79abc-d228-4ba8-8b03-db34526dc725:
-    uuid: 76d79abc-d228-4ba8-8b03-db34526dc725
-    id: image_scale_and_crop
-    weight: 1
+  7b904298-ddbc-43d2-a97a-592895914c8d:
+    uuid: 7b904298-ddbc-43d2-a97a-592895914c8d
+    id: image_scale
+    weight: 2
     data:
-      width: 555
+      width: null
       height: 300
+      upscale: true

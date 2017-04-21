@@ -11,7 +11,7 @@
     selenium_url: "{{ selenium_ip }}:{{ selenium_port }}/wd/hub"
     run_javascript_tests: 'yes'
     container_name: 'selenium'
-    container_image: 'selenium/standalone-chrome:2.53.0'
+    container_image: 'selenium/standalone-chrome-debug:3.3'
 
   pre_tasks:
     - name: Wait for Selenium container to be stopped
@@ -28,7 +28,9 @@
         name: "{{ container_name }}"
         image: "{{ container_image }}"
         detach: true
-        ports: "{{ selenium_port }}:{{ selenium_port }}"
+        ports:
+          - "{{ selenium_port }}:{{ selenium_port }}"
+          - 5901:5900
         state: started
       sudo: yes
       when: run_javascript_tests == 'yes'
