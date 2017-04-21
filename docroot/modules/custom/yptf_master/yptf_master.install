@@ -8,6 +8,7 @@
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\Core\Datetime\DrupalDateTime;
 use \Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Database\Database;
 
 /**
  * Initial hook_updates runner.
@@ -455,9 +456,13 @@ function yptf_master_update_8023() {
 }
 
 /**
- * Re-Enable Kronos module.
+ * Re-Enable Kronos module and change MindbodyClient Name length.
  */
 function yptf_master_update_8024() {
+  $schema = Database::getConnection()->schema();
+  $spec = array('type' => 'varchar', 'length' => 512);
+  $schema->changeField('mindbody_cache', 'name', 'name', $spec);
+
   \Drupal::service('module_installer')->uninstall(['yptf_kronos']);
   \Drupal::service('module_installer')->install(['yptf_kronos']);
 }

@@ -186,7 +186,7 @@ class MindbodyCache extends ContentEntityBase implements MindbodyCacheInterface 
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the MindBody Cache entity.'))
       ->setSettings(array(
-        'max_length' => 50,
+        'max_length' => 512,
         'text_processing' => 0,
       ))
       ->setDefaultValue('')
