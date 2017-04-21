@@ -169,9 +169,17 @@ function openy_update_8011() {
 }
 
 /**
- * Update WYSIWYG media buttons.
+ * Enable the Header Footer Template module.
  */
 function openy_update_8012() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_hf']);
+}
+
+/**
+ * Update WYSIWYG media buttons.
+ */
+function openy_update_8013() {
   $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
