@@ -22,5 +22,7 @@ function openy_prgf_classes_listing_form_views_exposed_form_alter(&$form, FormSt
       }
       $form_state->setUserInput($user_input);
     }
+
+    $form['#attributes']['class'][] = 'container';
   }
 }
