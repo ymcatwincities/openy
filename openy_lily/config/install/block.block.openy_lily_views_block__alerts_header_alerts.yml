@@ -1,0 +1,26 @@
+uuid: d377607f-3973-4f15-9886-8082634665d5
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.alerts
+  module:
+    - views
+  theme:
+    - openy_lily
+_core:
+  default_config_hash: _YkyDFFNQNrAZOpBFTtKnev7UxCAyGKD3j-DXvBev6o
+id: openy_lily_views_block__alerts_header_alerts
+theme: openy_lily
+region: '-1'
+weight: -3
+provider: null
+plugin: 'views_block:alerts-header_alerts'
+settings:
+  id: 'views_block:alerts-header_alerts'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility: {  }
