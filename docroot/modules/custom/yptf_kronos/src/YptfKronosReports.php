@@ -246,9 +246,10 @@ class YptfKronosReports {
 
         $staff_id = $item->Staff->ID;
         $location_id = $item->Location->ID;
-
+        !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) && $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0;
         $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
         !empty($item->Staff->LastName) && $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName;
+        !isset($location_reports[$location_id]['mb_hours']) && $location_reports[$location_id]['mb_hours'] = 0;
         $location_reports[$location_id]['mb_hours'] += $diff;
         !empty($item->Location->Name) && $location_reports[$location_id]['name'] = $item->Location->Name;
       }
@@ -287,7 +288,7 @@ class YptfKronosReports {
       }
     }
 
-    $loc_total['wf_hours'] = $loc_total['total']['mb_hours'] = 0;
+    $loc_total['wf_hours'] = $loc_total['mb_hours'] = $loc_total['historical_hours'] = 0;
     foreach ($location_reports as &$row) {
       if (!isset($row['mb_hours'])) {
         $row['variance'] = '-';
@@ -303,13 +304,18 @@ class YptfKronosReports {
         $row['variance'] = round((1 - $row['mb_hours'] / $row['wf_hours']) * 100);
         $row['variance'] .= '%';
       }
-      $loc_total['wf_hours'] += intval($row['wf_hours']);
-      $loc_total['mb_hours'] += intval($row['mb_hours']);
-      $loc_total['historical_hours'] += intval($row['historical_hours']);
+      isset($row['wf_hours']) && $loc_total['wf_hours'] += intval($row['wf_hours']);
+      isset($row['mb_hours']) && $loc_total['mb_hours'] += intval($row['mb_hours']);
+      isset($row['historical_hours']) && $loc_total['historical_hours'] += intval($row['historical_hours']);
     }
     $location_reports['total']['wf_hours'] = round($loc_total['wf_hours'], 2);
     $location_reports['total']['mb_hours'] = round($loc_total['mb_hours'], 2);
-    $location_reports['total']['historical_hours'] = round($loc_total['total']['historical_hours'], 2);
+    if (isset($loc_total['total']['historical_hours'])) {
+      $location_reports['total']['historical_hours'] = round($loc_total['total']['historical_hours'], 2);
+    }
+    else {
+      $location_reports['total']['historical_hours'] = 0;
+    }
     if ($location_reports['total']['wf_hours'] == 0) {
       $location_reports['total']['variance'] = '-';
     }
@@ -344,12 +350,12 @@ class YptfKronosReports {
       $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
       $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
       $kronos_file = $kronos_path_to_file . '/wf_reports/WFC_' . $kronos_file_name_date . '.json';
-      $kronos_data_raw = file_get_contents($kronos_file);
-      if (!$kronos_data_raw) {
+      file_exists($kronos_file) && $kronos_data_raw = file_get_contents($kronos_file);
+      if (empty($kronos_data_raw)) {
         $kronos_file = self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date . '.json';
         $kronos_data_raw = file_get_contents($kronos_file);
       }
-      if ($kronos_data_raw) {
+      if (!empty($kronos_data_raw)) {
         break;
       }
     }
@@ -390,23 +396,33 @@ class YptfKronosReports {
       // Zero is for all staff.
       'StaffIDs' => [0],
     ];
-    // New service to add.
-    // Saving a file with a path.
-    $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
-    $cache_dir = $cache_dir . '/mb_reports';
-    $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
-    $mb_data_file = file_get_contents($file);
-    if (!$mb_data_file) {
-      $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
-      $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
 
-      if (!file_exists($cache_dir)) {
-        mkdir($cache_dir, 0764, TRUE);
+    // Get MB cache for debug mode.
+    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+    if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
+      // New service to add.
+      // Saving a file with a path.
+      $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+      $cache_dir = $cache_dir . '/mb_reports';
+      $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
+      $mb_data_file = file_get_contents($file);
+      if (!$mb_data_file) {
+        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
+        $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
+
+        if (!file_exists($cache_dir)) {
+          mkdir($cache_dir, 0764, TRUE);
+        }
+        file_put_contents($file, json_encode($this->mindbodyData));
       }
-      file_put_contents($file, json_encode($this->mindbodyData));
+      else {
+        $this->mindbodyData = json_decode($mb_data_file);
+      }
     }
-    else {
-      $this->mindbodyData = json_decode($mb_data_file);
+
+    if (empty($this->mindbodyData)) {
+      $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
+      $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
     }
 
     if (empty($this->mindbodyData)) {
@@ -434,22 +450,26 @@ class YptfKronosReports {
     if (!empty($this->staffIDs[$staff_id])) {
       return $this->staffIDs[$staff_id];
     }
-    if (!isset($this->staffIDs)) {
-      $cache_dir = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
-      $cache_dir = $cache_dir . '/mb_reports';
-      if (!file_exists($cache_dir)) {
-        mkdir($cache_dir, 0764, TRUE);
-      }
-      $file = $cache_dir . '/staff_ids.json';
-      $mb_data_file = file_get_contents($file);
-      if ($mb_data_file) {
-        $this->staffIDs = json_decode($mb_data_file, TRUE);
-      }
-      if (!empty($this->staffIDs[$staff_id])) {
-        return $this->staffIDs[$staff_id];
+    // Get MB cache for debug mode.
+    $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+    if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
+      if (!isset($this->staffIDs)) {
+        $cache_dir = \Drupal::service('file_system')
+          ->realpath(file_default_scheme() . "://");
+        $cache_dir = $cache_dir . '/mb_reports';
+        if (!file_exists($cache_dir)) {
+          mkdir($cache_dir, 0764, TRUE);
+        }
+        $file = $cache_dir . '/staff_ids.json';
+        $mb_data_file = file_get_contents($file);
+        if ($mb_data_file) {
+          $this->staffIDs = json_decode($mb_data_file, TRUE);
+        }
+        if (!empty($this->staffIDs[$staff_id])) {
+          return $this->staffIDs[$staff_id];
+        }
       }
     }
-
     $staff_params = [
       'PageSize' => 50,
       'CurrentPageIndex' => 0,
@@ -462,7 +482,7 @@ class YptfKronosReports {
         ],
       ],
     ];
-    $staff_id_call = $this->proxy->call('DataService', 'FunctionDataXml', $staff_params, '');
+    $staff_id_call = $this->proxy->call('DataService', 'FunctionDataXml', $staff_params, TRUE);
     $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
     if (isset($mb_staff_id->Row->EmpID) && !empty($mb_staff_id->Row->EmpID)) {
       $this->staffIDs[$staff_id] = $mb_staff_id->Row->EmpID;
@@ -516,6 +536,7 @@ class YptfKronosReports {
     // Get settings.
     $storage = \Drupal::entityTypeManager()->getStorage('mapping');
     $lang = $this->languageManager->getCurrentLanguage()->getId();
+
     foreach ($email_type as $report_type => $data) {
       if (!empty($config->get($report_type)['enabled']) && !empty($config->get($report_type)['staff_type'])) {
         $recipients = $storage->loadByProperties(['type' => 'staff', 'field_staff_type' => $config->get($report_type)['staff_type']]);
@@ -526,17 +547,20 @@ class YptfKronosReports {
           if (!$token) {
             $token = 'No data.';
           }
-          $tokens['body'] = str_replace($report_tokens[$report_type], $token, $body);
-          $tokens['subject'] = $config->get($report_type)['subject'];
-
+          $tokens['body'] = str_replace($report_tokens[$report_type], $token['report'], $body);
+          $tokens['subject'] = $token['name'] . ' ' . $config->get($report_type)['subject'];
+          $tokens['subject'] .= ' ' . date("m/d/Y", strtotime($this->dates['StartDate'])) . ' - ' . date("m/d/Y", strtotime($this->dates['EndDate']));
           // Debug Mode: Print results on screen or send to mail.
-          if (!empty($debug_mode) && $debug_mode == 'dpm') {
-            print ($token);
+          if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'dpm')) {
+            print ($tokens['subject']);
+            print ($token['report']);
           }
-          elseif (!empty($debug_mode) && $debug_mode == 'mail') {
+          elseif (!empty($debug_mode) && strpos($debug_mode, 'email')) {
+            $debug_email = explode('email', $debug_mode);
+            $debug_email = end($debug_email);
             try {
               // Send notifications.
-              $this->mailManager->mail('yptf_kronos', 'yptf_kronos_reports', $debug_mode, $lang, $tokens);
+              $this->mailManager->mail('yptf_kronos', 'yptf_kronos_reports', $debug_email, $lang, $tokens);
             }
             catch (\Exception $e) {
               $msg = 'Failed to send email report. Error: %error';
@@ -555,9 +579,7 @@ class YptfKronosReports {
           }
         }
       }
-
     }
-
   }
 
   /**
@@ -575,12 +597,16 @@ class YptfKronosReports {
     $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
 
     // Get locations ref.
-    // @TODO: notify if no location.
     $location_repository = \Drupal::service('ymca_mappings.location_repository');
     $location = $location_repository->findByLocationId($location_id);
     $location = is_array($location) ? reset($location) : $location;
     if ($location) {
       $location_mid = $location->field_mindbody_id->getValue()[0]['value'];
+    }
+    else {
+      $msg = 'No location on site for MB location_id: %params.';
+      $this->logger->notice($msg, ['%params' => $location_id]);
+      return FALSE;
     }
     switch ($type) {
       case "pt_managers":
@@ -588,8 +614,18 @@ class YptfKronosReports {
           return FALSE;
         }
         $data['rows'] = $this->reports['trainers'][$location_mid];
+
+        // Sort by names.
+        $names = [];
+        foreach ($data['rows'] as &$name) {
+          $names[] = &$name["name"];
+        }
+        array_multisort($names, $data['rows']);
+
         $data['summary'] = $this->reports['locations'][$location_mid];;
         $data['summary']['name'] = t('BRANCH TOTAL');
+
+        $location_name = $location->getName();
         break;
 
       case "leadership":
@@ -600,7 +636,13 @@ class YptfKronosReports {
         $data['summary']['name'] = t('ALL BRANCHES');
         unset($this->reports['locations']['total']);
         $data['rows'] = $this->reports['locations'];
-
+        // Sort by names.
+        $names = [];
+        foreach ($data['rows'] as &$name) {
+          $names[] = &$name["name"];
+        }
+        array_multisort($names, $data['rows']);
+        $location_name = '';
         break;
     }
 
@@ -610,7 +652,7 @@ class YptfKronosReports {
     ];
 
     $table = render($variables);
-    return $table;
+    return ['report' => $table, 'name' => $location_name];
   }
 
 }
