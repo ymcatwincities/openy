@@ -8,11 +8,33 @@ a,
   color: #337ab7;
 }
 .button,
-.btn {
+.btn,
+.button.blue,
+.btn.blue,
+.modal-body .button,
+.btn-primary,
+.button:hover,
+.btn:hover,
+.button.blue:hover,
+.btn.blue:hover,
+.modal-body .button:hover,
+.btn-primary:hover,
+.btn.white-blue:hover,
+.white-blue.button:hover {
   background-color: #00aeef;
+  color: #fffffc;
 }
+.button a,
+.btn a,
+.banner .banner-btn a,
+.button a:hover,
+.btn a:hover {
+  color: #fffffc;
+}
+
 .btn-default {
   background-color: #ffffff;
+  color: #333;
 }
 .top-navs,
 .sidebar,
@@ -33,6 +55,210 @@ a,
   background-color: #0060af;
   border-bottom: #0060af;
 }
+.branch-header .desktop {
+  background-color: #c6168db;
+}
+.page-head__main-menu .nav-level-2 > a,
+.page-head__main-menu .nav-level-3 > a,
+.viewport .navbar-default .navbar-nav > li > a,
+.page-head__top-menu a,
+.page-head__main-menu a,
+.viewport .page-head__main-menu .dropdown-menu > li > a:focus,
+.viewport .page-head__main-menu .dropdown-menu > li > a:hover,
+.navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-nav .open .dropdown-menu > li > a:focus {
+  color: #fffffb;
+}
+.viewport .nav-level-2 > a:hover,
+.viewport .nav-level-2 > a:focus
+.viewport .page-head__main-menu .nav-level-2 > a:hover,
+.viewport .page-head__main-menu .nav-level-2 > a:focus {
+  color: #d8d8d8;
+}
 .footer {
   background-color: #4f4f4f;
+}
+.footer,
+.footer .footer__nav nav ul li a {
+  color: #fffffa;
+}
+
+/* Primary highlight color (purple.) */
+.program-header.purple .content,
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn,
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button,
+#membership-calc-wrapper .pull-right,
+#membership-calc-wrapper .complete-registration,
+#membership-calc-wrapper .nav-pills > li.active div,
+#membership-calc-wrapper .nav-pills > li:first-child div {
+  background-color: #5c2e91;
+}
+.paragraph--column-in-a-grid .fa,
+.paragraph-gallery .item__caption,
+.sidebar-card h2,
+.story-card a,
+.story-card .quote,
+.color-purple, .description.purple, .paragraph.featured-content .description,
+.program-header.purple .description,
+.sub-category-classes-view .activity-group h3,
+.branch-sessions-group h3,
+.branch-sessions-group .group_time,
+.locations-list h1.color-purple,
+.locations-list h1.description.purple,
+.locations-list .paragraph.featured-content h1.description,
+.paragraph.featured-content .locations-list h1.description,
+.locations-list h2.color-purple,
+.locations-list h2.description.purple,
+.locations-list .paragraph.featured-content h2.description,
+.paragraph.featured-content .locations-list h2.description,
+[class*="sidebar"] .node--type-facility.node--view-mode-teaser h2 a,
+[class*="sidebar"] .node--type-branch.node--view-mode-teaser h2 a,
+[class*="sidebar"] .node--type-camp.node--view-mode-teaser h2 a,
+.node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h2,
+.node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h4,
+.node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h2,
+.class-page-schedule .ticket,
+#schedules-search-form-wrapper .results .group_time,
+#schedules-search-form-wrapper .results .views-row .ticket,
+body .branch-popup .ui-dialog-content h3 {
+  color: #5c2e91;
+}
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn,
+#membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button {
+  box-shadow: 0 0 5px #5c2e91;
+}
+#membership-calc-wrapper .nav-pills > li:first-child div:after,
+#membership-calc-wrapper .nav-pills > li.active div:after {
+  border-left-color: #5c2e91;
+}
+.story-card .quote svg {
+  fill: #5c2e91;
+}
+
+/* Secondary highlight color (pink.) */
+.branch-header .desktop,
+.branch-header .desktop .today-hours .branch-hours,
+.branch-header .mobile,
+.node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
+#membership-calc-wrapper .nav-pills > li div {
+  background-color: #c6168d;
+}
+.paragraph-gallery .cta-group-wrapper .cta-group h1,
+.sub-category-classes-view .activity-group .activity-group-slider .slick-dots li.slick-active button:before,
+.branch__updates_queue .slick-dots li.slick-active button:before,
+.branch-sessions-group .branch-sessions-group-slider .slick-dots li.slick-active button:before,
+.featured-content .slick-dots li.slick-active button:before,
+#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
+  color: #c6168d;
+}
+.paragraph--class-content .cards > a,
+.paragraph--class-content .cards .field-collection-item.without-link,
+.sub-category-classes-view .activity-group .teaser-row,
+.sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity,
+.branch-sessions-group .views-row,
+#schedules-search-form-wrapper .results .views-row {
+  border-color: #c6168d;
+}
+#membership-calc-wrapper .nav-pills > li div:after {
+  border-left-color: #c6168d;
+}
+.branch-sessions-group .group_time {
+  border-bottom-color: #c6168d;
+}
+
+/* Camp specific overrides */
+.is-camp {
+  background-color: #fffffe;
+  color: #636465;
+}
+.is-camp a,
+.is-camp .link {
+  color: #01a491;
+}
+.is-camp .button,
+.is-camp .btn,
+.is-camp .button.blue,
+.is-camp .btn.blue,
+.is-camp .modal-body .button,
+.is-camp .btn-primary,
+.is-camp .button:hover,
+.is-camp .btn:hover,
+.is-camp .button.blue:hover,
+.is-camp .btn.blue:hover,
+.is-camp .modal-body .button:hover,
+.is-camp .btn-primary:hover,
+.is-camp .btn.white-blue:hover,
+.is-camp .white-blue.button:hover {
+  background-color: #2fb998;
+  color: #fffff9;
+}
+.is-camp .button a,
+.is-camp .btn a,
+.is-camp .banner .banner-btn a,
+.is-camp .button a:hover,
+.is-camp .btn a:hover {
+  color: #fffff9;
+}
+.is-camp .top-navs,
+.is-camp .sidebar,
+.is-camp .navbar-default .navbar-toggle,
+.is-camp .navbar-default .navbar-toggle:focus,
+.is-camp .navbar-default .navbar-toggle:hover,
+.is-camp .navbar-default .navbar-toggle:active {
+  background-color: #f47920;
+}
+.is-camp .nav.dropdown-menu,
+.is-camp .viewport .nav-level-2.open > a,
+.is-camp .viewport .nav-level-2.open > a:focus,
+.is-camp .nav > li > a:hover,
+.is-camp .nav > li > a:focus {
+  background-color: #f86b05;
+}
+.is-camp .page-head__main-menu .nav-level-2 > a,
+.is-camp .page-head__main-menu .nav-level-3 > a,
+.is-camp .viewport .navbar-default .navbar-nav > li > a,
+.is-camp .page-head__top-menu a,
+.is-camp .page-head__main-menu a,
+.is-camp .viewport .page-head__main-menu .dropdown-menu > li > a:focus,
+.is-camp .viewport .page-head__main-menu .dropdown-menu > li > a:hover,
+.is-camp .navbar-nav .open .dropdown-menu > li > a:hover,
+.is-camp .navbar-nav .open .dropdown-menu > li > a:focus {
+  color: #fffff8;
+}
+.is-camp .viewport .nav-level-2 > a:hover,
+.is-camp .viewport .nav-level-2 > a:focus
+.is-camp .viewport .page-head__main-menu .nav-level-2 > a:hover,
+.is-camp .viewport .page-head__main-menu .nav-level-2 > a:focus {
+  color: #d8d8d7;
+}
+.is-camp .branch-header .desktop {
+  background-color: #c6168c;
+}
+.is-camp .viewport .nav-level-2.open {
+  background-color: #f86b05;
+  border-bottom: #f86b05;
+}
+.is-camp footer {
+  background-color: #01a490;
+}
+.is-camp .footer,
+.is-camp .footer .footer__nav nav ul li a {
+  color: #fffff7;
+}
+.is-camp .camp-menu-wrapper {
+  background-color: #0060ad;
+}
+.is-camp .camp-menu__item a {
+  color: #fffffd;
+}
+.is-camp .camp-menu-wrapper a:hover,
+.is-camp .camp-menu-wrapper .active {
+  background-color: #0089d1;
+}
+
+.viewport .nav-level-2 > a:hover,
+.viewport .nav-level-2 > a:focus,
+.is-camp .viewport .nav-level-2 > a:hover,
+.is-camp .viewport .nav-level-2 > a:focus {
+  background: none;
 }

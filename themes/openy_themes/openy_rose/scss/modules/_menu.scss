@@ -167,13 +167,11 @@
 
   .navbar-nav .open .dropdown-menu > li > a,
   .navbar-nav .open .dropdown-menu .dropdown-header {
-    color: $white;
     padding: 12px 15px 12px 23px;
   }
 
   .dropdown-menu > li > a:hover,
   .dropdown-menu > li > a:focus {
-    color: $white;
     background: none;
   }
 
@@ -194,14 +192,12 @@
 
     .nav-level-2 > a:hover,
     .nav-level-2 > a:focus {
-      color: #D8D8D8;
       text-decoration: none;
     }
 
     .dropdown-menu>li>a:focus,
     .dropdown-menu>li>a:hover {
       background: none;
-      color: $white;
     }
 
     .nav-level-3 {
@@ -251,7 +247,6 @@
       &:hover,
       &:focus {
         background: none;
-        color: #D8D8D8;
       }
     }
 
@@ -269,7 +264,6 @@
 
       > a,
       > a:focus {
-        color: $white;
         position: relative;
         z-index: 1001;
         padding: 10px 14px 24px 14px;
@@ -307,13 +301,28 @@
 
 @include breakpoint($screen-desktop $screen-md-max) {
   .row-level-2 {
-
     > li {
-
-      &:nth-child(3n + 1) {
+      &:nth-child(4n + 1) {
         clear: both;
       }
     }
+  }
+}
+
+@include breakpoint($screen-md-max) {
+  .row-level-2 {
+    > li {
+      &:nth-child(6n + 1) {
+        clear: both;
+      }
+    }
+  }
+}
+
+@include breakpoint($screen-desktop) {
+  .row-level-2 {
+    left: 0;
+    right: 0;
   }
 }
 

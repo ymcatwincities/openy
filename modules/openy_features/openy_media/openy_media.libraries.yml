@@ -8,3 +8,4 @@ browser:
   dependencies:
     - core/jquery
     - core/drupal
+    - core/underscore

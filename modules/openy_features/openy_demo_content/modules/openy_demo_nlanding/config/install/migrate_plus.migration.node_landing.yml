@@ -19,6 +19,10 @@ source:
       content_ids:
         -
           content_id: homepage_latest_blog_posts
+        -
+          content_id: homepage_grid
+        -
+          content_id: homepage_membership_featured_content
     -
       id: about
       title: 'About the YMCA'
@@ -89,6 +93,14 @@ source:
       content_ids:
         -
           content_id: camp_page_3_simple
+    -
+      id: join
+      title: 'Join'
+      alias: '/join'
+      header_content_id: join_gallery
+      content_ids:
+        -
+          content_id: join_member_calc
   ids:
     id:
       type: string
@@ -142,11 +154,13 @@ process:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
+          - openy_demo_lp_paragraph_grid_content
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
+          - openy_demo_lp_paragraph_membership_calculator
         source: content_id
       target_revision_id:
         plugin: migration
@@ -155,11 +169,13 @@ process:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
           - openy_demo_lp_paragraph_featured_blogs
+          - openy_demo_lp_paragraph_grid_content
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
           - openy_demo_lp_paragraph_blog_posts_listing
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
+          - openy_demo_lp_paragraph_membership_calculator
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -170,6 +186,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_simple
     - openy_demo_lp_paragraph_featured_content
     - openy_demo_lp_paragraph_featured_blogs
+    - openy_demo_lp_paragraph_grid_content
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
     - openy_demo_lp_paragraph_small_banner
@@ -178,5 +195,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_location_finder_filters
     - openy_demo_lp_paragraph_location_finder
     - openy_demo_lp_paragraph_menu_camp
+    - openy_demo_lp_paragraph_membership_calculator
   optional:
     - openy_demo_node_blog

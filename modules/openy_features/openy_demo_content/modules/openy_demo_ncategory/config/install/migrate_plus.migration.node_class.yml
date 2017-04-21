@@ -1,0 +1,1382 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncategory
+id: openy_demo_node_class
+migration_tags: {  }
+migration_group: openy_demo_ncategory
+label: 'Create demo class nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: swim_lessons_adult_begin
+      title: 'Swim Lessons - Adult Beginning'
+      activity: swim_lessons_adult
+      body: |
+        <p>
+        For individuals who have never had swim lessons, or are uncomfortable
+        around water. Students develop comfort with underwater exploration and
+        learn to safely exit the water unassisted. In this stage the student
+        will progress to swimming longer distances up to 15 feet unassisted
+        without a flotation device. Other skills learned include directional
+        changes, body positioning, and rhythmic breathing.
+        </p>
+    -
+      id: swim_lessons_parent_child_a
+      title: 'Swim Lessons - Parent/Child Stage A: Water Discov.'
+      activity: swim_lessons_child_with_adult
+      body: |
+        <p>
+        Accompanied by a parent or guardian, infants and toddlers will be
+        comfortable in the water and develop swim readiness skills through
+        fun and confidence building experiences, while parents learn about
+        water safety, drowning prevention, and the importance of supervision.
+        </p>
+    -
+      id: swim_lessons_parent_child_b
+      title: 'Swim Lessons - Parent/Child Stage B: Water Explor.'
+      activity: swim_lessons_child_with_adult
+      body: |
+        <p>
+        Designed for infants and toddlers able to enter and exit the water with
+        help and to enjoy the water with a parent or guardian. In stage B,
+        parents work with their children to explore body positions, floating,
+        blowing bubbles, and fundamental safety and aquatic skills.
+        </p>
+    -
+      id: swim_lessons_preschool_1
+      title: 'Swim Lessons - Preschool Stage 1: Water Acclimat.'
+      activity: swim_lessons_preschool
+      body: |
+        <p>
+        For Preschool age children who have never had swim lessons without a
+        prent or guardian, or are afraid of the water. Students develop comfort
+        with underwater exploration and a foundation that allows for a student's
+        future progress in swimming.
+        </p>
+    -
+      id: swim_lessons_preschool_2
+      title: 'Swim Lessons - Preschool Stage 2: Water Movement'
+      activity: swim_lessons_preschool
+      body: |
+        <p>
+        For Preschool age children who are comfortable in the water and able to
+        swim and float assisted for 5 feet. In stage 2 students focus on body
+        position and control, directional change, and forward movement in the
+        water while also continuing to practice how to safely exit in the event
+        of falling into a body of water.
+        </p>
+    -
+      id: swim_lessons_preschool_3
+      title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
+      activity: swim_lessons_preschool
+      body: |
+        <p>
+        For Preschool age children who can swim 10 yards unassisted with their
+        face in the water and without a flotation device. In stage 3 students
+        learn how to swim to safety from a longer distance and also rhythmic
+        breathing and integrated arma nd leg action.
+        </p>
+    -
+      id: swim_lessons_preschool_4
+      title: 'Swim Lessons - Preschool Stage 4: Stroke Intro.'
+      activity: swim_lessons_preschool
+      body: |
+        <p>
+        For Preschool age children who can swim 15 yards unassisted with their
+        face in the water and without a flotation device. Having mastered the
+        fundamentals, students learn additional water safety skills and build
+        stroke technique.
+        </p>
+    -
+      id: swim_lessons_private
+      title: 'Swim Lesson - Private'
+      activity: swim_lessons_private
+      body: |
+        <p>
+        Private swim lessons.
+        </p>
+    -
+      id: swim_lessons_youth_1
+      title: 'Swim Lessons - Youth Stage 1: Water Acclimat.'
+      activity: swim_lessons_youth
+      body: |
+        <p>
+        For school age children who have never had swim lessons without a parent
+        or guardian, or are afraid of the water. Students develop comfort with
+        underwater exploration and learn to safely exit the water unassisted.
+        This stage lays the foundation that allows for a student?s future
+        progress in swimming.
+        </p>
+    -
+      id: swim_lessons_youth_2
+      title: 'Swim Lessons - Youth Stage 2: Water Movement'
+      activity: swim_lessons_youth
+      body: |
+        <p>
+        For school age children who are comfortable in the water and able to
+        swim and float assisted for 10 feet. In stage 2 students focus on body
+        position and control, directional change, and forward movement in the
+        water while also continuing to practice how to safely exit in the event
+        of falling into a body of water.
+        </p>
+    -
+      id: swim_lessons_youth_3
+      title: 'Swim Lessons - Youth Stage 3: Water Stamina'
+      activity: swim_lessons_youth
+      body: |
+        <p>
+        For school age children who can swim 15 yards unassisted with face in
+        the water and without a flotation device. In stage 3 students learn how
+        to swim to safety from a longer distance and also rhythmic breathing and
+        integrated arm and leg action.
+        </p>
+    -
+      id: swim_lessons_youth_4
+      title: 'Swim Lessons - Youth Stage 4: Stroke Intro.'
+      activity: swim_lessons_youth
+      body: |
+        <p>
+        For school age children who can swim 15 yards unassisted. Having
+        mastered the fundamentals, students learn additional water safety
+        skills and build stroke technique.
+        </p>
+    -
+      id: swim_lessons_youth_5
+      title: 'Swim Lessons - Youth Stage 5: Stroke Devel.'
+      activity: swim_lessons_youth
+      body: |
+        <p>
+        For school age children who can swim 25 yards unassisted and show
+        endurance in the water with any stroke or combination of strokes.
+        Students in stage 5 work on stroke technique and learn all major
+        competitive strokes. The emphasis on water safety continues through
+        treading water and sidestroke.
+        </p>
+    -
+      id: swim_lessons_youth_6
+      title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
+      activity: swim_lessons_youth
+      body: |
+        <p>
+        For school age children who can swim 50 yards unassisted and show
+        endurance in the water with any stroke or combination of strokes.
+        In stage 6 students refine stroke technique on all major competitive
+        strokes, learn about competitive swimming, and discover how to
+        incorporate swimming into a healthy lifestyle.
+        </p>
+    -
+      id: swim_team_intrest_list
+      title: 'Swim Team - Interest List'
+      activity: swim_team
+      body: |
+        <p>
+        The Northshore Sharks swim team is a Y values based program, focused on
+        proper technique, individual goals, and team values. Swimmers have the
+        chance to grow their skills as a competitive swimmer, make friends, and
+        set individual goals. A coach evaluation is required to join the team to
+        ensure proper placement in a practice group.
+        </p>
+
+        <p>
+        The Northshore Sharks will email the individuals on the Interest List
+        when evaluation dates and times are set.
+        </p>
+
+        <p>
+        Swimmers wishing to join the Northshore Sharks Swim Team should be able
+        to complete the 4 competitive strokes legally for 25 yards. Freestyle,
+        Backstroke, Breaststroke &amp; Butterfly
+        </p>
+    -
+      id: swim_lessons_teen
+      title: 'Swim Lessons - Teen'
+      activity: swim_lessons_teen
+      body: |
+        <p>
+        Teen beginning: For individuals who have never had swim lessons, or are
+        uncomfortable around water. Students develop comfort with underwater
+        exploration and learn to safely exit the water unassisted. In this stage
+        the student will progress to swimming longer distances up to 15 feet
+        unassisted without a flotation device. Other skills learned include
+        directional changes, body positioning, and rhythmic breathing. Teen
+        intermediate: For individuals who are comfortable in the water, and able
+        to swim and float unassisted for up to 15 feet. Students continue to
+        gain swimming confidence, completing longer distances and integrating
+        arm and leg actions. Having mastered fundamentals, students learn
+        additional water safety skills and build stroke technique. Teen
+        advanced: For individuals who can swim up to 25 yards unassisted and
+        show endurance in the water with different stroke combinations.
+        Students work on stroke technique, learn all major competitive strokes,
+        and continue to build distance. The emphasis on water safety continues
+        through treading water and sidestroke.
+        </p>
+    -
+      id: swim_lessons_teen_beginning
+      title: 'Swim Lessons - Teen Beginning'
+      activity: swim_lessons_teen
+      body: |
+        <p>
+        For individuals who have never had swim lessons, or are uncomfortable
+        around water. Students develop comfort with underwater exploration and
+        learn to safely exit the water unassisted. In this stage the student
+        will progress to swimming longer distances up to 15 feet unassisted
+        without a flotation device. Other skills learned include directional
+        changes, body positioning, and rhythmic breathing.
+        </p>
+    -
+      id: swim_lessons_teen_intermediate
+      title: 'Swim Lessons - Teen Intermediate'
+      activity: swim_lessons_teen
+      body: |
+        <p>
+        For individuals who are comfortable in the water, and able to swim and
+        float unassisted for up to 15 feet. Students continue to gain swimming
+        confidence, completing longer distances and integrating arm and leg
+        actions. Having mastered fundamentals, students learn additional water
+        safety skills and build stroke technique. By the end of this stage
+        students who are 16 or older may qualify to take the YMCA Swim
+        Instructor and/or Lifeguard course.
+        </p>
+    -
+      id: swim_lessons_teen_advanced
+      title: 'Swim Lessons - Teen Advanced'
+      activity: swim_lessons_teen
+      body: |
+        <p>
+        For individuals who can swim up to 25 yards unassisted and show
+        endurance in the water with different stroke combinations. Students
+        work on stroke technique , learn all major competitive strokes, and
+        continue to build distance. The emphasis on water safety continues
+        through treading water and sidestroke.
+        </p>
+    -
+      id: drop_in_swim_recreational_3ft
+      title: 'Recreational Swim 3ft'
+      activity: drop_in_swim
+      body: |
+        <p>
+        Recreational Swim Time
+        </p>
+    -
+      id: drop_in_swim_wade_2ft
+      title: 'Wade Swim 2ft'
+      activity: drop_in_swim
+      body: |
+        <p>
+        Swimming for fun or fitness in shallow water.
+        </p>
+    -
+      id: drop_in_swim_rec_with_slide
+      title: 'Rec Swim with Slide'
+      activity: drop_in_swim
+      body: |
+        <p>
+        Recreational swim time.
+        </p>
+    -
+      id: drop_in_swim_adult_5.5ft
+      title: 'Adult Swim 5.5 ft'
+      activity: drop_in_swim
+      body: |
+        <p>
+        Lap swimming open to members that enjoy swimming for fitness. Please be
+        courteous of other swimmers and choose a lane that best fits your speed
+        or age.
+        </p>
+    -
+      id: drop_in_swim_family
+      title: 'Family Swim'
+      activity: drop_in_swim
+      body: |
+        <p>
+        The whole family is ecnouraged to swim together during our family swim
+        hours. This time is perfect for young swimmers to practice their skills
+        or just play and have fun. All swimmers under 14 years of age must abide
+        by the swim test policy. Prior to bringing a group of 10 or more into
+        the pool, please make arrangements with the Aquatics Department. If
+        arrangements are not made, capacity issues could decrease swim time.
+        </p>
+    -
+      id: drop_in_swim_recreational
+      title: 'Recreational Swim'
+      activity: drop_in_swim
+      body: |
+        <p>
+        During recreational swim, some or all of the pool may be used for
+        general exercise, recreation, or water play. Available water features
+        may be turned on during this time. All swimmers under 14 years of age
+        must abide by the swim test policy. Prior to bringing a group of 10 or
+        more into the pool, please make arrangements with the Aquatics
+        Department. If arrangements are not made, capacity issues could decrease
+        swim time.
+        </p>
+    -
+      id: drop_in_swim_lap
+      title: 'Lap Swim'
+      activity: drop_in_swim
+      body: |
+        <p>
+        2 or more lap lanes are available to any members at this time. Please be
+        courteous of other swimmers and choose a lane that best fits your speed
+        or age. Circle swimming is required when two or more swimmers are in one
+        lane.
+        </p>
+    -
+      id: kids_zone_activity_centers_4wks_11yrs
+      title: 'Kids Zone 4 wks -11 yrs'
+      activity: kids_zone_activity_centers
+      body: |
+        <p>
+        Let our caring staff watch after your little ones while you enjoy a
+        rejuvenating workout. Drop-in care is a great place for kids to release
+        energy and make new friends in a supervised, friendly environment.
+        We offer quality programming with a wide variety of age-appropriate
+        toys, games, crafts and other activities for your child's enrichment.
+        Children may be checked in for up to two (2) hours per day in one of our
+        designated Kids Zone Rooms.
+        </p>
+    -
+      id: cooking_classes_future_chefs
+      title: 'Youth Cooking - Future Chefs'
+      activity: cooking_classes
+      body: |
+        <p>
+        Kids ages 6 - 11 will have a blast learning fundamental kitchen skills,
+        age-appropriate cooking techniques, kitchen safety, and important
+        nutrition facts. Each class will meet on 3rd Thursday of every month in
+        the Kitchen.
+        </p>
+    -
+      id: arts_and_crafts_maycrafternoon_handprint_sunshines
+      title: 'May Crafternoon: Handprint Sunshines'
+      activity: arts_and_crafts
+      body: |
+        <p>
+        May: Make a sunshine using your child's handprints on a canvas. Optional
+        text can be added saying "You Are My Sunshine". A YMCA staff member will
+        be there to walk you through the process. All materials included.
+        </p>
+
+        <p>
+        Come join us for a wonderful Crafternoon! Each month will have a
+        different theme and you and/or your child will take home their very own
+        masterpiece.
+        </p>
+
+        <p>
+        Wear clothes you don't mind getting dirty and get your Craft on!
+        </p>
+    -
+      id: arts_and_crafts_april_earth_day_bridhouses
+      title: 'April Earth Day Birdhouses'
+      activity: arts_and_crafts
+      body: |
+        <p>
+        Come join us for a wonderful Crafternoon! In April to honor Earth Day,
+        we will have a wooden birdhouse for each participant to paint how they
+        please! We will also be making dirt cup desserts using chocolate
+        pudding, gummy worms and cookie crumbles!
+        </p>
+
+        <p>
+        Wear clothes you don't mind getting dirty and get your Craft on!
+        </p>
+    -
+      id: arts_and_crafts_crafternoon
+      title: 'Crafternoon'
+      activity: arts_and_crafts
+      body: |
+        <p>
+        Come join us for a wonderful Crafternoon! Each month will have a
+        different theme and you and/or your child will take home their very own
+        masterpiece.
+        </p>
+
+        <p>
+        Wear clothes you don't mind getting dirty and get your Craft on!
+        </p>
+    -
+      id: birthday_parties_room_rental
+      title: 'Room Rental'
+      activity: birthday_parties
+      body: |
+        <p>
+        Looking for a fun and safe place for your child's next birthday party?
+        Try the YMCA! Parties are 90 minutes in length and include up to 14
+        friends. Birthday parties spent in the Adventure Zone will have the
+        second half of party to eat cake, celebrate, and open gifts. If you are
+        requesting a Kids Zone Party (recommended for ages 3-10) or a Gym party
+        (recommended for ages 6-17) for court games or gaga pit, please contact
+        to request availability and reservation.
+        </p>
+
+        <p>
+        Birthday Parties are on Saturdays and Sundays from 2:00-3:30 pm and
+        4:30- 6:00 pm.
+        </p>
+
+        <p>
+        If you have another vision for your party please contact us for options.
+        </p>
+
+        <p>
+        For more information email: bellevuebirthdays@seattleymca.org
+        </p>
+        <p>
+        Please note: there is a non-refundable $50 reservation fee when issuing
+        refunds.
+        </p>
+    -
+      id: birthday_parties_birthday_party
+      title: 'Birthday Party'
+      activity: birthday_parties
+      body: |
+        <p>
+        Looking for a fun and safe place for your child's next birthday party?
+        Try the YMCA! Parties are 90 minutes in length and include up to 14
+        friends. Birthday parties spent in the Adventure Zone will have the
+        second half of party to eat cake, celebrate, and open gifts. If you are
+        requesting a Kids Zone Party (recommended for ages 3-10) or a Gym party
+        (recommended for ages 6-17) for court games or gaga pit, please contact
+        to request availability and reservation.
+        </p>
+
+        <p>
+        Birthday Parties are on Saturdays and Sundays from 2:00-3:30 pm and 4:30- 6:00 pm.
+        </p>
+
+        <p>
+        If you have another vision for your party please contact us for options.
+        </p>
+
+        <p>
+        For more information email: bellevuebirthdays@seattleymca
+        .org
+        </p>
+        <p>
+        Please note: there is a non-refundable $50 reservation fee when issuing refunds.
+        </p>
+    -
+      id: before_and_after_school_programs_2016_17_bellevue_no_school_days
+      title: '2016/17 Bellevue: No School Days - Package Option'
+      activity: before_and_after_school_programs
+      body: |
+        <p>
+        Enroll for all the no school days the YMCA offers throughout the year
+        for a discounted Price. MUST be enrolled in the enrichment pass option
+        for Kids University.
+        </p>
+    -
+      id: before_and_after_school_programs_am_fit_and_fun
+      title: 'AM Fit & Fun'
+      activity: academic_enrichment_youth
+      body: |
+        <p>
+        Enroll for all the no school days the YMCA offers throughout the year
+        for a discounted Price. MUST be enrolled in the enrichment pass option
+        for Kids University.
+        </p>
+    -
+      id: sports_classes_and_workshops_youth_fitness_challenge
+      title: 'Youth Fitness Challenge'
+      activity: sports_classes_and_workshops_youth
+      body: |
+        <p>
+        Can you Lift an Elephant? Youth ages 10 - 14 have 8 weeks to leg press,
+        back extension, row, bicep curl and shoulder press 14,000 pounds (the
+        weight of and elephant). Pick up your workout tracker at the membership
+        desk, do the work, and turn it back in at the end of the challenge to
+        get your shirt.
+        </p>
+    -
+      id: sports_classes_and_workshops_youth_homezone
+      title: 'HomeZone'
+      activity: sports_classes_and_workshops_youth
+      body: |
+        <p>
+        The Home School program has been designed to encourage children to get
+        up and move. Each week they will participate in swimming, art, staff led
+        games, and sports or fitness activities. Children will be divided into
+        age groups for PE and by swim level for swim lessons. No class the week
+        of April 10-14 (Spring Break) or April 17-21 due to remodeling in the
+        family wing.
+        </p>
+    -
+      id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      title: 'AOA National Senior Health and Fitness Day'
+      activity: health_and_wellness_workshops
+      body: |
+        <p>You, your friends and neighbors are invited to the 7th annual
+        celebration of National Senior Health and Fitness Day at the Northshore
+        YMCA.
+        <p>
+
+        </p>
+        Celebrate all you can do at the Y to increase your health and fitness.
+        </p>
+
+        <p>
+        Meet our Y's Active Older Adult (AOA) Council members throughout the
+        event. They represent your interests.
+        </p>
+
+        <p>
+        Come for the whole event or just the parts that interest you.
+        <p>
+
+        </p>
+        12:00-3:00 pm AOA Program Highlights and Snacks ? Club Room A with AOA
+        Council members
+        </p>
+
+        <p>
+        12:15-1:15 pm Dance Class Demo ? Multi-Purpose Room
+        </p>
+
+        <p>
+        1:00-3:00 pm ORCA ?TO-Go Bus Pass Kiosk ? Lobby
+        <p>
+
+        </p>
+        1:30-2:30 pm Blood Pressure Checks &amp; Self-Monitoring Program Info
+        ? Club Room A with Jenny
+        </p>
+
+        <p>
+        2:00-3:15 pm Light Summer Fare Cooking Demo ? Kitchen with Claire
+        <p>
+        <p>&nbsp;</p>
+        </p>
+        Free for all, registration requested</p>
+
+        <p>&nbsp;</p>
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      title: 'AOA Brain Agility - Class Fee, Spring 2017'
+      activity: health_and_wellness_workshops
+      body: |
+        <p>
+        Brain Agility is about enhancing and maintaining your brain's ability
+        to remember, stay focused, be aware and alert, and to enable you to
+        enjoy life fully. Learn how your brain functions, how it ages, and how
+        to care for it.
+        </p>
+
+        <p>
+        ALL participants in Brain Agility will register for this activity to
+        reserve a spot in the class.
+        </p>
+
+        <p>
+        NEW participants also need to register for the materials fee to receive
+        the binder containing the textbook and brain agility exercises that are
+        designed to help adults maintain cognitive functioning and in many cases
+        to help recover losses.
+        </p>
+
+        <p>
+        Class dates are Tuesdays, April 25 through June 6, 2017.
+        </p>
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      title: 'AOA Brain Agility - Materials Fee, Spring 2017'
+      activity: health_and_wellness_workshops
+      body: |
+        <p>
+        Only NEW participants in Brain Agility will register for this
+        activity to reserve their class materials. Returning participants do not
+        register for this activity as they will use class materials from the
+        session they previously attended.
+        </p>
+
+        <p>
+        New participants will receive a binder containing the text book and
+        brain agility exercises that are designed to help adults maintain
+        cognitive functioning and in many cases to help recover losses.
+        </p>
+
+        <p>
+        Brain Agility is about enhancing and maintaining your brain's ability
+        to remember, stay focused, be aware and alert, and to enable you to
+        enjoy life fully. Learn how your brain functions, how it ages, and how
+        to care for it.
+        </p>
+
+        <p>
+        This program meets once per week for 1 hour and 30 minutes. Class
+        dates are Tuesdays April 25 through June 6, 2017.
+        </p>
+
+        <p>&nbsp;</p>
+    -
+      id: group_exercise_classes_hiit
+      title: 'HIIT'
+      activity: group_exercise_classes
+      body: |
+        <p>
+        High Intensity Interval Training is a great way to burn fat! Moderate
+        intensity intervals are alternated with high intensity intervals for a
+        full body workout.
+        </p>
+    -
+      id: group_exercise_classes_hiit_metabolic_conditioning
+      title: 'HIIT - Metabolic Conditioning'
+      activity: group_exercise_classes
+      body: |
+        <p>
+        High Intensity Interval Training is a great way to burn fat! Moderate
+        intensity intervals are alternated with high intensity intervals for a
+        full body workout.
+        </p>
+    -
+      id: group_exercise_classes_moving_for_balance_spr_2017
+      title: 'Moving for Better Balance - Continuing Spring 2017'
+      activity: group_exercise_classes
+      body: |
+        <p>
+        This class is for those who have taken the beginner series of Moving
+        for Better Balance. Class is free for facility members.
+        </p>
+
+        <p>
+        Improve your balance, mobility, walking, and mental well-being in this
+        adapted Tai Ji Quan program. You'll learn a variety of movements
+        tailored to train balance and control body movements for performing
+        daily activities. As the movements are presented in a sequential
+        manner, regular participation is preferable and registration is
+        required. Instructor Kathy Harris has years of experience working with
+        active older adults and those with physical limitations. Students are
+        encouraged to wear comfortable clothing and shoes. Chairs available.
+        </p>
+    -
+      id: samll_group_training_youth_small_group_training_tween_girl_power
+      title: 'Small Group Training - Tween Girl Power!'
+      activity: samll_group_training_youth
+      body: |
+        <p>
+        Let the Y help your tween during these crucial adolescent years learn
+        how to grow stronger and more fit while having fun! We know that
+        exercise helps everybody reduce anxiety and stress and improve
+        self-esteem and that rings especially true for young people. Our
+        certified trainer can show your tween how to make fitness and healthy
+        habits a part of their lives forever. They will use a wide variety of
+        equipment, including our PlayFit Exergames in the Youth Center, with the
+        focus on safety, movement, and fun!
+        </p>
+    -
+      id: samll_group_training_youth_small_group_training_tween_titans
+      title: 'Small Group Training - Tween Titans'
+      activity: samll_group_training_youth
+      body: |
+        <p>
+        Tween Fitness (for boys 8-13) Let the Y help your tween during these
+        crucial adolescent years learn how to grow stronger and more fit while
+        having fun! We know that exercise helps everybody reduce anxiety and
+        stress and improve self-esteem and that rings especially true for young
+        people. Our certified trainer can show your tween how to make fitness
+        and healthy habits a part of their lives forever. They will use a wide
+        variety of equipment, including our PlayFit exergames in the Youth
+        Center, with the focus on safety, movement, and fun!
+        </p>
+    -
+      id: pilates_reformer_10_private_1hr_sessions
+      title: 'Pilates Reformer - 10, private 1 hr sessions'
+      activity: personal_training
+      body: |
+        <p>
+        This unique class is performed on a specialized piece of equipment
+        called the Reformer. Pilates Reformer movements vary in intensity with
+        an adjustable spring load while at the same time being easy on the
+        joints. The extra support you get from these machines will help to
+        engage the deeper muscles that stabilize your joints. The pace is
+        moderate, yet challenging and will strengthen the core and provide an
+        invigorating workout.
+        </p>
+
+        <p>
+        Private, 1-hour session Facility member:$65 Community member:$85
+        <br />
+        Private, 3/1-hour sessions Facility member:$186 Community member:$246
+        <br />
+        Private, 6/1-hour sessions Facility member:$354 Community member:$475
+        <br />
+        Private, 10/1-hour sessions Facility member:$550 Community member:$750
+        </p>
+    -
+      id: private_yoga_10_1hour_sessions
+      title: 'Private Yoga - 10, 1-hour sessions'
+      activity: personal_training
+      body: |
+        <h6>
+        Private yoga is an incredible way to cultivate your yoga practice in
+        a way that?s as individual as you are. Learn from a certified yoga
+        instructor and progress at your own pace in a private space.
+        </h6>
+
+        <ul>
+          <li>
+            Learn asanas at your own pace
+          </li>
+          <li>
+            Practice proper techniques and alignment
+          </li>
+          <li>
+            Master a challenging pose
+          </li>
+          <li>
+            Address specific training or injury recovery needs
+          </li>
+          <li>
+            Try something new
+          </li>
+        </ul>
+
+        <p>
+        Private yoga sessions are available as single sessions or in packages.
+        See below for details.
+        </p>
+
+        <p>
+        1 1-hour session $65
+        </p>
+
+        <p>
+        3 1-hour sessions $185
+        </p>
+
+        <p>
+        6 1-hour sessions $351
+        </p>
+
+        <p>
+        10 1-hour sessions $552
+        </p>
+
+    -
+      id: pilates_reformer_duet_10_1hour_sessions
+      title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
+      activity: personal_training
+      body: |
+        <p>
+        This unique class is performed on a specialized piece of equipment
+        called the Reformer. Pilates Reformer movements vary in intensity with
+        an adjustable spring load while at the same time being easy on the
+        joints. The extra support you get from these machines will help to
+        engage the deeper muscles that stabilize your joints. The pace is
+        moderate, yet challenging and will strengthen the core and provide an
+        invigorating workout.
+        </p>
+
+        <p>
+        This session is for 2 people.
+        </p>
+
+        <p>
+        Duet prices are listed per person
+        </p>
+
+        <p>
+        Duet, 1-hour session Facility member:$49/person Community
+        member:$75/person<br />
+        Duet, 3/1-hour sessions Facility member:$141/person Community
+        member:$220/person<br />
+        Duet, 6/1-hour sessions Facility member:$264/person Community
+        member:$420/person<br />
+        Duet, 10/1-hour sessions Facility member:$420/person Community
+        member:$680/person
+        </p>
+    -
+      id: partner_personal_training_1_session
+      title: 'Partner Personal Training - 1 session'
+      activity: personal_training
+      body: |
+        <p>
+        You and your partner will receive personalized interaction with direct
+        instruction that focuses on achieving realistic goals. A YMCA Personal
+        Trainer will design individualized workout sessions that cater to your
+        current fitness level and experience.
+        </p>
+
+        <p>
+        Prices reflect the total cost for both partners. One partner is
+        responsible for registration and payment.
+        </p>
+
+        <p>
+        Facility Members only.
+        </p>
+
+        <p>
+        1 session = $85<br />
+        3 sessions = $243<br />
+        6 sessions = $462<br />
+        10 sessions = $730</p>
+
+        <p>&nbsp;</p>
+    -
+      id: health_improvement_livestrong_at_the_y
+      title: 'LIVESTRONG at the YMCA'
+      activity: health_improvement
+      body: |
+        <p>
+        Cancer is a life-changing disease that takes a tremendous physical and
+        emotional toll on those affected. The Y and LIVESTRONG have joined
+        together to create LIVESTRONG at the Y, a research-based physical
+        activity and well-being program designed to help adults currently
+        battling cancer as well as cancer survivors reclaim their total health.
+        Participants work with Y staff who are trained in supportive cancer care
+        to safely achieve such goals as building muscle mass and strength,
+        increasing flexibility and endurance, and improving confidence and
+        self-esteem. By focusing on the whole person and not the disease,
+        LIVESTRONG at the Y helps people move beyond cancer in mind, body, and
+        spirit.
+        </p>
+    -
+      id: health_improvement_nutrition_consultation_initial
+      title: 'Nutrition Consultation - Initial'
+      activity: health_improvement
+      body: |
+        <p>
+        Get real answers to help dispel myths and misunderstandings about
+        nutrition and dieting. A one-on-one consultation with our Registered
+        Dietitian, Susie Fox, will move you forward on your path to healthy
+        living. You will get answers to your questions about dieting and weight
+        loss, nutrition needs for every day or for serious athletes, pre and
+        post natal nutrition, and information to create a nutrition plan that
+        fits you and your lifestyle. Find the tools you need to be successful
+        in your healthy living goals.
+        </p>
+
+        <p>
+        Initial 20-minute consultation for Facility Members: Free
+        </p>
+
+        <p>
+        Initial 30-minute consultation for Community Members: $20
+        </p>
+    -
+      id: health_improvement_activly_changing_together
+      title: 'ACT! Actively Changing Together'
+      activity: health_improvement
+      body: |
+        <p>
+        ACT! is a 12 week program for youth 8-11 years and their parents
+        promoting healthy nutrition, activity and lifestyles developed in
+        partnership with providers and professionals at Seattle Children's
+        Hospital and the Y of Greater Seattle. By actively changing together,
+        parents and kids can learn how to healthy lifestyle habits as a family.
+        Specially trained Y staff offer guidance and encouragement for eating
+        well, playing often and preventing health conditions associated with
+        being overweight. Here are more details about the program: One 90-minute
+        group session per week for 12 weeks. Y family membership to use between
+        weekly sessions. Energizing games, activities and light meal. Needs
+        physician referral for participation.
+        </p>
+    -
+      id: climbing_adult_rock_climbing_sept
+      title: 'Climbing - Adult Rock Climbing - September'
+      activity: climbing_adult
+      body: |
+        <p>
+        Tuesdays, Sept 5-26, 6pm-7pm. Adult Rock Climbing.
+        </p>
+
+        <p>
+        Ages 14+. This introductory class to rock climbing is perfect for teens
+        and adults who want to learn the basics and increase their strength.
+        Rock climbing is a great way to get a unique work out and be social at
+        the same time! This is an indoor class at the Dale Turner Climbing
+        Tower, located in the gym. We will cover skills such as climbing
+        technique, stretches, climbing commands, gear fitting, knot tying, and
+        rope belaying. Our skilled staff will take you on an adventure that is
+        sure to take you to the next level.
+        </p>
+    -
+      id: climbing_adult_rock_climbing_oct
+      title: 'Climbing - Adult Rock Climbing - October'
+      activity: climbing_adult
+      body: |
+        <p>
+        Tuesdays, Oct 3-24, 6pm-7pm. Adult Rock Climbing.
+        </p>
+
+        <p>
+        Ages 14+. This introductory class to rock climbing is perfect for teens
+        and adults who want to learn the basics and increase their strength.
+        Rock climbing is a great way to get a unique work out and be social at
+        the same time! This is an indoor class at the Dale Turner Climbing
+        Tower, located in the gym. We will cover skills such as climbing
+        technique, stretches, climbing commands, gear fitting, knot tying, and
+        rope belaying. Our skilled staff will take you on an adventure that is
+        sure to take you to the next level.
+        </p>
+    -
+      id: climbing_adult_parent_child_sept
+      title: 'Climbing - Parent/Child Climbing - September'
+      activity: climbing_adult
+      body: |
+        <p>
+        Mondays, Sept 11-25, 6pm-7pm. Parent AND Child Rock Climbing! $35/PAIR.
+        </p>
+
+        <p>
+        Ages 5+. This introductory class to rock climbing is perfect for all
+        ages, designed to be shared and experienced between a Parent and Child
+        pair. Great for parents and children, grandparents and grandchildren, or
+        any Adult and Child family relationship! Rock climbing is a great way to
+        get a unique work out and be social at the same time! We will cover
+        skills such as climbing technique, stretches, climbing commands, gear
+        fitting, knot tying, and rope belaying. Our skilled staff will take you
+        on an adventure that is sure to take you and your family to the next
+        level.
+        </p>
+    -
+      id: climbing_adult_parent_child_oct
+      title: 'Climbing - Parent/Child Climbing - October'
+      activity: climbing_adult
+      body: |
+        <p>
+        Mondays, Oct 2-23, 6pm-7pm. Parent AND Child Rock Climbing! $50/PAIR.
+        </p>
+
+        <p>
+        Ages 5+. This introductory class to rock climbing is perfect for all
+        ages, designed to be shared and experienced between a Parent and Child
+        pair. Great for parents and children, grandparents and grandchildren, or
+        any Adult and Child family relationship! Rock climbing is a great way to
+        get a unique work out and be social at the same time! We will cover
+        skills such as climbing technique, stretches, climbing commands, gear
+        fitting, knot tying, and rope belaying. Our skilled staff will take you
+        on an adventure that is sure to take you and your family to the next
+        level.
+        </p>
+    -
+      id: small_group_and_specialty_training_adaptive_yoga
+      title: 'Small Group Training - Adaptive Yoga'
+      activity: small_group_and_specialty_training
+      body: |
+        <p>
+        Discover the benefits of a yoga practice designed for your body's unique
+        needs. Receive extra support whether you are exploring yoga for the
+        first time or pursuing a particular goal.
+        </p>
+
+        <p>
+        Facility members only
+        </p>
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1
+      title: 'Small Group Training - Pilates Reformer Level I'
+      activity: small_group_and_specialty_training
+      body: |
+        <p>
+        This unique class is performed on a specialized piece of equipment
+        called the Reformer. Pilates Reformer movements vary in intensity with
+        an adjustable spring load while at the same time being easy on the
+        joints. The extra support you get from these machines will help to
+        engage the deeper muscles that stabilize your joints. The pace is
+        moderate, yet challenging and will strengthen the core and provide an
+        invigorating workout.
+        </br>
+        Level 2 focuses on building strength and endurance through more advanced
+        exercises that contain additional choreography and coordination.
+        Participants must have an understanding of basic principles and
+        exercises as learned in Level 1. Pace will be matched to participant's
+        abilities.
+        </p>
+
+        <p>
+        Class is taught in a small class setting of 4 students to 1 instructor
+        to ensure personal attention. We are not able to refund for missed
+        sessions but will do our best to provide up to 1 make-up session, with
+        make-up date provided by the instructor.
+        </p>
+
+        <p>
+        A 7 week session is $154/session ($22/class) for Facility members and
+        $238/session ($34/class) for Community Members.
+        </p>
+    -
+      id: small_group_and_specialty_training_pilates_reformer_intro
+      title: 'Small Group Training - Pilates Reformer Intro'
+      activity: small_group_and_specialty_training
+      body: |
+        <p>
+        This unique class is performed on a specialized piece of equipment
+        called the Reformer. Pilates Reformer movements vary in intensity with
+        an adjustable spring load while at the same time being easy on the
+        joints. The extra support you get from these machines will help to
+        engage the deeper muscles that stabilize your joints. The pace is
+        moderate, yet challenging and will strengthen the core and provide an
+        invigorating workout.
+        </br>
+        Intro to Reformer focuses on the basic principles and foundational
+        exercises of Reformer work. Breathing, body alignment, stabilization,
+        and core strengthening are all highlighted. Pace is slower and perfect
+        for those new to the Reformer apparatus.
+        </p>
+
+        <p>
+        Level 1 focuses on expanding knowledge and application of basic Reformer
+        exercises. Participants must have taken Intro to Reformer or have some
+        experience with Reformer in order to take a Level 1 class. Additional
+        exercises that strengthen the core and connect core to the periphery are
+        explored. Pace may be slow or quick.
+        </p>
+
+        <p>
+        Class is taught in a small class setting of 4 students to 1 instructor
+        to ensure personal attention. We are not able to refund for missed
+        sessions but will do our best to provide up to 1 make-up session, with
+        make-up date provided by the instructor.
+        </p>
+
+        <p>
+        Priority registration is given to currently registered class members.
+        </p>
+
+        <p>
+        A 7 week session is $154/session ($22/class) for Facility members and
+        $238/session ($34/class) for Community Members.
+        </p>
+
+        <p>
+        Childcare available at Kid's Corner.
+        </p>
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1_2
+      title: 'Small Group Training - Pilates Reformer Level I/II'
+      activity: small_group_and_specialty_training
+      body: |
+        <p>
+        This unique class is performed on a specialized piece of equipment
+        called the Reformer. Pilates Reformer movements vary in intensity with
+        an adjustable spring load while at the same time being easy on the
+        joints. The extra support you get from these machines will help to
+        engage the deeper muscles that stabilize your joints. The pace is
+        moderate, yet challenging and will strengthen the core and provide an
+        invigorating workout.
+        </br>
+        Intro to Reformer focuses on the basic principles and foundational
+        exercises of Reformer work. Breathing, body alignment, stabilization,
+        and core strengthening are all highlighted. Pace is slower and perfect
+        for those new to the Reformer apparatus.
+        </p>
+
+        <p>
+        Level 1 focuses on expanding knowledge and application of basic Reformer
+        exercises. Participants must have taken Intro to Reformer or have some
+        experience with Reformer in order to take a Level 1 class. Additional
+        exercises that strengthen the core and connect core to the periphery
+        are explored. Pace may be slow or quick.
+        </p>
+
+        <p>
+        Class is taught in a small class setting of 4 students to 1 instructor
+        to ensure personal attention. We are not able to refund for missed
+        sessions but will do our best to provide up to 1 make-up session, with
+        make-up date provided by the instructor.
+        </p>
+
+        <p>
+        Priority registration is given to currently registered class members.
+        </p>
+
+        <p>
+        A 7 week session is $154/session ($22/class) for Facility members and
+        $238/session ($34/class) for Community Members.
+        </p>
+    -
+      id: weight_loss_lose_to_win_men
+      title: 'Lose to Win for Men - Weight Loss Program'
+      activity: weight_loss
+      body: |
+        <p>
+        This program is a great way to learn sustainable ways to eat healthier,
+        move more and lose weight. There are no gimmicks and no restrictive
+        approaches, just the tools you need to make the necessary changes in
+        your lifestyle to achieve your weight loss goals. This program discusses
+        the importance of physical activity and nutrition, while also discussing
+        motivation, obstacles, and pitfalls that make losing weight (and keeping
+        it off) challenging. A weekly, group based, one hour meeting provides a
+        supportive network of others working on similar goals to help when the
+        going gets tough and to celebrate successes along the way! Join this
+        FREE program today and get started on creating lasting change!
+        Membership to the YMCA is required in order to participate.
+        </p>
+    -
+      id: weight_loss_lose_to_win
+      title: 'Lose to Win - Weight Loss Program'
+      activity: weight_loss
+      body: |
+        <p>
+        This program is a great way to learn sustainable ways to eat healthier,
+        move more and lose weight. There are no gimmicks and no restrictive
+        approaches, just the tools you need to make the necessary changes in
+        your lifestyle to achieve your weight loss goals. This program discusses
+        the importance of physical activity and nutrition, while also discussing
+        motivation, obstacles, and pitfalls that make losing weight (and keeping
+        it off) challenging. A weekly, group based, one hour meeting provides a
+        supportive network of others working on similar goals to help when the
+        going gets tough and to celebrate successes along the way! Join this
+        FREE program today and get started on creating lasting change!
+        Membership to the YMCA is required in order to participate.
+        </p>
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      title: '2016/17 Woodmoor - (f) Non-School Days'
+      activity: before_and_after_school_child_care
+      body: |
+        <p>
+        Our program at Woodmoor Elementary School helps kids reach their fullest
+        potential by promoting education, health, and social development. Your
+        child will have many opportunities to spend time reading or studying
+        with one of our caring staff, participate in fun, physical activities,
+        or learn a new skill. Most importantly, children learn how to be their
+        best selves. That makes for confident kids today and contributing,
+        engaged adults tomorrow. Program Features: A safe place to learn, have
+        fun and get active. Weekly activities include art, science, cooking,
+        literacy and more. 30 minutes of physical activity & literacy activities
+        provided daily. 30 minutes of homework help provided daily.
+        </p>
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after_plus
+      title: '2016/17 Woodmoor - (b) After Plus Care'
+      activity: before_and_after_school_child_care
+      body: |
+        <p>
+        Our program at Woodmoor Elementary School helps kids reach their fullest
+        potential by promoting education, health, and social development. Your
+        child will have many opportunities to spend time reading or studying
+        with one of our caring staff, participate in fun, physical activities,
+        or learn a new skill. Most importantly, children learn how to be their
+        best selves. That makes for confident kids today and contributing,
+        engaged adults tomorrow. Program Features: A safe place to learn, have
+        fun and get active. Weekly activities include art, science, cooking,
+        literacy and more. 30 minutes of physical activity & literacy activities
+        provided daily. 30 minutes of homework help provided daily.
+        </p>
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after
+      title: '2016/17 Woodmoor - (c) After Care'
+      activity: before_and_after_school_child_care
+      body: |
+        <p>
+        Our program at Woodmoor Elementary School helps kids reach their fullest
+        potential by promoting education, health, and social development. Your
+        child will have many opportunities to spend time reading or studying
+        with one of our caring staff, participate in fun, physical activities,
+        or learn a new skill. Most importantly, children learn how to be their
+        best selves. That makes for confident kids today and contributing,
+        engaged adults tomorrow. Program Features: A safe place to learn, have
+        fun and get active. Weekly activities include art, science, cooking,
+        literacy and more. 30 minutes of physical activity & literacy activities
+        provided daily. 30 minutes of homework help provided daily.
+        </p>
+
+        <p>
+        Facility members only
+        </p>
+    -
+      id: before_after_school_child_care_2016_17_sunrise_before_after
+      title: '2016/17 Sunrise - (a) Before and After Care'
+      activity: before_and_after_school_child_care
+      body: |
+        <p>
+        Our program at Sunrise Elementary School helps kids reach their fullest
+        potential by promoting education, health, and social development. Your
+        child will have many opportunities to spend time reading or studying
+        with one of our caring staff, participate in fun, physical activities,
+        or learn a new skill. Most importantly, children learn how to be their
+        best selves. That makes for confident kids today and contributing,
+        engaged adults tomorrow. Program Features: A safe place to learn, have
+        fun and get active. Weekly activities include art, science, cooking,
+        literacy and more. 30 minutes of physical activity & literacy activities
+        provided daily. 30 minutes of homework help provided daily.
+        </p>
+    -
+      id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
+      activity: preschool_child_care
+      body: |
+        <p>
+        In Y Preschool programs your child will develop skills to build
+        character values and self-esteem, and improve kindergarten readiness.
+        We base our educational and guidance decisions for children on our
+        knowledge of child development. Our number one goal is to provide the
+        kind of environment and influence that encourage all children to become
+        creative, independent and responsible students who can make positive
+        choices for themselves. Select a location below to contact one of our
+        experienced Program Directors to get more information and to schedule a
+        site visit. We look forward to meeting you!
+        </p>
+    -
+      id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
+      activity: preschool_child_care
+      body: |
+        <p>
+        In Y Preschool programs your child will develop skills to build
+        character values and self-esteem, and improve kindergarten readiness.
+        We base our educational and guidance decisions for children on our
+        knowledge of child development. Our number one goal is to provide the
+        kind of environment and influence that encourage all children to become
+        creative, independent and responsible students who can make positive
+        choices for themselves. Select a location below to contact one of our
+        experienced Program Directors to get more information and to schedule a
+        site visit. We look forward to meeting you!
+        </p>
+    -
+      id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
+      activity: discovery_day_camp
+      body: |
+        <p>
+        Explore fun themes like Under the Sea and Medieval Madness through art,
+        science, storytelling and field trips.
+        </p>
+    -
+      id: discovery_day_camp_drop_off_kenmore_elementary_2017
+      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      activity: discovery_day_camp
+      body: |
+        <p>
+        Explore fun themes like Under the Sea and Jungle Safari through art,
+        science, storytelling and field trips.
+        </p>
+    -
+      id: discovery_day_camp_drop_off_Northshore_ymca_2017
+      title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
+      activity: discovery_day_camp
+      body: |
+        <p>
+        Explore fun themes like Under the Sea and Medieval Madness through art,
+        science, storytelling and field trips. Transportation provided from the
+        Northshore YMCA to Kenmore Elementary where the program is based out of.
+        </p>
+    -
+      id: bold_one_wk_expeditions_cascade_challenge
+      title: 'BOLD Cascade Challenge'
+      activity: bold_one_week_expeditions
+      body: |
+        <p>
+        Do you want to get more out of your summer vacation? Then accept the
+        challenge...The Cascade Challenge! This one week backpacking expedition
+        for high school aged students promises to be a highlight of one’s
+        summer. You will spend this glorious week exploring beautiful mountain
+        landscapes and swimming in glacier-fed lakes. You will meet new friends,
+        bonding over your epic day on the trail while you cook delicious meals
+        by the fire underneath the starry sky. You will end this epic adventure
+        with new wilderness travel skills, leadership tools, and friends and
+        memories that will last a lifetime. The leadership and technical skills
+        that you gain on this trip will help you rise to any challenge you may
+        face, both in the woods and back home!
+        </p>
+    -
+      id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
+      activity: bold_one_week_expeditions
+      body: |
+        <p>
+        This journey is a magical one week adventure on the Olympic Coast for
+        students entering or already in high school. A land of barking seals,
+        massive trees, and constant waves- the Olympic Coast makes the perfect
+        backdrop for this backpacking expedition. You will trek in the lush
+        rainforest, hike on sandy beaches, witness soaring bald eagles, and
+        explore vibrant tide-pools filled with marine wild life. Your adventure
+        will take you up and over headlands, camping each night just above the
+        Pacific Ocean where you will watch dramatic sunsets and share epic
+        stories around the campfire.
+        </p>
+    -
+      id: bold_one_wk_expeditions_river_and_rocks
+      title: 'BOLD Rivers and Rocks'
+      activity: bold_one_week_expeditions
+      body: |
+        <p>
+        Escaping the soggy confines of Seattle to the sunny climbing and rafting
+        haven of Central Oregon, this trip is a true adventure! You will get to
+        put your climbing skills to the test on the incredible landscape of
+        Smith Rock State Park, which is home to some of the greatest climbs in
+        the world. After soaking in the sun on the rock wall, you and your team
+        will face new exciting challenges as you navigate the rapids on the
+        picturesque Deschutes River. Challenging yourself on the mighty cliffs
+        and rushing rivers of this region will leave you with new skills, and a
+        sense of awe of the amazing landscapes that surround us. This trip
+        promises to be the highlight of your summer!
+        </p>
+    -
+      id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      title: 'BOLD Fishing and Backpacking in the North Cascades'
+      activity: bold_one_week_expeditions
+      body: |
+        <p>
+        High in the Cascade Mountains is a land of clear mountain lakes full of
+        fish, meadows filled with wildflowers, and snowcapped peaks. You will
+        learn the basics of backpacking and fishing and hike through old growth
+        forests, be captivated by dramatic mountain landscapes, fish for trout,
+        and develop leadership skills in ways you never thought possible. After
+        taking on the challenge of the wilderness you will know you can overcome
+        any obstacle placed before you.
+        </p>
+    -
+      id: earth_service_corps_about_yesc
+      title: 'Earth Service Corps About YESC'
+      activity: earth_service_corps
+      body: |
+        <p>
+        YMCA Earth Service Corps emerged out of an idea Bill Sieverling, then
+        director of the YMCA of the USA’s International Office in Asia, proposed
+        in the 1989 issue of the YMCA publication, International Notes. He
+        suggested that given the YMCA’s tradition of youth leadership
+        development and concern for the natural world that there was an
+        opportunity to engage youth in a service-based leadership program that
+        addressed growing concerns about the global environment.
+        </p>
+    -
+      id: academic_success
+      title: 'Academic Success'
+      activity: academic_success
+      body: |
+        <p>
+        This is where YMCA Powerful Schools comes in. We rely on generous
+        donations, grants, partnerships, and community support to provide an
+        array of academic, enrichment, family, and teacher support programs that
+        foster a lively school environment and that ensure children have access
+        to first class programs that provide for their academic and social
+        success both in and out of school.
+        </p>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_class_activity:
+    plugin: migration
+    migration: openy_demo_node_activity
+    no_stub: true
+    source: activity
+  field_class_description/value: body
+  field_class_description/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:node'
+  default_bundle: class
+migration_dependencies:
+  required:
+    - openy_demo_node_activity

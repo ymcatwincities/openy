@@ -122,7 +122,7 @@ a[href="#step2"] {
       white-space: nowrap;
       border-radius: 0;
       color: white;
-      background-color: #92278f;
+      background-color: $pink;
       text-align: center;
       padding: 9px;
       width: 90%;
@@ -152,7 +152,7 @@ a[href="#step2"] {
         height: 0;
         border-top: 60px solid transparent;
         border-bottom: 60px solid transparent;
-        border-left: 30px solid  #92278f;
+        border-left: 30px solid $pink;
         position: absolute;
         top: 50%;
         margin-top: -60px;

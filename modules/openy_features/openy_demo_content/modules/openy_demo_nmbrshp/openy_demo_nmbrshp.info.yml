@@ -1,0 +1,10 @@
+name: 'OpenY demo node membership'
+description: 'OpenY demo node membership'
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_node_mbrshp
+version: 8.x-1.0

@@ -4,7 +4,9 @@ description: 'Open Y Drupal distribution.'
 core: 8.x
 distribution:
   name: OpenY
-
+  install:
+      theme: openy_admin
+php: 5.6
 # Required modules
 dependencies:
   # Core modules.
@@ -59,6 +61,7 @@ dependencies:
   - libraries
   - migrate_plus
   - migrate_tools
+  - optimizely
   - verf
   - simple_menu_icons
   - slick
@@ -67,6 +70,8 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - google_tag
+  - google_analytics
   # OpenY features.
   - openy_media_image
   - openy_media_document
@@ -113,9 +118,9 @@ dependencies:
   - openy_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
-  - openy_user
   # OpenY custom modules
   - openy_field_hours
+  - openy_hf
   - openy_hours_formatter
   - openy_migrate
   - openy_map
@@ -125,8 +130,10 @@ dependencies:
   - openy_mappings
   - openy_calc
   - openy_data_wrapper
+  - logger_entity
 
 themes:
   - bartik
   - openy_rose
+  - openy_admin
   - seven

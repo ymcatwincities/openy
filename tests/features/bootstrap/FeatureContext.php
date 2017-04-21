@@ -108,7 +108,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         break;
 
       case 'alias_url':
-        $value = \Drupal::service('path.alias_manager')->getAliasByPath($node->url());
+        $value = \Drupal::service('path.alias_manager')
+          ->getAliasByPath($node->url());
         break;
 
       case 'edit_url':
@@ -195,7 +196,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iFillMediaFieldWith($field, $value) {
     $this->getSession()->getPage()->find('css',
-        'input[id="' . $field . '"]')->setValue($value);
+      'input[id="' . $field . '"]')->setValue($value);
   }
 
   /**
@@ -245,7 +246,53 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function theFieldShouldContainStoredNodeFrom($field, $node_key, $storage_key) {
     $path = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
-    $this->assertSession()->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+    $this->assertSession()
+      ->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+  }
+
+  /**
+   * Clicks on element by css or xpath locator.
+   *
+   * @Given I click :selector element
+   * @Given I click :selector in :area
+   * @Given I click :selector :locator_type element
+   */
+  public function clickElement($selector, $locator_type = 'css') {
+    $element = $this->getSession()->getPage()->find($locator_type, $selector);
+    if (empty($element)) {
+      $msg = 'There is no element with selector ' . $locator_type . ': "' . $selector . '"';
+      throw new Exception($msg);
+    }
+    try {
+      $element->focus();
+    } catch (Exception $e) {
+      // No focus on some drivers ie mink.
+    }
+    $element->click();
+  }
+
+  /**
+   * @Given /^The current URL is "(?P<url>[^"]*)"$/
+   */
+  public function theCurrentURLIs($url) {
+    $current_url = $this->getSession()->getCurrentUrl();
+    if (!$current_url == $url) {
+      $msg = 'URL "' . $url . '" does not match the current URL "' . $current_url . '"';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given Element :element has text :text
+   */
+  public function elementHasText($element, $text) {
+    $element_obj = $this->getSession()->getPage()->find('css', $element);
+
+    // Find the text within the region
+    $element_text = $element_obj->getText();
+    if (strpos($element_text, $text) === FALSE) {
+      throw new \Exception(sprintf("The text '%s' was not found in the element '%s' on the page %s", $text, $element, $this->getSession()->getCurrentUrl()));
+    }
   }
 
 }

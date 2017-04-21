@@ -45,7 +45,7 @@
  * @ingroup themeable
  */
 #}
-<div class="layout-container">
+<div class="layout-container {{ camp_class }}">
 
   <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
     <nav class="nav-global navbar-default navbar">
@@ -77,10 +77,10 @@
     </div>
 
     <div class="col-xs-12 page-head__top-menu">
-      {{ page.secondary_menu }}
+      {{ page.mobile_menu.useraccountmenu }}
     </div>
     <div class="col-xs-12 page-head__main-menu nav-home">
-      {{ page.primary_menu }}
+      {{ page.mobile_menu.mainnavigation }}
     </div>
   </div>
 

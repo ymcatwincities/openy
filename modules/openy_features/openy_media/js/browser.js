@@ -2,7 +2,7 @@
  * @file browser.js
  */
 
-(function ($, _, Drupal) {
+(function ($, window, Drupal, drupalSettings) {
   "use strict";
 
   Drupal.behaviors.entityBrowserSelection = {
@@ -43,4 +43,4 @@
 
   };
 
-})(jQuery, _, Drupal);
+})(jQuery, window, Drupal, drupalSettings);

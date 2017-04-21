@@ -28,7 +28,7 @@ version: 8.x-1.1
 
 With [config_import module](https://www.drupal.org/project/confi) help we can update only part from full config.
 
-For updating specific property in config:
+For updating specific property in config (use service 'openy_upgrade_tool.param_updater'):
 
 1) go to related to this config module
 
@@ -38,10 +38,31 @@ For updating specific property in config:
 
 ```
 $config = drupal_get_path('module', 'openy_media_image') . '/config/install/views.view.images_library.yml';
-$config_importer = \Drupal::service('config_import.param_updater');
+$config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
 $config_importer->update($config, 'views.view.images_library', 'display.default.display_options.pager');
 ```
 Where:
 - $config variable contains path to config with config name
 - "views.view.images_library" - config name
 - "display.default.display_options.pager" - config specific property (you can set value from a nested array with variable depth)
+
+### Revert full configs
+For updating full config or several configs from directory use service 'openy_upgrade_tool.importer'.
+```
+$config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install';
+$config_importer = \Drupal::service('openy_upgrade_tool.importer');
+$config_importer->setDirectory($config_dir);
+$config_importer->importConfigs(['views.view.images_library']);
+```
+Where:
+- $config_dir - path to directory with config
+- "views.view.images_library" - config name
+
+
+Also you can update several configs from directory:
+```
+$config_importer->importConfigs([
+  'views.view.images_library',
+  'views.view.example_view',
+]);
+```
