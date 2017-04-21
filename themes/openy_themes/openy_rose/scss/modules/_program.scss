@@ -368,7 +368,7 @@
       line-height: 1.6;
       letter-spacing: -0.8px;
       color: $purple;
-      margin: 0 15px 20px;
+      margin: 15px 15px 20px;
     }
 
     .row {
@@ -409,7 +409,7 @@
     }
 
     .activity-group-slider {
-      margin: 0 0 75px;
+      margin: 0 0 60px;
 
       @include breakpoint(0 $screen-sm) {
         margin: 0 0 95px;
@@ -439,24 +439,50 @@
         display: flex;
         flex-wrap: wrap;
       }
+
       .slick-arrow {
         background: none;
         color: $light-blue;
-        margin-top: -7px;
         padding: 0;
         z-index: 1;
-        height: 70px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
+        margin-top: -7px;
+
+        &:before {
+          color: $light-blue;
+        }
+
+        @include breakpoint($screen-sm) {
+          height: 70px;
+          width: 50px;
+        }
+
         .fa {
-          font-size: 70px;
+          font-size: 30px;
+
+          @include breakpoint($screen-sm) {
+            font-size: 70px;
+          }
         }
+
         &.slick-prev {
-          left: -50px;
+          left: -20px;
+
+          @include breakpoint($screen-sm) {
+            left: -45px;
+          }
         }
+
         &.slick-next {
-          right: -50px;
+          right: -20px;
+
+          @include breakpoint($screen-sm) {
+            right: -45px;
+          }
         }
       }
+
       .slick-dots {
         li {
           button {
