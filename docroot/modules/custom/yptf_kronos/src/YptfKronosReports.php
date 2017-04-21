@@ -407,7 +407,7 @@ class YptfKronosReports {
       $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
       $mb_data_file = file_get_contents($file);
       if (!$mb_data_file) {
-        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
+        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
         $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
 
         if (!file_exists($cache_dir)) {
@@ -421,19 +421,22 @@ class YptfKronosReports {
     }
 
     if (empty($this->mindbodyData)) {
-      $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
-      $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
+      try {
+        // Send notifications.
+        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
+        $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
+      }
+      catch (\Exception $e) {
+        $msg = 'Error: %error . Failed to get the data from MindBody. Request MB params: %params.';
+        $this->logger->error($msg, [
+          '%error' => $e->getMessage(),
+          '%params' => print_r($params, TRUE),
+        ]);
+        return FALSE;
+      }
+
     }
 
-    if (empty($this->mindbodyData)) {
-      $msg = 'Failed to get the data from MindBody. Request params: %params.';
-      $this->logger->error(
-        $msg,
-        [
-          '%params' => print_r($params, TRUE),
-        ]
-      );
-    }
     return $this->mindbodyData;
   }
 
@@ -482,11 +485,28 @@ class YptfKronosReports {
         ],
       ],
     ];
-    $staff_id_call = $this->proxy->call('DataService', 'FunctionDataXml', $staff_params, TRUE);
-    $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
+
+    $mb_staff_id = FALSE;
+    try {
+      // Send notifications.
+      $staff_id_call = $this->proxy->call('DataService', 'FunctionDataXml', $staff_params, TRUE);
+      $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
+    }
+    catch (\Exception $e) {
+      $msg = 'Error: %error . Failed to get the Employee ID from MindBody. Request MB params: %params.';
+      $this->logger->error($msg, [
+        '%error' => $e->getMessage(),
+        '%params' => $staff_id,
+      ]);
+    }
+
     if (isset($mb_staff_id->Row->EmpID) && !empty($mb_staff_id->Row->EmpID)) {
       $this->staffIDs[$staff_id] = $mb_staff_id->Row->EmpID;
-      file_put_contents($file, json_encode($this->staffIDs));
+      // Get MB cache for debug mode.
+      $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+      if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
+        file_put_contents($file, json_encode($this->staffIDs));
+      }
       return $mb_staff_id->Row->EmpID;
     }
     elseif (isset($staff_id_call->SoapClient)) {
@@ -500,7 +520,11 @@ class YptfKronosReports {
           if (isset($parsed_data['Results']['Row']['EmpID'])) {
             $empID = $parsed_data['Results']['Row']['EmpID'];
             $this->staffIDs[$staff_id] = $empID;
-            file_put_contents($file, json_encode($this->staffIDs));
+            // Get MB cache for debug mode.
+            $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+            if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
+              file_put_contents($file, json_encode($this->staffIDs));
+            }
             return $empID;
           }
         }
@@ -511,7 +535,11 @@ class YptfKronosReports {
           if (isset($parsed_data_first_id['EmpID'])) {
             $empID = $parsed_data_first_id['EmpID'];
             $this->staffIDs[$staff_id] = $empID;
-            file_put_contents($file, json_encode($this->staffIDs));
+            // Get MB cache for debug mode.
+            $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
+            if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
+              file_put_contents($file, json_encode($this->staffIDs));
+            }
             return $empID;
           }
         }
