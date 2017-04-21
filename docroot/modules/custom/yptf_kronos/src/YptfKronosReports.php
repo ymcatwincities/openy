@@ -407,7 +407,7 @@ class YptfKronosReports {
       $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
       $mb_data_file = file_get_contents($file);
       if (!$mb_data_file) {
-        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
+        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
         $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
 
         if (!file_exists($cache_dir)) {
@@ -423,7 +423,7 @@ class YptfKronosReports {
     if (empty($this->mindbodyData)) {
       try {
         // Send notifications.
-        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, FALSE);
+        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
         $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
       }
       catch (\Exception $e) {
