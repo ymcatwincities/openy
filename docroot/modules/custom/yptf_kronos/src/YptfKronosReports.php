@@ -674,7 +674,9 @@ class YptfKronosReports {
       '#data' => $data,
     ];
 
-    $table = render($variables);
+    // Drush can't render that 'render($variables);' cause it has miss context
+    // instead use command below.
+    $table = \Drupal::service('renderer')->renderRoot($variables);
     return ['report' => $table, 'name' => $location_name];
   }
 
