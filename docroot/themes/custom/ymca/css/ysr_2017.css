@@ -499,6 +499,7 @@ html, body {
   font-size: 3rem;
   margin-bottom: 50px;
   line-height: 1.2em;
+  text-transform: none;
 }
 .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header--content .logo {
   display: block;
