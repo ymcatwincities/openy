@@ -353,7 +353,7 @@ class YptfKronosReports {
       file_exists($kronos_file) && $kronos_data_raw = file_get_contents($kronos_file);
       if (empty($kronos_data_raw)) {
         $kronos_file = self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date . '.json';
-        $kronos_data_raw = file_get_contents($kronos_file);
+        $kronos_data_raw = @file_get_contents($kronos_file);
       }
       if (!empty($kronos_data_raw)) {
         break;
@@ -362,12 +362,7 @@ class YptfKronosReports {
 
     if (!$kronos_data_raw) {
       $msg = 'Failed to get the data from Kronos file %file.';
-      $this->logger->error(
-        $msg,
-        [
-          '%file' => $kronos_file,
-        ]
-      );
+      $this->logger->notice($msg, ['%file' => $kronos_file]);
       return $this->kronosData;
     }
     $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -1 day'));;
@@ -428,7 +423,7 @@ class YptfKronosReports {
       }
       catch (\Exception $e) {
         $msg = 'Error: %error . Failed to get the data from MindBody. Request MB params: %params.';
-        $this->logger->error($msg, [
+        $this->logger->notice($msg, [
           '%error' => $e->getMessage(),
           '%params' => print_r($params, TRUE),
         ]);
@@ -494,7 +489,7 @@ class YptfKronosReports {
     }
     catch (\Exception $e) {
       $msg = 'Error: %error . Failed to get the Employee ID from MindBody. Request MB params: %params.';
-      $this->logger->error($msg, [
+      $this->logger->notice($msg, [
         '%error' => $e->getMessage(),
         '%params' => $staff_id,
       ]);
@@ -547,7 +542,7 @@ class YptfKronosReports {
     }
     if (empty($empID)) {
       $msg = 'Failed to get the Employee ID from MindBody. Staff ID: %params.';
-      $this->logger->error($msg, ['%params' => $staff_id]);
+      $this->logger->notice($msg, ['%params' => $staff_id]);
     }
     return FALSE;
   }
