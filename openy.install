@@ -205,4 +205,11 @@ function openy_update_8014() {
   \Drupal::service('module_installer')->install(['openy_hf']);
 }
 
-
+/**
+ * Update WYSIWYG media buttons.
+ */
+function openy_update_8015() {
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
