@@ -109,11 +109,7 @@ class PersonifyUpgrade {
               }
             }
             $entity->set($field_name, $value);
-            if ($entity->id() == 2296) {
-              //$entity->save();
-              drupal_set_message('abu');
-              $abu = 1;
-            }
+            $entity->save();
           }
         }
 
@@ -131,7 +127,6 @@ class PersonifyUpgrade {
       $not_found_links = implode(' ', $not_found_links);
       drupal_set_message(t('New links were not found for : @links', ['@links' => $not_found_links]));
     }
-    $abu=1;
   }
 
   /**
