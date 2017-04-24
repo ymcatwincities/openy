@@ -67,7 +67,7 @@ class KronosSettingsForm extends ConfigFormBase {
         '#type' => 'textfield',
         '#title' => t('Subject'),
         '#default_value' => !empty($config->get($id)['subject']) ? $config->get($id)['subject'] : '',
-        '#description' => $this->t('Email subject.'),
+        '#description' => $this->t('Email subject. Tokens: [report-branch-name], [report-start-date], [report-end-date].'),
       );
       $form[$id][$id . ':body'] = array(
         '#type' => 'text_format',
