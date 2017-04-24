@@ -24,8 +24,6 @@ settings:
   handler_settings:
     target_bundles:
       blog: blog
-      branch: branch
-      camp: camp
       event: event
       testimonial: testimonial
     sort:

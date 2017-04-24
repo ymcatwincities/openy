@@ -13,4 +13,4 @@ dependencies:
 # - openy:openy_node_event
 # - openy:openy_node_testimonial
 description: 'Implements Flexible Content Block'
-version: 8.x-1.0
+version: 8.x-1.1
