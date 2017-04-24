@@ -73,13 +73,14 @@ class PersonifyUpgrade {
    */
   public static function saveEntities($entities, &$context){
     $message = 'Updating Links...';
-    $results = 1;
+    if (empty($context['results'])) {
+      $context['results'] = 0;
+    }
     foreach ($entities as $entity) {
-      $results++;
-      $entity->save();
+      $context['results']++;
+      //$entity->save();
     }
     $context['message'] = $message;
-    $context['results'] = $results;
   }
 
   /**
@@ -106,7 +107,7 @@ class PersonifyUpgrade {
               $columns[] = str_replace($field_name . '_', '', $col);
             }
             foreach ($columns as $col) {
-              foreach ($value as $val) {
+              foreach ($value as $key => $val) {
                 if (isset($val[$col])) {
                   // Replace old links by new ones in each defined field.
                   $content = $val[$col];
@@ -126,6 +127,7 @@ class PersonifyUpgrade {
                       if (isset($data['mapping'][$old_link])) {
                         $new_link = $data['mapping'][$old_link];
                         $content = str_replace($old_link, $new_link, $content);
+                        $value[$key][$col] = $content;
                         $used_links[$old_link] = $new_link;
                         $count++;
                       }
