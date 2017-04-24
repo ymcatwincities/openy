@@ -802,3 +802,60 @@
 .paragraph--type--openy-prgf-mbrshp-calc {
   padding: 20px 0;
 }
+
+.paragraph--type--classes-listing-filters {
+  background-color: $lighter-grey;
+
+  form {
+    background-color: $sky-blue;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    @include breakpoint($screen-sm) {
+      background-color: $lighter-grey;
+      margin-bottom: 40px;
+      padding-bottom: 0;
+    }
+  }
+
+  .js-form-type-select {
+    display: inline-block;
+    padding: 10px 0 5px;
+    width: 100%;
+    @include breakpoint($screen-sm) {
+      float: left;
+      padding: 15px 0;
+      margin-right: 18px;
+      width: 125px;
+    }
+    @include breakpoint($screen-md) {
+      width: 170px;
+    }
+    @include breakpoint($screen-lg) {
+      width: 200px;
+    }
+
+    label {
+      font-size: 14px;
+      line-height: 1.6;
+      @include cachet();
+      color: $dark-grey;
+      margin-bottom: 0;
+      @include breakpoint($screen-sm) {
+        margin-bottom: 5px;
+      }
+    }
+
+    select {
+      text-transform: uppercase;
+      color: $dark-grey;
+      @include cachet();
+    }
+  }
+
+  .form-actions {
+    margin-top: 10px;
+    @include breakpoint($screen-sm) {
+      margin-top: 31px;
+    }
+  }
+}
