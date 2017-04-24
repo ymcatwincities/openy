@@ -177,7 +177,7 @@ class YptfKronosReports {
     $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
-      foreach ($this->kronosData as $item) {
+      foreach ($this->kronosData as $current_line => $item) {
         if ($item->job == self::KRONOS_TRAINING_ID) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
           !$location_id && $location_reports[$item->locNo] = 'Location mapping missed.';
@@ -187,8 +187,9 @@ class YptfKronosReports {
           if (!$empID) {
             $empID = 'No EmpID for:' . $item->empNo . '. Location:' . $item->locName;
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . 'No EmpID for:' . $item->empNo;
+            $this->staffIDs[$item->empNo] = $empID;
           }
-          else {
+          elseif (!isset($trainer_reports[$location_id][$empID]['name'])) {
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName;
           }
 
@@ -505,12 +506,22 @@ class YptfKronosReports {
       return $mb_staff_id->Row->EmpID;
     }
     elseif (isset($staff_id_call->SoapClient)) {
-      $last_response = $staff_id_call->SoapClient->__getLastResponse();
-      $encoder = new XmlEncoder();
-      $data = $encoder->decode($last_response, 'xml');
-      $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
 
-      if ($parsed_data['Status'] == 'Success') {
+      try {
+        $last_response = $staff_id_call->SoapClient->__getLastResponse();
+        $encoder = new XmlEncoder();
+        $data = $encoder->decode($last_response, 'xml');
+        $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
+      }
+      catch (\Exception $e) {
+        $msg = 'Error: %error . Failed to get SoapClient->lastResponse from MindBody request for staffID: %params.';
+        $this->logger->notice($msg, [
+          '%error' => $e->getMessage(),
+          '%params' => $staff_id,
+        ]);
+      }
+
+      if (isset($parsed_data['Status']) && $parsed_data['Status'] == 'Success') {
         if ($parsed_data['ResultCount'] == 1) {
           if (isset($parsed_data['Results']['Row']['EmpID'])) {
             $empID = $parsed_data['Results']['Row']['EmpID'];
@@ -571,8 +582,12 @@ class YptfKronosReports {
             $token = 'No data.';
           }
           $tokens['body'] = str_replace($report_tokens[$report_type], $token['report'], $body);
-          $tokens['subject'] = $token['name'] . ' ' . $config->get($report_type)['subject'];
-          $tokens['subject'] .= ' ' . date("m/d/Y", strtotime($this->dates['StartDate'])) . ' - ' . date("m/d/Y", strtotime($this->dates['EndDate']));
+          $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
+          $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $config->get($report_type)['subject']);
+          $tokens['subject'] = str_replace('[report-end-date]', date("m/d/Y", strtotime($this->dates['EndDate'])), $config->get($report_type)['subject']);
+
+          //$tokens['subject'] = $token['name'] . ' ' . $config->get($report_type)['subject'];
+          //$tokens['subject'] .= ' ' . date("m/d/Y", strtotime($this->dates['StartDate'])) . ' - ' . date("m/d/Y", strtotime($this->dates['EndDate']));
           // Debug Mode: Print results on screen or send to mail.
           if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'dpm')) {
             print ($tokens['subject']);
@@ -676,7 +691,7 @@ class YptfKronosReports {
 
     // Drush can't render that 'render($variables);' cause it has miss context
     // instead use command below.
-    $table = \Drupal::service('renderer')->renderRoot($variables);
+    $table = $this->renderer->renderRoot($variables);
     return ['report' => $table, 'name' => $location_name];
   }
 

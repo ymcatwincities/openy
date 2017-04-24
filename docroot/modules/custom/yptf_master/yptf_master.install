@@ -456,13 +456,47 @@ function yptf_master_update_8023() {
 }
 
 /**
- * Re-Enable Kronos module and change MindbodyClient Name length.
+ * Re-Enable Kronos module and change MindbodyClient Name max_length.
  */
 function yptf_master_update_8024() {
+  // Change max_length for column.
   $schema = Database::getConnection()->schema();
   $spec = array('type' => 'varchar', 'length' => 512);
   $schema->changeField('mindbody_cache', 'name', 'name', $spec);
 
+  // Reinstall Kronos.
   \Drupal::service('module_installer')->uninstall(['yptf_kronos']);
   \Drupal::service('module_installer')->install(['yptf_kronos']);
+
+  // Set default values for reports.
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $email_defaults = [
+    'leadership' => [
+      'term_name' => 'Leadership',
+      'subject' => 'Total PT Hours Variance for [report-start-date] - [report-end-date]',
+      'body' => '[leadership-report]',
+    ],
+    'pt_managers' => [
+      'term_name' => 'PT Manager',
+      'subject' => '[report-branch-name] - PT Hours Variance for [report-start-date] - [report-end-date]',
+      'body' => '[pt-manager-report]',
+    ],
+  ];
+
+  foreach ($email_defaults as $id => $data) {
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => $data['term_name'], 'vid' => 'staff_type']);
+    $term = reset($terms);
+
+    if ($term) {
+      $config->set($id, [
+        'enabled' => 1,
+        'staff_type' => $term->id(),
+        'subject' => $data['subject'],
+        //'body' => $data['body'],
+        'body' => ['value' => $data['body'], 'format' => 'full_html'],
+      ])->save();
+    }
+  }
 }
