@@ -8,8 +8,8 @@ dependencies:
   - field_group
   - menu_ui
   - node
-  - openy_node_activity
   - openy_node
+  - openy_node_activity
   - paragraphs
   - path
   - pathauto
