@@ -181,6 +181,10 @@
   }
 }
 
+.blog-color img {
+  display:none;
+}
+
 .blog-card {
   overflow: hidden;
   padding-top: 20px;
@@ -381,10 +385,33 @@
 }
 
 .field-prgf-nu-view, .field-prgf-whay-view {
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    div:nth-child(2n+1) {
+      clear: left
+    }
+  }
+  @media (min-width: 1024px) {
+    div:nth-child(3n+1) {
+      clear: left
+    }
+  }
+
   ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      li:nth-child(2n+1) {
+        clear: left;
+      }
+    }
+    @media (min-width: 1024px) {
+      li:nth-child(3n+1) {
+        clear: left;
+      }
+    }
   }
 }
 
