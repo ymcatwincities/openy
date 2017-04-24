@@ -30,6 +30,7 @@
 
 {% macro menu_links(items, attributes, menu_level) %}
   {% import _self as menus %}
+  <div class="container-fluid">
   {% if items %}
     {% set attributes = attributes.addClass('nav-level-1 nav navbar-nav') %}
     <ul{{ attributes }}>
@@ -55,6 +56,7 @@
     {% endfor %}
     </ul>
   {% endif %}
+  </div>
 {% endmacro %}
 
 {% macro menu_links_level_2(items, attributes, menu_level) %}
