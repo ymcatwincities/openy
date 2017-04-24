@@ -81,12 +81,12 @@ class OpenyFacebookSyncFetcher {
   }
 
   /**
-   * Returns app_id from module settings.
+   * Returns app_id array from module settings.
    *
-   * @return string
-   *   Application ID defined in module settings.
+   * @return array
+   *   Application IDs defined in module settings.
    */
-  protected function getAppId() {
+  protected function getAppIds() {
     $app_id = $this->configFactory
       ->get('openy_facebook_sync.settings')
       ->get('app_id');
@@ -136,8 +136,8 @@ class OpenyFacebookSyncFetcher {
           }
           $data[] = $event;
         }
-        $this->cacheBackend->set($cid, $data, REQUEST_TIME + self::CACHE_TIME);
       }
+      $this->cacheBackend->set($cid, $data, REQUEST_TIME + self::CACHE_TIME);
     }
 
     $this->wrapper->setSourceData($data);

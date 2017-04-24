@@ -46,7 +46,7 @@ class OpenyFacebookSyncFactory {
   public function getFacebook() {
     // Check that App ID and secret have been defined in module settings.
     if ($this->validateConfig()) {
-      $app_ids = $this->getAppId();
+      $app_ids = $this->getAppIds();
       foreach ($app_ids as $app_id) {
         $sdk_config = [
           'app_id' => $app_id,
@@ -83,7 +83,7 @@ class OpenyFacebookSyncFactory {
    *   False otherwise
    */
   protected function validateConfig() {
-    $app_id = $this->getAppId();
+    $app_id = $this->getAppIds();
     $app_secret = $this->getAppSecret();
 
     if (!$app_id || !$app_secret) {
@@ -97,12 +97,12 @@ class OpenyFacebookSyncFactory {
   }
 
   /**
-   * Returns app_id from module settings.
+   * Returns app_id array from module settings.
    *
-   * @return string
-   *   Application ID defined in module settings.
+   * @return array
+   *   Application IDs defined in module settings.
    */
-  protected function getAppId() {
+  protected function getAppIds() {
     $app_id = $this->configFactory
       ->get('openy_facebook_sync.settings')
       ->get('app_id');
