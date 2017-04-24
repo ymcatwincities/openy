@@ -115,22 +115,36 @@ class OpenyFacebookSyncFetcher {
     }
     else {
       $data = [];
-      // @todo Implement pager.
       $fb_objects = $this->facebook;
       foreach ($fb_objects as $fb) {
         /* @var \Facebook\Facebook $fb */
         $appid = $fb->getApp()->getId();
         $result = $fb->sendRequest('GET', $appid . "/events");
-        $body = $result->getDecodedBody();
-        foreach ($body['data'] as $event) {
+        $events = $result->getGraphEdge();
+        // Array of events from all pages.
+        $all_events = array();
+        if ($fb->next($events)) {
+          // Code executed when next page is available.
+          $all_events = array_merge($events->asArray(), $all_events);
+          while ($events = $fb->next($events)) {
+            // Loop to save events from all pages.
+            $all_events = array_merge($events->asArray(), $all_events);
+          }
+        }
+        else {
+          // Code executed when next page not available.
+          $all_events = array_merge($events->asArray(), $all_events);
+        }
+
+        // All events array fetching.
+        foreach ($all_events as $event) {
           if (!$this->getFetchPassedEventsOption() && isset($event['end_time'])) {
             // As there is no way to filter out ended events via request to FB API,
             // skip events that have ended comparing to request time.
             $site_timezone = new DateTimeZone($this->configFactory->get('system.date')
               ->get('timezone')['default']);
-            $event_date = new DateTime($event['end_time']);
             $current_date = DateTime::createFromFormat('U', REQUEST_TIME, $site_timezone);
-            if ($event_date < $current_date) {
+            if ($event['end_time']->setTimezone($site_timezone) < $current_date) {
               continue;
             }
           }

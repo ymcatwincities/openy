@@ -116,19 +116,20 @@ class OpenyFacebookSyncSaver {
    *   Prepared Event data.
    */
   private function prepareEvent(array $event) {
-    // Convert date values from 2017-04-08T19:00:00-0500 to 2017-04-08T19:00:00.
+    // Convert date values from DateTime format to 2017-04-08T19:00:00.
     $site_timezone = new \DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
+    $event['start_time']->setTimezone($site_timezone);
+
     $event_date_values = [
-      'value' => \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['start_time'], $site_timezone)
-        ->format('Y-m-d\TH:i:s'),
+      'value' => $event['start_time']->format('Y-m-d\TH:i:s'),
       'end_value' => '',
     ];
 
     // Set end date value only if it exists.
     if (isset($event['end_time'])) {
       // End date value should not be null so fill it with start date.
-      $event_date_values['end_value'] = \DateTime::createFromFormat('Y-m-d\TH:i:sO', $event['end_time'], $site_timezone)
-        ->format('Y-m-d\TH:i:s');
+      $event['end_time']->setTimezone($site_timezone);
+      $event_date_values['end_value'] = $event['end_time']->format('Y-m-d\TH:i:s');
     }
 
     $event_node = [
