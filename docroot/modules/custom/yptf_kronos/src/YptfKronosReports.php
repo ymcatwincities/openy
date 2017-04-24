@@ -175,8 +175,9 @@ class YptfKronosReports {
     $location_reports = [];
     // Get locations ref.
     $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
-    $mb_get_data = $this->getMindbodyData();
+
     if ($this->getKronosData()) {
+      $mb_get_data = $this->getMindbodyData();
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $current_line => $item) {
         if ($item->job == self::KRONOS_TRAINING_ID) {
