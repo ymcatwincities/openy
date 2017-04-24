@@ -494,7 +494,6 @@ function yptf_master_update_8024() {
         'enabled' => 1,
         'staff_type' => $term->id(),
         'subject' => $data['subject'],
-        //'body' => $data['body'],
         'body' => ['value' => $data['body'], 'format' => 'full_html'],
       ])->save();
     }
