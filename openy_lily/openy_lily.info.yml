@@ -3,7 +3,7 @@ type: theme
 description: 'Open Y theme created from YMCA of Twin Cities look and feel. YMCA brand compliant and customizable.'
 package: OPENY_LILY
 core: 8.x
-base theme: false
+base theme: openy_rose
 libraries:
   - openy_lily/global-styling
 regions:
