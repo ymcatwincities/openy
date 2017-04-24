@@ -78,7 +78,7 @@ class PersonifyUpgrade {
     }
     foreach ($entities as $entity) {
       $context['results']++;
-      //$entity->save();
+      $entity->save();
     }
     $context['message'] = $message;
   }
