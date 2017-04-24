@@ -47,16 +47,46 @@ class PersonifyUpgrade {
    */
   public function run() {
     $csvFile = file(drupal_get_path('module', 'ymca_personify_upgrade') . '/source/url_translation.csv');
+    // Prepare links data from source csv file.
     $data = $this->prepareLinksArray($csvFile);
-    // Go through defined content and make links replace.
-    $this->replaceLinks($data);
+    // Make links replacement in entities without save.
+    $entities = $this->replaceLinks($data);
+    // Setup batch process to save entities.
+    $operations = [];
+    $entities = array_chunk($entities, 10, true);
+    foreach ($entities as $row) {
+      $operations[] = [
+        '\Drupal\ymca_personify_upgrade\PersonifyUpgrade::saveEntities',
+        [$row]
+      ];
+    }
+    $batch = array(
+      'title' => t('Updating Links...'),
+      'operations' => $operations,
+      'finished' => '\Drupal\ymca_personify_upgrade\PersonifyUpgrade::finishedCallback',
+    );
+    batch_set($batch);
+  }
+
+  /**
+   * Save Entities.
+   */
+  public static function saveEntities($entities, &$context){
+    $message = 'Updating Links...';
+    $results = 1;
+    foreach ($entities as $entity) {
+      $results++;
+      $entity->save();
+    }
+    $context['message'] = $message;
+    $context['results'] = $results;
   }
 
   /**
    * Helper function to replace links by mapping.
    */
   protected function replaceLinks($data) {
-    $data_content = [];
+    $data_content = $entities_to_save = [];
     $count = 0;
     // Load content.
     foreach ($data['paths'] as $type => $ids) {
@@ -104,12 +134,11 @@ class PersonifyUpgrade {
                       }
                     }
                   }
-                    $abu=1;
                 }
               }
             }
             $entity->set($field_name, $value);
-            $entity->save();
+            $entities_to_save[] = $entity;
           }
         }
 
@@ -127,6 +156,7 @@ class PersonifyUpgrade {
       $not_found_links = implode(' ', $not_found_links);
       drupal_set_message(t('New links were not found for : @links', ['@links' => $not_found_links]));
     }
+    return $entities_to_save;
   }
 
   /**
@@ -190,6 +220,24 @@ class PersonifyUpgrade {
       }
     }
     return $normalized_paths;
+  }
+
+  /**
+   * Finish callback for batch process.
+   */
+  function finishedCallback($success, $results, $operations) {
+    // The 'success' parameter means no fatal PHP errors were detected. All
+    // other error management should be handled using 'results'.
+    if ($success) {
+      $message = \Drupal::translation()->formatPlural(
+        $results,
+        'One post processed.', '@count posts processed.'
+      );
+    }
+    else {
+      $message = t('Finished with an error.');
+    }
+    drupal_set_message($message);
   }
 
 }
