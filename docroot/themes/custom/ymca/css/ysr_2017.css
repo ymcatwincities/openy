@@ -439,7 +439,7 @@ html, body {
 .theme-ymca--2017-compain-upcoming {
   height: 100%;
   position: relative;
-  background: #fff url("../prototypes/ysr_2017/img/bg-page-upcoming.jpg") 50% 0 no-repeat;
+  background: none;
 }
 .theme-ymca--2017-compain-upcoming .viewport,
 .theme-ymca--2017-compain-upcoming #main {
@@ -467,7 +467,7 @@ html, body {
   height: auto;
 }
 .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .title {
-  color: #f47920;
+  color: #00aeef;
   margin-bottom: 50px;
   font-size: 46px;
   font-size: 4.6rem;
