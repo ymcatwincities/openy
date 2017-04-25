@@ -7490,6 +7490,9 @@ body {
         background-position: top left;
         margin-top: 21px; }
 
+.blog-color img {
+  display: none; }
+
 .blog-card {
   overflow: hidden;
   padding-top: 20px; }
@@ -7597,10 +7600,24 @@ body {
 .paragraph--type--featured-blogs .slick-arrow {
   top: 55%; }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .field-prgf-nu-view div:nth-child(2n+1), .field-prgf-whay-view div:nth-child(2n+1) {
+    clear: left; } }
+
+@media (min-width: 1024px) {
+  .field-prgf-nu-view div:nth-child(3n+1), .field-prgf-whay-view div:nth-child(3n+1) {
+    clear: left; } }
+
 .field-prgf-nu-view ul, .field-prgf-whay-view ul {
   list-style-type: none;
   padding: 0;
   margin: 0; }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .field-prgf-nu-view ul li:nth-child(2n+1), .field-prgf-whay-view ul li:nth-child(2n+1) {
+      clear: left; } }
+  @media (min-width: 1024px) {
+    .field-prgf-nu-view ul li:nth-child(3n+1), .field-prgf-whay-view ul li:nth-child(3n+1) {
+      clear: left; } }
 
 .branch--updates-queue {
   margin: 0 0 25px; }
