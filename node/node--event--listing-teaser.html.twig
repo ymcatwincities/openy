@@ -24,11 +24,11 @@
     </h2>
     {{ title_suffix }}
 
-    <div class="conent-wrapper">
+    <div class="content-wrapper">
       <div{{ content_attributes.addClass('node__content') }}>
         {{ content }}
       </div>
     </div>
-    <div class="btn btn-default browse-classes-btn"><a href="{{ url }}">{{ 'Read more'|t }}</a></div>
+    <a class="btn btn-default browse-classes-btn" href="{{ url }}">{{ 'Read more'|t }}</a>
   </div>
 </article>
