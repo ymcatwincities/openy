@@ -319,4 +319,18 @@
     }
   };
 
+  /**
+   * Resize header on scroll.
+   */
+  Drupal.behaviors.resizeHeader = {
+    attach: function (context, settings) {
+      $("#page-head", context).each(function () {
+        $(window).on("scroll touchmove", function () {
+          $('#page-head').toggleClass('tiny', $(document).scrollTop() > 0);
+          $('body').toggleClass('tiny-header', $(document).scrollTop() > 0);
+        });
+      });
+    }
+  };
+
 })(jQuery);

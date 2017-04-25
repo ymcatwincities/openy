@@ -1,7 +1,17 @@
 body {
-  padding-top: 138px !important;
+  padding-top: 145px !important;
+  @include transition(padding-top 0.2s ease);
+  &.tiny-header {
+    padding-top: 116px !important;
+  }
 }
+
 header {
+  @include clearfix;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
   .container-fluid {
     @media (min-width: 1200px) {
       padding-right: 100px;
@@ -9,11 +19,13 @@ header {
     }
   }
   .top-navs {
-    background-color: $gray-light;
+    height: auto !important;
+    background-color: transparent;
     .nav-global {
       margin-bottom: 0;
+      background-color: $gray-light;
       .navbar-header {
-        padding: 5px 0 8px;
+        padding: 5px 0 13px;
       }
     }
     #block-openy-lily-main-menu {
@@ -24,7 +36,8 @@ header {
         li {
           a {
             color: white;
-            padding: 20px 25px;
+            padding: 21px 25px;
+            @include transition(padding 0.2s ease);
           }
         }
       }
@@ -35,6 +48,7 @@ header {
           color: $gray-dark;
           border-top: 2px solid transparent;
           line-height: 50px;
+          font-size: 16px;
           @include transition(all 0.2s linear);
           &:hover {
             border-top: 2px solid #aa228d;
@@ -49,8 +63,39 @@ header {
   #block-openy-lily-branding {
     a {
       img {
+        @include transition(all 0.2s linear);
         width: 85px;
         height: auto;
+      }
+    }
+  }
+  &.tiny {
+    .top-navs {
+      .nav-global {
+        .navbar-header {
+          padding: 5px 0 4px;
+          #block-openy-lily-branding {
+            a {
+              img {
+                width: 55px;
+              }
+            }
+          }
+        }
+      }
+      #block-openy-lily-user-menu {
+        li {
+          a {
+            line-height: 19px;
+          }
+        }
+      }
+      #block-openy-lily-main-menu {
+        li {
+          a {
+            padding: 16px 25px;
+          }
+        }
       }
     }
   }

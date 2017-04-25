@@ -6,8 +6,8 @@ global-styling:
     theme:
       css/style.css: {}
   js:
-    /libraries/equalize/js/equalize.min.js: {}
-    scripts/vendor/iframeSizer.min.js: {}
+#    /libraries/equalize/js/equalize.min.js: {}
+#    scripts/vendor/iframeSizer.min.js: {}
     scripts/legacy/modernizr-2.6.2-respond-1.1.0.min.js: {}
     scripts/legacy/jquery-clockwork.min.js: {}
     scripts/legacy/jquery-migrate.min.js: {}
@@ -17,7 +17,7 @@ global-styling:
     scripts/legacy/bootstrap.min.js: {}
     scripts/legacy/plugins.min.js: {}
     scripts/legacy/main.min.js: {}
-    scripts/openy_lily.js: {}
+    scripts/ymca.js: {}
   dependencies:
     - core/jquery
     - core/drupal

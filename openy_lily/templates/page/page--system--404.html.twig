@@ -66,20 +66,20 @@
 <div class="viewport">
   {{ page.header }}
   <header id="page-head" class="page-head">
-    <div class="top-navs navbar-fixed-top" data-spy="affix" data-offset-top="1">
+    <div class="top-navs">
 
       {% include "@openy_lily/include/site-search.html.twig" %}
       {% include "@openy_lily/include/support.html.twig" %}
 
       <nav class="nav-global navbar-default navbar">
-        <div class="container">
+        <div class="container-fluid">
           <div class="navbar-header">
             <button class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ base_path }}">{{ site_name }}</a>
+            {{ page.header }}
           </div>
 
           {# TODO: replace with top menu #}

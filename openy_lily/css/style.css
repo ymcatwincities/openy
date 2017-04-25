@@ -1,6 +1,28 @@
+@font-face {
+  font-family: 'Cachet';
+  src: url("../fonts/cachetstd-book-webfont.eot");
+  src: url("../fonts/cachetstd-book-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-book-webfont.woff2") format("woff2"), url("../fonts/cachetstd-book-webfont.woff") format("woff"), url("../fonts/cachetstd-book-webfont.svg#cachetstd-book-webfont") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cachet Bold';
+  src: url("../fonts/cachetstd-bold-webfont.eot");
+  src: url("../fonts/cachetstd-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-bold-webfont.woff2") format("woff2"), url("../fonts/cachetstd-bold-webfont.woff") format("woff"), url("../fonts/cachetstd-bold-webfont.svg#cachetstd-bold-webfont") format("svg");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Cachet Medium';
+  src: url("../fonts/cachetstd-medium-webfont.eot");
+  src: url("../fonts/cachetstd-medium-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-medium-webfont.woff2") format("woff2"), url("../fonts/cachetstd-medium-webfont.woff") format("woff"), url("../fonts/cachetstd-medium-webfont.svg#cachetstd-medium-webfont") format("svg");
+  font-weight: 600;
+  font-style: normal;
+}
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Cachet",Arial,sans-serif;
 }
 
 .toolbar-fixed .navbar-fixed-top {
@@ -18,9 +40,28 @@ body {
 }
 
 body {
-  padding-top: 138px !important;
+  padding-top: 145px !important;
+  -webkit-transition: padding-top 0.2s ease;
+  -moz-transition: padding-top 0.2s ease;
+  -ms-transition: padding-top 0.2s ease;
+  -o-transition: padding-top 0.2s ease;
+  transition: padding-top 0.2s ease;
+}
+body.tiny-header {
+  padding-top: 116px !important;
 }
 
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+}
+header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 @media (min-width: 1200px) {
   header .container-fluid {
     padding-right: 100px;
@@ -28,13 +69,15 @@ body {
   }
 }
 header .top-navs {
-  background-color: #f8f8f8;
+  height: auto !important;
+  background-color: transparent;
 }
 header .top-navs .nav-global {
   margin-bottom: 0;
+  background-color: #f8f8f8;
 }
 header .top-navs .nav-global .navbar-header {
-  padding: 5px 0 8px;
+  padding: 5px 0 13px;
 }
 header .top-navs #block-openy-lily-main-menu {
   width: 100%;
@@ -45,12 +88,18 @@ header .top-navs #block-openy-lily-main-menu ul {
 }
 header .top-navs #block-openy-lily-main-menu ul li a {
   color: white;
-  padding: 20px 25px;
+  padding: 21px 25px;
+  -webkit-transition: padding 0.2s ease;
+  -moz-transition: padding 0.2s ease;
+  -ms-transition: padding 0.2s ease;
+  -o-transition: padding 0.2s ease;
+  transition: padding 0.2s ease;
 }
 header .top-navs #block-openy-lily-user-menu li a {
   color: #777777;
   border-top: 2px solid transparent;
   line-height: 50px;
+  font-size: 16px;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
@@ -63,8 +112,25 @@ header .top-navs #block-openy-lily-user-menu li a:hover {
   color: black;
 }
 header #block-openy-lily-branding a img {
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
   width: 85px;
   height: auto;
+}
+header.tiny .top-navs .nav-global .navbar-header {
+  padding: 5px 0 4px;
+}
+header.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a img {
+  width: 55px;
+}
+header.tiny .top-navs #block-openy-lily-user-menu li a {
+  line-height: 19px;
+}
+header.tiny .top-navs #block-openy-lily-main-menu li a {
+  padding: 16px 25px;
 }
 
 .social-disclaimer .contextual-region .contextual .contextual-links li {
@@ -109,7 +175,6 @@ header #block-openy-lily-branding a img {
   display: inline-block;
 }
 #page-footer #block-openy-lily-footermenucenter li a {
-  font-family: 'Cachet',Helvetica,Arial,sans-serif;
   font-size: 20px;
   color: #a8a8a8;
 }
