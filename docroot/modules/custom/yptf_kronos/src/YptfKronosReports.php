@@ -52,6 +52,12 @@ class YptfKronosReports {
    */
   protected $dates;
 
+  /**
+   * Number requests to MB. For timeout reason.
+   *
+   * @var array
+   */
+  protected $numberOfRequest = 3;
 
   /**
    * The Kronos data report.
@@ -168,8 +174,11 @@ class YptfKronosReports {
 
   /**
    * Calculate/compare data from Kronos & reports.
+   *
+   * @param int $request_number
+   *   Number of requests of report to MB.
    */
-  public function generateReports() {
+  public function generateReports($request_number = 0) {
     // Get Kronos data.
     $trainer_reports = [];
     $location_reports = [];
@@ -217,51 +226,56 @@ class YptfKronosReports {
         }
       }
     }
+    if (!empty($request_number)) {
+      $this->numberOfRequest = $request_number;
+    }
+    for ($period = 0; $period < $this->numberOfRequest; $period++) {
+      if ($this->getMindbodyData()) {
+        // Calculate MB data.
+        $skip_bt = FALSE;
+        $prev_bt = [];
+        foreach ($this->mindbodyData as $mb_id => $item) {
+          $datetime1 = date_create($item->StartDateTime);
+          $datetime2 = date_create($item->EndDateTime);
 
-    if ($this->getMindbodyData()) {
-      // Calculate MB data.
-      $skip_bt = FALSE;
-      $prev_bt = [];
-      foreach ($this->mindbodyData as $mb_id => $item) {
-        $datetime1 = date_create($item->StartDateTime);
-        $datetime2 = date_create($item->EndDateTime);
-
-        // PT - $item->Program->ID == 2
-        // BT - $item->Program->ID == 4.
-        // Skip every second BT line if time and staff the same.
-        if ($item->Program->ID == $this->programmBTID) {
-          $current_bt = [
-            'staff_id' => $item->Staff->ID,
-            'StartDateTime' => $item->StartDateTime,
-            'EndDateTime' => $item->EndDateTime,
-          ];
-          if ($skip_bt) {
-            if ($prev_bt == $current_bt) {
-              $prev_bt = $current_bt;
-              $skip_bt = !$skip_bt;
-              continue;
+          // PT - $item->Program->ID == 2
+          // BT - $item->Program->ID == 4.
+          // Skip every second BT line if time and staff the same.
+          if ($item->Program->ID == $this->programmBTID) {
+            $current_bt = [
+              'staff_id' => $item->Staff->ID,
+              'StartDateTime' => $item->StartDateTime,
+              'EndDateTime' => $item->EndDateTime,
+            ];
+            if ($skip_bt) {
+              if ($prev_bt == $current_bt) {
+                $prev_bt = $current_bt;
+                $skip_bt = !$skip_bt;
+                continue;
+              }
             }
+            $prev_bt = $current_bt;
+            $skip_bt = !$skip_bt;
           }
-          $prev_bt = $current_bt;
-          $skip_bt = !$skip_bt;
+
+          $interval = date_diff($datetime1, $datetime2);
+          $hours = (int) $interval->format("%h");
+          $minutes = (int) $interval->format("%i");
+          // Convert minutes to hours.
+          $diff = $hours + $minutes / 60;
+
+          $staff_id = $item->Staff->ID;
+          $location_id = $item->Location->ID;
+          !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) && $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0;
+          $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
+          !empty($item->Staff->LastName) && $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName;
+          !isset($location_reports[$location_id]['mb_hours']) && $location_reports[$location_id]['mb_hours'] = 0;
+          $location_reports[$location_id]['mb_hours'] += $diff;
+          !empty($item->Location->Name) && $location_reports[$location_id]['name'] = $item->Location->Name;
         }
-
-        $interval = date_diff($datetime1, $datetime2);
-        $hours = (int) $interval->format("%h");
-        $minutes = (int) $interval->format("%i");
-        // Convert minutes to hours.
-        $diff = $hours + $minutes / 60;
-
-        $staff_id = $item->Staff->ID;
-        $location_id = $item->Location->ID;
-        !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) && $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0;
-        $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
-        !empty($item->Staff->LastName) && $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName;
-        !isset($location_reports[$location_id]['mb_hours']) && $location_reports[$location_id]['mb_hours'] = 0;
-        $location_reports[$location_id]['mb_hours'] += $diff;
-        !empty($item->Location->Name) && $location_reports[$location_id]['name'] = $item->Location->Name;
       }
     }
+
     // Calculate variance.
     foreach ($trainer_reports as $location_id => &$trainers) {
       foreach ($trainers as &$trainer) {
@@ -393,10 +407,40 @@ class YptfKronosReports {
       'Password' => $this->credentials->get('user_password'),
       'SiteIDs' => [$this->credentials->get('site_id')],
     ];
+
+    // Calculate dates for the MB request.
+    $start_time_report = strtotime($this->dates['StartDate']);
+    if (empty($this->dates['mbEndDate'])) {
+      $this->dates['mbEndDate'] = $this->dates['EndDate'];
+      $start_time_calc = strtotime($this->dates['mbEndDate'] . ' -' . ceil(14 / $this->numberOfRequest) . ' days');
+      if ($start_time_calc > $start_time_report) {
+        $this->dates['mbStartDate'] = date('Y-m-d', $start_time_calc);
+      }
+      else {
+        $this->dates['mbStartDate'] = $this->dates['StartDate'];
+      }
+    }
+    else {
+      if (empty($this->dates['mbStartDate'])) {
+        return FALSE;
+      }
+      $this->dates['mbEndDate'] = date('Y-m-d', strtotime($this->dates['mbStartDate'] . ' -1 day'));
+      if (strtotime($this->dates['mbEndDate']) < $start_time_report) {
+        return FALSE;
+      }
+      $start_time_calc = strtotime($this->dates['mbEndDate'] . ' -' . ceil(14 / $this->numberOfRequest) . ' days');
+      if ($start_time_calc > $start_time_report) {
+        $this->dates['mbStartDate'] = date('Y-m-d', $start_time_calc);
+      }
+      else {
+        $this->dates['mbStartDate'] = $this->dates['StartDate'];
+      }
+    }
+
     $params = [
       'StaffCredentials' => $user_credentials,
-      'StartDate' => $this->dates['StartDate'],
-      'EndDate' => $this->dates['EndDate'],
+      'StartDate' => $this->dates['mbStartDate'],
+      'EndDate' => $this->dates['mbEndDate'],
       // Zero is for all staff.
       'StaffIDs' => [0],
     ];
