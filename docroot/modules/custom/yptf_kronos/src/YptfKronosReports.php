@@ -186,8 +186,14 @@ class YptfKronosReports {
           $empID = $this->getMindbodyidbyStaffId($item->empNo);
 
           if (!$empID) {
-            $empID = 'No EmpID for:' . $item->empNo . '. Location:' . $item->locName;
-            $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . 'No EmpID for:' . $item->empNo;
+            if ($empID === 0) {
+              $empID = 'MindBody server down for: ' . $item->empNo;
+            }
+            else {
+              $empID = 'No EmpID for: ' . $item->empNo;
+            }
+
+            $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . $empID;
             $this->staffIDs[$item->empNo] = $empID;
           }
           elseif (!isset($trainer_reports[$location_id][$empID]['name'])) {
@@ -347,6 +353,7 @@ class YptfKronosReports {
         $kronos_shift_day -= 7;
       }
     }
+    $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day));
     $kronos_data_raw = $kronos_file = '';
     foreach ($kronos_shift_days as $shift) {
       $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
@@ -367,8 +374,8 @@ class YptfKronosReports {
       $this->logger->notice($msg, ['%file' => $kronos_file]);
       return $this->kronosData;
     }
-    $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -1 day'));;
-    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -14 days'));
+    $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_file_name_date));
+    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
     return $this->kronosData = json_decode($kronos_data_raw);
   }
 
@@ -483,13 +490,14 @@ class YptfKronosReports {
       ],
     ];
 
-    $mb_staff_id = FALSE;
+    $mb_staff_id = $mb_server_fails = FALSE;
     try {
       // Send notifications.
       $staff_id_call = $this->proxy->call('DataService', 'FunctionDataXml', $staff_params, TRUE);
       $mb_staff_id = $staff_id_call->FunctionDataXmlResult->Results;
     }
     catch (\Exception $e) {
+      $mb_server_fails = TRUE;
       $msg = 'Error: %error . Failed to get the Employee ID from MindBody. Request MB params: %params.';
       $this->logger->notice($msg, [
         '%error' => $e->getMessage(),
@@ -555,6 +563,9 @@ class YptfKronosReports {
     if (empty($empID)) {
       $msg = 'Failed to get the Employee ID from MindBody. Staff ID: %params.';
       $this->logger->notice($msg, ['%params' => $staff_id]);
+      if ($mb_server_fails) {
+        return 0;
+      }
     }
     return FALSE;
   }
