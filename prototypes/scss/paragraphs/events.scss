@@ -1,0 +1,34 @@
+.paragraph--type--all-events  {
+  .views-row {
+    clear: both;
+    margin-bottom: 50px;
+  }
+}
+
+.node--view-mode-listing-teaser {
+  &.node--type-event {
+    margin-bottom: 45px;
+    margin-top: 20px;
+    h2 {
+      margin-bottom: 13px;
+    }
+    .field-event-date-range {
+      margin-top: 13px;
+      margin-bottom: 13px;
+      font-family: CachetMedium;
+    }
+    .field-prgf-sc-body p {
+      margin-bottom: 0;
+    }
+    .conent-wrapper {
+      min-height: auto;
+    }
+  }
+
+  .browse-classes-btn {
+    @include btn-large-purple();
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 10px;
+  }
+}
