@@ -391,7 +391,7 @@ html, body {
 .theme-ymca--2017-compain-upcoming {
   height: 100%;
   position: relative;
-  background: $white url('../prototypes/ysr_2017/img/bg-page-upcoming.jpg') 50% 0 no-repeat;
+  background: none;
 
   .viewport,
   #main {
@@ -416,7 +416,7 @@ html, body {
       background: none;
       height: auto;
       .title {
-        color: $orange-medium;
+        color: $blue-light;
         margin-bottom: 50px ;
         @include rem(font-size, 46px);
         margin-top: 35px;
