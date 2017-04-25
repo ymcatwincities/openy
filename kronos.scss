@@ -59,3 +59,21 @@ body {
     font-weight: normal;
   }
 }
+// Table styles.
+body #dataGrid {
+  border: none;
+  thead {
+    th {
+      font-size: 12px;
+    }
+  }
+  tbody  {
+    tr {
+      td {
+        border: none;
+        font-size: 12px;
+        padding: 10px 8px;
+      }
+    }
+  }
+}
