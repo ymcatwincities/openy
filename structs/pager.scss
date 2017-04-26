@@ -47,6 +47,9 @@
         padding: 5px 0;
         width: 58px;
       }
+      > a span:last-child {
+        display: none;
+      }
       a:after {
         font-family: FontAwesome;
         content: "\f105";
@@ -59,6 +62,9 @@
         border: none;
         padding: 5px 0;
         width: 90px;
+      }
+      > a span:last-child {
+        display: none;
       }
       a:before {
         font-family: FontAwesome;
