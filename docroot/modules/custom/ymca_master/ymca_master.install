@@ -4613,3 +4613,16 @@ function ymca_master_update_8208() {
   $query->condition('title', 'Give');
   $query->execute();
 }
+
+/**
+ * Update personify old link by new links in configs.
+ */
+function ymca_master_update_8209() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      'ymca_personify.settings',
+      'ymca_retention.api',
+      'ymca_mindbody.settings',
+    ]
+  );
+}
