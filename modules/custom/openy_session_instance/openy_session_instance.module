@@ -1,0 +1,171 @@
+<?php
+
+/**
+ * @file
+ * OpenY Session instance module file.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\openy_session_instance\Batch\SessionInstanceActualizeBatch;
+
+/**
+ * Implements hook_entity_insert().
+ */
+function openy_session_instance_entity_insert(EntityInterface $entity) {
+  global $_activenet_sync_disable_entity_hooks;
+  if (!$_activenet_sync_disable_entity_hooks &&
+    $entity->getEntityTypeId() == 'node' &&
+    $entity->bundle() == 'session'
+  ) {
+    Drupal::service('session_instance.manager')
+      ->recreateSessionInstances($entity);
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function openy_session_instance_entity_update(EntityInterface $entity) {
+  global $_activenet_sync_disable_entity_hooks;
+  if (!$_activenet_sync_disable_entity_hooks &&
+    $entity->getEntityTypeId() == 'node'
+  ) {
+    $bundle = $entity->bundle();
+    switch ($bundle) {
+      case 'session':
+        Drupal::service('session_instance.manager')
+          ->recreateSessionInstances($entity);
+        break;
+
+      case 'class':
+      case 'activity':
+      case 'program_subcategory':
+      case 'program':
+        openy_session_instance_actualize_sessions($entity);
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function openy_session_instance_entity_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'session') {
+    Drupal::service('session_instance.manager')
+      ->deleteSessionInstancesBySession($entity);
+  }
+  // TODO: delete sessions instances in case other nodes deleted.
+}
+
+/**
+ * Actualize session instances.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ */
+function openy_session_instance_actualize_sessions(EntityInterface $entity) {
+  // A Draft has been created – ignore.
+  if (!$entity->isDefaultRevision()) {
+    return;
+  }
+  $bundle = $entity->bundle();
+
+  $session_ids = [];
+  $state_changed = _openy_session_instance_state_changed($entity);
+  $session_instance_manager = Drupal::service('session_instance.manager');
+  if ($state_changed) {
+    // Get all related sessions.
+    $session_ids = $session_instance_manager
+      ->getSessionsByParams([$entity->bundle() => [$entity->id()]]);
+  }
+  elseif ($bundle != 'program') {
+    $map_compare = [
+      'class' => 'field_class_activity',
+      'activity' => 'field_activity_category',
+      'program_subcategory' => 'field_category_program',
+    ];
+
+    if (isset($entity->original)) {
+      $original = $entity->original;
+      $new = $entity->{$map_compare[$bundle]}->getValue();
+      $old = $original->{$map_compare[$bundle]}->getValue();
+    }
+
+    // The entity hasn't been significantly changed.
+    if (isset($old) && isset($new) && $new == $old) {
+      return;
+    }
+
+    $map_select = [
+      'class' => 'class',
+      'activity' => 'field_session_instance_activity',
+      'program_subcategory' => 'field_session_instance_program_subcategory',
+      'program' => 'field_session_instance_program',
+    ];
+
+    $session_instances = $session_instance_manager
+      ->getSessionInstancesByParams([$map_select[$bundle] => [$entity->id()]]);
+
+    if (!$session_instances) {
+      return;
+    }
+
+    foreach ($session_instances as $session_instance) {
+      $session_ids[$session_instance->session->target_id] = $session_instance->session->target_id;
+    }
+  }
+
+  if (!$session_ids) {
+    return;
+  }
+  batch_set([
+    'operations' => [
+      [
+        [SessionInstanceActualizeBatch::class, 'run'],
+        [$session_ids],
+      ],
+    ],
+    'title' => t('Actualizing schedule'),
+    'finished' => [
+      SessionInstanceActualizeBatch::class,
+      'finished',
+    ],
+  ]);
+}
+
+/**
+ * Helper function; returns true if the entity has changed its state.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ *
+ * @return bool
+ *   Flag indicated the entity has changed its state.
+ */
+function _openy_session_instance_state_changed(EntityInterface $entity) {
+  if (!$original = $entity->original) {
+    return FALSE;
+  }
+
+  // TODO Do we want to keep moderation wrapper? @see Seattle
+  $moderation_module = openy_moderation_wrapper_active_module();
+  $moderation_service = Drupal::service($moderation_module . '.moderation_information');
+  // The entity got archived.
+  if (
+    $original->moderation_state->entity &&
+    $original->moderation_state->entity->isPublishedState() &&
+    !$moderation_service->isLiveRevision($entity)
+  ) {
+    return TRUE;
+  }
+
+  // The entity got published.
+  if ((!$original->moderation_state->entity || !$original->moderation_state->entity->isPublishedState()) &&
+    $moderation_service->isLiveRevision($entity)
+  ) {
+    return TRUE;
+  }
+
+  return FALSE;
+}
