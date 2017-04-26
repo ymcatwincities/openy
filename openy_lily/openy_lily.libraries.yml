@@ -12,6 +12,7 @@ global-styling:
     scripts/legacy/jquery-clockwork.min.js: {}
     scripts/legacy/jquery-migrate.min.js: {}
     scripts/legacy/helpful_routines.min.js: {}
+    scripts/legacy/jquery.matchHeight-min.js: {}
     scripts/legacy/live_components.min.js: {}
     scripts/init-templates.js: {}
     scripts/legacy/bootstrap.min.js: {}

@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'Cachet';
   src: url("../fonts/cachetstd-book-webfont.eot");
-  src: url("../fonts/cachetstd-book-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-book-webfont.woff2") format("woff2"), url("../fonts/cachetstd-book-webfont.woff") format("woff"), url("../fonts/cachetstd-book-webfont.svg#cachetstd-book-webfont") format("svg");
+  src: url("../fonts/cachetstd-book-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-book-webfont.woff") format("woff"), url("../fonts/cachetstd-book-webfont.svg#cachetstd-book-webfont") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Cachet Bold';
   src: url("../fonts/cachetstd-bold-webfont.eot");
-  src: url("../fonts/cachetstd-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-bold-webfont.woff2") format("woff2"), url("../fonts/cachetstd-bold-webfont.woff") format("woff"), url("../fonts/cachetstd-bold-webfont.svg#cachetstd-bold-webfont") format("svg");
+  src: url("../fonts/cachetstd-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-bold-webfont.woff") format("woff"), url("../fonts/cachetstd-bold-webfont.svg#cachetstd-bold-webfont") format("svg");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: 'Cachet Medium';
   src: url("../fonts/cachetstd-medium-webfont.eot");
-  src: url("../fonts/cachetstd-medium-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-medium-webfont.woff2") format("woff2"), url("../fonts/cachetstd-medium-webfont.woff") format("woff"), url("../fonts/cachetstd-medium-webfont.svg#cachetstd-medium-webfont") format("svg");
+  src: url("../fonts/cachetstd-medium-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-medium-webfont.woff") format("woff"), url("../fonts/cachetstd-medium-webfont.svg#cachetstd-medium-webfont") format("svg");
   font-weight: 600;
   font-style: normal;
 }
@@ -458,6 +458,87 @@ body.path-search #block-mainpagecontent li {
 
 .path-search-results #block-tabs {
   display: none;
+}
+
+.node--type-blog.node--view-mode-teaser a .inner-wrapper {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  margin: 15px 0;
+  overflow: visible;
+  height: auto;
+  border: none !important;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up {
+  text-align: center;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .field-media-image {
+  height: 210px;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .default-img {
+  height: 210px;
+  border-bottom: 1px solid #ebebeb;
+  border-top: 1px solid #ebebeb;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .default-img img {
+  width: 50%;
+  margin: 36px 0;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-heading {
+  padding: 12px;
+  position: static;
+  -webkit-transition: all 0.35 ease;
+  -moz-transition: all 0.35 ease;
+  -ms-transition: all 0.35 ease;
+  -o-transition: all 0.35 ease;
+  transition: all 0.35 ease;
+  background-color: #F5F5F5 !important;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-heading h2 {
+  color: #635f5f;
+  font-weight: bold;
+  margin-top: 8px;
+  font-size: 30px;
+  -webkit-transition: all 0.35 ease;
+  -moz-transition: all 0.35 ease;
+  -ms-transition: all 0.35 ease;
+  -o-transition: all 0.35 ease;
+  transition: all 0.35 ease;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-heading h2:after {
+  margin: 10px 10px 0;
+  display: inline-block;
+  color: white;
+  background: #b3b3b3;
+  content: "\f054";
+  text-align: center;
+  font-size: 24px;
+  font: normal normal normal 14px/1 FontAwesome;
+  -webkit-transition: all 0.3 ease;
+  -moz-transition: all 0.3 ease;
+  -ms-transition: all 0.3 ease;
+  -o-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  padding-top: 4px;
+  padding-left: 2px;
+  vertical-align: text-top;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-heading p {
+  color: #635f5f;
+  font-size: 14px;
+}
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-heading p strong {
+  font-weight: normal !important;
+}
+.node--type-blog.node--view-mode-teaser a:hover .inner-wrapper .blog-heading {
+  background-color: white !important;
+}
+.node--type-blog.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2 {
+  color: black;
+}
+.node--type-blog.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2:after {
+  background: #428bca;
 }
 
 .align-left {
