@@ -7410,6 +7410,8 @@ body {
       position: relative;
       overflow: hidden;
       margin: 15px; }
+      .node--type-blog.node--view-mode-teaser .inner-wrapper .quotes, .node--type-testimonial.node--view-mode-teaser .inner-wrapper .quotes {
+        display: none; }
     .node--type-blog.node--view-mode-teaser img, .node--type-testimonial.node--view-mode-teaser img {
       height: auto;
       max-width: inherit;
@@ -7476,6 +7478,17 @@ body {
       .node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h4, .node--type-testimonial.node--view-mode-teaser.blog-story .inner-wrapper h2,
       .node--type-testimonial.node--view-mode-teaser.blog-story .inner-wrapper h4 {
         color: #5c2e91; }
+      .node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper .quotes, .node--type-testimonial.node--view-mode-teaser.blog-story .inner-wrapper .quotes {
+        display: inline-block;
+        font-size: 100px;
+        font-family: Helvetica Neue LT W01_55 Roman;
+        height: 35px;
+        vertical-align: top;
+        position: relative;
+        top: -20px; }
+      .node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper span:not(.quotes), .node--type-testimonial.node--view-mode-teaser.blog-story .inner-wrapper span:not(.quotes) {
+        display: inline-block;
+        width: 80%; }
     .node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper, .node--type-testimonial.node--view-mode-teaser.blog-news .inner-wrapper {
       border: 1px solid #ccc; }
       .node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h4, .node--type-testimonial.node--view-mode-teaser.blog-news .inner-wrapper h4 {
