@@ -97,8 +97,8 @@
             "@cibox-build"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-        "cibox-vm": "([ -d ./vendor/ymcatwincities/openy-cibox-vm ] && rsync -r --exclude=composer.json ./vendor/ymcatwincities/openy-cibox-vm/ ./) || true",
-        "cibox-build": "([ -d ./vendor/ymcatwincities/openy-cibox-build ] && rsync -r --exclude=composer.json,.gitignore ./vendor/ymcatwincities/openy-cibox-build/ ./docroot) || true"
+        "cibox-vm": "[ -d ./vendor/ymcatwincities/openy-cibox-vm ] && (rsync -r --exclude=composer.json --exclude=README.md --exclude=.gitignore --exclude=LICENSE ./vendor/ymcatwincities/openy-cibox-vm/ ./) || (rm -rf cibox provisioning Vagrantfile .vagrant backup cache)",
+        "cibox-build": "[ -d ./vendor/ymcatwincities/openy-cibox-build ] && (rsync -r --exclude=composer.json --exclude=.gitignore ./vendor/ymcatwincities/openy-cibox-build/ ./docroot) || (rm -rf ./docroot/devops ./docroot/*.sh ./docroot/*.yml ./docroot/*.md ansible.cfg)"
     },
     "extra": {
         "installer-paths": {
