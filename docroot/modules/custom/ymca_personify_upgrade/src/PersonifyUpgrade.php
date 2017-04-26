@@ -87,6 +87,8 @@ class PersonifyUpgrade {
    * Helper function to replace links by mapping.
    */
   protected function replaceLinks($data) {
+    $config = $this->configFactory->get('ymca_personify_upgrade.settings');
+    $fields_data = array_shift($config->get('tables_whitelist'));
     $data_content = $entities_to_save = [];
     $count = 0;
     // Load content.
@@ -95,8 +97,6 @@ class PersonifyUpgrade {
     }
     foreach ($data_content as $type => $entities) {
       foreach ($entities as $entity) {
-        $config = $this->configFactory->get('ymca_personify_upgrade.settings')->get('tables_whitelist');
-        $fields_data = array_shift($config);
         foreach ($fields_data as $field_name => $field_data) {
           $field_name = str_replace($type . '__', '', $field_name);
           if ($entity->hasField($field_name)) {
@@ -234,6 +234,7 @@ class PersonifyUpgrade {
         $results,
         'One post processed.', '@count posts processed.'
       );
+      drupal_flush_all_caches();
     }
     else {
       $message = t('Finished with an error.');
