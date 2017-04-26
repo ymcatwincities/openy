@@ -4618,5 +4618,5 @@ function ymca_master_update_8208() {
  * Install Personify Links Upgrade module.
  */
 function ymca_master_update_8209() {
-  \Drupal::service('module_installer')->uninstall(['ymca_personify_upgrade']);
+  \Drupal::service('module_installer')->install(['ymca_personify_upgrade']);
 }
