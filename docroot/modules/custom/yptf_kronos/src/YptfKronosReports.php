@@ -109,11 +109,11 @@ class YptfKronosReports {
   protected $languageManager;
 
   /**
-   * ID of BT program which duplicated in MB response.
+   * IDs of programs in MB response.
    *
-   * @var int
+   * @var array
    */
-  protected $programmBTID = 4;
+  protected $programIDs = ['PT' => 2, 'BT' => 4];
 
   /**
    * Report date of Kronos file.
@@ -240,8 +240,12 @@ class YptfKronosReports {
 
           // PT - $item->Program->ID == 2
           // BT - $item->Program->ID == 4.
+          if (!isset($item->Program->ID) || !in_array($item->Program->ID, $this->programIDs)) {
+            continue;
+          }
+
           // Skip every second BT line if time and staff the same.
-          if ($item->Program->ID == $this->programmBTID) {
+          if ($item->Program->ID == $this->programIDs['BT']) {
             $current_bt = [
               'staff_id' => $item->Staff->ID,
               'StartDateTime' => $item->StartDateTime,
