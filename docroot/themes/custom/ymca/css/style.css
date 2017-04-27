@@ -873,6 +873,12 @@ body {
   line-height: .4em;
 }
 
+.independent-header .nav .caret:before {
+  font-family: 'YMCA', sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+}
+
 .masthead-menu .collapse {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 -1px rgba(0, 0, 0, 0.1);
@@ -8434,6 +8440,56 @@ body .ajax-progress-throbber .throbber {
   max-height: 500px;
 }
 
+.navbar-default #block-top-menu-2 .navbar-nav > li {
+  display: inline-block;
+  float: none;
+}
+
+.navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
+  padding: 3px 15px;
+  border-radius: 5px;
+  background-color: #b92f9e;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 20px;
+  color: #fff;
+  text-shadow: none;
+  margin-right: 5px;
+}
+.navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a:hover {
+  background-color: #9c1f7b;
+}
+
+.affix .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
+  margin-top: 10px;
+}
+
+.white-underlined-link {
+  color: #fff;
+}
+.white-underlined-link .underlined {
+  text-decoration: underline;
+}
+.white-underlined-link:hover, .white-underlined-link:focus {
+  text-decoration: none;
+  color: #fff;
+}
+
+span.grey-caret:after {
+  margin-left: 10px;
+  width: 8%;
+  color: #b3b3b3;
+  content: 'o';
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'YMCA';
+  -webkit-transition: color .3s ease-out;
+  -moz-transition: color .3s ease-out;
+  -ms-transition: color .3s ease-out;
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -9436,6 +9492,19 @@ body .ajax-progress-throbber .throbber {
 }
 .mindbody-products-list-modal ul li a {
   color: #0889cd;
+}
+
+.ui-widget.ui-dialog.confirmation-popup .ui-dialog-content.ui-widget-content {
+  padding-bottom: 20px;
+}
+.ui-widget.ui-dialog.confirmation-popup .popup-content {
+  margin-bottom: 40px;
+}
+.ui-widget.ui-dialog.confirmation-popup .content-button {
+  text-align: center;
+}
+.ui-widget.ui-dialog.confirmation-popup .content-button a {
+  text-transform: uppercase;
 }
 
 .groupex-form-full {
