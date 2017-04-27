@@ -237,9 +237,6 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'pages/page--challenge--winners',
     ],
     'page__challenge__upcoming' => [
-      'variables' => [
-        'base_path' => base_path(),
-      ],
       'template' => 'pages/page--challenge--upcoming',
     ],
   ];
