@@ -29,8 +29,10 @@ class KronosSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('yptf_kronos.settings');
+
     $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
     $tokens = ['leadership' => '[leadership-report]', 'pt_managers' => '[pt-manager-report]'];
+
     foreach ($email_type as $id => $data) {
       $form[$id] = [
         '#type' => 'fieldset',
@@ -97,7 +99,6 @@ class KronosSettingsForm extends ConfigFormBase {
         'body' => $values[$id . ':body'],
       ])->save();
     }
-
     parent::submitForm($form, $form_state);
   }
 
