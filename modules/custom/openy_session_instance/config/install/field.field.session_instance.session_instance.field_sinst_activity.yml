@@ -3,12 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.session_instance.field_session_instance_activity
+    - field.storage.session_instance.field_sinst_activity
     - node.type.activity
   module:
     - openy_session_instance
-id: session_instance.session_instance.field_session_instance_activity
-field_name: field_session_instance_activity
+id: session_instance.session_instance.field_sinst_activity
+field_name: field_sinst_activity
 entity_type: session_instance
 bundle: session_instance
 label: Activity

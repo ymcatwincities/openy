@@ -72,7 +72,8 @@ function openy_session_instance_actualize_sessions(EntityInterface $entity) {
   $bundle = $entity->bundle();
 
   $session_ids = [];
-  $state_changed = _openy_session_instance_state_changed($entity);
+  $moderation_wrapper = Drupal::service('openy_moderation_wrapper.entity_moderation_status');
+  $state_changed = $moderation_wrapper->entity_moderation_state_change($entity);
   $session_instance_manager = Drupal::service('session_instance.manager');
   if ($state_changed) {
     // Get all related sessions.
@@ -99,9 +100,9 @@ function openy_session_instance_actualize_sessions(EntityInterface $entity) {
 
     $map_select = [
       'class' => 'class',
-      'activity' => 'field_session_instance_activity',
-      'program_subcategory' => 'field_session_instance_program_subcategory',
-      'program' => 'field_session_instance_program',
+      'activity' => 'field_sinst_activity',
+      'program_subcategory' => 'field_sinst_program_subcategory',
+      'program' => 'field_sinst_program',
     ];
 
     $session_instances = $session_instance_manager
@@ -132,40 +133,4 @@ function openy_session_instance_actualize_sessions(EntityInterface $entity) {
       'finished',
     ],
   ]);
-}
-
-/**
- * Helper function; returns true if the entity has changed its state.
- *
- * @param \Drupal\Core\Entity\EntityInterface $entity
- *   The entity.
- *
- * @return bool
- *   Flag indicated the entity has changed its state.
- */
-function _openy_session_instance_state_changed(EntityInterface $entity) {
-  if (!$original = $entity->original) {
-    return FALSE;
-  }
-
-  // TODO Do we want to keep moderation wrapper? @see Seattle
-  $moderation_module = openy_moderation_wrapper_active_module();
-  $moderation_service = Drupal::service($moderation_module . '.moderation_information');
-  // The entity got archived.
-  if (
-    $original->moderation_state->entity &&
-    $original->moderation_state->entity->isPublishedState() &&
-    !$moderation_service->isLiveRevision($entity)
-  ) {
-    return TRUE;
-  }
-
-  // The entity got published.
-  if ((!$original->moderation_state->entity || !$original->moderation_state->entity->isPublishedState()) &&
-    $moderation_service->isLiveRevision($entity)
-  ) {
-    return TRUE;
-  }
-
-  return FALSE;
 }

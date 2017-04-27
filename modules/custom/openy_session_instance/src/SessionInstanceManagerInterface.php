@@ -51,17 +51,6 @@ interface SessionInstanceManagerInterface {
   public function getSessionData(NodeInterface $node);
 
   /**
-   * Returns session Age references.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   The session node.
-   *
-   * @return array|void
-   *   An array with term ids.
-   */
-  public function getAgeIds(NodeInterface $node);
-
-  /**
    * Calculates session instances timestamps using session_schedule.
    *
    * @param array $session_schedule

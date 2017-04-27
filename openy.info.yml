@@ -128,6 +128,8 @@ dependencies:
   - openy_hours_formatter
   - openy_migrate
   - openy_map
+  - openy_moderation_wrapper
+  - openy_session_instance
   - openy_socrates
   - location_finder
   - daxko
