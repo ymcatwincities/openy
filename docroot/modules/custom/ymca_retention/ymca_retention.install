@@ -502,3 +502,17 @@ function ymca_retention_update_8026() {
     }
   }
 }
+
+/**
+ * Update YMCA Retention Upcoming.
+ */
+function ymca_retention_update_8027() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // YMCA Retention Upcoming page.
+      'page_manager.page_variant.ymca_retention_challenge_upcoming',
+    ]
+  );
+}
