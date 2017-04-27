@@ -49,7 +49,7 @@ function ygh_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $v
  */
 function ygh_preprocess_field__node__title(&$vars) {
   $element = $vars['element'];
-  if ($element['#bundle'] == 'landing' && $element['#view_mode'] != 'search_results')  {
+  if ($element['#bundle'] == 'landing' && $element['#view_mode'] != 'search_results') {
     $vars['attributes']['class'][] = 'hidden';
   }
 }
