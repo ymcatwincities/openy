@@ -71,11 +71,11 @@ class OpenyFacebookSyncSaver {
    *   Config Factory.
    */
   public function __construct(OpenyFacebookSyncWrapperInterface $wrapper, LoggerChannelInterface $logger, EntityTypeManagerInterface $entityTypeManager, EventMappingRepository $event_mapping_repo, ConfigFactoryInterface $config_factory) {
-    $this->wrapper            = $wrapper;
-    $this->logger             = $logger;
-    $this->entityTypeManager  = $entityTypeManager;
-    $this->eventMappingRepo   = $event_mapping_repo;
-    $this->configFactory      = $config_factory;
+    $this->wrapper = $wrapper;
+    $this->logger = $logger;
+    $this->entityTypeManager = $entityTypeManager;
+    $this->eventMappingRepo = $event_mapping_repo;
+    $this->configFactory = $config_factory;
   }
 
   /**

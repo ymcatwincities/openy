@@ -122,7 +122,7 @@ class OpenyFacebookSyncFetcher {
         $result = $fb->sendRequest('GET', $appid . "/events");
         $events = $result->getGraphEdge();
         // Array of events from all pages.
-        $all_events = array();
+        $all_events = [];
         if ($fb->next($events)) {
           // Code executed when next page is available.
           $all_events = array_merge($events->asArray(), $all_events);
