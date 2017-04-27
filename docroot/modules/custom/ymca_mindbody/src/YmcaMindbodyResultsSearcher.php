@@ -391,7 +391,7 @@ class YmcaMindbodyResultsSearcher implements YmcaMindbodyResultsSearcherInterfac
               $this->accountProxy->getAccount()->hasPermission(static::BOOK_PERMISSION)
               && !in_array($query[MindbodyResultsController::QUERY_PARAM__PROGRAM_ID], self::PROGRAMS_EXCLUDED)
             ) {
-              $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.book', [], $options);
+              $book = Link::createFromRoute(t('Book'), 'ymca_mindbody.pt.confirmation', [], $options);
             }
 
             $days[$group_date]['trainers'][$bookable_item->Staff->Name][] = [
