@@ -8,7 +8,7 @@ dependencies:
     - user
     - openy_session_instance
 id: session_instances_listing
-label: 'Session Instances Listing'f
+label: 'Session Instances Listing'
 module: views
 description: ''
 tag: ''

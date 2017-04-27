@@ -118,8 +118,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getSessionData(NodeInterface $session) {
-    // TODO Do we want to keep moderation wrapper? @see Seattle
-    $content_moderation_info = Drupal::service(openy_moderation_wrapper_active_module() . '.moderation_information');
+    $moderation_wrapper = \Drupal::service('openy_moderation_wrapper.entity_moderation_status');
 
     // Skip session with empty location reference.
     if (empty($session->field_session_location->target_id)) {
@@ -132,7 +131,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
       return NULL;
     }
     $class = reset($class);
-    if (!$content_moderation_info->isLiveRevision($class)) {
+    if (!$moderation_wrapper->entity_moderation_status($class)) {
       // Class is unpublished.
       return NULL;
     }
@@ -144,14 +143,14 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
       return NULL;
     }
     foreach ($activities as $activity) {
-      if (!$content_moderation_info->isLiveRevision($activity)) {
+      if (!$moderation_wrapper->entity_moderation_status($activity)) {
         // Skip unpublished activities.
         continue;
       }
       // Program Subcategory reference.
       if ($program_subcategory = $activity->field_activity_category->referencedEntities()) {
         $program_subcategory = reset($program_subcategory);
-        if (!$content_moderation_info->isLiveRevision($program_subcategory)) {
+        if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
           // Skip activity due to unpublished program subcategory.
           continue;
         }
@@ -159,7 +158,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
         // Program reference.
         if ($program = $program_subcategory->field_category_program->referencedEntities()) {
           $program = reset($program);
-          if (!$content_moderation_info->isLiveRevision($program)) {
+          if (!$moderation_wrapper->entity_moderation_status($program)) {
             // Skip activity due to unpublished program.
             continue;
           }
@@ -180,9 +179,9 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
       'session' => $session->id(),
       'location' => $location_id,
       'class' => $class_id,
-      'field_session_instance_activity' => array_unique($activity_ids),
-      'field_session_instance_program_subcategory' => array_unique($program_subcategory_ids),
-      'field_session_instance_program' => array_unique($program_ids),
+      'field_sinst_activity' => array_unique($activity_ids),
+      'field_sinst_program_subcategory' => array_unique($program_subcategory_ids),
+      'field_sinst_program' => array_unique($program_ids),
       'min_age' => $session->field_session_min_age->value,
       'max_age' => $session->field_session_max_age->value,
     ];
@@ -261,7 +260,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
    * @param NodeInterface $node
    *   The session node.
    *
-   * @return array
+   * @return array|bool
    *   An array representing schedule.
    */
   public static function loadSessionSchedule(NodeInterface $node) {
@@ -277,17 +276,17 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     $dates = $node->field_session_time->referencedEntities();
     foreach ($dates as $date) {
       $schedule_item = [
-        'frequency' => $date->field_session_frequency->getValue()[0]['value'],
+        'frequency' => 'weekly',
         'days' => [],
         'period' => [],
         'time' => [],
       ];
 
-      foreach ($date->field_session_days->getValue() as $value) {
+      foreach ($date->field_session_time_days->getValue() as $value) {
         $schedule_item['days'][] = $value['value'];
       }
 
-      $_period = $date->field_session_date->getValue()[0];
+      $_period = $date->field_session_time_date->getValue()[0];
       $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value'] . 'Z'));
       $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value'] . 'Z'));
 
