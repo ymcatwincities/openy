@@ -1,0 +1,5 @@
+entity.groupex_google_cache.add_form:
+  route_name: entity.groupex_google_cache.add_form
+  title: 'Add Groupex Google Cache'
+  appears_on:
+    - entity.groupex_google_cache.collection
