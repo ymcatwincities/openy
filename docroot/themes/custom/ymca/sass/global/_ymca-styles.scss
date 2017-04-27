@@ -870,5 +870,55 @@ body .ajax-progress-throbber {
 .internal-template.node--type-article #carousel .even-heights .active.item {
   min-height: 300px;
   max-height: 500px;
+}
 
+.navbar-default #block-top-menu-2 .navbar-nav > li {
+  display: inline-block;
+  float: none;
+}
+.navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
+  padding: 3px 15px;
+  border-radius: 5px;
+  background-color: #b92f9e;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 20px;
+  color: $white;
+  text-shadow: none;
+  margin-right: 5px;
+  &:hover {
+    background-color: #9c1f7b;
+  }
+}
+.affix .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
+  margin-top: 10px;
+}
+
+.white-underlined-link {
+  color: $white;
+  .underlined {
+    text-decoration: underline;
+  }
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: $white;
+  }
+}
+
+span.grey-caret {
+  &:after {
+    margin-left: 10px;
+    width: 8%;
+    color: #b3b3b3;
+    content: 'o';
+    vertical-align: baseline;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'YMCA';
+    -webkit-transition: color .3s ease-out;
+    -moz-transition: color .3s ease-out;
+    -ms-transition: color .3s ease-out;
+  }
 }
