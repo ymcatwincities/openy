@@ -19,6 +19,13 @@
           $(this).attr('checked', false);
         }
       });
+      // Change training location, length, type.
+      $('#block-mainpagecontent .header-row a.change').once('change').on('click', function () {
+        var target = $(this).attr('href');
+        if ($(target).length !== 0) {
+          $(target).slideToggle();
+        }
+      });
     }
   };
 

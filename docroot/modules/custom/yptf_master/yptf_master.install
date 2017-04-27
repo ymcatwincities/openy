@@ -320,3 +320,57 @@ function yptf_master_update_8018() {
     ]
   );
 }
+
+/**
+ * Update Maplewood location mappings.
+ */
+function yptf_master_update_8019() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // YMCA locations.
+      'ymca_mindbody.trainings_mapping',
+    ]
+  );
+  $ids = \Drupal::entityQuery('mapping')
+    ->condition('type', 'location')
+    ->condition('name', 'Maplewood Community Center')
+    ->execute();
+
+  $mapping = Mapping::load(reset($ids));
+  $mapping->set('field_mindbody_id', '25');
+
+  $mapping->save();
+}
+
+/**
+ * Update Mindbody recipient list.
+ */
+function yptf_master_update_8020() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // YMCA notifications.
+      'ymca_mindbody.notifications',
+    ]
+  );
+}
+
+/**
+ * Add new field Product Code NonM to the Personify Product Mapping.
+ */
+function yptf_master_update_8021() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      'field.storage.mapping.field_product_code_nonm',
+      'field.field.mapping.personify_product.field_product_code_nonm',
+      'core.entity_form_display.mapping.personify_product.default',
+      'core.entity_view_display.mapping.personify_product.default',
+      'views.view.personify_product_mapping',
+    ]
+  );
+}
