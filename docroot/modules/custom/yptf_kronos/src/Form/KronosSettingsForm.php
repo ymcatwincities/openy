@@ -29,7 +29,10 @@ class KronosSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('yptf_kronos.settings');
-    $email_type = ['leadership' => 'Leadership email', 'pm_managers' => 'PM managers email'];
+
+    $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
+    $tokens = ['leadership' => '[leadership-report]', 'pt_managers' => '[pt-manager-report]'];
+
     foreach ($email_type as $id => $data) {
       $form[$id] = [
         '#type' => 'fieldset',
@@ -66,13 +69,13 @@ class KronosSettingsForm extends ConfigFormBase {
         '#type' => 'textfield',
         '#title' => t('Subject'),
         '#default_value' => !empty($config->get($id)['subject']) ? $config->get($id)['subject'] : '',
-        '#description' => $this->t('Email subject.'),
+        '#description' => $this->t('Email subject. Tokens: [report-branch-name], [report-start-date], [report-end-date].'),
       );
       $form[$id][$id . ':body'] = array(
         '#type' => 'text_format',
         '#title' => t('Body'),
         '#default_value' => !empty($config->get($id)['body']['value']) ? $config->get($id)['body']['value'] : '',
-        '#description' => $this->t('Token to use: [leadership-report], [pt-manager-report]. It will be replaced with appropriate report.'),
+        '#description' => $this->t('Token to use: %token. It will be replaced with appropriate report.', ['%token' => $tokens[$id]]),
         '#format' => 'full_html',
       );
 
@@ -86,7 +89,7 @@ class KronosSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
-    $email_type = ['leadership' => 'Leadership email', 'pm_managers' => 'PM managers email'];
+    $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
 
     foreach ($email_type as $id => $data) {
       $this->config('yptf_kronos.settings')->set($id, [
@@ -94,10 +97,8 @@ class KronosSettingsForm extends ConfigFormBase {
         'staff_type' => $values[$id . ':staff_type'],
         'subject' => $values[$id . ':subject'],
         'body' => $values[$id . ':body'],
-      ]);
+      ])->save();
     }
-    $this->config('yptf_kronos.settings')->save();
-
     parent::submitForm($form, $form_state);
   }
 
