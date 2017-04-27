@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Taxonomy views hooks.
+ */
+
+/**
  * Implements hook_views_data_alter()
  */
 function openy_taxonomy_views_data_alter(&$data) {
