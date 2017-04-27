@@ -2796,11 +2796,11 @@
         },
         {
             "name": "drupal/plugin",
-            "version": "2.5.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/plugin",
-                "reference": "8.x-2.5"
+                "reference": "8.x-2.4"
             },
             "dist": {
                 "type": "zip",
