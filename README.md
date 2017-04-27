@@ -3,11 +3,12 @@ Open Y Project
 ============================
 Welcome to OpenY Project!
 
-The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](http://www.drupal.org/project/openy) and include CIBox development environment.
+The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](http://www.drupal.org/project/openy) and include CIBox and Docksal development environment.
 
 Development environment allows you to up Open Y in a few minutes.
 
 What is included to development environment:
+- [Docksal for OpenY.](https://github.com/ymcatwincities/openy-docksal)
 - [Install and Reinstall scripts for OpenY.](https://github.com/ymcatwincities/openy-cibox-build) 
 - [Drupal Vagrant Dev box for OpenY.](https://github.com/ymcatwincities/openy-cibox-vm)
 
@@ -24,9 +25,10 @@ If you do not have [Composer](http://getcomposer.org/), you may install it by fo
     
 For usage, see [the documentation](https://getcomposer.org/doc/).
 
-### Install Vagrant and VirtualBox on your system.
+### Install Docksal, Vagrant and VirtualBox on your system.
 - [Install instructions for Vagrant](https://www.vagrantup.com/downloads.html)
 - [Install instructions for VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- Docksal based on Docker container, please [Install Docker](https://www.docker.com/get-docker)
 
 #### Windows users
 
@@ -43,7 +45,7 @@ You can then install this project template using the following command:
 composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
 ~~~
 
-## Run Vagrant with full provisioning
+## Run on Vagrant with full provisioning
 This Vagrant Box (CIBox) allows you to make a contribution into OpenY in a few minutes.
 
 Let's go to the project folder and run command: 
@@ -59,6 +61,12 @@ vagrant halt
 and when back to work use command:
 ~~~
 vagrant up && vagrant ssh
+~~~
+
+## Run on Docksal
+Let's go to the project folder and run command: 
+~~~
+sh build.sh
 ~~~
 
 ## Install Open Y
@@ -80,16 +88,16 @@ http://drupal.192.168.56.132.xip.io/user/
 ~~~
 Use login: admin and password: openy
 
-## How to create a project without CIBox development environment:
+## How to create a project without development environment:
 Sometimes we need only Drupal 8 and Open Y without development environment for this case you can use:
 ~~~
 composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction --no-dev
 ~~~
-also if project installed with development environment you need to remove CIBox use command:
+also if project installed with development environment you need to remove CIBox and Docksal use command:
 ~~~
 composer update --no-interaction --no-dev
 ~~~
-All Vagrant Dev box and Build scripts files will be removed. 
+All Docksal, Vagrant Dev box and Build scripts files will be removed. 
 
 DIRECTORY STRUCTURE
 -------------------
@@ -100,6 +108,11 @@ DIRECTORY STRUCTURE
 Documentation about Open Y is available at [docs](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs). For details please visit [http://www.openymca.org](http://www.openymca.org).
 
 For Development information please take a look at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
+
+### Video:
+- [Introduce to OpenY](https://youtu.be/tXwbucW2TEQ)
+- [How to use Docksal](https://youtu.be/jev2EW2hzdY)
+
 
 # License
 OpenY Project is licensed under the [GPL-2.0+](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html)
