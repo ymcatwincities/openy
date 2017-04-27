@@ -139,6 +139,12 @@ class PersonifyUpgrade {
               }
             }
             $entity->set($field_name, $value);
+            // Fix published node with workflow, but without value.
+            if ($entity->hasField('field_state') && $entity->status->value == 1) {
+              if (empty($entity->field_state->value)) {
+                $entity->set('field_state', 'workflow_published');
+              }
+            }
             $entities_to_save[] = $entity;
           }
         }
