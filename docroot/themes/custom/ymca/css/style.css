@@ -8440,6 +8440,11 @@ body .ajax-progress-throbber .throbber {
   max-height: 500px;
 }
 
+.navbar-default #block-top-menu-2 .navbar-nav > li {
+  display: inline-block;
+  float: none;
+}
+
 .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
   padding: 3px 15px;
   border-radius: 5px;
@@ -8447,7 +8452,6 @@ body .ajax-progress-throbber .throbber {
   text-transform: capitalize;
   font-weight: bold;
   font-size: 17px;
-  margin-top: 26px;
   line-height: 20px;
   color: #fff;
   text-shadow: none;
@@ -8459,6 +8463,31 @@ body .ajax-progress-throbber .throbber {
 
 .affix .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
   margin-top: 10px;
+}
+
+.white-underlined-link {
+  color: #fff;
+}
+.white-underlined-link .underlined {
+  text-decoration: underline;
+}
+.white-underlined-link:hover, .white-underlined-link:focus {
+  text-decoration: none;
+  color: #fff;
+}
+
+span.grey-caret:after {
+  margin-left: 10px;
+  width: 8%;
+  color: #b3b3b3;
+  content: 'o';
+  vertical-align: baseline;
+  text-align: center;
+  font-size: 24px;
+  font-family: 'YMCA';
+  -webkit-transition: color .3s ease-out;
+  -moz-transition: color .3s ease-out;
+  -ms-transition: color .3s ease-out;
 }
 
 .form-item {
