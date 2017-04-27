@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.group_schedules.field_prgf_schedules_ref
+    - paragraphs.paragraphs_type.group_schedules
+id: paragraph.group_schedules.default
+targetEntityType: paragraph
+bundle: group_schedules
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_schedules_ref: true
+  status: true
+  uid: true
