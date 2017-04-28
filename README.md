@@ -25,9 +25,7 @@ The [Open Y Project](http://www.openymca.org/) is a composer based installer for
 ## Requirements
 
 #### Composer    
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the [official instructions](https://getcomposer.org/download/).
-    
-For usage, see [the documentation](https://getcomposer.org/doc/).
+If you do not have [Composer](http://getcomposer.org/), you may install it by following the [official instructions](https://getcomposer.org/download/). For usage, see [the documentation](https://getcomposer.org/doc/).
 
 ## Installation
 
