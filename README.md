@@ -69,6 +69,32 @@ Read more details on [CIBox VM](https://github.com/ymcatwincities/openy-cibox-vm
   
 Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) repo.
 
+# Use Fork for the development
+1. Add your repository to `composer.json`
+```
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/GITHUB_USERNAME/openy"
+    }
+]
+```
+
+2. Change a version for `ymcatwincities/openy` to `dev-8.x-1.x` or any other branch. E.g.:
+- branch name "bugfix" - version name `dev-bugfix`
+- branch name "feature/workflow" - version name `dev-feature/workflow`
+
+```
+"require": {
+    "ymcatwincities/openy": "dev-8.x-1.x",
+}
+```
+```
+"require": {
+    "ymcatwincities/openy": "dev-feature/workflow",
+}
+```
+
 # Directory structure
 | Directory | Purpose |
 |-----------|---------|
