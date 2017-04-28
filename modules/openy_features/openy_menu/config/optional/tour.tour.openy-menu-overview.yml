@@ -22,7 +22,7 @@ tips:
     body: 'This Navigation Block is what appears in the header, or "top" of your page. This is where you have all of the links on your site for pages like Locations or Schedules. This is the block we will edit later to add or make changes to the main navigation on your Open Y site.'
     weight: 2
     attributes:
-      data-class: 'menu-label:contains("Main Navigation Block")'
+      data-class: 'menu-label:contains("main navigation")'
   user-account-menu:
     id: user-account-menu
     plugin: text
@@ -30,7 +30,7 @@ tips:
     body: 'Do you see where it says "Home" and "Manage" at the very top of the page you are on right now? That is because you are logged in as an Open Y content editor. This is the block where we can make changes to the links and content that appear at the top of the page when Drupal / Open Y editors are logged in.'
     weight: 3
     attributes:
-      data-class: 'menu-label:contains("User account menu block")'
+      data-class: 'menu-label:contains("User account menu")'
   footer-menu-center:
     id: footer-menu-center
     plugin: text
@@ -38,7 +38,7 @@ tips:
     body: 'This navigation block is for the middle section of the footer of the default Open Y installation. The links for Home, Location, Blog, and Accelerator are here when you first install Open Y. You can change these links, or remove them, by editing this Block.'
     weight: 4
     attributes:
-      data-class: 'menu-label:contains("Footer menu center block")'
+      data-class: 'menu-label:contains("Footer menu center")'
   footer-menu-left:
     id: footer-menu-left
     plugin: text
@@ -46,7 +46,7 @@ tips:
     body: 'This navigation block is for the left section of the footer of the default Open Y installation. The links for Programs, Health and Fitness, etc. are here when you first install Open Y. You can change these links, or remove them, by editing this Block.'
     weight: 5
     attributes:
-      data-class: 'menu-label:contains("Footer menu left block")'
+      data-class: 'menu-label:contains("Footer menu left")'
   footer-menu-right:
     id: footer-menu-right
     plugin: text
@@ -54,7 +54,7 @@ tips:
     body: 'This navigation block is for the right section of the footer of the default Open Y installation. The links for About, Give and Join, etc. are here when you first install Open Y. You can change these links, or remove them, by editing this Block.'
     weight: 6
     attributes:
-      data-class: 'menu-label:contains("Footer menu right block")'
+      data-class: 'menu-label:contains("Footer menu right")'
   dropbutton-widget:
     id: dropbutton-widget
     plugin: text
