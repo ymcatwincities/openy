@@ -35,15 +35,24 @@ For usage, see [the documentation](https://getcomposer.org/doc/).
 * Install [Cygwin](https://servercheck.in/blog/running-ansible-within-windows)
 * Run Cygwin as Administrator user.
 
+## Installation
+
+#### Latest STABLE version
+```
+composer create-project ymcatwincities/openy-project MY_PROJECT --no-interaction --no-dev
+```
+
+This command will build project based on [**latest stable**](https://github.com/ymcatwincities/openy/releases) release.
+
+#### Latest DEVELOPMENT version
+```
+composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PROJECT --no-interaction --no-dev
+```
+
+This command will build project based on [**latest development**](https://github.com/ymcatwincities/openy/commits/8.x-1.x) release.
+
 INSTALLATION
 ------------
-
-## Set Up a Project with Composer
-
-You can then install this project template using the following command:
-~~~
-composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
-~~~
 
 ## Run on Vagrant with full provisioning
 This Vagrant Box (CIBox) allows you to make a contribution into OpenY in a few minutes.
