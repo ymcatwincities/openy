@@ -70,6 +70,10 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - redirect
+  - simple_sitemap
+  - metatag
+  - metatag_open_graph
   - google_tag
   - google_analytics
   - webform
