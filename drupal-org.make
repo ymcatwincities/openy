@@ -2,7 +2,7 @@ core = 8.x
 api = 2
 defaults[projects][subdir] = contrib
 
-projects[features] = 3.2
+projects[features] = 3.5
 projects[config_update] = 1.3
 projects[entity] = 1.0-alpha4
 projects[datalayer][subdir] = contrib

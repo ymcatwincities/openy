@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e8c1ca28a063d86664fd346d2715b0d3",
-    "content-hash": "27dbceaadb8a07017c55828c878ae1ea",
+    "hash": "9503a9a037275bdfdf5fe977f456fc59",
+    "content-hash": "274f674367ea3e99b452bca1cccfb5f8",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1837,17 +1837,17 @@
         },
         {
             "name": "drupal/features",
-            "version": "3.2.0",
+            "version": "3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/features",
-                "reference": "8.x-3.2"
+                "reference": "8.x-3.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/features-8.x-3.2.zip",
-                "reference": "8.x-3.2",
-                "shasum": "1fce32d01b812d2a613ffadb1b9395293364980e"
+                "url": "https://ftp.drupal.org/files/projects/features-8.x-3.5.zip",
+                "reference": null,
+                "shasum": "546b34387018f9adbe742b6992c4d473f9447c41"
             },
             "require": {
                 "drupal/config_update": "*",
@@ -1859,8 +1859,8 @@
                     "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-3.2",
-                    "datestamp": "1487861884"
+                    "version": "8.x-3.5",
+                    "datestamp": "1488908583"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
