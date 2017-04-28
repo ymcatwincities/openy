@@ -12,6 +12,7 @@ use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Tester\Exception\PendingException;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
+use Behat\Mink\Exception\ResponseTextException;
 
 /**
  * Defines application features from the specific context.
@@ -46,6 +47,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       'system_url',
       'alias_url',
       'edit_url',
+      'path',
     ];
   }
 
@@ -110,6 +112,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       case 'alias_url':
         $value = \Drupal::service('path.alias_manager')
           ->getAliasByPath($node->url());
+        if (empty($value)) {
+          return $node->url();
+        }
+        break;
+
+      case 'path':
+        $value = $node->url();
         break;
 
       case 'edit_url':
@@ -292,6 +301,19 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $element_text = $element_obj->getText();
     if (strpos($element_text, $text) === FALSE) {
       throw new \Exception(sprintf("The text '%s' was not found in the element '%s' on the page %s", $text, $element, $this->getSession()->getCurrentUrl()));
+    }
+  }
+
+  /**
+   * @Then I should see text :text in XML
+   */
+  public function iShouldSeeTextMatchingInXml($text)
+  {
+    $xml = $this->getSession()->getDriver()->getContent();
+    $message = sprintf('The text %s was not found anywhere in the XML.', $text);
+
+    if (strpos($xml, $text) === FALSE) {
+      throw new ResponseTextException($message, $this->getSession()->getDriver());
     }
   }
 

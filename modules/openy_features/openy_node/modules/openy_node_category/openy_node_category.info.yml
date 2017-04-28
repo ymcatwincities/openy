@@ -10,6 +10,7 @@ dependencies:
   - image
   - media_entity
   - menu_ui
+  - metatag
   - node
   - openy_media_image
   - openy_node
