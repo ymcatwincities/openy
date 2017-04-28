@@ -442,6 +442,22 @@
 
 .toolbar-vertical {
   .top-navs {
+    &.affix ~ .viewport {
+      margin-top:0;
+    }
+  }
+}
+
+.toolbar-vertical {
+  .top-navs {
+    &.affix-top ~ .viewport {
+      margin-top:39px;
+    }
+  }
+}
+
+.toolbar-vertical {
+  .top-navs {
     margin-top: 39px;
     &.affix {
       margin-top: 0px;
