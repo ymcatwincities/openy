@@ -183,7 +183,7 @@ function openy_update_8013() {
   $config_factory = Drupal::configFactory();
   $url = $config_factory->getEditable('system.site')->get('page.front');
 
-  if (strpos($url, 'node/') === FALSE) {
+  if (strpos($url, 'node/') !== FALSE) {
     return;
   }
 
