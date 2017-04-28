@@ -171,7 +171,7 @@ function openy_update_8011() {
 /**
  * Enable Metatag, Redirect and Simple Sitemap modules.
  */
-function openy_update_8013() {
+function openy_update_8012() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'metatag',
@@ -199,7 +199,7 @@ function openy_update_8013() {
 /**
  * Enable the Header Footer Template module.
  */
-function openy_update_8014() {
+function openy_update_8013() {
   // Enable module.
   \Drupal::service('module_installer')->install(['openy_hf']);
 }
@@ -207,7 +207,7 @@ function openy_update_8014() {
 /**
  * Update WYSIWYG media buttons.
  */
-function openy_update_8015() {
+function openy_update_8014() {
   $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
