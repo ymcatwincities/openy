@@ -19,7 +19,7 @@
 
 ***
 
-The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](http://www.drupal.org/project/openy).
+The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](https://github.com/ymcatwincities/openy).
 
 
 ## Requirements
