@@ -55,7 +55,11 @@ composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PR
 ### CIBox VM
 [CIBox VM](http://cibox.tools) allows you to make a contribution into OpenY in a few minutes. Just follow steps and then you'll know how to do it.
 
-`TBD`
+- [Pre Requirements](https://github.com/ymcatwincities/openy-cibox-vm#pre-requirements)
+- [Installation](https://github.com/ymcatwincities/openy-cibox-vm#usage)
+- [Local build](https://github.com/ymcatwincities/openy-cibox-vm#reinstall-options)
+  
+Read more details on [CIBox VM](https://github.com/ymcatwincities/openy-cibox-vm) repo.
 
 ### Docksal
 
