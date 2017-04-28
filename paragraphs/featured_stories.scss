@@ -170,6 +170,16 @@
         vertical-align: top;
         position: relative;
         top: -20px;
+        // For Safari and Chrome
+        @media screen and (-webkit-min-device-pixel-ratio:0){
+          top: -20px;
+        }
+        // IE10+
+        @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+          top: -17px;
+          font-size: 120px;
+          font-family: "Helvetica Neue LT W01_55 Roman", Helvetica, Arial, Verdana, sans-serif;
+      }
       }
 
       span:not(.quotes) {
@@ -189,8 +199,6 @@
         color: $purple;
       }
     }
-
-
 
     .quote {
       float: left;
