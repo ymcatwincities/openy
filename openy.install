@@ -184,3 +184,10 @@ function openy_update_8013() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
 }
+
+/**
+ * Enable scheduler module.
+ */
+function openy_update_8014() {
+  \Drupal::service('module_installer')->install(['scheduler']);
+}
