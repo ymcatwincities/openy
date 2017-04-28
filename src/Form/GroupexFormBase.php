@@ -114,7 +114,7 @@ abstract class GroupexFormBase extends FormBase {
   /**
    * Get form item options.
    *
-   * @param array $data
+   * @param array|null $data
    *   Data to iterate.
    * @param string $key
    *   Key name.
