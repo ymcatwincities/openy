@@ -95,6 +95,8 @@ Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) 
 }
 ```
 
+3. Run `composer update` to update packages
+
 # Directory structure
 | Directory | Purpose |
 |-----------|---------|
