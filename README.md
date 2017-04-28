@@ -81,8 +81,8 @@ Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) 
 | `cibox/` | Contains CIBox libraries |
 | `docroot/devops/` | DevOps scripts for the installation process |
 | `provisioning/` | Vagrant configuration |
-| `docroot/\*.sh` | Bash scripts to trigger reinstall scripts
-| `docroot/\*.yml` | YAML playbooks for the installation process |
+| `docroot/*.sh` | Bash scripts to trigger reinstall scripts
+| `docroot/*.yml` | YAML playbooks for the installation process |
 | `Vagrantfile` | Vagrant index file |
 | [**Docksal**](https://github.com/ymcatwincities/openy-docksal) ||
 | `.docksal/` | Docksal configuration |
