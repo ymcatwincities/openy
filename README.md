@@ -55,55 +55,11 @@ composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PR
 ### CIBox VM
 [CIBox VM](http://cibox.tools) allows you to make a contribution into OpenY in a few minutes. Just follow steps and then you'll know how to do it.
 
-#### Pre-requirements
-* Install [Vagrant](https://www.vagrantup.com/downloads.html)
-* Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-
-#### Windows users
-* Install [Cygwin](https://servercheck.in/blog/running-ansible-within-windows)
-* Run Cygwin as Administrator user.
+`TBD`
 
 ### Docksal
 
-
-## Run on Vagrant with full provisioning
-
-
-## Run on Docksal
-Let's go to the project folder and run command: 
-~~~
-sh build.sh
-~~~
-
-## Install Open Y
-Now you have the Drupal 8 with Open Y in the directory /var/www/docroot. 
-
-We will move into the "docroot" directory to run install script:
-~~~
-cd /var/www/docroot
-sh reinstal.sh
-~~~
-
-You can then access the Open Y through the following URL:
-~~~
-http://drupal.192.168.56.132.xip.io/
-~~~
-and to admin:
-~~~
-http://drupal.192.168.56.132.xip.io/user/
-~~~
-Use login: admin and password: openy
-
-## How to create a project without development environment:
-Sometimes we need only Drupal 8 and Open Y without development environment for this case you can use:
-~~~
-composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction --no-dev
-~~~
-also if project installed with development environment you need to remove CIBox and Docksal use command:
-~~~
-composer update --no-interaction --no-dev
-~~~
-All Docksal, Vagrant Dev box and Build scripts files will be removed. 
+`TBD`
 
 # Directory structure
 | Directory | Purpose |
