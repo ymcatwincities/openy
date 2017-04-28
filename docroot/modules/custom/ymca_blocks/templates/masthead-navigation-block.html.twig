@@ -19,7 +19,7 @@
           {% if item.show_in_meganav %}
             {% if item.children %}
             <li class="{% if item.children %} dropdown{% endif %} {% if item.active %} active{% endif %}{% if item.parent %} parent{% endif %} {{ item.dasherized }} nav-level-{{ item.nav_level + 1 }}">
-              <a class="dropdown-toggle {% if item.active %} active{% endif %}" data-toggle="dropdown">
+              <a href="{{ item.url }}" class="dropdown-toggle {% if item.active %} active{% endif %}" data-toggle="dropdown">
                 {{ item.page_name }} <b class="caret"></b>
               </a>
               <ul class="nav dropdown-menu">
