@@ -423,6 +423,9 @@
     .viewport,
     .top-navs {
       margin-top: 39px;
+      &.affix {
+        margin-top:39px;
+      }
     }
 
     .sidebar {
@@ -433,6 +436,26 @@
       .viewport .top-navs {
         margin-left: 15rem;
       }
+    }
+  }
+}
+
+.toolbar-vertical {
+  .top-navs {
+    margin-top: 39px;
+    &.affix {
+      margin-top: 0px;
+    }
+  }
+  .viewport {
+    margin-top:39px;
+  }
+  .sidebar {
+    top:109px;
+  }
+  &.toolbar-tray-open {
+    .top-navs {
+      margin-left: 150px;
     }
   }
 }

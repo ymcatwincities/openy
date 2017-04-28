@@ -666,11 +666,31 @@ body {
 .toolbar-fixed.toolbar-vertical .top-navs {
   margin-top: 39px;
 }
+.toolbar-fixed.toolbar-vertical .viewport.affix,
+.toolbar-fixed.toolbar-vertical .top-navs.affix {
+  margin-top: 39px;
+}
 .toolbar-fixed.toolbar-vertical .sidebar {
   top: 109px;
 }
 .toolbar-fixed.toolbar-vertical.toolbar-tray-open .viewport .top-navs {
   margin-left: 15rem;
+}
+
+.toolbar-vertical .top-navs {
+  margin-top: 39px;
+}
+.toolbar-vertical .top-navs.affix {
+  margin-top: 0px;
+}
+.toolbar-vertical .viewport {
+  margin-top: 39px;
+}
+.toolbar-vertical .sidebar {
+  top: 109px;
+}
+.toolbar-vertical.toolbar-tray-open .top-navs {
+  margin-left: 150px;
 }
 
 .nav.dropdown-menu {
