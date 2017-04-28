@@ -11,6 +11,7 @@ Feature: Camp menu on camp and landing page
     # Create Landing page with camp menu
     Given I go to "/node/add/landing_page"
     And I fill in "Title" with "Landing page with camp"
+    And I uncheck the box "Generate automatic URL alias"
     When I select "One Column" from "Layout"
     And I press "Save and publish"
     Then I should see "Landing Page With Camp"
@@ -44,11 +45,11 @@ Feature: Camp menu on camp and landing page
 
     # Set homepage to Landing page with camp by alias
     Given I go to "/admin/config/system/site-information"
-    And I fill in "Default front page" with stored Node "alias_url" from "landing-page-node"
+    And I fill in "Default front page" with stored Node "path" from "landing-page-node"
     Then I press the "Save configuration" button
     # Because "I should see the message" was not working on this page.
     And I go to "/admin/config/system/site-information"
-    And The "Default front page" field should contain stored Node "alias_url" from "landing-page-node"
+    And The "Default front page" field should contain stored Node "path" from "landing-page-node"
     Then I go to homepage
     And I should see "Landing page with camp link"
     Then I go to stored Node "alias_url" from "landing-page-node"
@@ -111,12 +112,12 @@ Feature: Camp menu on camp and landing page
     Then I go to "/landing-page-new-alias"
     And I should see "Landing page with camp link"
 
-    # Set homepage back to /openy
+    # Set homepage back to /node/15 (OpenY landing page)
     Given I go to "/admin/config/system/site-information"
-    And I fill in "Default front page" with "/openy"
+    And I fill in "Default front page" with "/node/15"
     Then I press the "Save configuration" button
     # Because "I should see the message" was not working on this page.
     And I go to "/admin/config/system/site-information"
-    And the "Default front page" field should contain "/openy"
+    And the "Default front page" field should contain "/node/15"
     Then I go to "/"
     And I should get a 200 HTTP response

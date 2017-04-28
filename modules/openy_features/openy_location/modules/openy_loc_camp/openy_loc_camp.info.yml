@@ -10,6 +10,7 @@ dependencies:
   - geolocation
   - link
   - menu_ui
+  - metatag
   - node
   - openy_location
   - openy_node

@@ -6,10 +6,12 @@ dependencies:
     - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
+    - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_sidebar_content
     - node.type.landing_page
   module:
     - field_group
+    - metatag
     - paragraphs
     - path
     - scheduler
@@ -112,6 +114,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  field_meta_tags:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   field_sidebar_content:
     weight: 12
     settings:

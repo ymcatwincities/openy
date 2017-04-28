@@ -12,12 +12,14 @@ dependencies:
     - field.field.node.camp.field_location_email
     - field.field.node.camp.field_location_fax
     - field.field.node.camp.field_location_phone
+    - field.field.node.camp.field_meta_tags
     - node.type.camp
   module:
     - address
     - field_group
     - geolocation
     - link
+    - metatag
     - paragraphs
     - path
     - telephone
@@ -178,6 +180,11 @@ content:
       placeholder: '0123456789'
     third_party_settings: {  }
     type: telephone_default
+  field_meta_tags:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   path:
     type: path
     weight: 9

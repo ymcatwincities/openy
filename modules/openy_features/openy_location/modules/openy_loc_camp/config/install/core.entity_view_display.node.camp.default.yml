@@ -12,11 +12,13 @@ dependencies:
     - field.field.node.camp.field_location_email
     - field.field.node.camp.field_location_fax
     - field.field.node.camp.field_location_phone
+    - field.field.node.camp.field_meta_tags
     - node.type.camp
   module:
     - address
     - entity_reference_revisions
     - geolocation
+    - metatag
     - telephone
     - user
 id: node.camp.default
@@ -74,6 +76,12 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+  field_meta_tags:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
 hidden:
   field_camp_menu_links: true
   field_location_directions: true
