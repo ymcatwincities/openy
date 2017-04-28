@@ -4615,9 +4615,16 @@ function ymca_master_update_8208() {
 }
 
 /**
- * Update personify old link by new links in configs.
+ * Install Personify Links Upgrade module.
  */
 function ymca_master_update_8209() {
+  \Drupal::service('module_installer')->install(['ymca_personify_upgrade']);
+}
+
+/**
+ * Update personify old link by new links in configs.
+ */
+function ymca_master_update_8210() {
   \Drupal::service('config_import.importer')->importConfigs(
     [
       'ymca_personify.settings',
