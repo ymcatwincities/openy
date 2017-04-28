@@ -1,0 +1,24 @@
+<?php
+/**
+ * @file OpenY Node Class install file.
+ */
+
+/**
+ * Update class display mode.
+ */
+function openy_node_class_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_class');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.node.class.teaser.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.node.class.teaser',
+    'content'
+  );
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.node.class.teaser',
+    'hidden'
+  );
+}

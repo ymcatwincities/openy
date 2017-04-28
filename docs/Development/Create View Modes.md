@@ -19,7 +19,7 @@ or after each entity type you can see 'Add new {Name} view mode' and click on it
 3. Select "Media" and then give a name to your new viewmode (or visit the URL: /admin/structure/display-modes/view/add/media ) 
 ![Configuration project add/update form](../assets/view_mode_creating.png)
 
-## How-to using new View mode 
+## How-to use new View mode 
 1. Go to Configuration -> Text editor embed buttons (or visit the URL: /admin/config/content/embed )
 ![Configuration project add/update form](../assets/view_mode_using.png)
 
