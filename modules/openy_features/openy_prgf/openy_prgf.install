@@ -6,6 +6,19 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_update_dependencies() {
+  $dependencies['openy_prgf'] = [
+    8003 => [
+      'openy' => 8015,
+    ]
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Add openy_prgf.settings fields_unset_paragraphs configuration.
  */
 function openy_prgf_update_8001() {
@@ -31,4 +44,22 @@ function openy_prgf_update_8002() {
     'openy_prgf.settings',
     'fields_unset_paragraphs.field_bottom_content'
   );
+}
+
+/**
+ * Enable webforms module.
+ */
+function openy_prgf_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_prgf') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_form_display.paragraph.webform.default.yml',
+    'core.entity_view_display.paragraph.webform.default.yml',
+    'core.entity_view_display.paragraph.webform.default.yml',
+    'field.field.paragraph.webform.field_webform_webform.yml',
+    'field.storage.paragraph.field_webform_webform.yml',
+    'paragraphs.paragraphs_type.webform.yml',
+  ]);
 }

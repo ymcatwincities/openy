@@ -216,7 +216,7 @@ function openy_update_8014() {
 /**
  * Enable Webforms set of modules.
  */
-function openy_update_8014() {
+function openy_update_8015() {
   // Enable module.
   \Drupal::service('module_installer')->install(['webform', 'webform_ui', 'captcha', 'image_captcha', 'recaptcha']);
 }
