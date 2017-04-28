@@ -872,6 +872,10 @@ body .ajax-progress-throbber {
   max-height: 500px;
 }
 
+.navbar-default #block-top-menu-2 .navbar-nav > li {
+  display: inline-block;
+  float: none;
+}
 .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
   padding: 3px 15px;
   border-radius: 5px;
@@ -879,7 +883,6 @@ body .ajax-progress-throbber {
   text-transform: capitalize;
   font-weight: bold;
   font-size: 17px;
-  margin-top: 26px;
   line-height: 20px;
   color: $white;
   text-shadow: none;
