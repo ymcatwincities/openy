@@ -9,6 +9,11 @@
         "drupal-composer/drupal-scaffold": "^2.2",
         "cweagans/composer-patches": "~1.0"
     },
+    "require-dev": {
+        "ymcatwincities/openy-cibox-build": "dev-master",
+        "ymcatwincities/openy-cibox-vm": "dev-master",
+        "ymcatwincities/openy-docksal": "dev-master"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [
@@ -84,9 +89,20 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "@composer drupal-scaffold"
+            "@composer drupal-scaffold",
+            "@cibox-build",
+            "@cibox-vm",
+            "@docksal"
         ],
-        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        "post-update-cmd": [
+            "@cibox-build",
+            "@cibox-vm",
+            "@docksal"
+        ],
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "cibox-build": "[ -d ./vendor/ymcatwincities/openy-cibox-build ] && (rsync -r --exclude=composer.json --exclude=.gitignore --exclude=.git ./vendor/ymcatwincities/openy-cibox-build/ ./docroot) || (rm -rf ./docroot/devops ./docroot/*.sh ./docroot/*.yml ./docroot/*.md ./docroot/ansible.cfg)",
+        "cibox-vm": "[ -d ./vendor/ymcatwincities/openy-cibox-vm ] && (rsync -r --exclude=composer.json --exclude=README.md --exclude=.gitignore --exclude=.git --exclude=LICENSE ./vendor/ymcatwincities/openy-cibox-vm/ ./) || (rm -rf cibox provisioning Vagrantfile .vagrant backup cache)",
+        "docksal": "[ -d ./vendor/ymcatwincities/openy-docksal ] && (rsync -r --exclude=composer.json --exclude=.git --exclude=README.md ./vendor/ymcatwincities/openy-docksal/ ./) || (rm -rf .docksal build.sh)"
     },
     "extra": {
         "installer-paths": {
@@ -100,6 +116,6 @@
         "enable-patching": true
     },
     "config": {
-        "bin-dir": "bin/"
+        "bin-dir": "vendor/bin/"
     }
 }
