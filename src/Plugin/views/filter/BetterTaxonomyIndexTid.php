@@ -21,8 +21,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class BetterTaxonomyIndexTid extends ManyToOne {
 
-  // Stores the exposed input for this filter.
-  public $validated_exposed_input = NULL;
+  /**
+   * Stores the exposed input for this filter.
+   *
+   * @var array
+   */
+  public $validatedExposedInput = NULL;
 
   /**
    * The vocabulary storage.
@@ -82,7 +86,12 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     }
   }
 
-  public function hasExtraOptions() { return TRUE; }
+  /**
+   * {@inheritdoc}
+   */
+  public function hasExtraOptions() {
+    return TRUE;
+  }
 
   /**
    * {@inheritdoc}
@@ -91,21 +100,27 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     return $this->valueOptions;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function defineOptions() {
     $options = parent::defineOptions();
 
-    $options['type'] = array('default' => 'textfield');
-    $options['limit'] = array('default' => TRUE);
-    $options['vid'] = array('default' => '');
-    $options['hierarchy'] = array('default' => FALSE);
-    $options['error_message'] = array('default' => TRUE);
+    $options['type'] = ['default' => 'textfield'];
+    $options['limit'] = ['default' => TRUE];
+    $options['vid'] = ['default' => ''];
+    $options['hierarchy'] = ['default' => FALSE];
+    $options['error_message'] = ['default' => TRUE];
 
     return $options;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildExtraOptionsForm(&$form, FormStateInterface $form_state) {
     $vocabularies = $this->vocabularyStorage->loadMultiple();
-    $options = array();
+    $options = [];
     foreach ($vocabularies as $voc) {
       $options[$voc->id()] = $voc->label();
     }
@@ -118,56 +133,59 @@ class BetterTaxonomyIndexTid extends ManyToOne {
       }
 
       if (empty($this->definition['vocabulary'])) {
-        $form['vid'] = array(
+        $form['vid'] = [
           '#type' => 'radios',
           '#title' => $this->t('Vocabulary'),
           '#options' => $options,
           '#description' => $this->t('Select which vocabulary to show terms for in the regular options.'),
           '#default_value' => $this->options['vid'],
-        );
+        ];
       }
     }
 
-    $form['type'] = array(
+    $form['type'] = [
       '#type' => 'radios',
       '#title' => $this->t('Selection type'),
-      '#options' => array('select' => $this->t('Dropdown'), 'textfield' => $this->t('Autocomplete')),
+      '#options' => ['select' => $this->t('Dropdown'), 'textfield' => $this->t('Autocomplete')],
       '#default_value' => $this->options['type'],
-    );
+    ];
 
-    $form['hierarchy'] = array(
+    $form['hierarchy'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show hierarchy in dropdown'),
       '#default_value' => !empty($this->options['hierarchy']),
-      '#states' => array(
-        'visible' => array(
-          ':input[name="options[type]"]' => array('value' => 'select'),
-        ),
-      ),
-    );
+      '#states' => [
+        'visible' => [
+          ':input[name="options[type]"]' => ['value' => 'select'],
+        ],
+      ],
+    ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function valueForm(&$form, FormStateInterface $form_state) {
     $vocabulary = $this->vocabularyStorage->load($this->options['vid']);
     if (empty($vocabulary) && $this->options['limit']) {
-      $form['markup'] = array(
+      $form['markup'] = [
         '#markup' => '<div class="js-form-item form-item">' . $this->t('An invalid vocabulary is selected. Please change it in the options.') . '</div>',
-      );
+      ];
       return;
     }
 
     if ($this->options['type'] == 'textfield') {
-      $terms = $this->value ? Term::loadMultiple(($this->value)) : array();
-      $form['value'] = array(
-        '#title' => $this->options['limit'] ? $this->t('Select terms from vocabulary @voc', array('@voc' => $vocabulary->label())) : $this->t('Select terms'),
+      $terms = $this->value ? Term::loadMultiple(($this->value)) : [];
+      $form['value'] = [
+        '#title' => $this->options['limit'] ? $this->t('Select terms from vocabulary @voc', ['@voc' => $vocabulary->label()]) : $this->t('Select terms'),
         '#type' => 'textfield',
         '#default_value' => EntityAutocomplete::getEntityLabels($terms),
-      );
+      ];
 
       if ($this->options['limit']) {
         $form['value']['#type'] = 'entity_autocomplete';
         $form['value']['#target_type'] = 'taxonomy_term';
-        $form['value']['#selection_settings']['target_bundles'] = array($vocabulary->id());
+        $form['value']['#selection_settings']['target_bundles'] = [$vocabulary->id()];
         $form['value']['#tags'] = TRUE;
         $form['value']['#process_default_value'] = FALSE;
       }
@@ -175,18 +193,18 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     else {
       if (!empty($this->options['hierarchy']) && $this->options['limit']) {
         $tree = $this->termStorage->loadTree($vocabulary->id(), 0, NULL, TRUE);
-        $options = array();
+        $options = [];
 
         if ($tree) {
           foreach ($tree as $term) {
             $choice = new \stdClass();
-            $choice->option = array($term->id() => str_repeat('-', $term->depth) . \Drupal::entityManager()->getTranslationFromContext($term)->label());
+            $choice->option = [$term->id() => str_repeat('-', $term->depth) . \Drupal::entityManager()->getTranslationFromContext($term)->label()];
             $options[] = $choice;
           }
         }
       }
       else {
-        $options = array();
+        $options = [];
         $query = \Drupal::entityQuery('taxonomy_term')
           // @todo Sorting on vocabulary properties -
           //   https://www.drupal.org/node/1821274.
@@ -211,7 +229,7 @@ class BetterTaxonomyIndexTid extends ManyToOne {
           $options = $this->reduceValueOptions($options);
 
           if (!empty($this->options['expose']['multiple']) && empty($this->options['expose']['required'])) {
-            $default_value = array();
+            $default_value = [];
           }
         }
 
@@ -225,7 +243,7 @@ class BetterTaxonomyIndexTid extends ManyToOne {
           }
           // Due to #1464174 there is a chance that array('') was saved in the admin ui.
           // Let's choose a safe default value.
-          elseif ($default_value == array('')) {
+          elseif ($default_value == ['']) {
             $default_value = 'All';
           }
           else {
@@ -234,14 +252,14 @@ class BetterTaxonomyIndexTid extends ManyToOne {
           }
         }
       }
-      $form['value'] = array(
+      $form['value'] = [
         '#type' => 'select',
-        '#title' => $this->options['limit'] ? $this->t('Select terms from vocabulary @voc', array('@voc' => $vocabulary->label())) : $this->t('Select terms'),
+        '#title' => $this->options['limit'] ? $this->t('Select terms from vocabulary @voc', ['@voc' => $vocabulary->label()]) : $this->t('Select terms'),
         '#multiple' => TRUE,
         '#options' => $options,
         '#size' => min(9, count($options)),
         '#default_value' => $default_value,
-      );
+      ];
 
       $user_input = $form_state->getUserInput();
       if ($exposed && isset($identifier) && !isset($user_input[$identifier])) {
@@ -251,7 +269,7 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     }
 
     if (!$form_state->get('exposed')) {
-      // Retain the helper option
+      // Retain the helper option.
       $this->helper->buildOptionsForm($form, $form_state);
 
       // Show help text if not exposed to end users.
@@ -259,21 +277,27 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function valueValidate($form, FormStateInterface $form_state) {
     // We only validate if they've chosen the text field style.
     if ($this->options['type'] != 'textfield') {
       return;
     }
 
-    $tids = array();
-    if ($values = $form_state->getValue(array('options', 'value'))) {
+    $tids = [];
+    if ($values = $form_state->getValue(['options', 'value'])) {
       foreach ($values as $value) {
         $tids[] = $value['target_id'];
       }
     }
-    $form_state->setValue(array('options', 'value'), $tids);
+    $form_state->setValue(['options', 'value'], $tids);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function acceptExposedInput($input) {
     if (empty($this->options['exposed'])) {
       return TRUE;
@@ -286,9 +310,9 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     }
 
     // If view is an attachment and is inheriting exposed filters, then assume
-    // exposed input has already been validated
+    // exposed input has already been validated.
     if (!empty($this->view->is_attachment) && $this->view->display_handler->usesExposed()) {
-      $this->validated_exposed_input = (array) $this->view->exposed_raw_input[$this->options['expose']['identifier']];
+      $this->validatedExposedInput = (array) $this->view->exposed_raw_input[$this->options['expose']['identifier']];
     }
 
     // If we're checking for EMPTY or NOT, we don't need any input, and we can
@@ -298,21 +322,24 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     }
 
     // If it's non-required and there's no value don't bother filtering.
-    if (!$this->options['expose']['required'] && empty($this->validated_exposed_input)) {
+    if (!$this->options['expose']['required'] && empty($this->validatedExposedInput)) {
       return FALSE;
     }
 
     $rc = parent::acceptExposedInput($input);
     if ($rc) {
       // If we have previously validated input, override.
-      if (isset($this->validated_exposed_input)) {
-        $this->value = $this->validated_exposed_input;
+      if (isset($this->validatedExposedInput)) {
+        $this->value = $this->validatedExposedInput;
       }
     }
 
     return $rc;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function validateExposed(&$form, FormStateInterface $form_state) {
     if (empty($this->options['exposed'])) {
       return;
@@ -323,7 +350,7 @@ class BetterTaxonomyIndexTid extends ManyToOne {
     // We only validate if they've chosen the text field style.
     if ($this->options['type'] != 'textfield') {
       if ($form_state->getValue($identifier) != 'All') {
-        $this->validated_exposed_input = array_filter((array) $form_state->getValue($identifier));
+        $this->validatedExposedInput = array_filter((array) $form_state->getValue($identifier));
       }
       return;
     }
@@ -334,30 +361,39 @@ class BetterTaxonomyIndexTid extends ManyToOne {
 
     if ($values = $form_state->getValue($identifier)) {
       foreach ($values as $value) {
-        $this->validated_exposed_input[] = $value['target_id'];
+        $this->validatedExposedInput[] = $value['target_id'];
       }
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function valueSubmit($form, FormStateInterface $form_state) {
-    // prevent array_filter from messing up our arrays in parent submit.
+    // Prevent array_filter from messing up our arrays in parent submit.
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function buildExposeForm(&$form, FormStateInterface $form_state) {
     parent::buildExposeForm($form, $form_state);
     if ($this->options['type'] != 'select') {
       unset($form['expose']['reduce']);
     }
-    $form['error_message'] = array(
+    $form['error_message'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Display error message'),
       '#default_value' => !empty($this->options['error_message']),
-    );
+    ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function adminSummary() {
-    // set up $this->valueOptions for the parent summary
-    $this->valueOptions = array();
+    // Set up $this->valueOptions for the parent summary.
+    $this->valueOptions = [];
 
     if ($this->value) {
       $this->value = array_filter($this->value);
