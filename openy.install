@@ -184,3 +184,11 @@ function openy_update_8013() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
 }
+
+/**
+ * Enable Webforms set of modules.
+ */
+function openy_update_8014() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['webform', 'webform_ui', 'captcha', 'image_captcha', 'recaptcha']);
+}
