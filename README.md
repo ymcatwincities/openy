@@ -105,21 +105,29 @@ composer update --no-interaction --no-dev
 ~~~
 All Docksal, Vagrant Dev box and Build scripts files will be removed. 
 
-DIRECTORY STRUCTURE
--------------------
-      docroot/                        contains Drupal core
-      docroot/profiles/contrib/openy  contains Open Y distribution
+# Directory structure
+| Directory | Purpose |
+|-----------|---------|
+| [**OpenY**](https://github.com/ymcatwincities/openy) ||
+| `docroot/` | Contains Drupal core |
+| `docroot/profiles/contrib/openy/` | Contains Open Y distribution |
+| `vendor/` | Contains Open Y distribution |
+| `composer.json` | Contains Open Y distribution |
+| [**CIBox VM**](https://github.com/ymcatwincities/openy-cibox-vm) + [**CIBox Build**](https://github.com/ymcatwincities/openy-cibox-build)  ||
+| `cibox/` | Contains CIBox libraries |
+| `docroot/devops/` | DevOps scripts for the installation process |
+| `provisioning/` | Vagrant configuration |
+| `docroot/\*.sh` | Bash scripts to trigger reinstall scripts
+| `docroot/\*.yml` | YAML playbooks for the installation process |
+| `Vagrantfile` | Vagrant index file |
+| [**Docksal**](https://github.com/ymcatwincities/openy-docksal) ||
+| `.docksal/` | Docksal configuration |
+| `build.sh` | Build script for Docksal environment |
 
-# Documentation and helpful information
+# Documentation
 Documentation about Open Y is available at [docs](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs). For details please visit [http://www.openymca.org](http://www.openymca.org).
 
 For Development information please take a look at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
 
-### Video:
-- [Introduce to OpenY](https://youtu.be/tXwbucW2TEQ)
-- [How to use Docksal](https://youtu.be/jev2EW2hzdY)
-
-
 # License
-OpenY Project is licensed under the [GPL-2.0+](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html)
- License - see the [LICENSE file](https://github.com/ymcatwincities/openy-project/blob/8.1.x/LICENSE) for details.
+OpenY Project is licensed under the [GPL-2.0+](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html). See the [License file](https://github.com/ymcatwincities/openy-project/blob/8.1.x/LICENSE) for details.
