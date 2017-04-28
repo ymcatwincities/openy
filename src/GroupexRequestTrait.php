@@ -69,7 +69,7 @@ trait GroupexRequestTrait {
    * @return array
    *   Data.
    */
-  protected function request($options, $defaults = TRUE) {
+  protected function request(array $options, $defaults = TRUE) {
     $status = \Drupal::config('groupex_form_cache.settings')->get('status');
 
     $all_options = $options;

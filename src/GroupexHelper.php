@@ -22,14 +22,14 @@ class GroupexHelper {
   /**
    * Config factory.
    *
-   * @var ConfigFactory
+   * @var \Drupal\Core\Config\ConfigFactory
    */
   protected $configFactory;
 
   /**
    * Constructor.
    *
-   * @param ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   The Config Factory.
    */
   public function __construct(ConfigFactory $config_factory) {

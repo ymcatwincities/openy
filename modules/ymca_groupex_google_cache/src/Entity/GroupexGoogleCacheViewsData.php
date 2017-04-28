@@ -16,11 +16,11 @@ class GroupexGoogleCacheViewsData extends EntityViewsData implements EntityViews
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['groupex_google_cache']['table']['base'] = array(
+    $data['groupex_google_cache']['table']['base'] = [
       'field' => 'id',
       'title' => $this->t('Groupex Google Cache'),
       'help' => $this->t('The Groupex Google Cache ID.'),
-    );
+    ];
 
     return $data;
   }

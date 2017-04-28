@@ -170,9 +170,9 @@ class GroupexScheduleFetcher {
           'duration' => sprintf('%d min', trim($item->length)),
           'instructor' => $item->instructor,
           'class_id' => $item->class_id,
-          'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], array('query' => $class_url_options)),
-          'instructor_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], array('query' => $instructor_url_options)),
-          'date_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], array('query' => $date_url_options)),
+          'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $class_url_options]),
+          'instructor_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $instructor_url_options]),
+          'date_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $date_url_options]),
         ],
       ];
     }
@@ -276,7 +276,7 @@ class GroupexScheduleFetcher {
             $date_url_options['filter_date'] = $class_date->format(GroupexRequestTrait::$dateFilterFormat);
             $date_url_options['filter_timestamp'] = $class_date->format('U');
 
-            $url = Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], array('query' => $date_url_options));
+            $url = Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $date_url_options]);
             $schedule['days'][$this->enrichedData[$id]->day]['date_link'] = $url;
           }
         }
@@ -316,7 +316,7 @@ class GroupexScheduleFetcher {
    * @return array
    *   Array of options.
    */
-  protected function getOptions($data, $key, $value) {
+  protected function getOptions(array $data, $key, $value) {
     $options = [];
     foreach ($data as $item) {
       $options[$item->$key] = $item->$value;
@@ -354,7 +354,7 @@ class GroupexScheduleFetcher {
 
     // Location is optional.
     if (!empty($this->parameters['location'])) {
-      $options['query']['location'] = array_filter(array($this->parameters['location']));
+      $options['query']['location'] = array_filter([$this->parameters['location']]);
     }
 
     // Category is optional.
@@ -532,7 +532,7 @@ class GroupexScheduleFetcher {
    * @return array
    *   Normalized parameters.
    */
-  static public function normalizeParameters($parameters) {
+  public static function normalizeParameters(array $parameters) {
     $normalized = $parameters;
 
     $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);

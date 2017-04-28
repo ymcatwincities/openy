@@ -40,7 +40,7 @@ class GroupexPageResponseSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[KernelEvents::REQUEST][] = array('groupexSessionStart', 10000);
+    $events[KernelEvents::REQUEST][] = ['groupexSessionStart', 10000];
 
     return $events;
   }

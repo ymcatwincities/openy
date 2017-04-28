@@ -36,7 +36,7 @@ class GroupexFormFull extends GroupexFormBase {
   /**
    * Logger.
    *
-   * @var LoggerChannelInterface
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
 
@@ -50,20 +50,20 @@ class GroupexFormFull extends GroupexFormBase {
   /**
    * The Groupex Helper.
    *
-   * @var GroupexHelper
+   * @var \Drupal\openy_group_schedules\GroupexHelper
    */
   protected $groupexHelper;
 
   /**
    * GroupexFormFull constructor.
    *
-   * @param QueryFactory $entity_query
+   * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
    *   The entity query factory.
-   * @param EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   * @param LoggerChannelFactoryInterface $logger_factory
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The entity type manager.
-   * @param GroupexHelper $groupex_helper
+   * @param \Drupal\openy_group_schedules\GroupexHelper $groupex_helper
    *   The Groupex helper.
    */
   public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper) {
@@ -83,7 +83,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     $query = $this->getRequest()->query->all();
     $request = $this->getRequest()->request->all();
-    $state = array(
+    $state = [
       'location' => isset($query['location']) && is_numeric($query['location']) ? $query['location'] : NULL,
       'class' => isset($query['class']) ? $query['class'] : NULL,
       'category' => isset($query['category']) ? $query['category'] : NULL,
@@ -93,7 +93,7 @@ class GroupexFormFull extends GroupexFormBase {
       'filter_timestamp' => isset($query['filter_timestamp']) ? $query['filter_timestamp'] : NULL,
       'instructor' => isset($query['instructor']) ? $query['instructor'] : NULL,
       'view_mode' => isset($query['view_mode']) ? $query['view_mode'] : NULL,
-    );
+    ];
     // If not empty this means that form creates after ajax callback.
     if (!empty($request)) {
       $state['class'] = isset($request['class_select']) ? $request['class_select'] : NULL;
@@ -359,7 +359,7 @@ class GroupexFormFull extends GroupexFormBase {
     $formatted_results = self::buildResults($form, $form_state);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#groupex-full-form-wrapper .groupex-results', $formatted_results));
-    $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', array($parameters)));
+    $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', [$parameters]));
 
     $link = [
       '#title' => $this->t('View This Week\'s PDF'),

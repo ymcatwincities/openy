@@ -36,7 +36,7 @@ class AllSearchResultsController extends ControllerBase {
 
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#groupex-full-form-wrapper .groupex-results', $formatted_results));
-    $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', array($parameters)));
+    $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', [$parameters]));
     return $response;
   }
 

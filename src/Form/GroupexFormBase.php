@@ -159,7 +159,7 @@ abstract class GroupexFormBase extends FormBase {
     }
 
     // Get date.
-    /** @var DrupalDateTime $date */
+    /** @var \Drupal\Core\Datetime\DrupalDateTime $date */
     $date = $form_state->getValue('filter_date');
     $params['filter_date'] = $date->format(self::$dateFilterFormat);
 

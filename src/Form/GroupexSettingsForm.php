@@ -30,11 +30,11 @@ class GroupexSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy_group_schedules.settings');
 
-    $form['account_id'] = array(
+    $form['account_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('GroupEx Account ID'),
       '#default_value' => !empty($config->get('account_id')) ? $config->get('account_id') : '',
-    );
+    ];
 
     return parent::buildForm($form, $form_state);
   }

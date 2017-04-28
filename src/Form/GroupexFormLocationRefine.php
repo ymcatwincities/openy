@@ -51,7 +51,7 @@ class GroupexFormLocationRefine extends GroupexFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Get current node.
-    /** @var Node $node */
+    /** @var \Drupal\node\Entity\Node $node */
     $node = \Drupal::routeMatch()->getParameter('node');
 
     $form_state->setRedirect(
