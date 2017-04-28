@@ -683,9 +683,6 @@ body {
 .toolbar-vertical .top-navs.affix {
   margin-top: 0px;
 }
-.toolbar-vertical .viewport {
-  margin-top: 39px;
-}
 .toolbar-vertical .sidebar {
   top: 109px;
 }
