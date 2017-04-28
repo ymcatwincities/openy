@@ -114,10 +114,10 @@ Feature: Camp menu on camp and landing page
 
     # Set homepage back to /openy
     Given I go to "/admin/config/system/site-information"
-    And I fill in "Default front page" with "/openy"
+    And I fill in "Default front page" with "/node/1"
     Then I press the "Save configuration" button
     # Because "I should see the message" was not working on this page.
     And I go to "/admin/config/system/site-information"
-    And the "Default front page" field should contain "/openy"
+    And the "Default front page" field should contain "/node/1"
     Then I go to "/"
     And I should get a 200 HTTP response
