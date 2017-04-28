@@ -25,3 +25,18 @@ function openy_prgf_classes_listing_update_8001() {
     }
   }
 }
+
+/**
+ * Update classes listing view, again.
+ */
+function openy_prgf_classes_listing_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_classes_listing');
+  $config .= '/config/install/';
+  $config .= 'views.view.classes_listing.yml';
+  $config_importer->update(
+    $config,
+    'views.view.classes_listing',
+    'display.default.display_options.fields'
+  );
+}
