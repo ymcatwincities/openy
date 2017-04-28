@@ -96,6 +96,7 @@ Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) 
 ```
 
 3. Run `composer update` to update packages
+4. Add and commits changes in `docroot/profiles/contrib/openy`. Now it should be pointed to your fork.
 
 # Directory structure
 | Directory | Purpose |
