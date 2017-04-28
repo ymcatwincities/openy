@@ -112,12 +112,12 @@ Feature: Camp menu on camp and landing page
     Then I go to "/landing-page-new-alias"
     And I should see "Landing page with camp link"
 
-    # Set homepage back to /openy
+    # Set homepage back to /node/15 (OpenY landing page)
     Given I go to "/admin/config/system/site-information"
-    And I fill in "Default front page" with "/node/1"
+    And I fill in "Default front page" with "/node/15"
     Then I press the "Save configuration" button
     # Because "I should see the message" was not working on this page.
     And I go to "/admin/config/system/site-information"
-    And the "Default front page" field should contain "/node/1"
+    And the "Default front page" field should contain "/node/15"
     Then I go to "/"
     And I should get a 200 HTTP response
