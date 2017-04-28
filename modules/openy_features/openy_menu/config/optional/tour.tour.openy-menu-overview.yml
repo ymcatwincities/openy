@@ -13,7 +13,7 @@ tips:
     id: menu-overview
     plugin: text
     label: 'Welcome to Open Y and Drupal.'
-    body: 'Welcome to the Drupal content editor. In the world of Drupal, all content such as blog posts or lists of links, are created inside of a Block. Think of a Block like an individual Power Point slide - just a container where we put content. This page is where you can can customize the main navigation "blocks" of your site. "Navigation" means the menus that appear at the top and bottom of all pages on your site with links like "Locations" that help your site visitors find what they are looking for. There are several types of navigation blocks, such as a 'Main navigation' - top of the page, and 'footer' - bottom of the page. In a bit we will show you how to add or edit the links inside of these navigation blocks.'
+    body: 'Welcome to the Drupal content editor. In the world of Drupal, all content such as blog posts or lists of links, are created inside of a Block. Think of a Block like an individual Power Point slide - just a container where we put content. This page is where you can can customize the main navigation "blocks" of your site. "Navigation" means the menus that appear at the top and bottom of all pages on your site with links like "Locations" that help your site visitors find what they are looking for. There are several types of navigation blocks, such as a "Main navigation" - top of the page, and "footer" - bottom of the page. In a bit we will show you how to add or edit the links inside of these navigation blocks.'
     weight: 1
   main-navigation:
     id: main-navigation
