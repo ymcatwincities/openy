@@ -1,119 +1,124 @@
+<p align="center">
+  <a href="http://www.openymca.org">
+    <img alt="react-router" src="https://www.ymcamn.org/themes/custom/ymca/img/ymca-logo.svg" width="144">
+  </a>
+</p>
 
-Open Y Project
-============================
-Welcome to OpenY Project!
+<h3 align="center">
+  Open YMCA
+</h3>
 
-The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](http://www.drupal.org/project/openy) and include CIBox and Docksal development environment.
+<p align="center">
+  An open source platform for YMCAs, by YMCAs built on <a href="drupal.org">Drupal</a>.
+</p>
 
-Development environment allows you to up Open Y in a few minutes.
+<p align="center">
+  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
+  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/v/ymcatwincities/openy-project.svg?style=flat-square"></a>
+</p>
 
-What is included to development environment:
-- [Docksal for OpenY.](https://github.com/ymcatwincities/openy-docksal)
-- [Install and Reinstall scripts for OpenY.](https://github.com/ymcatwincities/openy-cibox-build) 
-- [Drupal Vagrant Dev box for OpenY.](https://github.com/ymcatwincities/openy-cibox-vm)
+***
 
-[![Total Downloads](https://poser.pugx.org/ymcatwincities/openy-project/downloads.png)](https://packagist.org/packages/ymcatwincities/openy-project)
-[![Latest Stable Version](https://poser.pugx.org/ymcatwincities/openy-project/v/stable.png)](https://packagist.org/packages/ymcatwincities/openy-project)
-[![License](https://poser.pugx.org/ymcatwincities/openy-project/license.svg)](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html)
+The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](https://github.com/ymcatwincities/openy).
 
 
-REQUIREMENTS
-------------
+## Requirements
 
-### Install Composer    
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the [official instructions](https://getcomposer.org/download/).
-    
-For usage, see [the documentation](https://getcomposer.org/doc/).
+#### Composer    
+If you do not have [Composer](http://getcomposer.org/), you may install it by following the [official instructions](https://getcomposer.org/download/). For usage, see [the documentation](https://getcomposer.org/doc/).
 
-### Install Docksal, Vagrant and VirtualBox on your system.
-- [Install instructions for Vagrant](https://www.vagrantup.com/downloads.html)
-- [Install instructions for VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-- Docksal based on Docker container, please [Install Docker](https://www.docker.com/get-docker)
+## Installation
 
-#### Windows users
+#### Latest STABLE version
+```
+composer create-project ymcatwincities/openy-project MY_PROJECT --no-interaction --no-dev
+```
 
-* Install [Cygwin](https://servercheck.in/blog/running-ansible-within-windows)
-* Run Cygwin as Administrator user.
+This command will build project based on [**latest stable**](https://github.com/ymcatwincities/openy/releases) release.
 
-INSTALLATION
-------------
+#### Latest DEVELOPMENT version
+```
+composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PROJECT --no-interaction --no-dev
+```
 
-## Set Up a Project with Composer
+This command will build project based on [**latest development**](https://github.com/ymcatwincities/openy/commits/8.x-1.x) release.
 
-You can then install this project template using the following command:
-~~~
-composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
-~~~
+## Development environment
 
-## Run on Vagrant with full provisioning
-This Vagrant Box (CIBox) allows you to make a contribution into OpenY in a few minutes.
+You should use composer command without `--no-dev` if you would like to get environment that was configured especially for OpenY. So it should look like this:
+```
+composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PROJECT --no-interaction
+```
 
-Let's go to the project folder and run command: 
-~~~
-vagrant up --provision && vagrant ssh
-~~~
-By default vagrant ssh password: vagrant
+### CIBox VM
+[CIBox VM](http://cibox.tools) allows you to make a contribution into OpenY in a few minutes. Just follow steps and then you'll know how to do it.
 
-After the work please use:
-~~~
-vagrant halt 
-~~~
-and when back to work use command:
-~~~
-vagrant up && vagrant ssh
-~~~
+- [Pre Requirements](https://github.com/ymcatwincities/openy-cibox-vm#pre-requirements)
+- [Installation](https://github.com/ymcatwincities/openy-cibox-vm#usage)
+- [Local build](https://github.com/ymcatwincities/openy-cibox-vm#reinstall-options)
+  
+Read more details on [CIBox VM](https://github.com/ymcatwincities/openy-cibox-vm) repo.
 
-## Run on Docksal
-Let's go to the project folder and run command: 
-~~~
-sh build.sh
-~~~
+### Docksal
+[Docksal](http://docksal.io) is a tool for defining and managing development environments.
 
-## Install Open Y
-Now you have the Drupal 8 with Open Y in the directory /var/www/docroot. 
+- [How to develop](https://github.com/ymcatwincities/openy-docksal#how-to-develop)
+- [How to run behat tests](https://github.com/ymcatwincities/openy-docksal#how-to-run-behat-tests)
+  
+Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) repo.
 
-We will move into the "docroot" directory to run install script:
-~~~
-cd /var/www/docroot
-sh reinstal.sh
-~~~
+# Use Fork for the development
+1. Add your repository to `composer.json`
+```
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/GITHUB_USERNAME/openy"
+    }
+]
+```
 
-You can then access the Open Y through the following URL:
-~~~
-http://drupal.192.168.56.132.xip.io/
-~~~
-and to admin:
-~~~
-http://drupal.192.168.56.132.xip.io/user/
-~~~
-Use login: admin and password: openy
+2. Change a version for `ymcatwincities/openy` to `dev-8.x-1.x` or any other branch. E.g.:
+- branch name "bugfix" - version name `dev-bugfix`
+- branch name "feature/workflow" - version name `dev-feature/workflow`
 
-## How to create a project without development environment:
-Sometimes we need only Drupal 8 and Open Y without development environment for this case you can use:
-~~~
-composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction --no-dev
-~~~
-also if project installed with development environment you need to remove CIBox and Docksal use command:
-~~~
-composer update --no-interaction --no-dev
-~~~
-All Docksal, Vagrant Dev box and Build scripts files will be removed. 
+```
+"require": {
+    "ymcatwincities/openy": "dev-8.x-1.x",
+}
+```
+```
+"require": {
+    "ymcatwincities/openy": "dev-feature/workflow",
+}
+```
 
-DIRECTORY STRUCTURE
--------------------
-      docroot/                        contains Drupal core
-      docroot/profiles/contrib/openy  contains Open Y distribution
+3. Run `composer update` to update packages
+4. Add and commits changes in `docroot/profiles/contrib/openy`. Now it should be pointed to your fork.
 
-# Documentation and helpful information
+# Directory structure
+| Directory | Purpose |
+|-----------|---------|
+| [**OpenY**](https://github.com/ymcatwincities/openy) ||
+| `docroot/` | Contains Drupal core |
+| `docroot/profiles/contrib/openy/` | Contains Open Y distribution |
+| `vendor/` | Contains Open Y distribution |
+| `composer.json` | Contains Open Y distribution |
+| [**CIBox VM**](https://github.com/ymcatwincities/openy-cibox-vm) + [**CIBox Build**](https://github.com/ymcatwincities/openy-cibox-build)  ||
+| `cibox/` | Contains CIBox libraries |
+| `docroot/devops/` | DevOps scripts for the installation process |
+| `provisioning/` | Vagrant configuration |
+| `docroot/*.sh` | Bash scripts to trigger reinstall scripts
+| `docroot/*.yml` | YAML playbooks for the installation process |
+| `Vagrantfile` | Vagrant index file |
+| [**Docksal**](https://github.com/ymcatwincities/openy-docksal) ||
+| `.docksal/` | Docksal configuration |
+| `build.sh` | Build script for Docksal environment |
+
+# Documentation
 Documentation about Open Y is available at [docs](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs). For details please visit [http://www.openymca.org](http://www.openymca.org).
 
 For Development information please take a look at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
 
-### Video:
-- [Introduce to OpenY](https://youtu.be/tXwbucW2TEQ)
-- [How to use Docksal](https://youtu.be/jev2EW2hzdY)
-
-
 # License
-OpenY Project is licensed under the [GPL-2.0+](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html)
- License - see the [LICENSE file](https://github.com/ymcatwincities/openy-project/blob/8.1.x/LICENSE) for details.
+OpenY Project is licensed under the [GPL-2.0+](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html). See the [License file](https://github.com/ymcatwincities/openy-project/blob/8.1.x/LICENSE) for details.
