@@ -22,7 +22,7 @@ tips:
     body: 'This Navigation Block is what appears in the header, or "top" of your page. This is where you have all of the links on your site for pages like Locations or Schedules. This is the block we will edit later to add or make changes to the main navigation on your Open Y site.'
     weight: 2
     attributes:
-      data-class: 'menu-label:contains("main navigation")'
+      data-class: 'menu-label:contains("Main navigation")'
   user-account-menu:
     id: user-account-menu
     plugin: text
