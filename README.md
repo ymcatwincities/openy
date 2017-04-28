@@ -23,17 +23,11 @@ The [Open Y Project](http://www.openymca.org/) is a composer based installer for
 
 
 ## Requirements
-- Installed [Composer](https://getcomposer.org/download/)
 
-#### 1. Composer    
+#### Composer    
 If you do not have [Composer](http://getcomposer.org/), you may install it by following the [official instructions](https://getcomposer.org/download/).
     
 For usage, see [the documentation](https://getcomposer.org/doc/).
-
-#### 2. Windows users
-
-* Install [Cygwin](https://servercheck.in/blog/running-ansible-within-windows)
-* Run Cygwin as Administrator user.
 
 ## Installation
 
@@ -51,26 +45,29 @@ composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PR
 
 This command will build project based on [**latest development**](https://github.com/ymcatwincities/openy/commits/8.x-1.x) release.
 
-INSTALLATION
-------------
+## Development environment
+
+You should use composer command without `--no-dev` if you would like to get environment that was configured especially for OpenY. So it should look like this:
+```
+composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PROJECT --no-interaction
+```
+
+### CIBox VM
+[CIBox VM](http://cibox.tools) allows you to make a contribution into OpenY in a few minutes. Just follow steps and then you'll know how to do it.
+
+#### Pre-requirements
+* Install [Vagrant](https://www.vagrantup.com/downloads.html)
+* Install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+
+#### Windows users
+* Install [Cygwin](https://servercheck.in/blog/running-ansible-within-windows)
+* Run Cygwin as Administrator user.
+
+### Docksal
+
 
 ## Run on Vagrant with full provisioning
-This Vagrant Box (CIBox) allows you to make a contribution into OpenY in a few minutes.
 
-Let's go to the project folder and run command: 
-~~~
-vagrant up --provision && vagrant ssh
-~~~
-By default vagrant ssh password: vagrant
-
-After the work please use:
-~~~
-vagrant halt 
-~~~
-and when back to work use command:
-~~~
-vagrant up && vagrant ssh
-~~~
 
 ## Run on Docksal
 Let's go to the project folder and run command: 
