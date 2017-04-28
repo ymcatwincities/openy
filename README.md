@@ -62,8 +62,12 @@ composer create-project ymcatwincities/openy-project:8.1.x-development-dev MY_PR
 Read more details on [CIBox VM](https://github.com/ymcatwincities/openy-cibox-vm) repo.
 
 ### Docksal
+[Docksal](http://docksal.io) is a tool for defining and managing development environments.
 
-`TBD`
+- [How to develop](https://github.com/ymcatwincities/openy-docksal#how-to-develop)
+- [How to run behat tests](https://github.com/ymcatwincities/openy-docksal#how-to-run-behat-tests)
+  
+Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) repo.
 
 # Directory structure
 | Directory | Purpose |
