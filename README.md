@@ -1,36 +1,36 @@
+<p align="center">
+  <a href="http://www.openymca.org">
+    <img alt="react-router" src="https://www.ymcamn.org/themes/custom/ymca/img/ymca-logo.svg" width="144">
+  </a>
+</p>
 
-Open Y Project
-============================
-Welcome to OpenY Project!
+<h3 align="center">
+  Open YMCA
+</h3>
 
-The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](http://www.drupal.org/project/openy) and include CIBox and Docksal development environment.
+<p align="center">
+  An open source platform for YMCAs, by YMCAs built on <a href="drupal.org">Drupal</a>.
+</p>
 
-Development environment allows you to up Open Y in a few minutes.
+<p align="center">
+  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
+  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/v/ymcatwincities/openy-project.svg?style=flat-square"></a>
+</p>
 
-What is included to development environment:
-- [Docksal for OpenY.](https://github.com/ymcatwincities/openy-docksal)
-- [Install and Reinstall scripts for OpenY.](https://github.com/ymcatwincities/openy-cibox-build) 
-- [Drupal Vagrant Dev box for OpenY.](https://github.com/ymcatwincities/openy-cibox-vm)
+***
 
-[![Total Downloads](https://poser.pugx.org/ymcatwincities/openy-project/downloads.png)](https://packagist.org/packages/ymcatwincities/openy-project)
-[![Latest Stable Version](https://poser.pugx.org/ymcatwincities/openy-project/v/stable.png)](https://packagist.org/packages/ymcatwincities/openy-project)
-[![License](https://poser.pugx.org/ymcatwincities/openy-project/license.svg)](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html)
+The [Open Y Project](http://www.openymca.org/) is a composer based installer for the [Open Y distribution](http://www.drupal.org/project/openy).
 
 
-REQUIREMENTS
-------------
+## Requirements
+- Installed [Composer](https://getcomposer.org/download/)
 
-### Install Composer    
+#### 1. Composer    
 If you do not have [Composer](http://getcomposer.org/), you may install it by following the [official instructions](https://getcomposer.org/download/).
     
 For usage, see [the documentation](https://getcomposer.org/doc/).
 
-### Install Docksal, Vagrant and VirtualBox on your system.
-- [Install instructions for Vagrant](https://www.vagrantup.com/downloads.html)
-- [Install instructions for VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-- Docksal based on Docker container, please [Install Docker](https://www.docker.com/get-docker)
-
-#### Windows users
+#### 2. Windows users
 
 * Install [Cygwin](https://servercheck.in/blog/running-ansible-within-windows)
 * Run Cygwin as Administrator user.
