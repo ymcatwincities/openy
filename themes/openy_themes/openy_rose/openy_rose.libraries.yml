@@ -67,3 +67,13 @@ color.preview:
     color/preview.js: {}
   dependencies:
     - color/drupal.color
+
+subcategory-search-form:
+  version: VERSION
+  js:
+    scripts/openy_rose_subcategory_classes.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

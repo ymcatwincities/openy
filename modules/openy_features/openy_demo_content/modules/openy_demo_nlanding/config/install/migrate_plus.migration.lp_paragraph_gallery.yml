@@ -95,7 +95,7 @@ process:
   field_prgf_headline: headline
   field_prgf_link/uri:
     plugin: default_value
-    default_value: 'base:/openy'
+    default_value: 'internal:/openy'
   field_prgf_link/title:
     plugin: default_value
     default_value: 'Learn more'

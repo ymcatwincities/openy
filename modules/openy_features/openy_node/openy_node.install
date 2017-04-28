@@ -17,3 +17,14 @@ function openy_node_update_8001() {
     'field.storage.node.field_bottom_content',
   ]);
 }
+
+/**
+ * Update Editor roles permissions.
+ */
+function openy_node_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node');
+  $config .= '/config/install/';
+  $config .= 'tour.tour.openy-node-add.yml';
+  $config_importer->update($config, 'tour.tour.openy-node-add', 'tips');
+}
