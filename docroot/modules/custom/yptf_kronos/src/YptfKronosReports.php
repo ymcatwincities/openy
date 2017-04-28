@@ -637,9 +637,22 @@ class YptfKronosReports {
         foreach ($recipients as $index => $recipient) {
 
           $body = $config->get($report_type)['body']['value'];
-          $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
+          $token = FALSE;
+          if ($report_type == 'leadership') {
+            $token = $this->createReportTable('', $report_type);
+          }
+          elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
+            $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
+          }
+          else {
+            $msg = 'PT Manager "%surname, %name" has no branch.';
+            $this->logger->notice($msg, [
+              '%surname' => $recipient->field_staff_surname->getValue()[0]['value'],
+              '%name' => $recipient->field_staff_name->getValue()[0]['value'],
+            ]);
+          }
           if (!$token) {
-            $token = 'No data.';
+            continue;
           }
           $tokens['body'] = str_replace($report_tokens[$report_type], $token['report'], $body);
           $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
@@ -660,7 +673,7 @@ class YptfKronosReports {
             }
             catch (\Exception $e) {
               $msg = 'Failed to send email report. Error: %error';
-              $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+              $this->logger->notice($msg, ['%error' => $e->getMessage()]);
             }
           }
           else {
@@ -670,7 +683,7 @@ class YptfKronosReports {
             }
             catch (\Exception $e) {
               $msg = 'Failed to send email report. Error: %error';
-              $this->logger->critical($msg, ['%error' => $e->getMessage()]);
+              $this->logger->notice($msg, ['%error' => $e->getMessage()]);
             }
           }
         }
@@ -692,20 +705,25 @@ class YptfKronosReports {
   public function createReportTable($location_id, $type = 'leadership') {
     $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
 
-    // Get locations ref.
-    $location_repository = \Drupal::service('ymca_mappings.location_repository');
-    $location = $location_repository->findByLocationId($location_id);
-    $location = is_array($location) ? reset($location) : $location;
-    if ($location) {
-      $location_mid = $location->field_mindbody_id->getValue()[0]['value'];
-    }
-    else {
-      $msg = 'No location on site for MB location_id: %params.';
-      $this->logger->notice($msg, ['%params' => $location_id]);
-      return FALSE;
-    }
     switch ($type) {
       case "pt_managers":
+        if (empty($location_id)) {
+          return FALSE;
+        }
+
+        // Get locations ref.
+        $location_repository = \Drupal::service('ymca_mappings.location_repository');
+        $location = $location_repository->findByLocationId($location_id);
+        $location = is_array($location) ? reset($location) : $location;
+        if ($location) {
+          $location_mid = $location->field_mindbody_id->getValue()[0]['value'];
+        }
+        else {
+          $msg = 'No location on site for MB location_id: %params.';
+          $this->logger->notice($msg, ['%params' => $location_id]);
+          return FALSE;
+        }
+
         if (empty($this->reports['trainers'][$location_mid])) {
           return FALSE;
         }
