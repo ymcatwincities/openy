@@ -352,3 +352,14 @@ function redwing_master_update_8020() {
 function redwing_master_update_8021() {
   $installer = \Drupal::service('module_installer')->uninstall(['google_analytics']);
 }
+
+/**
+ * Update personify old link by new links in configs.
+ */
+function redwing_master_update_8022() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      'ymca_personify.settings',
+    ]
+  );
+}
