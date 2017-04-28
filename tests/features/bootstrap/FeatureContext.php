@@ -47,6 +47,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       'system_url',
       'alias_url',
       'edit_url',
+      'path',
     ];
   }
 
