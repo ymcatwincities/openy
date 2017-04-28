@@ -194,7 +194,6 @@ function openy_update_8013() {
     $config_factory->getEditable('system.site')->set('page.front', $alias['source'])->save();
     $aliasStorage->delete(['alias' => $url]);
   }
-
 }
 
 /**
