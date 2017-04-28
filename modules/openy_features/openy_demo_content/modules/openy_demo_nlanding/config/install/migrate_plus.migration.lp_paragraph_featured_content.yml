@@ -122,7 +122,7 @@ process:
   field_prgf_link/title:
      plugin: default_value
      source: link_text
-     default_value: NULL
+     default_value: 'http://www.openymca.org'
   field_prgf_fc_clm_description:
     -
       plugin: iterator

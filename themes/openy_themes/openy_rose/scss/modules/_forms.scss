@@ -27,19 +27,8 @@
   text-transform: uppercase;
 
   &.blue {
-    color: $white;
-
-    &:hover {
-      color: $dark-blue;
-    }
-
     a {
-      color: $white;
       text-decoration: none;
-
-      &:hover {
-        color: $dark-blue;
-      }
     }
   }
 
@@ -48,17 +37,9 @@
     color: $light-blue;
     border: 1px solid $light-blue;
 
-    &:hover {
-      color: $dark-blue;
-    }
-
     a {
       color: $light-blue;
       text-decoration: none;
-
-      &:hover {
-        color: $dark-blue;
-      }
     }
   }
 
@@ -67,17 +48,9 @@
     color: $blue;
     border: 1px solid $blue;
 
-    &:hover {
-      color: $dark-blue;
-    }
-
     a {
       color: $blue;
       text-decoration: none;
-
-      &:hover {
-        color: $dark-blue;
-      }
     }
   }
 

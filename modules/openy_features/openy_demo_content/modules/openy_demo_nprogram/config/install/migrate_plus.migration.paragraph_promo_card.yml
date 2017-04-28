@@ -78,7 +78,7 @@ process:
     default_value: full_html
   field_prgf_link/uri:
     plugin: default_value
-    default_value: 'base:learn_more'
+    default_value: 'http://www.openymca.org'
   field_prgf_link/title:
     plugin: default_value
     default_value: 'Learn More'

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph Blog Listing install file.
+ */
+
+/**
+ * Update Paragraph Blog Listing filter labels.
+ */
+function openy_prgf_blog_listing_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_blog_listing');
+  $config .= '/config/install/';
+  $config .= 'views.view.listing_blog_posts.yml';
+  $config_importer->update(
+    $config,
+    'views.view.listing_blog_posts',
+    'display.default'
+  );
+}

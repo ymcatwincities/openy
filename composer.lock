@@ -2760,15 +2760,15 @@
         },
         {
             "name": "drupal/plugin",
-            "version": "2.4.0",
+            "version": "2.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/plugin",
-                "reference": "8.x-2.4"
+                "reference": "8.x-2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/plugin-8.x-2.4.zip",
+                "url": "https://ftp.drupal.org/files/projects/plugin-8.x-2.5.zip",
                 "reference": null,
                 "shasum": "376a3b842ff29d7e366559237736bd2b71b27c40"
             },
@@ -2782,7 +2782,7 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.4",
+                    "version": "8.x-2.5",
                     "datestamp": "1471271939"
                 }
             },
