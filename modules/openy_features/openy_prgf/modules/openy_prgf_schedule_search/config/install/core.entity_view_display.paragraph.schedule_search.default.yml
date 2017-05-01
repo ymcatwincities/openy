@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.schedule_search.field_prgf_block
+    - paragraphs.paragraphs_type.schedule_search
+  module:
+    - plugin
+id: paragraph.schedule_search.default
+targetEntityType: paragraph
+bundle: schedule_search
+mode: default
+content:
+  field_prgf_block:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+hidden:
+  created: true
+  uid: true

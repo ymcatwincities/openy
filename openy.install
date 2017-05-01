@@ -218,5 +218,5 @@ function openy_update_8014() {
  */
 function openy_update_8014() {
   // Enable module.
-  \Drupal::service('module_installer')->install(['openy_moderation_wrapper', 'openy_session_instance']);
+  \Drupal::service('module_installer')->install(['openy_moderation_wrapper', 'openy_session_instance', 'openy_schedules', 'openy_prgf_schedule_search']);
 }
