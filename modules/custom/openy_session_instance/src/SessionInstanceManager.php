@@ -179,9 +179,9 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
       'session' => $session->id(),
       'location' => $location_id,
       'class' => $class_id,
-      'field_sinst_activity' => array_unique($activity_ids),
-      'field_sinst_program_subcategory' => array_unique($program_subcategory_ids),
-      'field_sinst_program' => array_unique($program_ids),
+      'field_si_activity' => array_unique($activity_ids),
+      'field_si_program_subcategory' => array_unique($program_subcategory_ids),
+      'field_si_program' => array_unique($program_ids),
       'min_age' => $session->field_session_min_age->value,
       'max_age' => $session->field_session_max_age->value,
     ];

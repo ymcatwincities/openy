@@ -42,6 +42,10 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
  *     "status" = "status",
+ *     "timestamp" = "timestamp",
+ *     "timestamp_to" = "timestamp_to",
+ *     "class" = "class",
+ *     "location" = "location"
  *   },
  *   links = {
  *     "canonical" = "/admin/structure/session_instance/{session_instance}",

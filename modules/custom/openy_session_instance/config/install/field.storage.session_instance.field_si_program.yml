@@ -1,12 +1,12 @@
-uuid: b31720fc-dc46-4161-bb26-456ad4a148fd
+uuid: a736ac2a-2ebc-4bc1-8d4a-cb1236af953f
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - openy_session_instance
-id: session_instance.field_sinst_activity
-field_name: field_sinst_activity
+id: session_instance.field_si_program
+field_name: field_si_program
 entity_type: session_instance
 type: entity_reference
 settings:
