@@ -236,6 +236,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
     'page__challenge__winners' => [
       'template' => 'pages/page--challenge--winners',
     ],
+    'page__challenge__upcoming' => [
+      'template' => 'pages/page--challenge--upcoming',
+    ],
   ];
 }
 
@@ -260,6 +263,9 @@ function ymca_retention_preprocess_html(&$variables) {
   }
   if ($current_route_name == 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_winners') {
     $variables['attributes']->addClass(['theme-ymca--2017-compain-winners']);
+  }
+  if ($current_route_name == 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_upcoming') {
+    $variables['attributes']->addClass(['theme-ymca--2017-compain-upcoming']);
   }
 }
 
