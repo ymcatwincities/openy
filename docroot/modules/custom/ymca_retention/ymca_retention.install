@@ -482,3 +482,37 @@ function ymca_retention_update_8025() {
     ]
   );
 }
+
+/**
+ * Remove whitespaces in member_id string.
+ */
+function ymca_retention_update_8026() {
+  // Select all member_is with whitespaces.
+  $member_id_pattern = '% %';
+
+  $query = \Drupal::entityQuery('ymca_retention_member')
+    ->condition('membership_id', $member_id_pattern, 'LIKE');
+  $ids = $query->execute();
+
+  if (!empty($ids)) {
+    $members = Member::loadMultiple($ids);
+    foreach ($members as $member) {
+      $member->setMemberId(trim($member->getMemberId()));
+      $member->save();
+    }
+  }
+}
+
+/**
+ * Update YMCA Retention Upcoming.
+ */
+function ymca_retention_update_8027() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // YMCA Retention Upcoming page.
+      'page_manager.page_variant.ymca_retention_challenge_upcoming',
+    ]
+  );
+}
