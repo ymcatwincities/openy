@@ -1,18 +1,18 @@
-uuid: 95f72ca6-b9b5-4c55-84e9-264817593a08
+uuid: baadf961-d8f7-4a59-9e35-31bd86d29a1e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.session_instance.field_sinst_activity
-    - node.type.activity
+    - field.storage.session_instance.field_si_program
+    - node.type.program
   module:
     - openy_session_instance
-id: session_instance.session_instance.field_sinst_activity
-field_name: field_sinst_activity
+id: session_instance.session_instance.field_si_program
+field_name: field_si_program
 entity_type: session_instance
 bundle: session_instance
-label: Activity
-description: 'The Activity node, which the Session Class is related to.'
+label: Program
+description: 'The Program node, which the Session is related to.'
 required: false
 translatable: false
 default_value: {  }
@@ -21,7 +21,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      activity: activity
+      program: program
     sort:
       field: _none
     auto_create: false

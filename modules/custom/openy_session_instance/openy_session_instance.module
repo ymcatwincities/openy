@@ -100,9 +100,9 @@ function openy_session_instance_actualize_sessions(EntityInterface $entity) {
 
     $map_select = [
       'class' => 'class',
-      'activity' => 'field_sinst_activity',
-      'program_subcategory' => 'field_sinst_program_subcategory',
-      'program' => 'field_sinst_program',
+      'activity' => 'field_si_activity',
+      'program_subcategory' => 'field_si_program_subcategory',
+      'program' => 'field_si_program',
     ];
 
     $session_instances = $session_instance_manager

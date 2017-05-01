@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.session_instance.session_instance.field_sinst_activity
-    - field.field.session_instance.session_instance.field_sinst_program
-    - field.field.session_instance.session_instance.field_sinst_program_subcategory
+    - field.field.session_instance.session_instance.field_si_activity
+    - field.field.session_instance.session_instance.field_si_program
+    - field.field.session_instance.session_instance.field_si_program_subcategory
   module:
     - openy_session_instance
 id: session_instance.session_instance.default
@@ -35,7 +35,7 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
-  field_sinst_activity:
+  field_si_activity:
     weight: 11
     settings:
       match_operator: CONTAINS
@@ -43,7 +43,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_sinst_program:
+  field_si_program:
     weight: 13
     settings:
       match_operator: CONTAINS
@@ -51,7 +51,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_sinst_program_subcategory:
+  field_si_program_subcategory:
     weight: 12
     settings:
       match_operator: CONTAINS
