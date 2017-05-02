@@ -275,6 +275,9 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     ];
     $dates = $node->field_session_time->referencedEntities();
     foreach ($dates as $date) {
+      if (empty($date) || empty($date->field_session_time_days) || empty($date->field_session_time_date)) {
+        continue;
+      }
       $schedule_item = [
         'frequency' => 'weekly',
         'days' => [],
