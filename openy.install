@@ -30,6 +30,15 @@ function openy_install() {
 
   // Enable openy_user after all modules are installed.
   $module_installer->install(['openy_user'], TRUE);
+
+
+  // Set homepage by node id but checking it first by title only.
+  $query = \Drupal::entityQuery('node')
+    ->condition('status', 1)
+    ->condition('title', 'OpenY');
+  $nids = $query->execute();
+
+  $config_factory->getEditable('system.site')->set('page.front', '/node/' . reset($nids))->save();
 }
 
 /**
