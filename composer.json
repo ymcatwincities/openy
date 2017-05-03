@@ -116,6 +116,9 @@
             "drupal/confi": {
                 "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
             },
+            "drupal/plugin": {
+                "2851503 - Drupal\\plugin\\PluginDefinition\\ArrayPluginDefinitionDecorator contains 1 abstract method and must therefore be declared abstract or implement the remaining methods": "https://www.drupal.org/files/issues/plugin-id-2851503-8.patch"
+            },
             "drupal/datalayer": {
                 "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
             }
