@@ -208,7 +208,7 @@ function openy_import_migration($migration_id) {
   $importer = \Drupal::service('openy_migrate.importer');
   $importer->import($migration_id);
 
-  // Set the homepage for OpenY.
+  // Set the homepage for OpenY after landing pages migration.
   if ($migration_id == 'openy_demo_node_landing') {
     // Set homepage by node id but checking it first by title only.
     $query = \Drupal::entityQuery('node')
