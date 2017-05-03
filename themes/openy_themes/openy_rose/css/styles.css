@@ -163,6 +163,7 @@ body {
   background-size: contain;
   display: block;
   height: 56px;
+  margin-bottom: 20px;
   width: 72px;
 }
 @media (min-width: 48em) {
@@ -175,6 +176,9 @@ body {
   border-bottom: 1px solid #979797;
   margin-bottom: 20px;
   margin-right: -15px;
+}
+.footer .footer__nav nav:last-of-type {
+  border-bottom: none;
 }
 @media (min-width: 48em) {
   .footer .footer__nav nav {
@@ -223,8 +227,13 @@ body {
 }
 .footer .footer__social {
   border-top: 1px solid #979797;
-  margin: -21px -15px 0;
+  margin-left: -15px;
   padding: 25px 0px 10px 25px;
+}
+@media (min-width: 0) and (max-width: 62em) {
+  .footer .footer__social {
+    width: 110%;
+  }
 }
 @media (min-width: 30em) {
   .footer .footer__social {
