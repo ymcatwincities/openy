@@ -5,6 +5,9 @@
  * OpenY Branch install file.
  */
 
+/**
+ * Implements hook_update_dependencies().
+ */
 function openy_loc_branch_update_dependencies() {
   $dependencies['openy_loc_branch'] = [
     8002 => [
