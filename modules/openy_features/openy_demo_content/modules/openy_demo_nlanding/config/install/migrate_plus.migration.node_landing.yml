@@ -14,7 +14,7 @@ source:
     -
       id: homepage
       title: 'OpenY'
-      alias: ''
+      alias: '/openy'
       header_content_id: homepage_banner
       content_ids:
         -
