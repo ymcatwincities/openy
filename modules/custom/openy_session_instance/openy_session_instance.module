@@ -12,11 +12,7 @@ use Drupal\openy_session_instance\Batch\SessionInstanceActualizeBatch;
  * Implements hook_entity_insert().
  */
 function openy_session_instance_entity_insert(EntityInterface $entity) {
-  global $_activenet_sync_disable_entity_hooks;
-  if (!$_activenet_sync_disable_entity_hooks &&
-    $entity->getEntityTypeId() == 'node' &&
-    $entity->bundle() == 'session'
-  ) {
+  if ($entity->getEntityTypeId() == 'node' && $entity->bundle() == 'session') {
     Drupal::service('session_instance.manager')
       ->recreateSessionInstances($entity);
   }
@@ -26,10 +22,7 @@ function openy_session_instance_entity_insert(EntityInterface $entity) {
  * Implements hook_entity_update().
  */
 function openy_session_instance_entity_update(EntityInterface $entity) {
-  global $_activenet_sync_disable_entity_hooks;
-  if (!$_activenet_sync_disable_entity_hooks &&
-    $entity->getEntityTypeId() == 'node'
-  ) {
+  if ($entity->getEntityTypeId() == 'node') {
     $bundle = $entity->bundle();
     switch ($bundle) {
       case 'session':
