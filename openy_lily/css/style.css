@@ -30,10 +30,6 @@ body {
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .navbar-fixed-top {
   margin-top: 79px;
 }
-.toolbar-fixed.toolbar-vertical {
-  margin-top: 39px;
-  padding-top: 0 !important;
-}
 .toolbar-fixed.toolbar-vertical.toolbar-tray-open .navbar-fixed-top {
   left: 150px;
 }
