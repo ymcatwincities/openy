@@ -5,6 +5,16 @@
  * OpenY Node install file.
  */
 
+function openy_node_update_dependencies() {
+  $dependencies['openy_node'] = [
+    8003 => [
+      'openy' => 8012,
+    ]
+  ];
+
+  return $dependencies;
+}
+
 /**
  * Update Node Category with field_bottom_content.
  */
@@ -16,4 +26,33 @@ function openy_node_update_8001() {
   $config_importer->importConfigs([
     'field.storage.node.field_bottom_content',
   ]);
+}
+
+/**
+ * Update Editor roles permissions.
+ */
+function openy_node_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node');
+  $config .= '/config/install/';
+  $config .= 'tour.tour.openy-node-add.yml';
+  $config_importer->update($config, 'tour.tour.openy-node-add', 'tips');
+}
+
+/**
+ * Enable Metatag, Redirect and Simple Sitemap modules.
+ */
+function openy_node_update_8003() {
+  // Image Style & OG Meta tags defaults
+  $config_dir = drupal_get_path('module', 'openy_node') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'image.style.facebook',
+    'metatag.metatag_defaults.node',
+    'field.storage.node.field_meta_tags',
+  ]);
+  $config = drupal_get_path('module', 'openy_node') . 'openy_node.info.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'openy_node.info', 'dependencies');
 }

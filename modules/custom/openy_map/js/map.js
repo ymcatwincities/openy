@@ -77,7 +77,7 @@
         if (!navigator.geolocation) {
           $('.with-geo').remove();
         }
-        this.component_el.find('.loc .btn-submit')
+        this.component_el.find('.zip-code .btn-submit')
             .on('click', $.proxy(this.apply_search, this));
 
         this.search_field_el.on('keypress', function (e) {
@@ -88,7 +88,7 @@
               .val(mapLocation[1].replace(/\+/g, ' '));
 
           $('.distance_limit option').eq(2).attr('selected', true);
-          $('.loc .btn-submit').click();
+          $('.zip-code .btn-submit').click();
         }
       },
 
@@ -154,7 +154,7 @@
             if (results[0].geometry.bounds) {
               this.map.fitBounds(results[0].geometry.bounds);
             } else {
-              bounds = new google.maps.LatLngBounds();
+              var bounds = new google.maps.LatLngBounds();
               bounds.extend(this.search_center_point);
               this.map.fitBounds(bounds);
             }

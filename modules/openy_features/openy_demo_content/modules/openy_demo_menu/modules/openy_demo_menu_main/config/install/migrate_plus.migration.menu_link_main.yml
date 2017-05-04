@@ -18,7 +18,7 @@ source:
       id: 1
       title: 'Home'
       menu_name: 'main'
-      link: 'base:openy'
+      link: 'openy'
       weight: 1
       parent_id: 0
       expanded: 0
@@ -27,7 +27,7 @@ source:
       id: 2
       title: 'Programs'
       menu_name: 'main'
-      link: 'base:openy'
+      link: 'openy'
       weight: 2
       parent_id: 0
       expanded: 1
@@ -36,7 +36,7 @@ source:
       id: 3
       title: 'Health and Fitness'
       menu_name: 'main'
-      link: 'base:programs/health-and-fitness'
+      link: 'programs/health-and-fitness'
       weight: 1
       parent_id: 2
       expanded: 1
@@ -46,7 +46,7 @@ source:
       id: 4
       title: 'Swimming'
       menu_name: 'main'
-      link: 'base:programs/swimming'
+      link: 'programs/swimming'
       weight: 2
       parent_id: 2
       expanded: 1
@@ -56,7 +56,7 @@ source:
       id: 5
       title: 'Kids and Family Activities'
       menu_name: 'main'
-      link: 'base:programs/kids-and-family-activities'
+      link: 'programs/kids-and-family-activities'
       weight: 3
       parent_id: 2
       expanded: 1
@@ -66,7 +66,7 @@ source:
       id: 6
       title: 'Camps'
       menu_name: 'main'
-      link: 'base:programs/camps'
+      link: 'programs/camps'
       weight: 4
       parent_id: 2
       expanded: 1
@@ -76,7 +76,7 @@ source:
       id: 7
       title: 'Child Care'
       menu_name: 'main'
-      link: 'base:programs/child-care'
+      link: 'programs/child-care'
       weight: 5
       parent_id: 2
       expanded: 1
@@ -86,7 +86,7 @@ source:
       id: 8
       title: 'Youth Programs'
       menu_name: 'main'
-      link: 'base:programs/youth-programs'
+      link: 'programs/youth-programs'
       weight: 6
       parent_id: 2
       expanded: 1
@@ -96,7 +96,7 @@ source:
       id: 9
       title: 'Locations'
       menu_name: 'main'
-      link: 'base:locations'
+      link: 'locations'
       weight: 3
       parent_id: 0
       expanded: 0
@@ -105,7 +105,7 @@ source:
       id: 10
       title: 'About'
       menu_name: 'main'
-      link: 'base:about'
+      link: 'about'
       weight: 4
       parent_id: 0
       expanded: 0
@@ -114,7 +114,7 @@ source:
       id: 11
       title: 'Give'
       menu_name: 'main'
-      link: 'base:give'
+      link: 'give'
       weight: 5
       parent_id: 0
       expanded: 0
@@ -123,7 +123,7 @@ source:
       id: 12
       title: 'Accelerator'
       menu_name: 'main'
-      link: 'base:accelerator'
+      link: 'accelerator'
       weight: 6
       parent_id: 0
       expanded: 0
@@ -132,7 +132,7 @@ source:
       id: 13
       title: 'Blog'
       menu_name: 'main'
-      link: 'base:blog'
+      link: 'blog'
       weight: 7
       parent_id: 0
       expanded: 0
@@ -330,7 +330,7 @@ source:
       id: 35
       title: 'Join'
       menu_name: 'main'
-      link: 'base:join'
+      link: 'join'
       weight: 8
       parent_id: 0
       expanded: 0

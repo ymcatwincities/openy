@@ -175,8 +175,11 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
   protected function preProcessFields(&$entity_hash, $entity_type) {
     foreach ($entity_hash as $field_name => $field_value) {
       // Get field info.
-      $fiend_info = FieldStorageConfig::loadByName($entity_type, $field_name);
-      if ($fiend_info == NULL || !in_array(($field_type = $fiend_info->getType()), ['entity_reference', 'entity_reference_revisions', 'image', 'file'])) {
+      $field_info = FieldStorageConfig::loadByName($entity_type, $field_name);
+      if ($field_info == NULL || !in_array(($field_type = $field_info->getType()), ['entity_reference', 'entity_reference_revisions', 'image', 'file'])) {
+        if (in_array($field_name, ['changed', 'created', 'revision_timestamp']) && !empty($field_value) && !is_numeric($field_value)) {
+          $entity_hash[$field_name] = strtotime($field_value);
+        }
         continue;
       }
 

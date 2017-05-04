@@ -1,0 +1,428 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncategory
+id: openy_demo_node_session
+migration_tags: {  }
+migration_group: openy_demo_ncategory
+label: 'Create demo session nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: swim_lessons_adult_begin
+      title: 'Swim Lessons - Adult Beginning'
+      class: swim_lessons_adult_begin
+      location: 1
+    -
+      id: swim_lessons_parent_child_a
+      title: 'Swim Lessons - Parent/Child Stage A: Water Discov.'
+      class: swim_lessons_parent_child_a
+      location: 1
+    -
+      id: swim_lessons_parent_child_b
+      title: 'Swim Lessons - Parent/Child Stage B: Water Explor.'
+      class: swim_lessons_parent_child_b
+      location: 1
+    -
+      id: swim_lessons_preschool_1
+      title: 'Swim Lessons - Preschool Stage 1: Water Acclimat.'
+      class: swim_lessons_preschool_1
+      location: 1
+    -
+      id: swim_lessons_preschool_2
+      title: 'Swim Lessons - Preschool Stage 2: Water Movement'
+      class: swim_lessons_preschool_2
+      location: 1
+    -
+      id: swim_lessons_preschool_3
+      title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
+      class: swim_lessons_preschool_3
+      location: 1
+    -
+      id: swim_lessons_preschool_4
+      title: 'Swim Lessons - Preschool Stage 4: Stroke Intro.'
+      class: swim_lessons_preschool_4
+      location: 1
+    -
+      id: swim_lessons_private
+      title: 'Swim Lesson - Private'
+      class: swim_lessons_private
+      location: 1
+    -
+      id: swim_lessons_youth_1
+      title: 'Swim Lessons - Youth Stage 1: Water Acclimat.'
+      class: swim_lessons_youth_1
+      location: 1
+    -
+      id: swim_lessons_youth_2
+      title: 'Swim Lessons - Youth Stage 2: Water Movement'
+      class: swim_lessons_youth_2
+      location: 1
+    -
+      id: swim_lessons_youth_3
+      title: 'Swim Lessons - Youth Stage 3: Water Stamina'
+      class: swim_lessons_youth_3
+      location: 1
+    -
+      id: swim_lessons_youth_4
+      title: 'Swim Lessons - Youth Stage 4: Stroke Intro.'
+      class: swim_lessons_youth_4
+      location: 1
+    -
+      id: swim_lessons_youth_5
+      title: 'Swim Lessons - Youth Stage 5: Stroke Devel.'
+      class: swim_lessons_youth_5
+      location: 1
+    -
+      id: swim_lessons_youth_6
+      title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
+      class: swim_lessons_youth_6
+      location: 1
+    -
+      id: swim_team_intrest_list
+      title: 'Swim Team - Interest List'
+      class: swim_team_intrest_list
+      location: 1
+    -
+      id: swim_lessons_teen
+      title: 'Swim Lessons - Teen'
+      class: swim_lessons_teen
+      location: 1
+    -
+      id: swim_lessons_teen_beginning
+      title: 'Swim Lessons - Teen Beginning'
+      class: swim_lessons_teen_beginning
+      location: 1
+    -
+      id: swim_lessons_teen_intermediate
+      title: 'Swim Lessons - Teen Intermediate'
+      class: swim_lessons_teen_intermediate
+      location: 1
+    -
+      id: swim_lessons_teen_advanced
+      title: 'Swim Lessons - Teen Advanced'
+      class: swim_lessons_teen_advanced
+      location: 1
+    -
+      id: drop_in_swim_recreational_3ft
+      title: 'Recreational Swim 3ft'
+      class: drop_in_swim_recreational_3ft
+      location: 1
+    -
+      id: drop_in_swim_wade_2ft
+      title: 'Wade Swim 2ft'
+      class: drop_in_swim_wade_2ft
+      location: 1
+    -
+      id: drop_in_swim_rec_with_slide
+      title: 'Rec Swim with Slide'
+      class: drop_in_swim_rec_with_slide
+      location: 1
+    -
+      id: drop_in_swim_adult_5.5ft
+      title: 'Adult Swim 5.5 ft'
+      class: drop_in_swim_adult_5.5ft
+      location: 1
+    -
+      id: drop_in_swim_family
+      title: 'Family Swim'
+      class: drop_in_swim_family
+      location: 1
+    -
+      id: drop_in_swim_recreational
+      title: 'Recreational Swim'
+      class: drop_in_swim_recreational
+      location: 1
+    -
+      id: drop_in_swim_lap
+      title: 'Lap Swim'
+      class: drop_in_swim_lap
+      location: 1
+    -
+      id: kids_zone_activity_centers_4wks_11yrs
+      title: 'Kids Zone 4 wks -11 yrs'
+      class: kids_zone_activity_centers_4wks_11yrs
+      location: 1
+    -
+      id: cooking_classes_future_chefs
+      title: 'Youth Cooking - Future Chefs'
+      class: cooking_classes_future_chefs
+      location: 1
+    -
+      id: arts_and_crafts_maycrafternoon_handprint_sunshines
+      title: 'May Crafternoon: Handprint Sunshines'
+      class: arts_and_crafts_maycrafternoon_handprint_sunshines
+      location: 1
+    -
+      id: arts_and_crafts_april_earth_day_bridhouses
+      title: 'April Earth Day Birdhouses'
+      class: arts_and_crafts_april_earth_day_bridhouses
+      location: 1
+    -
+      id: arts_and_crafts_crafternoon
+      title: 'Crafternoon'
+      class: arts_and_crafts_crafternoon
+      location: 1
+    -
+      id: birthday_parties_room_rental
+      title: 'Room Rental'
+      class: birthday_parties_room_rental
+      location: 1
+    -
+      id: birthday_parties_birthday_party
+      title: 'Birthday Party'
+      class: birthday_parties_birthday_party
+      location: 1
+    -
+      id: before_and_after_school_programs_2016_17_bellevue_no_school_days
+      title: '2016/17 Bellevue: No School Days - Package Option'
+      class: before_and_after_school_programs_2016_17_bellevue_no_school_days
+      location: 1
+    -
+      id: before_and_after_school_programs_am_fit_and_fun
+      title: 'AM Fit & Fun'
+      class: before_and_after_school_programs_am_fit_and_fun
+      location: 1
+    -
+      id: sports_classes_and_workshops_youth_fitness_challenge
+      title: 'Youth Fitness Challenge'
+      class: sports_classes_and_workshops_youth_fitness_challenge
+      location: 1
+    -
+      id: sports_classes_and_workshops_youth_homezone
+      title: 'HomeZone'
+      class: sports_classes_and_workshops_youth_homezone
+      location: 1
+    -
+      id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      title: 'AOA National Senior Health and Fitness Day'
+      class: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      location: 1
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      title: 'AOA Brain Agility - Class Fee, Spring 2017'
+      class: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      location: 1
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      title: 'AOA Brain Agility - Materials Fee, Spring 2017'
+      class: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      location: 1
+    -
+      id: group_exercise_classes_hiit
+      title: 'HIIT'
+      class: group_exercise_classes_hiit
+      location: 1
+    -
+      id: group_exercise_classes_hiit_metabolic_conditioning
+      title: 'HIIT - Metabolic Conditioning'
+      class: group_exercise_classes_hiit_metabolic_conditioning
+      location: 1
+    -
+      id: group_exercise_classes_moving_for_balance_spr_2017
+      title: 'Moving for Better Balance - Continuing Spring 2017'
+      class: group_exercise_classes_moving_for_balance_spr_2017
+      location: 1
+    -
+      id: samll_group_training_youth_small_group_training_tween_girl_power
+      title: 'Small Group Training - Tween Girl Power!'
+      class: samll_group_training_youth_small_group_training_tween_girl_power
+      location: 1
+    -
+      id: samll_group_training_youth_small_group_training_tween_titans
+      title: 'Small Group Training - Tween Titans'
+      class: samll_group_training_youth_small_group_training_tween_titans
+      location: 1
+    -
+      id: pilates_reformer_10_private_1hr_sessions
+      title: 'Pilates Reformer - 10, private 1 hr sessions'
+      class: pilates_reformer_10_private_1hr_sessions
+      location: 1
+    -
+      id: private_yoga_10_1hour_sessions
+      title: 'Private Yoga - 10, 1-hour sessions'
+      class: private_yoga_10_1hour_sessions
+      location: 1
+    -
+      id: pilates_reformer_duet_10_1hour_sessions
+      title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
+      class: pilates_reformer_duet_10_1hour_sessions
+      location: 1
+    -
+      id: partner_personal_training_1_session
+      title: 'Partner Personal Training - 1 session'
+      class: partner_personal_training_1_session
+      location: 1
+    -
+      id: health_improvement_livestrong_at_the_y
+      title: 'LIVESTRONG at the YMCA'
+      class: health_improvement_livestrong_at_the_y
+      location: 1
+    -
+      id: health_improvement_nutrition_consultation_initial
+      title: 'Nutrition Consultation - Initial'
+      class: health_improvement_nutrition_consultation_initial
+      location: 1
+    -
+      id: health_improvement_activly_changing_together
+      title: 'ACT! Actively Changing Together'
+      class: health_improvement_activly_changing_together
+      location: 1
+    -
+      id: climbing_adult_rock_climbing_sept
+      title: 'Climbing - Adult Rock Climbing - September'
+      class: climbing_adult_rock_climbing_sept
+      location: 1
+    -
+      id: climbing_adult_rock_climbing_oct
+      title: 'Climbing - Adult Rock Climbing - October'
+      class: climbing_adult_rock_climbing_oct
+      location: 1
+    -
+      id: climbing_adult_parent_child_sept
+      title: 'Climbing - Parent/Child Climbing - September'
+      class: climbing_adult_parent_child_sept
+      location: 1
+    -
+      id: climbing_adult_parent_child_oct
+      title: 'Climbing - Parent/Child Climbing - October'
+      class: climbing_adult_parent_child_oct
+      location: 1
+    -
+      id: small_group_and_specialty_training_adaptive_yoga
+      title: 'Small Group Training - Adaptive Yoga'
+      class: small_group_and_specialty_training_adaptive_yoga
+      location: 1
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1
+      title: 'Small Group Training - Pilates Reformer Level I'
+      class: small_group_and_specialty_training_pilates_reformer_level_1
+      location: 1
+    -
+      id: small_group_and_specialty_training_pilates_reformer_intro
+      title: 'Small Group Training - Pilates Reformer Intro'
+      class: small_group_and_specialty_training_pilates_reformer_intro
+      location: 1
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1_2
+      title: 'Small Group Training - Pilates Reformer Level I/II'
+      class: small_group_and_specialty_training_pilates_reformer_level_1_2
+      location: 1
+    -
+      id: weight_loss_lose_to_win_men
+      title: 'Lose to Win for Men - Weight Loss Program'
+      class: weight_loss_lose_to_win_men
+      location: 1
+    -
+      id: weight_loss_lose_to_win
+      title: 'Lose to Win - Weight Loss Program'
+      class: weight_loss_lose_to_win
+      location: 1
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      title: '2016/17 Woodmoor - (f) Non-School Days'
+      class: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      location: 1
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after_plus
+      title: '2016/17 Woodmoor - (b) After Plus Care'
+      class: before_after_school_child_care_2016_17_woodmoor_after_plus
+      location: 1
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after
+      title: '2016/17 Woodmoor - (c) After Care'
+      class: before_after_school_child_care_2016_17_woodmoor_after
+      location: 1
+    -
+      id: before_after_school_child_care_2016_17_sunrise_before_after
+      title: '2016/17 Sunrise - (a) Before and After Care'
+      class: before_after_school_child_care_2016_17_sunrise_before_after
+      location: 1
+    -
+      id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
+      class: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      location: 1
+    -
+      id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
+      class: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      location: 1
+    -
+      id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
+      class: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      location: 1
+    -
+      id: discovery_day_camp_drop_off_kenmore_elementary_2017
+      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      class: discovery_day_camp_drop_off_kenmore_elementary_2017
+      location: 1
+    -
+      id: discovery_day_camp_drop_off_Northshore_ymca_2017
+      title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
+      class: discovery_day_camp_drop_off_Northshore_ymca_2017
+      location: 1
+    -
+      id: bold_one_wk_expeditions_cascade_challenge
+      title: 'BOLD Cascade Challenge'
+      class: bold_one_wk_expeditions_cascade_challenge
+      location: 1
+    -
+      id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
+      class: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      location: 1
+    -
+      id: bold_one_wk_expeditions_river_and_rocks
+      title: 'BOLD Rivers and Rocks'
+      class: bold_one_wk_expeditions_river_and_rocks
+      location: 1
+    -
+      id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      title: 'BOLD Fishing and Backpacking in the North Cascades'
+      class: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      location: 1
+    -
+      id: earth_service_corps_about_yesc
+      title: 'Earth Service Corps About YESC'
+      class: earth_service_corps_about_yesc
+      location: 1
+    -
+      id: academic_success
+      title: 'Academic Success'
+      class: academic_success
+      location: 1
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_session_class:
+    plugin: migration
+    migration: openy_demo_node_class
+    source: class
+  field_session_location:
+    plugin: migration
+    migration: openy_demo_node_branch
+    source: location
+destination:
+  plugin: 'entity:node'
+  default_bundle: session
+migration_dependencies:
+  required:
+    - openy_demo_node_class
+    - openy_demo_node_branch

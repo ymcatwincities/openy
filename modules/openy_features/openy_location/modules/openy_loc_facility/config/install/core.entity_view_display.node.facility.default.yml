@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.facility.field_location_email
     - field.field.node.facility.field_location_fax
     - field.field.node.facility.field_location_phone
+    - field.field.node.facility.field_meta_tags
     - field.field.node.facility.field_sidebar_content
     - node.type.facility
   module:
@@ -19,6 +20,7 @@ dependencies:
     - entity_reference_revisions
     - geolocation
     - link
+    - metatag
     - telephone
     - user
 id: node.facility.default
@@ -99,6 +101,12 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+  field_meta_tags:
+    weight: 114
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
   field_sidebar_content:
     type: entity_reference_revisions_entity_view
     weight: 111

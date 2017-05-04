@@ -103,6 +103,7 @@ function openy_demo_content_configs_map($key = NULL) {
       ],
       'openy_demo_ncategory' => [
         'openy_demo_node_program_subcategory',
+        'openy_demo_node_session',
       ],
     ],
     'home_alt' => [
@@ -133,14 +134,16 @@ function openy_demo_content_configs_map($key = NULL) {
  *   Batch.
  */
 function openy_import_content(array &$install_state) {
-  $batch = [];
+  $module_operations = [];
+  $migrate_operations = [];
 
-  // Run required migrations.
-  _openy_import_content_helper($batch, 'required');
+  // Build required migrations operations arrays.
+  _openy_import_content_helper($module_operations, $migrate_operations, 'required');
 
-  // Run optional migrations only if at least one option has been selected.
+  // Build optional migrations operations arrays, only if at least one option
+  // has been selected.
   if (!empty($install_state['openy']['content'])) {
-    _openy_import_content_helper($batch, 'optional');
+    _openy_import_content_helper($module_operations, $migrate_operations, 'optional');
   }
 
   // Add home_alt if landing is not included.
@@ -148,31 +151,34 @@ function openy_import_content(array &$install_state) {
     $install_state['openy']['content'][] = 'home_alt';
   }
 
-  // Run migrations for selected content.
+  // Build migrations operations arrays, for selected content.
   foreach ($install_state['openy']['content'] as $content) {
-    _openy_import_content_helper($batch, $content);
+    _openy_import_content_helper($module_operations, $migrate_operations, $content);
   }
 
-  return $batch;
+  // Combine operations module enable before of migrations.
+  return ['operations' => array_merge($module_operations, $migrate_operations)];
 }
 
 /**
  * Demo content import helper.
  *
- * @param array $batch
- *   List of batch operations.
+ * @param array $module_operations
+ *   List of module operations.
+ * @param array $migrate_operations
+ *   List of migrate operations.
  * @param string $key
  *   Key of the section in the mapping.
  */
-function _openy_import_content_helper(array &$batch, $key) {
+function _openy_import_content_helper(array &$module_operations, array &$migrate_operations, $key) {
   $modules = openy_demo_content_configs_map($key);
   if (empty($modules)) {
     return;
   }
   foreach ($modules as $key => $migrations) {
-    $batch['operations'][] = ['openy_enable_module', (array) $key];
+    $module_operations[] = ['openy_enable_module', (array) $key];
     foreach ($migrations as $migration) {
-      $batch['operations'][] = ['openy_import_migration', (array) $migration];
+      $migrate_operations[] = ['openy_import_migration', (array) $migration];
     }
   }
 }
