@@ -361,7 +361,6 @@
   }
 
   .activity-group {
-    padding: 0;
     h3 {
       @include cachet-medium();
       font-size: 30px;
@@ -409,21 +408,17 @@
     }
 
     .activity-group-slider {
-      margin: 0 0 60px;
-
-      @include breakpoint(0 $screen-sm) {
-        margin: 0 0 95px;
+      margin: 0 0 45px;
+      @include breakpoint($screen-sm) {
+        margin: 0 35px 55px 0;
       }
-
-      .slick-dots {
-        @include breakpoint(0 $screen-sm) {
-          bottom: -80px;
-        }
+      @include breakpoint($screen-lg+100) {
+        margin-right: 0 ;
       }
 
       .views-field-rendered-entity {
-        padding: 20px;
-        margin: 0 20px;
+        padding: 15px;
+        margin: 0 15px;
         height: auto;
 
         border: 1px solid $pink;
