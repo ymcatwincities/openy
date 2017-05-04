@@ -3354,6 +3354,146 @@ a.sports-icon.floor-hockey {
   font-family: "Cachet", Arial, sans-serif;
 }
 
+@media (min-width: 0) and (max-width: 47.9375em) {
+  .field-prgf-image {
+    margin: 0 -135px;
+  }
+  .paragraph--type--gallery-cta .field-prgf-image {
+    margin: 0;
+  }
+}
+
+@media (min-width: 0) and (max-width: 47.9375em) {
+  .cta-group-wrapper {
+    margin: 0;
+  }
+  .paragraph--type--gallery-cta .cta-group-wrapper {
+    margin: 0 135px;
+  }
+}
+@media (min-width: 48em) {
+  .cta-group-wrapper {
+    position: absolute;
+    max-height: 100%;
+    width: 100%;
+    left: 60px;
+    top: 23%;
+    bottom: auto;
+    transform: translate(0, -50%);
+  }
+  .paragraph--type--gallery-cta .cta-group-wrapper {
+    top: 50%;
+  }
+}
+@media (min-width: 85.5em) {
+  .cta-group-wrapper {
+    left: 0;
+    top: 70px !important;
+    bottom: auto;
+    transform: none;
+  }
+}
+.cta-group-wrapper .cta-group {
+  background-color: rgba(215, 215, 215, 0.25);
+  padding: 23px 15px;
+}
+@media (min-width: 48em) {
+  .cta-group-wrapper .cta-group {
+    background-color: rgba(255, 255, 255, 0.8);
+    max-width: 400px;
+  }
+}
+@media (min-width: 64em) {
+  .cta-group-wrapper .cta-group {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+}
+@media (min-width: 64em) {
+  .cta-group-wrapper .cta-group {
+    padding: 25px 20px;
+  }
+}
+.cta-group-wrapper .cta-group h1 {
+  margin: 0;
+  color: #c6188b;
+  font-size: 32px;
+}
+@media (min-width: 48em) {
+  .cta-group-wrapper .cta-group h1 {
+    margin: 0 0 15px;
+    font-size: 32px;
+  }
+}
+@media (min-width: 64em) {
+  .cta-group-wrapper .cta-group h1 {
+    font-size: 46px;
+    line-height: 50px;
+    margin: 0 0 10px;
+  }
+}
+.cta-group-wrapper .cta-group .text {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  font-size: 18px;
+  line-height: 22px;
+  margin-bottom: 15px;
+}
+@media (min-width: 48em) {
+  .cta-group-wrapper .cta-group .text {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+}
+@media (min-width: 64em) {
+  .cta-group-wrapper .cta-group .text {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+}
+@media (min-width: 64.0625em) {
+  .cta-group-wrapper .cta-group .text {
+    line-height: 23px;
+  }
+}
+.cta-group-wrapper .cta-group .btn {
+  white-space: normal;
+  font-size: 18px;
+  padding: 0px;
+  width: 100%;
+}
+@media (min-width: 48em) {
+  .cta-group-wrapper .cta-group .btn {
+    font-size: 20px;
+  }
+}
+.cta-group-wrapper .cta-group .btn a {
+  display: block;
+  padding: 12px;
+}
+@media (min-width: 64.0625em) {
+  .cta-group-wrapper .cta-group .btn a {
+    padding: 15px;
+  }
+}
+
+.item__caption__wrapper {
+  position: relative;
+}
+
+.item__caption {
+  background-color: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  color: #92288d;
+  font-size: 14px;
+  font-style: italic;
+  font-stretch: normal;
+  line-height: 1.43;
+  max-width: 260px;
+  padding: 10px;
+}
+
 .paragraph--type--gallery-cta {
   position: relative;
 }
@@ -3454,128 +3594,6 @@ a.sports-icon.floor-hockey {
 .paragraph--type--gallery-cta .carousel .carousel-inner > .item a img {
   height: auto;
   width: 100%;
-}
-@media (min-width: 0) and (max-width: 47.9375em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper {
-    margin: 0 135px;
-  }
-}
-@media (min-width: 48em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper {
-    position: absolute;
-    max-height: 100%;
-    width: 100%;
-    left: 60px;
-    top: 50%;
-    bottom: auto;
-    transform: translate(0, -50%);
-  }
-}
-@media (min-width: 85.5em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper {
-    left: 0;
-    top: 70px;
-    bottom: auto;
-    transform: none;
-  }
-}
-.paragraph--type--gallery-cta .cta-group-wrapper .cta-group {
-  background-color: rgba(215, 215, 215, 0.25);
-  padding: 23px 15px;
-}
-@media (min-width: 48em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group {
-    background-color: rgba(255, 255, 255, 0.8);
-    max-width: 400px;
-  }
-}
-@media (min-width: 64em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group {
-    background-color: rgba(255, 255, 255, 0.8);
-  }
-}
-@media (min-width: 64em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group {
-    padding: 25px 20px;
-  }
-}
-.paragraph--type--gallery-cta .cta-group-wrapper .cta-group h1 {
-  margin: 0;
-  color: #c6188b;
-  font-size: 32px;
-}
-@media (min-width: 48em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group h1 {
-    margin: 0 0 15px;
-    font-size: 32px;
-  }
-}
-@media (min-width: 64em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group h1 {
-    font-size: 46px;
-    line-height: 50px;
-    margin: 0 0 10px;
-  }
-}
-.paragraph--type--gallery-cta .cta-group-wrapper .cta-group .text {
-  font-family: "Cachet",Arial,sans-serif;
-  letter-spacing: -0.025em;
-  font-size: 18px;
-  line-height: 22px;
-  margin-bottom: 15px;
-}
-@media (min-width: 48em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group .text {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-}
-@media (min-width: 64em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group .text {
-    font-size: 20px;
-    margin-bottom: 30px;
-  }
-}
-@media (min-width: 64.0625em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group .text {
-    line-height: 23px;
-  }
-}
-.paragraph--type--gallery-cta .cta-group-wrapper .cta-group .btn {
-  white-space: normal;
-  font-size: 18px;
-  padding: 0px;
-  width: 100%;
-}
-@media (min-width: 48em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group .btn {
-    font-size: 20px;
-  }
-}
-.paragraph--type--gallery-cta .cta-group-wrapper .cta-group .btn a {
-  display: block;
-  padding: 12px;
-}
-@media (min-width: 64.0625em) {
-  .paragraph--type--gallery-cta .cta-group-wrapper .cta-group .btn a {
-    padding: 15px;
-  }
-}
-.paragraph--type--gallery-cta .item__caption__wrapper {
-  position: relative;
-}
-.paragraph--type--gallery-cta .item__caption {
-  background-color: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-  color: #92288d;
-  font-size: 14px;
-  font-style: italic;
-  font-stretch: normal;
-  line-height: 1.43;
-  max-width: 260px;
-  padding: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

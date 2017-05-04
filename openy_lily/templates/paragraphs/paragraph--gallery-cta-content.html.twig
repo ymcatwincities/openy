@@ -36,13 +36,11 @@
  * @ingroup themeable
  */
 #}
-{%
-set classes = [
-'paragraph',
-'paragraph--type--' ~ paragraph.bundle|clean_class,
-view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-]
-%}
+{% set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+] %}
 <div{{ attributes.addClass(classes) }}>
   {{ content.field_prgf_image }}
   <div class="cta-group-wrapper">
