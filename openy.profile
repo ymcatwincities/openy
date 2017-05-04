@@ -22,9 +22,6 @@ function openy_install_tasks() {
     'openy_import_content' => [
       'type' => 'batch',
     ],
-    'openy_import_content' => [
-      'type' => 'batch',
-    ],
     'openy_set_frontpage' => [
       'type' => 'batch',
     ],
