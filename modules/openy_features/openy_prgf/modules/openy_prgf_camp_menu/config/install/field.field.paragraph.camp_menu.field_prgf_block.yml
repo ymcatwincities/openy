@@ -16,13 +16,13 @@ required: true
 translatable: true
 default_value:
   -
-    plugin_id: camp_menu
+    plugin_id: 'camp_menu'
     plugin_configuration:
-      id: camp_menu
+      id: 'camp_menu'
       label: Block
       provider: null
       label_display: null
-    plugin_configuration_schema_id: block.settings.camp_menu
+    plugin_configuration_schema_id: 'block.settings.camp_menu'
 default_value_callback: ''
 settings: {  }
 field_type: 'plugin:block'
