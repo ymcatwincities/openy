@@ -29,7 +29,14 @@ function ygh_theme_suggestions_form_alter(array &$suggestions, array $variables)
  */
 function ygh_theme_suggestions_input_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#attributes']['name'])) {
-    array_push($suggestions, 'input__' . $variables['element']['#attributes']['name']);
+    $el_name = $variables['element']['#attributes']['name'];
+    array_push($suggestions, 'input__' . $el_name);
+    if ($el_name == 'search_api_fulltext') {
+      $current_path = \Drupal::service('path.current')->getPath();
+      $current_alias = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+      $current_alias = str_replace('/', '', $current_alias);
+      array_push($suggestions, 'input__search_api_fulltext__' . $current_alias);
+    }
   }
 }
 
@@ -49,7 +56,25 @@ function ygh_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $v
  */
 function ygh_preprocess_field__node__title(&$vars) {
   $element = $vars['element'];
-  if ($element['#bundle'] == 'landing' && $element['#view_mode'] != 'search_results')  {
+  if ($element['#bundle'] == 'landing' && $element['#view_mode'] != 'search_results') {
     $vars['attributes']['class'][] = 'hidden';
   }
+}
+
+function ygh_preprocess_input__textfield(&$vars) {
+  //dpm(__FUNCTION__);
+}
+
+function ygh_preprocess_input__search_api_fulltext(&$vars) {
+  dpm(__FUNCTION__);
+  $current_path = \Drupal::service('path.current')->getPath();
+  $current_alias = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  $vars['current_path'] = $current_path;
+  $vars['current_alias'] = $current_alias;
+}
+
+function ygh_theme_suggestions_input__search_api_fulltext_alter(array &$suggestions, array $variables) {
+  $current_path = \Drupal::service('path.current')->getPath();
+  $current_alias = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  array_push($suggestions, 'input__search_api_fulltext__' . $current_alias);
 }
