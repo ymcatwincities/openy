@@ -25,6 +25,9 @@ function openy_install_tasks() {
     'openy_import_content' => [
       'type' => 'batch',
     ],
+    'openy_set_frontpage' => [
+      'type' => 'batch',
+    ],
     'openy_third_party_services' => [
       'display_name' => t('3rd party services'),
       'display' => TRUE,
@@ -164,6 +167,21 @@ function openy_import_content(array &$install_state) {
 }
 
 /**
+ * Set the homepage whether from demo content or default one.
+ */
+function openy_set_frontpage(array &$install_state) {
+  // Set homepage by node id but checking it first by title only.
+  $query = \Drupal::entityQuery('node')
+    ->condition('status', 1)
+    ->condition('title', 'OpenY');
+  $nids = $query->execute();
+  $config_factory = Drupal::configFactory();
+  $config_factory->getEditable('system.site')->set('page.front', '/node/' . reset($nids))->save();
+
+  return ['operations' => []];
+}
+
+/**
  * Demo content import helper.
  *
  * @param array $module_operations
@@ -207,15 +225,4 @@ function openy_enable_module($module_name) {
 function openy_import_migration($migration_id) {
   $importer = \Drupal::service('openy_migrate.importer');
   $importer->import($migration_id);
-
-  // Set the homepage for OpenY.
-  if ($migration_id == 'openy_demo_node_landing') {
-    // Set homepage by node id but checking it first by title only.
-    $query = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('title', 'OpenY');
-    $nids = $query->execute();
-    $config_factory = Drupal::configFactory();
-    $config_factory->getEditable('system.site')->set('page.front', '/node/' . reset($nids))->save();
-  }
 }
