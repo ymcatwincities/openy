@@ -2,6 +2,9 @@ services:
   openy_moderation_wrapper.entity_moderation_status:
     class: Drupal\openy_moderation_wrapper\EntityModerationStatus
     arguments: ['@config.factory', '@module_handler']
+# NOTE: PageAccessStateTransitionValidation requires drupal/page_access &
+# drupal/workbench_moderation.
+# TODO Uncomment when these requirements are met or update/clone the service.
 #  openy_moderation_wrapper.state_transition_validation:
 #    class: Drupal\openy_moderation_wrapper\PageAccessStateTransitionValidation
 #    public: false
