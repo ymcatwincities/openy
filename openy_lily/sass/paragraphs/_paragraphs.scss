@@ -1,98 +1,98 @@
-.field-prgf-image {
-  @include breakpoint (0 767px) {
-    margin: 0 -135px;
-    .paragraph--type--gallery-cta & {
+.paragraph--type--gallery-cta-content {
+  position: relative;
+  .field-prgf-image {
+    @include breakpoint (0 767px) {
+      margin: 0 -135px;
+      .paragraph--type--gallery-cta & {
+        margin: 0;
+      }
+    }
+  }
+  .cta-group-wrapper {
+    @include breakpoint (0 767px) {
       margin: 0;
+      .paragraph--type--gallery-cta & {
+        margin: 0 135px;
+      }
     }
-  }
-}
-
-.cta-group-wrapper {
-  @include breakpoint (0 767px) {
-    margin: 0;
-    .paragraph--type--gallery-cta & {
-      margin: 0 135px;
-    }
-  }
-  @include breakpoint (768px) {
-    position: absolute;
-    max-height: 100%;
-    width: 100%;
-    left: 60px;
-    top: 23%;
-    bottom: auto;
-    transform: translate(0, -50%);
-    .paragraph--type--gallery-cta & {
+    @include breakpoint (768px) {
+      position: absolute;
+      max-height: 100%;
+      width: 100%;
+      left: 60px;
+      bottom: auto;
+      transform: translate(0, -50%);
       top: 50%;
     }
-  }
-  @include breakpoint (1368px) {
-    left: 0;
-    top: 70px !important;
-    bottom: auto;
-    transform: none;
-  }
-  .cta-group {
-    background-color: rgba(215, 215, 215, 0.25);
-    padding: 23px 15px;
-    @include breakpoint (768px) {
-      background-color: rgba(255, 255, 255, 0.8);
-      max-width: 400px;
+    @include breakpoint (1368px) {
+      left: 0;
+      top: 70px !important;
+      bottom: auto;
+      transform: none;
     }
-    @include breakpoint (1024px) {
-      background-color: rgba(255, 255, 255, 0.8);
-    }
-    @include breakpoint (1024px) {
-      padding: 25px 20px;
-    }
-    h1 {
-      margin: 0;
-      color: $pink;
-      font-size: 32px;
+    .cta-group {
+      background-color: rgba(215, 215, 215, 0.25);
+      padding: 23px 15px;
       @include breakpoint (768px) {
-        margin: 0 0 15px;
+        background-color: rgba(255, 255, 255, 0.8);
+        max-width: 400px;
+      }
+      @include breakpoint (1024px) {
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      @include breakpoint (1024px) {
+        padding: 25px 20px;
+      }
+      h1 {
+        margin: 0;
+        color: $pink;
         font-size: 32px;
+        @include breakpoint (768px) {
+          margin: 0 0 15px;
+          font-size: 32px;
+        }
+        @include breakpoint (1024px) {
+          font-size: 46px;
+          line-height: 50px;
+          margin: 0 0 10px;
+        }
       }
-      @include breakpoint (1024px) {
-        font-size: 46px;
-        line-height: 50px;
-        margin: 0 0 10px;
-      }
-    }
-    .text {
-      @include cachet();
-      font-size: 18px;
-      line-height: 22px;
-      margin-bottom: 15px;
-      @include breakpoint (768px) {
-        font-size: 20px;
+      .text {
+        @include cachet();
+        font-size: 18px;
+        line-height: 22px;
         margin-bottom: 15px;
-      }
-      @include breakpoint (1024px) {
-        font-size: 20px;
-        margin-bottom: 30px;
-      }
-      @include breakpoint (1025px) {
-        line-height: 23px;
-      }
-    }
-    .btn {
-      white-space: normal;
-      font-size: 18px;
-      padding: 0px;
-      width: 100%;
-      @include breakpoint (768px) {
-        font-size: 20px;
-      }
-      a {
-        display: block;
-        padding: 12px;
+        @include breakpoint (768px) {
+          font-size: 20px;
+          margin-bottom: 15px;
+        }
+        @include breakpoint (1024px) {
+          font-size: 20px;
+          margin-bottom: 30px;
+        }
         @include breakpoint (1025px) {
-          padding: 15px;
+          line-height: 23px;
+        }
+      }
+      .btn {
+        white-space: normal;
+        font-size: 18px;
+        padding: 0px;
+        width: 100%;
+        @include breakpoint (768px) {
+          font-size: 20px;
+        }
+        a {
+          display: block;
+          padding: 12px;
+          @include breakpoint (1025px) {
+            padding: 15px;
+          }
         }
       }
     }
   }
+
 }
 
 .item__caption__wrapper {
