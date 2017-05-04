@@ -70,23 +70,21 @@
   {% set layout_class = 'has-sidebar' %}
 {% endif %}
 {%
-set header_classes = [
-'class-header',
-layout_class,
-]
+  set header_classes = [
+    'class-header',
+    layout_class,
+  ]
 %}
+{% set header_content_classes = ['content'] %}
 {%
-set header_content_classes = ['content']
-%}
-{%
-set content_classes = [
-'class-content',
-layout_class,
-]
+  set content_classes = [
+    'class-content',
+    layout_class,
+  ]
 %}
 {%
 set sidebar_classes = [
-'class-sidebar',
+  'class-sidebar',
 ]
 %}
 

@@ -39,7 +39,7 @@ function openy_node_class_update_8001() {
 /**
  * Update class, adding header content, & bottom content.
  */
-function openy_node_lcass_update_8002() {
+function openy_node_class_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
   // Import new configuration
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
