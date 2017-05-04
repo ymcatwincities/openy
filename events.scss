@@ -1,4 +1,36 @@
 .paragraph--type--all-events  {
+
+  form {
+    background-color: $lighter-grey;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 15px 25px;
+    clear: both;
+    @include breakpoint(laptop) {
+      margin: 0 15px 50px;
+    }
+
+    .form-item-field-event-date-range, .form-item-field-event-date-range-1 {
+      float: left;
+      padding-right: 35px;
+      width: 160px;
+    }
+
+    .form-item-search-api-fulltext {
+      position: absolute;
+      float: none;
+      right: 125px;
+      top: 37px;
+    }
+
+    .form-actions {
+      position: absolute;
+      right: 35px;
+      top: 37px;
+    }
+  }
+
   .views-row {
     clear: both;
     margin-bottom: 50px;
