@@ -47,11 +47,13 @@ function openy_node_class_update_8002() {
   $config_importer->importConfigs([
     'field.field.node.class.field_bottom_content',
     'field.field.node.class.field_header_content',
+    'field.field.node.class.field_meta_tags',
   ]);
 
   $configs = [
     'core.entity_form_display.node.class.default' => [
       'dependencies.config',
+      'dependencies.module',
       'third_party_settings.field_group.group_content_area.weight',
       'third_party_settings.field_group.group_sidebar_area.weight',
       'third_party_settings.field_group.group_header_area',
@@ -63,8 +65,7 @@ function openy_node_class_update_8002() {
       'content.field_class_description.region',
       'content.field_content.region',
       'content.field_header_content',
-      'content.field_meta_tags.weight',
-      'content.field_meta_tags.region',
+      'content.field_meta_tags',
       'content.field_sidebar_content.region',
       'content.path.weight',
       'content.path.region',
@@ -78,6 +79,7 @@ function openy_node_class_update_8002() {
     ],
     'core.entity_view_display.node.class.default' => [
       'dependencies.config',
+      'dependencies.module',
       'content.field_bottom_content',
       'content.field_class_activity.weight',
       'content.field_class_activity.label',
@@ -89,9 +91,7 @@ function openy_node_class_update_8002() {
       'content.field_content.label',
       'content.field_content.region',
       'content.field_header_content',
-      'content.field_meta_tags.weight',
-      'content.field_meta_tags.label',
-      'content.field_meta_tags.region',
+      'content.field_meta_tags',
       'content.field_sidebar_content.weight',
       'content.field_sidebar_content.label',
       'content.field_sidebar_content.region',
