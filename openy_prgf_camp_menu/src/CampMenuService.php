@@ -42,30 +42,29 @@ class CampMenuService implements CampMenuServiceInterface {
    *
    * @var \Drupal\Core\Entity\Query\QueryFactory
    */
-  protected $query_factory;
+  protected $queryFactory;
 
   /**
    * Constructs a new CampMenuService.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity manager.
-   *
    * @param \Drupal\Core\Database\Connection $connection
    *   The database connection.
-   *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory service.
+   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
+   *   Entity query object.
    */
   public function __construct(
     EntityTypeManagerInterface $entity_type_manager,
     Connection $connection,
     ConfigFactoryInterface $config_factory,
-    QueryFactory $query_factory)
-  {
+    QueryFactory $query_factory) {
     $this->entityTypeManager = $entity_type_manager;
     $this->connection = $connection;
     $this->config = $config_factory->get('system.site');
-    $this->query_factory = $query_factory;
+    $this->queryFactory = $query_factory;
   }
 
   /**
@@ -99,6 +98,7 @@ class CampMenuService implements CampMenuServiceInterface {
       case 'camp':
         $camp = $node;
         break;
+
       case 'landing':
         $camp = $this->getLandingPageCampNode($node);
         break;
@@ -181,7 +181,7 @@ class CampMenuService implements CampMenuServiceInterface {
       // If the front is set to this node directly.
       $is_front = ($front == $system_path) ? TRUE : $is_front;
       // Query 1 Camp nodes that link to this landing page.
-      $query = $this->query_factory->get('node');
+      $query = $this->queryFactory->get('node');
       $group = $query->orConditionGroup()
         ->condition('field_camp_menu_links', 'entity:node/' . $node->id())
         ->condition('field_camp_menu_links', 'internal:' . $system_path);
