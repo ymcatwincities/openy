@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a0ab3cf2b4a9c5124b3673676b84951f",
-    "content-hash": "73f35be1530fffae59cd48b64331d9e4",
+    "hash": "18465718ac5ccf13916f155e7b451009",
+    "content-hash": "1a8a4a1804928f8b29206f5828239e1b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2266,7 +2266,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_entity",
-                "reference": "dedbf05be1dce43cb556bf1dfd458bf6fb57c39d"
+                "reference": "807c558cf6932808b720c064e22aad0fde94d829"
             },
             "require": {
                 "drupal/core": "*",
@@ -2282,8 +2282,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.6+9-dev",
-                    "datestamp": "1490758686"
+                    "version": "8.x-1.6+10-dev",
+                    "datestamp": "1490797684"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2345,7 +2345,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/media_entity"
             },
-            "time": "2017-03-29 14:21:25"
+            "time": "2017-05-03 17:50:35"
         },
         {
             "name": "drupal/media_entity_document",
@@ -2793,7 +2793,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/plugin-8.x-2.4.zip",
-                "reference": null,
+                "reference": "8.x-2.4",
                 "shasum": "376a3b842ff29d7e366559237736bd2b71b27c40"
             },
             "require": {
