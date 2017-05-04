@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.all_events.field_prgf_events_view
     - paragraphs.paragraphs_type.all_events
-    - views.view.events
+    - views.view.events_default
   module:
     - views_field_formatter
 id: paragraph.all_events.default
@@ -16,7 +16,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      view: 'events::default'
+      view: 'events_default::default'
       arguments:
         field_value:
           weight: '0'
