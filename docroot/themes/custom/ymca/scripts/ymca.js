@@ -319,4 +319,24 @@
     }
   };
 
+  /**
+   * Masthead Menu Activation behavior.
+   */
+  Drupal.behaviors.independentHeader = {
+    attach: function (context, settings) {
+      $('.independent-header #masthead-menu li.dropdown a')
+        .addClass('link')
+        .removeClass('dropdown-toggle')
+        .removeAttr('data-toggle')
+        .find('b')
+        .remove()
+        .parent('li')
+        .removeClass('nav-level-2')
+        .removeClass('dropdown');
+      $('.independent-header #masthead-menu a').on('click', function() {
+        parent.location.href = $(this).attr('href');
+      });
+    }
+  };
+
 })(jQuery);
