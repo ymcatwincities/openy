@@ -65,3 +65,19 @@
     }
   }
 }
+
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+
+  &:before,
+  &:after {
+    content: none;
+  }
+}
