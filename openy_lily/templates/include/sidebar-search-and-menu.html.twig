@@ -5,23 +5,15 @@
  */
 #}
 
-<div id="sidebar" class="sidebar sidebar-left collapse width">
+<div id="search-box" class="hidden-xs">
   <form method="get" action="{{ search_view_content_path }}">
     <div class="form-group col-xs-12">
       <div class="input-group">
         <input type="text" name="q" class="form-control">
         <span class="input-group-btn">
-          <button class="btn btn-info" type="submit">{{ "Search"|t }}</button>
+          <button class="btn btn-info" type="submit">{{ "SEARCH THE Y"|t }}</button>
         </span>
       </div>
     </div>
   </form>
-
-  {% if not hide_mobile_sign_button %}
-    <div class="col-xs-12">
-      <a class="btn btn-block btn-default" href="http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337">{{ "Sign In"|t }}</a>
-    </div>
-  {% endif %}
-
-  <ul id="sidebar-nav" class="nav-level-0 nav in"></ul>
 </div>

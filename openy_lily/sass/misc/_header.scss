@@ -7,6 +7,7 @@ body {
 }
 
 header {
+  @include transition(all 0.2s linear);
   @include clearfix;
   position: fixed;
   top: 0;
@@ -98,5 +99,8 @@ header {
         }
       }
     }
+  }
+  &.expanded-search {
+    top: 88px;
   }
 }

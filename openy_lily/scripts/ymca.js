@@ -344,4 +344,18 @@
     }
   };
 
+  /**
+   * Search toggle.
+   */
+  Drupal.behaviors.searchToggle = {
+    attach: function (context, settings) {
+      $(".search-toggle", context).each(function () {
+        $(this).on('click', function (event) {
+          $('#search-box').toggleClass('expanded-search');
+          $('#page-head').toggleClass('expanded-search');
+        });
+      });
+    }
+  };
+
 })(jQuery);
