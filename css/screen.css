@@ -7754,6 +7754,9 @@ body {
   .node--type-landing .content-sidebar-region {
     margin-top: 25px; } }
 
+.field-sb-body a {
+  display: initial; }
+
 article .node--view-mode-flexible-content h2 {
   margin-top: 20px;
   margin-bottom: 10px; }
