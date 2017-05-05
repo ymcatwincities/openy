@@ -29,6 +29,8 @@ body.path-search {
   top: 0;
   background: $grey24;
   padding: 20px 100px;
+  @include transition(opacity 0.1s linear);
+  opacity: 0;
   input {
     padding: 12px 20px;
     height: 48px;
@@ -56,6 +58,9 @@ body.path-search {
     font-family: 'Cachet',Helvetica,Arial,sans-serif;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+  }
+  &.expanded-search {
+    opacity: 1;
   }
 }
 

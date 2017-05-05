@@ -469,6 +469,12 @@ body.path-search #block-mainpagecontent li {
   top: 0;
   background: #dbdbdb;
   padding: 20px 100px;
+  -webkit-transition: opacity 0.1s linear;
+  -moz-transition: opacity 0.1s linear;
+  -ms-transition: opacity 0.1s linear;
+  -o-transition: opacity 0.1s linear;
+  transition: opacity 0.1s linear;
+  opacity: 0;
 }
 #search-box input {
   padding: 12px 20px;
@@ -496,6 +502,9 @@ body.path-search #block-mainpagecontent li {
   font-family: 'Cachet',Helvetica,Arial,sans-serif;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+#search-box.expanded-search {
+  opacity: 1;
 }
 
 .search-toggle {
