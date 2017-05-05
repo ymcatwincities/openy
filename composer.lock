@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "18465718ac5ccf13916f155e7b451009",
-    "content-hash": "1a8a4a1804928f8b29206f5828239e1b",
+    "hash": "3fa32a02420eb6b753521852f1fbb306",
+    "content-hash": "56febd3802cea448e9fc308ae9fd0795",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1134,16 +1134,16 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.3.1",
+            "version": "8.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "53326f9503e5e9e406fab22e4fbae6ddb706f7be"
+                "reference": "82c432cfe728458538d4826c9c4be57dcf35443b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drupal/core/zipball/53326f9503e5e9e406fab22e4fbae6ddb706f7be",
-                "reference": "53326f9503e5e9e406fab22e4fbae6ddb706f7be",
+                "url": "https://api.github.com/repos/drupal/core/zipball/82c432cfe728458538d4826c9c4be57dcf35443b",
+                "reference": "82c432cfe728458538d4826c9c4be57dcf35443b",
                 "shasum": ""
             },
             "require": {
@@ -1176,6 +1176,9 @@
                 "twig/twig": "^1.23.1",
                 "zendframework/zend-diactoros": "~1.1",
                 "zendframework/zend-feed": "~2.4"
+            },
+            "conflict": {
+                "drush/drush": "<8.1.10"
             },
             "replace": {
                 "drupal/action": "self.version",
@@ -1312,7 +1315,7 @@
                 "GPL-2.0+"
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
-            "time": "2017-04-19 16:07:22"
+            "time": "2017-05-03 17:12:42"
         },
         {
             "name": "drupal/ctools",
