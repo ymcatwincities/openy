@@ -1,10 +1,22 @@
-#group-ex-results {
-  .col-xs-12 {
+#group-ex-results,
+.groupex-results {
+  .col-xs-12,
+  .cards-wrapper {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
+  }
+  .caption {
+    @include cachet();
+    letter-spacing: -0.8px;
+    color: $purple;
+    font-size: 30px;
+    margin-bottom: 15px;
+    a {
+      color: $purple;
+    }
   }
   .card-wrapper {
     padding-bottom: 100px;
