@@ -8,9 +8,23 @@
   }
   .card-wrapper {
     padding-bottom: 100px;
-    width: 32%;
+    width: 49%;
+    @include breakpoint(tablet) {
+      width: 32%;
+    }
     &:nth-child(3n+2) {
-      margin: 0 2%;
+      margin: 0;
+      @include breakpoint(tablet) {
+        margin: 0 2%;
+      }
+    }
+    @include breakpoint(mobileonly) {
+      &:nth-child(odd) {
+        margin-right: 1%;
+      }
+    }
+    &:nth-child(even) {
+      margin-left: 1%;
     }
   }
   .time {
