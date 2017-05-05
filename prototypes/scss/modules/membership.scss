@@ -98,10 +98,15 @@
       @include cachet();
       font-size: 28px;
       letter-spacing: -1px;
-      color: $purple;
       margin: 0 0 15px;
       @include breakpoint(tablet) {
         font-size: 36px;
+      }
+      a {
+        color: $purple;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
     p {
