@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-id: openy_demo_lp_paragraph_schedule_search
+id: openy_demo_lp_paragraph_schedule_search_form
 migration_tags: {  }
 migration_group: openy_demo_nlanding
 label: 'Create Schedule search paragraph(s) for demo landing page nodes'
@@ -13,7 +13,7 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: schedule_search
+      id: schedule_search_form
       parent_id: schedules
   ids:
     id:
@@ -43,4 +43,4 @@ process:
     default_value: field_content
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: schedule_search
+  default_bundle: schedule_search_form
