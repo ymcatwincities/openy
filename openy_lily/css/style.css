@@ -468,13 +468,15 @@ body.path-search #block-mainpagecontent li {
   position: fixed;
   top: 0;
   background: #dbdbdb;
-  padding: 20px 100px;
-  -webkit-transition: opacity 0.1s linear;
-  -moz-transition: opacity 0.1s linear;
-  -ms-transition: opacity 0.1s linear;
-  -o-transition: opacity 0.1s linear;
-  transition: opacity 0.1s linear;
-  opacity: 0;
+  padding: 0 100px;
+  z-index: 100;
+  max-height: 0;
+  height: auto;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 #search-box input {
   padding: 12px 20px;
@@ -504,7 +506,8 @@ body.path-search #block-mainpagecontent li {
   border-bottom-left-radius: 0;
 }
 #search-box.expanded-search {
-  opacity: 1;
+  max-height: 88px;
+  padding: 20px 100px;
 }
 
 .search-toggle {
