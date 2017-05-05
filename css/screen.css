@@ -6608,6 +6608,9 @@ body {
 .content-main-region .embedded-entity figcaption {
   text-align: right; }
 
+.content-main-region .field-sb-body a {
+  display: initial; }
+
 .node__content .node--view-mode-flexible-content h2 a {
   color: #5c2e91; }
   .node__content .node--view-mode-flexible-content h2 a:hover {
@@ -7753,9 +7756,6 @@ body {
 @media (min-width: 768px) {
   .node--type-landing .content-sidebar-region {
     margin-top: 25px; } }
-
-.field-sb-body a {
-  display: initial; }
 
 article .node--view-mode-flexible-content h2 {
   margin-top: 20px;
