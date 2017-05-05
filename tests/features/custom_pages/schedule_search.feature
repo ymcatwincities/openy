@@ -38,13 +38,16 @@ Feature: Schedule search
       | field_session_class    | behat_class     |
       | field_session_location | behat_branch    |
       | field_session_time     | session_time_01 |
-    Then I create paragraph of type schedule_search:
-      | KEY             |
-      | schedule_search |
+    Then I create paragraph of type schedule_search_form:
+      | KEY                  |
+      | schedule_search_form |
+    Then I create paragraph of type schedule_search_list:
+      | KEY                  |
+      | schedule_search_list |
     And I create large landing_page content:
-      | KEY           | behat_schedule  |
-      | title         | BEHAT Schedule  |
-      | field_content | schedule_search |
+      | KEY           | behat_schedule                             |
+      | title         | BEHAT Schedule                             |
+      | field_content | schedule_search_form, schedule_search_list |
 
   Scenario:
     Given I go to "/behat-schedule?date=04/20/2037"

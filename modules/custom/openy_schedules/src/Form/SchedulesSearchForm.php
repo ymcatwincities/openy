@@ -290,6 +290,239 @@ class SchedulesSearchForm extends FormBase {
   }
 
   /**
+   * Build form element options.
+   *
+   * @param \stdClass $options
+   */
+  private function buildFormElementOptions(\stdClass &$options) {
+    $options->locationOptions = $this->getLocationOptions();
+    $options->programOptions = $this->getProgramOptions();
+    $options->categoryOptions = $this->getCategoryOptions();
+    $options->classOptions = $this->getClassOptions();
+    $options->timeOptions = $this->getTimeOptions();
+  }
+
+  /**
+   * Add form elements.
+   *
+   * @param array $form
+   * @param array $values
+   * @param \stdClass $options
+   */
+  private function addFormElements(array &$form, array $values, \stdClass &$options) {
+    // Vary on the listed query args.
+    $form['#cache'] = [
+      'max-age' => 0,
+      'contexts' => [
+        'url.query_args:location',
+        'url.query_args:program',
+        'url.query_args:category',
+        'url.query_args:date',
+        'url.query_args:time',
+      ],
+    ];
+
+    $form['#attached'] = [
+      'library' => [
+        'openy_schedules/openy_schedules',
+      ],
+    ];
+
+    $form['filter_controls'] = [
+      '#markup' => '
+          <div class="container controls-wrapper hidden-sm hidden-md hidden-lg">
+          <a href="#" class="btn btn-link transparent-blue add-filters">' . $this->t('Add filters') . '</a>
+          <a href="#" class="btn btn-link transparent-blue close-filters hidden">' . $this->t('Close filters') . '</a>
+          </div>',
+    ];
+
+    $form['selects'] = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => [
+          'container',
+          'selects-container',
+          'hidden-xs',
+        ],
+      ],
+    ];
+
+    $form['selects']['location'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Location'),
+      '#options' => $options->locationOptions,
+      '#prefix' => '<hr/>',
+      '#default_value' => isset($values['location']) ? $values['location'] : '',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'schedules-search-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+    ];
+
+    $form['selects']['program'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Program'),
+      '#options' => $options->programOptions,
+      '#default_value' => isset($values['program']) ? $values['program'] : 'all',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'schedules-search-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+    ];
+
+    $form['selects']['category'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Sub-Program'),
+      '#options' => $options->categoryOptions,
+      '#default_value' => isset($values['category']) ? $values['category'] : 'all',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'schedules-search-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+    ];
+
+    $form['selects']['class'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Class'),
+      '#options' => $options->classOptions,
+      '#default_value' => isset($values['class']) ? $values['class'] : 'all',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'schedules-search-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+    ];
+
+    $form['selects']['date'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Date'),
+      '#default_value' => isset($values['date']) ? $values['date'] : '',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'schedules-search-form-wrapper',
+        'event' => 'keyup',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+    ];
+
+    $form['selects']['time'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Start Time:'),
+      '#options' => $options->timeOptions,
+      '#default_value' => isset($values['time']) ? $values['time'] : 'all',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'schedules-search-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+    ];
+
+    if ($values['class'] !== 'all') {
+      $form['selects']['time']['#attributes']['readonly'] = TRUE;
+    }
+
+    $form['selects']['button'] = [
+      '#type' => 'button',
+      '#prefix' => '<div class="actions-wrapper hidden-xs hidden-sm hidden-md hidden-lg">',
+      '#suffix' => '</div>',
+      '#attributes' => [
+        'class' => [
+          'btn',
+          'blue',
+        ]
+      ],
+      '#value' => $this->t('Apply filters'),
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'method' => 'replace',
+        'event' => 'click',
+      ],
+    ];
+
+    $form['filters'] = [
+      '#type' => 'container',
+      '#prefix' => '<div class="filters-main-wrapper hidden-sm"><div class="container filters-container">',
+      '#suffix' => '</div></div>',
+      '#attributes' => [
+        'class' => [
+          'container',
+          'filters-container',
+        ],
+      ],
+      '#markup' => '',
+      '#weight' => 99,
+      'filters' => self::buildFilters($values),
+    ];
+
+    $form['alerts'] = [
+      views_embed_view('header_alerts', 'specific_alerts_block', $values['location']),
+    ];
+    $form['alerts']['#prefix'] = '<div class="alerts-wrapper cleafix"><div class="container"><div class="row"><div class="col-xs-12">';
+    $form['alerts']['#suffix'] = '</div></div></div></div>';
+    $form['alerts']['#weight'] = 100;
+  }
+
+  /**
+   * Update form user input.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   * @param \stdClass $options
+   */
+  protected function updateUserInput(FormStateInterface &$form_state, array $values, \stdClass $options) {
+    $user_input = $form_state->getUserInput();
+
+    if (!empty($user_input['location'])) {
+      $user_input['location'] = isset($options->locationOptions['branches'][$values['location']]) || isset($options->locationOptions['camps'][$values['location']]) ? $values['location'] : '';
+    }
+    if (!empty($user_input['program'])) {
+      $user_input['program'] = isset($options->programOptions[$values['program']]) ? $values['program'] : 'all';
+    }
+    if (!empty($user_input['category'])) {
+      $user_input['category'] = isset($options->categoryOptions[$values['category']]) ? $values['category'] : 'all';
+    }
+    if (!empty($user_input['class'])) {
+      $user_input['class'] = isset($options->classOptions[$values['class']]) ? $values['class'] : 'all';
+    }
+    if (!empty($user_input['time'])) {
+      $user_input['time'] = isset($options->timeOptions[$values['time']]) ? $values['time'] : 'all';
+    }
+
+    $form_state->setUserInput($user_input);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
@@ -313,227 +546,47 @@ class SchedulesSearchForm extends FormBase {
 
       $values = $form_state->getValues();
 
-      // Vary on the listed query args.
-      $form['#cache'] = [
-        'max-age' => 0,
-        'contexts' => [
-          'url.query_args:location',
-          'url.query_args:program',
-          'url.query_args:category',
-          'url.query_args:date',
-          'url.query_args:time',
-        ],
-      ];
-
-      $form['#attached'] = [
-        'library' => [
-          'openy_schedules/openy_schedules',
-        ],
-      ];
-
-      $form['filter_controls'] = [
-        '#markup' => '
-          <div class="container controls-wrapper hidden-sm hidden-md hidden-lg">
-          <a href="#" class="btn btn-link transparent-blue add-filters">' . $this->t('Add filters') . '</a>
-          <a href="#" class="btn btn-link transparent-blue close-filters hidden">' . $this->t('Close filters') . '</a>
-          </div>',
-      ];
-
-      $form['selects'] = [
-        '#type' => 'container',
-        '#attributes' => [
-          'class' => [
-            'container',
-            'selects-container',
-            'hidden-xs',
-          ],
-        ],
-      ];
-
-      $locationOptions = $this->getLocationOptions();
-      $form['selects']['location'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Location'),
-        '#options' => $locationOptions,
-        '#prefix' => '<hr/>',
-        '#default_value' => isset($values['location']) ? $values['location'] : '',
-        '#ajax' => [
-          'callback' => [$this, 'rebuildAjaxCallback'],
-          'wrapper' => 'schedules-search-form-wrapper',
-          'event' => 'change',
-          'method' => 'replace',
-          'effect' => 'fade',
-          'progress' => [
-            'type' => 'throbber',
-          ],
-        ],
-      ];
-
-      $programOptions = $this->getProgramOptions();
-      $form['selects']['program'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Program'),
-        '#options' => $programOptions,
-        '#default_value' => isset($values['program']) ? $values['program'] : 'all',
-        '#ajax' => [
-          'callback' => [$this, 'rebuildAjaxCallback'],
-          'wrapper' => 'schedules-search-form-wrapper',
-          'event' => 'change',
-          'method' => 'replace',
-          'effect' => 'fade',
-          'progress' => [
-            'type' => 'throbber',
-          ],
-        ],
-      ];
-
-      $categoryOptions = $this->getCategoryOptions();
-      $form['selects']['category'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Sub-Program'),
-        '#options' => $categoryOptions,
-        '#default_value' => isset($values['category']) ? $values['category'] : 'all',
-        '#ajax' => [
-          'callback' => [$this, 'rebuildAjaxCallback'],
-          'wrapper' => 'schedules-search-form-wrapper',
-          'event' => 'change',
-          'method' => 'replace',
-          'effect' => 'fade',
-          'progress' => [
-            'type' => 'throbber',
-          ],
-        ],
-      ];
-
-      $classOptions = $this->getClassOptions();
-      $form['selects']['class'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Class'),
-        '#options' => $classOptions,
-        '#default_value' => isset($values['class']) ? $values['class'] : 'all',
-        '#ajax' => [
-          'callback' => [$this, 'rebuildAjaxCallback'],
-          'wrapper' => 'schedules-search-form-wrapper',
-          'event' => 'change',
-          'method' => 'replace',
-          'effect' => 'fade',
-          'progress' => [
-            'type' => 'throbber',
-          ],
-        ],
-      ];
-
-      $form['selects']['date'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Date'),
-        '#default_value' => isset($values['date']) ? $values['date'] : '',
-        '#ajax' => [
-          'callback' => [$this, 'rebuildAjaxCallback'],
-          'wrapper' => 'schedules-search-form-wrapper',
-          'event' => 'keyup',
-          'method' => 'replace',
-          'effect' => 'fade',
-          'progress' => [
-            'type' => 'throbber',
-          ],
-        ],
-      ];
-
-      $timeOptions = $this->getTimeOptions();
-      $form['selects']['time'] = [
-        '#type' => 'select',
-        '#title' => $this->t('Start Time:'),
-        '#options' => $timeOptions,
-        '#default_value' => isset($values['time']) ? $values['time'] : 'all',
-        '#ajax' => [
-          'callback' => [$this, 'rebuildAjaxCallback'],
-          'wrapper' => 'schedules-search-form-wrapper',
-          'event' => 'change',
-          'method' => 'replace',
-          'effect' => 'fade',
-          'progress' => [
-            'type' => 'throbber',
-          ],
-        ],
-      ];
-
-      if ($values['class'] !== 'all') {
-        $form['selects']['time']['#attributes']['readonly'] = TRUE;
+      if (!empty($form_state->getBuildInfo()['args'][1])) {
+        $render_flag = $form_state->getBuildInfo()['args'][1];
+      }
+      else {
+        $render_flag = 'full';
       }
 
-      $form['selects']['button'] = [
-        '#type' => 'button',
-        '#prefix' => '<div class="actions-wrapper hidden-xs hidden-sm hidden-md hidden-lg">',
-        '#suffix' => '</div>',
-        '#attributes' => [
-          'class' => [
-            'btn',
-            'blue',
-          ]
-        ],
-        '#value' => $this->t('Apply filters'),
-        '#ajax' => [
-          'callback' => [$this, 'rebuildAjaxCallback'],
-          'method' => 'replace',
-          'event' => 'click',
-        ],
-      ];
+      $options = new \stdClass();
+      $this->buildFormElementOptions($options);
 
-      $form['filters'] = [
-        '#type' => 'container',
-        '#prefix' => '<div class="filters-main-wrapper hidden-sm"><div class="container filters-container">',
-        '#suffix' => '</div></div>',
-        '#attributes' => [
-          'class' => [
-            'container',
-            'filters-container',
-          ],
-        ],
-        '#markup' => '',
-        '#weight' => 99,
-        'filters' => self::buildFilters($values),
-      ];
+      if ($render_flag == 'full' || $render_flag == 'form') {
+        $this->addFormElements($form, $values, $options);
+        $this->updateUserInput($form_state, $values, $options);
+        $form['#prefix'] = '<div id="schedules-search-form-wrapper">';
+        $form['#suffix'] = '</div>';
+      }
 
-      $form['alerts'] = [
-        views_embed_view('header_alerts', 'specific_alerts_block', $values['location']),
-      ];
-      $form['alerts']['#prefix'] = '<div class="alerts-wrapper cleafix"><div class="container"><div class="row"><div class="col-xs-12">';
-      $form['alerts']['#suffix'] = '</div></div></div></div>';
-      $form['alerts']['#weight'] = 100;
-
-      $user_input = $form_state->getUserInput();
-      if (!empty($user_input['location'])) {
-        $user_input['location'] = isset($locationOptions['branches'][$values['location']]) || isset($locationOptions['camps'][$values['location']]) ? $values['location'] : '';
-      }
-      if (!empty($user_input['program'])) {
-        $user_input['program'] = isset($programOptions[$values['program']]) ? $values['program'] : 'all';
-      }
-      if (!empty($user_input['category'])) {
-        $user_input['category'] = isset($categoryOptions[$values['category']]) ? $values['category'] : 'all';
-      }
-      if (!empty($user_input['class'])) {
-        $user_input['class'] = isset($classOptions[$values['class']]) ? $values['class'] : 'all';
-      }
-      if (!empty($user_input['time'])) {
-        $user_input['time'] = isset($timeOptions[$values['time']]) ? $values['time'] : 'all';
-      }
-      $form_state->setUserInput($user_input);
-
-      $formatted_results = '';
-      $branch_hours = '';
-      if (!$form_state->getTriggeringElement()) {
+      if (!$form_state->getTriggeringElement() && ($render_flag == 'full' || $render_flag == 'list')) {
+        $rendered_results = '';
+        $formatted_results = '';
+        $branch_hours = '';
         $renderer = \Drupal::service('renderer');
         $branch_hours = self::buildBranchHours($values);
         $branch_hours = $renderer->renderRoot($branch_hours);
         $formatted_results = self::buildResults($values);
         $formatted_results = $renderer->renderRoot($formatted_results);
-      }
+        // TODO: replace with render arrays.
+        $rendered_results = '
+        <div id="schedules-search-listing-wrapper">
+          <div class="branch-hours-wrapper clearfix">' . $branch_hours . '</div>
+          <div class="results clearfix">' . $formatted_results . '</div>
+        </div>
+        ';
 
-      // TODO: replace with render arrays.
-      $form['#prefix'] = '<div id="schedules-search-form-wrapper">';
-      $form['#suffix'] = '<div class="branch-hours-wrapper clearfix">' . $branch_hours . '</div>
-        <div class="results clearfix">' . $formatted_results . '</div>
-      </div>';
+        if ($render_flag == 'list') {
+          $form['#suffix'] = $rendered_results;
+        }
+        else {
+          $form['#suffix'] = $form['#suffix'] . $rendered_results;
+        }
+      }
     }
     catch (Exception $e) {
       $this->logger->error('Failed to build the form. Message: %msg', ['%msg' => $e->getMessage()]);
@@ -833,9 +886,9 @@ class SchedulesSearchForm extends FormBase {
     $branch_hours = self::buildBranchHours($parameters);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper #edit-selects', $form['selects']));
-    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .results', $formatted_results));
+    $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .filters-container', $filters));
-    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .alerts-wrapper', $alerts));
+    $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .alerts-wrapper', $alerts));
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .branch-hours-wrapper', $branch_hours));
     $response->addCommand(new InvokeCommand(NULL, 'schedulesAjaxAction', [$parameters]));
     $form_state->setRebuild();
