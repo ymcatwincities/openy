@@ -13,4 +13,4 @@ dependencies:
   - openy_block_custom_simple
   - openy_block_flexible_content
   - paragraphs
-version: 8.x-1.1
+version: 8.x-1.2
