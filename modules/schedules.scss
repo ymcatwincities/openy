@@ -8,17 +8,17 @@
   }
   .card-wrapper {
     padding-bottom: 100px;
-    width: 49%;
-    @include breakpoint(tablet) {
-      width: 32%;
+    width: 32%;
+    @include breakpoint(mobileonly) {
+      width: 49%;
     }
     &:nth-child(3n+2) {
-      margin: 0;
-      @include breakpoint(tablet) {
-        margin: 0 2%;
-      }
+      margin: 0 2%;
     }
     @include breakpoint(mobileonly) {
+      &:nth-child(3n+2) {
+        margin: 0;
+      }
       &:nth-child(odd) {
         margin-right: 1%;
       }
