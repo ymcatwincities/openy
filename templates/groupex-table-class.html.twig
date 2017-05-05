@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Groupex class template.
+ *
+ * Available variables:
+ * - class: array of single class variables;
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="card-wrapper">
+  <div class="time">
+    <span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span>
+  </div>
+  <div class="card">
+    <h3><a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a></h3>
+    <p>{{ class.studio }}</p>
+    <div class="instructor">
+      <span class="fa fa-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
+    </div>
+  </div>
+</div>
