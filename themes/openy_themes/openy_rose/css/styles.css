@@ -2694,9 +2694,6 @@ body {
     font-size: 16px;
   }
 }
-.sub-category-classes-view .activity-group {
-  padding: 0;
-}
 .sub-category-classes-view .activity-group h3 {
   font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
   font-size: 30px;
@@ -2737,21 +2734,21 @@ body {
   color: #333333;
 }
 .sub-category-classes-view .activity-group .activity-group-slider {
-  margin: 0 0 60px;
+  margin: 0 0 45px;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 48em) {
   .sub-category-classes-view .activity-group .activity-group-slider {
-    margin: 0 0 95px;
+    margin: 0 35px 55px 0;
   }
 }
-@media (min-width: 0) and (max-width: 48em) {
-  .sub-category-classes-view .activity-group .activity-group-slider .slick-dots {
-    bottom: -80px;
+@media (min-width: 81.25em) {
+  .sub-category-classes-view .activity-group .activity-group-slider {
+    margin-right: 0;
   }
 }
 .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity {
-  padding: 20px;
-  margin: 0 20px;
+  padding: 15px;
+  margin: 0 15px;
   height: auto;
   border: 1px solid #c6168d;
 }
