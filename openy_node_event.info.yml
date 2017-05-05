@@ -41,4 +41,4 @@ dependencies:
   - veoa
   - views
   - ygh_paragraphs
-version: 8.x-1.9
+version: 8.x-1.10

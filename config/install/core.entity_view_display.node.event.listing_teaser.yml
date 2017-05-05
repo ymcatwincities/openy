@@ -16,7 +16,7 @@ dependencies:
     - field.field.node.event.rng_status
     - node.type.event
   module:
-    - datetime
+    - datetime_range
     - user
     - ygh_paragraphs
 id: node.event.listing_teaser
@@ -32,9 +32,18 @@ content:
       timezone_override: ''
       date_format: 'F jS g:i a'
     third_party_settings: {  }
+  field_event_date_range:
+    type: daterange_custom
+    weight: 0
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: 'F jS, Y'
+      separator: '-'
+    third_party_settings: {  }
   field_landing_body:
     type: ygh_paragraphs_preview_formatter
-    weight: 0
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
