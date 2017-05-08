@@ -50,7 +50,7 @@
         <p class="red">{{ "Warning: duplicate employee ID conflict in MINDBODY. Employee ID listed in MINDBODY matches the following users:"|t }}</p>
         {% for key, row in data.messages %}
             <p class="red">
-                {{ row.name }} - StaffID: {{ key }} - Employee ID:
+                {{ row.name }} - StaffID: {{ key }} - Employee IDs:
                 {% for eid, eid_val in row.empids %}
                 <a href="https://clients.mindbodyonline.com/asp/adm/adm_trn_e.asp?trnID={{ eid_val }}"> {{ eid_val }}</a>
                 {% endfor %}
