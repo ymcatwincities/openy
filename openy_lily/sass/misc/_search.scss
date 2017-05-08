@@ -65,6 +65,9 @@ body.path-search {
     max-height: 88px;
     padding: 20px 100px;
   }
+  .toolbar-fixed & {
+    top: 39px;
+  }
 }
 
 .search-toggle {

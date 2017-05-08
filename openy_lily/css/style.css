@@ -509,6 +509,9 @@ body.path-search #block-mainpagecontent li {
   max-height: 88px;
   padding: 20px 100px;
 }
+.toolbar-fixed #search-box {
+  top: 39px;
+}
 
 .search-toggle {
   margin: 0 0 0 5px;
