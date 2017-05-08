@@ -24,6 +24,7 @@ content:
     weight: 10
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_alert_belongs:
     weight: 38
     settings:
@@ -32,11 +33,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_alert_color:
     weight: 33
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_alert_description:
     weight: 32
     settings:
@@ -44,11 +47,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_alert_icon_color:
     weight: 35
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_alert_link:
     weight: 37
     settings:
@@ -56,33 +61,39 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_alert_place:
     weight: 36
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_alert_text_color:
     weight: 34
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   path:
     type: path
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 15
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 16
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: -5
@@ -90,6 +101,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -98,4 +110,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }
