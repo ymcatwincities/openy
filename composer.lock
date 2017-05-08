@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3fa32a02420eb6b753521852f1fbb306",
-    "content-hash": "56febd3802cea448e9fc308ae9fd0795",
+    "hash": "b316515fb2e299020088716a109077ae",
+    "content-hash": "95cf4e9552118f38b73cfdfd14f6f150",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2070,7 +2070,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/google_tag",
-                "reference": "aa84353dd6ff1646f501de6290bddbec66b318a1"
+                "reference": "719fbc6672198d9796a133f2b4f9b7a9622d12f5"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2082,7 +2082,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1484017086"
+                    "datestamp": "1487858883"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2100,7 +2100,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/google_tag"
             },
-            "time": "2017-02-23 14:04:43"
+            "time": "2017-05-07 00:57:39"
         },
         {
             "name": "drupal/inline_entity_form",
@@ -2356,11 +2356,11 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_entity_document",
-                "reference": "54e25b20cad13a0e11d97c856d28d3d117dde3d1"
+                "reference": "9c80efd06253615d89cce040a310c9fe6d8aa399"
             },
             "require": {
-                "drupal/core": "~8.1",
-                "drupal/media_entity": "~1.0 || ~8.1.0"
+                "drupal/core": "~8.0",
+                "drupal/media_entity": "*"
             },
             "type": "drupal-module",
             "extra": {
@@ -2368,8 +2368,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1+2-dev",
-                    "datestamp": "1483286041"
+                    "version": "8.x-1.1+3-dev",
+                    "datestamp": "1486027386"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2379,22 +2379,15 @@
             "authors": [
                 {
                     "name": "NerOcrO",
-                    "homepage": "https://www.drupal.org/user/1728164",
-                    "role": "Maintainer"
+                    "homepage": "https://www.drupal.org/user/1728164"
                 }
             ],
-            "description": "Local documents integration for Drupal Media entity.",
+            "description": "Media entity local documents provider.",
             "homepage": "https://www.drupal.org/project/media_entity_document",
-            "keywords": [
-                "Drupal",
-                "document",
-                "media"
-            ],
             "support": {
-                "source": "https://www.drupal.org/project/media_entity_document",
-                "issues": "https://www.drupal.org/project/issues/media_entity_document"
+                "source": "http://cgit.drupalcode.org/media_entity_document"
             },
-            "time": "2017-02-02 09:19:38"
+            "time": "2017-05-07 12:33:40"
         },
         {
             "name": "drupal/media_entity_image",
@@ -3274,7 +3267,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/views_block_filter_block",
-                "reference": "54df59b5a45c02e4a919986751672fd61efebb08"
+                "reference": "06b08442edc4006beeba9be732e4ebeeea05614c"
             },
             "require": {
                 "drupal/core": "*"
@@ -3286,10 +3279,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1471773239"
-                },
-                "patches_applied": {
-                    "2790505 - Empty exposed forms appeared in each view after installin module": "https://www.drupal.org/files/issues/empty_exposed_forms-2790505-10.patch"
+                    "datestamp": "1494251589"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3297,6 +3287,10 @@
                 "GPL-2.0+"
             ],
             "authors": [
+                {
+                    "name": "Yogesh Pawar",
+                    "homepage": "https://www.drupal.org/user/2922907"
+                },
                 {
                     "name": "iamEAP",
                     "homepage": "https://www.drupal.org/user/1467594"
@@ -3311,7 +3305,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/views_block_filter_block"
             },
-            "time": "2016-08-21 09:48:35"
+            "time": "2017-05-08 14:16:29"
         },
         {
             "name": "drupal/views_infinite_scroll",
