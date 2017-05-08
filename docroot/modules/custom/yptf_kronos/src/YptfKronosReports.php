@@ -190,36 +190,44 @@ class YptfKronosReports {
       foreach ($this->kronosData as $current_line => $item) {
         if ($item->job == self::KRONOS_TRAINING_ID) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
-          !$location_id && $location_reports[$item->locNo] = 'Location mapping missed.';
+          !$location_id && $location_reports[$item->locNo] = 'Location mapping missed. WF locNo: ' . $item->locNo;
           $location_reports[$location_id]['name'] = $item->locName;
           $empID = $this->getMindbodyidbyStaffId($item->empNo);
 
           if (!$empID) {
             if ($empID === 0) {
+              // MB server has failed.
               $empID = 'MindBody server down for: ' . $item->empNo;
             }
             else {
+              // No EmpID.
               $empID = 'No EmpID for: ' . $item->empNo;
             }
-
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . $empID;
             $this->staffIDs[$item->empNo] = $empID;
           }
-          elseif (!isset($trainer_reports[$location_id][$empID]['name'])) {
+          elseif (is_array($empID)) {
+            // Several EmpIDs.
+            foreach ($empID as $emp_item) {
+              $this->reports['messages']['multi_ids'][$location_id][$item->empNo]['empids'][] = $emp_item['EmpID'];
+              $this->reports['messages']['multi_ids'][$location_id][$item->empNo]['name'] = $item->lastName . ', ' . $item->firstName;
+            }
+          }
+          elseif (!is_array($empID) && !isset($trainer_reports[$location_id][$empID]['name'])) {
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName;
           }
 
           if (isset($item->totalHours)) {
-            !isset($trainer_reports[$location_id][$empID]['wf_hours']) && $trainer_reports[$location_id][$empID]['wf_hours'] = 0;
+            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) && $trainer_reports[$location_id][$empID]['wf_hours'] = 0;
             !isset($location_reports[$location_id]['wf_hours']) && $location_reports[$location_id]['wf_hours'] = 0;
           }
 
           if (isset($item->historical)) {
-            !isset($trainer_reports[$location_id][$empID]['historical_hours']) && $trainer_reports[$location_id][$empID]['historical_hours'] = 0;
+            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) && $trainer_reports[$location_id][$empID]['historical_hours'] = 0;
             !isset($location_reports[$location_id]['historical_hours']) && $location_reports[$location_id]['historical_hours'] = 0;
           }
-          $trainer_reports[$location_id][$empID]['wf_hours'] += $item->totalHours;
-          $trainer_reports[$location_id][$empID]['historical_hours'] += $item->historical;
+          !is_array($empID) && $trainer_reports[$location_id][$empID]['wf_hours'] += $item->totalHours;
+          !is_array($empID) && $trainer_reports[$location_id][$empID]['historical_hours'] += $item->historical;
           $location_reports[$location_id]['wf_hours'] += $item->totalHours;
           $location_reports[$location_id]['historical_hours'] += $item->historical;
 
@@ -270,9 +278,12 @@ class YptfKronosReports {
 
           $staff_id = $item->Staff->ID;
           $location_id = $item->Location->ID;
-          !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) && $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0;
-          $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
-          !empty($item->Staff->LastName) && $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName;
+
+          if (!isset($this->reports['messages']['multi_ids'][$location_id][$staff_id])) {
+            !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) && $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0;
+            $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
+            !empty($item->Staff->LastName) && $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName;
+          }
           !isset($location_reports[$location_id]['mb_hours']) && $location_reports[$location_id]['mb_hours'] = 0;
           $location_reports[$location_id]['mb_hours'] += $diff;
           !empty($item->Location->Name) && $location_reports[$location_id]['name'] = $item->Location->Name;
@@ -594,15 +605,8 @@ class YptfKronosReports {
         elseif ($parsed_data['ResultCount'] > 1) {
           $msg = 'Multiple Employee ID from MindBody. Staff ID: %params.';
           $this->logger->notice($msg, ['%params' => $staff_id]);
-          $parsed_data_first_id = reset($parsed_data['Results']['Row']);
-          if (isset($parsed_data_first_id['EmpID'])) {
-            $empID = $parsed_data_first_id['EmpID'];
-            $this->staffIDs[$staff_id] = $empID;
-            // Get MB cache for debug mode.
-            $debug_mode = $this->configFactory->get('yptf_kronos.settings')->get('debug');
-            if (!empty($debug_mode) && FALSE !== strpos($debug_mode, 'cache')) {
-              file_put_contents($file, json_encode($this->staffIDs));
-            }
+          if (isset($parsed_data['Results']['Row'])) {
+            $empID = $parsed_data['Results']['Row'];
             return $empID;
           }
         }
@@ -699,7 +703,7 @@ class YptfKronosReports {
    * @param string $type
    *   Email type.
    *
-   * @return bool|string
+   * @return array
    *   Rendered value.
    */
   public function createReportTable($location_id, $type = 'leadership') {
@@ -740,6 +744,13 @@ class YptfKronosReports {
         $data['summary']['name'] = t('BRANCH TOTAL');
 
         $location_name = $location->getName();
+
+        $data['messages'] = '';
+        if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
+          // @TODO: add admin email.
+          $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
+        }
+
         break;
 
       case "leadership":

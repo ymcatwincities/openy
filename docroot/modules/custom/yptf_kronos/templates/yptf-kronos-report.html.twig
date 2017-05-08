@@ -15,6 +15,7 @@
     .yptf-kr-table th{padding:10px 5px;border-style:solid;border-width:1px;border-color:#ffffff;overflow:hidden;word-break:normal;}
     .yptf-kr-table .yptf-kr-purple{background-color:#834cad;color:#ffffff;}
     .yptf-kr-table .yptf-kr-lp{background-color:#e7d7f3;}
+    .kronos-messages .red{color:#ff0000;}
 </style>
 <table class="yptf-kr-table">
     <tr>
@@ -44,3 +45,17 @@
         <td class="yptf-kr-lp"><strong>{{ data.summary.historical_hours }}</td>
     </tr>
 </table>
+<div class="kronos-messages">
+    {% if data.messages %}
+        <p class="red">{{ "Warning: duplicate employee ID conflict in MINDBODY. Employee ID listed in MINDBODY matches the following users:"|t }}</p>
+        {% for key, row in data.messages %}
+            <p class="red">
+                {{ row.name }} - StaffID: {{ key }} - Employee ID:
+                {% for eid, eid_val in row.empids %}
+                <a href="https://clients.mindbodyonline.com/asp/adm/adm_trn_e.asp?trnID={{ eid_val }}"> {{ eid_val }}</a>
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <p>{{ "To resolve, please check Kronos Workforce Central for accurate employee ID and update the 'Staff ID' field in MINDBODY. Contact to admin if you require assistance."|t }}</p>
+    {% endif %}
+</div>
