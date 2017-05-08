@@ -169,8 +169,53 @@ function openy_update_8011() {
 }
 
 /**
- * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
+ * Enable Metatag, Redirect and Simple Sitemap modules.
  */
 function openy_update_8012() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'metatag',
+    'redirect',
+    'simple_sitemap'
+  ]);
+
+  // Set the frontpage to be canonical url instead of alias. We expect node to be there.
+  $config_factory = Drupal::configFactory();
+  $url = $config_factory->getEditable('system.site')->get('page.front');
+
+  if (strpos($url, 'node/') !== FALSE) {
+    return;
+  }
+
+  $aliasStorage = \Drupal::service('path.alias_storage');
+  $alias = $aliasStorage->load(['alias' => $url]);
+
+  if (!empty($alias) && strpos($alias['source'], '/node/') !== FALSE) {
+    $config_factory->getEditable('system.site')->set('page.front', $alias['source'])->save();
+    $aliasStorage->delete(['alias' => $url]);
+  }
+}
+
+/**
+ * Enable the Header Footer Template module.
+ */
+function openy_update_8013() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_hf']);
+}
+
+/**
+ * Update WYSIWYG media buttons.
+ */
+function openy_update_8014() {
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
+
+/**
+ * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
+ */
+function openy_update_8015() {
   \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
 }
