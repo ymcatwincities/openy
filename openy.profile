@@ -22,6 +22,9 @@ function openy_install_tasks() {
     'openy_import_content' => [
       'type' => 'batch',
     ],
+    'openy_set_frontpage' => [
+      'type' => 'batch',
+    ],
     'openy_third_party_services' => [
       'display_name' => t('3rd party services'),
       'display' => TRUE,
@@ -169,6 +172,21 @@ function openy_import_content(array &$install_state) {
 
   // Combine operations module enable before of migrations.
   return ['operations' => array_merge($module_operations, $migrate_operations)];
+}
+
+/**
+ * Set the homepage whether from demo content or default one.
+ */
+function openy_set_frontpage(array &$install_state) {
+  // Set homepage by node id but checking it first by title only.
+  $query = \Drupal::entityQuery('node')
+    ->condition('status', 1)
+    ->condition('title', 'OpenY');
+  $nids = $query->execute();
+  $config_factory = Drupal::configFactory();
+  $config_factory->getEditable('system.site')->set('page.front', '/node/' . reset($nids))->save();
+
+  return ['operations' => []];
 }
 
 /**
