@@ -7,14 +7,16 @@
 <h3 align="center">
   Open YMCA
 </h3>
-
+<p align="center">
+  http://openymca.org
+</p>
 <p align="center">
   An open source platform for YMCAs, by YMCAs built on <a href="drupal.org">Drupal</a>.
 </p>
 
 <p align="center">
-  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
   <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/v/ymcatwincities/openy-project.svg?style=flat-square"></a>
+  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
 </p>
 
 ***
