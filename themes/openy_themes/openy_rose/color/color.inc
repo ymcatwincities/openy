@@ -41,7 +41,7 @@ $info = array(
   // Pre-defined color schemes.
   'schemes' => array(
     'default' => array(
-      'title' => t('Lochmara (default)'),
+      'title' => t('Blue sky (default)'),
       'colors' => array(
         'headerbg' => '#0089d0',
         'headerhover' => '#0060af',
@@ -75,7 +75,7 @@ $info = array(
       ),
     ),
     'endeavour' => array(
-      'title' => t('Endeavour'),
+      'title' => t('Endeavour Blue'),
       'colors' => array(
         'headerbg' => '#0060af',
         'headerhover' => '#3983c1',
