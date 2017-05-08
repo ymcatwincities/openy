@@ -317,4 +317,42 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     }
   }
 
+  /**
+   * @Given I fill in :arg1 with node path of :arg2
+   */
+  public function iFillInWithNodePathOf($field, $title)
+  {
+
+    $value = $this->getNodeIdByTitle($title);
+
+    if (!empty($field) && !empty($value)) {
+      $this->getSession()->getPage()->fillField($field, '/node/' . $value);
+    }
+    else {
+      $msg = 'Unable to fill ' . $field . ' with node path of "' . $title . '"';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Then the :arg1 field should contain node path of :arg2
+   */
+  public function theFieldShouldContainNodePathOf($field, $title)
+  {
+    $path = '/node/' . $this->getNodeIdByTitle($title);
+    $this->assertSession()
+      ->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+  }
+
+  /**
+   * Get node id by its title.
+   */
+  protected function getNodeIdByTitle($title) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('title', $title);
+    $nids = $query->execute();
+    return reset($nids);
+  }
+
 }
