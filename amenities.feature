@@ -4,8 +4,8 @@ Feature: Amenities page
   Background: Add background content as needed
     Given I create taxonomy_term of type amenities:
       | KEY           | name               |
-      | behat_amenity | Behat1             |
-      | behat_amenit2 | Behat2             |
+      | behat_amenity | Behat Amenity One  |
+      | behat_amenit2 | Behat Amenity Two  |
     Then I create large branch content:
       | title                               | ABRANCH 01      |
       | field_location_address:country_code | US              |
@@ -22,17 +22,14 @@ Feature: Amenities page
   Scenario: Test amenities page
     Given I am on "/amenities"
     And I should see "ABRANCH 01"
-    When I check the box "Behat"
-#    And I wait 60 seconds
+    When I check the box "Behat Amenity One"
     And I wait for AJAX to finish
     Then I should see "ABRANCH 01"
-    When I check the box "Behat1"
-    And I check the box "Behat2"
+    When I check the box "Behat Amenity One"
+    And I check the box "Behat Amenity Two"
     And I wait for AJAX to finish
-#    And I wait 60 seconds
     Then I should not see "ABRANCH 01"
-    When I uncheck the box "Behat1"
-    And I check the box "Behat2"
-#    And I wait 60 seconds
+    When I uncheck the box "Behat Amenity One"
+    And I check the box "Behat Amenity Two"
     And I wait for AJAX to finish
     Then I should not see "ABRANCH 01"
