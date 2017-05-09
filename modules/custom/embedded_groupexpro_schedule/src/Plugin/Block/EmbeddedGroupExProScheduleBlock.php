@@ -3,7 +3,7 @@
 namespace Drupal\embedded_groupexpro_schedule\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 
 /**
  * Provides a block with Embedded GroupEx Pro Schedule.
@@ -19,44 +19,19 @@ class EmbeddedGroupExProScheduleBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
-  public function blockForm($form, FormStateInterface $form_state) {
-    $form = parent::blockForm($form, $form_state);
-    $config = $this->getConfiguration();
-
-    $form['account'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Account'),
-      '#default_value' => isset($config['account']) ? $config['account'] : '',
-      '#required' => TRUE,
-    ];
-
-    return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function blockSubmit($form, FormStateInterface $form_state) {
-    $this->configuration['account'] = $form_state->getValue('account');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function build() {
-    $config = $this->getConfiguration();
+    $account = \Drupal::config('embeddedgroupexpro.settings')->get('account');
 
-    // TODO: remove this fallback; block configuration is not saved when
-    // configuring it as a plugin reference field on paragraph entity type.
-    if (empty($config['account'])) {
-      $config['account'] = 611;
+    if (empty($account)) {
+      // If the account id is not set, set an error and return empty.
+      $link = Link::createFromRoute(t('Set the id'), 'embeddedgroupexpro.settings');
+      drupal_set_message(t('The GroupEx Pro account id is not set. @link.', ['@link' => $link->toString()]), 'error', TRUE);
+      return [];
     }
 
     return [
-      [
-        '#type' => 'embedded_groupexpro_schedule',
-        '#account' => $config['account'],
-      ],
+      '#theme' => 'embedded_groupexpro_schedule',
+      '#account' => $account,
     ];
   }
 
