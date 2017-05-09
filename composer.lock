@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b316515fb2e299020088716a109077ae",
+    "hash": "c11fac3b57f47fb3eb2bdaee417a1f6a",
     "content-hash": "95cf4e9552118f38b73cfdfd14f6f150",
     "packages": [
         {
@@ -2070,7 +2070,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/google_tag",
-                "reference": "719fbc6672198d9796a133f2b4f9b7a9622d12f5"
+                "reference": "dd82cc7ce04c585f3c90d0794f764dd900dceff1"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2082,7 +2082,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1487858883"
+                    "datestamp": "1494121087"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2100,7 +2100,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/google_tag"
             },
-            "time": "2017-05-07 00:57:39"
+            "time": "2017-05-08 17:36:45"
         },
         {
             "name": "drupal/inline_entity_form",
@@ -3267,7 +3267,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/views_block_filter_block",
-                "reference": "06b08442edc4006beeba9be732e4ebeeea05614c"
+                "reference": "2c65ce2cab37c2cc38c2465ab16637b5a1574181"
             },
             "require": {
                 "drupal/core": "*"
@@ -3279,7 +3279,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1494251589"
+                    "datestamp": "1494253085"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3305,7 +3305,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/views_block_filter_block"
             },
-            "time": "2017-05-08 14:16:29"
+            "time": "2017-05-09 09:33:39"
         },
         {
             "name": "drupal/views_infinite_scroll",

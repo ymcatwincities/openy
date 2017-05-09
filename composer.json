@@ -91,7 +91,11 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "@composer drupal-scaffold"
+            "@composer drupal-scaffold",
+            "sh remove_openy_docroot_folder.sh || :"
+        ],
+        "post-update-cmd": [
+            "sh remove_openy_docroot_folder.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
     },
