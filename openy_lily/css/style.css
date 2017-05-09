@@ -474,6 +474,7 @@ body.path-search #block-mainpagecontent li {
   padding: 0 100px;
   z-index: 100;
   max-height: 0;
+  width: 100%;
   height: auto;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
