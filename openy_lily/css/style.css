@@ -128,6 +128,7 @@ header.tiny .top-navs .nav-global .navbar-header {
 header.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a img {
   width: 55px;
 }
+header.tiny .top-navs #block-anonymoususersmenu li a,
 header.tiny .top-navs #block-openy-lily-user-menu li a {
   line-height: 19px;
 }
