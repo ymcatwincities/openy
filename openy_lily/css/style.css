@@ -95,6 +95,7 @@ header .top-navs #block-openy-lily-main-menu ul li a {
   -o-transition: padding 0.2s ease;
   transition: padding 0.2s ease;
 }
+header .top-navs #block-anonymoususersmenu li a,
 header .top-navs #block-openy-lily-user-menu li a {
   color: #777777;
   border-top: 2px solid transparent;
@@ -106,6 +107,7 @@ header .top-navs #block-openy-lily-user-menu li a {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+header .top-navs #block-anonymoususersmenu li a:hover,
 header .top-navs #block-openy-lily-user-menu li a:hover {
   border-top: 2px solid #aa228d;
   background-color: #fff;
