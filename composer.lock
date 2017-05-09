@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf626b0440ae4832d2dcc6d9a6f3819e",
+    "content-hash": "23a4372f1a800a61e7e6add0ad111e23",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1505,8 +1505,7 @@
             "homepage": "https://www.drupal.org/project/datalayer",
             "support": {
                 "source": "http://cgit.drupalcode.org/datalayer"
-            },
-            "time": "2017-03-01 17:17:52"
+            }
         },
         {
             "name": "drupal/dropzonejs",
@@ -2132,7 +2131,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/google_tag",
-                "reference": "719fbc6672198d9796a133f2b4f9b7a9622d12f5"
+                "reference": "dd82cc7ce04c585f3c90d0794f764dd900dceff1"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2144,7 +2143,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.x-dev",
-                    "datestamp": "1487858883"
+                    "datestamp": "1494121087"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2162,7 +2161,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/google_tag"
             },
-            "time": "2017-05-07 00:57:39"
+            "time": "2017-05-08 17:36:45"
         },
         {
             "name": "drupal/inline_entity_form",
@@ -3067,8 +3066,7 @@
             "homepage": "https://www.drupal.org/project/simple_menu_icons",
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_menu_icons"
-            },
-            "time": "2016-10-03 15:25:52"
+            }
         },
         {
             "name": "drupal/simple_sitemap",
@@ -3390,49 +3388,19 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/views_block_filter_block",
-                "reference": "06b08442edc4006beeba9be732e4ebeeea05614c"
+                "reference": "2c65ce2cab37c2cc38c2465ab16637b5a1574181"
             },
             "require": {
                 "drupal/core": "*"
             },
             "type": "drupal-module",
             "extra": {
-                "installer-paths": {
-                    "docroot/core": [
-                        "type:drupal-core"
-                    ],
-                    "docroot/modules/contrib/{$name}": [
-                        "type:drupal-module"
-                    ],
-                    "docroot/profiles/contrib/{$name}": [
-                        "type:drupal-profile"
-                    ],
-                    "docroot/themes/contrib/{$name}": [
-                        "type:drupal-theme"
-                    ],
-                    "docroot/libraries/{$name}": [
-                        "type:drupal-library"
-                    ]
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
                 },
-                "patches": {
-                    "drupal/simple_menu_icons": {
-                        "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
-                    },
-                    "drupal/views_block_filter_block": {
-                        "2790505 - Empty exposed forms appeared in each view after installin module": "https://www.drupal.org/files/issues/empty_exposed_forms-2790505-10.patch"
-                    },
-                    "drupal/entity_browser": {
-                        "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
-                    },
-                    "drupal/confi": {
-                        "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
-                    },
-                    "drupal/plugin": {
-                        "2851503 - Drupal\\plugin\\PluginDefinition\\ArrayPluginDefinitionDecorator contains 1 abstract method and must therefore be declared abstract or implement the remaining methods": "https://www.drupal.org/files/issues/plugin-id-2851503-8.patch"
-                    },
-                    "drupal/datalayer": {
-                        "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
-                    }
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1494253085"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3458,7 +3426,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/views_block_filter_block"
             },
-            "time": "2017-05-08 14:16:29"
+            "time": "2017-05-09 09:33:39"
         },
         {
             "name": "drupal/views_infinite_scroll",
@@ -4229,16 +4197,16 @@
         },
         {
             "name": "symfony-cmf/routing",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony-cmf/Routing.git",
-                "reference": "b93704ca098334f56e9b317932f21a4362e620db"
+                "url": "https://github.com/symfony-cmf/routing.git",
+                "reference": "fb1e7f85ff8c6866238b7e73a490a0a0243ae8ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony-cmf/Routing/zipball/b93704ca098334f56e9b317932f21a4362e620db",
-                "reference": "b93704ca098334f56e9b317932f21a4362e620db",
+                "url": "https://api.github.com/repos/symfony-cmf/routing/zipball/fb1e7f85ff8c6866238b7e73a490a0a0243ae8ac",
+                "reference": "fb1e7f85ff8c6866238b7e73a490a0a0243ae8ac",
                 "shasum": ""
             },
             "require": {
@@ -4284,7 +4252,7 @@
                 "database",
                 "routing"
             ],
-            "time": "2016-03-31T09:11:39+00:00"
+            "time": "2017-05-09T08:10:41+00:00"
         },
         {
             "name": "symfony/class-loader",
