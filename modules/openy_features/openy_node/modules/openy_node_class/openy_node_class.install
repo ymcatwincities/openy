@@ -57,7 +57,7 @@ function openy_node_class_update_8002() {
       'third_party_settings.field_group.group_content_area.weight',
       'third_party_settings.field_group.group_sidebar_area.weight',
       'third_party_settings.field_group.group_header_area',
-      'third_party_settings.field_group_bottom_area',
+      'third_party_settings.field_group.group_bottom_area',
       'content.created.weight',
       'content.created.region',
       'content.field_bottom_content',
