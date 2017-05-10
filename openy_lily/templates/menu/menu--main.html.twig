@@ -30,49 +30,49 @@
 
 {% macro menu_links(items, attributes, menu_level) %}
   {% import _self as menus %}
-  <div class="container-fluid">
   {% if items %}
-    {% set attributes = attributes.addClass('nav-level-1 nav navbar-nav') %}
+    {% set attributes = attributes.addClass(['nav-level-1', 'nav', 'navbar-nav']) %}
     <ul{{ attributes }}>
-    {% for item in items %}
-      {% set ia = item.attributes %}
-      {% set ia = ia.addClass('dropdown nav-level-2') %}
-      <li{{ item.attributes }}>
-        <a class="dropdown-toggle" data-toggle="dropdown">
-          {{ item.title }}
-          <b class="caret"></b>
-        </a>
-        <ul class="nav dropdown-menu">
-          <li class="overview nav-level-3">
-            {{ link(item.title, item.url) }}
-          </li>
-          <li>
-            {% if item.below %}
-              {{ menus.menu_links_level_2(item.below, attributes, menu_level + 1) }}
-            {% endif %}
-          </li>
-        </ul>
-      </li>
-    {% endfor %}
+      {% for item in items %}
+        {% set ia = item.attributes %}
+        {% set ia = ia.addClass('dropdown nav-level-2') %}
+        <li{{ item.attributes }}>
+          {% if item.below %}
+            <a class="dropdown-toggle" data-toggle="dropdown" href="{{ item.url }}">
+              {{ item.title }}
+              {#<b class="caret"></b>#}
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </a>
+            {{ menus.menu_links_level_2(item.below, attributes, menu_level + 1) }}
+          {% else %}
+            <a href="{{ item.url }}">
+              {{ item.title }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
     </ul>
   {% endif %}
-  </div>
 {% endmacro %}
 
 {% macro menu_links_level_2(items, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
-    <ul class="row-level-2">
-    {% for item in items %}
-      {% set ia = item.attributes %}
-      {% set ia = ia.addClass('nav-level-3') %}
-      <li{{ ia }}>
-        <strong>{{ item.title }}</strong>
-        {% if item.below %}
-          {{ menus.menu_links_level_3(item.below, item, attributes, menu_level) }}
-        {% endif %}
-      </li>
-    {% endfor %}
+    <ul class="nav dropdown-menu row-level-2 row">
+      {% for item in items %}
+        {% set ia = item.attributes.addClass(['nav-level-3', 'col-md-3', 'col-lg-2', 'menu-item-' ~ item.title|clean_class]) %}
+        <li{{ ia }}>
+          {% if item.below %}
+            <a href="{{ item.url }}">
+              <div class="section-icon"></div>
+              {{ item.title }}
+            </a>
+            {{ menus.menu_links_level_3(item.below, item, attributes, menu_level) }}
+          {% else %}
+            {{ link(item.title, item.url) }}
+          {% endif %}
+        </li>
+      {% endfor %}
     </ul>
   {% endif %}
 {% endmacro %}
@@ -80,12 +80,9 @@
 {% macro menu_links_level_3(items, parent, attributes, menu_level) %}
   {% import _self as menus %}
   {% if items %}
-    <ul class="nav-stacked nav">
+    <ul class="row-level-3">
       {% set ia = parent.attributes %}
       {% set ia = ia.addClass('nav-level-4') %}
-      <li{{ ia }}>
-        {{ link(parent.title, parent.url) }}
-      </li>
       {% for item in items %}
         {% set ia = item.attributes %}
         {% set ia = ia.addClass('nav-level-4') %}

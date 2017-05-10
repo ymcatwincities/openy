@@ -358,4 +358,20 @@
     }
   };
 
+  /**
+   * Main menu toggle.
+   */
+  Drupal.behaviors.menuToggle = {
+    attach: function (context, settings) {
+      $("#block-openy-lily-main-menu .dropdown-toggle", context).each(function () {
+        $(this).on('click', function (e) {
+          e.preventDefault();
+          $(this).toggleClass('expanded-menu');
+          $('#main').toggleClass('expanded-menu');
+
+        });
+      });
+    }
+  };
+
 })(jQuery);
