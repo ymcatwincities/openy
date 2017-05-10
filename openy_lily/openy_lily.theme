@@ -330,6 +330,16 @@ function openy_lily_preprocess_page(&$variables) {
   if (Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
     $variables['node'] = Drupal::routeMatch()->getParameter('node_preview');
   }
+  $route_name = 'view.site_search.search_results';
+  $route_provider = \Drupal::service('router.route_provider');
+  $routes = $route_provider->getRoutesByNames(array($route_name));
+  if (!empty($routes)) {
+    $variables['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
+  }
+  else {
+    $variables['search_view_content_path'] = '';
+    \Drupal::logger('ymca')->error('Route "%route" does not exist.', array('%route' => $route_name));
+  }
 }
 
 /**
@@ -342,6 +352,14 @@ function openy_lily_preprocess_pager(&$vars) {
   foreach ($vars['items']['pages'] as &$item) {
     $item['attributes'] = new Attribute();
   }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function openy_lily_preprocess_views_view(&$vars) {
+  // Sets the search path.
+  $vars['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
 }
 
 /**
