@@ -5,14 +5,16 @@ dependencies:
     - views.view.alerts
   module:
     - views
-id: views_block__alerts_footer_alerts_local
+  theme:
+    - openy_rose
+id: views_block__alerts_header_alerts
 theme: openy_rose
-region: pre_footer
+region: header
 weight: 0
 provider: null
-plugin: 'views_block:alerts-footer_alerts_local'
+plugin: 'views_block:alerts-header_alerts'
 settings:
-  id: 'views_block:alerts-footer_alerts_local'
+  id: 'views_block:alerts-header_alerts'
   label: ''
   provider: views
   label_display: '0'
