@@ -1838,6 +1838,10 @@ body {
   padding-top: 0;
 }
 
+.paragraph--type--prgf-location-finder-filters .messages {
+  padding: 20px;
+}
+
 .paragraph--type--prgf-location-finder .views-element-container {
   padding: 20px 0;
 }
