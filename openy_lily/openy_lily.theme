@@ -355,14 +355,6 @@ function openy_lily_preprocess_pager(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_views_view().
- */
-function openy_lily_preprocess_views_view(&$vars) {
-  // Sets the search path.
-  $vars['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
-}
-
-/**
  * Implements hook_preprocess_node__blog__camp_blog_teaser().
  */
 function openy_lily_preprocess_node__blog__camp_blog_teaser(&$vars) {
