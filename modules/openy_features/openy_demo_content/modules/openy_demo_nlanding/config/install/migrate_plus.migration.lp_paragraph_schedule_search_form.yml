@@ -40,7 +40,7 @@ process:
   # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
-    default_value: field_content
+    default_value: field_header_content
 destination:
   plugin: 'entity:paragraph'
   default_bundle: schedule_search_form
