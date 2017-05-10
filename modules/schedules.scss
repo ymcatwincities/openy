@@ -79,3 +79,38 @@
     }
   }
 }
+
+.groupex-form-full {
+  .js-webform-radios {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    .js-form-type-radio {
+      flex-basis: 100%;
+      padding-right: 15px;
+      margin: 0 0 10px;
+      position: relative;
+      padding-left: 20px;
+      line-height: 20px;
+      @include breakpoint(tablet) {
+        flex-basis: 50%;
+      }
+      @include breakpoint(laptop) {
+        flex-basis: 33%;
+      }
+      label {
+        @include helvetica-neue();
+        font-size: 15px;
+        margin: 0 0 0 7px;
+        vertical-align: top;
+      }
+      input {
+        margin: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        vertical-align: top;
+      }
+    }
+  }
+}
