@@ -5,6 +5,9 @@
  * OpenY Node Membership install file.
  */
 
+/**
+ * Implements hook_update_dependencies().
+ */
 function openy_node_mbrshp_update_dependencies() {
   $dependencies['openy_node_mbrshp'] = [
     8002 => [

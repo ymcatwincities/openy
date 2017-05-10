@@ -5,6 +5,9 @@
  * OpenY Landing install file.
  */
 
+/**
+ * Implements hook_update_dependencies().
+ */
 function openy_node_landing_update_dependencies() {
   $dependencies['openy_node_landing'] = [
     8001 => [

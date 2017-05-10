@@ -12,6 +12,8 @@ Landing Page content type is used for adding landing pages on the site.
 | Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Sidebar Area** | Field group |||
 | Content | field\_sidebar_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
+| **Bottom Area** | Field group|||
+| Content | field\_bottom_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 
 ### URL pattern
 
