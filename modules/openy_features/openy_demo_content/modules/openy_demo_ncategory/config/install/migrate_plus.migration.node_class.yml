@@ -24,6 +24,9 @@ source:
         without a flotation device. Other skills learned include directional
         changes, body positioning, and rhythmic breathing.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_parent_child_a
     -
       id: swim_lessons_parent_child_a
       title: 'Swim Lessons - Parent/Child Stage A: Water Discov.'
@@ -35,6 +38,9 @@ source:
         fun and confidence building experiences, while parents learn about
         water safety, drowning prevention, and the importance of supervision.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_parent_child_b
     -
       id: swim_lessons_parent_child_b
       title: 'Swim Lessons - Parent/Child Stage B: Water Explor.'
@@ -46,6 +52,9 @@ source:
         parents work with their children to explore body positions, floating,
         blowing bubbles, and fundamental safety and aquatic skills.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_preschool_1
     -
       id: swim_lessons_preschool_1
       title: 'Swim Lessons - Preschool Stage 1: Water Acclimat.'
@@ -57,6 +66,9 @@ source:
         with underwater exploration and a foundation that allows for a student's
         future progress in swimming.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_preschool_2
     -
       id: swim_lessons_preschool_2
       title: 'Swim Lessons - Preschool Stage 2: Water Movement'
@@ -69,6 +81,9 @@ source:
         water while also continuing to practice how to safely exit in the event
         of falling into a body of water.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_preschool_3
     -
       id: swim_lessons_preschool_3
       title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
@@ -80,6 +95,9 @@ source:
         learn how to swim to safety from a longer distance and also rhythmic
         breathing and integrated arma nd leg action.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_preschool_4
     -
       id: swim_lessons_preschool_4
       title: 'Swim Lessons - Preschool Stage 4: Stroke Intro.'
@@ -91,6 +109,9 @@ source:
         fundamentals, students learn additional water safety skills and build
         stroke technique.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_private
     -
       id: swim_lessons_private
       title: 'Swim Lesson - Private'
@@ -99,6 +120,9 @@ source:
         <p>
         Private swim lessons.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_youth_1
     -
       id: swim_lessons_youth_1
       title: 'Swim Lessons - Youth Stage 1: Water Acclimat.'
@@ -111,6 +135,9 @@ source:
         This stage lays the foundation that allows for a student?s future
         progress in swimming.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_youth_2
     -
       id: swim_lessons_youth_2
       title: 'Swim Lessons - Youth Stage 2: Water Movement'
@@ -123,6 +150,9 @@ source:
         water while also continuing to practice how to safely exit in the event
         of falling into a body of water.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_youth_3
     -
       id: swim_lessons_youth_3
       title: 'Swim Lessons - Youth Stage 3: Water Stamina'
@@ -134,6 +164,9 @@ source:
         to swim to safety from a longer distance and also rhythmic breathing and
         integrated arm and leg action.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_youth_4
     -
       id: swim_lessons_youth_4
       title: 'Swim Lessons - Youth Stage 4: Stroke Intro.'
@@ -144,6 +177,9 @@ source:
         mastered the fundamentals, students learn additional water safety
         skills and build stroke technique.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_youth_5
     -
       id: swim_lessons_youth_5
       title: 'Swim Lessons - Youth Stage 5: Stroke Devel.'
@@ -156,6 +192,9 @@ source:
         competitive strokes. The emphasis on water safety continues through
         treading water and sidestroke.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_youth_6
     -
       id: swim_lessons_youth_6
       title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
@@ -168,6 +207,9 @@ source:
         strokes, learn about competitive swimming, and discover how to
         incorporate swimming into a healthy lifestyle.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_team_intrest_list
     -
       id: swim_team_intrest_list
       title: 'Swim Team - Interest List'
@@ -191,6 +233,9 @@ source:
         to complete the 4 competitive strokes legally for 25 yards. Freestyle,
         Backstroke, Breaststroke &amp; Butterfly
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_teen
     -
       id: swim_lessons_teen
       title: 'Swim Lessons - Teen'
@@ -214,6 +259,9 @@ source:
         and continue to build distance. The emphasis on water safety continues
         through treading water and sidestroke.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_teen_beginning
     -
       id: swim_lessons_teen_beginning
       title: 'Swim Lessons - Teen Beginning'
@@ -227,6 +275,9 @@ source:
         without a flotation device. Other skills learned include directional
         changes, body positioning, and rhythmic breathing.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_teen_intermediate
     -
       id: swim_lessons_teen_intermediate
       title: 'Swim Lessons - Teen Intermediate'
@@ -241,6 +292,9 @@ source:
         students who are 16 or older may qualify to take the YMCA Swim
         Instructor and/or Lifeguard course.
         </p>
+      sidebar:
+        -
+          sidebar_id: swim_lessons_teen_advanced
     -
       id: swim_lessons_teen_advanced
       title: 'Swim Lessons - Teen Advanced'
@@ -253,6 +307,9 @@ source:
         continue to build distance. The emphasis on water safety continues
         through treading water and sidestroke.
         </p>
+      sidebar:
+        -
+          sidebar_id: drop_in_swim_recreational_3ft
     -
       id: drop_in_swim_recreational_3ft
       title: 'Recreational Swim 3ft'
@@ -261,6 +318,9 @@ source:
         <p>
         Recreational Swim Time
         </p>
+      sidebar:
+        -
+          sidebar_id: drop_in_swim_wade_2ft
     -
       id: drop_in_swim_wade_2ft
       title: 'Wade Swim 2ft'
@@ -269,6 +329,9 @@ source:
         <p>
         Swimming for fun or fitness in shallow water.
         </p>
+      sidebar:
+        -
+          sidebar_id: drop_in_swim_rec_with_slide
     -
       id: drop_in_swim_rec_with_slide
       title: 'Rec Swim with Slide'
@@ -277,6 +340,9 @@ source:
         <p>
         Recreational swim time.
         </p>
+      sidebar:
+        -
+          sidebar_id: drop_in_swim_adult_5.5ft
     -
       id: drop_in_swim_adult_5.5ft
       title: 'Adult Swim 5.5 ft'
@@ -287,6 +353,9 @@ source:
         courteous of other swimmers and choose a lane that best fits your speed
         or age.
         </p>
+      sidebar:
+        -
+          sidebar_id: drop_in_swim_family
     -
       id: drop_in_swim_family
       title: 'Family Swim'
@@ -300,6 +369,9 @@ source:
         the pool, please make arrangements with the Aquatics Department. If
         arrangements are not made, capacity issues could decrease swim time.
         </p>
+      sidebar:
+        -
+          sidebar_id: drop_in_swim_recreational
     -
       id: drop_in_swim_recreational
       title: 'Recreational Swim'
@@ -314,6 +386,9 @@ source:
         Department. If arrangements are not made, capacity issues could decrease
         swim time.
         </p>
+      sidebar:
+        -
+          sidebar_id: drop_in_swim_lap
     -
       id: drop_in_swim_lap
       title: 'Lap Swim'
@@ -325,6 +400,9 @@ source:
         or age. Circle swimming is required when two or more swimmers are in one
         lane.
         </p>
+      sidebar:
+        -
+          sidebar_id: kids_zone_activity_centers_4wks_11yrs
     -
       id: kids_zone_activity_centers_4wks_11yrs
       title: 'Kids Zone 4 wks -11 yrs'
@@ -339,6 +417,9 @@ source:
         Children may be checked in for up to two (2) hours per day in one of our
         designated Kids Zone Rooms.
         </p>
+      sidebar:
+        -
+          sidebar_id: cooking_classes_future_chefs
     -
       id: cooking_classes_future_chefs
       title: 'Youth Cooking - Future Chefs'
@@ -350,6 +431,9 @@ source:
         nutrition facts. Each class will meet on 3rd Thursday of every month in
         the Kitchen.
         </p>
+      sidebar:
+        -
+          sidebar_id: arts_and_crafts_maycrafternoon_handprint_sunshines
     -
       id: arts_and_crafts_maycrafternoon_handprint_sunshines
       title: 'May Crafternoon: Handprint Sunshines'
@@ -370,6 +454,9 @@ source:
         <p>
         Wear clothes you don't mind getting dirty and get your Craft on!
         </p>
+      sidebar:
+        -
+          sidebar_id: arts_and_crafts_april_earth_day_bridhouses
     -
       id: arts_and_crafts_april_earth_day_bridhouses
       title: 'April Earth Day Birdhouses'
@@ -385,6 +472,9 @@ source:
         <p>
         Wear clothes you don't mind getting dirty and get your Craft on!
         </p>
+      sidebar:
+        -
+          sidebar_id: arts_and_crafts_crafternoon
     -
       id: arts_and_crafts_crafternoon
       title: 'Crafternoon'
@@ -399,6 +489,9 @@ source:
         <p>
         Wear clothes you don't mind getting dirty and get your Craft on!
         </p>
+      sidebar:
+        -
+          sidebar_id: birthday_parties_room_rental
     -
       id: birthday_parties_room_rental
       title: 'Room Rental'
@@ -430,6 +523,9 @@ source:
         Please note: there is a non-refundable $50 reservation fee when issuing
         refunds.
         </p>
+      sidebar:
+        -
+          sidebar_id: birthday_parties_birthday_party
     -
       id: birthday_parties_birthday_party
       title: 'Birthday Party'
@@ -460,6 +556,9 @@ source:
         <p>
         Please note: there is a non-refundable $50 reservation fee when issuing refunds.
         </p>
+      sidebar:
+        -
+          sidebar_id: before_and_after_school_programs_2016_17_bellevue_no_school_days
     -
       id: before_and_after_school_programs_2016_17_bellevue_no_school_days
       title: '2016/17 Bellevue: No School Days - Package Option'
@@ -470,6 +569,9 @@ source:
         for a discounted Price. MUST be enrolled in the enrichment pass option
         for Kids University.
         </p>
+      sidebar:
+        -
+          sidebar_id: before_and_after_school_programs_am_fit_and_fun
     -
       id: before_and_after_school_programs_am_fit_and_fun
       title: 'AM Fit & Fun'
@@ -480,6 +582,9 @@ source:
         for a discounted Price. MUST be enrolled in the enrichment pass option
         for Kids University.
         </p>
+      sidebar:
+        -
+          sidebar_id: sports_classes_and_workshops_youth_fitness_challenge
     -
       id: sports_classes_and_workshops_youth_fitness_challenge
       title: 'Youth Fitness Challenge'
@@ -492,6 +597,9 @@ source:
         desk, do the work, and turn it back in at the end of the challenge to
         get your shirt.
         </p>
+      sidebar:
+        -
+          sidebar_id: sports_classes_and_workshops_youth_homezone
     -
       id: sports_classes_and_workshops_youth_homezone
       title: 'HomeZone'
@@ -505,6 +613,9 @@ source:
         of April 10-14 (Spring Break) or April 17-21 due to remodeling in the
         family wing.
         </p>
+      sidebar:
+        -
+          sidebar_id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
     -
       id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
       title: 'AOA National Senior Health and Fitness Day'
@@ -554,6 +665,9 @@ source:
         Free for all, registration requested</p>
 
         <p>&nbsp;</p>
+      sidebar:
+        -
+          sidebar_id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
     -
       id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
       title: 'AOA Brain Agility - Class Fee, Spring 2017'
@@ -581,6 +695,9 @@ source:
         <p>
         Class dates are Tuesdays, April 25 through June 6, 2017.
         </p>
+      sidebar:
+        -
+          sidebar_id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
     -
       id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
       title: 'AOA Brain Agility - Materials Fee, Spring 2017'
@@ -612,6 +729,9 @@ source:
         </p>
 
         <p>&nbsp;</p>
+      sidebar:
+        -
+          sidebar_id: group_exercise_classes_hiit
     -
       id: group_exercise_classes_hiit
       title: 'HIIT'
@@ -622,6 +742,9 @@ source:
         intensity intervals are alternated with high intensity intervals for a
         full body workout.
         </p>
+      sidebar:
+        -
+          sidebar_id: group_exercise_classes_hiit_metabolic_conditioning
     -
       id: group_exercise_classes_hiit_metabolic_conditioning
       title: 'HIIT - Metabolic Conditioning'
@@ -632,6 +755,9 @@ source:
         intensity intervals are alternated with high intensity intervals for a
         full body workout.
         </p>
+      sidebar:
+        -
+          sidebar_id: group_exercise_classes_moving_for_balance_spr_2017
     -
       id: group_exercise_classes_moving_for_balance_spr_2017
       title: 'Moving for Better Balance - Continuing Spring 2017'
@@ -652,6 +778,9 @@ source:
         active older adults and those with physical limitations. Students are
         encouraged to wear comfortable clothing and shoes. Chairs available.
         </p>
+      sidebar:
+        -
+          sidebar_id: samll_group_training_youth_small_group_training_tween_girl_power
     -
       id: samll_group_training_youth_small_group_training_tween_girl_power
       title: 'Small Group Training - Tween Girl Power!'
@@ -667,6 +796,9 @@ source:
         equipment, including our PlayFit Exergames in the Youth Center, with the
         focus on safety, movement, and fun!
         </p>
+      sidebar:
+        -
+          sidebar_id: samll_group_training_youth_small_group_training_tween_titans
     -
       id: samll_group_training_youth_small_group_training_tween_titans
       title: 'Small Group Training - Tween Titans'
@@ -682,6 +814,9 @@ source:
         variety of equipment, including our PlayFit exergames in the Youth
         Center, with the focus on safety, movement, and fun!
         </p>
+      sidebar:
+        -
+          sidebar_id: pilates_reformer_10_private_1hr_sessions
     -
       id: pilates_reformer_10_private_1hr_sessions
       title: 'Pilates Reformer - 10, private 1 hr sessions'
@@ -706,6 +841,9 @@ source:
         <br />
         Private, 10/1-hour sessions Facility member:$550 Community member:$750
         </p>
+      sidebar:
+        -
+          sidebar_id: private_yoga_10_1hour_sessions
     -
       id: private_yoga_10_1hour_sessions
       title: 'Private Yoga - 10, 1-hour sessions'
@@ -754,8 +892,9 @@ source:
 
         <p>
         10 1-hour sessions $552
-        </p>
-
+        </p>sidebar:
+          -
+            sidebar_id: pilates_reformer_duet_10_1hour_sessions
     -
       id: pilates_reformer_duet_10_1hour_sessions
       title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
@@ -789,6 +928,9 @@ source:
         Duet, 10/1-hour sessions Facility member:$420/person Community
         member:$680/person
         </p>
+      sidebar:
+        -
+          sidebar_id: partner_personal_training_1_session
     -
       id: partner_personal_training_1_session
       title: 'Partner Personal Training - 1 session'
@@ -817,6 +959,9 @@ source:
         10 sessions = $730</p>
 
         <p>&nbsp;</p>
+      sidebar:
+        -
+          sidebar_id: health_improvement_livestrong_at_the_y
     -
       id: health_improvement_livestrong_at_the_y
       title: 'LIVESTRONG at the YMCA'
@@ -835,6 +980,9 @@ source:
         LIVESTRONG at the Y helps people move beyond cancer in mind, body, and
         spirit.
         </p>
+      sidebar:
+        -
+          sidebar_id: health_improvement_nutrition_consultation_initial
     -
       id: health_improvement_nutrition_consultation_initial
       title: 'Nutrition Consultation - Initial'
@@ -858,6 +1006,9 @@ source:
         <p>
         Initial 30-minute consultation for Community Members: $20
         </p>
+      sidebar:
+        -
+          sidebar_id: health_improvement_activly_changing_together
     -
       id: health_improvement_activly_changing_together
       title: 'ACT! Actively Changing Together'
@@ -876,6 +1027,9 @@ source:
         weekly sessions. Energizing games, activities and light meal. Needs
         physician referral for participation.
         </p>
+      sidebar:
+        -
+          sidebar_id: climbing_adult_rock_climbing_sept
     -
       id: climbing_adult_rock_climbing_sept
       title: 'Climbing - Adult Rock Climbing - September'
@@ -895,6 +1049,9 @@ source:
         rope belaying. Our skilled staff will take you on an adventure that is
         sure to take you to the next level.
         </p>
+      sidebar:
+        -
+          sidebar_id: climbing_adult_rock_climbing_oct
     -
       id: climbing_adult_rock_climbing_oct
       title: 'Climbing - Adult Rock Climbing - October'
@@ -914,6 +1071,9 @@ source:
         rope belaying. Our skilled staff will take you on an adventure that is
         sure to take you to the next level.
         </p>
+      sidebar:
+        -
+          sidebar_id: climbing_adult_parent_child_sept
     -
       id: climbing_adult_parent_child_sept
       title: 'Climbing - Parent/Child Climbing - September'
@@ -934,6 +1094,9 @@ source:
         on an adventure that is sure to take you and your family to the next
         level.
         </p>
+      sidebar:
+        -
+          sidebar_id: climbing_adult_parent_child_oct
     -
       id: climbing_adult_parent_child_oct
       title: 'Climbing - Parent/Child Climbing - October'
@@ -954,6 +1117,9 @@ source:
         on an adventure that is sure to take you and your family to the next
         level.
         </p>
+      sidebar:
+        -
+          sidebar_id: small_group_and_specialty_training_adaptive_yoga
     -
       id: small_group_and_specialty_training_adaptive_yoga
       title: 'Small Group Training - Adaptive Yoga'
@@ -968,6 +1134,9 @@ source:
         <p>
         Facility members only
         </p>
+      sidebar:
+        -
+          sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1
       title: 'Small Group Training - Pilates Reformer Level I'
@@ -1000,6 +1169,9 @@ source:
         A 7 week session is $154/session ($22/class) for Facility members and
         $238/session ($34/class) for Community Members.
         </p>
+      sidebar:
+        -
+          sidebar_id: small_group_and_specialty_training_pilates_reformer_intro
     -
       id: small_group_and_specialty_training_pilates_reformer_intro
       title: 'Small Group Training - Pilates Reformer Intro'
@@ -1047,6 +1219,9 @@ source:
         <p>
         Childcare available at Kid's Corner.
         </p>
+      sidebar:
+        -
+          sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1_2
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1_2
       title: 'Small Group Training - Pilates Reformer Level I/II'
@@ -1090,6 +1265,9 @@ source:
         A 7 week session is $154/session ($22/class) for Facility members and
         $238/session ($34/class) for Community Members.
         </p>
+      sidebar:
+        -
+          sidebar_id: weight_loss_lose_to_win_men
     -
       id: weight_loss_lose_to_win_men
       title: 'Lose to Win for Men - Weight Loss Program'
@@ -1108,6 +1286,9 @@ source:
         FREE program today and get started on creating lasting change!
         Membership to the YMCA is required in order to participate.
         </p>
+      sidebar:
+        -
+          sidebar_id: weight_loss_lose_to_win
     -
       id: weight_loss_lose_to_win
       title: 'Lose to Win - Weight Loss Program'
@@ -1126,6 +1307,9 @@ source:
         FREE program today and get started on creating lasting change!
         Membership to the YMCA is required in order to participate.
         </p>
+      sidebar:
+        -
+          sidebar_id: before_after_school_child_care_2016_17_woodmoor_non_school_days
     -
       id: before_after_school_child_care_2016_17_woodmoor_non_school_days
       title: '2016/17 Woodmoor - (f) Non-School Days'
@@ -1143,6 +1327,9 @@ source:
         literacy and more. 30 minutes of physical activity & literacy activities
         provided daily. 30 minutes of homework help provided daily.
         </p>
+      sidebar:
+        -
+          sidebar_id: before_after_school_child_care_2016_17_woodmoor_after_plus
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_plus
       title: '2016/17 Woodmoor - (b) After Plus Care'
@@ -1160,6 +1347,9 @@ source:
         literacy and more. 30 minutes of physical activity & literacy activities
         provided daily. 30 minutes of homework help provided daily.
         </p>
+      sidebar:
+        -
+          sidebar_id: before_after_school_child_care_2016_17_woodmoor_after
     -
       id: before_after_school_child_care_2016_17_woodmoor_after
       title: '2016/17 Woodmoor - (c) After Care'
@@ -1181,6 +1371,9 @@ source:
         <p>
         Facility members only
         </p>
+      sidebar:
+        -
+          sidebar_id: before_after_school_child_care_2016_17_sunrise_before_after
     -
       id: before_after_school_child_care_2016_17_sunrise_before_after
       title: '2016/17 Sunrise - (a) Before and After Care'
@@ -1198,6 +1391,9 @@ source:
         literacy and more. 30 minutes of physical activity & literacy activities
         provided daily. 30 minutes of homework help provided daily.
         </p>
+      sidebar:
+        -
+          sidebar_id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
     -
       id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
       title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
@@ -1214,6 +1410,9 @@ source:
         experienced Program Directors to get more information and to schedule a
         site visit. We look forward to meeting you!
         </p>
+      sidebar:
+        -
+          sidebar_id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
     -
       id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
       title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
@@ -1230,6 +1429,9 @@ source:
         experienced Program Directors to get more information and to schedule a
         site visit. We look forward to meeting you!
         </p>
+      sidebar:
+        -
+          sidebar_id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
     -
       id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
       title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
@@ -1239,6 +1441,9 @@ source:
         Explore fun themes like Under the Sea and Medieval Madness through art,
         science, storytelling and field trips.
         </p>
+      sidebar:
+        -
+          sidebar_id: discovery_day_camp_drop_off_kenmore_elementary_2017
     -
       id: discovery_day_camp_drop_off_kenmore_elementary_2017
       title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
@@ -1248,6 +1453,9 @@ source:
         Explore fun themes like Under the Sea and Jungle Safari through art,
         science, storytelling and field trips.
         </p>
+      sidebar:
+        -
+          sidebar_id: discovery_day_camp_drop_off_Northshore_ymca_2017
     -
       id: discovery_day_camp_drop_off_Northshore_ymca_2017
       title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
@@ -1258,6 +1466,9 @@ source:
         science, storytelling and field trips. Transportation provided from the
         Northshore YMCA to Kenmore Elementary where the program is based out of.
         </p>
+      sidebar:
+        -
+          sidebar_id: bold_one_wk_expeditions_cascade_challenge
     -
       id: bold_one_wk_expeditions_cascade_challenge
       title: 'BOLD Cascade Challenge'
@@ -1276,6 +1487,9 @@ source:
         that you gain on this trip will help you rise to any challenge you may
         face, both in the woods and back home!
         </p>
+      sidebar:
+        -
+          sidebar_id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
     -
       id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
       title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
@@ -1292,6 +1506,9 @@ source:
         Pacific Ocean where you will watch dramatic sunsets and share epic
         stories around the campfire.
         </p>
+      sidebar:
+        -
+          sidebar_id: bold_one_wk_expeditions_river_and_rocks
     -
       id: bold_one_wk_expeditions_river_and_rocks
       title: 'BOLD Rivers and Rocks'
@@ -1309,6 +1526,9 @@ source:
         sense of awe of the amazing landscapes that surround us. This trip
         promises to be the highlight of your summer!
         </p>
+      sidebar:
+        -
+          sidebar_id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
     -
       id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
       title: 'BOLD Fishing and Backpacking in the North Cascades'
@@ -1323,6 +1543,9 @@ source:
         taking on the challenge of the wilderness you will know you can overcome
         any obstacle placed before you.
         </p>
+      sidebar:
+        -
+          sidebar_id: earth_service_corps_about_yesc
     -
       id: earth_service_corps_about_yesc
       title: 'Earth Service Corps About YESC'
@@ -1337,6 +1560,9 @@ source:
         opportunity to engage youth in a service-based leadership program that
         addressed growing concerns about the global environment.
         </p>
+      sidebar:
+        -
+          sidebar_id: academic_success
     -
       id: academic_success
       title: 'Academic Success'
@@ -1374,9 +1600,22 @@ process:
   field_class_description/format:
     plugin: default_value
     default_value: full_html
+  field_sidebar_content:
+    plugin: iterator
+    source: sidebar
+    process:
+       target_id:
+         plugin: migration
+         migration: openy_demo_paragraph_class_location
+         source: sidebar_id
+       target_revision_id:
+         plugin: migration
+         migration: openy_demo_paragraph_class_location
+         source: sidebar_id
 destination:
   plugin: 'entity:node'
   default_bundle: class
 migration_dependencies:
   required:
     - openy_demo_node_activity
+    - openy_demo_paragraph_class_location
