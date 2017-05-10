@@ -1,3 +1,5 @@
+Build for Accessibility check.
+
 Welcome to OpenY. Thank you for taking your time to read the documentation. Here you can find all needed information that shows the big picture of what is OpenY and how to use it from scratch to build your own site.
 
 # Open Y Distribution 
