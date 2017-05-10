@@ -105,9 +105,8 @@ source:
       id: schedules
       title: 'Schedules'
       alias: '/schedules'
+      header_content_id: schedule_search_form
       content_ids:
-        -
-          content_id: schedule_search_form
         -
           content_id: schedule_search_list
   ids:
@@ -141,6 +140,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_schedule_search_form
       - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_header_content/target_revision_id:
@@ -150,6 +150,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_schedule_search_form
       - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_content:
@@ -170,7 +171,6 @@ process:
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
-          - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_schedule_search_list
         source: content_id
       target_revision_id:
@@ -187,7 +187,6 @@ process:
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
-          - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_schedule_search_list
         source: content_id
 destination:
