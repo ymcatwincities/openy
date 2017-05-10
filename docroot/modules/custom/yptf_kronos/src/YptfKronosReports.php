@@ -208,6 +208,8 @@ class YptfKronosReports {
           }
           elseif (is_array($empID)) {
             // Several EmpIDs.
+            // For skip data calculating for trainers who have several EmpIDs
+            // use "!is_array($empID)".
             foreach ($empID as $emp_item) {
               $this->reports['messages']['multi_ids'][$location_id][$item->empNo]['empids'][] = $emp_item['EmpID'];
               $this->reports['messages']['multi_ids'][$location_id][$item->empNo]['name'] = $item->lastName . ', ' . $item->firstName;
@@ -218,16 +220,20 @@ class YptfKronosReports {
           }
 
           if (isset($item->totalHours)) {
+            // Skip trainer calculation for multiple empIDs.
             !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) && $trainer_reports[$location_id][$empID]['wf_hours'] = 0;
             !isset($location_reports[$location_id]['wf_hours']) && $location_reports[$location_id]['wf_hours'] = 0;
           }
 
           if (isset($item->historical)) {
+            // Skip trainer calculation for multiple empIDs.
             !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) && $trainer_reports[$location_id][$empID]['historical_hours'] = 0;
             !isset($location_reports[$location_id]['historical_hours']) && $location_reports[$location_id]['historical_hours'] = 0;
           }
+          // Skip trainer calculation for multiple empIDs.
           !is_array($empID) && $trainer_reports[$location_id][$empID]['wf_hours'] += $item->totalHours;
           !is_array($empID) && $trainer_reports[$location_id][$empID]['historical_hours'] += $item->historical;
+
           $location_reports[$location_id]['wf_hours'] += $item->totalHours;
           $location_reports[$location_id]['historical_hours'] += $item->historical;
 
@@ -279,6 +285,7 @@ class YptfKronosReports {
           $staff_id = $item->Staff->ID;
           $location_id = $item->Location->ID;
 
+          // Skip calculation for trainers who have multiple EmpIDs.
           if (!isset($this->reports['messages']['multi_ids'][$location_id][$staff_id])) {
             !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) && $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0;
             $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
