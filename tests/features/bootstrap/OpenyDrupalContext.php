@@ -450,4 +450,15 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
     return $file;
   }
 
+  /**
+   * @Given /^I view node "(?P<go_key>[^"]*)" with query parameter "(?P<param>[^"]*)" = id of "(?P<id_key>[^"]*)"$/
+   * @Given /^I view entity "(?P<go_key>[^"]*)" with query parameter "(?P<param>[^"]*)" = id of "(?P<id_key>[^"]*)"$/
+   */
+  public function iViewNodeWithQueryParameterIdOf($go_key, $param, $id_key)
+  {
+    $go_entity = $this->getEntityByKey($go_key);
+    $id_entity = $this->getEntityByKey($id_key);
+    $url = $go_entity->toUrl()->setRouteParameter($param, $id_entity->id());
+    $this->getSession()->visit($this->locatePath($url->toString()));
+  }
 }

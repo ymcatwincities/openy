@@ -25,4 +25,4 @@ dependencies:
   - rabbit_hole
   - telephone
   - user
-version: 8.x-1.2
+version: 8.x-1.3

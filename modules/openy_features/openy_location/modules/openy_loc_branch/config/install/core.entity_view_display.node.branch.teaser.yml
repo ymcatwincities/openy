@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.branch.field_bottom_content
     - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
@@ -15,6 +16,7 @@ dependencies:
     - field.field.node.branch.field_location_phone
     - field.field.node.branch.field_location_state
     - field.field.node.branch.field_location_temp_url
+    - field.field.node.branch.field_meta_tags
     - node.type.branch
   module:
     - address
@@ -33,12 +35,14 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_location_address:
     type: address_plain
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_location_area:
     type: entity_reference_label
     weight: 0
@@ -46,6 +50,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
+    region: content
   field_location_directions:
     type: link
     weight: 3
@@ -57,6 +62,7 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
+    region: content
   field_location_phone:
     type: telephone_link
     weight: 2
@@ -64,6 +70,7 @@ content:
     settings:
       title: ''
     third_party_settings: {  }
+    region: content
   field_location_state:
     type: boolean
     weight: 4
@@ -73,11 +80,14 @@ content:
       format_custom_true: 'coming soon!'
       format_custom_false: ''
     third_party_settings: {  }
+    region: content
 hidden:
+  field_bottom_content: true
   field_content: true
   field_header_content: true
   field_location_coordinates: true
   field_location_email: true
   field_location_fax: true
   field_location_temp_url: true
+  field_meta_tags: true
   links: true

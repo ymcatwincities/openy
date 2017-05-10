@@ -30,6 +30,18 @@ function openy_user_update_8002() {
 }
 
 /**
+ * Update Editor roles permissions.
+ */
+function openy_user_update_8003() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_user');
+  $config .= '/config/install/';
+  $config .= 'user.role.editor.yml';
+  $config_importer->update($config, 'user.role.contributor', 'permissions');
+  $config_importer->update($config, 'user.role.administrator', 'permissions');
+}
+
+/**
  * Update Editor, Contributor, & Administrator roles permissions.
  */
 function openy_user_update_8004() {
@@ -38,6 +50,4 @@ function openy_user_update_8004() {
   $config .= '/config/install/';
   $config .= 'user.role.editor.yml';
   $config_importer->update($config, 'user.role.editor', 'permissions');
-  $config_importer->update($config, 'user.role.contributor', 'permissions');
-  $config_importer->update($config, 'user.role.administrator', 'permissions');
 }

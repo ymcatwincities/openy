@@ -1,1 +1,3 @@
+excluded:
+  - core.entity_view_mode.node.class_location
 required: true
