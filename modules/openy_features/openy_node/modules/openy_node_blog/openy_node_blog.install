@@ -5,6 +5,9 @@
  * OpenY Node Blog install file.
  */
 
+/**
+ * Implements hook_update_dependencies().
+ */
 function openy_node_blog_update_dependencies() {
   $dependencies['openy_node_blog'] = [
     8002 => [
