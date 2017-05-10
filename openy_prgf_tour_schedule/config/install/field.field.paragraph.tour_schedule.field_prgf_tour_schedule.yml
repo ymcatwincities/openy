@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_tour_schedule
+    - paragraphs.paragraphs_type.tour_schedule
+    - webform.webform.tour_schedule
+  module:
+    - webform
+id: paragraph.tour_schedule.field_prgf_tour_schedule
+field_name: field_prgf_tour_schedule
+entity_type: paragraph
+bundle: tour_schedule
+label: 'Tour Schedule'
+description: 'Default Tour Schedule web-form to display on request a tour page. Change this value only if necessary.'
+required: true
+translatable: false
+default_value:
+  -
+    default_data: ''
+    status: '1'
+    target_uuid: 1ca3a152-0062-4233-b7ed-36131647960e
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+  default_data: ''
+  status: true
+field_type: webform

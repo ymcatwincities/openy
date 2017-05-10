@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tour_schedule.field_prgf_tour_schedule
+    - paragraphs.paragraphs_type.tour_schedule
+  module:
+    - webform
+id: paragraph.tour_schedule.default
+targetEntityType: paragraph
+bundle: tour_schedule
+mode: default
+content:
+  field_prgf_tour_schedule:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: webform_entity_reference_entity_view
+hidden: {  }

@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Tour Schedule'
+description: 'Provide paragraph with a Tour Schedule web form.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - openy_tour_schedule_webform
+  - paragraphs
+  - webform
+version: 8.x-1.0

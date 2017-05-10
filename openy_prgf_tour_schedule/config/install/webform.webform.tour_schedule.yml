@@ -1,0 +1,102 @@
+langcode: en
+status: open
+dependencies: {  }
+open: null
+close: null
+uid: 1
+template: false
+id: tour_schedule
+title: 'Tour Schedule'
+description: 'Tour Schedule webform.&nbsp;'
+elements: "center:\n  '#type': webform_entity_select\n  '#title': Center\n  '#required': true\n  '#target_type': node\n  '#selection_handler': 'default:node'\n  '#selection_settings':\n    target_bundles:\n      branch: branch\n      camp: camp\n    sort:\n      field: title\nfirst_name:\n  '#type': textfield\n  '#title': 'First Name'\n  '#required': true\nlast_name:\n  '#type': textfield\n  '#title': 'Last Name'\n  '#required': true\naddress:\n  '#type': webform_address\n  '#title': Address\n  '#address_2__access': false\n  '#country__access': false\nphone:\n  '#type': tel\n  '#title': Phone\nemail:\n  '#type': email\n  '#title': Email\n1st_preference:\n  '#type': select\n  '#title': '1st preference'\n  '#options':\n    8: '8am – noon'\n    12: 'Noon – 4pm'\n    4: '4pm – 8pm'\n2st_preference:\n  '#type': select\n  '#title': '2st preference'\n  '#options':\n    8: '8am – noon'\n    12: 'Noon – 4pm'\n    4: '4pm – 8pm'\n3rd_preference:\n  '#type': select\n  '#title': '3rd preference'\n  '#options':\n    8: '8am – noon'\n    12: 'Noon – 4pm'\n    4: '4pm – 8pm'\n"
+css: ''
+javascript: ''
+settings:
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  form_submit_label: ''
+  form_submit_once: false
+  form_submit_attributes: {  }
+  form_exception_message: ''
+  form_closed_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_unsaved: false
+  form_disable_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_next_button_label: ''
+  wizard_next_button_attributes: {  }
+  wizard_prev_button_label: ''
+  wizard_prev_button_attributes: {  }
+  wizard_start_label: ''
+  wizard_complete: true
+  wizard_complete_label: ''
+  preview: 0
+  preview_next_button_label: ''
+  preview_next_button_attributes: {  }
+  preview_prev_button_label: ''
+  preview_prev_button_attributes: {  }
+  preview_message: ''
+  draft: false
+  draft_auto_save: false
+  draft_button_label: ''
+  draft_button_attributes: {  }
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  confirmation_type: message
+  confirmation_title: ''
+  confirmation_message: 'Your request for tour is submitted.'
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  limit_total: null
+  limit_total_message: ''
+  limit_user: null
+  limit_user_message: ''
+  purge: none
+  purge_days: null
+  entity_limit_total: null
+  entity_limit_user: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: false
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+handlers: {  }

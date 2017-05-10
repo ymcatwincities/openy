@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: tour_schedule
+label: 'Tour Schedule'
+behavior_plugins: {  }
