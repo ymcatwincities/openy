@@ -1,6 +1,9 @@
+uuid: 1ca3a152-0062-4233-b7ed-36131647960e
 langcode: en
 status: open
 dependencies: {  }
+_core:
+  default_config_hash: null
 open: null
 close: null
 uid: 1
