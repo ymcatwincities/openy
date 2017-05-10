@@ -10,52 +10,83 @@
  */
 #}
 <style type="text/css">
-    .yptf-kr-table{border-collapse:collapse;border-spacing:0;}
-    .yptf-kr-table td{padding:10px 5px;border-style:solid;border-width:1px;border-color:#ffffff;overflow:hidden;word-break:normal;}
-    .yptf-kr-table th{padding:10px 5px;border-style:solid;border-width:1px;border-color:#ffffff;overflow:hidden;word-break:normal;}
-    .yptf-kr-table .yptf-kr-purple{background-color:#834cad;color:#ffffff;}
-    .yptf-kr-table .yptf-kr-lp{background-color:#e7d7f3;}
-    .kronos-messages .red{color:#ff0000;}
+  .yptf-kr-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  .yptf-kr-table td {
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ffffff;
+    overflow: hidden;
+    word-break: normal;
+  }
+
+  .yptf-kr-table th {
+    padding: 10px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ffffff;
+    overflow: hidden;
+    word-break: normal;
+  }
+
+  .yptf-kr-table .yptf-kr-purple {
+    background-color: #834cad;
+    color: #ffffff;
+  }
+
+  .yptf-kr-table .yptf-kr-lp {
+    background-color: #e7d7f3;
+  }
+
+  .kronos-messages .red {
+    color: #ff0000;
+  }
 </style>
 <table class="yptf-kr-table">
+  <tr>
+    <th rowspan="2" class="yptf-kr-white"><strong>{{ data.report_type_name }}</strong></th>
+    <th colspan="4" class="yptf-kr-purple"><strong>{{ "Personal Training Service Hours"|t }}</strong></th>
+  </tr>
+  <tr>
+    <td class="yptf-kr-lp"><strong>{{ "Workforce"|t }}</strong> PT <br>{{ "Hours Submitted"|t }}</td>
+    <td class="yptf-kr-lp"><strong>{{ "MINDBODY"|t }}</strong><br>{{ "Reported PT Hours"|t }}<br>{{ "Booked"|t }}
+    </td>
+    <td class="yptf-kr-lp"><strong>{{ "Variance"|t }}</strong></td>
+    <td class="yptf-kr-lp"><strong>{{ "Historical Hours"|t }}</strong><br>{{ "Corrected time"|t }}
+      <br>{{ "from past report"|t }}</td>
+  </tr>
+  {% for key, row in data.rows %}
     <tr>
-        <th rowspan="2" class="yptf-kr-white"><strong>{{ data.report_type_name }}</strong></th>
-        <th colspan="4" class="yptf-kr-purple"><strong>{{  "Personal Training Service Hours"|t }}</strong></th>
+      <td class="yptf-kr-white">{{ row.name }}</td>
+      <td class="yptf-kr-lp">{{ row.wf_hours }}</td>
+      <td class="yptf-kr-lp">{{ row.mb_hours }}</td>
+      <td class="yptf-kr-lp">{{ row.variance }}</td>
+      <td class="yptf-kr-lp">{{ row.historical_hours }}</td>
     </tr>
-    <tr>
-        <td class="yptf-kr-lp"><strong>{{ "Workforce"|t }}</strong> PT <br>{{ "Hours Submitted"|t }}</td>
-        <td class="yptf-kr-lp"><strong>{{ "MINDBODY"|t }}</strong><br>{{ "Reported PT Hours"|t }}<br>{{ "Booked"|t }}</td>
-        <td class="yptf-kr-lp"><strong>{{ "Variance"|t }}</strong></td>
-        <td class="yptf-kr-lp"><strong>{{ "Historical Hours"|t }}</strong><br>{{ "Corrected time"|t }}<br>{{ "from past report"|t }}</td>
-    </tr>
-    {% for key, row in data.rows %}
-      <tr>
-        <td class="yptf-kr-white">{{ row.name }}</td>
-        <td class="yptf-kr-lp">{{ row.wf_hours }}</td>
-        <td class="yptf-kr-lp">{{ row.mb_hours }}</td>
-        <td class="yptf-kr-lp">{{ row.variance }}</td>
-        <td class="yptf-kr-lp">{{ row.historical_hours }}</td>
-      </tr>
-    {% endfor %}
-    <tr>
-        <td class="yptf-kr-white"><strong>{{ data.summary.name }}</strong></td>
-        <td class="yptf-kr-lp"><strong>{{ data.summary.wf_hours }}</strong></td>
-        <td class="yptf-kr-lp"><strong>{{ data.summary.mb_hours }}</strong></td>
-        <td class="yptf-kr-lp"><strong>{{ data.summary.variance }}</strong></td>
-        <td class="yptf-kr-lp"><strong>{{ data.summary.historical_hours }}</td>
-    </tr>
+  {% endfor %}
+  <tr>
+    <td class="yptf-kr-white"><strong>{{ data.summary.name }}</strong></td>
+    <td class="yptf-kr-lp"><strong>{{ data.summary.wf_hours }}</strong></td>
+    <td class="yptf-kr-lp"><strong>{{ data.summary.mb_hours }}</strong></td>
+    <td class="yptf-kr-lp"><strong>{{ data.summary.variance }}</strong></td>
+    <td class="yptf-kr-lp"><strong>{{ data.summary.historical_hours }}</td>
+  </tr>
 </table>
 <div class="kronos-messages">
-    {% if data.messages %}
-        <p class="red">{{ "Warning: duplicate employee ID conflict in MINDBODY. Employee ID listed in MINDBODY matches the following users:"|t }}</p>
-        {% for key, row in data.messages %}
-            <p class="red">
-                {{ row.name }} - StaffID: {{ key }} - Employee IDs:
-                {% for eid, eid_val in row.empids %}
-                <a href="https://clients.mindbodyonline.com/asp/adm/adm_trn_e.asp?trnID={{ eid_val }}"> {{ eid_val }}</a>
-                {% endfor %}
-            </p>
+  {% if data.messages %}
+    <p class="red">{{ "Warning: duplicate employee ID conflict in MINDBODY. Employee ID listed in MINDBODY matches the following users:"|t }}</p>
+    {% for key, row in data.messages %}
+      <p class="red">
+        {{ row.name }} - StaffID: {{ key }} - Employee IDs:
+        {% for eid, eid_val in row.empids %}
+          <a href="https://clients.mindbodyonline.com/asp/adm/adm_trn_e.asp?trnID={{ eid_val }}"> {{ eid_val }}</a>
         {% endfor %}
-        <p>{{ "To resolve, please check Kronos Workforce Central for accurate employee ID and update the 'Staff ID' field in MINDBODY. Contact to admin if you require assistance."|t }}</p>
-    {% endif %}
+      </p>
+    {% endfor %}
+    <p>{{ "To resolve, please check Kronos Workforce Central for accurate employee ID and update the 'Staff ID' field in MINDBODY. Contact to admin if you require assistance."|t }}</p>
+  {% endif %}
 </div>
