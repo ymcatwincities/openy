@@ -94,6 +94,7 @@ class ProgramsSearchBlockForm extends FormBase {
     if ($trigger = $form_state->getTriggeringElement()) {
       if ('type' == $trigger['#name']) {
         $form_state->setValue('step', 2);
+        $this->clearForm(['location', 'school', 'program', 'rate', 'session'], $form_state);
       }
     }
 
@@ -142,13 +143,16 @@ class ProgramsSearchBlockForm extends FormBase {
       switch ($trigger['#name']) {
         case 'location':
           $step = 3;
+          $this->clearForm(['school', 'program', 'rate', 'session'], $form_state);
           break;
 
         case 'school':
           $step = 4;
+          $this->clearForm(['program', 'rate', 'session'], $form_state);
           break;
 
         case 'program':
+          $this->clearForm(['rate', 'session'], $form_state);
           $step = 5;
           break;
 
@@ -251,9 +255,11 @@ class ProgramsSearchBlockForm extends FormBase {
       switch ($trigger['#name']) {
         case 'location':
           $step = 3;
+          $this->clearForm(['program', 'rate', 'session'], $form_state);
           break;
 
         case 'program':
+          $this->clearForm(['rate', 'session'], $form_state);
           $step = 4;
           break;
 
@@ -333,11 +339,44 @@ class ProgramsSearchBlockForm extends FormBase {
 
   /**
    * Helper function to filter out disabled locations.
+   *
+   * @param string $value
+   *   Location name.
+   * @param int $key
+   *   Location ID.
+   *
+   * @return mixed
+   *   Location value.
    */
   private function filterLocations($value, $key) {
     if (in_array($key, $this->locations)) {
       return $value;
     }
+    return FALSE;
+  }
+
+  /**
+   * Clear previously selected form values.
+   *
+   * @param array $values
+   *   A list of values to clear.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   */
+  private function clearForm(array $values, FormStateInterface &$form_state) {
+    $input = $form_state->getUserInput();
+
+    foreach ($values as $value) {
+      if ($form_state->hasValue($value)) {
+        $form_state->unsetValue($value);
+      }
+
+      if (isset($input[$value])) {
+        unset($input[$value]);
+      }
+    }
+
+    $form_state->setUserInput($input);
   }
 
 }
