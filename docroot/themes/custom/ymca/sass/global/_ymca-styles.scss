@@ -922,11 +922,10 @@ span.grey-caret {
     -ms-transition: color .3s ease-out;
   }
 }
-
+#sidebar-nav-header {
+  display: none;
+}
 .independent-header  {
-  #sidebar-nav-header {
-    display: none;
-  }
   @media screen and (max-width: 767px) {
     .nav-global {
       box-shadow: none;

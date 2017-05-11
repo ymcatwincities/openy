@@ -50,15 +50,6 @@ function ymca_theme_suggestions_block_alter(array &$suggestions, array $variable
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
- */
-function ymca_theme_suggestions_masthead_navigation_block_alter(array &$suggestions, array $variables) {
-  if (\Drupal::routeMatch()->getRouteName() == "openy_hf.header") {
-    $suggestions[] = 'masthead_navigation_block__header';
-  }
-}
-
-/**
  * Detects pages relative to location node.
  */
 function ymca_detect_locations_pages() {
