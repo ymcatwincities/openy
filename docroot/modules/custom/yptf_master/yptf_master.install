@@ -523,3 +523,11 @@ function yptf_master_update_8025() {
     ])->save();
   }
 }
+
+/**
+ * Add default admin email to Kronos form.
+ */
+function yptf_master_update_8029() {
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $config->set("admin_emails", 'craig.paulnock@ymcatwincities.org')->save();
+}
