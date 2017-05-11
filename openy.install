@@ -234,6 +234,14 @@ function openy_update_8015() {
 }
 
 /**
+ * Enable the Class Location paragraph module.
+ */
+function openy_update_8016() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_prgf_class_location']);
+}
+
+/**
  * Enable rabbit hole and rabbit hole node modules.
  */
 function openy_update_80017() {
