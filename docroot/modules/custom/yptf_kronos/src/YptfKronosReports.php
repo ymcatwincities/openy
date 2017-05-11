@@ -645,29 +645,34 @@ class YptfKronosReports {
     $lang = $this->languageManager->getCurrentLanguage()->getId();
 
     foreach ($email_type as $report_type => $data) {
-      if (!empty($config->get($report_type)['enabled']) && !empty($config->get($report_type)['staff_type'])) {
+      $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
+      $enabled_condition = \Drupal\Core\Mail\MailFormatHelper::htmlToText($config->get($report_type)['disabled_message']['value']);
+      $enabled_condition = $enabled_setting || !empty($enabled_condition);
+      if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
         $recipients = $storage->loadByProperties(['type' => 'staff', 'field_staff_type' => $config->get($report_type)['staff_type']]);
         foreach ($recipients as $index => $recipient) {
-
-          $body = $config->get($report_type)['body']['value'];
+          $body = $enabled_setting ? $config->get($report_type)['body']['value'] : $config->get($report_type)['disabled_message']['value'];
           $token = FALSE;
-          if ($report_type == 'leadership') {
-            $token = $this->createReportTable('', $report_type);
+          if ($enabled_setting) {
+            if ($report_type == 'leadership') {
+              $token = $this->createReportTable('', $report_type);
+            }
+            elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
+              $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
+            }
+            else {
+              $msg = 'PT Manager "%surname, %name" has no branch.';
+              $this->logger->notice($msg, [
+                '%surname' => $recipient->field_staff_surname->getValue()[0]['value'],
+                '%name' => $recipient->field_staff_name->getValue()[0]['value'],
+              ]);
+            }
+            if (!$token) {
+              continue;
+            }
           }
-          elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
-            $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
-          }
-          else {
-            $msg = 'PT Manager "%surname, %name" has no branch.';
-            $this->logger->notice($msg, [
-              '%surname' => $recipient->field_staff_surname->getValue()[0]['value'],
-              '%name' => $recipient->field_staff_name->getValue()[0]['value'],
-            ]);
-          }
-          if (!$token) {
-            continue;
-          }
-          $tokens['body'] = str_replace($report_tokens[$report_type], $token['report'], $body);
+          //check_markup($message['body'], $format);
+          $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
           $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
           $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
           $tokens['subject'] = str_replace('[report-end-date]', date("m/d/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
