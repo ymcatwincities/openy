@@ -10,45 +10,13 @@
  */
 #}
 <style type="text/css">
-  .yptf-kr-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-size: 14px;
-  }
-
-  .yptf-kr-table td {
-    padding: 10px 5px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #ffffff;
-    overflow: hidden;
-    word-break: normal;
-  }
-
-  .yptf-kr-table th {
-    padding: 10px 5px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #ffffff;
-    overflow: hidden;
-    word-break: normal;
-  }
-
-  .yptf-kr-table .yptf-kr-purple {
-    background-color: #834cad;
-    color: #ffffff;
-  }
-
-  .yptf-kr-table .yptf-kr-lp {
-    background-color: #e7d7f3;
-  }
-  .yptf-kr-table .yptf-kr-second-header {
-    font-size: 12px;
-  }
-
-  .kronos-messages .red {
-    color: #ff0000;
-  }
+  .yptf-kr-table {border-collapse: collapse;border-spacing: 0;font-size: 14px;}
+  .yptf-kr-table td {padding: 10px 5px;border-style: solid;border-width: 1px;border-color: #ffffff;overflow: hidden;word-break: normal;}
+  .yptf-kr-table th {padding: 10px 5px;border-style: solid;border-width: 1px;border-color: #ffffff;overflow: hidden;word-break: normal;}
+  .yptf-kr-table .yptf-kr-purple {background-color: #834cad;color: #ffffff;}
+  .yptf-kr-table .yptf-kr-lp {background-color: #e7d7f3;}
+  .yptf-kr-table .yptf-kr-second-header {font-size: 12px;}
+  .kronos-messages .red {color: #ff0000;}
 </style>
 <table class="yptf-kr-table">
   <tr>
@@ -56,12 +24,10 @@
     <th colspan="4" class="yptf-kr-purple" bgcolor="#834cad"><strong>{{ "Personal Training Service Hours"|t }}</strong></th>
   </tr>
   <tr>
-    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>{{ "Workforce"|t }}</strong> PT <br>{{ "Hours Submitted"|t }}</td>
-    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>{{ "MINDBODY"|t }}</strong><br>{{ "Reported PT Hours"|t }}<br>{{ "Booked"|t }}
-    </td>
+    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3">{{ "<strong>Workforce</strong> PT<br>Hours Submitted"|t }}</td>
+    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3">{{ "<strong>MINDBODY<br>Reported PT<br>Booked Hours</strong>"|t }}</td>
     <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>{{ "Variance"|t }}</strong></td>
-    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3"><strong>{{ "Historical Hours"|t }}</strong><br>{{ "Corrected time"|t }}
-      <br>{{ "from past report"|t }}</td>
+    <td class="yptf-kr-lp yptf-kr-second-header" bgcolor="#e7d7f3">{{ "<strong>Historical Hours</strong><br>Corrected time<br>from past report"|t }}</td>
   </tr>
   {% for key, row in data.rows %}
     <tr>
