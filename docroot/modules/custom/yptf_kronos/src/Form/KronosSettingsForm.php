@@ -85,7 +85,12 @@ class KronosSettingsForm extends ConfigFormBase {
         '#format' => 'full_html',
       );
     }
-
+    $form['admin_emails'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Administrator emais for Error report'),
+      '#default_value' => !empty($config->get('admin_emails')) ? $config->get('admin_emails') : '',
+      '#description' => $this->t('Admin emails. Comma-separated values.'),
+    );
     return parent::buildForm($form, $form_state);
   }
 
@@ -105,6 +110,7 @@ class KronosSettingsForm extends ConfigFormBase {
         'disabled_message' => $values[$id . ':disabled_message'],
       ])->save();
     }
+    $this->config('yptf_kronos.settings')->set('admin_emails', $values['admin_emails'])->save();
     parent::submitForm($form, $form_state);
   }
 
