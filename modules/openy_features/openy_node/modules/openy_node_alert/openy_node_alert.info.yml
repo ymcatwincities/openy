@@ -23,9 +23,10 @@ dependencies:
   - options
   - path
   - pathauto
+  - rabbit_hole
   - slick_views
   - taxonomy
   - text
   - user
   - views
-version: 8.x-1.1
+version: 8.x-1.2
