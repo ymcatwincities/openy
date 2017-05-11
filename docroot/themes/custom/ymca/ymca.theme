@@ -58,7 +58,6 @@ function ymca_theme_suggestions_masthead_navigation_block_alter(array &$suggesti
   }
 }
 
-
 /**
  * Detects pages relative to location node.
  */
