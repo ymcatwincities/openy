@@ -363,9 +363,9 @@
    */
   Drupal.behaviors.menuToggle = {
     attach: function (context, settings) {
-      var $menuItem = $("#block-openy-lily-main-menu .dropdown-toggle");
-      var $container = $("#main");
-      $($menuItem, context).each(function () {
+      $('#block-openy-lily-main-menu .dropdown-toggle', context).each(function () {
+        var $menuItem = $("#block-openy-lily-main-menu .dropdown-toggle");
+        var $container = $("#main");
         $(this).on('click', function (e) {
           $(this).toggleClass('expanded-menu');
           $($menuItem).not($(this)).removeClass('expanded-menu');
@@ -380,7 +380,7 @@
         var $container = $("#block-openy-lily-main-menu");
         if (!$container.is(e.target) && $container.has(e.target).length === 0) {
           $('#main').removeClass('expanded-menu');
-          $($menuItem).removeClass('expanded-menu');
+          $('#block-openy-lily-main-menu .dropdown-toggle').removeClass('expanded-menu');
         }
       });
     }
