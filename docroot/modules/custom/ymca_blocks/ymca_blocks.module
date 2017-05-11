@@ -230,6 +230,6 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
  */
 function ymca_blocks_theme_suggestions_masthead_navigation_block_alter(array &$suggestions, array $variables) {
   if (\Drupal::routeMatch()->getRouteName() == "openy_hf.header") {
-    $suggestions[] = 'openy_hf_header_masthead_navigation_block';
+    $suggestions[] = 'masthead_navigation_block__header';
   }
 }
