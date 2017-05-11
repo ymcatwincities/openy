@@ -190,7 +190,7 @@ class YptfKronosReports {
       foreach ($this->kronosData as $current_line => $item) {
         if ($item->job == self::KRONOS_TRAINING_ID) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
-          !$location_id && $location_reports[$item->locNo] = 'Location mapping missed. WF locNo: ' . $item->locNo;
+          !$location_id ? $location_reports[$item->locNo] = 'Location mapping missed. WF locNo: ' . $item->locNo : '';
           $location_reports[$location_id]['name'] = $item->locName;
           $empID = $this->getMindbodyidbyStaffId($item->empNo);
 
@@ -221,18 +221,21 @@ class YptfKronosReports {
 
           if (isset($item->totalHours)) {
             // Skip trainer calculation for multiple empIDs.
-            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) && $trainer_reports[$location_id][$empID]['wf_hours'] = 0;
+            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['wf_hours']) ? $trainer_reports[$location_id][$empID]['wf_hours'] = 0 : '';
             !isset($location_reports[$location_id]['wf_hours']) && $location_reports[$location_id]['wf_hours'] = 0;
           }
 
           if (isset($item->historical)) {
             // Skip trainer calculation for multiple empIDs.
-            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) && $trainer_reports[$location_id][$empID]['historical_hours'] = 0;
-            !isset($location_reports[$location_id]['historical_hours']) && $location_reports[$location_id]['historical_hours'] = 0;
+            !is_array($empID) && !isset($trainer_reports[$location_id][$empID]['historical_hours']) ? $trainer_reports[$location_id][$empID]['historical_hours'] = 0 : '';
+            !isset($location_reports[$location_id]['historical_hours']) ? $location_reports[$location_id]['historical_hours'] = 0 : '';
           }
           // Skip trainer calculation for multiple empIDs.
-          !is_array($empID) && $trainer_reports[$location_id][$empID]['wf_hours'] += $item->totalHours;
-          !is_array($empID) && $trainer_reports[$location_id][$empID]['historical_hours'] += $item->historical;
+          if (!is_array($empID)) {
+            $trainer_reports[$location_id][$empID]['wf_hours'] += $item->totalHours;
+            $trainer_reports[$location_id][$empID]['historical_hours'] += $item->historical;
+          }
+
 
           $location_reports[$location_id]['wf_hours'] += $item->totalHours;
           $location_reports[$location_id]['historical_hours'] += $item->historical;
@@ -287,13 +290,13 @@ class YptfKronosReports {
 
           // Skip calculation for trainers who have multiple EmpIDs.
           if (!isset($this->reports['messages']['multi_ids'][$location_id][$staff_id])) {
-            !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) && $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0;
+            !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
             $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
-            !empty($item->Staff->LastName) && $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName;
+            !empty($item->Staff->LastName) ? $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName : '';
           }
-          !isset($location_reports[$location_id]['mb_hours']) && $location_reports[$location_id]['mb_hours'] = 0;
+          !isset($location_reports[$location_id]['mb_hours']) ? $location_reports[$location_id]['mb_hours'] = 0 : '';
           $location_reports[$location_id]['mb_hours'] += $diff;
-          !empty($item->Location->Name) && $location_reports[$location_id]['name'] = $item->Location->Name;
+          !empty($item->Location->Name) ? $location_reports[$location_id]['name'] = $item->Location->Name : '';
         }
       }
     }
@@ -348,9 +351,9 @@ class YptfKronosReports {
         $row['variance'] = round((1 - $row['mb_hours'] / $row['wf_hours']) * 100);
         $row['variance'] .= '%';
       }
-      isset($row['wf_hours']) && $loc_total['wf_hours'] += intval($row['wf_hours']);
-      isset($row['mb_hours']) && $loc_total['mb_hours'] += intval($row['mb_hours']);
-      isset($row['historical_hours']) && $loc_total['historical_hours'] += intval($row['historical_hours']);
+      isset($row['wf_hours']) ? $loc_total['wf_hours'] += intval($row['wf_hours']) : '';
+      isset($row['mb_hours']) ? $loc_total['mb_hours'] += intval($row['mb_hours']) : '';
+      isset($row['historical_hours']) ? $loc_total['historical_hours'] += intval($row['historical_hours']) : '';
     }
     $location_reports['total']['wf_hours'] = round($loc_total['wf_hours'], 2);
     $location_reports['total']['mb_hours'] = round($loc_total['mb_hours'], 2);
@@ -395,7 +398,7 @@ class YptfKronosReports {
       $kronos_file_name_date = date('Y-m-d', strtotime($kronos_report_day . $shift . 'days'));
       $kronos_path_to_file = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
       $kronos_file = $kronos_path_to_file . '/wf_reports/WFC_' . $kronos_file_name_date . '.json';
-      file_exists($kronos_file) && $kronos_data_raw = file_get_contents($kronos_file);
+      file_exists($kronos_file) ? $kronos_data_raw = file_get_contents($kronos_file) : '';
       if (empty($kronos_data_raw)) {
         $kronos_file = self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date . '.json';
         $kronos_data_raw = @file_get_contents($kronos_file);
