@@ -759,6 +759,7 @@ class YptfKronosReports {
         if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
           // @TODO: add admin email.
           $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
+          $data['admin_mail'] = 'Paige.Kiecker@ymcamn.org';
         }
 
         break;
