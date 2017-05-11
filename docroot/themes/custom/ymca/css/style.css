@@ -8490,9 +8490,10 @@ span.grey-caret:after {
   -ms-transition: color .3s ease-out;
 }
 
-.independent-header #sidebar-nav-header {
+#sidebar-nav-header {
   display: none;
 }
+
 @media screen and (max-width: 767px) {
   .independent-header .nav-global {
     box-shadow: none;

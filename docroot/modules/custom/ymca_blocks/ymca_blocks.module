@@ -224,12 +224,3 @@ function ymca_blocks_block_content_view_alter(array &$build, EntityInterface $en
       break;
   }
 }
-
-/**
- * Implements hook_theme_HOOK_alter().
- */
-function ymca_blocks_theme_suggestions_masthead_navigation_block_alter(array &$suggestions, array $variables) {
-  if (\Drupal::routeMatch()->getRouteName() == "openy_hf.header") {
-    $suggestions[] = 'masthead_navigation_block__header';
-  }
-}
