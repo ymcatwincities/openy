@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c11fac3b57f47fb3eb2bdaee417a1f6a",
+    "hash": "1d24760b58a8836a25abc7c027614d69",
     "content-hash": "95cf4e9552118f38b73cfdfd14f6f150",
     "packages": [
         {
@@ -1402,7 +1402,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/datalayer",
-                "reference": "3e73f78f15822f1c758f8f26dd226b7ebc41b42f"
+                "reference": "fc636eb8c1df7e9e754aae920fe305f09d5de2ab"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -1414,8 +1414,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.x-dev",
-                    "datestamp": "1488388683"
+                    "version": "8.x-1.0-beta1+5-dev",
+                    "datestamp": "1494466989"
                 },
                 "patches_applied": {
                     "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
@@ -1444,7 +1444,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/datalayer"
             },
-            "time": "2017-03-01 17:17:52"
+            "time": "2017-05-11 02:46:29"
         },
         {
             "name": "drupal/dropzonejs",
@@ -2534,7 +2534,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta1",
-                    "datestamp": "1476307739"
+                    "datestamp": "1494450485"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2585,7 +2585,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-beta1",
-                    "datestamp": "1476313439"
+                    "datestamp": "1494450485"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
