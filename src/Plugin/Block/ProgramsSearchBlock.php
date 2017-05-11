@@ -3,6 +3,7 @@
 namespace Drupal\ygh_programs_search\Plugin\Block;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
@@ -28,6 +29,13 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   protected $storage;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a new Programs Search Block instance.
    *
    * @param array $configuration
@@ -38,12 +46,15 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    *   The plugin implementation definition.
    * @param \Drupal\ygh_programs_search\DataStorageInterface $storage
    *   Locations storage.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   Config Factory.
    *
    * @internal param $DataStorageInterface
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, DataStorageInterface $storage) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, DataStorageInterface $storage, ConfigFactoryInterface $configFactory) {
     $this->storage = $storage;
+    $this->configFactory = $configFactory;
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
 
   /**
@@ -54,7 +65,8 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('ygh_programs_search.data_storage')
+      $container->get('ygh_programs_search.data_storage'),
+      $container->get('config.factory')
     );
   }
 
@@ -62,8 +74,12 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
+    $defaults = $this->configFactory
+      ->get('ygh_programs_search.settings')
+      ->get('default_locations');
+
     return [
-      'enabled_locations' => [],
+      'enabled_locations' => $defaults,
     ];
   }
 
