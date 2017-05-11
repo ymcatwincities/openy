@@ -1,4 +1,92 @@
 .paragraph--type--all-events  {
+
+  form {
+    background-color: $lighter-grey;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 15px 25px;
+    clear: both;
+    @include breakpoint(laptop) {
+      margin: 0 15px 50px;
+    }
+
+    .form-item {
+      margin-bottom: 0;
+    }
+
+    .form-item-field-event-date-range, .form-item-field-event-date-range-1 {
+      float: left;
+      padding-right: 35px;
+      input {
+        padding: 4px;
+        @include breakpoint(tablet) {
+          max-width: 160px;
+        }
+      }
+
+      label {
+        @include cachet();
+        font-size: 14px;
+        line-height: 1.57;
+        color: $dark-grey;
+        margin-bottom: 3px;
+        display: block;
+      }
+
+      margin-bottom: 20px;
+      width: 100%;
+      @include breakpoint(tablet) {
+        float: left;
+        padding-right: 35px;
+        width: 50%;
+      }
+      @include breakpoint(laptop) {
+        margin-bottom: 0;
+        width: auto;
+      }
+      &.form-item-field-belongs-to {
+        margin-bottom: 0;
+      }
+
+    }
+
+    .form-item-search-api-fulltext {
+      padding-right: 0;
+      float: left;
+      clear: both;
+      @include breakpoint(laptop) {
+        position: absolute;
+        float: none;
+        right: 125px;
+        top: 37px;
+      }
+      input {
+        height: 40px;
+        @include breakpoint(tablet) {
+          max-width: 250px;
+        }
+      }
+    }
+
+    .form-actions {
+      text-align: center;
+      @include breakpoint(laptop) {
+        position: absolute;
+        right: 35px;
+        top: 37px;
+      }
+      input {
+        @include btn-blue();
+        width: 90px;
+        margin-top: 10px;
+        @include breakpoint(tablet) {
+          margin: 0;
+        }
+      }
+    }
+  }
+
   .views-row {
     clear: both;
     margin-bottom: 50px;
