@@ -646,7 +646,7 @@ class YptfKronosReports {
 
     foreach ($email_type as $report_type => $data) {
       $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
-      $enabled_condition = \Drupal\Core\Mail\MailFormatHelper::htmlToText($config->get($report_type)['disabled_message']['value']);
+      $enabled_condition = trim(strip_tags(str_replace('&nbsp;', '', $config->get($report_type)['disabled_message']['value'])));
       $enabled_condition = $enabled_setting || !empty($enabled_condition);
       if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
         $recipients = $storage->loadByProperties(['type' => 'staff', 'field_staff_type' => $config->get($report_type)['staff_type']]);
@@ -671,7 +671,6 @@ class YptfKronosReports {
               continue;
             }
           }
-          //check_markup($message['body'], $format);
           $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
           $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
           $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
