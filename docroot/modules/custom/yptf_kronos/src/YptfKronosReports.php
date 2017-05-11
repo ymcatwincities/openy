@@ -374,6 +374,7 @@ class YptfKronosReports {
     $this->reports['locations'] = $location_reports;
 
     $this->sendReports();
+    $this->sendErrorReports();
   }
 
   /**
@@ -410,6 +411,11 @@ class YptfKronosReports {
     if (!$kronos_data_raw) {
       $msg = 'Failed to get the data from Kronos file %file.';
       $this->logger->notice($msg, ['%file' => $kronos_file]);
+      $kronos_file_name_date2 = date('Y-m-d', strtotime($kronos_report_day . reset($kronos_shift_day) . 'days'));
+      $this->reports['messages']['error_reports']['No Kronos file for two weeks:'] = t('Failed to get the data from Kronos file %file1 and %file2. Contact the FFW team.', [
+        '@file1' => $kronos_file,
+        '@file2' => $kronos_file_name_date2,
+      ]);
       return $this->kronosData;
     }
     $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_file_name_date));
@@ -501,6 +507,10 @@ class YptfKronosReports {
       catch (\Exception $e) {
         $msg = 'Error: %error . Failed to get the data from MindBody. Request MB params: %params.';
         $this->logger->notice($msg, [
+          '%error' => $e->getMessage(),
+          '%params' => print_r($params, TRUE),
+        ]);
+        $this->reports['messages']['error_reports']['Failed request for MB report data:'][] = t('Error: %error . Failed to get the data from MindBody. Request MB params: %params. Contact the MindBody team.', [
           '%error' => $e->getMessage(),
           '%params' => print_r($params, TRUE),
         ]);
@@ -701,6 +711,9 @@ class YptfKronosReports {
             catch (\Exception $e) {
               $msg = 'Failed to send email report. Error: %error';
               $this->logger->notice($msg, ['%error' => $e->getMessage()]);
+              $this->reports['messages']['error_reports']['Failed to send email. Email server issue:'][] = t('Failed to send email report. Error: %error . Contact the FFW team.', [
+                '%error' => print_r($e->getMessage(), TRUE),
+              ]);
             }
           }
         }
@@ -716,7 +729,7 @@ class YptfKronosReports {
    * @param string $type
    *   Email type.
    *
-   * @return array
+   * @return mixed
    *   Rendered value.
    */
   public function createReportTable($location_id, $type = 'leadership') {
@@ -738,6 +751,9 @@ class YptfKronosReports {
         else {
           $msg = 'No location on site for MB location_id: %params.';
           $this->logger->notice($msg, ['%params' => $location_id]);
+          $this->reports['messages']['error_reports']['No location mapping based on MB location ID:'][] = t('No location on site for MB location_id: %params. Contact the FFW team.', [
+            '%params' => print_r($location_id, TRUE),
+          ]);
           return FALSE;
         }
 
@@ -794,6 +810,44 @@ class YptfKronosReports {
     // instead use command below.
     $table = $this->renderer->renderRoot($variables);
     return ['report' => $table, 'name' => $location_name];
+  }
+
+  /**
+   * Send error reports.
+   */
+  public function sendErrorReports() {
+    if (isset($this->reports['messages']['error_reports'])) {
+      $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
+      if (!empty($admin_emails)) {
+        $admin_emails = explode(',', $admin_emails);
+        foreach ($admin_emails as $index => $email) {
+          $email = trim($email);
+          if (empty($email)) {
+            continue;
+          }
+          try {
+            // Send error notifications.
+            $lang = $this->languageManager->getCurrentLanguage()->getId();
+            $tokens['body'] = '';
+            foreach ($this->reports['messages']['error_reports'] as $error_name => $error_values) {
+              $tokens['body'] .= '<div><strong>' . (string) $error_name . '</strong></div>';
+              foreach ($error_values as $error_description) {
+                $tokens['body'] .= '<div>' . (string) $error_description . '</div>';
+              }
+              $tokens['body'] .= '<br>';
+            }
+
+            $tokens['subject'] = t('Kronos Error Reports');
+            $this->mailManager->mail('yptf_kronos', 'yptf_kronos_error_reports', $email, $lang, $tokens);
+          }
+          catch (\Exception $e) {
+            $msg = 'Failed to send Error email report. Error: %error';
+            $this->logger->notice($msg, ['%error' => $e->getMessage()]);
+
+          }
+        }
+      }
+    }
   }
 
 }
