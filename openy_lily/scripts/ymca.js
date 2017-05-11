@@ -363,13 +363,25 @@
    */
   Drupal.behaviors.menuToggle = {
     attach: function (context, settings) {
-      $("#block-openy-lily-main-menu .dropdown-toggle", context).each(function () {
+      var $menuItem = $("#block-openy-lily-main-menu .dropdown-toggle");
+      var $container = $("#main");
+      $($menuItem, context).each(function () {
         $(this).on('click', function (e) {
-          e.preventDefault();
           $(this).toggleClass('expanded-menu');
-          $('#main').toggleClass('expanded-menu');
-
+          $($menuItem).not($(this)).removeClass('expanded-menu');
+          e.preventDefault();
+          $($container).removeClass('expanded-menu');
+          if ($(this).hasClass('expanded-menu')) {
+            $($container).addClass('expanded-menu');
+          }
         });
+      });
+      $(document).mouseup(function(e) {
+        var $container = $("#block-openy-lily-main-menu");
+        if (!$container.is(e.target) && $container.has(e.target).length === 0) {
+          $('#main').removeClass('expanded-menu');
+          $($menuItem).removeClass('expanded-menu');
+        }
       });
     }
   };

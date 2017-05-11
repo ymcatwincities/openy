@@ -114,10 +114,10 @@ header .top-navs #block-openy-lily-main-menu ul li.nav-level-2 {
   float: none;
   display: table-cell;
   width: 1%;
-  min-width: 11%;
+  min-width: 10%;
 }
 header .top-navs #block-openy-lily-main-menu ul li.nav-level-2 > a {
-  padding: 21px 5px;
+  padding: 21px 0px;
 }
 header .top-navs #block-openy-lily-main-menu ul li.nav-level-2 > a i {
   font-size: 12px;
@@ -125,6 +125,39 @@ header .top-navs #block-openy-lily-main-menu ul li.nav-level-2 > a i {
 }
 header .top-navs #block-openy-lily-main-menu ul li.nav-level-2 > a.expanded-menu, header .top-navs #block-openy-lily-main-menu ul li.nav-level-2 > a:hover {
   background: rgba(255, 255, 255, 0.18);
+}
+header .top-navs #block-openy-lily-main-menu ul li.nav-level-2.menu-icon-1 a:after {
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  color: white;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  content: "\e021";
+  vertical-align: bottom;
+  position: absolute;
+  top: -37px;
+  left: 0;
+}
+@media (min-width: 75em) {
+  header .top-navs #block-openy-lily-main-menu ul li.nav-level-2.menu-icon-1 a:after {
+    display: none;
+  }
+}
+@media screen and (max-width: 1200px) {
+  header .top-navs #block-openy-lily-main-menu ul li.nav-level-2.menu-icon-1 {
+    min-width: 3%;
+    display: inline-block;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    padding-top: 62px;
+    height: 62px;
+    padding-left: 6px;
+  }
+  header .top-navs #block-openy-lily-main-menu ul li.nav-level-2.menu-icon-1:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
 }
 header .top-navs #block-openy-lily-main-menu ul li.nav-level-3 {
   float: none;
@@ -194,7 +227,7 @@ header.tiny .top-navs #block-openy-lily-user-menu li a {
   line-height: 19px;
 }
 header.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
-  padding: 16px 5px;
+  padding: 21px 0px;
 }
 header.expanded-search {
   top: 88px;
