@@ -31,6 +31,13 @@ function ygh_theme_suggestions_input_alter(array &$suggestions, array $variables
   if (isset($variables['element']['#attributes']['name'])) {
     array_push($suggestions, 'input__' . $variables['element']['#attributes']['name']);
   }
+
+  if (isset($variables['element']['#form_id'])
+  && $variables['element']['#form_id'] == 'views-exposed-form-events-default-default') {
+    array_push($suggestions, 'input__search_api_fulltext__' . $variables['element']['#form_id']);
+    array_push($suggestions, 'input__search_api_fulltext__events');
+  }
+
 }
 
 /**
