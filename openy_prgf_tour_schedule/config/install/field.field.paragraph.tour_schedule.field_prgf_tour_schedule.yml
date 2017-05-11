@@ -14,7 +14,7 @@ bundle: tour_schedule
 label: 'Tour Schedule'
 description: 'Default Tour Schedule web-form to display on request a tour page. Change this value only if necessary.'
 required: true
-translatable: false
+translatable: true
 default_value:
   -
     default_data: ''
