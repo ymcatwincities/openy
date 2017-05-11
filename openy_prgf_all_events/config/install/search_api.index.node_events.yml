@@ -1,0 +1,94 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_date_range
+    - search_api.server.default
+  module:
+    - search_api
+    - node
+id: node_events
+name: Events
+description: 'Index keep event nodes content.'
+read_only: false
+field_settings:
+  rendered_item:
+    label: 'Rendered HTML output'
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          event: default
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+  status:
+    label: 'Publishing status'
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+  nid:
+    label: ID
+    datasource_id: 'entity:node'
+    property_path: nid
+    type: integer
+  uuid:
+    label: UUID
+    datasource_id: 'entity:node'
+    property_path: uuid
+    type: string
+  vid:
+    label: 'Revision ID'
+    datasource_id: 'entity:node'
+    property_path: vid
+    type: integer
+  promote:
+    label: 'Promoted to front page'
+    datasource_id: 'entity:node'
+    property_path: promote
+    type: boolean
+  sticky:
+    label: 'Sticky at top of lists'
+    datasource_id: 'entity:node'
+    property_path: sticky
+    type: boolean
+  field_event_date_range:
+    label: 'Event Date'
+    datasource_id: 'entity:node'
+    property_path: field_event_date_range
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_event_date_range
+  field_event_date_range_end_value:
+    label: 'Event Date » End date value'
+    datasource_id: 'entity:node'
+    property_path: 'field_event_date_range:end_value'
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_event_date_range
+processor_settings:
+  add_url: {  }
+  rendered_item: {  }
+  aggregated_field: {  }
+options:
+  index_directly: true
+  cron_limit: 50
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - event
+    languages:
+      default: true
+      selected: {  }
+tracker_settings:
+  default: {  }
+server: default
