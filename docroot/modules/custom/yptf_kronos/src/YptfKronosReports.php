@@ -236,7 +236,6 @@ class YptfKronosReports {
             $trainer_reports[$location_id][$empID]['historical_hours'] += $item->historical;
           }
 
-
           $location_reports[$location_id]['wf_hours'] += $item->totalHours;
           $location_reports[$location_id]['historical_hours'] += $item->historical;
 
