@@ -99,6 +99,7 @@ dependencies:
   - openy_prgf_small_banner
   - openy_prgf_banner
   - openy_prgf_simple_content
+  - openy_prgf_schedule_search
   - openy_prgf_featured_content
   - openy_prgf_grid_content
   - openy_prgf_story_card
@@ -127,6 +128,9 @@ dependencies:
   - openy_hours_formatter
   - openy_migrate
   - openy_map
+  - openy_moderation_wrapper
+  - openy_session_instance
+  - openy_schedules
   - openy_socrates
   - location_finder
   - daxko

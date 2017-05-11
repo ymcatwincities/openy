@@ -98,7 +98,7 @@ source:
       title: 'Blog'
       menu_name: 'footer-menu-center'
       link: 'blog'
-      weight: 3
+      weight: 4
       parent_id: 0
       expanded: 0
       parent_link_path: ''
@@ -107,7 +107,7 @@ source:
       title: 'Accelerator'
       menu_name: 'footer-menu-center'
       link: 'accelerator'
-      weight: 4
+      weight: 5
       parent_id: 0
       expanded: 0
       parent_link_path: ''
@@ -134,6 +134,15 @@ source:
       title: 'Join'
       menu_name: 'footer-menu-right'
       link: 'join'
+      weight: 3
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 15
+      title: 'Schedules'
+      menu_name: 'footer-menu-center'
+      link: 'schedules'
       weight: 3
       parent_id: 0
       expanded: 0
