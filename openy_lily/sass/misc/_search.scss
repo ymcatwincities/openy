@@ -90,3 +90,21 @@ body.path-search {
     line-height: 50px;
   }
 }
+
+.search-results {
+  padding: 40px 30px;
+  @include breakpoint($desktop) {
+    padding: 40px 100px;
+  }
+  .views-row {
+    padding: 15px 0;
+    max-width: 430px;
+    .views-field-title {
+      font-size: 18px;
+      font-family:'Cachet';
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}

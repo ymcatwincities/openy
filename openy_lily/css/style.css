@@ -24,6 +24,30 @@ body {
   font-family: "Cachet",Arial,sans-serif;
 }
 
+.container-fluid {
+  padding: 0 30px;
+}
+@media (min-width: 75em) {
+  .container-fluid {
+    padding: 0 100px;
+  }
+}
+
+.page-heading {
+  padding: 30px 0;
+}
+.page-heading.black-header {
+  background: #434343;
+}
+.page-heading.black-header h1 {
+  margin: 0;
+  color: white;
+  font-size: 48px;
+  text-transform: uppercase;
+  font-family: 'Cachet';
+  font-weight: bold;
+}
+
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
 }
@@ -633,6 +657,26 @@ body.path-search #block-mainpagecontent li {
 }
 .tiny-header .search-toggle {
   line-height: 50px;
+}
+
+.search-results {
+  padding: 40px 30px;
+}
+@media (min-width: 75em) {
+  .search-results {
+    padding: 40px 100px;
+  }
+}
+.search-results .views-row {
+  padding: 15px 0;
+  max-width: 430px;
+}
+.search-results .views-row .views-field-title {
+  font-size: 18px;
+  font-family: 'Cachet';
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .node--type-blog.node--view-mode-teaser a .inner-wrapper {
