@@ -47,6 +47,14 @@ body {
   font-family: 'Cachet';
   font-weight: bold;
 }
+@media (min-width: 0) and (max-width: 48em) {
+  .page-heading {
+    padding: 20px 0;
+  }
+  .page-heading h1 {
+    font-size: 24px !important;
+  }
+}
 
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
@@ -666,6 +674,9 @@ body.path-search #block-mainpagecontent li {
   .search-results {
     padding: 40px 100px;
   }
+}
+.search-results .views-exposed-form {
+  display: none;
 }
 .search-results .views-row {
   padding: 15px 0;
