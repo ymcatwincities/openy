@@ -10,6 +10,18 @@
  */
 #}
 
+<ul id="sidebar-nav-header">
+  {% for item in content.active_menu_tree.children %}
+    {% if item.show_in_meganav %}
+      <li {% if item.active %}class="active"{% endif %}>
+        <a href="{{ item.url }}" {% if item.active %}class="active"{% endif %}>
+          {{ item.page_name }}
+        </a>
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
 <nav id="masthead-menu" class="nav-home masthead-menu navbar hidden-xs nav-themes-b">
   <div class="container">
     <div class="navbar-collapse collapse">
