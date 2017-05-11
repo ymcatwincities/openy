@@ -922,3 +922,33 @@ span.grey-caret {
     -ms-transition: color .3s ease-out;
   }
 }
+
+.independent-header  {
+  .nav-global {
+    box-shadow: none;
+  }
+  #sidebar-nav-header {
+    background: $grey1;
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+    box-shadow: 0 0 8px -3px #000;
+    li {
+      display: inline;
+      border-left: 1px solid $black2;
+      padding: 0 0 0 5px;
+      margin: 0 0 0 5px;
+      font-size: 11px;
+      text-align: center;
+      &:first-child {
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+      a {
+        color: $black2;
+        font-weight: bold;
+      }
+    }
+  }
+}
