@@ -9,6 +9,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\Renderer;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Component\Render\FormattableMarkup;
 
 /**
  * Class YptfKronosReports.
@@ -140,6 +141,13 @@ class YptfKronosReports {
   const KRONOS_TRAINING_ID = 'PT (one on one and buddy)';
 
   /**
+   * Flag for report calculation.
+   *
+   * @var bool
+   */
+  protected $reportCalculated = FALSE;
+
+  /**
    * YmcaMindbodyExamples constructor.
    *
    * @param ConfigFactory $config_factory
@@ -173,12 +181,29 @@ class YptfKronosReports {
   }
 
   /**
-   * Calculate/compare data from Kronos & reports.
+   * Generate reports.
    *
    * @param int $request_number
    *   Number of requests of report to MB.
    */
   public function generateReports($request_number = 0) {
+    $this->getInitialDates();
+    if (!empty($request_number)) {
+      $this->numberOfRequest = $request_number;
+    }
+    $this->sendReports();
+    $this->sendErrorReports();
+  }
+
+  /**
+   * Calculate/compare data from Kronos & reports.
+   *
+   * @param int $request_number
+   *   Number of requests of report to MB.
+   */
+  public function calculateReports($request_number = 0) {
+    // Report calculated flag.
+    $this->reportCalculated = TRUE;
     // Get Kronos data.
     $trainer_reports = [];
     $location_reports = [];
@@ -373,7 +398,21 @@ class YptfKronosReports {
     $this->reports['trainers'] = $trainer_reports;
     $this->reports['locations'] = $location_reports;
 
-    $this->sendReports();
+  }
+
+  /**
+   * Get initial Dates.
+   */
+  public function getInitialDates() {
+    $kronos_report_day = $this->kronosReportDay;
+    $kronos_shift_days = $this->kronosReportShiftDays;
+    if ($week_day = date("w") < 2) {
+      foreach ($kronos_shift_days as &$kronos_shift_day) {
+        $kronos_shift_day -= 7;
+      }
+    }
+    $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_report_day));
+    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_report_day . ' -13 days'));
   }
 
   /**
@@ -410,6 +449,11 @@ class YptfKronosReports {
     if (!$kronos_data_raw) {
       $msg = 'Failed to get the data from Kronos file %file.';
       $this->logger->notice($msg, ['%file' => $kronos_file]);
+      $kronos_file_name_date2 = date('Y-m-d', strtotime($kronos_report_day . reset($kronos_shift_days) . 'days'));
+      $this->reports['messages']['error_reports']['No Kronos file for two weeks:'][] = t('Failed to get the data from Kronos file %file1 and %file2. Contact the FFW team.', [
+        '%file1' => $kronos_file,
+        '%file2' => self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date2 . '.json',
+      ]);
       return $this->kronosData;
     }
     $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_file_name_date));
@@ -501,6 +545,10 @@ class YptfKronosReports {
       catch (\Exception $e) {
         $msg = 'Error: %error . Failed to get the data from MindBody. Request MB params: %params.';
         $this->logger->notice($msg, [
+          '%error' => $e->getMessage(),
+          '%params' => print_r($params, TRUE),
+        ]);
+        $this->reports['messages']['error_reports']['Failed request for MB report data:'][] = t('Error: %error . Failed to get the data from MindBody. Request MB params: %params. Contact the MindBody team.', [
           '%error' => $e->getMessage(),
           '%params' => print_r($params, TRUE),
         ]);
@@ -645,17 +693,23 @@ class YptfKronosReports {
     $lang = $this->languageManager->getCurrentLanguage()->getId();
 
     foreach ($email_type as $report_type => $data) {
-      if (!empty($config->get($report_type)['enabled']) && !empty($config->get($report_type)['staff_type'])) {
+      $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
+      $enabled_condition = trim(strip_tags(str_replace('&nbsp;', '', $config->get($report_type)['disabled_message']['value'])));
+      $enabled_condition = $enabled_setting || !empty($enabled_condition);
+      if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
         $recipients = $storage->loadByProperties(['type' => 'staff', 'field_staff_type' => $config->get($report_type)['staff_type']]);
         foreach ($recipients as $index => $recipient) {
-
-          $body = $config->get($report_type)['body']['value'];
+          if ($enabled_setting && !$this->reportCalculated) {
+            $this->calculateReports();
+          }
+          $body = $enabled_setting ? $config->get($report_type)['body']['value'] : $config->get($report_type)['disabled_message']['value'];
           $token = FALSE;
+
           if ($report_type == 'leadership') {
-            $token = $this->createReportTable('', $report_type);
+            $token = $this->createReportTable('', $report_type, $enabled_setting);
           }
           elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
-            $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
+            $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type, $enabled_setting);
           }
           else {
             $msg = 'PT Manager "%surname, %name" has no branch.';
@@ -667,7 +721,8 @@ class YptfKronosReports {
           if (!$token) {
             continue;
           }
-          $tokens['body'] = str_replace($report_tokens[$report_type], $token['report'], $body);
+
+          $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
           $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
           $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
           $tokens['subject'] = str_replace('[report-end-date]', date("m/d/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
@@ -697,6 +752,9 @@ class YptfKronosReports {
             catch (\Exception $e) {
               $msg = 'Failed to send email report. Error: %error';
               $this->logger->notice($msg, ['%error' => $e->getMessage()]);
+              $this->reports['messages']['error_reports']['Failed to send email. Email server issue:'][] = t('Failed to send email report. Error: %error . Contact the FFW team.', [
+                '%error' => print_r($e->getMessage(), TRUE),
+              ]);
             }
           }
         }
@@ -711,11 +769,13 @@ class YptfKronosReports {
    *   Location ID.
    * @param string $type
    *   Email type.
+   * @param bool $enabled_setting
+   *   Setting of/off.
    *
-   * @return array
+   * @return mixed
    *   Rendered value.
    */
-  public function createReportTable($location_id, $type = 'leadership') {
+  public function createReportTable($location_id, $type = 'leadership', $enabled_setting = TRUE) {
     $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
 
     switch ($type) {
@@ -734,62 +794,135 @@ class YptfKronosReports {
         else {
           $msg = 'No location on site for MB location_id: %params.';
           $this->logger->notice($msg, ['%params' => $location_id]);
+          $this->reports['messages']['error_reports']['No location mapping based on MB location ID:'][] = t('No location on site for MB location_id: %params. Contact the FFW team.', [
+            '%params' => print_r($location_id, TRUE),
+          ]);
           return FALSE;
         }
-
-        if (empty($this->reports['trainers'][$location_mid])) {
-          return FALSE;
-        }
-        $data['rows'] = $this->reports['trainers'][$location_mid];
-
-        // Sort by names.
-        $names = [];
-        foreach ($data['rows'] as &$name) {
-          $names[] = &$name["name"];
-        }
-        array_multisort($names, $data['rows']);
-
-        $data['summary'] = $this->reports['locations'][$location_mid];;
-        $data['summary']['name'] = t('BRANCH TOTAL');
-
         $location_name = $location->getName();
+        $table = '';
+        if ($enabled_setting) {
+          if (empty($this->reports['trainers'][$location_mid])) {
+            return FALSE;
+          }
+          $data['rows'] = $this->reports['trainers'][$location_mid];
 
-        $data['messages'] = '';
-        if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
-          // @TODO: add admin email.
-          $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
-          $data['admin_mail'] = 'Paige.Kiecker@ymcamn.org';
+          // Sort by names.
+          $names = [];
+          foreach ($data['rows'] as &$name) {
+            $names[] = &$name["name"];
+          }
+          array_multisort($names, $data['rows']);
+
+          $data['summary'] = $this->reports['locations'][$location_mid];;
+          $data['summary']['name'] = t('BRANCH TOTAL');
+          $data['messages'] = '';
+          if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
+            $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
+            $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')
+              ->get('admin_emails');
+            $data['admin_mail_raw'] = '';
+            $data['admin_mail'] = '';
+            if (!empty($admin_emails)) {
+              $admin_emails = explode(',', $admin_emails);
+              foreach ($admin_emails as $index => $email) {
+                $email = trim($email);
+                if (empty($email)) {
+                  continue;
+                }
+
+                $data['admin_mail_raw']["@admin_mail$index"] = $email;
+                $data['admin_mail'] .= "<a href='mailto:@admin_mail$index' target='_top'>@admin_mail$index</a> ";
+              }
+            }
+            if (!empty($data['admin_mail_raw'])) {
+              $data['admin_mail'] = new FormattableMarkup(
+                $data['admin_mail'],
+                $data['admin_mail_raw']
+              );
+            }
+            else {
+              $data['admin_mail'] = 'YMCA Team';
+            }
+          }
+          $variables = [
+            '#theme' => 'yptf_kronos_report',
+            '#data' => $data,
+          ];
+          // Drush can't render that 'render($variables);' cause it has miss
+          // context instead use command below.
+          $table = $this->renderer->renderRoot($variables);
         }
 
         break;
 
       case "leadership":
-        if (empty($this->reports['locations'])) {
-          return FALSE;
-        }
-        $data['summary'] = $this->reports['locations']['total'];
-        $data['summary']['name'] = t('ALL BRANCHES');
-        unset($this->reports['locations']['total']);
-        $data['rows'] = $this->reports['locations'];
-        // Sort by names.
-        $names = [];
-        foreach ($data['rows'] as &$name) {
-          $names[] = &$name["name"];
-        }
-        array_multisort($names, $data['rows']);
         $location_name = '';
+        $table = '';
+        if ($enabled_setting) {
+          if (empty($this->reports['locations'])) {
+            return FALSE;
+          }
+          $data['summary'] = $this->reports['locations']['total'];
+          $data['summary']['name'] = t('ALL BRANCHES');
+          unset($this->reports['locations']['total']);
+          $data['rows'] = $this->reports['locations'];
+          // Sort by names.
+          $names = [];
+          foreach ($data['rows'] as &$name) {
+            $names[] = &$name["name"];
+          }
+          array_multisort($names, $data['rows']);
+          $variables = [
+            '#theme' => 'yptf_kronos_report',
+            '#data' => $data,
+          ];
+          // Drush can't render that 'render($variables);' cause it has miss
+          // context instead use command below.
+          $table = $this->renderer->renderRoot($variables);
+        }
         break;
     }
 
-    $variables = [
-      '#theme' => 'yptf_kronos_report',
-      '#data' => $data,
-    ];
-
-    // Drush can't render that 'render($variables);' cause it has miss context
-    // instead use command below.
-    $table = $this->renderer->renderRoot($variables);
     return ['report' => $table, 'name' => $location_name];
+  }
+
+  /**
+   * Send error reports.
+   */
+  public function sendErrorReports() {
+    if (isset($this->reports['messages']['error_reports'])) {
+      $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
+      if (!empty($admin_emails)) {
+        $admin_emails = explode(',', $admin_emails);
+        foreach ($admin_emails as $index => $email) {
+          $email = trim($email);
+          if (empty($email)) {
+            continue;
+          }
+          try {
+            // Send error notifications.
+            $lang = $this->languageManager->getCurrentLanguage()->getId();
+            $tokens['body'] = '';
+            foreach ($this->reports['messages']['error_reports'] as $error_name => $error_values) {
+              $tokens['body'] .= '<div><strong>' . (string) $error_name . '</strong></div>';
+              foreach ($error_values as $error_description) {
+                $tokens['body'] .= '<div>' . (string) $error_description . '</div>';
+              }
+              $tokens['body'] .= '<br>';
+            }
+
+            $tokens['subject'] = t('Kronos Error Reports');
+            $this->mailManager->mail('yptf_kronos', 'yptf_kronos_error_reports', $email, $lang, $tokens);
+          }
+          catch (\Exception $e) {
+            $msg = 'Failed to send Error email report. Error: %error';
+            $this->logger->notice($msg, ['%error' => $e->getMessage()]);
+
+          }
+        }
+      }
+    }
   }
 
 }
