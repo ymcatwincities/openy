@@ -26,7 +26,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_parent_child_a
+          sidebar_id: swim_lessons_adult_begin
     -
       id: swim_lessons_parent_child_a
       title: 'Swim Lessons - Parent/Child Stage A: Water Discov.'
@@ -40,7 +40,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_parent_child_b
+          sidebar_id: swim_lessons_parent_child_a
     -
       id: swim_lessons_parent_child_b
       title: 'Swim Lessons - Parent/Child Stage B: Water Explor.'
@@ -54,7 +54,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_preschool_1
+          sidebar_id: swim_lessons_parent_child_b
     -
       id: swim_lessons_preschool_1
       title: 'Swim Lessons - Preschool Stage 1: Water Acclimat.'
@@ -68,7 +68,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_preschool_2
+          sidebar_id: swim_lessons_preschool_1
     -
       id: swim_lessons_preschool_2
       title: 'Swim Lessons - Preschool Stage 2: Water Movement'
@@ -83,7 +83,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_preschool_3
+          sidebar_id: swim_lessons_preschool_2
     -
       id: swim_lessons_preschool_3
       title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
@@ -97,7 +97,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_preschool_4
+          sidebar_id: swim_lessons_preschool_3
     -
       id: swim_lessons_preschool_4
       title: 'Swim Lessons - Preschool Stage 4: Stroke Intro.'
@@ -111,7 +111,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_private
+          sidebar_id: swim_lessons_preschool_4
     -
       id: swim_lessons_private
       title: 'Swim Lesson - Private'
@@ -122,7 +122,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_youth_1
+          sidebar_id: swim_lessons_private
     -
       id: swim_lessons_youth_1
       title: 'Swim Lessons - Youth Stage 1: Water Acclimat.'
@@ -137,7 +137,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_youth_2
+          sidebar_id: swim_lessons_youth_1
     -
       id: swim_lessons_youth_2
       title: 'Swim Lessons - Youth Stage 2: Water Movement'
@@ -152,7 +152,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_youth_3
+          sidebar_id: swim_lessons_youth_2
     -
       id: swim_lessons_youth_3
       title: 'Swim Lessons - Youth Stage 3: Water Stamina'
@@ -166,7 +166,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_youth_4
+          sidebar_id: swim_lessons_youth_3
     -
       id: swim_lessons_youth_4
       title: 'Swim Lessons - Youth Stage 4: Stroke Intro.'
@@ -179,7 +179,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_youth_5
+          sidebar_id: swim_lessons_youth_4
     -
       id: swim_lessons_youth_5
       title: 'Swim Lessons - Youth Stage 5: Stroke Devel.'
@@ -194,7 +194,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_youth_6
+          sidebar_id: swim_lessons_youth_5
     -
       id: swim_lessons_youth_6
       title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
@@ -209,7 +209,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_team_intrest_list
+          sidebar_id: swim_lessons_youth_6
     -
       id: swim_team_intrest_list
       title: 'Swim Team - Interest List'
@@ -235,7 +235,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_teen
+          sidebar_id: swim_team_intrest_list
     -
       id: swim_lessons_teen
       title: 'Swim Lessons - Teen'
@@ -261,7 +261,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_teen_beginning
+          sidebar_id: swim_lessons_teen
     -
       id: swim_lessons_teen_beginning
       title: 'Swim Lessons - Teen Beginning'
@@ -277,7 +277,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_teen_intermediate
+          sidebar_id: swim_lessons_teen_beginning
     -
       id: swim_lessons_teen_intermediate
       title: 'Swim Lessons - Teen Intermediate'
@@ -294,7 +294,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: swim_lessons_teen_advanced
+          sidebar_id: swim_lessons_teen_intermediate
     -
       id: swim_lessons_teen_advanced
       title: 'Swim Lessons - Teen Advanced'
@@ -309,7 +309,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: drop_in_swim_recreational_3ft
+          sidebar_id: swim_lessons_teen_advanced
     -
       id: drop_in_swim_recreational_3ft
       title: 'Recreational Swim 3ft'
@@ -320,7 +320,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: drop_in_swim_wade_2ft
+          sidebar_id: drop_in_swim_recreational_3ft
     -
       id: drop_in_swim_wade_2ft
       title: 'Wade Swim 2ft'
@@ -331,7 +331,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: drop_in_swim_rec_with_slide
+          sidebar_id: drop_in_swim_wade_2ft
     -
       id: drop_in_swim_rec_with_slide
       title: 'Rec Swim with Slide'
@@ -342,7 +342,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: drop_in_swim_adult_5.5ft
+          sidebar_id: drop_in_swim_rec_with_slide
     -
       id: drop_in_swim_adult_5.5ft
       title: 'Adult Swim 5.5 ft'
@@ -355,7 +355,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: drop_in_swim_family
+          sidebar_id: drop_in_swim_adult_5.5ft
     -
       id: drop_in_swim_family
       title: 'Family Swim'
@@ -371,7 +371,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: drop_in_swim_recreational
+          sidebar_id: drop_in_swim_family
     -
       id: drop_in_swim_recreational
       title: 'Recreational Swim'
@@ -388,7 +388,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: drop_in_swim_lap
+          sidebar_id: drop_in_swim_recreational
     -
       id: drop_in_swim_lap
       title: 'Lap Swim'
@@ -402,7 +402,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: kids_zone_activity_centers_4wks_11yrs
+          sidebar_id: drop_in_swim_lap
     -
       id: kids_zone_activity_centers_4wks_11yrs
       title: 'Kids Zone 4 wks -11 yrs'
@@ -419,7 +419,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: cooking_classes_future_chefs
+          sidebar_id: kids_zone_activity_centers_4wks_11yrs
     -
       id: cooking_classes_future_chefs
       title: 'Youth Cooking - Future Chefs'
@@ -433,7 +433,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: arts_and_crafts_maycrafternoon_handprint_sunshines
+          sidebar_id: cooking_classes_future_chefs
     -
       id: arts_and_crafts_maycrafternoon_handprint_sunshines
       title: 'May Crafternoon: Handprint Sunshines'
@@ -456,7 +456,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: arts_and_crafts_april_earth_day_bridhouses
+          sidebar_id: arts_and_crafts_maycrafternoon_handprint_sunshines
     -
       id: arts_and_crafts_april_earth_day_bridhouses
       title: 'April Earth Day Birdhouses'
@@ -474,7 +474,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: arts_and_crafts_crafternoon
+          sidebar_id: arts_and_crafts_april_earth_day_bridhouses
     -
       id: arts_and_crafts_crafternoon
       title: 'Crafternoon'
@@ -491,7 +491,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: birthday_parties_room_rental
+          sidebar_id: arts_and_crafts_crafternoon
     -
       id: birthday_parties_room_rental
       title: 'Room Rental'
@@ -525,7 +525,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: birthday_parties_birthday_party
+          sidebar_id: birthday_parties_room_rental
     -
       id: birthday_parties_birthday_party
       title: 'Birthday Party'
@@ -558,7 +558,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: before_and_after_school_programs_2016_17_bellevue_no_school_days
+          sidebar_id: birthday_parties_birthday_party
     -
       id: before_and_after_school_programs_2016_17_bellevue_no_school_days
       title: '2016/17 Bellevue: No School Days - Package Option'
@@ -571,7 +571,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: before_and_after_school_programs_am_fit_and_fun
+          sidebar_id: before_and_after_school_programs_2016_17_bellevue_no_school_days
     -
       id: before_and_after_school_programs_am_fit_and_fun
       title: 'AM Fit & Fun'
@@ -584,7 +584,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: sports_classes_and_workshops_youth_fitness_challenge
+          sidebar_id: before_and_after_school_programs_am_fit_and_fun
     -
       id: sports_classes_and_workshops_youth_fitness_challenge
       title: 'Youth Fitness Challenge'
@@ -599,7 +599,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: sports_classes_and_workshops_youth_homezone
+          sidebar_id: sports_classes_and_workshops_youth_fitness_challenge
     -
       id: sports_classes_and_workshops_youth_homezone
       title: 'HomeZone'
@@ -615,7 +615,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+          sidebar_id: sports_classes_and_workshops_youth_homezone
     -
       id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
       title: 'AOA National Senior Health and Fitness Day'
@@ -667,7 +667,7 @@ source:
         <p>&nbsp;</p>
       sidebar:
         -
-          sidebar_id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+          sidebar_id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
     -
       id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
       title: 'AOA Brain Agility - Class Fee, Spring 2017'
@@ -697,7 +697,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+          sidebar_id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
     -
       id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
       title: 'AOA Brain Agility - Materials Fee, Spring 2017'
@@ -731,7 +731,7 @@ source:
         <p>&nbsp;</p>
       sidebar:
         -
-          sidebar_id: group_exercise_classes_hiit
+          sidebar_id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
     -
       id: group_exercise_classes_hiit
       title: 'HIIT'
@@ -744,7 +744,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: group_exercise_classes_hiit_metabolic_conditioning
+          sidebar_id: group_exercise_classes_hiit
     -
       id: group_exercise_classes_hiit_metabolic_conditioning
       title: 'HIIT - Metabolic Conditioning'
@@ -757,7 +757,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: group_exercise_classes_moving_for_balance_spr_2017
+          sidebar_id: group_exercise_classes_hiit_metabolic_conditioning
     -
       id: group_exercise_classes_moving_for_balance_spr_2017
       title: 'Moving for Better Balance - Continuing Spring 2017'
@@ -780,7 +780,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: samll_group_training_youth_small_group_training_tween_girl_power
+          sidebar_id: group_exercise_classes_moving_for_balance_spr_2017
     -
       id: samll_group_training_youth_small_group_training_tween_girl_power
       title: 'Small Group Training - Tween Girl Power!'
@@ -798,7 +798,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: samll_group_training_youth_small_group_training_tween_titans
+          sidebar_id: samll_group_training_youth_small_group_training_tween_girl_power
     -
       id: samll_group_training_youth_small_group_training_tween_titans
       title: 'Small Group Training - Tween Titans'
@@ -816,7 +816,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: pilates_reformer_10_private_1hr_sessions
+          sidebar_id: samll_group_training_youth_small_group_training_tween_titans
     -
       id: pilates_reformer_10_private_1hr_sessions
       title: 'Pilates Reformer - 10, private 1 hr sessions'
@@ -843,7 +843,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: private_yoga_10_1hour_sessions
+          sidebar_id: pilates_reformer_10_private_1hr_sessions
     -
       id: private_yoga_10_1hour_sessions
       title: 'Private Yoga - 10, 1-hour sessions'
@@ -892,9 +892,10 @@ source:
 
         <p>
         10 1-hour sessions $552
-        </p>sidebar:
-          -
-            sidebar_id: pilates_reformer_duet_10_1hour_sessions
+        </p>
+      sidebar:
+        -
+          sidebar_id: private_yoga_10_1hour_sessions
     -
       id: pilates_reformer_duet_10_1hour_sessions
       title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
@@ -930,7 +931,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: partner_personal_training_1_session
+          sidebar_id: pilates_reformer_duet_10_1hour_sessions
     -
       id: partner_personal_training_1_session
       title: 'Partner Personal Training - 1 session'
@@ -961,7 +962,7 @@ source:
         <p>&nbsp;</p>
       sidebar:
         -
-          sidebar_id: health_improvement_livestrong_at_the_y
+          sidebar_id: partner_personal_training_1_session
     -
       id: health_improvement_livestrong_at_the_y
       title: 'LIVESTRONG at the YMCA'
@@ -982,7 +983,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: health_improvement_nutrition_consultation_initial
+          sidebar_id: health_improvement_livestrong_at_the_y
     -
       id: health_improvement_nutrition_consultation_initial
       title: 'Nutrition Consultation - Initial'
@@ -1008,7 +1009,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: health_improvement_activly_changing_together
+          sidebar_id: health_improvement_nutrition_consultation_initial
     -
       id: health_improvement_activly_changing_together
       title: 'ACT! Actively Changing Together'
@@ -1029,7 +1030,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: climbing_adult_rock_climbing_sept
+          sidebar_id: health_improvement_activly_changing_together
     -
       id: climbing_adult_rock_climbing_sept
       title: 'Climbing - Adult Rock Climbing - September'
@@ -1051,7 +1052,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: climbing_adult_rock_climbing_oct
+          sidebar_id: climbing_adult_rock_climbing_sept
     -
       id: climbing_adult_rock_climbing_oct
       title: 'Climbing - Adult Rock Climbing - October'
@@ -1073,7 +1074,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: climbing_adult_parent_child_sept
+          sidebar_id: climbing_adult_rock_climbing_oct
     -
       id: climbing_adult_parent_child_sept
       title: 'Climbing - Parent/Child Climbing - September'
@@ -1096,7 +1097,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: climbing_adult_parent_child_oct
+          sidebar_id: climbing_adult_parent_child_sept
     -
       id: climbing_adult_parent_child_oct
       title: 'Climbing - Parent/Child Climbing - October'
@@ -1119,7 +1120,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: small_group_and_specialty_training_adaptive_yoga
+          sidebar_id: climbing_adult_parent_child_oct
     -
       id: small_group_and_specialty_training_adaptive_yoga
       title: 'Small Group Training - Adaptive Yoga'
@@ -1136,7 +1137,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1
+          sidebar_id: small_group_and_specialty_training_adaptive_yoga
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1
       title: 'Small Group Training - Pilates Reformer Level I'
@@ -1171,7 +1172,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: small_group_and_specialty_training_pilates_reformer_intro
+          sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1
     -
       id: small_group_and_specialty_training_pilates_reformer_intro
       title: 'Small Group Training - Pilates Reformer Intro'
@@ -1221,7 +1222,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1_2
+          sidebar_id: small_group_and_specialty_training_pilates_reformer_intro
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1_2
       title: 'Small Group Training - Pilates Reformer Level I/II'
@@ -1267,7 +1268,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: weight_loss_lose_to_win_men
+          sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1_2
     -
       id: weight_loss_lose_to_win_men
       title: 'Lose to Win for Men - Weight Loss Program'
@@ -1288,7 +1289,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: weight_loss_lose_to_win
+          sidebar_id: weight_loss_lose_to_win_men
     -
       id: weight_loss_lose_to_win
       title: 'Lose to Win - Weight Loss Program'
@@ -1309,7 +1310,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+          sidebar_id: weight_loss_lose_to_win
     -
       id: before_after_school_child_care_2016_17_woodmoor_non_school_days
       title: '2016/17 Woodmoor - (f) Non-School Days'
@@ -1329,7 +1330,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: before_after_school_child_care_2016_17_woodmoor_after_plus
+          sidebar_id: before_after_school_child_care_2016_17_woodmoor_non_school_days
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_plus
       title: '2016/17 Woodmoor - (b) After Plus Care'
@@ -1349,7 +1350,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: before_after_school_child_care_2016_17_woodmoor_after
+          sidebar_id: before_after_school_child_care_2016_17_woodmoor_after_plus
     -
       id: before_after_school_child_care_2016_17_woodmoor_after
       title: '2016/17 Woodmoor - (c) After Care'
@@ -1373,7 +1374,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: before_after_school_child_care_2016_17_sunrise_before_after
+          sidebar_id: before_after_school_child_care_2016_17_woodmoor_after
     -
       id: before_after_school_child_care_2016_17_sunrise_before_after
       title: '2016/17 Sunrise - (a) Before and After Care'
@@ -1393,7 +1394,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+          sidebar_id: before_after_school_child_care_2016_17_sunrise_before_after
     -
       id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
       title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
@@ -1412,7 +1413,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+          sidebar_id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
     -
       id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
       title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
@@ -1431,7 +1432,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+          sidebar_id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
     -
       id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
       title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
@@ -1443,7 +1444,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: discovery_day_camp_drop_off_kenmore_elementary_2017
+          sidebar_id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
     -
       id: discovery_day_camp_drop_off_kenmore_elementary_2017
       title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
@@ -1455,7 +1456,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: discovery_day_camp_drop_off_Northshore_ymca_2017
+          sidebar_id: discovery_day_camp_drop_off_kenmore_elementary_2017
     -
       id: discovery_day_camp_drop_off_Northshore_ymca_2017
       title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
@@ -1468,7 +1469,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: bold_one_wk_expeditions_cascade_challenge
+          sidebar_id: discovery_day_camp_drop_off_Northshore_ymca_2017
     -
       id: bold_one_wk_expeditions_cascade_challenge
       title: 'BOLD Cascade Challenge'
@@ -1489,7 +1490,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+          sidebar_id: bold_one_wk_expeditions_cascade_challenge
     -
       id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
       title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
@@ -1508,7 +1509,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: bold_one_wk_expeditions_river_and_rocks
+          sidebar_id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
     -
       id: bold_one_wk_expeditions_river_and_rocks
       title: 'BOLD Rivers and Rocks'
@@ -1528,7 +1529,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+          sidebar_id: bold_one_wk_expeditions_river_and_rocks
     -
       id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
       title: 'BOLD Fishing and Backpacking in the North Cascades'
@@ -1545,7 +1546,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: earth_service_corps_about_yesc
+          sidebar_id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
     -
       id: earth_service_corps_about_yesc
       title: 'Earth Service Corps About YESC'
@@ -1562,7 +1563,7 @@ source:
         </p>
       sidebar:
         -
-          sidebar_id: academic_success
+          sidebar_id: earth_service_corps_about_yesc
     -
       id: academic_success
       title: 'Academic Success'
@@ -1576,6 +1577,9 @@ source:
         to first class programs that provide for their academic and social
         success both in and out of school.
         </p>
+      sidebar:
+        -
+          sidebar_id: academic_success
   ids:
     id:
       type: string
