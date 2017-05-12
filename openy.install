@@ -232,3 +232,14 @@ function openy_update_8015() {
     'openy_prgf_schedule_search'
   ]);
 }
+
+/**
+ * Enable rabbit hole and rabbit hole node modules.
+ */
+function openy_update_80017() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'rabbit_hole',
+    'rh_node',
+  ]);
+}
