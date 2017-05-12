@@ -174,12 +174,41 @@ class YptfKronosReports {
   }
 
   /**
-   * Calculate/compare data from Kronos & reports.
+   * Generate reports.
    *
    * @param int $request_number
    *   Number of requests of report to MB.
    */
   public function generateReports($request_number = 0) {
+    $this->getInitialDates();
+    $config = $this->configFactory->get('yptf_kronos.settings');
+    $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
+    $enabled_condition_main = FALSE;
+    // Check if we need to run calculations.
+    foreach ($email_type as $report_type => $data) {
+      $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
+      $enabled_condition = trim(strip_tags(str_replace('&nbsp;', '', $config->get($report_type)['disabled_message']['value'])));
+      $enabled_condition = $enabled_setting || !empty($enabled_condition);
+      if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
+        $enabled_condition_main = TRUE;
+        break;
+      }
+    }
+
+    if ($enabled_condition_main) {
+      $this->calculateReports($request_number);
+    }
+    $this->sendReports();
+    $this->sendErrorReports();
+  }
+
+  /**
+   * Calculate/compare data from Kronos & reports.
+   *
+   * @param int $request_number
+   *   Number of requests of report to MB.
+   */
+  public function calculateReports($request_number = 0) {
     // Get Kronos data.
     $trainer_reports = [];
     $location_reports = [];
@@ -374,8 +403,21 @@ class YptfKronosReports {
     $this->reports['trainers'] = $trainer_reports;
     $this->reports['locations'] = $location_reports;
 
-    $this->sendReports();
-    $this->sendErrorReports();
+  }
+
+  /**
+   * Get initial Dates.
+   */
+  public function getInitialDates() {
+    $kronos_report_day = $this->kronosReportDay;
+    $kronos_shift_days = $this->kronosReportShiftDays;
+    if ($week_day = date("w") < 2) {
+      foreach ($kronos_shift_days as &$kronos_shift_day) {
+        $kronos_shift_day -= 7;
+      }
+    }
+    $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_report_day));
+    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_report_day . ' -13 days'));
   }
 
   /**
@@ -664,26 +706,27 @@ class YptfKronosReports {
         foreach ($recipients as $index => $recipient) {
           $body = $enabled_setting ? $config->get($report_type)['body']['value'] : $config->get($report_type)['disabled_message']['value'];
           $token = FALSE;
-          if ($enabled_setting) {
-            if ($report_type == 'leadership') {
-              $token = $this->createReportTable('', $report_type);
-            }
-            elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
-              $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type);
-            }
-            else {
-              $msg = 'PT Manager "%surname, %name" has no branch.';
-              $this->logger->notice($msg, [
-                '%surname' => $recipient->field_staff_surname->getValue()[0]['value'],
-                '%name' => $recipient->field_staff_name->getValue()[0]['value'],
-              ]);
-            }
-            if (!$token) {
-              continue;
-            }
+
+          if ($report_type == 'leadership') {
+            $token = $this->createReportTable('', $report_type, $enabled_setting);
           }
+          elseif (!empty($recipient->field_staff_branch->getValue()[0]['target_id'])) {
+            $token = $this->createReportTable($recipient->field_staff_branch->getValue()[0]['target_id'], $report_type, $enabled_setting);
+          }
+          else {
+            $msg = 'PT Manager "%surname, %name" has no branch.';
+            $this->logger->notice($msg, [
+              '%surname' => $recipient->field_staff_surname->getValue()[0]['value'],
+              '%name' => $recipient->field_staff_name->getValue()[0]['value'],
+            ]);
+          }
+          if (!$token) {
+            continue;
+          }
+
           $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
           $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
+          // @TODO: generate dates if empty.
           $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
           $tokens['subject'] = str_replace('[report-end-date]', date("m/d/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
 
@@ -729,11 +772,13 @@ class YptfKronosReports {
    *   Location ID.
    * @param string $type
    *   Email type.
+   * @param bool $enabled_setting
+   *   Setting of/off.
    *
    * @return mixed
    *   Rendered value.
    */
-  public function createReportTable($location_id, $type = 'leadership') {
+  public function createReportTable($location_id, $type = 'leadership', $enabled_setting = TRUE) {
     $data['report_type_name'] = $type != 'leadership' ? t('Trainer Name') : t('Branch Name');
 
     switch ($type) {
@@ -757,82 +802,91 @@ class YptfKronosReports {
           ]);
           return FALSE;
         }
-
-        if (empty($this->reports['trainers'][$location_mid])) {
-          return FALSE;
-        }
-        $data['rows'] = $this->reports['trainers'][$location_mid];
-
-        // Sort by names.
-        $names = [];
-        foreach ($data['rows'] as &$name) {
-          $names[] = &$name["name"];
-        }
-        array_multisort($names, $data['rows']);
-
-        $data['summary'] = $this->reports['locations'][$location_mid];;
-        $data['summary']['name'] = t('BRANCH TOTAL');
-
         $location_name = $location->getName();
+        $table = '';
+        if ($enabled_setting) {
+          if (empty($this->reports['trainers'][$location_mid])) {
+            return FALSE;
+          }
+          $data['rows'] = $this->reports['trainers'][$location_mid];
 
-        $data['messages'] = '';
-        if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
-          // @TODO: add admin email.
-          $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
-          $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
-          $data['admin_mail_raw'] = '';
-          $data['admin_mail'] = '';
-          if (!empty($admin_emails)) {
-            $admin_emails = explode(',', $admin_emails);
-            foreach ($admin_emails as $index => $email) {
-              $email = trim($email);
-              if (empty($email)) {
-                continue;
+          // Sort by names.
+          $names = [];
+          foreach ($data['rows'] as &$name) {
+            $names[] = &$name["name"];
+          }
+          array_multisort($names, $data['rows']);
+
+          $data['summary'] = $this->reports['locations'][$location_mid];;
+          $data['summary']['name'] = t('BRANCH TOTAL');
+          $data['messages'] = '';
+          if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
+            $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
+            $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')
+              ->get('admin_emails');
+            $data['admin_mail_raw'] = '';
+            $data['admin_mail'] = '';
+            if (!empty($admin_emails)) {
+              $admin_emails = explode(',', $admin_emails);
+              foreach ($admin_emails as $index => $email) {
+                $email = trim($email);
+                if (empty($email)) {
+                  continue;
+                }
+
+                $data['admin_mail_raw']["@admin_mail$index"] = $email;
+                $data['admin_mail'] .= "<a href='mailto:@admin_mail$index' target='_top'>@admin_mail$index</a> ";
               }
-
-              $data['admin_mail_raw']["@admin_mail$index"] = $email;
-              $data['admin_mail'] .= "<a href='mailto:@admin_mail$index' target='_top'>@admin_mail$index</a> ";
+            }
+            if (!empty($data['admin_mail_raw'])) {
+              $data['admin_mail'] = new FormattableMarkup(
+                $data['admin_mail'],
+                $data['admin_mail_raw']
+              );
+            }
+            else {
+              $data['admin_mail'] = 'YMCA Team';
             }
           }
-          if (!empty($data['admin_mail_raw'])) {
-            $data['admin_mail'] = new FormattableMarkup(
-              $data['admin_mail'],
-              $data['admin_mail_raw']
-            );
-          }
-          else {
-            $data['admin_mail'] = 'YMCA Team';
-          }
+          $variables = [
+            '#theme' => 'yptf_kronos_report',
+            '#data' => $data,
+          ];
+          // Drush can't render that 'render($variables);' cause it has miss
+          // context instead use command below.
+          $table = $this->renderer->renderRoot($variables);
         }
 
         break;
 
       case "leadership":
-        if (empty($this->reports['locations'])) {
-          return FALSE;
+        if ($enabled_setting) {
+          $location_name = '';
+          $table = '';
+          if (empty($this->reports['locations'])) {
+            return FALSE;
+          }
+          $data['summary'] = $this->reports['locations']['total'];
+          $data['summary']['name'] = t('ALL BRANCHES');
+          unset($this->reports['locations']['total']);
+          $data['rows'] = $this->reports['locations'];
+          // Sort by names.
+          $names = [];
+          foreach ($data['rows'] as &$name) {
+            $names[] = &$name["name"];
+          }
+          array_multisort($names, $data['rows']);
+          $variables = [
+            '#theme' => 'yptf_kronos_report',
+            '#data' => $data,
+          ];
+          // Drush can't render that 'render($variables);' cause it has miss
+          // context instead use command below.
+          $table = $this->renderer->renderRoot($variables);
         }
-        $data['summary'] = $this->reports['locations']['total'];
-        $data['summary']['name'] = t('ALL BRANCHES');
-        unset($this->reports['locations']['total']);
-        $data['rows'] = $this->reports['locations'];
-        // Sort by names.
-        $names = [];
-        foreach ($data['rows'] as &$name) {
-          $names[] = &$name["name"];
-        }
-        array_multisort($names, $data['rows']);
-        $location_name = '';
         break;
     }
 
-    $variables = [
-      '#theme' => 'yptf_kronos_report',
-      '#data' => $data,
-    ];
-
-    // Drush can't render that 'render($variables);' cause it has miss context
-    // instead use command below.
-    $table = $this->renderer->renderRoot($variables);
     return ['report' => $table, 'name' => $location_name];
   }
 
