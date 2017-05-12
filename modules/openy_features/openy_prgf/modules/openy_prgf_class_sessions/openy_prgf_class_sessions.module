@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @file OpenY Paragraph Class Sessions module file.
+ */
+
+use Drupal\openy_session_instance\Entity\SessionInstance;
+use Drupal\openy_session_instance\SessionInstanceManager;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_prgf_class_theme() {
+  $items = [
+    'class_sessions' => [
+      'variables' => [
+        'session_instances' => [],
+      ],
+      'template' => 'openy-class-sessions',
+    ],
+  ];
+  return $items;
+}
+
+/**
+ * Implements hook_preprocess_paragraph__bundle().
+ */
+function openy_prgf_class_sessions_preprocess_paragraph__class_sessions(&$variables) {
+  // Cache context.
+  $variables['#cache']['contexts'][] = 'url.query_args';
+
+  $node = Drupal::routeMatch()->getParameter('node');
+  if (!$node || !$node->type !== 'class') {
+    return;
+  }
+
+  // Current node is a class.
+  $class_id = $node->nid;
+
+  // Get query param location.
+  $request = Drupal::request();
+
+  // Current date as timestamp.
+  $current_date = strtotime("today UTC");
+
+  /* @var $session_instance_manager Drupal\openy_session_instance\SessionInstanceManager */
+  $session_instance_manager = Drupal::service('session_instance.manager');
+
+  /* @see \Drupal\openy_schedules\Form\SchedulesSearchForm::getSessions */
+
+  $conditions['status'] = 1;
+  $conditions['class'] = $class_id;
+  $conditions['to'] = $current_date;
+  if (!empty($request->query->get('location')) && filter_var($request->query->get('location'), FILTER_VALIDATE_INT) !== FALSE) {
+    $location_id = $request->query->get('location');
+    $conditions['nid'] = $location_id;
+    $variables['#cache']['tags'][] = 'node:' . $location_id;
+  }
+
+  // Fetch session instances.
+  $session_instances = $session_instance_manager->getSessionInstancesByParams($conditions);
+//    TODO make table.
+//    TODO foreach make row.
+
+//    TODO set class_session to render array of table above.
+  $variables['class_sessions'] = node_view($session_instances, 'default');
+
+//    TODO FOREACH
+  $variables['#cache']['tags'][] = 'node:' . $session_instance_id;
+}
