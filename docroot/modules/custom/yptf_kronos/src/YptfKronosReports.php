@@ -9,6 +9,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Core\Render\Renderer;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\Component\Render\FormattableMarkup;
 
 /**
  * Class YptfKronosReports.
@@ -778,7 +779,33 @@ class YptfKronosReports {
         if (isset($this->reports['messages']['multi_ids'][$location_mid])) {
           // @TODO: add admin email.
           $data['messages'] = $this->reports['messages']['multi_ids'][$location_mid];
-          $data['admin_mail'] = 'Paige.Kiecker@ymcamn.org';
+          $admin_emails = $config = $this->configFactory->get('yptf_kronos.settings')->get('admin_emails');
+          $data['admin_mail_raw'] = '';
+          $data['admin_mail'] = '';
+          if (!empty($admin_emails)) {
+            $admin_emails = explode(',', $admin_emails);
+            foreach ($admin_emails as $index => $email) {
+              $email = trim($email);
+              if (empty($email)) {
+                continue;
+              }
+
+              $data['admin_mail_raw']["@admin_mail$index"] = $email;
+              $data['admin_mail'] .= "<a href='mailto:@admin_mail$index' target='_top'>@admin_mail$index</a> ";
+            }
+          }
+          if (!empty($data['admin_mail_raw'])) {
+            $data['admin_mail'] = new FormattableMarkup(
+              $data['admin_mail'],
+              $data['admin_mail_raw']
+            );
+          }
+          else {
+            $data['admin_mail'] = new FormattableMarkup(
+              "<a href='mailto:@admin_mail' target='_top'>@admin_mail</a>",
+              ['@admin_mail' => 'Paige.Kiecker@ymcamn.org']
+            );
+          }
         }
 
         break;

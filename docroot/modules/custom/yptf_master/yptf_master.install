@@ -529,5 +529,5 @@ function yptf_master_update_8025() {
  */
 function yptf_master_update_8029() {
   $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
-  $config->set("admin_emails", 'craig.paulnock@ymcatwincities.org')->save();
+  $config->set("admin_emails", 'Paige.Kiecker@ymcamn.org')->save();
 }
