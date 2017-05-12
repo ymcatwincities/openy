@@ -157,8 +157,6 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
       ->setLabel(t('Time slot'))
       ->setDescription(t('When this schedule item will be active, for example from 10:00 to 11:00am.'))
       ->setRevisionable(TRUE)
-//      ->setSetting('target_type', 'schedule')
-      //->setSetting('handler_settings', ['target_bundles' => ['screen_content' => 'screen_content']])
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'visible',
@@ -166,7 +164,7 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
         'weight' => 1,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'daterange_datelist',
+        'type' => 'daterange_time_only',
         'weight' => 1,
         'settings' => [
           'increment' => '15',

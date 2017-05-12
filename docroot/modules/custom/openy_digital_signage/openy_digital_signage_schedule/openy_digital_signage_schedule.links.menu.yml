@@ -11,6 +11,12 @@ entity.openy_digital_signage_schedule.collection:
   parent: system.admin_openy_digital_signage
   weight: 100
 
+openy_digital_signage_sch_item.admin.structure.settings:
+  title: 'Digital Signage Schedule Item settings'
+  description: 'Configure OpenY Digital Signage Schedule Item entities'
+  route_name: openy_digital_signage_sch_item.settings
+  parent: system.admin_openy_digital_signage
+
 entity.openy_digital_signage_sch_item.collection:
   title: 'Digital Signage Schedules Item list'
   route_name: entity.openy_digital_signage_sch_item.collection
