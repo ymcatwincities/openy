@@ -100,16 +100,33 @@
     h2 {
       margin-bottom: 13px;
     }
-    .field-event-date-range {
+    .field-event-date-range,
+    .field-location-ref {
       margin-top: 13px;
       margin-bottom: 13px;
       font-family: CachetMedium;
+      display: inline-block;
     }
+    .field-location-ref {
+      &::before {
+        content: ' ,';
+      }
+      a:hover {
+        text-decoration: none;
+      }
+    }
+
     .field-prgf-sc-body p {
       margin-bottom: 0;
     }
     .conent-wrapper {
       min-height: auto;
+    }
+
+    @include breakpoint(mobileonly) {
+      .field-location-ref::before {
+        content: '';
+      }
     }
   }
 
