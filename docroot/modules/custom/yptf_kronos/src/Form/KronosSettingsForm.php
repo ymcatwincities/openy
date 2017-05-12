@@ -95,7 +95,6 @@ class KronosSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
-
     foreach ($email_type as $id => $data) {
       $this->config('yptf_kronos.settings')->set($id, [
         'enabled' => $values[$id . ':enabled'],
