@@ -801,10 +801,7 @@ class YptfKronosReports {
             );
           }
           else {
-            $data['admin_mail'] = new FormattableMarkup(
-              "<a href='mailto:@admin_mail' target='_top'>@admin_mail</a>",
-              ['@admin_mail' => 'Paige.Kiecker@ymcamn.org']
-            );
+            $data['admin_mail'] = 'YMCA Team';
           }
         }
 
