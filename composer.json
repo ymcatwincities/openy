@@ -91,7 +91,11 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "@composer drupal-scaffold"
+            "@composer drupal-scaffold",
+            "sh scripts/remove_openy_docroot_folder.sh || :"
+        ],
+        "post-update-cmd": [
+            "sh scripts/remove_openy_docroot_folder.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
     },
@@ -171,6 +175,7 @@
         "drupal/simple_sitemap": "^2.8",
         "drupal/redirect": "^1.0@alpha",
         "drupal/metatag": "^1.0",
-        "drupal/google_tag": "1.x-dev"
+        "drupal/google_tag": "1.x-dev",
+        "drupal/rabbit_hole": "1.0-beta3"
     }
 }

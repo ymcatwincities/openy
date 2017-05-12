@@ -20,6 +20,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
   field_mbrshp_link:
     weight: 1
     settings:
@@ -27,17 +28,20 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
   field_mbrshp_location:
     weight: 0
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_mbrshp_monthly_rate:
     weight: 3
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
 hidden:
   created: true
   status: true

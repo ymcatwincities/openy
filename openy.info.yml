@@ -70,6 +70,8 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - rabbit_hole
+  - rh_node
   - redirect
   - simple_sitemap
   - metatag

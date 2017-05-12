@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file OpenY Node Session install file.
+ */
+
+/**
+ * Update Session for rabbit hole, hiding pages from anonymous users.
+ */
+function openy_node_session_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.node_type_session',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.session.default' => [
+      'content',
+    ],
+    'core.entity_form_display.paragraph.session_time.default' => [
+      'content',
+    ],
+    'core.entity_view_display.node.session.default' => [
+      'content',
+    ],
+    'core.entity_view_display.node.session.teaser' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.paragraph.session_time.default' => [
+      'content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
