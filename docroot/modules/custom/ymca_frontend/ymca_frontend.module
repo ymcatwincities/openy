@@ -12,6 +12,7 @@ function ymca_frontend_theme($existing, $type, $theme, $path) {
   return [
     'locations_content' => [
       'variables' => [
+        'base_path' => '',
         'locations' => [],
       ],
       'template' => 'locations-content',
