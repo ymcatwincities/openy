@@ -116,21 +116,19 @@ class OpenyFacebookSyncSaver {
    *   Prepared Event data.
    */
   private function prepareEvent(array $event) {
-    // Convert date values from DateTime format to 2017-04-08T19:00:00.
-    $site_timezone = new \DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
-    $event['start_time']->setTimezone($site_timezone);
-
     $event_date_values = [
-      'value' => $event['start_time']->format('Y-m-d\TH:i:s'),
-      'end_value' => '',
+      'value' => clone $event['start_time'],
+      // End date value should not be null so fill it with start date.
+      'end_value' => empty($event['end_time']) ? clone $event['start_time'] : clone $event['end_time'],
     ];
 
-    // Set end date value only if it exists.
-    if (isset($event['end_time'])) {
-      // End date value should not be null so fill it with start date.
-      $event['end_time']->setTimezone($site_timezone);
-      $event_date_values['end_value'] = $event['end_time']->format('Y-m-d\TH:i:s');
-    }
+    // Convert date values from DateTime format to 2017-04-08T19:00:00 and update timezone.
+    $site_timezone = new \DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
+    $format = 'Y-m-d\TH:i:s';
+    $event_date_values['value']->setTimezone($site_timezone);
+    $event_date_values['value'] = $event_date_values['value']->format($format);
+    $event_date_values['end_value']->setTimezone($site_timezone);
+    $event_date_values['end_value'] = $event_date_values['end_value']->format($format);
 
     $event_node = [
       'type' => 'event',
@@ -177,6 +175,14 @@ class OpenyFacebookSyncSaver {
     $event->field_landing_body->appendItem($paragraph_data);
     $event->field_sidebar_content->setValue($sidebar_content);
 
+    $location = $this->getLocationByFacebookPage($event_data['owner']);
+    if ($location) {
+      $location_value = [
+        'target_id' => $location->id(),
+      ];
+      $event->field_location_ref->setValue($location_value);
+    }
+
     $event->save();
 
     // Create mapping entity.
@@ -208,6 +214,15 @@ class OpenyFacebookSyncSaver {
     $event = $storage->load($event_mapping->get('field_event_ref')->target_id);
     $event->set('field_event_date_range', $event_node['field_event_date_range']);
     $event->set('title', $event_node['title']);
+
+    $location = $this->getLocationByFacebookPage($event_data['owner']);
+    if ($location) {
+      $location_value = [
+        'target_id' => $location->id(),
+      ];
+      $event->field_location_ref->setValue($location_value);
+    }
+
     $event->save();
     // Update mapping entity.
     $this->eventMappingRepo->update($event_mapping, $paragraph_data, $event_data);
@@ -247,4 +262,43 @@ class OpenyFacebookSyncSaver {
     return $paragraph;
   }
 
+  /**
+   * Return node mapped to facebook page in openy_facebook_sync.locations_map.yml.
+   *
+   * @param array $page_data
+   *   Facebook page data.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   Node entity of Branch or Camp type.
+   */
+  private function getLocationByFacebookPage(array $page_data) {
+    $conf = $this->configFactory->get('openy_facebook_sync.locations_map');
+    $map = $conf->get('map');
+    $uuid = '';
+
+    if (array_key_exists($page_data['id'], $map)) {
+      $uuid = $map[ $page_data['id'] ];
+    }
+    else {
+      $default = $conf->get('default_location');
+      if (!empty($default)) {
+        $uuid = $default;
+      }
+    }
+
+    if ($uuid) {
+      $storage = $this->entityTypeManager->getStorage('node');
+      $nodes = $storage->loadByProperties(['uuid' => $uuid]);
+      if (!empty($nodes)) {
+        $node = array_pop($nodes);
+        if (in_array($node->type(), ['branch', 'camp'])) {
+          return $node;
+        }
+      }
+
+      $this->logger->warning('Location node @uuid not found during event import', ['@uuid' => $uuid]);
+    }
+
+    return null;
+  }
 }

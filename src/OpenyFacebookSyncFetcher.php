@@ -114,12 +114,14 @@ class OpenyFacebookSyncFetcher {
       $data = $cache->data;
     }
     else {
+      // Facebook event fields to fetch.
+      $fields = 'id,start_time,place,name,end_time,description,owner';
       $data = [];
       $fb_objects = $this->facebook;
       foreach ($fb_objects as $fb) {
         /* @var \Facebook\Facebook $fb */
         $appid = $fb->getApp()->getId();
-        $result = $fb->sendRequest('GET', $appid . "/events");
+        $result = $fb->sendRequest('GET', $appid . "/events", ['fields' => $fields]);
         $events = $result->getGraphEdge();
         // Array of events from all pages.
         $all_events = [];

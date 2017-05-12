@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install file.
+ */
+
+/**
+ * Pull in configuration with locations map.
+ */
+function openy_facebook_sync_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_facebook_sync') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'openy_facebook_sync.locations_map',
+    ]
+  );
+}

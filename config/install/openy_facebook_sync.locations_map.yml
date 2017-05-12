@@ -1,0 +1,7 @@
+# Default location node UUID, may be an empty string.
+# YMCA International Services
+default_location: 099f4748-3bc7-11e1-952a-12313b0f39a2
+# Map facebook page id to node UUID.
+map:
+  # https://www.facebook.com/YMCAHouston => YMCA International Services
+  71944364922: 099f4748-3bc7-11e1-952a-12313b0f39a2
