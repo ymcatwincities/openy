@@ -450,7 +450,7 @@ class YptfKronosReports {
       $kronos_file_name_date2 = date('Y-m-d', strtotime($kronos_report_day . reset($kronos_shift_days) . 'days'));
       $this->reports['messages']['error_reports']['No Kronos file for two weeks:'][] = t('Failed to get the data from Kronos file %file1 and %file2. Contact the FFW team.', [
         '%file1' => $kronos_file,
-        '%file2' => $kronos_file_name_date2,
+        '%file2' => self::KRONOS_FILE_URL_PATTERN . $kronos_file_name_date2 . '.json',
       ]);
       return $this->kronosData;
     }
