@@ -5,6 +5,9 @@
  * OpenY Node install file.
  */
 
+/**
+ * Implements hook_update_dependencies().
+ */
 function openy_node_update_dependencies() {
   $dependencies['openy_node'] = [
     8003 => [

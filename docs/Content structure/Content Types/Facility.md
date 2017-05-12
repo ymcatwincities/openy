@@ -17,7 +17,7 @@ Facility content type is used for adding facilities on the site.
 | Directions | field\_location_directions | No | A link field for adding the directions link. |
 | **Content Area** | Field group |||
 | Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
-| **Header Area** | Field group |||
+| **Sidebar Area** | Field group |||
 | Content | field\_sidebar_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 
 ### URL pattern

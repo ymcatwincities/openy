@@ -106,7 +106,7 @@ source:
       title: 'About'
       menu_name: 'main'
       link: 'about'
-      weight: 4
+      weight: 5
       parent_id: 0
       expanded: 0
       parent_link_path: ''
@@ -115,7 +115,7 @@ source:
       title: 'Give'
       menu_name: 'main'
       link: 'give'
-      weight: 5
+      weight: 6
       parent_id: 0
       expanded: 0
       parent_link_path: ''
@@ -124,7 +124,7 @@ source:
       title: 'Accelerator'
       menu_name: 'main'
       link: 'accelerator'
-      weight: 6
+      weight: 7
       parent_id: 0
       expanded: 0
       parent_link_path: ''
@@ -133,7 +133,7 @@ source:
       title: 'Blog'
       menu_name: 'main'
       link: 'blog'
-      weight: 7
+      weight: 8
       parent_id: 0
       expanded: 0
       parent_link_path: ''
@@ -331,7 +331,16 @@ source:
       title: 'Join'
       menu_name: 'main'
       link: 'join'
-      weight: 8
+      weight: 9
+      parent_id: 0
+      expanded: 0
+      parent_link_path: ''
+    -
+      id: 36
+      title: 'Schedules'
+      menu_name: 'main'
+      link: 'schedules'
+      weight: 4
       parent_id: 0
       expanded: 0
       parent_link_path: ''
