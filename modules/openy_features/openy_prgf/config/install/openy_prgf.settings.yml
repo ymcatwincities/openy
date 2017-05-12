@@ -20,6 +20,8 @@ fields_unset_paragraphs:
     - openy_prgf_mbrshp_calc
     - membership_info
     - session_time
+    - schedule_search_form
+    - schedule_search_list
     - teaser
   field_header_content:
     - blog_posts_listing
@@ -37,6 +39,7 @@ fields_unset_paragraphs:
     - openy_prgf_mbrshp_calc
     - membership_info
     - session_time
+    - schedule_search_list
     - teaser
     - promo_card
     - story_card
@@ -56,6 +59,7 @@ fields_unset_paragraphs:
     - openy_prgf_mbrshp_calc
     - membership_info
     - session_time
+    - schedule_search_form
     - teaser
     - promo_card
     - story_card
@@ -65,3 +69,4 @@ fields_unset_paragraphs:
     - session_time
     - promo_card
     - story_card
+    - schedule_search_form
