@@ -16,6 +16,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_mbrshp_description: true
   field_mbrshp_image: true
