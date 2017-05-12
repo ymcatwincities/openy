@@ -142,6 +142,8 @@ class YptfKronosReports {
 
   /**
    * Flag for report calculation.
+   *
+   * @var bool
    */
   protected $reportCalculated = FALSE;
 
