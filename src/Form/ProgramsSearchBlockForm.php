@@ -230,7 +230,7 @@ class ProgramsSearchBlockForm extends FormBase {
       $link = Link::fromTextAndUrl($this->t('link'), $url);
 
       $form['link'] = [
-        '#markup' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
+        '#markup' => '<div class="result">' . $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]) . '</div>',
       ];
     }
 
@@ -316,7 +316,7 @@ class ProgramsSearchBlockForm extends FormBase {
       $url = Url::fromUri($uri);
       $link = Link::fromTextAndUrl($this->t('link'), $url);
       $form['link'] = [
-        '#markup' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
+        '#markup' => '<div class="result">' . $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]) . '</div>',
       ];
     }
 
