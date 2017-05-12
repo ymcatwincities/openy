@@ -187,9 +187,7 @@ class YptfKronosReports {
     // Check if we need to run calculations.
     foreach ($email_type as $report_type => $data) {
       $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
-      $enabled_condition = trim(strip_tags(str_replace('&nbsp;', '', $config->get($report_type)['disabled_message']['value'])));
-      $enabled_condition = $enabled_setting || !empty($enabled_condition);
-      if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
+      if ($enabled_setting) {
         $enabled_condition_main = TRUE;
         break;
       }
@@ -859,9 +857,9 @@ class YptfKronosReports {
         break;
 
       case "leadership":
+        $location_name = '';
+        $table = '';
         if ($enabled_setting) {
-          $location_name = '';
-          $table = '';
           if (empty($this->reports['locations'])) {
             return FALSE;
           }
