@@ -1,0 +1,9 @@
+name: OpenY Digital Signage Schedule
+type: module
+description: OpenY Digital Signage Schedule module.
+core: 8.x
+package: "OpenY: Digital Signage"
+dependencies:
+  - datetime_range
+  - openy_digital_signage
+  - openy_digital_signage_screen_content
