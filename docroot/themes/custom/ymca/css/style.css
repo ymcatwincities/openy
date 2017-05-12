@@ -8490,6 +8490,41 @@ span.grey-caret:after {
   -ms-transition: color .3s ease-out;
 }
 
+#sidebar-nav-header {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .independent-header .nav-global {
+    box-shadow: none;
+  }
+  .independent-header #sidebar-nav-header {
+    display: block;
+    background: #f8f8f8;
+    padding: 10px 0;
+    margin: 0;
+    text-align: center;
+    box-shadow: 0 0 8px -3px #000;
+  }
+  .independent-header #sidebar-nav-header li {
+    display: inline;
+    border-left: 1px solid #1d1d1b;
+    padding: 0 0 0 5px;
+    margin: 0 0 0 5px;
+    font-size: 11px;
+    text-align: center;
+  }
+  .independent-header #sidebar-nav-header li:first-child {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  .independent-header #sidebar-nav-header li a {
+    color: #1d1d1b;
+    font-weight: bold;
+  }
+}
+
 .form-item {
   margin-bottom: 15px;
 }
