@@ -244,7 +244,7 @@ function openy_update_8016() {
 /**
  * Enable rabbit hole and rabbit hole node modules.
  */
-function openy_update_80017() {
+function openy_update_8017() {
   // Enable modules.
   \Drupal::service('module_installer')->install([
     'rabbit_hole',

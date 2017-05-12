@@ -7,7 +7,7 @@
  * Import class_location view mode.
  */
 function openy_location_update_8001() {
-  $config_dir = drupal_get_path('module', 'openy_locaction') . '/config/install/';
+  $config_dir = drupal_get_path('module', 'openy_location') . '/config/install/';
   // Import new configuration
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
