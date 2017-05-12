@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.class_sessions
+id: paragraph.class_sessions.default
+targetEntityType: paragraph
+bundle: class_sessions
+mode: default
+content: {  }
+hidden:
+  created: true
+  uid: true

@@ -1,0 +1,50 @@
+<div class="class-page-other-sessions row ng-hide" data-ng-show="active">
+  <!-- Schedule -->
+  <div class="col-xs-12">
+
+    <!-- Ticket Required Info -->
+    <div class="location__ticket-required-info ng-hide" data-ng-show="current_session.ticket_required != 0 && current_session.location.ticket_required_info">
+      <h3>{{ 'Ticket Required'|t }}</h3>
+      <div ng-controller="ScheduleController">
+        <div class="location__ticket-required-info__content" ng-bind-html="current_session.location.ticket_required_info"></div>
+      </div>
+    </div>
+
+    <!-- ActiveNet -->
+    <div class="active-net__teasers" data-ng-show="class.type == 'activity' && other_sessions.length">
+      <h3>{{ 'Other Class Times'|t }}</h3>
+      <table class="active-net__teasers-list">
+        <tbody>
+        <tr class="active-net__teaser" data-ng-repeat="session in (other_sessions)">
+          <td class="days">
+            {{ '{{ session.schedule.days_formatted }}' }}, {{ '{{ session.schedule.time_formatted }}' }}, {{ '{{ session.schedule.deadline }}' }} <br>
+          </td>
+          <td class="more-info"><a href="{{ '{{ session.more_info_url }}' }}">{{ 'More information'| t}}</a></td>
+          <td class="register"><a target="_blank" data-ng-show="session.online_registration" href="{{ '{{ session.register_url.url }}' }}">{{ '{{ session.register_url.title }}' }}</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- /ActiveNet -->
+
+    <!-- Flexreg -->
+    <div class="flexreg__teasers" data-ng-show="class.type == 'flexreg' && other_sessions.length">
+      <h3>{{ 'Sessions:'|t }}</h3>
+      <table class="flexreg__teasers-list">
+        <tbody>
+        <tr class="flexreg__teaser" data-ng-repeat="session in (other_sessions)">
+          <td>
+            <div class="name">{{ '{{ session.name }}' }}</div>
+            <div class="description">{{ '{{ session.description }}' }}</div>
+            <div data-ng-show="session.bundle == 'branch'">{{ '{{ session.schedule.days_formatted }}' }}</div>
+            <div class="deadline">{{ '{{ session.schedule.deadline }}' }}</div>
+            <div data-ng-show="session.bundle == 'branch'" class="time">{{ '{{ session.schedule.time_formatted }}' }}</div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- /Flexreg -->
+
+  </div>
+</div>
