@@ -726,7 +726,6 @@ class YptfKronosReports {
 
           $tokens['body'] = $enabled_setting ? str_replace($report_tokens[$report_type], $token['report'], $body) : $body;
           $tokens['subject'] = str_replace('[report-branch-name]', $token['name'], $config->get($report_type)['subject']);
-          // @TODO: generate dates if empty.
           $tokens['subject'] = str_replace('[report-start-date]', date("m/d/Y", strtotime($this->dates['StartDate'])), $tokens['subject']);
           $tokens['subject'] = str_replace('[report-end-date]', date("m/d/Y", strtotime($this->dates['EndDate'])), $tokens['subject']);
 
