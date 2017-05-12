@@ -141,6 +141,11 @@ class YptfKronosReports {
   const KRONOS_TRAINING_ID = 'PT (one on one and buddy)';
 
   /**
+   * Flag for report calculation.
+   */
+  protected $reportCalculated = FALSE;
+
+  /**
    * YmcaMindbodyExamples constructor.
    *
    * @param ConfigFactory $config_factory
@@ -181,20 +186,8 @@ class YptfKronosReports {
    */
   public function generateReports($request_number = 0) {
     $this->getInitialDates();
-    $config = $this->configFactory->get('yptf_kronos.settings');
-    $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
-    $enabled_condition_main = FALSE;
-    // Check if we need to run calculations.
-    foreach ($email_type as $report_type => $data) {
-      $enabled_setting = !empty($config->get($report_type)['enabled']) ? $config->get($report_type)['enabled'] : FALSE;
-      if ($enabled_setting) {
-        $enabled_condition_main = TRUE;
-        break;
-      }
-    }
-
-    if ($enabled_condition_main) {
-      $this->calculateReports($request_number);
+    if (!empty($request_number)) {
+      $this->numberOfRequest = $request_number;
     }
     $this->sendReports();
     $this->sendErrorReports();
@@ -207,6 +200,8 @@ class YptfKronosReports {
    *   Number of requests of report to MB.
    */
   public function calculateReports($request_number = 0) {
+    // Report calculated flag.
+    $this->reportCalculated = TRUE;
     // Get Kronos data.
     $trainer_reports = [];
     $location_reports = [];
@@ -452,7 +447,7 @@ class YptfKronosReports {
     if (!$kronos_data_raw) {
       $msg = 'Failed to get the data from Kronos file %file.';
       $this->logger->notice($msg, ['%file' => $kronos_file]);
-      $kronos_file_name_date2 = date('Y-m-d', strtotime($kronos_report_day . reset($kronos_shift_day) . 'days'));
+      $kronos_file_name_date2 = date('Y-m-d', strtotime($kronos_report_day . reset($kronos_shift_days) . 'days'));
       $this->reports['messages']['error_reports']['No Kronos file for two weeks:'][] = t('Failed to get the data from Kronos file %file1 and %file2. Contact the FFW team.', [
         '%file1' => $kronos_file,
         '%file2' => $kronos_file_name_date2,
@@ -702,6 +697,9 @@ class YptfKronosReports {
       if ($enabled_condition && !empty($config->get($report_type)['staff_type'])) {
         $recipients = $storage->loadByProperties(['type' => 'staff', 'field_staff_type' => $config->get($report_type)['staff_type']]);
         foreach ($recipients as $index => $recipient) {
+          if ($enabled_setting && !$this->reportCalculated) {
+            $this->calculateReports();
+          }
           $body = $enabled_setting ? $config->get($report_type)['body']['value'] : $config->get($report_type)['disabled_message']['value'];
           $token = FALSE;
 
