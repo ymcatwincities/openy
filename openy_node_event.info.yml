@@ -17,7 +17,10 @@ dependencies:
   - node
   - openy_gallery
   - openy_node
+  - openy_node_branch
+  - openy_node_camp
   - openy_node_landing
+  - openy_node_testimonial
   - openy_prgf_1c
   - openy_prgf_2c
   - openy_prgf_3c
@@ -41,4 +44,4 @@ dependencies:
   - veoa
   - views
   - ygh_paragraphs
-version: 8.x-1.10
+version: 8.x-1.11

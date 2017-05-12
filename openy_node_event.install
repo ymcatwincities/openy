@@ -146,3 +146,17 @@ function openy_node_event_update_8010() {
     'core.entity_view_display.node.event.listing_teaser',
   ]);
 }
+
+/**
+ * Add location reference field to event and place it at listing_teaser view mode.
+ */
+function openy_node_event_update_8011() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs([
+    'field.field.node.event.field_location_ref',
+    'core.entity_view_display.node.event.listing_teaser',
+    'core.entity_view_display.node.event.default',
+    'core.entity_form_display.node.event.default',
+  ]);
+}

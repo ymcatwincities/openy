@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.event.field_event_date_range
     - field.field.node.event.field_landing_body
+    - field.field.node.event.field_location_ref
     - field.field.node.event.field_sidebar_content
     - field.field.node.event.rng_capacity
     - field.field.node.event.rng_registrants_duplicate
@@ -35,7 +36,7 @@ content:
     third_party_settings: {  }
     type: daterange_default
   field_landing_body:
-    weight: 1
+    weight: 2
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -45,8 +46,16 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
+  field_location_ref:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_sidebar_content:
-    weight: 26
+    weight: 8
     settings:
       title: Paragraph
       title_plural: Paragraphs
