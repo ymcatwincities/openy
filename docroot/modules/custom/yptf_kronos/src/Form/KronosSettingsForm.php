@@ -45,7 +45,13 @@ class KronosSettingsForm extends ConfigFormBase {
         '#default_value' => !empty($config->get($id)['enabled']) ? $config->get($id)['enabled'] : '',
         '#description' => $this->t('Turn the checkbox on to enable Newsletter.'),
       );
-
+      $form[$id][$id . ':disabled_message'] = array(
+        '#type' => 'text_format',
+        '#title' => t('Disabled message'),
+        '#default_value' => !empty($config->get($id)['disabled_message']['value']) ? $config->get($id)['disabled_message']['value'] : '',
+        '#description' => $this->t('Email with this message will be sent out when checkbox above is not checked. Leave empty to do not send message.'),
+        '#format' => 'full_html',
+      );
       $terms = \Drupal::entityTypeManager()
         ->getStorage('taxonomy_term')
         ->loadByProperties(['vid' => 'staff_type']);
@@ -78,9 +84,13 @@ class KronosSettingsForm extends ConfigFormBase {
         '#description' => $this->t('Token to use: %token. It will be replaced with appropriate report.', ['%token' => $tokens[$id]]),
         '#format' => 'full_html',
       );
-
     }
-
+    $form['admin_emails'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Administrator emais for Error report'),
+      '#default_value' => !empty($config->get('admin_emails')) ? $config->get('admin_emails') : '',
+      '#description' => $this->t('Admin emails. Comma-separated values.'),
+    );
     return parent::buildForm($form, $form_state);
   }
 
@@ -90,15 +100,16 @@ class KronosSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $email_type = ['leadership' => 'Leadership email', 'pt_managers' => 'PT managers email'];
-
     foreach ($email_type as $id => $data) {
       $this->config('yptf_kronos.settings')->set($id, [
         'enabled' => $values[$id . ':enabled'],
         'staff_type' => $values[$id . ':staff_type'],
         'subject' => $values[$id . ':subject'],
         'body' => $values[$id . ':body'],
+        'disabled_message' => $values[$id . ':disabled_message'],
       ])->save();
     }
+    $this->config('yptf_kronos.settings')->set('admin_emails', $values['admin_emails'])->save();
     parent::submitForm($form, $form_state);
   }
 

@@ -499,3 +499,35 @@ function yptf_master_update_8024() {
     }
   }
 }
+
+/**
+ * Add default disabled message to Kronos form.
+ */
+function yptf_master_update_8025() {
+  // Set default disabled message values for reports.
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $default_massage = 'The system to compare MINDBODY hours with Kronos Workforce Central hours and send the results via email has been disabled as of 12H-TIME on DD/MM/YYYY. Until further notice, please return to the manual process of visually comparing MINDBODY hours submitted by your staff with Kronos Workforce Central hours submitted by your staff to ensure accurate payroll information. Please contact Paige Kiecker with any questions.';
+  $email_defaults = [
+    'leadership' => [
+      'disabled_message' => $default_massage,
+    ],
+    'pt_managers' => [
+      'disabled_message' => $default_massage,
+    ],
+  ];
+
+  foreach ($email_defaults as $id => $data) {
+    $config->set("$id.disabled_message", [
+      'value' => $data['disabled_message'],
+      'format' => 'full_html',
+    ])->save();
+  }
+}
+
+/**
+ * Add default admin email to Kronos form.
+ */
+function yptf_master_update_8029() {
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $config->set("admin_emails", 'Paige.Kiecker@ymcamn.org')->save();
+}
