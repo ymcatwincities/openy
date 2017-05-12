@@ -21,6 +21,11 @@ entity.openy_digital_signage_schedule.delete_form:
   weight: 10
 
 # OpenY Digital Signage Schedule Item routing definition
+openy_digital_signage_sch_item.settings_tab:
+  route_name: openy_digital_signage_sch_item.settings
+  base_route: openy_digital_signage_sch_item.settings
+  title: 'Settings'
+
 entity.openy_digital_signage_sch_item.canonical:
   route_name: entity.openy_digital_signage_sch_item.canonical
   base_route: entity.openy_digital_signage_sch_item.canonical
