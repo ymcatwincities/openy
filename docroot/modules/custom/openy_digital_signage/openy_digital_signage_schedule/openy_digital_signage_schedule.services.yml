@@ -1,0 +1,4 @@
+services:
+  openy_digital_signage_schedule.manager:
+    class: Drupal\openy_digital_signage_schedule\OpenYScheduleManager
+    arguments: ['@entity.manager', '@entity.query', '@logger.factory']
