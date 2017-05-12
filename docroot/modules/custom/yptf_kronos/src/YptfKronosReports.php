@@ -455,7 +455,7 @@ class YptfKronosReports {
       return $this->kronosData;
     }
     $this->dates['EndDate']  = date('Y-m-d', strtotime($kronos_file_name_date));
-    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -7 days'));
+    $this->dates['StartDate']  = date('Y-m-d', strtotime($kronos_file_name_date . ' -13 days'));
     return $this->kronosData = json_decode($kronos_data_raw);
   }
 
