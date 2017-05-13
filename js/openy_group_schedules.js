@@ -96,6 +96,10 @@
    */
   Drupal.behaviors.openy_group_schedules = {
     attach: function (context, settings) {
+      if (!$('#location-select-wrapper').hasClass('hidden') || !$('#date-select-wrapper').hasClass('hidden') || !$('#class-select-wrapper').hasClass('hidden')) {
+        $('.groupex-form-full .top-form-wrapper').removeClass('hidden');
+      }
+
       $('.groupex-form-full input[type="radio"]').change(function() {
         $(this).parents('form').find('label').addClass('disabled');
       });

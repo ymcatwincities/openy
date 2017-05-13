@@ -135,10 +135,16 @@ class GroupexFormFull extends GroupexFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state, $locations = []) {
     $values = $form_state->getValues();
     $state = $this->state;
     $formatted_results = NULL;
+
+    // Set location if value passed through form builder.
+    if (is_numeric($locations)) {
+      $state['location'] = $locations;
+      $form['#attributes']['class'][] = 'branch-specific-form';
+    }
 
     // Check if form printed on specific Location Schedules page.
     if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
@@ -180,22 +186,6 @@ class GroupexFormFull extends GroupexFormBase {
       '#prefix' => '<div class="groupex-pdf-link-container clearfix">',
       '#suffix' => '</div>',
     ];
-    if (!empty($values['location'])) {
-      $url = $this->groupexHelper->getPdfLink($values['location']);
-      $form['groupex_pdf_link']['link'] = [
-        '#title' => $this->t('View This Week\'s PDF'),
-        '#type' => 'link',
-        '#url' => $url,
-        '#attributes' => [
-          'class' => [
-            'btn',
-            'btn-default',
-            'btn-xs',
-            'pdf-link',
-          ],
-        ],
-      ];
-    }
 
     $class_select_classes = $location_select_classes = $classes = 'hidden';
     $location_classes = 'show';
@@ -218,12 +208,12 @@ class GroupexFormFull extends GroupexFormBase {
       $location_select_classes = 'show';
     }
 
-    $form['location_select'] = [
-      '#type' => 'select',
+    $form['location'] = [
+      '#type' => 'radios',
       '#options' => $this->locationOptions,
-      '#default_value' => !empty($state['location']) ? $state['location'] : reset($this->locationOptions),
       '#title' => $this->t('Locations'),
-      '#prefix' => '<div id="location-select-wrapper" class="' . $location_select_classes . '">',
+      '#default_value' => !empty($values['location']) ? $values['location'] : '',
+      '#prefix' => '<div id="location-wrapper" class="' . $location_classes . '">',
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
@@ -235,6 +225,27 @@ class GroupexFormFull extends GroupexFormBase {
           'type' => 'throbber',
         ],
       ],
+      '#weight' => -4,
+    ];
+
+    $form['location_select'] = [
+      '#type' => 'select',
+      '#options' => $this->locationOptions,
+      '#default_value' => !empty($state['location']) ? $state['location'] : reset($this->locationOptions),
+      '#title' => $this->t('Locations:'),
+      '#prefix' => '<div class="top-form-wrapper hidden"><div id="location-select-wrapper" class="' . $location_select_classes . '">',
+      '#suffix' => '</div>',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'groupex-full-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+      '#weight' => -3,
     ];
 
     $date_options = [];
@@ -264,32 +275,14 @@ class GroupexFormFull extends GroupexFormBase {
       '#cache' => [
         'max-age' => 3600,
       ],
-    ];
-
-    $form['location'] = [
-      '#type' => 'radios',
-      '#options' => $this->locationOptions,
-      '#title' => $this->t('Locations'),
-      '#default_value' => !empty($values['location']) ? $values['location'] : '',
-      '#prefix' => '<div id="location-wrapper" class="' . $location_classes . '">',
-      '#suffix' => '</div>',
-      '#ajax' => [
-        'callback' => [$this, 'rebuildAjaxCallback'],
-        'wrapper' => 'groupex-full-form-wrapper',
-        'event' => 'change',
-        'method' => 'replace',
-        'effect' => 'fade',
-        'progress' => [
-          'type' => 'throbber',
-        ],
-      ],
+      '#weight' => -2,
     ];
 
     $form['class_select'] = [
       '#type' => 'select',
       '#options' => $this->classesOptions,
       '#default_value' => !empty($state['class']) ? $state['class'] : 'all',
-      '#title' => $this->t('Class'),
+      '#title' => $this->t('Class:'),
       '#prefix' => '<div id="class-select-wrapper" class="' . $class_select_classes . '">',
       '#suffix' => '</div>',
       '#ajax' => [
@@ -301,8 +294,27 @@ class GroupexFormFull extends GroupexFormBase {
         'progress' => [
           'type' => 'throbber',
         ],
+        '#weight' => -1,
       ],
     ];
+
+    if (!empty($values['location'])) {
+      $url = $this->groupexHelper->getPdfLink($values['location']);
+      $form['groupex_pdf_link']['link'] = [
+        '#title' => $this->t('View This Week\'s PDF'),
+        '#type' => 'link',
+        '#url' => $url,
+        '#attributes' => [
+          'class' => [
+            'btn',
+            'btn-default',
+            'btn-xs',
+            'pdf-link',
+          ],
+        ],
+        '#weight' => 1,
+      ];
+    }
 
     $filter_date_default = date('n/d/y', REQUEST_TIME);
     $form['date'] = [
@@ -311,9 +323,10 @@ class GroupexFormFull extends GroupexFormBase {
     ];
 
     $form['results'] = [
-      '#prefix' => '<div class="groupex-results">',
+      '#prefix' => '</div><div class="groupex-results">',
       'results' => $formatted_results,
       '#suffix' => '</div>',
+      '#weight' => 10,
     ];
 
     $form['#attached']['library'][] = 'openy_group_schedules/openy_group_schedules';
