@@ -375,7 +375,7 @@ class GroupexFormFull extends GroupexFormBase {
     $response->addCommand(new InvokeCommand(NULL, 'groupExLocationAjaxAction', [$parameters]));
 
     $link = [
-      '#title' => $this->t('View This Week\'s PDF'),
+      '#title' => $this->t('Download PDF'),
       '#type' => 'link',
       '#url' => $this->groupexHelper->getPdfLink($parameters['location']),
       '#attributes' => [

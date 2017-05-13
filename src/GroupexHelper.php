@@ -17,7 +17,7 @@ class GroupexHelper {
   /**
    * PDF print uri.
    */
-  const PRINT_URI = 'http://www.groupexpro.com/ymcatwincities/print.php';
+  const PRINT_URI = 'https://www.groupexpro.com/schedule/print_calendar.php';
 
   /**
    * Config factory.
@@ -53,7 +53,7 @@ class GroupexHelper {
     $account = $this->configFactory->get('openy_group_schedules.settings')->get('account_id');
     $query = [
       'font' => 'larger',
-      'account' => $account,
+      'a' => $account,
       'l' => $location,
     ];
 

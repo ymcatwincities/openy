@@ -17,7 +17,7 @@ class GroupexScheduleFetcher {
   /**
    * PDF print uri.
    */
-  const PRINT_URI = 'http://www.groupexpro.com/ymcatwincities/print.php';
+  const PRINT_URI = 'https://www.groupexpro.com/schedule/print_calendar.php';
 
   /**
    * Fetched raw data.
@@ -608,7 +608,7 @@ class GroupexScheduleFetcher {
   public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
     $query = [
       'font' => 'larger',
-      'account' => GroupexRequestTrait::$account,
+      'a' => GroupexRequestTrait::$account,
       'l' => $location,
     ];
 
