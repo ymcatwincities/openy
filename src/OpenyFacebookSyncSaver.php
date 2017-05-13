@@ -277,7 +277,7 @@ class OpenyFacebookSyncSaver {
     $uuid = '';
 
     if (array_key_exists($page_data['id'], $map)) {
-      $uuid = $map[ $page_data['id'] ];
+      $uuid = $map[$page_data['id']];
     }
     else {
       $default = $conf->get('default_location');
@@ -299,6 +299,7 @@ class OpenyFacebookSyncSaver {
       $this->logger->warning('Location node @uuid not found during event import', ['@uuid' => $uuid]);
     }
 
-    return null;
+    return NULL;
   }
+
 }
