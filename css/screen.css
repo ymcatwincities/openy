@@ -9212,6 +9212,9 @@ fieldset .fieldset-wrapper {
   .node--type-testimonial p + h2 {
     margin-top: 1em; }
 
+.layout-container.testimonial {
+  margin: 0; }
+
 .slick-dotted {
   margin-bottom: 75px; }
 
