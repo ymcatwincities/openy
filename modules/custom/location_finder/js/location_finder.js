@@ -462,7 +462,7 @@
         }
 
         if (!locations.length) {
-          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>We\u2019re sorry no results were found in your area</p></div>').fadeIn();
+          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>No locations were found in this area. Please try a different area or increase your search distance.</p></div>').fadeIn();
           return;
         }
 
