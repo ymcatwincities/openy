@@ -291,7 +291,7 @@ class OpenyFacebookSyncSaver {
       $nodes = $storage->loadByProperties(['uuid' => $uuid]);
       if (!empty($nodes)) {
         $node = array_pop($nodes);
-        if (in_array($node->type(), ['branch', 'camp'])) {
+        if (in_array($node->getType(), ['branch', 'camp'])) {
           return $node;
         }
       }
