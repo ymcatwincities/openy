@@ -25,8 +25,9 @@ default_value:
     plugin_configuration:
       id: group_schedules
       label: 'Schedules Block'
-      provider: null
-      label_display: null
+      provider: openy_group_schedules
+      label_display: '0'
+      enabled_locations: all
     plugin_configuration_schema_id: block.settings.group_schedules
 default_value_callback: ''
 settings: {  }

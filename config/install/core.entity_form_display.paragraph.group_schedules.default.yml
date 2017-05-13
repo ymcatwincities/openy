@@ -4,13 +4,20 @@ dependencies:
   config:
     - field.field.paragraph.group_schedules.field_prgf_schedules_ref
     - paragraphs.paragraphs_type.group_schedules
+  module:
+    - content_moderation
+    - plugin
 id: paragraph.group_schedules.default
 targetEntityType: paragraph
 bundle: group_schedules
 mode: default
-content: {  }
+content:
+  field_prgf_schedules_ref:
+    type: 'plugin_selector:plugin_select_list'
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
-  field_prgf_schedules_ref: true
   status: true
   uid: true
