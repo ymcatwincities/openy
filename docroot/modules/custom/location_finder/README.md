@@ -23,4 +23,3 @@ Module has hard dependencies with library
 - jquery
 
 Module uses Google Map API to map display.
-
