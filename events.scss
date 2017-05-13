@@ -109,7 +109,7 @@
     }
     .field-location-ref {
       &::before {
-        content: ' ,';
+        content: ', ';
       }
       a:hover {
         text-decoration: none;
