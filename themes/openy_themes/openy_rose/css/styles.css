@@ -3680,6 +3680,7 @@ html.js .branch__updates_queue__button {
 
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
+.node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
   border: solid 1px #ccc;
   padding: 20px;
@@ -3690,6 +3691,7 @@ html.js .branch__updates_queue__button {
 }
 [class*="sidebar"] .node--type-facility.node--view-mode-teaser, [class*="sidebar"]
 .node--type-branch.node--view-mode-teaser, [class*="sidebar"]
+.node--type-branch.node--view-mode-class-location, [class*="sidebar"]
 .node--type-camp.node--view-mode-teaser {
   height: auto;
   margin: 0 0 20px;
@@ -3697,11 +3699,13 @@ html.js .branch__updates_queue__button {
 }
 [class*="sidebar"] .node--type-facility.node--view-mode-teaser h2 a, [class*="sidebar"]
 .node--type-branch.node--view-mode-teaser h2 a, [class*="sidebar"]
+.node--type-branch.node--view-mode-class-location h2 a, [class*="sidebar"]
 .node--type-camp.node--view-mode-teaser h2 a {
   color: #5c2e91;
 }
 .marker_tooltip .node--type-facility.node--view-mode-teaser, .marker_tooltip
 .node--type-branch.node--view-mode-teaser, .marker_tooltip
+.node--type-branch.node--view-mode-class-location, .marker_tooltip
 .node--type-camp.node--view-mode-teaser {
   border: 0 none;
   padding: 0;
@@ -3711,6 +3715,7 @@ html.js .branch__updates_queue__button {
 }
 .node--type-facility.node--view-mode-teaser h2,
 .node--type-branch.node--view-mode-teaser h2,
+.node--type-branch.node--view-mode-class-location h2,
 .node--type-camp.node--view-mode-teaser h2 {
   font-size: 22px;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
@@ -3719,21 +3724,25 @@ html.js .branch__updates_queue__button {
 }
 .marker_tooltip .node--type-facility.node--view-mode-teaser h2, .marker_tooltip
 .node--type-branch.node--view-mode-teaser h2, .marker_tooltip
+.node--type-branch.node--view-mode-class-location h2, .marker_tooltip
 .node--type-camp.node--view-mode-teaser h2 {
   margin: 0 0 5px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours,
 .node--type-branch.node--view-mode-teaser .branch-hours,
+.node--type-branch.node--view-mode-class-location .branch-hours,
 .node--type-camp.node--view-mode-teaser .branch-hours {
   margin-top: 15px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours td:first-child,
 .node--type-branch.node--view-mode-teaser .branch-hours td:first-child,
+.node--type-branch.node--view-mode-class-location .branch-hours td:first-child,
 .node--type-camp.node--view-mode-teaser .branch-hours td:first-child {
   padding-right: 10px;
 }
 .node--type-facility.node--view-mode-teaser .field-location-area,
 .node--type-branch.node--view-mode-teaser .field-location-area,
+.node--type-branch.node--view-mode-class-location .field-location-area,
 .node--type-camp.node--view-mode-teaser .field-location-area {
   position: static;
   top: 15px;
@@ -3745,12 +3754,14 @@ html.js .branch__updates_queue__button {
 @media (min-width: 48em) and (max-width: 62em) {
   .node--type-facility.node--view-mode-teaser .field-location-area,
   .node--type-branch.node--view-mode-teaser .field-location-area,
+  .node--type-branch.node--view-mode-class-location .field-location-area,
   .node--type-camp.node--view-mode-teaser .field-location-area {
     letter-spacing: 1.1px;
   }
 }
 .node--type-facility.node--view-mode-teaser .field-location-area a,
 .node--type-branch.node--view-mode-teaser .field-location-area a,
+.node--type-branch.node--view-mode-class-location .field-location-area a,
 .node--type-camp.node--view-mode-teaser .field-location-area a {
   color: inherit;
   text-decoration: none;
@@ -3759,6 +3770,8 @@ html.js .branch__updates_queue__button {
 .node--type-facility.node--view-mode-teaser .label-for-field-phone,
 .node--type-branch.node--view-mode-teaser .label-for-field-address,
 .node--type-branch.node--view-mode-teaser .label-for-field-phone,
+.node--type-branch.node--view-mode-class-location .label-for-field-address,
+.node--type-branch.node--view-mode-class-location .label-for-field-phone,
 .node--type-camp.node--view-mode-teaser .label-for-field-address,
 .node--type-camp.node--view-mode-teaser .label-for-field-phone {
   display: none;
