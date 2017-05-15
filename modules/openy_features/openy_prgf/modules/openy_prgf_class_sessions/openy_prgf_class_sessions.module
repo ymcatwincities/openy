@@ -119,6 +119,12 @@ function openy_prgf_class_sessions_preprocess_paragraph__class_sessions(&$variab
       $location = Node::load($location_id);
       $locations[$location_id] = $location;
     }
+    // Set location as cache tag, if not already set.
+    $location_cache_id = 'node:' . $location->id();
+    $cache_tags = is_array($variables['#cache']['tags']) ? $variables['#cache']['tags'] : [];
+    if (!in_array($location_cache_id, $cache_tags)) {
+      $variables['#cache']['tags'][] = $location_cache_id;
+    }
 
     $session_list = $session_instance->session->getValue();
     // If session id not present and valid skip session instance.
@@ -134,6 +140,12 @@ function openy_prgf_class_sessions_preprocess_paragraph__class_sessions(&$variab
     else {
       $session = Node::load($session_id);
       $sessions[$session_id] = $session;
+    }
+    // Set session as cache tag, if not already set.
+    $session_cache_id = 'node:' . $session->id();
+    $cache_tags = is_array($variables['#cache']['tags']) ? $variables['#cache']['tags'] : [];
+    if (!in_array($session_cache_id, $cache_tags)) {
+      $variables['#cache']['tags'][] = $session_cache_id;
     }
 
     // Get session online value.
@@ -199,7 +211,7 @@ function openy_prgf_class_sessions_preprocess_paragraph__class_sessions(&$variab
       $session_rows['age_max'] = $session_instance->get('max_age')->value;
     }
 
-    $variables['#cache']['tags'][] = 'node:' . $session_instance->id();
+    $variables['#cache']['tags'][] = 'session_instance:' . $session_instance->id();
   }
   $variables['class_sessions_rows'] = $session_rows;
 }
