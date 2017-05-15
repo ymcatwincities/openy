@@ -5,3 +5,4 @@ core: 8.x
 package: "OpenY: Digital Signage"
 dependencies:
   - openy_digital_signage
+  - openy_digital_signage_schedule
