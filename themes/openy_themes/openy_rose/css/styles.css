@@ -3777,7 +3777,7 @@ html.js .branch__updates_queue__button {
   display: none;
 }
 
-.paragraph--type--class-location.paragraph--view-mode--default {
+.paragraph--type--class-location.paragraph--view-mode--default .empty-text {
   border: solid 1px #ccc;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
