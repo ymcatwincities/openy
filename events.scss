@@ -108,8 +108,10 @@
       display: inline-block;
     }
     .field-location-ref {
-      &::before {
-        content: ', ';
+      @include breakpoint(tablet) {
+        &::before {
+          content: ', ';
+        }
       }
       a:hover {
         text-decoration: none;
@@ -121,12 +123,6 @@
     }
     .conent-wrapper {
       min-height: auto;
-    }
-
-    @include breakpoint(mobileonly) {
-      .field-location-ref::before {
-        content: '';
-      }
     }
   }
 
