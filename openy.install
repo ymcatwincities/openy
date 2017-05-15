@@ -234,11 +234,11 @@ function openy_update_8015() {
 }
 
 /**
- * Enable the Class Location paragraph module.
+ * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
  */
 function openy_update_8016() {
-  // Enable module.
-  \Drupal::service('module_installer')->install(['openy_prgf_class_location']);
+  \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
+
 }
 
 /**
@@ -250,4 +250,12 @@ function openy_update_8017() {
     'rabbit_hole',
     'rh_node',
   ]);
+}
+
+/**
+ * Enable the Class Location paragraph module.
+ */
+function openy_update_8018() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_prgf_class_location']);
 }
