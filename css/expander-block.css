@@ -1,3 +1,6 @@
-.expander-block.collapsed p {
-  display:none;
+.expander-block h4 {
+  cursor: pointer;
+}
+.expander-block.collapsed .content {
+ display:none;
 }
