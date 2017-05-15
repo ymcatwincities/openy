@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph Membership Calculator install file.
+ */
+
+/**
+ * Update Paragraph Membership Calculator summary image config.
+ */
+function openy_prgf_mbrshp_calc_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_mbrshp_calc');
+  $config .= '/config/install/';
+  $config .= 'image.style.node_mbrshp_calc_summary.yml';
+  $config_importer->update(
+    $config,
+    'image.style.node_mbrshp_calc_summary',
+    'effects'
+  );
+}
+
+/**
+ * Update Paragraph Membership Calculator field paragraph block.
+ */
+function openy_prgf_mbrshp_calc_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_mbrshp_calc');
+  $config .= '/config/install/';
+  $config .= 'field.field.paragraph.openy_prgf_mbrshp_calc.field_prgf_block.yml';
+  $config_importer->update(
+    $config,
+    'field.field.paragraph.openy_prgf_mbrshp_calc.field_prgf_block',
+    'required'
+  );
+}

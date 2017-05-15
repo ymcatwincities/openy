@@ -2,16 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.program_subcategory.field_bottom_content
     - field.field.node.program_subcategory.field_category_color
     - field.field.node.program_subcategory.field_category_description
     - field.field.node.program_subcategory.field_category_image
     - field.field.node.program_subcategory.field_category_program
     - field.field.node.program_subcategory.field_content
     - field.field.node.program_subcategory.field_header_content
+    - field.field.node.program_subcategory.field_meta_tags
     - field.field.node.program_subcategory.field_sidebar_content
     - node.type.program_subcategory
   module:
     - entity_reference_revisions
+    - metatag
     - text
     - user
 id: node.program_subcategory.default
@@ -19,6 +22,14 @@ targetEntityType: node
 bundle: program_subcategory
 mode: default
 content:
+  field_bottom_content:
+    weight: 8
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
   field_category_color:
     weight: 7
     label: above
@@ -62,6 +73,12 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+  field_meta_tags:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
   field_sidebar_content:
     weight: 3
     label: hidden

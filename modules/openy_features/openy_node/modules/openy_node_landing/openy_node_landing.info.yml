@@ -7,6 +7,7 @@ dependencies:
   - field
   - field_group
   - menu_ui
+  - metatag
   - node
   - openy_node
   - options
@@ -14,4 +15,4 @@ dependencies:
   - path
   - pathauto
   - user
-version: 8.x-1.0
+version: 8.x-1.1

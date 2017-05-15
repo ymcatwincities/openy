@@ -77,7 +77,7 @@
         if (!navigator.geolocation) {
           $('.with-geo').remove();
         }
-        this.component_el.find('.loc .btn-submit')
+        this.component_el.find('.zip-code .btn-submit')
             .on('click', $.proxy(this.apply_search, this));
 
         this.search_field_el.on('keypress', function (e) {
@@ -88,7 +88,7 @@
               .val(mapLocation[1].replace(/\+/g, ' '));
 
           $('.distance_limit option').eq(2).attr('selected', true);
-          $('.loc .btn-submit').click();
+          $('.zip-code .btn-submit').click();
         }
       },
 
@@ -151,13 +151,22 @@
         var f = function (results, status) {
           if (status == 'OK') {
             this.search_center_point = results[0].geometry.location;
+
             if (results[0].geometry.bounds) {
               this.map.fitBounds(results[0].geometry.bounds);
             } else {
-              bounds = new google.maps.LatLngBounds();
+              var bounds = new google.maps.LatLngBounds();
               bounds.extend(this.search_center_point);
+              // Don't zoom in too far on only one marker
+              if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+                var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() + 0.001);
+                var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() - 0.001);
+                bounds.extend(extendPoint1);
+                bounds.extend(extendPoint2);
+              }
               this.map.fitBounds(bounds);
             }
+
             this.search_center = this.map.getCenter();
             this.draw_search_center();
             this.apply_distance_limit();
@@ -419,6 +428,13 @@
           loc.marker.setVisible(true);
         }
 
+        // Don't zoom in too far on only one marker
+        if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+          var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() + 0.001);
+          var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() - 0.001);
+          bounds.extend(extendPoint1);
+          bounds.extend(extendPoint2);
+        }
         this.map.fitBounds(bounds);
 
       },
@@ -449,7 +465,7 @@
         }
 
         if (!locations.length) {
-          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>We\u2019re sorry no results were found in your area</p></div>').fadeIn();
+          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>No locations were found in this area. Please try a different area or increase your search distance.</p></div>').fadeIn();
           return;
         }
 
@@ -554,14 +570,16 @@
       var data = settings.openyMap;
       var map = new Drupal.openyMap();
 
-      var i = 0;
       $('.locations-list .node--view-mode-teaser').each(function() {
         var $self = $(this);
-        if (typeof(data[i]) !== 'undefined') {
-          data[i].element = {};
-          data[i].element = $self.parent();
-        }
-        i++;
+        for (var i = 0; i < data.length; i++) {
+          if (typeof(data[i]) !== 'undefined' && $self.find("h2")[0].innerText !== 'undefined') {
+            if ($self.find("h2")[0].innerText == data[i]["name"]){
+              data[i].element = {};
+              data[i].element = $self.parent();
+            }
+          }
+        };
       });
 
       $('.openy-map-canvas', context).once().each(function () {
