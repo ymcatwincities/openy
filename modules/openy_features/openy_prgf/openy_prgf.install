@@ -51,3 +51,17 @@ function openy_prgf_update_8003() {
     'fields_unset_paragraphs.field_sidebar_content'
   );
 }
+
+/**
+ * Update openy_prgf.settings fields_unset_paragraphs config.
+ */
+function openy_prgf_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf');
+  $config .= '/config/install/';
+  $config .= 'openy_prgf.settings.yml';
+  $config_importer->update($config,
+    'openy_prgf.settings',
+    'fields_unset_paragraphs'
+  );
+}
