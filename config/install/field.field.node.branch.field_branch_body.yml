@@ -13,6 +13,7 @@ dependencies:
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.financial_aid
     - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.group_schedules
     - paragraphs.paragraphs_type.latest_news_and_updates
     - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
@@ -48,6 +49,7 @@ settings:
       financial_aid: financial_aid
       small_banner: small_banner
       panorama: panorama
+      group_schedules: group_schedules
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -112,13 +114,37 @@ settings:
       camp_menu:
         weight: 32
         enabled: false
+      all_events:
+        weight: 36
+        enabled: false
       financial_aid:
         enabled: true
         weight: 37
       small_banner:
         enabled: true
         weight: 37
+      content_pager:
+        weight: 41
+        enabled: false
       prgf_location_finder_filters:
         weight: 42
+        enabled: false
+      group_schedules:
+        enabled: true
+        weight: 46
+      membership_info:
+        weight: 51
+        enabled: false
+      openy_event_registration:
+        weight: 52
+        enabled: false
+      panorama:
+        weight: 53
+        enabled: false
+      prgf_location_finder:
+        weight: 54
+        enabled: false
+      tour_schedule:
+        weight: 59
         enabled: false
 field_type: entity_reference_revisions
