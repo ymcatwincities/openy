@@ -193,6 +193,107 @@
       width: 100%;
     }
   }
-
 }
 
+#banner {
+  position: relative;
+  height: 455px;
+  @include breakpoint(0 $tablet-start) {
+    height: auto;
+  }
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 4;
+    display: block;
+    visibility: visible;
+    width: 66%;
+    height: 455px;
+    background: $black3;
+    content: '';
+    -webkit-transform: skew(-20deg);
+    -moz-transform: skew(-20deg);
+    -ms-transform: skew(-20deg);
+    transform: skew(-20deg);
+    @include breakpoint($desktop) {
+      left: 55%;
+    }
+    @include breakpoint(0 $tablet-start) {
+      display: none;
+    }
+  }
+  .banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 455px;
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .banner-img-mobile {
+    @include breakpoint(0 $tablet) {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: -20%;
+      max-width: none;
+      width: 140%;
+    }
+  }
+  .banner-caption {
+    color: white;
+    z-index: 5;
+    padding-top: 80px;
+    min-height: 435px;
+    position: relative;
+    right: auto !important;
+    bottom: auto;
+    left: auto !important;
+    margin-right: 100px;
+    margin-bottom: 20px;
+    margin-left: -20%;
+    text-align: right;
+    h1 {
+      font-size: 48px;
+      text-transform: uppercase;
+      font-weight: bold;
+      line-height: 1.1em;
+      margin: 20px 0 10px;
+      font-family: 'Cachet';
+    }
+    p {
+      text-align: right;
+      font-size: 20px;
+      margin: 0 0 10px;
+    }
+    a {
+      padding: 15px 35px !important;
+      font-size: 20px !important;
+      margin-top: 20px;
+      @extend .pink-button;
+    }
+    @include breakpoint(0 $tablet-start) {
+      text-align: center;
+      width: 100%;
+      position: static;
+      padding: 10px 30px 60px;
+      background: $black4;
+      margin: 0;
+      min-height: 100px;
+      h1 {
+        font-size: 40px;
+      }
+      p {
+        text-align: center;
+      }
+    }
+    @include breakpoint(0 $tablet) {
+      h1 {
+        font-size: 20px;
+      }
+    }
+  }
+}

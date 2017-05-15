@@ -4,10 +4,6 @@ $breakpoint-to-ems: true;
 $base-font-size: 10px;
 
 // Colors
-$blue: #428bca;
-$gray: #a8a8a8;
-$gray-light: #f8f8f8;
-$gray-dark: #777777;
 
 // Mobile.
 $mobile-bp: 320px;
@@ -17,6 +13,8 @@ $mobile-landscape: 480px;
 $tablet-portrait: 640px;
 $tablet: 768px;
 $tablet-landscape: 960px;
+$tablet-start: 992px;
+
 
 // Desktop.
 $desktop-small: 1024px;
