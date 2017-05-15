@@ -10,10 +10,17 @@
     font-style: italic;
     color: $medium-grey;
     margin: 5px 0;
+    &.form-text, &.form-textarea {
+      font-style: normal;
+      color: #555555;
+    }
   }
 
   .form-actions {
     margin: 30px 0;
+    .dropbutton-single {
+      margin-bottom: 20px;
+    }
   }
 
   .form-submit {
