@@ -67,7 +67,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
                   <td class="registration_link">{{ class_session.registration_link }}</td>
                   <td class="details">
                     {% if class_session.registration %}
-                      <span class="registration-required">{{ "Registration required"|t }}</span>
+                      <span class="registration-online">{{ "Online registration"|t }}</span>
                       {% if class_session.ticket_required or class_session.in_membership %}
                         </br>
                       {% endif %}
