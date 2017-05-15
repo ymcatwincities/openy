@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.full
+    - core.entity_view_mode.node.class_location
     - field.field.node.camp.field_bottom_content
     - field.field.node.camp.field_camp_menu_links
     - field.field.node.camp.field_content
@@ -17,41 +17,14 @@ dependencies:
     - node.type.camp
   module:
     - address
-    - entity_reference_revisions
+    - link
     - telephone
     - user
-id: node.camp.full
+id: node.camp.class_location
 targetEntityType: node
 bundle: camp
-mode: full
+mode: class_location
 content:
-  field_bottom_content:
-    type: entity_reference_revisions_entity_view
-    weight: 5
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    region: content
-  field_content:
-    weight: 3
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
-  field_header_content:
-    weight: 4
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
   field_location_address:
     weight: 0
     label: hidden
@@ -59,14 +32,18 @@ content:
     third_party_settings: {  }
     type: address_plain
     region: content
-  field_location_fax:
+  field_location_directions:
+    type: link
     weight: 2
+    region: content
     label: hidden
     settings:
-      title: ''
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
     third_party_settings: {  }
-    type: telephone_link
-    region: content
   field_location_phone:
     weight: 1
     label: hidden
@@ -76,9 +53,12 @@ content:
     type: telephone_link
     region: content
 hidden:
+  field_bottom_content: true
   field_camp_menu_links: true
+  field_content: true
+  field_header_content: true
   field_location_coordinates: true
-  field_location_directions: true
   field_location_email: true
+  field_location_fax: true
   field_meta_tags: true
   links: true
