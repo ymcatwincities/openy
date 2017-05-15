@@ -9157,10 +9157,18 @@ fieldset .fieldset-wrapper {
   font-style: italic;
   color: #979797;
   margin: 5px 0; }
+  .node-testimonial-form .js-text-full.form-text, .node-testimonial-form .js-text-full.form-textarea,
+  .node-testimonial-edit-form .js-text-full.form-text,
+  .node-testimonial-edit-form .js-text-full.form-textarea {
+    font-style: normal;
+    color: #555555; }
 
 .node-testimonial-form .form-actions,
 .node-testimonial-edit-form .form-actions {
   margin: 30px 0; }
+  .node-testimonial-form .form-actions .dropbutton-single,
+  .node-testimonial-edit-form .form-actions .dropbutton-single {
+    margin-bottom: 20px; }
 
 .node-testimonial-form .form-submit,
 .node-testimonial-edit-form .form-submit {
