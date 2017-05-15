@@ -93,6 +93,11 @@
 }
 
 .groupex-form-full {
+  .instructor-chosen {
+    margin-bottom: 30px;
+    color: $pink;
+    font-size: 18px;
+  }
   .js-webform-radios {
     display: -webkit-flex;
     display: flex;
@@ -123,6 +128,79 @@
         top: 0;
         vertical-align: top;
       }
+    }
+  }
+  .top-form-wrapper {
+    background-color: $lighter-grey;
+    overflow: hidden;
+    padding: 20px;
+    .js-form-type-select {
+      margin: 0;
+    }
+    select {
+      border: 1px solid $medium-grey;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      appearance: none;
+      background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+      background-position: 100% 50%;
+      background-repeat: no-repeat;
+      background-color: $white;
+      padding-right: 25px;
+      @include cachet();
+      color: $dark-grey;
+      font-size: 14px;
+      text-transform: uppercase;
+      max-width: 220px;
+      ::-ms-expand {
+        display:none;
+      }
+    }
+  }
+  @include breakpoint(tablet) {
+    #location-select-wrapper {
+      float: left;
+      margin-right: 30px;
+    }
+    #class-select-wrapper {
+      float: left;
+    }
+    #date-select-wrapper {
+      float: left;
+      margin-right: 30px;
+    }
+  }
+  .groupex-pdf-link-container {
+    @include breakpoint(tablet) {
+      float: right;
+    }
+    a {
+      @include btn-large-purple();
+    }
+  }
+  .groupex-results {
+    clear: both;
+    padding: 40px 0;
+  }
+  .class-description {
+    margin: 15px 0;
+    img {
+      max-width: 100%;
+    }
+  }
+  &.branch-specific-form {
+    #location-select-wrapper {
+      display: none !important;
+    }
+    #class-select-wrapper {
+      display: block !important;
+    }
+    #date-select-wrapper {
+      display: block !important;
+    }
+    .class-description {
+      display: none;
     }
   }
 }
