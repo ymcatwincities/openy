@@ -1394,7 +1394,6 @@ body {
 @media (min-width: 48em) {
   .paragraph-gallery .carousel .carousel-control {
     background: none;
-    text-shadow: none;
     opacity: 0.5;
     height: 54px;
     width: 44px;
