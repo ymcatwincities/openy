@@ -6,6 +6,7 @@ fields_unset_paragraphs:
     - categories_listing
     - classes_listing
     - classes_listing_filters
+    - embedded_groupexpro_schedule
     - featured_blogs
     - featured_content
     - gallery
@@ -26,6 +27,7 @@ fields_unset_paragraphs:
     - blog_posts_listing
     - categories_listing
     - classes_listing
+    - embedded_groupexpro_schedule
     - featured_blogs
     - featured_content
     - grid_columns
@@ -45,6 +47,7 @@ fields_unset_paragraphs:
     - blog_posts_listing
     - categories_listing
     - classes_listing
+    - embedded_groupexpro_schedule
     - featured_blogs
     - featured_content
     - grid_columns
