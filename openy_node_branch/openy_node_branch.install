@@ -80,3 +80,19 @@ function openy_node_branch_update_8006() {
     ]
   );
 }
+
+/**
+ * Enable Group Schedules paragraph for Branches body and header.
+ */
+function openy_node_branch_update_8007() {
+  $config = drupal_get_path('module', 'openy_node_branch') . '/config/install/field.field.node.branch.field_branch_body.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles.group_schedules');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.enabled');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.weight');
+  $config = drupal_get_path('module', 'openy_node_branch') . '/config/install/field.field.node.branch.field_header_content.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles.group_schedules');
+  $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.enabled');
+  $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.weight');
+}
