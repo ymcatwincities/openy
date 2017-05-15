@@ -4,6 +4,23 @@ Feature: Class Content type
 
   Background: Class test setup
     Given I am logged in as a user with the "Editor" role
+    And I create taxonomy_term of type color:
+      | KEY     | name          | field_color |
+      | magenta | Behat Magenta | FF00FF      |
+    And I create large program content:
+      | KEY                             | behat_program         |
+      | title                           | BEHAT PROGRAM         |
+      | field_program_color             | magenta               |
+      | field_program_description:value | We rely on donations. |
+      | :format                         | full_html             |
+    And I create large program_subcategory content:
+      | KEY                    | behat_category |
+      | title                  | BEHAT CATEGORY |
+      | field_category_program | behat_program  |
+    And I create large activity content:
+      | KEY                     | behat_activity |
+      | title                   | BEHAT ACTIVITY |
+      | field_activity_category | behat_category |
     And I create large branch content:
       | KEY                                 | behat_branch    |
       | title                               | BEHAT BRANCH    |
@@ -18,10 +35,26 @@ Feature: Class Content type
     And I create paragraph of type class_location:
       | KEY            |
       | class_location |
+    And I create paragraph of type class_sessions:
+      | KEY            |
+      | class_sessions |
     And I create large class content:
       | KEY                   | behat_class    |
       | title                 | BEHAT CLASS    |
+      | field_class_activity  | behat_activity |
+      | field_content         | class_sessions |
       | field_sidebar_content | class_location |
+    And I create large paragraph of type session_time:
+      | KEY                           | session_time_01     |
+      | field_session_time_date:value | 2037-04-20T12:00:00 |
+      | :end_value                    | 2037-04-20T13:00:00 |
+      | field_session_time_days       | monday              |
+    Then I create large session content:
+      | KEY                    | behat_session   |
+      | title                  | BEHAT SESSION   |
+      | field_session_class    | behat_class     |
+      | field_session_location | behat_branch    |
+      | field_session_time     | session_time_01 |
 
   Scenario: Create basic Class
     Given I go to "/node/add/class"
@@ -29,7 +62,7 @@ Feature: Class Content type
     When I press "Save and publish"
     Then I should see the message "Class Class One has been created."
 
-  Scenario: I see appropriate content on class
+  Scenario: I see appropriate branch content on class
     Given I view node "behat_class"
     Then I should see "Class schedule for all locations"
     # Go to class with parameter location=%id_of_branch.
@@ -39,3 +72,8 @@ Feature: Class Content type
     And I should see "98101"
     And I should see "WA"
     And I should see "+1234567890"
+
+  Scenario: I see appropriate sessions content on class
+    Given I view node "behat_class"
+    Then Element ".class-page-other-sessions.row .location" has text "BEHAT BRANCH"
+    And Element ".class-page-other-sessions.row .days" has text "Monday, 12:00PM - 1:00PM, Apr 20, 2037"
