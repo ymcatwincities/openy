@@ -84,7 +84,6 @@
 
     a {
       @include cachet();
-      color: $white;
       font-size: 16px;
       font-style: normal;
       font-stretch: normal;
@@ -112,7 +111,6 @@
 
     a {
       @include cachet();
-      color: $white;
       font-size: 18px;
       font-weight: 500;
       font-style: normal;
@@ -133,7 +131,6 @@
       .nav-level-2,
       .nav-level-3 {
         > a {
-          color: $white;
           text-shadow: none;
           text-transform: uppercase;
           white-space: normal;
@@ -382,12 +379,6 @@
 }
 
 .viewport {
-  .navbar-default {
-    .navbar-nav > li > a {
-      color: $white;
-    }
-  }
-
   .nav-global {
     > .container > .row {
       height: $top-nav-height;
@@ -432,6 +423,9 @@
     .viewport,
     .top-navs {
       margin-top: 39px;
+      &.affix {
+        margin-top:39px;
+      }
     }
 
     .sidebar {
@@ -442,6 +436,39 @@
       .viewport .top-navs {
         margin-left: 15rem;
       }
+    }
+  }
+}
+
+.toolbar-vertical {
+  .top-navs {
+    &.affix ~ .viewport {
+      margin-top:0;
+    }
+  }
+}
+
+.toolbar-vertical {
+  .top-navs {
+    &.affix-top ~ .viewport {
+      margin-top:39px;
+    }
+  }
+}
+
+.toolbar-vertical {
+  .top-navs {
+    margin-top: 39px;
+    &.affix {
+      margin-top: 0px;
+    }
+  }
+  .sidebar {
+    top:109px;
+  }
+  &.toolbar-tray-open {
+    .top-navs {
+      margin-left: 150px;
     }
   }
 }

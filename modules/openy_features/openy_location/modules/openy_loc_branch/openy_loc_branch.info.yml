@@ -10,6 +10,7 @@ dependencies:
   - geolocation
   - link
   - menu_ui
+  - metatag
   - node
   - openy_field_custom_hours
   - openy_hours_formatter
@@ -21,6 +22,7 @@ dependencies:
   - paragraphs
   - path
   - pathauto
+  - rabbit_hole
   - telephone
   - user
-version: 8.x-1.1
+version: 8.x-1.3

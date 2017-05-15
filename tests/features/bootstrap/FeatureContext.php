@@ -12,6 +12,7 @@ use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Tester\Exception\PendingException;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
+use Behat\Mink\Exception\ResponseTextException;
 
 /**
  * Defines application features from the specific context.
@@ -46,6 +47,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       'system_url',
       'alias_url',
       'edit_url',
+      'path',
     ];
   }
 
@@ -108,7 +110,15 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
         break;
 
       case 'alias_url':
-        $value = \Drupal::service('path.alias_manager')->getAliasByPath($node->url());
+        $value = \Drupal::service('path.alias_manager')
+          ->getAliasByPath($node->url());
+        if (empty($value)) {
+          return $node->url();
+        }
+        break;
+
+      case 'path':
+        $value = $node->url();
         break;
 
       case 'edit_url':
@@ -195,7 +205,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iFillMediaFieldWith($field, $value) {
     $this->getSession()->getPage()->find('css',
-        'input[id="' . $field . '"]')->setValue($value);
+      'input[id="' . $field . '"]')->setValue($value);
   }
 
   /**
@@ -245,7 +255,104 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function theFieldShouldContainStoredNodeFrom($field, $node_key, $storage_key) {
     $path = $this->getNodeValueFromStorageEngine($node_key, $storage_key);
-    $this->assertSession()->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+    $this->assertSession()
+      ->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+  }
+
+  /**
+   * Clicks on element by css or xpath locator.
+   *
+   * @Given I click :selector element
+   * @Given I click :selector in :area
+   * @Given I click :selector :locator_type element
+   */
+  public function clickElement($selector, $locator_type = 'css') {
+    $element = $this->getSession()->getPage()->find($locator_type, $selector);
+    if (empty($element)) {
+      $msg = 'There is no element with selector ' . $locator_type . ': "' . $selector . '"';
+      throw new Exception($msg);
+    }
+    try {
+      $element->focus();
+    } catch (Exception $e) {
+      // No focus on some drivers ie mink.
+    }
+    $element->click();
+  }
+
+  /**
+   * @Given /^The current URL is "(?P<url>[^"]*)"$/
+   */
+  public function theCurrentURLIs($url) {
+    $current_url = $this->getSession()->getCurrentUrl();
+    if (!$current_url == $url) {
+      $msg = 'URL "' . $url . '" does not match the current URL "' . $current_url . '"';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given Element :element has text :text
+   */
+  public function elementHasText($element, $text) {
+    $element_obj = $this->getSession()->getPage()->find('css', $element);
+
+    // Find the text within the region
+    $element_text = $element_obj->getText();
+    if (strpos($element_text, $text) === FALSE) {
+      throw new \Exception(sprintf("The text '%s' was not found in the element '%s' on the page %s", $text, $element, $this->getSession()->getCurrentUrl()));
+    }
+  }
+
+  /**
+   * @Then I should see text :text in XML
+   */
+  public function iShouldSeeTextMatchingInXml($text)
+  {
+    $xml = $this->getSession()->getDriver()->getContent();
+    $message = sprintf('The text %s was not found anywhere in the XML.', $text);
+
+    if (strpos($xml, $text) === FALSE) {
+      throw new ResponseTextException($message, $this->getSession()->getDriver());
+    }
+  }
+
+  /**
+   * @Given I fill in :arg1 with node path of :arg2
+   */
+  public function iFillInWithNodePathOf($field, $title)
+  {
+
+    $value = $this->getNodeIdByTitle($title);
+
+    if (!empty($field) && !empty($value)) {
+      $this->getSession()->getPage()->fillField($field, '/node/' . $value);
+    }
+    else {
+      $msg = 'Unable to fill ' . $field . ' with node path of "' . $title . '"';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Then the :arg1 field should contain node path of :arg2
+   */
+  public function theFieldShouldContainNodePathOf($field, $title)
+  {
+    $path = '/node/' . $this->getNodeIdByTitle($title);
+    $this->assertSession()
+      ->fieldValueEquals(str_replace('\\"', '"', $field), str_replace('\\"', '"', $path));
+  }
+
+  /**
+   * Get node id by its title.
+   */
+  protected function getNodeIdByTitle($title) {
+    $query = \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('title', $title);
+    $nids = $query->execute();
+    return reset($nids);
   }
 
 }

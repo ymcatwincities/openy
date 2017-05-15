@@ -10,6 +10,7 @@ dependencies:
   - image
   - media_entity
   - menu_ui
+  - metatag
   - node
   - openy_media_image
   - openy_node
@@ -21,4 +22,4 @@ dependencies:
   - taxonomy
   - text
   - user
-version: 8.x-1.1
+version: 8.x-1.2
