@@ -43,22 +43,23 @@
 view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 'banner',
 ] %}
-<section id="banner" {{ attributes.addClass(classes).removeClass('banner') }}>
-  <div class="row">
-    <div class="col-md-8 image">
-      <div class="banner-img visible-md visible-lg"
-           style="background-image: url({{ file_url(content.field_prgf_image.0['#item'].entity.uri.value) }})">
+
+<section id="small-text-banner" {{ attributes.addClass(classes).removeClass('banner') }}>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 header-copy">
+        <div class="banner-copy">
+          <h1>{{ content.field_prgf_headline }}</h1>
+          {{ content.field_prgf_description }}
+        </div>
       </div>
-      <div class="banner-img-mobile">
-        <div class="visible-xs visible-sm">{{ content.field_prgf_image }}</div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="banner-caption">
-        <h1>{{ content.field_prgf_headline }}</h1>
-        {{ content.field_prgf_description }}
-        {{ content.field_prgf_link }}
+      <div class="col-sm-6 header-image"
+           style="background-image: url({{ file_url(content.field_prgf_image.0['#item'].entity.uri.value) }});">
+        <figure class="text-center visible-xs">
+          {{ content.field_prgf_image }}
+        </figure>
       </div>
     </div>
   </div>
+
 </section>

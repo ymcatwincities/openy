@@ -207,6 +207,29 @@
   }
 }
 
+.text-banner {
+  h1 {
+    font-size: 48px;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 1.1em;
+    margin: 20px 0 10px;
+    color: white;
+    font-family: 'Cachet';
+    @include breakpoint(0 $tablet-start) {
+      font-size: 40px;
+    }
+    @include breakpoint(0 $tablet) {
+      font-size: 20px;
+    }
+  }
+  p {
+    font-size: 20px;
+    margin: 0 0 10px;
+    color: white;
+  }
+}
+
 #banner {
   position: relative;
   height: 455px;
@@ -268,18 +291,8 @@
     margin-bottom: 20px;
     margin-left: -20%;
     text-align: right;
-    h1 {
-      font-size: 48px;
-      text-transform: uppercase;
-      font-weight: bold;
-      line-height: 1.1em;
-      margin: 20px 0 10px;
-      font-family: 'Cachet';
-    }
     p {
       text-align: right;
-      font-size: 20px;
-      margin: 0 0 10px;
     }
     a {
       padding: 15px 35px !important;
@@ -309,3 +322,74 @@
     }
   }
 }
+
+#small-text-banner {
+  position: relative;
+  min-height: 200px;
+  @include breakpoint(0 $tablet) {
+    height: auto;
+    .container-fluid {
+      padding: 0 15px;
+    }
+  }
+  &:before {
+    position: absolute;
+    top: 0;
+    left: -21%;
+    z-index: 2;
+    width: 80%;
+    height: 100%;
+    background: $black3;
+    content: '';
+    -webkit-transform: skew(20deg);
+    -moz-transform: skew(20deg);
+    -ms-transform: skew(20deg);
+    transform: skew(20deg);
+    @include breakpoint(0 $tablet) {
+      display: none;
+    }
+  }
+  .header-copy {
+    z-index: 3;
+    background: $black3;
+    .banner-copy {
+      padding: 30px 0;
+      z-index: 3;
+      h1 {
+        color: white;
+        margin-top: 0;
+        @include breakpoint(0 $tablet-start) {
+          font-size: 48px;
+        }
+      }
+      p {
+        font-size: 24px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      }
+    }
+  }
+  .header-image {
+    z-index: 1;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    padding-right: 30px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    @include breakpoint($desktop) {
+      padding-right: 100px;
+    }
+    @include breakpoint(0 $tablet) {
+      background-image: none !important;
+      position: static;
+      width: 100%;
+      padding: 0;
+    }
+    figure {
+      overflow: hidden;
+      margin: 0 -30px 0 -20px;
+    }
+  }
+}
+
