@@ -100,6 +100,7 @@ dependencies:
   - openy_prgf
   - openy_prgf_small_banner
   - openy_prgf_banner
+  - openy_prgf_class_location
   - openy_prgf_simple_content
   - openy_prgf_schedule_search
   - openy_prgf_featured_content
