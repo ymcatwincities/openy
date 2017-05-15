@@ -176,6 +176,7 @@
         "drupal/redirect": "^1.0@alpha",
         "drupal/metatag": "^1.0",
         "drupal/google_tag": "1.x-dev",
-        "drupal/rabbit_hole": "1.0-beta3"
+        "drupal/rabbit_hole": "1.0-beta3",
+        "drupal/admin_toolbar": "1.x-dev"
     }
 }
