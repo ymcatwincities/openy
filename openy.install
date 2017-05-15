@@ -234,6 +234,13 @@ function openy_update_8015() {
 }
 
 /**
+ * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
+ */
+function openy_update_8016() {
+  \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
+}
+
+/**
  * Enable rabbit hole and rabbit hole node modules.
  */
 function openy_update_80017() {
