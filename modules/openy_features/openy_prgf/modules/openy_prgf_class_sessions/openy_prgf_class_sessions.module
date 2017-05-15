@@ -6,6 +6,9 @@
 
 use Drupal\openy_session_instance\Entity\SessionInstance;
 use Drupal\openy_session_instance\SessionInstanceManager;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_theme().
@@ -30,12 +33,12 @@ function openy_prgf_class_sessions_preprocess_paragraph__class_sessions(&$variab
   $variables['#cache']['contexts'][] = 'url.query_args';
 
   $node = Drupal::routeMatch()->getParameter('node');
-  if (!$node || !$node->type !== 'class') {
+  if (!$node || $node->bundle() !== 'class') {
     return;
   }
 
   // Current node is a class.
-  $class_id = $node->nid;
+  $class_id = $node->id();
 
   // Get query param location.
   $request = Drupal::request();
@@ -46,25 +49,157 @@ function openy_prgf_class_sessions_preprocess_paragraph__class_sessions(&$variab
   /* @var $session_instance_manager Drupal\openy_session_instance\SessionInstanceManager */
   $session_instance_manager = Drupal::service('session_instance.manager');
 
-  /* @see \Drupal\openy_schedules\Form\SchedulesSearchForm::getSessions */
+  // Use the advanced drupal_static() pattern, since this is called very often.
+  static $drupal_static;
+  if (!isset($drupal_static)) {
+    $drupal_static = &drupal_static(__FUNCTION__);
+  }
+  $sessions = &$drupal_static['sessions'];
+  $locations = &$drupal_static['locations'];
 
-  $conditions['status'] = 1;
+  /* @see \Drupal\openy_schedules\Form\SchedulesSearchForm::getSessions */
   $conditions['class'] = $class_id;
-  $conditions['to'] = $current_date;
+  $conditions['from'] = $current_date;
   if (!empty($request->query->get('location')) && filter_var($request->query->get('location'), FILTER_VALIDATE_INT) !== FALSE) {
     $location_id = $request->query->get('location');
-    $conditions['nid'] = $location_id;
+    $conditions['location'] = $location_id;
+    $variables['conditions_location'] = $location_id;
     $variables['#cache']['tags'][] = 'node:' . $location_id;
   }
 
   // Fetch session instances.
   $session_instances = $session_instance_manager->getSessionInstancesByParams($conditions);
-//    TODO make table.
-//    TODO foreach make row.
+  $session_rows = [];
+  foreach ($session_instances as $session_instance) {
+    /* @var $session_instance \Drupal\openy_session_instance\Entity\SessionInstance */
 
-//    TODO set class_session to render array of table above.
-  $variables['class_sessions'] = node_view($session_instances, 'default');
+    // Load session instance date time range.
+    $timestamp = $session_instance->get('timestamp')->value;
+    $time_start = date('g:iA', $timestamp);
+    $day_of_week_start = date('l', $timestamp);
+    $year_start = date('Y', $timestamp);
+    $day_start = date('M j', $timestamp);
+    $timestamp_to = $session_instance->get('timestamp_to')->value;
+    $time_to = date('g:iA', $timestamp_to);
+    $year_to = date('Y', $timestamp_to);
+    $day_to = date('M j', $timestamp_to);
+    // Format date range to eliminate repeated values.
+    $formatted_date = '';
+    if ($year_start == $year_to) {
+      $formatted_date = ", $year_start";
+      if ($day_start == $day_to) {
+        $formatted_date = $day_start . $formatted_date;
+      }
+      else {
+        $formatted_date = $day_start . " - $day_to, " . $formatted_date;
+      }
+    }
+    else {
+      $formatted_date = $day_start . ", $year_start - " . $day_to . ", $year_to";
+    }
 
-//    TODO FOREACH
-  $variables['#cache']['tags'][] = 'node:' . $session_instance_id;
+    // If location id is empty get from session instance.
+    if (empty($location_id)) {
+      $location_list = $session_instance->location->getValue();
+      if (!key_exists('target_id', reset($location_list)) || filter_var(reset($location_list)['target_id'], FILTER_VALIDATE_INT) === FALSE) {
+        continue;
+      }
+      $location_id = reset($location_list)['target_id'];
+    }
+    // If location id still empty skip session instance.
+    if (empty($location_id)) {
+      continue;
+    }
+
+    // If location id in static cache load from there.
+    if (!empty($locations) && !empty($location_id) && key_exists($location_id, $locations)) {
+      $location = $locations[$location_id];
+    }
+    else {
+      $location = Node::load($location_id);
+      $locations[$location_id] = $location;
+    }
+
+    $session_list = $session_instance->session->getValue();
+    // If session id not present and valid skip session instance.
+    if (!key_exists('target_id', reset($session_list)) || filter_var(reset($session_list)['target_id'], FILTER_VALIDATE_INT) === FALSE) {
+      continue;
+    }
+    $session_id = reset($session_list)['target_id'];
+
+    // If session id in static cache load from there.
+    if (!empty($sessions) && !empty($session_id) && key_exists($session_id, $sessions)) {
+      $session = $sessions[$session_id];
+    }
+    else {
+      $session = Node::load($session_id);
+      $sessions[$session_id] = $session;
+    }
+
+    // Get session online value.
+    if (!empty($session->field_session_online->value)) {
+      $online_registration = ($session->field_session_online->value == TRUE);
+    }
+    else {
+      $online_registration = FALSE;
+    }
+
+    // Get session ticket value.
+    if (!empty($session->field_session_ticket->value)) {
+      $ticket_required = ($session->field_session_ticket->value == TRUE);
+    }
+    else {
+      $ticket_required = FALSE;
+    }
+
+    // Build render array of registation link.
+    if (!empty($session->field_session_reg_link->getValue())) {
+      $reg_link = $session->field_session_reg_link->getValue();
+      $reg_link = reset($reg_link);
+      $url = Url::fromUri($reg_link['uri']);
+      $registration_link = Link::fromTextAndUrl($reg_link['title'], $url);
+    }
+    else {
+      $registration_link = NULL;
+    }
+
+    // Get in membership value.
+    if (!empty($session->field_session_in_mbrsh->value)) {
+      $in_membership = ($session->field_session_online->value == TRUE);
+    }
+    else {
+      $in_membership = FALSE;
+    }
+
+    $session_rows[] = [
+      // Location shown when &location=% not in the URL, else hidden.
+      'location' => $location->label(),
+      // Time range & dates.
+      'time_start' => $time_start,
+      'day_of_week' => $day_of_week_start,
+      'time_to' => $time_to,
+      'formatted_date' => $formatted_date,
+      // Online registration from session field_session_online.
+      'registration' => $online_registration,
+      // Ticket required from session field_session_ticket.
+      'ticket_required' => $ticket_required,
+      // Registration(link) from session field_session_reg_link.
+      'registration_link' => $registration_link,
+      // In membership from session field_session_in_mbrsh.
+      'in_membership' => $in_membership,
+    ];
+
+    //  Min Age
+    if (!empty($session_instance->get('min_age')->value)) {
+      $session_rows['age_min'] = $session_instance->get('age_min')->value;
+    }
+
+    //  Max Age
+    if (!empty($session_instance->get('max_age')->value)) {
+      $session_rows['age_max'] = $session_instance->get('max_age')->value;
+    }
+
+    $variables['#cache']['tags'][] = 'node:' . $session_instance->id();
+  }
+  $variables['class_sessions_rows'] = $session_rows;
 }
