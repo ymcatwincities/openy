@@ -78,6 +78,7 @@ dependencies:
   - metatag_open_graph
   - google_tag
   - google_analytics
+  - admin_toolbar
   # OpenY features.
   - openy_media_image
   - openy_media_document
