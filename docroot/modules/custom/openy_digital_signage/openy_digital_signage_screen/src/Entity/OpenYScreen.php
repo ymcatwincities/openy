@@ -246,9 +246,7 @@ class OpenYScreen extends ContentEntityBase implements OpenYScreenInterface {
       ->setLabel(t('Schedule'))
       ->setDescription(t('A reference to the assigned schedule.'))
       ->setRevisionable(TRUE)
-      ->setSetting('target_type', 'node')
-      // TODO: update to refer to screen schedule.
-      ->setSetting('handler_settings', ['target_bundles' => ['screen_content' => 'screen_content']])
+      ->setSetting('target_type', 'openy_digital_signage_schedule')
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'visible',
