@@ -913,6 +913,14 @@ html.js {
     display: none;
   }
 }
+.paragraph--type--class-location.paragraph--view-mode--default {
+  border: solid 1px $light-grey;
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 20px;
+  text-transform: uppercase;
+}
 
 .node--view-mode-full {
   &.node--type-facility {

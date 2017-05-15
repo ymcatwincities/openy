@@ -3777,6 +3777,15 @@ html.js .branch__updates_queue__button {
   display: none;
 }
 
+.paragraph--type--class-location.paragraph--view-mode--default {
+  border: solid 1px #ccc;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
 .node--view-mode-full.node--type-facility {
   margin-top: -20px;
 }
