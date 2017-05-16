@@ -4,6 +4,7 @@ namespace Drupal\ymca_groupex;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Url;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Fetches and prepares Groupex data.
@@ -173,6 +174,7 @@ class GroupexScheduleFetcher {
           'class_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $class_url_options)),
           'instructor_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $instructor_url_options)),
           'date_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options)),
+          'ical_url' => $item->ical_url,
         ],
       ];
     }
@@ -427,6 +429,12 @@ class GroupexScheduleFetcher {
       $datetime = DrupalDateTime::createFromFormat($format, $item->date, $this->timezone);
       $datetime->setTime(0, 0, 0);
       $item->timestamp = $datetime->getTimestamp();
+
+      // Add iCal link based on given parameters.
+      $ical_date = DrupalDateTime::createFromFormat('l, F d, Y', $item->date);
+      $ical_date = $ical_date->format('m/d/Y');
+      $ical_datetime = $ical_date . ' ' . $item->time;
+      $item->ical_url = 'http://www.groupexpro.com/schedule/ics/?time=' . $ical_datetime . '&node=' . $item->id;
     }
 
     $this->enrichedData = $data;
