@@ -96,3 +96,16 @@ function openy_node_branch_update_8007() {
   $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.enabled');
   $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.weight');
 }
+
+/**
+ * Add search_index view mode to Branch.
+ */
+function openy_node_branch_update_8008() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.node.branch.search_index',
+    ]
+  );
+}

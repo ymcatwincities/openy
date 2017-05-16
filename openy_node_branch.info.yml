@@ -46,4 +46,4 @@ dependencies:
   - text
   - user
   - views
-version: 8.x-1.5
+version: 8.x-1.6
