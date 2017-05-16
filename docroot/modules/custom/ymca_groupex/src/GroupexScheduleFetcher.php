@@ -173,7 +173,7 @@ class GroupexScheduleFetcher {
           'class_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $class_url_options)),
           'instructor_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $instructor_url_options)),
           'date_link' => Url::fromRoute('ymca_groupex.all_schedules_search_results', [], array('query' => $date_url_options)),
-          'ical_url' => $item->ical_url,
+          'calendar' => $item->calendar,
         ],
       ];
     }
@@ -429,11 +429,20 @@ class GroupexScheduleFetcher {
       $datetime->setTime(0, 0, 0);
       $item->timestamp = $datetime->getTimestamp();
 
-      // Add iCal link based on given parameters.
-      $ical_date = DrupalDateTime::createFromFormat('l, F d, Y', $item->date);
-      $ical_date = $ical_date->format('m/d/Y');
-      $ical_datetime = $ical_date . ' ' . $item->time;
-      $item->ical_url = 'http://www.groupexpro.com/schedule/ics/?time=' . $ical_datetime . '&node=' . $item->id;
+      // Add calendar data.
+      $date_start = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->start);
+      $date_end = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->end);
+      $date_start = $date_start->format('Y-m-d H:i:s');
+      $date_end = $date_end->format('Y-m-d H:i:s');
+      $item->calendar = [
+        'atc_date_start' => $date_start,
+        'atc_date_end' => $date_end,
+        'atc_timezone' => drupal_get_user_timezone(),
+        'atc_title' => $item->title,
+        'atc_description' => $item->category,
+        'atc_location' => $item->location,
+        'atc_organizer' => $item->instructor,
+      ];
     }
 
     $this->enrichedData = $data;
