@@ -43,6 +43,15 @@ function openy_rose_theme_suggestions_page_alter(array &$suggestions, array $var
     $page__node__type = 'page__node__' . $node_type;
     array_splice($suggestions, $page__node_pos + 1, 0, $page__node__type);
   }
+  // Adds template suggestions for 40x pages.
+  $http_error_suggestions = [
+     'system.403' => 'page__403',
+     'system.404' => 'page__404',
+  ];
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (isset($http_error_suggestions[$route_name])) {
+    $suggestions[] = $http_error_suggestions[$route_name];
+  }
 }
 
 /**
