@@ -1,9 +1,8 @@
-uuid: 1ca3a152-0062-4233-b7ed-36131647960e
 langcode: en
 status: open
-dependencies: {  }
-_core:
-  default_config_hash: null
+dependencies:
+  module:
+    - openy_webform
 open: null
 close: null
 uid: 1
@@ -102,4 +101,22 @@ access:
   delete_own:
     roles: {  }
     users: {  }
-handlers: {  }
+handlers:
+  referenced_node_email:
+    id: referenced_node_email
+    label: 'Referenced Node Email'
+    handler_id: referenced_node_email
+    status: true
+    weight: 0
+    settings:
+      to_mail: placeholder
+      email_field_name: field_location_email
+      webform_node_field_name: center
+      from_mail: default
+      from_name: default
+      subject: default
+      body: default
+      excluded_elements: {  }
+      html: true
+      attachments: false
+      debug: 0
