@@ -11,7 +11,7 @@
   http://openymca.org
 </p>
 <p align="center">
-  An open source platform for YMCAs, by YMCAs built on <a href="drupal.org">Drupal</a>.
+  An open source platform for YMCAs, by YMCAs built on <a href="http://drupal.org">Drupal</a>.
 </p>
 
 <p align="center">
