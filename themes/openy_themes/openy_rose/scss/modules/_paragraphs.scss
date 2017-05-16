@@ -127,7 +127,6 @@
 
       @include breakpoint (768px) {
         background: none;
-        text-shadow: none;
         opacity: 0.5;
         height: 54px;
         width: 44px;
@@ -573,6 +572,11 @@
   .one-column-clean &:first-child,
   .landing-header & {
     padding-top: 0;
+  }
+}
+.paragraph--type--prgf-location-finder-filters {
+  .messages {
+    padding: 20px;
   }
 }
 .paragraph--type--prgf-location-finder {

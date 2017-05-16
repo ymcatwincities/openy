@@ -21,6 +21,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_mbrshp_image:
     weight: 102
     label: above
@@ -28,6 +29,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_mbrshp_info:
     type: entity_reference_revisions_entity_view
     weight: 103
@@ -36,6 +38,8 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

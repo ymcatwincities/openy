@@ -70,6 +70,8 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - rabbit_hole
+  - rh_node
   - redirect
   - simple_sitemap
   - metatag
@@ -103,7 +105,9 @@ dependencies:
   - openy_prgf
   - openy_prgf_small_banner
   - openy_prgf_banner
+  - openy_prgf_class_location
   - openy_prgf_simple_content
+  - openy_prgf_schedule_search
   - openy_prgf_featured_content
   - openy_prgf_grid_content
   - openy_prgf_story_card
@@ -118,6 +122,7 @@ dependencies:
   - openy_prgf_blog_listing
   - openy_prgf_loc_finder
   - openy_prgf_mbrshp_calc
+  - openy_prgf_embedded_groupexpro_schedule
   - openy_node_activity
   - openy_node_class
   - openy_node_session
@@ -132,6 +137,9 @@ dependencies:
   - openy_hours_formatter
   - openy_migrate
   - openy_map
+  - openy_moderation_wrapper
+  - openy_session_instance
+  - openy_schedules
   - openy_socrates
   - location_finder
   - daxko

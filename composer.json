@@ -91,7 +91,11 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "@composer drupal-scaffold"
+            "@composer drupal-scaffold",
+            "sh scripts/remove_openy_docroot_folder.sh || :"
+        ],
+        "post-update-cmd": [
+            "sh scripts/remove_openy_docroot_folder.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
     },
@@ -167,7 +171,6 @@
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
         "drupal/optimizely": "1.2",
-        "drupal/google_tag": "1.x-dev",
         "drupal/google_analytics": "^2.1",
         "drupal/simple_sitemap": "^2.8",
         "drupal/redirect": "^1.0@alpha",
@@ -175,5 +178,7 @@
         "drupal/webform": "^5.0@beta",
         "drupal/captcha": "^1.0@beta",
         "drupal/recaptcha": "^2.2"
+        "drupal/google_tag": "1.x-dev",
+        "drupal/rabbit_hole": "1.0-beta3"
     }
 }
