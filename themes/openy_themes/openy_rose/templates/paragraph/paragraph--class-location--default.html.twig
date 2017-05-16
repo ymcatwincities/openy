@@ -47,6 +47,6 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   {% if class_location is not empty %}
     {{ class_location }}
   {% else %}
-    {{ 'Class schedule for all locations'|t }}
+    <div class="empty-text">{{ 'Class schedule for all locations'|t }}</div>
   {% endif %}
 </div>

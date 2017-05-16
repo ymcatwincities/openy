@@ -853,6 +853,7 @@ html.js {
 
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
+.node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
   border: solid 1px $light-grey;
   padding: 20px;
@@ -910,6 +911,16 @@ html.js {
   .label-for-field-address,
   .label-for-field-phone {
     display: none;
+  }
+}
+.paragraph--type--class-location.paragraph--view-mode--default {
+  .empty-text {
+    border: solid 1px $light-grey;
+    font-family: $font-family-sans-serif;
+    font-size: 14px;
+    letter-spacing: 2px;
+    padding: 20px;
+    text-transform: uppercase;
   }
 }
 
