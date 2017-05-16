@@ -3856,6 +3856,11 @@ a.sports-icon.floor-hockey {
 .paragraph--type--gallery-cta .carousel .carousel-control.left .fa {
   margin-right: 5px;
 }
+@media (min-width: 64em) {
+  .paragraph--type--gallery-cta .carousel .carousel-control.left span {
+    margin-left: -30px;
+  }
+}
 .paragraph--type--gallery-cta .carousel .carousel-control.right {
   text-align: left;
   top: 50%;
@@ -3875,6 +3880,15 @@ a.sports-icon.floor-hockey {
 }
 .paragraph--type--gallery-cta .carousel .carousel-control.right .fa {
   margin-left: 5px;
+}
+.paragraph--type--gallery-cta .carousel .carousel-control span {
+  font-size: 50px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+@media (min-width: 0) and (max-width: 64em) {
+  .paragraph--type--gallery-cta .carousel .carousel-control span {
+    font-size: 30px;
+  }
 }
 .paragraph--type--gallery-cta .carousel .carousel-inner > .item img,
 .paragraph--type--gallery-cta .carousel .carousel-inner > .item a img {

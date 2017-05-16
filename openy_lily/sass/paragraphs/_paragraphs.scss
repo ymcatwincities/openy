@@ -169,6 +169,11 @@
         .fa {
           margin-right: 5px;
         }
+        span {
+          @include breakpoint($desktop-small) {
+            margin-left: -30px;
+          }
+        }
       }
       &.right {
         text-align: left;
@@ -184,6 +189,13 @@
         }
         .fa {
           margin-left: 5px;
+        }
+      }
+      span {
+        font-size: 50px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        @include breakpoint(0 $desktop-small) {
+          font-size: 30px;
         }
       }
     }
