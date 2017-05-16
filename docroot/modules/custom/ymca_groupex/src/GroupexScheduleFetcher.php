@@ -4,7 +4,6 @@ namespace Drupal\ymca_groupex;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Url;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Fetches and prepares Groupex data.
