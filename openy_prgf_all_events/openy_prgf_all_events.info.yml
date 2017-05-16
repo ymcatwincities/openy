@@ -3,6 +3,7 @@ description: 'Provide a paragraph with a view shows Events listing.'
 type: module
 core: 8.x
 dependencies:
+  - acquia_search
   - better_exposed_filters
   - content_moderation
   - field
@@ -12,8 +13,9 @@ dependencies:
   - openy_node_event
   - paragraphs
   - search_api
+  - search_api_solr
   - user
   - views
   - views_field_formatter
   - views_infinite_scroll
-version: 8.x-1.1
+version: 8.x-1.2

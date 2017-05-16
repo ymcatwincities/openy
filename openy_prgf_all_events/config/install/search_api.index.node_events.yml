@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_event_date_range
-    - search_api.server.default
+    - search_api.server.acquia_event_search_server
   module:
     - search_api
     - node
@@ -73,13 +73,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_event_date_range
-processor_settings:
-  add_url: {  }
-  rendered_item: {  }
-  aggregated_field: {  }
-options:
-  index_directly: true
-  cron_limit: 50
 datasource_settings:
   'entity:node':
     bundles:
@@ -89,6 +82,13 @@ datasource_settings:
     languages:
       default: true
       selected: {  }
+processor_settings:
+  rendered_item: {  }
+  aggregated_field: {  }
+  add_url: {  }
 tracker_settings:
   default: {  }
-server: default
+options:
+  index_directly: true
+  cron_limit: 50
+server: acquia_event_search_server
