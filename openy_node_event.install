@@ -160,3 +160,14 @@ function openy_node_event_update_8011() {
     'core.entity_form_display.node.event.default',
   ]);
 }
+
+/**
+ * Add search_index view mode for event node.
+ */
+function openy_node_event_update_8012() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.event.search_index',
+  ]);
+}
