@@ -1,0 +1,85 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.camp.field_camp_body
+    - field.field.node.camp.field_camp_menu_links
+    - field.field.node.camp.field_header_content
+    - field.field.node.camp.field_location_address
+    - field.field.node.camp.field_location_coordinates
+    - field.field.node.camp.field_location_email
+    - field.field.node.camp.field_location_fax
+    - field.field.node.camp.field_location_phone
+    - field.field.node.camp.field_meta
+    - node.type.camp
+  module:
+    - address
+    - entity_reference_revisions
+    - geolocation
+    - metatag
+    - telephone
+    - user
+id: node.camp.search_index
+targetEntityType: node
+bundle: camp
+mode: search_index
+content:
+  field_camp_body:
+    type: entity_reference_revisions_entity_view
+    weight: 6
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_header_content:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_location_address:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+  field_location_coordinates:
+    weight: 5
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+  field_location_email:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_location_fax:
+    weight: 3
+    label: hidden
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+  field_location_phone:
+    weight: 4
+    label: hidden
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+  field_meta:
+    weight: 7
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+hidden:
+  field_camp_menu_links: true
+  langcode: true
+  links: true

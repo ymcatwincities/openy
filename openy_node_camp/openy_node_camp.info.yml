@@ -31,6 +31,7 @@ dependencies:
   - openy_prgf_small_banner
   - paragraphs
   - path
+  - pathauto
   - telephone
   - user
-version: 8.x-1.2
+version: 8.x-1.3
