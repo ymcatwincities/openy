@@ -53,7 +53,7 @@ projects[metatag] = 1.0
 projects[confi][subdir] = contrib
 projects[confi][version] = 1.3
 projects[confi][patch][] = "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
-projects[admin_toolbar] = 1.19
+projects[admin_toolbar] = 1.x-dev
 
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
