@@ -3,7 +3,9 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_event_date_range
-    - search_api.server.default
+    - field.storage.node.field_location_ref
+    - search_api.server.acquia_search_server
+    - core.entity_view_mode.node.search_index
   module:
     - search_api
     - node
@@ -21,12 +23,7 @@ field_settings:
         anonymous: anonymous
       view_mode:
         'entity:node':
-          event: default
-  title:
-    label: Title
-    datasource_id: 'entity:node'
-    property_path: title
-    type: string
+          event: search_index
   status:
     label: 'Publishing status'
     datasource_id: 'entity:node'
@@ -73,13 +70,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_event_date_range
-processor_settings:
-  add_url: {  }
-  rendered_item: {  }
-  aggregated_field: {  }
-options:
-  index_directly: true
-  cron_limit: 50
+  field_location_ref:
+    label: Location
+    datasource_id: 'entity:node'
+    property_path: field_location_ref
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_location_ref
 datasource_settings:
   'entity:node':
     bundles:
@@ -89,6 +87,35 @@ datasource_settings:
     languages:
       default: true
       selected: {  }
+processor_settings:
+  ignorecase:
+    fields:
+      - rendered_item
+      - uuid
+    weights:
+      preprocess_index: -47
+      preprocess_query: -47
+  add_url: {  }
+  rendered_item: {  }
+  aggregated_field: {  }
+  html_filter:
+    fields:
+      - rendered_item
+      - uuid
+    title: true
+    alt: true
+    tags:
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+      b: 2
+    weights:
+      preprocess_index: -48
+      preprocess_query: -48
 tracker_settings:
   default: {  }
-server: default
+options:
+  index_directly: true
+  cron_limit: 50
+server: acquia_search_server

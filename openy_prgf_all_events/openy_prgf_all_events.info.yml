@@ -12,8 +12,10 @@ dependencies:
   - openy_node_event
   - paragraphs
   - search_api
+  - search_api_views_reference
   - user
   - views
   - views_field_formatter
   - views_infinite_scroll
-version: 8.x-1.1
+  - ygh_alters
+version: 8.x-1.2
