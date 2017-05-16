@@ -333,7 +333,7 @@
         .parent('li')
         .removeClass('nav-level-2')
         .removeClass('dropdown');
-      $('.independent-header #masthead-menu a').on('click', function() {
+      $('.independent-header a, .independent-footer a').on('click', function() {
         parent.location.href = $(this).attr('href');
       });
     }
