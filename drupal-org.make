@@ -46,6 +46,7 @@ projects[blazy] = 1.0-rc1
 projects[geolocation] = 1.9
 projects[google_tag] = 1.x-dev
 projects[google_analytics] = 2.1
+projects[rabbit_hole] = 1.0-beta3
 projects[redirect] = 1.0-alpha4
 projects[simple_sitemap] = 2.8
 projects[metatag] = 1.0

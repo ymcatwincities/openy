@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.activity.field_activity_category
+    - field.field.node.activity.field_activity_description
     - node.type.activity
   module:
     - user
@@ -13,4 +15,7 @@ mode: teaser
 content:
   links:
     weight: 100
-hidden: {  }
+    region: content
+hidden:
+  field_activity_category: true
+  field_activity_description: true

@@ -221,9 +221,49 @@ function openy_update_8014() {
 }
 
 /**
- * Enable Webforms set of modules.
+ * Enable OpenY Session Instance & OpenY Moderation wrapper.
  */
 function openy_update_8015() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_moderation_wrapper',
+    'openy_session_instance',
+    'openy_schedules',
+    'openy_prgf_schedule_search'
+  ]);
+}
+
+/**
+ * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
+ */
+function openy_update_8016() {
+  \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
+
+}
+
+/**
+ * Enable rabbit hole and rabbit hole node modules.
+ */
+function openy_update_8017() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'rabbit_hole',
+    'rh_node',
+  ]);
+}
+
+/**
+ * Enable the Class Location paragraph module.
+ */
+function openy_update_8018() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_prgf_class_location']);
+}
+
+/**
+ * Enable Webforms set of modules.
+ */
+function openy_update_8019() {
   // Enable module.
   \Drupal::service('module_installer')->install(['webform', 'webform_ui', 'captcha', 'image_captcha', 'recaptcha']);
 }

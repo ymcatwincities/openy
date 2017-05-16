@@ -75,3 +75,16 @@ function openy_loc_facility_update_8002() {
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
 }
+
+/**
+ * Update Facility Metatag field to remove dependency on datalayer module.
+ */
+function openy_loc_facility_update_8003() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_facility');
+  $config .= '/config/install/field.field.node.facility.field_meta_tags.yml';
+  $config_importer->update($config,
+    'field.field.node.facility.field_meta_tags',
+    'dependencies.module'
+  );
+}
