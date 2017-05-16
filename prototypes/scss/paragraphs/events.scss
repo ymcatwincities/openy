@@ -110,7 +110,10 @@
     .field-location-ref {
       @include breakpoint(tablet) {
         &::before {
-          content: ', ';
+          content: "|";
+        }
+        a {
+          padding-left: 4px;
         }
       }
       a:hover {
