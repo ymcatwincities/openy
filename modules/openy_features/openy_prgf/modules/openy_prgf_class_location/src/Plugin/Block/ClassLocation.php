@@ -1,31 +1,32 @@
 <?php
 
-namespace Drupal\openy_prgf_class_sessions\Plugin\Block;
+namespace Drupal\openy_prgf_class_location\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\openy_prgf_class_sessions\ClassSessionsServiceInterface;
+use Drupal\node\NodeInterface;
+use Drupal\openy_prgf_class_location\ClassLocationServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a leader board block.
  *
  * @Block(
- *   id = "class_sessions",
- *   admin_label = @Translation("Class Sessions block"),
+ *   id = "class_location",
+ *   admin_label = @Translation("Class Location block"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface {
+class ClassLocation extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The Class Sessions service.
+   * The Class Location service.
    *
-   * @var \Drupal\openy_prgf_class_sessions\ClassSessionsServiceInterface
+   * @var \Drupal\openy_prgf_class_location\ClassLocationServiceInterface
    */
-  protected $classSessionsService;
+  protected $classLocationService;
 
   /**
    * The current route match.
@@ -35,7 +36,7 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
   protected $routeMatch;
 
   /**
-   * Constructs a new ClassSessions.
+   * Constructs a new ClassLocation.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -43,14 +44,14 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param ClassSessionsServiceInterface $class_sessions_service
-   *   The Class Sessions service.
+   * @param ClassLocationServiceInterface $class_location_service
+   *   The Class Location service.
    * @param RouteMatchInterface $route_match
    *   The Route match service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ClassSessionsServiceInterface $class_sessions_service, RouteMatchInterface $route_match) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ClassLocationServiceInterface $class_location_service, RouteMatchInterface $route_match) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->classSessionsService = $class_sessions_service;
+    $this->classLocationService = $class_location_service;
     $this->routeMatch = $route_match;
   }
 
@@ -62,9 +63,8 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('openy_prgf_class_sessions.sessions_handler'),
+      $container->get('openy_prgf_class_location.location_handler'),
       $container->get('current_route_match')
-
     );
   }
 
@@ -93,28 +93,28 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
       $location_id = NULL;
     }
 
-    // There is no session instances associated with the class node.
-    if (!$session_instances = $this->classSessionsService->getClassNodeSessionInstances($node, $location_id)) {
-      return [];
+    /* @var NodeInterface $location */
+    if (is_a($location = $this->classLocationService->getLocationNode($location_id), 'Drupal\node\Entity\Node')) {
+      $location_renderable = node_view($location, 'class_location');
+
+      // Add location cache tags.
+      $tags_location = $location->getCacheTags();
+      $tags = Cache::mergeTags($tags, $tags_location);
     }
 
-    // Get Session Instances rows.
-    $session_instances_rows = $this->classSessionsService->getSessionInstancesRows($session_instances, $tags);
-
-    $class_sessions = [
-      '#theme' => 'class_sessions',
-      '#session_instances_rows' => $session_instances_rows,
+    $class_location = [
+      '#theme' => 'class_location',
       '#cache' => [
-        'tags' => Cache::mergeTags(['class_sessions'], $tags),
+        'tags' => Cache::mergeTags(['class_location'], $tags),
         'contexts' => $contexts,
       ],
     ];
 
-    if (!empty($location_id)) {
-      $class_sessions['#conditions_location'] = $location_id;
+    if (isset($location_renderable)) {
+      $class_location['#class_location'] = $location_renderable;
     }
 
-    return $class_sessions;
+    return $class_location;
   }
 
 }
