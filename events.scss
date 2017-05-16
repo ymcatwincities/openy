@@ -15,13 +15,15 @@
       margin-bottom: 0;
     }
 
-    .form-item-field-event-date-range, .form-item-field-event-date-range-1 {
+    .form-item-field-location-ref,
+    .form-item-field-event-date-range,
+    .form-item-field-event-date-range-1 {
       float: left;
       padding-right: 35px;
-      input {
+      input, select {
         padding: 4px;
         @include breakpoint(tablet) {
-          max-width: 160px;
+          max-width: 140px;
         }
       }
 
@@ -59,7 +61,7 @@
         position: absolute;
         float: none;
         right: 125px;
-        top: 37px;
+        top: 39px;
       }
       input {
         height: 40px;
@@ -74,7 +76,7 @@
       @include breakpoint(laptop) {
         position: absolute;
         right: 35px;
-        top: 37px;
+        top: 39px;
       }
       input {
         @include btn-blue();
