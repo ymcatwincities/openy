@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.class_sessions.field_prgf_block
     - paragraphs.paragraphs_type.class_sessions
 id: paragraph.class_sessions.default
 targetEntityType: paragraph
@@ -10,5 +11,6 @@ mode: default
 content: {  }
 hidden:
   created: true
+  field_prgf_block: true
   status: true
   uid: true

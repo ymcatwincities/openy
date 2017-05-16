@@ -134,4 +134,15 @@ interface SessionInstanceManagerInterface {
    */
   public function getSessionsByParams(array $conditions);
 
+  /**
+   * Retrieves Class Sessions for the Camp CT node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The Camp node.
+   *
+   * @return array
+   *   Array of session instances.
+   */
+  public function getSessionInstancesByClassNode(NodeInterface $node, $location_id = NULL);
+
 }
