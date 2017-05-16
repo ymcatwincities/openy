@@ -1,50 +1,51 @@
-<div class="class-page-other-sessions row ng-hide" data-ng-show="active">
+<div class="class-page-other-sessions row">
   <!-- Schedule -->
   <div class="col-xs-12">
-
-    <!-- Ticket Required Info -->
-    <div class="location__ticket-required-info ng-hide" data-ng-show="current_session.ticket_required != 0 && current_session.location.ticket_required_info">
-      <h3>{{ 'Ticket Required'|t }}</h3>
-      <div ng-controller="ScheduleController">
-        <div class="location__ticket-required-info__content" ng-bind-html="current_session.location.ticket_required_info"></div>
-      </div>
-    </div>
-
-    <!-- ActiveNet -->
-    <div class="active-net__teasers" data-ng-show="class.type == 'activity' && other_sessions.length">
+    {% if conditions_location is empty %}
+      {# include th location #}
+    {% endif %}
+    {% if session_instances_rows is not empty %}
       <h3>{{ 'Other Class Times'|t }}</h3>
-      <table class="active-net__teasers-list">
-        <tbody>
-        <tr class="active-net__teaser" data-ng-repeat="session in (other_sessions)">
-          <td class="days">
-            {{ '{{ session.schedule.days_formatted }}' }}, {{ '{{ session.schedule.time_formatted }}' }}, {{ '{{ session.schedule.deadline }}' }} <br>
-          </td>
-          <td class="more-info"><a href="{{ '{{ session.more_info_url }}' }}">{{ 'More information'| t}}</a></td>
-          <td class="register"><a target="_blank" data-ng-show="session.online_registration" href="{{ '{{ session.register_url.url }}' }}">{{ '{{ session.register_url.title }}' }}</a></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- /ActiveNet -->
-
-    <!-- Flexreg -->
-    <div class="flexreg__teasers" data-ng-show="class.type == 'flexreg' && other_sessions.length">
-      <h3>{{ 'Sessions:'|t }}</h3>
-      <table class="flexreg__teasers-list">
-        <tbody>
-        <tr class="flexreg__teaser" data-ng-repeat="session in (other_sessions)">
-          <td>
-            <div class="name">{{ '{{ session.name }}' }}</div>
-            <div class="description">{{ '{{ session.description }}' }}</div>
-            <div data-ng-show="session.bundle == 'branch'">{{ '{{ session.schedule.days_formatted }}' }}</div>
-            <div class="deadline">{{ '{{ session.schedule.deadline }}' }}</div>
-            <div data-ng-show="session.bundle == 'branch'" class="time">{{ '{{ session.schedule.time_formatted }}' }}</div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- /Flexreg -->
-
+      <div class="active-net__teasers">
+        <table class="active-net__teasers-list">
+          <tbody>
+          {% for session_instance_row in session_instances_rows %}
+            <tr class="active-net__teaser" data-ng-repeat="session in (other_sessions)">
+              {# Include location if not a current query condition. #}
+              {% if conditions_location is empty %}
+                <td class="location">{{ session_instance_row.location }}</td>
+              {% endif %}
+              <td class="days">
+                <span>{{ session_instance_row.day_of_week }}, {{ session_instance_row.time_start }} - {{ session_instance_row.time_to }}, {{ session_instance_row.formatted_date }}</span>
+              </td>
+              <td class="registration_link">{{ session_instance_row.registration_link }}</td>
+              <td class="details">
+                {% if session_instance_row.registration %}
+                  <span class="registration-online">{{ "Online registration"|t }}</span>
+                  {% if session_instance_row.ticket_required or session_instance_row.in_membership %}
+                    </br>
+                  {% endif %}
+                {% endif %}
+                {% if session_instance_row.ticket_required %}
+                  <span class="ticket-required">{{ "Ticket required"|t }}</span>
+                  {% if session_instance_row.in_membership %}
+                    </br>
+                  {% endif %}
+                {% endif %}
+                {% if session_instance_row.in_membership %}
+                  <span class="in-membership">{{ "Included in membership"|t }}</span>
+                {% endif %}
+              </td>
+              <td class="age_range">
+                {% if session_instance_row.age_min is not empty and session_instance_row.age_max is not empty %}
+                  <span class="age-range">{{ "Ages"|t }} {{ session_instance_row.age_min }} - {{ session_instance_row.age_max }}</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
   </div>
 </div>

@@ -3,5 +3,8 @@ description: 'OpenY Paragraph Class Sessions feature module.'
 type: module
 core: 8.x
 dependencies:
+  - field
+  - openy_prgf
   - paragraphs
+  - plugin
 version: 8.x-1.0
