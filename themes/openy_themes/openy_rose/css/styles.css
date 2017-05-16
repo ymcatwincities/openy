@@ -143,6 +143,13 @@ body {
   margin-bottom: 20px;
 }
 
+.taxonomy-term {
+  margin-top: 20px;
+}
+.taxonomy-term > h3 {
+  margin-top: 0;
+}
+
 .footer {
   background-color: #4f4f4f;
   font-size: 12px;
@@ -5571,6 +5578,40 @@ html.js .flag-waiting .flag-throbber {
 }
 .status-message__alert ul, .status-message__alert p {
   background: #ed1c24;
+}
+
+.pager li.load_more_button > a {
+  padding: 12px 35px;
+  border: none;
+  border-radius: 0;
+  background-color: #00aeef;
+  font-size: 20px;
+}
+
+.pager__items {
+  padding-left: 0;
+}
+
+.pager li {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+.pager li.is-active a {
+  color: #636466;
+  font-size: 15px;
+  font-weight: 500;
+}
+.pager li > a {
+  padding: 5px 10px;
+  font-size: 15px;
+  border-radius: 0;
+}
+.pager li.pager__item--next a {
+  border: none;
+}
+.pager li.pager__item--next a:hover {
+  background: transparent;
 }
 
 /*# sourceMappingURL=styles.css.map */
