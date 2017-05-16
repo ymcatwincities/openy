@@ -527,7 +527,23 @@ function yptf_master_update_8025() {
 /**
  * Add default admin email to Kronos form.
  */
-function yptf_master_update_8029() {
+function yptf_master_update_8026() {
   $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
   $config->set("admin_emails", 'Paige.Kiecker@ymcamn.org')->save();
+}
+
+/**
+ * Set default to disabled Kronos report.
+ */
+function yptf_master_update_8027() {
+  // Set default disabled message values for reports.
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $email_defaults = ['leadership' => 0, 'pt_managers' => 0];
+
+  foreach ($email_defaults as $id => $data) {
+    $config->set("$id.disabled_message", [
+      'value' => '',
+      'format' => 'full_html',
+    ])->set("$id.enabled", 0)->save();
+  }
 }
