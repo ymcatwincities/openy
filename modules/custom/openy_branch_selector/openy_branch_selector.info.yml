@@ -1,7 +1,7 @@
-name: YGS Bransh selector
+name: OpenY Bransh selector
 type: module
 description: Provides link to save location as My YMCA.
 core: 8.x
-package: YGS
+package: OpenY
 dependencies:
-  - ygs_session_instance
+  - openy_session_instance
