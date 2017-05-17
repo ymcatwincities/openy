@@ -173,6 +173,7 @@ class GroupexScheduleFetcher {
           'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $class_url_options]),
           'instructor_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $instructor_url_options]),
           'date_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $date_url_options]),
+          'calendar' => $item->calendar,
         ],
       ];
     }
@@ -427,6 +428,21 @@ class GroupexScheduleFetcher {
       $datetime = DrupalDateTime::createFromFormat($format, $item->date, $this->timezone);
       $datetime->setTime(0, 0, 0);
       $item->timestamp = $datetime->getTimestamp();
+
+      // Add calendar data.
+      $date_start = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->start);
+      $date_end = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->end);
+      $date_start = $date_start->format('Y-m-d H:i:s');
+      $date_end = $date_end->format('Y-m-d H:i:s');
+      $item->calendar = [
+        'atc_date_start' => $date_start,
+        'atc_date_end' => $date_end,
+        'atc_timezone' => drupal_get_user_timezone(),
+        'atc_title' => $item->title,
+        'atc_description' => $item->category . PHP_EOL . $item->studio . PHP_EOL . $item->original_instructor,
+        'atc_location' => $item->location,
+        'atc_organizer' => $item->instructor,
+      ];
     }
 
     $this->enrichedData = $data;

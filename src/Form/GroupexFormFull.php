@@ -302,7 +302,7 @@ class GroupexFormFull extends GroupexFormBase {
     if (!empty($values['location'])) {
       $url = $this->groupexHelper->getPdfLink($values['location']);
       $form['groupex_pdf_link']['link'] = [
-        '#title' => $this->t('View This Week\'s PDF'),
+        '#title' => $this->t('Download PDF'),
         '#type' => 'link',
         '#url' => $url,
         '#attributes' => [
