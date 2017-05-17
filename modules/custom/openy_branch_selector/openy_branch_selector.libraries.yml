@@ -1,7 +1,7 @@
 selector:
   version: 1.0
   js:
-    js/ygs-branch-selector.js: {}
+    js/openy-branch-selector.js: {}
   dependencies:
     - core/jquery
     - core/jquery.cookie

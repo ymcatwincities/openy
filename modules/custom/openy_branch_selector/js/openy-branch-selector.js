@@ -1,7 +1,7 @@
 (function($) {
   "use strict";
 
-  Drupal.behaviors.ygs_branch_selector = {
+  Drupal.behaviors.openy_branch_selector = {
     nid: 0,
     action: 'flag',
     attach: function(context, settings) {
@@ -17,20 +17,20 @@
         .once()
         .click(function(e) {
           if (self.action == 'flag') {
-            $.cookie('ygs_preferred_branch', self.nid, { expires: 365, path: '/' });
+            $.cookie('openy_preferred_branch', self.nid, { expires: 365, path: '/' });
           }
           else {
-            $.removeCookie('ygs_preferred_branch', { path: '/' });
+            $.removeCookie('openy_preferred_branch', { path: '/' });
           }
           self.updateLink(context, settings);
           e.preventDefault();
         });
 
-      Drupal.behaviors.ygs_branch_selector.updateLink(context, settings);
+      Drupal.behaviors.openy_branch_selector.updateLink(context, settings);
     },
 
     updateLink: function(context, settings) {
-      var preferred_branch = $.cookie('ygs_preferred_branch');
+      var preferred_branch = $.cookie('openy_preferred_branch');
       var link_text = Drupal.t('Save as preferred branch');
       this.action = 'flag';
       if (typeof preferred_branch !== 'undefined' && preferred_branch == this.nid) {
