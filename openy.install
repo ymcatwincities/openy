@@ -265,5 +265,12 @@ function openy_update_8018() {
  */
 function openy_update_8019() {
   // Enable module.
-  \Drupal::service('module_installer')->install(['webform', 'webform_ui', 'captcha', 'image_captcha', 'recaptcha']);
+  \Drupal::service('module_installer')->install([
+    'webform',
+    'webform_ui',
+    'captcha',
+    'image_captcha',
+    'recaptcha',
+    'openy_prgf_webform',
+  ]);
 }
