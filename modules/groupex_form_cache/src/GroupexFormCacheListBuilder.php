@@ -34,9 +34,9 @@ class GroupexFormCacheListBuilder extends EntityListBuilder {
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.groupex_form_cache.edit_form', array(
+        'entity.groupex_form_cache.edit_form', [
           'groupex_form_cache' => $entity->id(),
-        )
+        ]
       )
     );
     return $row + parent::buildRow($entity);

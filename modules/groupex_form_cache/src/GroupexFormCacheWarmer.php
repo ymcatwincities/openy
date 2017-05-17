@@ -20,32 +20,32 @@ class GroupexFormCacheWarmer {
   /**
    * Query factory.
    *
-   * @var QueryFactory
+   * @var \Drupal\Core\Entity\Query\QueryFactory
    */
   protected $queryFactory;
 
   /**
    * Config factory.
    *
-   * @var ConfigFactory
+   * @var \Drupal\Core\Config\ConfigFactory
    */
   protected $config;
 
   /**
    * Logger.
    *
-   * @var LoggerChannel
+   * @var \Drupal\Core\Logger\LoggerChannelFactory
    */
   protected $logger;
 
   /**
    * GroupexFormCacheManager constructor.
    *
-   * @param QueryFactory $query_factory
+   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
    *   Query factory.
-   * @param ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   Config factory.
-   * @param LoggerChannelFactory $logger_factory
+   * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
    */
   public function __construct(QueryFactory $query_factory, ConfigFactory $config_factory, LoggerChannelFactory $logger_factory) {
@@ -100,7 +100,7 @@ class GroupexFormCacheWarmer {
   /**
    * Warm up single entity.
    *
-   * @param GroupexFormCacheInterface $entity
+   * @param \Drupal\groupex_form_cache\GroupexFormCacheInterface $entity
    *   Entity.
    */
   private function warmUp(GroupexFormCacheInterface $entity) {
@@ -134,7 +134,7 @@ class GroupexFormCacheWarmer {
    *
    * Commonly we assume that cache entity with dates in the past is invalid.
    *
-   * @param GroupexFormCacheInterface $entity
+   * @param \Drupal\groupex_form_cache\GroupexFormCacheInterface $entity
    *   Entity.
    *
    * @return bool
@@ -154,7 +154,7 @@ class GroupexFormCacheWarmer {
   /**
    * Check if entity needs warming up.
    *
-   * @param GroupexFormCacheInterface $entity
+   * @param \Drupal\groupex_form_cache\GroupexFormCacheInterface $entity
    *   Entity.
    *
    * @return bool

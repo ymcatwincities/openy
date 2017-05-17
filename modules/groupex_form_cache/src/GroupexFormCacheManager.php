@@ -29,41 +29,41 @@ class GroupexFormCacheManager {
   /**
    * Query factory.
    *
-   * @var QueryFactory
+   * @var \Drupal\Core\Entity\Query\QueryFactory
    */
   protected $queryFactory;
 
   /**
    * Config.
    *
-   * @var ImmutableConfig
+   * @var \Drupal\Core\Config\ImmutableConfig
    */
   protected $config;
 
   /**
    * Logger.
    *
-   * @var LoggerChannel
+   * @var \Drupal\Core\Logger\LoggerChannel
    */
   protected $logger;
 
   /**
    * Entity type manager.
    *
-   * @var EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entityTypeManager;
 
   /**
    * GroupexFormCacheManager constructor.
    *
-   * @param QueryFactory $query_factory
+   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
    *   Query factory.
-   * @param ConfigFactory $config_factory
+   * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   Config factory.
-   * @param LoggerChannelFactory $logger_factory
+   * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
-   * @param EntityTypeManager $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   Entity type manager.
    */
   public function __construct(QueryFactory $query_factory, ConfigFactory $config_factory, LoggerChannelFactory $logger_factory, EntityTypeManager $entity_type_manager) {
@@ -82,7 +82,7 @@ class GroupexFormCacheManager {
    * @return mixed
    *   Data.
    */
-  public function getCache($options) {
+  public function getCache(array $options) {
     array_multisort($options);
     $search = serialize($options);
 
@@ -112,7 +112,7 @@ class GroupexFormCacheManager {
    * @param array $data
    *   Data.
    */
-  public function setCache($options, $data) {
+  public function setCache(array $options, array $data) {
     array_multisort($options);
     $cache = GroupexFormCache::create([
       'field_gfc_created' => REQUEST_TIME,
