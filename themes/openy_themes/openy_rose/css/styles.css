@@ -2103,6 +2103,95 @@ body {
   }
 }
 
+.paragraph--type--schedule-search-list .group_time {
+  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+  color: #5c2e91;
+  display: inline-block;
+  font-size: 30px;
+  letter-spacing: -0.8px;
+  line-height: 1.6;
+  margin: 15px 15px 20px;
+}
+.paragraph--type--schedule-search-list .schedule-sessions-group-slider {
+  margin: 0 0 45px;
+}
+@media (min-width: 48em) {
+  .paragraph--type--schedule-search-list .schedule-sessions-group-slider {
+    margin: 0 35px 55px 0;
+  }
+}
+@media (min-width: 81.25em) {
+  .paragraph--type--schedule-search-list .schedule-sessions-group-slider {
+    margin-right: 0;
+  }
+}
+.paragraph--type--schedule-search-list .slick-track {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+}
+.paragraph--type--schedule-search-list .slick-arrow {
+  background: none;
+  color: #00aeef;
+  height: 40px;
+  margin-top: -7px;
+  padding: 0;
+  width: 40px;
+  z-index: 1;
+}
+.paragraph--type--schedule-search-list .slick-arrow:before {
+  color: #00aeef;
+}
+@media (min-width: 48em) {
+  .paragraph--type--schedule-search-list .slick-arrow {
+    height: 70px;
+    width: 50px;
+  }
+}
+.paragraph--type--schedule-search-list .slick-arrow .fa {
+  font-size: 30px;
+}
+@media (min-width: 48em) {
+  .paragraph--type--schedule-search-list .slick-arrow .fa {
+    font-size: 70px;
+  }
+}
+.paragraph--type--schedule-search-list .slick-arrow.slick-prev {
+  left: -20px;
+}
+@media (min-width: 48em) {
+  .paragraph--type--schedule-search-list .slick-arrow.slick-prev {
+    left: -45px;
+  }
+}
+.paragraph--type--schedule-search-list .slick-arrow.slick-next {
+  right: -20px;
+}
+@media (min-width: 48em) {
+  .paragraph--type--schedule-search-list .slick-arrow.slick-next {
+    right: -45px;
+  }
+}
+.paragraph--type--schedule-search-list .slick-dots li button:before {
+  opacity: 1;
+  color: #ebebeb;
+}
+.paragraph--type--schedule-search-list .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #c6168d;
+}
+.paragraph--type--schedule-search-list .slick-slide {
+  border: 1px solid #c6168d;
+  height: auto;
+  margin: 0 15px;
+  padding: 15px;
+}
+.paragraph--type--schedule-search-list .slick-slide:hover {
+  text-decoration: none;
+}
+
 .site-alert {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   width: 100%;
