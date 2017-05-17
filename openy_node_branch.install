@@ -109,3 +109,14 @@ function openy_node_branch_update_8008() {
     ]
   );
 }
+
+/**
+ * Enable Location Events paragraph for Branches body.
+ */
+function openy_node_branch_update_8009() {
+  $config = drupal_get_path('module', 'openy_node_branch') . '/config/install/field.field.node.branch.field_branch_body.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles.location_events');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.location_events.enabled');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.location_events.weight');
+}
