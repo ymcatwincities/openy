@@ -80,19 +80,8 @@ function openy_prgf_update_8004() {
 }
 
 /**
- * Enable webforms module.
+ * Enable webforms paragraph module.
  */
 function openy_prgf_update_8005() {
-  $config_dir = drupal_get_path('module', 'openy_prgf') . '/config/install/';
-  // Import new configuration
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'core.entity_form_display.paragraph.webform.default.yml',
-    'core.entity_view_display.paragraph.webform.default.yml',
-    'core.entity_view_display.paragraph.webform.default.yml',
-    'field.field.paragraph.webform.field_webform_webform.yml',
-    'field.storage.paragraph.field_webform_webform.yml',
-    'paragraphs.paragraphs_type.webform.yml',
-  ]);
+  \Drupal::service('module_installer')->install(['openy_prgf_webform']);
 }
