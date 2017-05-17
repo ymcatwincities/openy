@@ -6,7 +6,6 @@ dependencies:
   - content_moderation
   - field
   - node
-  - openy_search
   - paragraphs
   - search_api
   - user
