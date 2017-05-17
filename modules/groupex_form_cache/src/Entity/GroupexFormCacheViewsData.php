@@ -16,11 +16,11 @@ class GroupexFormCacheViewsData extends EntityViewsData implements EntityViewsDa
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['groupex_form_cache']['table']['base'] = array(
+    $data['groupex_form_cache']['table']['base'] = [
       'field' => 'id',
       'title' => $this->t('Groupex Form Cache'),
       'help' => $this->t('The Groupex Form Cache ID.'),
-    );
+    ];
 
     return $data;
   }
