@@ -11,7 +11,7 @@ use Drupal\Core\Url;
  * Implements hook_preprocess_HOOK().
  */
 function openy_branch_selector_preprocess_node(&$variables) {
-  if (isset($variables['node']) && $variables['view_mode'] == 'header_branch' && $variables['node']->getType() == 'branch') {
+  if (isset($variables['node']) && $variables['view_mode'] == 'full' && $variables['node']->getType() == 'branch') {
     // Add to branch node openy_branch_selector.
     $nid = $variables['node']->id();
     // @see themes/custom/ymca_seattle/templates/node/node--branch--header-branch.html.twig

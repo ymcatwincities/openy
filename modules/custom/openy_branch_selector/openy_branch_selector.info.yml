@@ -1,4 +1,4 @@
-name: OpenY Bransh selector
+name: OpenY Branch Selector
 type: module
 description: Provides link to save location as My YMCA.
 core: 8.x
