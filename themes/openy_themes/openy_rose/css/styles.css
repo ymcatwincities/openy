@@ -143,6 +143,10 @@ body {
   margin-bottom: 20px;
 }
 
+.error-page {
+  padding: 25px 0;
+}
+
 .footer {
   background-color: #4f4f4f;
   font-size: 12px;
