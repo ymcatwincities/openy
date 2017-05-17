@@ -439,7 +439,7 @@ class GroupexScheduleFetcher {
         'atc_date_end' => $date_end,
         'atc_timezone' => drupal_get_user_timezone(),
         'atc_title' => $item->title,
-        'atc_description' => $item->category,
+        'atc_description' => $item->category . PHP_EOL . $item->studio . PHP_EOL . $item->original_instructor,
         'atc_location' => $item->location,
         'atc_organizer' => $item->instructor,
       ];
