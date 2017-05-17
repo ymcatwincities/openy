@@ -185,10 +185,10 @@ class GroupexFormCache extends ContentEntityBase implements GroupexFormCacheInte
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Groupex Form Cache entity.'))
-      ->setSettings(array(
+      ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
-      ))
+      ])
       ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',
