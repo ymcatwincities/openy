@@ -4,13 +4,12 @@ Provides configurable programs search paragraph.
 
 ## How to warm the cache
 
-  - Warm the cache using Drush
-  
 ```
-drush ev '\Drupal::service("ygh_programs_search.data_storage")->warmCache();'
+ygh_programs_search_cache_warm()
 ```
-  - Warm the cache using PHP
-  
+
+## How to reset the cache
+
 ```
-\Drupal::service("ygh_programs_search.data_storage")->warmCache();
+ygh_programs_search_cache_reset()
 ```

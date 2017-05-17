@@ -63,14 +63,18 @@ class DataStorage implements DataStorageInterface {
   }
 
   /**
+   * Delete all caches.
+   */
+  public function resetCache() {
+    $this->cache->deleteAll();
+  }
+
+  /**
    * Warm up all cache.
    *
    * @ingroup cache
    */
   public function warmCache() {
-    // Make sure we've deleted all cache in the cache bin.
-    $this->cache->deleteAll();
-
     $this->getAllChildCarePrograms();
     $this->getMapRateOptions();
     $this->getMapSchoolsProgramIds();

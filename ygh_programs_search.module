@@ -1,6 +1,66 @@
 <?php
 
+use Drupal\Component\Utility\Timer;
+
 /**
  * @file
  * Module file.
+ * @todo Implement global service to run service commands with timer.
  */
+
+function ygh_programs_search_cache_reset() {
+  $channel = 'ygh_programs_search';
+  $timer = $channel . '_cache_reset';
+  $service = "Cache cleaner";
+
+  Timer::start($timer);
+  \Drupal::logger($channel)->info(
+    "%service has been started.",
+    [
+      '%service' => $service
+    ]
+  );
+
+  // Warm the cache.
+  \Drupal::service("ygh_programs_search.data_storage")->resetCache();
+
+  $duration = Timer::read($timer) / 1000;
+  $this->logger->info(
+    '%service has been stopped. Duration: %duration sec.',
+    [
+      '%service' => $service,
+      '%duration' => $duration,
+    ]
+  );
+  Timer::stop($timer);
+}
+
+/**
+ * Warm caches.
+ */
+function ygh_programs_search_cache_warm() {
+  $channel = 'ygh_programs_search';
+  $timer = $channel . '_cache_warm';
+  $service = "Cache warmer";
+
+  Timer::start($timer);
+  \Drupal::logger($channel)->info(
+    "%service has been started.",
+    [
+      '%service' => $service
+    ]
+  );
+
+  // Warm the cache.
+  \Drupal::service("ygh_programs_search.data_storage")->warmCache();
+
+  $duration = Timer::read($timer) / 1000;
+  $this->logger->info(
+    '%service has been stopped. Duration: %duration sec.',
+    [
+      '%service' => $service,
+      '%duration' => $duration,
+    ]
+  );
+  Timer::stop($timer);
+}
