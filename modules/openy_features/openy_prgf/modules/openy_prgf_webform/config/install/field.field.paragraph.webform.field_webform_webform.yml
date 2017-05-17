@@ -15,7 +15,7 @@ id: paragraph.webform.field_webform_webform
 field_name: field_webform_webform
 entity_type: paragraph
 bundle: webform
-label: 'Embedded Webform'
+label: Webform
 description: ''
 required: false
 translatable: false

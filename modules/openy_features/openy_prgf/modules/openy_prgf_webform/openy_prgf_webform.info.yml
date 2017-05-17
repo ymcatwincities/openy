@@ -1,0 +1,10 @@
+name: 'OpenY paragraph webform'
+description: 'OpenY paragraph webform'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - field
+  - paragraphs
+  - webform
+version: 8.x-1.0
