@@ -147,7 +147,7 @@ function openy_import_content(array &$install_state) {
 
   if (!empty($install_state['openy']['content']['webform'])) {
     // Install webform feature - it's not handled as content migration.
-    openy_enable_module('openy_webform_demo');
+    openy_enable_module('openy_demo_webform');
     unset($install_state['openy']['content']['webform']);
   }
 
