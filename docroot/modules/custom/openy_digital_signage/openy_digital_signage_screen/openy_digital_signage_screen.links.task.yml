@@ -1,0 +1,22 @@
+# OpenY Digital Signage Screen routing definition
+openy_digital_signage_screen.settings_tab:
+  route_name: openy_digital_signage_screen.settings
+  base_route: openy_digital_signage_screen.settings
+  title: 'Settings'
+
+entity.openy_digital_signage_screen.canonical:
+  route_name: entity.openy_digital_signage_screen.canonical
+  base_route: entity.openy_digital_signage_screen.canonical
+  title: 'View'
+
+entity.openy_digital_signage_screen.edit_form:
+  route_name: entity.openy_digital_signage_screen.edit_form
+  base_route: entity.openy_digital_signage_screen.canonical
+  title: 'Edit'
+
+entity.openy_digital_signage_screen.delete_form:
+  route_name:  entity.openy_digital_signage_screen.delete_form
+  base_route:  entity.openy_digital_signage_screen.canonical
+  title: 'Delete'
+  weight: 10
+

@@ -4613,3 +4613,10 @@ function ymca_master_update_8208() {
   $query->condition('title', 'Give');
   $query->execute();
 }
+
+/**
+ * Enable openy_digital_signage module.
+ */
+function ymca_master_update_8209() {
+  \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
+}
