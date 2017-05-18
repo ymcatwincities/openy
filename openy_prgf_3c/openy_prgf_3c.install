@@ -17,3 +17,18 @@ function openy_prgf_3c_update_8001() {
     ]
   );
 }
+
+/**
+ * Add location events block to columns.
+ */
+function openy_prgf_3c_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_3c') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.paragraph.3c.field_prgf_3c_center',
+      'field.field.paragraph.3c.field_prgf_3c_left',
+      'field.field.paragraph.3c.field_prgf_3c_right',
+    ]
+  );
+}
