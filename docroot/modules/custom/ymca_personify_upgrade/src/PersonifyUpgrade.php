@@ -110,9 +110,9 @@ class PersonifyUpgrade {
                 if (isset($val[$col])) {
                   // Replace old links by new ones in each defined field.
                   $content = $val[$col];
-                  preg_match_all("/<a href=\"https:\/\/ygtcprod2.personifycloud.com.*<\/a>/", $content, $output_array);
+                  preg_match_all("/<a href=\".*:\/\/ygtcprod2.personifycloud.com.*<\/a>/", $content, $output_array);
                   if ($output_array[0] == []) {
-                    preg_match_all("/^https:\/\/ygtcprod2.personifycloud.com\S+/", $content, $output_array);
+                    preg_match_all("/^.*:\/\/ygtcprod2.personifycloud.com\S+/", $content, $output_array);
                   }
                   foreach ($output_array as $lid => $link) {
                     preg_match_all('/<a\s+href=["\']([^"\']+)["\']/i', implode(',', $link), $links);
