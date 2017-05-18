@@ -1,0 +1,19 @@
+add OpenY Digital Signage Screen entities:
+  title: 'Create new OpenY Digital Signage Screen entities'
+
+administer OpenY Digital Signage Screen entities:
+  title: 'Administer OpenY Digital Signage Screen entities'
+  description: 'Allow to access the administration form to configure OpenY Digital Signage Screen entities.'
+  restrict access: true
+
+delete OpenY Digital Signage Screen entities:
+  title: 'Delete OpenY Digital Signage Screen entities'
+
+edit OpenY Digital Signage Screen entities:
+  title: 'Edit OpenY Digital Signage Screen entities'
+
+access OpenY Digital Signage Screen overview:
+  title: 'Access the OpenY Digital Signage Screen overview page'
+
+view OpenY Digital Signage Screen entities:
+  title: 'View OpenY Digital Signage Screen entities'

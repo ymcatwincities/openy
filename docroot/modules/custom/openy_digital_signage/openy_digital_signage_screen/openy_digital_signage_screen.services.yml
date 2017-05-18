@@ -1,0 +1,4 @@
+services:
+  openy_digital_signage_screen.manager:
+    class: Drupal\openy_digital_signage_screen\OpenYScreenManager
+    arguments: ['@entity.manager', '@entity.query', '@logger.factory']
