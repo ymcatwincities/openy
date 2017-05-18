@@ -1,0 +1,14 @@
+name: 'OpenY Block Location Events'
+description: 'Implements block with events list of the current branch.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - content_moderation
+  - field
+  - language
+  - openy_block
+  - openy_prgf_location_events
+  - views
+  - views_field_formatter
+version: 8.x-1.0

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: location_events
+label: 'Location Events'
+revision: 0
+description: 'Displays events of current branch in the block.'
