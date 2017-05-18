@@ -27,7 +27,8 @@ var path = {
         css       : 'dist/css/',
         img       : 'dist/images/',
         fonts     : 'dist/fonts/',
-        bowerCopy : 'src/js/lib/'
+        bowerCopy : 'src/js/lib/',
+        partsCopy : 'dist/parts/',
     },
 
     src : {
@@ -35,10 +36,14 @@ var path = {
         js              : 'src/js/**/*.js',
         style           : [
             'src/scss/screen.scss',
+            'src/scss/poc-huge.scss',
+            'src/scss/poc-loader.scss',
+            'src/scss/poc-schedule.scss',
         ],
         img             : 'src/images/**/*.*',
         fonts           : 'src/fonts/**/*.*',
         bowerCopy       : [],
+        partsCopy       : 'src/parts/*',
         svg             : 'src/sprite/svg/*.svg',
         svgScssDest     : 'src/scss/base/',
         svgScssTemplate : 'src/scss/spriteTemplate'
@@ -50,7 +55,8 @@ var path = {
         style   : 'src/scss/**/*.scss',
         img     : 'src/images/**/*.*',
         fonts   : 'src/fonts/**/*.*',
-        svg     : 'src/sprite/svg/*.svg'
+        svg     : 'src/sprite/svg/*.svg',
+        parts   : 'src/parts/*.html'
     },
 
     clean : [
@@ -58,7 +64,8 @@ var path = {
         'js/*',
         'css/*',
         'images/*',
-        'fonts/*'
+        'fonts/*',
+        'parts/*'
     ]
 };
 
@@ -69,7 +76,7 @@ gulp.task('serve', ['style:build'], function() {
     });
 
     gulp.watch("./src/scss/*.scss", ['style:build']);
-    gulp.watch("./html/*.html").on('change', browserSync.reload);
+    //gulp.watch("./html/*.html").on('change', browserSync.reload);
 });
 
 gulp.task('html:build', function(){
@@ -114,6 +121,12 @@ gulp.task('bowerCopy', function(){
     return gulp.src(path.src.bowerCopy)
         .pipe(gulp.dest(path.build.bowerCopy))
         .pipe(browserSync.stream());
+});
+
+gulp.task('partsCopy', function(){
+    return gulp.src(path.src.partsCopy)
+      .pipe(gulp.dest(path.build.partsCopy))
+      .pipe(browserSync.stream());
 });
 
 gulp.task('svgSprite:build', function(){
@@ -168,6 +181,7 @@ gulp.task('clean', function () {
 
 gulp.task('build', [
     'bowerCopy',
+    'partsCopy',
     'html:build',
     'js:build',
     'style:build',
@@ -177,6 +191,7 @@ gulp.task('build', [
 ]);
 
 gulp.task('watch', function(){
+    gulp.watch(path.watch.parts, { interval: 750 }, ['partsCopy']);
     gulp.watch(path.watch.html, { interval: 750 }, ['html:build']);
     gulp.watch(path.watch.style, { interval: 750 }, ['style:build']);
     gulp.watch('bower_components/**/*.*', { interval: 750 }, ['bowerCopy']);
