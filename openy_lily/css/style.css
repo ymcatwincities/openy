@@ -239,6 +239,23 @@ header .top-navs #block-openy-lily-user-menu li a:hover {
   background-color: #fff;
   color: black;
 }
+header .top-navs #block-anonymoususersmenu ul li:first-child a {
+  padding: 3px 15px;
+  border-radius: 5px;
+  background-color: #b92f9e;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 17px;
+  line-height: 20px;
+  color: white;
+  text-shadow: none;
+  margin: 28px 5px 0 0;
+  border-top: none;
+}
+header .top-navs #block-anonymoususersmenu ul li:first-child a:hover {
+  border-top: none;
+  background-color: #9c1f7b;
+}
 header #block-openy-lily-branding a img {
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
@@ -257,6 +274,9 @@ header.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a im
 header.tiny .top-navs #block-anonymoususersmenu li a,
 header.tiny .top-navs #block-openy-lily-user-menu li a {
   line-height: 19px;
+}
+header.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
+  margin: 13px 5px 0 0;
 }
 header.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
   padding: 21px 0px;
