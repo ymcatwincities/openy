@@ -11,3 +11,4 @@ services:
     tags:
       -
         name: openy_cron_service
+        periodicity: 43200
