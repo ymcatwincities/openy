@@ -31,7 +31,6 @@ function openy_prgf_all_events_update_8002() {
   $config_importer->importConfigs(
     [
       'search_api.index.node_events',
-      'views.view.events_default',
       'search_api.server.acquia_event_search_server',
     ]
   );
