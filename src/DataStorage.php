@@ -5,6 +5,7 @@ namespace Drupal\ygh_programs_search;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Url;
 use Drupal\daxko\DaxkoClientInterface;
+use Drupal\openy_socrates\OpenyCronServiceInterface;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Client;
@@ -13,7 +14,7 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * Class DataStorage.
  */
-class DataStorage implements DataStorageInterface {
+class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
 
   /**
    * Daxko client.
@@ -42,6 +43,13 @@ class DataStorage implements DataStorageInterface {
    * @var \Symfony\Component\DomCrawler\Crawler
    */
   protected $crawler;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function runCronServices() {
+    $this->resetCache();
+  }
 
   /**
    * DataStorage constructor.
