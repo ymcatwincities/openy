@@ -162,7 +162,7 @@ function openy_node_event_update_8011() {
 }
 
 /**
- * Add search_index view mode for event node.
+ * Add search_index view mode to Event.
  */
 function openy_node_event_update_8012() {
   $config_importer = \Drupal::service('config_import.importer');
