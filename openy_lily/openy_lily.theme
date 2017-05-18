@@ -294,7 +294,7 @@ function openy_lily_preprocess_html(&$variables) {
     $variables['attributes']->addClass($classes);
   }
 
-  if (in_array(['theme_ymca_2013_location_home', 'theme_ymca_2013_location_category_and_detail'], $classes) && $catIcon = theme_get_setting('openy_lily_favicon_location')) {
+  if (in_array(['theme_ymca_2013_location_home'], $classes) && $catIcon = theme_get_setting('openy_lily_favicon_location')) {
     $favIcon = $catIcon;
   }
   else {
