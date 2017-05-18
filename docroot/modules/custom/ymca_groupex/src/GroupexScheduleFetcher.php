@@ -432,7 +432,7 @@ class GroupexScheduleFetcher {
       // Add calendar data.
       $request = \Drupal::service('request_stack')->getCurrentRequest();
       $parameters = $request->request->all();
-      if (empty($parameters)) {
+      if (!isset($parameters['location'])) {
         $parameters = $request->query->all();
       }
       $address = '';
