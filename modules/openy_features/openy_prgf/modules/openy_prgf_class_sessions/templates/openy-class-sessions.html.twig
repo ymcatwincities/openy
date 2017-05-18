@@ -5,7 +5,7 @@
       {# include th location #}
     {% endif %}
     {% if session_instances_rows is not empty %}
-      <h3>{{ 'Other Class Times'|t }}</h3>
+      <h3>{{ 'Class Times'|t }}</h3>
       <div class="active-net__teasers">
         <table class="active-net__teasers-list">
           <tbody>
@@ -20,6 +20,7 @@
               </td>
               <td class="registration_link">{{ session_instance_row.registration_link }}</td>
               <td class="details">
+
                 {% if session_instance_row.registration %}
                   <span class="registration-online">{{ "Online registration"|t }}</span>
                   {% if session_instance_row.ticket_required or session_instance_row.in_membership %}
@@ -39,6 +40,10 @@
               <td class="age_range">
                 {% if session_instance_row.age_min is not empty and session_instance_row.age_max is not empty %}
                   <span class="age-range">{{ "Ages"|t }} {{ session_instance_row.age_min }} - {{ session_instance_row.age_max }}</span>
+                {% elseif session_instance_row.age_min is not empty %}
+                  <span class="age-range">{{ "Ages"|t }} {{ session_instance_row.age_min }} {{ "and up"|t }}</span>
+                {% elseif session_instance_row.age_max is not empty %}
+                  <span class="age-range">{{ "Ages"|t }} {{ session_instance_row.age_max }} {{ "and under"|t }}</span>
                 {% endif %}
               </td>
             </tr>

@@ -18,10 +18,13 @@ interface ClassSessionsServiceInterface {
    * @param \Drupal\node\NodeInterface $node
    *   The class node.
    *
+   * @param array $conditions
+   *   Array of key (field) value pairs.
+   *
    * @return array
    *   Array of Drupal\openy_session_instance\Entity\SessionInstance.
    */
-  public function getClassNodeSessionInstances(NodeInterface $node, $location_id = NULL);
+  public function getClassNodeSessionInstances(NodeInterface $node, $conditions = []);
 
   /**
    * Retrieves Session Instances rows.

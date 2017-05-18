@@ -77,24 +77,27 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
       return [];
     }
 
+    // Array of key (field) value pairs.
+    $conditions = [];
+
     // Set cache contexts with 'url.query_args'.
     $contexts[] = 'url.query_args';
 
     // Set cache tags from node.
     $tags = $node->getCacheTags();
 
-    // Get query param location.
-    $request = \Drupal::request();
-
-    if (!empty($request->query->get('location')) && filter_var($request->query->get('location'), FILTER_VALIDATE_INT) !== FALSE) {
-      $location_id = $request->query->get('location');
+    // If location parameter is set add to conditions.
+    if (!empty($location_id = $this->getQueryParamInt('location'))) {
+      $conditions['location'] = $location_id;
     }
-    else {
-      $location_id = NULL;
+
+    // If session parameter is set add to conditions.
+    if (!empty($session_id = $this->getQueryParamInt('session'))) {
+      $conditions['session'] = $session_id;
     }
 
     // There is no session instances associated with the class node.
-    if (!$session_instances = $this->classSessionsService->getClassNodeSessionInstances($node, $location_id)) {
+    if (!$session_instances = $this->classSessionsService->getClassNodeSessionInstances($node, $conditions)) {
       return [];
     }
 
@@ -115,6 +118,18 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
     }
 
     return $class_sessions;
+  }
+
+  private function getQueryParamInt($param) {
+    // Get request object for query param.
+    $request = \Drupal::request();
+
+    // If param is set return it's value.
+    if (!empty($request->query->get($param)) && filter_var($request->query->get($param), FILTER_VALIDATE_INT) !== FALSE) {
+      return $request->query->get($param);
+    }
+
+    return NULL;
   }
 
 }
