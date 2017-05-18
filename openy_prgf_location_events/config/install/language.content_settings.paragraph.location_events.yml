@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.location_events
+id: paragraph.location_events
+target_entity_type_id: paragraph
+target_bundle: location_events
+default_langcode: site_default
+language_alterable: true

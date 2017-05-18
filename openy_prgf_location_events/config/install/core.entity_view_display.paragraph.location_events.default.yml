@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.location_events.field_prgf_location_events
+    - paragraphs.paragraphs_type.location_events
+    - views.view.location_events
+  module:
+    - views_field_formatter
+id: paragraph.location_events.default
+targetEntityType: paragraph
+bundle: location_events
+mode: default
+content:
+  field_prgf_location_events:
+    weight: 0
+    label: above
+    settings:
+      view: 'location_events::block_1'
+      arguments:
+        field_value:
+          weight: '0'
+          checked: 0
+        entity_id:
+          weight: '0'
+          checked: 0
+        delta:
+          weight: '0'
+          checked: 0
+      implode_character: ''
+      multiple: 0
+    third_party_settings: {  }
+    type: views_field_formatter
+hidden: {  }
