@@ -16,6 +16,14 @@ body {
   margin-bottom: 20px;
 }
 
+.taxonomy-term {
+  margin-top: 20px;
+
+  & > h3 {
+    margin-top: 0;
+  }
+}
+
 .error-page {
   padding: 25px 0;
 }
