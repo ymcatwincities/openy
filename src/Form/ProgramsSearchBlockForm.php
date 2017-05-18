@@ -87,8 +87,10 @@ class ProgramsSearchBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $locations = []) {
+    // @todo Fix the form to get all configuration.
     // Put enabled locations to variable for future filtering.
     $this->locations = $locations;
+
     // Set step.
     $form_state->setValue('step', 1);
     if ($trigger = $form_state->getTriggeringElement()) {

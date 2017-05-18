@@ -768,4 +768,11 @@ class DataStorage implements DataStorageInterface {
     return $data;
   }
 
+  /**
+   * Get map of categories per branch.
+   */
+  public function getCategoriesByBranch() {
+    // @todo Implement.
+  }
+
 }

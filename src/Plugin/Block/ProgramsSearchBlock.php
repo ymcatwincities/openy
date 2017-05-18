@@ -88,6 +88,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public function build() {
     $conf = $this->getConfiguration();
+    // @todo Fix the next line and pass all configuration to the form.
     $form = \Drupal::formBuilder()->getForm('Drupal\ygh_programs_search\Form\ProgramsSearchBlockForm', $conf['enabled_locations']);
     return [
       'form' => $form,
@@ -100,16 +101,20 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   public function blockForm($form, FormStateInterface $form_state) {
     $form = parent::blockForm($form, $form_state);
     $conf = $this->getConfiguration();
+
     $form['locations'] = [
       '#type' => 'details',
       '#title' => $this->t('Locations'),
     ];
+
     $form['locations']['enabled_locations'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Enabled Locations'),
       '#options' => $this->storage->getLocations(),
       '#default_value' => $conf['enabled_locations'] ?: [],
     ];
+
+    // @todo Add enabled categories form.
 
     return $form;
   }
@@ -124,6 +129,8 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
       $locations = $conf['locations'];
     }
     $this->configuration['enabled_locations'] = array_filter($locations['enabled_locations']);
+
+    // @todo Add selected categories to the configuration.
   }
 
 }
