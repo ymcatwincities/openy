@@ -431,7 +431,10 @@ class GroupexScheduleFetcher {
 
       // Add calendar data.
       $request = \Drupal::service('request_stack')->getCurrentRequest();
-      $parameters = $request->query->all();
+      $parameters = $request->request->all();
+      if (!isset($parameters['location'])) {
+        $parameters = $request->query->all();
+      }
       $address = '';
       if (isset($parameters['location']) && is_numeric($parameters['location'])) {
         if ($mapping = \Drupal::service('ymca_mappings.location_repository')->findByGroupexId($parameters['location'])) {
@@ -449,7 +452,7 @@ class GroupexScheduleFetcher {
         'atc_date_end' => $date_end,
         'atc_timezone' => drupal_get_user_timezone(),
         'atc_title' => $item->title,
-        'atc_description' => 'Visit ' . $item->category . ' with ' . $item->instructor . PHP_EOL . 'Class will take place at ' . $item->studio . '.',
+        'atc_description' => 'Visit ' . $item->category . ' with ' . strip_tags($item->instructor) . PHP_EOL . 'Class will take place at ' . $item->studio . '.',
         'atc_location' => $address,
         'atc_organizer' => $item->instructor,
       ];
