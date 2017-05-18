@@ -20,7 +20,7 @@ dependencies:
   - openy_gallery
   - openy_latest_news
   - openy_location_core
-  - openy_location_events
+  - openy_prgf_location_events
   - openy_node
   - openy_node_mbrshp
   - openy_prgf_1c
