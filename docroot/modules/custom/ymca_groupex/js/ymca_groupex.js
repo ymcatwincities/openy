@@ -99,7 +99,11 @@
       $('.groupex-form-full input[type="radio"]').change(function() {
         $(this).parents('form').find('label').addClass('disabled');
       });
-
+      $(document).ajaxSuccess(function() {
+        if (addtocalendar !== 'undefined') {
+          addtocalendar.load();
+        }
+      });
       $('.groupex-form-full select').change(function() {
         $('.groupex-form-full select').attr('readonly', true);
         $('div.groupex-results').hide();
