@@ -18,6 +18,15 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
   protected $backupGlobals = FALSE;
 
   /**
+   * Test getCategories().
+   */
+  public function testGetCategories() {
+    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $categories = $storage->getCategories();
+    $this->assertArrayHasKey(5164, $categories);
+  }
+
+  /**
    * Test getChildCareRegistrationLink().
    */
   public function testGetChildCareRegistrationLink() {

@@ -726,4 +726,46 @@ class DataStorage implements DataStorageInterface {
     return $map;
   }
 
+  /**
+   * Get all categories.
+   *
+   * Some categories has different ids. Example: Camp -> cc_category_ids=41
+   *
+   * @todo Fix categories without IDs.
+   */
+  public function getCategories() {
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $link = 'https://operations.daxko.com/Online/4003/Programs/search.mvc/categories';
+    $source = $this->getDaxkoPageSource($link);
+
+    $this->crawler->clear();
+    $this->crawler->addHtmlContent($source);
+    $list = $this->crawler->filter('div.two-column-container ul li a');
+    $categories = $list->each(function ($list_item) {
+      return [
+        'id' => $this->getQueryParam('category_ids', $list_item->attr('href')),
+        'title' => $list_item->text(),
+      ];
+    });
+
+    $data = [];
+    foreach ($categories as $category) {
+      // Filter out categories only with valid category ID: category_ids
+      // @todo Figure out which category ID is valid.
+      if ($category['id']) {
+        $data[$category['id']] = [
+          'id' => $category['id'],
+          'title' => $category['title'],
+        ];
+      }
+    }
+
+    $this->cache->set($cid, $data);
+    return $data;
+  }
+
 }
