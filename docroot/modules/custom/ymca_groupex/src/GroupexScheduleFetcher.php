@@ -430,6 +430,16 @@ class GroupexScheduleFetcher {
       $item->timestamp = $datetime->getTimestamp();
 
       // Add calendar data.
+      $request = \Drupal::service('request_stack')->getCurrentRequest();
+      $parameters = $request->query->all();
+      $address = '';
+      if (isset($parameters['location']) && is_numeric($parameters['location'])) {
+        if ($mapping = \Drupal::service('ymca_mappings.location_repository')->findByGroupexId($parameters['location'])) {
+          if ($node = \Drupal::entityTypeManager()->getStorage('node')->load($mapping->field_location_ref->target_id)) {
+            $address = $node->field_location->address_line1;
+          }
+        }
+      }
       $date_start = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->start);
       $date_end = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->end);
       $date_start = $date_start->format('Y-m-d H:i:s');
@@ -439,8 +449,8 @@ class GroupexScheduleFetcher {
         'atc_date_end' => $date_end,
         'atc_timezone' => drupal_get_user_timezone(),
         'atc_title' => $item->title,
-        'atc_description' => $item->category . PHP_EOL . $item->studio . PHP_EOL . $item->original_instructor,
-        'atc_location' => $item->location,
+        'atc_description' => 'Visit ' . $item->category . ' with ' . $item->instructor . PHP_EOL . 'Class will take place at ' . $item->studio . '.',
+        'atc_location' => $address,
         'atc_organizer' => $item->instructor,
       ];
     }
