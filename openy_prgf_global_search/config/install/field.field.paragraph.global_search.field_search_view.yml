@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_search_view
     - paragraphs.paragraphs_type.global_search
-    - views.view.global_search
 id: paragraph.global_search.field_search_view
 field_name: field_search_view
 entity_type: paragraph

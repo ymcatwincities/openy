@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.global_search.field_search_view
     - paragraphs.paragraphs_type.global_search
-    - views.view.global_search
+    - views.view.global_search_acquia
   module:
     - views_field_formatter
 id: paragraph.global_search.default
@@ -16,7 +16,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      view: 'global_search::default'
+      view: 'global_search_acquia::default'
       arguments:
         field_value:
           checked: '1'

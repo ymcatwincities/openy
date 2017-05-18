@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the feature.
+ */
+
+/**
+ * Remove redundant views.view.global_search config.
+ */
+function openy_prgf_global_search_update_8001() {
+
+  $configs = [
+    'views.view.global_search'
+  ];
+  foreach ($configs as $config) {
+    \Drupal::configFactory()->getEditable($config)->delete();
+  }
+}

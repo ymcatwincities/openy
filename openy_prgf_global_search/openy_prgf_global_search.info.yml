@@ -11,4 +11,5 @@ dependencies:
   - user
   - views
   - views_field_formatter
+  - ygh_alters
 version: 8.x-1.0
