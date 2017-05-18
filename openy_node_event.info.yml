@@ -30,6 +30,7 @@ dependencies:
   - openy_prgf_fin
   - openy_prgf_header
   - openy_prgf_lto
+  - openy_prgf_microsites_menu
   - openy_prgf_panorama
   - openy_prgf_simple_content
   - openy_prgf_small_banner
@@ -44,4 +45,4 @@ dependencies:
   - veoa
   - views
   - ygh_paragraphs
-version: 8.x-1.12
+version: 8.x-1.13

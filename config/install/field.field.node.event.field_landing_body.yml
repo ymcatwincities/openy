@@ -12,6 +12,7 @@ dependencies:
     - paragraphs.paragraphs_type.gallery
     - paragraphs.paragraphs_type.header
     - paragraphs.paragraphs_type.lto
+    - paragraphs.paragraphs_type.microsites_menu
     - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
   module:
@@ -40,6 +41,7 @@ settings:
       simple_content: simple_content
       financial_aid: financial_aid
       panorama: panorama
+      microsites_menu: microsites_menu
     target_bundles_drag_drop:
       1c:
         enabled: true
@@ -71,19 +73,16 @@ settings:
       latest_news_and_updates:
         weight: 26
         enabled: false
-      location_finder:
-        weight: 27
-        enabled: false
-      all_amenities:
-        weight: 28
-        enabled: false
       lto:
         enabled: true
         weight: 28
-      membership_calculator:
-        weight: 29
+      all_amenities:
+        weight: 28
         enabled: false
       all_testimonials:
+        weight: 29
+        enabled: false
+      membership_calculator:
         weight: 29
         enabled: false
       program_registration:
@@ -101,16 +100,40 @@ settings:
       whay:
         weight: 32
         enabled: false
+      all_events:
+        weight: 37
+        enabled: false
       financial_aid:
         enabled: true
         weight: 38
       panorama:
         enabled: true
         weight: 41
+      content_pager:
+        weight: 42
+        enabled: false
       prgf_location_finder_filters:
         weight: 42
         enabled: false
       small_banner:
         weight: 45
+        enabled: false
+      group_schedules:
+        weight: 47
+        enabled: false
+      membership_info:
+        weight: 52
+        enabled: false
+      microsites_menu:
+        enabled: true
+        weight: 53
+      openy_event_registration:
+        weight: 54
+        enabled: false
+      prgf_location_finder:
+        weight: 56
+        enabled: false
+      tour_schedule:
+        weight: 61
         enabled: false
 field_type: entity_reference_revisions
