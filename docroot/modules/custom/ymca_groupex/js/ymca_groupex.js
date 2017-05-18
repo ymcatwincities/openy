@@ -105,6 +105,9 @@
         $('div.groupex-results').hide();
 
         $(document).ajaxSuccess(function() {
+          if (addtocalendar !== 'undefined') {
+            addtocalendar.load();
+          }
           $('div.groupex-results').show();
           $('.groupex-form-full select').removeAttr('readonly');
         });
