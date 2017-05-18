@@ -266,7 +266,7 @@ function openy_rose_page_attachments_alter(array &$page) {
  */
 function openy_rose_preprocess_page(array &$variables) {
   // Set custom theme variables for page when they are set.
-  $image_fields = theme_get_setting('oepny_rose_image_fields');
+  $image_fields = \Drupal::config('openy_rose.settings')->get('oepny_rose_image_fields');
 
   foreach ($image_fields as $image_template_variable => $theme_setting_key) {
     $fid = theme_get_setting($theme_setting_key);
