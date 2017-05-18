@@ -22,12 +22,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: daterange_default
+    region: content
   field_session_time_days:
     weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
 hidden:
   created: true
   uid: true

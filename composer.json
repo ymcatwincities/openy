@@ -91,7 +91,11 @@
     ],
     "scripts": {
         "post-install-cmd": [
-            "@composer drupal-scaffold"
+            "@composer drupal-scaffold",
+            "sh scripts/remove_openy_docroot_folder.sh || :"
+        ],
+        "post-update-cmd": [
+            "sh scripts/remove_openy_docroot_folder.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
     },
@@ -107,14 +111,14 @@
             "drupal/simple_menu_icons": {
                 "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
             },
-            "drupal/views_block_filter_block": {
-                "2790505 - Empty exposed forms appeared in each view after installin module": "https://www.drupal.org/files/issues/empty_exposed_forms-2790505-10.patch"
-            },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
             },
             "drupal/confi": {
                 "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
+            },
+            "drupal/plugin": {
+                "2851503 - Drupal\\plugin\\PluginDefinition\\ArrayPluginDefinitionDecorator contains 1 abstract method and must therefore be declared abstract or implement the remaining methods": "https://www.drupal.org/files/issues/plugin-id-2851503-8.patch"
             },
             "drupal/datalayer": {
                 "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
@@ -126,8 +130,8 @@
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
-        "drupal/core": "8.2.7",
-        "drupal/features": "3.2",
+        "drupal/core": "8.3.2",
+        "drupal/features": "3.5",
         "drupal/confi": "1.3",
         "drupal/config_update": "1.3",
         "drupal/entity": "1.0-alpha4",
@@ -149,7 +153,7 @@
         "drupal/embed": "1.0-rc3",
         "drupal/entity_embed": "1.0-beta2",
         "drupal/views_block_filter_block": "1.x-dev",
-        "drupal/plugin": "2.5",
+        "drupal/plugin": "2.4",
         "drupal/migrate_plus": "3.0-beta1",
         "drupal/migrate_tools": "3.0-beta1",
         "drupal/verf": "1.0-beta6",
@@ -172,6 +176,8 @@
         "drupal/simple_sitemap": "^2.8",
         "drupal/redirect": "^1.0@alpha",
         "drupal/metatag": "^1.0",
-        "drupal/scheduler": "^1.0@alpha"
+        "drupal/scheduler": "^1.0@alpha",
+        "drupal/google_tag": "1.x-dev",
+        "drupal/rabbit_hole": "1.0-beta3"
     }
 }

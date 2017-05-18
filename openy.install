@@ -24,12 +24,19 @@ function openy_install() {
     ->save(TRUE);
 
   // Enable the admin theme.
-  $config_factory->getEditable('node.settings')->set('use_admin_theme', TRUE)->save(TRUE);
+  $config_factory
+    ->getEditable('node.settings')
+    ->set('use_admin_theme', TRUE)
+    ->save(TRUE);
+
   // Enable openy_upgrade_tool.
   $module_installer->install(['openy_upgrade_tool'], TRUE);
 
   // Enable openy_user after all modules are installed.
   $module_installer->install(['openy_user'], TRUE);
+
+  // Enable openy_node_alert after openy_rose theme is enabled to place blocks.
+  $module_installer->install(['openy_node_alert'], TRUE);
 }
 
 /**
@@ -214,8 +221,55 @@ function openy_update_8014() {
 }
 
 /**
- * Enable scheduler module.
+ * Enable OpenY Session Instance & OpenY Moderation wrapper.
  */
 function openy_update_8015() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_moderation_wrapper',
+    'openy_session_instance',
+    'openy_schedules',
+    'openy_prgf_schedule_search'
+  ]);
+}
+
+/**
+ * Enable OpenY paragraph Embedded GroupEx Pro Schedule module.
+ */
+function openy_update_8016() {
+  \Drupal::service('module_installer')->install(['openy_prgf_embedded_groupexpro_schedule']);
+}
+
+/**
+ * Enable rabbit hole and rabbit hole node modules.
+ */
+function openy_update_8017() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'rabbit_hole',
+    'rh_node',
+  ]);
+}
+
+/**
+ * Enable the Class Location paragraph module.
+ */
+function openy_update_8018() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_prgf_class_location']);
+}
+
+/**
+ * Enable OpenY Branch Selector module.
+ */
+function openy_update_8020() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_branch_selector']);
+}
+
+/**
+ * Enable scheduler module.
+ */
+function openy_update_8021() {
   \Drupal::service('module_installer')->install(['scheduler']);
 }

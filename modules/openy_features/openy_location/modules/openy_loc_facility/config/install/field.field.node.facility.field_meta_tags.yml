@@ -5,7 +5,6 @@ dependencies:
     - field.storage.node.field_meta_tags
     - node.type.facility
   module:
-    - datalayer
     - metatag
 third_party_settings:
   datalayer:

@@ -101,6 +101,14 @@ source:
       content_ids:
         -
           content_id: join_member_calc
+    -
+      id: schedules
+      title: 'Schedules'
+      alias: '/schedules'
+      header_content_id: schedule_search_form
+      content_ids:
+        -
+          content_id: schedule_search_list
   ids:
     id:
       type: string
@@ -132,6 +140,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_schedule_search_form
       - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_header_content/target_revision_id:
@@ -141,6 +150,7 @@ process:
       - openy_demo_lp_paragraph_gallery
       - openy_demo_lp_paragraph_small_banner
       - openy_demo_lp_paragraph_location_finder_filters
+      - openy_demo_lp_paragraph_schedule_search_form
       - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
   field_content:
@@ -161,6 +171,7 @@ process:
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
+          - openy_demo_lp_paragraph_schedule_search_list
         source: content_id
       target_revision_id:
         plugin: migration
@@ -176,6 +187,7 @@ process:
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
+          - openy_demo_lp_paragraph_schedule_search_list
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -196,5 +208,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_location_finder
     - openy_demo_lp_paragraph_menu_camp
     - openy_demo_lp_paragraph_membership_calculator
+    - openy_demo_lp_paragraph_schedule_search_form
+    - openy_demo_lp_paragraph_schedule_search_list
   optional:
     - openy_demo_node_blog
