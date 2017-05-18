@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * OpenY Node Alert install file.
+ */
+
+/**
+ * Update Alert for rabbit hole, hiding pages from anonymous users.
+ */
+function openy_node_alert_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.node_type_alert',
+  ]);
+}

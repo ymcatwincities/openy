@@ -8,3 +8,4 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_demo_nblog
+  - openy_prgf_camp_menu

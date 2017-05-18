@@ -5,6 +5,9 @@
  * OpenY Node Category install file.
  */
 
+/**
+ * Implements hook_update_dependencies().
+ */
 function openy_node_category_update_dependencies() {
   $dependencies['openy_node_category'] = [
     8002 => [

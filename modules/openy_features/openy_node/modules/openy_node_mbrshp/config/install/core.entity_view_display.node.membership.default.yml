@@ -21,21 +21,26 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_mbrshp_image:
     weight: 102
-    label: above
+    label: hidden
     settings:
-      link: true
+      view_mode: calc_preview
+      link: false
     third_party_settings: {  }
-    type: entity_reference_label
+    type: entity_reference_entity_view
+    region: content
   field_mbrshp_info:
     type: entity_reference_revisions_entity_view
     weight: 103
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }

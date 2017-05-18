@@ -28,6 +28,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
+    region: content
   field_alert_color:
     weight: 2
     label: hidden
@@ -36,12 +37,14 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_alert_description:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_alert_icon_color:
     weight: 4
     label: hidden
@@ -50,6 +53,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_alert_link:
     weight: 6
     label: hidden
@@ -61,12 +65,14 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_alert_place:
     type: list_default
     weight: 5
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_alert_text_color:
     weight: 3
     label: hidden
@@ -75,8 +81,10 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

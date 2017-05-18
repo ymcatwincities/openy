@@ -5,6 +5,9 @@
  * OpenY Camp install file.
  */
 
+/**
+ * Implements hook_update_dependencies().
+ */
 function openy_loc_camp_update_dependencies() {
   $dependencies['openy_loc_camp'] = [
     8002 => [
@@ -12,7 +15,10 @@ function openy_loc_camp_update_dependencies() {
     ],
     8003 => [
       'openy_node' => 8003,
-    ]
+    ],
+    8004 => [
+      'openy_location' => 8001,
+    ],
   ];
 
   return $dependencies;
@@ -115,4 +121,48 @@ function openy_loc_camp_update_8003() {
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
+}
+
+/**
+ * Update Camp for class location view display.
+ */
+function openy_loc_camp_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.camp.class_location',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.camp.default' => [
+      'content',
+    ],
+    'core.entity_view_display.node.camp.default' => [
+      'content',
+    ],
+    'core.entity_view_display.node.camp.full' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.node.camp.teaser' => [
+      'dependencies.config',
+      'content',
+      'hidden',
+    ],
+    'field.field.node.camp.field_meta_tags' => [
+      'dependencies.module',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
