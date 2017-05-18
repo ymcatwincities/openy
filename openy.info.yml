@@ -133,6 +133,7 @@ dependencies:
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
   # OpenY custom modules
+  - openy_branch_selector
   - openy_field_hours
   - openy_hf
   - openy_hours_formatter

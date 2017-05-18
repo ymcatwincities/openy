@@ -274,3 +274,12 @@ function openy_update_8019() {
     'openy_prgf_webform',
   ]);
 }
+
+/** 
+ * Enable OpenY Branch Selector module.
+ */
+function openy_update_8020() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['openy_branch_selector']);
+}
+
