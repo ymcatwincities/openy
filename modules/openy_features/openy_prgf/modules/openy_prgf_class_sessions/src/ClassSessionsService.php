@@ -92,7 +92,7 @@ class ClassSessionsService implements ClassSessionsServiceInterface {
       $day_of_week_start = date('l', $timestamp);
       $time_to = date('g:iA', $session_instance->getTimestampTo());
 
-      $session_instances_rows[] = [
+      $row = [
         // Location.
         'location' => $location->label(),
         // Time range.
@@ -113,13 +113,15 @@ class ClassSessionsService implements ClassSessionsServiceInterface {
 
       //  Min Age
       if (!empty($session_instance->get('min_age')->value)) {
-        $session_instances_rows['age_min'] = $session_instance->get('age_min')->value;
+        $row['age_min'] = $session_instance->get('min_age')->value;
       }
 
       //  Max Age
       if (!empty($session_instance->get('max_age')->value)) {
-        $session_instances_rows['age_max'] = $session_instance->get('max_age')->value;
+        $row['age_max'] = $session_instance->get('max_age')->value;
       }
+
+      $session_instances_rows[] = $row;
     }
 
     return $session_instances_rows;
@@ -167,7 +169,7 @@ class ClassSessionsService implements ClassSessionsServiceInterface {
    */
   public function getSessionInMembership($session) {
     if (!empty($session->field_session_in_mbrsh->value)) {
-      return ($session->field_session_online->value == TRUE);
+      return ($session->field_session_in_mbrsh->value == TRUE);
     }
 
     return FALSE;

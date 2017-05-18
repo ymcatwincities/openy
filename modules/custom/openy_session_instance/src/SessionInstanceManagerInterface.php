@@ -140,9 +140,12 @@ interface SessionInstanceManagerInterface {
    * @param \Drupal\node\NodeInterface $node
    *   The Camp node.
    *
+   * @param array $conditions
+   *   Array of key (field) value pairs.
+   *
    * @return array
    *   Array of session instances.
    */
-  public function getSessionInstancesByClassNode(NodeInterface $node, $location_id = NULL);
+  public function getSessionInstancesByClassNode(NodeInterface $node, $conditions = []);
 
 }
