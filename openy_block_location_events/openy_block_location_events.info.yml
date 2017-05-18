@@ -5,10 +5,14 @@ core: 8.x
 dependencies:
   - block_content
   - content_moderation
+  - datetime_range
   - field
   - language
+  - node
   - openy_block
+  - openy_node_event
   - openy_prgf_location_events
+  - user
   - views
   - views_field_formatter
 version: 8.x-1.0
