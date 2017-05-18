@@ -153,6 +153,31 @@ header {
         }
       }
     }
+    #block-anonymoususersmenu {
+      ul {
+        li {
+          &:first-child {
+            a {
+              padding: 3px 15px;
+              border-radius: 5px;
+              background-color: $main-purple;
+              text-transform: capitalize;
+              font-weight: bold;
+              font-size: 17px;
+              line-height: 20px;
+              color: white;
+              text-shadow: none;
+              margin: 28px 5px 0 0;
+              border-top: none;
+              &:hover {
+                border-top: none;
+                background-color: $dark-purple;
+              }
+            }
+          }
+        }
+      }
+    }
   }
   #block-openy-lily-branding {
     a {
@@ -185,10 +210,21 @@ header {
           }
         }
       }
+      #block-anonymoususersmenu {
+        ul {
+          li {
+            &:first-child {
+              a {
+                margin: 13px 5px 0 0;
+              }
+            }
+          }
+        }
+      }
       #block-openy-lily-main-menu {
         .nav-level-2 {
           > a {
-            padding: 21px 0px;
+            padding: 21px 0;
           }
         }
       }
