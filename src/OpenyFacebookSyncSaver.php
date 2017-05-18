@@ -186,7 +186,7 @@ class OpenyFacebookSyncSaver {
     $event->save();
 
     // Create mapping entity.
-    $this->eventMappingRepo->create($event, $paragraph_data, $event_data);
+    $this->eventMappingRepo->create($event, $event_data);
   }
 
   /**
@@ -198,20 +198,16 @@ class OpenyFacebookSyncSaver {
    *   Event Data to update.
    */
   private function updateEvent(EntityInterface $event_mapping, array $event_data) {
+    $event = $event_mapping->get('field_event_ref')->referencedEntities()[0];
     $event_node = $this->prepareEvent($event_data);
-    $storage = $this->entityTypeManager->getStorage('paragraph');
     // Update attached Description paragraph.
-    $paragraph = $storage->load($event_mapping->get('field_desc_prgf_ref')->target_id);
-    $paragraph->set('field_prgf_sc_body', $event_data['description']);
-    $paragraph->save();
+    if (!empty($event_data['description']) && !$event->get('field_landing_body')->isEmpty()) {
+      $paragraph = $event->get('field_landing_body')->referencedEntities()[0];
+      $paragraph->set('field_prgf_sc_body', $event_data['description']);
+      $paragraph->save();
+    }
 
-    $paragraph_data = [
-      'target_id' => $paragraph->id(),
-      'target_revision_id' => $paragraph->getRevisionId(),
-    ];
     // Update referenced Event node.
-    $storage = $this->entityTypeManager->getStorage('node');
-    $event = $storage->load($event_mapping->get('field_event_ref')->target_id);
     $event->set('field_event_date_range', $event_node['field_event_date_range']);
     $event->set('title', $event_node['title']);
 
@@ -225,7 +221,7 @@ class OpenyFacebookSyncSaver {
 
     $event->save();
     // Update mapping entity.
-    $this->eventMappingRepo->update($event_mapping, $paragraph_data, $event_data);
+    $this->eventMappingRepo->update($event_mapping, $event_data);
   }
 
   /**
