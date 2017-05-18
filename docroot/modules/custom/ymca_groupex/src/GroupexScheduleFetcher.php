@@ -432,6 +432,9 @@ class GroupexScheduleFetcher {
       // Add calendar data.
       $request = \Drupal::service('request_stack')->getCurrentRequest();
       $parameters = $request->request->all();
+      if (empty($parameters)) {
+        $parameters = $request->query->all();
+      }
       $address = '';
       if (isset($parameters['location']) && is_numeric($parameters['location'])) {
         if ($mapping = \Drupal::service('ymca_mappings.location_repository')->findByGroupexId($parameters['location'])) {
