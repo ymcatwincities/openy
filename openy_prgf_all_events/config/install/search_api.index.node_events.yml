@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_event_date_range
     - field.storage.node.field_location_ref
-    - search_api.server.acquia_search_server
+    - search_api.server.acquia_event_search_server
     - core.entity_view_mode.node.search_index
   module:
     - search_api
@@ -118,4 +118,4 @@ tracker_settings:
 options:
   index_directly: true
   cron_limit: 50
-server: acquia_search_server
+server: acquia_event_search_server

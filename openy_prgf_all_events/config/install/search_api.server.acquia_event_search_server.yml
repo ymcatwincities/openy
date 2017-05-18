@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - acquia_search
+    - search_api_solr
+id: acquia_event_search_server
+name: 'Acquia Event Search API Solr server'
+description: ''
+backend: search_api_solr
+backend_config:
+  connector: solr_acquia_connector
+  connector_config:
+    scheme: http
+    timeout: '5'
+    index_timeout: '5'
+    optimize_timeout: '10'
+    commit_within: '1000'
+    solr_version: ''
+    http_method: AUTO
+  retrieve_data: true
+  highlight_data: true
+  excerpt: false
+  skip_schema_check: false
+  site_hash: true
+  suggest_suffix: true
+  suggest_corrections: true
+  suggest_words: false
