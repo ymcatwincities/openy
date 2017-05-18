@@ -8,6 +8,7 @@ dependencies:
   - language
   - node
   - openy_node_event
+  - openy_block_location_events
   - paragraphs
   - user
   - views
