@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.menu_block
+    - field.field.block_content.menu_block.field_menu_block_links
+  module:
+    - link
+id: block_content.menu_block.default
+targetEntityType: block_content
+bundle: menu_block
+mode: default
+content:
+  field_menu_block_links:
+    weight: 1
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+hidden:
+  langcode: true
