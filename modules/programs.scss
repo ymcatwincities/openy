@@ -38,6 +38,13 @@
           top: 5px;
           vertical-align: top;
         }
+        .ajax-progress-throbber {
+          position: absolute;
+          left: -7px;
+          .throbber {
+            padding: 1px 6px 2px;
+          }
+        }
       }
     }
   }
@@ -47,7 +54,13 @@
     margin: 40px 0 100px;
     @include cachet();
     a {
+      color: $pink;
+      text-decoration: underline;
+      font-style: normal;
       @include cachet-medium();
+      em {
+        font-style: normal;
+      }
     }
   }
 }
