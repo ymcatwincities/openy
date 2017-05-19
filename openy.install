@@ -267,3 +267,17 @@ function openy_update_8020() {
   // Enable module.
   \Drupal::service('module_installer')->install(['openy_branch_selector']);
 }
+
+/**
+ * Fix typo in theme settings.
+ */
+function openy_update_8019() {
+  // Get config data.
+  $config = \Drupal::configFactory()->getEditable('openy_rose.settings');
+  $data = $config->get('oepny_rose_image_fields');
+
+  // Update config data.
+  $config->clear('oepny_rose_image_fields');
+  $config->set('openy_rose_image_fields', $data);
+  $config->save();
+}
