@@ -10,9 +10,9 @@ Feature: Schedule search
       | KEY     | name          | field_color |
       | magenta | Behat Magenta | FF00FF      |
     And I create large program content:
-      | KEY                             | behat_program         |
-      | title                           | BEHAT PROGRAM         |
-      | field_program_color             | magenta               |
+      | KEY                 | behat_program |
+      | title               | BEHAT PROGRAM |
+      | field_program_color | magenta       |
     And I create large program_subcategory content:
       | KEY                    | behat_category |
       | title                  | BEHAT CATEGORY |
