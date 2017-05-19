@@ -64,6 +64,7 @@ class YMCALocationsController {
     return array(
       '#theme' => 'locations_content',
       '#locations' => array(),
+      '#base_path' => base_path(),
       '#attached' => array(
         'library' => array(
           'ymca_frontend/locations_map',
