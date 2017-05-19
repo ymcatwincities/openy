@@ -4,8 +4,8 @@ dependencies:
   module:
     - paragraphs
     - webform
-id: paragraph.field_webform_webform
-field_name: field_webform_webform
+id: paragraph.field_prgf_webform
+field_name: field_prgf_webform
 entity_type: paragraph
 type: webform
 settings:
