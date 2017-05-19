@@ -269,7 +269,7 @@ function openy_update_8020() {
 }
 
 /**
- * Fix typo in theme settings.
+ * Fix typos in theme settings.
  */
 function openy_update_8021() {
   // Get config data.
