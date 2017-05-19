@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ygs_popups;
+namespace Drupal\openy_popups;
 
 use Drupal\Core\Link;
 use Drupal\Core\Url;
@@ -8,7 +8,7 @@ use Drupal\Core\Url;
 /**
  * Class PopupLinkGenerator.
  *
- * @package Drupal\ygs_branch_selector
+ * @package Drupal\openy_branch_selector
  */
 class PopupLinkGenerator {
 
@@ -29,35 +29,35 @@ class PopupLinkGenerator {
     // Create popup link url.
     if ($nid && $type == 'class') {
       // For class branches.
-      $url = Url::fromRoute('ygs_popups.class_branch', array(
+      $url = Url::fromRoute('openy_popups.class_branch', [
         'node' => $nid,
         'js' => 'nojs',
         'destination' => $destination,
-      ));
+      ]);
     }
     elseif ($nid && $type == 'category') {
-      $url = Url::fromRoute('ygs_popups.branch', array(
+      $url = Url::fromRoute('openy_popups.branch', [
         'node' => $nid,
         'js' => 'nojs',
         'destination' => $destination,
-      ));
+      ]);
     }
     else {
-      $url = Url::fromRoute('ygs_popups.branch', array(
+      $url = Url::fromRoute('openy_popups.branch', [
         'js' => 'nojs',
         'destination' => $destination,
-      ));
+      ]);
     }
     $link = Link::fromTextAndUrl(t('Popup link'), $url);
     $link = $link->toRenderable();
-    $link['#attributes'] = array(
-      'class' => array(
+    $link['#attributes'] = [
+      'class' => [
         'location-popup-link',
         'use-ajax',
         'js-hide',
-      ),
+      ],
       'data-dialog-type' => 'modal',
-    );
+    ];
     if ($this->checkRequestParams()) {
       $link['#attributes']['class'][] = 'popup-autostart';
     }

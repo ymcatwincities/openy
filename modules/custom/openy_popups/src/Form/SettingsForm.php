@@ -1,23 +1,23 @@
 <?php
 
-namespace Drupal\ygs_popups\Form;
+namespace Drupal\openy_popups\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 
 /**
- * Settings Form for ygs_popups.
+ * Settings Form for openy_popups.
  */
 class SettingsForm extends ConfigFormBase {
 
-  const UPLOAD_LOCATION = 'public://ygs_popup/';
+  const UPLOAD_LOCATION = 'public://openy_popup/';
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ygs_popups_admin_settings';
+    return 'openy_popups_admin_settings';
   }
 
   /**
@@ -25,7 +25,7 @@ class SettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'ygs_popups.settings',
+      'openy_popups.settings',
     ];
   }
 
@@ -33,7 +33,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('ygs_popups.settings');
+    $config = $this->config('openy_popups.settings');
 
     $form['img'] = [
       '#type' => 'managed_file',
@@ -60,7 +60,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $config = \Drupal::service('config.factory')->getEditable('ygs_popups.settings');
+    $config = \Drupal::service('config.factory')->getEditable('openy_popups.settings');
     if ($config->get('img')) {
       // Delete old image.
       file_delete($config->get('img'));

@@ -3,12 +3,12 @@
   'use strict';
 
   // Pops the location selec box up on page load.
-  Drupal.behaviors.ygs_popups_autoload = {
+  Drupal.behaviors.openy_popups_autoload = {
     attach: function (context, settings) {
       // How to set preferred branch:
-      // $.cookie('ygs_preferred_branch', 6, { expires: 7, path: '/' });
+      // $.cookie('openy_preferred_branch', 6, { expires: 7, path: '/' });
 
-      var preferred_branch = $.cookie('ygs_preferred_branch');
+      var preferred_branch = $.cookie('openy_preferred_branch');
       if (typeof this.get_query_param().location == 'undefined' && typeof preferred_branch == 'undefined') {
         // Open popup.
         $('a.location-popup-link').once().click();
@@ -49,9 +49,9 @@
 
   // Prevent Class page location popup form from being submitted, instead of it
   // fires 'locations-changed' event and closes the dialog.
-  Drupal.behaviors.ygs_popup_no_submit = {
+  Drupal.behaviors.openy_popup_no_submit = {
     attach: function (context, settings) {
-      $('.ygs-popups-class-branches-form', context).on('submit', function (e) {
+      $('.openy-popups-class-branches-form', context).on('submit', function (e) {
         var location = $('[name=branch]:checked', this).val();
         $(document).trigger('location-changed', [{ location: location }]);
         $(this).parents('.ui-dialog-content').dialog('close');

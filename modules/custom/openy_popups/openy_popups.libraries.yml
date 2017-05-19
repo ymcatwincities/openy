@@ -1,7 +1,7 @@
-ygs_popups.autoload:
+openy_popups.autoload:
   version: 1.x
   js:
-    js/ygs_popups_autoload.js: { scope: footer, minified: true }
+    js/openy_popups_autoload.js: { scope: footer, minified: true }
   dependencies:
     - core/drupal.dialog.ajax
     - core/jquery.cookie
