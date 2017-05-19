@@ -279,7 +279,7 @@ header.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
   margin: 13px 5px 0 0;
 }
 header.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
-  padding: 21px 0px;
+  padding: 21px 0;
 }
 header.expanded-search {
   top: 88px;
@@ -4043,7 +4043,6 @@ a.sports-icon.floor-hockey {
 
 #small-text-banner {
   position: relative;
-  min-height: 200px;
 }
 @media (min-width: 0) and (max-width: 48em) {
   #small-text-banner {
@@ -4060,7 +4059,7 @@ a.sports-icon.floor-hockey {
   z-index: 2;
   width: 80%;
   height: 100%;
-  background: #434343;
+  background: inherit;
   content: '';
   -webkit-transform: skew(20deg);
   -moz-transform: skew(20deg);
@@ -4074,7 +4073,7 @@ a.sports-icon.floor-hockey {
 }
 #small-text-banner .header-copy {
   z-index: 3;
-  background: #434343;
+  background: inherit;
 }
 #small-text-banner .header-copy .banner-copy {
   padding: 30px 0;

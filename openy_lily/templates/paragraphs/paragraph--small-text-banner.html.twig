@@ -43,8 +43,9 @@
 view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 'banner',
 ] %}
+{% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
 
-<section id="small-text-banner" {{ attributes.addClass(classes).removeClass('banner') }}>
+<section id="small-text-banner" {{ attributes.addClass(classes).removeClass('banner') }} style='background-color: {{ color }}'>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-6 header-copy">

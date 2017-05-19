@@ -325,7 +325,6 @@
 
 #small-text-banner {
   position: relative;
-  min-height: 200px;
   @include breakpoint(0 $tablet) {
     height: auto;
     .container-fluid {
@@ -339,7 +338,7 @@
     z-index: 2;
     width: 80%;
     height: 100%;
-    background: $black3;
+    background: inherit;
     content: '';
     -webkit-transform: skew(20deg);
     -moz-transform: skew(20deg);
@@ -351,7 +350,7 @@
   }
   .header-copy {
     z-index: 3;
-    background: $black3;
+    background: inherit;
     .banner-copy {
       padding: 30px 0;
       z-index: 3;
