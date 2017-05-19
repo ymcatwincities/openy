@@ -49,6 +49,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    */
   public function runCronServices() {
     $this->resetCache();
+    $this->warmCache();
   }
 
   /**
