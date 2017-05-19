@@ -8,12 +8,13 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Logger\LoggerChannel;
-use Drupal\ymca_groupex\GroupexRequestTrait;
+use Drupal\openy_socrates\OpenyCronServiceInterface;
+use Drupal\openy_group_schedules\GroupexRequestTrait;
 
 /**
  * Class GroupexFormCacheWarmer.
  */
-class GroupexFormCacheWarmer {
+class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
 
   use GroupexRequestTrait;
 
@@ -171,6 +172,13 @@ class GroupexFormCacheWarmer {
     }
 
     return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function runCronServices() {
+    $this->warm();
   }
 
 }

@@ -10,11 +10,12 @@ use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
 use Drupal\Component\Utility\Timer;
+use Drupal\openy_socrates\OpenyCronServiceInterface;
 
 /**
  * Class GroupexFormCacheManager.
  */
-class GroupexFormCacheManager {
+class GroupexFormCacheManager implements OpenyCronServiceInterface {
 
   /**
    * Entity type Id.
@@ -204,6 +205,13 @@ class GroupexFormCacheManager {
       $entities = GroupexFormCache::loadMultiple($chunk);
       $storage->delete($entities);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function runCronServices() {
+    $this->resetStaleCache(10, 172800);
   }
 
 }
