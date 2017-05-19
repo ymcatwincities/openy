@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Provides hidden link to popup.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function ygs_popups_theme($existing, $type, $theme, $path) {
+  return array(
+    'ygs_popup_content' => array(
+      'variables' => array(
+        'image' => NULL,
+        'description' => NULL,
+        'form' => NULL,
+      ),
+    ),
+  );
+}

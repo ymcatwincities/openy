@@ -1,0 +1,5 @@
+name: YGS Popups
+type: module
+description: Implements YGS Popups.
+core: 8.x
+package: YGS
