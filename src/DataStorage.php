@@ -155,8 +155,6 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    *
    * @return array
    *   Locations.
-   *
-   * @todo Filter out some branches.
    */
   public function getLocations() {
     $locations = [];
@@ -749,29 +747,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     }
 
     $link = 'https://operations.daxko.com/Online/4003/Programs/search.mvc/categories';
-    $source = $this->getDaxkoPageSource($link);
-
-    $this->crawler->clear();
-    $this->crawler->addHtmlContent($source);
-    $list = $this->crawler->filter('div.two-column-container ul li a');
-    $categories = $list->each(function ($list_item) {
-      return [
-        'id' => $this->getQueryParam('category_ids', $list_item->attr('href')),
-        'title' => $list_item->text(),
-      ];
-    });
-
-    $data = [];
-    foreach ($categories as $category) {
-      // Filter out categories only with valid category ID: category_ids
-      // @todo Figure out which category ID is valid.
-      if ($category['id']) {
-        $data[$category['id']] = [
-          'id' => $category['id'],
-          'title' => $category['title'],
-        ];
-      }
-    }
+    $data = $this->scrapeCategoryList($link);
 
     $this->cache->set($cid, $data);
     return $data;
@@ -781,7 +757,52 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    * Get map of categories per branch.
    */
   public function getCategoriesByBranch() {
-    // @todo Implement.
+    $cid = __METHOD__;
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $url_prefix = 'https://operations.daxko.com/Online/4003/Programs/search.mvc/categories?branch_id=';
+    $locations = $this->getLocations();
+    $data = [];
+    foreach ($locations as $location_id => $location_name) {
+      $link = $url_prefix . $location_id;
+      $data[$location_id] = $this->scrapeCategoryList($link);
+    }
+
+    $this->cache->set($cid, $data);
+    return $data;
+  }
+
+  /**
+   * Scrape list of categories from the page.
+   *
+   * @param $link
+   *   Link to the page.
+   * @return array
+   *   List of the categories.
+   */
+  private function scrapeCategoryList($link) {
+    $source = $this->getDaxkoPageSource($link);
+    $this->crawler->clear();
+    $this->crawler->addHtmlContent($source);
+    $list = $this->crawler->filter('div.two-column-container ul li a');
+    $items = $list->each(function ($list_item) {
+      return [
+        'id' => $this->getQueryParam('category_ids', $list_item->attr('href')),
+        'title' => $list_item->text(),
+      ];
+    });
+
+    // Make the array developer friendly.
+    $result = [];
+    foreach ($items as $item) {
+      if ($item['id']) {
+        $result[$item['id']] = $item;
+      }
+    }
+
+    return $result;
   }
 
 }

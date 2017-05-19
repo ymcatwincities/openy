@@ -26,6 +26,12 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
     $this->assertArrayHasKey(5164, $categories);
   }
 
+  public function testGetCategoriesByBranch() {
+    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $map = $storage->getCategoriesByBranch();
+    $this->assertArrayHasKey(112, $map);
+  }
+
   /**
    * Test getChildCareRegistrationLink().
    */
