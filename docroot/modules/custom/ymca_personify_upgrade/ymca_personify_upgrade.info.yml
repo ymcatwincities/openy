@@ -1,0 +1,5 @@
+name: YMCA Personify Upgrade
+type: module
+description: 'Provides functionality for upgrading personify links'
+package: YMCA
+core: 8.x
