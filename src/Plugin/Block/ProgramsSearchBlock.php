@@ -88,8 +88,8 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    */
   public function build() {
     $conf = $this->getConfiguration();
-    // @todo Fix the next line and pass all configuration to the form.
-    $form = \Drupal::formBuilder()->getForm('Drupal\ygh_programs_search\Form\ProgramsSearchBlockForm', $conf['enabled_locations']);
+    // @todo Use `create()` method to get form builder.
+    $form = \Drupal::formBuilder()->getForm('Drupal\ygh_programs_search\Form\ProgramsSearchBlockForm', $conf);
     return [
       'form' => $form,
     ];
@@ -102,19 +102,27 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
     $form = parent::blockForm($form, $form_state);
     $conf = $this->getConfiguration();
 
-    $form['locations'] = [
+    $form['locations_config'] = [
       '#type' => 'details',
-      '#title' => $this->t('Locations'),
+      '#title' => $this->t('Locations Config'),
     ];
 
-    $form['locations']['enabled_locations'] = [
+    $form['locations_config']['enabled_locations'] = [
       '#type' => 'checkboxes',
-      '#title' => $this->t('Enabled Locations'),
       '#options' => $this->storage->getLocations(),
       '#default_value' => $conf['enabled_locations'] ?: [],
     ];
 
-    // @todo Add enabled categories form.
+    $form['categories_config'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Categories Config'),
+    ];
+
+    $form['categories_config']['enabled_categories'] = [
+      '#type' => 'checkboxes',
+      '#options' => $this->storage->getCategories(),
+      '#default_value' => $conf['enabled_categories'] ?: [],
+    ];
 
     return $form;
   }
@@ -123,14 +131,9 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
-    $locations = $form_state->getValue('locations', NULL);
-    if (is_null($locations)) {
-      $conf = NestedArray::getValue($form_state->getValues(), $form['#parents']);
-      $locations = $conf['locations'];
-    }
-    $this->configuration['enabled_locations'] = array_filter($locations['enabled_locations']);
-
-    // @todo Add selected categories to the configuration.
+    $values = $form_state->getValues();
+    $this->configuration['enabled_locations'] = array_filter($values['locations_config']['enabled_locations']);
+    $this->configuration['enabled_categories'] = array_filter($values['categories_config']['enabled_categories']);
   }
 
 }

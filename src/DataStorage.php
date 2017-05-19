@@ -798,7 +798,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     $result = [];
     foreach ($items as $item) {
       if ($item['id']) {
-        $result[$item['id']] = $item;
+        $result[$item['id']] = $item['title'];
       }
     }
 
