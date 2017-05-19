@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_events
+    - field.storage.block_content.field_location_events
+    - views.view.location_events
+id: block_content.location_events.field_location_events
+field_name: field_location_events
+entity_type: block_content
+bundle: location_events
+label: 'Location Events'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: b5560105-cb6d-488d-b422-a4ed1606dea4
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference
