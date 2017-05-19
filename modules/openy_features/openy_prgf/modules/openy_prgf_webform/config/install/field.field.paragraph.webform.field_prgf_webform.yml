@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_webform_webform
+    - field.storage.paragraph.field_prgf_webform
     - paragraphs.paragraphs_type.webform
   module:
     - datalayer
@@ -10,9 +10,9 @@ dependencies:
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_webform_webform
-id: paragraph.webform.field_webform_webform
-field_name: field_webform_webform
+    label: field_prgf_webform
+id: paragraph.webform.field_prgf_webform
+field_name: field_prgf_webform
 entity_type: paragraph
 bundle: webform
 label: Webform

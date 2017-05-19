@@ -156,9 +156,16 @@
   }
 }
 
-.form-item, .form-actions, .captcha {
+.form-item, .form-actions {
   margin: 1em 0.75em;
 }
 .form-type-checkbox {
   padding: 0;
+}
+.captcha {
+  margin: 1em 0.75em;
+
+  .form-item {
+    margin: 1em 0;
+  }
 }
