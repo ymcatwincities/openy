@@ -1,16 +1,13 @@
 <div class="class-page-other-sessions row">
   <!-- Schedule -->
   <div class="col-xs-12">
-    {% if conditions_location is empty %}
-      {# include th location #}
-    {% endif %}
     {% if session_instances_rows is not empty %}
       <h3>{{ 'Class Times'|t }}</h3>
-      <div class="active-net__teasers">
-        <table class="active-net__teasers-list">
+      <div class="class__session-instances">
+        <table class="class__session-instances-list">
           <tbody>
           {% for session_instance_row in session_instances_rows %}
-            <tr class="active-net__teaser" data-ng-repeat="session in (other_sessions)">
+            <tr class="class__session-instance">
               {# Include location if not a current query condition. #}
               {% if conditions_location is empty %}
                 <td class="location">{{ session_instance_row.location }}</td>
@@ -20,7 +17,6 @@
               </td>
               <td class="registration_link">{{ session_instance_row.registration_link }}</td>
               <td class="details">
-
                 {% if session_instance_row.registration %}
                   <span class="registration-online">{{ "Online registration"|t }}</span>
                   {% if session_instance_row.ticket_required or session_instance_row.in_membership %}
