@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ygs_popups\Plugin\Block;
+namespace Drupal\openy_popups\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @Block(
  *   id = "location_popup_link_block",
- *   admin_label = @Translation("YGS location popup link"),
+ *   admin_label = @Translation("OpenY location popup link"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */
@@ -35,10 +35,10 @@ class LocationPopupLink extends BlockBase {
     $form['filter'] = [
       '#type' => 'select',
       '#title' => t('Locations filter'),
-      '#options' => array(
+      '#options' => [
         'all' => t('Show all locations'),
         'by_class' => t('Show locations by class'),
-      ),
+      ],
       '#default_value' => $config['filter'],
     ];
 
@@ -74,8 +74,8 @@ class LocationPopupLink extends BlockBase {
     $block = [
       'location_popup_link' => [
         '#lazy_builder' => [
-          // @see \Drupal\ygs_popups\PopupLinkGenerator
-          'ygs_popups.popup_link_generator:generateLink',
+          // @see \Drupal\openy_popups\PopupLinkGenerator
+          'openy_popups.popup_link_generator:generateLink',
           [$type, $nid],
         ],
         '#create_placeholder' => TRUE,
@@ -88,7 +88,7 @@ class LocationPopupLink extends BlockBase {
       ],
       '#attached' => [
         'library' => [
-          'ygs_popups/ygs_popups.autoload',
+          'openy_popups/openy_popups.autoload',
         ],
       ],
     ];

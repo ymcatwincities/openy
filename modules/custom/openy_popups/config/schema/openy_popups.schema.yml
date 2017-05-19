@@ -1,6 +1,6 @@
-ygs_popups.config:
+openy_popups.config:
   type: config_object
-  label: 'YGS popups config'
+  label: 'OpenY Popups config'
   mapping:
     img:
       type: text

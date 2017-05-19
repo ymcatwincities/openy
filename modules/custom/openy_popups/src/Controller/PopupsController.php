@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ygs_popups\Controller;
+namespace Drupal\openy_popups\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CommandInterface;
@@ -9,8 +9,8 @@ use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\node\NodeInterface;
-use Drupal\ygs_popups\Form\BranchesForm;
-use Drupal\ygs_popups\Form\ClassBranchesForm;
+use Drupal\openy_popups\Form\BranchesForm;
+use Drupal\openy_popups\Form\ClassBranchesForm;
 use Drupal\file\Entity\File;
 
 /**
@@ -76,7 +76,7 @@ class PopupsController extends ControllerBase {
    * Popup Options.
    */
   public function popupOptions() {
-    return array(
+    return [
       'dialogClass' => 'branch-popup',
       'width' => '65%',
       'closeOnEscape' => FALSE,
@@ -85,7 +85,7 @@ class PopupsController extends ControllerBase {
         'my' => 'center top',
         'at' => 'center top+10%',
       ],
-    );
+    ];
   }
 
   /**
@@ -118,20 +118,19 @@ class PopupsController extends ControllerBase {
       $form = \Drupal::formBuilder()->getForm(BranchesForm::class, $destination);
     }
 
-    $config = \Drupal::config('ygs_popups.settings');
+    $config = \Drupal::config('openy_popups.settings');
     $img_src = '';
     if ($config->get('img')) {
       $file = File::load($config->get('img'));
       $img_src = ImageStyle::load('locations_popup')->buildUrl($file->getFileUri());
     }
 
-    $content = [
-      '#theme' => 'ygs_popup_content',
+    return [
+      '#theme' => 'openy_popup',
       '#image' => $img_src,
       '#description' => $config->get('description'),
       '#form' => $form,
     ];
-    return $content;
   }
 
 }

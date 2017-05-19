@@ -1,5 +1,0 @@
-ygs_popups.admin:
-  title: 'YGS popups settings'
-  parent: system.admin_config_content
-  route_name: ygs_popups.settings
-  weight: 100

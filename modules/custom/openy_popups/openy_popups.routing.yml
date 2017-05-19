@@ -1,25 +1,25 @@
-ygs_popups.branch:
+openy_popups.branch:
  path: '/popup/branches/{js}'
  defaults:
    _title: 'Branches'
-   _controller: '\Drupal\ygs_popups\Controller\PopupsController::branchPopup'
+   _controller: '\Drupal\openy_popups\Controller\PopupsController::branchPopup'
  requirements:
    _permission: 'access popups'
    js: 'nojs|ajax'
 
-ygs_popups.class_branch:
+openy_popups.class_branch:
  path: '/popup/branches/{node}/{js}'
  defaults:
    _title: 'Class Branches'
-   _controller: '\Drupal\ygs_popups\Controller\PopupsController::classBranchPopup'
+   _controller: '\Drupal\openy_popups\Controller\PopupsController::classBranchPopup'
  requirements:
    _permission: 'access popups'
    js: 'nojs|ajax'
 
-ygs_popups.settings:
+openy_popups.settings:
   path: '/admin/config/content/location-popup'
   defaults:
-    _form: '\Drupal\ygs_popups\Form\SettingsForm'
+    _form: '\Drupal\openy_popups\Form\SettingsForm'
     _title: 'Popups settings'
   requirements:
     _permission: 'administer popups'

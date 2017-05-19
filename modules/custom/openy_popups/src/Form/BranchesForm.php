@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ygs_popups\Form;
+namespace Drupal\openy_popups\Form;
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\FormBase;
@@ -71,14 +71,14 @@ class BranchesForm extends FormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ygs_popups_branches_form';
+    return 'openy_popups_branches_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $destination = '') {
-    $form['destination'] = array('#type' => 'value', '#value' => $destination);
+    $form['destination'] = ['#type' => 'value', '#value' => $destination];
 
     $branches_list = $this->getBranchesList();
     $default = !empty($branches_list['branch']) ? key($branches_list['branch']) : 0;
@@ -86,18 +86,18 @@ class BranchesForm extends FormBase {
       $default = !empty($branches_list['camp']) ? key($branches_list['camp']) : 0;
     }
 
-    $form['branch'] = array(
+    $form['branch'] = [
       '#type' => 'radios',
       '#title' => t('Please select a location'),
       '#default_value' => $default,
       '#options' => $branches_list['branch'] + $branches_list['camp'],
       '#branches' => $branches_list['branch'],
       '#camps' => $branches_list['camp'],
-    );
-    $form['submit'] = array(
+    ];
+    $form['submit'] = [
       '#type' => 'submit',
       '#value' => t('Set location'),
-    );
+    ];
     return $form;
   }
 
