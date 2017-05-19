@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - search_api.index.default
+    - search_api.index.acquia_search_index
   module:
     - search_api
-    - user
-id: global_search
-label: 'Global Search'
+    - ygh_alters
+id: global_search_acquia
+label: 'Global Search (Acquia)'
 module: views
-description: ''
+description: 'Global content search using Acquia Solr search instanse.'
 tag: ''
-base_table: search_api_index_default
+base_table: search_api_index_acquia_search_index
 base_field: search_api_id
 core: 8.x
 display:
@@ -22,11 +22,10 @@ display:
     position: 0
     display_options:
       access:
-        type: perm
-        options:
-          perm: 'access content'
+        type: none
+        options: {  }
       cache:
-        type: tag
+        type: search_api_tags
         options: {  }
       query:
         type: views_query
@@ -36,11 +35,11 @@ display:
       exposed_form:
         type: basic
         options:
-          submit_button: Search
+          submit_button: Apply
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          expose_sort_order: false
+          expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
@@ -51,8 +50,8 @@ display:
           id: 0
           total_pages: null
           tags:
-            previous: 'Previous'
-            next: 'Next'
+            previous: ‹‹
+            next: ››
             first: '« First'
             last: 'Last »'
           expose:
@@ -79,17 +78,18 @@ display:
               blog: search_results
               branch: search_results
               camp: search_results
+              event: listing_teaser
               landing: search_results
-              page: teaser
+              membership: teaser
               testimonial: search_results
       fields:
-        title:
-          table: search_api_index_default
-          field: title
-          id: title
+        rendered_item:
+          table: search_api_index_acquia_search_index
+          field: rendered_item
+          id: rendered_item
           entity_type: null
           entity_field: null
-          plugin_id: search_api_field
+          plugin_id: search_api
           relationship: none
           group_type: group
           admin_label: ''
@@ -134,28 +134,13 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
+          link_to_item: false
           multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          field_rendering: true
-          fallback_handler: search_api
-          fallback_options:
-            link_to_item: false
-            multi_separator: ', '
+          multi_separator: ', '
       filters:
         search_api_fulltext:
           id: search_api_fulltext
-          table: search_api_index_default
+          table: search_api_index_acquia_search_index
           field: search_api_fulltext
           relationship: none
           group_type: group
@@ -171,12 +156,13 @@ display:
             use_operator: false
             operator: search_api_fulltext_op
             identifier: search_api_fulltext
-            required: true
-            remember: true
+            required: false
+            remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+              administrator: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -191,12 +177,55 @@ display:
             group_items: {  }
           parse_mode: terms
           min_length: null
-          fields: {  }
+          fields:
+            rendered_item: rendered_item
+            title: title
           plugin_id: search_api_fulltext
+        search_api_language:
+          id: search_api_language
+          table: search_api_index_acquia_search_index
+          field: search_api_language
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            en: en
+            es: es
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_language_op
+            label: 'Search Language'
+            description: ''
+            use_operator: false
+            operator: search_api_language_op
+            identifier: search_api_language
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_language
       sorts:
         search_api_relevance:
           id: search_api_relevance
-          table: search_api_index_default
+          table: search_api_index_acquia_search_index
           field: search_api_relevance
           relationship: none
           group_type: group
@@ -228,17 +257,16 @@ display:
           admin_label: ''
           empty: true
           tokenize: false
-          content: 'No results matched your search.'
+          content: 'No results matched your search. You may try to search in a different language.'
           plugin_id: text_custom
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      title: 'Search results'
+      title: 'Search Results'
     cache_metadata:
-      max-age: 0
+      max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
+        - url
         - url.query_args
-        - user.permissions
       tags: {  }

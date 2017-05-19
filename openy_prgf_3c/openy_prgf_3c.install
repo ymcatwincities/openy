@@ -17,3 +17,18 @@ function openy_prgf_3c_update_8001() {
     ]
   );
 }
+
+/**
+ * Enable Location Events block in columns.
+ */
+function openy_prgf_3c_update_8002() {
+  $config = drupal_get_path('module', 'openy_prgf_3c') . '/config/install/field.field.paragraph.3c.field_prgf_3c_center.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.paragraph.3c.field_prgf_3c_center', 'settings.handler_settings.target_bundles.location_events');
+  $config = drupal_get_path('module', 'openy_prgf_3c') . '/config/install/field.field.paragraph.3c.field_prgf_3c_left.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.paragraph.3c.field_prgf_3c_left', 'settings.handler_settings.target_bundles.location_events');
+  $config = drupal_get_path('module', 'openy_prgf_3c') . '/config/install/field.field.paragraph.3c.field_prgf_3c_right.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.paragraph.3c.field_prgf_3c_right', 'settings.handler_settings.target_bundles.location_events');
+}

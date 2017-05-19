@@ -1,15 +1,16 @@
-name: 'OpenY Paragraph Global Search'
-description: 'Implements a paragraph with Global search.'
+name: 'OpenY Location Events'
+description: 'Implements location events paragraph'
 type: module
 core: 8.x
 dependencies:
   - content_moderation
   - field
+  - language
   - node
+  - openy_node_event
+  - openy_block_location_events
   - paragraphs
-  - search_api
   - user
   - views
   - views_field_formatter
-  - ygh_alters
 version: 8.x-1.0

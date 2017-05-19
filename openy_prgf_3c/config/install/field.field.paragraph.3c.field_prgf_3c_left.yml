@@ -4,6 +4,7 @@ dependencies:
   config:
     - block_content.type.branch_amenities
     - block_content.type.flexible_content
+    - block_content.type.location_events
     - block_content.type.simple_block
     - field.storage.paragraph.field_prgf_3c_left
     - paragraphs.paragraphs_type.3c
@@ -23,6 +24,7 @@ settings:
     target_bundles:
       branch_amenities: branch_amenities
       flexible_content: flexible_content
+      location_events: location_events
       simple_block: simple_block
     sort:
       field: _none
