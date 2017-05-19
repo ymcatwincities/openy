@@ -12,5 +12,6 @@ dependencies:
   - openy_block_branch_amenities
   - openy_block_custom_simple
   - openy_block_flexible_content
+  - openy_block_location_events
   - paragraphs
-version: 8.x-1.2
+version: 8.x-1.3

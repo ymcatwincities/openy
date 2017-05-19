@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.location_events.field_prgf_location_events
+    - paragraphs.paragraphs_type.location_events
+  module:
+    - content_moderation
+id: paragraph.location_events.default
+targetEntityType: paragraph
+bundle: location_events
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_location_events: true
+  status: true
+  uid: true
