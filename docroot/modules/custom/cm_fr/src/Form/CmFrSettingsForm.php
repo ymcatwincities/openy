@@ -54,16 +54,16 @@ class CmFrSettingsForm extends ConfigFormBase implements ContainerAwareInterface
       $query->fields('s', $fields);
       $conditions = $query->orConditionGroup();
       foreach (array_keys($tdata['parse_columns']) as $cname) {
-        $conditions->condition('s.' . $cname, '%http://ygtcprod2.personifycloud.com%', 'LIKE');
+        $conditions->condition('s.' . $cname, '%https://ygtcprod2.personifycloud.com%', 'LIKE');
       }
       $query->condition($conditions);
       $list = $query->execute()->fetchAll();
 
       foreach ($list as $id => $finds) {
         foreach (array_keys($tdata['parse_columns']) as $parsed_name) {
-          preg_match_all("/<a href=\"http:\/\/ygtcprod2.personifycloud.com.*<\/a>/", $finds->{$parsed_name}, $output_array);
+          preg_match_all("/<a href=\"https:\/\/ygtcprod2.personifycloud.com.*<\/a>/", $finds->{$parsed_name}, $output_array);
           if ($output_array[0] == []) {
-            preg_match_all("/^http:\/\/ygtcprod2.personifycloud.com\S+/", $finds->{$parsed_name}, $output_array);
+            preg_match_all("/^https:\/\/ygtcprod2.personifycloud.com\S+/", $finds->{$parsed_name}, $output_array);
           }
           foreach ($output_array as $lid => $link) {
             preg_match_all('/<a\s+href=["\']([^"\']+)["\']/i', implode(',', $link), $links);
