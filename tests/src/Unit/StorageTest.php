@@ -23,13 +23,22 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
   public function testGetCategories() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
     $categories = $storage->getCategories();
-    $this->assertArrayHasKey(5164, $categories);
+    $this->assertArrayHasKey(2016, $categories);
   }
 
-  public function testGetCategoriesByBranch() {
+  /**
+   * Test getProgramsByBranchAndCategory().
+   */
+  public function testGetProgramsByBranchAndCategory() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
-    $map = $storage->getCategoriesByBranch();
-    $this->assertArrayHasKey(112, $map);
+    $programs = $storage->getProgramsByBranchAndCategory(91, "2016");
+    $this->assertEquals(1, count($programs));
+  }
+
+  public function testGetMapCategoriesByBranch() {
+    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $map = $storage->getCategoriesByBranch(91);
+    $this->assertArrayHasKey(2016, $map);
   }
 
   /**

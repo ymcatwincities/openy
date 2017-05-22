@@ -5,11 +5,15 @@ Provides configurable programs search paragraph.
 ## How to warm the cache
 
 ```
-ygh_programs_search_cache_warm()
+\Drupal::service("ygh_programs_search.data_storage")->warmCache();
 ```
 
 ## How to reset the cache
 
 ```
-ygh_programs_search_cache_reset()
+\Drupal::service("ygh_programs_search.data_storage")->resetCache();
 ```
+
+## TODO
+
+3. Make the first step optional.

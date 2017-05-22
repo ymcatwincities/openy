@@ -747,7 +747,8 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     }
 
     $link = 'https://operations.daxko.com/Online/4003/Programs/search.mvc/categories';
-    $data = $this->scrapeCategoryList($link);
+    $result = $this->scrapeCategoryList($link);
+    $data = array_combine(array_values($result), array_values($result));
 
     $this->cache->set($cid, $data);
     return $data;
@@ -756,7 +757,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
   /**
    * Get map of categories per branch.
    */
-  public function getCategoriesByBranch() {
+  public function getMapCategoriesByBranch() {
     $cid = __METHOD__;
     if ($cache = $this->cache->get($cid)) {
       return $cache->data;
@@ -803,6 +804,62 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     }
 
     return $result;
+  }
+
+  /**
+   * Get programs by branch and category.
+   *
+   * @param $branch_id
+   *   Branch ID.
+   * @param string $category
+   *   Category IDs.
+   *
+   * @return array
+   *   Programs.
+   */
+  public function getProgramsByBranchAndCategory($branch_id, $category) {
+    $cid = __METHOD__ . $branch_id . md5($category);
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
+    $params = [
+      'branch' => $branch_id,
+      'tag' => $category,
+    ];
+
+    $data = [];
+    $result = $this->client->getSessions($params);
+    foreach ($result as $item) {
+      $program = new \stdClass();
+      $program->id = $item->programId;
+      $program->name = $item->programName;
+      $data[] = $program;
+    }
+
+    $this->cache->set($cid, $data);
+    return $data;
+  }
+
+  /**
+   * Get categories by Branch.
+   *
+   * @param $branch_id
+   *   Branch ID.
+   *
+   * @return array
+   *   Categories list.
+   */
+  public function getCategoriesByBranch($branch_id) {
+    $categories = [];
+
+    $map = $this->getMapCategoriesByBranch();
+    if (isset($map[$branch_id])) {
+      $categories = $map[$branch_id];
+    }
+
+    $data = array_combine(array_values($categories), array_values($categories));
+    return $data;
   }
 
 }

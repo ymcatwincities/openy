@@ -173,8 +173,18 @@ class ProgramsSearchBlockForm extends FormBase {
       $form_state->setValue('step', $step);
     }
 
+    // Locations.
     if ($form_state->getValue('step') >= 2) {
-      $options = array_filter($this->storage->getLocations(), [$this, 'filterLocations'], ARRAY_FILTER_USE_BOTH);
+      $locations = $this->storage->getLocations();
+      $options = array_filter($locations, [$this, 'filterLocations'], ARRAY_FILTER_USE_BOTH);
+      if (empty($options)) {
+        $options = $locations;
+      }
+
+      if (empty($options)) {
+        return $this->noResults($form);
+      }
+
       $form['location'] = [
         '#type' => 'radios',
         '#title' => $this->t('Location'),
@@ -183,8 +193,12 @@ class ProgramsSearchBlockForm extends FormBase {
       ];
     }
 
+    // Schools.
     if ($form_state->getValue('step') >= 3) {
       $schools = $this->storage->getSchoolsByLocation($form_state->getValue('location'));
+      if (empty($schools)) {
+        return $this->noResults($form);
+      }
 
       $form['school'] = [
         '#type' => 'radios',
@@ -194,8 +208,12 @@ class ProgramsSearchBlockForm extends FormBase {
       ];
     }
 
+    // Programs.
     if ($form_state->getValue('step') >= 4) {
       $programs = $this->storage->getChildCareProgramsBySchool($form_state->getValue('school'));
+      if (empty($programs)) {
+        return $this->noResults($form);
+      }
 
       $form['program'] = [
         '#type' => 'radios',
@@ -205,8 +223,13 @@ class ProgramsSearchBlockForm extends FormBase {
       ];
     }
 
+    // Rates.
     if ($form_state->getValue('step') >= 5) {
       $rates_data = $this->storage->getChildCareProgramRateOptions($form_state->getValue('school'), $form_state->getValue('program'));
+      if (empty($rates_data)) {
+        return $this->noResults($form);
+      }
+
       $rates_options = [];
       foreach ($rates_data as $rate) {
         $rates_options[$rate['context_id']] = "$rate[name] ($rate[context_id])";
@@ -239,7 +262,12 @@ class ProgramsSearchBlockForm extends FormBase {
       $link = Link::fromTextAndUrl($this->t('link'), $url);
 
       $form['link'] = [
-        '#markup' => '<div class="result">' . $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]) . '</div>',
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => array(
+          'class' => 'result',
+        ),
+        '#value' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
       ];
     }
 
@@ -264,23 +292,39 @@ class ProgramsSearchBlockForm extends FormBase {
       switch ($trigger['#name']) {
         case 'location':
           $step = 3;
+          $this->clearForm(['program', 'category', 'rate', 'session'], $form_state);
+          break;
+
+        case 'category':
           $this->clearForm(['program', 'rate', 'session'], $form_state);
+          $step = 4;
           break;
 
         case 'program':
           $this->clearForm(['rate', 'session'], $form_state);
-          $step = 4;
+          $step = 5;
           break;
 
         case 'session':
-          $step = 5;
+          $step = 6;
           break;
       }
       $form_state->setValue('step', $step);
     }
 
+    // Locations.
     if ($form_state->getValue('step') >= 2) {
-      $options = array_filter($this->storage->getLocations(), [$this, 'filterLocations'], ARRAY_FILTER_USE_BOTH);
+      $locations = $this->storage->getLocations();
+      $options = array_filter($locations, [$this, 'filterLocations'], ARRAY_FILTER_USE_BOTH);
+      if (empty($options)) {
+        // Use all locations if user hasn't provided any filters.
+        $options = $locations;
+      }
+
+      if (empty($options)) {
+        return $this->noResults($form);
+      }
+
       $form['location'] = [
         '#type' => 'radios',
         '#title' => $this->t('Location'),
@@ -289,8 +333,38 @@ class ProgramsSearchBlockForm extends FormBase {
       ];
     }
 
+    // Categories.
     if ($form_state->getValue('step') >= 3) {
-      $items = $this->storage->getProgramsByLocation($form_state->getValue('location'));
+      $categories = $this->storage->getCategoriesByBranch($form_state->getValue('location'));
+      $items = array_filter($categories, [$this, 'filterCategories'], ARRAY_FILTER_USE_BOTH);
+      if (empty($items)) {
+        $items = $categories;
+      }
+
+      if (empty($categories)) {
+        return $this->noResults($form);
+      }
+
+      $categories = [];
+      foreach ($items as $item_id => $item_title) {
+        $categories[$item_id] = $item_title;
+      }
+
+      $form['category'] = [
+        '#type' => 'radios',
+        '#title' => $this->t('Category'),
+        '#options' => $categories,
+        '#ajax' => $this->getAjaxDefaults(),
+      ];
+    }
+
+    // Programs.
+    if ($form_state->getValue('step') >= 4) {
+      $items = $this->storage->getProgramsByBranchAndCategory($form_state->getValue('location'), $form_state->getValue('category'));
+      if (empty($items)) {
+        return $this->noResults($form);
+      }
+
       $programs = [];
       foreach ($items as $item) {
         $programs[$item->id] = $item->name;
@@ -302,11 +376,14 @@ class ProgramsSearchBlockForm extends FormBase {
         '#options' => $programs,
         '#ajax' => $this->getAjaxDefaults(),
       ];
-
     }
 
-    if ($form_state->getValue('step') >= 4) {
+    if ($form_state->getValue('step') >= 5) {
       $items = $this->storage->getSessionsByProgramAndLocation($form_state->getValue('program'), $form_state->getValue('location'));
+      if (empty($items)) {
+        return $this->noResults($form);
+      }
+
       $sessions = [];
       foreach ($items as $item) {
         $sessions[$item->id] = $item->name;
@@ -320,12 +397,18 @@ class ProgramsSearchBlockForm extends FormBase {
       ];
     }
 
-    if ($form_state->getValue('step') >= 5) {
+    if ($form_state->getValue('step') >= 6) {
       $uri = $this->storage->getRegistrationLink($form_state->getValue('program'), $form_state->getValue('session'));
       $url = Url::fromUri($uri);
       $link = Link::fromTextAndUrl($this->t('link'), $url);
+
       $form['link'] = [
-        '#markup' => '<div class="result">' . $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]) . '</div>',
+        '#type' => 'html_tag',
+        '#tag' => 'div',
+        '#attributes' => array(
+          'class' => 'result',
+        ),
+        '#value' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
       ];
     }
 
@@ -334,6 +417,14 @@ class ProgramsSearchBlockForm extends FormBase {
 
   /**
    * Custom ajax callback.
+   *
+   * @param array $form
+   *   Form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   *
+   * @return array
+   *   Form.
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     return $form;
@@ -365,6 +456,22 @@ class ProgramsSearchBlockForm extends FormBase {
   }
 
   /**
+   * Helper function to filter out disabled categories.
+   *
+   * @param string $category
+   *   Category title.
+   *
+   * @return mixed
+   *   Category title.
+   */
+  private function filterCategories($category) {
+    if (in_array($category, $this->categories)) {
+      return $category;
+    }
+    return FALSE;
+  }
+
+  /**
    * Clear previously selected form values.
    *
    * @param array $values
@@ -386,6 +493,28 @@ class ProgramsSearchBlockForm extends FormBase {
     }
 
     $form_state->setUserInput($input);
+  }
+
+  /**
+   * Return "Nothing found markup."
+   *
+   * @param array $form
+   *   Form.
+   *
+   * @return array
+   *   Nothing found markup.
+   */
+  private function noResults(array $form) {
+    $form['no_results'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#attributes' => array(
+        'class' => 'no-result',
+      ),
+      '#value' => $this->t('Sorry, nothing has been found.'),
+    ];
+
+    return $form;
   }
 
 }
