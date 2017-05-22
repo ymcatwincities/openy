@@ -1,0 +1,7 @@
+name: OpenY Digital Signage Block Free HTML
+type: module
+description: Provides a block with a free HTML area.
+core: 8.x
+package: "OpenY: Digital Signage"
+dependencies:
+  - openy_digital_signage_screen_content

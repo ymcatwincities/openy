@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_block_free_html
+    - field.storage.block_content.body
+  module:
+    - text
+id: block_content.digital_signage_block_free_html.body
+field_name: body
+entity_type: block_content
+bundle: digital_signage_block_free_html
+label: Body
+description: 'Use this field to specify any content you want.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary
