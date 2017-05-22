@@ -259,3 +259,11 @@ function openy_update_8018() {
   // Enable module.
   \Drupal::service('module_installer')->install(['openy_prgf_class_location']);
 }
+
+/**
+ * Enable OpenY Location mapping feature.
+ */
+function openy_update_8019()
+{
+  \Drupal::service('module_installer')->install(['openy_mpng_location']);
+}
