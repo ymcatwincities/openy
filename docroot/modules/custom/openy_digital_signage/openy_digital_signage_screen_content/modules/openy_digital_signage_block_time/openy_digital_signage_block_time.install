@@ -28,18 +28,18 @@ function openy_digital_signage_block_time_requirements($phase) {
     ];
   }
 
-  $path = DRUPAL_ROOT . '/libraries/momentjs-timezone/momentjs-timezone.min.js';
+  $path = DRUPAL_ROOT . '/libraries/momentjs-timezone/moment-timezone.min.js';
   if (\Drupal::moduleHandler()->moduleExists('libraries')) {
-    $path = libraries_get_path('momentjs-timezone') . '/momentjs-timezone.min.js';
+    $path = libraries_get_path('momentjs-timezone') . '/moment-timezone.min.js';
   }
 
   if (!file_exists($path)) {
     $requirements['momentjs_timezone_library'] = [
       'title' => t('Moment.js Timezone library missing'),
-      'description' => t('Momentjs Timezone requires the momentjs-timezone.min.js 
+      'description' => t('Momentjs Timezone requires the moment-timezone.min.js 
         library. Download it (https://github.com/moment/moment/) and place it 
         in the libraries folder (/libraries/momentjs-timezone). Please place 
-        there two files only momentjs-timezone.min.js and 
+        there two files only moment-timezone.min.js and 
         moment-timezone-with-data-2012-2022.min.js'),
       'severity' => REQUIREMENT_ERROR,
     ];
