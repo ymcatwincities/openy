@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Hook implementations for openy_digital_signage_screen module
+ * @file
+ * Hook implementations for openy_digital_signage_screen module.
  */
 
 use Drupal\Core\Template\Attribute;
@@ -35,7 +36,6 @@ function openy_digital_signage_screen_theme($existing, $type, $theme, $path) {
  * Implements hook_theme_HOOK_alter().
  */
 function openy_digital_signage_screen_theme_suggestions_page_alter(array &$suggestions, array $variables) {
-//  $query = \Drupal::request()->query->all();
   $route_name = \Drupal::routeMatch()->getRouteName();
   if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
     array_push($suggestions, 'page__screen');

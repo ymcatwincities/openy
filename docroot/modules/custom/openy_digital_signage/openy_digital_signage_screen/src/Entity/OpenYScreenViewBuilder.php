@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\page_manager\Entity\PageVariantViewBuilder.
- */
-
 namespace Drupal\openy_digital_signage_screen\Entity;
 
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
