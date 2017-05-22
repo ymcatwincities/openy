@@ -126,6 +126,29 @@ class LocationMappingRepository {
   }
 
   /**
+   * Find mapping by GroupEx Id.
+   *
+   * @param int $id
+   *   Location Id.
+   *
+   * @return mixed
+   *   Location mapping object or FALSE if not found.
+   */
+  public function findByGroupexId($id) {
+    $mapping_id = $this->queryFactory
+      ->get('mapping')
+      ->condition('type', self::TYPE)
+      ->condition('field_groupex_id.value', $id)
+      ->execute();
+    $mapping_id = reset($mapping_id);
+    if ($mapping_id) {
+      return $this->storage->load($mapping_id);
+    }
+
+    return FALSE;
+  }
+
+  /**
    * Find mapping by MindBody ID.
    *
    * @param int $id

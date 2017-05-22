@@ -186,7 +186,7 @@
 }
 
 .groupex-results {
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
   clear: both;
   padding-top: 15px;
@@ -211,7 +211,9 @@
       @media screen and (max-width: 767px) {
         padding: 10px 5px;
       }
-
+      @media screen and (min-width: 768px) and (max-width: 1024px) {
+        padding: 20px 5px;
+      }
       &.time-duration {
         color: $black2;
         max-width: 180px;
@@ -234,8 +236,15 @@
 
       &.instructor {
         line-height: 14px;
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 320px) {
+          max-width: 80px;
+        }
+        @media screen and (min-width: 321px) and (max-width: 767px) {
           min-width: 105px;
+        }
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+          max-width: 105px;
+          padding: 20px 5px;
         }
         a {
           color: $purple;
@@ -255,6 +264,11 @@
         .sub {
           font-size: 12px;
           color: $pink;
+        }
+      }
+      &.ical {
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+          padding: 20px 5px 20px 0px;
         }
       }
     }
