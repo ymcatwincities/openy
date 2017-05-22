@@ -51,14 +51,14 @@ body.path-search {
     border: 0;
     border-radius: 3px;
     background-color: #9c1f7b;
-    background-image: -webkit-linear-gradient(#b92f9e,rgba(171,36,144,0));
-    background-image: -moz-linear-gradient(#b92f9e,rgba(171,36,144,0));
-    background-image: -ms-linear-gradient(#b92f9e,rgba(171,36,144,0));
-    background-image: linear-gradient(#b92f9e,rgba(171,36,144,0));
-    box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+    background-image: -webkit-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+    background-image: -moz-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+    background-image: -ms-linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+    background-image: linear-gradient(#b92f9e, rgba(171, 36, 144, 0));
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     text-transform: uppercase;
     font-weight: bold;
-    font-family: 'Cachet',Helvetica,Arial,sans-serif;
+    font-family: 'Cachet', Helvetica, Arial, sans-serif;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -68,6 +68,9 @@ body.path-search {
   }
   .toolbar-fixed & {
     top: 39px;
+  }
+  @include breakpoint (0 $tablet-start) {
+    display: none;
   }
 }
 
@@ -104,7 +107,7 @@ body.path-search {
     max-width: 430px;
     .views-field-title {
       font-size: 18px;
-      font-family:'Cachet';
+      font-family: 'Cachet';
       font-weight: bold;
       margin-top: 10px;
       margin-bottom: 10px;

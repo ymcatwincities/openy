@@ -386,4 +386,33 @@
     }
   };
 
+  /**
+   * Mobile menu toggle.
+   */
+  Drupal.behaviors.mobileMenuToggle = {
+    attach: function (context, settings) {
+      $(".navbar-toggler", context).each(function () {
+        $(this).on('click', function (event) {
+          $(this).toggleClass('expanded-mobile');
+          $('#side-area').toggleClass('expanded-mobile');
+          $('.viewport').toggleClass('expanded-mobile');
+        });
+      });
+    }
+  };
+
+  /**
+   * Main menu toggle.
+   */
+  Drupal.behaviors.menuMobileToggle = {
+    attach: function (context, settings) {
+      $('#block-mainnavigation-2 .dropdown-toggle', context).each(function () {
+        $(this).on('click', function (e) {
+          e.preventDefault();
+          $(this).next('.dropdown-menu').toggleClass('open');
+        });
+      });
+    }
+  };
+
 })(jQuery);

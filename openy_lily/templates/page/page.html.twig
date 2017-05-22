@@ -59,31 +59,42 @@
 
 
 {% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
+<div id="side-area">
+  <div class="top-side">
+    <form class="clearfix" method="get" action="{{ search_view_content_path }}">
+      <div class="form-group col-xs-12">
+        <div class="input-group">
+          <input type="text" name="search" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-info" type="submit">{{ "SEARCH"|t }}</button>
+        </span>
+        </div>
+      </div>
+    </form>
+    <a class="login-link" href="user/login">Sign In</a>
+  </div>
+  {% block mobile_menu %}
+    {{ page.mobile_menu }}
+  {% endblock %}
+</div>
 
 <div class="viewport">
   <header id="page-head" class="page-head">
     <div class="top-navs">
-
-      {% include "@openy_lily/include/site-search.html.twig" %}
-      {% include "@openy_lily/include/support.html.twig" %}
-
       <nav class="nav-global navbar-default navbar">
         <div class="container-fluid">
           <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
+            <button class="navbar-toggler">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
             {{ page.header }}
           </div>
-
           {# TODO: replace with top menu #}
           {{ page.secondary_menu }}
-
         </div>
       </nav>
-
 
       {% block primary_menu %}
         {% if site_section_bundle not in ['location', 'camp'] %}
@@ -122,9 +133,9 @@
     {% endblock %}
 
     {% if page.highlighted %}
-    <div class="container alerts-wrapper">
-      {{ page.highlighted }}
-    </div>
+      <div class="container alerts-wrapper">
+        {{ page.highlighted }}
+      </div>
     {% endif %}
 
     {% block content %}
@@ -144,7 +155,9 @@
     </div>
   </footer>
 
-  <div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top" class="btn btn-default"><span class="glyphicon glyphicon-chevron-up"></span></a></div>
+  <div class="text-center return-to-top" data-spy="affix" data-offset-top="52"><a href="#top"
+                                                                                  class="btn btn-default"><span
+        class="glyphicon glyphicon-chevron-up"></span></a></div>
 
   <section class="messages"> {{ page.messages }} </section>
 
@@ -157,7 +170,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></i></span>
+        <span class="modal-close"><i class="glyphicon glyphicon-remove" data-dismiss="modal"
+                                     aria-hidden="true"></i></span>
         <div id="modal-title" class="modal-title"></div>
       </div>
       <div id="modal-body" class="modal-body"></div>
@@ -165,4 +179,3 @@
   </div>
 </div>
 
-{% include '@openy_lily/include/template-scripts.html.twig' %}
