@@ -1,0 +1,69 @@
+/* todo change styles for TV screens */
+.openy-digital-signage-block-time {
+
+}
+.openy-digital-signage-block-time .block-time {
+  display: inline;
+  position: absolute;
+}
+
+.openy-digital-signage-block-time .block-time-color-white {
+  color: #fff;
+}
+
+.openy-digital-signage-block-time .block-time-color-black {
+  color: #000;
+}
+
+.openy-digital-signage-block-time .block-time-position-top-right {
+  top: 5%;
+  right: 5%;
+}
+
+.openy-digital-signage-block-time .block-time-position-top-left {
+  top: 5%;
+  left: 5%
+}
+
+.openy-digital-signage-block-time .block-time-position-bottom-right {
+  bottom: 5%;
+  right: 5%;
+}
+
+.openy-digital-signage-block-time .block-time-position-bottom-left {
+  bottom: 5%;
+  left: 5%
+}
+
+.openy-digital-signage-block-time .time:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* change to svg */
+  background: transparent url("../images/icon-time.png") 50% 50% no-repeat;
+  background-size: 100% 100%;
+  width: 28px;
+  height: 28px;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.openy-digital-signage-block-time .time {
+  padding-left: 35px;
+  font-size: 300%;
+  font-weight: normal;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.panels-ipe-active .openy-digital-signage-block-time .block-time {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  background: #ccc;
+}

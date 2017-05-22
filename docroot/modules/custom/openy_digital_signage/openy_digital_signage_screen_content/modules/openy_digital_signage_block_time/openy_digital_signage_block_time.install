@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the
+ * openy_digital_signage_block_time module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function openy_digital_signage_block_time_requirements($phase) {
+
+  $requirements = [];
+
+  $path = DRUPAL_ROOT . '/libraries/momentjs/min/moment.min.js';
+  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+    $path = libraries_get_path('momentjs') . '/min/moment.min.js';
+  }
+
+  if (!file_exists($path)) {
+    $requirements['momentjs_library'] = [
+      'title' => t('Moment.js library missing'),
+      'description' => t('Momentjs requires the moment.min.js library.
+        Download it (https://github.com/moment/moment/) and place it in the
+        libraries folder (/libraries/momentjs)'),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  $path = DRUPAL_ROOT . '/libraries/momentjs-timezone/momentjs-timezone.min.js';
+  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+    $path = libraries_get_path('momentjs-timezone') . '/momentjs-timezone.min.js';
+  }
+
+  if (!file_exists($path)) {
+    $requirements['momentjs_timezone_library'] = [
+      'title' => t('Moment.js Timezone library missing'),
+      'description' => t('Momentjs Timezone requires the momentjs-timezone.min.js 
+        library. Download it (https://github.com/moment/moment/) and place it 
+        in the libraries folder (/libraries/momentjs-timezone). Please place 
+        there two files only momentjs-timezone.min.js and 
+        moment-timezone-with-data-2012-2022.min.js'),
+      'severity' => REQUIREMENT_ERROR,
+    ];
+  }
+
+  return $requirements;
+}
