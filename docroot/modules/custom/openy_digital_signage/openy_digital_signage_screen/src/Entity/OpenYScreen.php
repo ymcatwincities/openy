@@ -17,7 +17,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   id = "openy_digital_signage_screen",
  *   label = @Translation("OpenY Digital Signage Screen"),
  *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "view_builder" = "Drupal\openy_digital_signage_screen\Entity\OpenYScreenViewBuilder",
  *     "list_builder" = "Drupal\openy_digital_signage_screen\OpenYScreenListBuilder",
  *     "views_data" = "Drupal\openy_digital_signage_screen\Entity\OpenYScreenViewsData",
  *
@@ -44,7 +44,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/digital-signage/screens/{openy_digital_signage_screen}",
+ *     "canonical" = "/screen/{openy_digital_signage_screen}",
  *     "add-form" = "/admin/digital-signage/screens/add",
  *     "edit-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/edit",
  *     "delete-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/delete",
@@ -184,7 +184,8 @@ class OpenYScreen extends ContentEntityBase implements OpenYScreenInterface {
         'weight' => -3,
       ])
       ->setDisplayConfigurable('view', TRUE)
-      ->setDisplayConfigurable('form', TRUE);
+      ->setDisplayConfigurable('form', TRUE)
+      ->setRequired(TRUE);
 
     $fields['placement'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Placement note'))
@@ -237,9 +238,10 @@ class OpenYScreen extends ContentEntityBase implements OpenYScreenInterface {
         'weight' => 0,
       ])
       ->setDisplayConfigurable('view', TRUE)
-      ->setDisplayConfigurable('form', TRUE);
+      ->setDisplayConfigurable('form', TRUE)
+      ->setRequired(TRUE);
 
-    // Location reference
+    // Location reference.
     // A reference to which branch location this screen belongs to. This will be used in the future when the digital signs feature is extended to other branch locations.
 
     $fields['screen_schedule'] = BaseFieldDefinition::create('entity_reference')
