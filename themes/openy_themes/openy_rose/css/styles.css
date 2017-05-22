@@ -4594,53 +4594,57 @@ html.js .branch__updates_queue__button {
     font-size: 16px;
   }
 }
-#schedules-search-form-wrapper .results h2 {
+
+#schedules-search-listing-wrapper .results {
+  margin-bottom: 40px;
+}
+#schedules-search-listing-wrapper .results h2 {
   font-size: 28px;
   line-height: 32px;
   margin-bottom: 18px;
   font-weight: 700;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .results h2 {
+  #schedules-search-listing-wrapper .results h2 {
     font-size: 44px;
     line-height: 48px;
   }
 }
-#schedules-search-form-wrapper .results h2 em {
+#schedules-search-listing-wrapper .results h2 em {
   font-style: normal;
 }
-#schedules-search-form-wrapper .results .group_time {
+#schedules-search-listing-wrapper .results .group_time {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   color: #5c2e91;
   font-size: 18px;
   margin-bottom: 10px;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .results .group_time {
+  #schedules-search-listing-wrapper .results .group_time {
     font-size: 30px;
   }
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider {
   margin: 0 0 45px;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .results .schedule-sessions-group-slider {
-    margin: 0 40px 55px;
+  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider {
+    margin: 0 35px 55px;
   }
 }
-@media (min-width: 62em) {
-  #schedules-search-form-wrapper .results .schedule-sessions-group-slider {
-    margin: 0 0 55px;
+@media (min-width: 81.25em) {
+  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider {
+    margin-right: 0;
   }
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-track {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-track {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow {
   background: none;
   color: #00aeef;
   padding: 0;
@@ -4649,60 +4653,60 @@ html.js .branch__updates_queue__button {
   width: 40px;
   margin-top: -7px;
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow:before {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow:before {
   color: #00aeef;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow {
+  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow {
     height: 70px;
     width: 50px;
   }
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow .fa {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow .fa {
   font-size: 30px;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow .fa {
+  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow .fa {
     font-size: 70px;
   }
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-prev {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-prev {
   left: -20px;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-prev {
+  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-prev {
     left: -45px;
   }
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-next {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-next {
   right: -20px;
 }
 @media (min-width: 48em) {
-  #schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-next {
+  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-arrow.slick-next {
     right: -45px;
   }
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots {
   bottom: -40px;
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li button:before {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots li button:before {
   opacity: 1;
   color: #ebebeb;
 }
-#schedules-search-form-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots li.slick-active button:before {
   opacity: 1;
   color: #c6168d;
 }
-#schedules-search-form-wrapper .results .week-control {
+#schedules-search-listing-wrapper .results .week-control {
   font-size: 16px;
 }
-#schedules-search-form-wrapper .results .week-control.prev-week {
+#schedules-search-listing-wrapper .results .week-control.prev-week {
   float: left;
 }
-#schedules-search-form-wrapper .results .week-control.next-week {
+#schedules-search-listing-wrapper .results .week-control.next-week {
   float: right;
 }
-#schedules-search-form-wrapper .results .views-row {
+#schedules-search-listing-wrapper .results .views-row {
   border: 1px solid #c6168d;
   margin: 0 15px;
   padding: 15px;
@@ -4711,7 +4715,7 @@ html.js .branch__updates_queue__button {
   text-decoration: none;
   position: relative;
 }
-#schedules-search-form-wrapper .results .views-row .included-in-membership {
+#schedules-search-listing-wrapper .results .views-row .included-in-membership {
   background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
   background-size: contain;
   position: absolute;
@@ -4720,12 +4724,12 @@ html.js .branch__updates_queue__button {
   height: 32px;
   width: 90px;
 }
-#schedules-search-form-wrapper .results .views-row .ticket {
+#schedules-search-listing-wrapper .results .views-row .ticket {
   color: #5c2e91;
   margin-top: 10px;
   display: block;
 }
-#schedules-search-form-wrapper .results .views-row h3 {
+#schedules-search-listing-wrapper .results .views-row h3 {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   font-size: 22px;
   line-height: 1;
@@ -4733,63 +4737,63 @@ html.js .branch__updates_queue__button {
   margin: 40px 0 27px;
   white-space: normal;
 }
-#schedules-search-form-wrapper .results .views-row .time {
+#schedules-search-listing-wrapper .results .views-row .time {
   color: #636466;
 }
-#schedules-search-form-wrapper .results .views-row p {
+#schedules-search-listing-wrapper .results .views-row p {
   font-size: 15px;
   line-height: 1.5;
   color: #333333;
 }
-#schedules-search-form-wrapper .results .views-row img {
+#schedules-search-listing-wrapper .results .views-row img {
   display: none;
 }
-#schedules-search-form-wrapper .results .views-row .node__content {
+#schedules-search-listing-wrapper .results .views-row .node__content {
   color: #333333;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper {
+#schedules-search-listing-wrapper .branch-hours-wrapper {
   margin-bottom: 10px;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .slick-slider {
+#schedules-search-listing-wrapper .branch-hours-wrapper .slick-slider {
   padding: 0 30px;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .slick-track {
+#schedules-search-listing-wrapper .branch-hours-wrapper .slick-track {
   display: -webkit-flex;
   display: flex;
   flex-wrap: wrap;
 }
 @media (min-width: 0) and (max-width: 30em) {
-  #schedules-search-form-wrapper .branch-hours-wrapper .slick-track {
+  #schedules-search-listing-wrapper .branch-hours-wrapper .slick-track {
     flex-wrap: nowrap;
   }
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .slick-slide {
+#schedules-search-listing-wrapper .branch-hours-wrapper .slick-slide {
   display: -webkit-flex;
   display: flex;
   height: auto;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .row-eq-height, #schedules-search-form-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .fieldset-wrapper > div {
+#schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div {
   margin: 0 10px 10px 0;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow, #schedules-search-form-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow {
+#schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow {
   color: #00aeef;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow:hover:before, #schedules-search-form-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow:hover:before, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow:hover:before {
+#schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow:hover:before, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow:hover:before, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow:hover:before {
   color: #00aeef;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow:before, #schedules-search-form-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow:before, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow:before {
+#schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-arrow:before, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-arrow:before, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-arrow:before {
   color: #00aeef;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .row-eq-height .slick-next, #schedules-search-form-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-next, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-next,
-#schedules-search-form-wrapper .branch-hours-wrapper .row-eq-height .slick-prev,
-#schedules-search-form-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-prev,
-.modal-body #schedules-search-form-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-prev {
+#schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-next, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-next, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-next,
+#schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-prev,
+#schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-prev,
+.modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-prev {
   z-index: 100;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .row-eq-height .slick-next, #schedules-search-form-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-next, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-next {
+#schedules-search-listing-wrapper .branch-hours-wrapper .row-eq-height .slick-next, #schedules-search-listing-wrapper .branch-hours-wrapper .modal-body .fieldset-wrapper > div .slick-next, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .fieldset-wrapper > div .slick-next {
   text-align: right;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .card {
+#schedules-search-listing-wrapper .branch-hours-wrapper .card {
   background-color: #f15922;
   color: #fff;
   padding: 10px 20px;
@@ -4800,24 +4804,24 @@ html.js .branch__updates_queue__button {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .card h4 {
+#schedules-search-listing-wrapper .branch-hours-wrapper .card h4 {
   font-size: 20px;
   line-height: 17px;
   letter-spacing: -0.5px;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .card p {
+#schedules-search-listing-wrapper .branch-hours-wrapper .card p {
   font-size: 30px;
   line-height: 1.15;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .col-sm-2 h4 {
+#schedules-search-listing-wrapper .branch-hours-wrapper .col-sm-2 h4 {
   font-size: 14px;
 }
-#schedules-search-form-wrapper .branch-hours-wrapper .col-sm-2 p {
+#schedules-search-listing-wrapper .branch-hours-wrapper .col-sm-2 p {
   font-size: 20px;
 }
 @media (min-width: 0) and (max-width: 48em) {
-  #schedules-search-form-wrapper .branch-hours-wrapper .row {
+  #schedules-search-listing-wrapper .branch-hours-wrapper .row {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
@@ -4825,15 +4829,15 @@ html.js .branch__updates_queue__button {
     -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
   }
-  #schedules-search-form-wrapper .branch-hours-wrapper .row .row-eq-height, #schedules-search-form-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div {
+  #schedules-search-listing-wrapper .branch-hours-wrapper .row .row-eq-height, #schedules-search-listing-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div {
     -webkit-flex-wrap: nowrap;
     flex-wrap: nowrap;
   }
-  #schedules-search-form-wrapper .branch-hours-wrapper .row .row-eq-height h4, #schedules-search-form-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div h4, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div h4 {
+  #schedules-search-listing-wrapper .branch-hours-wrapper .row .row-eq-height h4, #schedules-search-listing-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div h4, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div h4 {
     font-size: 20px;
     white-space: normal;
   }
-  #schedules-search-form-wrapper .branch-hours-wrapper .row .row-eq-height p, #schedules-search-form-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div p, .modal-body #schedules-search-form-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div p {
+  #schedules-search-listing-wrapper .branch-hours-wrapper .row .row-eq-height p, #schedules-search-listing-wrapper .branch-hours-wrapper .row .modal-body .fieldset-wrapper > div p, .modal-body #schedules-search-listing-wrapper .branch-hours-wrapper .row .fieldset-wrapper > div p {
     font-size: 30px;
     white-space: normal;
   }
