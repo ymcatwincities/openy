@@ -37,6 +37,8 @@ class OpenYScreenViewBuilder implements EntityViewBuilderInterface {
       ],
     ];
 
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
     if ($schedule = $entity->screen_schedule->entity) {
       $schedule_manager = \Drupal::service('openy_digital_signage_schedule.manager');
       $schedule = $schedule_manager->getUpcomingScreenContents($schedule, self::TIMESPAN);

@@ -74,7 +74,8 @@
     var self = this;
     this.options = {
       animation: 5000,
-      period: 15000
+      screenUpdatePeriod: 15000,
+      scheduleUpdatePeriod: 10
     };
     this.lastUpdate = window.tm.getTime();
     // Store element.
@@ -84,7 +85,7 @@
 
     this.init = function() {
       self.loopCallback();
-      self.loop = setInterval(self.loopCallback, self.options.period);
+      self.loop = setInterval(self.loopCallback, self.options.screenUpdatePeriod);
       self.element
         .css({opacity: 0, display: 'block'})
         .animate({opacity: 1}, self.options.animation, function() {
@@ -97,7 +98,7 @@
     };
 
     this.loopCallback = function() {
-      if (window.tm.getTime() - self.lastUpdate > 60) {
+      if (window.tm.getTime() - self.lastUpdate > self.options.scheduleUpdatePeriod) {
         // Update schedule.
         self.updateSchedule();
       }
@@ -126,7 +127,7 @@
     this.updateSchedule = function() {
       var time = window.tm.getTime();
       $.get(window.location.href + '?' + time, function(data) {
-        this.lastUpdate = window.tm.getTime();
+        self.lastUpdate = window.tm.getTime();
         var $data = $(data);
         self
           .getScreenContents()
@@ -144,9 +145,25 @@
             var screenContent = ObjectsManager.getObject(this);
             var workingHours = screenContent.getWorkingHours();
             if (time < workingHours.to) {
+              var id = screenContent.getId();
+              var wasActive = false;
+              self.element
+                .find('.screen-content[data-screen-content-id='+id+']')
+                .each(function() {
+                  var existingScreenContent = ObjectsManager.getObject(this);
+                  if (existingScreenContent.isActive()) {
+                    wasActive = true;
+                  }
+                  existingScreenContent.deactivate();
+                  $(this).remove();
+                });
               $(this).appendTo(self.element);
+              if (wasActive) {
+                screenContent.activateNoDelay();
+              }
             }
           });
+        Drupal.attachBehaviors(self.element);
         self.updateScreenContents();
       });
     };
@@ -173,11 +190,14 @@
       return self.element.find('.block');
     };
 
+    this.getId = function () {
+      return self.element.data('screen-content-id');
+    };
+
     this.activate = function() {
       if (self.isActive()) {
         return;
       }
-      //console.log({activate: self});
       self.element
         .css({position: 'absolute', top: '100vh'})
         .addClass('screen-content-activating')
@@ -188,6 +208,20 @@
             .removeClass('screen-content-activating')
             .addClass('screen-content-active');
         });
+      self.getBlocks().each(function () {
+        var block = ObjectsManager.getObject(this);
+        block.activate();
+      });
+    };
+
+    this.activateNoDelay = function() {
+      if (self.isActive()) {
+        return;
+      }
+      self.element
+        .removeClass('screen-content-inactive')
+        .removeClass('screen-content-activating')
+        .addClass('screen-content-active');
       self.getBlocks().each(function () {
         var block = ObjectsManager.getObject(this);
         block.activate();
@@ -256,7 +290,6 @@
 
   Drupal.behaviors.screen_handler = {
     attach: function (context, settings) {
-      console.log('Screen Handler has been attached');
 
       $(".screen").once().each(function () {
         window.tm = new TimeManager();
