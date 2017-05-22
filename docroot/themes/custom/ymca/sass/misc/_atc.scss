@@ -26,7 +26,9 @@
 .atcb-list:hover{
   visibility:visible;
 }
-tr:last-child {
+tr:last-child,
+tr:nth-last-child(2),
+tr:nth-last-child(3) {
   .atcb-list {
     top: auto;
     bottom: 0;
