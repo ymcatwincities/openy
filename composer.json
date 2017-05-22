@@ -92,12 +92,14 @@
             "@composer drupal-scaffold",
             "@cibox-build",
             "@cibox-vm",
-            "@docksal"
+            "@docksal",
+            "sh scripts/remove_vendor_git_folders.sh || :"
         ],
         "post-update-cmd": [
             "@cibox-build",
             "@cibox-vm",
-            "@docksal"
+            "@docksal",
+            "sh scripts/remove_vendor_git_folders.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "cibox-build": "[ -d ./vendor/ymcatwincities/openy-cibox-build ] && (rsync -r --exclude=composer.json --exclude=.gitignore --exclude=.git ./vendor/ymcatwincities/openy-cibox-build/ ./docroot) || (rm -rf ./docroot/devops ./docroot/*.sh ./docroot/*.yml ./docroot/*.md ./docroot/ansible.cfg)",
