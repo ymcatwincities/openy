@@ -37,6 +37,13 @@ class ProgramsSearchBlockForm extends FormBase {
   private $locations;
 
   /**
+   * Enabled categories for the Form instance.
+   *
+   * @var array
+   */
+  private $categories;
+
+  /**
    * ProgramsSearchBlockForm constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
@@ -86,10 +93,10 @@ class ProgramsSearchBlockForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $locations = []) {
-    // @todo Fix the form to get all configuration.
-    // Put enabled locations to variable for future filtering.
-    $this->locations = $locations;
+  public function buildForm(array $form, FormStateInterface $form_state, $configuration = []) {
+    // Put enabled locations and categories to variable for future filtering.
+    $this->locations = $configuration['enabled_locations'];
+    $this->categories = $configuration['enabled_categories'];
 
     // Set step.
     $form_state->setValue('step', 1);

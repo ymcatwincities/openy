@@ -2,7 +2,6 @@
 
 namespace Drupal\ygh_programs_search\Plugin\Block;
 
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -73,19 +72,6 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
-    $defaults = $this->configFactory
-      ->get('ygh_programs_search.settings')
-      ->get('default_locations');
-
-    return [
-      'enabled_locations' => $defaults,
-    ];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function build() {
     $conf = $this->getConfiguration();
     // @todo Use `create()` method to get form builder.
@@ -99,6 +85,11 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
+    // Use system wide default enabled locations.
+    $default_locations = $this->configFactory
+      ->get('ygh_programs_search.settings')
+      ->get('default_locations');
+
     $form = parent::blockForm($form, $form_state);
     $conf = $this->getConfiguration();
 
@@ -110,7 +101,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
     $form['locations_config']['enabled_locations'] = [
       '#type' => 'checkboxes',
       '#options' => $this->storage->getLocations(),
-      '#default_value' => $conf['enabled_locations'] ?: [],
+      '#default_value' => $conf['enabled_locations'] ? : $default_locations,
     ];
 
     $form['categories_config'] = [
