@@ -52,3 +52,22 @@ function openy_node_camp_update_8004() {
       'core.entity_view_display.node.camp.search_index',
     ]);
 }
+
+/**
+ * Enable microsites menu paragraph and make it available for content type.
+ */
+function openy_node_camp_update_8005() {
+  $modules = ['openy_block_menu', 'openy_prgf_microsites_menu'];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_camp') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.camp.field_branch_body',
+      'field.field.node.camp.field_header_content',
+    ]
+  );
+}

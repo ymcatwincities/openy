@@ -17,6 +17,7 @@ dependencies:
     - paragraphs.paragraphs_type.latest_news_and_updates
     - paragraphs.paragraphs_type.location_events
     - paragraphs.paragraphs_type.panorama
+    - paragraphs.paragraphs_type.microsites_menu
     - paragraphs.paragraphs_type.simple_content
     - paragraphs.paragraphs_type.small_banner
     - paragraphs.paragraphs_type.whay
@@ -49,9 +50,10 @@ settings:
       all_amenities: all_amenities
       financial_aid: financial_aid
       small_banner: small_banner
-      panorama: panorama
       group_schedules: group_schedules
+      panorama: panorama
       location_events: location_events
+      microsites_menu: microsites_menu
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -117,14 +119,14 @@ settings:
         weight: 32
         enabled: false
       all_events:
-        weight: 36
+        weight: 37
         enabled: false
       financial_aid:
         enabled: true
-        weight: 37
+        weight: 38
       small_banner:
         enabled: true
-        weight: 37
+        weight: 39
       content_pager:
         weight: 41
         enabled: false
@@ -138,18 +140,21 @@ settings:
         enabled: true
         weight: 50
       membership_info:
-        weight: 51
-        enabled: false
-      openy_event_registration:
         weight: 52
         enabled: false
-      panorama:
+      microsites_menu:
+        enabled: true
         weight: 53
-        enabled: false
-      prgf_location_finder:
+      openy_event_registration:
         weight: 54
         enabled: false
+      panorama:
+        weight: 55
+        enabled: false
+      prgf_location_finder:
+        weight: 56
+        enabled: false
       tour_schedule:
-        weight: 59
+        weight: 61
         enabled: false
 field_type: entity_reference_revisions

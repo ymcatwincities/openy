@@ -15,6 +15,7 @@ dependencies:
     - paragraphs.paragraphs_type.latest_news_and_updates
     - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
+    - paragraphs.paragraphs_type.microsites_menu
   module:
     - entity_reference_revisions
 id: node.camp.field_camp_body
@@ -42,6 +43,7 @@ settings:
       camp_menu: camp_menu
       financial_aid: financial_aid
       panorama: panorama
+      microsites_menu: microsites_menu
     target_bundles_drag_drop:
       2c:
         enabled: true
@@ -115,4 +117,7 @@ settings:
       prgf_location_finder_filters:
         weight: 42
         enabled: false
+      microsites_menu:
+        enabled: true
+        weight: 43
 field_type: entity_reference_revisions

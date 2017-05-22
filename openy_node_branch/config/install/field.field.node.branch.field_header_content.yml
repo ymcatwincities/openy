@@ -8,6 +8,7 @@ dependencies:
     - paragraphs.paragraphs_type.group_schedules
     - paragraphs.paragraphs_type.header
     - paragraphs.paragraphs_type.small_banner
+    - paragraphs.paragraphs_type.microsites_menu
   module:
     - entity_reference_revisions
 id: node.branch.field_header_content
@@ -28,6 +29,7 @@ settings:
       all_amenities: all_amenities
       small_banner: small_banner
       group_schedules: group_schedules
+      microsites_menu: microsites_menu
     target_bundles_drag_drop:
       1c:
         weight: -39
@@ -122,4 +124,7 @@ settings:
       tour_schedule:
         weight: 59
         enabled: false
+      microsites_menu:
+        weight: 60
+        enabled: true
 field_type: entity_reference_revisions

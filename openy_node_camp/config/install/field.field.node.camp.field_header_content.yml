@@ -7,6 +7,7 @@ dependencies:
     - paragraphs.paragraphs_type.camp_menu
     - paragraphs.paragraphs_type.header
     - paragraphs.paragraphs_type.small_banner
+    - paragraphs.paragraphs_type.microsites_menu
   module:
     - entity_reference_revisions
 id: node.camp.field_header_content
@@ -26,6 +27,7 @@ settings:
       header: header
       small_banner: small_banner
       camp_menu: camp_menu
+      microsites_menu: microsites_menu
     target_bundles_drag_drop:
       1c:
         weight: -39
@@ -90,4 +92,7 @@ settings:
       camp_menu:
         enabled: true
         weight: 29
+      microsites_menu:
+        enabled: true
+        weight: 30
 field_type: entity_reference_revisions
