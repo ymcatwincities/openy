@@ -134,7 +134,6 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
       ->setDescription(t('A reference to the assigned schedule.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'openy_digital_signage_schedule')
-      //->setSetting('handler_settings', ['target_bundles' => ['screen_content' => 'screen_content']])
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'visible',
@@ -174,7 +173,6 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
-
 
     $fields['content'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Content'))

@@ -23,8 +23,8 @@ class DateRangeWidgetBase extends DateTimeWidgetBase {
     $element['value']['#title'] = $this->t('Start');
 
     $element['end_value'] = [
-        '#title' => $this->t('End'),
-      ] + $element['value'];
+       '#title' => $this->t('End'),
+    ] + $element['value'];
 
     if ($items[$delta]->start_date) {
       /** @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
@@ -114,7 +114,7 @@ class DateRangeWidgetBase extends DateTimeWidgetBase {
   }
 
   /**
-   * #element_validate callback to ensure that the start date <= the end date.
+   * Custom validate callback to ensure that the start date <= the end date.
    *
    * @param array $element
    *   An associative array containing the properties and children of the
@@ -152,7 +152,7 @@ class DateRangeWidgetBase extends DateTimeWidgetBase {
    * @return \Drupal\Core\Datetime\DrupalDateTime
    *   A date object for use as a default value in a field widget.
    */
-  protected function createDefaultValue($date, $timezone) {
+  protected function createDefaultValue(DrupalDateTime $date, $timezone) {
     // The date was created and verified during field_load(), so it is safe to
     // use without further inspection.
     if ($this->getFieldSetting('datetime_type') == DateTimeItem::DATETIME_TYPE_DATE) {
