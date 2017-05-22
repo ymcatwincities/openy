@@ -509,7 +509,7 @@ function openy_lily_preprocess_form_element(&$variables) {
   if (isset($element['#attributes']['checked']) && $element['#attributes']['checked'] == 'checked') {
     $variables['attributes']['class'] = 'checked';
   }
-  if (in_array($element['#name'], [
+  if (isset($element['#name']) && in_array($element['#name'], [
     'mb_session_type',
     'mb_program',
     'mb_location'
