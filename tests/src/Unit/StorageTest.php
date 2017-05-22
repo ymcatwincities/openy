@@ -35,6 +35,9 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(1, count($programs));
   }
 
+  /**
+   * Test getMapCategoriesByBranch().
+   */
   public function testGetMapCategoriesByBranch() {
     $storage = \Drupal::service('ygh_programs_search.data_storage');
     $map = $storage->getCategoriesByBranch(91);

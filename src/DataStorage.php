@@ -778,8 +778,9 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
   /**
    * Scrape list of categories from the page.
    *
-   * @param $link
+   * @param string $link
    *   Link to the page.
+   *
    * @return array
    *   List of the categories.
    */
@@ -809,7 +810,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
   /**
    * Get programs by branch and category.
    *
-   * @param $branch_id
+   * @param int $branch_id
    *   Branch ID.
    * @param string $category
    *   Category IDs.
@@ -844,7 +845,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
   /**
    * Get categories by Branch.
    *
-   * @param $branch_id
+   * @param int $branch_id
    *   Branch ID.
    *
    * @return array

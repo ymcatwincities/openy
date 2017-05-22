@@ -101,7 +101,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
     $form['locations_config']['enabled_locations'] = [
       '#type' => 'checkboxes',
       '#options' => $this->storage->getLocations(),
-      '#default_value' => $conf['enabled_locations'] ? : $default_locations,
+      '#default_value' => $conf['enabled_locations'] ?: $default_locations,
     ];
 
     $form['categories_config'] = [

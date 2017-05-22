@@ -264,9 +264,9 @@ class ProgramsSearchBlockForm extends FormBase {
       $form['link'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#attributes' => array(
+        '#attributes' => [
           'class' => 'result',
-        ),
+        ],
         '#value' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
       ];
     }
@@ -405,9 +405,9 @@ class ProgramsSearchBlockForm extends FormBase {
       $form['link'] = [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#attributes' => array(
+        '#attributes' => [
           'class' => 'result',
-        ),
+        ],
         '#value' => $this->t('Congrats! Here is your program registration %link!', ['%link' => $link->toString()]),
       ];
     }
@@ -496,7 +496,7 @@ class ProgramsSearchBlockForm extends FormBase {
   }
 
   /**
-   * Return "Nothing found markup."
+   * Return "Nothing found markup".
    *
    * @param array $form
    *   Form.
@@ -508,9 +508,9 @@ class ProgramsSearchBlockForm extends FormBase {
     $form['no_results'] = [
       '#type' => 'html_tag',
       '#tag' => 'div',
-      '#attributes' => array(
+      '#attributes' => [
         'class' => 'no-result',
-      ),
+      ],
       '#value' => $this->t('Sorry, nothing has been found.'),
     ];
 
