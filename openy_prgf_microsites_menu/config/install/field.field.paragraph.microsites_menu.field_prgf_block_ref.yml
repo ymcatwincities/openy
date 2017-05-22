@@ -12,7 +12,7 @@ bundle: microsites_menu
 label: 'Menu Block'
 description: 'Create a new one or pick up an existed menu block.'
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
