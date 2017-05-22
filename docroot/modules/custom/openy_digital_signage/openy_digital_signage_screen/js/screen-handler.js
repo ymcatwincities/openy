@@ -75,7 +75,7 @@
     this.options = {
       animation: 5000,
       screenUpdatePeriod: 15000,
-      scheduleUpdatePeriod: 10
+      scheduleUpdatePeriod: 30
     };
     this.lastUpdate = window.tm.getTime();
     // Store element.
