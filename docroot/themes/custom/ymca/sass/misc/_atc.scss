@@ -26,12 +26,17 @@
 .atcb-list:hover{
   visibility:visible;
 }
-
+tr:last-child {
+  .atcb-list {
+    top: auto;
+    bottom: 0;
+  }
+}
 .atcb-list {
   visibility: hidden;
   position: absolute;
   top: 100%;
-  right: 0;
+  right: 10px;
   width: 170px;
   z-index: 900;
 }
