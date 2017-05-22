@@ -37,7 +37,7 @@ class OpenYScreenListBuilder extends EntityListBuilder {
     $row['name'] = $this->l(
       $entity->label(),
       new Url(
-        'entity.openy_digital_signage_screen.edit_form', array(
+        'entity.openy_digital_signage_screen.canonical', array(
           'openy_digital_signage_screen' => $entity->id(),
         )
       )
