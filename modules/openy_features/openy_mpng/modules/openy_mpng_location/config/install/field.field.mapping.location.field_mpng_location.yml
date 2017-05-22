@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_mpng_location
+    - node.type.branch
+    - node.type.camp
+    - node.type.facility
+    - openy_mappings.mapping_type.location
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_mpng_location
+id: mapping.location.field_mpng_location
+field_name: field_mpng_location
+entity_type: mapping
+bundle: location
+label: Location
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      branch: branch
+      camp: camp
+      facility: facility
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: branch
+field_type: entity_reference
