@@ -76,6 +76,7 @@
 .atc-style-blue .atcb-link:active,
 .atc-style-blue .atcb-link:focus
 {
+  font-family: FontAwesome;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -84,6 +85,11 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 0;
+  &:before {
+    content: "\f073";
+    font-size: 14px;
+  }
 }
 
 .atc-style-blue .atcb-list {
