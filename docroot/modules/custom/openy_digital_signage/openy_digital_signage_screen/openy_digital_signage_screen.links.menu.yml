@@ -9,4 +9,4 @@ openy_digital_signage_screen.admin.structure.settings:
   title: 'Digital Signage Screen settings'
   description: 'Configure OpenY Digital Signage Screen entities'
   route_name: openy_digital_signage_screen.settings
-  parent: system.admin_openy_digital_signage
+  parent: system.admin_openy_digital_signage_settings
