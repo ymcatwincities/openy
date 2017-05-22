@@ -42,7 +42,7 @@ class OpenYScheduleItemForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.openy_digital_signage_sch_item.canonical', ['openy_digital_signage_sch_item' => $entity->id()]);
+    $form_state->setRedirect('entity.openy_digital_signage_sch_item.collection');
   }
 
 }
