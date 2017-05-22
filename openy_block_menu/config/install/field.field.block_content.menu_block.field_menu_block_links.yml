@@ -12,8 +12,8 @@ entity_type: block_content
 bundle: menu_block
 label: 'Menu Links'
 description: 'The Menu Links.'
-required: false
-translatable: false
+required: true
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
