@@ -19,4 +19,4 @@ dependencies:
   - views
   - views_field_formatter
   - views_infinite_scroll
-version: 8.x-1.3
+version: 8.x-1.4
