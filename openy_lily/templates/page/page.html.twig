@@ -71,7 +71,11 @@
         </div>
       </div>
     </form>
-    <a class="login-link" href="user/login">Sign In</a>
+    {% if logged_in %}
+      <a class="login-link" href="/user/logout">{{ "Sign Out"|t }}</a>
+    {% else %}
+      <a class="login-link" href="/user/login">{{ "Sign In"|t }}</a>
+    {% endif %}
   </div>
   {% block mobile_menu %}
     {{ page.mobile_menu }}
