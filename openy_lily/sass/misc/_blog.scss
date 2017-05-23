@@ -74,3 +74,25 @@
     }
   }
 }
+.back-to-blog {
+  a {
+    font-family: 'Cachet';
+    text-transform: uppercase;
+  }
+}
+
+.node--type-blog.node--view-mode-full {
+  margin: 40px 0;
+}
+
+.copy {
+  color: $grey25;
+  h2, h3, h4, h5, h6, strong {
+    color: $grey25;
+  }
+  p, li {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+  }
+}
