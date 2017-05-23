@@ -335,53 +335,11 @@ display:
           exposed: true
           expose:
             operator_id: field_event_date_range_op
-            label: 'Start day after:'
+            label: 'Start day:'
             description: ''
             use_operator: false
             operator: field_event_date_range_op
             identifier: field_event_date_range
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: search_api_date
-        field_event_date_range_1:
-          id: field_event_date_range_1
-          table: search_api_index_node_events
-          field: field_event_date_range
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '<='
-          value:
-            min: ''
-            max: ''
-            value: ''
-            type: date
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_event_date_range_1_op
-            label: 'Start date before:'
-            description: ''
-            use_operator: false
-            operator: field_event_date_range_1_op
-            identifier: field_event_date_range_1
             required: false
             remember: false
             multiple: false
@@ -458,7 +416,20 @@ display:
           plugin_id: search_api
       header: {  }
       footer: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: false
+          content:
+            value: '<div class="no-results-text">No events found by this search conditions.</div>'
+            format: html
+          plugin_id: text
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
