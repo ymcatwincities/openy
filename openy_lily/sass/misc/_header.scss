@@ -26,6 +26,9 @@ body {
   }
   .top-side {
     padding: 14px 0 7px;
+    form {
+      padding: 0 15px;
+    }
   }
   a {
     color: #fffffb;
@@ -60,6 +63,11 @@ body {
           box-shadow: none;
           border-radius: 0;
           border-bottom: 1px solid #979797;
+          li {
+            a {
+              white-space: pre-wrap;
+            }
+          }
         }
       }
     }
@@ -69,6 +77,7 @@ body {
 .viewport {
   transition: margin-left .5s;
   &.expanded-mobile {
+    height: 100vh;
     header {
       position: absolute;
     }
@@ -122,7 +131,7 @@ header {
             display: block !important;
             float: right;
             position: absolute;
-            right: 20px;
+            right: 15px;
             outline: 0 !important;
             margin-top: 8px;
             background: transparent;
