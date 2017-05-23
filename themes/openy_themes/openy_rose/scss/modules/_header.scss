@@ -304,7 +304,7 @@
 
   .viewport {
     position: relative;
-    z-index: 39;
+    z-index: 41;
     width: 100%;
 
     &.collapsing-in,
@@ -408,7 +408,7 @@
   &.toolbar-horizontal {
     .viewport,
     .top-navs {
-        margin-top: 39px;
+      margin-top: 39px;
     }
 
     &.toolbar-tray-open {
