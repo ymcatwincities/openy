@@ -427,7 +427,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: '<div class="no-results-text">No events found by this search conditions.</div>'
+            value: '<div class="no-results-text">No events found by these search conditions.</div>'
             format: html
           plugin_id: text
       relationships: {  }

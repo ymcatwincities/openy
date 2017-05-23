@@ -49,3 +49,16 @@ function openy_prgf_all_events_update_8003() {
     ]
   );
 }
+
+/**
+ * Pull the feature component updates.
+ */
+function openy_prgf_all_events_update_8004() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_all_events') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'views.view.events_default',
+    ]
+  );
+}
