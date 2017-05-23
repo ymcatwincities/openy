@@ -103,7 +103,6 @@ body {
   body {
     padding-top: 0 !important;
     max-width: 100%;
-    overflow: hidden;
   }
 }
 
@@ -111,7 +110,7 @@ body {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 9999;
   top: 0;
   left: 0;
   overflow-x: hidden;
@@ -160,9 +159,6 @@ body {
 
 .viewport {
   transition: margin-left .5s;
-}
-.viewport.expanded-mobile {
-  margin-left: 80%;
 }
 .viewport.expanded-mobile header {
   position: absolute;
@@ -227,7 +223,9 @@ header .top-navs .nav-global .navbar-header .navbar-toggler {
   }
   header .top-navs .nav-global .navbar-header .navbar-toggler {
     display: block !important;
-    float: left;
+    float: right;
+    position: absolute;
+    right: 20px;
     outline: 0 !important;
     margin-top: 8px;
     background: transparent;
@@ -235,7 +233,6 @@ header .top-navs .nav-global .navbar-header .navbar-toggler {
     -moz-transition: all .2s ease-out;
     -ms-transition: all .2s ease-out;
     transition: all .2s ease-out;
-    position: relative;
     padding: 9px 10px;
     border: 1px solid #ddd;
     border-radius: 4px;

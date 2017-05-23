@@ -418,7 +418,7 @@
   /**
    * Hide menu on big screens.
    */
-  Drupal.behaviors.menuMobileToggle = {
+  Drupal.behaviors.hideMenuDesktop = {
     attach: function (context, settings) {
       $(window).resize(function() {
         if ($(window).width() > 992) {
@@ -429,7 +429,4 @@
       });
     }
   };
-
-
-
 })(jQuery);
