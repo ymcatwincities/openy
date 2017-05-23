@@ -415,4 +415,21 @@
     }
   };
 
+  /**
+   * Hide menu on big screens.
+   */
+  Drupal.behaviors.menuMobileToggle = {
+    attach: function (context, settings) {
+      $(window).resize(function() {
+        if ($(window).width() > 992) {
+          $('.navbar-toggler', context).removeClass('expanded-mobile');
+          $('#side-area', context).removeClass('expanded-mobile');
+          $('.viewport', context).removeClass('expanded-mobile');
+        }
+      });
+    }
+  };
+
+
+
 })(jQuery);

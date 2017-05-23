@@ -164,6 +164,9 @@ body {
 .viewport.expanded-mobile {
   margin-left: 80%;
 }
+.viewport.expanded-mobile header {
+  position: absolute;
+}
 @media (min-width: 0) and (max-width: 62em) {
   .viewport #main {
     margin-top: 52px !important;

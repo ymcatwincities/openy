@@ -71,6 +71,9 @@ body {
   transition: margin-left .5s;
   &.expanded-mobile {
     margin-left: 80%;
+    header {
+      position: absolute;
+    }
   }
   @include breakpoint (0 $tablet-start) {
     #main {
