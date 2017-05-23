@@ -376,7 +376,7 @@
           }
         });
       });
-      $(document).mouseup(function(e) {
+      $(document).mouseup(function (e) {
         var $container = $("#block-openy-lily-main-menu");
         if (!$container.is(e.target) && $container.has(e.target).length === 0) {
           $('#main').removeClass('expanded-menu');
@@ -394,8 +394,7 @@
       $(".navbar-toggler", context).each(function () {
         $(this).on('click', function (event) {
           $(this).toggleClass('expanded-mobile');
-          $('#side-area').toggleClass('expanded-mobile');
-          $('.viewport').toggleClass('expanded-mobile');
+          $('#side-area, .viewport').toggleClass('expanded-mobile');
         });
       });
     }
@@ -420,11 +419,9 @@
    */
   Drupal.behaviors.hideMenuDesktop = {
     attach: function (context, settings) {
-      $(window).resize(function() {
+      $(window).resize(function () {
         if ($(window).width() > 992) {
-          $('.navbar-toggler', context).removeClass('expanded-mobile');
-          $('#side-area', context).removeClass('expanded-mobile');
-          $('.viewport', context).removeClass('expanded-mobile');
+          $('.navbar-toggler, #side-area, .viewport ', context).removeClass('expanded-mobile');
         }
       });
     }
