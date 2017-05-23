@@ -592,7 +592,7 @@ body {
 
   .viewport {
     position: relative;
-    z-index: 39;
+    z-index: 41;
     width: 100%;
   }
   .viewport.collapsing-in, .viewport.collapsing-out {
