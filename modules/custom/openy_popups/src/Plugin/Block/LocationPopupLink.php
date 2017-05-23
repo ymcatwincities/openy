@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @Block(
  *   id = "location_popup_link_block",
- *   admin_label = @Translation("OpenY location popup link"),
+ *   admin_label = @Translation("Location popup link"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */

@@ -19,3 +19,36 @@ function openy_popups_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
+
+/**
+ * Implements hook_preprocess_radios().
+ */
+function openy_popups_preprocess_radios(&$variables) {
+  if (!(isset($variables['element']['#branches']) || isset($variables['element']['#camps']))) {
+    return;
+  }
+
+  $variables['children'] = [];
+
+  if ($variables['element']['#branches']) {
+    $variables['children'][] = [
+      '#markup' => '<h3>' . t('Branches') . '</h3>',
+    ];
+    foreach ($variables['element']['#branches'] as $id => $value) {
+      $variables['children'][] = [
+        '#markup' => $variables['element'][$id]['#markup'],
+      ];
+    }
+  }
+
+  if ($variables['element']['#camps']) {
+    $variables['children'][] = [
+      '#markup' => '<h3>' . t('Camps') . '</h3>',
+    ];
+    foreach ($variables['element']['#camps'] as $id => $value) {
+      $variables['children'][] = [
+        '#markup' => $variables['element'][$id]['#markup'],
+      ];
+    }
+  }
+}
