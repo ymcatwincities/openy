@@ -10162,35 +10162,37 @@ img.alignright {
     float: left;
     margin-right: 30px; } }
 
-@media (min-width: 768px) {
-  .groupex-form-full .groupex-pdf-link-container {
-    float: right; } }
-
-.groupex-form-full .groupex-pdf-link-container a {
-  font-family: "CachetMedium", Verdana, sans-serif;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#92278f), to(#5c2e91));
-  background-image: -webkit-linear-gradient(top, #92278f, #5c2e91);
-  background-image: linear-gradient(to bottom, #92278f, #5c2e91);
-  border-radius: 0;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  height: 50px;
-  padding: 0 10px;
-  line-height: 50px;
-  text-transform: uppercase; }
-  @media (min-width: 992px) {
-    .groupex-form-full .groupex-pdf-link-container a {
-      font-size: 20px;
-      height: 60px;
-      line-height: 60px; } }
-  .groupex-form-full .groupex-pdf-link-container a:hover {
-    color: #d8d8d8; }
-  .groupex-form-full .groupex-pdf-link-container a a {
+.groupex-form-full .groupex-pdf-link-container {
+  margin-top: 10px; }
+  @media (min-width: 768px) {
+    .groupex-form-full .groupex-pdf-link-container {
+      float: right;
+      margin: 0; } }
+  .groupex-form-full .groupex-pdf-link-container a {
+    font-family: "CachetMedium", Verdana, sans-serif;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#92278f), to(#5c2e91));
+    background-image: -webkit-linear-gradient(top, #92278f, #5c2e91);
+    background-image: linear-gradient(to bottom, #92278f, #5c2e91);
+    border-radius: 0;
+    border: none;
     color: #fff;
-    text-decoration: none; }
-    .groupex-form-full .groupex-pdf-link-container a a:hover {
+    font-size: 18px;
+    height: 50px;
+    padding: 0 10px;
+    line-height: 50px;
+    text-transform: uppercase; }
+    @media (min-width: 992px) {
+      .groupex-form-full .groupex-pdf-link-container a {
+        font-size: 20px;
+        height: 60px;
+        line-height: 60px; } }
+    .groupex-form-full .groupex-pdf-link-container a:hover {
       color: #d8d8d8; }
+    .groupex-form-full .groupex-pdf-link-container a a {
+      color: #fff;
+      text-decoration: none; }
+      .groupex-form-full .groupex-pdf-link-container a a:hover {
+        color: #d8d8d8; }
 
 .groupex-form-full .groupex-results {
   clear: both;
