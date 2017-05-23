@@ -217,7 +217,11 @@
       }
     }
   }
+}
+
+#schedules-search-listing-wrapper {
   .results {
+    margin-bottom: 40px;
     h2 {
       font-size: 28px;
       line-height: 32px;
@@ -245,10 +249,10 @@
     .schedule-sessions-group-slider {
       margin: 0 0 45px;
       @include breakpoint($screen-sm) {
-        margin: 0 40px 55px;
+        margin: 0 35px 55px;
       }
-      @include breakpoint($screen-md) {
-        margin: 0 0 55px;
+      @include breakpoint($screen-lg+100) {
+        margin-right: 0;
       }
       .slick-track {
         display: -webkit-box;
