@@ -1,14 +1,17 @@
 .paragraph--type--all-events  {
+  @include breakpoint(laptop) {
+    margin: 0px 15px 25px;
+  }
 
   form {
     background-color: $lighter-grey;
     padding: 20px;
     overflow: hidden;
     position: relative;
-    margin: 0 15px 25px;
+    margin-bottom: 25px;
     clear: both;
     @include breakpoint(laptop) {
-      margin: 0 15px 50px;
+      margin-bottom: 50px;
     }
 
     .form-item {
@@ -16,8 +19,7 @@
     }
 
     .form-item-field-location-ref,
-    .form-item-field-event-date-range,
-    .form-item-field-event-date-range-1 {
+    .form-item-field-event-date-range {
       float: left;
       padding-right: 35px;
       input, select {
@@ -92,6 +94,10 @@
   .views-row {
     clear: both;
     margin-bottom: 50px;
+  }
+
+  .no-results-text {
+    margin: 10px;
   }
 }
 
