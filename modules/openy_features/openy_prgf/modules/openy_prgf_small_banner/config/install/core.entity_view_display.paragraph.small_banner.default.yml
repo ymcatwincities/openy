@@ -3,9 +3,12 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.small_banner.field_prgf_color
+    - field.field.paragraph.small_banner.field_prgf_description
     - field.field.paragraph.small_banner.field_prgf_headline
     - field.field.paragraph.small_banner.field_prgf_image
     - paragraphs.paragraphs_type.small_banner
+  module:
+    - text
 id: paragraph.small_banner.default
 targetEntityType: paragraph
 bundle: small_banner
@@ -19,6 +22,14 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
+  field_prgf_description:
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
   field_prgf_headline:
     weight: 0
     label: hidden
@@ -26,6 +37,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_prgf_image:
     weight: 1
     label: hidden
@@ -34,6 +46,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
 hidden:
   created: true
   uid: true
