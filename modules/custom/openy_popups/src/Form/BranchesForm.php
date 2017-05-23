@@ -126,30 +126,36 @@ class BranchesForm extends FormBase {
     $db = \Drupal::database();
     if (!empty($this->nodeId) && $node = $this->entityTypeManager->getStorage('node')->load($this->nodeId)) {
       $query = $db->select('node_field_data', 'n');
-      $query->innerJoin('node__field_class', 'fc', 'n.nid = fc.entity_id');
-      $query->innerJoin('node_field_data', 'fdc', 'fc.field_class_target_id = fdc.nid');
+      // Field on Session that has Class.
+      $query->innerJoin('node__field_session_class', 'fc', 'n.nid = fc.entity_id');
+      $query->innerJoin('node_field_data', 'fdc', 'fc.field_session_class_target_id = fdc.nid');
       $query->condition('fdc.status', 1);
-      $query->innerJoin('node__field_activity', 'fa', 'fc.field_class_target_id = fa.entity_id');
-      $query->innerJoin('node_field_data', 'fda', 'fa.field_activity_target_id = fda.nid');
+      // Field on Class that has Activity.
+      $query->innerJoin('node__field_class_activity', 'fa', 'fc.field_session_class_target_id = fa.entity_id');
+      $query->innerJoin('node_field_data', 'fda', 'fa.field_class_activity_target_id = fda.nid');
       $query->condition('fda.status', 1);
-      $query->innerJoin('node__field_program_subcategory', 'fps', 'fa.field_activity_target_id = fps.entity_id');
-      $query->innerJoin('node__field_location', 'fl', 'n.nid = fl.entity_id');
-      $query->fields('fl', ['field_location_target_id']);
+      // Field on Activity that has Programs Subcategory
+      $query->innerJoin('node__field_activity_category', 'fps', 'fa.field_class_activity_target_id = fps.entity_id');
+      $query->innerJoin('node_field_data', 'fds', 'fa.field_class_activity_target_id = fda.nid');
+      // Field on Session that has Location.
+      $query->innerJoin('node__field_session_location', 'fl', 'n.nid = fl.entity_id');
+      $query->fields('fl', ['field_session_location_target_id']);
       $query->condition('n.type', 'session');
-      $query->condition('fps.field_program_subcategory_target_id', $this->nodeId);
+      $query->condition('fps.field_activity_category_target_id', $this->nodeId);
       $query->condition('n.status', 1);
+      $query = $query;
       $items = $query->execute()->fetchAll();
 
       $locations_to_be_displayed = [];
       foreach ($items as $item) {
-        $locations_to_be_displayed[$item->field_location_target_id] = $item->field_location_target_id;
+        $locations_to_be_displayed[$item->field_session_location_target_id] = $item->field_session_location_target_id;
       }
     }
 
-    $query = $db->select('node_field_data', 'n');
-    $query->fields('n', ['nid', 'title', 'type']);
-    $query->condition('type', ['branch', 'camp'], 'IN');
-    $query->condition('status', 1);
+    $query = $db->select('node_field_data', 'n')
+      ->fields('n', ['nid', 'title', 'type'])
+      ->condition('type', ['branch', 'camp'], 'IN')
+      ->condition('status', 1);
     $items = $query->execute()->fetchAll();
     foreach ($items as $item) {
       // By default we show all locations instead of showing empty popup.

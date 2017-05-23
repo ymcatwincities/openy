@@ -514,4 +514,40 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     return $session_instances;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocationsByClassNode(NodeInterface $node) {
+    $locations = [];
+
+    if ($node->bundle() != 'class') {
+      return [];
+    }
+    // Current node is a class.
+    $class_id = $node->id();
+
+    // Current date as timestamp.
+    $current_date = strtotime("today UTC");
+
+    /* @see \Drupal\openy_schedules\Form\SchedulesSearchForm::getSessions */
+    $conditions['class'] = $class_id;
+    $conditions['from'] = $current_date;
+
+    $upcoming_session_instances = $this->getSessionInstancesByParams($conditions);
+
+    $nids = [];
+    foreach ($upcoming_session_instances as $session_instance) {
+      $location_id = $session_instance->location->target_id;
+      $nids[$location_id] = $location_id;
+    }
+
+    if ($nids) {
+      $locations = $this->entityTypeManager
+        ->getStorage('node')
+        ->loadMultiple($nids);
+    }
+
+    return $locations;
+  }
+
 }

@@ -38,6 +38,7 @@ class SettingsForm extends ConfigFormBase {
     $form['img'] = [
       '#type' => 'managed_file',
       '#title' => t('Popup image'),
+      '#description' => t('File size max 12.8MB'),
       '#upload_validators'  => [
         'file_validate_is_image' => [],
         'file_validate_extensions' => ['gif png jpg jpeg'],
@@ -46,6 +47,7 @@ class SettingsForm extends ConfigFormBase {
       '#upload_location' => self::UPLOAD_LOCATION,
       '#default_value' => ($config->get('img')) ? [$config->get('img')] : NULL,
     ];
+
     $form['description'] = [
       '#type' => 'text_format',
       '#title' => $this->t('Description'),
@@ -65,13 +67,18 @@ class SettingsForm extends ConfigFormBase {
       // Delete old image.
       file_delete($config->get('img'));
     }
-    // Save image.
-    $file = File::load(array_shift(array_values($form_state->getValue('img'))));
-    $file->status = FILE_STATUS_PERMANENT;
-    $file->save();
 
-    // Set configuration.
-    $config->set('img', $file->id())->save();
+    if ($form_image = $form_state->getValue('img')) {
+      // Save image.
+      $image = array_values($form_image);
+      $file = File::load(array_shift($image));
+      $file->status = FILE_STATUS_PERMANENT;
+      $file->save();
+
+      // Set configuration.
+      $config->set('img', $file->id())->save();
+    }
+
     $config->set('description', $form_state->getValue('description')['value'])->save();
 
     parent::submitForm($form, $form_state);

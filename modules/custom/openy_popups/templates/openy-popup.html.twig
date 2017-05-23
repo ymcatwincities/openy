@@ -1,5 +1,7 @@
 {% if image %}
-  <div><img src="{{ image }}" style="width: 600px; height: auto;"></div>
+  <div class="branch-popup-map">
+    <img src="{{ image }}" style="width: 100%; height: auto;">
+  </div>
 {% endif %}
-<div>{{ description }}</div>
-<div>{{ form }}</div>
+<div class="modal-body">{{ description }}</div>
+<div class="modal-body">{{ form }}</div>
