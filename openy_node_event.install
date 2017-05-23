@@ -173,9 +173,27 @@ function openy_node_event_update_8012() {
 }
 
 /**
- * Add search_index view mode to Event.
+ * Enable microsites menu paragraph and make it available for content types.
  */
 function openy_node_event_update_8013() {
+  $modules = ['openy_block_menu', 'openy_prgf_microsites_menu'];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.event.field_landing_body',
+    ]
+  );
+}
+
+/**
+ * Add search_index view mode to Event.
+ */
+function openy_node_event_update_8014() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(drupal_get_path('module', 'openy_node_event') . '/config/install');
   $config_importer->importConfigs([
