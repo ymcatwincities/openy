@@ -1,6 +1,6 @@
 @openy @api @classtest
 Feature: Class Content type
-  As Admin I want to make sure that Class content type is available with needed fields.
+  As Editor I want to make sure that Class content type is available with needed fields.
 
   Background: Class test setup
     Given I am logged in as a user with the "Editor" role
