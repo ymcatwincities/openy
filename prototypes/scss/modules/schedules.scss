@@ -172,8 +172,10 @@
     }
   }
   .groupex-pdf-link-container {
+    margin-top: 10px;
     @include breakpoint(tablet) {
       float: right;
+      margin: 0;
     }
     a {
       @include btn-large-purple();
