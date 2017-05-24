@@ -8,5 +8,6 @@ openy_map:
   dependencies:
     - core/jquery
     - core/jquery.once
+    - core/jquery.ui.autocomplete
     - core/drupal
     - core/drupalSettings

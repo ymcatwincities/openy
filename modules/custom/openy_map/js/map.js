@@ -139,8 +139,8 @@
         this.search_field_el.on('change', $.proxy(this.apply_search, this));
         this.distance_limit_el.on('change', $.proxy(this.apply_distance_limit, this));
         this.locate_me_el.on('click', $.proxy(this.locate_me_onclick, this));
-
         this.component_el.find('nav.types input[type=checkbox]').on('change', $.proxy(this.bar_filter_change, this));
+        this.search_field_el.on( "autocompleteselect", $.proxy(this.apply_autocomplete_search, this));
       },
 
       // Attempts a map search against Google's
@@ -180,6 +180,51 @@
         this.geocoder.geocode({
           'address': q
         }, $.proxy(f, this));
+      },
+
+      apply_autocomplete_search: function (event, ui) {
+        var locations = [];
+        this.locations.forEach(function(location) {
+          if (location.name == ui.item.value) {
+            // Get selected location from locations list.
+            locations.push(location);
+          }
+        });
+
+        // Redraw map for selected location.
+        if (this.search_center === null) {
+          this.search_center = this.map.getCenter();
+        }
+        this.distance_limit = '';
+        this.search_center_marker.setPosition(this.search_center_point);
+        this.search_center_marker.setVisible(false);
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < locations.length; i++) {
+          var loc = locations[i];
+          bounds.extend(loc.marker.getPosition());
+          loc.marker.setVisible(true);
+        }
+        this.map.fitBounds(bounds);
+
+        // Redraw locations list.
+        for (var l = 0; l < this.locations.length; l++) {
+          if (typeof this.locations[l].element !== 'undefined') {
+            this.locations[l].element.hide();
+            $(this.locations[l].element).parents('.locations-list').find('h1').hide();
+          }
+        }
+
+        if (!locations.length) {
+          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>We\u2019re sorry no results were found in your area</p></div>').fadeIn();
+          return;
+        }
+        // Show filtered locations.
+        for (var k = 0; k < locations.length; k++) {
+          if (typeof locations[k].element !== 'undefined') {
+            locations[k].element.show();
+            $(locations[k].element).parents('.locations-list').find('h1').show();
+          }
+        }
       },
 
       // Executed every time the viewer sets the distance limit to a new value
@@ -395,34 +440,33 @@
 
       // Renders an extra set of filter boxes below the map.
       draw_map_controls: function () {
-
+        // Add tag filter to map control.
         this.init_active_tags();
-
         var tag_filters_html = '';
-
         for (var tag in this.tags) {
-
           var filter_checked = '';
-
           if ($.inArray(tag, this.initial_active_tags) >= 0) {
             filter_checked = 'checked="checked"';
           }
-
           var tag_filter_html = '<label class="btn btn-default" for="tag_' + tag + '">';
-
           tag_filter_html += '<input autocomplete="off" id="tag_' + tag + '" class="tag_' + tag + '" type="checkbox" value="' + tag + '" ' + filter_checked + '/>' + tag;
-
           for (var i = 0; i < this.tags[tag].marker_icons.length; i++) {
             tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '"/>';
           }
-
           tag_filter_html += '</label>';
-
           tag_filters_html += tag_filter_html;
         }
-
         this.map_controls_el.find('.tag_filters').append(tag_filters_html);
 
+        // Add locations autocomplete to search field.
+        var locations = [];
+        this.locations.forEach(function(location) {
+          locations.push(location.name);
+        });
+        this.search_field_el.autocomplete({
+          minLength: 3,
+          source: locations
+        });
       },
 
       // Update locations on the map by setting their visiblity
