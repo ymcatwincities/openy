@@ -95,14 +95,14 @@ view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
         {{ 'Back to Blog'|t }}
       </a>
     </div>
-    <div class="copy col-sm-6 col-md-7">
+    <div class="copy col-sm-9 col-md-7">
       <article{{ attributes.addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
           {{ content|without('field_blog_related', 'field_sidebar_content', 'field_blog_image') }}
         </div>
       </article>
     </div>
-    <div class="col-sm-3 col-md-3">
+    <div class="col-sm-12 col-md-3">
       {{ content.field_blog_related }}
       {{ content.field_sidebar_content }}
     </div>
