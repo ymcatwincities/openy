@@ -55,12 +55,11 @@ class OpenYScheduleItemListBuilder extends EntityListBuilder {
         )
       );
     }
-    $time_slot_value = $entity->get('time_slot')->first();
     // TODO: fix tz handling.
-    $row['time_slot'] = $time_slot_value->get('value')->getDateTime()->format('h:ia');
-    $row['time_slot'] .= ' – ';
-    $row['time_slot'] .= $time_slot_value->get('end_value')->getDateTime()->format('h:ia');
-    $row['created'] = $entity->get('created')->first()->get('value')->getDateTime()->format('m/d/Y h:ia');
+    $from_ts = strtotime($entity->get('time_slot')->value . 'z');
+    $to_ts = strtotime($entity->get('time_slot')->end_value . 'z');
+    $row['time_slot'] = date('h:ia', $from_ts) . ' – ' . date('h:ia', $to_ts);
+    $row['created'] = date('m/d/Y h:ia', $entity->getCreatedTime());
 
     return $row + parent::buildRow($entity);
   }
