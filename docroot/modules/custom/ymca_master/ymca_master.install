@@ -4662,6 +4662,6 @@ function ymca_master_update_8210() {
 /**
  * Enable openy_digital_signage module.
  */
-function ymca_master_update_8211() {
+function ymca_master_update_8212() {
   \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
 }
