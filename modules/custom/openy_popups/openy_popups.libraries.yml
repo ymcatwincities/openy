@@ -8,3 +8,4 @@ openy_popups.autoload:
   dependencies:
     - core/drupal.dialog.ajax
     - core/jquery.cookie
+    - core/drupalSettings

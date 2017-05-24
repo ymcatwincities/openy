@@ -4,6 +4,9 @@ namespace Drupal\openy_popups\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
+use \Drupal\openy_session_instance\SessionInstanceManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 
 /**
  * Block with popup link.
@@ -14,7 +17,49 @@ use Drupal\Core\Form\FormStateInterface;
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class LocationPopupLink extends BlockBase {
+class LocationPopupLink extends BlockBase implements ContainerFactoryPluginInterface  {
+
+  /**
+   * The SessionInstanceManager.
+   *
+   * @var \Drupal\openy_session_instance\SessionInstanceManagerInterface
+   */
+  protected $sessionInstanceManager;
+
+  /**
+   * Creates a new BranchSessionsForm.
+   *
+   * @param SessionInstanceManagerInterface $session_instance_manager
+   *   The SessionInstanceManager.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, SessionInstanceManagerInterface $session_instance_manager) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->sessionInstanceManager = $session_instance_manager;
+  }
+
+  /**
+   * Create location popup link block.
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   ContainerInterface object.
+   * @param array $configuration
+   *   Configuration array.
+   * @param $plugin_id
+   *   Plugin ID.
+   * @param $plugin_definition
+   *   Plugin Definition
+   *
+   * @return static
+   *   New LocationPopupLink.
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('session_instance.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -57,13 +102,14 @@ class LocationPopupLink extends BlockBase {
    */
   public function build() {
     $config = $this->getConfiguration();
-    $nid = 0;
+    $nid = $location_count = 0;
     $type = '';
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($config['filter'] == 'by_class') {
       if ($node && $node->getType() == 'class') {
         $type = 'class';
         $nid = $node->id();
+        $location_count = $this->sessionInstanceManager->getLocationCountByClassNode($node);
       }
     }
     if ($node && $node->getType() == 'program_subcategory') {
@@ -74,7 +120,7 @@ class LocationPopupLink extends BlockBase {
     $block = [
       'location_popup_link' => [
         '#lazy_builder' => [
-          // @see \Drupal\openy_popups\PopupLinkGenerator
+          /* @see \Drupal\openy_popups\PopupLinkGenerator */
           'openy_popups.popup_link_generator:generateLink',
           [$type, $nid],
         ],
@@ -89,6 +135,11 @@ class LocationPopupLink extends BlockBase {
       '#attached' => [
         'library' => [
           'openy_popups/openy_popups.autoload',
+        ],
+        'drupalSettings' => [
+          'openy_popups' => [
+            'location_count' => $location_count,
+          ],
         ],
       ],
     ];
