@@ -4,31 +4,16 @@
  * @file OpenY Paragraph class location module file.
  */
 
-use Drupal\node\Entity\Node;
-
 /**
- * Implements hook_preprocess_paragraph__bundle().
+ * Implements hook_theme().
  */
-function openy_prgf_class_location_preprocess_paragraph__class_location(&$variables) {
-  // Cache context
-  $variables['#cache']['contexts'][] = 'url.query_args';
-
-  $request = Drupal::request();
-  if (!empty($request->query->get('location')) && filter_var($request->query->get('location'), FILTER_VALIDATE_INT) !== FALSE) {
-    $location_id = $request->query->get('location');
-    $query = \Drupal::entityQuery('node');
-    $group = $query->orConditionGroup()
-      ->condition('type', 'branch')
-      ->condition('type', 'camp');
-    $nodes = $query->condition('nid', $location_id)
-      ->condition('status', 1)
-      ->condition($group)
-      ->execute();
-
-    if (!empty($nodes)) {
-      $node = Node::load($location_id);
-      $variables['class_location'] = node_view($node, 'class_location');
-      $variables['#cache']['tags'][] = 'node:' . $location_id;
-    }
-  }
+function openy_prgf_class_location_theme() {
+  return [
+    'class_location' => [
+      'variables' => [
+        'class_location' => [],
+      ],
+      'template' => 'openy-class-location',
+    ],
+  ];
 }

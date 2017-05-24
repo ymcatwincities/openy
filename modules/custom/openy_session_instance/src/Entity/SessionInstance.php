@@ -111,6 +111,80 @@ class SessionInstance extends ContentEntityBase implements SessionInstanceInterf
   }
 
   /**
+   * Retrieves Session Instance location node.
+   *
+   * @return mixed
+   *   Location node;
+   */
+  public function getLocation() {
+    return $this
+      ->get('location')
+      ->first()
+      ->get('entity')
+      ->getTarget()
+      ->getValue();
+  }
+
+  /**
+   * Retrieves Session Instance session node.
+   *
+   * @return mixed
+   *   Session node;
+   */
+  public function getSession() {
+    return $this
+      ->get('session')
+      ->first()
+      ->get('entity')
+      ->getTarget()
+      ->getValue();
+  }
+
+  /**
+   * Get string value of date range for session instance, in reduced duplicate.
+   *
+   * @return string
+   *   Format M j, Y; M j - j, Y; M j - M j, Y; OR M j, Y - M j, Y; that is Short month day
+   *   of month, year; removing duplicates when year, month, or day of month
+   *   repeat.
+   */
+  public function getFormattedDateRangeDate() {
+
+    // Load session instance date range date values.
+    $timestamp = $this->get('timestamp')->value;
+    $year_start = date('Y', $timestamp);
+    $month_day_start = date('M j', $timestamp);
+    $timestamp_to = $this->get('timestamp_to')->value;
+    $year_to = date('Y', $timestamp_to);
+    $month_day_to = date('M j', $timestamp_to);
+
+    // Format date range to eliminate repeated values.
+    if ($year_start == $year_to) {
+      if (date('M', $timestamp) == date('M', $timestamp_to)) {
+        if ($month_day_start == $month_day_to) {
+          // M j, Y.
+          $formatted_date = "$month_day_start, $year_start";
+        }
+        else {
+          // M j - j, Y.
+          $day_to = date('j', $timestamp_to);
+          $formatted_date =  "$month_day_start - $day_to, $year_start";
+        }
+      }
+      else {
+        // M j - M j, Y.
+        $formatted_date =  "$month_day_start - $month_day_to, $year_start";
+      }
+    }
+    else {
+      // M j, Y - M j, Y.
+      $formatted_date = $month_day_start . ", $year_start - " . $month_day_to . ", $year_to";
+    }
+
+    return $formatted_date;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
