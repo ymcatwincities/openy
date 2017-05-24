@@ -56,6 +56,26 @@ body {
   }
 }
 
+.pager li > a {
+  padding: 5px 10px;
+  font-size: 15px;
+  border-radius: 0;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .pager li {
+    margin-right: 3px;
+  }
+  .pager li a {
+    padding: 5px 8px;
+  }
+}
+.pager li.pager__item--next a {
+  border: 1px solid #ddd !important;
+}
+.pager li.pager__item--next a:hover {
+  background: #eee !important;
+}
+
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
 }
@@ -708,6 +728,11 @@ body.path-search #block-mainpagecontent li {
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.no-results {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .node--type-blog.node--view-mode-teaser a .inner-wrapper {

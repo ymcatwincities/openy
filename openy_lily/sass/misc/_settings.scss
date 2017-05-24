@@ -14,7 +14,7 @@
       color: white;
       font-size: 48px;
       text-transform: uppercase;
-      font-family:'Cachet';
+      font-family: 'Cachet';
       font-weight: bold;
     }
   }
@@ -25,3 +25,29 @@
     }
   }
 }
+
+.pager {
+  li {
+    > a {
+      padding: 5px 10px;
+      font-size: 15px;
+      border-radius: 0;
+
+    }
+    @include breakpoint(0 $tablet) {
+      margin-right: 3px;
+      a {
+        padding: 5px 8px;
+      }
+    }
+    &.pager__item--next {
+      a {
+        border: 1px solid #ddd !important;
+        &:hover {
+          background: #eee !important;
+        }
+      }
+    }
+  }
+}
+
