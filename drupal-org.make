@@ -54,6 +54,9 @@ projects[scheduler] = 1.0-alpha2
 projects[confi][subdir] = contrib
 projects[confi][version] = 1.3
 projects[confi][patch][] = "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
+projects[webform] = 5.0-beta11
+projects[captcha] = 1.0-beta1
+projects[recaptcha] = 2.2
 
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get

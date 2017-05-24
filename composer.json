@@ -177,6 +177,9 @@
         "drupal/redirect": "^1.0@alpha",
         "drupal/metatag": "^1.0",
         "drupal/scheduler": "^1.0@alpha",
+        "drupal/webform": "^5.0@beta",
+        "drupal/captcha": "^1.0@beta",
+        "drupal/recaptcha": "^2.2",
         "drupal/google_tag": "1.x-dev",
         "drupal/rabbit_hole": "1.0-beta3"
     }
