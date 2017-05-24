@@ -297,6 +297,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function elementHasText($element, $text) {
     $element_obj = $this->getSession()->getPage()->find('css', $element);
 
+    // Element not found.
+    if (is_null($element_obj)) {
+      $msg = 'Element ' . $element . ' not found.';
+      throw new \Exception($msg);
+    }
+
     // Find the text within the region
     $element_text = $element_obj->getText();
     if (strpos($element_text, $text) === FALSE) {
@@ -353,6 +359,13 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       ->condition('title', $title);
     $nids = $query->execute();
     return reset($nids);
+  }
+
+  /**
+   * @Given /^I print page$/
+   */
+  public function iPrintPage() {
+    print $this->getSession()->getPage()->getHtml();
   }
 
 }
