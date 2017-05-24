@@ -138,6 +138,7 @@ dependencies:
   - openy_session_instance
   - openy_schedules
   - openy_socrates
+  - openy_tour
   - location_finder
   - daxko
   - openy_mappings

@@ -15,3 +15,15 @@ function openy_taxonomy_update_8001() {
   $config .= 'views.view.taxonomy_term.yml';
   $config_importer->update($config, 'views.view.taxonomy_term', 'display.default.display_options.pager');
 }
+
+/**
+ * Update tour with token support for demo.
+ */
+function openy_taxonomy_update_8002() {
+  \Drupal::service('module_installer')->install(['openy_tour'], TRUE);
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_taxonomy');
+  $config .= '/config/optional/';
+  $config .= 'tour.tour.openy-taxonomy-overview.yml';
+  $config_importer->update($config, 'tour.tour.openy-taxonomy-overview', 'tips');
+}
