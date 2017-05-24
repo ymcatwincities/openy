@@ -90,6 +90,16 @@ function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $var
  */
 function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = Drupal::routeMatch()->getRouteName();
+
+  switch ($route_name) {
+    case 'system.403':
+      array_push($suggestions, 'page__system__403');
+      break;
+    case 'system.404':
+      array_push($suggestions, 'page__system__404');
+      break;
+  }
+
   $node = Drupal::routeMatch()->getParameter('node');
   if (!empty($node) || $node = Drupal::routeMatch()->getParameter('node_preview')) {
     if (is_object($node)) {

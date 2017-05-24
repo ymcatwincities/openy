@@ -56,15 +56,9 @@
  * @see html.html.twig
  */
 #}
-
-<a href="#main" id="skip-link">{{ "Skip to main content"|t }}</a>
-
-<div id="top"></div>
-
 {% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
 
 <div class="viewport">
-  {{ page.header }}
   <header id="page-head" class="page-head">
     <div class="top-navs">
 
@@ -111,13 +105,9 @@
   </header>
 
   <div id="main" role="main" class="page-middle">
-    <section class="page-header page-title title-only">
-      <div class="container title-container">
-        <div class="row">
-          <div class="col-sm-12 header-copy">
-            <h1>404</h1>
-          </div>
-        </div>
+    <section class="page-heading black-header page-title title-only">
+      <div class="container-fluid">
+        <h1>404</h1>
       </div>
     </section>
     <section class="content">
@@ -127,7 +117,7 @@
             <h1>{{ 'Page Not Found'|t }}</h1>
             <article class="richtext">
               <p>{{ 'Sorry. The page you are looking for isn\'t here. You can click anywhere else on our navigation menu and begin once again.'|t }}</p>
-              <p>{{ 'If you want to talk to someone, give us a call at 612-230-YMCA ( <a href="tel:(612) 230-9622">(612) 230-9622</a> ).'|t }}</p>
+              <p>{{ 'If you want to talk to someone, give us a call at 612-230-YMCA ( <a href="tel:(516) 674-8091">(516) 674-8091</a> ).'|t }}</p>
             </article>
             <script type="text/javascript">
               /*<![CDATA[*/
@@ -145,28 +135,14 @@
   </div>
 
   <!--googleoff: index-->
-  <footer id="page-footer" class="page-footer footer-themes-b">
+  <footer id="page-footer" class="page-footer text-center footer-themes-b">
     <div class="container">
 
-      {% if page.footer %}
-        {{ page.footer }}
+      {% if page.footer_menu %}
+        {{ page.footer_menu }}
       {% endif %}
-
-
-      <div class="col-sm-3 text-center">
-
-        {% include "@openy_lily/include/brand-link.html.twig" %}
-
-      </div>
-
-      <nav class="col-sm-6">
-        <nav class="nav-footer row">
-          {{ page.footer_menu }}
-        </nav>
-      </nav>
-      <div class="col-sm-3 social-disclaimer">
+      <div class="col-sm-12 social-disclaimer">
         {{ page.footer_social }}
-        <p id="cw"></p>
       </div>
     </div>
   </footer>
@@ -192,4 +168,4 @@
   </div>
 </div>
 
-{% include '@openy_lily/include/template-scripts.html' %}
+{% include '@openy_lily/include/template-scripts.html.twig' %}
