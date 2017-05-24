@@ -32,10 +32,9 @@
         overflow: hidden;
       }
       @include breakpoint(tablet) {
-        width: 40%;
+        width: 39%;
         clear: both;
       }
-
     }
 
     &--bottom {
@@ -143,9 +142,7 @@
         max-width: 67px;
       }
 
-      //@include breakpoint(tablet){
         display: none;
-      //}
 
       @include breakpoint(laptop){
         display: block;
@@ -154,9 +151,6 @@
       .top-navs__language-switcher {
         display: none;
       }
-    }
-
-    @include breakpoint(tablet){
     }
   }
 }
@@ -317,7 +311,6 @@
     float: right;
     clear: both;
     width: 40%;
-      //top: 0px;
   }
 
   @media (min-width: 845px) and (max-width: 1090px) {
@@ -339,14 +332,12 @@
 }
 
 #block-footerunitedwayagencyblock {
-  //margin-left: 10px;
   padding: 0px 15px;
   // Mobile first
   position: relative;
   top: -40px;
   height: 40px;
   @include breakpoint(laptop) {
-    //float: left;
     position: inherit;
     top:0;
   }
@@ -356,12 +347,6 @@
     width: 40%;
     top: -40px;
   }
-  //@media (min-width: 845px) and (max-width: 1090px) {
-  //  float: right;
-  //  clear: both;
-  //  width: 40%;
-  //
-  //}
 }
 
 //Footer social icons centered on mobile
@@ -395,4 +380,3 @@
     line-height: lh(18, 12);
   }
 }
-
