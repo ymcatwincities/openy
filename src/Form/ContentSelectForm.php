@@ -33,6 +33,7 @@ class ContentSelectForm extends FormBase {
       'menus' => $this->t('Demo menus'),
       'facility' => $this->t('Demo Facilities'),
       'membership' => $this->t('Demo Memberships'),
+      'webform' => $this->t('Demo Webform'),
     ];
 
     $form['content'] = [

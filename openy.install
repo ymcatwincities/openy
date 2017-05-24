@@ -289,3 +289,18 @@ function openy_update_8021() {
   $config->set('openy_rose_image_fields', $data);
   $config->save();
 }
+
+/**
+ * Enable Webforms set of modules.
+ */
+function openy_update_8022() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'webform',
+    'webform_ui',
+    'captcha',
+    'image_captcha',
+    'recaptcha',
+    'openy_prgf_webform',
+  ]);
+}
