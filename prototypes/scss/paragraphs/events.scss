@@ -1,27 +1,31 @@
 .paragraph--type--all-events  {
+  @include breakpoint(laptop) {
+    margin: 0px 15px 25px;
+  }
 
   form {
     background-color: $lighter-grey;
     padding: 20px;
     overflow: hidden;
     position: relative;
-    margin: 0 15px 25px;
+    margin-bottom: 25px;
     clear: both;
     @include breakpoint(laptop) {
-      margin: 0 15px 50px;
+      margin-bottom: 50px;
     }
 
     .form-item {
       margin-bottom: 0;
     }
 
-    .form-item-field-event-date-range, .form-item-field-event-date-range-1 {
+    .form-item-field-location-ref,
+    .form-item-field-event-date-range {
       float: left;
       padding-right: 35px;
-      input {
+      input, select {
         padding: 4px;
         @include breakpoint(tablet) {
-          max-width: 160px;
+          max-width: 140px;
         }
       }
 
@@ -59,7 +63,7 @@
         position: absolute;
         float: none;
         right: 125px;
-        top: 37px;
+        top: 39px;
       }
       input {
         height: 40px;
@@ -74,7 +78,7 @@
       @include breakpoint(laptop) {
         position: absolute;
         right: 35px;
-        top: 37px;
+        top: 39px;
       }
       input {
         @include btn-blue();
@@ -90,6 +94,10 @@
   .views-row {
     clear: both;
     margin-bottom: 50px;
+  }
+
+  .no-results-text {
+    margin: 10px;
   }
 }
 
@@ -110,7 +118,10 @@
     .field-location-ref {
       @include breakpoint(tablet) {
         &::before {
-          content: ', ';
+          content: "|";
+        }
+        a {
+          padding-left: 4px;
         }
       }
       a:hover {
