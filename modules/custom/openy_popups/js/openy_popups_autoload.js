@@ -9,13 +9,21 @@
       // $.cookie('openy_preferred_branch', 6, { expires: 7, path: '/' });
 
       var preferred_branch = $.cookie('openy_preferred_branch');
-      if (typeof this.get_query_param().location == 'undefined' && typeof preferred_branch == 'undefined') {
+      var change_link = $('.edit-class-popup');
+      if (typeof this.get_query_param().location === 'undefined' && typeof preferred_branch === 'undefined') {
         // Open popup.
         $('a.location-popup-link').once().click();
         $(document).on('click', 'body > .ui-widget-overlay', function() {
           return false;
         });
+      } else if (drupalSettings.openy_popups && drupalSettings.openy_popups.location_count && drupalSettings.openy_popups.location_count > 1) {
+        change_link.removeClass('hidden');
       }
+
+      change_link.on('click', function (e) {
+        $('.location-popup-link').trigger('click');
+        e.preventDefault();
+      });
     },
 
     // Extracts query params from url.

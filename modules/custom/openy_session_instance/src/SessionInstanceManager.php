@@ -515,11 +515,15 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Get nid array of locations for a given class node.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Class node.
+   *
+   * @return array
+   *   Nids of locations.
    */
-  public function getLocationsByClassNode(NodeInterface $node) {
-    $locations = [];
-
+  private function getLocationIDsByClassNode(NodeInterface $node) {
     if ($node->bundle() != 'class') {
       return [];
     }
@@ -541,6 +545,15 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
       $nids[$location_id] = $location_id;
     }
 
+    return $nids;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocationsByClassNode(NodeInterface $node) {
+    $nids = $this->getLocationIDsByClassNode($node);
+
     if ($nids) {
       $locations = $this->entityTypeManager
         ->getStorage('node')
@@ -548,6 +561,15 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     }
 
     return $locations;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocationCountByClassNode(NodeInterface $node) {
+    $nids = $this->getLocationIDsByClassNode($node);
+
+    return count($nids);
   }
 
 }

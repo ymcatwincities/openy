@@ -7,7 +7,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\node\NodeInterface;
-use Drupal\openy_session_instance\SessionInstanceManager;
 use \Drupal\openy_session_instance\SessionInstanceManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -26,10 +25,10 @@ class ClassBranchesForm extends FormBase {
   /**
    * Creates a new BranchSessionsForm.
    *
-   * @param SessionInstanceManager $session_instance_manager
+   * @param SessionInstanceManagerInterface $session_instance_manager
    *   The SessionInstanceManager.
    */
-  public function __construct(SessionInstanceManager $session_instance_manager) {
+  public function __construct(SessionInstanceManagerInterface $session_instance_manager) {
     $this->sessionInstanceManager = $session_instance_manager;
   }
 
