@@ -47,17 +47,4 @@
     }
   };
 
-  // Prevent Class page location popup form from being submitted, instead of it
-  // fires 'locations-changed' event and closes the dialog.
-  Drupal.behaviors.openy_popup_no_submit = {
-    attach: function (context, settings) {
-      $('.openy-popups-class-branches-form', context).on('submit', function (e) {
-        var location = $('[name=branch]:checked', this).val();
-        $(document).trigger('location-changed', [{ location: location }]);
-        $(this).parents('.ui-dialog-content').dialog('close');
-        e.preventDefault();
-      });
-    }
-  };
-
 } (jQuery, Drupal, drupalSettings));
