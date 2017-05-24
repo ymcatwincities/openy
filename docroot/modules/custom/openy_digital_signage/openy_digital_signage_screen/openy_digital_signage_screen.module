@@ -62,5 +62,5 @@ function openy_digital_signage_screen_preprocess_html(&$variables) {
  * Implements hook_preprocess_page().
  */
 function openy_digital_signage_screen_preprocess_page(&$variables) {
-  $vars['base_path'] = base_path();
+  $variables['base_path'] = base_path();
 }
