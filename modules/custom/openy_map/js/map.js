@@ -148,6 +148,10 @@
       // is recentered according to the result.
       apply_search: function () {
         var q = this.search_field_el.val();
+        if (q == '') {
+          this.reset_search_results();
+          return;
+        }
         var f = function (results, status) {
           if (status == 'OK') {
             this.search_center_point = results[0].geometry.location;
@@ -186,6 +190,18 @@
         this.distance_limit = this.distance_limit_el.val();
 
         this.draw_search_center();
+        this.redraw_map_locations();
+        this.draw_list_locations();
+      },
+
+      // Executed if was provided empty ZIP code
+      reset_search_results: function () {
+        if (this.search_center === null) {
+          this.search_center = this.map.getCenter();
+        }
+        this.distance_limit = '';
+        this.search_center_marker.setPosition(this.search_center_point);
+        this.search_center_marker.setVisible(false);
         this.redraw_map_locations();
         this.draw_list_locations();
       },
