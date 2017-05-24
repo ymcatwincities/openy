@@ -16,13 +16,19 @@ body {
   width: 0;
   position: fixed;
   z-index: 9999;
-  top: 0;
+  top: 52px;
   left: 0;
-  overflow-x: hidden;
-  transition: 0.5s;
+  overflow:auto;
+  transition: 0.2s;
   background-color: #0089d0;
+  bottom:0;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  .toolbar-vertical & {
+    top: 92px;
+  }
   &.expanded-mobile {
-    width: 80%;
+    width: 100%;
   }
   .top-side {
     padding: 14px 0 7px;
@@ -33,7 +39,7 @@ body {
   a {
     color: #fffffb;
     line-height: 20px;
-    font-family: "Cachet",Arial,sans-serif;
+    font-family: "Cachet", Arial, sans-serif;
     font-size: 18px;
     font-weight: bold;
     padding: 12px 15px;
@@ -50,10 +56,11 @@ body {
     border-top: 1px solid #979797;
     margin: 0;
     padding-top: 7px;
+    min-height: 650px;
     li {
       display: block;
-
       .dropdown-menu {
+        min-height: 40px;
         &.open {
           display: block;
           position: static;
@@ -75,11 +82,27 @@ body {
 }
 
 .viewport {
-  transition: margin-left .5s;
+  &:after {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    @include transition(opacity 0.2s linear);
+    opacity: 0;
+    height: 100%;
+    z-index: 900;
+  }
+  #main {
+    transition: margin-left .2s;
+    position: relative;
+  }
   &.expanded-mobile {
-    height: 100vh;
-    header {
-      position: absolute;
+    &:after {
+      opacity: 1;
+    }
+    #main {
+      margin-left: 100%;
     }
   }
   @include breakpoint (0 $tablet-start) {
@@ -92,6 +115,7 @@ body {
 header {
   @include transition(all 0.2s linear);
   @include clearfix;
+  left:0;
   position: fixed;
   top: 0;
   width: 100%;

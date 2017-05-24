@@ -111,14 +111,20 @@ body {
   width: 0;
   position: fixed;
   z-index: 9999;
-  top: 0;
+  top: 52px;
   left: 0;
-  overflow-x: hidden;
-  transition: 0.5s;
+  overflow: auto;
+  transition: 0.2s;
   background-color: #0089d0;
+  bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.toolbar-vertical #side-area {
+  top: 92px;
 }
 #side-area.expanded-mobile {
-  width: 80%;
+  width: 100%;
 }
 #side-area .top-side {
   padding: 14px 0 7px;
@@ -129,7 +135,7 @@ body {
 #side-area a {
   color: #fffffb;
   line-height: 20px;
-  font-family: "Cachet",Arial,sans-serif;
+  font-family: "Cachet", Arial, sans-serif;
   font-size: 18px;
   font-weight: bold;
   padding: 12px 15px;
@@ -145,9 +151,13 @@ body {
   border-top: 1px solid #979797;
   margin: 0;
   padding-top: 7px;
+  min-height: 650px;
 }
 #side-area ul li {
   display: block;
+}
+#side-area ul li .dropdown-menu {
+  min-height: 40px;
 }
 #side-area ul li .dropdown-menu.open {
   display: block;
@@ -163,14 +173,30 @@ body {
   white-space: pre-wrap;
 }
 
-.viewport {
-  transition: margin-left .5s;
-}
-.viewport.expanded-mobile {
-  height: 100vh;
-}
-.viewport.expanded-mobile header {
+.viewport:after {
+  background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  -webkit-transition: opacity 0.2s linear;
+  -moz-transition: opacity 0.2s linear;
+  -ms-transition: opacity 0.2s linear;
+  -o-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+  opacity: 0;
+  height: 100%;
+  z-index: 900;
+}
+.viewport #main {
+  transition: margin-left .2s;
+  position: relative;
+}
+.viewport.expanded-mobile:after {
+  opacity: 1;
+}
+.viewport.expanded-mobile #main {
+  margin-left: 100%;
 }
 @media (min-width: 0) and (max-width: 62em) {
   .viewport #main {
@@ -184,6 +210,7 @@ header {
   -ms-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
+  left: 0;
   position: fixed;
   top: 0;
   width: 100%;
