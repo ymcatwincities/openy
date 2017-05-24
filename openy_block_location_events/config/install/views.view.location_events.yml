@@ -141,8 +141,8 @@ display:
           label: ''
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '{{ field_event_date_range__value|date("Y/m/d") }}'
             make_link: false
             path: ''
             absolute: false
