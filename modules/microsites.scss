@@ -1,0 +1,43 @@
+.microsites-menu .nav-home .navbar-nav {
+  visibility: hidden;
+}
+.microsites-menu__wrapper {
+  background: $blue;
+}
+.wrapper-field-menu-block-links {
+  line-height: 55px;
+  overflow: hidden;
+  .field-menu-block-links {
+    display: block;
+    float: left;
+    line-height: 40px;
+    @include breakpoint(tablet) {
+      line-height: 50px;
+    }
+    @include breakpoint(desktop) {
+      line-height: 55px;
+    }
+    a {
+      @include cachet();
+      color: $white;
+      text-transform: uppercase;
+      font-size: 14px;
+      line-height: 40px;
+      padding: 10px 15px 15px 15px;
+      @include breakpoint(tablet) {
+        line-height: 50px;
+        font-size: 16px;
+        padding: 10px 20px 20px 20px;
+      }
+      @include breakpoint(desktop) {
+        line-height: 55px;
+        font-size: 20px;
+        padding: 10px 25px 25px 25px;
+      }
+      &:hover {
+        color: $border-grey;
+        text-decoration: none;
+      }
+    }
+  }
+}
