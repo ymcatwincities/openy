@@ -290,8 +290,23 @@ function openy_update_8021() {
 }
 
 /**
- * Enable scheduler module.
+ * Enable Webforms set of modules.
  */
 function openy_update_8022() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'webform',
+    'webform_ui',
+    'captcha',
+    'image_captcha',
+    'recaptcha',
+    'openy_prgf_webform',
+  ]);
+}
+
+/**
+ * Enable scheduler module.
+ */
+function openy_update_8023() {
   \Drupal::service('module_installer')->install(['scheduler']);
 }

@@ -6,6 +6,19 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_update_dependencies() {
+  $dependencies['openy_prgf'] = [
+    8003 => [
+      'openy' => 8015,
+    ]
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Add openy_prgf.settings fields_unset_paragraphs configuration.
  */
 function openy_prgf_update_8001() {
@@ -64,4 +77,11 @@ function openy_prgf_update_8004() {
     'openy_prgf.settings',
     'fields_unset_paragraphs'
   );
+}
+
+/**
+ * Enable webforms paragraph module.
+ */
+function openy_prgf_update_8005() {
+  \Drupal::service('module_installer')->install(['openy_prgf_webform']);
 }
