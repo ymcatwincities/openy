@@ -19,6 +19,12 @@ source:
         -
           time: swim_lessons_adult_begin
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_parent_child_a
       title: 'Swim Lessons - Parent/Child Stage A: Water Discov.'
@@ -27,6 +33,13 @@ source:
         -
           time: swim_lessons_parent_child_a
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_parent_child_b
       title: 'Swim Lessons - Parent/Child Stage B: Water Explor.'
@@ -35,6 +48,13 @@ source:
         -
           time: swim_lessons_parent_child_b
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_preschool_1
       title: 'Swim Lessons - Preschool Stage 1: Water Acclimat.'
@@ -43,6 +63,13 @@ source:
         -
           time: swim_lessons_preschool_1
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_preschool_2
       title: 'Swim Lessons - Preschool Stage 2: Water Movement'
@@ -51,6 +78,13 @@ source:
         -
           time: swim_lessons_preschool_2
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_preschool_3
       title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
@@ -59,6 +93,13 @@ source:
         -
           time: swim_lessons_preschool_3
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_preschool_4
       title: 'Swim Lessons - Preschool Stage 4: Stroke Intro.'
@@ -67,6 +108,13 @@ source:
         -
           time: swim_lessons_preschool_4
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_private
       title: 'Swim Lesson - Private'
@@ -75,6 +123,12 @@ source:
         -
           time: swim_lessons_private
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_youth_1
       title: 'Swim Lessons - Youth Stage 1: Water Acclimat.'
@@ -83,6 +137,11 @@ source:
         -
           time: swim_lessons_youth_1
       location: 1
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
     -
       id: swim_lessons_youth_2
       title: 'Swim Lessons - Youth Stage 2: Water Movement'
@@ -91,6 +150,11 @@ source:
         -
           time: swim_lessons_youth_2
       location: 1
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
     -
       id: swim_lessons_youth_3
       title: 'Swim Lessons - Youth Stage 3: Water Stamina'
@@ -99,6 +163,11 @@ source:
         -
           time: swim_lessons_youth_3
       location: 1
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
     -
       id: swim_lessons_youth_4
       title: 'Swim Lessons - Youth Stage 4: Stroke Intro.'
@@ -107,6 +176,11 @@ source:
         -
           time: swim_lessons_youth_4
       location: 1
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
     -
       id: swim_lessons_youth_5
       title: 'Swim Lessons - Youth Stage 5: Stroke Devel.'
@@ -115,6 +189,11 @@ source:
         -
           time: swim_lessons_youth_5
       location: 1
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
     -
       id: swim_lessons_youth_6
       title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
@@ -123,6 +202,11 @@ source:
         -
           time: swim_lessons_youth_6
       location: 1
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
     -
       id: swim_team_intrest_list
       title: 'Swim Team - Interest List'
@@ -131,6 +215,13 @@ source:
         -
           time: swim_team_intrest_list
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 7
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_teen
       title: 'Swim Lessons - Teen'
@@ -139,6 +230,13 @@ source:
         -
           time: swim_lessons_teen
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_teen_beginning
       title: 'Swim Lessons - Teen Beginning'
@@ -147,6 +245,13 @@ source:
         -
           time: swim_lessons_teen_beginning
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_teen_intermediate
       title: 'Swim Lessons - Teen Intermediate'
@@ -155,6 +260,13 @@ source:
         -
           time: swim_lessons_teen_intermediate
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: swim_lessons_teen_advanced
       title: 'Swim Lessons - Teen Advanced'
@@ -163,6 +275,13 @@ source:
         -
           time: swim_lessons_teen_advanced
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: drop_in_swim_recreational_3ft
       title: 'Recreational Swim 3ft'
@@ -171,6 +290,10 @@ source:
         -
           time: drop_in_swim_recreational_3ft
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 5
     -
       id: drop_in_swim_wade_2ft
       title: 'Wade Swim 2ft'
@@ -179,6 +302,10 @@ source:
         -
           time: drop_in_swim_wade_2ft
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 3
     -
       id: drop_in_swim_rec_with_slide
       title: 'Rec Swim with Slide'
@@ -187,6 +314,10 @@ source:
         -
           time: drop_in_swim_rec_with_slide
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 6
     -
       id: drop_in_swim_adult_5.5ft
       title: 'Adult Swim 5.5 ft'
@@ -195,6 +326,11 @@ source:
         -
           time: drop_in_swim_adult_5.5ft
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 18
+      age_max: 9
     -
       id: drop_in_swim_family
       title: 'Family Swim'
@@ -203,6 +339,10 @@ source:
         -
           time: drop_in_swim_family
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 3
     -
       id: drop_in_swim_recreational
       title: 'Recreational Swim'
@@ -211,6 +351,10 @@ source:
         -
           time: drop_in_swim_recreational
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 3
     -
       id: drop_in_swim_lap
       title: 'Lap Swim'
@@ -219,6 +363,10 @@ source:
         -
           time: drop_in_swim_lap
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 6
     -
       id: kids_zone_activity_centers_4wks_11yrs
       title: 'Kids Zone 4 wks -11 yrs'
@@ -227,6 +375,12 @@ source:
         -
           time: kids_zone_activity_centers_4wks_11yrs
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_max: 11
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: cooking_classes_future_chefs
       title: 'Youth Cooking - Future Chefs'
@@ -235,6 +389,13 @@ source:
         -
           time: cooking_classes_future_chefs
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 6
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: arts_and_crafts_maycrafternoon_handprint_sunshines
       title: 'May Crafternoon: Handprint Sunshines'
@@ -243,6 +404,13 @@ source:
         -
           time: arts_and_crafts_maycrafternoon_handprint_sunshines
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 0
+      age_max: 99
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: arts_and_crafts_april_earth_day_bridhouses
       title: 'April Earth Day Birdhouses'
@@ -251,6 +419,11 @@ source:
         -
           time: arts_and_crafts_april_earth_day_bridhouses
       location: 1
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 0
+      age_max: 101
     -
       id: arts_and_crafts_crafternoon
       title: 'Crafternoon'
@@ -259,6 +432,13 @@ source:
         -
           time: arts_and_crafts_crafternoon
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 0
+      age_max: 99
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: birthday_parties_room_rental
       title: 'Room Rental'
@@ -267,6 +447,11 @@ source:
         -
           time: birthday_parties_room_rental
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: birthday_parties_birthday_party
       title: 'Birthday Party'
@@ -275,6 +460,11 @@ source:
         -
           time: birthday_parties_birthday_party
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: before_and_after_school_programs_2016_17_bellevue_no_school_days
       title: '2016/17 Bellevue: No School Days - Package Option'
@@ -283,6 +473,13 @@ source:
         -
           time: before_and_after_school_programs_2016_17_bellevue_no_school_days
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: before_and_after_school_programs_am_fit_and_fun
       title: 'AM Fit & Fun'
@@ -291,6 +488,13 @@ source:
         -
           time: before_and_after_school_programs_am_fit_and_fun
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: sports_classes_and_workshops_youth_fitness_challenge
       title: 'Youth Fitness Challenge'
@@ -299,6 +503,13 @@ source:
         -
           time: sports_classes_and_workshops_youth_fitness_challenge
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: sports_classes_and_workshops_youth_homezone
       title: 'HomeZone'
@@ -307,6 +518,13 @@ source:
         -
           time: sports_classes_and_workshops_youth_homezone
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
       title: 'AOA National Senior Health and Fitness Day'
@@ -315,6 +533,13 @@ source:
         -
           time: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 12
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
       title: 'AOA Brain Agility - Class Fee, Spring 2017'
@@ -323,6 +548,12 @@ source:
         -
           time: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 50
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
       title: 'AOA Brain Agility - Materials Fee, Spring 2017'
@@ -331,6 +562,12 @@ source:
         -
           time: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 50
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: group_exercise_classes_hiit
       title: 'HIIT'
@@ -339,6 +576,12 @@ source:
         -
           time: group_exercise_classes_hiit
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: group_exercise_classes_hiit_metabolic_conditioning
       title: 'HIIT - Metabolic Conditioning'
@@ -347,6 +590,12 @@ source:
         -
           time: group_exercise_classes_hiit_metabolic_conditioning
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: group_exercise_classes_moving_for_balance_spr_2017
       title: 'Moving for Better Balance - Continuing Spring 2017'
@@ -355,6 +604,12 @@ source:
         -
           time: group_exercise_classes_moving_for_balance_spr_2017
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: samll_group_training_youth_small_group_training_tween_girl_power
       title: 'Small Group Training - Tween Girl Power!'
@@ -363,6 +618,13 @@ source:
         -
           time: samll_group_training_youth_small_group_training_tween_girl_power
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 10
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: samll_group_training_youth_small_group_training_tween_titans
       title: 'Small Group Training - Tween Titans'
@@ -371,6 +633,11 @@ source:
         -
           time: samll_group_training_youth_small_group_training_tween_titans
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 13
+      age_max: 18
     -
       id: pilates_reformer_10_private_1hr_sessions
       title: 'Pilates Reformer - 10, private 1 hr sessions'
@@ -379,6 +646,13 @@ source:
         -
           time: pilates_reformer_10_private_1hr_sessions
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: private_yoga_10_1hour_sessions
       title: 'Private Yoga - 10, 1-hour sessions'
@@ -387,6 +661,13 @@ source:
         -
           time: private_yoga_10_1hour_sessions
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: pilates_reformer_duet_10_1hour_sessions
       title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
@@ -395,6 +676,13 @@ source:
         -
           time: pilates_reformer_duet_10_1hour_sessions
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 16
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: partner_personal_training_1_session
       title: 'Partner Personal Training - 1 session'
@@ -403,6 +691,13 @@ source:
         -
           time: partner_personal_training_1_session
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: health_improvement_livestrong_at_the_y
       title: 'LIVESTRONG at the YMCA'
@@ -411,6 +706,13 @@ source:
         -
           time: health_improvement_livestrong_at_the_y
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 13
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: health_improvement_nutrition_consultation_initial
       title: 'Nutrition Consultation - Initial'
@@ -419,6 +721,12 @@ source:
         -
           time: health_improvement_nutrition_consultation_initial
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: health_improvement_activly_changing_together
       title: 'ACT! Actively Changing Together'
@@ -427,6 +735,12 @@ source:
         -
           time: health_improvement_activly_changing_together
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: climbing_adult_rock_climbing_sept
       title: 'Climbing - Adult Rock Climbing - September'
@@ -435,6 +749,12 @@ source:
         -
           time: climbing_adult_rock_climbing_sept
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: climbing_adult_rock_climbing_oct
       title: 'Climbing - Adult Rock Climbing - October'
@@ -443,6 +763,12 @@ source:
         -
           time: climbing_adult_rock_climbing_oct
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: climbing_adult_parent_child_sept
       title: 'Climbing - Parent/Child Climbing - September'
@@ -451,6 +777,12 @@ source:
         -
           time: climbing_adult_parent_child_sept
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: climbing_adult_parent_child_oct
       title: 'Climbing - Parent/Child Climbing - October'
@@ -459,6 +791,12 @@ source:
         -
           time: climbing_adult_parent_child_oct
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: small_group_and_specialty_training_adaptive_yoga
       title: 'Small Group Training - Adaptive Yoga'
@@ -467,6 +805,12 @@ source:
         -
           time: small_group_and_specialty_training_adaptive_yoga
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1
       title: 'Small Group Training - Pilates Reformer Level I'
@@ -475,6 +819,12 @@ source:
         -
           time: small_group_and_specialty_training_pilates_reformer_level_1
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: small_group_and_specialty_training_pilates_reformer_intro
       title: 'Small Group Training - Pilates Reformer Intro'
@@ -483,6 +833,12 @@ source:
         -
           time: small_group_and_specialty_training_pilates_reformer_intro
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1_2
       title: 'Small Group Training - Pilates Reformer Level I/II'
@@ -491,6 +847,12 @@ source:
         -
           time: small_group_and_specialty_training_pilates_reformer_level_1_2
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: weight_loss_lose_to_win_men
       title: 'Lose to Win for Men - Weight Loss Program'
@@ -499,6 +861,12 @@ source:
         -
           time: weight_loss_lose_to_win_men
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: weight_loss_lose_to_win
       title: 'Lose to Win - Weight Loss Program'
@@ -507,6 +875,12 @@ source:
         -
           time: weight_loss_lose_to_win
       location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: before_after_school_child_care_2016_17_woodmoor_non_school_days
       title: '2016/17 Woodmoor - (f) Non-School Days'
@@ -515,6 +889,13 @@ source:
         -
           time: before_after_school_child_care_2016_17_woodmoor_non_school_days
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 13
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_plus
       title: '2016/17 Woodmoor - (b) After Plus Care'
@@ -523,6 +904,13 @@ source:
         -
           time: before_after_school_child_care_2016_17_woodmoor_after_plus
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: before_after_school_child_care_2016_17_woodmoor_after
       title: '2016/17 Woodmoor - (c) After Care'
@@ -531,6 +919,13 @@ source:
         -
           time: before_after_school_child_care_2016_17_woodmoor_after
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: before_after_school_child_care_2016_17_sunrise_before_after
       title: '2016/17 Sunrise - (a) Before and After Care'
@@ -539,6 +934,13 @@ source:
         -
           time: before_after_school_child_care_2016_17_sunrise_before_after
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
       title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
@@ -547,6 +949,13 @@ source:
         -
           time: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
       title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
@@ -555,6 +964,13 @@ source:
         -
           time: preschool_child_care_2016_17_northshore_preschool_30m_4yr
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
       title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
@@ -563,6 +979,13 @@ source:
         -
           time: discovery_day_camp_drop_off_carol_edwards_ctr_2017
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: discovery_day_camp_drop_off_kenmore_elementary_2017
       title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
@@ -571,6 +994,13 @@ source:
         -
           time: discovery_day_camp_drop_off_kenmore_elementary_2017
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: discovery_day_camp_drop_off_Northshore_ymca_2017
       title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
@@ -579,6 +1009,13 @@ source:
         -
           time: discovery_day_camp_drop_off_Northshore_ymca_2017
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: bold_one_wk_expeditions_cascade_challenge
       title: 'BOLD Cascade Challenge'
@@ -587,6 +1024,13 @@ source:
         -
           time: bold_one_wk_expeditions_cascade_challenge
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 12
+      age_max: 15
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
       title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
@@ -595,6 +1039,11 @@ source:
         -
           time: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
       location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 11
+      age_max: 17
     -
       id: bold_one_wk_expeditions_river_and_rocks
       title: 'BOLD Rivers and Rocks'
@@ -603,6 +1052,13 @@ source:
         -
           time: bold_one_wk_expeditions_river_and_rocks
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
       title: 'BOLD Fishing and Backpacking in the North Cascades'
@@ -611,6 +1067,13 @@ source:
         -
           time: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: earth_service_corps_about_yesc
       title: 'Earth Service Corps About YESC'
@@ -619,6 +1082,13 @@ source:
         -
           time: earth_service_corps_about_yesc
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 13
+      age_max: 17
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
     -
       id: academic_success
       title: 'Academic Success'
@@ -627,6 +1097,13 @@ source:
         -
           time: academic_success
       location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
   ids:
     id:
       type: string
@@ -664,6 +1141,13 @@ process:
         migration: openy_demo_paragraph_session_time
         no_stub: true
         source: time
+  field_session_online: online_registration
+  field_session_ticket: ticket_required
+  field_session_in_mbrsh: in_membership
+  field_session_min_age: age_min
+  field_session_max_age: age_max
+  field_session_reg_link/uri: reg_uri
+  field_session_reg_link/title: reg_title
 destination:
   plugin: 'entity:node'
   default_bundle: session
