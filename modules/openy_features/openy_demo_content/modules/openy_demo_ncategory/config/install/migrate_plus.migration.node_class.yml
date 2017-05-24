@@ -27,6 +27,8 @@ source:
       content:
         -
           content_id: swim_lessons_adult_begin
+        -
+          content_id: popup_swim_lessons_adult_begin
       sidebar:
         -
           sidebar_id: swim_lessons_adult_begin
@@ -44,6 +46,8 @@ source:
       content:
         -
           content_id: swim_lessons_parent_child_a
+        -
+          content_id: popup_swim_lessons_parent_child_a
       sidebar:
         -
           sidebar_id: swim_lessons_parent_child_a
@@ -61,6 +65,8 @@ source:
       content:
         -
           content_id: swim_lessons_parent_child_b
+        -
+          content_id: popup_swim_lessons_parent_child_b
       sidebar:
         -
           sidebar_id: swim_lessons_parent_child_b
@@ -78,6 +84,8 @@ source:
       content:
         -
           content_id: swim_lessons_preschool_1
+        -
+          content_id: popup_swim_lessons_preschool_1
       sidebar:
         -
           sidebar_id: swim_lessons_preschool_1
@@ -96,6 +104,8 @@ source:
       content:
         -
           content_id: swim_lessons_preschool_2
+        -
+          content_id: popup_swim_lessons_preschool_2
       sidebar:
         -
           sidebar_id: swim_lessons_preschool_2
@@ -113,6 +123,8 @@ source:
       content:
         -
           content_id: swim_lessons_preschool_3
+        -
+          content_id: popup_swim_lessons_preschool_3
       sidebar:
         -
           sidebar_id: swim_lessons_preschool_3
@@ -130,6 +142,8 @@ source:
       content:
         -
           content_id: swim_lessons_preschool_4
+        -
+          content_id: popup_swim_lessons_preschool_4
       sidebar:
         -
           sidebar_id: swim_lessons_preschool_4
@@ -144,6 +158,8 @@ source:
       content:
         -
           content_id: swim_lessons_private
+        -
+          content_id: popup_swim_lessons_private
       sidebar:
         -
           sidebar_id: swim_lessons_private
@@ -162,6 +178,8 @@ source:
       content:
         -
           content_id: swim_lessons_youth_1
+        -
+          content_id: popup_swim_lessons_youth_1
       sidebar:
         -
           sidebar_id: swim_lessons_youth_1
@@ -180,6 +198,8 @@ source:
       content:
         -
           content_id: swim_lessons_youth_2
+        -
+          content_id: popup_swim_lessons_youth_2
       sidebar:
         -
           sidebar_id: swim_lessons_youth_2
@@ -197,6 +217,8 @@ source:
       content:
         -
           content_id: swim_lessons_youth_3
+        -
+          content_id: popup_swim_lessons_youth_3
       sidebar:
         -
           sidebar_id: swim_lessons_youth_3
@@ -213,6 +235,8 @@ source:
       content:
         -
           content_id: swim_lessons_youth_4
+        -
+          content_id: popup_swim_lessons_youth_4
       sidebar:
         -
           sidebar_id: swim_lessons_youth_4
@@ -231,6 +255,8 @@ source:
       content:
         -
           content_id: swim_lessons_youth_5
+        -
+          content_id: popup_swim_lessons_youth_5
       sidebar:
         -
           sidebar_id: swim_lessons_youth_5
@@ -249,6 +275,8 @@ source:
       content:
         -
           content_id: swim_lessons_youth_6
+        -
+          content_id: popup_swim_lessons_youth_6
       sidebar:
         -
           sidebar_id: swim_lessons_youth_6
@@ -278,6 +306,8 @@ source:
       content:
         -
           content_id: swim_team_intrest_list
+        -
+          content_id: popup_swim_team_intrest_list
       sidebar:
         -
           sidebar_id: swim_team_intrest_list
@@ -307,6 +337,8 @@ source:
       content:
         -
           content_id: swim_lessons_teen
+        -
+          content_id: popup_swim_lessons_teen
       sidebar:
         -
           sidebar_id: swim_lessons_teen
@@ -326,6 +358,8 @@ source:
       content:
         -
           content_id: swim_lessons_teen_beginning
+        -
+          content_id: popup_swim_lessons_teen_beginning
       sidebar:
         -
           sidebar_id: swim_lessons_teen_beginning
@@ -346,6 +380,8 @@ source:
       content:
         -
           content_id: swim_lessons_teen_intermediate
+        -
+          content_id: popup_swim_lessons_teen_intermediate
       sidebar:
         -
           sidebar_id: swim_lessons_teen_intermediate
@@ -364,6 +400,8 @@ source:
       content:
         -
           content_id: swim_lessons_teen_advanced
+        -
+          content_id: popup_swim_lessons_teen_advanced
       sidebar:
         -
           sidebar_id: swim_lessons_teen_advanced
@@ -378,6 +416,8 @@ source:
       content:
         -
           content_id: drop_in_swim_recreational_3ft
+        -
+          content_id: popup_drop_in_swim_recreational_3ft
       sidebar:
         -
           sidebar_id: drop_in_swim_recreational_3ft
@@ -392,6 +432,8 @@ source:
       content:
         -
           content_id: drop_in_swim_wade_2ft
+        -
+          content_id: popup_drop_in_swim_wade_2ft
       sidebar:
         -
           sidebar_id: drop_in_swim_wade_2ft
@@ -406,6 +448,8 @@ source:
       content:
         -
           content_id: drop_in_swim_rec_with_slide
+        -
+          content_id: popup_drop_in_swim_rec_with_slide
       sidebar:
         -
           sidebar_id: drop_in_swim_rec_with_slide
@@ -422,6 +466,8 @@ source:
       content:
         -
           content_id: drop_in_swim_adult_5.5ft
+        -
+          content_id: popup_drop_in_swim_adult_5.5ft
       sidebar:
         -
           sidebar_id: drop_in_swim_adult_5.5ft
@@ -441,6 +487,8 @@ source:
       content:
         -
           content_id: drop_in_swim_family
+        -
+          content_id: popup_drop_in_swim_family
       sidebar:
         -
           sidebar_id: drop_in_swim_family
@@ -461,6 +509,8 @@ source:
       content:
         -
           content_id: drop_in_swim_recreational
+        -
+          content_id: popup_drop_in_swim_recreational
       sidebar:
         -
           sidebar_id: drop_in_swim_recreational
@@ -478,6 +528,8 @@ source:
       content:
         -
           content_id: drop_in_swim_lap
+        -
+          content_id: popup_drop_in_swim_lap
       sidebar:
         -
           sidebar_id: drop_in_swim_lap
@@ -498,6 +550,8 @@ source:
       content:
         -
           content_id: kids_zone_activity_centers_4wks_11yrs
+        -
+          content_id: popup_kids_zone_activity_centers_4wks_11yrs
       sidebar:
         -
           sidebar_id: kids_zone_activity_centers_4wks_11yrs
@@ -515,6 +569,8 @@ source:
       content:
         -
           content_id: cooking_classes_future_chefs
+        -
+          content_id: popup_cooking_classes_future_chefs
       sidebar:
         -
           sidebar_id: cooking_classes_future_chefs
@@ -541,6 +597,8 @@ source:
       content:
         -
           content_id: arts_and_crafts_maycrafternoon_handprint_sunshines
+        -
+          content_id: popup_arts_and_crafts_maycrafternoon_handprint_sunshines
       sidebar:
         -
           sidebar_id: arts_and_crafts_maycrafternoon_handprint_sunshines
@@ -562,6 +620,8 @@ source:
       content:
         -
           content_id: arts_and_crafts_april_earth_day_bridhouses
+        -
+          content_id: popup_arts_and_crafts_april_earth_day_bridhouses
       sidebar:
         -
           sidebar_id: arts_and_crafts_april_earth_day_bridhouses
@@ -582,6 +642,8 @@ source:
       content:
         -
           content_id: arts_and_crafts_crafternoon
+        -
+          content_id: popup_arts_and_crafts_crafternoon
       sidebar:
         -
           sidebar_id: arts_and_crafts_crafternoon
@@ -619,6 +681,8 @@ source:
       content:
         -
           content_id: birthday_parties_room_rental
+        -
+          content_id: popup_birthday_parties_room_rental
       sidebar:
         -
           sidebar_id: birthday_parties_room_rental
@@ -655,6 +719,8 @@ source:
       content:
         -
           content_id: birthday_parties_birthday_party
+        -
+          content_id: popup_birthday_parties_birthday_party
       sidebar:
         -
           sidebar_id: birthday_parties_birthday_party
@@ -671,6 +737,8 @@ source:
       content:
         -
           content_id: before_and_after_school_programs_2016_17_bellevue_no_school_days
+        -
+          content_id: popup_b4_n_after_school_programs_2016_17_bellevue_no_school_days
       sidebar:
         -
           sidebar_id: before_and_after_school_programs_2016_17_bellevue_no_school_days
@@ -687,6 +755,8 @@ source:
       content:
         -
           content_id: before_and_after_school_programs_am_fit_and_fun
+        -
+          content_id: popup_before_and_after_school_programs_am_fit_and_fun
       sidebar:
         -
           sidebar_id: before_and_after_school_programs_am_fit_and_fun
@@ -705,6 +775,8 @@ source:
       content:
         -
           content_id: sports_classes_and_workshops_youth_fitness_challenge
+        -
+          content_id: popup_sports_classes_and_workshops_youth_fitness_challenge
       sidebar:
         -
           sidebar_id: sports_classes_and_workshops_youth_fitness_challenge
@@ -724,6 +796,8 @@ source:
       content:
         -
           content_id: sports_classes_and_workshops_youth_homezone
+        -
+          content_id: popup_sports_classes_and_workshops_youth_homezone
       sidebar:
         -
           sidebar_id: sports_classes_and_workshops_youth_homezone
@@ -779,6 +853,8 @@ source:
       content:
         -
           content_id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+        -
+          content_id: popup_health_n_well_workshops_aoa_senior_health_and_fitness_day
       sidebar:
         -
           sidebar_id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
@@ -812,6 +888,8 @@ source:
       content:
         -
           content_id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+        -
+          content_id: popup_health_n_wellness_workshops_aoa_brain_agility_fee_spr_2017
       sidebar:
         -
           sidebar_id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
@@ -849,6 +927,8 @@ source:
       content:
         -
           content_id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+        -
+          content_id: popup_health_n_welln_wrkshops_aoa_brain_agility_mat_fee_spr_2017
       sidebar:
         -
           sidebar_id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
@@ -865,6 +945,8 @@ source:
       content:
         -
           content_id: group_exercise_classes_hiit
+        -
+          content_id: popup_group_exercise_classes_hiit
       sidebar:
         -
           sidebar_id: group_exercise_classes_hiit
@@ -881,6 +963,8 @@ source:
       content:
         -
           content_id: group_exercise_classes_hiit_metabolic_conditioning
+        -
+          content_id: popup_group_exercise_classes_hiit_metabolic_conditioning
       sidebar:
         -
           sidebar_id: group_exercise_classes_hiit_metabolic_conditioning
@@ -907,6 +991,8 @@ source:
       content:
         -
           content_id: group_exercise_classes_moving_for_balance_spr_2017
+        -
+          content_id: popup_group_exercise_classes_moving_for_balance_spr_2017
       sidebar:
         -
           sidebar_id: group_exercise_classes_moving_for_balance_spr_2017
@@ -928,6 +1014,8 @@ source:
       content:
         -
           content_id: samll_group_training_youth_small_group_training_tween_girl_power
+        -
+          content_id: popup_smll_grp_train_youth_small_group_training_tween_girl_power
       sidebar:
         -
           sidebar_id: samll_group_training_youth_small_group_training_tween_girl_power
@@ -949,6 +1037,8 @@ source:
       content:
         -
           content_id: samll_group_training_youth_small_group_training_tween_titans
+        -
+          content_id: popup_smll_grp_training_youth_small_group_training_tween_titans
       sidebar:
         -
           sidebar_id: samll_group_training_youth_small_group_training_tween_titans
@@ -979,6 +1069,8 @@ source:
       content:
         -
           content_id: pilates_reformer_10_private_1hr_sessions
+        -
+          content_id: popup_pilates_reformer_10_private_1hr_sessions
       sidebar:
         -
           sidebar_id: pilates_reformer_10_private_1hr_sessions
@@ -1034,6 +1126,8 @@ source:
       content:
         -
           content_id: private_yoga_10_1hour_sessions
+        -
+          content_id: popup_private_yoga_10_1hour_sessions
       sidebar:
         -
           sidebar_id: private_yoga_10_1hour_sessions
@@ -1073,6 +1167,8 @@ source:
       content:
         -
           content_id: pilates_reformer_duet_10_1hour_sessions
+        -
+          content_id: popup_pilates_reformer_duet_10_1hour_sessions
       sidebar:
         -
           sidebar_id: pilates_reformer_duet_10_1hour_sessions
@@ -1107,6 +1203,8 @@ source:
       content:
         -
           content_id: partner_personal_training_1_session
+        -
+          content_id: popup_partner_personal_training_1_session
       sidebar:
         -
           sidebar_id: partner_personal_training_1_session
@@ -1131,6 +1229,8 @@ source:
       content:
         -
           content_id: health_improvement_livestrong_at_the_y
+        -
+          content_id: popup_health_improvement_livestrong_at_the_y
       sidebar:
         -
           sidebar_id: health_improvement_livestrong_at_the_y
@@ -1160,6 +1260,8 @@ source:
       content:
         -
           content_id: health_improvement_nutrition_consultation_initial
+        -
+          content_id: popup_health_improvement_nutrition_consultation_initial
       sidebar:
         -
           sidebar_id: health_improvement_nutrition_consultation_initial
@@ -1184,6 +1286,8 @@ source:
       content:
         -
           content_id: health_improvement_activly_changing_together
+        -
+          content_id: popup_health_improvement_activly_changing_together
       sidebar:
         -
           sidebar_id: health_improvement_activly_changing_together
@@ -1209,6 +1313,8 @@ source:
       content:
         -
           content_id: climbing_adult_rock_climbing_sept
+        -
+          content_id: popup_climbing_adult_rock_climbing_sept
       sidebar:
         -
           sidebar_id: climbing_adult_rock_climbing_sept
@@ -1234,6 +1340,8 @@ source:
       content:
         -
           content_id: climbing_adult_rock_climbing_oct
+        -
+          content_id: popup_climbing_adult_rock_climbing_oct
       sidebar:
         -
           sidebar_id: climbing_adult_rock_climbing_oct
@@ -1260,6 +1368,8 @@ source:
       content:
         -
           content_id: climbing_adult_parent_child_sept
+        -
+          content_id: popup_climbing_adult_parent_child_sept
       sidebar:
         -
           sidebar_id: climbing_adult_parent_child_sept
@@ -1286,6 +1396,8 @@ source:
       content:
         -
           content_id: climbing_adult_parent_child_oct
+        -
+          content_id: popup_climbing_adult_parent_child_oct
       sidebar:
         -
           sidebar_id: climbing_adult_parent_child_oct
@@ -1306,6 +1418,8 @@ source:
       content:
         -
           content_id: small_group_and_specialty_training_adaptive_yoga
+        -
+          content_id: popup_small_group_and_specialty_training_adaptive_yoga
       sidebar:
         -
           sidebar_id: small_group_and_specialty_training_adaptive_yoga
@@ -1344,6 +1458,8 @@ source:
       content:
         -
           content_id: small_group_and_specialty_training_pilates_reformer_level_1
+        -
+          content_id: popup_smll_group_and_specialty_training_pilates_reformer_level_1
       sidebar:
         -
           sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1
@@ -1397,6 +1513,8 @@ source:
       content:
         -
           content_id: small_group_and_specialty_training_pilates_reformer_intro
+        -
+          content_id: popup_small_group_and_specialty_training_pilates_reformer_intro
       sidebar:
         -
           sidebar_id: small_group_and_specialty_training_pilates_reformer_intro
@@ -1446,6 +1564,8 @@ source:
       content:
         -
           content_id: small_group_and_specialty_training_pilates_reformer_level_1_2
+        -
+          content_id: popup_smll_grp_and_specialty_training_pilates_reformer_level_1_2
       sidebar:
         -
           sidebar_id: small_group_and_specialty_training_pilates_reformer_level_1_2
@@ -1470,6 +1590,8 @@ source:
       content:
         -
           content_id: weight_loss_lose_to_win_men
+        -
+          content_id: popup_weight_loss_lose_to_win_men
       sidebar:
         -
           sidebar_id: weight_loss_lose_to_win_men
@@ -1494,6 +1616,8 @@ source:
       content:
         -
           content_id: weight_loss_lose_to_win
+        -
+          content_id: popup_weight_loss_lose_to_win
       sidebar:
         -
           sidebar_id: weight_loss_lose_to_win
@@ -1517,6 +1641,8 @@ source:
       content:
         -
           content_id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+        -
+          content_id: popup_b4_aft_school_child_care_2016_17_woodmoor_non_school_days
       sidebar:
         -
           sidebar_id: before_after_school_child_care_2016_17_woodmoor_non_school_days
@@ -1540,6 +1666,8 @@ source:
       content:
         -
           content_id: before_after_school_child_care_2016_17_woodmoor_after_plus
+        -
+          content_id: popup_before_after_school_child_care_2016_17_woodmoor_after_plus
       sidebar:
         -
           sidebar_id: before_after_school_child_care_2016_17_woodmoor_after_plus
@@ -1567,6 +1695,8 @@ source:
       content:
         -
           content_id: before_after_school_child_care_2016_17_woodmoor_after
+        -
+          content_id: popup_before_after_school_child_care_2016_17_woodmoor_after
       sidebar:
         -
           sidebar_id: before_after_school_child_care_2016_17_woodmoor_after
@@ -1590,6 +1720,8 @@ source:
       content:
         -
           content_id: before_after_school_child_care_2016_17_sunrise_before_after
+        -
+          content_id: popup_b4_after_school_child_care_2016_17_sunrise_before_after
       sidebar:
         -
           sidebar_id: before_after_school_child_care_2016_17_sunrise_before_after
@@ -1612,6 +1744,8 @@ source:
       content:
         -
           content_id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+        -
+          content_id: popup_preschool_child_care_2016_17_northshore_pre_k_4_5yrs
       sidebar:
         -
           sidebar_id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
@@ -1634,6 +1768,8 @@ source:
       content:
         -
           content_id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+        -
+          content_id: popup_preschool_child_care_2016_17_northshore_preschool_30m_4yr
       sidebar:
         -
           sidebar_id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
@@ -1649,6 +1785,8 @@ source:
       content:
         -
           content_id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+        -
+          content_id: popup_discovery_day_camp_drop_off_carol_edwards_ctr_2017
       sidebar:
         -
           sidebar_id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
@@ -1664,6 +1802,8 @@ source:
       content:
         -
           content_id: discovery_day_camp_drop_off_kenmore_elementary_2017
+        -
+          content_id: popup_discovery_day_camp_drop_off_kenmore_elementary_2017
       sidebar:
         -
           sidebar_id: discovery_day_camp_drop_off_kenmore_elementary_2017
@@ -1680,6 +1820,8 @@ source:
       content:
         -
           content_id: discovery_day_camp_drop_off_Northshore_ymca_2017
+        -
+          content_id: popup_discovery_day_camp_drop_off_Northshore_ymca_2017
       sidebar:
         -
           sidebar_id: discovery_day_camp_drop_off_Northshore_ymca_2017
@@ -1704,6 +1846,8 @@ source:
       content:
         -
           content_id: bold_one_wk_expeditions_cascade_challenge
+        -
+          content_id: popup_bold_one_wk_expeditions_cascade_challenge
       sidebar:
         -
           sidebar_id: bold_one_wk_expeditions_cascade_challenge
@@ -1726,6 +1870,8 @@ source:
       content:
         -
           content_id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+        -
+          content_id: popup_bld_1_wk_exped_backpacking_adventure_discovery_olympics
       sidebar:
         -
           sidebar_id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
@@ -1749,6 +1895,8 @@ source:
       content:
         -
           content_id: bold_one_wk_expeditions_river_and_rocks
+        -
+          content_id: popup_bold_one_wk_expeditions_river_and_rocks
       sidebar:
         -
           sidebar_id: bold_one_wk_expeditions_river_and_rocks
@@ -1769,6 +1917,8 @@ source:
       content:
         -
           content_id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+        -
+          content_id: popup_bld_1_wk_exped_fishing_and_backpacking_north_cascades
       sidebar:
         -
           sidebar_id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
@@ -1789,6 +1939,8 @@ source:
       content:
         -
           content_id: earth_service_corps_about_yesc
+        -
+          content_id: popup_earth_service_corps_about_yesc
       sidebar:
         -
           sidebar_id: earth_service_corps_about_yesc
@@ -1808,6 +1960,8 @@ source:
       content:
         -
           content_id: academic_success
+        -
+          content_id: popup_academic_success
       sidebar:
         -
           sidebar_id: academic_success
@@ -1841,11 +1995,15 @@ process:
     process:
        target_id:
          plugin: migration
-         migration: openy_demo_paragraph_class_sessions
+         migration:
+           - openy_demo_paragraph_class_sessions
+           - openy_demo_paragraph_branches_popup_class
          source: content_id
        target_revision_id:
          plugin: migration
-         migration: openy_demo_paragraph_class_sessions
+         migration:
+           - openy_demo_paragraph_class_sessions
+           - openy_demo_paragraph_branches_popup_class
          source: content_id
   field_sidebar_content:
     plugin: iterator
@@ -1867,3 +2025,4 @@ migration_dependencies:
     - openy_demo_node_activity
     - openy_demo_paragraph_class_location
     - openy_demo_paragraph_class_sessions
+    - openy_demo_paragraph_branches_popup_class
