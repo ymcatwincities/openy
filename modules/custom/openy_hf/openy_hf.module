@@ -51,8 +51,10 @@ function openy_hf_page_attachments(array &$attachments) {
 function openy_hf_preprocess_html(&$variables) {
   $route = \Drupal::service('current_route_match')->getRouteName();
   if ($route == 'openy_hf.header' || $route == 'openy_hf.footer') {
-    // Remove Admin menu in header and footer template.
-    unset($variables['page_top']['toolbar']);
+    // Remove the toolbar from page_top in header and footer template.
+    if (isset($variables['page_top']['toolbar'])) {
+      unset($variables['page_top']['toolbar']);
+    }
 
     $base_url = Request::createFromGlobals()->getSchemeAndHttpHost();
     $variables['base_path'] = $base_url;
