@@ -484,6 +484,9 @@
           this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>No locations were found in this area. Please try a different area or increase your search distance.</p></div>').fadeIn();
           return;
         }
+        else {
+          this.messages_el.hide();
+        }
 
         // Show filtered locations.
         for (var k = 0; k < locations.length; k++) {
