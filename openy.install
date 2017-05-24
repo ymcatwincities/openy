@@ -289,3 +289,11 @@ function openy_update_8021() {
   $config->set('openy_rose_image_fields', $data);
   $config->save();
 }
+
+/**
+ * Enable OpenY Location mapping feature.
+ */
+function openy_update_8022()
+{
+  \Drupal::service('module_installer')->install(['openy_mpng_location']);
+}

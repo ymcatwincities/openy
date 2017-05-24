@@ -1,0 +1,15 @@
+name: 'OpenY mapping location'
+description: 'Location mapping entity type and admin view.'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - field
+  - node
+  - openy_loc_branch
+  - openy_loc_camp
+  - openy_loc_facility
+  - openy_mappings
+  - user
+  - views
+version: 8.x-1.0
