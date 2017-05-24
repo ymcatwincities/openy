@@ -4,3 +4,10 @@ system.admin_openy_digital_signage:
   description: 'Administer Digital Signage screens, content, schedule etc.'
   title: 'Digital Signage'
   weight: -7
+
+system.admin_openy_digital_signage_settings:
+  route_name: system.admin_openy_digital_signage_settings
+  parent: system.admin_openy_digital_signage
+  description: 'Configure entities'
+  title: 'Digital Signage Settings'
+  weight: 100

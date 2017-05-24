@@ -1,0 +1,257 @@
+.page-schedule {
+  background-image: url(../images/bg-body-blue.png);
+  font-family: $fontBold;
+  font-weight: normal;
+  padding: 0;
+
+  .header {
+    background: none;
+  }
+
+  .all-classes {
+    display: none;
+  }
+}
+
+
+.active-classes {
+
+  .class-next-intro {
+    display: none;
+    font-size: 2vw;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 2;
+    top: 36.2vw;
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
+
+  &.has-class {
+
+    .class-next-intro {
+      display: block;
+    }
+  }
+
+}
+
+.class {
+  width: 85vw;
+  //height: 40vh;
+  height: 22.7vw;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  margin: auto;
+  opacity: 1;
+  position: absolute;
+  top: 10.4vw;
+  left: 50%;
+  margin-left: -42.5vw;
+  transition: top 2s, width 2s, height 2s, margin-left 2s, opacity 2s, background-color 1s;
+  z-index: 10;
+
+  .trainer {
+    color: #01a490;
+    margin: auto;
+    text-align: center;
+    font-size: 2.45vw;
+    padding-top: 3.9vw;
+    transition: font-size 2s, padding-top 2s;
+  }
+
+  .class-name {
+    color: #0060af;
+    font-size: 5.9vw;
+    margin: auto;
+    padding-top: 0;
+    text-align: center;
+    transition: font-size 2s, padding-top 2s;
+
+  }
+
+  .class-time-frame {
+    position: relative;
+    font-size: 2.45vw;
+    text-transform: none;
+    margin-top: 2.5vw;
+  }
+
+  .class-time-frame-from {
+    color: #00aeef;
+    position: absolute;
+    right: 72%;
+    margin-top: -1.5vw;
+
+    .at {
+      display: none;
+    }
+  }
+
+  .class-time-frame-to {
+    color: #0060af;
+    position: absolute;
+    left: 72%;
+    margin-top: -1.5vw;
+    opacity: 1;
+    transition: opacity 1s;
+  }
+
+  .class-time-frame-progress {
+    width: 41%;
+    height: 16px;
+    border-radius: 8px;
+    background-color: #0060af;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 1s;
+  }
+
+  .class-time-frame-progress-bar {
+    background-color: #00aeef;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 75%;
+    height: 100%;
+  }
+}
+
+.class-next,
+.class-prev {
+  .class {
+    width: 76vw;
+    //height: 40vh;
+    height: 13.4vw;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: #75aed7;
+    //text-transform: uppercase;
+    margin: auto;
+    top: 40vw;
+    margin-left: -38vw;
+    z-index: 5;
+
+    .trainer {
+      font-size: 0;
+      padding-top: 0;
+    }
+
+    .class-name {
+      color: #0065b3;
+      font-size: 3.4vw;
+      padding-top: 2.7vw;
+    }
+
+    .class-time-frame {
+      position: relative;
+      font-size: 2.45vw;
+      margin-top: 1.2vw;
+    }
+    .class-time-frame-from {
+      color: #0089d0;
+      position: static;
+      text-align: center;
+
+      .at {
+        display: inline;
+      }
+    }
+    .class-time-frame-to {
+      opacity: 0;
+    }
+    .class-time-frame-progress {
+      opacity: 0;
+    }
+  }
+}
+
+.class-prev {
+  .class {
+    width: 76vw;
+    //height: 40vh;
+    height: 13.4vw;
+    box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
+    //text-transform: uppercase;
+    margin: auto;
+    top: -40vw;
+    margin-left: -38vw;
+    opacity: 0;
+    z-index: 15;
+
+    .class-time-frame-to {
+      opacity: 0;
+    }
+    .class-time-frame-progress {
+      opacity: 0;
+    }
+  }
+}
+
+.page-schedule {
+  &.scheme-orange {
+    background-image: url(../images/bg-body-orange.png);
+    background-color: #fcaf17;
+  }
+}
+
+.scheme-orange {
+
+  .header--inner .title {
+    color: #f15922;
+  }
+
+  .class {
+
+    .trainer {
+      color: #fcaf17;
+    }
+
+    .class-name {
+      color: #f15922;
+    }
+
+    .class-time-frame-from {
+      color: #fcaf17;
+    }
+
+    .class-time-frame-to {
+      color: #f15922;
+    }
+
+    .class-time-frame-progress {
+      background-color: #f15922;
+    }
+
+    .class-time-frame-progress-bar {
+      background-color: #fcaf17;
+    }
+  }
+
+  .class-next,
+  .class-prev {
+    .class {
+      background-color: #fac791;
+
+      .class-name {
+        color: #f15922;
+      }
+
+      .class-time-frame-from {
+        color: #f15922;
+      }
+    }
+  }
+
+  .class-prev {
+    .class {
+      background-color: #fac791;
+    }
+  }
+
+}
