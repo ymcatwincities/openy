@@ -30,6 +30,8 @@ function openy_prgf_loc_finder_post_update_set_tags_style_default_value(&$sandbo
   foreach ($paragraphs as $paragraph) {
     $paragraph->set('field_prgf_lf_tags_style', 'checkboxes');
     $paragraph->save();
+    $sandbox['progress']++;
+    $sandbox['current'] = $paragraph->id();
   }
 
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : ($sandbox['progress'] / $sandbox['max']);
