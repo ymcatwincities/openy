@@ -6631,6 +6631,9 @@ body {
   .node__content .node--view-mode-flexible-content h2 a:hover {
     text-decoration: none; }
 
+.node--type-landing {
+  font-size: 15px; }
+
 .footer {
   font-family: "CachetMedium";
   background: #4f4f4f;
