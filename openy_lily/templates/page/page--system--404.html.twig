@@ -57,31 +57,45 @@
  */
 #}
 {% include "@openy_lily/include/sidebar-search-and-menu.html.twig" %}
-
+<div id="side-area">
+  <div class="top-side">
+    <form class="clearfix" method="get" action="{{ search_view_content_path }}">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" name="search" class="form-control">
+        <span class="input-group-btn">
+          <button class="btn btn-info" type="submit">{{ "SEARCH"|t }}</button>
+        </span>
+        </div>
+      </div>
+    </form>
+    {% if logged_in %}
+      <a class="login-link" href="{{ path('user.logout') }}">{{ "Sign Out"|t }}</a>
+    {% else %}
+      <a class="login-link" href="{{ path('user.login') }}">{{ "Sign In"|t }}</a>
+    {% endif %}
+  </div>
+  {% block mobile_menu %}
+    {{ page.mobile_menu }}
+  {% endblock %}
+</div>
 <div class="viewport">
   <header id="page-head" class="page-head">
     <div class="top-navs">
-
-      {% include "@openy_lily/include/site-search.html.twig" %}
-      {% include "@openy_lily/include/support.html.twig" %}
-
       <nav class="nav-global navbar-default navbar">
         <div class="container-fluid">
           <div class="navbar-header">
-            <button class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
+            <button class="navbar-toggler">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
             {{ page.header }}
           </div>
-
           {# TODO: replace with top menu #}
           {{ page.secondary_menu }}
-
         </div>
       </nav>
-
 
       {% block primary_menu %}
         {% if site_section_bundle not in ['location', 'camp'] %}
@@ -113,8 +127,8 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-sm-12 categories copy">
-            <h1>{{ 'Page Not Found'|t }}</h1>
+          <div class="col-sm-12 page-404 copy">
+            <h2>{{ 'Page Not Found'|t }}</h2>
             <article class="richtext">
               <p>{{ 'Sorry. The page you are looking for isn\'t here. You can click anywhere else on our navigation menu and begin once again.'|t }}</p>
               <p>{{ 'If you want to talk to someone, give us a call at 516-674-8091 ( <a href="tel:(516) 674-8091">(516) 674-8091</a> ).'|t }}</p>
