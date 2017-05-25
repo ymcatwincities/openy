@@ -18,7 +18,11 @@ source:
       program: 3
       image: kids_zone_activity_centers
       header_content: 1
-      content: 1
+      content:
+        -
+          content_id: 1
+        -
+          content_id: popup_kids_zone_activity_centers
       body: |
         <p>
         While you're increasing your heart rate your kids can play, release
@@ -34,7 +38,11 @@ source:
       program: 1
       image: active_older_adults
       header_content: 2
-      content: 2
+      content:
+        -
+          content_id: 2
+        -
+          content_id: popup_active_older_adults
       body: |
         <p>
         The YMCA offers all kinds of wellness opportunities for older
@@ -48,7 +56,11 @@ source:
       program: 1
       image: group_exercise_classes
       header_content: 3
-      content: 3
+      content:
+        -
+          content_id: 3
+        -
+          content_id: popup_group_exercise_classes
       body: |
         <p>
         The secret to sticking with a health and fitness program is finding
@@ -64,7 +76,11 @@ source:
       program: 1
       image: health_and_fitness_for_kids_and_teens
       header_content: 4
-      content: 4
+      content:
+        -
+          content_id: 4
+        -
+          content_id: popup_health_and_fitness_for_kids_and_teens
       body: |
         <p>
         The Y is the starting point for many youth to learn about becoming and
@@ -79,7 +95,11 @@ source:
       program: 1
       image: personal_training
       header_content: 5
-      content: 5
+      content:
+        -
+          content_id: 5
+        -
+          content_id: popup_personal_training
       body: |
         <p>
         Want some ongoing personal attention? Get a little extra help from a
@@ -93,7 +113,11 @@ source:
       program: 1
       image: programs_for_health
       header_content: 6
-      content: 6
+      content:
+        -
+          content_id: 6
+        -
+          content_id: popup_programs_for_health
       body: |
         <p>
         Prevent or manage chronic conditions like diabetes, arthritis and
@@ -106,7 +130,11 @@ source:
       program: 1
       image: recreation
       header_content: 7
-      content: 7
+      content:
+        -
+          content_id: 7
+        -
+          content_id: popup_recreation
       body: |
         <p>
         Be active, meet new people and have fun playing team, doubles and
@@ -119,7 +147,11 @@ source:
       program: 1
       image: small_group_and_specialty_training
       header_content: 8
-      content: 8
+      content:
+        -
+          content_id: 8
+        -
+          content_id: popup_small_group_and_specialty_training
       body: |
         <p>
         Small Group Training is a great way to stay motivated while reaching
@@ -138,7 +170,11 @@ source:
       program: 1
       image: weight_loss
       header_content: 9
-      content: 9
+      content:
+        -
+          content_id: 9
+        -
+          content_id: popup_weight_loss
       body: |
         <p>
         If you're looking for a way to safely lose weight and keep it off, the Y
@@ -153,7 +189,11 @@ source:
       program: 3
       image: cooking_and_crafts
       header_content: 10
-      content: 10
+      content:
+        -
+          content_id: 10
+        -
+          content_id: popup_cooking_and_crafts
       body: |
         <p>
         Whether it's a craft night or learning basics of cooking there's a Y
@@ -170,7 +210,11 @@ source:
       program: 3
       image: family_activities
       header_content: 11
-      content: 11
+      content:
+        -
+          content_id: 11
+        -
+          content_id: popup_family_activities
       body: |
         <p>
         The Y has a long-standing commitment to building strong families. If
@@ -184,7 +228,11 @@ source:
       program: 3
       image: kids_university_and_enrichment_classes
       header_content: 12
-      content: 12
+      content:
+        -
+          content_id: 12
+        -
+          content_id: popup_kids_university_and_enrichment_classes
       body: |
         <p>
         Make the most of afterschool time with active learning opportunities
@@ -200,7 +248,11 @@ source:
       program: 3
       image: cooking_and_crafts
       header_content: 13
-      content: 13
+      content:
+        -
+          content_id: 13
+        -
+          content_id: popup_sports
       body: |
         <p>
         At the Y there are no tryouts - everybody plays and everybody wins!
@@ -217,7 +269,11 @@ source:
       program: 2
       image: swim_team
       header_content: 14
-      content: 14
+      content:
+        -
+          content_id: 14
+        -
+          content_id: popup_swim_team
       body: |
         <p>
         Want to swim competitively in a fun and positive environment? Join the
@@ -233,7 +289,11 @@ source:
       program: 2
       image: drop-in_swim
       header_content: 15
-      content: 15
+      content:
+        -
+          content_id: 15
+        -
+          content_id: popup_drop_in_swim
       body: |
         <p>
         Whether you are a beginning swimmer or on your way to the Olympics,
@@ -246,7 +306,11 @@ source:
       program: 2
       image: swim_lessons
       header_content: 16
-      content: 16
+      content:
+        -
+          content_id: 16
+        -
+          content_id: popup_swim_lessons
       body: |
         <p>
         The Y is your source for progressive swim lessons for children and
@@ -263,7 +327,11 @@ source:
       program: 4
       image: bold_and_gold
       header_content: 17
-      content: 17
+      content:
+        -
+          content_id: 17
+        -
+          content_id: popup_bold_and_gold
       body: |
         <p>
         Through outdoor adventures and wilderness experiences, the BOLD & GOLD
@@ -279,7 +347,11 @@ source:
       program: 5
       image: before_and_after_school_child_care
       header_content: 18
-      content: 18
+      content:
+        -
+          content_id: 18
+        -
+          content_id: popup_before_and_after_school_child_care
       body: |
         <p>
         Get high-quality Y care right at your school and keep your child active
@@ -296,7 +368,11 @@ source:
       program: 6
       image: earth_service_corps
       header_content: 19
-      content: 19
+      content:
+        -
+          content_id: 19
+        -
+          content_id: popup_earth_service_corps
       body: |
         <p>
         The mission of the YMCA Earth Service Corps is to empower young people
@@ -311,7 +387,11 @@ source:
       program: 4
       image: day_camps
       header_content: 20
-      content: 20
+      content:
+        -
+          content_id: 20
+        -
+          content_id: popup_day_camps
       body: |
         <p>
         Y kids stay active and stretch in new ways at summer camp. Whether it’s
@@ -326,7 +406,11 @@ source:
       program: 5
       image: preschool
       header_content: 21
-      content: 21
+      content:
+        -
+          content_id: 21
+        -
+          content_id: popup_preschool
       body: |
         <p>
         Get the support you need with Preschool Child Care at the Y. Our YMCA
@@ -344,7 +428,11 @@ source:
       program: 6
       image: academic_success
       header_content: 22
-      content: 22
+      content:
+        -
+          content_id: 22
+        -
+          content_id: popup_academic_success
       body: |
         <p>
         Through partnerships with public schools and preschools, YMCA Powerful
@@ -395,16 +483,22 @@ process:
       plugin: migration
       migration: openy_demo_paragraph_classes_listing_filters
       source: header_content
-  field_content/target_id:
-    -
-      plugin: migration
-      migration: openy_demo_paragraph_classes_listing
-      source: content
-  field_content/target_revision_id:
-    -
-      plugin: migration
-      migration: openy_demo_paragraph_classes_listing
-      source: content
+  field_content:
+    plugin: iterator
+    source: content
+    process:
+       target_id:
+         plugin: migration
+         migration:
+           - openy_demo_paragraph_classes_listing
+           - openy_demo_paragraph_branches_popup_all
+         source: content_id
+       target_revision_id:
+         plugin: migration
+         migration:
+           - openy_demo_paragraph_classes_listing
+           - openy_demo_paragraph_branches_popup_all
+         source: content_id
 destination:
   plugin: 'entity:node'
   default_bundle: program_subcategory
@@ -415,3 +509,4 @@ migration_dependencies:
     - openy_demo_node_program
     - openy_demo_paragraph_classes_listing
     - openy_demo_paragraph_classes_listing_filters
+    - openy_demo_paragraph_branches_popup_all

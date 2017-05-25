@@ -575,8 +575,33 @@
   }
 }
 .paragraph--type--prgf-location-finder-filters {
+  overflow: visible;
   .messages {
     padding: 20px;
+  }
+  .tag_filters {
+    width: 100%;
+    @media (max-width: $screen-md) {
+      margin-top: 15px;
+    }
+
+    .ms-options-wrap {
+      button {
+        height: 34px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555555;
+      }
+      .ms-options li label {
+        left: 0;
+        background-color: #FFFFFF;
+
+        &:hover {
+          color: #FFFFFF;
+          background: #00aeef;
+        }
+      }
+    }
   }
 }
 .paragraph--type--prgf-location-finder {

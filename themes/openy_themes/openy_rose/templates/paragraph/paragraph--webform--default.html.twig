@@ -38,15 +38,12 @@
 #}
 {%
 set classes = [
-'paragraph',
-'paragraph--type--' ~ paragraph.bundle|clean_class,
-view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  'webform',
+  'container',
+  'clearfix',
+  'row',
 ]
 %}
-<div{{ attributes.addClass(classes) }}>
-  {% if class_location is not empty %}
-    {{ class_location }}
-  {% else %}
-    {{ 'Class schedule for all locations'|t }}
-  {% endif %}
-</div>
+<article{{ attributes.addClass(classes) }}>
+  {{ content }}
+</article>
