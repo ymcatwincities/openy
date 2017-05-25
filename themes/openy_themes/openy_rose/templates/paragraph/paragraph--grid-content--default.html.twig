@@ -45,7 +45,7 @@ set classes = [
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-{% set grid_style = content.field_prgf_grid_style|render|trim %}
+{% set grid_style = content.field_prgf_grid_style.0['#markup'] %}
 {% if grid_style == '2' %}
   {% set item_class = 'col-xs-12 col-sm-6 row-eq-height' %}
 {% elseif grid_style == '3' %}
