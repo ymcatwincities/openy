@@ -100,7 +100,7 @@
         $(this).parents('form').find('label').addClass('disabled');
       });
       $(document).ajaxSuccess(function() {
-        if (addtocalendar !== 'undefined') {
+        if (typeof(addtocalendar) !== 'undefined') {
           addtocalendar.load();
         }
       });
