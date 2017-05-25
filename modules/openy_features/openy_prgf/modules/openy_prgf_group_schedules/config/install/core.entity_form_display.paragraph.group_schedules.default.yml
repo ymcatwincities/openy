@@ -5,7 +5,6 @@ dependencies:
     - field.field.paragraph.group_schedules.field_prgf_schedules_ref
     - paragraphs.paragraphs_type.group_schedules
   module:
-    - content_moderation
     - plugin
 id: paragraph.group_schedules.default
 targetEntityType: paragraph
