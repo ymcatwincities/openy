@@ -24,5 +24,6 @@ function openy_prgf_classes_listing_form_views_exposed_form_alter(&$form, FormSt
     }
 
     $form['#attributes']['class'][] = 'container';
+    $form['#attached']['library'][] = 'openy_prgf_classes_listing/openy_classes_listing';
   }
 }
