@@ -1,8 +1,11 @@
 .openy-digital-signage-block-html {
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 
 .openy-digital-signage-block-html .block-background-image {
   padding: 5%;
+  background-size: cover;
+  height: 100%;
 }
