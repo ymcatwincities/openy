@@ -7,14 +7,16 @@
 <h3 align="center">
   Open YMCA
 </h3>
-
 <p align="center">
-  An open source platform for YMCAs, by YMCAs built on <a href="drupal.org">Drupal</a>.
+  http://openymca.org
+</p>
+<p align="center">
+  An open source platform for YMCAs, by YMCAs built on <a href="http://drupal.org">Drupal</a>.
 </p>
 
 <p align="center">
-  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
   <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/v/ymcatwincities/openy-project.svg?style=flat-square"></a>
+  <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
 </p>
 
 ***
@@ -121,4 +123,4 @@ Documentation about Open Y is available at [docs](https://github.com/ymcatwincit
 For Development information please take a look at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
 
 # License
-OpenY Project is licensed under the [GPL-2.0+](https://www.gnu.org/licenses/gpl-2.0-standalone.en.html). See the [License file](https://github.com/ymcatwincities/openy-project/blob/8.1.x/LICENSE) for details.
+OpenY Project is licensed under the [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0-standalone.en.html). See the [License file](https://github.com/ymcatwincities/openy-project/blob/8.1.x/LICENSE) for details.
