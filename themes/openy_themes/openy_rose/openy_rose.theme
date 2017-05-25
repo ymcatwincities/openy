@@ -43,6 +43,15 @@ function openy_rose_theme_suggestions_page_alter(array &$suggestions, array $var
     $page__node__type = 'page__node__' . $node_type;
     array_splice($suggestions, $page__node_pos + 1, 0, $page__node__type);
   }
+  // Adds template suggestions for 40x pages.
+  $http_error_suggestions = [
+     'system.403' => 'page__403',
+     'system.404' => 'page__404',
+  ];
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (isset($http_error_suggestions[$route_name])) {
+    $suggestions[] = $http_error_suggestions[$route_name];
+  }
 }
 
 /**
@@ -181,7 +190,7 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_rose theme.
-  $image_fields = theme_get_setting('oepny_rose_image_fields');
+  $image_fields = theme_get_setting('openy_rose_image_fields');
 
   foreach ($image_fields as $image_field) {
     $fid_array = theme_get_setting($image_field);
@@ -257,7 +266,7 @@ function openy_rose_page_attachments_alter(array &$page) {
  */
 function openy_rose_preprocess_page(array &$variables) {
   // Set custom theme variables for page when they are set.
-  $image_fields = theme_get_setting('oepny_rose_image_fields');
+  $image_fields = \Drupal::config('openy_rose.settings')->get('openy_rose_image_fields');
 
   foreach ($image_fields as $image_template_variable => $theme_setting_key) {
     $fid = theme_get_setting($theme_setting_key);
