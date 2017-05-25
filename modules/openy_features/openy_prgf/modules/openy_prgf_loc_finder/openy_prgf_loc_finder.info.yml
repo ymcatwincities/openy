@@ -8,6 +8,7 @@ dependencies:
   - openy_loc_branch
   - openy_loc_camp
   - openy_loc_facility
+  - options
   - paragraphs
   - plugin
   - user
