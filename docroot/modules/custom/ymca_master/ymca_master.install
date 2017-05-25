@@ -4658,3 +4658,19 @@ function ymca_master_update_8210() {
     }
   }
 }
+
+
+/**
+ * Update personify old link by new links in configs.
+ */
+function ymca_master_update_8211() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'ymca_personify.settings',
+      'ymca_retention.api',
+      'ymca_mindbody.settings',
+    ]
+  );
+}
