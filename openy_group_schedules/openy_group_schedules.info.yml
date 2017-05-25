@@ -1,0 +1,7 @@
+name: OpenY Group Schedules
+type: module
+description: Provides integration with GroupEx Pro.
+core: 8.x
+package: OpenY
+dependencies:
+  - daxko:daxko
