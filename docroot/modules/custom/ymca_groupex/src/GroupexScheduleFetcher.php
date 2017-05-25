@@ -443,8 +443,8 @@ class GroupexScheduleFetcher {
           }
         }
       }
-      $date_start = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->start);
-      $date_end = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->end);
+      $date_start = DrupalDateTime::createFromFormat('l, F j, Y g:ia', $item->date . ' ' . $item->start);
+      $date_end = DrupalDateTime::createFromFormat('l, F j, Y g:ia', $item->date . ' ' . $item->end);
       $date_start = $date_start->format('Y-m-d H:i:s');
       $date_end = $date_end->format('Y-m-d H:i:s');
       $desc = t('Visit @cat with @instructor @nlClass will take place at @studio @nl--@nlPrior to your visit, please check this schedule at @host to verify any changes that may have occurred.', [
