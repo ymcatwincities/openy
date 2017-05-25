@@ -1,0 +1,23 @@
+openyds_onecol:
+  label: Single column
+  category: 'OpenY Digital Signage'
+  path: layouts/openyds_onecol
+  icon: openyds_onecol.png
+  css: openyds-onecol.css
+  template: panels-openyds-onecol
+  regions:
+    middle:
+      label: Middle column
+
+openyds_twocol:
+  label: Two column
+  category: 'OpenY Digital Signage'
+  path: layouts/openyds_twocol
+  icon: openyds_twocol.png
+  css: openyds-twocol.css
+  template: panels-openyds-twocol
+  regions:
+    left:
+      label: Left side
+    right:
+      label: Right side

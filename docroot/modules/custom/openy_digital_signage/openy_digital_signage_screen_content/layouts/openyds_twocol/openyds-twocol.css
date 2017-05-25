@@ -1,0 +1,41 @@
+.openy-ds-layout-2col {
+  width: 100vw;
+  height: 56vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.openy-ds-layout-2col--left {
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  background-color: #80A080;
+  flex: 0 1 66%;
+  position: relative;
+}
+
+.openy-ds-layout-2col--left .block-region-left {
+  height: 100%;
+}
+
+.openy-ds-layout-2col--left .block-region-left .contextual-region {
+  height: 100%;
+}
+
+.openy-ds-layout-2col--right {
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  background-color: #8080A0;
+  flex: 0 1 34%;
+  position: relative;
+}
+
+.openy-ds-layout-2col--right .block-region-right {
+  height: 100%;
+}
+
+.openy-ds-layout-2col--right .block-region-right .contextual-region {
+  height: 100%;
+}
+
+.openy-ds-layout-2col .ipe-actions {
+  background-color: rgba(128, 128, 128, 0.5);
+}
