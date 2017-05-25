@@ -304,3 +304,15 @@ function openy_update_8022() {
     'openy_prgf_webform',
   ]);
 }
+
+/**
+ * Enable modules: OpenY Popups, OpenY Paragraph Branches Popup (All), and OpenY Paragraph Branches Popup (Class).
+ */
+function openy_update_8023() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_popups',
+    'openy_prgf_branches_popup_all',
+    'openy_prgf_branches_popup_class'
+  ]);
+}
