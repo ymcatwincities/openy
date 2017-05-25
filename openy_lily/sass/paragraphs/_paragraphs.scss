@@ -399,6 +399,7 @@
   position: relative;
   font-weight: 200;
   line-height: 1.4;
+  font-size: 21px;
   &:before {
     position: absolute;
     top: 0;
@@ -435,6 +436,7 @@
     li {
       position: relative;
       margin: 5px 0;
+      font-size: 21px;
       padding-left: 20px;
       list-style: none;
       &:before {

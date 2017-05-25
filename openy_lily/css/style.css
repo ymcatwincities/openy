@@ -4448,6 +4448,7 @@ a.sports-icon.floor-hockey {
   position: relative;
   font-weight: 200;
   line-height: 1.4;
+  font-size: 21px;
 }
 .paragraph--type--promo-text:before {
   position: absolute;
@@ -4486,6 +4487,7 @@ a.sports-icon.floor-hockey {
 .paragraph--type--promo-text ul li {
   position: relative;
   margin: 5px 0;
+  font-size: 21px;
   padding-left: 20px;
   list-style: none;
 }
