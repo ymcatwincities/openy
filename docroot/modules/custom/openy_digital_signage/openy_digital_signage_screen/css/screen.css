@@ -595,6 +595,18 @@ table {
     color: #fff;
     margin: 0 0 32px 0; }
 
+.loader .loader-icon {
+  height: 100px;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  background-image: url(../images/rolling.svg);
+  background-position: center;
+  background-size: contain; }
+
 .screen {
   display: none; }
 

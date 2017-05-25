@@ -40,6 +40,12 @@ function openy_digital_signage_screen_theme_suggestions_page_alter(array &$sugge
   if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
     array_push($suggestions, 'page__screen');
   }
+  elseif ($route_name == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->bundle() == 'screen_content') {
+      array_push($suggestions, 'page__screen');
+    }
+  }
 }
 
 /**
