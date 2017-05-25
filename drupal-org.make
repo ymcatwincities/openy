@@ -53,6 +53,9 @@ projects[metatag] = 1.0
 projects[confi][subdir] = contrib
 projects[confi][version] = 1.3
 projects[confi][patch][] = "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
+projects[webform] = 5.0-beta11
+projects[captcha] = 1.0-beta1
+projects[recaptcha] = 2.2
 projects[admin_toolbar] = 1.19
 projects[admin_toolbar][patch][] = "https://www.drupal.org/files/issues/admin_toolbar-2838636-10.patch"
 

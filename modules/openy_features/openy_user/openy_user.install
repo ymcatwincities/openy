@@ -51,3 +51,14 @@ function openy_user_update_8004() {
   $config_importer->update($config . 'user.role.contributor.yml', 'user.role.contributor', 'permissions');
   $config_importer->update($config . 'user.role.administrator.yml', 'user.role.administrator', 'permissions');
 }
+
+/**
+ * Update Anonymous, & Authenticated  rolespermissions.
+ */
+function openy_user_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_user');
+  $config .= '/config/install/';
+  $config_importer->update($config . 'user.role.anonymous.yml', 'user.role.anonymous', 'permissions');
+  $config_importer->update($config . 'user.role.authenticated.yml', 'user.role.authenticated', 'permissions');
+}
