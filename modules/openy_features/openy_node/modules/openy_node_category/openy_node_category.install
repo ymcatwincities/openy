@@ -84,3 +84,30 @@ function openy_node_category_update_8003() {
     'metatag.metatag_defaults.node__' . $bundle,
   ]);
 }
+
+/**
+ * Import scheduler config.
+ */
+function openy_node_category_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.category.default.yml' => [
+      'dependencies.module',
+      'content.publish_on',
+      'content.unpublish_on',
+    ],
+    'node.type.category.yml' => [
+      'dependencies.module',
+      'third_party_settings.scheduler',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
