@@ -1,0 +1,273 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncategory
+id: openy_demo_paragraph_branches_popup_class
+migration_tags: {  }
+migration_group: openy_demo_ncategory
+label: 'Create class branches popup (Class) paragraphs for demo class nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: popup_swim_lessons_adult_begin
+      parent_id: swim_lessons_adult_begin
+    -
+      id: popup_swim_lessons_parent_child_a
+      parent_id: swim_lessons_parent_child_a
+    -
+      id: popup_swim_lessons_parent_child_b
+      parent_id: swim_lessons_parent_child_b
+    -
+      id: popup_swim_lessons_preschool_1
+      parent_id: swim_lessons_preschool_1
+    -
+      id: popup_swim_lessons_preschool_2
+      parent_id: swim_lessons_preschool_2
+    -
+      id: popup_swim_lessons_preschool_3
+      parent_id: swim_lessons_preschool_3
+    -
+      id: popup_swim_lessons_preschool_4
+      parent_id: swim_lessons_preschool_4
+    -
+      id: popup_swim_lessons_private
+      parent_id: swim_lessons_private
+    -
+      id: popup_swim_lessons_youth_1
+      parent_id: swim_lessons_youth_1
+    -
+      id: popup_swim_lessons_youth_2
+      parent_id: swim_lessons_youth_2
+    -
+      id: popup_swim_lessons_youth_3
+      parent_id: swim_lessons_youth_3
+    -
+      id: popup_swim_lessons_youth_4
+      parent_id: swim_lessons_youth_4
+    -
+      id: popup_swim_lessons_youth_5
+      parent_id: swim_lessons_youth_5
+    -
+      id: popup_swim_lessons_youth_6
+      parent_id: swim_lessons_youth_6
+    -
+      id: popup_swim_team_intrest_list
+      parent_id: swim_team_intrest_list
+    -
+      id: popup_swim_lessons_teen
+      parent_id: swim_lessons_teen
+    -
+      id: popup_swim_lessons_teen_beginning
+      parent_id: swim_lessons_teen_beginning
+    -
+      id: popup_swim_lessons_teen_intermediate
+      parent_id: swim_lessons_teen_intermediate
+    -
+      id: popup_swim_lessons_teen_advanced
+      parent_id: swim_lessons_teen_advanced
+    -
+      id: popup_drop_in_swim_recreational_3ft
+      parent_id: drop_in_swim_recreational_3ft
+    -
+      id: popup_drop_in_swim_wade_2ft
+      parent_id: drop_in_swim_wade_2ft
+    -
+      id: popup_drop_in_swim_rec_with_slide
+      parent_id: drop_in_swim_rec_with_slide
+    -
+      id: popup_drop_in_swim_adult_5.5ft
+      parent_id: drop_in_swim_adult_5.5ft
+    -
+      id: popup_drop_in_swim_family
+      parent_id: drop_in_swim_family
+    -
+      id: popup_drop_in_swim_recreational
+      parent_id: drop_in_swim_recreational
+    -
+      id: popup_drop_in_swim_lap
+      parent_id: drop_in_swim_lap
+    -
+      id: popup_kids_zone_activity_centers_4wks_11yrs
+      parent_id: kids_zone_activity_centers_4wks_11yrs
+    -
+      id: popup_cooking_classes_future_chefs
+      parent_id: cooking_classes_future_chefs
+    -
+      id: popup_arts_and_crafts_maycrafternoon_handprint_sunshines
+      parent_id: arts_and_crafts_maycrafternoon_handprint_sunshines
+    -
+      id: popup_arts_and_crafts_april_earth_day_bridhouses
+      parent_id: arts_and_crafts_april_earth_day_bridhouses
+    -
+      id: popup_arts_and_crafts_crafternoon
+      parent_id: arts_and_crafts_crafternoon
+    -
+      id: popup_birthday_parties_room_rental
+      parent_id: birthday_parties_room_rental
+    -
+      id: popup_birthday_parties_birthday_party
+      parent_id: birthday_parties_birthday_party
+    -
+      id: popup_b4_n_after_school_programs_2016_17_bellevue_no_school_days
+      parent_id: before_and_after_school_programs_2016_17_bellevue_no_school_days
+    -
+      id: popup_before_and_after_school_programs_am_fit_and_fun
+      parent_id: before_and_after_school_programs_am_fit_and_fun
+    -
+      id: popup_sports_classes_and_workshops_youth_fitness_challenge
+      parent_id: sports_classes_and_workshops_youth_fitness_challenge
+    -
+      id: popup_sports_classes_and_workshops_youth_homezone
+      parent_id: sports_classes_and_workshops_youth_homezone
+    -
+      id: popup_health_n_well_workshops_aoa_senior_health_and_fitness_day
+      parent_id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+    -
+      id: popup_health_n_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      parent_id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+    -
+      id: popup_health_n_welln_wrkshops_aoa_brain_agility_mat_fee_spr_2017
+      parent_id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+    -
+      id: popup_group_exercise_classes_hiit
+      parent_id: group_exercise_classes_hiit
+    -
+      id: popup_group_exercise_classes_hiit_metabolic_conditioning
+      parent_id: group_exercise_classes_hiit_metabolic_conditioning
+    -
+      id: popup_group_exercise_classes_moving_for_balance_spr_2017
+      parent_id: group_exercise_classes_moving_for_balance_spr_2017
+    -
+      id: popup_smll_grp_train_youth_small_group_training_tween_girl_power
+      parent_id: samll_group_training_youth_small_group_training_tween_girl_power
+    -
+      id: popup_smll_grp_training_youth_small_group_training_tween_titans
+      parent_id: samll_group_training_youth_small_group_training_tween_titans
+    -
+      id: popup_pilates_reformer_10_private_1hr_sessions
+      parent_id: pilates_reformer_10_private_1hr_sessions
+    -
+      id: popup_private_yoga_10_1hour_sessions
+      parent_id: private_yoga_10_1hour_sessions
+    -
+      id: popup_pilates_reformer_duet_10_1hour_sessions
+      parent_id: pilates_reformer_duet_10_1hour_sessions
+    -
+      id: popup_partner_personal_training_1_session
+      parent_id: partner_personal_training_1_session
+    -
+      id: popup_health_improvement_livestrong_at_the_y
+      parent_id: health_improvement_livestrong_at_the_y
+    -
+      id: popup_health_improvement_nutrition_consultation_initial
+      parent_id: health_improvement_nutrition_consultation_initial
+    -
+      id: popup_health_improvement_activly_changing_together
+      parent_id: health_improvement_activly_changing_together
+    -
+      id: popup_climbing_adult_rock_climbing_sept
+      parent_id: climbing_adult_rock_climbing_sept
+    -
+      id: popup_climbing_adult_rock_climbing_oct
+      parent_id: climbing_adult_rock_climbing_oct
+    -
+      id: popup_climbing_adult_parent_child_sept
+      parent_id: climbing_adult_parent_child_sept
+    -
+      id: popup_climbing_adult_parent_child_oct
+      parent_id: climbing_adult_parent_child_oct
+    -
+      id: popup_small_group_and_specialty_training_adaptive_yoga
+      parent_id: small_group_and_specialty_training_adaptive_yoga
+    -
+      id: popup_smll_group_and_specialty_training_pilates_reformer_level_1
+      parent_id: small_group_and_specialty_training_pilates_reformer_level_1
+    -
+      id: popup_small_group_and_specialty_training_pilates_reformer_intro
+      parent_id: small_group_and_specialty_training_pilates_reformer_intro
+    -
+      id: popup_smll_grp_and_specialty_training_pilates_reformer_level_1_2
+      parent_id: small_group_and_specialty_training_pilates_reformer_level_1_2
+    -
+      id: popup_weight_loss_lose_to_win_men
+      parent_id: weight_loss_lose_to_win_men
+    -
+      id: popup_weight_loss_lose_to_win
+      parent_id: weight_loss_lose_to_win
+    -
+      id: popup_b4_aft_school_child_care_2016_17_woodmoor_non_school_days
+      parent_id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+    -
+      id: popup_before_after_school_child_care_2016_17_woodmoor_after_plus
+      parent_id: before_after_school_child_care_2016_17_woodmoor_after_plus
+    -
+      id: popup_before_after_school_child_care_2016_17_woodmoor_after
+      parent_id: before_after_school_child_care_2016_17_woodmoor_after
+    -
+      id: popup_b4_after_school_child_care_2016_17_sunrise_before_after
+      parent_id: before_after_school_child_care_2016_17_sunrise_before_after
+    -
+      id: popup_preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      parent_id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+    -
+      id: popup_preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      parent_id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+    -
+      id: popup_discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      parent_id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+    -
+      id: popup_discovery_day_camp_drop_off_kenmore_elementary_2017
+      parent_id: discovery_day_camp_drop_off_kenmore_elementary_2017
+    -
+      id: popup_discovery_day_camp_drop_off_Northshore_ymca_2017
+      parent_id: discovery_day_camp_drop_off_Northshore_ymca_2017
+    -
+      id: popup_bold_one_wk_expeditions_cascade_challenge
+      parent_id: bold_one_wk_expeditions_cascade_challenge
+    -
+      id: popup_bld_1_wk_exped_backpacking_adventure_discovery_olympics
+      parent_id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+    -
+      id: popup_bold_one_wk_expeditions_river_and_rocks
+      parent_id: bold_one_wk_expeditions_river_and_rocks
+    -
+      id: popup_bld_1_wk_exped_fishing_and_backpacking_north_cascades
+      parent_id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+    -
+      id: popup_earth_service_corps_about_yesc
+      parent_id: earth_service_corps_about_yesc
+    -
+      id: popup_academic_success
+      parent_id: academic_success
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_class
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: branches_popup_class

@@ -148,4 +148,26 @@ interface SessionInstanceManagerInterface {
    */
   public function getSessionInstancesByClassNode(NodeInterface $node, $conditions = []);
 
+  /**
+   * Retrieves locations for the class which have upcoming session instances.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The Camp node.
+   *
+   * @return array
+   *   Array of branch/camp nodes.
+   */
+  public function getLocationsByClassNode(NodeInterface $node);
+
+  /**
+   * Retrieves location count for the class which have upcoming session instances.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   The Camp node.
+   *
+   * @return int
+   *   Integer count.
+   */
+  public function getLocationCountByClassNode(NodeInterface $node);
+
 }
