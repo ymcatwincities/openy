@@ -12,7 +12,15 @@
     "require-dev": {
         "ymcatwincities/openy-cibox-build": "dev-master",
         "ymcatwincities/openy-cibox-vm": "dev-master",
-        "ymcatwincities/openy-docksal": "dev-master"
+        "ymcatwincities/openy-docksal": "dev-master",
+        "drupal/drupal-driver": "~1.0",
+        "drupal/drupal-extension": "^3.2",
+        "behat/behat": "^3.0",
+        "behat/mink": "~1.7",
+        "behat/mink-goutte-driver": "~1.2",
+        "emuse/behat-html-formatter": "^0.1.0",
+        "drupal/tqextension": "dev-drupal-8",
+        "cevou/behat-screenshot-compare-extension": "^1.0@dev"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
