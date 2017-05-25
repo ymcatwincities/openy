@@ -109,6 +109,8 @@ source:
       content_ids:
         -
           content_id: schedule_search_list
+        -
+          content_id: popup_schedules
   ids:
     id:
       type: string
@@ -172,6 +174,7 @@ process:
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
+          - openy_demo_landing_paragraph_branches_popup_all
         source: content_id
       target_revision_id:
         plugin: migration
@@ -188,6 +191,7 @@ process:
           - openy_demo_lp_paragraph_location_finder
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
+          - openy_demo_landing_paragraph_branches_popup_all
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -210,5 +214,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_membership_calculator
     - openy_demo_lp_paragraph_schedule_search_form
     - openy_demo_lp_paragraph_schedule_search_list
+    - openy_demo_landing_paragraph_branches_popup_all
   optional:
     - openy_demo_node_blog
