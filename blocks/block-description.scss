@@ -105,6 +105,14 @@
     .field-sb-link {
       @include read-more-link();
     }
+
+
+    .field-sb-body {
+      @include breakpoint(tablet) {
+        font-size: 15px;
+        line-height: lh(22, 15);
+      }
+    }
   }
 
   &--2 {
