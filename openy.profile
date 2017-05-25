@@ -122,6 +122,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_menu_link_footer',
       ],
     ],
+    'webform' => [
+      'openy_demo_webform' => [
+        'openy_demo_webform_content',
+      ],
+    ],
   ];
 
   return array_key_exists($key, $map) ? $map[$key] : [];
@@ -139,6 +144,12 @@ function openy_demo_content_configs_map($key = NULL) {
 function openy_import_content(array &$install_state) {
   $module_operations = [];
   $migrate_operations = [];
+
+  if (!empty($install_state['openy']['content']['webform'])) {
+    // Install webform feature - it's not handled as content migration.
+    openy_enable_module('openy_demo_webform');
+    unset($install_state['openy']['content']['webform']);
+  }
 
   // Build required migrations operations arrays.
   _openy_import_content_helper($module_operations, $migrate_operations, 'required');
