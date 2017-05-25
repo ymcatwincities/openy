@@ -45,6 +45,7 @@
         this.component_el = args.component_el;
 
         this.map_data = args.map_data;
+        this.tags_style = args.tags_style;
         this.locations = this.map_data;
 
         this.marker_image_url = args.marker_image_url || null;
@@ -61,6 +62,7 @@
         this.locate_me_el = this.map_controls_el.find('.locateme');
 
         this.tags = {};
+        this.default_tags = ['YMCA', 'Camps'];
 
         this.init_map();
         this.init_tags();
@@ -139,8 +141,8 @@
         this.search_field_el.on('change', $.proxy(this.apply_search, this));
         this.distance_limit_el.on('change', $.proxy(this.apply_distance_limit, this));
         this.locate_me_el.on('click', $.proxy(this.locate_me_onclick, this));
-
         this.component_el.find('nav.types input[type=checkbox]').on('change', $.proxy(this.bar_filter_change, this));
+        this.search_field_el.on( "autocompleteselect", $.proxy(this.apply_autocomplete_search, this));
       },
 
       // Attempts a map search against Google's
@@ -148,6 +150,10 @@
       // is recentered according to the result.
       apply_search: function () {
         var q = this.search_field_el.val();
+        if (q == '') {
+          this.reset_search_results();
+          return;
+        }
         var f = function (results, status) {
           if (status == 'OK') {
             this.search_center_point = results[0].geometry.location;
@@ -178,6 +184,51 @@
         }, $.proxy(f, this));
       },
 
+      apply_autocomplete_search: function (event, ui) {
+        var locations = [];
+        this.locations.forEach(function(location) {
+          if (location.name == ui.item.value) {
+            // Get selected location from locations list.
+            locations.push(location);
+          }
+        });
+
+        // Redraw map for selected location.
+        if (this.search_center === null) {
+          this.search_center = this.map.getCenter();
+        }
+        this.distance_limit = '';
+        this.search_center_marker.setPosition(this.search_center_point);
+        this.search_center_marker.setVisible(false);
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < locations.length; i++) {
+          var loc = locations[i];
+          bounds.extend(loc.marker.getPosition());
+          loc.marker.setVisible(true);
+        }
+        this.map.fitBounds(bounds);
+
+        // Redraw locations list.
+        for (var l = 0; l < this.locations.length; l++) {
+          if (typeof this.locations[l].element !== 'undefined') {
+            this.locations[l].element.hide();
+            $(this.locations[l].element).parents('.locations-list').find('h1').hide();
+          }
+        }
+
+        if (!locations.length) {
+          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>We\u2019re sorry no results were found in your area</p></div>').fadeIn();
+          return;
+        }
+        // Show filtered locations.
+        for (var k = 0; k < locations.length; k++) {
+          if (typeof locations[k].element !== 'undefined') {
+            locations[k].element.show();
+            $(locations[k].element).parents('.locations-list').find('h1').show();
+          }
+        }
+      },
+
       // Executed every time the viewer sets the distance limit to a new value
       apply_distance_limit: function () {
         if (this.search_center === null) {
@@ -186,6 +237,18 @@
         this.distance_limit = this.distance_limit_el.val();
 
         this.draw_search_center();
+        this.redraw_map_locations();
+        this.draw_list_locations();
+      },
+
+      // Executed if was provided empty ZIP code
+      reset_search_results: function () {
+        if (this.search_center === null) {
+          this.search_center = this.map.getCenter();
+        }
+        this.distance_limit = '';
+        this.search_center_marker.setPosition(this.search_center_point);
+        this.search_center_marker.setVisible(false);
         this.redraw_map_locations();
         this.draw_list_locations();
       },
@@ -271,13 +334,21 @@
       apply_filters: function (locations) {
         locations = this.apply_tag_filters(locations);
         locations = this.apply_distance_filters(locations);
+        this.set_url_parameters();
         return locations;
       },
 
       // Applies tag filters to a list of locations,
       // returns the filtered list.
       apply_tag_filters: function (locations) {
-        if (this.tag_filters.length === 0) {
+        var selected_tags_count = this.tag_filters.length;
+        var tags_count = Object.keys(this.tags).length;
+        var show_facilities = tags_count > this.default_tags.length;
+        if (selected_tags_count === 0 || (selected_tags_count === tags_count && show_facilities)) {
+          // Return all locations if:
+          // - Tags not selected.
+          // - Selected all tags and we have more items than implemented
+          //   in default_tags(exist at least one facility type).
           return locations;
         }
 
@@ -337,7 +408,7 @@
         return filtered_locations;
       },
 
-      // Populates an array of active tags from an URL parameter "map_tag_filter"
+      // Populates an array of active tags from an URL parameter "type"
       init_active_tags: function () {
         if (this.initial_active_tags) {
           return this.initial_active_tags;
@@ -345,7 +416,7 @@
 
         var active_tags = [];
         var url_parameters = this.get_parameters();
-        var tag_filter_url_value = url_parameters.map_tag_filter;
+        var tag_filter_url_value = url_parameters.type;
 
         var tag_filter_url_values = ( tag_filter_url_value ) ? tag_filter_url_value.split(",") : [];
 
@@ -353,7 +424,7 @@
           if (tag_filter_url_values.length === 0) {
             active_tags.push(tag);
           }
-          else if ($.inArray(tag, tag_filter_url_values) >= 0) {
+          else if ($.inArray(this.encode_to_url_format(tag), tag_filter_url_values) >= 0) {
             active_tags.push(tag);
           }
         }
@@ -361,10 +432,11 @@
         this.initial_active_tags = active_tags;
 
         if (tag_filter_url_values.length === 0) {
-          this.initial_active_tags = ['YMCA'];
+          this.initial_active_tags = this.default_tags;
         }
       },
 
+      // Get url params.
       get_parameters: function () {
         var searchString = window.location.search.substring(1);
         var params = searchString.split("&");
@@ -377,36 +449,97 @@
         return hash;
       },
 
+      // Update url params.
+      set_url_parameters: function () {
+        var url = document.location.pathname;
+        var filters_tags_raw = this.tag_filters;
+        var filters_tags = '';
+        if (filters_tags_raw) {
+          filters_tags = '?type=';
+          filters_tags_raw.forEach(function(tag) {
+            filters_tags += this.encode_to_url_format(tag) + ',';
+          }, this, filters_tags);
+          filters_tags = filters_tags.substring(0, filters_tags.length - 1);
+        }
+        window.history.replaceState(null, null, url + filters_tags);
+      },
+
       // Renders an extra set of filter boxes below the map.
       draw_map_controls: function () {
-
+        // Add tag filter to map control.
         this.init_active_tags();
-
         var tag_filters_html = '';
 
-        for (var tag in this.tags) {
-
-          var filter_checked = '';
-
-          if ($.inArray(tag, this.initial_active_tags) >= 0) {
-            filter_checked = 'checked="checked"';
+        if (this.tags_style == 'list-checkboxes') {
+          // Show tags filter as multiselect list checkboxes.
+          tag_filters_html = '<select id="tag-filter" class="form-control multiselect" name="tag_filter" multiple="multiple">';
+          // Sort tags alphabetically.
+          var tags = Object.keys(this.tags).sort();
+          // Move YMCA and Camps tags to begin.
+          tags.splice(tags.indexOf('YMCA'), 1);
+          tags.splice(tags.indexOf('Camps'), 1);
+          tags.unshift('Camps');
+          tags.unshift('YMCA');
+          tags.forEach(function(tag) {
+            var filter_checked = '';
+            if ($.inArray(tag, this.initial_active_tags) >= 0) {
+              filter_checked = 'selected';
+            }
+            tag_filters_html += '<option value="' + tag + '" ' + filter_checked + '>' + tag + '</option>';
+          }, this);
+          tag_filters_html += '</select>';
+        }
+        else {
+          // Show tags filter as default checkboxes.
+          for (var tag in this.tags) {
+            var filter_checked = '';
+            if ($.inArray(tag, this.initial_active_tags) >= 0) {
+              filter_checked = 'checked="checked"';
+            }
+            var tag_filter_html = '<label class="btn btn-default" for="tag_' + tag + '">';
+            tag_filter_html += '<input autocomplete="off" id="tag_' + tag + '" class="tag_' + tag + '" type="checkbox" value="' + tag + '" ' + filter_checked + '/>' + tag;
+            for (var i = 0; i < this.tags[tag].marker_icons.length; i++) {
+              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '"/>';
+            }
+            tag_filter_html += '</label>';
+            tag_filters_html += tag_filter_html;
           }
-
-          var tag_filter_html = '<label class="btn btn-default" for="tag_' + tag + '">';
-
-          tag_filter_html += '<input autocomplete="off" id="tag_' + tag + '" class="tag_' + tag + '" type="checkbox" value="' + tag + '" ' + filter_checked + '/>' + tag;
-
-          for (var i = 0; i < this.tags[tag].marker_icons.length; i++) {
-            tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '"/>';
-          }
-
-          tag_filter_html += '</label>';
-
-          tag_filters_html += tag_filter_html;
         }
 
         this.map_controls_el.find('.tag_filters').append(tag_filters_html);
 
+        if (this.tags_style == 'list-checkboxes') {
+          // Init multiselect if used list-checkboxes.
+          $(".tag_filters .multiselect").multiselect({
+            columns: 1,
+            showCheckbox: true,
+            minHeight: 50,
+            texts: {
+              placeholder: 'Select options'
+            },
+            onOptionClick: $.proxy(this.filter_change, this)
+          });
+        }
+        // Add locations autocomplete to search field.
+        var locations = [];
+        this.locations.forEach(function(location) {
+          locations.push(location.name);
+        });
+        this.search_field_el.autocomplete({
+          minLength: 3,
+          source: locations
+        });
+      },
+
+      // Convert string to url format:
+      // remove all non-alphanumeric characters, convert to lowercase,
+      // replace spaces with dashes.
+      encode_to_url_format: function (txt) {
+        return txt
+          .toLowerCase()
+          .replace(/[^\w ]+/g,'')
+          .replace(/ +/g,'-')
+          ;
       },
 
       // Update locations on the map by setting their visiblity
@@ -467,6 +600,9 @@
         if (!locations.length) {
           this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>No locations were found in this area. Please try a different area or increase your search distance.</p></div>').fadeIn();
           return;
+        }
+        else {
+          this.messages_el.hide();
         }
 
         // Show filtered locations.
@@ -583,14 +719,16 @@
       });
 
       $('.openy-map-canvas', context).once().each(function () {
+        var $canvas = $(this);
         var timer = setInterval(function () {
           if (typeof window.google == 'undefined') {
             return;
           }
 
           map.init({
-            component_el: $('.openy-map-wrapper'),
-            map_data: data
+            component_el: $canvas.closest('.openy-map-wrapper'),
+            map_data: data,
+            tags_style: $canvas.closest('.location-finder-filters').attr('data-tags-style')
           });
 
           // Reset openyMap data (fix for old pins on new map after ajax call).

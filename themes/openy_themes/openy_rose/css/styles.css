@@ -1863,8 +1863,33 @@ body {
   padding-top: 0;
 }
 
+.paragraph--type--prgf-location-finder-filters {
+  overflow: visible;
+}
 .paragraph--type--prgf-location-finder-filters .messages {
   padding: 20px;
+}
+.paragraph--type--prgf-location-finder-filters .tag_filters {
+  width: 100%;
+}
+@media (max-width: 992px) {
+  .paragraph--type--prgf-location-finder-filters .tag_filters {
+    margin-top: 15px;
+  }
+}
+.paragraph--type--prgf-location-finder-filters .tag_filters .ms-options-wrap button {
+  height: 34px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555555;
+}
+.paragraph--type--prgf-location-finder-filters .tag_filters .ms-options-wrap .ms-options li label {
+  left: 0;
+  background-color: #FFFFFF;
+}
+.paragraph--type--prgf-location-finder-filters .tag_filters .ms-options-wrap .ms-options li label:hover {
+  color: #FFFFFF;
+  background: #00aeef;
 }
 
 .paragraph--type--prgf-location-finder .views-element-container {
