@@ -447,12 +447,19 @@ class GroupexScheduleFetcher {
       $date_end = DrupalDateTime::createFromFormat('l, F d, Y g:ia', $item->date . ' ' . $item->end);
       $date_start = $date_start->format('Y-m-d H:i:s');
       $date_end = $date_end->format('Y-m-d H:i:s');
+      $desc = t('Visit @cat with @instructor @nlClass will take place at @studio @nl--@nlPrior to your visit, please check this schedule at @host to verify any changes that may have occurred.', [
+        '@cat' => $item->category,
+        '@instructor' => strip_tags($item->instructor),
+        '@studio' => $item->studio,
+        '@host' => \Drupal::request()->getSchemeAndHttpHost(),
+        '@nl' => PHP_EOL,
+      ]);
       $item->calendar = [
         'atc_date_start' => $date_start,
         'atc_date_end' => $date_end,
         'atc_timezone' => drupal_get_user_timezone(),
         'atc_title' => $item->title,
-        'atc_description' => 'Visit ' . $item->category . ' with ' . strip_tags($item->instructor) . PHP_EOL . 'Class will take place at ' . $item->studio . '.',
+        'atc_description' => $desc,
         'atc_location' => $address,
         'atc_organizer' => $item->instructor,
       ];
