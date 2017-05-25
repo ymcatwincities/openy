@@ -78,6 +78,11 @@ dependencies:
   - metatag_open_graph
   - google_tag
   - google_analytics
+  - webform
+  - webform_ui
+  - captcha
+  - image_captcha
+  - recaptcha
   # OpenY features.
   - openy_media_image
   - openy_media_document
@@ -121,6 +126,7 @@ dependencies:
   - openy_prgf_loc_finder
   - openy_prgf_mbrshp_calc
   - openy_prgf_embedded_groupexpro_schedule
+  - openy_prgf_webform
   - openy_node_activity
   - openy_node_class
   - openy_node_session
