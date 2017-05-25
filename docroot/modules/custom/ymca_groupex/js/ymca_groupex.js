@@ -105,7 +105,7 @@
         }
       });
       if ($('body .groupex-form-full').length > 0) {
-        if (addtocalendar !== 'undefined') {
+        if (typeof(addtocalendar) !== 'undefined') {
           addtocalendar.load();
         }
         $(document).ajaxSuccess(function () {
@@ -129,7 +129,7 @@
         $('div.groupex-results').hide();
 
         $(document).ajaxSuccess(function() {
-          if (addtocalendar !== 'undefined') {
+          if (typeof(addtocalendar) !== 'undefined') {
             addtocalendar.load();
           }
           $('div.groupex-results').show();
