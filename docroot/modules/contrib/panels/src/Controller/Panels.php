@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Controller;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
@@ -66,8 +70,8 @@ class Panels extends ControllerBase {
    *   The variant manager.
    * @param \Drupal\Core\Plugin\Context\ContextHandlerInterface $context_handler
    *   The context handler.
-  +   * @param \Drupal\user\SharedTempStoreFactory $tempstore
-  +   *   The tempstore factory.
+   * @param \Drupal\user\SharedTempStoreFactory $tempstore
+   *   The tempstore factory.
    */
   public function __construct(BlockManagerInterface $block_manager, PluginManagerInterface $condition_manager, PluginManagerInterface $variant_manager, ContextHandlerInterface $context_handler, SharedTempStoreFactory $tempstore) {
     $this->blockManager = $block_manager;

@@ -26,7 +26,7 @@
   "license": "GPL-2.0+",
   "minimum-stability": "dev",
   "require": {
-    "drupal/ctools": ">=8.3.0-alpha26",
-    "drupal/layout_plugin": ">=8.1.0-alpha22"
+    "drupal/ctools": ">=3.0.0-alpha26",
+    "drupal/layout_plugin": ">=1.0.0-alpha22"
   }
 }
