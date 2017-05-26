@@ -316,3 +316,24 @@ function openy_update_8023() {
     'openy_prgf_branches_popup_class'
   ]);
 }
+
+/**
+ * Enable Colorbutton module.
+ */
+function openy_update_8024() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'colorbutton',
+  ]);
+  // Update ckeditor settings.
+  $editor = \Drupal\editor\Entity\Editor::load('full_html');
+  $settings = $editor->getSettings();
+  foreach ($settings['toolbar']['rows'][0] as $key => $item) {
+    if ($item['name'] == 'Formatting') {
+      $settings['toolbar']['rows'][0][$key]['items'][] = 'TextColor';
+      break;
+    }
+  }
+  $editor->setSettings($settings);
+  $editor->save();
+}

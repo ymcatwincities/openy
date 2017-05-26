@@ -87,6 +87,30 @@
                     "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/panelbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/colorbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -179,6 +203,8 @@
         "drupal/captcha": "^1.0@beta",
         "drupal/recaptcha": "^2.2",
         "drupal/google_tag": "1.x-dev",
-        "drupal/rabbit_hole": "1.0-beta3"
+        "drupal/rabbit_hole": "1.0-beta3",
+        "drupal/panelbutton": "1.0",
+        "drupal/colorbutton": "1.0"
     }
 }
