@@ -16,7 +16,8 @@
         "cevou/behat-screenshot-compare-extension": "^1.0@dev"
     },
     "config": {
-        "bin-dir": "bin/"
+        "bin-dir": "bin/",
+        "secure-http": false
     },
     "repositories": [
         {
@@ -91,7 +92,7 @@
         {
             "type": "package",
             "package": {
-                "name": "ckeditor/panelbutton",
+                "name": "library-ckeditor/panelbutton",
                 "version": "4.7.0",
                 "type": "drupal-library",
                 "dist": {
@@ -103,7 +104,7 @@
         {
             "type": "package",
             "package": {
-                "name": "ckeditor/colorbutton",
+                "name": "library-ckeditor/colorbutton",
                 "version": "4.7.0",
                 "type": "drupal-library",
                 "dist": {
@@ -191,6 +192,8 @@
         "library-kenwheeler/slick": "1.6.0",
         "library-dinbror/blazy": "1.8.2",
         "library-gdsmith/jquery.easing": "1.4.1",
+        "library-ckeditor/panelbutton": "4.7.0",
+        "library-ckeditor/colorbutton": "4.7.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
