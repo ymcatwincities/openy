@@ -10,7 +10,7 @@
 }
 
 .ipe-icon {
-  display:inline-block;
+  display: inline-block;
   vertical-align: middle;
   font-family: PanelsIPEIcon;
   font-size: 24px;
@@ -86,8 +86,12 @@
 }
 
 @keyframes ipe-spin {
-  from {transform:rotate(360deg);}
-  to {transform:rotate(0deg);}
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 /* Fix the output of the AppView to the bottom of the screen. */
@@ -102,7 +106,9 @@
 }
 
 /* Force text to render as a sans-serif web-safe font. */
-#panels-ipe-tray, #panels-ipe-tray a, #panels-ipe-tray p {
+#panels-ipe-tray,
+#panels-ipe-tray a,
+#panels-ipe-tray p {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
@@ -141,6 +147,10 @@ a.ipe-layout:focus,
   box-shadow: 3px -1px 2px 0 rgba(0, 0, 0, 0.3333);
 }
 
+html[dir="rtl"] .ipe-tab {
+  box-shadow: -3px -1px 2px 0 rgba(0, 0, 0, 0.3333);
+}
+
 .ipe-tab:first-child {
   border-left: 1px solid darkgray;
   border-top-left-radius: 5px;
@@ -148,10 +158,28 @@ a.ipe-layout:focus,
   right: -5px;
 }
 
+html[dir="rtl"] .ipe-tab:first-child {
+  border-left: 0 none;
+  border-top-left-radius: 0;
+  border-right: 1px solid darkgray;
+  border-top-right-radius: 5px;
+  box-shadow: 2px -1px 2px rgba(0, 0, 0, 0.3333);
+  right: auto;
+  left: -5px;
+}
+
 .ipe-tab:last-child {
   border-right: 1px solid darkgray;
   border-top-right-radius: 5px;
   box-shadow: 2px -1px 2px rgba(0, 0, 0, 0.3333);
+}
+
+html[dir="rtl"] .ipe-tab:last-child {
+  border-right: 0 none;
+  border-top-right-radius: 0;
+  border-left: 1px solid darkgray;
+  border-top-left-radius: 5px;
+  box-shadow: -2px -1px 2px rgba(0, 0, 0, 0.3333);
 }
 
 .ipe-tab a {
@@ -168,7 +196,8 @@ a.ipe-layout:focus,
   border-bottom: 1px solid darkgray;
 }
 
-.ipe-tab.active a, .ipe-tab a:hover {
+.ipe-tab.active a,
+.ipe-tab a:hover {
   padding-bottom: 10px;
   color: rgb(67, 125, 33);
   border: none;
@@ -176,9 +205,10 @@ a.ipe-layout:focus,
 }
 
 /* Indicate the cancel button. */
-[data-tab-id="cancel"] a:hover, [data-tab-id="cancel"].active a {
-  color: #7D0000;
-  border-color: #7D0000;
+[data-tab-id="cancel"] a:hover,
+[data-tab-id="cancel"].active a {
+  color: #7d0000;
+  border-color: #7d0000;
 }
 
 .ipe-tab a::selection {
@@ -199,7 +229,8 @@ a.ipe-layout:focus,
 }
 
 /* Styles for the Layout selector. */
-.ipe-current-layout, .ipe-all-layouts {
+.ipe-current-layout,
+.ipe-all-layouts {
   display: inline-block;
 }
 
@@ -233,7 +264,8 @@ a.ipe-layout:focus,
 }
 
 /* Reset anchor tag styles. */
-.ipe-layout, .ipe-layout:hover {
+.ipe-layout,
+.ipe-layout:hover {
   border: none;
 }
 
@@ -281,7 +313,8 @@ div.ipe-actions-block {
   padding: 0;
 }
 
-.ipe-actions h5, .ipe-actions li {
+.ipe-actions h5,
+.ipe-actions li {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   text-transform: uppercase;
@@ -359,7 +392,8 @@ div.ipe-actions-block {
 }
 
 @keyframes ipe-blink {
-  from, to {
+  from,
+  to {
     box-shadow: 0 0 0 1px transparent;
   }
   50% {
@@ -449,7 +483,8 @@ div.ipe-actions-block {
   cursor: pointer;
 }
 
-.ipe-category h4, .ipe-category h5 {
+.ipe-category h4,
+.ipe-category h5 {
   margin: 0;
 }
 
@@ -462,7 +497,8 @@ div.ipe-actions-block {
   font-weight: normal;
 }
 
-.ipe-category:hover,.ipe-category.active {
+.ipe-category:hover,
+.ipe-category.active {
   border-color: rgb(67, 125, 33);
   color: inherit;
 }
@@ -489,7 +525,7 @@ div.ipe-actions-block {
 /* Style the create button a bit differently than other categories. */
 .ipe-create-category {
   border: 1px solid lightgray;
-  background: #FBFBFB;
+  background: #fbfbfb;
 }
 
 .ipe-create-category:hover {
@@ -550,7 +586,7 @@ div.ipe-actions-block {
 
 .ipe-blockpicker-item a {
   border: 1px solid #333;
-  background: #FBFBFB;
+  background: #fbfbfb;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -595,7 +631,8 @@ div.ipe-actions-block {
 
 /* Theme the block plugin and layout forms. */
 
-.ipe-block-form,.ipe-layout-form  {
+.ipe-block-form,
+.ipe-layout-form {
   text-align: left;
   margin: 0 auto;
   display: inline-block;
@@ -658,7 +695,8 @@ div.ipe-actions-block {
   perspective: 1000;
 }
 /* flip the pane when hovered */
-.ipe-block-form.flipped .flipper, .ipe-block-form.flipped .flipper {
+.ipe-block-form.flipped .flipper,
+.ipe-block-form.flipped .flipper {
   transform: rotateY(180deg);
 }
 
@@ -670,7 +708,8 @@ div.ipe-actions-block {
 }
 
 /* hide back of pane during swap */
-.ipe-block-form .front, .ipe-block-form .back {
+.ipe-block-form .front,
+.ipe-block-form .back {
   backface-visibility: hidden;
   background: white;
   overflow: hidden;
