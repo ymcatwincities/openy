@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c7fbcc4ea856b23d46ed4d693cabc93c",
-    "content-hash": "abb7a5185677ef5829dde0ebe2d9c5b8",
+    "hash": "f2de1cd39a07fb92b375d355a25b838e",
+    "content-hash": "2eb535c13953ca9dd5441ae08280b5f6",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4049,6 +4049,28 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "library-ckeditor/colorbutton",
+            "version": "4.7.0",
+            "dist": {
+                "type": "zip",
+                "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library"
+        },
+        {
+            "name": "library-ckeditor/panelbutton",
+            "version": "4.7.0",
+            "dist": {
+                "type": "zip",
+                "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "drupal-library"
         },
         {
             "name": "library-dinbror/blazy",
