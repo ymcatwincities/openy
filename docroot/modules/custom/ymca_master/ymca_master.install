@@ -4613,3 +4613,64 @@ function ymca_master_update_8208() {
   $query->condition('title', 'Give');
   $query->execute();
 }
+
+/**
+ * Install Personify Links Upgrade module.
+ */
+function ymca_master_update_8209() {
+  \Drupal::service('module_installer')->install(['ymca_personify_upgrade']);
+}
+
+/**
+ * Update personify old link by new links in configs.
+ */
+function ymca_master_update_8210() {
+  \Drupal::service('config_import.importer')->importConfigs(
+    [
+      'ymca_personify.settings',
+      'ymca_retention.api',
+      'ymca_mindbody.settings',
+    ]
+  );
+  $mlids = \Drupal::entityQuery('menu_link_content')
+    ->condition('link.uri', 'ygtcprod2', 'CONTAINS')
+    ->execute();
+  $mapping = [
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/MyY/tabid/61/Default.aspx' => 'https://account.ymcamn.org/personifyebusiness/MyY/tabid/61/Default.aspx',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/Membership/Selection' => 'https://account.ymcamn.org/personifyebusiness/Membership/Selection',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/Default.aspx?TabId=177&brcode=82&catcode=arc_cert&subcatcode=lifeguard&autosearch=Y' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabId=426&br=82&CAT=arc_cert&SUBCAT=lifeguard&AUTO=Y',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/default.aspx?tabid=177&brcode=63&catcode=overnight&autosearch=Y' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabId=426&br=63&CAT=overnight&AUTO=Y',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/default.aspx?tabid=177&brcode=64&autosearch=Y' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabId=426&br=64&AUTO=Y',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/default.aspx?tabid=177&brcode=62&autosearch=Y' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabId=426&br=62&AUTO=Y',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/default.aspx?tabid=177&brcode=46&catcode=wilderness&autosearch=Y' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabId=426&br=46&CAT=wilderness&autosearch=Y',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/YMCA/ProgramController/tabid/183/Default.aspx?pc=oc&location=2051073455' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabID=426&br=44&CAT=OVERNIGHT&AUTO=Y"',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/default.aspx?tabid=177&brcode=40&catcode=overnight&autosearch=Y' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabId=426&br=40&CAT=overnight&AUTO=Y',
+    'https://ygtcprod2.personifycloud.com/personifyebusiness/default.aspx?tabid=177&brcode=42&catcode=overnight&autosearch=Y' => 'https://account.ymcamn.org/personifyebusiness/Default.aspx?TabId=426&br=42&CAT=overnight&AUTO=Y',
+  ];
+  $storage = \Drupal::entityTypeManager()->getStorage('menu_link_content');
+  $mlinks = $storage->loadMultiple($mlids);
+  foreach ($mlinks as $mlink) {
+    $link = $mlink->get('link')->getValue();
+    if (isset($mapping[$link[0]['uri']])) {
+      $link[0]['uri'] = $mapping[$link[0]['uri']];
+      $mlink->set('link', $link);
+      $mlink->save();
+    }
+  }
+}
+
+
+/**
+ * Update personify old link by new links in configs.
+ */
+function ymca_master_update_8211() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(YGTC_CONFDIR);
+  $config_importer->importConfigs(
+    [
+      'ymca_personify.settings',
+      'ymca_retention.api',
+      'ymca_mindbody.settings',
+    ]
+  );
+}
