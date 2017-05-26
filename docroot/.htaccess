@@ -72,15 +72,16 @@ AddEncoding gzip svgz
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
-  # https redirect
-  RewriteCond %{HTTP_HOST} ^(www\.)?ymcamn\.org [NC]
+  # Redirect HTTP to HTTPS
   RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://www.ymcamn.org/$1 [R,L]
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteCond %{HTTP_HOST} ^ymcamn.org [NC,OR]
+  RewriteCond %{HTTP_HOST} ^www.ymcamn.org [NC]
+  RewriteRule ^(.*)$ https://www.ymcamn.org%{REQUEST_URI} [L,R=301]
 
   RewriteCond %{HTTP_HOST} ^ymcatwincities.org [NC,OR]
-  RewriteCond %{HTTP_HOST} ^ymcamn.org [NC,OR]
   RewriteCond %{HTTP_HOST} ^www.ymcatwincities.org [NC]
-  RewriteRule ^(.*)$ https://www.ymcamn.org/$1 [L,R=301,NC]
+  RewriteRule ^(.*)$ http://www.ymcamn.org/$1 [L,R=301,NC]
 
   # REDWING START
   RewriteCond %{HTTP_HOST} ^redwingymca\.org$
