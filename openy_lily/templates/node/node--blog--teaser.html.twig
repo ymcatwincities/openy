@@ -83,6 +83,7 @@ node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class 
 {% set category = content.field_blog_category[0]['#title'] ? content.field_blog_category[0]['#title'] : category_default|t %}
 {% set color = 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value %}
 {% set bg_color = 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value %}
+{% set cat_color = 'background-color: #' ~ content.field_category_color['#items'].entity.field_color.value %}
 {% set description %}
   {{ content.field_blog_description }}
 {% endset %}
@@ -90,11 +91,12 @@ node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class 
   <a href="{{ url }}" rel="bookmark">
     <div class="inner-wrapper">
       <div class="blog-up">
-        <span class="category">
+        <span class="category" style="{{ cat_color }}">
           {{ category }}
         </span>
         {% if content.field_blog_image['#field_type'] %}
           {{ content.field_blog_image }}
+
         {% else %}
           <div class="default-img">
             <img src="{{ directory }}/logo.svg">

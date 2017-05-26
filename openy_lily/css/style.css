@@ -996,7 +996,7 @@ body.path-search #block-mainpagecontent li {
   position: absolute;
   left: 0;
   padding: 10px 20px;
-  background-color: rgba(156, 31, 123, 0.75);
+  background-color: #b92f9e;
   color: white;
   font-weight: bold;
 }
