@@ -60,3 +60,26 @@ function ygh_preprocess_field__node__title(&$vars) {
     $vars['attributes']['class'][] = 'hidden';
   }
 }
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function ygh_preprocess_html(&$variables) {
+  if (!empty($variables['node_type']) && $variables['node_type'] == 'landing') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($header = $node->field_landing_header->getValue()) {
+      foreach ($header as $p) {
+        if ($paragraph = \Drupal::service('entity.manager')
+          ->getStorage('paragraph')
+          ->load($p['target_id'])
+        ) {
+          $b = $paragraph->bundle();
+          // Add class to the body.
+          if ($b == 'microsites_menu') {
+            $variables['attributes']['class'][] = 'microsites-menu';
+          }
+        }
+      }
+    }
+  }
+}
