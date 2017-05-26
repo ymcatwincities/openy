@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Time range widgets for datetime_range module.
+ */
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function time_range_field_widget_info() {
+  return array(
+    'daterange_time_only' => array(
+      'label' => t('Time Range'),
+      'field types' => array('datetime_range'),
+      'settings' => array(
+        'add_new_text' => 'Add new customer...',
+      ),
+    ),
+  );
+}
