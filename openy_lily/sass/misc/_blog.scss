@@ -8,6 +8,14 @@
       border: none !important;
       .blog-up {
         text-align: center;
+        .category {
+          position: absolute;
+          left: 0;
+          padding: 10px 20px;
+          background-color: rgba(156,31,123,0.75);
+          color: white;
+          font-weight: bold;
+        }
         .field-media-image{
           height: 210px;
         }
