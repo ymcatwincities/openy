@@ -39,12 +39,11 @@
  *
  * @see panels_edit_layout()
  * @see _panels_edit_layout()
- *
  */
 class panels_allowed_layouts {
 
   /**
-   *  Specifies whether newly-added layouts (as in, new .inc files) should be automatically
+   * Specifies whether newly-added layouts (as in, new .inc files) should be automatically
    *  allowed (TRUE) or disallowed (FALSE) for $this. Defaults to TRUE, which is more
    *  permissive but less of an administrative hassle if/when you add new layouts. Note
    *  that this parameter will be derived from $allowed_layouts if a value is passed in.
@@ -52,19 +51,20 @@ class panels_allowed_layouts {
   var $allow_new = TRUE;
 
   /**
-   *  Optional member. If provided, the Panels API will generate a drupal variable using
+   * Optional member. If provided, the Panels API will generate a drupal variable using
    *  variable_set($module_name . 'allowed_layouts', serialize($this)), thereby handling the
    *  storage of this object entirely within the Panels API. This object will be
    *  called and rebuilt by panels_edit_layout() if the same $module_name string is passed in
    *  for the $allowed_types parameter. \n
    *  This is primarily intended for convenience - client modules doing heavy-duty implementations
    *  of the Panels API will probably want to create their own storage method.
+   *
    * @see panels_edit_layout()
    */
   var $module_name = NULL;
 
   /**
-   *  An associative array of all available layouts, keyed by layout name (as defined
+   * An associative array of all available layouts, keyed by layout name (as defined
    *  in the corresponding layout plugin definition), with value = 1 if the layout is
    *  allowed, and value = 0 if the layout is not allowed.
    *  Calling array_filter(panels_allowed_layouts::$allowed_layout_settings) will return an associative array
@@ -82,15 +82,14 @@ class panels_allowed_layouts {
 
   /**
    * Constructor function; loads the $allowed_layout_settings array with initial values according
-   * to $start_allowed
+   * to $start_allowed.
    *
    * @param bool $start_allowed
-   *  $start_allowed determines whether all available layouts will be marked
-   *  as allowed or not allowed on the initial call to panels_allowed_layouts::set_allowed()
-   *
+   *   $start_allowed determines whether all available layouts will be marked
+   *   as allowed or not allowed on the initial call to panels_allowed_layouts::set_allowed()
    */
   function panels_allowed_layouts($start_allowed = TRUE) {
-    // TODO would be nice if there was a way to just fetch the names easily
+    // TODO would be nice if there was a way to just fetch the names easily.
     foreach ($this->list_layouts() as $layout_name) {
       $this->allowed_layout_settings[$layout_name] = $start_allowed ? 1 : 0;
     }
@@ -121,6 +120,7 @@ class panels_allowed_layouts {
    *      drupal_goto('</path/to/desired/redirect>');
    *    }
    *  }
+   *
    * @endcode \n
    *
    * If $allowed_layouts->form_state == 'failed-validate' || 'render', then you'll need to return
@@ -135,8 +135,8 @@ class panels_allowed_layouts {
    * you to control where the user ends up next.
    *
    * @param string $title
-   *  Used to set the title of the allowed layouts form. If no value is given, defaults to
-   *  'Panels: Allowed Layouts'.
+   *   Used to set the title of the allowed layouts form. If no value is given, defaults to
+   *   'Panels: Allowed Layouts'.
    *
    * @return mixed $result
    *  - On the first passthrough when the form is being rendered, $result is the form's structured
@@ -147,11 +147,11 @@ class panels_allowed_layouts {
   function set_allowed($title = 'Panels: Allowed Layouts') {
     $this->sync_with_available();
     $form_id = 'panels_common_set_allowed_layouts';
-    // TODO switch to drupal_build_form(); need to pass by ref
+    // TODO switch to drupal_build_form(); need to pass by ref.
     $form = drupal_retrieve_form($form_id, $this, $title);
 
     if ($result = drupal_process_form($form_id, $form)) {
-      // successful submit
+      // Successful submit.
       $this->form_state = 'submit';
       return $result;
     }
@@ -192,7 +192,6 @@ class panels_allowed_layouts {
    * If you don't serialize the second parameter of variable_get() and the variable name you provide
    * can't be found, an E_STRICT warning will be generated for trying to unserialize an entity
    * that has not been serialized.
-   *
    */
   function save() {
     if (!is_null($this->module_name)) {
@@ -217,6 +216,7 @@ class panels_allowed_layouts {
     }
     return $layouts;
   }
+
 }
 
 /**
@@ -292,7 +292,7 @@ function panels_common_settings($form, &$form_state, $module_name = 'panels_comm
       '#tree' => TRUE,
     );
 
-    // cheat a bit
+    // Cheat a bit.
     $content_types['other'] = array('title' => t('Other'), 'weight' => 10);
     foreach ($content_types as $id => $info) {
       if (isset($allowed[$id])) {
@@ -338,21 +338,21 @@ function panels_common_settings($form, &$form_state, $module_name = 'panels_comm
 }
 
 /**
- * Submit hook for panels_common_settings
+ * Submit hook for panels_common_settings.
  */
 function panels_common_settings_validate($form, &$form_state) {
   panels_common_allowed_layouts_form_validate($form, $form_state);
 }
 
 /**
- * Submit hook for panels_common_settings
+ * Submit hook for panels_common_settings.
  */
 function panels_common_settings_submit($form, &$form_state) {
   panels_common_allowed_layouts_form_submit($form, $form_state);
   $module_name = $form_state['values']['module_name'];
   variable_set($module_name . '_default', $form_state['values']['panels_common_default']);
   if (!$form_state['skip']) {
-    // merge the broken apart array neatly back together
+    // Merge the broken apart array neatly back together.
     $allowed = $form_state['values']['allowed'];
     $allowed_content_types = array();
     foreach ($form_state['values']['allowed'] as $allowed) {
@@ -367,8 +367,7 @@ function panels_common_settings_submit($form, &$form_state) {
  * Based upon the settings, get the allowed types for this node.
  */
 function panels_common_get_allowed_types($module, $contexts = array(), $has_content = FALSE, $default_defaults = array(), $default_allowed_types = array()) {
-  // Get a list of all types that are available
-
+  // Get a list of all types that are available.
   $default_types = variable_get($module . '_default', $default_defaults);
   $allowed_types = variable_get($module . '_allowed_types', $default_allowed_types);
 
@@ -402,8 +401,8 @@ function panels_common_get_allowed_types($module, $contexts = array(), $has_cont
  * @ingroup forms
  *
  * @param array $allowed_layouts
- *  The set of allowed layouts that should be used as the default values
- *  for this form. If none is provided, then by default no layouts will be restricted.
+ *   The set of allowed layouts that should be used as the default values
+ *   for this form. If none is provided, then by default no layouts will be restricted.
  */
 function panels_common_allowed_layouts_form(&$form, &$form_state, $module_name) {
   // Fetch our allowed layouts from variables.
@@ -457,17 +456,17 @@ function panels_common_allowed_layouts_form_submit($form, &$form_state) {
 function panels_common_get_allowed_layout_object($module_name) {
   $allowed_layouts = unserialize(variable_get($module_name . "_allowed_layouts", serialize('')));
 
-  // if no parameter was provided, or the variable_get failed
+  // If no parameter was provided, or the variable_get failed.
   if (!$allowed_layouts) {
-    // still no dice. simply creates a dummy version where all layouts
+    // Still no dice. simply creates a dummy version where all layouts
     // are allowed.
     $allowed_layouts = new panels_allowed_layouts();
     $allowed_layouts->allow_new = TRUE;
     $allowed_layouts->module_name = $module_name;
   }
 
-  // sanitize allowed layout listing; this is redundant if the
-  // $allowed_layouts param was null, but the data is cached anyway
+  // Sanitize allowed layout listing; this is redundant if the
+  // $allowed_layouts param was null, but the data is cached anyway.
   $allowed_layouts->sync_with_available();
 
   return $allowed_layouts;
@@ -482,7 +481,7 @@ function panels_common_get_allowed_layouts($module_name) {
   if (empty($module_name)) {
     return $available_layouts;
   }
-  else if (is_object($module_name)) {
+  elseif (is_object($module_name)) {
     $allowed_layouts = $module_name;
   }
   else {
@@ -497,7 +496,7 @@ function panels_common_get_allowed_layouts($module_name) {
     }
   }
 
-  // Sort
+  // Sort.
   $layouts = array();
 
   asort($order);
@@ -585,7 +584,6 @@ function panels_common_print_layout_links($layouts, $base_path, $link_options = 
   // We're doing these dependencies completely manualy, which is unusual, but
   // the process code only supports doing them in a form.
   // @todo modify dependent.inc to make this easier.
-
   $dependencies = array();
   foreach ($options as $category => $links) {
     $dependencies['panels-layout-category-' . $category] = array(

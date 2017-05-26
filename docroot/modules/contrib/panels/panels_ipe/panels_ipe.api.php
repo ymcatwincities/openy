@@ -26,3 +26,18 @@ function hook_panels_ipe_panels_display_presave(PanelsDisplayVariant $panels_dis
     $panels_display->setStorage('custom_storage_key', $configuration['storage_id']);
   }
 }
+
+/**
+ * Modify the list of blocks available through the IPE interface.
+ *
+ * @param array $blocks
+ *   The blocks that are currently available.
+ */
+function hook_panels_ipe_blocks_alter(array &$blocks = array()) {
+  // Only show blocks that were provided by the 'mymodule' module.
+  foreach ($blocks as $key => $block) {
+    if ($block['provider'] !== 'mymodule') {
+      unset($blocks[$key]);
+    }
+  }
+}
