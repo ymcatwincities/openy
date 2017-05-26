@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the penY Digital Signage Screen content module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function openy_digital_signage_screen_content_install() {
+  // Set the weight of the openy_digital_signage_screen_content.module to 10
+  // so it is loaded after the panelizer.module.
+  module_set_weight('openy_digital_signage_screen_content', 10);
+}
