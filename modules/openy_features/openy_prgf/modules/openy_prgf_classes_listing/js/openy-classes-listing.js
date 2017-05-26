@@ -41,7 +41,7 @@
         .each(function() {
           var $self = $(this);
           var selected_location = $self.find('.js-form-item-location select').val();
-          if (selected_location) {
+          if (selected_location && selected_location !== 'All') {
             // Set result items links location parameter.
             $('.activity-group-slider a').each(function() {
               var href = $(this).attr('href');
