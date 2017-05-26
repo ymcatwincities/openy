@@ -401,6 +401,9 @@ function ymca_preprocess_html(&$variables) {
       'theme_ymca_2015_blank_internal_with_nav',
     ];
   }
+  elseif ($current_route_name == 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_upcoming') {
+    $variables['page']['base_path'] = base_path();
+  }
   elseif ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
