@@ -21,7 +21,7 @@ class OpenYScreenAccessControlHandler extends EntityAccessControlHandler {
     /** @var \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $entity */
     switch ($operation) {
       case 'view':
-        return AccessResult::allowedIfHasPermission($account, 'view OpenY Digital Signage Screen entities');
+        return AccessResult::allowed();
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit OpenY Digital Signage Screen entities');

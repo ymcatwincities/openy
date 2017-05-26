@@ -1,0 +1,14 @@
+openy_ds_screen_handler:
+  version: 1.x
+  js:
+    js/screen-handler.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+openy_ds_screen_theme:
+  version: 1.x
+  css:
+    theme:
+      css/screen.css: {}
+      css/openy-digital-signage-screen.css: {}
