@@ -18,7 +18,7 @@ class OpenYScheduleAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var \Drupal\openy_digital_signage_schedule\Entity\OpenYScheduleInterface $entity */
+    /* @var \Drupal\openy_digital_signage_schedule\Entity\OpenYScheduleInterface $entity */
     switch ($operation) {
       case 'view':
         return AccessResult::allowedIfHasPermission($account, 'view OpenY Digital Signage Schedule entities');
