@@ -99,7 +99,15 @@
       $('.groupex-form-full input[type="radio"]').change(function() {
         $(this).parents('form').find('label').addClass('disabled');
       });
+      $(document).ajaxSuccess(function() {
+        if (typeof(addtocalendar) !== 'undefined') {
+          addtocalendar.load();
+        }
+      });
       if ($('body .groupex-form-full').length > 0) {
+        if (typeof(addtocalendar) !== 'undefined') {
+          addtocalendar.load();
+        }
         $(document).ajaxSuccess(function () {
           $('html, body').animate({
             scrollTop: $("section.content").offset().top
@@ -121,7 +129,7 @@
         $('div.groupex-results').hide();
 
         $(document).ajaxSuccess(function() {
-          if (addtocalendar !== 'undefined') {
+          if (typeof(addtocalendar) !== 'undefined') {
             addtocalendar.load();
           }
           $('div.groupex-results').show();
