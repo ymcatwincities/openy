@@ -16,7 +16,6 @@ function openy_digital_signage_screen_content_panels_build_alter(&$build, Panels
 
   $is_panelizer = $builder->getPluginId() == 'ipe' &&
     in_array($storage_type, ['panelizer_default', 'panelizer_field']) &&
-    isset($build['#attached']) &&
     isset($build['#attached']['library']) &&
     in_array('panels_ipe/panels_ipe', $build['#attached']['library']);
 
