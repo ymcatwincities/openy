@@ -8,7 +8,7 @@
 /**
  * Fetch the i18n_settings of the content type if there are any.
  *
- * @param stdClass $pane
+ * @param object $pane
  *   The pane to deal with.
  *
  * @return array|false
@@ -38,7 +38,7 @@ function i18n_panels_get_i18n_settings($pane) {
 /**
  * Returns the translation object of the pane.
  *
- * @param stdClass $pane
+ * @param object $pane
  *   The pane to deal with.
  *
  * @return stdClass|FALSE
@@ -83,7 +83,7 @@ function i18n_panels_get_i18n_translation_object($pane) {
 /**
  * Implements hook_panels_pane_insert().
  *
- * @param stdClass $pane
+ * @param object $pane
  *   The pane to deal with.
  */
 function i18n_panels_panels_pane_insert($pane) {
@@ -93,7 +93,7 @@ function i18n_panels_panels_pane_insert($pane) {
 /**
  * Implements hook_panels_pane_update().
  *
- * @param stdClass $pane
+ * @param object $pane
  *   The pane to deal with.
  */
 function i18n_panels_panels_pane_update($pane) {
@@ -128,7 +128,7 @@ function i18n_panels_panels_pane_delete($pids) {
 /**
  * Implements hook_panels_pane_prerender().
  *
- * @param stdClass $pane
+ * @param object $pane
  *   The pane to deal with.
  */
 function i18n_panels_panels_pane_prerender($pane) {
@@ -206,6 +206,7 @@ function i18n_panels_panels_delete_display($did) {
  *
  * This function must not rely on the passed $renderer parameter. The parameter
  * could be empty because this function is reused in i18n_ctools_render_alter().
+ *
  * @todo Check if a drupal_alter() in panels_display::get_title() is applicable.
  *
  * @see i18n_ctools_render_alter()
@@ -234,6 +235,7 @@ function i18n_panels_panels_pre_render(&$display, $renderer) {
  *
  * Under some circumstances the title of the panel page is set before
  * hook_panels_pre_render() is fired. Such cases can be handled with this hook.
+ *
  * @todo Check if a drupal_alter() in panels_display::get_title() is applicable.
  */
 function i18n_ctools_render_alter(&$info, $page, $context) {
@@ -250,7 +252,6 @@ function i18n_ctools_render_alter(&$info, $page, $context) {
  * Implements hook_ctools_plugin_post_alter().
  *
  * Register some translatable configuration settings for plugins.
- *
  */
 function i18n_panels_ctools_plugin_post_alter(&$plugin, $plugin_type_info) {
   if ($plugin_type_info['type'] == 'content_types') {
@@ -366,7 +367,7 @@ function _18n_panels_is_exported_panels_display($display) {
  *
  * @todo I bet there are better ways to solve this mess.
  *
- * @param boolean $reset
+ * @param bool $reset
  *   Reset the static cache.
  *
  * @return array

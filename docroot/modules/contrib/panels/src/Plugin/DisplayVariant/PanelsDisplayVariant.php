@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Plugin\DisplayVariant;
 
 use Drupal\Component\Render\HtmlEscapedText;
@@ -341,8 +345,7 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
     // Don't call VariantBase::buildConfigurationForm() on purpose, because it
     // adds a 'Label' field that we don't actually want to use - we store the
     // label on the page variant entity.
-    //$form = parent::buildConfigurationForm($form, $form_state);
-
+    // $form = parent::buildConfigurationForm($form, $form_state);.
     $plugins = $this->builderManager->getDefinitions();
     $options = array();
     foreach ($plugins as $id => $plugin) {
@@ -407,7 +410,7 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
     $operations = [];
     $operations['layout'] = [
       'title' => $this->t('Layout'),
-      'form' => LayoutPluginSelector::class
+      'form' => LayoutPluginSelector::class,
     ];
     if (!empty($this->getConfiguration()['layout']) && $cached_values['plugin']->getLayout() instanceof PluginFormInterface) {
       /** @var \Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout */

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -133,4 +137,5 @@ class PanelsTest extends WebTestBase {
     // assertion here.
     $this->assertRaw('<h1 class="page-title">My User&#039;s Name</h1>');
   }
+
 }
