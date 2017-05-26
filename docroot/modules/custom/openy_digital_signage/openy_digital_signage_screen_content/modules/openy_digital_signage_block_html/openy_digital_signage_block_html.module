@@ -70,3 +70,13 @@ function openy_digital_signage_block_html_theme($existing, $type, $theme, $path)
     ],
   ];
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function openy_digital_signage_block_html_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id != 'block_content_digital_signage_block_free_html_panels_ipe_form') {
+    return;
+  }
+  $form['revision_information']['#access'] = FALSE;
+}
