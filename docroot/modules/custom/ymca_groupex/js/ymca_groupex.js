@@ -100,16 +100,36 @@
         $(this).parents('form').find('label').addClass('disabled');
       });
       $(document).ajaxSuccess(function() {
-        if (addtocalendar !== 'undefined') {
+        if (typeof(addtocalendar) !== 'undefined') {
           addtocalendar.load();
         }
       });
+      if ($('body .groupex-form-full').length > 0) {
+        if (typeof(addtocalendar) !== 'undefined') {
+          addtocalendar.load();
+        }
+        $(document).ajaxSuccess(function () {
+          $('html, body').animate({
+            scrollTop: $("section.content").offset().top
+          }, 200);
+        });
+        // Fix touch event on calendar.
+        $(':not(.atcb-link)').on('touchstart click', function() {
+          if ($('.atcb-link:focus ~ ul').length > 0) {
+            $('body').addClass('opened-calendar');
+          }
+          else if ($('body').hasClass('opened-calendar')) {
+            $('.atcb-link:focus ~ ul').css('visibility', 'hidden');
+            $('body').removeClass('opened-calendar');
+          }
+        });
+      }
       $('.groupex-form-full select').change(function() {
         $('.groupex-form-full select').attr('readonly', true);
         $('div.groupex-results').hide();
 
         $(document).ajaxSuccess(function() {
-          if (addtocalendar !== 'undefined') {
+          if (typeof(addtocalendar) !== 'undefined') {
             addtocalendar.load();
           }
           $('div.groupex-results').show();
