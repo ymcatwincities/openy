@@ -1071,6 +1071,13 @@ function ymca_theme() {
 }
 
 /**
+ * Implements hook_ymca_sync_description_alter().
+ */
+function ymca_preprocess_ymca_groupex_form_full(&$variables) {
+  $variables['atc_src'] = base_path() . drupal_get_path('theme', 'ymca') . '/scripts/vendor/atc.min.js';
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function ymca_form_groupex_form_full_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
