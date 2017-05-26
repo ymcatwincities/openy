@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\VariantCollectionTrait.
- */
 
 namespace Drupal\ctools\Plugin;
 

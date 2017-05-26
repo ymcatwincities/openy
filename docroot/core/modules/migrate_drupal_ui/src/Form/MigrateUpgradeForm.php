@@ -70,6 +70,14 @@ class MigrateUpgradeForm extends ConfirmFormBase {
       'source_module' => 'block',
       'destination_module' => 'block',
     ],
+    'block_content_entity_form_display' => [
+      'source_module' => 'block',
+      'destination_module' => 'block_content',
+    ],
+    'block_content_entity_display' => [
+      'source_module' => 'block',
+      'destination_module' => 'block_content',
+    ],
     'block_content_body_field' => [
       'source_module' => 'block',
       'destination_module' => 'block_content',
@@ -250,6 +258,10 @@ class MigrateUpgradeForm extends ConfirmFormBase {
       'source_module' => 'filter',
       'destination_module' => 'filter',
     ],
+    'd7_filter_settings' => [
+      'source_module' => 'filter',
+      'destination_module' => 'filter',
+    ],
     'd6_forum_settings' => [
       'source_module' => 'forum',
       'destination_module' => 'forum',
@@ -370,6 +382,10 @@ class MigrateUpgradeForm extends ConfirmFormBase {
       'source_module' => 'node',
       'destination_module' => 'node',
     ],
+    'd7_node_translation' => [
+      'source_module' => 'node',
+      'destination_module' => 'node',
+    ],
     'd7_node_title_label' => [
       'source_module' => 'node',
       'destination_module' => 'node',
@@ -418,7 +434,7 @@ class MigrateUpgradeForm extends ConfirmFormBase {
       'source_module' => 'simpletest',
       'destination_module' => 'simpletest',
     ],
-    'd6_statistics_settings' => [
+    'statistics_settings' => [
       'source_module' => 'statistics',
       'destination_module' => 'statistics',
     ],
@@ -574,6 +590,10 @@ class MigrateUpgradeForm extends ConfirmFormBase {
       'source_module' => 'profile',
       'destination_module' => 'user',
     ],
+    'd7_theme_settings' => [
+      'source_module' => 'system',
+      'destination_module' => 'system',
+    ],
     'd6_user' => [
       'source_module' => 'user',
       'destination_module' => 'user',
@@ -644,6 +664,10 @@ class MigrateUpgradeForm extends ConfirmFormBase {
     ],
     'user_profile_field_instance' => [
       'source_module' => 'profile',
+      'destination_module' => 'user',
+    ],
+    'd6_i18n_user_profile_field_instance' => [
+      'source_module' => 'i18n',
       'destination_module' => 'user',
     ],
   ];
@@ -1046,7 +1070,7 @@ class MigrateUpgradeForm extends ConfirmFormBase {
     $form['missing_module_list_title'] = [
       '#type' => 'item',
       '#title' => $this->t('Missing upgrade paths'),
-      '#description' => $this->t('The following items will not be upgraded. For more information see <a href=":migrate">Upgrading from Drupal 6 or 7 to Drupal 8</a>.', array(':migrate' => 'https://www.drupal.org/upgrade/migrate')),
+      '#description' => $this->t('The following items will not be upgraded. For more information see <a href=":migrate">Upgrading from Drupal 6 or 7 to Drupal 8</a>.', [':migrate' => 'https://www.drupal.org/upgrade/migrate']),
     ];
     $form['missing_module_list'] = [
       '#type' => 'table',

@@ -14,7 +14,7 @@ class FeedAdminDisplayTest extends AggregatorTestBase {
    */
   public function testFeedUpdateFields() {
     // Create scheduled feed.
-    $scheduled_feed = $this->createFeed(NULL, array('refresh' => '900'));
+    $scheduled_feed = $this->createFeed(NULL, ['refresh' => '900']);
 
     $this->drupalGet('admin/config/services/aggregator');
     $this->assertResponse(200, 'Aggregator feed overview page exists.');
@@ -40,7 +40,7 @@ class FeedAdminDisplayTest extends AggregatorTestBase {
     $this->deleteFeed($scheduled_feed);
 
     // Create non-scheduled feed.
-    $non_scheduled_feed = $this->createFeed(NULL, array('refresh' => '0'));
+    $non_scheduled_feed = $this->createFeed(NULL, ['refresh' => '0']);
 
     $this->drupalGet('admin/config/services/aggregator');
     // The non scheduled feed shows that it has not been updated yet.
@@ -58,6 +58,16 @@ class FeedAdminDisplayTest extends AggregatorTestBase {
     $this->assertText('never', 'The updated non scheduled feed still shows "never" as next update.');
     $this->assertText('ago', 'The non scheduled feed has been updated. It shows "x x ago" as last update.');
     $this->assertNoText('left', 'The feed is not scheduled. It does not show a timeframe "x x left" for next update.');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function randomMachineName($length = 8) {
+    $value = parent::randomMachineName($length);
+    // See expected values in testFeedUpdateFields().
+    $value = str_replace(['never', 'imminently', 'ago', 'left'], 'x', $value);
+    return $value;
   }
 
 }

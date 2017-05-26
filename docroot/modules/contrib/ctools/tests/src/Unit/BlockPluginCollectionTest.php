@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\ctools\Unit\BlockPluginCollectionTest.
- */
-
 namespace Drupal\Tests\ctools\Unit;
 
 use Drupal\Core\Block\BlockManagerInterface;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Wizard\FormWizardBase.
- */
-
 namespace Drupal\ctools\Wizard;
 
 use Drupal\Core\Ajax\AjaxResponse;
@@ -431,7 +426,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
 
     // If there are not steps after this one, label the button "Finish".
     if (!$after) {
-      $actions['submit']['#value'] = t('Finish');
+      $actions['submit']['#value'] = $this->t('Finish');
       $actions['submit']['#submit'][] = array($this, 'finish');
       if ($form_state->get('ajax')) {
         $actions['submit']['#ajax']['callback'] = [$this, 'ajaxFinish'];
@@ -445,7 +440,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
     $cached_values = $form_state->getTemporaryValue('wizard');
     $response = new AjaxResponse();
     $parameters = $this->getNextParameters($cached_values);
-    $response->addCommand(new OpenModalWizardCommand(get_class($this), $this->getTempstoreId(), $parameters));
+    $response->addCommand(new OpenModalWizardCommand($this, $this->getTempstoreId(), $parameters));
     return $response;
   }
 
@@ -453,7 +448,7 @@ abstract class FormWizardBase extends FormBase implements FormWizardInterface {
     $cached_values = $form_state->getTemporaryValue('wizard');
     $response = new AjaxResponse();
     $parameters = $this->getPreviousParameters($cached_values);
-    $response->addCommand(new OpenModalWizardCommand(get_class($this), $this->getTempstoreId(), $parameters));
+    $response->addCommand(new OpenModalWizardCommand($this, $this->getTempstoreId(), $parameters));
     return $response;
   }
 

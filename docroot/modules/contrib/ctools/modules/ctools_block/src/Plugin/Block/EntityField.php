@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\Block\EntityField.
- */
-
 namespace Drupal\ctools_block\Plugin\Block;
 
 use Drupal\Component\Utility\NestedArray;
@@ -19,6 +14,7 @@ use Drupal\Core\Field\FormatterPluginManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -159,13 +155,24 @@ class EntityField extends BlockBase implements ContextAwarePluginInterface, Cont
   protected function blockAccess(AccountInterface $account) {
     /** @var \Drupal\Core\Entity\EntityInterface $entity */
     $entity = $this->getContextValue('entity');
-    $access = $entity->access('view', $account, TRUE);
     // Make sure we have access to the entity.
+    $access = $entity->access('view', $account, TRUE);
     if ($access->isAllowed()) {
-      // Check that the entity in question has this field and a value.
-      if ($entity instanceof FieldableEntityInterface && $entity->hasField($this->fieldName) && $entity->{$this->fieldName}->getValue()) {
-        $access_handler = $this->entityTypeManager->getAccessControlHandler($this->entityTypeId);
-        return $access_handler->fieldAccess('view', $this->getFieldDefinition(), $account, NULL, TRUE);
+      // Check that the entity in question has this field.
+      if ($entity instanceof FieldableEntityInterface && $entity->hasField($this->fieldName)) {
+        // Check field access.
+        $field_access = $this->entityTypeManager
+          ->getAccessControlHandler($this->entityTypeId)
+          ->fieldAccess('view', $this->getFieldDefinition(), $account);
+
+        if ($field_access) {
+          // Build a renderable array for the field.
+          $build = $entity->get($this->fieldName)->view($this->configuration['formatter']);
+          // If there are actual renderable children, grant access.
+          if (Element::children($build)) {
+            return AccessResult::allowed();
+          }
+        }
       }
       // Entity doesn't have this field, so access is denied.
       return AccessResult::forbidden();
@@ -205,14 +212,14 @@ class EntityField extends BlockBase implements ContextAwarePluginInterface, Cont
         'hidden' => '- ' . $this->t('Hidden') . ' -',
         'visually_hidden' => '- ' . $this->t('Visually Hidden') . ' -',
       ],
-      '#default_value' => $form_state->getValue('formatter_label') ?: $config['formatter']['label'],
+      '#default_value' => $config['formatter']['label'],
     ];
 
     $form['formatter_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Formatter'),
       '#options' => $this->getFormatterOptions(),
-      '#default_value' => $form_state->getValue('formatter_type') ?: $config['formatter']['type'],
+      '#default_value' => $config['formatter']['type'],
       '#ajax' => [
         'callback' => [static::class, 'formatterSettingsAjaxCallback'],
         'wrapper' => 'formatter-settings-wrapper',

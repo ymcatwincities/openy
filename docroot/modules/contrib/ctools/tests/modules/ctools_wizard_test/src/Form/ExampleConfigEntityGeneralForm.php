@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools_wizard_test\Form\ExampleConfigEntityGeneralForm.
- */
-
 namespace Drupal\ctools_wizard_test\Form;
 
 use Drupal\Core\Entity\EntityInterface;
