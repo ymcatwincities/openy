@@ -227,7 +227,7 @@
    */
   Drupal.panels_ipe.setUrlRoot = function (settings) {
     var panels_display = settings.panels_ipe.panels_display;
-    settings.panels_ipe.url_root = settings.path.baseUrl + 'admin/panels_ipe/variant/' + panels_display.storage_type + '/' + panels_display.storage_id;
+    settings.panels_ipe.url_root = settings.path.baseUrl + settings.path.pathPrefix + 'admin/panels_ipe/variant/' + panels_display.storage_type + '/' + panels_display.storage_id;
   };
 
 }(jQuery, _, Backbone, Drupal, drupalSettings));
