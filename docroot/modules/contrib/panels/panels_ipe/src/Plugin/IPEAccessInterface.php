@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \Drupal\panels_ipe\Plugin\IPEAccessInterface.php
+ * Contains \Drupal\panels_ipe\Plugin\IPEAccessInterface.php.
  */
 
 namespace Drupal\panels_ipe\Plugin;

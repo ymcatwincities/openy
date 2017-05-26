@@ -1,0 +1,12 @@
+uuid: 8dfb29d0-5ed4-46ca-b75c-1dfcca93261c
+langcode: en
+status: true
+dependencies: {  }
+id: test_page
+label: 'Test Page'
+description: ''
+use_admin_theme: false
+path: /test-page
+access_logic: and
+access_conditions: {  }
+parameters: {  }

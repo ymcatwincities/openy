@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * @file
  * Core Panels API include file containing various display-editing functions.
  * This includes all the basic editing forms (content, layout, layout settings)
@@ -40,7 +40,7 @@ function _panels_edit($display, $destination, $content_types, $title = FALSE) {
 }
 
 /**
- * Form definition for the panels display editor
+ * Form definition for the panels display editor.
  *
  * No validation function is necessary, as all 'validation' is handled
  * either in the lead-up to form rendering (through the selection of
@@ -48,6 +48,7 @@ function _panels_edit($display, $destination, $content_types, $title = FALSE) {
  * the ajax modals & content types.
  *
  * @ingroup forms
+ *
  * @see panels_edit_display_submit()
  */
 function panels_edit_display_form($form, &$form_state) {
@@ -157,7 +158,7 @@ function panels_edit_display_form_submit($form, &$form_state) {
       $display->panels[$region_id] = array();
       if ($panes) {
         $pids = explode(',', $panes);
-        // need to filter the array, b/c passing it in a hidden field can generate trash
+        // Need to filter the array, b/c passing it in a hidden field can generate trash.
         foreach (array_filter($pids) as $pid) {
           if ($old_content[$pid]) {
             $display->panels[$region_id][] = $pid;
@@ -221,7 +222,7 @@ function panels_edit_display_settings_form($form, &$form_state) {
   ctools_include('dependent');
 
   if ($form_state['display_title']) {
-    $form['display_title'] = array (
+    $form['display_title'] = array(
       '#tree' => TRUE,
     );
 
@@ -289,7 +290,7 @@ function panels_edit_display_settings_form($form, &$form_state) {
     }
   }
 
-  // TODO doc the ability to do this as part of the API
+  // TODO doc the ability to do this as part of the API.
   if (!empty($layout['settings form']) && function_exists($layout['settings form'])) {
     $form['layout_settings'] = $layout['settings form']($display, $layout, $display->layout_settings);
   }
