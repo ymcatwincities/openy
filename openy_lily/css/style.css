@@ -992,6 +992,14 @@ body.path-search #block-mainpagecontent li {
 .node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up {
   text-align: center;
 }
+.node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .category {
+  position: absolute;
+  left: 0;
+  padding: 10px 20px;
+  background-color: #b92f9e;
+  color: white;
+  font-weight: bold;
+}
 .node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .field-media-image {
   height: 210px;
 }
