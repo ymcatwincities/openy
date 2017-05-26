@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: ymca_retention_challenge_pages
-label: 'YMCA Y Recharge'
+label: 'Y Recharge 2017'
 use_admin_theme: false
 path: '/challenge/{string}'
 access_logic: and
