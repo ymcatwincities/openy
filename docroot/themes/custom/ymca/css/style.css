@@ -10580,7 +10580,9 @@ a.sports-icon.floor-hockey {
   visibility: visible;
 }
 
-tr:last-child .atcb-list {
+tr:last-child .atcb-list,
+tr:nth-last-child(2) .atcb-list,
+tr:nth-last-child(3) .atcb-list {
   top: auto;
   bottom: 0;
 }
