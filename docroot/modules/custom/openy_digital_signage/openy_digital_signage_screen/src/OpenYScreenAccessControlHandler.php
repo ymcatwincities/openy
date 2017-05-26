@@ -18,7 +18,7 @@ class OpenYScreenAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $entity */
+    /* @var \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $entity */
     switch ($operation) {
       case 'view':
         return AccessResult::allowed();

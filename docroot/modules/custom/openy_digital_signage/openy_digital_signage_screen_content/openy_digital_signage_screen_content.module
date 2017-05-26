@@ -24,7 +24,7 @@ function openy_digital_signage_screen_content_panels_build_alter(&$build, Panels
     return;
   }
 
-  /** @var \Drupal\Core\Entity\EntityInterface $entity */
+  /* @var \Drupal\Core\Entity\EntityInterface $entity */
   $entity = $panels_display->getContexts()['@panelizer.entity_context:entity']->getContextValue();
   if ($entity->bundle() != 'screen_content') {
     return;
