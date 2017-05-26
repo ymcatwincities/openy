@@ -1,0 +1,43 @@
+{
+  "name": "openy-ds",
+  "version": "1.0.0",
+  "description": "Client UI for YGTC",
+  "author": "Alexey Strekalov",
+  "scripts": {
+    "start": "gulp"
+  },
+  "devDependencies": {
+    "backstopjs": "^1.2.1",
+    "browser-sync": "^2.13.0",
+    "gulp": "~3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-cheerio": "^0.6.2",
+    "gulp-clean": "^0.3.1",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-concat": "^2.6.0",
+    "gulp-if": "^1.2.5",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-load-plugins": "1.0.0-rc.1",
+    "gulp-postcss": "^6.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-rigger": "^0.5.8",
+    "gulp-sass": "^2.3.1",
+    "gulp-size": "^2.0.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-svg-sprite": "^1.2.9",
+    "gulp-svgmin": "^1.2.0",
+    "gulp-uncss": "^1.0.4",
+    "gulp-util": "^3.0.7",
+    "imagemin-pngquant": "^4.2.0",
+    "node-sass": "^3.7.0",
+    "postcss-assets": "^2.1.4",
+    "rimraf": "^2.4.1"
+  },
+  "dependencies": {
+    "gulp-browserify": "^0.5.1",
+    "gulp-livereload": "^3.8.1",
+    "tiny-lr": "^0.2.1"
+  }
+}
