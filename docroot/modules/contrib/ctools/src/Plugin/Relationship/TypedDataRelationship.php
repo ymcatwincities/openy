@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\Relationship\TypedDataRelationship.
- */
 
 namespace Drupal\ctools\Plugin\Relationship;
 

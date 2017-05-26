@@ -23,8 +23,8 @@ libraries-extend:
   classy/base:
     - test_basetheme/global-styling
 
-# Information added by Drupal.org packaging script on 2016-12-07
-version: '8.2.4'
+# Information added by Drupal.org packaging script on 2017-05-03
+version: '8.3.2'
 core: '8.x'
 project: 'drupal'
-datestamp: 1481136831
+datestamp: 1493834648

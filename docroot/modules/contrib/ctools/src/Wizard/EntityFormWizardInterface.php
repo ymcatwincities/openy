@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Wizard\EntityFormWizardInterface.
- */
-
 namespace Drupal\ctools\Wizard;
 
 /**

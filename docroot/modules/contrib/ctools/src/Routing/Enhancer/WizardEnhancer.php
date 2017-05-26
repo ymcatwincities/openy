@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Routing\Enhancer\WizardControllerSubscriber.
- */
-
 namespace Drupal\ctools\Routing\Enhancer;
 
 use Drupal\Core\Routing\Enhancer\RouteEnhancerInterface;

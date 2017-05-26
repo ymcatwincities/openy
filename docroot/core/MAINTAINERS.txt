@@ -30,8 +30,14 @@ Drupal 8
   (Framework Manager - Frontend)
 
 Provisional membership:
+- Lauri Eskola 'lauriii' https://www.drupal.org/u/lauriii
+  (Framework Manager - Frontend)
+- Gábor Hojtsy 'Gábor Hojtsy' https://www.drupal.org/u/gábor-hojtsy
+  (Product Manager)
 - Chris McCafferty 'cilefen' https://www.drupal.org/u/cilefen
   (Release Manager)
+- Roy Scholten 'yoroy' https://www.drupal.org/u/yoroy
+  (Product Manager)
 
 Drupal 7
 - Fabian Franz 'Fabianx' https://www.drupal.org/u/fabianx
@@ -81,7 +87,6 @@ Base system
 - ?
 
 Basic Auth
-- Klaus Purer 'klausi' https://www.drupal.org/u/klausi
 - Juampy Novillo Requena 'juampy' https://www.drupal.org/u/juampy
 
 Batch API
@@ -123,7 +128,6 @@ Color
 - ?
 
 Comment
-- Dick Olsson 'dixon_' https://www.drupal.org/u/dixon_
 - Lee Rowlands 'larowlan' https://www.drupal.org/u/larowlan
 - Andrey Postnikov 'andypost' https://www.drupal.org/u/andypost
 
@@ -177,7 +181,7 @@ Database API
   - ?
 
 Database Logging
-- ?
+- Mariano D'Agostino 'dagmar' https://www.drupal.org/u/dagmar
 
 Database Update API
 - ?
@@ -238,6 +242,9 @@ Help
 Image
 - Claudiu Cristea 'claudiu.cristea' https://www.drupal.org/u/claudiu.cristea
 
+Inline Form Errors
+- Daniël Smidt 'dmsmidt' https://www.drupal.org/u/dmsmidt
+
 Installer
 - ?
 
@@ -268,14 +275,12 @@ Migrate
 - Adam Globus-Hoenich 'phenaproxima' https://www.drupal.org/u/phenaproxima
 - Ben Dougherty 'benjy' https://www.drupal.org/u/benjy
 - Lucas Hedding 'heddn' https://www.drupal.org/u/heddn
-- Michael Anello 'ultimike' https://www.drupal.org/u/ultimike
 - Mike Ryan 'mikeryan' https://www.drupal.org/u/mikeryan
 - Vicki Spagnolo 'quietone' https://www.drupal.org/u/quietone
 
 Migrate (Drupal)
 - Ben Dougherty 'benjy' https://www.drupal.org/u/benjy
 - Lucas Hedding 'heddn' https://www.drupal.org/u/heddn
-- Michael Anello 'ultimike' https://www.drupal.org/u/ultimike
 - Mike Ryan 'mikeryan' https://www.drupal.org/u/mikeryan
 - Vicki Spagnolo 'quietone' https://www.drupal.org/u/quietone
 
@@ -334,7 +339,6 @@ Request Processing
 - Larry Garfield 'Crell' https://www.drupal.org/u/crell
 
 REST
-- Klaus Purer 'klausi' https://www.drupal.org/u/klausi
 - Larry Garfield 'Crell' https://www.drupal.org/u/crell
 - Wim Leers 'Wim Leers' https://www.drupal.org/u/wim-leers
 
@@ -370,7 +374,7 @@ Statistics
 - Tim Millwood 'timmillwood' https://www.drupal.org/u/timmillwood
 
 Syslog
-- Khalid Baheyeldin 'kbahey' https://www.drupal.org/u/kbahey
+- ?
 
 System (module)
 - ?
@@ -385,7 +389,6 @@ Telephone
 Testing framework
 - Alex Pott 'alexpott' https://www.drupal.org/u/alexpott
 - Sascha Grossenbacher 'Berdir' https://www.drupal.org/u/berdir
-- Klaus Purer 'klausi' https://www.drupal.org/u/klausi
 - Daniel Wehner 'dawehner' https://www.drupal.org/u/dawehner
 
 Text Field
@@ -471,15 +474,22 @@ re-architect or otherwise improve large areas of Drupal core. See
 https://www.drupal.org/community-initiatives/drupal-core for more information on
 their responsibilities. The initiative coordinators for Drupal 8 are:
 
-Multi-lingual
-- Gábor Hojtsy 'Gábor Hojtsy' https://www.drupal.org/u/gábor-hojtsy
-
 Workflow Initiative
 - Dick Olsson 'dixon_' https://www.drupal.org/u/dixon_
 
 PHPUnit Initiative
-- Klaus Purer 'klausi' https://www.drupal.org/u/klausi
 - Daniel Wehner 'dawehner' https://www.drupal.org/u/dawehner
+
+Layout Initiative
+- Tim Plunkett 'tim.plunkett' https://www.drupal.org/u/tim.plunkett
+- Emilie Nouveau 'DyanneNova' https://www.drupal.org/u/dyannenova
+
+Media Initiative
+- Janez Urevc 'slashrsm' https://www.drupal.org/u/slashrsm
+
+API-first Initiative
+- Wim Leers 'Wim Leers' https://www.drupal.org/u/wim-leers
+- Mateu Aguiló Bosch 'e0ipso' https://www.drupal.org/u/e0ipso
 
 Provisional membership: None at this time.
 

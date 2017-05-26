@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\ContextNotFoundException.
- */
 
 namespace Drupal\ctools;
 

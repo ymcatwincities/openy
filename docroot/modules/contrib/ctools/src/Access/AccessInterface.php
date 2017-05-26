@@ -1,8 +1,5 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Access\AccessInterface.
- */
+
 namespace Drupal\ctools\Access;
 
 use Drupal\Core\Session\AccountInterface;

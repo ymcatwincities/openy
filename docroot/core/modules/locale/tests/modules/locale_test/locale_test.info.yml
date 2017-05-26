@@ -8,8 +8,8 @@ hidden: true
 'interface translation project': locale_test
 'interface translation server pattern': core/modules/locale/test/test.%language.po
 
-# Information added by Drupal.org packaging script on 2016-12-07
-version: '8.2.4'
+# Information added by Drupal.org packaging script on 2017-05-03
+version: '8.3.2'
 core: '8.x'
 project: 'drupal'
-datestamp: 1481136831
+datestamp: 1493834648
