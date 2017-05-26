@@ -633,6 +633,15 @@ table {
 .screen-content-activating {
   display: block; }
 
+.openy-ds-layout.landscape {
+  width: 100vw;
+  height: 56.25vw; }
+
+.openy-ds-layout.portrait {
+  margin: auto;
+  width: 56.25vh;
+  height: 100vh; }
+
 .block-event {
   font-family: "Cachet-Bold";
   font-weight: normal;
