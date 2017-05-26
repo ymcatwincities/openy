@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\Tests\panels\Unit\panels_ipe;
 
 use Drupal\panels_ipe\Helpers\RemoveBlockRequestHandler;

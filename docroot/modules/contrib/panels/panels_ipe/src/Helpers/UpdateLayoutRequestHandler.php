@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels_ipe\Helpers;
 
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
@@ -25,7 +29,7 @@ class UpdateLayoutRequestHandler extends RequestHandlerBase {
 
     $this->invokeHook('panels_ipe_panels_display_presave', [
       $panels_display,
-      $layout_model
+      $layout_model,
     ]);
 
     if ($save_to_temp_store) {
