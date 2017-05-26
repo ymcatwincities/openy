@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.program_registration
+id: paragraph.program_registration
+target_entity_type_id: paragraph
+target_bundle: program_registration
+default_langcode: site_default
+language_alterable: true
