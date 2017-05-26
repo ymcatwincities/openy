@@ -2,27 +2,44 @@
 
   'use strict';
 
-  // Pops the location selec box up on page load.
+  // Pops the location select box up on page load.
   Drupal.behaviors.openy_popups_autoload = {
     attach: function (context, settings) {
       // How to set preferred branch:
       // $.cookie('openy_preferred_branch', 6, { expires: 7, path: '/' });
 
-      var preferred_branch = $.cookie('openy_preferred_branch');
-      var change_link = $('.edit-class-popup');
-      if (typeof this.get_query_param().location === 'undefined' && typeof preferred_branch === 'undefined') {
-        // Open popup.
-        $('a.location-popup-link').once().click();
-        $(document).on('click', 'body > .ui-widget-overlay', function() {
-          return false;
+      var popup = this;
+
+      // For class.
+      if ($('body.page-node-type-class').length) {
+        var change_link = $('.edit-class-popup');
+        // If location not set.
+        if (typeof popup.get_query_param().location === 'undefined') {
+          popup.open_popup();
+        }
+        else /*if (drupalSettings.openy_popups && drupalSettings.openy_popups.location_count && drupalSettings.openy_popups.location_count > 1)*/ {
+          // Show edit link
+          change_link.removeClass('hidden');
+        }
+
+        change_link.on('click', function (e) {
+          popup.open_popup();
         });
-      } else if (drupalSettings.openy_popups && drupalSettings.openy_popups.location_count && drupalSettings.openy_popups.location_count > 1) {
-        change_link.removeClass('hidden');
+      }
+      else {
+        var preferred_branch = $.cookie('openy_preferred_branch');
+        if (typeof this.get_query_param().location === 'undefined' && typeof preferred_branch === 'undefined') {
+          popup.open_popup();
+        }
       }
 
-      change_link.on('click', function (e) {
-        $('.location-popup-link').trigger('click');
-        e.preventDefault();
+    },
+
+    // Open popup.
+    open_popup: function () {
+      $('a.location-popup-link').once().click();
+      $(document).on('click', 'body > .ui-widget-overlay', function () {
+        return false;
       });
     },
 
