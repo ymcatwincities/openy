@@ -326,6 +326,7 @@ function openy_update_8024() {
     'colorbutton',
   ]);
   // Update ckeditor settings.
+  /* @var Drupal\editor\Entity\Editor $editor */
   $editor = \Drupal\editor\Entity\Editor::load('full_html');
   $settings = $editor->getSettings();
   foreach ($settings['toolbar']['rows'][0] as $key => $item) {
