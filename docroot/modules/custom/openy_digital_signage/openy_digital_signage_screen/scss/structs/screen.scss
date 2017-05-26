@@ -46,3 +46,16 @@
   display: block;
 }
 
+.openy-ds-layout {
+
+  &.landscape {
+    width: 100vw;
+    height: 56.25vw;
+  }
+
+  &.portrait {
+    margin: auto;
+    width: 56.25vh;
+    height: 100vh;
+  }
+}
