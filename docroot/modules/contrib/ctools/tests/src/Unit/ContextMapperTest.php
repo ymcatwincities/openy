@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\ctools\Unit\ContextMapperTest.
- */
-
 namespace Drupal\Tests\ctools\Unit;
 
 use Drupal\Core\DependencyInjection\ContainerBuilder;

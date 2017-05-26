@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2010 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -121,6 +121,10 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
 
     protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs)
     {
+        if (!$outputs) {
+            $this->markTestSkipped('no legacy tests to run');
+        }
+
         if ($condition) {
             eval('$ret = '.$condition.';');
             if (!$ret) {

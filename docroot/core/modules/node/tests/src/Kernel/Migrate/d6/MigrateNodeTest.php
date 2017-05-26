@@ -19,7 +19,7 @@ class MigrateNodeTest extends MigrateNodeTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['language', 'content_translation'];
+  public static $modules = ['language', 'content_translation', 'menu_ui'];
 
   /**
    * {@inheritdoc}
@@ -57,6 +57,8 @@ class MigrateNodeTest extends MigrateNodeTestBase {
     $node_revision = \Drupal::entityManager()->getStorage('node')->loadRevision(1);
     $this->assertIdentical('Test title', $node_revision->getTitle());
     $this->assertIdentical('1', $node_revision->getRevisionUser()->id(), 'Node revision has the correct user');
+    $this->assertSame('1', $node_revision->id(), 'Node 1 loaded.');
+    $this->assertSame('1', $node_revision->getRevisionId(), 'Node 1 revision 1 loaded.');
     // This is empty on the first revision.
     $this->assertIdentical(NULL, $node_revision->revision_log->value);
     $this->assertIdentical('This is a shared text field', $node->field_test->value);
@@ -70,6 +72,11 @@ class MigrateNodeTest extends MigrateNodeTestBase {
     $this->assertIdentical('1', $node->field_test_identical2->value, 'Integer value is correct');
     $this->assertIdentical('This is a field with exclude unset.', $node->field_test_exclude_unset->value, 'Field with exclude unset is correct.');
 
+    // Test that date fields are migrated.
+    $this->assertSame('2013-01-02T04:05:00', $node->field_test_date->value, 'Date field is correct');
+    $this->assertSame('1391357160', $node->field_test_datestamp->value, 'Datestamp field is correct');
+    $this->assertSame('2015-03-04T06:07:00', $node->field_test_datetime->value, 'Datetime field is correct');
+
     // Test that link fields are migrated.
     $this->assertIdentical('https://www.drupal.org/project/drupal', $node->field_test_link->uri);
     $this->assertIdentical('Drupal project page', $node->field_test_link->title);
@@ -77,7 +84,10 @@ class MigrateNodeTest extends MigrateNodeTestBase {
 
     // Test the file field meta.
     $this->assertIdentical('desc', $node->field_test_filefield->description);
-    $this->assertIdentical('5', $node->field_test_filefield->target_id);
+    $this->assertIdentical('4', $node->field_test_filefield->target_id);
+
+    // Test that an email field is migrated.
+    $this->assertSame('PrincessRuwenne@example.com', $node->field_test_email->value);
 
     $node = Node::load(2);
     $this->assertIdentical('Test title rev 3', $node->getTitle());
@@ -88,6 +98,20 @@ class MigrateNodeTest extends MigrateNodeTestBase {
     $this->assertIdentical('http://groups.drupal.org/', $node->field_test_link->uri);
     $this->assertIdentical('Drupal Groups', $node->field_test_link->title);
     $this->assertIdentical([], $node->field_test_link->options['attributes']);
+
+    $node = Node::load(3);
+    // Test multivalue field.
+    $value_1 = $node->field_multivalue->value;
+    $value_2 = $node->field_multivalue[1]->value;
+
+    // SQLite does not support scales for float data types so we need to convert
+    // the value manually.
+    if ($this->container->get('database')->driver() == 'sqlite') {
+      $value_1 = sprintf('%01.2f', $value_1);
+      $value_2 = sprintf('%01.2f', $value_2);
+    }
+    $this->assertSame('33.00', $value_1);
+    $this->assertSame('44.00', $value_2);
 
     // Test that a link field with an internal link is migrated.
     $node = Node::load(9);
@@ -156,11 +180,11 @@ class MigrateNodeTest extends MigrateNodeTestBase {
     $this->assertIdentical('full_html', $node->body->format);
 
     // Now insert a row indicating a failure and set to update later.
-    $title = $this->rerunMigration(array(
+    $title = $this->rerunMigration([
       'sourceid1' => 2,
       'destid1' => NULL,
       'source_row_status' => MigrateIdMapInterface::STATUS_NEEDS_UPDATE,
-    ));
+    ]);
     $node = Node::load(2);
     $this->assertIdentical($title, $node->getTitle());
   }
@@ -178,10 +202,10 @@ class MigrateNodeTest extends MigrateNodeTestBase {
     $title = $this->randomString();
     $source_connection = Database::getConnection('default', 'migrate');
     $source_connection->update('node_revisions')
-      ->fields(array(
+      ->fields([
         'title' => $title,
         'format' => 2,
-      ))
+      ])
       ->condition('vid', 3)
       ->execute();
     $migration = $this->getMigration('d6_node:story');

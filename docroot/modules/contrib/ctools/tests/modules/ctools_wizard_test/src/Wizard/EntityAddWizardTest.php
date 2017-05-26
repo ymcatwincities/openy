@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Wizard\EntityAddWizardTest.
- */
 
 namespace Drupal\ctools_wizard_test\Wizard;
 

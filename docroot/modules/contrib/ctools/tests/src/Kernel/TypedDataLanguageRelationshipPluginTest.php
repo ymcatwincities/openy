@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\ctools\Kernel\TypedDataLanguageRelationshipPluginTest.
- */
 
 namespace Drupal\Tests\ctools\Kernel;
 
