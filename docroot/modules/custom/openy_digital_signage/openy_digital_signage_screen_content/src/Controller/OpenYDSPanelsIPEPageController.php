@@ -126,7 +126,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
       'basic',
       'digital_signage_block_free_html',
     ];
-    /** @var \Drupal\block_content\BlockContentTypeInterface $definition */
+    /* @var \Drupal\block_content\BlockContentTypeInterface $definition */
     foreach ($types as $id => $definition) {
       if (!in_array($definition->id(), $available_types)) {
         continue;

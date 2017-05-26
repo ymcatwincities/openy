@@ -27,13 +27,13 @@ class DateRangeWidgetBase extends DateTimeWidgetBase {
     ] + $element['value'];
 
     if ($items[$delta]->start_date) {
-      /** @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
+      /* @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
       $start_date = $items[$delta]->start_date;
       $element['value']['#default_value'] = $this->createDefaultValue($start_date, $element['value']['#date_timezone']);
     }
 
     if ($items[$delta]->end_date) {
-      /** @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
+      /* @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
       $end_date = $items[$delta]->end_date;
       $element['end_value']['#default_value'] = $this->createDefaultValue($end_date, $element['end_value']['#date_timezone']);
     }
@@ -50,7 +50,7 @@ class DateRangeWidgetBase extends DateTimeWidgetBase {
     // storage timezone and format.
     foreach ($values as &$item) {
       if (!empty($item['value']) && $item['value'] instanceof DrupalDateTime) {
-        /** @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
+        /* @var \Drupal\Core\Datetime\DrupalDateTime $start_date */
         $start_date = $item['value'];
         switch ($this->getFieldSetting('datetime_type')) {
           case DateRangeItem::DATETIME_TYPE_DATE:
@@ -80,7 +80,7 @@ class DateRangeWidgetBase extends DateTimeWidgetBase {
       }
 
       if (!empty($item['end_value']) && $item['end_value'] instanceof DrupalDateTime) {
-        /** @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
+        /* @var \Drupal\Core\Datetime\DrupalDateTime $end_date */
         $end_date = $item['end_value'];
         switch ($this->getFieldSetting('datetime_type')) {
           case DateRangeItem::DATETIME_TYPE_DATE:
