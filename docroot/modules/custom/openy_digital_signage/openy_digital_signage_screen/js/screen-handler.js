@@ -291,6 +291,14 @@
   Drupal.behaviors.screen_handler = {
     attach: function (context, settings) {
 
+      jQuery(window).once().resize(function() {
+        var o = jQuery(window).width() > jQuery(window).height() ? 'landscape' : 'portrait';
+        jQuery('.openy-ds-layout')
+          .removeClass('landscape')
+          .removeClass('portrait')
+          .addClass(o);
+      }).trigger('resize');
+
       $(".screen").once().each(function () {
         window.tm = new TimeManager();
         console.log(window.tm.getTime());
