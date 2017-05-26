@@ -1,12 +1,14 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Plugin\Context\Context;
-use Drupal\Core\Plugin\Context\ContextDefinition;
 use Drupal\Core\Plugin\ContextAwarePluginAssignmentTrait;
 use Drupal\Core\Plugin\ContextAwarePluginInterface;
 use Drupal\panels\CachedValuesGetterTrait;
@@ -120,6 +122,10 @@ abstract class PanelsBlockConfigureFormBase extends FormBase {
     $this->block = $this->prepareBlock($block_id);
     $form_state->set('machine_name', $machine_name);
     $form_state->set('block_id', $this->block->getConfiguration()['uuid']);
+
+    // Some Block Plugins rely on the block_theme value to load theme settings.
+    // @see \Drupal\system\Plugin\Block\SystemBrandingBlock::blockForm().
+    $form_state->set('block_theme', $this->config('system.theme')->get('default'));
 
     $form['#tree'] = TRUE;
     $form['settings'] = $this->block->buildConfigurationForm([], $form_state);

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Tests;
 
 use Drupal\page_manager\Entity\PageVariant;

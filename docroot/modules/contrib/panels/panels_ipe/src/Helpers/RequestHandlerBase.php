@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels_ipe\Helpers;
 
 use Drupal\Component\Serialization\Json;
@@ -13,19 +17,24 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class RequestHandlerBase implements RequestHandlerInterface {
 
-  /** @var int */
+  /**
+   * @var int */
   private $responseStatusCode = 200;
 
-  /** @var array */
+  /**
+   * @var array */
   private $response = [];
 
-  /** @var \Drupal\user\SharedTempStore */
+  /**
+   * @var \Drupal\user\SharedTempStore */
   private $tempStore;
 
-  /** @var \Drupal\panels\Storage\PanelsStorageManagerInterface */
+  /**
+   * @var \Drupal\panels\Storage\PanelsStorageManagerInterface */
   private $panelsStore;
 
-  /** @var \Drupal\Core\Extension\ModuleHandlerInterface */
+  /**
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface */
   private $moduleHandler;
 
   public function __construct(ModuleHandlerInterface $module_handler, PanelsStorageManagerInterface $panels_store, SharedTempStore $temp_store) {
@@ -104,6 +113,7 @@ abstract class RequestHandlerBase implements RequestHandlerInterface {
    * Saves the given Panels Display to TempStore.
    *
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display
+   *
    * @throws \Drupal\user\TempStoreException
    */
   protected function savePanelsDisplayToTempStore(PanelsDisplayVariant $panels_display) {
@@ -114,6 +124,7 @@ abstract class RequestHandlerBase implements RequestHandlerInterface {
    * Deletes the given Panels Display from TempStore.
    *
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display
+   *
    * @throws \Drupal\user\TempStoreException
    */
   protected function deletePanelsDisplayTempStore(PanelsDisplayVariant $panels_display) {
