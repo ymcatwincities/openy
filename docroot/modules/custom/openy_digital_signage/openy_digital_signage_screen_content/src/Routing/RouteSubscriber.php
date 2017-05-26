@@ -25,6 +25,6 @@ class RouteSubscriber extends RouteSubscriberBase {
     if ($route = $collection->get('panels_ipe.block_content_types')) {
       $route->setDefault('_controller', '\Drupal\openy_digital_signage_screen_content\Controller\OpenYDSPanelsIPEPageController::getBlockContentTypes');
     }
-
   }
+
 }

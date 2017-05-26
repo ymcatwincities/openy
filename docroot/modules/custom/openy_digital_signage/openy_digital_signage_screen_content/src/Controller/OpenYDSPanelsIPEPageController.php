@@ -80,16 +80,12 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
       if ($plugin_id == 'broken') {
         continue;
       }
-      // Skip all plugins except next.
-      $plugins = ['block_content'];
-      if (!in_array($plugin_id, $plugins)) {
-//        continue;
-      }
       // Allow only specific categories.
       $categories = ['Digital Signage', 'Custom'];
       if (!in_array($definition['category'], $categories)) {
         continue;
       }
+      // Skip all plugins except next.
       if ($definition['category'] == 'Custom' && $plugin_id == 'block_content') {
         continue;
       }
