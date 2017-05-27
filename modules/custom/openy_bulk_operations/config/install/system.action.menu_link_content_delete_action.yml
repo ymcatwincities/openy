@@ -1,0 +1,6 @@
+id: menu_link_content_delete_action
+label: 'Delete menu item'
+status: true
+langcode: en
+type: menu_link_content
+plugin: menu_link_content_delete_action
