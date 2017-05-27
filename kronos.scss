@@ -77,3 +77,9 @@ body #dataGrid {
     }
   }
 }
+
+.logo {
+  background: url('../logo_y.svg') no-repeat 0 0;
+  background-size: contain;
+  min-height: 50px;
+}
