@@ -58,6 +58,7 @@ projects[captcha] = 1.0-beta1
 projects[recaptcha] = 2.2
 projects[admin_toolbar][subdir] = contrib
 projects[admin_toolbar][version] = 1.19
+projects[admin_toolbar][patch][] = "https://www.drupal.org/files/issues/admin_toolbar-2838636-10.patch"
 projects[admin_toolbar][patch][] = "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
 
 libraries[dropzone][type] = library
