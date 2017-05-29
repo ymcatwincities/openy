@@ -75,21 +75,25 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
 
     // Assemble our relevant data.
     $data = [];
+    $supported_block_bundles = ['digital_signage_block_free_html'];
+    $supported_categories = ['Digital Signage', 'Custom'];
     foreach ($definitions as $plugin_id => $definition) {
       // Don't add broken Blocks.
       if ($plugin_id == 'broken') {
         continue;
       }
       // Allow only specific categories.
-      $categories = ['Digital Signage', 'Custom'];
-      if (!in_array($definition['category'], $categories)) {
+      if (!in_array($definition['category'], $supported_categories)) {
         continue;
       }
-      // Skip all plugins except next.
-      if ($definition['category'] == 'Custom' && $plugin_id == 'block_content') {
-        continue;
-      }
+      if ($definition['id'] == 'block_content' && !empty($definition['config_dependencies']['content'][0])) {
+        $block_ids = explode(':', $definition['config_dependencies']['content'][0]);
 
+        // Skip all plugins except next.
+        if (!in_array($block_ids[1], $supported_block_bundles)) {
+          continue;
+        }
+      }
 
       $data[] = [
         'plugin_id' => $plugin_id,
