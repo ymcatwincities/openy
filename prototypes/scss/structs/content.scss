@@ -23,6 +23,12 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
   }
+  &.mobile {
+    h2 {
+      font-size: 28px;
+      margin-bottom: -15px;
+    }
+  }
 }
 
 .user-login-form,
