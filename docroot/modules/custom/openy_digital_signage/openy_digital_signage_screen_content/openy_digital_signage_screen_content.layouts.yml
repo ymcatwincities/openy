@@ -21,3 +21,18 @@ openyds_twocol:
       label: Left side
     right:
       label: Right side
+
+openyds_twocol_ticker:
+  label: Two column + Ticker
+  category: 'OpenY Digital Signage'
+  path: layouts/openyds_twocol_ticker
+  icon: openyds_twocol_ticker.png
+  css: openyds-twocol-ticker.css
+  template: panels-openyds-twocol-ticker
+  regions:
+    left:
+      label: Left side
+    right:
+      label: Right side
+    ticker:
+      label: Ticker
