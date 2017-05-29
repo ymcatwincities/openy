@@ -123,6 +123,16 @@
       {% endif %}
       {% if fb_id %}
       <div class="col-sm-5">
+        {# Facebook Likebox initialisation code. #}
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1382702231950329";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+        </script>
         <h2>{{ 'On Facebook'|t }}</h2>
         <div class="fb-page" data-href="https://www.facebook.com/{{ fb_id }}" data-width="500" data-height="300" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="true">
           <div class="fb-xfbml-parse-ignore">
