@@ -318,9 +318,17 @@ function openy_update_8023() {
 }
 
 /**
- * Enable scheduler module.
+ * Enable the Admin Toolbar module.
  */
 function openy_update_8024() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['admin_toolbar']);
+}
+
+/**
+ * Enable scheduler module.
+ */
+function openy_update_8025() {
   \Drupal::service('module_installer')->install(['scheduler']);
   $update_functions = [
     'openy_node_alert_update_8002',
