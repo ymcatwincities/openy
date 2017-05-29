@@ -895,3 +895,26 @@ body .ajax-progress-throbber {
   cursor: pointer;
   box-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
+
+.blue-button {
+  margin: 0;
+  border: 0;
+  color: white;
+  display: inline-block;
+  background-color: $pink;
+  background-image: -webkit-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-image: linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Cachet',Helvetica,Arial,sans-serif;
+  border-radius: 3px;
+  line-height: 1.33;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
