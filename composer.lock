@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "33d5c822f46857fcd6fbb7d86247e2b5",
+    "content-hash": "04cb04e4938c8adf69d5f5e6c8906c97",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -966,6 +966,96 @@
             }
         },
         {
+            "name": "drupal/admin_toolbar",
+            "version": "1.19.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/admin_toolbar",
+                "reference": "8.x-1.19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.19.zip",
+                "reference": null,
+                "shasum": "87de41eab3c5cd49d4e1b5b764cb3b9d5ad683a0"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "installer-paths": {
+                    "docroot/core": [
+                        "type:drupal-core"
+                    ],
+                    "docroot/modules/contrib/{$name}": [
+                        "type:drupal-module"
+                    ],
+                    "docroot/profiles/contrib/{$name}": [
+                        "type:drupal-profile"
+                    ],
+                    "docroot/themes/contrib/{$name}": [
+                        "type:drupal-theme"
+                    ],
+                    "docroot/libraries/{$name}": [
+                        "type:drupal-library"
+                    ]
+                },
+                "patches": {
+                    "drupal/simple_menu_icons": {
+                        "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
+                    },
+                    "drupal/entity_browser": {
+                        "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
+                    },
+                    "drupal/confi": {
+                        "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
+                    },
+                    "drupal/plugin": {
+                        "2851503 - Drupal\\plugin\\PluginDefinition\\ArrayPluginDefinitionDecorator contains 1 abstract method and must therefore be declared abstract or implement the remaining methods": "https://www.drupal.org/files/issues/plugin-id-2851503-8.patch"
+                    },
+                    "drupal/datalayer": {
+                        "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
+                    },
+                    "drupal/admin_toolbar": {
+                        "2838636 - Issue with z-index of dropdown in horizontal tray": "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Anis Taktak",
+                    "homepage": "https://www.drupal.org/u/matio89"
+                },
+                {
+                    "name": "eme",
+                    "homepage": "https://www.drupal.org/user/542492"
+                },
+                {
+                    "name": "fethi.krout",
+                    "homepage": "https://www.drupal.org/user/3206765"
+                },
+                {
+                    "name": "matio89",
+                    "homepage": "https://www.drupal.org/user/2320090"
+                },
+                {
+                    "name": "romainj",
+                    "homepage": "https://www.drupal.org/user/370706"
+                }
+            ],
+            "description": "Admin Toolbar improve the default Drupal Toolbar, it lets the hover of sub menus.",
+            "homepage": "http://drupal.org/project/admin_toolbar",
+            "support": {
+                "source": "http://cgit.drupalcode.org/admin_toolbar",
+                "issues": "https://www.drupal.org/project/issues/admin_toolbar"
+            }
+        },
+        {
             "name": "drupal/blazy",
             "version": "1.0.0-rc1",
             "source": {
@@ -1873,7 +1963,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1485790085"
+                    "datestamp": "1495814284"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -6422,7 +6512,7 @@
                 "gui",
                 "screenshot"
             ],
-            "time": "2014-07-18 10:16:01"
+            "time": "2014-07-18T10:16:01+00:00"
         },
         {
             "name": "drupal/drupal-driver",
@@ -6591,7 +6681,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2017-03-17 23:00:29"
+            "time": "2017-03-17T23:00:29+00:00"
         },
         {
             "name": "emuse/behat-html-formatter",
