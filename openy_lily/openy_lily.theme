@@ -354,13 +354,10 @@ function openy_lily_preprocess_page(&$variables) {
   }
 
   // Adds page title for login and register pages
-  $current_path = \Drupal::routeMatch()->getRouteName();
-  if ($current_path == 'openy_ccc.account_login') {
-    $variables['page_title'] = t('Account Login');
-  }
-  elseif ($current_path == 'openy_ccc.account_registration') {
-    $variables['page_title'] = t('Account Register');
-  }
+  $request = \Drupal::request();
+  $route_match = \Drupal::routeMatch();
+  $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+  $variables['page_title'] = $title;
 }
 
 /**
