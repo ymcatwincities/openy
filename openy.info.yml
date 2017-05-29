@@ -83,6 +83,7 @@ dependencies:
   - captcha
   - image_captcha
   - recaptcha
+  - admin_toolbar
   # OpenY features.
   - openy_media_image
   - openy_media_document
