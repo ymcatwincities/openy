@@ -322,4 +322,17 @@ function openy_update_8023() {
  */
 function openy_update_8024() {
   \Drupal::service('module_installer')->install(['scheduler']);
+  $update_functions = [
+    'openy_node_alert_update_8002',
+    'openy_node_blog_update_8003',
+    'openy_node_category_update_8004',
+    'openy_node_class_update_8003',
+    'openy_node_landing_update_8003',
+    'openy_node_program_update_8003',
+  ];
+  foreach ($update_functions as $function) {
+    $module = preg_replace('/_update.*/', '', $function);
+    module_load_include('install', $module);
+    $function();
+  }
 }
