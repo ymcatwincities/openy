@@ -107,12 +107,12 @@ function openy_node_landing_update_8003() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.landing_page.default.yml' => [
+    'core.entity_form_display.node.landing_page.default' => [
       'dependencies.module',
       'content.publish_on',
       'content.unpublish_on',
     ],
-    'node.type.landing_page.yml' => [
+    'node.type.landing_page' => [
       'dependencies.module',
       'third_party_settings.scheduler',
     ],

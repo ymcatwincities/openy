@@ -92,12 +92,12 @@ function openy_node_category_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.category.default.yml' => [
+    'core.entity_form_display.node.category.default' => [
       'dependencies.module',
       'content.publish_on',
       'content.unpublish_on',
     ],
-    'node.type.category.yml' => [
+    'node.type.category' => [
       'dependencies.module',
       'third_party_settings.scheduler',
     ],

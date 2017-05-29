@@ -82,12 +82,12 @@ function openy_node_program_update_8003() {
 
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.program.default.yml' => [
+    'core.entity_form_display.node.program.default' => [
       'dependencies.module',
       'content.publish_on',
       'content.unpublish_on',
     ],
-    'node.type.program.yml' => [
+    'node.type.program' => [
       'dependencies.module',
       'third_party_settings.scheduler',
     ],

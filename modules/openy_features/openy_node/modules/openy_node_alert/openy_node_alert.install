@@ -25,12 +25,12 @@ function openy_node_alert_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.alert.default.yml' => [
+    'core.entity_form_display.node.alert.default' => [
       'dependencies.module',
       'content.publish_on',
       'content.unpublish_on',
     ],
-    'node.type.alert.yml' => [
+    'node.type.alert' => [
       'dependencies.module',
       'third_party_settings.scheduler',
     ],
