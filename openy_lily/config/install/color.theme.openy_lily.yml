@@ -28,9 +28,3 @@ palette:
   camplink: '#01a491'
   campbutton: '#2fb998'
   campbuttonlink: '#fffff9'
-logo: 'public://color/openy_lily-358fca1f/logo.svg'
-stylesheets:
-  - 'public://color/openy_lily-358fca1f/colors.css'
-files:
-  - 'public://color/openy_lily-358fca1f/logo.svg'
-  - 'public://color/openy_lily-358fca1f/colors.css'
