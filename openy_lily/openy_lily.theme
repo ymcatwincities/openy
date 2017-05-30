@@ -303,22 +303,6 @@ function openy_lily_preprocess_html(&$variables) {
   if (!is_array($variables['attributes'])) {
     $variables['attributes']->addClass($classes);
   }
-
-  if (in_array(['theme_ymca_2013_location_home'], $classes) && $catIcon = theme_get_setting('openy_lily_favicon_location')) {
-    $favIcon = $catIcon;
-  }
-  else {
-    $favIcon = theme_get_setting('openy_lily_favicon_default');
-  }
-
-  if ($favIcon) {
-    $file = File::load(reset($favIcon));
-    $variables['page']['#attached']['html_head_link'][][] = [
-      'rel' => 'shortcut icon',
-      'href' => file_create_url($file->getFileUri()),
-      'type' => $file->getMimeType(),
-    ];
-  }
 }
 
 /**
@@ -829,8 +813,8 @@ function openy_lily_get_theme_styles() {
  */
 function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
   $form['#attached']['library'][] = 'openy_lily/admin-side';
-  hide($form['theme_settings']['toggle_favicon']);
-  hide($form['favicon']);
+//  hide($form['theme_settings']['toggle_favicon']);
+//  hide($form['favicon']);
 
   // Styles.
   $form['openy_lily_settings']['styles'] = [
@@ -1009,47 +993,6 @@ function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface 
     '#title' => t('Camps logo'),
     '#default_value' => theme_get_setting('logo_camps'),
     '#upload_location' => 'public://',
-  ];
-
-  // Favicons.
-  $form['openy_lily_settings']['favicon'] = [
-    '#type' => 'details',
-    '#title' => t('Favicons'),
-    '#collapsible' => FALSE,
-    '#collapsed' => FALSE,
-  ];
-
-  // Default favicon.
-  $form['openy_lily_settings']['favicon']['openy_lily_favicon_default'] = [
-    '#type' => 'managed_file',
-    '#title' => t('Default favicon'),
-    '#default_value' => theme_get_setting('openy_lily_favicon_default'),
-    '#upload_location' => 'public://favicon/',
-    '#upload_validators' => [
-      'file_validate_extensions' => ['ico png']
-    ]
-  ];
-
-  // Camp favicon.
-  $form['openy_lily_settings']['favicon']['openy_lily_favicon_camp'] = [
-    '#type' => 'managed_file',
-    '#title' => t('Camp favicon'),
-    '#default_value' => theme_get_setting('openy_lily_favicon_camp'),
-    '#upload_location' => 'public://favicon/',
-    '#upload_validators' => [
-      'file_validate_extensions' => ['ico png']
-    ]
-  ];
-
-  // Location favicon.
-  $form['openy_lily_settings']['favicon']['openy_lily_favicon_location'] = [
-    '#type' => 'managed_file',
-    '#title' => t('Location favicon'),
-    '#default_value' => theme_get_setting('openy_lily_favicon_location'),
-    '#upload_location' => 'public://favicon/',
-    '#upload_validators' => [
-      'file_validate_extensions' => ['ico png']
-    ]
   ];
 
   // Header search.
