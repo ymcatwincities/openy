@@ -4336,48 +4336,44 @@ html.js .branch__updates_queue__button {
   font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
 }
 
-.active-net__teasers .active-net__teasers-list,
-.active-net__teasers .flexreg__teasers-list,
-.flexreg__teasers .active-net__teasers-list,
+.class__session-instances .class__session-instances-list,
+.class__session-instances .flexreg__teasers-list,
+.flexreg__teasers .class__session-instances-list,
 .flexreg__teasers .flexreg__teasers-list {
   width: 100%;
 }
 
-.active-net__teaser,
+.class__session-instance,
 .flexreg__teaser {
   border-bottom: 1px solid #eeeeee;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
-.active-net__teaser td,
+.class__session-instance td,
 .flexreg__teaser td {
-  padding: 10px 0;
+  padding: 10px 5px;
 }
-.active-net__teaser .name,
+.class__session-instance .name,
 .flexreg__teaser .name {
   font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
 }
-.active-net__teaser .description,
+.class__session-instance .description,
 .flexreg__teaser .description {
   margin-bottom: 15px;
 }
-.active-net__teaser .days,
-.flexreg__teaser .days {
-  width: 60%;
-}
-.active-net__teaser .more-info,
+.class__session-instance .more-info,
 .flexreg__teaser .more-info {
   padding: 0 10px;
 }
-.active-net__teaser .more-info a,
+.class__session-instance .more-info a,
 .flexreg__teaser .more-info a {
   color: #4f4f4f;
   text-decoration: underline;
 }
-.active-net__teaser .register,
+.class__session-instance .register,
 .flexreg__teaser .register {
   padding: 0 10px;
 }
-.active-net__teaser .register a,
+.class__session-instance .register a,
 .flexreg__teaser .register a {
   color: #4f4f4f;
   text-decoration: underline;
