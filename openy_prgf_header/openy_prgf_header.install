@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Implement install hooks for module.
+ */
+
+/**
+ * Pull updated configuration.
+ */
+function openy_prgf_header_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_header') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.paragraph.header.default'
+    ]
+  );
+}

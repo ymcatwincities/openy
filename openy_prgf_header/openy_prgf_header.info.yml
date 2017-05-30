@@ -12,7 +12,8 @@ dependencies:
   - link
   - media_entity
   - openy_gallery
+  - openy_media_image
   - openy_node_blog
   - paragraphs
   - text
-version: 8.x-1.0-dev
+version: 8.x-1.1

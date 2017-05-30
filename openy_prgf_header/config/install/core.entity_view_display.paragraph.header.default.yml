@@ -9,7 +9,6 @@ dependencies:
     - paragraphs.paragraphs_type.header
   module:
     - link
-    - media_entity
     - text
 id: paragraph.header.default
 targetEntityType: paragraph
@@ -23,14 +22,16 @@ content:
       trim_length: 160
     third_party_settings: {  }
     type: text_trimmed
+    region: content
   field_prgf_header_image:
     weight: 5
     label: hidden
     settings:
-      image_style: ''
-      image_link: ''
+      view_mode: embedded_full
+      link: false
     third_party_settings: {  }
-    type: media_thumbnail
+    type: entity_reference_entity_view
+    region: content
   field_prgf_header_link:
     weight: 4
     label: hidden
@@ -42,6 +43,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_prgf_header_title:
     weight: 1
     label: hidden
@@ -49,6 +51,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
   created: true
   uid: true
