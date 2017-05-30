@@ -1993,8 +1993,9 @@ body .ajax-progress-throbber .throbber {
   max-height: 500px;
 }
 
-.pink-button, #edit-registration,
-.form-submit, #banner .banner-caption a {
+.pink-button, [data-drupal-selector="edit-submit"],
+[data-drupal-selector="edit-login"],
+[data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, #banner .banner-caption a {
   margin: 0;
   border: 0;
   color: white;
@@ -2016,8 +2017,9 @@ body .ajax-progress-throbber .throbber {
   cursor: pointer;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
-.pink-button:hover, #edit-registration:hover,
-.form-submit:hover, #banner .banner-caption a:hover {
+.pink-button:hover, [data-drupal-selector="edit-submit"]:hover,
+[data-drupal-selector="edit-login"]:hover,
+[data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, #banner .banner-caption a:hover {
   background-color: #9c1f7b;
   background-image: -webkit-linear-gradient(#b92f9e, transparent);
   background-image: -moz-linear-gradient(#b92f9e, transparent);
@@ -2091,15 +2093,20 @@ body .ajax-progress-throbber .throbber {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-#edit-registration,
-.form-submit {
+[data-drupal-selector="edit-login"] {
+  float: left;
+}
+
+[data-drupal-selector="edit-submit"],
+[data-drupal-selector="edit-login"],
+[data-drupal-selector="edit-registration"] {
   padding: 6px 12px;
   font-size: 14px;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
 
-#edit-reset-password {
+[data-drupal-selector="edit-reset-password"] {
   background: none;
   border: none;
   box-shadow: none;
@@ -2107,13 +2114,12 @@ body .ajax-progress-throbber .throbber {
   font-weight: normal;
   color: #0089d0;
   padding: 0;
+  margin-top: 5px;
+  margin-left: 6px;
+  float: left;
 }
-#edit-reset-password:hover {
+[data-drupal-selector="edit-reset-password"]:hover {
   text-decoration: underline;
-}
-
-#edit-login {
-  margin-right: 2px;
 }
 
 label {
@@ -2131,6 +2137,14 @@ label {
 .openy-ccc-registration-form {
   font-family: 'Cachet';
 }
+.openy-ccc-login-form .status-message,
+.openy-ccc-registration-form .status-message {
+  margin-bottom: 30px;
+}
+.openy-ccc-login-form .status-message li,
+.openy-ccc-registration-form .status-message li {
+  list-style-type: none;
+}
 
 #edit-intro-text {
   font-size: 16px;
@@ -2142,48 +2156,133 @@ label {
   margin-bottom: .7em;
 }
 
-#edit-branch:after {
+.branch:after {
   content: "";
   display: table;
   clear: both;
 }
-#edit-branch .form-item {
+.branch .form-item {
   width: 50%;
   float: left;
 }
 @media (min-width: 0) and (max-width: 30em) {
-  #edit-branch .form-item {
+  .branch .form-item {
     width: 100%;
     float: none;
   }
 }
 
-#edit-login-actions,
-#edit-registration-actions {
+.edit-login-actions,
+.edit-registration-actions {
   float: left;
   width: 50%;
 }
-#edit-login-actions a,
-#edit-registration-actions a {
+.edit-login-actions a,
+.edit-registration-actions a {
   float: left;
   margin-right: 6px;
 }
 @media (min-width: 0) and (max-width: 30em) {
-  #edit-login-actions,
-  #edit-registration-actions {
+  .edit-login-actions,
+  .edit-registration-actions {
     width: 100%;
     float: none;
   }
 }
-#edit-login-actions #edit-registration-text,
-#edit-registration-actions #edit-registration-text {
+.edit-login-actions .fieldset-wrapper div,
+.edit-registration-actions .fieldset-wrapper div {
   margin-top: 5px;
   float: left;
+}
+
+.edit-registration-actions .fieldset-wrapper a.btn {
+  margin-right: 6px !important;
+  padding: 6px 12px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+.edit-registration-actions .fieldset-wrapper a.btn:hover {
+  color: white !important;
 }
 
 legend {
   border-bottom: none;
   margin-bottom: 0;
+}
+
+.openy-ccc-registration-form .fieldset-wrapper {
+  margin: 0 -10px;
+}
+.openy-ccc-registration-form .fieldset-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+[data-drupal-selector="edit-branch"] .fieldset-wrapper,
+[data-drupal-selector="edit-emergency-info"] .fieldset-wrapper {
+  margin: 0;
+}
+[data-drupal-selector="edit-branch"] .fieldset-wrapper:after,
+[data-drupal-selector="edit-emergency-info"] .fieldset-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+[data-drupal-selector="edit-personal-info"] .form-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 33.33333333%;
+  float: left;
+}
+[data-drupal-selector="edit-personal-info"] .form-item.form-item-address {
+  width: 66.66666667%;
+}
+
+[data-drupal-selector="edit-birth-info"] .form-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 25%;
+  float: left;
+}
+
+[data-drupal-selector="edit-parent-information"] .form-item,
+[data-drupal-selector="edit-contact-info"] .form-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 50%;
+  float: left;
+}
+
+[data-drupal-selector="edit-passwords"] div.password-confirm,
+[data-drupal-selector="edit-passwords"] .password-strength,
+[data-drupal-selector="edit-passwords"] .password-suggestions {
+  display: none !important;
+}
+[data-drupal-selector="edit-passwords"] .form-item {
+  margin-bottom: 0;
+}
+[data-drupal-selector="edit-passwords"] .form-item .form-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 50%;
+  float: left;
+}
+
+[data-drupal-selector="edit-parent-information"] .fieldset-wrapper {
+  margin: 0 -10px !important;
+}
+
+[data-drupal-selector="edit-emergency-info"] fieldset {
+  margin-top: 0;
+}
+[data-drupal-selector="edit-emergency-info"] fieldset .form-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 50%;
+  float: left;
 }
 
 #mindbody-pt-form-wrapper {

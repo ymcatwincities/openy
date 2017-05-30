@@ -70,15 +70,19 @@
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
-#edit-registration,
-.form-submit {
+[data-drupal-selector="edit-login"] {
+  float: left;
+}
+[data-drupal-selector="edit-submit"],
+[data-drupal-selector="edit-login"],
+[data-drupal-selector="edit-registration"] {
   @extend .pink-button;
   padding: 6px 12px;
   font-size: 14px;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
-#edit-reset-password {
+[data-drupal-selector="edit-reset-password"] {
   background: none;
   border: none;
   box-shadow: none;
@@ -86,12 +90,11 @@
   font-weight: normal;
   color: $blue-medium;
   padding: 0;
-  &:hover {
+  margin-top: 5px;
+  margin-left: 6px;
+  float: left;  &:hover {
     text-decoration: underline;
   }
-}
-#edit-login {
-  margin-right: 2px;
 }
 
 label {
@@ -108,6 +111,12 @@ label {
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
   font-family: 'Cachet';
+  .status-message {
+    margin-bottom: 30px;
+    li {
+      list-style-type: none;
+    }
+  }
 }
 
 #edit-intro-text {
@@ -120,7 +129,7 @@ label {
   margin-bottom: .7em;
 }
 
-#edit-branch {
+.branch {
   @include clearfix;
   .form-item {
     width: 50%;
@@ -131,24 +140,126 @@ label {
     }
   }
 }
-#edit-login-actions,
-#edit-registration-actions {
+.edit-login-actions,
+.edit-registration-actions {
   float: left;
   width: 50%;
   a {
     float: left;
     margin-right: 6px;
+
   }
   @include breakpoint(0 $mobile-landscape) {
     width: 100%;
     float: none;
   }
-  #edit-registration-text {
-    margin-top: 5px;
-    float: left;
+  .fieldset-wrapper {
+    div {
+      margin-top: 5px;
+      float: left;
+    }
   }
+}
+.edit-registration-actions {
+  .fieldset-wrapper {
+    a.btn {
+      margin-right: 6px !important;
+      @extend .pink-button;
+      padding: 6px 12px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-transform: capitalize;
+      &:hover {
+        color: white !important;
+      }
+    }
+  }
+
 }
 legend {
   border-bottom: none;
   margin-bottom:0;
+}
+
+//Register form
+
+.openy-ccc-registration-form {
+  .fieldset-wrapper {
+    @include clearfix;
+    margin: 0 -10px;
+
+  }
+}
+
+[data-drupal-selector="edit-branch"],
+[data-drupal-selector="edit-emergency-info"] {
+  .fieldset-wrapper {
+    @include clearfix;
+    margin: 0;
+  }
+}
+
+[data-drupal-selector="edit-personal-info"] {
+  .form-item {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 33.33333333%;
+    float: left;
+    &.form-item-address {
+      width: 66.66666667%;
+    }
+  }
+}
+
+[data-drupal-selector="edit-birth-info"] {
+  .form-item {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 25%;
+    float: left;
+  }
+}
+
+[data-drupal-selector="edit-parent-information"],
+[data-drupal-selector="edit-contact-info"] {
+  .form-item {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 50%;
+    float: left;
+  }
+}
+
+[data-drupal-selector="edit-passwords"] {
+  div.password-confirm,
+  .password-strength,
+  .password-suggestions {
+    display: none !important;
+  }
+  .form-item {
+    margin-bottom: 0;
+    .form-item {
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 50%;
+      float: left;
+    }
+  }
+}
+
+[data-drupal-selector="edit-parent-information"] {
+  .fieldset-wrapper {
+    margin: 0 -10px !important;
+  }
+}
+[data-drupal-selector="edit-emergency-info"] {
+  fieldset {
+    margin-top: 0;
+    .form-item {
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 50%;
+      float: left;
+    }
+  }
 }
