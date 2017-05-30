@@ -316,3 +316,11 @@ function openy_update_8023() {
     'openy_prgf_branches_popup_class'
   ]);
 }
+
+/**
+ * Enable the Admin Toolbar module.
+ */
+function openy_update_8024() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['admin_toolbar']);
+}
