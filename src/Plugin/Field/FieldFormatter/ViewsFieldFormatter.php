@@ -24,6 +24,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   "decimal",
  *   "email",
  *   "entity_reference",
+ *   "entity_reference_revisions",
  *   "expression_field",
  *   "file",
  *   "float",
@@ -142,6 +143,7 @@ class ViewsFieldFormatter extends FormatterBase {
         '#type' => 'checkbox',
         '#default_value' => boolval($this->getSetting('multiple')),
       );
+      $field_name = $this->fieldDefinition->getName();
       $element['implode_character'] = array(
         '#title' => $this->t('Implode with this character'),
         '#description' => $this->t('If it is set, all field values are imploded with this character (<em>ex: a simple comma</em>) and sent as one views argument. Empty to disable.'),
@@ -149,7 +151,7 @@ class ViewsFieldFormatter extends FormatterBase {
         '#default_value' => $this->getSetting('implode_character'),
         '#states' => array(
           'visible' => array(
-            ':input[name="fields[body][settings_edit_form][settings][multiple]"]' => array('checked' => TRUE),
+            ':input[name="fields[' . $field_name . '][settings_edit_form][settings][multiple]"]' => array('checked' => TRUE),
           ),
         ),
       );
@@ -208,13 +210,33 @@ class ViewsFieldFormatter extends FormatterBase {
     $elements = [];
     $settings = $this->getSettings();
     $cardinality = $items->getFieldDefinition()->getFieldStorageDefinition()->getCardinality();
-    list($view, $view_display) = explode('::', $settings['view'], 2);
+    list($view_id, $view_display) = explode('::', $settings['view'], 2);
+
+    $view = Views::getView($view_id);
+    if (!$view || !$view->access($view_display)) {
+      return $elements;
+    }
+
+    $view->setArguments($this->getArguments($items, $items[0], 0));
+    $view->setDisplay($view_display);
+    $view->preExecute();
+    $view->execute();
+
+    if (empty($view->result)) {
+      return $elements;
+    }
+
+    $elements = array(
+      '#cache' => array(
+        'max-age' => 0,
+      ),
+    );
 
     if (((bool) $settings['multiple'] === TRUE) && ($cardinality != 1)) {
       if (!empty($settings['implode_character'])) {
         $elements[0] = [
           '#type' => 'view',
-          '#name' => $view,
+          '#name' => $view_id,
           '#display_id' => $view_display,
           '#arguments' => $this->getArguments($items, NULL, 0),
         ];
@@ -223,7 +245,7 @@ class ViewsFieldFormatter extends FormatterBase {
         foreach ($items as $delta => $item) {
           $elements[$delta] = [
             '#type' => 'view',
-            '#name' => $view,
+            '#name' => $view_id,
             '#display_id' => $view_display,
             '#arguments' => $this->getArguments($items, $item, $delta),
           ];
@@ -233,7 +255,7 @@ class ViewsFieldFormatter extends FormatterBase {
     else {
       $elements[0] = [
         '#type' => 'view',
-        '#name' => $view,
+        '#name' => $view_id,
         '#display_id' => $view_display,
         '#arguments' => $this->getArguments($items, $items[0], 0),
       ];

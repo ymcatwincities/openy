@@ -5,8 +5,8 @@ dependencies:
   - views
 type: module
 
-# Information added by Drupal.org packaging script on 2016-12-05
-version: '8.x-1.4'
+# Information added by Drupal.org packaging script on 2017-03-08
+version: '8.x-1.5'
 core: '8.x'
 project: 'views_field_formatter'
-datestamp: 1480950787
+datestamp: 1489010885
