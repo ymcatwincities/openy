@@ -30,6 +30,14 @@ function openy_popups_preprocess_radios(&$variables) {
 
   $variables['children'] = [];
 
+  if ($variables['element']['#all']) {
+    foreach ($variables['element']['#all'] as $id => $value) {
+      $variables['children'][] = [
+        '#markup' => $variables['element'][$id]['#markup'],
+      ];
+    }
+  }
+
   if ($variables['element']['#branches']) {
     $variables['children'][] = [
       '#markup' => '<h3>' . t('Branches') . '</h3>',
