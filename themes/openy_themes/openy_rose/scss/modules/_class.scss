@@ -114,21 +114,21 @@
   }
 }
 
-.active-net__teasers,
+.class__session-instances,
 .flexreg__teasers {
-  .active-net__teasers-list,
+  .class__session-instances-list,
   .flexreg__teasers-list {
     width: 100%;
   }
 }
 
-.active-net__teaser,
+.class__session-instance,
 .flexreg__teaser {
   border-bottom: 1px solid $gray-lighter;
   @include cachet();
 
   td {
-    padding: 10px 0;
+    padding: 10px 5px;
   }
 
   .name {
@@ -137,10 +137,6 @@
 
   .description {
     margin-bottom: 15px;
-  }
-
-  .days {
-    width: 60%;
   }
 
   .more-info {
