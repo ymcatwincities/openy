@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\ygh_programs_search\Form;
+namespace Drupal\openy_programs_search\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
-use Drupal\ygh_programs_search\DataStorageInterface;
+use Drupal\openy_programs_search\DataStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,7 +25,7 @@ class ProgramsSearchBlockForm extends FormBase {
   /**
    * Storage.
    *
-   * @var \Drupal\ygh_programs_search\DataStorageInterface
+   * @var \Drupal\openy_programs_search\DataStorageInterface
    */
   protected $storage;
 
@@ -48,7 +48,7 @@ class ProgramsSearchBlockForm extends FormBase {
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
-   * @param \Drupal\ygh_programs_search\DataStorageInterface $storage
+   * @param \Drupal\openy_programs_search\DataStorageInterface $storage
    *   Data storage.
    */
   public function __construct(RendererInterface $renderer, DataStorageInterface $storage) {
@@ -62,7 +62,7 @@ class ProgramsSearchBlockForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('ygh_programs_search.data_storage')
+      $container->get('openy_programs_search.data_storage')
     );
   }
 
