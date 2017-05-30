@@ -4388,6 +4388,10 @@ html.js .branch__updates_queue__button {
   padding: 5px;
 }
 
+.page-node-type-class #block-openy-rose-content > .container {
+  padding: 20px 15px;
+}
+
 #schedules-search-form-wrapper .controls-wrapper {
   padding-top: 9px;
   padding-bottom: 9px;
