@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ygh_programs_search;
+namespace Drupal\openy_programs_search;
 
 /**
  * Interface DataStorageInterface.

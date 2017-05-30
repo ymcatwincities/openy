@@ -1,17 +1,17 @@
-# YGH Programs Search
+# OpenY Programs Search
 
 Provides configurable programs search paragraph.
 
 ## How to warm the cache
 
 ```
-\Drupal::service("ygh_programs_search.data_storage")->warmCache();
+\Drupal::service("openy_programs_search.data_storage")->warmCache();
 ```
 
 ## How to reset the cache
 
 ```
-\Drupal::service("ygh_programs_search.data_storage")->resetCache();
+\Drupal::service("openy_programs_search.data_storage")->resetCache();
 ```
 
 ## TODO

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\ygh_programs_search\Unit;
+namespace Drupal\Tests\openy_programs_search\Unit;
 
 /**
  * Class StorageTest.
@@ -21,7 +21,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getCategories().
    */
   public function testGetCategories() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $categories = $storage->getCategories();
     $this->assertArrayHasKey(2016, $categories);
   }
@@ -30,7 +30,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getProgramsByBranchAndCategory().
    */
   public function testGetProgramsByBranchAndCategory() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $programs = $storage->getProgramsByBranchAndCategory(91, "2016");
     $this->assertEquals(1, count($programs));
   }
@@ -39,7 +39,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getMapCategoriesByBranch().
    */
   public function testGetMapCategoriesByBranch() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $map = $storage->getCategoriesByBranch(91);
     $this->assertArrayHasKey(2016, $map);
   }
@@ -48,7 +48,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getChildCareRegistrationLink().
    */
   public function testGetChildCareRegistrationLink() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $link = $storage->getChildCareRegistrationLink(426, 8595, 14196);
     $expected = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/details?program_id=8595&location_id=426&location_type_id=2&context_id=14196';
     $this->assertEquals(md5($expected), md5($link));
@@ -58,7 +58,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getChildProgramRateOption().
    */
   public function testGetChildCareProgramRateOptions() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $rates = $storage->getChildCareProgramRateOptions(422, 8595);
     $this->assertArrayHasKey(14196, $rates);
   }
@@ -67,7 +67,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getChildCareProgramsBySchool().
    */
   public function testGetChildCareProgramsBySchool() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $programs = $storage->getChildCareProgramsBySchool(426);
     $this->assertArrayHasKey(8595, $programs);
   }
@@ -76,7 +76,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getSchoolsByLocation().
    */
   public function testGetSchoolsByLocation() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $schools = $storage->getSchoolsByLocation(106);
     $this->assertArrayHasKey(641, $schools);
   }
@@ -85,7 +85,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getChildCareProgramsByLocation().
    */
   public function testGetChildCareProgramsByLocation() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $programs = $storage->getChildCareProgramsByLocation(106);
     $this->assertArrayHasKey(4111, $programs);
   }
@@ -94,7 +94,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getSchoolsByChildCareProgramId().
    */
   public function testGetSchoolsByChildCareProgramId() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $schools = $storage->getSchoolsByChildCareProgramId(8595);
     $this->assertArrayHasKey(426, $schools);
   }
@@ -103,7 +103,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getLocationsByChildCareProgramId().
    */
   public function testGetLocationsByChildCareProgramId() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $locations = $storage->getLocationsByChildCareProgramId(9532);
     $this->assertArrayHasKey(123, $locations);
   }
@@ -112,7 +112,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getSessionsByProgramAndLocation().
    */
   public function testGetSessionsByProgramAndLocation() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $sessions = $storage->getSessionsByProgramAndLocation(8415, 106);
 
     $ids = [];
@@ -127,7 +127,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getProgramsByLocation().
    */
   public function testGetProgramsByLocation() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $programs = $storage->getProgramsByLocation(106);
 
     $ids = [];
@@ -142,7 +142,7 @@ class StorageTest extends \PHPUnit_Framework_TestCase {
    * Test getRegistrationLinkByProgram().
    */
   public function testGetRegistrationLink() {
-    $storage = \Drupal::service('ygh_programs_search.data_storage');
+    $storage = \Drupal::service('openy_programs_search.data_storage');
     $link = $storage->getRegistrationLink(9880, 328097);
     $expected = 'https://operations.daxko.com/Online/4003/Programs/Search.mvc/details?program_id=9880&session_ids=328097';
     $this->assertEquals(md5($expected), md5($link));

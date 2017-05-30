@@ -5,7 +5,6 @@ dependencies:
     - field.field.paragraph.program_registration.field_prgf_reg_block
     - paragraphs.paragraphs_type.program_registration
   module:
-    - content_moderation
     - plugin
 id: paragraph.program_registration.default
 targetEntityType: paragraph

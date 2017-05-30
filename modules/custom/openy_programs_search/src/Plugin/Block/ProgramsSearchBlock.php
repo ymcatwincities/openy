@@ -1,12 +1,12 @@
 <?php
 
-namespace Drupal\ygh_programs_search\Plugin\Block;
+namespace Drupal\openy_programs_search\Plugin\Block;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\ygh_programs_search\DataStorageInterface;
+use Drupal\openy_programs_search\DataStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,7 +23,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   /**
    * Locations storage.
    *
-   * @var \Drupal\ygh_programs_search\DataStorageInterface
+   * @var \Drupal\openy_programs_search\DataStorageInterface
    */
   protected $storage;
 
@@ -43,7 +43,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\ygh_programs_search\DataStorageInterface $storage
+   * @param \Drupal\openy_programs_search\DataStorageInterface $storage
    *   Locations storage.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config Factory.
@@ -64,7 +64,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('ygh_programs_search.data_storage'),
+      $container->get('openy_programs_search.data_storage'),
       $container->get('config.factory')
     );
   }
@@ -75,7 +75,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   public function build() {
     $conf = $this->getConfiguration();
     // @todo Use `create()` method to get form builder.
-    $form = \Drupal::formBuilder()->getForm('Drupal\ygh_programs_search\Form\ProgramsSearchBlockForm', $conf);
+    $form = \Drupal::formBuilder()->getForm('Drupal\openy_programs_search\Form\ProgramsSearchBlockForm', $conf);
     return [
       'form' => $form,
     ];
@@ -87,7 +87,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   public function blockForm($form, FormStateInterface $form_state) {
     // Use system wide default enabled locations.
     $default_locations = $this->configFactory
-      ->get('ygh_programs_search.settings')
+      ->get('openy_programs_search.settings')
       ->get('default_locations');
 
     $form = parent::blockForm($form, $form_state);
