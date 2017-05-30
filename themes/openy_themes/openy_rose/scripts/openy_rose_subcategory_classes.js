@@ -7,7 +7,7 @@
       $(document)
         .once()
         .ajaxSuccess(function(e, xhr, settings) {
-          if (settings.data.match('view_name=sub_category_classes&view_display_id=search_form')) {
+          if (settings.data !== undefined && settings.data.match('view_name=sub_category_classes&view_display_id=search_form')) {
             var view = $('.sub-category-classes-view');
             view.find('.js-form-type-select select').removeAttr('readonly');
             view.find('.filters-container').addClass('hidden');
