@@ -318,9 +318,17 @@ function openy_update_8023() {
 }
 
 /**
- * Enable Colorbutton module.
+ * Enable the Admin Toolbar module.
  */
 function openy_update_8024() {
+  // Enable module.
+  \Drupal::service('module_installer')->install(['admin_toolbar']);
+}
+
+/**
+ * Enable Colorbutton module.
+ */
+function openy_update_8025() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'colorbutton',

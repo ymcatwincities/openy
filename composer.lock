@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f2de1cd39a07fb92b375d355a25b838e",
-    "content-hash": "2eb535c13953ca9dd5441ae08280b5f6",
+    "hash": "749ec75739bf959809344565c3cfe6de",
+    "content-hash": "adb9d10e183ab2f09b0a1674c152fda5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -967,6 +967,69 @@
             }
         },
         {
+            "name": "drupal/admin_toolbar",
+            "version": "1.19.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/admin_toolbar",
+                "reference": "8.x-1.19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/admin_toolbar-8.x-1.19.zip",
+                "reference": null,
+                "shasum": "87de41eab3c5cd49d4e1b5b764cb3b9d5ad683a0"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.19",
+                    "datestamp": "1491487683"
+                },
+                "patches_applied": {
+                    "2838636 - Issue with z-index of dropdown in horizontal tray": "https://www.drupal.org/files/issues/admin_toolbar-2838636-10.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Anis Taktak",
+                    "homepage": "https://www.drupal.org/u/matio89"
+                },
+                {
+                    "name": "eme",
+                    "homepage": "https://www.drupal.org/user/542492"
+                },
+                {
+                    "name": "fethi.krout",
+                    "homepage": "https://www.drupal.org/user/3206765"
+                },
+                {
+                    "name": "matio89",
+                    "homepage": "https://www.drupal.org/user/2320090"
+                },
+                {
+                    "name": "romainj",
+                    "homepage": "https://www.drupal.org/user/370706"
+                }
+            ],
+            "description": "Admin Toolbar improve the default Drupal Toolbar, it lets the hover of sub menus.",
+            "homepage": "http://drupal.org/project/admin_toolbar",
+            "support": {
+                "source": "http://cgit.drupalcode.org/admin_toolbar",
+                "issues": "https://www.drupal.org/project/issues/admin_toolbar"
+            }
+        },
+        {
             "name": "drupal/blazy",
             "version": "1.0.0-rc1",
             "source": {
@@ -1082,55 +1145,6 @@
             "homepage": "https://www.drupal.org/project/captcha",
             "support": {
                 "source": "http://cgit.drupalcode.org/captcha"
-            }
-        },
-        {
-            "name": "drupal/colorbutton",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/colorbutton",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/colorbutton-8.x-1.0.zip",
-                "reference": null,
-                "shasum": "8632c50b840ef6f0325e85b0a1eb5d6448c8976e"
-            },
-            "require": {
-                "drupal/core": "*",
-                "drupal/panelbutton": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1474034939"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Kevin Quillen (kevinquillen)",
-                    "homepage": "https://www.drupal.org/u/kevinquillen",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Adds the Color Button plugin to CKEditor.",
-            "homepage": "http://drupal.org/project/colorbutton",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/colorbutton",
-                "issues": "http://drupal.org/project/issues/colorbutton"
             }
         },
         {
@@ -2768,54 +2782,6 @@
             }
         },
         {
-            "name": "drupal/panelbutton",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/panelbutton",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/panelbutton-8.x-1.0.zip",
-                "reference": null,
-                "shasum": "1998dbfa26ddb0245b37715753006a106716fae7"
-            },
-            "require": {
-                "drupal/core": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1474037639"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Kevin Quillen (kevinquillen)",
-                    "homepage": "https://www.drupal.org/u/kevinquillen",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "Adds the Panel Button plugin to CKEditor. This plugin is a utility plugin that is required by certain user-facing CKEditor plugins.",
-            "homepage": "http://drupal.org/project/panelbutton",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/panelbutton",
-                "issues": "http://drupal.org/project/issues/panelbutton"
-            }
-        },
-        {
             "name": "drupal/paragraphs",
             "version": "1.0.0",
             "source": {
@@ -4049,28 +4015,6 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
-        },
-        {
-            "name": "library-ckeditor/colorbutton",
-            "version": "4.7.0",
-            "dist": {
-                "type": "zip",
-                "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "drupal-library"
-        },
-        {
-            "name": "library-ckeditor/panelbutton",
-            "version": "4.7.0",
-            "dist": {
-                "type": "zip",
-                "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "drupal-library"
         },
         {
             "name": "library-dinbror/blazy",
