@@ -5,9 +5,8 @@ global-styling:
       css/legacy/bootstrap.min.css: {}
     theme:
       css/style.css: {}
+      css/colors.css: {}
   js:
-#    /libraries/equalize/js/equalize.min.js: {}
-#    scripts/vendor/iframeSizer.min.js: {}
     scripts/legacy/modernizr-2.6.2-respond-1.1.0.min.js: {}
     scripts/legacy/jquery-clockwork.min.js: {}
     scripts/legacy/jquery-migrate.min.js: {}
@@ -30,9 +29,12 @@ add-this:
   js:
     //s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4e32d757236e8924: { type: external, minified: true }
 
-admin-side:
+color.preview:
   version: VERSION
+  css:
+    theme:
+      color/preview.css: {}
   js:
-    scripts/admin-side.js: {}
+    color/preview.js: {}
   dependencies:
     - color/drupal.color

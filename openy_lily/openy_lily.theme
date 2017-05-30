@@ -219,7 +219,9 @@ function openy_lily_preprocess_node($variables) {
   // Location specific preprocessing.
   if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
     // Add facebook ID to the template.
-    $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
+    if (!empty($variables['node']->field_facebook_page_id->value)) {
+      $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
+    }
   }
 
   // Blog specific preprocessing.
@@ -824,10 +826,7 @@ function openy_lily_get_theme_styles() {
  * Implements hook_form_system_theme_settings_alter().
  */
 function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
-  $form['#attached']['library'][] = 'openy_lily/admin-side';
-//  hide($form['theme_settings']['toggle_favicon']);
-//  hide($form['favicon']);
-
+  // @TODO remove and start using color schemas.
   // Styles.
   $form['openy_lily_settings']['styles'] = [
     '#type' => 'details',
