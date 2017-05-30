@@ -101,7 +101,9 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
   }
 
   $node = Drupal::routeMatch()->getParameter('node');
-  if (!empty($node) || $node = Drupal::routeMatch()->getParameter('node_preview')) {
+  if (!empty($node) || $node = Drupal::routeMatch()
+      ->getParameter('node_preview')
+  ) {
     if (is_object($node)) {
       array_unshift($suggestions, 'page__node__' . $node->bundle());
     }
@@ -268,12 +270,14 @@ function openy_lily_preprocess_html(&$variables) {
       'theme_ymca_2013_home',
     ];
   }
-  elseif ($site_section = Drupal::service('ymcali.page.context')->getContext()) {
+  elseif ($site_section = Drupal::service('ymcali.page.context')
+    ->getContext()
+  ) {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'location':
         // Location itself.
-        if (isset($node) && $node->getType()  == 'location') {
+        if (isset($node) && $node->getType() == 'location') {
           $classes = [
             'locations-camps-template',
             'ancestor-locations',
@@ -345,8 +349,15 @@ function openy_lily_preprocess_page(&$variables) {
   }
   else {
     $variables['search_view_content_path'] = '';
-    \Drupal::logger('ymca')->error('Route "%route" does not exist.', array('%route' => $route_name));
+    \Drupal::logger('ymca')
+      ->error('Route "%route" does not exist.', array('%route' => $route_name));
   }
+
+  // Adds page title for login and register pages
+  $request = \Drupal::request();
+  $route_match = \Drupal::routeMatch();
+  $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+  $variables['page_title'] = $title;
 }
 
 /**
@@ -520,10 +531,11 @@ function openy_lily_preprocess_form_element(&$variables) {
     $variables['attributes']['class'] = 'checked';
   }
   if (isset($element['#name']) && in_array($element['#name'], [
-    'mb_session_type',
-    'mb_program',
-    'mb_location'
-  ])) {
+      'mb_session_type',
+      'mb_program',
+      'mb_location'
+    ])
+  ) {
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
   }
