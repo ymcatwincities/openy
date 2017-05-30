@@ -150,7 +150,15 @@
             },
             "drupal/admin_toolbar": {
                 "2838636 - Issue with z-index of dropdown in horizontal tray": "https://www.drupal.org/files/issues/admin_toolbar-2838636-10.patch",
-                "2838636 - Issue with z-index of dropdown in horizontal tray": "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
+                "2838636 - Issue with z-index of dropdown in horizontal tray 2": "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
+            },
+            "drupal/panelbutton": {
+              "2881820 - Module can't find library in profile directory": "https://www.drupal.org/files/issues/panelbutton-libraries-2881820.patch",
+              "2881818 - Check for missing library in hook_requirements": "https://www.drupal.org/files/issues/panelbutton-hook-requirements-2881818_0.patch"
+            },
+            "drupal/colorbutton": {
+              "2881822 - Module can't find library in profile directory": "https://www.drupal.org/files/issues/colorbutton-libraries-2881822-3.patch",
+              "2881819 - Check for missing library in hook_requirements": "https://www.drupal.org/files/issues/colorbutton-hook-requirements-2881819_0.patch"
             }
         }
     },
