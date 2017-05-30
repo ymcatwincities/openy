@@ -894,4 +894,12 @@ body .ajax-progress-throbber {
   vertical-align: middle;
   cursor: pointer;
   box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+  &:hover {
+    background-color: $pink;
+    background-image: -webkit-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+    background-image: -moz-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+    background-image: -ms-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+    background-image: linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  }
 }
+
