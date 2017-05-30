@@ -34,7 +34,7 @@
 <html{{ html_attributes }}>
   <head>
     <head-placeholder token="{{ placeholder_token }}">
-    <title>{{ site_name }}</title>
+    <title>{{ head_title|safe_join(' | ') }}</title>
     {% for script in scripts %}
       {{ script }}
     {% endfor %}

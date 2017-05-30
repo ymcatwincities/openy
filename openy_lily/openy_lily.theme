@@ -4,7 +4,7 @@
  * @file
  * OpenY Lily Theme File.
  */
-
+// @todo refactoring!!! We need to remove unused hooks and legacy dependencies.
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Link;
@@ -260,11 +260,6 @@ function openy_lily_preprocess_html(&$variables) {
     }
   }
 
-  // Set front page title.
-  if ($variables['is_front']) {
-    $variables['front_page_title'] = Drupal::config('system.site')->get('name');
-  }
-
   if ($variables['is_front']) {
     $classes = [
       'home-template',
@@ -284,7 +279,6 @@ function openy_lily_preprocess_html(&$variables) {
             'locations-camps-template',
             'ancestor-locations',
             'page_post_detail',
-            'theme_ymca_2013_location_home',
             'node--type-location',
           ];
         }
@@ -294,7 +288,6 @@ function openy_lily_preprocess_html(&$variables) {
             'landing-template',
             'ancestor-locations',
             'page_post_detail',
-            'theme_ymca_2013_location_home',
           ];
         }
         // Apply specific class based on value chosen in "Template" field.
@@ -714,6 +707,7 @@ function openy_lily_prerender_datetime($element) {
 function openy_lily_get_theme_styles() {
   $styles = [];
 
+  // @todo Refactoring!!!!!
   if ($logo_path = theme_get_setting('logo.path')) {
     $styles[] = 'body .navbar-default .navbar-brand, body .footer-brand {background-image: url(' . file_create_url($logo_path) . ');}';
   }
@@ -826,7 +820,7 @@ function openy_lily_get_theme_styles() {
  * Implements hook_form_system_theme_settings_alter().
  */
 function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
-  // @TODO remove and start using color schemas.
+  // @todo remove and start using color schemas.
   // Styles.
   $form['openy_lily_settings']['styles'] = [
     '#type' => 'details',
