@@ -2000,7 +2000,7 @@ body .ajax-progress-throbber .throbber {
   border: 0;
   color: white;
   display: inline-block;
-  background-color: #9c1f7b;
+  background-color: #9c1f7b !important;
   background-image: -webkit-linear-gradient(#b92f9e, transparent);
   background-image: -moz-linear-gradient(#b92f9e, transparent);
   background-image: -ms-linear-gradient(#b92f9e, transparent);
@@ -2107,12 +2107,12 @@ body .ajax-progress-throbber .throbber {
 }
 
 [data-drupal-selector="edit-reset-password"] {
-  background: none;
+  background: none !important;
   border: none;
   box-shadow: none;
   text-transform: inherit;
   font-weight: normal;
-  color: #0089d0;
+  color: #0089d0 !important;
   padding: 0;
   margin-top: 5px;
   margin-left: 6px;

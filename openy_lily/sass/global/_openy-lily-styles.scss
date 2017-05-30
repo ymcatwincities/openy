@@ -878,7 +878,7 @@ body .ajax-progress-throbber {
   border: 0;
   color: white;
   display: inline-block;
-  background-color: $pink;
+  background-color: $pink !important;
   background-image: -webkit-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
   background-image: -moz-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
   background-image: -ms-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
