@@ -612,6 +612,36 @@ header.expanded-search {
   font-weight: bold;
 }
 
+.breadcrumb-container {
+  background: #3a3a3a;
+}
+.breadcrumb-container ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 8px 15px;
+}
+.breadcrumb-container ol:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.breadcrumb-container ol li {
+  display: block;
+  float: left;
+  color: #999;
+}
+.breadcrumb-container ol li a {
+  color: white;
+}
+.breadcrumb-container ol li:after {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\00a0";
+}
+.breadcrumb-container ol li:last-child:after {
+  display: none;
+}
+
 .sg-color {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
