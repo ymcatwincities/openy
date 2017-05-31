@@ -74,8 +74,8 @@
     var self = this;
     this.options = {
       animation: 5000,
-      screenUpdatePeriod: 15000,
-      scheduleUpdatePeriod: 30
+      screenUpdatePeriod: 10000,
+      scheduleUpdatePeriod: 29
     };
     this.lastUpdate = window.tm.getTime();
     // Store element.
@@ -126,7 +126,9 @@
 
     this.updateSchedule = function() {
       var time = window.tm.getTime();
+      // Download the fresh data.
       $.get(window.location.href + '?' + time, function(data) {
+        // Store last update timestamp.
         self.lastUpdate = window.tm.getTime();
         var $data = $(data);
         self
@@ -139,30 +141,44 @@
               screenContent.element.remove();
             }
           });
-        $data
-          .find('.screen > .screen-content')
-          .each(function () {
-            var screenContent = ObjectsManager.getObject(this);
-            var workingHours = screenContent.getWorkingHours();
-            if (time < workingHours.to) {
-              var id = screenContent.getId();
-              var wasActive = false;
-              self.element
-                .find('.screen-content[data-screen-content-id='+id+']')
-                .each(function() {
-                  var existingScreenContent = ObjectsManager.getObject(this);
-                  if (existingScreenContent.isActive()) {
-                    wasActive = true;
-                  }
-                  existingScreenContent.deactivate();
-                  $(this).remove();
-                });
-              $(this).appendTo(self.element);
-              if (wasActive) {
-                screenContent.activateNoDelay();
+
+        if ($data.find('.screen').size() > 0) {
+          var incoming_screen_elem = $data.find('.screen').get(0);
+          var incoming_screen = ObjectsManager.getObject(incoming_screen_elem);
+          // Force reloading if the app version has changed.
+          if (incoming_screen.getAppVersion() !== self.getAppVersion()) {
+            window.location.reload();
+          }
+
+          // Check if screen contents need to be replaced.
+          $data
+            .find('.screen > .screen-content')
+            .each(function () {
+              var screenContent = ObjectsManager.getObject(this);
+              var workingHours = screenContent.getWorkingHours();
+              if (time < workingHours.to) {
+                var id = screenContent.getId();
+                var wasActive = false;
+                self.element
+                  .find('.screen-content[data-screen-content-id=' + id + ']')
+                  .each(function () {
+                    var existingScreenContent = ObjectsManager.getObject(this);
+                    if (existingScreenContent.isActive()) {
+                      wasActive = true;
+                      existingScreenContent.deactivateNoDelay();
+                    }
+                    else {
+                      existingScreenContent.deactivate();
+                      $(this).remove();
+                    }
+                  });
+                $(this).appendTo(self.element);
+                if (wasActive) {
+                  screenContent.activateNoDelay();
+                }
               }
-            }
-          });
+            });
+        }
         Drupal.attachBehaviors(self.element);
         self.updateScreenContents();
       });
@@ -172,7 +188,9 @@
       return self.element.find('.screen-content');
     };
 
-    this.init();
+    this.getAppVersion = function() {
+      return self.element.data('app-version');
+    };
 
     return this;
   }
@@ -218,14 +236,25 @@
       if (self.isActive()) {
         return;
       }
-      self.element
-        .removeClass('screen-content-inactive')
-        .removeClass('screen-content-activating')
-        .addClass('screen-content-active');
       self.getBlocks().each(function () {
         var block = ObjectsManager.getObject(this);
         block.activate();
       });
+      self.element
+        .removeClass('screen-content-inactive')
+        .removeClass('screen-content-activating')
+        .addClass('screen-content-active');
+    };
+
+    this.deactivateNoDelay = function() {
+      if (!self.isActive()) {
+        return;
+      }
+      self.getBlocks().each(function() {
+        var block = ObjectsManager.getObject(this);
+        block.deactivate();
+      });
+      self.element.remove();
     };
 
     this.deactivate = function() {
@@ -293,17 +322,18 @@
 
       jQuery(window).once().resize(function() {
         var o = jQuery(window).width() > jQuery(window).height() ? 'landscape' : 'portrait';
-        jQuery('.openy-ds-layout')
+        jQuery('.openy-ds-layout', context)
           .removeClass('landscape')
           .removeClass('portrait')
           .addClass(o);
       }).trigger('resize');
 
-      $(".screen").once().each(function () {
+      $('.screen', context).once().each(function () {
         window.tm = new TimeManager();
         console.log(window.tm.getTime());
 
         var screen = new OpenYScreen(this);
+        screen.init();
       });
     }
   };
