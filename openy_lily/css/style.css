@@ -231,6 +231,9 @@ a:hover, a:active, a:focus {
   white-space: pre-wrap;
 }
 
+.viewport {
+  position: static;
+}
 .viewport:after {
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
@@ -249,6 +252,7 @@ a:hover, a:active, a:focus {
 .viewport #main {
   transition: margin-left .2s;
   position: relative;
+  z-index: 999;
 }
 .path-frontpage .viewport #main {
   background: #e5e5e5;
@@ -2214,6 +2218,11 @@ legend {
   margin-bottom: 0;
 }
 
+.openy-ccc-registration-form:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .openy-ccc-registration-form .fieldset-wrapper {
   margin: 0 -10px;
 }

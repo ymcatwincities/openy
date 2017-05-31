@@ -108,7 +108,6 @@ label {
   font-weight: bold;
   text-transform: uppercase;
 }
-
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
   font-family: 'Cachet';
@@ -185,10 +184,10 @@ legend {
 //Register form
 
 .openy-ccc-registration-form {
+  @include clearfix;
   .fieldset-wrapper {
     @include clearfix;
     margin: 0 -10px;
-
   }
 }
 
