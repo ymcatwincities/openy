@@ -10,6 +10,7 @@ php: 5.6
 # Required modules
 dependencies:
   # Core modules.
+  - action
   - block_content
   - breakpoint
   - ckeditor
@@ -78,6 +79,7 @@ dependencies:
   - metatag_open_graph
   - google_tag
   - google_analytics
+  - scheduler
   - webform
   - webform_ui
   - captcha

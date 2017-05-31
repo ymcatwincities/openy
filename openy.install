@@ -326,9 +326,16 @@ function openy_update_8024() {
 }
 
 /**
- * Enable Colorbutton module.
+ * Enable scheduler module.
  */
 function openy_update_8025() {
+  \Drupal::service('module_installer')->install(['scheduler']);
+}
+
+/**
+ * Enable Colorbutton module.
+ */
+function openy_update_8026() {
   // Enable module.
   \Drupal::service('module_installer')->install([
     'colorbutton',
