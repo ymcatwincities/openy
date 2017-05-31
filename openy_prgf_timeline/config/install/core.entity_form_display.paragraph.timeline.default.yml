@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.timeline.field_prgf_timeline
+    - field.field.paragraph.timeline.field_prgf_timeline_queue
+    - paragraphs.paragraphs_type.timeline
+  module:
+    - content_moderation
+id: paragraph.timeline.default
+targetEntityType: paragraph
+bundle: timeline
+mode: default
+content:
+  field_prgf_timeline_queue:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  field_prgf_timeline: true
+  status: true
+  uid: true

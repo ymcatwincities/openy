@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.timeline.field_prgf_timeline
+    - field.field.paragraph.timeline.field_prgf_timeline_queue
+    - paragraphs.paragraphs_type.timeline
+    - views.view.timeline_demo
+  module:
+    - views_field_formatter
+id: paragraph.timeline.default
+targetEntityType: paragraph
+bundle: timeline
+mode: default
+content:
+  field_prgf_timeline:
+    type: views_field_formatter
+    weight: 3
+    region: content
+    label: hidden
+    settings:
+      view: 'timeline_demo::block_1'
+      arguments:
+        field_value:
+          weight: '0'
+          checked: 0
+        entity_id:
+          weight: '0'
+          checked: 0
+        delta:
+          weight: '0'
+          checked: 0
+      implode_character: ''
+      multiple: 0
+    third_party_settings: {  }
+  field_prgf_timeline_queue:
+    weight: 0
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden: {  }

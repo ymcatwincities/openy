@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_timeline
+    - paragraphs.paragraphs_type.timeline
+id: paragraph.timeline.field_prgf_timeline
+field_name: field_prgf_timeline
+entity_type: paragraph
+bundle: timeline
+label: 'Timeline View'
+description: 'Timeline view'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference
