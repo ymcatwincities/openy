@@ -1,10 +1,6 @@
-# Branches Popup (Class)
+# Schedule search form
 
-This is dynamic paragraph that renders the locations selection popup, based on current node.
-
-Relates to:
- * [Class Sessions](Class Sessions.md)
- * [Class Location](Class Location.md)
+This is dynamic paragraph that renders the session instances filters for [Schedule search list](Schedule search list.md).
 
 ### Fields
 | Name  | Machine name | Required | Description |
