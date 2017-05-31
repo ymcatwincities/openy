@@ -340,16 +340,7 @@ function openy_update_8026() {
   \Drupal::service('module_installer')->install([
     'colorbutton',
   ]);
-  // Update ckeditor settings.
-  /* @var Drupal\editor\Entity\Editor $editor */
-  $editor = \Drupal\editor\Entity\Editor::load('full_html');
-  $settings = $editor->getSettings();
-  foreach ($settings['toolbar']['rows'][0] as $key => $item) {
-    if ($item['name'] == 'Formatting') {
-      $settings['toolbar']['rows'][0][$key]['items'][] = 'TextColor';
-      break;
-    }
-  }
-  $editor->setSettings($settings);
-  $editor->save();
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
 }
