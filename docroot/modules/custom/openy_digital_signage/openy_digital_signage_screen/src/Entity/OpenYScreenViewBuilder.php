@@ -23,8 +23,14 @@ class OpenYScreenViewBuilder implements EntityViewBuilderInterface {
    * {@inheritdoc}
    */
   public function view(EntityInterface $entity, $view_mode = 'full', $langcode = NULL) {
+    $versions = \Drupal::moduleHandler()->invokeAll('ds_version');
+    $version = md5(json_encode($versions));
+
     $build = [
-      '#prefix' => '<div class="screen" data-screen-id="' . $entity->id() . '">',
+      '#prefix' => '<div
+        class="screen"
+        data-screen-id="' . $entity->id() . '"
+        data-app-version="' . $version . '">',
       '#suffix' => '</div>',
       '#cache' => [
         'max-age' => 0,
