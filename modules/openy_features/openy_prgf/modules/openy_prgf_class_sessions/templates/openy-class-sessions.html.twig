@@ -51,9 +51,9 @@
       <h3>{{ 'Class Times'|t }}</h3>
       <div>
         {% if conditions_location is empty %}
-          <span>{{ "No sessions are available at any location." }}</span>
+          <span>{{ "No sessions are available at any location."|t }}</span>
         {% else %}
-          <span>{{ "No sessions are available at this branch." }}</span>
+          <span>{{ "No sessions are available at this branch."|t }}</span>
         {% endif %}
       </div>
     {% endif %}
