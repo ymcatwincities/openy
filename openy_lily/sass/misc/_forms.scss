@@ -73,6 +73,7 @@
 [data-drupal-selector="edit-login"] {
   float: left;
 }
+[data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"] {
@@ -260,6 +261,14 @@ legend {
       padding-right: 10px;
       width: 50%;
       float: left;
+    }
+  }
+}
+[data-drupal-selector="edit-emergency-contact"] {
+  .fieldset-wrapper {
+    margin: 0 -10px;
+    .form-item {
+      width: 100%;
     }
   }
 }

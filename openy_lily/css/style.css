@@ -1993,7 +1993,8 @@ body .ajax-progress-throbber .throbber {
   max-height: 500px;
 }
 
-.pink-button, [data-drupal-selector="edit-submit"],
+.pink-button, [data-drupal-selector="edit-cancel"],
+[data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, #banner .banner-caption a {
   margin: 0;
@@ -2017,7 +2018,8 @@ body .ajax-progress-throbber .throbber {
   cursor: pointer;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
-.pink-button:hover, [data-drupal-selector="edit-submit"]:hover,
+.pink-button:hover, [data-drupal-selector="edit-cancel"]:hover,
+[data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
 [data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, #banner .banner-caption a:hover {
   background-color: #9c1f7b;
@@ -2097,6 +2099,7 @@ body .ajax-progress-throbber .throbber {
   float: left;
 }
 
+[data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"] {
@@ -2283,6 +2286,13 @@ legend {
   padding-right: 10px;
   width: 50%;
   float: left;
+}
+
+[data-drupal-selector="edit-emergency-contact"] .fieldset-wrapper {
+  margin: 0 -10px;
+}
+[data-drupal-selector="edit-emergency-contact"] .fieldset-wrapper .form-item {
+  width: 100%;
 }
 
 #mindbody-pt-form-wrapper {
