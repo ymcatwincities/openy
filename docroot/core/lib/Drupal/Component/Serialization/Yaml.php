@@ -51,7 +51,7 @@ class Yaml implements SerializationInterface {
       // Use the PECL YAML extension if it is available. It has better
       // performance for file reads and is YAML compliant.
       if (extension_loaded('yaml')) {
-        static::$serializer = YamlPecl::class;
+        static::$serializer = YamlSymfony::class;
       }
       else {
         // Otherwise, fallback to the Symfony implementation.
