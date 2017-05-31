@@ -331,3 +331,16 @@ function openy_update_8024() {
 function openy_update_8025() {
   \Drupal::service('module_installer')->install(['scheduler']);
 }
+
+/**
+ * Enable Colorbutton module.
+ */
+function openy_update_8026() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'colorbutton',
+  ]);
+  $config = drupal_get_path('profile', 'openy') . '/config/install/editor.editor.full_html.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar');
+}
