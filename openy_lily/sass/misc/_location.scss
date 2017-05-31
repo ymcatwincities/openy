@@ -69,3 +69,15 @@ body.locations-camps-template .locations-page-under-lead-copy {
     padding-top: 30px;
   }
 }
+
+.locations-list {
+  .label-for-field-location-fax,
+  .label-for-field-location-phone {
+    text-transform: lowercase;
+    display: inline;
+  }
+  .field-location-fax,
+  .field-location-phone {
+    display: inline;
+  }
+}

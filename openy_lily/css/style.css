@@ -879,6 +879,16 @@ body.locations-camps-template .locations-page-under-lead-copy {
   }
 }
 
+.locations-list .label-for-field-location-fax,
+.locations-list .label-for-field-location-phone {
+  text-transform: lowercase;
+  display: inline;
+}
+.locations-list .field-location-fax,
+.locations-list .field-location-phone {
+  display: inline;
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
