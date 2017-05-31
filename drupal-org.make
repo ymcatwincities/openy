@@ -50,6 +50,7 @@ projects[rabbit_hole] = 1.0-beta3
 projects[redirect] = 1.0-alpha4
 projects[simple_sitemap] = 2.8
 projects[metatag] = 1.0
+projects[scheduler] = 1.0-alpha2
 projects[confi][subdir] = contrib
 projects[confi][version] = 1.3
 projects[confi][patch][] = "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
