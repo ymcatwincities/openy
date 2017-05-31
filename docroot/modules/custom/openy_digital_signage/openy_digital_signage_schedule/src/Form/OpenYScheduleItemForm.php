@@ -18,8 +18,41 @@ class OpenYScheduleItemForm extends ContentEntityForm {
   public function buildForm(array $form, FormStateInterface $form_state) {
     /* @var $entity \Drupal\openy_digital_signage_schedule\Entity\OpenYScheduleItem */
     $form = parent::buildForm($form, $form_state);
+    $form['time_date_slot'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Time settings'),
+      '#weight' => 2,
+    ];
+    $form['time_date_slot']['time_slot'] = $form['time_slot'];
+    $form['time_date_slot']['show_date'] = $form['show_date'];
+    $form['time_date_slot']['date'] = $form['date'];
+    $form['time_date_slot']['date']['#states'] = [
+      'visible' => [
+        ':input[name="show_date[value]"]' => ['checked' => FALSE],
+      ],
+    ];
+
+    unset($form['time_slot']);
+    unset($form['show_date']);
+    unset($form['date']);
 
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $show_date = $form_state->getValue(['show_date', 'value']);
+    if ($show_date) {
+      $form_state->setValue('date', [
+        [
+          'value' => NULL,
+          'end_value' => NULL,
+        ],
+      ]);
+    }
+    parent::validateForm($form, $form_state);
   }
 
   /**
