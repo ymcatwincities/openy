@@ -324,3 +324,10 @@ function openy_update_8024() {
   // Enable module.
   \Drupal::service('module_installer')->install(['admin_toolbar']);
 }
+
+/**
+ * Enable scheduler module.
+ */
+function openy_update_8025() {
+  \Drupal::service('module_installer')->install(['scheduler']);
+}

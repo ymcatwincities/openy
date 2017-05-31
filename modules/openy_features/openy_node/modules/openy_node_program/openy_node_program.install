@@ -12,6 +12,9 @@ function openy_node_program_update_dependencies() {
   $dependencies['openy_node_program'] = [
     8002 => [
       'openy_node' => 8003,
+    ],
+    8003 => [
+      'openy' => 8015,
     ]
   ];
 
@@ -69,4 +72,32 @@ function openy_node_program_update_8002() {
   $config_importer->importConfigs([
     'metatag.metatag_defaults.node__' . $bundle,
   ]);
+}
+
+/*
+ * Enabling scheduler module.
+ */
+function openy_node_program_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.program.default' => [
+      'dependencies.module',
+      'content.publish_on',
+      'content.unpublish_on',
+    ],
+    'node.type.program' => [
+      'dependencies.module',
+      'third_party_settings.scheduler',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
