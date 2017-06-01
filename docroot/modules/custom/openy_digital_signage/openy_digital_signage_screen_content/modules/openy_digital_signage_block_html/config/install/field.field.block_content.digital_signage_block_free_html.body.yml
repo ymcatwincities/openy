@@ -14,7 +14,11 @@ label: Body
 description: 'Use this field to specify any content you want.'
 required: true
 translatable: true
-default_value: {  }
+default_value:
+  -
+    summary: ''
+    value: "<h1>Title</h1>\r\n\r\n<h2>Subtitle</h2>\r\n\r\n<p>Message</p>\r\n"
+    format: digital_signage_html
 default_value_callback: ''
 settings:
   display_summary: false
