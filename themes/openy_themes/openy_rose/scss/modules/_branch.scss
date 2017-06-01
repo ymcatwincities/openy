@@ -865,8 +865,18 @@ html.js {
     height: auto;
     margin: 0 0 20px;
     border-color: #ccc;
-    h2 a {
-      color: $purple;
+    > span {
+      display: block;
+    }
+    h2 {
+      display: inline-block;
+      a {
+        color: $purple;
+      }
+    }
+    .edit-class-popup {
+      display: inline-block;
+      margin-left: 10px;
     }
   }
   .marker_tooltip & {
@@ -916,11 +926,13 @@ html.js {
 .paragraph--type--class-location.paragraph--view-mode--default {
   .empty-text {
     border: solid 1px $light-grey;
-    font-family: $font-family-sans-serif;
-    font-size: 14px;
-    letter-spacing: 2px;
     padding: 20px;
-    text-transform: uppercase;
+    span {
+      font-family: $font-family-sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
   }
 }
 
