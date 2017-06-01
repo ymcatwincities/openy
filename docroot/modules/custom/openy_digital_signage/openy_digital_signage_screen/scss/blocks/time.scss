@@ -1,0 +1,71 @@
+.openy-digital-signage-block-time {
+
+  .block-time {
+    display: inline;
+    position: absolute;
+    z-index: 1000;
+  }
+
+  .block-time-color-white {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .block-time-color-black {
+    color: #000;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+  }
+
+  .block-time-position-top-right {
+    right: 5%;
+    top: 5%;
+  }
+
+  .block-time-position-top-left {
+    left: 5%;
+    top: 5%;
+  }
+
+  .block-time-position-bottom-right {
+    bottom: 5%;
+    right: 5%;
+  }
+
+  .block-time-position-bottom-left {
+    bottom: 5%;
+    left: 5%
+  }
+
+  .time {
+    font-size: 300%;
+    font-weight: normal;
+    line-height: 1.25;
+    padding-left: 35px;
+    text-transform: uppercase;
+
+    &:before {
+      content: "\e023";
+      display: inline-block;
+      // Todo: extract from current theme.
+      font-family: 'Glyphicons Halflings';
+      font-size: 0.76em;
+      left: 0;
+      padding-right: 0.3em;
+      -webkit-transform: translateY(4%);
+      -ms-transform: translateY(4%);
+      transform: translateY(4%);
+    }
+  }
+
+  .panels-ipe-active & {
+
+    .block-time {
+      background: #ccc;
+      bottom: auto;
+      left: auto;
+      position: relative;
+      right: auto;
+      top: auto;
+    }
+  }
+}
