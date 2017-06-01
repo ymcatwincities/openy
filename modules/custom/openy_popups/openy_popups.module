@@ -30,7 +30,7 @@ function openy_popups_preprocess_radios(&$variables) {
 
   $variables['children'] = [];
 
-  if ($variables['element']['#all']) {
+  if (!empty($variables['element']['#all'])) {
     foreach ($variables['element']['#all'] as $id => $value) {
       $variables['children'][] = [
         '#markup' => $variables['element'][$id]['#markup'],
@@ -38,7 +38,7 @@ function openy_popups_preprocess_radios(&$variables) {
     }
   }
 
-  if ($variables['element']['#branches']) {
+  if (!empty($variables['element']['#branches'])) {
     $variables['children'][] = [
       '#markup' => '<h3>' . t('Branches') . '</h3>',
     ];
@@ -49,7 +49,7 @@ function openy_popups_preprocess_radios(&$variables) {
     }
   }
 
-  if ($variables['element']['#camps']) {
+  if (!empty($variables['element']['#camps'])) {
     $variables['children'][] = [
       '#markup' => '<h3>' . t('Camps') . '</h3>',
     ];
