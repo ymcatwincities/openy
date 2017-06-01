@@ -70,3 +70,10 @@ function openy_digital_signage_screen_preprocess_html(&$variables) {
 function openy_digital_signage_screen_preprocess_page(&$variables) {
   $variables['base_path'] = base_path();
 }
+
+/**
+ * Implements hook_ds_version().
+ */
+function openy_digital_signage_screen_ds_version() {
+  return '0.0.1';
+}
