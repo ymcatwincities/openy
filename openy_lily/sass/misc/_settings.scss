@@ -67,6 +67,11 @@
   }
 }
 
+#block-openy-lily-content {
+  .one-column-clean.landing-content {
+    @extend .container-fluid;
+  }
+}
 a:hover, a:active, a:focus {
   outline: 0;
 }

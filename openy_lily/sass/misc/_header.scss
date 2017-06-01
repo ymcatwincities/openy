@@ -97,6 +97,9 @@ body {
   #main {
     transition: margin-left .2s;
     position: relative;
+    .path-frontpage & {
+      background: #e5e5e5;
+    }
   }
   &.expanded-mobile {
     &:after {

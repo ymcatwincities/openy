@@ -232,7 +232,7 @@
 
 #banner {
   position: relative;
-  height: 455px;
+  min-height: 455px;
   @include breakpoint(0 $tablet-start) {
     height: auto;
   }
@@ -244,7 +244,7 @@
     display: block;
     visibility: visible;
     width: 66%;
-    height: 455px;
+    height: 100%;
     background: $black3;
     content: '';
     -webkit-transform: skew(-20deg);
@@ -258,13 +258,16 @@
       display: none;
     }
   }
+  .image {
+    position: inherit;
+  }
   .banner-img {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 0;
     width: 100%;
-    height: 455px;
+    height: 100%;
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
