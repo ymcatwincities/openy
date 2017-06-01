@@ -92,6 +92,30 @@
                     "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/panelbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colorbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -125,6 +149,7 @@
         "enable-patching": true
     },
     "config": {
-        "bin-dir": "vendor/bin/"
+        "bin-dir": "vendor/bin/",
+        "secure-http": false
     }
 }
