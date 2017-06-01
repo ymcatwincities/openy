@@ -5090,18 +5090,18 @@ a[href="#step2"] {
 #membership-calc-wrapper input[name="type"] {
   display: none;
 }
-#membership-calc-wrapper .col-sm-6 {
-  margin-bottom: 40px;
+#membership-calc-wrapper .membership-type {
+  margin: 0 0 40px 0;
 }
 @media (min-width: 30em) and (max-width: 48em) {
-  #membership-calc-wrapper .col-sm-6 {
+  #membership-calc-wrapper .membership-type {
     width: 50%;
   }
 }
-#membership-calc-wrapper .col-sm-6 .contextual-region {
+#membership-calc-wrapper .membership-type .contextual-region {
   position: static;
 }
-#membership-calc-wrapper .col-sm-6 .node--view-mode-calc-preview img {
+#membership-calc-wrapper .membership-type .node--view-mode-calc-preview img {
   height: auto;
   margin-bottom: 10px;
   width: 100%;
