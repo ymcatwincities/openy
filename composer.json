@@ -19,8 +19,7 @@
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
         "emuse/behat-html-formatter": "^0.1.0",
-        "drupal/tqextension": "dev-drupal-8",
-        "cevou/behat-screenshot-compare-extension": "^1.0@dev"
+        "drupal/tqextension": "dev-drupal-8"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -93,6 +92,30 @@
                     "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/panelbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colorbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -101,13 +124,13 @@
             "@cibox-build",
             "@cibox-vm",
             "@docksal",
-            "sh scripts/remove_vendor_git_folders.sh || :"
+            "bash scripts/remove_vendor_git_folders.sh || :"
         ],
         "post-update-cmd": [
             "@cibox-build",
             "@cibox-vm",
             "@docksal",
-            "sh scripts/remove_vendor_git_folders.sh || :"
+            "bash scripts/remove_vendor_git_folders.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
         "cibox-build": "[ -d ./vendor/ymcatwincities/openy-cibox-build ] && (rsync -r --exclude=composer.json --exclude=.gitignore --exclude=.git ./vendor/ymcatwincities/openy-cibox-build/ ./docroot) || (rm -rf ./docroot/devops ./docroot/*.sh ./docroot/*.yml ./docroot/*.md ./docroot/ansible.cfg)",
@@ -126,6 +149,7 @@
         "enable-patching": true
     },
     "config": {
-        "bin-dir": "vendor/bin/"
+        "bin-dir": "vendor/bin/",
+        "secure-http": false
     }
 }
