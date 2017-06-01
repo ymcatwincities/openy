@@ -87,14 +87,13 @@
 {% set image = content.field_blog_image['#items'] ? 'image' : 'placeholder' %}
 
 <article{{ attributes.addClass(classes) }}>
-
   <div class="inner-wrapper" style="{{ color }}; {{ bg_color }};">
     {% if ( node.field_blog_style.value == "photo") %}
       <div>
        {{ content.field_blog_image }}
       </div>
     {% endif %}
-    {% if (image == 'placeholder') %}
+    {% if (image == 'placeholder') or (node.field_blog_style.value in  ['story', 'news']) %}
       <div>
         <img src="{{ file_url(directory ~ '/img/blog_image_placeholder.png') }}" alt="" />
       </div>
