@@ -3,9 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.timeline.field_prgf_timeline
-    - field.field.paragraph.timeline.field_prgf_timeline_queue
     - paragraphs.paragraphs_type.timeline
-    - views.view.timeline_demo
+    - views.view.timeline
   module:
     - views_field_formatter
 id: paragraph.timeline.default
@@ -14,16 +13,14 @@ bundle: timeline
 mode: default
 content:
   field_prgf_timeline:
-    type: views_field_formatter
-    weight: 3
-    region: content
+    weight: 1
     label: hidden
     settings:
-      view: 'timeline_demo::block_1'
+      view: 'timeline::block_1'
       arguments:
         field_value:
+          checked: '1'
           weight: '0'
-          checked: 0
         entity_id:
           weight: '0'
           checked: 0
@@ -33,12 +30,6 @@ content:
       implode_character: ''
       multiple: 0
     third_party_settings: {  }
-  field_prgf_timeline_queue:
-    weight: 0
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
+    type: views_field_formatter
     region: content
 hidden: {  }

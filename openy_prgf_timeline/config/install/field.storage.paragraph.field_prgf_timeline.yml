@@ -3,13 +3,13 @@ status: true
 dependencies:
   module:
     - paragraphs
-    - views
+    - taxonomy
 id: paragraph.field_prgf_timeline
 field_name: field_prgf_timeline
 entity_type: paragraph
 type: entity_reference
 settings:
-  target_type: view
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1
