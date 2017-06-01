@@ -19,7 +19,6 @@
   src: url("../fonts/cachet-bold/Cachet-Bold.ttf") format("truetype"), url("../fonts/cachet-bold/Cachet-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/cachet-bold/Cachet-Bold.woff") format("woff"), url("../fonts/cachet-bold/Cachet-Bold.svg#Cachet-Bold") format("svg"); }
 
 .page-schedule {
-  background-image: url(../images/bg-body-blue.png);
   font-family: "Cachet-Bold";
   font-weight: normal;
   padding: 0; }
@@ -166,10 +165,6 @@
     opacity: 0; }
   .class-prev .class .class-time-frame-progress {
     opacity: 0; }
-
-.page-schedule.scheme-orange {
-  background-image: url(../images/bg-body-orange.png);
-  background-color: #fcaf17; }
 
 .scheme-orange .header--inner .title {
   color: #f15922; }

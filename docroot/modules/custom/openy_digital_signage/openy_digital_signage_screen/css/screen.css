@@ -617,30 +617,31 @@ table {
 .screen-content {
   width: 100%;
   height: 100vh;
-  position: relative; }
+  position: relative;
+  overflow: hidden; }
 
 .screen-content {
   display: none;
-  background-image: url(../images/bg-body-blue.png);
   font-family: "Cachet-Bold";
   font-weight: normal;
   padding: 0; }
-  .scheme-orange .screen-content {
-    background-image: url(../images/bg-body-orange.png);
-    background-color: #fcaf17; }
 
 .screen-content-active,
 .screen-content-activating {
   display: block; }
 
-.openy-ds-layout.landscape {
-  width: 100vw;
-  height: 56.25vw; }
-
-.openy-ds-layout.portrait {
-  margin: auto;
-  width: 56.25vh;
-  height: 100vh; }
+.openy-ds-layout {
+  background-image: url(../images/bg-body-blue.png); }
+  .scheme-orange .openy-ds-layout {
+    background-color: #fcaf17;
+    background-image: url(../images/bg-body-orange.png); }
+  .openy-ds-layout.landscape {
+    width: 100vw;
+    height: 56.25vw; }
+  .openy-ds-layout.portrait {
+    margin: auto;
+    width: 56.25vh;
+    height: 100vh; }
 
 .block-event {
   font-family: "Cachet-Bold";
@@ -719,3 +720,67 @@ table {
         text-transform: uppercase; }
       .wrapper-coming .block-event .wrapper-time .label {
         font-size: 4.4rem; }
+
+.openy-digital-signage-block-time .block-time {
+  display: inline;
+  position: absolute;
+  z-index: 1000; }
+
+.openy-digital-signage-block-time .block-time-color-white {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.25); }
+
+.openy-digital-signage-block-time .block-time-color-black {
+  color: #000;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.25); }
+
+.openy-digital-signage-block-time .block-time-position-top-right {
+  right: 5%;
+  top: 5%; }
+
+.openy-digital-signage-block-time .block-time-position-top-left {
+  left: 5%;
+  top: 5%; }
+
+.openy-digital-signage-block-time .block-time-position-bottom-right {
+  bottom: 5%;
+  right: 5%; }
+
+.openy-digital-signage-block-time .block-time-position-bottom-left {
+  bottom: 5%;
+  left: 5%; }
+
+.openy-digital-signage-block-time .time {
+  font-size: 300%;
+  font-weight: normal;
+  line-height: 1.25;
+  padding-left: 35px;
+  text-transform: uppercase; }
+  .openy-digital-signage-block-time .time:before {
+    content: "\e023";
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-size: 0.76em;
+    left: 0;
+    padding-right: 0.3em;
+    -webkit-transform: translateY(4%);
+    -ms-transform: translateY(4%);
+    transform: translateY(4%); }
+
+.panels-ipe-active .openy-digital-signage-block-time .block-time {
+  background: #ccc;
+  bottom: auto;
+  left: auto;
+  position: relative;
+  right: auto;
+  top: auto; }
+
+.openy-digital-signage-block-html {
+  height: 100%;
+  margin: 0;
+  padding: 0; }
+  .openy-digital-signage-block-html .block-background-image {
+    background-position: center center;
+    background-size: cover;
+    height: 100%;
+    padding: 5%; }

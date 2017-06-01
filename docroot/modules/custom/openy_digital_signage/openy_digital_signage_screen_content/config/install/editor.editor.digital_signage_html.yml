@@ -1,0 +1,62 @@
+uuid: 5d8cc242-501a-46b6-9fd0-a263b07e1275
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.digital_signage_html
+  module:
+    - ckeditor
+format: digital_signage_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+            - Underline
+            - Strike
+            - Superscript
+            - Subscript
+            - '-'
+            - RemoveFormat
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Media
+          items:
+            - Blockquote
+            - DrupalImage
+            - Table
+            - HorizontalRule
+        -
+          name: Tools
+          items:
+            - Source
+            - Format
+        -
+          name: 'Text color'
+          items:
+            - TextColor
+            - BGColor
+  plugins:
+    language:
+      language_list: un
+    stylescombo:
+      styles: ''
+    colorbutton:
+      colors: ''
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null
