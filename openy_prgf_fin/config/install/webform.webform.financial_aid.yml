@@ -1,6 +1,8 @@
 langcode: en
 status: open
-dependencies: {  }
+dependencies:
+  module:
+    - openy_webform
 open: null
 close: null
 uid: 1
@@ -8,7 +10,7 @@ template: false
 id: financial_aid
 title: 'Financial Aid'
 description: '<p>Financial Aid webform, the part of&nbsp;Financial Aid paragraph.</p>'
-elements: "description_container:\n  '#type': fieldset\n  '#title': Description\n  description:\n    '#type': processed_text\n    '#text': \"<p>It is the mission of the YMCA to provide service for any person or family who desires to participate in the YMCA, regardless of the ability to pay the standard membership or program fee. Each year, the YMCA raises funds through our Annual Campaign to provide financial assistance to youth and families. Those not able to pay the full program fee may be awarded assistance based on financial need. The YMCA reserves the right to refuse assistance to any applicant.</p>\\r\\n\\r\\n<p>To be eligible for financial assistance, applicants must work or reside in the YMCA of Greater Houston service area and meet household/yearly income requirements. The YMCA believes a strong sense of ownership is developed if the recipient contributes to the cost of their YMCA involvement; therefore, applicants will be asked to pay some portion of the fees. Financial assistance is awarded for a one-year &nbsp;period and is valid for all participating programs at any YMCA of Greater Houston location.</p>\\r\\n\"\n    '#format': html\napplication_how_to_container:\n  '#type': fieldset\n  '#title': 'Application how-to'\n  application_how_to:\n    '#type': processed_text\n    '#text': \"<p>To apply for financial assistance please bring the following information to any YMCA:</p>\\r\\n\\r\\n<ol>\\r\\n\\t<li>Completed Financial Assistance Application, signed and dated</li>\\r\\n\\t<li>Your most recent income tax return with everyone requesting assistance listed (will be reviewed and returned to you)*</li>\\r\\n</ol>\\r\\n\\r\\n<p>You may be asked to provide the following documents where applicable: proof of income for all working household &nbsp;members; proof of household income received from other sources such as: TANF, child support, SSI, disability, or foster care benefits;proof of current college registration; proof of layoff; etc.</p>\\r\\n\\r\\n<p>Please note, if you are interested in child care assistance, we do ask that you apply first through Workforce Solutions for assistance before applying with the YMCA. This can be done by visiting wrksolutions.com.</p>\\r\\n\\r\\n<p><small>* If you do not file a tax return, call the IRS at 800-829-1040 or visit irs.gov to download Form 4506-T and request a Verification of non-filing letter. &nbsp;Once received, this letter can be submitted in lieu of the tax return. You will then be required to provide other proof of income</small></p>\\r\\n\"\n    '#format': html\naddress_container:\n  '#type': fieldset\n  '#title': Address\n  address:\n    '#type': webform_address\n    '#title': Address\n    '#default_value':\n      address: ''\n      address_2: ''\n      city: ''\n      state_province: ''\n      postal_code: ''\n      country: US\n    '#address_2__access': false\n    '#state_province__access': false\n    '#country__placeholder': US\n    '#country__type': textfield\n    '#country__access': false\n  phone:\n    '#type': tel\n    '#title': Phone\n  additional_phone:\n    '#type': tel\n    '#title': 'Additional Phone'\n  email:\n    '#type': email\n    '#title': Email\nparent_guardian:\n  '#type': fieldset\n  '#title': Parent/Guardian\n  member:\n    '#type': webform_openy_member\n    '#title': Members\n    '#multiple': true\nfamily_members:\n  '#type': fieldset\n  '#title': 'Family members'\n  members:\n    '#type': webform_openy_member\n    '#title': Members\n    '#multiple': true\nplease_indicate_container:\n  '#type': fieldset\n  '#title': 'Please indicate'\n  household_members_number:\n    '#type': textfield\n    '#title': 'Number of household members'\n    '#autocomplete': 'off'\n    '#pattern': ^\\d+$\n  adjusted_gross_income:\n    '#type': textfield\n    '#title': 'Adjusted Gross Income (per tax return)'\n    '#field_prefix': $\n    '#autocomplete': 'off'\n    '#input_mask': '''alias'': ''currency'''\n    '#pattern': '^([$]\\s)?[0-9]\\d*(((,\\d{3}){1})?(\\.\\d{0,2})?)$'\n  extenuating_circumstances:\n    '#type': textarea\n    '#title': 'Any extenuating circumstances we should consider'\n  verified:\n    '#type': checkbox\n    '#title': Verified\n    '#default_value': '0'\npolicy_container:\n  '#type': fieldset\n  '#title': Policy\n  policy_agree:\n    '#type': checkbox\n    '#title': 'I agree'\n    '#description': 'I certify that the above information is true and complete to the best of my knowledge. I agree to inform the YMCA immediatelyofany change in my income or family size. I understand that false or incomplete information could jeopardize my scholarship.'\n    '#default_value': '0'\n    '#description_display': before\n"
+elements: "description_container:\n  '#type': fieldset\n  '#title': Description\n  description:\n    '#type': processed_text\n    '#text': \"<p>It is the mission of the YMCA to provide service for any person or family who desires to participate in the YMCA, regardless of the ability to pay the standard membership or program fee. Each year, the YMCA raises funds through our Annual Campaign to provide financial assistance to youth and families. Those not able to pay the full program fee may be awarded assistance based on financial need. The YMCA reserves the right to refuse assistance to any applicant.</p>\\r\\n\\r\\n<p>To be eligible for financial assistance, applicants must work or reside in the YMCA of Greater Houston service area and meet household/yearly income requirements. The YMCA believes a strong sense of ownership is developed if the recipient contributes to the cost of their YMCA involvement; therefore, applicants will be asked to pay some portion of the fees. Financial assistance is awarded for a one-year &nbsp;period and is valid for all participating programs at any YMCA of Greater Houston location.</p>\\r\\n\"\n    '#format': html\napplication_how_to_container:\n  '#type': fieldset\n  '#title': 'Application how-to'\n  application_how_to:\n    '#type': processed_text\n    '#text': \"<p>To apply for financial assistance please bring the following information to any YMCA:</p>\\r\\n\\r\\n<ol>\\r\\n\\t<li>Completed Financial Assistance Application, signed and dated</li>\\r\\n\\t<li>Your most recent income tax return with everyone requesting assistance listed (will be reviewed and returned to you)*</li>\\r\\n</ol>\\r\\n\\r\\n<p>You may be asked to provide the following documents where applicable: proof of income for all working household &nbsp;members; proof of household income received from other sources such as: TANF, child support, SSI, disability, or foster care benefits;proof of current college registration; proof of layoff; etc.</p>\\r\\n\\r\\n<p>Please note, if you are interested in child care assistance, we do ask that you apply first through Workforce Solutions for assistance before applying with the YMCA. This can be done by visiting wrksolutions.com.</p>\\r\\n\\r\\n<p><small>* If you do not file a tax return, call the IRS at 800-829-1040 or visit irs.gov to download Form 4506-T and request a Verification of non-filing letter. &nbsp;Once received, this letter can be submitted in lieu of the tax return. You will then be required to provide other proof of income</small></p>\\r\\n\"\n    '#format': html\ncenter_container:\n  '#type': fieldset\n  '#title': Center\n  '#description': 'Select location your application belongs to.'\n  center:\n    '#type': webform_entity_select\n    '#title': Center\n    '#title_display': invisible\n    '#required': true\n    '#target_type': node\n    '#selection_handler': 'default:node'\n    '#selection_settings':\n      target_bundles:\n        branch: branch\n        camp: camp\n      sort:\n        field: title\n        direction: ASC\naddress_container:\n  '#type': fieldset\n  '#title': Address\n  address:\n    '#type': webform_address\n    '#title': Address\n    '#default_value':\n      address: ''\n      address_2: ''\n      city: ''\n      state_province: ''\n      postal_code: ''\n      country: US\n    '#address_2__access': false\n    '#state_province__access': false\n    '#country__placeholder': US\n    '#country__type': textfield\n    '#country__access': false\n  phone:\n    '#type': tel\n    '#title': Phone\n  additional_phone:\n    '#type': tel\n    '#title': 'Additional Phone'\n  email:\n    '#type': email\n    '#title': Email\nparent_guardian:\n  '#type': fieldset\n  '#title': Parent/Guardian\n  member:\n    '#type': webform_openy_member\n    '#title': Members\n    '#multiple': true\n    '#tax_verified__access': false\nfamily_members:\n  '#type': fieldset\n  '#title': 'Family members'\n  members:\n    '#type': webform_openy_member\n    '#title': Members\n    '#multiple': true\n    '#tax_verified__access': false\nplease_indicate_container:\n  '#type': fieldset\n  '#title': 'Please indicate'\n  household_members_number:\n    '#type': textfield\n    '#title': 'Number of household members'\n    '#autocomplete': 'off'\n    '#pattern': ^\\d+$\n  adjusted_gross_income:\n    '#type': textfield\n    '#title': 'Adjusted Gross Income (per tax return)'\n    '#field_prefix': $\n    '#autocomplete': 'off'\n    '#input_mask': '''alias'': ''currency'''\n    '#pattern': '^([$]\\s)?[0-9]\\d*(((,\\d{3}){1})?(\\.\\d{0,2})?)$'\n  extenuating_circumstances:\n    '#type': textarea\n    '#title': 'Any extenuating circumstances we should consider'\n  verified:\n    '#type': checkbox\n    '#title': Verified\n    '#default_value': '0'\npolicy_container:\n  '#type': fieldset\n  '#title': Policy\n  policy_agree:\n    '#type': checkbox\n    '#title': 'I agree'\n    '#description': 'I certify that the above information is true and complete to the best of my knowledge. I agree to inform the YMCA immediatelyofany change in my income or family size. I understand that false or incomplete information could jeopardize my scholarship.'\n    '#default_value': '0'\n    '#description_display': before\n"
 css: ''
 javascript: ''
 settings:
@@ -55,7 +57,7 @@ settings:
   draft_loaded_message: ''
   confirmation_type: page
   confirmation_title: ''
-  confirmation_message: ''
+  confirmation_message: 'Thank you! Your submission was successfully sent.'
   confirmation_url: ''
   confirmation_attributes: {  }
   confirmation_back: true
@@ -99,4 +101,40 @@ access:
   delete_own:
     roles: {  }
     users: {  }
-handlers: {  }
+handlers:
+  financial_aid_submission:
+    id: email
+    label: 'Financial Aid Submission'
+    handler_id: financial_aid_submission
+    status: true
+    weight: 0
+    settings:
+      to_mail: courtney.glover@ymcahouston.org
+      cc_mail: ''
+      bcc_mail: ''
+      from_mail: default
+      from_name: default
+      subject: default
+      body: default
+      excluded_elements: {  }
+      html: true
+      attachments: false
+      debug: false
+  referenced_node_email:
+    id: referenced_node_email
+    label: 'Referenced Node Email'
+    handler_id: referenced_node_email
+    status: true
+    weight: 1
+    settings:
+      to_mail: placeholder
+      email_field_name: field_location_email
+      webform_node_field_name: center
+      from_mail: default
+      from_name: default
+      subject: 'At [site:name] financial aid request created for your location'
+      body: default
+      excluded_elements: {  }
+      html: true
+      attachments: false
+      debug: 0
