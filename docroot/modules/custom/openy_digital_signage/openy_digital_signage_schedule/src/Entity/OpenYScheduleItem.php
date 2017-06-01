@@ -2,11 +2,10 @@
 
 namespace Drupal\openy_digital_signage_schedule\Entity;
 
-use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
-use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
 
 /**
  * Defines the OpenY Digital Signage Schedule Item entity.
@@ -133,6 +132,7 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
       ->setLabel(t('Schedule'))
       ->setDescription(t('A reference to the assigned schedule.'))
       ->setRevisionable(TRUE)
+      ->setRequired(TRUE)
       ->setSetting('target_type', 'openy_digital_signage_schedule')
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
@@ -157,6 +157,7 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
       ->setDescription(t('When this schedule item will be active, for example from 10:00 to 11:00am.'))
       ->setRevisionable(TRUE)
       ->setTranslatable(FALSE)
+      ->setRequired(TRUE)
       ->setDisplayOptions('view', [
         'label' => 'visible',
         'type' => 'daterange_default',
@@ -174,12 +175,53 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
+    $fields['show_date'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Show each day'))
+      ->setDescription(t('Disabling this checkbox and adding date you will create a schedule item which could override other schedule items assigned to the same time slot.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'visible',
+        'type' => 'checkbox',
+        'weight' => 1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'checkbox',
+        'weight' => 1,
+      ])
+      ->setDefaultValue(TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['date'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Date'))
+      ->setDescription(t('When this schedule item will be active, for example from June 15 to June 17'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'visible',
+        'type' => 'datetime_range',
+        'weight' => 1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_range',
+        'weight' => 1,
+      ])
+      ->setSetting('datetime_type', DateTimeItem::DATETIME_TYPE_DATE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+
     $fields['content'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Content'))
       ->setDescription(t('The Screen Content that is rotated for this time slot.'))
       ->setRevisionable(TRUE)
+      ->setRequired(TRUE)
       ->setSetting('target_type', 'node')
-      ->setSetting('handler_settings', ['target_bundles' => ['screen_content' => 'screen_content']])
+      ->setSetting('handler_settings', [
+        'target_bundles' => [
+          'screen_content' => 'screen_content',
+        ],
+      ])
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'visible',
