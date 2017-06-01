@@ -5,14 +5,17 @@
 .openy-digital-signage-block-time .block-time {
   display: inline;
   position: absolute;
+  z-index: 1000;
 }
 
 .openy-digital-signage-block-time .block-time-color-white {
   color: #fff;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
 .openy-digital-signage-block-time .block-time-color-black {
   color: #000;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
 }
 
 .openy-digital-signage-block-time .block-time-position-top-right {
@@ -36,19 +39,15 @@
 }
 
 .openy-digital-signage-block-time .time:before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 50%;
+  content: "\e023";
+  font-family: 'Glyphicons Halflings';
+  font-size: 0.76em;
+  display: inline-block;
   left: 0;
-  /* change to svg */
-  background: transparent url("../images/icon-time.png") 50% 50% no-repeat;
-  background-size: 100% 100%;
-  width: 28px;
-  height: 28px;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+  padding-right: 0.3em;
+  -webkit-transform: translateY(4%);
+  -ms-transform: translateY(4%);
+  transform: translateY(4%);
 }
 
 .openy-digital-signage-block-time .time {
