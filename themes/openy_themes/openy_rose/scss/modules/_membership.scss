@@ -55,8 +55,8 @@ a[href="#step2"] {
   input[name="type"] {
     display: none;
   }
-  .col-sm-6 {
-    margin-bottom: 40px;
+  .membership-type {
+    margin: 0 0 40px 0;
     @include breakpoint($screen-xs $screen-sm) {
       width: 50%;
     }
