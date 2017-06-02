@@ -5,6 +5,8 @@
  * OpenY Camp module file.
  */
 
+use Drupal\node\NodeInterface;
+
 /**
  * Implements hook_theme_suggestions_page_alter().
  */
@@ -17,7 +19,7 @@ function openy_loc_camp_theme_suggestions_page_alter(array &$suggestions, array 
   }
 
   // Exit if node type is not landing_page or if not related to a camp.
-  if (($node_type = $node->getType()) != 'landing_page' || !$camp_service->nodeHasOrIsCamp($node)) {
+  if (!$node instanceof NodeInterface || ($node_type = $node->getType()) != 'landing_page' || !$camp_service->nodeHasOrIsCamp($node)) {
     return;
   }
 
