@@ -199,4 +199,32 @@
     });
   };
 
+  // Membership calculator.
+  Drupal.behaviors.calc = {
+    attach: function (context, settings) {
+      if ($('#membership-calc-wrapper').length > 0) {
+        $(document).ajaxSuccess(function () {
+          $('html, body').animate({
+            scrollTop: $("#membership-calc-wrapper").offset().top
+          }, 200);
+        });
+      }
+    }
+  };
+
+  // Whats happening at the Y.
+  Drupal.behaviors.whatw = {
+    attach: function (context, settings) {
+      if ($('.field-prgf-whay-title').length > 0 && $('.field-prgf-whay-title.mobile').length === 0) {
+        $('.field-prgf-whay-title')
+          .addClass('hidden-xs')
+          .clone()
+          .addClass('mobile')
+          .addClass('hidden-sm')
+          .removeClass('hidden-xs')
+          .prependTo('.wrapper-field-branch-body');
+      }
+    }
+  };
+
 })(jQuery);
