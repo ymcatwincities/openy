@@ -81,6 +81,7 @@ class ClassBranchesForm extends FormBase {
     $destination['path'] = str_replace(base_path(), '/', $destination['path']);
     $branch = $form_state->getValue('branch');
     $destination['query']['location'] = $branch;
+    unset($destination['query']['session']);
     $uri = \Drupal::request()->getUriForPath($destination['path']);
     $response = new RedirectResponse($uri . '?' . UrlHelper::buildQuery($destination['query']));
 
