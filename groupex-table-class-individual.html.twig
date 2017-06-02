@@ -18,7 +18,7 @@
       {% if 'class' in used_filters %}
         {{ class.name }}
       {% else %}
-        <a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a>
+        <a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a>
       {% endif %}
     </h3>
     <p>{{ class.studio }}</p>
