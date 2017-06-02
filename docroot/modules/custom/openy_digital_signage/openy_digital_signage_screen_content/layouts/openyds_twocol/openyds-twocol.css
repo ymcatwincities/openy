@@ -15,10 +15,6 @@
   justify-content: space-between;
 }
 
-.openy-ds-layout-2col .ipe-actions {
-  background-color: rgba(128, 128, 128, 0.5);
-}
-
 .openy-ds-layout-2col .openy-ds-layout-region {
   flex: 0 1 66%;
   position: relative;
@@ -30,26 +26,16 @@
   flex: 0 1 34%;
 }
 
-#panels-ipe-content .openy-ds-layout-2col .openy-ds-layout-region {
+.panels-ipe-active .openy-ds-layout-2col .openy-ds-layout-region {
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
   background-color: rgba(255, 64, 64, 0.5);
 }
 
-#panels-ipe-content .openy-ds-layout-2col .openy-ds-layout-2col--right {
+.panels-ipe-active .openy-ds-layout-2col .openy-ds-layout-2col--right {
   background-color: rgba(64, 64, 255, 0.5);
 }
 
 .openy-ds-layout-2col--left .block-region-left,
 .openy-ds-layout-2col--right .block-region-right {
-  height: 100%;
-}
-
-.openy-ds-layout-2col--left .block-region-left .contextual-region,
-.openy-ds-layout-2col--right .block-region-right .contextual-region {
-  height: 100%;
-}
-
-.screen .openy-ds-layout-2col--left .block-region-left > div,
-.screen .openy-ds-layout-2col--right .block-region-right > div {
   height: 100%;
 }
