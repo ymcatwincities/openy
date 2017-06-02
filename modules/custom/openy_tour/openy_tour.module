@@ -27,11 +27,11 @@ function openy_tour_tokens($type, $tokens, array $data, array $options, Bubbleab
   $replacements = [];
   if ($type == 'openy_tour') {
     foreach ($tokens as $name => $original) {
-      list($token_name, $selector) = explode(':', $name);
+      list($token_name, $button_name, $selector) = explode(':', $name, 3);
       if (!empty($selector)) {
         switch ($token_name) {
           case 'click':
-            $markup = Markup::create('<p><a href="#" class="button--primary button openy-click-button" data-tour-selector="' . $selector . '">' . t('Next') . '</a></p>');
+            $markup = Markup::create('<p><a href="#" class="button--primary button openy-click-button" data-tour-selector="' . $selector . '">' . t($button_name) . '</a></p>');
             $replacements[$original] = $markup;
             break;
         }
