@@ -642,6 +642,10 @@ table {
     margin: auto;
     width: 56.25vh;
     height: 100vh; }
+  .openy-ds-layout .block-wrapper {
+    height: 100%; }
+  .openy-ds-layout .ipe-actions {
+    background-color: rgba(128, 128, 128, 0.5); }
 
 .block-event {
   font-family: "Cachet-Bold";
@@ -774,6 +778,9 @@ table {
   position: relative;
   right: auto;
   top: auto; }
+
+.openy-ds-layout .block-plugin-id--openy_digital_signage_block_time {
+  height: auto; }
 
 .openy-digital-signage-block-html {
   height: 100%;
