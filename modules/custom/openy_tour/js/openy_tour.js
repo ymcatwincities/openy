@@ -31,6 +31,7 @@
     $('.joyride-tip-guide').each(function() {
       // Hide original next button if custom is appear.
       if ($(this).find('.openy-click-button').length > 0) {
+        $(this).find('.openy-click-button').show();
         $(this).find('.joyride-next-tip').hide();
       }
     });
@@ -47,7 +48,8 @@
         element = $('input[data-drupal-selector="' + selector + '"]');
       }
       element.parents('details').attr('open', true);
-      element.trigger('mousedown');
+      element.trigger('click');
+      $(this).hide().parents('.joyride-content-wrapper').find('.joyride-next-tip').show();
     });
   };
 
