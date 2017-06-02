@@ -1,0 +1,93 @@
+/* Effective height is 108px */
+.openy-digital-signage-block-static-ticker {
+  height: 5.625vw;
+  position: relative;
+
+  .block-static-ticker {
+    height: 100%;
+  }
+}
+
+.openy-digital-signage-block-static-ticker__icon {
+  font-size: 1.5625vw;
+  height: 100%;
+  left: 0;
+  line-height: 5.625vw;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 5.625vw;
+
+  .glyphicon {
+    line-height: 5.625vw;
+  }
+}
+
+.openy-digital-signage-block-static-ticker__message {
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 1.5625vw;
+  line-height: 5.625vw;
+  padding-left: 5.625vw;
+  text-align: center;
+  height: 100%;
+
+  a {
+    color: #dd5828;
+  }
+}
+
+.openy-ds-layout.portrait {
+  .openy-digital-signage-block-static-ticker {
+    height: 5.625vh;
+  }
+
+  .openy-digital-signage-block-static-ticker__icon {
+    font-size: 1.5625vh;
+    line-height: 5.625vh;
+    width: 5.625vh;
+
+    .glyphicon {
+      line-height: 5.625vh;
+    }
+  }
+
+  .openy-digital-signage-block-static-ticker__message {
+    font-size: 1.5625vh;
+    line-height: 5.625vh;
+    padding-left: 5.625vh;
+  }
+}
+
+.block-static-ticker-color-orange {
+  background-color: $orange-light;
+
+  .openy-digital-signage-block-static-ticker__icon {
+    background-color: $orange-medium;
+    color: $orange-light;
+  }
+
+  .openy-digital-signage-block-static-ticker__message {
+    color: $white;
+
+    a {
+      color: $orange-dark;
+    }
+  }
+}
+
+.block-static-ticker-color-blue {
+  background-color: $blue-light;
+
+  .openy-digital-signage-block-static-ticker__icon {
+    background-color: $blue-medium;
+    color: $blue-light;
+  }
+
+  .openy-digital-signage-block-static-ticker__message {
+    color: $white;
+
+    a {
+      color: $blue-dark;
+    }
+  }
+}
