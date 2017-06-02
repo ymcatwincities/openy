@@ -9,18 +9,10 @@
   overflow: hidden;
 }
 
-#panels-ipe-content .openy-ds-layout-1col--middle {
+.panels-ipe-active .openy-ds-layout-1col--middle {
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .openy-ds-layout-1col .block-region-middle {
   height: 100%;
-}
-
-.openy-ds-layout-1col .block-region-middle .contextual-region {
-  height: 100%;
-}
-
-.screen .openy-ds-layout-1col .block-region-middle > div {
-  /*height: 100%;*/
 }
