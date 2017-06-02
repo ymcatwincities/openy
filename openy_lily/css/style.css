@@ -566,6 +566,7 @@ header.expanded-search {
   border: 3px solid #428bca;
   border-radius: 50%;
   width: 46px;
+  display: block;
   height: 46px;
   box-sizing: border-box;
   line-height: 40px;
@@ -585,14 +586,14 @@ header.expanded-search {
 #page-footer #block-openy-lily-footermenucenter {
   margin-bottom: 30px;
 }
-#page-footer #block-openy-lily-footermenucenter li {
+#page-footer #block-openy-lily-footermenucenter .nav li {
   display: inline-block;
 }
-#page-footer #block-openy-lily-footermenucenter li a {
+#page-footer #block-openy-lily-footermenucenter .nav li a {
   font-size: 20px;
   color: #a8a8a8;
 }
-#page-footer #block-openy-lily-footermenucenter li a:hover {
+#page-footer #block-openy-lily-footermenucenter .nav li a:focus, #page-footer #block-openy-lily-footermenucenter .nav li a:hover {
   background: transparent;
   color: #a8a8a8;
   text-decoration: underline;
@@ -601,7 +602,7 @@ header.expanded-search {
   text-align: center;
 }
 #page-footer #block-openy-lily-footercopyrightblock p {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   display: inline-block;
   margin: 0;
   font-size: 13px;

@@ -3,6 +3,7 @@
     width: auto;
   }
 }
+
 #page-footer {
   background: #fff;
   padding-top: 40px;
@@ -16,6 +17,7 @@
           border: 3px solid $blue;
           border-radius: 50%;
           width: 46px;
+          display: block;
           height: 46px;
           box-sizing: border-box;
           line-height: 40px;
@@ -37,15 +39,18 @@
   }
   #block-openy-lily-footermenucenter {
     margin-bottom: 30px;
-    li {
-      display: inline-block;
-      a {
-        font-size: 20px;
-        color: $gray;
-        &:hover {
-          background: transparent;
+    .nav {
+      li {
+        display: inline-block;
+        a {
+          font-size: 20px;
           color: $gray;
-          text-decoration: underline;
+          &:focus,
+          &:hover {
+            background: transparent;
+            color: $gray;
+            text-decoration: underline;
+          }
         }
       }
     }
@@ -53,7 +58,7 @@
   #block-openy-lily-footercopyrightblock {
     text-align: center;
     p {
-      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       display: inline-block;
       margin: 0;
       font-size: 13px;
