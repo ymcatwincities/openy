@@ -97,7 +97,7 @@ class SchedulesSearchForm extends FormBase {
     $today = new DrupalDateTime('now');
     $today = $today->format('m/d/Y');
     $state = [
-      'location' => isset($parameters['location']) ? $parameters['location'] : '',
+      'location' => isset($parameters['location']) ? $parameters['location'] : 'All',
       'program' => isset($parameters['program']) ? $parameters['program'] : 'all',
       'category' => isset($parameters['category']) ? $parameters['category'] : 'all',
       'class' => isset($parameters['class']) ? $parameters['class'] : 'all',
@@ -141,7 +141,7 @@ class SchedulesSearchForm extends FormBase {
 
     if (!$options) {
       $options = [
-        'all' => $this->t('All'),
+        'All' => $this->t('All'),
         'branches' => [],
         'camps' => [],
       ];
@@ -340,7 +340,7 @@ class SchedulesSearchForm extends FormBase {
       '#title' => $this->t('Location'),
       '#options' => $this->getLocationOptions(),
       '#prefix' => '<hr/>',
-      '#default_value' => isset($values['location']) ? $values['location'] : '',
+      '#default_value' => isset($values['location']) ? $values['location'] : 'All',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'schedules-search-form-wrapper',
@@ -492,7 +492,7 @@ class SchedulesSearchForm extends FormBase {
     $user_input = $form_state->getUserInput();
 
     if (!empty($user_input['location'])) {
-      $user_input['location'] = isset($this->getLocationOptions()['branches'][$values['location']]) || isset($this->getLocationOptions()['camps'][$values['location']]) ? $values['location'] : '';
+      $user_input['location'] = isset($this->getLocationOptions()['branches'][$values['location']]) || isset($this->getLocationOptions()['camps'][$values['location']]) ? $values['location'] : 'All';
     }
     if (!empty($user_input['program'])) {
       $user_input['program'] = isset($this->getProgramOptions()[$values['program']]) ? $values['program'] : 'all';
@@ -592,7 +592,7 @@ class SchedulesSearchForm extends FormBase {
     $classOptions = $this->getClassOptions();
     $timeOptions = $this->getTimeOptions();
 
-    if ($parameters['location'] !== 'all') {
+    if ($parameters['location'] !== 'All') {
       if (!empty($locationOptions['branches'][$parameters['location']])) {
         $filters[$parameters['location']] = $locationOptions['branches'][$parameters['location']];
       }
@@ -630,7 +630,7 @@ class SchedulesSearchForm extends FormBase {
    */
   public function buildBranchHours($parameters) {
     $markup = '';
-    if (!$parameters['location']) {
+    if (!$parameters['location'] || $parameters['location'] == 'All') {
       return $markup;
     }
 
@@ -673,7 +673,7 @@ class SchedulesSearchForm extends FormBase {
    */
   public function buildAlerts($parameters) {
     $build = '';
-    if (!$parameters['location']) {
+    if (!$parameters['location'] || $parameters['location'] == 'All') {
       return $build;
     }
 
