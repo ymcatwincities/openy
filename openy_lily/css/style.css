@@ -483,8 +483,8 @@ header .top-navs #block-openy-lily-main-menu .nav.row-level-2 li a:hover {
     display: none !important;
   }
 }
-header .top-navs #block-anonymoususersmenu li a,
-header .top-navs #block-openy-lily-user-menu li a {
+header .top-navs #block-anonymoususersmenu .nav li a,
+header .top-navs #block-openy-lily-user-menu .nav li a {
   color: #777777;
   border-top: 2px solid transparent;
   line-height: 50px;
@@ -495,13 +495,13 @@ header .top-navs #block-openy-lily-user-menu li a {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-header .top-navs #block-anonymoususersmenu li a:hover,
-header .top-navs #block-openy-lily-user-menu li a:hover {
+header .top-navs #block-anonymoususersmenu .nav li a:hover,
+header .top-navs #block-openy-lily-user-menu .nav li a:hover {
   border-top: 2px solid #aa228d;
   background-color: #fff;
   color: black;
 }
-header .top-navs #block-anonymoususersmenu ul li:first-child a {
+header .top-navs #block-anonymoususersmenu .nav li:first-child a {
   padding: 3px 15px;
   border-radius: 5px;
   background-color: #b92f9e;
@@ -514,7 +514,7 @@ header .top-navs #block-anonymoususersmenu ul li:first-child a {
   margin: 28px 5px 0 0;
   border-top: none;
 }
-header .top-navs #block-anonymoususersmenu ul li:first-child a:hover {
+header .top-navs #block-anonymoususersmenu .nav li:first-child a:hover {
   border-top: none;
   background-color: #9c1f7b;
 }

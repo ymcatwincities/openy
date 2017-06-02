@@ -323,23 +323,26 @@ header {
       @include breakpoint (0 $tablet-start) {
         display: none !important;
       }
-      li {
-        a {
-          color: $gray-dark;
-          border-top: 2px solid transparent;
-          line-height: 50px;
-          font-size: 16px;
-          @include transition(all 0.2s linear);
-          &:hover {
-            border-top: 2px solid #aa228d;
-            background-color: #fff;
-            color: black;
+      .nav {
+        li {
+          a {
+            color: $gray-dark;
+            border-top: 2px solid transparent;
+            line-height: 50px;
+            font-size: 16px;
+            @include transition(all 0.2s linear);
+            &:hover {
+              border-top: 2px solid #aa228d;
+              background-color: #fff;
+              color: black;
+            }
           }
         }
       }
+
     }
     #block-anonymoususersmenu {
-      ul {
+      .nav {
         li {
           &:first-child {
             a {
