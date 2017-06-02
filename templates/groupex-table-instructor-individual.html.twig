@@ -14,7 +14,7 @@
     <span class="icon icon-clock"></span>{{ class.time }}  <span class="duration">{{ class.duration }}</span>
   </div>
   <div class="card">
-    <h3><a class="use-ajax" href="{{ class.class_link }}">{{ class.name }}</a></h3>
+    <h3><a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a></h3>
     <p>{{ class.studio }}</p>
     <div class="instructor">
       <span class="fa fa-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
