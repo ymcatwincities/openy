@@ -85,22 +85,23 @@
 {% set color = 'color: #' ~ content.field_blog_text_color['#items'].entity.field_color.value %}
 {% set bg_color = 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value %}
 {% set image = content.field_blog_image['#items'] ? 'image' : 'placeholder' %}
+{% set blog_style = node.field_blog_style.value ? node.field_blog_style.value : 'photo' %}
 
 <article{{ attributes.addClass(classes) }}>
   <div class="inner-wrapper" style="{{ color }}; {{ bg_color }};">
-    {% if ( node.field_blog_style.value == "photo") %}
+    {% if ( blog_style == "photo" ) %}
       <div>
        {{ content.field_blog_image }}
       </div>
     {% endif %}
-    {% if (image == 'placeholder') or (node.field_blog_style.value in  ['story', 'news']) %}
+    {% if ( image == 'placeholder' ) or ( blog_style in  ['story', 'news'] ) %}
       <div>
         <img src="{{ file_url(directory ~ '/img/blog_image_placeholder.png') }}" alt="" />
       </div>
     {% endif %}
     <div class="blog-heading">
       <h4 style="{{ color }};">{{ category }}</h4>
-      {% if ( node.field_blog_style.value == "story" ) %}
+      {% if ( blog_style == "story" ) %}
         <div class="story-card">
           <div class="quote">
             <i class="icon"></i>
