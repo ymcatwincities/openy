@@ -15,6 +15,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\openy_session_instance\SessionInstanceManager;
+use Drupal\openy_session_instance\Entity\SessionInstanceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -291,14 +292,11 @@ class SchedulesSearchForm extends FormBase {
   }
 
   /**
-   * Add form elements.
+   * Add cache Vary cache contexts on the listed query args.
    *
    * @param array $form
-   * @param array $values
-   * @param \stdClass $options
    */
-  private function addFormElements(array &$form, array $values) {
-    // Vary on the listed query args.
+  private function addCommonCacheValues(&$form) {
     $form['#cache'] = [
       'max-age' => 0,
       'contexts' => [
@@ -309,13 +307,29 @@ class SchedulesSearchForm extends FormBase {
         'url.query_args:time',
       ],
     ];
+  }
 
+  /**
+   * Add openy_schedules library.
+   *
+   * @param array $form
+   */
+  private function addCommonLibraries(&$form) {
     $form['#attached'] = [
       'library' => [
         'openy_schedules/openy_schedules',
       ],
     ];
+  }
 
+  /**
+   * Add form elements.
+   *
+   * @param array $form
+   * @param array $values
+   * @param \stdClass $options
+   */
+  private function addFormElements(array &$form, array $values) {
     $form['filter_controls'] = [
       '#markup' => '
           <div class="container controls-wrapper hidden-sm hidden-md hidden-lg">
@@ -541,6 +555,9 @@ class SchedulesSearchForm extends FormBase {
         $render_flag = 'full';
       }
 
+      $this->addCommonCacheValues($form);
+      $this->addCommonLibraries($form);
+
       if ($render_flag == 'full' || $render_flag == 'form') {
         $this->addFormElements($form, $values);
         $this->updateUserInput($form_state, $values);
@@ -553,9 +570,9 @@ class SchedulesSearchForm extends FormBase {
         $formatted_results = '';
         $branch_hours = '';
         $renderer = \Drupal::service('renderer');
-        $branch_hours = self::buildBranchHours($values);
+        $branch_hours = $this->buildBranchHours($form, $values);
         $branch_hours = $renderer->renderRoot($branch_hours);
-        $formatted_results = self::buildResults($values);
+        $formatted_results = $this->buildResults($form, $values);
         $formatted_results = $renderer->renderRoot($formatted_results);
         // TODO: replace with render arrays.
         $rendered_results = '
@@ -628,7 +645,7 @@ class SchedulesSearchForm extends FormBase {
   /**
    * Build Branch Hours.
    */
-  public function buildBranchHours($parameters) {
+  public function buildBranchHours(&$form, $parameters) {
     $markup = '';
     if (!$parameters['location']) {
       return $markup;
@@ -646,7 +663,10 @@ class SchedulesSearchForm extends FormBase {
       $timezone = drupal_get_user_timezone();
       $date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date'], $timezone);
       $date = strtolower($date->format('D'));
+      /* @var $location \Drupal\node\Entity\Node */
       if ($location = $this->entityTypeManager->getStorage('node')->load($id)) {
+        $form['#cache']['tags'] = !empty($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+        $form['#cache']['tags'] = $form['#cache']['tags'] + $location->getCacheTags();
         if ($location->hasField('field_branch_hours')) {
           $field_branch_hours = $location->field_branch_hours;
           foreach ($field_branch_hours as $multi_hours) {
@@ -742,7 +762,7 @@ class SchedulesSearchForm extends FormBase {
   /**
    * Build results.
    */
-  public function buildResults($parameters) {
+  public function buildResults(&$form, $parameters) {
     $session_instances = $this->getSessions($parameters);
 
     $content = [];
@@ -751,6 +771,7 @@ class SchedulesSearchForm extends FormBase {
     $classOptions = $this->getClassOptions();
     if ($parameters['class'] !== 'all' && !empty($classOptions[$parameters['class']])) {
       $class = $this->entityTypeManager->getStorage('node')->load($parameters['class']);
+      /* @var $session_instance \Drupal\openy_session_instance\Entity\SessionInstanceInterface*/
       foreach ($session_instances as $session_instance) {
         $timestamp = DrupalDateTime::createFromTimestamp($session_instance->getTimestamp());
         $day = $timestamp->format('m/d/Y');
@@ -791,6 +812,8 @@ class SchedulesSearchForm extends FormBase {
             ],
           ]),
         ];
+        $form['#cache']['tags'] = !empty($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+        $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
       }
 
       $formatted_results = [
@@ -843,6 +866,8 @@ class SchedulesSearchForm extends FormBase {
             ],
           ]),
         ];
+        $form['#cache']['tags'] = is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+        $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
       }
       $title_date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date']);
       $title_date = $title_date->format('F j, Y');
@@ -862,10 +887,10 @@ class SchedulesSearchForm extends FormBase {
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     $parameters = $form_state->getUserInput();
-    $formatted_results = self::buildResults($parameters);
+    $formatted_results = $this->buildResults($form, $parameters);
     $filters = self::buildFilters($parameters);
     $alerts = self::buildAlerts($parameters);
-    $branch_hours = self::buildBranchHours($parameters);
+    $branch_hours = $this->buildBranchHours($form, $parameters);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper #edit-selects', $form['selects']));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));
