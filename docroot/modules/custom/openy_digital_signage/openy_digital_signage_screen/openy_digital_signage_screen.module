@@ -22,6 +22,32 @@ function openy_digital_signage_screen_openy_digital_signage_screen_view(&$build,
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function openy_digital_signage_screen_node_view_alter(&$build, $entity, $display, $view_mode = '') {
+  if ($entity->bundle() == 'screen_content') {
+    $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_theme';
+  }
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function openy_digital_signage_screen_preprocess_block(&$variables) {
+  $block_plugin_manager = \Drupal::service('plugin.manager.block');
+  $definition = $block_plugin_manager->getDefinition($variables['plugin_id']);
+  if (!isset($variables['attributes']['class'])) {
+    $variables['attributes']['class'] = array();
+  }
+  $variables['attributes']['class'][] = 'block-wrapper';
+  $variables['attributes']['class'][] = 'block-provider--' . $definition['provider'];
+  $variables['attributes']['class'][] = 'block-plugin-id--' . $variables['plugin_id'];
+  if ($definition['provider'] == 'block_content') {
+    $variables['attributes']['class'][] = 'block-block-content-bundle--' . $variables['content']['#block_content']->bundle();
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function openy_digital_signage_screen_theme($existing, $type, $theme, $path) {
