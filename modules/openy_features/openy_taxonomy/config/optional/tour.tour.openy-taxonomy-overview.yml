@@ -67,7 +67,8 @@ tips:
     id: dropdown-widget
     plugin: text
     label: 'Dropdown widget'
-    body: 'This button allows users to manage vocabulary and add taxonomy terms'
+    body: 'This button allows users to manage vocabulary and add taxonomy terms. [openy_tour:click:Show operations:.draggable:last .dropbutton-arrow]'
+    location: top
     weight: 8
     attributes:
       data-class: 'dropbutton a[href="/admin/structure/taxonomy/manage/media_tags/overview"]'
