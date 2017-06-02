@@ -130,6 +130,10 @@ h6, .h6 {
   margin-top: 30px;
 }
 
+a:hover, a:active, a:focus {
+  outline: 0;
+}
+
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
 }
