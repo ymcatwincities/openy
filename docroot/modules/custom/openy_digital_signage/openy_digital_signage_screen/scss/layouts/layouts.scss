@@ -1,8 +1,11 @@
 .openy-ds-layout {
+  background-color: $blue-medium;
   background-image: url(../images/bg-body-blue.png);
+  background-size: cover;
+  background-position: center center;
 
   .scheme-orange & {
-    background-color: #fcaf17;
+    background-color: $orange-light;
     background-image: url(../images/bg-body-orange.png);
   }
 
