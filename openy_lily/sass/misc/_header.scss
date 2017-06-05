@@ -116,7 +116,7 @@ body {
     }
   }
 }
-header {
+header#page-head {
   @include transition(all 0.2s linear);
   @include clearfix;
   left: 0;

@@ -269,7 +269,7 @@ a:hover, a:active, a:focus {
   }
 }
 
-header {
+header#page-head {
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
@@ -282,48 +282,48 @@ header {
   z-index: 1001;
   font-family: 'Cachet';
 }
-header:after {
+header#page-head:after {
   content: "";
   display: table;
   clear: both;
 }
 @media (min-width: 1200px) {
-  header .container-fluid, header #block-openy-lily-content .one-column-clean.landing-content, #block-openy-lily-content header .one-column-clean.landing-content {
+  header#page-head .container-fluid, header#page-head #block-openy-lily-content .one-column-clean.landing-content, #block-openy-lily-content header#page-head .one-column-clean.landing-content {
     padding-right: 100px;
     padding-left: 100px;
   }
 }
-header .top-navs {
+header#page-head .top-navs {
   height: auto !important;
   background-color: transparent;
 }
-header .top-navs .nav-global {
+header#page-head .top-navs .nav-global {
   margin-bottom: 0;
   border-radius: 0;
   background-color: #f8f8f8;
 }
-header .top-navs .nav-global .navbar-header {
+header#page-head .top-navs .nav-global .navbar-header {
   padding: 5px 0 13px;
 }
-header .top-navs .nav-global .navbar-header .navbar-toggler {
+header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
   display: none;
 }
 @media (min-width: 0) and (max-width: 62em) {
-  header .top-navs .nav-global .navbar-header {
+  header#page-head .top-navs .nav-global .navbar-header {
     width: 100%;
     padding: 0 !important;
     height: 52px !important;
   }
-  header .top-navs .nav-global .navbar-header #block-openy-lily-branding {
+  header#page-head .top-navs .nav-global .navbar-header #block-openy-lily-branding {
     position: absolute;
     left: 50%;
     margin-left: -27px;
     margin-top: 5px;
   }
-  header .top-navs .nav-global .navbar-header #block-openy-lily-branding img {
+  header#page-head .top-navs .nav-global .navbar-header #block-openy-lily-branding img {
     width: 54px !important;
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
     display: block !important;
     float: right;
     position: absolute;
@@ -339,7 +339,7 @@ header .top-navs .nav-global .navbar-header .navbar-toggler {
     border: 1px solid #ddd;
     border-radius: 4px;
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler .icon-bar {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler .icon-bar {
     height: 4px;
     border-radius: 4px;
     background: #bbb;
@@ -347,51 +347,51 @@ header .top-navs .nav-global .navbar-header .navbar-toggler {
     transition-delay: 0.25s;
     width: 22px;
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler .icon-bar + .icon-bar {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler .icon-bar + .icon-bar {
     margin-top: 2px;
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler:hover {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler:hover {
     background: #89c3f0;
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler:hover .icon-bar {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler:hover .icon-bar {
     background: #e4e4e4;
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler.expanded-mobile .icon-bar:first-child {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler.expanded-mobile .icon-bar:first-child {
     -webkit-transform: translate(0, 6px) rotate(-35deg);
     transform: translate(0, 6px) rotate(-35deg);
     -webkit-transform-origin: 50%;
     transform-origin: 50%;
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler.expanded-mobile .icon-bar:nth-child(2) {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler.expanded-mobile .icon-bar:nth-child(2) {
     -webkit-transform: scale(0);
     transform: scale(0);
   }
-  header .top-navs .nav-global .navbar-header .navbar-toggler.expanded-mobile .icon-bar:last-child {
+  header#page-head .top-navs .nav-global .navbar-header .navbar-toggler.expanded-mobile .icon-bar:last-child {
     -webkit-transform: translate(0px, -6px) rotate(35deg);
     transform: translate(0px, -6px) rotate(35deg);
     -webkit-transform-origin: 50%;
     transform-origin: 50%;
   }
 }
-header .top-navs #block-openy-lily-main-menu {
+header#page-head .top-navs #block-openy-lily-main-menu {
   width: 100%;
   background: rgba(0, 96, 175, 0.95) !important;
   padding: 0 30px;
 }
 @media (min-width: 75em) {
-  header .top-navs #block-openy-lily-main-menu {
+  header#page-head .top-navs #block-openy-lily-main-menu {
     padding: 0 100px;
   }
 }
 @media (min-width: 0) and (max-width: 62em) {
-  header .top-navs #block-openy-lily-main-menu {
+  header#page-head .top-navs #block-openy-lily-main-menu {
     display: none !important;
   }
 }
-header .top-navs #block-openy-lily-main-menu .nav {
+header#page-head .top-navs #block-openy-lily-main-menu .nav {
   float: none;
 }
-header .top-navs #block-openy-lily-main-menu .nav li a {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li a {
   font-size: 17px;
   color: white;
   padding: 21px 25px;
@@ -401,31 +401,31 @@ header .top-navs #block-openy-lily-main-menu .nav li a {
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
-header .top-navs #block-openy-lily-main-menu .nav li a.expanded-menu + .dropdown-menu {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li a.expanded-menu + .dropdown-menu {
   display: block;
 }
 @media screen and (max-width: 1199px) {
-  header .top-navs #block-openy-lily-main-menu .nav li a {
+  header#page-head .top-navs #block-openy-lily-main-menu .nav li a {
     font-size: 15px;
   }
 }
-header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 {
   float: none;
   display: table-cell;
   width: 1%;
   min-width: 4%;
 }
-header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a {
   padding: 21px 0px;
 }
-header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a i {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a i {
   font-size: 12px;
   margin-left: 5px;
 }
-header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a.expanded-menu, header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a:hover {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a.expanded-menu, header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2 > a:hover {
   background: rgba(255, 255, 255, 0.18);
 }
-header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 a:after {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 a:after {
   font-family: 'Glyphicons Halflings';
   font-style: normal;
   font-weight: 400;
@@ -439,12 +439,12 @@ header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 a:a
   left: 0;
 }
 @media (min-width: 75em) {
-  header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 a:after {
+  header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 a:after {
     display: none;
   }
 }
 @media screen and (max-width: 1200px) {
-  header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 {
+  header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 {
     min-width: 3%;
     display: inline-block;
     float: left;
@@ -454,17 +454,17 @@ header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1 a:a
     height: 62px;
     padding-left: 6px;
   }
-  header .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1:hover {
+  header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-2.menu-icon-1:hover {
     background: rgba(255, 255, 255, 0.18);
   }
 }
-header .top-navs #block-openy-lily-main-menu .nav li.nav-level-3 {
+header#page-head .top-navs #block-openy-lily-main-menu .nav li.nav-level-3 {
   float: none;
 }
-header .top-navs #block-openy-lily-main-menu .nav.nav-level-1 {
+header#page-head .top-navs #block-openy-lily-main-menu .nav.nav-level-1 {
   text-align: center;
 }
-header .top-navs #block-openy-lily-main-menu .nav.row-level-2 {
+header#page-head .top-navs #block-openy-lily-main-menu .nav.row-level-2 {
   background: rgba(255, 255, 255, 0.98);
   padding-top: 14px;
   padding-bottom: 14px;
@@ -472,11 +472,11 @@ header .top-navs #block-openy-lily-main-menu .nav.row-level-2 {
   box-shadow: none;
   border-radius: 0;
 }
-header .top-navs #block-openy-lily-main-menu .nav.row-level-2 li {
+header#page-head .top-navs #block-openy-lily-main-menu .nav.row-level-2 li {
   width: 100%;
   padding: 0;
 }
-header .top-navs #block-openy-lily-main-menu .nav.row-level-2 li a {
+header#page-head .top-navs #block-openy-lily-main-menu .nav.row-level-2 li a {
   display: block;
   font-size: 18px;
   padding: 10px 28px;
@@ -484,18 +484,18 @@ header .top-navs #block-openy-lily-main-menu .nav.row-level-2 li a {
   white-space: normal;
   color: #7d7b7b;
 }
-header .top-navs #block-openy-lily-main-menu .nav.row-level-2 li a:hover {
+header#page-head .top-navs #block-openy-lily-main-menu .nav.row-level-2 li a:hover {
   background: none;
   color: #7d7b7b;
 }
 @media (min-width: 0) and (max-width: 62em) {
-  header .top-navs #block-anonymoususersmenu,
-  header .top-navs #block-openy-lily-user-menu {
+  header#page-head .top-navs #block-anonymoususersmenu,
+  header#page-head .top-navs #block-openy-lily-user-menu {
     display: none !important;
   }
 }
-header .top-navs #block-anonymoususersmenu .nav li a,
-header .top-navs #block-openy-lily-user-menu .nav li a {
+header#page-head .top-navs #block-anonymoususersmenu .nav li a,
+header#page-head .top-navs #block-openy-lily-user-menu .nav li a {
   color: #777777;
   border-top: 2px solid transparent;
   line-height: 50px;
@@ -506,13 +506,13 @@ header .top-navs #block-openy-lily-user-menu .nav li a {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-header .top-navs #block-anonymoususersmenu .nav li a:hover,
-header .top-navs #block-openy-lily-user-menu .nav li a:hover {
+header#page-head .top-navs #block-anonymoususersmenu .nav li a:hover,
+header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover {
   border-top: 2px solid #aa228d;
   background-color: #fff;
   color: black;
 }
-header .top-navs #block-anonymoususersmenu .nav li:first-child a {
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a {
   padding: 3px 15px;
   border-radius: 5px;
   background-color: #b92f9e;
@@ -525,11 +525,11 @@ header .top-navs #block-anonymoususersmenu .nav li:first-child a {
   margin: 28px 5px 0 0;
   border-top: none;
 }
-header .top-navs #block-anonymoususersmenu .nav li:first-child a:hover {
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover {
   border-top: none;
   background-color: #9c1f7b;
 }
-header #block-openy-lily-branding a img {
+header#page-head #block-openy-lily-branding a img {
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
@@ -538,23 +538,23 @@ header #block-openy-lily-branding a img {
   width: 85px;
   height: auto;
 }
-header.tiny .top-navs .nav-global .navbar-header {
+header#page-head.tiny .top-navs .nav-global .navbar-header {
   padding: 5px 0 4px;
 }
-header.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a img {
+header#page-head.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a img {
   width: 55px;
 }
-header.tiny .top-navs #block-anonymoususersmenu li a,
-header.tiny .top-navs #block-openy-lily-user-menu li a {
+header#page-head.tiny .top-navs #block-anonymoususersmenu li a,
+header#page-head.tiny .top-navs #block-openy-lily-user-menu li a {
   line-height: 19px;
 }
-header.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
+header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
   margin: 13px 5px 0 0;
 }
-header.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
+header#page-head.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
   padding: 21px 0;
 }
-header.expanded-search {
+header#page-head.expanded-search {
   top: 88px;
 }
 
