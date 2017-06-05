@@ -192,10 +192,7 @@ class ConfigImporterService implements ConfigImporterServiceInterface {
   }
 
   /**
-   * Set path to directory where configs stored.
-   *
-   * @param string $directory
-   *   Path to directory with configs or type of config directory.
+   * {@inheritdoc}
    */
   public function setDirectory($directory) {
     if (!is_dir($directory)) {
