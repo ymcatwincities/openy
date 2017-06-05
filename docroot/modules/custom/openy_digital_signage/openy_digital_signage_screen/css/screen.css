@@ -265,6 +265,146 @@ table {
       -ms-flex-direction: row;
           flex-direction: row; }
 
+@font-face {
+  font-family: 'Digital-Signage-icons';
+  src: url("../fonts/digital-signage-icons/Digital-Signage-icons.eot?u5k0qy");
+  src: url("../fonts/digital-signage-icons/Digital-Signage-icons.eot?u5k0qy#iefix") format("embedded-opentype"), url("../fonts/digital-signage-icons/Digital-Signage-icons.ttf?u5k0qy") format("truetype"), url("../fonts/digital-signage-icons/Digital-Signage-icons.woff?u5k0qy") format("woff"), url("../fonts/digital-signage-icons/Digital-Signage-icons.svg?u5k0qy#Digital-Signage-icons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+.ds-icon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'Digital-Signage-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.ds-icon-Y_letter:before {
+  content: "\e900"; }
+
+.ds-icon-flag_football:before {
+  content: "\e901"; }
+
+.ds-icon-floor_hockey:before {
+  content: "\e902"; }
+
+.ds-icon-lacrosse:before {
+  content: "\e903"; }
+
+.ds-icon-martial:before {
+  content: "\e904"; }
+
+.ds-icon-running_club:before {
+  content: "\e905"; }
+
+.ds-icon-soccer:before {
+  content: "\e906"; }
+
+.ds-icon-olympic:before {
+  content: "\e907"; }
+
+.ds-icon-track_and_field:before {
+  content: "\e908"; }
+
+.ds-icon-tumbling:before {
+  content: "\e909"; }
+
+.ds-icon-volleyball:before {
+  content: "\e90a"; }
+
+.ds-icon-run:before {
+  content: "\e90b"; }
+
+.ds-icon-family:before {
+  content: "\e90c"; }
+
+.ds-icon-donate:before {
+  content: "\e90d"; }
+
+.ds-icon-discount:before {
+  content: "\e90e"; }
+
+.ds-icon-event:before {
+  content: "\e90f"; }
+
+.ds-icon-prize:before {
+  content: "\e910"; }
+
+.ds-icon-announcment:before {
+  content: "\e911"; }
+
+.ds-icon-baseball:before {
+  content: "\e912"; }
+
+.ds-icon-basketball:before {
+  content: "\e913"; }
+
+.ds-icon-dodgeball:before {
+  content: "\e914"; }
+
+.ds-icon-zoom:before {
+  content: "\e915"; }
+
+.ds-icon-check:before {
+  content: "\e916"; }
+
+.ds-icon-cardio:before {
+  content: "\e917"; }
+
+.ds-icon-strength:before {
+  content: "\e918"; }
+
+.ds-icon-aquatics:before {
+  content: "\e919"; }
+
+.ds-icon-yoga:before {
+  content: "\e91a"; }
+
+.ds-icon-dance:before {
+  content: "\e91b"; }
+
+.ds-icon-crunches:before {
+  content: "\e91c"; }
+
+.ds-icon-camp:before {
+  content: "\e91d"; }
+
+.ds-icon-phone:before {
+  content: "\e91e"; }
+
+.ds-icon-time:before {
+  content: "\e91f"; }
+
+.ds-icon-date:before {
+  content: "\e920"; }
+
+.ds-icon-location:before {
+  content: "\e921"; }
+
+.ds-icon-direction:before {
+  content: "\e922"; }
+
+.ds-icon-question:before {
+  content: "\e923"; }
+
+.ds-icon-video:before {
+  content: "\e924"; }
+
+.ds-icon-message:before {
+  content: "\e925"; }
+
+.ds-icon-tip:before {
+  content: "\e926"; }
+
+.ds-icon-mail:before {
+  content: "\e927"; }
+
 .progress--small {
   background: #6d4e92;
   width: 100%;
@@ -833,7 +973,7 @@ table {
     height: 100%; }
 
 .openy-digital-signage-block-static-ticker__icon {
-  font-size: 1.5625vw;
+  font-size: 2.60417vw;
   height: 100%;
   left: 0;
   line-height: 5.625vw;
@@ -841,7 +981,7 @@ table {
   text-align: center;
   top: 0;
   width: 5.625vw; }
-  .openy-digital-signage-block-static-ticker__icon .glyphicon {
+  .openy-digital-signage-block-static-ticker__icon .ds-icon {
     line-height: 5.625vw; }
 
 .openy-digital-signage-block-static-ticker__message {
@@ -861,7 +1001,7 @@ table {
   font-size: 1.5625vh;
   line-height: 5.625vh;
   width: 5.625vh; }
-  .openy-ds-layout.portrait .openy-digital-signage-block-static-ticker__icon .glyphicon {
+  .openy-ds-layout.portrait .openy-digital-signage-block-static-ticker__icon .ds-icon {
     line-height: 5.625vh; }
 
 .openy-ds-layout.portrait .openy-digital-signage-block-static-ticker__message {
@@ -913,8 +1053,8 @@ table {
           transform: translateX(-50%) translateY(-150%);
   width: 12.08333vw;
   z-index: 20; }
-  .openy-digital-signage-block-system-message__icon .glyphicon {
-    font-size: 6.04167vw;
+  .openy-digital-signage-block-system-message__icon .ds-icon {
+    font-size: 10.41667vw;
     line-height: 11.5625vw; }
 
 .openy-digital-signage-block-system-message__message {
