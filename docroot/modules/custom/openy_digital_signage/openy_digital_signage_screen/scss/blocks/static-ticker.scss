@@ -9,7 +9,7 @@
 }
 
 .openy-digital-signage-block-static-ticker__icon {
-  font-size: 1.5625vw;
+  font-size: 50 / 1920 * 100vw;
   height: 100%;
   left: 0;
   line-height: 5.625vw;
@@ -18,7 +18,7 @@
   top: 0;
   width: 5.625vw;
 
-  .glyphicon {
+  .ds-icon {
     line-height: 5.625vw;
   }
 }
@@ -46,7 +46,7 @@
     line-height: 5.625vh;
     width: 5.625vh;
 
-    .glyphicon {
+    .ds-icon {
       line-height: 5.625vh;
     }
   }
