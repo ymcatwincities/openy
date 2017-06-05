@@ -6,13 +6,19 @@ dependencies:
     - paragraphs.paragraphs_type.membership_calculator
   module:
     - content_moderation
+    - plugin
 id: paragraph.membership_calculator.default
 targetEntityType: paragraph
 bundle: membership_calculator
 mode: default
-content: {  }
+content:
+  field_prgf_mc:
+    type: 'plugin_selector:plugin_select_list'
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
-  field_prgf_mc: true
   status: true
   uid: true
