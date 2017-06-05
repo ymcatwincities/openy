@@ -2140,17 +2140,16 @@ label {
   text-transform: uppercase;
 }
 
+.status-message {
+  margin-bottom: 30px;
+}
+.status-message li {
+  list-style-type: none;
+}
+
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
   font-family: 'Cachet';
-}
-.openy-ccc-login-form .status-message,
-.openy-ccc-registration-form .status-message {
-  margin-bottom: 30px;
-}
-.openy-ccc-login-form .status-message li,
-.openy-ccc-registration-form .status-message li {
-  list-style-type: none;
 }
 
 #edit-intro-text {

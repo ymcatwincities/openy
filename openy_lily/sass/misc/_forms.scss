@@ -108,15 +108,16 @@ label {
   font-weight: bold;
   text-transform: uppercase;
 }
+
+.status-message {
+  margin-bottom: 30px;
+  li {
+    list-style-type: none;
+  }
+}
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
   font-family: 'Cachet';
-  .status-message {
-    margin-bottom: 30px;
-    li {
-      list-style-type: none;
-    }
-  }
 }
 
 #edit-intro-text {
