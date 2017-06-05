@@ -1,0 +1,11 @@
+static_ticker:
+  version: VERSION
+  css:
+    theme:
+      css/static-ticker.css: {}
+  js:
+    js/static-ticker.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+

@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * OpenY digital signage blocks module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
+  return [
+    'openy_digital_signage_blocks_static_ticker' => [
+      'template' => 'openy-digital-signage-blocks-static-ticker',
+      'variables' => [
+        'icon' => 'bell',
+        'message' => '',
+        'wrapper_attributes' => NULL,
+      ],
+    ],
+  ];
+}
