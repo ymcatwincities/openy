@@ -1,17 +1,29 @@
-;(function ($) {
+/**
+ * @file
+ * Provides OpenY Digital Signage layouts related behavior.
+ */
+;(function ($, window, Drupal, drupalSettings) {
+
   'use strict';
 
+  /**
+   * Attaches the behavior to window object once.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Adds proper orientation classes to all the output layouts.
+   */
   Drupal.behaviors.layout_handler = {
     attach: function (context, settings) {
 
-      jQuery(window).once().resize(function() {
-        var o = jQuery(window).width() > jQuery(window).height() ? 'landscape' : 'portrait';
-        jQuery('.openy-ds-layout', context)
+      $(window).once().resize(function() {
+        var o = $(window).width() > $(window).height() ? 'landscape' : 'portrait';
+        $('.openy-ds-layout', context)
           .removeClass('landscape')
           .removeClass('portrait')
           .addClass(o);
       }).trigger('resize');
-
     }
   };
-})(jQuery);
+})(jQuery, window, Drupal, drupalSettings);
