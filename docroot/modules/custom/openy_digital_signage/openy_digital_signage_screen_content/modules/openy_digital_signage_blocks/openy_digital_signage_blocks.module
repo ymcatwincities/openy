@@ -18,5 +18,13 @@ function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
         'wrapper_attributes' => NULL,
       ],
     ],
+    'openy_digital_signage_blocks_system_message' => [
+      'template' => 'openy-digital-signage-blocks-system-message',
+      'variables' => [
+        'icon' => 'bell',
+        'message' => '',
+        'wrapper_attributes' => NULL,
+      ],
+    ],
   ];
 }
