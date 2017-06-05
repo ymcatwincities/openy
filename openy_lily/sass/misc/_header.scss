@@ -116,7 +116,6 @@ body {
     }
   }
 }
-
 header {
   @include transition(all 0.2s linear);
   @include clearfix;
@@ -124,7 +123,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 999;
+  z-index: 1001;
   font-family: 'Cachet';
   .container-fluid {
     @media (min-width: 1200px) {
