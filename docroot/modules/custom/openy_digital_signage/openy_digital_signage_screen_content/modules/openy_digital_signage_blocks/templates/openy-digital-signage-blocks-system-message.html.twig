@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a System Message block.
+ *
+ * Available variables:
+ * - icon: The icon.
+ * - message: The message.
+ * - wrapper_attributes: array of HTML attributes, intended to be added to the main
+ *   container tag of this template.
+ *   - classes: A list of classes to identify position and styles of the block.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="openy-digital-signage-block-system-message">
+  <div{{ wrapper_attributes }}>
+    <div class="openy-digital-signage-block-system-message__icon">
+      <i class="glyphicon glyphicon-{{ icon }}"></i>
+    </div>
+    <div class="openy-digital-signage-block-system-message__message">
+      <div class="openy-digital-signage-block-system-message__message__inner">
+        {{ message|raw }}
+      </div>
+    </div>
+  </div>
+</div>
