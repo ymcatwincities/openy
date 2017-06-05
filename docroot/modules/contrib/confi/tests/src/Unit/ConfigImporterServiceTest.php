@@ -28,7 +28,7 @@ class ConfigImporterServiceTest extends ConfigImporterServiceTestBase {
    */
   public function testSetDirectoryWrongType($type = 'something') {
     $this->expectException(\Exception::class, "The configuration directory type '%s' does not exist", $type);
-    static::assertNull($this->configImporter->setDirectory($type));
+    $this->configImporter->setDirectory($type);
   }
 
   /**
@@ -41,7 +41,7 @@ class ConfigImporterServiceTest extends ConfigImporterServiceTestBase {
     $GLOBALS['config_directories'][$type] = "/path/to/$type/not-exists";
 
     $this->expectException(\InvalidArgumentException::class, '%s - is not valid path or type of directory with configurations\.', $GLOBALS['config_directories'][$type]);
-    static::assertNull($this->configImporter->setDirectory($type));
+    $this->configImporter->setDirectory($type);
   }
 
   /**
