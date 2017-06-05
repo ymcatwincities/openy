@@ -1,3 +1,13 @@
+/**
+ * @file
+ * Provides OpenY Digital Signage screens related behavior.
+ */
+
+/**
+ * TimeManager class.
+ *
+ * Makes it possible to override current page time.
+ */
 ;function TimeManager() {
 
   this.getTime = function() {
@@ -5,9 +15,9 @@
   };
 
   return this;
-};
+}
 
-(function ($) {
+(function ($, window, Drupal, drupalSettings) {
   'use strict';
 
   function OpenYDigitalSignageObjectsManager() {
@@ -317,24 +327,22 @@
     return this;
   }
 
+  /**
+   * Attaches the global OpenYScreen object to the available screen objects.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Attaches the global OpenYScreen object to the available screen objects.
+   */
   Drupal.behaviors.screen_handler = {
     attach: function (context, settings) {
 
-      jQuery(window).once().resize(function() {
-        var o = jQuery(window).width() > jQuery(window).height() ? 'landscape' : 'portrait';
-        jQuery('.openy-ds-layout', context)
-          .removeClass('landscape')
-          .removeClass('portrait')
-          .addClass(o);
-      }).trigger('resize');
-
       $('.screen', context).once().each(function () {
         window.tm = new TimeManager();
-        console.log(window.tm.getTime());
-
         var screen = new OpenYScreen(this);
         screen.init();
       });
     }
   };
-})(jQuery);
+})(jQuery, window, Drupal, drupalSettings);

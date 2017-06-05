@@ -1,0 +1,58 @@
+/*$orange-light: #fcaf17;*/
+/*$orange-medium: #f47920;*/
+/*$orange-dark: #dd5828;*/
+/* To be moved to the main theme */
+/* Effective height is 108px */
+.openy-digital-signage-block-static-ticker {
+  height: 5.625vw;
+  position: relative;
+}
+.openy-digital-signage-block-static-ticker .block-static-ticker {
+  height: 100%;
+}
+
+.openy-digital-signage-block-static-ticker__icon {
+  font-size: 1.5625vw;
+  height: 5.625vw;
+  height: 100%;
+  left: 0;
+  line-height: 5.625vw;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 5.625vw;
+}
+
+.openy-digital-signage-block-static-ticker__icon .glyphicon {
+  line-height: 5.625vw;
+}
+
+.openy-digital-signage-block-static-ticker__message {
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 1.5625vw;
+  line-height: 5.625vw;
+  padding-left: 5.625vw;
+  text-align: center;
+  height: 100%;
+}
+
+.openy-digital-signage-block-static-ticker__message a {
+  color: #dd5828;
+}
+
+.block-static-ticker-color-orange {
+  background-color: #fcaf17;
+}
+
+.block-static-ticker-color-orange .openy-digital-signage-block-static-ticker__icon {
+  background-color: #f47920;
+  color: #fcaf17;
+}
+
+.block-static-ticker-color-orange .openy-digital-signage-block-static-ticker__message {
+  color: #FFFFFF;
+}
+
+.block-static-ticker-color-orange .openy-digital-signage-block-static-ticker__message a {
+  color: #dd5828;
+}

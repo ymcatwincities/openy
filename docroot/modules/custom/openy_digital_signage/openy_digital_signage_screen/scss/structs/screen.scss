@@ -43,31 +43,3 @@
   display: block;
 }
 
-.openy-ds-layout {
-  background-image: url(../images/bg-body-blue.png);
-
-  .scheme-orange & {
-    background-color: #fcaf17;
-    background-image: url(../images/bg-body-orange.png);
-  }
-
-  &.landscape {
-    width: 100vw;
-    height: 56.25vw;
-  }
-
-  &.portrait {
-    margin: auto;
-    width: 56.25vh;
-    height: 100vh;
-  }
-
-  .block-wrapper {
-    height: 100%;
-  }
-
-  .ipe-actions {
-    background-color: rgba(128, 128, 128, 0.5);
-  }
-
-}
