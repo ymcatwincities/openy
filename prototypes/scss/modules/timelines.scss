@@ -1,0 +1,17 @@
+ .tl-text-content-container {
+  .tl-headline-date,
+  .tl-headline {
+    display: none;
+  }
+ .tl-text-content {
+   .node--type-blog.node--view-mode-teaser {
+     width: auto;
+     .inner-wrapper {
+       margin: 0;
+     }
+   }
+ }
+}
+body .tl-slide .tl-slide-content-container .tl-slide-content {
+  width: 100% !important;
+}
