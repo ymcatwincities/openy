@@ -152,7 +152,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'blocks/ymca-retention-tabs-selector',
     ],
     'ymca_retention_introduction' => [
-      'variables' => [],
+      'variables' => [
+        'content' => NULL,
+      ],
       'template' => 'blocks/ymca-retention-introduction',
     ],
     'ymca_retention_track_activity' => [

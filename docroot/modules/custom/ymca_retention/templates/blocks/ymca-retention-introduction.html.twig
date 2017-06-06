@@ -8,8 +8,14 @@
   <div class="compain-tab-header clearfix">
     <div class="content clearfix">
       <h2>{{ 'Y Recharge Challenge'|t }}</h2>
+      {% if content.intro_header is not empty %}
+        <h2>{{ content.intro_header|t }}</h2>
+      {% endif %}
       <div class="content-text">
         <p>{{ 'Stay energized with regular workouts and you can earn 4 guest passes &mdash; plus, get daily wellness tips.'|t }}</p>
+        {% if content.intro_body is not empty %}
+          {{ content.intro_body }}
+        {% endif %}
       </div>
       <div class="campaign-btn ng-hide"
            data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
@@ -19,8 +25,36 @@
     </div>
   </div>
 
+  {% if content.info_blocks is not empty %}
+
   <div class="compain-info-blocks clearfix">
     <div class="content-wrapper">
+      {% for info_block in content.info_blocks %}
+      <div class="compain-info-block">
+        <div class="content">
+          <div class="content-text">
+            {% if info_block.header is not empty %}
+              <h3>{{ info_block.header|t }}</h3>
+            {% endif %}
+            {% if info_block.copy is not empty %}
+              {{ info_block.copy }}
+            {% endif %}
+          </div>
+          {% if info_block.img is not empty %}
+            {% if info_block.link is not empty %}
+            <a href="{{ info_block.link }}" target="_blank">
+            {% endif %}
+            {# {{ info_block.img }} #}
+            <figure class="img">
+              <img src="{{ file_url(info_block.img) }}" />
+            </figure>
+            {% if info_block.link is not empty %}
+            </a>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
       <div class="compain-info-block">
         <div class="content">
           <div class="content-text">
@@ -77,4 +111,5 @@
       </div>
     </div>
   </div>
+  {% endif %}
 </div>
