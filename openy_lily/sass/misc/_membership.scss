@@ -1,0 +1,19 @@
+#membership-calc-wrapper  {
+  legend {
+    border: none;
+    color: inherit;
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  .js-webform-radios {
+    .js-form-item {
+      padding: 0;
+      margin: 0 0 20px 30px;
+      label {
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 6px;
+      }
+    }
+  }
+}

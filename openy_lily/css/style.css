@@ -918,6 +918,22 @@ body.locations-camps-template .locations-page-under-lead-copy {
   color: #636466 !important;
 }
 
+#membership-calc-wrapper legend {
+  border: none;
+  color: inherit;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+#membership-calc-wrapper .js-webform-radios .js-form-item {
+  padding: 0;
+  margin: 0 0 20px 30px;
+}
+#membership-calc-wrapper .js-webform-radios .js-form-item label {
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 6px;
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
