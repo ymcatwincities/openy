@@ -1,3 +1,31 @@
+.pink-button {
+  margin: 0;
+  border: 0;
+  color: white;
+  display: inline-block;
+  background-color: $pink !important;
+  background-image: -webkit-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-image: -moz-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-image: -ms-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-image: linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  box-shadow: 0 1px 1px rgba(0,0,0,0.4);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Cachet',Helvetica,Arial,sans-serif;
+  border-radius: 3px;
+  line-height: 1.33;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  &:hover {
+    background-color: $pink !important;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.4) !important;
+    border: 0;
+    background-position: 0;
+  }
+}
+
 .form-item {
   margin-bottom: 15px;
 }

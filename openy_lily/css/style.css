@@ -2049,17 +2049,15 @@ body .ajax-progress-throbber .throbber {
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
 .pink-button:hover, [data-drupal-selector="edit-cancel"]:hover,
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
 [data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, #banner .banner-caption a:hover {
-  background-color: #9c1f7b;
-  background-image: -webkit-linear-gradient(#b92f9e, transparent);
-  background-image: -moz-linear-gradient(#b92f9e, transparent);
-  background-image: -ms-linear-gradient(#b92f9e, transparent);
-  background-image: linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-color: #9c1f7b !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) !important;
+  border: 0;
+  background-position: 0;
 }
 
 .form-item {
