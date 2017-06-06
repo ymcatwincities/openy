@@ -900,6 +900,9 @@ body.locations-camps-template .locations-page-under-lead-copy {
 .locations-list .field-location-phone {
   display: inline;
 }
+.locations-list h1 {
+  color: #636466 !important;
+}
 
 .node-preview-container {
   background-color: #fff;

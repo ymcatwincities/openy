@@ -55,7 +55,6 @@
       font-family: 'OPENY_LILY';
     }
   }
-
   ul {
     padding: 0;
   }
@@ -79,5 +78,8 @@ body.locations-camps-template .locations-page-under-lead-copy {
   .field-location-fax,
   .field-location-phone {
     display: inline;
+  }
+  h1 {
+    color: #636466 !important;
   }
 }
