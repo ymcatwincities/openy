@@ -3,7 +3,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_ncategory
+      - openy_demo_nsessions
 id: openy_demo_node_session
 migration_tags: {  }
 migration_group: openy_demo_ncategory

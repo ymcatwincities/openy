@@ -104,8 +104,19 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_nprogram' => [
         'openy_demo_node_program',
       ],
+    ],
+    'categories' => [
       'openy_demo_ncategory' => [
         'openy_demo_node_program_subcategory',
+      ],
+    ],
+    'classes' => [
+      'openy_demo_nclass' => [
+        'openy_demo_node_class',
+      ],
+    ],
+    'sessions' => [
+      'openy_demo_nsessions' => [
         'openy_demo_node_session',
       ],
     ],
@@ -163,6 +174,12 @@ function openy_import_content(array &$install_state) {
   // Add home_alt if landing is not included.
   if (!in_array('landing', $install_state['openy']['content'])) {
     $install_state['openy']['content'][] = 'home_alt';
+  }
+
+  if (in_array('programs', $install_state['openy']['content'])) {
+    $install_state['openy']['content'][] = 'categories';
+    $install_state['openy']['content'][] = 'classes';
+    $install_state['openy']['content'][] = 'sessions';
   }
 
   // Build migrations operations arrays, for selected content.
