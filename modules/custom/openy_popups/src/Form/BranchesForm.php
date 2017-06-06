@@ -90,7 +90,8 @@ class BranchesForm extends FormBase {
       '#type' => 'radios',
       '#title' => t('Please select a location'),
       '#default_value' => $default,
-      '#options' => $branches_list['branch'] + $branches_list['camp'],
+      '#options' => ['All' => 'All'] + $branches_list['branch'] + $branches_list['camp'],
+      '#all' => ['All' => 'All'],
       '#branches' => $branches_list['branch'],
       '#camps' => $branches_list['camp'],
     ];
