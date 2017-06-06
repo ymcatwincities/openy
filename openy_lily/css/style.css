@@ -567,9 +567,6 @@ header#page-head.expanded-search {
   padding-top: 40px;
   padding-bottom: 14px;
 }
-#page-footer #block-openy-lily-footersocialblock .field-block-content ul {
-  margin-bottom: 40px;
-}
 #page-footer #block-openy-lily-footersocialblock .field-block-content ul li {
   margin: 0 12px;
 }
@@ -610,7 +607,12 @@ header#page-head.expanded-search {
   text-decoration: underline;
 }
 #page-footer #block-openy-lily-footercopyrightblock {
+  padding-top: 40px;
+  padding-bottom: 10px;
   text-align: center;
+}
+#page-footer #block-openy-lily-footercopyrightblock .contextual {
+  top: -20px;
 }
 #page-footer #block-openy-lily-footercopyrightblock p {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
