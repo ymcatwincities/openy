@@ -3,14 +3,16 @@ description: 'OpenY paragraph small banner'
 type: module
 core: 8.x
 dependencies:
+  - datalayer
   - entity_browser
   - field
   - image
   - jquery_colorpicker
   - media_entity
   - openy_media_image
-  - openy_txnm_color
   - openy_prgf
+  - openy_txnm_color
   - paragraphs
   - taxonomy
+  - text
 version: 8.x-1.0
