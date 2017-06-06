@@ -8,7 +8,7 @@
 /**
  * Update field_prgf_mc field form settings .
  */
-function openy_prgf_mc_8001() {
+function openy_prgf_mc_update_8001() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_mc') . '/config/install');
   $config_importer->importConfigs(
