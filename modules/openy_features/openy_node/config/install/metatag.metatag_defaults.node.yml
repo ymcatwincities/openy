@@ -5,7 +5,6 @@ id: node
 label: Content
 tags:
   canonical_url: '[node:path]'
-  content_language: '[node:langcode]'
   description: '[node:summary]'
   title: '[node:title] | [site:name]'
   og_title: '[node:title]'
