@@ -591,6 +591,18 @@ header#page-head.expanded-search {
   width: 100%;
   text-align: center;
 }
+@media (min-width: 0) and (max-width: 48em) {
+  #page-footer #block-openy-lily-footersocialblock .field-block-content ul li {
+    margin: 0 5px;
+  }
+  #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
+    width: 36px;
+    height: 36px;
+    line-height: 30px;
+    font-size: 20px;
+    padding-top: 30px;
+  }
+}
 #page-footer #block-openy-lily-footermenucenter {
   margin-bottom: 30px;
 }
