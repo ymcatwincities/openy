@@ -4,11 +4,13 @@ dependencies:
   config:
     - entity_browser.browser.images_library
     - field.field.paragraph.small_banner.field_prgf_color
+    - field.field.paragraph.small_banner.field_prgf_description
     - field.field.paragraph.small_banner.field_prgf_headline
     - field.field.paragraph.small_banner.field_prgf_image
     - paragraphs.paragraphs_type.small_banner
   module:
     - entity_browser
+    - text
 id: paragraph.small_banner.default
 targetEntityType: paragraph
 bundle: small_banner
@@ -19,6 +21,15 @@ content:
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
+  field_prgf_description:
+    weight: 3
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_prgf_headline:
     type: string_textfield
     weight: 0
@@ -26,6 +37,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_prgf_image:
     type: entity_browser_entity_reference
     weight: 1
@@ -38,6 +50,7 @@ content:
       open: false
       field_widget_display_settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   status: true

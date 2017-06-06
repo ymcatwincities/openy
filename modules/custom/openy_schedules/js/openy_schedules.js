@@ -10,14 +10,22 @@
     var params = [];
     for (var key in parameters) {
       // Skip some form keys.
-      if ((key === 'location' ||
-        key === 'program' ||
-        key === 'category' ||
-        key === 'class' ||
-        key === 'date' ||
-        key === 'time') &&
-        parameters[key] !== 'all' &&
-        parameters[key].length >= 1) {
+      if (
+        parameters[key].length >= 1 &&
+        (
+          key === 'location' ||
+          (
+            parameters[key] !== 'all' &&
+            (
+              key === 'program' ||
+              key === 'category' ||
+              key === 'class' ||
+              key === 'date' ||
+              key === 'time'
+            )
+          )
+        )
+      ) {
         params.push(key + '=' + parameters[key]);
       }
     }
