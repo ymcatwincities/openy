@@ -8,6 +8,7 @@ dependencies:
   - field
   - metatag
   - node
+  - openy_node_blog
   - paragraphs
   - path
   - taxonomy
