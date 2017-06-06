@@ -1180,6 +1180,18 @@ body.path-search #block-mainpagecontent li {
   font-family: 'YMCA';
 }
 
+@media (min-width: 64em) and (max-width: 75em) {
+  .blog-more-teaser .form-item-combine {
+    padding: 0 0 0 140px !important;
+  }
+}
+@media (min-width: 64em) {
+  .blog-more-teaser .form-item-combine input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
 .align-left {
   margin: 0 15px 15px 0;
 }
