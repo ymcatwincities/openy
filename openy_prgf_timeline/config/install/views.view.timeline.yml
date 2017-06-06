@@ -388,8 +388,8 @@ display:
           click_sort_column: value
           type: timestamp
           settings:
-            date_format: short
-            custom_date_format: ''
+            date_format: custom
+            custom_date_format: 'm/d/Y'
             timezone: ''
           group_column: value
           group_columns: {  }
