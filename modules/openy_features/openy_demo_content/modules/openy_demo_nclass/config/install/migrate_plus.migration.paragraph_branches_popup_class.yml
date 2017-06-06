@@ -3,10 +3,10 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_ncategory
+      - openy_demo_nclass
 id: openy_demo_paragraph_branches_popup_class
 migration_tags: {  }
-migration_group: openy_demo_ncategory
+migration_group: openy_demo_nclass
 label: 'Create class branches popup (Class) paragraphs for demo class nodes'
 migration_dependencies: {  }
 source:

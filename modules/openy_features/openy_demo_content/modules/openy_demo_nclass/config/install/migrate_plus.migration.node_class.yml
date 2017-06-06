@@ -3,10 +3,10 @@ status: true
 dependencies:
   enforced:
     module:
-      - openy_demo_ncategory
+      - openy_demo_nclass
 id: openy_demo_node_class
 migration_tags: {  }
-migration_group: openy_demo_ncategory
+migration_group: openy_demo_nclass
 label: 'Create demo class nodes'
 source:
   plugin: embedded_data

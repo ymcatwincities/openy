@@ -1,0 +1,11 @@
+name: 'OpenY demo node class'
+description: 'OpenY demo node class'
+type: module
+core: 8.x
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_tools
+  - openy_demo_ncategory
+  - openy_demo_nprogram
+version: 8.x-1.0
