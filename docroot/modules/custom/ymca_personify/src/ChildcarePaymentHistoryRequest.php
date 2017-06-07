@@ -8,6 +8,7 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use GuzzleHttp\Client;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class ChildcarePaymentHistoryRequest.
@@ -109,6 +110,8 @@ class ChildcarePaymentHistoryRequest {
         $xml = $body->getContents();
         $xml = preg_replace('/(<\?xml[^?]+?)utf-16/i', '$1utf-8', $xml);
         $encoder = new XmlEncoder();
+        $serializer = new Serializer();
+        $encoder->setSerializer($serializer);
         $data = $encoder->decode($xml, 'xml');
       }
       else {
