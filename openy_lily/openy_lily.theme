@@ -4,12 +4,14 @@
  * @file
  * OpenY Lily Theme File.
  */
+
 // @todo refactoring!!! We need to remove unused hooks and legacy dependencies.
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Link;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
@@ -95,6 +97,7 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
     case 'system.403':
       array_push($suggestions, 'page__system__403');
       break;
+
     case 'system.404':
       array_push($suggestions, 'page__system__404');
       break;
@@ -102,7 +105,7 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
 
   $node = Drupal::routeMatch()->getParameter('node');
   if (!empty($node) || $node = Drupal::routeMatch()
-      ->getParameter('node_preview')
+    ->getParameter('node_preview')
   ) {
     if (is_object($node)) {
       array_unshift($suggestions, 'page__node__' . $node->bundle());
@@ -236,7 +239,6 @@ function openy_lily_preprocess_node($variables) {
   $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
 }
 
-
 /**
  * Implements hook_preprocess_html().
  */
@@ -252,11 +254,11 @@ function openy_lily_preprocess_html(&$variables) {
   }
 
   if (!$variables['is_front'] = Drupal::service('path.matcher')
-      ->isFrontPage() && !empty($node)
+    ->isFrontPage() && !empty($node)
   ) {
     if ($current_route_name == 'entity.node.preview') {
       $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')
-          ->get('page.front');
+        ->get('page.front');
     }
   }
 
@@ -322,17 +324,17 @@ function openy_lily_preprocess_page(&$variables) {
   }
   $route_name = 'view.site_search.search_results';
   $route_provider = \Drupal::service('router.route_provider');
-  $routes = $route_provider->getRoutesByNames(array($route_name));
+  $routes = $route_provider->getRoutesByNames([$route_name]);
   if (!empty($routes)) {
     $variables['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
   }
   else {
     $variables['search_view_content_path'] = '';
     \Drupal::logger('ymca')
-      ->error('Route "%route" does not exist.', array('%route' => $route_name));
+      ->error('Route "%route" does not exist.', ['%route' => $route_name]);
   }
 
-  // Adds page title for login and register pages
+  // Adds page title for login and register pages.
   $request = \Drupal::request();
   $route_match = \Drupal::routeMatch();
   $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
@@ -365,7 +367,7 @@ function openy_lily_preprocess_node__blog__camp_blog_teaser(&$vars) {
  *
  * Default template: input.html.twig.
  *
- * @param array $variables
+ * @param mixed $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
  *     Properties used: #attributes.
@@ -412,12 +414,11 @@ function openy_lily_preprocess_input(&$variables) {
  *
  * Default template: textarea.html.twig.
  *
- * @param array $variables
+ * @param mixed $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
  *     Properties used: #title, #value, #description, #rows, #cols,
- *     #placeholder, #required, #attributes, #resizable
- *
+ *     #placeholder, #required, #attributes, #resizable.
  */
 function openy_lily_preprocess_textarea(&$variables) {
   $element = $variables['element'];
@@ -428,7 +429,7 @@ function openy_lily_preprocess_textarea(&$variables) {
     'cols',
     'placeholder'
   ]);
-  Element\RenderElement::setAttributes($element, ['form-textarea']);
+  RenderElement::setAttributes($element, ['form-textarea']);
   $variables['wrapper_attributes'] = new Attribute();
   $variables['attributes'] = new Attribute($element['#attributes']);
   $variables['value'] = $element['#value'];
@@ -447,7 +448,7 @@ function openy_lily_preprocess_textarea(&$variables) {
  * $options to an associative array in which the keys are group labels, and the
  * values are associative arrays in the normal $options format.
  *
- * @param $variables
+ * @param mixed $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
  *     Properties used: #title, #value, #options, #description, #extra,
@@ -456,7 +457,7 @@ function openy_lily_preprocess_textarea(&$variables) {
 function openy_lily_preprocess_select(&$variables) {
   $element = $variables['element'];
   Element::setAttributes($element, ['id', 'name', 'size']);
-  Element\RenderElement::setAttributes($element, ['form-select']);
+  RenderElement::setAttributes($element, ['form-select']);
 
   $variables['attributes'] = $element['#attributes'];
   $variables['options'] = form_select_options($element);
@@ -535,10 +536,10 @@ function openy_lily_preprocess_form_element_label(&$variables) {
  *
  * Default template: form.html.twig.
  *
- * @param $variables
+ * @param mixed $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
- *     Properties used: #action, #method, #attributes, #children
+ *     Properties used: #action, #method, #attributes, #children.
  */
 function openy_lily_preprocess_form(&$variables) {
   $element = $variables['element'];
@@ -754,6 +755,7 @@ function openy_lily_get_theme_styles() {
           $styles[] = 'background-image: linear-gradient(' . $header_buttons_color2_locations . ', rgba(0, 0, 0, 0));};';
         }
         break;
+
       case 'camp':
         if ($header_background_color_camps = theme_get_setting('header_background_color_camps')) {
           $styles[] = 'body.ancestor-camps .location-masthead {background: ' . $header_background_color_camps . ' !important;}';
