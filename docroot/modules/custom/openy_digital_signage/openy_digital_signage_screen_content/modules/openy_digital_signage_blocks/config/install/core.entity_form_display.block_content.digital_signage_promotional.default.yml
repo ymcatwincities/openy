@@ -22,41 +22,41 @@ bundle: digital_signage_promotional
 mode: default
 content:
   field_ds_background_color:
-    weight: 4
+    weight: 6
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
   field_ds_background_image:
-    weight: 5
+    weight: 7
     settings:
       entity_browser: browse_files_modal
-      field_widget_edit: '1'
       field_widget_remove: '1'
+      open: '1'
       view_mode: default
       field_widget_display: ''
-      open: 0
+      field_widget_edit: 0
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: file_browser
   field_ds_background_position:
-    weight: 6
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: options_select
   field_ds_background_scheme:
-    weight: 8
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
   field_ds_background_size:
-    weight: 7
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
   field_ds_color_scheme:
-    weight: 9
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select

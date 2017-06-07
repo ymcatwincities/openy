@@ -11,7 +11,7 @@ id: block_content.digital_signage_promotional.field_ds_message_position
 field_name: field_ds_message_position
 entity_type: block_content
 bundle: digital_signage_promotional
-label: 'Message position'
+label: 'Text position'
 description: 'Specify where you want the headline, the subheading, and the message to appear'
 required: true
 translatable: false
