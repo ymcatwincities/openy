@@ -18,7 +18,7 @@ source:
       id: 1
       title: 'Home'
       menu_name: 'main'
-      link: 'openy'
+      link: 'internal:/'
       weight: 1
       parent_id: 0
       expanded: 0
