@@ -91,3 +91,26 @@ function openy_digital_signage_blocks_preprocess_block(&$variables) {
   $attributes->setAttribute('style', $background_styles);
   $variables['wrapper_attributes'] = $attributes;
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function openy_digital_signage_blocks_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id != 'block_content_digital_signage_promotional_panels_ipe_form') {
+    return;
+  }
+  $form['revision_information']['#access'] = FALSE;
+
+  $form['background_image_settings'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Background Image settings'),
+    '#collapsible' => TRUE,
+    '#weight' => $form['field_ds_background_image']['#weight'],
+  ];
+  $form['background_image_settings']['field_ds_background_image'] = $form['field_ds_background_image'];
+  unset($form['field_ds_background_image']);
+  $form['background_image_settings']['field_ds_background_position'] = $form['field_ds_background_position'];
+  unset($form['field_ds_background_position']);
+  $form['background_image_settings']['field_ds_background_size'] = $form['field_ds_background_size'];
+  unset($form['field_ds_background_size']);
+}
