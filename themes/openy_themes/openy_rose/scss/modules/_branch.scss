@@ -889,10 +889,16 @@ html.js {
   h2 {
     font-size: 22px;
     @include cachet();
-    margin: 20px 0 33px;
     font-weight: bold;
     .marker_tooltip & {
       margin: 0 0 5px;
+    }
+    &+.node__content {
+      margin: 33px 0 0;
+    }
+    &+.field-location-area,
+    &+.field-location-state {
+      margin: 20px 0 33px;
     }
   }
   .branch-hours {
