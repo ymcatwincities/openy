@@ -2151,7 +2151,7 @@ body .ajax-progress-throbber .throbber {
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"] {
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 14px !important;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
@@ -2159,6 +2159,7 @@ body .ajax-progress-throbber .throbber {
 [data-drupal-selector="edit-reset-password"] {
   background: none !important;
   border: none;
+  font-size: 14px !important;
   box-shadow: none;
   text-transform: inherit;
   font-weight: normal;
@@ -2344,6 +2345,10 @@ legend {
 }
 [data-drupal-selector="edit-emergency-contact"] .fieldset-wrapper .form-item {
   width: 100%;
+}
+
+.openy-ccc-remind-password .status-message {
+  clear: both;
 }
 
 #mindbody-pt-form-wrapper {

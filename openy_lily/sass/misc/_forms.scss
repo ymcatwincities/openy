@@ -107,13 +107,14 @@
 [data-drupal-selector="edit-registration"] {
   @extend .pink-button;
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 14px !important;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
 [data-drupal-selector="edit-reset-password"] {
   background: none !important;
   border: none;
+  font-size: 14px !important;
   box-shadow: none;
   text-transform: inherit;
   font-weight: normal;
@@ -298,5 +299,11 @@ legend {
     .form-item {
       width: 100%;
     }
+  }
+}
+
+.openy-ccc-remind-password {
+  .status-message {
+    clear: both;
   }
 }
