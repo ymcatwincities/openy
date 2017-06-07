@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Context\EntityLazyLoadContext.
- */
-
 namespace Drupal\ctools\Context;
 
 use Drupal\Core\Entity\EntityRepositoryInterface;
