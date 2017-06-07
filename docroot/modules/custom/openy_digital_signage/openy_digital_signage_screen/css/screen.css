@@ -286,7 +286,8 @@ table {
   -moz-osx-font-smoothing: grayscale; }
 
 .ds-icon-Y_letter:before {
-  content: "\e900"; }
+  content: "\e900";
+  color: #fff; }
 
 .ds-icon-flag_football:before {
   content: "\e901"; }
@@ -439,6 +440,11 @@ body.node--type-screen-content {
   .openy-ds-layout .ipe-actions li {
     font-size: 0.83333vw; }
 
+.openy-ds-layout .ipe-actions-block {
+  position: absolute;
+  width: 100%;
+  z-index: 10; }
+
 .openy-ds-layout .ipe-action-list .ipe-icon {
   height: 1.25vw;
   margin-top: -0.52083vw;
@@ -459,6 +465,13 @@ body.node--type-screen-content {
 .ipe-tab.active a,
 .ipe-tab a:hover {
   padding-bottom: 5px; }
+
+#panels-ipe-tray {
+  bottom: -30px;
+  -webkit-transition: bottom 0.4s;
+  transition: bottom 0.4s; }
+  #panels-ipe-tray:hover {
+    bottom: 0; }
 
 .openy-ds-layout {
   background-color: #0089d0;
