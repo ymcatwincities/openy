@@ -1,0 +1,49 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - provider: The module or other provider that provided this block plugin.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div {{ attributes }}>
+  <div{{ wrapper_attributes }}>
+    {% block content %}
+      <div class="openy-digital-signage-block-promotional__text-content">
+        <h1 class="openy-digital-signage-block-promotional__headline">
+          {{ content.field_ds_headline }}
+        </h1>
+        <h2 class="openy-digital-signage-block-promotional__subheading">
+          {{ content.field_ds_subheading }}
+        </h2>
+        <div class="openy-digital-signage-block-promotional__message">
+          <div class="openy-digital-signage-block-promotional__message__inner">
+            {{ content|without('field_ds_background_image', 'field_ds_headline', 'field_ds_subheading') }}
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+  </div>
+</div>

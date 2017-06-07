@@ -1,0 +1,91 @@
+uuid: e25a0e86-3f3a-4300-868c-b1020997ba74
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.field.block_content.digital_signage_promotional.field_ds_background_color
+    - field.field.block_content.digital_signage_promotional.field_ds_background_image
+    - field.field.block_content.digital_signage_promotional.field_ds_background_position
+    - field.field.block_content.digital_signage_promotional.field_ds_background_scheme
+    - field.field.block_content.digital_signage_promotional.field_ds_background_size
+    - field.field.block_content.digital_signage_promotional.field_ds_color_scheme
+    - field.field.block_content.digital_signage_promotional.field_ds_headline
+    - field.field.block_content.digital_signage_promotional.field_ds_message
+    - field.field.block_content.digital_signage_promotional.field_ds_message_position
+    - field.field.block_content.digital_signage_promotional.field_ds_subheading
+  module:
+    - file_browser
+id: block_content.digital_signage_promotional.default
+targetEntityType: block_content
+bundle: digital_signage_promotional
+mode: default
+content:
+  field_ds_background_color:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_ds_background_image:
+    weight: 5
+    settings:
+      entity_browser: browse_files_modal
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: file_browser
+  field_ds_background_position:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_ds_background_scheme:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_ds_background_size:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_ds_color_scheme:
+    weight: 9
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_ds_headline:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_ds_message:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_ds_message_position:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_ds_subheading:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  info: true
+  langcode: true

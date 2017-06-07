@@ -1,0 +1,27 @@
+uuid: 9043a0e6-23ee-4326-8816-10f8b00d62f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_ds_background_size
+field_name: field_ds_background_size
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: contain
+      label: Contain
+    -
+      value: cover
+      label: Cover
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
