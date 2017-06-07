@@ -150,6 +150,9 @@ function ymca_theme_suggestions_page_alter(array &$suggestions, array $variables
       array_push($suggestions, 'page__node__location_inner');
     }
   }
+  if ($route_name == 'system.404') {
+    $suggestions[] = 'page__system__404';
+  }
 }
 
 /**
