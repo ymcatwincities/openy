@@ -1,0 +1,23 @@
+uuid: 8b29af4a-bc69-4048-ac17-03e7abe56006
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_background_position
+  module:
+    - options
+id: block_content.digital_signage_promotional.field_ds_background_position
+field_name: field_ds_background_position
+entity_type: block_content
+bundle: digital_signage_promotional
+label: 'Background image position'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: top
+default_value_callback: ''
+settings: {  }
+field_type: list_string

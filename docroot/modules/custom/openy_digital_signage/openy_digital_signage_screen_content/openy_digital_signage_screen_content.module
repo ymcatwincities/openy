@@ -31,3 +31,16 @@ function openy_digital_signage_screen_content_panels_build_alter(&$build, Panels
   $build['#attached']['drupalSettings']['panelizer']['user_permission']['revert'] = FALSE;
   $build['#attached']['drupalSettings']['panelizer']['user_permission']['save_default'] = FALSE;
 }
+
+/**
+ * Implements hook_prerocess_page().
+ */
+function openy_digital_signage_screen_content_preprocess_page(&$variables) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->bundle() == 'screen_content') {
+      unset($variables['page']['content']['tabs']);
+    }
+  }
+}

@@ -1,0 +1,59 @@
+uuid: e89e3635-f36f-4a95-9374-7e4515f799d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.field.block_content.digital_signage_promotional.field_ds_background_color
+    - field.field.block_content.digital_signage_promotional.field_ds_background_image
+    - field.field.block_content.digital_signage_promotional.field_ds_background_position
+    - field.field.block_content.digital_signage_promotional.field_ds_background_scheme
+    - field.field.block_content.digital_signage_promotional.field_ds_background_size
+    - field.field.block_content.digital_signage_promotional.field_ds_color_scheme
+    - field.field.block_content.digital_signage_promotional.field_ds_headline
+    - field.field.block_content.digital_signage_promotional.field_ds_message
+    - field.field.block_content.digital_signage_promotional.field_ds_message_position
+    - field.field.block_content.digital_signage_promotional.field_ds_subheading
+  module:
+    - image
+id: block_content.digital_signage_promotional.default
+targetEntityType: block_content
+bundle: digital_signage_promotional
+mode: default
+content:
+  field_ds_background_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  field_ds_headline:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_ds_message:
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_ds_subheading:
+    weight: 2
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden:
+  field_ds_background_color: true
+  field_ds_background_position: true
+  field_ds_background_scheme: true
+  field_ds_background_size: true
+  field_ds_color_scheme: true
+  field_ds_message_position: true
+  langcode: true
