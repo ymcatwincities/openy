@@ -439,7 +439,7 @@
           $('html, body').animate({scrollTop: $($(".invalid")[0]).offset().top - offset}, delay);
         }, true);
         document.addEventListener('change', function (e) {
-          $(e.target).removeClass("invalid")
+          $(e.target).removeClass("invalid");
         }, true);
       });
     }
