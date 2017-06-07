@@ -2346,6 +2346,10 @@ legend {
   width: 100%;
 }
 
+.openy-ccc-remind-password .status-message {
+  clear: both;
+}
+
 #mindbody-pt-form-wrapper {
   padding: 0 0 100px;
   padding: 0 0 10rem;
