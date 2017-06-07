@@ -1,0 +1,33 @@
+uuid: aa0b4fa0-67a8-4c4d-b35f-e79a408a3db0
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_ds_color_scheme
+field_name: field_ds_color_scheme
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: blue
+      label: Blue
+    -
+      value: green
+      label: Green
+    -
+      value: orange
+      label: Orange
+    -
+      value: purple
+      label: Purple
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

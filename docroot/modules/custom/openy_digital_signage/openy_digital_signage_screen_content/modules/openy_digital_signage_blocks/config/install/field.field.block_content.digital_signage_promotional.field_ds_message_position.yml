@@ -1,0 +1,23 @@
+uuid: a74e2d75-6781-4ca8-89a0-818300323186
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_message_position
+  module:
+    - options
+id: block_content.digital_signage_promotional.field_ds_message_position
+field_name: field_ds_message_position
+entity_type: block_content
+bundle: digital_signage_promotional
+label: 'Message position'
+description: 'Specify where you want the headline, the subheading, and the message to appear'
+required: true
+translatable: false
+default_value:
+  -
+    value: top
+default_value_callback: ''
+settings: {  }
+field_type: list_string

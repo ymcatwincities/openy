@@ -405,6 +405,9 @@ table {
 .ds-icon-mail:before {
   content: "\e927"; }
 
+body.node--type-screen-content {
+  padding-top: 0 !important; }
+
 .progress--small {
   background: #6d4e92;
   width: 100%;
@@ -1134,3 +1137,95 @@ table {
     color: #5c2e91; }
   .block-system-message-color-purple .openy-digital-signage-block-system-message__message a {
     color: #5c2e91; }
+
+.openy-digital-signage-block-promotional {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative; }
+  .openy-digital-signage-block-promotional .block-promotional {
+    background-repeat: no-repeat;
+    color: #231f20;
+    height: 100%; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-cover {
+      background-size: cover; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-contain {
+      background-size: contain; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-top {
+      background-position: top center; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-bottom {
+      background-position: bottom center; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-left {
+      background-position: center left; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-right {
+      background-position: center right; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-white .openy-digital-signage-block-promotional__headline {
+      color: #fff; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-white .openy-digital-signage-block-promotional__subheading {
+      color: #e9e9e9; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-orange .openy-digital-signage-block-promotional__headline {
+      color: #f47920; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-orange .openy-digital-signage-block-promotional__subheading {
+      color: #dd5828; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-orange.block-promotional-background-dark .openy-digital-signage-block-promotional__headline {
+      color: #fcaf17; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-orange.block-promotional-background-dark .openy-digital-signage-block-promotional__subheading {
+      color: #f47920; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-blue .openy-digital-signage-block-promotional__headline {
+      color: #0089d0; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-blue .openy-digital-signage-block-promotional__subheading {
+      color: #0060af; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-blue.block-promotional-background-dark .openy-digital-signage-block-promotional__headline {
+      color: #00aeef; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-blue.block-promotional-background-dark .openy-digital-signage-block-promotional__subheading {
+      color: #0089d0; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-purple .openy-digital-signage-block-promotional__headline {
+      color: #92278f; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-purple .openy-digital-signage-block-promotional__subheading {
+      color: #5c2e91; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-purple.block-promotional-background-dark .openy-digital-signage-block-promotional__headline {
+      color: #c6168d; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-purple.block-promotional-background-dark .openy-digital-signage-block-promotional__subheading {
+      color: #92278f; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-green .openy-digital-signage-block-promotional__headline {
+      color: #01a490; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-green .openy-digital-signage-block-promotional__subheading {
+      color: #006b6b; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-green.block-promotional-background-dark .openy-digital-signage-block-promotional__headline {
+      color: #20bdbe; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-color-green.block-promotional-background-dark .openy-digital-signage-block-promotional__subheading {
+      color: #01a490; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-light .openy-digital-signage-block-promotional__message {
+      color: #231f20; }
+    .openy-digital-signage-block-promotional .block-promotional.block-promotional-background-dark .openy-digital-signage-block-promotional__message {
+      color: #fff; }
+
+.openy-digital-singage-block-promotional__image {
+  background-position: center center;
+  height: 100%; }
+
+.openy-digital-signage-block-promotional__headline {
+  text-transform: uppercase;
+  font-size: 4.6875vw;
+  line-height: 4.6875vw;
+  margin: 0; }
+
+.openy-digital-signage-block-promotional__subheading {
+  text-transform: uppercase;
+  font-size: 2.60417vw;
+  line-height: 2.60417vw;
+  margin: 0; }
+
+.openy-digital-signage-block-promotional__message {
+  font-size: 1.82292vw;
+  margin-top: 1.2em;
+  letter-spacing: -0.07812vw; }
+
+.openy-digital-signage-block-promotional__text-content {
+  font-family: "Cachet-Book";
+  padding: 4vw 5vw;
+  position: absolute; }
+  .block-promotional-message-position-top .openy-digital-signage-block-promotional__text-content {
+    top: 0; }
+  .block-promotional-message-position-bottom .openy-digital-signage-block-promotional__text-content {
+    bottom: 0; }

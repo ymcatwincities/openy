@@ -5,6 +5,10 @@
  * OpenY digital signage blocks module.
  */
 
+define('OPENY_DS_BLOCK_PROMOTIONAL', 'digital_signage_promotional');
+
+use Drupal\Core\Template\Attribute;
+
 /**
  * Implements hook_theme().
  */
@@ -26,5 +30,64 @@ function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
         'wrapper_attributes' => NULL,
       ],
     ],
+    'block__digital_signage_promotional' => [
+      'template' => 'block--digital-signage-promotional',
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ],
   ];
+}
+
+/**
+ * Implements hook_theme_suggestions_block().
+ */
+function openy_digital_signage_blocks_theme_suggestions_block(array $variables) {
+  if ($variables['elements']['#base_plugin_id'] != 'block_content') {
+    return;
+  }
+  /* @var \Drupal\block_content\Entity\BlockContent $block */
+  $block = $variables['elements']['content']['#block_content'];
+  $digital_singage_bundles = [
+    OPENY_DS_BLOCK_PROMOTIONAL,
+  ];
+  if (!in_array($block->bundle(), $digital_singage_bundles)) {
+    return;
+  }
+  // Add suggestion.
+  $suggestions = [];
+  $suggestions[] = 'block__' . $block->bundle();
+  return $suggestions;
+}
+
+/**
+ * Implements hook_preprocess_block() for block templates.
+ */
+function openy_digital_signage_blocks_preprocess_block(&$variables) {
+  if ($variables['base_plugin_id'] != 'block_content') {
+    return;
+  }
+  /* @var \Drupal\block_content\Entity\BlockContent $block */
+  $block = $variables['content']['#block_content'];
+  $digital_singage_bundles = [
+    OPENY_DS_BLOCK_PROMOTIONAL,
+  ];
+  if (!in_array($block->bundle(), $digital_singage_bundles)) {
+    return;
+  }
+
+  $variables['attributes']['class'][] = 'openy-digital-signage-block-promotional';
+
+  $attributes = new Attribute();
+  $attributes->addClass('block-promotional');
+  $attributes->addClass('block-promotional-background-' . $block->field_ds_background_size->value);
+  $attributes->addClass('block-promotional-background-' . $block->field_ds_background_position->value);
+  $attributes->addClass('block-promotional-background-' . $block->field_ds_background_scheme->value);
+  $attributes->addClass('block-promotional-color-' . $block->field_ds_color_scheme->value);
+  $attributes->addClass('block-promotional-message-position-' . $block->field_ds_message_position->value);
+  $background_styles = ['background-color: ' . $block->field_ds_background_color->value . ';'];
+  if ($background_image = $block->field_ds_background_image->entity) {
+    $background_styles[] = 'background-image:url(' . file_create_url($background_image->getFileUri()) . ');';
+  }
+  $attributes->setAttribute('style', $background_styles);
+  $variables['wrapper_attributes'] = $attributes;
 }

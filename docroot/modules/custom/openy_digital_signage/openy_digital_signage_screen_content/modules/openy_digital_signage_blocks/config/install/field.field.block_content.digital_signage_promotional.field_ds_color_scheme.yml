@@ -1,0 +1,23 @@
+uuid: d97e55c4-add1-4320-9a6d-d4d8a64b5038
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_color_scheme
+  module:
+    - options
+id: block_content.digital_signage_promotional.field_ds_color_scheme
+field_name: field_ds_color_scheme
+entity_type: block_content
+bundle: digital_signage_promotional
+label: 'Color scheme'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: orange
+default_value_callback: ''
+settings: {  }
+field_type: list_string

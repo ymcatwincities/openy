@@ -1,0 +1,21 @@
+uuid: fc83be48-b099-4b86-9e7a-d9ab51e7b9f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_background_color
+id: block_content.digital_signage_promotional.field_ds_background_color
+field_name: field_ds_background_color
+entity_type: block_content
+bundle: digital_signage_promotional
+label: 'Background color'
+description: 'Background color in HEX presentation, e.g. <em>#FFFFFF</em>'
+required: false
+translatable: false
+default_value:
+  -
+    value: '#FFFFFF'
+default_value_callback: ''
+settings: {  }
+field_type: string
