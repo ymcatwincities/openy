@@ -905,16 +905,22 @@ body.locations-camps-template .locations-page-under-lead-copy {
   }
 }
 
-.locations-list .label-for-field-location-fax,
-.locations-list .label-for-field-location-phone {
+.paragraph--type--prgf-location-finder .views-element-container {
+  padding: 0;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list {
+  padding: 20px 0;
+}
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-fax,
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .label-for-field-location-phone {
   text-transform: lowercase;
   display: inline;
 }
-.locations-list .field-location-fax,
-.locations-list .field-location-phone {
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-fax,
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .field-location-phone {
   display: inline;
 }
-.locations-list h1 {
+.paragraph--type--prgf-location-finder .views-element-container .locations-list h1 {
   color: #636466 !important;
 }
 
