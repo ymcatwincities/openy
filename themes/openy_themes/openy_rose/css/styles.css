@@ -3755,7 +3755,6 @@ html.js .branch__updates_queue__button {
 .node--type-camp.node--view-mode-teaser h2 {
   font-size: 22px;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
-  margin: 20px 0 33px;
   font-weight: bold;
 }
 .marker_tooltip .node--type-facility.node--view-mode-teaser h2, .marker_tooltip
@@ -3763,6 +3762,21 @@ html.js .branch__updates_queue__button {
 .node--type-branch.node--view-mode-class-location h2, .marker_tooltip
 .node--type-camp.node--view-mode-teaser h2 {
   margin: 0 0 5px;
+}
+.node--type-facility.node--view-mode-teaser h2 + .node__content,
+.node--type-branch.node--view-mode-teaser h2 + .node__content,
+.node--type-branch.node--view-mode-class-location h2 + .node__content,
+.node--type-camp.node--view-mode-teaser h2 + .node__content {
+  margin: 33px 0 0;
+}
+.node--type-facility.node--view-mode-teaser h2 + .field-location-area, .node--type-facility.node--view-mode-teaser h2 + .field-location-state,
+.node--type-branch.node--view-mode-teaser h2 + .field-location-area,
+.node--type-branch.node--view-mode-teaser h2 + .field-location-state,
+.node--type-branch.node--view-mode-class-location h2 + .field-location-area,
+.node--type-branch.node--view-mode-class-location h2 + .field-location-state,
+.node--type-camp.node--view-mode-teaser h2 + .field-location-area,
+.node--type-camp.node--view-mode-teaser h2 + .field-location-state {
+  margin: 20px 0 33px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours,
 .node--type-branch.node--view-mode-teaser .branch-hours,
