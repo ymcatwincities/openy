@@ -31,7 +31,7 @@ function openy_tour_tokens($type, $tokens, array $data, array $options, Bubbleab
       if (!empty($selector)) {
         switch ($token_name) {
           case 'click':
-            $markup = Markup::create('<p><a href="#" class="button--primary button openy-click-button" data-tour-selector="' . $selector . '">' . t($button_name) . '</a></p>');
+            $markup = Markup::create('<p><a href="#" class="button--primary button openy-click-button" data-click-button="false" data-tour-selector="' . $selector . '">' . t($button_name) . '</a></p>');
             $replacements[$original] = $markup;
             break;
         }
