@@ -11,7 +11,7 @@ id: block_content.digital_signage_promotional.field_ds_color_scheme
 field_name: field_ds_color_scheme
 entity_type: block_content
 bundle: digital_signage_promotional
-label: 'Color scheme'
+label: 'Headings Color scheme'
 description: ''
 required: true
 translatable: false
