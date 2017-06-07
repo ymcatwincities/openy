@@ -110,14 +110,39 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_program_subcategory',
       ],
     ],
-    'classes' => [
+    'activities' => [
       'openy_demo_nclass' => [
-        'openy_demo_node_class',
+        'openy_demo_node_activity'
+      ]
+    ],
+    'classes_01' => [
+      'openy_demo_nclass' => [
+        'openy_demo_node_class_01',
       ],
     ],
-    'sessions' => [
+    'classes_02' => [
+      'openy_demo_nclass' => [
+        'openy_demo_node_class_02',
+      ],
+    ],
+    'sessions_01' => [
       'openy_demo_nsessions' => [
-        'openy_demo_node_session',
+        'openy_demo_node_session_01',
+      ],
+    ],
+    'sessions_02' => [
+      'openy_demo_nsessions' => [
+        'openy_demo_node_session_02',
+      ],
+    ],
+    'sessions_03' => [
+      'openy_demo_nsessions' => [
+        'openy_demo_node_session_03',
+      ],
+    ],
+    'sessions_04' => [
+      'openy_demo_nsessions' => [
+        'openy_demo_node_session_04',
       ],
     ],
     'home_alt' => [
@@ -178,8 +203,11 @@ function openy_import_content(array &$install_state) {
 
   if (in_array('programs', $install_state['openy']['content'])) {
     $install_state['openy']['content'][] = 'categories';
-    $install_state['openy']['content'][] = 'classes';
-    $install_state['openy']['content'][] = 'sessions';
+    $install_state['openy']['content'][] = 'activities';
+    $install_state['openy']['content'][] = 'classes_01';
+    $install_state['openy']['content'][] = 'classes_02';
+    $install_state['openy']['content'][] = 'sessions_01';
+    $install_state['openy']['content'][] = 'sessions_02';
   }
 
   // Build migrations operations arrays, for selected content.
