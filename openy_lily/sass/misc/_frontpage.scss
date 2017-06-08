@@ -1,6 +1,158 @@
-.page_home {
+.path-frontpage {
   #block-tabs {
     margin-top: 60px;
   }
+  #banner {
+    margin-top: 67px;
+    @include breakpoint (0 $desktop) {
+      margin-top: 57px;
+    }
+    @include breakpoint (0 $tablet-start) {
+      margin-top: 94px;
+    }
+    @include breakpoint (0 $tablet) {
+      margin-top: 179px;
+    }
+  }
+  .masthead {
+    position: relative;
+    z-index: 33;
+    padding: 25px 0 10px;
+    background: #0060af;
+    @include breakpoint (0 $tablet) {
+      padding: 0 0 10px;
+      min-height: 128px;
+    }
+    .location-search-column {
+      position: absolute;
+      bottom: 0;
+      left: 64.666667%;
+      margin: 0;
+      top: 0;
+      @include breakpoint (0 $tablet) {
+        position: static;
+      }
+    }
+    .masthead-brand {
+      color: white;
+      border-color: #0e5188;
+      transition: background-color .3s;
+      -webkit-transition: background-color .3s;
+      text-decoration: none;
+      text-transform: uppercase;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+      font-weight: bold;
+      font-family: 'Cachet', Helvetica, Arial, sans-serif;
+      line-height: 1.3em;
+      font-size: 73px;
+      @include breakpoint (0 $desktop) {
+        font-size: 65px;
+      }
+      @include breakpoint (0 $tablet-start) {
+        font-size: 46px;
+      }
+      @include breakpoint (0 $tablet) {
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        min-height: 0;
+        text-align: center;
+        text-decoration: none;
+        font-size: 30px;
+      }
+    }
+    .find-locations {
+      position: absolute;
+      padding-top: 18px;
+      height: 100%;
+      white-space: nowrap;
+      right: 20px;
+      left: 0;
+
+      .location-search {
+        position: absolute;
+        bottom: 15px;
+        left: 0;
+        right: 0;
+        @include breakpoint (0 $desktop) {
+          bottom: 5px;
+        }
+        @include breakpoint (0 $tablet-start) {
+          bottom: -2px;
+        }
+        .control-label {
+          display: none;
+          &.in {
+            display: block;
+          }
+          .btn-info {
+            background-color: #0f74c7;
+            max-width: 300px;
+            display: inline-block;
+            transition: background-color .3s;
+            -webkit-transition: background-color .3s;
+            -webkit-box-shadow: 0 1px rgba(255,255,255,0.1);
+            box-shadow: 0 1px rgba(255,255,255,0.1);
+            margin: 0;
+            color: white;
+            text-transform: uppercase;
+            font-family: 'Cachet',Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.428571429;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid #0a5696;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+
+          }
+        }
+        .sr-only {
+          position: absolute;
+          width: 1px;
+          height: 1px;
+          padding: 0;
+          margin: -1px;
+          overflow: hidden;
+          clip: rect(0,0,0,0);
+          border: 0;
+        }
+        .location-search-collapse {
+          margin-bottom: 10px;
+          .input-group {
+            max-width: 300px;
+            margin: 0 auto;
+            .btn {
+              @extend .pink-button;
+              padding: 8px 12px;
+            }
+          }
+          &.collapse {
+            display: none;
+            &.in {
+              display: block;
+            }
+          }
+        }
+
+      }
+      @include breakpoint (0 $tablet) {
+        position: static;
+        padding-top: 0;
+        .location-search {
+          position: static;
+        }
+      }
+    }
+  }
 
 }
+

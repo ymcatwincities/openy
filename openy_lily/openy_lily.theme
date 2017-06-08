@@ -339,6 +339,8 @@ function openy_lily_preprocess_page(&$variables) {
   $route_match = \Drupal::routeMatch();
   $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
   $variables['page_title'] = $title;
+
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
 }
 
 /**

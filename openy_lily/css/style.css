@@ -841,8 +841,177 @@ header#page-head.expanded-search {
     margin-top: -16px;
   }
 }
-.page_home #block-tabs {
+.path-frontpage #block-tabs {
   margin-top: 60px;
+}
+.path-frontpage #banner {
+  margin-top: 67px;
+}
+@media (min-width: 0) and (max-width: 75em) {
+  .path-frontpage #banner {
+    margin-top: 57px;
+  }
+}
+@media (min-width: 0) and (max-width: 62em) {
+  .path-frontpage #banner {
+    margin-top: 94px;
+  }
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .path-frontpage #banner {
+    margin-top: 179px;
+  }
+}
+.path-frontpage .masthead {
+  position: relative;
+  z-index: 33;
+  padding: 25px 0 10px;
+  background: #0060af;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .path-frontpage .masthead {
+    padding: 0 0 10px;
+    min-height: 128px;
+  }
+}
+.path-frontpage .masthead .location-search-column {
+  position: absolute;
+  bottom: 0;
+  left: 64.666667%;
+  margin: 0;
+  top: 0;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .path-frontpage .masthead .location-search-column {
+    position: static;
+  }
+}
+.path-frontpage .masthead .masthead-brand {
+  color: white;
+  border-color: #0e5188;
+  transition: background-color .3s;
+  -webkit-transition: background-color .3s;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  line-height: 1.3em;
+  font-size: 73px;
+}
+@media (min-width: 0) and (max-width: 75em) {
+  .path-frontpage .masthead .masthead-brand {
+    font-size: 65px;
+  }
+}
+@media (min-width: 0) and (max-width: 62em) {
+  .path-frontpage .masthead .masthead-brand {
+    font-size: 46px;
+  }
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .path-frontpage .masthead .masthead-brand {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    min-height: 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 30px;
+  }
+}
+.path-frontpage .masthead .find-locations {
+  position: absolute;
+  padding-top: 18px;
+  height: 100%;
+  white-space: nowrap;
+  right: 20px;
+  left: 0;
+}
+.path-frontpage .masthead .find-locations .location-search {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+}
+@media (min-width: 0) and (max-width: 75em) {
+  .path-frontpage .masthead .find-locations .location-search {
+    bottom: 5px;
+  }
+}
+@media (min-width: 0) and (max-width: 62em) {
+  .path-frontpage .masthead .find-locations .location-search {
+    bottom: -2px;
+  }
+}
+.path-frontpage .masthead .find-locations .location-search .control-label {
+  display: none;
+}
+.path-frontpage .masthead .find-locations .location-search .control-label.in {
+  display: block;
+}
+.path-frontpage .masthead .find-locations .location-search .control-label .btn-info {
+  background-color: #0f74c7;
+  max-width: 300px;
+  display: inline-block;
+  transition: background-color .3s;
+  -webkit-transition: background-color .3s;
+  -webkit-box-shadow: 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px rgba(255, 255, 255, 0.1);
+  margin: 0;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Cachet',Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid #0a5696;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.path-frontpage .masthead .find-locations .location-search .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.path-frontpage .masthead .find-locations .location-search .location-search-collapse {
+  margin-bottom: 10px;
+}
+.path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group {
+  max-width: 300px;
+  margin: 0 auto;
+}
+.path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn {
+  padding: 8px 12px;
+}
+.path-frontpage .masthead .find-locations .location-search .location-search-collapse.collapse {
+  display: none;
+}
+.path-frontpage .masthead .find-locations .location-search .location-search-collapse.collapse.in {
+  display: block;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .path-frontpage .masthead .find-locations {
+    position: static;
+    padding-top: 0;
+  }
+  .path-frontpage .masthead .find-locations .location-search {
+    position: static;
+  }
 }
 
 .node--type-location .page-middle .content.node--view-mode-full,
@@ -2048,7 +2217,7 @@ body .ajax-progress-throbber .throbber {
   max-height: 500px;
 }
 
-.pink-button, [data-drupal-selector="edit-cancel"],
+.pink-button, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, [data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, #banner .banner-caption a {
@@ -2072,7 +2241,7 @@ body .ajax-progress-throbber .throbber {
   vertical-align: middle;
   cursor: pointer;
 }
-.pink-button:hover, [data-drupal-selector="edit-cancel"]:hover,
+.pink-button:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, [data-drupal-selector="edit-cancel"]:hover,
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
 [data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, #banner .banner-caption a:hover {
