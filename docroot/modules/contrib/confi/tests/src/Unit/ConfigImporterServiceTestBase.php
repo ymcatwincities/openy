@@ -20,7 +20,7 @@ abstract class ConfigImporterServiceTestBase extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['config_import', 'system'];
+  protected static $modules = ['config_import', 'system'];
   /**
    * Config Importer.
    *
