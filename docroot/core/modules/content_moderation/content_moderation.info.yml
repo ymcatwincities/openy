@@ -4,10 +4,12 @@ description: 'Provides moderation states for content'
 # version: VERSION
 # core: 8.x
 package: Core (Experimental)
-configure: content_moderation.overview
+configure: entity.workflow.collection
+dependencies:
+  - workflows
 
-# Information added by Drupal.org packaging script on 2016-12-07
-version: '8.2.4'
+# Information added by Drupal.org packaging script on 2017-05-03
+version: '8.3.2'
 core: '8.x'
 project: 'drupal'
-datestamp: 1481136831
+datestamp: 1493834648

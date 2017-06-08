@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\BlockVariantTrait.
- */
-
 namespace Drupal\ctools\Plugin;
 
 /**
