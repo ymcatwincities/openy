@@ -3,8 +3,8 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009 Fabien Potencier
- * (c) 2009 Armin Ronacher
+ * (c) Fabien Potencier
+ * (c) Armin Ronacher
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -33,7 +33,7 @@ class Twig_ExpressionParser
 
     private $env;
 
-    public function __construct(Twig_Parser $parser, Twig_Environment $env = null)
+    public function __construct(Twig_Parser $parser, $env = null)
     {
         $this->parser = $parser;
 
