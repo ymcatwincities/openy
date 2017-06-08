@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Form\ContextConfigure.
- */
-
 namespace Drupal\ctools\Form;
 
 
