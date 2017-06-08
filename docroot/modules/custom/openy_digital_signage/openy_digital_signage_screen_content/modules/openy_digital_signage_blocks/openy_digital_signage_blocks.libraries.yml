@@ -40,3 +40,9 @@ momentjs-timezone:
   js:
     /libraries/momentjs-timezone/moment-timezone.min.js: { minified: true }
     /libraries/momentjs-timezone/moment-timezone-with-data-2012-2022.min.js: { minified: true }
+
+block_html:
+  version: VERSION
+  css:
+    theme:
+      css/free-html.css: {}
