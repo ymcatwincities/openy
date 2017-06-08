@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Form\ManageContext.
- */
 
 namespace Drupal\ctools\Form;
 
@@ -94,7 +90,7 @@ abstract class ManageContext extends FormBase {
       '#theme' => 'table',
       '#header' => array($this->t('Context ID'), $this->t('Label'), $this->t('Data Type'), $this->t('Options')),
       '#rows' => $this->renderRows($cached_values),
-      '#empty' => t('No contexts or relationships have been added.')
+      '#empty' =>  $this->t('No contexts or relationships have been added.')
     );
     foreach ($this->typedDataManager->getDefinitions() as $type => $definition) {
       $types[$type] = $definition['label'];
@@ -129,7 +125,7 @@ abstract class ManageContext extends FormBase {
     $form['add_relationship'] = [
       '#type' => 'submit',
       '#name' => 'add_relationship',
-      '#value' => t('Add Relationship'),
+      '#value' =>  $this->t('Add Relationship'),
       '#ajax' => [
         'callback' => [$this, 'addRelationship'],
         'event' => 'click',
@@ -225,7 +221,7 @@ abstract class ManageContext extends FormBase {
     $operations = [];
     if ($this->isEditableContext($cached_values, $row)) {
       $operations['edit'] = array(
-        'title' => t('Edit'),
+        'title' =>  $this->t('Edit'),
         'url' => new Url($route_name_base . '.edit', $route_parameters),
         'weight' => 10,
         'attributes' => array(
@@ -237,7 +233,7 @@ abstract class ManageContext extends FormBase {
         ),
       );
       $operations['delete'] = array(
-        'title' => t('Delete'),
+        'title' =>  $this->t('Delete'),
         'url' => new Url($route_name_base . '.delete', $route_parameters),
         'weight' => 100,
         'attributes' => array(

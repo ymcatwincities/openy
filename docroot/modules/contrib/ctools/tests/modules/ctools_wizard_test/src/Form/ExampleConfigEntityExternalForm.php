@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools_wizard_test\Form\ExampleConfigEntityExternalForm
- */
 
 namespace Drupal\ctools_wizard_test\Form;
 
