@@ -12,6 +12,9 @@ block.settings.entity_field:*:*:
         weight:
           type: integer
           label: 'Weight'
+        region:
+          type: string
+          label: 'Region'
         label:
           type: string
           label: 'Label setting machine name'

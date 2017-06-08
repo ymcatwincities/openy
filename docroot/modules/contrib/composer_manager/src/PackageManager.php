@@ -227,7 +227,7 @@ class PackageManager implements PackageManagerInterface {
     // the root package by default.
     $root_package['repositories'][] = [
       'type' => 'composer',
-      'url' => 'https://packagist.drupal-composer.org',
+      'url' => 'https://packages.drupal.org/8',
     ];
     // Add each discovered extension to the merge list.
     foreach ($this->getExtensionPackages() as $extension_package) {
