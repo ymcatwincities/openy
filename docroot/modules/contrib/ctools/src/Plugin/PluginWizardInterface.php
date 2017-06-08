@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\PluginWizardInterface.
+ */
 
 namespace Drupal\ctools\Plugin;
 

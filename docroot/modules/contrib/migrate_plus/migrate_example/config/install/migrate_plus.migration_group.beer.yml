@@ -28,3 +28,11 @@ shared_configuration:
     # connection to your external database in settings.php and reference its
     # key here.
     key: default
+
+# As with the migration configuration (see beer_term), we add an enforced
+# dependency so the migration_group configuration will be removed on module
+# uninstall.
+dependencies:
+  enforced:
+    module:
+      - migrate_example

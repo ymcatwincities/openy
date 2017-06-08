@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\Event\MigratePrepareRowEvent.
- */
-
 namespace Drupal\migrate_plus\Event;
 
 use Drupal\migrate\Plugin\MigrationInterface;

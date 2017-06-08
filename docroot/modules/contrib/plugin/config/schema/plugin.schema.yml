@@ -1,0 +1,55 @@
+plugin.plugin_configuration.plugin_selector.plugin_selector_base:
+  type: mapping
+  mapping:
+    collect_plugin_configuration:
+      label: Collect plugin configuration
+      type: boolean
+    keep_previously_selected_plugins:
+      label: Keep previously selected plugins
+      type: boolean
+    label:
+      label: Label
+      type: label
+    description:
+      label: Label
+      type: label
+    required:
+      label: Required
+      type: boolean
+
+plugin.plugin_configuration.plugin_selector.advanced_plugin_selector_base:
+  type: plugin.plugin_configuration.plugin_selector.plugin_selector_base
+  mapping:
+    always_show_selection_elements:
+      label: Always show the selection elements
+      type: boolean
+
+plugin.plugin_configuration.plugin_selector.plugin_radios:
+  type: plugin.plugin_configuration.plugin_selector.advanced_plugin_selector_base
+
+plugin.plugin_configuration.plugin_selector.plugin_select_list:
+  type: plugin.plugin_configuration.plugin_selector.advanced_plugin_selector_base
+
+# Fallback plugin configuration in case no more specific schemas are available.
+plugin.plugin_configuration.*:
+  type: ignore
+
+# The "plugin" field type schema.
+"field.value.plugin:*":
+  label: Plugin collection field value
+  mapping:
+    plugin_id:
+      label: Plugin ID
+      type: string
+    plugin_configuration:
+      label: Plugin configuration
+      type: "[%parent.plugin_configuration_schema_id]"
+    plugin_configuration_schema_id:
+      label: Plugin configuration
+      type: string
+  type: config_object
+
+# The "plugin_id" Views filter plugin configuration schema.
+views.filter.plugin_id:
+  type: views.filter.in_operator
+  label: 'Plugin ID'

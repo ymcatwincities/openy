@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\ContextMapper.
+ */
+
 namespace Drupal\ctools;
 
 use Drupal\Core\Entity\EntityRepositoryInterface;

@@ -7,3 +7,4 @@ definition:
     enable: TRUE
     urls:
       - 'http://cgit.drupalcode.org/libraries_registry/plain/registry/8'
+global_locators: []

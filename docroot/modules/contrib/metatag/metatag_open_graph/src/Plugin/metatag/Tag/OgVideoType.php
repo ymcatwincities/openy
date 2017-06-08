@@ -10,7 +10,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  * @MetatagTag(
  *   id = "og_video_type",
  *   label = @Translation("Video type"),
- *   description = @Translation("The type of video referenced above. Should be either 'video/gif' for a GIF video, 'video/jpeg' for a JPG/JPEG video, or 'video/png' for a PNG video. Note: there should be one value for each video, and having more than there are videos may cause problems."),
+ *   description = @Translation("The type of video referenced above. Should be either  video.episode, video.movie, video.other, and video.tv_show. Note: there should be one value for each video, and having more than there are videos may cause problems."),
  *   name = "og:video:type",
  *   group = "open_graph",
  *   weight = 12,
