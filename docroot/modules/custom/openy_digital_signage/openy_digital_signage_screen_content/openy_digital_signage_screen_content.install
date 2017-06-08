@@ -9,7 +9,7 @@
  * Implements hook_install().
  */
 function openy_digital_signage_screen_content_install() {
-  // Set the weight of the openy_digital_signage_screen_content.module to 10
+  // Set the weight of the openy_digital_signage_screen_content.module to 100
   // so it is loaded after the panelizer.module.
-  module_set_weight('openy_digital_signage_screen_content', 10);
+  module_set_weight('openy_digital_signage_screen_content', 100);
 }
