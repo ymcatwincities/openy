@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools_views\Plugin\Display\Block.
+ */
 
 namespace Drupal\ctools_views\Plugin\Display;
 

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools_wizard_test\Form\ExampleConfigEntityDeleteForm.
+ */
+
 namespace Drupal\ctools_wizard_test\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;

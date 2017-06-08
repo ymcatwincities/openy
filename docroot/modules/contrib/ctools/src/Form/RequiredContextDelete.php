@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Form\RequiredContextDelete.
+ */
+
 namespace Drupal\ctools\Form;
 
 use Drupal\Core\Form\ConfirmFormBase;

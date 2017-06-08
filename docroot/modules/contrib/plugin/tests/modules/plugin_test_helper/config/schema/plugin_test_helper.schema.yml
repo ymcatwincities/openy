@@ -1,0 +1,9 @@
+plugin_test_helper.plugin_configuration.plugin_test_helper_mock.*:
+  type: ignore
+
+plugin_test_helper.plugin_configuration.plugin_test_helper_mock.plugin_test_helper_configurable_plugin:
+  type: mapping
+  mapping:
+    foo:
+      label: A random string
+      type: string

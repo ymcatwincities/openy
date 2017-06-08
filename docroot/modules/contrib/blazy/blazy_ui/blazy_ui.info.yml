@@ -1,0 +1,15 @@
+name: Blazy UI
+type: module
+description: 'Provides Blazy configuration UI.'
+# version: VERSION
+# core: 8.x
+package: Blazy
+configure: blazy.settings
+dependencies:
+  - blazy:blazy
+
+# Information added by Drupal.org packaging script on 2017-01-23
+version: '8.x-1.0-rc1'
+core: '8.x'
+project: 'blazy'
+datestamp: 1485194002
