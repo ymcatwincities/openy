@@ -6,6 +6,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Url;
 use Drupal\daxko\DaxkoClientInterface;
 use Drupal\openy_socrates\OpenyCronServiceInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Cookie\SetCookie;
 use GuzzleHttp\Client;
@@ -45,6 +46,13 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
   protected $crawler;
 
   /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * {@inheritdoc}
    */
   public function runCronServices() {
@@ -64,11 +72,12 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    * @param \Symfony\Component\DomCrawler\Crawler $crawler
    *   The crawler.
    */
-  public function __construct(DaxkoClientInterface $client, CacheBackendInterface $cache, Client $http, Crawler $crawler) {
+  public function __construct(DaxkoClientInterface $client, CacheBackendInterface $cache, Client $http, Crawler $crawler, ConfigFactoryInterface $config_factory) {
     $this->client = $client;
     $this->cache = $cache;
     $this->http = $http;
     $this->crawler = $crawler;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -88,6 +97,40 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     $this->getMapRateOptions();
     $this->getMapSchoolsProgramIds();
     $this->getMapLocationsPrograms();
+  }
+
+  /**
+   * Get URL from Config openy_programs_search.settings.
+   *
+   * @param $name string
+   *   Configuration item name.
+   * @param array $token_replace
+   *   Key value pair or from => to.
+   *
+   * @return array|mixed|string
+   */
+  private function getUrlFromOpenyProgramsSearchSettings($name, $token_replace = []) {
+    $config = $this->configFactory->get('openy_programs_search.settings');
+    if (empty($value = $config->get($name))) {
+      $value = '';
+    }
+    $base_url = $config->get('base_url');
+    $client_id = $config->get('client_id');
+    $token_replace += ['{{ client_id }}' => $client_id];
+
+    switch ($name) {
+      case 'base_url':
+        return $base_url;
+        break;
+      case 'registration_path':
+      case 'get_schools_by_program_path':
+      case 'get_categories_path':
+      case 'get_map_categories_by_branch_path':
+        return $base_url . strtr($value, $token_replace);;
+        break;
+    }
+
+    return '';
   }
 
   /**
@@ -234,7 +277,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    *   Registration link.
    */
   public function getRegistrationLink($program_id, $session_id) {
-    $uri = 'https://operations.daxko.com/Online/4003/Programs/Search.mvc/details';
+    $uri = $this->getUrlFromOpenyProgramsSearchSettings('registration_path');
 
     $query = [
       'program_id' => $program_id,
@@ -267,8 +310,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    *   Registration link.
    */
   public function getChildCareRegistrationLink($school_id, $program_id, $context_id) {
-    // @todo Get it from config.
-    $domain = 'https://operations.daxko.com';
+    $domain = $this->getUrlFromOpenyProgramsSearchSettings('base_url');
 
     $map = $this->getMapRateOptions();
     $item = $map[$school_id][$program_id][$context_id];
@@ -432,7 +474,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    *   Page source.
    */
   protected function getDaxkoPageSource($url) {
-    $contents = '';
+    $config = $this->configFactory->get('openy_programs_search.settings');
 
     // @todo Add try/catch.
     $options = ['allow_redirects' => FALSE];
@@ -440,7 +482,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     $cookies = $res->getHeader('Set-Cookie');
 
     $final = [];
-    $domain = '.daxko.com';
+    $domain = '.' . $config->get('domain');
     foreach ($cookies as $cookie) {
       $parts = explode(';', $cookie);
       foreach ($parts as $part) {
@@ -489,8 +531,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
       return $cache->data;
     }
 
-    // @todo Get it from config.
-    $domain = 'https://operations.daxko.com';
+    $domain = $this->getUrlFromOpenyProgramsSearchSettings('base_url');
 
     // Here we'll iterate over each program and scrape data for each school.
     // We should be careful in order not to make a high load on Daxko.
@@ -575,8 +616,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
    *   Scraped schools.
    */
   protected function scrapeDaxkoSchoolsByProgram($program_id) {
-    // @todo Move to the config.
-    $link = 'https://operations.daxko.com/Online/4003/Programs/ChildCareSearch.mvc/locations_by_program?program_id=' . $program_id;
+    $link = $this->getUrlFromOpenyProgramsSearchSettings('get_schools_by_program_path', ['{{ program_id }}' => $program_id]);
     $source = $this->getDaxkoPageSource($link);
 
     $this->crawler->clear();
@@ -746,7 +786,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
       return $cache->data;
     }
 
-    $link = 'https://operations.daxko.com/Online/4003/Programs/search.mvc/categories';
+    $link = $this->getUrlFromOpenyProgramsSearchSettings('get_categories_path');
     $result = $this->scrapeCategoryList($link);
     $data = array_combine(array_values($result), array_values($result));
 
@@ -763,11 +803,10 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
       return $cache->data;
     }
 
-    $url_prefix = 'https://operations.daxko.com/Online/4003/Programs/search.mvc/categories?branch_id=';
     $locations = $this->getLocations();
     $data = [];
     foreach ($locations as $location_id => $location_name) {
-      $link = $url_prefix . $location_id;
+      $link = $this->getUrlFromOpenyProgramsSearchSettings('get_schools_by_program_path', ['{{ branch_id }}' => $location_id]);
       $data[$location_id] = $this->scrapeCategoryList($link);
     }
 

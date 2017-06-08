@@ -4,19 +4,13 @@ dependencies:
   config:
     - field.field.paragraph.program_registration.field_prgf_reg_block
     - paragraphs.paragraphs_type.program_registration
-  module:
-    - plugin
 id: paragraph.program_registration.default
 targetEntityType: paragraph
 bundle: program_registration
 mode: default
-content:
-  field_prgf_reg_block:
-    weight: 6
-    settings: {  }
-    third_party_settings: {  }
-    type: 'plugin_selector:plugin_select_list'
+content: {  }
 hidden:
   created: true
+  field_prgf_reg_block: true
   status: true
   uid: true

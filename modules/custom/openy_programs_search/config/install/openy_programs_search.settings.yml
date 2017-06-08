@@ -1,1 +1,8 @@
 default_locations: []
+client_id: ''
+domain: ''
+base_url: ''
+registration_path: ''
+get_schools_by_program_path: ''
+get_categories_path: ''
+get_map_categories_by_branch_path: ''

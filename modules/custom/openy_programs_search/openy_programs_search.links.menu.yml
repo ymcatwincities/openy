@@ -1,0 +1,5 @@
+openy_programs_search.admin:
+  title: 'OpenY Programs Search settings'
+  parent: system.admin_config_content
+  route_name: openy_programs_search.settings
+  weight: 100
