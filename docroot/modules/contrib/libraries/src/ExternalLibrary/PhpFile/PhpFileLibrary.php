@@ -66,7 +66,8 @@ class PhpFileLibrary extends LibraryBase implements PhpFileLibraryInterface {
    * {@inheritdoc}
    */
   public function getLocator(FactoryInterface $locator_factory) {
-    return $locator_factory->createInstance('stream', ['scheme' => 'php-file']);
+    // @todo Consider refining the stream wrapper used here.
+    return $locator_factory->createInstance('uri', ['uri' => 'php-file://']);
   }
 
 }

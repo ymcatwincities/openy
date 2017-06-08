@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncamp
+id: openy_demo_prgf_blog_camp
+migration_tags: {  }
+migration_group: openy_demo_ncamp
+label: 'Create latest blog posts (camp) paragraph(s) for demo camp page nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: blog_camp_1
+      parent_id: 1
+    -
+      id: blog_camp_2
+      parent_id: 2
+    -
+      id: blog_camp_3
+      parent_id: 3
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_camp
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: latest_blog_posts_camp

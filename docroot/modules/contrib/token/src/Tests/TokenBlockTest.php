@@ -48,6 +48,10 @@ class TokenBlockTest extends TokenTestBase {
       'label' => '[user:name]',
     ));
     $this->drupalGet($block->urlInfo());
+    // Ensure that the link to available tokens is present and correctly
+    // positioned.
+    $this->assertLink('Browse available tokens.');
+    $this->assertText('This field supports tokens. Browse available tokens.');
     $this->drupalPostForm(NULL, array(), t('Save block'));
     // Ensure token validation is working on the block.
     $this->assertText('Title is using the following invalid tokens: [user:name].');

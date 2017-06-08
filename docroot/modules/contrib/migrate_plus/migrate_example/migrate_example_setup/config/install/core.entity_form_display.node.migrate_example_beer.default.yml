@@ -11,7 +11,6 @@ dependencies:
   module:
     - comment
     - image
-    - path
     - text
 id: node.migrate_example_beer.default
 targetEntityType: node
@@ -58,11 +57,6 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
-  path:
-    type: path
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
   promote:
     type: boolean_checkbox
     settings:

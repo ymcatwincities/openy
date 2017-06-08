@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools\Form\RelationshipDelete.
+ */
 
 namespace Drupal\ctools\Form;
 

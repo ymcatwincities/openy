@@ -1,5 +1,9 @@
+# The 'type' should be "label" for short meta tags and "text" for ones which
+# could get longer, especially ones which use a textarea field instead of a
+# textfield.
+
 metatag.metatag_tag.abstract:
-  type: label
+  type: text
   label: 'Abstract'
 metatag.metatag_tag.canonical_url:
   type: label
@@ -8,7 +12,7 @@ metatag.metatag_tag.content_language:
   type: label
   label: 'Content Language'
 metatag.metatag_tag.description:
-  type: label
+  type: text
   label: 'Description'
 metatag.metatag_tag.generator:
   type: label
