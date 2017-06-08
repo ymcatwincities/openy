@@ -6,6 +6,7 @@
  */
 
 define('OPENY_DS_BLOCK_PROMOTIONAL', 'digital_signage_promotional');
+define('OPENY_DS_BLOCK_HTML_BUNDLE', 'digital_signage_block_free_html');
 
 use Drupal\Core\Template\Attribute;
 
@@ -42,6 +43,11 @@ function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
         'current_time' => NULL,
       ],
     ],
+    'block__digital_signage_block_free_html' => [
+      'template' => 'block--digital-signage-block-free-html',
+      'render element' => 'elements',
+      'base hook' => 'block',
+    ],
   ];
 }
 
@@ -54,10 +60,11 @@ function openy_digital_signage_blocks_theme_suggestions_block(array $variables) 
   }
   /* @var \Drupal\block_content\Entity\BlockContent $block */
   $block = $variables['elements']['content']['#block_content'];
-  $digital_singage_bundles = [
+  $digital_signage_bundles = [
     OPENY_DS_BLOCK_PROMOTIONAL,
+    OPENY_DS_BLOCK_HTML_BUNDLE,
   ];
-  if (!in_array($block->bundle(), $digital_singage_bundles)) {
+  if (!in_array($block->bundle(), $digital_signage_bundles)) {
     return;
   }
   // Add suggestion.
@@ -75,49 +82,74 @@ function openy_digital_signage_blocks_preprocess_block(&$variables) {
   }
   /* @var \Drupal\block_content\Entity\BlockContent $block */
   $block = $variables['content']['#block_content'];
-  $digital_singage_bundles = [
-    OPENY_DS_BLOCK_PROMOTIONAL,
-  ];
-  if (!in_array($block->bundle(), $digital_singage_bundles)) {
+  switch ($block->bundle()) {
+    case OPENY_DS_BLOCK_PROMOTIONAL:
+
+      $variables['attributes']['class'][] = 'openy-digital-signage-block-promotional';
+
+      $attributes = new Attribute();
+      $attributes->addClass('block-promotional');
+      $attributes->addClass('block-promotional-background-' . $block->field_ds_background_size->value);
+      $attributes->addClass('block-promotional-background-' . $block->field_ds_background_position->value);
+      $attributes->addClass('block-promotional-background-' . $block->field_ds_background_scheme->value);
+      $attributes->addClass('block-promotional-color-' . $block->field_ds_color_scheme->value);
+      $attributes->addClass('block-promotional-message-position-' . $block->field_ds_message_position->value);
+      $background_styles = ['background-color: ' . $block->field_ds_background_color->value . ';'];
+      if ($background_image = $block->field_ds_background_image->entity) {
+        $background_styles[] = 'background-image:url(' . file_create_url($background_image->getFileUri()) . ');';
+      }
+      $attributes->setAttribute('style', $background_styles);
+      $variables['wrapper_attributes'] = $attributes;
+      break;
+
+    case OPENY_DS_BLOCK_HTML_BUNDLE:
+      // Do not display image.
+      $variables['content']['field_ds_background_image']['#access'] = FALSE;
+      $variables['background_image'] = '';
+      if (!empty($variables['content']['field_ds_background_image'][0]['#file'])) {
+        /* @var \Drupal\file_entity\Entity\FileEntity $file */
+        $file = $variables['content']['field_ds_background_image'][0]['#file'];
+        $variables['background_image'] = file_create_url($file->getFileUri());
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_block_content_view().
+ */
+function openy_digital_signage_blocks_block_content_view(array &$build, \Drupal\block_content\Entity\BlockContent $block_content, $view_mode) {
+  if ($block_content->bundle() != OPENY_DS_BLOCK_HTML_BUNDLE) {
     return;
   }
-
-  $variables['attributes']['class'][] = 'openy-digital-signage-block-promotional';
-
-  $attributes = new Attribute();
-  $attributes->addClass('block-promotional');
-  $attributes->addClass('block-promotional-background-' . $block->field_ds_background_size->value);
-  $attributes->addClass('block-promotional-background-' . $block->field_ds_background_position->value);
-  $attributes->addClass('block-promotional-background-' . $block->field_ds_background_scheme->value);
-  $attributes->addClass('block-promotional-color-' . $block->field_ds_color_scheme->value);
-  $attributes->addClass('block-promotional-message-position-' . $block->field_ds_message_position->value);
-  $background_styles = ['background-color: ' . $block->field_ds_background_color->value . ';'];
-  if ($background_image = $block->field_ds_background_image->entity) {
-    $background_styles[] = 'background-image:url(' . file_create_url($background_image->getFileUri()) . ');';
-  }
-  $attributes->setAttribute('style', $background_styles);
-  $variables['wrapper_attributes'] = $attributes;
+  // Attach library with styles to block.
+  $build['#attached']['library'][] = 'openy_digital_signage_blocks/block_html';
 }
 
 /**
  * Implements hook_form_alter().
  */
 function openy_digital_signage_blocks_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  if ($form_id != 'block_content_digital_signage_promotional_panels_ipe_form') {
-    return;
-  }
-  $form['revision_information']['#access'] = FALSE;
+  switch ($form_id) {
+    case 'block_content_digital_signage_promotional_panels_ipe_form':
+      $form['revision_information']['#access'] = FALSE;
 
-  $form['background_image_settings'] = [
-    '#type' => 'fieldset',
-    '#title' => t('Background Image settings'),
-    '#collapsible' => TRUE,
-    '#weight' => $form['field_ds_background_image']['#weight'],
-  ];
-  $form['background_image_settings']['field_ds_background_image'] = $form['field_ds_background_image'];
-  unset($form['field_ds_background_image']);
-  $form['background_image_settings']['field_ds_background_position'] = $form['field_ds_background_position'];
-  unset($form['field_ds_background_position']);
-  $form['background_image_settings']['field_ds_background_size'] = $form['field_ds_background_size'];
-  unset($form['field_ds_background_size']);
+      $form['background_image_settings'] = [
+        '#type' => 'fieldset',
+        '#title' => t('Background Image settings'),
+        '#collapsible' => TRUE,
+        '#weight' => $form['field_ds_background_image']['#weight'],
+      ];
+      $form['background_image_settings']['field_ds_background_image'] = $form['field_ds_background_image'];
+      unset($form['field_ds_background_image']);
+      $form['background_image_settings']['field_ds_background_position'] = $form['field_ds_background_position'];
+      unset($form['field_ds_background_position']);
+      $form['background_image_settings']['field_ds_background_size'] = $form['field_ds_background_size'];
+      unset($form['field_ds_background_size']);
+      break;
+
+    case 'block_content_digital_signage_block_free_html_panels_ipe_form':
+      $form['revision_information']['#access'] = FALSE;
+      break;
+  }
 }

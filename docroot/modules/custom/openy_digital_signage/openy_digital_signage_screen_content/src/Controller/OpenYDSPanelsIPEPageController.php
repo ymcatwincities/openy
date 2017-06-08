@@ -75,7 +75,10 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
 
     // Assemble our relevant data.
     $data = [];
-    $supported_block_bundles = ['digital_signage_block_free_html', 'digital_signage_promotional'];
+    $supported_block_bundles = [
+      'digital_signage_block_free_html',
+      'digital_signage_promotional',
+    ];
     $supported_categories = ['Digital Signage', 'Custom'];
     foreach ($definitions as $plugin_id => $definition) {
       // Don't add broken Blocks.
@@ -121,9 +124,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
       ->loadMultiple();
     $data = [];
 
-    // @todo remove basic.
     $available_types = [
-      'basic',
       'digital_signage_block_free_html',
       'digital_signage_promotional',
     ];
