@@ -5,6 +5,8 @@ dependencies:
     - filter.format.full_html
   module:
     - ckeditor
+_core:
+  default_config_hash: 71e-M2o5ykuUYn1DFT4bhJUMOBTzUNQ1cUw7dL7YNLo
 format: full_html
 editor: ckeditor
 settings:
@@ -45,6 +47,7 @@ settings:
           name: 'Block Formatting'
           items:
             - Format
+            - Styles
         -
           name: Tools
           items:
@@ -52,7 +55,7 @@ settings:
             - Source
   plugins:
     stylescombo:
-      styles: ''
+      styles: "p.wysiwyg--button|Button\r\nspan.wysiwyg--clock-icon|Clock icon"
     language:
       language_list: un
     colorbutton:

@@ -3,11 +3,12 @@ status: true
 dependencies:
   module:
     - editor
+    - entity_embed
+_core:
+  default_config_hash: 44szxH8Ng0ijg00cEbhwtzWBVQqUshKU9jvP0rZt8ok
 name: 'Full HTML'
 format: full_html
 weight: 1
-roles:
-  - administrator
 filters:
   filter_align:
     id: filter_align
