@@ -15,6 +15,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
    *
    * @param string $panels_storage_id
    *   The id within the storage plugin for the requested Panels display.
+   *
    * @return bool
    *   Status.
    */
@@ -75,7 +76,10 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
 
     // Assemble our relevant data.
     $data = [];
-    $supported_block_bundles = ['digital_signage_block_free_html', 'digital_signage_promotional'];
+    $supported_block_bundles = [
+      'digital_signage_block_free_html',
+      'digital_signage_promotional',
+    ];
     $supported_categories = ['Digital Signage', 'Custom'];
     foreach ($definitions as $plugin_id => $definition) {
       // Don't add broken Blocks.
@@ -121,9 +125,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
       ->loadMultiple();
     $data = [];
 
-    // @todo remove basic.
     $available_types = [
-      'basic',
       'digital_signage_block_free_html',
       'digital_signage_promotional',
     ];
