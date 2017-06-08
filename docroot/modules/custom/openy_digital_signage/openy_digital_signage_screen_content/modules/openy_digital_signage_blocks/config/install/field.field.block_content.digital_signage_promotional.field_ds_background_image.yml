@@ -1,0 +1,38 @@
+uuid: 14e8ca62-553d-4d82-a613-9ae7e3e40488
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_background_image
+  module:
+    - image
+id: block_content.digital_signage_promotional.field_ds_background_image
+field_name: field_ds_background_image
+entity_type: block_content
+bundle: digital_signage_promotional
+label: 'Background Image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: 'digital-signage/promotional/[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

@@ -12,6 +12,12 @@
     }
   }
 
+  .ipe-actions-block {
+    position: absolute;
+    width: 100%;
+    z-index:10;
+  }
+
   .ipe-action-list {
     .ipe-icon {
       height: 24 / 1920 * 100vw;
@@ -41,4 +47,13 @@
 .ipe-tab.active a,
 .ipe-tab a:hover {
   padding-bottom: 5px;
+}
+
+#panels-ipe-tray {
+  bottom: -30px;
+  transition: bottom 0.4s;
+
+  &:hover {
+    bottom: 0;
+  }
 }
