@@ -21,6 +21,7 @@ settings:
             - Subscript
             - '-'
             - RemoveFormat
+            - TextColor
         -
           name: Linking
           items:
@@ -50,10 +51,12 @@ settings:
             - ShowBlocks
             - Source
   plugins:
-    language:
-      language_list: un
     stylescombo:
       styles: ''
+    language:
+      language_list: un
+    colorbutton:
+      colors: ''
 image_upload:
   status: true
   scheme: public

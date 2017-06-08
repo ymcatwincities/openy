@@ -61,7 +61,8 @@ class ClassBranchesForm extends FormBase {
       '#type' => 'radios',
       '#title' => t('Please select a location'),
       '#default_value' => $default,
-      '#options' => $branches_list['branch'] + $branches_list['camp'],
+      '#options' => ['all' => 'All'] + $branches_list['branch'] + $branches_list['camp'],
+      '#all' => ['all' => 'All'],
       '#branches' => $branches_list['branch'],
       '#camps' => $branches_list['camp'],
     ];
@@ -80,8 +81,10 @@ class ClassBranchesForm extends FormBase {
     $destination['path'] = str_replace(base_path(), '/', $destination['path']);
     $branch = $form_state->getValue('branch');
     $destination['query']['location'] = $branch;
+    unset($destination['query']['session']);
     $uri = \Drupal::request()->getUriForPath($destination['path']);
     $response = new RedirectResponse($uri . '?' . UrlHelper::buildQuery($destination['query']));
+
     $response->send();
   }
 

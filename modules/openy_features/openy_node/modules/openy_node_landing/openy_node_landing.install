@@ -15,6 +15,9 @@ function openy_node_landing_update_dependencies() {
     ],
     8002 => [
       'openy_node' => 8003,
+    ],
+    8003 => [
+      'openy' => 8015,
     ]
   ];
 
@@ -94,4 +97,32 @@ function openy_node_landing_update_8002() {
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
   $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
+}
+
+/**
+ * Enabling scheduler module..
+ */
+function openy_node_landing_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.landing_page.default' => [
+      'dependencies.module',
+      'content.publish_on',
+      'content.unpublish_on',
+    ],
+    'node.type.landing_page' => [
+      'dependencies.module',
+      'third_party_settings.scheduler',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

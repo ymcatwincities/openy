@@ -12,11 +12,11 @@
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
         "emuse/behat-html-formatter": "^0.1.0",
-        "drupal/tqextension": "dev-drupal-8",
-        "cevou/behat-screenshot-compare-extension": "^1.0@dev"
+        "drupal/tqextension": "dev-drupal-8"
     },
     "config": {
-        "bin-dir": "bin/"
+        "bin-dir": "bin/",
+        "secure-http": false
     },
     "repositories": [
         {
@@ -87,15 +87,39 @@
                     "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/panelbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colorbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
         "post-install-cmd": [
             "@composer drupal-scaffold",
-            "sh scripts/remove_openy_docroot_folder.sh || :"
+            "bash scripts/remove_openy_docroot_folder.sh || :"
         ],
         "post-update-cmd": [
-            "sh scripts/remove_openy_docroot_folder.sh || :"
+            "bash scripts/remove_openy_docroot_folder.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
     },
@@ -122,6 +146,18 @@
             },
             "drupal/datalayer": {
                 "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
+            },
+            "drupal/admin_toolbar": {
+                "2838636 - Issue with z-index of dropdown in horizontal tray": "https://www.drupal.org/files/issues/admin_toolbar-2838636-10.patch",
+                "2838636 - Issue with z-index of dropdown in horizontal tray 2": "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
+            },
+            "drupal/panelbutton": {
+              "2881820 - Module can't find library in profile directory": "https://www.drupal.org/files/issues/panelbutton-libraries-2881820.patch",
+              "2881818 - Check for missing library in hook_requirements": "https://www.drupal.org/files/issues/panelbutton-hook-requirements-2881818_0.patch"
+            },
+            "drupal/colorbutton": {
+              "2881822 - Module can't find library in profile directory": "https://www.drupal.org/files/issues/colorbutton-libraries-2881822-3.patch",
+              "2881819 - Check for missing library in hook_requirements": "https://www.drupal.org/files/issues/colorbutton-hook-requirements-2881819_0.patch"
             }
         }
     },
@@ -167,18 +203,24 @@
         "library-kenwheeler/slick": "1.6.0",
         "library-dinbror/blazy": "1.8.2",
         "library-gdsmith/jquery.easing": "1.4.1",
+        "library-ckeditor/panelbutton": "4.7.0",
+        "library-ckeditor/colorbutton": "4.7.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
         "drupal/optimizely": "1.2",
+        "drupal/google_tag": "1.x-dev",
         "drupal/google_analytics": "^2.1",
         "drupal/simple_sitemap": "^2.8",
         "drupal/redirect": "^1.0@alpha",
         "drupal/metatag": "^1.0",
+        "drupal/scheduler": "^1.0@RC",
         "drupal/webform": "^5.0@beta",
         "drupal/captcha": "^1.0@beta",
         "drupal/recaptcha": "^2.2",
-        "drupal/google_tag": "1.x-dev",
-        "drupal/rabbit_hole": "1.0-beta3"
+        "drupal/rabbit_hole": "1.0-beta3",
+        "drupal/admin_toolbar": "1.19",
+        "drupal/panelbutton": "1.0",
+        "drupal/colorbutton": "1.0"
     }
 }
