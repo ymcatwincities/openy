@@ -93,8 +93,15 @@ function openy_digital_signage_screen_preprocess_html(&$variables) {
 /**
  * Implements hook_preprocess_page().
  */
-function openy_digital_signage_screen_preprocess_page(&$variables) {
+function openy_digital_signage_screen_preprocess_page__screen(&$variables) {
   $variables['base_path'] = base_path();
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->bundle() == 'screen_content') {
+      unset($variables['page']['content']['tabs']);
+    }
+  }
 }
 
 /**
