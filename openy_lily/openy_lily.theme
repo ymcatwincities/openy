@@ -341,6 +341,7 @@ function openy_lily_preprocess_page(&$variables) {
   $variables['page_title'] = $title;
 
   $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  $variables['locations_path'] = theme_get_setting('locations_path');
 }
 
 /**
@@ -1018,6 +1019,14 @@ function openy_lily_form_system_theme_settings_alter(&$form, FormStateInterface 
     '#title' => t('Hide mobile sign in button'),
     '#default_value' => (theme_get_setting('hide_mobile_sign_button') === NULL) ? FALSE : theme_get_setting('hide_mobile_sign_button'),
     '#description' => t('Do not show mobile sign in button.'),
+  ];
+
+  // Location path.
+  $form['openy_lily_settings']['locations_path'] = [
+    '#type' => 'textfield',
+    '#title' => t('Please input Locations page path'),
+    '#default_value' => (theme_get_setting('locations_path') === NULL) ? FALSE : theme_get_setting('locations_path'),
+    '#description' => t('Path to locations page.'),
   ];
 }
 

@@ -40,3 +40,4 @@ openy_lily_favicon_camp: {  }
 openy_lily_favicon_location: {  }
 header_search: 1
 hide_mobile_sign_button: 0
+locations_path: '/locations'
