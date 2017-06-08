@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_digital_signage_block_time\Plugin\Block;
+namespace Drupal\openy_digital_signage_blocks\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
