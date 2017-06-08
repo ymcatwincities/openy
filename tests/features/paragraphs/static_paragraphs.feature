@@ -14,10 +14,11 @@ Feature: Static Paragraphs
       | KEY     | name          | field_color |
       | green   | Behat Green   | 00FF00      |
     And I create large paragraph of type small_banner:
-      | KEY                 | behat_small_banner |
-      | field_prgf_headline | BEHAT SMALL BANNER |
-      | field_prgf_image    | image_01           |
-      | field_prgf_color    | green              |
+      | KEY                    | behat_small_banner |
+      | field_prgf_headline    | BEHAT SMALL BANNER |
+      | field_prgf_image       | image_01           |
+      | field_prgf_color       | green              |
+      | field_prgf_description | Enjoy the OpenY    |
     And I create large paragraph of type banner:
       | KEY                    | behat_banner        |
       | field_prgf_headline    | BEHAT BANNER        |
@@ -86,6 +87,7 @@ Feature: Static Paragraphs
     Given I view node "landing_small_banner"
     Then I should see "BEHAT SMALL BANNER"
     And I should see a ".paragraph--type--small-banner .banner-image img" element
+    And I should see the text "Enjoy the OpenY"
 
   Scenario: See Banner On Landing Page
     Given I view node "landing_banner"

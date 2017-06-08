@@ -96,17 +96,8 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
       $conditions['session'] = $session_id;
     }
 
-    // There is no session instances associated with the class node.
-    if (!$session_instances = $this->classSessionsService->getClassNodeSessionInstances($node, $conditions)) {
-      return [];
-    }
-
-    // Get Session Instances rows.
-    $session_instances_rows = $this->classSessionsService->getSessionInstancesRows($session_instances, $tags);
-
     $class_sessions = [
       '#theme' => 'class_sessions',
-      '#session_instances_rows' => $session_instances_rows,
       '#cache' => [
         'tags' => Cache::mergeTags(['class_sessions'], $tags),
         'contexts' => $contexts,
@@ -116,6 +107,16 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
     if (!empty($location_id)) {
       $class_sessions['#conditions_location'] = $location_id;
     }
+
+    // There is no session instances associated with the class node.
+    if (!$session_instances = $this->classSessionsService->getClassNodeSessionInstances($node, $conditions)) {
+      return $class_sessions;
+    }
+
+    // Get Session Instances rows.
+    $session_instances_rows = $this->classSessionsService->getSessionInstancesRows($session_instances, $tags);
+
+    $class_sessions['#session_instances_rows'] = $session_instances_rows;
 
     return $class_sessions;
   }

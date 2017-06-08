@@ -233,6 +233,77 @@ display:
           view_mode: teaser
           entity_type: node
           plugin_id: rendered_entity
+        nid:
+          id: nid
+          table: node_field_data
+          field: nid
+          relationship: none
+          group_type: count_distinct
+          admin_label: ''
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings: {  }
+          group_column: entity_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          set_precision: false
+          precision: 0
+          decimal: .
+          format_plural: 0
+          format_plural_string: "1\x03@count"
+          prefix: ''
+          suffix: ''
+          entity_type: node
+          entity_field: nid
+          plugin_id: field
       filters:
         status:
           value: '1'
@@ -541,6 +612,7 @@ display:
         operator: AND
         groups:
           1: AND
+      group_by: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -560,9 +632,11 @@ display:
         - 'config:core.entity_view_display.node.blog.full'
         - 'config:core.entity_view_display.node.blog.teaser'
         - 'config:core.entity_view_display.node.branch.calc_summary'
+        - 'config:core.entity_view_display.node.branch.class_location'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
         - 'config:core.entity_view_display.node.branch.teaser'
+        - 'config:core.entity_view_display.node.camp.class_location'
         - 'config:core.entity_view_display.node.camp.default'
         - 'config:core.entity_view_display.node.camp.full'
         - 'config:core.entity_view_display.node.camp.teaser'
@@ -615,9 +689,11 @@ display:
         - 'config:core.entity_view_display.node.blog.full'
         - 'config:core.entity_view_display.node.blog.teaser'
         - 'config:core.entity_view_display.node.branch.calc_summary'
+        - 'config:core.entity_view_display.node.branch.class_location'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
         - 'config:core.entity_view_display.node.branch.teaser'
+        - 'config:core.entity_view_display.node.camp.class_location'
         - 'config:core.entity_view_display.node.camp.default'
         - 'config:core.entity_view_display.node.camp.full'
         - 'config:core.entity_view_display.node.camp.teaser'
