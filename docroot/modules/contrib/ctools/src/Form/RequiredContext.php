@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Form\RequiredContext.
+ */
+
 namespace Drupal\ctools\Form;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
@@ -58,7 +63,7 @@ abstract class RequiredContext extends FormBase {
       '#theme' => 'table',
       '#header' => array($this->t('Information'), $this->t('Description'), $this->t('Operations')),
       '#rows' => $this->renderContexts($cached_values),
-      '#empty' => $this->t('No required contexts have been configured.')
+      '#empty' => t('No required contexts have been configured.')
     );
     $form['contexts'] = [
       '#type' => 'select',
@@ -67,7 +72,7 @@ abstract class RequiredContext extends FormBase {
     $form['add'] = [
       '#type' => 'submit',
       '#name' => 'add',
-      '#value' => $this->t('Add required context'),
+      '#value' => t('Add required context'),
       '#ajax' => [
         'callback' => [$this, 'add'],
         'event' => 'click',
@@ -132,7 +137,7 @@ abstract class RequiredContext extends FormBase {
 
   protected function getOperations($route_name_base, array $route_parameters = array()) {
     $operations['edit'] = array(
-      'title' => $this->t('Edit'),
+      'title' => t('Edit'),
       'url' => new Url($route_name_base . '.edit', $route_parameters),
       'weight' => 10,
       'attributes' => array(
@@ -148,7 +153,7 @@ abstract class RequiredContext extends FormBase {
     );
     $route_parameters['id'] = $route_parameters['context'];
     $operations['delete'] = array(
-      'title' => $this->t('Delete'),
+      'title' => t('Delete'),
       'url' => new Url($route_name_base . '.delete', $route_parameters),
       'weight' => 100,
       'attributes' => array(

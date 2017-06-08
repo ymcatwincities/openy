@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Form\ManageConditions.
+ */
+
 namespace Drupal\ctools\Form;
 
 
@@ -59,7 +64,7 @@ abstract class ManageConditions extends FormBase {
       '#theme' => 'table',
       '#header' => array($this->t('Plugin Id'), $this->t('Summary'), $this->t('Operations')),
       '#rows' => $this->renderRows($cached_values),
-      '#empty' => $this->t('No required conditions have been configured.')
+      '#empty' => t('No required conditions have been configured.')
     );
     $form['conditions'] = [
       '#type' => 'select',
@@ -68,7 +73,7 @@ abstract class ManageConditions extends FormBase {
     $form['add'] = [
       '#type' => 'submit',
       '#name' => 'add',
-      '#value' => $this->t('Add Condition'),
+      '#value' => t('Add Condition'),
       '#ajax' => [
         'callback' => [$this, 'add'],
         'event' => 'click',
@@ -129,7 +134,7 @@ abstract class ManageConditions extends FormBase {
 
   protected function getOperations($route_name_base, array $route_parameters = array()) {
     $operations['edit'] = array(
-      'title' => $this->t('Edit'),
+      'title' => t('Edit'),
       'url' => new Url($route_name_base . '.edit', $route_parameters),
       'weight' => 10,
       'attributes' => array(
@@ -142,7 +147,7 @@ abstract class ManageConditions extends FormBase {
     );
     $route_parameters['id'] = $route_parameters['condition'];
     $operations['delete'] = array(
-      'title' => $this->t('Delete'),
+      'title' => t('Delete'),
       'url' => new Url($route_name_base . '.delete', $route_parameters),
       'weight' => 100,
       'attributes' => array(

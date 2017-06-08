@@ -1,0 +1,8 @@
+views.filter.verf:
+  type: views_filter
+  mapping:
+    verf_target_bundles:
+      type: sequence
+      label: Entity reference selection ID
+      sequence:
+        - type: string

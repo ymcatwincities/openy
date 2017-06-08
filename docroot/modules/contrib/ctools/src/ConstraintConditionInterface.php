@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools\ConstraintConditionInterface.
+ */
 
 namespace Drupal\ctools;
 

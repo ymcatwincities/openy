@@ -1,0 +1,23 @@
+/* @group plugin_radios plugin selector */
+
+.plugin-plugin-selector-plugin-radios-selector {
+    float: left;
+    min-width: 200px;
+    width: 25%;
+}
+
+.plugin-plugin-selector-plugin-radios-plugin-method-form {
+    float: left;
+    min-width: 400px;
+    width: 75%;
+}
+
+[dir="rtl"] .plugin-plugin-selector-plugin-radios-selector {
+    float: right; /* LTR */
+}
+
+[dir="rtl"] .plugin-plugin-selector-plugin-radios-plugin-method-form {
+    float: right; /* LTR */
+}
+
+/* @end */

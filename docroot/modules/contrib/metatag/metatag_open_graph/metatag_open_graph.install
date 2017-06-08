@@ -42,7 +42,7 @@ function metatag_open_graph_update_8102(&$sandbox) {
   if (empty($sandbox)) {
 
     $field_map = Drupal::getContainer()->get('entity_field.manager')->getFieldMap();
-    $sandbox['todo'] = array();
+    $sandbox['todo'] = [];
     $sandbox['done'] = 0;
     $sandbox['max'] = 0;
     $sandbox['#finished'] = 0;

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Wizard\FormWizardInterface.
+ */
+
 namespace Drupal\ctools\Wizard;
 
 use Drupal\Core\Form\FormInterface;

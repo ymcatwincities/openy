@@ -1,0 +1,15 @@
+name: 'OpenY paragraph package'
+description: 'OpenY paragraph package'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - link
+  - media_entity
+  - options
+  - paragraphs
+  - plugin
+  - taxonomy
+  - text
+  - webform
+version: 8.x-1.1

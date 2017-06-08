@@ -1,0 +1,143 @@
+/**
+ * @file
+ * Provided basic layout for the Slick based on custom settings.
+ */
+
+/**
+ * Complex layout needs custom refinement for mobile, hence it is reasonable
+ * to apply for Desktop up. Adjust mobile version accordingly.
+ */
+@media (min-width: 64em) {
+
+  /* Fixed FireFox draggable issue, avoid asNavFor thumbnails. */
+  .slick--main .slick__slide img {
+    pointer-events: none;
+  }
+
+  .slide__caption {
+    left: 0;
+    padding: 20px;
+    top: 10%;
+  }
+
+  .slide--caption--center .slide__caption,
+  .slide--caption--center-top .slide__caption,
+  .slide--caption--left .slide__caption,
+  .slide--caption--right .slide__caption {
+    width: 42%;
+  }
+
+  .slide--caption--center .slide__caption {
+    margin-top: -16%;
+    position: absolute;
+    top: 50%;
+  }
+
+  .slide--caption--center .slide__caption,
+  .slide--caption--center-top .slide__caption {
+    left: 50%;
+    margin-left: -21%;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+  }
+
+  .slide--caption--left .slide__caption {
+    position: absolute;
+  }
+
+  .slide--caption--right .slide__caption {
+    left: auto;
+    position: absolute;
+    right: 0;
+  }
+
+  .slide--caption--top .slide__caption,
+  .slide--caption--bottom .slide__caption {
+    position: absolute;
+    width: 100%;
+  }
+
+  .slide--caption--top .slide__caption {
+    top: 0;
+  }
+
+  .slide--caption--bottom .slide__caption {
+    bottom: 0;
+    top: auto;
+  }
+
+  .slide--caption--stage-left .slide__caption,
+  .slide--caption--stage-right .slide__caption,
+  .slide--caption--stage-zebra .slide__caption {
+    left: 50%;
+    margin-left: -41%;
+    padding: 0;
+    position: absolute;
+    width: 82%;
+  }
+
+  .slick--thumbnail .slide__caption,
+  .slide--caption--below .slide__caption {
+    padding: 20px 0;
+    position: relative;
+    top: auto;
+    width: 100%;
+  }
+
+  .slick--thumbnail .slide__caption {
+    padding: 5px 6px;
+  }
+
+  .slick--multiple-view .slide--caption--center .slide__caption,
+  .slick--multiple-view .slide--caption--center-top .slide__caption {
+    left: 0;
+    margin-left: auto;
+    width: 100%;
+  }
+
+  /** Thumbnail position */
+  .slick-wrapper--tn-left .slick--thumbnail {
+    float: left;
+    left: 0;
+    width: 20%;
+  }
+
+  .slick-wrapper--tn-left .slick--main {
+    margin-left: 20%;
+  }
+
+  .slick-wrapper--tn-right .slick--thumbnail {
+    float: right;
+    right: 0;
+    width: 20%;
+  }
+
+  .slick-wrapper--tn-right .slick--main {
+    margin-right: 20%;
+  }
+
+  .slick-wrapper--tn-overlay .slick--main {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .slick-wrapper--tn-overlay .slick--thumbnail {
+    height: 100%;
+    max-height: 90%;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    z-index: 9;
+  }
+
+  .slick-wrapper--tn-over-top .slick--thumbnail {
+    height: auto;
+    max-height: none;
+    width: 100%;
+  }
+
+  div[class*="slick-wrapper--tn"] .slick__slider::after {
+    clear: none;
+  }
+}
