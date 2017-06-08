@@ -316,3 +316,14 @@ function openy_update_8023() {
     'openy_prgf_branches_popup_class'
   ]);
 }
+
+/**
+ * Enable Programs search & program registration paragraph modules.
+ */
+function openy_update_8024() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_pgm_reg',
+    'openy_programs_search',
+  ]);
+}
