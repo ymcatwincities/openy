@@ -44,7 +44,7 @@ class MetatagDublinCoreTagsTest extends MetatagTagsTestBase {
   /**
    * Each of these meta tags has a different tag name vs its internal name.
    */
-  public function get_test_tag_name($tag_name) {
+  public function getTestTagName($tag_name) {
     return str_replace('_', '.', $tag_name);
   }
 

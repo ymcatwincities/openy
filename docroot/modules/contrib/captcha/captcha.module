@@ -11,7 +11,10 @@
 
 use Drupal\captcha\Entity\CaptchaPoint;
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Database\Database;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 
 /**
@@ -43,25 +46,27 @@ define('CAPTCHA_DEFAULT_VALIDATION_CASE_INSENSITIVE', 1);
 /**
  * Implements hook_help().
  */
-function captcha_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#captcha':
-      $output = '<p>' . t('"CAPTCHA" is an acronym for "Completely Automated Public Turing test to tell Computers and Humans Apart". It is typically a challenge-response test to determine whether the user is human. The CAPTCHA module is a tool to fight automated submission by malicious users (spamming) of for example comments forms, user registration forms, guestbook forms, etc. You can extend the desired forms with an additional challenge, which should be easy for a human to solve correctly, but hard enough to keep automated scripts and spam bots out.') . '</p>';
-      $output .= '<p>' . t('Note that the CAPTCHA module interacts with page caching (see <a href="!performancesettings">performance settings</a>). Because the challenge should be unique for each generated form, the caching of the page it appears on is prevented. Make sure that these forms do not appear on too many pages or you will lose much caching efficiency. For example, if you put a CAPTCHA on the user login block, which typically appears on each page for anonymous visitors, caching will practically be disabled. The comment submission forms are another example. In this case you should set the <em>Location of comment submission form</em> to <em>Display on separate page</em> in the comment settings of the relevant <a href="!contenttypes">content types</a> for better caching efficiency.',
-        [
-          '!performancesettings' => url('admin/config/development/performance'),
-          '!contenttypes' => url('admin/structure/types'),
-        ]
-      ) . '</p>';
+function captcha_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.captcha':
+      $output = '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('"CAPTCHA" is an acronym for "Completely Automated Public Turing test to tell Computers and Humans Apart". It is typically a challenge-response test to determine whether the user is human. The CAPTCHA module is a tool to fight automated submission by malicious users (spamming) of for example comments forms, user registration forms, guestbook forms, etc. You can extend the desired forms with an additional challenge, which should be easy for a human to solve correctly, but hard enough to keep automated scripts and spam bots out.') . '</p>';
+      $output .= '<p>' . t('Note that the CAPTCHA module interacts with page caching (see <a href=":performancesettings">performance settings</a>). Because the challenge should be unique for each generated form, the caching of the page it appears on is prevented. Make sure that these forms do not appear on too many pages or you will lose much caching efficiency. For example, if you put a CAPTCHA on the user login block, which typically appears on each page for anonymous visitors, caching will practically be disabled. The comment submission forms are another example. In this case you should set the <em>Location of comment submission form</em> to <em>Display on separate page</em> in the comment settings of the relevant <a href=":contenttypes">content types</a> for better caching efficiency.', [
+          ':performancesettings' => \Drupal::url('system.performance_settings'),
+          ':contenttypes' => \Drupal::url('entity.node_type.collection'),
+        ]) . '</p>';
       $output .= '<p>' . t('CAPTCHA is a trademark of Carnegie Mellon University.') . '</p>';
-      return $output;
+      return ['#markup' => $output];
 
-    case 'admin/config/people/captcha':
-    case 'admin/config/people/captcha/captcha':
-    case 'admin/config/people/captcha/captcha/settings':
+    case 'captcha_settings':
       $output = '<p>' . t('A CAPTCHA can be added to virtually each Drupal form. Some default forms are already provided in the form list, but arbitrary forms can be easily added and managed when the option <em>Add CAPTCHA administration links to forms</em> is enabled.') . '</p>';
-      $output .= '<p>' . t('Users with the <em>Skip CAPTCHA</em> <a href="@perm">permission</a> won\'t be offered a challenge. Be sure to grant this permission to the trusted users (e.g. site administrators). If you want to test a protected form, be sure to do it as a user without the <em>Skip CAPTCHA</em> permission (e.g. as anonymous user).', ['@perm' => url('admin/people/permissions')]) . '</p>';
-      return $output;
+      $output .= '<p>' . t('Users with the <em>Skip CAPTCHA</em> <a href=":perm">permission</a> won\'t be offered a challenge. Be sure to grant this permission to the trusted users (e.g. site administrators). If you want to test a protected form, be sure to do it as a user without the <em>Skip CAPTCHA</em> permission (e.g. as anonymous user).', [
+          ':perm' => \Drupal::url('user.admin_permissions'),
+        ]) . '</p>';
+      $output .= '<p><b>' . t('Note that the CAPTCHA module disables <a href=":performancesettings">page caching</a> of pages that include a CAPTCHA challenge.', [
+          ':performancesettings' => \Drupal::url('system.performance_settings'),
+        ]) . '</b></p>';
+      return ['#markup' => $output];
   }
 }
 
@@ -72,6 +77,7 @@ function captcha_help($path, $arg) {
  *   Form id string.
  *
  * @return \Drupal\Core\Entity\EntityInterface
+ *   An instance of an captcha_point entity.
  */
 function captcha_point_load($id) {
   return CaptchaPoint::load($id);
@@ -97,7 +103,8 @@ function captcha_theme() {
  */
 function captcha_cron() {
   // Remove challenges older than 1 day.
-  db_delete('captcha_sessions')
+  $connection = Database::getConnection();
+  $connection->delete('captcha_sessions')
     ->condition('timestamp', REQUEST_TIME - 60 * 60 * 24, '<')
     ->execute();
 }
@@ -126,7 +133,6 @@ function template_preprocess_captcha(&$variables) {
   }
 }
 
-
 /**
  * Implements hook_form_alter().
  *
@@ -142,7 +148,9 @@ function captcha_form_alter(array &$form, FormStateInterface $form_state, $form_
   if (!$account->hasPermission('skip CAPTCHA')) {
 
     /* @var CaptchaPoint $captcha_point */
-    $captcha_point = \Drupal::entityManager()->getStorage('captcha_point')->load($form_id);
+    $captcha_point = \Drupal::entityTypeManager()
+      ->getStorage('captcha_point')
+      ->load($form_id);
 
     if ($captcha_point && $captcha_point->status()) {
       // Build CAPTCHA form element.
@@ -163,7 +171,9 @@ function captcha_form_alter(array &$form, FormStateInterface $form_state, $form_
     }
   }
   elseif ($config->get('administration_mode') && $account->hasPermission('administer CAPTCHA settings')
-    && (!\Drupal::service('router.admin_context')->isAdminRoute()  || $config->get('allow_on_admin_pages'))) {
+    && (!\Drupal::service('router.admin_context')
+        ->isAdminRoute() || $config->get('allow_on_admin_pages'))
+  ) {
     // Add CAPTCHA administration tools.
     /* @var \Drupal\captcha\Entity\CaptchaPoint $captcha_point */
     $captcha_point = CaptchaPoint::load($form_id);
@@ -179,51 +189,35 @@ function captcha_form_alter(array &$form, FormStateInterface $form_state, $form_
     ];
 
     if ($captcha_point !== NULL && $captcha_point->getCaptchaType()) {
-      $markup = '<a href="@change">change</a>';
       $captcha_element['#title'] = $captcha_point->status() ? t('CAPTCHA: challenge "@type" enabled', ['@type' => $captcha_point->getCaptchaType()]) : t('CAPTCHA: challenge "@type" disabled', ['@type' => $captcha_point->getCaptchaType()]);
       $captcha_point->status() ? $captcha_element['#description'] = t('Untrusted users will see a CAPTCHA here (<a href="@settings">general CAPTCHA settings</a>).',
-        ['@settings' => Url::fromRoute('captcha_settings')->toString()]) : $captcha_element['#description'] = t('CAPTCHA disabled, Untrusted users won\'t see the captcha (<a href="@settings">general CAPTCHA settings</a>).',
+        [
+          '@settings' => Url::fromRoute('captcha_settings')
+            ->toString(),
+        ]) : $captcha_element['#description'] = t('CAPTCHA disabled, Untrusted users won\'t see the captcha (<a href="@settings">general CAPTCHA settings</a>).',
         ['@settings' => Url::fromRoute('captcha_settings')->toString()]
-        );
+      );
       $captcha_element['challenge'] = [
         '#type' => 'item',
         '#title' => t('Enabled challenge'),
-        '#markup' => t($markup, [
-          '%type' => $captcha_point->getCaptchaType(),
-          '@change' => $captcha_point->url('edit-form', ['query' => Drupal::destination()->getAsArray()]),
-       // '@disable' => $captcha_point->url('disable', ['query' => Drupal::destination()->getAsArray()]),
-       // '@enable' => $captcha_point->url('enable', ['query' => Drupal::destination()->getAsArray()]),
+        '#markup' => t('<a href="@change">change</a>', [
+          '@change' => $captcha_point->url('edit-form', [
+            'query' => Drupal::destination()
+              ->getAsArray(),
+          ]),
         ]),
       ];
-//      // Add an example challenge with solution.
-//      // This does not work with the reCAPTCHA and Egglue challenges as
-//      // discussed in http://drupal.org/node/487032 and
-//      // http://drupal.org/node/525586. As a temporary workaround, we
-//      // blacklist the reCAPTCHA and Egglue challenges and do not show
-//      // an example challenge.
-//      // TODO: Once the issues mentioned above are fixed, this workaround
-//      // should be removed.
-//      $captcha_element['example'] = array(
-//        '#type' => 'details',
-//        '#title' => t('Example'),
-//        '#description' => t('This is a pre-solved, non-blocking example of this challenge.'),
-//        '#open' => TRUE,
-//      );
-//      $captcha_element['example']['example_captcha'] = array(
-//        '#type' => 'captcha',
-//        '#captcha_type' => $captcha_point->getCaptchaType(),
-//        '#captcha_admin_mode' => TRUE,
-//      );
     }
     else {
       $captcha_element['#title'] = t('CAPTCHA: no challenge enabled');
       $captcha_element['add_captcha'] = [
-        '#markup' => \Drupal::l(
+        '#markup' => Link::fromTextAndUrl(
           t('Place a CAPTCHA here for untrusted users.'),
           Url::fromRoute('captcha_point.add', [], [
-            'query' => Drupal::destination()->getAsArray() + ['form_id' => $form_id],
+            'query' => Drupal::destination()
+                ->getAsArray() + ['form_id' => $form_id],
           ])
-        ),
+        )->toString(),
       ];
     }
 
@@ -319,7 +313,7 @@ function captcha_validate_case_insensitive_ignore_spaces($solution, $response) {
  *
  * @param array $element
  *   The CAPTCHA element.
- * @param array $form_state
+ * @param FormStateInterface $form_state
  *   The form state structure to extract the info from.
  * @param string $this_form_id
  *   The form ID of the form we are currently processing
@@ -409,7 +403,7 @@ function captcha_validate($element, FormStateInterface &$form_state) {
   $solution = db_query(
     'SELECT solution FROM {captcha_sessions} WHERE csid = :csid',
     [':csid' => $csid]
-    )
+  )
     ->fetchField();
 
   // @todo: what is the result when there is no entry for
@@ -453,10 +447,13 @@ function captcha_validate($element, FormStateInterface &$form_state) {
       $form_state->setErrorByName('captcha_response', t('The answer you entered for the CAPTCHA was not correct.'));
       // Update wrong response counter.
       if (\Drupal::config('captcha.settings')->get('enable_stats', FALSE)) {
-        Drupal::state()->set('captcha.wrong_response_counter', Drupal::state()->get('captcha.wrong_response_counter', 0) + 1);
+        Drupal::state()->set('captcha.wrong_response_counter', Drupal::state()
+            ->get('captcha.wrong_response_counter', 0) + 1);
       }
 
-      if (\Drupal::config('captcha.settings')->get('log_wrong_responses', FALSE)) {
+      if (\Drupal::config('captcha.settings')
+        ->get('log_wrong_responses', FALSE)
+      ) {
         \Drupal::logger('CAPTCHA')->notice(
           '%form_id post blocked by CAPTCHA module: challenge %challenge (by module %module), user answered "@response", but the solution was "@solution".',
           [
@@ -541,7 +538,7 @@ function captcha_captcha($op, $captcha_type = '') {
           '#type' => 'textfield',
           '#title' => t('Math question'),
           '#description' => t('Solve this simple math problem and enter the result. E.g. for 1+3, enter 4.'),
-          '#field_prefix' => t('@x + @y = ', ['@x' => $x, '@y' => $y]),
+          '#field_prefix' => t('@x + @y =', ['@x' => $x, '@y' => $y]),
           '#size' => 4,
           '#maxlength' => 2,
           '#required' => TRUE,

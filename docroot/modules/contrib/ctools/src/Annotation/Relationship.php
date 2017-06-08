@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Annotation\Relationship.
+ */
+
 namespace Drupal\ctools\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

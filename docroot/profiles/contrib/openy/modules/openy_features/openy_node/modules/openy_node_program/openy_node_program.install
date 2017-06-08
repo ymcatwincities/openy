@@ -1,0 +1,103 @@
+<?php
+
+/**
+ * @file
+ * OpenY Node Program install file.
+ */
+
+/**
+ * Implements hook_update_dependencies().
+ */
+function openy_node_program_update_dependencies() {
+  $dependencies['openy_node_program'] = [
+    8002 => [
+      'openy_node' => 8003,
+    ],
+    8003 => [
+      'openy' => 8015,
+    ]
+  ];
+
+  return $dependencies;
+}
+
+/**
+ * Update Node Program fields datalayer config for Data Layer additions.
+ */
+function openy_node_program_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_program');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.program.field_program_description.yml';
+  $config_importer->update($config,
+    'field.field.node.program.field_program_description',
+    'third_party_settings.datalayer'
+  );
+}
+
+/**
+ * Update Program with Metatag and Sitemap config.
+ */
+function openy_node_program_update_8002() {
+  $module = 'openy_node_program';
+  $bundle = 'program';
+  // Field definitions
+  $config_dir = drupal_get_path('module', $module) . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.node.' . $bundle . '.field_meta_tags',
+    'simple_sitemap.bundle_settings.' . $bundle . '.landing_page',
+  ]);
+  // Dependencies
+  $config = drupal_get_path('module', $module) . $module . '.info.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, $module . '.info', 'dependencies');
+  // Entity form
+  $config = drupal_get_path('module', $module) . '/config/install/core.entity_form_display.node.' . $bundle . '.default.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.config');
+  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'dependencies.module');
+  $config_importer->update($config, 'core.entity_form_display.node.' . $bundle . '.default', 'content.field_meta_tags');
+  // Entity view display
+  $config = drupal_get_path('module', $module) . '/config/install/core.entity_view_display.node.' . $bundle . '.default.yml';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.config');
+  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'dependencies.module');
+  $config_importer->update($config, 'core.entity_view_display.node.' . $bundle . '.default', 'content.field_meta_tags');
+
+  $config_dir = drupal_get_path('module', $module) . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'metatag.metatag_defaults.node__' . $bundle,
+  ]);
+}
+
+/*
+ * Enabling scheduler module.
+ */
+function openy_node_program_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.program.default' => [
+      'dependencies.module',
+      'content.publish_on',
+      'content.unpublish_on',
+    ],
+    'node.type.program' => [
+      'dependencies.module',
+      'third_party_settings.scheduler',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

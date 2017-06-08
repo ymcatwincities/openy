@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\Annotation\DataParser.
- */
-
 namespace Drupal\migrate_plus\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

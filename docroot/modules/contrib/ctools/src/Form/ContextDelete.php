@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Form\ContextDelete.
+ */
+
 namespace Drupal\ctools\Form;
 
 

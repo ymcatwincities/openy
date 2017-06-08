@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\captcha\EventSubscriber\CaptchaCachedSettingsSubscriber.
- */
-
 namespace Drupal\captcha\EventSubscriber;
 
 use Drupal\Core\Config\ConfigCrudEvent;

@@ -46,13 +46,14 @@ class SimplesitemapTest extends WebTestBase {
   }
 
   /**
-   * Verify sitemap.xml has been generated on install (custom path generation).
+   * Verify sitemap.xml has the link to the front page with priority '1.0' after first generation.
    */
   public function testInitialGeneration() {
+    $this->generator->generateSitemap('nobatch');
     $this->drupalGet('sitemap.xml');
     $this->assertRaw('urlset');
-    $this->assertRaw($GLOBALS['base_url']);
-    $this->assertRaw('1');
+    $this->assertText($GLOBALS['base_url']);
+    $this->assertText('1.0');
   }
 
   /**
