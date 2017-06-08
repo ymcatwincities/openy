@@ -30,9 +30,9 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
   /**
    * {@inheritdoc}
    */
-  public function getLayouts($panels_storage_type, $panels_storage_id) {
+  public function getLayoutsData($panels_storage_type, $panels_storage_id) {
     if (!$this->isEntityScreenContent($panels_storage_id)) {
-      return parent::getLayouts($panels_storage_type, $panels_storage_id);
+      return parent::getLayoutsData($panels_storage_type, $panels_storage_id);
     }
 
     $panels_display = $this->loadPanelsDisplay($panels_storage_type, $panels_storage_id);
@@ -44,19 +44,33 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
     $layouts = $this->layoutPluginManager->getDefinitions();
     $base_path = base_path();
     $data = [];
+    $supported_layouts = [
+      'OpenY Digital Signage',
+      'OpenY Room Entry Screen',
+    ];
     foreach ($layouts as $id => $layout) {
-      if ($layout['category'] != 'OpenY Digital Signage') {
+      if (!in_array($layout->getCategory(), $supported_layouts)) {
         continue;
       }
-      $icon = !empty($layout['icon']) ? $layout['icon'] : drupal_get_path('module', 'panels') . '/images/no-layout-preview.png';
+      $icon = $layout->getIconPath() ?: drupal_get_path('module', 'panels') . '/layouts/no-layout-preview.png';
       $data[] = [
         'id' => $id,
-        'label' => $layout['label'],
+        'label' => $layout->getLabel(),
         'icon' => $base_path . $icon,
         'current' => $id == $current_layout_id,
-        'category' => $layout['category'],
+        'category' => $layout->getCategory(),
       ];
     }
+
+    return $data;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLayouts($panels_storage_type, $panels_storage_id) {
+    // Get the layouts data.
+    $data = $this->getLayoutsData($panels_storage_type, $panels_storage_id);
 
     // Return a structured JSON response for our Backbone App.
     return new JsonResponse($data);
@@ -65,9 +79,9 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
   /**
    * {@inheritdoc}
    */
-  public function getBlockPlugins($panels_storage_type, $panels_storage_id) {
+  public function getBlockPluginsData($panels_storage_type, $panels_storage_id) {
     if (!$this->isEntityScreenContent($panels_storage_id)) {
-      return parent::getBlockPlugins($panels_storage_type, $panels_storage_id);
+      return parent::getBlockPluginsData($panels_storage_type, $panels_storage_id);
     }
     $panels_display = $this->loadPanelsDisplay($panels_storage_type, $panels_storage_id);
 
@@ -75,7 +89,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
     $definitions = $this->blockManager->getDefinitionsForContexts($panels_display->getContexts());
 
     // Assemble our relevant data.
-    $data = [];
+    $blocks = [];
     $supported_block_bundles = [
       'digital_signage_block_free_html',
       'digital_signage_promotional',
@@ -99,7 +113,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
         }
       }
 
-      $data[] = [
+      $blocks[] = [
         'plugin_id' => $plugin_id,
         'label' => $definition['admin_label'],
         'category' => $definition['category'],
@@ -108,16 +122,27 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
       ];
     }
 
+    return $blocks;
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBlockPlugins($panels_storage_type, $panels_storage_id) {
+    // Get the block plugins data.
+    $blocks = $this->getBlockPluginsData($panels_storage_type, $panels_storage_id);
+
     // Return a structured JSON response for our Backbone App.
-    return new JsonResponse($data);
+    return new JsonResponse($blocks);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getBlockContentTypes($panels_storage_type, $panels_storage_id) {
+  public function getBlockContentTypesData($panels_storage_type, $panels_storage_id) {
     if (!$this->isEntityScreenContent($panels_storage_id)) {
-      return parent::getBlockContentTypes($panels_storage_type, $panels_storage_id);
+      return parent::getBlockContentTypesData($panels_storage_type, $panels_storage_id);
     }
     // Assemble our relevant data.
     $types = $this->entityTypeManager()
@@ -141,6 +166,17 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
         'description' => $definition->getDescription(),
       ];
     }
+
+    // Return a structured JSON response for our Backbone App.
+    return new JsonResponse($data);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBlockContentTypes($panels_storage_type, $panels_storage_id) {
+    // Get the block content types data.
+    $data = $this->getBlockContentTypesData($panels_storage_type, $panels_storage_id);
 
     // Return a structured JSON response for our Backbone App.
     return new JsonResponse($data);
