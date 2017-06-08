@@ -42,6 +42,7 @@ class ResolveDefaultPluginTest extends UnitTestCase {
    */
   public function testConstruct() {
     $this->sut = new ResolveDefaultPlugin($this->pluginType);
+    $this->assertInstanceOf(ResolveDefaultPlugin::class, $this->sut);
   }
 
   /**

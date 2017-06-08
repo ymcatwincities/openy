@@ -161,19 +161,6 @@ class PluginSelectorBaseTest extends PluginSelectorBaseTestBase {
   }
 
   /**
-   * @covers ::setSelectablePluginType
-   * @covers ::setSelectablePluginDiscovery
-   * @covers ::setSelectablePluginFactory
-   */
-  public function testSetSelectablePluginType() {
-    $this->sut->setSelectablePluginType($this->selectablePluginType);
-
-    $this->sut->setSelectablePluginDiscovery($this->getMock(DiscoveryInterface::class));
-
-    $this->sut->setSelectablePluginFactory($this->getMock(FactoryInterface::class));
-  }
-
-  /**
    * @covers ::buildSelectorForm
    * @covers ::setSelectablePluginType
    */

@@ -39,6 +39,7 @@ class PluginDiscoveryDecoratorTest extends UnitTestCase {
    */
   public function testConstruct() {
     $this->sut = new PluginDiscoveryDecorator($this->decoratedDiscovery);
+    $this->assertInstanceOf(PluginDiscoveryDecorator::class, $this->sut);
   }
 
   /**

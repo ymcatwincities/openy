@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\plugin\Tests\Plugin\PluginSelector\PluginSelector;
+namespace Drupal\Tests\plugin\Functional\Plugin\Plugin\PluginSelector;
 
-use Drupal\simpletest\WebTestBase;
+use Drupal\Tests\BrowserTestBase;
 
 /**
- * \Drupal\plugin\Plugin\Plugin\PluginSelector\SelectList web test.
+ * @coversDefaultClass \Drupal\plugin\Plugin\Plugin\PluginSelector\Radios
  *
  * @group Plugin
  */
-class SelectListWebTest extends WebTestBase {
+class RadiosTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
@@ -19,13 +19,13 @@ class SelectListWebTest extends WebTestBase {
   /**
    * Tests the element.
    */
-  protected function testElement() {
+  public function testElement() {
     $this->doTestElement(FALSE);
     $this->doTestElement(TRUE);
   }
 
-  protected function buildFormPath(array $allowed_selectable_plugin_ids, $tree) {
-    return sprintf('plugin_test_helper-plugin_selector-advanced_plugin_selector_base/%s/plugin_select_list/%d', implode(',', $allowed_selectable_plugin_ids), (int) $tree);
+  public function buildFormPath(array $allowed_selectable_plugin_ids, $tree, $always_show_selector = FALSE) {
+    return sprintf('plugin_test_helper-plugin_selector-advanced_plugin_selector_base/%s/plugin_radios/%d/%d', implode(',', $allowed_selectable_plugin_ids), (int) $tree, (int) $always_show_selector);
   }
 
   /**
@@ -34,7 +34,7 @@ class SelectListWebTest extends WebTestBase {
    * @param bool $tree
    *   Whether to test the element with #tree = TRUE or not.
    */
-  protected function doTestElement($tree) {
+  public function doTestElement($tree) {
     $name_prefix = $tree ? 'tree[plugin][container]' : 'container';
     $change_button_name = $tree ? 'tree__plugin__container__select__container__change' : 'container__select__container__change';
 
@@ -42,21 +42,26 @@ class SelectListWebTest extends WebTestBase {
     $path = $this->buildFormPath(['none'], $tree);
     $this->drupalGet($path);
     $this->assertNoFieldByName($name_prefix . '[select][container][container][plugin_id]');
-    $this->assertNoFieldByName($change_button_name, t('Choose'));
+    $this->assertEmpty($this->getSession()->getDriver()->find(sprintf('//input[@name="%s"]', $change_button_name)));
     $this->assertText(t('There are no available options.'));
+
+    // Test that the selector can be configured to show even if there is but a
+    // single plugin available to choose from.
+    $path = $this->buildFormPath(['plugin_test_helper_configurable_plugin'], $tree, TRUE);
+    $this->drupalGet($path);
 
     // Test the presence of default elements with one available plugin.
     $path = $this->buildFormPath(['plugin_test_helper_configurable_plugin'], $tree);
     $this->drupalGet($path);
     $this->assertNoFieldByName($name_prefix . '[select][container][plugin_id]');
-    $this->assertNoFieldByName($change_button_name, t('Choose'));
+    $this->assertEmpty($this->getSession()->getDriver()->find(sprintf('//input[@name="%s"]', $change_button_name)));
     $this->assertNoText(t('There are no available options.'));
 
     // Test the presence of default elements with multiple available plugins.
     $path = $this->buildFormPath(['plugin_test_helper_plugin', 'plugin_test_helper_configurable_plugin'], $tree);
     $this->drupalGet($path);
     $this->assertFieldByName($name_prefix . '[select][container][plugin_id]');
-    $this->assertFieldByName($change_button_name, t('Choose'));
+    $this->assertNotEmpty($this->getSession()->getDriver()->find(sprintf('//input[@name="%s"]', $change_button_name)));
     $this->assertNoText(t('There are no available options.'));
 
     // Choose a plugin.
@@ -64,14 +69,14 @@ class SelectListWebTest extends WebTestBase {
       $name_prefix . '[select][container][plugin_id]' => 'plugin_test_helper_plugin',
     ), t('Choose'));
     $this->assertFieldByName($name_prefix . '[select][container][plugin_id]');
-    $this->assertFieldByName($change_button_name, t('Choose'));
+    $this->assertNotEmpty($this->getSession()->getDriver()->find(sprintf('//input[@name="%s"]', $change_button_name)));
 
     // Change the plugin.
     $this->drupalPostForm(NULL, array(
       $name_prefix . '[select][container][plugin_id]' => 'plugin_test_helper_configurable_plugin',
     ), t('Choose'));
     $this->assertFieldByName($name_prefix . '[select][container][plugin_id]');
-    $this->assertFieldByName($change_button_name, t('Choose'));
+    $this->assertNotEmpty($this->getSession()->getDriver()->find(sprintf('//input[@name="%s"]', $change_button_name)));
 
     // Submit the form.
     $foo = $this->randomString();

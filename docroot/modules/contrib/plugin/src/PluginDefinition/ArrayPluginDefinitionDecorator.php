@@ -89,8 +89,15 @@ class ArrayPluginDefinitionDecorator implements ArrayPluginDefinitionInterface, 
   /**
    * {@inheritdoc}
    */
-  public function getId() {
+  public function id() {
     return isset($this->arrayDefinition['id']) ? $this->arrayDefinition['id'] : NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getId() {
+    return $this->id();
   }
 
   /**

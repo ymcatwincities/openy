@@ -28,7 +28,7 @@ class PluginDefinitionValidatorTest extends UnitTestCase {
     if (!$valid) {
       $this->setExpectedException('\InvalidArgumentException');
     }
-    PluginDefinitionValidator::validateClass($class);
+    $this->assertNull(PluginDefinitionValidator::validateClass($class));
   }
 
   /**
@@ -59,7 +59,7 @@ class PluginDefinitionValidatorTest extends UnitTestCase {
     if (!$valid) {
       $this->setExpectedException('\InvalidArgumentException');
     }
-    PluginDefinitionValidator::validateDeriverClass($class);
+    $this->assertNull(PluginDefinitionValidator::validateDeriverClass($class));
   }
 
   /**
@@ -89,7 +89,7 @@ class PluginDefinitionValidatorTest extends UnitTestCase {
     if (!$valid) {
       $this->setExpectedException('\InvalidArgumentException');
     }
-    PluginDefinitionValidator::validateContextDefinitions($definitions);
+    $this->assertNull(PluginDefinitionValidator::validateContextDefinitions($definitions));
   }
 
   /**

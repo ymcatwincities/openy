@@ -40,6 +40,7 @@ class LimitedPluginDiscoveryDecoratorTest extends UnitTestCase {
    */
   public function testConstruct() {
     $this->sut = new LimitedPluginDiscoveryDecorator($this->pluginManager);
+    $this->assertInstanceOf(LimitedPluginDiscoveryDecorator::class, $this->sut);
   }
 
   /**

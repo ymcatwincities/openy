@@ -8,6 +8,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\SubformState;
 use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\plugin\Plugin\Plugin\PluginSelector\AdvancedPluginSelectorBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -672,6 +673,36 @@ class AdvancedPluginSelectorBaseTest extends PluginSelectorBaseTestBase {
     $this->assertArrayHasKey('plugin_id', $build['container']);
     $this->assertEquals($expected_build_change, $build['container']['change']);
     $this->assertSame('container', $build['container']['#type']);
+  }
+
+  /**
+   * @covers ::defaultConfiguration
+   */
+  public function testDefaultConfiguration() {
+    $this->assertInternalType('array', $this->sut->defaultConfiguration());
+  }
+
+  /**
+   * @covers ::buildConfigurationForm
+   */
+  public function testBuildConfigurationForm() {
+    $form = [
+      'plugin' => [],
+    ];
+    $form_state = new FormState();
+    $configuration_form = $form['plugin'];
+    $configuration_form_state = SubformState::createForSubform($configuration_form, $form, $form_state);
+    $this->assertInternalType('array', $this->sut->buildConfigurationForm($configuration_form, $configuration_form_state));
+  }
+
+  /**
+   * @covers ::getSelectorVisibilityForSingleAvailability
+   * @covers ::setSelectorVisibilityForSingleAvailability
+   */
+  public function testGetSelectorVisibilityForSingleAvailability() {
+    $this->assertFalse($this->sut->getSelectorVisibilityForSingleAvailability());
+    $this->sut->setSelectorVisibilityForSingleAvailability(TRUE);
+    $this->assertTrue($this->sut->getSelectorVisibilityForSingleAvailability());
   }
 
 }

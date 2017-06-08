@@ -61,7 +61,7 @@ class AdvancedPluginSelectorBasePluginSelectorForm implements ContainerInjection
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $allowed_selectable_plugin_ids = NULL, $plugin_id = NULL, $tree = FALSE) {
+  public function buildForm(array $form, FormStateInterface $form_state, $allowed_selectable_plugin_ids = NULL, $plugin_id = NULL, $tree = FALSE, $always_show_selector = FALSE) {
     if ($form_state->has('plugin_selector')) {
       $plugin_selector = $form_state->get('plugin_selector');
     }
@@ -69,11 +69,13 @@ class AdvancedPluginSelectorBasePluginSelectorForm implements ContainerInjection
       $selectable_plugin_discovery = new LimitedPluginDiscoveryDecorator($this->selectablePluginType->getPluginManager());
       $selectable_plugin_discovery->setDiscoveryLimit(explode(',', $allowed_selectable_plugin_ids));
       $selectable_plugin_manager = new PluginManagerDecorator($this->selectablePluginType->getPluginManager(), $selectable_plugin_discovery);
+      /** @var \Drupal\plugin\Plugin\Plugin\PluginSelector\AdvancedPluginSelectorBase $plugin_selector */
       $plugin_selector = $this->pluginSelectorManager->createInstance($plugin_id);
       $plugin_selector->setSelectablePluginType($this->selectablePluginType);
       $plugin_selector->setSelectablePluginDiscovery($selectable_plugin_manager);
       $plugin_selector->setSelectablePluginFactory($selectable_plugin_manager);
       $plugin_selector->setRequired();
+      $plugin_selector->setSelectorVisibilityForSingleAvailability($always_show_selector);
       $form_state->set('plugin_selector', $plugin_selector);
     }
 

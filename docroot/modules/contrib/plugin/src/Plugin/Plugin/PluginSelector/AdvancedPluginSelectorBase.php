@@ -19,8 +19,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides a default base for most plugin selectors.
  *
  * This class takes care of everything, except the actual selection element.
+ *
+ * @internal
  */
-abstract class AdvancedPluginSelectorBase extends PluginSelectorBase implements ContainerFactoryPluginInterface {
+abstract class AdvancedPluginSelectorBase extends PluginSelectorBase implements ContainerFactoryPluginInterface, PluginFormInterface {
 
   /**
    * Constructs a new class instance.
@@ -42,6 +44,15 @@ abstract class AdvancedPluginSelectorBase extends PluginSelectorBase implements 
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition, $container->get('plugin.default_plugin_resolver'), $container->get('string_translation'));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return [
+      'show_selector_for_single_availability' => FALSE,
+    ] + parent::defaultConfiguration();
   }
 
   /**
@@ -120,7 +131,7 @@ abstract class AdvancedPluginSelectorBase extends PluginSelectorBase implements 
     if (count($element['#available_plugins']) == 0) {
       return $plugin_selector->buildNoAvailablePlugins($element, $form_state);
     }
-    elseif (count($element['#available_plugins']) == 1) {
+    elseif (count($element['#available_plugins']) == 1 && !$plugin_selector->getSelectorVisibilityForSingleAvailability()) {
       return $plugin_selector->buildOneAvailablePlugin($element, $form_state);
     }
     else {
@@ -205,6 +216,7 @@ abstract class AdvancedPluginSelectorBase extends PluginSelectorBase implements 
       ),
       '#type' => 'container',
     );
+
     $selectedPlugin = $this->getSelectedPlugin();
     if ($this->getCollectPluginConfiguration() && $selectedPlugin instanceof PluginFormInterface) {
       $element += $selectedPlugin->buildConfigurationForm([], $form_state);
@@ -318,6 +330,54 @@ abstract class AdvancedPluginSelectorBase extends PluginSelectorBase implements 
     );
 
     return $build;
+  }
+
+  /**
+   * Toggles whether or not to show the selection elements for single plugins.
+   *
+   * @param bool $show
+   *   TRUE to show selection elements or FALSE to hide them for single plugins.
+   */
+  public function setSelectorVisibilityForSingleAvailability($show) {
+    $this->configuration['show_selector_for_single_availability'] = $show;
+  }
+
+  /**
+   * Gets whether or not to show the selection elements for single plugins.
+   *
+   * @return bool
+   *   TRUE to show selection elements or FALSE to hide them for single plugins.
+   */
+  public function getSelectorVisibilityForSingleAvailability() {
+    return $this->configuration['show_selector_for_single_availability'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = [];
+    $form['show_selector_for_single_availability'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Hide selector if only a single plugin is available'),
+      '#default_value' => $this->configuration['show_selector_for_single_availability'],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+    // No elements need validation.
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    $this->configuration['show_selector_for_single_availability'] = $form_state->getValue('show_selector_for_single_availability');
   }
 
 }
