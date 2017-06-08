@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Form\AjaxFormTrait.
- */
-
 namespace Drupal\ctools\Form;
 
 use Drupal\Component\Serialization\Json;
