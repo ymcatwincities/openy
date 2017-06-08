@@ -1,3 +1,15 @@
+openyres_onecol:
+  label: Single column
+  category: 'OpenY Room Entry Screen'
+  path: layouts/openyres_onecol
+  icon: openyres_onecol.png
+  css: openyres-onecol.css
+  template: panels-openyres-onecol
+  class: '\Drupal\openy_digital_signage_screen_content\Plugin\Layout\RoomEntryScreenLayout'
+  regions:
+    middle:
+      label: Middle column
+
 openyds_onecol:
   label: Single column
   category: 'OpenY Digital Signage'
