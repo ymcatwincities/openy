@@ -9,4 +9,4 @@ dependencies:
   - openy_webform
   - paragraphs
   - webform
-version: 8.x-1.2
+version: 8.x-1.3
