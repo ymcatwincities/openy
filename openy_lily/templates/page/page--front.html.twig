@@ -8,7 +8,7 @@
           <a class="masthead-brand" href="{{ url('<front>') }}">{{ site_name }}</a>
         </div>
         <div class="col-lg-4 col-sm-4 location-search-column">
-          <form class="find-locations" action="{{ locations_path }}">
+          <form class="find-locations" action="{{ url('<front>') }}{{ locations_path }}">
             <div class="form-group location-search">
               <div class="col-xs-12 control-label text-center location-search-collapse in collapse">
                 <a href="#" data-target=".location-search-collapse" class="btn btn-block btn-info"

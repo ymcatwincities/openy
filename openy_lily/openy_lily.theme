@@ -105,7 +105,7 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
 
   $node = Drupal::routeMatch()->getParameter('node');
   if (!empty($node) || $node = Drupal::routeMatch()
-    ->getParameter('node_preview')
+      ->getParameter('node_preview')
   ) {
     if (is_object($node)) {
       array_unshift($suggestions, 'page__node__' . $node->bundle());
@@ -254,11 +254,11 @@ function openy_lily_preprocess_html(&$variables) {
   }
 
   if (!$variables['is_front'] = Drupal::service('path.matcher')
-    ->isFrontPage() && !empty($node)
+      ->isFrontPage() && !empty($node)
   ) {
     if ($current_route_name == 'entity.node.preview') {
       $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')
-        ->get('page.front');
+          ->get('page.front');
     }
   }
 
@@ -337,11 +337,13 @@ function openy_lily_preprocess_page(&$variables) {
   // Adds page title for login and register pages.
   $request = \Drupal::request();
   $route_match = \Drupal::routeMatch();
-  $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+  $title = \Drupal::service('title_resolver')
+    ->getTitle($request, $route_match->getRouteObject());
   $variables['page_title'] = $title;
 
   $variables['site_name'] = \Drupal::config('system.site')->get('name');
-  $variables['locations_path'] = theme_get_setting('locations_path');
+  $path = theme_get_setting('locations_path');
+  $variables['locations_path'] = Url::fromUserInput($path);
 }
 
 /**
