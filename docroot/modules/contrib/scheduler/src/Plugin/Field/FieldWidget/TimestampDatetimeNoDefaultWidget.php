@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\scheduler\Plugin\Field\FieldWidget\TimestampDatetimeNoDefaultWidget.
- */
 
 namespace Drupal\scheduler\Plugin\Field\FieldWidget;
 
@@ -18,8 +14,8 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FieldWidget(
  *   id = "datetime_timestamp_no_default",
- *   label = @Translation("Datetime Timestamp no default"),
- *   description = @Translation("An optional datetime field. Does not provide a default time if left blank."),
+ *   label = @Translation("Datetime Timestamp for Scheduler"),
+ *   description = @Translation("An optional datetime field. Does not provide a default time if left blank. Defined by Scheduler module."),
  *   field_types = {
  *     "timestamp",
  *   }
@@ -32,11 +28,40 @@ class TimestampDatetimeNoDefaultWidget extends TimestampDatetimeWidget {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
+    // Remove 'Leave blank to use the time of form submission' which is in the
+    // #description inherited from TimestampDatetimeWidget. The text here is not
+    // used because it is entirely replaced in scheduler_form_node_form_alter()
+    // However the widget is generic and may be used elsewhere in future.
     $date_format = DateFormat::load('html_date')->getPattern();
     $time_format = DateFormat::load('html_time')->getPattern();
-    $element['value']['#description'] = $this->t('Format: %format. Leave blank to disable.', array('%format' => Datetime::formatExample($date_format . ' ' . $time_format)));
+    $element['value']['#description'] = $this->t('Format: %format. Leave blank for no date.', ['%format' => Datetime::formatExample($date_format . ' ' . $time_format)]);
 
+    // Set the callback function to allow interception of the submitted user
+    // input and add the default time if needed. It is too late to try this in
+    // function massageFormValues as the validation has already been done.
+    $element['value']['#value_callback'] = [$this, 'valueCallback'];
     return $element;
+  }
+
+  /**
+   * Callback function to add default time to the input date if needed.
+   *
+   * This will intercept the user input before form validation is processed.
+   */
+  public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
+    if ($input !== FALSE) {
+      $date_input = $element['#date_date_element'] != 'none' && !empty($input['date']) ? $input['date'] : '';
+      $time_input = $element['#date_time_element'] != 'none' && !empty($input['time']) ? $input['time'] : '';
+      // If there is an input date but no time and the date-only option is on
+      // then set the input time to the default specified by scheduler options.
+      $config = \Drupal::config('scheduler.settings');
+      if (!empty($date_input) && empty($time_input) && $config->get('allow_date_only')) {
+        $input['time'] = $config->get('default_time');
+      }
+    }
+    // Chain on to the standard valueCallback for Datetime as we do not want to
+    // duplicate that core code here.
+    return Datetime::valueCallback($element, $input, $form_state);
   }
 
   /**

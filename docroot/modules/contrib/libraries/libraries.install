@@ -23,8 +23,6 @@ function libraries_install() {
  */
 function libraries_uninstall() {
   if (is_dir('public://library-definitions')) {
-    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
-    $file_system = \Drupal::service('file_system');
-    $file_system->rmdir('public://library-definitions');
+    file_unmanaged_delete_recursive('public://library-definitions');
   }
 }

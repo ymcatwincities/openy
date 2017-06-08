@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_example_advanced_setup\Plugin\rest\resource\VarietyItems.
- */
-
 namespace Drupal\migrate_example_advanced_setup\Plugin\rest\resource;
 
 use Drupal\rest\Plugin\ResourceBase;
@@ -64,6 +59,14 @@ class VarietyItems extends ResourceBase {
 
     $response = new ResourceResponse($data, 200);
     return $response;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function permissions() {
+    // Remove permissions so the resource is available to all.
+    return [];
   }
 
 }

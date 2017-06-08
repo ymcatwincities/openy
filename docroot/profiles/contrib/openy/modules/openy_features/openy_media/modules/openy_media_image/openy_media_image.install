@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update routines.
+ */
+
+use Drupal\openy_media\EmbedButtonIconHelper;
+
+/**
+ * Implements hook_install().
+ */
+function openy_media_image_install() {
+  EmbedButtonIconHelper::setEmbedButtonIcon('openy_media_image', 'image.png', 'embed_image');
+}

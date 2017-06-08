@@ -25,6 +25,10 @@ class ComposerStaticInitDrupal8
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
+        'c' => 
+        array (
+            'cweagans\\Composer\\' => 18,
+        ),
         'Z' => 
         array (
             'Zumba\\Mink\\Driver\\' => 18,
@@ -38,6 +42,10 @@ class ComposerStaticInitDrupal8
         array (
             'Wikimedia\\Composer\\' => 19,
             'Webmozart\\Assert\\' => 17,
+        ),
+        'T' => 
+        array (
+            'Twig\\' => 5,
         ),
         'S' => 
         array (
@@ -87,11 +95,13 @@ class ComposerStaticInitDrupal8
         ),
         'D' => 
         array (
+            'Drupal\\plugin\\' => 14,
             'Drupal\\composer_manager\\Composer\\' => 33,
             'Drupal\\Driver\\' => 14,
             'Drupal\\Core\\Composer\\' => 21,
             'Drupal\\Core\\' => 12,
             'Drupal\\Component\\' => 17,
+            'DrupalComposer\\DrupalScaffold\\' => 30,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\' => 16,
@@ -122,6 +132,10 @@ class ComposerStaticInitDrupal8
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+        ),
+        'cweagans\\Composer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
         ),
         'Zumba\\Mink\\Driver\\' => 
         array (
@@ -154,6 +168,10 @@ class ComposerStaticInitDrupal8
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
         'Symfony\\Polyfill\\Php55\\' => 
         array (
@@ -279,6 +297,10 @@ class ComposerStaticInitDrupal8
         array (
             0 => __DIR__ . '/..' . '/fabpot/goutte/Goutte',
         ),
+        'Drupal\\plugin\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/contrib/plugin/src',
+        ),
         'Drupal\\composer_manager\\Composer\\' => 
         array (
             0 => __DIR__ . '/../..' . '/modules/contrib/composer_manager/src/Composer',
@@ -298,6 +320,10 @@ class ComposerStaticInitDrupal8
         'Drupal\\Component\\' => 
         array (
             0 => __DIR__ . '/../..' . '/core/lib/Drupal/Component',
+        ),
+        'DrupalComposer\\DrupalScaffold\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/drupal-composer/drupal-scaffold/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

@@ -1,0 +1,111 @@
+/**
+ * @file
+ * CSS for Google Map widget of Geolocation field.
+ */
+
+.geolocation-map {
+  /* Clear floated elements */
+  overflow: auto;
+}
+
+.geolocation-map-canvas {
+  height: 350px;
+  width: 100%;
+}
+
+/* Fix Google Maps v3 controls */
+.geolocation-map-canvas .gmnoprint img {
+  max-width: none;
+}
+
+.geocode-controls-wrapper {
+  display: block;
+  margin: 1em 0 0 1em;
+}
+
+.geocode-controls-wrapper input.location,
+.geocode-controls-wrapper button {
+  position: relative;
+  padding: 0;
+  height: 32px;
+  outline: none;
+  vertical-align: top;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  text-overflow: ellipsis;
+  border: 1px solid transparent;
+  box-sizing: content-box;
+  font-size: 14px;
+}
+
+.geocode-controls-wrapper input.location {
+  padding: 0 1em;
+  border-radius: 2px 0 0 2px;
+  background-color: #fff;
+  width: 200px;
+  max-width: 350px;
+  z-index: 3;
+  border: 0;
+  height: 34px;
+}
+
+.geocode-controls-wrapper input.location:focus {
+  border-color: #4d90fe;
+}
+
+.geocode-controls-wrapper button {
+  color: #fff;
+  cursor: pointer;
+  height: 32px;
+  text-align: center;
+  z-index: 2;
+  margin: 0 0.1em;
+  border-radius: 2px;
+  width: 36px;
+}
+
+.geocode-controls-wrapper button::before {
+  background-size: 13px;
+  height: 13px;
+  width: 13px;
+  content: "";
+  display: block;
+  margin: 0 auto;
+}
+
+.geocode-controls-wrapper button.search {
+  background: #4d90fe;
+  background: linear-gradient(top,#4d90fe,#4787ed);
+  border-radius: 0 2px 2px 0;
+  margin-left: -3px;
+  z-index: 4;
+}
+
+.geocode-controls-wrapper button.search::before {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAABVUlEQVRYw+2YQRGEMAxFkVAJlYAEJCABCUhAQiWshJWABCRUAg7+XsrMTkibNDBdDvtnek0fSfqToQPQPeE8AuK5IDkBGAC8AESctQEIAHxXKTUIgB7ACr0CAHcrCIAJNm0A+ltALkAc2jWlKoKkcnCKCdCR0i3p4lNmroJwPRGEgC6VhGo2gaTXUQUhwEQryKsmUOaZU40WEOoTk8Eb3iTGYgGhcgaQmcRYL4N0BjHl+RnIeDuI1iFJ8EBivC0gm7bRCsGj1ktKIIGx6pohNjNZ9RYQnxliTgHRM1a/XrH4kIEZhEzstT0mgeTmBpJZzemJjgk65naTO9aAPvOFtavAWMqKdjHyhcxIW9quGRVVO2uh/lTr8fWMqbEw1cvzV/AlXXico2c884IgwZhADMY2STBNQDQwzUAkmKYgAoxvClKAGZqDMDBb89IwRjlI0/f/W+ID3tQLQPib2qQAAAAASUVORK5CYII=);
+  background-size: 17px;
+  content: "";
+  display: block;
+  height: 17px;
+  margin: 0 auto;
+  width: 17px;
+}
+
+.geocode-controls-wrapper button.locate {
+  background: #4d90fe;
+  background: linear-gradient(top, #4d90fe, #4787ed);
+}
+.geocode-controls-wrapper button.locate::before {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AcVCg45w2bqzwAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAHjSURBVEjHxdY7aFZBEAXg75qIhTEaBU2tpBC7IBgfTSoxQiy0EcFCsRKfRcBCopWSgAgWNmIjdlaiSECwUMHGRtRGErSSCPGBIKKRscj+sFnun9xA0APL3T27s7PMnJ29IkLDNhgRUxExGRH9Te1WaI416VthbVOjKiIWml+Ng9iLbehO/Be8wkPcx6+lOujAYZxDzyKH/IgreNDUwUpcxz5Lw+3k6E9OljmoMFaz+Swms/G7ciMcw6XSa+ngKA4U3B3sxI2Mu4o9KQc5jmConYPuFPMcIxjFTE1IpnEqhTPHhZTDOWSaPZF03mqjhaZ7ImJ3al0ZX0XEzcJ2f2s+T/I99Kf+b+zA14YJ7sNENn6Ek9CZErou6byF99iFwDN8b7Pxegyk/gw2pP72JPPpKiKmFjndcTxpMzdck4MFVbTsqCJiIGX9FlYl/m26NFJJWChEW1N/HL3Z7R7Bz068SOSbLMl9abxYkj/jeVrfm/EvEz8vRI+LcnGm5rRDqXUVt/98sXai7h5sjIjXhZ4PZfPDGT+Y8acLm6cR0VH3HnyqUcQYLmfyy7EplY+zBT+v4JXVtMK1mno0iw/YkhW7zfNKwhzu4uI/Ldf/5cFZ1ifTEv4q2qlo2f4qfrTOhG9Njf4C0EWk9x5z6KYAAAAASUVORK5CYII=);
+}
+
+.geocode-controls-wrapper button.clear {
+  background: #999999;
+  background: linear-gradient(top,#999999,#666666);
+}
+.geocode-controls-wrapper button.clear.disabled {
+  background: #BBBBBB;
+  background: linear-gradient(top,#DDDDDD,#BBBBBB);
+}
+.geocode-controls-wrapper button.clear::before {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAA3CAYAAACo29JGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2hpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo3MEEyNTM1QjBBMjA2ODExODA4MzkzODI3MjczQzA3MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoyNzhDRDg3QTQ5MEExMUU0QTdGMkM1NzMyMDlBMjJBNSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyNzhDRDg3OTQ5MEExMUU0QTdGMkM1NzMyMDlBMjJBNSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NzBBMjUzNUIwQTIwNjgxMTgwODM5MzgyNzI3M0MwNzAiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NzBBMjUzNUIwQTIwNjgxMTgwODM5MzgyNzI3M0MwNzAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5jChSGAAAB2UlEQVR42tTaS07DQAwG4JANCSu4AuIstN3BJWFJyYaUy3ACRFclrAYPZKRplMfMxPbYln5VSh3JX9W6UZTCGFN42UL2kGpwXHou+7m3/vEh7Nv8V6sIaGFv/dydD3QNGw9mFAF9mBkCp2AagGOwM6BtejXzJRE4B3PV2MYaclAEDIFZz5U7QQuwCoUNt6V0YBRsiHPAViAwGjaGkwhMgk3hJAGTYXM4CcBVsCVcDLCWBgvB5QCiwEJxnEA0WAyOA4gKi8VRAtFhKTgKIAksFYcJJIOtwWEASWFrcWuA5DAMXAqQBYaFiwHecMEwcaHALy6YzcWfEK8qyB6ySTj3HfIIOWENUxa41UEeIIfcMApcCpAEZgv7a+nXNeSjf52qI+QO8kkxQEkEs7+95wWY+wCeILUWnIW9QLaB/ff9Eqql42JhpMCSGXbkBJaMMLsVbxe2KC6Q8Z6Hf23ZRvRnu/yKhRWcwBwwNmAuGAswJ4wcmBtGCpQAIwNKgZEAJcHQgdJgqMBsa5oDKBWGModk2Op5pMNWzaUBljyfFljSnJpg0cCQp/YkwWKAjXtCtlMECwFaz8417kaAkmFzwK73nG1LH6gBNgb8cbCx/zn7RqMI5gMbH2bzK8AAUThtyVYr9bAAAAAASUVORK5CYII=);
+}

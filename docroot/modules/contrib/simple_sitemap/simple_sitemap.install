@@ -21,18 +21,37 @@ function simple_sitemap_requirements($phase) {
   }
 
   switch ($phase) {
+
     case 'runtime':
-      $generated_ago = \Drupal::service('simple_sitemap.generator')->getGeneratedAgo();
+
+      $generator = \Drupal::service('simple_sitemap.generator');
+      $generated_ago = $generator->getGeneratedAgo();
+      $cron_generation = $generator->getSetting('cron_generate');
+
       if (!$generated_ago) {
         $value = t('Not available');
-        $description = t("The sitemap has not been generated yet. Run cron, or <a href='@generate'>generate</a> the sitemap manually.", ['@generate' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap']);
+        $description = t($cron_generation
+          ? "Run cron, or <a href='@generate'>generate</a> the sitemap manually."
+          : "Generation on cron run is disabled. <a href='@generate'>Generate</a> the sitemap manually.", [
+            '@generate' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap'
+          ]
+        );
         $severity = REQUIREMENT_WARNING;
       }
       else {
         $value = t('XML sitemap is available');
-        $description = t("The <a href='@sitemap'>XML sitemap</a> was generated @ago ago. <a href='@generate'>Regenerate</a>.", ['@ago' => $generated_ago, '@sitemap' => $GLOBALS['base_url'] . '/sitemap.xml', '@generate' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap']);
+        $description = t("The <a href='@sitemap'>XML sitemap</a> was generated @ago ago."
+          . ' ' . ($cron_generation
+            ? "Run cron, or <a href='@generate'>regenerate</a> the sitemap manually."
+            : "Generation on cron run is disabled. <a href='@generate'>Regenerate</a> the sitemap manually."), [
+              '@sitemap' => $GLOBALS['base_url'] . '/sitemap.xml',
+              '@ago' => $generated_ago,
+              '@generate' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap'
+            ]
+          );
         $severity = REQUIREMENT_INFO;
       }
+
       $requirements['simple_sitemap_generated'] = [
         'title' => 'Simple XML sitemap',
         'value' => $value,
@@ -92,8 +111,8 @@ function simple_sitemap_schema() {
       ],
       'entity_id' => [
         'description' => 'ID of the overriding entity.',
-        'type' => 'int',
-        'unsigned' => TRUE,
+        'type' => 'varchar',
+        'length' => 32,
         'not null' => TRUE,
       ],
       'inclusion_settings' => [
@@ -110,9 +129,8 @@ function simple_sitemap_schema() {
  * Implements hook_install().
  */
 function simple_sitemap_install() {
-  \Drupal::service('simple_sitemap.generator')->generateSitemap('nobatch');
   $base_url = $GLOBALS['base_url'];
-  drupal_set_message(t("You can now include content into the <a href='@sitemap_url' target='_blank'>XML sitemap</a> by visiting the corresponding entity type edit pages (e.g. <a href='@content_type_url' target='_blank'>node type edit pages</a>) These settings can then be overridden for single entities.<br/> Support for additional entity types and custom links can be added on <a href='@config_url' target='_blank'>the module's configuration pages</a>.", ['@sitemap_url' => "$base_url/sitemap.xml", '@content_type_url' => "$base_url/admin/structure/types", '@config_url' => "$base_url/admin/config/search/simplesitemap"]));
+  drupal_set_message(t("You can now include content into the sitemap by visiting the corresponding entity type edit pages (e.g. <a href='@content_type_url'>node type edit pages</a>).<br/>Support for additional entity types and custom links can be added on <a href='@config_url'>the module's configuration pages</a>.", ['@content_type_url' => "$base_url/admin/structure/types", '@config_url' => "$base_url/admin/config/search/simplesitemap"]));
 }
 
 /**
@@ -288,4 +306,20 @@ function simple_sitemap_update_8206() {
   }
   \Drupal::service('config.factory')->getEditable("simple_sitemap.custom")
     ->setData(['links' => $custom_links])->save();
+}
+
+/**
+ * Updating entity_id field of simple_sitemap_entity_overrides table to varchar(32).
+ */
+function simple_sitemap_update_8207() {
+  \Drupal::database()->schema()->changeField(
+    'simple_sitemap_entity_overrides',
+    'entity_id',
+    'entity_id', [
+      'description' => 'ID of the overriding entity.',
+      'type' => 'varchar',
+      'length' => 32,
+      'not null' => TRUE,
+    ]
+  );
 }

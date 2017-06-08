@@ -7,11 +7,12 @@ use Drupal\Core\Session\AccountProxyInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class Logger.
- *
+ * Class Logger
  * @package Drupal\simple_sitemap
  */
 class Logger {
+
+  use StringTranslationTrait;
 
   /*
    * Can be debug/info/notice/warning/error.
@@ -22,8 +23,6 @@ class Logger {
    * Can be status/warning/error.
    */
   const DISPLAY_MESSAGE_TYPE_DEFAULT = 'status';
-
-  use StringTranslationTrait;
 
   /**
    * @var \Psr\Log\LoggerInterface

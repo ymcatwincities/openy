@@ -1,0 +1,5 @@
+plugin_test_helper_mock:
+  label: Mock plugin
+  plugin_manager_service_id: plugin.manager.plugin_test_helper.mock
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: plugin_test_helper.plugin_configuration.plugin_test_helper_mock.[plugin_id]
