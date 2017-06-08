@@ -35,6 +35,13 @@ function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
       'render element' => 'elements',
       'base hook' => 'block',
     ],
+    'openy_digital_signage_block_time' => [
+      'template' => 'openy-digital-signage-block-time',
+      'variables' => [
+        'wrapper_attributes' => NULL,
+        'current_time' => NULL,
+      ],
+    ],
   ];
 }
 

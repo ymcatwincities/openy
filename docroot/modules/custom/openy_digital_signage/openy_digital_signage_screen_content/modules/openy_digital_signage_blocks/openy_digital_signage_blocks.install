@@ -3,13 +3,13 @@
 /**
  * @file
  * Install, update and uninstall functions for the
- * openy_digital_signage_block_time module.
+ * openy_digital_signage_blocks module.
  */
 
 /**
  * Implements hook_requirements().
  */
-function openy_digital_signage_block_time_requirements($phase) {
+function openy_digital_signage_blocks_requirements($phase) {
 
   $requirements = [];
 
