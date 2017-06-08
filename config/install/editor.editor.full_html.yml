@@ -53,7 +53,7 @@ settings:
             - Source
   plugins:
     stylescombo:
-      styles: "p.wysiwyg--button|Button\r\nspan.wysiwyg--clock-icon|Clock icon"
+      styles: "p.wysiwyg--button|Button\r\nspan.glyphicon.glyphicon-time|Clock icon"
     language:
       language_list: un
     colorbutton:
