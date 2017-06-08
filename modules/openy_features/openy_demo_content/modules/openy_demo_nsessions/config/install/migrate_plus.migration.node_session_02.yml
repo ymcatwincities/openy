@@ -6,7 +6,7 @@ dependencies:
       - openy_demo_nsessions
 id: openy_demo_node_session_02
 migration_tags: {  }
-migration_group: openy_demo_ncategory
+migration_group: openy_demo_nsessions
 label: 'Create demo session nodes'
 source:
   plugin: embedded_data
