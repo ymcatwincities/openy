@@ -15,6 +15,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
    *
    * @param string $panels_storage_id
    *   The id within the storage plugin for the requested Panels display.
+   *
    * @return bool
    *   Status.
    */
