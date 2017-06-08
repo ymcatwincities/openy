@@ -5053,6 +5053,7 @@ a[href="#step2"] {
 }
 #membership-calc-wrapper .membership-type label {
   border-bottom: 1px solid #333;
+  left: 0;
   bottom: 0;
   display: block;
   padding-bottom: 30px;
@@ -5069,7 +5070,11 @@ a[href="#step2"] {
   margin-top: 40px;
 }
 #membership-calc-wrapper .form-element-wrapper {
-  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  flex-direction: column;
   position: relative;
 }
 #membership-calc-wrapper .form-element-wrapper .btn, #membership-calc-wrapper .form-element-wrapper .button {
@@ -5079,7 +5084,11 @@ a[href="#step2"] {
   display: none;
 }
 #membership-calc-wrapper .membership-type {
-  margin: 0 0 40px 0;
+  margin: 0 0 20px 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 @media (min-width: 30em) and (max-width: 48em) {
   #membership-calc-wrapper .membership-type {
@@ -5103,7 +5112,7 @@ a[href="#step2"] {
   margin: 20px 0 10px 0;
 }
 #membership-calc-wrapper .node--type-membership.node--view-mode-calc-preview {
-  margin-bottom: 90px;
+  margin-bottom: 100px;
 }
 #membership-calc-wrapper .pull-right,
 #membership-calc-wrapper .complete-registration {
