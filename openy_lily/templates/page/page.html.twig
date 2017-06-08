@@ -100,6 +100,10 @@
         </div>
       </nav>
 
+      {% if is_front %}
+        {% block home_heading %}{% endblock %}
+      {% endif %}
+
       {% block primary_menu %}
         {% if site_section_bundle not in ['location', 'camp'] %}
           {{ page.primary_menu }}
