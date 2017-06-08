@@ -49,7 +49,7 @@
   {% else %}
     {% for item in items %}
       {% if item.content['#markup']|length %}
-        <div{{ attributes.addClass(field_name) }}><i class="fa fa-star"></i><span>{{ 'New Y'|t }}</span>{{ item.content }}</div>
+        <div{{ attributes.addClass(field_name) }}><i class="fa fa-star" aria-hidden="true"></i><span>{{ 'New Y'|t }}</span>{{ item.content }}</div>
       {% endif %}
     {% endfor %}
   {% endif %}
