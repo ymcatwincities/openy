@@ -11,7 +11,7 @@ So there is a need for importing only of specific configs via `hook_update_N()`.
 All the work happening with the `config_import.importer` service. Let's instantiate it:
 
 ```php
-/* @var \Drupal\config_import\ConfigImporterService $config_importer */
+/* @var \Drupal\config_import\ConfigImporterServiceInterface $config_importer */
 $config_importer = \Drupal::service('config_import.importer');
 ```
 
@@ -32,6 +32,27 @@ And export can be achieved with a similar construction:
 
 ```php
 $config_importer->exportConfigs(['core.extension']);
+```
+
+## Features integration
+
+To revert/import [features](https://www.drupal.org/project/features) you have to enable the `features` module first:
+
+```shell
+drush en features -y
+```
+
+Get instance of service:
+
+```php
+/* @var \Drupal\config_import\ConfigFeaturesImporterServiceInterface $features_importer */
+$features_importer = \Drupal::service('config_import.features_importer');
+```
+
+And do the import:
+
+```php
+$features_importer->importFeatures(['feature1', 'feature2']);
 ```
 
 ## Drush integration
