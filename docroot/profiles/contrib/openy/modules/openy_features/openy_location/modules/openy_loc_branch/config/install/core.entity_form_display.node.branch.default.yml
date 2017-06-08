@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.field.node.branch.field_bottom_content
     - field.field.node.branch.field_branch_hours
-    - field.field.node.branch.field_content
+    - field.field.node.branch.field_oy_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
     - field.field.node.branch.field_location_area
@@ -91,7 +91,7 @@ third_party_settings:
       label: 'Header Area'
     group_content_area:
       children:
-        - field_content
+        - field_oy_content
       parent_name: ''
       weight: 4
       format_type: tab
@@ -143,7 +143,7 @@ content:
     third_party_settings: {  }
     type: openy_custom_hours_default
     region: content
-  field_content:
+  field_oy_content:
     type: entity_reference_paragraphs
     weight: 5
     settings:

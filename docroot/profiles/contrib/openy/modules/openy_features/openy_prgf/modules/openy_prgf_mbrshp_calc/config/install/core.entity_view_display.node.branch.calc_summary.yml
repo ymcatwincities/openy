@@ -4,7 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.calc_summary
     - field.field.node.branch.field_branch_hours
-    - field.field.node.branch.field_content
+    - field.field.node.branch.field_oy_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
     - field.field.node.branch.field_location_area
@@ -46,7 +46,7 @@ content:
     third_party_settings: {  }
     type: telephone_link
 hidden:
-  field_content: true
+  field_oy_content: true
   field_header_content: true
   field_location_area: true
   field_location_coordinates: true

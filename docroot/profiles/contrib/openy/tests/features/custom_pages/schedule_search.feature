@@ -47,7 +47,7 @@ Feature: Schedule search
     And I create large landing_page content:
       | KEY           | behat_schedule                             |
       | title         | BEHAT Schedule                             |
-      | field_content | schedule_search_form, schedule_search_list |
+      | field_oy_content | schedule_search_form, schedule_search_list |
 
   Scenario:
     Given I go to "/behat-schedule?date=04/20/2037"

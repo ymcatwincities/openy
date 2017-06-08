@@ -19,7 +19,7 @@ Feature: WYSIWYG
     And I view a landing_page content:
       | title           | Behat test for WYSIWYG |
       | field_lp_layout | one_column             |
-      | field_content   | simple_content         |
+      | field_oy_content   | simple_content         |
     And I click "Edit"
 
   Scenario: Embed Image

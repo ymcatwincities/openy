@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_content
-    - node.type.branch
+    - field.storage.node.field_oy_content
+    - node.type.program
   module:
     - entity_reference_revisions
-id: node.branch.field_content
-field_name: field_content
+id: node.program.field_oy_content
+field_name: field_oy_content
 entity_type: node
-bundle: branch
+bundle: program
 label: Content
 description: ''
 required: false

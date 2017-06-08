@@ -11,7 +11,7 @@ dependencies:
     - field.field.node.blog.field_blog_related
     - field.field.node.blog.field_blog_style
     - field.field.node.blog.field_blog_text_color
-    - field.field.node.blog.field_content
+    - field.field.node.blog.field_oy_content
     - field.field.node.blog.field_sidebar_content
     - node.type.blog
   module:
@@ -58,7 +58,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
-  field_content:
+  field_oy_content:
     weight: 4
     label: hidden
     settings:

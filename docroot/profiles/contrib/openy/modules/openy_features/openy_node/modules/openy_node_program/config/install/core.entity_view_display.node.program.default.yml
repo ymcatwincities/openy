@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.program.field_content
+    - field.field.node.program.field_oy_content
     - field.field.node.program.field_meta_tags
     - field.field.node.program.field_program_color
     - field.field.node.program.field_program_description
@@ -20,7 +20,7 @@ targetEntityType: node
 bundle: program
 mode: default
 content:
-  field_content:
+  field_oy_content:
     weight: 4
     label: hidden
     settings:

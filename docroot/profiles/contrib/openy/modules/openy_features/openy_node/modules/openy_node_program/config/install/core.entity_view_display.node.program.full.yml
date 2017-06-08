@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
-    - field.field.node.program.field_content
+    - field.field.node.program.field_oy_content
     - field.field.node.program.field_program_color
     - field.field.node.program.field_program_description
     - field.field.node.program.field_program_icon
@@ -19,7 +19,7 @@ targetEntityType: node
 bundle: program
 mode: full
 content:
-  field_content:
+  field_oy_content:
     weight: 4
     label: hidden
     settings:
