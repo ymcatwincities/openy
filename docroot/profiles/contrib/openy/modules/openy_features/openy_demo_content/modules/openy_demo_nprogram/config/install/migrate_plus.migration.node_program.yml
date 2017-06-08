@@ -141,11 +141,11 @@ process:
   field_program_description/format:
     plugin: default_value
     default_value: full_html
-  field_content/target_id:
+  field_oy_content/target_id:
     plugin: migration
     migration: openy_demo_paragraph_category_listing
     source: listing_id
-  field_content/target_revision_id:
+  field_oy_content/target_revision_id:
     plugin: migration
     migration: openy_demo_paragraph_category_listing
     source: listing_id

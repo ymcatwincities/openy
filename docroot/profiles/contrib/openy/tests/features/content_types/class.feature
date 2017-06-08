@@ -44,13 +44,13 @@ Feature: Class Content type
       | KEY                   | behat_class_01    |
       | title                 | BEHAT CLASS       |
       | field_class_activity  | behat_activity    |
-      | field_content         | class_sessions_01 |
+      | field_oy_content         | class_sessions_01 |
       | field_sidebar_content | class_location    |
     And I create large class content:
       | KEY                   | behat_class_02    | behat_class_03    |
       | title                 | BEHAT CLASS       | BEHAT CLASS       |
       | field_class_activity  | behat_activity    | behat_activity    |
-      | field_content         | class_sessions_02 | class_sessions_03 |
+      | field_oy_content         | class_sessions_02 | class_sessions_03 |
     And I create large paragraph of type session_time:
       | KEY                           | session_time_01     | session_time_02     |
       | field_session_time_date:value | 2037-04-20T12:00:00 | 2037-04-20T12:00:00 |

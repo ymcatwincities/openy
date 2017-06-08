@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.facility.field_content
+    - field.field.node.facility.field_oy_content
     - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
@@ -57,7 +57,7 @@ content:
       title: ''
     third_party_settings: {  }
 hidden:
-  field_content: true
+  field_oy_content: true
   field_facility_loc: true
   field_facility_type: true
   field_location_coordinates: true

@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
-    - field.field.node.facility.field_content
+    - field.field.node.facility.field_oy_content
     - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
@@ -25,7 +25,7 @@ targetEntityType: node
 bundle: facility
 mode: full
 content:
-  field_content:
+  field_oy_content:
     weight: 1
     label: hidden
     settings:

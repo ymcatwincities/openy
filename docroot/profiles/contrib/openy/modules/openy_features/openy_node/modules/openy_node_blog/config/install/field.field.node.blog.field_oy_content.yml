@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_content
+    - field.storage.node.field_oy_content
     - node.type.blog
   module:
     - entity_reference_revisions
-id: node.blog.field_content
-field_name: field_content
+id: node.blog.field_oy_content
+field_name: field_oy_content
 entity_type: node
 bundle: blog
 label: Content
