@@ -9,6 +9,8 @@ define('OPENY_DS_BLOCK_PROMOTIONAL', 'digital_signage_promotional');
 define('OPENY_DS_BLOCK_HTML_BUNDLE', 'digital_signage_block_free_html');
 
 use Drupal\Core\Template\Attribute;
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -118,7 +120,7 @@ function openy_digital_signage_blocks_preprocess_block(&$variables) {
 /**
  * Implements hook_block_content_view().
  */
-function openy_digital_signage_blocks_block_content_view(array &$build, \Drupal\block_content\Entity\BlockContent $block_content, $view_mode) {
+function openy_digital_signage_blocks_block_content_view(array &$build, BlockContent $block_content, $view_mode) {
   if ($block_content->bundle() != OPENY_DS_BLOCK_HTML_BUNDLE) {
     return;
   }
@@ -129,7 +131,7 @@ function openy_digital_signage_blocks_block_content_view(array &$build, \Drupal\
 /**
  * Implements hook_form_alter().
  */
-function openy_digital_signage_blocks_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   switch ($form_id) {
     case 'block_content_digital_signage_promotional_panels_ipe_form':
       $form['revision_information']['#access'] = FALSE;
