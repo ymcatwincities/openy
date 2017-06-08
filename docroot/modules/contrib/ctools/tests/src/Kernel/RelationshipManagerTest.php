@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\ctools\Kernel\RelationshipManagerTest.
- */
 
 namespace Drupal\Tests\ctools\Kernel;
 
