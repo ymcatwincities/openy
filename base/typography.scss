@@ -18,6 +18,10 @@ h2 {
   font-size:  36px;
 }
 
+article {
+  @include cachet();
+}
+
 p {
   word-wrap: break-word;
 }
