@@ -3,3 +3,12 @@ admin:
   css:
     layout:
       css/page-manager-ui.admin.css: {}
+page_variants:
+  version: VERSION
+  css:
+    layout:
+      css/page-manager-ui-page-variants.css: {}
+  js:
+    js/page-manager-ui-page-variants.js: {}
+  dependencies:
+    - core/jquery
