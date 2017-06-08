@@ -109,6 +109,8 @@ class PluginSelector extends WidgetBase {
       $plugin_type = $plugin_type_manager->getPluginType($element['#plugin_type_id']);
 
       $plugin_selector = $plugin_selector_manager->createInstance($element['#plugin_selector_id']);
+      $plugin_selector->setLabel($field_definition->getLabel());
+      $plugin_selector->setDescription($field_definition->getDescription());
       $plugin_selector->setRequired($field_definition->isRequired());
       $plugin_selector->setSelectablePluginType($plugin_type);
       $plugin_selector->setKeepPreviouslySelectedPlugins();

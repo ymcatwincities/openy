@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\plugin;
+namespace Drupal\Tests\plugin\Unit;
 
 use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\StringTranslation\TranslatableMarkup;

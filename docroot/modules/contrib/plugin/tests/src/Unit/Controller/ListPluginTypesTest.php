@@ -9,7 +9,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\plugin\Controller\ListPluginTypes;
 use Drupal\plugin\PluginType\PluginType;
 use Drupal\plugin\PluginType\PluginTypeManagerInterface;
-use Drupal\Tests\plugin\TranslationMock;
+use Drupal\Tests\plugin\Unit\TranslationMock;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

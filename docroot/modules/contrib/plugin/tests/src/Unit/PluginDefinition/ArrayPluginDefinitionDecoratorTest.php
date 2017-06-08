@@ -62,6 +62,7 @@ class ArrayPluginDefinitionDecoratorTest extends UnitTestCase {
    */
   public function testConstruct() {
     $this->sut = new ArrayPluginDefinitionDecorator($this->arrayDefinition);
+    $this->assertInstanceOf(ArrayPluginDefinitionDecorator::class, $this->sut);
   }
 
   /**

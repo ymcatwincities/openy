@@ -17,11 +17,18 @@ plugin.plugin_configuration.plugin_selector.plugin_selector_base:
       label: Required
       type: boolean
 
-plugin.plugin_configuration.plugin_selector.plugin_radios:
+plugin.plugin_configuration.plugin_selector.advanced_plugin_selector_base:
   type: plugin.plugin_configuration.plugin_selector.plugin_selector_base
+  mapping:
+    always_show_selection_elements:
+      label: Always show the selection elements
+      type: boolean
+
+plugin.plugin_configuration.plugin_selector.plugin_radios:
+  type: plugin.plugin_configuration.plugin_selector.advanced_plugin_selector_base
 
 plugin.plugin_configuration.plugin_selector.plugin_select_list:
-  type: plugin.plugin_configuration.plugin_selector.plugin_selector_base
+  type: plugin.plugin_configuration.plugin_selector.advanced_plugin_selector_base
 
 # Fallback plugin configuration in case no more specific schemas are available.
 plugin.plugin_configuration.*:

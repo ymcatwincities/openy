@@ -81,6 +81,7 @@ class PluginSelectorManagerTest extends UnitTestCase {
   public function testConstruct() {
     $namespaces = new ArrayObject();
     $this->sut = new PluginSelectorManager($namespaces, $this->cache, $this->moduleHandler);
+    $this->assertInstanceOf(PluginSelectorManager::class, $this->sut);
   }
 
   /**
