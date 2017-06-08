@@ -1,3 +1,40 @@
+* 1.33.2 (2017-04-20)
+
+ * fixed edge case in the method cache for Twig attributes
+
+* 1.33.1 (2017-04-18)
+
+ * fixed the empty() test
+
+* 1.33.0 (2017-03-22)
+
+ * fixed a race condition handling when writing cache files
+ * "length" filter now returns string length when applied to an object that does
+   not implement \Countable but provides __toString()
+ * "empty" test will now consider the return value of the __toString() method for
+   objects implement __toString() but not \Countable
+ * fixed JS escaping for unicode characters with higher code points
+
+* 1.32.0 (2017-02-26)
+
+ * fixed deprecation notice in Twig_Util_DeprecationCollector
+ * added a PSR-11 compatible runtime loader
+ * added `side` argument to `trim` to allow left or right trimming only.
+
+* 1.31.0 (2017-01-11)
+
+ * added Twig_NodeCaptureInterface for nodes that capture all output
+ * fixed marking the environment as initialized too early
+ * fixed C89 compat for the C extension
+ * turned fatal error into exception when a previously generated cache is corrupted
+ * fixed offline cache warm-ups for embedded templates
+
+* 1.30.0 (2016-12-23)
+
+ * added Twig_FactoryRuntimeLoader
+ * deprecated function/test/filter/tag overriding
+ * deprecated the "disable_c_ext" attribute on Twig_Node_Expression_GetAttr
+
 * 1.29.0 (2016-12-13)
 
  * fixed sandbox being left enabled if an exception is thrown while rendering
