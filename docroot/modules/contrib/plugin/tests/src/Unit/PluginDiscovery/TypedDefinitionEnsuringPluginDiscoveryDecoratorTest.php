@@ -52,6 +52,7 @@ class TypedDefinitionEnsuringPluginDiscoveryDecoratorTest extends UnitTestCase {
    */
   public function testConstruct() {
     $this->sut = new TypedDefinitionEnsuringPluginDiscoveryDecorator($this->pluginType, $this->pluginManager);
+    $this->assertInstanceOf(TypedDefinitionEnsuringPluginDiscoveryDecorator::class, $this->sut);
   }
 
   /**

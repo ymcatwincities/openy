@@ -2,7 +2,9 @@
 
 namespace Drupal\plugin\PluginType;
 
-use Drupal\Component\Discovery\YamlDiscovery;
+use Drupal\Component\FileCache\FileCacheFactory;
+use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -71,32 +73,84 @@ class PluginTypeManager implements PluginTypeManagerInterface {
    * {@inheritdoc}
    */
   public function getPluginTypes() {
-    if (is_null($this->pluginTypes)) {
-      $this->pluginTypes = [];
+    // Return immediately if all data is available in the static cache.
+    if (is_array($this->pluginTypes)) {
+      return $this->pluginTypes;
+    }
 
-      // Get the plugin type definitions.
-      $plugin_types_data_discovery = new YamlDiscovery('plugin_type', $this->moduleHandler->getModuleDirectories());
-      $plugin_type_definitions_by_module = $plugin_types_data_discovery->findAll();
+    $this->pluginTypes = [];
 
-      // For every definition, set defaults and instantiate an object.
-      foreach ($plugin_type_definitions_by_module as $module => $plugin_type_definitions) {
-        $plugin_type_definition_defaults = [
-          'provider' => $module
-        ];
-        foreach ($plugin_type_definitions as $plugin_type_id => $plugin_type_definition) {
-          $plugin_type_definition += $plugin_type_definition_defaults;
-          if ($plugin_type_definition['provider'] == 'core' || $this->moduleHandler->moduleExists($plugin_type_definition['provider'])) {
-            $plugin_type_definition['id'] = $plugin_type_id;
-            /** @var \Drupal\plugin\PluginType\PluginTypeInterface $class */
-            $class = isset($plugin_type_definition['class']) ? $plugin_type_definition['class'] : PluginType::class;
-            $plugin_type = $class::createFromDefinition($this->container, $plugin_type_definition);
-            $this->pluginTypes[$plugin_type_id] = $plugin_type;
-          }
-        }
+    // \Drupal\Component\Discovery\YamlDiscovery::findAll() caches raw file
+    // contents, but we want to cache plugin types for better performance.
+    $files = $this->findFiles();
+    $providers_by_file = array_flip($files);
+    $file_cache = FileCacheFactory::get('plugin:plugin_type');
+
+    // Try to load from the file cache first.
+    foreach ($file_cache->getMultiple($files) as $file => $plugin_types_by_file) {
+      $this->pluginTypes = array_merge($this->pluginTypes, $plugin_types_by_file);
+      unset($providers_by_file[$file]);
+    }
+
+    // List the available plugin type providers.
+    $providers = array_map(function(Extension $module) {
+      return $module->getName();
+    }, $this->moduleHandler->getModuleList());
+    $providers[] = 'core';
+
+    // If there are files left that were not returned from the cache, load and
+    // parse them now. This list was flipped above and is keyed by filename.
+    foreach ($providers_by_file as $file => $provider) {
+      // If a file is empty or its contents are commented out, return an empty
+      // array instead of NULL for type consistency.
+      $plugin_type_definitions = Yaml::decode(file_get_contents($file)) ?: [];
+
+      // Set the plugin type definitions' default values.
+      $plugin_type_definition_defaults = [
+        'class' => PluginType::class,
+        'provider' => $provider,
+      ];
+      $plugin_type_definitions = array_map(function($plugin_type_id, array $plugin_type_definition) use ($plugin_type_definition_defaults) {
+        $plugin_type_definition['id'] = $plugin_type_id;
+        return $plugin_type_definition + $plugin_type_definition_defaults;
+      }, array_keys($plugin_type_definitions), $plugin_type_definitions);
+
+      // Remove definitions from uninstalled providers.
+      $plugin_type_definitions = array_filter($plugin_type_definitions, function(array $plugin_type_definition) use ($providers) {
+        return in_array($plugin_type_definition['provider'], $providers);
+      });
+
+      // Create plugin types from their definitions.
+      $file_plugin_types = [];
+      foreach ($plugin_type_definitions as $plugin_type_definition) {
+        /** @var \Drupal\plugin\PluginType\PluginTypeInterface $class */
+        $class = $plugin_type_definition['class'];
+        $plugin_type= $class::createFromDefinition($this->container, $plugin_type_definition);
+        $file_plugin_types[$plugin_type->getId()] = $plugin_type;
       }
+
+      // Store the plugin types in the static and file caches.
+      $this->pluginTypes += $file_plugin_types;
+      $file_cache->set($file, $file_plugin_types);
     }
 
     return $this->pluginTypes;
+  }
+
+  /**
+   * Returns an array of file paths, keyed by provider.
+   *
+   * @return string[]
+   */
+  protected function findFiles() {
+    $files = [];
+    foreach ($this->moduleHandler->getModuleDirectories() as $provider => $directory) {
+      $file = $directory . '/' . $provider . '.plugin_type.yml';
+      if (file_exists($file)) {
+        $files[$provider] = $file;
+      }
+    }
+    return $files;
   }
 
 }

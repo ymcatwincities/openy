@@ -47,6 +47,7 @@ class EventBasedDefaultPluginResolverTest extends UnitTestCase {
    */
   function testConstruct() {
     $this->sut = new EventBasedDefaultPluginResolver($this->eventDispatcher);
+    $this->assertInstanceOf(EventBasedDefaultPluginResolver::class, $this->sut);
   }
 
   /**

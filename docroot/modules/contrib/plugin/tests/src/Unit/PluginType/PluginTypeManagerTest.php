@@ -4,7 +4,9 @@ namespace Drupal\Tests\plugin\Unit\PluginType;
 
 use Drupal\Component\FileCache\FileCacheFactory;
 use Drupal\Component\Plugin\PluginManagerInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
+use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\plugin\PluginType\PluginTypeInterface;
 use Drupal\plugin\PluginType\PluginTypeManager;
@@ -58,6 +60,13 @@ class PluginTypeManagerTest extends UnitTestCase {
   protected $sut;
 
   /**
+   * The typed configuration manager.
+   *
+   * @var \Drupal\Core\Config\TypedConfigManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+   */
+  protected $typedConfigurationManager;
+
+  /**
    * Builds a plugin type definition file.
    *
    * @param string $id
@@ -78,19 +87,19 @@ EOT;
   public function setUp() {
     FileCacheFactory::setPrefix($this->randomMachineName());
 
-    $plugin_type_id_a = $this->randomMachineName();
+    $plugin_type_id_a = 'foo';
     $this->pluginTypeDefinitions[$plugin_type_id_a] = [
-      'label' => $this->randomMachineName(),
-      'description' => $this->randomMachineName(),
-      'provider' => $this->randomMachineName(),
-      'plugin_manager_service_id' => $this->randomMachineName(),
+      'label' => 'Foo',
+      'description' => 'This is Foo.',
+      'provider' => 'foo',
+      'plugin_manager_service_id' => 'plugin.manager.foo',
     ];
-    $plugin_type_id_b = $this->randomMachineName();
+    $plugin_type_id_b = 'bar';
     $this->pluginTypeDefinitions[$plugin_type_id_b] = [
-      'label' => $this->randomMachineName(),
-      'description' => $this->randomMachineName(),
-      'provider' => $this->randomMachineName(),
-      'plugin_manager_service_id' => $this->randomMachineName(),
+      'label' => 'Bar',
+      'description' => 'I am Bar(t).',
+      'provider' => 'bar',
+      'plugin_manager_service_id' => 'plugin.manager.bar',
     ];
 
     $this->pluginManagers = [
@@ -112,9 +121,12 @@ EOT;
 
     $class_resolver = $this->getMock(ClassResolverInterface::class);
 
+    $this->typedConfigurationManager = $this->getMock(TypedConfigManagerInterface::class);
+
     $this->container = $this->getMock(ContainerInterface::class);
     $map = [
       ['class_resolver', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $class_resolver],
+      ['config.typed', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->typedConfigurationManager],
       ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->getStringTranslationStub()],
       [$this->pluginTypeDefinitions[$plugin_type_id_a]['plugin_manager_service_id'], ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->pluginManagers[$plugin_type_id_a]],
       [$this->pluginTypeDefinitions[$plugin_type_id_b]['plugin_manager_service_id'], ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->pluginManagers[$plugin_type_id_b]],
@@ -137,6 +149,7 @@ EOT;
    */
   public function testConstruct() {
     $this->sut = new PluginTypeManager($this->container, $this->moduleHandler);
+    $this->assertInstanceOf(PluginTypeManager::class, $this->sut);
   }
 
   /**
@@ -144,10 +157,19 @@ EOT;
    *
    * @dataProvider providerHasPluginType
    */
-  public function testHasPluginType($expected, $plugin_type_id, $module_exists) {
-    $this->moduleHandler->expects($this->atLeastOnce())
-      ->method('moduleExists')
-      ->willReturn(isset($this->pluginTypeDefinitions[$plugin_type_id]) && $module_exists);
+  public function testHasPluginType($expected, $plugin_type_id, $module_name, $module_exists) {
+    $modules = [];
+    if ($module_exists) {
+      $modules[] = new Extension('', 'module', sprintf('modules/%s/%s.info.yml', $module_name, $module_name));
+    }
+    $this->moduleHandler->expects($this->any())
+      ->method('getModuleList')
+      ->willReturn($modules);
+
+    $this->typedConfigurationManager->expects($this->any())
+      ->method('hasConfigSchema')
+      ->with(sprintf('plugin.plugin_configuration.%s.*', $plugin_type_id))
+      ->willReturn(TRUE);
 
     $this->assertSame($expected, $this->sut->hasPluginType($plugin_type_id));
   }
@@ -155,15 +177,16 @@ EOT;
   /**
    * Provides data to self::testHasPluginType().
    */
-  public function providerHasPluginType () {
+  public function providerHasPluginType() {
     $data = [];
 
-    foreach ($this->pluginTypeDefinitions as $plugin_type_definition) {
-      $data[] = [TRUE, $plugin_type_definition['id'], TRUE];
-      $data[] = [FALSE, $plugin_type_definition['id'], FALSE];
+    // This hardcoded the IDs in $this->pluginTypeDefinitions.
+    foreach (['foo', 'bar'] as $key) {
+      $data[] = [TRUE, $key, $key, TRUE];
+      $data[] = [FALSE, $key, $key, FALSE];
     }
-    $data[] = [FALSE, $this->randomMachineName(), TRUE];
-    $data[] = [FALSE, $this->randomMachineName(), FALSE];
+    $data[] = [FALSE, $this->randomMachineName(), $this->randomMachineName(), TRUE];
+    $data[] = [FALSE, $this->randomMachineName(), $this->randomMachineName(), FALSE];
 
     return $data;
   }
@@ -173,10 +196,19 @@ EOT;
    *
    * @dataProvider providerGetPluginType
    */
-  public function testGetPluginType($expected_success, $plugin_type_id, $module_exists) {
-    $this->moduleHandler->expects($this->atLeastOnce())
-      ->method('moduleExists')
-      ->willReturn(isset($this->pluginTypeDefinitions[$plugin_type_id]) && $module_exists);
+  public function testGetPluginType($expected_success, $plugin_type_id, $module_name, $module_exists) {
+    $modules = [];
+    if ($module_exists) {
+      $modules[] = new Extension('', 'module', sprintf('modules/%s/%s.info.yml', $module_name, $module_name));
+    }
+    $this->moduleHandler->expects($this->any())
+      ->method('getModuleList')
+      ->willReturn($modules);
+
+    $this->typedConfigurationManager->expects($this->any())
+      ->method('hasConfigSchema')
+      ->with(sprintf('plugin.plugin_configuration.%s.*', $plugin_type_id))
+      ->willReturn(TRUE);
 
     if ($expected_success) {
       $this->assertInstanceOf(PluginTypeInterface::class, $this->sut->getPluginType($plugin_type_id));
@@ -193,12 +225,13 @@ EOT;
   public function providerGetPluginType () {
     $data = [];
 
-    foreach ($this->pluginTypeDefinitions as $plugin_type_definition) {
-      $data[] = [TRUE, $plugin_type_definition['id'], TRUE];
-      $data[] = [FALSE, $plugin_type_definition['id'], FALSE];
+    // This hardcoded the IDs in $this->pluginTypeDefinitions.
+    foreach (['foo', 'bar'] as $key) {
+      $data[] = [TRUE, $key, $key, TRUE];
+      $data[] = [FALSE, $key, $key, FALSE];
     }
-    $data[] = [FALSE, $this->randomMachineName(), TRUE];
-    $data[] = [FALSE, $this->randomMachineName(), FALSE];
+    $data[] = [FALSE, $this->randomMachineName(), $this->randomMachineName(), TRUE];
+    $data[] = [FALSE, $this->randomMachineName(), $this->randomMachineName(), FALSE];
 
     return $data;
   }
@@ -209,6 +242,10 @@ EOT;
    * @expectedException \InvalidArgumentException
    */
   public function testGetPluginTypeWithInvalidPluginTypeId() {
+    $this->moduleHandler->expects($this->any())
+      ->method('getModuleList')
+      ->willReturn([]);
+
     $this->sut->getPluginType($this->randomMachineName());
   }
 
@@ -216,6 +253,18 @@ EOT;
    * @covers ::getPluginTypes
    */
   public function testGetPluginTypes() {
+    $modules = array_map(function(array $plugin_type_definition) {
+      $name = $plugin_type_definition['provider'];
+      return new Extension('', 'module', sprintf('modules/%s/%s.info.yml', $name, $name));
+    }, $this->pluginTypeDefinitions);
+    $this->moduleHandler->expects($this->any())
+      ->method('getModuleList')
+      ->willReturn($modules);
+
+    $this->typedConfigurationManager->expects($this->any())
+      ->method('hasConfigSchema')
+      ->willReturn('TRUE');
+
     foreach ($this->sut->getPluginTypes() as $plugin_type) {
       $this->assertPluginTypeIntegrity($plugin_type->getId(), $this->pluginTypeDefinitions[$plugin_type->getId()], $this->pluginManagers[$plugin_type->getId()], $plugin_type);
     }
