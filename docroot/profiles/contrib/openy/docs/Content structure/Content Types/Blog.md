@@ -14,7 +14,7 @@ Blog Post content type is used for adding blog posts on the site.
 | **Content Area** | Field group |||
 | Image | field\_blog_image | No | Image field for the Blog item. Entity reference to Media bundle. |
 | Description | field_blog_description | No | Textarea for the description/body with WYSIWYG, without summary. |
-| Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
+| Content | field_oy_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Sidebar Area** | Field group |||
 | Related content | field\_blog_related | No | Reference field for choosing related Blog nodes. Multiple Values. |
 | Content | field\_sidebar_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |

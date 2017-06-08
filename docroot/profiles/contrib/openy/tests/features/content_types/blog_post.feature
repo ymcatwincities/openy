@@ -61,13 +61,13 @@ Feature: Blog Content type
     When I click "//*[@id='edit-group-content-area']/summary" xpath element
     And I scroll to "#edit-field-content" element
     Then I press "List additional actions"
-    And I scroll to "input[name='field_content_gallery_add_more']" element
+    And I scroll to "input[name='field_oy_content_gallery_add_more']" element
     And I press "Add Gallery"
     And I wait for AJAX to finish
     And I fill in "Headline" with "Behat gallery"
     And I scroll to ".field--name-field-content summary:contains('Images')" element
     And I click ".field--name-field-content summary:contains('Images')" element
-    And I press "field_content_0_subform_field_prgf_images_entity_browser_entity_browser"
+    And I press "field_oy_content_0_subform_field_prgf_images_entity_browser_entity_browser"
     And I wait for AJAX to finish
     Then I switch to an iframe "entity_browser_iframe_images_library"
     And I click "All Images"

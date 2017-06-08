@@ -34,7 +34,7 @@ Feature: Program and Subcategory pages
       | title                  | BEHAT CATEGORY     |
       | field_category_program | behat_program      |
       | field_header_content   | behat_banner_01    |
-      | field_content          | behat_banner_02    |
+      | field_oy_content          | behat_banner_02    |
       | field_bottom_content   | behat_banner_03    |
       | field_sidebar_content  | behat_small_banner |
 

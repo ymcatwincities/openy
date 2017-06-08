@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.landing_page.field_bottom_content
-    - field.field.node.landing_page.field_content
+    - field.field.node.landing_page.field_oy_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
     - field.field.node.landing_page.field_meta_tags
@@ -27,7 +27,7 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
-  field_content:
+  field_oy_content:
     weight: 103
     label: above
     settings:

@@ -18,7 +18,7 @@ Feature: Landing page Content type
       | KEY                                 | behat_landing      |
       | title                               | BEHAT LANDING      |
       | field_header_content                | behat_banner_01    |
-      | field_content                       | behat_banner_02    |
+      | field_oy_content                       | behat_banner_02    |
       | field_bottom_content                | behat_banner_03    |
 
   Scenario: Create basic landing page and check fields

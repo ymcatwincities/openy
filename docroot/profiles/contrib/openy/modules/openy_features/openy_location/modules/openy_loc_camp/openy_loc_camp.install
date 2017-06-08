@@ -74,7 +74,7 @@ function openy_loc_camp_update_8002() {
     'core.entity_view_display.node.camp.full' => [
       'dependencies.config',
       'content.field_bottom_content',
-      'content.field_content',
+      'content.field_oy_content',
       'content.field_header_content',
       'content.field_location_address',
       'content.field_location_fax',

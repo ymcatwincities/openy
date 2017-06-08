@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_content
-    - node.type.program
+    - field.storage.node.field_oy_content
+    - node.type.landing_page
   module:
     - entity_reference_revisions
-id: node.program.field_content
-field_name: field_content
+id: node.landing_page.field_oy_content
+field_name: field_oy_content
 entity_type: node
-bundle: program
+bundle: landing_page
 label: Content
 description: ''
 required: false

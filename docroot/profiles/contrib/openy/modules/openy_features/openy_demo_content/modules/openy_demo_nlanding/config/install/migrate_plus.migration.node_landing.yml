@@ -155,7 +155,7 @@ process:
       - openy_demo_lp_paragraph_schedule_search_form
       - openy_demo_lp_paragraph_menu_camp
     source: header_content_id
-  field_content:
+  field_oy_content:
     plugin: iterator
     source: content_ids
     process:

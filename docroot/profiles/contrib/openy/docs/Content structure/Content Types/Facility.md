@@ -16,7 +16,7 @@ Facility content type is used for adding facilities on the site.
 | Email | field\_location_email | No | Input for providing the email information. |
 | Directions | field\_location_directions | No | A link field for adding the directions link. |
 | **Content Area** | Field group |||
-| Content | field_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
+| Content | field_oy_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Sidebar Area** | Field group |||
 | Content | field\_sidebar_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 

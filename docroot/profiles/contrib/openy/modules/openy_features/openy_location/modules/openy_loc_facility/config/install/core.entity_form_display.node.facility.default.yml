@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.facility.field_content
+    - field.field.node.facility.field_oy_content
     - field.field.node.facility.field_facility_loc
     - field.field.node.facility.field_facility_type
     - field.field.node.facility.field_location_address
@@ -64,7 +64,7 @@ third_party_settings:
       label: 'Contact Info'
     group_content_area:
       children:
-        - field_content
+        - field_oy_content
       parent_name: ''
       weight: 2
       format_type: tab
@@ -99,7 +99,7 @@ content:
     weight: 6
     settings: {  }
     third_party_settings: {  }
-  field_content:
+  field_oy_content:
     weight: 4
     settings:
       title: Paragraph

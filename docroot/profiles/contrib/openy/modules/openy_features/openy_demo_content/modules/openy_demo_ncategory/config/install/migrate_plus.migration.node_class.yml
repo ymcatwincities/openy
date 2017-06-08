@@ -1989,7 +1989,7 @@ process:
   field_class_description/format:
     plugin: default_value
     default_value: full_html
-  field_content:
+  field_oy_content:
     plugin: iterator
     source: content
     process:

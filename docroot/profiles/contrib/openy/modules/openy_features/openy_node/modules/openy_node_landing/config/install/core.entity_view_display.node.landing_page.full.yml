@@ -4,7 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.landing_page.field_bottom_content
-    - field.field.node.landing_page.field_content
+    - field.field.node.landing_page.field_oy_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
     - field.field.node.landing_page.field_sidebar_content
@@ -26,7 +26,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
-  field_content:
+  field_oy_content:
     weight: 2
     label: hidden
     settings:

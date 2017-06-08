@@ -75,7 +75,7 @@ Feature: Static Paragraphs
       | landing_gallery      | Behat Landing Gallery      | one_column      | behat_gallery        |
       | landing_simple       | Behat Landing Simple       | one_column      | behat_simple         |
     And I create landing_page content:
-      | KEY            | title                | field_lp_layout | field_content      |
+      | KEY            | title                | field_lp_layout | field_oy_content      |
       | landing_grid   | Behat Landing Grid   | one_column      | behat_grid_content |
       | landing_teaser | Behat Landing Teaser | one_column      | behat_teaser       |
     And I create landing_page content:

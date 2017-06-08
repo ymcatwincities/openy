@@ -483,7 +483,7 @@ process:
       plugin: migration
       migration: openy_demo_paragraph_classes_listing_filters
       source: header_content
-  field_content:
+  field_oy_content:
     plugin: iterator
     source: content
     process:

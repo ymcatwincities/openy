@@ -8,7 +8,7 @@ dependencies:
     - field.field.node.program_subcategory.field_category_description
     - field.field.node.program_subcategory.field_category_image
     - field.field.node.program_subcategory.field_category_program
-    - field.field.node.program_subcategory.field_content
+    - field.field.node.program_subcategory.field_oy_content
     - field.field.node.program_subcategory.field_header_content
     - field.field.node.program_subcategory.field_meta_tags
     - field.field.node.program_subcategory.field_sidebar_content
@@ -41,7 +41,7 @@ third_party_settings:
     group_content_area:
       children:
         - field_category_description
-        - field_content
+        - field_oy_content
       parent_name: ''
       weight: 3
       format_type: tab
@@ -130,7 +130,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  field_content:
+  field_oy_content:
     weight: 13
     settings:
       title: Paragraph
