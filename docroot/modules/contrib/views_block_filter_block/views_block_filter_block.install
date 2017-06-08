@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Implements hook_uninstall().
+ */
+function views_block_filter_block_uninstall() {
+//  $views = views_get_all_views();
+//  $needs_save = [];
+//  $block_needs_delete = [];
+//
+//  // Iterate through all Views and note the Views that need updating.
+//  foreach ($views as $name => &$view) {
+//    foreach ($view->display as $display => &$settings) {
+//      $options = &$settings->display_options;
+//
+//      // This View is configured to use this module. Remove the dependency and
+//      // re-save the View to the database; also remove the block entry.
+//      if (isset($options['exposed_block']) && $options['exposed_block']) {
+//        unset($options['exposed_block']);
+//        $needs_save[$name] = $view;
+//        $block_needs_delete[] = '-exp-' . $name . '-' . $display;
+//      }
+//    }
+//  }
+//
+//  // Iterate through all Views that need updating, and save them.
+//  foreach ($needs_save as $view_needs_save) {
+//    $view_needs_save->save();
+//  }
+//
+//  // If there are displays that need deleting, delete them.
+//  if ($block_needs_delete) {
+//    \Drupal::database()->delete('block')
+//      ->condition('module', 'views')
+//      ->condition('delta', $block_needs_delete, 'IN')
+//      ->execute();
+//  }
+}
