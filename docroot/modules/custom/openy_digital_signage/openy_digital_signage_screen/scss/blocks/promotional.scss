@@ -1,0 +1,192 @@
+.openy-digital-signage-block-promotional {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+
+  .block-promotional {
+    background-repeat: no-repeat;
+    color: $black;
+    height: 100%;
+
+    &.block-promotional-background-cover {
+      background-size: cover;
+    }
+
+    &.block-promotional-background-contain {
+      background-size: contain;
+    }
+
+    &.block-promotional-background-top {
+      background-position: top center;
+    }
+
+    &.block-promotional-background-bottom {
+      background-position: bottom center;
+    }
+
+    &.block-promotional-background-left {
+      background-position: center left;
+    }
+
+    &.block-promotional-background-right {
+      background-position: center right;
+    }
+
+    &.block-promotional-color-white {
+
+      .openy-digital-signage-block-promotional__headline {
+        color: $white;
+      }
+
+      .openy-digital-signage-block-promotional__subheading {
+        color: $grey2;
+      }
+    }
+
+    &.block-promotional-color-orange {
+
+      .openy-digital-signage-block-promotional__headline {
+        color: $orange-medium;
+      }
+
+      .openy-digital-signage-block-promotional__subheading {
+        color: $orange-dark;
+      }
+
+      &.block-promotional-background-dark {
+
+        .openy-digital-signage-block-promotional__headline {
+          color: $orange-light;
+        }
+
+        .openy-digital-signage-block-promotional__subheading {
+          color: $orange-medium;
+        }
+      }
+    }
+
+    &.block-promotional-color-blue {
+
+      .openy-digital-signage-block-promotional__headline {
+        color: $blue-medium;
+      }
+
+      .openy-digital-signage-block-promotional__subheading {
+        color: $blue-dark;
+      }
+
+      &.block-promotional-background-dark {
+
+        .openy-digital-signage-block-promotional__headline {
+          color: $blue-light;
+        }
+
+        .openy-digital-signage-block-promotional__subheading {
+          color: $blue-medium;
+        }
+      }
+    }
+
+    &.block-promotional-color-purple {
+
+      .openy-digital-signage-block-promotional__headline {
+        color: $purple-medium;
+      }
+
+      .openy-digital-signage-block-promotional__subheading {
+        color: $purple-dark;
+      }
+
+      &.block-promotional-background-dark {
+
+        .openy-digital-signage-block-promotional__headline {
+          color: $purple-light;
+        }
+
+        .openy-digital-signage-block-promotional__subheading {
+          color: $purple-medium;
+        }
+      }
+    }
+
+    &.block-promotional-color-green {
+
+      .openy-digital-signage-block-promotional__headline {
+        color: $green-medium;
+      }
+
+      .openy-digital-signage-block-promotional__subheading {
+        color: $green-dark;
+      }
+
+      &.block-promotional-background-dark {
+
+        .openy-digital-signage-block-promotional__headline {
+          color: $green-light;
+        }
+
+        .openy-digital-signage-block-promotional__subheading {
+          color: $green-medium;
+        }
+      }
+    }
+
+    &.block-promotional-background-light {
+
+      .openy-digital-signage-block-promotional__message {
+        color: $black;
+      }
+    }
+
+    &.block-promotional-background-dark {
+
+      .openy-digital-signage-block-promotional__message {
+        color: $white;
+      }
+    }
+  }
+}
+
+.openy-digital-singage-block-promotional__image {
+  background-position: center center;
+  height: 100%;
+}
+
+.openy-digital-signage-block-promotional__headline {
+  text-transform: uppercase;
+  font-size: 90 / 1920 * 100vw;
+  line-height:  90 / 1920 * 100vw;
+  margin: 0;
+}
+
+.openy-digital-signage-block-promotional__subheading {
+  text-transform: uppercase;
+  font-size: 50 / 1920 * 100vw;
+  line-height: 50 / 1920 * 100vw;
+  margin: 0;
+}
+
+.openy-digital-signage-block-promotional__message {
+  font-size: 35 / 1920 * 100vw;
+  margin-top: 1.2em;
+  letter-spacing: -1.5 / 1920 * 100vw;
+
+  .openy-digital-signage-block-promotional__message__inner {
+
+  }
+}
+
+.openy-digital-signage-block-promotional__text-content {
+  font-family: $fontBook;
+  padding: 4vw 5vw;
+  position: absolute;
+
+  .block-promotional-message-position-top & {
+    top: 0;
+  }
+
+  .block-promotional-message-position-bottom & {
+    bottom: 0;
+  }
+}

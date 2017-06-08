@@ -1,0 +1,19 @@
+uuid: 6117508c-1278-40e2-b0fb-8e2a021daabc
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_headline
+id: block_content.digital_signage_promotional.field_ds_headline
+field_name: field_ds_headline
+entity_type: block_content
+bundle: digital_signage_promotional
+label: Headline
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
