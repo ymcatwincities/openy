@@ -431,7 +431,7 @@
    */
   Drupal.behaviors.scrollToError = {
     attach: function (context, settings) {
-      $('[data-drupal-selector="openy-ccc-registration-form"]', context).each(function () {
+      $('form', context).each(function () {
         var delay = 200;
         var offset = 180;
         document.addEventListener('invalid', function (e) {
