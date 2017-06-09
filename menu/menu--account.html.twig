@@ -33,12 +33,12 @@
   {% import _self as menus %}
   {% if items %}
     {% set attributes = attributes.addClass(['nav', 'navbar-nav', 'pull-right-lg']) %}
-    <ul{{ attributes }}>
-      <li class="preffered-branch">
-        {% if preferred_branch_id %}
+    <ul id="account-menu-list"{{ attributes }}>
+      {% if preferred_branch_id %}
+        <li id="preferred-branch">
           <a href="{{ path('entity.node.canonical', { 'node': preferred_branch_id}) }}">{{ 'My branch'|t }}</a>
-        {% endif %}
-      </li>
+        </li>
+      {% endif %}
     {% for item in items %}
       {%
         set classes = [
