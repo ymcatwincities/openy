@@ -64,6 +64,9 @@
       // Display the cancel and save tab based on whether or not we have unsaved changes.
       this.model.get('cancelTab').set('hidden', !this.model.get('unsaved'));
       this.model.get('saveTab').set('hidden', !this.model.get('unsaved'));
+      // Do not show the edit tab if the IPE is locked.
+      this.model.get('editTab').set('hidden', this.model.get('locked'));
+      this.model.get('lockedTab').set('hidden', !this.model.get('locked'));
 
       // Listen to important global events throughout the app.
       this.listenTo(this.model, 'changeLayout', this.changeLayout);
@@ -77,6 +80,7 @@
       this.listenTo(this.model.get('editTab'), 'change:active', this.clickEditTab);
       this.listenTo(this.model.get('saveTab'), 'change:active', this.clickSaveTab);
       this.listenTo(this.model.get('cancelTab'), 'change:active', this.clickCancelTab);
+      this.listenTo(this.model.get('lockedTab'), 'change:active', this.clickLockedTab);
 
       // Change the look/feel of the App if we have unsaved changes.
       this.listenTo(this.model, 'change:unsaved', this.unsavedChange);
@@ -214,6 +218,27 @@
       }
       else {
         this.closeIPE();
+      }
+    },
+
+    /**
+     * Cancels another user's temporary changes and refreshes the page.
+     */
+    clickLockedTab: function () {
+      var locked_tab = this.model.get('lockedTab');
+
+      if (confirm(Drupal.t('This page is being edited by another user, and is locked from editing by others. Would you like to break this lock?'))) {
+        if (locked_tab.get('active') && !locked_tab.get('loading')) {
+          // Remove our changes and refresh the page.
+          locked_tab.set({loading: true});
+          $.ajax(Drupal.panels_ipe.urlRoot(drupalSettings) + '/cancel')
+            .done(function () {
+              location.reload();
+            });
+        }
+      }
+      else {
+        locked_tab.set('active', false, {silent: true});
       }
     },
 
