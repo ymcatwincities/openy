@@ -88,23 +88,25 @@
   <div class="inner-wrapper" style="{{ color }}; {{ bg_color }};">
     {% if ( node.field_blog_style.value == "photo" ) %}
       <div>
-    {{ content.field_blog_image }}
-  </div>
+        {{ content.field_blog_image }}
+      </div>
     {% endif %}
     <div class="blog-heading">
-      <h4 style="{{ color }};">{{ category }}</h4>
-      {% if ( node.field_blog_style.value == "story" ) %}
-        <div class="story-card">
-          <div class="quote">
-            {% include active_theme_path() ~ '/img/icons/quote_purple.svg' %}
+      <div class="clearfix {{ node.field_blog_style.value }}">
+        {% if ( node.field_blog_style.value == "story" ) %}
+          <div class="story-card">
+            <div class="quote">
+              {% include active_theme_path() ~ '/img/icons/quote_purple.svg' %}
+            </div>
           </div>
-        </div>
-      {% endif %}
-      <h2 style="{{ color }};">
-        <a href="{{ url }}" rel="bookmark">
-          {{ label }}
-        </a>
-      </h2>
+        {% endif %}
+        <h2 style="{{ color }};">
+          <a href="{{ url }}" rel="bookmark">
+            {{ label }}
+          </a>
+        </h2>
+      </div>
+      <h4 style="{{ color }};">{{ category }}</h4>
     </div>
   </div>
 </article>

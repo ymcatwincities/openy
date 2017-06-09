@@ -4044,6 +4044,8 @@ html.js .branch__updates_queue__button {
 }
 .node--type-blog.node--view-mode-teaser .blog-heading h2 {
   font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 .node--type-blog.node--view-mode-teaser a {
   color: inherit;
@@ -4055,7 +4057,7 @@ html.js .branch__updates_queue__button {
   color: white;
 }
 .node--type-blog.node--view-mode-teaser h4 {
-  margin: 0;
+  margin: 0 0 10px;
   font-size: 14px;
   line-height: 1.28;
   letter-spacing: 2px;
@@ -4099,12 +4101,14 @@ html.js .branch__updates_queue__button {
 .node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h2 {
   color: #5c2e91;
 }
+.node--type-blog.node--view-mode-teaser .story h2 {
+  overflow: hidden;
+}
 .node--type-blog.node--view-mode-teaser .quote {
   float: left;
-  min-height: 360px;
 }
 .node--type-blog.node--view-mode-teaser .quote svg {
-  margin-top: 21px;
+  margin-top: 1px;
 }
 
 .blog-card {
