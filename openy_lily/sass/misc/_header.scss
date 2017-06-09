@@ -1,9 +1,9 @@
 body {
   @include breakpoint ($tablet-start) {
-    padding-top: 145px !important;
+    padding-top: 83px !important;
     @include transition(padding-top 0.2s ease);
     &.tiny-header {
-      padding-top: 116px !important;
+      padding-top: 55px !important;
     }
   }
   @include breakpoint (0 $tablet-start) {
@@ -117,13 +117,8 @@ body {
   }
 }
 header#page-head {
-  @include transition(all 0.2s linear);
   @include clearfix;
-  left: 0;
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 1001;
   font-family: 'Cachet';
   .container-fluid {
     @media (min-width: 1200px) {
@@ -135,9 +130,15 @@ header#page-head {
     height: auto !important;
     background-color: transparent;
     .nav-global {
+      @include transition(top 0.2s linear);
+      left: 0;
+      position: fixed;
+      top: 0;
+      z-index: 1001;
       margin-bottom: 0;
       border-radius: 0;
       background-color: $gray-light;
+      width: 100%;
       .navbar-header {
         padding: 5px 0 13px;
         .navbar-toggler {
@@ -421,6 +422,8 @@ header#page-head {
     }
   }
   &.expanded-search {
-    top: 88px;
+    .nav-global {
+      top: 88px !important;
+    }
   }
 }

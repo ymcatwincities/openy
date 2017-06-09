@@ -189,7 +189,7 @@ a:hover, a:active, a:focus {
 
 @media (min-width: 62em) {
   body {
-    padding-top: 145px !important;
+    padding-top: 83px !important;
     -webkit-transition: padding-top 0.2s ease;
     -moz-transition: padding-top 0.2s ease;
     -ms-transition: padding-top 0.2s ease;
@@ -197,7 +197,7 @@ a:hover, a:active, a:focus {
     transition: padding-top 0.2s ease;
   }
   body.tiny-header {
-    padding-top: 116px !important;
+    padding-top: 55px !important;
   }
 }
 @media (min-width: 0) and (max-width: 62em) {
@@ -313,16 +313,7 @@ a:hover, a:active, a:focus {
 }
 
 header#page-head {
-  -webkit-transition: all 0.2s linear;
-  -moz-transition: all 0.2s linear;
-  -ms-transition: all 0.2s linear;
-  -o-transition: all 0.2s linear;
-  transition: all 0.2s linear;
-  left: 0;
-  position: fixed;
-  top: 0;
   width: 100%;
-  z-index: 1001;
   font-family: 'Cachet';
 }
 header#page-head:after {
@@ -341,9 +332,19 @@ header#page-head .top-navs {
   background-color: transparent;
 }
 header#page-head .top-navs .nav-global {
+  -webkit-transition: top 0.2s linear;
+  -moz-transition: top 0.2s linear;
+  -ms-transition: top 0.2s linear;
+  -o-transition: top 0.2s linear;
+  transition: top 0.2s linear;
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 1001;
   margin-bottom: 0;
   border-radius: 0;
   background-color: #f8f8f8;
+  width: 100%;
 }
 header#page-head .top-navs .nav-global .navbar-header {
   padding: 5px 0 13px;
@@ -597,8 +598,8 @@ header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
 header#page-head.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
   padding: 21px 0;
 }
-header#page-head.expanded-search {
-  top: 88px;
+header#page-head.expanded-search .nav-global {
+  top: 88px !important;
 }
 
 .social-disclaimer .contextual-region .contextual .contextual-links li {
@@ -911,7 +912,7 @@ header#page-head.expanded-search {
   padding: 25px 0 10px;
   background: #0060af;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .path-frontpage .masthead {
     padding: 0 0 10px;
     min-height: 128px;
@@ -924,7 +925,7 @@ header#page-head.expanded-search {
   margin: 0;
   top: 0;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .path-frontpage .masthead .location-search-column {
     position: static;
   }
@@ -952,7 +953,7 @@ header#page-head.expanded-search {
     font-size: 46px;
   }
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .path-frontpage .masthead .masthead-brand {
     display: block;
     margin-top: 10px;
@@ -1047,7 +1048,7 @@ header#page-head.expanded-search {
 .path-frontpage .masthead .find-locations .location-search .location-search-collapse.collapse.in {
   display: block;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .path-frontpage .masthead .find-locations {
     position: static;
     padding-top: 0;

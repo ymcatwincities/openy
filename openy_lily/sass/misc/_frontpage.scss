@@ -19,7 +19,7 @@
     z-index: 33;
     padding: 25px 0 10px;
     background: #0060af;
-    @include breakpoint (0 $tablet) {
+    @include breakpoint (0 767px) {
       padding: 0 0 10px;
       min-height: 128px;
     }
@@ -29,7 +29,7 @@
       left: 64.666667%;
       margin: 0;
       top: 0;
-      @include breakpoint (0 $tablet) {
+      @include breakpoint (0 767px) {
         position: static;
       }
     }
@@ -51,7 +51,7 @@
       @include breakpoint (0 $tablet-start) {
         font-size: 46px;
       }
-      @include breakpoint (0 $tablet) {
+      @include breakpoint (0 767px) {
         display: block;
         margin-top: 10px;
         margin-bottom: 20px;
@@ -144,7 +144,7 @@
         }
 
       }
-      @include breakpoint (0 $tablet) {
+      @include breakpoint (0 767px) {
         position: static;
         padding-top: 0;
         .location-search {
