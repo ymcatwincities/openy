@@ -83,3 +83,12 @@ function ygh_preprocess_html(&$variables) {
     }
   }
 }
+
+/**
+ * Implements template_preprocess_menu().
+ */
+function ygh_preprocess_menu__account(&$variables) {
+  if (isset($_COOKIE['openy_preferred_branch'])) {
+    $variables['preferred_branch_id'] = $_COOKIE['openy_preferred_branch'];
+  }
+}

@@ -94,6 +94,18 @@ body {
         padding-top: 12px;
       }
     }
+    .navbar-nav > li:first-child > a {
+      border-radius: 5px;
+      background-color: #b92f9e;
+      font-weight: bold;
+      line-height: 20px;
+      color: $white;
+      text-shadow: none;
+      margin-right: 5px;
+      &:hover {
+        background-color: #9c1f7b;
+      }
+    }
 
     a {
       @include cachet();
