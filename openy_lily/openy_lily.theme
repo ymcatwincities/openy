@@ -104,8 +104,7 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
   }
 
   $node = Drupal::routeMatch()->getParameter('node');
-  if (!empty($node) || $node = Drupal::routeMatch()
-      ->getParameter('node_preview')
+  if (!empty($node) || $node = Drupal::routeMatch()->getParameter('node_preview')
   ) {
     if (is_object($node)) {
       array_unshift($suggestions, 'page__node__' . $node->bundle());
@@ -253,12 +252,10 @@ function openy_lily_preprocess_html(&$variables) {
     $node = Drupal::routeMatch()->getParameter('node_preview');
   }
 
-  if (!$variables['is_front'] = Drupal::service('path.matcher')
-      ->isFrontPage() && !empty($node)
+  if (!$variables['is_front'] = Drupal::service('path.matcher')->isFrontPage() && !empty($node)
   ) {
     if ($current_route_name == 'entity.node.preview') {
-      $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')
-          ->get('page.front');
+      $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')->get('page.front');
     }
   }
 
