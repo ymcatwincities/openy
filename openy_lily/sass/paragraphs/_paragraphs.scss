@@ -233,7 +233,7 @@
 #banner {
   position: relative;
   min-height: 455px;
-  @include breakpoint(0 $tablet-start) {
+  @include breakpoint(0 991px) {
     height: auto;
   }
   &:before {
@@ -254,7 +254,7 @@
     @include breakpoint($desktop) {
       left: 55%;
     }
-    @include breakpoint(0 $tablet-start) {
+    @include breakpoint(0 991px) {
       display: none;
     }
   }
@@ -303,7 +303,7 @@
       margin-top: 20px;
       @extend .pink-button;
     }
-    @include breakpoint(0 $tablet-start) {
+    @include breakpoint(0 991px) {
       text-align: center;
       width: 100%;
       position: static;

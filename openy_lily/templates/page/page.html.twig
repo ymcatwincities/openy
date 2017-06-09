@@ -106,7 +106,11 @@
 
       {% block primary_menu %}
         {% if site_section_bundle not in ['location', 'camp'] %}
-          {{ page.primary_menu }}
+          <div class="nav-wrapper">
+            <div class="main-nav" data-spy="affix" data-offset-top="129">
+              {{ page.primary_menu }}
+            </div>
+          </div>
         {% endif %}
       {% endblock %}
     </div>

@@ -3,15 +3,8 @@
     margin-top: 60px;
   }
   #banner {
-    margin-top: 67px;
-    @include breakpoint (0 $desktop) {
-      margin-top: 57px;
-    }
-    @include breakpoint (0 $tablet-start) {
-      margin-top: 94px;
-    }
-    @include breakpoint (0 $tablet) {
-      margin-top: 179px;
+    @include breakpoint ($tablet-start) {
+      margin-top: -62px;
     }
   }
   .masthead {
@@ -19,6 +12,9 @@
     z-index: 33;
     padding: 25px 0 10px;
     background: #0060af;
+    @include breakpoint (0 $tablet-start) {
+      top: 52px;
+    }
     @include breakpoint (0 767px) {
       padding: 0 0 10px;
       min-height: 128px;
