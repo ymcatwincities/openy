@@ -62,11 +62,8 @@
       .today {
         margin-right: 10px;
       }
-      .show-link,
-      .hide-link {
-        @include cachet();
-      }
       .branch-hours {
+        display: none;
         position: absolute;
         top: 120%;
         background: $pink;
@@ -79,6 +76,32 @@
           &:first-child {
             white-space: nowrap;
           }
+        }
+      }
+      .dropdown-toggle {
+        @include cachet();
+        position: relative;
+        z-index: 0;
+        span{
+          pointer-events: none;
+          position: relative;
+          z-index: -1;
+        }
+        .hide-text {
+          display: none;
+        }
+      }
+      &.open {
+        .dropdown-toggle {
+          .show-text {
+            display: none;
+          }
+          .hide-text {
+            display: inline;
+          }
+        }
+        .branch-hours {
+          display: block;
         }
       }
     }
@@ -209,14 +232,37 @@
         .today {
           margin-right: 10px;
         }
-        .show-link,
-        .hide-link {
-          color: $light-grey;
-        }
         .branch-hours {
+          display: none;
           padding: 20px 0 12px;
           td {
             padding: 4px 10px 0 2px;
+          }
+        }
+        .dropdown-toggle {
+          color: $light-grey;
+          position: relative;
+          z-index: 0;
+          span{
+            pointer-events: none;
+            position: relative;
+            z-index: -1;
+          }
+          .hide-text {
+            display: none;
+          }
+        }
+        &.open {
+          .dropdown-toggle {
+            .show-text {
+              display: none;
+            }
+            .hide-text {
+              display: inline;
+            }
+          }
+          .branch-hours {
+            display: block;
           }
         }
       }
@@ -770,7 +816,7 @@ html.js {
       margin: -10px -10px -10px 10px;
     }
   }
-  
+
   .zip-code,
   .distance {
     @include breakpoint(0 $screen-xs) {
