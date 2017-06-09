@@ -1,0 +1,11 @@
+name: 'YMCAli Faq'
+type: module
+core: 8.x
+dependencies:
+  - block
+  - content_moderation
+  - datalayer
+  - field
+  - paragraphs
+  - text
+  - views
