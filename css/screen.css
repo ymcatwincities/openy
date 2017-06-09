@@ -6079,7 +6079,7 @@ body {
       .page-head__top-menu .navbar-nav > li > a {
         padding-bottom: 12px;
         padding-top: 12px; } }
-  .page-head__top-menu .navbar-nav > li:first-child > a {
+  .page-head__top-menu .navbar-nav > li#preferred-branch > a {
     border-radius: 5px;
     background-color: #b92f9e;
     font-weight: bold;
@@ -6087,7 +6087,7 @@ body {
     color: #fff;
     text-shadow: none;
     margin-right: 5px; }
-    .page-head__top-menu .navbar-nav > li:first-child > a:hover {
+    .page-head__top-menu .navbar-nav > li#preferred-branch > a:hover {
       background-color: #9c1f7b; }
   .page-head__top-menu a {
     font-family: "CachetBook", Verdana, sans-serif;
