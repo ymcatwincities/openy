@@ -236,14 +236,6 @@ function openy_set_frontpage(array &$install_state) {
   return ['operations' => []];
 }
 
-function openy_block_clear_cache() {
-//  \Drupal::cache('discovery')->delete('block_plugins');
-  $container = \Drupal::getContainer();
-  $block_manager = $container->get('plugin.manager.block');
-  $block_manager->clearCachedDefinitions();
-  \Drupal::logger('openy')->alert('openy_block_clear_cache() Run');
-}
-
 /**
  * Demo content import helper.
  *
@@ -259,11 +251,9 @@ function _openy_import_content_helper(array &$module_operations, array &$migrate
   if (empty($modules)) {
     return;
   }
-  $migrate_operations[] = ['openy_block_clear_cache', []];
   foreach ($modules as $key => $migrations) {
     $module_operations[] = ['openy_enable_module', (array) $key];
     foreach ($migrations as $migration) {
-//      $migrate_operations[] = ['drupal_register_shutdown_function', ['openy_import_migration', $migration]];
       $migrate_operations[] = ['openy_import_migration', (array) $migration];
     }
   }
