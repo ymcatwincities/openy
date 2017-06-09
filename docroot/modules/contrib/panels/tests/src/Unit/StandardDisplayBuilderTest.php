@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\panels\Unit\StandardDisplayBuilderTest.
- */
-
 namespace Drupal\Tests\panels\Unit;
 
 use Drupal\Core\Block\BlockPluginInterface;

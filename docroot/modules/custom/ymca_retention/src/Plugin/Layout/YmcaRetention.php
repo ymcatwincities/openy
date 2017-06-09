@@ -3,14 +3,15 @@
 namespace Drupal\ymca_retention\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Layout\LayoutDefault;
+use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
-use Drupal\layout_plugin\Plugin\Layout\LayoutBase;
 
 /**
  * YMCA Retention layout settings.
  */
-class YmcaRetention extends LayoutBase {
+class YmcaRetention extends LayoutDefault implements PluginFormInterface {
 
   /**
    * {@inheritdoc}
@@ -37,9 +38,13 @@ class YmcaRetention extends LayoutBase {
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    parent::submitConfigurationForm($form, $form_state);
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['extra_classes'] = $form_state->getValue('extra_classes');
   }
 
