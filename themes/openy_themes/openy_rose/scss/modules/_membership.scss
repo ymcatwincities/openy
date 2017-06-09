@@ -28,14 +28,19 @@ a[href="#step2"] {
       content: ":";
     }
   }
-  .membership-type label {
-    border-bottom: 1px solid #333;
-    left: 0;
-    bottom: 0;
-    display: block;
-    padding-bottom: 30px;
-    position: absolute;
-    width: 100%;
+  .membership-type {
+    h3 {
+      width: 100%;
+    }
+    label {
+      border-bottom: 1px solid #333;
+      left: 0;
+      bottom: 0;
+      display: block;
+      padding-bottom: 30px;
+      position: absolute;
+      width: 100%;
+    }
   }
   .btn {
     line-height: 40px;
@@ -51,6 +56,7 @@ a[href="#step2"] {
     @include flex-wrap(wrap);
     flex-direction:column;
     position: relative;
+    width: 100%;
     .btn {
       display: block;
     }
@@ -86,6 +92,7 @@ a[href="#step2"] {
   }
   .node--type-membership.node--view-mode-calc-preview {
     margin-bottom: 100px;
+    width: 100%;
   }
   .pull-right,
   .complete-registration {
