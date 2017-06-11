@@ -19,6 +19,6 @@ description: ''
 required: true
 translatable: true
 default_value: {  }
-default_value_callback: ''
+default_value_callback: 'Textarea for the description/body with WYSIWYG, without summary.'
 settings: {  }
 field_type: text_long
