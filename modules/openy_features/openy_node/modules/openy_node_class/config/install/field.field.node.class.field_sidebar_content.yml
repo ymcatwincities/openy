@@ -15,7 +15,7 @@ description: ''
 required: false
 translatable: true
 default_value: {  }
-default_value_callback: ''
+default_value_callback: 'A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types.'
 settings:
   handler: 'default:paragraph'
   handler_settings:
