@@ -88,23 +88,25 @@
   <div class="inner-wrapper" {{ attributes.setAttribute('style', bg_color ~ color) }}>
     {% if ( node.field_blog_style.value == "photo" ) %}
       <div>
-    {{ content.field_blog_image }}
-  </div>
+        {{ content.field_blog_image }}
+      </div>
     {% endif %}
     <div class="blog-heading">
-      <h4 {{ attributes.setAttribute('style', color) }}>{{ category }}</h4>
-      {% if ( node.field_blog_style.value == "story" ) %}
-        <div class="story-card">
-          <div class="quote">
-            {% include active_theme_path() ~ '/img/icons/quote_purple.svg' %}
+      <div class="clearfix {{ node.field_blog_style.value }}">
+        {% if ( node.field_blog_style.value == "story" ) %}
+          <div class="story-card">
+            <div class="quote">
+              {% include active_theme_path() ~ '/img/icons/quote_purple.svg' %}
+            </div>
           </div>
-        </div>
-      {% endif %}
-      <h2 {{ attributes.setAttribute('style', color) }}>
-        <a href="{{ url }}" rel="bookmark">
-          {{ label }}
-        </a>
-      </h2>
+        {% endif %}
+        <h2 {{ attributes.setAttribute('style', color) }}>
+          <a href="{{ url }}" rel="bookmark">
+            {{ label }}
+          </a>
+        </h2>
+      </div>
+      <h4 {{ attributes.setAttribute('style', color) }}>{{ category }}</h4>
     </div>
   </div>
 </article>

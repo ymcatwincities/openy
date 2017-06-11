@@ -13,8 +13,8 @@
               centerMode: false,
               dots: true,
               adaptiveHeight: false,
-              nextArrow: '<i class="slick-next slick-arrow fa fa-chevron-right"></i>',
-              prevArrow: '<i class="slick-prev slick-arrow fa fa-chevron-left"></i>',
+              nextArrow: '<i class="slick-next slick-arrow fa fa-chevron-right" aria-hidden="true"></i>',
+              prevArrow: '<i class="slick-prev slick-arrow fa fa-chevron-left" aria-hidden="true"></i>',
             });
           }
         }
