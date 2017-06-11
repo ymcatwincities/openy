@@ -97,8 +97,8 @@
             speed: 300,
             slidesToShow: 3,
             slidesToScroll: 3,
-            prevArrow: '<button type="button" class="slick-prev" title="' + Drupal.t('Previous') + '"><i class="fa fa-chevron-left"></i></button>',
-            nextArrow: '<button type="button" class="slick-next" title="' + Drupal.t('Next') + '"><i class="fa fa-chevron-right"></i></button>',
+            prevArrow: '<button type="button" class="slick-prev" title="' + Drupal.t('Previous') + '"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>',
+            nextArrow: '<button type="button" class="slick-next" title="' + Drupal.t('Next') + '"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>',
             customPaging: function(slider, i) {
               return '<button type="button" data-role="none" role="button" tabindex="' + i + '" title="' + Drupal.t('Slide set @i', {'@i': i+1}) + '">' + (i+1) + '</button>';
             },
