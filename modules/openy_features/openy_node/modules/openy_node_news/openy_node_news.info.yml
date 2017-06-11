@@ -1,0 +1,28 @@
+name: 'OpenY Node News'
+description: 'OpenY news features.'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - entity_browser
+  - entity_reference_revisions
+  - field
+  - field_group
+  - image
+  - media_entity
+  - menu_ui
+  - node
+  - openy_loc_branch
+  - openy_loc_camp
+  - openy_media_image
+  - openy_node
+  - openy_txnm_blog_category
+  - openy_txnm_color
+  - options
+  - paragraphs
+  - path
+  - pathauto
+  - taxonomy
+  - text
+  - user
+version: 8.x-1.1
