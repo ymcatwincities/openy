@@ -70,6 +70,9 @@ Read more details on [CIBox VM](https://github.com/ymcatwincities/openy-cibox-vm
 Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) repo.
 
 # Use Fork for the development
+
+All development happens in the [Open Y Drupal 8 installation profile](https://github.com/ymcatwincities/openy). In order to start development:
+
 1. Add your repository to `composer.json`
 ```
 "repositories": [
