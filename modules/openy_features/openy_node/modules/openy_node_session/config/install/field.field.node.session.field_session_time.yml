@@ -12,7 +12,7 @@ field_name: field_session_time
 entity_type: node
 bundle: session
 label: Time
-description: ''
+description: 'Session schedule.'
 required: false
 translatable: true
 default_value: {  }
