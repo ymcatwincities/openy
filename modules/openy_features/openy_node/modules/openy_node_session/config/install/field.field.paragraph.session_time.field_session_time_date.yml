@@ -11,7 +11,7 @@ field_name: field_session_time_date
 entity_type: paragraph
 bundle: session_time
 label: 'Date & Time'
-description: ''
+description: "This will use Drupal date/time fields & should be a single date field with 'end date' and 'end time' option enabled."
 required: false
 translatable: true
 default_value: {  }
