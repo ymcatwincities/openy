@@ -10,11 +10,11 @@ field_name: field_mbrshp_image
 entity_type: node
 bundle: membership
 label: Image
-description: ''
+description: 'field_mbrshp_image'
 required: true
 translatable: true
 default_value: {  }
-default_value_callback: ''
+default_value_callback: 'Media field to upload the image.'
 settings:
   handler: 'default:media'
   handler_settings:
