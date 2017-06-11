@@ -30,3 +30,5 @@ For Development information please take a look at [docs/Development](https://git
 
 # Documentation
 Documentation is available at [docs](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs). For details please visit http://www.openymca.org.
+
+Vadim
