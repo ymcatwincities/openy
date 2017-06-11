@@ -9,7 +9,7 @@ field_name: field_media_caption
 entity_type: media
 bundle: image
 label: Caption
-description: ''
+description: 'Add caption for image'
 required: false
 translatable: true
 default_value: {  }
