@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+label: 'Site event'
+id: site_event
+description: 'Site events are entities aimed to approach registrations for the events, organized by Site crew.'

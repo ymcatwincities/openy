@@ -1,0 +1,3 @@
+identity_types:
+  - user
+  - rng_contact

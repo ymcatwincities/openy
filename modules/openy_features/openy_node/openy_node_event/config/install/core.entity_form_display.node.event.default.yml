@@ -1,0 +1,100 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.event.field_event_date_range
+    - field.field.node.event.field_landing_body
+    - field.field.node.event.field_location_ref
+    - field.field.node.event.field_sidebar_content
+    - field.field.node.event.rng_capacity
+    - field.field.node.event.rng_registrants_duplicate
+    - field.field.node.event.rng_registrants_maximum
+    - field.field.node.event.rng_registrants_minimum
+    - field.field.node.event.rng_registration_groups
+    - field.field.node.event.rng_registration_type
+    - field.field.node.event.rng_reply_to
+    - field.field.node.event.rng_status
+    - node.type.event
+  module:
+    - content_moderation
+    - datetime_range
+    - paragraphs
+    - path
+id: node.event.default
+targetEntityType: node
+bundle: event
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+  field_event_date_range:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
+  field_landing_body:
+    weight: 2
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+  field_location_ref:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_sidebar_content:
+    weight: 8
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: openy_event_registration
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+  langcode:
+    type: language_select
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  promote: true
+  rng_capacity: true
+  rng_registrants_duplicate: true
+  rng_registrants_maximum: true
+  rng_registrants_minimum: true
+  rng_registration_groups: true
+  rng_registration_type: true
+  rng_reply_to: true
+  rng_status: true
+  sticky: true
+  uid: true

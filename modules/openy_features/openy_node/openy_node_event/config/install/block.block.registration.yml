@@ -1,0 +1,50 @@
+langcode: en
+status: false
+dependencies:
+  module:
+    - ctools
+    - node
+    - rng
+    - rng_quick
+  theme:
+    - ygh
+id: registration
+theme: ygh
+region: '-1'
+weight: -10
+provider: null
+plugin: rng_registration
+settings:
+  id: rng_registration
+  label: Registration
+  provider: rng_quick
+  label_display: visible
+  context_mapping:
+    rng_event: '@rng.event_route_context:rng_event'
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles:
+      event: event
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  node_type:
+    id: node_type
+    bundles:
+      event: event
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  rng_rule_scheduler:
+    id: rng_rule_scheduler
+    rng_rule_component: null
+    rng_rule_scheduler: null
+    date: '1486486332'
+    negate: false
+    context_mapping: {  }
+  rng_current_time:
+    id: rng_current_time
+    date: '1486486332'
+    negate: false
+    context_mapping: {  }

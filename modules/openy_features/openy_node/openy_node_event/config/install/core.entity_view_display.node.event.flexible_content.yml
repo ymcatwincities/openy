@@ -1,0 +1,48 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.flexible_content
+    - field.field.node.event.field_event_date_range
+    - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
+    - field.field.node.event.rng_capacity
+    - field.field.node.event.rng_registrants_duplicate
+    - field.field.node.event.rng_registrants_maximum
+    - field.field.node.event.rng_registrants_minimum
+    - field.field.node.event.rng_registration_groups
+    - field.field.node.event.rng_registration_type
+    - field.field.node.event.rng_reply_to
+    - field.field.node.event.rng_status
+    - node.type.event
+  module:
+    - user
+    - entity_reference_revisions
+    - ygh_paragraphs
+id: node.event.flexible_content
+targetEntityType: node
+bundle: event
+mode: flexible_content
+content:
+  field_landing_body:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: ygh_paragraphs_preview_formatter
+  links:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_event_date_range: true
+  field_sidebar_content: true
+  langcode: true
+  rng_capacity: true
+  rng_registrants_duplicate: true
+  rng_registrants_maximum: true
+  rng_registrants_minimum: true
+  rng_registration_groups: true
+  rng_registration_type: true
+  rng_reply_to: true
+  rng_status: true

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.rng_registrants_duplicate
+    - node.type.event
+id: node.event.rng_registrants_duplicate
+field_name: rng_registrants_duplicate
+entity_type: node
+bundle: event
+label: 'Allow duplicate registrants'
+description: 'Allows a registrant to create more than one registration for this event.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'Allow duplicate registrants for this event'
+  off_label: 'Do not allow duplicate registrants for this event'
+field_type: boolean

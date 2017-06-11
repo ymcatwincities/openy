@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.event
+    - rng.registrant_type.registrant
+id: node.event
+entity_type: node
+bundle: event
+mirror_operation_to_event_manage: update
+custom_rules: true
+default_registrant: registrant
+people_types:
+  1:
+    entity_type: user
+    bundle: user
+    create: false
+    existing: false
+    entity_form_mode: ''
+  2:
+    entity_type: rng_contact
+    bundle: event_contact
+    create: true
+    existing: false
+    entity_form_mode: default

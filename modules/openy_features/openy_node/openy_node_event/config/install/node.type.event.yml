@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Event
+type: event
+description: 'Event content type for registering users for different online and offline events on a site.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

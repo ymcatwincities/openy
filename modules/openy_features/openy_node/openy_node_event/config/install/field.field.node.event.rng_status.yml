@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.rng_status
+    - node.type.event
+id: node.event.rng_status
+field_name: rng_status
+entity_type: node
+bundle: event
+label: 'Accept new registrations'
+description: 'By setting this up the event form allows to register users. Disable to close registration.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'Accepting new registrations'
+  off_label: 'Not accepting new registrations'
+field_type: boolean
