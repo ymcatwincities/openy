@@ -128,7 +128,7 @@
 
           $list.css('width', listWidth + listPadding + "px");
 
-          var scroll = new IScroll($this[0], {
+          var scroll = new IScroll($this.find('.columns')[0], {
             scrollX: true,
             scrollY: false,
             momentum: false,
@@ -140,7 +140,7 @@
 
           // GRADIENT BEHAVIOUR SCRIPT.
           var obj = $('.camp-menu');
-          var objWrap = $this.append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
+          var objWrap = $this.find('.columns').append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
           objWrap = document.querySelector('.columns-gradient');
           var sliderLength = listWidth - objWrap.offsetWidth + 40;
           var firstGap = 20;
