@@ -12,4 +12,5 @@ dependencies:
   - user
   - verf
   - views
+  - views_block_filter_block
 version: 8.x-1.2
