@@ -11,15 +11,7 @@ field_name: field_session_time_days
 entity_type: paragraph
 bundle: session_time
 label: Days
-description: 'Checkboxes with following values:
-                  - sunday|Sunday
-                  - monday|Monday
-                  - tuesday|Tuesday
-                  - wednesday|Wednesday
-                  - thursday|Thursday
-                  - friday|Friday
-                  - saturday|Saturday
-              Should support multiple values.'
+description: 'Checkboxes with following values: <ul><li>sunday|Sunday</li><li>monday|Monday</li><li>tuesday|Tuesday</li><li>wednesday|Wednesday</li><li>thursday|Thursday</li><li>friday|Friday</li><li>saturday|Saturday</li></ul><br/ >Should support multiple values.'
 required: false
 translatable: true
 default_value: {  }
