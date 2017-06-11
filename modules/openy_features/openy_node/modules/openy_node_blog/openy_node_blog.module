@@ -9,7 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\State\StateInterface;
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function openy_node_form_node_blog_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $visible = [
