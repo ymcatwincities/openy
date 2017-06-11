@@ -158,6 +158,13 @@
             } else {
               bounds = new google.maps.LatLngBounds();
               bounds.extend(this.search_center_point);
+              // Don't zoom in too far on only one marker
+              if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+                var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() + 0.001);
+                var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() - 0.001);
+                bounds.extend(extendPoint1);
+                bounds.extend(extendPoint2);
+              }
               this.map.fitBounds(bounds);
             }
             this.search_center = this.map.getCenter();
@@ -421,6 +428,13 @@
           loc.marker.setVisible(true);
         }
 
+        // Don't zoom in too far on only one marker
+        if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+          var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() + 0.001);
+          var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() - 0.001);
+          bounds.extend(extendPoint1);
+          bounds.extend(extendPoint2);
+        }
         this.map.fitBounds(bounds);
 
       },
@@ -448,7 +462,7 @@
         }
 
         if (!locations.length) {
-          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>We\u2019re sorry no results were found in your area</p></div>').fadeIn();
+          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>No locations were found in this area. Please try a different area or increase your search distance.</p></div>').fadeIn();
           return;
         }
 

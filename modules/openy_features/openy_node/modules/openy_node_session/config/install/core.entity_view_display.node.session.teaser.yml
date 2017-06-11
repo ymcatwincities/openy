@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.session.field_session_plocation
     - field.field.node.session.field_session_reg_link
     - field.field.node.session.field_session_ticket
+    - field.field.node.session.field_session_time
     - node.type.session
   module:
     - user
@@ -27,6 +28,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_session_class: true
   field_session_description: true
@@ -42,3 +44,4 @@ hidden:
   field_session_plocation: true
   field_session_reg_link: true
   field_session_ticket: true
+  field_session_time: true

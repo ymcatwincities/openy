@@ -7,4 +7,6 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_node_mbrshp
+  - openy_calc
+  - openy_prgf_mbrshp_calc
 version: 8.x-1.0

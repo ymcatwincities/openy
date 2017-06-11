@@ -103,10 +103,10 @@ set classes = [
           <h4>{{ 'TODAY\'S HOURS'|t }}</h4>
           {{ content.field_branch_hours }}
         </div>
-        {#<div class="column col-sm-3 col-md-3 save-link branch-header__item">#}
-          {# TODO: Here should displayed ygs_branch_selector. @see ygs_branch_selector module on YGS #}
-          {# @see ygs_branch_selector module on YGS #}
-        {#</div>#}
+        <div class="column col-sm-3 col-md-3 save-link branch-header__item">
+          {# @see openy_branch_selector module #}
+          {{ content.openy_branch_selector }}
+        </div>
       </div>
     </div>
   </div>
@@ -137,10 +137,10 @@ set classes = [
             {{ content.field_branch_hours }}
           </div>
         </div>
-        {#<div id="save-location">#}
-          {# TODO: Here should displayed ygs_branch_selector. @see ygs_branch_selector module on YGS #}
-          {# @see ygs_branch_selector module on YGS #}
-        {#</div>#}
+        <div id="save-location">
+          {# @see openy_branch_selector module #}
+          {{ content.openy_branch_selector }}
+        </div>
       </div>
     </div>
   </div>

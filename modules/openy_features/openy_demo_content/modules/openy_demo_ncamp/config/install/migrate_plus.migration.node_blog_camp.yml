@@ -13,8 +13,9 @@ source:
     -
       id: 1
       title: 'Camp Colman Stories'
+      created: '2017-04-27 6:00am'
       style: color
-      bg_color: 4
+      bg_color: 8
       color: 1
       category: 1
       related: null
@@ -27,8 +28,9 @@ source:
     -
       id: 2
       title: 'Serving our community for over 100 years!'
+      created: '2017-04-27 6:01am'
       style: color
-      bg_color: 4
+      bg_color: 14
       color: 1
       category: 2
       related: null
@@ -47,8 +49,9 @@ source:
     -
       id: 3
       title: 'Cheddar-Cannelini Fondue'
+      created: '2017-04-27 6:02am'
       style: color
-      bg_color: 4
+      bg_color: 13
       color: 1
       category: 3
       related: 2
@@ -81,8 +84,9 @@ source:
     -
       id: 4
       title: 'How does the camp experience benifit your child?'
+      created: '2017-04-27 6:03am'
       style: color
-      bg_color: 8
+      bg_color: 4
       color: 1
       category: 2
       related: 1
@@ -95,6 +99,7 @@ source:
     -
       id: 5
       title: 'Camp Orkila FAQ'
+      created: '2017-04-27 6:04am'
       style: news
       category: 2
       related: 1
@@ -125,6 +130,7 @@ source:
     -
       id: 6
       title: "Learn about camp Terry's history"
+      created: '2017-04-27 6:05am'
       style: color
       bg_color: 8
       color: 1
@@ -172,6 +178,11 @@ process:
     -
       plugin: default_value
       default_value: 1
+  created:
+    -
+      plugin: callback
+      callable: strtotime
+      source: created
   field_blog_style:
     -
       plugin: get

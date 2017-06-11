@@ -11,6 +11,8 @@ label: 'Create membership info paragraph(s) for demo membership nodes'
 migration_dependencies:
   required:
     - openy_demo_node_branch
+    - openy_calc
+    - openy_prgf_mbrshp_calc
 source:
   plugin: embedded_data
   data_rows:

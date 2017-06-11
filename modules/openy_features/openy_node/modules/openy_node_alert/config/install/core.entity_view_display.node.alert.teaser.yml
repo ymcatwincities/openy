@@ -20,6 +20,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_alert_belongs: true
   field_alert_color: true

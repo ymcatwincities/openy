@@ -21,6 +21,7 @@ settings:
             - Subscript
             - '-'
             - RemoveFormat
+            - TextColor
         -
           name: Linking
           items:
@@ -35,7 +36,6 @@ settings:
           name: Media
           items:
             - Blockquote
-            - DrupalImage
             - Table
             - HorizontalRule
             - embed_document
@@ -51,10 +51,12 @@ settings:
             - ShowBlocks
             - Source
   plugins:
-    language:
-      language_list: un
     stylescombo:
       styles: ''
+    language:
+      language_list: un
+    colorbutton:
+      colors: ''
 image_upload:
   status: true
   scheme: public

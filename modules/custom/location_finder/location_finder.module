@@ -2,7 +2,7 @@
 
 /**
  * @file
- * YGS Locations module file.
+ * Location Finder module file.
  */
 
 use Drupal\Core\Entity\EntityInterface;

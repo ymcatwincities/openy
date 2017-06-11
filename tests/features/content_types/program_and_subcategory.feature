@@ -28,7 +28,7 @@ Feature: Program and Subcategory pages
       | KEY                 | behat_small_banner |
       | field_prgf_headline | BEHAT SMALL BANNER |
       | field_prgf_image    | image_01           |
-      | field_prgf_color    | magenta              |
+      | field_prgf_color    | magenta            |
     And I create large program_subcategory content:
       | KEY                    | behat_category     |
       | title                  | BEHAT CATEGORY     |

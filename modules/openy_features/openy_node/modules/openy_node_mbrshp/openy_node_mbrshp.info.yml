@@ -9,12 +9,14 @@ dependencies:
   - link
   - media_entity
   - menu_ui
+  - metatag
   - node
   - openy_loc_branch
   - openy_media_image
   - paragraphs
   - path
   - pathauto
+  - rabbit_hole
   - text
   - user
-version: 8.x-1.1
+version: 8.x-1.2

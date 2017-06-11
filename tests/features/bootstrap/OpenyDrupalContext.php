@@ -175,8 +175,11 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
   protected function preProcessFields(&$entity_hash, $entity_type) {
     foreach ($entity_hash as $field_name => $field_value) {
       // Get field info.
-      $fiend_info = FieldStorageConfig::loadByName($entity_type, $field_name);
-      if ($fiend_info == NULL || !in_array(($field_type = $fiend_info->getType()), ['entity_reference', 'entity_reference_revisions', 'image', 'file'])) {
+      $field_info = FieldStorageConfig::loadByName($entity_type, $field_name);
+      if ($field_info == NULL || !in_array(($field_type = $field_info->getType()), ['entity_reference', 'entity_reference_revisions', 'image', 'file'])) {
+        if (in_array($field_name, ['changed', 'created', 'revision_timestamp']) && !empty($field_value) && !is_numeric($field_value)) {
+          $entity_hash[$field_name] = strtotime($field_value);
+        }
         continue;
       }
 
@@ -445,6 +448,141 @@ class OpenyDrupalContext extends RawDrupalContext implements SnippetAcceptingCon
     $file->save();
     $this->saveEntity($file);
     return $file;
+  }
+
+  /**
+   * @Given /^I view node "(?P<go_key>[^"]*)" with query parameter "(?P<param>[^"]*)" = id of "(?P<id_key>[^"]*)"$/
+   * @Given /^I view entity "(?P<go_key>[^"]*)" with query parameter "(?P<param>[^"]*)" = id of "(?P<id_key>[^"]*)"$/
+   */
+  public function iViewNodeWithQueryParameterIdOf($go_key, $param, $id_key)
+  {
+    $go_entity = $this->getEntityByKey($go_key);
+    $id_entity = $this->getEntityByKey($id_key);
+    $url = $go_entity->toUrl()->setRouteParameter($param, $id_entity->id());
+    $this->getSession()->visit($this->locatePath($url->toString()));
+  }
+
+  /**
+   * Get cookie by name.
+   */
+  protected function getCookieByName($cookie_name) {
+    $driver = $this->getSession()->getDriver();
+    $seleniumSession = $driver->getWebDriverSession();
+    $cookies = $seleniumSession->getAllCookies();
+    if (!is_null($cookies) && !empty($cookies) && is_array($cookies)) {
+      foreach ($cookies as $cookie) {
+        if (empty($cookie['name']) || $cookie['name'] !== $cookie_name) {
+          continue;
+        }
+        return $cookie;
+      }
+    }
+    if (empty($has_cookie)) {
+      $msg = 'Cookie ' . $cookie_name . ' was not found.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given /^I should have the cookie "(?P<cookie_name>[^"]*)"$/
+   */
+  public function iShouldHaveTheCookie($cookie_name) {
+    $cookie = $this->getSession()->getCookie($cookie_name);
+    if (is_null($cookie)) {
+      $msg = 'Cookie ' . $cookie_name . ' was not found.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given /^I should not have the cookie "(?P<cookie_name>[^"]*)"$/
+   */
+  public function iShouldNotHaveTheCookie($cookie_name) {
+    $cookie = $this->getSession()->getCookie($cookie_name);
+    if (!is_null($cookie)) {
+      $msg = 'Cookie ' . $cookie_name . ' was not found.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given /^The cookie "(?P<cookie_name>[^"]*)" has expiration (\d+) days from now$/
+   */
+  public function theCookieHasExpirationDaysFromNow($cookie_name, $days) {
+    $cookie = $this->getCookieByName($cookie_name);
+    $cookie_param = 'expiry';
+    if (!empty($cookie[$cookie_param])) {
+      $year_from_today = strtotime('+' . $days . 'days');
+      $year_from_yesterday = strtotime('+' . $days - 1 . ' days');
+      if (!($year_from_yesterday <= $cookie[$cookie_param] && $cookie[$cookie_param] <= $year_from_today)) {
+        $expire_date_time = date('Y/m/d H:i:s', $cookie[$cookie_param]);
+        $msg = 'Cookie ' . $cookie_name . ' does not expire in ' . $days . ', it is set to expire on ' . $expire_date_time . '.';
+        throw new \Exception($msg);
+      }
+    }
+    else {
+      $msg = 'Cookie ' . $cookie_name . ' does not expire.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given /^The cookie "(?P<cookie_name>[^"]*)" httpOnly is "(?P<boolean_string>[^"]*)"$/
+   */
+  public function theCookieHttpOnlyIs($cookie_name, $bool_string) {
+    $bool = filter_var(   $bool_string, FILTER_VALIDATE_BOOLEAN);
+    $cookie = $this->getCookieByName($cookie_name);
+    $cookie_param = 'httpOnly';
+    if (isset($cookie[$cookie_param])) {
+      if ($cookie[$cookie_param] !== $bool) {
+        $httpOnly = $cookie[$cookie_param] ? 'True' : 'False';
+        $msg = 'Cookie ' . $cookie_name . ' "httpOnly" value is ' . $httpOnly . '.';
+        throw new \Exception($msg);
+      }
+    }
+    else {
+      $msg = 'Cookie ' . $cookie_name . ' "httpOnly" is missing.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given /^The cookie "(?P<cookie_name>[^"]*)" secure is "(?P<boolean_string>[^"]*)"$/
+   */
+  public function theCookieSecureIs($cookie_name, $bool_string) {
+    $bool = filter_var(   $bool_string, FILTER_VALIDATE_BOOLEAN);
+    $cookie = $this->getCookieByName($cookie_name);
+    $cookie_param = 'secure';
+    if (isset($cookie[$cookie_param])) {
+      if ($cookie[$cookie_param] !== $bool) {
+        $secure = $cookie[$cookie_param] ? 'True' : 'False';
+        $msg = 'Cookie ' . $cookie_name . ' "secure" value is ' . $secure . '.';
+        throw new \Exception($msg);
+      }
+    }
+    else {
+      $msg = 'Cookie ' . $cookie_name . ' "secure" is missing.';
+      throw new \Exception($msg);
+    }
+  }
+
+  /**
+   * @Given /^The cookie "(?P<cookie_name>[^"]*)" value is the id of "(?P<key>[^"]*)"$/
+   */
+  public function theCookieValueIsTheIdOf($cookie_name, $key) {
+    $cookie = $this->getCookieByName($cookie_name);
+    $id = $this->getEntityIDByKey($key);
+    $cookie_param = 'value';
+    if (!empty($cookie[$cookie_param])) {
+      if ($cookie[$cookie_param] !== $id) {
+        $msg = 'Cookie ' . $cookie_name . ' "value" value is ' . $cookie[$cookie_param] . '.';
+        throw new \Exception($msg);
+      }
+    }
+    else {
+      $msg = 'Cookie ' . $cookie_name . ' "value" is missing.';
+      throw new \Exception($msg);
+    }
   }
 
 }

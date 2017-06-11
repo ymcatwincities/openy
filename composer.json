@@ -12,11 +12,11 @@
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
         "emuse/behat-html-formatter": "^0.1.0",
-        "drupal/tqextension": "dev-drupal-8",
-        "cevou/behat-screenshot-compare-extension": "^1.0@dev"
+        "drupal/tqextension": "dev-drupal-8"
     },
     "config": {
-        "bin-dir": "bin/"
+        "bin-dir": "bin/",
+        "secure-http": false
     },
     "repositories": [
         {
@@ -87,11 +87,39 @@
                     "reference": "da978ae124c57817021b3166a31881876882f5f9"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/panelbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colorbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
         "post-install-cmd": [
-            "@composer drupal-scaffold"
+            "@composer drupal-scaffold",
+            "bash scripts/remove_openy_docroot_folder.sh || :"
+        ],
+        "post-update-cmd": [
+            "bash scripts/remove_openy_docroot_folder.sh || :"
         ],
         "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
     },
@@ -107,17 +135,29 @@
             "drupal/simple_menu_icons": {
                 "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
             },
-            "drupal/views_block_filter_block": {
-                "2790505 - Empty exposed forms appeared in each view after installin module": "https://www.drupal.org/files/issues/empty_exposed_forms-2790505-10.patch"
-            },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
             },
             "drupal/confi": {
                 "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
             },
+            "drupal/plugin": {
+                "2851503 - Drupal\\plugin\\PluginDefinition\\ArrayPluginDefinitionDecorator contains 1 abstract method and must therefore be declared abstract or implement the remaining methods": "https://www.drupal.org/files/issues/plugin-id-2851503-8.patch"
+            },
             "drupal/datalayer": {
                 "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
+            },
+            "drupal/admin_toolbar": {
+                "2838636 - Issue with z-index of dropdown in horizontal tray": "https://www.drupal.org/files/issues/admin_toolbar-2838636-10.patch",
+                "2838636 - Issue with z-index of dropdown in horizontal tray 2": "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
+            },
+            "drupal/panelbutton": {
+              "2881820 - Module can't find library in profile directory": "https://www.drupal.org/files/issues/panelbutton-libraries-2881820.patch",
+              "2881818 - Check for missing library in hook_requirements": "https://www.drupal.org/files/issues/panelbutton-hook-requirements-2881818_0.patch"
+            },
+            "drupal/colorbutton": {
+              "2881822 - Module can't find library in profile directory": "https://www.drupal.org/files/issues/colorbutton-libraries-2881822-3.patch",
+              "2881819 - Check for missing library in hook_requirements": "https://www.drupal.org/files/issues/colorbutton-hook-requirements-2881819_0.patch"
             }
         }
     },
@@ -126,8 +166,8 @@
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.0.0",
-        "drupal/core": "8.2.7",
-        "drupal/features": "3.2",
+        "drupal/core": "8.3.2",
+        "drupal/features": "3.5",
         "drupal/confi": "1.3",
         "drupal/config_update": "1.3",
         "drupal/entity": "1.0-alpha4",
@@ -135,7 +175,7 @@
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
         "drupal/address": "1.0-rc3",
-        "drupal/paragraphs": "1.0",
+        "drupal/paragraphs": "1.1",
         "drupal/entity_reference_revisions": "1.2",
         "drupal/pathauto": "1.0-rc1",
         "drupal/ctools": "3.0-alpha27",
@@ -163,11 +203,24 @@
         "library-kenwheeler/slick": "1.6.0",
         "library-dinbror/blazy": "1.8.2",
         "library-gdsmith/jquery.easing": "1.4.1",
+        "library-ckeditor/panelbutton": "4.7.0",
+        "library-ckeditor/colorbutton": "4.7.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
         "drupal/optimizely": "1.2",
         "drupal/google_tag": "1.x-dev",
-        "drupal/google_analytics": "^2.1"
+        "drupal/google_analytics": "^2.1",
+        "drupal/simple_sitemap": "^2.8",
+        "drupal/redirect": "^1.0@alpha",
+        "drupal/metatag": "^1.0",
+        "drupal/scheduler": "^1.0@RC",
+        "drupal/webform": "^5.0@beta",
+        "drupal/captcha": "^1.0@beta",
+        "drupal/recaptcha": "^2.2",
+        "drupal/rabbit_hole": "1.0-beta3",
+        "drupal/admin_toolbar": "1.19",
+        "drupal/panelbutton": "1.0",
+        "drupal/colorbutton": "1.0"
     }
 }

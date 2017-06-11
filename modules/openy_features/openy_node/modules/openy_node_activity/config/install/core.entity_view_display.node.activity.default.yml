@@ -20,12 +20,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_activity_description:
     weight: 102
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   links:
     weight: 100
+    region: content
 hidden: {  }
