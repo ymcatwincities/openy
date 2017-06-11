@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_search_view
+    - paragraphs.paragraphs_type.global_search
+id: paragraph.global_search.field_search_view
+field_name: field_search_view
+entity_type: paragraph
+bundle: global_search
+label: 'Search view'
+description: 'Select view for global solr search. Change this value only if necessary.'
+required: true
+translatable: true
+default_value:
+  -
+    target_uuid: 2c45ccf8-8e06-4f4c-83a3-a97542294103
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

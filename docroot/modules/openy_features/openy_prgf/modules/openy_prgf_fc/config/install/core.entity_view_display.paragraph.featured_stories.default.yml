@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.featured_stories.field_featured_stories
+    - field.field.paragraph.featured_stories.field_prgf_fc_title
+    - paragraphs.paragraphs_type.featured_stories
+    - views.view.featured_stories
+  module:
+    - views_field_formatter
+id: paragraph.featured_stories.default
+targetEntityType: paragraph
+bundle: featured_stories
+mode: default
+content:
+  field_featured_stories:
+    weight: 1
+    label: hidden
+    settings:
+      view: 'featured_stories::default'
+      arguments:
+        field_value:
+          checked: '1'
+          weight: '0'
+        entity_id:
+          checked: '1'
+          weight: '0'
+        delta:
+          checked: '1'
+          weight: '0'
+      implode_character: ''
+      multiple: 0
+    third_party_settings: {  }
+    type: views_field_formatter
+  field_prgf_fc_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden:
+  created: true
+  uid: true

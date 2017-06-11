@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Event Registration'
+description: 'Event registration paragraph bundle.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - paragraphs
+  - plugin
+version: 8.x-1.0

@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: content_pager
+label: 'Content Pager'
+behavior_plugins: {  }

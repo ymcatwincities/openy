@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+label: 'Event contact'
+id: event_contact
+description: 'Main contact type for events registrations.'
+courier_email_field: field_contact_email

@@ -1,0 +1,12 @@
+name: 'OpenY Paragraph Contact us'
+description: 'Provide a paragraph with Contact form for Join Landing page.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - language
+  - paragraphs
+  - plugin
+  - webform
+version: 8.x-1.0

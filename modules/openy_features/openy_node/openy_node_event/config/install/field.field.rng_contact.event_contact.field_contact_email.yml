@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.rng_contact.field_contact_email
+    - rng_contact.rng_contact_type.event_contact
+id: rng_contact.event_contact.field_contact_email
+field_name: field_contact_email
+entity_type: rng_contact
+bundle: event_contact
+label: 'Contact Email'
+description: 'Enter email for registration. This email will be used for contacting you about event''s details.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

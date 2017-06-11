@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: location_events
+label: 'Location Events'
+behavior_plugins: {  }

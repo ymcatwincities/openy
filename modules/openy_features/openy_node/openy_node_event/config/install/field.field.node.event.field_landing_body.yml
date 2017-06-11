@@ -1,0 +1,139 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_landing_body
+    - node.type.event
+    - paragraphs.paragraphs_type.1c
+    - paragraphs.paragraphs_type.2c
+    - paragraphs.paragraphs_type.3c
+    - paragraphs.paragraphs_type.4c
+    - paragraphs.paragraphs_type.financial_aid
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.header
+    - paragraphs.paragraphs_type.lto
+    - paragraphs.paragraphs_type.microsites_menu
+    - paragraphs.paragraphs_type.panorama
+    - paragraphs.paragraphs_type.simple_content
+  module:
+    - entity_reference_revisions
+id: node.event.field_landing_body
+field_name: field_landing_body
+entity_type: node
+bundle: event
+label: Body
+description: 'Enter any content needed for description of the Event.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      1c: 1c
+      2c: 2c
+      3c: 3c
+      4c: 4c
+      gallery: gallery
+      header: header
+      lto: lto
+      simple_content: simple_content
+      financial_aid: financial_aid
+      panorama: panorama
+      microsites_menu: microsites_menu
+    target_bundles_drag_drop:
+      1c:
+        enabled: true
+        weight: 17
+      2c:
+        enabled: true
+        weight: 18
+      3c:
+        enabled: true
+        weight: 19
+      4c:
+        enabled: true
+        weight: 20
+      contact_us:
+        weight: 21
+        enabled: false
+      featured_stories:
+        weight: 22
+        enabled: false
+      gallery:
+        enabled: true
+        weight: 23
+      global_search:
+        weight: 24
+        enabled: false
+      header:
+        enabled: true
+        weight: 25
+      latest_news_and_updates:
+        weight: 26
+        enabled: false
+      lto:
+        enabled: true
+        weight: 28
+      all_amenities:
+        weight: 28
+        enabled: false
+      all_testimonials:
+        weight: 29
+        enabled: false
+      membership_calculator:
+        weight: 29
+        enabled: false
+      program_registration:
+        weight: 30
+        enabled: false
+      blackbaud:
+        weight: 30
+        enabled: false
+      simple_content:
+        enabled: true
+        weight: 31
+      camp_menu:
+        weight: 31
+        enabled: false
+      whay:
+        weight: 32
+        enabled: false
+      all_events:
+        weight: 37
+        enabled: false
+      financial_aid:
+        enabled: true
+        weight: 38
+      panorama:
+        enabled: true
+        weight: 41
+      content_pager:
+        weight: 42
+        enabled: false
+      prgf_location_finder_filters:
+        weight: 42
+        enabled: false
+      small_banner:
+        weight: 45
+        enabled: false
+      group_schedules:
+        weight: 47
+        enabled: false
+      membership_info:
+        weight: 52
+        enabled: false
+      microsites_menu:
+        enabled: true
+        weight: 53
+      openy_event_registration:
+        weight: 54
+        enabled: false
+      prgf_location_finder:
+        weight: 56
+        enabled: false
+      tour_schedule:
+        weight: 61
+        enabled: false
+field_type: entity_reference_revisions

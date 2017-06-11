@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.featured_stories
+id: paragraph.featured_stories
+target_entity_type_id: paragraph
+target_bundle: featured_stories
+default_langcode: site_default
+language_alterable: true

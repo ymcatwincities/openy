@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_header_description
+    - paragraphs.paragraphs_type.header
+  module:
+    - text
+id: paragraph.header.field_prgf_header_description
+field_name: field_prgf_header_description
+entity_type: paragraph
+bundle: header
+label: Description
+description: 'Enter description text for the header. Limit - 160 characters.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.featured_stories.field_featured_stories
+    - field.field.paragraph.featured_stories.field_prgf_fc_title
+    - paragraphs.paragraphs_type.featured_stories
+  module:
+    - content_moderation
+id: paragraph.featured_stories.default
+targetEntityType: paragraph
+bundle: featured_stories
+mode: default
+content:
+  field_prgf_fc_title:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  created: true
+  field_featured_stories: true
+  status: true
+  uid: true

@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains module hooks.
+ */
+
+/**
+ * Implements hook_form_alter().
+ */
+function openy_prgf_all_events_form_views_exposed_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#id'] == 'views-exposed-form-events-default-default') {
+    $form['search_api_fulltext']['#form_id'] = 'views-exposed-form-events-default-default';
+  }
+}

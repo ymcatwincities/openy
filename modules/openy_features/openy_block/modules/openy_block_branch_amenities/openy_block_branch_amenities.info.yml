@@ -1,0 +1,13 @@
+name: 'OpenY Block Branch Amenities'
+description: 'Implements block with amenities list of the current branch.'
+type: module
+core: 8.x
+dependencies:
+  - drupal:block_content
+  - drupal:content_moderation
+  - custom_formatters:custom_formatters
+  - drupal:field
+  - drupal:language
+  - drupal:link
+  - openy:openy_block
+version: 8.x-1.0

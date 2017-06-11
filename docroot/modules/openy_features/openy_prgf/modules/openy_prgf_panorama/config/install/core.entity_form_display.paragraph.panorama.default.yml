@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.panorama.field_prgf_panorama
+    - paragraphs.paragraphs_type.panorama
+  module:
+    - content_moderation
+    - entity_browser_entity_form
+    - inline_entity_form
+id: paragraph.panorama.default
+targetEntityType: paragraph
+bundle: panorama
+mode: default
+content:
+  field_prgf_panorama:
+    weight: 6
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+    type: inline_entity_form_complex
+hidden:
+  created: true
+  status: true
+  uid: true

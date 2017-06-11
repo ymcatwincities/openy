@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.rng_registrants_minimum
+    - node.type.event
+id: node.event.rng_registrants_minimum
+field_name: rng_registrants_minimum
+entity_type: node
+bundle: event
+label: 'Minimum registrants'
+description: 'Minimum number of registrants per registration.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

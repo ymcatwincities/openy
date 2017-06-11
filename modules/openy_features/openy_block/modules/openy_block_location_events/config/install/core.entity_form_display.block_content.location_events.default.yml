@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_events
+    - field.field.block_content.location_events.field_location_events
+    - field.field.block_content.location_events.field_sb_title
+  module:
+    - content_moderation
+id: block_content.location_events.default
+targetEntityType: block_content
+bundle: location_events
+mode: default
+content:
+  field_sb_title:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  info:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_location_events: true

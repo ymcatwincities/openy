@@ -1,0 +1,95 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.rng_event
+    - field.field.node.event.field_event_date_range
+    - field.field.node.event.field_landing_body
+    - field.field.node.event.field_sidebar_content
+    - field.field.node.event.rng_capacity
+    - field.field.node.event.rng_registrants_duplicate
+    - field.field.node.event.rng_registrants_maximum
+    - field.field.node.event.rng_registrants_minimum
+    - field.field.node.event.rng_registration_groups
+    - field.field.node.event.rng_registration_type
+    - field.field.node.event.rng_reply_to
+    - field.field.node.event.rng_status
+    - node.type.event
+  module:
+    - content_moderation
+    - rng
+    - unlimited_number
+id: node.event.rng_event
+targetEntityType: node
+bundle: event
+mode: rng_event
+content:
+  rng_capacity:
+    type: unlimited_number
+    weight: 2
+    settings:
+      value_unlimited: 0
+      label_unlimited: Unlimited
+      label_number: Limited
+      placeholder: ''
+    third_party_settings: {  }
+  rng_registrants_duplicate:
+    type: boolean_checkbox
+    weight: 1
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  rng_registrants_maximum:
+    type: unlimited_number
+    settings:
+      value_unlimited: -1
+      label_unlimited: 'No maximum'
+      label_number: Maximum
+      placeholder: ''
+    weight: 7
+    third_party_settings: {  }
+  rng_registrants_minimum:
+    type: unlimited_number
+    settings:
+      value_unlimited: 0
+      label_unlimited: 'No registrants required'
+      label_number: Minimum
+      placeholder: ''
+    weight: 6
+    third_party_settings: {  }
+  rng_registration_groups:
+    type: rng_registration_group
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+  rng_registration_type:
+    type: rng_registration_type
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+  rng_reply_to:
+    type: email_default
+    settings:
+      placeholder: 'Leave empty to use site default.'
+      size: 60
+    weight: 3
+    third_party_settings: {  }
+  rng_status:
+    type: boolean_checkbox
+    weight: 0
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  translation:
+    weight: 10
+hidden:
+  created: true
+  field_event_date_range: true
+  field_landing_body: true
+  field_sidebar_content: true
+  langcode: true
+  path: true
+  promote: true
+  sticky: true
+  title: true
+  uid: true

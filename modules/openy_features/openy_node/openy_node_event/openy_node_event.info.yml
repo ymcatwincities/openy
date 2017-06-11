@@ -1,0 +1,48 @@
+name: 'OpenY Event'
+type: module
+core: 8.x
+description: 'Implements event bundle feature.'
+dependencies:
+  - block
+  - content_moderation
+  - content_translation
+  - courier
+  - ctools
+  - datetime
+  - datetime_range
+  - entity_reference_revisions
+  - field
+  - language
+  - menu_ui
+  - node
+  - openy_gallery
+  - openy_node
+  - openy_node_branch
+  - openy_node_camp
+  - openy_node_landing
+  - openy_node_testimonial
+  - openy_prgf_1c
+  - openy_prgf_2c
+  - openy_prgf_3c
+  - openy_prgf_4c
+  - openy_prgf_contact_us
+  - openy_prgf_event_reg
+  - openy_prgf_fin
+  - openy_prgf_header
+  - openy_prgf_lto
+  - openy_prgf_microsites_menu
+  - openy_prgf_panorama
+  - openy_prgf_simple_content
+  - openy_prgf_small_banner
+  - paragraphs
+  - path
+  - rng
+  - rng_contact
+  - rng_quick
+  - tour
+  - unlimited_number
+  - user
+  - veoa
+  - views
+  - ygh_paragraphs
+version: 8.x-1.13

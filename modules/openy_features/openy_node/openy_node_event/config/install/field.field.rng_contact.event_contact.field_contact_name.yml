@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.rng_contact.field_contact_name
+    - rng_contact.rng_contact_type.event_contact
+id: rng_contact.event_contact.field_contact_name
+field_name: field_contact_name
+entity_type: rng_contact
+bundle: event_contact
+label: 'Contact Name'
+description: 'Enter your contact information, Name and Surname.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

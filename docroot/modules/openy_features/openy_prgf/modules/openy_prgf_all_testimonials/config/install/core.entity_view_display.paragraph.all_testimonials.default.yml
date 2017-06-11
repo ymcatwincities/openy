@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.all_testimonials.field_prgf_atstmnls_view
+    - paragraphs.paragraphs_type.all_testimonials
+    - views.view.testimonials
+  module:
+    - views_field_formatter
+id: paragraph.all_testimonials.default
+targetEntityType: paragraph
+bundle: all_testimonials
+mode: default
+content:
+  field_prgf_atstmnls_view:
+    weight: 0
+    label: hidden
+    settings:
+      view: 'testimonials::default'
+      arguments:
+        field_value:
+          weight: '0'
+          checked: 0
+        entity_id:
+          weight: '0'
+          checked: 0
+        delta:
+          weight: '0'
+          checked: 0
+      implode_character: ''
+      multiple: 0
+    third_party_settings: {  }
+    type: views_field_formatter
+hidden:
+  created: true
+  uid: true
