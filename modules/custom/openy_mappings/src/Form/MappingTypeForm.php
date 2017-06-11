@@ -61,7 +61,7 @@ class MappingTypeForm extends EntityForm {
           '%label' => $mapping_type->label(),
         ]));
     }
-    $form_state->setRedirectUrl($mapping_type->urlInfo('collection'));
+    $form_state->setRedirectUrl($mapping_type->toUrl('collection'));
   }
 
 }

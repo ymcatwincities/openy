@@ -6,12 +6,15 @@ dependencies:
     - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
+    - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_sidebar_content
     - node.type.landing_page
   module:
     - field_group
+    - metatag
     - paragraphs
     - path
+    - scheduler
 third_party_settings:
   field_group:
     group_header_area:
@@ -111,6 +114,11 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+  field_meta_tags:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
   field_sidebar_content:
     weight: 12
     settings:
@@ -132,6 +140,11 @@ content:
       display_label: true
     weight: 8
     third_party_settings: {  }
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
@@ -152,5 +165,10 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }

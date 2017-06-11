@@ -4,10 +4,13 @@ description: 'Open Y Drupal distribution.'
 core: 8.x
 distribution:
   name: OpenY
+  install:
+      theme: openy_admin
 php: 5.6
 # Required modules
 dependencies:
   # Core modules.
+  - action
   - block_content
   - breakpoint
   - ckeditor
@@ -68,8 +71,22 @@ dependencies:
   - blazy
   - blazy_ui
   - geolocation
+  - rabbit_hole
+  - rh_node
+  - redirect
+  - simple_sitemap
+  - metatag
+  - metatag_open_graph
   - google_tag
   - google_analytics
+  - scheduler
+  - webform
+  - webform_ui
+  - captcha
+  - image_captcha
+  - recaptcha
+  - admin_toolbar
+  - colorbutton
   # OpenY features.
   - openy_media_image
   - openy_media_document
@@ -92,7 +109,11 @@ dependencies:
   - openy_prgf
   - openy_prgf_small_banner
   - openy_prgf_banner
+  - openy_prgf_branches_popup_all
+  - openy_prgf_branches_popup_class
+  - openy_prgf_class_location
   - openy_prgf_simple_content
+  - openy_prgf_schedule_search
   - openy_prgf_featured_content
   - openy_prgf_grid_content
   - openy_prgf_story_card
@@ -101,14 +122,16 @@ dependencies:
   - openy_prgf_gallery
   - openy_prgf_teaser
   - openy_prgf_classes_listing
+  - openy_prgf_class_sessions
   - openy_prgf_blog_latest
   - openy_prgf_blog_camp
   - openy_prgf_blog_branch
   - openy_prgf_blog_listing
   - openy_prgf_loc_finder
   - openy_prgf_mbrshp_calc
+  - openy_prgf_embedded_groupexpro_schedule
+  - openy_prgf_webform
   - openy_node_activity
-  - openy_node_alert
   - openy_node_class
   - openy_node_session
   - openy_menu
@@ -117,10 +140,16 @@ dependencies:
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
   # OpenY custom modules
+  - openy_branch_selector
   - openy_field_hours
+  - openy_hf
   - openy_hours_formatter
   - openy_migrate
   - openy_map
+  - openy_moderation_wrapper
+  - openy_popups
+  - openy_session_instance
+  - openy_schedules
   - openy_socrates
   - location_finder
   - daxko
@@ -132,4 +161,5 @@ dependencies:
 themes:
   - bartik
   - openy_rose
+  - openy_admin
   - seven

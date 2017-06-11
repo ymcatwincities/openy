@@ -17,6 +17,7 @@ dependencies:
   - options
   - paragraphs
   - path
+  - rabbit_hole
   - text
   - user
-version: 8.x-1.0
+version: 8.x-1.1

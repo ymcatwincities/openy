@@ -17,11 +17,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: daterange_default
+    region: content
   field_session_time_days:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
 hidden:
   created: true
   status: true

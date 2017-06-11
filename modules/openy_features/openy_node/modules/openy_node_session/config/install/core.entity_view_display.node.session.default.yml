@@ -37,12 +37,14 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_session_description:
     weight: 113
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_session_exclusions:
     weight: 114
     label: above
@@ -52,12 +54,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: daterange_default
+    region: content
   field_session_gender:
     weight: 104
     label: above
     settings: {  }
     third_party_settings: {  }
     type: list_default
+    region: content
   field_session_in_mbrsh:
     weight: 111
     label: above
@@ -67,6 +71,7 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   field_session_location:
     weight: 102
     label: above
@@ -74,6 +79,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_session_max_age:
     weight: 109
     label: above
@@ -82,6 +88,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
   field_session_mbr_price:
     weight: 106
     label: above
@@ -92,6 +99,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
+    region: content
   field_session_min_age:
     weight: 108
     label: above
@@ -100,6 +108,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
   field_session_nmbr_price:
     weight: 107
     label: above
@@ -110,6 +119,7 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_decimal
+    region: content
   field_session_online:
     weight: 112
     label: above
@@ -119,6 +129,7 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   field_session_plocation:
     weight: 103
     label: above
@@ -126,6 +137,7 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_session_reg_link:
     weight: 105
     label: above
@@ -137,6 +149,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_session_ticket:
     weight: 110
     label: above
@@ -146,6 +159,7 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   field_session_time:
     type: entity_reference_revisions_entity_view
     weight: 115
@@ -154,8 +168,10 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   links:
     weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

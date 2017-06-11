@@ -163,7 +163,7 @@
         }
 
         .ui-tabs-active {
-          background: $dark-magenta;
+          background: $pink;
         }
 
         .ui-tabs-anchor {
@@ -175,7 +175,7 @@
       }
 
       .ui-tabs-panel {
-        background: $dark-magenta;
+        background: $pink;
         border-radius: 0;
         color: $white;
         border: none;
@@ -853,8 +853,9 @@ html.js {
 
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
+.node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
-  border: solid 1px #fcaf17;
+  border: solid 1px $light-grey;
   padding: 20px;
   min-height: 300px;
   margin: 20px;
@@ -864,8 +865,18 @@ html.js {
     height: auto;
     margin: 0 0 20px;
     border-color: #ccc;
-    h2 a {
-      color: $purple;
+    > span {
+      display: block;
+    }
+    h2 {
+      display: inline-block;
+      a {
+        color: $purple;
+      }
+    }
+    .edit-class-popup {
+      display: inline-block;
+      margin-left: 10px;
     }
   }
   .marker_tooltip & {
@@ -910,6 +921,18 @@ html.js {
   .label-for-field-address,
   .label-for-field-phone {
     display: none;
+  }
+}
+.paragraph--type--class-location.paragraph--view-mode--default {
+  .empty-text {
+    border: solid 1px $light-grey;
+    padding: 20px;
+    span {
+      font-family: $font-family-sans-serif;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
   }
 }
 

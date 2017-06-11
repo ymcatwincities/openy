@@ -57,3 +57,19 @@ Feature: Branch Content type
     And I should see "BEHAT DESCRIPTION 02"
     And I should see "BEHAT BANNER 03"
     And I should see "BEHAT DESCRIPTION 03"
+
+  @javascript
+  Scenario: I validate the perfered branch functionality
+    Given I view node "behat_branch"
+    Then I should see "Save as preferred branch"
+    And I should not have the cookie "openy_preferred_branch"
+    When I click "Save as preferred branch"
+    And I should see "This is your preferred branch, remove as preferred branch"
+    And I should have the cookie "openy_preferred_branch"
+    And The cookie "openy_preferred_branch" has expiration 365 days from now
+    And The cookie "openy_preferred_branch" httpOnly is "FALSE"
+    And The cookie "openy_preferred_branch" secure is "FALSE"
+    And The cookie "openy_preferred_branch" value is the id of "behat_branch"
+    When I click "This is your preferred branch, remove as preferred branch"
+    And I should see "Save as preferred branch"
+    And I should not have the cookie "openy_preferred_branch"

@@ -7,11 +7,13 @@ dependencies:
   - field
   - field_group
   - menu_ui
+  - metatag
   - node
   - openy_node
   - options
   - paragraphs
   - path
   - pathauto
+  - scheduler
   - user
 version: 8.x-1.1

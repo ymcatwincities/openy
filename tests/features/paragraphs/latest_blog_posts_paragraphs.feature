@@ -44,18 +44,19 @@ Feature: Latest Blogs Paragraphs
       | field_location_phone                | +1234567890        |
       | field_content                       | camp_blogs         |
     And I create blog content:
-      | title                                          | field_blog_location | promote |
-      | Behat Start training now for the Y Run         | behat_branch_01     | 1       |
-      | Behat Grown-up fun in Adult Sports Leagues     | behat_branch_01     | 1       |
-      | Behat Mood-boosting foods                      | behat_branch_01     | 1       |
-      | Behat Mango-Avocado Salsa                      | behat_branch_02     | 1       |
-      | Behat Add a water workout to your routine      | behat_branch_02     | 1       |
-      | Behat Don’t let summer sneak up on your family | behat_camp_01       | 1       |
-      | Behat Add a water workout to your routine      | behat_camp_01       | 1       |
-      | Behat Nourish yourself with healthy fats       | behat_camp_01       | 1       |
-      | Behat Cheddar-Cannelini Fondue                 | behat_camp_01       | 1       |
-      | Behat Why you should give walking a try        | behat_camp_01       | 1       |
-      | Behat Community Outreach                       | behat_camp_01       | 1       |
+      | title                                              | field_blog_location | promote | created           |
+      | Behat Lifestyle changes beyond the first two weeks | behat_branch_01     | 1       | 2037-10-17 8:00am |
+      | Behat Start training now for the Y Run             | behat_branch_01     | 1       | 2037-10-17 8:01am |
+      | Behat Grown-up fun in Adult Sports Leagues         | behat_branch_01     | 1       | 2037-10-17 8:02am |
+      | Behat Mood-boosting foods                          | behat_branch_01     | 1       | 2037-10-17 8:03am |
+      | Behat Mango-Avocado Salsa                          | behat_branch_02     | 1       | 2037-10-17 8:04am |
+      | Behat Add a water workout to your routine          | behat_branch_02     | 1       | 2037-10-17 8:05am |
+      | Behat Don’t let summer sneak up on your family     | behat_camp_01       | 1       | 2037-10-17 8:06am |
+      | Behat Add a water workout to your routine          | behat_camp_01       | 1       | 2037-10-17 8:07am |
+      | Behat Nourish yourself with healthy fats           | behat_camp_01       | 1       | 2037-10-17 8:08am |
+      | Behat Cheddar-Cannelini Fondue                     | behat_camp_01       | 1       | 2037-10-17 8:09am |
+      | Behat Why you should give walking a try            | behat_camp_01       | 1       | 2037-10-17 8:10am |
+      | Behat Community Outreach                           | behat_camp_01       | 1       | 2037-10-17 8:11am |
     Then I create landing_page content:
       | KEY                 | title               | field_lp_layout | field_content |
       | behat_landing_blogs | Behat Landing Blogs | one_column      | latest_blogs  |
@@ -74,7 +75,7 @@ Feature: Latest Blogs Paragraphs
     And I should see "Behat Mood-boosting foods"
     And I should see "Behat Grown-up fun in Adult Sports Leagues"
     And I should see "Behat Start training now for the Y Run"
-    And I should see "Lifestyle changes beyond the first two weeks"
+    And I should see "Behat Lifestyle changes beyond the first two weeks"
 
   Scenario: Paste latest blog post (branch)
     Given I view node "behat_branch_01"

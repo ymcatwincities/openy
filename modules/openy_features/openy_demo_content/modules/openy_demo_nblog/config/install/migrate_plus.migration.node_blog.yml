@@ -13,6 +13,7 @@ source:
     -
       id: 1
       title: 'Mood-boosting foods'
+      created: '2017-04-27 8:00am'
       style: photo
       category: 1
       related: null
@@ -40,6 +41,7 @@ source:
     -
       id: 2
       title: 'Mango-Avocado Salsa'
+      created: '2017-04-27 8:01am'
       style: photo
       category: 2
       related: null
@@ -75,6 +77,7 @@ source:
     -
       id: 3
       title: 'Cheddar-Cannelini Fondue'
+      created: '2017-04-27 8:02am'
       style: color
       bg_color: 4
       color: 1
@@ -110,6 +113,7 @@ source:
     -
       id: 4
       title: 'Nourish yourself with healthy fats'
+      created: '2017-04-27 8:03am'
       style: photo
       category: 2
       related: 1
@@ -138,6 +142,7 @@ source:
     -
       id: 5
       title: 'Grown-up fun in Adult Sports Leagues'
+      created: '2017-04-27 8:04am'
       style: news
       category: 2
       related: 1
@@ -169,6 +174,7 @@ source:
     -
       id: 6
       title: 'Add a water workout to your routine'
+      created: '2017-04-27 8:05am'
       style: color
       bg_color: 8
       color: 1
@@ -200,6 +206,7 @@ source:
     -
       id: 7
       title: 'Don’t let summer sneak up on your family'
+      created: '2017-04-27 8:06am'
       style: color
       bg_color: 14
       color: 1
@@ -227,6 +234,7 @@ source:
     -
       id: 8
       title: 'Why you should give walking a try'
+      created: '2017-04-27 8:07am'
       style: photo
       category: 2
       related: 1
@@ -254,6 +262,7 @@ source:
     -
       id: 9
       title: 'Start training now for the Y Run'
+      created: '2017-04-27 8:08am'
       style: color
       bg_color: 13
       color: 1
@@ -283,6 +292,7 @@ source:
     -
       id: 10
       title: 'Lifestyle changes beyond the first two weeks'
+      created: '2017-04-27 8:09am'
       style: story
       category: 2
       related: 1
@@ -329,6 +339,11 @@ process:
     -
       plugin: default_value
       default_value: 1
+  created:
+    -
+      plugin: callback
+      callable: strtotime
+      source: created
   field_blog_style:
     -
       plugin: get

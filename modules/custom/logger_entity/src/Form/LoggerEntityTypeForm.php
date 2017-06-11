@@ -61,7 +61,7 @@ class LoggerEntityTypeForm extends EntityForm {
           '%label' => $logger_entity_type->label(),
         ]));
     }
-    $form_state->setRedirectUrl($logger_entity_type->urlInfo('collection'));
+    $form_state->setRedirectUrl($logger_entity_type->toUrl('collection'));
   }
 
 }
