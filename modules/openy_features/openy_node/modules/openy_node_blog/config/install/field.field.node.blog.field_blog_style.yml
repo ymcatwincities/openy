@@ -15,7 +15,19 @@ field_name: field_blog_style
 entity_type: node
 bundle: blog
 label: Style
-description: ''
+description: 'Select list field with multiple options for choosing style(Story Card, Photo Card, New Card, Color Card)'
+Story Card
+Photo Card
+News Card (default)
+Color Card':
+Story Card
+Photo Card
+News Card (default)
+Color Card:
+Story Card
+Photo Card
+News Card (default)
+Color Card'
 required: true
 translatable: true
 default_value:
