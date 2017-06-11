@@ -1,4 +1,4 @@
-name: 'OpenY Node News'
+name: 'OpenY Node News (experimental)'
 description: 'OpenY news features.'
 type: module
 core: 8.x
