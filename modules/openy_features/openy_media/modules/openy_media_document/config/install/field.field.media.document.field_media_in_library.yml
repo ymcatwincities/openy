@@ -9,7 +9,7 @@ field_name: field_media_in_library
 entity_type: media
 bundle: document
 label: 'Save to my media library'
-description: ''
+description: 'Select save or not to your media library'
 required: false
 translatable: true
 default_value:
