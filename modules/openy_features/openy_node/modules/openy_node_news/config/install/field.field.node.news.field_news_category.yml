@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_news_category
     - node.type.news
+    - taxonomy.vocabulary.news_category
   module:
     - datalayer
 third_party_settings:
@@ -23,8 +24,7 @@ default_value_callback: ''
 settings:
   handler: 'default:taxonomy_term'
   handler_settings:
-    target_bundles:
-      news_category: news_category
+    target_bundles: {  }
     sort:
       field: _none
     auto_create: true
