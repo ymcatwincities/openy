@@ -11,7 +11,7 @@ field_name: field_prgf_description
 entity_type: paragraph
 bundle: gallery
 label: Description
-description: ''
+description: 'Gallery Description'
 required: false
 translatable: true
 default_value: {  }
