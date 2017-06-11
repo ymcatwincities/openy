@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_whay_view
+    - paragraphs.paragraphs_type.whay
+id: paragraph.whay.field_prgf_whay_view
+field_name: field_prgf_whay_view
+entity_type: paragraph
+bundle: whay
+label: 'What''s Happening at the Y'
+description: 'Predefined view of 6 blog items for the home page.'
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: 084a991f-c277-4bb7-880f-9b698013926b
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

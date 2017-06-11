@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.membership_calculator.field_prgf_mc
+    - paragraphs.paragraphs_type.membership_calculator
+  module:
+    - plugin
+id: paragraph.membership_calculator.default
+targetEntityType: paragraph
+bundle: membership_calculator
+mode: default
+content:
+  field_prgf_mc:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+hidden:
+  created: true
+  uid: true

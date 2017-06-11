@@ -1,0 +1,19 @@
+name: 'OpenY Paragraph Header'
+description: 'Header Paragraph for Branch, Camp and Landing Page CTs.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - entity_browser
+  - field
+  - file
+  - image
+  - language
+  - link
+  - media_entity
+  - openy_gallery
+  - openy_media_image
+  - openy_node_blog
+  - paragraphs
+  - text
+version: 8.x-1.1

@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_3с feature.
+ */
+
+/**
+ * Change view mode to full for 3-column paragraph.
+ */
+function openy_prgf_3c_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_3c') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.paragraph.3c.default',
+    ]
+  );
+}
+
+/**
+ * Enable Location Events block in columns.
+ */
+function openy_prgf_3c_update_8002() {
+  $config = drupal_get_path('module', 'openy_prgf_3c') . '/config/install/field.field.paragraph.3c.field_prgf_3c_center.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.paragraph.3c.field_prgf_3c_center', 'settings.handler_settings.target_bundles.location_events');
+  $config = drupal_get_path('module', 'openy_prgf_3c') . '/config/install/field.field.paragraph.3c.field_prgf_3c_left.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.paragraph.3c.field_prgf_3c_left', 'settings.handler_settings.target_bundles.location_events');
+  $config = drupal_get_path('module', 'openy_prgf_3c') . '/config/install/field.field.paragraph.3c.field_prgf_3c_right.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.paragraph.3c.field_prgf_3c_right', 'settings.handler_settings.target_bundles.location_events');
+}

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.prgf_location_finder_filters.field_prgf_location_finder
+    - paragraphs.paragraphs_type.prgf_location_finder_filters
+  module:
+    - plugin
+id: paragraph.prgf_location_finder_filters.default
+targetEntityType: paragraph
+bundle: prgf_location_finder_filters
+mode: default
+content:
+  field_prgf_location_finder:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+hidden:
+  created: true
+  uid: true

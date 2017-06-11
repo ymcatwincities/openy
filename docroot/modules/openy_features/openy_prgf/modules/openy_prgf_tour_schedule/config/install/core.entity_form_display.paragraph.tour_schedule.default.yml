@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tour_schedule.field_prgf_tour_schedule
+    - paragraphs.paragraphs_type.tour_schedule
+  module:
+    - content_moderation
+id: paragraph.tour_schedule.default
+targetEntityType: paragraph
+bundle: tour_schedule
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_tour_schedule: true
+  status: true
+  uid: true

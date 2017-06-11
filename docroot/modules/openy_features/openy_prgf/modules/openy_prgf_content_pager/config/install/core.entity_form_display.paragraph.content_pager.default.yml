@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_pager.field_prgf_block
+    - paragraphs.paragraphs_type.content_pager
+  module:
+    - content_moderation
+id: paragraph.content_pager.default
+targetEntityType: paragraph
+bundle: content_pager
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_block: true
+  status: true
+  uid: true

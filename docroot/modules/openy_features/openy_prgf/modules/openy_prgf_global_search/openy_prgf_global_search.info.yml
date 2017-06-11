@@ -1,0 +1,15 @@
+name: 'OpenY Paragraph Global Search'
+description: 'Implements a paragraph with Global search.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - node
+  - paragraphs
+  - search_api
+  - user
+  - views
+  - views_field_formatter
+  - ygh_alters
+version: 8.x-1.0

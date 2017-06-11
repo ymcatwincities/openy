@@ -1,0 +1,16 @@
+name: 'OpenY Paragraph What''s happened At Y'
+description: 'Provide a paragraph for Home page with a view render which lists 6 latest nodes.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - language
+  - openy_latest_news
+  - paragraphs
+  - search_api
+  - views
+  - views_field_formatter
+  - views_infinite_scroll
+  - ygh_alters
+version: 8.x-1.0

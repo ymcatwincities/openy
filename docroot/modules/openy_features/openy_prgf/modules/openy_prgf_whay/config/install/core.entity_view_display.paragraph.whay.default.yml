@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.whay.field_prgf_whay_title
+    - field.field.paragraph.whay.field_prgf_whay_view
+    - paragraphs.paragraphs_type.whay
+    - views.view.whay
+  module:
+    - views_field_formatter
+id: paragraph.whay.default
+targetEntityType: paragraph
+bundle: whay
+mode: default
+content:
+  field_prgf_whay_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_prgf_whay_view:
+    weight: 1
+    label: hidden
+    settings:
+      view: 'whay::default'
+      arguments:
+        field_value:
+          weight: '0'
+          checked: 0
+        entity_id:
+          weight: '0'
+          checked: 0
+        delta:
+          weight: '0'
+          checked: 0
+      implode_character: ''
+      multiple: 0
+    third_party_settings: {  }
+    type: views_field_formatter
+hidden:
+  created: true
+  uid: true

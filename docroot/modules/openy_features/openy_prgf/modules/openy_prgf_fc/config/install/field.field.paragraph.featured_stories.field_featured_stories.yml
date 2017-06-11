@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_featured_stories
+    - paragraphs.paragraphs_type.featured_stories
+id: paragraph.featured_stories.field_featured_stories
+field_name: field_featured_stories
+entity_type: paragraph
+bundle: featured_stories
+label: 'Featured Stories'
+description: 'Featured content is a 3 item view which could be placed to any page via paragraph wrapper'
+required: false
+translatable: true
+default_value:
+  -
+    target_uuid: 98504c2f-e322-4894-a567-377cdb520e92
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

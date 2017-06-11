@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.openy_event_registration.field_prgf_event_reg_block
+    - paragraphs.paragraphs_type.openy_event_registration
+  module:
+    - content_moderation
+id: paragraph.openy_event_registration.default
+targetEntityType: paragraph
+bundle: openy_event_registration
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_event_reg_block: true
+  status: true
+  uid: true

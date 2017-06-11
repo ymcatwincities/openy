@@ -1,0 +1,12 @@
+name: 'OpenY Paragraph Financial Aid'
+description: 'Provide paragraph with a Financial Aid webform.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - field
+  - openy_prgf_3c
+  - openy_webform
+  - paragraphs
+  - webform
+version: 8.x-1.3

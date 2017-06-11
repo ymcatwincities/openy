@@ -1,0 +1,57 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.header.field_prgf_header_description
+    - field.field.paragraph.header.field_prgf_header_image
+    - field.field.paragraph.header.field_prgf_header_link
+    - field.field.paragraph.header.field_prgf_header_title
+    - paragraphs.paragraphs_type.header
+  module:
+    - link
+    - text
+id: paragraph.header.default
+targetEntityType: paragraph
+bundle: header
+mode: default
+content:
+  field_prgf_header_description:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 160
+    third_party_settings: {  }
+    type: text_trimmed
+    region: content
+  field_prgf_header_image:
+    weight: 5
+    label: hidden
+    settings:
+      view_mode: embedded_full
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_prgf_header_link:
+    weight: 4
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_prgf_header_title:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  created: true
+  uid: true

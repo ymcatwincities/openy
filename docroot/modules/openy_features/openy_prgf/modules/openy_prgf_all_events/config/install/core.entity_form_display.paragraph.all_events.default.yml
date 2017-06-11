@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.all_events.field_prgf_events_view
+    - paragraphs.paragraphs_type.all_events
+  module:
+    - content_moderation
+id: paragraph.all_events.default
+targetEntityType: paragraph
+bundle: all_events
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_events_view: true
+  status: true
+  uid: true

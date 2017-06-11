@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.simple_content.field_prgf_sc_body
+    - paragraphs.paragraphs_type.simple_content
+  module:
+    - text
+id: paragraph.simple_content.preview
+targetEntityType: paragraph
+bundle: simple_content
+mode: preview
+content:
+  field_prgf_sc_body:
+    weight: 0
+    label: hidden
+    settings:
+      trim_length: 400
+    third_party_settings: {  }
+    type: text_trimmed
+hidden:
+  created: true
+  uid: true
