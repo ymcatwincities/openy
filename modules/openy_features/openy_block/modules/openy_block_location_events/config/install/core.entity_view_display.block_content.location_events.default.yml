@@ -1,0 +1,43 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_events
+    - field.field.block_content.location_events.field_location_events
+    - field.field.block_content.location_events.field_sb_title
+    - views.view.location_events
+  module:
+    - views_field_formatter
+id: block_content.location_events.default
+targetEntityType: block_content
+bundle: location_events
+mode: default
+content:
+  field_location_events:
+    weight: 1
+    label: hidden
+    settings:
+      view: 'location_events::block_1'
+      arguments:
+        field_value:
+          weight: '0'
+          checked: 0
+        entity_id:
+          weight: '0'
+          checked: 0
+        delta:
+          weight: '0'
+          checked: 0
+      implode_character: ''
+      multiple: 0
+    third_party_settings: {  }
+    type: views_field_formatter
+  field_sb_title:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden:
+  langcode: true

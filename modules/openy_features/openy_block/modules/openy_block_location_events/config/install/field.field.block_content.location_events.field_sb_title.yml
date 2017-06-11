@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.location_events
+    - field.storage.block_content.field_sb_title
+id: block_content.location_events.field_sb_title
+field_name: field_sb_title
+entity_type: block_content
+bundle: location_events
+label: Title
+description: 'A title to display at top of the location events block.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 'Location Events'
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_block_location_events feature.
+ */
+
+/**
+ * Update location_events view.
+ */
+function openy_block_location_events_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_block_location_events') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'views.view.location_events',
+    ]);
+}
