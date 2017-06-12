@@ -11,11 +11,11 @@ field_name: field_sidebar_content
 entity_type: node
 bundle: class
 label: 'Sidebar content'
-description: ''
+description: 'A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types.'
 required: false
 translatable: true
 default_value: {  }
-default_value_callback: 'A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types.'
+default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
