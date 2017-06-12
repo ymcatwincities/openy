@@ -57,7 +57,9 @@
   }
 
   .form-submit {
-    padding: 0 85px;
+    @include breakpoint('tablet') {
+      padding: 0 85px;
+    }
   }
 
   .js-form-type-membership-type-radio {
