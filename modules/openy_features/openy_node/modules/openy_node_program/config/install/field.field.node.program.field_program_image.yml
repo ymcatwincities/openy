@@ -10,7 +10,7 @@ field_name: field_program_image
 entity_type: node
 bundle: program
 label: Image
-description: ''
+description: 'A image field, for uploading the program image.'
 required: false
 translatable: true
 default_value: {  }

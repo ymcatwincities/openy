@@ -9,7 +9,7 @@ field_name: field_session_in_mbrsh
 entity_type: node
 bundle: session
 label: 'In membership'
-description: ''
+description: 'Boolean field that helps determine if the session is included into membership package.'
 required: false
 translatable: true
 default_value:

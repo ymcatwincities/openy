@@ -16,7 +16,7 @@ field_name: field_meta_tags
 entity_type: node
 bundle: program_subcategory
 label: 'Meta Tags'
-description: ''
+description: 'A metadata about the HTML document.'
 required: false
 translatable: true
 default_value:

@@ -1,0 +1,674 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nsessions
+id: openy_demo_node_session_02
+migration_tags: {  }
+migration_group: openy_demo_nsessions
+label: 'Create demo session nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: sports_classes_and_workshops_youth_fitness_challenge
+      title: 'Youth Fitness Challenge'
+      class: sports_classes_and_workshops_youth_fitness_challenge
+      times:
+        -
+          time: sports_classes_and_workshops_youth_fitness_challenge
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: sports_classes_and_workshops_youth_homezone
+      title: 'HomeZone'
+      class: sports_classes_and_workshops_youth_homezone
+      times:
+        -
+          time: sports_classes_and_workshops_youth_homezone
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      title: 'AOA National Senior Health and Fitness Day'
+      class: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      times:
+        -
+          time: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 12
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      title: 'AOA Brain Agility - Class Fee, Spring 2017'
+      class: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      times:
+        -
+          time: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 50
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      title: 'AOA Brain Agility - Materials Fee, Spring 2017'
+      class: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      times:
+        -
+          time: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 50
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: group_exercise_classes_hiit
+      title: 'HIIT'
+      class: group_exercise_classes_hiit
+      times:
+        -
+          time: group_exercise_classes_hiit
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: group_exercise_classes_hiit_metabolic_conditioning
+      title: 'HIIT - Metabolic Conditioning'
+      class: group_exercise_classes_hiit_metabolic_conditioning
+      times:
+        -
+          time: group_exercise_classes_hiit_metabolic_conditioning
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: group_exercise_classes_moving_for_balance_spr_2017
+      title: 'Moving for Better Balance - Continuing Spring 2017'
+      class: group_exercise_classes_moving_for_balance_spr_2017
+      times:
+        -
+          time: group_exercise_classes_moving_for_balance_spr_2017
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: samll_group_training_youth_small_group_training_tween_girl_power
+      title: 'Small Group Training - Tween Girl Power!'
+      class: samll_group_training_youth_small_group_training_tween_girl_power
+      times:
+        -
+          time: samll_group_training_youth_small_group_training_tween_girl_power
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 10
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: samll_group_training_youth_small_group_training_tween_titans
+      title: 'Small Group Training - Tween Titans'
+      class: samll_group_training_youth_small_group_training_tween_titans
+      times:
+        -
+          time: samll_group_training_youth_small_group_training_tween_titans
+      location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 13
+      age_max: 18
+    -
+      id: pilates_reformer_10_private_1hr_sessions
+      title: 'Pilates Reformer - 10, private 1 hr sessions'
+      class: pilates_reformer_10_private_1hr_sessions
+      times:
+        -
+          time: pilates_reformer_10_private_1hr_sessions
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: private_yoga_10_1hour_sessions
+      title: 'Private Yoga - 10, 1-hour sessions'
+      class: private_yoga_10_1hour_sessions
+      times:
+        -
+          time: private_yoga_10_1hour_sessions
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: pilates_reformer_duet_10_1hour_sessions
+      title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
+      class: pilates_reformer_duet_10_1hour_sessions
+      times:
+        -
+          time: pilates_reformer_duet_10_1hour_sessions
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 16
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: partner_personal_training_1_session
+      title: 'Partner Personal Training - 1 session'
+      class: partner_personal_training_1_session
+      times:
+        -
+          time: partner_personal_training_1_session
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: health_improvement_livestrong_at_the_y
+      title: 'LIVESTRONG at the YMCA'
+      class: health_improvement_livestrong_at_the_y
+      times:
+        -
+          time: health_improvement_livestrong_at_the_y
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 13
+      age_max: 101
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: health_improvement_nutrition_consultation_initial
+      title: 'Nutrition Consultation - Initial'
+      class: health_improvement_nutrition_consultation_initial
+      times:
+        -
+          time: health_improvement_nutrition_consultation_initial
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: health_improvement_activly_changing_together
+      title: 'ACT! Actively Changing Together'
+      class: health_improvement_activly_changing_together
+      times:
+        -
+          time: health_improvement_activly_changing_together
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: climbing_adult_rock_climbing_sept
+      title: 'Climbing - Adult Rock Climbing - September'
+      class: climbing_adult_rock_climbing_sept
+      times:
+        -
+          time: climbing_adult_rock_climbing_sept
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: climbing_adult_rock_climbing_oct
+      title: 'Climbing - Adult Rock Climbing - October'
+      class: climbing_adult_rock_climbing_oct
+      times:
+        -
+          time: climbing_adult_rock_climbing_oct
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: climbing_adult_parent_child_sept
+      title: 'Climbing - Parent/Child Climbing - September'
+      class: climbing_adult_parent_child_sept
+      times:
+        -
+          time: climbing_adult_parent_child_sept
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: climbing_adult_parent_child_oct
+      title: 'Climbing - Parent/Child Climbing - October'
+      class: climbing_adult_parent_child_oct
+      times:
+        -
+          time: climbing_adult_parent_child_oct
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: small_group_and_specialty_training_adaptive_yoga
+      title: 'Small Group Training - Adaptive Yoga'
+      class: small_group_and_specialty_training_adaptive_yoga
+      times:
+        -
+          time: small_group_and_specialty_training_adaptive_yoga
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1
+      title: 'Small Group Training - Pilates Reformer Level I'
+      class: small_group_and_specialty_training_pilates_reformer_level_1
+      times:
+        -
+          time: small_group_and_specialty_training_pilates_reformer_level_1
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: small_group_and_specialty_training_pilates_reformer_intro
+      title: 'Small Group Training - Pilates Reformer Intro'
+      class: small_group_and_specialty_training_pilates_reformer_intro
+      times:
+        -
+          time: small_group_and_specialty_training_pilates_reformer_intro
+      location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1_2
+      title: 'Small Group Training - Pilates Reformer Level I/II'
+      class: small_group_and_specialty_training_pilates_reformer_level_1_2
+      times:
+        -
+          time: small_group_and_specialty_training_pilates_reformer_level_1_2
+      location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: weight_loss_lose_to_win_men
+      title: 'Lose to Win for Men - Weight Loss Program'
+      class: weight_loss_lose_to_win_men
+      times:
+        -
+          time: weight_loss_lose_to_win_men
+      location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: weight_loss_lose_to_win
+      title: 'Lose to Win - Weight Loss Program'
+      class: weight_loss_lose_to_win
+      times:
+        -
+          time: weight_loss_lose_to_win
+      location: 1
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      title: '2016/17 Woodmoor - (f) Non-School Days'
+      class: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      times:
+        -
+          time: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 13
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after_plus
+      title: '2016/17 Woodmoor - (b) After Plus Care'
+      class: before_after_school_child_care_2016_17_woodmoor_after_plus
+      times:
+        -
+          time: before_after_school_child_care_2016_17_woodmoor_after_plus
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after
+      title: '2016/17 Woodmoor - (c) After Care'
+      class: before_after_school_child_care_2016_17_woodmoor_after
+      times:
+        -
+          time: before_after_school_child_care_2016_17_woodmoor_after
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: before_after_school_child_care_2016_17_sunrise_before_after
+      title: '2016/17 Sunrise - (a) Before and After Care'
+      class: before_after_school_child_care_2016_17_sunrise_before_after
+      times:
+        -
+          time: before_after_school_child_care_2016_17_sunrise_before_after
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
+      class: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      times:
+        -
+          time: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
+      class: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      times:
+        -
+          time: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
+      class: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      times:
+        -
+          time: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: discovery_day_camp_drop_off_kenmore_elementary_2017
+      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      class: discovery_day_camp_drop_off_kenmore_elementary_2017
+      times:
+        -
+          time: discovery_day_camp_drop_off_kenmore_elementary_2017
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: discovery_day_camp_drop_off_Northshore_ymca_2017
+      title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
+      class: discovery_day_camp_drop_off_Northshore_ymca_2017
+      times:
+        -
+          time: discovery_day_camp_drop_off_Northshore_ymca_2017
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: bold_one_wk_expeditions_cascade_challenge
+      title: 'BOLD Cascade Challenge'
+      class: bold_one_wk_expeditions_cascade_challenge
+      times:
+        -
+          time: bold_one_wk_expeditions_cascade_challenge
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 12
+      age_max: 15
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
+      class: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      times:
+        -
+          time: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      location: 1
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 11
+      age_max: 17
+    -
+      id: bold_one_wk_expeditions_river_and_rocks
+      title: 'BOLD Rivers and Rocks'
+      class: bold_one_wk_expeditions_river_and_rocks
+      times:
+        -
+          time: bold_one_wk_expeditions_river_and_rocks
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      title: 'BOLD Fishing and Backpacking in the North Cascades'
+      class: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      times:
+        -
+          time: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: earth_service_corps_about_yesc
+      title: 'Earth Service Corps About YESC'
+      class: earth_service_corps_about_yesc
+      times:
+        -
+          time: earth_service_corps_about_yesc
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 13
+      age_max: 17
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: academic_success
+      title: 'Academic Success'
+      class: academic_success
+      times:
+        -
+          time: academic_success
+      location: 1
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_session_class:
+    plugin: migration
+    migration: openy_demo_node_class_02
+    source: class
+  field_session_location:
+    plugin: migration
+    migration: openy_demo_node_branch
+    source: location
+  field_session_time:
+    plugin: iterator
+    source: times
+    process:
+      target_id:
+        plugin: migration
+        migration: openy_demo_paragraph_session_time_02
+        no_stub: true
+        source: time
+      target_revision_id:
+        plugin: migration
+        migration: openy_demo_paragraph_session_time_02
+        no_stub: true
+        source: time
+  field_session_online: online_registration
+  field_session_ticket: ticket_required
+  field_session_in_mbrsh: in_membership
+  field_session_min_age: age_min
+  field_session_max_age: age_max
+  field_session_reg_link/uri: reg_uri
+  field_session_reg_link/title: reg_title
+destination:
+  plugin: 'entity:node'
+  default_bundle: session
+migration_dependencies:
+  required:
+    - openy_demo_node_class_02
+    - openy_demo_node_branch
+    - openy_demo_paragraph_session_time_02
