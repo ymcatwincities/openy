@@ -58,6 +58,8 @@
 
       h2 {
         font-size: 32px;
+        margin-top: 0;
+        margin-bottom: 20px;
       }
     }
 
@@ -73,7 +75,7 @@
     }
 
     h4 {
-      margin: 0;
+      margin: 0 0 10px;
       font-size: 14px;
       line-height: 1.28;
       letter-spacing: 2px;
@@ -130,12 +132,18 @@
       }
     }
 
+    .story {
+      h2 {
+        overflow: hidden;
+        width: auto;
+      }
+    }
+
     .quote {
       float: left;
-      min-height: 360px;
 
       svg {
-        margin-top: 21px;
+        margin-top: 1px;
       }
     }
   }

@@ -15,7 +15,7 @@ field_name: field_category_description
 entity_type: node
 bundle: program_subcategory
 label: Description
-description: ''
+description: 'Textarea for the description/body with WYSIWYG, without summary.'
 required: false
 translatable: true
 default_value: {  }
