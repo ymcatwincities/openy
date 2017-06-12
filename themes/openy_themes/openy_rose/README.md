@@ -25,3 +25,7 @@ Set as default ruby:
 4. To compile css use
 
 `bundler exec compass compile`
+
+5. Compass watching changes
+
+`bundler exec compass watch --poll`
