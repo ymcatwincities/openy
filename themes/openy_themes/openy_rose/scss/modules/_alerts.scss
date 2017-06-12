@@ -150,13 +150,12 @@ $module: 'site-alert';
     cursor: pointer;
     display: block;
     font-size: 0;
-    height: 20px;
     left: auto;
     line-height: 0;
     outline: none;
     padding: 0;
     position: absolute;
-    width: 20px;
+    text-decoration: none;
     -webkit-transform: translate(0, -50%);
     -ms-transform: translate(0, -50%);
     transform: translate(0, -50%);
@@ -178,14 +177,14 @@ $module: 'site-alert';
   }
 
   .slick-prev {
-    right: 35px;
+    right: 40px;
     &:before {
       content: "\f104";
     }
   }
 
   .slick-next {
-    right: 0;
+    right: 5px;
     &:before {
       content: "\f105";
     }

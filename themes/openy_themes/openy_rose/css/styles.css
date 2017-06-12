@@ -2248,13 +2248,12 @@ body {
   cursor: pointer;
   display: block;
   font-size: 0;
-  height: 20px;
   left: auto;
   line-height: 0;
   outline: none;
   padding: 0;
   position: absolute;
-  width: 20px;
+  text-decoration: none;
   -webkit-transform: translate(0, -50%);
   -ms-transform: translate(0, -50%);
   transform: translate(0, -50%);
@@ -2277,7 +2276,7 @@ body {
 }
 .header-alerts-list .slick-prev,
 .footer-alerts-list .slick-prev {
-  right: 35px;
+  right: 40px;
 }
 .header-alerts-list .slick-prev:before,
 .footer-alerts-list .slick-prev:before {
@@ -2285,7 +2284,7 @@ body {
 }
 .header-alerts-list .slick-next,
 .footer-alerts-list .slick-next {
-  right: 0;
+  right: 5px;
 }
 .header-alerts-list .slick-next:before,
 .footer-alerts-list .slick-next:before {
