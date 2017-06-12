@@ -22,3 +22,12 @@
     }
   }
 }
+
+.node--type-landing {
+  .field-landing-body > .paragraph-1c-wrapper {
+    @include breakpoint('tablet') {
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+  }
+}
