@@ -1,8 +1,8 @@
+/**
+ * @file
+ * Faq paragraph behaviour.
+ */
 (function ($) {
-
-  /**
-   * Faq paragraph behaviour.
-   */
   Drupal.behaviors.ymacaliFaqParagraph = {
     attach: function( context, settings ) {
       $( context ).find( '.paragraph.paragraph--type--faq' ).once( 'paragraphFaq' ).each( function () {
