@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @file
+ * Contains ymcali_faq specific functions.
+ */
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 
