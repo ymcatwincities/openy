@@ -76,6 +76,25 @@ a:hover, a:active, a:focus {
   outline: 0;
 }
 
+.return-to-top {
+  position: fixed;
+  right: 0;
+  height: 34px;
+  overflow: hidden;
+  right: 0;
+  -webkit-transition: width .35s ease-out;
+  z-index: 100;
+  bottom: 60px;
+  width: 0;
+  &.affix {
+    position: fixed;
+    width: 39px;
+    -webkit-transform: translateZ(0);
+    z-index: 2000;
+  }
+}
+
+
 //Tabs
 
 #block-openy-lily-tabs {

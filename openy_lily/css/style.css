@@ -134,29 +134,22 @@ a:hover, a:active, a:focus {
   outline: 0;
 }
 
-#block-openy-lily-tabs {
-  margin: 20px 0;
+.return-to-top {
+  position: fixed;
+  right: 0;
+  height: 34px;
+  overflow: hidden;
+  right: 0;
+  -webkit-transition: width .35s ease-out;
+  z-index: 100;
+  bottom: 60px;
+  width: 0;
 }
-#block-openy-lily-tabs .nav-tabs {
-  border-bottom: none;
-}
-#block-openy-lily-tabs .nav-tabs li {
-  margin: 0 10px 5px 0;
-}
-#block-openy-lily-tabs .nav-tabs li a {
-  border: none;
-  border-radius: 3px;
-  color: white;
-  background: #9c1f7b;
-  font-weight: bold;
-}
-@media (min-width: 0) and (max-width: 48em) {
-  #block-openy-lily-tabs {
-    margin: 100px 30px 20px;
-  }
-  #block-openy-lily-tabs .nav-tabs li {
-    margin-right: 5px;
-  }
+.return-to-top.affix {
+  position: fixed;
+  width: 39px;
+  -webkit-transform: translateZ(0);
+  z-index: 2000;
 }
 
 .toolbar-fixed .navbar-fixed-top {
@@ -2480,15 +2473,6 @@ legend {
   content: "";
   display: table;
   clear: both;
-}
-
-[data-drupal-selector="edit-actions"] {
-  position: relative;
-}
-[data-drupal-selector="edit-actions"] .ajax-progress {
-  left: 164px !important;
-  top: 0;
-  margin-top: -4px !important;
 }
 
 [data-drupal-selector="edit-branch"] .fieldset-wrapper,
