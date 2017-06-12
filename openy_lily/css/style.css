@@ -141,7 +141,7 @@ a:hover, a:active, a:focus {
   border-bottom: none;
 }
 #block-openy-lily-tabs .nav-tabs li {
-  margin: 0 10px 0 0;
+  margin: 0 10px 5px 0;
 }
 #block-openy-lily-tabs .nav-tabs li a {
   border: none;
@@ -149,6 +149,14 @@ a:hover, a:active, a:focus {
   color: white;
   background: #9c1f7b;
   font-weight: bold;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  #block-openy-lily-tabs {
+    margin: 100px 30px 20px;
+  }
+  #block-openy-lily-tabs .nav-tabs li {
+    margin-right: 5px;
+  }
 }
 
 .toolbar-fixed .navbar-fixed-top {

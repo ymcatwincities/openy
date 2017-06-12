@@ -83,13 +83,21 @@ a:hover, a:active, a:focus {
   .nav-tabs {
     border-bottom: none;
     li {
-      margin: 0 10px 0 0;
+      margin: 0 10px 5px 0;
       a {
         border: none;
         border-radius: 3px;
         color: white;
         background: $pink;
         font-weight: bold;
+      }
+    }
+  }
+  @include breakpoint (0 $tablet) {
+    margin: 100px 30px 20px;
+    .nav-tabs {
+      li {
+        margin-right: 5px;
       }
     }
   }
