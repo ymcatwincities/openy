@@ -1,5 +1,5 @@
-name: 'OpenY paragraph grid content'
-description: 'OpenY paragraph grid content'
+name: 'OpenY Paragraph Grid Content'
+description: 'OpenY Paragraph Grid Content.'
 type: module
 core: 8.x
 dependencies:

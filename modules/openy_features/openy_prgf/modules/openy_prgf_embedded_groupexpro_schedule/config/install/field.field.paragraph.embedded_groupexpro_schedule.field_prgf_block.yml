@@ -5,7 +5,6 @@ dependencies:
     - field.storage.paragraph.field_prgf_block
     - paragraphs.paragraphs_type.embedded_groupexpro_schedule
   module:
-    - datalayer
     - plugin
 third_party_settings:
   datalayer:

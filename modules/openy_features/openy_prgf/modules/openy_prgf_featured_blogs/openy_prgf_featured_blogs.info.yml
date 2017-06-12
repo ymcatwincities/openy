@@ -1,5 +1,5 @@
-name: 'OpenY paragraph featured blog posts'
-description: 'OpenY paragraph featured blog posts'
+name: 'OpenY Paragraph Featured Blog Posts'
+description: 'OpenY Paragraph Featured Blog Posts'
 type: module
 core: 8.x
 dependencies:

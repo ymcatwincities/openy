@@ -1,5 +1,5 @@
-name: 'Categories listing paragraph'
-description: 'Categories listing paragraph'
+name: 'OpenY Paragraph Categories Listing'
+description: 'OpenY Paragraph Categories Listing.'
 type: module
 core: 8.x
 dependencies:
@@ -11,4 +11,4 @@ dependencies:
   - plugin
   - user
   - views
-version: 8.x-1.0
+version: 8.x-1.1
