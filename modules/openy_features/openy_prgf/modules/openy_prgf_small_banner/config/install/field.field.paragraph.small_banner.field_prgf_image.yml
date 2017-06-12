@@ -14,7 +14,7 @@ description: ''
 required: false
 translatable: true
 default_value: {  }
-default_value_callback: ''
+default_value_callback: 'Entityreference to media image. Single value.'
 settings:
   handler: 'default:media'
   handler_settings:
