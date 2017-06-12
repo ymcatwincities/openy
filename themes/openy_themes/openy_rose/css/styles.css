@@ -1454,6 +1454,9 @@ body {
 .paragraph-gallery .carousel .carousel-control.right .fa {
   margin-left: 5px;
 }
+.paragraph-gallery .carousel .carousel-control:focus {
+  outline: auto 5px #0089d0;
+}
 .paragraph-gallery .carousel .carousel-inner > .item img,
 .paragraph-gallery .carousel .carousel-inner > .item a img {
   height: auto;
@@ -1558,6 +1561,13 @@ body {
   .paragraph-gallery .cta-group-wrapper .cta-group .btn a, .paragraph-gallery .cta-group-wrapper .cta-group .button a {
     padding: 15px;
   }
+}
+.paragraph-gallery .cta-group-wrapper .cta-group .btn a:focus, .paragraph-gallery .cta-group-wrapper .cta-group .button a:focus {
+  outline: 5px auto #0089d0;
+  outline-offset: -2px;
+}
+.paragraph-gallery .cta-group-wrapper .cta-group:focus {
+  outline: auto 5px #0089d0;
 }
 .paragraph-gallery .item__caption__wrapper {
   position: relative;
