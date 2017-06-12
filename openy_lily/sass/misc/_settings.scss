@@ -75,3 +75,22 @@
 a:hover, a:active, a:focus {
   outline: 0;
 }
+
+//Tabs
+
+#block-openy-lily-tabs {
+  margin: 20px 0;
+  .nav-tabs {
+    border-bottom: none;
+    li {
+      margin: 0 10px 0 0;
+      a {
+        border: none;
+        border-radius: 3px;
+        color: white;
+        background: $pink;
+        font-weight: bold;
+      }
+    }
+  }
+}

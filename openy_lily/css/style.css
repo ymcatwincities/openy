@@ -134,6 +134,23 @@ a:hover, a:active, a:focus {
   outline: 0;
 }
 
+#block-openy-lily-tabs {
+  margin: 20px 0;
+}
+#block-openy-lily-tabs .nav-tabs {
+  border-bottom: none;
+}
+#block-openy-lily-tabs .nav-tabs li {
+  margin: 0 10px 0 0;
+}
+#block-openy-lily-tabs .nav-tabs li a {
+  border: none;
+  border-radius: 3px;
+  color: white;
+  background: #9c1f7b;
+  font-weight: bold;
+}
+
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
 }
@@ -2455,6 +2472,15 @@ legend {
   content: "";
   display: table;
   clear: both;
+}
+
+[data-drupal-selector="edit-actions"] {
+  position: relative;
+}
+[data-drupal-selector="edit-actions"] .ajax-progress {
+  left: 164px !important;
+  top: 0;
+  margin-top: -4px !important;
 }
 
 [data-drupal-selector="edit-branch"] .fieldset-wrapper,

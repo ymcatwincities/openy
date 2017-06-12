@@ -203,6 +203,7 @@ label {
   }
 }
 
+
 .edit-registration-actions {
   .fieldset-wrapper {
     a.btn {
@@ -232,6 +233,15 @@ legend {
   .fieldset-wrapper {
     @include clearfix;
     margin: 0 -10px;
+  }
+}
+
+[data-drupal-selector="edit-actions"] {
+  position: relative;
+  .ajax-progress {
+    left: 164px !important;
+    top: 0;
+    margin-top: -4px !important;
   }
 }
 
