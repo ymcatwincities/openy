@@ -179,6 +179,7 @@ label {
 .edit-registration-actions {
   float: left;
   width: 50%;
+  position: relative;
   a {
     float: left;
     margin-right: 6px;
@@ -193,6 +194,12 @@ label {
       margin-top: 5px;
       float: left;
     }
+  }
+
+  .ajax-progress {
+    left: 164px;
+    top: 0;
+    margin-top: -4px !important;
   }
 }
 
