@@ -1315,6 +1315,9 @@ body {
   float: left;
   width: auto;
 }
+.paragraph--column-in-a-grid .fa.fa-handshake-o {
+  margin-right: 20px;
+}
 @media (min-width: 48em) {
   .paragraph--column-in-a-grid .fa {
     font-size: 26px;
