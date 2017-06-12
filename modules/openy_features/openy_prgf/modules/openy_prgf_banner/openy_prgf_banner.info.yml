@@ -1,5 +1,5 @@
-name: 'OpenY paragraph banner'
-description: 'OpenY paragraph banner'
+name: 'OpenY Paragraph Banner'
+description: 'OpenY Paragraph Banner.'
 type: module
 core: 8.x
 dependencies:
