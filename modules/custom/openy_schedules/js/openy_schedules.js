@@ -10,18 +10,51 @@
     var params = [];
     for (var key in parameters) {
       // Skip some form keys.
-      if ((key === 'location' ||
-        key === 'program' ||
-        key === 'category' ||
-        key === 'class' ||
-        key === 'date' ||
-        key === 'time') &&
-        parameters[key] !== 'all') {
+      if (
+        parameters[key].length >= 1 &&
+        (
+          key === 'location' ||
+          (
+            parameters[key] !== 'all' &&
+            (
+              key === 'program' ||
+              key === 'category' ||
+              key === 'class' ||
+              key === 'date' ||
+              key === 'time'
+            )
+          )
+        )
+      ) {
         params.push(key + '=' + parameters[key]);
       }
     }
     history.replaceState({}, '', window.location.pathname + '?' + params.join('&'));
   };
+
+  /**
+   * Break down query string and build an array.
+   *
+   * @param url string
+   *   String url, with possible parameters.
+   *
+   * @returns {Array}
+   */
+  function getUrlParams(url) {
+    var query_array = [], hash, params = [], value = '';
+    var link_url_split = url.split('?');
+    var param_string = link_url_split[1];
+    if(param_string !== undefined){
+      params = param_string.split('&');
+      for(var i = 0; i < params.length; i++){
+        hash = params[i].split('=');
+        value = decodeURI(hash[1]);
+        query_array[decodeURI(hash[0])] = value;
+      }
+    }
+
+    return query_array;
+  }
 
   Drupal.behaviors.openy_schedules = {
     attach: function(context, settings) {
@@ -64,8 +97,11 @@
             speed: 300,
             slidesToShow: 3,
             slidesToScroll: 3,
-            prevArrow: '<button type="button" class="slick-prev"><i class="fa fa-chevron-left"></i></button>',
-            nextArrow: '<button type="button" class="slick-next"><i class="fa fa-chevron-right"></i></button>',
+            prevArrow: '<button type="button" class="slick-prev" title="' + Drupal.t('Previous') + '"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>',
+            nextArrow: '<button type="button" class="slick-next" title="' + Drupal.t('Next') + '"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>',
+            customPaging: function(slider, i) {
+              return '<button type="button" data-role="none" role="button" tabindex="' + i + '" title="' + Drupal.t('Slide set @i', {'@i': i+1}) + '">' + (i+1) + '</button>';
+            },
             responsive: [{
               breakpoint: 992,
               settings: {
@@ -144,6 +180,18 @@
             form.find('.js-form-type-select select').attr('readonly', true);
             form.find('.js-form-submit').trigger('click');
           });
+
+        // Handle preferred location.
+        setTimeout(function() {
+          var preferred_branch = $.cookie('openy_preferred_branch');
+          var query = getUrlParams(window.location.href);
+          var location = query['location'];
+          if (typeof location === 'undefined' && typeof preferred_branch !== 'undefined') {
+            form.find('.js-form-item-location select')
+              .val(preferred_branch)
+              .trigger('change');
+          }
+        }, 0);
       });
 
       $('.schedule-sessions-group').once().each(function() {

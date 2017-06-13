@@ -46,6 +46,7 @@
   ]
 %}
 {% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
+{% set description_text = content.field_prgf_description.0['#text'] is not empty %}
 
 <div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
   <div class="banner-image">
@@ -60,6 +61,11 @@
           <h3 class="banner-title">
             {{ content.field_prgf_headline }}
           </h3>
+          {% if description_text %}
+            <div class="banner-description">
+              {{ content.field_prgf_description }}
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

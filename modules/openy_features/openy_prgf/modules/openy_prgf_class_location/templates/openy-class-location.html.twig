@@ -1,5 +1,8 @@
 {% if class_location is not empty %}
   {{ class_location }}
 {% else %}
-  <div class="empty-text">{{ 'Class schedule for all locations'|t }}</div>
+  <div class="empty-text">
+    <span>{{ 'Class schedule for all locations'|t }}</span>
+    <a href="#" class="edit-class-popup hidden">{{ "Edit"|t }}</a>
+  </div>
 {% endif %}

@@ -13,6 +13,7 @@ dependencies:
   module:
     - link
     - path
+    - scheduler
     - text
 id: node.alert.default
 targetEntityType: node
@@ -87,6 +88,11 @@ content:
     weight: 15
     third_party_settings: {  }
     region: content
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
@@ -111,4 +117,9 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

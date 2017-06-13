@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Main file for the OpenY Node Blog module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_node_form_node_blog_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $visible = [
+    'visible' => [
+      [
+        'select[name="field_blog_style"]' => ['value' => 'color'],
+      ],
+    ],
+  ];
+  $form['field_blog_color']['widget']['#states'] = $visible;     
+  $form['field_blog_text_color']['widget']['#states'] = $visible;
+}
