@@ -1,5 +1,5 @@
-name: 'OpenY paragraph story card'
-description: 'OpenY paragraph story card'
+name: 'OpenY Paragraph Story Card'
+description: 'OpenY Paragraph Story Card.'
 type: module
 core: 8.x
 dependencies:

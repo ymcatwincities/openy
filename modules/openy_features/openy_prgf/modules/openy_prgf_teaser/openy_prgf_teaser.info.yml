@@ -1,5 +1,5 @@
-name: 'OpenY paragraph teaser'
-description: 'OpenY paragraph teaser'
+name: 'OpenY Paragraph Teaser'
+description: 'OpenY Paragraph Teaser.'
 type: module
 core: 8.x
 dependencies:
