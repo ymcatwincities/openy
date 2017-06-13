@@ -15,6 +15,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\openy_session_instance\SessionInstanceManager;
+use Drupal\openy_session_instance\Entity\SessionInstanceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -97,7 +98,7 @@ class SchedulesSearchForm extends FormBase {
     $today = new DrupalDateTime('now');
     $today = $today->format('m/d/Y');
     $state = [
-      'location' => isset($parameters['location']) ? $parameters['location'] : '',
+      'location' => isset($parameters['location']) ? $parameters['location'] : 'All',
       'program' => isset($parameters['program']) ? $parameters['program'] : 'all',
       'category' => isset($parameters['category']) ? $parameters['category'] : 'all',
       'class' => isset($parameters['class']) ? $parameters['class'] : 'all',
@@ -141,6 +142,7 @@ class SchedulesSearchForm extends FormBase {
 
     if (!$options) {
       $options = [
+        'All' => $this->t('All'),
         'branches' => [],
         'camps' => [],
       ];
@@ -290,27 +292,11 @@ class SchedulesSearchForm extends FormBase {
   }
 
   /**
-   * Build form element options.
-   *
-   * @param \stdClass $options
-   */
-  private function buildFormElementOptions(\stdClass &$options) {
-    $options->locationOptions = $this->getLocationOptions();
-    $options->programOptions = $this->getProgramOptions();
-    $options->categoryOptions = $this->getCategoryOptions();
-    $options->classOptions = $this->getClassOptions();
-    $options->timeOptions = $this->getTimeOptions();
-  }
-
-  /**
-   * Add form elements.
+   * Add cache Vary cache contexts on the listed query args.
    *
    * @param array $form
-   * @param array $values
-   * @param \stdClass $options
    */
-  private function addFormElements(array &$form, array $values, \stdClass &$options) {
-    // Vary on the listed query args.
+  private function addCommonCacheValues(&$form) {
     $form['#cache'] = [
       'max-age' => 0,
       'contexts' => [
@@ -321,13 +307,29 @@ class SchedulesSearchForm extends FormBase {
         'url.query_args:time',
       ],
     ];
+  }
 
+  /**
+   * Add openy_schedules library.
+   *
+   * @param array $form
+   */
+  private function addCommonLibraries(&$form) {
     $form['#attached'] = [
       'library' => [
         'openy_schedules/openy_schedules',
       ],
     ];
+  }
 
+  /**
+   * Add form elements.
+   *
+   * @param array $form
+   * @param array $values
+   * @param \stdClass $options
+   */
+  private function addFormElements(array &$form, array $values) {
     $form['filter_controls'] = [
       '#markup' => '
           <div class="container controls-wrapper hidden-sm hidden-md hidden-lg">
@@ -350,9 +352,9 @@ class SchedulesSearchForm extends FormBase {
     $form['selects']['location'] = [
       '#type' => 'select',
       '#title' => $this->t('Location'),
-      '#options' => $options->locationOptions,
+      '#options' => $this->getLocationOptions(),
       '#prefix' => '<hr/>',
-      '#default_value' => isset($values['location']) ? $values['location'] : '',
+      '#default_value' => isset($values['location']) ? $values['location'] : 'All',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'schedules-search-form-wrapper',
@@ -368,7 +370,7 @@ class SchedulesSearchForm extends FormBase {
     $form['selects']['program'] = [
       '#type' => 'select',
       '#title' => $this->t('Program'),
-      '#options' => $options->programOptions,
+      '#options' => $this->getProgramOptions(),
       '#default_value' => isset($values['program']) ? $values['program'] : 'all',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
@@ -385,7 +387,7 @@ class SchedulesSearchForm extends FormBase {
     $form['selects']['category'] = [
       '#type' => 'select',
       '#title' => $this->t('Sub-Program'),
-      '#options' => $options->categoryOptions,
+      '#options' => $this->getCategoryOptions(),
       '#default_value' => isset($values['category']) ? $values['category'] : 'all',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
@@ -402,7 +404,7 @@ class SchedulesSearchForm extends FormBase {
     $form['selects']['class'] = [
       '#type' => 'select',
       '#title' => $this->t('Class'),
-      '#options' => $options->classOptions,
+      '#options' => $this->getClassOptions(),
       '#default_value' => isset($values['class']) ? $values['class'] : 'all',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
@@ -435,7 +437,7 @@ class SchedulesSearchForm extends FormBase {
     $form['selects']['time'] = [
       '#type' => 'select',
       '#title' => $this->t('Start Time:'),
-      '#options' => $options->timeOptions,
+      '#options' => $this->getTimeOptions(),
       '#default_value' => isset($values['time']) ? $values['time'] : 'all',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
@@ -500,23 +502,23 @@ class SchedulesSearchForm extends FormBase {
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    * @param \stdClass $options
    */
-  protected function updateUserInput(FormStateInterface &$form_state, array $values, \stdClass $options) {
+  protected function updateUserInput(FormStateInterface &$form_state, array $values) {
     $user_input = $form_state->getUserInput();
 
     if (!empty($user_input['location'])) {
-      $user_input['location'] = isset($options->locationOptions['branches'][$values['location']]) || isset($options->locationOptions['camps'][$values['location']]) ? $values['location'] : '';
+      $user_input['location'] = isset($this->getLocationOptions()['branches'][$values['location']]) || isset($this->getLocationOptions()['camps'][$values['location']]) ? $values['location'] : 'All';
     }
     if (!empty($user_input['program'])) {
-      $user_input['program'] = isset($options->programOptions[$values['program']]) ? $values['program'] : 'all';
+      $user_input['program'] = isset($this->getProgramOptions()[$values['program']]) ? $values['program'] : 'all';
     }
     if (!empty($user_input['category'])) {
-      $user_input['category'] = isset($options->categoryOptions[$values['category']]) ? $values['category'] : 'all';
+      $user_input['category'] = isset($this->getCategoryOptions()[$values['category']]) ? $values['category'] : 'all';
     }
     if (!empty($user_input['class'])) {
-      $user_input['class'] = isset($options->classOptions[$values['class']]) ? $values['class'] : 'all';
+      $user_input['class'] = isset($this->getClassOptions()[$values['class']]) ? $values['class'] : 'all';
     }
     if (!empty($user_input['time'])) {
-      $user_input['time'] = isset($options->timeOptions[$values['time']]) ? $values['time'] : 'all';
+      $user_input['time'] = isset($this->getTimeOptions()[$values['time']]) ? $values['time'] : 'all';
     }
 
     $form_state->setUserInput($user_input);
@@ -553,12 +555,12 @@ class SchedulesSearchForm extends FormBase {
         $render_flag = 'full';
       }
 
-      $options = new \stdClass();
-      $this->buildFormElementOptions($options);
+      $this->addCommonCacheValues($form);
+      $this->addCommonLibraries($form);
 
       if ($render_flag == 'full' || $render_flag == 'form') {
-        $this->addFormElements($form, $values, $options);
-        $this->updateUserInput($form_state, $values, $options);
+        $this->addFormElements($form, $values);
+        $this->updateUserInput($form_state, $values);
         $form['#prefix'] = '<div id="schedules-search-form-wrapper">';
         $form['#suffix'] = '</div>';
       }
@@ -568,9 +570,9 @@ class SchedulesSearchForm extends FormBase {
         $formatted_results = '';
         $branch_hours = '';
         $renderer = \Drupal::service('renderer');
-        $branch_hours = self::buildBranchHours($values);
+        $branch_hours = $this->buildBranchHours($form, $values);
         $branch_hours = $renderer->renderRoot($branch_hours);
-        $formatted_results = self::buildResults($values);
+        $formatted_results = $this->buildResults($form, $values);
         $formatted_results = $renderer->renderRoot($formatted_results);
         // TODO: replace with render arrays.
         $rendered_results = '
@@ -607,7 +609,7 @@ class SchedulesSearchForm extends FormBase {
     $classOptions = $this->getClassOptions();
     $timeOptions = $this->getTimeOptions();
 
-    if ($parameters['location'] !== 'all') {
+    if ($parameters['location'] !== 'All') {
       if (!empty($locationOptions['branches'][$parameters['location']])) {
         $filters[$parameters['location']] = $locationOptions['branches'][$parameters['location']];
       }
@@ -643,9 +645,9 @@ class SchedulesSearchForm extends FormBase {
   /**
    * Build Branch Hours.
    */
-  public function buildBranchHours($parameters) {
+  public function buildBranchHours(&$form, $parameters) {
     $markup = '';
-    if (!$parameters['location']) {
+    if (!$parameters['location'] || $parameters['location'] == 'All') {
       return $markup;
     }
 
@@ -661,7 +663,10 @@ class SchedulesSearchForm extends FormBase {
       $timezone = drupal_get_user_timezone();
       $date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date'], $timezone);
       $date = strtolower($date->format('D'));
+      /* @var $location \Drupal\node\Entity\Node */
       if ($location = $this->entityTypeManager->getStorage('node')->load($id)) {
+        $form['#cache']['tags'] = !empty($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+        $form['#cache']['tags'] = $form['#cache']['tags'] + $location->getCacheTags();
         if ($location->hasField('field_branch_hours')) {
           $field_branch_hours = $location->field_branch_hours;
           foreach ($field_branch_hours as $multi_hours) {
@@ -688,7 +693,7 @@ class SchedulesSearchForm extends FormBase {
    */
   public function buildAlerts($parameters) {
     $build = '';
-    if (!$parameters['location']) {
+    if (!$parameters['location'] || $parameters['location'] == 'All') {
       return $build;
     }
 
@@ -721,9 +726,6 @@ class SchedulesSearchForm extends FormBase {
 
     $conditions = [];
     $location = $parameters['location'];
-    if (!$location) {
-      return [];
-    }
 
     if (isset($locationOptions['branches'][$location]) || isset($locationOptions['camps'][$location])) {
       $conditions['location'] = $location;
@@ -760,7 +762,7 @@ class SchedulesSearchForm extends FormBase {
   /**
    * Build results.
    */
-  public function buildResults($parameters) {
+  public function buildResults(&$form, $parameters) {
     $session_instances = $this->getSessions($parameters);
 
     $content = [];
@@ -769,6 +771,7 @@ class SchedulesSearchForm extends FormBase {
     $classOptions = $this->getClassOptions();
     if ($parameters['class'] !== 'all' && !empty($classOptions[$parameters['class']])) {
       $class = $this->entityTypeManager->getStorage('node')->load($parameters['class']);
+      /* @var $session_instance \Drupal\openy_session_instance\Entity\SessionInstanceInterface*/
       foreach ($session_instances as $session_instance) {
         $timestamp = DrupalDateTime::createFromTimestamp($session_instance->getTimestamp());
         $day = $timestamp->format('m/d/Y');
@@ -809,6 +812,8 @@ class SchedulesSearchForm extends FormBase {
             ],
           ]),
         ];
+        $form['#cache']['tags'] = !empty($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+        $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
       }
 
       $formatted_results = [
@@ -861,6 +866,8 @@ class SchedulesSearchForm extends FormBase {
             ],
           ]),
         ];
+        $form['#cache']['tags'] = is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+        $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
       }
       $title_date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date']);
       $title_date = $title_date->format('F j, Y');
@@ -880,10 +887,10 @@ class SchedulesSearchForm extends FormBase {
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     $parameters = $form_state->getUserInput();
-    $formatted_results = self::buildResults($parameters);
+    $formatted_results = $this->buildResults($form, $parameters);
     $filters = self::buildFilters($parameters);
     $alerts = self::buildAlerts($parameters);
-    $branch_hours = self::buildBranchHours($parameters);
+    $branch_hours = $this->buildBranchHours($form, $parameters);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper #edit-selects', $form['selects']));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));

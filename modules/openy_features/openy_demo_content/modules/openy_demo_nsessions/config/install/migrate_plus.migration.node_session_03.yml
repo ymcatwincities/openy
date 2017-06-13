@@ -1,0 +1,549 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nsessions
+id: openy_demo_node_session_03
+migration_tags: {  }
+migration_group: openy_demo_nsessions
+label: 'Create demo session nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: swim_lessons_adult_begin_2
+      title: 'Swim Lessons - Adult Beginning'
+      class: swim_lessons_adult_begin
+      times:
+        -
+          time: swim_lessons_adult_begin_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 18
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_parent_child_a_2
+      title: 'Swim Lessons - Parent/Child Stage A: Water Discov.'
+      class: swim_lessons_parent_child_a
+      times:
+        -
+          time: swim_lessons_parent_child_a_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_parent_child_b_2
+      title: 'Swim Lessons - Parent/Child Stage B: Water Explor.'
+      class: swim_lessons_parent_child_b
+      times:
+        -
+          time: swim_lessons_parent_child_b_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_preschool_1_2
+      title: 'Swim Lessons - Preschool Stage 1: Water Acclimat.'
+      class: swim_lessons_preschool_1
+      times:
+        -
+          time: swim_lessons_preschool_1_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_preschool_2_2
+      title: 'Swim Lessons - Preschool Stage 2: Water Movement'
+      class: swim_lessons_preschool_2
+      times:
+        -
+          time: swim_lessons_preschool_2_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_preschool_3_2
+      title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
+      class: swim_lessons_preschool_3
+      times:
+        -
+          time: swim_lessons_preschool_3_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_preschool_4_2
+      title: 'Swim Lessons - Preschool Stage 4: Stroke Intro.'
+      class: swim_lessons_preschool_4
+      times:
+        -
+          time: swim_lessons_preschool_4_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      age_min: 2
+      age_max: 5
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_private_2
+      title: 'Swim Lesson - Private'
+      class: swim_lessons_private
+      times:
+        -
+          time: swim_lessons_private_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 2
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_youth_1_2
+      title: 'Swim Lessons - Youth Stage 1: Water Acclimat.'
+      class: swim_lessons_youth_1
+      times:
+        -
+          time: swim_lessons_youth_1_2
+      location: 2
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
+    -
+      id: swim_lessons_youth_2_2
+      title: 'Swim Lessons - Youth Stage 2: Water Movement'
+      class: swim_lessons_youth_2
+      times:
+        -
+          time: swim_lessons_youth_2_2
+      location: 2
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
+    -
+      id: swim_lessons_youth_3_2
+      title: 'Swim Lessons - Youth Stage 3: Water Stamina'
+      class: swim_lessons_youth_3
+      times:
+        -
+          time: swim_lessons_youth_3_2
+      location: 2
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
+    -
+      id: swim_lessons_youth_4_2
+      title: 'Swim Lessons - Youth Stage 4: Stroke Intro.'
+      class: swim_lessons_youth_4
+      times:
+        -
+          time: swim_lessons_youth_4_2
+      location: 2
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
+    -
+      id: swim_lessons_youth_5_2
+      title: 'Swim Lessons - Youth Stage 5: Stroke Devel.'
+      class: swim_lessons_youth_5
+      times:
+        -
+          time: swim_lessons_youth_5_2
+      location: 2
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
+    -
+      id: swim_lessons_youth_6_2
+      title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
+      class: swim_lessons_youth_6
+      times:
+        -
+          time: swim_lessons_youth_6_2
+      location: 2
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 5
+      age_max: 12
+    -
+      id: swim_team_intrest_list_2
+      title: 'Swim Team - Interest List'
+      class: swim_team_intrest_list
+      times:
+        -
+          time: swim_team_intrest_list_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 7
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_teen_2
+      title: 'Swim Lessons - Teen'
+      class: swim_lessons_teen
+      times:
+        -
+          time: swim_lessons_teen_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_teen_beginning_2
+      title: 'Swim Lessons - Teen Beginning'
+      class: swim_lessons_teen_beginning
+      times:
+        -
+          time: swim_lessons_teen_beginning_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_teen_intermediate_2
+      title: 'Swim Lessons - Teen Intermediate'
+      class: swim_lessons_teen_intermediate
+      times:
+        -
+          time: swim_lessons_teen_intermediate_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: swim_lessons_teen_advanced_2
+      title: 'Swim Lessons - Teen Advanced'
+      class: swim_lessons_teen_advanced
+      times:
+        -
+          time: swim_lessons_teen_advanced_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_min: 13
+      age_max: 19
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: drop_in_swim_recreational_3ft_2
+      title: 'Recreational Swim 3ft'
+      class: drop_in_swim_recreational_3ft
+      times:
+        -
+          time: drop_in_swim_recreational_3ft_2
+      location: 2
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 5
+    -
+      id: drop_in_swim_wade_2ft_2
+      title: 'Wade Swim 2ft'
+      class: drop_in_swim_wade_2ft
+      times:
+        -
+          time: drop_in_swim_wade_2ft_2
+      location: 2
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 3
+    -
+      id: drop_in_swim_rec_with_slide_2
+      title: 'Rec Swim with Slide'
+      class: drop_in_swim_rec_with_slide
+      times:
+        -
+          time: drop_in_swim_rec_with_slide_2
+      location: 2
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 6
+    -
+      id: drop_in_swim_adult_5.5ft_2
+      title: 'Adult Swim 5.5 ft'
+      class: drop_in_swim_adult_5.5ft
+      times:
+        -
+          time: drop_in_swim_adult_5.5ft_2
+      location: 2
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 18
+      age_max: 9
+    -
+      id: drop_in_swim_family_2
+      title: 'Family Swim'
+      class: drop_in_swim_family
+      times:
+        -
+          time: drop_in_swim_family_2
+      location: 2
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 3
+    -
+      id: drop_in_swim_recreational_2
+      title: 'Recreational Swim'
+      class: drop_in_swim_recreational
+      times:
+        -
+          time: drop_in_swim_recreational_2
+      location: 2
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 3
+    -
+      id: drop_in_swim_lap_2
+      title: 'Lap Swim'
+      class: drop_in_swim_lap
+      times:
+        -
+          time: drop_in_swim_lap_2
+      location: 2
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 6
+    -
+      id: kids_zone_activity_centers_4wks_11yrs_2
+      title: 'Kids Zone 4 wks -11 yrs'
+      class: kids_zone_activity_centers_4wks_11yrs
+      times:
+        -
+          time: kids_zone_activity_centers_4wks_11yrs_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: false
+      age_max: 11
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: cooking_classes_future_chefs_2
+      title: 'Youth Cooking - Future Chefs'
+      class: cooking_classes_future_chefs
+      times:
+        -
+          time: cooking_classes_future_chefs_2
+      location: 2
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 6
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: arts_and_crafts_maycrafternoon_handprint_sunshines_2
+      title: 'May Crafternoon: Handprint Sunshines'
+      class: arts_and_crafts_maycrafternoon_handprint_sunshines
+      times:
+        -
+          time: arts_and_crafts_maycrafternoon_handprint_sunshines_2
+      location: 2
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 0
+      age_max: 99
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: arts_and_crafts_april_earth_day_bridhouses_2
+      title: 'April Earth Day Birdhouses'
+      class: arts_and_crafts_april_earth_day_bridhouses
+      times:
+        -
+          time: arts_and_crafts_april_earth_day_bridhouses_2
+      location: 2
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 0
+      age_max: 101
+    -
+      id: arts_and_crafts_crafternoon_2
+      title: 'Crafternoon'
+      class: arts_and_crafts_crafternoon
+      times:
+        -
+          time: arts_and_crafts_crafternoon_2
+      location: 2
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 0
+      age_max: 99
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: birthday_parties_room_rental_2
+      title: 'Room Rental'
+      class: birthday_parties_room_rental
+      times:
+        -
+          time: birthday_parties_room_rental_2
+      location: 2
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: birthday_parties_birthday_party_2
+      title: 'Birthday Party'
+      class: birthday_parties_birthday_party
+      times:
+        -
+          time: birthday_parties_birthday_party_2
+      location: 2
+      online_registration: true
+      ticket_required: true
+      in_membership: true
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: b4_and_after_school_programs_2016_17_bellevue_no_school_days_2
+      title: '2016/17 Bellevue: No School Days - Package Option'
+      class: before_and_after_school_programs_2016_17_bellevue_no_school_days
+      times:
+        -
+          time: b4_and_after_school_programs_2016_17_bellevue_no_school_days_2
+      location: 2
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: before_and_after_school_programs_am_fit_and_fun_2
+      title: 'AM Fit & Fun'
+      class: before_and_after_school_programs_am_fit_and_fun
+      times:
+        -
+          time: before_and_after_school_programs_am_fit_and_fun_2
+      location: 2
+      online_registration: true
+      ticket_required: false
+      in_membership: false
+      age_min: 5
+      age_max: 12
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_session_class:
+    plugin: migration
+    migration: openy_demo_node_class_01
+    source: class
+  field_session_location:
+    plugin: migration
+    migration: openy_demo_node_branch
+    source: location
+  field_session_time:
+    plugin: iterator
+    source: times
+    process:
+      target_id:
+        plugin: migration
+        migration: openy_demo_paragraph_session_time_03
+        no_stub: true
+        source: time
+      target_revision_id:
+        plugin: migration
+        migration: openy_demo_paragraph_session_time_03
+        no_stub: true
+        source: time
+  field_session_online: online_registration
+  field_session_ticket: ticket_required
+  field_session_in_mbrsh: in_membership
+  field_session_min_age: age_min
+  field_session_max_age: age_max
+  field_session_reg_link/uri: reg_uri
+  field_session_reg_link/title: reg_title
+destination:
+  plugin: 'entity:node'
+  default_bundle: session
+migration_dependencies:
+  required:
+    - openy_demo_node_class_01
+    - openy_demo_node_branch
+    - openy_demo_paragraph_session_time_03

@@ -1,5 +1,5 @@
-name: 'OpenY paragraph promo card'
-description: 'OpenY paragraph promo card'
+name: 'OpenY Paragraph Promo Card'
+description: 'OpenY Paragraph Promo Card.'
 type: module
 core: 8.x
 dependencies:

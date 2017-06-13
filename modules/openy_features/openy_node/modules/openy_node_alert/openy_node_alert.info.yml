@@ -24,6 +24,7 @@ dependencies:
   - path
   - pathauto
   - rabbit_hole
+  - scheduler
   - slick_views
   - taxonomy
   - text
