@@ -34,7 +34,7 @@ content:
     weight: 0
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide title here'
     third_party_settings: {  }
     type: string_textfield
   field_prgf_image:
@@ -52,8 +52,8 @@ content:
   field_prgf_link:
     weight: 4
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: '/banner_subpage_uri'
+      placeholder_title: 'Banner subpage title'
     third_party_settings: {  }
     type: link_default
 hidden:
