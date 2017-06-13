@@ -11,7 +11,7 @@ field_name: field_blog_location
 entity_type: node
 bundle: blog
 label: Locations
-description: ''
+description: 'Reference field to branch and camp nodes. Multiple Values.'
 required: true
 translatable: true
 default_value: {  }

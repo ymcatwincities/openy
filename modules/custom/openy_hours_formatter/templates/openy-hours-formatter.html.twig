@@ -14,9 +14,12 @@
 {% if hours %}
 <div class="today-hours">
   {{ hours }}
-  <a href="#" class="show-link">{{ 'View all hours'|t }}</a>
-  <a href="#" class="hide-link hidden">{{ 'View Less'|t }}</a>
-  <div class="branch-hours hidden">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <div class="sr-only">{{ 'View all hours'|t }}</div>
+    <span class="show-text" aria-hidden="true">{{ 'View all hours'|t }}</span>
+    <span class="hide-text" aria-hidden="true">{{ 'View Less'|t }}</span>
+  </a>
+  <div class="branch-hours">
     {{ week }}
   </div>
 </div>

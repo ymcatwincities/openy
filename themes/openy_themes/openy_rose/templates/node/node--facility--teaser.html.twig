@@ -82,8 +82,6 @@
 %}
 <article{{ attributes.addClass(classes) }}>
 
-  {{ content.field_location_area }}
-
   {{ title_prefix }}
   {% if not page %}
     <h2{{ title_attributes }}>
@@ -91,6 +89,8 @@
     </h2>
   {% endif %}
   {{ title_suffix }}
+
+  {{ content.field_location_area }}
 
   {% if display_submitted %}
     <footer class="node__meta">

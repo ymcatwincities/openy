@@ -487,19 +487,19 @@ body {
     -webkit-border-radius: 1px;
     border-radius: 1px;
   }
-  .sidebar-in .navbar-toggle .icon-bar:first-child {
+  .sidebar-in .navbar-toggle .icon-bar:first-of-type {
     -webkit-transform: translate(0, 8px) rotate(-45deg);
     transform: translate(0, 8px) rotate(-45deg);
     -webkit-transform-origin: 50%;
     transform-origin: 50%;
   }
-  .sidebar-in .navbar-toggle .icon-bar:last-child {
+  .sidebar-in .navbar-toggle .icon-bar:last-of-type {
     -webkit-transform: translate(0px, -18px) rotate(45deg);
     transform: translate(0px, -18px) rotate(45deg);
     -webkit-transform-origin: 50%;
     transform-origin: 50%;
   }
-  .sidebar-in .navbar-toggle .icon-bar:nth-child(2) {
+  .sidebar-in .navbar-toggle .icon-bar:nth-of-type(2) {
     -webkit-transform: scale(0);
     transform: scale(0);
   }
@@ -1314,6 +1314,9 @@ body {
   max-width: 24px;
   float: left;
   width: auto;
+}
+.paragraph--column-in-a-grid .fa.fa-handshake-o {
+  margin-right: 20px;
 }
 @media (min-width: 48em) {
   .paragraph--column-in-a-grid .fa {
@@ -2897,11 +2900,8 @@ body {
 .branch-header .desktop .today-hours .today {
   margin-right: 10px;
 }
-.branch-header .desktop .today-hours .show-link,
-.branch-header .desktop .today-hours .hide-link {
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
-}
 .branch-header .desktop .today-hours .branch-hours {
+  display: none;
   position: absolute;
   top: 120%;
   background: #c6168d;
@@ -2915,6 +2915,28 @@ body {
 }
 .branch-header .desktop .today-hours .branch-hours td:first-child {
   white-space: nowrap;
+}
+.branch-header .desktop .today-hours .dropdown-toggle {
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  position: relative;
+  z-index: 0;
+}
+.branch-header .desktop .today-hours .dropdown-toggle span {
+  pointer-events: none;
+  position: relative;
+  z-index: -1;
+}
+.branch-header .desktop .today-hours .dropdown-toggle .hide-text {
+  display: none;
+}
+.branch-header .desktop .today-hours.open .dropdown-toggle .show-text {
+  display: none;
+}
+.branch-header .desktop .today-hours.open .dropdown-toggle .hide-text {
+  display: inline;
+}
+.branch-header .desktop .today-hours.open .branch-hours {
+  display: block;
 }
 .branch-header .desktop .branch-header-inner {
   display: flex;
@@ -3028,15 +3050,34 @@ body {
 .branch-header .mobile .ui-tabs .today-hours .today {
   margin-right: 10px;
 }
-.branch-header .mobile .ui-tabs .today-hours .show-link,
-.branch-header .mobile .ui-tabs .today-hours .hide-link {
-  color: #ccc;
-}
 .branch-header .mobile .ui-tabs .today-hours .branch-hours {
+  display: none;
   padding: 20px 0 12px;
 }
 .branch-header .mobile .ui-tabs .today-hours .branch-hours td {
   padding: 4px 10px 0 2px;
+}
+.branch-header .mobile .ui-tabs .today-hours .dropdown-toggle {
+  color: #ccc;
+  position: relative;
+  z-index: 0;
+}
+.branch-header .mobile .ui-tabs .today-hours .dropdown-toggle span {
+  pointer-events: none;
+  position: relative;
+  z-index: -1;
+}
+.branch-header .mobile .ui-tabs .today-hours .dropdown-toggle .hide-text {
+  display: none;
+}
+.branch-header .mobile .ui-tabs .today-hours.open .dropdown-toggle .show-text {
+  display: none;
+}
+.branch-header .mobile .ui-tabs .today-hours.open .dropdown-toggle .hide-text {
+  display: inline;
+}
+.branch-header .mobile .ui-tabs .today-hours.open .branch-hours {
+  display: block;
 }
 .branch-header .mobile #save-location {
   position: absolute;
@@ -3755,7 +3796,6 @@ html.js .branch__updates_queue__button {
 .node--type-camp.node--view-mode-teaser h2 {
   font-size: 22px;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
-  margin: 20px 0 33px;
   font-weight: bold;
 }
 .marker_tooltip .node--type-facility.node--view-mode-teaser h2, .marker_tooltip
@@ -3763,6 +3803,21 @@ html.js .branch__updates_queue__button {
 .node--type-branch.node--view-mode-class-location h2, .marker_tooltip
 .node--type-camp.node--view-mode-teaser h2 {
   margin: 0 0 5px;
+}
+.node--type-facility.node--view-mode-teaser h2 + .node__content,
+.node--type-branch.node--view-mode-teaser h2 + .node__content,
+.node--type-branch.node--view-mode-class-location h2 + .node__content,
+.node--type-camp.node--view-mode-teaser h2 + .node__content {
+  margin: 33px 0 0;
+}
+.node--type-facility.node--view-mode-teaser h2 + .field-location-area, .node--type-facility.node--view-mode-teaser h2 + .field-location-state,
+.node--type-branch.node--view-mode-teaser h2 + .field-location-area,
+.node--type-branch.node--view-mode-teaser h2 + .field-location-state,
+.node--type-branch.node--view-mode-class-location h2 + .field-location-area,
+.node--type-branch.node--view-mode-class-location h2 + .field-location-state,
+.node--type-camp.node--view-mode-teaser h2 + .field-location-area,
+.node--type-camp.node--view-mode-teaser h2 + .field-location-state {
+  margin: 20px 0 33px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours,
 .node--type-branch.node--view-mode-teaser .branch-hours,
@@ -4006,6 +4061,8 @@ html.js .branch__updates_queue__button {
 }
 .node--type-blog.node--view-mode-teaser .blog-heading h2 {
   font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
 .node--type-blog.node--view-mode-teaser a {
   color: inherit;
@@ -4017,7 +4074,7 @@ html.js .branch__updates_queue__button {
   color: white;
 }
 .node--type-blog.node--view-mode-teaser h4 {
-  margin: 0;
+  margin: 0 0 10px;
   font-size: 14px;
   line-height: 1.28;
   letter-spacing: 2px;
@@ -4061,12 +4118,15 @@ html.js .branch__updates_queue__button {
 .node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h2 {
   color: #5c2e91;
 }
+.node--type-blog.node--view-mode-teaser .story h2 {
+  overflow: hidden;
+  width: auto;
+}
 .node--type-blog.node--view-mode-teaser .quote {
   float: left;
-  min-height: 360px;
 }
 .node--type-blog.node--view-mode-teaser .quote svg {
-  margin-top: 21px;
+  margin-top: 1px;
 }
 
 .blog-card {
@@ -5051,8 +5111,12 @@ a[href="#step2"] {
 #membership-calc-wrapper .label-for-field-mbrshp-monthly-rate:after {
   content: ":";
 }
+#membership-calc-wrapper .membership-type h3 {
+  width: 100%;
+}
 #membership-calc-wrapper .membership-type label {
   border-bottom: 1px solid #333;
+  left: 0;
   bottom: 0;
   display: block;
   padding-bottom: 30px;
@@ -5069,8 +5133,13 @@ a[href="#step2"] {
   margin-top: 40px;
 }
 #membership-calc-wrapper .form-element-wrapper {
-  height: 100%;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  flex-direction: column;
   position: relative;
+  width: 100%;
 }
 #membership-calc-wrapper .form-element-wrapper .btn, #membership-calc-wrapper .form-element-wrapper .button {
   display: block;
@@ -5079,7 +5148,11 @@ a[href="#step2"] {
   display: none;
 }
 #membership-calc-wrapper .membership-type {
-  margin: 0 0 40px 0;
+  margin: 0 0 20px 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 @media (min-width: 30em) and (max-width: 48em) {
   #membership-calc-wrapper .membership-type {
@@ -5103,7 +5176,8 @@ a[href="#step2"] {
   margin: 20px 0 10px 0;
 }
 #membership-calc-wrapper .node--type-membership.node--view-mode-calc-preview {
-  margin-bottom: 90px;
+  margin-bottom: 100px;
+  width: 100%;
 }
 #membership-calc-wrapper .pull-right,
 #membership-calc-wrapper .complete-registration {

@@ -57,6 +57,9 @@
     max-width: 24px;
     float: left;
     width: auto;
+    &.fa-handshake-o {
+      margin-right: 20px;
+    }
     @include breakpoint (768px) {
       font-size: 26px;
       max-height: 26px;
