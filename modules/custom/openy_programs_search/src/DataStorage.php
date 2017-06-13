@@ -336,6 +336,8 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
       $programMap = $cache->data;
     }
     else {
+      $config = $this->configFactory->get('openy_programs_search.settings');
+      $pinned_programs = $config->get('pinned_programs');
       $locations = $this->getDaxkoLocationMap();
       $locsr = array_flip($locations);
       $locexp = $this->customLocationStem($locations);
@@ -353,8 +355,15 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
 
             $ranking[$k] = 0;
             if (substr($program->name, 0, 1) == substr($exps[0], 0, 1)) {
-              if ((strpos($program->name, "South Lake Houston") !== FALSE)) {
-                $ranking[$k] += -10;
+              if (($i = count($pinned_programs)) > 0) {
+                foreach ($pinned_programs as $pinned_program) {
+                  if ((strpos($program->name, $pinned_program) !== FALSE)) {
+                    // Allow the order of the pinned programs be used as an
+                    // additional weight.
+                    $ranking[$k] += -10 -$i;
+                  }
+                  $i -= 1;
+                }
               }
               $ranking[$k] += .25;
             }
@@ -369,8 +378,8 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
             }
           }
 
-          asort($ranking);
-          $ranking = array_reverse($ranking, TRUE);
+          // Reverse sort the ranking.
+          arsort($ranking);
           $top_rank = -1;
 
           foreach ($ranking as $lid => $rank) {
@@ -638,32 +647,22 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
       $data = $cache->data;
     }
     else {
-      $locations_data = $branches = $this->client->getBranches(['limit' => 100]);;
+      $locations_data = $branches = $this->client->getBranches(['limit' => 100]);
       $data = [];
-      // @todo Make this configurable.
-      // @todo Should we really skip that?
-      $skip_branches = [
-        107,
-        93,
-        117,
-        129,
-        169,
-        330,
-        333,
-        329,
-        332,
-        331,
-        335,
-        362,
-      ];
+      $skip_branches = $this->getExcludeLocationMapIds();
 
       foreach ($locations_data as $location) {
         if (in_array($location->id, $skip_branches)) {
           continue;
         }
-        $name = str_replace('Family YMCA', '', $location->name);
-        $name = str_replace('YMCA', '', $name);
-        $name = str_replace('@6800', '', $name);
+        $name = $location->name;
+        $find_replaces = $this->getFindReplaceLocationMapNameText();
+        foreach ($find_replaces as $find_replace) {
+          if (empty($find_replace['find'])) {
+            continue;
+          }
+          $name = str_replace($find_replace['find'], $find_replace['replace'], $name);
+        }
         $name = trim($name);
         $data[$location->id] = $name;
       }
@@ -673,6 +672,32 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     }
 
     return $data;
+  }
+
+  /**
+   * Get find and exclude configuration values for exclude_location_map.
+   *
+   * @return array
+   *   Array of nids.
+   */
+   protected function getExcludeLocationMapIds() {
+    $config = $this->configFactory->get('openy_programs_search.settings');
+    $exclude_location_map = $config->get('exclude_location_map');
+
+    return is_array($exclude_location_map) ? $exclude_location_map : [];
+  }
+
+  /**
+   * Get find and replace configuration values for name_string_replace_location_map.
+   *
+   * @return array
+   *   Array of [['find' => 'X']['replace => 'Y']] arrays.
+   */
+  private function getFindReplaceLocationMapNameText() {
+    $config = $this->configFactory->get('openy_programs_search.settings');
+    $exclude_location_map = $config->get('name_string_replace_location_map');
+
+    return is_array($exclude_location_map) ? $exclude_location_map : [];
   }
 
   /**

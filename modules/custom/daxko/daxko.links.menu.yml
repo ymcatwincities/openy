@@ -1,0 +1,5 @@
+daxko.admin:
+  title: 'Daxko settings'
+  parent: system.admin_config_development
+  route_name: daxko.settings
+  weight: 100
