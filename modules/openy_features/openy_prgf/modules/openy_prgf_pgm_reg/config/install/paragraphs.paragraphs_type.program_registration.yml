@@ -2,4 +2,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: program_registration
-label: 'Program Registration'
+label: 'Program Registration (Daxko)'

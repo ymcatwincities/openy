@@ -449,7 +449,7 @@ class ProgramsSearchBlockForm extends FormBase {
    *   Location value.
    */
   private function filterLocations($value, $key) {
-    if (in_array($key, $this->locations)) {
+    if (!empty($this->locations) && in_array($key, $this->locations)) {
       return $value;
     }
     return FALSE;
