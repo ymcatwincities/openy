@@ -58,12 +58,12 @@ class MindbodyCacheProxySettingsForm extends ConfigFormBase implements Container
       '#default_value' => $endpoint,
     ];
 
-    $calls = $config->get('token') ?: '';
+    $token = $config->get('token') ?: '';
     $form['settings']['token'] = [
       '#title' => $this->t('Access Token'),
       '#type' => 'textfield',
       '#description' => $this->t('Tokens should match on primary and secondary endpoints.'),
-      '#default_value' => $calls,
+      '#default_value' => $token,
       '#required' => TRUE,
     ];
 
