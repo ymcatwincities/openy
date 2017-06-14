@@ -4132,7 +4132,7 @@ html.js .branch__updates_queue__button {
 .node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper {
   border: 1px solid #ccc;
 }
-.node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h2,
+.node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h3,
 .node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h4 {
   color: #5c2e91;
 }
@@ -4142,7 +4142,7 @@ html.js .branch__updates_queue__button {
 .node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h4 {
   color: inherit;
 }
-.node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h2 {
+.node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h3 {
   color: #5c2e91;
 }
 .node--type-blog.node--view-mode-teaser .story h3 {
