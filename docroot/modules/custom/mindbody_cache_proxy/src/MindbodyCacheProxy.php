@@ -2,10 +2,13 @@
 
 namespace Drupal\mindbody_cache_proxy;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\State\State;
+use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyClientInterface;
 use Drupal\mindbody_cache_proxy\Entity\MindbodyCache;
 use Drupal\Core\Entity\Query\QueryFactory;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Class MindbodyProxy.
@@ -48,6 +51,13 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
   protected $manager;
 
   /**
+   * Config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * MindbodyProxy constructor.
    *
    * @param MindbodyClientInterface $mindbody_client
@@ -58,18 +68,22 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
    *   State.
    * @param MindbodyCacheProxyManagerInterface $manager
    *   Manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   Config factory.
    */
-  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactory $query_factory, State $state, MindbodyCacheProxyManagerInterface $manager) {
+  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactory $query_factory, State $state, MindbodyCacheProxyManagerInterface $manager, ConfigFactoryInterface $configFactory) {
     $this->mindbodyClient = $mindbody_client;
     $this->queryFactory = $query_factory;
     $this->state = $state;
     $this->manager = $manager;
+    $this->configFactory = $configFactory;
   }
 
   /**
    * {@inheritdoc}
    */
   public function call($service, $endpoint, array $params = [], $cache = TRUE) {
+
     $params_str = '';
 
     if ($cache) {
@@ -84,6 +98,30 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
     }
 
     // There is no cache. Make the call and create cache item.
+    $config = $this->configFactory->get('mindbody_cache_proxy.settings');
+
+    // Secondary endpoints should not check whether there are free API calls.
+    if (empty($config->get('primary'))) {
+      $endpoint = rtrim($config->get('endpoint'), '/');
+      $token = $config->get('token');
+      $url = Url::fromUri($endpoint, ['query' => ['token' => $token]])->toUriString();
+
+      try {
+        $response = \Drupal::httpClient()->get($url);
+        $body = (string) $response->getBody();
+        if (empty($body)) {
+          throw new MindbodyCacheProxyException('Failed to get a body from MindBody status endpoint.');
+        }
+        $data = json_decode($body, TRUE);
+        if (!isset($data['status']) || $data['status'] != TRUE) {
+          throw new MindbodyCacheProxyException('The number of free API calls has been exceeded.');
+        }
+      }
+      catch (RequestException $e) {
+        throw new MindbodyCacheProxyException('Failed to get response from MindBody status endpoint.');
+      }
+    }
+
     $result = $this->mindbodyClient->call($service, $endpoint, $params);
 
     if ($cache) {
