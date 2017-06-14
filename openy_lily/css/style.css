@@ -206,6 +206,46 @@ a:hover, a:active, a:focus {
     max-width: 100%;
   }
 }
+body.toolbar-fixed.toolbar-horizontal.path-frontpage #banner {
+  margin-top: -104px !important;
+}
+@media (min-width: 62em) {
+  body.toolbar-fixed.toolbar-horizontal {
+    padding-top: 122px !important;
+    -webkit-transition: padding-top 0.2s ease;
+    -moz-transition: padding-top 0.2s ease;
+    -ms-transition: padding-top 0.2s ease;
+    -o-transition: padding-top 0.2s ease;
+    transition: padding-top 0.2s ease;
+  }
+  body.toolbar-fixed.toolbar-horizontal.tiny-header {
+    padding-top: 94px !important;
+  }
+}
+body.toolbar-fixed.toolbar-horizontal .viewport,
+body.toolbar-fixed.toolbar-horizontal .top-navs {
+  margin: 0 !important;
+}
+body.toolbar-fixed.toolbar-horizontal .viewport .navbar-default,
+body.toolbar-fixed.toolbar-horizontal .top-navs .navbar-default {
+  top: 39px !important;
+}
+body.toolbar-fixed.toolbar-horizontal #search-box {
+  top: 39px !important;
+}
+body.toolbar-fixed.toolbar-horizontal header#page-head.expanded-search .nav-global {
+  top: 127px !important;
+}
+body.toolbar-fixed.toolbar-horizontal header#page-head.expanded-search .top-navs .nav-wrapper .main-nav.affix {
+  top: 179px !important;
+}
+body.toolbar-fixed.toolbar-horizontal header#page-head.expanded-search .main-nav.affix-top, body.toolbar-fixed.toolbar-horizontal header#page-head.expanded-search .main-nav.affix {
+  top: 210px !important;
+  position: fixed;
+}
+body.toolbar-fixed.toolbar-horizontal header#page-head .top-navs .nav-wrapper .main-nav.affix {
+  top: 90px;
+}
 
 #side-area {
   height: 100%;
@@ -340,7 +380,7 @@ header#page-head .top-navs .nav-global {
   left: 0;
   position: fixed;
   top: 0;
-  z-index: 1001;
+  z-index: 9999;
   margin-bottom: 0;
   border-radius: 0;
   background-color: #f8f8f8;
@@ -419,7 +459,7 @@ header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
 }
 header#page-head .top-navs .nav-wrapper {
   min-height: 62px;
-  z-index: 9999;
+  z-index: 9998;
   display: none;
   position: relative;
 }
@@ -431,6 +471,11 @@ header#page-head .top-navs .nav-wrapper {
 header#page-head .top-navs .nav-wrapper .main-nav {
   width: 100%;
   z-index: 9999;
+  -webkit-transition: top 0.2s linear;
+  -moz-transition: top 0.2s linear;
+  -ms-transition: top 0.2s linear;
+  -o-transition: top 0.2s linear;
+  transition: top 0.2s linear;
 }
 header#page-head .top-navs .nav-wrapper .main-nav.affix {
   top: 52px;
@@ -618,6 +663,15 @@ header#page-head.tiny .top-navs #block-openy-lily-main-menu .nav-level-2 > a {
 }
 header#page-head.expanded-search .nav-global {
   top: 88px !important;
+}
+header#page-head.expanded-search .main-nav.affix-top,
+header#page-head.expanded-search .main-nav.affix {
+  top: 171px !important;
+  position: fixed;
+}
+header#page-head.expanded-search.tiny .main-nav.affix-top,
+header#page-head.expanded-search.tiny .main-nav.affix {
+  top: 140px !important;
 }
 
 .social-disclaimer .contextual-region .contextual .contextual-links li {
@@ -1198,6 +1252,7 @@ body.path-search #block-mainpagecontent li {
   max-height: 0;
   width: 100%;
   height: auto;
+  overflow: hidden;
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;
@@ -1234,6 +1289,7 @@ body.path-search #block-mainpagecontent li {
 #search-box.expanded-search {
   max-height: 88px;
   padding: 20px 100px;
+  z-index: 9999;
 }
 .toolbar-fixed #search-box {
   top: 39px;
@@ -1249,6 +1305,8 @@ body.path-search #block-mainpagecontent li {
   float: right;
   cursor: pointer;
   line-height: 81px;
+  position: relative;
+  z-index: 9999;
   padding: 0 10px;
   color: #777777;
   border-top: 2px solid transparent;

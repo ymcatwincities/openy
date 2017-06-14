@@ -10,6 +10,49 @@ body {
     padding-top: 0 !important;
     max-width: 100%;
   }
+  &.toolbar-fixed {
+    &.toolbar-horizontal {
+      &.path-frontpage #banner {
+        margin-top: -104px !important;
+      }
+      @include breakpoint ($tablet-start) {
+        padding-top: 122px !important;
+        @include transition(padding-top 0.2s ease);
+        &.tiny-header {
+          padding-top: 94px !important;
+        }
+      }
+      .viewport,
+      .top-navs {
+        margin: 0 !important;
+        .navbar-default {
+          top: 39px !important;
+        }
+      }
+      #search-box {
+        top: 39px !important;
+      }
+      header#page-head.expanded-search {
+        .nav-global {
+          top: 127px !important;
+        }
+        .top-navs {
+          .nav-wrapper {
+            .main-nav.affix {
+              top: 179px !important;
+            }
+          }
+        }
+        .main-nav.affix-top, .main-nav.affix {
+          top: 210px !important;
+          position: fixed;
+        }
+      }
+      header#page-head .top-navs .nav-wrapper .main-nav.affix {
+        top: 90px;
+      }
+    }
+  }
 }
 
 #side-area {
@@ -136,7 +179,7 @@ header#page-head {
       left: 0;
       position: fixed;
       top: 0;
-      z-index: 1001;
+      z-index: 9999;
       margin-bottom: 0;
       border-radius: 0;
       background-color: $gray-light;
@@ -217,7 +260,7 @@ header#page-head {
     }
     .nav-wrapper {
       min-height: 62px;
-      z-index: 9999;
+      z-index: 9998;
       display: none;
       @include breakpoint ($tablet-start) {
         display: block;
@@ -226,6 +269,7 @@ header#page-head {
       .main-nav {
         width: 100%;
         z-index: 9999;
+        @include transition(top 0.2s linear);
         &.affix {
           top: 52px;
         }
@@ -447,6 +491,16 @@ header#page-head {
     .nav-global {
       top: 88px !important;
     }
+    .main-nav.affix-top,
+    .main-nav.affix {
+      top: 171px !important;
+      position: fixed;
+    }
   }
-
+  &.expanded-search.tiny {
+    .main-nav.affix-top,
+    .main-nav.affix {
+      top: 140px !important;
+    }
+  }
 }
