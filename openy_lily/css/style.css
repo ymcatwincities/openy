@@ -152,6 +152,31 @@ a:hover, a:active, a:focus {
   z-index: 2000;
 }
 
+#block-openy-lily-tabs {
+  margin: 20px 0;
+}
+#block-openy-lily-tabs .nav-tabs {
+  border-bottom: none;
+}
+#block-openy-lily-tabs .nav-tabs li {
+  margin: 0 10px 5px 0;
+}
+#block-openy-lily-tabs .nav-tabs li a {
+  border: none;
+  border-radius: 3px;
+  color: white;
+  background: #9c1f7b;
+  font-weight: bold;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  #block-openy-lily-tabs {
+    margin: 100px 30px 20px;
+  }
+  #block-openy-lily-tabs .nav-tabs li {
+    margin-right: 5px;
+  }
+}
+
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
 }
@@ -1415,6 +1440,43 @@ body.path-search #block-mainpagecontent li {
   }
 }
 
+.field-sidebar-content #small-text-banner:before {
+  display: none;
+}
+.field-sidebar-content #small-text-banner .container-fluid, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content {
+  padding: 20px;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row {
+  margin: 0;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row .header-copy, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row .header-copy, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row .header-copy {
+  width: 100%;
+  padding: 0;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row .header-copy .banner-copy, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row .header-copy .banner-copy, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row .header-copy .banner-copy {
+  padding: 15px 0;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row .header-copy h1, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row .header-copy h1, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row .header-copy h1 {
+  text-align: center;
+  font-size: 34px;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row .header-copy p, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row .header-copy p, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row .header-copy p {
+  font-size: 16px;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row .header-image, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row .header-image, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row .header-image {
+  background-image: none;
+  position: static;
+  width: 100%;
+  padding: 0;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row .header-image figure, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row .header-image figure, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row .header-image figure {
+  display: block !important;
+  margin: 0;
+}
+.field-sidebar-content #small-text-banner .container-fluid .row .header-image figure img, .field-sidebar-content #small-text-banner #block-openy-lily-content .one-column-clean.landing-content .row .header-image figure img, #block-openy-lily-content .field-sidebar-content #small-text-banner .one-column-clean.landing-content .row .header-image figure img {
+  display: block !important;
+}
+
 .align-left {
   margin: 0 15px 15px 0;
 }
@@ -2473,6 +2535,15 @@ legend {
   content: "";
   display: table;
   clear: both;
+}
+
+[data-drupal-selector="edit-actions"] {
+  position: relative;
+}
+[data-drupal-selector="edit-actions"] .ajax-progress {
+  left: 164px !important;
+  top: 0;
+  margin-top: -4px !important;
 }
 
 [data-drupal-selector="edit-branch"] .fieldset-wrapper,
