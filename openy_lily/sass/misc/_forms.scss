@@ -201,7 +201,6 @@ label {
   }
 }
 
-
 .edit-registration-actions {
   .fieldset-wrapper {
     a.btn {
@@ -384,5 +383,28 @@ legend {
 .openy-schedules-search-form {
   .form-wrapper {
     margin-top: 0;
+  }
+}
+
+.calc-block-form {
+  .ajax-progress {
+    position: static;
+    margin-top: 30px;
+  }
+  .complete-registration {
+    text-transform: uppercase;
+    color: white;
+  }
+  .field-mbrshp-description {
+    min-height: 50px;
+  }
+}
+
+#membership-calc-wrapper .js-webform-radios .js-form-item {
+  @include breakpoint (0 $tablet) {
+    margin: 0 20px 20px 20px;
+  }
+  label {
+    padding-bottom: 20px;
   }
 }

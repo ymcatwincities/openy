@@ -3,18 +3,20 @@
     padding: 0;
     .locations-list {
       padding: 20px 0;
-      .label-for-field-location-fax,
-      .label-for-field-location-phone {
-        text-transform: lowercase;
-        display: inline;
-      }
-      .field-location-fax,
-      .field-location-phone {
-        display: inline;
-      }
+
       h1 {
         color: #636466 !important;
       }
     }
   }
+}
+
+.label-for-field-location-fax,
+.label-for-field-location-phone {
+  text-transform: lowercase;
+  display: inline;
+}
+.field-location-fax,
+.field-location-phone {
+  display: inline;
 }
