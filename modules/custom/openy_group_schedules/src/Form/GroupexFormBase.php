@@ -176,15 +176,19 @@ abstract class GroupexFormBase extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $timezone = new \DateTimeZone($this->config('system.date')->get('timezone')['default']);
-
-    $location = array_filter($form_state->getValue('location'));
-
-    // User may select up to 4 locations.
-    if (count($location) > 4) {
-      $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
+    $loc = $form_state->getValue('location');
+    if (is_string($loc)) {
+      $loc = [$loc];
     }
 
+    if (is_array($loc)) {
+      $location = array_filter($loc);
+
+      // User may select up to 4 locations.
+      if (count($location) > 4) {
+        $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
+      }
+    }
   }
 
 }
