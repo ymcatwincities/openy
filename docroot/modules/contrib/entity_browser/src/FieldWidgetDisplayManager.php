@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\FieldWidgetDisplayManager.
- */
-
 namespace Drupal\entity_browser;
 
 use Drupal\Core\Cache\CacheBackendInterface;

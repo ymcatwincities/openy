@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Controllers\EntityBrowserListBuilder.
- */
-
 namespace Drupal\entity_browser\Controllers;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-
 
 /**
  * Provides a list controller for entity browser.

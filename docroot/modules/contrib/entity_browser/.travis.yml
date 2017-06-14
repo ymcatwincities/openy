@@ -100,14 +100,15 @@ before_install:
   - composer global require "lionsad/drupal_ti:1.*"
   - drupal-ti before_install
   # Codesniffer and Coder
-  - composer global require "squizlabs/php_codesniffer:2.0.*@dev"
-  - composer global require drupal/coder:8.2.0-beta1
+  - composer global require squizlabs/php_codesniffer
+  - composer global require drupal/coder
   - ln -s ~/.composer/vendor/drupal/coder/coder_sniffer/Drupal ~/.composer/vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/
 
 install:
   - drupal-ti install
 
 before_script:
+  - drupal-ti --include .travis-before-script.sh
   - drupal-ti before_script
 
 script:
