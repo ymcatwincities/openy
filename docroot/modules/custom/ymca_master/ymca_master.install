@@ -4707,7 +4707,7 @@ function ymca_master_update_8214() {
 }
 
 /**
- * Enable openy profile.
+ * [YPTF-264] Configure MindBody Cache Proxy settings.
  */
 function ymca_master_update_8215() {
   $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
