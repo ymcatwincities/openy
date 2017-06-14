@@ -446,15 +446,16 @@
     }
   };
 
-
   /**
    * Scroll to next button.
    */
   Drupal.behaviors.scrollToNext = {
     attach: function (context, settings) {
-      $('.calc-block-form', context).once('scroll-next', function () {
+      $(context).find('.calc-block-form').once('calcForm').each(function () {
         $(this).find('.btn-lg.btn').on('click', function () {
-          $('html, body').delay(400).animate({scrollTop: $($(".form-submit")[0]).offset().top}, 800);
+          $('html, body').animate({
+            scrollTop: $(".form-submit").offset().top
+          }, 2000);
         });
       });
     }
