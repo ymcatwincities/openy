@@ -165,6 +165,10 @@ header#page-head {
   @include clearfix;
   width: 100%;
   font-family: 'Cachet';
+  @include breakpoint (0 $tablet-start) {
+    position: relative;
+    z-index: 999;
+  }
   .container-fluid {
     @media (min-width: 1200px) {
       padding-right: 100px;

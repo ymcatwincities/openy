@@ -142,6 +142,8 @@ label {
 }
 
 .status-message {
+  position: relative;
+  z-index: 100;
   margin-bottom: 30px;
   li {
     list-style-type: none;

@@ -361,6 +361,12 @@ header#page-head:after {
   display: table;
   clear: both;
 }
+@media (min-width: 0) and (max-width: 62em) {
+  header#page-head {
+    position: relative;
+    z-index: 999;
+  }
+}
 @media (min-width: 1200px) {
   header#page-head .container-fluid, header#page-head #block-openy-lily-content .one-column-clean.landing-content, #block-openy-lily-content header#page-head .one-column-clean.landing-content {
     padding-right: 100px;
@@ -1005,11 +1011,11 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   font-weight: bold;
   font-family: 'Cachet', Helvetica, Arial, sans-serif;
   line-height: 1.3em;
-  font-size: 73px;
+  font-size: 63px;
 }
 @media (min-width: 0) and (max-width: 75em) {
   .path-frontpage .masthead .masthead-brand {
-    font-size: 65px;
+    font-size: 60px;
   }
 }
 @media (min-width: 0) and (max-width: 62em) {
@@ -2509,6 +2515,8 @@ label {
 }
 
 .status-message {
+  position: relative;
+  z-index: 100;
   margin-bottom: 30px;
 }
 .status-message li {

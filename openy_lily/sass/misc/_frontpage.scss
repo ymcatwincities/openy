@@ -40,9 +40,9 @@
       font-weight: bold;
       font-family: 'Cachet', Helvetica, Arial, sans-serif;
       line-height: 1.3em;
-      font-size: 73px;
+      font-size: 63px;
       @include breakpoint (0 $desktop) {
-        font-size: 65px;
+        font-size: 60px;
       }
       @include breakpoint (0 $tablet-start) {
         font-size: 46px;
