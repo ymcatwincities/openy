@@ -454,7 +454,7 @@
     attach: function (context, settings) {
       $('.calc-block-form', context).each(function () {
         $(this).find('.btn-lg.btn').on('click', function () {
-          $('html, body').animate({scrollTop: $($(".form-submit")[0]).offset().top}, 200);
+          $('html, body').delay(400).animate({scrollTop: $($(".form-submit")[0]).offset().top}, 800);
         });
       });
     }
