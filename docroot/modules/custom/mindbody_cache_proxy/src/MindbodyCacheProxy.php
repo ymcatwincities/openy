@@ -8,6 +8,7 @@ use Drupal\Core\Url;
 use Drupal\mindbody\MindbodyClientInterface;
 use Drupal\mindbody_cache_proxy\Entity\MindbodyCache;
 use Drupal\Core\Entity\Query\QueryFactory;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -58,6 +59,13 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
   protected $configFactory;
 
   /**
+   * Http client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  protected $httpClient;
+
+  /**
    * MindbodyProxy constructor.
    *
    * @param MindbodyClientInterface $mindbody_client
@@ -71,19 +79,19 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config factory.
    */
-  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactory $query_factory, State $state, MindbodyCacheProxyManagerInterface $manager, ConfigFactoryInterface $configFactory) {
+  public function __construct(MindbodyClientInterface $mindbody_client, QueryFactory $query_factory, State $state, MindbodyCacheProxyManagerInterface $manager, ConfigFactoryInterface $configFactory, Client $httpClient) {
     $this->mindbodyClient = $mindbody_client;
     $this->queryFactory = $query_factory;
     $this->state = $state;
     $this->manager = $manager;
     $this->configFactory = $configFactory;
+    $this->httpClient = $httpClient;
   }
 
   /**
    * {@inheritdoc}
    */
   public function call($service, $endpoint, array $params = [], $cache = TRUE) {
-
     $params_str = '';
 
     if ($cache) {
