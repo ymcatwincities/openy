@@ -426,6 +426,7 @@
       });
     }
   };
+
   /**
    * Scroll to current failed validation field.
    */
@@ -441,6 +442,20 @@
         document.addEventListener('change', function (e) {
           $(e.target).removeClass("invalid");
         }, true);
+      });
+    }
+  };
+
+
+  /**
+   * Scroll to next button.
+   */
+  Drupal.behaviors.scrollToNext = {
+    attach: function (context, settings) {
+      $('.calc-block-form', context).each(function () {
+        $(this).find('.btn-lg.btn').on('click', function () {
+          $('html, body').animate({scrollTop: $($(".form-submit")[0]).offset().top}, 200);
+        });
       });
     }
   };
