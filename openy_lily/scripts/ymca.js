@@ -452,7 +452,7 @@
    */
   Drupal.behaviors.scrollToNext = {
     attach: function (context, settings) {
-      $('.calc-block-form', context).each(function () {
+      $('.calc-block-form', context).once('scroll-next', function () {
         $(this).find('.btn-lg.btn').on('click', function () {
           $('html, body').delay(400).animate({scrollTop: $($(".form-submit")[0]).offset().top}, 800);
         });
