@@ -29,9 +29,10 @@ dependencies:
   - openy_prgf_panorama
   - openy_prgf_simple_content
   - openy_prgf_small_banner
+  - openy_prgf_whay
   - paragraphs
   - path
   - pathauto
   - telephone
   - user
-version: 8.x-1.4
+version: 8.x-1.5
