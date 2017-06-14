@@ -15,8 +15,19 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class MindBodyEndPointController extends ControllerBase {
 
+  /**
+   * Request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
   protected $requestStack;
 
+  /**
+   * MindBodyEndPointController constructor.
+   *
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   Request stack.
+   */
   public function __construct(RequestStack $requestStack) {
     $this->requestStack = $requestStack;
   }
