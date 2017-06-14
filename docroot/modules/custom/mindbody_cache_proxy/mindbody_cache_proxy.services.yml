@@ -10,3 +10,4 @@ services:
       - '@state'
       - '@mindbody_cache_proxy.manager'
       - '@config.factory'
+      - '@http_client'
