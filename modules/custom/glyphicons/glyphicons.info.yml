@@ -1,0 +1,9 @@
+name: Bootstrap Glyphicons
+type: module
+description: "Adds the Bootstrap Glyphicons plugin to CKEditor."
+package: CKEditor
+core: 8.x
+
+dependencies:
+  - ckeditor
+  - colordialog

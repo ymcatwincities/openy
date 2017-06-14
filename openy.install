@@ -353,7 +353,7 @@ function openy_update_8027() {
 }
 
 /**
- * Add style button and glyphicon to wysiwyg editor.
+ * Add style button and glyphicons to wysiwyg editor.
  */
 function openy_update_8028() {
   // Enable glyphicons modules.

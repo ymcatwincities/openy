@@ -1,0 +1,8 @@
+name: Color Dialog
+type: module
+description: "Adds the Color Dialog plugin to CKEditor."
+package: CKEditor
+core: 8.x
+
+dependencies:
+  - ckeditor

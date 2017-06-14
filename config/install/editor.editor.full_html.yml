@@ -41,6 +41,7 @@ settings:
             - embed_document
             - embed_video
             - embed_image
+            - Glyphicons
         -
           name: 'Block Formatting'
           items:
@@ -53,7 +54,7 @@ settings:
             - Source
   plugins:
     stylescombo:
-      styles: "p.wysiwyg--button|Button\r\nspan.glyphicon.glyphicon-time|Clock icon"
+      styles: "p.wysiwyg--button|Button"
     language:
       language_list: un
     colorbutton:
