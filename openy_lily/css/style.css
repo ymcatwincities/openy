@@ -207,7 +207,7 @@ a:hover, a:active, a:focus {
   }
 }
 body.toolbar-fixed.toolbar-horizontal.path-frontpage #banner {
-  margin-top: -104px !important;
+  margin-top: -147px !important;
 }
 @media (min-width: 62em) {
   body.toolbar-fixed.toolbar-horizontal {
@@ -335,7 +335,7 @@ body.toolbar-fixed.toolbar-horizontal header#page-head .top-navs .nav-wrapper .m
 .viewport #main {
   transition: margin-left .2s;
   position: relative;
-  z-index: 999;
+  z-index: 997;
 }
 .path-frontpage .viewport #main {
   background: #e5e5e5;
@@ -380,7 +380,7 @@ header#page-head .top-navs .nav-global {
   left: 0;
   position: fixed;
   top: 0;
-  z-index: 9999;
+  z-index: 999;
   margin-bottom: 0;
   border-radius: 0;
   background-color: #f8f8f8;
@@ -459,7 +459,7 @@ header#page-head .top-navs .nav-global .navbar-header .navbar-toggler {
 }
 header#page-head .top-navs .nav-wrapper {
   min-height: 62px;
-  z-index: 9998;
+  z-index: 998;
   display: none;
   position: relative;
 }
