@@ -1457,6 +1457,9 @@ body {
 .paragraph-gallery .carousel .carousel-control.right .fa {
   margin-left: 5px;
 }
+.paragraph-gallery .carousel .carousel-control:focus {
+  outline: auto 5px #0089d0;
+}
 .paragraph-gallery .carousel .carousel-inner > .item img,
 .paragraph-gallery .carousel .carousel-inner > .item a img {
   height: auto;
@@ -1561,6 +1564,13 @@ body {
   .paragraph-gallery .cta-group-wrapper .cta-group .btn a, .paragraph-gallery .cta-group-wrapper .cta-group .button a {
     padding: 15px;
   }
+}
+.paragraph-gallery .cta-group-wrapper .cta-group .btn a:focus, .paragraph-gallery .cta-group-wrapper .cta-group .button a:focus {
+  outline: 5px auto #0089d0;
+  outline-offset: -2px;
+}
+.paragraph-gallery .cta-group-wrapper .cta-group:focus {
+  outline: auto 5px #0089d0;
 }
 .paragraph-gallery .item__caption__wrapper {
   position: relative;
@@ -2455,12 +2465,15 @@ body {
 }
 
 .subprogram-listing-item {
-  margin-top: 20px;
-  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  margin: 20px 0 25px;
 }
 @media (min-width: 48em) {
   .subprogram-listing-item {
-    margin-bottom: 45px;
+    margin: 20px -15px 45px;
+    flex-direction: row-reverse;
   }
 }
 .subprogram-listing-item img {
@@ -2469,6 +2482,7 @@ body {
   max-width: 100%;
 }
 .subprogram-listing-item .image {
+  flex: 1 1 42%;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -2480,6 +2494,7 @@ body {
 }
 @media (min-width: 48em) {
   .subprogram-listing-item .image {
+    padding: 0 15px;
     text-align: right;
   }
 }
@@ -2491,7 +2506,13 @@ body {
     max-width: 260px;
   }
 }
+@media (min-width: 0) and (max-width: 30em) {
+  .subprogram-listing-item .image .media {
+    zoom: 2;
+  }
+}
 .subprogram-listing-item .content {
+  flex: 2 0 58%;
   font-size: 14px;
   line-height: 20px;
   color: #4f4f4f;
@@ -2499,6 +2520,7 @@ body {
 @media (min-width: 48em) {
   .subprogram-listing-item .content {
     padding-right: 0;
+    padding-left: 15px;
   }
 }
 .subprogram-listing-item .content h2 {

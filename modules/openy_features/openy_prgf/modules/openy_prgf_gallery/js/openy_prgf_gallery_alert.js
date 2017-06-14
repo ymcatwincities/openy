@@ -13,4 +13,22 @@
     }
   };
 
+  Drupal.behaviors.carousel_pause = {
+    attach: function (context, settings) {
+
+      $('.paragraph--type--gallery', context).hover(function(){
+        $(this).find('.carousel').carousel('pause');
+      },function(){
+        $(this).find('.carousel').carousel('cycle');
+      });
+
+      $('.carousel .carousel-control').focus(function(){
+        $(this).parent().carousel('pause');
+      }).blur(function() {
+        $(this).parent().carousel('cycle');
+      });
+
+    }
+  };
+
 })(jQuery);

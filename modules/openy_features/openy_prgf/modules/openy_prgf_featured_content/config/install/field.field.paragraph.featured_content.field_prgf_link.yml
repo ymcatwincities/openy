@@ -11,7 +11,7 @@ field_name: field_prgf_link
 entity_type: paragraph
 bundle: featured_content
 label: Link
-description: ''
+description: 'Link field that supports internal and external URLs.'
 required: false
 translatable: true
 default_value: {  }
