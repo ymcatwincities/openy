@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\WidgetSelectorBase.
- */
-
 namespace Drupal\entity_browser;
 
 use Drupal\Core\Plugin\PluginBase;
@@ -27,9 +22,9 @@ abstract class WidgetSelectorBase extends PluginBase implements WidgetSelectorIn
   /**
    * Available widgets.
    *
-   * @var array()
+   * @var array
    */
-  protected $widgets_options;
+  protected $widgets_ids;
 
   /**
    * ID of the default widget.
@@ -43,7 +38,7 @@ abstract class WidgetSelectorBase extends PluginBase implements WidgetSelectorIn
    */
   public function __construct($configuration, $plugin_id, $plugin_definition) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->widget_ids = $this->configuration['widget_ids'];
+    $this->widget_ids = isset($this->configuration['widget_ids']) ? $this->configuration['widget_ids'] : [];
   }
 
   /**

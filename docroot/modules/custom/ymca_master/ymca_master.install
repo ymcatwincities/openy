@@ -4705,3 +4705,17 @@ function ymca_master_update_8214() {
   ];
   \Drupal::service('module_installer')->install($modules, TRUE);
 }
+
+/**
+ * Enable openy_prgf_2c.
+ */
+function ymca_master_update_8216() {
+  $modules = [
+    'openy_block',
+    'openy_block_custom_simple',
+    'openy_prgf_2c'
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}

@@ -4,6 +4,7 @@
  * Defines the behavior of the entity reference widget that utilizes entity
  * browser.
  */
+
 (function ($, Drupal) {
 
   'use strict';
@@ -38,7 +39,7 @@
       ids[i] = $(items[i]).attr('data-entity-id');
     }
 
-    $(this).parent().parent().find('input[type*=hidden]').val(ids.join(' '));
+    $(this).parent().parent().find('input[type*=hidden][name*="[target_id]"]').val(ids.join(' '));
   };
 
 }(jQuery, Drupal));

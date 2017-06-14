@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\WidgetsLazyPluginCollection.
- */
-
 namespace Drupal\entity_browser;
 
 use Drupal\Core\Plugin\DefaultLazyPluginCollection;
