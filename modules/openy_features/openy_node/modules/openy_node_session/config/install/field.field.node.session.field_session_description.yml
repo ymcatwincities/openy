@@ -11,7 +11,7 @@ field_name: field_session_description
 entity_type: node
 bundle: session
 label: Description
-description: ''
+description: 'Textarea for the description/body with WYSIWYG, without summary.'
 required: false
 translatable: true
 default_value: {  }
