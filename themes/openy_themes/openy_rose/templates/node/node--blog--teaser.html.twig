@@ -85,7 +85,7 @@
 {% set bg_color  = content.field_blog_color['#items'].entity.field_color.value ? 'background-color: #' ~ content.field_blog_color['#items'].entity.field_color.value ~ '; ' : null %}
 
 <article{{ attributes.addClass(classes) }}>
-  <div class="inner-wrapper" {{ attributes.setAttribute('style', bg_color ~ color) }}>
+  <div class="inner-wrapper" {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', bg_color ~ color) }}{% endif %}>
     {% if ( node.field_blog_style.value == "photo" ) %}
       <div>
         {{ content.field_blog_image }}
@@ -100,13 +100,13 @@
             </div>
           </div>
         {% endif %}
-        <h2 {{ attributes.setAttribute('style', color) }}>
+        <h2 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
           <a href="{{ url }}" rel="bookmark">
             {{ label }}
           </a>
         </h2>
       </div>
-      <h4 {{ attributes.setAttribute('style', color) }}>{{ category }}</h4>
+      <h4 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>{{ category }}</h4>
     </div>
   </div>
 </article>
