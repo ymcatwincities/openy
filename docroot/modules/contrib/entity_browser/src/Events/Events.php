@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Events\Events.
- */
-
 namespace Drupal\entity_browser\Events;
 
 /**

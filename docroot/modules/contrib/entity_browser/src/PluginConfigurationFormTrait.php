@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\PluginConfigurationFormTrait
- */
-
 namespace Drupal\entity_browser;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -23,7 +18,8 @@ trait PluginConfigurationFormTrait {
   /**
    * Implements PluginFormInterface::validateConfigurationForm().
    */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {}
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
+  }
 
   /**
    * Implements PluginFormInterface::submitConfigurationForm().

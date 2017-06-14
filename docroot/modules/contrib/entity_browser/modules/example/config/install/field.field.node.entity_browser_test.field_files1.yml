@@ -4,6 +4,11 @@ dependencies:
   config:
     - field.storage.node.field_files1
     - node.type.entity_browser_test
+  module:
+    - entity_browser_example
+  enforced:
+    module:
+      - entity_browser_example
 id: node.entity_browser_test.field_files1
 field_name: field_files1
 entity_type: node

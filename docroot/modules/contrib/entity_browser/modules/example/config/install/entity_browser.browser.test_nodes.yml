@@ -1,8 +1,10 @@
 langcode: und
 status: true
 dependencies:
+  config:
+    - views.view.nodes_entity_browser
   module:
-    - entity_browser_example
+    - views
   enforced:
     module:
       - entity_browser_example

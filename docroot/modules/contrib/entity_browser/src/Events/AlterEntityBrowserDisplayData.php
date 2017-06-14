@@ -90,4 +90,5 @@ class AlterEntityBrowserDisplayData extends EventBase {
   public function setData($data) {
     $this->data = $data;
   }
+
 }

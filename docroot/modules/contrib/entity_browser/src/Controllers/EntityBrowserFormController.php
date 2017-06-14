@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Controllers\EntityBrowserFormController.
- */
-
 namespace Drupal\entity_browser\Controllers;
 
 use Drupal\Component\Utility\Xss;
@@ -12,7 +7,7 @@ use Drupal\Core\Controller\ControllerResolverInterface;
 use Drupal\Core\Controller\HtmlFormController;
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -55,15 +50,15 @@ class EntityBrowserFormController extends HtmlFormController implements Containe
    *   The class resolver.
    * @param RouteMatchInterface $route_match
    *   Current route match service.
-   * @param EntityManagerInterface $entity_manager
-   *   Entity manager service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager service.
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   Current request.
    */
-  public function __construct(ControllerResolverInterface $controller_resolver, FormBuilderInterface $form_builder, ClassResolverInterface $class_resolver, RouteMatchInterface $route_match, EntityManagerInterface $entity_manager, Request $request) {
+  public function __construct(ControllerResolverInterface $controller_resolver, FormBuilderInterface $form_builder, ClassResolverInterface $class_resolver, RouteMatchInterface $route_match, EntityTypeManagerInterface $entity_type_manager, Request $request) {
     parent::__construct($controller_resolver, $form_builder, $class_resolver);
     $this->currentRouteMatch = $route_match;
-    $this->browserStorage = $entity_manager->getStorage('entity_browser');
+    $this->browserStorage = $entity_type_manager->getStorage('entity_browser');
     $this->request = $request;
     $this->formBuilder = $form_builder;
   }

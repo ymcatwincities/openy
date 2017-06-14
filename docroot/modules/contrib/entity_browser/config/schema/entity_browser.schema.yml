@@ -80,19 +80,37 @@ entity_browser.browser.display.modal:
     link_text:
       type: string
       label: 'Link text'
+    auto_open:
+      type: boolean
+      label: 'Auto open'
 
 entity_browser.browser.widget.upload:
   type: mapping
   label: 'Upload widget configuration'
   mapping:
+    submit_text:
+      type: string
+      label: 'Submit button text'
     upload_location:
       type: string
       label: 'Upload location'
+    multiple:
+      type: boolean
+      label: 'Allow multiple uploads'
+    extensions:
+      type: string
+      label: 'Allowed file extensions'
 
 entity_browser.browser.widget.view:
   type: mapping
   label: 'View widget configuration'
   mapping:
+    submit_text:
+      type: string
+      label: 'Submit button text'
+    auto_select:
+      type: boolean
+      label: 'Automatically submit selection'
     view:
       type: string
       label: 'View ID'
@@ -104,6 +122,36 @@ entity_browser.browser.widget.view:
       sequence:
         type: integer
         label: 'View display arguments'
+
+entity_browser.browser.selection_display.multi_step_display:
+  type: mapping
+  label: 'Multistep display configuration'
+  mapping:
+    entity_type:
+      type: string
+      label: 'Entity type'
+    display:
+      type: string
+      label: 'Display'
+    display_settings:
+      type: entity_browser.field_widget_display.[%parent.display]
+    select_text:
+      type: string
+      label: 'Select text'
+    selection_hidden:
+      type: boolean
+      label: 'Selection hidden by default'
+
+entity_browser.browser.selection_display.view:
+  type: mapping
+  label: 'View display configuration'
+  mapping:
+    view:
+      type: string
+      label: 'View ID'
+    view_display:
+      type: string
+      label: 'View display ID'
 
 field.widget.settings.entity_browser_entity_reference:
   type: mapping
@@ -125,9 +173,57 @@ field.widget.settings.entity_browser_entity_reference:
       type: boolean
       label: 'Open'
     field_widget_display_settings:
-      type: mapping
-      label: 'Field widget display settings'
-      mapping:
-        view_mode:
-          type: string
-          label: 'View mode'
+      type: entity_browser.field_widget_display.[%parent.field_widget_display]
+    selection_mode:
+      type: string
+      label: 'Selection mode'
+
+entity_browser.field_widget_display.label:
+  type: mapping
+  label: 'Entity label display config'
+
+entity_browser.field_widget_display.thumbnail:
+  type: mapping
+  label: 'Image thumbnail display config'
+  mapping:
+    image_style:
+      type: string
+      label: 'Image style'
+
+entity_browser.field_widget_display.rendered_entity:
+  type: mapping
+  label: 'Rendered entity display config'
+  mapping:
+    view_mode:
+      type: string
+      label: 'View mode'
+
+field.widget.settings.entity_browser_file:
+  type: mapping
+  label: 'Entity browser file widget'
+  mapping:
+    entity_browser:
+      type: string
+      label: 'Entity Browser'
+    field_widget_edit:
+      type: boolean
+      label: 'Field widget edit'
+    field_widget_remove:
+      type: boolean
+      label: 'Field widget remove'
+    open:
+      type: boolean
+      label: 'Open'
+    selection_mode:
+      type: string
+      label: 'Selection mode'
+    view_mode:
+      type: string
+      label: 'View mode'
+    preview_image_style:
+      type: string
+      label: 'Preview image style'
+
+views.display.entity_browser:
+  type: views_display
+  label: 'Entity browser display options'

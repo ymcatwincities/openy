@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\entity_browser\Plugin\views\field\SelectForm.
- */
-
 namespace Drupal\entity_browser\Plugin\views\field;
 
 use Drupal\views\Plugin\views\field\FieldPluginBase;
@@ -20,10 +15,24 @@ use Drupal\views\Render\ViewsRenderPipelineMarkup;
 class SelectForm extends FieldPluginBase {
 
   /**
+   * Returns the ID for a result row.
+   *
+   * @param \Drupal\views\ResultRow $row
+   *   The result row.
+   *
+   * @return string
+   *   The row ID, in the form ENTITY_TYPE:ENTITY_ID.
+   */
+  public function getRowId(ResultRow $row) {
+    $entity = $this->getEntity($row);
+    return $entity->getEntityTypeId() . ':' . $entity->id();
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
-    return ViewsRenderPipelineMarkup::create('<!--form-item-' . $this->options['id'] . '--' . $values->index . '-->');
+    return ViewsRenderPipelineMarkup::create('<!--form-item-' . $this->options['id'] . '--' . $this->getRowId($values) . '-->');
   }
 
   /**
@@ -54,16 +63,15 @@ class SelectForm extends FieldPluginBase {
       // Render checkboxes for all rows.
       $render[$this->options['id']]['#tree'] = TRUE;
       $render[$this->options['id']]['#printed'] = TRUE;
-      foreach ($this->view->result as $row_index => $row) {
-        /** @var \Drupal\Core\Entity\EntityInterface $entity */
-        $entity = $row->_entity;
+      foreach ($this->view->result as $row) {
+        $value = $this->getRowId($row);
 
-        $render[$this->options['id']][$row_index] = [
+        $render[$this->options['id']][$value] = [
           '#type' => 'checkbox',
           '#title' => $this->t('Select this item'),
           '#title_display' => 'invisible',
-          '#return_value' => $entity->getEntityTypeId() . ':' . $entity->id(),
-          '#attributes' => ['name' => "entity_browser_select[$row_index]"],
+          '#return_value' => $value,
+          '#attributes' => ['name' => "entity_browser_select[$value]"],
           '#default_value' => NULL,
         ];
       }
@@ -78,6 +86,8 @@ class SelectForm extends FieldPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function clickSortable() { return FALSE; }
+  public function clickSortable() {
+    return FALSE;
+  }
 
 }
