@@ -446,4 +446,19 @@
     }
   };
 
+  /**
+   * Scroll to next button.
+   */
+  Drupal.behaviors.scrollToNext = {
+    attach: function (context, settings) {
+      $(context).find('.calc-block-form').once('calcForm').each(function () {
+        $(this).find('.btn-lg.btn').on('click', function () {
+          $('html, body').animate({
+            scrollTop: $(".form-submit").offset().top
+          }, 2000);
+        });
+      });
+    }
+  };
+
 })(jQuery);
