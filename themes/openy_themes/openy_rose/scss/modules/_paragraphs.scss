@@ -195,6 +195,9 @@
           margin-left: 5px;
         }
       }
+      &:focus {
+        outline: auto 5px $blue;
+      }
     }
 
     .carousel-inner > .item img,
@@ -298,7 +301,14 @@
           @include breakpoint (1025px) {
             padding: 15px;
           }
+          &:focus {
+            outline: 5px auto $blue;
+            outline-offset: -2px;
+          }
         }
+      }
+      &:focus {
+        outline: auto 5px $blue;
       }
     }
   }
