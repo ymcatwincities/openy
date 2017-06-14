@@ -57,6 +57,9 @@
     max-width: 24px;
     float: left;
     width: auto;
+    &.fa-handshake-o {
+      margin-right: 20px;
+    }
     @include breakpoint (768px) {
       font-size: 26px;
       max-height: 26px;
@@ -192,6 +195,9 @@
           margin-left: 5px;
         }
       }
+      &:focus {
+        outline: auto 5px $blue;
+      }
     }
 
     .carousel-inner > .item img,
@@ -295,7 +301,14 @@
           @include breakpoint (1025px) {
             padding: 15px;
           }
+          &:focus {
+            outline: 5px auto $blue;
+            outline-offset: -2px;
+          }
         }
+      }
+      &:focus {
+        outline: auto 5px $blue;
       }
     }
   }

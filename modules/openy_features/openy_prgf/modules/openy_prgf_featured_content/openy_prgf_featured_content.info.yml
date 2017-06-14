@@ -1,5 +1,5 @@
-name: 'OpenY paragraph featured content'
-description: 'OpenY paragraph featured content'
+name: 'OpenY Paragraph Featured Content'
+description: 'OpenY Paragraph Featured Content.'
 type: module
 core: 8.x
 dependencies:
