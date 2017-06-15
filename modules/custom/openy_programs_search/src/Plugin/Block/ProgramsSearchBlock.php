@@ -8,6 +8,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\openy_programs_search\DataStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Component\Utility\NestedArray;
 
 /**
  * Provides a 'Programs Search' block.
@@ -122,9 +123,24 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
-    $this->configuration['enabled_locations'] = array_filter($values['locations_config']['enabled_locations']);
-    $this->configuration['enabled_categories'] = array_filter($values['categories_config']['enabled_categories']);
+    // Escape if not the correct form.
+    if (empty($form['#type']) || $form['#type'] !== 'container' || $form['provider']['#value'] !== 'openy_programs_search') {
+      return;
+    }
+
+    $locations_config = $form_state->getValue('locations_config');
+    $categories_config = $form_state->getValue('categories_config');
+    if (is_null($locations_config) && is_null($categories_config)) {
+      $conf = NestedArray::getValue($form_state->getValues(), $form['#parents']);
+      $locations_config = !empty($conf['locations_config']) ? $conf['locations_config'] : ['enabled_locations' => NULL];
+      $categories_config = !empty($conf['categories_config']) ? $conf['categories_config'] : ['enabled_categories' => NULL];
+    }
+    $enabled_locations = is_null($locations_config['enabled_locations']) ? NULL : array_flip($locations_config['enabled_locations']);
+    $enabled_categories = is_null($categories_config['enabled_categories']) ? NULL : array_flip($categories_config['enabled_categories']);
+    unset($enabled_locations[0]);
+    unset($enabled_categories[0]);
+    $this->configuration['enabled_locations'] = $enabled_locations;
+    $this->configuration['enabled_categories'] = $enabled_categories;
   }
 
 }
