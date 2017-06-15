@@ -4711,8 +4711,8 @@ function ymca_master_update_8214() {
  */
 function ymca_master_update_8215() {
   $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
-  $config->set('token', 'wagabagadogo');
-  $config->set('primary', TRUE);
+  $config->set('token', md5('wagabagadogo'));
+  $config->set('primary', FALSE);
   $config->set('endpoint', 'https://www.ymcamn.org/mindbody/status');
   $config->save();
   drupal_flush_all_caches();
