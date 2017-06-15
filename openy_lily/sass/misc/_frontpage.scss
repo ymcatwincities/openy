@@ -42,10 +42,10 @@
       line-height: 1.3em;
       font-size: 63px;
       @include breakpoint (0 $desktop) {
-        font-size: 60px;
+        font-size: 58px;
       }
       @include breakpoint (0 $tablet-start) {
-        font-size: 46px;
+        font-size: 44px;
       }
       @include breakpoint (0 767px) {
         display: block;
