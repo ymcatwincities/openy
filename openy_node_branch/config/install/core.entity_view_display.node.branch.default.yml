@@ -14,7 +14,7 @@ dependencies:
     - field.field.node.branch.field_meta
     - node.type.branch
   module:
-    - address
+    - openy_node_branch
     - entity_reference_revisions
     - geolocation
     - metatag
@@ -49,7 +49,7 @@ content:
       link: ''
     third_party_settings: {  }
   field_location_address:
-    type: address_plain
+    type: address_branch
     weight: 8
     label: hidden
     settings: {  }

@@ -15,11 +15,11 @@ dependencies:
     - field.field.node.branch.field_meta
     - node.type.branch
   module:
-    - address
     - entity_reference_revisions
     - geolocation
     - metatag
     - openy_field_custom_hours
+    - openy_node_branch
     - telephone
     - user
 id: node.branch.search_index
@@ -35,12 +35,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_branch_hours:
     weight: 6
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: openy_branch_hours_default
+    region: content
   field_header_content:
     type: entity_reference_revisions_entity_view
     weight: 0
@@ -49,12 +51,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_location_address:
-    type: address_plain
+    type: address_branch
     weight: 8
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_location_amenities:
     weight: 7
     label: hidden
@@ -62,18 +66,21 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
   field_location_coordinates:
     weight: 4
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
+    region: content
   field_location_email:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_location_fax:
     weight: 3
     label: hidden
@@ -81,6 +88,7 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_location_phone:
     weight: 2
     label: hidden
@@ -88,12 +96,14 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_meta:
     type: metatag_empty_formatter
     weight: 9
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   langcode: true
   links: true
