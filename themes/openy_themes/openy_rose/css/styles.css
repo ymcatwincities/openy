@@ -1838,6 +1838,7 @@ body {
   margin-top: 0;
 }
 .paragraph--type--latest-blog-posts .views-exposed-form, .paragraph--type--blog-posts-listing .views-exposed-form, .paragraph--type--latest-blog-posts-branch .views-exposed-form, .paragraph--type--latest-blog-posts-camp .views-exposed-form {
+  margin-top: 24px;
   margin-bottom: 30px;
 }
 @media (min-width: 48em) {
