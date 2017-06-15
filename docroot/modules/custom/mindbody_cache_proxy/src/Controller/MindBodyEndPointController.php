@@ -4,6 +4,7 @@ namespace Drupal\mindbody_cache_proxy\Controller;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -23,13 +24,23 @@ class MindBodyEndPointController extends ControllerBase {
   protected $requestStack;
 
   /**
+   * Cache proxy.
+   *
+   * @var \Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface
+   */
+  protected $cacheProxy;
+
+  /**
    * MindBodyEndPointController constructor.
    *
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   Request stack.
+   * @param \Drupal\mindbody_cache_proxy\MindbodyCacheProxyInterface $cacheProxy
+   *   Cache proxy.
    */
-  public function __construct(RequestStack $requestStack) {
+  public function __construct(RequestStack $requestStack, MindbodyCacheProxyInterface $cacheProxy) {
     $this->requestStack = $requestStack;
+    $this->cacheProxy = $cacheProxy;
   }
 
   /**
@@ -37,7 +48,8 @@ class MindBodyEndPointController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('request_stack')
+      $container->get('request_stack'),
+      $container->get('mindbody_cache_proxy.client')
     );
   }
 
@@ -61,6 +73,9 @@ class MindBodyEndPointController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    */
   public function endPointStatus() {
+    // We should increment 'miss' count each time endpoint accessed.
+    $this->cacheProxy->updateStats('miss');
+
     $result = ['status' => $this->getStatus()];
     return new JsonResponse($result);
   }

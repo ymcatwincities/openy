@@ -166,7 +166,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
    * @param string $type
    *   Either: 'hit' or 'miss' string.
    */
-  protected function updateStats($type) {
+  public function updateStats($type) {
     $current = $this->state->get(self::STORAGE);
     $date_time = new \DateTime();
     $date_time->setTimezone(new \DateTimeZone('UTC'));
