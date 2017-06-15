@@ -110,9 +110,9 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
 
     // Secondary endpoints should not check whether there are free API calls.
     if (empty($config->get('primary'))) {
-      $endpoint = rtrim($config->get('endpoint'), '/');
+      $status_endpoint = rtrim($config->get('endpoint'), '/');
       $token = $config->get('token');
-      $url = Url::fromUri($endpoint, ['query' => ['token' => $token]])->toUriString();
+      $url = Url::fromUri($status_endpoint, ['query' => ['token' => $token]])->toUriString();
 
       try {
         $response = \Drupal::httpClient()->get($url);
