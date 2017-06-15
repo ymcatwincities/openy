@@ -30,11 +30,12 @@
     'independent-footer'
   ]
 %}
+{% set padding = 'padding-top: 0 !important;' %}
 <!DOCTYPE html>
 <html{{ html_attributes }}>
   <head>
     <head-placeholder token="{{ placeholder_token }}">
-    <title>{{ 'YMCA Twin Cities'|t }}</title>
+    <title>{{ 'YMCA of Greater Houston'|t }}</title>
     {% for script in scripts %}
       {{ script }}
     {% endfor %}
@@ -42,7 +43,7 @@
       {{ style }}
     {% endfor %}
   </head>
-  <body{{ attributes.addClass(classes) }}>
+  <body{{ attributes.addClass(classes).setAttribute('style', padding) }}>
     {#
       Keyboard navigation/accessibility link to main content section in
       page.html.twig.
