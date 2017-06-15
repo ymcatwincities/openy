@@ -3907,6 +3907,18 @@ html.js .branch__updates_queue__button {
 .node--view-mode-full.node--type-facility .label-for-field-location-address {
   display: block;
 }
+.node--view-mode-full.node--type-facility .associated-branch-title {
+  display: inline-block;
+  font-size: 22px;
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-weight: bold;
+  margin: 20px 0 33px;
+  line-height: 1.1;
+  color: inherit;
+}
+.node--view-mode-full.node--type-facility .associated-branch-title a {
+  color: #5c2e91;
+}
 .node--view-mode-full .wrapper-field-location-phone {
   letter-spacing: 2px;
   padding-bottom: 35px;
