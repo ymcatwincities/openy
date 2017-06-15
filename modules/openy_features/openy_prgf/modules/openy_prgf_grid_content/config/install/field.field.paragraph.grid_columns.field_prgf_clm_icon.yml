@@ -10,7 +10,7 @@ field_name: field_prgf_clm_icon
 entity_type: paragraph
 bundle: grid_columns
 label: Icon
-description: ''
+description: 'Entityreference to media asset. Should allow to upload svgs.'
 required: false
 translatable: true
 default_value: {  }
