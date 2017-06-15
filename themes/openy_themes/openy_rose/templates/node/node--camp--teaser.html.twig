@@ -71,33 +71,24 @@
  */
 #}
 {%
-  set classes = [
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  ]
+set classes = [
+'node',
+'node--type-' ~ node.bundle|clean_class,
+node.isPromoted() ? 'node--promoted',
+node.isSticky() ? 'node--sticky',
+not node.isPublished() ? 'node--unpublished',
+view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+]
 %}
 <article{{ attributes.addClass(classes) }}>
+
   {{ title_prefix }}
   {% if not page %}
-
-    {% if content.field_location_state|render|trim and node.field_location_temp_url is not empty %}
-      {% set title_url =  node.field_location_temp_url.0.url ? node.field_location_temp_url.0.url : url %}
-    {% else %}
-      {% set title_url = url %}
-    {% endif %}
-
     <h3 class="location-title" {{ title_attributes }}>
-      <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
+      <a href="{{ url }}" rel="bookmark">{{ label }}</a>
     </h3>
   {% endif %}
   {{ title_suffix }}
-
-  {{ content.field_location_state }}
-  {{ content.field_location_area }}
 
   {% if display_submitted %}
     <footer class="node__meta">
@@ -110,7 +101,7 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without('field_location_area', 'field_location_state') }}
+    {{ content|without('field_location_area') }}
   </div>
 
 </article>

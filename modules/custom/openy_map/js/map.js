@@ -709,8 +709,8 @@
       $('.locations-list .node--view-mode-teaser').each(function() {
         var $self = $(this);
         for (var i = 0; i < data.length; i++) {
-          if (typeof(data[i]) !== 'undefined' && $self.find("h2")[0].innerText !== 'undefined') {
-            if ($self.find("h2")[0].innerText == data[i]["name"]){
+          if (typeof(data[i]) !== 'undefined' && $self.find("h3")[0].innerText !== 'undefined') {
+            if ($self.find('.location-title')[0].innerText == data[i]['name']){
               data[i].element = {};
               data[i].element = $self.parent();
             }
