@@ -994,6 +994,18 @@ html.js {
     .label-for-field-location-address {
       display: block;
     }
+    .associated-branch-title {
+      display: inline-block;
+      font-size: 22px;
+      @include cachet();
+      font-weight: bold;
+      margin: 20px 0 33px;
+      line-height: 1.1;
+      color: inherit;
+      a {
+        color: $purple;
+      }
+    }
   }
   .wrapper-field-location-phone {
     letter-spacing: 2px;

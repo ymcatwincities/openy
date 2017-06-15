@@ -90,9 +90,11 @@
       {% set title_url = url %}
     {% endif %}
 
-    <h2{{ title_attributes }}>
-      <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h2>
+    <div class="associated-branch-title">
+      <div{{ title_attributes }}>
+        <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
+      </div>
+    </div>
   {% endif %}
   {{ title_suffix }}
 
