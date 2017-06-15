@@ -12,7 +12,7 @@ field_name: field_grid_columns
 entity_type: paragraph
 bundle: grid_content
 label: Content
-description: ''
+description: 'Grid columns'
 required: false
 translatable: true
 default_value: {  }
