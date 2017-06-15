@@ -5,7 +5,7 @@
  * Main module file containing hooks.
  */
 
-use \Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\system\MenuInterface;
@@ -25,8 +25,11 @@ function simple_sitemap_help($route_name, RouteMatchInterface $route_match) {
  */
 function simple_sitemap_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
+  /**
+   * @var Drupal\simple_sitemap\Form\FormHelper $f
+   */
   $f = \Drupal::service('simple_sitemap.form_helper')->processForm($form_state);
-  if (!$f->alteringForm) {
+  if (!$f->alteringForm()) {
     return;
   }
 
@@ -34,12 +37,12 @@ function simple_sitemap_form_alter(&$form, FormStateInterface $form_state, $form
     '#type' => 'details',
     '#group' => isset($form['additional_settings']) ? 'additional_settings' : 'advanced',
     '#title' => t('Simple XML sitemap'),
-    '#description' => $f->entityCategory == 'instance' ? t('Settings for this entity can be overridden here.') : '',
+    '#description' => $f->getEntityCategory() == 'instance' ? t('Settings for this entity can be overridden here.') : '',
   ];
 
   // Attach some js magic to forms.
   // todo: JS not working on comment entity form, hence disabling.
-  if ($f->entityTypeId != 'comment' || $f->entityCategory != 'instance') {
+  if ($f->getEntityTypeId() != 'comment' || $f->getEntityCategory() != 'instance') {
     $form['#attached']['library'][] = 'simple_sitemap/form';
   }
 
@@ -55,7 +58,9 @@ function simple_sitemap_form_alter(&$form, FormStateInterface $form_state, $form
   // Add submission handler.
   if (isset($form['actions']['submit']['#submit'])) {
     foreach (array_keys($form['actions']) as $action) {
-      if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      if ($action != 'preview'
+        && isset($form['actions'][$action]['#type'])
+        && $form['actions'][$action]['#type'] === 'submit') {
         $form['actions'][$action]['#submit'][] = 'simple_sitemap_entity_form_submit';
       }
     }
@@ -71,6 +76,9 @@ function simple_sitemap_form_alter(&$form, FormStateInterface $form_state, $form
  */
 function simple_sitemap_entity_form_submit($form, FormStateInterface &$form_state) {
 
+  /**
+   * @var Drupal\simple_sitemap\Form\FormHelper $f
+   */
   $f = \Drupal::service('simple_sitemap.form_helper')->processForm($form_state);
 
   $values = $form_state->getValues();
@@ -80,18 +88,34 @@ function simple_sitemap_entity_form_submit($form, FormStateInterface &$form_stat
 
   // Only make changes in DB if sitemap settings actually changed.
   if ($f->valuesChanged($form, $values)) {
+
+    /**
+     * @var \Drupal\simple_sitemap\Simplesitemap $generator
+     */
     $generator = \Drupal::service('simple_sitemap.generator');
 
-    switch ($f->entityCategory) {
+    switch ($f->getEntityCategory()) {
 
       case 'bundle':
-        $f->bundleName = !empty($f->bundleName) ? $f->bundleName : $f->getFormEntityId();
-        $generator->setBundleSettings($f->entityTypeId, $f->bundleName, ['index' => $values['simple_sitemap_index_content'], 'priority' => $values['simple_sitemap_priority']]);
+        $generator->setBundleSettings(
+          $f->getEntityTypeId(),
+          !empty($f->getBundleName()) ? $f->getBundleName() : $f->getFormEntityId(),
+          [
+            'index' => $values['simple_sitemap_index_content'],
+            'priority' => $values['simple_sitemap_priority']
+          ]
+        );
         break;
 
       case 'instance':
-        $f->instanceId = !empty($f->instanceId) ? $f->instanceId : $f->getFormEntityId();
-        $generator->setEntityInstanceSettings($f->entityTypeId, $f->instanceId, ['index' => $values['simple_sitemap_index_content'], 'priority' => $values['simple_sitemap_priority']]);
+        $generator->setEntityInstanceSettings(
+          $f->getEntityTypeId(),
+          !empty($f->getInstanceId()) ? $f->getInstanceId() : $f->getFormEntityId(),
+          [
+            'index' => $values['simple_sitemap_index_content'],
+            'priority' => $values['simple_sitemap_priority']
+          ]
+        );
         break;
     }
 
@@ -106,6 +130,10 @@ function simple_sitemap_entity_form_submit($form, FormStateInterface &$form_stat
  * Implements hook_cron.
  */
 function simple_sitemap_cron() {
+
+  /**
+   * @var \Drupal\simple_sitemap\Simplesitemap $generator
+   */
   $generator = \Drupal::service('simple_sitemap.generator');
   if ($generator->getSetting('cron_generate')) {
     $generator->generateSitemap('backend');
@@ -120,8 +148,14 @@ function simple_sitemap_cron() {
  * @param \Drupal\Core\Entity\EntityInterface $entity
  */
 function simple_sitemap_entity_delete(EntityInterface $entity) {
-  \Drupal::service('simple_sitemap.generator')
-    ->removeEntityInstanceSettings($entity->getEntityTypeId(), $entity->id());
+
+  /**
+   * @var \Drupal\simple_sitemap\Simplesitemap $generator
+   */
+  $generator = \Drupal::service('simple_sitemap.generator');
+  $generator->removeEntityInstanceSettings(
+    $entity->getEntityTypeId(), $entity->id()
+  );
 }
 
 /**
@@ -153,6 +187,10 @@ function simple_sitemap_menu_delete(MenuInterface $menu) {
  * @param string $bundle
  */
 function simple_sitemap_delete_bundle_config($entity_type_id, $bundle) {
+
+  /**
+   * @var \Drupal\simple_sitemap\Simplesitemap $generator
+   */
   $generator = \Drupal::service('simple_sitemap.generator');
   $deleted_bundle_settings = $generator->getBundleSettings($entity_type_id, $bundle);
   if ($deleted_bundle_settings !== FALSE) {
@@ -166,4 +204,14 @@ function simple_sitemap_delete_bundle_config($entity_type_id, $bundle) {
     }
     drupal_set_message(t($message, ['@url' => $GLOBALS['base_url'] . '/admin/config/search/simplesitemap']));
   }
+}
+
+/**
+ * Implements hook_robotstxt().
+ */
+function simple_sitemap_robotstxt() {
+  return [
+    '# XML sitemap',
+    'Sitemap: ' . $GLOBALS['base_url'] . '/sitemap.xml',
+  ];
 }

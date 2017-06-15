@@ -1,0 +1,4 @@
+services:
+  ymca_personify_upgrade:
+    class: Drupal\ymca_personify_upgrade\PersonifyUpgrade
+    arguments: ['@logger.factory', '@config.factory']

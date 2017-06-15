@@ -1,0 +1,25 @@
+name: 'OpenY program'
+description: 'OpenY program'
+type: module
+core: 8.x
+dependencies:
+  - entity_browser
+  - entity_reference_revisions
+  - field
+  - field_group
+  - image
+  - media_entity
+  - menu_ui
+  - metatag
+  - node
+  - openy_media_image
+  - openy_node
+  - openy_txnm_color
+  - paragraphs
+  - path
+  - pathauto
+  - scheduler
+  - taxonomy
+  - text
+  - user
+version: 8.x-1.1

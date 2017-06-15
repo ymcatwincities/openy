@@ -19,7 +19,7 @@
   <tbody>
     {% for day, classes in days %}
       <tr>
-        <td class="caption" colspan="3">
+        <td class="caption" colspan="4">
           <a class="use-ajax" href="{{ classes.date_link }}">{{ classes.day_short }}</a>
         </td>
       </tr>
@@ -27,7 +27,7 @@
         {{ class }}
       {% endfor %}
       <tr>
-        <td class="whitebar" colspan="3"></td>
+        <td class="whitebar" colspan="4"></td>
       </tr>
     {% endfor %}
   </tbody>

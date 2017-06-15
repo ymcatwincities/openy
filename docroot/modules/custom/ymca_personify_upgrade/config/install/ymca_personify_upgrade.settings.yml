@@ -1,0 +1,88 @@
+tables_whitelist:
+  -
+    block_content__body:
+      edit_pattern: /block/$id
+      id: entity_id
+      parse_columns:
+        body_summary: null
+        body_value: null
+    block_content__field_block_content:
+      edit_pattern: /block/$id
+      id: entity_id
+      parse_columns:
+        field_block_content_value: null
+    block_content__field_code:
+      edit_pattern: /block/$id
+      id: entity_id
+      parse_columns:
+        field_code_value: null
+    block_content__field_content_date_before:
+      edit_pattern: /block/$id
+      id: entity_id
+      parse_columns:
+        field_content_date_before_value: null
+    block_content__field_content_date_between:
+      edit_pattern: /block/$id
+      id: entity_id
+      parse_columns:
+        field_content_date_between_value: null
+    block_content__field_content_date_end:
+      edit_pattern: /block/$id
+      id: entity_id
+      parse_columns:
+        field_content_date_end_value: null
+    block_content__field_link:
+      edit_pattern: /block/$id
+      id: entity_id
+      parse_columns:
+        field_link_uri: null
+    menu_link_content_data:
+      edit_pattern: /admin/structure/menu/item/$id/edit
+      id: id
+      parse_columns:
+        link__uri: null
+    menu_tree:
+      edit_pattern: /admin/structure/menu/item/$id/edit
+      id: mlid
+      parse_columns:
+        url: null
+    node__field_camp_links:
+      edit_pattern: /node/$id/edit
+      id: entity_id
+      parse_columns:
+        field_camp_links_value: null
+    node__field_content:
+      edit_pattern: /node/$id/edit
+      id: entity_id
+      parse_columns:
+        field_content_value: null
+    node__field_header_button:
+      edit_pattern: /node/$id/edit
+      id: entity_id
+      parse_columns:
+        field_header_button_uri: null
+    node__field_schedule_content:
+      edit_pattern: /node/$id/edit
+      id: entity_id
+      parse_columns:
+        field_schedule_content_value: null
+    node__field_secondary_sidebar:
+      edit_pattern: /node/$id/edit
+      id: entity_id
+      parse_columns:
+        field_secondary_sidebar_value: null
+    node__field_sidebar:
+      edit_pattern: /node/$id/edit
+      id: entity_id
+      parse_columns:
+        field_sidebar_value: null
+    node__field_summary:
+      edit_pattern: /node/$id/edit
+      id: entity_id
+      parse_columns:
+        field_summary_value: null
+    redirect:
+      edit_pattern: /admin/config/search/redirect/edit/$id
+      id: rid
+      parse_columns:
+        redirect_redirect__uri: null

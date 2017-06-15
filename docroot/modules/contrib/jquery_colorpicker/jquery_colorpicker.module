@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ *    JQuery Colorpicker primary module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function jquery_colorpicker_theme($existing, $type, $theme, $path)
+{
+	return [
+		'jquery_colorpicker' => [
+			'render element' => 'element',
+			'template' => 'jquery-colorpicker',
+			'file' => 'includes/jquery_colorpicker.theme.inc',
+		],
+		'jquery_colorpicker_color_display' => [
+			'variables' => [
+				'delta' => NULL,
+				'item' => NULL,
+				'color' => NULL,
+			],
+			'template' => 'jquery-colorpicker-color-display',
+		],
+		'jquery_colorpicker_text_display' => [
+			'variables' => [
+				'delta' => NULL,
+				'item' => NULL,
+				'color' => NULL,
+			],
+			'template' => 'jquery-colorpicker-text-display',
+		],
+	];
+}

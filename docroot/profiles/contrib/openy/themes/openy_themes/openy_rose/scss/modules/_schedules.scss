@@ -1,0 +1,478 @@
+#schedules-search-form-wrapper {
+  .controls-wrapper {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    background-color: $sky-blue;
+    a {
+      display: inline-block;
+      padding: 3px 15px;
+    }
+  }
+  form {
+    background-color: $sky-blue;
+    margin-bottom: 20px;
+    @include breakpoint($screen-sm) {
+      background-color: $lighter-grey;
+      margin-bottom: 40px;
+    }
+  }
+  .js-form-type-select {
+    float: left;
+    display: inline-block;
+    padding: 10px 0 5px;
+    width: 100%;
+    @include breakpoint($screen-sm) {
+      padding: 15px 0;
+      margin-right: 18px;
+      width: 150px;
+    }
+
+    label {
+      font-size: 14px;
+      line-height: 1.6;
+      @include cachet();
+      color: $dark-grey;
+      margin-bottom: 0;
+      @include breakpoint($screen-sm) {
+        margin-bottom: 5px;
+      }
+    }
+
+    select {
+      text-transform: uppercase;
+      color: $dark-grey;
+      @include cachet();
+    }
+    &.form-item-location {
+      padding: 15px 0 25px;
+      width: 100%;
+      @include breakpoint($screen-sm) {
+        padding: 15px 0;
+        width: 150px;
+      }
+    }
+    &.form-item-time {
+      padding: 15px 0 25px;
+      width: 100%;
+      @include breakpoint($screen-sm) {
+        margin-right: 70px;
+        padding: 15px 0;
+        width: 90px;
+      }
+    }
+  }
+  .js-form-type-textfield {
+    float: left;
+    display: inline-block;
+    padding: 10px 0 5px;
+    width: 100%;
+    @include breakpoint($screen-sm) {
+      padding: 15px 0;
+      margin-right: 18px;
+      width: 110px;
+    }
+
+    label {
+      font-size: 14px;
+      line-height: 1.6;
+      @include cachet();
+      color: $dark-grey;
+      margin-bottom: 0;
+      @include breakpoint($screen-sm) {
+        margin-bottom: 5px;
+      }
+    }
+
+    input {
+      text-transform: uppercase;
+      color: $dark-grey;
+      @include cachet();
+      width: 100%;
+    }
+
+    .hasDatepicker {
+      background: $white url("../img/icons/input_calc_icon.png") no-repeat 95% center;
+      padding-right: 20px;
+      padding-left: 5px;
+    }
+  }
+  .selects-container {
+    hr {
+      border-color: $default-grey;
+      margin: 0 0 12px;
+      @include breakpoint($screen-sm) {
+        display: none;
+      }
+    }
+  }
+  .actions-wrapper {
+    padding-top: 23px;
+    padding-bottom: 23px;
+    input {
+      text-transform: uppercase;
+      font-size: 18px;
+      padding: 12px 0;
+      width: 100%;
+    }
+  }
+  .filters-main-wrapper {
+    clear: both;
+    @include breakpoint($screen-sm) {
+      background-color: rgba(0, 136, 208, 0.25);
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+  }
+  .filters-container {
+    clear: both;
+    position: relative;
+    @include breakpoint($screen-sm) {
+      margin-top: 0;
+    }
+
+    .container {
+      position: relative;
+    }
+
+    .reset-wrapper {
+      position: absolute;
+      right: 35px;
+      top: 4px;
+      @include breakpoint($screen-sm) {
+        top: 0;
+        right: 15px;
+      }
+      .clear {
+        @include cachet();
+        background: none;
+        border: none;
+        color: $blue;
+        display: inline-block;
+        font-size: 14px;
+        height: 30px;
+        line-height: 30px;
+        padding: 0;
+        @include breakpoint($screen-sm) {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  .filters-wrapper {
+    padding-bottom: 5px;
+    border-top: 1px solid $default-grey;
+    padding-top: 5px;
+    @include breakpoint($screen-sm) {
+      padding-bottom: 0;
+      padding-top: 0;
+      border: 0;
+    }
+    .label {
+      @include cachet();
+      color: $dark-grey;
+      display: block;
+      font-size: 14px;
+      line-height: 30px;
+      margin-right: 20px;
+      padding: 0;
+      text-align: left;
+      @include breakpoint($screen-sm) {
+        display: inline-block;
+      }
+    }
+    .filters {
+      display: inline-block;
+      .filter {
+        @include cachet();
+        background: $white;
+        border-radius: 4px;
+        color: $light-blue;
+        display: inline-block;
+        font-size: 14px;
+        height: 30px;
+        line-height: 30px;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding: 0 10px;
+        margin: 0 5px 10px 0;
+        @include breakpoint($screen-sm) {
+          margin: 5px 20px 5px 0;
+          color: $dark-grey;
+        }
+        .remove {
+          margin-left: 10px;
+          line-height: 30px;
+          @include breakpoint($screen-sm) {
+            margin-left: 15px;
+          }
+          .fa {
+            font-size: 13px;
+            color: $blue;
+            @include breakpoint($screen-sm) {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#schedules-search-listing-wrapper {
+  .results {
+    margin-bottom: 40px;
+    h2 {
+      font-size: 28px;
+      line-height: 32px;
+      margin-bottom: 18px;
+      font-weight: 700;
+
+      @include breakpoint($screen-sm) {
+        font-size: 44px;
+        line-height: 48px;
+      }
+      em {
+        font-style: normal;
+      }
+    }
+
+    .group_time {
+      @include cachet();
+      color: $purple;
+      font-size: 18px;
+      margin-bottom: 10px;
+      @include breakpoint($screen-sm) {
+        font-size: 30px;
+      }
+    }
+    .schedule-sessions-group-slider {
+      margin: 0 0 45px;
+      @include breakpoint($screen-sm) {
+        margin: 0 35px 55px;
+      }
+      @include breakpoint($screen-lg+100) {
+        margin-right: 0;
+      }
+      .slick-track {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .slick-arrow {
+        background: none;
+        color: $light-blue;
+        padding: 0;
+        z-index: 1;
+        height: 40px;
+        width: 40px;
+        margin-top: -7px;
+
+        &:before {
+          color: $light-blue;
+        }
+
+        @include breakpoint($screen-sm) {
+          height: 70px;
+          width: 50px;
+        }
+        .fa {
+          font-size: 30px;
+          @include breakpoint($screen-sm) {
+            font-size: 70px;
+          }
+        }
+        &.slick-prev {
+          left: -20px;
+          @include breakpoint($screen-sm) {
+            left: -45px;
+          }
+        }
+        &.slick-next {
+          right: -20px;
+          @include breakpoint($screen-sm) {
+            right: -45px;
+          }
+        }
+      }
+      .slick-dots {
+        bottom: -40px;
+        li {
+          button {
+            &:before {
+              opacity: 1;
+              color: $lighter-grey;
+            }
+          }
+          &.slick-active {
+            button:before {
+              opacity: 1;
+              color: $pink;
+            }
+          }
+        }
+      }
+    }
+    .week-control {
+      font-size: 16px;
+      &.prev-week {
+        float: left;
+      }
+      &.next-week {
+        float: right;
+      }
+    }
+    .views-row {
+      border: 1px solid $pink;
+      margin: 0 15px;
+      padding: 15px;
+      height: auto;
+      outline: none;
+      text-decoration: none;
+      position: relative;
+
+      .included-in-membership {
+        background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
+        background-size: contain;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 32px;
+        width: 90px;
+      }
+
+      .ticket {
+        color: $purple;
+        margin-top: 10px;
+        display: block;
+      }
+
+      h3 {
+        @include cachet();
+        font-size: 22px;
+        line-height: 1;
+        color: $blue;
+        margin: 40px 0 27px;
+        white-space: normal;
+      }
+      .time {
+        color: $default-grey;
+      }
+      p {
+         font-size: 15px;
+         line-height: 1.5;
+         color: $darker-grey;
+       }
+      img {
+        display: none;
+      }
+      .node__content {
+        color: $darker-grey;
+      }
+    }
+  }
+  .branch-hours-wrapper {
+    margin-bottom: 10px;
+
+    .slick-slider {
+      padding: 0 30px;
+    }
+
+    .slick-track {
+      display: -webkit-flex;
+      display: flex;
+      flex-wrap: wrap;
+
+      @include breakpoint(0 $screen-xs) {
+        flex-wrap: nowrap;
+      }
+    }
+
+    .slick-slide {
+      display: -webkit-flex;
+      display: flex;
+      height: auto;
+    }
+
+    .row-eq-height {
+      margin: 0 10px 10px 0;
+
+      .slick-arrow {
+        color: $light-blue;
+
+        &:hover:before {
+          color: $light-blue;
+        }
+
+        &:before {
+          color: $light-blue;
+        }
+      }
+
+      .slick-next,
+      .slick-prev {
+        z-index: 100;
+      }
+
+      .slick-next {
+        text-align: right;
+      }
+
+    }
+
+    .card {
+      background-color: $orange;
+      color: $white;
+      padding: 10px 20px;
+      width: 100%;
+      height: auto;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-direction: column;
+      flex-direction: column;
+      
+      h4 {
+        font-size: 20px;
+        line-height: 17px;
+        letter-spacing: -0.5px;
+      }
+      p {
+        font-size: 30px;
+        line-height: 1.15;
+        @include cachet();
+      }
+    }
+    .col-sm-2 {
+      h4 {
+        font-size: 14px;
+      }
+      p {
+        font-size: 20px;
+      }
+    }
+    .row {
+      @include breakpoint(0 $screen-sm) {
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        -webkit-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        .row-eq-height {
+          -webkit-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+          h4 {
+            font-size: 20px;
+            white-space: normal;
+          }
+          p {
+            font-size: 30px;
+            white-space: normal;
+          }
+        }
+      }
+    }
+  }
+}
