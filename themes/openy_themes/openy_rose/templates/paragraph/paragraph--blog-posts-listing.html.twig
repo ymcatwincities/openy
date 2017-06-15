@@ -38,16 +38,12 @@
 #}
 {%
 set classes = [
-  'paragraph',
-  'blog-card',
-  'paragraph--type--' ~ paragraph.bundle|clean_class,
-  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+'paragraph',
+'paragraph--type--' ~ paragraph.bundle|clean_class,
+view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-{{ attach_library('openy_rose/blog_slider') }}
 <div{{ attributes.addClass(classes) }}>
-  <h2 class="h1">
-    {{ content.field_prgf_headline }}
-  </h2>
-  {{ content.field_fblog_posts }}
+  <h2 class="h1">{{ 'Latest news & Updates'|t }}</h2>
+  {{ content }}
 </div>
