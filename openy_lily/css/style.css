@@ -2680,11 +2680,11 @@ legend {
 }
 
 @media (min-width: 0) and (max-width: 48em) {
-  #membership-calc-wrapper .js-webform-radios .js-form-item {
+  #membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item {
     margin: 0 20px 20px 20px;
   }
 }
-#membership-calc-wrapper .js-webform-radios .js-form-item label {
+#membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item label {
   padding-bottom: 20px;
 }
 

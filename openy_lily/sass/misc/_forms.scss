@@ -400,11 +400,15 @@ legend {
   }
 }
 
-#membership-calc-wrapper .js-webform-radios .js-form-item {
-  @include breakpoint (0 $tablet) {
-    margin: 0 20px 20px 20px;
-  }
-  label {
-    padding-bottom: 20px;
+#membership-calc-wrapper {
+  [data-drupal-selector="edit-type"] {
+    .js-webform-radios .js-form-item {
+      @include breakpoint (0 $tablet) {
+        margin: 0 20px 20px 20px;
+      }
+      label {
+        padding-bottom: 20px;
+      }
+    }
   }
 }
