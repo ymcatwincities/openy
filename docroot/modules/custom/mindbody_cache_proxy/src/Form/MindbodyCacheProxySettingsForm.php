@@ -42,7 +42,7 @@ class MindbodyCacheProxySettingsForm extends ConfigFormBase implements Container
       '#description' => $this->t('Only primary endpoints can break calls limit.'),
     );
 
-    $calls = $config->get('calls') ?: 1000;
+    $calls = $config->get('calls') ?: 0;
     $form['settings']['calls'] = [
       '#title' => $this->t('Calls available'),
       '#type' => 'textfield',
