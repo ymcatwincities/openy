@@ -35,7 +35,7 @@ class Glyphicons extends CKEditorPluginBase {
   public function getConfig(Editor $editor) {
     return [
       'allowedContent' => TRUE,
-      'contentsCss' => \Drupal::request()->getSchemeAndHttpHost() . '/libraries/glyphicons/css/style.css',
+      'contentsCss' => '/libraries/glyphicons/css/style.css',
     ];
   }
 
