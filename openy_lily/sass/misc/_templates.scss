@@ -228,6 +228,7 @@
 }
 
 #main {
+  position: relative !important;
   &.expanded-menu {
     -webkit-filter: blur(5px);
     -ms-filter: blur(5px);
@@ -241,7 +242,7 @@
     }
   }
   &:before {
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     bottom: 0;

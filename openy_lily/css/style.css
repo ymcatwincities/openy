@@ -1360,6 +1360,10 @@ body.path-search #block-mainpagecontent li {
   font-weight: bold;
 }
 
+.program-header .image {
+  margin-top: 0;
+}
+
 .node--type-blog.node--view-mode-teaser {
   max-width: 100%;
 }
@@ -4248,6 +4252,9 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   color: inherit;
 }
 
+#main {
+  position: relative !important;
+}
 #main.expanded-menu {
   -webkit-filter: blur(5px);
   -ms-filter: blur(5px);
@@ -4261,7 +4268,7 @@ body.node--type-location #groupex-full-form-wrapper #date-select-wrapper {
   -ms-transition-delay: 0s;
 }
 #main:before {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
