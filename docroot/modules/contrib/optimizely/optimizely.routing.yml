@@ -1,0 +1,47 @@
+optimizely.listing:
+  path: /admin/config/system/optimizely
+  defaults:
+    _form: \Drupal\optimizely\ProjectListForm
+    _title: Optimizely
+  requirements:
+    _permission: administer optimizely
+
+optimizely.add_update:
+  path: /admin/config/system/optimizely/add_update
+  defaults:
+    _form: \Drupal\optimizely\AddUpdateForm
+    _title: Optimizely
+  requirements:
+    _permission: administer optimizely
+
+optimizely.add_update.oid:
+  path: /admin/config/system/optimizely/add_update/{oid}
+  defaults:
+    _controller: \Drupal\optimizely\DoUpdate::buildUpdateForm
+    _title: Optimizely Edit Project
+  requirements:
+    _permission: administer optimizely
+
+optimizely.delete.oid:
+  path: /admin/config/system/optimizely/delete/{oid}
+  defaults:
+    _form: \Drupal\optimizely\DeleteForm
+    _title: Optimizely Delete Project
+  requirements:
+    _permission: administer optimizely
+
+optimizely.settings:
+  path: /admin/config/system/optimizely/settings
+  defaults:
+    _form: \Drupal\optimizely\AccountSettingsForm
+    _title: Optimizely
+  requirements:
+    _permission: administer optimizely
+
+ajax.enable:
+  path: /ajax/optimizely
+  defaults:
+    _controller: \Drupal\optimizely\AjaxEnable::enableDisable
+    _title: Optimizely Administer AJAX
+  requirements:
+    _permission: administer optimizely

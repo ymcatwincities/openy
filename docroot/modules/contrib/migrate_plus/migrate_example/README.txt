@@ -24,7 +24,10 @@ There are two primary components to this example:
 
 1. Migration configuration, in the config/install directory. These YAML files
    describe the migration process and provide the mappings from the source data
-   to Drupal's destination entities.
+   to Drupal's destination entities. The YAML file names are prefixed with
+   'migrate_plus.migration.' (because, reading from right to left, they define
+   "migration" configuration entities, and the configuration entity type is
+   defined by the "migrate_plus" module).
 
 2. Source plugins, in src/Plugin/migrate/source. These are referenced from the
    configuration files, and provide the source data to the migration processing
@@ -38,13 +41,13 @@ the concepts described in a more-or-less narrative form, it is recommended you
 read the files in the following order:
 
 1. migrate_plus.migration_group.beer.yml
-2. migrate.migration.beer_term.yml
+2. migrate_plus.migration.beer_term.yml
 3. BeerTerm.php
-4. migrate.migration.beer_user.yml
+4. migrate_plus.migration.beer_user.yml
 5. BeerUser.php
-6. migrate.migration.beer_node.yml
+6. migrate_plus.migration.beer_node.yml
 7. BeerNode.php
-8. migrate.migration.beer_comment.yml
+8. migrate_plus.migration.beer_comment.yml
 9. BeerComment.php
 
 RUNNING THE MIGRATIONS
