@@ -1,5 +1,5 @@
 daxko.settings:
-  path: '/admin/config/development/daxko'
+  path: '/admin/config/services/daxko'
   defaults:
     _form: '\Drupal\daxko\Form\SettingsForm'
     _title: 'Daxko settings'
