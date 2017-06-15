@@ -121,7 +121,7 @@ class YmcaMindbodyRequestGuard implements YmcaMindbodyRequestGuardInterface, Con
    * @return bool
    *   TRUE if Location ID is correct.
    */
-  private function validateLocation($location_id) {
+  public function validateLocation($location_id) {
     $valid = FALSE;
 
     $locations = $this->proxy->call('SiteService', 'GetLocations');
