@@ -6,16 +6,16 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Layout\LayoutPluginManagerInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a form for configuring a layout for use with the IPE.
- *
  */
 class PanelsIPELayoutForm extends FormBase {
 
@@ -30,7 +30,7 @@ class PanelsIPELayoutForm extends FormBase {
   protected $tempStore;
 
   /**
-   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface
+   * @var \Drupal\Core\Layout\LayoutPluginManagerInterface
    */
   protected $layoutManager;
 
@@ -44,14 +44,14 @@ class PanelsIPELayoutForm extends FormBase {
   /**
    * The current layout.
    *
-   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutBase
+   * @var \Drupal\Core\Layout\LayoutInterface
    */
   protected $layout;
 
   /**
    * Constructs a new PanelsIPEBlockPluginForm.
    *
-   * @param \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface $layout_manager
+   * @param \Drupal\Core\Layout\LayoutPluginManagerInterface $layout_manager
    * @param \Drupal\Core\Render\RendererInterface $renderer
    * @param \Drupal\user\SharedTempStoreFactory $temp_store_factory
    */
@@ -66,7 +66,7 @@ class PanelsIPELayoutForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.layout_plugin'),
+      $container->get('plugin.manager.core.layout'),
       $container->get('renderer'),
       $container->get('user.shared_tempstore')
     );
@@ -114,7 +114,9 @@ class PanelsIPELayoutForm extends FormBase {
     // Save the layout for future use.
     $this->layout = $layout;
 
-    $form['settings'] = $layout->buildConfigurationForm([], $form_state);
+    if ($layout instanceof PluginFormInterface) {
+      $form['settings'] = $layout->buildConfigurationForm([], $form_state);
+    }
     $form['settings']['#tree'] = TRUE;
 
     // If the form is empty, inform the user or auto-submit if they are changing
@@ -122,7 +124,7 @@ class PanelsIPELayoutForm extends FormBase {
     if (empty(Element::getVisibleChildren($form['settings']))) {
       if ($current) {
         $form['settings'][] = [
-          '#markup' => $this->t('<h5>This layout does not provide any configuration.</h5>')
+          '#markup' => $this->t('<h5>This layout does not provide any configuration.</h5>'),
         ];
       }
       else {
@@ -152,10 +154,12 @@ class PanelsIPELayoutForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $layout_form_state = (new FormState())->setValues($form_state->getValue('settings', []));
-    $this->layout->validateConfigurationForm($form, $layout_form_state);
-    // Update the original form values.
-    $form_state->setValue('settings', $layout_form_state->getValues());
+    if ($this->layout instanceof PluginFormInterface) {
+      $layout_form_state = (new FormState())->setValues($form_state->getValue('settings', []));
+      $this->layout->validateConfigurationForm($form, $layout_form_state);
+      // Update the original form values.
+      $form_state->setValue('settings', $layout_form_state->getValues());
+    }
   }
 
   /**
@@ -170,15 +174,15 @@ class PanelsIPELayoutForm extends FormBase {
     $panels_display = $this->panelsDisplay;
 
     // Submit the layout form.
-    $layout_form_state = (new FormState())->setValues($form_state->getValue('settings', []));
-    $this->layout->submitConfigurationForm($form, $layout_form_state);
+    if ($this->layout instanceof PluginFormInterface) {
+      $layout_form_state = (new FormState())->setValues($form_state->getValue('settings', []));
+      $this->layout->submitConfigurationForm($form, $layout_form_state);
+    }
     $layout_config = $this->layout->getConfiguration();
 
     // Shift our blocks to the first available region. The IPE can control
     // re-assigning blocks in a smarter way.
-    $region_definitions = $this->layout->getRegionDefinitions();
-    $region_ids = array_keys($region_definitions);
-    $first_region = reset($region_ids);
+    $first_region = $this->layout->getPluginDefinition()->getDefaultRegion();
 
     // For each block, set the region to match the new layout.
     foreach ($panels_display->getRegionAssignments() as $region => $region_assignment) {
@@ -198,7 +202,7 @@ class PanelsIPELayoutForm extends FormBase {
     $this->panelsDisplay->setLayout($this->layout, $layout_config);
 
     // Update tempstore.
-    $this->tempStore->set($panels_display->id(), $panels_display->getConfiguration());
+    $this->tempStore->set($panels_display->getTempStoreId(), $panels_display->getConfiguration());
 
     $region_data = [];
     $region_content = [];
@@ -209,7 +213,7 @@ class PanelsIPELayoutForm extends FormBase {
       // Wrap the region with a class/data attribute that our app can use.
       $region_name = Html::getClass("block-region-$id");
       $region_content[$id] = [
-        '#prefix' =>'<div class="' . $region_name . '" data-region-name="' . $id . '">',
+        '#prefix' => '<div class="' . $region_name . '" data-region-name="' . $id . '">',
         '#suffix' => '</div>',
       ];
 
@@ -225,7 +229,7 @@ class PanelsIPELayoutForm extends FormBase {
 
     $data = [
       'id' => $this->layout->getPluginId(),
-      'label' => $this->layout->getLabel(),
+      'label' => $this->layout->getPluginDefinition()->getLabel(),
       'current' => TRUE,
       'html' => $this->renderer->render($build),
       'regions' => $region_data,

@@ -1,0 +1,7 @@
+geolocation_dummy_geocoder.geocode:
+  path: '/geolocation_dummy_geocoder/geocode/{address}'
+  defaults:
+    _controller: '\Drupal\geolocation_dummy_geocoder\Controller\DummyGeocoderController::getGeocodedResults'
+    _title: 'Dummy Geocoder Controller'
+  requirements:
+    _permission: 'access content'

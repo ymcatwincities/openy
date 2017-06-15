@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -71,3 +71,5 @@ class Twig_TokenParser_Set extends Twig_TokenParser
         return 'set';
     }
 }
+
+class_alias('Twig_TokenParser_Set', 'Twig\TokenParser\SetTokenParser', false);

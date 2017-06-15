@@ -10,14 +10,14 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command;
-use Drupal\Console\Command\Shared\CommandTrait;
+use Drupal\Console\Core\Command\Shared\CommandTrait;
 use Drupal\Console\Command\Shared\ModuleTrait;
 use Drupal\Console\Command\Shared\FormTrait;
 use Drupal\Console\Command\Shared\ConfirmationTrait;
-use Drupal\Console\Style\DrupalStyle;
+use Drupal\Console\Core\Style\DrupalStyle;
 use Drupal\metatag\Generator\MetatagGroupGenerator;
 use Drupal\Console\Extension\Manager;
-use Drupal\Console\Utils\ChainQueue;
+use Drupal\Console\Core\Utils\ChainQueue;
 
 /**
  * Class GenerateGroupCommand.
@@ -70,7 +70,7 @@ class GenerateGroupCommand extends Command {
    */
   protected function configure() {
     $this
-      ->setName('generate:metatag:group')
+      ->setName('generate:plugin:metatag:group')
       ->setDescription($this->trans('commands.generate.metatag.group.description'))
       ->setHelp($this->trans('commands.generate.metatag.group.help'))
       ->addOption('base_class', '', InputOption::VALUE_REQUIRED,

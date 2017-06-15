@@ -195,6 +195,10 @@ html, body {
   }
 }
 
+.sub-title-grey span {
+  text-transform: none;
+}
+
 .theme-ymca--2017-compain-winners {
   height: 100%;
   position: relative;
@@ -391,7 +395,7 @@ html, body {
 .theme-ymca--2017-compain-upcoming {
   height: 100%;
   position: relative;
-  background: $white url('../prototypes/ysr_2017/img/bg-page-upcoming.jpg') 50% 0 no-repeat;
+  background: none;
 
   .viewport,
   #main {
@@ -416,7 +420,7 @@ html, body {
       background: none;
       height: auto;
       .title {
-        color: $orange-medium;
+        color: $blue-light;
         margin-bottom: 50px ;
         @include rem(font-size, 46px);
         margin-top: 35px;
@@ -441,6 +445,11 @@ html, body {
           @include rem(font-size, 30px);
           margin-bottom: 50px ;
           line-height: 1.2em;
+          text-transform: none;
+          color: #555555;
+        }
+        a:hover, a:focus {
+          text-decoration: none;
         }
       }
       &--content {
@@ -462,3 +471,4 @@ html, body {
   }
 
 }
+

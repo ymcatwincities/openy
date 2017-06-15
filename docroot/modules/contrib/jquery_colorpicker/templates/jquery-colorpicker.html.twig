@@ -1,0 +1,18 @@
+<div class="jquery_colorpicker">
+	<div id="{{ id }}-inner_wrapper" class="inner_wrapper">
+		<div class="color_picker" style="background-color:{{ default_color }};">
+			<span class="hash">#</span><input{{ attributes }} />{{ children }}
+			<div class="description">{{ 'Enter a hexidecimal color value. Enabling javascript will replace this input with a graphical color selector'|t }}</div>
+		</div>
+	</div>
+	{% if show_remove %}
+		<div>
+			<a href="#" class="jquery_field_remove_link">{{ 'Remove'|t }}</a>
+		</div>
+	{% endif %}
+	{% if show_clear %}
+		<div>
+			<a href="#" class="jquery_field_clear_link">{{ 'Clear'|t }}</a>
+		</div>
+	{% endif %}
+</div>

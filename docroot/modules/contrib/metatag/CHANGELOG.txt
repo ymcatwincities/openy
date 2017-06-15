@@ -1,5 +1,64 @@
-Metatag 8.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 8.x-1.1, 2017-05-31
+---------------------------
+#2852737 by DamienMcKenna: Added CodeClimate config files.
+#2853252 by dawehner: Ensure the metatags are ordered correctly.
+#2856454 by dbungard: Improvements to UI text, meta tag descriptions, etc.
+#2781485 by kalpaitch: Changed MetatagManager to use the instance name rather
+  than plugin ID to identify plugin instances.
+By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
+  drupalGet() call, and that all drupalGet() calls have an assertResponse().
+#2858057 by nicrodgers: Wrong default values are displayed in the node form when
+  adding a translation.
+#2855445 by rocket.man: Replace deprecated functions (database functions,
+  format_string()).
+#2851582 by mtodor: Filled out missing attributes on the default configuration.
+#2862277 by DamienMcKenna: Fixed filename of the MsapplicationStartUrl plugin.
+#2864524 by JamesK: Improve field description for the abstract meta tag.
+#2848353 by DamienMcKenna, grisendo: Only output one shortlink tag; extended tag
+  tests to cover an example entity.
+#2706941 by ckaotik, monika.de, DamienMcKenna, mariancalinro, adinac: Allow
+  translations to be longer than 128 characters for tags which use textarea
+  fields.
+#2868750 by DamienMcKenna: List Metatag Cxense as a related module.
+#2563633 by ziomizar, DamienMcKenna, ruloweb: Add all of the Favicon meta tags.
+#2853515 by ohthehugemanatee: Add default handling to metatag manager.
+#2857544 by fjgarlin: Default values not returned on REST default routes.
+#2636852 by Greyside: MetatagToken::replace() options array shouldn't assume the
+  'clear' attribute is always needed.
+By DamienMcKenna: Allow MetatagJsonOutputTest to run.
+#2563633 by ziomizar: Misc fixes for the Favicon meta tags.
+#2563647 by delta, tom_ek, DamienMcKenna, monika.de, ckaotik, martins.bertins,
+  cgmonroe, danquah, blazey, paulmckibben, stijn.blomme, danquah, Alex Bukah,
+  guarav.goyal, kducharm: Views integration.
+#2882769 by DamienMcKenna: List Schema Metatag as a related module.
+#2856416 by DamienMcKenna: List Metatag Google Scholar as a related module.
+#2848543 by DamienMcKenna: Add missing people to README.txt.
+
+
+Metatag 8.x-1.0, 2017-01-31
+---------------------------
+#2841139 by jmolivas: Relocated commands services registration to
+  console.services.yml file.
+#2844429 by DamienMcKenna: There's only one hreflang meta tag so far and it does
+  not yet support custom tokens like the D7 version does.
+#2844504 by DamienMcKenna: Add project names to all dependencies.
+#2563631 by DamienMcKenna: Added all AppLinks meta tags.
+#2841737 by DamienMcKenna: Renamed the DrupalConsole commands.
+#2838175 by dawehner: Allow supported entity routes to be changed through the
+  new hook_metatag_route_entity().
+#2825867 by Grayside: Improve support for the Typed Data API.
+#2649592 by ziomizar, DamienMcKenna: Write tests to cover apostrophe handling.
+By DamienMcKenna: Shortened some verbose variable syntax.
+#2835752 by DamienMcKenna: Improved hook_help().
+#2789511 by DamienMcKenna: It is a known issue that all Metatag fields must be
+  removed prior to uninstalling the module.
+#2809915 by nicxvan, DamienMcKenna: Document how to programmatically assign
+  meta tags when creating entities.
+#2563645 by DamienMcKenna, Michelle: Improved documentation.
+
+
+Metatag 8.x-1.0-beta12, 2017-01-03
+----------------------------------
 #2823811 by Michelle: metatag_open_graph_preprocess_html() was misspelled.
 #2654148 by penyaskito, DamienMcKenna: Not all entity.*.add paths are tied to a
   specific entity form, so don't assume they are; this fixes compatibility with
@@ -21,6 +80,9 @@ By DamienMcKenna: Fixed a typo in README.txt.
   CSE meta tags.
 #2786625 by DamienMcKenna: Follow-up to fix the group assignment of the hreflang
   x-default meta tag.
+#2563635 by jlbellido, DamienMcKenna: Ported all of the mobile meta tags to the
+  new Metatag Mobile submodule.
+#2840222 by jmolivas: Update for Drupal Console rc13 namespace changes.
 
 
 Metatag 8.x-1.0-beta11, 2016-10-31

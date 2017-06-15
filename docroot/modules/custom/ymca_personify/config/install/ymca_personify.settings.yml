@@ -1,27 +1,27 @@
-wsdl: https://ygtcprod2.personifycloud.com/sso/webservice/service.asmx?WSDL
+wsdl: https://account.ymcamn.org/SSO/webservice/service.asmx?wsdl
 vendor_id: 8
 vendor_username: ClockWork
 vendor_password: ***REMOVED***
 vendor_block: ***REMOVED***
-url_login: http://ygtcprod2.personifycloud.com/PersonifyEBusiness/Default.aspx?TabID=337
-url_account: http://ygtcprod2.personifycloud.com/personifyebusiness/MyY/tabid/61/Default.aspx
-url_sign_out: https://ygtcprod2.personifycloud.com/personifyebusiness/MyY/tabid/61/ctl/Logoff/Default.aspx
-url_cart: http://ygtcprod2.personifycloud.com/PersonifyEbusiness/YMCA/ShoppingCart.aspx
+url_login: https://account.ymcamn.org/PersonifyEBusiness/Default.aspx?TabID=337
+url_account: https://account.ymcamn.org/PersonifyEbusiness/MyY/tabid/61/Default.aspx
+url_sign_out: https://account.ymcamn.org/PersonifyEbusiness/MyY/tabid/61/ctl/Logoff/Default.aspx
+url_cart: https://account.ymcamn.org/PersonifyEbusiness/YMCA/ShoppingCart.aspx
 # Sandbox.
 # customer_orders_endpoint: http://ylayer.personifycloud.com/personifydataservices/personifydata.svc/CL_MindBodyCustomerOrder
-# customer_orders_username: FFWUSER
+# customer_orders_username: ***REMOVED***
 # customer_orders_password: ***REMOVED***
 # Train2 environment.
-# customer_orders_endpoint: http://ygtctrain2.personifycloud.com/personifydataservices/PersonifyData.svc/CL_MindBodyCustomerOrder
-# childcare_endpoint: http://ygtctrain2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
+# customer_orders_endpoint: https://account.ymcamn.org/PersonifyDataServices/PersonifyData.svc/CL_MindBodyCustomerOrder
+# childcare_endpoint: https://account.ymcamn.org/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
 # customer_orders_username: ***REMOVED***
 # customer_orders_password: ***REMOVED***
 # Prod environment.
-customer_orders_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder
+customer_orders_endpoint: https://account.ymcamn.org/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder
 customer_orders_username: ***REMOVED***
 customer_orders_password: ***REMOVED***
 childcare_authorization: 'Basic ***REMOVED***'
-childcare_endpoint: http://ygtcprod2.personifycloud.com/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
+childcare_endpoint: http://account.ymcamn.org/PersonifyDataServices/PersonifyData.svc/CL_GetChildcarePayments
 childcare_pdf_address_line1: 2125 E. Hennepin Avenue, Suite 100
 childcare_pdf_address_line2: Minneapolis, MN 55413-2720
 childcare_pdf_tax_id: 45-2563299

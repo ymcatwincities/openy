@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_example\Plugin\migrate\source\BeerNode.
- */
-
 namespace Drupal\migrate_example\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;

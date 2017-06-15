@@ -14,7 +14,7 @@ INSTALLATION
 ------------
 
 Install as usual, see
-https://drupal.org/documentation/install/modules-themes/modules-7 for further
+ https://www.drupal.org/docs/8/extending-drupal-8/installing-contributed-modules-find-import-enable-configure-drupal-8 for further
 information.
 
 

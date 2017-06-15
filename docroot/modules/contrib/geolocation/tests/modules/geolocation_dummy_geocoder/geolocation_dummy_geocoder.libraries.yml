@@ -1,0 +1,6 @@
+geocoder:
+  version: 8.x-1.x
+  js:
+    js/geolocation-dummy-geocoder.js: {}
+  dependencies:
+    - geolocation/geolocation.geocoder

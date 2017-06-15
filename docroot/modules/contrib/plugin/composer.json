@@ -1,0 +1,19 @@
+{
+  "name": "drupal/plugin",
+  "type": "drupal-module",
+  "license": "GPL-2.0",
+  "autoload": {
+    "psr-4": {
+      "Drupal\\plugin\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Drupal\\Tests\\plugin\\": "tests/src"
+    }
+  },
+  "require" : {
+    "php": "~5.5|~7.0",
+    "drupal/core": "~8.0 || >= 8.0.5"
+  }
+}
