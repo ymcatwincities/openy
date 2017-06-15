@@ -831,7 +831,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     $locations = $this->getLocations();
     $data = [];
     foreach ($locations as $location_id => $location_name) {
-      $link = $this->getUrlFromOpenyProgramsSearchSettings('get_schools_by_program_path', ['{{ branch_id }}' => $location_id]);
+      $link = $this->getUrlFromOpenyProgramsSearchSettings('get_map_categories_by_branch_path', ['{{ branch_id }}' => $location_id]);
       $data[$location_id] = $this->scrapeCategoryList($link);
     }
 

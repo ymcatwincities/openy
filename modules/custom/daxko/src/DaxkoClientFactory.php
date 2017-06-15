@@ -34,7 +34,7 @@ class DaxkoClientFactory implements DaxkoClientFactoryInterface {
    * {@inheritdoc}
    */
   public function get() {
-    $settings = $this->configFactory->get('openy_programs_search.settings');
+    $settings = $this->configFactory->get('daxko.settings');
     $url = $settings->get('base_uri') . $settings->get('client_id') . '/';
     $config = [
       'base_uri' => $url,
