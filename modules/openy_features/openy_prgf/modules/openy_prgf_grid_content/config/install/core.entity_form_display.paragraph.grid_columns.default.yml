@@ -22,14 +22,14 @@ content:
     weight: 2
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide a "Font Awesome" icon mane, e.g. flag, car, info. Overrides image Icon.'
     third_party_settings: {  }
     type: string_textfield
   field_prgf_clm_headline:
     weight: 0
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide title here'
     third_party_settings: {  }
     type: string_textfield
   field_prgf_clm_icon:
@@ -48,8 +48,8 @@ content:
   field_prgf_clm_link:
     weight: 4
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: '/subpage_uri'
+      placeholder_title: 'Subpage title'
     third_party_settings: {  }
     type: link_default
   field_prgf_grid_clm_description:
