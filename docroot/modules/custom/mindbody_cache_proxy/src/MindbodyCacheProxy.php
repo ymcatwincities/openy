@@ -108,7 +108,7 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
     // There is no cache. Make the call and create cache item.
     $config = $this->configFactory->get('mindbody_cache_proxy.settings');
 
-    // Secondary endpoints should not check whether there are free API calls.
+    // Secondary endpoints should check whether there are free API calls via JSON api.
     if (empty($config->get('primary'))) {
       $status_endpoint = rtrim($config->get('endpoint'), '/');
       $token = $config->get('token');
@@ -127,6 +127,11 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
       }
       catch (RequestException $e) {
         throw new MindbodyCacheProxyException('Failed to get response from MindBody status endpoint.');
+      }
+    }
+    else {
+      if (FALSE === $this->getStatus()) {
+        throw new MindbodyCacheProxyException('The number of free API calls has been exceeded.');
       }
     }
 
@@ -158,6 +163,23 @@ class MindbodyCacheProxy implements MindbodyCacheProxyInterface {
     $this->updateStats('miss');
 
     return $result;
+  }
+
+  /**
+   * Get status.
+   *
+   * @return bool
+   *   TRUE if there are free API calls, and FALSE if there are no free calls.
+   */
+  public function getStatus() {
+    $stats = $this->state->get('mindbody_cache_proxy');
+    $calls = $this->configFactory->get('mindbody_cache_proxy.settings')->get('calls');
+
+    if ($stats->miss >= $calls) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
   /**

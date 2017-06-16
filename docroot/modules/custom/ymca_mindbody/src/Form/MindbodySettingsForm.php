@@ -36,13 +36,6 @@ class MindbodySettingsForm extends ConfigFormBase {
       '#default_value' => !empty($config->get('disabled_form_block_id')) ? $config->get('disabled_form_block_id') : '',
     );
 
-    $form['max_requests'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Max MindBody requests'),
-      '#default_value' => !empty($config->get('max_requests')) ? $config->get('max_requests') : '',
-      '#description' => $this->t('The maximum number of MindBody API requests allowed.'),
-    );
-
     $form['hide_time'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('Hide interval (minutes)'),
@@ -74,7 +67,6 @@ class MindbodySettingsForm extends ConfigFormBase {
     $values = $form_state->getValues();
     $this->config('ymca_mindbody.settings')
       ->set('disabled_form_block_id', $values['disabled_form_block_id'])
-      ->set('max_requests', $values['max_requests'])
       ->set('pt_form_disabled', $values['pt_form_disabled'])
       ->set('hide_time', $values['hide_time'])
       ->set('failed_orders_recipients', $values['failed_orders_recipients'])
