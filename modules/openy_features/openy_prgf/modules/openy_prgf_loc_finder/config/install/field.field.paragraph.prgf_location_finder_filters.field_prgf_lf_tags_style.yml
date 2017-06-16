@@ -11,7 +11,7 @@ field_name: field_prgf_lf_tags_style
 entity_type: paragraph
 bundle: prgf_location_finder_filters
 label: 'Tags style'
-description: ''
+description: 'Tags style that will be used for map tags filter. Default - checkboxes. Second option is multiselect widget with checkboxes.'
 required: true
 translatable: false
 default_value:

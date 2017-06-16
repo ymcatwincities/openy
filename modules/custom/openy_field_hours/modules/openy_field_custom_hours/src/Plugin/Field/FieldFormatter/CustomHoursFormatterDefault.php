@@ -82,7 +82,7 @@ class CustomHoursFormatterDefault extends FormatterBase implements ContainerFact
       $elements[$delta] = [
         'title' => [
           '#type' => 'html_tag',
-          '#tag' => 'h5',
+          '#tag' => 'h4',
           '#value' => $label,
         ],
         'table' => [
