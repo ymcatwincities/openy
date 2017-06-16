@@ -492,7 +492,7 @@ class MindbodyPTForm extends FormBase {
         );
       }
     }
-    catch (MindbodyException $e) {
+    catch (\Exception $e) {
       $form['disabled'] = $this->resultsSearcher->getDisabledMarkup();
       $this->logger->error('Failed to build the form. Message: %msg', ['%msg' => $e->getMessage()]);
     }
