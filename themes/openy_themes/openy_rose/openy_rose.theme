@@ -30,6 +30,9 @@ function openy_rose_preprocess_paragraph(array &$variables) {
     $function = __FUNCTION__ . '_' . $variables['paragraph']->bundle();
     $function($variables);
   }
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    $variables['label'] = $node->title->value;
+  }
 }
 
 /**
