@@ -11,7 +11,7 @@
       {% if result.price %}
         <div class="price">
           <h4>{{ 'Membership price:'|t }}</h4>
-          <h2>${{ result.price.monthly_rate }}/{{ 'month'|t }}</h2>
+          <div class="price-month">${{ result.price.monthly_rate }}/{{ 'month'|t }}</div>
           <div>+ ${{ result.price.join_fee }} {{ 'one time joining fee'|t }}</div>
         </div>
       {% else %}
