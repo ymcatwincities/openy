@@ -57,4 +57,5 @@ class AddressBranchFormatter extends AddressPlainFormatter {
 
     return $element;
   }
+
 }
