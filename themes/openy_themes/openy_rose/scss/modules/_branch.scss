@@ -919,7 +919,7 @@ html.js {
     > span {
       display: block;
     }
-    .location-title {
+    .location-item--title {
       display: inline-block;
       a {
         color: $purple;
@@ -937,7 +937,7 @@ html.js {
     height: auto;
     min-height: auto;
   }
-  .location-title {
+  .location-item--title {
     font-size: 22px;
     @include cachet();
     font-weight: bold;
