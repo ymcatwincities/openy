@@ -101,7 +101,9 @@ body {
       line-height: 20px;
       color: $white;
       text-shadow: none;
-      margin-right: 5px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      margin: 4px 5px;
       &:hover {
         background-color: #9c1f7b;
       }
