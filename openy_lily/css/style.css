@@ -5265,6 +5265,7 @@ a.sports-icon.floor-hockey {
 }
 
 .paragraph--type--faq {
+  margin-top: 10px;
   margin-bottom: 5px;
   background-color: #fff;
   border: 1px solid #a3a4a6;
