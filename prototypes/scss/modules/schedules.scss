@@ -23,6 +23,7 @@
     width: 32%;
     @include breakpoint(mobileonly) {
       width: 49%;
+      padding-bottom: 55px;
     }
     &:nth-child(3n+2) {
       margin: 0 2%;
@@ -43,14 +44,20 @@
     @include cachet();
     color: $purple;
     font-size: 18px;
-    margin-bottom: 10px;
-    padding-left: 15px;
+    .hh-mm {
+      display: inline-block;
+      min-width: 69px;
+    }
     .duration {
       font-size: 16px;
       color: $pink;
+      white-space: nowrap;
+      word-wrap: normal;
     }
     @include breakpoint(tablet) {
       font-size: 30px;
+      padding-left: 15px;
+      margin-bottom: 10px;
     }
   }
   .card {
@@ -71,6 +78,7 @@
       line-height: 1;
       margin: 15px 0;
       white-space: normal;
+      word-wrap: break-word;
       a {
         color: $blue;
       }
