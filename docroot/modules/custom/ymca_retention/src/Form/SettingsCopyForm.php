@@ -80,6 +80,7 @@ class SettingsCopyForm extends ConfigFormBase {
     // Create 3 info blocks.
     for ($i = 1; $i < 4; $i++) {
       $name = "info_block_{$i}";
+
       // Intro Tab Info Block.
       $form['retention_intro'][$name] = [
         '#type' => 'fieldset',
@@ -110,13 +111,56 @@ class SettingsCopyForm extends ConfigFormBase {
         '#weight' => -2,
       ];
 
+      $link_type = [
+        $this->t('< Select One >'),
+        1 => $this->t('Link'),
+        2 => $this->t('Tab'),
+      ];
+      $form['retention_intro'][$name]["{$name}_link_type"] = array(
+        '#type' => 'select',
+        '#title' => t('Link Type'),
+        '#default_value' => $config->get("{$name}_link_type"),
+        '#options' => $link_type,
+        '#description' => t('Select whether the image should be linked to a tab or an internal URL.'),
+        '#weight' => -1,
+      );
+
       $form['retention_intro'][$name]["{$name}_link"] = [
         '#type' => 'textfield',
         '#title' => $this->t('Link'),
         '#default_value' => $config->get("{$name}_link"),
         '#description' => $this->t('The link of info block @n to apply to the image.', ['@n' => $i]),
-        '#weight' => -1,
+        '#states' => [
+          'visible' => [
+            "select[name={$name}_link_type]" => ['value' => 1],
+          ],
+          'required' => [
+            "select[name={$name}_link_type]" => ['value' => 1],
+          ],
+        ],
+        '#weight' => 0,
         '#element_validate' => [[get_called_class(), 'validateUrl']],
+      ];
+
+      $tabs = [];
+      for ($k = 1; $k < 6; $k++) {
+        $tabs[$k] = $k;
+      }
+      $form['retention_intro'][$name]["{$name}_tab"] = [
+        '#type' => 'select',
+        '#title' => $this->t('Tab'),
+        '#default_value' => $config->get("{$name}_tab"),
+        '#options' => $tabs,
+        '#description' => $this->t('The tab of info block @n to apply to the image.', ['@n' => $i]),
+        '#states' => [
+          'visible' => [
+            "select[name={$name}_link_type]" => ['value' => 2],
+          ],
+          'required' => [
+            "select[name={$name}_link_type]" => ['value' => 2],
+          ],
+        ],
+        '#weight' => 1,
       ];
 
       // Use the #managed_file FAPI element to upload an image file.
@@ -132,7 +176,7 @@ class SettingsCopyForm extends ConfigFormBase {
           'file_validate_size' => [25600000],
         ],
         '#upload_location' => 'public://ymca_retention/',
-        '#weight' => 0,
+        '#weight' => 2,
       ];
     }
 
@@ -260,11 +304,28 @@ class SettingsCopyForm extends ConfigFormBase {
     for ($i = 1; $i < 4; $i++) {
       $name = "info_block_{$i}";
       $fid = $form_state->getValue("{$name}_img");
+      $link_type = $form_state->getValue("{$name}_link_type");
+
       $config
         ->set("{$name}_header", $form_state->getValue("{$name}_header"))
         ->set("{$name}_copy", $form_state->getValue("{$name}_copy"))
-        ->set("{$name}_link", $form_state->getValue("{$name}_link"))
+        ->set("{$name}_link_type", $link_type)
         ->set("{$name}_img", $fid);
+
+      switch ($link_type) {
+        case 1:
+          $config
+            ->set("{$name}_link", $form_state->getValue("{$name}_link"))
+            ->set("{$name}_tab", '');
+          break;
+
+        case 2:
+          $config
+            ->set("{$name}_link", '')
+            ->set("{$name}_tab", $form_state->getValue("{$name}_tab"));
+          break;
+
+      }
 
       if (!empty($fid) && is_array($fid)) {
         // Load the file via file.fid.
