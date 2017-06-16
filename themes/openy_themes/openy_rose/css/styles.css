@@ -5372,6 +5372,20 @@ a[href="#step2"] {
   display: none;
 }
 
+.price-month {
+  font-size: 36px;
+  font-family: "Cachet W01 Book", "Ubuntu Condensed", sans-serif;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+
+.field-branch-hours h4 {
+  font-size: 14px;
+}
+
 .camp-menu {
   height: 50px;
   height: 5rem;
