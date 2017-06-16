@@ -54,20 +54,6 @@ class MindBodyEndPointController extends ControllerBase {
   }
 
   /**
-   * Get status.
-   */
-  protected function getStatus() {
-    $stats = $this->state()->get('mindbody_cache_proxy');
-    $calls = $this->config('mindbody_cache_proxy.settings')->get('calls');
-
-    if ($stats->miss >= $calls) {
-      return FALSE;
-    }
-
-    return TRUE;
-  }
-
-  /**
    * Provides "status" endpoint.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -76,7 +62,7 @@ class MindBodyEndPointController extends ControllerBase {
     // We should increment 'miss' count each time endpoint accessed.
     $this->cacheProxy->updateStats('miss');
 
-    $result = ['status' => $this->getStatus()];
+    $result = ['status' => $this->cacheProxy->getStatus()];
     return new JsonResponse($result);
   }
 
