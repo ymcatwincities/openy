@@ -1015,12 +1015,12 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 }
 @media (min-width: 0) and (max-width: 75em) {
   .path-frontpage .masthead .masthead-brand {
-    font-size: 58px;
+    font-size: 50px;
   }
 }
 @media (min-width: 0) and (max-width: 62em) {
   .path-frontpage .masthead .masthead-brand {
-    font-size: 44px;
+    font-size: 40px;
   }
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
