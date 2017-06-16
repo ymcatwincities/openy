@@ -27,6 +27,11 @@ class Introduction extends BlockBase {
       'intro_reg_btn' => $config->get('intro_reg_btn'),
     ];
 
+    // Ensure the 'intro_reg_btn' contains a value.
+    if (empty($content['intro_reg_btn'])) {
+      $content['intro_reg_btn'] = $this->t("Sign Up Now");
+    }
+
     // Handled the formatted body text.
     $intro_body = $config->get('intro_body');
     $content['intro_body'] = [
@@ -39,7 +44,9 @@ class Introduction extends BlockBase {
       $name = "info_block_{$i}";
       $content['info_blocks'][$name] = [
         'header' => $config->get("{$name}_header"),
+        'link_type' => $config->get("{$name}_link_type"),
         'link' => $config->get("{$name}_link"),
+        'tab' => $config->get("{$name}_tab"),
       ];
 
       $body = $config->get("{$name}_copy");
@@ -52,6 +59,7 @@ class Introduction extends BlockBase {
       if ($fid && $file = file_load($fid)) {
         $content['info_blocks'][$name]['img'] = $file->getFileUri();
       }
+    }
 
     return [
       '#theme' => 'ymca_retention_introduction',
