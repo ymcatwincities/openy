@@ -62,11 +62,8 @@
       .today {
         margin-right: 10px;
       }
-      .show-link,
-      .hide-link {
-        @include cachet();
-      }
       .branch-hours {
+        display: none;
         position: absolute;
         top: 120%;
         background: $pink;
@@ -79,6 +76,32 @@
           &:first-child {
             white-space: nowrap;
           }
+        }
+      }
+      .dropdown-toggle {
+        @include cachet();
+        position: relative;
+        z-index: 0;
+        span{
+          pointer-events: none;
+          position: relative;
+          z-index: -1;
+        }
+        .hide-text {
+          display: none;
+        }
+      }
+      &.open {
+        .dropdown-toggle {
+          .show-text {
+            display: none;
+          }
+          .hide-text {
+            display: inline;
+          }
+        }
+        .branch-hours {
+          display: block;
         }
       }
     }
@@ -209,14 +232,37 @@
         .today {
           margin-right: 10px;
         }
-        .show-link,
-        .hide-link {
-          color: $light-grey;
-        }
         .branch-hours {
+          display: none;
           padding: 20px 0 12px;
           td {
             padding: 4px 10px 0 2px;
+          }
+        }
+        .dropdown-toggle {
+          color: $light-grey;
+          position: relative;
+          z-index: 0;
+          span{
+            pointer-events: none;
+            position: relative;
+            z-index: -1;
+          }
+          .hide-text {
+            display: none;
+          }
+        }
+        &.open {
+          .dropdown-toggle {
+            .show-text {
+              display: none;
+            }
+            .hide-text {
+              display: inline;
+            }
+          }
+          .branch-hours {
+            display: block;
           }
         }
       }
@@ -770,7 +816,7 @@ html.js {
       margin: -10px -10px -10px 10px;
     }
   }
-  
+
   .zip-code,
   .distance {
     @include breakpoint(0 $screen-xs) {
@@ -849,6 +895,11 @@ html.js {
       display: block;
     }
   }
+  .field-branch-hours {
+    h4 {
+      font-size: 14px;
+    }
+  }
 }
 
 .node--type-facility.node--view-mode-teaser,
@@ -868,7 +919,7 @@ html.js {
     > span {
       display: block;
     }
-    h2 {
+    .location-item--title {
       display: inline-block;
       a {
         color: $purple;
@@ -886,13 +937,19 @@ html.js {
     height: auto;
     min-height: auto;
   }
-  h2 {
+  .location-item--title {
     font-size: 22px;
     @include cachet();
-    margin: 20px 0 33px;
     font-weight: bold;
     .marker_tooltip & {
       margin: 0 0 5px;
+    }
+    &+.node__content {
+      margin: 33px 0 0;
+    }
+    &+.field-location-area,
+    &+.field-location-state {
+      margin: 20px 0 33px;
     }
   }
   .branch-hours {
