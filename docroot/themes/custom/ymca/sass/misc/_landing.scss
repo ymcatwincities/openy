@@ -2,8 +2,9 @@
 @import '../bootstrap/variables';
 article.node--type-landing-page {
   background-color: #f3f3f3;
-  padding: 10px 0;
-  @include breakpoint($screen-tablet) {
-    padding: 40px 0;
+}
+.paragraph-70-30-columns {
+  &.lead-copy {
+    background: #e5e5e5;
   }
 }

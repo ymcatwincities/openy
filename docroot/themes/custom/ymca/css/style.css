@@ -7429,12 +7429,10 @@ body.landing-template-full-width-images .lead-copy .right h3, body.landing-templ
 
 article.node--type-landing-page {
   background-color: #f3f3f3;
-  padding: 10px 0;
 }
-@media (min-width: 48em) {
-  article.node--type-landing-page {
-    padding: 40px 0;
-  }
+
+.paragraph-70-30-columns.lead-copy {
+  background: #e5e5e5;
 }
 
 .toolbar-fixed .navbar-fixed-top {
@@ -10802,12 +10800,12 @@ tr:nth-last-child(3) .atcb-list {
   border-top: 2px solid #c6168d;
   box-shadow: 5px 5px 10px #ececec;
   padding: 30px 25px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   width: 100%;
 }
 @media (min-width: 48em) {
   .block-description--text {
-    margin: 0 15px 40px;
+    margin: 40px 15px 0;
     padding: 35px 35px 45px 45px;
   }
 }
