@@ -76,6 +76,14 @@
     }
   };
 
+  Drupal.behaviors.removeAriaDescribedby = {
+    attach: function (context, settings) {
+      $('.slick__slide', context).once().each(function () {
+        $(this).removeAttr('aria-describedby');
+      });
+    }
+  };
+
   Drupal.behaviors.removeAriaLive = {
     attach: function (context, settings) {
       $('.slick-list', context).once().each(function () {
