@@ -17,5 +17,7 @@ function openy_block_menu_update_8001() {
       'field.field.block_content.menu_block.field_menu_block_text_color',
       'field.storage.block_content.field_menu_block_color',
       'field.storage.block_content.field_menu_block_text_color',
+      'core.entity_form_display.block_content.menu_block.default',
+      'core.entity_view_display.block_content.menu_block.default',
     ]);
 }
