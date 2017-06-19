@@ -62,7 +62,12 @@ a[href="#step2"] {
     }
   }
   input[name="type"] {
-    display: none;
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    word-wrap: normal;
   }
   .membership-type {
     margin: 0 0 20px 0;
