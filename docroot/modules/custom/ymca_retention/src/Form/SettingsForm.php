@@ -153,7 +153,6 @@ class SettingsForm extends ConfigFormBase {
 
     $form['error_msg_excluded_members'] = [
       '#type' => 'text_format',
-      // '#type' => 'textarea',
       '#title' => $this->t('Excluded Members Error'),
       '#default_value' => $config->get('error_msg_excluded_members')['value'],
       '#format' => $config->get('error_msg_excluded_members')['format'],
@@ -168,11 +167,8 @@ class SettingsForm extends ConfigFormBase {
    *
    * @param string $option
    *   The option value entered by the user.
-   *
-   * @return string
-   *   The error message if the specified value is invalid, NULL otherwise.
    */
-  protected static function validateAllowedValue($option) { }
+  protected static function validateAllowedValue($option) {}
 
   /**
    * Simplifies allowed values to a key-value array from the structured array.
@@ -193,8 +189,6 @@ class SettingsForm extends ConfigFormBase {
    *
    * @param string $string
    *   The raw string to extract values from.
-   * @param bool $has_data
-   *   The current field already has data inserted or not.
    *
    * @return array|null
    *   The array of extracted key/value pairs, or NULL if the string is invalid.
@@ -222,12 +216,6 @@ class SettingsForm extends ConfigFormBase {
       elseif (!static::validateAllowedValue($text)) {
         $key = $value = $text;
         $explicit_keys = TRUE;
-      }
-      // Otherwise see if we can generate a key from the position.
-      elseif (!$has_data) {
-        $key = (string) $position;
-        $value = $text;
-        $generated_keys = TRUE;
       }
       else {
         return;
