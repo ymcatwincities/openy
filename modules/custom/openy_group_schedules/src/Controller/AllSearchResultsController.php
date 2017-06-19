@@ -6,29 +6,65 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Implements AllSearchResultsController.
  */
-class AllSearchResultsController extends ControllerBase {
+class AllSearchResultsController extends ControllerBase implements ContainerInjectionInterface {
+
+  /**
+   * Current request.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
+   * Gropex pro schedule fetcher
+   *
+   * @var \Drupal\openy_group_schedules\GroupexScheduleFetcher
+   */
+  protected $scheduleFetcher;
+
+  /**
+   * Constructs All Search Results.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   Current request.
+   */
+  public function __construct(Request $request, $scheduleFetcher) {
+    $this->request = $request;
+    $this->scheduleFetcher = $scheduleFetcher;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('openy_group_schedules.schedule_fetcher')
+    );
+  }
 
   /**
    * Show the page.
    */
   public function pageView() {
     // It catches cases with old arguments and redirect to this page without arguments.
-    // @var  \Symfony\Component\HttpFoundation\Request $request
-    $request = \Drupal::request();
-    $query = $request->query->all();
-    if ($request->getMethod() == 'GET') {
+    $query = $this->request->query->all();
+    if ($this->request->getMethod() == 'GET') {
       return $this->redirect('openy_group_schedules.all_schedules_search');
     }
 
     // Get classes schedules.
-    $schedule = \Drupal::service('openy_group_schedules.schedule_fetcher')->getSchedule();
+    $schedule = $this->scheduleFetcher->getSchedule();
 
     $formatted_results = $this->t('No results. Please try again.');
-    if (!$empty_results = \Drupal::service('openy_group_schedules.schedule_fetcher')->isEmpty()) {
+    if (!$empty_results = $this->scheduleFetcher->isEmpty()) {
       $formatted_results = openy_group_schedules_schedule_table_layout($schedule);
     }
 

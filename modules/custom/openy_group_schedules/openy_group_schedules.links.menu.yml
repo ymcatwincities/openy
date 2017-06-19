@@ -1,0 +1,5 @@
+openy_group_schedules.settings:
+  title: 'OpenY group schedules settings (Groupex)'
+  route_name: openy_group_schedules.settings
+  description: 'Configure Groupex settings'
+  parent: system.admin_structure

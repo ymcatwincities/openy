@@ -349,9 +349,11 @@ function openy_update_8026() {
  * Enable GroupEx Pro related modules.
  */
 function openy_update_8027() {
-  // Enable module.
+  // Enable modules.
   \Drupal::service('module_installer')->install([
     'openy_group_schedules',
+  ]);
+  \Drupal::service('module_installer')->install([
     'openy_prgf_group_schedules',
   ]);
 }

@@ -4,6 +4,7 @@ namespace Drupal\openy_group_schedules;
 
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Url;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Fetches and prepares Groupex data.
@@ -76,15 +77,25 @@ class GroupexScheduleFetcher {
   protected $groupexHelper;
 
   /**
+   * The configuration factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * GroupexScheduleFetcher constructor.
    *
    * @param GroupexHelper $groupex_helper
    *   The Groupex helper.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
    * @param null|array $parameters
    *   Parameters.
    */
-  public function __construct(GroupexHelper $groupex_helper, $parameters = NULL) {
+  public function __construct(GroupexHelper $groupex_helper, ConfigFactoryInterface $config_factory, $parameters = NULL) {
     $this->groupexHelper = $groupex_helper;
+    $this->configFactory = $config_factory;
 
     empty($parameters) ? $parameters = \Drupal::request()->query->all() : '';
     $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
@@ -109,10 +120,13 @@ class GroupexScheduleFetcher {
       return $this->schedule;
     }
 
+    $conf = $this->configFactory->get('openy_group_schedules.settings');
+    $days_range = is_numeric($conf->get('days_range')) ? $conf->get('days_range') : 14;
+
     $filter_date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
     $current_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
     // Define end date of shown items as 2 weeks.
-    $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * 14, $this->timezone);
+    $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * $days_range, $this->timezone);
 
     // Prepare classes items.
     $items = [];

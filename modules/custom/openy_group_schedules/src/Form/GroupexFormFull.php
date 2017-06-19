@@ -13,6 +13,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openy_group_schedules\GroupexScheduleFetcher;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Implements Groupex Full Form.
@@ -55,6 +56,27 @@ class GroupexFormFull extends GroupexFormBase {
   protected $groupexHelper;
 
   /**
+   * Page context service.
+   *
+   * @var \Drupal\openy_page_context\PageContextService
+   */
+  protected $pageContext;
+
+  /**
+   * Gropex pro schedule fetcher
+   *
+   * @var \Drupal\openy_group_schedules\GroupexScheduleFetcher
+   */
+  protected $scheduleFetcher;
+
+  /**
+   * The configuration factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * GroupexFormFull constructor.
    *
    * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
@@ -65,9 +87,14 @@ class GroupexFormFull extends GroupexFormBase {
    *   The entity type manager.
    * @param \Drupal\openy_group_schedules\GroupexHelper $groupex_helper
    *   The Groupex helper.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
    */
-  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper) {
+  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper, $pagecontext, $scheduleFetcher, ConfigFactoryInterface $config_factory) {
     $this->groupexHelper = $groupex_helper;
+    $this->pageContext = $pagecontext;
+    $this->scheduleFetcher = $scheduleFetcher;
+    $this->configFactory = $config_factory;
 
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
@@ -121,7 +148,10 @@ class GroupexFormFull extends GroupexFormBase {
       $container->get('entity.query'),
       $container->get('entity_type.manager'),
       $container->get('logger.factory'),
-      $container->get('openy_group_schedules.helper')
+      $container->get('openy_group_schedules.helper'),
+      $container->get('pagecontext.service'),
+      $container->get('openy_group_schedules.schedule_fetcher'),
+      $container->get('config.factory')
     );
   }
 
@@ -139,6 +169,9 @@ class GroupexFormFull extends GroupexFormBase {
     $values = $form_state->getValues();
     $state = $this->state;
     $formatted_results = NULL;
+    $conf = $this->configFactory->get('openy_group_schedules.settings');
+    $days_range = is_numeric($conf->get('days_range')) ? $conf->get('days_range') : 14;
+    $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
 
     // Set location if value passed through form builder.
     if (is_numeric($locations)) {
@@ -148,7 +181,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     // Check if form printed on specific Location Schedules page.
     if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
-      if ($site_section = \Drupal::service('pagecontext.service')->getContext()) {
+      if ($site_section = $this->pageContext->getContext()) {
         $mapping_id = \Drupal::entityQuery('mapping')
           ->condition('type', 'location')
           ->condition('field_location_ref', $site_section->id())
@@ -250,7 +283,7 @@ class GroupexFormFull extends GroupexFormBase {
     ];
 
     $date_options = [];
-    for ($i = 0; $i < 14; $i++) {
+    for ($i = 0; $i < $days_range; $i++) {
       $time = REQUEST_TIME + $i * 86400;
       $dateKey = date('n/d/y', $time);
       $dateTitle = date('D, m/d', $time);
@@ -274,7 +307,7 @@ class GroupexFormFull extends GroupexFormBase {
         ],
       ],
       '#cache' => [
-        'max-age' => 3600,
+        'max-age' => $max_age,
       ],
       '#weight' => -2,
     ];
@@ -464,13 +497,13 @@ class GroupexFormFull extends GroupexFormBase {
       unset($parameters['view_mode']);
     }
 
-    \Drupal::service('openy_group_schedules.schedule_fetcher')->__construct($this->groupexHelper, $parameters);
+    $this->scheduleFetcher->__construct($this->groupexHelper, $parameters);
 
     // Get classes schedules.
-    $schedule = \Drupal::service('openy_group_schedules.schedule_fetcher')->getSchedule();
+    $schedule = $this->scheduleFetcher->getSchedule();
     // Are results empty?
     $formatted_results = $this->t('No results. Please try again.');
-    if (!$empty_results = \Drupal::service('openy_group_schedules.schedule_fetcher')->isEmpty()) {
+    if (!$empty_results = $this->scheduleFetcher->isEmpty()) {
       // Format results as table view.
       $formatted_results = openy_group_schedules_schedule_table_layout($schedule);
     }

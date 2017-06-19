@@ -3,7 +3,6 @@ description: 'Group Schedules paragraph.'
 type: module
 core: 8.x
 dependencies:
-  - datalayer
   - field
   - openy_group_schedules
   - paragraphs
