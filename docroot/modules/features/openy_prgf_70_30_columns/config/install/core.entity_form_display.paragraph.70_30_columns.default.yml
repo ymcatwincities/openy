@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.70_30_columns.field_prgf_70_30_left
+    - field.field.paragraph.70_30_columns.field_prgf_70_30_right
+    - paragraphs.paragraphs_type.70_30_columns
+id: paragraph.70_30_columns.default
+targetEntityType: paragraph
+bundle: 70_30_columns
+mode: default
+content:
+  field_prgf_70_30_left:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_prgf_70_30_right:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
