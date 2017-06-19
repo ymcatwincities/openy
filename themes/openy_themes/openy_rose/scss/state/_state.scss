@@ -1,3 +1,4 @@
-a:focus {
-  outline-color: #69ff00;
+a:focus,
+.dropdown-toggle:focus {
+  outline: 5px auto #69ff00;
 }
