@@ -303,3 +303,18 @@ function openy_rose_set_theme_file_usage(FileInterface $file) {
 function openy_rose_theme_suggestions_radios_alter(array &$suggestions, array $variables, $hook) {
   $suggestions[] = 'radios__' . $variables['element']['#name'];
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * @param array $suggestions
+ * @param array $variables
+ * @param $hook
+ */
+function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $variables, $hook) {
+  $types = [];
+  foreach ($variables['element']['#items'] as $item) {
+    $types[] = 'slick__' . $item['slide']['#node']->bundle();
+  }
+  $suggestions += array_unique($types);
+}
