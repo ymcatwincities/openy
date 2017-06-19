@@ -5730,4 +5730,8 @@ html.js .flag-waiting .flag-throbber {
   border-radius: 0;
 }
 
+a:focus {
+  outline-color: #69ff00;
+}
+
 /*# sourceMappingURL=styles.css.map */
