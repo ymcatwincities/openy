@@ -348,6 +348,7 @@ class MemberRegisterForm extends FormBase {
     if (empty($personify_member)) {
       // Get information about member from Personify and validate entered membership ID.
       $personify_result = PersonifyApi::getPersonifyMemberInformation($membership_id);
+      $excluded_members = $settings->get('exclude_reg_product_codes');
       if (empty($personify_result)
         || !empty($personify_result->ErrorMessage)
         || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0
@@ -357,6 +358,12 @@ class MemberRegisterForm extends FormBase {
       }
       elseif ($config['yteam'] && empty($personify_result->PrimaryEmail)) {
         $form_state->setErrorByName('membership_id', $this->t('Sorry, we don\'t have email address to register this user.'));
+        return;
+      }
+      elseif (in_array($personify_result->ProductCode, $excluded_members)) {
+        $error = $settings->get('error_msg_excluded_members');
+        $msg = check_markup($error['value'], $error['format']);
+        $form_state->setErrorByName('membership_id', $msg);
         return;
       }
       else {
