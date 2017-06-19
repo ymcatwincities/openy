@@ -191,22 +191,5 @@ function openy_loc_branch_update_8006() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
     'core.entity_view_display.node.branch.facility',
-    'core.entity_view_mode.node.facility',
   ]);
-
-  // Update multiple configurations.
-  $configs = [
-    'core.entity_view_display.node.facility.full' => [
-      'dependencies.config',
-      'content.field_facility_loc.settings.view_mode'
-    ],
-  ];
-
-  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
-  foreach ($configs as $config_name => $params) {
-    $config = $config_dir . $config_name . '.yml';
-    foreach ($params as $param) {
-      $config_updater->update($config, $config_name, $param);
-    }
-  }
 }
