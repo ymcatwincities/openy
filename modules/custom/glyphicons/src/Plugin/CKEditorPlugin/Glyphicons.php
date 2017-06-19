@@ -35,7 +35,10 @@ class Glyphicons extends CKEditorPluginBase {
   public function getConfig(Editor $editor) {
     return [
       'allowedContent' => TRUE,
-      'contentsCss' => '/libraries/glyphicons/css/style.css',
+      'contentsCss' => [
+        '/libraries/glyphicons/css/style.css',
+        '/' . drupal_get_path('module', 'glyphicons') . '/css/wysiwyg.css'
+      ],
     ];
   }
 
