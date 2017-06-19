@@ -19,7 +19,7 @@ source:
       id: homepage_banner
       parent_id: homepage
       headline: 'Explore the Open Y!'
-      color: 15
+      color: 14
       image: homepage_banner
       description: |
         <p>
