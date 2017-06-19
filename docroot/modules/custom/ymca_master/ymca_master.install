@@ -4719,3 +4719,15 @@ function ymca_master_update_8216() {
     \Drupal::service('module_installer')->install([$module], TRUE);
   }
 }
+
+/**
+ * [YPTF-264] Configure MindBody Cache Proxy settings.
+ */
+function ymca_master_update_8215() {
+  $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
+  $config->set('token', md5('wagabagadogo'));
+  $config->set('primary', FALSE);
+  $config->set('endpoint', 'https://www.ymcamn.org/mindbody/status');
+  $config->save();
+  drupal_flush_all_caches();
+}
