@@ -222,8 +222,11 @@ function openy_group_schedules_preprocess_node(&$variables) {
 function openy_group_schedules_schedule_table_layout(array $schedule) {
   $prefix = [];
   $results = [];
+
+  $conf = Drupal::config('openy_group_schedules.settings');
+  $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
   $cache = [
-    'max-age' => 3600,
+    'max-age' => $max_age,
     'contexts' => ['url.query_args'],
   ];
 
