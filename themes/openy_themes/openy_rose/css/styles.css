@@ -5730,4 +5730,15 @@ html.js .flag-waiting .flag-throbber {
   border-radius: 0;
 }
 
+.webform-confirmation__message,
+.webform-confirmation__back {
+  margin: 20px 0;
+}
+
+.webform-confirmation__message {
+  font-size: 22px;
+  font-family: "Cachet W01 Book",'Ubuntu Condensed',sans-serif;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=styles.css.map */
