@@ -137,6 +137,8 @@ class YptfKronosReports {
 
   /**
    * Kronos Training program.
+   *
+   * @var array
    */
   protected $kronosTrainingId = ['PT (one on one and buddy)', 'PT (group of 5 or more)'];
 
