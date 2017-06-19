@@ -105,8 +105,10 @@ function openy_group_schedules_theme($existing, $type, $theme, $path) {
  */
 function openy_group_schedules_schedule_layout(array $schedule) {
   $results = [];
+  $conf = Drupal::config('openy_group_schedules.settings');
+  $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
   $cache = [
-    'max-age' => 3600,
+    'max-age' => $max_age,
     'contexts' => ['url.query_args'],
   ];
 
@@ -315,8 +317,8 @@ function openy_group_schedules_schedule_table_layout(array $schedule) {
 }
 
 /**
- * Implements hook_ymca_sync_description_alter().
+ * Implements hook_openy_sync_description_alter().
  */
-function openy_group_schedules_ymca_sync_description_alter(&$items) {
-  $items[] = 'ymca_google.syncer - Google Calendar syncer.';
+function openy_group_schedules_openy_sync_description_alter(&$items) {
+  $items[] = 'openy_google.syncer - Google Calendar syncer.';
 }

@@ -7,6 +7,8 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\openy_group_schedules\GroupexRequestTrait;
 use Drupal\openy_group_schedules\GroupexScheduleFetcher;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Implements Groupex form for location.
@@ -16,10 +18,38 @@ abstract class GroupexFormBase extends FormBase {
   use GroupexRequestTrait;
 
   /**
+   * The configuration factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * Constructs a new GroupexFormBase object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory) {
+    $this->configFactory = $config_factory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory')
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $timezone = new \DateTimeZone($this->config('system.date')->get('timezone')['default']);
+    $conf = $this->configFactory->get('openy_group_schedules.settings');
+    $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
 
     // Check if we have additional argument to prepopulate the form.
     $refine = FALSE;
@@ -104,7 +134,7 @@ abstract class GroupexFormBase extends FormBase {
     // Attach JS.
     $form['#attached']['library'][] = 'openy_group_schedules/openy_group_schedules';
     $form['#cache'] = [
-      'max-age' => 3600,
+      'max-age' => $max_age,
       'contexts' => ['url.query_args'],
     ];
 
@@ -183,10 +213,12 @@ abstract class GroupexFormBase extends FormBase {
 
     if (is_array($loc)) {
       $location = array_filter($loc);
+      $conf = $this->configFactory->get('openy_group_schedules.settings');
+      $max_loc = is_numeric($conf->get('location_max')) ? $conf->get('location_max') : 4;
 
       // User may select up to 4 locations.
-      if (count($location) > 4) {
-        $form_state->setError($form['location'], $this->t('Please, select less than 5 locations.'));
+      if (count($location) > $max_loc) {
+        $form_state->setError($form['location'], $this->t('Please, select ' . $max_loc . ' or fewer locations.'));
       }
     }
   }

@@ -13,7 +13,7 @@ bundle: groupex_form_cache
 label: Response
 description: 'Serialized Groupex response.'
 required: true
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings: {  }

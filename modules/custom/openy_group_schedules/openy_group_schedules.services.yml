@@ -4,4 +4,4 @@ services:
     arguments: ['@config.factory']
   openy_group_schedules.schedule_fetcher:
     class: Drupal\openy_group_schedules\GroupexScheduleFetcher
-    arguments: ['@openy_group_schedules.helper']
+    arguments: ['@openy_group_schedules.helper', '@config.factory']

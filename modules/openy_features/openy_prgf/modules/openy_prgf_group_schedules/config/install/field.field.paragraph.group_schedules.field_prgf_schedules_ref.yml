@@ -5,7 +5,6 @@ dependencies:
     - field.storage.paragraph.field_prgf_schedules_ref
     - paragraphs.paragraphs_type.group_schedules
   module:
-    - datalayer
     - plugin
 third_party_settings:
   datalayer:
