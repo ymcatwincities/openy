@@ -8,6 +8,5 @@ dependencies:
   - field
   - image
   - media_entity
-  - openy_media_image
   - taxonomy
   - user

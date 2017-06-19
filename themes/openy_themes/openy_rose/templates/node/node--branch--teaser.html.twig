@@ -81,9 +81,6 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  {{ content.field_location_state }}
-  {{ content.field_location_area }}
-
   {{ title_prefix }}
   {% if not page %}
 
@@ -93,11 +90,14 @@
       {% set title_url = url %}
     {% endif %}
 
-    <h2{{ title_attributes }}>
+    <h3 class="location-item--title" {{ title_attributes }}>
       <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h2>
+    </h3>
   {% endif %}
   {{ title_suffix }}
+
+  {{ content.field_location_state }}
+  {{ content.field_location_area }}
 
   {% if display_submitted %}
     <footer class="node__meta">

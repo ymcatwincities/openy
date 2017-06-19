@@ -54,10 +54,13 @@
       left: 0;
       top: 0;
       width: 100%;
+      height: 100%;
       text-align: left;
 
-      h2 {
+      h3 {
         font-size: 32px;
+        margin-top: 0;
+        margin-bottom: 20px;
       }
     }
 
@@ -67,17 +70,21 @@
       word-break: break-word;
     }
 
-    h2,
+    h3,
     h4 {
       color: white;
     }
 
     h4 {
-      margin: 0;
+      margin: 0 0 12px;
       font-size: 14px;
       line-height: 1.28;
       letter-spacing: 2px;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      padding: 0 22px;
 
       a {
         position: relative;
@@ -85,7 +92,7 @@
       }
     }
 
-    h2 a:after {
+    h3 a:after {
       content: '';
       position: absolute;
       height: 100%;
@@ -112,7 +119,7 @@
     &.blog-story .inner-wrapper {
       border: 1px solid $light-grey;
 
-      h2,
+      h3,
       h4 {
         color: $purple;
       }
@@ -125,17 +132,23 @@
         color: inherit;
       }
 
-      h2 {
+      h3 {
         color: $purple;
+      }
+    }
+
+    .story {
+      h3 {
+        overflow: hidden;
+        width: auto;
       }
     }
 
     .quote {
       float: left;
-      min-height: 360px;
 
       svg {
-        margin-top: 21px;
+        margin-top: 1px;
       }
     }
   }

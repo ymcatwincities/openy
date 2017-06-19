@@ -76,8 +76,9 @@ class ConfigParamUpgradeTool extends ConfigParamUpdaterService {
     }
     $storage_config = Yaml::decode(file_get_contents($config));
     // Retrieve a value from a nested array with variable depth.
-    $update_value = NestedArray::getValue($storage_config, explode('.', $param));
-    if (!$update_value) {
+    $key_exists = FALSE;
+    $update_value = NestedArray::getValue($storage_config, explode('.', $param), $key_exists);
+      if (!$key_exists) {
       $this->logger->info(
         $this->t('Param "@param" does not exist in config @name.',
         ['@name' => $config_name, '@param' => $param])

@@ -10,7 +10,7 @@ field_name: field_program_icon
 entity_type: node
 bundle: program
 label: Icon
-description: ''
+description: 'A image field, supporting .svg for uploading the program icon.'
 required: false
 translatable: true
 default_value: {  }
