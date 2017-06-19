@@ -179,4 +179,17 @@
     }
   };
 
+  // Adjust labels for hamburger menu icon.
+  Drupal.behaviors.menuIconLabelChange = {
+    attach: function (context, settings) {
+      $('.navbar-toggle').on('click', function () {
+        if ($(this).attr('aria-expanded') == 'false') {
+          $(this).children('.sr-only').text('Close main navigation');
+        } else {
+          $(this).children('.sr-only').text('Navigation menu');
+        }
+      });
+    }
+  };
+
 })(jQuery);
