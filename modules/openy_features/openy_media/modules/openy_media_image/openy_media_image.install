@@ -13,3 +13,17 @@ use Drupal\openy_media\EmbedButtonIconHelper;
 function openy_media_image_install() {
   EmbedButtonIconHelper::setEmbedButtonIcon('openy_media_image', 'image.png', 'embed_image');
 }
+
+/**
+ * Update field media image.
+ */
+function openy_media_image_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_media_image');
+  $config .= '/config/install/';
+  $config .= 'field.field.media.image.field_media_image.yml';
+  $config_importer->update($config,
+    'field.field.media.image.field_media_image',
+    'settings.alt_field_required'
+  );
+}
