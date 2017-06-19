@@ -118,8 +118,8 @@ class MindbodyClient implements MindbodyClientInterface {
     $this->setCredentials();
 
     // @TODO: It (and below in "try") should be removed after MindBody Team fix
-    // response and it will contain EmpID in parsed structure.
-    if ($service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && $params['FunctionName'] == 'YMCAGTC_GetEmpID') {
+    // response and it will contain EmpID/Staff in parsed structure.
+    if ($service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && in_array($params['FunctionName'], ['YMCAGTC_GetEmpID', 'YMCAGTC_ApptMetrics'])) {
       $this->debug = TRUE;
     }
     $this->setUpClient($service);
@@ -130,7 +130,7 @@ class MindbodyClient implements MindbodyClientInterface {
       // @TODO: It (and above) should be removed after MindBody Team fix.
       // Debug mode may be available for other services and
       // we need SoapClient in result only for FunctionDataXml request.
-      if (!empty($this->debug) && $service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && $params['FunctionName'] == 'YMCAGTC_GetEmpID') {
+      if (!empty($this->debug) && $service == 'DataService' && $endpoint == 'FunctionDataXml' && isset($params['FunctionName']) && in_array($params['FunctionName'], ['YMCAGTC_GetEmpID', 'YMCAGTC_ApptMetrics'])) {
         $result->SoapClient = $this->client;
       }
 
