@@ -15,3 +15,9 @@ function openy_menu_update_8001() {
   $config .= 'tour.tour.openy-menu-overview.yml';
   $config_importer->update($config, 'tour.tour.openy-menu-overview', 'tips');
 }
+/**
+ * Update menu tutorials.
+ */
+function openy_menu_update_8002() {
+  openy_menu_update_8001();
+}
