@@ -55,13 +55,13 @@ class PanelizerUser extends PanelizerEntityBase {
 
     // This function adds a default alt tag to the user_picture field to
     // maintain accessibility.
-    if (user_picture_enabled() && !empty($build['content']['middle'])) {
-      foreach (Element::children($build['content']['middle']) as $key) {
-        if (isset($build['content']['middle'][$key]['content']['field'])) {
-          foreach (Element::children($build['content']['middle'][$key]['content']['field']) as $field_key) {
-            if ($build['content']['middle'][$key]['content']['field']['#field_name'] == 'user_picture') {
-              if (empty($build['content']['middle'][$key]['content']['field'][$field_key]['#item_attributes'])) {
-                $build['content']['middle'][$key]['content']['field'][$field_key]['#item_attributes'] = [
+    if (user_picture_enabled() && !empty($build['content']['content'])) {
+      foreach (Element::children($build['content']['content']) as $key) {
+        if (isset($build['content']['content'][$key]['content']['field'])) {
+          foreach (Element::children($build['content']['content'][$key]['content']['field']) as $field_key) {
+            if ($build['content']['content'][$key]['content']['field']['#field_name'] == 'user_picture') {
+              if (empty($build['content']['content'][$key]['content']['field'][$field_key]['#item_attributes'])) {
+                $build['content']['content'][$key]['content']['field'][$field_key]['#item_attributes'] = [
                   'alt' => \Drupal::translation()
                     ->translate('Profile picture for user @username', ['@username' => $entity->getUsername()])
                 ];

@@ -20,11 +20,9 @@
  *   The langcode.
  */
 function hook_panelizer_pre_view_builder_alter(&$view_mode, \Drupal\Core\Entity\EntityInterface $entity, &$langcode) {
-
-  if ($entity->bundle() == 'article') {
+  if ($entity->bundle() == 'page') {
     $view_mode = 'my_custom_view_mode';
   }
-
 }
 
 /**

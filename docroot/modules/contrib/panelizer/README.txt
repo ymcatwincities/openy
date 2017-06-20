@@ -15,10 +15,10 @@ Features
 Requirements
 --------------------------------------------------------------------------------
 CTools v8.x-3.x [2]
-Panels v8.x-3.x
+Panels v8.x-4.x
 
-This version is only designed to be compatible with Drupal 8.2.x, it is not
-guaranteed to be compatible with 8.3.x.
+This version is only designed to be compatible with Drupal 8.3.x and above, it
+is not compatible with 8.2.x and the Layout Plugin module.
 
 
 Credits / Contact

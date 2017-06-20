@@ -1,34 +1,36 @@
 <?php
 
-namespace Drupal\panelizer\Tests;
+namespace Drupal\Tests\panelizer\Functional;
 
-use Drupal\simpletest\WebTestBase;
-use Drupal\user\Entity\User;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Basic functional tests of using Panelizer with user entities.
  *
  * @group panelizer
  */
-class PanelizerUserFunctionalTest extends WebTestBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected $profile = 'standard';
+class PanelizerUserFunctionalTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
    */
   public static $modules = [
-    'block',
+    // Modules for core functionality.
+    'field',
+    'field_ui',
+    'user',
+
+    // Core dependencies.
+    'layout_discovery',
+
+    // Contrib dependencies.
     'ctools',
-    'ctools_block',
-    'layout_plugin',
-    'panelizer',
-    'panelizer_test',
     'panels',
     'panels_ipe',
+
+    // This module.
+    'panelizer',
+    'panelizer_test',
   ];
 
   /**
@@ -80,7 +82,7 @@ class PanelizerUserFunctionalTest extends WebTestBase {
       'id' => 'panelizer_test',
       'label' => 'Panelizer test',
       'provider' => 'block_content',
-      'region' => 'middle',
+      'region' => 'content',
     ]);
     $panelizer->setDefaultPanelsDisplay('default', 'user', 'user', 'default', $display);
 
