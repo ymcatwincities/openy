@@ -1,0 +1,5 @@
+optimizely.listing:
+  title: Optimizely
+  description: 'List of all different projects to put Optimizely code snippet.'
+  route_name: optimizely.listing
+  parent: system.admin_config_system

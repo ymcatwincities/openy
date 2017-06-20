@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * OpenY Taxonomy install file.
+ */
+
+/**
+ * Update pager settings in taxonomy term view.
+ */
+function openy_taxonomy_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_taxonomy');
+  $config .= '/config/install/';
+  $config .= 'views.view.taxonomy_term.yml';
+  $config_importer->update($config, 'views.view.taxonomy_term', 'display.default.display_options.pager');
+}

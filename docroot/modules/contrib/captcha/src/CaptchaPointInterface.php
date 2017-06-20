@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\captcha\CaptchaPointInterface.
- */
-
 namespace Drupal\captcha;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
@@ -55,7 +50,7 @@ interface CaptchaPointInterface extends ConfigEntityInterface {
   /**
    * Setter for captcha type property.
    *
-   * @param string|NULL $captcha_type
+   * @param string|null $captcha_type
    *   Captcha type.
    */
   public function setCaptchaType($captcha_type);

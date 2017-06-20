@@ -1,0 +1,10 @@
+name: 'OpenY paragraph story card'
+description: 'OpenY paragraph story card'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - link
+  - openy_prgf
+  - paragraphs
+version: 8.x-1.0

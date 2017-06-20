@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\Plugin\Discovery\ConfigEntityDiscovery.
- */
-
 namespace Drupal\migrate_plus\Plugin\Discovery;
 
 use Drupal\Component\Plugin\Discovery\DiscoveryInterface;

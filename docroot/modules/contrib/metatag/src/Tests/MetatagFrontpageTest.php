@@ -167,6 +167,7 @@ class MetatagFrontpageTest extends WebTestBase {
 
     // Test Metatags.
     $this->drupalGet('test-page');
+    $this->assertResponse(200);
     foreach ($values as $metatag => $metatag_value) {
       $xpath = $this->xpath("//meta[@name='" . $metatag . "']");
       $this->assertEqual(count($xpath), 1, 'Exactly one ' . $metatag . ' meta tag found.');

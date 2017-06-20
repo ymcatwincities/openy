@@ -1,0 +1,10 @@
+id: migrate_example_advanced_position
+plugin_id: 'migrate_example_advanced_position'
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+      - xml
+    supported_auth:
+      - cookie

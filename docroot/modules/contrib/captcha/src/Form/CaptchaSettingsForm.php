@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\captcha\Form\CaptchaSettingsForm.
- */
-
 namespace Drupal\captcha\Form;
 
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -27,7 +22,12 @@ class CaptchaSettingsForm extends ConfigFormBase {
   protected $cacheBackend;
 
   /**
-   * {@inheritdoc}
+   * Constructs a \Drupal\captcha\Form\CaptchaSettingsForm object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
+   *   Cache backend instance to use.
    */
   public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache_backend) {
     parent::__construct($config_factory);
@@ -38,7 +38,10 @@ class CaptchaSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('config.factory'), $container->get('cache.default'));
+    return new static(
+      $container->get('config.factory'),
+      $container->get('cache.default')
+    );
   }
 
   /**
@@ -74,7 +77,7 @@ class CaptchaSettingsForm extends ConfigFormBase {
     $form['form_protection']['default_challenge'] = [
       '#type' => 'select',
       '#title' => $this->t('Default challenge type'),
-      '#description' => $this->t('Select the default challenge type for CAPTCHAs. This can be overriden for each form if desired.'),
+      '#description' => $this->t('Select the default challenge type for CAPTCHAs. This can be overridden for each form if desired.'),
       '#options' => _captcha_available_challenge_types(FALSE),
       '#default_value' => $config->get('default_challenge'),
     ];
@@ -98,20 +101,20 @@ class CaptchaSettingsForm extends ConfigFormBase {
     // Based on Drupal core's "Clear all caches" (performance settings page).
     $form['form_protection']['placement_caching'] = [
       '#type' => 'item',
-      '#title' => t('CAPTCHA placement caching'),
-      '#description' => t('For efficiency, the positions of the CAPTCHA elements in each of the configured forms are cached. Most of the time, the structure of a form does not change and it would be a waste to recalculate the positions every time. Occasionally however, the form structure can change (e.g. during site building) and clearing the CAPTCHA placement cache can be required to fix the CAPTCHA placement.'),
+      '#title' => $this->t('CAPTCHA placement caching'),
+      '#description' => $this->t('For efficiency, the positions of the CAPTCHA elements in each of the configured forms are cached. Most of the time, the structure of a form does not change and it would be a waste to recalculate the positions every time. Occasionally however, the form structure can change (e.g. during site building) and clearing the CAPTCHA placement cache can be required to fix the CAPTCHA placement.'),
     ];
     $form['form_protection']['placement_caching']['placement_cache_clear'] = [
       '#type' => 'submit',
-      '#value' => t('Clear the CAPTCHA placement cache'),
+      '#value' => $this->t('Clear the CAPTCHA placement cache'),
       '#submit' => ['::clearCaptchaPlacementCacheSubmit'],
     ];
 
     // Configuration option for adding a CAPTCHA description.
     $form['add_captcha_description'] = [
       '#type' => 'checkbox',
-      '#title' => t('Add a description to the CAPTCHA'),
-      '#description' => t('Add a configurable description to explain the purpose of the CAPTCHA to the visitor.'),
+      '#title' => $this->t('Add a description to the CAPTCHA'),
+      '#description' => $this->t('Add a configurable description to explain the purpose of the CAPTCHA to the visitor.'),
       '#default_value' => $config->get('add_captcha_description'),
     ];
     $form['description'] = [
@@ -123,7 +126,9 @@ class CaptchaSettingsForm extends ConfigFormBase {
       '#attributes' => ['id' => 'edit-captcha-description-wrapper'],
       '#states' => [
         'visible' => [
-          ':input[name="add_captcha_description"]' => ['checked' => TRUE],
+          ':input[name="add_captcha_description"]' => [
+            'checked' => TRUE,
+          ],
         ],
       ],
     ];
@@ -131,8 +136,8 @@ class CaptchaSettingsForm extends ConfigFormBase {
     // Option for case sensitive/insensitive validation of the responses.
     $form['default_validation'] = [
       '#type' => 'radios',
-      '#title' => t('Default CAPTCHA validation'),
-      '#description' => t('Define how the response should be processed by default. Note that the modules that provide the actual challenges can override or ignore this.'),
+      '#title' => $this->t('Default CAPTCHA validation'),
+      '#description' => $this->t('Define how the response should be processed by default. Note that the modules that provide the actual challenges can override or ignore this.'),
       '#options' => [
         CAPTCHA_DEFAULT_VALIDATION_CASE_SENSITIVE => $this->t('Case sensitive validation: the response has to exactly match the solution.'),
         CAPTCHA_DEFAULT_VALIDATION_CASE_INSENSITIVE => $this->t('Case insensitive validation: lowercase/uppercase errors are ignored.'),
@@ -144,26 +149,24 @@ class CaptchaSettingsForm extends ConfigFormBase {
     // TODO for D7: Rethink/simplify the explanation and UI strings.
     $form['persistence'] = [
       '#type' => 'radios',
-      '#title' => t('Persistence'),
+      '#title' => $this->t('Persistence'),
       '#default_value' => $config->get('persistence'),
       '#options' => [
-        CAPTCHA_PERSISTENCE_SHOW_ALWAYS =>
-          $this->t('Always add a challenge.'),
-        CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE =>
-          $this->t('Omit challenges in a multi-step/preview workflow once the user successfully responds to a challenge.'),
-        CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_TYPE =>
-          $this->t('Omit challenges on a form type once the user successfully responds to a challenge on a form of that type.'),
-        CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL =>
-          $this->t('Omit challenges on all forms once the user successfully responds to any challenge on the site.'),
+        CAPTCHA_PERSISTENCE_SHOW_ALWAYS => $this->t('Always add a challenge.'),
+        CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE => $this->t('Omit challenges in a multi-step/preview workflow once the user successfully responds to a challenge.'),
+        CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_TYPE => $this->t('Omit challenges on a form type once the user successfully responds to a challenge on a form of that type.'),
+        CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL => $this->t('Omit challenges on all forms once the user successfully responds to any challenge on the site.'),
       ],
-      '#description' => t('Define if challenges should be omitted during the rest of a session once the user successfully responds to a challenge.'),
+      '#description' => $this->t('Define if challenges should be omitted during the rest of a session once the user successfully responds to a challenge.'),
     ];
 
     // Enable wrong response counter.
     $form['enable_stats'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable statistics'),
-      '#description' => $this->t('Keep CAPTCHA related counters in the <a href=":statusreport">status report</a>. Note that this comes with a performance penalty as updating the counters results in clearing the variable cache.', [':statusreport' => Url::fromRoute('system.status')->toString()]),
+      '#description' => $this->t('Keep CAPTCHA related counters in the <a href=":statusreport">status report</a>. Note that this comes with a performance penalty as updating the counters results in clearing the variable cache.', [
+        ':statusreport' => Url::fromRoute('system.status')->toString(),
+      ]),
       '#default_value' => $config->get('enable_stats'),
     ];
 
@@ -177,14 +180,16 @@ class CaptchaSettingsForm extends ConfigFormBase {
 
     // Replace the description with a link if dblog.module is enabled.
     if (\Drupal::moduleHandler()->moduleExists('dblog')) {
-      $form['log_wrong_responses']['#description'] = $this->t('Report information about wrong responses to the <a href=":dblog">log</a>.', [':dblog' => Url::fromRoute('dblog.overview')->toString()]);
+      $form['log_wrong_responses']['#description'] = $this->t('Report information about wrong responses to the <a href=":dblog">log</a>.', [
+        ':dblog' => Url::fromRoute('dblog.overview')->toString(),
+      ]);
     }
 
     // Submit button.
     $form['actions'] = ['#type' => 'actions'];
     $form['actions']['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Save configuration'),
+      '#value' => $this->t('Save configuration'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -209,9 +214,9 @@ class CaptchaSettingsForm extends ConfigFormBase {
     $config->set('enable_stats', $form_state->getValue('enable_stats'));
     $config->set('log_wrong_responses', $form_state->getValue('log_wrong_responses'));
     $config->save();
-    drupal_set_message(t('The CAPTCHA settings have been saved.'), 'status');
+    drupal_set_message($this->t('The CAPTCHA settings have been saved.'), 'status');
 
-    parent::SubmitForm($form, $form_state);
+    parent::submitForm($form, $form_state);
   }
 
   /**
