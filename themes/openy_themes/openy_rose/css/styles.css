@@ -5748,7 +5748,6 @@ a:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
   outline: 5px auto #69ff00;
-  box-shadow: 0px 0px 3px 3px #979797;
 }
 
 /*# sourceMappingURL=styles.css.map */
