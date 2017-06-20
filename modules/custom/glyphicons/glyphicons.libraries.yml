@@ -1,0 +1,7 @@
+ckeditor:
+  version: 1.x
+  js:
+    js/glyphicons.js: {}
+  css:
+    component:
+      css/glyphicons.css: {}

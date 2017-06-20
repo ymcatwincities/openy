@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - editor
+    - entity_embed
 name: 'Full HTML'
 format: full_html
 weight: 1

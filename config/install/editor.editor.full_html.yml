@@ -41,10 +41,12 @@ settings:
             - embed_document
             - embed_video
             - embed_image
+            - Glyphicons
         -
           name: 'Block Formatting'
           items:
             - Format
+            - Styles
         -
           name: Tools
           items:
@@ -52,7 +54,7 @@ settings:
             - Source
   plugins:
     stylescombo:
-      styles: ''
+      styles: "p.wysiwyg--button|Button"
     language:
       language_list: un
     colorbutton:

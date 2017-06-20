@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Check requirements for the Color Dialog module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function colordialog_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'install' || $phase == 'runtime') {
+    $plugin_detected = file_exists(DRUPAL_ROOT . '/libraries/colordialog/plugin.js');
+
+    if ($plugin_detected) {
+      $requirements['colordialog'] = [
+        'title' => t('Color Dialog'),
+        'value' => t('Plugin detected'),
+        'severity' => REQUIREMENT_OK,
+      ];
+    }
+    else {
+      $requirements['colordialog'] = [
+        'title' => t('Color Dialog'),
+        'value' => t('Plugin not detected'),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('Before you can use the CKEditor Color Dialog module, you need to download the colordialog plugin from ckeditor.com and place it in /libraries/colordialog. <a href=":plugin_url">Get the plugin here</a>.', [':plugin_url' => 'http://ckeditor.com/addon/colordialog']),
+      ];
+    }
+  }
+
+  return $requirements;
+}
