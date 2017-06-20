@@ -1,0 +1,281 @@
+plugin_selector:
+  label: Plugin selector
+  plugin_manager_service_id: plugin.manager.plugin.plugin_selector
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Drupal core's plugin types.
+entity_reference_selector:
+  label: Entity reference selector
+  provider: core
+  plugin_manager_service_id: plugin.manager.entity_reference_selection
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: entity_reference_selection.[plugin_id]
+field_type:
+  label: Field type/item
+  provider: core
+  plugin_manager_service_id: plugin.manager.field.field_type
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  field_type: false
+field_widget:
+  label: Field widget
+  provider: core
+  plugin_manager_service_id: plugin.manager.field.widget
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+field_formatter:
+  label: Field formatter
+  provider: core
+  plugin_manager_service_id: plugin.manager.field.formatter
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+archiver:
+  label: Archiver
+  provider: core
+  plugin_manager_service_id: plugin.manager.archiver
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArchiverPluginDefinitionDecorator
+action:
+  label: Action
+  provider: core
+  plugin_manager_service_id: plugin.manager.action
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+menu_link:
+  label: Menu link
+  provider: core
+  plugin_manager_service_id: plugin.manager.menu.link
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\LinkPluginDefinitionDecorator
+menu_local_action:
+  label: Local action
+  provider: core
+  plugin_manager_service_id: plugin.manager.menu.local_action
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\LinkPluginDefinitionDecorator
+menu_local_task:
+  label: Local task
+  provider: core
+  plugin_manager_service_id: plugin.manager.menu.local_task
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\LinkPluginDefinitionDecorator
+menu_lcontextual_link:
+  label: Contextual link
+  provider: core
+  plugin_manager_service_id: plugin.manager.menu.contextual_link
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\LinkPluginDefinitionDecorator
+display_variant:
+  label: Display variant
+  provider: core
+  plugin_manager_service_id: plugin.manager.display_variant
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\DisplayVariantPluginDefinitionDecorator
+queue_worker:
+  label: Queue worker
+  provider: core
+  plugin_manager_service_id: plugin.manager.queue_worker
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+mail:
+  label: Mail backend
+  provider: core
+  plugin_manager_service_id: plugin.manager.mail
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+condition:
+  label: Condition
+  provider: core
+  plugin_manager_service_id: plugin.manager.condition
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+element:
+  label: Renderable element
+  provider: core
+  plugin_manager_service_id: plugin.manager.element_info
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Aggregator's plugin types.
+aggregator_fetcher:
+  label: Aggregator fetcher
+  provider: aggregator
+  plugin_manager_service_id: plugin.manager.aggregator.fetcher
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+aggregator_parser:
+  label: Aggregator parser
+  provider: aggregator
+  plugin_manager_service_id: plugin.manager.aggregator.parser
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+aggregator_processor:
+  label: Aggregator processor
+  provider: aggregator
+  plugin_manager_service_id: plugin.manager.aggregator.processor
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Block's plugin types.
+block:
+  label: Block
+  provider: block
+  plugin_manager_service_id: plugin.manager.block
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\BlockPluginDefinitionDecorator
+  plugin_configuration_schema_id: block.settings.[plugin_id]
+
+# CKEditor's plugin types.
+ckeditor_plugin:
+  label: CKEditor plugin
+  provider: ckeditor
+  plugin_manager_service_id: plugin.manager.ckeditor.plugin
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Configuration Translation's plugin types.
+config_translation_mapper:
+  label: Configuration translation mapper
+  provider: config_translation
+  plugin_manager_service_id: plugin.manager.config_translation.mapper
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Editor's plugin types.
+editor:
+  label: Editor
+  provider: editor
+  plugin_manager_service_id: plugin.manager.editor
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Filter's plugin types.
+filter:
+  label: Filter
+  provider: filter
+  plugin_manager_service_id: plugin.manager.filter
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\FilterPluginDefinitionDecorator
+
+# Image's plugin types.
+image_effect:
+  label: Image effect
+  provider: image
+  plugin_manager_service_id: plugin.manager.image.effect
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Language's plugin types.
+language_negotiation_method:
+  label: Language negotiation method
+  provider: language
+  plugin_manager_service_id: plugin.manager.language_negotiation_method
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Quick Edit's plugin types.
+quickedit_editor:
+  label: Quick Edit editor
+  provider: quickedit
+  plugin_manager_service_id: plugin.manager.quickedit.editor
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# REST's plugin types.
+rest_resource:
+  label: REST resource
+  provider: rest
+  plugin_manager_service_id: plugin.manager.rest
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+
+# Search's plugin types.
+search:
+  label: Search method
+  provider: search
+  plugin_manager_service_id: plugin.manager.search
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\SearchPluginDefinitionDecorator
+
+# Tour's plugin types.
+tour_tip:
+  label: Tour tip
+  provider: tour
+  plugin_manager_service_id: plugin.manager.tour.tip
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\TourTipPluginDefinitionDecorator
+
+# Views's plugin types.
+views_access:
+  label: Views access
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.access
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_area:
+  label: Views area
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.area
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: views.area.[plugin_id]
+views_argument:
+  label: Views argument
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.argument
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: views.argument.[plugin_id]
+views_argument_default:
+  label: Views argument default
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.argument_default
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_argument_validator:
+  label: Views argument validator
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.argument_validator
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_cache:
+  label: Views cache
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.cache
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_display_extender:
+  label: Views display extender
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.display_extender
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_display:
+  label: Views display
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.display
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_exposed_form:
+  label: Views exposed form
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.exposed_form
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_field:
+  label: Views field
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.field
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: views.field.[plugin_id]
+views_filter:
+  label: Views filter
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.filter
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: views.filter.[plugin_id]
+views_join:
+  label: Views join
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.join
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_pager:
+  label: Views pager
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.pager
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_query:
+  label: Views query
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.query
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_relationship:
+  label: Views relationship
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.relationship
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: views.relationship.[plugin_id]
+views_row:
+  label: Views row
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.row
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_sort:
+  label: Views sort
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.sort
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+  plugin_configuration_schema_id: views.sort.[plugin_id]
+views_style:
+  label: Views style
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.style
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+views_wizard:
+  label: Views wizard
+  provider: views
+  plugin_manager_service_id: plugin.manager.views.wizard
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator

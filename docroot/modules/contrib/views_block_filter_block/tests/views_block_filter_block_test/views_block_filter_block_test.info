@@ -1,0 +1,6 @@
+name = Views Block Exposed Filter Block Test
+description = Test module for Views Block Exposed filter Block.
+package = Views
+core = 7.x
+dependencies[] = views_block_filter_block
+hidden = TRUE

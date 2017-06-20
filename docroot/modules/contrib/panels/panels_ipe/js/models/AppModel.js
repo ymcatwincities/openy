@@ -48,6 +48,13 @@
       tabCollection: null,
 
       /**
+       * The "Locked" tab.
+       *
+       * @type {Drupal.panels_ipe.TabModel}
+       */
+      lockedTab: null,
+
+      /**
        * The "Edit" tab.
        *
        * @type {Drupal.panels_ipe.TabModel}

@@ -2,9 +2,9 @@
 
 namespace Drupal\metatag\Generator;
 
-use Drupal\Console\Generator\Generator;
+use Drupal\Console\Core\Generator\Generator;
 use Drupal\Console\Extension\Manager;
-use Drupal\Console\Utils\TwigRenderer;
+use Drupal\Console\Core\Utils\TwigRenderer;
 
 class MetatagTagGenerator extends Generator {
 

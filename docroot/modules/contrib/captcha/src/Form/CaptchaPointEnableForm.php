@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\captcha\Form\CaptchaPointEnableForm.
- */
 
 namespace Drupal\captcha\Form;
 
@@ -28,6 +24,7 @@ class CaptchaPointEnableForm extends EntityConfirmFormBase {
   public function getDescription() {
     return $this->t('This will enable the captcha.');
   }
+
   /**
    * {@inheritdoc}
    */
@@ -48,7 +45,7 @@ class CaptchaPointEnableForm extends EntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->enable();
     $this->entity->save();
-    drupal_set_message($this->t('Captcha point %label has been enabled.', array('%label' => $this->entity->label())));
+    drupal_set_message($this->t('Captcha point %label has been enabled.', ['%label' => $this->entity->label()]));
     $form_state->setRedirect('captcha_point.list');
   }
 

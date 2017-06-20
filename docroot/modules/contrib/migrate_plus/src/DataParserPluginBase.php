@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\DataParserPluginBase.
- */
-
 namespace Drupal\migrate_plus;
 
 use Drupal\Core\Plugin\PluginBase;
@@ -77,7 +72,6 @@ abstract class DataParserPluginBase extends PluginBase implements DataParserPlug
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static($configuration, $plugin_id, $plugin_definition);
   }
-
 
   /**
    * Returns the initialized data fetcher plugin.

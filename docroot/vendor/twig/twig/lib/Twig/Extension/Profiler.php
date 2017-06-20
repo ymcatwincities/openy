@@ -3,11 +3,13 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2015 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+class_exists('Twig_Profiler_Profile');
 
 class Twig_Extension_Profiler extends Twig_Extension
 {
@@ -44,3 +46,5 @@ class Twig_Extension_Profiler extends Twig_Extension
         return 'profiler';
     }
 }
+
+class_alias('Twig_Extension_Profiler', 'Twig\Extension\ProfilerExtension', false);

@@ -3,8 +3,8 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009 Fabien Potencier
- * (c) 2009 Armin Ronacher
+ * (c) Fabien Potencier
+ * (c) Armin Ronacher
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -232,7 +232,7 @@ abstract class Twig_Template implements Twig_TemplateInterface
         } elseif (false !== $parent = $this->getParent($context)) {
             $parent->displayBlock($name, $context, array_merge($this->blocks, $blocks), false);
         } else {
-            @trigger_error(sprintf('Silent display of undefined block "%s" in template "%s" is deprecated since version 1.29 and will throw an exception in 2.0.', $name, $this->getTemplateName()), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Silent display of undefined block "%s" in template "%s" is deprecated since version 1.29 and will throw an exception in 2.0. Use the "block(\'%s\') is defined" expression to test for block existence.', $name, $this->getTemplateName(), $name), E_USER_DEPRECATED);
         }
     }
 
@@ -398,17 +398,11 @@ abstract class Twig_Template implements Twig_TemplateInterface
         return $this->blocks;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function display(array $context, array $blocks = array())
     {
         $this->displayWithErrorHandling($this->env->mergeGlobals($context), array_merge($this->blocks, $blocks));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function render(array $context)
     {
         $level = ob_get_level();
@@ -633,11 +627,14 @@ abstract class Twig_Template implements Twig_TemplateInterface
                     continue;
                 }
 
-                if (!isset($cache[$name])) {
-                    $cache[$name] = $method;
-                }
-                if (!isset($cache[$lcName])) {
-                    $cache[$lcName] = $method;
+                // skip get() and is() methods (in which case, $name is empty)
+                if ($name) {
+                    if (!isset($cache[$name])) {
+                        $cache[$name] = $method;
+                    }
+                    if (!isset($cache[$lcName])) {
+                        $cache[$lcName] = $method;
+                    }
                 }
             }
             self::$cache[$class] = $cache;
@@ -689,7 +686,7 @@ abstract class Twig_Template implements Twig_TemplateInterface
         // @deprecated in 1.28
         if ($object instanceof Twig_TemplateInterface) {
             $self = $object->getTemplateName() === $this->getTemplateName();
-            $message = sprintf('Calling "%s" on template "%s" from template "%s" is deprecated since version 1.28 and won\'t be supported anymore in 2.0.', $method, $object->getTemplateName(), $this->getTemplateName());
+            $message = sprintf('Calling "%s" on template "%s" from template "%s" is deprecated since version 1.28 and won\'t be supported anymore in 2.0.', $item, $object->getTemplateName(), $this->getTemplateName());
             if ('renderBlock' === $method || 'displayBlock' === $method) {
                 $message .= sprintf(' Use block("%s"%s) instead).', $arguments[0], $self ? '' : ', template');
             } elseif ('hasBlock' === $method) {
@@ -705,3 +702,5 @@ abstract class Twig_Template implements Twig_TemplateInterface
         return $ret;
     }
 }
+
+class_alias('Twig_Template', 'Twig\Template', false);

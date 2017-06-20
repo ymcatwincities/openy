@@ -2512,7 +2512,7 @@ $connection->insert('comment')
   'nid' => '1',
   'uid' => '1',
   'subject' => 'A comment',
-  'hostname' => '::1',
+  'hostname' => '2001:db8:ffff:ffff:ffff:ffff:ffff:ffff',
   'created' => '1421727536',
   'changed' => '1421727536',
   'status' => '1',
@@ -3828,6 +3828,15 @@ $connection->insert('field_config_instance')
   'data' => 'a:7:{s:5:"label";s:21:"Term Entity Reference";s:6:"widget";a:5:{s:6:"weight";s:2:"18";s:4:"type";s:33:"entityreference_autocomplete_tags";s:6:"module";s:15:"entityreference";s:6:"active";i:1;s:8:"settings";a:3:{s:14:"match_operator";s:8:"CONTAINS";s:4:"size";s:2:"60";s:4:"path";s:0:"";}}s:8:"settings";a:2:{s:9:"behaviors";a:1:{s:14:"taxonomy-index";a:1:{s:6:"status";b:1;}}s:18:"user_register_form";b:0;}s:7:"display";a:1:{s:7:"default";a:5:{s:5:"label";s:5:"above";s:4:"type";s:21:"entityreference_label";s:8:"settings";a:1:{s:4:"link";b:0;}s:6:"module";s:15:"entityreference";s:6:"weight";i:17;}}s:8:"required";i:0;s:11:"description";s:0:"";s:13:"default_value";N;}',
   'deleted' => '0',
 ))
+->values(array(
+  'id' => '41',
+  'field_id' => '20',
+  'field_name' => 'field_term_reference',
+  'entity_type' => 'taxonomy_term',
+  'bundle' => 'test_vocabulary',
+  'data' => 'a:7:{s:5:"label";s:14:"Term Reference";s:6:"widget";a:5:{s:6:"weight";s:2:"14";s:4:"type";s:21:"taxonomy_autocomplete";s:6:"module";s:8:"taxonomy";s:6:"active";i:0;s:8:"settings";a:2:{s:4:"size";i:60;s:17:"autocomplete_path";s:21:"taxonomy/autocomplete";}}s:8:"settings";a:1:{s:18:"user_register_form";b:0;}s:7:"display";a:1:{s:7:"default";a:4:{s:5:"label";s:5:"above";s:4:"type";s:6:"hidden";s:6:"weight";s:2:"13";s:8:"settings";a:0:{}}}s:8:"required";i:0;s:11:"description";s:0:"";s:13:"default_value";N;}',
+  'deleted' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('field_data_body', array(
@@ -4476,6 +4485,18 @@ $connection->insert('field_data_field_file')
   'field_file_display' => '1',
   'field_file_description' => 'file desc',
 ))
+->values(array(
+  'entity_type' => 'user',
+  'bundle' => 'user',
+  'deleted' => '0',
+  'entity_id' => '2',
+  'revision_id' => '2',
+  'language' => 'und',
+  'delta' => '0',
+  'field_file_fid' => '2',
+  'field_file_display' => '1',
+  'field_file_description' => 'file desc',
+))
 ->execute();
 
 $connection->schema()->createTable('field_data_field_float', array(
@@ -4849,6 +4870,16 @@ $connection->insert('field_data_field_integer')
   'language' => 'und',
   'delta' => '0',
   'field_integer_value' => '99',
+))
+->values(array(
+  'entity_type' => 'taxonomy_term',
+  'bundle' => 'test_vocabulary',
+  'deleted' => '0',
+  'entity_id' => '4',
+  'revision_id' => '4',
+  'language' => 'und',
+  'delta' => '0',
+  'field_integer_value' => '6',
 ))
 ->execute();
 
@@ -5649,6 +5680,16 @@ $connection->insert('field_data_field_term_reference')
   'delta' => '0',
   'field_term_reference_tid' => '4',
 ))
+->values(array(
+  'entity_type' => 'taxonomy_term',
+  'bundle' => 'test_vocabulary',
+  'deleted' => '0',
+  'entity_id' => '2',
+  'revision_id' => '2',
+  'language' => 'und',
+  'delta' => '0',
+  'field_term_reference_tid' => '3',
+))
 ->execute();
 
 $connection->schema()->createTable('field_data_field_text', array(
@@ -6097,6 +6138,30 @@ $connection->insert('field_revision_body')
   'language' => 'und',
   'delta' => '0',
   'body_value' => "is - ...is that it's the absolute best show ever. Trust me, I would know.",
+  'body_summary' => '',
+  'body_format' => 'filtered_html',
+))
+->values(array(
+  'entity_type' => 'node',
+  'bundle' => 'article',
+  'deleted' => '0',
+  'entity_id' => '4',
+  'revision_id' => '4',
+  'language' => 'und',
+  'delta' => '0',
+  'body_value' => 'is - Is that is it awesome.',
+  'body_summary' => '',
+  'body_format' => 'filtered_html',
+))
+->values(array(
+  'entity_type' => 'node',
+  'bundle' => 'article',
+  'deleted' => '0',
+  'entity_id' => '5',
+  'revision_id' => '5',
+  'language' => 'und',
+  'delta' => '0',
+  'body_value' => 'en - Is that is it awesome.',
   'body_summary' => '',
   'body_format' => 'filtered_html',
 ))
@@ -6645,6 +6710,18 @@ $connection->insert('field_revision_field_file')
   'field_file_display' => '1',
   'field_file_description' => 'file desc',
 ))
+->values(array(
+  'entity_type' => 'user',
+  'bundle' => 'user',
+  'deleted' => '0',
+  'entity_id' => '2',
+  'revision_id' => '2',
+  'language' => 'und',
+  'delta' => '0',
+  'field_file_fid' => '2',
+  'field_file_display' => '1',
+  'field_file_description' => 'file desc',
+))
 ->execute();
 
 $connection->schema()->createTable('field_revision_field_float', array(
@@ -7022,6 +7099,16 @@ $connection->insert('field_revision_field_integer')
   'language' => 'und',
   'delta' => '0',
   'field_integer_value' => '99',
+))
+->values(array(
+  'entity_type' => 'taxonomy_term',
+  'bundle' => 'test_vocabulary',
+  'deleted' => '0',
+  'entity_id' => '4',
+  'revision_id' => '4',
+  'language' => 'und',
+  'delta' => '0',
+  'field_integer_value' => '6',
 ))
 ->execute();
 
@@ -7830,6 +7917,16 @@ $connection->insert('field_revision_field_term_reference')
   'delta' => '0',
   'field_term_reference_tid' => '4',
 ))
+->values(array(
+  'entity_type' => 'taxonomy_term',
+  'bundle' => 'test_vocabulary',
+  'deleted' => '0',
+  'entity_id' => '2',
+  'revision_id' => '2',
+  'language' => 'und',
+  'delta' => '0',
+  'field_term_reference_tid' => '3',
+))
 ->execute();
 
 $connection->schema()->createTable('field_revision_field_text', array(
@@ -8258,6 +8355,16 @@ $connection->insert('file_managed')
   'status' => '1',
   'timestamp' => '1421727515',
 ))
+->values(array(
+  'fid' => '2',
+  'uid' => '1',
+  'filename' => 'ds9.txt',
+  'uri' => 'public://ds9.txt',
+  'filemime' => 'text/plain',
+  'filesize' => '4720',
+  'status' => '1',
+  'timestamp' => '1421727516',
+))
 ->execute();
 
 $connection->schema()->createTable('file_usage', array(
@@ -8324,6 +8431,13 @@ $connection->insert('file_usage')
   'module' => 'file',
   'type' => 'node',
   'id' => '1',
+  'count' => '1',
+))
+->values(array(
+  'fid' => '2',
+  'module' => 'file',
+  'type' => 'user',
+  'id' => '2',
   'count' => '1',
 ))
 ->execute();
@@ -30855,6 +30969,38 @@ $connection->insert('node')
   'tnid' => '2',
   'translate' => '0',
 ))
+->values(array(
+  'nid' => '4',
+  'vid' => '4',
+  'type' => 'article',
+  'language' => 'is',
+  'title' => 'is - The thing about Firefly',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1478755274',
+  'changed' => '1478755274',
+  'comment' => '2',
+  'promote' => '1',
+  'sticky' => '0',
+  'tnid' => '4',
+  'translate' => '0',
+))
+->values(array(
+  'nid' => '5',
+  'vid' => '5',
+  'type' => 'article',
+  'language' => 'en',
+  'title' => 'en - The thing about Firefly',
+  'uid' => '1',
+  'status' => '1',
+  'created' => '1478755314',
+  'changed' => '1478755314',
+  'comment' => '2',
+  'promote' => '1',
+  'sticky' => '0',
+  'tnid' => '4',
+  'translate' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('node_access', array(
@@ -30999,6 +31145,22 @@ $connection->insert('node_comment_statistics')
   'last_comment_uid' => '1',
   'comment_count' => '0',
 ))
+->values(array(
+  'nid' => '4',
+  'cid' => '0',
+  'last_comment_timestamp' => '1478755274',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '1',
+  'comment_count' => '0',
+))
+->values(array(
+  'nid' => '5',
+  'cid' => '0',
+  'last_comment_timestamp' => '1478755314',
+  'last_comment_name' => NULL,
+  'last_comment_uid' => '1',
+  'comment_count' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('node_counter', array(
@@ -31053,14 +31215,26 @@ $connection->insert('node_counter')
 ->values(array(
   'nid' => '2',
   'totalcount' => '1',
-  'daycount' => '1',
+  'daycount' => '0',
   'timestamp' => '1471428059',
 ))
 ->values(array(
   'nid' => '3',
   'totalcount' => '1',
-  'daycount' => '1',
+  'daycount' => '0',
   'timestamp' => '1471428153',
+))
+->values(array(
+  'nid' => '4',
+  'totalcount' => '1',
+  'daycount' => '1',
+  'timestamp' => '1478755275',
+))
+->values(array(
+  'nid' => '5',
+  'totalcount' => '1',
+  'daycount' => '1',
+  'timestamp' => '1478755314',
 ))
 ->execute();
 
@@ -31177,6 +31351,30 @@ $connection->insert('node_revision')
   'title' => 'is - The thing about Deep Space 9',
   'log' => '',
   'timestamp' => '1471428152',
+  'status' => '1',
+  'comment' => '2',
+  'promote' => '1',
+  'sticky' => '0',
+))
+->values(array(
+  'nid' => '4',
+  'vid' => '4',
+  'uid' => '1',
+  'title' => 'is - The thing about Firefly',
+  'log' => '',
+  'timestamp' => '1478755274',
+  'status' => '1',
+  'comment' => '2',
+  'promote' => '1',
+  'sticky' => '0',
+))
+->values(array(
+  'nid' => '5',
+  'vid' => '5',
+  'uid' => '1',
+  'title' => 'en - The thing about Firefly',
+  'log' => '',
+  'timestamp' => '1478755314',
   'status' => '1',
   'comment' => '2',
   'promote' => '1',
@@ -42755,6 +42953,15 @@ $connection->insert('taxonomy_vocabulary')
   'module' => 'taxonomy',
   'weight' => '0',
 ))
+->values(array(
+  'vid' => '4',
+  'name' => 'vocabulary name much longer than thirty two characters',
+  'machine_name' => 'vocabulary_name_much_longer_than_thirty_two_characters',
+  'description' => 'description of vocabulary name much longer than thirty two characters',
+  'hierarchy' => '1',
+  'module' => 'taxonomy',
+  'weight' => '0',
+))
 ->execute();
 
 $connection->schema()->createTable('tracker_node', array(
@@ -42936,6 +43143,30 @@ $connection->insert('url_alias')
   'source' => 'taxonomy/term/4',
   'alias' => 'term33',
   'language' => 'und',
+))
+->values(array(
+  'pid' => '2',
+  'source' => 'node/2',
+  'alias' => 'deep-space-9',
+  'language' => 'en',
+))
+->values(array(
+  'pid' => '3',
+  'source' => 'node/3',
+  'alias' => 'deep-space-9-is',
+  'language' => 'is',
+))
+->values(array(
+  'pid' => '4',
+  'source' => 'node/4',
+  'alias' => 'firefly-is',
+  'language' => 'is',
+))
+->values(array(
+  'pid' => '5',
+  'source' => 'node/5',
+  'alias' => 'firefly',
+  'language' => 'en',
 ))
 ->execute();
 
@@ -43811,7 +44042,7 @@ $connection->insert('variable')
 ))
 ->values(array(
   'name' => 'menu_override_parent_selector',
-  'value' => 'b:0;',
+  'value' => 'b:1;',
 ))
 ->values(array(
   'name' => 'menu_parent_article',
@@ -44096,6 +44327,14 @@ $connection->insert('variable')
 ->values(array(
   'name' => 'theme_settings',
   'value' => 'a:16:{s:11:"toggle_logo";i:0;s:11:"toggle_name";i:1;s:13:"toggle_slogan";i:0;s:24:"toggle_node_user_picture";i:0;s:27:"toggle_comment_user_picture";i:0;s:32:"toggle_comment_user_verification";i:0;s:14:"toggle_favicon";i:0;s:16:"toggle_main_menu";i:0;s:21:"toggle_secondary_menu";i:0;s:12:"default_logo";i:1;s:9:"logo_path";s:23:"public://customlogo.png";s:11:"logo_upload";s:0:"";s:15:"default_favicon";i:0;s:12:"favicon_path";s:24:"public://somefavicon.png";s:14:"favicon_upload";s:0:"";s:16:"favicon_mimetype";s:9:"image/png";}',
+))
+->values(array(
+  'name' => 'theme_bartik_settings',
+  'value' => 'a:18:{s:11:"toggle_logo";i:1;s:11:"toggle_name";i:1;s:13:"toggle_slogan";i:1;s:24:"toggle_node_user_picture";i:1;s:27:"toggle_comment_user_picture";i:1;s:32:"toggle_comment_user_verification";i:1;s:14:"toggle_favicon";i:1;s:16:"toggle_main_menu";i:1;s:21:"toggle_secondary_menu";i:1;s:12:"default_logo";i:0;s:9:"logo_path";s:16:"public://gnu.png";s:15:"default_favicon";i:1;s:12:"favicon_path";s:0:"";s:14:"favicon_upload";s:0:"";s:6:"scheme";s:7:"default";s:7:"palette";a:9:{s:3:"top";s:7:"#0779bf";s:6:"bottom";s:7:"#48a9e4";s:2:"bg";s:7:"#ffffff";s:7:"sidebar";s:7:"#f6f6f2";s:14:"sidebarborders";s:7:"#f9f9f9";s:6:"footer";s:7:"#292929";s:11:"titleslogan";s:7:"#fffeff";s:4:"text";s:7:"#3b3b3b";s:4:"link";s:7:"#0071B3";}s:5:"theme";s:6:"bartik";s:4:"info";a:12:{s:6:"fields";a:9:{s:3:"top";s:10:"Header top";s:6:"bottom";s:13:"Header bottom";s:2:"bg";s:15:"Main background";s:7:"sidebar";s:18:"Sidebar background";s:14:"sidebarborders";s:15:"Sidebar borders";s:6:"footer";s:17:"Footer background";s:11:"titleslogan";s:16:"Title and slogan";s:4:"text";s:10:"Text color";s:4:"link";s:10:"Link color";}s:7:"schemes";a:6:{s:7:"default";a:2:{s:5:"title";s:21:"Blue Lagoon (default)";s:6:"colors";a:9:{s:3:"top";s:7:"#0779bf";s:6:"bottom";s:7:"#48a9e4";s:2:"bg";s:7:"#ffffff";s:7:"sidebar";s:7:"#f6f6f2";s:14:"sidebarborders";s:7:"#f9f9f9";s:6:"footer";s:7:"#292929";s:11:"titleslogan";s:7:"#fffeff";s:4:"text";s:7:"#3b3b3b";s:4:"link";s:7:"#0071B3";}}s:9:"firehouse";a:2:{s:5:"title";s:9:"Firehouse";s:6:"colors";a:9:{s:3:"top";s:7:"#cd2d2d";s:6:"bottom";s:7:"#cf3535";s:2:"bg";s:7:"#ffffff";s:7:"sidebar";s:7:"#f1f4f0";s:14:"sidebarborders";s:7:"#ededed";s:6:"footer";s:7:"#1f1d1c";s:11:"titleslogan";s:7:"#fffeff";s:4:"text";s:7:"#3b3b3b";s:4:"link";s:7:"#d6121f";}}s:3:"ice";a:2:{s:5:"title";s:3:"Ice";s:6:"colors";a:9:{s:3:"top";s:7:"#d0d0d0";s:6:"bottom";s:7:"#c2c4c5";s:2:"bg";s:7:"#ffffff";s:7:"sidebar";s:7:"#ffffff";s:14:"sidebarborders";s:7:"#cccccc";s:6:"footer";s:7:"#24272c";s:11:"titleslogan";s:7:"#000000";s:4:"text";s:7:"#4a4a4a";s:4:"link";s:7:"#019dbf";}}s:4:"plum";a:2:{s:5:"title";s:4:"Plum";s:6:"colors";a:9:{s:3:"top";s:7:"#4c1c58";s:6:"bottom";s:7:"#593662";s:2:"bg";s:7:"#fffdf7";s:7:"sidebar";s:7:"#edede7";s:14:"sidebarborders";s:7:"#e7e7e7";s:6:"footer";s:7:"#2c2c28";s:11:"titleslogan";s:7:"#ffffff";s:4:"text";s:7:"#301313";s:4:"link";s:7:"#9d408d";}}s:5:"slate";a:2:{s:5:"title";s:5:"Slate";s:6:"colors";a:9:{s:3:"top";s:7:"#4a4a4a";s:6:"bottom";s:7:"#4e4e4e";s:2:"bg";s:7:"#ffffff";s:7:"sidebar";s:7:"#ffffff";s:14:"sidebarborders";s:7:"#d0d0d0";s:6:"footer";s:7:"#161617";s:11:"titleslogan";s:7:"#ffffff";s:4:"text";s:7:"#3b3b3b";s:4:"link";s:7:"#0073b6";}}s:0:"";a:2:{s:5:"title";s:6:"Custom";s:6:"colors";a:0:{}}}s:3:"css";a:1:{i:0;s:14:"css/colors.css";}s:4:"copy";a:1:{i:0;s:8:"logo.png";}s:9:"gradients";a:1:{i:0;a:3:{s:9:"dimension";a:4:{i:0;i:0;i:1;i:0;i:2;i:0;i:3;i:0;}s:9:"direction";s:8:"vertical";s:6:"colors";a:2:{i:0;s:3:"top";i:1;s:6:"bottom";}}}s:4:"fill";a:0:{}s:6:"slices";a:0:{}s:12:"blend_target";s:7:"#ffffff";s:11:"preview_css";s:17:"color/preview.css";s:10:"preview_js";s:16:"color/preview.js";s:12:"preview_html";s:18:"color/preview.html";s:10:"base_image";s:14:"color/base.png";}}',
+))
+->values(array(
+  'name' => 'theme_seven_settings',
+  'value' => 'a:15:{s:11:"toggle_logo";i:1;s:11:"toggle_name";i:1;s:13:"toggle_slogan";i:1;s:24:"toggle_node_user_picture";i:1;s:27:"toggle_comment_user_picture";i:0;s:32:"toggle_comment_user_verification";i:1;s:14:"toggle_favicon";i:1;s:16:"toggle_main_menu";i:1;s:21:"toggle_secondary_menu";i:0;s:12:"default_logo";i:1;s:9:"logo_path";s:0:"";s:11:"logo_upload";s:0:"";s:15:"default_favicon";i:1;s:12:"favicon_path";s:0:"";s:14:"favicon_upload";s:0:"";}',
 ))
 ->values(array(
   'name' => 'tracker_batch_size',

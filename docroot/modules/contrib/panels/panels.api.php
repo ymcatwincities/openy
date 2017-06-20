@@ -20,4 +20,3 @@ function hook_panels_build_alter(array &$build, PanelsDisplayVariant $panels_dis
     '#markup' => '<div>Some extra markup</div>',
   ];
 }
-
