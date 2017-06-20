@@ -1,0 +1,10 @@
+location_finder:
+  version: 1.0
+  js:
+    https://maps.googleapis.com/maps/api/js: { type: external }
+    js/location_finder.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

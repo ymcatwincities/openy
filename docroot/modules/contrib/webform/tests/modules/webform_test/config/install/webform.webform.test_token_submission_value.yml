@@ -1,0 +1,180 @@
+langcode: en
+status: open
+dependencies:
+  enforced:
+    module:
+      - webform_test
+open: null
+close: null
+uid: null
+template: false
+id: test_token_submission_value
+title: 'Test: Token submission value'
+description: 'Test Webform submission values tokens'
+category: 'Test: Token'
+elements: |
+  email:
+    '#type': email
+    '#title': email
+    '#default_value': 'example@example.com'
+  emails:
+    '#type': email
+    '#title': emails
+    '#multiple': true
+    '#default_value':
+      - 'one@example.com'
+      - 'two@example.com'
+      - 'three@example.com'
+  name:
+    '#type': webform_name
+    '#title': name
+    '#default_value':
+      first: John
+      last: Smith
+  names:
+    '#type': webform_name
+    '#title': names
+    '#multiple': true
+    '#default_value':
+      - first: John
+        last: Smith
+      - first: Jane
+        last: Doe
+  contact:
+    '#type': webform_contact
+    '#title': contact
+    '#default_value':
+      name: John Smith
+      email: 'john@example.com'
+      address: '10 Main Street'
+      city: Springfield
+      state_province: Alabama
+      postal_code: 12345
+      country: 'United States'
+  contacts:
+    '#type': webform_contact
+    '#title': contact
+    '#multiple': true
+    '#default_value':
+      - name: 'John Smith'
+        email: 'john@example.com'
+        address: '10 Main Street'
+        city: Springfield
+        state_province: Alabama
+        postal_code: 12345
+        country: 'United States'
+      - name: 'Jane Doe'
+        email: 'jane@example.com'
+        address: '10 Main Street'
+        city: Springfield
+        state_province: Alabama
+        postal_code: 12345
+        country: 'United States'
+css: ''
+javascript: ''
+settings:
+  page: true
+  page_submit_path: ''
+  page_confirm_path: ''
+  form_submit_once: false
+  form_exception_message: ''
+  form_open_message: ''
+  form_close_message: ''
+  form_previous_submissions: true
+  form_confidential: false
+  form_confidential_message: ''
+  form_convert_anonymous: false
+  form_prepopulate: false
+  form_prepopulate_source_entity: false
+  form_disable_autocomplete: false
+  form_novalidate: false
+  form_unsaved: false
+  form_disable_back: false
+  form_autofocus: false
+  form_details_toggle: false
+  submission_log: false
+  wizard_progress_bar: true
+  wizard_progress_pages: false
+  wizard_progress_percentage: false
+  wizard_start_label: ''
+  wizard_complete: true
+  wizard_complete_label: ''
+  preview: 0
+  preview_label: ''
+  preview_title: ''
+  preview_message: ''
+  draft: none
+  draft_auto_save: false
+  draft_saved_message: ''
+  draft_loaded_message: ''
+  confirmation_type: page
+  confirmation_title: ''
+  confirmation_message: |
+    <table class="table">
+    <tr><th>webform_submission:values:email</th><td>[webform_submission:values:email]</td></tr>
+    <tr><th>webform_submission:values:emails</th><td>[webform_submission:values:emails]</td></tr>
+    <tr><th>webform_submission:values:emails:0</th><td>[webform_submission:values:emails:0]</td></tr>
+    <tr><th>webform_submission:values:emails:1</th><td>[webform_submission:values:emails:1]</td></tr>
+    <tr><th>webform_submission:values:emails:2</th><td>[webform_submission:values:emails:2]</td></tr>
+    <tr><th>webform_submission:values:emails:value:comma</th><td>[webform_submission:values:emails:value:comma]</td></tr>
+    <tr><th>webform_submission:values:emails:html</th><td>[webform_submission:values:emails:html]</td></tr>
+    <tr><th>webform_submission:values:emails:0:html</th><td>[webform_submission:values:emails:0:html]</td></tr>
+    <tr><th>webform_submission:values:emails:1:html</th><td>[webform_submission:values:emails:1:html]</td></tr>
+    <tr><th>webform_submission:values:emails:2:html</th><td>[webform_submission:values:emails:2:html]</td></tr>
+    <tr><th>webform_submission:values:emails:99:html</th><td>[webform_submission:values:emails:99]</td></tr>
+    <tr><th>webform_submission:values:name</th><td>[webform_submission:values:name]</td></tr>
+    <tr><th>webform_submission:values:names</th><td>[webform_submission:values:names]</td></tr>
+    <tr><th>webform_submission:values:names:0</th><td>[webform_submission:values:names:0]</td></tr>
+    <tr><th>webform_submission:values:names:1</th><td>[webform_submission:values:names:1]</td></tr>
+    <tr><th>webform_submission:values:names:99</th><td>[webform_submission:values:names:99]</td></tr>
+    <tr><th>webform_submission:values:contact</th><td>[webform_submission:values:contact]</td></tr>
+    <tr><th>webform_submission:values:contacts</th><td>[webform_submission:values:contacts]</td></tr>
+    <tr><th>webform_submission:values:contacts:html</th><td>[webform_submission:values:contacts:html]</td></tr>
+    <tr><th>webform_submission:values:contacts:0:html</th><td>[webform_submission:values:contacts:0:html]</td></tr>
+    <tr><th>webform_submission:values:contacts:0:name</th><td>[webform_submission:values:contacts:0:name]</td></tr>
+    <tr><th>webform_submission:values:contacts:1:name</th><td>[webform_submission:values:contacts:1:name]</td></tr>
+    </table>
+  confirmation_url: ''
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
+  limit_total: null
+  limit_total_message: ''
+  limit_user: null
+  limit_user_message: ''
+  purge: none
+  purge_days: null
+  entity_limit_total: null
+  entity_limit_user: null
+  results_disabled: false
+  results_disabled_ignore: false
+  token_update: true
+access:
+  create:
+    roles:
+      - anonymous
+      - authenticated
+    users: {  }
+  view_any:
+    roles: {  }
+    users: {  }
+  update_any:
+    roles: {  }
+    users: {  }
+  delete_any:
+    roles: {  }
+    users: {  }
+  purge_any:
+    roles: {  }
+    users: {  }
+  view_own:
+    roles: {  }
+    users: {  }
+  update_own:
+    roles: {  }
+    users: {  }
+  delete_own:
+    roles: {  }
+    users: {  }
+handlers: {  }

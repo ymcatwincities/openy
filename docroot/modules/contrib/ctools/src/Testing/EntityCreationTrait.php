@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains EntityCreationTrait.php
+ */
 
 namespace Drupal\ctools\Testing;
 

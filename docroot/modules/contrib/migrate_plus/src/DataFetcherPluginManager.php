@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\DataFetcherPluginManager.
- */
-
 namespace Drupal\migrate_plus;
 
 use Drupal\Core\Cache\CacheBackendInterface;

@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall hooks for the Scheduler API Test module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Although not strictly necessary for testing, it is good practice to tidy up
+ * module config and content on uninstalling. Plus, when developing this module
+ * and enabling it manually as a real module, this code is needed to clean up,
+ * otherwise a re-install fails.
+ */
+function scheduler_api_test_uninstall() {
+
+  // Delete any content that may have been created for the custom node type.
+  $nids_query = \Drupal::database()->select('node', 'n')
+    ->fields('n', ['nid'])
+    ->condition('n.type', ['scheduler_api_test'], 'IN')
+    ->execute();
+  $nids = $nids_query->fetchCol();
+  entity_delete_multiple('node', $nids);
+
+  // The content type, custom fields and storage are deleted automatically by
+  // having 'enforced: module: - scheduler_api_test' in the
+  // config/install/*.yml files.
+}
