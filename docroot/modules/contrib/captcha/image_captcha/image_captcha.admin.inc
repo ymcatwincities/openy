@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Contains functions used in the backend forms.
@@ -17,7 +18,8 @@ function image_captcha_font_preview($font_token) {
   }
   else {
     // Get the mapping of font tokens to font file objects.
-    $fonts = \Drupal::config('image_captcha.settings')->get('image_captcha_fonts_preview_map_cache');
+    $fonts = \Drupal::config('image_captcha.settings')
+      ->get('image_captcha_fonts_preview_map_cache');
     if (!isset($fonts[$font_token])) {
       print 'Bad token';
       exit();

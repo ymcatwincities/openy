@@ -1,16 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains CAPTCHA image response class.
- */
-
 namespace Drupal\image_captcha\Response;
 
+use Drupal\Core\Config\Config;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Drupal\Core\Config\Config;
 
 /**
  * Response which is returned as the captcha for image_captcha.
@@ -160,7 +155,6 @@ class CaptchaImageResponse extends Response {
 
     // Do we need to draw in RTL mode?
     global $language;
-    $rtl = $language->direction && ((bool) $this->config->get('image_captcha_rtl_support'));
 
     $result = $this->printString($image, $width, $height, $fonts, $font_size, $code);
     if (!$result) {
@@ -236,8 +230,8 @@ class CaptchaImageResponse extends Response {
               $color_11_g = ($color_11 >> 8) & 0xFF;
               $color_11_b = $color_11 & 0xFF;
               // Interpolation factors.
-              $u  = $sx - $sxf;
-              $v  = $sy - $syf;
+              $u = $sx - $sxf;
+              $v = $sy - $syf;
               $r = (int) ((1 - $v) * ((1 - $u) * $color_00_r + $u * $color_10_r) + $v * ((1 - $u) * $color_01_r + $u * $color_11_r));
               $g = (int) ((1 - $v) * ((1 - $u) * $color_00_g + $u * $color_10_g) + $v * ((1 - $u) * $color_01_g + $u * $color_11_g));
               $b = (int) ((1 - $v) * ((1 - $u) * $color_00_b + $u * $color_10_b) + $v * ((1 - $u) * $color_01_b + $u * $color_11_b));
@@ -344,7 +338,6 @@ class CaptchaImageResponse extends Response {
 
     $foreground_rgb = $this->hexToRgb($this->config->get('image_captcha_foreground_color'));
     $background_rgb = $this->hexToRgb($this->config->get('image_captcha_background_color'));
-    $background_color = imagecolorallocate($image, $background_rgb[0], $background_rgb[1], $background_rgb[2]);
     $foreground_color = imagecolorallocate($image, $foreground_rgb[0], $foreground_rgb[1], $foreground_rgb[2]);
     // Precalculate the value ranges for color randomness.
     $foreground_randomness = $this->config->get('image_captcha_foreground_color_randomness');

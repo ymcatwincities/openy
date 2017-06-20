@@ -1,0 +1,56 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.images_library
+    - field.field.paragraph.teaser.field_prgf_description
+    - field.field.paragraph.teaser.field_prgf_image
+    - field.field.paragraph.teaser.field_prgf_link
+    - field.field.paragraph.teaser.field_prgf_title
+    - paragraphs.paragraphs_type.teaser
+  module:
+    - entity_browser
+    - link
+    - text
+id: paragraph.teaser.default
+targetEntityType: paragraph
+bundle: teaser
+mode: default
+content:
+  field_prgf_description:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_prgf_image:
+    weight: 1
+    settings:
+      entity_browser: images_library
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      selection_mode: selection_append
+      open: false
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+  field_prgf_link:
+    weight: 3
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_prgf_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  created: true
+  status: true
+  uid: true

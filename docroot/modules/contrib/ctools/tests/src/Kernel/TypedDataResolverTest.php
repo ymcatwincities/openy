@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\KernelTests\ctools\TypedDataResolverTest.
+ */
+
 namespace Drupal\Tests\ctools\Kernel;
 
 use Drupal\Core\Entity\ContentEntityInterface;

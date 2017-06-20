@@ -1,0 +1,5 @@
+datalayer.settings_form:
+  route_name: datalayer.settings_form
+  title: 'Data Layer'
+  description: 'Output page meta data for client-side use.'
+  parent: system.admin_config_search

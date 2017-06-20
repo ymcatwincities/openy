@@ -1,0 +1,108 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncategory
+id: openy_demo_paragraph_classes_listing_filters
+migration_tags: {  }
+migration_group: openy_demo_ncategory
+label: 'Create classes listing filters paragraphs for demo subcategory nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      parent_id: kids_zone_activity_centers
+    -
+      id: 2
+      parent_id: active_older_adults
+    -
+      id: 3
+      parent_id: group_exercise_classes
+    -
+      id: 4
+      parent_id: health_and_fitness_for_kids_and_teens
+    -
+      id: 5
+      parent_id: personal_training
+    -
+      id: 6
+      parent_id: programs_for_health
+    -
+      id: 7
+      parent_id: recreation
+    -
+      id: 8
+      parent_id: small_group_and_specialty_training
+    -
+      id: 9
+      parent_id: weight_loss
+    -
+      id: 10
+      parent_id: cooking_and_crafts
+    -
+      id: 11
+      parent_id: family_activities
+    -
+      id: 12
+      parent_id: kids_university_and_enrichment_classes
+    -
+      id: 13
+      parent_id: sports
+    -
+      id: 14
+      parent_id: swim_team
+    -
+      id: 15
+      parent_id: drop_in_swim
+    -
+      id: 16
+      parent_id: swim_lessons
+    -
+      id: 17
+      parent_id: bold_and_gold
+    -
+      id: 18
+      parent_id: before_and_after_school_child_care
+    -
+      id: 19
+      parent_id: earth_service_corps
+    -
+      id: 20
+      parent_id: day_camps
+    -
+      id: 21
+      parent_id: preschool
+    -
+      id: 22
+      parent_id: academic_success
+  ids:
+    id:
+      type: integer
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_program_subcategory
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  parent_field_name:
+    plugin: default_value
+    default_value: field_header_content
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: classes_listing_filters

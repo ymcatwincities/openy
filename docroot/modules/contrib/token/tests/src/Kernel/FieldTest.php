@@ -6,6 +6,8 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\contact\Entity\ContactForm;
 use Drupal\Core\Entity\Entity\EntityViewMode;
 use Drupal\Core\Render\Markup;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
+use Drupal\datetime_range\Plugin\Field\FieldType\DateRangeItem;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\filter\Entity\FilterFormat;
@@ -44,7 +46,7 @@ class FieldTest extends KernelTestBase {
    *
    * @var array
    */
-  public static $modules = ['node', 'text', 'field', 'filter', 'contact', 'options', 'taxonomy', 'language'];
+  public static $modules = ['node', 'text', 'field', 'filter', 'contact', 'options', 'taxonomy', 'language', 'datetime', 'datetime_range'];
 
   /**
    * {@inheritdoc}
@@ -187,6 +189,34 @@ class FieldTest extends KernelTestBase {
       'label' => 'German',
     ]);
     $language->save();
+
+    // Add a datetime field.
+    $field_datetime_storage = FieldStorageConfig::create(array(
+        'field_name' => 'field_datetime',
+        'type' => 'datetime',
+        'entity_type' => 'node',
+        'settings' => array('datetime_type' => DateTimeItem::DATETIME_TYPE_DATETIME),
+    ));
+    $field_datetime_storage->save();
+    $field_datetime = FieldConfig::create([
+        'field_storage' => $field_datetime_storage,
+        'bundle' => 'article',
+    ]);
+    $field_datetime->save();
+
+    // Add a daterange field.
+    $field_daterange_storage = FieldStorageConfig::create(array(
+        'field_name' => 'field_daterange',
+        'type' => 'daterange',
+        'entity_type' => 'node',
+        'settings' => array('datetime_type' => DateRangeItem::DATETIME_TYPE_DATETIME),
+    ));
+    $field_daterange_storage->save();
+    $field_daterange = FieldConfig::create([
+        'field_storage' => $field_daterange_storage,
+        'bundle' => 'article',
+    ]);
+    $field_daterange->save();
   }
 
   /**
@@ -634,6 +664,45 @@ class FieldTest extends KernelTestBase {
       'test_term_reference:entity:term_field:value' => 'german-term-field-value',
     ];
     $this->assertTokens('node', ['node' => $node], $tokens, ['langcode' => 'de']);
+  }
+
+  /**
+   * Tests support for a datetime fields.
+   */
+  public function testDatetimeFieldTokens() {
+
+    $node = Node::create([
+      'title' => 'Node for datetime field',
+      'type' => 'article',
+    ]);
+
+    $node->set('field_datetime', '1925-09-28T00:00:00')->save();
+    $this->assertTokens('node', ['node' => $node], [
+      'field_datetime:date:custom:Y' => '1925',
+      'field_datetime:date:html_month' => '1925-09',
+      'field_datetime:date' => $node->field_datetime->date->getTimestamp(),
+    ]);
+  }
+
+  /**
+   * Tests support for a daterange fields.
+   */
+  public function testDatetimeRangeFieldTokens() {
+
+    $node = Node::create([
+        'title' => 'Node for daterange field',
+        'type' => 'article',
+    ]);
+
+    $node->field_daterange->value = '2013-12-22T00:00:00';
+    $node->field_daterange->end_value = '2016-08-26T00:00:00';
+    $node->save();
+    $this->assertTokens('node', ['node' => $node], [
+      'field_daterange:start_date:html_month' => '2013-12',
+      'field_daterange:start_date:custom:Y' => '2013',
+      'field_daterange:end_date:custom:Y' => '2016',
+      'field_daterange:start_date' => $node->field_daterange->start_date->getTimestamp(),
+    ]);
   }
 
 }

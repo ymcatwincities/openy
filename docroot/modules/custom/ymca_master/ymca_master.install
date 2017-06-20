@@ -4675,8 +4675,51 @@ function ymca_master_update_8211() {
 }
 
 /**
- * Enable openy_digital_signage module.
+ * Enable openy profile.
  */
 function ymca_master_update_8212() {
+  $config = \Drupal::service('config.factory')->getEditable('core.extension');
+  $config->set('profile', 'openy');
+  $config->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable datalayers module.
+ */
+function ymca_master_update_8213() {
+  $modules = [
+    'datalayer',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Enable openy_node_langing, openy_media module.
+ */
+function ymca_master_update_8214() {
+  $modules = [
+    'openy_prgf_simple_content',
+    'openy_node_landing',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * [YPTF-264] Configure MindBody Cache Proxy settings.
+ */
+function ymca_master_update_8215() {
+  $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
+  $config->set('token', md5('wagabagadogo'));
+  $config->set('primary', FALSE);
+  $config->set('endpoint', 'https://www.ymcamn.org/mindbody/status');
+  $config->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable openy_digital_signage module.
+ */
+function ymca_master_update_8216() {
   \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
 }

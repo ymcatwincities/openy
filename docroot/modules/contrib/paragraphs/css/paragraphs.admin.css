@@ -1,0 +1,81 @@
+.field--widget-entity-reference-paragraphs .paragraph-type-top .paragraph-type-title {
+    float: left;
+}
+
+.field--widget-entity-reference-paragraphs .paragraph-type-top .paragraphs-dropbutton-wrapper {
+    float:right;
+    margin: 0em;
+}
+
+.js .field--widget-entity-reference-paragraphs .paragraphs-dropbutton-wrapper .dropbutton-wrapper {
+    padding-right: 0em;
+    margin-right: 0em;
+}
+
+.js .field--widget-entity-reference-paragraphs td .paragraph-type-top .paragraphs-dropbutton-wrapper .dropbutton-wrapper .dropbutton-widget,
+.js .field--widget-entity-reference-paragraphs .paragraph-type-top .paragraphs-dropbutton-wrapper .dropbutton-wrapper .dropbutton-widget {
+    position: relative;
+}
+
+.field--widget-entity-reference-paragraphs .paragraph-type-top {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+.field--widget-entity-reference-paragraphs .paragraphs-subform {
+    clear: both;
+    float: left;
+    width: 100%;
+}
+
+.paragraphs-dropbutton-wrapper .dropbutton-widget {
+    position: absolute;
+    display: block;
+}
+
+.js .paragraphs-subform .dropbutton-multiple {
+    margin: 0px 0px 0px 0px;
+    padding: 0;
+}
+
+.js .paragraphs-subform .dropbutton-wrapper,
+.js .field--widget-entity-reference-paragraphs .dropbutton-widget {
+    display: inline-flex;
+}
+
+.js .field--widget-entity-reference-paragraphs .dropbutton-wrapper,
+.js .field--widget-entity-reference-paragraphs .dropbutton-widget {
+    display: inline-flex;
+}
+
+.js .paragraphs-subform .dropbutton-widget {
+    position: relative;
+}
+
+.js .field--widget-entity-reference-paragraphs .field-multiple-table {
+    margin: 0 0 10px 0px;
+}
+
+.js .field--widget-entity-reference-paragraphs td {
+    padding: 10px 0px 10px 0px;
+}
+
+.js .field--widget-entity-reference-paragraphs .draggable a.tabledrag-handle {
+    float: none;
+    padding-right: 0;
+    margin: 0;
+}
+
+.js .field--widget-entity-reference-paragraphs a.tabledrag-handle .handle {
+    margin: -0.4em 0em 0;
+}
+
+.js .field--widget-entity-reference-paragraphs td.field-multiple-drag {
+    vertical-align: top;
+    float: none;
+    top: 0;
+}
+
+.js .field--widget-entity-reference-paragraphs .field-multiple-table .field-multiple-drag .tabledrag-handle {
+    padding-right: 0;
+}

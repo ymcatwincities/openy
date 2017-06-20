@@ -1,0 +1,7 @@
+embeddedgroupexpro.settings:
+  path: '/admin/config/services/groupexpro'
+  defaults:
+    _form: '\Drupal\embedded_groupexpro_schedule\Form\EmbeddedGroupExProSettingsForm'
+    _title: 'GroupEx Pro Account Settings'
+  requirements:
+    _permission: 'administer site configuration'

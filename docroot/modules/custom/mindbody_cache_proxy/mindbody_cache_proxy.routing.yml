@@ -5,3 +5,11 @@ mindbody_cache_proxy.settings:
     _title: 'Mindbody Cache Proxy settings'
   requirements:
     _permission: 'administer site configuration'
+mindbody_cache_proxy.endpoint_status:
+  path: '/mindbody/status'
+  defaults:
+    _controller: '\Drupal\mindbody_cache_proxy\Controller\MindBodyEndPointController::endPointStatus'
+  options:
+    no_cache: TRUE
+  requirements:
+    _custom_access: '\Drupal\mindbody_cache_proxy\Controller\MindBodyEndPointController::endPointStatusAccess'
