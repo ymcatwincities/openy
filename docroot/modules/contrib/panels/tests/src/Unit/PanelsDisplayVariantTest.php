@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\panels\Unit\PanelsDisplayVariantTest.
- */
-
 namespace Drupal\Tests\panels\Unit;
 
 use Drupal\Component\Uuid\UuidInterface;
@@ -12,11 +7,12 @@ use Drupal\Core\Block\BlockManager;
 use Drupal\Core\Condition\ConditionManager;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Layout\LayoutDefinition;
+use Drupal\Core\Layout\LayoutInterface;
+use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Utility\Token;
-use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
-use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
 use Drupal\panels\Plugin\DisplayBuilder\DisplayBuilderManagerInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 use Drupal\Tests\UnitTestCase;
@@ -69,12 +65,12 @@ class PanelsDisplayVariantTest extends UnitTestCase {
   protected $builderManager;
 
   /**
-   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface
+   * @var \Drupal\Core\Layout\LayoutPluginManagerInterface
    */
   protected $layoutManager;
 
   /**
-   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutInterface
+   * @var \Drupal\Core\Layout\LayoutInterface
    */
   protected $layout;
 
@@ -127,10 +123,21 @@ class PanelsDisplayVariantTest extends UnitTestCase {
    * @covers ::getRegionNames
    */
   public function testGetRegionNames() {
-    $region_names = ['Foo', 'Bar', 'Baz'];
-    $this->layout->getPluginDefinition()->willReturn([
-      'region_names' => $region_names,
+    $region_names = ['foo' => 'Foo', 'bar' => 'Bar', 'baz' => 'Baz'];
+    $layout_definition = new LayoutDefinition([
+      'regions' => [
+        'foo' => [
+          'label' => 'Foo',
+        ],
+        'bar' => [
+          'label' => 'Bar',
+        ],
+        'baz' => [
+          'label' => 'Baz',
+        ],
+      ],
     ]);
+    $this->layout->getPluginDefinition()->willReturn($layout_definition);
     $this->assertSame($region_names, $this->variant->getRegionNames());
   }
 

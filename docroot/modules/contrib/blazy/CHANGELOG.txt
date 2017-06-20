@@ -1,0 +1,396 @@
+
+Blazy 8.x-1.0-dev, 2017-01-24
+-----------------------------
+- Split BlazyDefault::imageSettings() into BlazyDefault::baseImageSettings().
+- Added media_attributes to position media container properly with aspect ratio.
+
+Blazy 8.x-1.0-dev, 2017-01-19
+-----------------------------
+- A couple of cosmetic fixes.
+
+Blazy 8.x-1.0-dev, 2017-01-16
+-----------------------------
+- #2841316 by gausarts, tjwelde: User error: "item" is an invalid render array
+  key.
+- #2843449 by gausarts, Jaesin: Consider adding `configure: blazy.settings` to
+  .info.yml on blazy_ui
+
+Blazy 8.x-1.0-dev, 2016-12-27
+-----------------------------
+- Fixed for broken grid when the theme has no CSS box-sizing rules.
+- Added blazy_settings_alter() to programtically alter settings prior to being
+  processed by field formatters.
+- Added Object.assign to use modern native extend before fallback to custom.
+- #2838213 by gausarts: Use vanilla JS.
+
+Blazy 8.x-1.0-dev, 2016-12-20
+-----------------------------
+- Decoupled Views stuffs from Blazy into BlazyViews.
+- Simplified media switch player JS.
+- Fixed for schema error with double and float insanity at sub-modules.
+- Simplified Blazy::buildUrl() to remove image_style $modifier assumption, and
+  let the actual extender use regular image_style override instead. GridStack
+  and Mason should update this accordingly.
+- Added Media switcher "Image rendered by its formatter" option to render images
+  as is for a special formatter with fieldable entities like Media, or
+  Paragraphs formatters such as with Image Link Formatter.
+- Refined select #options conditions.
+- Removed some complex form states to use custom JS with CSS visibility instead.
+- Allowed disabling Aspect ratio option which is not relevant for fixed grids
+  like Mason or GridStack. Alo image_style option such as with GridStack multi-
+  image-style grids field formatters.
+- Decoupled iframe related attributes into Blazy::buildIframeAttributes().
+
+Blazy 8.x-1.0-dev, 2016-12-12
+-----------------------------
+- #2834759 by DuneBL: Allow missing image.
+- Decoupled base entity reference formatter without field supports into
+  \Drupal\blazy\Dejavu\BlazyEntityBase to allow a simple ER formatter.
+- Added form--style- classes for easy decluterring of Blazy/ Slick form which is
+  not easy with form states.
+- Changed library weights.
+- Moved Colorbox mobile dimension check outside the loop.
+- Updated blazy.admin.js to declutter options which are not properly managed
+  by form states.
+
+Blazy 8.x-1.0-dev, 2016-12-09
+-----------------------------
+- Supported Media Entity to set dimensions once to reduce method calls.
+- Simplified BlazyManager::setDimensionsOnce() to support Media Entity, etc.
+- Cleaned out deprecated methods which were already merged into theme_blazy():
+  BlazyManager::getUrlBreakpoints()
+  BlazyManager::getUrlDimensions()
+  BlazyManager::getMediaSwitch()
+
+Blazy 8.x-1.0-dev, 2016-12-07
+-----------------------------
+- Improved settings lightbox to reduce method calls for View fields, and Entity
+  Browser plugins with tons of images.
+
+Blazy 8.x-1.0-dev, 2016-12-05
+-----------------------------
+- Fixed for coding standards.
+- Fixed for a few admin CSS for small device.
+- Fixed for settings lightbox due to old approach with boolean, not string.
+- Moved Grid settings from the first Grid item into theme_item_list() context.
+
+Blazy 8.x-1.0-dev, 2016-11-29
+-----------------------------
+- Marked it Beta5.
+- Renamed BlazyGrid::buildGrid() into BlazyGrid::build()
+  Renamed BlazyLightbox::switchMedia() into BlazyLightbox::build()
+  Both to get consistent with BlazyMedia::build().
+- Moved Slick Video dimensions into BlazyVideoTrait as this is only used by
+  Slick Video, not necessarily Blazy.
+- Moved Blazy #cache property back into BlazyManager to reduce complexity at
+  preprocess since this is more module feature than custom code.
+
+Blazy 8.x-1.0-dev, 2016-11-28
+-----------------------------
+- Added BlazyGrid doc comments.
+- Cleaned up unused imports, and no-longer relevant stuffs.
+
+Blazy 8.x-1.0-dev, 2016-11-27
+-----------------------------
+- Fixed for fatal error with disconnected internet when ME Facebook kicks in,
+  and resorted to static thumbnails to avoid broken displays instead.
+
+Blazy 8.x-1.0-dev, 2016-11-26
+-----------------------------
+- Added doc comments.
+- Added basic support for other media entity: Instagram, Twitter, etc.
+- Cleaned up variables.
+
+Blazy 8.x-1.0-dev, 2016-11-24
+-----------------------------
+- Removed unwanted [data-LIGHTBOX-gallery] attributes from Views wrapper when
+  the Views style already supports Grid gallery, such as Blazy, Slick Browser,
+  or Slick Views with Grid display.
+
+Blazy 8.x-1.0-dev, 2016-11-23
+-----------------------------
+- Decluttered Blazy form when Vanilla is enabled.
+- Added empty option for Blazy Views field for Lightbox image style.
+- Fixed 404 warning for when Video thumbnail is missing.
+- Cleaned out BlazyManager::buildDataBlazy() as top-level attributes cannot be
+  inherited by child elements with irregular image sizes. This is now only
+  relevant for CSS background since Blazy v1.6.0.
+- Fixed for Aspect ratio and Breakpoints options being disabled/invisible when
+  Responsive image not installed.
+
+Blazy 8.x-1.0-dev, 2016-11-21
+-----------------------------
+- Cleaned up Entity Reference field options from less relevant options. If you
+  need to bring them back, or clean out more, implement
+  hook_blazy_excluded_field_options_alter().
+  The excluded fields:
+  field_document_size field_id field_media_in_library field_mime_type
+  field_source field_tweet_author field_tweet_id field_tweet_url
+  field_media_video_embed_field field_instagram_shortcode field_instagram_url
+- Fixed for lightbox library.
+- Added Lightbox video style to replace Dimension option to allow swiping
+  video lightbox such as PhotoSwipe.
+- Removed hook_NAMESPACE_image_alter() into hook_blazy_alter() to swap all
+  Blazy-related image, including Slick, etc., once.
+- Fixed for duplicated grid__content class.
+
+Blazy 8.x-1.0-dev, 2016-11-17
+-----------------------------
+- Made lightboxes easier to extend.
+- Decoupled grid utilities into \Drupal\blazy\BlazyGrid.
+- Decoupled lightbox utilities into \Drupal\blazy\BlazyLightbox.
+- Added missing Lightbox image style for Views field.
+- Moved BlazyAdminFormatterBase::mediaSwitchForm() into BlazyAdminBase to re-use
+  for Views fields outside field formatters.
+- Fixed for regression for when no Image style is provided.
+
+Blazy 8.x-1.0-dev, 2016-11-12
+-----------------------------
+- #2752865 by tjwelde, lilee, killua99: Support PICTURE element for the
+  responsive image.
+
+Blazy 8.x-1.0-dev, 2016-11-10
+-----------------------------
+- Triggered packager.
+- Added Views style plugin Blazy Grid.
+- Added [data-blazy] attribute to Views container if having Blazy Views fields.
+- Fixed for Blazy regression being overriden by empty breakpoints.
+
+Blazy 8.x-1.0-dev, 2016-11-09
+-----------------------------
+- A few more cleanups.
+- #2825706 by mErilainen: Invalid translation language.
+- Removed unwanted Grid and Display style options from non-multi-value fields.
+- A few cleanups, typos, descriptions, etc.
+
+Blazy 8.x-1.0-dev, 2016-10-31
+-----------------------------
+- Added support for multi-breakpoint aspect ratio with irregular sizes.
+- Added blazy.column.css.
+- Optimized blazy.grid.css.
+- Added Display style to have a pure and simple CSS Masonry like grid display,
+  and Grid Foundation from within Blazy formatters, not only Slick.
+- Moved grid form into BlazyAdminBase for re-usability by Blazy, not only Slick.
+- Added support for video colorbox.
+- Added colorbox video gallery support when using Blazy Views fields.
+- Fixed regression with numeric aspect ratio.
+
+Blazy 8.x-1.0-dev, 2016-10-25
+-----------------------------
+- Minified please. Never commit anything when you are tired.
+- Added optional "Blazy Image with Media" formatter to retain VEM/ME within
+  image/file ER environment if VEM/ME is installed.
+- Added optional supports for Media Entity when using BlazyViewsFieldFile().
+- Deprecated methods for clarity and to reduce road blocks to theme_blazy():
+  o BlazyManager::getUrlDimensions() for Blazy::buildUrl()
+  o BlazyManager::getUrlBreakpoints() for Blazy::buildBreakpointAttributes()
+  o BlazyManager::getDescriptors() for BlazyManager::widthFromDescriptors()
+
+- Decoupled Blazy service from BlazyManager to reduce complexity. This allows
+  moving individual item methods into Blazy out of the BlazyManager so to use
+  theme_blazy() doesn't need to travel around into BlazyManager::getImage().
+- Updated blazy JS files.
+- Fixed for the new "Use CSS background" option with multi-serving images.
+- Moved Slick grid into Blazy to be re-usable for divities, not only list.
+- Moved Blazy Views field library to hook_views_pre_render() to reduce function
+  calls.
+- Re-used Views field image and entity view builder approach for Slick Browser.
+- Added Twig block section for easy partial extensions, and reduce dups.
+
+Blazy 8.x-1.0-dev, 2016-09-29
+-----------------------------
+- Marked it Beta4.
+- Fixed for Twig indentation.
+- Fixed for Undefined index: <No caching> in
+  Drupal\blazy\Form\BlazyAdminFormatterBase->settingsSummary() (line 296 ...
+- Moved re-usable methods from BlazyEntityReferenceBase into BlazyEntityTrait.
+- Remove Twig spaceless.
+- Added optional Views field plugins for File and Media entity.
+
+Blazy 8.x-1.0-dev, 2016-09-07
+-----------------------------
+- Marked it Beta3.
+- Added "Use CSS background" option.
+
+Blazy 8.x-1.0-dev, 2016-09-05
+-----------------------------
+- Refined form elements and summaries.
+
+Blazy 8.x-1.0-dev, 2016-08-30
+-----------------------------
+- Added video support to the main background/stage for Slick Paragraphs which
+  is normally image.
+- Fixed for BlazyAdminFormatterBase::getFieldOptions() target_type.
+
+Blazy 8.x-1.0-dev, 2016-08-29
+-----------------------------
+- Added lightbox captions and use CSS background options for Slick Media.
+- Made BlazyEntityReferenceBase::getOverlay() do something useful by default.
+- Added entity_type at BlazyEntityReferenceBase::getScopedFormElements().
+- Fixed for VEF integration with failing thumbnail downloads.
+- Changed Cache option to No caching by default.
+- A few cleanups.
+
+Blazy 8.x-1.0-dev, 2016-08-27
+-----------------------------
+- #2778615 by DuneBL: A notice is popping up without image style.
+- Allowed a few reasonable HTML tags within H2.slide__title.
+- A few cleanups.
+
+Blazy 8.x-1.0-dev, 2016-08-03
+-----------------------------
+- #2768463 by chr.fritsch: Add libraries support.
+- Fixed for lightbox custom caption form states.
+
+Blazy 8.x-1.0-dev, 2016-07-15
+-----------------------------
+- #2766665 by gausarts: Support plain iframe.
+
+Blazy 8.x-1.0-dev, 2016-07-14
+-----------------------------
+- #2750823 by royal121: Schema errors with slick.
+
+Blazy 8.x-1.0-dev, 2016-06-27
+-----------------------------
+- Removed deprecated @file docblock as per [#2665992], [#2304909].
+- Cleaned up options.
+
+Blazy 8.x-1.0-dev, 2016-06-16
+-----------------------------
+- Fixed for empty values at BlazyStylePluginBase::getFieldString().
+- #2749071 by agx: Empty image alt with Responsive image.
+
+Blazy 8.x-1.0-dev, 2016-06-13
+-----------------------------
+- Added lightbox caption option.
+
+Blazy 8.x-1.0-dev, 2016-06-09
+-----------------------------
+- Fixed for .media--loading.
+- Fixed for Slick CSS background regression.
+
+Blazy 8.x-1.0-dev, 2016-06-08
+-----------------------------
+- Fixed for broken Responsive image.
+
+Blazy 8.x-1.0-dev, 2016-06-07
+-----------------------------
+- Removed the possessive CSS background taken over by Blazy, since Slick can now
+  work with unslick CSS background.
+
+Blazy 8.x-1.0-dev, 2016-05-10
+-----------------------------
+- Added default sizes.
+
+Blazy 8.x-1.0-dev, 2016-05-09
+-----------------------------
+- Removed redundant Preloader option since the classes are within image
+  containers. Maybe more reasonable for Views later which can text, images, etc.
+- Added support for non-lazyloaded images such as Slick carousel.
+
+Blazy 8.x-1.0-dev, 2016-05-07
+-----------------------------
+- Fixed for Overlays regression.
+
+Blazy 8.x-1.0-dev, 2016-05-06
+-----------------------------
+- #2719541 by gausarts, scoff: Fallback to default Media entity thumbnail when
+  Main image empty.
+
+Blazy 8.x-1.0-dev, 2016-05-06
+-----------------------------
+- Fixed for broken Image to iframe switcher by previous updates.
+- #2719541 by gausarts, scoff: Fallback to default Media entity thumbnail when
+  Main image empty.
+- Fixed for Undefined index: target_bundles when accessing Media entity field
+  options from within Views UI.
+
+Blazy 8.x-1.0-dev, 2016-05-05
+-----------------------------
+- Issue #2716765: Map or rework breakpoints into srcset as per v1.6.0.
+- Removed Retina option since it is now possible with SRCSET descriptors.
+- Added aspect ratio support for multi-breakpoint images.
+- Made efficient blazy_preprocess_field().
+
+Blazy 8.x-1.0-dev, 2016-04-22
+-----------------------------
+- Fixed for media_iframe typo, should be media__iframe.
+
+Blazy 8.x-1.0-dev, 2016-04-11
+-----------------------------
+- Added support for entity_reference_entity_view and all slick formatters
+  to be overlays/nested sliders such as from within Slick views.
+
+Blazy 8.x-1.0-dev, 2016-04-09
+-----------------------------
+- Added support for old video embed field's syntax with html_tag.
+
+Blazy 8.x-1.0-dev, 2016-04-08
+-----------------------------
+- Fixed for JS error.
+- A few cleanups.
+
+Blazy 8.x-1.0-dev, 2016-04-06
+-----------------------------
+- A couple of fixes.
+- Prepared optional supports for Video embed field.
+- Ported Lightbox video dimension option to fix for colorbox videos.
+- Added support for unmanaged file such as VEF.
+- Moved [data-thumb] out of IMG tag into .media container, since IMG is optional
+  or can be removed when "Use CSS background" option is selected. This allows
+  flexibility with Slick thumbnail hover/grid as well when the option is on.
+  Affected:
+  - blazy.photobox.min.js.
+
+Blazy 8.x-1.0-dev, 2016-04-04
+-----------------------------
+- Added support for video_embed_field via BlazyStylePluginBase.
+- Added support for overlay with nested slicks via BlazyStylePluginBase.
+- Added support to turn images into CSS background images.
+
+Blazy 8.x-1.0-dev, 2016-04-03
+-----------------------------
+- Added composer.json.
+- Prepared Media entity supports.
+- Added .js-media--ratio to solve hidden blazies such as Slick carousels within
+  hidden containers/ Ultimenu regions.
+- Fixed for undefined index notices.
+
+Blazy 8.x-1.0-dev, 2016-03-31
+-----------------------------
+- A few cleanups and fixes with multiple blazy instances, etc.
+
+Blazy 8.x-1.0-dev, 2016-03-29
+-----------------------------
+- A few fixes with item class options, etc.
+- Added fallback for missing $settings['item_id'].
+
+Blazy 8.x-1.0-dev, 2016-03-28
+-----------------------------
+- Refined integration with sub-modules.
+- Moved generic method BlazyManager::buildSkins() BlazyManager::getHtmlId() into
+  BlazyManagerBase.
+
+Blazy 8.x-1.0-dev, 2016-03-23
+-----------------------------
+- Added lazyload support for core Responsive image.
+- Moved a few Slick carousel goodness into this module: admin CSS, lightboxes
+  and re-usable methods so that Slick carousel, Mason, GridStack can use them
+  all from one place.
+- Added basic loading indicator to the lazyloaded elements.
+- Split library into core and custom JS loader.
+- Added blazy_ui.module.
+- Added basic stylings including aspect ratio CSS.
+- Added blazy services for re-usable methods across dependee modules.
+- Added own themes.
+- Added re-usable Traits and methods for dependee modules.
+- Added a scope to a more limited container using [data-blazy] attribute to
+  get consistent with the supported field formatters.
+- Added retina support.
+- Added responsive multi-serving images options.
+- Added supports for the image and colorbox/photobox.
+- Added basic configuration.
+
+Blazy 8.x-1.0-dev, 2016-01-19
+-----------------------------
+Initial commit.

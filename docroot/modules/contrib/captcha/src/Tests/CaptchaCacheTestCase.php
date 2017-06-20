@@ -1,14 +1,6 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\captcha\Tests\CaptchaCacheTestCase.
- */
-
 namespace Drupal\captcha\Tests;
-
-use Drupal\captcha\Entity\CaptchaPoint;
-use Drupal\Core\Url;
 
 /**
  * Tests CAPTCHA caching on various pages.
@@ -19,16 +11,18 @@ class CaptchaCacheTestCase extends CaptchaBaseWebTestCase {
 
   /**
    * Modules to install for this Test class.
+   *
+   * @var array
    */
   public static $modules = ['block', 'image_captcha'];
 
   /**
    * {@inheritdoc}
    */
-  function setUp() {
+  public function setUp() {
     parent::setUp();
 
-    $this->drupalPlaceBlock('user_login_block', array('id' => 'login'));
+    $this->drupalPlaceBlock('user_login_block', ['id' => 'login']);
   }
 
   /**

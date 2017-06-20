@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\captcha\Form\CaptchaPointDeleteForm.
- */
 
 namespace Drupal\captcha\Form;
 
