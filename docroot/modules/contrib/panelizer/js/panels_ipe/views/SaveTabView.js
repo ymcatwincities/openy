@@ -12,19 +12,7 @@
      * @type {function}
      */
     template: function() {
-      var saveButtons = '';
-
-      // Don't show the 'save as default' button if the user doesn't have
-      // permission.
-      if (drupalSettings.panelizer.user_permission.save_default) {
-        saveButtons += '<div class="panelizer-ipe-save-button"><a class="panelizer-ipe-save-custom" href="#">Save as custom</a></div>';
-        saveButtons += '<div class="panelizer-ipe-save-button"><a class="panelizer-ipe-save-default" href="#">Save as default</a></div>';
-      }
-      else {
-        saveButtons += '<div class="panelizer-ipe-save-button"><a class="panelizer-ipe-save-custom" href="#">Save</a></div>';
-      }
-
-      return saveButtons;
+      return '';
     },
 
     /**
@@ -46,26 +34,15 @@
      * @type {object}
      */
     events: {
-      'click .panelizer-ipe-save-custom': 'saveCustom',
-      'click .panelizer-ipe-save-default': 'saveDefault'
     },
 
     /**
      * @type {function}
      */
     onClick: function () {
-      var entity = drupalSettings.panelizer.entity;
       if (this.model.get('saveTab').get('active')) {
-        // If only one option is available, then just do that directly.
-        if (!entity.panelizer_default_storage_id) {
-          this._save('panelizer_field');
-        }
-        else if (!entity.panelizer_field_storage_id) {
-          // Only if the user has permission.
-          if (drupalSettings.panelizer.user_permission.save_default) {
-            this._save('panelizer_default');
-          }
-        }
+        // Always save as a custom override.
+        this.saveCustom();
       }
     },
 
@@ -74,13 +51,6 @@
      */
     saveCustom: function () {
       this._save('panelizer_field');
-    },
-
-    /**
-     * @type {function}
-     */
-    saveDefault: function () {
-      this._save('panelizer_default');
     },
 
     /**

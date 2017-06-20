@@ -30,15 +30,20 @@
       Drupal.panels_ipe.app_view.listenTo(revert_tab, 'change:active', function () {
         var entity = drupalSettings.panelizer.entity;
         if (revert_tab.get('active') && !revert_tab.get('loading')) {
-          // Remove our changes and refresh the page.
-          revert_tab.set({loading: true});
-          $.ajax({
-            url: drupalSettings.path.baseUrl + 'admin/panelizer/panels_ipe/' + entity.entity_type_id + '/' + entity.entity_id + '/' + entity.view_mode + '/revert_to_default',
-            data: {},
-            type: 'POST'
-          }).done(function (data) {
-            location.reload();
-          });
+          if (confirm(Drupal.t('Are you sure you want to revert to default layout? All your layout changes will be lost for this node.'))) {
+            // Remove our changes and refresh the page.
+            revert_tab.set({loading: true});
+            $.ajax({
+              url: drupalSettings.path.baseUrl + 'admin/panelizer/panels_ipe/' + entity.entity_type_id + '/' + entity.entity_id + '/' + entity.view_mode + '/revert_to_default',
+              data: {},
+              type: 'POST'
+            }).done(function (data) {
+              location.reload();
+            });
+          }
+          else {
+            revert_tab.set('active', false, {silent: true});
+          }
         }
       });
 
