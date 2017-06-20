@@ -72,10 +72,16 @@ function panelizer_panels_build_alter(&$build, PanelsDisplayVariant $panels_disp
     $revision_id = ($entity instanceof RevisionableInterface && $entity->getEntityType()->isRevisionable()) && !$entity->isDefaultRevision() ? $entity->getRevisionId() : NULL;
     list (,, $view_mode) = explode(':', $panels_display->getStorageId());
 
-    // Get the default storage id.
-    list(,,, $default) = explode(':', $panels_display->getStorageId());
+    // Get the default storage id, if we're looking at a panelizer default or
+    // the panelizer field contains a revision.
+    if (sizeof(explode(':', $panels_display->getStorageId())) == 4) {
+      list(, , , $default) = explode(':', $panels_display->getStorageId());
+    }
+    else {
+      $default = NULL;
+    }
     if ($panels_display->getStorageType() == 'panelizer_field') {
-      $panelizer_default_storage_id = implode(':', [$entity->getEntityTypeId(), $entity->bundle(), $view_mode, $default]);
+      $panelizer_default_storage_id = rtrim(implode(':', [$entity->getEntityTypeId(), $entity->bundle(), $view_mode, $default]), ':');
     }
     else {
       $panelizer_default_storage_id = $panels_display->getStorageId();
@@ -83,7 +89,7 @@ function panelizer_panels_build_alter(&$build, PanelsDisplayVariant $panels_disp
 
     // Get the special, internal default storage id that includes the entity id,
     // which will allow us to correctly set the contexts on the Panels display.
-    $panelizer_default_internal_storage_id = '*' . implode(':', [$entity->getEntityTypeId(), $entity->id(), $view_mode, $default]);
+    $panelizer_default_internal_storage_id = '*' . rtrim(implode(':', [$entity->getEntityTypeId(), $entity->id(), $view_mode, $default]), ':');
 
     // Get the custom storage id (omitting revision id if this is the default
     // revision).
@@ -236,7 +242,7 @@ function panelizer_form_entity_view_display_edit_form_alter(&$form, FormStateInt
       '#title' => t('Allow users to select which display to use'),
       '#description' => t('When multiple default displays are available for a view mode it can be useful to allow content creators to choose which display to use for an individual @entity.', [
         '@entity' => $entity_type->getSingularLabel(),
-      ]),
+      ]) . '<br />' . t('To enable the choice to be enabled by users, make sure the panelizer field is visible in the Manage form display'),
       '#default_value' => isset($settings['allow']) ? $settings['allow'] : FALSE,
     ];
 
