@@ -14,7 +14,7 @@ bundle: menu_block
 label: 'Text color'
 description: 'Select text color of the menu block.'
 required: true
-translatable: false
+translatable: true
 default_value:
   -
     target_uuid: c1e7d9c8-b66a-4aed-bcfa-c05e08421874
