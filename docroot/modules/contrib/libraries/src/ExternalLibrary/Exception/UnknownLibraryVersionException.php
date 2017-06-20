@@ -3,12 +3,13 @@
 namespace Drupal\libraries\ExternalLibrary\Exception;
 
 use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorTrait;
+use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorInterface;
 use Drupal\libraries\ExternalLibrary\Version\VersionedLibraryInterface;
 
 /**
  * Provides an exception for libraries whose version has not been detected.
  */
-class UnknownLibraryVersionException extends \RuntimeException {
+class UnknownLibraryVersionException extends \RuntimeException implements LibraryAccessorInterface {
 
   use LibraryAccessorTrait;
 

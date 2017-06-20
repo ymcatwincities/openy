@@ -39,3 +39,7 @@ migration_dependencies:
   required:
     - beer_node
     - beer_user
+dependencies:
+  enforced:
+    module:
+      - migrate_example

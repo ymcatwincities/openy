@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\Deriver\EntityBundle
+ */
 
 namespace Drupal\ctools\Plugin\Deriver;
 

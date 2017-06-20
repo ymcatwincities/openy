@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\captcha\Controller\CaptchaPointListBuilder.
- */
-
 namespace Drupal\captcha\Controller;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
@@ -14,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
  * Builds the list of capture points for the captcha point form.
  */
 class CaptchaPointListBuilder extends ConfigEntityListBuilder {
+
   /**
    * {@inheritdoc}
    */

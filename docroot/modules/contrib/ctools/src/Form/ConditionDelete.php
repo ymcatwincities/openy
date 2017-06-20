@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Form\ConditionDelete.
+ */
+
 namespace Drupal\ctools\Form;
 
 use Drupal\Component\Plugin\PluginManagerInterface;

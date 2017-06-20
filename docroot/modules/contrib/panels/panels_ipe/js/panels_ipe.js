@@ -102,18 +102,22 @@
     // Set up our initial tabs.
     var tab_collection = new Drupal.panels_ipe.TabCollection();
 
-    if (settings.panels_ipe.user_permission.change_layout) {
-      tab_collection.add(createTabModel(Drupal.t('Change Layout'), 'change_layout'));
+    if (!settings.panels_ipe.locked) {
+      if (settings.panels_ipe.user_permission.change_layout) {
+        tab_collection.add(createTabModel(Drupal.t('Change Layout'), 'change_layout'));
+      }
+      tab_collection.add(createTabModel(Drupal.t('Manage Content'), 'manage_content'));
     }
-    tab_collection.add(createTabModel(Drupal.t('Manage Content'), 'manage_content'));
 
     // The edit/save/cancel tabs are special, and are tracked by our app.
     var edit_tab = createTabModel(Drupal.t('Edit'), 'edit');
     var save_tab = createTabModel(Drupal.t('Save'), 'save');
     var cancel_tab = createTabModel(Drupal.t('Cancel'), 'cancel');
+    var locked_tab = createTabModel(Drupal.t('Locked'), 'locked');
     tab_collection.add(edit_tab);
     tab_collection.add(save_tab);
     tab_collection.add(cancel_tab);
+    tab_collection.add(locked_tab);
 
     // Create a global(ish) AppModel.
     Drupal.panels_ipe.app = new Drupal.panels_ipe.AppModel({
@@ -121,6 +125,8 @@
       editTab: edit_tab,
       saveTab: save_tab,
       cancelTab: cancel_tab,
+      lockedTab: locked_tab,
+      locked: settings.panels_ipe.locked,
       unsaved: settings.panels_ipe.unsaved
     });
 

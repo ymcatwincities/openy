@@ -1,0 +1,27 @@
+description: 'Provides multilingual demo paragraphs types.'
+# core: 8.x
+dependencies:
+  - paragraphs
+  - field
+  - image
+  - field_ui
+  - block
+  - language
+  - content_translation
+  - node
+  - search_api_db
+  - search_api
+  - views
+test_dependencies:
+  - search_api_db
+  - search_api
+hidden: false
+name: Paragraphs Demo
+package: Paragraphs
+type: module
+
+# Information added by Drupal.org packaging script on 2016-07-28
+version: '8.x-1.0'
+core: '8.x'
+project: 'paragraphs'
+datestamp: 1469725741

@@ -1,0 +1,13 @@
+name: Geolocation - Google Places API
+type: module
+description: Make sure to follow the <a href="https://developers.google.com/places/web-service/policies">Places API Policies</a>.
+# core: 8.x
+package: Custom
+dependencies:
+  - geolocation
+
+# Information added by Drupal.org packaging script on 2016-12-19
+version: '8.x-1.9'
+core: '8.x'
+project: 'geolocation'
+datestamp: 1482160986

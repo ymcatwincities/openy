@@ -1,0 +1,25 @@
+entity.webform.export_form:
+  title: 'Export'
+  route_name: entity.webform.export_form
+  parent_id: devel.entities:webform.devel_tab
+  weight: 100
+
+entity.webform.test.form:
+  title: 'Form'
+  route_name: entity.webform.test
+  parent_id: entity.webform.test
+
+entity.webform.test.api:
+  title: 'API'
+  route_name: entity.webform.api
+  parent_id: entity.webform.test
+
+entity.node.webform.test.form:
+  title: 'Form'
+  route_name: entity.node.webform.test
+  parent_id: entity.node.webform.test
+
+entity.node.webform.test.api:
+  title: 'API'
+  route_name: entity.node.webform.api
+  parent_id: entity.node.webform.test

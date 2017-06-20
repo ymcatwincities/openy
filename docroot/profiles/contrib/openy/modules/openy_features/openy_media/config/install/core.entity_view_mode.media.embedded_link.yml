@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media_entity
+id: media.embedded_link
+label: Link
+targetEntityType: media
+cache: true
