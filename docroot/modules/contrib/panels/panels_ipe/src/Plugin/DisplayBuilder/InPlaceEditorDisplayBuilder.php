@@ -1,16 +1,12 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\panels_ipe\Plugin\DisplayBuilder;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Layout\LayoutInterface;
 use Drupal\Core\Plugin\Context\ContextHandlerInterface;
 use Drupal\Core\Session\AccountInterface;
-use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
 use Drupal\panels\Plugin\DisplayBuilder\StandardDisplayBuilder;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 use Drupal\panels\Storage\PanelsStorageManagerInterface;
@@ -82,7 +78,7 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
    *
    * @param array $regions
    *   The render array representing regions.
-   * @param \Drupal\layout_plugin\Plugin\Layout\LayoutInterface $layout
+   * @param \Drupal\Core\Layout\LayoutInterface $layout
    *   The current layout.
    * @param \Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant $panels_display
    *   The Panels display we are editing.
@@ -93,7 +89,7 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
    *   An associative array representing the contents of drupalSettings, or
    *   FALSE if there was an error.
    */
-  protected function getDrupalSettings(array $regions, LayoutInterface $layout, PanelsDisplayVariant $panels_display, $unsaved) {
+  protected function getDrupalSettings(array $regions, LayoutInterface $layout, PanelsDisplayVariant $panels_display, $unsaved, $locked) {
     $settings = [
       'regions' => [],
     ];
@@ -132,7 +128,7 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
     $layout_definition = $layout->getPluginDefinition();
     $settings['layout'] = [
       'id' => $layout->getPluginId(),
-      'label' => $layout_definition['label'],
+      'label' => $layout_definition->getLabel(),
       'original' => TRUE,
     ];
 
@@ -151,6 +147,7 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
 
     // Inform the App of our saved state.
     $settings['unsaved'] = $unsaved;
+    $settings['locked'] = $locked;
 
     return $settings;
   }
@@ -169,15 +166,23 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
     if ($has_permission) {
       // This flag tracks whether or not there are unsaved changes.
       $unsaved = FALSE;
+      $locked = FALSE;
 
       // If a temporary configuration for this variant exists, use it.
-      $temp_store_key = $panels_display->id();
-      if ($variant_config = $this->tempStore->get($temp_store_key)) {
-        unset($variant_config['id']);
-        $panels_display->setConfiguration($variant_config);
+      $temp_store_key = $panels_display->getTempStoreId();
+      $lock_info = $this->tempStore->getMetadata($temp_store_key);
+      if ($lock_info) {
+        if ($lock_info->owner === $this->account->id()) {
+          $variant_config = $this->tempStore->get($temp_store_key);
+          unset($variant_config['id']);
+          $panels_display->setConfiguration($variant_config);
 
-        // Indicate that the user is viewing un-saved changes.
-        $unsaved = TRUE;
+          // Indicate that the user is viewing un-saved changes.
+          $unsaved = TRUE;
+        }
+        else {
+          $locked = TRUE;
+        }
       }
 
       $build = parent::build($panels_display);
@@ -200,7 +205,7 @@ class InPlaceEditorDisplayBuilder extends StandardDisplayBuilder {
 
       // Attach the required settings and IPE.
       $build['#attached']['library'][] = 'panels_ipe/panels_ipe';
-      $build['#attached']['drupalSettings']['panels_ipe'] = $this->getDrupalSettings($regions, $layout, $panels_display, $unsaved);
+      $build['#attached']['drupalSettings']['panels_ipe'] = $this->getDrupalSettings($regions, $layout, $panels_display, $unsaved, $locked);
 
       // Add our custom elements to the build.
       $build['#prefix'] = '<div id="panels-ipe-content">';

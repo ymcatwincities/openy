@@ -1,0 +1,7 @@
+name: Simple Menu Icons
+type: module
+description: Associates icons with menu items
+core: 8.x
+
+dependencies:
+  - menu_ui

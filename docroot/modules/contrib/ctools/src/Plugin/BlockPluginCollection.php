@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\BlockPluginCollection.
+ */
+
 namespace Drupal\ctools\Plugin;
 
 use Drupal\Core\Block\BlockPluginInterface;

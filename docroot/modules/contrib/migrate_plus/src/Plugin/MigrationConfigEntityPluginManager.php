@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager.
- */
-
 namespace Drupal\migrate_plus\Plugin;
 
 use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;

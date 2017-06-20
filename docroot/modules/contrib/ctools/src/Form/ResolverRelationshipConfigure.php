@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Form\ResolverRelationshipConfigure.
+ */
+
 namespace Drupal\ctools\Form;
 
 

@@ -1,0 +1,14 @@
+name: 'Webform module block context tests'
+type: module
+description: 'Support module for Webform module block context  testing.'
+package: Testing
+# core: 8.x
+dependencies:
+  - 'drupa:block'
+  - 'drupal:webform'
+
+# Information added by Drupal.org packaging script on 2017-05-31
+version: '8.x-5.0-beta13'
+core: '8.x'
+project: 'webform'
+datestamp: 1496265854

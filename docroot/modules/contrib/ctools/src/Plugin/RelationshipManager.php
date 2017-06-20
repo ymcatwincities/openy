@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\RelationshipManager.
+ */
+
 namespace Drupal\ctools\Plugin;
 
 use Drupal\Core\Plugin\Context\ContextAwarePluginManagerTrait;

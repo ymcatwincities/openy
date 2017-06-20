@@ -5,11 +5,12 @@ namespace Drupal\libraries\ExternalLibrary\Exception;
 use Drupal\libraries\ExternalLibrary\Utility\DependencyAccessorTrait;
 use Drupal\libraries\ExternalLibrary\LibraryInterface;
 use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorTrait;
+use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorInterface;
 
 /**
  * Provides an exception for an invalid library exception.
  */
-class InvalidLibraryDependencyException extends \UnexpectedValueException {
+class InvalidLibraryDependencyException extends \UnexpectedValueException implements LibraryAccessorInterface {
 
   use LibraryAccessorTrait;
   use DependencyAccessorTrait;

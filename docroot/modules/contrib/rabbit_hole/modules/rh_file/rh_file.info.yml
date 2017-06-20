@@ -1,0 +1,13 @@
+name: Rabbit Hole files
+type: module
+description: Adds Rabbit Hole functionality for files.
+# core: 8.x
+dependencies:
+  - rabbit_hole
+  - file_entity
+
+# Information added by Drupal.org packaging script on 2017-04-09
+version: '8.x-1.0-beta3'
+core: '8.x'
+project: 'rabbit_hole'
+datestamp: 1491779586

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools_wizard_test\Wizard\WizardTest.
+ */
+
 namespace Drupal\ctools_wizard_test\Wizard;
 
 

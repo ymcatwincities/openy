@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_example_advanced_setup\Plugin\rest\resource\VarietyMultiFiles.
- */
-
 namespace Drupal\migrate_example_advanced_setup\Plugin\rest\resource;
 
 use Drupal\rest\Plugin\ResourceBase;
@@ -39,11 +34,19 @@ class VarietyMultiFiles extends ResourceBase {
         'name' => 'Amarone',
         'parent' => 3,  // categoryid for 'red'.
         'details' => 'Italian Venoto region',
+        'attributes' => [
+          'rich',
+          'aromatic',
+        ],
       ];
       $data['variety'][] = [
         'name' => 'Barbaresco',
         'parent' => 3,  // categoryid for 'red'.
         'details' => 'Italian Piedmont region',
+        'attributes' => [
+          'smoky',
+          'earthy',
+        ],
       ];
     }
     if (strtolower($type) != 'red') {
@@ -51,16 +54,30 @@ class VarietyMultiFiles extends ResourceBase {
         'name' => 'Kir',
         'parent' => 1,  // categoryid for 'white'.
         'details' => 'French Burgundy region',
+        'attributes' => [],
       ];
       $data['variety'][] = [
         'name' => 'Pinot Grigio',
         'parent' => 1,  // categoryid for 'white'.
         'details' => 'From the northeast of Italy',
+        'attributes' => [
+          'fruity',
+          'medium-bodied',
+          'slightly sweet',
+        ],
       ];
     }
 
     $response = new ResourceResponse($data, 200);
     return $response;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function permissions() {
+    // Remove permissions so the resource is available to all.
+    return [];
   }
 
 }
