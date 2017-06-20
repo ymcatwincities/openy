@@ -3,7 +3,6 @@
 namespace Drupal\panels\Plugin\DisplayBuilder;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
-use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 
 /**
@@ -20,6 +19,7 @@ interface DisplayBuilderInterface extends PluginInspectionInterface {
    *
    * @param Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant
    *   The Panels display variant to render.
+   *
    * @return array
    *   Render array modified by the display builder.
    */

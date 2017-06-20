@@ -12,9 +12,7 @@
  */
 #}
 {% if children %}
-  <div id="main-canvas-wrapper">
-    <div id="main-canvas">
-      {{ children }}
-    </div>
+  <div class="dialog-off-canvas__main-canvas" data-off-canvas-main-canvas >
+    {{ children }}
   </div>
 {% endif %}

@@ -1,0 +1,7 @@
+name: Views Block Exposed Filter Block
+type: module
+description: 'Provides blocks for Views exposed filters on View blocks.'
+package: Views
+core: 8.x
+dependencies:
+  - views

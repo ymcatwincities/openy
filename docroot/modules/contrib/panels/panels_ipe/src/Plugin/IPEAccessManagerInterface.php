@@ -1,11 +1,8 @@
 <?php
-/**
- * @file
- * Contains \Drupal\panels_ipe\Plugin\IPEAccessManagerInterface.php
- */
-namespace Drupal\panels_ipe\Plugin;
-use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 
+namespace Drupal\panels_ipe\Plugin;
+
+use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 
 /**
  * Provides the IPE Access plugin manager.
@@ -24,4 +21,5 @@ interface IPEAccessManagerInterface {
    * @return bool
    */
   public function access(PanelsDisplayVariant $display);
+
 }

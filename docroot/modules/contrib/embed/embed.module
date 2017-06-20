@@ -1,0 +1,33 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter() on behalf of ckeditor.module.
+ */
+function ckeditor_form_embed_button_add_form_alter(array &$form, FormStateInterface $form_state) {
+  $form['#validate'][] = 'ckeditor_form_embed_button_add_form_validate';
+}
+
+/**
+ * CKEditor-validation callback for new embed buttons.
+ *
+ * Checks to make sure that when adding a new embed button, its ID will not
+ * conflict with any existing CKEditor buttons.
+ */
+function ckeditor_form_embed_button_add_form_validate(array &$form, FormStateInterface $form_state) {
+  /** @var \Drupal\ckeditor\CKEditorPluginManager $ckeditor_plugin_manager */
+  $ckeditor_plugin_manager = \Drupal::service('plugin.manager.ckeditor.plugin');
+
+  // Get a list of all buttons that are provided by all plugins.
+  $button_ids = array_reduce($ckeditor_plugin_manager->getButtons(), function($result, $item) {
+    return array_merge($result, array_keys($item));
+  }, []);
+
+  // Ensure that button ID is unique.
+  // @todo Should this do a case-insensitive comparison?
+  $button_id = $form_state->getValue('id');
+  if (in_array($button_id, $button_ids)) {
+    $form_state->setErrorByName('id', $this->t('A CKEditor button with ID %id already exists.', ['%id' => $button_id]));
+  }
+}

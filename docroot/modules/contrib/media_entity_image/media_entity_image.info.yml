@@ -1,0 +1,10 @@
+name: Media entity image
+description: 'Provides the Image plugin for Media Entity.'
+type: module
+package: Media
+core: 8.x
+dependencies:
+  - media_entity
+
+test_dependencies:
+  - entity_browser

@@ -1,0 +1,106 @@
+blazy:
+  header: true
+  remote: https://github.com/dinbror/blazy
+  version: 1.x
+  license:
+    name: MIT
+    url: https://github.com/dinbror/blazy/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    /libraries/blazy/blazy.min.js: { weight: -4, minified: true }
+
+loading:
+  css:
+    component:
+      css/components/blazy.loading.css: {}
+
+ratio:
+  css:
+    component:
+      css/components/blazy.ratio.css: {}
+
+grid:
+  css:
+    component:
+      css/components/blazy.grid.css: {}
+
+column:
+  css:
+    component:
+      css/components/blazy.column.css: {}
+
+dblazy:
+  js:
+    js/dblazy.min.js: { weight: -2, minified: true }
+
+load:
+  js:
+    js/blazy.load.min.js: { weight: -1, minified: true }
+  dependencies:
+    - core/drupal
+    - blazy/blazy
+    - blazy/dblazy
+    - blazy/loading
+
+media:
+  js:
+    js/blazy.media.min.js: {}
+  css:
+    component:
+      css/components/blazy.media.css: {}
+  dependencies:
+    - core/drupal
+    - blazy/ratio
+
+lightbox:
+  css:
+    component:
+      css/components/blazy.lightbox.css: {}
+
+colorbox.skin:
+  css:
+    component:
+      css/components/blazy.colorbox.css: {}
+  dependencies:
+    - colorbox/colorbox
+
+colorbox:
+  js:
+    js/blazy.colorbox.min.js: { minified: true }
+  dependencies:
+    - core/drupal
+    - blazy/load
+    - blazy/ratio
+    - blazy/colorbox.skin
+
+photobox:
+  remote: https://github.com/yairEO/photobox/
+  version: 1.x
+  license:
+    name: MIT
+    url: https://github.com/yairEO/photobox/issues/17
+    gpl-compatible: true
+  js:
+    /libraries/photobox/photobox/jquery.photobox.js: { minified: true }
+    js/blazy.photobox.min.js: { minified: true }
+  css:
+    base:
+      /libraries/photobox/photobox/photobox.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - blazy/load
+    # use photobox when available instead.
+    # - photobox/photobox
+
+admin:
+  js:
+    js/blazy.admin.min.js: { minified: true }
+  css:
+    theme:
+      css/blazy.admin.css: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
