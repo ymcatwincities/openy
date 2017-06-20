@@ -536,19 +536,12 @@ function ymca_retention_update_8028() {
  * Add copy settings and update general settings..
  */
 function ymca_retention_update_8029() {
-  // Include the dynamic blog posts paragraph in Branch, Camp & Facility.
-  $module_handler = \Drupal::service('module_handler');
-  if ($module_handler->moduleExists('config_import')) {
-    $path = drupal_get_path('module', 'ymca_retention') . '/config/install';
-    $files = [
-      'ymca_retention.copy_settings.yml',
-      'ymca_retention.general_settings.yml',
-    ];
-    $configs = [];
-    foreach ($files as $file) {
-      $configs[] = $path . '/' . $file;
-    }
-    $importer = \Drupal::service('config_import.importer');
-    $importer->importConfigs($configs);
-  }
+  $path = drupal_get_path('module', 'ymca_retention') . '/config/install/';
+  $files = [
+    'ymca_retention.copy_settings',
+    'ymca_retention.general_settings',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory($path);
+  $importer->importConfigs($files);
 }
