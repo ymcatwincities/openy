@@ -1,0 +1,26 @@
+uuid: 8f056b03-c49e-4912-9500-e8e6c91e0358
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_plugin_test_helper_mock
+  module:
+    - plugin
+    - user
+id: user.user.field_plugin_test_helper_mock
+field_name: field_plugin_test_helper_mock
+entity_type: user
+bundle: user
+label: 'Mock plugin'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    plugin_type_id: plugin_test_helper_mock
+    plugin_id: plugin_test_helper_configurable_plugin
+    plugin_configuration:
+      foo: bar
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:plugin_test_helper_mock'

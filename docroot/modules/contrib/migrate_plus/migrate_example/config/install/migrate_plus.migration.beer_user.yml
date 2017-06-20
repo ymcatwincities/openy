@@ -76,25 +76,30 @@ process:
     # entirely.
     bypass: true
 
-  field_migrate_example_favbeers: beers
-  # The following is blocked on https://www.drupal.org/node/2590993.
-
   # This looks like a simple migration process plugin, but there's magic
   # happening here. We import nodes after terms and users, because they have
   # references to terms and users, so of course the terms and users must be
   # migrated first - right? However, the favbeers field is a reference to the
   # beer nodes which haven't yet been migrated - we have a circular relationship
   # between users and nodes. The way the migration system resolves this
-  # situation is by creating stubs. In this case, because no beer nodes have
+  # situation is by creating "stubs". In this case, because no beer nodes have
   # been created, each time a beer is looked up against the beer_node migration
   # nothing is found, and by default the migration process plugin creates an
   # empty stub node as a placeholder so the favbeers reference field has
   # something to point to. The stub is recorded in the beer_node map table, so
   # when that migration runs it knows that each incoming beer should overwrite
   # its stub instead of creating a new node.
-#  field_migrate_example_favbeers:
-#    plugin: migration
-#    source: beers
-#    migration: beer_node
+  field_migrate_example_favbeers:
+    plugin: migration
+    source: beers
+    migration: beer_node
 
 migration_dependencies: {}
+
+# When a module is creating a custom content type it needs to add an 
+# enforced dependency to itself, otherwise the content type will persist
+# after the module is disabled. See: https://www.drupal.org/node/2629516.
+dependencies:
+  enforced:
+    module:
+      - migrate_example

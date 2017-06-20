@@ -1,0 +1,5 @@
+services:
+  scheduler_api_test.event_subscriber:
+    class: Drupal\scheduler_api_test\EventSubscriber
+    tags:
+      - { name: event_subscriber }

@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2010 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -36,3 +36,5 @@ class Twig_Error_Loader extends Twig_Error
         $this->setTemplateLine(false);
     }
 }
+
+class_alias('Twig_Error_Loader', 'Twig\Error\LoaderError', false);

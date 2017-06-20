@@ -1,27 +1,25 @@
 <?php
 
-/**
- * @file
- * Display scheduled dates in 'countdown' format for use in Views.
- *
- * @see scheduler.views.inc
- */
+namespace Drupal\scheduler;
 
 use Drupal\Core\Form\FormStateInterface;
 
 /**
+ * Display scheduled dates in 'countdown' format for use in Views.
+ *
  * Field handler to display a countdown until a scheduled action.
  *
- * Defines class scheduler_handler_field_scheduler_countdown.
+ * @TODO Is this file actually used and/or needed in Drupal 8?
  *
+ * @see scheduler.views.inc
  * @see http://www.ericschaefer.org/blog/2011/01/09/custom-field-handlers-for-views-2-drupal
  */
-class scheduler_handler_field_scheduler_countdown extends views_handler_field {
-  CONST SECOND_SCALE = 1;
-  CONST MINUTE_SCALE = 60;
-  CONST HOUR_SCALE = 3600;
-  CONST DAY_SCALE = 86400;
-  CONST WEEK_SCALE = 604800;
+class SchedulerHandlerFieldSchedulerCountdown extends views_handler_field {
+  const SECOND_SCALE = 1;
+  const MINUTE_SCALE = 60;
+  const HOUR_SCALE = 3600;
+  const DAY_SCALE = 86400;
+  const WEEK_SCALE = 604800;
 
   /**
    * Add the timestamp_field into the SQL query.
@@ -30,7 +28,7 @@ class scheduler_handler_field_scheduler_countdown extends views_handler_field {
    * of seconds from now until publishing. If publish_on is in the past then
    * NULL is returned.
    */
-  function query() {
+  public function query() {
     $this->ensure_my_table();
     $this->node_table = $this->query->ensure_table('node', $this->relationship);
     $time_field = $this->definition['timestamp_field'];
@@ -43,68 +41,70 @@ class scheduler_handler_field_scheduler_countdown extends views_handler_field {
    * @return array
    *   An associative array containing the options.
    */
-  function option_definition() {
+  public function optionDefinition() {
     $options = parent::option_definition();
-    $options['countdown_display'] = array('default' => 'smart');
-    $options['units_display'] = array('default' => 'long');
+    $options['countdown_display'] = ['default' => 'smart'];
+    $options['units_display'] = ['default' => 'long'];
     return $options;
   }
 
   /**
    * Defines the form for the user to select the display options.
    */
-  function options_form(array &$form, FormStateInterface $form_state) {
+  public function optionsForm(array &$form, FormStateInterface $form_state) {
     parent::options_form($form, $form_state);
-    $form['countdown_display'] = array(
+    $form['countdown_display'] = [
       '#title' => t('Display countdown as'),
       '#type' => 'radios',
-      '#options' => array(
+      '#options' => [
         'smart' => t('Smart mode'),
         'seconds' => t('Seconds'),
         'minutes' => t('Minutes'),
         'hours' => t('Hours'),
         'days' => t('Days'),
         'weeks' => t('Weeks'),
-      ),
+      ],
       '#default_value' => $this->options['countdown_display'],
-    );
-    $form['units_display'] = array(
+    ];
+    $form['units_display'] = [
       '#title' => t('Display time units'),
       '#type' => 'radios',
-      '#options' => array(
+      '#options' => [
         'long' => t('Long (for example 3 days)'),
         'short' => t('Short (for example 3d)'),
         'none' => t('No units at all'),
-      ),
+      ],
       '#default_value' => $this->options['units_display'],
-    );
+    ];
   }
 
   /**
-   * Callback function to keep only the array scale values which are smaller
-   * than the countdown value being displayed.
+   * Callback function to filter out unwanted values.
+   *
+   * Keep only the array scale values which are smaller than the countdown value
+   * being displayed.
    */
-  function scale_filter_callback($array_value) {
+  public function scaleFilterCallback($array_value) {
     return ($this->raw_value >= $array_value);
   }
 
   /**
    * Renders the countdown value in the units required.
    */
-  function render($values) {
+  public function render($values) {
     $countdown_display = $this->options['countdown_display'];
     $this->raw_value = $values->{$this->field_alias};
 
-    $scales = array(
+    $scales = [
       'weeks' => self::WEEK_SCALE,
       'days' => self::DAY_SCALE,
       'hours' => self::HOUR_SCALE,
       'minutes' => self::MINUTE_SCALE,
       'seconds' => self::SECOND_SCALE,
-    );
+    ];
     // If the field has been set to 'Smart', determine the right timescale.
     if ($countdown_display == 'smart') {
-      $scales = array_filter($scales, array($this, 'scale_filter_callback'));
+      $scales = array_filter($scales, [$this, 'scale_filter_callback']);
       $scale = empty($scales) ? self::SECOND_SCALE : reset($scales);
     }
     // Otherwise use the fixed display requested.
@@ -117,28 +117,28 @@ class scheduler_handler_field_scheduler_countdown extends views_handler_field {
 
     switch ($scale) {
       case self::SECOND_SCALE:
-        $long = \Drupal::translation()->formatPlural($scaled_value, '1 second', '@count seconds', array('@count' => $scaled_value));
-        $short = t('@counts', array('@count' => $scaled_value));
+        $long = \Drupal::translation()->formatPlural($scaled_value, '1 second', '@count seconds', ['@count' => $scaled_value]);
+        $short = t('@counts', ['@count' => $scaled_value]);
         break;
 
       case self::MINUTE_SCALE:
-        $long = \Drupal::translation()->formatPlural($scaled_value, '1 minute', '@count minutes', array('@count' => $scaled_value));
-        $short = t('@countm', array('@count' => $scaled_value));
+        $long = \Drupal::translation()->formatPlural($scaled_value, '1 minute', '@count minutes', ['@count' => $scaled_value]);
+        $short = t('@countm', ['@count' => $scaled_value]);
         break;
 
       case self::HOUR_SCALE:
-        $long = \Drupal::translation()->formatPlural($scaled_value, '1 hour', '@count hours', array('@count' => $scaled_value));
-        $short = t('@counth', array('@count' => $scaled_value));
+        $long = \Drupal::translation()->formatPlural($scaled_value, '1 hour', '@count hours', ['@count' => $scaled_value]);
+        $short = t('@counth', ['@count' => $scaled_value]);
         break;
 
       case self::DAY_SCALE:
-        $long = \Drupal::translation()->formatPlural($scaled_value, '1 day', '@count days', array('@count' => $scaled_value));
-        $short = t('@countd', array('@count' => $scaled_value));
+        $long = \Drupal::translation()->formatPlural($scaled_value, '1 day', '@count days', ['@count' => $scaled_value]);
+        $short = t('@countd', ['@count' => $scaled_value]);
         break;
 
       case self::WEEK_SCALE:
-        $long = \Drupal::translation()->formatPlural($scaled_value, '1 week', '@count weeks', array('@count' => $scaled_value));
-        $short = t('@countw', array('@count' => $scaled_value));
+        $long = \Drupal::translation()->formatPlural($scaled_value, '1 week', '@count weeks', ['@count' => $scaled_value]);
+        $short = t('@countw', ['@count' => $scaled_value]);
         break;
     }
 

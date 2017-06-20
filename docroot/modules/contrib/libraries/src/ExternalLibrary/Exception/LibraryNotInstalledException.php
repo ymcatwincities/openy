@@ -4,11 +4,12 @@ namespace Drupal\libraries\ExternalLibrary\Exception;
 
 use Drupal\libraries\ExternalLibrary\Local\LocalLibraryInterface;
 use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorTrait;
+use Drupal\libraries\ExternalLibrary\Utility\LibraryAccessorInterface;
 
 /**
  * Provides an exception for a library that is not installed.
  */
-class LibraryNotInstalledException extends \RuntimeException {
+class LibraryNotInstalledException extends \RuntimeException implements LibraryAccessorInterface {
 
   use LibraryAccessorTrait;
 
