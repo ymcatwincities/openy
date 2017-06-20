@@ -44,9 +44,9 @@ class SettingsForm extends ConfigFormBase {
 
     $form['base_uri'] = [
       '#type' => 'url',
-      '#title' => $this->t('Daxko api Base URI'),
+      '#title' => $this->t('Daxko API Base URI'),
       '#default_value' => $config->get('base_uri'),
-      '#description' => t('Add your Daxko api base uri here. It is most likely https://api.daxko.com/v1/.'),
+      '#description' => t('Add your Daxko API base uri here. It is most likely https://api.daxko.com/v1/.'),
     ];
 
     $form['auth_fieldset'] = [
@@ -60,14 +60,13 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Daxko account name'),
       '#default_value' => $config->get('user'),
-      '#description' => t('Add your Daxko api user name here.'),
+      '#description' => t('Add your Daxko API user name here.'),
     ];
 
     $form['auth_fieldset']['pass'] = [
-      '#type' => 'textfield',
+      '#type' => 'password',
       '#title' => $this->t('Daxko password'),
-      '#default_value' => $config->get('pass'),
-      '#description' => t('Add your Daxko api password.'),
+      '#description' => t('Add your Daxko API password.'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -86,11 +85,15 @@ class SettingsForm extends ConfigFormBase {
       if (preg_match("#https?://#", $base_uri) === 0) {
         $base_uri = 'https://' . $base_uri;
       }
-      $config->set('base_uri', $base_uri)->save();
+      $config->set('base_uri', rtrim($base_uri, '/') . '/')->save();
     }
 
     $config->set('user', $form_state->getValue('user'))->save();
-    $config->set('pass', $form_state->getValue('pass'))->save();
+
+    if (empty($pass = $form_state->getValue('pass'))) {
+      $pass = $config->get('pass');
+    }
+    $config->set('pass', $pass)->save();
 
     parent::submitForm($form, $form_state);
   }
