@@ -144,10 +144,14 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('How many winners to show in the recent winners block.'),
     ];
 
+    $excludes = $config->get('exclude_reg_product_codes');
+    if (!empty($excludes) && is_array($excludes)) {
+      $excludes = static::simplifyAllowedValues($config->get('exclude_reg_product_codes'));
+    }
     $form['exclude_reg_product_codes'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Exclude Registration Product Codes'),
-      '#default_value' => static::simplifyAllowedValues($config->get('exclude_reg_product_codes')),
+      '#default_value' => $excludes,
       '#description' => $this->t('Enter product codes, one per line. Example Code: <em>14_GETSUMMER</em>'),
     ];
 
@@ -196,7 +200,7 @@ class SettingsForm extends ConfigFormBase {
    * @see \Drupal\options\Plugin\Field\FieldType\ListItemBase::allowedValuesString()
    */
   protected static function extractAllowedValues($string) {
-    $values = array();
+    $values = [];
 
     $list = explode("\n", $string);
     $list = array_map('trim', $list);
@@ -205,7 +209,7 @@ class SettingsForm extends ConfigFormBase {
     $generated_keys = $explicit_keys = FALSE;
     foreach ($list as $position => $text) {
       // Check for an explicit key.
-      $matches = array();
+      $matches = [];
       if (preg_match('/(.*)\|(.*)/', $text, $matches)) {
         // Trim key and value to avoid unwanted spaces issues.
         $key = trim($matches[1]);

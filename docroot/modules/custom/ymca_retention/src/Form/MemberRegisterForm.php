@@ -99,10 +99,10 @@ class MemberRegisterForm extends FormBase {
     if ($config['yteam']) {
       $step = 1;
     }
-    $form['step'] = array(
+    $form['step'] = [
       '#type' => 'hidden',
       '#value' => $step,
-    );
+    ];
 
     $validate_required = [get_class($this), 'elementValidateRequired'];
 

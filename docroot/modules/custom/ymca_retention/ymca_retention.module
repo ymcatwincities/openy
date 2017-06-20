@@ -577,25 +577,3 @@ function ymca_retention_clean_personify_email($email) {
 
   return $email;
 }
-
-/**
- * A helper function to reset ymca_retention configs.
- *
- * Useful when module configs have been changed and should be set on
- * each environment.
- */
-function _ymca_retention_set_configs_to_default() {
-  $module_handler = \Drupal::service('module_handler');
-  if ($module_handler->moduleExists('config_import')) {
-    $path = drupal_get_path('module', 'ymca_retention') . '/config/install';
-    $files = array_diff(scandir($path), array('..', '.'));
-    if (!empty($files)) {
-      $configs = [];
-      foreach ($files as $file) {
-        $configs[] = $path . '/' . $file;
-      }
-      $importer = \Drupal::service('config_import.importer');
-      $importer->importConfigs($configs);
-    }
-  }
-}

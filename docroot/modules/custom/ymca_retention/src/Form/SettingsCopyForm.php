@@ -116,14 +116,14 @@ class SettingsCopyForm extends ConfigFormBase {
         1 => $this->t('Link'),
         2 => $this->t('Tab'),
       ];
-      $form['retention_intro'][$name]["{$name}_link_type"] = array(
+      $form['retention_intro'][$name]["{$name}_link_type"] = [
         '#type' => 'select',
         '#title' => t('Link Type'),
         '#default_value' => $config->get("{$name}_link_type"),
         '#options' => $link_type,
         '#description' => t('Select whether the image should be linked to a tab or an internal URL.'),
         '#weight' => -1,
-      );
+      ];
 
       $form['retention_intro'][$name]["{$name}_link"] = [
         '#type' => 'textfield',
@@ -170,7 +170,6 @@ class SettingsCopyForm extends ConfigFormBase {
         '#type' => 'managed_file',
         '#description' => t('The uploaded image will be displayed on this page using the image style choosen below.'),
         '#default_value' => $config->get("{$name}_img"),
-        // '#default_value' => ['36595'],
         '#upload_validators'  => [
           'file_validate_extensions' => ['gif png jpg jpeg'],
           'file_validate_size' => [25600000],
@@ -179,93 +178,6 @@ class SettingsCopyForm extends ConfigFormBase {
         '#weight' => 2,
       ];
     }
-
-    // $form['date_registration_close'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Registration close date and time'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('date_registration_close'),
-    //   '#description' => $this->t('Date and time when registration will be closed.'),
-    // ];
-
-    // $form['date_reporting_open'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Reporting open date and time'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('date_reporting_open'),
-    //   '#description' => $this->t('Date and time when reporting will be open.'),
-    // ];
-
-    // $form['date_reporting_close'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Reporting close date and time'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('date_reporting_close'),
-    //   '#description' => $this->t('Date and time when reporting will be closed.'),
-    // ];
-
-    // $form['date_winners_announcement'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Winners announcement date and time'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('date_winners_announcement'),
-    //   '#description' => $this->t('Date and time when winners will be announced.'),
-    // ];
-
-    // $form['calculate_visit_goal'] = [
-    //   '#type' => 'checkbox',
-    //   '#title' => $this->t('Calculate visit goal'),
-    //   '#default_value' => $config->get('calculate_visit_goal'),
-    // ];
-
-    // $form['new_member_goal_number'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Goal of visits for new members'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('new_member_goal_number'),
-    //   '#description' => $this->t('Goal of visits in this campaign for new members.'),
-    // ];
-
-    // $form['limit_goal_number'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Limit goal of visits'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('limit_goal_number'),
-    //   '#description' => $this->t('Limit goal of visits in this campaign.'),
-    // ];
-
-    // $form['date_checkins_start'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Check-ins start date and time'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('date_checkins_start'),
-    //   '#description' => $this->t('Start date and time, for getting data about check-ins in past months, before the campaign starts.'),
-    // ];
-
-    // $form['date_checkins_end'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Check-ins end date and time'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('date_checkins_end'),
-    //   '#description' => $this->t('End date and time, for getting data about check-ins in past months, before the campaign starts.'),
-    // ];
-
-    // $form['recent_winners_limit'] = [
-    //   '#type' => 'textfield',
-    //   '#title' => $this->t('Recent winners limit'),
-    //   '#size' => 50,
-    //   '#maxlength' => 500,
-    //   '#default_value' => $config->get('recent_winners_limit'),
-    //   '#description' => $this->t('How many winners to show in the recent winners block.'),
-    // ];
 
     return parent::buildForm($form, $form_state);
   }
@@ -276,16 +188,17 @@ class SettingsCopyForm extends ConfigFormBase {
    * Note that #maxlength and #required is validated by _form_validate() already.
    */
   public static function validateUrl(&$element, FormStateInterface $form_state, &$complete_form) {
-    if ($element['#value'] !== '') {
-      if (strpos($element['#value'], '/') !== 0) {
-        $form_state->setError($element, t('The "Link" field needs to be an internal URL that begins with a leading "/".'));
-        return;
-      }
-      $value = 'internal:' . trim($element['#value']);
-      $url = Url::fromUri($value);
-      if (!$url->isRouted()) {
-        $form_state->setError($element, t('The URL %url is not a valid internal path.', array('%url' => $element['#value'])));
-      }
+    if (empty($element['#value'])) {
+      return;
+    }
+    if (strpos($element['#value'], '/') !== 0) {
+      $form_state->setError($element, t('The "Link" field needs to be an internal URL that begins with a leading "/".'));
+      return;
+    }
+    $value = 'internal:' . trim($element['#value']);
+    $url = Url::fromUri($value);
+    if (!$url->isRouted()) {
+      $form_state->setError($element, t('The URL %url is not a valid internal path.', ['%url' => $element['#value']]));
     }
   }
 
