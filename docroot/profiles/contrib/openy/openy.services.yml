@@ -1,0 +1,7 @@
+services:
+  openy.content_importer:
+    class: 'Drupal\openy\ContentImporter'
+  openy.route_subscriber:
+    class: Drupal\openy\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

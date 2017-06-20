@@ -5,8 +5,7 @@ namespace Drupal\simple_sitemap\Form;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class SimplesitemapEntitiesForm.
- *
+ * Class SimplesitemapEntitiesForm
  * @package Drupal\simple_sitemap\Form
  */
 class SimplesitemapEntitiesForm extends SimplesitemapFormBase {
@@ -35,7 +34,7 @@ class SimplesitemapEntitiesForm extends SimplesitemapFormBase {
     $form['#attached']['drupalSettings']['simple_sitemap'] = ['all_entities' => [], 'atomic_entities' => []];
 
     $entity_type_labels = [];
-    foreach ($this->generator->getSitemapEntityTypes() as $entity_type_id => $entity_type) {
+    foreach ($this->entityHelper->getSitemapEntityTypes() as $entity_type_id => $entity_type) {
       $entity_type_labels[$entity_type_id] = $entity_type->getLabel() ? : $entity_type_id;
     }
     asort($entity_type_labels);
@@ -68,7 +67,7 @@ class SimplesitemapEntitiesForm extends SimplesitemapFormBase {
 
       $form['#attached']['drupalSettings']['simple_sitemap']['all_entities'][] = $css_entity_type_id;
 
-      if ($this->generator->entityTypeIsAtomic($entity_type_id)) {
+      if ($this->entityHelper->entityTypeIsAtomic($entity_type_id)) {
         $form['simple_sitemap_entities']['entities'][$entity_type_id][$entity_type_id . '_enabled']['#description'] = $this->t('Sitemap settings for this entity type can be set below and overridden on its entity pages.');
         $this->formHelper->setEntityCategory('bundle')
           ->setEntityTypeId($entity_type_id)
@@ -93,7 +92,7 @@ class SimplesitemapEntitiesForm extends SimplesitemapFormBase {
         $entity_type_id = substr($field_name, 0, -8);
         if ($value) {
           $this->generator->enableEntityType($entity_type_id);
-          if ($this->generator->entityTypeIsAtomic($entity_type_id)) {
+          if ($this->entityHelper->entityTypeIsAtomic($entity_type_id)) {
             $this->generator->setBundleSettings($entity_type_id, $entity_type_id, [
               'index' => TRUE,
               'priority' => $values[$entity_type_id . '_simple_sitemap_priority'],

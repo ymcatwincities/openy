@@ -1,0 +1,44 @@
+/**
+ * @file
+ * Provides colorbox integration.
+ */
+
+.colorbox-on--media #colorbox,
+.colorbox-on--media #colorbox * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.colorbox-on--media #cboxBottomCenter,
+.colorbox-on--media #cboxBottomRight,
+.colorbox-on--media #cboxBottomLeft,
+.colorbox-on--media #cboxTopCenter,
+.colorbox-on--media #cboxTopRight,
+.colorbox-on--media #cboxTopLeft,
+.colorbox-on--media #cboxMiddleLeft,
+.colorbox-on--media #cboxMiddleRight {
+  display: none !important;
+}
+
+.colorbox-on--media #cboxWrapper,
+.colorbox-on--media #cboxContent {
+  background: none;
+  border-radius: 0;
+}
+
+.colorbox-on--media #cboxWrapper,
+.colorbox-on--media #cboxContent,
+.colorbox-on--media #cboxLoadedContent {
+  overflow: visible !important;
+}
+
+#cboxLoadedContent.media--ratio {
+  height: 0 !important;
+  padding-bottom: 56%;
+}
+
+#cboxLoadedContent.media--ratio .cboxIframe {
+  background-clip: padding-box;
+  border-radius: 0;
+  border: 8px solid #37465b;
+}

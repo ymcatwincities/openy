@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: prgf_small_banner
+label: 'Paragraph small banner'
+effects:
+  df827bff-9135-41a3-ba9e-2559ceadd523:
+    uuid: df827bff-9135-41a3-ba9e-2559ceadd523
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 960
+      height: 854

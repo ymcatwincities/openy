@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Event\WizardEvent.
+ */
+
 namespace Drupal\ctools\Event;
 
 use Drupal\ctools\Wizard\FormWizardInterface;

@@ -9,8 +9,8 @@ namespace Drupal\metatag\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command;
-use Drupal\Console\Command\Shared\CommandTrait;
-use Drupal\Console\Style\DrupalStyle;
+use Drupal\Console\Core\Command\Shared\CommandTrait;
+use Drupal\Console\Core\Style\DrupalStyle;
 use Drupal\metatag\MetatagManager;
 use Drupal\metatag\Generator\MetatagTagGenerator;
 use Drupal\Console\Command\Shared\ModuleTrait;
@@ -18,8 +18,8 @@ use Drupal\Console\Command\Shared\FormTrait;
 use Drupal\Console\Command\Shared\ConfirmationTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Drupal\Console\Extension\Manager;
-use Drupal\Console\Utils\StringConverter;
-use Drupal\Console\Utils\ChainQueue;
+use Drupal\Console\Core\Utils\StringConverter;
+use Drupal\Console\Core\Utils\ChainQueue;
 
 /**
  * Class GenerateTagCommand.
@@ -88,7 +88,7 @@ class GenerateTagCommand extends Command {
    */
   protected function configure() {
     $this
-      ->setName('generate:metatag:tag')
+      ->setName('generate:plugin:metatag:tag')
       ->setDescription($this->trans('commands.generate.metatag.tag.description'))
       ->setHelp($this->trans('commands.generate.metatag.tag.help'))
       ->addOption('base_class', '', InputOption::VALUE_REQUIRED,

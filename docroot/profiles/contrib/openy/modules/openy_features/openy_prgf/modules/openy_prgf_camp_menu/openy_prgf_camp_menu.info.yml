@@ -1,0 +1,10 @@
+name: 'Openy Camp menu paragraph'
+description: 'Openy Camp menu paragraph'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - openy_prgf
+  - paragraphs
+  - plugin
+version: 8.x-1.0

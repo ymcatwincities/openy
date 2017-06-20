@@ -1,0 +1,17 @@
+name: Paragraphs
+type: module
+description: 'Enables the creation of paragraphs entities. To safely uninstall, go first to Structure > Paragraphs types > Settings.'
+# core: 8.x
+package: Paragraphs
+
+dependencies:
+  - entity_reference_revisions
+test_dependencies:
+  - diff
+  - replicate
+
+# Information added by Drupal.org packaging script on 2016-07-28
+version: '8.x-1.0'
+core: '8.x'
+project: 'paragraphs'
+datestamp: 1469725741

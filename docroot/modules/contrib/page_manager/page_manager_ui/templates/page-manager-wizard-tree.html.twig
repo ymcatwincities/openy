@@ -14,6 +14,9 @@
  * @ingroup themeable
  */
 #}
+
+{{ attach_library('page_manager_ui/page_variants') }}
+
 {% import _self as page_manager %}
 
 {#
@@ -25,18 +28,26 @@
 {% macro wizard_tree(items, step, menu_level) %}
   {% import _self as page_manager %}
   {% if items %}
-    <ul>
+    <ul class="page__section__{{ menu_level }}">
+
     {% for item in items %}
-      <li>
-        {% if item.url %}
-          {% if step is same as(item.step) %}
-            <strong>{{ link(item.title, item.url) }}</strong>
+      {% if step is same as(item.step) %}
+        {% set active_class = " current_variant" %}
+      {% else %}
+        {% set active_class = "" %}
+      {% endif %}
+      <li class="page__section_item__{{ menu_level }}{{ active_class }}">
+        <label class="page__section__label">
+          {% if item.url %}
+            {% if step is same as(item.step) %}
+              <strong>{{ link(item.title, item.url) }}</strong>
+            {% else %}
+              {{ link(item.title, item.url) }}
+            {% endif %}
           {% else %}
-            {{ link(item.title, item.url) }}
+            {{ item.title }}
           {% endif %}
-        {% else %}
-          {{ item.title }}
-        {% endif %}
+        </label>
         {% if item.children %}
           {{ page_manager.wizard_tree(item.children, step, menu_level + 1) }}
         {% endif %}
