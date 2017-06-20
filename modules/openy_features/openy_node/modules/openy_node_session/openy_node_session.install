@@ -44,3 +44,72 @@ function openy_node_session_update_8001() {
     }
   }
 }
+
+/**
+ * Update description for field.
+ */
+function openy_node_session_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.session.field_session_class' =>[
+      'description',
+    ],
+    'field.field.node.session.field_session_description' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_exclusions' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_gender' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_in_mbrsh' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_location' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_max_age' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_mbr_price' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_min_age' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_nmbr_price' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_online' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_plocation' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_reg_link' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_ticket' => [
+      'description',
+    ],
+    'field.field.node.session.field_session_time' => [
+      'description',
+    ],
+    'field.field.paragraph.session_time.field_session_time_date' => [
+      'description',
+    ],
+    'field.field.paragraph.session_time.field_session_time_days' => [
+      'description',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

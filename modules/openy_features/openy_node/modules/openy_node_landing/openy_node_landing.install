@@ -126,3 +126,18 @@ function openy_node_landing_update_8003() {
     }
   }
 }
+
+/**
+ * Update description for field.
+ */
+function openy_node_landing_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_landing');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.landing_page.field_content.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.landing_page.field_content',
+    'description'
+  );
+}
