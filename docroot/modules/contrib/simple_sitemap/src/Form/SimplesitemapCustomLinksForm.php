@@ -5,8 +5,7 @@ namespace Drupal\simple_sitemap\Form;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class SimplesitemapCustomLinksForm.
- *
+ * Class SimplesitemapCustomLinksForm
  * @package Drupal\simple_sitemap\Form
  */
 class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
@@ -23,14 +22,6 @@ class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $setting_string = '';
-    foreach ($this->generator->getCustomLinks() as $custom_link) {
-      $setting_string .= isset($custom_link['priority'])
-        ? $custom_link['path'] . ' ' . $this->formHelper->formatPriority($custom_link['priority'])
-        : $custom_link['path'];
-      $setting_string .= "\r\n";
-    }
-
     $form['simple_sitemap_custom'] = [
       '#title' => $this->t('Custom links'),
       '#type' => 'fieldset',
@@ -41,7 +32,7 @@ class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
     $form['simple_sitemap_custom']['custom_links'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Relative Drupal paths'),
-      '#default_value' => $setting_string,
+      '#default_value' => $this->customLinksToString($this->generator->getCustomLinks()),
       '#description' => $this->t("Please specify drupal internal (relative) paths, one per line. Do not forget to prepend the paths with a '/'. You can optionally add a priority (0.0 - 1.0) by appending it to the path after a space. The home page with the highest priority would be <em>/ 1.0</em>, the contact page with the default priority would be <em>/contact 0.5</em>."),
     ];
 
@@ -54,7 +45,7 @@ class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    foreach ($this->getCustomLinksFromString($form_state->getValue('custom_links')) as $i => $link_config) {
+    foreach ($this->stringToCustomLinks($form_state->getValue('custom_links')) as $i => $link_config) {
       $placeholders = ['@line' => ++$i, '@path' => $link_config['path'], '@priority' => isset($link_config['priority']) ? $link_config['priority'] : ''];
 
       // Checking if internal path exists.
@@ -81,7 +72,7 @@ class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $custom_links = $this->getCustomLinksFromString($form_state->getValue('custom_links'));
+    $custom_links = $this->stringToCustomLinks($form_state->getValue('custom_links'));
     $this->generator->removeCustomLinks();
     foreach ($custom_links as $link_config) {
       $this->generator->addCustomLink($link_config['path'], $link_config);
@@ -98,11 +89,14 @@ class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
    * @param $custom_links_string
    * @return array
    */
-  private function getCustomLinksFromString($custom_links_string) {
+  protected function stringToCustomLinks($custom_links_string) {
+
     // Unify newline characters and explode into array.
     $custom_links_string_lines = explode("\n", str_replace("\r\n", "\n", $custom_links_string));
+
     // Remove empty values and whitespaces from array.
     $custom_links_string_lines = array_filter(array_map('trim', $custom_links_string_lines));
+
     $custom_links = [];
     foreach ($custom_links_string_lines as $i => &$line) {
       $link_settings = explode(' ', $line, 2);
@@ -112,5 +106,20 @@ class SimplesitemapCustomLinksForm extends SimplesitemapFormBase {
       }
     }
     return $custom_links;
+  }
+
+  /**
+   * @param array $links
+   * @return string
+   */
+  protected function customLinksToString(array $links) {
+    $setting_string = '';
+    foreach ($links as $custom_link) {
+      $setting_string .= isset($custom_link['priority'])
+        ? $custom_link['path'] . ' ' . $this->formHelper->formatPriority($custom_link['priority'])
+        : $custom_link['path'];
+      $setting_string .= "\r\n";
+    }
+    return $setting_string;
   }
 }

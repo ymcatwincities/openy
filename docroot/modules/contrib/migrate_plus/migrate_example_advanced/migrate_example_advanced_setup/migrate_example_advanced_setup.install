@@ -36,39 +36,6 @@ function migrate_example_advanced_setup_schema() {
  * Implements hook_install().
  */
 function migrate_example_advanced_setup_install() {
-  // Enable and configure REST resources providing source data.
-  $config = \Drupal::configFactory()->getEditable('rest.settings');
-  $resources = $config->get('resources');
-  $resources['migrate_example_advanced_position']['GET'] = [
-    'supported_formats' => ['json', 'xml'],
-    'supported_auth' => ['cookie'],
-  ];
-  $resources['migrate_example_advanced_variety_multiple']['GET'] = [
-    'supported_formats' => ['json', 'xml'],
-    'supported_auth' => ['cookie'],
-  ];
-  $resources['migrate_example_advanced_variety_list']['GET'] = [
-    'supported_formats' => ['json', 'xml'],
-    'supported_auth' => ['cookie'],
-  ];
-  $resources['migrate_example_advanced_variety_items']['GET'] = [
-    'supported_formats' => ['json', 'xml'],
-    'supported_auth' => ['cookie'],
-  ];
-  $config->set('resources', $resources);
-  $config->save();
-
-  // Don't require authentication for the services, so the migrations can easily
-  // be run from drush.
-  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID,
-    ['restful get migrate_example_advanced_position']);
-  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID,
-    ['restful get migrate_example_advanced_variety_multiple']);
-  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID,
-    ['restful get migrate_example_advanced_variety_list']);
-  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID,
-    ['restful get migrate_example_advanced_variety_items']);
-
   // Populate our tables.
   migrate_example_advanced_data_account();
   migrate_example_advanced_data_account_updates();

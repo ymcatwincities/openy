@@ -2,10 +2,8 @@
 
 namespace Drupal\migrate\Plugin\migrate\process;
 
-use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\migrate\Plugin\MigrationInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+@trigger_error('The ' . __NAMESPACE__ . ' \DedupeEntity is deprecated in
+Drupal 8.4.x and will be removed before Drupal 9.0.0. Instead, use ' . __NAMESPACE__ . ' \MakeUniqueEntityField', E_USER_DEPRECATED);
 
 /**
  * Ensures value is not duplicated against an entity field.
@@ -18,69 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @MigrateProcessPlugin(
  *   id = "dedupe_entity"
  * )
+ *
+ * @deprecated in Drupal 8.4.x and will be removed in Drupal 9.0.x. Use
+ *   \Drupal\migrate\Plugin\migrate\process\MakeUniqueEntityField instead.
  */
-class DedupeEntity extends DedupeBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactoryInterface
-   */
-  protected $entityQueryFactory;
-
-  /**
-   * The current migration.
-   *
-   * @var \Drupal\migrate\Plugin\MigrationInterface
-   */
-  protected $migration;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, QueryFactory $entity_query_factory) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->migration = $migration;
-    $this->entityQueryFactory = $entity_query_factory;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration = NULL) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $migration,
-      $container->get('entity.query')
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function exists($value) {
-    // Plugins are cached so for every run we need a new query object.
-    $query = $this
-      ->entityQueryFactory
-      ->get($this->configuration['entity_type'], 'AND')
-      ->condition($this->configuration['field'], $value);
-    if (!empty($this->configuration['migrated'])) {
-      // Check if each entity is in the ID map.
-      $idMap = $this->migration->getIdMap();
-      foreach ($query->execute() as $id) {
-        $dest_id_values[$this->configuration['field']] = $id;
-        if ($idMap->lookupSourceID($dest_id_values)) {
-          return TRUE;
-        }
-      }
-      return FALSE;
-    }
-    else {
-      // Just check if any such entity exists.
-      return $query->count()->execute();
-    }
-  }
-
-}
+class DedupeEntity extends MakeUniqueEntityField { }

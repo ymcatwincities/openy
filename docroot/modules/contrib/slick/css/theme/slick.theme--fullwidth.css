@@ -1,0 +1,55 @@
+/**
+ * @file
+ * Detailed stylings are all yours, get yourself dirty.
+ */
+
+.slick--skin--fullwidth .slide__caption {
+  font-size: 22px;
+  font-size: 1.375rem;
+}
+
+.slick--skin--fullwidth .slide__media img {
+  width: 100%;
+}
+
+.slick--skin--fullwidth .slide__title {
+  font-size: 48px;
+  font-size: 3rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.slick--skin--fullwidth .slide__link a {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+  border-top: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.slick--skin--fullwidth .slide__link a:hover {
+  border-color: #fff;
+  text-decoration: none;
+}
+
+@media (min-width: 64em) {
+  .slick--skin--fullwidth .slide__constrained {
+    height: 100%;
+    left: 50%;
+    margin-left: -49%;
+    position: absolute;
+    width: 98%;
+  }
+
+  /* Prevents collapsing captions when no image is available */
+  .slick--skin--fullwidth .slide--text .slide__content {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 100%;
+    position: relative;
+  }
+}
+
+@media (min-width: 90em) {
+  .slick--skin--fullwidth .slide__constrained {
+    margin-left: -585px;
+    width: 1170px;
+  }
+}

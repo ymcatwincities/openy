@@ -1,0 +1,7 @@
+name: 'Data Layer'
+description: 'Output page meta data for client-side availability.'
+package: Other
+dependencies:
+  - libraries
+core: 8.x
+type: module

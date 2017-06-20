@@ -1,0 +1,10 @@
+openy_popups.config:
+  type: config_object
+  label: 'OpenY Popups config'
+  mapping:
+    img:
+      type: text
+      label: 'Image'
+    description:
+      type: text
+      label: 'Description'
