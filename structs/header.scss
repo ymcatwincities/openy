@@ -524,3 +524,11 @@ body {
 #toolbar-administration * {
   z-index: 1050;
 }
+
+.independent-header  {
+  @media screen and (max-width: 767px) {
+    .navbar-nav > li {
+      float:left;
+    }
+  }
+}
