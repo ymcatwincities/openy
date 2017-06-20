@@ -38,8 +38,7 @@
  * @ingroup themeable
  */
 #}
-<div class="microsites-menu__wrapper">
-  <div class="container">
+<div class="container">
   {% if label_hidden %}
     {% if multiple %}
       <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
@@ -66,5 +65,4 @@
       {% endif %}
     </div>
   {% endif %}
-  </div>
 </div>

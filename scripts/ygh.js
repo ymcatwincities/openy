@@ -227,4 +227,25 @@
     }
   };
 
+  /**
+   * Main Menu Activation behavior.
+   */
+  Drupal.behaviors.independentHeader = {
+    attach: function (context, settings) {
+      $('.independent-header #block-ygh-main-menu li.dropdown a')
+        .addClass('link')
+        .removeClass('dropdown-toggle')
+        .removeAttr('data-toggle')
+        .find('i')
+        .remove()
+        .parent('li')
+        .removeClass('nav-level-2')
+        .removeClass('dropdown');
+      $('')
+      $('.independent-header a, .independent-footer a').on('click', function() {
+        parent.location.href = $(this).attr('href');
+      });
+    }
+  };
+
 })(jQuery);
