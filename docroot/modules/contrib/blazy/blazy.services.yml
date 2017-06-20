@@ -1,0 +1,34 @@
+services:
+  blazy.manager.base:
+    abstract: true
+    class: Drupal\blazy\BlazyManagerBase
+    arguments: ['@entity_type.manager', '@module_handler', '@renderer', '@config.factory', '@cache.default']
+
+  blazy.manager:
+    abstract: false
+    class: Drupal\blazy\BlazyManager
+    parent: blazy.manager.base
+
+  blazy.formatter.manager:
+    class: Drupal\blazy\BlazyFormatterManager
+    parent: blazy.manager
+
+  blazy:
+    class: Drupal\blazy\Blazy
+
+  blazy.admin.base:
+    abstract: true
+    class: Drupal\blazy\Form\BlazyAdminBase
+    arguments: ['@entity_display.repository', '@config.typed', '@blazy.manager']
+
+  blazy.admin.formatter:
+    class: Drupal\blazy\Form\BlazyAdminFormatter
+    parent: blazy.admin.base
+
+  blazy.admin.extended:
+    class: Drupal\blazy\Dejavu\BlazyAdminExtended
+    parent: blazy.admin.base
+
+  blazy.admin:
+    class: Drupal\blazy\Form\BlazyAdmin
+    parent: blazy.admin.base

@@ -9,6 +9,11 @@ services:
     arguments: ['@router.route_provider', '@request_stack']
     tags:
       - { name: 'event_subscriber' }
+  page_manager.language_interface_context:
+    class: Drupal\page_manager\EventSubscriber\LanguageInterfaceContext
+    arguments: ['@context.repository']
+    tags:
+      - { name: 'event_subscriber' }
   page_manager.context_mapper:
     class: Drupal\page_manager\ContextMapper
     arguments: ['@entity.repository']

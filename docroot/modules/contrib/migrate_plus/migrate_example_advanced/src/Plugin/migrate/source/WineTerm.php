@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_example_advanced\Plugin\migrate\source\WineTerm.
- */
-
 namespace Drupal\migrate_example_advanced\Plugin\migrate\source;
 
 use Drupal\migrate\Plugin\migrate\source\SqlBase;

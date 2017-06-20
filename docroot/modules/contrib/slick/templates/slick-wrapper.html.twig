@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a slick wrapper.
+ *
+ * Available variables:
+ * - items: A list of items containing main and thumbnail of slick.html.twig
+ *   which can be re-position using option Thumbnail position.
+ * - attributes: HTML attributes to be applied to the list.
+ * - settings: An array containing the given settings.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'slick-wrapper',
+    settings.nav ? 'slick-wrapper--asnavfor',
+    settings.skin ? 'slick-wrapper--' ~ settings.skin|clean_class,
+    settings.skin_thumbnail ? 'slick-wrapper--' ~ settings.skin_thumbnail|clean_class,
+    settings.vertical ? 'slick-wrapper--v',
+    settings.vertical_tn ? 'slick-wrapper--v-tn',
+    settings.thumbnail_position ? 'slick-wrapper--tn-' ~ settings.thumbnail_position|clean_class,
+    'over' in settings.thumbnail_position ? 'slick-wrapper--tn-overlay',
+    'over' in settings.thumbnail_position ? 'slick-wrapper--tn-' ~ settings.thumbnail_position|replace({ 'over-' : '' })
+  ]
+%}
+
+{% set content %}
+  {% for item in items %}
+    {{ item }}
+  {% endfor %}
+{% endset %}
+
+{% spaceless %}
+  {% if settings.nav %}
+    <div{{ attributes.addClass(classes)|without('id') }}>
+      {{ content }}
+    </div>
+  {% else %}
+    {{ content }}
+  {% endif %}
+{% endspaceless %}

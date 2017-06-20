@@ -10,8 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Drupal\simple_sitemap\Simplesitemap;
 
 /**
- * Class SimplesitemapController.
- *
+ * Class SimplesitemapController
  * @package Drupal\simple_sitemap\Controller
  */
 class SimplesitemapController extends ControllerBase {

@@ -51,8 +51,8 @@ up an XML migration. An index of things demonstrated by this module:
 
 Multiple vocabularies populated in one migration
 ------------------------------------------------
-See migrate.migration.wine_terms.yml.
+See migrate_plus.migration.wine_terms.yml.
 
 Importing from XML services
 ---------------------------
-See migrate.migration.wine_role_xml.yml.
+See migrate_plus.migration.wine_role_xml.yml.

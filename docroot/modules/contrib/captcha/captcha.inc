@@ -5,8 +5,8 @@
  * General CAPTCHA functionality and helper functions.
  */
 
-use Drupal\Component\Utility\Xss;
 use Drupal\captcha\Entity\CaptchaPoint;
+use Drupal\Component\Utility\Xss;
 use Drupal\Core\Render\Element;
 
 /**
@@ -30,7 +30,10 @@ function captcha_set_form_id_setting($form_id, $captcha_type) {
     $captcha_point->setCaptchaType($captcha_type);
   }
   else {
-    $captcha_point = new CaptchaPoint(['formId' => $form_id, 'captchaType' => $captcha_type], 'captcha_point');
+    $captcha_point = new CaptchaPoint([
+      'formId' => $form_id,
+      'captchaType' => $captcha_type,
+    ], 'captcha_point');
   }
   $captcha_point->enable();
 
@@ -45,7 +48,7 @@ function captcha_set_form_id_setting($form_id, $captcha_type) {
  * @param bool $symbolic
  *   Flag to return as (symbolic) strings instead of object.
  *
- * @return NULL|CaptchaPoint
+ * @return null|CaptchaPoint
  *   NULL if no setting is known
  *   captcha point object with fields 'module' and 'captcha_type'.
  *   If argument $symbolic is true, returns 'default' or in the
@@ -62,7 +65,6 @@ function captcha_get_form_id_setting($form_id, $symbolic = FALSE) {
   return $captcha_point;
 }
 
-
 /**
  * Helper function for generating a new CAPTCHA session.
  *
@@ -78,20 +80,20 @@ function _captcha_generate_captcha_session($form_id = NULL, $status = CAPTCHA_ST
   $user = \Drupal::currentUser();
 
   // Initialize solution with random data.
-  $solution = md5(mt_rand());
+  $solution = hash('sha256', mt_rand());
 
   // Insert an entry and thankfully receive the value
   // of the autoincrement field 'csid'.
   $captcha_sid = db_insert('captcha_sessions')
     ->fields([
-    'uid' => $user->id(),
-    'sid' => session_id(),
-    'ip_address' => Drupal::request()->getClientIp(),
-    'timestamp' => REQUEST_TIME,
-    'form_id' => $form_id,
-    'solution' => $solution,
-    'status' => $status,
-    'attempts' => 0,
+      'uid' => $user->id(),
+      'sid' => session_id(),
+      'ip_address' => Drupal::request()->getClientIp(),
+      'timestamp' => REQUEST_TIME,
+      'form_id' => $form_id,
+      'solution' => $solution,
+      'status' => $status,
+      'attempts' => 0,
     ])
     ->execute();
   return $captcha_sid;
@@ -123,7 +125,8 @@ function _captcha_update_captcha_session($captcha_sid, $solution) {
  */
 function _captcha_required_for_user($captcha_sid, $form_id) {
   // Get the CAPTCHA persistence setting.
-  $captcha_persistence = \Drupal::config('captcha.settings')->get('persistence');
+  $captcha_persistence = \Drupal::config('captcha.settings')
+    ->get('persistence');
 
   // First check: should we always add a CAPTCHA?
   if ($captcha_persistence == CAPTCHA_PERSISTENCE_SHOW_ALWAYS) {
@@ -158,7 +161,6 @@ function _captcha_required_for_user($captcha_sid, $form_id) {
   return TRUE;
 }
 
-
 /**
  * Get the CAPTCHA description.
  *
@@ -182,7 +184,8 @@ function _captcha_get_description() {
  */
 function _captcha_parse_captcha_type($captcha_type) {
   if ($captcha_type == 'default') {
-    $captcha_type = \Drupal::config('captcha.settings')->get('default_challenge', 'captcha/Math');
+    $captcha_type = \Drupal::config('captcha.settings')
+      ->get('default_challenge', 'captcha/Math');
   }
   return explode('/', $captcha_type);
 }
@@ -210,7 +213,8 @@ function _captcha_get_captcha_placement($form_id, $form) {
       // By default however, probably all Drupal core forms
       // are already correctly handled with the best effort guess
       // based on the 'actions' element (see below).
-      $placement_map = \Drupal::moduleHandler()->invokeAll('captcha_placement_map');
+      $placement_map = \Drupal::moduleHandler()
+        ->invokeAll('captcha_placement_map');
       $write_cache = TRUE;
     }
   }
@@ -322,7 +326,7 @@ function _captcha_insert_captcha_element(array &$form, array $placement, array $
   $form_stepper = &$form;
   foreach ($path as $step) {
     if (isset($form_stepper[$step])) {
-      $form_stepper = & $form_stepper[$step];
+      $form_stepper = &$form_stepper[$step];
     }
     else {
       // Given path is invalid: stop stepping and

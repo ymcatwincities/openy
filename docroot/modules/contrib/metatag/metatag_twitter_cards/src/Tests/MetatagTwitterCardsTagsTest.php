@@ -65,7 +65,7 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
    * Twitter meta tags (almost) all have colons instead of underlines, and they
    * don't have "cards" in their name.
    */
-  public function get_test_tag_name($tag_name) {
+  public function getTestTagName($tag_name) {
     $tag_name = str_replace('twitter_cards', 'twitter', $tag_name);
     $tag_name = str_replace('_', ':', $tag_name);
 

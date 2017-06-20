@@ -3,7 +3,7 @@
 /*
  * This file is part of Twig.
  *
- * (c) 2009 Fabien Potencier
+ * (c) Fabien Potencier
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -108,3 +108,5 @@ function twig_raw_filter($string)
 {
     return $string;
 }
+
+class_alias('Twig_Extension_Escaper', 'Twig\Extension\EscaperExtension', false);
