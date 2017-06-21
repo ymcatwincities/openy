@@ -7,7 +7,6 @@
 namespace Drupal\panels\Plugin\DisplayBuilder;
 
 use Drupal\Component\Plugin\PluginInspectionInterface;
-use Drupal\layout_plugin\Plugin\Layout\LayoutInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
 
 /**

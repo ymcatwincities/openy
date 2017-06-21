@@ -46,6 +46,10 @@
   content: "\e905";
 }
 
+.ipe-icon.ipe-icon-locked:before {
+  content: "\e90e";
+}
+
 .ipe-icon.ipe-icon-create_content:before {
   content: "\e90b";
 }

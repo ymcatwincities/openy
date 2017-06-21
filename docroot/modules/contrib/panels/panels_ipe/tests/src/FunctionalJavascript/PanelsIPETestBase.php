@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\Tests\panels_ipe\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\JavascriptTestBase;
@@ -50,8 +46,8 @@ abstract class PanelsIPETestBase extends JavascriptTestBase {
     $this->visitIPERoute();
 
     // Change the layout to two columns.
-    $this->changeLayout('Columns: 2', 'twocol');
-    $this->waitUntilVisible('.panel-2col', 10000, 'Layout changed to two column.');
+    $this->changeLayout('Columns: 2', 'layout_twocol');
+    $this->waitUntilVisible('.layout--twocol', 10000, 'Layout changed to two column.');
   }
 
   /**

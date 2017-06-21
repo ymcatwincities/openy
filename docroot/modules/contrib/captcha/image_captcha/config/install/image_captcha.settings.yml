@@ -14,4 +14,3 @@ image_captcha_bilinear_interpolation: 0
 image_captcha_dot_noise: 0
 image_captcha_line_noise: 0
 image_captcha_noise_level: 5
-

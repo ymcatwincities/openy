@@ -1,5 +1,5 @@
 description: Generate a meta tag.
-help: The <info>generate:metatag:tag</info> command helps generate a new meta tag for use with the Metatag module.
+help: The <info>generate:plugin:metatag:tag</info> command helps generate a new meta tag for use with the Metatag module.
 welcome: Welcome to the Metatag tag generator
 options:
   base_class: The base meta tag class to use.

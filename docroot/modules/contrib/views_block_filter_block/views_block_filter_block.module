@@ -1,0 +1,31 @@
+<?php
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_views_plugins_display_alter().
+ */
+function views_block_filter_block_views_plugins_display_alter(array &$plugins) {
+  // Force the block display plugin to use our block display plugin.
+  $plugins['block']['class'] = 'Drupal\views_block_filter_block\Plugin\views\vbfbPluginDisplayBlock';
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function views_block_filter_block_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $storage = $form_state->getStorage();
+  $view = $storage['view'];
+
+  // Only react on block Views specifically configured with exposed form blocks.
+  if (get_class($view->display_handler) == 'Drupal\views_block_filter_block\Plugin\views\vbfbPluginDisplayBlock') {
+    if ($view->display_handler->getOption('exposed_block')) {
+      // Ensure that the fallback form action is the current page.
+      $route_match = \Drupal::routeMatch();
+      $url = Url::fromRouteMatch($route_match);
+      $url->setAbsolute();
+      $form['#action'] = $url->toString();
+    }
+  }
+}

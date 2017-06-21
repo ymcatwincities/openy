@@ -7,13 +7,13 @@ package: Panels
 configure: panels.admin
 dependencies:
   - ctools
-  - layout_plugin
+  - layout_discovery
+  - drupal:system (>= 8.3.x)
 test_dependencies:
   - page_manager
-  - panelizer
 
-# Information added by Drupal.org packaging script on 2017-02-25
-version: '8.x-3.0-beta6'
+# Information added by Drupal.org packaging script on 2017-05-02
+version: '8.x-4.1'
 core: '8.x'
 project: 'panels'
-datestamp: 1488057787
+datestamp: 1493687599

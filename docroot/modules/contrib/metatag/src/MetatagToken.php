@@ -34,8 +34,11 @@ class MetatagToken {
    *
    * @return mixed|string $string
    */
-  public function replace($string, $data, $options = []) {
-    $options['clear'] = TRUE;
+  public function replace($string, array $data = [], $options = []) {
+    // Set default requirements for metatag unless options specify otherwise.
+    $options = $options + [
+      'clear' => TRUE
+    ];
 
     $replaced = $this->token->replace($string, $data, $options);
 
@@ -60,7 +63,7 @@ class MetatagToken {
     $form = [];
 
     $form['intro_text'] = [
-      '#markup' => '<p>' . t('Configure the meta tags below. Use tokens to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).') . '</p>',
+      '#markup' => '<p>' . t('<strong>Configure the meta tags below.</strong><br /> To view a summary of the individual meta tags and the pattern for a specific configuration, click on its name below. Use tokens to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).') . '</p>',
     ];
 
     // Normalize taxonomy tokens.
