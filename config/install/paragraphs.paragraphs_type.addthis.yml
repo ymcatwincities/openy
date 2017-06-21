@@ -2,4 +2,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: addthis
-label: AddThis
+label: Social share icons
