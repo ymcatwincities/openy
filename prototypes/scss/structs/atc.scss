@@ -11,10 +11,11 @@
 
 .addtocalendar {
   position: relative;
-  left: 10px;
+  right: 10px;
   top: 10px;
   display: inline-block;
   background: transparent!important;
+  float: right;
 }
 
 .atcb-link {
