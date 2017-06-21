@@ -112,7 +112,7 @@ class SettingsCopyForm extends ConfigFormBase {
       ];
 
       $link_type = [
-        $this->t('< Select One >'),
+        0 => $this->t('< Select One >'),
         1 => $this->t('Link'),
         2 => $this->t('Tab'),
       ];
@@ -185,7 +185,8 @@ class SettingsCopyForm extends ConfigFormBase {
   /**
    * Form element validation handler for #type 'url'.
    *
-   * Note that #maxlength and #required is validated by _form_validate() already.
+   * Note that #maxlength and #required is validated by
+   * _form_validate() already.
    */
   public static function validateUrl(&$element, FormStateInterface $form_state, &$complete_form) {
     if (empty($element['#value'])) {
@@ -201,7 +202,6 @@ class SettingsCopyForm extends ConfigFormBase {
       $form_state->setError($element, t('The URL %url is not a valid internal path.', ['%url' => $element['#value']]));
     }
   }
-
 
   /**
    * {@inheritdoc}
