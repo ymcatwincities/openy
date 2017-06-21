@@ -125,7 +125,6 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
     return $blocks;
   }
 
-
   /**
    * {@inheritdoc}
    */
