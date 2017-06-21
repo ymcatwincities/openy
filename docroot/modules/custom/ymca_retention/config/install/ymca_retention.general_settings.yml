@@ -1,13 +1,40 @@
-date_campaign_open: '11/14/2016 12:00 AM'
-date_campaign_close: '12/14/2016 11:59 PM'
-date_registration_open: '11/14/2016 12:00 AM'
-date_registration_close: '12/14/2016 11:59 PM'
-date_reporting_open: '11/14/2016 12:00 AM'
-date_reporting_close: '12/14/2016 11:59 PM'
+date_campaign_open: '03/08/2017 12:00 AM'
+date_campaign_close: '09/21/2017 11:59 PM'
+date_registration_open: '03/01/2017 12:00 AM'
+date_registration_close: '09/21/2017 11:59 PM'
+date_reporting_open: '03/08/2017 12:00 AM'
+date_reporting_close: '09/21/2017 11:59 PM'
 new_member_goal_number: '5'
 limit_goal_number: '10'
-date_checkins_start: '10/30/2016 12:00 AM'
-date_checkins_end: '12/01/2016 11:59 PM'
-date_winners_announcement: '12/30/2016 12:00 AM'
-calculate_visit_goal: 0
+date_checkins_start: '01/01/2017 12:00 AM'
+date_checkins_end: '09/25/2017 11:59 PM'
+date_winners_announcement: '09/22/2017 12:00 AM'
+calculate_visit_goal: 1
 recent_winners_limit: '30'
+exclude_reg_product_codes:
+  14_GETSUMMER: 14_GETSUMMER
+  17_GETSUMMER: 17_GETSUMMER
+  20_GETSUMMER: 20_GETSUMMER
+  22_GETSUMMER: 22_GETSUMMER
+  24_GETSUMMER: 24_GETSUMMER
+  27_GETSUMMER: 27_GETSUMMER
+  30_GETSUMMER: 30_GETSUMMER
+  32_GETSUMMER: 32_GETSUMMER
+  34_GETSUMMER: 34_GETSUMMER
+  36_GETSUMMER: 36_GETSUMMER
+  38_GETSUMMER: 38_GETSUMMER
+  70_GETSUMMER: 70_GETSUMMER
+  75_GETSUMMER: 75_GETSUMMER
+  76_GETSUMMER: 76_GETSUMMER
+  77_GETSUMMER: 77_GETSUMMER
+  81_GETSUMMER: 81_GETSUMMER
+  82_GETSUMMER: 82_GETSUMMER
+  83_GETSUMMER: 83_GETSUMMER
+  84_GETSUMMER: 84_GETSUMMER
+  85_GETSUMMER: 85_GETSUMMER
+  87_GETSUMMER: 87_GETSUMMER
+  88_GETSUMMER: 88_GETSUMMER
+  89_GETSUMMER: 89_GETSUMMER
+error_msg_excluded_members:
+  value: "<p><strong>Thanks for your interest in the Y Strive Challenge</strong><br />\r\nAs a Get Summer member, you're not eligible to participate, but we hope to see you at the Y striving toward your personal goals this summer.<br />\r\n<a href=\"https://google.com/\">Google Link Test</a>.</p>\r\n"
+  format: full_html

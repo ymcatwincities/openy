@@ -531,3 +531,17 @@ function ymca_retention_update_8028() {
     ]
   );
 }
+
+/**
+ * Add copy settings and update general settings..
+ */
+function ymca_retention_update_8029() {
+  $path = drupal_get_path('module', 'ymca_retention') . '/config/install/';
+  $files = [
+    'ymca_retention.copy_settings',
+    'ymca_retention.general_settings',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory($path);
+  $importer->importConfigs($files);
+}

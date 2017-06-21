@@ -40,9 +40,11 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
       return;
     }
 
-    $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge');
-    $response = new RedirectResponse($url->toString() . '/upcoming', 302);
-    $event->setResponse($response);
+    // $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge');
+    // $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_winners');
+    // $response = new RedirectResponse($url->toString() . '/upcoming', 302);
+    // $response = new RedirectResponse($url->toString() . '/winners', 302);
+    // $event->setResponse($response);
   }
 
 }
