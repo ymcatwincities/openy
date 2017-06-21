@@ -9,7 +9,7 @@
  * Implements hook_install().
  */
 function openy_addthis_install() {
-  // Add our base fields to the schema.
+  // Add our base field to the schema.
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
 
@@ -17,6 +17,6 @@ function openy_addthis_install() {
  * Implements hook_uninstall().
  */
 function openy_addthis_uninstall() {
-  // Remove our base fields from the schema.
+  // Remove our base field from the schema.
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
