@@ -1,15 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\captcha\Form\CaptchaExamplesForm.
- */
-
 namespace Drupal\captcha\Form;
 
-use Drupal\Core\Url;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Displays the captcha settings form.
@@ -39,19 +35,27 @@ class CaptchaExamplesForm extends FormBase {
     else {
       // Generate a list with examples of the available CAPTCHA types.
       $form['info'] = [
-        '#markup' => t('This page gives an overview of all available challenge types, generated with their current settings.'),
+        '#markup' => $this->t('This page gives an overview of all available challenge types, generated with their current settings.'),
       ];
-      foreach (\Drupal::moduleHandler()->getImplementations('captcha') as $mkey => $module) {
+
+      $modules_list = \Drupal::moduleHandler()->getImplementations('captcha');
+      foreach ($modules_list as $mkey => $module) {
         $challenges = call_user_func_array($module . '_captcha', ['list']);
 
         if ($challenges) {
           foreach ($challenges as $ckey => $challenge) {
             $form["captcha_{$mkey}_{$ckey}"] = [
               '#type' => 'details',
-              '#title' => t('Challenge %challenge by module %module', ['%challenge' => $challenge, '%module' => $module]),
+              '#title' => $this->t('Challenge %challenge by module %module', [
+                '%challenge' => $challenge,
+                '%module' => $module,
+              ]),
               'challenge' => _captcha_generate_example_challenge($module, $challenge),
               'more_examples' => [
-                '#markup' => \Drupal::l(t('10 more examples of this challenge.'), Url::fromRoute('captcha_examples', array('module' => $module, 'challenge' => $challenge))),
+                '#markup' => Link::fromTextAndUrl($this->t('10 more examples of this challenge.'), Url::fromRoute('captcha_examples', [
+                  'module' => $module,
+                  'challenge' => $challenge,
+                ]))->toString(),
               ],
             ];
           }

@@ -47,7 +47,7 @@ function metatag_update_8101() {
       $field_value_field = "$field_name" . "_value";
 
       // Delete all records where the field value and default are identical.
-      db_delete($field_table)
+      \Drupal::database()->delete($field_table)
         ->condition('bundle', $bundle, '=')
         ->condition($field_value_field, $field_default_tags_value, '=')
         ->execute();
@@ -101,7 +101,7 @@ function metatag_update_8102(&$sandbox) {
         $field_value_field = "$field_name" . "_value";
 
         // Get all records where the field data does not match the default.
-        $query = db_select($field_table);
+        $query = \Drupal::database()->select($field_table);
         $query->addField($field_table, 'entity_id');
         $query->addField($field_table, 'revision_id');
         $query->addField($field_table, 'langcode');
@@ -159,7 +159,7 @@ function metatag_update_8102(&$sandbox) {
       if (empty($new_tags)) {
         // All tags were either empty or matched the default so the record can
         // be deleted.
-        db_delete($field_table)
+        \Drupal::database()->delete($field_table)
           ->condition('entity_id', $record->entity_id)
           ->condition('revision_id', $record->revision_id)
           ->condition('langcode', $record->langcode)
@@ -168,7 +168,7 @@ function metatag_update_8102(&$sandbox) {
       else {
         // There are some overridden tags so update the record with just those.
         $tags_string = serialize($new_tags);
-        db_update($field_table)
+        \Drupal::database()->update($field_table)
           ->fields([
             $field_value_field => $tags_string,
           ])

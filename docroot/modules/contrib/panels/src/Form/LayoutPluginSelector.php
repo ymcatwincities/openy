@@ -4,8 +4,7 @@ namespace Drupal\panels\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\layout_plugin\Layout;
-use Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface;
+use Drupal\Core\Layout\LayoutPluginManagerInterface;
 use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -17,7 +16,7 @@ class LayoutPluginSelector extends FormBase {
   /**
    * The layout plugin manager.
    *
-   * @var \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface
+   * @var \Drupal\Core\Layout\LayoutPluginManagerInterface
    */
   protected $manager;
 
@@ -33,7 +32,7 @@ class LayoutPluginSelector extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.layout_plugin'),
+      $container->get('plugin.manager.core.layout'),
       $container->get('user.shared_tempstore')
     );
   }
@@ -41,7 +40,7 @@ class LayoutPluginSelector extends FormBase {
   /**
    * LayoutPluginSelector constructor.
    *
-   * @param \Drupal\layout_plugin\Plugin\Layout\LayoutPluginManagerInterface $manager
+   * @param \Drupal\Core\Layout\LayoutPluginManagerInterface $manager
    *   The layout plugin manager.
    * @param \Drupal\user\SharedTempStoreFactory $tempstore
    *   The tempstore factory.
@@ -69,7 +68,7 @@ class LayoutPluginSelector extends FormBase {
     $form['layout'] = [
       '#title' => $this->t('Layout'),
       '#type' => 'select',
-      '#options' => Layout::layoutPluginManager()->getLayoutOptions(['group_by_category' => TRUE]),
+      '#options' => $this->manager->getLayoutOptions(),
       '#default_value' => $variant_plugin->getConfiguration()['layout'] ?: NULL,
     ];
 
@@ -109,8 +108,11 @@ class LayoutPluginSelector extends FormBase {
       $next_op = $wizard->getNextOp();
       $form_state->setValue('op', $next_op);
     }
+    // Creating a new layout. Take the selected layout value.
+    else {
+      $variant_plugin->setLayout($form_state->getValue('layout'));
+    }
 
-    $variant_plugin->setLayout($form_state->getValue('layout'), $form_state->getValue('layout_settings') ?: []);
     $cached_values['plugin'] = $variant_plugin;
 
     $form_state->setTemporaryValue('wizard', $cached_values);

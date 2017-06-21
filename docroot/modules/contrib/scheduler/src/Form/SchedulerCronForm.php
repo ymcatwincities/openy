@@ -1,22 +1,41 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\scheduler\Form\SchedulerCronForm.
- */
-
 namespace Drupal\scheduler\Form;
 
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\Url;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Scheduler Lightweight Cron form.
  */
 class SchedulerCronForm extends ConfigFormBase {
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Creates a SchedulerCronForm instance.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   */
+  public function __construct(ModuleHandlerInterface $module_handler) {
+    $this->moduleHandler = $module_handler;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('module_handler'));
+  }
 
   /**
    * {@inheritdoc}
@@ -46,14 +65,15 @@ class SchedulerCronForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Log every activation and completion message.'),
       '#default_value' => $config->get('log'),
-      '#description' => $this->t('When this option is checked, Scheduler will write an entry to the dblog every time the lightweight cron process is started and completed. This is useful during set up and testing, but can result in a large number of log entries. Any actions performed during the lightweight cron run will always be logged regardless of this setting.'),
+      '#description' => $this->t('When this option is checked, Scheduler will write an entry to the log every time the lightweight cron process is started and completed. This is useful during set up and testing, but can result in a large number of log entries. Any actions performed during the lightweight cron run will always be logged regardless of this setting.'),
     ];
     $form['cron_settings']['lightweight_access_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Lightweight cron access key'),
       '#default_value' => $config->get('lightweight_cron_access_key'),
+      '#required' => TRUE,
       '#size' => 25,
-      '#description' => $this->t("Similar to Drupal's cron key this acts as a security token to prevent unauthorised calls to scheduler/cron. The key should be passed as scheduler/cron/&lt;this key&gt;. To disable security for lightweight cron leave this field blank."),
+      '#description' => $this->t("Similar to Drupal's cron key this acts as a security token to prevent unauthorised calls to scheduler/cron. The key should be passed as scheduler/cron/{access key}"),
     ];
     // Add a submit handler function for the key generation.
     $form['cron_settings']['create_key'][] = [
@@ -62,18 +82,17 @@ class SchedulerCronForm extends ConfigFormBase {
       '#submit' => ['::generateRandomKey'],
       // No validation at all is required in the equivocate case, so
       // we include this here to make it skip the form-level validator.
-      '#validate' => array(),
+      '#validate' => [],
     ];
     // Add a submit handler function for the form.
     $form['buttons']['submit_cron'][] = [
       '#type' => 'submit',
-      '#prefix' => '<div class="container-inline">' . $this->t("You can test Scheduler's lightweight cron process interactively") . ': ',
+      '#prefix' => $this->t("You can test Scheduler's lightweight cron process interactively"),
       '#value' => $this->t("Run Scheduler's lightweight cron now"),
-      '#suffix' => "</div>\n",
       '#submit' => ['::runLightweightCron'],
       // No validation at all is required in the equivocate case, so
       // we include this here to make it skip the form-level validator.
-      '#validate' => array(),
+      '#validate' => [],
     ];
     return parent::buildForm($form, $form_state);
   }
@@ -117,14 +136,15 @@ class SchedulerCronForm extends ConfigFormBase {
    *   The current state of the form.
    */
   public function runLightweightCron(array &$form, FormStateInterface $form_state) {
-    module_load_include('inc', 'scheduler', 'scheduler.cron');
-    _scheduler_run_cron();
+    // @TODO: \Drupal calls should be avoided in classes.
+    // Replace \Drupal::service with dependency injection?
+    \Drupal::service('scheduler.manager')->runCron();
 
-    try {
+    if ($this->moduleHandler->moduleExists('dblog')) {
       $url = Url::fromRoute('dblog.overview')->toString();
-      $message = $this->t('Lightweight cron run completed. See the <a href="@url">log</a> for details.', array('@url' => $url));
+      $message = $this->t('Lightweight cron run completed. See the <a href="@url">log</a> for details.', ['@url' => $url]);
     }
-    catch (RouteNotFoundException $e) {
+    else {
       // If the Database Logging module is not enabled the route to the log
       // overview does not exist. Show a simple status message.
       $message = $this->t('Lightweight cron run completed.');

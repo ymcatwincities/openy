@@ -26,7 +26,7 @@ trait RemoteLibraryTrait {
    * @see \Drupal\libraries\ExternalLibrary\Remote\RemoteLibraryInterface::hasRemoteUrl()
    */
   public function hasRemoteUrl() {
-    return isset($this->remoteUrl);
+    return !empty($this->remoteUrl);
   }
 
   /**
