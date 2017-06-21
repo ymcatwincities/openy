@@ -4659,7 +4659,6 @@ function ymca_master_update_8210() {
   }
 }
 
-
 /**
  * Update personify old link by new links in configs.
  */
@@ -4707,7 +4706,7 @@ function ymca_master_update_8214() {
 }
 
 /**
- * [YPTF-264] Configure MindBody Cache Proxy settings.
+ * YPTF-264 Configure MindBody Cache Proxy settings.
  */
 function ymca_master_update_8215() {
   $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
