@@ -1,31 +1,50 @@
 <?php
 
-namespace Drupal\panelizer\Tests;
+namespace Drupal\Tests\panelizer\Functional;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\simpletest\WebTestBase;
-use Drupal\user\Entity\User;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Confirm that the IPE functionality works.
  *
  * @group panelizer
  */
-class PanelizerIpeTest extends WebTestBase {
+class PanelizerIpeTest extends BrowserTestBase {
 
   use PanelizerTestTrait;
 
   /**
    * {@inheritdoc}
    */
-  protected $profile = 'standard';
+  public static $modules = [
+    // Modules for core functionality.
+    'node',
+    'field',
+    'field_ui',
+    'user',
+
+    // Core dependencies.
+    'layout_discovery',
+
+    // Contrib dependencies.
+    'ctools',
+    'panels',
+    'panels_ipe',
+
+    // This module.
+    'panelizer',
+  ];
 
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
-    'panelizer',
-  ];
+  protected function setUp() {
+    parent::setUp();
+
+    // Reload all caches.
+    $this->rebuildAll();
+  }
 
   /**
    * The content type that will be tested against.
@@ -67,21 +86,10 @@ class PanelizerIpeTest extends WebTestBase {
   }
 
   /**
-   * Log in as user 1.
-   */
-  protected function loginUser1() {
-    // Log in as user 1.
-    $account = User::load(1);
-    $account->setPassword('foo')->save();
-    $account->pass_raw = 'foo';
-    $this->drupalLogin($account);
-  }
-
-  /**
    * Test that the IPE functionality as user 1, which should cover all options.
    */
   public function testAdminUser() {
-    $this->setupContentType();
+    $this->setupContentType($this->content_type);
 
     // Create a test node.
     $node = $this->createTestNode();
@@ -96,7 +104,7 @@ class PanelizerIpeTest extends WebTestBase {
     // Confirm the JSON Drupal settings are appropriate.
     $drupalSettings = NULL;
     $matches = [];
-    if (preg_match('@<script type="application/json" data-drupal-selector="drupal-settings-json">([^<]*)</script>@', $this->content, $matches)) {
+    if (preg_match('@<script type="application/json" data-drupal-selector="drupal-settings-json">([^<]*)</script>@', $this->getRawContent(), $matches)) {
       $drupalSettings = Json::decode($matches[1]);
       $this->verbose('<pre>' . print_r($drupalSettings, TRUE) . '</pre>');
     }
@@ -123,8 +131,8 @@ class PanelizerIpeTest extends WebTestBase {
   /**
    * Confirm the 'administer panelizer' permission works.
    */
-  public function testAdministerPanelizer() {
-    $this->setupContentType();
+  public function testAdministerPanelizerPermission() {
+    $this->setupContentType($this->content_type);
 
     // Create a test node.
     $node = $this->createTestNode();
@@ -143,7 +151,7 @@ class PanelizerIpeTest extends WebTestBase {
     // Confirm the appropriate DOM structures are present for the IPE.
     $drupalSettings = NULL;
     $matches = [];
-    if (preg_match('@<script type="application/json" data-drupal-selector="drupal-settings-json">([^<]*)</script>@', $this->content, $matches)) {
+    if (preg_match('@<script type="application/json" data-drupal-selector="drupal-settings-json">([^<]*)</script>@', $this->getRawContent(), $matches)) {
       $drupalSettings = Json::decode($matches[1]);
       $this->verbose('<pre>' . print_r($drupalSettings, TRUE) . '</pre>');
     }
@@ -186,8 +194,8 @@ class PanelizerIpeTest extends WebTestBase {
    * @todo Confirm the 'administer panelizer $entity_type_id $bundle content'
    * permission works.
    */
-  public function testAdministerEntityContent() {
-    $this->setupContentType();
+  public function testAdministerEntityContentPermission() {
+    $this->setupContentType($this->content_type);
 
     // Need the node for the tests below, so create it now.
     $node = $this->createTestNode();
@@ -223,8 +231,8 @@ class PanelizerIpeTest extends WebTestBase {
    * @todo Confirm the 'administer panelizer $entity_type_id $bundle layout'
    * permission works.
    */
-  public function testAdministerEntityLayout() {
-    $this->setupContentType();
+  public function testAdministerEntityLayoutPermission() {
+    $this->setupContentType($this->content_type);
 
     // Need the node for the tests below, so create it now.
     $node = $this->createTestNode();
@@ -280,8 +288,8 @@ class PanelizerIpeTest extends WebTestBase {
    * @todo Confirm the 'administer panelizer $entity_type_id $bundle revert'
    * permission works.
    */
-  public function testAdministerEntityRevert() {
-    $this->setupContentType();
+  public function testAdministerEntityRevertPermission() {
+    $this->setupContentType($this->content_type);
 
     // Need the node for the tests below, so create it now.
     $node = $this->createTestNode();
@@ -333,33 +341,6 @@ class PanelizerIpeTest extends WebTestBase {
   }
 
   /**
-   * Prep a content type for use with these tests.
-   */
-  protected function setupContentType() {
-    // Log in as user 1.
-    $this->loginUser1();
-
-    // Allow each node to have a customized display.
-    $this->panelize($this->content_type, NULL, ['panelizer[custom]' => TRUE]);
-
-    // Logout so that a new user can log in.
-    $this->drupalLogout();
-  }
-
-  /**
-   * Create a test node.
-   *
-   * @return object
-   */
-  protected function createTestNode() {
-    // Create a test node.
-    return $this->drupalCreateNode([
-      'title' => t('Hello, world!'),
-      'type' => $this->content_type,
-    ]);
-  }
-
-  /**
    * Do the necessary setup work for the individual permissions tests.
    *
    * @param array $perms
@@ -387,7 +368,7 @@ class PanelizerIpeTest extends WebTestBase {
     // Extract the drupalSettings structure and return it.
     $drupalSettings = NULL;
     $matches = [];
-    if (preg_match('@<script type="application/json" data-drupal-selector="drupal-settings-json">([^<]*)</script>@', $this->content, $matches)) {
+    if (preg_match('@<script type="application/json" data-drupal-selector="drupal-settings-json">([^<]*)</script>@', $this->getRawContent(), $matches)) {
       $drupalSettings = Json::decode($matches[1]);
       $this->verbose('<pre>' . print_r($drupalSettings, TRUE) . '</pre>');
     }
