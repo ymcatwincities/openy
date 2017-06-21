@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Form\RelationshipConfigure.
- */
 
 namespace Drupal\ctools\Form;
 
