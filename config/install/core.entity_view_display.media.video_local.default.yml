@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.video_local.field_media_local_video
+    - media_entity.bundle.video_local
+  module:
+    - videojs
+id: media.video_local.default
+targetEntityType: media
+bundle: video_local
+mode: default
+content:
+  field_media_local_video:
+    weight: 0
+    label: hidden
+    settings:
+      width: '230'
+      height: '170'
+      controls: '1'
+      preload: none
+      autoplay: 0
+      loop: 0
+      muted: 0
+    third_party_settings: {  }
+    type: videojs_player_list
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

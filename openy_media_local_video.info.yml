@@ -1,0 +1,19 @@
+name: 'OpenY Media Local Video'
+description: 'Local video media features.'
+type: module
+core: 8.x
+dependencies:
+  - crop
+  - datalayer
+  - dropzonejs_eb_widget
+  - entity_browser
+  - field
+  - file
+  - image
+  - language
+  - media_entity
+  - media_entity_video
+  - user
+  - video
+  - videojs
+version: 8.x-1.0
