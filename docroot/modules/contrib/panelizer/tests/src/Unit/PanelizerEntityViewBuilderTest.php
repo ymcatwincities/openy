@@ -11,7 +11,7 @@ use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Plugin\Context\ContextInterface;
+use Drupal\ctools\Context\AutomaticContext;
 use Drupal\panelizer\PanelizerEntityViewBuilder;
 use Drupal\panelizer\PanelizerInterface;
 use Drupal\panelizer\Plugin\PanelizerEntityInterface;
@@ -215,12 +215,12 @@ class PanelizerEntityViewBuilderTest extends UnitTestCase {
         'xyz' => $display2->reveal()
       ]);
 
-    $entity_context = $this->prophesize(ContextInterface::class);
+    $entity_context = $this->prophesize(AutomaticContext::class);
     $this->entityViewBuilder->method('getEntityContext')
       ->willReturn($entity_context->reveal());
 
     $panels_display = $this->prophesize(PanelsDisplayVariant::class);
-    $other_context = $this->prophesize(ContextInterface::class);
+    $other_context = $this->prophesize(AutomaticContext::class);
     $panels_display->getContexts()
       ->willReturn(['other' => $other_context->reveal()]);
     $panels_display->setContexts([

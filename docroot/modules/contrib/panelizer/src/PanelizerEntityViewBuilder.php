@@ -15,6 +15,7 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Plugin\Context\ContextDefinition;
+use Drupal\ctools\Context\AutomaticContext;
 use Drupal\panelizer\Plugin\PanelizerEntityManagerInterface;
 use Drupal\Panels\PanelsDisplayManagerInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
@@ -210,7 +211,7 @@ class PanelizerEntityViewBuilder implements EntityViewBuilderInterface, EntityHa
    *   The context.
    */
   protected function getEntityContext(EntityInterface $entity) {
-    return new Context(new ContextDefinition('entity:' . $this->entityTypeId, NULL, TRUE), $entity);
+    return new AutomaticContext(new ContextDefinition('entity:' . $this->entityTypeId, NULL, TRUE), $entity);
   }
 
   /*

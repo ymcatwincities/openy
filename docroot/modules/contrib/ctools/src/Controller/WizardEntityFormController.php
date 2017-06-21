@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Controller\WizardEntityFormController.
- */
-
 namespace Drupal\ctools\Controller;
 
 use Drupal\Core\Controller\ControllerResolverInterface;
