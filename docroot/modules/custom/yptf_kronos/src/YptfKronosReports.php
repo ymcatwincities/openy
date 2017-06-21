@@ -137,8 +137,10 @@ class YptfKronosReports {
 
   /**
    * Kronos Training program.
+   *
+   * @var array
    */
-  const KRONOS_TRAINING_ID = 'PT (one on one and buddy)';
+  protected $kronosTrainingId = ['PT (one on one and buddy)', 'PT (group of 5 or more)'];
 
   /**
    * Flag for report calculation.
@@ -210,35 +212,32 @@ class YptfKronosReports {
     // Get locations ref.
     $mapping_repository_location = \Drupal::service('ymca_mappings.location_repository');
 
+    $mb_locations = $this->configFactory->get('ymca_mindbody.trainings_mapping')->get('locations');
+    if (!empty($mb_locations)) {
+      foreach ($mb_locations as $mbNo => $mb_location) {
+        $mb_locations_names[$mb_location['label']] = $mbNo;
+      }
+    }
+    else {
+      $msg = 'Failed to get locations from config %params.';
+      $this->logger->notice($msg, [
+        '%params' => 'ymca_mindbody.trainings_mapping',
+      ]);
+    }
+
     if ($this->getKronosData()) {
       // Calculate Workforce Kronos data.
       foreach ($this->kronosData as $current_line => $item) {
-        if ($item->job == self::KRONOS_TRAINING_ID) {
+        if (in_array($item->job, $this->kronosTrainingId)) {
           $location_id = $mapping_repository_location->findMindBodyIdByPersonifyId($item->locNo);
           !$location_id ? $location_reports[$item->locNo] = 'Location mapping missed. WF locNo: ' . $item->locNo : '';
           $location_reports[$location_id]['name'] = $item->locName;
-          $empID = $this->getMindbodyidbyStaffId($item->empNo);
+          $empID = $item->empNo;
 
-          if (!$empID) {
-            if ($empID === 0) {
-              // MB server has failed.
-              $empID = 'MindBody server down for: ' . $item->empNo;
-            }
-            else {
-              // No EmpID.
-              $empID = 'No EmpID for: ' . $item->empNo;
-            }
+          if (empty($empID)) {
+            // No EmpID.
+            $empID = 'KWFC - No Staff ID for: ' . $item->lastName . ', ' . $item->firstName;
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName . '. * - ' . $empID;
-            $this->staffIDs[$item->empNo] = $empID;
-          }
-          elseif (is_array($empID)) {
-            // Several EmpIDs.
-            // For skip data calculating for trainers who have several EmpIDs
-            // use "!is_array($empID)".
-            foreach ($empID as $emp_item) {
-              $this->reports['messages']['multi_ids'][$location_id][$item->empNo]['empids'][] = $emp_item['EmpID'];
-              $this->reports['messages']['multi_ids'][$location_id][$item->empNo]['name'] = $item->lastName . ', ' . $item->firstName;
-            }
           }
           elseif (!is_array($empID) && !isset($trainer_reports[$location_id][$empID]['name'])) {
             $trainer_reports[$location_id][$empID]['name'] = $item->lastName . ', ' . $item->firstName;
@@ -273,54 +272,46 @@ class YptfKronosReports {
     for ($period = 0; $period < $this->numberOfRequest; $period++) {
       if ($this->getMindbodyData()) {
         // Calculate MB data.
-        $skip_bt = FALSE;
-        $prev_bt = [];
         foreach ($this->mindbodyData as $mb_id => $item) {
-          $datetime1 = date_create($item->StartDateTime);
-          $datetime2 = date_create($item->EndDateTime);
+          $diff = $item['HoursBooked'];
 
-          // PT - $item->Program->ID == 2
-          // BT - $item->Program->ID == 4.
-          if (!isset($item->Program->ID) || !in_array($item->Program->ID, $this->programIDs)) {
-            continue;
+          $staff_id = $item['EmpID'];
+          $name = explode(' ', $item['Staff']);
+          if (is_array($name)) {
+            $firstName = $name[0];
+            $lastName = end($name);
+          }
+          else {
+            $firstName = $lastName = $item['Staff'];
+          }
+          $trainer_name = $lastName . ', ' . $firstName;
+          if (empty($staff_id)) {
+            // No EmpID.
+            $staff_id = 'MB - No EmpID for: ' . $item['Staff'];
+            $trainer_name .= '. * - MB - No Staff ID';
           }
 
-          // Skip every second BT line if time and staff the same.
-          if ($item->Program->ID == $this->programIDs['BT']) {
-            $current_bt = [
-              'staff_id' => $item->Staff->ID,
-              'StartDateTime' => $item->StartDateTime,
-              'EndDateTime' => $item->EndDateTime,
-            ];
-            if ($skip_bt) {
-              if ($prev_bt == $current_bt) {
-                $prev_bt = $current_bt;
-                $skip_bt = !$skip_bt;
-                continue;
-              }
-            }
-            $prev_bt = $current_bt;
-            $skip_bt = !$skip_bt;
+          if (!empty($item['LocationID'])) {
+            $location_id = trim($item['LocationID']);
+          }
+          elseif (isset($mb_locations_names[trim($item['Location'])])) {
+            $location_id = $mb_locations_names[trim($item['Location'])];
+          }
+          else {
+            $location_id = 'no location';
+            $msg = 'Failed to get locations for config %params.';
+            $this->logger->notice($msg, [
+              '%params' => $staff_id,
+            ]);
           }
 
-          $interval = date_diff($datetime1, $datetime2);
-          $hours = (int) $interval->format("%h");
-          $minutes = (int) $interval->format("%i");
-          // Convert minutes to hours.
-          $diff = $hours + $minutes / 60;
+          !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
+          $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
+          !empty($trainer_name) ? $trainer_reports[$location_id][$staff_id]['name'] = $trainer_name : '';
 
-          $staff_id = $item->Staff->ID;
-          $location_id = $item->Location->ID;
-
-          // Skip calculation for trainers who have multiple EmpIDs.
-          if (!isset($this->reports['messages']['multi_ids'][$location_id][$staff_id])) {
-            !isset($trainer_reports[$location_id][$staff_id]['mb_hours']) ? $trainer_reports[$location_id][$staff_id]['mb_hours'] = 0 : '';
-            $trainer_reports[$location_id][$staff_id]['mb_hours'] += $diff;
-            !empty($item->Staff->LastName) ? $trainer_reports[$location_id][$staff_id]['name'] = $item->Staff->LastName . ', ' . $item->Staff->FirstName : '';
-          }
           !isset($location_reports[$location_id]['mb_hours']) ? $location_reports[$location_id]['mb_hours'] = 0 : '';
           $location_reports[$location_id]['mb_hours'] += $diff;
-          !empty($item->Location->Name) ? $location_reports[$location_id]['name'] = $item->Location->Name : '';
+          !empty($item['Location']) ? $location_reports[$location_id]['name'] = $item['Location'] : '';
         }
       }
     }
@@ -506,11 +497,21 @@ class YptfKronosReports {
     }
 
     $params = [
-      'StaffCredentials' => $user_credentials,
-      'StartDate' => $this->dates['mbStartDate'],
-      'EndDate' => $this->dates['mbEndDate'],
-      // Zero is for all staff.
-      'StaffIDs' => [0],
+      'PageSize' => 50,
+      'CurrentPageIndex' => 0,
+      'FunctionName' => 'YMCAGTC_ApptMetrics',
+      'FunctionParams' => [
+        [
+          'ParamName' => '@startDate',
+          'ParamValue' => $this->dates['mbStartDate'],
+          'ParamDataType' => 'string',
+        ],
+        [
+          'ParamName' => '@endDate',
+          'ParamValue' => $this->dates['mbEndDate'],
+          'ParamDataType' => 'string',
+        ],
+      ],
     ];
 
     // Get MB cache for debug mode.
@@ -523,8 +524,8 @@ class YptfKronosReports {
       $file = $cache_dir . '/MB_' . $this->dates['EndDate'] . '.json';
       $mb_data_file = file_get_contents($file);
       if (!$mb_data_file) {
-        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
-        $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
+        $result = $this->proxy->call('DataService', 'FunctionDataXml', $params, TRUE);
+        $this->mindbodyData = $result->FunctionDataXmlResult->Results;
 
         if (!file_exists($cache_dir)) {
           mkdir($cache_dir, 0764, TRUE);
@@ -539,8 +540,8 @@ class YptfKronosReports {
     if (empty($this->mindbodyData)) {
       try {
         // Send notifications.
-        $result = $this->proxy->call('AppointmentService', 'GetStaffAppointments', $params, TRUE);
-        $this->mindbodyData = $result->GetStaffAppointmentsResult->Appointments->Appointment;
+        $result = $this->proxy->call('DataService', 'FunctionDataXml', $params, TRUE);
+        $this->mindbodyData = $result->FunctionDataXmlResult->Results;
       }
       catch (\Exception $e) {
         $msg = 'Error: %error . Failed to get the data from MindBody. Request MB params: %params.';
@@ -555,6 +556,45 @@ class YptfKronosReports {
         return FALSE;
       }
 
+    }
+
+    if (isset($result->Row) && !empty($result->Row) && $first_row = reset($result->Row) && !empty($first_row)) {
+      $this->mindbodyData = $result->Row;
+    }
+    elseif (isset($result->SoapClient)) {
+      try {
+        $last_response = $result->SoapClient->__getLastResponse();
+        $encoder = new XmlEncoder();
+        $data = $encoder->decode($last_response, 'xml');
+        $parsed_data = $data['soap:Body']['FunctionDataXmlResponse']['FunctionDataXmlResult'];
+      }
+      catch (\Exception $e) {
+        $msg = 'Error: %error . Failed to get SoapClient->lastResponse from MindBody request for: %params.';
+        $this->logger->notice($msg, [
+          '%error' => $e->getMessage(),
+          '%params' => $params,
+        ]);
+      }
+
+      if (isset($parsed_data['Status']) && $parsed_data['Status'] == 'Success') {
+        if (isset($parsed_data['Results']['Row'])) {
+          $this->mindbodyData = $parsed_data['Results']['Row'];
+        }
+        else {
+          $msg = 'Failed to get data from SoapClient->lastResponse from MindBody request for: %params.';
+          $this->logger->notice($msg, [
+            '%params' => $params,
+          ]);
+          return FALSE;
+        }
+      }
+      else {
+        $msg = 'Failed to get data from SoapClient->lastResponse from MindBody request for: %params.';
+        $this->logger->notice($msg, [
+          '%params' => $params,
+        ]);
+        return FALSE;
+      }
     }
 
     return $this->mindbodyData;
