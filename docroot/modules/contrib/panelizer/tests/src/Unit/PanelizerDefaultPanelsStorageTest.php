@@ -6,8 +6,8 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\ctools\Context\AutomaticContext;
 use Drupal\panelizer\Exception\PanelizerException;
 use Drupal\panelizer\Panelizer;
 use Drupal\panelizer\Plugin\PanelsStorage\PanelizerDefaultPanelsStorage;
@@ -72,7 +72,7 @@ class PanelizerDefaultPanelsStorageTest extends UnitTestCase {
    * @covers ::load
    */
   public function testLoadEmptyContext() {
-    $entity_context = $this->prophesize(Context::class);
+    $entity_context = $this->prophesize(AutomaticContext::class);
 
     $panels_display = $this->prophesize(PanelsDisplayVariant::class);
     $panels_display->setContexts([
@@ -99,7 +99,7 @@ class PanelizerDefaultPanelsStorageTest extends UnitTestCase {
    * @covers ::load
    */
   public function testLoadWithContextValue() {
-    $entity_context = $this->prophesize(Context::class);
+    $entity_context = $this->prophesize(AutomaticContext::class);
 
     $panels_display = $this->prophesize(PanelsDisplayVariant::class);
     $panels_display->setContexts([
