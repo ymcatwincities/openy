@@ -84,4 +84,12 @@
     }
   };
 
+  Drupal.behaviors.removeAriaLive = {
+    attach: function (context, settings) {
+      $('.slick-list', context).once().each(function () {
+        $(this).removeAttr('aria-live');
+      });
+    }
+  };
+
 })(jQuery);
