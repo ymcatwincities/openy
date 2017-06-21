@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.video_player.field_prgf_video
+    - paragraphs.paragraphs_type.video_player
+id: paragraph.video_player.default
+targetEntityType: paragraph
+bundle: video_player
+mode: default
+content:
+  field_prgf_video:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+hidden:
+  created: true
+  status: true
+  uid: true
