@@ -19,7 +19,7 @@
     }
     a {
       @include cachet();
-      color: $white;
+      color: inherit;
       text-transform: uppercase;
       font-size: 14px;
       line-height: 40px;
