@@ -16,8 +16,8 @@ class RoomEntryScreenLayout extends LayoutDefault implements PluginFormInterface
    */
   public function defaultConfiguration() {
     return parent::defaultConfiguration() + [
-        'color_scheme' => 'orange',
-      ];
+      'color_scheme' => 'orange',
+    ];
   }
 
   /**
