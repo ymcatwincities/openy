@@ -1,5 +1,4 @@
-### Panels IPE
-
+# Panels IPE
 panelizer.panels_ipe.revert_to_default:
   path: '/admin/panelizer/panels_ipe/{entity_type_id}/{entity}/{view_mode}/revert_to_default'
   options:

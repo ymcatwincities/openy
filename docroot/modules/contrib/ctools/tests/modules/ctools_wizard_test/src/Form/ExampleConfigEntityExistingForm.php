@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools_wizard_test\Form\ExampleConfigEntityExistingForm.
- */
-
 namespace Drupal\ctools_wizard_test\Form;
 
 use Drupal\Core\Form\FormBase;

@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\panelizer\Tests;
+namespace Drupal\Tests\panelizer\Functional;
 
-use Drupal\simpletest\WebTestBase;
+use Drupal\Tests\content_translation\Functional\ContentTranslationTestBase;
 
 /**
- * Basic functional tests of using Panelizer with nodes.
+ * Test node translation handling in Panelizer.
  *
  * @group panelizer
  */
-class PanelizerNodeFunctionalTest extends WebTestBase {
+class PanelizerNodeTranslationsTest extends ContentTranslationTestBase {
 
   use PanelizerTestTrait;
 
@@ -22,15 +22,23 @@ class PanelizerNodeFunctionalTest extends WebTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'block',
+    // Core dependencies.
+    'content_translation',
+    'field',
+    'field_ui',
+    'language',
+    'layout_discovery',
+    'node',
+
+    // Contrib dependencies.
     'ctools',
     'ctools_block',
-    'layout_plugin',
-    'node',
-    'panelizer',
-    'panelizer_test',
     'panels',
     'panels_ipe',
+
+    // This module.
+    'panelizer',
+    'panelizer_test',
   ];
 
   /**
@@ -39,29 +47,31 @@ class PanelizerNodeFunctionalTest extends WebTestBase {
   protected function setUp() {
     parent::setUp();
 
-    $user = $this->drupalCreateUser([
-      'administer node display',
-      'administer nodes',
-      'administer content types',
-      'create page content',
-      'create article content',
-      'administer panelizer',
-      'access panels in-place editing',
-      'view the administration theme',
-    ]);
-    $this->drupalLogin($user);
+    $this->loginUser1();
   }
+
+  /**
+   * The entity type being tested.
+   *
+   * @var string
+   */
+  protected $entityTypeId = 'node';
+
+  /**
+   * The bundle being tested.
+   *
+   * @var string
+   */
+  protected $bundle = 'page';
 
   /**
    * Tests the admin interface to set a default layout for a bundle.
    */
-  public function testWizardUI() {
-    $this->panelize('article', NULL, [
-      'panelizer[custom]' => TRUE,
-    ]);
+  public function _testWizardUI() {
+    $this->panelize($this->bundle, NULL, ['panelizer[custom]' => TRUE]);
 
     // Enter the wizard.
-    $this->drupalGet('admin/structure/panelizer/edit/node__article__default__default');
+    $this->drupalGet("admin/structure/panelizer/edit/{$this->entityTypeId}__{$this->bundle}__default__default");
     $this->assertResponse(200);
     $this->assertText('Wizard Information');
     $this->assertField('edit-label');
@@ -72,14 +82,15 @@ class PanelizerNodeFunctionalTest extends WebTestBase {
 
     // Layout selection step.
     $this->clickLink('Layout');
-    $this->assertField('edit-update-layout');
+    $this->assertSession()->buttonExists('edit-update-layout');
 
     // Content step. Add the Node block to the top region.
-    $this->clickLink('Content');
+    // @todo The index will have to change if the install profile is changed.
+    $this->clickLink('Content', 1);
     $this->clickLink('Add new block');
     $this->clickLink('Title');
     $edit = [
-      'region' => 'middle',
+      'region' => 'content',
     ];
     $this->drupalPostForm(NULL, $edit, t('Add block'));
     $this->assertResponse(200);
@@ -98,7 +109,7 @@ class PanelizerNodeFunctionalTest extends WebTestBase {
 
     // Confirm the page is back to the content type settings page.
     $this->assertFieldChecked('edit-panelizer-custom');
-    return;
+
     // Now change and save the general setting.
     $edit = [
       'panelizer[custom]' => FALSE,
@@ -108,20 +119,20 @@ class PanelizerNodeFunctionalTest extends WebTestBase {
     $this->assertNoFieldChecked('edit-panelizer-custom');
 
     // Add another block at the Content step and then save changes.
-    $this->drupalGet('admin/structure/panelizer/edit/node__article__default__default/content');
+    $this->drupalGet("admin/structure/panelizer/edit/{$this->entityTypeId}__{$this->bundle}__default__default/content");
     $this->assertResponse(200);
     $this->clickLink('Add new block');
     $this->clickLink('Body');
     $edit = [
-      'region' => 'middle',
+      'region' => 'content',
     ];
     $this->drupalPostForm(NULL, $edit, t('Add block'));
     $this->assertResponse(200);
-    $this->assertText('entity_field:node:body', 'The body block was added successfully.');
+    $this->assertText("entity_field:{$this->entityTypeId}:body", 'The body block was added successfully.');
     $this->drupalPostForm(NULL, [], t('Save'));
     $this->assertResponse(200);
-    $this->clickLink('Content');
-    $this->assertText('entity_field:node:body', 'The body block was saved successfully.');
+    $this->clickLink('Content', 1);
+    $this->assertText("entity_field:{$this->entityTypeId}:body", 'The body block was saved successfully.');
 
     // Check that the Manage Display tab changed now that Panelizer is set up.
     // Also, the field display table should be hidden.
@@ -130,30 +141,37 @@ class PanelizerNodeFunctionalTest extends WebTestBase {
     // Disable Panelizer for the default display mode. This should bring back
     // the field overview table at Manage Display and not display the link to
     // edit the default Panelizer layout.
-    $this->unpanelize('article');
-    $this->assertNoLinkByHref('admin/structure/panelizer/edit/node__article__default');
+    $this->unpanelize($this->bundle);
+    $this->assertNoLinkByHref("admin/structure/panelizer/edit/{$this->entityTypeId}__{$this->bundle}__default");
     $this->assertRaw('<div id="field-display-overview-wrapper">');
   }
 
   /**
    * Tests rendering a node with Panelizer default.
    */
-  public function _testPanelizerDefault() {
-    $this->panelize('page', NULL, ['panelizer[custom]' => TRUE]);
+  public function testPanelizerDefault() {
+    $this->panelize($this->bundle, NULL, ['panelizer[custom]' => TRUE]);
     /** @var \Drupal\panelizer\PanelizerInterface $panelizer */
     $panelizer = $this->container->get('panelizer');
-    $displays = $panelizer->getDefaultPanelsDisplays('node', 'page', 'default');
+    $displays = $panelizer->getDefaultPanelsDisplays($this->entityTypeId, $this->bundle, 'default');
     $display = $displays['default'];
     $display->addBlock([
       'id' => 'panelizer_test',
       'label' => 'Panelizer test',
       'provider' => 'block_content',
-      'region' => 'middle',
+      'region' => 'content',
     ]);
-    $panelizer->setDefaultPanelsDisplay('default', 'node', 'page', 'default', $display);
+    $panelizer->setDefaultPanelsDisplay('default', $this->entityTypeId, $this->bundle, 'default', $display);
 
     // Create a node, and check that the IPE is visible on it.
-    $node = $this->drupalCreateNode(['type' => 'page']);
+    $node = $this->drupalCreateNode([
+      'type' => $this->bundle,
+      'langcode' => [
+        [
+          'value' => 'en',
+        ],
+      ],
+    ]);
     $out = $this->drupalGet('node/' . $node->id());
     $this->assertResponse(200);
     $this->verbose($out);
@@ -168,6 +186,15 @@ class PanelizerNodeFunctionalTest extends WebTestBase {
     // Check that the block we added is visible.
     $this->assertText('Panelizer test');
     $this->assertText('Abracadabra');
+
+    // Load the translation page.
+    $this->clickLink('Translate');
+    $this->assertText('English (Original language)');
+    $this->assertText('Published');
+    $this->assertText('Not translated');
   }
 
+  // @todo Confirm that the different languages of a translated node are loaded properly when using a default display.
+  // @todo Decide what should happen if a node is translated and has a customized display.
+  // @todo Confirm loading a referenced block uses the block's correct language.
 }
