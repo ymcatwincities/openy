@@ -1,5 +1,6 @@
 # Configuration schema for the Libraries API module.
 
+# Base configuration schema
 libraries.settings:
   type: config_object
   label: 'Libraries API settings'
@@ -28,3 +29,25 @@ libraries.settings:
               sequence:
                 type: uri
                 label: 'The URL of a remote library registry'
+    global_locators:
+      type: sequence
+      title: 'Global library locators'
+      sequence:
+        type: mapping
+        title: 'Global locator plugins'
+        mapping:
+          id:
+            type: string
+            title: 'The locator plugin id'
+          configuration:
+            type: libraries.locator.[%parent.id]
+            title: 'The plugin configuration'
+
+# Dynamic locator plugin schema
+libraries.locator.uri:
+  type: mapping
+  label: 'URI locator configuration'
+  mapping:
+    uri:
+      type: uri
+      label: 'The locator URI'

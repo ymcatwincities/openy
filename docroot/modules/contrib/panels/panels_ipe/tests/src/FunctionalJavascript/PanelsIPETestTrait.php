@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @file
- */
-
 namespace Drupal\Tests\panels_ipe\FunctionalJavascript;
 
 use Symfony\Component\CssSelector\CssSelectorConverter;
@@ -63,6 +59,18 @@ trait PanelsIPETestTrait {
   }
 
   /**
+   * Breaks the lock of an IPE session.
+   */
+  protected function breakLock() {
+    // Click the "Locked" tab.
+    $selector = '[data-tab-id="locked"]:not(.active)';
+    $inactive_tab = $this->getSession()->getPage()->find('css', $selector);
+    if ($inactive_tab) {
+      $this->click($selector);
+    }
+  }
+
+  /**
    * Changes the IPE layout.
    *
    * This function assumes you're using Panels layouts and as a result expects
@@ -71,7 +79,7 @@ trait PanelsIPETestTrait {
    * @param string $category
    *   The name of the category, i.e. "One Column".
    * @param string $layout_id
-   *   The ID of the layout, i.e. "onecol".
+   *   The ID of the layout, i.e. "layout_onecol".
    */
   protected function changeLayout($category, $layout_id) {
     // Open the "Change Layout" tab.

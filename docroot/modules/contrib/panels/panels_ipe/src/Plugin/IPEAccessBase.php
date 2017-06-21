@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\panels_ipe\Plugin\IPEAccessBase.php.
- */
 
 namespace Drupal\panels_ipe\Plugin;
 

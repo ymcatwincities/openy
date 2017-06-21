@@ -1,5 +1,5 @@
-/*
-Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+﻿/*
+Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'colorbutton', 'de', {
@@ -45,7 +45,29 @@ CKEDITOR.plugins.setLang( 'colorbutton', 'de', {
 		F0FFFF: 'Azurblau',
 		F0F8FF: 'Alice Blau',
 		E6E6FA: 'Lavendel',
-		FFF: 'Weiß'
+		FFF: 'Weiß',
+		'1ABC9C': 'Strong Cyan', // MISSING
+		'2ECC71': 'Smaragdgrün',
+		'3498DB': 'Bright Blue', // MISSING
+		'9B59B6': 'Amethystblau',
+		'4E5F70': 'Graublau',
+		'F1C40F': 'Vivid Yellow', // MISSING
+		'16A085': 'Dunkelcyan',
+		'27AE60': 'Dunkelsmaragdgrün',
+		'2980B9': 'Strong Blue', // MISSING
+		'8E44AD': 'Dunkelviolett',
+		'2C3E50': 'Entsättigtes blau',
+		'F39C12': 'Orange',
+		'E67E22': 'Möhrenfarben',
+		'E74C3C': 'Blassrot',
+		'ECF0F1': 'Glänzendes Silber',
+		'95A5A6': 'Helles Graublau',
+		'DDD': 'Hellgrau',
+		'D35400': 'Kürbisfarben',
+		'C0392B': 'Strong Red', // MISSING
+		'BDC3C7': 'Silber',
+		'7F8C8D': 'Graucyan',
+		'999': 'Dunkelgrau'
 	},
 	more: 'Weitere Farben...',
 	panelTitle: 'Farben',

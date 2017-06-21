@@ -1,0 +1,13 @@
+# core: '8.x'
+name: 'Geolocation Dummy Geocoder'
+type: module
+description: 'Test the geocoding functionality'
+package: Testing
+dependencies:
+  - geolocation
+hidden: true
+# Information added by Drupal.org packaging script on 2016-12-19
+version: '8.x-1.9'
+core: '8.x'
+project: 'geolocation'
+datestamp: 1482160986

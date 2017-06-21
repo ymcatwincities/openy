@@ -6,17 +6,17 @@ package: Layout
 # core: 8.x
 dependencies:
   # Core.
+  - layout_discovery
   # @todo Break the dependency on Field UI.
   - field_ui
   # Contrib
   - ctools:ctools_block
-  - layout_plugin:layout_plugin
   - panels:panels
   # @todo Allow editing without the IPE.
   - panels:panels_ipe
 
-# Information added by Drupal.org packaging script on 2017-03-07
-version: '8.x-3.0-beta1+6-dev'
+# Information added by Drupal.org packaging script on 2017-04-28
+version: '8.x-4.0'
 core: '8.x'
 project: 'panelizer'
-datestamp: 1488902900
+datestamp: 1493406088

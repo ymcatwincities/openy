@@ -10,6 +10,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\Context\Context;
 use Drupal\Core\Plugin\Context\ContextDefinition;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\ctools\Context\AutomaticContext;
 use Drupal\panelizer\Exception\PanelizerException;
 use Drupal\panelizer\PanelizerInterface;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
@@ -102,7 +103,7 @@ class PanelizerFieldPanelsStorage extends PanelsStorageBase implements Container
    *   The context.
    */
   protected function getEntityContext($entity_type_id, EntityInterface $entity) {
-    return new Context(new ContextDefinition('entity:' . $entity_type_id, NULL, TRUE), $entity);
+    return new AutomaticContext(new ContextDefinition('entity:' . $entity_type_id, NULL, TRUE), $entity);
   }
 
   /**

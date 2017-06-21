@@ -1,0 +1,5 @@
+entity.paragraphs_type.collection:
+  title: 'Paragraphs types'
+  parent: system.admin_structure
+  description: 'Create and manage paragraphs types.'
+  route_name: entity.paragraphs_type.collection

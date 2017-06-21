@@ -1,14 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\captcha\Tests\CaptchaPersistenceTestCase.
- *
- * Some tricks to debug:
- * drupal_debug($data) // from devel module
- * file_put_contents('tmp.simpletest.html', $this->drupalGetContent());
- */
-
 namespace Drupal\captcha\Tests;
 
 /**
@@ -27,7 +18,7 @@ class CaptchaPersistenceTestCase extends CaptchaBaseWebTestCase {
   private function setUpPersistence($persistence) {
     $this->drupalLogin($this->adminUser);
     // Set persistence.
-    $edit = array('persistence' => $persistence);
+    $edit = ['persistence' => $persistence];
     $this->drupalPostForm(self::CAPTCHA_ADMIN_PATH, $edit, 'Save configuration');
     // Log admin out.
     $this->drupalLogout();
@@ -82,12 +73,12 @@ class CaptchaPersistenceTestCase extends CaptchaBaseWebTestCase {
     $captcha_sid_initial = $this->getCaptchaSidFromForm();
 
     // Try to with wrong user name and password, but correct CAPTCHA.
-    $edit = array(
+    $edit = [
       'name' => 'foobar',
       'pass' => 'bazlaz',
       'captcha_response' => 'Test 123',
-    );
-    $this->drupalPostForm(NULL, $edit, t('Log in'), array(), array(), self::LOGIN_HTML_FORM_ID);
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Log in'), [], [], self::LOGIN_HTML_FORM_ID);
     // Check that there was no error message for the CAPTCHA.
     $this->assertCaptchaResponseAccepted();
 
@@ -97,7 +88,7 @@ class CaptchaPersistenceTestCase extends CaptchaBaseWebTestCase {
     $this->assertPreservedCsid($captcha_sid_initial);
 
     // Post from again.
-    $this->drupalPostForm(NULL, $edit, t('Log in'), array(), array(), self::LOGIN_HTML_FORM_ID);
+    $this->drupalPostForm(NULL, $edit, t('Log in'), [], [], self::LOGIN_HTML_FORM_ID);
     // Check that there was no error message for the CAPTCHA.
     $this->assertCaptchaResponseAccepted();
     $this->assertPreservedCsid($captcha_sid_initial);
@@ -116,19 +107,19 @@ class CaptchaPersistenceTestCase extends CaptchaBaseWebTestCase {
     $captcha_sid_initial = $this->getCaptchaSidFromForm();
 
     // Try to with wrong user name and password, but correct CAPTCHA.
-    $edit = array(
+    $edit = [
       'name' => 'foobar',
       'pass' => 'bazlaz',
       'captcha_response' => 'Test 123',
-    );
-    $this->drupalPostForm(NULL, $edit, t('Log in'), array(), array(), self::LOGIN_HTML_FORM_ID);
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Log in'), [], [], self::LOGIN_HTML_FORM_ID);
     // Check that there was no error message for the CAPTCHA.
     $this->assertCaptchaResponseAccepted();
     // There shouldn't be a CAPTCHA on the new form.
     $this->assertCaptchaPresence(FALSE);
     $this->assertPreservedCsid($captcha_sid_initial);
 
-    // Start a new form instance/session
+    // Start a new form instance/session.
     $this->drupalGet('node');
     $this->drupalGet('user');
     $this->assertCaptchaPresence(TRUE);
@@ -153,19 +144,19 @@ class CaptchaPersistenceTestCase extends CaptchaBaseWebTestCase {
     $captcha_sid_initial = $this->getCaptchaSidFromForm();
 
     // Try to with wrong user name and password, but correct CAPTCHA.
-    $edit = array(
+    $edit = [
       'name' => 'foobar',
       'pass' => 'bazlaz',
       'captcha_response' => 'Test 123',
-    );
-    $this->drupalPostForm(NULL, $edit, t('Log in'), array(), array(), self::LOGIN_HTML_FORM_ID);
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Log in'), [], [], self::LOGIN_HTML_FORM_ID);
     // Check that there was no error message for the CAPTCHA.
     $this->assertCaptchaResponseAccepted();
     // There shouldn't be a CAPTCHA on the new form.
     $this->assertCaptchaPresence(FALSE);
     $this->assertPreservedCsid($captcha_sid_initial);
 
-    // Start a new form instance/session
+    // Start a new form instance/session.
     $this->drupalGet('node');
     $this->drupalGet('user');
     $this->assertCaptchaPresence(FALSE);
@@ -173,7 +164,9 @@ class CaptchaPersistenceTestCase extends CaptchaBaseWebTestCase {
 
     // Check another form.
     /* @var \Drupal\captcha\Entity\CaptchaPoint $captcha_point */
-    $captcha_point = \Drupal::entityManager()->getStorage('captcha_point')->load('user_register_form');
+    $captcha_point = \Drupal::entityTypeManager()
+      ->getStorage('captcha_point')
+      ->load('user_register_form');
     $captcha_point->enable()->save();
     $this->drupalGet('user/register');
     $this->assertCaptchaPresence(TRUE);
@@ -193,19 +186,19 @@ class CaptchaPersistenceTestCase extends CaptchaBaseWebTestCase {
     $captcha_sid_initial = $this->getCaptchaSidFromForm();
 
     // Try to with wrong user name and password, but correct CAPTCHA.
-    $edit = array(
+    $edit = [
       'name' => 'foobar',
       'pass' => 'bazlaz',
       'captcha_response' => 'Test 123',
-    );
-    $this->drupalPostForm(NULL, $edit, t('Log in'), array(), array(), self::LOGIN_HTML_FORM_ID);
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Log in'), [], [], self::LOGIN_HTML_FORM_ID);
     // Check that there was no error message for the CAPTCHA.
     $this->assertCaptchaResponseAccepted();
     // There shouldn't be a CAPTCHA on the new form.
     $this->assertCaptchaPresence(FALSE);
     $this->assertPreservedCsid($captcha_sid_initial);
 
-    // Start a new form instance/session
+    // Start a new form instance/session.
     $this->drupalGet('node');
     $this->drupalGet('user');
     $this->assertCaptchaPresence(FALSE);

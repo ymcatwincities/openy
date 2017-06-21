@@ -5,7 +5,7 @@
 
 (function ($) {
 
-  "use strict";
+  'use strict';
 
   /**
    * Provide summary information for vertical tabs.
@@ -14,12 +14,12 @@
     attach: function (context) {
 
       // Provide summary when editing a node.
-      $('fieldset#edit-scheduler-settings', context).drupalSetSummary(function (context) {
+      $('details#edit-scheduler-settings', context).drupalSetSummary(function (context) {
         var vals = [];
-        if ($('#edit-publish-on').val()) {
+        if ($('#edit-publish-on-0-value-date').val()) {
           vals.push(Drupal.t('Scheduled for publishing'));
         }
-        if ($('#edit-unpublish-on').val()) {
+        if ($('#edit-unpublish-on-0-value-date').val()) {
           vals.push(Drupal.t('Scheduled for unpublishing'));
         }
         if (!vals.length) {

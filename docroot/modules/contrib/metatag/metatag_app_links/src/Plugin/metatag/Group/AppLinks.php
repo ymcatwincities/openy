@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_app_links\Plugin\metatag\Group;
 
-use \Drupal\metatag\Plugin\metatag\Group\GroupBase;
+use Drupal\metatag\Plugin\metatag\Group\GroupBase;
 
 /**
  * Provides a plugin for the 'App Links' meta tag group.

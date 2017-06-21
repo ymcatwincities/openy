@@ -66,7 +66,7 @@ abstract class PanelizerEntityBase extends PluginBase implements PanelizerEntity
     $panels_display = $this->panelsManager->createDisplay();
 
     $panels_display->setConfiguration(['label' => $this->t('Default')] + $panels_display->getConfiguration());
-    $panels_display->setLayout('onecol');
+    $panels_display->setLayout('layout_onecol');
     // @todo: For now we always use the IPE, but we should support not using the ipe.
     $panels_display->setBuilder('ipe');
     $panels_display->setPattern('panelizer');
@@ -96,7 +96,7 @@ abstract class PanelizerEntityBase extends PluginBase implements PanelizerEntity
           'context_mapping' => [
             'entity' => '@panelizer.entity_context:entity',
           ],
-          'region' => 'middle',
+          'region' => 'content',
           'weight' => $weight,
         ]);
       }

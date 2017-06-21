@@ -1,76 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\migrate_plus\Plugin\migrate_plus\data_parser\JSON.
- *
- * This parser can traverse multidimensional arrays and retrieve results
- * by locating subarrays that contain a known identifier field at a known depth.
- * It can locate id fields that are nested in the results and pull out all other
- * content that is at the same level. If that content contains additional nested
- * arrays or needs other manipulation, extend this class and massage the data further
- * in the getSourceFields() method.
- *
- * For example, a file that adheres to the JSON API might look like this:
- *
- * Source:
- * [
- *   links [
- *     self: http://example.com/this_path.json
- *   ],
- *   data [
- *     entry [
- *       id: 1
- *       value1: 'something'
- *       value2: [
- *         0: green
- *         1: blue
- *       ]
- *     ]
- *     entry [
- *       id: 2
- *       value1: 'something else'
- *       value2: [
- *         0: yellow
- *         1: purple
- *       ]
- *     ]
- *   ]
- * ]
- *
- * The resulting source fields array, using identifier = 'id' and identifierDepth = 2, would be:
- * [
- *   0 [
- *     id: 1
- *     value1: 'something'
- *     value2: [
- *       0: green
- *       1: blue
- *     ]
- *   ]
- *   1 [
- *     id: 2,
- *     value1: 'something else'
- *     value2: [
- *       0: yellow
- *       1: purple
- *     ]
- *   ]
- * ]
- *
- * In the above example, the id field and the value1 field would be transformed
- * to top-level key/value pairs, as required by Migrate. The value2 field,
- * if needed, might require further manipulation by extending this class.
- *
- * @see http://php.net/manual/en/class.recursiveiteratoriterator.php
- */
-
 namespace Drupal\migrate_plus\Plugin\migrate_plus\data_parser;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\migrate\MigrateException;
 use Drupal\migrate_plus\DataParserPluginBase;
-use GuzzleHttp\Exception\RequestException;
 
 /**
  * Obtain JSON data for migration.
@@ -97,57 +30,66 @@ class Json extends DataParserPluginBase implements ContainerFactoryPluginInterfa
   protected $iterator;
 
   /**
-   * {@inheritdoc}
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-  }
-
-  /**
-   * {@inheritdoc}
+   * Retrieves the JSON data and returns it as an array.
+   *
+   * @param string $url
+   *   URL of a JSON feed.
+   *
+   * @return array
+   *   The selected data to be iterated.
+   *
+   * @throws \GuzzleHttp\Exception\RequestException
    */
   protected function getSourceData($url) {
-    $iterator = $this->getSourceIterator($url);
+    $response = $this->getDataFetcherPlugin()->getResponseContent($url);
 
-    // Recurse through the result array. When there is an array of items at the
-    // expected depth, pull that array out as a distinct item.
-    $identifierDepth = $this->itemSelector;
-    $items = [];
-    while ($iterator->valid()) {
-      $iterator->next();
-      $item = $iterator->current();
-      if (is_array($item) && $iterator->getDepth() == $identifierDepth) {
-        $items[] = $item;
-      }
+    // json_decode() expects utf8 data so let's make sure it gets it.
+    $utf8response = utf8_encode($response);
+
+    // Convert objects to associative arrays.
+    $source_data = json_decode($utf8response, TRUE);
+    // Backwards-compatibility for depth selection.
+    if (is_int($this->itemSelector)) {
+      return $this->selectByDepth($source_data);
     }
-    return $items;
+
+    // Otherwise, we're using xpath-like selectors.
+    $selectors = explode('/', trim($this->itemSelector, '/'));
+    foreach ($selectors as $selector) {
+      $source_data = $source_data[$selector];
+    }
+    return $source_data;
   }
 
   /**
    * Get the source data for reading.
    *
-   * @param string $url
-   *   The URL to read the source data from.
+   * @param array $raw_data
+   *   Raw data from the JSON feed.
    *
-   * @return \RecursiveIteratorIterator|resource
-   *
-   * @throws \Drupal\migrate\MigrateException
+   * @return array
+   *   Selected items at the requested depth of the JSON feed.
    */
-  protected function getSourceIterator($url) {
-    try {
-      $response = $this->getDataFetcherPlugin()->getResponseContent($url);
-      // The TRUE setting means decode the response into an associative array.
-      $array = json_decode($response, TRUE);
-
-      // Return the results in a recursive iterator that
-      // can traverse multidimensional arrays.
-      return new \RecursiveIteratorIterator(
-        new \RecursiveArrayIterator($array),
-        \RecursiveIteratorIterator::SELF_FIRST);
+  protected function selectByDepth(array $raw_data) {
+    // Return the results in a recursive iterator that can traverse
+    // multidimensional arrays.
+    $iterator = new \RecursiveIteratorIterator(
+      new \RecursiveArrayIterator($raw_data),
+      \RecursiveIteratorIterator::SELF_FIRST);
+    $items = [];
+    // Backwards-compatibility - an integer item_selector is interpreted as a
+    // depth. When there is an array of items at the expected depth, pull that
+    // array out as a distinct item.
+    $identifierDepth = $this->itemSelector;
+    $iterator->rewind();
+    while ($iterator->valid()) {
+      $item = $iterator->current();
+      if (is_array($item) && $iterator->getDepth() == $identifierDepth) {
+        $items[] = $item;
+      }
+      $iterator->next();
     }
-    catch (RequestException $e) {
-      throw new MigrateException($e->getMessage(), $e->getCode(), $e);
-    }
+    return $items;
   }
 
   /**
@@ -167,7 +109,15 @@ class Json extends DataParserPluginBase implements ContainerFactoryPluginInterfa
     $current = $this->iterator->current();
     if ($current) {
       foreach ($this->fieldSelectors() as $field_name => $selector) {
-        $this->currentItem[$field_name] = $current[$selector];
+        $field_data = $current;
+        $field_selectors = explode('/', trim($selector, '/'));
+        foreach ($field_selectors as $field_selector) {
+          $field_data = $field_data[$field_selector];
+        }
+        $this->currentItem[$field_name] = $field_data;
+      }
+      if (!empty($this->configuration['include_raw_data'])) {
+        $this->currentItem['raw'] = $current;
       }
       $this->iterator->next();
     }
