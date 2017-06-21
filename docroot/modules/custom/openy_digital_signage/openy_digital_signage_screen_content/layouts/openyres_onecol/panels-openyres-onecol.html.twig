@@ -10,8 +10,13 @@
  * - $content: An array of content, each item in the array is keyed to one
  *   panel of the layout. This layout supports the following sections:
  *   - content.middle: The only panel in the layout.
+ *   - content.classes: List of classes for wrapper.
  */
 #}
-<div class="openy-res-layout landscape openy-res-layout-1col" {% if css_id %}{{ css_id }}{% endif %}>
+{% set classes = '' %}
+{% if content.classes %}
+  {% set classes = ' ' ~ content.classes|join(' ') %}
+{% endif %}
+<div class="openy-res-layout landscape{{ classes }}">
   {{ content.middle }}
 </div>

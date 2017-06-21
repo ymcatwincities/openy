@@ -56,6 +56,9 @@ class RoomEntryScreenLayout extends LayoutDefault implements PluginFormInterface
    */
   public function build(array $regions) {
     $build = parent::build($regions);
+    $build['classes'] = [
+      'scheme-' . $build['#settings']['color_scheme'],
+    ];
 
     return $build;
   }
