@@ -37,7 +37,7 @@ function openy_addthis_form_node_form_alter(&$form, FormStateInterface $form_sta
  * Implements hook_entity_base_field_info().
  */
 function openy_addthis_entity_base_field_info(EntityTypeInterface $entity_type) {
-  if (!$entity_type->id() === 'node') {
+  if ($entity_type->id() != 'node') {
     return FALSE;
   }
 
