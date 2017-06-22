@@ -895,10 +895,16 @@ html.js {
       display: block;
     }
   }
+  .field-branch-hours {
+    h4 {
+      font-size: 14px;
+    }
+  }
 }
 
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
+.node--type-branch.node--view-mode-sidebar-teaser,
 .node--type-branch.node--view-mode-class-location,
 .node--type-camp.node--view-mode-teaser {
   border: solid 1px $light-grey;
@@ -914,7 +920,7 @@ html.js {
     > span {
       display: block;
     }
-    h2 {
+    .location-item--title {
       display: inline-block;
       a {
         color: $purple;
@@ -932,7 +938,7 @@ html.js {
     height: auto;
     min-height: auto;
   }
-  h2 {
+  .location-item--title {
     font-size: 22px;
     @include cachet();
     font-weight: bold;
@@ -993,6 +999,18 @@ html.js {
     margin-top: -20px;
     .label-for-field-location-address {
       display: block;
+    }
+    .associated-branch-title {
+      display: inline-block;
+      font-size: 22px;
+      @include cachet();
+      font-weight: bold;
+      margin: 20px 0 33px;
+      line-height: 1.1;
+      color: inherit;
+      a {
+        color: $purple;
+      }
     }
   }
   .wrapper-field-location-phone {

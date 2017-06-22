@@ -35,7 +35,7 @@ content:
     weight: 0
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide a title here'
     third_party_settings: {  }
     region: content
   field_prgf_image:

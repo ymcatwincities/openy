@@ -62,7 +62,12 @@ a[href="#step2"] {
     }
   }
   input[name="type"] {
-    display: none;
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    height: 1px;
+    width: 1px;
+    word-wrap: normal;
   }
   .membership-type {
     margin: 0 0 20px 0;
@@ -260,4 +265,22 @@ a[href="#step2"] {
 }
 .membership-continue {
   display: none;
+}
+
+.price {
+  &-month {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: $h2-size;
+    font-family: $font-style-cachet-ubuntu;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+  }
+}
+
+.field-branch-hours {
+  h4 {
+    font-size: $h4-size;
+  }
 }
