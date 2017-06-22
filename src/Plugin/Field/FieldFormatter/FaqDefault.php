@@ -23,7 +23,7 @@ class FaqDefault extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
-//    kint($items[0]);die('xxx');
+    
     foreach ($items as $delta => $item) {
       $elements[$delta] = [
         'question' => [
