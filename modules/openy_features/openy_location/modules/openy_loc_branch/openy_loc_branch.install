@@ -190,6 +190,6 @@ function openy_loc_branch_update_8006() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
-    'core.entity_view_display.node.branch.facility',
+    'core.entity_view_display.node.branch.sidebar_teaser',
   ]);
 }

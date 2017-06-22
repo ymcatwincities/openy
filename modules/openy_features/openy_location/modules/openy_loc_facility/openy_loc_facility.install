@@ -98,7 +98,8 @@ function openy_loc_facility_update_8004() {
   $configs = [
     'core.entity_view_display.node.facility.full' => [
       'dependencies.config',
-      'content.field_facility_loc.settings.view_mode'
+      'content.field_facility_loc.settings.view_mode',
+      'content.field_location_phone.label'
     ],
   ];
 

@@ -40,7 +40,7 @@ content:
     weight: 7
     label: hidden
     settings:
-      view_mode: facility
+      view_mode: sidebar_teaser
       link: false
     third_party_settings: {  }
     region: content
@@ -69,7 +69,7 @@ content:
     region: content
   field_location_phone:
     weight: 5
-    label: inline
+    label: hidden
     settings:
       title: ''
     third_party_settings: {  }
