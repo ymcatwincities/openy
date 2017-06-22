@@ -69,11 +69,13 @@ class OpenyAddThisSettingsForm extends ConfigFormBase implements ContainerInject
       '#title' => $this->t('AddThis public id'),
       '#default_value' => $config->get('public_id'),
       '#required' => TRUE,
-      '#description' => $this->t('Your AddThis public id. Example: ra-xxxxxxxxxxxxxxx'),
+      '#description' => $this->t('Your AddThis public id. Example: 
+        ra-xxxxxxxxxxxxxxx. Currently we support only inline type.'),
     ];
 
     // Load note types.
-    $nodeTypes = $this->entityTypeManager->getStorage('node_type')->loadMultiple();
+    $nodeTypes = $this->entityTypeManager->getStorage('node_type')
+      ->loadMultiple();
 
     // Build options list.
     $options = [];
@@ -86,7 +88,7 @@ class OpenyAddThisSettingsForm extends ConfigFormBase implements ContainerInject
       '#title' => $this->t('Content types'),
       '#description' => $this->t('Select list of content types where addThis should be enabled by default.'),
       '#options' => $options,
-      '#default_value' => $config->get('bundles')?: [],
+      '#default_value' => $config->get('bundles') ?: [],
     ];
 
     return parent::buildForm($form, $form_state);
