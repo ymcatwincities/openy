@@ -12,10 +12,11 @@ dependencies:
     - paragraphs.paragraphs_type.featured_stories
     - paragraphs.paragraphs_type.financial_aid
     - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.latest_blog_posts_camp
     - paragraphs.paragraphs_type.latest_news_and_updates
+    - paragraphs.paragraphs_type.microsites_menu
     - paragraphs.paragraphs_type.panorama
     - paragraphs.paragraphs_type.simple_content
-    - paragraphs.paragraphs_type.microsites_menu
     - paragraphs.paragraphs_type.whay
   module:
     - entity_reference_revisions
@@ -39,87 +40,118 @@ settings:
       featured_stories: featured_stories
       gallery: gallery
       latest_news_and_updates: latest_news_and_updates
+      latest_blog_posts_camp: latest_blog_posts_camp
+      microsites_menu: microsites_menu
+      camp_menu: camp_menu
       simple_content: simple_content
       blackbaud: blackbaud
-      camp_menu: camp_menu
+      whay: whay
       financial_aid: financial_aid
       panorama: panorama
-      microsites_menu: microsites_menu
-      whay: whay
     target_bundles_drag_drop:
       2c:
         enabled: true
-        weight: -17
+        weight: -71
       3c:
         enabled: true
-        weight: -16
+        weight: -70
       4c:
         enabled: true
-        weight: -15
+        weight: -69
       featured_stories:
         enabled: true
-        weight: -14
+        weight: -68
       gallery:
         enabled: true
-        weight: -13
+        weight: -67
       latest_news_and_updates:
         enabled: true
-        weight: -12
-      simple_content:
+        weight: -66
+      latest_blog_posts_camp:
         enabled: true
-        weight: -11
-      header:
-        weight: -10
-        enabled: false
-      1c:
-        weight: 18
-        enabled: false
-      blackbaud:
-        enabled: true
-        weight: 22
-      contact_us:
-        weight: 23
-        enabled: false
-      global_search:
-        weight: 26
-        enabled: false
-      all_amenities:
-        weight: 26
-        enabled: false
-      all_testimonials:
-        weight: 27
-        enabled: false
-      camp_menu:
-        enabled: true
-        weight: 29
-      location_finder:
-        weight: 29
-        enabled: false
-      lto:
-        weight: 30
-        enabled: false
-      membership_calculator:
-        weight: 31
-        enabled: false
-      program_registration:
-        weight: 32
-        enabled: false
-      whay:
-        weight: 34
-        enabled: true
-      financial_aid:
-        enabled: true
-        weight: 38
-      small_banner:
-        weight: 41
-        enabled: false
-      panorama:
-        enabled: true
-        weight: 41
-      prgf_location_finder_filters:
-        weight: 42
-        enabled: false
+        weight: -65
       microsites_menu:
         enabled: true
-        weight: 43
+        weight: -64
+      camp_menu:
+        enabled: true
+        weight: -63
+      simple_content:
+        enabled: true
+        weight: -62
+      blackbaud:
+        enabled: true
+        weight: -61
+      whay:
+        enabled: true
+        weight: -60
+      financial_aid:
+        enabled: true
+        weight: -59
+      panorama:
+        enabled: true
+        weight: -58
+      header:
+        weight: -57
+        enabled: false
+      1c:
+        weight: -56
+        enabled: false
+      contact_us:
+        weight: -55
+        enabled: false
+      global_search:
+        weight: -54
+        enabled: false
+      all_amenities:
+        weight: -53
+        enabled: false
+      all_testimonials:
+        weight: -52
+        enabled: false
+      lto:
+        weight: -51
+        enabled: false
+      membership_calculator:
+        weight: -50
+        enabled: false
+      program_registration:
+        weight: -49
+        enabled: false
+      small_banner:
+        weight: -48
+        enabled: false
+      all_events:
+        weight: -47
+        enabled: false
+      prgf_location_finder_filters:
+        weight: -46
+        enabled: false
+      code:
+        weight: -45
+        enabled: false
+      content_pager:
+        weight: -44
+        enabled: false
+      group_schedules:
+        weight: -43
+        enabled: false
+      location_events:
+        weight: -42
+        enabled: false
+      membership_info:
+        weight: -41
+        enabled: false
+      openy_event_registration:
+        weight: -40
+        enabled: false
+      prgf_location_finder:
+        weight: -39
+        enabled: false
+      timeline:
+        weight: -38
+        enabled: false
+      tour_schedule:
+        weight: -37
+        enabled: false
 field_type: entity_reference_revisions

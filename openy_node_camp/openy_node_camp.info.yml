@@ -22,14 +22,17 @@ dependencies:
   - openy_prgf_3c
   - openy_prgf_4c
   - openy_prgf_blackbaud
+  - openy_prgf_blog_camp
   - openy_prgf_camp_menu
   - openy_prgf_fc
   - openy_prgf_fin
   - openy_prgf_header
+  - openy_prgf_microsites_menu
   - openy_prgf_panorama
   - openy_prgf_simple_content
   - openy_prgf_small_banner
   - openy_prgf_whay
+  - openy_widgets
   - paragraphs
   - path
   - pathauto

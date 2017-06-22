@@ -18,9 +18,9 @@ dependencies:
     - geolocation
     - link
     - metatag
+    - openy_widgets
     - paragraphs
     - path
-    - openy_widgets
 id: node.camp.default
 targetEntityType: node
 bundle: camp
@@ -31,6 +31,7 @@ content:
     weight: 5
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_camp_body:
     type: entity_reference_paragraphs
     weight: 9
@@ -41,6 +42,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_camp_menu_links:
     type: link_default
     weight: 16
@@ -48,6 +50,7 @@ content:
       placeholder_url: '/camp_subpage_url'
       placeholder_title: 'Camp subpage Title'
     third_party_settings: {  }
+    region: content
   field_header_content:
     type: entity_reference_paragraphs
     weight: 0
@@ -58,24 +61,28 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_location_address:
     weight: 10
     settings:
       default_country: US
     third_party_settings: {  }
     type: address_default
+    region: content
   field_location_coordinates:
     weight: 14
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
+    region: content
   field_location_email:
     weight: 11
     settings:
       size: 60
-      placeholder: 'location_email@example.com'
+      placeholder: location_email@example.com
     third_party_settings: {  }
     type: email_default
+    region: content
   field_location_fax:
     weight: 12
     settings:
@@ -90,33 +97,39 @@ content:
       min_length: 6
     third_party_settings: {  }
     type: telephone_with_length
+    region: content
   field_meta:
     type: metatag_firehose
     weight: 15
     settings: {  }
     third_party_settings: {  }
+    region: content
   langcode:
     type: language_select
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 8
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 6
     third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 7
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 1
@@ -124,10 +137,12 @@ content:
       size: 60
       placeholder: 'Provide a title here'
     third_party_settings: {  }
+    region: content
   translation:
     weight: 4
     settings: {  }
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 3
@@ -136,4 +151,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden: {  }

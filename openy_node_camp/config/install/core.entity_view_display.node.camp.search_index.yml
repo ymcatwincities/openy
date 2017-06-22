@@ -33,6 +33,7 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_header_content:
     type: entity_reference_revisions_entity_view
     weight: 0
@@ -41,24 +42,28 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_location_address:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: address_default
+    region: content
   field_location_coordinates:
     weight: 5
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
+    region: content
   field_location_email:
     weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_location_fax:
     weight: 3
     label: hidden
@@ -66,6 +71,7 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_location_phone:
     weight: 4
     label: hidden
@@ -73,12 +79,14 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_meta:
     weight: 7
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: metatag_empty_formatter
+    region: content
 hidden:
   field_camp_menu_links: true
   langcode: true
