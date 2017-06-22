@@ -1,0 +1,23 @@
+openyres_onecol:
+  version: VERSION
+  css:
+    theme:
+      layouts/openyres_onecol/openyres-onecol.css: {}
+
+openyds_onecol:
+  version: VERSION
+  css:
+    theme:
+      layouts/openyds_onecol/openyds-onecol.css: {}
+
+openyds_twocol:
+  version: VERSION
+  css:
+    theme:
+      layouts/openyds_twocol/openyds-twocol.css: {}
+
+openyds_twocol_ticker:
+  version: VERSION
+  css:
+    theme:
+      layouts/openyds_twocol_ticker/openyds-twocol-ticker.css: {}
