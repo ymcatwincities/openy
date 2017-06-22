@@ -73,6 +73,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
     $data = $this->getLayoutsData($panels_storage_type, $panels_storage_id);
 
     // Return a structured JSON response for our Backbone App.
+    // @todo think about caching json response.
     return new JsonResponse($data);
   }
 
@@ -133,6 +134,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
     $blocks = $this->getBlockPluginsData($panels_storage_type, $panels_storage_id);
 
     // Return a structured JSON response for our Backbone App.
+    // @todo think about caching json response.
     return new JsonResponse($blocks);
   }
 
@@ -166,8 +168,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
       ];
     }
 
-    // Return a structured JSON response for our Backbone App.
-    return new JsonResponse($data);
+    return $data;
   }
 
   /**
@@ -178,6 +179,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
     $data = $this->getBlockContentTypesData($panels_storage_type, $panels_storage_id);
 
     // Return a structured JSON response for our Backbone App.
+    // @todo think about caching json response.
     return new JsonResponse($data);
   }
 
