@@ -1,11 +1,20 @@
 .openy-ds-layout {
-  background-color: $white;
   background-size: cover;
   background-position: center center;
 
-  .scheme-orange {
+  &.scheme-orange {
     background-color: $orange-light;
     background-image: url(../images/bg-body-orange.png);
+  }
+
+  &.scheme-blue {
+    background-color: $blue-medium;
+    background-image: url(../images/bg-body-blue.png);
+  }
+
+  &.scheme-purple {
+    background-color: $purple-medium;
+    background-image: url(../images/bg-body.png);
   }
 
   &.landscape {
@@ -25,62 +34,5 @@
 
   .ipe-actions {
     background-color: rgba(128, 128, 128, 0.5);
-  }
-  &.openy-ds-layout-1col {
-    .block-region-middle {
-      height: 100%;
-      background-color: $orange-light;
-    }
-  }
-
-  &.openy-ds-layout-2col {
-    .openy-ds-layout-2col--left {
-      height: 100%;
-      background-color: $blue-light;
-    }
-    .openy-ds-layout-2col--right {
-      height: 100%;
-      background-color: $orange-light;
-    }
-  }
-  &.openy-ds-layout-2col-ticker {
-    .openy-ds-layout-2col--left {
-      height: 100%;
-      background-color: $blue-light;
-    }
-    .openy-ds-layout-2col--right {
-      height: 100%;
-      background-color: $purple-light;
-    }
-    .openy-ds-layout-2col--ticker {
-      height: 100%;
-      background-color: $orange-light;
-    }
-  }
-}
-
-.openy-res-layout {
-  background-color: $white;
-  background-size: cover;
-  background-position: center center;
-
-  &.landscape {
-    width: 100vw;
-    height: 56.25vw;
-  }
-
-  &.scheme-orange {
-    background-color: $orange-light;
-    background-image: url(../images/bg-body-orange.png);
-  }
-
-  &.scheme-blue {
-    background-color: $blue-medium;
-    background-image: url(../images/bg-body-blue.png);
-  }
-
-  &.scheme-purple {
-    background-color: $purple-medium;
-    background-image: url(../images/bg-body.png);
   }
 }

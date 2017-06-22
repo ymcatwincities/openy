@@ -3,12 +3,6 @@
   height: 56.25vw;
 }
 
-.openy-ds-layout-2col .openy-ds-layout-1col--middle {
-  position: relative;
-  height: 100%;
-  overflow: hidden;
-}
-
 .panels-ipe-active .openy-ds-layout-1col--middle {
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
