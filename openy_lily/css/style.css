@@ -5264,7 +5264,7 @@ a.sports-icon.floor-hockey {
   font-family: 'Cachet', Helvetica, Arial, sans-serif;
 }
 
-.paragraph--type--faq {
+.paragraph--type--faq-item {
   margin-top: 10px;
   margin-bottom: 5px;
   background-color: #fff;
@@ -5278,7 +5278,7 @@ a.sports-icon.floor-hockey {
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-.paragraph--type--faq .field-question {
+.paragraph--type--faq-item .field-question {
   color: #fff;
   background-color: #337ab7;
   border-color: #a3a4a6;
@@ -5290,7 +5290,7 @@ a.sports-icon.floor-hockey {
   font-weight: bold;
   font-family: 'Cachet';
 }
-.paragraph--type--faq .field-answer {
+.paragraph--type--faq-item .field-answer {
   display: none;
   padding: 15px;
 }
