@@ -57,6 +57,7 @@ class RoomEntryScreenLayout extends LayoutDefault implements PluginFormInterface
   public function build(array $regions) {
     $build = parent::build($regions);
     $build['classes'] = [
+      'openy-res-layout',
       'scheme-' . $build['#settings']['color_scheme'],
     ];
 

@@ -3,9 +3,10 @@ openyres_onecol:
   category: 'OpenY Room Entry Screen'
   path: layouts/openyres_onecol
   icon: openyres_onecol.png
-  css: openyres-onecol.css
+  library: openy_digital_signage_screen_content/openyres_onecol
   template: panels-openyres-onecol
   class: '\Drupal\openy_digital_signage_screen_content\Plugin\Layout\RoomEntryScreenLayout'
+  default_region: middle
   regions:
     middle:
       label: Middle column
@@ -15,8 +16,9 @@ openyds_onecol:
   category: 'OpenY Digital Signage'
   path: layouts/openyds_onecol
   icon: openyds_onecol.png
-  css: openyds-onecol.css
+  library: openy_digital_signage_screen_content/openyds_onecol
   template: panels-openyds-onecol
+  default_region: middle
   regions:
     middle:
       label: Middle column
@@ -26,8 +28,9 @@ openyds_twocol:
   category: 'OpenY Digital Signage'
   path: layouts/openyds_twocol
   icon: openyds_twocol.png
-  css: openyds-twocol.css
+  library: openy_digital_signage_screen_content/openyds_twocol
   template: panels-openyds-twocol
+  default_region: left
   regions:
     left:
       label: Left side
@@ -39,8 +42,9 @@ openyds_twocol_ticker:
   category: 'OpenY Digital Signage'
   path: layouts/openyds_twocol_ticker
   icon: openyds_twocol_ticker.png
-  css: openyds-twocol-ticker.css
+  library: openy_digital_signage_screen_content/openyds_twocol_ticker
   template: panels-openyds-twocol-ticker
+  default_region: left
   regions:
     left:
       label: Left side
