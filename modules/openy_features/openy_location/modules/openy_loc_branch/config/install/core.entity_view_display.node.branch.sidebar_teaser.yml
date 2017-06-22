@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.facility
+    - core.entity_view_mode.node.sidebar_teaser
     - field.field.node.branch.field_bottom_content
     - field.field.node.branch.field_branch_hours
     - field.field.node.branch.field_content
@@ -24,10 +24,10 @@ dependencies:
     - openy_field_custom_hours
     - telephone
     - user
-id: node.branch.facility
+id: node.branch.sidebar_teaser
 targetEntityType: node
 bundle: branch
-mode: facility
+mode: sidebar_teaser
 content:
   field_branch_hours:
     weight: 5

@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - node
-id: node.facility
-label: Facility
+id: node.sidebar_teaser
+label: 'Sidebar teaser'
 targetEntityType: node
 cache: true
