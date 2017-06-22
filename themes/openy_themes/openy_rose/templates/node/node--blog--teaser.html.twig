@@ -106,7 +106,7 @@
           </a>
         </h3>
       </div>
-      <h4 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>{{ category }}</h4>
+      <div class="blog-category" {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>{{ category }}</div>
     </div>
   </div>
 </article>
