@@ -474,13 +474,17 @@ body.node--type-screen-content {
     bottom: 0; }
 
 .openy-ds-layout {
-  background-color: #0089d0;
-  background-image: url(../images/bg-body-blue.png);
   background-size: cover;
   background-position: center center; }
-  .scheme-orange .openy-ds-layout {
+  .openy-ds-layout.scheme-orange {
     background-color: #fcaf17;
     background-image: url(../images/bg-body-orange.png); }
+  .openy-ds-layout.scheme-blue {
+    background-color: #0089d0;
+    background-image: url(../images/bg-body-blue.png); }
+  .openy-ds-layout.scheme-purple {
+    background-color: #92278f;
+    background-image: url(../images/bg-body.png); }
   .openy-ds-layout.landscape {
     width: 100vw;
     height: 56.25vw; }
