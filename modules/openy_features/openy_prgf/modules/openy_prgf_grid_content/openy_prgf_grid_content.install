@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph Grid content install file.
+ */
+
+/**
+ * Update description for fields.
+ */
+function openy_prgf_grid_content_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_grid_content') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.grid_columns.default.yml' =>[
+      'content.field_prgf_clm_class.settings.placeholder',
+      'content.field_prgf_clm_headline.settings.placeholder',
+      'content.field_prgf_clm_link.settings.placeholder_url',
+      'content.field_prgf_clm_link.settings.placeholder_title',
+    ],
+    'field.field.paragraph.grid_columns.field_prgf_clm_class' => [
+      'description',
+    ],
+    'field.field.paragraph.grid_columns.field_prgf_clm_headline' => [
+      'description',
+    ],
+    'field.field.paragraph.grid_columns.field_prgf_clm_icon' => [
+      'description',
+    ],
+    'field.field.paragraph.grid_columns.field_prgf_clm_link' => [
+      'description',
+    ],
+    'field.field.paragraph.grid_columns.field_prgf_grid_clm_description' => [
+      'description',
+    ],
+    'field.field.paragraph.grid_content.field_grid_columns' => [
+      'description',
+    ],
+    'field.field.paragraph.grid_content.field_prgf_grid_style' => [
+      'description',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

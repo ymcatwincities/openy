@@ -212,7 +212,7 @@
         for (var l = 0; l < this.locations.length; l++) {
           if (typeof this.locations[l].element !== 'undefined') {
             this.locations[l].element.hide();
-            $(this.locations[l].element).parents('.locations-list').find('h1').hide();
+            $(this.locations[l].element).parents('.locations-list').find('.location-title').hide();
           }
         }
 
@@ -224,7 +224,7 @@
         for (var k = 0; k < locations.length; k++) {
           if (typeof locations[k].element !== 'undefined') {
             locations[k].element.show();
-            $(locations[k].element).parents('.locations-list').find('h1').show();
+            $(locations[k].element).parents('.locations-list').find('.location-title').show();
           }
         }
       },
@@ -589,11 +589,11 @@
         var list_locations_html = '',
             locations = this.apply_filters(this.locations);
 
-        // Hide all locations.
+        // Hide all heading locations.
         for (var l = 0; l < this.locations.length; l++) {
           if (typeof this.locations[l].element !== 'undefined') {
             this.locations[l].element.hide();
-            $(this.locations[l].element).parents('.locations-list').find('h1').hide();
+            $(this.locations[l].element).parents('.locations-list').find('.location-title').hide();
           }
         }
 
@@ -609,7 +609,7 @@
         for (var k = 0; k < locations.length; k++) {
           if (typeof locations[k].element !== 'undefined') {
             locations[k].element.show();
-            $(locations[k].element).parents('.locations-list').find('h1').show();
+            $(locations[k].element).parents('.locations-list').find('.location-title').show();
           }
         }
       },
@@ -709,8 +709,8 @@
       $('.locations-list .node--view-mode-teaser').each(function() {
         var $self = $(this);
         for (var i = 0; i < data.length; i++) {
-          if (typeof(data[i]) !== 'undefined' && $self.find("h2")[0].innerText !== 'undefined') {
-            if ($self.find("h2")[0].innerText == data[i]["name"]){
+          if (typeof(data[i]) !== 'undefined' && $self.find('.location-item--title')[0].innerText !== 'undefined') {
+            if ($self.find('.location-item--title')[0].innerText == data[i]['name']){
               data[i].element = {};
               data[i].element = $self.parent();
             }

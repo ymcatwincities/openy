@@ -30,3 +30,50 @@ function openy_prgf_loc_finder_update_8001() {
     }
   }
 }
+
+/**
+ * Update title in blocks view.
+ */
+function openy_prgf_loc_finder_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_loc_finder') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'views.view.locations' =>[
+      'display.default.display_options.header.area_text_custom.content',
+      'display.locations_branches_block.display_options.header.area_text_custom.content',
+      'display.locations_facilities_block.display_options.header.area_text_custom.content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update description for fields.
+ */
+function openy_prgf_loc_finder_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_loc_finder') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.paragraph.prgf_location_finder.field_prgf_location_finder' =>[
+      'description',
+    ],
+    'field.field.paragraph.prgf_location_finder_filters.field_prgf_lf_tags_style' => [
+      'description',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
