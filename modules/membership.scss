@@ -345,6 +345,7 @@
     }
     .price {
       margin-top: 15px;
+      word-break: break-word;
       .monthly_rate {
         color: $purple;
         font-size: 22px;
@@ -361,6 +362,7 @@
       text-align: center;
       margin-bottom: 15px;
       width: 45%;
+      vertical-align: top;
       &.chosen {
         background-color: $lighter-grey;
         outline: none;
