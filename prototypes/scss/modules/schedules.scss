@@ -23,6 +23,7 @@
     width: 32%;
     @include breakpoint(mobileonly) {
       width: 49%;
+      padding-bottom: 55px;
     }
     &:nth-child(3n+2) {
       margin: 0 2%;
@@ -43,14 +44,20 @@
     @include cachet();
     color: $purple;
     font-size: 18px;
-    margin-bottom: 10px;
-    padding-left: 15px;
+    .hh-mm {
+      display: inline-block;
+      min-width: 69px;
+    }
     .duration {
       font-size: 16px;
       color: $pink;
+      white-space: nowrap;
+      word-wrap: normal;
     }
     @include breakpoint(tablet) {
       font-size: 30px;
+      padding-left: 15px;
+      margin-bottom: 10px;
     }
   }
   .card {
@@ -69,8 +76,10 @@
       font-size: 22px;
       letter-spacing: -0.8px;
       line-height: 1;
-      margin: 15px 0;
+      margin: 5px 0;
       white-space: normal;
+      word-wrap: break-word;
+      min-height: 44px;
       a {
         color: $blue;
       }
@@ -99,8 +108,18 @@
     font-size: 18px;
   }
   .js-webform-radios {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -moz-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    -o-flex-wrap: wrap;
     flex-wrap: wrap;
     .js-form-type-radio {
       flex-basis: 100%;
