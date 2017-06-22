@@ -192,4 +192,21 @@
     }
   };
 
+  /**
+   * Adjust the top nav position when the skip link is in focus.
+   */
+  Drupal.behaviors.adjustSkipLink = {
+    attach: function (context, settings) {
+      // On focus, move the top nav down to show the skip link.
+      $('.skip-link').on('focus', function () {
+        var link_height = $(this).height();
+        $('.top-navs').css({'margin-top': link_height});
+      });
+      // When focus is lost, remove the unneeded height.
+      $('.skip-link').on('focusout', function () {
+        $('.top-navs').css({'margin-top': '0'});
+      });
+    }
+  };
+
 })(jQuery);
