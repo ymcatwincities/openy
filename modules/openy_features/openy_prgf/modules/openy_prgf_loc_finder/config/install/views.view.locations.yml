@@ -159,7 +159,7 @@ display:
           admin_label: ''
           empty: false
           tokenize: false
-          content: '<h1 class="color-purple">Camps</h1>'
+          content: '<h2 class="location-title h1 color-purple">Camps</h2>'
           plugin_id: text_custom
       footer: {  }
       empty: {  }
@@ -197,7 +197,7 @@ display:
           admin_label: ''
           empty: false
           tokenize: false
-          content: '<h1>YMCAs</h1>'
+          content: '<h2 class="location-title h1">YMCAs</h2>'
           plugin_id: text_custom
       defaults:
         header: false
@@ -368,7 +368,7 @@ display:
           admin_label: ''
           empty: false
           tokenize: false
-          content: '<h1 class="color-purple">Facilities</h1>'
+          content: '<h2 class="location-title h1 color-purple">Facilities</h2>'
           plugin_id: text_custom
     cache_metadata:
       max-age: -1

@@ -142,3 +142,53 @@ function openy_node_class_update_8003() {
     }
   }
 }
+
+/**
+ * Update description for fields.
+ */
+function openy_node_class_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.class.field_bottom_content' =>[
+      'description',
+    ],
+    'field.field.node.class.field_class_activity' => [
+      'description',
+    ],
+    'field.field.node.class.field_class_description' => [
+      'description',
+    ],
+    'field.field.node.class.field_content' => [
+      'description',
+    ],
+    'field.field.node.class.field_header_content' => [
+      'description',
+    ],
+    'field.field.node.class.field_sidebar_content' => [
+      'description',
+      'default_value_callback',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Add Program Subcategory to sitemap.
+ */
+function openy_node_class_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'simple_sitemap.bundle_settings.node.class',
+  ]);
+}

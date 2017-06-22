@@ -129,10 +129,13 @@
 }
 
 .subprogram-listing-item {
-  margin-top: 20px;
-  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  margin: 20px 0 25px;
   @include breakpoint($screen-sm) {
-    margin-bottom: 45px;
+    margin: 20px -15px 45px;
+    flex-direction: row-reverse;
   }
   img {
     height: auto;
@@ -140,6 +143,7 @@
     max-width: 100%;
   }
   .image {
+    flex: 1 1 42%;
     margin-bottom: 20px;
     text-align: center;
     @include breakpoint(0 $screen-xs) {
@@ -149,6 +153,7 @@
       }
     }
     @include breakpoint($screen-sm) {
+      padding: 0 15px;
       text-align: right;
     }
     @include breakpoint($screen-lg) {
@@ -157,13 +162,20 @@
         max-width: 260px;
       }
     }
+    .media {
+      @include breakpoint(0 $screen-xs) {
+        zoom: 2;
+      }
+    }
   }
   .content {
+    flex: 2 0 58%;
     font-size: 14px;
     line-height: 20px;
     color: $dark-grey;
     @include breakpoint($screen-sm) {
       padding-right: 0;
+      padding-left: 15px;
     }
     h2 {
       font-size: 20px;

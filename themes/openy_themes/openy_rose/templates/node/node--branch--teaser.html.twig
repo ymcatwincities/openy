@@ -90,9 +90,9 @@
       {% set title_url = url %}
     {% endif %}
 
-    <h2{{ title_attributes }}>
+    <h3 class="location-item--title" {{ title_attributes }}>
       <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h2>
+    </h3>
   {% endif %}
   {{ title_suffix }}
 
