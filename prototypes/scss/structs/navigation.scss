@@ -95,6 +95,9 @@
         border-color: $color-blue-f;
       }
     }
+    .open > a {
+      background: $color-blue;
+    }
   }
 
   .nav-level-2 {
