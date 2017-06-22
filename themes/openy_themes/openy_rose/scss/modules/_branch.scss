@@ -895,6 +895,11 @@ html.js {
       display: block;
     }
   }
+  .field-branch-hours {
+    h4 {
+      font-size: 14px;
+    }
+  }
 }
 
 .node--type-facility.node--view-mode-teaser,
@@ -915,7 +920,7 @@ html.js {
     > span {
       display: block;
     }
-    h2 {
+    .location-item--title {
       display: inline-block;
       a {
         color: $purple;
@@ -933,7 +938,7 @@ html.js {
     height: auto;
     min-height: auto;
   }
-  h2 {
+  .location-item--title {
     font-size: 22px;
     @include cachet();
     font-weight: bold;
