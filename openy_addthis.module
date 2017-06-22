@@ -106,7 +106,8 @@ function openy_addthis_entity_view(array &$build, EntityInterface $entity, Entit
     $build['addthis'][0]['#markup'] = '';
   }
   else {
-    $build['addthis'][0]['#markup'] = '<div class="addthis_sharing_toolbox"></div>';
+    // @todo currently we support only inline type.
+    $build['addthis'][0]['#markup'] = '<div class="addthis_inline_share_toolbox"></div>';
     $build['#attached']['library'][] = 'openy_addthis/addthis';
     $build['#attached']['drupalSettings']['addThisId'] = $addthis_id;
   }
