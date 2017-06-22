@@ -3,3 +3,10 @@ article.media img {
   height: auto;
   max-width: 100%;
 }
+
+.embedded-entity {
+  .media-video .field-media-video-embed-field,
+  .media-document .field-media-document {
+    padding: 10px 0;
+  }
+}
