@@ -3,15 +3,15 @@ status: true
 dependencies:
   module:
     - paragraphs
-    - text
-id: paragraph.field_answer
-field_name: field_answer
+    - ymcali_faq
+id: paragraph.field_qa
+field_name: field_qa
 entity_type: paragraph
-type: text_long
+type: faq
 settings: {  }
-module: text
+module: ymcali_faq
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

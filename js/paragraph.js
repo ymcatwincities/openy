@@ -5,7 +5,7 @@
 (function ($) {
   Drupal.behaviors.ymacaliFaqParagraph = {
     attach: function( context, settings ) {
-      $( context ).find( '.paragraph.paragraph--type--faq' ).once( 'paragraphFaq' ).each( function () {
+      $( context ).find( '.paragraph--type--faq-item' ).once( 'paragraphFaq' ).each( function () {
         // Q/A wrapper.
         var wrapper = $( this );
 

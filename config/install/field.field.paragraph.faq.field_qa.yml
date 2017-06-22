@@ -2,24 +2,24 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_answer
+    - field.storage.paragraph.field_qa
     - paragraphs.paragraphs_type.faq
   module:
     - datalayer
-    - text
+    - ymcali_faq
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_answer
-id: paragraph.faq.field_answer
-field_name: field_answer
+    label: field_qa
+id: paragraph.faq.field_qa
+field_name: field_qa
 entity_type: paragraph
 bundle: faq
-label: Answer
+label: Questions/Answers
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: text_long
+field_type: faq

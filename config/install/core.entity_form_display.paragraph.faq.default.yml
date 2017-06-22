@@ -2,32 +2,21 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.faq.field_answer
-    - field.field.paragraph.faq.field_question
+    - field.field.paragraph.faq.field_qa
     - paragraphs.paragraphs_type.faq
   module:
     - content_moderation
-    - text
+    - ymcali_faq
 id: paragraph.faq.default
 targetEntityType: paragraph
 bundle: faq
 mode: default
 content:
-  field_answer:
-    weight: 7
-    settings:
-      rows: 5
-      placeholder: ''
+  field_qa:
+    weight: 8
+    settings: {  }
     third_party_settings: {  }
-    type: text_textarea
-    region: content
-  field_question:
-    weight: 6
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
+    type: faq_default
     region: content
 hidden:
   created: true
