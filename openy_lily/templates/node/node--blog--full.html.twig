@@ -90,9 +90,9 @@ view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-md-2 back-to-blog">
-      <a href="{{ path('entity.node.canonical', {'node': 4}) }}">
+      <a href="{{ back_link_path }}">
         <i class="glyphicon glyphicon-chevron-left"></i>
-        {{ 'Back to Blog'|t }}
+        {{ back_link_title }}
       </a>
     </div>
     <div class="copy col-sm-9 col-md-7">

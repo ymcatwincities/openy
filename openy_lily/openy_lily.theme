@@ -5,7 +5,6 @@
  * OpenY Lily Theme File.
  */
 
-// @todo refactoring!!! We need to remove unused hooks and legacy dependencies.
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Link;
@@ -24,15 +23,6 @@ function openy_lily_preprocess_menu__footer_menus(&$variables) {
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
- */
-function openy_lily_theme_suggestions_block_alter(array &$suggestions, array $variables) {
-  if (in_array($variables['elements']['#plugin_id'], ['masthead_navigation_block'])) {
-    $suggestions[] = 'block__mastheadnavigationblock';
-  }
-}
-
-/**
  * Detects pages relative to location node.
  */
 function openy_lily_detect_locations_pages() {
@@ -47,7 +37,6 @@ function openy_lily_detect_locations_pages() {
       return ($site_section->bundle() == 'location' && $node->bundle() != 'location') ? $site_section : NULL;
     }
   }
-  return;
 }
 
 /**
@@ -104,27 +93,33 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
   }
 
   $node = Drupal::routeMatch()->getParameter('node');
-  if (!empty($node) || $node = Drupal::routeMatch()->getParameter('node_preview')
-  ) {
-    if (is_object($node)) {
-      array_unshift($suggestions, 'page__node__' . $node->bundle());
-    }
-    if (!Drupal::service('path.matcher')->isFrontPage()) {
-      if ($route_name == 'entity.node.preview') {
-        $front_page = Drupal::config('system.site')->get('page.front');
-        if ('/node/' . $node->id() == $front_page) {
-          array_push($suggestions, 'page__front');
-        }
+  if (empty($node)) {
+    $node = Drupal::routeMatch()->getParameter('node_preview');
+  }
+
+  if (empty($node)) {
+    return;
+  }
+
+  if (is_object($node)) {
+    array_unshift($suggestions, 'page__node__' . $node->bundle());
+  }
+  if (!Drupal::service('path.matcher')->isFrontPage()) {
+    if ($route_name == 'entity.node.preview') {
+      $front_page = Drupal::config('system.site')->get('page.front');
+      if ('/node/' . $node->id() == $front_page) {
+        array_push($suggestions, 'page__front');
       }
     }
-    // Detect all pages which referenced to locations by context.
-    if ($data = openy_lily_detect_locations_pages()) {
-      if ($node->bundle() != 'location') {
-        array_push($suggestions, 'page__node__location_inner');
-      }
-      else {
-        array_push($suggestions, 'page__node__location');
-      }
+  }
+  // Detect all pages which referenced to locations by context.
+  // @todo refactor, we do not have location bundle.
+  if ($data = openy_lily_detect_locations_pages()) {
+    if ($node->bundle() != 'location') {
+      array_push($suggestions, 'page__node__location_inner');
+    }
+    else {
+      array_push($suggestions, 'page__node__location');
     }
   }
 }
@@ -135,9 +130,6 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
 function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $variables) {
   if (in_array('node__blog__default', $suggestions)) {
     array_push($suggestions, 'node__blog__full');
-  }
-  if (in_array('node__location__default', $suggestions)) {
-    array_push($suggestions, 'node__location__full');
   }
   // Detect all pages which referenced to camp by context.
   if ($data = openy_lily_detect_camp_pages()) {
@@ -203,10 +195,7 @@ function openy_lily_preprocess_expander_block(&$variables) {
 /**
  * Implements hook_preprocess_node().
  */
-function openy_lily_preprocess_node($variables) {
-  $variables['date_formatted'] = Drupal::service('date.formatter')
-    ->format($variables['node']->getCreatedTime(), 'blog_date_format');
-
+function openy_lily_preprocess_node(&$variables) {
   if (!in_array($variables['view_mode'], ['full', 'default'])) {
     return;
   }
@@ -219,6 +208,7 @@ function openy_lily_preprocess_node($variables) {
   }
 
   // Location specific preprocessing.
+  // @todo refactor, we do not have location bundle.
   if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
     // Add facebook ID to the template.
     if (!empty($variables['node']->field_facebook_page_id->value)) {
@@ -228,11 +218,9 @@ function openy_lily_preprocess_node($variables) {
 
   // Blog specific preprocessing.
   if ($variables['node']->bundle() == 'blog') {
-
     $back_link_title = t('Back to Blog');
-    $back_link_path = 'blog';
     $variables['back_link_title'] = $back_link_title;
-    $variables['back_link_path'] = Url::fromUri('internal:/' . $back_link_path);
+    $variables['back_link_path'] = Url::fromUri('internal:/blog')->toString();
   }
 
   $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
@@ -252,8 +240,7 @@ function openy_lily_preprocess_html(&$variables) {
     $node = Drupal::routeMatch()->getParameter('node_preview');
   }
 
-  if (!$variables['is_front'] = Drupal::service('path.matcher')->isFrontPage() && !empty($node)
-  ) {
+  if (!$variables['is_front'] = Drupal::service('path.matcher')->isFrontPage() && !empty($node)) {
     if ($current_route_name == 'entity.node.preview') {
       $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')->get('page.front');
     }
@@ -261,9 +248,7 @@ function openy_lily_preprocess_html(&$variables) {
 
   if ($variables['is_front']) {
     $classes = [
-      'home-template',
       'page_home',
-      'theme_ymca_2013_home',
     ];
   }
   elseif ($site_section = Drupal::service('ymcali.page.context')
@@ -273,6 +258,7 @@ function openy_lily_preprocess_html(&$variables) {
     switch ($site_section_bundle) {
       case 'location':
         // Location itself.
+        // @todo refactor, we do not have location bundle.
         if (isset($node) && $node->getType() == 'location') {
           $classes = [
             'locations-camps-template',
@@ -334,7 +320,8 @@ function openy_lily_preprocess_page(&$variables) {
   // Adds page title for login and register pages.
   $request = \Drupal::request();
   $route_match = \Drupal::routeMatch();
-  $title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+  $title = \Drupal::service('title_resolver')
+    ->getTitle($request, $route_match->getRouteObject());
   $variables['page_title'] = $title;
 
   $variables['site_name'] = \Drupal::config('system.site')->get('name');
@@ -407,7 +394,6 @@ function openy_lily_preprocess_input(&$variables) {
   if (isset($classes)) {
     $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
   }
-
 }
 
 /**
@@ -428,7 +414,7 @@ function openy_lily_preprocess_textarea(&$variables) {
     'name',
     'rows',
     'cols',
-    'placeholder'
+    'placeholder',
   ]);
   RenderElement::setAttributes($element, ['form-textarea']);
   $variables['wrapper_attributes'] = new Attribute();
@@ -505,18 +491,18 @@ function openy_lily_preprocess_form_element(&$variables) {
   }
   if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level1') {
     $variables['label']['#title'] = t('State <small>(optional) </small>');
-    $element['#options'][''] = t('Select State or Province');
     $element['#empty_option'] = t('Select State or Province');
+    $element['#options'][''] = $element['#empty_option'];
   }
   if (isset($element['#attributes']['checked']) && $element['#attributes']['checked'] == 'checked') {
     $variables['attributes']['class'] = 'checked';
   }
-  if (isset($element['#name']) && in_array($element['#name'], [
-      'mb_session_type',
-      'mb_program',
-      'mb_location'
-    ])
-  ) {
+  $elements_names = [
+    'mb_session_type',
+    'mb_program',
+    'mb_location',
+  ];
+  if (isset($element['#name']) && in_array($element['#name'], $elements_names)) {
     $variables['title'] = $element['#title'];
     $variables['id'] = $element['#id'];
   }
@@ -560,147 +546,6 @@ function openy_lily_preprocess_form(&$variables) {
 }
 
 /**
- * Implements hook_theme().
- */
-function openy_lily_theme() {
-  return [
-    'ymcali_groupex_form_full' => [
-      'render element' => 'form',
-    ],
-    'ymcali_groupex_form_full_refine' => [
-      'render element' => 'form',
-      'template' => 'forms/groupex-form-full-refine',
-    ],
-  ];
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function openy_lily_form_groupex_form_full_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['location']['#pre_render'][] = 'openy_lily_prerender_checkboxes';
-  $form['location']['#theme'] = 'checkboxes__location';
-  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
-  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
-  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
-  $form['filter_length']['#theme'] = 'radios__groupex';
-  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
-  $form['#theme'] = ['openy_lily_groupex_form_full'];
-  $form['#attributes']['class'][] = 'group-ex';
-  $form['#attributes']['class'][] = 'search';
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function openy_lily_form_groupex_form_full_refine_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['location']['#pre_render'][] = 'openy_lily_prerender_checkboxes';
-  $form['location']['#theme'] = 'checkboxes__location__expanded';
-  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
-  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
-  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
-  $form['filter_length']['#theme'] = 'radios__groupex';
-  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
-  $form['#theme'] = ['openy_lily_groupex_form_full_refine'];
-  $form['#attributes']['class'][] = 'group-ex';
-  $form['#attributes']['class'][] = 'search';
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function openy_lily_form_groupex_form_location_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
-  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
-  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
-  $form['filter_length']['#theme'] = 'radios__groupex';
-  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
-  $form['#attributes']['class'][] = 'group-ex';
-  $form['#attributes']['class'][] = 'search';
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
-function openy_lily_form_groupex_form_location_refine_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['location']['#pre_render'][] = 'openy_lily_prerender_checkboxes';
-  $form['location']['#theme'] = 'checkboxes__location__expanded';
-  $form['time_of_day']['#pre_render'][] = 'openy_lily_prerender_checkboxes_day';
-  $form['time_of_day']['#theme'] = 'checkboxes__groupex';
-  $form['filter_length']['#pre_render'][] = 'openy_lily_prerender_radios';
-  $form['filter_length']['#theme'] = 'radios__groupex';
-  $form['filter_date']['#pre_render'][] = 'openy_lily_prerender_datetime';
-  $form['#theme'] = ['openy_lily_groupex_form_full_refine'];
-  $form['#attributes']['class'][] = 'group-ex';
-  $form['#attributes']['class'][] = 'search';
-}
-
-/**
- * Prerender callback from locations checkboxes.
- */
-function openy_lily_prerender_checkboxes($element) {
-  $children = Element::children($element);
-  foreach ($children as $delta => $child_key) {
-    $element[$child_key]['#theme'] = 'input__checkbox__location';
-    $element[$child_key]['#theme_wrappers'] = [];
-    $element[$child_key]['#title_display'] = 'hidden';
-  }
-  return $element;
-}
-
-/**
- * Prerender callback from locations checkboxes.
- */
-function openy_lily_prerender_checkboxes_day($element) {
-  $children = Element::children($element);
-  foreach ($children as $delta => $child_key) {
-    $element[$child_key]['#theme'] = 'input__checkbox__location_day';
-    $element[$child_key]['#theme_wrappers'] = [];
-    $element[$child_key]['#title_display'] = 'hidden';
-  }
-  return $element;
-}
-
-/**
- * Prerender callback from locations checkboxes.
- */
-function openy_lily_prerender_radios($element) {
-  $children = Element::children($element);
-  foreach ($children as $delta => $child_key) {
-    $element[$child_key]['#theme'] = 'input__radio__schedule';
-    $element[$child_key]['#theme_wrappers'] = [];
-    $element[$child_key]['#title_display'] = 'hidden';
-  }
-  return $element;
-}
-
-/**
- * Prerender callback from locations datetime.
- */
-function openy_lily_prerender_datetime($element) {
-  $children = Element::children($element);
-  foreach ($children as $delta => $child_key) {
-    $element[$child_key]['#type'] = 'textfield';
-    $element[$child_key]['#process'] = [];
-    $element[$child_key]['#pre_render'] = [];
-    $element[$child_key]['#attributes']['type'] = 'text';
-    $element[$child_key]['#attributes']['placeholder'] = 'mm/dd/yy';
-    $element[$child_key]['#attributes']['class'] = ['form-control', 'text'];
-    $element[$child_key]['#attributes']['autocomplete'] = 'off';
-    $element[$child_key]['#attributes']['id'] = $element[$child_key]['#id'];
-    $element[$child_key]['#attributes']['name'] = $element[$child_key]['#name'];
-    $element[$child_key]['#attributes']['value'] = $element[$child_key]['#value'];
-    unset($element[$child_key]['#attributes']['data-drupal-date-format']);
-    unset($element[$child_key]['#attached']);
-    $element[$child_key]['#theme'] = 'input__date__schedule';
-    $element[$child_key]['#theme_wrappers'] = [];
-    $element[$child_key]['#title_display'] = 'hidden';
-  }
-  $element['#theme_wrappers'] = ['datetime_wrapper__groupex'];
-  return $element;
-}
-
-/**
  * Returns styles based on theme settings.
  *
  * @return string
@@ -736,6 +581,7 @@ function openy_lily_get_theme_styles() {
     $site_section_bundle = $site_section->bundle();
     switch ($site_section_bundle) {
       case 'location':
+        // @todo refactor, we do not have location bundle.
         if ($header_background_color_locations = theme_get_setting('header_background_color_locations')) {
           $styles[] = 'body .location-masthead {background: ' . $header_background_color_locations . ' !important;}';
         }
