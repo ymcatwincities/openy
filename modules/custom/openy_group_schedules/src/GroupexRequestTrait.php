@@ -66,8 +66,8 @@ trait GroupexRequestTrait {
    * @param bool $defaults
    *   TRUE includes default options. FALSE will not alter options.
    *
-   * @return array
-   *   Data.
+   * @return array|null
+   *   Data, NULL on failure.
    */
   protected function request(array $options, $defaults = TRUE) {
     $status = \Drupal::config('groupex_form_cache.settings')->get('status');
@@ -90,7 +90,7 @@ trait GroupexRequestTrait {
       $body = $response->getBody();
       $data = json_decode($body->getContents());
 
-      if ($status == TRUE) {
+      if ($status == TRUE && !empty($manager)) {
         $manager->setCache($all_options, $data);
       }
 
@@ -98,7 +98,7 @@ trait GroupexRequestTrait {
     }
     catch (\Exception $e) {
       watchdog_exception('openy_group_schedules', $e);
-      return FALSE;
+      return NULL;
     }
   }
 

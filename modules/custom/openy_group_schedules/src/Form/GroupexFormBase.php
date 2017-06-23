@@ -145,7 +145,7 @@ abstract class GroupexFormBase extends FormBase {
    * Get form item options.
    *
    * @param array|null $data
-   *   Data to iterate.
+   *   Data to iterate, or NULL.
    * @param string $key
    *   Key name.
    * @param string $value
@@ -155,12 +155,7 @@ abstract class GroupexFormBase extends FormBase {
    *   Array of options.
    */
   protected function getOptions($data, $key, $value) {
-    $options = [];
-    foreach ($data as $item) {
-      $options[$item->$key] = $item->$value;
-    }
-
-    return $options;
+    return GroupexScheduleFetcher::getOptions($data, $key, $value);
   }
 
   /**
