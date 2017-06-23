@@ -11,3 +11,8 @@ a:focus,
 .navbar-toggle:focus {
   outline: 5px auto $bright-green;
 }
+
+.focusable.skip-link:focus {
+  position: fixed !important;
+  top: 0;
+}

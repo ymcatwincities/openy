@@ -5787,4 +5787,9 @@ a:focus,
   outline: 5px auto #69ff00;
 }
 
+.focusable.skip-link:focus {
+  position: fixed !important;
+  top: 0;
+}
+
 /*# sourceMappingURL=styles.css.map */
