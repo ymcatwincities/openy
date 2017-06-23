@@ -1351,7 +1351,7 @@ legend {
 }
 .path-frontpage .masthead {
   position: relative;
-  z-index: 33;
+  z-index: 999;
   padding: 25px 0 10px;
   background: #0060af;
 }
@@ -1453,7 +1453,7 @@ legend {
   margin: 0;
   color: white;
   text-transform: uppercase;
-  font-family: 'Cachet',Helvetica,Arial,sans-serif;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
   font-size: 14px;
   font-weight: normal;
   line-height: 1.428571429;
@@ -1806,7 +1806,7 @@ body.path-search #block-mainpagecontent li {
   color: #5e5e5e;
   font-weight: bold;
   font-size: 24px;
-  font-family: 'Cachet',Helvetica,Arial,sans-serif;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
   margin-bottom: 10px;
 }
 .blog-related h2 {
@@ -1887,9 +1887,9 @@ body.path-search #block-mainpagecontent li {
   background-color: rgba(255, 255, 255, 0.61);
   text-align: left;
   text-decoration: none;
-  -moz-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
-  -ms-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
-  transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+  -moz-transition: background-color .35s ease, box-shadow .35s ease, color .35s ease;
+  -ms-transition: background-color .35s ease, box-shadow .35s ease, color .35s ease;
+  transition: background-color .35s ease, box-shadow .35s ease, color .35s ease;
 }
 .promos > .richtext > .richtext > a:hover {
   background-color: #FFF;
@@ -2141,7 +2141,7 @@ body form .field--widget-boolean-checkbox label {
 .post-excerpt .read-more-wrapper a {
   color: #0089d0;
   font-size: 16px;
-  font-family: "Cachet",Arial,sans-serif;
+  font-family: "Cachet", Arial, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   -webkit-transition: color .2s ease-out;
@@ -2720,11 +2720,11 @@ body .ajax-progress-throbber .throbber {
   visibility: hidden;
   background: transparent;
   content: '';
-  -webkit-transition: background-color .3s ease-out,visibility 0s .3s linear;
-  -moz-transition: background-color .3s ease-out,visibility 0s .3s linear;
-  -ms-transition: background-color .3s ease-out,visibility 0s .3s linear;
-  -o-transition: background-color .3s ease-out,visibility 0s .3s linear;
-  transition: background-color .3s ease-out,visibility 0s .3s linear;
+  -webkit-transition: background-color .3s ease-out, visibility 0s .3s linear;
+  -moz-transition: background-color .3s ease-out, visibility 0s .3s linear;
+  -ms-transition: background-color .3s ease-out, visibility 0s .3s linear;
+  -o-transition: background-color .3s ease-out, visibility 0s .3s linear;
+  transition: background-color .3s ease-out, visibility 0s .3s linear;
 }
 
 a.tel-link {

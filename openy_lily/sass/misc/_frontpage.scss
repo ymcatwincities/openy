@@ -9,7 +9,7 @@
   }
   .masthead {
     position: relative;
-    z-index: 33;
+    z-index: 999;
     padding: 25px 0 10px;
     background: #0060af;
     @include breakpoint (0 $tablet-start) {
