@@ -205,14 +205,14 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_rose theme.
-  $image_fields = theme_get_setting('openy_rose_image_fields');
-
-  foreach ($image_fields as $image_field) {
-    $fid_array = theme_get_setting($image_field);
-    if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
-      $file = File::load(reset($fid_array));
-      if ($file !== NULL) {
-        openy_rose_set_theme_file_usage($file);
+  if ($image_fields = theme_get_setting('openy_rose_image_fields')) {
+    foreach ($image_fields as $image_field) {
+      $fid_array = theme_get_setting($image_field);
+      if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
+        $file = File::load(reset($fid_array));
+        if ($file !== NULL) {
+          openy_rose_set_theme_file_usage($file);
+        }
       }
     }
   }
