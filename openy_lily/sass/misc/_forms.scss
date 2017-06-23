@@ -26,10 +26,6 @@
   }
 }
 
-.form-item {
-  margin-bottom: 15px;
-}
-
 #edit-preview {
   display: none;
 }
@@ -373,4 +369,12 @@ legend {
       }
     }
   }
+}
+
+.form-actions {
+  margin: 0;
+}
+
+.form-item {
+  margin: 0 0 15px 0;
 }
