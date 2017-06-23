@@ -1591,7 +1591,7 @@ body {
     margin-bottom: 27px;
   }
 }
-.sidebar-card h3 {
+.sidebar-card h2 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   color: #636466;
@@ -1601,11 +1601,14 @@ body {
   line-height: 1.2;
   letter-spacing: 2px;
 }
-.sidebar-card h2 {
+.sidebar-card .field-prgf-description h2 {
   color: #5c2e91;
+  font-family: "Cachet W01 Book", "Ubuntu Condensed", sans-serif;
   font-weight: bold;
+  letter-spacing: normal;
+  text-transform: none;
 }
-.sidebar-card h2 a {
+.sidebar-card .field-prgf-description h2 a {
   text-decoration: none;
   color: inherit;
 }
