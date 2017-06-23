@@ -14,4 +14,5 @@ dependencies:
   - openy_block_flexible_content
   - openy_block_location_events
   - paragraphs
+  - openy_prgf
 version: 8.x-1.3
