@@ -4745,3 +4745,16 @@ function ymca_master_update_8218() {
     \Drupal::service('module_installer')->install([$module], TRUE);
   }
 }
+
+/**
+ * Enable new paragraphs for landing page.
+ */
+function ymca_master_update_8219() {
+  $modules = [
+    'openy_prgf_70_30_columns',
+    'openy_prgf_small_banner',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
