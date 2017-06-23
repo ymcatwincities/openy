@@ -4696,9 +4696,21 @@ function ymca_master_update_8213() {
 }
 
 /**
- * Enable openy_node_langing, openy_media module.
+ * [YPTF-264] Configure MindBody Cache Proxy settings.
  */
-function ymca_master_update_8214() {
+function ymca_master_update_8215() {
+  $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
+  $config->set('token', md5('wagabagadogo'));
+  $config->set('primary', FALSE);
+  $config->set('endpoint', 'https://www.ymcamn.org/mindbody/status');
+  $config->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable openy_node_langing module.
+ */
+function ymca_master_update_8216() {
   $modules = [
     'openy_prgf_simple_content',
     'openy_node_landing',
@@ -4709,7 +4721,7 @@ function ymca_master_update_8214() {
 /**
  * Enable openy_prgf_2c.
  */
-function ymca_master_update_8216() {
+function ymca_master_update_8217() {
   $modules = [
     'openy_block',
     'openy_block_custom_simple',
@@ -4721,13 +4733,15 @@ function ymca_master_update_8216() {
 }
 
 /**
- * [YPTF-264] Configure MindBody Cache Proxy settings.
+ * Enable openy_media.
  */
-function ymca_master_update_8215() {
-  $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
-  $config->set('token', md5('wagabagadogo'));
-  $config->set('primary', FALSE);
-  $config->set('endpoint', 'https://www.ymcamn.org/mindbody/status');
-  $config->save();
-  drupal_flush_all_caches();
+function ymca_master_update_8218() {
+  $modules = [
+    'openy_media_image',
+    'openy_media_document',
+    'openy_media_video',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
 }
