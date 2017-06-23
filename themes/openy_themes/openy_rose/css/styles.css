@@ -3874,14 +3874,23 @@ html.js .branch__updates_queue__button {
   display: none;
 }
 
+.node--type-branch.node--view-mode-class-location h2 {
+  font-size: 15px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  margin: 0;
+}
+
 .paragraph--type--class-location.paragraph--view-mode--default .empty-text {
   border: solid 1px #ccc;
   padding: 20px;
 }
-.paragraph--type--class-location.paragraph--view-mode--default .empty-text span {
+.paragraph--type--class-location.paragraph--view-mode--default .empty-text h2 {
+  display: inline;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 2px;
+  margin: 0;
   text-transform: uppercase;
 }
 
