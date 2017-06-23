@@ -54,6 +54,7 @@
     }
   }
 }
+
 .page-404 {
   h2 {
     color: #646464 !important;
@@ -72,6 +73,7 @@
     @extend .container-fluid;
   }
 }
+
 a:hover, a:active, a:focus {
   outline: 0;
 }
@@ -93,7 +95,6 @@ a:hover, a:active, a:focus {
     z-index: 2000;
   }
 }
-
 
 //Tabs
 

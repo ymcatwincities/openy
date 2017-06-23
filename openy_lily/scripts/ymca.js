@@ -1,4 +1,11 @@
+/**
+ * @file
+ * Theme javascrip logic.
+ */
 (function ($, Drupal, drupalSettings) {
+
+  'use strict';
+
   // It closes the ui dialog on an outside click.
   if (typeof drupalSettings.dialog != 'undefined') {
     drupalSettings.dialog.open = function (event) {

@@ -1,6 +1,7 @@
 .align-left {
   margin: 0 15px 15px 0;
 }
+
 .align-right {
   margin: 0 0 15px 15px;
 }
@@ -13,12 +14,12 @@
 
       & > a {
         padding: 0;
-        background-color: rgba(255,255,255,.61);
+        background-color: rgba(255, 255, 255, .61);
         text-align: left;
         text-decoration: none;
-        -moz-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
-        -ms-transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
-        transition: background-color .35s ease,box-shadow .35s ease,color .35s ease;
+        -moz-transition: background-color .35s ease, box-shadow .35s ease, color .35s ease;
+        -ms-transition: background-color .35s ease, box-shadow .35s ease, color .35s ease;
+        transition: background-color .35s ease, box-shadow .35s ease, color .35s ease;
 
         &:hover {
           background-color: #FFF;
@@ -121,6 +122,7 @@ nav#block-footermenuright {
 .toolbar-fixed .nav-home.affix#masthead-menu {
   top: 90px;
 }
+
 .no-touch .toolbar-fixed.toolbar-vertical.toolbar-tray-open .nav-home.affix {
   position: fixed;
   top: 90px;
@@ -128,6 +130,7 @@ nav#block-footermenuright {
   width: auto;
   left: 150px;
 }
+
 @media screen and (max-width: 767px) {
   #block-tabs {
     margin-top: 0;
@@ -167,6 +170,7 @@ nav#block-footermenuright {
     }
   }
 }
+
 .toolbar-oriented .toolbar-bar {
   z-index: 1002;
 }
@@ -208,11 +212,13 @@ section.node--type-location.content {
   margin-bottom: 0;
   padding: 7px 0 0;
 }
+
 .field--type-list-string fieldset legend .fieldset-legend,
 .field--type-list-integer fieldset legend .fieldset-legend {
   line-height: 20px;
   color: #333;
 }
+
 body form .js-form-type-radio.form-item,
 body form .field--widget-boolean-checkbox {
   padding-top: 7px;
@@ -255,10 +261,12 @@ body form .field--widget-boolean-checkbox {
   padding: 0;
   vertical-align: middle;
 }
+
 .content-expander .panel-title h2 a:after,
 .content-expander .panel-title h4 a:after {
   display: none;
 }
+
 .content-expander .panel-title h2 a:before,
 .content-expander .panel-title h4 a:before {
   position: relative;
@@ -271,14 +279,15 @@ body form .field--widget-boolean-checkbox {
   font-size: .7em;
   font-family: 'Glyphicons Halflings';
 }
+
 .content-expander .panel-title h2 a.collapsed:before,
 .content-expander .panel-title h4 a.collapsed:before {
   content: "\e081";
 }
 
 .masthead-brand .richtext p {
-  margin-top:5px;
-  line-height:90%;
+  margin-top: 5px;
+  line-height: 90%;
   span {
     font-size: 50%;
   }
@@ -292,7 +301,7 @@ body form .field--widget-boolean-checkbox {
   .read-more-wrapper a {
     color: #0089d0;
     font-size: 16px;
-    font-family: "Cachet",Arial,sans-serif;
+    font-family: "Cachet", Arial, sans-serif;
     font-weight: bold;
     text-transform: uppercase;
     -webkit-transition: color .2s ease-out;
@@ -494,8 +503,9 @@ p.legend {
 .ui-widget-overlay {
   background: rgba(0, 0, 0, 0.8);
   opacity: 1;
-  z-index:1031;
+  z-index: 1031;
 }
+
 .ui-widget.ui-dialog {
   border: 0;
   border-radius: 0;
@@ -548,6 +558,7 @@ p.legend {
     padding: 40px 60px 80px;
   }
 }
+
 /* End of jQuery Modal Form */
 
 #block-subnavigationblock {
@@ -565,7 +576,6 @@ p.legend {
   opacity: 0.4;
   width: 30px;
 }
-
 
 body .ajax-progress-throbber {
   padding: 2px 5px 2px 2px;
@@ -858,9 +868,7 @@ body .ajax-progress-throbber {
 }
 
 .nav-home {
-
   .nav-level-1 {
-
     > li {
       background: none;
     }
@@ -872,4 +880,3 @@ body .ajax-progress-throbber {
   max-height: 500px;
 
 }
-

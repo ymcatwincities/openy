@@ -23,42 +23,6 @@ function openy_lily_preprocess_menu__footer_menus(&$variables) {
 }
 
 /**
- * Detects pages relative to location node.
- */
-function openy_lily_detect_locations_pages() {
-  if (Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
-    $node = Drupal::routeMatch()->getParameter('node');
-  }
-  if (Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
-    $node = Drupal::routeMatch()->getParameter('node_preview');
-  }
-  if (isset($node)) {
-    if ($site_section = Drupal::service('ymcali.page.context')->getContext()) {
-      return ($site_section->bundle() == 'location' && $node->bundle() != 'location') ? $site_section : NULL;
-    }
-  }
-}
-
-/**
- * Detects pages relative to camp node.
- */
-function openy_lily_detect_camp_pages() {
-  if (Drupal::routeMatch()->getRouteName() == 'entity.node.canonical') {
-    $node = Drupal::routeMatch()->getParameter('node');
-  }
-
-  if (Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
-    $node = Drupal::routeMatch()->getParameter('node_preview');
-  }
-
-  if (isset($node)) {
-    if ($site_section = Drupal::service('ymcali.page.context')->getContext()) {
-      return ($site_section->bundle() == 'camp' && $node->bundle() != 'camp') ? $site_section : NULL;
-    }
-  }
-}
-
-/**
  * Implements hook_theme_HOOK_alter().
  */
 function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
@@ -112,16 +76,6 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
       }
     }
   }
-  // Detect all pages which referenced to locations by context.
-  // @todo refactor, we do not have location bundle.
-  if ($data = openy_lily_detect_locations_pages()) {
-    if ($node->bundle() != 'location') {
-      array_push($suggestions, 'page__node__location_inner');
-    }
-    else {
-      array_push($suggestions, 'page__node__location');
-    }
-  }
 }
 
 /**
@@ -130,14 +84,6 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
 function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $variables) {
   if (in_array('node__blog__default', $suggestions)) {
     array_push($suggestions, 'node__blog__full');
-  }
-  // Detect all pages which referenced to camp by context.
-  if ($data = openy_lily_detect_camp_pages()) {
-    switch ($variables['elements']['#node']->bundle()) {
-      case 'blog':
-        array_push($suggestions, 'node__blog__camp__full');
-        break;
-    }
   }
 }
 
@@ -207,15 +153,6 @@ function openy_lily_preprocess_node(&$variables) {
     $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
   }
 
-  // Location specific preprocessing.
-  // @todo refactor, we do not have location bundle.
-  if ($variables['node']->bundle() == 'location' || $variables['node']->bundle() == 'camp') {
-    // Add facebook ID to the template.
-    if (!empty($variables['node']->field_facebook_page_id->value)) {
-      $variables['fb_id'] = $variables['node']->field_facebook_page_id->value;
-    }
-  }
-
   // Blog specific preprocessing.
   if ($variables['node']->bundle() == 'blog') {
     $back_link_title = t('Back to Blog');
@@ -247,42 +184,7 @@ function openy_lily_preprocess_html(&$variables) {
   }
 
   if ($variables['is_front']) {
-    $classes = [
-      'page_home',
-    ];
-  }
-  elseif ($site_section = Drupal::service('ymcali.page.context')
-    ->getContext()
-  ) {
-    $site_section_bundle = $site_section->bundle();
-    switch ($site_section_bundle) {
-      case 'location':
-        // Location itself.
-        // @todo refactor, we do not have location bundle.
-        if (isset($node) && $node->getType() == 'location') {
-          $classes = [
-            'locations-camps-template',
-            'ancestor-locations',
-            'page_post_detail',
-            'node--type-location',
-          ];
-        }
-        else {
-          // Referenced nodes and other pages.
-          $classes = [
-            'landing-template',
-            'ancestor-locations',
-            'page_post_detail',
-          ];
-        }
-        // Apply specific class based on value chosen in "Template" field.
-        if (isset($node) && $node->hasField('field_template')) {
-          if ($template = $node->field_template->value) {
-            $classes[] = 'template_' . $template;
-          }
-        }
-        break;
-    }
+    $classes = ['page_home'];
   }
   if (!is_array($variables['attributes'])) {
     $variables['attributes']->addClass($classes);
