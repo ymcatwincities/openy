@@ -20,7 +20,7 @@ openy_group_schedules.all_schedules_search_results:
   requirements:
     _permission: access content
 openy_group_schedules.settings:
-  path: /admin/config/openy_group_schedules/settings
+  path: /admin/config/services/openy_group_schedules/settings
   defaults:
     _form: \Drupal\openy_group_schedules\Form\GroupexSettingsForm
     _title: GroupEx settings

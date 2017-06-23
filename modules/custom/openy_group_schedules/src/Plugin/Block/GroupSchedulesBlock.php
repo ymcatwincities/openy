@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\openy_group_schedules\GroupexScheduleFetcher;
 use Drupal\openy_group_schedules\DataStorageInterface;
 use Drupal\openy_group_schedules\GroupexRequestTrait;
 
@@ -130,7 +131,7 @@ class GroupSchedulesBlock extends BlockBase implements ContainerFactoryPluginInt
    * Get form item options.
    *
    * @param array|null $data
-   *   Data to iterate.
+   *   Data to iterate, or NULL.
    * @param string $key
    *   Key name.
    * @param string $value
@@ -140,12 +141,7 @@ class GroupSchedulesBlock extends BlockBase implements ContainerFactoryPluginInt
    *   Array of options.
    */
   protected function getOptions($data, $key, $value) {
-    $options = [];
-    foreach ($data as $item) {
-      $options[$item->$key] = $item->$value;
-    }
-
-    return $options;
+    return GroupexScheduleFetcher::getOptions($data, $key, $value);
   }
 
 }

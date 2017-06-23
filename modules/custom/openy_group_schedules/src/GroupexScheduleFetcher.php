@@ -321,8 +321,8 @@ class GroupexScheduleFetcher {
   /**
    * Get form item options.
    *
-   * @param array $data
-   *   Data to iterate.
+   * @param array|null $data
+   *   Data to iterate, or NULL.
    * @param string $key
    *   Key name.
    * @param string $value
@@ -331,7 +331,7 @@ class GroupexScheduleFetcher {
    * @return array
    *   Array of options.
    */
-  protected function getOptions(array $data, $key, $value) {
+  public static function getOptions($data, $key, $value) {
     $options = [];
     foreach ($data as $item) {
       $options[$item->$key] = $item->$value;

@@ -120,7 +120,7 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
     }
 
     // Make a new request with appropriate options to create new cache entity.
-    if (FALSE !== $this->request($options, FALSE)) {
+    if (!is_null($this->request($options, FALSE))) {
       try {
         $entity->delete();
       }

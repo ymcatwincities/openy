@@ -56,13 +56,6 @@ class GroupexFormFull extends GroupexFormBase {
   protected $groupexHelper;
 
   /**
-   * Page context service.
-   *
-   * @var \Drupal\openy_page_context\PageContextService
-   */
-  protected $pageContext;
-
-  /**
    * Gropex pro schedule fetcher
    *
    * @var \Drupal\openy_group_schedules\GroupexScheduleFetcher
@@ -90,9 +83,8 @@ class GroupexFormFull extends GroupexFormBase {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
    */
-  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper, $pagecontext, $scheduleFetcher, ConfigFactoryInterface $config_factory) {
+  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper, $scheduleFetcher, ConfigFactoryInterface $config_factory) {
     $this->groupexHelper = $groupex_helper;
-    $this->pageContext = $pagecontext;
     $this->scheduleFetcher = $scheduleFetcher;
     $this->configFactory = $config_factory;
 
@@ -149,7 +141,6 @@ class GroupexFormFull extends GroupexFormBase {
       $container->get('entity_type.manager'),
       $container->get('logger.factory'),
       $container->get('openy_group_schedules.helper'),
-      $container->get('pagecontext.service'),
       $container->get('openy_group_schedules.schedule_fetcher'),
       $container->get('config.factory')
     );
@@ -177,31 +168,6 @@ class GroupexFormFull extends GroupexFormBase {
     if (is_numeric($locations)) {
       $state['location'] = $locations;
       $form['#attributes']['class'][] = 'branch-specific-form';
-    }
-
-    // Check if form printed on specific Location Schedules page.
-    if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
-      if ($site_section = $this->pageContext->getContext()) {
-        $mapping_id = \Drupal::entityQuery('mapping')
-          ->condition('type', 'location')
-          ->condition('field_location_ref', $site_section->id())
-          ->execute();
-        $mapping_id = reset($mapping_id);
-        $groupex_id = FALSE;
-        if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
-          $field_groupex_id = $mapping->field_groupex_id->getValue();
-          $groupex_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
-        }
-        if ($groupex_id) {
-          $values['location'] = $groupex_id;
-          $form_state->setValue('location', $groupex_id);
-          $form_state->setValue('location_select', $groupex_id);
-          $formatted_results = self::buildResults($form, $form_state);
-        }
-        else {
-          $this->logger->error('Failed to get location id.');
-        }
-      }
     }
 
     if (isset($state['location']) && is_numeric($state['location'])) {
