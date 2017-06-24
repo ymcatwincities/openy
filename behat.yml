@@ -12,7 +12,6 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
-        - Cevou\Behat\ScreenshotCompareExtension\Context\ScreenshotCompareContext
   formatters:
     html:
       output_path: %paths.base%/build/reports/behat
@@ -67,13 +66,5 @@ default:
       print_args: true
       print_outp: true
       loop_break: true
-    Cevou\Behat\ScreenshotCompareExtension:
-      screenshot_dir: %paths.base%/features/screenshots
-      sessions:
-        default: ~
-      adapters:
-        default:
-          local:
-            directory: %paths.base%/error_screenshots
 imports:
   - behat.local.yml

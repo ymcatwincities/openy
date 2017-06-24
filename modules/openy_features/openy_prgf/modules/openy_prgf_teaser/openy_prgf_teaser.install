@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph banner install file.
+ */
+
+/**
+ * Update description for fields.
+ */
+function openy_prgf_teaser_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_teaser') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.teaser.default' =>[
+      'content.field_prgf_link.settings.placeholder_url',
+      'content.field_prgf_link.settings.placeholder_title',
+      'content.field_prgf_title.settings.placeholder',
+    ],
+    'field.field.paragraph.teaser.field_prgf_description' => [
+      'description',
+    ],
+    'field.field.paragraph.teaser.field_prgf_image' => [
+      'description',
+    ],
+    'field.field.paragraph.teaser.field_prgf_link' => [
+      'description',
+    ],
+    'field.field.paragraph.teaser.field_prgf_title' => [
+      'description',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
