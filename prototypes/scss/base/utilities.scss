@@ -53,6 +53,7 @@
     @include breakpoint(tablet) {
       float: left;
       margin-right: 20px;
+      text-align: left;
     }
   }
 
@@ -62,6 +63,7 @@
     @include breakpoint(tablet) {
       float: right;
       margin-left: 20px;
+      text-align: right;
     }
   }
 }
