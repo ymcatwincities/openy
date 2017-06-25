@@ -127,10 +127,11 @@ display:
             type: 'entity:taxonomy_term'
             fail: 'not found'
           validate_options:
+            bundles:
+              blog_category: blog_category
             access: true
             operation: view
             multiple: 0
-            bundles: {  }
           break_phrase: false
           add_table: false
           require_value: false
