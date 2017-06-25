@@ -38,3 +38,15 @@ function openy_taxonomy_update_8002() {
     }
   }
 }
+/**
+ * Add Program Subcategory to sitemap.
+ */
+function openy_taxonomy_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_taxonomy') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'simple_sitemap.bundle_settings.taxonomy_term.blog_category',
+  ]);
+}
