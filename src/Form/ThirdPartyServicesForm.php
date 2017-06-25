@@ -41,6 +41,7 @@ class ThirdPartyServicesForm extends FormBase {
     // Google Maps API key.
     $form['google_map_api_key'] = [
       '#type' => 'textfield',
+      '#placeholder' => 'AIzaSyDIFPdDmDsBOFFZcmavCaAqHa3VNKkXLJc',
       '#title' => $this->t('Google Maps API key'),
       '#default_value' => $geo_loc_config->get('google_map_api_key'),
       '#description' => $this->t('Google Maps requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis" target="_blank">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
@@ -69,6 +70,7 @@ class ThirdPartyServicesForm extends FormBase {
     // Optimizely ID Number.
     $form['optimizely_id'] = [
       '#type' => 'textfield',
+      '#placeholder' => 'xxxxxxxxxx',
       '#title' => $this->t('Optimizely ID Number'),
       '#default_value' => $optimizely_config->get('optimizely_id'),
       '#description' => $this->t('Your Optimizely account ID.</br>In order to use this module, you\'ll need an <a href="http://optimize.ly/OZRdc0" target="_blank">Optimizely account</a>. </br>See <a href="https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Optimizely.md" target="_blank">Open Y documentation</a> for Optimizely.'),
