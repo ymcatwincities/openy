@@ -2,4 +2,4 @@ name: groupex_form_cache
 type: module
 description: Caching for Groupex form.
 core: 8.x
-package: YMCA
+package: OpenY

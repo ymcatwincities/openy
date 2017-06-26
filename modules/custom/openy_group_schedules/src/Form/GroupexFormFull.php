@@ -170,6 +170,32 @@ class GroupexFormFull extends GroupexFormBase {
       $form['#attributes']['class'][] = 'branch-specific-form';
     }
 
+// @todo Uncomment when ymca pagecontext module is added.
+//    // Check if form printed on specific Location Schedules page.
+//    if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
+//      if ($site_section = $this->pageContext->getContext()) {
+//        $mapping_id = \Drupal::entityQuery('mapping')
+//          ->condition('type', 'location')
+//          ->condition('field_location_ref', $site_section->id())
+//          ->execute();
+//        $mapping_id = reset($mapping_id);
+//        $groupex_id = FALSE;
+//        if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+//          $field_groupex_id = $mapping->field_groupex_id->getValue();
+//          $groupex_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
+//        }
+//        if ($groupex_id) {
+//          $values['location'] = $groupex_id;
+//          $form_state->setValue('location', $groupex_id);
+//          $form_state->setValue('location_select', $groupex_id);
+//          $formatted_results = self::buildResults($form, $form_state);
+//        }
+//        else {
+//          $this->logger->error('Failed to get location id.');
+//        }
+//      }
+//    }
+
     if (isset($state['location']) && is_numeric($state['location'])) {
       $values['location'] = $state['location'];
       $form_state->setValue('location', $state['location']);
