@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\Plugin\EntityBrowser\WidgetSelector\DropDown.
+ */
+
 namespace Drupal\entity_browser\Plugin\EntityBrowser\WidgetSelector;
 
 use Drupal\entity_browser\WidgetSelectorBase;
@@ -41,7 +46,7 @@ class DropDown extends WidgetSelectorBase {
     $element['change'] = array(
       '#type' => 'submit',
       '#name' => 'change',
-      '#value' => $this->t('Change'),
+      '#value' => t('Change'),
       '#attributes' => array('class' => array('js-hide')),
     );
 

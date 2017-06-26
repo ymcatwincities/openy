@@ -1,10 +1,13 @@
 <?php
 
+/**
+ * Contains \Drupal\entity_browser\SelectionDisplayBase.
+ */
+
 namespace Drupal\entity_browser;
 
-use Drupal\Core\Config\ConfigException;
 use Drupal\Core\Plugin\PluginBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\entity_browser\Events\Events;
@@ -36,9 +39,9 @@ abstract class SelectionDisplayBase extends PluginBase implements SelectionDispl
   /**
    * Entity manager service.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityManagerInterface
    */
-  protected $entityTypeManager;
+  protected $entityManager;
 
   /**
    * Constructs widget plugin.
@@ -51,13 +54,13 @@ abstract class SelectionDisplayBase extends PluginBase implements SelectionDispl
    *   The plugin implementation definition.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   Event dispatcher service.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager type service.
+   * @param \Drupal\Core\Entity\EntityManagerInterface
+   *   Entity manager service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, EntityManagerInterface $entity_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->eventDispatcher = $event_dispatcher;
-    $this->entityTypeManager = $entity_type_manager;
+    $this->entityManager = $entity_manager;
     $this->setConfiguration($configuration);
   }
 
@@ -70,7 +73,7 @@ abstract class SelectionDisplayBase extends PluginBase implements SelectionDispl
       $plugin_id,
       $plugin_definition,
       $container->get('event_dispatcher'),
-      $container->get('entity_type.manager')
+      $container->get('entity.manager')
     );
   }
 
@@ -121,22 +124,6 @@ abstract class SelectionDisplayBase extends PluginBase implements SelectionDispl
    * {@inheritdoc}
    */
   public function submit(array &$form, FormStateInterface $form_state) {}
-
-  /**
-   * {@inheritdoc}
-   */
-  public function checkPreselectionSupport() {
-    if (!$this->getPluginDefinition()['acceptPreselection']) {
-      throw new ConfigException('Used entity browser selection display does not support preselection.');
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function supportsJsCommands() {
-    return $this->getPluginDefinition()['js_commands'];
-  }
 
   /**
    * Marks selection as done - sets value in form state and dispatches event.

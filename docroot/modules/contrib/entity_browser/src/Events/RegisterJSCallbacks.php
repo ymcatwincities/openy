@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Definition of Drupal\entity_browser\Events\RegisterJSCallbacks.
+ */
+
 namespace Drupal\entity_browser\Events;
 
 /**

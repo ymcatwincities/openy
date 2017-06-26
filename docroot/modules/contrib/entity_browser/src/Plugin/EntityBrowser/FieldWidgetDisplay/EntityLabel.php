@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Contains \Drupal\entity_browser\Plugin\EntityBrowser\FieldWidgetDisplay\EntityLabel.
+ */
+
 namespace Drupal\entity_browser\Plugin\EntityBrowser\FieldWidgetDisplay;
 
 use Drupal\Core\Entity\EntityInterface;

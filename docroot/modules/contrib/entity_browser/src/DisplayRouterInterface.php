@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\DisplayRouterInterface.
+ */
+
 namespace Drupal\entity_browser;
 
 /**

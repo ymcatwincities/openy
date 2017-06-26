@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\entity_browser\DisplayAjaxInterface.
+ */
 
 namespace Drupal\entity_browser;
 
@@ -6,7 +10,7 @@ namespace Drupal\entity_browser;
  * Defines the interface for entity browser displays.
  */
 interface DisplayAjaxInterface {
-
+  
   /**
    * Adds ajax capabilities to the entity browser form.
    *

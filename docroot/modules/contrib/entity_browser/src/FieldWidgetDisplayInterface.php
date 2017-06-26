@@ -1,8 +1,12 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\FieldWidgetDisplayInterface.
+ */
+
 namespace Drupal\entity_browser;
 
-use Drupal\Component\Plugin\ConfigurablePluginInterface;
 use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -11,7 +15,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Defines the interface for entity browser field widget display plugins.
  */
-interface FieldWidgetDisplayInterface extends PluginInspectionInterface, ConfigurablePluginInterface {
+interface FieldWidgetDisplayInterface extends PluginInspectionInterface {
 
   /**
    * Builds and gets render array for the entity.

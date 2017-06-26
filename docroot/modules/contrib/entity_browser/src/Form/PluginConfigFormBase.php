@@ -2,8 +2,10 @@
 
 namespace Drupal\entity_browser\Form;
 
+use Drupal\Component\Plugin\PluginInspectionInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\PluginFormInterface;
 use Drupal\Core\Render\Element;
 use Drupal\entity_browser\EntityBrowserInterface;
 
