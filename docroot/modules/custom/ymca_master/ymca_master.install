@@ -4758,3 +4758,16 @@ function ymca_master_update_8219() {
     \Drupal::service('module_installer')->install([$module], TRUE);
   }
 }
+
+/**
+ * Enable features module.
+ */
+function ymca_master_update_8220() {
+  $modules = [
+    'features',
+    'features_ui',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}

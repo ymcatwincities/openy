@@ -2,4 +2,4 @@ langcode: en
 status: true
 dependencies: {  }
 id: 70_30_columns
-label: '70/30 columns'
+label: 'Secondary Description and Sidebar'
