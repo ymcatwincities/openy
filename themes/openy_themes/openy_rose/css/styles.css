@@ -5026,6 +5026,9 @@ body .branch-popup + .ui-widget-overlay {
   margin-top: -10px;
 }
 .modal-body .fieldset-legend {
+  margin: 0;
+  font-weight: normal;
+  line-height: inherit;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
 @media (min-width: 48em) {
