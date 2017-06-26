@@ -361,8 +361,10 @@
       text-decoration: none;
       text-align: center;
       margin-bottom: 15px;
-      width: 45%;
       vertical-align: top;
+      @include breakpoint(tablet) {
+        width: 45%;
+      }
       &.chosen {
         background-color: $lighter-grey;
         outline: none;
