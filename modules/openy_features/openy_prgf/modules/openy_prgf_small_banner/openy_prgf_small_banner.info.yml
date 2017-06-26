@@ -2,6 +2,7 @@ name: 'OpenY Paragraph Small Banner'
 description: 'OpenY Paragraph Small Banner.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - datalayer
   - entity_browser
@@ -15,4 +16,3 @@ dependencies:
   - paragraphs
   - taxonomy
   - text
-version: 8.x-1.0
