@@ -2,6 +2,7 @@ name: 'OpenY Paragraph Teaser'
 description: 'OpenY Paragraph Teaser.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - entity_browser
   - field
@@ -12,4 +13,3 @@ dependencies:
   - openy_prgf
   - paragraphs
   - text
-version: 8.x-1.0
