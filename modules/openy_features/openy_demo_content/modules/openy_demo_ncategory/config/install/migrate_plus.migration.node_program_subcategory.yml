@@ -14,7 +14,7 @@ source:
     -
       id: kids_zone_activity_centers
       title: 'Kids Zone Activity Centers'
-      color: 3
+      color: 17
       program: 3
       image: kids_zone_activity_centers
       header_content: 1
@@ -34,7 +34,7 @@ source:
     -
       id: active_older_adults
       title: 'Active Older Adults'
-      color: 7
+      color: 17
       program: 1
       image: active_older_adults
       header_content: 2
@@ -52,7 +52,7 @@ source:
     -
       id: group_exercise_classes
       title: 'Group Exercise Classes'
-      color: 7
+      color: 17
       program: 1
       image: group_exercise_classes
       header_content: 3
@@ -72,7 +72,7 @@ source:
     -
       id: health_and_fitness_for_kids_and_teens
       title: 'Health & Fitness for Kids & Teens'
-      color: 7
+      color: 17
       program: 1
       image: health_and_fitness_for_kids_and_teens
       header_content: 4
@@ -91,7 +91,7 @@ source:
     -
       id: personal_training
       title: 'Personal Training'
-      color: 7
+      color: 17
       program: 1
       image: personal_training
       header_content: 5
@@ -109,7 +109,7 @@ source:
     -
       id: programs_for_health
       title: 'Programs for Health'
-      color: 7
+      color: 17
       program: 1
       image: programs_for_health
       header_content: 6
@@ -126,7 +126,7 @@ source:
     -
       id: recreation
       title: 'Recreation'
-      color: 7
+      color: 17
       program: 1
       image: recreation
       header_content: 7
@@ -143,7 +143,7 @@ source:
     -
       id: small_group_and_specialty_training
       title: 'Small Group & Specialty Training'
-      color: 7
+      color: 17
       program: 1
       image: small_group_and_specialty_training
       header_content: 8
@@ -166,7 +166,7 @@ source:
     -
       id: weight_loss
       title: 'Weight Loss'
-      color: 7
+      color: 17
       program: 1
       image: weight_loss
       header_content: 9
@@ -185,7 +185,7 @@ source:
     -
       id: cooking_and_crafts
       title: 'Cooking & Crafts'
-      color: 3
+      color: 17
       program: 3
       image: cooking_and_crafts
       header_content: 10
@@ -206,7 +206,7 @@ source:
     -
       id: family_activities
       title: 'Family Activities'
-      color: 3
+      color: 17
       program: 3
       image: family_activities
       header_content: 11
@@ -224,7 +224,7 @@ source:
     -
       id: kids_university_and_enrichment_classes
       title: 'Kids University & Enrichment Classes'
-      color: 3
+      color: 17
       program: 3
       image: kids_university_and_enrichment_classes
       header_content: 12
@@ -244,7 +244,7 @@ source:
     -
       id: sports
       title: 'Sports'
-      color: 3
+      color: 17
       program: 3
       image: cooking_and_crafts
       header_content: 13
@@ -265,7 +265,7 @@ source:
     -
       id: swim_team
       title: 'Swim Team'
-      color: 2
+      color: 17
       program: 2
       image: swim_team
       header_content: 14
@@ -285,7 +285,7 @@ source:
     -
       id: drop_in_swim
       title: 'Drop-In Swim'
-      color: 2
+      color: 17
       program: 2
       image: drop-in_swim
       header_content: 15
@@ -302,7 +302,7 @@ source:
     -
       id: swim_lessons
       title: 'Swim Lessons'
-      color: 2
+      color: 17
       program: 2
       image: swim_lessons
       header_content: 16
@@ -323,7 +323,7 @@ source:
     -
       id: bold_and_gold
       title: 'Bold & Gold'
-      color: 4
+      color: 17
       program: 4
       image: bold_and_gold
       header_content: 17
@@ -343,7 +343,7 @@ source:
     -
       id: before_and_after_school_child_care
       title: 'Before & After School Child Care'
-      color: 5
+      color: 17
       program: 5
       image: before_and_after_school_child_care
       header_content: 18
@@ -364,7 +364,7 @@ source:
     -
       id: earth_service_corps
       title: 'Earth Service Corps'
-      color: 6
+      color: 17
       program: 6
       image: earth_service_corps
       header_content: 19
@@ -383,7 +383,7 @@ source:
     -
       id: day_camps
       title: 'Day Camps'
-      color: 4
+      color: 17
       program: 4
       image: day_camps
       header_content: 20
@@ -402,7 +402,7 @@ source:
     -
       id: preschool
       title: 'Preschool'
-      color: 5
+      color: 17
       program: 5
       image: preschool
       header_content: 21
@@ -424,7 +424,7 @@ source:
     -
       id: academic_success
       title: 'Academic Success'
-      color: 6
+      color: 17
       program: 6
       image: academic_success
       header_content: 22
