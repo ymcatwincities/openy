@@ -65,7 +65,11 @@ source:
       id: locations
       title: 'Locations'
       alias: '/locations'
-      header_content_id: locations_location_finder_filters
+      header_content_ids:
+        -
+          header_content_id: locations_small_banner
+        -
+          header_content_id: locations_location_finder_filters
       content_ids:
         -
           content_id: locations_location_finder
@@ -105,7 +109,11 @@ source:
       id: schedules
       title: 'Schedules'
       alias: '/schedules'
-      header_content_id: schedule_search_form
+      header_content_ids:
+        -
+          header_content_id: schedules_small_banner
+        -
+          header_content_id: schedule_search_form
       content_ids:
         -
           content_id: schedule_search_list
