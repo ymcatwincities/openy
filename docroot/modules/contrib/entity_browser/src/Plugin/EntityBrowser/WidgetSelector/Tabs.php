@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\Plugin\EntityBrowser\WidgetSelector\Tabs.
+ */
+
 namespace Drupal\entity_browser\Plugin\EntityBrowser\WidgetSelector;
 
 use Drupal\entity_browser\WidgetSelectorBase;
@@ -11,7 +16,7 @@ use Drupal\Core\Form\FormStateInterface;
  * @EntityBrowserWidgetSelector(
  *   id = "tabs",
  *   label = @Translation("Tabs"),
- *   description = @Translation("Creates horizontal tabs on the top of the entity browser, each tab representing one available widget.")
+ *   description = @Translation("Displays entity browser widgets as tabs.")
  * )
  */
 class Tabs extends WidgetSelectorBase {
@@ -37,7 +42,16 @@ class Tabs extends WidgetSelectorBase {
       );
     }
 
-    $element['#attached']['library'][] = 'entity_browser/tabs';
+    $element['#attached'] = [
+      'library' => [
+        'entity_browser/tabs',
+      ],
+      'drupalSettings' => [
+        'entityBrowserTabs' => [
+          'tabsClass' => ['tabs', 'secondary'],
+        ],
+      ],
+    ];
 
     return $element;
   }

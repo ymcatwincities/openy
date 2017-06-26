@@ -26,22 +26,3 @@
 .entity-browser-form .entity-tabs a {
   cursor: pointer;
 }
-
-.eb-tabs ul {
-  margin: 0;
-  padding: 0;
-  border-bottom: 1px solid grey;
-}
-
-.eb-tabs ul li {
-  display: inline-block;
-}
-
-.eb-tabs ul li.active {
-  border-bottom: 3px solid darkblue;
-}
-
-.eb-tabs ul li a {
-  padding: .75em 1.5em;
-  display: block;
-}

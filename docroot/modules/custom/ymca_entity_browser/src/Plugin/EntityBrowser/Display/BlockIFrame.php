@@ -16,7 +16,6 @@ use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
 use Drupal\entity_browser\Plugin\EntityBrowser\Display\IFrame;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface;
 
 /**
  * Presents entity browser in an iFrame.
@@ -34,32 +33,30 @@ class BlockIFrame extends IFrame implements DisplayRouterInterface {
    * BlockIFrame constructor.
    *
    * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
+   *   Configuration.
    * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
+   *   Plugin ID.
    * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
-   *   Event dispatcher service.
-   * @param \Drupal\Component\Uuid\UuidInterface $uuid
-   *   UUID generator interface.
-   * @param \Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface $selection_storage
-   *   The selection storage.
-   * @param \Drupal\Core\Routing\RouteMatchInterface $current_route_match
-   *   The currently active route match object.
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   Current request.
-   * @param \Drupal\Core\Path\CurrentPathStack $current_path
-   *   The current path.
+   *   Plugin definition.
+   * @param EventDispatcherInterface $event_dispatcher
+   *   Event dispatcher.
+   * @param RouteMatchInterface $current_route_match
+   *   RouteMatchInterface.
+   * @param UuidInterface $uuid
+   *   UUID.
+   * @param Request $request
+   *   Request.
+   * @param CurrentPathStack $current_path
+   *   CurrentPathStack.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, UuidInterface $uuid, KeyValueStoreExpirableInterface $selection_storage, RouteMatchInterface $current_route_match, Request $request, CurrentPathStack $current_path) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher, $uuid, $selection_storage, $current_route_match, $request, $current_path);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $current_route_match, UuidInterface $uuid, Request $request, CurrentPathStack $current_path) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher, $current_route_match, $uuid, $request, $current_path);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function displayEntityBrowser(array $element, FormStateInterface $form_state, array &$complete_form, array $persistent_data = []) {
+  public function displayEntityBrowser(FormStateInterface $form_state) {
     $uuid = $this->getUuid();
 
     $js_event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);
