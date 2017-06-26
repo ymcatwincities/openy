@@ -3,7 +3,6 @@
  *
  * Provides JS part of entity browser integration with IEF "use existing entity" feature.
  */
-
 (function ($, Drupal, drupalSettings) {
 
   'use strict';
@@ -13,9 +12,10 @@
    */
   Drupal.behaviors.entityBrowserEntityForm = {
     attach: function (context) {
-      $(context).find('.eb-target').once('ief-entity-browser-value').on('entity_browser_value_updated', Drupal.entityBrowserEntityForm.valuesUpdated);
+      $(context).find('.ief-entity-browser-value').once('ief-entity-browser-value').on('entity_browser_value_updated', Drupal.entityBrowserEntityForm.valuesUpdated);
     }
   };
+
 
   Drupal.entityBrowserEntityForm = {};
 
@@ -27,3 +27,5 @@
   };
 
 }(jQuery, Drupal, drupalSettings));
+
+

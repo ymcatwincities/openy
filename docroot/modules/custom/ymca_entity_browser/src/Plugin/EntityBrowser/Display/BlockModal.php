@@ -19,7 +19,6 @@ use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\entity_browser\Events\AlterEntityBrowserDisplayData;
-use Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface;
 
 /**
  * Presents entity browser in an Modal.
@@ -44,28 +43,26 @@ class BlockModal extends Modal implements DisplayRouterInterface {
    * BlockModal constructor.
    *
    * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
+   *   Configuration.
    * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
+   *   Plugin ID.
    * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
-   *   Event dispatcher service.
-   * @param \Drupal\Component\Uuid\UuidInterface $uuid
-   *   UUID generator interface.
-   * @param \Drupal\Core\KeyValueStore\KeyValueStoreExpirableInterface $selection_storage
-   *   The selection storage.
-   * @param \Drupal\Core\Routing\RouteMatchInterface $current_route_match
-   *   The currently active route match object.
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   Current request.
-   * @param \Drupal\Core\Path\CurrentPathStack $current_path
-   *   The current path.
+   *   Plugin Configuration.
+   * @param EventDispatcherInterface $event_dispatcher
+   *   Event dispatcher.
+   * @param RouteMatchInterface $current_route_match
+   *   Current route.
+   * @param UuidInterface $uuid
+   *   UUID.
+   * @param CurrentPathStack $current_path
+   *   Current path.
+   * @param Request $request
+   *   Request.
    * @param ConfigFactoryInterface $config_factory
    *   Config factory.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, UuidInterface $uuid, KeyValueStoreExpirableInterface $selection_storage, RouteMatchInterface $current_route_match, Request $request, CurrentPathStack $current_path, ConfigFactoryInterface $config_factory) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher, $uuid, $selection_storage, $current_route_match, $request, $current_path);
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EventDispatcherInterface $event_dispatcher, RouteMatchInterface $current_route_match, UuidInterface $uuid, CurrentPathStack $current_path, Request $request, ConfigFactoryInterface $config_factory) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $event_dispatcher, $current_route_match, $uuid, $current_path, $request);
     $this->configFactory = $config_factory;
   }
 
@@ -78,11 +75,10 @@ class BlockModal extends Modal implements DisplayRouterInterface {
       $plugin_id,
       $plugin_definition,
       $container->get('event_dispatcher'),
-      $container->get('uuid'),
-      $container->get('entity_browser.selection_storage'),
       $container->get('current_route_match'),
-      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('uuid'),
       $container->get('path.current'),
+      $container->get('request_stack')->getCurrentRequest(),
       $container->get('config.factory')
     );
   }
@@ -90,7 +86,7 @@ class BlockModal extends Modal implements DisplayRouterInterface {
   /**
    * {@inheritdoc}
    */
-  public function displayEntityBrowser(array $element, FormStateInterface $form_state, array &$complete_form, array $persistent_data = []) {
+  public function displayEntityBrowser(FormStateInterface $form_state) {
     $uuid = $this->getUuid();
     /** @var \Drupal\entity_browser\Events\RegisterJSCallbacks $event */
     $js_event_object = new RegisterJSCallbacks($this->configuration['entity_browser_id'], $uuid);

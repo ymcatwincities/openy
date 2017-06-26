@@ -3,7 +3,6 @@
  *
  * Defines the behavior of the entity browser's iFrame display.
  */
-
 (function ($, Drupal, drupalSettings) {
 
   'use strict';
@@ -31,30 +30,26 @@
   Drupal.entityBrowserIFrame.linkClick = function () {
     var uuid = $(this).attr('data-uuid');
     var original_path = $(this).attr('data-original-path');
-    var iframeSettings = drupalSettings['entity_browser']['iframe'][uuid];
     var iframe = $(
       '<iframe />',
       {
-        'src': iframeSettings['src'],
-        'width': '100%',
-        'height': iframeSettings['height'],
+        'src': drupalSettings['entity_browser']['iframe'][uuid]['src'],
+        'width': drupalSettings['entity_browser']['iframe'][uuid]['width'],
+        'height': drupalSettings['entity_browser']['iframe'][uuid]['height'],
         'data-uuid': uuid,
         'data-original-path': original_path,
-        'name': 'entity_browser_iframe_' + iframeSettings['entity_browser_id'],
-        'id': 'entity_browser_iframe_' + iframeSettings['entity_browser_id']
+        'name': 'entity-browser-iframe-' + drupalSettings['entity_browser']['iframe'][uuid]['entity_browser_id'].replace('_', '-')
       }
     );
-
-    var throbber = $('<div class="ajax-progress-fullscreen"></div>');
-    $(this).parent().css('width', iframeSettings['width']);
 
     // Register callbacks.
     if (drupalSettings.entity_browser.iframe[uuid].js_callbacks || false) {
       Drupal.entityBrowser.registerJsCallbacks(this, drupalSettings.entity_browser.iframe[uuid].js_callbacks, 'entities-selected');
     }
 
-    $(this).parent().append(throbber).append(iframe).trigger('entityBrowserIFrameAppend');
+    $(this).parent().append(iframe).trigger('entityBrowserIFrameAppend');
     $(this).hide();
   };
+
 
 }(jQuery, Drupal, drupalSettings));

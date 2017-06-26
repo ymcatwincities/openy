@@ -8,7 +8,6 @@ entity_browser.edit_form:
   requirements:
     _entity_access: 'entity.update'
   options:
-    _admin_route: TRUE
     parameters:
       entity:
         type: entity:{entity_type}

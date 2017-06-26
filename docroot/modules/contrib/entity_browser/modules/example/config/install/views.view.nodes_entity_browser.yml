@@ -6,7 +6,6 @@ dependencies:
       - entity_browser_example
   module:
     - entity_browser
-    - entity_browser_example
     - node
     - user
 _core:
@@ -369,6 +368,8 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
+          link_to_node: false
+          machine_name: '0'
           entity_type: node
           entity_field: type
           plugin_id: node_type

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Definition of Drupal\entity_browser\Events\EventBase.
+ */
+
 namespace Drupal\entity_browser\Events;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -10,7 +15,7 @@ use Symfony\Component\EventDispatcher\Event;
 class EventBase extends Event {
 
   /**
-   * Entity browser id.
+   * Entity browser id
    *
    * @var string
    */
@@ -37,7 +42,7 @@ class EventBase extends Event {
   }
 
   /**
-   * Gets the entity browser ID:.
+   * Gets the entity browser ID:
    *
    * @return string
    *   Entity browser ID.
@@ -47,7 +52,7 @@ class EventBase extends Event {
   }
 
   /**
-   * Gets the entity browser instance UUID:.
+   * Gets the entity browser instance UUID:
    *
    * @return string
    *   Entity browser instance UUID.

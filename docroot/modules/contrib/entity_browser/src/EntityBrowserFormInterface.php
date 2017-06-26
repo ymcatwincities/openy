@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\EntityBrowserFormInterface.
+ */
+
 namespace Drupal\entity_browser;
 
 use Drupal\Core\Form\FormInterface;
@@ -9,12 +14,12 @@ use Drupal\Core\Form\FormInterface;
  */
 interface EntityBrowserFormInterface extends FormInterface {
 
-  /**
-   * Sets entity browser entity.
-   *
-   * @param \Drupal\entity_browser\EntityBrowserInterface
-   *   Entity browser entity.
-   */
-  public function setEntityBrowser(EntityBrowserInterface $entity_browser);
+    /**
+     * Sets entity browser entity.
+     *
+     * @param \Drupal\entity_browser\EntityBrowserInterface
+     *   Entity browser entity.
+     */
+    public function setEntityBrowser(EntityBrowserInterface $entity_browser);
 
 }

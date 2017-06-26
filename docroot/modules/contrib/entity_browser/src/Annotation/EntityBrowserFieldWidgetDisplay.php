@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\Annotation\EntityBrowserFieldWidgetDisplay.
+ */
+
 namespace Drupal\entity_browser\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

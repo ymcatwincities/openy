@@ -1,0 +1,6 @@
+common:
+  version: VERSION
+  js:
+    js/dropzonejs_eb_widget.common.js: {}
+  dependencies:
+    - dropzonejs/integration

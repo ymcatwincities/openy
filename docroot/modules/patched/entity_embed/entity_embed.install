@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Entity Embed.
+ */
+
+use Drupal\embed\Entity\EmbedButton;
+use Drupal\Core\Utility\UpdateException;
+
+/**
+ * Convert entity embed buttons to embed buttons.
+ *
+ * @todo Can we reuse the existing UUID and save before deleting the old button?
+ */
+function entity_embed_update_8001() {
+  $config_factory = \Drupal::configFactory();
+
+  foreach ($config_factory->listAll('entity_embed.embed_button.') as $config_name) {
+    $old_embed_button = $config_factory->getEditable($config_name);
+    $values = $old_embed_button->getRawData();
+
+    if (EmbedButton::load($values['id'])) {
+      throw new UpdateException('Unable to convert entity_embed.embed_button.' . $values['id'] . ' to embed.button.' . $values['id'] . ' since the latter already exists.');
+    }
+
+    // Move some data around.
+    $values['type_id'] = 'entity';
+    $values['type_settings'] = [
+      'entity_type' => $values['entity_type'],
+      'bundles' => array_keys(array_filter($values['entity_type_bundles'])),
+      'display_plugins' => array_keys(array_filter($values['display_plugins'])),
+    ];
+    $values['icon_uuid'] = $values['button_icon_uuid'];
+    unset($values['entity_type']);
+    unset($values['entity_type_bundles']);
+    unset($values['display_plugins']);
+    unset($values['button_icon_uuid']);
+
+    // Save the new embed button and delete the old one.
+    $embed_button = EmbedButton::create($values);
+    $embed_button->save();
+    $old_embed_button->delete();
+  }
+}

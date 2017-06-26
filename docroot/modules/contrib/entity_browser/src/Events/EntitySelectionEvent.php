@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Definition of Drupal\entity_browser\Events\EntitySelectionEvent.
+ */
+
 namespace Drupal\entity_browser\Events;
 
 /**

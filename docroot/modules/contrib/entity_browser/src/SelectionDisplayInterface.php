@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\SelectionDisplayInterface.
+ */
+
 namespace Drupal\entity_browser;
 
 use Drupal\Component\Plugin\ConfigurablePluginInterface;
@@ -58,23 +63,5 @@ interface SelectionDisplayInterface extends PluginInspectionInterface, Configura
    *   Form state object.
    */
   public function submit(array &$form, FormStateInterface $form_state);
-
-  /**
-   * Check does selection display support preselection.
-   *
-   * If preselection is not allowed by entity browser selection display, then
-   * exception will be thrown.
-   *
-   * @throws \Drupal\Core\Config\ConfigException
-   */
-  public function checkPreselectionSupport();
-
-  /**
-   * Returns true if selection display supports selection over javascript.
-   *
-   * @return bool
-   *   True if javascript add/remove events are supported.
-   */
-  public function supportsJsCommands();
 
 }

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\entity_browser\Ajax\SelectEntitiesCommand.
+ */
+
 namespace Drupal\entity_browser\Ajax;
 
 use Drupal\Core\Ajax\CommandInterface;
@@ -48,5 +53,4 @@ class SelectEntitiesCommand implements CommandInterface {
       'entities' => $this->entities,
     ];
   }
-
 }
