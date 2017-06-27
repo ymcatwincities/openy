@@ -1,0 +1,5 @@
+yptf_kronos.settings:
+  title: Kronos Settings
+  route_name: yptf_kronos.settings
+  parent: ymca_alters.admin_config_ymca_services
+  description: 'Kronos service configuration.'
