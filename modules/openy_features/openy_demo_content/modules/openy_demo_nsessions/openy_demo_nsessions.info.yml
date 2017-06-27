@@ -1,7 +1,8 @@
-name: 'OpenY demo node sessions'
-description: 'OpenY demo node sessions'
+name: 'OpenY Demo Node Sessions'
+description: 'OpenY Demo Node Sessions.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - migrate
   - migrate_plus
@@ -14,4 +15,3 @@ dependencies:
   - openy_node_session
   - openy_session_instance
   - openy_prgf_schedule_search
-version: 8.x-1.0
