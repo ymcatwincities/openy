@@ -1,7 +1,7 @@
-name: 'OpenY menu package'
-description: 'OpenY menu package'
+name: 'OpenY Menu Package'
+description: 'OpenY Menu Package.'
 type: module
 core: 8.x
-version: 8.x-1.0
+package: OpenY
 dependencies:
   - menu_ui

@@ -1,7 +1,8 @@
 name: 'OpenY Node Alert'
-description: 'OpenY Node Alert'
+description: 'OpenY Node Alert.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - block
   - field
@@ -30,4 +31,3 @@ dependencies:
   - text
   - user
   - views
-version: 8.x-1.2

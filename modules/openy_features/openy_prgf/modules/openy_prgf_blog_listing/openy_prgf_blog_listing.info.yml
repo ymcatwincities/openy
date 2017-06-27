@@ -2,6 +2,7 @@ name: 'OpenY Paragraph Blog Posts Listing'
 description: 'OpenY Paragraph Blog Posts Listing.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - field
   - node
@@ -16,4 +17,3 @@ dependencies:
   - verf
   - views
   - views_infinite_scroll
-version: 8.x-1.1
