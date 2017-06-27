@@ -19,6 +19,16 @@ source:
       parent_id: blog
       headline: 'OpenY Blog'
       color: 17
+    -
+      id: locations_small_banner
+      parent_id: locations
+      headline: 'Locations'
+      color: 17
+    -
+      id: schedules_small_banner
+      parent_id: schedules
+      headline: 'Schedules'
+      color: 17
   ids:
     id:
       type: string
