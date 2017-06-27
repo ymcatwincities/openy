@@ -460,13 +460,10 @@ function yptf_master_update_8023() {
  */
 function yptf_master_update_8024() {
   // Change max_length for column.
+  \Drupal::service('mindbody_cache_proxy.manager')->resetCache();
   $schema = Database::getConnection()->schema();
   $spec = array('type' => 'varchar', 'length' => 512);
   $schema->changeField('mindbody_cache', 'name', 'name', $spec);
-
-  // Reinstall Kronos.
-  \Drupal::service('module_installer')->uninstall(['yptf_kronos']);
-  \Drupal::service('module_installer')->install(['yptf_kronos']);
 
   // Set default values for reports.
   $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
