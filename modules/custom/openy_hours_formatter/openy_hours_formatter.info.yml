@@ -1,6 +1,6 @@
-name: Today\'s Hours
+name: OpenY Hours Formatter
 type: module
-description: Displays today\'s working hours
+description: Displays working hours
 core: 8.x
 package: OpenY
 dependencies:
