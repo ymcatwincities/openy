@@ -112,6 +112,11 @@ set sidebar_classes = [
           <div class="two-column">
             <div class="main-region col-sm-8">
               {% endif %}
+              {{ title_prefix }}
+              <h1{{ title_attributes }}>
+                {{ label }}
+              </h1>
+              {{ title_suffix }}
               {{ content.field_class_description }}
               {{ content.field_content }}
               {% if content.field_sidebar_content is not empty %}
