@@ -2119,7 +2119,7 @@ body {
 }
 @media (min-width: 48em) {
   .paragraph--type--classes-listing-filters .form-actions {
-    margin-top: 31px;
+    margin-top: 49px;
   }
 }
 
@@ -2701,7 +2701,7 @@ body {
     font-size: 16px;
   }
 }
-.sub-category-classes-view .activity-group h3 {
+.sub-category-classes-view .activity-group h2 {
   font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
   font-size: 30px;
   line-height: 1.6;
