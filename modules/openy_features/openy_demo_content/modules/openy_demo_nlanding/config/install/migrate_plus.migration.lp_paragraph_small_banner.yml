@@ -22,7 +22,7 @@ source:
     -
       id: locations_small_banner
       parent_id: locations
-      headline: 'Locations'
+      headline: 'Find your location'
       color: 17
     -
       id: schedules_small_banner
