@@ -81,7 +81,7 @@ set classes = [
   <div class="content">
     <h2>{{ label }}</h2>
     {{ content.field_category_description }}
-    <a href="{{ url }}" class="btn btn-link blue">{{ 'Open category'|t }}</a>
+    <a href="{{ url }}" class="btn btn-link blue" title="{{ node.label }}">{{ 'Open category'|t }}</a>
   </div>
   <div class="image">
     <a href="{{ url }}">{{ content.field_category_image }}</a>
