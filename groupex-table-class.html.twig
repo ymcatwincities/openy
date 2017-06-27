@@ -14,10 +14,10 @@
     <span class="icon icon-clock"></span><span class="hh-mm">{{ class.time }}</span> <span class="duration">{{ class.duration }}</span>
   </div>
   <div class="card">
-    <h3><a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a></h3>
+    <h3><span class="fa fa-link"></span>&nbsp;<a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a></h3>
     <p>{{ class.studio }}</p>
     <div class="instructor">
-      <span class="fa fa-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
+      <span class="fa fa-link"></span><span class="fa fa-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
     </div>
   </div>
   <td class="ical">
