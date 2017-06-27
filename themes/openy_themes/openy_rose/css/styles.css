@@ -4175,7 +4175,25 @@ html.js .branch__updates_queue__button {
 .blog-related {
   position: relative;
 }
-.blog-related h2 a:after {
+.blog-related h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  color: #636466 !important;
+  margin: 0 0 25px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
+  letter-spacing: 2px;
+}
+.blog-related h3 {
+  font-weight: bold;
+  font-size: 36px;
+}
+.blog-related h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.blog-related h3 a:after {
   content: '';
   position: absolute;
   height: 100%;
