@@ -7,6 +7,8 @@
 
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\Core\Datetime\DrupalDateTime;
+use \Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Database\Database;
 
 /**
  * Initial hook_updates runner.
@@ -373,4 +375,175 @@ function yptf_master_update_8021() {
       'views.view.personify_product_mapping',
     ]
   );
+}
+
+/**
+ * Add new tax Staff and entity CT Staff Mapping.
+ */
+function yptf_master_update_8022() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory('sites/default/config/staging/');
+  $config_importer->importConfigs(
+    [
+      // Staff.
+      'taxonomy.vocabulary.staff_type',
+      'field.storage.mapping.field_staff_branch',
+      'field.storage.mapping.field_staff_email',
+      'field.storage.mapping.field_staff_name',
+      'field.storage.mapping.field_staff_surname',
+      'field.storage.mapping.field_staff_type',
+      'field.field.mapping.staff.field_staff_branch',
+      'field.field.mapping.staff.field_staff_email',
+      'field.field.mapping.staff.field_staff_name',
+      'field.field.mapping.staff.field_staff_surname',
+      'field.field.mapping.staff.field_staff_type',
+      'ymca_mappings.mapping_type.staff',
+      'core.entity_form_display.mapping.staff.default',
+      'core.entity_view_display.mapping.staff.default',
+      'views.view.staff_mapping',
+    ]
+  );
+
+  // Create terms.
+  $term_names = ['Leadership', 'PT Manager'];
+  foreach ($term_names as $term_name) {
+    $term = Term::create([
+      'vid' => 'staff_type',
+      'name' => $term_name,
+    ]);
+    $term->save();
+  }
+
+  // Create staff.
+  // 1. Get from config.
+  $load_staff = \Drupal::config('ymca_mindbody.notifications')
+    ->get('locations');
+  foreach ($load_staff as $location => $staff) {
+    $name = explode(' ', $staff[0]['name']);
+    $data = [
+      'type' => 'staff',
+      'field_staff_email' => $staff[0]['email'],
+      'field_staff_name' => $name[0],
+      'field_staff_surname' => $name[1],
+    ];
+    // Get locations ref.
+    $mapping_repository = \Drupal::service('ymca_mappings.location_repository');
+    $mapping = $mapping_repository->findByMindBodyId($location);
+    $mapping = is_array($mapping) ? reset($mapping) : $mapping;
+    if ($mapping) {
+      $location_id = $mapping->field_location_ref->getValue()[0]['target_id'];
+      $data['field_staff_branch'] = $location_id;
+    }
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => 'PT Manager', 'vid' => 'staff_type']);
+    $term = reset($terms);
+
+    if ($term) {
+      $data['field_staff_type'] = $term->id();
+    }
+    $mapping = Mapping::create($data);
+    $mapping->setName($staff[0]['name']);
+    $mapping->save();
+  }
+}
+
+/**
+ * Enable Kronos module.
+ */
+function yptf_master_update_8023() {
+  \Drupal::service('module_installer')->install(['yptf_kronos']);
+}
+
+/**
+ * Re-Enable Kronos module and change MindbodyClient Name max_length.
+ */
+function yptf_master_update_8024() {
+  // Change max_length for column.
+  $schema = Database::getConnection()->schema();
+  $spec = array('type' => 'varchar', 'length' => 512);
+  $schema->changeField('mindbody_cache', 'name', 'name', $spec);
+
+  // Reinstall Kronos.
+  \Drupal::service('module_installer')->uninstall(['yptf_kronos']);
+  \Drupal::service('module_installer')->install(['yptf_kronos']);
+
+  // Set default values for reports.
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $email_defaults = [
+    'leadership' => [
+      'term_name' => 'Leadership',
+      'subject' => 'Total PT Hours Variance for [report-start-date] - [report-end-date]',
+      'body' => '[leadership-report]',
+    ],
+    'pt_managers' => [
+      'term_name' => 'PT Manager',
+      'subject' => '[report-branch-name] - PT Hours Variance for [report-start-date] - [report-end-date]',
+      'body' => '[pt-manager-report]',
+    ],
+  ];
+
+  foreach ($email_defaults as $id => $data) {
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => $data['term_name'], 'vid' => 'staff_type']);
+    $term = reset($terms);
+
+    if ($term) {
+      $config->set($id, [
+        'enabled' => 1,
+        'staff_type' => $term->id(),
+        'subject' => $data['subject'],
+        'body' => ['value' => $data['body'], 'format' => 'full_html'],
+      ])->save();
+    }
+  }
+}
+
+/**
+ * Add default disabled message to Kronos form.
+ */
+function yptf_master_update_8025() {
+  // Set default disabled message values for reports.
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $default_massage = 'The system to compare MINDBODY hours with Kronos Workforce Central hours and send the results via email has been disabled as of 12H-TIME on DD/MM/YYYY. Until further notice, please return to the manual process of visually comparing MINDBODY hours submitted by your staff with Kronos Workforce Central hours submitted by your staff to ensure accurate payroll information. Please contact Paige Kiecker with any questions.';
+  $email_defaults = [
+    'leadership' => [
+      'disabled_message' => $default_massage,
+    ],
+    'pt_managers' => [
+      'disabled_message' => $default_massage,
+    ],
+  ];
+
+  foreach ($email_defaults as $id => $data) {
+    $config->set("$id.disabled_message", [
+      'value' => $data['disabled_message'],
+      'format' => 'full_html',
+    ])->save();
+  }
+}
+
+/**
+ * Add default admin email to Kronos form.
+ */
+function yptf_master_update_8026() {
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $config->set("admin_emails", 'Paige.Kiecker@ymcamn.org')->save();
+}
+
+/**
+ * Set default to disabled Kronos report.
+ */
+function yptf_master_update_8027() {
+  // Set default disabled message values for reports.
+  $config = \Drupal::configFactory()->getEditable('yptf_kronos.settings');
+  $email_defaults = ['leadership' => 0, 'pt_managers' => 0];
+
+  foreach ($email_defaults as $id => $data) {
+    $config->set("$id.disabled_message", [
+      'value' => '',
+      'format' => 'full_html',
+    ])->set("$id.enabled", 0)->save();
+  }
 }
