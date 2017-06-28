@@ -389,6 +389,9 @@
   .link {
     font-size: 15px;
     color: $blue;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
