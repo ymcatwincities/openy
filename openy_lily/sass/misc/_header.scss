@@ -390,7 +390,8 @@ header#page-head {
     }
 
     #block-anonymoususersmenu,
-    #block-openy-lily-user-menu {
+    #block-openy-lily-user-menu,
+    #block-cccuseraccountmenu {
       @include breakpoint (0 $tablet-start) {
         display: none !important;
       }
@@ -463,7 +464,8 @@ header#page-head {
         }
       }
       #block-anonymoususersmenu,
-      #block-openy-lily-user-menu {
+      #block-openy-lily-user-menu,
+      #block-cccuseraccountmenu {
         li {
           a {
             line-height: 19px;

@@ -603,12 +603,14 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 }
 @media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs #block-anonymoususersmenu,
-  header#page-head .top-navs #block-openy-lily-user-menu {
+  header#page-head .top-navs #block-openy-lily-user-menu,
+  header#page-head .top-navs #block-cccuseraccountmenu {
     display: none !important;
   }
 }
 header#page-head .top-navs #block-anonymoususersmenu .nav li a,
-header#page-head .top-navs #block-openy-lily-user-menu .nav li a {
+header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
+header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
   color: #777777;
   border-top: 2px solid transparent;
   line-height: 50px;
@@ -620,7 +622,8 @@ header#page-head .top-navs #block-openy-lily-user-menu .nav li a {
   transition: all 0.2s linear;
 }
 header#page-head .top-navs #block-anonymoususersmenu .nav li a:hover,
-header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover {
+header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover,
+header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   border-top: 2px solid #aa228d;
   background-color: #fff;
   color: black;
@@ -658,7 +661,8 @@ header#page-head.tiny .top-navs .nav-global .navbar-header #block-openy-lily-bra
   width: 55px;
 }
 header#page-head.tiny .top-navs #block-anonymoususersmenu li a,
-header#page-head.tiny .top-navs #block-openy-lily-user-menu li a {
+header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
+header#page-head.tiny .top-navs #block-cccuseraccountmenu li a {
   line-height: 19px;
 }
 header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
