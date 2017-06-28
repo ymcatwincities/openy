@@ -33,7 +33,6 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     },
  *   },
  *   base_table = "openy_digital_signage_screen",
- *   data_table = "openy_digital_signage_screen_field_data",
  *   admin_permission = "administer OpenY Digital Signage Screen entities",
  *   entity_keys = {
  *     "id" = "id",
