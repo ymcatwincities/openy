@@ -215,6 +215,7 @@ class CalcBlockForm extends FormBase {
       ];
     }
 
+    $form['#attached']['library'] = 'openy_calc/scripts';
     return $form;
   }
 
