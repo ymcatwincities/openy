@@ -153,25 +153,30 @@ a:hover, a:active, a:focus {
 }
 
 #block-openy-lily-tabs {
-  margin: 20px 0;
+  background: #ebebeb;
 }
 #block-openy-lily-tabs .nav-tabs {
-  border-bottom: none;
+  border: none;
+  margin-top: 1px;
 }
 #block-openy-lily-tabs .nav-tabs li {
-  margin: 0 10px 5px 0;
+  margin: 0 10px 0px 0;
 }
 #block-openy-lily-tabs .nav-tabs li a {
-  border: none;
-  border-radius: 3px;
-  color: white;
-  background: #9c1f7b;
-  font-weight: bold;
+  margin-right: 2px;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+}
+#block-openy-lily-tabs .nav-tabs li a.is-active {
+  background: #505050;
+  color: #fff;
+}
+#block-openy-lily-tabs .nav-tabs li a:hover {
+  background: #505050;
+  color: #fff;
 }
 @media (min-width: 0) and (max-width: 48em) {
-  #block-openy-lily-tabs {
-    margin: 100px 30px 20px;
-  }
   #block-openy-lily-tabs .nav-tabs li {
     margin-right: 5px;
   }
@@ -628,7 +633,8 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   background-color: #fff;
   color: black;
 }
-header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a {
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
+header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child a {
   padding: 3px 15px;
   border-radius: 5px;
   background-color: #b92f9e;
@@ -641,7 +647,8 @@ header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a {
   margin: 28px 5px 0 0;
   border-top: none;
 }
-header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover {
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover,
+header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child a:hover {
   border-top: none;
   background-color: #9c1f7b;
 }
@@ -1060,6 +1067,10 @@ legend {
 
 .form-item {
   margin: 0 0 15px 0;
+}
+
+.openy-schedules-search-form .form-wrapper {
+  margin-top: 0;
 }
 
 .social-disclaimer .contextual-region .contextual .contextual-links li {
@@ -3174,6 +3185,9 @@ a.sports-icon.floor-hockey {
   padding: 15px 35px !important;
   font-size: 20px !important;
   margin-top: 20px;
+}
+#banner .banner-caption a:hover {
+  text-decoration: none;
 }
 @media (min-width: 0) and (max-width: 61.9375em) {
   #banner .banner-caption {

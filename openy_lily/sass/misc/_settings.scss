@@ -99,22 +99,29 @@ a:hover, a:active, a:focus {
 //Tabs
 
 #block-openy-lily-tabs {
-  margin: 20px 0;
+  background: $grey16;
   .nav-tabs {
-    border-bottom: none;
+    border: none;
+    margin-top: 1px;
     li {
-      margin: 0 10px 5px 0;
+      margin: 0 10px 0px 0;
       a {
-        border: none;
-        border-radius: 3px;
-        color: white;
-        background: $pink;
-        font-weight: bold;
+        margin-right: 2px;
+        line-height: 1.4;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+        &.is-active {
+          background: #505050;
+          color: $white;
+        }
+        &:hover {
+          background: #505050;
+          color: $white;
+        }
       }
     }
   }
   @include breakpoint (0 $tablet) {
-    margin: 100px 30px 20px;
     .nav-tabs {
       li {
         margin-right: 5px;

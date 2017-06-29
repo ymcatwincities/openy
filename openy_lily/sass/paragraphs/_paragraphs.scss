@@ -302,6 +302,9 @@
       font-size: 20px !important;
       margin-top: 20px;
       @extend .pink-button;
+      &:hover {
+        text-decoration: none;
+      }
     }
     @include breakpoint(0 991px) {
       text-align: center;
