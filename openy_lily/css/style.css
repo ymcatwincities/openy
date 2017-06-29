@@ -2826,6 +2826,19 @@ a.sports-icon.floor-hockey {
   }
 }
 
+.account-page-sidebar ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.account-page-sidebar ul li {
+  margin-bottom: 5px;
+}
+
+.account-page-content-wrapper h2 {
+  margin-top: 0;
+}
+
 .paragraph--type--gallery-cta-content {
   position: relative;
 }
