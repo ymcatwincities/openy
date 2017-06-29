@@ -459,7 +459,7 @@ function yptf_master_update_8023() {
  * Clear MB cache.
  */
 function yptf_master_update_8024() {
-  \Drupal::service('mindbody_cache_proxy.manager')->resetCache();
+  //\Drupal::service('mindbody_cache_proxy.manager')->resetCache();
 }
 
 /**
