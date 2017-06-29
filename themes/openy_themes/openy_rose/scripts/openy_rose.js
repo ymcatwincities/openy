@@ -214,21 +214,21 @@
    */
   Drupal.behaviors.load_more_focus = {
     attach: function (context, settings) {
-      $('.blog-more-teaser .load_more_button .button', context).click(function () {
-        var $viewsRow = $('.blog-more-teaser .views-row'),
+      $('.views-element-container .load_more_button .button', context).click(function () {
+        var $viewsRow = $('.views-element-container .views-row'),
           indexLastRow = $viewsRow.length,
           getElement,
           itemFocus;
         if (Drupal.views !== undefined) {
           $.each(Drupal.views.instances, function (i, view) {
-            if (view.settings.view_name == "listing_blog_posts") {
+            if (view.settings.view_name.length != 0) {
               $(document).ajaxComplete(function (event, xhr, settings) {
-                getElement = $('.blog-more-teaser .views-row');
+                getElement = $('.views-element-container .views-row');
                 itemFocus = getElement[indexLastRow];
                 // Add focus to element.
                 $(itemFocus).find('h3 a').focus();
                 // Update number indexLastRow.
-                $viewsRow = $('.blog-more-teaser .views-row');
+                $viewsRow = $('.views-element-container .views-row');
                 indexLastRow = $viewsRow.length;
               });
             }
