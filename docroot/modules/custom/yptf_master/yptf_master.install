@@ -461,6 +461,14 @@ function yptf_master_update_8023() {
 function yptf_master_update_8024() {
   // Change max_length for column.
   \Drupal::service('mindbody_cache_proxy.manager')->resetCache();
+  $database = \Drupal::database();
+  $tables = [
+    "mindbody_cache",
+  ];
+  foreach ($tables as $table) {
+    // Wipe it.
+    $database->truncate($table)->execute();
+  }
   $schema = Database::getConnection()->schema();
   $spec = array('type' => 'varchar', 'length' => 512);
   $schema->changeField('mindbody_cache', 'name', 'name', $spec);
