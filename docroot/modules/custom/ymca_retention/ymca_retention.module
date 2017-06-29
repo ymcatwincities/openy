@@ -157,6 +157,14 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'blocks/ymca-retention-introduction',
     ],
+    'ymca_retention_prizes_info' => [
+      'variables' => [
+        'header' => NULL,
+        'sub_header' => NULL,
+        'content' => NULL,
+      ],
+      'template' => 'blocks/ymca-retention-prizes-info',
+    ],
     'ymca_retention_track_activity' => [
       'variables' => [],
       'template' => 'blocks/ymca-retention-track-activity',
