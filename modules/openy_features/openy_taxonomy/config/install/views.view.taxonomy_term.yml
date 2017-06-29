@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - taxonomy.vocabulary.area
+    - taxonomy.vocabulary.blog_category
   module:
     - node
     - taxonomy
@@ -128,6 +130,7 @@ display:
             fail: 'not found'
           validate_options:
             bundles:
+              area: area
               blog_category: blog_category
             access: true
             operation: view
