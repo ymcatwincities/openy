@@ -215,12 +215,12 @@
   // Whats happening at the Y.
   Drupal.behaviors.whatw = {
     attach: function (context, settings) {
-      if ($('.field-prgf-whay-title').length > 0 && $('.field-prgf-whay-title.mobile').length === 0) {
-        $('.field-prgf-whay-title')
+      if ($('.paragraph--type--whay').length > 0 && $('.paragraph--type--whay.mobile').length === 0) {
+        $('.wrapper-field-branch-body .paragraph--type--whay')
           .addClass('hidden-xs')
           .clone()
           .addClass('mobile')
-          .addClass('hidden-sm')
+          .addClass('hidden-sm hidden-lg')
           .removeClass('hidden-xs')
           .prependTo('.wrapper-field-branch-body');
       }
