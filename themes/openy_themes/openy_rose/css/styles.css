@@ -2427,15 +2427,14 @@ body {
 }
 
 .subprogram-listing-item {
-  display: flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-  margin: 20px 0 25px;
+  display: table;
+  margin-top: 20px;
+  margin-bottom: 25px;
 }
 @media (min-width: 48em) {
   .subprogram-listing-item {
-    margin: 20px -15px 45px;
-    flex-direction: row-reverse;
+    display: block;
+    margin-bottom: 45px;
   }
 }
 .subprogram-listing-item img {
@@ -2444,7 +2443,7 @@ body {
   max-width: 100%;
 }
 .subprogram-listing-item .image {
-  flex: 1 1 42%;
+  display: table-caption;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -2456,7 +2455,8 @@ body {
 }
 @media (min-width: 48em) {
   .subprogram-listing-item .image {
-    padding: 0 15px;
+    display: block;
+    float: left;
     text-align: right;
   }
 }
@@ -2468,28 +2468,27 @@ body {
     max-width: 260px;
   }
 }
-@media (min-width: 0) and (max-width: 30em) {
-  .subprogram-listing-item .image .media {
-    zoom: 2;
+.subprogram-listing-item .title h2 {
+  font-size: 20px;
+  line-height: 20px;
+  margin: -2px 0 15px;
+  color: #0089d0;
+}
+@media (min-width: 48em) {
+  .subprogram-listing-item .title {
+    float: right;
   }
 }
 .subprogram-listing-item .content {
-  flex: 2 0 58%;
   font-size: 14px;
   line-height: 20px;
   color: #4f4f4f;
 }
 @media (min-width: 48em) {
   .subprogram-listing-item .content {
+    float: right;
     padding-right: 0;
-    padding-left: 15px;
   }
-}
-.subprogram-listing-item .content h2 {
-  font-size: 20px;
-  line-height: 20px;
-  margin: -2px 0 15px;
-  color: #0089d0;
 }
 .subprogram-listing-item .content .btn, .subprogram-listing-item .content .button {
   display: block;
