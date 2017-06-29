@@ -1356,6 +1356,17 @@ legend {
     margin-top: -16px;
   }
 }
+article.site-alert section.page-heading {
+  margin-bottom: 0;
+}
+article.site-alert ul {
+  padding: 20px 40px;
+  font-size: 16px;
+}
+article.site-alert ul li div {
+  display: inline-block;
+}
+
 .path-frontpage #block-tabs {
   margin-top: 60px;
 }

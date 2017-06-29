@@ -1,0 +1,14 @@
+article.site-alert {
+  section {
+    &.page-heading {
+      margin-bottom: 0;
+    }
+  }
+  ul {
+    padding: 20px 40px;
+    font-size: 16px;
+    li div {
+      display: inline-block;
+    }
+  }
+}
