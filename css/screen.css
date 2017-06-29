@@ -6702,7 +6702,7 @@ body {
                 order: 1; }
         @media (min-width: 768px) {
           .footer .inner-footer--bottom .col-right {
-            -webkit-box-ordinal-group: NaN;
+            -webkit-box-ordinal-group: initial;
             -webkit-order: initial;
                 -ms-flex-order: initial;
                     order: initial;
@@ -6715,7 +6715,7 @@ body {
                 order: 2; }
         @media (min-width: 768px) {
           .footer .inner-footer--bottom .col-left {
-            -webkit-box-ordinal-group: NaN;
+            -webkit-box-ordinal-group: initial;
             -webkit-order: initial;
                 -ms-flex-order: initial;
                     order: initial;
