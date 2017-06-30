@@ -4771,3 +4771,15 @@ function ymca_master_update_8220() {
     \Drupal::service('module_installer')->install([$module], TRUE);
   }
 }
+
+/**
+ * Enable lndr_drupal8 module.
+ */
+function ymca_master_update_8221() {
+  $modules = [
+    'lndr_drupal8',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
