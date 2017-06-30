@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Class MappingAddController.
@@ -54,6 +55,7 @@ class MappingAddController extends ControllerBase {
    */
   public function add(Request $request) {
     $types = $this->typeStorage->loadMultiple();
+
     if ($types && count($types) == 1) {
       $type = reset($types);
       return $this->addForm($type, $request);
