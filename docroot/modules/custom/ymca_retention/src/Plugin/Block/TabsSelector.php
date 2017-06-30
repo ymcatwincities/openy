@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Defines \Drupal\ymca_retention\Plugin\Block\TabsSelector.
+ */
+
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
