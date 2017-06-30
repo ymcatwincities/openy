@@ -1,0 +1,83 @@
+.clearfix {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+.pull-right-lg {
+  @include breakpoint(laptop) {
+    float: right !important;
+  }
+}
+
+// Embedded items.
+.embedded-entity {
+  clear: both;
+  display: block;
+  margin-bottom: 10px;
+  max-width: 100%;
+  img {
+    height: auto;
+    width: 100%;
+  }
+  .media-document {
+    iframe {
+      height: 500px;
+      width: 100%;
+    }
+  }
+  &.view-mode-media-embedded-full {
+    width: 100%;
+  }
+  &.view-mode-media-embedded-half {
+    width: 100%;
+    @include breakpoint(tablet) {
+      width: 50%;
+    }
+  }
+  &.align-center {
+    text-align: center;
+  }
+
+  &.align-left {
+    float: none;
+    text-align: center;
+    @include breakpoint(tablet) {
+      float: left;
+      margin-right: 20px;
+    }
+  }
+
+  &.align-right {
+    float: none;
+    text-align: center;
+    @include breakpoint(tablet) {
+      float: right;
+      margin-left: 20px;
+    }
+  }
+}
+
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+
+  &:before,
+  &:after {
+    content: none;
+  }
+}
