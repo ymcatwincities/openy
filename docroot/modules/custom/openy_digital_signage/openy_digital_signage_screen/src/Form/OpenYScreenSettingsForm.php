@@ -2,8 +2,9 @@
 
 namespace Drupal\openy_digital_signage_screen\Form;
 
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Class OpenYScreenSettingsForm.
@@ -12,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @ingroup openy_digital_signage_screen
  */
-class OpenYScreenSettingsForm extends FormBase {
+class OpenYScreenSettingsForm extends ConfigFormBase {
 
   /**
    * Returns a unique string identifying the form.
@@ -25,6 +26,13 @@ class OpenYScreenSettingsForm extends FormBase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['openy_digital_signage_screen.default_fallback_content'];
+  }
+
+  /**
    * Form submission handler.
    *
    * @param array $form
@@ -33,7 +41,11 @@ class OpenYScreenSettingsForm extends FormBase {
    *   The current state of the form.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Empty implementation of the abstract submit class.
+    $this->config('openy_digital_signage_screen.default_fallback_content')
+      ->set('target_id', $form_state->getValue('default_fallback_content'))
+      ->save();
+
+    parent::submitForm($form, $form_state);
   }
 
   /**
@@ -48,7 +60,31 @@ class OpenYScreenSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['OpenYScreen_settings']['#markup'] = $this->t('Settings form for OpenY Digital Signage Screen entities. Manage field settings here.');
+    $form['OpenYScreen_settings']['#markup'] = $this->t('Settings form for OpenY Digital Signage Screen entities.');
+
+    $default_value = NULL;
+    if ($id = $this->config('openy_digital_signage_screen.default_fallback_content')->get('target_id')) {
+      $default_value = \Drupal::entityTypeManager()
+        ->getStorage('node')
+        ->load($id);
+    }
+
+    $form['default_fallback_content'] = array(
+      '#type' => 'entity_autocomplete',
+      '#title' => $this->t('Default screen fallback content'),
+      '#target_type' => 'node',
+      '#selection_settings' => array(
+        'target_bundles' => array('screen_content'),
+      ),
+      '#default_value' => $default_value,
+      '#description' => $this->t('You can create a new Screen content node at @link', ['@link' => Url::fromUserInput('/node/add/screen_content')]),
+    );
+
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Save'),
+    ];
+
     return $form;
   }
 

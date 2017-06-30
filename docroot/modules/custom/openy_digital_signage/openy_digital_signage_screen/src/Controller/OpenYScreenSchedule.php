@@ -112,7 +112,7 @@ class OpenYScreenSchedule extends ControllerBase {
    */
   public function scheduleTitle(Request $request, $openy_digital_signage_screen) {
     // TODO: implement
-    return $openy_digital_signage_screen->label() . ' – manage schedule';// . $openy_digital_signage_screen->screen_schedule->entity->label();
+    return $openy_digital_signage_screen->label() . ' – manage schedule';
   }
 
   /**
