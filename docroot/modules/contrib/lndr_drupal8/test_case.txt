@@ -1,0 +1,36 @@
+Test cases with the Lndr API
+
+Case 1
+The published URL is reserved (When user validate and create the page in Lndr)
+
+a. There should be an alias that looks like lndr/reserved => path/to/landing_page
+b. After running cron, this alias will be updated to lndr/[project_id] => path/to/landing_page
+c. Verify that visiting your drupal URL http://www.example.com/path/to/landing_page will render the Lndr landing page
+
+Case 2 (Rare -> not implemented in Lndr yet)
+The published URL is not reserved (When user update page in Lndr from a non-Drupal URL to Drupal URL
+
+a. There should not be alias that points to => path/to/landing_page
+b. After running cron, this alias will be created to lndr/[project_id] => path/to/landing_page
+c. Verify that visiting your drupal URL http://www.example.com/path/to/landing_page will render the Lndr landing page
+
+Case 3 (Rare -> not implemented in Lndr yet)
+The published URL is updated (When user update page in Lndr from the Drupal URL to a New Drupal URL)
+
+a. The published URL is already created as an alias that looks like lndr/[project_id] => path/to/landing_page
+b. After running cron, this alias will be updated to lndr/[project_id] => path/to/new_landing_page
+c. Verify that visiting your drupal URL http://www.example.com/path/to/new_landing_page will render the Lndr landing page
+
+Case 4 (Rare -> not implemented in Lndr yet)
+The published URL is updated (When user update page in Lndr from the Drupal URL to a non Drupal URL)
+
+a. The published URL is already created as an alias that looks like lndr/[project_id] => path/to/landing_page
+b. After running cron, this alias will be deleted
+c. Verify you no longer can visit that Drupal URL
+
+Case 5
+When the landing page is deleted from Lndr (Not appearing in the web service feed anymore)
+
+a. The published URL is already created as an alias that looks like lndr/[project_id] => path/to/landing_page
+b. After running cron, this alias will be deleted
+c. Verify you no longer can visit that Drupal URL
