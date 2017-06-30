@@ -23,7 +23,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *
  *     "form" = {
  *       "default" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenForm",
- *       "add" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenForm",
+ *       "add" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenAddForm",
  *       "edit" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenForm",
  *       "delete" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenDeleteForm",
  *     },
