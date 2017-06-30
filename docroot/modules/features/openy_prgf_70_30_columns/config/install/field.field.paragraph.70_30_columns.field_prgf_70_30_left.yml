@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - block_content.type.code_block
+    - block_content.type.date_block
+    - block_content.type.simple_block
+    - field.storage.paragraph.field_prgf_70_30_left
+    - paragraphs.paragraphs_type.70_30_columns
+id: paragraph.70_30_columns.field_prgf_70_30_left
+field_name: field_prgf_70_30_left
+entity_type: paragraph
+bundle: 70_30_columns
+label: 'Left Column'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block_content'
+  handler_settings:
+    target_bundles:
+      basic: basic
+      code_block: code_block
+      date_block: date_block
+      simple_block: simple_block
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: basic
+field_type: entity_reference
