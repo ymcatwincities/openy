@@ -4777,7 +4777,7 @@ function ymca_master_update_8220() {
  */
 function ymca_master_update_8221() {
   $modules = [
-    'lndr_drupal8',
+    'lndr',
   ];
   foreach ($modules as $module) {
     \Drupal::service('module_installer')->install([$module], TRUE);
