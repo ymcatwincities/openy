@@ -1,4 +1,4 @@
-name: OpenY Lily
+name: 'OpenY Lily'
 type: theme
 description: 'Open Y theme created from YMCA of Twin Cities look and feel. YMCA brand compliant and customizable.'
 package: OPENY_LILY
@@ -7,23 +7,17 @@ base theme: openy_rose
 libraries:
   - openy_lily/global-styling
 regions:
-  header: Header
-  logo: Logo
+  page_top: 'Page top'
+  logo: 'Logo'
   primary_menu: 'Primary menu'
   secondary_menu: 'Secondary menu'
-  mobile_menu: Mobile menu
-  search: Search Form
-  location_menu: 'Location menu'
-  sidebar_menu: 'Sidebar menu'
-  page_top: 'Page top'
-  page_bottom: 'Page bottom'
-  highlighted: Highlighted
-  breadcrumb: Breadcrumb
-  content: Content
+  mobile_menu: 'Mobile menu'
+  search: 'Search Form'
+  header: 'Header'
+  breadcrumb: 'Breadcrumb'
+  highlighted: 'Highlighted'
+  content: 'Content'
+  pre_footer: 'Pre Footer'
   footer_menu: 'Footer menus'
   footer_social: 'Footer social'
-  schedule_right: 'Schedule right'
-  schedule_lead_left: 'Schedule lead left'
-  schedule_lead_right: 'Schedule lead right'
-  schedule_form_title: 'Schedule form title'
-  schedule_form_description: 'Schedule form description'
+  page_bottom: 'Page bottom'

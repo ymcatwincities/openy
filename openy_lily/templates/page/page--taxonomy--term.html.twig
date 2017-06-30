@@ -4,7 +4,7 @@
     {{ parent() }}
 {% endblock %}
 
-{% block content %}
+{% block pagecontent %}
   <section class="page-header page-title title-only">
     <div class="container title-container">
       <div class="row">
@@ -17,12 +17,6 @@
 
   <section class="content">
     <div class="container">
-
-      {% if page.highlighted %}
-        <div class="container alerts-wrapper">
-          {{ page.highlighted }}
-        </div>
-      {% endif %}
 
       {{ page.content }}
 

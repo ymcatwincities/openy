@@ -233,7 +233,7 @@ body.toolbar-fixed.toolbar-horizontal .top-navs {
 }
 body.toolbar-fixed.toolbar-horizontal .viewport .navbar-default,
 body.toolbar-fixed.toolbar-horizontal .top-navs .navbar-default {
-  top: 39px !important;
+  top: 40px !important;
 }
 body.toolbar-fixed.toolbar-horizontal #search-box {
   top: 39px !important;
@@ -250,6 +250,25 @@ body.toolbar-fixed.toolbar-horizontal header#page-head.expanded-search .main-nav
 }
 body.toolbar-fixed.toolbar-horizontal header#page-head .top-navs .nav-wrapper .main-nav.affix {
   top: 90px;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .nav-global {
+  top: 70px !important;
+  transition: 0.2s;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open .viewport {
+  margin-top: 30px !important;
+  transition: 0.2s;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .nav-global {
+  top: 75px !important;
+  transition: 0.2s;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport {
+  margin-top: 30px !important;
+  transition: 0.2s;
+}
+body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .top-navs .nav-wrapper .main-nav.affix {
+  top: 127px !important;
 }
 
 #side-area {
@@ -351,9 +370,9 @@ body.toolbar-fixed.toolbar-horizontal header#page-head .top-navs .nav-wrapper .m
 .viewport.expanded-mobile #main {
   margin-left: 100%;
 }
-@media (min-width: 0) and (max-width: 62em) {
+@media (max-width: 47.9375em) {
   .viewport #main {
-    margin-top: 52px !important;
+    margin-top: 52px;
   }
 }
 
@@ -1018,9 +1037,10 @@ legend {
   clear: both;
 }
 
-.webform-submission-contact-form {
-  margin-top: 30px;
+.webform-submission-form {
+  margin: 30px 0;
 }
+
 .webform-submission-contact-form legend {
   max-width: 100%;
   margin-bottom: 5px;

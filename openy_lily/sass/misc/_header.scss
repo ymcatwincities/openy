@@ -26,7 +26,7 @@ body {
       .top-navs {
         margin: 0 !important;
         .navbar-default {
-          top: 39px !important;
+          top: 40px !important;
         }
       }
       #search-box {
@@ -50,6 +50,33 @@ body {
       }
       header#page-head .top-navs .nav-wrapper .main-nav.affix {
         top: 90px;
+      }
+      &.toolbar-tray-open {
+        .nav-global {
+          top: 70px !important;
+          transition: 0.2s;
+        }
+        .viewport {
+          margin-top: 30px !important;
+          transition: 0.2s;
+        }
+        &.tiny-header {
+          .nav-global {
+            top: 75px !important;
+            transition: 0.2s;
+          }
+          .viewport {
+            margin-top: 30px !important;
+            transition: 0.2s;
+            .top-navs {
+              .nav-wrapper {
+                .main-nav.affix {
+                  top: 127px !important;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -154,9 +181,9 @@ body {
       margin-left: 100%;
     }
   }
-  @include breakpoint (0 $tablet-start) {
+  @include breakpoint ($mobile-max) {
     #main {
-      margin-top: 52px !important;
+      margin-top: 52px;
     }
   }
 }

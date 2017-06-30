@@ -45,17 +45,6 @@ function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $var
  */
 function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = Drupal::routeMatch()->getRouteName();
-
-  switch ($route_name) {
-    case 'system.403':
-      array_push($suggestions, 'page__system__403');
-      break;
-
-    case 'system.404':
-      array_push($suggestions, 'page__system__404');
-      break;
-  }
-
   $node = Drupal::routeMatch()->getParameter('node');
   if (empty($node)) {
     $node = Drupal::routeMatch()->getParameter('node_preview');
@@ -159,8 +148,6 @@ function openy_lily_preprocess_node(&$variables) {
     $variables['back_link_title'] = $back_link_title;
     $variables['back_link_path'] = Url::fromUri('internal:/blog')->toString();
   }
-
-  $variables['site_section_bundle'] = !empty($site_section) ? $site_section->bundle() : '';
 }
 
 /**
