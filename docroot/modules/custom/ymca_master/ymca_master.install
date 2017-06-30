@@ -4699,6 +4699,12 @@ function ymca_master_update_8213() {
  * [YPTF-264] Configure MindBody Cache Proxy settings.
  */
 function ymca_master_update_8215() {
+  // Change max_length for mindbody_cache name column.
+  \Drupal::service('mindbody_cache_proxy.manager')->resetCache();
+  $schema = Database::getConnection()->schema();
+  $spec = array('type' => 'varchar', 'length' => 512);
+  $schema->changeField('mindbody_cache', 'name', 'name', $spec);
+  drupal_flush_all_caches();
   $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
   $config->set('token', md5('wagabagadogo'));
   $config->set('primary', FALSE);
