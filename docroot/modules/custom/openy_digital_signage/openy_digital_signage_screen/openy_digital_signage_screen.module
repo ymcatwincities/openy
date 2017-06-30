@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_ENTITY_TYPE_build_defaults_alter().
@@ -55,6 +56,22 @@ function openy_digital_signage_screen_theme($existing, $type, $theme, $path) {
     'page__screen' => [
       'template' => 'pages/page--screen',
     ],
+    'screen_schedule_ui' => [
+      'variables' => [
+        'schedule' => '',
+        'data' => '',
+      ],
+      'template' => 'screen-schedule-ui',
+    ],
+    'screen_schedule_timeline' => [
+      'variables' => [
+        'screen' => NULL,
+        'schedule' => NULL,
+        'schedule_items' => [],
+        'fallback_item' => NULL,
+      ],
+      'template' => 'screen-schedule-timeline',
+    ],
   ];
 }
 
@@ -88,6 +105,10 @@ function openy_digital_signage_screen_preprocess_html(&$variables) {
   if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
     $variables['attributes']->addClass($classes);
   }
+
+  if ($route_name == 'entity.node.canonical' && $variables['node_type'] == 'screen_content') {
+    $variables['page_top']['toolbar']['#access'] = FALSE;
+  }
 }
 
 /**
@@ -109,4 +130,49 @@ function openy_digital_signage_screen_preprocess_page__screen(&$variables) {
  */
 function openy_digital_signage_screen_ds_version() {
   return '0.0.1';
+}
+
+function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$variables) {
+  $variables['hours'] = ['12am', '3am', '6am', '9am', '12pm', '3pm', '6pm', '9am', '12am'];
+
+  $schedule = $variables['schedule'];
+  foreach ($schedule as $item) {
+    $schedule_item = $item['item'];
+
+    $from_ts = strtotime($schedule_item->time_slot->value . 'z');
+    $to_ts = strtotime($schedule_item->time_slot->end_value . 'z');
+    $from_hours = date('H', $from_ts) + (date('i', $from_ts) / 60);
+    $to_hours = date('H', $to_ts) + (date('i', $to_ts) / 60);
+    $formatted_time = date('g:ia', $from_ts) . '–' . date('g:ia', $to_ts);
+
+    $schedule_items[$schedule_item->id()] = [
+      'from' => $from_hours,
+      'to' => $to_hours,
+      'type' => $schedule_item->show_date->value ? 'regular' : 'override',
+      'id' => $schedule_item->id(),
+      'title' => $schedule_item->label(),
+      'formatted_time' => $formatted_time,
+      'view_link' => Url::fromRoute('screen_schedule.view_schedule_item', [
+        'screen' => $variables['screen']->id(),
+        'schedule_item' => $schedule_item->id(),
+      ])->toString(),
+      'edit_link' => Url::fromRoute('screen_schedule.edit_schedule_item', ['schedule_item' => $schedule_item->id()])->toString(),
+    ];
+  }
+  $variables['add_link'] = Url::fromRoute('screen_schedule.add_schedule_item', ['screen' => $variables['screen']->id()])->toString();
+
+  $variables['schedule_items'] = $schedule_items;
+  $variables['screen_id'] = $variables['screen']->id();
+
+  $variables['current_time'] = date('H', $_SERVER['REQUEST_TIME']) + (date('i', $_SERVER['REQUEST_TIME']) / 60);
+
+  // TODO: Fallback content might be empty.
+  $variables['fallback_item'] = [
+    'title' => t('Fallback content'),
+    'id' => $variables['screen']->fallback_content->entity->id(),
+    'view_link' => Url::fromRoute('screen_schedule.view_screen_content', [
+      'screen' => $variables['screen']->id(),
+      'screen_content' => $variables['screen']->fallback_content->entity->id(),
+    ])->toString(),
+  ];
 }
