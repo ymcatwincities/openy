@@ -16,6 +16,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\views\ViewExecutable;
 
 /**
  * Implements hook_help().
@@ -491,5 +492,39 @@ function ymca_alters_system_breadcrumb_alter(Breadcrumb &$breadcrumb, RouteMatch
 function ymca_alters_block_build_alter(array &$build, BlockPluginInterface $block) {
   if (preg_match('/childcare_payment_history/', \Drupal::request()->getPathInfo()) && $block->getPluginId() == 'system_breadcrumb_block') {
     $build['#cache']['max-age'] = 0;
+  }
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function ymca_alters_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+  if ($view->id() == 'staff_mapping' && $display_id === 'page_1') {
+    $url = Url::fromRoute('entity.mapping.add_form', ['mapping_type' => 'staff']);
+    $staff_link = Link::fromTextAndUrl(t('Add Staff'), $url);
+    $staff_link = $staff_link->toRenderable();
+    $staff_link['#attributes'] = [
+      'class' => [
+        'button',
+        'button-action',
+        'button--primary',
+        'button--small',
+      ],
+    ];
+    $staff_link = render($staff_link);
+
+    $options = [
+      'id' => 'area_text_custom',
+      'table' => 'views',
+      'field' => 'area_text_custom',
+      'relationship' => 'none',
+      'group_type' => 'none',
+      'admin_label' => '',
+      'empty' => TRUE,
+      'tokenize' => FALSE,
+      'content' => $staff_link,
+      'plugin_id' => 'text_custom',
+    ];
+    $view->setHandler('page_1', 'header', 'area_text_custom', $options);
   }
 }
