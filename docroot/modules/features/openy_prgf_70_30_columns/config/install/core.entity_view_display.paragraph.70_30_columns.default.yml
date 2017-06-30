@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.70_30_columns.field_prgf_70_30_left
+    - field.field.paragraph.70_30_columns.field_prgf_70_30_right
+    - paragraphs.paragraphs_type.70_30_columns
+id: paragraph.70_30_columns.default
+targetEntityType: paragraph
+bundle: 70_30_columns
+mode: default
+content:
+  field_prgf_70_30_left:
+    weight: 0
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_prgf_70_30_right:
+    weight: 1
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden:
+  created: true
+  uid: true

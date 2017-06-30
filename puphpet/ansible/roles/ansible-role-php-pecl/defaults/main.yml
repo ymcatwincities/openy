@@ -1,5 +1,0 @@
----
-# Add extensions to this list to have them installed with this role.
-php_pecl_extensions:
-  - eio
-  - event
