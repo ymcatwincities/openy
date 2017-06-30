@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Defines \Drupal\ymca_retention\Plugin\Block\PrizesInfo.
+ */
+
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
@@ -51,18 +56,6 @@ class PrizesInfo extends BlockBase {
     }
 
     return $config;
-    // return [
-    //   'header' => [
-    //     'value' => 'Get 4 Guest Passes',
-    //     'format' => 'full_html',
-    //   ],
-    //   'sub_header' => [
-    //     'value' => 'Track You Activities',
-    //     'format' => 'full_html',
-    //   ],
-    //   // 'slogan' => 'Participate to win',
-    //   // 'show_picture' => TRUE,
-    // ];
   }
 
   /**
@@ -72,7 +65,6 @@ class PrizesInfo extends BlockBase {
     $form = parent::blockForm($form, $form_state);
 
     $config = $this->getConfiguration();
-// ksm($config);
 
     $form['header'] = [
       '#type' => 'text_format',
