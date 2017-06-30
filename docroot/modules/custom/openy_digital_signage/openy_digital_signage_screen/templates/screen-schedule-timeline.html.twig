@@ -1,0 +1,45 @@
+<div class="screen-schedule-timeline">
+
+  <div class="screen-schedule-timeline__current-time" data-current-time="{{ current_time }}"></div>
+
+  <div class="screen-schedule-timeline__hours">
+    {% for hour in hours %}
+      <div class="screen-schedule-timeline-hour {{ loop.last ? 'screen-schedule-timeline-hour--last' }}">
+        {{ hour }}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="screen-schedule-timeline__schedule-items">
+
+    <div class="screen-schedule-item screen-schedule-item--fallback">
+      <a href="{{ fallback_item.view_link }}" class="use-ajax">
+        <div class="screen-schedule-item__title">Fallback content</div>
+      </a>
+      <div class="screen-schedule-item__time"></div>
+    </div>
+
+    {% for schedule_item in schedule_items %}
+      <div class="screen-schedule-item screen-schedule-item--{{ schedule_item.type }}"
+         data-from="{{ schedule_item.from }}"
+         data-to="{{ schedule_item.to }}">
+        <a href="{{ schedule_item.view_link }}" class="use-ajax"><!--
+          --><span class="screen-schedule-item__title">{{ schedule_item.title }}</span><!--
+        --></a>
+
+        <span class="screen-schedule-item__time">{{ schedule_item.formatted_time }}</span>
+        <a href="{{ schedule_item.edit_link }}" class="use-ajax screen-schedule-item__edit-link">
+          Edit
+        </a>
+      </div>
+    {% endfor %}
+
+    <a href="{{ add_link }}" class="screen-schedule-new-item use-ajax">
+      Add new
+    </a>
+
+  </div>
+
+</div>
+
+<a href="/ajax/screen-schedule/redraw-timeline/{{ screen_id }}" class="use-ajax timeline-redraw-link">redraw</a>

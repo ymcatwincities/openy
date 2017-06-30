@@ -286,8 +286,7 @@ table {
   -moz-osx-font-smoothing: grayscale; }
 
 .ds-icon-Y_letter:before {
-  content: "\e900";
-  color: #fff; }
+  content: "\e900"; }
 
 .ds-icon-flag_football:before {
   content: "\e901"; }
@@ -1003,6 +1002,8 @@ body.node--type-screen-content {
   width: 5.625vw; }
   .openy-digital-signage-block-static-ticker__icon .ds-icon {
     line-height: 5.625vw; }
+    .openy-digital-signage-block-static-ticker__icon .ds-icon.ds-icon-Y_letter:before {
+      color: #fff; }
 
 .openy-digital-signage-block-static-ticker__message {
   font-family: "Cachet", Arial, sans-serif;
