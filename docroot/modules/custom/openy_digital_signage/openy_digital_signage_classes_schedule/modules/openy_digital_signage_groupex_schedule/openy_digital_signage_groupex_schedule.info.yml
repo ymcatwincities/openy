@@ -1,0 +1,7 @@
+name: OpenY Digital Signage GroupEx Pro Classes Schedule
+type: module
+description: OpenY Digital Signage GroupEx Pro Classes Schedule.
+core: 8.x
+package: "OpenY: Digital Signage"
+dependencies:
+
