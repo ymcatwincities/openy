@@ -4755,6 +4755,9 @@ html.js .branch__updates_queue__button {
   color: #5c2e91;
   font-size: 18px;
   margin-bottom: 10px;
+  margin-top: 0;
+  line-height: inherit;
+  font-weight: normal;
 }
 @media (min-width: 48em) {
   #schedules-search-listing-wrapper .results .group_time {
