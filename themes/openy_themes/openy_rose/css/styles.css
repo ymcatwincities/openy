@@ -212,7 +212,6 @@ body {
   font-size: 20px;
   text-transform: uppercase;
   line-height: 22px;
-  text-decoration: none;
 }
 .footer .footer__nav nav ul li ul {
   padding-top: 5px;
@@ -868,10 +867,6 @@ body {
     padding-right: 15px;
   }
 }
-.viewport .page-head__main-menu .nav-level-2 > a:hover,
-.viewport .page-head__main-menu .nav-level-2 > a:focus {
-  text-decoration: none;
-}
 .viewport .page-head__main-menu .dropdown-menu > li > a:focus,
 .viewport .page-head__main-menu .dropdown-menu > li > a:hover {
   background: none;
@@ -1000,6 +995,10 @@ body {
 }
 .page-head__main-menu .nav-level-2.open .fa-caret-down {
   display: none;
+}
+
+.nav > li > a:hover {
+  text-decoration: underline;
 }
 
 ::-webkit-input-placeholder {
@@ -1642,6 +1641,9 @@ body {
 .story-card .link {
   font-size: 15px;
   color: #0089d0;
+}
+.story-card .link:hover {
+  text-decoration: underline;
 }
 
 .promo-card .description {
@@ -5477,7 +5479,6 @@ a[href="#step2"] {
   color: #fff;
   display: block;
   font-size: 14px;
-  text-decoration: none;
 }
 @media (min-width: 48em) {
   .camp-menu__item a {
