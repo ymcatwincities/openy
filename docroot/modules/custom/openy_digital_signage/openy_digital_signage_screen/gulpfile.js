@@ -28,6 +28,7 @@ var path = {
     src : {
         style           : [
             'scss/screen.scss',
+            'scss/screen-schedule.scss',
             'scss/openy-digital-signage-screen.scss',
         ],
     },
