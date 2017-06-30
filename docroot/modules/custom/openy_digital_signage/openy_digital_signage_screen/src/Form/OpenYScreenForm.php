@@ -16,7 +16,6 @@ class OpenYScreenForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    /* @var $entity \Drupal\openy_digital_signage_screen\Entity\OpenYScreen */
     $form = parent::buildForm($form, $form_state);
 
     return $form;
