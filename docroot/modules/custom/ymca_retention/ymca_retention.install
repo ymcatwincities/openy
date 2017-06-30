@@ -545,3 +545,23 @@ function ymca_retention_update_8029() {
   $importer->setDirectory($path);
   $importer->importConfigs($files);
 }
+
+/**
+ * Updating settings and panel pages.
+ */
+function ymca_retention_update_8030() {
+  $path = 'sites/default/config/staging/';
+  $files = [
+    'ymca_retention.copy_settings',
+    'ymca_retention.general_settings',
+    'page_manager.page.ymca_retention_challenge',
+    'page_manager.page.ymca_retention_challenge_pages',
+    'page_manager.page_variant.ymca_retention_challenge',
+    'page_manager.page_variant.ymca_retention_challenge_default',
+    'page_manager.page_variant.ymca_retention_challenge_team',
+    'page_manager.page_variant.ymca_retention_challenge_upcoming',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory($path);
+  $importer->importConfigs($files);
+}
