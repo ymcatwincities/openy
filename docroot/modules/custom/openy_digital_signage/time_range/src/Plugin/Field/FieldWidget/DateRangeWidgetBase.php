@@ -23,7 +23,7 @@ class DateRangeWidgetBase extends DateTimeWidgetBase {
     $element['value']['#title'] = $this->t('Start');
 
     $element['end_value'] = [
-       '#title' => $this->t('End'),
+      '#title' => $this->t('End'),
     ] + $element['value'];
 
     if ($items[$delta]->start_date) {
