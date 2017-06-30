@@ -209,4 +209,33 @@
     }
   };
 
+  /**
+   * Add focus for first loaded element.
+   */
+  Drupal.behaviors.load_more_focus = {
+    attach: function (context, settings) {
+      $('.views-element-container .load_more_button .button', context).click(function () {
+        var $viewsRow = $('.views-element-container .views-row'),
+          indexLastRow = $viewsRow.length,
+          getElement,
+          itemFocus;
+        if (Drupal.views !== undefined) {
+          $.each(Drupal.views.instances, function (i, view) {
+            if (view.settings.view_name.length != 0) {
+              $(document).ajaxComplete(function (event, xhr, settings) {
+                getElement = $('.views-element-container .views-row');
+                itemFocus = getElement[indexLastRow];
+                // Add focus to element.
+                $(itemFocus).find('h3 a').focus();
+                // Update number indexLastRow.
+                $viewsRow = $('.views-element-container .views-row');
+                indexLastRow = $viewsRow.length;
+              });
+            }
+          });
+        }
+      });
+    }
+  };
+
 })(jQuery);
