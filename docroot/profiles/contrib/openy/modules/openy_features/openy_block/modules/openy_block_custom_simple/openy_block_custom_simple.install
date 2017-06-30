@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * OpenY Custom Simple Block install file.
+ */
+
+/**
+ * Set trim_length to 255 for Simple block body.
+ */
+function openy_block_custom_simple_update_8001() {
+  $config = drupal_get_path('module', 'openy_block_custom_simple') . '/config/install/core.entity_view_display.block_content.simple_block.trimmed.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'core.entity_view_display.block_content.simple_block.trimmed', 'content.field_sb_body.settings.trim_length');
+}
