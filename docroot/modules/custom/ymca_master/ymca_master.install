@@ -4659,6 +4659,7 @@ function ymca_master_update_8210() {
   }
 }
 
+
 /**
  * Update personify old link by new links in configs.
  */
@@ -4695,17 +4696,6 @@ function ymca_master_update_8213() {
 }
 
 /**
- * Enable openy_node_langing, openy_media module.
- */
-function ymca_master_update_8214() {
-  $modules = [
-    'openy_prgf_simple_content',
-    'openy_node_landing',
-  ];
-  \Drupal::service('module_installer')->install($modules, TRUE);
-}
-
-/**
  * [YPTF-264] Configure MindBody Cache Proxy settings.
  */
 function ymca_master_update_8215() {
@@ -4724,8 +4714,78 @@ function ymca_master_update_8215() {
 }
 
 /**
- * Enable openy_digital_signage module.
+ * Enable openy_node_langing module.
  */
 function ymca_master_update_8216() {
-  \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
+  $modules = [
+    'openy_prgf_simple_content',
+    'openy_node_landing',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Enable openy_prgf_2c.
+ */
+function ymca_master_update_8217() {
+  $modules = [
+    'openy_block',
+    'openy_block_custom_simple',
+    'openy_prgf_2c'
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable openy_media.
+ */
+function ymca_master_update_8218() {
+  $modules = [
+    'openy_media_image',
+    'openy_media_document',
+    'openy_media_video',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable new paragraphs for landing page.
+ */
+function ymca_master_update_8219() {
+  $modules = [
+    'openy_prgf_70_30_columns',
+    'openy_prgf_small_banner',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable features module.
+ */
+function ymca_master_update_8220() {
+  $modules = [
+    'features',
+    'features_ui',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable lndr_drupal8 module.
+ */
+function ymca_master_update_8221() {
+  $modules = [
+    'lndr',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
 }
