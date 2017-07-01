@@ -250,7 +250,7 @@ display:
           empty: true
           tokenize: false
           content:
-            value: 'We are sorry, but no content available'
+            value: '<h3 class="no-results"> We are sorry, but no content available</h3>'
             format: full_html
           plugin_id: text 
       relationships: {  }
