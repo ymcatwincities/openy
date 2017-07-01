@@ -90,6 +90,7 @@ class ThirdPartyServicesForm extends FormBase {
     $form['recaptcha']['recaptcha_site_key'] = [
       '#default_value' => $recaptcha_config->get('site_key'),
       '#description' => $this->t('The site key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
+      '#placeholder' => '6LeQMCcUAAAAAL48HBex3MbH8UTazAH4Vr7cAHEz',
       '#maxlength' => 40,
       '#title' => $this->t('Site key'),
       '#type' => 'textfield',
@@ -99,6 +100,7 @@ class ThirdPartyServicesForm extends FormBase {
       '#default_value' => $recaptcha_config->get('secret_key'),
       '#description' => $this->t('The secret key given to you when you <a href=":url" target="_blank">register for reCAPTCHA</a>.', [':url' => 'http://www.google.com/recaptcha/admin']),
       '#maxlength' => 40,
+      '#placeholder' => '6LeQMCcUAAAAAPHA6nB1Z0GLpPV8DqrIHzzaSEe6',
       '#title' => $this->t('Secret key'),
       '#type' => 'textfield',
     ];
