@@ -8,6 +8,7 @@ Facility content type is used for adding facilities on the site.
 | Neighborhood | field\_location_area  | No | A taxonomy reference field using the Area Vocabulary(area). |
 | Type | field\_facility_type  | No | A taxonomy reference field using the "Facility Type" vocabulary. |
 | Facility Branch | field\_facility_loc | No | A entity reference field to reference the related Branch node. |
+| Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Contact** | Field group |||
 | Address | field\_location_address | Yes | An address field that will provide the ability to add details about the locations. Details to be completed: <ul><li>Address</li><li>City</li><li>State</li><li>Zip Code</li></ul> |
 | Facility Coordinates | field_location_coordinates | No | Input for providing the latitude and longitude information. |
