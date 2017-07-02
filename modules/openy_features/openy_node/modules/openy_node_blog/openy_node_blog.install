@@ -142,3 +142,18 @@ function openy_node_blog_update_8004() {
     }
   }
 }
+
+/**
+ * Update description for field meta tags.
+ */
+function openy_node_blog_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_blog');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.blog.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.blog.field_meta_tags',
+    'description'
+  );
+}
