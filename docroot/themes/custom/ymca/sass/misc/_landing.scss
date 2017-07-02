@@ -1,0 +1,11 @@
+@import 'breakpoint';
+@import '../bootstrap/variables';
+@import 'global/colors';
+article.node--type-landing-page {
+  background-color: $grey22;
+}
+.paragraph-70-30-columns {
+  &.lead-copy {
+    background: $grey12;
+  }
+}
