@@ -1,7 +1,0 @@
-dropzonejs.settings:
-  type: config_object
-  label: 'DropzoneJS settings'
-  mapping:
-    tmp_dir:
-      type: string
-      label: 'Temporary directory location'
