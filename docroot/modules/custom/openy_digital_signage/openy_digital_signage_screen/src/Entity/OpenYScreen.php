@@ -23,7 +23,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *
  *     "form" = {
  *       "default" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenForm",
- *       "add" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenForm",
+ *       "add" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenAddForm",
  *       "edit" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenForm",
  *       "delete" = "Drupal\openy_digital_signage_screen\Form\OpenYScreenDeleteForm",
  *     },
@@ -33,7 +33,6 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     },
  *   },
  *   base_table = "openy_digital_signage_screen",
- *   data_table = "openy_digital_signage_screen_field_data",
  *   admin_permission = "administer OpenY Digital Signage Screen entities",
  *   entity_keys = {
  *     "id" = "id",
