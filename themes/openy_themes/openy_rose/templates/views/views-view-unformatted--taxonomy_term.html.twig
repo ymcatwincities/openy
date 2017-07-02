@@ -23,11 +23,11 @@
       <h3>{{ title }}</h3>
     {% endif %}
 
-    {% if empty is not empty %}
-        {{ empty }}
-    {% endif %}
-
     <div class="main-region col-sm-12">
+      {% if empty is not empty %}
+        {{ empty }}
+      {% endif %}
+
       {% for row in rows %}
         {%
           set row_classes = [
@@ -44,3 +44,4 @@
       {% endfor %}
     </div>
   </div>
+</div>
