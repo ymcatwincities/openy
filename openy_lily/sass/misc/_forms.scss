@@ -387,7 +387,7 @@ legend {
 }
 
 .calc-block-form {
-  
+
   .ajax-progress {
     position: static;
     margin-top: 30px;
@@ -405,7 +405,7 @@ legend {
   [data-drupal-selector="edit-type"] {
     .js-webform-radios .js-form-item {
       @include breakpoint (0 $tablet) {
-        margin: 0 20px 20px 20px;
+        margin: 0 20px 10px 20px;
       }
       label {
         padding-bottom: 20px;

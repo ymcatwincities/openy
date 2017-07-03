@@ -1107,7 +1107,7 @@ legend {
 
 @media (min-width: 0) and (max-width: 48em) {
   #membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item {
-    margin: 0 20px 20px 20px;
+    margin: 0 20px 10px 20px;
   }
 }
 #membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item label {
@@ -1602,7 +1602,7 @@ article.site-alert ul li div {
 }
 #membership-calc-wrapper .js-webform-radios .js-form-item {
   padding: 0;
-  margin: 0 0 20px 30px;
+  margin: 0 0 10px 30px;
 }
 #membership-calc-wrapper .js-webform-radios .js-form-item label {
   font-weight: bold;
