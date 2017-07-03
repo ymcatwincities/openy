@@ -22,6 +22,7 @@ Installer path will look like this:
     ```
     "installer-paths": {
         "core": ["type:drupal-core"],
+        "libraries/{$name}": ["type:drupal-library"],
         "modules/contrib/{$name}": ["type:drupal-module"],
         "profiles/contrib/{$name}": ["type:drupal-profile"],
         "themes/contrib/{$name}": ["type:drupal-theme"],
