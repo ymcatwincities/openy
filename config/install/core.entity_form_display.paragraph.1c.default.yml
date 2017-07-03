@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.1c.field_prfg_display_line_above
     - field.field.paragraph.1c.field_prgf_1c_column
     - field.field.paragraph.1c.field_prgf_1c_description
     - field.field.paragraph.1c.field_prgf_1c_title
@@ -16,8 +17,15 @@ targetEntityType: paragraph
 bundle: 1c
 mode: default
 content:
+  field_prfg_display_line_above:
+    weight: 1
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
   field_prgf_1c_column:
-    weight: 2
+    weight: 3
     settings:
       form_mode: default
       label_singular: ''
@@ -30,13 +38,15 @@ content:
       entity_browser_entity_form:
         entity_browser_id: _none
     type: inline_entity_form_complex
+    region: content
   field_prgf_1c_description:
-    weight: 1
+    weight: 2
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_prgf_1c_title:
     weight: 0
     settings:
@@ -44,6 +54,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   status: true
