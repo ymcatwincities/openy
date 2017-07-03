@@ -952,6 +952,12 @@ legend {
   display: table;
   clear: both;
 }
+.openy-ccc-registration-form [data-drupal-selector="edit-branch"] {
+  width: 100% !important;
+}
+.openy-ccc-registration-form [data-drupal-selector="edit-branch"] .fieldset-wrapper legend {
+  display: none;
+}
 
 [data-drupal-selector="edit-actions"] {
   position: relative;

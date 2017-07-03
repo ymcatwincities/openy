@@ -233,6 +233,14 @@ legend {
     @include clearfix;
     margin: 0 -10px;
   }
+  [data-drupal-selector="edit-branch"] {
+    width: 100% !important;
+    .fieldset-wrapper {
+      legend {
+        display: none;
+      }
+    }
+  }
 }
 
 [data-drupal-selector="edit-actions"] {
