@@ -948,8 +948,8 @@ html.js {
     &+.node__content {
       margin: 33px 0 0;
     }
-    &+.field-location-area,
-    &+.field-location-state {
+    &~.field-location-area,
+    &~.field-location-state {
       margin: 20px 0 33px;
     }
   }
