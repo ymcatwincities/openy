@@ -14,6 +14,11 @@ entity.openy_digital_signage_screen.edit_form:
   base_route: entity.openy_digital_signage_screen.canonical
   title: 'Edit'
 
+entity.openy_digital_signage_screen.schedule:
+  route_name: entity.openy_digital_signage_screen.schedule
+  base_route: entity.openy_digital_signage_screen.canonical
+  title: 'Schedule'
+
 entity.openy_digital_signage_screen.delete_form:
   route_name:  entity.openy_digital_signage_screen.delete_form
   base_route:  entity.openy_digital_signage_screen.canonical

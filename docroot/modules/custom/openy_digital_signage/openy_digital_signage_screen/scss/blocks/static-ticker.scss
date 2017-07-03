@@ -20,6 +20,10 @@
 
   .ds-icon {
     line-height: 5.625vw;
+
+    &.ds-icon-Y_letter:before {
+      color: $white;
+    }
   }
 }
 

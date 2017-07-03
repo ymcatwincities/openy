@@ -1,0 +1,58 @@
+screen_schedule.add_schedule_item:
+  path: '/ajax/screen-schedule/add-schedule-item/{screen}'
+  defaults:
+    _controller: '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::addScheduleItem'
+  options:
+    parameters:
+      screen:
+        type: entity:openy_digital_signage_screen
+  requirements:
+    _permission: 'access administration pages'
+
+screen_schedule.edit_schedule_item:
+  path: '/ajax/screen-schedule/edit-schedule-item/{schedule_item}'
+  defaults:
+    _controller: '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::editScheduleItem'
+  options:
+    parameters:
+      schedule_item:
+        type: entity:openy_digital_signage_sch_item
+  requirements:
+    _permission: 'access administration pages'
+
+screen_schedule.view_schedule_item:
+  path: '/ajax/screen-schedule/view-schedule-item/{screen}/{schedule_item}'
+  defaults:
+    _controller: '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::viewScheduleItem'
+  options:
+    parameters:
+      screen:
+        type: entity:openy_digital_signage_screen
+      schedule_item:
+        type: entity:openy_digital_signage_sch_item
+  requirements:
+    _permission: 'access administration pages'
+
+screen_schedule.view_screen_content:
+  path: '/ajax/screen-schedule/view-screen-content/{screen}/{screen_content}'
+  defaults:
+    _controller: '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::viewScreenContent'
+  options:
+    parameters:
+      screen:
+        type: entity:openy_digital_signage_screen
+      screen_content:
+        type: entity:node
+  requirements:
+    _permission: 'access administration pages'
+
+screen_schedule.redraw_screen_schedule_timeline:
+  path: '/ajax/screen-schedule/redraw-timeline/{screen}'
+  defaults:
+    _controller: '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::redrawTimeline'
+  options:
+    parameters:
+      screen:
+        type: entity:openy_digital_signage_screen
+  requirements:
+    _permission: 'access administration pages'
