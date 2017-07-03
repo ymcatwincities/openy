@@ -1,11 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\captcha\Tests\CaptchaTestCase.
- */
-
 namespace Drupal\captcha\Tests;
+
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 
 /**
  * Tests CAPTCHA main test case sensitivity.
@@ -33,7 +32,9 @@ class CaptchaTestCase extends CaptchaBaseWebTestCase {
 
     // Set a CAPTCHA on login form.
     /* @var \Drupal\captcha\Entity\CaptchaPoint $captcha_point */
-    $captcha_point = \Drupal::entityManager()->getStorage('captcha_point')->load('user_login_form');
+    $captcha_point = \Drupal::entityTypeManager()
+      ->getStorage('captcha_point')
+      ->load('user_login_form');
     $captcha_point->setCaptchaType('captcha/Math');
     $captcha_point->enable()->save();
 
@@ -42,12 +43,12 @@ class CaptchaTestCase extends CaptchaBaseWebTestCase {
     $this->assertCaptchaPresence(TRUE);
 
     // Try to log in, which should fail.
-    $edit = array(
+    $edit = [
       'name' => $user->getUsername(),
       'pass' => $user->pass_raw,
       'captcha_response' => '?',
-    );
-    $this->drupalPostForm(NULL, $edit, t('Log in'), array(), array(), self::LOGIN_HTML_FORM_ID);
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Log in'), [], [], self::LOGIN_HTML_FORM_ID);
     // Check for error message.
     $this->assertText(self::CAPTCHA_WRONG_RESPONSE_ERROR_MESSAGE, 'CAPTCHA should block user login form', 'CAPTCHA');
 
@@ -75,7 +76,8 @@ class CaptchaTestCase extends CaptchaBaseWebTestCase {
    */
   protected function assertCommentPosting($captcha_response, $should_pass, $message) {
     // Make sure comments on pages can be saved directly without preview.
-    $this->container->get('state')->set('comment_preview_page', DRUPAL_OPTIONAL);
+    $this->container->get('state')
+      ->set('comment_preview_page', DRUPAL_OPTIONAL);
 
     // Create a node with comments enabled.
     $node = $this->drupalCreateNode();
@@ -85,7 +87,7 @@ class CaptchaTestCase extends CaptchaBaseWebTestCase {
     $comment_subject = $edit['subject[0][value]'];
     $comment_body = $edit['comment_body[0][value]'];
     $edit['captcha_response'] = $captcha_response;
-    $this->drupalPostForm('comment/reply/node/' . $node->id() . '/comment', $edit, t('Save'), array(), array(), 'comment-form');
+    $this->drupalPostForm('comment/reply/node/' . $node->id() . '/comment', $edit, t('Save'), [], [], 'comment-form');
 
     if ($should_pass) {
       // There should be no error message.
@@ -193,12 +195,14 @@ class CaptchaTestCase extends CaptchaBaseWebTestCase {
   public function testCaptchaOnLoginBlockOnAdminPagesIssue893810() {
     // Set a CAPTCHA on login block form.
     /* @var \Drupal\captcha\Entity\CaptchaPoint $captcha_point */
-    $captcha_point = \Drupal::entityManager()->getStorage('captcha_point')->load('user_login_form');
+    $captcha_point = \Drupal::entityTypeManager()
+      ->getStorage('captcha_point')
+      ->load('user_login_form');
     $captcha_point->setCaptchaType('captcha/Math');
     $captcha_point->enable()->save();
 
     // Enable the user login block.
-    $this->drupalPlaceBlock('user_login_block', array('id' => 'login'));
+    $this->drupalPlaceBlock('user_login_block', ['id' => 'login']);
 
     // Check if there is a CAPTCHA on home page.
     $this->drupalGet('');
@@ -207,6 +211,52 @@ class CaptchaTestCase extends CaptchaBaseWebTestCase {
     // Check there is a CAPTCHA on "forbidden" admin pages.
     $this->drupalGet('admin');
     $this->assertCaptchaPresence(TRUE);
+  }
+
+  /**
+   * Tests that the CAPTCHA is not changed on AJAX form rebuilds.
+   */
+  public function testAjaxFormRebuild() {
+    // Setup captcha point for user edit form.
+    \Drupal::entityManager()->getStorage('captcha_point')->create([
+      'id' => 'user_form',
+      'formId' => 'user_form',
+      'status' => TRUE,
+      'captchaType' => 'captcha/Math',
+    ])->save();
+
+    // Add multiple text field on user edit form.
+    $field_storage_config = FieldStorageConfig::create([
+      'field_name' => 'field_texts',
+      'type' => 'string',
+      'entity_type' => 'user',
+      'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
+    ]);
+    $field_storage_config->save();
+    FieldConfig::create([
+      'field_storage' => $field_storage_config,
+      'bundle' => 'user',
+    ])->save();
+    entity_get_form_display('user', 'user', 'default')
+      ->setComponent('field_texts', [
+        'type' => 'string_textfield',
+        'weight' => 10,
+      ])
+      ->save();
+
+    // Create and login a user.
+    $user = $this->drupalCreateUser([]);
+    $this->drupalLogin($user);
+
+    // On edit form, add another item and save.
+    $this->drupalGet("user/{$user->id()}/edit");
+    $this->drupalPostAjaxForm(NULL, [], 'field_texts_add_more');
+    $this->drupalPostForm(NULL, [
+      'captcha_response' => $this->getMathCaptchaSolutionFromForm('user-form'),
+    ], t('Save'));
+
+    // No error.
+    $this->assertText(t('The changes have been saved.'));
   }
 
 }

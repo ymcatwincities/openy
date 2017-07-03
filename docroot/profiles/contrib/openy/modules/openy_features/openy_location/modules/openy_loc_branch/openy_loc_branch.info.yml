@@ -1,0 +1,28 @@
+name: 'OpenY Branch'
+description: 'OpenY Branch'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - entity_reference_revisions
+  - field
+  - field_group
+  - geolocation
+  - link
+  - menu_ui
+  - metatag
+  - node
+  - openy_field_custom_hours
+  - openy_hours_formatter
+  - openy_location
+  - openy_node
+  - openy_node_mbrshp
+  - openy_prgf
+  - options
+  - paragraphs
+  - path
+  - pathauto
+  - rabbit_hole
+  - telephone
+  - user
+version: 8.x-1.3

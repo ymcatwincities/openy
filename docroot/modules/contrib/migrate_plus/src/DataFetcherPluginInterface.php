@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\DataFetcherPluginInterface.
- */
-
 namespace Drupal\migrate_plus;
 
 /**

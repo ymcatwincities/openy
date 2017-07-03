@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\ContextMapperInterface.
+ */
+
 namespace Drupal\ctools;
 
 /**

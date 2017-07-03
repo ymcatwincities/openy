@@ -30,13 +30,15 @@ function _captcha_available_challenge_types($add_special_options = TRUE) {
     $result = call_user_func_array($module . '_captcha', ['list']);
     if (is_array($result)) {
       foreach ($result as $type) {
-        $captcha_types["$module/$type"] = t('@type (from module @module)', ['@type' => $type, '@module' => $module]);
+        $captcha_types["$module/$type"] = t('@type (from module @module)', [
+          '@type' => $type,
+          '@module' => $module,
+        ]);
       }
     }
   }
   return $captcha_types;
 }
-
 
 /**
  * Helper function for generating an example challenge.

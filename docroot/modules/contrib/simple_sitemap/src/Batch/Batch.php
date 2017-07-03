@@ -11,9 +11,17 @@ class Batch {
 
   use StringTranslationTrait;
 
-  private $batch;
-  private $batchInfo;
+  /**
+   * @var array
+   */
+  protected $batch;
 
+  /**
+   * @var array
+   */
+  protected $batchInfo;
+
+  const BATCH_TITLE = 'Generating XML sitemap';
   const BATCH_INIT_MESSAGE = 'Initializing batch...';
   const BATCH_ERROR_MESSAGE = 'An error has occurred. This may result in an incomplete XML sitemap.';
   const BATCH_PROGRESS_MESSAGE = 'Processing @current out of @total link types.';
@@ -23,7 +31,7 @@ class Batch {
    */
   public function __construct() {
     $this->batch = [
-      'title' => $this->t('Generating XML sitemap'),
+      'title' => $this->t(self::BATCH_TITLE),
       'init_message' => $this->t(self::BATCH_INIT_MESSAGE),
       'error_message' => $this->t(self::BATCH_ERROR_MESSAGE),
       'progress_message' => $this->t(self::BATCH_PROGRESS_MESSAGE),
@@ -34,9 +42,9 @@ class Batch {
   }
 
   /**
-   * @param $batch_info
+   * @param array $batch_info
    */
-  public function setBatchInfo($batch_info) {
+  public function setBatchInfo(array $batch_info) {
     $this->batchInfo = $batch_info;
   }
 
@@ -72,7 +80,7 @@ class Batch {
       case 'nobatch':
         // Call each batch operation the way the Drupal batch API would do, but
         // within one process (so in fact not using batch API here, just
-        // mimicking it to avoid code duplication.
+        // mimicking it to avoid code duplication).
         $context = [];
         foreach ($this->batch['operations'] as $i => $operation) {
           $operation[1][] = &$context;
@@ -89,7 +97,7 @@ class Batch {
    * @param string $processing_method
    * @param array $data
    */
-  public function addOperation($processing_method, $data) {
+  public function addOperation($processing_method, array $data) {
     $this->batch['operations'][] = [
       __CLASS__ . '::' . $processing_method, [$data, $this->batchInfo],
     ];
@@ -101,8 +109,10 @@ class Batch {
    * @param array $entity_info
    * @param array $batch_info
    * @param array &$context
+   *
+   * @see https://api.drupal.org/api/drupal/core!includes!form.inc/group/batch/8
    */
-  public static function generateBundleUrls($entity_info, $batch_info, &$context) {
+  public static function generateBundleUrls(array $entity_info, array $batch_info, &$context) {
     \Drupal::service('simple_sitemap.batch_url_generator')
       ->setContext($context)
       ->setBatchInfo($batch_info)
@@ -110,7 +120,7 @@ class Batch {
   }
 
   /**
-   * Batch function which generates urls to custom paths.
+   * Batch callback function which generates urls to custom paths.
    *
    * @param array $custom_paths
    * @param array $batch_info
@@ -118,7 +128,7 @@ class Batch {
    *
    * @see https://api.drupal.org/api/drupal/core!includes!form.inc/group/batch/8
    */
-  public static function generateCustomUrls($custom_paths, $batch_info, &$context) {
+  public static function generateCustomUrls(array $custom_paths, array $batch_info, &$context) {
     \Drupal::service('simple_sitemap.batch_url_generator')
       ->setContext($context)
       ->setBatchInfo($batch_info)

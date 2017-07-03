@@ -1,0 +1,13 @@
+views.pager.infinite_scroll:
+  type: views_pager_sql
+  label: 'Infinite Scroll Pager'
+  mapping:
+    views_infinite_scroll:
+      type: mapping
+      mapping:
+        button_text:
+          type: label
+          label: 'Button Text'
+        automatically_load_content:
+          type: boolean
+          label: 'Automatically Load Content'

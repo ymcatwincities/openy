@@ -1,6 +1,0 @@
-embed_test.preview_editor:
-  path: '/embed-test/access/{editor}/{embed_button}'
-  defaults:
-    _controller: '\Drupal\embed\Controller\EmbedController::previewEditor'
-  requirements:
-    _embed_button_editor_access: 'TRUE'

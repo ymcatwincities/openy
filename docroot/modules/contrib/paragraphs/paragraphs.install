@@ -1,0 +1,167 @@
+<?php
+/**
+ * @file
+ * Installation hooks for paragraphs module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\paragraphs\ParagraphStorageSchema;
+
+/**
+ * Add status field.
+ */
+function paragraphs_update_8001() {
+  $storage_definition = BaseFieldDefinition::create('boolean')
+    ->setLabel(t('Published'))
+    ->setRevisionable(TRUE)
+    ->setTranslatable(TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('status', 'paragraph', 'paragraph', $storage_definition);
+}
+
+/**
+ * Add parent ID, parent type and parent field name fields.
+ */
+function paragraphs_update_8002() {
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Parent ID'))
+    ->setDescription(t('The ID of the parent entity of which this entity is referenced.'))
+    ->setSetting('is_ascii', TRUE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('parent_id', 'paragraph', 'paragraph', $storage_definition);
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Parent type'))
+    ->setDescription(t('The entity parent type to which this entity is referenced.'))
+    ->setSetting('is_ascii', TRUE)
+    ->setSetting('max_length', EntityTypeInterface::ID_MAX_LENGTH);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('parent_type', 'paragraph', 'paragraph', $storage_definition);
+
+  $storage_definition = BaseFieldDefinition::create('string')
+    ->setLabel(t('Parent field name'))
+    ->setDescription(t('The entity parent field name to which this entity is referenced.'))
+    ->setSetting('is_ascii', TRUE)
+    ->setSetting('max_length', FieldStorageConfig::NAME_MAX_LENGTH);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('parent_field_name', 'paragraph', 'paragraph', $storage_definition);
+}
+
+/**
+ * Placeholder for the previous 8003 update.
+ */
+function paragraphs_update_8003() {
+  // The original update function was moved to be post update.
+  \Drupal::state()->set('paragraphs_update_8003_placeholder', TRUE);
+}
+
+/**
+ * Truncate the content_translation_status columns.
+ */
+function paragraphs_update_8004() {
+
+  $field_name = 'content_translation_status';
+
+  $tables_to_update = [
+    'paragraphs_item_field_data',
+    'paragraphs_item_revision_field_data'
+  ];
+
+  $database = Drupal::database();
+  $entity_definition_update_manager = Drupal::entityDefinitionUpdateManager();
+
+  // Ensure that the data from the content translation status field is deleted
+  // so that the field can safely be deleted.
+  foreach ($tables_to_update as $table_to_update) {
+    if ($database->schema()->fieldExists($table_to_update, $field_name)) {
+      $database->update($table_to_update)
+        ->fields([$field_name => NULL])
+        ->execute();
+    }
+  }
+
+
+  // Delete the storage definition if it was defined before.
+  $storage_definition = $entity_definition_update_manager->getFieldStorageDefinition($field_name, 'paragraph');
+  if ($storage_definition) {
+    $entity_definition_update_manager->uninstallFieldStorageDefinition($storage_definition);
+  }
+}
+
+/**
+ * Remove revision_timestamp, changed fields, add content_translation_changed.
+ */
+function paragraphs_update_8006() {
+
+  $tables_fields = [
+    'paragraphs_item_revision' => 'revision_timestamp',
+    'paragraphs_item_field_data' => 'changed',
+    'paragraphs_item_revision_field_data' => 'changed',
+  ];
+
+  $database = Drupal::database();
+  $entity_definition_update_manager = Drupal::entityDefinitionUpdateManager();
+
+  // Ensure that the data from the content translation status field is deleted
+  // so that the field can safely be deleted.
+  foreach ($tables_fields as $table => $field) {
+    if ($database->schema()->fieldExists($table, $field)) {
+      $database->update($table)
+        ->fields([$field => NULL])
+        ->execute();
+    }
+  }
+
+  foreach ($tables_fields as $table => $field) {
+    // Delete the storage definition if it was defined before.
+    $storage_definition = $entity_definition_update_manager->getFieldStorageDefinition($field, 'paragraph');
+    if ($storage_definition) {
+      $entity_definition_update_manager->uninstallFieldStorageDefinition($storage_definition);
+    }
+  }
+
+  // Add content_translation_changed field.
+  $field_storage_definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('paragraph');
+  if (isset($field_storage_definitions['content_translation_changed'])) {
+    $storage_definition = BaseFieldDefinition::create('changed')
+      ->setLabel(t('Translation changed time'))
+      ->setDescription(t('The Unix timestamp when the translation was most recently saved.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(TRUE);
+    \Drupal::entityDefinitionUpdateManager()
+      ->installFieldStorageDefinition('content_translation_changed', 'paragraph', 'paragraph', $storage_definition);
+  }
+}
+
+/**
+ * Ensure that existing paragraphs are published.
+ */
+function paragraphs_update_8007() {
+  \Drupal::database()
+    ->update('paragraphs_item_field_data')
+    ->fields(['status' => 1])
+    ->isNull('status')
+    ->execute();
+  \Drupal::database()
+    ->update('paragraphs_item_revision_field_data')
+    ->fields(['status' => 1])
+    ->isNull('status')
+    ->execute();
+}
+
+/**
+ * Ensure that the parent indexes are added to the paragraphs entity.
+ */
+function paragraphs_update_8008() {
+  $manager = \Drupal::entityDefinitionUpdateManager();
+
+  // Get the current paragraph entity type definition, ensure the storage schema
+  // class is set.
+  $entity_type = $manager->getEntityType('paragraph')
+    ->setHandlerClass('storage_schema', ParagraphStorageSchema::class);
+
+  // Regenerate entity type indexes.
+  $manager->updateEntityType($entity_type);
+}

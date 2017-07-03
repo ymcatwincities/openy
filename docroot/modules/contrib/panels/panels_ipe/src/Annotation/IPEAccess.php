@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\panels_ipe\Annotation\IPEAccess.
- */
-
 namespace Drupal\panels_ipe\Annotation;
 
 use Drupal\Component\Annotation\Plugin;

@@ -78,12 +78,7 @@ class YmcaMindbodyRequestGuard implements YmcaMindbodyRequestGuardInterface, Con
    * {@inheritdoc}
    */
   public function status() {
-    $cache_state = $this->state->get('mindbody_cache_proxy');
-    $settings = $this->configFactory->get('ymca_mindbody.settings');
-    if (isset($cache_state->miss) && $cache_state->miss >= $settings->get('max_requests')) {
-      return FALSE;
-    }
-    return TRUE;
+    return $this->proxy->getStatus();
   }
 
   /**
@@ -121,7 +116,7 @@ class YmcaMindbodyRequestGuard implements YmcaMindbodyRequestGuardInterface, Con
    * @return bool
    *   TRUE if Location ID is correct.
    */
-  private function validateLocation($location_id) {
+  public function validateLocation($location_id) {
     $valid = FALSE;
 
     $locations = $this->proxy->call('SiteService', 'GetLocations');

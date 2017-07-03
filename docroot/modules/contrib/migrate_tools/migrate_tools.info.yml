@@ -1,0 +1,14 @@
+type: module
+name: Migrate Tools
+description: 'Tools to assist in developing and running migrations.'
+package: Migration
+# core: 8.x
+dependencies:
+  - drupal:migrate (>=8.2)
+  - migrate_plus:migrate_plus
+
+# Information added by Drupal.org packaging script on 2016-10-12
+version: '8.x-3.0-beta1'
+core: '8.x'
+project: 'migrate_tools'
+datestamp: 1476313443

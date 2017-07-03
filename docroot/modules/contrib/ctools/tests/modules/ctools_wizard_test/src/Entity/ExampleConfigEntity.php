@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools_wizard_test\Entity\ExampleConfigEntity.
+ */
+
 namespace Drupal\ctools_wizard_test\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;

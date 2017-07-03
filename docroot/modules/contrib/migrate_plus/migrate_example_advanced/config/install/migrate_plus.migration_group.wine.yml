@@ -5,3 +5,7 @@ source_type: Custom tables and XML
 shared_configuration:
   source:
     key: default
+dependencies:
+  enforced:
+    module:
+      - migrate_example_advanced

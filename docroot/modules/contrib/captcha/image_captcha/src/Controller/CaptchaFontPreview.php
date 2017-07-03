@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains CAPTCHA font previews controller class.
- */
-
 namespace Drupal\image_captcha\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +9,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  * A Controller to preview the captcha font on the settings page.
  */
 class CaptchaFontPreview extends StreamedResponse {
+
   /**
    * {@inheritdoc}
    */
@@ -27,14 +23,12 @@ class CaptchaFontPreview extends StreamedResponse {
       // Get the mapping of font tokens to font file objects.
       $fonts = \Drupal::config('image_captcha.settings')
         ->get('image_captcha_fonts_preview_map_cache');
-      $config = \Drupal::config('captcha.settings');
-      $fonts = $config->get('image_captcha_fonts_preview_map_cache');
       if (!isset($fonts[$token])) {
         echo 'bad token';
         exit();
       }
       // Get the font path.
-      $font = $fonts[$token]->uri;
+      $font = $fonts[$token]['uri'];
       // Some sanity checks if the given font is valid.
       if (!is_file($font) || !is_readable($font)) {
         echo 'bad font';
@@ -66,7 +60,7 @@ class CaptchaFontPreview extends StreamedResponse {
       imagettftext($image, $font_size, 0, 1, 1.5 * $font_size, $color, realpath($font), $text);
     }
     // Set content type.
-    drupal_add_http_header('Content-Type', 'image/png');
+    $this->headers->set('Content-Type', 'image/png');
     // Dump image data to client.
     imagepng($image);
     // Release image memory.

@@ -76,3 +76,12 @@ process:
 
 # We'll learn more about dependencies in beer_node - here, we leave them empty.
 migration_dependencies: {}
+
+# By default, configuration entities (like this migration) are not automatically
+# removed when the migration which installed them is uninstalled. To have your
+# migrations uninstalled with your migration module, add an enforced dependency
+# on your module.
+dependencies:
+  enforced:
+    module:
+      - migrate_example
