@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.4c.field_prfg_display_line_above
     - field.field.paragraph.4c.field_prgf_4c_1st
     - field.field.paragraph.4c.field_prgf_4c_2nd
     - field.field.paragraph.4c.field_prgf_4c_3rd
@@ -26,6 +27,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_prgf_4c_2nd:
     weight: 3
     label: hidden
@@ -34,6 +36,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_prgf_4c_3rd:
     type: entity_reference_entity_view
     weight: 4
@@ -42,6 +45,7 @@ content:
       view_mode: trimmed
       link: false
     third_party_settings: {  }
+    region: content
   field_prgf_4c_4th:
     type: entity_reference_entity_view
     weight: 5
@@ -50,6 +54,7 @@ content:
       view_mode: trimmed
       link: false
     third_party_settings: {  }
+    region: content
   field_prgf_4c_button:
     weight: 6
     label: hidden
@@ -61,12 +66,14 @@ content:
       target: '0'
     third_party_settings: {  }
     type: link
+    region: content
   field_prgf_description:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_prgf_title:
     weight: 0
     label: hidden
@@ -74,6 +81,8 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
   created: true
+  field_prfg_display_line_above: true
   uid: true
