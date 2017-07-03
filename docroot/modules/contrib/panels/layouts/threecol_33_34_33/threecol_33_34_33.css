@@ -1,9 +1,0 @@
-.panel-3col-33 {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.panel-3col-33 > .panel-panel {
-  flex: 1 33%;
-}

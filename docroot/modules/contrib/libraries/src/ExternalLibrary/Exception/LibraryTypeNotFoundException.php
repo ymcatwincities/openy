@@ -3,11 +3,12 @@
 namespace Drupal\libraries\ExternalLibrary\Exception;
 
 use Drupal\libraries\ExternalLibrary\Utility\LibraryIdAccessorTrait;
+use Drupal\libraries\ExternalLibrary\Utility\LibraryIdAccessorInterface;
 
 /**
  * Provides an exception for a library definition without a type declaration.
  */
-class LibraryTypeNotFoundException extends \RuntimeException {
+class LibraryTypeNotFoundException extends \RuntimeException implements LibraryAccessorInterface {
 
   use LibraryIdAccessorTrait;
 

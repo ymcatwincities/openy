@@ -17,4 +17,4 @@ image_captcha.generator:
   defaults:
     _controller: '\Drupal\image_captcha\Controller\CaptchaImageGeneratorController::image'
   requirements:
-    _permission: 'access content'
+    _access: 'TRUE'

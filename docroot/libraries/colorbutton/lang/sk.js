@@ -1,5 +1,5 @@
-/*
-Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+﻿/*
+Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'colorbutton', 'sk', {
@@ -45,7 +45,29 @@ CKEDITOR.plugins.setLang( 'colorbutton', 'sk', {
 		F0FFFF: 'Azúrová',
 		F0F8FF: 'Alicovo modrá',
 		E6E6FA: 'Levanduľová',
-		FFF: 'Biela'
+		FFF: 'Biela',
+		'1ABC9C': 'Silno tyrkysová',
+		'2ECC71': 'Smaragdová',
+		'3498DB': 'Svetlo modrá',
+		'9B59B6': 'Ametystová',
+		'4E5F70': 'Sivo modrá',
+		'F1C40F': 'Sýto žltá',
+		'16A085': 'Tmavo tyrkysová',
+		'27AE60': 'Tmavo smaragdová',
+		'2980B9': 'Silno modrá',
+		'8E44AD': 'Tmavo fialová',
+		'2C3E50': 'Nesýto modrá',
+		'F39C12': 'Oranžová',
+		'E67E22': 'Mrkvová',
+		'E74C3C': 'Bledo červená',
+		'ECF0F1': 'Svetlá bronzová',
+		'95A5A6': 'Svetlá sivo-tyrkysová',
+		'DDD': 'Svetlo sivá',
+		'D35400': 'Tekvicová',
+		'C0392B': 'Silno červená',
+		'BDC3C7': 'Strieborná',
+		'7F8C8D': 'Sivo tyrkysová',
+		'999': 'Tmavo sivá'
 	},
 	more: 'Viac farieb...',
 	panelTitle: 'Farby',

@@ -80,8 +80,9 @@ class MetatagNodeTranslationTest extends WebTestBase {
     $this->drupalCreateContentType(['type' => 'metatag_node', 'name' => $name]);
 
     // Add a metatag field to the content type.
-    $this->drupalGet("admin/structure/types");
-    $this->drupalGet("admin/structure/types/manage/metatag_node/fields/add-field");
+    $this->drupalGet('admin/structure/types');
+    $this->assertResponse(200);
+    $this->drupalGet('admin/structure/types/manage/metatag_node/fields/add-field');
     $this->assertResponse(200);
     $edit = [
       'label' => 'Metatag',
@@ -110,8 +111,15 @@ class MetatagNodeTranslationTest extends WebTestBase {
     // global default to be used, which contains a token (node:summary). The
     // token value should be correctly translated.
 
+    // Load the node form.
+    $this->drupalGet('node/add/metatag_node');
+    $this->assertResponse(200);
+
+    // Check the default values are correct.
+    $this->assertFieldByName('field_metatag_field[0][basic][title]', '[node:title] | [site:name]', 'Default title token is present.');
+    $this->assertFieldByName('field_metatag_field[0][basic][description]', '[node:summary]', 'Default description token is present.');
+
     // Create a node.
-    $this->drupalGet("node/add/metatag_node");
     $edit = [
       'title[0][value]' => 'Node Français',
       'body[0][value]' => 'French summary.',
@@ -124,6 +132,10 @@ class MetatagNodeTranslationTest extends WebTestBase {
 
     $this->drupalGet('node/1/translations/add/en/es');
     $this->assertResponse(200);
+    // Check the default values are there.
+    $this->assertFieldByName('field_metatag_field[0][basic][title]', '[node:title] | [site:name]', 'Default title token is present.');
+    $this->assertFieldByName('field_metatag_field[0][basic][description]', '[node:summary]', 'Default description token is present.');
+
     $edit = [
       'title[0][value]' => 'Node Español',
       'body[0][value]' => 'Spanish summary.',
@@ -136,6 +148,12 @@ class MetatagNodeTranslationTest extends WebTestBase {
     $value = (string) $xpath[0]['content'];
     $this->assertEqual($value, 'Spanish summary.');
     $this->assertNotEqual($value, 'French summary.');
+
+    $this->drupalGet('node/1/edit');
+    $this->assertResponse(200);
+    // Check the default values are there.
+    $this->assertFieldByName('field_metatag_field[0][basic][title]', '[node:title] | [site:name]', 'Default title token is present.');
+    $this->assertFieldByName('field_metatag_field[0][basic][description]', '[node:summary]', 'Default description token is present.');
 
     // Set explicit values on the description metatag instead using the
     // defaults.

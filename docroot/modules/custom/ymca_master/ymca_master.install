@@ -4674,3 +4674,118 @@ function ymca_master_update_8211() {
     ]
   );
 }
+
+/**
+ * Enable openy profile.
+ */
+function ymca_master_update_8212() {
+  $config = \Drupal::service('config.factory')->getEditable('core.extension');
+  $config->set('profile', 'openy');
+  $config->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable datalayers module.
+ */
+function ymca_master_update_8213() {
+  $modules = [
+    'datalayer',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * [YPTF-264] Configure MindBody Cache Proxy settings.
+ */
+function ymca_master_update_8215() {
+  // Change max_length for mindbody_cache name column.
+  \Drupal::service('mindbody_cache_proxy.manager')->resetCache();
+  $schema = Database::getConnection()->schema();
+  $spec = array('type' => 'varchar', 'length' => 512);
+  $schema->changeField('mindbody_cache', 'name', 'name', $spec);
+  drupal_flush_all_caches();
+  $config = \Drupal::service('config.factory')->getEditable('mindbody_cache_proxy.settings');
+  $config->set('token', md5('wagabagadogo'));
+  $config->set('primary', FALSE);
+  $config->set('endpoint', 'https://www.ymcamn.org/mindbody/status');
+  $config->save();
+  drupal_flush_all_caches();
+}
+
+/**
+ * Enable openy_node_langing module.
+ */
+function ymca_master_update_8216() {
+  $modules = [
+    'openy_prgf_simple_content',
+    'openy_node_landing',
+  ];
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Enable openy_prgf_2c.
+ */
+function ymca_master_update_8217() {
+  $modules = [
+    'openy_block',
+    'openy_block_custom_simple',
+    'openy_prgf_2c'
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable openy_media.
+ */
+function ymca_master_update_8218() {
+  $modules = [
+    'openy_media_image',
+    'openy_media_document',
+    'openy_media_video',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable new paragraphs for landing page.
+ */
+function ymca_master_update_8219() {
+  $modules = [
+    'openy_prgf_70_30_columns',
+    'openy_prgf_small_banner',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable features module.
+ */
+function ymca_master_update_8220() {
+  $modules = [
+    'features',
+    'features_ui',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable lndr_drupal8 module.
+ */
+function ymca_master_update_8221() {
+  $modules = [
+    'lndr',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}

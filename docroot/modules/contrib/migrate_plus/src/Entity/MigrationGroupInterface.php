@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate\Entity\MigrationGroupInterface.
- */
-
 namespace Drupal\migrate_plus\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;

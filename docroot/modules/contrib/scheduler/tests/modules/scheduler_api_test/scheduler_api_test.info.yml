@@ -1,0 +1,15 @@
+name: 'Scheduler API Test'
+type: module
+description: 'Support module for Scheduler API-related testing.'
+package: Testing
+# core: 8.x
+dependencies:
+  - scheduler
+  - options
+# @TODO. 'list' does not exist in 8.x Check that we still need 'options'
+
+# Information added by Drupal.org packaging script on 2017-04-19
+version: '8.x-1.0-rc1'
+core: '8.x'
+project: 'scheduler'
+datestamp: 1492622046

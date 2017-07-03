@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\RelationshipInterface.
+ */
+
 namespace Drupal\ctools\Plugin;
 
 use Drupal\Component\Plugin\DerivativeInspectionInterface;

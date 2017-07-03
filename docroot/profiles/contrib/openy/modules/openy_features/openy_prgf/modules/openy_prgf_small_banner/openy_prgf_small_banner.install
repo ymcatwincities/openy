@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph banner install file.
+ */
+
+/**
+ * Update Paragraph Small Banner with field_prgf_description.
+ */
+function openy_prgf_small_banner_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.paragraph.small_banner.field_prgf_description',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.small_banner.default' =>[
+      'dependencies.config',
+      'content.field_prgf_description',
+      'content.field_prgf_color.weight',
+      'content.field_prgf_image.weight',
+    ],
+    'core.entity_view_display.paragraph.small_banner.default' => [
+      'dependencies.config',
+      'content.field_prgf_description',
+      'content.field_prgf_color.weight',
+      'content.field_prgf_image.weight',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

@@ -1,0 +1,6 @@
+name: 'Media entity test bundle'
+type: module
+description: 'Provides test bundle for media entity.'
+core: 8.x
+package: Testing
+version: VERSION

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools_wizard_test\Form\ExampleConfigEntityOneForm.
+ */
+
 namespace Drupal\ctools_wizard_test\Form;
 
 
@@ -28,7 +33,7 @@ class ExampleConfigEntityOneForm extends FormBase {
     $config_entity = $cached_values['ctools_wizard_test_config_entity'];
 
     $form['one'] = [
-      '#title' => $this->t('One'),
+      '#title' => t('One'),
       '#type' => 'textfield',
       '#default_value' => $config_entity->getOne() ?: '',
     ];

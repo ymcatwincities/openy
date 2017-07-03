@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools_wizard_test\Form\TwoForm.
+ */
+
 namespace Drupal\ctools_wizard_test\Form;
 
 
