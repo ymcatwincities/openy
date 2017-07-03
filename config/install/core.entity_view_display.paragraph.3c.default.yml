@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.3c.field_prfg_display_line_above
     - field.field.paragraph.3c.field_prgf_3c_center
     - field.field.paragraph.3c.field_prgf_3c_left
     - field.field.paragraph.3c.field_prgf_3c_right
@@ -20,6 +21,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_prgf_3c_left:
     weight: 1
     label: hidden
@@ -28,6 +30,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_prgf_3c_right:
     weight: 3
     label: hidden
@@ -36,6 +39,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_prgf_title:
     type: string
     weight: 0
@@ -43,6 +47,8 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
+  field_prfg_display_line_above: true
   uid: true

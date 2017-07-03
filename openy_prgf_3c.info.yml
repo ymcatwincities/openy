@@ -13,6 +13,7 @@ dependencies:
   - openy_block_custom_simple
   - openy_block_flexible_content
   - openy_block_location_events
-  - paragraphs
   - openy_prgf
-version: 8.x-1.3
+  - openy_prgf_1c
+  - paragraphs
+version: 8.x-1.4
