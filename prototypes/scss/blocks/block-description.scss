@@ -5,7 +5,6 @@
   }
 
   &--text {
-    border-top: 1px solid $color-gray-d;
     padding: 12px 0;
     width: calc(100% - 15px);
 
@@ -178,6 +177,18 @@
       .field-image {
         width: 100%;
       }
+    }
+  }
+}
+
+.block-description--wrapper--outline--top {
+  .block-description--text {
+    border-top: 1px solid $color-gray-d;
+  }
+  &.paragraph-1c-wrapper {
+    border-top: 1px solid $color-gray-d;
+    .field-prgf-1c-description {
+      padding-top: 24px;
     }
   }
 }
