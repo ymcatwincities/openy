@@ -171,7 +171,7 @@ class PrizesInfo extends BlockBase {
    * @param array $prize
    *   A single prize setting to prepare for the theme.
    *
-   * @return array | mix
+   * @return array|mix
    *   A theme array or empty string if not valid.
    */
   protected function getThemedPrize($key, array $prize) {
@@ -198,7 +198,7 @@ class PrizesInfo extends BlockBase {
    *
    * This checks an array and returns a theme array.
    *
-   * @return array | mix
+   * @return array|mix
    *   A theme array or empty string if not valid.
    */
   protected function getThemedTextFormat(array $text_field) {
