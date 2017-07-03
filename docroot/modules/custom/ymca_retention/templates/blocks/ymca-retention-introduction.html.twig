@@ -5,6 +5,7 @@
  */
 #}
 <div class="inner-container">
+  {% if content.intro_header is not empty and content.intro_body is not empty %}
   <div class="compain-tab-header clearfix">
     <div class="content clearfix">
       {% if content.intro_header is not empty %}
@@ -15,13 +16,9 @@
           {{ content.intro_body }}
         {% endif %}
       </div>
-      <div class="campaign-btn ng-hide"
-           data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
-        <a href="#" class="btn btn-lg btn-primary compain-green"
-           data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ content.intro_reg_btn }}</a>
-      </div>
     </div>
   </div>
+  {% endif %}
 
   {% if content.info_blocks is not empty %}
 
@@ -61,4 +58,9 @@
     </div>
   </div>
   {% endif %}
+  <div class="campaign-btn ng-hide"
+       data-ng-show="!retentionC.storage.member && retentionC.storage.member_loaded">
+    <a href="#" class="btn btn-lg btn-primary compain-dark-green"
+       data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">{{ content.intro_reg_btn }}</a>
+  </div>
 </div>
