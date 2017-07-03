@@ -74,3 +74,18 @@ function openy_prgf_small_banner_update_8002() {
     }
   }
 }
+
+/**
+ * Remove DataLayer from dependency in the field instance.
+ */
+function openy_prgf_small_banner_update_8003() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_small_banner');
+  $config .= '/config/install/';
+  $config .= 'field.field.paragraph.small_banner.field_prgf_description.yml';
+  $config_importer->update(
+    $config,
+    'field.field.paragraph.small_banner.field_prgf_description',
+    'dependencies.module'
+  );
+}
