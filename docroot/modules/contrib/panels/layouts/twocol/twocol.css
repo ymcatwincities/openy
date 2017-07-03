@@ -1,9 +1,0 @@
-.panel-2col {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-.panel-2col > .panel-panel {
-  flex: 0 1 50%;
-}

@@ -4,6 +4,7 @@ services:
     public: true
     arguments:
       - '@simple_sitemap.sitemap_generator'
+      - '@simple_sitemap.entity_helper'
       - '@config.factory'
       - '@database'
       - '@entity.query'
@@ -16,15 +17,23 @@ services:
     public: false
     arguments:
       - '@simple_sitemap.batch'
+      - '@simple_sitemap.entity_helper'
       - '@database'
       - '@module_handler'
       - '@language_manager'
+
+  simple_sitemap.entity_helper:
+    class: Drupal\simple_sitemap\EntityHelper
+    public: true
+    arguments:
+      - '@entity_type.manager'
 
   simple_sitemap.form_helper:
     class: Drupal\simple_sitemap\Form\FormHelper
     public: true
     arguments:
       - '@simple_sitemap.generator'
+      - '@simple_sitemap.entity_helper'
       - '@current_user'
 
   simple_sitemap.batch:

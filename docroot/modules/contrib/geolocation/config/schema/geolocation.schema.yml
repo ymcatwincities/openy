@@ -1,0 +1,301 @@
+geolocation.google_map_settings:
+  type: mapping
+  label: 'Google Map settings'
+  mapping:
+    type:
+      type: string
+      label: 'Google map type'
+    zoom:
+      type: string
+      label: 'Zoom level'
+    mapTypeControl:
+      type: integer
+      label: 'Map controls'
+    streetViewControl:
+      type: integer
+      label: 'Street view'
+    zoomControl:
+      type: integer
+      label: 'Zoom control'
+    scrollwheel:
+      type: integer
+      label: 'Scrool wheel'
+    disableDoubleClickZoom:
+      type: integer
+      label: 'Disable double click zoom'
+    draggable:
+      type: integer
+      label: 'Draggable'
+    height:
+      type: string
+      label: 'Height value'
+    width:
+      type: string
+      label: 'Width value'
+    info_auto_display:
+      type: integer
+      label: 'Display info'
+    disableAutoPan:
+      type: integer
+      label: 'Disable automatic panning for info window'
+    style:
+      type: string
+      label: 'JSON encoded style'
+    preferScrollingToZooming:
+      type: integer
+      label: 'Require user to click map before zooming'
+    gestureHandling:
+      type: string
+      label: 'Smart scrolling'
+
+geolocation.settings:
+  type: config_object
+  label: 'Geolocation settings'
+  mapping:
+    google_map_api_key:
+      type: string
+      label: 'Google Maps API Key'
+    google_map_custom_url_parameters:
+      type: mapping
+      label: 'Additional Google Maps API parameters'
+      mapping:
+        region:
+          type: string
+          label: 'Region'
+        language:
+          type: string
+          label: 'languae'
+        v:
+          type: string
+          label: 'Version'
+        client:
+          type: string
+          label: 'Client ID'
+        libraries:
+          type: sequence
+          label: 'Libraries'
+          sequence:
+            type: string
+            label: 'Library name'
+
+views.style.maps_common:
+  type: views_style
+  label: 'Geolocation CommonMap'
+  mapping:
+    show_raw_locations:
+      type: integer
+      label: 'Show raw locations'
+    even_empty:
+      type: integer
+      label: 'Even empty'
+    geolocation_field:
+      type: string
+      label: 'Geolocation Field'
+    title_field:
+      type: string
+      label: 'Title Field'
+    icon_field:
+      type: string
+      label: 'Icon Field'
+    marker_scroll_to_result:
+      type: integer
+      label: 'Scroll instead of open bubble'
+    id_field:
+      type: string
+      label: 'ID field'
+    dynamic_map:
+      type: mapping
+      label: 'Dynamic map settings'
+      mapping:
+        enabled:
+          type: integer
+          label: 'Dynamic content refresh'
+        hide_form:
+          type: integer
+          label: 'Hide form'
+        views_refresh_delay:
+          type: string
+          label: 'Views fresh delay in ms'
+        update_handler:
+          type: string
+          label: 'Filter or argument name'
+        update_target:
+          type: string
+          label: 'Display to update'
+    marker_clusterer:
+      type: integer
+      label: 'Cluster markers'
+    marker_clusterer_image_path:
+      type: string
+      label: 'Path to cluster base images'
+    centre:
+      type: sequence
+      label: 'Centre Option'
+      sequence:
+        type: mapping
+        mapping:
+          weight:
+            type: integer
+            label: 'Weight'
+          enable:
+            type: boolean
+            label: 'enable'
+          settings:
+            type: sequence
+            label: 'Settings'
+            sequence:
+              type: string
+    google_map_settings:
+      type: geolocation.google_map_settings
+      label: 'Google map settings'
+
+views.field.geolocation_field:
+  type: views.field.field
+  label: 'Geolocation Field'
+
+views.field.geolocation_field_proximity:
+  type: views.field.numeric
+  label: 'Geolocation Proximity Field'
+  mapping:
+    proximity_source:
+      type: string
+      label: 'Proximity Field Source'
+    proximity_lat:
+      type: string
+      label: 'Proximity Latitude'
+    proximity_lng:
+      type: string
+      label: 'Proximity Longitude'
+    proximity_units:
+      type: string
+      label: 'Proximity Units'
+    proximity_filter:
+      type: string
+      label: 'Proximity Filter'
+    proximity_argument:
+      type: string
+      label: 'Proximity Argument'
+    boundary_filter:
+      type: string
+      label: 'Boundary Filter'
+    entity_id_argument:
+      type: string
+      label: 'Proximity Entity ID argument'
+
+views.filter.geolocation_filter_boundary:
+  type: views_filter
+  label: 'Geolocation Boundary Filter'
+  mapping:
+    value:
+      type: mapping
+      label: 'Value'
+      mapping:
+        lat_north_east:
+          type: string
+          label: 'North East Latitude'
+        lng_north_east:
+           type: string
+           label: 'North East Longitude'
+        lat_south_west:
+           type: string
+           label: 'South West Latitude'
+        lng_south_west:
+           type: string
+           label: 'North East Longitude'
+
+views.filter.geolocation_filter_proximity:
+  type: views_filter
+  label: 'Geolocation Proximity Filter'
+  mapping:
+    proximity_source:
+      type: string
+      label: 'Proximity Field Source'
+    proximity_lat:
+      type: string
+      label: 'Proximity Latitude'
+    proximity_lng:
+      type: string
+      label: 'Proximity Longitude'
+    proximity_argument:
+      type: string
+      label: 'Proximity Argument'
+    boundary_filter:
+      type: string
+      label: 'Boundary Filter'
+    entity_id_argument:
+      type: string
+      label: 'Proximity Entity ID argument'
+    proximity_units:
+      type: string
+      label: 'Proximity Units'
+    client_location:
+      type: boolean
+      label: 'Ask client for location first'
+    value:
+      type: views.filter_value.numeric
+      label: 'Proximity Value'
+
+views.sort.geolocation_sort_proximity:
+  type: views_sort
+  label: 'Geolocation Proximity Sort'
+  mapping:
+    proximity_field:
+      type: string
+      label: 'Proximity Field Source'
+
+field.formatter.settings.geolocation_map:
+  type: mapping
+  label: 'Geolocation Google Map Formatter'
+  mapping:
+    set_marker:
+      type: string
+      label: 'Set marker at map center'
+    title:
+      type: string
+      label: 'Title'
+    info_text:
+      type: string
+      label: 'Info Text'
+    use_overridden_map_settings:
+      type: integer
+      label: 'Use overriden map settings optionally set by GoogleGeocoderWidget.'
+    google_map_settings:
+      type: geolocation.google_map_settings
+      label: 'Google map settings'
+
+field.formatter.settings.geolocation_token:
+  type: mapping
+  label: 'Geolocation Token Formatter'
+  mapping:
+    tokenized_text:
+      type: string
+      label: 'Tokenized text'
+
+field.widget.settings.geolocation_googlegeocoder:
+  type: mapping
+  label: 'Geolocation Google Geocoder Widget settings'
+  mapping:
+    default_longitude:
+      type: string
+      label: 'Default Longitude'
+    default_latitude:
+      type: string
+      label: 'Default Latitude'
+    auto_client_location:
+      type: string
+      label: 'Automatically use client location'
+    auto_client_location_marker:
+      type: string
+      label: 'Automatically set marker as well'
+    populate_address_field:
+      type: string
+      label: 'Store address'
+    target_address_field:
+      type: string
+      label: 'Target address field name'
+    allow_override_map_settings:
+      type: integer
+      label: 'Allow override map settings.'
+    google_map_settings:
+      type: geolocation.google_map_settings
+      label: 'Google map settings'

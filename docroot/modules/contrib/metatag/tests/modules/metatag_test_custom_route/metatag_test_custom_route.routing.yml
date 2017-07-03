@@ -5,3 +5,11 @@ metatag_test_custom_route.test:
     _controller: '\Drupal\metatag_test_custom_route\Controller\MetatagTestCustomRouteController::test'
   requirements:
     _permission: 'access content'
+
+
+metatag_test_custom_route.entity_route:
+  path: '/metatag_test_custom_route/{entity_test}'
+  defaults:
+    _entity_view: 'entity_test.full'
+  requirements:
+    _permission: 'access content'

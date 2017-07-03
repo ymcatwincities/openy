@@ -10,6 +10,7 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Menu\MenuLinkInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -17,6 +18,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\TypedData\TranslatableInterface;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\menu_link_content\MenuLinkContentInterface;
+use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
 
 /**
@@ -78,7 +80,9 @@ function token_block_view_alter(&$build, BlockPluginInterface $block) {
     // The label is automatically escaped, avoid escaping it twice.
     // @todo https://www.drupal.org/node/2580723 will add a method or option
     //   to the token API to do this, use that when available.
-    $build['#configuration']['label'] = PlainTextOutput::renderFromHtml(\Drupal::token()->replace($label, array()));
+    $bubbleable_metadata = BubbleableMetadata::createFromRenderArray($build);
+    $build['#configuration']['label'] = PlainTextOutput::renderFromHtml(\Drupal::token()->replace($label, [], [], $bubbleable_metadata));
+    $bubbleable_metadata->applyTo($build);
   }
 }
 
@@ -86,9 +90,16 @@ function token_block_view_alter(&$build, BlockPluginInterface $block) {
  * Implements hook_form_FORM_ID_alter().
  */
 function token_form_block_form_alter(&$form, FormStateInterface $form_state) {
-  $form['settings']['label']['#description'] = t('This field supports tokens.');
+  $token_tree = [
+    '#theme' => 'token_tree_link',
+    '#token_types' => [],
+  ];
+  $rendered_token_tree = \Drupal::service('renderer')->render($token_tree);
+  $form['settings']['label']['#description'] =
+    t('This field supports tokens. @browse_tokens_link', ['@browse_tokens_link' => $rendered_token_tree])
+  ;
   $form['settings']['label']['#element_validate'][] = 'token_element_validate';
-  $form['settings']['label'] += array('#token_types' => array());
+  $form['settings']['label'] += ['#token_types' => []];
 }
 
 /**
@@ -408,85 +419,6 @@ function token_form_user_admin_settings_alter(&$form, FormStateInterface $form_s
 }
 
 /**
- * Get a translated book menu link by its mlid, without access checking.
- *
- * This function is a copy of book_link_load() but with its own cache and a
- * simpler query to load the link. This also skips normal menu link access
- * checking by using _token_menu_link_translate().
- *
- * @param $mlid
- *   The mlid of the book menu item.
- *
- * @return
- *   A book menu link translated for rendering.
- *
- * @see book_link_load()
- * @see _token_menu_link_translate()
- */
-function token_book_link_load($mlid) {
-  $cache = &drupal_static(__FUNCTION__, array());
-
-  if (!is_numeric($mlid)) {
-    return FALSE;
-  }
-
-  if (!isset($cache[$mlid])) {
-    $item = db_query("SELECT * FROM {menu_links} ml INNER JOIN {book} b ON b.mlid = ml.mlid LEFT JOIN {menu_router} m ON m.path = ml.router_path WHERE ml.mlid = :mlid", array(':mlid' => $mlid))->fetchAssoc();
-    if (!empty($item)) {
-      _token_menu_link_translate($item);
-    }
-    $cache[$mlid] = $item;
-  }
-
-  return $cache[$mlid];
-}
-
-function _token_menu_link_translate(&$item) {
-  $map = array();
-
-  if (!is_array($item['options'])) {
-    $item['options'] = unserialize($item['options']);
-  }
-
-  if ($item['external']) {
-    $item['access'] = 1;
-    $item['href'] = $item['link_path'];
-    $item['title'] = $item['link_title'];
-    $item['localized_options'] = $item['options'];
-  }
-  else {
-    // Complete the path of the menu link with elements from the current path,
-    // if it contains dynamic placeholders (%).
-    $map = explode('/', $item['link_path']);
-    if (strpos($item['link_path'], '%') !== FALSE) {
-      // Invoke registered to_arg callbacks.
-      if (!empty($item['to_arg_functions'])) {
-        _menu_link_map_translate($map, $item['to_arg_functions']);
-      }
-    }
-    $item['href'] = implode('/', $map);
-
-    // Skip links containing untranslated arguments.
-    if (strpos($item['href'], '%') !== FALSE) {
-      $item['access'] = FALSE;
-      return FALSE;
-    }
-
-    $item['access'] = TRUE;
-    _menu_item_localize($item, $map, TRUE);
-  }
-
-  // Allow other customizations - e.g. adding a page-specific query string to the
-  // options array. For performance reasons we only invoke this hook if the link
-  // has the 'alter' flag set in the options array.
-  if (!empty($item['options']['alter'])) {
-    \Drupal::moduleHandler()->alter('translated_menu_link', $item, $map);
-  }
-
-  return $map;
-}
-
-/**
  * Prepare a string for use as a valid token name.
  *
  * @param $name
@@ -693,6 +625,37 @@ function token_element_children(&$elements, $sort = FALSE) {
   }
 
   return array_keys($children);
+}
+
+/**
+ * Loads all the parents of the book page.
+ *
+ * @param array $book
+ *   The book data. The 'nid' key points to the current page of the book.
+ *   The 'p1' ... 'p9' keys point to parents of the page, if they exist, with 'p1'
+ *   pointing to the book itself and the last defined pX to the current page.
+ *
+ * @return string[]
+ *   List of node titles of the book parents.
+ */
+function token_book_load_all_parents(array $book) {
+  $cache = &drupal_static(__FUNCTION__, array());
+
+  if (empty($book['nid'])) {
+    return array();
+  }
+  $nid = $book['nid'];
+
+  if (!isset($cache[$nid])) {
+    $cache[$nid] = array();
+    $i = 1;
+    while ($book["p$i"] != $nid) {
+      $cache[$nid][] = Node::load($book["p$i"])->getTitle();
+      $i++;
+    }
+  }
+
+  return $cache[$nid];
 }
 
 /**

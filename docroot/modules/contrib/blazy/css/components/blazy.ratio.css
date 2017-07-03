@@ -1,0 +1,72 @@
+/**
+ * @file
+ * The CSS and class names below are based on Slick media for easy migration.
+ */
+
+[data-blazy],
+[data-blazy] * {
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.media {
+  position: relative;
+}
+
+/**
+ * Aspect ratio element wrapper. So can use dynamic/fluid ratio via JS which is
+ * not possible using ::pseudo selector approach.
+ */
+.media--ratio {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Allows to fix broken images with hidden elements, see slick.load.js. */
+.js-media--ratio {
+  height: auto;
+}
+
+/* Aspect ratio element: IMG, IFRAME, DIV. */
+.media--ratio .media__element {
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+/* 1:1 ratio */
+.media--ratio--11 {
+  padding-bottom: 100%;
+}
+
+/* 3:2 ratio */
+.media--ratio--32 {
+  padding-bottom: 66.66%;
+}
+
+/* 4:3 ratio */
+.media--ratio--43 {
+  padding-bottom: 75%;
+}
+
+/* 8:5 ratio */
+.media--ratio--85 {
+  padding-bottom: 62.5%;
+}
+
+/* 16:9 ratio */
+.media--ratio--169 {
+  padding-bottom: 56.25%;
+}
+
+/* Be sure to add width to the container accordingly, otherwise collapsed. */
+.field[data-blazy] {
+  min-width: 50%;
+}
