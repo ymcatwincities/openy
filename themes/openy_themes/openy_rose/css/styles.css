@@ -3808,15 +3808,15 @@ html.js .branch__updates_queue__button {
 .node--type-camp.node--view-mode-teaser .location-item--title + .node__content {
   margin: 33px 0 0;
 }
-.node--type-facility.node--view-mode-teaser .location-item--title + .field-location-area, .node--type-facility.node--view-mode-teaser .location-item--title + .field-location-state,
-.node--type-branch.node--view-mode-teaser .location-item--title + .field-location-area,
-.node--type-branch.node--view-mode-teaser .location-item--title + .field-location-state,
-.node--type-branch.node--view-mode-sidebar-teaser .location-item--title + .field-location-area,
-.node--type-branch.node--view-mode-sidebar-teaser .location-item--title + .field-location-state,
-.node--type-branch.node--view-mode-class-location .location-item--title + .field-location-area,
-.node--type-branch.node--view-mode-class-location .location-item--title + .field-location-state,
-.node--type-camp.node--view-mode-teaser .location-item--title + .field-location-area,
-.node--type-camp.node--view-mode-teaser .location-item--title + .field-location-state {
+.node--type-facility.node--view-mode-teaser .location-item--title ~ .field-location-area, .node--type-facility.node--view-mode-teaser .location-item--title ~ .field-location-state,
+.node--type-branch.node--view-mode-teaser .location-item--title ~ .field-location-area,
+.node--type-branch.node--view-mode-teaser .location-item--title ~ .field-location-state,
+.node--type-branch.node--view-mode-sidebar-teaser .location-item--title ~ .field-location-area,
+.node--type-branch.node--view-mode-sidebar-teaser .location-item--title ~ .field-location-state,
+.node--type-branch.node--view-mode-class-location .location-item--title ~ .field-location-area,
+.node--type-branch.node--view-mode-class-location .location-item--title ~ .field-location-state,
+.node--type-camp.node--view-mode-teaser .location-item--title ~ .field-location-area,
+.node--type-camp.node--view-mode-teaser .location-item--title ~ .field-location-state {
   margin: 20px 0 33px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours,
