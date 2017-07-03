@@ -67,7 +67,7 @@ Installer path will look like this:
     ],
     "post-update-cmd": [
         "bash scripts/remove_vendor_git_folders.sh || :"
-    ],
+    ]
     ```
 
 9. Run `composer install`
