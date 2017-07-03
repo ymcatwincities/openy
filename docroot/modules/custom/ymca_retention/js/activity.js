@@ -15,7 +15,6 @@
       self.current_date_index = -1;
 
       if (typeof self.storage.dates === 'undefined') {
-        console.log('"self.storage.dates" is undefined.');
         return;
       }
       self.storage.dates.forEach(function (item, i, arr) {
