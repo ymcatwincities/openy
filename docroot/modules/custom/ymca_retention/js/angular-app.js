@@ -396,8 +396,11 @@
 
       // TODO: refactor this so that every controller sets his initial values itself.
       self.setInitialValues = function() {
-        // self.dates = settings.ymca_retention.activity.dates;
-        // self.activity_groups = settings.ymca_retention.activity.activity_groups;
+        // Set activity tracker settings if available.
+        if (settings.ymca_retention.activity !== undefined) {
+          self.dates = settings.ymca_retention.activity.dates;
+          self.activity_groups = settings.ymca_retention.activity.activity_groups;
+        }
         self.campaign = {started: false, days_left: 50, current_day_timestamp: +new Date()};
         self.campaign_loaded = false;
         self.spring2017campaign = {};

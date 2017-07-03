@@ -1,0 +1,167 @@
+.compain-tabs {
+  border-bottom: 1px solid $green-light;
+
+  @include breakpoint($tablet) {
+    margin: {
+      left: auto;
+      right: auto;
+    }
+    @include rem(max-width, 1110px);
+    @include rem(padding, 30px 0 0 0);
+    text-align: center;
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 34px 0 0 0);
+  }
+
+  > li {
+    @include rem(margin, 0 14px 0 0);
+    border-bottom: 8px solid transparent;
+    transition: margin-right .5s, border-bottom .2s;
+
+    @include breakpoint($tablet) {
+      display: inline-block;
+      float: none;
+      @include rem(margin-right, 140px);
+      &.last {
+        margin-right: 0;
+      }
+    }
+
+    // @include breakpoint($desktop-small) {
+    //   @include rem(margin, 0 60px 0 0);
+    // }
+
+    // @include breakpoint($desktop+60) {
+    //   @include rem(margin, 0 80px 0 0);
+    // }
+
+    &:hover,
+    &.active {
+      border-bottom-color: $green-light;
+    }
+
+    > a {
+      @include cachet-normal();
+      @include rem(font-size, 16px);
+      @include rem(line-height, 42px);
+      @include rem(padding, 6px 0 0);
+      background: none !important;
+      border: none;
+      color: $green-light;
+      display: block;
+      margin: 0;
+      position: relative;
+      text-transform: uppercase;
+      transition: color .2s;
+
+      &:hover {
+        color: $green-dark !important;
+      }
+      // Only focus above phone size.
+      &:focus {
+        @include breakpoint($tablet) {
+          color: $green-dark !important;
+        }
+      }
+
+      @include breakpoint($tablet) {
+        // padding: 0 5px 14px;
+        @include rem(padding, 0 5px 14px);
+      }
+
+      @include breakpoint($desktop-small) {
+        @include rem(font-size, 20px);
+      }
+    }
+
+    &.active {
+      > a {
+        color: $green-dark;
+      }
+    }
+
+    &.compain-tabs--detailed {
+      margin: 0;
+      float: right;
+    }
+  }
+}
+
+.compain-accordion {
+
+  .panel,
+  .panel-body,
+  .panel-heading {
+    background: none;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .panel+.panel {
+    margin-top: 0;
+  }
+
+  .panel-heading {
+    a {
+      @include cachet-normal();
+      @include rem(font-size, 20px);
+      background-color: $white;
+      border-bottom: 1px solid $green-medium;
+      color: $green-dark;
+      display: block;
+      line-height: normal;
+      margin: 0;
+      @include rem(padding, 24px 20px);
+      position: relative;
+      text-transform: uppercase;
+      text-align: left;
+
+      &.collapsed {
+        background-color: rgba($green-light, 0.1);
+        border-bottom: 1px solid rgba($green-light, 0.16);
+      }
+
+      // &:hover,
+      // &:active {
+      //   border-bottom: 1px solid $green-medium;
+      // }
+
+      &:after {
+        @include rem(height, 19px);
+        @include rem(width, 24px);
+        content: '';
+        background: inline-image('../prototypes/ysr_2017/img/tabs/icon-tab-arrow-down.svg') 50% 50% no-repeat;
+        background-size: 10px 6px;
+        position: absolute;
+        right: 0;
+        // bottom: 0;
+        // left: 50%;
+        // transform: translate(-50%, 50%);
+      }
+
+      &.collapsed {
+        &:after {
+          background-image: inline-image('../prototypes/ysr_2017/img/tabs/icon-tab-arrow-up.svg');
+        }
+      }
+    }
+  }
+
+  .panel {
+
+    > .panel-heading {
+
+      + {
+        .panel-collapse {
+          .panel-body {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}
