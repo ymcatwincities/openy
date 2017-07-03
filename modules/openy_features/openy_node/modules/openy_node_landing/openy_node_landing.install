@@ -141,3 +141,18 @@ function openy_node_landing_update_8004() {
     'description'
   );
 }
+
+/**
+ * Remove DataLayer from dependency in the field instance.
+ */
+function openy_node_landing_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_landing');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.landing_page.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.landing_page.field_meta_tags',
+    'dependencies.module'
+  );
+}
