@@ -16,11 +16,11 @@ class OpenYScreenViewsData extends EntityViewsData implements EntityViewsDataInt
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['openy_digital_signage_screen']['table']['base'] = array(
+    $data['openy_digital_signage_screen']['table']['base'] = [
       'field' => 'id',
       'title' => $this->t('OpenY Digital Signage Screen'),
       'help' => $this->t('The OpenY Digital Signage Screen ID.'),
-    );
+    ];
 
     return $data;
   }

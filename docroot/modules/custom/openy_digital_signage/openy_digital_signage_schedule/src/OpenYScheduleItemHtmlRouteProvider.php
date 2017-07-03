@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Route;
 /**
  * Provides routes for OpenY Digital Signage Schedule Item entities.
  *
- * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
- * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
+ * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
+ * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
 class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
 
@@ -44,7 +44,7 @@ class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
    */
   protected function getCollectionRoute(EntityTypeInterface $entity_type) {
     if (!$entity_type->hasLinkTemplate('collection') || !$entity_type->hasListBuilderClass()) {
-      return;
+      return NULL;
     }
 
     $entity_type_id = $entity_type->id();
@@ -71,7 +71,7 @@ class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
    */
   protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
     if ($entity_type->getBundleEntityType()) {
-      return;
+      return NULL;
     }
 
     $route = new Route("/admin/digital-signage/schedules/settings");

@@ -19,6 +19,20 @@ class OpenYClassesSessionForm extends ContentEntityForm {
     /* @var $entity \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession */
     $form = parent::buildForm($form, $form_state);
 
+    if ($this->entity->isNew()) {
+      $form['source']['#value'] = 'manually';
+      $form['source']['#access'] = FALSE;
+      $current_user = \Drupal::currentUser();
+      $user = \Drupal::entityTypeManager()->getStorage('user')
+        ->load($current_user->id());
+      $form['field_session_author']['widget'][0]['target_id']['#default_value'] = $user;
+      $form['field_session_author']['#access'] = FALSE;
+    }
+    else {
+      $form['source']['#disabled'] = TRUE;
+      $form['field_session_author']['#access'] = FALSE;
+    }
+
     return $form;
   }
 
@@ -42,9 +56,7 @@ class OpenYClassesSessionForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.openy_ds_classes_session.canonical', [
-      'openy_ds_classes_session' => $entity->id(),
-    ]);
+    $form_state->setRedirect('entity.openy_ds_classes_session.collection');
   }
 
 }
