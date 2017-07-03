@@ -58,6 +58,7 @@ Installer path will look like this:
 
 8. (Optional) If you keep `vendor` folder in your git repository, we recommend to clean up project from `.git` folder inside modules and libraries. To do so
 - Add cleaner script to your project from [OpenY composer package](https://github.com/ymcatwincities/openy-project/blob/8.1.x/scripts/remove_vendor_git_folders.sh). You can just copy it and paste onto your project.
+- [Adjust folders](https://github.com/ymcatwincities/openy-project/blob/8.1.x/scripts/remove_vendor_git_folders.sh#L4) that you would like to cleanup
 - Execute it in `post-install-cmd` and `post-update-cmd`:
 
     ```
