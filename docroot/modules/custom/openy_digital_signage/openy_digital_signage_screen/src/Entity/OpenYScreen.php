@@ -46,6 +46,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "canonical" = "/screen/{openy_digital_signage_screen}",
  *     "add-form" = "/admin/digital-signage/screens/add",
  *     "edit-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/edit",
+ *     "schedule" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/schedule",
  *     "delete-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/delete",
  *     "collection" = "/admin/digital-signage/screens/list",
  *   },
