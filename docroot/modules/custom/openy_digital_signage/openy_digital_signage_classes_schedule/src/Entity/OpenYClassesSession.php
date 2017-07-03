@@ -16,8 +16,8 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *   label = @Translation("Digital Signage Classes Session"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\openy_digital_signage_schedule\OpenYClassesSessionListBuilder",
- *     "views_data" = "Drupal\openy_digital_signage_schedule\Entity\OpenYClassesSessionViewsData",
+ *     "list_builder" = "Drupal\openy_digital_signage_classes_schedule\OpenYClassesSessionListBuilder",
+ *     "views_data" = "Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSessionViewsData",
  *
  *     "form" = {
  *       "default" = "Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionForm",
@@ -31,7 +31,6 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     },
  *   },
  *   base_table = "openy_ds_classes_session",
- *   data_table = "openy_ds_classes_session_field_data",
  *   admin_permission = "administer Digital Signage Classes Session entities",
  *   entity_keys = {
  *     "id" = "id",
@@ -48,10 +47,18 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "delete-form" = "/admin/digital-signage/classes/{openy_ds_classes_session}/delete",
  *     "collection" = "/admin/digital-signage/classes/list",
  *   },
- *   field_ui_base_route = "openy_ds_classes_session_settings.settings"
+ *   field_ui_base_route = "openy_ds_classes_session.settings"
  * )
  */
 class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessionInterface {
+
+  public static function getSourceValues() {
+    return [
+      'manually' => t('Manually created'),
+      'groupex' => t('GroupEx Pro'),
+      'personify' => t('Personify'),
+    ];
+  }
 
   /**
    * {@inheritdoc}
@@ -113,21 +120,17 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setLabel(t('Source'))
       ->setDescription(t('Source of the entity.'))
       ->setSettings([
-        'allowed_values' => [
-          'manually' => 'Manually created',
-          'groupex' => 'GroupEx Pro',
-          'personify' => 'Personify',
-        ],
+        'allowed_values' => self::getSourceValues(),
       ])
       ->setDefaultValue('manually')
       ->setDisplayOptions('view', [
         'label' => 'visible',
         'type' => 'string',
-        'weight' => 0,
+        'weight' => -6,
       ])
       ->setDisplayOptions('form', [
         'type' => 'options_select',
-        'weight' => 0,
+        'weight' => -6,
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE)
@@ -148,6 +151,24 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -5,
+      ])
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+
+    $fields['date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Date'))
+      ->setDescription(t('When this class will be.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setRequired(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'visible',
+        'type' => 'datetime_plain',
+        'weight' => 1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_default',
+        'weight' => 1,
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
@@ -190,11 +211,11 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setDisplayOptions('view', [
         'label' => 'visible',
         'type' => 'string',
-        'weight' => -5,
+        'weight' => -4,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -5,
+        'weight' => -4,
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
@@ -202,7 +223,6 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
     $fields['instructor'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Instructor name'))
       ->setDescription(t('Name of an instructor in a branch.'))
-      ->setRequired(TRUE)
       ->setTranslatable(TRUE)
       ->setRevisionable(TRUE)
       ->setSetting('max_length', 255)
@@ -221,7 +241,6 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
     $fields['sub_instructor'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Substitute instructor name'))
       ->setDescription(t('Name of a substitute instructor in a branch.'))
-      ->setRequired(TRUE)
       ->setTranslatable(TRUE)
       ->setRevisionable(TRUE)
       ->setSetting('max_length', 255)
