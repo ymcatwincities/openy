@@ -41,6 +41,11 @@
     'paragraph-1c-wrapper',
   ]
 %}
+
+{% if paragraph.field_prfg_display_line_above.value %}
+  {% set classes = classes|merge(['block-description--wrapper--outline--top']) %}
+{% endif %}
+
 <div{{ attributes.addClass(classes) }}>
   {{ content }}
 </div>
