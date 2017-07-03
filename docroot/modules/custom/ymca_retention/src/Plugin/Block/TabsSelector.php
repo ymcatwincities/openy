@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Defines \Drupal\ymca_retention\Plugin\Block\TabsSelector.
- */
-
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
@@ -73,6 +68,11 @@ class TabsSelector extends BlockBase {
         '#title' => $this->t('Tab Class Attribute'),
         '#default_value' => isset($config[$value]) ? $config[$value]['tab_class'] : '',
         '#description' => $this->t('Add a class or classes to the tab for special styling.'),
+        '#states' => [
+          'visible' => [
+            "input[name='settings[{$value}][enabled]']" => ['checked' => TRUE],
+          ],
+        ],
       ];
 
       $form[$value]['login_required'] = [
