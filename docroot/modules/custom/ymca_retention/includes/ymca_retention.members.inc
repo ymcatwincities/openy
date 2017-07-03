@@ -17,7 +17,7 @@ use Drupal\taxonomy\TermStorage;
 function _ymca_retention_members_create($options) {
   $count = 1;
   foreach (_ymca_retention_fake_members() as $i => $fake_member) {
-    $locationRepository = \Drupal::service('ymca_mappings.location_repository');
+    $location_repository = \Drupal::service('ymca_mappings.location_repository');
 
     /** @var Member $member */
     $member = \Drupal::entityTypeManager()
@@ -28,7 +28,7 @@ function _ymca_retention_members_create($options) {
         'first_name' => $fake_member['first_name'],
         'last_name' => $fake_member['last_name'],
         'personify_id' => _ymca_retention_generate_random_string(6, TRUE),
-        'branch' => $locationRepository->findByLocationPersonifyBranchCode($fake_member['branch_id']),
+        'branch' => $location_repository->findByLocationPersonifyBranchCode($fake_member['branch_id']),
         'is_employee' => $fake_member['is_employee'],
         'visit_goal' => rand(5, 10),
         'total_visits' => 0,
