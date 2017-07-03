@@ -13,6 +13,7 @@ function openy_prgf_1c_update_8001() {
   $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_1c') . '/config/install');
   $config_importer->importConfigs(
     [
+      'field.storage.paragraph.field_prfg_display_line_above',
       'field.field.paragraph.1c.field_prfg_display_line_above',
       'core.entity_view_display.paragraph.1c.default',
       'core.entity_form_display.paragraph.1c.default',
