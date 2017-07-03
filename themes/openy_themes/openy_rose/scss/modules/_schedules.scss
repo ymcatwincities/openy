@@ -242,6 +242,9 @@
       color: $purple;
       font-size: 18px;
       margin-bottom: 10px;
+      margin-top: 0;
+      line-height: inherit;
+      font-weight: normal;
       @include breakpoint($screen-sm) {
         font-size: 30px;
       }
@@ -432,7 +435,7 @@
       display: flex;
       -webkit-flex-direction: column;
       flex-direction: column;
-      
+
       h4 {
         font-size: 20px;
         line-height: 17px;
