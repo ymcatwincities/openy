@@ -180,7 +180,7 @@ label {
   position: relative;
   a {
     float: left;
-    margin-right: 6px;
+    margin-right: 4px;
 
   }
   @include breakpoint(0 $mobile-landscape) {
@@ -204,7 +204,7 @@ label {
 .edit-registration-actions {
   .fieldset-wrapper {
     a.btn {
-      margin-right: 6px !important;
+      margin-right: 4px !important;
       @extend .pink-button;
       padding: 6px 12px;
       font-size: 14px;

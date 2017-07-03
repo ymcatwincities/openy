@@ -901,7 +901,7 @@ label {
 .edit-login-actions a,
 .edit-registration-actions a {
   float: left;
-  margin-right: 6px;
+  margin-right: 4px;
 }
 @media (min-width: 0) and (max-width: 30em) {
   .edit-login-actions,
@@ -923,7 +923,7 @@ label {
 }
 
 .edit-registration-actions .fieldset-wrapper a.btn {
-  margin-right: 6px !important;
+  margin-right: 4px !important;
   padding: 6px 12px;
   font-size: 14px;
   margin-bottom: 10px;
