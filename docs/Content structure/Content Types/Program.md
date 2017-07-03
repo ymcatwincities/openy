@@ -5,6 +5,7 @@ Program content type is used for adding Programs on the site.
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the program item. |
+| Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Header Area** | Field group |||
 | Icon | field\_program_icon | No | A image field, supporting .svg for uploading the program icon. |
 | Image | field\_program_image | No | A image field, for uploading the program image. |
