@@ -6,7 +6,7 @@
  */
 
 /**
- * Pull the feature component updates.
+ * Add field_prfg_display_line_above.
  */
 function openy_prgf_1c_update_8001() {
   $config_importer = \Drupal::service('config_import.importer');
