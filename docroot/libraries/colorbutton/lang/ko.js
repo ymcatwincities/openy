@@ -1,5 +1,5 @@
-/*
-Copyright (c) 2003-2016, CKSource - Frederico Knabben. All rights reserved.
+﻿/*
+Copyright (c) 2003-2017, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 CKEDITOR.plugins.setLang( 'colorbutton', 'ko', {
@@ -45,7 +45,29 @@ CKEDITOR.plugins.setLang( 'colorbutton', 'ko', {
 		F0FFFF: '하늘색',
 		F0F8FF: '앨리스 블루',
 		E6E6FA: '라벤더',
-		FFF: '흰색'
+		FFF: '흰색',
+		'1ABC9C': '진한 청록색',
+		'2ECC71': '에메랄드',
+		'3498DB': '밝은 파랑',
+		'9B59B6': '자수정',
+		'4E5F70': '회청색',
+		'F1C40F': '선명한 노랑',
+		'16A085': '다크 시안',
+		'27AE60': '다크 에메랄드',
+		'2980B9': '진한 파랑',
+		'8E44AD': '다크 바이올렛',
+		'2C3E50': '탁한 파랑',
+		'F39C12': '주황',
+		'E67E22': '당근',
+		'E74C3C': '창백한 빨강',
+		'ECF0F1': '밝은 은색',
+		'95A5A6': '밝은 회청록',
+		'DDD': '밝은 회색',
+		'D35400': '호박',
+		'C0392B': '진한 빨강',
+		'BDC3C7': '은색',
+		'7F8C8D': '회청록',
+		'999': '암회색'
 	},
 	more: '색상 선택...',
 	panelTitle: '색상',

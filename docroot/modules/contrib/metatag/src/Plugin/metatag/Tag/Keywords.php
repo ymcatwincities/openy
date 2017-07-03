@@ -8,7 +8,7 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
  * @MetatagTag(
  *   id = "keywords",
  *   label = @Translation("Keywords"),
- *   description = @Translation("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines anymore."),
+ *   description = @Translation("A comma-separated list of keywords about the page. This meta tag is <em>no longer</em> supported by most search engines."),
  *   name = "keywords",
  *   group = "basic",
  *   weight = 4,

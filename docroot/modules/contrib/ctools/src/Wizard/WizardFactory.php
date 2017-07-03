@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools\Wizard\WizardFactory.
+ */
 
 namespace Drupal\ctools\Wizard;
 

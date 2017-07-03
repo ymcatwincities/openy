@@ -6,13 +6,15 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
 
 /**
- * Class SimplesitemapSettingsForm.
- *
+ * Class SimplesitemapSettingsForm
  * @package Drupal\simple_sitemap\Form
  */
 class SimplesitemapSettingsForm extends SimplesitemapFormBase {
 
-  private $formSettings = [
+  /**
+   * @var array
+   */
+  protected $formSettings = [
     'max_links',
     'cron_generate',
     'remove_duplicates',
@@ -72,7 +74,7 @@ class SimplesitemapSettingsForm extends SimplesitemapFormBase {
       '#title' => $this->t('Default base URL'),
       '#default_value' => $this->generator->getSetting('base_url', ''),
       '#size' => 30,
-      '#description' => $this->t('On some hosting providers it is impossible to pass parameters to cron to tell Drupal which URL to bootstrap with. In this case the base URL of sitemap links can be set here.'),
+      '#description' => $this->t('On some hosting providers it is impossible to pass parameters to cron to tell Drupal which URL to bootstrap with. In this case the base URL of sitemap links can be overridden here.<br/>Example: <em>@url</em>', ['@url' => $GLOBALS['base_url']]),
     ];
 
     $form['simple_sitemap_settings']['advanced']['remove_duplicates'] = [

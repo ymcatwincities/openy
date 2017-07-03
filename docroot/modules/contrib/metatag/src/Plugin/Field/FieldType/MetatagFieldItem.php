@@ -38,7 +38,7 @@ class MetatagFieldItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['value'] = DataDefinition::create('string')
+    $properties['value'] = DataDefinition::create('metatag')
       ->setLabel(t('Metatag'))
       ->setRequired(TRUE);
 

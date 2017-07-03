@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\Derivative\EntityFieldDeriver.
+ */
+
 namespace Drupal\ctools_block\Plugin\Deriver;
 
 use Drupal\Core\Plugin\Context\ContextDefinition;

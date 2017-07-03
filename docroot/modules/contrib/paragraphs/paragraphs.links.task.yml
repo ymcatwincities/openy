@@ -1,0 +1,15 @@
+entity.paragraphs_type.edit_form:
+  title: 'Edit'
+  route_name: entity.paragraphs_type.edit_form
+  base_route: entity.paragraphs_type.edit_form
+
+entity.paragraphs_type.collection:
+  title: List
+  route_name: entity.paragraphs_type.collection
+  base_route: entity.paragraphs_type.collection
+
+paragraphs.settings_prepare_uninstall:
+  title: 'Prepare uninstall'
+  description: 'Remove fields and data created by Paragraphs module.'
+  base_route: entity.paragraphs_type.collection
+  route_name: paragraphs.prepare_uninstall

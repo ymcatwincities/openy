@@ -1,14 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\captcha\Tests\CaptchaSessionReuseAttackTestCase.
- *
- * Some tricks to debug:
- * drupal_debug($data) // from devel module
- * file_put_contents('tmp.simpletest.html', $this->drupalGetContent());
- */
-
 namespace Drupal\captcha\Tests;
 
 /**
@@ -41,7 +32,9 @@ class CaptchaSessionReuseAttackTestCase extends CaptchaBaseWebTestCase {
     $node = $this->drupalCreateNode();
     // Set Test CAPTCHA on comment form.
     captcha_set_form_id_setting(self::COMMENT_FORM_ID, 'captcha/Test');
-    $this->config('captcha.settings')->set('persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE)->save();
+    $this->config('captcha.settings')
+      ->set('persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE)
+      ->save();
 
     // Log in as normal user.
     $this->drupalLogin($this->normalUser);
@@ -81,7 +74,9 @@ class CaptchaSessionReuseAttackTestCase extends CaptchaBaseWebTestCase {
   public function testCaptchaSessionReuseAttackDetectionOnNodeForm() {
     // Set CAPTCHA on page form.
     captcha_set_form_id_setting('node_page_form', 'captcha/Test');
-    $this->config('captcha.settings')->set('persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE)->save();
+    $this->config('captcha.settings')
+      ->set('persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE)
+      ->save();
 
     // Log in as normal user.
     $this->drupalLogin($this->normalUser);
@@ -123,7 +118,9 @@ class CaptchaSessionReuseAttackTestCase extends CaptchaBaseWebTestCase {
   public function testCaptchaSessionReuseAttackDetectionOnLoginForm() {
     // Set CAPTCHA on login form.
     captcha_set_form_id_setting('user_login_form', 'captcha/Test');
-    $this->config('captcha.settings')->set('persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE)->save();
+    $this->config('captcha.settings')
+      ->set('persistence', CAPTCHA_PERSISTENCE_SKIP_ONCE_SUCCESSFUL_PER_FORM_INSTANCE)
+      ->save();
 
     // Go to log in form.
     // @TODO Bartik has two login forms because of sidebar's one on
@@ -137,12 +134,12 @@ class CaptchaSessionReuseAttackTestCase extends CaptchaBaseWebTestCase {
     $solution = "Test 123";
 
     // Log in through form.
-    $edit = array(
+    $edit = [
       'name' => $this->normalUser->getUsername(),
       'pass' => $this->normalUser->pass_raw,
       'captcha_response' => $solution,
-    );
-    $this->drupalPostForm(NULL, $edit, t('Log in'), array(), array(), self::LOGIN_HTML_FORM_ID);
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Log in'), [], [], self::LOGIN_HTML_FORM_ID);
     $this->assertCaptchaResponseAccepted();
     $this->assertCaptchaPresence(FALSE);
     // If a "log out" link appears on the page, it is almost certainly because
@@ -153,10 +150,10 @@ class CaptchaSessionReuseAttackTestCase extends CaptchaBaseWebTestCase {
     $this->drupalLogout();
 
     // Try to log in again, reusing the previous CAPTCHA session.
-    $edit += array(
+    $edit += [
       'captcha_sid' => $captcha_sid,
       'captcha_token' => $captcha_token,
-    );
+    ];
     $this->assert('pass', json_encode($edit));
     $this->drupalPostForm('<front>', $edit, t('Log in'));
     // CAPTCHA session reuse attack should be detected.

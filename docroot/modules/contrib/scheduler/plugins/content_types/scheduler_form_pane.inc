@@ -9,7 +9,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 
-$plugin = array(
+$plugin = [
   'single' => TRUE,
   'edit form' => 'scheduler_form_pane_node_form_menu_content_type_edit_form',
   'render callback' => 'scheduler_form_pane_content_type_render',
@@ -18,7 +18,7 @@ $plugin = array(
   'description' => t('Scheduler date options on the Node form.'),
   'required context' => new ctools_context_required(t('Form'), 'node_form'),
   'category' => t('Form'),
-);
+];
 
 /**
  * Content type render callback.

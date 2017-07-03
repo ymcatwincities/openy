@@ -107,7 +107,7 @@ class PanelsDeleteBlockForm extends ConfirmFormBase {
     $this->block = $this->plugin->getBlock($block_id);
     $form['block_display'] = [
       '#type' => 'value',
-      '#value' => $machine_name
+      '#value' => $machine_name,
     ];
     return parent::buildForm($form, $form_state);
   }

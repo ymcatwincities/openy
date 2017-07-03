@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\BlockVariantInterface.
+ */
+
 namespace Drupal\ctools\Plugin;
 
 use Drupal\Core\Display\VariantInterface;
