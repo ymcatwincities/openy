@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\Plugin\Derivative\EntityViewDeriver.
+ */
+
 namespace Drupal\ctools\Plugin\Deriver;
 
 use Drupal\Core\Plugin\Context\ContextDefinition;

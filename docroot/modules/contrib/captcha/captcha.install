@@ -5,9 +5,6 @@
  * Install, update and uninstall functions for the CAPTCHA module.
  */
 
-use Drupal\captcha\Entity\CaptchaPoint;
-use Drupal\Core\Url;
-
 /**
  * Implements hook_schema().
  */
@@ -112,39 +109,24 @@ function captcha_requirements($phase) {
  * Implements hook_install().
  */
 function captcha_install() {
-  // Insert some default CAPTCHA points.
-  $form_ids = [
-    'contact_message_feedback_form',
-    'contact_message_personal_form',
-    'user_register_form',
-    'user_pass',
-    'user_login_form',
-    'node_forum_form',
-  ];
-  // Add form_ids of all currently known node types too.
-  foreach (node_type_get_names() as $type => $name) {
-    $form_ids[] = 'node_' . $type . '_form';
-  }
-  foreach ($form_ids as $form_id) {
-    $values = [
-      'formId' => $form_id,
-      'captchaType' => 'default',
-      'status' => FALSE,
-    ];
-    $captcha_point = new CaptchaPoint($values, 'captcha_point');
-    $captcha_point->trustData()->save();
+
+  if (!\Drupal::service('config.installer')->isSyncing()) {
+    $form_ids = [];
+    // Add form_ids of all currently known node types too.
+    foreach (node_type_get_names() as $type => $name) {
+      $form_ids[] = 'node_' . $type . '_form';
+    }
+
+    $captcha_storage = \Drupal::entityTypeManager()
+      ->getStorage('captcha_point');
+    foreach ($form_ids as $form_id) {
+      $values = [
+        'formId' => $form_id,
+        'captchaType' => 'default',
+        'status' => FALSE,
+      ];
+      $captcha_storage->create($values)->save();
+    }
   }
 
-  // Be friendly to your users: what to do after install?
-  // @todo Routes are not yet avaiable here. Is this message really useful, no
-  //   other module does this? Could be weird within an install profile, for
-  //   example.
-  drupal_set_message(\Drupal::translation()->translate('You can now <a href="@captcha_admin">configure the CAPTCHA module</a> for your site.',
-    ['@captcha_admin' => Url::fromUri('internal:/admin/config/people/captcha')->toString()]), 'status');
-
-  // Explain to users that page caching may be disabled.
-  if ($config = \Drupal::config('system.performance')->get('cache.page.use_internal') != 0) {
-    drupal_set_message(\Drupal::translation()->translate('Note that the CAPTCHA module disables <a href="@performance_admin">page caching</a> of pages that include a CAPTCHA challenge.',
-      ['@performance_admin' => Url::fromUri('internal:/admin/config/development/performance')->toString()]), 'warning');
-  }
 }

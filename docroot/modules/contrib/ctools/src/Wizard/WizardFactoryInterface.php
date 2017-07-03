@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools\Wizard\WizardFactoryInterface.
+ */
 namespace Drupal\ctools\Wizard;
 
 interface WizardFactoryInterface {

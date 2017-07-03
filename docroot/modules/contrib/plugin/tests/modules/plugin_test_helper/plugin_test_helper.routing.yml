@@ -1,0 +1,39 @@
+plugin_test_helper.plugin_selector.advanced_plugin_selector_base:
+  path: '/plugin_test_helper-plugin_selector-advanced_plugin_selector_base/{allowed_selectable_plugin_ids}/{plugin_id}/{tree}/{always_show_selector}'
+  defaults:
+    _form: '\Drupal\plugin_test_helper\AdvancedPluginSelectorBasePluginSelectorForm'
+    tree: 0
+  requirements:
+    _access: 'TRUE'
+plugin_test_helper.paramconverter.plugin_definition:
+  path: '/plugin_test_helper/paramconverter/plugin_definition/{plugin_definition}'
+  defaults:
+    _controller: '\Drupal\plugin_test_helper\Controller\PluginDefinitionParamConverter::execute'
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      plugin_definition:
+        plugin.plugin_definition:
+          plugin_type_id: plugin_test_helper_mock
+plugin_test_helper.paramconverter.plugin_instance:
+  path: '/plugin_test_helper/paramconverter/plugin_instance/{plugin}'
+  defaults:
+    _controller: '\Drupal\plugin_test_helper\Controller\PluginInstanceParamConverter::execute'
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      plugin:
+        plugin.plugin_instance:
+          plugin_type_id: plugin_test_helper_mock
+plugin_test_helper.paramconverter.plugin_type:
+  path: '/plugin_test_helper/paramconverter/plugin_type/{plugin_type}'
+  defaults:
+    _controller: '\Drupal\plugin_test_helper\Controller\PluginTypeParamConverter::execute'
+  requirements:
+    _access: 'TRUE'
+  options:
+    parameters:
+      plugin_type:
+        plugin.plugin_type: {}

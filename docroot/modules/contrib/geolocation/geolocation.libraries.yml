@@ -1,0 +1,97 @@
+# Google maps geocoder function.
+geolocation.geocoder:
+  version: 8.x-1.x
+  js:
+    js/geolocation-geocoder.js: {}
+  dependencies:
+    - core/jquery.ui.autocomplete
+
+# Geolocation views filter geocoder function.
+geolocation.views.filter.geocoder:
+  version: 8.x-1.x
+  js:
+    js/geolocation-views-filter-geocoder.js: {}
+  dependencies:
+    - geolocation/geolocation.geocoder
+
+# HTML5 widget library.
+geolocation.widgets.html5:
+  version: 1.x
+  css:
+    theme:
+      css/geolocation-widget-html5.css: {}
+  js:
+    js/geolocation-widget-html5.js: { scope: footer }
+
+#
+#
+# Google Maps API
+#
+# TODO: Seperate into module.
+#
+#
+
+# Geolocation Google maps API integration library.
+geolocation.googlemapsapi:
+  version: 8.x-1.x
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/underscore
+    - core/drupalSettings
+  js:
+    js/geolocation-google-maps-api.js: {}
+
+# Google maps geocoder function.
+geolocation.geocoder.googlegeocodingapi:
+  version: 8.x-1.x
+  js:
+    js/geolocation-google-geocoding-api-geocoder.js: {}
+  dependencies:
+    - geolocation/geolocation.geocoder
+    - geolocation/geolocation.googlemapsapi
+
+# Google maps display formatter.
+geolocation.formatter.googlemap:
+  version: 8.x-1.x
+  js:
+    js/geolocation-formatter-googlemap.js: {}
+  dependencies:
+    - geolocation/geolocation.googlemapsapi
+
+# Google geocoder widget library.
+geolocation.widgets.googlegeocoder:
+  version: 1.x
+  css:
+    theme:
+      css/geolocation-widget-googlegeocoder.css: {}
+  js:
+    js/geolocation-widget-googlegeocoder.js: { scope: footer }
+  dependencies:
+    - geolocation/geolocation.geocoder
+    - geolocation/geolocation.googlemapsapi
+
+# CommonMap widget library.
+geolocation.commonmap:
+  css:
+    theme:
+      css/geolocation-common-map.css: {}
+  js:
+    js/geolocation-common-map.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.ajax
+    - core/jquery
+    - core/jquery.once
+    - geolocation/geolocation.googlemapsapi
+
+geolocation.markerclusterer:
+  remote: https://github.com/googlemaps/js-marker-clusterer
+  version: 1.x
+  license:
+    name: Apache License, Version 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0
+    gpl-compatible: true
+  js:
+    https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js: { type: external }

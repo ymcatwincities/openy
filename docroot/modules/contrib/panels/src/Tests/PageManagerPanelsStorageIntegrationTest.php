@@ -57,7 +57,7 @@ class PageManagerPanelsStorageIntegrationTest extends WebTestBase {
 
     // Choose a layout.
     $edit = [
-      'layout' => 'twocol',
+      'layout' => 'layout_twocol',
     ];
     $this->drupalPostForm(NULL, $edit, 'Next');
 

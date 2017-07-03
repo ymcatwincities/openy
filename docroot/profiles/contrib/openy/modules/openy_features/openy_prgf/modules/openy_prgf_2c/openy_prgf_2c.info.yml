@@ -1,0 +1,12 @@
+name: 'OpenY Paragraph 2 Columns'
+description: 'Implements a paragraph with 2 columns.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - entity_browser_entity_form
+  - field
+  - inline_entity_form
+  - openy_block_custom_simple
+  - paragraphs
+version: 8.x-1.0
