@@ -21,7 +21,7 @@ function openy_prgf_2с_update_8001() {
 /**
  * Add field_prfg_display_line_above.
  */
-function openy_prgf_2с_update_8002() {
+function openy_prgf_2c_update_8002() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_2c') . '/config/install');
   $config_importer->importConfigs(
