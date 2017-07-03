@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Defines \Drupal\ymca_retention\Plugin\Block\CampaignIntro.
- */
-
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
