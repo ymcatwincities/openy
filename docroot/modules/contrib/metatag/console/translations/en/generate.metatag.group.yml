@@ -1,5 +1,5 @@
 description: Generate a meta tag group.
-help: The <info>generate:metatag:group</info> command helps generate a new metatag group for use with the Metatag module.
+help: The <info>generate:plugin:metatag:group</info> command helps generate a new metatag group for use with the Metatag module.
 welcome: Welcome to the Metatag group generator
 options:
   label: The user-friendly name for this meta tag group.

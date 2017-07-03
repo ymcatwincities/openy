@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains \Drupal\ctools\Access\TempstoreAccess.
+ */
 
 namespace Drupal\ctools\Access;
 

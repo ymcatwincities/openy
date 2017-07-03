@@ -1,0 +1,6 @@
+embed_test.test_access:
+  path: '/embed-test/access/{editor}/{embed_button}'
+  defaults:
+    _controller: '\Drupal\embed_test\Controller\EmbedTestController::testAccess'
+  requirements:
+    _embed_button_editor_access: 'TRUE'

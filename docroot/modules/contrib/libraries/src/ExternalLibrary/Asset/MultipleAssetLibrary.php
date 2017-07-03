@@ -113,7 +113,11 @@ class MultipleAssetLibrary extends LibraryBase implements
    * @see \Drupal\libraries\ExternalLibrary\Local\LocalLibraryInterface::getLocator()
    */
   public function getLocator(FactoryInterface $locator_factory) {
-    return $locator_factory->createInstance('stream', ['scheme' => 'asset']);
+    // @todo Consider consolidating the stream wrappers used here. For now we
+    // allow asset libs to live almost anywhere.
+    return $locator_factory->createInstance('chain')
+      ->addLocator($locator_factory->createInstance('uri', ['uri' => 'asset://']))
+      ->addLocator($locator_factory->createInstance('uri', ['uri' => 'php-file://']));
   }
 
 }

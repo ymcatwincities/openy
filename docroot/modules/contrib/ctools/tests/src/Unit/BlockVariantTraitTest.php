@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\Tests\ctools\Unit\BlockVariantTraitTest.
+ */
+
 namespace Drupal\Tests\ctools\Unit;
 
 use Drupal\Component\Uuid\UuidInterface;

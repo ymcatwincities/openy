@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Contains rh_node.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * This will add Rabbit Hole options to the node type form. These settings will
+ * be used as default for every node of this node type.
+ */
+function rh_node_form_node_type_form_alter(&$form, $form_state) {
+  // Add the Rabbit Hole form, and add an extra javascript file that's needed
+  // for the fieldset summary.
+  $form['#attached']['library'][] = 'rh_node/node-form';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * This will add Rabbit Hole options to the node form. The user will be able to
+ * override the default Rabbit Hole options.
+ */
+function rh_node_form_node_form_alter(&$form, $form_state) {
+  // Add the Rabbit Hole form, and add an extra javascript file that's needed
+  // for the fieldset summary.
+  // Add a custom submit function. This is used to disable the redirect to
+  // node/123 if Rabbit Hole is enabled and the user doesn't have the bypass
+  // rh_node permission.
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function rh_node_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'node') {
+    return \Drupal::service('rabbit_hole.entity_extender')
+      ->getRabbitHoleFields('node');
+  }
+}

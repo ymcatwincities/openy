@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains \Drupal\ctools\ParamConverter\TempstoreConverter.
+ */
+
 namespace Drupal\ctools\ParamConverter;
 
 use Drupal\Component\Utility\NestedArray;

@@ -16,8 +16,8 @@ function config_import_drush_command() {
   /* @var Command[] $commands */
   $commands = [];
 
-  // Cannot continue without loaded container or module installed.
-  if (!Drupal::hasContainer() || !Drupal::moduleHandler()->moduleExists('config_import')) {
+  // Cannot continue without loaded container.
+  if (!Drupal::hasContainer()) {
     return $commands;
   }
 
