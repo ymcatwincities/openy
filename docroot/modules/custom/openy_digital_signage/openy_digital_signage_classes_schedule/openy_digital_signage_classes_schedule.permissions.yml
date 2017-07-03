@@ -1,0 +1,19 @@
+add Digital Signage Classes Session entities:
+  title: 'Create new Digital Signage Classes Session entities'
+
+administer Digital Signage Classes Session entities:
+  title: 'Administer Digital Signage Classes Session entities'
+  description: 'Allow to access the administration form to configure Digital Signage Classes Session entities.'
+  restrict access: true
+
+delete Digital Signage Classes Session entities:
+  title: 'Delete Digital Signage Classes Session entities'
+
+edit Digital Signage Classes Session entities:
+  title: 'Edit Digital Signage Classes Session entities'
+
+access Digital Signage Classes Session overview:
+  title: 'Access Digital Signage Classes Session overview page'
+
+view Digital Signage Classes Session entities:
+  title: 'View Digital Signage Classes Session entities'

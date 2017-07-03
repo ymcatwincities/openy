@@ -4,4 +4,4 @@ description: OpenY Digital Signage GroupEx Pro Classes Schedule.
 core: 8.x
 package: "OpenY: Digital Signage"
 dependencies:
-
+  - openy_digital_signage_classes_schedule

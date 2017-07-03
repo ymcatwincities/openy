@@ -1,0 +1,5 @@
+entity.openy_ds_classes_session.add_form:
+  route_name: entity.openy_ds_classes_session.add_form
+  title: 'Add Session'
+  appears_on:
+    - entity.openy_ds_classes_session.collection

@@ -18,11 +18,11 @@ class OpenYClassesSessionViewsData extends EntityViewsData implements EntityView
   public function getViewsData() {
     $data = parent::getViewsData();
 
-    $data['openy_ds_classes_session']['table']['base'] = array(
+    $data['openy_ds_classes_session']['table']['base'] = [
       'field' => 'id',
       'title' => $this->t('Digital Signage Classes Session'),
       'help' => $this->t('Digital Signage Classes Session ID.'),
-    );
+    ];
 
     return $data;
   }
