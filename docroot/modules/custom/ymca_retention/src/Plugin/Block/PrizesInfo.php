@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Defines \Drupal\ymca_retention\Plugin\Block\PrizesInfo.
- */
-
 namespace Drupal\ymca_retention\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
@@ -193,14 +188,7 @@ class PrizesInfo extends BlockBase {
     }
 
     // Format the text_format field.
-    if (isset($prize['copy'])
-      && !empty($prize['copy']['value'])
-      && isset($prize['copy']['format'])) {
-      $prize['copy'] = $this->getThemedTextFormat($prize['copy']);
-    }
-    else {
-      $prize['copy'] = '';
-    }
+    $prize['copy'] = $this->getThemedTextFormat($prize['copy']);
 
     return $prize;
   }
@@ -214,9 +202,7 @@ class PrizesInfo extends BlockBase {
    *   A theme array or empty string if not valid.
    */
   protected function getThemedTextFormat(array $text_field) {
-    if (!isset($text_field['value'])
-      || empty($text_field['value'])
-      || !isset($text_field['format'])) {
+    if (empty($text_field['value']) || !isset($text_field['format'])) {
       return '';
     }
 
