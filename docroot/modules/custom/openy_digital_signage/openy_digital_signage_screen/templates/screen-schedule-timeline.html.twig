@@ -13,9 +13,7 @@
   <div class="screen-schedule-timeline__schedule-items">
 
     <div class="screen-schedule-item screen-schedule-item--fallback">
-      <a href="{{ fallback_item.view_link }}" class="use-ajax">
-        <div class="screen-schedule-item__title">Fallback content</div>
-      </a>
+      <a href="{{ fallback_item.view_link }}" class="use-ajax screen-schedule-item__title">Fallback content</a>
       <div class="screen-schedule-item__time"></div>
     </div>
 
@@ -23,20 +21,14 @@
       <div class="screen-schedule-item screen-schedule-item--{{ schedule_item.type }}"
          data-from="{{ schedule_item.from }}"
          data-to="{{ schedule_item.to }}">
-        <a href="{{ schedule_item.view_link }}" class="use-ajax"><!--
-          --><span class="screen-schedule-item__title">{{ schedule_item.title }}</span><!--
-        --></a>
+        <a href="{{ schedule_item.view_link }}" class="use-ajax screen-schedule-item__title">{{ schedule_item.title }}</a>
 
         <span class="screen-schedule-item__time">{{ schedule_item.formatted_time }}</span>
-        <a href="{{ schedule_item.edit_link }}" class="use-ajax screen-schedule-item__edit-link">
-          Edit
-        </a>
+        <a href="{{ schedule_item.edit_link }}" class="use-ajax screen-schedule-item__edit-link">{{ "Edit"|t }}</a>
       </div>
     {% endfor %}
 
-    <a href="{{ add_link }}" class="screen-schedule-new-item use-ajax">
-      Add new
-    </a>
+    <a href="{{ add_link }}" class="screen-schedule-new-item use-ajax">{{ "Add new"|t }}</a>
 
   </div>
 
