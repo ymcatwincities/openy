@@ -167,6 +167,7 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
   ];
 
   $schedule = $variables['schedule'];
+  $schedule_items = [];
   foreach ($schedule as $item) {
     $schedule_item = $item['item'];
 
