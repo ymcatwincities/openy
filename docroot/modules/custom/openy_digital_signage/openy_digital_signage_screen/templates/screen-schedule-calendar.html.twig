@@ -1,0 +1,27 @@
+<div class="screen-schedule-calendar">
+  <table>
+    <thead>
+      <tr>
+        <th colspan="7">
+          {{ prev_month }}
+          {{ current_month }}
+          {{ next_month }}
+        </th>
+      </tr>
+      <tr>
+        {% for weekday in weekdays %}
+          <th>{{ weekday }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for week in weeks %}
+        <tr>
+        {% for day in week %}
+          <td class="{{ day.class }}">{{ day.content }}</td>
+        {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>

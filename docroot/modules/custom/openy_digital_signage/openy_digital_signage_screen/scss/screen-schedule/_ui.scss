@@ -164,3 +164,59 @@
   }
 
 }
+
+.screen-schedule-calendar {
+
+  table {
+    width: auto;
+    margin: auto
+  }
+
+  th,
+  td {
+    text-align: center;
+    padding: 0;
+  }
+
+  th {
+    padding-top: 2px;
+    paddinb-bottom: 2px;
+  }
+
+  th > a {
+    display: inline;
+  }
+  
+  td > a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 24px;
+    padding: 6px;
+    text-align: center;
+    color: #333333;
+
+    &:hover {
+      background-color: #c0c0c0;
+    }
+
+    &.today {
+      background-color: #e1e1e1;
+    }
+
+    &.selected {
+      border: 2px solid black;
+      line-height: 20px;
+    }
+
+    &.has-override {
+      background-color: #FFB040;
+    }
+  }
+
+
+
+  .ajax-progress.ajax-progress-throbber {
+    position: absolute;
+  }
+}
