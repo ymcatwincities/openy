@@ -5,7 +5,6 @@ namespace Drupal\openy_digital_signage_screen\Controller;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\AppendCommand;
 use Drupal\Core\Ajax\RemoveCommand;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
 use Drupal\ctools\Form\AjaxFormTrait;
@@ -13,7 +12,6 @@ use Drupal\node\NodeInterface;
 use Drupal\openy_digital_signage_schedule\Entity\OpenYScheduleItemInterface;
 use Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface;
 use Drupal\panels\CachedValuesGetterTrait;
-use Drupal\user\SharedTempStoreFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,49 +23,21 @@ class OpenYScreenSchedule extends ControllerBase {
   use AjaxFormTrait;
   use CachedValuesGetterTrait;
 
-  /**
-   * Tempstore factory.
-   *
-   * @var \Drupal\user\SharedTempStoreFactory
-   */
-  protected $tempstore;
+  const LEFT = 'left';
+  const RIGHT = 'right';
 
   /**
-   * Constructs a new VariantPluginEditForm.
-   *
-   * @param \Drupal\Core\Block\BlockManagerInterface $block_manager
-   *   The block manager.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $condition_manager
-   *   The condition manager.
-   * @param \Drupal\Component\Plugin\PluginManagerInterface $variant_manager
-   *   The variant manager.
-   * @param \Drupal\Core\Plugin\Context\ContextHandlerInterface $context_handler
-   *   The context handler.
-   * @param \Drupal\user\SharedTempStoreFactory $tempstore
-   *   The tempstore factory.
-   */
-  public function __construct(SharedTempStoreFactory $tempstore) {
-    $this->tempstore = $tempstore;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('user.shared_tempstore')
-    );
-  }
-
-  /**
-   * TODO: Specify
+   * Generates Screen Schedule manage page contents.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
-   * @param $openy_digital_signage_screen
+   *   The request object.
+   * @param \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $openy_digital_signage_screen
+   *   The Digital Signage Screen entity.
    *
-   * @return string
+   * @return array
+   *   Page build array.
    */
-  public function schedulePage(Request $request, $openy_digital_signage_screen) {
+  public function schedulePage(Request $request, OpenYScreenInterface $openy_digital_signage_screen) {
     // Add a section containing the available blocks to be added to the variant.
     $build = [
       '#type' => 'container',
@@ -93,6 +63,18 @@ class OpenYScreenSchedule extends ControllerBase {
       '#theme' => 'screen_schedule_timeline',
       '#screen' => $openy_digital_signage_screen,
       '#schedule' => $schedule,
+      '#year' => date('Y', $now),
+      '#month' => date('n', $now),
+      '#day' => date('j', $now),
+    ];
+    $build['#schedule']['#calendar'] = [
+      '#type' => 'container',
+      '#theme' => 'screen_schedule_calendar',
+      '#year' => date('Y', $now),
+      '#month' => date('n', $now),
+      '#day' => date('j', $now),
+      '#overrides' => [],
+      '#screen' => $openy_digital_signage_screen,
     ];
     $build['#data'] = [
       '#type' => 'markup',
@@ -103,25 +85,52 @@ class OpenYScreenSchedule extends ControllerBase {
   }
 
   /**
-   * TODO: Specify
+   * Defines Screen Schedule manage page title.
    *
    * @param \Symfony\Component\HttpFoundation\Request $request
-   * @param $openy_digital_signage_screen
+   *   The request object.
+   * @param \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $openy_digital_signage_screen
+   *   The Digital Signage Screen entity.
    *
    * @return string
+   *   Formatted title.
    */
-  public function scheduleTitle(Request $request, $openy_digital_signage_screen) {
-    // TODO: implement
-    return $openy_digital_signage_screen->label() . ' – manage schedule';// . $openy_digital_signage_screen->screen_schedule->entity->label();
+  public function scheduleTitle(Request $request, OpenYScreenInterface $openy_digital_signage_screen) {
+    return $this->t('@label – manage schedule', ['@label' => $openy_digital_signage_screen->label()]);
+  }
+
+  /**
+   * Adds AJAX commands to a response object in order to output content.
+   *
+   * @param \Drupal\Core\Ajax\AjaxResponse $response
+   *   The response object.
+   * @param string $side
+   *   The side name ("left" or "right").
+   * @param mixed $build
+   *   The content to be output.
+   */
+  private function outputToAside(AjaxResponse $response, $side, $build) {
+    switch ($side) {
+      case 'left':
+        $response->addCommand(new RemoveCommand('.screen-schedule-ui--left > *'));
+        $response->addCommand(new AppendCommand('.screen-schedule-ui--left', $build));
+        break;
+
+      case 'right':
+        $response->addCommand(new RemoveCommand('.screen-schedule-ui--right > *'));
+        $response->addCommand(new AppendCommand('.screen-schedule-ui--right', $build));
+        break;
+    }
   }
 
   /**
    * Gets a schedule item add form.
    *
    * @param OpenYScreenInterface $screen
-   *   The Screen to whose schedule a new item must be added
+   *   The Screen to whose a new schedule item must be added.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function addScheduleItem(OpenYScreenInterface $screen) {
     // Build a new Schedule item form.
@@ -137,11 +146,9 @@ class OpenYScreenSchedule extends ControllerBase {
       ->setEntity($schedule_item);
     $build = \Drupal::formBuilder()->getForm($form);
 
-
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-    $response->addCommand(new RemoveCommand('.screen-schedule-ui--right > *'));
-    $response->addCommand(new AppendCommand('.screen-schedule-ui--right', $build));
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -152,6 +159,7 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Schedule item.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function editScheduleItem(OpenYScheduleItemInterface $schedule_item) {
     // Build an edit Schedule item form.
@@ -162,8 +170,7 @@ class OpenYScreenSchedule extends ControllerBase {
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-    $response->addCommand(new RemoveCommand('.screen-schedule-ui--right > *'));
-    $response->addCommand(new AppendCommand('.screen-schedule-ui--right', $build));
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -176,6 +183,7 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Schedule item entity.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function viewScheduleItem(OpenYScreenInterface $screen, OpenYScheduleItemInterface $schedule_item) {
     $screen_content = $schedule_item->content->entity;
@@ -184,7 +192,8 @@ class OpenYScreenSchedule extends ControllerBase {
       '#type' => 'container',
       '#tag' => 'div',
       '#attributes' => [
-        'data-src' => Url::fromRoute('entity.node.canonical', ['node' => $screen_content->id()])->toString(),
+        'data-src' => Url::fromRoute('entity.node.canonical', ['node' => $screen_content->id()])
+          ->toString(),
         'class' => ['frame-container'],
       ],
     ];
@@ -193,12 +202,9 @@ class OpenYScreenSchedule extends ControllerBase {
       $build['#attributes']['class'][] = 'frame-container--portrait';
     }
 
-
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-
-    $response->addCommand(new RemoveCommand('.screen-schedule-ui--right > *'));
-    $response->addCommand(new AppendCommand('.screen-schedule-ui--right', $build));
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -211,6 +217,7 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Screen content entity.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function viewScreenContent(OpenYScreenInterface $screen, NodeInterface $screen_content) {
     // Build an edit Schedule item form.
@@ -218,7 +225,8 @@ class OpenYScreenSchedule extends ControllerBase {
       '#type' => 'container',
       '#tag' => 'div',
       '#attributes' => [
-        'data-src' => Url::fromRoute('entity.node.canonical', ['node' => $screen_content->id()])->toString(),
+        'data-src' => Url::fromRoute('entity.node.canonical', ['node' => $screen_content->id()])
+          ->toString(),
         'class' => ['frame-container'],
       ],
     ];
@@ -229,9 +237,7 @@ class OpenYScreenSchedule extends ControllerBase {
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-
-    $response->addCommand(new RemoveCommand('.screen-schedule-ui--right > *'));
-    $response->addCommand(new AppendCommand('.screen-schedule-ui--right', $build));
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -240,13 +246,24 @@ class OpenYScreenSchedule extends ControllerBase {
    *
    * @param OpenYScreenInterface $screen
    *   The Screen entity.
-
+   *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
-  public function redrawTimeline(OpenYScreenInterface $screen) {
+  public function redrawTimeline(OpenYScreenInterface $screen, $year = NULL, $month = NULL, $day = NULL) {
+    if (!isset($year, $month, $day)) {
+      $year = date('Y', $_SERVER[REQUEST_TIME]);
+      $month = date('m', $_SERVER[REQUEST_TIME]);
+      $day = date('d', $_SERVER[REQUEST_TIME]);
+      $now = strtotime('today');
+    }
+    else {
+      $now = strtotime(sprintf('%d-%02d-%02d', $year, $month, $day));
+    }
+
     $schedule_entity = $screen->screen_schedule->entity;
+    // Move to constructor or make method static.
     $schedule_manager = \Drupal::service('openy_digital_signage_schedule.manager');
-    $now = strtotime('today -1 day');
     $schedule = $schedule_manager->getUpcomingScreenContents($schedule_entity, 86400, $now);
 
     $build = [
@@ -254,13 +271,24 @@ class OpenYScreenSchedule extends ControllerBase {
       '#theme' => 'screen_schedule_timeline',
       '#screen' => $screen,
       '#schedule' => $schedule,
+      '#year' => $year,
+      '#month' => $month,
+      '#day' => $day,
+    ];
+    $build['#calendar'] = [
+      '#type' => 'container',
+      '#theme' => 'screen_schedule_calendar',
+      '#year' => $year,
+      '#month' => $month,
+      '#day' => $day,
+      '#overrides' => [],
+      '#screen' => $screen,
     ];
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-
-    $response->addCommand(new RemoveCommand('.screen-schedule-ui--left > *'));
-    $response->addCommand(new AppendCommand('.screen-schedule-ui--left', $build));
+    $this->outputToAside($response, $this::LEFT, $build);
     return $response;
   }
+
 }
