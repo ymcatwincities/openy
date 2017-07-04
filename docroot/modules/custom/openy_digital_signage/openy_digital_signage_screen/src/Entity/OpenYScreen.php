@@ -247,6 +247,7 @@ class OpenYScreen extends ContentEntityBase implements OpenYScreenInterface {
     $fields['screen_schedule'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Schedule'))
       ->setDescription(t('A reference to the assigned schedule.'))
+      ->setRequired(TRUE)
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'openy_digital_signage_schedule')
       ->setTranslatable(FALSE)
@@ -269,8 +270,8 @@ class OpenYScreen extends ContentEntityBase implements OpenYScreenInterface {
 
     $fields['fallback_content'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Fallback Content'))
-      ->setDescription(t('Default content this screen should display in case there are no active content in rotation on the screen.'))
-      ->setDescription(t('The Screen Content that is rotated if there is nothing in schedule, or schedule is not configured or not assigned.'))
+      ->setDescription(t('The Screen Content that is rotated if there is no active content in schedule or schedule is not configured.'))
+      ->setRequired(TRUE)
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'node')
       ->setSetting('handler_settings', ['target_bundles' => ['screen_content' => 'screen_content']])
