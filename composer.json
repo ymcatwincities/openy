@@ -158,6 +158,9 @@
             "drupal/colorbutton": {
               "2881822 - Module can't find library in profile directory": "https://www.drupal.org/files/issues/colorbutton-libraries-2881822-3.patch",
               "2881819 - Check for missing library in hook_requirements": "https://www.drupal.org/files/issues/colorbutton-hook-requirements-2881819_0.patch"
+            },
+            "drupal/plugin": {
+                "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
             }
         }
     },
