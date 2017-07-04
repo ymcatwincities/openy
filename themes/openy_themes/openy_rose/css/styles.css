@@ -2398,15 +2398,16 @@ body {
     margin: 0 0 45px;
   }
 }
-.program-header.program-header-sub-category h2 {
+.program-header.program-header-sub-category .field-category-program {
   color: #fff;
+  font-family: "Cachet W01 Book", "Ubuntu Condensed", sans-serif;
   font-size: 28px;
   letter-spacing: -0.8px;
   line-height: 28px;
   margin: 0;
 }
 @media (min-width: 48em) {
-  .program-header.program-header-sub-category h2 {
+  .program-header.program-header-sub-category .field-category-program {
     font-size: 36px;
   }
 }
