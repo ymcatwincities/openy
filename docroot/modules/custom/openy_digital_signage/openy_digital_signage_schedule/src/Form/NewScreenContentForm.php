@@ -10,7 +10,6 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseModalDialogCommand;
 use Drupal\Core\Ajax\InvokeCommand;
 
-
 /**
  * NewScreenContentForm class.
  */
@@ -19,7 +18,7 @@ class NewScreenContentForm extends FormBase {
   /**
    * The create Node.
    *
-   * @var \Drupal\node\NodeInterface;
+   * @var \Drupal\node\NodeInterface
    */
   protected $node;
 
