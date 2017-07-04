@@ -288,7 +288,6 @@ class OpenYScreenAddForm extends ContentEntityForm {
     }
 
     // Redirect to the new Schedule entity edit form.
-    // TODO: should redirect to another place.
     $form_state->setRedirect('entity.openy_digital_signage_screen.schedule', ['openy_digital_signage_screen' => $entity->id()]);
   }
 

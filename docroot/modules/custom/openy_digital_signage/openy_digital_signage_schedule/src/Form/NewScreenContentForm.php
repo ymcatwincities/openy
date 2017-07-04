@@ -29,7 +29,7 @@ class NewScreenContentForm extends FormBase {
     $form['title'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
-      '#title' => $this->t('title'),
+      '#title' => $this->t('Title'),
     ];
 
     $form['actions'] = [
