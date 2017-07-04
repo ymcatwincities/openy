@@ -102,8 +102,13 @@ class OpenYScheduleItemForm extends ContentEntityForm {
     $screen_content = $schedule_item->content->entity;
     // Build an edit Schedule item form.
     $build = [
-      '#type' => 'markup',
-      '#markup' => '<h3>' . $schedule_item->label() . '</h3><div data-src="/node/' . $screen_content->id() .'" class="frame-container"></div>',
+      '#type' => 'container',
+      '#tag' => 'div',
+      '#attributes' => [
+        'data-src' => Url::fromRoute('entity.node.canonical', ['node' => $screen_content->id()])
+          ->toString(),
+        'class' => ['frame-container'],
+      ],
     ];
 
     // Return the rendered form as a proper Drupal AJAX response.
