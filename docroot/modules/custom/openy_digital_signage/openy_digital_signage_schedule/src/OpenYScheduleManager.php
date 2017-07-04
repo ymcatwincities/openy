@@ -129,6 +129,19 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
     return $schedule;
   }
 
+  /**
+   * Calculates days with overrides for the given month.
+   *
+   * @param \Drupal\openy_digital_signage_schedule\Entity\OpenYSchedule $schedule
+   *   The schedule object.
+   * @param int $year
+   *   The year.
+   * @param int $month
+   *   The month number.
+   *
+   * @return array
+   *   Array of dates.
+   */
   public function daysWithOverrides(OpenYSchedule $schedule, $year, $month) {
     $day_interval = new \DateInterval('P1D');
     $next_year = $year;
@@ -142,6 +155,8 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
     $date_first = new \DateTime($first_days_of_month);
     $date_last = new \DateTime($first_day_of_next_month);
     $date_last->sub($day_interval);
+
+    // Retrive all override schedule items that fit the given month.
     $query = $this->entityQuery->get('openy_digital_signage_sch_item');
     $query->condition('schedule', $schedule->id());
     $query->condition('show_date', 0);
@@ -153,11 +168,11 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
       return [];
     }
 
-    $days = [];
     $schedule_items = $this->entityTypeManager
       ->getStorage('openy_digital_signage_sch_item')
       ->loadMultiple($entity_ids);
 
+    $days = [];
     foreach ($schedule_items as $schedule_item) {
       $override_from = $schedule_item->get('date')->value;
       $override_to = $schedule_item->get('date')->end_value;

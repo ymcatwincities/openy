@@ -154,7 +154,17 @@ function openy_digital_signage_screen_ds_version() {
  * Implements hook_preprocess_THEME().
  */
 function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$variables) {
-  $variables['hours'] = ['12am', '3am', '6am', '9am', '12pm', '3pm', '6pm', '9am', '12am'];
+  $variables['hours'] = [
+    '12am',
+    '3am',
+    '6am',
+    '9am',
+    '12pm',
+    '3pm',
+    '6pm',
+    '9am',
+    '12am',
+  ];
 
   $schedule = $variables['schedule'];
   foreach ($schedule as $item) {

@@ -35,8 +35,9 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Digital Signage Screen entity.
    *
    * @return array
+   *   Page build array.
    */
-  public function schedulePage(Request $request, $openy_digital_signage_screen) {
+  public function schedulePage(Request $request, OpenYScreenInterface $openy_digital_signage_screen) {
     // Add a section containing the available blocks to be added to the variant.
     $build = [
       '#type' => 'container',
@@ -92,8 +93,9 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Digital Signage Screen entity.
    *
    * @return string
+   *   Formatted title.
    */
-  public function scheduleTitle(Request $request, $openy_digital_signage_screen) {
+  public function scheduleTitle(Request $request, OpenYScreenInterface $openy_digital_signage_screen) {
     return $this->t('@label – manage schedule', ['@label' => $openy_digital_signage_screen->label()]);
   }
 
@@ -102,12 +104,12 @@ class OpenYScreenSchedule extends ControllerBase {
    *
    * @param \Drupal\Core\Ajax\AjaxResponse $response
    *   The response object.
-   * @param string
+   * @param string $side
    *   The side name ("left" or "right").
-   * @param $build
+   * @param mixed $build
    *   The content to be output.
    */
-  private function outputToASide(AjaxResponse $response, $side, $build) {
+  private function outputToAside(AjaxResponse $response, $side, $build) {
     switch ($side) {
       case 'left':
         $response->addCommand(new RemoveCommand('.screen-schedule-ui--left > *'));
@@ -125,9 +127,10 @@ class OpenYScreenSchedule extends ControllerBase {
    * Gets a schedule item add form.
    *
    * @param OpenYScreenInterface $screen
-   *   The Screen to whose schedule a new item must be added
+   *   The Screen to whose a new schedule item must be added.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function addScheduleItem(OpenYScreenInterface $screen) {
     // Build a new Schedule item form.
@@ -145,7 +148,7 @@ class OpenYScreenSchedule extends ControllerBase {
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-    $this->outputToASide($response, $this::RIGHT, $build);
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -156,6 +159,7 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Schedule item.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function editScheduleItem(OpenYScheduleItemInterface $schedule_item) {
     // Build an edit Schedule item form.
@@ -166,7 +170,7 @@ class OpenYScreenSchedule extends ControllerBase {
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-    $this->outputToASide($response, $this::RIGHT, $build);
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -179,6 +183,7 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Schedule item entity.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function viewScheduleItem(OpenYScreenInterface $screen, OpenYScheduleItemInterface $schedule_item) {
     $screen_content = $schedule_item->content->entity;
@@ -197,10 +202,9 @@ class OpenYScreenSchedule extends ControllerBase {
       $build['#attributes']['class'][] = 'frame-container--portrait';
     }
 
-
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-    $this->outputToASide($response, $this::RIGHT, $build);
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -213,6 +217,7 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Screen content entity.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function viewScreenContent(OpenYScreenInterface $screen, NodeInterface $screen_content) {
     // Build an edit Schedule item form.
@@ -232,7 +237,7 @@ class OpenYScreenSchedule extends ControllerBase {
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-    $this->outputToASide($response, $this::RIGHT, $build);
+    $this->outputToAside($response, $this::RIGHT, $build);
     return $response;
   }
 
@@ -243,6 +248,7 @@ class OpenYScreenSchedule extends ControllerBase {
    *   The Screen entity.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
+   *   Ajax response object.
    */
   public function redrawTimeline(OpenYScreenInterface $screen, $year = NULL, $month = NULL, $day = NULL) {
     if (!isset($year, $month, $day)) {
@@ -281,7 +287,7 @@ class OpenYScreenSchedule extends ControllerBase {
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
-    $this->outputToASide($response, $this::LEFT, $build);
+    $this->outputToAside($response, $this::LEFT, $build);
     return $response;
   }
 

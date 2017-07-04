@@ -69,14 +69,35 @@ class OpenYScheduleItemForm extends ContentEntityForm {
     return $form;
   }
 
+  /**
+   * AJAX callback that forces the timeline to redraw.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state object.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The Ajax response.
+   */
   public function addNewScreenContentCallback(array &$form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
     $response->addCommand(new InvokeCommand('.timeline-redraw-link', 'click'));
     return $response;
   }
 
+  /**
+   * AJAX form submit handler.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state object.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   The Ajax response.
+   */
   public function ajaxFormSubmitHandler(array &$form, FormStateInterface $form_state) {
-    // TODO: pass Screen entity context here.
     $schedule_item = $this->entity;
     $screen_content = $schedule_item->content->entity;
     // Build an edit Schedule item form.
