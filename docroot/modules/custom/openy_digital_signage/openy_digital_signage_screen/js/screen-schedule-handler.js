@@ -30,6 +30,9 @@
             height: (100 * (to - from) / 24) + '%'
           });
         })
+        .click(function(e) {
+          $(this).find('.screen-schedule-item__title').trigger('click');
+        })
         .find('a')
           .on('click', function() {
             $('.screen-schedule-timeline .screen-schedule-item', context).removeClass('screen-schedule-item--active');

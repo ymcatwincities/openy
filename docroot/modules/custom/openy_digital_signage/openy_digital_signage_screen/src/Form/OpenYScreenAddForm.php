@@ -112,6 +112,11 @@ class OpenYScreenAddForm extends ContentEntityForm {
   public function step1NextSubmit(array $form, FormStateInterface $form_state) {
     // Build entity out of submitted values.
     $entity = parent::buildEntity($form, $form_state);
+
+    if (!$entity->fallback_content->entity) {
+      $id = $this->config('openy_digital_signage_screen.default_fallback_content')->get('target_id');
+      $entity->set('fallback_content', $id);
+    }
     // Store Screen entity and switch to step 2.
     $this->store->set('screen_entity', $entity);
     $this->store->set('screen_step', 2);
@@ -283,7 +288,6 @@ class OpenYScreenAddForm extends ContentEntityForm {
     }
 
     // Redirect to the new Schedule entity edit form.
-    // TODO: should redirect to another place.
     $form_state->setRedirect('entity.openy_digital_signage_screen.schedule', ['openy_digital_signage_screen' => $entity->id()]);
   }
 

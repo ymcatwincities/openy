@@ -47,7 +47,7 @@ screen_schedule.view_screen_content:
     _permission: 'access administration pages'
 
 screen_schedule.redraw_screen_schedule_timeline:
-  path: '/ajax/screen-schedule/redraw-timeline/{screen}'
+  path: '/ajax/screen-schedule/redraw-timeline/{screen}/{year}/{month}/{day}'
   defaults:
     _controller: '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::redrawTimeline'
   options:
