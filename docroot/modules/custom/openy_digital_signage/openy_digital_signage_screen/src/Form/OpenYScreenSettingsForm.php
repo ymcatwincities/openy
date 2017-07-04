@@ -4,6 +4,7 @@ namespace Drupal\openy_digital_signage_screen\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 
 /**
@@ -77,7 +78,9 @@ class OpenYScreenSettingsForm extends ConfigFormBase {
         'target_bundles' => array('screen_content'),
       ),
       '#default_value' => $default_value,
-      '#description' => $this->t('You can create a new Screen content node at @link', ['@link' => Url::fromUserInput('/node/add/screen_content')]),
+      '#description' => $this->t('You can create a new Screen content node at @link', [
+        '@link' => Link::fromTextAndUrl('the page', Url::fromUserInput('/node/add/screen_content'))->toString(),
+      ]),
     );
 
     $form['actions']['submit'] = [
