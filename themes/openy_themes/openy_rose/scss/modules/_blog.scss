@@ -255,12 +255,18 @@
         display: table-cell;
         padding: 0 40px 0 0;
 
+        &.form-item-field-blog-location-target-id-verf {
+          width: 210px;
+        }
+
         &.form-item-field-blog-category-target-id {
-          width: 239px;
+          width: 210px;
         }
 
         &.form-item-combine {
-          padding: 0 0 0 270px;
+          input {
+            width: 100%;
+          }
         }
 
         &.form-item-related-content-titles {
@@ -269,6 +275,18 @@
 
         &.form-actions {
           padding-right: 0;
+          width: 90px;
+        }
+      }
+
+      @media (min-width: 1200px) {
+
+        &.form-item-field-blog-location-target-id-verf {
+          width: 240px;
+        }
+
+        &.form-item-field-blog-category-target-id {
+          width: 240px;
         }
       }
     }

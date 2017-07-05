@@ -4257,17 +4257,29 @@ html.js .branch__updates_queue__button {
     display: table-cell;
     padding: 0 40px 0 0;
   }
-  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-category-target-id {
-    width: 239px;
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-location-target-id-verf {
+    width: 210px;
   }
-  .blog-more-teaser .views-exposed-form > div.form-item-combine {
-    padding: 0 0 0 270px;
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-category-target-id {
+    width: 210px;
+  }
+  .blog-more-teaser .views-exposed-form > div.form-item-combine input {
+    width: 100%;
   }
   .blog-more-teaser .views-exposed-form > div.form-item-related-content-titles {
     width: 258px;
   }
   .blog-more-teaser .views-exposed-form > div.form-actions {
     padding-right: 0;
+    width: 90px;
+  }
+}
+@media (min-width: 1200px) {
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-location-target-id-verf {
+    width: 240px;
+  }
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-category-target-id {
+    width: 240px;
   }
 }
 .blog-more-teaser .form-actions {
