@@ -175,6 +175,7 @@ function openy_node_branch_update_8012() {
       'field.field.node.branch.field_header_content',
       'field.field.node.branch.field_branch_hours',
       'field.field.node.branch.field_branch_body',
+      'core.entity_form_display.node.branch.default'
     ]
   );
 }
