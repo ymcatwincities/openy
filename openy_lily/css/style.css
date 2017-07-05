@@ -211,9 +211,6 @@ a:hover, a:active, a:focus {
     max-width: 100%;
   }
 }
-body.toolbar-fixed.toolbar-horizontal.path-frontpage #banner {
-  margin-top: -147px !important;
-}
 @media (min-width: 62em) {
   body.toolbar-fixed.toolbar-horizontal {
     padding-top: 122px !important;

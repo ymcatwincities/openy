@@ -12,9 +12,6 @@ body {
   }
   &.toolbar-fixed {
     &.toolbar-horizontal {
-      &.path-frontpage #banner {
-        margin-top: -147px !important;
-      }
       @include breakpoint ($tablet-start) {
         padding-top: 122px !important;
         @include transition(padding-top 0.2s ease);
