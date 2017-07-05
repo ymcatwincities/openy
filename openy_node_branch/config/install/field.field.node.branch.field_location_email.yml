@@ -8,8 +8,8 @@ id: node.branch.field_location_email
 field_name: field_location_email
 entity_type: node
 bundle: branch
-label: 'Branch Email'
-description: 'Enter branch email.'
+label: 'Center Email'
+description: 'Enter center email.'
 required: false
 translatable: true
 default_value: {  }
