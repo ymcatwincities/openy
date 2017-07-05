@@ -15,8 +15,8 @@ id: node.branch.field_header_content
 field_name: field_header_content
 entity_type: node
 bundle: branch
-label: 'Branch Header'
-description: 'Add Header Paragraph for the branch.'
+label: 'Center Header'
+description: 'Add Header Paragraph for the center.'
 required: false
 translatable: true
 default_value: {  }

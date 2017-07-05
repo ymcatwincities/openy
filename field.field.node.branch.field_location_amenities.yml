@@ -9,8 +9,8 @@ id: node.branch.field_location_amenities
 field_name: field_location_amenities
 entity_type: node
 bundle: branch
-label: 'Location Amenities'
-description: 'Provide a list of Amenities, available within current location.'
+label: 'Center Amenities'
+description: 'Provide a list of Amenities, available within current center.'
 required: false
 translatable: true
 default_value: {  }

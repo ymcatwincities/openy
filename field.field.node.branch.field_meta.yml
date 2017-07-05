@@ -11,7 +11,7 @@ field_name: field_meta
 entity_type: node
 bundle: branch
 label: 'Meta tags'
-description: 'Enter here meta tags for branch.'
+description: 'Enter here meta tags for center.'
 required: false
 translatable: true
 default_value:
