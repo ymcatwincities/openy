@@ -300,3 +300,20 @@ function openy_digital_signage_screen_preprocess_screen_schedule_calendar(&$vari
   }
   $variables['weeks'] = array_chunk($days, 7);
 }
+
+/**
+ * Implements hook_entity_openration().
+ */
+function openy_digital_signage_screen_entity_operation(\Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'openy_digital_signage_screen') {
+    return;
+  }
+  $operations = [];
+  $operations['schedule'] = [
+    'title' => t('Manage schedule'),
+    'url' => Url::fromRoute('entity.openy_digital_signage_screen.schedule', ['openy_digital_signage_screen' => $entity->id()]),
+    'weight' => 50,
+  ];
+
+  return $operations;
+}
