@@ -27,8 +27,8 @@ id: node.branch.field_branch_body
 field_name: field_branch_body
 entity_type: node
 bundle: branch
-label: 'Branch Body'
-description: 'Enter branch content.'
+label: 'Center Body'
+description: 'Enter center content.'
 required: false
 translatable: true
 default_value: {  }

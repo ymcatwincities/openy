@@ -3,6 +3,6 @@ status: true
 dependencies: {  }
 name: Amenities
 vid: amenities
-description: 'Branch amenities.'
+description: 'Center amenities.'
 hierarchy: 0
 weight: 0
