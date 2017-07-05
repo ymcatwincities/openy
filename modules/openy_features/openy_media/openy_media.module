@@ -21,19 +21,6 @@ function openy_media_form_alter(array &$form, FormStateInterface $form_state, $f
     case 'entity_browser_videos_library_form':
       $form['#attached']['library'][] = 'openy_media/browser';
       break;
-
-    case 'entity_embed_dialog':
-      if (isset($form['entity'])) {
-        $entity_element = $form_state->get('entity_element');
-        $form['attributes']['data-entity-alt'] = [
-          '#title' => t('Alternative text'),
-          '#type' => 'textfield',
-          '#required' => TRUE,
-          '#default_value' => isset($entity_element['data-entity-alt']) ? Html::decodeEntities($entity_element['data-entity-alt']) : '',
-          '#element_validate' => array('::escapeValue'),
-          ];
-      }
-      break;
   }
 }
 
