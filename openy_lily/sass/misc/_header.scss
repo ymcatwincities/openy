@@ -306,7 +306,7 @@ header#page-head {
         }
         #block-openy-lily-main-menu {
           width: 100%;
-          background: rgba(0, 96, 175, 0.95) !important;
+          background: rgba(0, 96, 175, 0.95);
           padding: 0 30px;
           @include breakpoint($desktop) {
             padding: 0 100px;

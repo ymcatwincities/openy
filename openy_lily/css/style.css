@@ -512,7 +512,7 @@ header#page-head .top-navs .nav-wrapper .main-nav.affix {
 }
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu {
   width: 100%;
-  background: rgba(0, 96, 175, 0.95) !important;
+  background: rgba(0, 96, 175, 0.95);
   padding: 0 30px;
 }
 @media (min-width: 75em) {
