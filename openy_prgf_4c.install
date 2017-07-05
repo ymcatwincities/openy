@@ -68,3 +68,16 @@ function openy_prgf_4c_update_8002() {
   );
 
 }
+
+/**
+ * Fix configs.
+ */
+function openy_prgf_4c_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_prgf_4c') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.paragraph.4c.field_prfg_display_line_above',
+    ]
+  );
+}
