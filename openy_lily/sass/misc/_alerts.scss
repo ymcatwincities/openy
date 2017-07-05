@@ -12,3 +12,9 @@ article.site-alert {
     }
   }
 }
+.site-alert--header, .site-alert--footer {
+  border: 1px solid $grey;
+  position: relative;
+  z-index: 901;
+}
+

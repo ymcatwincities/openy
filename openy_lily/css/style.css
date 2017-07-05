@@ -207,12 +207,9 @@ a:hover, a:active, a:focus {
 }
 @media (min-width: 0) and (max-width: 62em) {
   body {
-    padding-top: 0 !important;
+    padding-top: 52px !important;
     max-width: 100%;
   }
-}
-body.toolbar-fixed.toolbar-horizontal.path-frontpage #banner {
-  margin-top: -147px !important;
 }
 @media (min-width: 62em) {
   body.toolbar-fixed.toolbar-horizontal {
@@ -359,7 +356,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 .viewport #main {
   transition: margin-left .2s;
   position: relative;
-  z-index: 997;
+  z-index: 95;
 }
 .path-frontpage .viewport #main {
   background: #e5e5e5;
@@ -369,11 +366,6 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 }
 .viewport.expanded-mobile #main {
   margin-left: 100%;
-}
-@media (max-width: 47.9375em) {
-  .viewport #main {
-    margin-top: 52px;
-  }
 }
 
 header#page-head {
@@ -705,9 +697,17 @@ header#page-head.expanded-search .main-nav.affix {
   top: 171px !important;
   position: fixed;
 }
+.path-frontpage header#page-head.expanded-search .main-nav.affix-top, .path-frontpage
+header#page-head.expanded-search .main-nav.affix {
+  top: 199px !important;
+}
 header#page-head.expanded-search.tiny .main-nav.affix-top,
 header#page-head.expanded-search.tiny .main-nav.affix {
   top: 140px !important;
+}
+
+.landing-header {
+  margin-bottom: 40px;
 }
 
 .viewport .nav-level-2.open {
@@ -1415,24 +1415,25 @@ article.site-alert ul li div {
   display: inline-block;
 }
 
+.site-alert--header, .site-alert--footer {
+  border: 1px solid #636466;
+  position: relative;
+  z-index: 901;
+}
+
 .path-frontpage #block-tabs {
   margin-top: 60px;
 }
-@media (min-width: 62em) {
-  .path-frontpage #banner {
-    margin-top: -62px;
-  }
-}
 .path-frontpage .masthead {
   position: relative;
-  z-index: 999;
+  z-index: 99;
   padding: 25px 0 10px;
+  -webkit-transition: top 0.2s ease;
+  -moz-transition: top 0.2s ease;
+  -ms-transition: top 0.2s ease;
+  -o-transition: top 0.2s ease;
+  transition: top 0.2s ease;
   background: #0060af;
-}
-@media (min-width: 0) and (max-width: 62em) {
-  .path-frontpage .masthead {
-    top: 52px;
-  }
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
   .path-frontpage .masthead {

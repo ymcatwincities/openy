@@ -2,19 +2,14 @@
   #block-tabs {
     margin-top: 60px;
   }
-  #banner {
-    @include breakpoint ($tablet-start) {
-      margin-top: -62px;
-    }
-  }
   .masthead {
     position: relative;
-    z-index: 999;
+    z-index: 99;
     padding: 25px 0 10px;
+    @include transition(top 0.2s ease);
     background: #0060af;
     @include breakpoint (0 $tablet-start) {
-      top: 52px;
-    }
+     }
     @include breakpoint (0 767px) {
       padding: 0 0 10px;
       min-height: 128px;
