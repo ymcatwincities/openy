@@ -65,3 +65,17 @@ body {
 .node--type-landing {
   font-size: 15px;
 }
+
+
+.paragraph--type--simple-content,
+.paragraph--type--1c,
+.paragraph--type--4c,
+.paragraph--type--header
+{
+  .field-prgf-sc-body,
+  .field-prgf-1c-description,
+  .field-prgf-description,
+  .field-prgf-header-description {
+    @include content-headings();
+  }
+}
