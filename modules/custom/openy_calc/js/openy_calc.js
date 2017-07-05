@@ -10,7 +10,7 @@
         var divPosition = $('#membership-calc-wrapper').offset();
         // Reduce scroll by 100 to account for top nav. This fluctuates between the mobile and desktop sizes.
         $('html, body').animate({scrollTop: divPosition.top - 100}, "slow");
-        $('.status-message').focus();
+        $(this).focus();
       });
     }
   };
