@@ -181,11 +181,6 @@ body {
       margin-left: 100%;
     }
   }
-  @include breakpoint ($mobile-max) {
-    #main {
-      margin-top: 52px;
-    }
-  }
 }
 
 header#page-head {
