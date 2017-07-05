@@ -7,3 +7,4 @@ In order to compile css here are the necessary steps:
 - sudo gem install autoprefixer-rails -v '6.4.1.1'
 - bundle install
 - sudo compass watch --poll
+- or if you need to compile css one time - bundle exec compass compile

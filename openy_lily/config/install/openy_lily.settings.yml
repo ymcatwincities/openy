@@ -30,7 +30,7 @@ logo:
 openy_rose_footer_logo: {  }
 favicon:
   use_default: 1
-  path: 'themes/custom/openy_lily/favicon.ico'
+  path: ''
 openy_rose_camp_section_logo: {  }
 openy_rose_camp_footer_logo: {  }
 openy_rose_camp_favicon: {  }
