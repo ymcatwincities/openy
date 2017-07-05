@@ -80,7 +80,7 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
-      label: 'Branch Hours'
+      label: 'Center Hours'
 id: node.branch.default
 targetEntityType: node
 bundle: branch
