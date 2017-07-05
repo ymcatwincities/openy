@@ -1,0 +1,222 @@
+.screen-schedule-timeline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  min-height: 500px;
+
+  .screen-schedule-timeline__current-time {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    right: 10px;
+    border-top: 2px solid rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+    z-index: 11;
+  }
+
+  .screen-schedule-timeline__hours {
+    flex: 0 1 20%;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    .screen-schedule-timeline-hour {
+      height: 80px;
+      padding-left: 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.25);
+    }
+
+    .screen-schedule-timeline-hour--last {
+      height: auto;
+      border-top: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  }
+
+  .screen-schedule-timeline__schedule-items {
+    flex: 0 1 80%;
+    position: relative;
+    //height: 100%;
+    overflow: hidden;
+  }
+
+  .screen-schedule-item {
+    font-size: 16px;
+    padding: 3px;
+    position: absolute;
+    height: 100px;
+    overflow: hidden;
+    border: 1px solid grey;
+    background-color: rgb(160, 160, 160);
+    opacity: 0.85;
+    cursor: pointer;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    transition: opacity 200ms;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &--active {
+      box-shadow: 1px 3px 4px rgba(0, 0, 0, 1);
+      margin-top: -1px;
+      margin-left: -1px;
+      opacity: 1;
+      z-index: 12 !important;
+    }
+
+    &--fallback {
+      left: 40px;
+      right: 0;
+      height: 100%;
+
+      &.screen-schedule-item--active {
+        z-index: 1 !important;
+      }
+    }
+
+    &--regular {
+      background-color: rgb(220, 220, 32);
+      z-index: 5;
+      left: 20px;
+      right: 20px;
+
+      &:hover {
+        z-index: 15;
+      }
+    }
+
+    &--override {
+      background-color: rgb(255, 128, 32);
+      z-index: 10;
+      left: 5px;
+      right: 40px;
+
+      &:hover {
+        z-index: 15;
+      }
+    }
+
+    a {
+      color: #333;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
+      text-decoration: none;
+
+      &:hover {
+        border-bottom: 1px solid rgba(0, 0, 0, 1);
+      }
+    }
+  }
+
+  .screen-schedule-item__title {
+    font-weight: bold;
+  }
+
+  .screen-schedule-item__time {
+    font-size: 80%;
+  }
+
+  .screen-schedule-item__edit-link {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+  }
+
+  .screen-schedule-new-item {
+    background-color: rgb(192, 64, 0);
+    border-radius: 100%;
+    border: 2px solid black;
+    bottom: 30px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    display: block;
+    font-size: 0;
+    height: 40px;
+    line-height: 0;
+    opacity: 0.75;
+    position: absolute;
+    right: 30px;
+    transform: translateX(50%) translateY(50%);
+    transition: width 200ms, height 200ms, opacity 200ms;
+    width: 40px;
+    z-index: 100;
+
+    &:hover {
+      height: 50px;
+      opacity: 1;
+      width: 50px;
+    }
+
+    &:before {
+      content: "+";
+      font-size: 30px;
+      line-height: 30px;
+      text-decoration: none;
+      color: white;
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+  }
+
+}
+
+.screen-schedule-calendar {
+
+  table {
+    width: auto;
+    margin: auto
+  }
+
+  th,
+  td {
+    text-align: center;
+    padding: 0;
+  }
+
+  th {
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  th > a {
+    display: inline;
+  }
+  
+  td > a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 24px;
+    padding: 6px;
+    text-align: center;
+    color: #333333;
+
+    &:hover {
+      background-color: #c0c0c0;
+    }
+
+    &.today {
+      background-color: #e1e1e1;
+    }
+
+    &.selected {
+      border: 2px solid black;
+      line-height: 20px;
+    }
+
+    &.has-override {
+      background-color: #FFB040;
+    }
+  }
+
+
+
+  .ajax-progress.ajax-progress-throbber {
+    position: absolute;
+  }
+}

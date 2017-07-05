@@ -30,6 +30,10 @@ class OpenYScreenHtmlRouteProvider extends AdminHtmlRouteProvider {
       $collection->add("$entity_type_id.settings", $settings_form_route);
     }
 
+    // Add screen schedule route.
+    $schedule_route = $this->getScheduleRoute($entity_type);
+    $collection->add("entity.{$entity_type_id}.schedule", $schedule_route);
+
     return $collection;
   }
 
@@ -56,6 +60,39 @@ class OpenYScreenHtmlRouteProvider extends AdminHtmlRouteProvider {
       ])
       ->setRequirement('_permission', 'access OpenY Digital Signage Screen overview')
       ->setOption('_admin_route', TRUE);
+
+    return $route;
+  }
+
+  /**
+   * Gets the Screen schedule route.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   The entity type.
+   *
+   * @return \Symfony\Component\Routing\Route|null
+   *   The generated route, if available.
+   */
+  protected function getScheduleRoute(EntityTypeInterface $entity_type) {
+    $entity_type_id = $entity_type->id();
+    $route = new Route($entity_type->getLinkTemplate('schedule'));
+    $route
+      ->setDefaults([
+        '_controller' => '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::schedulePage',
+        '_title_callback' => '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::scheduleTitle',
+      ])
+      // TODO: adjust.
+      ->setRequirement('_permission', 'access OpenY Digital Signage Screen overview')
+      ->setOption('parameters', [
+        $entity_type_id => ['type' => 'entity:' . $entity_type_id],
+      ])
+      ->setOption('_admin_route', TRUE);
+
+    // Entity types with serial IDs can specify this in their route
+    // requirements, improving the matching process.
+    if ($this->getEntityTypeIdKeyType($entity_type) === 'integer') {
+      $route->setRequirement($entity_type_id, '\d+');
+    }
 
     return $route;
   }
