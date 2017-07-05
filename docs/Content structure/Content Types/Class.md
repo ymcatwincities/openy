@@ -6,6 +6,7 @@ Class content type is used for adding Classes on the site.
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the class item. |
 | Activity  | field\_class_activity  | No | A reference field for selecting the class. |
+| Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Header Area** | Field group|||
 | Content | field\_header_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
 | **Content Area** | Field group|||

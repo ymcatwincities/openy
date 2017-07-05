@@ -169,3 +169,33 @@ function openy_node_category_update_8006() {
     'simple_sitemap.bundle_settings.node.program_subcategory',
   ]);
 }
+
+/**
+ * Remove DataLayer from dependency in the field instance.
+ */
+function openy_node_category_update_8007() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_category');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.program_subcategory.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.program_subcategory.field_meta_tags',
+    'dependencies.module'
+  );
+}
+
+/**
+ * Update description for field meta tags.
+ */
+function openy_node_category_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_category');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.program_subcategory.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.program_subcategory.field_meta_tags',
+    'description'
+  );
+}

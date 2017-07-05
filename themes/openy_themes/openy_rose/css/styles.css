@@ -212,7 +212,6 @@ body {
   font-size: 20px;
   text-transform: uppercase;
   line-height: 22px;
-  text-decoration: none;
 }
 .footer .footer__nav nav ul li ul {
   padding-top: 5px;
@@ -868,10 +867,6 @@ body {
     padding-right: 15px;
   }
 }
-.viewport .page-head__main-menu .nav-level-2 > a:hover,
-.viewport .page-head__main-menu .nav-level-2 > a:focus {
-  text-decoration: none;
-}
 .viewport .page-head__main-menu .dropdown-menu > li > a:focus,
 .viewport .page-head__main-menu .dropdown-menu > li > a:hover {
   background: none;
@@ -1000,6 +995,10 @@ body {
 }
 .page-head__main-menu .nav-level-2.open .fa-caret-down {
   display: none;
+}
+
+.nav > li > a:hover {
+  text-decoration: underline;
 }
 
 ::-webkit-input-placeholder {
@@ -1591,7 +1590,7 @@ body {
     margin-bottom: 27px;
   }
 }
-.sidebar-card h3 {
+.sidebar-card h2 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   color: #636466;
@@ -1601,11 +1600,14 @@ body {
   line-height: 1.2;
   letter-spacing: 2px;
 }
-.sidebar-card h2 {
+.sidebar-card .field-prgf-description h2 {
   color: #5c2e91;
+  font-family: "Cachet W01 Book", "Ubuntu Condensed", sans-serif;
   font-weight: bold;
+  letter-spacing: normal;
+  text-transform: none;
 }
-.sidebar-card h2 a {
+.sidebar-card .field-prgf-description h2 a {
   text-decoration: none;
   color: inherit;
 }
@@ -1639,6 +1641,9 @@ body {
 .story-card .link {
   font-size: 15px;
   color: #0089d0;
+}
+.story-card .link:hover {
+  text-decoration: underline;
 }
 
 .promo-card .description {
@@ -1810,7 +1815,7 @@ body {
   }
 }
 .banner--small .banner-title {
-  margin: 0;
+  margin: 0 0 10px;
   max-width: 700px;
 }
 
@@ -2116,7 +2121,7 @@ body {
 }
 @media (min-width: 48em) {
   .paragraph--type--classes-listing-filters .form-actions {
-    margin-top: 31px;
+    margin-top: 49px;
   }
 }
 
@@ -2393,15 +2398,16 @@ body {
     margin: 0 0 45px;
   }
 }
-.program-header.program-header-sub-category h2 {
+.program-header.program-header-sub-category .field-category-program {
   color: #fff;
+  font-family: "Cachet W01 Book", "Ubuntu Condensed", sans-serif;
   font-size: 28px;
   letter-spacing: -0.8px;
   line-height: 28px;
   margin: 0;
 }
 @media (min-width: 48em) {
-  .program-header.program-header-sub-category h2 {
+  .program-header.program-header-sub-category .field-category-program {
     font-size: 36px;
   }
 }
@@ -2424,15 +2430,14 @@ body {
 }
 
 .subprogram-listing-item {
-  display: flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-  margin: 20px 0 25px;
+  display: table;
+  margin-top: 20px;
+  margin-bottom: 25px;
 }
 @media (min-width: 48em) {
   .subprogram-listing-item {
-    margin: 20px -15px 45px;
-    flex-direction: row-reverse;
+    display: block;
+    margin-bottom: 45px;
   }
 }
 .subprogram-listing-item img {
@@ -2441,7 +2446,7 @@ body {
   max-width: 100%;
 }
 .subprogram-listing-item .image {
-  flex: 1 1 42%;
+  display: table-caption;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -2453,7 +2458,8 @@ body {
 }
 @media (min-width: 48em) {
   .subprogram-listing-item .image {
-    padding: 0 15px;
+    display: block;
+    float: left;
     text-align: right;
   }
 }
@@ -2465,28 +2471,27 @@ body {
     max-width: 260px;
   }
 }
-@media (min-width: 0) and (max-width: 30em) {
-  .subprogram-listing-item .image .media {
-    zoom: 2;
+.subprogram-listing-item .title h2 {
+  font-size: 20px;
+  line-height: 20px;
+  margin: -2px 0 15px;
+  color: #0089d0;
+}
+@media (min-width: 48em) {
+  .subprogram-listing-item .title {
+    float: right;
   }
 }
 .subprogram-listing-item .content {
-  flex: 2 0 58%;
   font-size: 14px;
   line-height: 20px;
   color: #4f4f4f;
 }
 @media (min-width: 48em) {
   .subprogram-listing-item .content {
+    float: right;
     padding-right: 0;
-    padding-left: 15px;
   }
-}
-.subprogram-listing-item .content h2 {
-  font-size: 20px;
-  line-height: 20px;
-  margin: -2px 0 15px;
-  color: #0089d0;
 }
 .subprogram-listing-item .content .btn, .subprogram-listing-item .content .button {
   display: block;
@@ -2698,7 +2703,7 @@ body {
     font-size: 16px;
   }
 }
-.sub-category-classes-view .activity-group h3 {
+.sub-category-classes-view .activity-group h2 {
   font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
   font-size: 30px;
   line-height: 1.6;
@@ -3804,15 +3809,15 @@ html.js .branch__updates_queue__button {
 .node--type-camp.node--view-mode-teaser .location-item--title + .node__content {
   margin: 33px 0 0;
 }
-.node--type-facility.node--view-mode-teaser .location-item--title + .field-location-area, .node--type-facility.node--view-mode-teaser .location-item--title + .field-location-state,
-.node--type-branch.node--view-mode-teaser .location-item--title + .field-location-area,
-.node--type-branch.node--view-mode-teaser .location-item--title + .field-location-state,
-.node--type-branch.node--view-mode-sidebar-teaser .location-item--title + .field-location-area,
-.node--type-branch.node--view-mode-sidebar-teaser .location-item--title + .field-location-state,
-.node--type-branch.node--view-mode-class-location .location-item--title + .field-location-area,
-.node--type-branch.node--view-mode-class-location .location-item--title + .field-location-state,
-.node--type-camp.node--view-mode-teaser .location-item--title + .field-location-area,
-.node--type-camp.node--view-mode-teaser .location-item--title + .field-location-state {
+.node--type-facility.node--view-mode-teaser .location-item--title ~ .field-location-area, .node--type-facility.node--view-mode-teaser .location-item--title ~ .field-location-state,
+.node--type-branch.node--view-mode-teaser .location-item--title ~ .field-location-area,
+.node--type-branch.node--view-mode-teaser .location-item--title ~ .field-location-state,
+.node--type-branch.node--view-mode-sidebar-teaser .location-item--title ~ .field-location-area,
+.node--type-branch.node--view-mode-sidebar-teaser .location-item--title ~ .field-location-state,
+.node--type-branch.node--view-mode-class-location .location-item--title ~ .field-location-area,
+.node--type-branch.node--view-mode-class-location .location-item--title ~ .field-location-state,
+.node--type-camp.node--view-mode-teaser .location-item--title ~ .field-location-area,
+.node--type-camp.node--view-mode-teaser .location-item--title ~ .field-location-state {
   margin: 20px 0 33px;
 }
 .node--type-facility.node--view-mode-teaser .branch-hours,
@@ -3871,14 +3876,23 @@ html.js .branch__updates_queue__button {
   display: none;
 }
 
+.node--type-branch.node--view-mode-class-location h2 {
+  font-size: 15px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  margin: 0;
+}
+
 .paragraph--type--class-location.paragraph--view-mode--default .empty-text {
   border: solid 1px #ccc;
   padding: 20px;
 }
-.paragraph--type--class-location.paragraph--view-mode--default .empty-text span {
+.paragraph--type--class-location.paragraph--view-mode--default .empty-text h2 {
+  display: inline;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 2px;
+  margin: 0;
   text-transform: uppercase;
 }
 
@@ -4163,7 +4177,25 @@ html.js .branch__updates_queue__button {
 .blog-related {
   position: relative;
 }
-.blog-related h2 a:after {
+.blog-related h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  color: #636466 !important;
+  margin: 0 0 25px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
+  letter-spacing: 2px;
+}
+.blog-related h3 {
+  font-weight: bold;
+  font-size: 36px;
+}
+.blog-related h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.blog-related h3 a:after {
   content: '';
   position: absolute;
   height: 100%;
@@ -4726,6 +4758,9 @@ html.js .branch__updates_queue__button {
   color: #5c2e91;
   font-size: 18px;
   margin-bottom: 10px;
+  margin-top: 0;
+  line-height: inherit;
+  font-weight: normal;
 }
 @media (min-width: 48em) {
   #schedules-search-listing-wrapper .results .group_time {
@@ -5023,6 +5058,9 @@ body .branch-popup + .ui-widget-overlay {
   margin-top: -10px;
 }
 .modal-body .fieldset-legend {
+  margin: 0;
+  font-weight: normal;
+  line-height: inherit;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
 @media (min-width: 48em) {
@@ -5445,7 +5483,6 @@ a[href="#step2"] {
   color: #fff;
   display: block;
   font-size: 14px;
-  text-decoration: none;
 }
 @media (min-width: 48em) {
   .camp-menu__item a {
@@ -5785,6 +5822,11 @@ a:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
   outline: 5px auto #69ff00;
+}
+
+.focusable.skip-link:focus {
+  position: fixed !important;
+  top: 0;
 }
 
 /*# sourceMappingURL=styles.css.map */

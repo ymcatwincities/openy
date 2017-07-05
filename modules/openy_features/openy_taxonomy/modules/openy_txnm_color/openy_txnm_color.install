@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Update routines.
+ */
+
+/**
+ * Add description to color vocabulary.
+ */
+function openy_txnm_color_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_txnm_color');
+  $config .= '/config/install/';
+  $config .= 'taxonomy.vocabulary.color.yml';
+  $config_importer->update($config, 'taxonomy.vocabulary.color', 'description');
+}
