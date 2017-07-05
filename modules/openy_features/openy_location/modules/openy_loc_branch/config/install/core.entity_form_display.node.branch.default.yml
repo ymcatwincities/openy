@@ -86,7 +86,7 @@ third_party_settings:
         id: ''
         classes: ''
         formatter: closed
-        description: ''
+        description: 'Page should contain one and only one paragraph with H1 heading: Small banner, Banner, Gallery'
         required_fields: true
       label: 'Header Area'
     group_content_area:
