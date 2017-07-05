@@ -45,15 +45,28 @@ function openy_media_image_update_8001() {
 }
 
 /**
- * Update field media image.
+ * Change dropzonejs type in entity browser for image.
  */
 function openy_media_image_update_8002() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_media_image');
-  $config .= '/config/install/';
-  $config .= 'field.field.media.image.field_media_image.yml';
-  $config_importer->update($config,
-    'field.field.media.image.field_media_image',
-    'settings.alt_field_required'
-  );
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.media.image.field_media_image' =>[
+      'settings.alt_field_required',
+    ],
+    'entity_browser.browser.images_library' =>[
+      'widgets',
+    ],
+    'entity_browser.browser.images_library_embed' => [
+      'widgets',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
