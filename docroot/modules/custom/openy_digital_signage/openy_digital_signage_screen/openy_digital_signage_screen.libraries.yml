@@ -14,3 +14,11 @@ openy_ds_screen_theme:
     theme:
       css/screen.css: {}
       css/openy-digital-signage-screen.css: {}
+
+openy_ds_screen_schedule:
+  version: 1.x
+  js:
+      js/screen-schedule-handler.js: {}
+  css:
+    theme:
+      css/screen-schedule.css: {}
