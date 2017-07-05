@@ -27,7 +27,8 @@ Please take a look at the full `composer.json` file below that you should eventu
     "prefer-stable": true,
     "config": {
         "preferred-install": "dist",
-        "autoloader-suffix": "Drupal8"
+        "autoloader-suffix": "Drupal8",
+        "secure-http": false
     },
     "extra": {
         "_readme": [
@@ -242,11 +243,13 @@ Installer path will look like this:
 
 5. Add `"enable-patching": true` to the `extra` section in your `composer.json` See [example](https://github.com/ymcatwincities/openy-project/blob/8.1.x/composer.json#L173).
 
-6. Remove `composer.lock` and `vendor` folder from the project if they are exist in your folder.
+6. Add `"secure-http": false` to the `config` section in your `composer.json` See [example](https://github.com/ymcatwincities/openy-project/blob/8.1.x/composer.json#L177).
 
-7. Remove `"replace"` section from your `composer.json`
+7. Remove `composer.lock` and `vendor` folder from the project if they are exist in your folder.
 
-8. (Optional) If you keep `vendor` folder in your git repository, we recommend to clean up project from `.git` folder inside modules and libraries. To do so
+8. Remove `"replace"` section from your `composer.json`
+
+9. (Optional) If you keep `vendor` folder in your git repository, we recommend to clean up project from `.git` folder inside modules and libraries. To do so
 - Add cleaner script to your project from [OpenY composer package](https://github.com/ymcatwincities/openy-project/blob/8.1.x/scripts/remove_vendor_git_folders.sh). You can just copy it and paste onto your project.
 - [Adjust folders](https://github.com/ymcatwincities/openy-project/blob/8.1.x/scripts/remove_vendor_git_folders.sh#L4) that you would like to cleanup
 - Execute it in `post-install-cmd` and `post-update-cmd`:
