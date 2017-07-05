@@ -948,8 +948,8 @@ html.js {
     &+.node__content {
       margin: 33px 0 0;
     }
-    &+.field-location-area,
-    &+.field-location-state {
+    &~.field-location-area,
+    &~.field-location-state {
       margin: 20px 0 33px;
     }
   }
@@ -981,14 +981,26 @@ html.js {
     display: none;
   }
 }
+
+.node--type-branch.node--view-mode-class-location {
+  h2 {
+    font-size: 15px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    margin: 0;
+  }
+}
+
 .paragraph--type--class-location.paragraph--view-mode--default {
   .empty-text {
     border: solid 1px $light-grey;
     padding: 20px;
-    span {
+    h2 {
+      display: inline;
       font-family: $font-family-sans-serif;
       font-size: 14px;
       letter-spacing: 2px;
+      margin: 0;
       text-transform: uppercase;
     }
   }

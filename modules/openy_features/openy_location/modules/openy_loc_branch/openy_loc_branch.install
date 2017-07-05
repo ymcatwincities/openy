@@ -193,3 +193,18 @@ function openy_loc_branch_update_8006() {
     'core.entity_view_display.node.branch.sidebar_teaser',
   ]);
 }
+
+/**
+ * Update description for field meta tags.
+ */
+function openy_loc_branch_update_8007() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_branch');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.branch.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.branch.field_meta_tags',
+    'description'
+  );
+}

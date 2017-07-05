@@ -46,13 +46,13 @@ set classes = [
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  <h3>
+  <h2>
     {{ content.field_prgf_title }}
-  </h3>
+  </h2>
   <div class="description">
-    <h4>
+    <h3>
       {{ content.field_prgf_headline }}
-    </h4>
+    </h3>
     {{ content.field_prgf_description }}
   </div>
   {% if content.field_prgf_link.0['#title'] %}
