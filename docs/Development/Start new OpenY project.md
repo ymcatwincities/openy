@@ -9,7 +9,7 @@ In order to start new project from scratch, you can use [installation instructio
 
 Please take a look at the full `composer.json` file below that you should eventually get.
 <details> 
-  <summary><strong>Example composer.json (Drupal 8.3.2)</strong></summary>
+  <summary><strong>Example composer.json (Drupal 8.3.2 + OpenY 1.2)</strong></summary>
 
 ```
 {
