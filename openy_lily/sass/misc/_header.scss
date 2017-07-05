@@ -168,7 +168,7 @@ body {
   #main {
     transition: margin-left .2s;
     position: relative;
-    z-index: 997;
+    z-index: 95;
     .path-frontpage & {
       background: #e5e5e5;
     }
@@ -529,6 +529,9 @@ header#page-head {
     .main-nav.affix {
       top: 171px !important;
       position: fixed;
+      .path-frontpage & {
+        top: 199px !important;
+      }
     }
   }
   &.expanded-search.tiny {
@@ -537,4 +540,9 @@ header#page-head {
       top: 140px !important;
     }
   }
+}
+
+
+.landing-header {
+  margin-bottom: 40px;
 }
