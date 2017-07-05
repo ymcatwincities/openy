@@ -77,124 +77,125 @@ Please take a look at the full `composer.json` file below that you should eventu
         ]
     },
     "repositories": [
-    {
-        "type": "composer",
-        "url": "https://packages.drupal.org/8"
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-kenwheeler/slick",
-            "version": "1.6.0",
-            "type": "drupal-library",
-            "source": {
-                "url": "https://github.com/kenwheeler/slick",
-                "type": "git",
-                "reference": "1.6.0"
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-kenwheeler/slick",
+                "version": "1.6.0",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/kenwheeler/slick",
+                    "type": "git",
+                    "reference": "1.6.0"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-dinbror/blazy",
+                "version": "1.8.2",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/dinbror/blazy",
+                    "type": "git",
+                    "reference": "1.8.2"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-gdsmith/jquery.easing",
+                "version": "1.4.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/gdsmith/jquery.easing",
+                    "type": "git",
+                    "reference": "1.4.1"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-enyo/dropzone",
+                "version": "4.3.0",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/enyo/dropzone",
+                    "type": "git",
+                    "reference": "v4.3.0"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-jaypan/jquery_colorpicker",
+                "version": "1.0.1",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/jaypan/jquery_colorpicker",
+                    "type": "git",
+                    "reference": "da978ae124c57817021b3166a31881876882f5f9"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/panelbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colorbutton",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colordialog",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colordialog/releases/colordialog_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/glyphicons",
+                "version": "2.2",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/glyphicons/releases/glyphicons_2.2.zip",
+                    "type": "zip"
+                }
             }
         }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-dinbror/blazy",
-            "version": "1.8.2",
-            "type": "drupal-library",
-            "source": {
-                "url": "https://github.com/dinbror/blazy",
-                "type": "git",
-                "reference": "1.8.2"
-            }
-        }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-gdsmith/jquery.easing",
-            "version": "1.4.1",
-            "type": "drupal-library",
-            "source": {
-                "url": "https://github.com/gdsmith/jquery.easing",
-                "type": "git",
-                "reference": "1.4.1"
-            }
-        }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-enyo/dropzone",
-            "version": "4.3.0",
-            "type": "drupal-library",
-            "source": {
-                "url": "https://github.com/enyo/dropzone",
-                "type": "git",
-                "reference": "v4.3.0"
-            }
-        }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-jaypan/jquery_colorpicker",
-            "version": "1.0.1",
-            "type": "drupal-library",
-            "source": {
-                "url": "https://github.com/jaypan/jquery_colorpicker",
-                "type": "git",
-                "reference": "da978ae124c57817021b3166a31881876882f5f9"
-            }
-        }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-ckeditor/panelbutton",
-            "version": "4.7.0",
-            "type": "drupal-library",
-            "dist": {
-                "url": "http://download.ckeditor.com/panelbutton/releases/panelbutton_4.7.0.zip",
-                "type": "zip"
-            }
-        }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-ckeditor/colorbutton",
-            "version": "4.7.0",
-            "type": "drupal-library",
-            "dist": {
-                "url": "http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip",
-                "type": "zip"
-            }
-        }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-ckeditor/colordialog",
-            "version": "4.7.0",
-            "type": "drupal-library",
-            "dist": {
-                "url": "http://download.ckeditor.com/colordialog/releases/colordialog_4.7.0.zip",
-                "type": "zip"
-            }
-        }
-    },
-    {
-        "type": "package",
-        "package": {
-            "name": "library-ckeditor/glyphicons",
-            "version": "2.2",
-            "type": "drupal-library",
-            "dist": {
-                "url": "http://download.ckeditor.com/glyphicons/releases/glyphicons_2.2.zip",
-                "type": "zip"
-            }
-        }
-    }
-]
+    ]
+}
 ```
 
 </details>
