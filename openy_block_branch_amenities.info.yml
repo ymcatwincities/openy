@@ -10,4 +10,4 @@ dependencies:
   - drupal:language
   - drupal:link
   - openy:openy_block
-version: 8.x-1.0
+version: 8.x-1.2

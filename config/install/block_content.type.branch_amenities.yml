@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: branch_amenities
-label: 'Branch Amenities'
+label: 'Center Amenities'
 revision: 0
-description: 'Display Amenities of the current branch in a block.'
+description: 'Display Amenities of the current center in a block.'
