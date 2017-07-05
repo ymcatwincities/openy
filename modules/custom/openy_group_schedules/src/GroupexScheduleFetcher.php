@@ -97,7 +97,15 @@ class GroupexScheduleFetcher {
     $this->groupexHelper = $groupex_helper;
     $this->configFactory = $config_factory;
 
-    empty($parameters) ? $parameters = \Drupal::request()->query->all() : '';
+    if (empty($parameters)) {
+      $request_query = [];
+      $request = \Drupal::request();
+      if (!empty($request) && is_a($request, '\Symfony\Component\HttpFoundation\Request')) {
+        $request_query = $request->query->all();
+      }
+      $parameters = $request_query;
+    }
+
     $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
     $this->parameters = self::normalizeParameters($parameters);
     $this->getData();
@@ -333,6 +341,10 @@ class GroupexScheduleFetcher {
    */
   public static function getOptions($data, $key, $value) {
     $options = [];
+    if (empty($data) && !is_array($data)) {
+      return [];
+    }
+
     foreach ($data as $item) {
       $options[$item->$key] = $item->$value;
     }
@@ -403,10 +415,13 @@ class GroupexScheduleFetcher {
     $refined_options = array_combine(array_values($class_name_options), $refined_keys);
 
     $raw_data = [];
-    foreach ($data as $item) {
-      $raw_data[$item->id] = $item;
-      if (isset($refined_options[$item->title])) {
-        $raw_data[$item->id]->class_id = $refined_options[$item->title];
+
+    if (!empty($data) && is_array($data)) {
+      foreach ($data as $item) {
+        $raw_data[$item->id] = $item;
+        if (isset($refined_options[$item->title])) {
+          $raw_data[$item->id]->class_id = $refined_options[$item->title];
+        }
       }
     }
     $this->rawData = $raw_data;

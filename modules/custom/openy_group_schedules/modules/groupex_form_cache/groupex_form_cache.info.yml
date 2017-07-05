@@ -1,4 +1,4 @@
-name: groupex_form_cache
+name: GroupEx Form Cache
 type: module
 description: Caching for Groupex form.
 core: 8.x

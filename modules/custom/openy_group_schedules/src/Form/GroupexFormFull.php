@@ -84,9 +84,9 @@ class GroupexFormFull extends GroupexFormBase {
    *   The configuration factory.
    */
   public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper, $scheduleFetcher, ConfigFactoryInterface $config_factory) {
+    parent::__construct($config_factory);
     $this->groupexHelper = $groupex_helper;
     $this->scheduleFetcher = $scheduleFetcher;
-    $this->configFactory = $config_factory;
 
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
@@ -489,7 +489,7 @@ class GroupexFormFull extends GroupexFormBase {
       unset($parameters['view_mode']);
     }
 
-    $this->scheduleFetcher->__construct($this->groupexHelper, $parameters);
+    $this->scheduleFetcher->__construct($this->groupexHelper, $this->configFactory, $parameters);
 
     // Get classes schedules.
     $schedule = $this->scheduleFetcher->getSchedule();

@@ -145,6 +145,7 @@ dependencies:
   - openy_branch_selector
   - openy_field_hours
   - openy_group_schedules
+  - groupex_form_cache
   - openy_hf
   - openy_hours_formatter
   - openy_migrate

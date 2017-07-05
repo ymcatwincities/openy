@@ -374,4 +374,7 @@ function openy_update_8029() {
   \Drupal::service('module_installer')->install([
     'openy_prgf_group_schedules',
   ]);
+  \Drupal::service('module_installer')->install([
+    'groupex_form_cache'
+  ]);
 }
