@@ -207,7 +207,7 @@ a:hover, a:active, a:focus {
 }
 @media (min-width: 0) and (max-width: 62em) {
   body {
-    padding-top: 0 !important;
+    padding-top: 52px !important;
     max-width: 100%;
   }
 }
@@ -1426,7 +1426,7 @@ article.site-alert ul li div {
 .site-alert--header, .site-alert--footer {
   border: 1px solid #636466;
   position: relative;
-  z-index: 96;
+  z-index: 901;
 }
 
 .path-frontpage #block-tabs {

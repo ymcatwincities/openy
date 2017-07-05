@@ -7,7 +7,7 @@ body {
     }
   }
   @include breakpoint (0 $tablet-start) {
-    padding-top: 0 !important;
+    padding-top: 52px !important;
     max-width: 100%;
   }
   &.toolbar-fixed {
