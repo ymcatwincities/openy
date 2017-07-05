@@ -6,6 +6,10 @@
  */
 
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Datetime\DateHelper;
 
 /**
  * Implements hook_ENTITY_TYPE_build_defaults_alter().
@@ -55,6 +59,37 @@ function openy_digital_signage_screen_theme($existing, $type, $theme, $path) {
     'page__screen' => [
       'template' => 'pages/page--screen',
     ],
+    'screen_schedule_ui' => [
+      'variables' => [
+        'schedule' => '',
+        'data' => '',
+      ],
+      'template' => 'screen-schedule-ui',
+    ],
+    'screen_schedule_timeline' => [
+      'variables' => [
+        'screen' => NULL,
+        'schedule' => NULL,
+        'schedule_items' => [],
+        'fallback_item' => NULL,
+        'date' => NULL,
+        'calendar' => NULL,
+        'year' => NULL,
+        'month' => NULL,
+        'day' => NULL,
+      ],
+      'template' => 'screen-schedule-timeline',
+    ],
+    'screen_schedule_calendar' => [
+      'variables' => [
+        'year' => NULL,
+        'month' => NULL,
+        'day' => NULL,
+        'overrides' => NULL,
+        'screen' => NULL,
+      ],
+      'template' => 'screen-schedule-calendar',
+    ],
   ];
 }
 
@@ -88,6 +123,10 @@ function openy_digital_signage_screen_preprocess_html(&$variables) {
   if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
     $variables['attributes']->addClass($classes);
   }
+
+  if ($route_name == 'entity.node.canonical' && $variables['node_type'] == 'screen_content') {
+    $variables['page_top']['toolbar']['#access'] = FALSE;
+  }
 }
 
 /**
@@ -109,4 +148,155 @@ function openy_digital_signage_screen_preprocess_page__screen(&$variables) {
  */
 function openy_digital_signage_screen_ds_version() {
   return '0.0.1';
+}
+
+/**
+ * Implements hook_preprocess_THEME().
+ */
+function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$variables) {
+  $variables['hours'] = [
+    '12am',
+    '3am',
+    '6am',
+    '9am',
+    '12pm',
+    '3pm',
+    '6pm',
+    '9am',
+    '12am',
+  ];
+
+  $schedule = $variables['schedule'];
+  $schedule_items = [];
+  foreach ($schedule as $item) {
+    $schedule_item = $item['item'];
+
+    $from_ts = strtotime($schedule_item->time_slot->value . 'z');
+    $to_ts = strtotime($schedule_item->time_slot->end_value . 'z');
+    $from_hours = date('H', $from_ts) + (date('i', $from_ts) / 60);
+    $to_hours = date('H', $to_ts) + (date('i', $to_ts) / 60);
+    $formatted_time = date('g:ia', $from_ts) . '–' . date('g:ia', $to_ts);
+
+    $schedule_items[$schedule_item->id()] = [
+      'from' => $from_hours,
+      'to' => $to_hours,
+      'type' => $schedule_item->show_date->value ? 'regular' : 'override',
+      'id' => $schedule_item->id(),
+      'title' => $schedule_item->label(),
+      'formatted_time' => $formatted_time,
+      'view_link' => Url::fromRoute('screen_schedule.view_schedule_item', [
+        'screen' => $variables['screen']->id(),
+        'schedule_item' => $schedule_item->id(),
+      ])->toString(),
+      'edit_link' => Url::fromRoute('screen_schedule.edit_schedule_item', ['schedule_item' => $schedule_item->id()])->toString(),
+    ];
+  }
+  $variables['add_link'] = Url::fromRoute('screen_schedule.add_schedule_item', ['screen' => $variables['screen']->id()])->toString();
+
+  $variables['schedule_items'] = $schedule_items;
+  $variables['screen_id'] = $variables['screen']->id();
+
+  $variables['current_time'] = date('H', $_SERVER['REQUEST_TIME']) + (date('i', $_SERVER['REQUEST_TIME']) / 60);
+
+  // TODO: Fallback content might be empty.
+  $variables['fallback_item'] = [
+    'title' => t('Fallback content'),
+    'id' => $variables['screen']->fallback_content->entity->id(),
+    'view_link' => Url::fromRoute('screen_schedule.view_screen_content', [
+      'screen' => $variables['screen']->id(),
+      'screen_content' => $variables['screen']->fallback_content->entity->id(),
+    ])->toString(),
+  ];
+
+  $redraw_link_route_options = [
+    'screen' => $variables['screen']->id(),
+    'year' => $variables['year'],
+    'month' => $variables['month'],
+    'day' => $variables['day'],
+  ];
+  $redraw_link = Link::createFromRoute(t('redraw'), 'screen_schedule.redraw_screen_schedule_timeline', $redraw_link_route_options)->toRenderable();
+  $redraw_link['#attributes'] = ['class' => ['use-ajax', 'timeline-redraw-link']];
+  $variables['redraw_link'] = $redraw_link;
+}
+
+/**
+ * Implements hook_preprocess_THEME().
+ */
+function openy_digital_signage_screen_preprocess_screen_schedule_calendar(&$variables) {
+  $prev_month = Link::createFromRoute('<', 'screen_schedule.redraw_screen_schedule_timeline', [
+    'screen' => $variables['screen']->id(),
+    'month' => $variables['month'] - 1 ?: 12,
+    'year' => $variables['month'] - 1 ? $variables['year'] : $variables['year'] - 1,
+    'day' => 1,
+  ])->toRenderable();
+  $prev_month['#attributes'] = [
+    'class' => [
+      'prev-month-link',
+      'use-ajax',
+    ],
+  ];
+  $variables['prev_month'] = $prev_month;
+
+  $next_month = Link::createFromRoute('>', 'screen_schedule.redraw_screen_schedule_timeline', [
+    'screen' => $variables['screen']->id(),
+    'month' => $variables['month'] + 1 > 12 ? 1 : $variables['month'] + 1,
+    'year' => $variables['month'] + 1 > 12 ? $variables['year'] + 1 : $variables['year'],
+    'day' => 1,
+  ])->toRenderable();
+  $next_month['#attributes'] = [
+    'class' => [
+      'next-month-link',
+      'use-ajax',
+    ],
+  ];
+  $variables['next_month'] = $next_month;
+
+  $variables['current_month'] = DateHelper::monthNames()[$variables['month']] . ' ' . $variables['year'];
+
+  $today = date('Y-m-d');
+  $selected = sprintf('%d-%02d-%02d', $variables['year'], $variables['month'], $variables['day']);
+
+  $weekdays = DateHelper::weekDaysAbbr(TRUE);
+  $variables['weekdays'] = DateHelper::weekDaysOrdered($weekdays);
+  $variables['weeks'] = [];
+
+  $schedule_manager = \Drupal::service('openy_digital_signage_schedule.manager');
+  $days_with_overrides = $schedule_manager->daysWithOverrides($variables['screen']->screen_schedule->entity, $variables['year'], $variables['month']);
+
+  $first = new DrupalDateTime(sprintf('%d-%02d-%02d', $variables['year'], $variables['month'], 1));
+  $global_first_day = \Drupal::config('system.date')->get('first_day');
+
+  $first_month_weekday = DateHelper::dayOfWeek($first);
+  $days_in_month = DateHelper::daysInMonth($first);
+
+  $days = [];
+  while ($global_first_day != $first_month_weekday) {
+    $days[] = '';
+    $global_first_day = ($global_first_day + 1) % 7;
+  }
+  for ($i = 1; $i <= $days_in_month; $i++) {
+    $date = sprintf('%d-%02d-%02d', $variables['year'], $variables['month'], $i);
+
+    $link = Link::createFromRoute($i, 'screen_schedule.redraw_screen_schedule_timeline', [
+      'screen' => $variables['screen']->id(),
+      'year' => $variables['year'],
+      'month' => $variables['month'],
+      'day' => $i,
+    ])->toRenderable();
+    $link['#attributes'] = ['class' => ['use-ajax']];
+    if ($date == $today) {
+      $link['#attributes']['class'][] = 'today';
+    }
+    if ($date == $selected) {
+      $link['#attributes']['class'][] = 'selected';
+    }
+    if (isset($days_with_overrides[$date])) {
+      $link['#attributes']['class'][] = 'has-override';
+    }
+    $days[] = [
+      'class' => '',
+      'content' => $link,
+    ];
+  }
+  $variables['weeks'] = array_chunk($days, 7);
 }
