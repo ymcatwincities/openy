@@ -5,6 +5,7 @@ namespace Drupal\openy_digital_signage_classes_schedule\Entity;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
 
 /**
  * Defines Digital Signage Classes Session entity.
@@ -167,9 +168,10 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
         'weight' => 1,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'datetime_default',
+        'type' => 'datetime',
         'weight' => 1,
       ])
+      ->setSetting('datetime_type', DateTimeItem::DATETIME_TYPE_DATE)
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
