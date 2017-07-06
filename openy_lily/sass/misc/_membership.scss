@@ -17,3 +17,455 @@
     }
   }
 }
+
+#membership-page {
+  position: relative;
+  z-index: 901;
+  color: #333;
+  #block-openy-lily-content {
+    .landing-header {
+      &:first-of-type {
+        background: url("../img/membership_b_bg_1.jpg") #f8f8f8 no-repeat center;
+        background-size: cover;
+        height: 599px;
+        text-align: center;
+        h2 {
+          color: #fff;
+          font-size: 48px;
+          margin-bottom: 27px;
+          margin-top: 90px;
+        }
+        .p1 {
+          color: #ebebeb;
+          font-size: 24px;
+          line-height: 32px;
+          margin: 0 0 30px 0;
+        }
+        .container {
+          width: 100% !important;
+        }
+        .buttons-wrap {
+          p {
+            font-size: 16px;
+            color: #fff;
+            max-width: 250px;
+            margin: 15px auto 0;
+            opacity: 0.5;
+          }
+          a {
+            &:hover,
+            &:focus {
+              text-decoration: none;
+            }
+            &.join-online-now {
+              background-color: #9c1f7b;
+              background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #aa248e), to(rgba(171, 36, 144, 0)));
+              background-image: -webkit-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              background-image: -moz-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              background-image: -o-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              background-image: linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              box-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+              font-size: 20px;
+              line-height: 32px;
+              padding: 14px 50px;
+              margin-bottom: 20px;
+              min-width: 250px;
+              width: auto;
+              display: inline-block;
+              color: #fff;
+              font-family: Cachet;
+              border-radius: 4px;
+              outline: 0 !important;
+              position: relative;
+              text-transform: uppercase;
+
+            }
+            &.try-the-y-toggle {
+              background-color: #0d63ad;
+              background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #158acc), to(rgba(21, 138, 204, 0)));
+              background-image: -webkit-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              background-image: -moz-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              background-image: -o-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              background-image: linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              box-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+              font-size: 20px;
+              line-height: 32px;
+              padding: 14px 50px;
+              margin-bottom: 20px;
+              min-width: 250px;
+              width: auto;
+              display: inline-block;
+              color: #fff;
+              font-family: Cachet;
+              border-radius: 4px;
+              outline: 0 !important;
+              position: relative;
+              text-transform: uppercase;
+            }
+          }
+
+        }
+        .bottom {
+          margin-top: 90px;
+          position: relative;
+        }
+        @include breakpoint (0 $tablet) {
+          background-size: 100%;
+          background-position: top;
+          position: relative;
+          height: auto;
+          margin-bottom: 20px;
+          h2 {
+            font-size: 24px;
+            display: block;
+            margin: 12% 0 17%;
+            text-align: center;
+          }
+          .p1 {
+            color: #434334;
+            font-size: 14px;
+            line-height: 18px;
+          }
+          .buttons-wrap {
+            a {
+              padding: 6px 50px !important;
+              margin-bottom: 10px !important;
+            }
+            p {
+              font-size: 12px;
+              opacity: 1;
+              color: #434334;
+              margin: 5px auto 10px;
+            }
+          }
+          .bottom {
+            margin-top: 15px;
+            p {
+              opacity: 1 !important;
+              color: #434334 !important;
+              font-size: 12px !important;
+              max-width: 240px;
+              margin: 0 auto;
+            }
+          }
+        }
+      }
+    }
+    .landing-content {
+      @extend .row;
+      > .paragraph {
+        &:nth-of-type(1) {
+          padding-bottom: 0;
+          float: left;
+          width: 70%;
+          display: none;
+          h2 {
+            color: #000;
+            margin-bottom: 40px;
+            font-size: 30px;
+            margin-left: 15px;
+          }
+          p {
+            text-align: right;
+            margin-right: 45px;
+            color: #333;
+          }
+          @include breakpoint (0 $tablet) {
+            width: 100%;
+            float: none;
+          }
+        }
+        &:nth-of-type(2) {
+          float: right;
+          width: 30%;
+          display: none;
+          @include breakpoint (0 $tablet) {
+            width: 100%;
+            float: none;
+          }
+        }
+        &:nth-of-type(3) {
+          text-align: center;
+          h2 {
+            color: black;
+            margin-bottom: 20px;
+          }
+          p {
+            font-size: 18px;
+            line-height: 26px;
+            margin-bottom: 27px;
+          }
+          @include breakpoint (0 $tablet) {
+            padding-top: 0;
+            h2 {
+              margin-top: 0;
+              margin-bottom: 15px;
+            }
+            p {
+              font-size: 13px;
+              line-height: 18px;
+              margin-bottom: 20px;
+            }
+          }
+        }
+        &.paragraph--column-in-a-grid {
+          > div {
+            width: 25%;
+            text-align: center;
+            .grid-item {
+              border: none;
+              margin: 0;
+              h2 {
+                line-height: 22px;
+                margin: 10px 0 5px;
+                float: none;
+                text-align: center;
+                max-width: 180px;
+                font-size: 18px;
+                color: #333;
+                padding: 0;
+                display: inline-block;
+              }
+              p {
+                max-width: 250px;
+                line-height: 22px;
+                margin: 0 auto;
+                font-size: 14px;
+                color: #333;
+              }
+              img {
+                float: none;
+                text-align: center;
+                max-width: 86px;
+                max-height: 60px;
+                display: inline-block;
+                margin-bottom: 18px;
+              }
+            }
+            &:nth-of-type(5) {
+              margin-left: 12.5%;
+            }
+            @include breakpoint (0 $tablet) {
+              width: 50%;
+              margin: 0 0 25px 0 !important;
+              .text {
+                padding: 0;
+              }
+              .grid-item {
+                .inner {
+                  padding: 0;
+                  img {
+                    height: 35px;
+                    margin-bottom: 5px;
+                  }
+                  h2 {
+                    font-size: 15px;
+                    line-height: 16px;
+                    margin: 10px 0 5px;
+                  }
+                  p {
+                    font-size: 12px;
+                    line-height: 14px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      article.webform {
+        float: left;
+        width: 70%;
+        display: none;
+        @include breakpoint (0 $tablet) {
+          width: 100%;
+          float: none;
+          padding: 0;
+          margin: 0;
+        }
+        form {
+          margin-top: 0;
+        }
+        .container {
+          max-width: 100%;
+          @include breakpoint (0 $tablet) {
+            padding:0;
+          }
+        }
+      }
+    }
+    .container {
+      width: 100%;
+    }
+    .wrapper-field-bottom-content {
+      .field-bottom-content {
+        margin: 0 -15px;
+        .paragraph--type--simple-content {
+          padding: 0;
+        }
+        &:nth-of-type(1) {
+          text-align: center;
+          color: white;
+          background: url("../img/ymca-membership-bg-2.jpg") no-repeat center;
+          background-size: cover;
+          min-height: 436px;
+          h2 {
+            margin: 38px 0 110px;
+          }
+          p {
+            color: #fff;
+            font-size: 21px;
+            line-height: 29px;
+            margin-bottom: 30px;
+          }
+          a {
+            &:hover,
+            &:focus {
+              text-decoration: none;
+            }
+            &.join-online-now {
+              background-color: #9c1f7b;
+              background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #aa248e), to(rgba(171, 36, 144, 0)));
+              background-image: -webkit-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              background-image: -moz-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              background-image: -o-linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              background-image: linear-gradient(#aa248e 70%, rgba(171, 36, 144, 0));
+              box-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+              font-size: 20px;
+              line-height: 32px;
+              padding: 14px 50px;
+              margin-bottom: 20px;
+              min-width: 250px;
+              width: auto;
+              display: inline-block;
+              color: #fff;
+              font-family: Cachet;
+              border-radius: 4px;
+              outline: 0 !important;
+              position: relative;
+              text-transform: uppercase;
+            }
+            &.try-the-y-toggle {
+              background-color: #0d63ad;
+              background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(0.7, #158acc), to(rgba(21, 138, 204, 0)));
+              background-image: -webkit-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              background-image: -moz-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              background-image: -o-linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              background-image: linear-gradient(#158acc 70%, rgba(21, 138, 204, 0));
+              box-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+              font-size: 20px;
+              line-height: 32px;
+              padding: 14px 50px;
+              margin-bottom: 20px;
+              min-width: 250px;
+              width: auto;
+              display: inline-block;
+              color: #fff;
+              font-family: Cachet;
+              border-radius: 4px;
+              outline: 0 !important;
+              position: relative;
+              text-transform: uppercase;
+            }
+          }
+          @include breakpoint (0 $tablet) {
+            background-size: 100%;
+            background-position: top;
+            position: relative;
+            height: auto;
+            margin-bottom: 20px;
+            .col-sm-6 {
+              &:first-child {
+                border-bottom: 1px solid #EEE;
+                margin-bottom: 15px;
+              }
+            }
+            h2 {
+              font-size: 24px;
+              display: block;
+              margin: 10% 0 17%;
+              text-align: center;
+            }
+            p {
+              color: #3a3a3a;
+              font-size: 12px;
+              line-height: 15px;
+              margin-bottom: 20px;
+            }
+            a {
+              margin-bottom: 10px;
+              text-transform: capitalize;
+              min-width: 210px;
+              padding: 4px 0 !important;
+            }
+          }
+        }
+        &:nth-of-type(2) {
+          background: $blue-darker;
+          padding: 0 100px;
+          color: white;
+          @include breakpoint (0 $desktop) {
+            padding: 0 15px;
+          }
+          h3 {
+            font-size: 24px;
+            text-transform: uppercase;
+          }
+          h4 {
+            font-size: 20px;
+            text-transform: uppercase;
+            margin: 12px 0 4px;
+          }
+          p {
+            font-size: 16px;
+            line-height: 24px;
+            a {
+              color: white;
+              text-decoration: underline;
+            }
+          }
+          ul {
+            margin: 0 0 0 15px;
+            padding: 0;
+            li {
+              font-size: 16px;
+              line-height: 24px;
+            }
+          }
+          @include breakpoint (0 $tablet) {
+            h3 {
+              font-size: 18px;
+              margin: 20px 0 5px;
+              letter-spacing: -0.5px;
+            }
+            p {
+              font-size: 12px !important;
+              line-height: 15px !important;
+              margin-bottom: 20px !important;
+            }
+            li {
+              font-size: 12px !important;
+              line-height: 15px !important;
+            }
+            h3 {
+              font-size: 18px;
+              margin: 20px 0 5px;
+              letter-spacing: -0.5px;
+            }
+          }
+        }
+      }
+    }
+    @include breakpoint (0 $tablet) {
+      h2 {
+        font-size: 22px;
+      }
+      p {
+        font-size: 13px;
+        line-height: 18px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+}

@@ -151,17 +151,6 @@ body {
 
 .viewport {
   position: static;
-  &:after {
-    background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    @include transition(opacity 0.2s linear);
-    opacity: 0;
-    height: 100%;
-    z-index: 900;
-  }
   #main {
     transition: margin-left .2s;
     position: relative;

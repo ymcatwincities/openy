@@ -65,6 +65,13 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
       }
     }
   }
+  if (is_object($node)) {
+    $current_path = \Drupal::service('path.current')->getPath();
+    $alias_settings = theme_get_setting('membership_path');
+    if ($current_path == $alias_settings) {
+      array_push($suggestions, 'page__membership');
+    }
+  }
 }
 
 /**
