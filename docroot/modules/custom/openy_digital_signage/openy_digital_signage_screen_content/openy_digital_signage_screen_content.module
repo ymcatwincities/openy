@@ -7,6 +7,8 @@
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\panels\Plugin\DisplayVariant\PanelsDisplayVariant;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
 
 /**
  * Implements hook_panels_build_alter().
@@ -51,7 +53,7 @@ function openy_digital_signage_screen_content_preprocess_page(&$variables) {
  *
  * This hook isn't called for admin and needs replacing.
  */
-function openy_digital_signage_screen_content_node_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
+function openy_digital_signage_screen_content_node_access(EntityInterface $entity, $operation, AccountInterface $account) {
   if ($operation != 'delete' || $entity->bundle() != 'screen_content') {
     return AccessResult::neutral();
   }
