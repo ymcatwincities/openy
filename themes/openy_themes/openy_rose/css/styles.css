@@ -4257,17 +4257,29 @@ html.js .branch__updates_queue__button {
     display: table-cell;
     padding: 0 40px 0 0;
   }
-  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-category-target-id {
-    width: 239px;
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-location-target-id-verf {
+    width: 210px;
   }
-  .blog-more-teaser .views-exposed-form > div.form-item-combine {
-    padding: 0 0 0 270px;
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-category-target-id {
+    width: 210px;
+  }
+  .blog-more-teaser .views-exposed-form > div.form-item-combine input {
+    width: 100%;
   }
   .blog-more-teaser .views-exposed-form > div.form-item-related-content-titles {
     width: 258px;
   }
   .blog-more-teaser .views-exposed-form > div.form-actions {
     padding-right: 0;
+    width: 90px;
+  }
+}
+@media (min-width: 1200px) {
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-location-target-id-verf {
+    width: 240px;
+  }
+  .blog-more-teaser .views-exposed-form > div.form-item-field-blog-category-target-id {
+    width: 240px;
   }
 }
 .blog-more-teaser .form-actions {
@@ -5802,6 +5814,90 @@ html.js .flag-waiting .flag-throbber {
   font-size: 22px;
   font-family: "Cachet W01 Book",'Ubuntu Condensed',sans-serif;
   font-weight: bold;
+}
+
+.programs-search-block-form {
+  margin-bottom: 20px;
+}
+@media (min-width: 48em) {
+  .programs-search-block-form {
+    margin-bottom: 40px;
+  }
+}
+@media (min-width: 62em) {
+  .programs-search-block-form {
+    margin-bottom: 70px;
+  }
+}
+.programs-search-block-form fieldset legend span {
+  border: none;
+  color: #5c2e91;
+  font-size: 36px;
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+}
+.programs-search-block-form fieldset .js-webform-radios {
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+}
+.programs-search-block-form fieldset .js-webform-radios .js-form-type-radio {
+  flex-basis: 100%;
+  padding-right: 15px;
+  margin: 0 0 10px;
+  position: relative;
+  padding-left: 20px;
+  line-height: 20px;
+}
+@media (min-width: 48em) {
+  .programs-search-block-form fieldset .js-webform-radios .js-form-type-radio {
+    flex-basis: 50%;
+  }
+}
+@media (min-width: 62em) {
+  .programs-search-block-form fieldset .js-webform-radios .js-form-type-radio {
+    flex-basis: 25%;
+  }
+}
+.programs-search-block-form fieldset .js-webform-radios .js-form-type-radio label {
+  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-size: 15px;
+  margin: 0 0 0 7px;
+  vertical-align: top;
+}
+.programs-search-block-form fieldset .js-webform-radios .js-form-type-radio input {
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  vertical-align: top;
+}
+.programs-search-block-form fieldset .js-webform-radios .js-form-type-radio .ajax-progress-throbber {
+  position: absolute;
+  left: -7px;
+}
+.programs-search-block-form fieldset .js-webform-radios .js-form-type-radio .ajax-progress-throbber .throbber {
+  padding: 1px 6px 2px;
+}
+.programs-search-block-form .result {
+  font-size: 24px;
+  color: #c6168d;
+  margin: 40px 0 0;
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+}
+.programs-search-block-form .result a {
+  color: #c6168d;
+  text-decoration: underline;
+  font-style: normal;
+  font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
+}
+.programs-search-block-form .result a em {
+  font-style: normal;
+}
+.programs-search-block-form .no-result {
+  font-size: 24px;
+  color: #5c2e91;
+  margin: 40px 0 0;
 }
 
 a:focus,

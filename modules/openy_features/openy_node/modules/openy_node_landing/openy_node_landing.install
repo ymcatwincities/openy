@@ -171,3 +171,18 @@ function openy_node_landing_update_8006() {
     'description'
   );
 }
+
+/**
+ * Add help text to Header Area.
+ */
+function openy_node_landing_update_8007() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_landing');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.landing_page.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.node.landing_page.default',
+    'third_party_settings.field_group.group_header_area.format_settings.description'
+  );
+}
