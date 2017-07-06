@@ -221,3 +221,34 @@
     }
   }
 }
+
+@mixin content-headings() {
+  h1, h2, h3, h4, h5, h6 {
+    color: $default-grey;
+    font-family: $font-cachet-book;
+  }
+  h1 {
+    line-height: lh(30, 26);
+    font-size: 50px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+  h2 {
+    line-height: lh(30, 26);
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+  h3 {
+    font-size: 30px;
+  }
+  h4 {
+    font-size: 20px;
+  }
+  h5 {
+    font-size: 16px;
+  }
+  h6 {
+    font-size: 14px;
+  }
+}

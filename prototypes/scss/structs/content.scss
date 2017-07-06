@@ -65,3 +65,25 @@ body {
 .node--type-landing {
   font-size: 15px;
 }
+
+
+.paragraph--type--simple-content,
+.paragraph--type--1c,
+.paragraph-1c-wrapper,
+.block-description--4,
+.paragraph--type--4c,
+.paragraph--type--header
+{
+  .field-prgf-sc-body,
+  .field-prgf-1c-description,
+  .field-prgf-description,
+  .field-prgf-header-description {
+    @include content-headings();
+  }
+}
+
+.paragraph--type--header .field-prgf-header-description {
+  h1, h2, h3, h4, h5, h6 {
+    color: $white;
+  }
+}
