@@ -168,7 +168,7 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
         'weight' => 1,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'datetime',
+        'type' => 'datetime_default',
         'weight' => 1,
       ])
       ->setSetting('datetime_type', DateTimeItem::DATETIME_TYPE_DATE)
