@@ -27,6 +27,19 @@ class OpenYScheduleAccessControlHandler extends EntityAccessControlHandler {
         return AccessResult::allowedIfHasPermission($account, 'edit OpenY Digital Signage Schedule entities');
 
       case 'delete':
+        // Check if there are referencing screens.
+        $referencing_screens_count = \Drupal::entityQuery('openy_digital_signage_screen')
+          ->condition('screen_schedule', $entity->id())
+          ->count()
+          ->execute();
+
+        if ($referencing_screens_count) {
+          return AccessResult::forbidden('The schedule can not be deleted because there are Screens refer to it');
+        }
+
+        // We don't check if there are referencing schedule items, they must be
+        // cascade deleted.
+
         return AccessResult::allowedIfHasPermission($account, 'delete OpenY Digital Signage Schedule entities');
     }
 
