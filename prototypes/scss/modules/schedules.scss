@@ -237,7 +237,9 @@ iframe#ga_iframe {
   border: 0;
   width: 100%;
   height: 865px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   @include breakpoint(laptop) {
-    height: 400px;
+    height: 460px;
   }
 }
