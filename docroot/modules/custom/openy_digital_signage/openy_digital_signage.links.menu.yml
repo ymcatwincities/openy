@@ -10,4 +10,4 @@ system.admin_openy_digital_signage_settings:
   parent: system.admin_openy_digital_signage
   description: 'Configure entities'
   title: 'Settings'
-  weight: 100
+  weight: 1000
