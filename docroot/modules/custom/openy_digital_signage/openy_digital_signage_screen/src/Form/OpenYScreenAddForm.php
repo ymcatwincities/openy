@@ -149,6 +149,10 @@ class OpenYScreenAddForm extends ContentEntityForm {
     // Hide everything but Fallback content, Schedule fields and action buttons.
     $element_keys = Element::children($form);
     foreach ($element_keys as $key) {
+      if ($key == 'screen_schedule') {
+        $form['screen_schedule']['widget']['#required'] = FALSE;
+        $form['screen_schedule']['widget'][0]['target_id']['#required'] = FALSE;
+      }
       if (in_array($key, ['screen_schedule', 'fallback_content', 'actions'])) {
         continue;
       }
