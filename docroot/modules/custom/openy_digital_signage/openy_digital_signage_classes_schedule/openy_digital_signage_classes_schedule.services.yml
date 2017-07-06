@@ -1,0 +1,7 @@
+services:
+  openy_digital_signage_classes_schedule.manager:
+    class: Drupal\openy_digital_signage_classes_schedule\OpenYClassesScheduleManager
+    arguments: ['@entity.manager', '@entity.query', '@logger.factory']
+  openy_digital_signage_classes_schedule.regular_updater:
+    class: Drupal\openy_digital_signage_classes_schedule\OpenYRegularUpdater
+    arguments: ['@entity_type.manager', '@logger.factory']

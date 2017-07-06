@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Route;
  *
  * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
+ *
+ * @ingroup openy_digital_signage_classes_schedule
  */
 class OpenYClassesSessionHtmlRouteProvider extends AdminHtmlRouteProvider {
 
