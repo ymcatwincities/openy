@@ -44,3 +44,60 @@ function openy_digital_signage_update_8001() {
 function openy_digital_signage_update_8002() {
   module_set_weight('openy_digital_signage_screen_content', 200);
 }
+
+/**
+ * Setup default screen fallback content configuration.
+ */
+function openy_digital_signage_update_8003() {
+  // Create a new block for default content.
+  $block_content = \Drupal::entityTypeManager()
+    ->getStorage('block_content')
+    ->create([
+      'info' => 'Default content block',
+      'type' => 'digital_signage_promotional',
+      'field_ds_background_color' => '#666666',
+      'field_ds_background_position' => 'top',
+      'field_ds_background_scheme' => 'light',
+      'field_ds_background_size' => 'cover',
+      'field_ds_color_scheme' => 'orange',
+      'field_ds_headline' => 'Default fallback content',
+      'field_ds_message' => '',
+      'field_ds_message_position' => 'top',
+      'field_ds_subheading' => 'This screen has no active content',
+    ]);
+  $block_content->save();
+
+  // Create new screen content node.
+  $default_content = \Drupal::entityTypeManager()
+    ->getStorage('node')
+    ->create([
+      'title' => 'Default fallback screen content',
+      'type' => 'screen_content',
+    ]);
+
+  // Configure panelizer.
+  $panelizer = \Drupal::service('panelizer');
+  $panels_display = $panelizer->getPanelsDisplay($default_content, 'full');
+  $panels_display->addBlock([
+    'id' => 'block_content:' . $block_content->uuid(),
+    'label' => 'Default content block',
+    'provider' => 'block_content',
+    'label_display' => 0,
+    'status' => TRUE,
+    'info' => 'Default content block',
+    'view_mode' => 'full',
+    'context_mapping' => [],
+    'region' => 'middle',
+  ]);
+  $configuration = $panels_display->getConfiguration();
+  $configuration['uuid'] = \Drupal::service('uuid')->generate();
+  $panels_display->setConfiguration($configuration);
+  $panels_display->setStorage('panelizer_field', 'node:' . $default_content->id() . ':full');
+  $panelizer->setPanelsDisplay($default_content, 'full', NULL, $panels_display);
+
+  // Save the configuration for defaul content.
+  $config = \Drupal::service('config.factory')
+    ->getEditable('openy_digital_signage_screen.default_fallback_content');
+  $config->set('target_id', $default_content->id());
+  $config->save();
+}
