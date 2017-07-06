@@ -1,0 +1,8 @@
+.toolbar-icon-system-admin-openy-digital-signage:before {
+  background-image: url(../images/digital-signage-icon-inactive.png);
+}
+
+.toolbar-icon-system-admin-openy-digital-signage:active:before,
+.toolbar-icon-system-admin-openy-digital-signage.is-active:before {
+  background-image: url(../images/digital-signage-icon.png);
+}
