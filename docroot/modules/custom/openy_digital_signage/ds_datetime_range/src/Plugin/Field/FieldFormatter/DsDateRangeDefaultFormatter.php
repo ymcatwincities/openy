@@ -8,8 +8,7 @@ use Drupal\datetime\Plugin\Field\FieldFormatter\DateTimeDefaultFormatter;
 use Drupal\datetime_range\DateTimeRangeTrait;
 
 /**
- * Plugin implementation of the 'Default' formatter for 'daterange' fields with
- * extended settings.
+ * Plugin implementation of the 'Default' formatter for 'daterange' fields with extended settings.
  *
  * This formatter renders the data range using <time> elements, with
  * configurable date formats (from the list of configured formats) and a
@@ -32,9 +31,9 @@ class DsDateRangeDefaultFormatter extends DateTimeDefaultFormatter {
    */
   public static function defaultSettings() {
     return [
-        'separator' => '-',
-        'only_start_date' => '1',
-      ] + parent::defaultSettings();
+      'separator' => '-',
+      'only_start_date' => '1',
+    ] + parent::defaultSettings();
   }
 
   /**
