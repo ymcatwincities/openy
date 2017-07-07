@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\flood_unblock\Form\FloodUnblockAdminForm.
- */
-
 namespace Drupal\flood_unblock\Form;
 
 use Drupal\Core\Form\FormBase;
@@ -87,11 +82,11 @@ class FloodUnblockAdminForm extends FormBase {
     }
 
     $header = array(
-      'blocked' => t('Blocked'),
-      'type'    => t('Type of block'),
-      'count'   => t('Count'),
-      'uid'     => t('Account name'),
-      'ip'      => t('IP Address'),
+      'blocked' => $this->t('Blocked'),
+      'type'    => $this->t('Type of block'),
+      'count'   => $this->t('Count'),
+      'uid'     => $this->t('Account name'),
+      'ip'      => $this->t('IP Address'),
     );
 
     $options = array();
@@ -107,15 +102,7 @@ class FloodUnblockAdminForm extends FormBase {
 
     $prefix = 'Drupal has two types of blocks available:<br />' .
       '<ul><li>One where the incorrect password of an existing user account is being used. The user account being used and the IP address is logged.' .
-      '<li>One where an incorrect user name is being used. The IP address is logged.</ul>' .
-      '<br/>' .
-      'Both types of blocks has different settings. ';
-    if ($this->moduleHandler->moduleExists('flood_control')) {
-      $prefix .= \Drupal::l('Click here to look at these settings.', Url::fromUri('admin/config/system/flood-control')) . '<br />';
-    }
-    else {
-      $prefix .= 'These settings can be looked at by installed and enabling the ' . \Drupal::l('Flood Control module.', Url::fromUri('http://drupal.org/project/flood_control')) . '<br />';
-    }
+      '<li>One where an incorrect user name is being used. The IP address is logged.</ul>';
 
     $prefix .= '<br />';
 
@@ -128,13 +115,13 @@ class FloodUnblockAdminForm extends FormBase {
       '#type'    => 'tableselect',
       '#header'  => $header,
       '#options' => $options,
-      '#empty'   => t('There are no failed logins at this time.'),
-      '#prefix'  => t($prefix),
+      '#empty'   => $this->t('There are no failed logins at this time.'),
+      '#prefix'  => $this->t($prefix),
     );
 
     $form['submit'] = array(
       '#type'  => 'submit',
-      '#value' => t('Clear flood'),
+      '#value' => $this->t('Clear flood'),
     );
 
     if (count($entries) == 0) {
@@ -155,7 +142,7 @@ class FloodUnblockAdminForm extends FormBase {
       return $selected !== 0;
     });
     if (empty($selected_entries)) {
-      $form_state->setErrorByName('table', t('Please make a selection.'));
+      $form_state->setErrorByName('table', $this->t('Please make a selection.'));
     }
   }
 

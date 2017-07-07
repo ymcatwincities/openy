@@ -38,6 +38,12 @@ class SimpleXml extends DataParserPluginBase {
    * {@inheritdoc}
    */
   protected function openSourceUrl($url) {
+    // Clear XML error buffer. Other Drupal code that executed during the
+    // migration may have polluted the error buffer and could create false
+    // positives in our error check below. We are only concerned with errors
+    // that occur from attempting to load the XML string into an object here.
+    libxml_clear_errors();
+
     $xml_data = $this->getDataFetcherPlugin()->getResponseContent($url);
     $xml = simplexml_load_string($xml_data);
     $this->registerNamespaces($xml);
@@ -61,7 +67,12 @@ class SimpleXml extends DataParserPluginBase {
     if ($target_element !== FALSE && !is_null($target_element)) {
       foreach ($this->fieldSelectors() as $field_name => $xpath) {
         foreach ($target_element->xpath($xpath) as $value) {
-          $this->currentItem[$field_name][] = (string) $value;
+          if ($value->children() && !trim((string) $value)) {
+            $this->currentItem[$field_name] = $value;
+          }
+          else {
+            $this->currentItem[$field_name][] = (string) $value;
+          }
         }
       }
       // Reduce single-value results to scalars.

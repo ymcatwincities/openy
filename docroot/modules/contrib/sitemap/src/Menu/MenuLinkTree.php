@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Core\Menu\MenuLinkTree.
- */
-
 namespace Drupal\sitemap\Menu;
 
 use Drupal\Core\Menu\MenuLinkTree as CoreMenuLinkTree;
@@ -45,7 +40,7 @@ class MenuLinkTree extends CoreMenuLinkTree {
     foreach ($tree as $data) {
       /** @var \Drupal\Core\Menu\MenuLinkInterface $link */
       $link = $data->link;
-      if ($data->access && ($link->isEnabled() || $config->get('show_menus_hidden'))) {
+      if ($data->access->isAllowed() && ($link->isEnabled() || $config->get('show_menus_hidden'))) {
         $items[] = $data;
       }
     }

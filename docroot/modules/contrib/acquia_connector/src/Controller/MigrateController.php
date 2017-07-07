@@ -1,12 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_connector\Controller\MigrateController.
- */
-
 namespace Drupal\acquia_connector\Controller;
 
+use Drupal\acquia_connector\Helper\Storage;
 use Drupal\acquia_connector\Migration;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,12 +14,12 @@ use Drupal\acquia_connector\ConnectorException;
 class MigrateController extends ControllerBase {
 
   /**
-   * acquia_connector.migrate route callback.
+   * Acquia_connector.migrate route callback.
    */
   public function migratePage() {
-    $config = $this->config('acquia_connector.settings');
-    $identifier = $config->get('identifier');
-    $key = $config->get('key');
+    $storage = new Storage();
+    $identifier = $storage->getIdentifier();
+    $key = $storage->getKey();
 
     if (!empty($identifier) && !empty($key)) {
       try {
@@ -50,7 +46,7 @@ class MigrateController extends ControllerBase {
   }
 
   /**
-   * acquia_connector.migrate_check route callback for checking client upload.
+   * Acquia_connector.migrate_check route callback for checking client upload.
    */
   public function migrateCheck() {
     $return = array('compatible' => TRUE);

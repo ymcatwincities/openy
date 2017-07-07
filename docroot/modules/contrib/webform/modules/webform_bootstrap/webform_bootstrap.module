@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * Helps support Webform to Bootstrap integration.
+ */
+
+use Drupal\webform\Utility\WebformThemeHelper;
+use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_webform_element_alter().
+ */
+function webform_bootstrap_webform_element_alter(array &$element, FormStateInterface $form_state, array $context) {
+  if (!WebformThemeHelper::isActiveTheme('bootstrap')) {
+    return;
+  }
+
+  // Remove jQuery Tooltip and use Bootstrap Tooltip.
+  // @see \Drupal\webform\Plugin\WebformElementBase::prepare
+  if (isset($element['#attached']['library'][0]) && $element['#attached']['library'][0] === 'webform/webform.tooltip') {
+    unset($element['#attached']['library'][0]);
+    $element['#attached']['library'] = array_values($element['#attached']['library']);
+  }
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function webform_bootstrap_js_alter(&$javascript, AttachedAssetsInterface $assets) {
+  if (!WebformThemeHelper::isActiveTheme('bootstrap')) {
+    return;
+  }
+
+  // Make sure jQuery tooltip is never loaded.
+  unset($javascript['core/assets/vendor/jquery.ui/ui/tooltip-min.js']);
+}
+
+/**
+ * Implements hook_link_alter().
+ */
+function webform_bootstrap_link_alter(&$variables) {
+  if (!WebformThemeHelper::isActiveTheme('bootstrap')) {
+    return;
+  }
+
+  $drupal_to_bootstrap = [
+    // Convert Drupal's button classes to Bootstrap's btn classes.
+    'button-action' => 'btn-primary',
+    'button--small' => 'btn-sm',
+    'button--primary' => 'btn-primary',
+    'button--danger' => 'btn-danger',
+    'button' => 'btn',
+  ];
+  if (isset($variables['options']['attributes']['class'])) {
+    foreach ($variables['options']['attributes']['class'] as $index => $class) {
+      if (isset($drupal_to_bootstrap[$class])) {
+        $variables['options']['attributes']['class'][$index] = $drupal_to_bootstrap[$class];
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_input().
+ */
+function webform_bootstrap_preprocess_input(&$variables) {
+  if (!WebformThemeHelper::isActiveTheme('bootstrap')) {
+    return;
+  }
+
+  $element =& $variables['element'];
+
+  // Bootstrap theme does not support image buttons so we are going to use
+  // Bootstrap's icon buttons.
+  // @see themes/bootstrap/templates/input/input--button.html.twig
+  // @see \Drupal\webform\Element\WebformElementStates::buildOperations
+  // @see \Drupal\webform\Element\WebformMultiple::buildElementRow
+  if (isset($element['#type']) && $element['#type'] === 'image_button' && strpos($variables['attributes']['src'], '/webform/images/icons/') !== FALSE) {
+    $element['#icon_only'] = TRUE;
+    if (strpos($variables['attributes']['src'], '/webform/images/icons/plus.svg') !== FALSE) {
+      $element['#title'] = t('Add');
+      $element['#icon'] = \Drupal\bootstrap\Bootstrap::glyphicon('plus-sign');
+    }
+    elseif (strpos($variables['attributes']['src'], '/webform/images/icons/ex.svg') !== FALSE) {
+      $element['#title'] = t('Remove');
+      $element['#icon'] = \Drupal\bootstrap\Bootstrap::glyphicon('minus-sign');
+    }
+  }
+}

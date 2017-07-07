@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\stage_file_proxy\Form\SettingsForm.
- */
-
 namespace Drupal\stage_file_proxy\Form;
 
 use Drupal\Core\Form\ConfigFormBase;

@@ -54,6 +54,9 @@ webform.handler.scheduled_email:
       sequence:
         type: string
         label: 'Element name'
+    ignore_access:
+      type: boolean
+      label: 'Always include private and restricted access elements.'
     html:
       type: boolean
       label: 'HTML'

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\migrate_plus\Plugin\migrate\process\SkipOnValue.
- */
-
 namespace Drupal\migrate_plus\Plugin\migrate\process;
 
 use Drupal\migrate\MigrateException;

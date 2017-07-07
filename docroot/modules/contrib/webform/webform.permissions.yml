@@ -55,4 +55,4 @@
   description: 'Allows deleting <em>all</em> submissions.'
 'delete own webform submission':
   title: 'Delete own webform submission'
-  description: 'Allows deleting <em>own/em> submissions.'
+  description: 'Allows deleting <em>own</em> submissions.'

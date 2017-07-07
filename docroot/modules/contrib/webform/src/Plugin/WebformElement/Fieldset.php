@@ -13,16 +13,4 @@ namespace Drupal\webform\Plugin\WebformElement;
  *   category = @Translation("Containers"),
  * )
  */
-class Fieldset extends ContainerBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getDefaultProperties() {
-    return parent::getDefaultProperties() + [
-      // Form display.
-      'open' => FALSE,
-    ];
-  }
-
-}
+class Fieldset extends ContainerBase { }

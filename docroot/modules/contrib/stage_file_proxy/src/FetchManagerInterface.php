@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\stage_file_proxy\FetchManagerInterface.
- */
-
 namespace Drupal\stage_file_proxy;
 
 
