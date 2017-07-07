@@ -183,7 +183,7 @@
         });
         $('.try-the-y-toggle').not('.active').on('click', function () {
           $('html, body').animate({
-            scrollTop: $("#webform-submission-one-week-pass-paragraph-191-form").offset().top - 150
+            scrollTop: $("#membership-page .webform form").offset().top - 150
           }, 500);
         });
       });
