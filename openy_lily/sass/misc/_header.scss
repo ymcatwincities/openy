@@ -151,17 +151,6 @@ body {
 
 .viewport {
   position: static;
-  &:after {
-    background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    @include transition(opacity 0.2s linear);
-    opacity: 0;
-    height: 100%;
-    z-index: 900;
-  }
   #main {
     transition: margin-left .2s;
     position: relative;
@@ -298,7 +287,7 @@ header#page-head {
         }
         #block-openy-lily-main-menu {
           width: 100%;
-          background: rgba(0, 96, 175, 0.95) !important;
+          background: rgba(0, 96, 175, 0.95);
           padding: 0 30px;
           @include breakpoint($desktop) {
             padding: 0 100px;

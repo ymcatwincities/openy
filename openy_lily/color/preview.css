@@ -30,6 +30,14 @@
   background-color: #0060af;
   padding: 10px;
 }
+.color-preview-main-menu-link {
+  display: inline-block;
+  margin-right: 20px;
+}
+.color-preview-main-menu-link.hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  padding: 10px;
+}
 .color-preview-branch-subheader {
   background-color: #c6168b;
   color: #ffffff;
@@ -72,6 +80,9 @@
 .camp-color-preview .color-preview-campmenu {
   background-color: #0060ad;
   color: #ffffff;
+}
+.camp-color-preview .color-preview-campmenu .color-preview-menu-link:first-child {
+  margin-left: 10px;
 }
 .camp-color-preview .color-preview-campmenu .hover {
   background-color: #0089d1;

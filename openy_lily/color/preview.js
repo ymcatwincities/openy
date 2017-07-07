@@ -26,6 +26,9 @@
       $colorPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headerhover]"]').val());
       $colorPreview.find('.color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headerlink]"]').val());
       $colorPreview.find('.color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headerlinkhover]"]').val());
+      $colorPreview.find('.color-preview-main-menu').css('background-color', $colorPalette.find('input[name="palette[headermainmenubg]"]').val());
+      $colorPreview.find('.color-preview-main-menu-link').css('color', $colorPalette.find('input[name="palette[headermainmenulink]"]').val());
+      $colorPreview.find('.color-preview-main-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headermainmenulink]"]').val());
 
       // Branch subhead.
       $colorPreview.find('.color-preview-branch-subheader').css('background-color', $colorPalette.find('input[name="palette[branchsubheaderbg]"]').val());
