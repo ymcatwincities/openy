@@ -178,12 +178,10 @@
       $(context).find('#membership-page .webform-submission-form').once('membForm').each(function () {
         $('.try-the-y-toggle').on('click', function (e) {
           e.preventDefault();
-          $('.try-the-y-toggle').toggleClass('active');
-          $('.landing-content > .paragraph:nth-child(1), .landing-content > .paragraph:nth-child(3),  article.webform').slideToggle('fast');
-        });
-        $('.try-the-y-toggle').not('.active').on('click', function () {
+          $('.try-the-y-toggle').addClass('active');
+          $('.landing-content > .paragraph:nth-child(1), .landing-content > .paragraph:nth-child(3),  article.webform').slideDown('fast');
           $('html, body').animate({
-            scrollTop: $("#membership-page .webform form").offset().top - 150
+            scrollTop: $("#webform-submission-one-week-pass-paragraph-191-form").offset().top - 150
           }, 500);
         });
       });

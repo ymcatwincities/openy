@@ -1734,7 +1734,7 @@ article.site-alert ul li div {
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) {
   padding-bottom: 0;
   float: left;
-  width: 70%;
+  width: 67%;
   display: none;
 }
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) h2 {
@@ -1758,11 +1758,13 @@ article.site-alert ul li div {
   float: right;
   width: 30%;
   display: none;
+  margin-top: -130px;
 }
 @media (min-width: 0) and (max-width: 48em) {
   #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(2) {
     width: 100%;
     float: none;
+    margin-top: 15px;
   }
 }
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) {
