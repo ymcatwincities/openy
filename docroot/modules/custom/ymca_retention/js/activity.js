@@ -12,6 +12,11 @@
       // Shared information.
       self.storage = storage;
 
+      // Show select list.
+      self.dates_type_select = false;
+      // Show slick carousel.
+      self.dates_type_carousel = true;
+
       self.current_date_index = -1;
 
       if (typeof self.storage.dates === 'undefined') {
@@ -25,7 +30,7 @@
       self.date_selected = self.storage.dates[self.current_date_index];
       self.dateClass = function (index) {
         var classes = [];
-        if (self.storage.dates[index].past) {
+        if (self.storage.dates[index].past && self.date_selected.index != index) {
           classes.push('campaign-dates--date-past');
         }
         if (self.date_selected.index === index) {
@@ -42,7 +47,7 @@
         return classes.join(' ');
       };
       self.activitiesCount = function (index) {
-        if (typeof self.storage.member_activities === 'undefined') {
+        if (typeof self.storage.member_activities === 'undefined' || self.storage.member_activities.length == 0) {
           return 0;
         }
 
@@ -93,6 +98,92 @@
         }
 
         return classes.join(' ');
+      };
+
+      // Set date via carousel.
+      self.setDate = function (index) {
+        if (self.storage.dates[index].past) {
+          self.date_selected = self.storage.dates[index];
+        }
+      };
+
+      // Check visits for a date.
+      self.isVisited = function (index) {
+        if (typeof self.storage.member_checkins === 'undefined' || self.storage.member_checkins.length == 0) {
+          return false;
+        }
+        if (self.storage.member_checkins[self.storage.dates[index].timestamp]) {
+          return true;
+        }
+        return false;
+      };
+
+      // Slick config.
+      self.slickConfig = {
+        speed: 300,
+        infinite: false,
+        swipeToSlide: true,
+        touchMove: true,
+        variableWidth: true,
+        initialSlide: (function () {
+          var current_index = Math.max(0, self.date_selected.index - 3);
+          var ww = jQuery(window).width();
+          if (ww >= 1024) {
+            current_index = Math.min(current_index, self.storage.dates.length - 11);
+          }
+          else if (ww >= 900) {
+            current_index = Math.min(current_index, self.storage.dates.length - 8);
+          }
+          else if (ww >= 750) {
+            current_index = Math.min(current_index, self.storage.dates.length - 6);
+          }
+          else if (ww >= 600) {
+            current_index = Math.min(current_index, self.storage.dates.length - 5);
+          }
+          else {
+            current_index = Math.min(current_index, self.storage.dates.length - 4);
+          }
+          return current_index;
+        })(),
+        slidesToScroll: 11,
+        slidesToShow: 11,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 8,
+              slidesToScroll: 8
+            }
+          },
+          {
+            breakpoint: 900,
+            settings: {
+              slidesToShow: 6,
+              slidesToScroll: 6
+            }
+          },
+          {
+            breakpoint: 750,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4
+            }
+          },
+          {
+            breakpoint: 400,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3
+            }
+          }
+        ]
       };
     });
   };
