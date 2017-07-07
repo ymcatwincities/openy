@@ -161,6 +161,7 @@
   }
   &:hover {
     color: $border-grey;
+    text-decoration: underline;
   }
   a {
     color: $white;
@@ -168,6 +169,7 @@
 
     &:hover {
       color: $border-grey;
+      text-decoration: underline;
     }
   }
 }

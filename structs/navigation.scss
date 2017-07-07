@@ -190,13 +190,16 @@
     .nav-level-2 > a:hover,
     .nav-level-2 > a:focus {
       color: $color-gray-a;
-      text-decoration: none;
     }
 
     .dropdown-menu>li>a:focus,
     .dropdown-menu>li>a:hover {
       background: none;
       color: $color-white;
+    }
+
+    .nav-level-2 > a:hover {
+      text-decoration: underline;
     }
 
     .nav-level-3 {
