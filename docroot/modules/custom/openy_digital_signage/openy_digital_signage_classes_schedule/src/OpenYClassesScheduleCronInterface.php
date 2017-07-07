@@ -7,7 +7,7 @@ namespace Drupal\openy_digital_signage_classes_schedule;
  *
  * @ingroup openy_digital_signage_classes_schedule
  */
-interface OpenYRegularUpdaterInterface {
+interface OpenYClassesScheduleCronInterface {
 
   /**
    * Remove old sessions.

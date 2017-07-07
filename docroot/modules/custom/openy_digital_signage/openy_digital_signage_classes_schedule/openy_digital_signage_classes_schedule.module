@@ -9,8 +9,8 @@
  * Implements hook_cron().
  */
 function openy_digital_signage_classes_schedule_cron() {
-  /** @var \Drupal\openy_digital_signage_classes_schedule\OpenYRegularUpdater $regular_updater */
-  $regular_updater = \Drupal::service('openy_digital_signage_classes_schedule.regular_updater');
+  /** @var \Drupal\openy_digital_signage_classes_schedule\OpenYClassesScheduleCron $regular_updater */
+  $regular_updater = \Drupal::service('openy_digital_signage_classes_schedule.cron');
 
   $regular_updater->removeOldSessions();
 }
