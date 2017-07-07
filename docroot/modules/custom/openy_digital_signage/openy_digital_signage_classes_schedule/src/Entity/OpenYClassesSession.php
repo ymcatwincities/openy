@@ -54,7 +54,9 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
 
   /**
    * List of supported sources for classes sessions.
+   *
    * @todo Make them Plugins or allow to alter.
+   *
    * @return array
    *   List of sources.
    */

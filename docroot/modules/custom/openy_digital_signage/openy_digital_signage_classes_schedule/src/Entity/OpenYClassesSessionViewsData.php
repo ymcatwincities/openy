@@ -8,7 +8,7 @@ use Drupal\views\EntityViewsDataInterface;
 /**
  * Provides Views data for Digital Signage Classes Session entities.
  *
- *  * @ingroup openy_digital_signage_classes_schedule
+ * @ingroup openy_digital_signage_classes_schedule
  */
 class OpenYClassesSessionViewsData extends EntityViewsData implements EntityViewsDataInterface {
 
