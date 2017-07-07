@@ -5,7 +5,7 @@ body {
 }
 a,
 .link {
-  color: #0060af; /* Link color (link) */
+  color: #0060ac; /* Link color (link) */
 }
 .button,
 .btn,
@@ -21,7 +21,7 @@ a,
 .btn-primary:hover,
 .btn.white-blue:hover,
 .white-blue.button:hover {
-  background-color: #0060af; /* Button color (button) */
+  background-color: #0060ad; /* Button color (button) */
   color: #fffffc; /* Button link color (buttonlink) */
 }
 .button a,
@@ -31,10 +31,9 @@ a,
 .btn a:hover {
   color: #fffffc; /* Button link color (buttonlink) */
 }
-
 .btn-default {
   background-color: #ffffff; /* Default */
-  color: #333; /* Default */
+  color: #333333; /* Default */
 }
 .top-navs,
 .sidebar,
@@ -49,11 +48,11 @@ a,
 .viewport .nav-level-2.open > a:focus,
 .nav > li > a:hover,
 .nav > li > a:focus {
-  background-color: #0060af; /* Header menu hover (headerhover) */
+  background-color: #0060ae; /* Header menu hover (headerhover) */
 }
 .viewport .nav-level-2.open {
-  background-color: #0060af; /* Header menu hover (headerhover) */
-  border-bottom: #0060af; /* Header menu hover (headerhover) */
+  background-color: #0060ae; /* Header menu hover (headerhover) */
+  border-bottom: #0060ae; /* Header menu hover (headerhover) */
 }
 .branch-header .desktop {
   background-color: #c6168b; /* Branch subheader background (branchsubheaderbg) */
@@ -67,13 +66,13 @@ a,
 .viewport .page-head__main-menu .dropdown-menu > li > a:hover,
 .navbar-nav .open .dropdown-menu > li > a:hover,
 .navbar-nav .open .dropdown-menu > li > a:focus {
-  color: #ffffff; /* Header link (headerlink) */
+  color: #fefefe; /* Header link (headerlink) */
 }
 .viewport .nav-level-2 > a:hover,
-.viewport .nav-level-2 > a:focus
+.viewport .nav-level-2 > a:focus,
 .viewport .page-head__main-menu .nav-level-2 > a:hover,
 .viewport .page-head__main-menu .nav-level-2 > a:focus {
-  color: #ffffff; /* Header link hover (headerlinkhover) */
+  color: #fdfdfd; /* Header link hover (headerlinkhover) */
 }
 .footer {
   background-color: #4f4f4f; /* Footer background (footer) */
@@ -176,7 +175,7 @@ body .branch-popup .ui-dialog-content h3 {
 }
 .is-camp a,
 .is-camp .link {
-  color: #006b6b; /* Camp link color (camplink) */
+  color: #006b6c; /* Camp link color (camplink) */
 }
 .is-camp .button,
 .is-camp .btn,
@@ -192,7 +191,7 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .btn-primary:hover,
 .is-camp .btn.white-blue:hover,
 .is-camp .white-blue.button:hover {
-  background-color: #006b6b; /* Camp button color (campbutton) */
+  background-color: #006b6d; /* Camp button color (campbutton) */
   color: #fffff9; /* Camp button link color (campbuttonlink) */
 }
 .is-camp .button a,
@@ -208,9 +207,10 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .navbar-default .navbar-toggle:focus,
 .is-camp .navbar-default .navbar-toggle:hover,
 .is-camp .navbar-default .navbar-toggle:active {
-  background-color: #5c2e91; /* Camp header background (campheaderbg) */
+  background-color: #5c2e92; /* Camp header background (campheaderbg) */
 }
 .is-camp .nav.dropdown-menu,
+.is-camp .viewport .nav-level-2.open,
 .is-camp .viewport .nav-level-2.open > a,
 .is-camp .viewport .nav-level-2.open > a:focus,
 .is-camp .nav > li > a:hover,
@@ -226,20 +226,16 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .viewport .page-head__main-menu .dropdown-menu > li > a:hover,
 .is-camp .navbar-nav .open .dropdown-menu > li > a:hover,
 .is-camp .navbar-nav .open .dropdown-menu > li > a:focus {
-  color: #fffff8; /* Camp header link hover (campheaderlink) */
+  color: #fffff8; /* Camp header link (campheaderlink) */
 }
 .is-camp .viewport .nav-level-2 > a:hover,
-.is-camp .viewport .nav-level-2 > a:focus
+.is-camp .viewport .nav-level-2 > a:focus,
 .is-camp .viewport .page-head__main-menu .nav-level-2 > a:hover,
 .is-camp .viewport .page-head__main-menu .nav-level-2 > a:focus {
-  color: #fffff8; /* Camp header link hover (campheaderlinkhover) */
+  color: #fcfcfc; /* Camp header link hover (campheaderlinkhover) */
 }
 .is-camp .branch-header .desktop {
-  background-color: #0060ad; /* Camp subheader background (campsubheaderbg) */
-}
-.is-camp .viewport .nav-level-2.open {
-  background-color: #f86b05; /* Camp header menu hover (campheaderhover) */
-  border-bottom: #f86b05; /* Camp header menu hover (campheaderhover) */
+  background-color: #0060ab; /* Camp subheader background (campsubheaderbg) */
 }
 .is-camp footer {
   background-color: #006b6b; /* Camp footer background (campfooter) */
@@ -249,14 +245,14 @@ body .branch-popup .ui-dialog-content h3 {
   color: #fffff7; /* Camp footer text (campfootertext) */
 }
 .is-camp .camp-menu-wrapper {
-  background-color: #0060ad; /* Camp menu background (campmenubg) */
+  background-color: #0060aa; /* Camp menu background (campmenubg) */
 }
 .is-camp .camp-menu__item a {
   color: #fffffd; /* Camp menu link color (campmenulink) */
 }
 .is-camp .camp-menu-wrapper a:hover,
 .is-camp .camp-menu-wrapper .active {
-  background-color: #0060ad; /* Camp menu highlight color (campmenuhighlight) */
+  background-color: #0089d0; /* Camp menu highlight color (campmenuhighlight) */
 }
 
 .viewport .nav-level-2 > a:hover,
