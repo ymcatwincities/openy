@@ -224,7 +224,6 @@
 
   .login--user {
     @include rem(padding, 0 0 0 44px);
-    // @include rem(line-height, 50px);
 
     &:before {
       background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-signedin-user.svg');
@@ -236,7 +235,6 @@
 
     @include breakpoint($tablet) {
       background: $green-medium;
-      // @include rem(line-height, 62px);
       @include rem(padding-right, 18px);
       margin: 0;
     }
