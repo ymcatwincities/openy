@@ -106,6 +106,7 @@ class TabsSelector extends BlockBase {
         '#description' => $this->t('Fill out the modal hash ID to target with the modal. Ex: #bonus-modal-day'),
         '#states' => [
           'visible' => [
+            "input[name='settings[{$value}][enabled]']" => ['checked' => TRUE],
             "input[name='settings[{$value}][campaign_not_started]']" => ['checked' => TRUE],
           ],
           'required' => [
