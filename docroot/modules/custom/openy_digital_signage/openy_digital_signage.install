@@ -12,7 +12,8 @@ function openy_digital_signage_install() {
   for ($i = 8000; $i < 9000; $i++) {
     $function = 'openy_digital_signage_update_' . $i;
     if (function_exists($function)) {
-      \Drupal::logger('openy_digital_signage_install')->info('running: ' . $function);
+      \Drupal::logger('openy_digital_signage_install')
+        ->info('running: ' . $function);
       $function();
     }
   }
@@ -23,17 +24,8 @@ function openy_digital_signage_install() {
  */
 function openy_digital_signage_update_8000() {
   \Drupal::service('module_installer')->install([
-    'openy_digital_signage_screen_content',
     'openy_digital_signage_screen',
-    'openy_digital_signage_schedule',
-  ], TRUE);
-}
-
-/**
- * Enable modules which provides blocks with HTML and Time.
- */
-function openy_digital_signage_update_8001() {
-  \Drupal::service('module_installer')->install([
+    'openy_digital_signage_classes_schedule',
     'openy_digital_signage_blocks',
   ], TRUE);
 }
@@ -41,14 +33,14 @@ function openy_digital_signage_update_8001() {
 /**
  * Change weight for the module Screen Content.
  */
-function openy_digital_signage_update_8002() {
+function openy_digital_signage_update_8001() {
   module_set_weight('openy_digital_signage_screen_content', 200);
 }
 
 /**
  * Setup default screen fallback content configuration.
  */
-function openy_digital_signage_update_8003() {
+function openy_digital_signage_update_8002() {
   // Create a new block for default content.
   $block_content = \Drupal::entityTypeManager()
     ->getStorage('block_content')
@@ -100,13 +92,4 @@ function openy_digital_signage_update_8003() {
     ->getEditable('openy_digital_signage_screen.default_fallback_content');
   $config->set('target_id', $default_content->id());
   $config->save();
-}
-
-/**
- * Enable module which provides classes schedule entity.
- */
-function openy_digital_signage_update_8004() {
-  \Drupal::service('module_installer')->install([
-    'openy_digital_signage_classes_schedule',
-  ], TRUE);
 }

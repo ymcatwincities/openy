@@ -6,14 +6,27 @@ dependencies:
     - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_author
     - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_location
   module:
-    - datetime_range
+    - ds_datetime_range
     - openy_digital_signage_classes_schedule
     - options
+_core:
+  default_config_hash: pU5LvgGYAnGJkjTGpHcSoY_fFDT7e0ndXvSzoYtt1gY
 id: openy_ds_classes_session.openy_ds_classes_session.default
 targetEntityType: openy_ds_classes_session
 bundle: openy_ds_classes_session
 mode: default
 content:
+  date_time:
+    label: above
+    type: ds_daterange_default
+    weight: 3
+    region: content
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+      only_start_date: '1'
+    third_party_settings: {  }
   field_session_location:
     weight: 6
     label: above
@@ -25,7 +38,7 @@ content:
   instructor:
     label: above
     type: string
-    weight: 3
+    weight: 4
     region: content
     settings:
       link_to_entity: false
@@ -48,7 +61,7 @@ content:
   sub_instructor:
     label: above
     type: string
-    weight: 4
+    weight: 5
     region: content
     settings:
       link_to_entity: false
