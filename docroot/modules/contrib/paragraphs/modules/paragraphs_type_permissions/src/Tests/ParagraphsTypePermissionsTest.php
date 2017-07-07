@@ -170,6 +170,19 @@ class ParagraphsTypePermissionsTest extends WebTestBase {
     $this->assertRaw($images_tag);
     $this->assertNoText('Paragraph type Image + Text');
     $this->assertNoText('Paragraph type Text');
+
+    // Check the authenticated user with edit permission.
+    $authenticated_role->grantPermission('update paragraph content image_text');
+    $authenticated_role->grantPermission('bypass node access');
+    $authenticated_role->save();
+    $this->drupalLogin($authenticated_user);
+    $this->drupalGet('node/' . $node->id() . '/edit');
+    $this->assertRaw('Image + Text');
+    $this->assertText('Paragraph type Image + Text');
+    $this->assertText('You are not allowed to remove this Paragraph.');
+    $this->assertText('Published');
+    $this->assertText('Images');
+    $this->assertText('You are not allowed to edit or remove this Paragraph.');
   }
 
 }

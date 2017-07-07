@@ -6,8 +6,7 @@
   "license": "GPL-2.0+",
   "require": {
     "commerceguys/intl": "~0.7",
-    "commerceguys/addressing": "~1.0",
-    "commerceguys/zone": "~1.0"
+    "commerceguys/addressing": "~1.0"
   },
   "minimum-stability": "dev"
 }

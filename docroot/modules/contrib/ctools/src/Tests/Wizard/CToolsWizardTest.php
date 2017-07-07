@@ -1,14 +1,11 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Tests\Wizard\CToolsWizardTest.
- */
-
 namespace Drupal\ctools\Tests\Wizard;
 
 
 use Drupal\simpletest\WebTestBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+
 
 /**
  * Tests basic wizard functionality.
@@ -17,6 +14,7 @@ use Drupal\simpletest\WebTestBase;
  */
 class CToolsWizardTest extends WebTestBase {
 
+  use StringTranslationTrait;
   public static $modules = array('ctools', 'ctools_wizard_test');
 
   function testWizardSteps() {
@@ -29,23 +27,23 @@ class CToolsWizardTest extends WebTestBase {
     $edit = [
       'one' => 'test',
     ];
-    $this->drupalPostForm('ctools/wizard', $edit, t('Next'));
+    $this->drupalPostForm('ctools/wizard', $edit, $this->t('Next'));
     // Redirected to the second step.
     $this->assertText('Form Two');
     $this->assertText('Dynamic value submitted: Xylophone');
     // Check that $operations['two']['values'] worked.
     $this->assertText('Zebra');
     // Hit previous to make sure our form value are preserved.
-    $this->drupalPostForm(NULL, [], t('Previous'));
+    $this->drupalPostForm(NULL, [], $this->t('Previous'));
     // Check the known form values.
     $this->assertFieldByName('one', 'test');
     $this->assertText('Xylophone');
     // Goto next step again and finish this wizard.
-    $this->drupalPostForm(NULL, [], t('Next'));
+    $this->drupalPostForm(NULL, [], $this->t('Next'));
     $edit = [
       'two' => 'Second test',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Finish'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Finish'));
     // Check that the wizard finished properly.
     $this->assertText('Value One: test');
     $this->assertText('Value Two: Second test');
@@ -58,7 +56,7 @@ class CToolsWizardTest extends WebTestBase {
     $edit = [
       'one' => 'wrong',
     ];
-    $this->drupalPostForm('ctools/wizard', $edit, t('Next'));
+    $this->drupalPostForm('ctools/wizard', $edit, $this->t('Next'));
     // We're still on the first form and the error is present.
     $this->assertText('Form One');
     $this->assertText('Cannot set the value to "wrong".');
@@ -66,13 +64,13 @@ class CToolsWizardTest extends WebTestBase {
     $edit = [
       'one' => 'magic',
     ];
-    $this->drupalPostForm('ctools/wizard', $edit, t('Next'));
+    $this->drupalPostForm('ctools/wizard', $edit, $this->t('Next'));
     // Redirected to the second step.
     $this->assertText('Form Two');
     $edit = [
       'two' => 'Second test',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Finish'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Finish'));
     // Check that the magic value triggered our submit callback.
     $this->assertText('Value One: Abraham');
     $this->assertText('Value Two: Second test');
@@ -91,19 +89,19 @@ class CToolsWizardTest extends WebTestBase {
       'id' => 'test123',
       'label' => 'Test Config Entity 123',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Next'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Next'));
 
     // Submit the first step.
     $edit = [
       'one' => 'The first bit',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Next'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Next'));
 
     // Submit the second step.
     $edit = [
       'two' => 'The second bit',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Finish'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Finish'));
 
     // Now we should be looking at the list of entities.
     $this->assertUrl('admin/structure/ctools_wizard_test_config_entity');
@@ -120,17 +118,17 @@ class CToolsWizardTest extends WebTestBase {
     $this->assertRaw('Value from one: The first bit');
     $this->drupalGet($previous);
     // Change the value for 'one'.
-    $this->drupalPostForm(NULL, ['one' => 'New value'], t('Next'));
+    $this->drupalPostForm(NULL, ['one' => 'New value'], $this->t('Next'));
     $this->assertFieldByName('two', 'The second bit');
-    $this->drupalPostForm(NULL, [], t('Next'));
+    $this->drupalPostForm(NULL, [], $this->t('Next'));
     // Make sure we get the additional step because the entity exists.
     $this->assertText('This step only shows if the entity is already existing!');
-    $this->drupalPostForm(NULL, [], t('Finish'));
+    $this->drupalPostForm(NULL, [], $this->t('Finish'));
 
     // Edit the entity again and make sure the change stuck.
     $this->assertUrl('admin/structure/ctools_wizard_test_config_entity');
     $this->clickLink(t('Edit'));
-    $this->drupalPostForm(NULL, [], t('Next'));
+    $this->drupalPostForm(NULL, [], $this->t('Next'));
     $this->assertFieldByName('one', 'New value');
   }
 

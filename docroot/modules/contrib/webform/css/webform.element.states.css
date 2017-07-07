@@ -56,13 +56,6 @@
 }
 
 /**
- * Hide Ajax throbber.
- */
-.form-type-webform-element-states .ajax-progress-throbber {
-  display: none;
-}
-
-/**
  * Suppress table drag warnings.
  */
 .webform-states-table .tabledrag-changed-warning,

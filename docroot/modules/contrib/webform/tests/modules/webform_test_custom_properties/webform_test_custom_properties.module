@@ -16,8 +16,8 @@ use Drupal\Core\Form\FormStateInterface;
  * element properties with 'acme_'.
  *
  * @see \Drupal\webform_ui\Form\WebformUiElementFormBase
- * @see \Drupal\webform\WebformElementBase::buildConfigurationForm
- * @see \Drupal\webform\WebformElementBase::form
+ * @see \Drupal\webform\Plugin\WebformElementBase::buildConfigurationForm
+ * @see \Drupal\webform\Plugin\WebformElementBase::form
  */
 function webform_test_custom_properties_form_webform_ui_element_form_alter(&$form, FormStateInterface $form_state) {
   // Define default custom properties.
@@ -29,14 +29,14 @@ function webform_test_custom_properties_form_webform_ui_element_form_alter(&$for
   // webform's state. This allows default custom properties to be removed when the
   // webform is submitted. If this is omitted, custom properties will always
   // be append to the element's properties.
-  // @see \Drupal\webform\WebformElementBase::getConfigurationFormProperties
+  // @see \Drupal\webform\Plugin\WebformElementBase::getConfigurationFormProperties
   $form_state->set(
     'default_properties',
     $form_state->get('default_properties') + $default_custom_properties
   );
 
   // Retrieve the values from the custom properties element's default value.
-  // @see \Drupal\webform\WebformElementBase::buildConfigurationForm
+  // @see \Drupal\webform\Plugin\WebformElementBase::buildConfigurationForm
   $custom_properties = $form['properties']['custom']['properties']['#default_value'];
 
   // Make sure to unset the custom properties which are going to be handled via
@@ -57,7 +57,7 @@ function webform_test_custom_properties_form_webform_ui_element_form_alter(&$for
     '#open' => TRUE,
     // Add custom properties after all fieldset elements, which have a
     // weight of -20.
-    // @see \Drupal\webform\WebformElementBase::buildConfigurationForm
+    // @see \Drupal\webform\Plugin\WebformElementBase::buildConfigurationForm
     '#weight' => -10,
   ];
 

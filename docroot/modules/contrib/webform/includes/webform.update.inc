@@ -239,7 +239,7 @@ function webform_update_8011() {
  */
 function _webform_update_8011(array &$element) {
   if (isset($element['#format'])) {
-    /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+    /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
     $element_manager = \Drupal::service('plugin.manager.webform.element');
     $webform_element = $element_manager->getElementInstance($element);
 
@@ -308,7 +308,7 @@ function webform_update_8014() {
  *   A form element.
  */
 function _webform_update_8014(array &$element) {
-  /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+  /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
   $element_manager = \Drupal::service('plugin.manager.webform.element');
 
   // Add 'webform_' prefix to #type.
@@ -611,7 +611,7 @@ function webform_update_8030() {
   foreach ($config_factory->listAll('webform.webform.') as $webform_config_name) {
     $webform_config = $config_factory->getEditable($webform_config_name);
     $data = $webform_config->getRawData();
-    $data['settings']['draft'] = ($data['settings']['draft'] == TRUE) ? WebformInterface::DRAFT_ENABLED_AUTHENTICATED : WebformInterface::DRAFT_ENABLED_NONE;
+    $data['settings']['draft'] = ($data['settings']['draft'] == TRUE) ? WebformInterface::DRAFT_AUTHENTICATED : WebformInterface::DRAFT_NONE;
     $webform_config->setData($data)->save();
   }
 }

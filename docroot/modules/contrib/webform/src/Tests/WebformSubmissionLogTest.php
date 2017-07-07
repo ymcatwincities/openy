@@ -13,13 +13,6 @@ use Drupal\webform\Entity\WebformSubmission;
 class WebformSubmissionLogTest extends WebformTestBase {
 
   /**
-   * Modules to enable.
-   *
-   * @var array
-   */
-  public static $modules = ['webform'];
-
-  /**
    * Webforms to load.
    *
    * @var array

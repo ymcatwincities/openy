@@ -66,7 +66,7 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     $this->drupalLogin($this->rootUser);
 
     // Check handler's custom reply to and return path.
-    $this->drupalPostForm('webform/' . $webform->id() . '/test', [], t('Submit'));
+    $this->postSubmissionTest($webform);
     $sent_mail = $this->getLastEmail();
     $this->assertEqual($sent_mail['headers']['Return-Path'], 'return_path@example.com');
     $this->assertEqual($sent_mail['headers']['Sender'], 'return_path@example.com');
@@ -80,7 +80,7 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     $webform->save();
 
     // Check no custom reply to and return path.
-    $this->drupalPostForm('webform/' . $webform->id() . '/test', [], t('Submit'));
+    $this->postSubmissionTest($webform);
     $sent_mail = $this->getLastEmail();
     $this->assertNotEqual($sent_mail['headers']['Return-Path'], 'return_path@example.com');
     $this->assertNotEqual($sent_mail['headers']['Sender'], 'return_path@example.com');
@@ -94,7 +94,7 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
       ->set('mail.default_reply_to', 'default_reply_to@example.com')
       ->set('mail.default_return_path', 'default_return_path@example.com')
       ->save();
-    $this->drupalPostForm('webform/' . $webform->id() . '/test', [], t('Submit'));
+    $this->postSubmissionTest($webform);
     $sent_mail = $this->getLastEmail();
     $this->assertEqual($sent_mail['headers']['Return-Path'], 'default_return_path@example.com');
     $this->assertEqual($sent_mail['headers']['Sender'], 'default_return_path@example.com');
@@ -109,16 +109,17 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
       'subject' => 'Subject',
       'message[value]' => '<p><em>Please enter a message.</em> Test that double "quotes" are not encoded.</p>',
     ];
-    $this->drupalPostForm('webform/' . $webform->id() . '/test', $edit, t('Submit'));
+    $this->postSubmissionTest($webform, $edit);
     $sid = $this->getLastSubmissionId($webform);
     $sent_mail = $this->getLastEmail();
 
     // Check email is HTML.
-    $this->assertContains($sent_mail['params']['body'], '<b>First name</b><br/>John<br/><br/>');
-    $this->assertContains($sent_mail['params']['body'], '<b>Last name</b><br/>Smith<br/><br/>');
-    $this->assertContains($sent_mail['params']['body'], '<b>Email</b><br/><a href="mailto:from@example.com">from@example.com</a><br/><br/>');
-    $this->assertContains($sent_mail['params']['body'], '<b>Subject</b><br/>Subject<br/><br/>');
-    $this->assertContains($sent_mail['params']['body'], '<b>Message</b><br/><p><em>Please enter a message.</em> Test that double "quotes" are not encoded.</p><br/><br/>');
+    $this->assertContains($sent_mail['params']['body'], '<b>First name</b><br />John<br /><br />');
+    $this->assertContains($sent_mail['params']['body'], '<b>Last name</b><br />Smith<br /><br />');
+    $this->assertContains($sent_mail['params']['body'], '<b>Email</b><br /><a href="mailto:from@example.com">from@example.com</a><br /><br />');
+    $this->assertContains($sent_mail['params']['body'], '<b>Subject</b><br />Subject<br /><br />');
+    $this->assertContains($sent_mail['params']['body'], '<b>Message</b><br /><p><em>Please enter a message.</em> Test that double "quotes" are not encoded.</p><br /><br />');
+    $this->assertContains($sent_mail['params']['body'], '<p style="color:yellow"><em>Custom styled HTML markup</em></p>');
 
     // Check email has attachment.
     $this->assertEqual($sent_mail['params']['attachments'][0]['filecontent'], "this is a sample txt file\nit has two lines\n");
@@ -133,7 +134,7 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     // Check resend webform with custom message.
     $this->drupalPostForm("admin/structure/webform/manage/test_handler_email_advanced/submission/$sid/resend", ['message[body]' => 'Testing 123...'], t('Resend message'));
     $sent_mail = $this->getLastEmail();
-    $this->assertNotContains($sent_mail['params']['body'], '<b>First name</b><br/>John<br/><br/>');
+    $this->assertNotContains($sent_mail['params']['body'], '<b>First name</b><br />John<br /><br />');
     $this->assertEqual($sent_mail['params']['body'], 'Testing 123...');
 
     // Check resent email has the same attachment.
@@ -141,16 +142,38 @@ class WebformHandlerEmailAdvancedTest extends WebformTestBase {
     $this->assertEqual($sent_mail['params']['attachments'][0]['filename'], 'file.txt');
     $this->assertEqual($sent_mail['params']['attachments'][0]['filemime'], 'text/plain');
 
-    // Check excluding files.
+    // Exclude file element.
     $handler = $webform->getHandler('email');
     $configuration = $handler->getConfiguration();
     $configuration['settings']['excluded_elements'] = ['file' => 'file'];
     $handler->setConfiguration($configuration);
     $webform->save();
 
-    $this->drupalPostForm('webform/' . $webform->id() . '/test', [], t('Submit'));
+    // Check excluding files.
+    $this->postSubmissionTest($webform);
     $sent_mail = $this->getLastEmail();
     $this->assertFalse(isset($sent_mail['params']['attachments'][0]['filecontent']));
+
+    // Logut and use anonymous user accont.
+    $this->drupalLogout();
+
+    // Check that private is include in email because 'ignore_access' is TRUE.
+    $this->postSubmission($webform);
+    $sent_mail = $this->getLastEmail();
+    $this->assertContains($sent_mail['params']['body'], '<b>Notes</b><br />These notes are private.<br /><br />');
+
+    // Disable ignore_access.
+    $handler = $webform->getHandler('email');
+    $configuration = $handler->getConfiguration();
+    $configuration['settings']['ignore_access'] = FALSE;
+    $handler->setConfiguration($configuration);
+    $webform->save();
+
+    // Check that private is excluded from email because 'ignore_access' is FALSE.
+    $this->postSubmission($webform);
+    $sent_mail = $this->getLastEmail();
+    $this->assertNotContains($sent_mail['params']['body'], '<b>Notes</b><br />These notes are private.<br /><br />');
+
   }
 
 }

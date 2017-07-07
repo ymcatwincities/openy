@@ -53,6 +53,60 @@ class Colorbox extends FormatterBase implements ContainerFactoryPluginInterface 
   protected $renderer;
 
   /**
+   * Constructs a new instance of the plugin.
+   *
+   * @param string $plugin_id
+   *   The plugin_id for the formatter.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
+   *   The definition of the field to which the formatter is associated.
+   * @param array $settings
+   *   The formatter settings.
+   * @param string $label
+   *   The formatter label display setting.
+   * @param string $view_mode
+   *   The view mode.
+   * @param array $third_party_settings
+   *   Third party settings.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   * @param \Drupal\Core\Field\FormatterInterface $thumbnail_formatter
+   *   The field formatter for thumbnails.
+   * @param \Drupal\Core\Field\FormatterInterface $video_formatter
+   *   The field formatter for videos.
+   * @param \Drupal\colorbox\ElementAttachmentInterface|null $colorbox_attachment
+   *   The colorbox attachment if colorbox is enabled.
+   */
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, $settings, $label, $view_mode, $third_party_settings, RendererInterface $renderer, FormatterInterface $thumbnail_formatter, FormatterInterface $video_formatter, $colorbox_attachment) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+    $this->thumbnailFormatter = $thumbnail_formatter;
+    $this->videoFormatter = $video_formatter;
+    $this->renderer = $renderer;
+    $this->colorboxAttachment = $colorbox_attachment;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    $formatter_manager = $container->get('plugin.manager.field.formatter');
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('renderer'),
+      $formatter_manager->createInstance('video_embed_field_thumbnail', $configuration),
+      $formatter_manager->createInstance('video_embed_field_video', $configuration),
+      $container->get('colorbox.attachment')
+    );
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
@@ -151,60 +205,6 @@ class Colorbox extends FormatterBase implements ContainerFactoryPluginInterface 
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition) {
     return \Drupal::moduleHandler()->moduleExists('colorbox');
-  }
-
-  /**
-   * Constructs a new instance of the plugin.
-   *
-   * @param string $plugin_id
-   *   The plugin_id for the formatter.
-   * @param mixed $plugin_definition
-   *   The plugin implementation definition.
-   * @param \Drupal\Core\Field\FieldDefinitionInterface $field_definition
-   *   The definition of the field to which the formatter is associated.
-   * @param array $settings
-   *   The formatter settings.
-   * @param string $label
-   *   The formatter label display setting.
-   * @param string $view_mode
-   *   The view mode.
-   * @param array $third_party_settings
-   *   Third party settings.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
-   * @param \Drupal\Core\Field\FormatterInterface $thumbnail_formatter
-   *   The field formatter for thumbnails.
-   * @param \Drupal\Core\Field\FormatterInterface $video_formatter
-   *   The field formatter for videos.
-   * @param \Drupal\colorbox\ElementAttachmentInterface|null $colorbox_attachment
-   *   The colorbox attachment if colorbox is enabled.
-   */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, $settings, $label, $view_mode, $third_party_settings, RendererInterface $renderer, FormatterInterface $thumbnail_formatter, FormatterInterface $video_formatter, $colorbox_attachment) {
-    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-    $this->thumbnailFormatter = $thumbnail_formatter;
-    $this->videoFormatter = $video_formatter;
-    $this->renderer = $renderer;
-    $this->colorboxAttachment = $colorbox_attachment;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    $formatter_manager = $container->get('plugin.manager.field.formatter');
-    return new static(
-      $plugin_id,
-      $plugin_definition,
-      $configuration['field_definition'],
-      $configuration['settings'],
-      $configuration['label'],
-      $configuration['view_mode'],
-      $configuration['third_party_settings'],
-      $container->get('renderer'),
-      $formatter_manager->createInstance('video_embed_field_thumbnail', $configuration),
-      $formatter_manager->createInstance('video_embed_field_video', $configuration),
-      $container->get('colorbox.attachment')
-    );
   }
 
 }

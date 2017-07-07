@@ -19,6 +19,8 @@ interface WebformSubmissionViewBuilderInterface extends EntityHandlerInterface, 
    *   A webform submission.
    * @param array $options
    *   - excluded_elements: An array of elements to be excluded.
+   *   - ignore_access: Flag to ignore private and/or access controls and always
+   *     display the element.
    *   - email: Format element to be send via email.
    * @param string $format
    *   Output format set to html or text.

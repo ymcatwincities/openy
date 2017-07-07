@@ -30,6 +30,11 @@
         });
 
         $(this).submit(function () {
+          // Don't submit if client-side validation has failed.
+          if ($.isFunction(jQuery.fn.valid) && !($form.valid())) {
+            return false;
+          }
+
           // Track webform submitted.
           if ($form.attr('webform-submitted')) {
             return false;
