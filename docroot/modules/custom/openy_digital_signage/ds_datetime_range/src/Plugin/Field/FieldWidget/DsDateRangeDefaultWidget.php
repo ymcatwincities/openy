@@ -25,8 +25,8 @@ class DsDateRangeDefaultWidget extends DateRangeDefaultWidget {
    */
   public static function defaultSettings() {
     return [
-        'hide_end_date' => 1,
-      ] + parent::defaultSettings();
+      'hide_end_date' => 1,
+    ] + parent::defaultSettings();
   }
 
   /**
