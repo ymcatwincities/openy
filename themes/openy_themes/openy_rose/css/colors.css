@@ -72,6 +72,7 @@ a,
 .viewport .nav-level-2 > a:focus,
 .viewport .page-head__main-menu .nav-level-2 > a:hover,
 .viewport .page-head__main-menu .nav-level-2 > a:focus {
+  background-color: #0060ae; /* Header menu hover (headerhover) */
   color: #fdfdfd; /* Header link hover (headerlinkhover) */
 }
 .footer {
@@ -232,6 +233,7 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .viewport .nav-level-2 > a:focus,
 .is-camp .viewport .page-head__main-menu .nav-level-2 > a:hover,
 .is-camp .viewport .page-head__main-menu .nav-level-2 > a:focus {
+  background-color: #92278f; /* Camp header menu hover (campheaderhover) */
   color: #fcfcfc; /* Camp header link hover (campheaderlinkhover) */
 }
 .is-camp .branch-header .desktop {
