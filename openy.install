@@ -362,3 +362,19 @@ function openy_update_8028() {
     'openy_programs_search',
   ]);
 }
+
+/**
+ * Enable GroupEx Pro related modules.
+ */
+function openy_update_8029() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'openy_group_schedules',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_group_schedules',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'groupex_form_cache'
+  ]);
+}
