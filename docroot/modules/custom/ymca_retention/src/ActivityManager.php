@@ -87,7 +87,7 @@ class ActivityManager implements ActivityManagerInterface {
       $dates[] = [
         'index' => $i,
         'label' => $date->format('l n/j'),
-        'weekday' => $date->format('l'),
+        'weekday' => $date->format('D'),
         'month_day' => $date->format('j'),
         'month' => $date->format('M'),
         'timestamp' => $timestamp,
