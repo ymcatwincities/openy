@@ -565,3 +565,16 @@ function ymca_retention_update_8030() {
   $importer->setDirectory($path);
   $importer->importConfigs($files);
 }
+
+/**
+ * Updating settings and panel pages.
+ */
+function ymca_retention_update_8031() {
+  $files = [
+    'ymca_retention.general_settings',
+    'page_manager.page_variant.ymca_retention_challenge',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory(YGTC_CONFDIR);
+  $importer->importConfigs($files);
+}
