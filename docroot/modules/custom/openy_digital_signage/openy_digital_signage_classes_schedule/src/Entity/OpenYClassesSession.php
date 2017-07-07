@@ -264,12 +264,7 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setRequired(FALSE)
       ->setTranslatable(FALSE)
       ->setSetting('target_type', 'openy_ds_classes_session')
-      ->setDisplayOptions('view', [
-        'label' => 'visible',
-        'type' => 'node',
-        'weight' => 1,
-      ])
-      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
     return $fields;
