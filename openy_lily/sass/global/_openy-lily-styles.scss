@@ -583,6 +583,9 @@ body .ajax-progress-throbber {
     background: url(../img/openy-lily-throbber.gif) no-repeat 0px center;
     background-size: cover;
     padding: 2px 8px 2px;
+    &.path-account {
+      top: 1px !important;
+    }
   }
 }
 
