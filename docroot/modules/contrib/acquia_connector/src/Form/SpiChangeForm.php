@@ -1,14 +1,15 @@
 <?php
 
-/**
- * Contains \Drupal\acquia_connector\Form\SpiChangeForm.
- */
-
 namespace Drupal\acquia_connector\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ * Class SpiChangeForm.
+ *
+ * @package Drupal\acquia_connector\Form
+ */
 class SpiChangeForm extends ConfigFormBase {
 
   /**
@@ -35,7 +36,7 @@ class SpiChangeForm extends ConfigFormBase {
     $environment_change = \Drupal::service('acquia_connector.spi')->checkEnvironmentChange();
 
     if (!$environment_change && !$blocked) {
-      $form['#markup'] = $this->t('<h2>No changes detected</h2><p>This form is used to address changes in your site\'s environment. No changes are currently detected.</p>');
+      $form['#markup'] = $this->t("<h2>No changes detected</h2><p>This form is used to address changes in your site's environment. No changes are currently detected.</p>");
       return $form;
     }
     elseif ($blocked) {
@@ -57,8 +58,8 @@ class SpiChangeForm extends ConfigFormBase {
         '#title' => $this->t('<strong>The following changes have been detected in your site environment:</strong>'),
         '#description' => array(
           '#theme' => 'item_list',
-          '#items' => $env_changes
-        )
+          '#items' => $env_changes,
+        ),
       );
 
       $form['env_change_action'] = array(
@@ -133,11 +134,11 @@ class SpiChangeForm extends ConfigFormBase {
    * Determines if the machine name already exists.
    *
    * @return bool
+   *   FALSE.
    */
   public function exists() {
     return FALSE;
   }
-
 
   /**
    * {@inheritdoc}

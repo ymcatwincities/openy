@@ -42,7 +42,7 @@ class Vimeo extends ProviderPluginBase {
    * {@inheritdoc}
    */
   public function getRemoteThumbnailUrl() {
-    return $this->oEmbedData()->thumbnail_large;
+    return $this->oEmbedData()->thumbnail_url;
   }
 
   /**
@@ -52,7 +52,7 @@ class Vimeo extends ProviderPluginBase {
    *   An array of data from the oembed endpoint.
    */
   protected function oEmbedData() {
-    return json_decode(file_get_contents('http://vimeo.com/api/v2/video/' . $this->getVideoId() . '.json'))[0];
+    return json_decode(file_get_contents('http://vimeo.com/api/oembed.json?url=' . $this->getInput()));
   }
 
   /**

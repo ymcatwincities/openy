@@ -29,6 +29,12 @@ smtp.settings:
     smtp_fromname:
       type: text
       label: 'E-mail from name'
+    smtp_client_hostname:
+      type: text
+      label: 'Hostname'
+    smtp_client_helo:
+      type: text
+      label: 'HELO'
     smtp_allowhtml:
       type: text
       label: 'Allow to send e-mails formated as HTML'

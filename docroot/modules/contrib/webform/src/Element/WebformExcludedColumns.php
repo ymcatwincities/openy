@@ -15,7 +15,11 @@ class WebformExcludedColumns extends WebformExcludedBase {
    * {@inheritdoc}
    */
   public static function getWebformExcludedHeader() {
-    return [t('Title'), t('Name'), t('Date type/Element type')];
+    return [
+      'title' => t('Title'),
+      'name' => t('Name'),
+      'type' => t('Date type/Element type'),
+    ];
   }
 
   /**
@@ -33,12 +37,19 @@ class WebformExcludedColumns extends WebformExcludedBase {
     $field_definitions = $submission_storage->checkFieldDefinitionAccess($webform, $field_definitions);
     foreach ($field_definitions as $key => $field_definition) {
       $options[$key] = [
-        ['title' => $field_definition['title']],
-        ['name' => $key],
-        ['type' => $field_definition['type']],
+        'title' => $field_definition['title'],
+        'name' => $key,
+        'type' => $field_definition['type'],
       ];
     }
-    $options += parent::getWebformExcludedOptions($element);
+    $elements = $webform->getElementsInitializedFlattenedAndHasValue('view');
+    foreach ($elements as $key => $element) {
+      $options[$key] = [
+        'title' => $element['#admin_title'] ?:$element['#title'] ?: $key,
+        'name' => $key,
+        'type' => isset($element['#type']) ? $element['#type'] : '',
+      ];
+    }
     return $options;
   }
 

@@ -68,7 +68,7 @@ class WebformEntityReferenceAutocompleteWidget extends EntityReferenceAutocomple
       '#title_display' => 'invisible',
       '#input' => FALSE,
       '#description' => $this->t('If the open date/time is left blank, this webform will immediately be opened.') .
-        '<br/>' .
+        '<br />' .
         $this->t('If the close date/time is left blank, this webform will never be closed.'),
       '#states' => [
         'visible' => [

@@ -18,6 +18,7 @@ function webform_devel_entity_type_alter(array &$entity_types) {
     $entity_type = $entity_types['webform'];
     $handlers = $entity_type->getHandlerClasses();
     $handlers['form']['export'] = 'Drupal\webform_devel\Form\WebformDevelEntityExportForm';
+    $handlers['form']['schema'] = 'Drupal\webform_devel\Form\WebformDevelEntitySchemaForm';
     $entity_type->setHandlerClass('form', $handlers['form']);
   }
 }

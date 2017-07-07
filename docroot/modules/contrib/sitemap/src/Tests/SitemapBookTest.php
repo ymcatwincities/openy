@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\sitemap\Tests\SitemapBookTest.
- */
-
 namespace Drupal\sitemap\Tests;
 
 use Drupal\simpletest\WebTestBase;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\migrate_plus\Unit\process\SkipOnValueTest.
- */
-
 namespace Drupal\Tests\migrate_plus\Unit\process;
 
 use Drupal\migrate_plus\Plugin\migrate\process\SkipOnValue;

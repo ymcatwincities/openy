@@ -28,7 +28,7 @@ function address_post_update_convert_names_subdivisions(&$sandbox = NULL) {
   $entity_type_id = $field[0];
   $field_name = $field[1];
   $storage = \Drupal::entityTypeManager()->getStorage($entity_type_id);
-  $query = $storage->getQuery()->exists($field_name . '.given_name');
+  $query = $storage->getQuery()->exists($field_name . '.country_code');
   $entities = $storage->loadMultiple($query->execute());
   foreach ($entities as $entity) {
     _address_update_entity($entity, $field_name);

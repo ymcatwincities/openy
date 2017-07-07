@@ -72,13 +72,6 @@
   position: absolute;
 }
 
-/**
- * Hide throbber which causes layout issue in dropbutton
- */
-.webform-help-menu .dropbutton-multiple .ajax-progress-throbber {
-  display: none;
-}
-
 @media screen and (max-width: 768px) {
   .js .webform-help-menu {
     display: none;
