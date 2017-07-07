@@ -8,6 +8,17 @@
     }
   }
 }
+.account-page-content {
+  overflow-x: auto;
+  [data-drupal-selector="edit-donation"] {
+    margin-top: 10px;
+  }
+  table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+}
 .account-page-content-wrapper {
   h2 {
     margin-top: 0;

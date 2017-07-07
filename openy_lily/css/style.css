@@ -3363,6 +3363,18 @@ a.sports-icon.floor-hockey {
   margin-bottom: 5px;
 }
 
+.account-page-content {
+  overflow-x: auto;
+}
+.account-page-content [data-drupal-selector="edit-donation"] {
+  margin-top: 10px;
+}
+.account-page-content table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
 .account-page-content-wrapper h2 {
   margin-top: 0;
 }
