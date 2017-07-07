@@ -5,13 +5,15 @@ dependencies:
   config:
     - field.storage.openy_ds_classes_session.field_session_location
   module:
-    - datetime
     - datetime_range
+    - ds_datetime_range
     - entity_reference_exposed_filters
     - node
     - openy_digital_signage_classes_schedule
     - options
     - user
+_core:
+  default_config_hash: dOtI-arBXXbGuGAOwwdo69lLJf7q6pplRWkq6hFch-k
 id: digital_signage_classes_sessions
 label: 'Digital Signage Classes Sessions'
 module: views
@@ -83,18 +85,32 @@ display:
           description: ''
           columns:
             title: title
+            date_time__value: date_time__value
+            date_time__value_1: date_time__value_1
             room_name: room_name
             instructor: instructor
             sub_instructor: sub_instructor
             source: source
-            date: date
-            time_slot__value: time_slot__value
             field_session_location: field_session_location
             operations: operations
           info:
             title:
               sortable: true
               default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            date_time__value:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            date_time__value_1:
+              sortable: false
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -127,20 +143,6 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            date:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            time_slot__value:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             field_session_location:
               sortable: true
               default_sort_order: asc
@@ -153,7 +155,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: date
+          default: date_time__value
           empty_table: false
       row:
         type: fields
@@ -222,6 +224,141 @@ display:
           field_api_classes: false
           entity_type: openy_ds_classes_session
           entity_field: title
+          plugin_id: field
+        date_time__value:
+          id: date_time__value
+          table: openy_ds_classes_session
+          field: date_time__value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Date
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: end_value
+          type: ds_daterange_default
+          settings:
+            timezone_override: ''
+            format_type: html_date
+            separator: ''
+            only_start_date: 1
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: openy_ds_classes_session
+          entity_field: date_time
+          plugin_id: field
+        date_time__value_1:
+          id: date_time__value_1
+          table: openy_ds_classes_session
+          field: date_time__value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: 'Time slot'
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: daterange_custom
+          settings:
+            timezone_override: ''
+            date_format: 'h:i:s a'
+            separator: '-'
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: openy_ds_classes_session
+          entity_field: date_time
           plugin_id: field
         room_name:
           id: room_name
@@ -481,139 +618,6 @@ display:
           field_api_classes: false
           entity_type: openy_ds_classes_session
           entity_field: source
-          plugin_id: field
-        date:
-          id: date
-          table: openy_ds_classes_session
-          field: date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: Date
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_default
-          settings:
-            timezone_override: ''
-            format_type: html_date
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: openy_ds_classes_session
-          entity_field: date
-          plugin_id: field
-        time_slot__value:
-          id: time_slot__value
-          table: openy_ds_classes_session
-          field: time_slot__value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Time slot'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: daterange_custom
-          settings:
-            timezone_override: ''
-            date_format: 'H:i:s'
-            separator: '-'
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          entity_type: openy_ds_classes_session
-          entity_field: time_slot
           plugin_id: field
         field_session_location:
           id: field_session_location

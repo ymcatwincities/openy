@@ -5,7 +5,6 @@ namespace Drupal\openy_digital_signage_classes_schedule\Entity;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
 
 /**
  * Defines Digital Signage Classes Session entity.
@@ -53,6 +52,12 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
  */
 class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessionInterface {
 
+  /**
+   * List of supported sources for classes sessions.
+   * @todo Make them Plugins or allow to alter.
+   * @return array
+   *   List of sources.
+   */
   public static function getSourceValues() {
     return [
       'manually' => t('Manually created'),
@@ -156,28 +161,9 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
-    $fields['date'] = BaseFieldDefinition::create('datetime')
-      ->setLabel(t('Date'))
-      ->setDescription(t('When this class will be.'))
-      ->setRevisionable(TRUE)
-      ->setTranslatable(FALSE)
-      ->setRequired(TRUE)
-      ->setDisplayOptions('view', [
-        'label' => 'visible',
-        'type' => 'datetime_plain',
-        'weight' => 1,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'datetime_default',
-        'weight' => 1,
-      ])
-      ->setSetting('datetime_type', DateTimeItem::DATETIME_TYPE_DATE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setDisplayConfigurable('form', TRUE);
-
-    $fields['time_slot'] = BaseFieldDefinition::create('daterange')
-      ->setLabel(t('Time slot'))
-      ->setDescription(t('When this class will be, for example from 10:00 to 11:00am.'))
+    $fields['date_time'] = BaseFieldDefinition::create('daterange')
+      ->setLabel(t('Date and time'))
+      ->setDescription(t('The date and time when session happens.'))
       ->setRevisionable(TRUE)
       ->setTranslatable(FALSE)
       ->setRequired(TRUE)
@@ -187,21 +173,23 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
         'weight' => 1,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'daterange_time_only',
+        'type' => 'ds_daterange_default',
         'weight' => 1,
         'settings' => [
-          'increment' => '15',
-          'date_order' => 'YMD',
-          'time_type' => '24',
+          'hide_end_date' => 1,
         ],
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
-    // Location reference.
+    // Field 'field_session_location' - Location reference.
     // A reference to which branch location this screen belongs to.
     // This will be used in the future when the digital signs feature is
     // extended to other branch locations.
+
+    // Field 'field_session_author' - Author reference.
+    // A reference to the author of the session in case if session created
+    // manually.
 
     $fields['room_name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Room name'))
@@ -257,6 +245,30 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
+
+    $fields['overridden'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Overridden'))
+      ->setDescription(t('Indicates that entity is overridden manually.'))
+      ->setRevisionable(TRUE)
+      ->setRequired(FALSE)
+      ->setTranslatable(FALSE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
+    $fields['original_session'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Reference to original session'))
+      ->setDescription(t('Store reference to original session if it is overridden.'))
+      ->setRevisionable(TRUE)
+      ->setRequired(FALSE)
+      ->setTranslatable(FALSE)
+      ->setSetting('target_type', 'openy_ds_classes_session')
+      ->setDisplayOptions('view', [
+        'label' => 'visible',
+        'type' => 'node',
+        'weight' => 1,
+      ])
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', FALSE);
 
     return $fields;
   }
