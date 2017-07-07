@@ -269,6 +269,28 @@ function openy_discover_broken_paragraphs(array &$install_state) {
       $query->execute();
     }
   }
+
+  $schedule_paragraph_tables = ['paragraph__field_prgf_schedules_ref', 'paragraph_revision__field_prgf_schedules_ref'];
+  foreach ($schedule_paragraph_tables as $table) {
+    // Select all schedule paragraphs that have "broken" as plugin_id.
+    $query = \Drupal::database()->select($table, 'ptable');
+    $query->fields('ptable');
+    $query->condition('ptable.field_prgf_schedules_ref_plugin_id', 'broken');
+    $broken_schedule_paragraphs = $query->execute()->fetchAll();
+    foreach ($broken_schedule_paragraphs as $paragraph) {
+      $data = unserialize($paragraph->field_prgf_schedules_ref_plugin_configuration);
+      $query = \Drupal::database()->update($table);
+      $query->fields([
+        'field_prgf_schedules_ref_plugin_id' => $data['id'],
+      ]);
+      //field_prgf_schedules_ref
+      $query->condition('bundle', $paragraph->bundle);
+      $query->condition('entity_id', $paragraph->entity_id);
+      $query->condition('revision_id', $paragraph->revision_id);
+      $query->condition('langcode', $paragraph->langcode);
+      $query->execute();
+    }
+  }
 }
 
 /**
