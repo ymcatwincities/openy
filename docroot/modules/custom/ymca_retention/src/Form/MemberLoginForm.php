@@ -88,7 +88,7 @@ class MemberLoginForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'compain-green',
+          'campaign-blue',
         ],
       ],
       '#ajax' => [

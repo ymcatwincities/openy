@@ -90,6 +90,9 @@ html, body {
     }
   }
   .btn {
+    &.campaign-blue {
+      background: $blue-medium;
+    }
     &.compain-green {
       background: $green-medium;
     }

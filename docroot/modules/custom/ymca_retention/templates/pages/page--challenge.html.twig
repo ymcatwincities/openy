@@ -56,7 +56,6 @@
  * @see html.html.twig
  */
 #}
-
 <a href="#main" id="skip-link">{{ "Skip to main content"|t }}</a>
 <div id="top"></div>
 <div class="viewport"
@@ -65,6 +64,11 @@
   <div id="main" role="main">
     <section class="main--content">
       <div class="container-full-width" style="position: relative;">
+        {% if page.highlighted %}
+        <div class="container alerts-wrapper">
+          {{ page.highlighted }}
+        </div>
+        {% endif %}
         {% block content %}
           {{ page.content }}
         {% endblock %}
