@@ -575,6 +575,6 @@ function ymca_retention_update_8031() {
     'page_manager.page_variant.ymca_retention_challenge',
   ];
   $importer = \Drupal::service('config_import.importer');
-  $importer->setDirectory(YGTC_CONFDIR);
+  $importer->setDirectory('sites/default/config/staging/');
   $importer->importConfigs($files);
 }
