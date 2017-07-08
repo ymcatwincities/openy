@@ -35,14 +35,14 @@
           $modal_body.find('.ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
         }
 
-        var title = Drupal.t('Login');
+        var title = Drupal.t('Sign In');
 
         // Add requested form to the modal body.
         if (type === 'login') {
           $('#ymca-retention-user-menu-login-form').appendTo($modal_body);
         }
         else if (type === 'register') {
-          title = Drupal.t('Sign Up');
+          title = Drupal.t('Registration');
           $('#ymca-retention-user-menu-register-form').appendTo($modal_body);
         }
         else if (type === 'email') {
