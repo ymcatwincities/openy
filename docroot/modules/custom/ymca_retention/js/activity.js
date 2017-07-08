@@ -16,8 +16,18 @@
       self.dates_type_select = false;
       // Show slick carousel.
       self.dates_type_carousel = true;
-
-      self.current_date_index = -1;
+      self.getTodayIndex = function() {
+        if (typeof self.storage.dates === 'undefined' || self.storage.dates.length == 0) {
+          return -1;
+        }
+        for (var index in self.storage.dates) {
+          if (self.storage.dates[index].today) {
+            return index;
+          }
+        }
+        return -1;
+      };
+      self.current_date_index = self.getTodayIndex();
 
       if (typeof self.storage.dates === 'undefined') {
         return;
@@ -32,6 +42,9 @@
         var classes = [];
         if (self.storage.dates[index].past && self.date_selected.index != index) {
           classes.push('campaign-dates--date-past');
+        }
+        if (self.storage.dates[index].today) {
+          classes.push('campaign-dates--date-today');
         }
         if (self.date_selected.index === index) {
           classes.push('campaign-dates--date-current');
