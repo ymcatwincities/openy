@@ -1762,8 +1762,6 @@ html, body {
   }
 }
 .y-retention-activities .y-retention-activities__dates-slider .campaign-dates--slider-container {
-  margin-bottom: 40px;
-  margin-bottom: 4rem;
   margin-top: 40px;
   margin-top: 4rem;
 }
@@ -1824,9 +1822,9 @@ html, body {
   padding: 2.2rem 0;
   width: 64px;
   width: 6.4rem;
+  display: inline-block;
   border-style: solid;
   color: #424242;
-  display: inline-block;
   font-weight: bold;
 }
 .y-retention-activities .y-retention-activities__dates-slider .campaign-dates--date .activities-count {
@@ -1966,8 +1964,8 @@ html, body {
   }
 }
 .y-retention-activities .y-retention-activities__header .activity-tabs {
-  padding-top: 98px;
-  padding-top: 9.8rem;
+  padding-top: 50px;
+  padding-top: 5rem;
   text-align: center;
   display: -ms-flexbox;
   display: -webkit-flex;

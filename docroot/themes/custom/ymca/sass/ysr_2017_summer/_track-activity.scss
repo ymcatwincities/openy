@@ -11,7 +11,6 @@
     }
 
     .campaign-dates--slider-container {
-      @include rem(margin-bottom, 40px);
       @include rem(margin-top, 40px);
 
       .slick-list {
@@ -65,9 +64,9 @@
         @include rem(margin, 5px);
         @include rem(padding, 22px 0);
         @include rem(width, 64px);
+        display: inline-block;
         border-style: solid;
         color: $grey7;
-        display: inline-block;
         font-weight: bold;
       }
 
@@ -121,6 +120,7 @@
           display: none;
         }
       }
+      .
     }
 
     .slick-prev,
@@ -203,7 +203,7 @@
     }
 
     .activity-tabs {
-      @include rem(padding-top, 98px);
+      @include rem(padding-top, 50px);
       text-align: center;
       display: -ms-flexbox;
       display: -webkit-flex;
