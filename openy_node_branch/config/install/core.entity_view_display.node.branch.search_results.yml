@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_results
+    - field.field.node.branch.field_branch_body
+    - field.field.node.branch.field_branch_hours
+    - field.field.node.branch.field_header_content
+    - field.field.node.branch.field_location_address
+    - field.field.node.branch.field_location_amenities
+    - field.field.node.branch.field_location_coordinates
+    - field.field.node.branch.field_location_email
+    - field.field.node.branch.field_location_fax
+    - field.field.node.branch.field_location_phone
+    - node.type.branch
+  module:
+    - user
+id: node.branch.search_results
+targetEntityType: node
+bundle: branch
+mode: search_results
+content: {  }
+hidden:
+  field_branch_body: true
+  field_branch_hours: true
+  field_header_content: true
+  field_location_address: true
+  field_location_amenities: true
+  field_location_coordinates: true
+  field_location_email: true
+  field_location_fax: true
+  field_location_phone: true
+  langcode: true
+  links: true

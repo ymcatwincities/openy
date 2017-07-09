@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_meta
+    - node.type.branch
+  module:
+    - metatag
+id: node.branch.field_meta
+field_name: field_meta
+entity_type: node
+bundle: branch
+label: 'Meta tags'
+description: 'Enter here meta tags for center.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 'a:0:{}'
+default_value_callback: ''
+settings: {  }
+field_type: metatag
