@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location_coordinates
+    - node.type.camp
+  module:
+    - geolocation
+id: node.camp.field_location_coordinates
+field_name: field_location_coordinates
+entity_type: node
+bundle: camp
+label: 'Camp Coordinates'
+description: 'Enter latitude and longitude of the camp.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: geolocation

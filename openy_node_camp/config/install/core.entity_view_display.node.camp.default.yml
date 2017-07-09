@@ -2,44 +2,37 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.branch.field_branch_body
-    - field.field.node.branch.field_branch_hours
-    - field.field.node.branch.field_header_content
-    - field.field.node.branch.field_location_address
-    - field.field.node.branch.field_location_amenities
-    - field.field.node.branch.field_location_coordinates
-    - field.field.node.branch.field_location_email
-    - field.field.node.branch.field_location_fax
-    - field.field.node.branch.field_location_phone
-    - field.field.node.branch.field_meta
-    - node.type.branch
+    - field.field.node.camp.field_camp_body
+    - field.field.node.camp.field_camp_menu_links
+    - field.field.node.camp.field_header_content
+    - field.field.node.camp.field_location_address
+    - field.field.node.camp.field_location_coordinates
+    - field.field.node.camp.field_location_email
+    - field.field.node.camp.field_location_fax
+    - field.field.node.camp.field_location_phone
+    - field.field.node.camp.field_meta
+    - node.type.camp
   module:
-    - openy_node_branch
+    - address
     - entity_reference_revisions
     - geolocation
     - metatag
-    - openy_field_custom_hours
     - telephone
     - user
-id: node.branch.default
+id: node.camp.default
 targetEntityType: node
-bundle: branch
+bundle: camp
 mode: default
 content:
-  field_branch_body:
+  field_camp_body:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 6
     label: hidden
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-  field_branch_hours:
-    weight: 6
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: openy_branch_hours_default
+    region: content
   field_header_content:
     type: entity_reference_revisions_entity_view
     weight: 0
@@ -48,31 +41,28 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_location_address:
-    type: address_branch
-    weight: 8
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-  field_location_amenities:
-    weight: 7
-    label: hidden
-    settings:
-      link: false
-    third_party_settings: {  }
-    type: entity_reference_label
-  field_location_coordinates:
-    weight: 4
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: geolocation_latlng
-  field_location_email:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    type: address_default
+    region: content
+  field_location_coordinates:
+    weight: 5
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: geolocation_latlng
+    region: content
+  field_location_email:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
     type: basic_string
+    region: content
   field_location_fax:
     weight: 3
     label: hidden
@@ -80,19 +70,27 @@ content:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_location_phone:
-    weight: 2
+    weight: 4
     label: hidden
     settings:
       title: ''
     third_party_settings: {  }
     type: telephone_link
+    region: content
   field_meta:
-    type: metatag_empty_formatter
-    weight: 9
+    weight: 8
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  links:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    region: content
 hidden:
+  field_camp_menu_links: true
   langcode: true
-  links: true

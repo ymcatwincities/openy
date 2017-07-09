@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_results
+    - field.field.node.camp.field_camp_body
+    - field.field.node.camp.field_camp_menu_links
+    - field.field.node.camp.field_header_content
+    - field.field.node.camp.field_location_address
+    - field.field.node.camp.field_location_coordinates
+    - field.field.node.camp.field_location_email
+    - field.field.node.camp.field_location_fax
+    - field.field.node.camp.field_location_phone
+    - field.field.node.camp.field_meta
+    - node.type.camp
+  module:
+    - user
+id: node.camp.search_results
+targetEntityType: node
+bundle: camp
+mode: search_results
+content: {  }
+hidden:
+  field_camp_body: true
+  field_camp_menu_links: true
+  field_header_content: true
+  field_location_address: true
+  field_location_coordinates: true
+  field_location_email: true
+  field_location_fax: true
+  field_location_phone: true
+  field_meta: true
+  langcode: true
+  links: true
