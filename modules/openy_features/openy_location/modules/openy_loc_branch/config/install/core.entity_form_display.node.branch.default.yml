@@ -2,109 +2,62 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.branch.field_bottom_content
+    - field.field.node.branch.field_branch_body
     - field.field.node.branch.field_branch_hours
-    - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
-    - field.field.node.branch.field_location_area
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_coordinates
-    - field.field.node.branch.field_location_directions
     - field.field.node.branch.field_location_email
     - field.field.node.branch.field_location_fax
     - field.field.node.branch.field_location_phone
-    - field.field.node.branch.field_location_state
-    - field.field.node.branch.field_location_temp_url
-    - field.field.node.branch.field_meta_tags
+    - field.field.node.branch.field_meta
     - node.type.branch
   module:
     - address
+    - content_moderation
     - field_group
     - geolocation
-    - link
     - metatag
     - openy_field_custom_hours
     - paragraphs
     - path
-    - telephone
+    - openy_widgets
 third_party_settings:
   field_group:
-    group_contact_info:
+    group_branch_contact:
       children:
         - field_location_address
-        - field_location_coordinates
+        - field_location_email
         - field_location_phone
         - field_location_fax
-        - field_location_email
-        - field_location_directions
-      parent_name: ''
-      weight: 1
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: closed
-        description: ''
-        required_fields: true
-      label: 'Contact Info'
-    group_general_info:
-      children:
-        - title
-        - field_location_area
-        - field_location_state
-        - field_location_temp_url
-      parent_name: ''
-      weight: 0
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: open
-        description: ''
-        required_fields: true
-      label: 'General Info'
-    group_branch_hours:
-      children:
-        - field_branch_hours
+        - field_location_coordinates
       parent_name: ''
       weight: 2
+      label: 'Contact info'
       format_type: tab
       format_settings:
-        id: ''
-        classes: ''
         formatter: closed
         description: ''
+        classes: ''
+        id: ''
         required_fields: true
-      label: 'Branch Hours'
     group_header_area:
       children:
         - field_header_content
       parent_name: ''
-      weight: 3
+      weight: 4
       format_type: tab
       format_settings:
-        id: ''
-        classes: ''
         formatter: closed
-        description: 'Page should contain one and only one paragraph with H1 heading: Small banner, Banner, Gallery'
+        description: ''
+        classes: ''
+        id: ''
         required_fields: true
       label: 'Header Area'
     group_content_area:
       children:
-        - field_content
-      parent_name: ''
-      weight: 4
-      format_type: tab
-      format_settings:
-        id: ''
-        classes: ''
-        formatter: closed
-        description: ''
-        required_fields: true
-      label: 'Content Area'
-    group_bottom_area:
-      children:
-        - field_bottom_content
+        - field_branch_body
       parent_name: ''
       weight: 5
       format_type: tab
@@ -114,7 +67,20 @@ third_party_settings:
         formatter: closed
         description: ''
         required_fields: true
-      label: 'Bottom Area'
+      label: 'Content Area'
+    group_branch_hours:
+      children:
+        - field_branch_hours
+      parent_name: ''
+      weight: 3
+      format_type: tab
+      format_settings:
+        id: ''
+        classes: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+      label: 'Center Hours'
 id: node.branch.default
 targetEntityType: node
 bundle: branch
@@ -125,25 +91,7 @@ content:
     weight: 7
     settings: {  }
     third_party_settings: {  }
-    region: content
-  field_bottom_content:
-    type: entity_reference_paragraphs
-    weight: 26
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-    third_party_settings: {  }
-    region: content
-  field_branch_hours:
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
-    type: openy_custom_hours_default
-    region: content
-  field_content:
+  field_branch_body:
     type: entity_reference_paragraphs
     weight: 5
     settings:
@@ -153,10 +101,14 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
-    region: content
+  field_branch_hours:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: openy_custom_hours_default
   field_header_content:
     type: entity_reference_paragraphs
-    weight: 4
+    weight: 6
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -164,108 +116,84 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
-    region: content
   field_location_address:
     weight: 10
     settings:
-      default_country: null
+      default_country: US
     third_party_settings: {  }
     type: address_default
-    region: content
-  field_location_area:
-    weight: 2
+  field_location_amenities:
+    weight: 12
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
   field_location_coordinates:
-    weight: 11
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
-    region: content
-  field_location_directions:
-    weight: 17
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
   field_location_email:
-    weight: 16
+    weight: 11
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: email_default
-    region: content
   field_location_fax:
-    weight: 15
+    weight: 13
     settings:
       placeholder: ''
+      min_length: 6
     third_party_settings: {  }
-    type: telephone_default
-    region: content
+    type: telephone_with_length
   field_location_phone:
-    weight: 14
+    weight: 12
     settings:
       placeholder: ''
+      min_length: 6
     third_party_settings: {  }
-    type: telephone_default
-    region: content
-  field_location_state:
-    weight: 3
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_location_temp_url:
-    weight: 4
-    settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
-    type: link_default
-    region: content
-  field_meta_tags:
-    weight: 26
+    type: telephone_with_length
+  field_meta:
+    type: metatag_firehose
+    weight: 13
     settings: {  }
     third_party_settings: {  }
-    type: metatag_firehose
-    region: content
+  langcode:
+    type: language_select
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
-    weight: 10
+    weight: 11
     settings: {  }
     third_party_settings: {  }
-    region: content
   promote:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 8
-    third_party_settings: {  }
-    region: content
-  sticky:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 9
     third_party_settings: {  }
-    region: content
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 10
+    third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 1
+    weight: 0
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
+  translation:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 6
@@ -274,5 +202,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    region: content
 hidden: {  }
