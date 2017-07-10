@@ -11,7 +11,9 @@
     $('head').append('<base href="' + settings.path.baseUrl + '">');
 
     Drupal.ymca_retention = Drupal.ymca_retention || {};
-    Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', ['ngCookies', 'ui.router', 'ajoslin.promise-tracker']);
+    Drupal.ymca_retention.angular_app = Drupal.ymca_retention.angular_app || angular.module('Retention', [
+        'ngCookies', 'ui.router', 'ajoslin.promise-tracker', 'slickCarousel'
+      ]);
 
     // Default parameters of Angular UI Router state.
     var defaultStateParams = {
@@ -374,17 +376,17 @@
 
       return {
         getCampaign: getCampaign,
-        getSpring2017Campaign: getSpring2017Campaign,
+        // getSpring2017Campaign: getSpring2017Campaign,
         getMember: getMember,
         getMemberCheckIns: getMemberCheckIns,
-        getMemberBonuses: getMemberBonuses,
+        // getMemberBonuses: getMemberBonuses,
         getMemberActivities: getMemberActivities,
-        setMemberActivities: setMemberActivities,
-        setMemberBonus: setMemberBonus,
-        getMemberChances: getMemberChances,
-        getMemberPrize: getMemberPrize,
-        getRecentWinners: getRecentWinners,
-        getTodaysInsight: getTodaysInsight
+        setMemberActivities: setMemberActivities
+        // setMemberBonus: setMemberBonus,
+        // getMemberChances: getMemberChances,
+        // getMemberPrize: getMemberPrize,
+        // getRecentWinners: getRecentWinners,
+        // getTodaysInsight: getTodaysInsight
       };
     });
 
@@ -405,17 +407,17 @@
         self.campaign_loaded = false;
         self.spring2017campaign = {};
         self.loss_messages = settings.ymca_retention.loss_messages;
-        self.member = null;
+        self.member = [];
         self.member_loaded = false;
-        self.member_activities = null;
-        self.member_activities_counts = null;
-        self.member_chances = null;
-        self.instantWinCount = 0;
-        self.member_checkins = null;
-        self.member_bonuses = null;
-        self.recent_winners = null;
+        self.member_activities = [];
+        self.member_activities_counts = [];
+        // self.member_chances = null;
+        // self.instantWinCount = 0;
+        self.member_checkins = [];
+        self.member_bonuses = [];
+        self.recent_winners = [];
         self.last_played_chance = null;
-        self.todays_insight = null;
+        self.todays_insight = [];
         self.todays_insight_timestamp = null;
         self.todays_insight_timer = 30;
         self.timestamp_ids = [];
@@ -452,8 +454,9 @@
       }, function(newVal, oldVal) {
         self.getMember(newVal);
         self.getMemberCheckIns(newVal);
-        self.getMemberBonuses(newVal);
-        self.todaysInsightToDefault();
+        self.getMemberActivities(newVal);
+        // self.getMemberBonuses(newVal);
+        // self.todaysInsightToDefault();
         self.state = 'game';
       });
 
@@ -516,7 +519,7 @@
           self.spring2017campaign = data;
         });
       };
-      self.getSpring2017Campaign();
+      // self.getSpring2017Campaign();
 
       self.getMember = function(id) {
         courier.getMember(id).then(function(data) {
@@ -564,7 +567,7 @@
       self.setMemberActivities = function(data) {
         var $promise = courier.setMemberActivities(data).then(function(data) {
           self.member_activities = data;
-          self.getMemberChances();
+          // self.getMemberChances();
         });
 
         // Track the request and show its progress to the user.
@@ -612,7 +615,7 @@
           self.todays_insight = data;
         });
       };
-      self.getTodaysInsight();
+      // self.getTodaysInsight();
 
       self.memberCookieRemove = function() {
         $cookies.remove('Drupal.visitor.ymca_retention_member', { path: '/' });
