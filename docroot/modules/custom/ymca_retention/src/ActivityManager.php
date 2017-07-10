@@ -69,6 +69,8 @@ class ActivityManager implements ActivityManagerInterface {
     $date_end = new \DateTime($settings->get('date_reporting_close'));
     $date_now = new \DateTime();
     $date_now->setTime(0, 0, 0);
+    $today = new \DateTime();
+    $today->setTime(0, 0, 0);
 
     // Calculate number of days to show.
     $date_interval = $date_start->diff($date_end);
@@ -87,13 +89,14 @@ class ActivityManager implements ActivityManagerInterface {
       $dates[] = [
         'index' => $i,
         'label' => $date->format('l n/j'),
-        'weekday' => $date->format('l'),
+        'weekday' => $date->format('D'),
         'month_day' => $date->format('j'),
         'month' => $date->format('M'),
         'timestamp' => $timestamp,
         'past' => !(bool) $date_diff_now->invert,
         'future' => (bool) $date_diff_now->invert,
         'activities_count' => rand(0, 3),
+        'today' => $date == $today,
       ];
 
       $date = $date->add($day_interval);
