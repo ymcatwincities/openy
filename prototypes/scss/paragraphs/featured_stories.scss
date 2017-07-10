@@ -166,6 +166,12 @@
       h2,
       h4 {
         color: $purple;
+        a:hover {
+          text-decoration: none;
+        }
+        a:hover span {
+          text-decoration: underline;
+        }
       }
 
       .quotes {
