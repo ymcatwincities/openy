@@ -26,8 +26,8 @@ function openy_ckeditor_theme($existing, $type, $theme, $path) {
  */
 function openy_ckeditor_token_info() {
   $info['tokens']['node']['list-branch-amenities'] = [
-    'name' => t('List of branch Amenities'),
-    'description' => t('Provides token for displaying list of branch amenities'),
+    'name' => t('List of center Amenities'),
+    'description' => t('Provides token for displaying list of center amenities'),
   ];
   return $info;
 }
