@@ -95,7 +95,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              {{ page.logo }}
+              {% block page_logo %}
+                {{ page.logo }}
+              {% endblock %}
             </div>
             {{ page.secondary_menu }}
           </div>

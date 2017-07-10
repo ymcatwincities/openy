@@ -1,6 +1,6 @@
 .color-preview,
 .camp-color-preview,
-.location-color-preview {
+.branch-color-preview {
   background-color: #ffffff;
   font-family: Verdana, sans-serif;
   font-size: 14px;
@@ -103,27 +103,27 @@
   background-color: #01a490;
 }
 
-/* Location specific preview */
-.location-color-preview .color-preview-header {
+/* Branch specific preview */
+.branch-color-preview .color-preview-header {
   background-color: #f47920;
 }
-.location-color-preview .color-preview-menu-link.hover {
+.branch-color-preview .color-preview-menu-link.hover {
   background-color: #f86b05;
 }
-.location-color-preview .color-preview-location-menu {
+.branch-color-preview .color-preview-branch-menu {
   background-color: #0060ad;
   color: #ffffff;
 }
-.location-color-preview .color-preview-location-menu .color-preview-menu-link:first-child {
+.branch-color-preview .color-preview-branch-menu .color-preview-menu-link:first-child {
   margin-left: 10px;
 }
-.location-color-preview .color-preview-location-menu .hover {
+.branch-color-preview .color-preview-branch-menu .hover {
   background-color: #0089d1;
 }
-.location-color-preview .color-preview-main a {
+.branch-color-preview .color-preview-main a {
   color: #01a491;
 }
-.location-color-preview .preview-button {
+.branch-color-preview .preview-button {
   background-color: #2fb998;
   color: #ffffff;
   margin: 10px auto;
@@ -131,6 +131,6 @@
   text-align: center;
   width: 50px;
 }
-.location-color-preview .color-preview-footer {
+.branch-color-preview .color-preview-footer {
   background-color: #01a490;
 }

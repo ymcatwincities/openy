@@ -45,6 +45,36 @@
       $colorPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[footer]"]').val());
       $colorPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[footertext]"]').val());
 
+      // Branch customizations.
+      var $branchPreview = $form.find('.branch-color-preview');
+
+      // Solid background.
+      $branchPreview.css('backgroundColor', $colorPalette.find('input[name="palette[bg]"]').val());
+
+      // Header.
+      $branchPreview.find('.color-preview-header').css('background-color', $colorPalette.find('input[name="palette[headerbg]"]').val());
+      $branchPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headerhover]"]').val());
+      $branchPreview.find('.color-preview-menu .color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headerlink]"]').val());
+      $branchPreview.find('.color-preview-menu .color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headerlinkhover]"]').val());
+
+      // Branch subhead.
+      $branchPreview.find('.color-preview-branch-subheader').css('background-color', $colorPalette.find('input[name="palette[branchsubheaderbg]"]').val());
+
+      // Text preview.
+      $branchPreview.find('.color-preview-main').css('color', $colorPalette.find('input[name="palette[text]"]').val());
+      $branchPreview.find('.color-preview-main a').css('color', $colorPalette.find('input[name="palette[link]"]').val());
+      $branchPreview.find('.preview-button').css('background-color', $colorPalette.find('input[name="palette[branchbutton]"]').val());
+      $branchPreview.find('.preview-button').css('color', $colorPalette.find('input[name="palette[branchbuttonlink]"]').val());
+
+      // Branch menu.
+      $branchPreview.find('.color-preview-branch-menu').css('background-color', $colorPalette.find('input[name="palette[branchmenubg]"]').val());
+      $branchPreview.find('.color-preview-branch-menu').css('color', $colorPalette.find('input[name="palette[branchmenulink]"]').val());
+      $branchPreview.find('.color-preview-branch-menu .hover').css('background-color', $colorPalette.find('input[name="palette[branchmenuhighlight]"]').val());
+
+      // Footer.
+      $branchPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[footer]"]').val());
+      $branchPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[footertext]"]').val());
+
       // Camp customizations.
       var $campPreview = $form.find('.camp-color-preview');
 
@@ -74,36 +104,6 @@
       // Footer.
       $campPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[campfooter]"]').val());
       $campPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[campfootertext]"]').val());
-
-      // Location customizations.
-      var $locationPreview = $form.find('.location-color-preview');
-
-      // Solid background.
-      $locationPreview.css('backgroundColor', $colorPalette.find('input[name="palette[bg]"]').val());
-
-      // Header.
-      $locationPreview.find('.color-preview-header').css('background-color', $colorPalette.find('input[name="palette[headerbg]"]').val());
-      $locationPreview.find('.color-preview-menu .hover').css('background-color', $colorPalette.find('input[name="palette[headerhover]"]').val());
-      $locationPreview.find('.color-preview-menu .color-preview-menu-link').css('color', $colorPalette.find('input[name="palette[headerlink]"]').val());
-      $locationPreview.find('.color-preview-menu .color-preview-menu-link.hover').css('color', $colorPalette.find('input[name="palette[headerlinkhover]"]').val());
-
-      // Location subhead.
-      $locationPreview.find('.color-preview-branch-subheader').css('background-color', $colorPalette.find('input[name="palette[campsubheaderbg]"]').val());
-
-      // Text preview.
-      $locationPreview.find('.color-preview-main').css('color', $colorPalette.find('input[name="palette[text]"]').val());
-      $locationPreview.find('.color-preview-main a').css('color', $colorPalette.find('input[name="palette[link]"]').val());
-      $locationPreview.find('.preview-button').css('background-color', $colorPalette.find('input[name="palette[button]"]').val());
-      $locationPreview.find('.preview-button').css('color', $colorPalette.find('input[name="palette[buttonlink]"]').val());
-
-      // Location menu.
-      $locationPreview.find('.color-preview-location-menu').css('background-color', $colorPalette.find('input[name="palette[locationmenubg]"]').val());
-      $locationPreview.find('.color-preview-location-menu').css('color', $colorPalette.find('input[name="palette[locationmenulink]"]').val());
-      $locationPreview.find('.color-preview-location-menu .hover').css('background-color', $colorPalette.find('input[name="palette[locationmenuhighlight]"]').val());
-
-      // Footer.
-      $locationPreview.find('.color-preview-footer').css('background-color', $colorPalette.find('input[name="palette[footer]"]').val());
-      $locationPreview.find('.color-preview-footer').css('color', $colorPalette.find('input[name="palette[footertext]"]').val());
     }
   };
 })(jQuery, Drupal, drupalSettings);
