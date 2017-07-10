@@ -201,7 +201,8 @@ class AddressDefaultFormatter extends FormatterBase implements ContainerFactoryP
     // depending on whether the format is minor-to-major or major-to-minor.
     if (LocaleHelper::match($address_format->getLocale(), $locale)) {
       $format_string = '%country' . "\n" . $address_format->getLocalFormat();
-    } else {
+    }
+    else {
       $format_string = $address_format->getFormat() . "\n" . '%country';
     }
 

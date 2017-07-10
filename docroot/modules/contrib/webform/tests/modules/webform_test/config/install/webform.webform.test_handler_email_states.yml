@@ -14,10 +14,11 @@ description: 'Test sending email during each submission state.'
 category: 'Test: Handler'
 elements: |
   message:
-    '#markup': 'Click ''Save Draft'' and ''Submit''  to send emails triggered by submissions  state.'
+    '#markup': 'Click ''Save Draft'' and ''Submit'' to send emails triggered by submissions  state.'
 css: ''
 javascript: ''
 settings:
+  ajax: false
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -31,13 +32,17 @@ settings:
   form_convert_anonymous: true
   form_prepopulate: false
   form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
   form_disable_back: false
   form_autofocus: false
   form_details_toggle: false
+  submission_label: ''
   submission_log: false
+  submission_user_columns: {  }
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -48,7 +53,10 @@ settings:
   preview_label: ''
   preview_title: ''
   preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
   draft: all
+  draft_multiple: false
   draft_auto_save: false
   draft_saved_message: ''
   draft_loaded_message: ''
@@ -120,6 +128,7 @@ handlers:
       subject: 'Draft saved'
       body: default
       excluded_elements: {  }
+      ignore_access: false
       html: true
       attachments: false
       debug: true
@@ -146,6 +155,7 @@ handlers:
       subject: 'Submission converted'
       body: default
       excluded_elements: {  }
+      ignore_access: false
       html: true
       attachments: false
       debug: true
@@ -172,6 +182,7 @@ handlers:
       subject: 'Submission completed'
       body: default
       excluded_elements: {  }
+      ignore_access: false
       html: true
       attachments: false
       debug: true
@@ -198,6 +209,7 @@ handlers:
       subject: 'Submission updated'
       body: default
       excluded_elements: {  }
+      ignore_access: false
       html: true
       attachments: false
       debug: true
@@ -224,6 +236,7 @@ handlers:
       subject: 'Submission deleted'
       body: default
       excluded_elements: {  }
+      ignore_access: false
       html: true
       attachments: false
       debug: true

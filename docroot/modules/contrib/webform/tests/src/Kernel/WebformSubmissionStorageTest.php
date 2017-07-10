@@ -12,7 +12,7 @@ use Drupal\webform\WebformSubmissionStorageInterface;
  *
  * @group webform
  */
-class WebfromSubmissionStorageTest extends KernelTestBase {
+class WebformSubmissionStorageTest extends KernelTestBase {
 
   /**
    * Modules to enable.
@@ -27,6 +27,7 @@ class WebfromSubmissionStorageTest extends KernelTestBase {
   public function setUp() {
     parent::setUp();
 
+    $this->installSchema('webform', ['webform']);
     $this->installConfig('webform');
     $this->installEntitySchema('webform_submission');
     $this->installEntitySchema('user');

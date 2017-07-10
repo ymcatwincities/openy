@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\Deriver\TypedDataPropertyDeriverBase.
- */
 
 namespace Drupal\ctools\Plugin\Deriver;
 

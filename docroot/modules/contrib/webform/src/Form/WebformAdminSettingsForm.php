@@ -16,9 +16,9 @@ use Drupal\file\Plugin\Field\FieldType\FileItem;
 use Drupal\webform\Entity\Webform;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\webform\WebformAddonsManagerInterface;
-use Drupal\webform\WebformElementManagerInterface;
-use Drupal\webform\WebformExporterManagerInterface;
-use Drupal\webform\WebformHandlerManagerInterface;
+use Drupal\webform\Plugin\WebformElementManagerInterface;
+use Drupal\webform\Plugin\WebformExporterManagerInterface;
+use Drupal\webform\Plugin\WebformHandlerManagerInterface;
 use Drupal\webform\WebformLibrariesManagerInterface;
 use Drupal\webform\WebformSubmissionExporterInterface;
 use Drupal\webform\WebformTokenManagerInterface;
@@ -40,21 +40,21 @@ class WebformAdminSettingsForm extends ConfigFormBase {
   /**
    * The webform element manager.
    *
-   * @var \Drupal\webform\WebformElementManagerInterface
+   * @var \Drupal\webform\Plugin\WebformElementManagerInterface
    */
   protected $elementManager;
 
   /**
    * The webform handler manager.
    *
-   * @var \Drupal\webform\WebformHandlerManagerInterface
+   * @var \Drupal\webform\Plugin\WebformHandlerManagerInterface
    */
   protected $handlerManager;
 
   /**
    * The webform exporter manager.
    *
-   * @var \Drupal\webform\WebformExporterManagerInterface
+   * @var \Drupal\webform\Plugin\WebformExporterManagerInterface
    */
   protected $exporterManager;
 
@@ -66,9 +66,9 @@ class WebformAdminSettingsForm extends ConfigFormBase {
   protected $submissionExporter;
 
   /**
-   * The token manager.
+   * The webform token manager.
    *
-   * @var \Drupal\webform\WebformTranslationManagerInterface
+   *@var \Drupal\webform\WebformTokenManagerInterface
    */
   protected $tokenManager;
 
@@ -87,7 +87,7 @@ class WebformAdminSettingsForm extends ConfigFormBase {
   protected $thirdPartySettingsManager;
 
   /**
-   * Add-ons manager.
+   * The webform add-ons manager.
    *
    * @var \Drupal\webform\WebformAddonsManagerInterface
    */
@@ -121,22 +121,22 @@ class WebformAdminSettingsForm extends ConfigFormBase {
    *   The factory for configuration objects.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
-   * @param \Drupal\webform\WebformElementManagerInterface $element_manager
+   * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
    *   The webform element manager.
-   * @param \Drupal\webform\WebformHandlerManagerInterface $handler_manager
+   * @param \Drupal\webform\Plugin\WebformHandlerManagerInterface $handler_manager
    *   The webform handler manager.
-   * @param \Drupal\webform\WebformExporterManagerInterface $exporter_manager
+   * @param \Drupal\webform\Plugin\WebformExporterManagerInterface $exporter_manager
    *   The webform exporter manager.
    * @param \Drupal\webform\WebformSubmissionExporterInterface $submission_exporter
    *   The webform submission exporter.
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
-   *   The token manager.
+   *   The webform token manager.
    * @param \Drupal\webform\WebformLibrariesManagerInterface $libraries_manager
-   *   The libraries manager.
+   *   The webform libraries manager.
    * @param \Drupal\webform\WebformThirdPartySettingsManagerInterface $third_party_settings_manager
    *   The webform third party settings manager.
    * @param \Drupal\webform\WebformAddonsManagerInterface $addons_manager
-   *   The add-ons manager.
+   *   The webform add-ons manager.
    */
   public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, WebformElementManagerInterface $element_manager, WebformHandlerManagerInterface $handler_manager, WebformExporterManagerInterface $exporter_manager, WebformSubmissionExporterInterface $submission_exporter, WebformTokenManagerInterface $token_manager, WebformLibrariesManagerInterface $libraries_manager, WebformThirdPartySettingsManagerInterface $third_party_settings_manager, WebformAddonsManagerInterface $addons_manager) {
     parent::__construct($config_factory);
@@ -238,8 +238,8 @@ class WebformAdminSettingsForm extends ConfigFormBase {
     ];
     $form['webform']['form_settings']['form_classes'] = [
       '#type' => 'webform_codemirror',
-      '#title' => $this->t('Form CSS classes '),
-      '#description' => $this->t('A list of classes that will be provided in the "Form CSS classes " dropdown. Enter one or more classes on each line. These styles should be available in your theme\'s CSS file.'),
+      '#title' => $this->t('Form CSS classes'),
+      '#description' => $this->t('A list of classes that will be provided in the "Form CSS classes" dropdown. Enter one or more classes on each line. These styles should be available in your theme\'s CSS file.'),
       '#default_value' => $config->get('settings.form_classes'),
     ];
     $form['webform']['form_settings']['button_classes'] = [
@@ -360,6 +360,12 @@ class WebformAdminSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
       '#default_value' => $settings['default_preview_message'],
     ];
+    $form['webform']['preview_settings']['preview_classes'] = [
+      '#type' => 'webform_codemirror',
+      '#title' => $this->t('Preview CSS classes'),
+      '#description' => $this->t('A list of classes that will be provided in the "Preview CSS classes" dropdown. Enter one or more classes on each line. These styles should be available in your theme\'s CSS file.'),
+      '#default_value' => $config->get('settings.preview_classes'),
+    ];
 
     // Webform: Draft settings.
     $form['webform']['draft_settings'] = [
@@ -385,6 +391,19 @@ class WebformAdminSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Default draft load message'),
       '#required' => TRUE,
       '#default_value' => $settings['default_draft_loaded_message'],
+    ];
+
+    // Submission settings.
+    $form['webform']['submission_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Submission settings'),
+      '#tree' => TRUE,
+    ];
+    $form['webform']['submission_settings']['default_submission_label'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Default submission label'),
+      '#required' => TRUE,
+      '#default_value' => $settings['default_submission_label'],
     ];
 
     // Submission Behaviors.
@@ -502,6 +521,10 @@ class WebformAdminSettingsForm extends ConfigFormBase {
     else {
       ksort($form['webform']['third_party_settings']);
     }
+    // Move #validate from webform details element to the main form object.
+    if (!empty($form['webform']['#validate'])) {
+      $form['#validate'] = $form['webform']['#validate'];
+    }
 
     // Webform: Test.
     $form['webform']['test'] = [
@@ -584,7 +607,13 @@ class WebformAdminSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Determines the default placement of the description for all webform elements.'),
       '#default_value' => $config->get('element.default_description_display'),
     ];
-    $form['element_settings']['element']['default_icheck'] = [
+    // Element: Checkbox/Radio.
+    $form['element_settings']['checkbox'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Checkbox/radio settings'),
+      '#tree' => TRUE,
+    ];
+    $form['element_settings']['checkbox']['default_icheck'] = [
       '#type' => 'select',
       '#title' => $this->t('Enhance checkboxes/radio buttons using iCheck'),
       '#description' => $this->t('Replaces checkboxes/radio buttons with jQuery <a href=":href">iCheck</a> boxes.', [':href' => 'http://icheck.fronteed.com/']),
@@ -614,28 +643,61 @@ class WebformAdminSettingsForm extends ConfigFormBase {
           'square-green' => $this->t('Square: Green'),
           'square-aero' => $this->t('Square: Aero'),
         ],
-        (string) $this->t('Flat') => [
-          'flat' => $this->t('Flat: Black'),
-          'flat-grey' => $this->t('Flat: Grey'),
-          'flat-yellow' => $this->t('Flat: Yellow'),
-          'flat-orange' => $this->t('Flat: Orange'),
-          'flat-red' => $this->t('Flat: Red'),
-          'flat-pink' => $this->t('Flat: Pink'),
-          'flat-purple' => $this->t('Flat: Purple'),
-          'flat-blue' => $this->t('Flat: Blue'),
-          'flat-green' => $this->t('Flat: Green'),
-          'flat-aero' => $this->t('Flat: Aero'),
+        (string) $this->t('Line') => [
+          'line' => $this->t('Line: Black'),
+          'line-grey' => $this->t('Line: Grey'),
+          'line-yellow' => $this->t('Line: Yellow'),
+          'line-orange' => $this->t('Line: Orange'),
+          'line-red' => $this->t('Line: Red'),
+          'line-pink' => $this->t('Line: Pink'),
+          'line-purple' => $this->t('Line: Purple'),
+          'line-blue' => $this->t('Line: Blue'),
+          'line-green' => $this->t('Line: Green'),
+          'line-aero' => $this->t('Line: Aero'),
         ],
       ],
       '#default_value' => $config->get('element.default_icheck'),
       '#access' => $this->librariesManager->isIncluded('jquery.icheck'),
     ];
-    $form['element_settings']['element']['default_google_maps_api_key'] = [
+    // Element: Location.
+    $form['element_settings']['location'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Location settings'),
+      '#tree' => TRUE,
+    ];
+    $form['element_settings']['location']['default_google_maps_api_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Google Maps API key'),
       '#description' => $this->t('Google requires users to use a valid API key. Using the <a href="https://console.developers.google.com/apis">Google API Manager</a>, you can enable the <em>Google Maps JavaScript API</em>. That will create (or reuse) a <em>Browser key</em> which you can paste here.'),
       '#default_value' => $config->get('element.default_google_maps_api_key'),
       '#access' => $this->librariesManager->isIncluded('jquery.geocomplete'),
+    ];
+    // Element: Select.
+    $form['element_settings']['select'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Select settings'),
+      '#tree' => TRUE,
+    ];
+    $form['element_settings']['select']['default_empty_option'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Default empty option'),
+      '#description' => $this->t('If checked, the first default option for select menu will always be displayed.'),
+      '#return_value' => TRUE,
+      '#default_value' => $config->get('element.default_empty_option'),
+    ];
+    $form['element_settings']['select']['default_empty_option_required'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Default empty option required'),
+      '#description' => $this->t('The label to show for the first default option for required select menus.') . '<br />' .
+        $this->t('Defaults to: %value', ['%value' => $this->t('- Select -')]),
+      '#default_value' => $config->get('element.default_empty_option_required'),
+    ];
+    $form['element_settings']['select']['default_empty_option_optional'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Default empty option optional'),
+      '#description' => $this->t('The label to show for the first default option for optional select menus.') . '<br />' .
+        $this->t('Defaults to: %value', ['%value' => $this->t('- None -')]),
+      '#default_value' => $config->get('element.default_empty_option_optional'),
     ];
 
     // Element: File.
@@ -651,6 +713,13 @@ class WebformAdminSettingsForm extends ConfigFormBase {
       $this->t('For more information see: <a href=":href">DRUPAL-PSA-2016-003</a>', [':href' => 'https://www.drupal.org/psa-2016-003']),
       '#return_value' => TRUE,
       '#default_value' => $config->get('file.file_public'),
+    ];
+    $form['element_settings']['file']['file_private_redirect'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Redirect anonymous users to login when attempting to access private file uploads.'),
+      '#description' => $this->t('If checked, anoymous users will be redirected to login to access private file uploads.'),
+      '#return_value' => TRUE,
+      '#default_value' => $config->get('file.file_private_redirect'),
     ];
     $form['element_settings']['file']['default_max_filesize'] = [
       '#type' => 'textfield',
@@ -718,7 +787,7 @@ class WebformAdminSettingsForm extends ConfigFormBase {
       $form['element_settings']['format'][$element_id]['item'] = [
         '#type' => 'select',
         '#title' => $this->t('Item format'),
-        '#description' => $this->t("Select how a @label element's single value is displayed.", ['@label' => $element_plugin_label]) . '<br/>' .
+        '#description' => $this->t("Select how a @label element's single value is displayed.", ['@label' => $element_plugin_label]) . '<br />' .
         $this->t('Defaults to: %value', ['%value' => $item_default_format_label]),
         '#options' => $item_formats,
         '#default_value' => $config->get("format.$element_id"),
@@ -735,7 +804,7 @@ class WebformAdminSettingsForm extends ConfigFormBase {
         $form['element_settings']['format'][$element_id]['items'] = [
           '#type' => 'select',
           '#title' => $this->t('Items format'),
-          '#description' => $this->t("Select how a @label element's multiple values are displayed.", ['@label' => $element_plugin_label]) . '<br/>' .
+          '#description' => $this->t("Select how a @label element's multiple values are displayed.", ['@label' => $element_plugin_label]) . '<br />' .
           $this->t('Defaults to: %value', ['%value' => $items_default_format_label]),
           '#options' => $items_formats,
           '#default_value' => $config->get("format.$element_id"),
@@ -800,8 +869,8 @@ class WebformAdminSettingsForm extends ConfigFormBase {
         'title' => $library['title'],
         'description' => [
           'data' => [
-            'content' => ['#markup' => $library['description'], '#suffix' => '<br/>'],
-            'notes' => ['#markup' => '(' . $library['notes'] . ')', '#prefix' => '<em>', '#suffix' => '</em><br/>'],
+            'content' => ['#markup' => $library['description'], '#suffix' => '<br />'],
+            'notes' => ['#markup' => '(' . $library['notes'] . ')', '#prefix' => '<em>', '#suffix' => '</em><br />'],
           ],
         ],
       ];
@@ -871,6 +940,13 @@ class WebformAdminSettingsForm extends ConfigFormBase {
       '#description' => $this->t("Select roles that can be assigned to receive a webform's email. <em>Please note: Selected roles will be available to all webforms.</em>"),
       '#include_anonymous' => FALSE,
       '#default_value' => $config->get('mail.roles'),
+    ];
+    $form['handler']['mail']['default_to_mail'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Default to email'),
+      '#description' => $this->t('The default recipient address for emailed webform results.'),
+      '#required' => TRUE,
+      '#default_value' => $config->get('mail.default_to_mail'),
     ];
     $form['handler']['mail']['default_from_mail'] = [
       '#type' => 'textfield',
@@ -1104,6 +1180,7 @@ class WebformAdminSettingsForm extends ConfigFormBase {
       + $form_state->getValue('wizard_settings')
       + $form_state->getValue('preview_settings')
       + $form_state->getValue('draft_settings')
+      + $form_state->getValue('submission_settings')
       + $form_state->getValue('submission_behaviors')
       + $form_state->getValue('confirmation_settings')
       + $form_state->getValue('submission_limits');
@@ -1147,7 +1224,12 @@ class WebformAdminSettingsForm extends ConfigFormBase {
     $config->set('third_party_settings', $form_state->getValue('third_party_settings') ?: []);
     $config->set('test', $form_state->getValue('test'));
     // Element.
-    $config->set('element', $form_state->getValue('element') + ['excluded_elements' => $excluded_elements]);
+    $config->set('element', $form_state->getValue('element') +
+      $form_state->getValue('checkbox') +
+      $form_state->getValue('location') +
+      $form_state->getValue('select') +
+      ['excluded_elements' => $excluded_elements]
+    );
     $config->set('file', $form_state->getValue('file'));
     $config->set('format', $format);
     // Assets.

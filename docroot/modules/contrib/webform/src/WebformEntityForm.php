@@ -9,6 +9,8 @@ use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Url;
+use Drupal\webform\Form\WebformDialogFormTrait;
+use Drupal\webform\Plugin\WebformElementManagerInterface;
 use Drupal\webform\Utility\WebformYaml;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -17,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class WebformEntityForm extends BundleEntityFormBase {
 
-  use WebformDialogTrait;
+  use WebformDialogFormTrait;
 
   /**
    * The renderer.
@@ -36,7 +38,7 @@ class WebformEntityForm extends BundleEntityFormBase {
   /**
    * Webform element manager.
    *
-   * @var \Drupal\webform\WebformElementManagerInterface
+   * @var \Drupal\webform\Plugin\WebformElementManagerInterface
    */
   protected $elementManager;
 
@@ -48,9 +50,9 @@ class WebformEntityForm extends BundleEntityFormBase {
   protected $elementsValidator;
 
   /**
-   * The token manager.
+   * The webform token manager.
    *
-   * @var \Drupal\webform\WebformTranslationManagerInterface
+   * @var \Drupal\webform\WebformTokenManagerInterface
    */
   protected $tokenManager;
 
@@ -61,12 +63,12 @@ class WebformEntityForm extends BundleEntityFormBase {
    *   The renderer.
    * @param \Drupal\Core\Render\ElementInfoManagerInterface $element_info
    *   The element manager.
-   * @param \Drupal\webform\WebformElementManagerInterface $element_manager
+   * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
    *   The webform element manager.
    * @param \Drupal\webform\WebformEntityElementsValidator $elements_validator
    *   Webform element validator.
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
-   *   The token manager.
+   *   The webform token manager.
    */
   public function __construct(RendererInterface $renderer, ElementInfoManagerInterface $element_info, WebformElementManagerInterface $element_manager, WebformEntityElementsValidator $elements_validator, WebformTokenManagerInterface $token_manager) {
     $this->renderer = $renderer;
@@ -116,7 +118,7 @@ class WebformEntityForm extends BundleEntityFormBase {
 
     $form = parent::buildForm($form, $form_state);
 
-    return $this->buildFormDialog($form, $form_state);
+    return $this->buildDialogForm($form, $form_state);
   }
 
   /**
@@ -209,7 +211,7 @@ class WebformEntityForm extends BundleEntityFormBase {
       '#type' => 'webform_codemirror',
       '#mode' => 'yaml',
       '#title' => $this->t('Elements (YAML)'),
-      '#description' => $this->t('Enter a <a href=":form_api_href">Form API (FAPI)</a> and/or a <a href=":render_api_href">Render Array</a> as <a href=":yaml_href">YAML</a>.', $t_args) . '<br/>' .
+      '#description' => $this->t('Enter a <a href=":form_api_href">Form API (FAPI)</a> and/or a <a href=":render_api_href">Render Array</a> as <a href=":yaml_href">YAML</a>.', $t_args) . '<br />' .
       '<em>' . $this->t('Please note that comments are not supported and will be removed.') . '</em>',
       '#default_value' => $this->getElementsWithoutWebformTypePrefix($webform->get('elements')),
       '#required' => TRUE,
@@ -253,17 +255,7 @@ class WebformEntityForm extends BundleEntityFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
-    $form_state->setRedirectUrl($this->getRedirectUrl());
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getRedirectUrl() {
-    if ($url = $this->getRedirectDestinationUrl()) {
-      return $url;
-    }
-    return Url::fromRoute('entity.webform.edit_form', ['webform' => $this->getEntity()->id()]);
+    $form_state->setRedirectUrl(Url::fromRoute('entity.webform.edit_form', ['webform' => $this->getEntity()->id()]));
   }
 
   /**

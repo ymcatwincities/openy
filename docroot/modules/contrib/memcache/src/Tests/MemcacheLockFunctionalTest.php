@@ -7,7 +7,7 @@
 
 namespace Drupal\memcache\Tests;
 
-use Drupal\system\Tests\Lock\LockFunctionalTest;
+use Drupal\Tests\system\Functional\Lock\LockFunctionalTest;
 
 /**
  * Confirm locking works between two separate requests.

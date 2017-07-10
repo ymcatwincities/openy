@@ -233,7 +233,6 @@ class WebformAccessTest extends WebformTestBase {
     // Check the new submission's view, update, and delete access for the user.
     $test_own = [
       'admin/structure/webform/manage/{webform}/results/submissions' => 403,
-      'admin/structure/webform/manage/{webform}/results/submissions' => 403,
       'admin/structure/webform/manage/{webform}/results/download' => 403,
       'admin/structure/webform/manage/{webform}/results/clear' => 403,
       'admin/structure/webform/manage/{webform}/submission/{webform_submission}' => 200,

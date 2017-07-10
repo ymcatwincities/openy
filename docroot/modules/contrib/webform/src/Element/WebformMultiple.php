@@ -8,7 +8,7 @@ use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Utility\WebformElementHelper;
-use Drupal\webform\Utility\WebformThemeHelper;
+
 
 /**
  * Provides a webform element to assist in creation of multiple elements.
@@ -110,6 +110,7 @@ class WebformMultiple extends FormElement {
     $ajax_settings = [
       'callback' => [get_called_class(), 'ajaxCallback'],
       'wrapper' => $table_id,
+      'progress' => ['type' => 'none'],
     ];
 
     $element['#child_keys'] = Element::children($element['#element']);
@@ -310,6 +311,7 @@ class WebformMultiple extends FormElement {
       $row['_operations_'] = [];
       $row['_operations_']['add'] = [
         '#type' => 'image_button',
+        '#title' => t('Add'),
         '#src' => drupal_get_path('module', 'webform') . '/images/icons/plus.svg',
         '#limit_validation_errors' => [],
         '#submit' => [[get_called_class(), 'addItemSubmit']],
@@ -322,6 +324,7 @@ class WebformMultiple extends FormElement {
       ];
       $row['_operations_']['remove'] = [
         '#type' => 'image_button',
+        '#title' => t('Remove'),
         '#src' => drupal_get_path('module', 'webform') . '/images/icons/ex.svg',
         '#limit_validation_errors' => [],
         '#submit' => [[get_called_class(), 'removeItemSubmit']],
@@ -332,22 +335,6 @@ class WebformMultiple extends FormElement {
         '#row_index' => $row_index,
         '#name' => $table_id . '_remove_' . $row_index,
       ];
-
-      // Bootstrap theme does not support image buttons so we are going to use
-      // Boostrap's icon buttons.
-      // @see themes/bootstrap/templates/input/input--button.html.twig
-      if (WebformThemeHelper::isActiveTheme('bootstrap')) {
-        $row['_operations_']['add'] += [
-          '#title' => t('Add'),
-          '#icon_only' => TRUE,
-          '#icon' => \Drupal\bootstrap\Bootstrap::glyphicon('plus-sign'),
-        ];
-        $row['_operations_']['remove'] += [
-          '#title' => t('Remove'),
-          '#icon_only' => TRUE,
-          '#icon' => \Drupal\bootstrap\Bootstrap::glyphicon('minus-sign'),
-        ];
-      }
     }
 
     $row['#weight'] = $weight;
