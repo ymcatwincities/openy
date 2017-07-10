@@ -3354,6 +3354,114 @@ a.sports-icon.floor-hockey {
   margin-top: 0;
 }
 
+.paragraph--type--camp-menu {
+  margin-bottom: 30px;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .paragraph--type--camp-menu {
+    display: none;
+  }
+}
+.paragraph--type--camp-menu .camp-menu-wrapper {
+  padding: 0 30px;
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
+  background: #383838 !important;
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient:before {
+  background: #383838 !important;
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu {
+  width: 100% !important;
+  text-align: center;
+  height: 51px !important;
+}
+@media (min-width: 75em) {
+  .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu {
+    height: 57px !important;
+  }
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li {
+  float: none;
+  display: table-cell;
+  width: 1%;
+  vertical-align: top;
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a {
+  z-index: 1;
+  display: block;
+  padding: 13px 5px;
+  max-width: 100%;
+  border: 0 !important;
+  border-radius: 0;
+  background-color: #383838 !important;
+  color: #FFF;
+  position: relative;
+  height: 51px;
+  white-space: nowrap;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 1.4em;
+  -webkit-transition: background-color .2s linear;
+  -moz-transition: background-color .2s linear;
+  -ms-transition: background-color .2s linear;
+  transition: background-color .2s linear;
+}
+@media (min-width: 75em) {
+  .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a {
+    font-size: 20px;
+    height: 57px;
+    padding: 15px 5px;
+  }
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover {
+  background-color: #505050 !important;
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover:after {
+  background-color: #505050 !important;
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active:after {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  z-index: -1;
+  display: block;
+  margin-left: -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  background-color: #383838;
+  content: ' ';
+  -webkit-transition: background-color .2s linear;
+  -moz-transition: background-color .2s linear;
+  -ms-transition: background-color .2s linear;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a {
+  line-height: 0;
+  font-size: 0;
+  color: transparent;
+}
+.paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a:before {
+  content: "\e021";
+  position: relative;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4em;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  color: white;
+}
+@media (min-width: 75em) {
+  .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a:before {
+    font-size: 20px;
+  }
+}
+
 .paragraph--type--gallery-cta-content {
   position: relative;
 }
