@@ -4,15 +4,6 @@
  */
 
 /**
- * Float clearing, same as .clearfix.
- */
-.paragraph:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/**
  * 50/50 flex grid for image/text paragraph.
  */
 @media (min-width: 560px) {

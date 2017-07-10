@@ -2,7 +2,6 @@
 
 namespace Drupal\webform\Form;
 
-
 /**
  * Webform for webform results clear webform.
  */

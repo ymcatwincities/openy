@@ -5,9 +5,10 @@ type: module
 # core: 8.x
 dependencies:
  - mailsystem
+configure: 'mimemail.settings'
 
-# Information added by Drupal.org packaging script on 2016-09-10
-version: '8.x-1.x-dev'
+# Information added by Drupal.org packaging script on 2017-05-14
+version: '8.x-1.0-alpha2'
 core: '8.x'
 project: 'mimemail'
-datestamp: 1473522845
+datestamp: 1494775090

@@ -43,11 +43,16 @@ class Json extends DataParserPluginBase implements ContainerFactoryPluginInterfa
   protected function getSourceData($url) {
     $response = $this->getDataFetcherPlugin()->getResponseContent($url);
 
-    // json_decode() expects utf8 data so let's make sure it gets it.
-    $utf8response = utf8_encode($response);
-
     // Convert objects to associative arrays.
-    $source_data = json_decode($utf8response, TRUE);
+    $source_data = json_decode($response, TRUE);
+
+    // If json_decode() has returned NULL, it might be that the data isn't
+    // valid utf8 - see http://php.net/manual/en/function.json-decode.php#86997.
+    if (is_null($source_data)) {
+      $utf8response = utf8_encode($response);
+      $source_data = json_decode($utf8response);
+    }
+
     // Backwards-compatibility for depth selection.
     if (is_int($this->itemSelector)) {
       return $this->selectByDepth($source_data);
@@ -56,7 +61,9 @@ class Json extends DataParserPluginBase implements ContainerFactoryPluginInterfa
     // Otherwise, we're using xpath-like selectors.
     $selectors = explode('/', trim($this->itemSelector, '/'));
     foreach ($selectors as $selector) {
-      $source_data = $source_data[$selector];
+      if (!empty($selector)) {
+        $source_data = $source_data[$selector];
+      }
     }
     return $source_data;
   }

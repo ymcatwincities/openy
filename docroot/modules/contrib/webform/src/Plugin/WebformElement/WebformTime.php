@@ -3,7 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\WebformElementBase;
+use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -27,11 +27,25 @@ class WebformTime extends WebformElementBase {
       'multiple' => FALSE,
       'multiple__header_label' => '',
       // Time settings.
-      'time_format' => '',
+      'timepicker' => FALSE,
+      'time_format' => 'H:i',
       'min' => '',
       'max' => '',
       'step' => '',
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
+    // Set default time format to HTML time.
+    if (!isset($element['#time_format'])) {
+      $element['#time_format'] = $this->getDefaultProperty('time_format');
+    }
+
+    // Prepare element after date format has been updated.
+    parent::prepare($element, $webform_submission);
   }
 
   /**
@@ -67,15 +81,21 @@ class WebformTime extends WebformElementBase {
       '#type' => 'fieldset',
       '#title' => $this->t('Time settings'),
     ];
+
+    $form['time']['timepicker'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use time picker'),
+      '#description' => $this->t('If checked, HTML5 time element will be replaced with <a href="http://jonthornton.github.io/jquery-timepicker/">jQuery UI timepicker</a>'),
+      '#return_value' => TRUE,
+    ];
     $form['time']['time_format'] = [
       '#type' => 'webform_select_other',
       '#title' => $this->t('Time format'),
-      '#description' => $this->t("Time format is only applicable for browsers that do not have support for the HTML5 time element. Browsers that support the HTML5 time element will display the time using the user's preferred format. Time format is used to format the submitted value."),
       '#options' => [
-        'g:i A' => $this->t('12 hour (@time)', ['@time' => date('g:i A')]),
-        'g:i:s A' => $this->t('12 hour with seconds (@time)', ['@time' => date('g:i:s A')]),
-        'H:i' => $this->t('24 hour (@time)', ['@time' => date('H:i')]),
-        'H:i:s' => $this->t('24 hour with seconds (@time)', ['@time' => date('H:i:s')]),
+        'H:i' => $this->t('24 hour - @format (@time)', ['@format' => 'H:i', '@time' => date('H:i')]),
+        'H:i:s' => $this->t('24 hour with seconds - @format (@time)', ['@format' => 'H:i:s', '@time' => date('H:i:s')]),
+        'g:i A' => $this->t('12 hour - @format (@time)', ['@format' => 'g:i A', '@time' => date('g:i A')]),
+        'g:i:s A' => $this->t('12 hour with seconds - @format (@time)', ['@format' => 'g:i:s A', '@time' => date('g:i:s A')]),
       ],
       '#other__option_label' => $this->t('Custom...'),
       '#other__placeholder' => $this->t('Custom time format...'),

@@ -29,11 +29,3 @@ entity.paragraphs_type.delete_form:
     _title: 'Delete'
   requirements:
     _permission: 'administer paragraphs types'
-
-paragraphs.prepare_uninstall:
-  path: '/admin/structure/paragraphs_type/uninstall'
-  defaults:
-    _form: '\Drupal\paragraphs\Form\PrepareUninstallForm'
-    _title: 'Prepare uninstall'
-  requirements:
-    _permission: 'administer paragraphs types'

@@ -4,9 +4,7 @@ namespace Drupal\webform;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Path\PathValidatorInterface;
-use Drupal\Core\Render\Element;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -38,7 +36,7 @@ class WebformThirdPartySettingsManager implements WebformThirdPartySettingsManag
   protected $pathValidator;
 
   /**
-   * Add-ons manager.
+   * The webofmr add-ons manager.
    *
    * @var \Drupal\webform\WebformAddonsManagerInterface
    */
@@ -61,7 +59,7 @@ class WebformThirdPartySettingsManager implements WebformThirdPartySettingsManag
    * @param \Drupal\Core\Path\PathValidatorInterface $path_validator
    *   The path validator.
    * @param \Drupal\webform\WebformAddonsManagerInterface $addons_manager
-   *   The add-ons manager.
+   *   The webform add-ons manager.
    */
   public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, PathValidatorInterface $path_validator, WebformAddonsManagerInterface $addons_manager) {
     $this->configFactory = $config_factory;

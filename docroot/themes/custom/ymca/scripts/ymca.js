@@ -339,4 +339,34 @@
     }
   };
 
+  /**
+   * Mobile UX.
+   */
+  Drupal.behaviors.mobile_ux_sidebar_menu = {
+    attach: function (context, settings) {
+      if (typeof(settings.ymca_menu) !== 'undefined' && settings.ymca_menu.show_mobile_submenu) {
+        if ($('.panel-subnav').length === 1 && $('.mobile-subnav').length === 0) {
+          // Basic case, only sidebar presents.
+          $('<div class="mobile-subnav" />').insertAfter('.page-header');
+          $('.panel-subnav').clone(true).appendTo('.mobile-subnav');
+          // Extended case, merge sidebar and navbar.
+          if ($('.nav-location').length === 1) {
+            $('.panel-subnav ul.nav').clone(true).appendTo('.nav-location .nav .current');
+            var name = $('.masthead-brand').text();
+            $('.nav-location a.home').append('<span>' + Drupal.t(name + ' homepage') + '</span>')
+          }
+          $('.mobile-subnav .panel-heading a, .nav-location a.home').append('<b class="caret"></b>').click(function (e) {
+            e.preventDefault();
+            if ($(this).hasClass('open')) {
+              $(this).removeClass('open').parents('.panel').find('.panel-body').slideUp();
+            }
+            else {
+              $(this).addClass('open').parents('.panel').find('.panel-body').slideDown();
+            }
+          });
+        }
+      }
+    }
+  };
+
 })(jQuery);

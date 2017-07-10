@@ -8,6 +8,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformRequestInterface;
+use Drupal\webform\WebformSubmissionInterface;
 use Drupal\webform\WebformTokenManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,9 +35,9 @@ class WebformController extends ControllerBase implements ContainerInjectionInte
   protected $requestHandler;
 
   /**
-   * The token manager.
+   * The webform token manager.
    *
-   * @var \Drupal\webform\WebformTranslationManagerInterface
+   * @var \Drupal\webform\WebformTokenManagerInterface
    */
   protected $tokenManager;
 
@@ -48,7 +49,7 @@ class WebformController extends ControllerBase implements ContainerInjectionInte
    * @param \Drupal\webform\WebformRequestInterface $request_handler
    *   The webform request handler.
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
-   *   The token manager.
+   *   The webform token manager.
    */
   public function __construct(RendererInterface $renderer, WebformRequestInterface $request_handler, WebformTokenManagerInterface $token_manager) {
     $this->renderer = $renderer;
@@ -121,11 +122,13 @@ class WebformController extends ControllerBase implements ContainerInjectionInte
    *   The current request.
    * @param \Drupal\webform\WebformInterface|null $webform
    *   A webform.
+   * @param \Drupal\webform\WebformSubmissionInterface|null $webform_submission
+   *   A webform submission.
    *
    * @return array
    *   A render array representing a webform confirmation page
    */
-  public function confirmation(Request $request, WebformInterface $webform = NULL) {
+  public function confirmation(Request $request, WebformInterface $webform = NULL, WebformSubmissionInterface $webform_submission = NULL) {
     /** @var \Drupal\Core\Entity\EntityInterface $source_entity */
     if (!$webform) {
       list($webform, $source_entity) = $this->requestHandler->getWebformEntities();
@@ -133,9 +136,6 @@ class WebformController extends ControllerBase implements ContainerInjectionInte
     else {
       $source_entity = $this->requestHandler->getCurrentSourceEntity('webform');
     }
-
-    /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
-    $webform_submission = NULL;
 
     if ($token = $request->get('token')) {
       /** @var \Drupal\webform\WebformSubmissionStorageInterface $webform_submission_storage */
@@ -160,6 +160,7 @@ class WebformController extends ControllerBase implements ContainerInjectionInte
     ];
 
     $this->renderer->addCacheableDependency($build, $webform);
+
     return $build;
   }
 

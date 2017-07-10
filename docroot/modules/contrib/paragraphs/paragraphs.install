@@ -10,6 +10,15 @@ use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\paragraphs\ParagraphStorageSchema;
 
 /**
+ * Implements hook_install().
+ */
+function paragraphs_install() {
+  // Assign a weight 1 higher than content_translation to ensure paragraphs_module_implements_alter
+  // runs after content_translation_module_implements_alter.
+  module_set_weight('paragraphs', 11);
+}
+
+/**
  * Add status field.
  */
 function paragraphs_update_8001() {
@@ -164,4 +173,36 @@ function paragraphs_update_8008() {
 
   // Regenerate entity type indexes.
   $manager->updateEntityType($entity_type);
+}
+
+/**
+ * Set the weight to 11 to override content_translation's hook_module_implements_alter implementation
+ */
+function paragraphs_update_8009() {
+  module_set_weight('paragraphs', 11);
+}
+
+/**
+ * Add behavior plugins fields.
+ */
+function paragraphs_update_8010() {
+  $storage_definition = BaseFieldDefinition::create('string_long')
+    ->setLabel(t('Behavior settings'))
+    ->setDescription(t('The behavior plugin settings'));
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('behavior_settings', 'paragraph', 'paragraph', $storage_definition);
+}
+
+/**
+ * Make the behavior plugins field of Paragraphs revisionable.
+ */
+function paragraphs_update_8011() {
+  \Drupal::database()->update('paragraphs_item_field_data')
+    ->fields(['behavior_settings' => NULL])
+    ->execute();
+
+  /** @var \Drupal\Core\Field\BaseFieldDefinition $storage_definition */
+  $storage_definition = \Drupal::entityDefinitionUpdateManager()->getFieldStorageDefinition('behavior_settings', 'paragraph');
+  $storage_definition->setRevisionable(TRUE);
+  \Drupal::entityDefinitionUpdateManager()->updateFieldStorageDefinition($storage_definition);
 }

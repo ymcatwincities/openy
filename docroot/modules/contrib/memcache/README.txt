@@ -158,7 +158,18 @@ the default in this case but could be set using:
 
 ## LOCKS ##
 
-Locks have not yet been implemented using the memcache module.
+Memcache locks can be enabled through the services.yml file.
+
+  services:
+    # Replaces the default lock backend with a memcache implementation.
+    lock:
+      class: Drupal\Core\Lock\LockBackendInterface
+      factory: memcache.lock.factory:get
+
+    # Replaces the default persistent lock backend with a memcache implementation.
+    lock.persistent:
+      class: Drupal\Core\Lock\LockBackendInterface
+      factory: memcache.lock.factory:getPersistent
 
 ## TROUBLESHOOTING ##
 
@@ -225,3 +236,26 @@ Other options you could experiment with:
       reported that this can speed up the Binary protocol (see above). This
       tells the TCP stack to send packets immediately and without waiting for
       a full payload, reducing per-packet network latency (disabling "Nagling").
+
+It's possible to enable SASL authentication as documented here:
+  http://php.net/manual/en/memcached.setsaslauthdata.php
+  https://code.google.com/p/memcached/wiki/SASLHowto
+
+SASL authentication requires a memcached server with SASL support (version 1.4.3
+or greater built with --enable-sasl and started with the -S flag) and the PECL
+memcached client version 2.0.0 or greater also built with SASL support. Once
+these requirements are satisfied you can then enable SASL support in the Drupal
+memcache module by enabling the binary protocol and setting
+memcache_sasl_username and memcache_sasl_password in settings.php. For example:
+
+$settings['memcache']['sasl'] = [
+  'username' => 'user',
+  'password' => 'password',
+];
+
+// When using SASL, Memcached extension needs to be used
+// because Memcache extension doesn't support it.
+$settings['memcache']['extension'] = 'Memcached';
+$settings['memcache']['options'] = [
+  \Memcached::OPT_BINARY_PROTOCOL => TRUE,
+];
