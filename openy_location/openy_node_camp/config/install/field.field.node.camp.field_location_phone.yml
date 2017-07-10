@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location_phone
+    - node.type.camp
+  module:
+    - telephone
+id: node.camp.field_location_phone
+field_name: field_location_phone
+entity_type: node
+bundle: camp
+label: 'Camp Phone'
+description: 'Enter camp phone.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

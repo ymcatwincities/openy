@@ -1,0 +1,181 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_node_branch feature.
+ */
+
+/**
+ * Add panorama paragraph to body.
+ */
+function openy_node_branch_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.branch.field_branch_body',
+    ]);
+}
+
+/**
+ * Update display settings.
+ */
+function openy_node_branch_update_8002() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.node.branch.default',
+      'field.field.node.branch.field_branch_body',
+    ]);
+}
+
+/**
+ * Update body field available paragraphs.
+ */
+function openy_node_branch_update_8003() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.branch.field_branch_body',
+    ]);
+}
+
+/**
+ * Update body field available paragraphs.
+ */
+function openy_node_branch_update_8004() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'pathauto.pattern.branch',
+    ]);
+}
+
+/**
+ * Set cardinality to unlimited for working hours.
+ */
+function openy_node_branch_update_8005() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.storage.node.field_branch_hours',
+    ]
+  );
+}
+
+/**
+ * Update Node Branch display settings.
+ */
+function openy_node_branch_update_8006() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.node.branch.calc_summary',
+      'core.entity_view_mode.node.calc_summary',
+    ]
+  );
+}
+
+/**
+ * Enable Group Schedules paragraph for Branches body and header.
+ */
+function openy_node_branch_update_8007() {
+  $config = drupal_get_path('module', 'openy_node_branch') . '/config/install/field.field.node.branch.field_branch_body.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles.group_schedules');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.enabled');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.weight');
+  $config = drupal_get_path('module', 'openy_node_branch') . '/config/install/field.field.node.branch.field_header_content.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles.group_schedules');
+  $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.enabled');
+  $config_importer->update($config, 'field.field.node.branch.field_header_content', 'settings.handler_settings.target_bundles_drag_drop.group_schedules.weight');
+}
+
+/**
+ * Add search_index view mode to Branch.
+ */
+function openy_node_branch_update_8008() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.node.branch.search_index',
+    ]
+  );
+}
+
+/**
+ * Enable Location Events paragraph for Branches body.
+ */
+function openy_node_branch_update_8009() {
+  $config = drupal_get_path('module', 'openy_node_branch') . '/config/install/field.field.node.branch.field_branch_body.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles.location_events');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.location_events.enabled');
+  $config_importer->update($config, 'field.field.node.branch.field_branch_body', 'settings.handler_settings.target_bundles_drag_drop.location_events.weight');
+}
+
+/**
+ * Enable microsites menu paragraph and make it available for content type.
+ */
+function openy_node_branch_update_8010() {
+  $modules = ['openy_block_menu', 'openy_prgf_microsites_menu'];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.node.branch.field_camp_body',
+      'field.field.node.branch.field_header_content',
+    ]
+  );
+}
+
+/**
+ * Use address_branch field formatter instead of address_plain at branch display modes.
+ */
+function openy_node_branch_update_8011() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'core.entity_view_display.node.branch.search_index',
+      'core.entity_view_display.node.branch.default',
+      'core.entity_view_display.node.branch.teaser',
+    ]
+  );
+}
+
+/**
+ * Rename 'Branch' to 'Center' in labels and descriptions.
+ */
+function openy_node_branch_update_8012() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'taxonomy.vocabulary.amenities',
+      'node.type.branch',
+      'field.field.node.branch.field_meta',
+      'field.field.node.branch.field_location_phone',
+      'field.field.node.branch.field_location_fax',
+      'field.field.node.branch.field_location_email',
+      'field.field.node.branch.field_location_coordinates',
+      'field.field.node.branch.field_location_amenities',
+      'field.field.node.branch.field_location_address',
+      'field.field.node.branch.field_header_content',
+      'field.field.node.branch.field_branch_hours',
+      'field.field.node.branch.field_branch_body',
+      'core.entity_form_display.node.branch.default'
+    ]
+  );
+}

@@ -1,0 +1,11 @@
+name: 'OpenY Location Core'
+description: 'Implements all location (branch, camp) bundles with shared fields storage'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - field
+  - geolocation
+  - node
+  - telephone
+version: '8.x-1.0'
