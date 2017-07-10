@@ -76,7 +76,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
   border-bottom: inherit;
 }
 .branch-header .desktop {
-  background-color: #c6168db;
+  background-color: #c6168d;
 }
 .page-head__main-menu .nav-level-2 > a,
 .page-head__main-menu .nav-level-3 > a,
@@ -167,6 +167,7 @@ body .branch-popup .ui-dialog-content h3 {
 /* Secondary highlight color (pink.) */
 .branch-header .desktop,
 .branch-header .desktop .today-hours .branch-hours,
+.camp-address.all-hours,
 .branch-header .mobile,
 .node--type-blog.node--view-mode-teaser.blog-fuchsia .inner-wrapper,
 #membership-calc-wrapper .nav-pills > li div {

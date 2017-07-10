@@ -3364,6 +3364,7 @@ a.sports-icon.floor-hockey {
 }
 .paragraph--type--camp-menu .camp-menu-wrapper {
   padding: 0 30px;
+  background: #383838 !important;
 }
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
   background: #383838 !important;
@@ -3459,6 +3460,284 @@ a.sports-icon.floor-hockey {
 @media (min-width: 75em) {
   .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a:before {
     font-size: 20px;
+  }
+}
+
+.branch-header .desktop {
+  padding: 0;
+}
+.branch-header a {
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.branch-header .back-link {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+}
+.branch-header .back-link a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+.branch-header .back-link a:hover {
+  color: white;
+}
+.branch-header .back-link a:before {
+  margin-right: 5px;
+  content: '\007b';
+  font-family: 'YMCA';
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-header {
+    text-align: center;
+  }
+}
+.branch-header .location-masthead {
+  padding: 15px 0 10px;
+}
+.branch-header .location-masthead .masthead-brand {
+  text-transform: uppercase;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  font-weight: bold;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  margin: 0;
+  min-height: 55px;
+  font-size: 48px;
+  line-height: 1em;
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  .branch-header .location-masthead .masthead-brand {
+    font-size: 42px;
+  }
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-header .location-masthead .masthead-brand {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    min-height: 0;
+    text-align: center;
+    text-decoration: none;
+    font-size: 30px;
+  }
+}
+.branch-header .masthead-button {
+  text-align: right;
+}
+.branch-header .masthead-button > a {
+  display: inline-block;
+  margin-bottom: 0;
+  line-height: 1.428571429;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  color: #FFF;
+  border: 0;
+  border-radius: 3px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  margin-top: 0;
+  padding: 12px 20px;
+  outline: 0;
+  font-size: 18px;
+  width: auto;
+  max-width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-header .masthead-button > a {
+    width: 100%;
+  }
+}
+.branch-header .location-details {
+  margin: 0;
+  width: 100%;
+  color: white;
+  white-space: nowrap;
+  font-size: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 -1px rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  .branch-header .location-details {
+    font-size: 12px;
+  }
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-header .location-details {
+    font-size: 19px;
+    border-top: none;
+    box-shadow: none;
+  }
+}
+@media (min-width: 768px) {
+  .branch-header .location-details .directions-hours-inner {
+    line-height: 50px;
+  }
+}
+.branch-header .location-details .camp-address-toggle,
+.branch-header .location-details .directions {
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  border-radius: 3px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  top: -2px;
+  position: relative;
+  line-height: normal;
+}
+.branch-header .location-details .camp-address-toggle:hover,
+.branch-header .location-details .directions:hover {
+  background: rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+}
+.branch-header .location-details .hours {
+  text-align: right;
+  line-height: 20px;
+  float: none;
+  display: inline-block;
+}
+.branch-header .location-details #camp-address {
+  position: absolute;
+  top: 35px;
+  right: 15px;
+  z-index: 1001;
+  padding: 0 40px 0 20px;
+  border-radius: 0 0 3px 3px;
+  text-align: left;
+}
+.branch-header .location-details #camp-address div {
+  margin-bottom: 10px;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-header .location-details #camp-address {
+    position: static;
+    font-size: 16px;
+    line-height: 1.1em;
+  }
+  .branch-header .location-details #camp-address a {
+    font-size: 16px;
+    line-height: 1.1em;
+  }
+}
+.branch-header .location-details .location-hours-toggle {
+  display: block;
+  text-align: center;
+  float: none;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 8px;
+  border-radius: 3px;
+  -webkit-transition: background-color .35s ease-out;
+  transition: background-color .35s ease-out;
+  font-weight: normal;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: initial;
+  padding: 5px 20px;
+}
+.branch-header .location-details .location-hours-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.branch-header .location-details .location-hours-toggle:focus {
+  outline: none;
+}
+.branch-header .location-details #directions-hours-mobile {
+  text-align: left;
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 25px 0;
+}
+.branch-header .location-details #directions-hours-mobile hr {
+  margin: 25px;
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px rgba(255, 255, 255, 0.2);
+}
+.branch-header .location-details #directions-hours-mobile a {
+  color: white;
+}
+.branch-header .location-details #directions-hours-mobile .field-location-phone {
+  font-size: 25px;
+}
+.branch-header .location-details #directions-hours-mobile .address {
+  font-size: 19px;
+  line-height: 1.4em;
+}
+.branch-header .location-details #directions-hours-mobile .address .plaintext {
+  display: inline-block;
+}
+.branch-header .location-details #directions-hours-mobile .address .glyphicon-map-marker {
+  top: -23px;
+}
+.branch-header .location-details #directions-hours-mobile .address .directions {
+  margin-top: 5px;
+  margin-left: 25px;
+}
+
+.location-camp-header .field-branch-hours {
+  float: right;
+  margin-left: 5px;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .location-camp-header .field-branch-hours {
+    margin-left: 25px;
+    margin-top: 5px;
+    float: none;
+    font-size: 16px !important;
+  }
+}
+.location-camp-header .today-hours {
+  position: relative;
+}
+.location-camp-header .today-hours a {
+  width: 77.5px;
+  display: inline-block;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .location-camp-header .today-hours a {
+    display: none;
+  }
+}
+.location-camp-header .today-hours h5 {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  margin-top: 20px;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-header .location-details .hours {
+    text-align: left;
+  }
+}
+
+.branch-header .desktop .today-hours .branch-hours {
+  right: -4px;
+  left: auto;
+}
+
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-header .branch-hours {
+    display: block !important;
   }
 }
 
