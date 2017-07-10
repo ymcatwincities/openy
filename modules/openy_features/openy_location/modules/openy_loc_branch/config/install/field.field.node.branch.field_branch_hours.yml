@@ -6,28 +6,15 @@ dependencies:
     - node.type.branch
   module:
     - openy_field_custom_hours
-third_party_settings:
-  datalayer:
-    expose: 1
-    label: field_branch_hours
 id: node.branch.field_branch_hours
 field_name: field_branch_hours
 entity_type: node
 bundle: branch
-label: 'Branch Hours'
-description: ''
+label: 'Center Working Hours'
+description: 'Enter working Hours for the current center.'
 required: false
 translatable: true
-default_value:
-  -
-    hours_label: 'Branch Hours'
-    hours_mon: ''
-    hours_tue: ''
-    hours_wed: ''
-    hours_thu: ''
-    hours_fri: ''
-    hours_sat: ''
-    hours_sun: ''
+default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: openy_custom_hours

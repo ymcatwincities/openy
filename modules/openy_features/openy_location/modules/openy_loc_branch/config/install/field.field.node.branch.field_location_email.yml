@@ -4,16 +4,12 @@ dependencies:
   config:
     - field.storage.node.field_location_email
     - node.type.branch
-third_party_settings:
-  datalayer:
-    expose: 1
-    label: field_location_email
 id: node.branch.field_location_email
 field_name: field_location_email
 entity_type: node
 bundle: branch
-label: Email
-description: ''
+label: 'Center Email'
+description: 'Enter center email.'
 required: false
 translatable: true
 default_value: {  }

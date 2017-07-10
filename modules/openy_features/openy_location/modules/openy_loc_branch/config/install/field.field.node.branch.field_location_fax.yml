@@ -6,16 +6,12 @@ dependencies:
     - node.type.branch
   module:
     - telephone
-third_party_settings:
-  datalayer:
-    expose: 1
-    label: field_location_fax
 id: node.branch.field_location_fax
 field_name: field_location_fax
 entity_type: node
 bundle: branch
-label: Fax
-description: ''
+label: 'Center Fax'
+description: 'Enter center fax.'
 required: false
 translatable: true
 default_value: {  }

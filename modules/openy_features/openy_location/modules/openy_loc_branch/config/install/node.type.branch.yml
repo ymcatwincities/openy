@@ -5,12 +5,11 @@ dependencies:
     - menu_ui
 third_party_settings:
   menu_ui:
-    available_menus:
-      - main
-    parent: 'main:'
-name: Branch
+    available_menus: {  }
+    parent: ''
+name: Center
 type: branch
-description: 'Branch content type is used for adding Branches on the site.'
+description: 'Center bundle.'
 help: ''
 new_revision: true
 preview_mode: 1
