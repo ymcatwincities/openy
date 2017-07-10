@@ -4,7 +4,6 @@
 .vagrant
 backup
 build_reports
-cache
 commentinfo.md
 d20*
 drush.phar
