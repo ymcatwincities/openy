@@ -1,0 +1,8 @@
+scripts:
+  version: 1.0
+  js:
+    js/openy_calc.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

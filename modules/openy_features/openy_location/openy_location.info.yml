@@ -1,7 +1,8 @@
-name: 'OpenY location package'
-description: 'OpenY location package'
+name: 'OpenY Location Package'
+description: 'OpenY Location Package.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - address
   - ctools
@@ -12,4 +13,3 @@ dependencies:
   - pathauto
   - taxonomy
   - telephone
-version: 8.x-1.1

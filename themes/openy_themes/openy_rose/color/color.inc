@@ -40,8 +40,44 @@ $info = array(
   ),
   // Pre-defined color schemes.
   'schemes' => array(
+    // If changed colors for default scheme please
+    // add same changes to openy_rose/css/colors.css file.
     'default' => array(
       'title' => t('Blue sky (default)'),
+      'colors' => array(
+        'headerbg' => '#0060af',
+        'headerhover' => '#0060af',
+        'headerlink' => '#ffffff',
+        'headerlinkhover' => '#ffffff',
+        'bg' => '#ffffff',
+        'footer' => '#4f4f4f',
+        'footertext' => '#fffffa',
+        'text' => '#636466',
+        'link' => '#0060af',
+        'button' => '#0060af',
+        'buttonlink' => '#fffffc',
+        'primaryhighlight' => '#5c2e91',
+        'secondaryhighlight' => '#c6168d',
+        'branchsubheaderbg' => '#c6168b',
+        'campheaderbg' => '#5c2e91',
+        'campheaderhover' => '#92278f',
+        'campheaderlink' => '#fffff8',
+        'campheaderlinkhover' => '#fffff8',
+        'campsubheaderbg' => '#0060ad',
+        'campmenubg' => '#0060ad',
+        'campmenulink' => '#fffffd',
+        'campmenuhighlight' => '#0060ad',
+        'campbg' => '#fffffe',
+        'campfooter' => '#006b6b',
+        'campfootertext' => '#fffff7',
+        'camptext' => '#636465',
+        'camplink' => '#006b6b',
+        'campbutton' => '#006b6b',
+        'campbuttonlink' => '#fffff9',
+      ),
+    ),
+    'seattle' => array(
+      'title' => t('Seattle'),
       'colors' => array(
         'headerbg' => '#0089d0',
         'headerhover' => '#0060af',
