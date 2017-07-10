@@ -1,0 +1,136 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_node_landing
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Create Landing content'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Home Page'
+      alias: '/home'
+      header:
+        -
+          migration: yghc_prgf_header
+          id: 1
+      body:
+        -
+          migration: yghc_prgf_whay
+          id: 1
+        -
+          migration: yghc_prgf_2c
+          id: 1
+        -
+          migration: yghc_prgf_4c
+          id: 1
+        -
+          migration: yghc_prgf_lto
+          id: 1
+    -
+      id: 2
+      title: 'Program Search'
+      alias: '/program'
+      body:
+        -
+          migration: yghc_prgf_pgm_reg
+          id: 1
+    -
+      id: 3
+      title: 'YMCA Of Greater Houston Blog'
+      alias: '/blog'
+      body:
+        -
+          migration: yghc_prgf_fc
+          id: 1
+        -
+          migration: yghc_prgf_nu
+          id: 3
+        -
+          migration: yghc_prgf_2c
+          id: 3
+    -
+      id: 4
+      title: 'Membership Page'
+      alias: '/join'
+      header:
+        -
+          migration: yghc_prgf_header
+          id: 4
+      body:
+        -
+          migration: yghc_prgf_mc
+          id: 1
+        -
+          migration: yghc_prgf_1c
+          id: 1
+        -
+          migration: yghc_prgf_2c
+          id: 4
+    -
+      id: 5
+      title: 'Location finder'
+      alias: '/locations'
+      body:
+        -
+          migration: yghc_prgf_location_finder
+          id: 1
+    -
+      id: 6
+      title: 'Search'
+      alias: '/search'
+      body:
+        -
+          migration: yghc_prgf_global_search
+          id: 1
+  ids:
+    id:
+      type: integer
+
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  path:
+    -
+      plugin: get
+      source: alias
+  type:
+    -
+      plugin: default_value
+      default_value: landing
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  field_landing_header:
+    -
+      plugin: paragraph_migration
+      paragraphs: header
+  field_landing_body:
+    -
+      plugin: paragraph_migration
+      paragraphs: body
+destination:
+  plugin: 'entity:node'
+  default_bundle: landing_page
+migration_dependencies:
+  required:
+    - yghc_prgf_1c
+    - yghc_prgf_2c
+    - yghc_prgf_4c
+    - yghc_prgf_nu
+    - yghc_prgf_lto
+    - yghc_prgf_header
+    - yghc_prgf_pgm_reg
+    - yghc_prgf_fc
+    - yghc_prgf_whay
+    - yghc_prgf_location_finder
+    - yghc_prgf_global_search

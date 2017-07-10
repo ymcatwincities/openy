@@ -1,0 +1,62 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_prgf_2c
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Creates Paragraphs (2 columns)'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      left: 1
+      right: 2
+    -
+      id: 2
+      left: 12
+      right: 13
+    -
+      id: 3
+      left: 14
+      right: 15
+    -
+      id: 4
+      left: 18
+      right: 19
+    -
+      id: 5
+      left: 1
+      right: 2
+    -
+      id: 6
+      left: 1
+      right: 2
+    -
+      id: 7
+      left: 1
+      right: 2
+    -
+      id: 8
+      left: 1
+      right: 2
+  ids:
+    id:
+      type: integer
+process:
+  field_prgf_2c_left/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: left
+  field_prgf_2c_right/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: right
+destination:
+  plugin: entity_reference_revisions:paragraph
+  default_bundle: 2c
+migration_dependencies:
+  required:
+    - yghc_block_content_simple_block

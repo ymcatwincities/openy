@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_prgf_whay
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Creates What''s Happening At the Y Paragraph'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'What''s Happening At the Y?'
+  ids:
+    id:
+      type: integer
+process:
+  field_prgf_whay_title:
+    -
+      plugin: get
+      source: title
+destination:
+  plugin: entity_reference_revisions:paragraph
+  default_bundle: whay
+migration_dependencies: {  }

@@ -1,0 +1,25 @@
+uuid: 1eb51de8-9d81-4f47-aed1-9ee26fc35675
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:simple_block:c0225569-e804-4235-9c1b-f786a9a8a372'
+  module:
+    - block_content
+  theme:
+    - ygh
+id: footeraddressblock
+theme: ygh
+region: footer_address
+weight: -11
+provider: null
+plugin: 'block_content:c0225569-e804-4235-9c1b-f786a9a8a372'
+settings:
+  id: 'block_content:c0225569-e804-4235-9c1b-f786a9a8a372'
+  label: 'Footer Address block'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

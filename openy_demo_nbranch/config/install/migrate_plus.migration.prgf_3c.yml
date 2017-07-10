@@ -1,0 +1,45 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_prgf_3c
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Creates Paragraphs (3 columns)'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Welcome to Camp Cullen!'
+      left: 9
+      center: 10
+      right: 11
+  ids:
+    id:
+      type: integer
+process:
+  field_prgf_title:
+    -
+      plugin: get
+      source: title
+  field_prgf_3c_left/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: left
+  field_prgf_3c_center/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: right
+  field_prgf_3c_right/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: center
+destination:
+  plugin: entity_reference_revisions:paragraph
+  default_bundle: 3c
+migration_dependencies:
+  required:
+    - yghc_block_content_simple_block
