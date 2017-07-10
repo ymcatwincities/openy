@@ -20,7 +20,8 @@ a,
 .modal-body .button:hover,
 .btn-primary:hover,
 .btn.white-blue:hover,
-.white-blue.button:hover {
+.white-blue.button:hover,
+.pager li.load_more_button > a:focus {
   background-color: #0060ad; /* Button color (button) */
   color: #fffffc; /* Button link color (buttonlink) */
 }
@@ -191,7 +192,8 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .modal-body .button:hover,
 .is-camp .btn-primary:hover,
 .is-camp .btn.white-blue:hover,
-.is-camp .white-blue.button:hover {
+.is-camp .white-blue.button:hover,
+.is-camp .pager li.load_more_button > a:focus {
   background-color: #006b6d; /* Camp button color (campbutton) */
   color: #fffff9; /* Camp button link color (campbuttonlink) */
 }
