@@ -1,5 +1,6 @@
 .color-preview,
-.camp-color-preview {
+.camp-color-preview,
+.location-color-preview {
   background-color: #ffffff;
   font-family: Verdana, sans-serif;
   font-size: 14px;
@@ -99,5 +100,37 @@
   width: 50px;
 }
 .camp-color-preview .color-preview-footer {
+  background-color: #01a490;
+}
+
+/* Location specific preview */
+.location-color-preview .color-preview-header {
+  background-color: #f47920;
+}
+.location-color-preview .color-preview-menu-link.hover {
+  background-color: #f86b05;
+}
+.location-color-preview .color-preview-location-menu {
+  background-color: #0060ad;
+  color: #ffffff;
+}
+.location-color-preview .color-preview-location-menu .color-preview-menu-link:first-child {
+  margin-left: 10px;
+}
+.location-color-preview .color-preview-location-menu .hover {
+  background-color: #0089d1;
+}
+.location-color-preview .color-preview-main a {
+  color: #01a491;
+}
+.location-color-preview .preview-button {
+  background-color: #2fb998;
+  color: #ffffff;
+  margin: 10px auto;
+  padding: 10px;
+  text-align: center;
+  width: 50px;
+}
+.location-color-preview .color-preview-footer {
   background-color: #01a490;
 }

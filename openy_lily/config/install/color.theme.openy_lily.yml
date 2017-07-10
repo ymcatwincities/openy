@@ -30,3 +30,6 @@ palette:
   camplink: '#377bb5'
   campbutton: '#1dafec'
   campbuttonlink: '#ffffff'
+  locationmenubg: '#383838'
+  locationmenulink: '#ffffff'
+  locationmenuhighlight: '#505050'

@@ -306,6 +306,17 @@ body .branch-popup .ui-dialog-content h3 {
   background-color: #505050;
 }
 
+.location-menu-wrapper {
+  background-color: #383839;
+}
+.location-menu__item a {
+  color: #fffff6;
+}
+.location-menu-wrapper a:hover,
+.location-menu-wrapper .active {
+  background-color: #505051;
+}
+
 .viewport .nav-level-2 > a:hover,
 .viewport .nav-level-2 > a:focus,
 .is-camp .viewport .nav-level-2 > a:hover,

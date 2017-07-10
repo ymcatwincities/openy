@@ -39,6 +39,9 @@ $info = [
     'camplink' => t('Camp link color'),
     'campbutton' => t('Camp button color'),
     'campbuttonlink' => t('Camp button link color'),
+    'locationmenubg' => t('Location menu background'),
+    'locationmenulink' => t('Location menu link color'),
+    'locationmenuhighlight' => t('Location menu highlight color'),
   ],
   // Pre-defined color schemes.
   'schemes' => [
@@ -76,6 +79,9 @@ $info = [
         'camplink' => '#377bb6',
         'campbutton' => '#1dafed',
         'campbuttonlink' => '#fffff7',
+        'locationmenubg' => '#383839',
+        'locationmenulink' => '#fffff6',
+        'locationmenuhighlight' => '#505051',
       ],
     ],
   ],
