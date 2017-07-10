@@ -4,3 +4,4 @@ services:
     factory: daxko.client.factory:get
   daxko.client.factory:
     class: Drupal\daxko\DaxkoClientFactory
+    arguments: ['@config.factory']

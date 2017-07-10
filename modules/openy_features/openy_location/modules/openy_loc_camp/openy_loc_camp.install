@@ -166,3 +166,33 @@ function openy_loc_camp_update_8004() {
     }
   }
 }
+
+/**
+ * Update description for field meta tags.
+ */
+function openy_loc_camp_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_camp');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.camp.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.camp.field_meta_tags',
+    'description'
+  );
+}
+
+/**
+ * Add help text to Header Area.
+ */
+function openy_loc_camp_update_8006() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_camp');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.camp.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.node.camp.default',
+    'third_party_settings.field_group.group_header_area.format_settings.description'
+  );
+}

@@ -57,6 +57,9 @@
     max-width: 24px;
     float: left;
     width: auto;
+    &.fa-handshake-o {
+      margin-right: 20px;
+    }
     @include breakpoint (768px) {
       font-size: 26px;
       max-height: 26px;
@@ -328,7 +331,7 @@
     margin-bottom: 27px;
   }
 
-  h3 {
+  h2 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     color: $default-grey;
@@ -339,9 +342,12 @@
     letter-spacing: 2px;
   }
 
-  h2 {
+  .field-prgf-description h2 {
     color: $purple;
+    font-family: $font-style-cachet-ubuntu;
     font-weight: bold;
+    letter-spacing: normal;
+    text-transform: none;
 
     a {
       text-decoration: none;
@@ -383,6 +389,9 @@
   .link {
     font-size: 15px;
     color: $blue;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -550,18 +559,42 @@
     }
 
     .banner-title {
-      margin: 0;
+      margin: 0 0 10px;
       max-width: 700px;
     }
 
   }
 }
 
-.paragraph .h1 {
-  font-weight: bold;
+.paragraph {
+  .h1 {
+    font-weight: bold;
 
-  [class*='sidebar'] & {
-    padding-bottom: 1em;
+    [class*='sidebar'] & {
+      padding-bottom: 1em;
+    }
+  }
+  &--type--latest-blog-posts,
+  &--type--blog-posts-listing,
+  &--type--latest-blog-posts-branch,
+  &--type--latest-blog-posts-camp {
+    .h1 {
+      margin-bottom: 10px;
+      font-size: $h1-size;
+    }
+    .blog-more-teaser {
+      margin-top: 0;
+    }
+    .views-exposed-form {
+      margin-top: 24px;
+      margin-bottom: 30px;
+    }
+    @include breakpoint($screen-sm) {
+      .blog-more-teaser-results-wrapper {
+        margin-left: -15px;
+        margin-right: -15px;
+      }
+    }
   }
 }
 
@@ -813,21 +846,6 @@
   }
 }
 
-.paragraph--type--blog-posts-listing,
-.paragraph--type--latest-blog-posts,
-.paragraph--type--latest-blog-posts-camp,
-.paragraph--type--latest-blog-posts-branch {
-  .views-exposed-form {
-    margin-bottom: 30px;
-  }
-  @include breakpoint($screen-sm) {
-    .blog-more-teaser-results-wrapper {
-      margin-left: -15px;
-      margin-right: -15px;
-    }
-  }
-}
-
 .paragraph--type--openy-prgf-mbrshp-calc {
   padding: 20px 0;
 }
@@ -884,7 +902,7 @@
   .form-actions {
     margin-top: 10px;
     @include breakpoint($screen-sm) {
-      margin-top: 31px;
+      margin-top: 49px;
     }
   }
 }

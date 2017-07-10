@@ -1,7 +1,8 @@
-name: 'OpenY paragraph featured content'
-description: 'OpenY paragraph featured content'
+name: 'OpenY Paragraph Featured Content'
+description: 'OpenY Paragraph Featured Content.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - blazy
   - field
@@ -11,4 +12,3 @@ dependencies:
   - paragraphs
   - slick
   - text
-version: 8.x-1.0
