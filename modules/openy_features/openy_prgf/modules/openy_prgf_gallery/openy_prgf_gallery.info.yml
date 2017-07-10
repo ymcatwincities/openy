@@ -1,7 +1,8 @@
-name: 'OpenY paragraph gallery'
-description: 'OpenY paragraph gallery'
+name: 'OpenY Paragraph Gallery'
+description: 'OpenY Paragraph Gallery.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - entity_browser
   - field
@@ -12,4 +13,3 @@ dependencies:
   - openy_prgf
   - paragraphs
   - text
-version: 8.x-1.0

@@ -25,6 +25,9 @@ function openy_install_tasks() {
     'openy_set_frontpage' => [
       'type' => 'batch',
     ],
+    'openy_discover_broken_paragraphs' => [
+      'type' => 'batch',
+    ],
     'openy_third_party_services' => [
       'display_name' => t('3rd party services'),
       'display' => TRUE,
@@ -234,6 +237,38 @@ function openy_set_frontpage(array &$install_state) {
   $config_factory->getEditable('system.site')->set('page.front', '/node/' . reset($nids))->save();
 
   return ['operations' => []];
+}
+
+/**
+ * Fix broken paragraphs which for some reason weren't discovered.
+ *
+ * @see https://www.drupal.org/node/2889297
+ * @see https://www.drupal.org/node/2889298
+ */
+function openy_discover_broken_paragraphs(array &$install_state) {
+  $tables = ['paragraph__field_prgf_block', 'paragraph_revision__field_prgf_block'];
+
+  foreach ($tables as $table) {
+    // Select all paragraphs that have "broken" as plugin_id.
+    $query = \Drupal::database()->select($table, 'ptable');
+    $query->fields('ptable');
+    $query->condition('ptable.field_prgf_block_plugin_id', 'broken');
+    $broken_paragraphs = $query->execute()->fetchAll();
+
+    // Update to correct plugin_id based on data array.
+    foreach ($broken_paragraphs as $paragraph) {
+      $data = unserialize($paragraph->field_prgf_block_plugin_configuration);
+      $query = \Drupal::database()->update($table);
+      $query->fields([
+        'field_prgf_block_plugin_id' => $data['id'],
+      ]);
+      $query->condition('bundle', $paragraph->bundle);
+      $query->condition('entity_id', $paragraph->entity_id);
+      $query->condition('revision_id', $paragraph->revision_id);
+      $query->condition('langcode', $paragraph->langcode);
+      $query->execute();
+    }
+  }
 }
 
 /**

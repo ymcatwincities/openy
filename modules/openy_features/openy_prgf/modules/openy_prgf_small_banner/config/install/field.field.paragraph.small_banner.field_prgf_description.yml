@@ -5,7 +5,6 @@ dependencies:
     - field.storage.paragraph.field_prgf_description
     - paragraphs.paragraphs_type.small_banner
   module:
-    - datalayer
     - text
 third_party_settings:
   datalayer:
@@ -16,7 +15,7 @@ field_name: field_prgf_description
 entity_type: paragraph
 bundle: small_banner
 label: Description
-description: ''
+description: 'WYSIWYG field without summary.'
 required: false
 translatable: true
 default_value: {  }

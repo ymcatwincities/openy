@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Group Schedules'
+description: 'Group Schedules paragraph.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - openy_group_schedules
+  - paragraphs
+  - plugin
+version: 8.x-1.0

@@ -1,7 +1,8 @@
 name: 'OpenY Paragraph Classes Listing'
-description: 'OpenY Paragraph Classes Listing'
+description: 'OpenY Paragraph Classes Listing.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - field
   - node
@@ -12,4 +13,4 @@ dependencies:
   - user
   - verf
   - views
-version: 8.x-1.2
+  - views_block_filter_block

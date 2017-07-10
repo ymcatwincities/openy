@@ -39,15 +39,15 @@ content:
   field_prgf_link:
     weight: 3
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
+      placeholder_url: '/teaser_subpage_uri'
+      placeholder_title: 'Teaser subpage title'
     third_party_settings: {  }
     type: link_default
   field_prgf_title:
     weight: 0
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Provide a title here'
     third_party_settings: {  }
     type: string_textfield
 hidden:

@@ -74,18 +74,20 @@
 #}
 {%
 set classes = [
-  'subprogram-listing-item',
-  'clearfix',
-  'row',
-  ]
+'subprogram-listing-item',
+'clearfix',
+'row',
+]
 %}
 <article{{ attributes.addClass(classes) }}>
+  <div class="col-sm-7 title">
+    <h2>{{ label }}</h2>
+  </div>
   <div class="col-sm-5 image">
     <a href="{{ url }}">{{ content.field_category_image }}</a>
   </div>
   <div class="col-sm-7 content">
-    <h2>{{ label }}</h2>
     {{ content.field_category_description }}
-    <a href="{{ url }}" class="btn btn-link blue">{{ 'Open category'|t }}</a>
+    <a href="{{ url }}" title="{{ node.label }}" class="btn btn-link blue">{{ 'Open category'|t }}</a>
   </div>
 </article>

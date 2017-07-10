@@ -190,11 +190,6 @@
 
   .page-head__main-menu {
 
-    .nav-level-2 > a:hover,
-    .nav-level-2 > a:focus {
-      text-decoration: none;
-    }
-
     .dropdown-menu>li>a:focus,
     .dropdown-menu>li>a:hover {
       background: none;
@@ -360,4 +355,9 @@
       }
     }
   }
+}
+
+// Overriding Bootstrap text decoration.
+.nav > li > a:hover {
+  text-decoration: underline;
 }
