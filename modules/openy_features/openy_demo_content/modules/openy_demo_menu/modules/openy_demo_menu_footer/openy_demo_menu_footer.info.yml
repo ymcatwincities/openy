@@ -1,7 +1,7 @@
-name: 'OpenY demo menu footer'
-description: 'OpenY demo menu footer'
+name: 'OpenY Demo Menu Footer'
+description: 'OpenY Demo Menu Footer.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - openy_demo_menu
-version: 8.x-1.0

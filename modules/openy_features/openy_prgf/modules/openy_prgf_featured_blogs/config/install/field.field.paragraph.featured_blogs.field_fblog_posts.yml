@@ -10,7 +10,7 @@ field_name: field_fblog_posts
 entity_type: paragraph
 bundle: featured_blogs
 label: 'Blog Posts'
-description: ''
+description: 'Multiple values. Reference field to Blog posts.'
 required: true
 translatable: true
 default_value: {  }

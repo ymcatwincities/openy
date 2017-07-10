@@ -17,9 +17,9 @@
       {{ 'It looks like there are no classes / sessions matching your search criteria.'|t }}
     {% endif %}
     {% for time, group in content %}
-      <div class="group_time">
+      <h2 class="group_time">
         {{ time }}
-      </div>
+      </h2>
       <div class="schedule-sessions-group-slider">
         {% for teaser in group %}
           <a class="views-row row-eq-height" href="{{ teaser.url }}" target="_blank">

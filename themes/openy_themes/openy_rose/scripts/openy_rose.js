@@ -128,7 +128,7 @@
 
           $list.css('width', listWidth + listPadding + "px");
 
-          var scroll = new IScroll($this[0], {
+          var scroll = new IScroll($this.find('.columns')[0], {
             scrollX: true,
             scrollY: false,
             momentum: false,
@@ -140,7 +140,7 @@
 
           // GRADIENT BEHAVIOUR SCRIPT.
           var obj = $('.camp-menu');
-          var objWrap = $this.append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
+          var objWrap = $this.find('.columns').append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
           objWrap = document.querySelector('.columns-gradient');
           var sliderLength = listWidth - objWrap.offsetWidth + 40;
           var firstGap = 20;
@@ -175,6 +175,65 @@
             }
           });
         }, 100);
+      });
+    }
+  };
+
+  // Adjust labels for hamburger menu icon.
+  Drupal.behaviors.menuIconLabelChange = {
+    attach: function (context, settings) {
+      $('.navbar-toggle').on('click', function () {
+        if ($(this).attr('aria-expanded') == 'false') {
+          $(this).children('.sr-only').text(Drupal.t('Close main navigation'));
+        } else {
+          $(this).children('.sr-only').text(Drupal.t('Navigation menu'));
+        }
+      });
+    }
+  };
+
+  /**
+   * Adjust the top nav position when the skip link is in focus.
+   */
+  Drupal.behaviors.adjustSkipLink = {
+    attach: function (context, settings) {
+      // On focus, move the top nav down to show the skip link.
+      $('.skip-link').on('focus', function () {
+        var link_height = $(this).height();
+        $('.top-navs').css({'margin-top': link_height});
+      });
+      // When focus is lost, remove the unneeded height.
+      $('.skip-link').on('focusout', function () {
+        $('.top-navs').css({'margin-top': '0'});
+      });
+    }
+  };
+
+  /**
+   * Add focus for first loaded element.
+   */
+  Drupal.behaviors.load_more_focus = {
+    attach: function (context, settings) {
+      $('.views-element-container .load_more_button .button', context).click(function () {
+        var $viewsRow = $('.views-element-container .views-row'),
+          indexLastRow = $viewsRow.length,
+          getElement,
+          itemFocus;
+        if (Drupal.views !== undefined) {
+          $.each(Drupal.views.instances, function (i, view) {
+            if (view.settings.view_name.length != 0) {
+              $(document).ajaxComplete(function (event, xhr, settings) {
+                getElement = $('.views-element-container .views-row');
+                itemFocus = getElement[indexLastRow];
+                // Add focus to element.
+                $(itemFocus).find('h3 a').focus();
+                // Update number indexLastRow.
+                $viewsRow = $('.views-element-container .views-row');
+                indexLastRow = $viewsRow.length;
+              });
+            }
+          });
+        }
       });
     }
   };

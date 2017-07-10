@@ -106,3 +106,69 @@ function openy_node_blog_update_8003() {
     }
   }
 }
+
+/**
+ * Update description for fields.
+ */
+function openy_node_blog_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.blog.field_blog_category' =>[
+      'description',
+    ],
+    'field.field.node.blog.field_blog_description' => [
+      'description',
+    ],
+    'field.field.node.blog.field_blog_image' => [
+      'description',
+    ],
+    'field.field.node.blog.field_blog_location' => [
+      'description',
+    ],
+    'field.field.node.blog.field_content' => [
+      'description',
+    ],
+    'field.field.node.blog.field_sidebar_content' => [
+      'description',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Remove DataLayer from dependency in the field instance.
+ */
+function openy_node_blog_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_blog');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.blog.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.blog.field_meta_tags',
+    'dependencies.module'
+  );
+}
+
+/**
+ * Update description for field meta tags.
+ */
+function openy_node_blog_update_8006() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_blog');
+  $config .= '/config/install/';
+  $config .= 'field.field.node.blog.field_meta_tags.yml';
+  $config_importer->update(
+    $config,
+    'field.field.node.blog.field_meta_tags',
+    'description'
+  );
+}
