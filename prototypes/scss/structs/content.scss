@@ -14,6 +14,8 @@ body {
 .field-prgf-fc-title {
   text-align: center;
   width: 100%;
+  clear: both;
+
   h2 {
     font-family: $font-cachet-book;
     font-weight: 600;
@@ -23,6 +25,7 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
   }
+
   &.mobile {
     h2 {
       font-size: 28px;
@@ -65,7 +68,6 @@ body {
 .node--type-landing {
   font-size: 15px;
 }
-
 
 .paragraph--type--simple-content,
 .paragraph--type--1c,
