@@ -12,7 +12,7 @@
  *   An array containing examples of all elements.
  */
 function webform_test_example_elements_composite() {
-  /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+  /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
   $element_manager = \Drupal::service('plugin.manager.webform.element');
 
   $definitions = $element_manager->getDefinitions();

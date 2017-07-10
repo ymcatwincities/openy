@@ -12,6 +12,17 @@
   Drupal.webform.iCheck = Drupal.webform.iCheck || {};
   Drupal.webform.iCheck.options = Drupal.webform.iCheck.options || {};
 
+  function initializeCheckbox($input, options) {
+    $input.addClass('js-webform-icheck')
+      .iCheck(options)
+      // @see https://github.com/fronteed/iCheck/issues/244
+      .on('ifChecked', function (e) {
+        $(e.target).attr('checked', 'checked').change();
+      })
+      .on('ifUnchecked', function (e) {
+        $(e.target).removeAttr('checked').change();
+      });
+  }
   /**
    * Enhance checkboxes and radios using iCheck.
    *
@@ -22,16 +33,28 @@
       if (!$.fn.iCheck) {
         return;
       }
-
-      $('[data-webform-icheck]', context).each(function () {
-        var icheck = $(this).attr('data-webform-icheck');
+      $('input[data-webform-icheck]', context).each(function () {
+        var $input = $(this);
+        var icheck = $input.attr('data-webform-icheck');
 
         var options = $.extend({
           checkboxClass: 'icheckbox_' + icheck,
           radioClass: 'iradio_' + icheck
         }, Drupal.webform.iCheck.options);
 
-        $(this).find('input').addClass('js-webform-icheck')
+        // The line skin requires that the label be added to the options.
+        // @see http://icheck.fronteed.com/#skin-line
+        if (icheck.indexOf('line') === 0) {
+          var $label = $input.parent().find('label[for="' + $input.attr('id') + '"]');
+
+          // Set insert with label text.
+          options.insert = '<div class="icheck_line-icon"></div>' + $label.text();
+
+          // Make sure checkbox is outside the label and then remove the label.
+          $label.insertAfter($input).remove();
+        }
+
+        $input.addClass('js-webform-icheck')
           .iCheck(options)
           // @see https://github.com/fronteed/iCheck/issues/244
           .on('ifChecked', function (e) {

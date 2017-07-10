@@ -3,12 +3,10 @@
 namespace Drupal\address\Plugin\Validation\Constraint;
 
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface;
-use Drupal\address\AddressInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Validates the country constraint.
@@ -43,12 +41,7 @@ class CountryConstraintValidator extends ConstraintValidator implements Containe
    * {@inheritdoc}
    */
   public function validate($value, Constraint $constraint) {
-    if (!($value instanceof AddressInterface)) {
-      throw new UnexpectedTypeException($value, 'AddressInterface');
-    }
-
-    $address = $value;
-    $country_code = $address->getCountryCode();
+    $country_code = $value;
     if ($country_code === NULL || $country_code === '') {
       return;
     }
@@ -56,18 +49,16 @@ class CountryConstraintValidator extends ConstraintValidator implements Containe
     $countries = $this->countryRepository->getList();
     if (!isset($countries[$country_code])) {
       $this->context->buildViolation($constraint->invalidMessage)
-        ->atPath('country_code')
         ->setParameter('%value', $this->formatValue($country_code))
         ->addViolation();
       return;
     }
 
     $available_countries = $constraint->availableCountries;
-     if (!empty($available_countries) && !in_array($country_code, $available_countries)) {
-       $this->context->buildViolation($constraint->notAvailableMessage)
-          ->atPath('country_code')
-          ->setParameter('%value', $this->formatValue($country_code))
-          ->addViolation();
+    if (!empty($available_countries) && !in_array($country_code, $available_countries)) {
+      $this->context->buildViolation($constraint->notAvailableMessage)
+        ->setParameter('%value', $this->formatValue($country_code))
+        ->addViolation();
     }
   }
 

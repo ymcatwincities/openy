@@ -38,26 +38,21 @@ field_settings:
         - field.storage.paragraph.field_text_demo
       module:
         - paragraphs
-        - paragraphs
 processor_settings:
-  add_url:
-    plugin_id: add_url
-    settings: {  }
+  rendered_item: {  }
+  aggregated_field: {  }
+  add_url: {  }
 options:
   index_directly: true
   cron_limit: 50
 datasource_settings:
   'entity:node':
-    plugin_id: 'entity:node'
-    settings:
-      bundles:
-        default: true
-        selected: {  }
-      languages:
-        default: true
-        selected: {  }
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
 tracker_settings:
-  default:
-    plugin_id: default
-    settings: {  }
+  default: {  }
 server: paragraphs_demo_server

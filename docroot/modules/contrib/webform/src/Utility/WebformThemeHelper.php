@@ -16,7 +16,7 @@ class WebformThemeHelper {
   public static function getActiveThemeNames() {
     $active_theme = \Drupal::theme()->getActiveTheme();
     // Note: Reversing the order so that base themes are first.
-    return array_reverse(array_merge([$active_theme ->getName()], array_keys($active_theme->getBaseThemes())));
+    return array_reverse(array_merge([$active_theme->getName()], array_keys($active_theme->getBaseThemes())));
   }
 
   /**

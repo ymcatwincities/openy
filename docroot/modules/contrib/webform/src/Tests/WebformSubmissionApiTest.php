@@ -3,9 +3,9 @@
 namespace Drupal\webform\Tests;
 
 use Drupal\webform\Entity\Webform;
-use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\WebformSubmissionForm;
+use Drupal\webform\WebformSubmissionInterface;
 
 /**
  * Tests for webform submission API.
@@ -13,13 +13,6 @@ use Drupal\webform\WebformSubmissionForm;
  * @group Webform
  */
 class WebformSubmissionApiTest extends WebformTestBase {
-
-  /**
-   * Modules to enable.
-   *
-   * @var array
-   */
-  public static $modules = ['webform'];
 
   /**
    * Webforms to load.
@@ -78,6 +71,32 @@ class WebformSubmissionApiTest extends WebformTestBase {
       'subject' => 'Subject field is required.',
       'message' => 'Message field is required.',
     ]);
+
+    // Check validation occurs for drafts simple webform.
+    $values = [
+      'webform_id' => 'contact',
+      'in_draft' => TRUE,
+      'data' => []
+    ];
+    $errors = WebformSubmissionForm::validateValues($values);
+    if ($errors) {
+      WebformElementHelper::convertRenderMarkupToStrings($errors);
+    }
+    $this->assertEqual($errors, [
+      'name' => 'Your Name field is required.',
+      'email' => 'Your Email field is required.',
+      'subject' => 'Subject field is required.',
+      'message' => 'Message field is required.',
+    ]);
+
+    // Check validation is skipped when saving drafts simple webform.
+    $values = [
+      'webform_id' => 'contact',
+      'in_draft' => TRUE,
+      'data' => [],
+    ];
+    $webform_submission = WebformSubmissionForm::submitValues($values);
+    $this->assert($webform_submission instanceof WebformSubmissionInterface);
 
     /**************************************************************************/
     // Multistep form.
@@ -157,12 +176,14 @@ class WebformSubmissionApiTest extends WebformTestBase {
     // Check that user limit is reached.
     $this->assertEqual(WebformSubmissionForm::isOpen($test_form_limit_webform), 'You are only allowed to have 1 submission for this webform.');
 
-    // Submit the form 2 more times to trigger the form total limit.
+    // Submit the form 3 more times to trigger the form total limit.
+    $this->drupalLogin($this->rootUser);
+    WebformSubmissionForm::submitValues($values);
     WebformSubmissionForm::submitValues($values);
     WebformSubmissionForm::submitValues($values);
 
     // Check that total limit is reached.
-    $this->assertEqual(WebformSubmissionForm::isOpen($test_form_limit_webform), 'Only 3 submissions are allowed.');
+    $this->assertEqual(WebformSubmissionForm::isOpen($test_form_limit_webform), 'Only 4 submissions are allowed.');
 
     // Check form closed message.
     $test_form_limit_webform->setStatus(FALSE)->save();

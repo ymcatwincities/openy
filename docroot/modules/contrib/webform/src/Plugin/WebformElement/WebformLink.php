@@ -3,8 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Component\Render\FormattableMarkup;
-use Drupal\Core\Form\FormState;
-use Drupal\webform\Element\WebformLink as WebformLinkElement;
+use Drupal\webform\WebformSubmissionInterface;
 
 /**
  * Provides a 'link' element.
@@ -22,23 +21,9 @@ class WebformLink extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  protected function getCompositeElements() {
-    return WebformLinkElement::getCompositeElements();
-  }
+  protected function formatHtmlItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+    $value = $this->getValue($element, $webform_submission, $options);
 
-  /**
-   * {@inheritdoc}
-   */
-  protected function getInitializedCompositeElement(array &$element) {
-    $form_state = new FormState();
-    $form_completed = [];
-    return WebformLinkElement::processWebformComposite($element, $form_state, $form_completed);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function formatHtmlItemValue(array $element, array $value) {
     return [
       'link' => [
         '#type' => 'link',
@@ -51,7 +36,9 @@ class WebformLink extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  protected function formatTextItemValue(array $element, array $value) {
+  protected function formatTextItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+    $value = $this->getValue($element, $webform_submission, $options);
+
     return [
       'link' => new FormattableMarkup('@title (@url)', ['@title' => $value['title'], '@url' => $value['url']]),
     ];

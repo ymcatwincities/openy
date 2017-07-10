@@ -2,10 +2,11 @@
 
 namespace Drupal\webform\Element;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Render\Element\CompositeFormElementTrait;
-use Drupal\webform\Entity\WebformOptions as WebformOptionsEntity;
+use Drupal\webform\Plugin\WebformElement\WebformManagedFileBase as WebformManagedFileBasePlugin;
 
 /**
  * Provides an base composite webform element.
@@ -28,7 +29,6 @@ abstract class WebformCompositeBase extends FormElement {
       '#pre_render' => [
         [$class, 'preRenderCompositeFormElement'],
       ],
-      '#theme' => str_replace('webform_', 'webform_composite_', $this->getPluginId()),
       '#theme_wrappers' => ['container'],
       '#title_display' => 'invisible',
       '#required' => FALSE,
@@ -40,8 +40,9 @@ abstract class WebformCompositeBase extends FormElement {
    * {@inheritdoc}
    */
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
-    $composite_elements = static::getCompositeElements();
     $default_value = [];
+
+    $composite_elements = static::getCompositeElements();
     foreach ($composite_elements as $composite_key => $composite_element) {
       if (isset($composite_element['#type']) && $composite_element['#type'] != 'label') {
         $default_value[$composite_key] = '';
@@ -54,6 +55,7 @@ abstract class WebformCompositeBase extends FormElement {
       }
       return $element['#default_value'] + $default_value;
     }
+
     return (is_array($input)) ? $input + $default_value : $default_value;
   }
 
@@ -76,22 +78,18 @@ abstract class WebformCompositeBase extends FormElement {
 
     // Add class name to wrapper attributes.
     $class_name = str_replace('_', '-', $element['#type']);
-    $element['#attributes']['class'][] = 'js-' . $class_name;
-    $element['#attributes']['class'][] = $class_name;
+    static::setAttributes($element, ['js-' . $class_name, $class_name]);
 
     return $element;
   }
 
   /**
-   * Processes a composite webform element.
+   * Initialize a composite elements.
    */
-  public static function processWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
-    if (isset($element['#initialize'])) {
-      return $element;
-    }
+  public static function initializeCompositeElements(&$element) {
+    /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
+    $element_manager = \Drupal::service('plugin.manager.webform.element');
 
-    $element['#initialize'] = TRUE;
-    $element['#tree'] = TRUE;
     $composite_elements = static::getCompositeElements();
     foreach ($composite_elements as $composite_key => &$composite_element) {
       // Transfer '#{composite_key}_{property}' from main element to composite
@@ -103,58 +101,58 @@ abstract class WebformCompositeBase extends FormElement {
         }
       }
 
-      if (isset($element['#value'][$composite_key])) {
-        $composite_element['#value'] = $element['#value'][$composite_key];
+      // Initialize, prepare, and populate composite sub-element.
+      $element_plugin = $element_manager->getElementInstance($composite_element);
+
+      // Note: File uploads are not supported because uploaded file
+      // destination save and delete callbacks are not setup.
+      // @see \Drupal\webform\Plugin\WebformElement\WebformManagedFileBase::postSave
+      // @see \Drupal\webform\Plugin\WebformElement\WebformManagedFileBase::postDelete
+      if ($element_plugin instanceof WebformManagedFileBasePlugin) {
+        throw new \Exception('File upload element is not supported within composite elements.');
+      }
+      if ($element_plugin->hasMultipleValues($composite_element)) {
+        throw new \Exception('Multiple elements are not supported within composite elements.');
+      }
+      if ($element_plugin->isComposite()) {
+        throw new \Exception('Nested composite elements are not supported within composite elements.');
       }
 
-      // Always set #access which is used to hide/show the elements container.
-      $composite_element += [
-        '#access' => TRUE,
-      ];
+      $element_plugin->initialize($composite_element);
+    }
 
-      // Never required hidden composite elements.
-      if ($composite_element['#access'] == FALSE) {
+    return $composite_elements;
+  }
+
+  /**
+   * Processes a composite webform element.
+   */
+  public static function processWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
+    if (isset($element['#initialize'])) {
+      return $element;
+    }
+    $element['#initialize'] = TRUE;
+
+    /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
+    $element_manager = \Drupal::service('plugin.manager.webform.element');
+    $element['#tree'] = TRUE;
+    $composite_elements = static::initializeCompositeElements($element);
+    foreach ($composite_elements as $composite_key => &$composite_element) {
+      // Set #default_value for sub elements.
+      if (isset($element['#value'][$composite_key])) {
+        $composite_element['#default_value'] = $element['#value'][$composite_key];
+      }
+
+      // Never require hidden composite elements.
+      if (isset($composite_element['#access']) && $composite_element['#access'] == FALSE) {
         unset($composite_element['#required']);
       }
 
-      // Load options.
-      if (isset($composite_element['#options'])) {
-        $composite_element['#options'] = WebformOptionsEntity::getElementOptions($composite_element);
-      }
-
-      // Handle #type specific customizations.
-      if (isset($composite_element['#type'])) {
-        switch ($composite_element['#type']) {
-          case 'tel':
-            // Add international phone library.
-            // Add international library and classes.
-            if (!empty($composite_element['#international'])) {
-              $composite_element['#attached']['library'][] = 'webform/webform.element.telephone';
-              $composite_element['#attributes']['class'][] = 'js-webform-telephone-international';
-              $composite_element['#attributes']['class'][] = 'webform-webform-telephone-international';
-              if (!empty($composite_element['#international_initial_country'])) {
-                $composite_element['#attributes']['data-webform-telephone-international-initial-country'] = $composite_element['#international_initial_country'];
-              }
-            }
-            break;
-
-          case 'select':
-          case 'webform_select_other':
-            // Always include an empty option, even if the composite element
-            // is not required.
-            // @see https://api.drupal.org/api/drupal/core!lib!Drupal!Core!Render!Element!Select.php/class/Select/8.2.x
-            // Use placeholder as empty option.
-            if (!isset($composite_element['#empty_option'])) {
-              if (isset($composite_element['#placeholder'])) {
-                $composite_element['#empty_option'] = $composite_element['#placeholder'];
-              }
-              elseif (empty($composite_element['#required'])) {
-                $composite_element['#empty_option'] = t('- None -');
-              }
-            }
-            break;
-        }
-      }
+      // Initialize, prepare, and populate composite sub-element.
+      $element_plugin = $element_manager->getElementInstance($composite_element);
+      $element_plugin->prepare($composite_element);
+      $element_plugin->finalize($composite_element);
+      $element_plugin->setDefaultValue($composite_element);
     }
 
     $element += $composite_elements;
@@ -171,13 +169,21 @@ abstract class WebformCompositeBase extends FormElement {
    * Validates a composite element.
    */
   public static function validateWebformComposite(&$element, FormStateInterface $form_state, &$complete_form) {
-    $value = $element['#value'];
+    // IMPORTANT: Must get values from the $form_states since sub-elements
+    // may call $form_state->setValueForElement() via their validation hook.
+    // @see \Drupal\webform\Element\WebformEmailConfirm::validateWebformEmailConfirm
+    // @see \Drupal\webform\Element\WebformOtherBase::validateWebformOther
+    $value = NestedArray::getValue($form_state->getValues(), $element['#parents']);
 
     // Only validate composite elements that are visible.
     $has_access = (!isset($element['#access']) || $element['#access'] === TRUE);
     if (!$has_access) {
       return;
     }
+
+    /************************************************************************/
+    // @todo Remove below code once WebformElement integration is completed.
+    /************************************************************************/
 
     // Validate required composite elements.
     $composite_elements = static::getCompositeElements();

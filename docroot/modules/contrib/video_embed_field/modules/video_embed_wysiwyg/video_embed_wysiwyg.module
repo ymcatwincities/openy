@@ -32,13 +32,15 @@ function video_embed_wysiwyg_form_filter_format_form_alter(&$form, $form_state, 
 function video_embed_wysiwyg_toolbar_filter_validate($form, FormStateInterface $form_state) {
   $filter_enabled = !empty($form_state->getValue(['filters', 'video_embed_wysiwyg', 'status']));
   $button_enabled = FALSE;
-  $button_groups = json_decode($form_state->getValue(['editor', 'settings', 'toolbar', 'button_groups']), TRUE);
-  if (!empty($button_groups[0])) {
-    foreach ($button_groups[0] as $button_group) {
-      foreach ($button_group['items'] as $item) {
-        if ($item === 'video_embed') {
-          $button_enabled = TRUE;
-          break 2;
+  $button_rows = json_decode($form_state->getValue(['editor', 'settings', 'toolbar', 'button_groups']), TRUE);
+  if (!empty($button_rows)) {
+    foreach ($button_rows as $button_row) {
+      foreach ($button_row as $button_group) {
+        foreach ($button_group['items'] as $item) {
+          if ($item === 'video_embed') {
+            $button_enabled = TRUE;
+            break 2;
+          }
         }
       }
     }

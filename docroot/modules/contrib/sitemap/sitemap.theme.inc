@@ -165,7 +165,7 @@ function template_preprocess_sitemap(array &$variables) {
         $vocabulary = \Drupal::entityManager()->getStorage('taxonomy_vocabulary')->load($id);
         $vocabularies = $config->get('show_vocabularies');
 
-        if (!empty($vocabularies[$vocabulary->id()])) {
+        if ($vocabulary && !empty($vocabularies[$vocabulary->id()])) {
           // Compile the vocabulary trees.
           $variables['sitemap_items']['vocabulary_' . $vocabulary->id()] = \Drupal::service('sitemap.helper')->getTerms($vocabulary);
         }

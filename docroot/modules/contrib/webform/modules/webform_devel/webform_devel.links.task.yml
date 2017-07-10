@@ -1,6 +1,18 @@
+webform_devel.settings:
+  title: 'Devel'
+  route_name: webform_devel.settings
+  parent_id: webform.settings
+  weight: 100
+
 entity.webform.export_form:
   title: 'Export'
   route_name: entity.webform.export_form
+  parent_id: devel.entities:webform.devel_tab
+  weight: 100
+
+entity.webform.schema_form:
+  title: 'Webform'
+  route_name: entity.webform.schema_form
   parent_id: devel.entities:webform.devel_tab
   weight: 100
 
