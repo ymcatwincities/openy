@@ -39,7 +39,7 @@ function webform_test_test_element_format(WebformInterface $webform, $composite 
   /** @var \Drupal\webform\WebformSubmissionGenerateInterface $submission_generate */
   $submission_generate = \Drupal::service('webform_submission.generate');
 
-  /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+  /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
   $element_manager = \Drupal::service('plugin.manager.webform.element');
 
   $definitions = $element_manager->getDefinitions();

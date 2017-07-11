@@ -10,7 +10,7 @@ dependencies:
 id: exposedformacquia_searchpage
 theme: bartik
 region: sidebar_first
-weight: -6
+weight: -8
 provider: null
 plugin: 'views_exposed_filter_block:acquia_search-page'
 settings:
@@ -18,7 +18,5 @@ settings:
   label: ''
   provider: views
   label_display: visible
-  cache:
-    max_age: -1
   views_label: ''
 visibility: {  }

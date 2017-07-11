@@ -110,7 +110,7 @@ class WebformNodeResultsTest extends WebformNodeTestBase {
     $this->assertRaw('<a href="' . $node_submission_url->toString() . '" rel="next" title="Go to next page">Next submission <b>›</b></a>');
 
     // Check webform node saved draft.
-    $webform->setSetting('draft', WebformInterface::DRAFT_ENABLED_AUTHENTICATED);
+    $webform->setSetting('draft', WebformInterface::DRAFT_AUTHENTICATED);
     $webform->save();
 
     // Check webform saved draft.

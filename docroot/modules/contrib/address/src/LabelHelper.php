@@ -67,10 +67,10 @@ class LabelHelper {
       AddressField::SORTING_CODE => t('Sorting code', [], ['context' => 'Address label']),
       AddressField::ADDRESS_LINE1 => t('Address line 1', [], ['context' => 'Address label']),
       AddressField::ADDRESS_LINE2 => t('Address line 2', [], ['context' => 'Address label']),
-      AddressField::ORGANIZATION => t('Organization', [], ['context' => 'Address label']),
-      AddressField::GIVEN_NAME => t('Given name', [], ['context' => 'Address label']),
-      AddressField::ADDITIONAL_NAME => t('Additional name', [], ['context' => 'Address label']),
-      AddressField::FAMILY_NAME => t('Family name', [], ['context' => 'Address label']),
+      AddressField::ORGANIZATION => t('Company', [], ['context' => 'Address label']),
+      AddressField::GIVEN_NAME => t('First name', [], ['context' => 'Address label']),
+      AddressField::ADDITIONAL_NAME => t('Middle name', [], ['context' => 'Address label']),
+      AddressField::FAMILY_NAME => t('Last name', [], ['context' => 'Address label']),
     ];
   }
 

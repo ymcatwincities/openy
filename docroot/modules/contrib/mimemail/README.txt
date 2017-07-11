@@ -93,10 +93,8 @@
   To create a custom mail template copy the mimemail-message.tpl.php file from
   the mimemail/theme directory into your default theme's folder. Both general and
   by-mailkey theming can be performed:
-    mimemail-message--[module]--[key].tpl.php (for messages with a specific module and key)
-    mimemail-message--[module].tpl.php (for messages with a specific module)
-    mimemail-message--[key].tpl.php (for messages with a specific key)
-    mimemail-message.tpl.php (for all messages)
+    mimemail-message--[key].html.twig (for messages with a specific key)
+    mimemail-message.html.twig (for all messages)
 
   Messages can be rendered using different themes. You can choose the following
   settings to render the e-mail:

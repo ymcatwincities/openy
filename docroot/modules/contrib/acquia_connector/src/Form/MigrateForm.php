@@ -1,12 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_connector\Form\SetupForm.
- */
-
 namespace Drupal\acquia_connector\Form;
 
+use Drupal\acquia_connector\Helper\Storage;
 use Drupal\acquia_connector\Migration;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\ConfigFormBase;
@@ -39,8 +35,9 @@ class MigrateForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('acquia_connector.settings');
-    $identifier = $config->get('identifier');
-    $key = $config->get('key');
+    $storage = new Storage();
+    $identifier = $storage->getIdentifier();
+    $key = $storage->getKey();
     $client = \Drupal::service('acquia_connector.client');
     $error = NULL;
     try {
@@ -79,7 +76,7 @@ class MigrateForm extends ConfigFormBase {
 
     $form['envs'] = array(
       '#type' => 'value',
-      '#value' => $result['body']['environments']
+      '#value' => $result['body']['environments'],
     );
 
     $envs = array();
@@ -165,11 +162,24 @@ class MigrateForm extends ConfigFormBase {
     $migration = $migration_class->prepare($env);
     $migration['site_name'] = $site_name;
     if ($reduce_db_size) {
-      $migration['no_data_tables'] = array('cachetags', 'cache_bootstrap', 'cache_config', 'cache_data', 'cache_default', 'cache_discovery', 'cache_entity', 'cache_menu', 'cache_render', 'cache_toolbar', 'sessions', 'watchdog');
+      $migration['no_data_tables'] = [
+        'cachetags',
+        'cache_bootstrap',
+        'cache_config',
+        'cache_data',
+        'cache_default',
+        'cache_discovery',
+        'cache_entity',
+        'cache_menu',
+        'cache_render',
+        'cache_toolbar',
+        'sessions',
+        'watchdog',
+      ];
     }
 
     if (isset($migration['error']) && $migration['error'] !== FALSE) {
-      drupal_set_message($this->t('Unable to begin migration. @error', array('@error' => $migration['error'])), 'error');
+      drupal_set_message($this->t('Unable to begin migration. @error', ['@error' => $migration['error']]), 'error');
       $form_state->setRedirect('acquia_connector.settings');
     }
     else {

@@ -20,7 +20,7 @@ class WebformNodeTest extends WebformNodeTestBase {
    *
    * @var array
    */
-  public static $modules = ['webform', 'webform_node'];
+  public static $modules = ['block', 'webform', 'webform_node'];
 
   /**
    * Webforms to load.
@@ -37,6 +37,9 @@ class WebformNodeTest extends WebformNodeTestBase {
 
     // Create users.
     $this->createUsers();
+
+    // Place webform test blocks.
+    $this->placeWebformBlocks('webform_test_block_submission_limit');
   }
 
   /**
@@ -171,21 +174,52 @@ class WebformNodeTest extends WebformNodeTestBase {
     ]);
     $limit_form->save();
 
-    // Check per source entity user limit.
+    $this->drupalGet('node/' . $node->id());
+
+    // Check submission limit blocks.
+    $this->assertRaw('0 user + source entity submission(s)');
+    $this->assertRaw('1 user + source entity limit');
+    $this->assertRaw('0 webform + source entity submission(s)');
+    $this->assertRaw('3 webform + source entity limit');
+
+    // Create submission as authenticated user.
     $this->drupalLogin($this->normalUser);
     $this->postNodeSubmission($node);
+
     $this->drupalGet('node/' . $node->id());
+
+    // Check per source entity user limit.
     $this->assertNoFieldByName('op', 'Submit');
     $this->assertRaw('You are only allowed to have 1 submission for this webform.');
+
+    // Check submission limit blocks.
+    $this->assertRaw('1 user + source entity submission(s)');
+    $this->assertRaw('1 user + source entity limit');
+    $this->assertRaw('1 webform + source entity submission(s)');
+    $this->assertRaw('3 webform + source entity limit');
+
     $this->drupalLogout();
 
-    // Check per source entity total limit.
+    // Create 2 submissions as root user, who can ignore submission limits.
+    $this->drupalLogin($this->rootUser);
     $this->postNodeSubmission($node);
     $this->postNodeSubmission($node);
+    $this->drupalLogout();
+
+    $this->drupalLogin($this->normalUser);
+
     $this->drupalGet('node/' . $node->id());
+
+    // Check per source entity total limit.
     $this->assertNoFieldByName('op', 'Submit');
     $this->assertRaw('Only 3 submissions are allowed.');
     $this->assertNoRaw('You are only allowed to have 1 submission for this webform.');
+
+    // Check submission limit blocks.
+    $this->assertRaw('1 user + source entity submission(s)');
+    $this->assertRaw('1 user + source entity limit');
+    $this->assertRaw('3 webform + source entity submission(s)');
+    $this->assertRaw('3 webform + source entity limit');
 
     /**************************************************************************/
     // Prepopulate source entity.

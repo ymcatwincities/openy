@@ -30,13 +30,13 @@ function queue_ui_view_queue_item($queue_name, $queue_item) {
 function queue_ui_release_item_form($form, $form_state, $queue_name, $queue_item) {
   if ($queue = _queue_ui_queueclass($queue_name)) {
     return confirm_form(
-      array(
-        'queue_item' => array(
+      [
+        'queue_item' => [
           '#type' => 'value',
-          '#value' => array('queue_name' => $queue_name, 'itemid' => $queue_item),
-        ),
-      ),
-      t('Are you sure you want to release queue item %queue_item?', array('%queue_item' => $queue_item)),
+          '#value' => ['queue_name' => $queue_name, 'itemid' => $queue_item],
+        ],
+      ],
+      t('Are you sure you want to release queue item %queue_item?', ['%queue_item' => $queue_item]),
       QUEUE_UI_BASE . "/inspect/$queue_name",
       t('This action cannot be undone and will force the release of the item even if it is currently being processed.'),
       t('Release item'),
@@ -65,13 +65,13 @@ function queue_ui_release_item_form_submit($form, &$form_state) {
 function queue_ui_delete_item_form($form, $form_state, $queue_name, $queue_item) {
   if ($queue = _queue_ui_queueclass($queue_name)) {
     return confirm_form(
-      array(
-        'queue_item' => array(
+      [
+        'queue_item' => [
           '#type' => 'value',
-          '#value' => array('queue_name' => $queue_name, 'itemid' => $queue_item),
-        ),
-      ),
-      t('Are you sure you want to delete queue item %queue_item?', array('%queue_item' => $queue_item)),
+          '#value' => ['queue_name' => $queue_name, 'itemid' => $queue_item],
+        ],
+      ],
+      t('Are you sure you want to delete queue item %queue_item?', ['%queue_item' => $queue_item]),
       QUEUE_UI_BASE . "/inspect/$queue_name",
       t('This action cannot be undone and will force the deletion of the item even if it is currently being processed.'),
       t('Delete item'),

@@ -2,9 +2,6 @@
 
 namespace Drupal\webform\Plugin\WebformElement;
 
-use Drupal\webform\Element\WebformComputedToken as WebformComputedTokenElement;
-use Drupal\webform\WebformSubmissionInterface;
-
 /**
  * Provides a 'webform_computed_token' element.
  *
@@ -16,12 +13,5 @@ use Drupal\webform\WebformSubmissionInterface;
  * )
  */
 class WebformComputedToken extends WebformComputedBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function processValue(array $element, WebformSubmissionInterface $webform_submission) {
-    return WebformComputedTokenElement::processValue($element, $webform_submission);
-  }
 
 }
