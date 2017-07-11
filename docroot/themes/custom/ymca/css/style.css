@@ -8705,7 +8705,16 @@ span.grey-caret:after {
 .nav-location li.current ul {
   display: none;
 }
+.nav-location a.home span,
+.nav-location a.home .caret {
+  display: none;
+}
 
+@media (min-width: 48em) {
+  .nav-location li {
+    display: table-cell !important;
+  }
+}
 @media (min-width: 0) and (max-width: 47.9375em) {
   .show-mobile-sub-navigation .nav-location {
     display: block !important;
@@ -8714,6 +8723,8 @@ span.grey-caret:after {
   #nav-location {
     position: relative;
     margin-top: -30px;
+    top: 0;
+    height: auto;
   }
   #nav-location .col-lg-12 {
     padding: 0;
@@ -8776,6 +8787,9 @@ span.grey-caret:after {
   }
   #nav-location ul.nav a:after, #nav-location ul.nav a:before {
     display: none;
+  }
+  #nav-location ul.nav a .name {
+    display: inline-block;
   }
   #nav-location ul.nav a .caret {
     display: inline-block;
