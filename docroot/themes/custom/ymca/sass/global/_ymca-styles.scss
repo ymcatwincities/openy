@@ -1044,19 +1044,44 @@ span.grey-caret {
     }
   }
 }
+.nav-location {
+  li.current {
+    ul {
+      display: none;
+    }
+  }
+}
 @include breakpoint(0 767px) {
+  .show-mobile-sub-navigation {
+    .nav-location {
+      display: block !important;
+    }
+  }
   #nav-location {
-    display: block !important;
     position: relative;
     margin-top: -30px;
     .col-lg-12 {
       padding: 0;
     }
     ul.nav {
+      display: block;
+      position: static;
+      float: none;
+      min-width: 1px;
+      padding: 0;
+      margin: 0;
+      background-color: transparent;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      > li:first-child {
+        display: block;
+      }
       li {
         background: none;
         border-top: 1px solid #3e3e3e;
         margin: 0;
+        display: none;
         &:after,
         &:before {
           display: none;
@@ -1101,6 +1126,28 @@ span.grey-caret {
         &:before {
           display: none;
         }
+       .caret {
+         display: inline-block;
+         width: auto;
+         height: 10px;
+         border: 0;
+         position: relative;
+         float: right;
+         top: 7px;
+         &:before {
+           text-transform: none;
+           position: relative;
+           display: inline-block;
+           padding: 2px 0 0 5px;
+           width: auto;
+           content: 'v';
+           vertical-align: top;
+           font-weight: normal;
+           font-size: .7em;
+           font-family: 'YMCA';
+           line-height: .4em;
+         }
+       }
       }
       .current > a {
         font-weight: bold;
