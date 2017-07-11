@@ -2188,6 +2188,9 @@ body.path-search #block-mainpagecontent li {
 .program-header .content .image {
   margin: 0;
 }
+.program-header .content .image img {
+  right: 0;
+}
 
 .node--type-blog.node--view-mode-teaser {
   max-width: 100%;
