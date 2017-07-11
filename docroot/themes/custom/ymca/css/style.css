@@ -8702,19 +8702,42 @@ span.grey-caret:after {
   text-transform: none;
 }
 
+.nav-location li.current ul {
+  display: none;
+}
+
 @media (min-width: 0) and (max-width: 47.9375em) {
-  #nav-location {
+  .show-mobile-sub-navigation .nav-location {
     display: block !important;
+  }
+
+  #nav-location {
     position: relative;
     margin-top: -30px;
   }
   #nav-location .col-lg-12 {
     padding: 0;
   }
+  #nav-location ul.nav {
+    display: block;
+    position: static;
+    float: none;
+    min-width: 1px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  #nav-location ul.nav > li:first-child {
+    display: block;
+  }
   #nav-location ul.nav li {
     background: none;
     border-top: 1px solid #3e3e3e;
     margin: 0;
+    display: none;
   }
   #nav-location ul.nav li:after, #nav-location ul.nav li:before {
     display: none;
@@ -8753,6 +8776,28 @@ span.grey-caret:after {
   }
   #nav-location ul.nav a:after, #nav-location ul.nav a:before {
     display: none;
+  }
+  #nav-location ul.nav a .caret {
+    display: inline-block;
+    width: auto;
+    height: 10px;
+    border: 0;
+    position: relative;
+    float: right;
+    top: 7px;
+  }
+  #nav-location ul.nav a .caret:before {
+    text-transform: none;
+    position: relative;
+    display: inline-block;
+    padding: 2px 0 0 5px;
+    width: auto;
+    content: 'v';
+    vertical-align: top;
+    font-weight: normal;
+    font-size: .7em;
+    font-family: 'YMCA';
+    line-height: .4em;
   }
   #nav-location ul.nav .current > a {
     font-weight: bold;
