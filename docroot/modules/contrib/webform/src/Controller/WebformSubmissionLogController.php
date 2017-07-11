@@ -61,7 +61,7 @@ class WebformSubmissionLogController extends ControllerBase {
   protected $requestHandler;
 
   /**
-   * Constructs a DbLogController object.
+   * Constructs a WebformSubmissionLogController object.
    *
    * @param \Drupal\Core\Database\Connection $database
    *   A database connection.

@@ -42,7 +42,7 @@ function webform_test_test_element_flexbox() {
     'elements' => [],
   ];
 
-  /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+  /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
   $element_manager = \Drupal::service('plugin.manager.webform.element');
   $elements = $element_manager->getInstances();
   foreach ($elements as $element_type => $webform_element) {
@@ -61,7 +61,7 @@ function webform_test_test_element_flexbox() {
       foreach ($issues[$element_type] as $issue_number => $issue_title) {
         $items[$issue_number] = "<a href=\"https://www.drupal.org/node/$issue_number\">Issue #$issue_number: $issue_title</a>";
       }
-      $element['#description'] = '<b>' . t('Known Issues:') . '</b><br/>' . implode('<br/>', $items);
+      $element['#description'] = '<b>' . t('Known Issues:') . '</b><br />' . implode('<br />', $items);
     }
 
     // Set default element properties.

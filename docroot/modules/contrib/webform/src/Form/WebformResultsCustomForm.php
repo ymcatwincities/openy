@@ -2,10 +2,10 @@
 
 namespace Drupal\webform\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\WebformRequestInterface;
-use Drupal\webform\WebformSubmissionStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -51,13 +51,13 @@ class WebformResultsCustomForm extends FormBase {
   /**
    * Constructs a WebformResultsCustomForm object.
    *
-   * @param \Drupal\webform\WebformSubmissionStorageInterface $webform_submission_storage
-   *   The webform submission storage.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\webform\WebformRequestInterface $request_handler
    *   The webform request handler.
    */
-  public function __construct(WebformSubmissionStorageInterface $webform_submission_storage, WebformRequestInterface $request_handler) {
-    $this->submissionStorage = $webform_submission_storage;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, WebformRequestInterface $request_handler) {
+    $this->submissionStorage = $entity_type_manager->getStorage('webform_submission');
     $this->requestHandler = $request_handler;
     list($this->webform, $this->sourceEntity) = $this->requestHandler->getWebformEntities();
   }
@@ -67,7 +67,7 @@ class WebformResultsCustomForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')->getStorage('webform_submission'),
+      $container->get('entity_type.manager'),
       $container->get('webform.request')
     );
   }
@@ -76,6 +76,7 @@ class WebformResultsCustomForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    // @see \Drupal\webform\WebformEntitySettingsForm::form
     $available_columns = $this->submissionStorage->getColumns($this->webform, $this->sourceEntity, NULL, TRUE);
     $custom_columns = $this->submissionStorage->getCustomColumns($this->webform, $this->sourceEntity, NULL, TRUE);
     // Change sid's # to an actual label.
@@ -83,16 +84,17 @@ class WebformResultsCustomForm extends FormBase {
     if (isset($custom_columns['sid'])) {
       $custom_columns['sid']['title'] = $this->t('Submission ID');
     }
-
-    // Columns.
+    // Get available columns as option.
     $columns_options = [];
     foreach ($available_columns as $column_name => $column) {
       $title = (strpos($column_name, 'element__') === 0) ? ['data' => ['#markup' => '<b>' . $column['title'] . '</b>']] : $column['title'];
       $key = (isset($column['key'])) ? str_replace('webform_', '', $column['key']) : $column['name'];
       $columns_options[$column_name] = ['title' => $title, 'key' => $key];
     }
+    // Get custom columns as the default value.
     $columns_keys = array_keys($custom_columns);
     $columns_default_value = array_combine($columns_keys, $columns_keys);
+    // Display columns in sortable table select element.
     $form['columns'] = [
       '#type' => 'webform_tableselect_sort',
       '#header' => [
@@ -276,7 +278,7 @@ class WebformResultsCustomForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Set columns.
-    $this->webform->setState($this->getStateKey('columns'), $form_state->getValue('columns'));
+    $this->webform->setState($this->getStateKey('columns'), array_values($form_state->getValue('columns')));
 
     // Set sort, direction, limit.
     $this->webform->setState($this->getStateKey('sort'), $form_state->getValue('sort'));

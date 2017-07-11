@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\queue_ui\QueueUIInterface.
- */
-
 namespace Drupal\queue_ui;
 
 /**

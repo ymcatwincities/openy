@@ -14,7 +14,7 @@ class WebformExporterExcludedTest extends WebformTestBase {
   /**
    * Test excluded exporters.
    */
-  function testExcludeExporters() {
+  public function testExcludeExporters() {
     $this->drupalLogin($this->rootUser);
 
     // Check exporter options.

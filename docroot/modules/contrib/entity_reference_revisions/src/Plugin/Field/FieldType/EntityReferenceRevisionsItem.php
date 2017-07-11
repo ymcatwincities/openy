@@ -326,6 +326,31 @@ class EntityReferenceRevisionsItem extends EntityReferenceItem implements Option
   /**
    * {@inheritdoc}
    */
+  public function deleteRevision() {
+    $child = $this->entity;
+    if ($child->isDefaultRevision()) {
+      // Do not delete if it is the default revision.
+      return;
+    }
+
+    $host = $this->getEntity();
+    $field_name = $this->getFieldDefinition()->getName() . '.target_revision_id';
+    $all_revisions = \Drupal::entityQuery($host->getEntityTypeId())
+      ->condition($field_name, $child->getRevisionId())
+      ->allRevisions()
+      ->execute();
+
+    if (count($all_revisions) > 1) {
+      // Do not delete if there is more than one usage of this revision.
+      return;
+    }
+
+    \Drupal::entityTypeManager()->getStorage($child->getEntityTypeId())->deleteRevision($child->getRevisionId());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function delete() {
     parent::delete();
 

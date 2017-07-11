@@ -94,7 +94,7 @@ trait WebformTermReferenceTrait {
   /**
    * {@inheritdoc}
    */
-  protected function getTargetType(array $element) {
+  public function getTargetType(array $element) {
     return 'taxonomy_term';
   }
 

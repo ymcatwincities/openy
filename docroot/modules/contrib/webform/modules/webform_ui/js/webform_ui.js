@@ -8,39 +8,22 @@
   'use strict';
 
   /**
-   * Highlights the element that was just updated.
+   * Lock the default actions element by moving it to the table footer (<tfoot>).
    *
    * @type {Drupal~behavior}
    *
    * @prop {Drupal~behaviorAttach} attach
-   *   Attaches the behavior for the element update.
-   *
-   * @see Drupal.behaviors.blockHighlightPlacement
+   *   Attaches the behavior for locking the default actions element by moving
+   *   it to the table footer (<tfoot>).
    */
-  Drupal.behaviors.webformUiElementsUpdate = {
+  Drupal.behaviors.webformUiElementsActionsDefault = {
     attach: function (context, settings) {
-      if (settings.webformUiElementUpdate) {
-        $(context).find('[data-drupal-selector="edit-webform-ui-elements"]').once('webform-ui-elements-update').each(function () {
-          var $container = $(this);
-
-          // If the element is visible, don't scroll to it.
-          // @see http://stackoverflow.com/questions/487073/check-if-element-is-visible-after-scrolling;
-          var $element = $('.js-webform-ui-element-update');
-          var elementTop = $element.offset().top;
-          var elementBottom = elementTop + $element.height();
-          var isVisible = (elementTop >= 0) && (elementBottom <= window.innerHeight);
-          if (isVisible) {
-            return;
-          }
-
-          // Just scrolling the document.body will not work in Firefox. The html
-          // element is needed as well.
-          $('html, body').animate({
-            scrollTop: $('.js-webform-ui-element-update').offset().top - $container.offset().top + $container.scrollTop()
-          }, 500);
-        });
-      }
+      $(context).find('[data-drupal-selector="edit-webform-ui-elements-webform-actions-default"]').once('webform-ui-elements-webform-actions-default').each(function () {
+        var $tr = $(this);
+        var $table = $tr.parents('table');
+        $table.append($('<tfoot></tfoot>').append($tr));
+      });
     }
-  };
+  }
 
 })(jQuery, Drupal, drupalSettings);

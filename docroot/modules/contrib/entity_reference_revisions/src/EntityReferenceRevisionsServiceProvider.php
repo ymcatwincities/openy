@@ -21,7 +21,7 @@ class EntityReferenceRevisionsServiceProvider extends ServiceProviderBase {
       // Hal module is enabled, add our new normalizer for entity reference
       // revision items.
       $service_definition = new Definition('Drupal\entity_reference_revisions\Normalizer\EntityReferenceRevisionItemNormalizer', array(
-        new Reference('rest.link_manager'),
+        new Reference('hal.link_manager'),
         new Reference('serializer.entity_resolver'),
       ));
       // The priority must be higher than that of
