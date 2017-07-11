@@ -486,8 +486,13 @@ function openy_lily_preprocess_file_link(&$variables) {
  * This is hardcoded in profile so we need this to be able to change the title.
  */
 function openy_lily_preprocess_field__node__field_location_directions(array &$variables) {
-  // Change link title to Directions.
+  // Change link title to 'website:' since it's changed to 'Directions' in
+  // openy_rose theme.
   $variables['items'][0]['content']['#title'] = t('website:');
+  $link_title = $variables['element']['#items']->title;
+  // Change link text since URL is used as link text for
+  // 'Separate link text and URL' format by default.
+  $variables['items'][0]['content']['#url_title'] = $link_title;
 }
 
 /**
