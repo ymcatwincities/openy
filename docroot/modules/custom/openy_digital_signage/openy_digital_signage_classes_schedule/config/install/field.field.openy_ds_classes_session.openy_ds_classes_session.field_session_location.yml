@@ -1,0 +1,30 @@
+uuid: 3122452b-2d9e-43a9-9646-0fa04092d67e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.openy_ds_classes_session.field_session_location
+    - node.type.location
+  module:
+    - openy_digital_signage_classes_schedule
+id: openy_ds_classes_session.openy_ds_classes_session.field_session_location
+field_name: field_session_location
+entity_type: openy_ds_classes_session
+bundle: openy_ds_classes_session
+label: Location
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      location: location
+    sort:
+      field: title
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

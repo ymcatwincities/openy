@@ -1,0 +1,7 @@
+name: Digital Signage Datetime Range
+type: module
+description: Datetime Range cusomizations.
+core: 8.x
+package: Custom
+dependencies:
+  - datetime_range
