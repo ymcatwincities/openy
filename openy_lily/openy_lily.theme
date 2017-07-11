@@ -226,7 +226,7 @@ function openy_lily_preprocess_page(&$variables) {
 
   // Set special CSS class name for Camp and Branch nodes.
   if (!empty($variables['node'])) {
-    switch ($variables['node']->getType()) {
+    switch ($variables['node']->bundle()) {
       case 'camp':
         $variables['camp_class'] = 'is-camp';
         break;
