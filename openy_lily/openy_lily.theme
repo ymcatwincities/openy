@@ -186,7 +186,7 @@ function openy_lily_preprocess_html(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_page(&$variables) {
   $header_search = theme_get_setting('header_search');
@@ -223,6 +223,19 @@ function openy_lily_preprocess_page(&$variables) {
   $variables['site_name'] = \Drupal::config('system.site')->get('name');
   $path = theme_get_setting('locations_path');
   $variables['locations_path'] = Url::fromUserInput($path);
+
+  // Set special CSS class name for Camp and Branch nodes.
+  if (!empty($variables['node'])) {
+    switch ($variables['node']->getType()) {
+      case 'camp':
+        $variables['camp_class'] = 'is-camp';
+        break;
+
+      case 'branch':
+        $variables['camp_class'] = 'is-branch';
+        break;
+    }
+  }
 }
 
 /**

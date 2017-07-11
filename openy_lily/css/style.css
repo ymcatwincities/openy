@@ -707,11 +707,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   border: 0;
   color: white;
   display: inline-block;
-  background-color: #9c1f7b !important;
-  background-image: -webkit-linear-gradient(#b92f9e, transparent);
-  background-image: -moz-linear-gradient(#b92f9e, transparent);
-  background-image: -ms-linear-gradient(#b92f9e, transparent);
-  background-image: linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-color: #9c1f7b;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-weight: bold;
@@ -727,7 +723,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
 [data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, #banner .banner-caption a:hover {
-  background-color: #9c1f7b !important;
+  background-color: #9c1f7b;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) !important;
   border: 0;
   background-position: 0;
@@ -3364,13 +3360,13 @@ a.sports-icon.floor-hockey {
 }
 .paragraph--type--camp-menu .camp-menu-wrapper {
   padding: 0 30px;
-  background: #383838 !important;
+  background: #383838;
 }
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
-  background: #383838 !important;
+  background: #383838;
 }
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient:before {
-  background: #383838 !important;
+  background: #383838;
 }
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu {
   width: 100% !important;
@@ -3395,7 +3391,7 @@ a.sports-icon.floor-hockey {
   max-width: 100%;
   border: 0 !important;
   border-radius: 0;
-  background-color: #383838 !important;
+  background-color: #383838;
   color: #FFF;
   position: relative;
   height: 51px;
@@ -3416,10 +3412,10 @@ a.sports-icon.floor-hockey {
   }
 }
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover {
-  background-color: #505050 !important;
+  background-color: #505050;
 }
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover:after {
-  background-color: #505050 !important;
+  background-color: #505050;
 }
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active:after {
   position: absolute;

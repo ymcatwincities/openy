@@ -217,7 +217,9 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .modal-body .button:hover,
 .is-camp .btn-primary:hover,
 .is-camp .btn.white-blue:hover,
-.is-camp .white-blue.button:hover {
+.is-camp .white-blue.button:hover,
+.is-camp #banner .banner-caption a,
+.is-camp #banner .banner-caption a:hover {
   background-color: #1dafed;
   color: #fffff7;
 }
@@ -296,15 +298,57 @@ body .branch-popup .ui-dialog-content h3 {
   color: #a8a8a9;
 }
 
-.is-camp .camp-menu-wrapper {
+.is-camp .camp-menu-wrapper,
+.is-camp .camp-menu-wrapper a,
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a,
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:after {
   background-color: #383838;
 }
-.is-camp .camp-menu__item a {
+.is-camp .camp-menu__item a,
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a:before,
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a {
   color: #fffffd;
 }
 .is-camp .camp-menu-wrapper a:hover,
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover,
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active,
+.is-camp .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active:after,
 .is-camp .camp-menu-wrapper .active {
   background-color: #505050;
+}
+.is-camp .paragraph--column-in-a-grid .fa,
+.is-camp .paragraph-gallery .item__caption,
+.is-camp .sidebar-card h2,
+.is-camp .story-card a,
+.is-camp .story-card .quote,
+.is-camp .color-purple, .description.purple, .paragraph.featured-content .description,
+.is-camp .program-header.purple .description,
+.is-camp .sub-category-classes-view .activity-group h3,
+.is-camp .branch-sessions-group h3,
+.is-camp .branch-sessions-group .group_time,
+.is-camp .locations-list h1.color-purple,
+.is-camp .locations-list h1.description.purple,
+.is-camp .locations-list .paragraph.featured-content h1.description,
+.is-camp .paragraph.featured-content .locations-list h1.description,
+.is-camp .locations-list h2.color-purple,
+.is-camp .locations-list h2.description.purple,
+.is-camp .locations-list .paragraph.featured-content h2.description,
+.is-camp .paragraph.featured-content .locations-list h2.description,
+.is-camp [class*="sidebar"] .node--type-facility.node--view-mode-teaser h2 a,
+.is-camp [class*="sidebar"] .node--type-branch.node--view-mode-teaser h2 a,
+.is-camp [class*="sidebar"] .node--type-camp.node--view-mode-teaser h2 a,
+.is-camp .node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h2,
+.is-camp .node--type-blog.node--view-mode-teaser.blog-story .inner-wrapper h4,
+.is-camp .node--type-blog.node--view-mode-teaser.blog-news .inner-wrapper h2,
+.is-camp .class-page-schedule .ticket,
+.is-camp #schedules-search-form-wrapper .results .group_time,
+.is-camp #schedules-search-form-wrapper .results .views-row .ticket,
+body .is-camp .branch-popup .ui-dialog-content h3 {
+  color: #5c2e92;
+}
+.is-camp .node--type-blog.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2:after,
+.is-camp .node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .category {
+  background-color: #5c2e92;
 }
 
 /* Location (Branch) specific overrides */

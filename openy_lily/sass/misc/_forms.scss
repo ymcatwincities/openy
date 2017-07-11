@@ -3,11 +3,7 @@
   border: 0;
   color: white;
   display: inline-block;
-  background-color: $pink !important;
-  background-image: -webkit-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
-  background-image: -moz-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
-  background-image: -ms-linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
-  background-image: linear-gradient(#b92f9e, rgba(0, 0, 0, 0));
+  background-color: $pink;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-weight: bold;
@@ -19,7 +15,7 @@
   vertical-align: middle;
   cursor: pointer;
   &:hover {
-    background-color: $pink !important;
+    background-color: $pink;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) !important;
     border: 0;
     background-position: 0;

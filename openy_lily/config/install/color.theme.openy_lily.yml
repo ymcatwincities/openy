@@ -35,3 +35,5 @@ palette:
   camplink: '#377bb5'
   campbutton: '#019c86'
   campbuttonlink: '#ffffff'
+  campprimaryhighlight: '#019c86'
+  campsecondaryhighlight: '#c6168d'

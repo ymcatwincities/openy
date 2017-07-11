@@ -44,6 +44,8 @@ $info = [
     'camplink' => t('Camp link color'),
     'campbutton' => t('Camp button color'),
     'campbuttonlink' => t('Camp button link color'),
+    'campprimaryhighlight' => t('Camp primary highlight color'),
+    'campsecondaryhighlight' => t('Camp secondary highlight color'),
   ],
   // Pre-defined color schemes.
   'schemes' => [
@@ -86,6 +88,8 @@ $info = [
         'camplink' => '#377bb6',
         'campbutton' => '#1dafed',
         'campbuttonlink' => '#fffff7',
+        'campprimaryhighlight' => '#5c2e92',
+        'campsecondaryhighlight' => '#c6168e',
       ],
     ],
   ],

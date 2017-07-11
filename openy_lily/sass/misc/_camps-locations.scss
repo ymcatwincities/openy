@@ -5,11 +5,11 @@
   }
   .camp-menu-wrapper {
     padding: 0 30px;
-    background: #383838 !important;
+    background: #383838;
     .columns-gradient {
-      background: #383838 !important;
+      background: #383838;
       &:before {
-        background: #383838 !important;
+        background: #383838;
       }
     }
     .camp-menu {
@@ -31,7 +31,7 @@
           max-width: 100%;
           border: 0 !important;
           border-radius: 0;
-          background-color: #383838 !important;
+          background-color: #383838;
           color: #FFF;
           position: relative;
           height: 51px;
@@ -49,9 +49,9 @@
           -ms-transition: background-color .2s linear;
           transition: background-color .2s linear;
           &:hover {
-            background-color: #505050 !important;
+            background-color: #505050;
             &:after {
-              background-color: #505050 !important;
+              background-color: #505050;
             }
           }
           &.active {
