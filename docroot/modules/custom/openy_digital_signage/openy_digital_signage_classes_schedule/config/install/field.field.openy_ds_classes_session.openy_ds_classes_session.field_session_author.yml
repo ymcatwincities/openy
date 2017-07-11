@@ -1,0 +1,29 @@
+uuid: 7abeac4d-25db-4d77-8c22-52ee42c86b84
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.openy_ds_classes_session.field_session_author
+  module:
+    - openy_digital_signage_classes_schedule
+id: openy_ds_classes_session.openy_ds_classes_session.field_session_author
+field_name: field_session_author
+entity_type: openy_ds_classes_session
+bundle: openy_ds_classes_session
+label: Author
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

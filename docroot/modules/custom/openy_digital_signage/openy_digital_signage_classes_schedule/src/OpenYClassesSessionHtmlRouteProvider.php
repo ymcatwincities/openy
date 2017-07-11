@@ -1,18 +1,20 @@
 <?php
 
-namespace Drupal\openy_digital_signage_schedule;
+namespace Drupal\openy_digital_signage_classes_schedule;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
 use Symfony\Component\Routing\Route;
 
 /**
- * Provides routes for OpenY Digital Signage Schedule Item entities.
+ * Provides routes for Digital Signage Classes Session entities.
  *
  * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
+ *
+ * @ingroup openy_digital_signage_classes_schedule
  */
-class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
+class OpenYClassesSessionHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}
@@ -54,7 +56,7 @@ class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
         '_entity_list' => $entity_type_id,
         '_title' => "{$entity_type->getLabel()} list",
       ])
-      ->setRequirement('_permission', 'access OpenY Digital Signage Schedule Item overview')
+      ->setRequirement('_permission', 'access Digital Signage Classes Session overview')
       ->setOption('_admin_route', TRUE);
 
     return $route;
@@ -74,10 +76,10 @@ class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       return NULL;
     }
 
-    $route = new Route("/admin/digital-signage/schedules/settings");
+    $route = new Route("/admin/digital-signage/classes/settings");
     $route
       ->setDefaults([
-        '_form' => 'Drupal\openy_digital_signage_schedule\Form\OpenYScheduleSettingsForm',
+        '_form' => 'Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionSettingsForm',
         '_title' => "{$entity_type->getLabel()} settings",
       ])
       ->setRequirement('_permission', $entity_type->getAdminPermission())
