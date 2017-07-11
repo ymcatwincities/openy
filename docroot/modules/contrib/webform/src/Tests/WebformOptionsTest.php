@@ -79,8 +79,8 @@ class WebformOptionsTest extends WebformTestBase {
 
     // Check hook_webform_options_alter() && hook_webform_options_WEBFORM_OPTIONS_ID_alter().
     $this->drupalGet('webform/test_options');
-    $this->assertRaw('<select data-drupal-selector="edit-custom" id="edit-custom" name="custom" class="form-select"><option value="" selected="selected">- Select -</option><option value="one">One</option><option value="two">Two</option><option value="three">Three</option></select>');
-    $this->assertRaw('<select data-drupal-selector="edit-test" id="edit-test" name="test" class="form-select"><option value="" selected="selected">- Select -</option><option value="four">Four</option><option value="five">Five</option><option value="six">Six</option></select>');
+    $this->assertRaw('<select data-drupal-selector="edit-custom" id="edit-custom" name="custom" class="form-select"><option value="" selected="selected">- None -</option><option value="one">One</option><option value="two">Two</option><option value="three">Three</option></select>');
+    $this->assertRaw('<select data-drupal-selector="edit-test" id="edit-test" name="test" class="form-select"><option value="" selected="selected">- None -</option><option value="four">Four</option><option value="five">Five</option><option value="six">Six</option></select>');
 
     // Check hook_webform_options_WEBFORM_OPTIONS_ID_alter() is not executed
     // when options are altered.
@@ -90,11 +90,11 @@ class WebformOptionsTest extends WebformTestBase {
     $this->debug($webform_test_options->getOptions());
 
     $this->drupalGet('webform/test_options');
-    $this->assertRaw('<select data-drupal-selector="edit-test" id="edit-test" name="test" class="form-select"><option value="" selected="selected">- Select -</option><option value="red">Red</option><option value="white">White</option><option value="blue">Blue</option><option value="four">Four</option><option value="five">Five</option><option value="six">Six</option></select>');
+    $this->assertRaw('<select data-drupal-selector="edit-test" id="edit-test" name="test" class="form-select"><option value="" selected="selected">- None -</option><option value="red">Red</option><option value="white">White</option><option value="blue">Blue</option><option value="four">Four</option><option value="five">Five</option><option value="six">Six</option></select>');
 
     // Check custom options set via alter hook().
     $this->drupalGet('webform/test_options');
-    $this->assertRaw('<select data-drupal-selector="edit-test" id="edit-test" name="test" class="form-select"><option value="" selected="selected">- Select -</option><option value="red">Red</option><option value="white">White</option><option value="blue">Blue</option><option value="four">Four</option><option value="five">Five</option><option value="six">Six</option></select>');
+    $this->assertRaw('<select data-drupal-selector="edit-test" id="edit-test" name="test" class="form-select"><option value="" selected="selected">- None -</option><option value="red">Red</option><option value="white">White</option><option value="blue">Blue</option><option value="four">Four</option><option value="five">Five</option><option value="six">Six</option></select>');
 
     // Check that 'Afghanistan' is the first option.
     $options = WebformOptions::getElementOptions(['#options' => 'country_names']);

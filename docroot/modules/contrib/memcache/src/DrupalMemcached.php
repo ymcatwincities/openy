@@ -32,6 +32,12 @@ class DrupalMemcached extends DrupalMemcacheBase {
     foreach ($this->settings->get('options', []) as $key => $value) {
       $this->memcache->setOption($key, $value);
     }
+
+    // SASL configuration to authenticate with Memcached.
+    // Note: this only affects the Memcached PECL extension.
+    if ($sasl_config = $this->settings->get('sasl', [])) {
+      $this->memcache->setSaslAuthData($sasl_config['username'], $sasl_config['password']);
+    }
   }
 
   /**
@@ -42,7 +48,7 @@ class DrupalMemcached extends DrupalMemcacheBase {
 
     if ($host == 'unix') {
       // Memcached expects just the path to the socket without the protocol
-      $host = substr($host, 7);
+      $host = substr($server_path, 7);
       // Port is always 0 for unix sockets.
       $port = 0;
     }

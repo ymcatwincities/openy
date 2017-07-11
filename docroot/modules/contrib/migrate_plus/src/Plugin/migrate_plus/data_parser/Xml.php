@@ -174,6 +174,13 @@ class Xml extends DataParserPluginBase {
   protected function openSourceUrl($url) {
     // (Re)open the provided URL.
     $this->reader->close();
+
+    // Clear XML error buffer. Other Drupal code that executed during the
+    // migration may have polluted the error buffer and could create false
+    // positives in our error check below. We are only concerned with errors
+    // that occur from attempting to load the XML string into an object here.
+    libxml_clear_errors();
+
     return $this->reader->open($url, NULL, \LIBXML_NOWARNING);
   }
 

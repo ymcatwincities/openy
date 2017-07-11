@@ -45,7 +45,7 @@ class WebformMessage extends WebformMarkupBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     parent::prepare($element, $webform_submission);
 
     if (!empty($element['#message_storage']) && empty($element['#message_id'])) {
@@ -118,7 +118,7 @@ class WebformMessage extends WebformMarkupBase {
     $form['markup']['message_id'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Message ID'),
-      '#description' => $this->t("Unique ID used to store the message's closed state. Please enter only lower-case letters, numbers, dashes, and underscores.") . '<br/>' .
+      '#description' => $this->t("Unique ID used to store the message's closed state. Please enter only lower-case letters, numbers, dashes, and underscores.") . '<br />' .
       $this->t('Defaults to: %value', ['%value' => '[webform:id]--[element:key]']),
       '#pattern' => '/^[a-z0-9-_]+$/',
       '#states' => [

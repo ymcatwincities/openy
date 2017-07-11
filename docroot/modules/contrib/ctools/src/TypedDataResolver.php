@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\TypedDataResolver.
- */
 
 namespace Drupal\ctools;
 

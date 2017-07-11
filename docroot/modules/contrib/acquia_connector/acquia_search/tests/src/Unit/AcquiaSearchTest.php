@@ -2,14 +2,13 @@
 
 /**
  * @file
- * Contains \Drupal\acquia_search\Tests\Unit\AcquiaSearchTest.
+ * Contains Drupal\Tests\acquia_search\Unit\AcquiaSearchTest.
  */
 
 namespace Drupal\Tests\acquia_search\Unit;
 
 use Drupal\acquia_search\EventSubscriber\SearchSubscriber;
 use Drupal\Tests\UnitTestCase;
-use Drupal\Core\State;
 use Drupal\acquia_connector\CryptConnector;
 
 if (!defined('REQUEST_TIME')) {
@@ -18,7 +17,8 @@ if (!defined('REQUEST_TIME')) {
 
 /**
  * @coversDefaultClass \Drupal\acquia_search\EventSubscriber\SearchSubscriber
- * @group acquia_search
+ *
+ * @group Acquia search
  */
 class AcquiaSearchTest extends UnitTestCase {
   protected $id;
@@ -33,9 +33,9 @@ class AcquiaSearchTest extends UnitTestCase {
   protected function setUp() {
     // Generate and store a random set of credentials.
     // Make them as close to the production values as possible
-    // Something like AAAA-1234
+    // Something like AAAA-1234.
     $this->id = $this->randomMachineName(10);
-    // Most of the keys and salts have a 32char lenght
+    // Most of the keys and salts have a 32char length.
     $this->key = $this->randomMachineName(32);
     $this->salt = $this->randomMachineName(32);
 
@@ -45,7 +45,7 @@ class AcquiaSearchTest extends UnitTestCase {
     foreach ($dirs as $path) {
       $extensions += drupal_phpunit_find_extension_directories($path);
     }
-    require_once $extensions['search_api_solr'] . '/vendor/autoload.php';
+
     unset($extensions);
 
     $this->searchSubscriber = new SearchSubscriber();
@@ -57,7 +57,7 @@ class AcquiaSearchTest extends UnitTestCase {
    */
   public function testCreateDerivedKey() {
     // Mimic the hashing code in the API function.
-    $derivation_string =  $this->id . 'solr' . $this->salt;
+    $derivation_string = $this->id . 'solr' . $this->salt;
     // str_pad extends the string with the same string in this case
     // until it has filled 80 chars.
     $derived_key = hash_hmac('sha1', str_pad($derivation_string, 80, $derivation_string), $this->key);
@@ -67,10 +67,12 @@ class AcquiaSearchTest extends UnitTestCase {
   }
 
   /**
+   * Covers calculateAuthCookie.
+   *
    * @covers ::calculateAuthCookie
    */
   public function testCalculateAuthCookie() {
-   /// Generate the expected hash.
+    // Generate the expected hash.
     $time = REQUEST_TIME;
     $nonce = $this->randomMachineName(32);
     $string = $time . $nonce . $this->randomMachineName();
@@ -93,6 +95,8 @@ class AcquiaSearchTest extends UnitTestCase {
   }
 
   /**
+   * Covers validateResponse.
+   *
    * @covers ::validateResponse
    */
   public function testValidResponse() {
@@ -127,9 +131,11 @@ class AcquiaSearchTest extends UnitTestCase {
   }
 
   /**
+   * Covers extractHmac.
+   *
    * @covers ::extractHmac
    */
-  public function testExtractHMACHeader() {
+  public function testExtractHmacHeader() {
     // Generate the expected hash.
     $nonce = $this->randomMachineName(32);
     $string = $this->randomMachineName(32);
@@ -148,6 +154,6 @@ class AcquiaSearchTest extends UnitTestCase {
     // Pass in junk as the header.
     $bad_extracted2 = $this->searchSubscriber->extractHmac($this->randomMachineName());
     $this->assertEquals('', $bad_extracted2, 'Empty string returned by HMAC extraction function when an invalid header is passed.');
-   }
-}
+  }
 
+}

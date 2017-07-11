@@ -313,10 +313,10 @@ class WebformEntityElementsValidator {
     $elements = $this->webform->getElementsInitializedAndFlattened();
     $messages = [];
     foreach ($elements as $key => $element) {
-      /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+      /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
       $element_manager = \Drupal::service('plugin.manager.webform.element');
       $plugin_id = $element_manager->getElementPluginId($element);
-      /** @var \Drupal\webform\WebformElementInterface $webform_element */
+      /** @var \Drupal\webform\Plugin\WebformElementInterface $webform_element */
       $webform_element = $element_manager->createInstance($plugin_id, $element);
 
       $t_args = [

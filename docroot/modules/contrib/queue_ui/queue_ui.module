@@ -13,44 +13,44 @@ define('QUEUE_UI_BASE', 'admin/config/system/queue-ui');
  */
 function queue_ui_menu() {
 
-  $items[QUEUE_UI_BASE . '/inspect/%'] = array(
+  $items[QUEUE_UI_BASE . '/inspect/%'] = [
     'title' => 'View Queue: @name',
-    'title arguments' => array('@name' => 5),
+    'title arguments' => ['@name' => 5],
     'page callback' => 'queue_ui_view_queue',
-    'page arguments' => array(5),
-    'access arguments' => array('admin queue_ui'),
+    'page arguments' => [5],
+    'access arguments' => ['admin queue_ui'],
     'type' => MENU_NORMAL_ITEM,
     'file' => 'queue_ui.forms.inc',
-  );
+  ];
 
   // View item callback for Queue UI.
-  $items[QUEUE_UI_BASE . '/%/view/%queue_ui_queue_item'] = array(
+  $items[QUEUE_UI_BASE . '/%/view/%queue_ui_queue_item'] = [
     'title' => 'View Queue Item',
     'description' => 'View the details of an individual queue item',
     'page callback' => 'queue_ui_view_queue_item',
-    'page arguments' => array(4, 6),
-    'access arguments' => array('admin queue_ui'),
+    'page arguments' => [4, 6],
+    'access arguments' => ['admin queue_ui'],
     'type' => MENU_NORMAL_ITEM,
     'file' => 'queue_ui.forms.inc',
-  );
+  ];
 
   // Release item callback for Queue UI.
-  $items[QUEUE_UI_BASE . '/%/release/%queue_ui_queue_item'] = array(
+  $items[QUEUE_UI_BASE . '/%/release/%queue_ui_queue_item'] = [
     'title' => 'Release items',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('queue_ui_release_item_form', 4, 6),
-    'access arguments' => array('admin queue_ui'),
+    'page arguments' => ['queue_ui_release_item_form', 4, 6],
+    'access arguments' => ['admin queue_ui'],
     'file' => 'queue_ui.forms.inc',
-  );
+  ];
 
   // Delete item callback for Queue UI.
-  $items[QUEUE_UI_BASE . '/%/delete/%queue_ui_queue_item'] = array(
+  $items[QUEUE_UI_BASE . '/%/delete/%queue_ui_queue_item'] = [
     'title' => 'Release items',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('queue_ui_delete_item_form', 4, 6),
-    'access arguments' => array('admin queue_ui'),
+    'page arguments' => ['queue_ui_delete_item_form', 4, 6],
+    'access arguments' => ['admin queue_ui'],
     'file' => 'queue_ui.forms.inc',
-  );
+  ];
 
   return $items;
 }

@@ -334,12 +334,12 @@ function token_form_field_config_edit_form_alter(&$form, FormStateInterface $for
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
+ * Implements hook_form_BASE_FORM_ID_alter().
  *
  * Alters the configure action form to add token context validation and
  * adds the token tree for a better token UI and selection.
  */
-function token_form_action_add_form_alter(&$form, $form_state) {
+function token_form_action_form_alter(&$form, $form_state) {
   switch ($form['plugin']['#value']) {
     case 'action_message_action':
     case 'action_send_email_action':

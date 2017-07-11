@@ -3,7 +3,7 @@
 namespace Drupal\webform\Plugin\WebformExporter;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\WebformExporterBase;
+use Drupal\webform\Plugin\WebformExporterBase;
 
 /**
  * Defines abstract document exporter used to export YAML or JSON.

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\Block\EntityView.
- */
-
 namespace Drupal\ctools\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
