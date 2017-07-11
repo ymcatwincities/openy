@@ -140,6 +140,9 @@ label {
   li {
     list-style-type: none;
   }
+  .node--type-program-subcategory & {
+    margin-bottom: 0;
+  }
 }
 
 .openy-ccc-login-form,

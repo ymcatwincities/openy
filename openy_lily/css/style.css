@@ -841,6 +841,9 @@ label {
 .status-message li {
   list-style-type: none;
 }
+.node--type-program-subcategory .status-message {
+  margin-bottom: 0;
+}
 
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
@@ -2176,8 +2179,14 @@ body.path-search #block-mainpagecontent li {
   font-weight: bold;
 }
 
-.program-header .image {
-  margin-top: 0;
+.program-header .content {
+  padding: 0;
+}
+.program-header .content .main {
+  padding: 40px 0;
+}
+.program-header .content .image {
+  margin: 0;
 }
 
 .node--type-blog.node--view-mode-teaser {
@@ -3337,6 +3346,18 @@ a.sports-icon.floor-hockey {
   }
 }
 
+.node--type-class .field-class-description {
+  font-family: "Helvetica Neue LT W01_55 Roman",Verdana,sans-serif;
+}
+.node--type-class .class__session-instances-list {
+  margin-bottom: 30px;
+}
+@media (min-width: 75em) {
+  .node--type-class .class__session-instances-list {
+    font-size: 16px;
+  }
+}
+
 .account-page-sidebar ul {
   padding: 0;
   margin: 0;
@@ -4295,6 +4316,10 @@ a.sports-icon.floor-hockey {
 .paragraph--type--faq-item .field-answer {
   display: none;
   padding: 15px;
+}
+
+.paragraph--type--classes-listing-filters .form-actions {
+  float: left;
 }
 
 /*# sourceMappingURL=style.css.map */

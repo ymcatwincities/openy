@@ -1,3 +1,11 @@
-.program-header .image {
-  margin-top: 0;
+.program-header {
+  .content {
+    padding: 0;
+    .main {
+      padding: 40px 0;
+    }
+    .image {
+      margin: 0;
+    }
+  }
 }
