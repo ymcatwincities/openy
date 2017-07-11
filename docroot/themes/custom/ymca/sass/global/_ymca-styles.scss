@@ -1050,6 +1050,19 @@ span.grey-caret {
       display: none;
     }
   }
+  a.home {
+    span,
+    .caret {
+      display: none;
+    }
+  }
+}
+@include breakpoint(768px) {
+  .nav-location {
+    li {
+      display: table-cell !important;
+    }
+  }
 }
 @include breakpoint(0 767px) {
   .show-mobile-sub-navigation {
@@ -1060,6 +1073,8 @@ span.grey-caret {
   #nav-location {
     position: relative;
     margin-top: -30px;
+    top: 0;
+    height: auto;
     .col-lg-12 {
       padding: 0;
     }
@@ -1125,6 +1140,9 @@ span.grey-caret {
         &:after,
         &:before {
           display: none;
+        }
+        .name {
+          display: inline-block;
         }
        .caret {
          display: inline-block;
