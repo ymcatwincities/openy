@@ -2187,9 +2187,14 @@ body.path-search #block-mainpagecontent li {
 }
 .program-header .content .image {
   margin: 0;
+  position: static;
 }
 .program-header .content .image img {
   right: 0;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: auto;
 }
 
 .node--type-blog.node--view-mode-teaser {
