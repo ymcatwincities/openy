@@ -181,7 +181,7 @@
           $('.try-the-y-toggle').addClass('active');
           $('.landing-content > .paragraph:nth-child(1), .landing-content > .paragraph:nth-child(3),  article.webform').slideDown('fast');
           $('html, body').animate({
-            scrollTop: $("#membership-page .webform form").offset().top - 150
+            scrollTop: $("#membership-page .webform form").offset().top - 250
           }, 500);
         });
       });
