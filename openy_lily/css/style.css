@@ -630,7 +630,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   color: black;
 }
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
-header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child a {
+header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
   padding: 3px 15px;
   border-radius: 5px;
   background-color: #b92f9e;
@@ -644,9 +644,10 @@ header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child 
   border-top: none;
 }
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover,
-header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child a:hover {
+header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a:hover {
   border-top: none;
   background-color: #9c1f7b;
+  color: white;
 }
 header#page-head #block-openy-lily-branding a img {
   -webkit-transition: all 0.2s linear;
@@ -668,6 +669,7 @@ header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu li a {
   line-height: 19px;
 }
+header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
   margin: 13px 5px 0 0;
 }
