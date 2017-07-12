@@ -37,7 +37,7 @@ class AddressField extends ProcessPluginBase {
     elseif (!empty($value['name_line'])) {
       $split = explode(" ", $value['name_line']);
       $parsed['given_name'] = array_shift($split);
-      $parsed['family_name']  = implode(" ", $split);
+      $parsed['family_name'] = implode(' ', $split);
     }
     return $parsed;
   }

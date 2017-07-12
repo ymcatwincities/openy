@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\Deriver\TypedDataLanguageRelationshipDeriver.
- */
 
 namespace Drupal\ctools\Plugin\Deriver;
 

@@ -4,7 +4,7 @@ namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\webform\WebformElementBase;
+use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\WebformInterface;
 use Drupal\Component\Utility\Unicode;
 use Drupal\webform\WebformSubmissionInterface;
@@ -57,7 +57,7 @@ class Table extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     parent::prepare($element, $webform_submission);
 
     // Add .js-form.wrapper to fix #states handling.

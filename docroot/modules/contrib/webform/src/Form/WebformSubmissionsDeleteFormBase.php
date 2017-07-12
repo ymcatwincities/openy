@@ -3,11 +3,11 @@
 namespace Drupal\webform\Form;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformRequestInterface;
-use Drupal\webform\WebformSubmissionStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -53,13 +53,13 @@ abstract class WebformSubmissionsDeleteFormBase extends ConfirmFormBase {
   /**
    * Constructs a WebformResultsDeleteFormBase object.
    *
-   * @param \Drupal\webform\WebformSubmissionStorageInterface $webform_submission_storage
-   *   The webform submission storage.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\webform\WebformRequestInterface $request_handler
    *   The webform request handler.
    */
-  public function __construct(WebformSubmissionStorageInterface $webform_submission_storage, WebformRequestInterface $request_handler) {
-    $this->submissionStorage = $webform_submission_storage;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, WebformRequestInterface $request_handler) {
+    $this->submissionStorage = $entity_type_manager->getStorage('webform_submission');
     $this->requestHandler = $request_handler;
   }
 
@@ -68,7 +68,7 @@ abstract class WebformSubmissionsDeleteFormBase extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')->getStorage('webform_submission'),
+      $container->get('entity_type.manager'),
       $container->get('webform.request')
     );
   }

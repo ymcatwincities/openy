@@ -42,7 +42,7 @@ class WebformRating extends Range {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     if (!isset($element['#step'])) {
       $element['#step'] = 1;
     }

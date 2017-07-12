@@ -6,6 +6,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\user\EntityOwnerInterface;
+use Drupal\webform\Plugin\WebformHandlerInterface;
 
 /**
  * Provides an interface defining a webform entity.
@@ -17,21 +18,21 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
    *
    * @var string
    */
-  const DRAFT_ENABLED_NONE = 'none';
+  const DRAFT_NONE = 'none';
 
   /**
    * Denote drafts are allowed for authenticated users only.
    *
    * @var string
    */
-  const DRAFT_ENABLED_AUTHENTICATED = 'authenticated';
+  const DRAFT_AUTHENTICATED = 'authenticated';
 
   /**
    * Denote drafts are allowed for authenticated and anonymous users.
    *
    * @var string
    */
-  const DRAFT_ENABLED_ALL = 'all';
+  const DRAFT_ALL = 'all';
 
   /**
    * Webform status open.
@@ -553,7 +554,7 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
    * @param string $handler_id
    *   The webform handler ID.
    *
-   * @return \Drupal\webform\WebformHandlerInterface
+   * @return \Drupal\webform\Plugin\WebformHandlerInterface
    *   The webform handler object.
    */
   public function getHandler($handler_id);
@@ -574,7 +575,7 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
    *   (optional) Value indicating if webform submissions must be saved to the
    *   database.
    *
-   * @return \Drupal\webform\WebformHandlerPluginCollection|\Drupal\webform\WebformHandlerInterface[]
+   * @return \Drupal\webform\Plugin\WebformHandlerPluginCollection|\Drupal\webform\Plugin\WebformHandlerInterface[]
    *   The webform handler plugin collection.
    */
   public function getHandlers($plugin_id = NULL, $status = NULL, $results = NULL, $submission = NULL);
@@ -582,7 +583,7 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
   /**
    * Saves a webform handler for this webform.
    *
-   * @param \Drupal\webform\WebformHandlerInterface $handler
+   * @param \Drupal\webform\Plugin\WebformHandlerInterface $handler
    *   The webform handler object.
    *
    * @return string
@@ -593,7 +594,7 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
   /**
    * Update a webform handler for this webform.
    *
-   * @param \Drupal\webform\WebformHandlerInterface $handler
+   * @param \Drupal\webform\Plugin\WebformHandlerInterface $handler
    *   The webform handler object.
    *
    * @return $this
@@ -603,7 +604,7 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
   /**
    * Deletes a webform handler from this webform.
    *
-   * @param \Drupal\webform\WebformHandlerInterface $handler
+   * @param \Drupal\webform\Plugin\WebformHandlerInterface $handler
    *   The webform handler object.
    *
    * @return $this
@@ -684,7 +685,7 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
    *   The key of the data to retrieve.
    *
    * @return bool
-   *   TRUE if the  stored value for a given key exists
+   *   TRUE if the stored value for a given key exists
    */
   public function hasState($key);
 

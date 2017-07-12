@@ -6,3 +6,4 @@ widget:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+    - core/drupal.form

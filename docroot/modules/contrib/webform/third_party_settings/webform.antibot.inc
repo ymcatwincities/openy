@@ -77,8 +77,11 @@ function _webform_antibot_form(array &$form, FormStateInterface $form_state, $an
  */
 function _webform_antibot_form_validate(&$form, FormStateInterface $form_state) {
   $third_party_settings = $form_state->getValue('third_party_settings');
-  if ($form_state->get('antibot_disabled')) {
+  if ($form_state->get('antibot_disabled') || empty($third_party_settings['antibot']['antibot'])) {
     unset($third_party_settings['antibot']['antibot']);
+  }
+  if (empty($third_party_settings['antibot'])) {
+    unset($third_party_settings['antibot']);
   }
   $form_state->setValue('third_party_settings', $third_party_settings);
 }

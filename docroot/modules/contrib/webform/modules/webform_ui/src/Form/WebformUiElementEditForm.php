@@ -69,16 +69,16 @@ class WebformUiElementEditForm extends WebformUiElementFormBase {
 
     // WORKAROUND:
     // Create a hidden link that is click using jQuery.
-    if ($this->isModalDialog()) {
+    if ($this->isDialog()) {
       $form['delete'] = [
         '#type' => 'link',
+        '#title' => $this->t('Delete'),
         '#url' => new Url('entity.webform_ui.element.delete_form', ['webform' => $webform->id(), 'key' => $key]),
         '#attributes' => ['style' => 'display:none'] + WebformDialogHelper::getModalDialogAttributes(700, ['webform-ui-element-delete-link']),
       ];
       $form['actions']['delete'] = [
-        '#type' => 'link',
-        '#title' => $this->t('Delete'),
-        '#url' => new Url('<none>'),
+        '#type' => 'submit',
+        '#value' => $this->t('Delete'),
         '#attributes' => [
           'class' => ['button', 'button--danger'],
           'onclick' => "jQuery('.webform-ui-element-delete-link').click(); return false;",

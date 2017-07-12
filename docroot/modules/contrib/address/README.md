@@ -3,7 +3,7 @@ Address
 [![Build Status](https://travis-ci.org/bojanz/address.svg?branch=8.x-1.x)](https://travis-ci.org/bojanz/address)
 
 Provides functionality for storing, validating and displaying international postal addresses.
-The Drupal 8 heir to the addressfield module, powered by the [commerceguys/addressing](https://github.com/commerceguys/addressing) and [commerceguys/zone](https://github.com/commerceguys/zone) libraries.
+The Drupal 8 heir to the addressfield module, powered by the [commerceguys/addressing](https://github.com/commerceguys/addressing) library.
 
 Installation
 -------------

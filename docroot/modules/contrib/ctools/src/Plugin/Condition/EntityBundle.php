@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\Condition\EntityBundle.
- */
 
 namespace Drupal\ctools\Plugin\Condition;
 

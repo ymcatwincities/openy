@@ -7,6 +7,8 @@ smtp_username: ''
 smtp_password: ''
 smtp_from: ''
 smtp_fromname: ''
+smtp_client_hostname: ''
+smtp_client_helo: ''
 smtp_allowhtml: ''
 smtp_test_address: ''
 smtp_debugging: false
