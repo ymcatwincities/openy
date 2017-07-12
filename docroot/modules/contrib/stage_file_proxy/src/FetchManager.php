@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\stage_file_proxy\FetchManager.
- */
-
 namespace Drupal\stage_file_proxy;
 
 use Drupal\Component\Utility\UrlHelper;

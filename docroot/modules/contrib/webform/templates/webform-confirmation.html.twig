@@ -14,10 +14,12 @@
  */
 #}
 {{ attach_library('webform/webform.confirmation') }}
+
+{% if progress %}
+  {{ progress }}
+{% endif %}
+
 <div{{ attributes.addClass('webform-confirmation') }}>
-  {% if progress %}
-    {{ progress }}
-  {% endif %}
 
   {% if message %}
     <div class="webform-confirmation__message">{{ message }}</div>
@@ -28,4 +30,5 @@
     <a href="{{ back_url }}" rel="back" title="{{ back_label }}"{{ back_attributes }}>{{ back_label }}</a>
   </div>
   {% endif %}
+
 </div>

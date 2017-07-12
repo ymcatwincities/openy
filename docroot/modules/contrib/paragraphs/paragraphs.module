@@ -120,8 +120,8 @@ function paragraphs_form_field_config_edit_form_alter(&$form,  \Drupal\Core\Form
     ->isEnabled($field->getTargetEntityTypeId(), $field->getTargetBundle());
 
   if (!$bundle_is_translatable
-    || !$field->getType() == 'entity_reference_revisions'
-    || !$field->getSetting('target_type') == 'paragraph') {
+    || $field->getType() != 'entity_reference_revisions'
+    || $field->getSetting('target_type') != 'paragraph') {
     return;
   }
 
@@ -146,6 +146,23 @@ function paragraphs_form_field_config_edit_form_alter(&$form,  \Drupal\Core\Form
   );
 }
 
+/**
+ * Implements hook_module_implements_alter().
+ *
+ * Our paragraphs_form_field_config_edit_form_alter() needs to be run after
+ * that of the content_translation module in order to see the current state
+ * of the translation field.
+ *
+ * The hook here can't be more specific, as the $hook that's passed in to this
+ * function is form_alter, and not form_FORM_ID_alter.
+ */
+function paragraphs_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter' && isset($implementations['paragraphs'])) {
+    $group = $implementations['paragraphs'];
+    unset($implementations['paragraphs']);
+    $implementations['paragraphs'] = $group;
+  }
+}
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -156,16 +173,28 @@ function paragraphs_form_field_config_edit_form_alter(&$form,  \Drupal\Core\Form
  * Switch to error if a paragraph field is marked as translatable.
  */
 function paragraphs_form_language_content_settings_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Without it Paragraphs message are meaningless.
+  if (!\Drupal::hasService('content_translation.manager')) {
+    return;
+  }
+
+  $content_translation_manager = \Drupal::service('content_translation.manager');
   $message_display = 'warning';
   $message_text = t('(* unsupported) Paragraphs fields do not support translation. See the <a href=":documentation">online documentation</a>.', [
     ':documentation' => Url::fromUri('https://www.drupal.org/node/2735121')
       ->toString()]);
   $map = \Drupal::service('entity_field.manager')->getFieldMapByFieldType('entity_reference_revisions');
   foreach ($map as $entity_type_id => $info) {
+    if (!$content_translation_manager->isEnabled($entity_type_id)) {
+      continue;
+    }
     $field_storage_definitions = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions($entity_type_id);
     foreach ($field_storage_definitions as $name => $data) {
       if ($data->getSetting('target_type') && $data->getSetting('target_type') == 'paragraph') {
         foreach($data->getBundles() as $bundle) {
+          if (!$content_translation_manager->isEnabled($entity_type_id, $bundle)) {
+            continue;
+          }
           $form['settings'][$entity_type_id][$bundle]['fields'][$name]['#label'] .= ' (* unsupported)';
           if ($form['settings'][$entity_type_id][$bundle]['fields'][$name]['#default_value']) {
             $message_display = 'error';
@@ -209,4 +238,10 @@ function template_preprocess_paragraph(&$variables) {
   foreach (Element::children($variables['elements']) as $key) {
     $variables['content'][$key] = $variables['elements'][$key];
   }
+
+  $paragraph_type = $variables['elements']['#paragraph']->getParagraphType();;
+  foreach ($paragraph_type->getEnabledBehaviorPlugins() as $plugin_id => $plugin_value) {
+    $plugin_value->preprocess($variables);
+  }
+
 }

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\sitemap\Controller\SitemapController.
- */
-
 namespace Drupal\sitemap\Controller;
 
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
@@ -53,8 +48,9 @@ class SitemapController implements ContainerInjectionInterface {
       '#theme' => 'sitemap',
     );
 
+    // Check whether to include the default CSS.
     $config = \Drupal::config('sitemap.settings');
-    if ($config->get('css') != 1) {
+    if ($config->get('css') == 1) {
       $sitemap['#attached']['library'] = array(
         'sitemap/sitemap.theme',
       );

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\ctools_wizard_test\ExampleConfigEntityListBuilder.
- */
-
 namespace Drupal\ctools_wizard_test;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;

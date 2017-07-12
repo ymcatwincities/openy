@@ -82,8 +82,9 @@ acquia_connector.send:
 acquia_connector.test_validate:
   path: '/system/acquia-connector-test-validate'
   defaults:
-    _contoller: '\Drupal\acquia_connector\Controller\SpiController::testStatus'
+    _controller: '\Drupal\acquia_connector\Controller\TestStatusController::testStatus'
     _title: 'Acquia SPI Custom Test Validation'
+    log: TRUE
   requirements:
     _permission: 'access site reports'
 

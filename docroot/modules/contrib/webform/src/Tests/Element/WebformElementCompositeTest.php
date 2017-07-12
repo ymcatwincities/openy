@@ -31,16 +31,16 @@ class WebformElementCompositeTest extends WebformTestBase {
     $this->assertRaw('<fieldset data-drupal-selector="edit-contact-basic" id="edit-contact-basic--wrapper" class="fieldgroup form-composite js-webform-contact webform-contact required js-form-item form-item js-form-wrapper form-wrapper" required="required" aria-required="true">');
     $this->assertNoRaw('<span class="fieldset-legend js-form-required form-required">Contact basic</span>');
     $this->assertRaw('<label for="edit-contact-basic-name" class="js-form-required form-required">Name</label>');
-    $this->assertRaw('<input data-drupal-selector="edit-contact-basic-name" type="text" id="edit-contact-basic-name" name="contact_basic[name]" value="John Smith" size="60" maxlength="128" class="form-text required" required="required" aria-required="true" />');
+    $this->assertRaw('<input data-drupal-selector="edit-contact-basic-name" type="text" id="edit-contact-basic-name" name="contact_basic[name]" value="John Smith" size="60" maxlength="255" class="form-text required" required="required" aria-required="true" />');
 
     // Check custom name title, description, and required.
     $this->assertRaw('<label for="edit-contact-advanced-name" class="js-form-required form-required">Custom contact name</label>');
-    $this->assertRaw('<input data-drupal-selector="edit-contact-advanced-name" aria-describedby="edit-contact-advanced-name--description" type="text" id="edit-contact-advanced-name" name="contact_advanced[name]" value="John Smith" size="60" maxlength="128" class="form-text required" required="required" aria-required="true" />');
+    $this->assertRaw('<input data-drupal-selector="edit-contact-advanced-name" aria-describedby="edit-contact-advanced-name--description" type="text" id="edit-contact-advanced-name" name="contact_advanced[name]" value="John Smith" size="60" maxlength="255" class="form-text required" required="required" aria-required="true" />');
     $this->assertRaw('Custom contact name description');
 
     // Check custom state type and not required.
     $this->assertRaw('<label for="edit-contact-advanced-state-province">State/Province</label>');
-    $this->assertRaw('<input data-drupal-selector="edit-contact-advanced-state-province" type="text" id="edit-contact-advanced-state-province" name="contact_advanced[state_province]" value="New Jersey" size="60" maxlength="128" class="form-text" />');
+    $this->assertRaw('<input data-drupal-selector="edit-contact-advanced-state-province" type="text" id="edit-contact-advanced-state-province" name="contact_advanced[state_province]" value="New Jersey" size="60" maxlength="255" class="form-text" />');
 
     // Check custom country access.
     $this->assertNoRaw('edit-contact-advanced-country');
@@ -51,7 +51,7 @@ class WebformElementCompositeTest extends WebformTestBase {
     $this->assertNoRaw('<span class="fieldset-legend">Credit Card</span>');
     $this->assertRaw('The credit card element is experimental and insecure because it stores submitted information as plain text.');
     $this->assertRaw('<label for="edit-creditcard-basic-name">Name on Card</label>');
-    $this->assertRaw('<input data-drupal-selector="edit-creditcard-basic-name" type="text" id="edit-creditcard-basic-name" name="creditcard_basic[name]" value="John Smith" size="60" maxlength="128" class="form-text" />');
+    $this->assertRaw('<input data-drupal-selector="edit-creditcard-basic-name" type="text" id="edit-creditcard-basic-name" name="creditcard_basic[name]" value="John Smith" size="60" maxlength="255" class="form-text" />');
 
     /* Processing */
 

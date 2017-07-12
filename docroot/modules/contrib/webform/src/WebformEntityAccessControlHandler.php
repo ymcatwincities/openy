@@ -30,7 +30,7 @@ class WebformEntityAccessControlHandler extends EntityAccessControlHandler {
    * {@inheritdoc}
    */
   public function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /** @var  \Drupal\webform\WebformInterface $entity */
+    /** @var \Drupal\webform\WebformInterface $entity */
     // Check 'view' using 'create' custom webform submission access rules.
     // Viewing a webform is the same as creating a webform submission.
     if ($operation == 'view') {

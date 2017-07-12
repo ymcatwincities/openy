@@ -36,20 +36,20 @@ elements: |
     '#title': webform_computed_token_auto
     '#display_on': view
     '#value': |
-      <b class="webform_computed_token_auto">simple string:</b> [webform_submission:values:simple_string]<br/>
-      <b class="webform_computed_token_auto">complex string :</b> [webform_submission:values:complex_string]<br/>
-      <b class="webform_computed_token_auto">text_format:</b> [webform_submission:values:text_format]<br/>
-      <b class="webform_computed_token_auto">xss:</b> [webform_submission:values:xss]<br/>
+      <b class="webform_computed_token_auto">simple string:</b> [webform_submission:values:simple_string]<br />
+      <b class="webform_computed_token_auto">complex string :</b> [webform_submission:values:complex_string]<br />
+      <b class="webform_computed_token_auto">text_format:</b> [webform_submission:values:text_format]<br />
+      <b class="webform_computed_token_auto">xss:</b> [webform_submission:values:xss]<br />
   webform_computed_token_html:
     '#type': webform_computed_token
     '#title': webform_computed_token_html
     '#mode': html
     '#display_on': view
     '#value': |
-      <b class="webform_computed_token_html">simple string:</b> [webform_submission:values:simple_string]<br/>
-      <b class="webform_computed_token_html">complex string :</b> [webform_submission:values:complex_string]<br/>
-      <b class="webform_computed_token_html">text_format:</b> [webform_submission:values:text_format]<br/>
-      <b class="webform_computed_token_html">xss:</b> [webform_submission:values:xss]<br/>
+      <b class="webform_computed_token_html">simple string:</b> [webform_submission:values:simple_string]<br />
+      <b class="webform_computed_token_html">complex string :</b> [webform_submission:values:complex_string]<br />
+      <b class="webform_computed_token_html">text_format:</b> [webform_submission:values:text_format]<br />
+      <b class="webform_computed_token_html">xss:</b> [webform_submission:values:xss]<br />
   webform_computed_token_text:
     '#type': webform_computed_token
     '#title': webform_computed_token_text
@@ -70,6 +70,7 @@ elements: |
 css: ''
 javascript: ''
 settings:
+  ajax: false
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -83,13 +84,17 @@ settings:
   form_convert_anonymous: false
   form_prepopulate: false
   form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
   form_disable_back: false
   form_autofocus: false
   form_details_toggle: false
+  submission_label: ''
   submission_log: false
+  submission_user_columns: {  }
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -100,7 +105,10 @@ settings:
   preview_label: ''
   preview_title: ''
   preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
   draft: none
+  draft_multiple: false
   draft_auto_save: false
   draft_saved_message: ''
   draft_loaded_message: ''
