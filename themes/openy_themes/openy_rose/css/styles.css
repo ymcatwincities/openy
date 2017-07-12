@@ -4340,6 +4340,10 @@ html.js .branch__updates_queue__button {
   content: none;
 }
 
+.addthis {
+  margin-top: 10px;
+}
+
 .class-page-schedule .sidebar-card {
   position: relative;
 }
