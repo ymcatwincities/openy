@@ -4,7 +4,7 @@ namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\WebformElementBase;
+use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -29,11 +29,16 @@ abstract class TextBase extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     parent::prepare($element, $webform_submission);
 
     // Counter.
     if (!empty($element['#counter_type']) && !empty($element['#counter_maximum']) && $this->librariesManager->isIncluded('jquery.word-and-character-counter')) {
+
+      if ($element['#counter_type'] == 'character') {
+        $element['#maxlength'] = $element['#counter_maximum'];
+      }
+
       $element['#attributes']['data-counter-type'] = $element['#counter_type'];
       $element['#attributes']['data-counter-limit'] = $element['#counter_maximum'];
       if (!empty($element['#counter_message'])) {
@@ -144,6 +149,15 @@ abstract class TextBase extends WebformElementBase {
       '#access' => $this->librariesManager->isIncluded('jquery.word-and-character-counter'),
     ];
 
+    if (isset($form['form']['maxlength'])) {
+      $form['form']['maxlength']['#description'] .= ' ' . $this->t('If character counter is enabled, maxlength will automatically be set to the count maximum.');
+      $form['form']['maxlength']['#states'] = [
+        'invisible' => [
+          ':input[name="properties[counter_type]"]' => ['value' => 'character'],
+        ],
+      ];
+    }
+
     return $form;
   }
 
@@ -154,24 +168,35 @@ abstract class TextBase extends WebformElementBase {
     $name = $element['#name'];
     $value = $form_state->getValue($name);
     $type = $element['#counter_type'];
-    $limit = $element['#counter_maximum'];
+    $max = $element['#counter_maximum'];
 
     // Validate character count.
-    if ($type == 'character' && Unicode::strlen($value) <= $limit) {
-      return;
+    if ($type == 'character') {
+      $length = Unicode::strlen($value);
+      if ($length <= $max) {
+        return;
+      }
     }
     // Validate word count.
-    elseif ($type == 'word' && str_word_count($value) <= $limit) {
+    elseif ($type == 'word') {
+      $length = str_word_count($value);
+      if ($length <= $max) {
+        return;
+      }
+    }
+    else {
       return;
     }
 
     // Display error.
+    // @see \Drupal\Core\Form\FormValidator::performRequiredValidation
     $t_args = [
-      '%name' => $name,
-      '@limit' => $limit,
+      '@name' => $element['#title'],
+      '%max' => $max,
       '@type' => ($type == 'character') ? t('characters') : t('words'),
+      '%length' => $length,
     ];
-    $form_state->setError($element, t('%name must be less than @limit @type.', $t_args));
+    $form_state->setError($element, t('@name cannot be longer than %max @type but is currently %length @type long.', $t_args));
   }
 
   /**

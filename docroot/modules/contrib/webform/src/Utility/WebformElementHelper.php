@@ -3,6 +3,7 @@
 namespace Drupal\webform\Utility;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Component\Render\MarkupInterface;
 use Drupal\Component\Serialization\Json;
 use Drupal\Component\Utility\Xss;
 use Drupal\Core\Render\Element;
@@ -100,15 +101,15 @@ class WebformElementHelper {
    *
    * @param array $element
    *   A render element.
-   * @param string $key
+   * @param string $property_key
    *   The property key.
-   * @param mixed $value
+   * @param mixed $property_value
    *   The property value.
    *
    * @return array
    *   A render element with with a property set on all elements.
    */
-  public static function setPropertyRecursive(array &$element, $property_key, $property_value) {
+  public static function setPropertyRecursive(array $element, $property_key, $property_value) {
     $element[$property_key] = $property_value;
     foreach (Element::children($element) as $key) {
       self::setPropertyRecursive($element[$key], $property_key, $property_value);
@@ -316,7 +317,7 @@ class WebformElementHelper {
       if (is_array($value)) {
         self::convertRenderMarkupToStrings($value);
       }
-      elseif ($value instanceof \Drupal\Component\Render\MarkupInterface) {
+      elseif ($value instanceof MarkupInterface) {
         $elements[$key] = (string) $value;
       }
     }

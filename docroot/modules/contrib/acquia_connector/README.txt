@@ -26,6 +26,8 @@ Required for use with the Acquia Insight service.
 Acquia Search: Provides integration between your Drupal site and Acquia's
 hosted search service. Requires Apache Solr Search Integration module.
 
+    NOTE: See acquia_search/README.txt for more information for this module.
+
 Installation
 --------------------------------------------------------------------------------
 

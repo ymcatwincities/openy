@@ -52,7 +52,7 @@
             {
                 "_links": {
                     "self": {
-                        "href": "http://drupal.org/user/1"
+                        "href": "http://drupal.org/user/2"
                     },
                     "type": {
                         "href": "http://drupal.org/rest/type/user/user"
@@ -69,7 +69,7 @@
             {
                 "_links": {
                     "self": {
-                        "href": "http://drupal.org/user/1"
+                        "href": "http://drupal.org/user/2"
                     },
                     "type": {
                         "href": "http://drupal.org/rest/type/user/user"

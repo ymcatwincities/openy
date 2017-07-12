@@ -74,13 +74,13 @@ class WebformWizardPage extends Details {
     $form['wizard_page']['prev_button_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Previous page button label'),
-      '#description' => $this->t('This is used for the Next Page button on the page before this page break.') . '<br/>' .
+      '#description' => $this->t('This is used for the Next Page button on the page before this page break.') . '<br />' .
       $this->t('Defaults to: %value', ['%value' => $this->getDefaultSettings($webform, 'wizard_prev_button_label')]),
     ];
     $form['wizard_page']['next_button_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Next page button label'),
-      '#description' => $this->t('This is used for the Previous Page button on the page after this page break.') . '<br/>' .
+      '#description' => $this->t('This is used for the Previous Page button on the page after this page break.') . '<br />' .
       $this->t('Defaults to: %value', ['%value' => $this->getDefaultSettings($webform, 'wizard_next_button_label')]),
     ];
     return $form;

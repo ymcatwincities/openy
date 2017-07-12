@@ -11,3 +11,8 @@ drupal.paragraphs.admin:
   css:
     theme:
       css/paragraphs.admin.css: {}
+
+drupal.paragraphs.widget:
+  css:
+    theme:
+      css/paragraphs.widget.css: {}

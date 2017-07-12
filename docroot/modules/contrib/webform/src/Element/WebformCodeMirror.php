@@ -170,7 +170,7 @@ class WebformCodeMirror extends Textarea {
 
       case 'yaml':
         try {
-          $value = trim($element['#value']);
+          $value = $element['#value'];
           $data = Yaml::decode($value);
           if (!is_array($data) && $value) {
             throw new \Exception(t('YAML must contain an associative array of elements.'));

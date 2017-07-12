@@ -5,6 +5,7 @@ namespace Drupal\webform;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
+use Drupal\webform\Plugin\WebformElementManagerInterface;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\Utility\WebformYaml;
@@ -31,7 +32,7 @@ class WebformTranslationManager implements WebformTranslationManagerInterface {
   /**
    * Webform element manager.
    *
-   * @var \Drupal\webform\WebformElementManagerInterface
+   * @var \Drupal\webform\Plugin\WebformElementManagerInterface
    */
   protected $elementManager;
 
@@ -42,7 +43,7 @@ class WebformTranslationManager implements WebformTranslationManagerInterface {
    *   The language manager.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration object factory.
-   * @param \Drupal\webform\WebformElementManagerInterface $element_manager
+   * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
    *   The webform element manager.
    */
   public function __construct(LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory, WebformElementManagerInterface $element_manager) {
@@ -144,7 +145,7 @@ class WebformTranslationManager implements WebformTranslationManagerInterface {
    * {@inheritdoc}
    */
   public function getOriginalLangcode(WebformInterface $webform) {
-    // NOTE: Can't inject ConfigMapperInterface  because it requires that
+    // NOTE: Can't inject ConfigMapperInterface because it requires that
     // config_translation.module to be installed.
     /** @var \Drupal\config_translation\ConfigMapperInterface $mapper */
     $mapper = \Drupal::service('plugin.manager.config_translation.mapper')->createInstance('webform');

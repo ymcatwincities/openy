@@ -5,12 +5,14 @@
  *
  * Available variables:
  * - paragraph: Full paragraph entity.
- *   - id: The paragraph ID.
- *   - bundle: The type of the paragraph, for example, "image" or "text".
- *   - authorid: The user ID of the paragraph author.
- *   - createdtime: Formatted creation date. Preprocess functions can
- *     reformat it by calling format_date() with the desired parameters on
- *     $variables['paragraph']->getCreatedTime().
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - paragraph.getCreatedTime() will return the paragraph creation timestamp.
+ *   - paragraph.id(): The paragraph ID.
+ *   - paragraph.bundle(): The type of the paragraph, for example, "image" or "text".
+ *   - paragraph.getOwnerId(): The user ID of the paragraph author.
+ *   See Drupal\paragraphs\Entity\Paragraph for a full list of public properties
+ *   and methods for the paragraph object.
  * - content: All paragraph items. Use {{ content }} to print them all,
  *   or print a subset such as {{ content.field_example }}. Use
  *   {{ content|without('field_example') }} to temporarily suppress the printing
@@ -37,12 +39,16 @@
  */
 #}
 {%
-set classes = [
-'paragraph',
-'paragraph--type--' ~ paragraph.bundle|clean_class,
-view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-]
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  ]
 %}
-<div{{ attributes.addClass(classes) }}>
-    {{ content }}
-</div>
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      {{ content }}
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

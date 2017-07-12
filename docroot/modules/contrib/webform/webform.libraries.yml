@@ -51,6 +51,9 @@ webform.admin.translation:
 
 webform.ajax:
   version: VERSION
+  css:
+    theme:
+      css/webform.ajax.css: {}
   js:
     js/webform.ajax.js:  {}
   dependencies:
@@ -70,6 +73,12 @@ webform.block:
   dependencies:
     - webform/webform.element.codemirror.yaml
     - webform/webform.element.select2
+
+webform.block.submission_limit:
+  version: VERSION
+  css:
+    theme:
+      css/webform.block.submission_limit.css: {}
 
 # Theme
 
@@ -153,6 +162,15 @@ webform.progress.bar:
   css:
     theme:
       css/webform.progress.bar.css: {}
+
+webform.progress.tracker:
+  version: VERSION
+  css:
+    theme:
+      css/webform.progress.tracker.css: {}
+  dependencies:
+    - webform/libraries.progress-tracker
+
 
 webform.states:
   version: VERSION
@@ -682,6 +700,7 @@ libraries.jquery.geocomplete:
   cdn:
     /libraries/geocomplete/: https://cdnjs.cloudflare.com/ajax/libs/geocomplete/1.7.0/
   js:
+    https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places: {}
     /libraries/geocomplete/jquery.geocomplete.min.js: {}
   dependencies:
     - core/jquery
@@ -707,6 +726,16 @@ libraries.jquery.icheck.flat:
   css:
     theme:
       /libraries/jquery.icheck/skins/flat/_all.css: {}
+  dependencies:
+    - webform/libraries.jquery.icheck
+
+libraries.jquery.icheck.line:
+  version: *webform_icheck_version
+  license: *webform_icheck_license
+  cdn: *webform_icheck_cdn
+  css:
+    theme:
+      /libraries/jquery.icheck/skins/line/_all.css: {}
   dependencies:
     - webform/libraries.jquery.icheck
 
@@ -863,6 +892,19 @@ libraries.jquery.toggles:
     /libraries/jquery.toggles/toggles.min.js: {}
   dependencies:
     - core/jquery
+
+libraries.progress-tracker:
+  remote: https://github.com/NigelOToole/progress-tracker
+  version: '1.4.0'
+  license:
+    name: MIT
+    url: https://github.com/NigelOToole/progress-tracker/blob/master/LICENSE
+    gpl-compatible: true
+  cdn:
+    /libraries/progress-tracker/: https://cdn.rawgit.com/NigelOToole/progress-tracker/v1.4.0/
+  css:
+    theme:
+      /libraries/progress-tracker/app/styles/progress-tracker.css: {}
 
 libraries.signature_pad:
   remote: https://github.com/szimek/signature_pad
