@@ -149,6 +149,11 @@
             }
           }
         }
+        @include breakpoint (0 580px) {
+          h2 {
+            margin: 9% 0 17%;
+          }
+        }
       }
     }
     .landing-content {
@@ -467,5 +472,14 @@
       }
     }
   }
-
+  // Form styling
+  #edit-date-of-birth {
+    > div {
+      float: left;
+      width: 32%;
+      &:nth-of-type(2) {
+        margin: 0 2%;
+      }
+    }
+  }
 }

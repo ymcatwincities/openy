@@ -841,7 +841,7 @@ label {
 .status-message li {
   list-style-type: none;
 }
-.node--type-program-subcategory .status-message {
+.path-frontpage .status-message, .node--type-program-subcategory .status-message {
   margin-bottom: 0;
 }
 
@@ -1726,6 +1726,11 @@ article.site-alert ul li div {
     margin: 0 auto;
   }
 }
+@media (min-width: 0) and (max-width: 36.25em) {
+  #membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
+    margin: 9% 0 17%;
+  }
+}
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) {
   padding-bottom: 0;
   float: left;
@@ -2040,6 +2045,13 @@ article.site-alert ul li div {
     line-height: 18px;
     margin-bottom: 20px;
   }
+}
+#membership-page #edit-date-of-birth > div {
+  float: left;
+  width: 32%;
+}
+#membership-page #edit-date-of-birth > div:nth-of-type(2) {
+  margin: 0 2%;
 }
 
 .node-preview-container {
