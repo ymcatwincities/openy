@@ -18,12 +18,15 @@
   font-family: "Cachet-Bold";
   src: url("../fonts/cachet-bold/Cachet-Bold.ttf") format("truetype"), url("../fonts/cachet-bold/Cachet-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/cachet-bold/Cachet-Bold.woff") format("woff"), url("../fonts/cachet-bold/Cachet-Bold.svg#Cachet-Bold") format("svg"); }
 
+.block-class-current,
 .page-schedule {
   font-family: "Cachet-Bold";
   font-weight: normal;
   padding: 0; }
+  .block-class-current .header,
   .page-schedule .header {
     background: none; }
+  .block-class-current .all-classes,
   .page-schedule .all-classes {
     display: none; }
 
@@ -65,7 +68,22 @@
     font-size: 2.45vw;
     padding-top: 3.9vw;
     -webkit-transition: font-size 2s, padding-top 2s;
-    transition: font-size 2s, padding-top 2s; }
+    transition: font-size 2s, padding-top 2s;
+    position: relative; }
+    .class .trainer .trainer__substitute {
+      position: absolute;
+      padding-right: 2.5vw;
+      right: 50%;
+      color: #0060af; }
+    .class .trainer .trainer__substitute__icon {
+      font-size: 66%;
+      font-weight: bold;
+      color: #0060af; }
+    .class .trainer .trainer__substituted {
+      left: 50%;
+      position: absolute;
+      padding-left: 2.5vw;
+      text-decoration: line-through; }
   .class .class-name {
     color: #0060af;
     font-size: 5.9vw;
@@ -78,7 +96,10 @@
     position: relative;
     font-size: 2.45vw;
     text-transform: none;
-    margin-top: 2.5vw; }
+    margin-top: 2.5vw;
+    opacity: 1;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s; }
   .class .class-time-frame-from {
     color: #00aeef;
     position: absolute;
@@ -112,45 +133,139 @@
     left: 0;
     width: 75%;
     height: 100%; }
+  .class .class-time-countdown {
+    opacity: 0;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s; }
+    .class .class-time-countdown .class-time-countdown-background {
+      background-color: white;
+      border-radius: 100%;
+      height: 14.375vw;
+      left: 50%;
+      position: absolute;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      width: 14.375vw;
+      top: 14.84375vw; }
+    .class .class-time-countdown .class-time-countdown-progress-container {
+      background-color: #0060af;
+      border-radius: 100%;
+      left: 50%;
+      height: 11.25vw;
+      position: absolute;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      top: 16.40625vw;
+      width: 11.25vw; }
+    .class .class-time-countdown .class-time-countdown-progress {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%; }
+    .class .class-time-countdown .class-time-countdown-progress-holder {
+      background-color: white;
+      border-radius: 100%;
+      left: 50%;
+      position: absolute;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      top: 0.26042vw;
+      height: 10.72917vw;
+      width: 10.72917vw; }
+    .class .class-time-countdown .class-time-countdown-time--prefix,
+    .class .class-time-countdown .class-time-countdown-time--suffix {
+      color: #00aeef;
+      font-size: 2.60417vw;
+      right: 50%;
+      line-height: 14.375vw;
+      position: absolute;
+      -webkit-transform: translateX(-7.1875vw);
+          -ms-transform: translateX(-7.1875vw);
+              transform: translateX(-7.1875vw);
+      top: 14.84375vw; }
+    .class .class-time-countdown .class-time-countdown-time--suffix {
+      left: 50%;
+      right: auto;
+      -webkit-transform: translateX(7.1875vw);
+          -ms-transform: translateX(7.1875vw);
+              transform: translateX(7.1875vw); }
+    .class .class-time-countdown .class-time-countdown-time--value {
+      color: #0060af;
+      font-size: 2.60417vw;
+      height: 14.375vw;
+      left: 50%;
+      line-height: 14.375vw;
+      position: absolute;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%);
+      text-align: center;
+      width: 14.375vw;
+      top: 14.84375vw; }
+      .class .class-time-countdown .class-time-countdown-time--value .separator {
+        display: inline-block;
+        opacity: 1;
+        text-align: center;
+        -webkit-transition: opacity 0.5s;
+        transition: opacity 0.5s;
+        width: 1.04167vw; }
+        .class .class-time-countdown .class-time-countdown-time--value .separator.odd {
+          opacity: 0.7; }
+  .class.class-awaiting {
+    height: 25.78125vw; }
+    .class.class-awaiting .class-time-frame {
+      opacity: 0; }
+    .class.class-awaiting .class-time-countdown {
+      opacity: 1; }
 
-.class-next .class,
-.class-prev .class {
-  width: 76vw;
-  height: 13.4vw;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  background-color: #75aed7;
-  margin: auto;
-  top: 40vw;
-  margin-left: -38vw;
-  z-index: 5; }
-  .class-next .class .trainer,
-  .class-prev .class .trainer {
-    font-size: 0;
-    padding-top: 0; }
-  .class-next .class .class-name,
-  .class-prev .class .class-name {
-    color: #0065b3;
-    font-size: 3.4vw;
-    padding-top: 2.7vw; }
-  .class-next .class .class-time-frame,
-  .class-prev .class .class-time-frame {
-    position: relative;
-    font-size: 2.45vw;
-    margin-top: 1.2vw; }
-  .class-next .class .class-time-frame-from,
-  .class-prev .class .class-time-frame-from {
-    color: #0089d0;
-    position: static;
-    text-align: center; }
-    .class-next .class .class-time-frame-from .at,
-    .class-prev .class .class-time-frame-from .at {
-      display: inline; }
-  .class-next .class .class-time-frame-to,
-  .class-prev .class .class-time-frame-to {
-    opacity: 0; }
-  .class-next .class .class-time-frame-progress,
-  .class-prev .class .class-time-frame-progress {
-    opacity: 0; }
+.has-class-awaiting .class-next {
+  opacity: 0; }
+
+.class-next,
+.class-prev {
+  opacity: 1;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s; }
+  .class-next .class,
+  .class-prev .class {
+    width: 76vw;
+    height: 13.4vw;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: #75aed7;
+    margin: auto;
+    top: 40vw;
+    margin-left: -38vw;
+    z-index: 5; }
+    .class-next .class .trainer,
+    .class-prev .class .trainer {
+      font-size: 0;
+      padding-top: 0; }
+    .class-next .class .class-name,
+    .class-prev .class .class-name {
+      color: #0065b3;
+      font-size: 3.4vw;
+      padding-top: 2.7vw; }
+    .class-next .class .class-time-frame,
+    .class-prev .class .class-time-frame {
+      position: relative;
+      font-size: 2.45vw;
+      margin-top: 1.2vw; }
+    .class-next .class .class-time-frame-from,
+    .class-prev .class .class-time-frame-from {
+      color: #0089d0;
+      position: static;
+      text-align: center; }
+      .class-next .class .class-time-frame-from .at,
+      .class-prev .class .class-time-frame-from .at {
+        display: inline; }
+    .class-next .class .class-time-frame-to,
+    .class-prev .class .class-time-frame-to {
+      opacity: 0; }
+    .class-next .class .class-time-frame-progress,
+    .class-prev .class .class-time-frame-progress {
+      opacity: 0; }
 
 .class-prev .class {
   width: 76vw;
@@ -171,6 +286,9 @@
 
 .scheme-orange .class .trainer {
   color: #fcaf17; }
+  .scheme-orange .class .trainer .trainer__substitute,
+  .scheme-orange .class .trainer .trainer__substitute__icon {
+    color: #f15922; }
 
 .scheme-orange .class .class-name {
   color: #f15922; }
@@ -186,6 +304,16 @@
 
 .scheme-orange .class .class-time-frame-progress-bar {
   background-color: #fcaf17; }
+
+.scheme-orange .class .class-time-countdown .class-time-countdown-progress-container {
+  background-color: #f36f3c; }
+
+.scheme-orange .class .class-time-countdown .class-time-countdown-time--prefix,
+.scheme-orange .class .class-time-countdown .class-time-countdown-time--suffix {
+  color: #fcaf17; }
+
+.scheme-orange .class .class-time-countdown .class-time-countdown-time--value {
+  color: #a92b31; }
 
 .scheme-orange .class-next .class,
 .scheme-orange .class-prev .class {
