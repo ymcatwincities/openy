@@ -339,4 +339,49 @@
     }
   };
 
+  /**
+   * Mobile UX.
+   */
+  Drupal.behaviors.mobile_ux_sidebar_menu = {
+    attach: function (context, settings) {
+      if (typeof(settings.ymca_menu) !== 'undefined' && settings.ymca_menu.show_mobile_submenu) {
+        $('body').addClass('show-mobile-sub-navigation');
+        // Basic case, only sidebar presents.
+        if ($('.panel-subnav').length === 1 && $('.mobile-subnav').length === 0) {
+          $('<div class="mobile-subnav" />').insertAfter('.page-header');
+          $('.panel-subnav').clone(true).appendTo('.mobile-subnav');
+          $('.mobile-subnav .panel-heading a').append('<b class="caret"></b>').click(function (e) {
+            e.preventDefault();
+            if ($(this).hasClass('open')) {
+              $(this).removeClass('open').parents('.panel').find('.panel-body').slideUp();
+            }
+            else {
+              $(this).addClass('open').parents('.panel').find('.panel-body').slideDown();
+            }
+          });
+        }
+        // Extended case, merge sidebar and navbar.
+        if ($('.nav-location').length === 1) {
+          if ($('.panel-subnav').length === 1) {console.log($('.panel-subnav'));
+            $('.panel-subnav ul.nav').clone(true).appendTo('.nav-location .nav .current');
+          }
+          if ($('.nav-location a.home .name').length === 0) {
+            var name = $('.masthead-brand').text();
+            $('.nav-location a.home').append('<span class="name">' + Drupal.t(name + ' homepage') + '</span><b class="caret"></b>')
+            $('.nav-location a.home').click(function(e) {
+              e.preventDefault();
+              if ($(this).hasClass('open')) {
+                $(this).removeClass('open').parents('.nav').find('li:not(.heading)').slideUp();
+              }
+              else {
+                $(this).parents('.nav').find('li:eq(0)').addClass('heading');
+                $(this).addClass('open').parents('.nav').find('li').slideDown();
+              }
+            });
+          }
+        }
+      }
+    }
+  };
+
 })(jQuery);

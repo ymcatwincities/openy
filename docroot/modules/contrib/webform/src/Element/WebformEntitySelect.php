@@ -26,6 +26,9 @@ class WebformEntitySelect extends Select {
     // @see \Drupal\Core\Form\FormValidator::performRequiredValidation
     $element['#type'] = 'select';
 
+    // Add class.
+    $element['#attributes']['class'][] = 'webform-entity-select';
+
     return $element;
   }
 

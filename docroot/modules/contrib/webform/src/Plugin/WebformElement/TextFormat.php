@@ -6,7 +6,7 @@ use Drupal\Component\Serialization\Json;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Mail\MailFormatHelper;
 use Drupal\filter\Entity\FilterFormat;
-use Drupal\webform\WebformElementBase;
+use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -47,7 +47,7 @@ class TextFormat extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     parent::prepare($element, $webform_submission);
     $element['#after_build'] = [[get_class($this), 'afterBuild']];
     $element['#attached']['library'][] = 'webform/webform.element.text_format';
@@ -219,4 +219,14 @@ class TextFormat extends WebformElementBase {
     parent::validateConfigurationForm($form, $form_state);
   }
 
+  /**
+   * Get composite element.
+   *
+   * @return array
+   *   A composite sub-elements.
+   */
+  public function hasCompositeElement(array $element, $key) {
+    $elements = $this->getCompositeElements();
+    return (isset($elements[$key])) ? TRUE : FALSE;
+  }
 }

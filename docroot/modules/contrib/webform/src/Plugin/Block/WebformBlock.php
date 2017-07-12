@@ -23,21 +23,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class WebformBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The module handler.
+   * The webform token manager.
    *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
-   * The token manager.
-   *
-   * @var \Drupal\webform\WebformTranslationManagerInterface
+   * @var \Drupal\webform\WebformTokenManagerInterface
    */
   protected $tokenManager;
 
   /**
-   * Creates a HelpBlock instance.
+   * Creates a WebformBlock instance.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -46,7 +39,7 @@ class WebformBlock extends BlockBase implements ContainerFactoryPluginInterface 
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
-   *   The token manager.
+   *   The webform token manager.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, WebformTokenManagerInterface $token_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);

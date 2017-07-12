@@ -4,10 +4,10 @@ description: 'Imports default content when a module is enabled'
 package: Web services
 # core: 8.x
 dependencies:
-  - hal
+  - drupal:hal (>=8.3.x)
 
-# Information added by Drupal.org packaging script on 2016-09-15
-version: '8.x-1.0-alpha3'
+# Information added by Drupal.org packaging script on 2017-05-01
+version: '8.x-1.0-alpha6'
 core: '8.x'
 project: 'default_content'
-datestamp: 1473976449
+datestamp: 1493675948

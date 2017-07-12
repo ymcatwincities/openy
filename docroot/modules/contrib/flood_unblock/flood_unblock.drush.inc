@@ -1,11 +1,6 @@
 <?php
 
 /**
- * @file
- * Drush integration for the Flood Unblock module.
- */
-
-/**
  * Implements hook_drush_command().
  */
 function flood_unblock_drush_command() {

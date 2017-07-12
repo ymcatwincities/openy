@@ -1,11 +1,8 @@
 <?php
 
-/**
- * Contains \Drupal\acquia_connector\Form\SettingsForm.
- */
-
 namespace Drupal\acquia_connector\Form;
 
+use Drupal\acquia_connector\Helper\Storage;
 use Drupal\acquia_connector\Client;
 use Drupal\acquia_connector\Migration;
 use Drupal\Core\Url;
@@ -20,6 +17,8 @@ use Drupal\acquia_connector\ConnectorException;
 
 /**
  * Class SettingsForm.
+ *
+ * @package Drupal\acquia_connector\Form
  */
 class SettingsForm extends ConfigFormBase {
 
@@ -28,7 +27,7 @@ class SettingsForm extends ConfigFormBase {
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $config_factory;
+  protected $configFactory;
 
   /**
    * The module handler.
@@ -103,15 +102,16 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $config = $this->config('acquia_connector.settings');
-    $identifier = $config->get('identifier');
-    $key = $config->get('key');
+    $storage = new Storage();
+    $identifier = $storage->getIdentifier();
+    $key = $storage->getKey();
     $subscription = $config->get('subscription_name');
 
     if (empty($identifier) && empty($key)) {
       return new RedirectResponse($this->url('acquia_connector.start'));
     }
 
-    // Check our connection to the Acquia Network and validity of the credentials.
+    // Check our connection to the Acquia Network and validate credentials.
     try {
       $this->client->getSubscription($identifier, $key);
     }
@@ -278,11 +278,11 @@ class SettingsForm extends ConfigFormBase {
 
       $form['connection']['use_cron_url'] = array(
         '#type' => 'container',
-        '#children' => $this->t('Enter the following URL in your server\'s crontab to send SPI data:<br /><em>:url</em>', array(':url' => $url)),
+        '#children' => $this->t("Enter the following URL in your server's crontab to send SPI data:<br /><em>:url</em>", array(':url' => $url)),
         '#states' => array(
           'visible' => array(
             ':input[name="use_cron"]' => array('checked' => FALSE),
-          )
+          ),
         ),
       );
     }
@@ -294,6 +294,7 @@ class SettingsForm extends ConfigFormBase {
    * Determines if the machine name already exists.
    *
    * @return bool
+   *   FALSE.
    */
   public function exists() {
     return FALSE;
@@ -334,8 +335,7 @@ class SettingsForm extends ConfigFormBase {
   }
 
   /**
-   * @param $form
-   * @param $form_state
+   * Submit handler for the migrate cleaner form.
    */
   public function submitMigrateCleanupForm($form, FormStateInterface &$form_state) {
     $migration = $this->config('acquia_connector.settings')->get('cloud_migration');

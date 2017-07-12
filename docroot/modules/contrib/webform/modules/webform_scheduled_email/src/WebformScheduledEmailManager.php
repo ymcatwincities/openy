@@ -67,7 +67,7 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    * @param \Psr\Log\LoggerInterface $logger
    *   A logger instance.
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
-   *   The token manager.
+   *   The webform token manager.
    */
   public function __construct(Connection $database, EntityTypeManagerInterface $entity_type_manager, LoggerInterface $logger, WebformTokenManagerInterface $token_manager) {
     $this->database = $database;
@@ -691,7 +691,7 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
   /**
    * Inspects an entity and returns the associates webform, webform submission, and/or source entity.
    *
-   * @param \Drupal\Core\Entity\EntityInterface|NULL $entity
+   * @param \Drupal\Core\Entity\EntityInterface|null $entity
    *   A webform, webform submission, or source entity.
    *
    * @return array
@@ -728,7 +728,7 @@ class WebformScheduledEmailManager implements WebformScheduledEmailManagerInterf
    *   A webform submission.
    * @param \Drupal\Core\Entity\EntityInterface|null $source_entity
    *   A source entity.
-   * @param null $handler_id
+   * @param string|null $handler_id
    *   A webform handler id.
    * @param string|null $state
    *   The state of the scheduled emails.

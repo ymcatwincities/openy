@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\sitemap\SitemapHelper.
- */
-
 namespace Drupal\sitemap;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -109,7 +104,7 @@ class SitemapHelper {
 
     $last_depth = -1;
 
-    $output .= !empty($description) && $config->get('show_description') ? '<div class="description">' . Xss::filterAdmin($description) . "</div>\n" : '';
+    $description = !empty($description) && $config->get('show_description') ? '<div class="description">' . Xss::filterAdmin($description) . "</div>\n" : '';
 
     $depth = $config->get('vocabulary_depth');
     if ($depth <= -1) {
@@ -199,14 +194,18 @@ class SitemapHelper {
 
     $attributes->addClass('sitemap-box-terms', 'sitemap-box-terms-' . $vid);
 
-    $sitemap_box = array(
-      'title' => $title,
-      'content' => array('#markup' => $output),
-      'attributes' => $attributes,
-      'options' => $options,
-    );
+    // Only provide content where terms can be listed
+    if (!empty($output)) {
 
-    return $sitemap_box;
+      $sitemap_box = [
+        'title' => $title,
+        'content' => ['#markup' => $description . $output],
+        'attributes' => $attributes,
+        'options' => $options,
+      ];
+
+      return $sitemap_box;
+    }
   }
 
 }

@@ -1,0 +1,138 @@
+{
+    "_links": {
+        "self": {
+            "href": "http://drupal.org/node/3"
+        },
+        "type": {
+            "href": "http://drupal.org/rest/type/node/page"
+        },
+        "http://drupal.org/rest/relation/node/page/uid": [
+            {
+                "href": "http://drupal.org/user/99"
+            }
+        ],
+        "http://drupal.org/rest/relation/node/page/revision_uid": [
+            {
+                "href": "http://drupal.org/user/99"
+            }
+        ],
+        "http://drupal.org/rest/relation/node/page/field_tags":[
+            {
+                "href":"http://drupal.org/taxonomy/term/1"
+            }
+        ]
+    },
+    "uuid": [
+        {
+            "value": "78c412a3-b83f-4efb-8a05-5a6ecea10aee"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "page"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en"
+        }
+    ],
+    "title": [
+        {
+            "value": "Imported node with owned by user that does not exist"
+        }
+    ],
+    "body": [
+        {
+            "value": "Crikey it works!"
+        }
+    ],
+    "_embedded": {
+        "http://drupal.org/rest/relation/node/page/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://drupal.org/user/99"
+                    },
+                    "type": {
+                        "href": "http://drupal.org/rest/type/user/user"
+                    }
+                },
+                "uuid":[
+                    {
+                        "value":"99301be5-7017-4ff8-b2d3-09dc0a30bd43"
+                    }
+                ]
+            }
+        ],
+        "http://drupal.org/rest/relation/node/page/revision_uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http://drupal.org/user/99"
+                    },
+                    "type": {
+                        "href": "http://drupal.org/rest/type/user/user"
+                    }
+                },
+                "uuid":[
+                    {
+                        "value":"99301be5-7017-4ff8-b2d3-09dc0a30bd43"
+                    }
+                ]
+            }
+        ],
+        "http://drupal.org/rest/relation/node/page/field_tags": [
+            {
+                "_links":{
+                    "self":{
+                        "href":"http://drupal.org/taxonomy/term/1"
+                    },
+                    "type":{
+                        "href":"http://drupal.org/rest/type/taxonomy_term/tags"
+                    }
+                },
+                "uuid":[
+                    {
+                        "value":"550f86ad-aa11-4047-953f-636d42889f85"
+                    }
+                ]
+            }
+        ]
+    },
+    "status": [
+        {
+            "value": "1"
+        }
+    ],
+    "created": [
+        {
+            "value": "1381645976"
+        }
+    ],
+    "changed": [
+        {
+            "value": "1381646540"
+        }
+    ],
+    "promote": [
+        {
+            "value": "1"
+        }
+    ],
+    "sticky": [
+        {
+            "value": "1"
+        }
+    ],
+    "revision_timestamp": [
+        {
+            "value": "1381646540"
+        }
+    ],
+    "revision_log": [
+        {
+            "value": ""
+        }
+    ]
+}
