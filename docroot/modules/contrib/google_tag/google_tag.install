@@ -41,7 +41,7 @@ function google_tag_requirements($phase) {
         // getDirectoryPath() is not defined in StreamWrapperInterface; it
         // exists in LocalStream and the local storage replacement classes in
         // google_appengine; s3fs returns an empty string.
-        $path .=  '/google_tag';
+        $path .= '/google_tag';
       }
       elseif (!($path = $wrapper->getExternalUrl())) {
         $path = $directory;
@@ -84,7 +84,14 @@ function google_tag_requirements($phase) {
  * Implements hook_install().
  */
 function google_tag_install() {
-  $config_factory = \Drupal::configFactory();
-  $form = new Drupal\google_tag\Form\GoogleTagSettingsForm($config_factory);
-  $form->saveSnippets();
+  _google_tag_assets_create();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function google_tag_uninstall() {
+  @file_unmanaged_delete_recursive('public://google_tag');
+  \Drupal::service('asset.js.collection_optimizer')->deleteAll();
+  _drupal_flush_css_js();
 }

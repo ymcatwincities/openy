@@ -2,7 +2,7 @@
 
 namespace Drupal\webform\Plugin\WebformExporter;
 
-use Drupal\webform\WebformExporterBase;
+use Drupal\webform\Plugin\WebformExporterBase;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**

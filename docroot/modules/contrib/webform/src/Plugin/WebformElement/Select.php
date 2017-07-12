@@ -43,16 +43,27 @@ class Select extends OptionsBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
-    if (empty($element['#multiple'])) {
-      if (!isset($element['#empty_option'])) {
-        $element['#empty_option'] = empty($element['#required']) ? $this->t('- Select -') : $this->t('- None -');
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
+    $config = $this->configFactory->get('webform.settings');
+
+    // Always include empty option.
+    // Note: #multiple select menu does support empty options.
+    // @see \Drupal\Core\Render\Element\Select::processSelect
+    if (!isset($element['#empty_option']) && empty($element['#multiple'])) {
+      $required = isset($element['#states']['required']) ? TRUE : !empty($element['#required']);
+      $empty_option = $required
+        ? ($config->get('element.default_empty_option_required') ?: $this->t('- Select -'))
+        : ($config->get('element.default_empty_option_optional') ?: $this->t('- None -'));
+      if ($config->get('element.default_empty_option')) {
+        $element['#empty_option'] = $empty_option;
+      }
+      // Copied from: \Drupal\Core\Render\Element\Select::processSelect.
+      elseif (($required && !isset($element['#default_value'])) || isset($element['#empty_value'])) {
+        $element['#empty_option'] = $empty_option;
       }
     }
-    else {
-      if (!isset($element['#empty_option'])) {
-        $element['#empty_option'] = empty($element['#required']) ? $this->t('- None -') : NULL;
-      }
+
+    if (!empty($element['#multiple'])) {
       $element['#element_validate'][] = [get_class($this), 'validateMultipleOptions'];
     }
 

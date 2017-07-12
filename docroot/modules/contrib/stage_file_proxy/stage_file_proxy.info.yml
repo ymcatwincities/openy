@@ -6,8 +6,8 @@ package: Development
 # core: 8.x
 configure: stage_file_proxy.admin_form
 
-# Information added by Drupal.org packaging script on 2016-05-06
-version: '8.x-1.0-alpha1'
+# Information added by Drupal.org packaging script on 2017-04-05
+version: '8.x-1.0-alpha2'
 core: '8.x'
 project: 'stage_file_proxy'
-datestamp: 1462547989
+datestamp: 1491359585

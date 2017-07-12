@@ -56,12 +56,12 @@ details details details {
 
 /* System tray title bar */
 .ui-dialog.ui-dialog-offcanvas .ui-dialog-titlebar,
-.ui-dialog.ui-dialog-off-canvas .ui-dialog-titlebar{
+.ui-dialog.ui-dialog-off-canvas .ui-dialog-titlebar {
   border-radius: 0;
 }
 
 /* System tray actions */
-.ui-dialog.ui-dialog-off-canvas .ui-dialog-content .form-actions
-.ui-dialog.ui-dialog-offcanvas .ui-dialog-content .form-actions {
+.ui-dialog.ui-dialog-offcanvas .ui-dialog-content .form-actions,
+.ui-dialog.ui-dialog-off-canvas .ui-dialog-content .form-actions {
   margin: 1em 0;
 }

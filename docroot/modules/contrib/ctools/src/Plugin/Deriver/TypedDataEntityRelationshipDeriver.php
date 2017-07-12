@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\Deriver\TypedDataEntityRelationshipDeriver.
- */
 
 namespace Drupal\ctools\Plugin\Deriver;
 

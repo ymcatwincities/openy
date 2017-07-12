@@ -26,6 +26,20 @@ entity.node.webform.user.submissions:
   requirements:
     _custom_access: '\Drupal\webform_node\Access\WebformNodeAccess::checkWebformAccess'
 
+entity.node.webform.user.drafts:
+  path: '/node/{node}/webform/drafts'
+  defaults:
+    _entity_list: 'webform_submission'
+    _title: 'Drafts'
+    operation: view
+    entity_access: 'webform.submission_create'
+  options:
+    parameters:
+      node:
+        type: 'entity:node'
+  requirements:
+    _custom_access: '\Drupal\webform_node\Access\WebformNodeAccess::checkWebformAccess'
+
 entity.node.webform.user.submission:
   path: '/node/{node}/webform/submissions/{webform_submission}'
   defaults:

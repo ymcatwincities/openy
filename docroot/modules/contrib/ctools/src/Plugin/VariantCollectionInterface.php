@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Plugin\VariantCollectionInterface.
- */
 
 namespace Drupal\ctools\Plugin;
 

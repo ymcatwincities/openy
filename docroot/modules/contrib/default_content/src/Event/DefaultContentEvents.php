@@ -39,4 +39,5 @@ final class DefaultContentEvents {
    * @var string
    */
   const EXPORT = 'default_content.export';
+
 }

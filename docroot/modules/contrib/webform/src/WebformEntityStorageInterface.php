@@ -36,4 +36,41 @@ interface WebformEntityStorageInterface extends ConfigEntityStorageInterface, Im
    */
   public function getOptions($template = NULL);
 
+  /**
+   * Returns the next serial number.
+   *
+   * @return int
+   *   The next serial number.
+   */
+  public function getNextSerial(WebformInterface $webform);
+
+  /**
+   * Set the next serial number.
+   *
+   * @param \Drupal\webform\WebformInterface $webform
+   *   A webform.
+   * @param int $next_serial
+   *   The next serial number
+   */
+  public function setNextSerial(WebformInterface $webform, $next_serial);
+
+  /**
+   * Returns the next serial number for a webform's submission.
+   *
+   * @return int
+   *   The next serial number for a webform's submission.
+   */
+  public function getSerial(WebformInterface $webform);
+
+  /**
+   * Returns a webform's max serial number.
+   *
+   * @param \Drupal\webform\WebformInterface $webform
+   *   A webform.
+   *
+   * @return int
+   *   The next serial number.
+   */
+  public function getMaxSerial(WebformInterface $webform);
+
 }

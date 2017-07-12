@@ -7,7 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 
- /**
+/**
  * Implements hook_form_BASE_FORM_ID_alter().
  *
  * Removes the default values form from the field settings page.
@@ -43,7 +43,7 @@ function address_theme() {
         'administrative_area' => [],
         'country' => [],
       ],
-    ]
+    ],
   ];
 }
 
