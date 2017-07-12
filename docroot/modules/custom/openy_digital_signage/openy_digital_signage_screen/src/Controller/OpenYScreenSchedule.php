@@ -185,15 +185,23 @@ class OpenYScreenSchedule extends ControllerBase {
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   Ajax response object.
    */
-  public function viewScheduleItem(OpenYScreenInterface $screen, OpenYScheduleItemInterface $schedule_item) {
+  public function viewScheduleItem(Request $request, OpenYScreenInterface $screen, OpenYScheduleItemInterface $schedule_item) {
     $screen_content = $schedule_item->content->entity;
+
+    $from = $request->query->has('from') ? $request->query->get('from') : time();
+    $to = $request->query->has('to') ? $request->query->get('to') : time() + 8 * 3600;
+
     // Build an edit Schedule item form.
+    $src = Url::fromRoute('entity.node.canonical', [
+      'node' => $screen_content->id(),
+      'from' => $from,
+      'to' => $to,
+    ])->toString();
     $build = [
       '#type' => 'container',
       '#tag' => 'div',
       '#attributes' => [
-        'data-src' => Url::fromRoute('entity.node.canonical', ['node' => $screen_content->id()])
-          ->toString(),
+        'data-src' => $src,
         'class' => ['frame-container'],
       ],
     ];
