@@ -1,11 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\queue_ui\QueueUIDatabaseQueue.
- */
-
 namespace Drupal\queue_ui;
+
+use Drupal\Core\Database\Database;
 
 class QueueUIDatabaseQueue implements QueueUIInterface {
 
@@ -23,11 +20,11 @@ class QueueUIDatabaseQueue implements QueueUIInterface {
    *  operation, array key value is the display name.
    */
   public function getOperations() {
-    return array(
+    return [
       'view' => t('View'),
       'release' => t('Release'),
       'delete' => t('Delete'),
-    );
+    ];
   }
 
   /**
@@ -37,7 +34,7 @@ class QueueUIDatabaseQueue implements QueueUIInterface {
    * @return string
    */
   public function inspect($queue_name) {
-    $query = db_select('queue', 'q');
+    $query = Database::getConnection('default')->select('queue', 'q');
     $query->addField('q', 'item_id');
     $query->addField('q', 'expire');
     $query->addField('q', 'created');
@@ -46,17 +43,17 @@ class QueueUIDatabaseQueue implements QueueUIInterface {
     $query = $query->limit(25);
     $result = $query->execute();
 
-    $header = array(
+    $header = [
       t('Item ID'),
       t('Expires'),
       t('Created'),
-      array('data' => t('Operations'), 'colspan' => '3'),
-    );
+      ['data' => t('Operations'), 'colspan' => '3'],
+    ];
 
-    $rows = array();
+    $rows = [];
 
     foreach ($result as $item) {
-      $row = array();
+      $row = [];
       $row[] = $item->item_id;
       $row[] = ($item->expire ? date(DATE_RSS, $item->expire) : $item->expire);
       $row[] = date(DATE_RSS, $item->created);
@@ -65,20 +62,20 @@ class QueueUIDatabaseQueue implements QueueUIInterface {
         $row[] = l($title, QUEUE_UI_BASE . "/$queue_name/$op/$item->item_id");
       }
 
-      $rows[] = array('data' => $row);
+      $rows[] = ['data' => $row];
     }
 
-    $theme_table = array(
+    $theme_table = [
       '#theme' => 'table',
       '#header' => $header,
       '#rows' => $rows
-    );
-    $table = drupal_render($theme_table);
+    ];
+    $table = \Drupal::service('renderer')->render($theme_table);
 
-    $theme_pager = array(
+    $theme_pager = [
       '#theme' => 'pager'
-    );
-    $pager = drupal_render($theme_pager);
+    ];
+    $pager = \Drupal::service('renderer')->render($theme_pager);
 
     return $table . $pager;
   }
@@ -92,50 +89,50 @@ class QueueUIDatabaseQueue implements QueueUIInterface {
   public function view($item_id) {
     $queue_item = $this->loadItem($item_id);
 
-    $rows[] = array(
-      'data' => array(
+    $rows[] = [
+      'data' => [
         'header' => t('Item ID'),
         'data' => $queue_item->item_id,
-      ),
-    );
-    $rows[] = array(
-      'data' => array(
+      ],
+    ];
+    $rows[] = [
+      'data' => [
         'header' => t('Queue name'),
         'data' => $queue_item->name,
-      ),
-    );
-    $rows[] = array(
-      'data' => array(
+      ],
+    ];
+    $rows[] = [
+      'data' => [
         'header' => t('Expire'),
         'data' => ($queue_item->expire ? date(DATE_RSS, $queue_item->expire) : $queue_item->expire),
-      ),
-    );
-    $rows[] = array(
-      'data' => array(
+      ],
+    ];
+    $rows[] = [
+      'data' => [
         'header' => t('Created'),
         'data' => date(DATE_RSS, $queue_item->created),
-      ),
-    );
-    $rows[] = array(
-      'data' => array(
-        'header' => array('data' => t('Data'), 'style' => 'vertical-align:top'),
+      ],
+    ];
+    $rows[] = [
+      'data' => [
+        'header' => ['data' => t('Data'), 'style' => 'vertical-align:top'],
         'data' => '<pre>' . print_r(unserialize($queue_item->data), TRUE) . '</pre>',
         // @TODO - should probably do something nicer than print_r here...
-      ),
-    );
+      ],
+    ];
 
-    $table = array(
+    $table = [
       '#theme' => 'table',
       '#rows' => $rows
-    );
-    return drupal_render($table);
+    ];
+    return \Drupal::service('renderer')->render($table);
   }
 
   public function delete($item_id) {
     // @TODO - try... catch...
     drupal_set_message("Deleted queue item " . $item_id);
 
-    db_delete('queue')
+    Database::getConnection('default')->delete('queue')
       ->condition('item_id', $item_id)
       ->execute();
 
@@ -146,9 +143,9 @@ class QueueUIDatabaseQueue implements QueueUIInterface {
     // @TODO - try... catch...
     drupal_set_message("Released queue item " . $item_id);
 
-    db_update('queue')
+    Database::getConnection('default')->update('queue')
       ->condition('item_id', $item_id)
-      ->fields(array('expire' => 0))
+      ->fields(['expire' => 0])
       ->execute();
 
     return TRUE;
@@ -164,8 +161,8 @@ class QueueUIDatabaseQueue implements QueueUIInterface {
    */
   private function loadItem($item_id) {
     // Load the specified queue item from the queue table.
-    $query = db_select('queue', 'q')
-      ->fields('q', array('item_id', 'name', 'data', 'expire', 'created'))
+    $query = Database::getConnection('default')->select('queue', 'q')
+      ->fields('q', ['item_id', 'name', 'data', 'expire', 'created'])
       ->condition('q.item_id', $item_id)
       ->range(0, 1) // item id should be unique
       ->execute();

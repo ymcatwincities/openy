@@ -130,6 +130,9 @@ function ymca_menu_page_attachments(array &$attachments) {
     ) . '/',
     'meganav' => \Drupal::config('ymca_menu.main_menu')->get('items'),
   );
+  if (\Drupal::config('ymca_menu.mobile_menu_list')->get('show_mobile_submenu')) {
+    $attachments['#attached']['drupalSettings']['ymca_menu']['show_mobile_submenu'] = TRUE;
+  }
 }
 
 /**

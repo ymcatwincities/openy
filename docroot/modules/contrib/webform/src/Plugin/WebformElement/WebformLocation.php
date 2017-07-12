@@ -2,10 +2,8 @@
 
 namespace Drupal\webform\Plugin\WebformElement;
 
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url as UrlGenerator;
-use Drupal\webform\Element\WebformLocation as WebformLocationElement;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionInterface;
 
@@ -23,22 +21,6 @@ use Drupal\webform\WebformSubmissionInterface;
  * )
  */
 class WebformLocation extends WebformCompositeBase {
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getCompositeElements() {
-    return WebformLocationElement::getCompositeElements();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getInitializedCompositeElement(array &$element) {
-    $form_state = new FormState();
-    $form_completed = [];
-    return WebformLocationElement::processWebformComposite($element, $form_state, $form_completed);
-  }
 
   /**
    * {@inheritdoc}
@@ -80,9 +62,7 @@ class WebformLocation extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
-    parent::prepare($element, $webform_submission);
-
+  public function initialize(array &$element) {
     // Hide all composite elements by default.
     $composite_elements = $this->getCompositeElements();
     foreach ($composite_elements as $composite_key => $composite_element) {
@@ -90,6 +70,8 @@ class WebformLocation extends WebformCompositeBase {
         $element['#' . $composite_key . '__access'] = FALSE;
       }
     }
+
+    parent::initialize($element);
   }
 
   /**
@@ -144,7 +126,7 @@ class WebformLocation extends WebformCompositeBase {
       ];
     }
     else {
-      return parent::formatHtmlItems($element, $value, $options);
+      return parent::formatHtmlItem($element, $webform_submission, $options);
     }
   }
 
@@ -194,13 +176,13 @@ class WebformLocation extends WebformCompositeBase {
     ];
     $default_api_key = \Drupal::config('webform.settings')->get('element.default_google_maps_api_key');
     if ($default_api_key) {
-      $form['composite']['api_key']['#description'] .= '<br/>' . $this->t('Defaults to: %value', ['%value' => $default_api_key]);
+      $form['composite']['api_key']['#description'] .= '<br />' . $this->t('Defaults to: %value', ['%value' => $default_api_key]);
     }
     else {
       $form['composite']['api_key']['#required'] = TRUE;
       if (\Drupal::currentUser()->hasPermission('administer webform')) {
         $t_args = [':href' => UrlGenerator::fromRoute('webform.settings')->toString()];
-        $form['composite']['api_key']['#description'] .= '<br/>' . $this->t('You can either enter an element specific API key here or set the <a href=":href">default site-wide API key</a>.', $t_args);
+        $form['composite']['api_key']['#description'] .= '<br />' . $this->t('You can either enter an element specific API key here or set the <a href=":href">default site-wide API key</a>.', $t_args);
       }
     }
 

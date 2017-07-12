@@ -1,5 +1,23 @@
 Mime Mail 8.x-1.x, xxxx-xx-xx
 -----------------------
+
+Mime Mail 8.x-1.0-alpha2, 2017-05-14
+-----------------------
+- #2803393 by DamienMcKenna, ThomWilhelm: Add template suggestions
+- #2858688 by Munavijayalakshmi: Convert module to use short array syntax (new coding standard)
+- #2792471 by meramo: Internal links with query arguments in message body encoded in a wrong way
+- #2807645 by hussainweb: Handle languages correctly when generating links
+- #2807649 by hussainweb: Links are not generated correctly when site is in subdirectory
+
+Mime Mail 8.x-1.0-alpha1, 2017-03-12
+-----------------------
+- #2801187 by danylevskyi: Mailsystem crashes when the code is invoked via Drush
+- #2858651 by Munavijayalakshmi, dhruveshdtripathi: Add Configure link
+- #2719981 by Kgaut: TypeError when using Web Profiler
+- #2723179 by jojyja: Removing unused imports in code
+- #2833963 by cebasqueira, renatog: Implement hook_help()
+- #2806795 by hussainweb: MIME HTML messages are not constructed correctly
+- #2842987 by nehakhadke, hansfn: $this->t() should be used instead of t()
 - #2790803 by meramo: Drupal::url has been deprecated
 - #2754259 by Sonal.Sangale: Remove @file tag docblock from all the .php files
 - #2761275 by jehon: Strict warning shown

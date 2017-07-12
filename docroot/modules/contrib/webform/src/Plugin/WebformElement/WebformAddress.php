@@ -2,8 +2,7 @@
 
 namespace Drupal\webform\Plugin\WebformElement;
 
-use Drupal\Core\Form\FormState;
-use Drupal\webform\Element\WebformAddress as WebformAddressElement;
+use Drupal\webform\WebformSubmissionInterface;
 
 /**
  * Provides an 'address' element.
@@ -23,30 +22,16 @@ class WebformAddress extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
-  protected function getCompositeElements() {
-    return WebformAddressElement::getCompositeElements();
+  protected function formatHtmlItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+    return $this->formatTextItemValue($element, $webform_submission, $options);
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function getInitializedCompositeElement(array &$element) {
-    $form_state = new FormState();
-    $form_completed = [];
-    return WebformAddressElement::processWebformComposite($element, $form_state, $form_completed);
-  }
+  protected function formatTextItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
+    $value = $this->getValue($element, $webform_submission, $options);
 
-  /**
-   * {@inheritdoc}
-   */
-  protected function formatHtmlItemValue(array $element, array $value) {
-    return $this->formatTextItemValue($element, $value);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function formatTextItemValue(array $element, array $value) {
     $lines = [];
     if (!empty($value['address'])) {
       $lines['address'] = $value['address'];

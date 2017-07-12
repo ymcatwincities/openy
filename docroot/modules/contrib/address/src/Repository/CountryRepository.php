@@ -6,14 +6,13 @@ use CommerceGuys\Intl\Country\CountryRepository as ExternalCountryRepository;
 use CommerceGuys\Addressing\Country\CountryRepositoryInterface as ExternalCountryRepositoryInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\Locale\CountryManagerInterface;
 
 /**
  * Defines the country repository.
  *
  * Countries are stored on disk in JSON and cached inside Drupal.
  */
-class CountryRepository extends ExternalCountryRepository implements ExternalCountryRepositoryInterface, CountryManagerInterface {
+class CountryRepository extends ExternalCountryRepository implements ExternalCountryRepositoryInterface {
 
   /**
    * The cache backend.
@@ -69,6 +68,7 @@ class CountryRepository extends ExternalCountryRepository implements ExternalCou
    * Loads the base country definitions.
    *
    * @return array
+   *   The base country definitions.
    */
   protected function loadBaseDefinitions() {
     if (!empty($this->baseDefinitions)) {

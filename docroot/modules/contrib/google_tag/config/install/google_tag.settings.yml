@@ -8,6 +8,7 @@ status_toggle: 'exclude listed'
 status_list: "403\n404"
 compact_snippet: true
 include_file: true
+rebuild_snippets: true
 debug_output: false
 data_layer: 'dataLayer'
 include_classes: false

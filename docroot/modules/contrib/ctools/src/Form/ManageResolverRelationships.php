@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\ctools\Form\ManageResolverRelationships.
- */
 
 namespace Drupal\ctools\Form;
 
@@ -48,7 +44,7 @@ abstract class ManageResolverRelationships extends FormBase {
       '#theme' => 'table',
       '#header' => array($this->t('Context ID'), $this->t('Label'), $this->t('Data Type'), $this->t('Options')),
       '#rows' => $this->renderRows($cached_values),
-      '#empty' => t('No relationships have been added.')
+      '#empty' => $this->t('No relationships have been added.')
     );
 
     $form['relationships'] = [
@@ -59,7 +55,7 @@ abstract class ManageResolverRelationships extends FormBase {
     $form['add_relationship'] = [
       '#type' => 'submit',
       '#name' => 'add',
-      '#value' => t('Add Relationship'),
+      '#value' => $this->t('Add Relationship'),
       '#ajax' => [
         'callback' => [$this, 'addRelationship'],
         'event' => 'click',
@@ -139,7 +135,7 @@ abstract class ManageResolverRelationships extends FormBase {
       return [];
     }
     $operations['edit'] = array(
-      'title' => t('Edit'),
+      'title' => $this->t('Edit'),
       'url' => new Url($route_name_base . '.edit', $route_parameters),
       'weight' => 10,
       'attributes' => array(
@@ -152,7 +148,7 @@ abstract class ManageResolverRelationships extends FormBase {
     );
     $route_parameters['id'] = $route_parameters['context'];
     $operations['delete'] = array(
-      'title' => t('Delete'),
+      'title' => $this->t('Delete'),
       'url' => new Url($route_name_base . '.delete', $route_parameters),
       'weight' => 100,
       'attributes' => array(

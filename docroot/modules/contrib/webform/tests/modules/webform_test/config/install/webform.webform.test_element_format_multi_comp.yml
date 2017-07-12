@@ -25,22 +25,19 @@ elements: |
         '#title': 'Address (Ordered list)'
         '#multiple': true
         '#default_value':
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
@@ -52,22 +49,19 @@ elements: |
         '#title': 'Address (Unordered list)'
         '#multiple': true
         '#default_value':
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
@@ -79,22 +73,19 @@ elements: |
         '#title': 'Address (Horizontal rule)'
         '#multiple': true
         '#default_value':
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            address: '10 Main Street'
+          - address: '10 Main Street'
             address_2: '10 Main Street'
             city: Springfield
             state_province: Alabama
@@ -109,8 +100,7 @@ elements: |
         '#title': 'Contact (Ordered list)'
         '#multiple': true
         '#default_value':
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -120,8 +110,7 @@ elements: |
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -131,8 +120,7 @@ elements: |
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -148,8 +136,7 @@ elements: |
         '#title': 'Contact (Unordered list)'
         '#multiple': true
         '#default_value':
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -159,8 +146,7 @@ elements: |
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -170,8 +156,7 @@ elements: |
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -187,8 +172,7 @@ elements: |
         '#title': 'Contact (Horizontal rule)'
         '#multiple': true
         '#default_value':
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -198,8 +182,7 @@ elements: |
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -209,8 +192,7 @@ elements: |
             state_province: Alabama
             postal_code: Loremipsum
             country: Afghanistan
-          -
-            name: Loremipsum
+          - name: Loremipsum
             company: Loremipsum
             email: example@example.com
             phone: 123-456-7890
@@ -229,14 +211,11 @@ elements: |
         '#title': 'Link (Ordered list)'
         '#multiple': true
         '#default_value':
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
         '#format_items': ol
       webform_link_ul:
@@ -244,14 +223,11 @@ elements: |
         '#title': 'Link (Unordered list)'
         '#multiple': true
         '#default_value':
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
         '#format_items': ul
       webform_link_hr:
@@ -259,14 +235,11 @@ elements: |
         '#title': 'Link (Horizontal rule)'
         '#multiple': true
         '#default_value':
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
-          -
-            title: Loremipsum
+          - title: Loremipsum
             url: 'http://example.com'
         '#format_items': hr
     webform_location:
@@ -280,12 +253,9 @@ elements: |
         '#format': map
         '#multiple': true
         '#default_value':
-          -
-            value: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500, USA'
-          -
-            value: 'London SW1A 1AA, United Kingdom'
-          -
-            value: 'Moscow, Russia, 10307'
+          - value: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500, USA'
+          - value: 'London SW1A 1AA, United Kingdom'
+          - value: 'Moscow, Russia, 10307'
         '#format_items': ol
       webform_location_ul:
         '#type': webform_location
@@ -295,12 +265,9 @@ elements: |
         '#format': map
         '#multiple': true
         '#default_value':
-          -
-            value: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500, USA'
-          -
-            value: 'London SW1A 1AA, United Kingdom'
-          -
-            value: 'Moscow, Russia, 10307'
+          - value: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500, USA'
+          - value: 'London SW1A 1AA, United Kingdom'
+          - value: 'Moscow, Russia, 10307'
         '#format_items': ul
       webform_location_hr:
         '#type': webform_location
@@ -310,12 +277,9 @@ elements: |
         '#format': map
         '#multiple': true
         '#default_value':
-          -
-            value: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500, USA'
-          -
-            value: 'London SW1A 1AA, United Kingdom'
-          -
-            value: 'Moscow, Russia, 10307'
+          - value: 'The White House, 1600 Pennsylvania Ave NW, Washington, DC 20500, USA'
+          - value: 'London SW1A 1AA, United Kingdom'
+          - value: 'Moscow, Russia, 10307'
         '#format_items': hr
     webform_name:
       '#type': details
@@ -325,22 +289,19 @@ elements: |
         '#title': 'Name (Ordered list)'
         '#multiple': true
         '#default_value':
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
             suffix: Loremipsum
             degree: Loremipsum
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
             suffix: Loremipsum
             degree: Loremipsum
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
@@ -352,22 +313,19 @@ elements: |
         '#title': 'Name (Unordered list)'
         '#multiple': true
         '#default_value':
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
             suffix: Loremipsum
             degree: Loremipsum
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
             suffix: Loremipsum
             degree: Loremipsum
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
@@ -379,22 +337,19 @@ elements: |
         '#title': 'Name (Horizontal rule)'
         '#multiple': true
         '#default_value':
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
             suffix: Loremipsum
             degree: Loremipsum
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
             suffix: Loremipsum
             degree: Loremipsum
-          -
-            title: Miss
+          - title: Miss
             first: Loremipsum
             middle: Loremipsum
             last: Loremipsum
@@ -409,16 +364,13 @@ elements: |
         '#title': 'Telephone advanced (Ordered list)'
         '#multiple': true
         '#default_value':
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
         '#format_items': ol
@@ -427,16 +379,13 @@ elements: |
         '#title': 'Telephone advanced (Unordered list)'
         '#multiple': true
         '#default_value':
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
         '#format_items': ul
@@ -445,22 +394,20 @@ elements: |
         '#title': 'Telephone advanced (Horizontal rule)'
         '#multiple': true
         '#default_value':
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
-          -
-            type: Home
+          - type: Home
             phone: '+1 212-333-4444'
             ext: 0
         '#format_items': hr
 css: ''
 javascript: ''
 settings:
+  ajax: false
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -474,13 +421,17 @@ settings:
   form_convert_anonymous: false
   form_prepopulate: false
   form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
   form_disable_back: false
   form_autofocus: false
   form_details_toggle: false
+  submission_label: ''
   submission_log: false
+  submission_user_columns: {  }
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -491,7 +442,10 @@ settings:
   preview_label: ''
   preview_title: ''
   preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
   draft: none
+  draft_multiple: false
   draft_auto_save: false
   draft_saved_message: ''
   draft_loaded_message: ''
@@ -563,6 +517,7 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
       html: false
       attachments: false
       debug: true
@@ -589,6 +544,7 @@ handlers:
       subject: default
       body: default
       excluded_elements: {  }
+      ignore_access: false
       html: true
       attachments: false
       debug: true

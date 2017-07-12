@@ -64,6 +64,7 @@ class ModerationStateFieldItemListTest extends KernelTestBase {
    * Test the field item list when accessing an index.
    */
   public function testArrayIndex() {
+    $this->assertFalse($this->testNode->isPublished());
     $this->assertEquals('draft', $this->testNode->moderation_state[0]->value);
   }
 

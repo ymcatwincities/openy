@@ -6,6 +6,7 @@ use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\Entity\ConfigEntityStorage;
 use Drupal\Core\Database\Connection;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -54,6 +55,24 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
     );
   }
 
+
+  /**
+   * {@inheritdoc}
+   */
+  public function save(EntityInterface $entity) {
+    $return = parent::save($entity);
+    if ($return === SAVED_NEW) {
+      // Insert webform database record used for transaction tracking.
+      $this->database->insert('webform')
+        ->fields([
+          'webform_id' => $entity->id(),
+          'next_serial' => 1,
+        ])
+        ->execute();
+    }
+    return $return;
+  }
+
   /**
    * {@inheritdoc}
    *
@@ -87,17 +106,23 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
    */
   public function delete(array $entities) {
     parent::delete($entities);
-    if ($entities) {
+    if (!$entities) {
+      // If no entities were passed, do nothing.
       return;
     }
 
     // Delete all webform submission log entries.
     $webform_ids = [];
     foreach ($entities as $entity) {
-      $webform_ids[$entity->id()] = $entity;
+      $webform_ids[] = $entity->id();
     }
     $this->database->delete('webform_submission_log')
-      ->condition('webform_ids', $webform_ids, 'IN')
+      ->condition('webform_id', $webform_ids, 'IN')
+      ->execute();
+
+    // Delete all webform records used to track next serial.
+    $this->database->delete('webform')
+      ->condition('webform_id', $webform_ids, 'IN')
       ->execute();
   }
 
@@ -140,6 +165,71 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
       }
     }
     return $uncategorized_options + $categorized_options;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getNextSerial(WebformInterface $webform) {
+    return $this->database->select('webform', 'w')
+      ->fields('w', array('next_serial'))
+      ->condition('webform_id', $webform->id())
+      ->execute()
+      ->fetchField();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setNextSerial(WebformInterface $webform, $next_serial = 1) {
+    $this->database->update('webform')
+      ->fields(['next_serial' => $next_serial])
+      ->condition('webform_id', $webform->id())
+      ->execute();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSerial(WebformInterface $webform) {
+    // Use a transaction with SELECT ... FOR UPDATE to lock the row between
+    // the SELECT and the UPDATE, ensuring that multiple Webform submissions
+    // at the same time do not have duplicate numbers. FOR UPDATE must be inside
+    // a transaction. The return value of db_transaction() must be assigned or the
+    // transaction will commit immediately. The transaction will commit when $txn
+    // goes out-of-scope.
+    // @see \Drupal\Core\Database\Transaction
+    $transaction = $this->database->startTransaction();
+
+    // Get the next_serial value.
+    $next_serial = $this->database->select('webform', 'w')
+      // Only add FOR UPDATE when incrementing.
+      ->forUpdate()
+      ->fields('w', array('next_serial'))
+      ->condition('webform_id', $webform->id())
+      ->execute()
+      ->fetchField();
+
+    // $next_serial must be greater than any existing serial number.
+    $next_serial = max($next_serial, $this->getMaxSerial($webform));
+
+    // Increment the next_value.
+    $this->database->update('webform')
+      ->fields(['next_serial' => $next_serial + 1])
+      ->condition('webform_id', $webform->id())
+      ->execute();
+
+    return $next_serial;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMaxSerial(WebformInterface $webform) {
+    $query = $this->database->select('webform_submission');
+    $query->condition('webform_id', $webform->id());
+    $query->addExpression('MAX(serial)');
+    return $query->execute()->fetchField() + 1;
   }
 
 }

@@ -3,7 +3,7 @@
 namespace Drupal\webform\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
-use Drupal\webform\WebformHandlerInterface;
+use Drupal\webform\Plugin\WebformHandlerInterface;
 
 /**
  * Defines a webform handler annotation object.
@@ -14,9 +14,9 @@ use Drupal\webform\WebformHandlerInterface;
  * \Drupal\webform\Plugin\WebformHandler\EmailWebformHandler
  *
  * @see hook_webform_handler_info_alter()
- * @see \Drupal\webform\WebformHandlerInterface
- * @see \Drupal\webform\WebformHandlerBase
- * @see \Drupal\webform\WebformHandlerManager
+ * @see \Drupal\webform\Plugin\WebformHandlerInterface
+ * @see \Drupal\webform\Plugin\WebformHandlerBase
+ * @see \Drupal\webform\Plugin\WebformHandlerManager
  * @see plugin_api
  *
  * @Annotation
@@ -63,8 +63,8 @@ class WebformHandler extends Plugin {
    * The maximum number of instances allowed for this webform handler.
    *
    * Possible values are positive integers or
-   * \Drupal\webform\WebformHandlerInterface::CARDINALITY_UNLIMITED or
-   * \Drupal\webform\WebformHandlerInterface::CARDINALITY_SINGLE.
+   * \Drupal\webform\Plugin\WebformHandlerInterface::CARDINALITY_UNLIMITED or
+   * \Drupal\webform\Plugin\WebformHandlerInterface::CARDINALITY_SINGLE.
    *
    * @var int
    */
