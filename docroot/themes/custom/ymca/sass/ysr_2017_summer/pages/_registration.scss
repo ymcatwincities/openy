@@ -1,8 +1,7 @@
 .theme-ymca--2017-compain-register {
   height: 100%;
   position: relative;
-  // background: $blue image-url('2017_summer/bg-page-register.jpg') 50% 100px no-repeat;
-  background: image-url('2017_summer/bg-page-register.jpg') 50% 80px no-repeat;
+  background: $blue image-url('2017_summer/bg-page-register.jpg') 50% 100px no-repeat;
   background-size: cover;
 
   @include breakpoint($tablet) {

@@ -4272,7 +4272,7 @@ html, body {
 .theme-ymca--2017-compain-register {
   height: 100%;
   position: relative;
-  background: url('../img/2017_summer/bg-page-register.jpg') 50% 80px no-repeat;
+  background: #00aeef url('../img/2017_summer/bg-page-register.jpg') 50% 100px no-repeat;
   background-size: cover;
 }
 @media (min-width: 48em) {
