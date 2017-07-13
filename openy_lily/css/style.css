@@ -3472,7 +3472,7 @@ a.sports-icon.floor-hockey {
 }
 .paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a:hover:after,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover:after {
-  background-color: #505050;
+  background-color: #505050 !important;
 }
 .paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a.active:after,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active:after {

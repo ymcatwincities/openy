@@ -52,7 +52,7 @@
           &:hover {
             background-color: #505050;
             &:after {
-              background-color: #505050;
+              background-color: #505050 !important;
             }
           }
           &.active {
