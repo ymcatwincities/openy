@@ -3395,40 +3395,49 @@ a.sports-icon.floor-hockey {
   margin-top: 0;
 }
 
+.paragraph--type--microsites-menu,
 .paragraph--type--camp-menu {
   margin-bottom: 30px;
 }
 @media (min-width: 0) and (max-width: 48em) {
+  .paragraph--type--microsites-menu,
   .paragraph--type--camp-menu {
     display: none;
   }
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper,
 .paragraph--type--camp-menu .camp-menu-wrapper {
   padding: 0 30px;
   background: #383838;
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .columns-gradient,
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
   background: #383838;
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .columns-gradient:before,
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient:before {
   background: #383838;
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu {
   width: 100% !important;
   text-align: center;
   height: 51px !important;
 }
 @media (min-width: 75em) {
+  .paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu,
   .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu {
     height: 57px !important;
   }
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li {
   float: none;
   display: table-cell;
   width: 1%;
   vertical-align: top;
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a {
   z-index: 1;
   display: block;
@@ -3450,18 +3459,22 @@ a.sports-icon.floor-hockey {
   transition: background-color .2s linear;
 }
 @media (min-width: 75em) {
+  .paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a,
   .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a {
     font-size: 20px;
     height: 57px;
     padding: 15px 5px;
   }
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a:hover,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover {
   background-color: #505050;
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a:hover:after,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a:hover:after {
   background-color: #505050;
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li a.active:after,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li a.active:after {
   position: absolute;
   bottom: -12px;
@@ -3481,11 +3494,13 @@ a.sports-icon.floor-hockey {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li:first-child a,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a {
   line-height: 0;
   font-size: 0;
   color: transparent;
 }
+.paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li:first-child a:before,
 .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a:before {
   content: "\e021";
   position: relative;
@@ -3499,6 +3514,7 @@ a.sports-icon.floor-hockey {
   color: white;
 }
 @media (min-width: 75em) {
+  .paragraph--type--microsites-menu .camp-menu-wrapper .camp-menu li:first-child a:before,
   .paragraph--type--camp-menu .camp-menu-wrapper .camp-menu li:first-child a:before {
     font-size: 20px;
   }
