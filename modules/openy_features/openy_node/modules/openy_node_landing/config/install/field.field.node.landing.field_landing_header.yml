@@ -1,0 +1,131 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_landing_header
+    - node.type.landing
+    - paragraphs.paragraphs_type.all_amenities
+    - paragraphs.paragraphs_type.camp_menu
+    - paragraphs.paragraphs_type.header
+    - paragraphs.paragraphs_type.lto
+    - paragraphs.paragraphs_type.microsites_menu
+    - paragraphs.paragraphs_type.prgf_location_finder_filters
+    - paragraphs.paragraphs_type.small_banner
+  module:
+    - entity_reference_revisions
+id: node.landing.field_landing_header
+field_name: field_landing_header
+entity_type: node
+bundle: landing
+label: 'Landing Header'
+description: 'Add Header Paragraph for Landing page.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      header: header
+      all_amenities: all_amenities
+      lto: lto
+      small_banner: small_banner
+      camp_menu: camp_menu
+      microsites_menu: microsites_menu
+      prgf_location_finder_filters: prgf_location_finder_filters
+    target_bundles_drag_drop:
+      1c:
+        weight: -39
+        enabled: false
+      2c:
+        weight: -38
+        enabled: false
+      3c:
+        weight: -37
+        enabled: false
+      4c:
+        weight: -36
+        enabled: false
+      featured_stories:
+        weight: -35
+        enabled: false
+      gallery:
+        weight: -34
+        enabled: false
+      header:
+        enabled: true
+        weight: -33
+      latest_news_and_updates:
+        weight: -32
+        enabled: false
+      simple_content:
+        weight: -31
+        enabled: false
+      all_amenities:
+        enabled: true
+        weight: -30
+      blackbaud:
+        weight: -29
+        enabled: false
+      contact_us:
+        weight: -28
+        enabled: false
+      global_search:
+        weight: -27
+        enabled: false
+      lto:
+        enabled: true
+        weight: -25
+      membership_calculator:
+        weight: -24
+        enabled: false
+      program_registration:
+        weight: -23
+        enabled: false
+      whay:
+        weight: -22
+        enabled: false
+      small_banner:
+        enabled: true
+        weight: -21
+      all_testimonials:
+        weight: 26
+        enabled: false
+      camp_menu:
+        enabled: true
+        weight: 29
+      microsites_menu:
+        enabled: true
+        weight: 32
+      content_pager:
+        weight: 36
+        enabled: false
+      all_events:
+        weight: 38
+        enabled: false
+      financial_aid:
+        weight: 38
+        enabled: false
+      prgf_location_finder_filters:
+        enabled: true
+        weight: 40
+      openy_event_registration:
+        weight: 45
+        enabled: false
+      panorama:
+        weight: 46
+        enabled: false
+      prgf_location_finder:
+        weight: 47
+        enabled: false
+      group_schedules:
+        weight: 48
+        enabled: false
+      membership_info:
+        weight: 53
+        enabled: false
+      tour_schedule:
+        weight: 61
+        enabled: false
+field_type: entity_reference_revisions

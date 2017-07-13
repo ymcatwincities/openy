@@ -1,0 +1,47 @@
+name: 'OpenY Landing Page'
+description: 'Implements landing page feature.'
+type: module
+core: 8.x
+dependencies:
+  - content_moderation
+  - content_translation
+  - entity_reference_revisions
+  - field
+  - language
+  - menu_ui
+  - metatag
+  - node
+  - openy_gallery
+  - openy_latest_news
+  - openy_node
+  - openy_prgf_1c
+  - openy_prgf_2c
+  - openy_prgf_3c
+  - openy_prgf_4c
+  - openy_prgf_all_events
+  - openy_prgf_all_testimonials
+  - openy_prgf_amenities
+  - openy_prgf_blackbaud
+  - openy_prgf_camp_menu
+  - openy_prgf_contact_us
+  - openy_prgf_fc
+  - openy_prgf_fin
+  - openy_prgf_global_search
+  - openy_prgf_group_schedules
+  - openy_prgf_header
+  - openy_prgf_loc_finder
+  - openy_prgf_lto
+  - openy_prgf_mc
+  - openy_prgf_microsites_menu
+  - openy_prgf_panorama
+  - openy_prgf_pgm_reg
+  - openy_prgf_simple_content
+  - openy_prgf_small_banner
+  - openy_prgf_timeline
+  - openy_prgf_tour_schedule
+  - openy_prgf_whay
+  - paragraphs
+  - path
+  - pathauto
+  - user
+version: 8.x-1.9
