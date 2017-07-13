@@ -107,7 +107,7 @@
       var to = $class.data('to');
       var progress = 100 * (offset - from) / (to - from);
       $class.find('.class-time-frame-progress-bar').css({width: progress + '%'});
-      $class.find('.class-time-frame-progress-bar').stop().animate({width:'100%'}, (to - offset) * 1000, 'linear');
+      $class.find('.class-time-frame-progress-bar').stop().animate({width:'100%'}, (to - offset) * 1000 / window.tm.speed, 'linear');
     };
 
     // Checks if the current class needs replacing.
@@ -120,7 +120,7 @@
 
       var $upcomingClassContainer = $('.active-classes .class-next', self.context);
       var $upcomingClass = $('.class', $upcomingClassContainer);
-      if (!$upcomingClass.size() || $upcomingClass.data('from') != classes.next.data('from')) {
+      if ($upcomingClass.size() && $upcomingClass.data('from') != classes.next.data('from')) {
         return true;
       }
 
@@ -160,14 +160,27 @@
 
           // Create new Upcoming class.
           $upcomingClassContainer = $("<div class='class-next' />").appendTo($activeClasses);
-          $upcomingClassContainer.append(classes.next.clone(true));
+          if (classes.next) {
+            $upcomingClassContainer.empty().append(classes.next.clone(true));
+            $activeClasses.addClass('has-class')
+          }
+          else {
+            $activeClasses.removeClass('has-class')
+          }
 
           self.updateProgressBars();
         }, 3000);
       }
       else {
         $activeClassContainer.empty().append(classes.last.clone(true));
-        $upcomingClassContainer.empty().append(classes.next.clone(true));
+        if (classes.next) {
+          console.log(classes.next);
+          $upcomingClassContainer.empty().append(classes.next.clone(true));
+          $activeClasses.addClass('has-class')
+        }
+        else {
+          $activeClasses.removeClass('has-class')
+        }
 
         $activeClass = $('.class', $activeClassContainer);
         if ($activeClass.data('from') > self.getTimeOffset()) {
@@ -220,7 +233,7 @@
       self.actualizeActiveClasses(self.getCurrentAndNext());
       self.fastloop();
       self.timer = setInterval(self.loop, 5000);
-      self.fasttimer = setInterval(self.fastloop, 1000);
+      self.fasttimer = setInterval(self.fastloop, 1000 / window.tm.speed);
       self.activated = self.getTimeOffset();
     };
 

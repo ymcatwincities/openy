@@ -196,6 +196,7 @@ class OpenYScreenSchedule extends ControllerBase {
       'node' => $screen_content->id(),
       'from' => $from,
       'to' => $to,
+      'screen' => $screen->id(),
     ])->toString();
     $build = [
       '#type' => 'container',
