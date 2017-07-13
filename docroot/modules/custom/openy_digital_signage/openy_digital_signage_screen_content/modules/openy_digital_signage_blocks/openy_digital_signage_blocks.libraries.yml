@@ -46,3 +46,8 @@ block_html:
   css:
     theme:
       css/free-html.css: {}
+
+class_current:
+  version: VERSION
+  js:
+    js/class-current.js: {}
