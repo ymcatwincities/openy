@@ -378,3 +378,10 @@ function openy_update_8029() {
     'groupex_form_cache'
   ]);
 }
+
+/**
+ * Enable openy_tour module.
+ */
+function openy_update_8030() {
+  \Drupal::service('module_installer')->install(['better_exposed_filters'], TRUE);
+}

@@ -87,6 +87,7 @@ dependencies:
   - recaptcha
   - admin_toolbar
   - colorbutton
+  - better_exposed_filters
   # OpenY features.
   - openy_media_image
   - openy_media_document
