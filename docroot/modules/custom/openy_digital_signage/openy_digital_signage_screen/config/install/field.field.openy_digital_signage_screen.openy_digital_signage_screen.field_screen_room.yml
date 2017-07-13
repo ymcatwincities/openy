@@ -1,0 +1,20 @@
+uuid: 7fcfabac-1722-4f58-b974-aea4dfd39924
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.openy_digital_signage_screen.field_screen_room
+  module:
+    - openy_digital_signage_screen
+id: openy_digital_signage_screen.openy_digital_signage_screen.field_screen_room
+field_name: field_screen_room
+entity_type: openy_digital_signage_screen
+bundle: openy_digital_signage_screen
+label: Room
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
