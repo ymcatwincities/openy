@@ -137,25 +137,6 @@
   };
 
   /**
-   * Scroll to current failed validation field.
-   */
-  Drupal.behaviors.scrollToError = {
-    attach: function (context, settings) {
-      $('form', context).each(function () {
-        var delay = 200;
-        var offset = 180;
-        document.addEventListener('invalid', function (e) {
-          $(e.target).addClass("invalid");
-          $('html, body').animate({scrollTop: $($(".invalid")[0]).offset().top - offset}, delay);
-        }, true);
-        document.addEventListener('change', function (e) {
-          $(e.target).removeClass("invalid");
-        }, true);
-      });
-    }
-  };
-
-  /**
    * Scroll to next button.
    */
   Drupal.behaviors.scrollToNext = {
