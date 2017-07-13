@@ -1,0 +1,47 @@
+.paragraph--type--all-testimonials {
+  .views-row {
+    clear: both;
+    margin-bottom: 50px;
+  }
+}
+
+.node--view-mode-listing-teaser {
+  &.node--type-testimonial {
+    h2 {
+      margin-bottom: 13px;
+    }
+  }
+
+  h2 {
+    span {
+      @include cachet-medium();
+      color: $blue;
+      font-size: 20px;
+    }
+    a:hover, a:visited, a:link, a:active {
+      text-decoration: none;
+    }
+  }
+
+  .field-blog-image-wrapper {
+    width: 261px;
+    min-height: 220px;
+    float: left;
+    margin-right: 39px;
+    margin-bottom: 50px;
+    img {
+      margin: 0;
+    }
+  }
+
+  .conent-wrapper {
+    min-height: 103px;
+  }
+
+  .browse-classes-btn {
+    @include btn-large-purple();
+    padding-left: 100px;
+    padding-right: 100px;
+    margin-top: 10px;
+  }
+}
