@@ -137,6 +137,10 @@ source:
           content_id: schedule_search_list
         -
           content_id: popup_schedules
+    -
+      id: amenities
+      title: 'Amenities at each Y'
+      alias: '/amenities'
   ids:
     id:
       type: string
