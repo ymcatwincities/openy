@@ -379,7 +379,12 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
 
     // Rework content-id for better changes identifications.
     foreach ($slots as &$slot) {
-      $id_array = [$slot['type'], $slot['from'], $slot['to'], $slot['content-id']];
+      $id_array = [
+        $slot['type'],
+        $slot['from'],
+        $slot['to'],
+        $slot['content-id'],
+      ];
       if ($slot['type'] !== 'fallback') {
         $id_array[] = $slot['item']['id'];
       }

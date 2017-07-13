@@ -162,10 +162,10 @@
           $upcomingClassContainer = $("<div class='class-next' />").appendTo($activeClasses);
           if (classes.next) {
             $upcomingClassContainer.empty().append(classes.next.clone(true));
-            $activeClasses.addClass('has-class')
+            $activeClasses.addClass('has-class');
           }
           else {
-            $activeClasses.removeClass('has-class')
+            $activeClasses.removeClass('has-class');
           }
 
           self.updateProgressBars();
@@ -176,10 +176,10 @@
         if (classes.next) {
           console.log(classes.next);
           $upcomingClassContainer.empty().append(classes.next.clone(true));
-          $activeClasses.addClass('has-class')
+          $activeClasses.addClass('has-class');
         }
         else {
-          $activeClasses.removeClass('has-class')
+          $activeClasses.removeClass('has-class');
         }
 
         $activeClass = $('.class', $activeClassContainer);
@@ -220,7 +220,7 @@
       return {
         last: $current,
         next: $next
-      }
+      };
     };
 
     // Returns the awaiting class.
@@ -246,7 +246,7 @@
     self.blockObject = ObjectsManager.getObject(self.context);
     self.blockObject.activate = self.activate;
     self.blockObject.deactivate = self.deactivate;
-    if (self.blockObject.isActive() || $(self.context).parents('.screen').size() == 0) {
+    if (self.blockObject.isActive() || $(self.context).parents('.screen').size() === 0) {
       self.activate();
     }
 

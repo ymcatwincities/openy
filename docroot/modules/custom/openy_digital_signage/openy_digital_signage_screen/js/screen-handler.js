@@ -8,11 +8,11 @@
  *
  * Makes it possible to override current page time.
  */
-;function TimeManager() {
+function TimeManager() {
   var self = this;
 
   this.init = function () {
-    self.initTime = (new Date).getTime() / 1000;
+    self.initTime = (new Date()).getTime() / 1000;
     self.offset = 0;
     self.speed = 1;
     self.query_params = self.get_query_param();
@@ -41,7 +41,7 @@
   };
 
   this.getRealTime = function () {
-    return (new Date).getTime() / 1000;
+    return (new Date()).getTime() / 1000;
   };
 
   // Extracts query params from url.
@@ -252,7 +252,7 @@
                 });
 
               // No corresponding screen content was found.
-              if (new_screen.size() == 0) {
+              if (new_screen.size() === 0) {
                 // Set "to"-time in past so that it removed later.
                 existingScreenContent.element.data('to-ts', time - 1);
                 if (!active) {
@@ -400,7 +400,7 @@
 
     this.isActive = function() {
       return self.element
-        .hasClass('active-block')
+        .hasClass('active-block');
     };
 
     return this;
