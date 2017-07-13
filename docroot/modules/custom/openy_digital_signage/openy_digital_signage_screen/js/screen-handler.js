@@ -9,16 +9,38 @@
  * Makes it possible to override current page time.
  */
 ;function TimeManager() {
-  self = this;
+  var self = this;
 
-  this.getTime = function() {
+  this.init = function () {
+    self.initTime = (new Date).getTime() / 1000;
+    self.offset = 0;
+    self.speed = 1;
+    self.query_params = self.get_query_param();
     if (self.query_params.hasOwnProperty('time')) {
-      return self.query_params.time;
+      self.offset = parseInt(self.query_params.time);
     }
     else if (self.query_params.hasOwnProperty('from')) {
-      return self.query_params.from;
+      self.offset = parseInt(self.query_params.from);
+    }
+    if (self.offset) {
+      self.speed = 20;
     }
 
+    if (self.query_params.hasOwnProperty('speed')) {
+      self.speed = parseFloat(self.query_params.speed);
+    }
+  };
+
+  this.getTime = function() {
+    var realTime = self.getRealTime();
+    if (self.offset) {
+      return self.offset + (realTime - self.initTime) * self.speed;
+    }
+
+    return realTime;
+  };
+
+  this.getRealTime = function () {
     return (new Date).getTime() / 1000;
   };
 
@@ -50,7 +72,7 @@
     return query_string;
   };
 
-  self.query_params = self.get_query_param();
+  this.init();
 
   return this;
 }
@@ -385,25 +407,6 @@
   }
 
   /**
-   * Attaches the global OpenYScreen object to the available screen objects.
-   *
-   * @type {Drupal~behavior}
-   *
-   * @prop {Drupal~behaviorAttach} attach
-   *   Attaches the global OpenYScreen object to the available screen objects.
-   */
-  Drupal.behaviors.screen_handler = {
-    attach: function (context, settings) {
-
-      $('.screen', context).once().each(function () {
-        var screen = new OpenYScreen(this);
-        screen.init();
-      });
-    }
-  };
-
-
-  /**
    * Creates an instance or TimeManager.
    *
    * @type {Drupal~behavior}
@@ -416,6 +419,23 @@
       if (context == window.document) {
         window.tm = new TimeManager();
       }
+    }
+  };
+
+  /**
+   * Attaches the global OpenYScreen object to the available screen objects.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Attaches the global OpenYScreen object to the available screen objects.
+   */
+  Drupal.behaviors.screen_handler = {
+    attach: function (context, settings) {
+      $('.screen', context).once().each(function () {
+        var screen = new OpenYScreen(this);
+        screen.init();
+      });
     }
   };
 

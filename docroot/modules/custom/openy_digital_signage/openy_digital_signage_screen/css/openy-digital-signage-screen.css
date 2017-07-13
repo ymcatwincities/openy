@@ -31,19 +31,24 @@
     display: none; }
 
 .active-classes .class-next-intro {
-  display: none;
-  font-size: 2vw;
   color: #fff;
+  font-size: 2vw;
+  left: 0;
+  line-height: 2;
+  opacity: 0;
+  position: absolute;
   text-align: center;
   text-transform: uppercase;
-  line-height: 2;
   top: 36.2vw;
-  position: absolute;
-  width: 100%;
-  left: 0; }
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+  width: 100%; }
 
 .active-classes.has-class .class-next-intro {
-  display: block; }
+  opacity: 1; }
+
+.active-classes.has-class-awaiting .class-next-intro {
+  opacity: 0 !important; }
 
 .class {
   width: 85vw;
