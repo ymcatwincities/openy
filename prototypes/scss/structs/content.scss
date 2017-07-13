@@ -82,10 +82,18 @@ body {
   .field-prgf-header-description {
     @include content-headings();
   }
+  .field-prgf-sc-body,
+  .field-prgf-1c-description,
+  .field-prgf-description,
+  .field-prgf-header-description {
+    h1, h3, h4, h5, h6 {
+      color: $default-grey;
+    }
+  }
 }
 
 .paragraph--type--header .field-prgf-header-description {
-  h1, h2, h3, h4, h5, h6 {
+  h1, h3, h4, h5, h6 {
     color: $white;
   }
 }
