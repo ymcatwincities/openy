@@ -19,7 +19,7 @@ variant_settings:
       provider: ymca_retention
       label_display: '0'
       yteam: 1
-      region: middle
+      region: content
       weight: -9
       team: 1
       uuid: 416c4c9e-0a0e-4e45-9e2e-af2842fc34d9
@@ -29,9 +29,9 @@ variant_settings:
       label: '[YMCA Retention] Campaign intro'
       provider: ymca_retention
       label_display: '0'
-      slogan: 'Participate to win'
-      show_picture: true
-      region: middle
+      slogan: 'Y Strive Challenge'
+      show_picture: 0
+      region: content
       weight: -10
       uuid: 3c731e01-c64d-4612-bbdb-a4d270b1c7e0
       context_mapping: {  }
