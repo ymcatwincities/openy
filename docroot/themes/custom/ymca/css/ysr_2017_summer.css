@@ -33,8 +33,6 @@ html, body {
   background: none;
 }
 .theme-ymca--2017-compain .main--content {
-  padding: 0 0 60px 0;
-  padding: 0 0 6rem 0;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2Y0ZjRmNCIgc3RvcC1vcGFjaXR5PSIwLjgiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
   background-size: 100%;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, rgba(244, 244, 244, 0.8)));
@@ -47,19 +45,17 @@ html, body {
 }
 @media (min-width: 48em) {
   .theme-ymca--2017-compain .main--content {
-    padding: 0 0 70px 0;
-    padding: 0 0 7rem 0;
     background-size: 100% 70px;
   }
+}
+.theme-ymca--2017-compain .container {
+  transition: padding .3s;
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
   .theme-ymca--2017-compain .container {
     padding-left: 0;
     padding-right: 0;
   }
-}
-.theme-ymca--2017-compain .container {
-  transition: padding .3s;
 }
 .theme-ymca--2017-compain .inner-container {
   padding: 0 20px;
@@ -563,6 +559,12 @@ html, body {
 .theme-ymca--2017-compain-upcoming .compain-upcoming .container {
   text-align: center;
   padding: 0;
+}
+
+@media (max-width: 47.9375em) {
+  .retention-campaign .panel-group {
+    margin-bottom: 0;
+  }
 }
 
 #ymca-retention-modal .btn-lg {
@@ -1584,7 +1586,8 @@ html, body {
   max-width: 445px;
   margin: 0 auto;
 }
-.compain-content-win h2, .compain-content-win h3 {
+.compain-content-win h2,
+.compain-content-win h3 {
   text-transform: uppercase;
   letter-spacing: -1px;
 }
@@ -1631,11 +1634,30 @@ html, body {
   line-height: 3rem;
   padding: 22px 0;
   padding: 2.2rem 0;
-  margin: 40px auto 0 auto;
-  margin: 4rem auto 0 auto;
+  margin: 40px auto 0;
+  margin: 4rem auto 0;
   border-top: 1px solid #01a490;
   color: #01a490;
   max-width: 76%;
+}
+
+.retention-campaign .tab-content #tab_1,
+.retention-campaign .tab-content #tab_5 {
+  padding: 0 0 60px 0;
+  padding: 0 0 6rem 0;
+}
+@media (min-width: 48em) {
+  .retention-campaign .tab-content #tab_1,
+  .retention-campaign .tab-content #tab_5 {
+    padding: 0 0 70px 0;
+    padding: 0 0 7rem 0;
+  }
+}
+@media (min-width: 48em) {
+  .retention-campaign .tab-content #tab_2 {
+    margin-bottom: 81px;
+    margin-bottom: 8.1rem;
+  }
 }
 
 @media (min-width: 48em) {
@@ -3702,7 +3724,7 @@ html, body {
     max-width: none;
   }
 }
-@media (min-width: 48em) {
+@media (min-width: 48em) and (max-width: 87.5em) {
   .y-retention-activities .y-retention-activities__dates-slider .campaign-dates--slider-container .slick-slider {
     margin-left: 40px;
     margin-right: 40px;
@@ -4000,6 +4022,8 @@ html, body {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
+  padding-bottom: 22px;
+  padding-bottom: 2.2rem;
   padding-top: 20px;
   padding-top: 2rem;
 }
@@ -4008,6 +4032,7 @@ html, body {
     -webkit-flex-wrap: nowrap;
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
+    padding-bottom: 0;
     padding-top: 99px;
     padding-top: 9.9rem;
   }
@@ -4072,13 +4097,13 @@ html, body {
   border-bottom: 1px solid #fff;
 }
 @media (min-width: 48em) {
-  .y-retention-activities .y-retention-activities__header .activity-tab:hover {
+  .y-retention-activities .y-retention-activities__header .activity-tab:hover, .y-retention-activities .y-retention-activities__header .activity-tab:focus {
     opacity: 1;
   }
 }
 .y-retention-activities .y-retention-activities__header .activity-tab a {
-  padding: 8px 0 20px;
-  padding: 0.8rem 0 2rem;
+  padding: 8px 0 17px;
+  padding: 0.8rem 0 1.7rem;
   -moz-transition: color 0.2s ease;
   -o-transition: color 0.2s ease;
   -webkit-transition: color 0.2s ease;
@@ -4150,8 +4175,8 @@ html, body {
 }
 @media (min-width: 48em) {
   .y-retention-activities .y-retention-activities__content {
-    padding: 85px 0 80px;
-    padding: 8.5rem 0 8rem;
+    padding: 85px 0 130px;
+    padding: 8.5rem 0 13rem;
   }
 }
 .y-retention-activities .y-retention-activities__content .row {
@@ -4359,37 +4384,6 @@ html, body {
   background-position: center center;
   background-repeat: no-repeat;
   content: '';
-}
-.y-retention-activities .y-retention-activities__content .actions {
-  margin: 40px auto 0;
-  margin: 4rem auto 0;
-  max-width: 382px;
-  max-width: 38.2rem;
-  clear: both;
-  text-align: center;
-}
-.y-retention-activities .y-retention-activities__content .actions input[type=submit] {
-  font-family: "Cachet",Arial,sans-serif;
-  letter-spacing: -0.025em;
-  font-weight: bold;
-  -moz-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  background: none;
-  border: none;
-  border-bottom: 1px solid #fcaf17;
-  color: #fcaf17;
-  letter-spacing: -.8px;
-  line-height: 62px;
-  outline: none;
-  padding: 0;
-  text-transform: uppercase;
-  font-size: 30px;
-}
-.y-retention-activities .y-retention-activities__content .actions input[type=submit]:hover {
-  color: #f47920;
-  border-color: #f47920;
 }
 
 /* Icons */
@@ -5305,6 +5299,12 @@ html, body {
   margin: 0 0 2.2rem 0;
   color: #006b6b;
 }
+@media (min-width: 48em) and (max-width: 75em) {
+  .compain-footer--navigation {
+    font-size: 18px;
+    font-size: 1.8rem;
+  }
+}
 .compain-footer--navigation ul {
   list-style: none;
   margin: 0;
@@ -5313,8 +5313,11 @@ html, body {
 @media (min-width: 48em) {
   .compain-footer--navigation li {
     display: inline-block;
-    margin-right: 34px;
-    margin-right: 3.4rem;
+    margin-right: 19px;
+    margin-right: 1.9rem;
+  }
+  .compain-footer--navigation li:last-child {
+    margin-right: 0;
   }
 }
 .compain-footer--navigation li a {
@@ -5327,10 +5330,10 @@ html, body {
   display: block;
 }
 .compain-footer--copyright {
-  font-size: 16px;
-  font-size: 1.6rem;
-  line-height: 26px;
-  line-height: 2.6rem;
+  font-size: 15px;
+  font-size: 1.5rem;
+  line-height: 25px;
+  line-height: 2.5rem;
   color: #a7a7a7;
 }
 .compain-footer--copyright br {
