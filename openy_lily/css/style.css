@@ -630,7 +630,7 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   color: black;
 }
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
-header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child a {
+header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
   padding: 3px 15px;
   border-radius: 5px;
   background-color: #b92f9e;
@@ -644,9 +644,10 @@ header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child 
   border-top: none;
 }
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover,
-header#page-head .top-navs #block-openy-lily-user-menu-menu .nav li:first-child a:hover {
+header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a:hover {
   border-top: none;
   background-color: #9c1f7b;
+  color: white;
 }
 header#page-head #block-openy-lily-branding a img {
   -webkit-transition: all 0.2s linear;
@@ -668,6 +669,7 @@ header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu li a {
   line-height: 19px;
 }
+header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a {
   margin: 13px 5px 0 0;
 }
@@ -841,7 +843,7 @@ label {
 .status-message li {
   list-style-type: none;
 }
-.node--type-program-subcategory .status-message {
+.path-frontpage .status-message, .node--type-program-subcategory .status-message {
   margin-bottom: 0;
 }
 
@@ -1726,10 +1728,15 @@ article.site-alert ul li div {
     margin: 0 auto;
   }
 }
+@media (min-width: 0) and (max-width: 36.25em) {
+  #membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
+    margin: 9% 0 17%;
+  }
+}
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) {
   padding-bottom: 0;
   float: left;
-  width: 70%;
+  width: 67%;
   display: none;
 }
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) h2 {
@@ -1753,11 +1760,13 @@ article.site-alert ul li div {
   float: right;
   width: 30%;
   display: none;
+  margin-top: -130px;
 }
 @media (min-width: 0) and (max-width: 48em) {
   #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(2) {
     width: 100%;
     float: none;
+    margin-top: 15px;
   }
 }
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) {
@@ -2040,6 +2049,13 @@ article.site-alert ul li div {
     line-height: 18px;
     margin-bottom: 20px;
   }
+}
+#membership-page #edit-date-of-birth > div {
+  float: left;
+  width: 32%;
+}
+#membership-page #edit-date-of-birth > div:nth-of-type(2) {
+  margin: 0 2%;
 }
 
 .node-preview-container {
