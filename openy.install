@@ -388,5 +388,9 @@ function openy_update_8030() {
   \Drupal::service('module_installer')->install([
     'openy_svg_formatter'], TRUE);
   \Drupal::service('module_installer')->install([
+    'token_filter'], TRUE);
+  \Drupal::service('module_installer')->install([
     'openy_editor'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_amenities'], TRUE);
 }

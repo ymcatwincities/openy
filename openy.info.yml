@@ -88,29 +88,9 @@ dependencies:
   - admin_toolbar
   - colorbutton
   - better_exposed_filters
-  # OpenY custom modules
-  - openy_branch_selector
-  - openy_field_hours
-  - openy_group_schedules
-  - groupex_form_cache
-  - openy_hf
-  - openy_hours_formatter
-  - openy_svg_formatter
-  - openy_migrate
-  - openy_map
-  - openy_moderation_wrapper
-  - openy_popups
-  - openy_session_instance
-  - openy_schedules
-  - openy_socrates
-  - openy_tour
-  - location_finder
-  - daxko
-  - openy_programs_search
-  - openy_mappings
-  - openy_calc
-  - openy_data_wrapper
+  - token_filter
   # OpenY features.
+  - openy_svg_formatter
   - openy_media_image
   - openy_media_document
   - openy_media_video
@@ -157,6 +137,7 @@ dependencies:
   - openy_prgf_embedded_groupexpro_schedule
   - openy_prgf_pgm_reg
   - openy_prgf_webform
+  - openy_prgf_amenities
   - openy_node_activity
   - openy_node_class
   - openy_node_session
@@ -166,6 +147,27 @@ dependencies:
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
   - logger_entity
+  # OpenY custom modules
+  - openy_branch_selector
+  - openy_field_hours
+  - openy_group_schedules
+  - groupex_form_cache
+  - openy_hf
+  - openy_hours_formatter
+  - openy_migrate
+  - openy_map
+  - openy_moderation_wrapper
+  - openy_popups
+  - openy_session_instance
+  - openy_schedules
+  - openy_socrates
+  - openy_tour
+  - location_finder
+  - daxko
+  - openy_programs_search
+  - openy_mappings
+  - openy_calc
+  - openy_data_wrapper
 
 themes:
   - bartik
