@@ -22,13 +22,14 @@
       /**
        * Update time.
        */
-      function updateTme() {
-        var html = moment().tz('America/Chicago').format('h:mm a');
+      function updateTime() {
+        var time = window.tm.getTime() * 1000;
+        var html = moment(time).tz('America/Chicago').format('h:mm a');
         time_block.html(html);
-        setTimeout(updateTme, 1000);
+        setTimeout(updateTime, 1000);
       }
 
-      $(context).find(time_block).once('block-time').each(updateTme);
+      $(context).find(time_block).once('block-time').each(updateTime);
     }
   }
 })(jQuery, window, Drupal);

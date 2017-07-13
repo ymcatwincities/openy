@@ -9,6 +9,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\openy_digital_signage_schedule\Entity\OpenYSchedule;
 use Drupal\openy_digital_signage_screen\Entity\OpenYScreen;
+use Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface;
 
 /**
  * Class OpenYScheduleManager.
