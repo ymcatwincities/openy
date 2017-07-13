@@ -149,6 +149,7 @@ dependencies:
   - groupex_form_cache
   - openy_hf
   - openy_hours_formatter
+  - openy_svg_formatter
   - openy_migrate
   - openy_map
   - openy_moderation_wrapper

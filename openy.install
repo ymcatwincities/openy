@@ -380,8 +380,11 @@ function openy_update_8029() {
 }
 
 /**
- * Enable openy_tour module.
+ * Enable better_exposed_filters, openy_svg_formatter modules.
  */
 function openy_update_8030() {
-  \Drupal::service('module_installer')->install(['better_exposed_filters'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'better_exposed_filters'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_svg_formatter'], TRUE);
 }
