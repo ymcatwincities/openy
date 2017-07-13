@@ -198,6 +198,10 @@
       color: $color-white;
     }
 
+    .dropdown-menu>li>a:hover {
+      text-decoration: underline;
+    }
+
     .nav-level-2 > a:hover {
       text-decoration: underline;
     }

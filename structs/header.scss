@@ -87,6 +87,7 @@ body {
       text-shadow: none;
       &:hover {
         background-color: $color-blue-a;
+        text-decoration: underline;
       }
 
       @include breakpoint(tablet) {
