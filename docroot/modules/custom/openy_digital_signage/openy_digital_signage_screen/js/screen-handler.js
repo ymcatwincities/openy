@@ -8,11 +8,71 @@
  *
  * Makes it possible to override current page time.
  */
-;function TimeManager() {
+function TimeManager() {
+  var self = this;
+
+  this.init = function () {
+    self.initTime = (new Date()).getTime() / 1000;
+    self.offset = 0;
+    self.speed = 1;
+    self.query_params = self.get_query_param();
+    if (self.query_params.hasOwnProperty('time')) {
+      self.offset = parseInt(self.query_params.time);
+    }
+    else if (self.query_params.hasOwnProperty('from')) {
+      self.offset = parseInt(self.query_params.from);
+    }
+    if (self.offset) {
+      self.speed = 20;
+    }
+
+    if (self.query_params.hasOwnProperty('speed')) {
+      self.speed = parseFloat(self.query_params.speed);
+    }
+  };
 
   this.getTime = function() {
-    return (new Date).getTime() / 1000;
+    var realTime = self.getRealTime();
+    if (self.offset) {
+      return self.offset + (realTime - self.initTime) * self.speed;
+    }
+
+    return realTime;
   };
+
+  this.getRealTime = function () {
+    return (new Date()).getTime() / 1000;
+  };
+
+  // Extracts query params from url.
+  this.get_query_param = function () {
+    var query_string = {};
+    var query = window.location.search.substring(1);
+    var pairs = query.split('&');
+    for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i].split('=');
+
+      // If first entry with this name.
+      if (typeof query_string[pair[0]] === 'undefined') {
+        query_string[pair[0]] = decodeURIComponent(pair[1]);
+      }
+      // If second entry with this name.
+      else if (typeof query_string[pair[0]] === 'string') {
+        query_string[pair[0]] = [
+          query_string[pair[0]],
+          decodeURIComponent(pair[1])
+        ];
+      }
+      // If third or later entry with this name
+      else {
+        query_string[pair[0]].push(decodeURIComponent(pair[1]));
+      }
+    }
+
+    return query_string;
+  };
+
+  this.init();
 
   return this;
 }
@@ -63,7 +123,7 @@
     return this;
   }
 
-  var ObjectsManager = new OpenYDigitalSignageObjectsManager();
+  window.ObjectsManager = new OpenYDigitalSignageObjectsManager();
 
   function DependencyManager() {
     this.dependents = [];
@@ -85,7 +145,7 @@
     this.options = {
       animation: 5000,
       screenUpdatePeriod: 10000,
-      scheduleUpdatePeriod: 29
+      scheduleUpdatePeriod: 59
     };
     this.lastUpdate = window.tm.getTime();
     // Store element.
@@ -113,7 +173,7 @@
         self.updateSchedule();
       }
       else {
-        // Update Screen contents
+        // Update Screen contents.
         self.updateScreenContents();
       }
     };
@@ -146,7 +206,7 @@
           .each(function () {
             var screenContent = ObjectsManager.getObject(this);
             var workingHours = screenContent.getWorkingHours();
-            if (time < workingHours.from) {
+            if (time > workingHours.to) {
               screenContent.deactivate();
               screenContent.element.remove();
             }
@@ -160,34 +220,52 @@
             window.location.reload();
           }
 
-          // Check if screen contents need to be replaced.
-          $data
-            .find('.screen > .screen-content')
+          // Check if the existing screen contents were removed in the update.
+          var screenContents = self.getScreenContents();
+          screenContents
             .each(function () {
-              var screenContent = ObjectsManager.getObject(this);
-              var workingHours = screenContent.getWorkingHours();
-              if (time < workingHours.to) {
-                var id = screenContent.getId();
-                var wasActive = false;
-                self.element
-                  .find('.screen-content[data-screen-content-id=' + id + ']')
-                  .each(function () {
-                    var existingScreenContent = ObjectsManager.getObject(this);
-                    if (existingScreenContent.isActive()) {
-                      wasActive = true;
-                      existingScreenContent.deactivateNoDelay();
+              var existingScreenContent = ObjectsManager.getObject(this);
+              var active = existingScreenContent.isActive();
+              var id = existingScreenContent.getId();
+              var new_screen = $data
+                .find('.screen-content[data-screen-content-id="' + id + '"]')
+                .each(function () {
+                  if ($(this).data('hash') != existingScreenContent.element.data('hash')) {
+                    // Append new item.
+                    $(this).insertAfter(existingScreenContent.element);
+                    $(this).attr('new', 'new');
+                    // Remove outdated item.
+                    if (!active) {
+                      existingScreenContent.element.remove();
                     }
                     else {
-                      existingScreenContent.deactivate();
-                      $(this).remove();
+                      // Update without animations.
+                      var newScreenContent = ObjectsManager.getObject(this);
+                      existingScreenContent.deactivateNoDelay();
+                      newScreenContent.activateNoDelay();
                     }
-                  });
-                $(this).appendTo(self.element);
-                if (wasActive) {
-                  screenContent.activateNoDelay();
+                  }
+                  else {
+                    // Incoming screen content doesn't contain any changes.
+                    $(this).remove();
+                  }
+                });
+
+              // No corresponding screen content was found.
+              if (new_screen.size() === 0) {
+                // Set "to"-time in past so that it removed later.
+                existingScreenContent.element.data('to-ts', time - 1);
+                if (!active) {
+                  existingScreenContent.element.remove();
                 }
               }
+
             });
+
+          // Append all the rest incoming items.
+          $data.find('.screen-content').each(function () {
+            $(this).appendTo(self.element);
+          });
         }
         Drupal.attachBehaviors(self.element);
         self.updateScreenContents();
@@ -212,7 +290,6 @@
     this.element = $(el);
     // Store object.
     this.element.data('screenContent', this);
-    console.log('init screen content');
 
     this.getBlocks = function() {
       return self.element.find('.block');
@@ -306,7 +383,6 @@
     this.element = $(el);
     // Store object.
     this.element.data('screenContentBlock', this);
-    console.log('init screen content block');
 
     this.getBlocks = function() {
       return self.element.find('.block');
@@ -314,18 +390,37 @@
 
     this.activate = function() {
       self.element
-        .addClass('active-block').
-      css({border: '1px solid red'});
+        .addClass('active-block');
     };
 
     this.deactivate = function() {
       self.element
-        .removeClass('active-block')
-        .css({border: '5px solid black'});
+        .removeClass('active-block');
+    };
+
+    this.isActive = function() {
+      return self.element
+        .hasClass('active-block');
     };
 
     return this;
   }
+
+  /**
+   * Creates an instance or TimeManager.
+   *
+   * @type {Drupal~behavior}
+   *
+   * @prop {Drupal~behaviorAttach} attach
+   *   Attaches the global OpenYScreen object to the available screen objects.
+   */
+  Drupal.behaviors.screen_time_manager = {
+    attach: function (context, settings) {
+      if (context == window.document) {
+        window.tm = new TimeManager();
+      }
+    }
+  };
 
   /**
    * Attaches the global OpenYScreen object to the available screen objects.
@@ -337,12 +432,11 @@
    */
   Drupal.behaviors.screen_handler = {
     attach: function (context, settings) {
-
       $('.screen', context).once().each(function () {
-        window.tm = new TimeManager();
         var screen = new OpenYScreen(this);
         screen.init();
       });
     }
   };
+
 })(jQuery, window, Drupal, drupalSettings);

@@ -1,5 +1,5 @@
+.block-class-current,
 .page-schedule {
-  //background-image: url(../images/bg-body-blue.png);
   font-family: $fontBold;
   font-weight: normal;
   padding: 0;
@@ -17,30 +17,34 @@
 .active-classes {
 
   .class-next-intro {
-    display: none;
-    font-size: 2vw;
     color: #fff;
+    font-size: 2vw;
+    left: 0;
+    line-height: 2;
+    opacity: 0;
+    position: absolute;
     text-align: center;
     text-transform: uppercase;
-    line-height: 2;
     top: 36.2vw;
-    position: absolute;
+    transition: opacity 0.5s;
     width: 100%;
-    left: 0;
   }
 
   &.has-class {
-
     .class-next-intro {
-      display: block;
+      opacity: 1;
     }
   }
 
+  &.has-class-awaiting {
+    .class-next-intro {
+      opacity: 0 !important;
+    }
+  }
 }
 
 .class {
   width: 85vw;
-  //height: 40vh;
   height: 22.7vw;
   border-radius: 10px;
   background-color: #fff;
@@ -62,6 +66,28 @@
     font-size: 2.45vw;
     padding-top: 3.9vw;
     transition: font-size 2s, padding-top 2s;
+    position: relative;
+
+    .trainer__substitute {
+      position: absolute;
+      padding-right: 2.5vw;
+      right: 50%;
+      color: #0060af;
+    }
+
+    .trainer__substitute__icon {
+      font-size: 66%;
+      font-weight: bold;
+      color: #0060af;
+    }
+
+    .trainer__substituted {
+      left: 50%;
+      position: absolute;
+      padding-left: 2.5vw;
+      text-decoration: line-through;
+    }
+
   }
 
   .class-name {
@@ -71,7 +97,6 @@
     padding-top: 0;
     text-align: center;
     transition: font-size 2s, padding-top 2s;
-
   }
 
   .class-time-frame {
@@ -79,6 +104,8 @@
     font-size: 2.45vw;
     text-transform: none;
     margin-top: 2.5vw;
+    opacity: 1;
+    transition: opacity 0.5s;
   }
 
   .class-time-frame-from {
@@ -121,17 +148,123 @@
     width: 75%;
     height: 100%;
   }
+
+  .class-time-countdown {
+    opacity: 0;
+    transition: opacity 0.5s;
+
+    .class-time-countdown-background {
+      background-color: white;
+      border-radius: 100%;
+      height: 276 / 1920 * 100vw;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+      width: 276 / 1920 * 100vw;
+      top: 285 / 1920 * 100vw;
+    }
+
+    .class-time-countdown-progress-container {
+      background-color: #0060af;
+      border-radius: 100%;
+      left: 50%;
+      height: 216 / 1920 * 100vw;
+      position: absolute;
+      transform: translateX(-50%);
+      top: 315 / 1920 * 100vw;
+      width: 216 / 1920 * 100vw;
+    }
+
+    .class-time-countdown-progress {
+      height: 100%;
+      width: 100%;
+      border-radius: 100%;
+    }
+
+    .class-time-countdown-progress-holder {
+      background-color: white;
+      border-radius: 100%;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+      top: 5 / 1920 * 100vw;
+      height: 206 / 1920 * 100vw;
+      width: 206 / 1920 * 100vw;
+    }
+
+    .class-time-countdown-time--prefix,
+    .class-time-countdown-time--suffix {
+      color: #00aeef;
+      font-size: 50 / 1920 * 100vw;
+      right: 50%;
+      line-height: 276 / 1920 * 100vw;
+      position: absolute;
+      transform: translateX(-138 / 1920 * 100vw);
+      top: 285 / 1920 * 100vw;
+    }
+
+    .class-time-countdown-time--suffix {
+      left: 50%;
+      right: auto;
+      transform: translateX(138 / 1920 * 100vw);
+    }
+
+    .class-time-countdown-time--value {
+      color: #0060af;
+      font-size: 50 / 1920 * 100vw;
+      height: 276 / 1920 * 100vw;
+      left: 50%;
+      line-height: 276 / 1920 * 100vw;
+      position: absolute;
+      transform: translateX(-50%);
+      text-align: center;
+      width: 276 / 1920 * 100vw;
+      top: 285 / 1920 * 100vw;
+
+      .separator {
+        display: inline-block;
+        opacity: 1;
+        text-align: center;
+        transition: opacity 0.5s;
+        width: 20 / 1920 * 100vw;
+
+        &.odd {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  &.class-awaiting {
+    height: 495 / 1920 * 100vw;
+
+    .class-time-frame {
+      opacity: 0;
+    }
+
+    .class-time-countdown {
+      opacity: 1;
+    }
+
+  }
+}
+
+.has-class-awaiting {
+  .class-next {
+    opacity: 0;
+  }
 }
 
 .class-next,
 .class-prev {
+  opacity: 1;
+  transition: opacity 0.5s;
+
   .class {
     width: 76vw;
-    //height: 40vh;
     height: 13.4vw;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     background-color: #75aed7;
-    //text-transform: uppercase;
     margin: auto;
     top: 40vw;
     margin-left: -38vw;
@@ -174,10 +307,8 @@
 .class-prev {
   .class {
     width: 76vw;
-    //height: 40vh;
     height: 13.4vw;
     box-shadow: 0 10px 38px rgba(0, 0, 0, 0.3);
-    //text-transform: uppercase;
     margin: auto;
     top: -40vw;
     margin-left: -38vw;
@@ -210,6 +341,14 @@
 
     .trainer {
       color: #fcaf17;
+
+      .trainer__substitute,
+      .trainer__substitute__icon {
+        color: #f15922;
+      }
+
+      .trainer__substituted {
+      }
     }
 
     .class-name {
@@ -231,6 +370,23 @@
     .class-time-frame-progress-bar {
       background-color: #fcaf17;
     }
+
+    .class-time-countdown {
+
+      .class-time-countdown-progress-container {
+        background-color: #f36f3c;
+      }
+
+      .class-time-countdown-time--prefix,
+      .class-time-countdown-time--suffix {
+        color: #fcaf17;
+      }
+
+      .class-time-countdown-time--value {
+        color: #a92b31;
+      }
+    }
+
   }
 
   .class-next,
