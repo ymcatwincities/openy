@@ -18,5 +18,6 @@
     attach: function (context, settings) {
       // Empty yet.
     }
-  }
+  };
+
 })(jQuery, window, Drupal);
