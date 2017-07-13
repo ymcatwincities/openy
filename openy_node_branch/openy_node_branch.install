@@ -183,7 +183,7 @@ function openy_node_branch_update_8012() {
 /**
  * Make field_location_coordinates required.
  */
-function openy_node_branch_update_8013(){
+function openy_node_branch_update_8013() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(drupal_get_path('module', 'openy_node_branch') . '/config/install');
   $config_importer->importConfigs(['field.field.node.branch.field_location_coordinates']);
