@@ -1,0 +1,9 @@
+name: 'OpenY CKEditor'
+type: module
+core: 8.x
+dependencies:
+  - ckeditor
+  - editor
+  - filter
+  - token_filter
+version: 8.x-1.0

@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_coordinates
     - field.field.node.branch.field_location_directions
@@ -172,6 +173,14 @@ content:
     third_party_settings: {  }
     type: address_default
     region: content
+  field_location_amenities:
+    weight: 12
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_location_area:
     weight: 2
     settings:

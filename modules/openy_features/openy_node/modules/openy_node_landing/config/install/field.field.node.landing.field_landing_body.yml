@@ -1,0 +1,180 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_landing_body
+    - node.type.landing
+    - paragraphs.paragraphs_type.1c
+    - paragraphs.paragraphs_type.2c
+    - paragraphs.paragraphs_type.3c
+    - paragraphs.paragraphs_type.4c
+    - paragraphs.paragraphs_type.all_amenities
+    - paragraphs.paragraphs_type.all_events
+    - paragraphs.paragraphs_type.all_testimonials
+    - paragraphs.paragraphs_type.blackbaud
+    - paragraphs.paragraphs_type.camp_menu
+    - paragraphs.paragraphs_type.code
+    - paragraphs.paragraphs_type.contact_us
+    - paragraphs.paragraphs_type.featured_stories
+    - paragraphs.paragraphs_type.financial_aid
+    - paragraphs.paragraphs_type.gallery
+    - paragraphs.paragraphs_type.global_search
+    - paragraphs.paragraphs_type.group_schedules
+    - paragraphs.paragraphs_type.latest_news_and_updates
+    - paragraphs.paragraphs_type.lto
+    - paragraphs.paragraphs_type.membership_calculator
+    - paragraphs.paragraphs_type.microsites_menu
+    - paragraphs.paragraphs_type.panorama
+    - paragraphs.paragraphs_type.prgf_location_finder
+    - paragraphs.paragraphs_type.program_registration
+    - paragraphs.paragraphs_type.simple_content
+    - paragraphs.paragraphs_type.timeline
+    - paragraphs.paragraphs_type.tour_schedule
+    - paragraphs.paragraphs_type.whay
+  module:
+    - entity_reference_revisions
+id: node.landing.field_landing_body
+field_name: field_landing_body
+entity_type: node
+bundle: landing
+label: Body
+description: 'Add body paragraphs.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      gallery: gallery
+      simple_content: simple_content
+      1c: 1c
+      2c: 2c
+      3c: 3c
+      4c: 4c
+      featured_stories: featured_stories
+      latest_news_and_updates: latest_news_and_updates
+      lto: lto
+      program_registration: program_registration
+      contact_us: contact_us
+      membership_calculator: membership_calculator
+      whay: whay
+      blackbaud: blackbaud
+      all_amenities: all_amenities
+      global_search: global_search
+      all_testimonials: all_testimonials
+      camp_menu: camp_menu
+      microsites_menu: microsites_menu
+      all_events: all_events
+      financial_aid: financial_aid
+      panorama: panorama
+      code: code
+      group_schedules: group_schedules
+      prgf_location_finder: prgf_location_finder
+      tour_schedule: tour_schedule
+      timeline: timeline
+    target_bundles_drag_drop:
+      gallery:
+        enabled: true
+        weight: -39
+      simple_content:
+        enabled: true
+        weight: -38
+      1c:
+        enabled: true
+        weight: -37
+      2c:
+        enabled: true
+        weight: -36
+      3c:
+        enabled: true
+        weight: -35
+      4c:
+        enabled: true
+        weight: -34
+      featured_stories:
+        enabled: true
+        weight: -33
+      latest_news_and_updates:
+        enabled: true
+        weight: -32
+      lto:
+        enabled: true
+        weight: -31
+      program_registration:
+        enabled: true
+        weight: -30
+      contact_us:
+        enabled: true
+        weight: -29
+      membership_calculator:
+        enabled: true
+        weight: -27
+      whay:
+        enabled: true
+        weight: -26
+      blackbaud:
+        enabled: true
+        weight: -25
+      all_amenities:
+        enabled: true
+        weight: -24
+      global_search:
+        enabled: true
+        weight: -23
+      header:
+        weight: -22
+        enabled: false
+      small_banner:
+        weight: -21
+        enabled: false
+      all_testimonials:
+        enabled: true
+        weight: 26
+      camp_menu:
+        enabled: true
+        weight: 29
+      microsites_menu:
+        enabled: true
+        weight: 32
+      all_events:
+        enabled: true
+        weight: 34
+      financial_aid:
+        enabled: true
+        weight: 37
+      content_pager:
+        weight: 37
+        enabled: false
+      panorama:
+        enabled: true
+        weight: 41
+      prgf_location_finder_filters:
+        weight: 42
+        enabled: false
+      code:
+        enabled: true
+        weight: 44
+      group_schedules:
+        enabled: true
+        weight: 45
+      openy_event_registration:
+        weight: 47
+        enabled: false
+      membership_info:
+        weight: 48
+        enabled: false
+      prgf_location_finder:
+        enabled: true
+        weight: 49
+      location_events:
+        weight: 52
+        enabled: false
+      tour_schedule:
+        enabled: true
+        weight: 59
+      timeline:
+        enabled: true
+        weight: 64
+field_type: entity_reference_revisions

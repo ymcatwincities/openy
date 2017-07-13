@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_header_content
     - node.type.branch
+    - paragraphs.paragraphs_type.all_amenities
   module:
     - entity_reference_revisions
 id: node.branch.field_header_content
@@ -20,4 +21,11 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles: null
+    target_bundles:
+      header: header
+      all_amenities: all_amenities
+    target_bundles_drag_drop:
+      all_amenities:
+        enabled: true
+        weight: -30
 field_type: entity_reference_revisions

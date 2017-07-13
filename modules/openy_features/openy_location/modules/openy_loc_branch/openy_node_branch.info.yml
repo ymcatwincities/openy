@@ -1,0 +1,50 @@
+name: 'OpenY Branch'
+description: 'Implements branch bundle feature.'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - content_moderation
+  - content_translation
+  - ctools
+  - entity_reference_revisions
+  - field
+  - field_group
+  - file
+  - geolocation
+  - language
+  - menu_ui
+  - metatag
+  - node
+  - openy_field_custom_hours
+  - openy_gallery
+  - openy_latest_news
+  - openy_location_core
+  - openy_node
+  - openy_node_mbrshp
+  - openy_prgf_1c
+  - openy_prgf_2c
+  - openy_prgf_3c
+  - openy_prgf_4c
+  - openy_prgf_amenities
+  - openy_prgf_blackbaud
+  - openy_prgf_fc
+  - openy_prgf_fin
+  - openy_prgf_group_schedules
+  - openy_prgf_header
+  - openy_prgf_location_events
+  - openy_prgf_panorama
+  - openy_prgf_simple_content
+  - openy_prgf_small_banner
+  - openy_prgf_whay
+  - openy_svg_formatter
+  - openy_widgets
+  - paragraphs
+  - path
+  - pathauto
+  - taxonomy
+  - telephone
+  - text
+  - user
+  - views
+version: 8.x-1.11
