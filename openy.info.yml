@@ -88,11 +88,34 @@ dependencies:
   - admin_toolbar
   - colorbutton
   - better_exposed_filters
+  # OpenY custom modules
+  - openy_branch_selector
+  - openy_field_hours
+  - openy_group_schedules
+  - groupex_form_cache
+  - openy_hf
+  - openy_hours_formatter
+  - openy_svg_formatter
+  - openy_migrate
+  - openy_map
+  - openy_moderation_wrapper
+  - openy_popups
+  - openy_session_instance
+  - openy_schedules
+  - openy_socrates
+  - openy_tour
+  - location_finder
+  - daxko
+  - openy_programs_search
+  - openy_mappings
+  - openy_calc
+  - openy_data_wrapper
   # OpenY features.
   - openy_media_image
   - openy_media_document
   - openy_media_video
   - openy_node_mbrshp
+  - openy_editor
   - openy_node
   - openy_block
   - openy_block_basic
@@ -142,28 +165,6 @@ dependencies:
   - openy_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
-  # OpenY custom modules
-  - openy_branch_selector
-  - openy_field_hours
-  - openy_group_schedules
-  - groupex_form_cache
-  - openy_hf
-  - openy_hours_formatter
-  - openy_svg_formatter
-  - openy_migrate
-  - openy_map
-  - openy_moderation_wrapper
-  - openy_popups
-  - openy_session_instance
-  - openy_schedules
-  - openy_socrates
-  - openy_tour
-  - location_finder
-  - daxko
-  - openy_programs_search
-  - openy_mappings
-  - openy_calc
-  - openy_data_wrapper
   - logger_entity
 
 themes:
