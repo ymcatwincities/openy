@@ -3,6 +3,7 @@
 namespace Drupal\openy_digital_signage_blocks\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\openy_digital_signage_screen\Entity\OpenYScreen;
@@ -62,7 +63,8 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase {
     $period = $this->getSchedulePeriod();
     if ($screen = $this::getScreenContext()) {
       if ($room = $this->getRoom($screen)) {
-        $classes = $this->getClassesSchedule($screen, $period, $room);
+        $location = $screen->field_screen_location->entity;
+        $classes = $this->getClassesSchedule($period, $location, $room);
       }
     }
     else {
@@ -87,12 +89,27 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase {
     return $build;
   }
 
+  /**
+   * Retrieves room.
+   *
+   * @param \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $screen
+   *   The screen context.
+   *
+   * @return mixed
+   *   The room context.
+   */
   private function getRoom(OpenYScreenInterface $screen) {
     $screen_room = $screen->field_screen_room->value;
     $configuration_room = $this->configuration['room'];
     return $screen_room ?: $configuration_room;
   }
 
+  /**
+   * Retrieve schedule period.
+   *
+   * @return array
+   *   The schedule period.
+   */
   private function getSchedulePeriod() {
     $period = &drupal_static('schedule_item_period', NULL);
 
@@ -113,9 +130,20 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase {
     return $period;
   }
 
-  private static function getClassesSchedule(OpenYScreenInterface $screen, $period, $room) {
-    $location = $screen->field_screen_location->entity;
-
+  /**
+   * Fetches class schedule.
+   *
+   * @param array $period
+   *   The time span to fetch schedule for.
+   * @param EntityInterface $location
+   *   The location to fetch schedule for.
+   * @param string $room
+   *   The root to fetch schedule for.
+   *
+   * @return array
+   *   Array of formatted sessions.
+   */
+  private static function getClassesSchedule($period, EntityInterface $location, $room) {
     $period_to = date('c', $period['to']);
     $period_from = date('c', $period['from']);
     $eq = \Drupal::entityQuery('openy_ds_classes_session');
@@ -148,12 +176,21 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase {
     return $classes;
   }
 
+  /**
+   * Generates dummy class schedule.
+   *
+   * @param array $period
+   *   Period of time the schedule to be generated.
+   *
+   * @return array
+   *   The generated schedule.
+   */
   private function getDummyClassesSchedule($period) {
     $classes = [];
     $time = $period['from'];
-    $cnt = 198;
+    $cnt = 19;
     $duration = ceil(($period['to'] - $period['from']) / ($cnt));
-    $break_duration = intval($duration * 10 / 13);
+    $break_duration = intval($duration * 4 / 13);
     $duration -= $break_duration;
     for ($i = 0; $i < $cnt; $i++) {
       $from = $time;
@@ -173,6 +210,12 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase {
     return $classes;
   }
 
+  /**
+   * Return screen contenxt.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|mixed|null
+   *   Screen context.
+   */
   private static function getScreenContext() {
     $route_name = \Drupal::routeMatch()->getRouteName();
     $request = \Drupal::request();

@@ -31,5 +31,6 @@
 
       $(context).find(time_block).once('block-time').each(updateTime);
     }
-  }
+  };
+
 })(jQuery, window, Drupal);
