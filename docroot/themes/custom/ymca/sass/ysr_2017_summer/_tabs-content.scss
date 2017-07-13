@@ -449,7 +449,8 @@
     margin: 0 auto;
   }
 
-  h2, h3 {
+  h2,
+  h3 {
     text-transform: uppercase;
     letter-spacing: -1px;
   }
@@ -485,9 +486,26 @@
     @include rem(font-size, 24px);
     @include rem(line-height, 30px);
     @include rem(padding, 22px 0);
-    @include rem(margin, 40px auto 0 auto);
+    @include rem(margin, 40px auto 0);
     border-top: 1px solid $green-medium;
     color: $green-medium;
     max-width: 76%;
+  }
+}
+
+.retention-campaign {
+  .tab-content {
+    #tab_1,
+    #tab_5 {
+      @include rem(padding, 0 0 60px 0);
+      @include breakpoint($tablet) {
+        @include rem(padding, 0 0 70px 0);
+      }
+    }
+    #tab_2 {
+      @include breakpoint($tablet) {
+        @include rem(margin-bottom, 81px);
+      }
+    }
   }
 }

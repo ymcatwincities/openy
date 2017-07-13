@@ -21,32 +21,23 @@ html, body {
     background: none;
   }
 
-  // .content {
-  //   background: $white;
-  // }
-
   .main--content {
-    @include rem(padding, 0 0 60px 0);
     @include background-image(linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(244, 244, 244, 0.8) 100%));
     background-position: 50% 100%;
     background-repeat: no-repeat;
     background-size: 100% 60px;
 
     @include breakpoint($tablet) {
-      @include rem(padding, 0 0 70px 0);
       background-size: 100% 70px;
-    }
-  }
-
-  @include breakpoint($mobile-tablet-portrait-only) {
-    .container {
-      padding-left: 0;
-      padding-right: 0;
     }
   }
 
   .container {
     transition: padding .3s;
+    @include breakpoint($mobile-tablet-portrait-only) {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   .inner-container {
@@ -501,6 +492,13 @@ html, body {
       padding: 0;
     }
   }
-
 }
 
+.retention-campaign {
+  .panel-group {
+    // Mobile only.
+    @include breakpoint(max-width $tablet - 1) {
+      margin-bottom: 0;
+    }
+  }
+}
