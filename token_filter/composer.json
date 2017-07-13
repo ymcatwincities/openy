@@ -1,0 +1,6 @@
+{
+    "name": "drupal/token_filter",
+    "description": "This is a very simple module to make global token values available as an input filter.",
+    "type": "drupal-module",
+    "license": "GPL-2.0+"
+}
