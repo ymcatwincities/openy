@@ -89,6 +89,7 @@ dependencies:
   - colorbutton
   - better_exposed_filters
   - token_filter
+  - views_field_formatter
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
