@@ -4,6 +4,8 @@ core: 8.x
 dependencies:
   - ckeditor
   - editor
+  - entity_embed
   - filter
   - token_filter
-version: 8.x-1.0
+  - colorbutton
+version: 8.x-1.1
