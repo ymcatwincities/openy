@@ -23,7 +23,7 @@
       }
 
       .slick-slider {
-        @include breakpoint($tablet) {
+        @include breakpoint($tablet 1400px) {
           margin: {
             left: 40px;
             right: 40px;
@@ -55,7 +55,6 @@
 
     .campaign-dates--date {
       @include cachet();
-      // @include rem(height, 86px);
       @include rem(width, 69px);
       border-right: 1px solid rgba($green-dark, 0.2);
       outline: none;
@@ -224,9 +223,6 @@
       }
     }
     .slick-prev {
-      // @include breakpoint($tablet) {
-      //   left: 15px;
-      // }
       &:before {
         background-image: url('../prototypes/ysr/img/reporting/arrow-left.png');
       }
@@ -316,19 +312,14 @@
       -webkit-align-items: center;
       -ms-flex-align: center;
       align-items: center;
+      @include rem(padding-bottom, 22px);
       @include rem(padding-top, 20px);
-
-      // @include breakpoint($mobile-max) {
-      //   @include rem(padding-top, 20px);
-      //   -webkit-flex-wrap: wrap;
-      //   -ms-flex-wrap: wrap;
-      //   flex-wrap: wrap;
-      // }
 
       @include breakpoint($tablet) {
         -webkit-flex-wrap: nowrap;
         -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
+        padding-bottom: 0;
         @include rem(padding-top, 99px);
       }
 
@@ -389,14 +380,15 @@
           border-bottom: 1px solid $white;
         }
       }
-      &:hover {
+      &:hover,
+      &:focus {
         @include breakpoint($tablet) {
           opacity: 1;
         }
       }
 
       a {
-        @include rem(padding, 8px 0 20px);
+        @include rem(padding, 8px 0 17px);
         @include transition(color 0.2s ease);
         -ms-flex-align: center;
         -ms-flex-direction: row;
@@ -430,20 +422,9 @@
           outline: none;
         }
 
-        // @include breakpoint($mobile-max) {
-        //   @include rem(padding-top, 48px);
-        //   @include rem(padding-bottom, 20px);
-        // }
-
         @include breakpoint($tablet) {
           @include rem(padding-bottom, 25px);
         }
-
-        // @include breakpoint($desktop-small) {
-        //   line-height: 24px;
-        //   font-size: 20px;
-        // }
-
 
         &:before {
           @include rem(height, 33px);
@@ -463,67 +444,31 @@
       &__type-a {
         a {
           &:before {
-            // @include rem(background-size, 46px 26px);
             background-image: image-url('2017_summer/icon-activity-swim.png');
-            // background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-tab.svg');
           }
         }
-
-        // &.active a,
-        // &:hover a {
-        //   &:before {
-        //     // background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-active.svg');
-        //   }
-        // }
       }
 
       &__type-b {
         a {
           &:before {
-            // @include rem(background-size, 40px 28px);
             background-image: image-url('2017_summer/icon-activity-fitness.png');
-            // background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-tab.svg');
           }
         }
-
-        // &.active a,
-        // &:hover a {
-        //   &:before {
-        //     // background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-active.svg');
-        //   }
-        // }
       }
 
       &__type-c {
         a {
           &:before {
-            // @include rem(background-size, 40px 32px);
             background-image: image-url('2017_summer/icon-activity-group.png');
-            // background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-tab.svg');
           }
         }
-
-        // &.active a,
-        // &:hover a {
-        //   &:before {
-        //     // background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-active.svg');
-        //   }
-        // }
       }
 
       &__type-d {
         a {
           &:before {
             background-image: image-url('2017_summer/icon-activity-community.png');
-            // background-image: inline-image('../prototypes/yfr/img/tabs/icon-home-tab.svg');
-            // @include rem(background-size, 26px 28px);
-          }
-        }
-
-        &.active a,
-        &:hover a {
-          &:before {
-            // background-image: inline-image('../prototypes/yfr/img/tabs/icon-home-active.svg');
           }
         }
       }
@@ -534,7 +479,7 @@
     @include rem(padding, 10px 10px 40px);
 
     @include breakpoint($tablet) {
-      @include rem(padding, 85px 0 80px);
+      @include rem(padding, 85px 0 130px);
     }
 
     .row {
@@ -669,7 +614,6 @@
 
           small {
             @include cachet-normal();
-            // @include rem(font-size, 14px);
             @include rem(line-height, 20px);
             display: block;
             overflow: hidden;
@@ -715,31 +659,34 @@
       }
     }
 
-    .actions {
-      @include rem(margin, 40px auto 0);
-      @include rem(max-width, 382px);
-      clear: both;
-      text-align: center;
+    // Matt C ~ I think this is for a previous submit button in the form
+    // which is no longer present with Angular. Leaving in SASS incase
+    // it's needed at a future date.
+    // .actions {
+    //   @include rem(margin, 40px auto 0);
+    //   @include rem(max-width, 382px);
+    //   clear: both;
+    //   text-align: center;
 
-      input[type=submit] {
-        @include cachet-bold();
-        @include transition(all .3s);
-        background: none;
-        border: none;
-        border-bottom: 1px solid $orange-light;
-        color: $orange-light;
-        letter-spacing: -.8px;
-        line-height: 62px;
-        outline: none;
-        padding: 0;
-        text-transform: uppercase;
-        font-size: 30px;
+    //   input[type=submit] {
+    //     @include cachet-bold();
+    //     @include transition(all .3s);
+    //     background: none;
+    //     border: none;
+    //     border-bottom: 1px solid $orange-light;
+    //     color: $orange-light;
+    //     letter-spacing: -.8px;
+    //     line-height: 62px;
+    //     outline: none;
+    //     padding: 0;
+    //     text-transform: uppercase;
+    //     font-size: 30px;
 
-        &:hover {
-          color: $orange-medium;
-          border-color: $orange-medium;
-        }
-      }
-    }
+    //     &:hover {
+    //       color: $orange-medium;
+    //       border-color: $orange-medium;
+    //     }
+    //   }
+    // }
   }
 }
