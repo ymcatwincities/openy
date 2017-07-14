@@ -1,9 +1,9 @@
 langcode: en
 status: true
 dependencies: {  }
-id: yghc_node_mapping_branch
+id: openy_node_mapping_branch
 migration_tags: {  }
-migration_group: ygh_content
+migration_group: openy_demo_nbranch
 label: 'Create Branch mappings'
 source:
   plugin: embedded_data

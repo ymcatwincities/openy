@@ -1,9 +1,9 @@
 langcode: en
 status: true
 dependencies: {  }
-id: yghc_amenities
+id: openy_demo_taxonomy_term_amenities
 migration_tags: {  }
-migration_group: ygh_content
+migration_group: openy_demo_term
 label: 'Create amenities vocabulary terms'
 source:
   plugin: embedded_data
