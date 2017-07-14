@@ -7,18 +7,26 @@ a,
 .link {
   color: #377bb5;
 }
+#page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
+  color: #377bb5;
+  border-color: #377bb5;
+}
 .button,
 .btn,
 .button.blue,
 .btn.blue,
 .modal-body .button,
 .btn-primary,
+.wysiwyg--button a,
+header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a,
 .button:hover,
 .btn:hover,
 .button.blue:hover,
 .btn.blue:hover,
 .modal-body .button:hover,
 .btn-primary:hover,
+.wysiwyg--button a:hover,
+header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a:hover,
 .btn.white-blue:hover,
 .white-blue.button:hover {
   background-color: #1dafec;
@@ -204,18 +212,24 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .link {
   color: #377bb6;
 }
+.is-camp #page-footer #block-openy-lily-footersocialblock .field-block-content ul li a {
+  color: #377bb6;
+  border-color: #377bb6;
+}
 .is-camp .button,
 .is-camp .btn,
 .is-camp .button.blue,
 .is-camp .btn.blue,
 .is-camp .modal-body .button,
 .is-camp .btn-primary,
+.is-camp .wysiwyg--button a,
 .is-camp .button:hover,
 .is-camp .btn:hover,
 .is-camp .button.blue:hover,
 .is-camp .btn.blue:hover,
 .is-camp .modal-body .button:hover,
 .is-camp .btn-primary:hover,
+.wysiwyg--button a:hover,
 .is-camp .btn.white-blue:hover,
 .is-camp .white-blue.button:hover,
 .is-camp #banner .banner-caption a,
@@ -241,10 +255,10 @@ body .branch-popup .ui-dialog-content h3 {
 }
 
 
-.is-camp header#page-head .top-navs #block-openy-lily-user-menu .nav li a {
+.is-camp header#page-head .top-navs #block-openy-lily-user-menu .nav li a:not(:first-child) {
   color: #777778;
 }
-.is-camp header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover {
+.is-camp header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover:not(:first-child) {
   background-color: #fffffa;
   color: #000001;
 }
@@ -385,4 +399,12 @@ body .is-camp .branch-popup .ui-dialog-content h3 {
 .is-camp .viewport .nav-level-2 > a:hover,
 .is-camp .viewport .nav-level-2 > a:focus {
   background: none;
+}
+
+/* Color Module: Don't touch */
+.site-alert__wrapper a.site-alert__dismiss {
+  color: #ffffff;
+}
+#block-openy-lily-tabs .nav-tabs li a {
+  color: #565656;
 }
