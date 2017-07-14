@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_lto_title
-field_name: field_lto_title
+id: paragraph.field_prgf_headline
+field_name: field_prgf_headline
 entity_type: paragraph
 type: string
 settings:

@@ -4,8 +4,8 @@ dependencies:
   module:
     - link
     - paragraphs
-id: paragraph.field_lto_link
-field_name: field_lto_link
+id: paragraph.field_prgf_link
+field_name: field_prgf_link
 entity_type: paragraph
 type: link
 settings: {  }

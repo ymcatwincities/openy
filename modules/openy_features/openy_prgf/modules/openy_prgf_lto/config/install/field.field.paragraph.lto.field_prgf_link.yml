@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_lto_link
+    - field.storage.paragraph.field_prgf_link
     - paragraphs.paragraphs_type.lto
   module:
     - link
-id: paragraph.lto.field_lto_link
-field_name: field_lto_link
+id: paragraph.lto.field_prgf_link
+field_name: field_prgf_link
 entity_type: paragraph
 bundle: lto
 label: Link

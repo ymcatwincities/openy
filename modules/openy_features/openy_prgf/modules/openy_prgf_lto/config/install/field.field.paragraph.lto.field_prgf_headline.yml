@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_lto_title
+    - field.storage.paragraph.field_prgf_headline
     - paragraphs.paragraphs_type.lto
-id: paragraph.lto.field_lto_title
-field_name: field_lto_title
+id: paragraph.lto.field_prgf_headline
+field_name: field_prgf_headline
 entity_type: paragraph
 bundle: lto
 label: Title

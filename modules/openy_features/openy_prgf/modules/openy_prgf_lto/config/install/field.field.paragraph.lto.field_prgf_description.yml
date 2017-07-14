@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_lto_subtitle
+    - field.storage.paragraph.field_prgf_description
     - paragraphs.paragraphs_type.lto
-id: paragraph.lto.field_lto_subtitle
-field_name: field_lto_subtitle
+id: paragraph.lto.field_prgf_description
+field_name: field_prgf_description
 entity_type: paragraph
 bundle: lto
 label: Subtitle
