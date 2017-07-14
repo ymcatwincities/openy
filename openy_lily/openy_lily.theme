@@ -255,6 +255,7 @@ function openy_lily_preprocess_page(&$variables) {
             'btn-block',
             'btn-info',
           ],
+          'target' => '_blank',
         ]
       ],
     ];
