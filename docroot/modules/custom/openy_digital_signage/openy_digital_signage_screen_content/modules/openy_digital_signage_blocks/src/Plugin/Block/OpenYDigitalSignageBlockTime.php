@@ -88,7 +88,7 @@ class OpenYDigitalSignageBlockTime extends BlockBase {
       '#theme' => 'openy_digital_signage_block_time',
       '#attached' => [
         'library' => [
-          'openy_digital_signage_block_time/block_time',
+          'openy_digital_signage_blocks/block_time',
         ],
       ],
       '#current_time' => date('h:i a'),

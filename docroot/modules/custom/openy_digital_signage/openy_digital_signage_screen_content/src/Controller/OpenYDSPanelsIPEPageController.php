@@ -95,7 +95,7 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
       'digital_signage_block_free_html',
       'digital_signage_promotional',
     ];
-    $supported_categories = ['Digital Signage', 'Custom'];
+    $supported_categories = ['Digital Signage', 'Custom', 'Room Entry'];
     foreach ($definitions as $plugin_id => $definition) {
       // Don't add broken Blocks.
       if ($plugin_id == 'broken') {
