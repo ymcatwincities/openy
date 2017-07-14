@@ -1,3 +1,4 @@
+.paragraph--type--microsites-menu,
 .paragraph--type--camp-menu {
   margin-bottom: 30px;
   @include breakpoint (0 $tablet) {
@@ -51,7 +52,7 @@
           &:hover {
             background-color: #505050;
             &:after {
-              background-color: #505050;
+              background-color: #505050 !important;
             }
           }
           &.active {
