@@ -116,14 +116,12 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
       $to = $date . 'T' . $to_time;
       $from_ts = strtotime($from);
       $to_ts = strtotime($to);
-      if ($is_override) {
-        if ($from_ts < $override_from) {
-          $date = $tomorrow;
-          $from = $date . 'T' . $from_time;
-          $to = $date . 'T' . $to_time;
-          $from_ts = strtotime($from);
-          $to_ts = strtotime($to);
-        }
+      if ($is_override && $from_ts < $override_from) {
+        $date = $tomorrow;
+        $from = $date . 'T' . $from_time;
+        $to = $date . 'T' . $to_time;
+        $from_ts = strtotime($from);
+        $to_ts = strtotime($to);
       }
       $schedule[$from] = [
         'item' => $schedule_item,

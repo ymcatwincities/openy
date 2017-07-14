@@ -4,6 +4,12 @@ openyres_onecol:
     theme:
       layouts/openyres_onecol/openyres-onecol.css: {}
 
+openyres_onecol_ticker:
+  version: VERSION
+  css:
+    theme:
+      layouts/openyres_onecol_ticker/openyres-onecol-ticker.css: {}
+
 openyds_onecol:
   version: VERSION
   css:

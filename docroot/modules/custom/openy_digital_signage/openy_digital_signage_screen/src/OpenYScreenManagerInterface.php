@@ -14,4 +14,12 @@ interface OpenYScreenManagerInterface {
    */
   public function dummy();
 
+  /**
+   * Return screen contenxt.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|mixed|null
+   *   Screen context.
+   */
+  public function getScreenContext();
+
 }

@@ -12,15 +12,15 @@ use Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a Scheduling: Room current class.
+ * Provides a Scheduling: class ticker.
  *
  * @Block(
- *   id = "openy_digital_signage_class_current",
- *   admin_label = @Translation("Room current class"),
+ *   id = "openy_digital_signage_class_ticker",
+ *   admin_label = @Translation("Room class ticker"),
  *   category = @Translation("Room Entry")
  * )
  */
-class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements ContainerFactoryPluginInterface {
+class OpenYDigitalSignageBlockClassTicker extends BlockBase implements ContainerFactoryPluginInterface {
 
   const DEFAULT_PERIOD_LENGTH = 28800;
 
@@ -72,6 +72,7 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
     );
   }
 
+
   /**
    * {@inheritdoc}
    */
@@ -107,7 +108,7 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
   public function build() {
     $attributes = new Attribute();
     $attributes->addClass('block');
-    $attributes->addClass('block-class-current');
+    $attributes->addClass('block-class-ticker');
 
     $classes = [];
     $period = $this->getSchedulePeriod();
@@ -122,10 +123,10 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
     }
 
     $build = [
-      '#theme' => 'openy_digital_signage_blocks_class_current',
+      '#theme' => 'openy_digital_signage_blocks_class_ticker',
       '#attached' => [
         'library' => [
-          'openy_digital_signage_blocks/class_current',
+          'openy_digital_signage_blocks/class_ticker',
         ],
       ],
       '#cache' => [
@@ -180,7 +181,6 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
     ];
   }
 
-
   /**
    * Generates dummy class schedule.
    *
@@ -213,31 +213,6 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
     }
 
     return $classes;
-  }
-
-  /**
-   * Return screen contenxt.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|mixed|null
-   *   Screen context.
-   */
-  private static function getScreenContext() {
-    $route_name = \Drupal::routeMatch()->getRouteName();
-    $request = \Drupal::request();
-    if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
-      $screen = $request->get('openy_digital_signage_screen');
-      return $screen;
-    }
-    else {
-      $request = \Drupal::request();
-      if ($request->query->has('screen')) {
-        $storage = \Drupal::entityTypeManager()->getStorage('openy_digital_signage_screen');
-        $screen = $storage->load($request->query->get('screen'));
-        return $screen;
-      }
-    }
-
-    return NULL;
   }
 
 }
