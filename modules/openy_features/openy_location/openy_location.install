@@ -15,3 +15,16 @@ function openy_location_update_8001() {
     'core.entity_view_mode.node.class_location',
   ]);
 }
+
+/**
+ * Import field_location_amenities.
+ */
+function openy_location_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_location') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_location_amenities',
+  ]);
+}

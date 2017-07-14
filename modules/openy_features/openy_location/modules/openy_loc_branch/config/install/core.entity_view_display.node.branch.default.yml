@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.branch.field_location_address
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_coordinates
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_directions
     - field.field.node.branch.field_location_email
     - field.field.node.branch.field_location_fax
@@ -93,6 +94,13 @@ content:
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: content
+  field_location_amenities:
+    weight: 8
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_label
 hidden:
   field_location_area: true
   field_location_directions: true

@@ -80,6 +80,8 @@ source:
           header_content_id: locations_small_banner
         -
           header_content_id: locations_location_finder_filters
+        -
+          header_content_id: locations_lto_amenities
       content_ids:
         -
           content_id: locations_location_finder
@@ -137,6 +139,10 @@ source:
           content_id: schedule_search_list
         -
           content_id: popup_schedules
+    -
+      id: amenities
+      title: 'Amenities at each Y'
+      alias: '/amenities'
   ids:
     id:
       type: string

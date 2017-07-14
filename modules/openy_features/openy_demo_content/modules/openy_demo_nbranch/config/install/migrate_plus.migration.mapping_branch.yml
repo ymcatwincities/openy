@@ -1,0 +1,309 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_node_mapping_branch
+migration_tags: {  }
+migration_group: openy_demo_nbranch
+label: 'Create Branch mappings'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      daxco: 91
+      name: 'Aldine-Greenspoint Family YMCA'
+      drupal: 086dfc7a-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 2
+      daxco: 112
+      name: 'Alief Family YMCA'
+      drupal: 0878ad28-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 3
+      daxco: 107
+      name: 'Association Office'
+      drupal:
+    -
+      id: 4
+      daxco: 90
+      name: 'Baytown Family YMCA'
+      drupal: 08834a8a-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 5
+      daxco: 101
+      name: 'Brenda and John Duncan YMCA'
+      drupal: 088c7d94-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 6
+      daxco: 93
+      name: 'Center For Leadership Development'
+      drupal: 2ce5e346-9af4-11e2-acdf-12313d334d0f
+    -
+      id: 7
+      daxco: 169
+      name: 'Central Group Child Care'
+      drupal:
+    -
+      id: 8
+      daxco: 411
+      name: 'Client Support Services'
+      drupal:
+    -
+      id: 9
+      daxco: 165
+      name: 'Connect @ 6800 YMCA'
+      drupal:
+    -
+      id: 10
+      daxco: 109
+      name: 'Conroe Family YMCA'
+      drupal: 0948ac4e-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 11
+      daxco: 95
+      name: 'Cossaboom Family YMCA'
+      drupal: 09541714-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 12
+      daxco: 129
+      name: 'Cossaboom Family YMCA - Residents'
+      drupal:
+    -
+      id: 13
+      daxco: 103
+      name: 'D. Bradley McWilliams YMCA at Cypress Creek'
+      drupal: 095dccc8-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 14
+      daxco: 409
+      name: 'Early Childhood Child Care'
+      drupal:
+    -
+      id: 15
+      daxco: 124
+      name: 'East Montgomery County Family YMCA'
+      drupal: 097125d4-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 16
+      daxco: 330
+      name: 'Eastside Group Child Care'
+      drupal:
+    -
+      id: 17
+      daxco: 97
+      name: 'Edgar A. Smith Family YMCA'
+      drupal: 097a9ee8-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 18
+      daxco: 113
+      name: 'Fort Bend Family YMCA'
+      drupal: 09842b70-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 19
+      daxco: 118
+      name: 'Galveston Family YMCA'
+      drupal:
+    -
+      id: 20
+      daxco: 100
+      name: 'Harriet and Joe Foster Family YMCA'
+      drupal: 09e8995c-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 21
+      daxco: 104
+      name: 'Houston Texans YMCA'
+      drupal: 0a04ad7c-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 22
+      daxco: 123
+      name: 'Huntsville Family YMCA'
+      drupal: 09960c96-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 23
+      daxco: 110
+      name: 'Lake Houston Family YMCA'
+      drupal: 09b15884-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 24
+      daxco: 111
+      name: 'Langham Creek Family YMCA'
+      drupal: 09ba4944-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 25
+      daxco: 89
+      name: 'M.D. Anderson Family YMCA'
+      drupal: 09c3576e-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 26
+      daxco: 102
+      name: 'Magnolia-Tomball Family YMCA'
+      drupal: 09cd3360-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 27
+      daxco: 126
+      name: 'Monty Ballard YMCA at Cinco Ranch'
+      drupal: 09a8507c-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 28
+      daxco: 333
+      name: 'North Group Child Care'
+      drupal:
+    -
+      id: 29
+      daxco: 116
+      name: 'North Harris County Family YMCA'
+      drupal:
+    -
+      id: 30
+      daxco: 98
+      name: 'Northeast Family YMCA'
+      drupal: 09df5bbc-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 31
+      daxco: 329
+      name: 'Northeast Group Child Care'
+      drupal:
+    -
+      id: 32
+      daxco: 332
+      name: 'Northwest Group Child Care'
+      drupal:
+    -
+      id: 33
+      daxco: 96
+      name: 'Perry Family YMCA'
+      drupal: 09f1a2f4-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 34
+      daxco: 105
+      name: 'San Jacinto Family YMCA'
+      drupal: 09fbf2ea-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 35
+      daxco: 125
+      name: 'Sealy Family YMCA'
+      drupal: 0a7d3300-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 36
+      daxco: 331
+      name: 'South Group Child Care'
+      drupal:
+    -
+      id: 37
+      daxco: 119
+      name: 'T.W. Davis Family YMCA'
+      drupal: 0a210a4e-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 38
+      daxco: 94
+      name: 'Tellepsen Family Downtown YMCA'
+      drupal: 0967a194-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 39
+      daxco: 120
+      name: 'Texas Medical Center Child Care YMCA'
+      drupal: 0a2a0e28-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 40
+      daxco: 127
+      name: 'The Woodlands YMCA - Branch Crossing'
+      drupal: 0a17d62c-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 41
+      daxco: 128
+      name: 'The Woodlands YMCA - Creekside'
+      drupal: 15a85fc8-77e0-11e3-97b6-f23c9170582b
+    -
+      id: 42
+      daxco: 108
+      name: 'The Woodlands YMCA - Shadowbend'
+      drupal: 0a0d6cbe-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 43
+      daxco: 121
+      name: 'Thelma Ley Anderson Family YMCA'
+      drupal: 0a335762-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 44
+      daxco: 114
+      name: 'Trotter Family YMCA'
+      drupal: 0a3c879c-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 45
+      daxco: 115
+      name: 'Vic Coppinger Family YMCA'
+      drupal: 0a4eb200-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 46
+      daxco: 106
+      name: 'Weekley Family YMCA'
+      drupal: 0a57c34a-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 47
+      daxco: 99
+      name: 'Wendel D. Ley Family YMCA'
+      drupal: 0a60cb3e-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 48
+      daxco: 122
+      name: 'West Orem Family YMCA'
+      drupal: 0a69e8d6-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 49
+      daxco: 335
+      name: 'Westside Group Child Care'
+      drupal:
+    -
+      id: 50
+      daxco: 362
+      name: 'YMCA at Katy Main Street'
+      drupal:
+    -
+      id: 51
+      daxco: 92
+      name: 'YMCA Camp Cullen'
+      drupal: 0a73d382-3bc7-11e1-952a-12313b0f39a2
+    -
+      id: 52
+      daxco: 117
+      name: 'YMCA International Services'
+      drupal: 099f4748-3bc7-11e1-952a-12313b0f39a2
+  ids:
+    id:
+      type: integer
+
+process:
+  name:
+    -
+      plugin: get
+      source: name
+  type:
+    -
+      plugin: default_value
+      default_value: branch
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  user_id:
+    -
+      plugin: default_value
+      default_value: 1
+  field_daxko_branch_id/value:
+    -
+      plugin: get
+      source: daxco
+  field_ref_branch_id/target_id:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: drupal
+    -
+      plugin: migration
+      migration: yghc_node_branch
+destination:
+  plugin: 'entity:mapping'
+  default_bundle: branch
+migration_dependencies:
+  required:
+    - yghc_node_branch

@@ -46,6 +46,7 @@ dependencies:
   - views_ui
   - link
   - migrate
+  - migrate_source_csv
   - tour
   # Contrib modules.
   - features
@@ -87,11 +88,16 @@ dependencies:
   - recaptcha
   - admin_toolbar
   - colorbutton
+  - better_exposed_filters
+  - token_filter
+  - views_field_formatter
   # OpenY features.
+  - openy_svg_formatter
   - openy_media_image
   - openy_media_document
   - openy_media_video
   - openy_node_mbrshp
+  - openy_editor
   - openy_node
   - openy_block
   - openy_block_basic
@@ -108,6 +114,7 @@ dependencies:
   - openy_node_blog
   - openy_prgf
   - openy_prgf_small_banner
+  - openy_prgf_lto
   - openy_prgf_banner
   - openy_prgf_branches_popup_all
   - openy_prgf_branches_popup_class
@@ -133,6 +140,7 @@ dependencies:
   - openy_prgf_embedded_groupexpro_schedule
   - openy_prgf_pgm_reg
   - openy_prgf_webform
+  - openy_prgf_amenities
   - openy_node_activity
   - openy_node_class
   - openy_node_session
@@ -141,6 +149,7 @@ dependencies:
   - openy_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
+  - logger_entity
   # OpenY custom modules
   - openy_branch_selector
   - openy_field_hours
@@ -162,7 +171,6 @@ dependencies:
   - openy_mappings
   - openy_calc
   - openy_data_wrapper
-  - logger_entity
 
 themes:
   - bartik

@@ -1,0 +1,48 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.lto.field_prgf_link
+    - field.field.paragraph.lto.field_prgf_description
+    - field.field.paragraph.lto.field_prgf_headline
+    - paragraphs.paragraphs_type.lto
+  module:
+    - content_moderation
+    - link
+id: paragraph.lto.default
+targetEntityType: paragraph
+bundle: lto
+mode: default
+content:
+  field_link:
+    weight: 8
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_prgf_link:
+    weight: 9
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_prgf_description:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_prgf_headline:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  created: true
+  status: true
+  uid: true
