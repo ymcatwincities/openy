@@ -30,7 +30,7 @@ tips:
     id: 3-col
     plugin: text
     label: 'Add 3 column paragraph'
-    body: 'In Content area click on "Add 3 columns" [openy_tour:click:edit-field-branch-body-add-more-add-more-button-3c]'
+    body: 'In Content area click on "Add 3 columns" [openy_tour:click:edit-field-content-add-more-add-more-button-camp-menu]'
     weight: 3
     attributes:
       data-id: 'edit-group-content-area'

@@ -143,6 +143,9 @@ source:
       id: amenities
       title: 'Amenities at each Y'
       alias: '/amenities'
+      content_ids:
+        -
+          content_id: all_amenities
   ids:
     id:
       type: string
@@ -205,6 +208,7 @@ process:
           - openy_demo_lp_paragraph_grid_content
           - openy_demo_lp_paragraph_blog_listing
           - openy_demo_lp_paragraph_teaser
+          - openy_demo_lp_paragraph_all_amenities
           - openy_demo_lp_paragraph_blog_posts_listing
           - openy_demo_lp_paragraph_latest_blog_posts
           - openy_demo_lp_paragraph_location_finder
@@ -241,6 +245,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_grid_content
     - openy_demo_lp_paragraph_teaser
     - openy_demo_lp_paragraph_banner
+    - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_small_banner
     - openy_demo_lp_paragraph_blog_posts_listing
     - openy_demo_lp_paragraph_latest_blog_posts

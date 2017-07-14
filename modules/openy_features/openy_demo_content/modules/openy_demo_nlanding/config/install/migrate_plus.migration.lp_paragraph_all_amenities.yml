@@ -1,20 +1,17 @@
 langcode: en
 status: true
 dependencies: {  }
-id: openy_demo_lp_paragraph_lto
+id: openy_demo_lp_paragraph_all_amenities
 migration_tags: {  }
 migration_group: openy_demo_nlanding
-label: 'Create Limited Time Offer paragraph(s) for demo landing page nodes'
-migration_dependencies: {  }
+label: 'Create All Amenities paragraph(s) for demo landing page nodes'
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: locations_lto_amenities
-      parent_id: locations
-      title: 'Search by amenities'
-      link_uri: 'internal:/amenities'
-      link_title: 'Search by amenities'
+      id: all_amenities
+      parent_id: amenities
+      title: 'Amenities at each Y'
   ids:
     id:
       type: string
@@ -38,12 +35,11 @@ process:
     plugin: default_value
     default_value: node
   # TODO: get parent_field_name from data?
-  field_lto_title: title
-  field_lto_subtitle:
-      plugin: default_value
-      default_value: ''
-  field_lto_link/uri: link_uri
-  field_lto_link/title: link_title
+  field_prgf_title: title
+  field_field_prgf_amnts_view:
+      plugin: migration
+      migration: openy_demo_taxonomy_term_amenities
+      source: amnts_ids
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: lto
+  default_bundle: all_amenities
