@@ -9,8 +9,10 @@
   }
 }
 
-input.form-control {
+input, select {
+  &.form-control {
   max-width: 414px;
+  }
 }
 
 .form-item {
