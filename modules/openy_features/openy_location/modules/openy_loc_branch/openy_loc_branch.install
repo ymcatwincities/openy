@@ -288,3 +288,16 @@ function openy_loc_branch_update_8010() {
     }
   }
 }
+
+/**
+ * Add branch amenities tour.
+ */
+function openy_loc_branch_update_8011() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_loc_branch') . '/config/optional');
+  $config_importer->importConfigs(
+    [
+      'tour.tour.openy-branch-add',
+    ]
+  );
+}
