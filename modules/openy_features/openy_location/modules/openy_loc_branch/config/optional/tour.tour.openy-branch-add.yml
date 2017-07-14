@@ -26,14 +26,14 @@ tips:
     attributes:
       data-id: 'edit-field-location-amenities-0-target-id'
 
-  content-area:
-    id: content-area
+  3-col:
+    id: 3-col
     plugin: text
     label: 'Add 3 column paragraph'
     body: 'In Content area click on "Add 3 columns" [openy_tour:click:edit-field-branch-body-add-more-add-more-button-3c]'
     weight: 3
     attributes:
-      data-id: edit-group-content-area
+      data-id: 'edit-group-content-area'
 
   block-type:
     id: block-type
