@@ -240,7 +240,7 @@ function openy_lily_preprocess_page(&$variables) {
       ],
     ];
   }
-  $newsletter_link = $site_config->get('link');
+  $newsletter_link = $site_config->get('newsletter_link');
   if (!empty($newsletter_link)) {
     $variables['newsletter_link'] = [
       '#type' => 'link',
