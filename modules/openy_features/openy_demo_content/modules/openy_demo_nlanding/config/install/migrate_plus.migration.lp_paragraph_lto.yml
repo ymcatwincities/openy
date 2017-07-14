@@ -37,22 +37,19 @@ process:
   parent_type:
     plugin: default_value
     default_value: node
-  field_lto_title:
-    -
-      plugin: get
-      source: title
-  field_lto_subtitle:
-    -
-      plugin: get
-      source: subtitle
-  field_lto_link/uri:
-    -
-      plugin: get
-      source: link_uri
-  field_lto_link/title:
-    -
-      plugin: get
-      source: link_title
+  # TODO: get parent_field_name from data?
+  field_prgf_headline:
+    plugin: default_value
+    default_value: node
+  field_prgf_description:
+    plugin: default_value
+    default_value: node
+  field_prgf_link/uri:
+    plugin: default_value
+    default_value: node
+  field_prgf_link/title:
+    plugin: default_value
+    default_value: node
 destination:
   plugin: 'entity:paragraph'
-  default_bundle: prgf_lto
+  default_bundle: lto

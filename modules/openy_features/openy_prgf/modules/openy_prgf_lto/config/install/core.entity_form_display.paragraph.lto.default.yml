@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.lto.field_lto_link
-    - field.field.paragraph.lto.field_lto_subtitle
-    - field.field.paragraph.lto.field_lto_title
+    - field.field.paragraph.lto.field_prgf_link
+    - field.field.paragraph.lto.field_prgf_description
+    - field.field.paragraph.lto.field_prgf_headline
     - paragraphs.paragraphs_type.lto
   module:
     - content_moderation
@@ -21,21 +21,21 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
-  field_lto_link:
+  field_prgf_link:
     weight: 9
     settings:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
-  field_lto_subtitle:
+  field_prgf_description:
     weight: 7
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_lto_title:
+  field_prgf_headline:
     weight: 6
     settings:
       size: 60
