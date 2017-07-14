@@ -14,8 +14,11 @@
   <section class="masthead">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-8 col-sm-8">
+        <div class="col-lg-7 col-sm-7">
           <a class="masthead-brand" href="{{ url('<front>') }}">{{ site_name }}</a>
+        </div>
+        <div class="col-lg-1 col-sm-1 col-xs-12">
+          {{ site_phone }}
         </div>
         <div class="col-lg-4 col-sm-4 location-search-column">
           <form class="find-locations" action="{{ locations_path }}">

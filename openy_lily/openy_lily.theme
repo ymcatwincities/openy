@@ -220,7 +220,22 @@ function openy_lily_preprocess_page(&$variables) {
     ->getTitle($request, $route_match->getRouteObject());
   $variables['page_title'] = $title;
 
-  $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  $site_config = \Drupal::config('system.site');
+  $variables['site_name'] = $site_config->get('name');
+  $site_phone = $site_config->get('phone');
+  $variables['site_phone'] = [
+    '#type' => 'link',
+    '#title' => $site_phone,
+    '#url' => Url::fromUri('tel:' . rawurlencode(preg_replace('/[^0-9]/', '', $site_phone))),
+    '#options' => [
+      'external' => TRUE,
+      'attributes' => [
+        'class' => [
+          'site-phone',
+        ],
+      ]
+    ],
+  ];
   $path = theme_get_setting('locations_path');
   $variables['locations_path'] = Url::fromUserInput($path);
 
