@@ -171,75 +171,6 @@ html, body {
   line-height: 26px;
 }
 
-.theme-ymca--2017-compain-register {
-  height: 100%;
-  position: relative;
-  background: #006b6b url("../prototypes/ysr_2017/img/bg-page-register.jpg") 50% 0 no-repeat;
-  background-size: cover;
-}
-.theme-ymca--2017-compain-register .viewport,
-.theme-ymca--2017-compain-register #main {
-  height: 100%;
-  background: none;
-  margin-top: auto;
-}
-.theme-ymca--2017-compain-register .compain-register {
-  padding: 20px;
-  padding: 2rem;
-  position: absolute;
-  width: 100%;
-  max-width: 740px;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.theme-ymca--2017-compain-register .compain-register .compain-header {
-  background: none;
-  height: auto;
-}
-.theme-ymca--2017-compain-register .compain-register .compain-header--content .logo {
-  margin-bottom: 0;
-}
-.theme-ymca--2017-compain-register .compain-register .container {
-  padding: 0;
-}
-.theme-ymca--2017-compain-register .compain-form-register {
-  padding: 20px;
-  padding: 2rem;
-  background-color: #058e7d;
-  border-radius: 8px;
-}
-@media (min-width: 48em) {
-  .theme-ymca--2017-compain-register .compain-form-register {
-    padding: 30px;
-    padding: 3rem;
-  }
-}
-@media (min-width: 64em) {
-  .theme-ymca--2017-compain-register .compain-form-register {
-    padding: 40px;
-    padding: 4rem;
-  }
-}
-.theme-ymca--2017-compain-register .compain-form-register .btn {
-  line-height: 26px;
-  line-height: 2.6rem;
-  display: block;
-  width: 100%;
-}
-.theme-ymca--2017-compain-register .compain-form-register .form-item {
-  margin: 0 0 20px 0;
-  margin: 0 0 2rem 0;
-}
-@media (min-width: 48em) {
-  .theme-ymca--2017-compain-register .compain-form-register .form-item {
-    margin-bottom: 0;
-  }
-}
-.theme-ymca--2017-compain-register .compain-form-register + .compain-form-register--alert {
-  margin-top: 20px;
-}
-
 .videoWrapper {
   position: relative;
   padding-bottom: 56.25%;
@@ -4336,6 +4267,120 @@ html, body {
 }
 .compain-footer--copyright p {
   margin: 0;
+}
+
+.theme-ymca--2017-compain-register {
+  height: 100%;
+  position: relative;
+  background: #00aeef url('../img/2017_summer/bg-page-register.jpg') 50% 100px no-repeat;
+  background-size: cover;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-register {
+    background-position: 50% 100px;
+  }
+}
+.theme-ymca--2017-compain-register .viewport,
+.theme-ymca--2017-compain-register #main {
+  height: 100%;
+  background: none;
+  margin-top: auto;
+}
+.theme-ymca--2017-compain-register .compain-header--content {
+  padding-top: 7px;
+  padding-top: 0.7rem;
+  padding-bottom: 12px;
+  padding-bottom: 1.2rem;
+  position: static;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-register .compain-header--content {
+    padding-top: 5px;
+    padding-top: 0.5rem;
+    padding-bottom: 11px;
+    padding-bottom: 1.1rem;
+  }
+}
+.theme-ymca--2017-compain-register .compain-header--content .container .content {
+  padding-top: 1px;
+  padding-top: 0.1rem;
+  padding-bottom: 1px;
+  padding-bottom: 0.1rem;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-register .compain-header--content .container .content {
+    line-height: 50px;
+    line-height: 5rem;
+    padding-top: 8px;
+    padding-top: 0.8rem;
+    padding-bottom: 11px;
+    padding-bottom: 1.1rem;
+  }
+}
+.theme-ymca--2017-compain-register .compain-register .compain-header {
+  background: none;
+  height: auto;
+}
+.theme-ymca--2017-compain-register .compain-register .compain-header--content .logo {
+  margin-bottom: 0;
+}
+.theme-ymca--2017-compain-register .compain-register .container {
+  padding: 0;
+}
+.theme-ymca--2017-compain-register #registration {
+  padding: 20px;
+  padding: 2rem;
+  position: absolute;
+  width: 100%;
+  max-width: 646px;
+  top: calc(50% + 80px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.theme-ymca--2017-compain-register .compain-form-register {
+  padding: 20px;
+  padding: 2rem;
+  background-color: rgba(0, 107, 107, 0.9);
+  border-radius: 8px;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-register .compain-form-register {
+    padding: 30px;
+    padding: 3rem;
+  }
+}
+@media (min-width: 64em) {
+  .theme-ymca--2017-compain-register .compain-form-register {
+    padding: 39px 45px;
+    padding: 3.9rem 4.5rem;
+  }
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-register .compain-form-register .col-sm-8 {
+    padding-right: 0;
+  }
+}
+.theme-ymca--2017-compain-register .compain-form-register .btn {
+  line-height: 26px;
+  line-height: 2.6rem;
+  display: block;
+  width: 100%;
+}
+.theme-ymca--2017-compain-register .compain-form-register .btn.compain-dark-green {
+  background: #00aeef;
+  box-shadow: none;
+}
+.theme-ymca--2017-compain-register .compain-form-register .form-item {
+  margin: 0 0 20px 0;
+  margin: 0 0 2rem 0;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-register .compain-form-register .form-item {
+    margin-bottom: 0;
+  }
+}
+.theme-ymca--2017-compain-register .compain-form-register + .compain-form-register--alert {
+  margin-top: 20px;
 }
 
 /*# sourceMappingURL=ysr_2017_summer.css.map */
