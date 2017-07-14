@@ -395,4 +395,6 @@ function openy_update_8030() {
     'views_field_formatter'], TRUE);
   \Drupal::service('module_installer')->install([
     'openy_prgf_amenities'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_lto'], TRUE);
 }

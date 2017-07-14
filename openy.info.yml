@@ -113,6 +113,7 @@ dependencies:
   - openy_node_blog
   - openy_prgf
   - openy_prgf_small_banner
+  - openy_prgf_lto
   - openy_prgf_banner
   - openy_prgf_branches_popup_all
   - openy_prgf_branches_popup_class
