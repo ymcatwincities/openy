@@ -26,12 +26,14 @@ class OpenYClassesSessionForm extends ContentEntityForm {
       $user = \Drupal::entityTypeManager()->getStorage('user')
         ->load($current_user->id());
       $form['field_session_author']['widget'][0]['target_id']['#default_value'] = $user;
-      $form['field_session_author']['#access'] = FALSE;
     }
     else {
       $form['source']['#disabled'] = TRUE;
-      $form['field_session_author']['#access'] = FALSE;
+      if($this->entity->getSource() != 'manually') {
+        $form['actions']['#access'] = FALSE;
+      }
     }
+    $form['field_session_author']['#access'] = FALSE;
 
     return $form;
   }

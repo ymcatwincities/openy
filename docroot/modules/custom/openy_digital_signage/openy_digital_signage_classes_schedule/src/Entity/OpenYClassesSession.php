@@ -24,6 +24,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *       "add" = "Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionForm",
  *       "edit" = "Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionForm",
  *       "delete" = "Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionDeleteForm",
+ *       "override" = "Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionOverrideForm",
  *     },
  *     "access" = "Drupal\openy_digital_signage_classes_schedule\OpenYClassesSessionAccessControlHandler",
  *     "route_provider" = {
@@ -41,11 +42,12 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/digital-signage/classes/{openy_ds_classes_session}",
- *     "add-form" = "/admin/digital-signage/classes/add",
- *     "edit-form" = "/admin/digital-signage/classes/{openy_ds_classes_session}/edit",
- *     "delete-form" = "/admin/digital-signage/classes/{openy_ds_classes_session}/delete",
- *     "collection" = "/admin/digital-signage/classes/list",
+ *     "canonical" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}",
+ *     "add-form" = "/admin/digital-signage/classes/session/add",
+ *     "edit-form" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}/edit",
+ *     "delete-form" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}/delete",
+ *     "collection" = "/admin/digital-signage/classes/sessions/list",
+ *     "override" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}/override",
  *   },
  *   field_ui_base_route = "openy_ds_classes_session.settings"
  * )
@@ -96,6 +98,25 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
   public function setCreatedTime($timestamp) {
     $this->set('created', $timestamp);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSource() {
+    return $this->get('source')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSource($source) {
+    $this->set('source', $source);
+    return $this;
+  }
+
+  public function isOverridden() {
+    return $this->get('overridden')->value;
   }
 
   /**
@@ -254,6 +275,7 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setRevisionable(TRUE)
       ->setRequired(FALSE)
       ->setTranslatable(FALSE)
+      ->setDefaultValue(FALSE)
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
@@ -263,6 +285,7 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setRevisionable(TRUE)
       ->setRequired(FALSE)
       ->setTranslatable(FALSE)
+      ->setDefaultValue(NULL)
       ->setSetting('target_type', 'openy_ds_classes_session')
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
