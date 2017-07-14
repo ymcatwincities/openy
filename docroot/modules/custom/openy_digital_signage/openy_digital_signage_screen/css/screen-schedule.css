@@ -44,7 +44,8 @@
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  min-height: 500px; }
+  min-height: 500px;
+  position: relative; }
   .screen-schedule-timeline .screen-schedule-timeline__current-time {
     position: absolute;
     top: 0;
@@ -91,7 +92,8 @@
     cursor: pointer;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
     -webkit-transition: opacity 200ms;
-    transition: opacity 200ms; }
+    transition: opacity 200ms;
+    min-height: 30px; }
     .screen-schedule-timeline .screen-schedule-item:hover {
       opacity: 1; }
     .screen-schedule-timeline .screen-schedule-item--active {

@@ -46,21 +46,26 @@ class OpenYScreenViewBuilder implements EntityViewBuilderInterface {
     \Drupal::service('page_cache_kill_switch')->trigger();
 
     if ($schedule = $entity->screen_schedule->entity) {
+      /** @var OpenYScheduleManager $schedule_manager */
       $schedule_manager = \Drupal::service('openy_digital_signage_schedule.manager');
-      $schedule = $schedule_manager->getUpcomingScreenContents($schedule, self::TIMESPAN);
+      $schedule = $schedule_manager->getScreenUpcomingScreenContents($entity, self::TIMESPAN);
       $render_controller = \Drupal::entityTypeManager()->getViewBuilder('node');
-      foreach ($schedule as $scheduled_item) {
-        $schedule_item = $scheduled_item['item'];
-        if (!$screen_content = $schedule_item->content->entity) {
+      foreach ($schedule as $item) {
+        if (!$screen_content = $item['content']) {
           continue;
         }
-        $from = $scheduled_item['from_ts'];
-        $to = $scheduled_item['to_ts'];
+        $period = &drupal_static('schedule_item_period');
+        $period = [
+          'from' => $item['from'],
+          'to' => $item['to'],
+        ];
         $schedule_item_build = $render_controller->view($screen_content);
+        $hash = md5(json_encode($schedule_item_build));
         $schedule_item_build['#prefix'] = '<div class="screen-content"
-          data-screen-content-id="' . $schedule_item->id() . '"
-          data-from="' . $scheduled_item['from'] . '" data-to="' . $scheduled_item['to'] . '"
-          data-from-ts="' . $from . '" data-to-ts="' . $to . '">';
+          data-screen-content-id="' . $item['content-id'] . '"
+          data-from="' . $item['item']['from'] . '" data-to="' . $item['item']['to'] . '"
+          data-from-ts="' . $item['from'] . '" data-to-ts="' . $item['to'] . '"
+          data-hash="' . $hash . '" >';
 
         $schedule_item_build['#suffix'] = '</div>';
         $build[] = $schedule_item_build;

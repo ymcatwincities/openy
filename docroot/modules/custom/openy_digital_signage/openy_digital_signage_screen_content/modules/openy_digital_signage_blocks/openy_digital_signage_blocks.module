@@ -50,6 +50,14 @@ function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
       'render element' => 'elements',
       'base hook' => 'block',
     ],
+    'openy_digital_signage_blocks_class_current' => [
+      'template' => 'openy-digital-signage-blocks-class-current',
+      'variables' => [
+        'room' => '',
+        'classes' => NULL,
+        'wrapper_attributes' => NULL,
+      ],
+    ],
   ];
 }
 
