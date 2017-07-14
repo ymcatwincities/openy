@@ -11,6 +11,21 @@ openyres_onecol:
     middle:
       label: Middle column
 
+openyres_onecol_ticker:
+  label: Single column + Ticker
+  category: 'OpenY Room Entry Screen'
+  path: layouts/openyres_onecol_ticker
+  icon: openyres_onecol_ticker.png
+  library: openy_digital_signage_screen_content/openyres_onecol_ticker
+  template: panels-openyres-onecol-ticker
+  class: '\Drupal\openy_digital_signage_screen_content\Plugin\Layout\RoomEntryScreenLayout'
+  default_region: main
+  regions:
+    main:
+      label: Main
+    ticker:
+      label: Ticker
+
 openyds_onecol:
   label: Single column
   category: 'OpenY Digital Signage'
