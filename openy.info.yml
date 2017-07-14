@@ -46,6 +46,7 @@ dependencies:
   - views_ui
   - link
   - migrate
+  - migrate_source_csv
   - tour
   # Contrib modules.
   - features
