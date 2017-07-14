@@ -1,0 +1,31 @@
+{
+  "name": "drupal/migrate_source_csv",
+  "description": "CSV source migration.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/migrate_source_csv",
+  "authors": [
+    {
+      "name": "Lucas Hedding",
+      "homepage":"https://www.drupal.org/u/heddn",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/migrate_source_csv",
+    "irc": "irc://irc.freenode.org/drupal-migrate",
+    "source": "https://cgit.drupalcode.org/migrate_source_csv"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "drupal/core": "~8.1"
+  },
+  "require-dev": {
+    "mikey179/vfsStream": "~1",
+    "phpunit/phpunit": "~4"
+  },
+  "config": {
+    "preferred-install": "dist"
+  }
+}
