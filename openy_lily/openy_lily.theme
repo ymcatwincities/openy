@@ -224,37 +224,41 @@ function openy_lily_preprocess_page(&$variables) {
   $variables['site_name'] = $site_config->get('name');
   $site_phone = $site_config->get('phone');
   $site_extra_phone = $site_config->get('extra_phone');
-  $variables['site_phone'] = [
-    '#type' => 'link',
-    '#title' => $site_extra_phone,
-    '#url' => Url::fromUri('tel:' . rawurlencode(preg_replace('/[^0-9]/', '', $site_phone))),
-    '#options' => [
-      'external' => TRUE,
-      'attributes' => [
-        'class' => [
-          'site-phone',
-        ],
-        'title' => t('Call us at @tel', ['@tel' => $site_phone]),
-      ]
-    ],
-  ];
+  if (!empty($site_phone) && !empty($site_extra_phone)) {
+    $variables['site_phone'] = [
+      '#type' => 'link',
+      '#title' => $site_extra_phone,
+      '#url' => Url::fromUri('tel:' . rawurlencode(preg_replace('/[^0-9]/', '', $site_phone))),
+      '#options' => [
+        'external' => TRUE,
+        'attributes' => [
+          'class' => [
+            'site-phone',
+          ],
+          'title' => t('Call us at @tel', ['@tel' => $site_phone]),
+        ]
+      ],
+    ];
+  }
   $newsletter_link = $site_config->get('link');
-  $variables['newsletter_link'] = [
-    '#type' => 'link',
-    '#title' => t('Sign Up For Our Newsletter'),
-    '#url' => Url::fromUri($newsletter_link),
-    '#options' => [
-      'external' => TRUE,
-      'attributes' => [
-        'class' => [
-          'newsletter-link',
-          'btn',
-          'btn-block',
-          'btn-info',
-        ],
-      ]
-    ],
-  ];
+  if (!empty($newsletter_link)) {
+    $variables['newsletter_link'] = [
+      '#type' => 'link',
+      '#title' => t('Sign Up For Our Newsletter'),
+      '#url' => Url::fromUri($newsletter_link),
+      '#options' => [
+        'external' => TRUE,
+        'attributes' => [
+          'class' => [
+            'newsletter-link',
+            'btn',
+            'btn-block',
+            'btn-info',
+          ],
+        ]
+      ],
+    ];
+  }
   $path = theme_get_setting('locations_path');
   $variables['locations_path'] = Url::fromUserInput($path);
 
