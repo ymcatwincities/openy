@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   min-height: 500px;
+  position: relative;
 
   .screen-schedule-timeline__current-time {
     position: absolute;
@@ -55,6 +56,7 @@
     cursor: pointer;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
     transition: opacity 200ms;
+    min-height: 30px;
 
     &:hover {
       opacity: 1;

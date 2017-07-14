@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.openy_digital_signage_screen.openy_digital_signage_screen.field_screen_location
+    - field.field.openy_digital_signage_screen.openy_digital_signage_screen.field_screen_room
   module:
     - openy_digital_signage_screen
     - text
@@ -14,12 +15,13 @@ mode: default
 content:
   fallback_content:
     type: entity_reference_autocomplete
-    weight: 9
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_screen_location:
     weight: 3
     settings:
@@ -28,20 +30,31 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-  geo_location:
-    type: text_textarea
-    weight: 5
+    region: content
+  field_screen_room:
+    weight: 4
     settings:
+      size: 60
       placeholder: ''
-      rows: 5
     third_party_settings: {  }
-  hardware:
+    type: string_textfield
+    region: content
+  geo_location:
     type: text_textarea
     weight: 6
     settings:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
+    region: content
+  hardware:
+    type: text_textarea
+    weight: 7
+    settings:
+      placeholder: ''
+      rows: 5
+    third_party_settings: {  }
+    region: content
   machine_name:
     type: string_textfield
     weight: 1
@@ -49,26 +62,30 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   orientation:
     type: options_buttons
     weight: 2
     settings: {  }
     third_party_settings: {  }
+    region: content
   placement:
     type: text_textarea
-    weight: 4
+    weight: 5
     settings:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
+    region: content
   screen_schedule:
     type: entity_reference_autocomplete
-    weight: 8
+    weight: 9
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -76,11 +93,13 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   type:
     type: options_buttons
-    weight: 7
+    weight: 8
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   langcode: true
