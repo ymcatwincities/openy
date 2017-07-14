@@ -1,0 +1,125 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ygh_node_blog_node_blog
+migration_tags:
+  - WordPress
+migration_group: ygh_node_blog
+label: 'Import blog posts from WordPress XML'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: xml
+  item_selector: '/rss/channel/item[wp:post_type="post"]'
+  fields:
+    -
+      name: title
+      label: 'Content title'
+      selector: title
+    -
+      name: post_id
+      label: 'Unique content ID'
+      selector: 'wp:post_id'
+    -
+      name: content
+      label: 'Body of the content'
+      selector: 'content:encoded'
+    -
+      name: excerpt
+      label: 'Excerpt of the content'
+      selector: 'excerpt:encoded'
+    -
+      name: pubDate
+      label: 'Publish date of the content'
+      selector: pubDate
+    -
+      name: post_date
+      label: 'Post date of the content'
+      selector: 'wp:post_date'
+    -
+      name: status
+      label: 'Published status of the content'
+      selector: 'wp:status'
+    -
+      name: creator
+      label: 'Username of the content creator'
+      selector: 'dc:creator'
+    -
+      name: post_tag
+      label: 'Tags assigned to the content item'
+      selector: 'category[@domain="post_tag"]/@nicename'
+    -
+      name: category
+      label: 'Categories assigned to the content item'
+      selector: 'category[@domain="category"]/@nicename'
+  ids:
+    post_id:
+      type: integer
+process:
+  title:
+    -
+      plugin: get
+      source: title
+    -
+      plugin: default_value
+      default_value: "Blog post"
+  created:
+    -
+      plugin: callback
+      source: post_date
+      callable: strtotime
+  changed:
+    -
+      plugin: get
+      source: '@created'
+  status:
+    -
+      plugin: static_map
+      source: status
+      default_value: 0
+      map:
+        publish: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  type:
+    -
+      plugin: default_value
+      default_value: blog
+  field_blog_categories:
+    -
+      plugin: default_value
+      default_value: 1
+    -
+      plugin: migration
+      migration: ygh_node_blog_taxonomy_term_blog_categories
+  field_blog_tags:
+    -
+      plugin: migration
+      migration: ygh_node_blog_taxonomy_term_blog_tags
+      source: post_tag
+  field_blog_description:
+    -
+      plugin: migration
+      migration: ygh_node_blog_err_blog_body
+      source: post_id
+    -
+      plugin: callback
+      callable: ygh_content_prepare_data
+  field_blog_image:
+    -
+      plugin: default_value
+      default_value: 1
+    -
+      plugin: migration
+      migration: yghc_image
+      no_stub: true
+destination:
+  plugin: 'entity:node'
+migration_dependencies:
+  required:
+    - ygh_node_blog_err_blog_body
+    - ygh_node_blog_taxonomy_term_blog_tags
+    - ygh_node_blog_taxonomy_term_blog_categories
+    - yghc_file

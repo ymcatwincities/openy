@@ -1,0 +1,70 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_node_camp
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Create Camp content'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'YMCA Camp Cullen'
+      alias: '/camp/camp_cullen'
+      header:
+        -
+          migration: yghc_prgf_header
+          id: 2
+      body:
+        -
+          migration: yghc_prgf_3c
+          id: 1
+        -
+          migration: yghc_prgf_nu
+          id: 2
+        -
+          migration: yghc_prgf_2c
+          id: 2
+  ids:
+    id:
+      type: integer
+
+process:
+  title:
+    -
+      plugin: get
+      source: title
+  path:
+    -
+      plugin: get
+      source: alias
+  type:
+    -
+      plugin: default_value
+      default_value: camp
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  field_header_content:
+    -
+      plugin: paragraph_migration
+      paragraphs: header
+  field_camp_body:
+    -
+      plugin: paragraph_migration
+      paragraphs: body
+destination:
+  plugin: 'entity:node'
+  default_bundle: camp
+migration_dependencies:
+  required:
+    - yghc_prgf_header
+    - yghc_prgf_2c
+    - yghc_prgf_3c
+    - yghc_prgf_nu

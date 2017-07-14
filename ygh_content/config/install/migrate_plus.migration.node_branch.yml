@@ -1,0 +1,150 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_node_branch
+migration_tags:
+  - CSV
+migration_group: ygh_content
+label: 'Create Branch content'
+source:
+  plugin: csv
+  path: modules/custom/ygh_content/assets/csv/location.csv
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    -
+      id: guid
+    -
+      location_name: location_name
+    -
+      description: description
+    -
+      contact: contact
+    -
+      address_line1: address
+    -
+      address_line2: address2
+    -
+      locality: city
+    -
+      administrative_area: state
+    -
+      postal_code: zipcode
+    -
+      country: country
+    -
+      phone: phone
+    -
+      fax: fax
+    -
+      email: email
+    -
+      website: website
+    -
+      latitude: latitude
+    -
+      longitude: longitude
+    -
+      hq: hq
+    -
+      entity: entity
+    -
+      allow_anonymous_view: allow_anonymous_view
+    -
+      allow_user_view: allow_user_view
+    -
+      allow_member_view: allow_member_view
+    -
+      allow_user_edit: allow_user_edit
+    -
+      allow_member_edit: allow_member_edit
+    -
+      create_dt: create_dt
+    -
+      update_dt: update_dt
+    -
+      creator: creator
+    -
+      creator_username: creator_username
+    -
+      owner: owner
+    -
+      owner_username: owner_username
+    -
+      status: status
+    -
+      status_detail: status_detail
+    -
+      amenities: amenities
+process:
+  uuid: id
+  type:
+    -
+      plugin: default_value
+      default_value: branch
+  status:
+    -
+      plugin: default_value
+      default_value: 1
+  uid:
+    -
+      plugin: default_value
+      default_value: 1
+  title: location_name
+  field_header_content/target_id:
+    -
+      plugin: default_value
+      default_value: 3
+    -
+      plugin: migration
+      migration: yghc_prgf_header
+      no_stub: true
+    -
+      plugin: extract
+      index:
+        - '0'
+  field_header_content/target_revision_id:
+    -
+      plugin: default_value
+      default_value: 3
+    -
+      plugin: migration
+      migration: yghc_prgf_header
+      no_stub: true
+    -
+      plugin: extract
+      index:
+        - 1
+  field_location_address/country_code:
+    -
+      plugin: default_value
+      default_value: US
+  field_location_address/address_line1: address_line1
+  field_location_address/address_line2: address_line2
+  field_location_address/locality: locality
+  field_location_address/administrative_area: administrative_area
+  field_location_address/postal_code: postal_code
+  field_location_phone/value: phone
+  field_location_fax/value: fax
+  field_location_email/value: email
+  field_location_coordinates/lat: latitude
+  field_location_coordinates/lng: longitude
+  field_location_amenities:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: amenities
+    -
+      plugin: explode
+      delimiter: ';'
+    -
+      plugin: migration
+      migration: yghc_amenities
+      no_stub: true
+destination:
+  plugin: 'entity:node'
+  default_bundle: branch
+migration_dependencies:
+  required:
+    - yghc_prgf_header

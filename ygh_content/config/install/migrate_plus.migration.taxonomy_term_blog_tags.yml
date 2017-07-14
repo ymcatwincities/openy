@@ -1,0 +1,42 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ygh_node_blog_taxonomy_term_blog_tags
+migration_tags:
+  - WordPress
+migration_group: ygh_node_blog
+label: 'Import tags from WordPress XML'
+source:
+  plugin: url
+  data_fetcher_plugin: http
+  data_parser_plugin: xml
+  item_selector: '/rss/channel/wp:tag'
+  fields:
+    -
+      name: term_id
+      label: 'WordPress term ID'
+      selector: 'wp:term_id'
+    -
+      name: tag_slug
+      label: 'Analogous to machine name'
+      selector: 'wp:tag_slug'
+    -
+      name: tag_name
+      label: 'Human name of term'
+      selector: 'wp:tag_name'
+  ids:
+    tag_slug:
+      type: string
+process:
+  name:
+    -
+      plugin: get
+      source: tag_name
+  vid:
+    plugin: default_value
+    default_value: blog_tags
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required: {  }
+  optional: {  }
