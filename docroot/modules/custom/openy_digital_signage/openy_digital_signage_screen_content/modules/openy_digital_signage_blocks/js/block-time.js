@@ -24,6 +24,7 @@
        */
       function updateTime() {
         var time = window.tm.getTime() * 1000;
+        // TODO: pull in the site timezone configuration.
         var html = moment(time).tz('America/Chicago').format('h:mm a');
         time_block.html(html);
         setTimeout(updateTime, 1000);
