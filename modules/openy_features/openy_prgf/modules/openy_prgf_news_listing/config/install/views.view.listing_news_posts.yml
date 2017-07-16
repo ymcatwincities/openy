@@ -301,7 +301,7 @@ display:
           exposed: true
           expose:
             operator_id: field_news_location_target_id_verf_op
-            label: 'Show me stories for:'
+            label: 'Show me news for:'
             description: ''
             use_operator: false
             operator: field_news_location_target_id_verf_op

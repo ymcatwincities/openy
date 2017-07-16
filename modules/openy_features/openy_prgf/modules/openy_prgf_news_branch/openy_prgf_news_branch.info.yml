@@ -1,11 +1,12 @@
-name: 'Openy Latest News Posts'
+name: 'OpenY Paragraph Latest News Posts (Branch)'
+description: 'OpenY Paragraph Latest News Posts (Branch).'
 package: 'OpenY (Experimental)'
-description: 'Latest news posts.'
 type: module
 core: 8.x
 dependencies:
   - field
   - node
+  - openy_loc_branch
   - openy_node_news
   - openy_prgf
   - paragraphs
@@ -13,4 +14,3 @@ dependencies:
   - user
   - views
   - views_infinite_scroll
-version: 8.x-1.0
