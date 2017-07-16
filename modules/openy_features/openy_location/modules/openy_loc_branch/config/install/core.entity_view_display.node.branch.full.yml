@@ -31,7 +31,7 @@ mode: full
 content:
   field_bottom_content:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 7
     label: hidden
     settings:
       view_mode: default
@@ -40,14 +40,14 @@ content:
     region: content
   field_branch_hours:
     type: openy_today_custom_hours
-    weight: 4
+    weight: 6
     label: hidden
     settings: {  }
     third_party_settings: {  }
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
-    weight: 2
+    weight: 3
     label: hidden
     settings:
       view_mode: default
@@ -56,7 +56,7 @@ content:
     region: content
   field_header_content:
     type: entity_reference_revisions_entity_view
-    weight: 3
+    weight: 5
     label: hidden
     settings:
       view_mode: default
@@ -70,6 +70,26 @@ content:
     third_party_settings: {  }
     type: address_plain
     region: content
+  field_location_directions:
+    type: link
+    weight: 4
+    region: content
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+  field_location_fax:
+    type: telephone_link
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      title: ''
+    third_party_settings: {  }
   field_location_phone:
     type: telephone_link
     weight: 1
@@ -81,9 +101,7 @@ content:
 hidden:
   field_location_area: true
   field_location_coordinates: true
-  field_location_directions: true
   field_location_email: true
-  field_location_fax: true
   field_location_state: true
   field_location_temp_url: true
   field_meta_tags: true

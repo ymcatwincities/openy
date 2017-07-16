@@ -19,6 +19,9 @@ function openy_loc_branch_update_dependencies() {
     8004 => [
       'openy_location' => 8001,
     ],
+    8006 => [
+      'openy_node' => 8004,
+    ],
   ];
 
   return $dependencies;
@@ -221,5 +224,26 @@ function openy_loc_branch_update_8008() {
     $config,
     'core.entity_form_display.node.branch.default',
     'third_party_settings.field_group.group_header_area.format_settings.description'
+  );
+}
+
+/**
+ * Show directions and fax in full view mode.
+ */
+function openy_loc_branch_update_8009() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_branch');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.node.branch.full.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.node.branch.full',
+    'content.field_bottom_content.weight',
+    'content.field_branch_hours.weight',
+    'content.field_content.weight',
+    'content.field_header_content.weight',
+    'content.field_location_directions',
+    'content.field_location_fax',
+    'hidden'
   );
 }
