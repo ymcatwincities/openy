@@ -81,6 +81,9 @@ set classes = [
   view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
 ]
 %}
+{% set directions_title = content.field_location_directions.0['#title'] %}
+{% set directions_url = content.field_location_directions.0['#url'] %}
+{% set fax_suffix = content.field_location_fax.0['#title'] ? '(fax)'|t %}
 
 {# Branch header #}
 <article{{ attributes.addClass('branch-header') }}>
@@ -90,6 +93,7 @@ set classes = [
         <div class="column col-sm-3 col-md-2 branch-header__item">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
           <p>{{ label }}</p>
+          <p class="branch-header__directions"><a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a></p>
         </div>
         <div class="column col-sm-3 address-wrapper branch-header__item">
           <h4>{{ 'ADDRESS'|t }}</h4>
@@ -98,6 +102,7 @@ set classes = [
         <div class="column col-sm-3 col-md-2 branch-header__item">
           <h4>{{ 'PHONE'|t }}</h4>
           {{ content.field_location_phone }}
+          {{ content.field_location_fax }} {{ fax_suffix }}
         </div>
         <div class="column col-sm-3 col-md-2 branch-header__item">
           <h4>{{ 'TODAY\'S HOURS'|t }}</h4>
@@ -117,6 +122,7 @@ set classes = [
         <div class="col-xs-12">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
           <p>{{ label }}</p>
+          <p class="branch-header__directions"><a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a></p>
         </div>
         <div class="ui-tabs">
           <ul class="ui-tabs-nav">
@@ -127,6 +133,7 @@ set classes = [
           <div id="tabs-phone" class="ui-tabs-panel col-xs-12">
             <h4>{{ 'PHONE'|t }}</h4>
             {{ content.field_location_phone }}
+            {{ content.field_location_fax }} {{ fax_suffix }}
           </div>
           <div id="tabs-marker" class="ui-tabs-panel col-xs-12">
             <h4>{{ 'ADDRESS'|t }}</h4>
