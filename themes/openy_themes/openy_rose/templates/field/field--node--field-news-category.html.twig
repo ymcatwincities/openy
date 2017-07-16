@@ -45,11 +45,11 @@
   {% endif %}
   {% if multiple %}
   <span class="comma-list">
-            {% endif %}
-    {% for item in items %}
-      <span{{ item.attributes.addClass('item') }}>{{ item.content }}</span>
-    {% endfor %}
-    {% if multiple %}
-        </span>
+  {% endif %}
+  {% for item in items %}
+    <span{{ item.attributes.addClass('item') }}>{{ item.content }}</span>
+  {% endfor %}
+  {% if multiple %}
+    </span>
   {% endif %}
 </div>

@@ -4466,6 +4466,13 @@ html.js .branch__updates_queue__button {
   left: 0;
   top: 0;
 }
+.node--type-news.node--view-mode-teaser.news-story .inner-wrapper {
+  border: 1px solid #ccc;
+}
+.node--type-news.node--view-mode-teaser.news-story .inner-wrapper h3,
+.node--type-news.node--view-mode-teaser.news-story .inner-wrapper .news-category {
+  color: #5c2e91;
+}
 .node--type-news.node--view-mode-teaser.news-green .inner-wrapper {
   background-color: #20bdbe;
 }
@@ -4512,7 +4519,24 @@ html.js .branch__updates_queue__button {
 .news-related {
   position: relative;
 }
-.news-related h2 a:after {
+.news-related h2 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-transform: uppercase;
+  color: #636466 !important;
+  margin: 0 0 25px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
+  letter-spacing: 2px;
+}
+.news-related h3 {
+  font-weight: bold;
+  font-size: 36px;
+}
+.news-related h3 a {
+  color: inherit;
+}
+.news-related h3 a:after {
   content: '';
   position: absolute;
   height: 100%;

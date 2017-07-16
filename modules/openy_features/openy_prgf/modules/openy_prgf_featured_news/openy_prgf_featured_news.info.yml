@@ -1,5 +1,6 @@
-name: 'OpenY paragraph featured news posts (Experimental)'
+name: 'OpenY Paragraph Featured News Posts'
 description: 'OpenY paragraph featured news posts'
+package: 'OpenY (Experimental)'
 type: module
 core: 8.x
 dependencies:

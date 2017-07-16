@@ -77,11 +77,10 @@
   node.isSticky() ? 'node--sticky',
   not node.isPublished() ? 'node--unpublished',
   view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  'blog-story'
+  'news-story'
 ] %}
 {% set category_default = node.bundle|clean_class|capitalize %}
 {% set category = content.field_news_category.0 ? content.field_news_category.0 : category_default|t %}
-
 
 <article{{ attributes.addClass(classes) }}>
   <div class="inner-wrapper">
