@@ -196,3 +196,22 @@ function openy_loc_camp_update_8006() {
     'third_party_settings.field_group.group_header_area.format_settings.description'
   );
 }
+
+/**
+ * Show directions and fax in full view mode.
+ */
+function openy_loc_camp_update_8007() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_camp');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.node.camp.full.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.node.camp.full',
+    'content.field_bottom_content.weight',
+    'content.field_content.weight',
+    'content.field_header_content.weight',
+    'content.field_location_directions',
+    'hidden'
+  );
+}
