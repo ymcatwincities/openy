@@ -127,6 +127,9 @@
           line-height: 20px;
         }
       }
+      .branch-header__directions {
+        padding-top: 5px;
+      }
 
       .save-link {
         align-self: center;
@@ -163,6 +166,10 @@
       line-height: 1.1;
       @include cachet();
       margin: 0 0 5px;
+    }
+
+    a {
+      color: $white;
     }
 
     .ui-tabs {
@@ -221,10 +228,6 @@
           margin: 0;
           @include cachet();
         }
-
-        a {
-          color: $white;
-        }
       }
 
       .today-hours {
@@ -279,6 +282,9 @@
         @include cachet();
       }
     }
+  }
+  .field-location-fax {
+    display: inline;
   }
 }
 

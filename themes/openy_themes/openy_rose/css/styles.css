@@ -2945,6 +2945,9 @@ body {
 .branch-header .desktop .branch-header-inner .branch-header__item p {
   line-height: 20px;
 }
+.branch-header .desktop .branch-header-inner .branch-header__directions {
+  padding-top: 5px;
+}
 .branch-header .desktop .branch-header-inner .save-link {
   align-self: center;
 }
@@ -2975,6 +2978,9 @@ body {
   line-height: 1.1;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   margin: 0 0 5px;
+}
+.branch-header .mobile a {
+  color: #fff;
 }
 .branch-header .mobile .ui-tabs {
   background: none;
@@ -3027,9 +3033,6 @@ body {
   margin: 0;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
-.branch-header .mobile .ui-tabs .ui-tabs-panel a {
-  color: #fff;
-}
 .branch-header .mobile .ui-tabs .today-hours {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
@@ -3076,6 +3079,9 @@ body {
 .branch-header .mobile #save-location a {
   color: #fff;
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+}
+.branch-header .field-location-fax {
+  display: inline;
 }
 
 .branch__updates_queue {
@@ -4097,7 +4103,6 @@ html.js .branch__updates_queue__button {
 }
 .node--type-blog.node--view-mode-teaser a {
   color: inherit;
-  text-decoration: none;
   word-break: break-word;
 }
 .node--type-blog.node--view-mode-teaser h3,
@@ -4193,7 +4198,6 @@ html.js .branch__updates_queue__button {
 }
 .blog-related h3 a {
   color: inherit;
-  text-decoration: none;
 }
 .blog-related h3 a:after {
   content: '';
