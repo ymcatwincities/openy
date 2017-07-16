@@ -1,5 +1,6 @@
 name: 'OpenY Taxonomy News Category'
 description: 'OpenY news category taxonomy.'
+package: 'OpenY (Experimental)'
 type: module
 core: 8.x
 dependencies:
