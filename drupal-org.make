@@ -68,9 +68,7 @@ projects[panelbutton][version] = 1.0
 projects[panelbutton][patch][] = "https://www.drupal.org/files/issues/panelbutton-libraries-2881820.patch"
 projects[panelbutton][patch][] = "https://www.drupal.org/files/issues/panelbutton-hook-requirements-2881818_0.patch"
 projects[colorbutton][subdir] = contrib
-projects[colorbutton][version] = 1.0
-projects[colorbutton][patch][] = "https://www.drupal.org/files/issues/colorbutton-libraries-2881822-3.patch"
-projects[colorbutton][patch][] = "https://www.drupal.org/files/issues/colorbutton-hook-requirements-2881819_0.patch"
+projects[colorbutton] = 1.0
 
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
