@@ -321,8 +321,8 @@
 
 .location-camp-header {
   .field-branch-hours {
-    float: right;
     margin-left: 5px;
+    display: inline-block;
     @include breakpoint (0 $tablet) {
       margin-left: 25px;
       margin-top: 5px;
