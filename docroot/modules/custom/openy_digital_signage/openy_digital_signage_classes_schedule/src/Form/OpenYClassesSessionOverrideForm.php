@@ -17,7 +17,7 @@ class OpenYClassesSessionOverrideForm extends ContentEntityForm {
    *
    * @var \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession
    */
-  protected $overridden_entity;
+  protected $overriddenEntity;
 
   /**
    * {@inheritdoc}
@@ -42,11 +42,11 @@ class OpenYClassesSessionOverrideForm extends ContentEntityForm {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Remove button and internal Form API values from submitted values.
     $form_state->cleanValues();
-    $this->overridden_entity = $this->buildEntity($form, $form_state);
-    $this->overridden_entity->enforceIsNew();
+    $this->overriddenEntity = $this->buildEntity($form, $form_state);
+    $this->overriddenEntity->enforceIsNew();
     $uuid = \Drupal::service('uuid');
-    $this->overridden_entity->set('id', NULL);
-    $this->overridden_entity->set('uuid', $uuid->generate());
+    $this->overriddenEntity->set('id', NULL);
+    $this->overriddenEntity->set('uuid', $uuid->generate());
   }
 
   /**
@@ -59,11 +59,11 @@ class OpenYClassesSessionOverrideForm extends ContentEntityForm {
     $id = $this->entity->id();
 
     // Set new entity as entity by default.
-    $this->entity = $this->overridden_entity;
+    $this->entity = $this->overriddenEntity;
     // Set reference to original entity.
     $this->entity->set('overridden', TRUE);
-    $this->overridden_entity->set('original_session', $id);
-    $this->overridden_entity->setSource('manually');
+    $this->entity->set('original_session', $id);
+    $this->entity->setSource('manually');
 
 
     $status = parent::save($form, $form_state);
