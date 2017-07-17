@@ -80,7 +80,7 @@ variant_settings:
       provider: ymca_retention
       label_display: visible
       region: tab_2
-      weight: 0
+      weight: -3
       uuid: e7be492b-bbb5-415b-ab5a-22915077e627
       context_mapping: {  }
     4858f075-0478-4d26-8f07-616a4ffa00b5:
@@ -141,6 +141,16 @@ variant_settings:
       weight: 0
       uuid: cdebcbb4-cee5-443b-8833-087e76e2458b
       context_mapping: {  }
+    325fb0da-875f-4795-8c7a-358600a8ad4d:
+      id: retention_my_progress_block
+      label: '[YMCA Retention] My Progress'
+      provider: ymca_retention
+      label_display: visible
+      region: tab_2
+      weight: -5
+      uuid: 325fb0da-875f-4795-8c7a-358600a8ad4d
+      context_mapping: {  }
+      enable_bonuses: false
   id: panels_variant
   uuid: 95d2f4f2-e58e-4746-b3db-63cf6bc2132d
   label: null

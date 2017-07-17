@@ -18,13 +18,14 @@
                data-ng-repeat="date in activityC.storage.dates"
                data-ng-class="activityC.dateClass($index)">
             <a data-ng-click="activityC.setDate($index)">
-              <span class="month-day">{{ '{{date.month_day}}' }}</span>
-              <span class="weekday">{{ '{{date.weekday}}' }}</span>
-              <span class="visited"
-                    data-ng-show="activityC.isVisited($index)">{{ 'Visited' }}</span>
-              <span class="activities-count"
-                    data-ng-show="activityC.activitiesCount($index) > 0"
-                    data-ng-bind="activityC.activitiesCount($index)">{{ '{{ activityC.activitiesCount($index) }}' }} {{ 'Entries'|t }}</span>
+              <div class="month-day">{{ '{{date.month_day}}' }}</div>
+              <div class="weekday">{{ '{{date.weekday}}' }}</div>
+              <div class="visited"
+                    data-ng-show="activityC.isVisited($index)">{{ 'Visited'|t }}</div>
+              <div class="not-visited"
+                    data-ng-show="!activityC.isVisited($index)"></div>
+              <div class="activities-count"
+                    data-ng-show="activityC.activitiesCount($index) > 0">{{ '{{ activityC.activitiesCount($index) }}' }} {{ 'Entries'|t }}</div>
             </a>
           </div>
         </slick>
