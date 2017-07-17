@@ -115,6 +115,9 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
     return $this;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function isOverridden() {
     return $this->get('overridden')->value;
   }
