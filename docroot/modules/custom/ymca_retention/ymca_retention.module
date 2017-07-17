@@ -76,7 +76,7 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
         'base_path' => base_path(),
         'member' => [],
       ],
-      'template' => 'ymca-retention-member-info',
+      'template' => 'blocks/ymca-retention-member-info',
     ],
     'ymca_retention_slider' => [
       'variables' => [
@@ -174,7 +174,9 @@ function ymca_retention_theme($existing, $type, $theme, $path) {
       'template' => 'blocks/ymca-retention-progress',
     ],
     'ymca_retention_my_progress' => [
-      'variables' => [],
+      'variables' => [
+        'enable_bonuses' => FALSE,
+      ],
       'template' => 'blocks/ymca-retention-my-progress',
     ],
     'ymca_retention_instant_win' => [

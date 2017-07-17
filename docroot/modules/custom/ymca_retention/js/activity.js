@@ -57,6 +57,10 @@
           classes.push('campaign-dates--date-no-activity');
         }
 
+        if (self.isVisited(index)) {
+          classes.push('campaign-dates--date-visited');
+        }
+
         return classes.join(' ');
       };
       self.activitiesCount = function (index) {
