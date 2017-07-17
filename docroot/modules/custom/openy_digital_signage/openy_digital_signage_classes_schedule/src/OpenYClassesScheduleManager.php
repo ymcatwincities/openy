@@ -109,4 +109,5 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
 
     return $classes;
   }
+
 }
