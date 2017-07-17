@@ -19,7 +19,7 @@
 {% if content.classes %}
   {% set classes = ' ' ~ content.classes|join(' ') %}
 {% endif %}
-<div class="openy-ds-layout landscape openy-ds-layout-1col-ticker {{ classes }}" {% if css_id %}{{ css_id }}{% endif %}>
+<div class="openy-ds-layout landscape openy-ds-layout-1col-ticker {{ classes }}">
 
   <div class="openy-ds-layout-region openy-ds-layout-1col--main">
     {{ content.main }}
