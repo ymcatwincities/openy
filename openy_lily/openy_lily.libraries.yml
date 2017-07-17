@@ -4,8 +4,9 @@ global-styling:
     base:
       css/legacy/bootstrap.min.css: {}
     theme:
-      css/style.css: {}
+      css/style.css: { media: screen }
       css/colors.css: {}
+      css/print.css: { media: print }
   js:
     scripts/legacy/jquery.matchHeight-min.js: {}
     scripts/init-templates.js: {}
