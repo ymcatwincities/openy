@@ -57,6 +57,11 @@ header#page-head .top-navs .nav-global {
   }
 }
 
+.webform-submission-form,
+.container {
+  max-width: 100% !important;
+}
+
 .page-heading {
   padding: 25px 0;
   margin-bottom: 40px;
@@ -72,6 +77,7 @@ header#page-head .top-navs .nav-global {
 #weekPicker,
 #side-area,
 #search-box,
+#block-openy-lily-views-block-alerts-header-alerts,
 #block-anonymoususersmenu,
 #block-getourmobileapp,
 #block-openy-lily-footersocialblock,
@@ -83,6 +89,7 @@ header#page-head .top-navs .nav-global {
 .paragraph--type--prgf-location-finder-filters,
 .viewport #page-head .top-navs .nav-global .container-fluid .navbar-header .navbar-toggler,
 .footer-alerts-list,
+.media-video,
 .sidebar-region,
 .status-message,
 .header-alerts-list {
