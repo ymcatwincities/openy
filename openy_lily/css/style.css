@@ -98,6 +98,9 @@ h6, .h6 {
 .node--type-blog .page-heading {
   margin-bottom: 40px;
 }
+.path-account .page-heading {
+  margin-bottom: 0;
+}
 
 .pager li > a {
   padding: 5px 10px;
@@ -180,6 +183,10 @@ a:hover, a:active, a:focus {
   #block-openy-lily-tabs .nav-tabs li {
     margin-right: 5px;
   }
+}
+
+html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-waiting .flag-throbber {
+  top: 1px !important;
 }
 
 .toolbar-fixed .navbar-fixed-top {
@@ -726,7 +733,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 [data-drupal-selector="edit-login"]:hover,
 [data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, #banner .banner-caption a:hover {
   background-color: #9c1f7b;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   border: 0;
   background-position: 0;
 }
@@ -3006,6 +3013,9 @@ body .ajax-progress-throbber .throbber {
   background-size: cover;
   padding: 2px 8px 2px;
 }
+body .ajax-progress-throbber .throbber.path-account {
+  top: 1px !important;
+}
 
 .green-3-col.container {
   background: #26bcbd;
@@ -3422,8 +3432,24 @@ a.sports-icon.floor-hockey {
   margin-bottom: 5px;
 }
 
+.account-page-content {
+  overflow-x: auto;
+}
+.account-page-content [data-drupal-selector="edit-donation"] {
+  margin-top: 10px;
+}
+.account-page-content table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
 .account-page-content-wrapper h2 {
   margin-top: 0;
+}
+
+.path-account #block-openy-lily-content {
+  padding-top: 30px;
 }
 
 .paragraph--type--microsites-menu,

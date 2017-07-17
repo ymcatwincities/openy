@@ -28,6 +28,9 @@
   .node--type-blog & {
     margin-bottom: 40px;
   }
+  .path-account & {
+    margin-bottom: 0;
+  }
 }
 
 .pager {
@@ -128,4 +131,8 @@ a:hover, a:active, a:focus {
       }
     }
   }
+}
+
+html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-waiting .flag-throbber {
+  top: 1px !important;
 }
