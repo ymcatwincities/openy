@@ -1,0 +1,369 @@
+/* Effective height is 108px */
+.block-class-ticker {
+  height: 5.625vw;
+  position: relative;
+  overflow: hidden;
+
+  .active-classes,
+  .class-active,
+  .class-next,
+  .class-prev {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: top 0.5s;
+  }
+
+  .class-active {
+    top: 0;
+  }
+
+  .class-next {
+    top: 100%;
+  }
+
+  .class-prev {
+    top: -100%;
+  }
+}
+
+.block-class-ticker__status {
+  font-size: 30 / 1920 * 100vw;
+  font-weight: bold;
+  height: 100%;
+  left: 0;
+  line-height: 5.625vw;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+  width: 5.625vw;
+  background-color: $purple-medium;
+
+  &--next {
+    display: none;
+  }
+  &--now {
+    display: block;
+  }
+
+  .has-class-awaiting & &--next {
+    display: block;
+  }
+  .has-class-awaiting & &--now {
+    display: none;
+  }
+
+  span {
+    color: $white;
+    opacity: 0.4;
+  }
+}
+
+.block-class-ticker__content {
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 1.5625vw;
+  height: 100%;
+  line-height: 5.625vw;
+  margin-left: 5.625vw;
+  position: relative;
+
+  .class-active &,
+  .class-next &,
+  .class-prev & {
+
+    .class {
+      background-color: $purple-dark;
+      border-radius: 0;
+      box-shadow: none;
+      height: 100%;
+      left: 0;
+      margin: 0;
+      opacity: 1;
+      padding-left: 3.2vw;
+      top: 0;
+      width: 100%;
+
+      .class-name {
+        color: $white;
+        font-size: 40 / 1920 * 100vw;
+        font-weight: bold;
+        margin: 0;
+        display: inline;
+      }
+
+      .trainer {
+        color: $blue-light;
+        display: inline;
+        font-size: 40 / 1920 * 100vw;
+        font-weight: bold;
+        padding-left: 1em;
+        position: static;
+
+        .trainer__substitute {
+          color: $orange-light;
+        }
+
+        .trainer__substitute,
+        .trainer__substitute__icon,
+        .trainer__substituted {
+          position: static;
+          padding: 0;
+          margin: 0;
+          font-size: 40 / 1920 * 100vw;
+          font-weight: bold;
+        }
+
+        .trainer__substitute__icon {
+          font-size: 60%;
+        }
+      }
+
+      .class-time-frame {
+        bottom: 0;
+        color: $white;
+        font-size: 35 / 1920 * 100vw;
+        font-weight: bold;
+        letter-spacing: -1.5 / 1920 * 100vw;
+        margin: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: width 0.5s, font-size 0.5s;
+        width: 45vw;
+
+        .class-time-frame-from,
+        .class-time-frame-to {
+          right: 80%;
+          top: 50%;
+          transform: translateY(-50%);
+          margin: 0;
+          transition: font-size 0.5s, left 0.5s, right 0.5s;
+        }
+
+        .class-time-frame-to {
+          left: 80%;
+          right: auto;
+        }
+
+        .class-time-frame-progress {
+          width: 52%;
+          height: 16 / 1920 * 100vw;
+          border-radius: 8 / 1920 * 100vw;
+          top: 50%;
+          margin: auto;
+          transform: translateY(-50%);
+        }
+      }
+
+      &.class-awaiting {
+        height: 100%;
+        .class-time-frame {
+          width: 15vw;
+          opacity: 1;
+          background-color: $purple-dark-lighter;
+
+          .class-time-frame-from {
+            font-size: 60 / 1920 * 100vw;
+            letter-spacing: -2 / 1920 * 100vw;
+            right: 0;
+            left: 0;
+            text-align: center;
+          }
+          .class-time-frame-to {
+            left: 1000%;
+          }
+
+          .class-time-frame-progress {
+            left: 1000%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.openy-ds-layout.portrait {
+  .block-class-ticker {
+    height: 5.625vh;
+  }
+
+  .block-class-ticker__status {
+    font-size: 1.5625vh;
+    line-height: 5.625vh;
+    width: 5.625vh;
+
+    .ds-icon {
+      line-height: 5.625vh;
+    }
+  }
+
+  .block-class-ticker__content {
+    font-size: 1.5625vh;
+    line-height: 5.625vh;
+    padding-left: 5.625vh;
+  }
+}
+
+.openy-res-layout.scheme-orange {
+
+  .block-class-ticker__status {
+    background-color: $orange-dark;
+  }
+
+  .class-active,
+  .class-next,
+  .class-prev {
+
+    .block-class-ticker__content {
+
+      .class {
+        background-color: $red-dark;
+
+        .class-name {
+          color: $white;
+        }
+
+        .trainer {
+          color: $orange-light;
+
+          .trainer__substitute,
+          .trainer__substitute__icon,
+          .trainer__substituted {
+            color: $orange-light;
+          }
+        }
+
+        .class-time-frame {
+          color: $white;
+
+          .class-time-frame-from,
+          .class-time-frame-to {
+            color: $white;
+          }
+
+          .class-time-frame-progress {
+          }
+        }
+
+        &.class-awaiting {
+          .class-time-frame {
+            background-color: $orange-dark;
+          }
+        }
+      }
+    }
+  }
+}
+
+.openy-res-layout.scheme-blue {
+
+  .block-class-ticker__status {
+    background-color: $blue-medium;
+  }
+
+  .class-active,
+  .class-next,
+  .class-prev {
+
+    .block-class-ticker__content {
+
+      .class {
+        background-color: $blue-dark;
+
+        .class-name {
+          color: $white;
+        }
+
+        .trainer {
+          color: $green-light;
+
+          .trainer__substitute {
+            color: $orange-light;
+          }
+          .trainer__substitute__icon,
+          .trainer__substituted {
+            color: $green-light;
+          }
+        }
+
+        .class-time-frame {
+          color: $white;
+
+          .class-time-frame-from,
+          .class-time-frame-to {
+            color: $white;
+          }
+
+          .class-time-frame-progress {
+            background-color: $blue-medium;
+          }
+        }
+
+        &.class-awaiting {
+          .class-time-frame {
+            background-color: $blue-medium;
+          }
+        }
+      }
+    }
+  }
+}
+
+.openy-res-layout.scheme-purple {
+
+  .block-class-ticker__status {
+    background-color: $purple-medium;
+  }
+
+  .class-active,
+  .class-next,
+  .class-prev {
+
+    .block-class-ticker__content {
+
+      .class {
+        background-color: $purple-dark;
+
+        .class-name {
+          color: $white;
+        }
+
+        .trainer {
+          color: $green-light;
+
+          .trainer__substitute {
+            color: $orange-light;
+          }
+          .trainer__substitute__icon,
+          .trainer__substituted {
+            color: $green-light;
+          }
+        }
+
+        .class-time-frame {
+          color: $white;
+
+          .class-time-frame-from,
+          .class-time-frame-to {
+            color: $white;
+          }
+
+          .class-time-frame-progress {
+            background-color: $blue-dark;
+
+            .class-time-frame-progress-bar {
+              background-color: $blue-medium;
+            }
+          }
+        }
+
+        &.class-awaiting {
+          .class-time-frame {
+            background-color: $purple-medium;
+          }
+        }
+      }
+    }
+  }
+}

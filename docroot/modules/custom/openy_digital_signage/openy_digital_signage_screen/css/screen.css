@@ -947,8 +947,8 @@ body.node--type-screen-content {
   left: 5%; }
 
 .openy-digital-signage-block-time .time {
+  font-family: 'Cachet-Bold', Arial;
   font-size: 300%;
-  font-weight: normal;
   line-height: 1.25;
   padding-left: 35px;
   text-transform: uppercase; }
@@ -1247,3 +1247,331 @@ body.node--type-screen-content {
     top: 0; }
   .block-promotional-message-position-bottom .openy-digital-signage-block-promotional__text-content {
     bottom: 0; }
+
+/* Effective height is 108px */
+.block-class-ticker {
+  height: 5.625vw;
+  position: relative;
+  overflow: hidden; }
+  .block-class-ticker .active-classes,
+  .block-class-ticker .class-active,
+  .block-class-ticker .class-next,
+  .block-class-ticker .class-prev {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    -webkit-transition: top 0.5s;
+    transition: top 0.5s; }
+  .block-class-ticker .class-active {
+    top: 0; }
+  .block-class-ticker .class-next {
+    top: 100%; }
+  .block-class-ticker .class-prev {
+    top: -100%; }
+
+.block-class-ticker__status {
+  font-size: 1.5625vw;
+  font-weight: bold;
+  height: 100%;
+  left: 0;
+  line-height: 5.625vw;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 0;
+  width: 5.625vw;
+  background-color: #92278f; }
+  .block-class-ticker__status--next {
+    display: none; }
+  .block-class-ticker__status--now {
+    display: block; }
+  .has-class-awaiting .block-class-ticker__status .block-class-ticker__status--next {
+    display: block; }
+  .has-class-awaiting .block-class-ticker__status .block-class-ticker__status--now {
+    display: none; }
+  .block-class-ticker__status span {
+    color: #fff;
+    opacity: 0.4; }
+
+.block-class-ticker__content {
+  font-family: "Cachet", Arial, sans-serif;
+  font-size: 1.5625vw;
+  height: 100%;
+  line-height: 5.625vw;
+  margin-left: 5.625vw;
+  position: relative; }
+  .class-active .block-class-ticker__content .class,
+  .class-next .block-class-ticker__content .class,
+  .class-prev .block-class-ticker__content .class {
+    background-color: #5c2e91;
+    border-radius: 0;
+    box-shadow: none;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    opacity: 1;
+    padding-left: 3.2vw;
+    top: 0;
+    width: 100%; }
+    .class-active .block-class-ticker__content .class .class-name,
+    .class-next .block-class-ticker__content .class .class-name,
+    .class-prev .block-class-ticker__content .class .class-name {
+      color: #fff;
+      font-size: 2.08333vw;
+      font-weight: bold;
+      margin: 0;
+      display: inline; }
+    .class-active .block-class-ticker__content .class .trainer,
+    .class-next .block-class-ticker__content .class .trainer,
+    .class-prev .block-class-ticker__content .class .trainer {
+      color: #00aeef;
+      display: inline;
+      font-size: 2.08333vw;
+      font-weight: bold;
+      padding-left: 1em;
+      position: static; }
+      .class-active .block-class-ticker__content .class .trainer .trainer__substitute,
+      .class-next .block-class-ticker__content .class .trainer .trainer__substitute,
+      .class-prev .block-class-ticker__content .class .trainer .trainer__substitute {
+        color: #fcaf17; }
+      .class-active .block-class-ticker__content .class .trainer .trainer__substitute,
+      .class-active .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+      .class-active .block-class-ticker__content .class .trainer .trainer__substituted,
+      .class-next .block-class-ticker__content .class .trainer .trainer__substitute,
+      .class-next .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+      .class-next .block-class-ticker__content .class .trainer .trainer__substituted,
+      .class-prev .block-class-ticker__content .class .trainer .trainer__substitute,
+      .class-prev .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+      .class-prev .block-class-ticker__content .class .trainer .trainer__substituted {
+        position: static;
+        padding: 0;
+        margin: 0;
+        font-size: 2.08333vw;
+        font-weight: bold; }
+      .class-active .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+      .class-next .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+      .class-prev .block-class-ticker__content .class .trainer .trainer__substitute__icon {
+        font-size: 60%; }
+    .class-active .block-class-ticker__content .class .class-time-frame,
+    .class-next .block-class-ticker__content .class .class-time-frame,
+    .class-prev .block-class-ticker__content .class .class-time-frame {
+      bottom: 0;
+      color: #fff;
+      font-size: 1.82292vw;
+      font-weight: bold;
+      letter-spacing: -0.07812vw;
+      margin: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      -webkit-transition: width 0.5s, font-size 0.5s;
+      transition: width 0.5s, font-size 0.5s;
+      width: 45vw; }
+      .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+      .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+      .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+      .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+      .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+      .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-to {
+        right: 80%;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+        margin: 0;
+        -webkit-transition: font-size 0.5s, left 0.5s, right 0.5s;
+        transition: font-size 0.5s, left 0.5s, right 0.5s; }
+      .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+      .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+      .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-to {
+        left: 80%;
+        right: auto; }
+      .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-progress,
+      .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-progress,
+      .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-progress {
+        width: 52%;
+        height: 0.83333vw;
+        border-radius: 0.41667vw;
+        top: 50%;
+        margin: auto;
+        -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+                transform: translateY(-50%); }
+    .class-active .block-class-ticker__content .class.class-awaiting,
+    .class-next .block-class-ticker__content .class.class-awaiting,
+    .class-prev .block-class-ticker__content .class.class-awaiting {
+      height: 100%; }
+      .class-active .block-class-ticker__content .class.class-awaiting .class-time-frame,
+      .class-next .block-class-ticker__content .class.class-awaiting .class-time-frame,
+      .class-prev .block-class-ticker__content .class.class-awaiting .class-time-frame {
+        width: 15vw;
+        opacity: 1;
+        background-color: #6d429e; }
+        .class-active .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-from,
+        .class-next .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-from,
+        .class-prev .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-from {
+          font-size: 3.125vw;
+          letter-spacing: -0.10417vw;
+          right: 0;
+          left: 0;
+          text-align: center; }
+        .class-active .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-to,
+        .class-next .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-to,
+        .class-prev .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-to {
+          left: 1000%; }
+        .class-active .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-progress,
+        .class-next .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-progress,
+        .class-prev .block-class-ticker__content .class.class-awaiting .class-time-frame .class-time-frame-progress {
+          left: 1000%; }
+
+.openy-ds-layout.portrait .block-class-ticker {
+  height: 5.625vh; }
+
+.openy-ds-layout.portrait .block-class-ticker__status {
+  font-size: 1.5625vh;
+  line-height: 5.625vh;
+  width: 5.625vh; }
+  .openy-ds-layout.portrait .block-class-ticker__status .ds-icon {
+    line-height: 5.625vh; }
+
+.openy-ds-layout.portrait .block-class-ticker__content {
+  font-size: 1.5625vh;
+  line-height: 5.625vh;
+  padding-left: 5.625vh; }
+
+.openy-res-layout.scheme-orange .block-class-ticker__status {
+  background-color: #dd5828; }
+
+.openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class,
+.openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class,
+.openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class {
+  background-color: #a92b31; }
+  .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .class-name,
+  .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .class-name,
+  .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .class-name {
+    color: #fff; }
+  .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .trainer,
+  .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .trainer,
+  .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .trainer {
+    color: #fcaf17; }
+    .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .trainer .trainer__substitute,
+    .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .trainer .trainer__substituted,
+    .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .trainer .trainer__substitute,
+    .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .trainer .trainer__substituted,
+    .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .trainer .trainer__substitute,
+    .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .trainer .trainer__substituted {
+      color: #fcaf17; }
+  .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .class-time-frame,
+  .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .class-time-frame,
+  .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .class-time-frame {
+    color: #fff; }
+    .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+    .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+    .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-to {
+      color: #fff; }
+  .openy-res-layout.scheme-orange .class-active .block-class-ticker__content .class.class-awaiting .class-time-frame,
+  .openy-res-layout.scheme-orange .class-next .block-class-ticker__content .class.class-awaiting .class-time-frame,
+  .openy-res-layout.scheme-orange .class-prev .block-class-ticker__content .class.class-awaiting .class-time-frame {
+    background-color: #dd5828; }
+
+.openy-res-layout.scheme-blue .block-class-ticker__status {
+  background-color: #0089d0; }
+
+.openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class,
+.openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class,
+.openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class {
+  background-color: #0060af; }
+  .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .class-name,
+  .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .class-name,
+  .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .class-name {
+    color: #fff; }
+  .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .trainer,
+  .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .trainer,
+  .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .trainer {
+    color: #20bdbe; }
+    .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .trainer .trainer__substitute,
+    .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .trainer .trainer__substitute,
+    .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .trainer .trainer__substitute {
+      color: #fcaf17; }
+    .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .trainer .trainer__substituted,
+    .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .trainer .trainer__substituted,
+    .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .trainer .trainer__substituted {
+      color: #20bdbe; }
+  .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .class-time-frame,
+  .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .class-time-frame,
+  .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .class-time-frame {
+    color: #fff; }
+    .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+    .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+    .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-to {
+      color: #fff; }
+    .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-progress,
+    .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-progress,
+    .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-progress {
+      background-color: #0089d0; }
+  .openy-res-layout.scheme-blue .class-active .block-class-ticker__content .class.class-awaiting .class-time-frame,
+  .openy-res-layout.scheme-blue .class-next .block-class-ticker__content .class.class-awaiting .class-time-frame,
+  .openy-res-layout.scheme-blue .class-prev .block-class-ticker__content .class.class-awaiting .class-time-frame {
+    background-color: #0089d0; }
+
+.openy-res-layout.scheme-purple .block-class-ticker__status {
+  background-color: #92278f; }
+
+.openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class,
+.openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class,
+.openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class {
+  background-color: #5c2e91; }
+  .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .class-name,
+  .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .class-name,
+  .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .class-name {
+    color: #fff; }
+  .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .trainer,
+  .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .trainer,
+  .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .trainer {
+    color: #20bdbe; }
+    .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .trainer .trainer__substitute,
+    .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .trainer .trainer__substitute,
+    .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .trainer .trainer__substitute {
+      color: #fcaf17; }
+    .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .trainer .trainer__substituted,
+    .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .trainer .trainer__substituted,
+    .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .trainer .trainer__substitute__icon,
+    .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .trainer .trainer__substituted {
+      color: #20bdbe; }
+  .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .class-time-frame,
+  .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .class-time-frame,
+  .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .class-time-frame {
+    color: #fff; }
+    .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+    .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-to,
+    .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-from,
+    .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-to {
+      color: #fff; }
+    .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-progress,
+    .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-progress,
+    .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-progress {
+      background-color: #0060af; }
+      .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class .class-time-frame .class-time-frame-progress .class-time-frame-progress-bar,
+      .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class .class-time-frame .class-time-frame-progress .class-time-frame-progress-bar,
+      .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class .class-time-frame .class-time-frame-progress .class-time-frame-progress-bar {
+        background-color: #0089d0; }
+  .openy-res-layout.scheme-purple .class-active .block-class-ticker__content .class.class-awaiting .class-time-frame,
+  .openy-res-layout.scheme-purple .class-next .block-class-ticker__content .class.class-awaiting .class-time-frame,
+  .openy-res-layout.scheme-purple .class-prev .block-class-ticker__content .class.class-awaiting .class-time-frame {
+    background-color: #92278f; }

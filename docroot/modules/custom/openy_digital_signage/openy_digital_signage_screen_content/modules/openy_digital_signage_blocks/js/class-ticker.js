@@ -14,17 +14,19 @@
    * @prop {Drupal~behaviorAttach} attach
    *   Attaches the behavior for the block.
    */
-  Drupal.behaviors.openyDigitalSignageBlockClassCurrent = {
+  Drupal.behaviors.openyDigitalSignageBlockClassTicker = {
     attach: function (context, settings) {
-      $('.block-class-current', context).once().each(function () {
-        var blockProto = new OpenYDigitalSignageBlockClassCurrent(this);
+      $('.block-class-ticker', context).once().each(function () {
+        var blockProto = new OpenYDigitalSignageBlockClassTicker(this);
       });
     }
   };
 
-  function OpenYDigitalSignageBlockClassCurrent(context) {
+  function OpenYDigitalSignageBlockClassTicker(context) {
     this.context = context;
     var self = this;
+    self.template = $(self.context).find('.class-next').html();
+    self.content_selector = '.block-class-ticker__content';
 
     // General loop – basically swaps classes.
     this.loop = function () {
@@ -44,15 +46,6 @@
           self.updateProgressBars();
           $(this).removeClass('class-awaiting');
           $('.has-class-awaiting', self.context).removeClass('has-class-awaiting');
-          return;
-        }
-
-        var formattedTime = self.formatTime(starts_in);
-        $(this).find('.class-time-countdown-time--value').html(formattedTime.string);
-        $(this).find('.class-time-countdown-time--suffix').text(formattedTime.suffix);
-
-        if (starts_in < 3600) {
-          self.drawAwaitProgress(starts_in / 3600);
         }
       });
     };
@@ -86,10 +79,9 @@
     // Updates progress on the awaiting class.
     this.drawAwaitProgress = function (percentage) {
       percentage = percentage * 100;
-      var passiveColor = '#ffefcf';
-      var activeColor = $('.class-time-countdown-progress-container', self.context)
-        .css('background-color');
-      var activeBorder = $('.class-time-countdown-progress', self.context);
+      var activeColor = '#f36f3c',
+        passiveColor = '#ffefcf';
+      var activeBorder = $('.class-time-countdown-progress');
       if (percentage > 100) percentage = 100;
       var deg = percentage * 3.6;
       if (deg <= 180){
@@ -146,12 +138,12 @@
           .removeClass('class-active')
           .addClass('class-prev');
 
-        setTimeout(function() {
-          // Slide Upcomming Class Up
-          $upcomingClassContainer
-            .removeClass('class-next')
-            .addClass('class-active');
+        // Slide Upcomming Class Up
+        $upcomingClassContainer
+          .removeClass('class-next')
+          .addClass('class-active');
 
+        setTimeout(function() {
           $activeClasses.removeClass('has-class-awaiting');
           $upcomingClass = $('.class', $upcomingClassContainer);
           if ($upcomingClass.data('from') > self.getTimeOffset()) {
@@ -160,26 +152,25 @@
           }
 
           // Create new Upcoming class.
-          $upcomingClassContainer = $("<div class='class-next' />").appendTo($activeClasses);
+          $upcomingClassContainer = $("<div class='class-next' />")
+            .append(self.template)
+            .appendTo($activeClasses);
           if (classes.next) {
-            $upcomingClassContainer.empty().append(classes.next.clone(true));
-            $activeClasses.addClass('has-class');
-          }
-          else {
-            $activeClasses.removeClass('has-class');
+            $upcomingClassContainer.find(self.content_selector).append(classes.next.clone(true));
           }
 
-          self.updateProgressBars();
-        }, 3000);
+        }, 10);
       }
       else {
-        $activeClassContainer.empty().append(classes.last.clone(true));
+        $activeClassContainer
+          .find(self.content_selector)
+          .empty()
+          .append(classes.last.clone(true));
         if (classes.next) {
-          $upcomingClassContainer.empty().append(classes.next.clone(true));
-          $activeClasses.addClass('has-class');
-        }
-        else {
-          $activeClasses.removeClass('has-class');
+          $upcomingClassContainer
+            .find(self.content_selector)
+            .empty()
+            .append(classes.next.clone(true));
         }
 
         $activeClass = $('.class', $activeClassContainer);
@@ -187,8 +178,8 @@
           $activeClass.addClass('class-awaiting');
           $activeClasses.addClass('has-class-awaiting');
         }
-        self.updateProgressBars();
       }
+      self.updateProgressBars();
     };
 
     // Returns current time.

@@ -1,0 +1,66 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a System Message block.
+ *
+ * Available variables:
+ * - room: The message.
+ * - classes: The array of classes.
+ * - wrapper_attributes: array of HTML attributes, intended to be added to the main
+ *   container tag of this template.
+ *   - classes: A list of classes to identify position and styles of the block.
+ *
+ * @ingroup themeable
+ */
+#}
+
+<div class="block block-class-ticker" {{ wrapper_attributes }}>
+  <div class="active-classes">
+    <div class="class-prev">
+      <div class="block-class-ticker__status">
+        <span class="block-class-ticker__status--next">{{ "Next"|t }}</span>
+        <span class="block-class-ticker__status--now">{{ "Now"|t }}</span>
+      </div>
+      <div class="block-class-ticker__content">
+      </div>
+    </div>
+    <div class="class-active">
+      <div class="block-class-ticker__status">
+        <span class="block-class-ticker__status--next">{{ "Next"|t }}</span>
+        <span class="block-class-ticker__status--now">{{ "Now"|t }}</span>
+      </div>
+      <div class="block-class-ticker__content"></div>
+    </div>
+    <div class="class-next">
+      <div class="block-class-ticker__status">
+        <span class="block-class-ticker__status--next">{{ "Next"|t }}</span>
+        <span class="block-class-ticker__status--now">{{ "Now"|t }}</span>
+      </div>
+      <div class="block-class-ticker__content"></div>
+    </div>
+  </div>
+
+  <div class="all-classes">
+    {% for class in classes %}
+      <div class="class" data-from="{{ class.from }}" data-to="{{ class.to }}">
+        <div class="class-name">{{ class.name }}</div>
+        <div class="trainer">
+          {% if class.substitute_trainer %}
+            <span class="trainer__substitute">{{ class.substitute_trainer }}</span>
+            <span class="glyphicon glyphicon-refresh trainer__substitute__icon"></span>
+            <span class="trainer__substituted">{{ class.trainer }}</span>
+          {% else %}
+            <span>{{ class.trainer }}</span>
+          {% endif %}
+        </div>
+        <div class="class-time-frame">
+          <div class="class-time-frame-from">{{ class.from_formatted }}</div>
+          <div class="class-time-frame-to">{{ class.to_formatted }}</div>
+          <div class="class-time-frame-progress">
+            <div class="class-time-frame-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
