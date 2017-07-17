@@ -67,7 +67,8 @@ class PersonifyApi {
       }
       $body = $response->getBody();
       return json_decode($body->getContents());
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       watchdog_exception('ymca_personify', $e);
     }
     return [];
@@ -120,7 +121,8 @@ class PersonifyApi {
       }
       $visits = $results->FacilityVisitCustomerRecord;
       return reset($visits);
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       watchdog_exception('ymca_personify', $e);
     }
     return [];
@@ -166,7 +168,8 @@ class PersonifyApi {
       }
       $body = $response->getBody();
       return json_decode($body->getContents());
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       watchdog_exception('ymca_personify', $e);
     }
     return [];
