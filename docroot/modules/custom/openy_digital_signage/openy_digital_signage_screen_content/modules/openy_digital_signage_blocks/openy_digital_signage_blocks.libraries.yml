@@ -51,3 +51,8 @@ class_current:
   version: VERSION
   js:
     js/class-current.js: {}
+
+class_ticker:
+  version: VERSION
+  js:
+    js/class-ticker.js: {}
