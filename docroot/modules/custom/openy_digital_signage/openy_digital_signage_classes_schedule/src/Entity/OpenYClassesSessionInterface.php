@@ -49,4 +49,31 @@ interface OpenYClassesSessionInterface extends ContentEntityInterface {
    */
   public function setCreatedTime($timestamp);
 
+  /**
+   * Gets Digital Signage Classes Session source value.
+   *
+   * @return string
+   *   Source value of the Digital Signage Classes Session.
+   */
+  public function getSource();
+
+  /**
+   * Set Digital Signage Classes Session source value.
+   *
+   * @param string $source
+   *   Digital Signage Classes Session source value.
+   *
+   * @return \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSessionInterface
+   *   The called Digital Signage Classes Session title entity.
+   */
+  public function setSource($source);
+
+  /**
+   * Return status is session overridden or not.
+   *
+   * @return bool
+   *   Overridden status.
+   */
+  public function isOverridden();
+
 }

@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Route;
 /**
  * Provides routes for OpenY Digital Signage Screen entities.
  *
- * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
- * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
+ * @see \Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
+ * @see \Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
 class OpenYScreenHtmlRouteProvider extends AdminHtmlRouteProvider {
 
