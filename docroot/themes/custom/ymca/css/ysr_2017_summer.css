@@ -3463,6 +3463,7 @@ html, body {
   margin: 0 0 26px 0;
   margin: 0 0 2.6rem 0;
   text-align: center;
+  color: #01a490;
 }
 @media (min-width: 48em) {
   .content-wrapper--detailed h2 {
@@ -3480,7 +3481,7 @@ html, body {
   line-height: 2.8rem;
   margin: 32px 0 22px 0;
   margin: 3.2rem 0 2.2rem 0;
-  color: #006b6b;
+  color: #0089d0;
 }
 @media (min-width: 48em) {
   .content-wrapper--detailed h3 {
