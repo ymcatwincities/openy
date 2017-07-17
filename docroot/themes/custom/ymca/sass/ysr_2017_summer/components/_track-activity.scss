@@ -658,35 +658,5 @@
         }
       }
     }
-
-    // Matt C ~ I think this is for a previous submit button in the form
-    // which is no longer present with Angular. Leaving in SASS incase
-    // it's needed at a future date.
-    // .actions {
-    //   @include rem(margin, 40px auto 0);
-    //   @include rem(max-width, 382px);
-    //   clear: both;
-    //   text-align: center;
-
-    //   input[type=submit] {
-    //     @include cachet-bold();
-    //     @include transition(all .3s);
-    //     background: none;
-    //     border: none;
-    //     border-bottom: 1px solid $orange-light;
-    //     color: $orange-light;
-    //     letter-spacing: -.8px;
-    //     line-height: 62px;
-    //     outline: none;
-    //     padding: 0;
-    //     text-transform: uppercase;
-    //     font-size: 30px;
-
-    //     &:hover {
-    //       color: $orange-medium;
-    //       border-color: $orange-medium;
-    //     }
-    //   }
-    // }
   }
 }

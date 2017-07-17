@@ -22,7 +22,7 @@ class CampaignController extends ControllerBase {
     $info = [
       'started' => $diff->invert,
       'days_left' => $diff->days + 1,
-      // 'dates' => $this->getDates(),
+      /* 'dates' => $this->getDates(),*/
     ];
 
     $response = new JsonResponse($info);
