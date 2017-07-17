@@ -3780,8 +3780,8 @@ a.sports-icon.floor-hockey {
 }
 
 .location-camp-header .field-branch-hours {
-  float: right;
   margin-left: 5px;
+  display: inline-block;
 }
 @media (min-width: 0) and (max-width: 48em) {
   .location-camp-header .field-branch-hours {
