@@ -32,6 +32,10 @@ class OpenYClassesSessionHtmlRouteProvider extends AdminHtmlRouteProvider {
       $collection->add("$entity_type_id.settings", $settings_form_route);
     }
 
+    // Add override route.
+    $schedule_route = $this->getOverrideRoute($entity_type);
+    $collection->add("entity.{$entity_type_id}.override", $schedule_route);
+
     return $collection;
   }
 
@@ -84,6 +88,38 @@ class OpenYClassesSessionHtmlRouteProvider extends AdminHtmlRouteProvider {
       ])
       ->setRequirement('_permission', $entity_type->getAdminPermission())
       ->setOption('_admin_route', TRUE);
+
+    return $route;
+  }
+
+  /**
+   * Gets the Classes Session override route.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+   *   The entity type.
+   *
+   * @return \Symfony\Component\Routing\Route|null
+   *   The generated route, if available.
+   */
+  protected function getOverrideRoute(EntityTypeInterface $entity_type) {
+    $entity_type_id = $entity_type->id();
+    $route = new Route($entity_type->getLinkTemplate('override'));
+    $route
+      ->setDefaults([
+        '_entity_form' => 'openy_ds_classes_session.override',
+        '_title' => 'Override Session: ' . $entity_type->getLabel(),
+      ])
+      ->setRequirement('_permission', 'access Digital Signage Classes Session overview')
+      ->setOption('parameters', [
+        $entity_type_id => ['type' => 'entity:' . $entity_type_id],
+      ])
+      ->setOption('_admin_route', TRUE);
+
+    // Entity types with serial IDs can specify this in their route
+    // requirements, improving the matching process.
+    if ($this->getEntityTypeIdKeyType($entity_type) === 'integer') {
+      $route->setRequirement($entity_type_id, '\d+');
+    }
 
     return $route;
   }
