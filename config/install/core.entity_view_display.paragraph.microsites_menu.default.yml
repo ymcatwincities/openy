@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.microsites_menu.field_prgf_block_ref
+    - field.field.paragraph.microsites_menu.field_prgf_ms_menu_hide_menu
     - paragraphs.paragraphs_type.microsites_menu
 id: paragraph.microsites_menu.default
 targetEntityType: paragraph
@@ -17,4 +18,6 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
-hidden: {  }
+    region: content
+hidden:
+  field_prgf_ms_menu_hide_menu: true

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.microsites_menu.field_prgf_block_ref
+    - field.field.paragraph.microsites_menu.field_prgf_ms_menu_hide_menu
     - paragraphs.paragraphs_type.microsites_menu
   module:
     - content_moderation
@@ -27,6 +28,14 @@ content:
       entity_browser_entity_form:
         entity_browser_id: _none
     type: inline_entity_form_complex
+    region: content
+  field_prgf_ms_menu_hide_menu:
+    weight: 7
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
 hidden:
   created: true
   status: true
