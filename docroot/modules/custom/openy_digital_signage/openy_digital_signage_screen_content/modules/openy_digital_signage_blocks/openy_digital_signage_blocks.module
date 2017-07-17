@@ -58,6 +58,14 @@ function openy_digital_signage_blocks_theme($existing, $type, $theme, $path) {
         'wrapper_attributes' => NULL,
       ],
     ],
+    'openy_digital_signage_blocks_class_ticker' => [
+      'template' => 'openy-digital-signage-blocks-class-ticker',
+      'variables' => [
+        'room' => '',
+        'classes' => NULL,
+        'wrapper_attributes' => NULL,
+      ],
+    ],
   ];
 }
 

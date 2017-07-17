@@ -115,7 +115,7 @@ function openy_digital_signage_screen_theme_suggestions_page_alter(array &$sugge
  * Implements hook_preprocess_html().
  */
 function openy_digital_signage_screen_preprocess_html(&$variables) {
-  $classes = ['page-schedule scheme-orange'];
+  $classes = ['page-schedule'];
   $route_name = \Drupal::service('current_route_match')->getRouteName();
 
   if (empty($variables['attributes'])) {
@@ -149,7 +149,7 @@ function openy_digital_signage_screen_preprocess_page__screen(&$variables) {
  * Implements hook_ds_version().
  */
 function openy_digital_signage_screen_ds_version() {
-  return '0.0.1.1';
+  return '0.0.1';
 }
 
 /**
