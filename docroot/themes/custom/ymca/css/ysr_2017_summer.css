@@ -1,12 +1,4 @@
 @charset "UTF-8";
-/**
- * Generates style triangle.
- * @param $position
- *   Position of triangle: top, right, bottom, left
- * @param $color
- * @param $width
- * @param $height
- */
 .ng-hide, .ng-cloak {
   display: none !important;
 }
