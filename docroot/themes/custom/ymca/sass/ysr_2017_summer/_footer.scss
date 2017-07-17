@@ -114,6 +114,10 @@
     @include rem(margin, 0 0 22px 0);
     color: $green-dark;
 
+    @include breakpoint($tablet $desktop) {
+      @include rem(font-size, 18px);
+    }
+
     ul {
       list-style: none;
       margin: 0;
@@ -124,8 +128,12 @@
     li {
       @include breakpoint($tablet) {
         display: inline-block;
-        @include rem(margin-right, 34px);
+        @include rem(margin-right, 19px);
+        &:last-child {
+          margin-right: 0;
+        }
       }
+
       a {
         @include rem(padding, 8px 0);
         font-family: inherit;
@@ -138,8 +146,8 @@
   }
 
   &--copyright {
-    @include rem(font-size, 16px);
-    @include rem(line-height, 26px);
+    @include rem(font-size, 15px);
+    @include rem(line-height, 25px);
     color: $grey4;
 
     br {
