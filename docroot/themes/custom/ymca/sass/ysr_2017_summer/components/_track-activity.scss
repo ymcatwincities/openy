@@ -6,125 +6,211 @@
       @include rem(padding, 0 30px);
 
       @include breakpoint($mobile-landscape) {
-        @include rem(padding, 0 50px);
+        padding: 0;
       }
     }
 
     .campaign-dates--slider-container {
-      @include rem(margin-top, 40px);
+      @include rem(max-width, 214px);
+      margin: {
+        left: auto;
+        right: auto;
+      }
+      min-height: 87px;
+
+      @include breakpoint($tablet) {
+        max-width: none;
+      }
+
+      .slick-slider {
+        @include breakpoint($tablet 1400px) {
+          margin: {
+            left: 40px;
+            right: 40px;
+          }
+        }
+      }
 
       .slick-list {
-        &::before,
-        &::after {
-          @include rem(height, 100%);
-          @include rem(width, 20px);
-          background-image: linear-gradient(90deg, $white, rgba(255, 255, 255, 0));
-          content: ' ';
-          display: block;
-          left: 0;
-          position: absolute;
-          top: 0;
-          z-index: 10;
-        }
+        margin-bottom: -14px;
+        padding-left: 1px;
 
-        &::after {
-          background-image: linear-gradient(-90deg, $white, rgba(255, 255, 255, 0));
-          left: auto;
-          right: 0;
+        @include breakpoint($tablet) {
+          margin-bottom: -22px;
         }
+      }
+      .slick-track {
+        display: flex;
+        padding-bottom: 14px;
+
+        @include breakpoint($tablet) {
+          padding-bottom: 22px;
+        }
+      }
+      .slick-slide {
+        float: none;
+        height: auto;
       }
     }
 
     .campaign-dates--date {
-      @include rem(width, 100px);
+      @include cachet();
+      @include rem(width, 69px);
+      border-right: 1px solid rgba($green-dark, 0.2);
       outline: none;
       position: relative;
-      text-align: center;
-
-      a {
-        outline: none;
+      text: {
+        align: center;
+        transform: uppercase;
       }
 
-      .weekday {
-        @include cachet();
-        @include rem(font-size, 15px);
-        @include rem(padding-bottom, 4px);
-        color: $grey5;
+      @include breakpoint($tablet) {
+        @include rem(width, 140px);
+      }
+
+      // First date.
+      &:first-child {
+        border-left: 1px solid rgba($green-dark, 0.2);
+      }
+
+      a {
+        color: $grey7;
         display: block;
-        text-align: center;
+        outline: none;
+        padding-bottom: 25px;
+
+        @include breakpoint($tablet) {
+          @include rem(padding-bottom, 60px);
+          @include rem(padding-top, 2px);
+        }
+
+        &:hover,
+        &:focus {
+          text-decoration: none;
+        }
       }
 
       .month-day {
-        @include cachet();
-        @include rem(border-radius, 32px);
-        @include rem(border-width, 2px);
-        @include rem(font-size, 18px);
-        @include rem(height, 64px);
-        @include rem(line-height, 18px);
-        @include rem(margin, 5px);
-        @include rem(padding, 22px 0);
-        @include rem(width, 64px);
-        display: inline-block;
-        border-style: solid;
-        color: $grey7;
+        @include rem(font-size, 25px);
         font-weight: bold;
+        line-height: normal;
+        display: block;
+
+        @include breakpoint($tablet) {
+          @include rem(font-size, 50px);
+        }
+      }
+
+      .weekday {
+        display: block;
+        @include rem(font-size, 12px);
+        line-height: normal;
+        @include rem(margin-bottom, 3px);
+
+        @include breakpoint($tablet) {
+          @include rem(font-size, 20px);
+        }
       }
 
       .activities-count {
-        @include cachet();
-        @include rem(border-radius, 15px);
-        @include rem(font-size, 15px);
-        @include rem(height, 30px);
-        @include rem(line-height, 30px);
-        @include rem(margin, 3px 10px 0 0);
-        @include rem(width, 30px);
-        background-color: $pale-purple-2;
-        bottom: 0;
-        right: 0;
-        color: $white;
-        display: block;
-        font-weight: bold;
+        @include rem(font-size, 10px);
+        bottom: 8px;
+        left: 0;
+        color: $blue;
         position: absolute;
-      }
-
-      .campaign-dates--date-past {
-        .month-day {
-          border-color: $purple-light;
+        width: 100%;
+        @include breakpoint($tablet) {
+          bottom: 19px;
+          @include rem(font-size, 14px);
         }
       }
 
-      .campaign-dates--date-current {
-        .month-day {
-          @include rem(border-radius, 38px);
-          @include rem(border-width, 7px);
-          @include rem(height, 76px);
-          @include rem(width, 76px);
-          border-color: $pale-purple-2;
-          margin: 0;
+      .visited,
+      .not-visited {
+        display: block;
+        @include rem(font-size, 10px);
+        padding-top: 16px;
+        @include breakpoint($tablet) {
+          @include rem(font-size, 14px);
+          padding-top: 24px;
         }
       }
 
-      .campaign-dates--date-future {
-        .month-day {
-          border-color: $grey8-ysr;
-          color: $grey8-ysr;
+      .visited {
+        background: image-url('2017_summer/icon-visited.png') 50% 0 / 12px no-repeat;
+        color: $green-medium;
+        @include breakpoint($tablet) {
+          background-size: initial;
         }
+        + .activities-count {
+          margin-bottom: 50px;
+        }
+      }
 
-        .activities-count {
+      .not-visited {
+        background: image-url('2017_summer/icon-not-visited.png') 50% 0 / 12px no-repeat;
+        @include breakpoint($tablet) {
+          background-size: initial;
+        }
+      }
+
+      // Dates in the past.
+      &-past {
+      }
+
+      // Today's date.
+      &-today {
+      }
+
+      // Dates in the future.
+      &-future {
+        a {
+          color: rgba($grey7, 0.3);
+        }
+        .visited,
+        .not-visited {
           display: none;
         }
       }
 
-      .campaign-dates--date-no-activity {
-        .activities-count {
-          display: none;
+      // No activity on this date.
+      &-no-activity {
+      }
+
+      // Facility was visited.
+      &-visited {
+        a {
+          @include breakpoint($tablet) {
+            @include rem(padding-bottom, 45px);
+          }
+        }
+      }
+
+      // Currently selected date.
+      &-current {
+        a {
+          color: $green-dark;
+          &:after {
+            @include triangle-pseudo(bottom, $white, 26px, 13px);
+            bottom: -13px;
+            left: 50%;
+            margin-left: -13px;
+            position: absolute;
+            z-index: 10;
+
+            @include breakpoint($tablet) {
+              @include triangle-pseudo(bottom, $white, 44px, 22px);
+              bottom: -22px;
+              margin-left: -22px;
+            }
+          }
         }
       }
     }
 
     .slick-prev,
     .slick-next {
-      @include rem(margin-top, 4px);
+      @include rem(margin-top, -15px);
 
       &:before {
         @include rem(background-size, 12px 20px);
@@ -151,11 +237,15 @@
     }
   }
 
+  .y-retention-activities__header,
+  .y-retention-activities__content {
+    background: $green-light;
+  }
   .y-retention-activities__header {
     .form-select {
       @include rem(height, 52px);
       @include rem(padding, 13px 12px 13px 14px);
-      background-color: #fff;
+      background-color: $white;
       background-image: none;
       border: none;
       color: inherit;
@@ -222,12 +312,15 @@
       -webkit-align-items: center;
       -ms-flex-align: center;
       align-items: center;
+      @include rem(padding-bottom, 22px);
+      @include rem(padding-top, 20px);
 
-      @include breakpoint($mobile-max) {
-        @include rem(padding-top, 20px);
-        -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+      @include breakpoint($tablet) {
+        -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap;
+        padding-bottom: 0;
+        @include rem(padding-top, 99px);
       }
 
       ul {
@@ -252,47 +345,50 @@
         -webkit-align-items: stretch;
         -ms-flex-align: stretch;
         align-items: stretch;
+        width: 100%;
 
-        @include breakpoint($mobile-max) {
-          width: 100%;
+        @include breakpoint($tablet) {
+          margin: {
+            left: auto;
+            right: auto;
+          }
+          @include rem(max-width, 700px);
         }
       }
     }
 
     .activity-tab {
+      @include cachet();
+      @include rem(font-size, 14px);
+      font-weight: bold;
       @include rem(margin, 0 12px);
-
-      @include breakpoint($tablet) {
-        @include rem(margin, 0 22px);
+      justify-content: center;
+      line-height: 20px;
+      opacity: 0.5;
+      text: {
+        transform: uppercase;
       }
 
-      @include breakpoint($desktop-small) {
-        @include rem(margin, 0 44px);
+      @include breakpoint($tablet) {
+        @include rem(font-size, 20px);
+        @include rem(margin, 0 15px);
       }
 
       &.active {
+        opacity: 1;
         a {
-          color: $grey7;
-
-          &:after {
-            @include rem(border-width, 16px 16px 0 16px);
-            @include translate(-50%, 0);
-            border-style: solid;
-            border-color: $white transparent transparent transparent;
-            content: '';
-            display: block;
-            height: 0;
-            left: 50%;
-            position: absolute;
-            top: 100%;
-            width: 0;
-          }
+          border-bottom: 1px solid $white;
+        }
+      }
+      &:hover,
+      &:focus {
+        @include breakpoint($tablet) {
+          opacity: 1;
         }
       }
 
       a {
-        @include cachet-normal();
-        @include rem(padding, 50px 0 40px 0);
+        @include rem(padding, 8px 0 17px);
         @include transition(color 0.2s ease);
         -ms-flex-align: center;
         -ms-flex-direction: row;
@@ -306,65 +402,49 @@
         -webkit-justify-content: center;
         align-content: flex-start;
         align-items: center;
-        color: $grey4;
+        color: $white;
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        font-weight: bold;
         height: 100%;
-        justify-content: center;
-        line-height: 20px;
         position: relative;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-size: 14px;
 
-        @include breakpoint($mobile-max) {
-          @include rem(padding-top, 48px);
-          @include rem(padding-bottom, 20px);
+        &:focus,
+        &:hover {
+          text: {
+            decoration: none;
+          }
+        }
+
+        &:focus {
+          outline: none;
         }
 
         @include breakpoint($tablet) {
-          line-height: 22px;
-          font-size: 18px;
-        }
-
-        @include breakpoint($desktop-small) {
-          line-height: 24px;
-          font-size: 20px;
-        }
-
-        &:hover {
-          color: $grey7;
+          @include rem(padding-bottom, 25px);
         }
 
         &:before {
-          @include rem(height, 48px);
+          @include rem(height, 33px);
           background-position: 50% 50%;
           background-repeat: no-repeat;
-          display: block;
-          left: 0;
-          position: absolute;
-          top: 0;
-          width: 100%;
           content: '';
+          display: block;
+          min-width: 47px;
+          width: 100%;
+
+          @include breakpoint($tablet) {
+            @include rem(margin-bottom, 11px);
+          }
         }
       }
 
       &__type-a {
         a {
           &:before {
-            @include rem(background-size, 46px 26px);
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-tab.svg');
-          }
-        }
-
-        &.active a,
-        &:hover a {
-          &:before {
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-swimming-active.svg');
+            background-image: image-url('2017_summer/icon-activity-swim.png');
           }
         }
       }
@@ -372,15 +452,7 @@
       &__type-b {
         a {
           &:before {
-            @include rem(background-size, 40px 28px);
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-tab.svg');
-          }
-        }
-
-        &.active a,
-        &:hover a {
-          &:before {
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-rock-press-active.svg');
+            background-image: image-url('2017_summer/icon-activity-fitness.png');
           }
         }
       }
@@ -388,15 +460,7 @@
       &__type-c {
         a {
           &:before {
-            @include rem(background-size, 40px 32px);
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-tab.svg');
-          }
-        }
-
-        &.active a,
-        &:hover a {
-          &:before {
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-group-active.svg');
+            background-image: image-url('2017_summer/icon-activity-group.png');
           }
         }
       }
@@ -404,15 +468,7 @@
       &__type-d {
         a {
           &:before {
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-home-tab.svg');
-            @include rem(background-size, 26px 28px);
-          }
-        }
-
-        &.active a,
-        &:hover a {
-          &:before {
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-home-active.svg');
+            background-image: image-url('2017_summer/icon-activity-community.png');
           }
         }
       }
@@ -420,11 +476,10 @@
   }
 
   .y-retention-activities__content {
-    @include rem(padding, 88px 0 80px 0);
-    background: $mud;
+    @include rem(padding, 10px 10px 40px);
 
-    @include breakpoint($mobile-max) {
-      @include rem(padding, 50px 10px);
+    @include breakpoint($tablet) {
+      @include rem(padding, 85px 0 130px);
     }
 
     .row {
@@ -482,10 +537,10 @@
         input + label {
           @include cachet();
           @include rem(border-radius, 34px);
-          @include rem(font-size, 16px);
+          @include rem(font-size, 13px);
           @include rem(height, 66px);
           @include rem(line-height, 22px);
-          @include rem(margin-bottom, 22px);
+          @include rem(margin-bottom, 23px);
           @include rem(padding, 12px 24px 12px 72px);
           @include transition(background-color 0.3s ease);
           -ms-flex-direction: row;
@@ -500,14 +555,11 @@
           -webkit-justify-content: flex-start;
           align-content: flex-start;
           align-items: center;
-          border: 1px solid rgba(247, 163, 118, .25);
-          color: $grey1;
+          border: 2px solid rgba($white, 0.5);
+          color: $white;
           cursor: pointer;
           display: -ms-flexbox;
-          display: -ms-flexbox;
           display: -webkit-flex;
-          display: -webkit-flex;
-          display: flex;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
@@ -521,16 +573,16 @@
           white-space: nowrap;
           width: 99.9%;
 
+          @include breakpoint($tablet) {
+            @include rem(font-size, 16px);
+          }
+
           .no-touch & {
             &:hover {
-              background-color: $orange-medium;
-
+              background-color: $white;
+              color: $green-dark;
               &:before {
-                background-color: rgba(247, 163, 118, .25);
-              }
-
-              small {
-                color: rgba(255, 255, 255, 0.5);
+                border: 2px solid rgba($green-medium, 0.5);
               }
             }
           }
@@ -562,31 +614,33 @@
 
           small {
             @include cachet-normal();
-            @include rem(font-size, 14px);
             @include rem(line-height, 20px);
-            color: $grey18;
             display: block;
             overflow: hidden;
+            opacity: 0.6;
             text-overflow: ellipsis;
             white-space: nowrap;
             width: 99.9%;
+            @include breakpoint($tablet) {
+              @include rem(font-size, 13px);
+            }
           }
         }
 
         input:checked + label {
-          background-color: $orange-medium;
-          border-color: $orange-medium;
+          background-color: $white;
+          border-color: $white;
+          color: $green-dark;
 
-          &:before, .no-touch &:before {
-            @include rem(background-size, 20px 15px);
+          &:before,
+          .no-touch &:before {
             @include border-radius(0);
             background-color: transparent;
-            border-color: $orange-medium;
-            background-image: inline-image('../prototypes/yfr/img/tabs/icon-check-activiti.svg');
+            border-color: transparent;
+            background-image: image-url('2017_summer/icon-activity-check.png');
           }
-
           small {
-            color: rgba(255, 255, 255, 0.5);
+            opacity: 1;
           }
         }
 
@@ -605,31 +659,34 @@
       }
     }
 
-    .actions {
-      @include rem(margin, 40px auto 0);
-      @include rem(max-width, 382px);
-      clear: both;
-      text-align: center;
+    // Matt C ~ I think this is for a previous submit button in the form
+    // which is no longer present with Angular. Leaving in SASS incase
+    // it's needed at a future date.
+    // .actions {
+    //   @include rem(margin, 40px auto 0);
+    //   @include rem(max-width, 382px);
+    //   clear: both;
+    //   text-align: center;
 
-      input[type=submit] {
-        @include cachet-bold();
-        @include transition(all .3s);
-        background: none;
-        border: none;
-        border-bottom: 1px solid $orange-light;
-        color: $orange-light;
-        letter-spacing: -.8px;
-        line-height: 62px;
-        outline: none;
-        padding: 0;
-        text-transform: uppercase;
-        font-size: 30px;
+    //   input[type=submit] {
+    //     @include cachet-bold();
+    //     @include transition(all .3s);
+    //     background: none;
+    //     border: none;
+    //     border-bottom: 1px solid $orange-light;
+    //     color: $orange-light;
+    //     letter-spacing: -.8px;
+    //     line-height: 62px;
+    //     outline: none;
+    //     padding: 0;
+    //     text-transform: uppercase;
+    //     font-size: 30px;
 
-        &:hover {
-          color: $orange-medium;
-          border-color: $orange-medium;
-        }
-      }
-    }
+    //     &:hover {
+    //       color: $orange-medium;
+    //       border-color: $orange-medium;
+    //     }
+    //   }
+    // }
   }
 }
