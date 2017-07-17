@@ -578,3 +578,12 @@ function ymca_retention_update_8031() {
   $importer->setDirectory('sites/default/config/staging/');
   $importer->importConfigs($files);
 }
+
+/**
+ * Update api config.
+ */
+function ymca_retention_update_8032() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs(['ymca_retention.api.yml']);
+}

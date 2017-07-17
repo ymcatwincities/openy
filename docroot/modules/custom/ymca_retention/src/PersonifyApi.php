@@ -2,11 +2,36 @@
 
 namespace Drupal\ymca_retention;
 
-// @todo This is a temporary class, which should be modified, when branch "yptf-mvp-2" will be merged.
+// @todo Refactoring!!! Should be merged with ymca_personify module.
 /**
  * Helper for Personify API requests needed for retention campaign.
  */
 class PersonifyApi {
+
+  /**
+   * Get config.
+   *
+   * @return array
+   *   Config params.
+   */
+  public function getConfig() {
+    $config = \Drupal::config('ymca_retention.api')->getRawData();
+    switch ($config['environment']) {
+      case 'prod':
+        $config['endpoint'] = $config['prod_endpoint'];
+        $config['username'] = $config['prod_username'];
+        $config['password'] = $config['prod_password'];
+        break;
+
+      case 'stage':
+        $config['endpoint'] = $config['stage_endpoint'];
+        $config['username'] = $config['stage_username'];
+        $config['password'] = $config['stage_password'];
+        break;
+    }
+
+    return $config;
+  }
 
   /**
    * Get information about member by its facility access ID.
@@ -18,7 +43,7 @@ class PersonifyApi {
    *   Information about Member.
    */
   public static function getPersonifyMemberInformation($facility_id) {
-    $config = \Drupal::config('ymca_retention.api')->getRawData();
+    $config = self::getConfig();
     $client = \Drupal::httpClient();
     $options = [
       'json' => [
@@ -42,8 +67,7 @@ class PersonifyApi {
       }
       $body = $response->getBody();
       return json_decode($body->getContents());
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       watchdog_exception('ymca_personify', $e);
     }
     return [];
@@ -63,7 +87,7 @@ class PersonifyApi {
    *   Information about Member visits for a period.
    */
   public static function getPersonifyVisitCountByDate($master_id, $date_from, $date_to) {
-    $config = \Drupal::config('ymca_retention.api')->getRawData();
+    $config = self::getConfig();
     $client = \Drupal::httpClient();
     $options = [
       'json' => [
@@ -96,8 +120,7 @@ class PersonifyApi {
       }
       $visits = $results->FacilityVisitCustomerRecord;
       return reset($visits);
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       watchdog_exception('ymca_personify', $e);
     }
     return [];
@@ -117,7 +140,7 @@ class PersonifyApi {
    *   Information about Members visits for a period.
    */
   public static function getPersonifyVisitsBatch(array $list_ids, \DateTime $date_from, \DateTime $date_to) {
-    $config = \Drupal::config('ymca_retention.api')->getRawData();
+    $config = self::getConfig();
     $client = \Drupal::httpClient();
     $options = [
       'json' => [
@@ -143,8 +166,7 @@ class PersonifyApi {
       }
       $body = $response->getBody();
       return json_decode($body->getContents());
-    }
-    catch (\Exception $e) {
+    } catch (\Exception $e) {
       watchdog_exception('ymca_personify', $e);
     }
     return [];
