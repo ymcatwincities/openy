@@ -67,7 +67,6 @@ projects[panelbutton][subdir] = contrib
 projects[panelbutton][version] = 1.0
 projects[panelbutton][patch][] = "https://www.drupal.org/files/issues/panelbutton-libraries-2881820.patch"
 projects[panelbutton][patch][] = "https://www.drupal.org/files/issues/panelbutton-hook-requirements-2881818_0.patch"
-projects[colorbutton][subdir] = contrib
 projects[colorbutton] = 1.0
 
 libraries[dropzone][type] = library
