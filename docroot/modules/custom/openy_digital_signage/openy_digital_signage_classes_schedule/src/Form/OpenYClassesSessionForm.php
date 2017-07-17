@@ -21,7 +21,8 @@ class OpenYClassesSessionForm extends ContentEntityForm {
 
     if ($this->entity->isNew()) {
       $form['source']['#value'] = 'manually';
-      $form['source']['#access'] = FALSE;
+      // @todo only for internal tests, after adding sync with GroupEx uncomment.
+      /** $form['source']['#access'] = FALSE; */
       $current_user = \Drupal::currentUser();
       $user = \Drupal::entityTypeManager()->getStorage('user')
         ->load($current_user->id());
