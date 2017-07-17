@@ -277,6 +277,9 @@ header#page-head {
       @include breakpoint ($tablet-start) {
         display: block;
       }
+      @include breakpoint  (0 $tablet-start ) {
+        min-height: 0;
+      }
       position: relative;
       .main-nav {
         width: 100%;
