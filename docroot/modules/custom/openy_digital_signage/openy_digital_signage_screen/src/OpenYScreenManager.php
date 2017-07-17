@@ -90,22 +90,21 @@ class OpenYScreenManager implements OpenYScreenManagerInterface {
    * {@inheritdoc}
    */
   public function getScreenContext() {
+    $screen = NULL;
     $route_name = $this->routeMatch->getRouteName();
     $request = $this->requestStack->getCurrentRequest();
     if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
       $screen = $request->get('openy_digital_signage_screen');
-      return $screen;
     }
     else {
       $request = \Drupal::request();
       if ($request->query->has('screen')) {
         $storage = \Drupal::entityTypeManager()->getStorage('openy_digital_signage_screen');
         $screen = $storage->load($request->query->get('screen'));
-        return $screen;
       }
     }
 
-    return NULL;
+    return $screen;
   }
 
 }
