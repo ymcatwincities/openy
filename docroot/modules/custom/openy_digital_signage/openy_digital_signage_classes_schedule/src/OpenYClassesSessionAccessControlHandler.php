@@ -20,15 +20,21 @@ class OpenYClassesSessionAccessControlHandler extends EntityAccessControlHandler
    * {@inheritdoc}
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
-    /* @var \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSessionInterface $entity */
+    /* @var \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession $entity */
     switch ($operation) {
       case 'view':
+        if ($entity->getSource() != 'manually') {
+          return AccessResult::forbidden();
+        }
         return AccessResult::allowedIfHasPermission($account, 'view Digital Signage Classes Session entities');
 
       case 'update':
         return AccessResult::allowedIfHasPermission($account, 'edit Digital Signage Classes Session entities');
 
       case 'delete':
+        if ($entity->isOverridden() && $entity->getSource() != 'manually') {
+          return AccessResult::forbidden();
+        }
         return AccessResult::allowedIfHasPermission($account, 'delete Digital Signage Classes Session entities');
     }
 
