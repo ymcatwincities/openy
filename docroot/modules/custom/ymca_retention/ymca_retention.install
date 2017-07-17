@@ -580,9 +580,22 @@ function ymca_retention_update_8031() {
 }
 
 /**
- * Update api config.
+ * Updating rules.
  */
 function ymca_retention_update_8032() {
+  // Update rules.
+  $content = file_get_contents(drupal_get_path('module', 'ymca_retention') . '/includes/ymca-strive-rules.html');
+  $uuid = 'bbad4f73-e28a-423c-849a-5ba4f04710ce';
+  /** @var Drupal\block_content\Entity\BlockContent $block_content */
+  $block_content = \Drupal::entityManager()->loadEntityByUuid('block_content', $uuid);
+  $block_content->set('body', ['value' => $content, 'format' => 'full_html']);
+  $block_content->save();
+}
+
+/**
+ * Update api config.
+ */
+function ymca_retention_update_8033() {
   $importer = \Drupal::service('config_import.importer');
   $importer->setDirectory('sites/default/config/staging/');
   $importer->importConfigs(['ymca_retention.api.yml']);
