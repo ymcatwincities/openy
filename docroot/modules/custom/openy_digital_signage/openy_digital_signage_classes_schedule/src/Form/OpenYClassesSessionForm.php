@@ -29,7 +29,7 @@ class OpenYClassesSessionForm extends ContentEntityForm {
     }
     else {
       $form['source']['#disabled'] = TRUE;
-      if($this->entity->getSource() != 'manually') {
+      if ($this->entity->getSource() != 'manually') {
         $form['actions']['#access'] = FALSE;
       }
     }

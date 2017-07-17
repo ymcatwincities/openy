@@ -68,4 +68,12 @@ interface OpenYClassesSessionInterface extends ContentEntityInterface {
    */
   public function setSource($source);
 
+  /**
+   * Return status is session overridden or not.
+   *
+   * @return bool
+   *   Overridden status.
+   */
+  public function isOverridden();
+
 }
