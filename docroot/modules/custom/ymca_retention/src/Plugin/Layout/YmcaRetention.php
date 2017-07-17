@@ -64,24 +64,27 @@ class YmcaRetention extends LayoutDefault implements PluginFormInterface {
     $service = \Drupal::service('ymca_retention.activity_manager');
 
     // @todo disabled for summer campaign.
-//    $settings = \Drupal::configFactory()->get('ymca_retention.instant_win');
-//    $build['#attached']['drupalSettings']['ymca_retention']['loss_messages'] = [
-//      'part_1' => $settings->get('loss_messages_long_1'),
-//      'part_2' => $settings->get('loss_messages_long_2'),
-//    ];
+    /*
+    $settings = \Drupal::configFactory()->get('ymca_retention.instant_win');
+    $build['#attached']['drupalSettings']['ymca_retention']['loss_messages'] = [
+    'part_1' => $settings->get('loss_messages_long_1'),
+    'part_2' => $settings->get('loss_messages_long_2'),
+    ];
+     */
 
     // @todo disabled for summer campaign.
     $build['#attached']['drupalSettings']['ymca_retention']['resources'] = [
       'campaign' => Url::fromRoute('ymca_retention.campaign_json')->toString(),
-//      'spring2017campaign' => Url::fromRoute('ymca_retention.spring2017_campaign_json')->toString(),
+      /*'spring2017campaign' => Url::fromRoute('ymca_retention.spring2017_campaign_json')->toString(),*/
       'member' => Url::fromRoute('ymca_retention.member_json')->toString(),
       'member_activities' => $service->getUrl(),
-//      'member_chances' => Url::fromRoute('ymca_retention.member_chances_json')->toString(),
-      'member_checkins' => Url::fromRoute('ymca_retention.member_checkins_json')->toString(),
-//      'member_bonuses' => Url::fromRoute('ymca_retention.member_bonuses_json')->toString(),
-//      'member_add_bonus' => Url::fromRoute('ymca_retention.member_add_bonus')->toString(),
-//      'recent_winners' => Url::fromRoute('ymca_retention.recent_winners_json')->toString(),
-//      'todays_insight' => Url::fromRoute('ymca_retention.todays_insight_json')->toString(),
+      /*'member_chances' => Url::fromRoute('ymca_retention.member_chances_json')->toString(),*/
+      'member_checkins' => Url::fromRoute('ymca_retention.member_checkins_json')
+        ->toString(),
+      /*'member_bonuses' => Url::fromRoute('ymca_retention.member_bonuses_json')->toString(),*/
+      /*'member_add_bonus' => Url::fromRoute('ymca_retention.member_add_bonus')->toString(),*/
+      /*'recent_winners' => Url::fromRoute('ymca_retention.recent_winners_json')->toString(),*/
+      /*'todays_insight' => Url::fromRoute('ymca_retention.todays_insight_json')->toString(),*/
     ];
 
     return $build;

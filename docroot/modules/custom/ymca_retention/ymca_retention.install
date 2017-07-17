@@ -591,3 +591,12 @@ function ymca_retention_update_8032() {
   $block_content->set('body', ['value' => $content, 'format' => 'full_html']);
   $block_content->save();
 }
+
+/**
+ * Update api config.
+ */
+function ymca_retention_update_8033() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs(['ymca_retention.api.yml']);
+}
