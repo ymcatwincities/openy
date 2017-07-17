@@ -19,4 +19,4 @@ Class content type is used for adding Classes on the site.
 
 ### URL pattern
 Content type is using following pattern:
-`/programs/[node:field_class_activity:entity:field_activity_category:entity:field_category_program:entity:title]/[node:field_class_activity:entity:field_activity_category:entity:title]/[node:field_class_activity:entity:title]/[node:title]`
+`/programs/[node:field_class_activity:entity:field_activity_category:entity:field_category_program:entity:title]/[node:field_class_activity:entity:field_activity_category:entity:title]/class-times`
