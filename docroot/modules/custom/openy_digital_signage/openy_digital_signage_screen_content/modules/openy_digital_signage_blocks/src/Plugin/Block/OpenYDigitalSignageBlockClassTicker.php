@@ -27,7 +27,7 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
   /**
    * The Classes Schedule Manager.
    *
-   * @var $scheduleManager OpenYClassesScheduleManagerInterface
+   * @var OpenYClassesScheduleManagerInterface
    */
   protected $scheduleManager;
 
@@ -71,7 +71,6 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
       $container->get('openy_digital_signage_screen.manager')
     );
   }
-
 
   /**
    * {@inheritdoc}

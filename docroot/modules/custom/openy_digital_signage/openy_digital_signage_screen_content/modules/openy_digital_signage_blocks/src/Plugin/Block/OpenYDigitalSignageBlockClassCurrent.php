@@ -27,7 +27,7 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
   /**
    * The Classes Schedule Manager.
    *
-   * @var $scheduleManager OpenYClassesScheduleManagerInterface
+   * @var OpenYClassesScheduleManagerInterface
    */
   protected $scheduleManager;
 
@@ -179,7 +179,6 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
       'to' => time() + $this::DEFAULT_PERIOD_LENGTH,
     ];
   }
-
 
   /**
    * Generates dummy class schedule.
