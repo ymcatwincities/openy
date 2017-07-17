@@ -451,17 +451,23 @@
 
       // Update url params.
       set_url_parameters: function () {
-        var url = document.location.pathname;
-        var filters_tags_raw = this.tag_filters;
-        var filters_tags = '';
-        if (filters_tags_raw) {
-          filters_tags = '?type=';
-          filters_tags_raw.forEach(function(tag) {
-            filters_tags += this.encode_to_url_format(tag) + ',';
-          }, this, filters_tags);
-          filters_tags = filters_tags.substring(0, filters_tags.length - 1);
+        var url = document.location.pathname
+          , params = this.get_parameters()
+          , filterTagsRaw = this.tag_filters
+          , filterTags = ''
+          , mapLocation = $('.search_field').val() || (params.hasOwnProperty('map_location') && params['map_location']) || '';
+        if (mapLocation) {
+          mapLocation = '?map_location=' + this.encode_to_url_format(mapLocation);
         }
-        window.history.replaceState(null, null, url + filters_tags);
+        if (filterTagsRaw) {
+          filterTags = !mapLocation ? '?' : '&';
+          filterTags += 'type=';
+          filterTagsRaw.forEach(function(tag) {
+            filterTags += this.encode_to_url_format(tag) + ',';
+          }, this, filterTags);
+          filterTags = filterTags.substring(0, filterTags.length - 1);
+        }
+        window.history.replaceState(null, null, url + mapLocation + filterTags);
       },
 
       // Renders an extra set of filter boxes below the map.
