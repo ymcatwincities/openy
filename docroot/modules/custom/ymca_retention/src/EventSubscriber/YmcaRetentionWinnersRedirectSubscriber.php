@@ -2,9 +2,7 @@
 
 namespace Drupal\ymca_retention\EventSubscriber;
 
-use Drupal\Core\Url;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -17,10 +15,10 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    return([
+    return ([
       KernelEvents::REQUEST => [
         ['redirectToWinnersPage'],
-      ]
+      ],
     ]);
   }
 
@@ -36,15 +34,17 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
     if (!in_array($route, [
       'page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge',
       'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_winners',
-    ])) {
+    ])
+    ) {
       return;
     }
-
-    // $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge');
-    // $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_winners');
-    // $response = new RedirectResponse($url->toString() . '/upcoming', 302);
-    // $response = new RedirectResponse($url->toString() . '/winners', 302);
-    // $event->setResponse($response);
+    /*
+    $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge');
+    $url = Url::fromRoute('page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_winners');
+    $response = new RedirectResponse($url->toString() . '/upcoming', 302);
+    $response = new RedirectResponse($url->toString() . '/winners', 302);
+    $event->setResponse($response);
+     */
   }
 
 }
