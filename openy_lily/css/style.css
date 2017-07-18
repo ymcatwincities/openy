@@ -721,7 +721,6 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   border: 0;
   color: white;
   display: inline-block;
-  background-color: #9c1f7b;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-weight: bold;
@@ -737,7 +736,6 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
 [data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, #banner .banner-caption a:hover {
-  background-color: #9c1f7b;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   border: 0;
   background-position: 0;
@@ -807,29 +805,34 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 
 [data-drupal-selector="edit-login"] {
   float: left;
+  margin-bottom: 0 !important;
 }
 
 [data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"] {
-  padding: 6px 12px;
+  padding: 10px 15px;
   font-size: 14px !important;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-transform: capitalize;
+}
+
+[data-drupal-selector="edit-login-actions"] {
+  margin-top: 20px !important;
 }
 
 [data-drupal-selector="edit-reset-password"] {
   background: none !important;
   border: none;
-  font-size: 14px !important;
+  font-size: 16px !important;
   box-shadow: none;
   text-transform: inherit;
   font-weight: normal;
   color: #0089d0 !important;
   padding: 0;
-  margin-top: 5px;
-  margin-left: 6px;
+  margin-top: 8px;
+  margin-left: 10px;
   float: left;
 }
 [data-drupal-selector="edit-reset-password"]:hover {
@@ -892,8 +895,6 @@ label {
 
 .edit-login-actions,
 .edit-registration-actions {
-  float: left;
-  width: 50%;
   position: relative;
 }
 .edit-login-actions a,
@@ -910,8 +911,9 @@ label {
 }
 .edit-login-actions .fieldset-wrapper div,
 .edit-registration-actions .fieldset-wrapper div {
-  margin-top: 5px;
+  margin-top: 10px;
   float: left;
+  margin-left: 10px;
 }
 .edit-login-actions .ajax-progress,
 .edit-registration-actions .ajax-progress {
@@ -922,7 +924,7 @@ label {
 
 .edit-registration-actions .fieldset-wrapper a.btn {
   margin-right: 3px !important;
-  padding: 6px 10px;
+  padding: 10px 15px;
   float: left;
   font-size: 14px;
   margin-bottom: 10px;

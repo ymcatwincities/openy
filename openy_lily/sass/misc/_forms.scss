@@ -3,7 +3,6 @@
   border: 0;
   color: white;
   display: inline-block;
-  background-color: $pink;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-weight: bold;
@@ -15,7 +14,6 @@
   vertical-align: middle;
   cursor: pointer;
   &:hover {
-    background-color: $pink;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
     border: 0;
     background-position: 0;
@@ -92,6 +90,7 @@
 
 [data-drupal-selector="edit-login"] {
   float: left;
+  margin-bottom: 0 !important;
 }
 
 [data-drupal-selector="edit-cancel"],
@@ -99,23 +98,27 @@
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"] {
   @extend .pink-button;
-  padding: 6px 12px;
+  padding: 10px 15px;
   font-size: 14px !important;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-transform: capitalize;
+}
+
+[data-drupal-selector="edit-login-actions"] {
+  margin-top: 20px !important;
 }
 
 [data-drupal-selector="edit-reset-password"] {
   background: none !important;
   border: none;
-  font-size: 14px !important;
+  font-size: 16px !important;
   box-shadow: none;
   text-transform: inherit;
   font-weight: normal;
-  color: $blue-medium !important;
+  color: #0089d0 !important;
   padding: 0;
-  margin-top: 5px;
-  margin-left: 6px;
+  margin-top: 8px;
+  margin-left: 10px;
   float: left;
   &:hover {
     text-decoration: underline;
@@ -175,13 +178,10 @@ label {
 
 .edit-login-actions,
 .edit-registration-actions {
-  float: left;
-  width: 50%;
   position: relative;
   a {
     float: left;
     margin-right: 4px;
-
   }
   @include breakpoint(0 $mobile-landscape) {
     width: 100%;
@@ -189,11 +189,11 @@ label {
   }
   .fieldset-wrapper {
     div {
-      margin-top: 5px;
+      margin-top: 10px;
       float: left;
+      margin-left: 10px;
     }
   }
-
   .ajax-progress {
     left: 164px;
     top: 0;
@@ -206,7 +206,7 @@ label {
     a.btn {
       margin-right: 3px !important;
       @extend .pink-button;
-      padding: 6px 10px;
+      padding: 10px 15px;
       float: left;
       font-size: 14px;
       margin-bottom: 10px;
