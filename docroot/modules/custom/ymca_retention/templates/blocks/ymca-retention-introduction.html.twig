@@ -35,7 +35,6 @@
               {{ info_block.copy }}
             {% endif %}
           </div>
-          {% if info_block.img is not empty %}
             {% if info_block.link_type is not empty %}
               {% if info_block.link_type == 1 %}
               <a href="{{ info_block.link }}" target="_blank">
@@ -44,14 +43,13 @@
               {% endif %}
 
               <figure class="img">
-                <img src="{{ file_url(info_block.img) }}" />
+                <img src="{{ base_path }}themes/custom/ymca/img/2017_summer/tab1_{{ loop.index }}.png" />
               </figure>
 
               {% if info_block.link_type is not empty %}
               </a>
               {% endif %}
             {% endif %}
-          {% endif %}
         </div>
       </div>
       {% endfor %}

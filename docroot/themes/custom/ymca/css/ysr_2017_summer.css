@@ -1,4 +1,12 @@
 @charset "UTF-8";
+/**
+ * Generates style triangle.
+ * @param $position
+ *   Position of triangle: top, right, bottom, left
+ * @param $color
+ * @param $width
+ * @param $height
+ */
 .ng-hide, .ng-cloak {
   display: none !important;
 }
@@ -506,22 +514,21 @@ html, body {
   height: 434px;
   height: 43.4rem;
   position: relative;
-  background: url('../img/2017_summer/retention_summer_hero_2017-mobile.jpg') 50% 50% no-repeat;
+  background: url('../img/2017_summer/retention_summer.jpg') 50% -32px no-repeat;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
-@media (min-width: 20.0625em) {
+@media (min-width: 60em) {
   .compain-header {
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
-  }
-}
-@media (min-width: 48em) {
-  .compain-header {
-    height: 475px;
-    height: 47.5rem;
-    background-image: url('../img/2017_summer/retention_summer_hero_2017.jpg');
-    background-position: 50% 0;
+    height: 670px;
+    height: 67rem;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-position: 50% -87px;
   }
 }
 .compain-header--content {
@@ -1408,7 +1415,6 @@ html, body {
   margin: 0 0 26px 0;
   margin: 0 0 2.6rem 0;
   text-align: center;
-  color: #01a490;
 }
 @media (min-width: 48em) {
   .content-wrapper--detailed h2 {
@@ -1426,7 +1432,7 @@ html, body {
   line-height: 2.8rem;
   margin: 32px 0 22px 0;
   margin: 3.2rem 0 2.2rem 0;
-  color: #0089d0;
+  color: #006b6b;
 }
 @media (min-width: 48em) {
   .content-wrapper--detailed h3 {
@@ -1715,7 +1721,6 @@ html, body {
 @media (min-width: 48em) {
   .compain-info-block .img img {
     display: block;
-    max-width: none;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -2138,7 +2143,7 @@ html, body {
   #prizes-info .compaign-tab-sub-header {
     margin-left: auto;
     margin-right: auto;
-    max-width: 435px;
+    max-width: 800px;
   }
 }
 @media (max-width: 47.9375em) {
@@ -2336,6 +2341,11 @@ html, body {
     font-size: 4rem;
   }
 }
+.my-progress--visits {
+  font-size: 16px;
+  font-size: 1.6rem;
+  text-transform: none;
+}
 
 .compain-progress {
   margin: 0 13px 12px;
@@ -2403,7 +2413,6 @@ html, body {
   content: '';
 }
 .compain-progress--info .text {
-  color: #006b6b;
   display: none;
 }
 .compain-progress .line {

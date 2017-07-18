@@ -1,16 +1,17 @@
 .compain-header {
   @include rem(height, 434px);
   position: relative;
-  background: image-url('2017_summer/retention_summer_hero_2017-mobile.jpg') 50% 50% no-repeat;
+  background: image-url('2017_summer/retention_summer.jpg') 50% -32px no-repeat;
+  @include background-size(cover);
 
   @include breakpoint($mobile-bp + 1) {
-    @include background-size(cover);
+
   }
 
-  @include breakpoint($tablet) {
-    @include rem(height, 475px);
-    background-image: image-url('2017_summer/retention_summer_hero_2017.jpg');
-    background-position: 50% 0;
+  @include breakpoint($tablet-landscape) {
+    @include rem(height, 670px);
+    @include background-size(contain);
+    background-position: 50% -87px;
   }
 
   &--content {
