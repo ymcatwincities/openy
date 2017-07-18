@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Global Navigation'
+description: 'OpenY Global Navigation paragraph'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - field
+  - paragraphs
+  - plugin
+version: 8.x-1.0

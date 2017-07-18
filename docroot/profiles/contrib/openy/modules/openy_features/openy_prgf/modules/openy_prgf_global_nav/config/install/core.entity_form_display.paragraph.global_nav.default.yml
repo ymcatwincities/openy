@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.global_nav.field_prgf_global_nav
+    - paragraphs.paragraphs_type.global_nav
+  module:
+    - plugin
+id: paragraph.global_nav.default
+targetEntityType: paragraph
+bundle: global_nav
+mode: default
+content:
+  field_prgf_global_nav:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: 'plugin_selector:plugin_select_list'
+hidden:
+  created: true
+  status: true
+  uid: true
