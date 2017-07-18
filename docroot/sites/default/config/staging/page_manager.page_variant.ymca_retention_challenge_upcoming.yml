@@ -8,7 +8,7 @@ dependencies:
     - panels
     - system
 id: ymca_retention_challenge_upcoming
-label: 'YMCA Recharge Upcoming page'
+label: 'YMCA Strive Upcoming page'
 variant: panels_variant
 variant_settings:
   blocks: {  }
