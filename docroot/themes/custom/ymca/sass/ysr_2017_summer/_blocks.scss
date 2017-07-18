@@ -94,7 +94,6 @@
       height: auto;
       @include breakpoint($tablet) {
         display: block;
-        max-width: none;
         position: absolute;
         left: 50%;
         top: 50%;

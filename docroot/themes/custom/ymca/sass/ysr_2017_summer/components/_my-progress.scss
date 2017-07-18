@@ -39,6 +39,11 @@
       }
     }
   }
+
+  &--visits {
+    @include rem(font-size, 16px);
+    text-transform: none;
+  }
 }
 
 .compain-progress {
