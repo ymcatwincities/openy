@@ -514,20 +514,21 @@ html, body {
   height: 434px;
   height: 43.4rem;
   position: relative;
-  background: url('../img/2017_summer/retention_summer.jpg') 50% 65px no-repeat;
+  background: url('../img/2017_summer/retention_summer.jpg') 50% -32px no-repeat;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
-@media (min-width: 20.0625em) {
-  .compain-header {
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -webkit-background-size: cover;
-    background-size: cover;
-  }
-}
-@media (min-width: 48em) {
+@media (min-width: 60em) {
   .compain-header {
     height: 670px;
     height: 67rem;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    -webkit-background-size: contain;
+    background-size: contain;
+    background-position: 50% -87px;
   }
 }
 .compain-header--content {
