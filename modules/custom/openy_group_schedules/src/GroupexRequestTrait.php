@@ -90,7 +90,7 @@ trait GroupexRequestTrait {
       $body = $response->getBody();
       $data = json_decode($body->getContents());
 
-      if ($status == TRUE && !empty($manager)) {
+      if ($status == TRUE && !empty($manager) && !empty($data)) {
         $manager->setCache($all_options, $data);
       }
 
