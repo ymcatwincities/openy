@@ -11,7 +11,7 @@ bundle: microsites_menu
 label: 'Hide Main Menu'
 description: 'Whether to hide or not the main website menu.'
 required: false
-translatable: false
+translatable: true
 default_value:
   -
     value: 1
