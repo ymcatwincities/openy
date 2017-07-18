@@ -1,0 +1,13 @@
+name: 'OpenY Paragraph Microsites Menu'
+description: 'Provide paragraph containing a microsites menu block.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - content_moderation
+  - entity_browser_entity_form
+  - field
+  - inline_entity_form
+  - openy_block_menu
+  - paragraphs
+version: 8.x-1.1
