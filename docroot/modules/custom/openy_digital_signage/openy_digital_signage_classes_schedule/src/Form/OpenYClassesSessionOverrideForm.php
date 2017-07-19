@@ -61,10 +61,8 @@ class OpenYClassesSessionOverrideForm extends ContentEntityForm {
     // Set new entity as entity by default.
     $this->entity = $this->overriddenEntity;
     // Set reference to original entity.
-    $this->entity->set('overridden', TRUE);
     $this->entity->set('original_session', $id);
     $this->entity->setSource('manually');
-
 
     $status = parent::save($form, $form_state);
 

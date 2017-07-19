@@ -13,7 +13,7 @@ dependencies:
     - options
     - user
 _core:
-  default_config_hash: oah0QV0gE03TN14VO7Xk4hNB6vO7Tej1Z9j4TXf4320
+  default_config_hash: o6_kTV08523EZLArJ-xifESFVFxWsUO8LRKn0qBjoVQ
 id: digital_signage_classes_sessions
 label: 'Digital Signage Classes Sessions'
 module: views
@@ -924,127 +924,7 @@ display:
           admin_label: ''
           operator: '='
           value: '0'
-          group: 2
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: openy_ds_classes_session
-          entity_field: overridden
-          plugin_id: boolean
-        original_session:
-          id: original_session
-          table: openy_ds_classes_session
-          field: original_session
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: empty
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 2
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: openy_ds_classes_session
-          entity_field: original_session
-          plugin_id: numeric
-        original_session_1:
-          id: original_session_1
-          table: openy_ds_classes_session
-          field: original_session
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: 'not empty'
-          value:
-            min: ''
-            max: ''
-            value: ''
-          group: 3
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: openy_ds_classes_session
-          entity_field: original_session
-          plugin_id: numeric
-        overridden_1:
-          id: overridden_1
-          table: openy_ds_classes_session
-          field: overridden
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: '1'
-          group: 3
+          group: 1
           exposed: false
           expose:
             operator_id: ''
@@ -1119,8 +999,6 @@ display:
         operator: OR
         groups:
           1: AND
-          2: AND
-          3: AND
     cache_metadata:
       max-age: 0
       contexts:
