@@ -74,7 +74,6 @@ h6, .h6 {
 
 .page-heading {
   padding: 30px 0;
-  margin-bottom: 40px;
 }
 .page-heading.black-header {
   background: #434343;
@@ -878,7 +877,7 @@ label {
 .status-message li {
   list-style-type: none;
 }
-.path-frontpage .status-message, .node--type-program-subcategory .status-message {
+.path-node .status-message, .path-frontpage .status-message, .node--type-program-subcategory .status-message {
   margin-bottom: 0;
 }
 
