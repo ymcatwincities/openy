@@ -87,6 +87,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
     $eq->condition('field_session_location', $location->id());
     $eq->condition('date_time.value', $period_to, '<=');
     $eq->condition('date_time.end_value', $period_from, '>=');
+    $eq->condition('overridden', FALSE);
     $eq->sort('date_time.value');
     $results = $eq->execute();
 
