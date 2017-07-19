@@ -11,7 +11,7 @@ field_name: field_amenities_icon
 entity_type: taxonomy_term
 bundle: amenities
 label: Icon
-description: ''
+description: 'Icon will be displayed on Amenities page. Find 1 million of free SVG icons at <a target="_blank" href="https://thenounproject.com">thenounproject.com</a>'
 required: true
 translatable: false
 default_value: {  }
