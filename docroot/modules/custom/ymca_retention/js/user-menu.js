@@ -74,7 +74,7 @@
         // Add requested form to the modal body.
         if (type === 'tabs-lock') {
           $('#ymca-retention-user-menu-tabs-lock').appendTo($modal_body);
-            title = $modal_body.find('.days-left').text();
+            var title = $modal_body.find('.days-left').text();
             // Assign modal title.
             $modal.find('.modal-title').text(Drupal.t(title));
         }
