@@ -1,0 +1,16 @@
+name: 'Openy Latest News Posts'
+package: 'OpenY (Experimental)'
+description: 'Latest news posts.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+  - openy_node_news
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - user
+  - views
+  - views_infinite_scroll
+version: 8.x-1.0
