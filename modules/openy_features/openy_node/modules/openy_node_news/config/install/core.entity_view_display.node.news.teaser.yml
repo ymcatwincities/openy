@@ -25,6 +25,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
+    region: content
   field_news_image:
     type: entity_reference_entity_view
     weight: 2
@@ -33,10 +34,12 @@ content:
       view_mode: node_program_subcategory_teaser
       link: false
     third_party_settings: {  }
+    region: content
   links:
     weight: 0
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_content: true
   field_news_description: true
