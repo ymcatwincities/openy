@@ -4505,4 +4505,21 @@ a.sports-icon.floor-hockey {
   float: left;
 }
 
+.paragraph--type--simple-content article.embedded-entity {
+  margin-bottom: 0;
+}
+
+.paragraph-gallery .item__caption {
+  right: 30px;
+}
+
+.landing-content .paragraph--type--gallery .cta-group-wrapper, .landing-footer .paragraph--type--gallery .cta-group-wrapper {
+  left: 100px;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .landing-content .paragraph--type--gallery .cta-group-wrapper, .landing-footer .paragraph--type--gallery .cta-group-wrapper {
+    margin: 0 -15px;
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
