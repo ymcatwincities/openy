@@ -17,7 +17,7 @@
       // Show slick carousel.
       self.dates_type_carousel = true;
       self.getTodayIndex = function() {
-        if (typeof self.storage.dates === 'undefined' || self.storage.dates.length == 0) {
+        if (!self.storage.dates || self.storage.dates.length == 0) {
           return -1;
         }
         for (var index in self.storage.dates) {
@@ -64,7 +64,7 @@
         return classes.join(' ');
       };
       self.activitiesCount = function (index) {
-        if (typeof self.storage.member_activities === 'undefined' || self.storage.member_activities.length == 0) {
+        if (!self.storage.member_activities || self.storage.member_activities.length == 0) {
           return 0;
         }
 
@@ -126,7 +126,7 @@
 
       // Check visits for a date.
       self.isVisited = function (index) {
-        if (typeof self.storage.member_checkins === 'undefined' || self.storage.member_checkins.length == 0) {
+        if (!self.storage.member_checkins || self.storage.member_checkins.length == 0) {
           return false;
         }
         if (self.storage.member_checkins[self.storage.dates[index].timestamp]) {
