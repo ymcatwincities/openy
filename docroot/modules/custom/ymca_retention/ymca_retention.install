@@ -618,3 +618,12 @@ function ymca_retention_update_8034() {
     'page_manager.page_variant.ymca_retention_challenge_winners',
   ]);
 }
+
+/**
+ * Update YMCA Retention members view.
+ */
+function ymca_retention_update_8035() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs(['views.view.ymca_members']);
+}
