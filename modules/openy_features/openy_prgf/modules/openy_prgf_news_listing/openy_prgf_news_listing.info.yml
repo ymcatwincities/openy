@@ -1,6 +1,6 @@
-name: 'Openy News Posts listing'
+name: 'OpenY News Posts listing'
 package: 'OpenY (Experimental)'
-description: 'News posts listing.'
+description: 'OpenY News Posts listing.'
 type: module
 core: 8.x
 dependencies:
@@ -17,4 +17,3 @@ dependencies:
   - verf
   - views
   - views_infinite_scroll
-version: 8.x-1.0
