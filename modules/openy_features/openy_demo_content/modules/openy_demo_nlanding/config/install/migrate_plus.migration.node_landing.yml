@@ -45,6 +45,8 @@ source:
       content_ids:
         -
           content_id: give_featured_content
+        -
+          content_id: give_microsites_menu
     -
       id: blog
       title: 'Blog'

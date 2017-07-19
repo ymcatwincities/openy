@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_block_microsites_menu
+migration_tags: {  }
+migration_group: openy_demo_mblock
+label: 'Create demo for microsites menu'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 9
+      code: 'e350fe26-bc73-4c69-af18-a51a052dbcd9'
+      description: 'Give Microsite Menu Block'
+      title: ''
+      links:
+        -
+          uri: 'internal:/microsite_demo'
+          title: Welcome
+        -
+          uri: 'internal:/microsite_demo/about'
+          title: About
+        -
+          uri: 'internal:/microsite_demo/about'
+          title: Welcome
+        -
+          uri: '/microsite_demo/about'
+          title: Twin Cities site
+      color_ids:
+        -
+          color_id: 5
+        -
+          color_id: 5
+      text_color: 1
+  ids:
+    id:
+      type: integer
+process:
+  type:
+    plugin: default_value
+    default_value: menu_block
+  uuid: code
+  info: description
+  field_menu_block_links:
+      plugin: iterator
+      source: links
+      process:
+        uri:
+          plugin: get
+          source: uri
+        title:
+          plugin: get
+          source: title
+  field_menu_block_color:
+    plugin: iterator
+    source: color_ids
+    process:
+      target_id:
+        plugin: migration
+        migration: openy_demo_taxonomy_term_color
+        source: color_id
+  field_menu_block_text_color:
+      plugin: migration
+      migration: openy_demo_taxonomy_term_color
+      source: text_color
+destination:
+  plugin: entity:block_content

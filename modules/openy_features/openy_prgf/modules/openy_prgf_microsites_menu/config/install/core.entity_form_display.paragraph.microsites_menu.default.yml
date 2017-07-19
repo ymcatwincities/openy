@@ -6,7 +6,6 @@ dependencies:
     - field.field.paragraph.microsites_menu.field_prgf_ms_menu_hide_menu
     - paragraphs.paragraphs_type.microsites_menu
   module:
-    - content_moderation
     - entity_browser_entity_form
     - inline_entity_form
 id: paragraph.microsites_menu.default

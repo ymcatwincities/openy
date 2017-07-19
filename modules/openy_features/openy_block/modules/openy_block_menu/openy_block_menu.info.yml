@@ -2,12 +2,11 @@ name: 'Openy Block Menu'
 description: 'Implements custom block type with a links.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - block_content
-  - content_moderation
   - field
   - language
   - link
   - openy_txnm_color
   - taxonomy
-version: 8.x-1.1

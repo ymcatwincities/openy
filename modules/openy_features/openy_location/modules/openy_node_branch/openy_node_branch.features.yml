@@ -1,3 +1,0 @@
-excluded:
-  - views.view.locations
-required: true
