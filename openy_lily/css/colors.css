@@ -290,6 +290,8 @@ body .branch-popup .ui-dialog-content h3 {
   color: #d8d8d7;
 }
 .is-camp .branch-header .desktop,
+.is-camp .branch-header .mobile,
+.is-camp .branch-header .location-details #directions-hours-mobile,
 .is-camp .camp-address.all-hours {
   background-color: #c6168c;
 }
