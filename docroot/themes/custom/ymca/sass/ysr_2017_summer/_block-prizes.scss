@@ -24,7 +24,7 @@
     }
     .inner-container {
       background: image-url('2017_summer/retention_summer_2017_guest_passes.png') 50% 0 no-repeat;
-      background-size: 77%;
+      background-size: inherit;
       @include rem(padding-top, 139px);
       @include breakpoint($tablet) {
         background-size: initial;
