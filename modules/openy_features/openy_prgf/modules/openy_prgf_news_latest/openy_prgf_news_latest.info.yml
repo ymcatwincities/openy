@@ -1,6 +1,6 @@
-name: 'Openy Latest News Posts'
+name: 'OpenY Latest News Posts'
 package: 'OpenY (Experimental)'
-description: 'Latest news posts.'
+description: 'OpenY Latest News Posts.'
 type: module
 core: 8.x
 dependencies:
@@ -13,4 +13,3 @@ dependencies:
   - user
   - views
   - views_infinite_scroll
-version: 8.x-1.0

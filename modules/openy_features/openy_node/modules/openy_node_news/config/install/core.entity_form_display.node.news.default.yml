@@ -16,6 +16,7 @@ dependencies:
     - field_group
     - paragraphs
     - path
+    - scheduler
     - text
 third_party_settings:
   field_group:
@@ -58,6 +59,7 @@ content:
     weight: 8
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_content:
     weight: 13
     settings:
@@ -68,6 +70,7 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   field_news_category:
     weight: 2
     settings:
@@ -76,6 +79,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete_tags
+    region: content
   field_news_description:
     weight: 12
     settings:
@@ -83,6 +87,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_news_image:
     weight: 11
     settings:
@@ -95,11 +100,13 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: entity_browser_entity_reference
+    region: content
   field_news_location:
     weight: 1
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_news_related:
     weight: 11
     settings:
@@ -108,6 +115,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
   field_sidebar_content:
     weight: 12
     settings:
@@ -118,16 +126,25 @@ content:
       form_display_mode: default
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
   path:
     type: path
     weight: 12
     settings: {  }
     third_party_settings: {  }
+    region: content
   promote:
     type: boolean_checkbox
     settings:
       display_label: true
     weight: 9
+    third_party_settings: {  }
+    region: content
+  publish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
@@ -135,6 +152,7 @@ content:
       display_label: true
     weight: 10
     third_party_settings: {  }
+    region: content
   title:
     type: string_textfield
     weight: 0
@@ -142,6 +160,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 11
@@ -149,5 +168,12 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+    region: content
+  unpublish_on:
+    type: datetime_timestamp_no_default
+    weight: 30
+    region: content
+    settings: {  }
     third_party_settings: {  }
 hidden: {  }
