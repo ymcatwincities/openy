@@ -64,6 +64,6 @@ function openy_digital_signage_classes_schedule_entity_operation_alter(array &$o
       ]),
       'weight' => 20,
     ];
-
+    $operations['delete']['title'] = t('Restore original');
   }
 }
