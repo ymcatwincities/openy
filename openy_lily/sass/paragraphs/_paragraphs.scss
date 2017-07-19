@@ -496,3 +496,25 @@
 .paragraph--type--classes-listing-filters .form-actions {
   float: left;
 }
+
+.paragraph--type--simple-content {
+  article.embedded-entity {
+    margin-bottom: 0;
+  }
+}
+
+.paragraph-gallery .item__caption {
+  right: 30px;
+}
+
+.paragraph--type--gallery {
+  .landing-content &,
+  .landing-footer & {
+    .cta-group-wrapper {
+      left:100px;
+      @include breakpoint (0 $tablet) {
+        margin: 0 -15px;
+      }
+    }
+  }
+}
