@@ -44,23 +44,34 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 'banner',
 ] %}
 {% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
-
-<section id="small-text-banner" {{ attributes.addClass(classes).removeClass('banner') }} style='background-color: {{ color }}'>
+{% set background = content.field_prgf_image['#field_name'] %}
+{% if background is empty %}
+   {% set col_size %}
+     col-sm-12
+   {% endset %}
+{% else %}
+   {% set col_size %}
+     col-sm-6
+   {% endset %}
+{% endif %}
+<section id="small-text-banner" {{ attributes.addClass(classes).removeClass('banner') }}
+         style='background-color: {{ color }}'>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-6 header-copy">
+      <div class="{{ col_size|trim }} header-copy">
         <div class="banner-copy">
           <h1>{{ content.field_prgf_headline }}</h1>
           {{ content.field_prgf_description }}
         </div>
       </div>
-      <div class="col-sm-6 header-image"
-           style="background-image: url({{ file_url(content.field_prgf_image.0['#item'].entity.uri.value) }});">
-        <figure class="text-center visible-xs">
-          {{ content.field_prgf_image }}
-        </figure>
-      </div>
+      {% if background is not empty %}
+        <div class="col-sm-6 header-image"
+             style="background-image: url({{ file_url(content.field_prgf_image.0['#item'].entity.uri.value) }});">
+          <figure class="text-center visible-xs">
+            {{ content.field_prgf_image }}
+          </figure>
+        </div>
+      {% endif %}
     </div>
   </div>
-
 </section>
