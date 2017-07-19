@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Sidebar Menu'
+description: 'Implements sidebar menu block.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - paragraphs
+  - plugin
+  - openy_block_sidebar_menu
+version: 8.x-1.0

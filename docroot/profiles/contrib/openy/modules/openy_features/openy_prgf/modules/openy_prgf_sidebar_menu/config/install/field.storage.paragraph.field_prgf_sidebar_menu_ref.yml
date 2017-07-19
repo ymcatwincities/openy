@@ -4,8 +4,8 @@ dependencies:
   module:
     - paragraphs
     - plugin
-id: paragraph.field_prgf_global_nav
-field_name: field_prgf_global_nav
+id: paragraph.field_prgf_sidebar_menu_ref
+field_name: field_prgf_sidebar_menu_ref
 entity_type: paragraph
 type: 'plugin:block'
 settings: {  }
