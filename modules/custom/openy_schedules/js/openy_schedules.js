@@ -244,4 +244,13 @@
       });
     }
   };
+
+  Drupal.behaviors.openy_schedules_removeUnneededAria = {
+    attach: function (context, settings) {
+      $('.schedule-sessions-group-slider .slick-slide', context).once().each(function () {
+        $(this).removeAttr('role');
+      });
+    }
+  };
+
 })(jQuery);
