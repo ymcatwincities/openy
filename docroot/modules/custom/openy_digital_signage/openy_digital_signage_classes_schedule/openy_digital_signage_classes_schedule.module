@@ -5,7 +5,7 @@
  * Contains specific features related to the functionality provided by module.
  */
 
-use \Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 
 /**
@@ -16,6 +16,21 @@ function openy_digital_signage_classes_schedule_cron() {
   $regular_updater = \Drupal::service('openy_digital_signage_classes_schedule.cron');
 
   $regular_updater->removeOldSessions();
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function openy_digital_signage_classes_schedule_entity_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'openy_ds_classes_session') {
+    return;
+  }
+  /* @var $original_session \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession */
+  if (!$original_session = $entity->original_session->entity) {
+    return;
+  }
+  $original_session->set('overridden', FALSE);
+  $original_session->save();
 }
 
 /**
@@ -40,7 +55,7 @@ function openy_digital_signage_classes_schedule_entity_operation_alter(array &$o
       'weight' => 50,
     ];
   }
-  elseif ($entity->isOverridden()) {
+  elseif ($entity->original_session->entity) {
     // Add override option.
     $operations['original'] = [
       'title' => t('See original'),
@@ -49,6 +64,6 @@ function openy_digital_signage_classes_schedule_entity_operation_alter(array &$o
       ]),
       'weight' => 20,
     ];
-
+    $operations['delete']['title'] = t('Restore original');
   }
 }
