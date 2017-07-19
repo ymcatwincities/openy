@@ -43,7 +43,7 @@ set classes = [
 view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-<div{{ attributes.addClass(classes) }}>
+<section{{ attributes.addClass(classes) }}>
   <h2 class="h1">{{ 'What\'s happening at the Y?'|t }}</h2>
   {{ content }}
-</div>
+</section>

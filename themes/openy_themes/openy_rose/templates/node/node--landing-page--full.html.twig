@@ -120,9 +120,11 @@
             </div>
             <div class="sidebar-region col-sm-4">
               {% endif %}
-              <article{{ attributes.addClass(sidebar_classes) }}>
+              {% if content.field_sidebar_content.0 %}
+              <aside{{ attributes.addClass(sidebar_classes) }}>
                 {{ content.field_sidebar_content }}
-              </article>
+              </aside>
+              {% endif %}
               {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
             </div>
           </div>
