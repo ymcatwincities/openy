@@ -131,7 +131,7 @@
       }
     }
   }
-  @include breakpoint (0 $tablet) {
+  @include breakpoint (0 767px) {
     text-align: center;
   }
 
@@ -149,7 +149,7 @@
       @include breakpoint ($tablet $tablet-start) {
         font-size: 42px;
       }
-      @include breakpoint (0 $tablet) {
+      @include breakpoint (0 767px) {
         display: block;
         margin-top: 10px;
         margin-bottom: 20px;
@@ -191,7 +191,7 @@
       max-width: 100%;
       padding-left: 30px;
       padding-right: 30px;
-      @include breakpoint (0 $tablet) {
+      @include breakpoint (0 767px) {
         width: 100%;
       }
 
@@ -209,7 +209,7 @@
     @include breakpoint ($tablet $tablet-start) {
       font-size: 12px;
     }
-    @include breakpoint (0 $tablet) {
+    @include breakpoint (0 767px) {
       font-size: 19px;
       border-top: none;
       box-shadow: none;
@@ -253,7 +253,7 @@
       div {
         margin-bottom: 10px;
       }
-      @include breakpoint (0 $tablet) {
+      @include breakpoint (0 767px) {
         position: static;
         font-size: 16px;
         line-height: 1.1em;
@@ -323,7 +323,7 @@
   .field-branch-hours {
     margin-left: 5px;
     display: inline-block;
-    @include breakpoint (0 $tablet) {
+    @include breakpoint (0 767px) {
       margin-left: 25px;
       margin-top: 5px;
       float: none;
@@ -335,7 +335,7 @@
     a {
       width: 77.5px;
       display: inline-block;
-      @include breakpoint(0 $tablet) {
+      @include breakpoint(0 767px) {
         display: none;
       }
 
@@ -352,18 +352,22 @@
 }
 
 .branch-header .location-details .hours {
-  @include breakpoint(0 $tablet) {
+  @include breakpoint(0 767px) {
     text-align: left;
+  }
+  @include breakpoint ($tablet $tablet-start) {
+    padding-left: 0;
   }
 }
 
 .branch-header .desktop .today-hours .branch-hours {
   right: -4px;
   left: auto;
+  z-index: 10;
 }
 
 .branch-header .branch-hours {
-  @include breakpoint(0 $tablet) {
+  @include breakpoint(0 767px) {
     display: block !important;
   }
 }
