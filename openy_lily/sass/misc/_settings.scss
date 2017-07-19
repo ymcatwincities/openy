@@ -136,3 +136,26 @@ a:hover, a:active, a:focus {
 html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-waiting .flag-throbber {
   top: 1px !important;
 }
+
+// Table styles
+
+.landing-content,
+.landing-footer {
+  table {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    tr {
+      &:nth-of-type(odd) {
+        background-color: #f9f9f9;
+      }
+      td, th {
+        padding: 8px;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+      }
+    }
+  }
+}

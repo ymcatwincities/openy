@@ -189,6 +189,26 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
   top: 1px !important;
 }
 
+.landing-content table,
+.landing-footer table {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+.landing-content table tr:nth-of-type(odd),
+.landing-footer table tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+.landing-content table tr td, .landing-content table tr th,
+.landing-footer table tr td,
+.landing-footer table tr th {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
+}
+
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
 }
@@ -3693,7 +3713,7 @@ a.sports-icon.floor-hockey {
   content: '\007b';
   font-family: 'YMCA';
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .branch-header {
     text-align: center;
   }
@@ -3716,7 +3736,7 @@ a.sports-icon.floor-hockey {
     font-size: 42px;
   }
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .branch-header .location-masthead .masthead-brand {
     display: block;
     margin-top: 10px;
@@ -3759,7 +3779,7 @@ a.sports-icon.floor-hockey {
   padding-left: 30px;
   padding-right: 30px;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .branch-header .masthead-button > a {
     width: 100%;
   }
@@ -3778,7 +3798,7 @@ a.sports-icon.floor-hockey {
     font-size: 12px;
   }
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .branch-header .location-details {
     font-size: 19px;
     border-top: none;
@@ -3826,7 +3846,7 @@ a.sports-icon.floor-hockey {
 .branch-header .location-details #camp-address div {
   margin-bottom: 10px;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .branch-header .location-details #camp-address {
     position: static;
     font-size: 16px;
@@ -3895,7 +3915,7 @@ a.sports-icon.floor-hockey {
   margin-left: 5px;
   display: inline-block;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .location-camp-header .field-branch-hours {
     margin-left: 25px;
     margin-top: 5px;
@@ -3910,7 +3930,7 @@ a.sports-icon.floor-hockey {
   width: 77.5px;
   display: inline-block;
 }
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .location-camp-header .today-hours a {
     display: none;
   }
@@ -3924,18 +3944,24 @@ a.sports-icon.floor-hockey {
   margin-bottom: 5px;
 }
 
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .branch-header .location-details .hours {
     text-align: left;
+  }
+}
+@media (min-width: 48em) and (max-width: 62em) {
+  .branch-header .location-details .hours {
+    padding-left: 0;
   }
 }
 
 .branch-header .desktop .today-hours .branch-hours {
   right: -4px;
   left: auto;
+  z-index: 10;
 }
 
-@media (min-width: 0) and (max-width: 48em) {
+@media (min-width: 0) and (max-width: 47.9375em) {
   .branch-header .branch-hours {
     display: block !important;
   }
