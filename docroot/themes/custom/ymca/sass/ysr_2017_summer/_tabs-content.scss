@@ -367,6 +367,7 @@
     @include rem(line-height, 30px);
     @include rem(margin, 0 0 26px 0);
     text-align: center;
+    color: $green-medium;
 
     @include breakpoint($tablet) {
       @include rem(font-size, 40px);
@@ -379,7 +380,7 @@
     @include rem(font-size, 16px);
     @include rem(line-height, 28px);
     @include rem(margin, 32px 0 22px 0);
-    color: $green-dark;
+    color: $blue-medium;
 
     @include breakpoint($tablet) {
       @include rem(margin, 42px 0 22px 0);

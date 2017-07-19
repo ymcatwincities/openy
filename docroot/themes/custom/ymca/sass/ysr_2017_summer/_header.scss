@@ -171,6 +171,10 @@
     text-transform: uppercase;
     display: block;
 
+    @include breakpoint(max-width ($tablet - 1)) {
+      @include rem(line-height, 45px);
+    }
+
     @include breakpoint($tablet) {
       @include rem(line-height, 66px);
       @include rem(margin, 0 0 0 38px);
@@ -184,6 +188,11 @@
       &:before {
         opacity: 1;
       }
+    }
+  }
+  span:before {
+    @include breakpoint(max-width ($tablet - 1)) {
+      margin-top: 8px;
     }
   }
 
@@ -253,6 +262,9 @@
 
   .link--log-out {
     text-transform: uppercase;
+    @include breakpoint(max-width ($tablet - 1 )) {
+      margin-top: 20px;
+    }
 
     &:before {
       background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-logout.svg');
@@ -289,6 +301,9 @@
     display: block;
     clear: left;
     position: relative;
+    @include breakpoint(max-width ($tablet - 1 )) {
+      text-transform: uppercase;
+    }
 
     @include breakpoint($tablet) {
       @include rem(line-height, 62px);
