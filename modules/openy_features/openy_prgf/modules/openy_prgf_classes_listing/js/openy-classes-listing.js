@@ -75,4 +75,12 @@
     }
   };
 
+  Drupal.behaviors.openy_prgf_class_listing_removeUnneededAria = {
+    attach: function (context, settings) {
+      $('.activity-group-slider .slick-slide', context).once().each(function () {
+        $(this).removeAttr('role');
+      });
+    }
+  };
+
 })(jQuery, Drupal, drupalSettings);
