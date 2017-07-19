@@ -64,7 +64,6 @@ class OpenYClassesSessionOverrideForm extends ContentEntityForm {
     $this->entity->set('original_session', $id);
     $this->entity->setSource('manually');
 
-
     $status = parent::save($form, $form_state);
 
     switch ($status) {
