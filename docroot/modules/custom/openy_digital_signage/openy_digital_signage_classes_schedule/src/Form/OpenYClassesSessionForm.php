@@ -33,6 +33,9 @@ class OpenYClassesSessionForm extends ContentEntityForm {
       if ($this->entity->getSource() != 'manually') {
         $form['actions']['#access'] = FALSE;
       }
+      if ($this->entity->original_session->entity && !empty($form['actions']['delete']['#title'])) {
+        $form['actions']['delete']['#title'] = t('Restore original session');
+      }
     }
     $form['field_session_author']['#access'] = FALSE;
 
