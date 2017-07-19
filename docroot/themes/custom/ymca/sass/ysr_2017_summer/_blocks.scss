@@ -83,11 +83,12 @@
 
   .img {
     @include rem(margin, 0 0 18px 0);
-    display: block;
+    display: none;
     text-align: center;
     @include breakpoint($tablet) {
       @include rem(padding, 0 0 120px 0);
       position: relative;
+      display: block;
     }
     img {
       max-width: 100%;

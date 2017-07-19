@@ -35,7 +35,7 @@
     @include border-radius(4px 4px 0 0);
     @include rem(height, 60px);
     @include rem(padding, 0 15px);
-    background: $green-medium;
+    background: $green-dark;
     border: none;
     color: $white;
 
@@ -88,7 +88,7 @@
   }
 
   .compain-content-bonus {
-    @include rem(padding, 98px 38px 38px);
+    @include rem(padding, 38px 38px 38px);
     text-align: center;
     position: relative;
 
@@ -105,8 +105,8 @@
     }
 
     p {
-      @include cachet-bold();
-      @include rem(font-size, 18px);
+      @include cachet();
+      @include rem(font-size, 16px);
       @include rem(line-height, 24px);
       color: $grey5;
     }
@@ -413,7 +413,7 @@
 #bonus-modal,
 #bonus-modal-no-register,
 #bonus-modal-day {
-  .modal-header {
+  .days-left {
     display: none;
   }
 
@@ -422,7 +422,7 @@
   }
 
   .btn {
-    @include rem(margin, 38px 0 0 0);
+    @include rem(margin, 24px 0 0 0);
     width: 100%;
 
     @include breakpoint($tablet) {
@@ -456,14 +456,16 @@
 }
 
 #bonus-modal-day {
-  .compain-content-bonus {
-    &:before {
-      background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-calendar.svg') 50% 50% no-repeat;
-      border: 2px solid $green-light;
+  #modal-title:before {
+      background: transparent inline-image('../prototypes/ysr_2017/img/icons/icon-calendar-white.svg') 50% 50% no-repeat;
       border-radius: 50%;
       background-size: cover;
-      width: 48px;
       height: 48px;
+      content: "";
+      width: 60px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: -3px;
+      margin-top: -6px;
     }
-  }
 }
