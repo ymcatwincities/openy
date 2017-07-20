@@ -1177,6 +1177,31 @@ legend {
   }
 }
 
+#schedules-search-form-wrapper .js-form-type-select.form-item-time {
+  margin-right: 15px;
+}
+#schedules-search-form-wrapper .js-form-type-checkbox {
+  margin-top: 50px;
+}
+@media (min-width: 0) and (max-width: 75em) {
+  #schedules-search-form-wrapper .js-form-type-select {
+    width: 125px !important;
+  }
+}
+@media (min-width: 0) and (max-width: 62em) {
+  #schedules-search-form-wrapper .js-form-type-select {
+    width: 80px !important;
+  }
+}
+@media (min-width: 0) and (max-width: 48em) {
+  #schedules-search-form-wrapper .js-form-type-select {
+    width: 100% !important;
+  }
+  #schedules-search-form-wrapper .filters-container .container {
+    padding: 0;
+  }
+}
+
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
