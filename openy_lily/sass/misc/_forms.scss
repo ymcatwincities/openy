@@ -471,3 +471,11 @@ legend {
     margin-bottom: 5px;
   }
 }
+
+// Popup form items
+
+.branch-popup .ui-dialog-content .form-item-branch {
+  @include breakpoint (0 $tablet) {
+    width: 100%;
+  }
+}

@@ -339,6 +339,8 @@ body .branch-popup .ui-dialog-content h3 {
 .is-camp .sidebar-card h2,
 .is-camp .story-card a,
 .is-camp .story-card .quote,
+.node--type-camp .branch-popup .ui-dialog-content h3,
+.node--type-camp .modal-body .fieldset-legend,
 .is-camp .color-purple,
 .is-camp .program-header.purple .description,
 .is-camp .sub-category-classes-view .activity-group h3,
@@ -364,6 +366,7 @@ body .branch-popup .ui-dialog-content h3 {
 body .is-camp .branch-popup .ui-dialog-content h3 {
   color: #5c2e92;
 }
+.node--type-camp .modal-body .button.btn-primary.btn-lg,
 .is-camp .node--type-blog.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2:after,
 .is-camp .node--type-blog.node--view-mode-teaser a .inner-wrapper .blog-up .category {
   background-color: #5c2e92;
