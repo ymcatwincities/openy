@@ -524,26 +524,17 @@ html, body {
   .compain-header {
     height: 670px;
     height: 67rem;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    -webkit-background-size: contain;
-    background-size: contain;
-    background-position: 50% -87px;
+    background-size: 1700px auto;
+    background-position: 50% -210px;
   }
 }
 .compain-header--content {
   background: #00aeef;
   bottom: 0;
-  padding-bottom: 26px;
-  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-top: 20px;
   position: absolute;
   width: 100%;
-}
-@media (min-width: 48em) {
-  .compain-header--content {
-    padding-bottom: 26px;
-    padding-top: 13px;
-  }
 }
 .compain-header--content .logo {
   display: none;
@@ -678,8 +669,7 @@ html, body {
 }
 
 .compain-user-menu {
-  padding: 0 44px;
-  padding: 0 4.4rem;
+  padding: 9px 12%;
   height: 65px;
   height: 6.5rem;
   background: #006b6b;
@@ -719,6 +709,7 @@ html, body {
   .compain-user-menu span {
     line-height: 45px;
     line-height: 4.5rem;
+    font-weight: bold;
   }
 }
 @media (min-width: 48em) {
@@ -1594,6 +1585,9 @@ html, body {
   max-width: 76%;
 }
 
+.retention-campaign .tab-content:empty {
+  display: none;
+}
 .retention-campaign .tab-content #tab_1,
 .retention-campaign .tab-content #tab_5 {
   padding: 0 0 60px 0;
@@ -3192,19 +3186,17 @@ html, body {
     height: 0.6rem;
   }
 }
-@media (min-width: 48em) {
-  .compain-progress--line:before {
-    border-bottom: 6px dotted rgba(0, 107, 107, 0.2);
-    content: '';
-    height: 6px;
-    height: 0.6rem;
-    left: 0;
-    margin-top: -3px;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    z-index: 10;
-  }
+.compain-progress--line:before {
+  border-bottom: 6px dotted rgba(0, 107, 107, 0.2);
+  content: '';
+  height: 6px;
+  height: 0.6rem;
+  left: 0;
+  margin-top: -3px;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  z-index: 10;
 }
 .compain-progress--line .line {
   background: #00aeef;
