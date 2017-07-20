@@ -1175,6 +1175,12 @@ legend {
   margin-bottom: 5px;
 }
 
+@media (min-width: 0) and (max-width: 48em) {
+  .branch-popup .ui-dialog-content .form-item-branch {
+    width: 100%;
+  }
+}
+
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
@@ -3090,7 +3096,7 @@ p.legend {
   display: none;
 }
 .ui-widget.ui-dialog .ui-dialog-content {
-  padding: 40px 60px 80px;
+  padding: 0px 30px 10px;
 }
 
 /* End of jQuery Modal Form */
