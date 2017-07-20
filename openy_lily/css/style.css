@@ -4546,26 +4546,5 @@ a.sports-icon.floor-hockey {
     margin: 0 -15px;
   }
 }
-.landing-content .paragraph--type--gallery .cta-group-wrapper .field-prgf-description, .landing-footer .paragraph--type--gallery .cta-group-wrapper .field-prgf-description {
-  max-height: 209px;
-  overflow: hidden;
-  display: block;
-}
-@media (min-width: 0) and (max-width: 62em) {
-  .landing-content .paragraph--type--gallery .cta-group-wrapper .field-prgf-description, .landing-footer .paragraph--type--gallery .cta-group-wrapper .field-prgf-description {
-    max-height: 170px;
-    font-size: 14px;
-  }
-}
-.landing-content .paragraph--type--gallery .cta-group-wrapper .cta-group, .landing-footer .paragraph--type--gallery .cta-group-wrapper .cta-group {
-  overflow: hidden;
-  max-height: 316px;
-}
-@media (min-width: 0) and (max-width: 62em) {
-  .landing-content .paragraph--type--gallery .cta-group-wrapper .cta-group, .landing-footer .paragraph--type--gallery .cta-group-wrapper .cta-group {
-    overflow: hidden;
-    max-height: 264px;
-  }
-}
 
 /*# sourceMappingURL=style.css.map */

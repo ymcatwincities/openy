@@ -169,4 +169,17 @@
     }
   };
 
+  /**
+   * Trim description on gallery .
+   */
+  Drupal.behaviors.trimDesc = {
+    attach: function (context, settings) {
+      $(context).find('.paragraph--type--gallery .field-prgf-description p').once('glrySld').each(function () {
+        $(this).text(function(index, currentText) {
+          return currentText.substr(0, 175) + '...';
+        });
+      });
+    }
+  };
+
 })(jQuery, Drupal, drupalSettings);

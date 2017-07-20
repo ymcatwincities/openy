@@ -511,26 +511,9 @@
   .landing-content &,
   .landing-footer & {
     .cta-group-wrapper {
-      left: 100px;
+      left:100px;
       @include breakpoint (0 $tablet) {
         margin: 0 -15px;
-      }
-      .field-prgf-description {
-        max-height: 209px;
-        overflow: hidden;
-        display: block;
-        @include breakpoint (0 $tablet-start ) {
-          max-height: 170px;
-          font-size: 14px;
-        }
-      }
-      .cta-group {
-        overflow: hidden;
-        max-height: 316px;
-        @include breakpoint (0 $tablet-start ) {
-          overflow: hidden;
-          max-height: 264px;
-        }
       }
     }
   }
