@@ -5954,7 +5954,7 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 .wrapper-field-menu-block-links .field-menu-block-links a:hover {
-  color: #636466;
+  color: inherit;
   text-decoration: underline;
 }
 
