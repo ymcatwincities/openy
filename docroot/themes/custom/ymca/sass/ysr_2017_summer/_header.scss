@@ -10,25 +10,19 @@
 
   @include breakpoint($tablet-landscape) {
     @include rem(height, 670px);
-    @include background-size(contain);
-    background-position: 50% -87px;
+    background-size: 1700px auto;
+    background-position: 50% -210px;
   }
 
   &--content {
     background: $blue;
     bottom: 0;
     padding: {
-      bottom: 26px;
-      top: 10px;
+      bottom: 10px;
+      top: 20px;
     }
     position: absolute;
     width: 100%;
-    @include breakpoint($tablet) {
-      padding: {
-        bottom: 26px;
-        top: 13px;
-      }
-    }
 
     .logo {
       display: none;
@@ -144,7 +138,7 @@
 }
 
 .compain-user-menu {
-  @include rem(padding, 0 44px);
+  padding: 9px 12%;
   @include rem(height, 65px);
   background: $green-dark;
   position: absolute;
@@ -173,6 +167,7 @@
 
     @include breakpoint(max-width ($tablet - 1)) {
       @include rem(line-height, 45px);
+      font-weight: bold;
     }
 
     @include breakpoint($tablet) {
