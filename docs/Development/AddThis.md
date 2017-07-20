@@ -9,3 +9,10 @@ OpenY AddThis module allow you easy add Social icons to any node.
 
 3. Select the content type for which to show the social icons and save.
 
+## How to use AddThis paragraph
+You can add AddThis to specific node use 'Social share icons' paragraph
+
+1. Click on 'Edit' any node
+
+2. After content add 'Social share icons' paragraph
+![Enter Public id](../assets/addthis_paragraph.png)

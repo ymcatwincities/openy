@@ -4344,10 +4344,6 @@ html.js .branch__updates_queue__button {
   content: none;
 }
 
-.addthis {
-  margin-top: 10px;
-}
-
 .class-page-schedule .sidebar-card {
   position: relative;
 }
@@ -5906,6 +5902,10 @@ html.js .flag-waiting .flag-throbber {
   font-size: 24px;
   color: #5c2e91;
   margin: 40px 0 0;
+}
+
+.addthis {
+  margin-top: 10px;
 }
 
 a:focus,
