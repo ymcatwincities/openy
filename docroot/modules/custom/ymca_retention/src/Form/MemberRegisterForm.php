@@ -322,13 +322,13 @@ class MemberRegisterForm extends FormBase {
 
     // Validate dates.
     if ($current_date < $open_date) {
-      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y spirit challenge open.', [
+      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Strive challenge open.', [
         '%date' => $open_date->format('F j'),
       ]));
       return;
     }
     if ($current_date > $close_date) {
-      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
+      $form_state->setErrorByName('form', $this->t('The Y Strive challenge is now closed and registration is no longer able to be tracked.'));
       return;
     }
 
