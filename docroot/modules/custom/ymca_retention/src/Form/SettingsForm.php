@@ -163,6 +163,30 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Message to display if ProductCode is on the excluded list.'),
     ];
 
+    $form['error_msg_incorrect_id'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Error Message: Incorrect Member ID'),
+      '#default_value' => $config->get('error_msg_incorrect_id')['value'],
+      '#format' => $config->get('error_msg_incorrect_id')['format'],
+      '#description' => $this->t('Message to display if user is trying to register with an incorrect member ID.'),
+    ];
+
+    $form['error_msg_registered_before_start'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Error Message: Already Registered Before Start'),
+      '#default_value' => $config->get('error_msg_registered_before_start')['value'],
+      '#format' => $config->get('error_msg_registered_before_start')['format'],
+      '#description' => $this->t('Message to display if user is trying to register again before the start of the campaign.'),
+    ];
+
+    $form['error_msg_registered_after_start'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Error Message: Already Registered After Start'),
+      '#default_value' => $config->get('error_msg_registered_after_start')['value'],
+      '#format' => $config->get('error_msg_registered_after_start')['format'],
+      '#description' => $this->t('Message to display if user is trying to register again after the start of the campaign.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -257,6 +281,9 @@ class SettingsForm extends ConfigFormBase {
       ->set('recent_winners_limit', $form_state->getValue('recent_winners_limit'))
       ->set('exclude_reg_product_codes', $excluded_product_codes)
       ->set('error_msg_excluded_members', $form_state->getValue('error_msg_excluded_members'))
+      ->set('error_msg_incorrect_id', $form_state->getValue('error_msg_incorrect_id'))
+      ->set('error_msg_registered_before_start', $form_state->getValue('error_msg_registered_before_start'))
+      ->set('error_msg_registered_after_start', $form_state->getValue('error_msg_registered_after_start'))
       ->save();
 
     parent::submitForm($form, $form_state);
