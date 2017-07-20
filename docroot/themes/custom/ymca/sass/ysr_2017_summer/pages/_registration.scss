@@ -113,3 +113,16 @@
     }
   }
 }
+
+#ymca-retention-user-menu-register-form {
+  .alert {
+    padding-right: 40px;
+    position: relative;
+    button.close {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      right: 6px;
+    }
+  }
+}

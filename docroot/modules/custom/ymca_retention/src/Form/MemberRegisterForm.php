@@ -316,19 +316,20 @@ class MemberRegisterForm extends FormBase {
 
     // Get retention settings.
     $settings = \Drupal::config('ymca_retention.general_settings');
-    $open_date = new \DateTime($settings->get('date_registration_open'));
-    $close_date = new \DateTime($settings->get('date_registration_close'));
+    $campaign_open_date = new \DateTime($settings->get('date_campaign_open'));
+    $reg_open_date = new \DateTime($settings->get('date_registration_open'));
+    $reg_close_date = new \DateTime($settings->get('date_registration_close'));
     $current_date = new \DateTime();
 
     // Validate dates.
-    if ($current_date < $open_date) {
-      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y Strive challenge open.', [
-        '%date' => $open_date->format('F j'),
+    if ($current_date < $reg_open_date) {
+      $form_state->setErrorByName('form', $this->t('Registration begins %date when the Y spirit challenge open.', [
+        '%date' => $reg_open_date->format('F j'),
       ]));
       return;
     }
-    if ($current_date > $close_date) {
-      $form_state->setErrorByName('form', $this->t('The Y Strive challenge is now closed and registration is no longer able to be tracked.'));
+    if ($current_date > $reg_close_date) {
+      $form_state->setErrorByName('form', $this->t('The Y spirit challenge is now closed and registration is no longer able to be tracked.'));
       return;
     }
 
@@ -337,7 +338,15 @@ class MemberRegisterForm extends FormBase {
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      $form_state->setErrorByName('membership_id', $this->t('The member ID is already registered. Please log in.'));
+      if ($current_date > $campaign_open_date) {
+        $error = $settings->get('error_msg_registered_before_start');
+        $msg = check_markup($error['value'], $error['format']);
+      }
+      elseif ($current_date < $campaign_open_date) {
+        $error = $settings->get('error_msg_registered_after_start');
+        $msg = check_markup($error['value'], $error['format']);
+      }
+      $form_state->setErrorByName('membership_id', $msg);
       return;
     }
 
@@ -353,7 +362,9 @@ class MemberRegisterForm extends FormBase {
         || !empty($personify_result->ErrorMessage)
         || empty($personify_result->BranchId) || (int) $personify_result->BranchId == 0
       ) {
-        $form_state->setErrorByName('membership_id', $this->t('Sorry, we can\'t locate this member ID. Please call 612-230-9622 or stop by your local Y if you need assistance.'));
+        $error = $settings->get('error_msg_incorrect_id');
+        $msg = check_markup($error['value'], $error['format']);
+        $form_state->setErrorByName('membership_id', $msg);
         return;
       }
       elseif ($config['yteam'] && empty($personify_result->PrimaryEmail)) {
