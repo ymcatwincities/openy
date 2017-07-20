@@ -437,6 +437,9 @@
         * {
           text-decoration: none;
         }
+        a:hover h3 {
+          text-decoration: underline;
+        }
       }
 
       .slick-track {
