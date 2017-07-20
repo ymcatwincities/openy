@@ -280,7 +280,7 @@ class MemberLoginForm extends FormBase {
       $result = $query->execute();
       if (empty($result)) {
         $args = ['%mid' => $membership_id];
-        $msg = 'Member with member ID %mid is not registered. Please register.';
+        $msg = 'Member with member ID %mid is not registered. <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">Please register</a>';
 
         if ($mail) {
           $msg = 'Member with email %mail and member ID %mid is not registered. Please register.';
