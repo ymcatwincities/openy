@@ -36,5 +36,14 @@ exclude_reg_product_codes:
   88_GETSUMMER: 88_GETSUMMER
   89_GETSUMMER: 89_GETSUMMER
 error_msg_excluded_members:
-  value: "<p><strong>Thanks for your interest in the Y Strive Challenge</strong><br />\r\nAs a Get Summer member, you're not eligible to participate, but we hope to see you at the Y striving toward your personal goals this summer.<br />\r\n<a href=\"https://google.com/\">Google Link Test</a>.</p>\r\n"
+  value: "<p><strong>Thanks for your interest in the Y Strive Challenge</strong><br />\r\nBased on your age or membership type, you're not eligible to participate. Review the rules for more info. You can still use your membership to work out at the Y and challenge yourself.</p>\r\n"
+  format: full_html
+error_msg_registered_before_start:
+  value: "<p><strong>You’re already signed up!</strong><br />\r\nIf you didn’t already sign up, please&nbsp;<a href=\"/contact_us\" rel=\"noreferrer\" target=\"_blank\">contact us</a>. Then, come back on August 1 to start tracking your progress and reporting activities.&nbsp;</p>\r\n"
+  format: full_html
+error_msg_registered_after_start:
+  value: "<p><strong>You’re already signed up!</strong><br />\r\nThanks for logging in. You can check your progress or report activities.</p>\r\n"
+  format: full_html
+error_msg_incorrect_id:
+  value: "<p><strong>Please check your member ID</strong><br />\r\nIf you have entered your member ID correctly and it still isn’t working, <a href=\"/contact_us\" rel=\"noreferrer\" target=\"_blank\">contact us</a>.</p>\r\n"
   format: full_html
