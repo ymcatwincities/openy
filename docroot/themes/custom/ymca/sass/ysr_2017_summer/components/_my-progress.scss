@@ -130,7 +130,6 @@
     }
 
     &:before {
-      @include breakpoint($tablet) {
         border-bottom: 6px dotted rgba($green-dark, 0.2);
         content: '';
         @include rem(height, 6px);
@@ -140,7 +139,6 @@
         top: 50%;
         width: 100%;
         z-index: 10;
-      }
     }
 
     .line {
