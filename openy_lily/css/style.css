@@ -188,20 +188,16 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
   top: 1px !important;
 }
 
-.landing-content table,
-.landing-footer table {
+.paragraph--type--simple-content table {
   margin-top: 20px;
   width: 100%;
   max-width: 100%;
   margin-bottom: 20px;
 }
-.landing-content table tr:nth-of-type(odd),
-.landing-footer table tr:nth-of-type(odd) {
+.paragraph--type--simple-content table tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
-.landing-content table tr td, .landing-content table tr th,
-.landing-footer table tr td,
-.landing-footer table tr th {
+.paragraph--type--simple-content table tr td, .paragraph--type--simple-content table tr th {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
