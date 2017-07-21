@@ -138,7 +138,7 @@
 }
 
 .compain-user-menu {
-  padding: 9px 12%;
+  padding: 9px 10%;
   @include rem(height, 65px);
   background: $green-dark;
   position: absolute;
@@ -148,12 +148,16 @@
   color: $white;
 
   @include breakpoint($tablet) {
-    @include rem(padding, 0 48px 0 0);
+    @include rem(padding, 0 18px 0 0);
     @include rem(height, 66px);
     left: auto;
     bottom: auto;
     top: 0;
     margin: 0;
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 0 48px 0 0);
   }
 
   a,
@@ -172,6 +176,9 @@
 
     @include breakpoint($tablet) {
       @include rem(line-height, 66px);
+      @include rem(margin, 0 0 0 28px);
+    }
+    @include breakpoint($desktop-small) {
       @include rem(margin, 0 0 0 38px);
     }
 
@@ -242,6 +249,12 @@
       background: $green-medium;
       @include rem(padding-right, 18px);
       margin: 0;
+      white-space: pre;
+      max-width: 180px;
+      display: inline-block;
+    }
+    @include breakpoint($desktop-small) {
+      max-width: none;
     }
   }
 
@@ -306,7 +319,7 @@
       float: right;
       clear: none;
       margin: 0;
-      @include rem(margin-left, 48px);
+      @include rem(margin-left, 18px);
       @include rem(padding, 0 0 0 28px);
 
       &:before {
@@ -315,6 +328,9 @@
         height: 16px;
         background-size: auto 100%;
       }
+    }
+    @include breakpoint($desktop-small) {
+      @include rem(margin-left, 48px);
     }
 
   }
