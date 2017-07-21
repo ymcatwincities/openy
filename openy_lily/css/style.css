@@ -2387,6 +2387,12 @@ body.path-search #block-mainpagecontent li {
   width: auto;
 }
 
+@media (min-width: 0) and (max-width: 48em) {
+  .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
+    display: inline-block;
+  }
+}
+
 .node--type-blog.node--view-mode-teaser {
   max-width: 100%;
 }
