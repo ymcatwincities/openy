@@ -22,15 +22,15 @@ class RelToAbs extends FilterBase {
    */
   public function process($text, $langcode) {
     $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
-    $url = preg_replace('/\/{2,}/', '/', $matches[2]);
-    try {
-      $url = Url::fromUserInput($url)->setAbsolute(TRUE)->toString();
-    }
-    catch(\InvalidArgumentException $e) {
-      drupal_set_message($e->getMessage(), 'error');
-    }
-    return $matches[1] . '="' . $url . '"';
-  }, $text);
+      $url = preg_replace('/\/{2,}/', '/', $matches[2]);
+      try {
+        $url = Url::fromUserInput($url)->setAbsolute(TRUE)->toString();
+      }
+      catch(\InvalidArgumentException $e) {
+        drupal_set_message($e->getMessage(), 'error');
+      }
+      return $matches[1] . '="' . $url . '"';
+    }, $text);
 
     return new FilterProcessResult($resultText);
   }
