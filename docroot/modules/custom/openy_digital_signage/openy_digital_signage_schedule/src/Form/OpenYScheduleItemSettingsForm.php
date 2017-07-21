@@ -48,7 +48,7 @@ class OpenYScheduleItemSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['OpenYSchedule_settings']['#markup'] = $this->t('Settings form for OpenY Digital Signage Schedule Item entities. Manage field settings here.');
+    $form['OpenYSchedule_settings']['#markup'] = $this->t('Settings form for Digital Signage Schedule Item entities. Manage field settings here.');
     return $form;
   }
 
