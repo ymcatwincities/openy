@@ -14,7 +14,7 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
  *
  * @ContentEntityType(
  *   id = "openy_digital_signage_sch_item",
- *   label = @Translation("OpenY Digital Signage Schedule Item"),
+ *   label = @Translation("Digital Signage Schedule Item"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\openy_digital_signage_schedule\OpenYScheduleItemListBuilder",
@@ -91,12 +91,12 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the OpenY Digital Signage Schedule Item entity.'))
+      ->setDescription(t('The ID of the Digital Signage Schedule Item entity.'))
       ->setReadOnly(TRUE);
 
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the OpenY Digital Signage Schedule Item entity.'))
+      ->setDescription(t('The UUID of the Digital Signage Schedule Item entity.'))
       ->setReadOnly(TRUE);
 
     $fields['title'] = BaseFieldDefinition::create('string')

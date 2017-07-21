@@ -145,13 +145,13 @@ class OpenYScheduleItemForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('OpenY Digital Signage Schedule Item %label has been created.', [
+        drupal_set_message($this->t('Digital Signage Schedule Item %label has been created.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('OpenY Digital Signage Schedule Item %label has been saved.', [
+        drupal_set_message($this->t('Digital Signage Schedule Item %label has been saved.', [
           '%label' => $entity->label(),
         ]));
     }

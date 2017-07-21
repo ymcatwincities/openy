@@ -1,40 +1,40 @@
 add OpenY Digital Signage Schedule entities:
-  title: 'Create new OpenY Digital Signage Schedule entities'
+  title: 'Create new Digital Signage Schedule entities'
 
 administer OpenY Digital Signage Schedule entities:
-  title: 'Administer OpenY Digital Signage Schedule entities'
-  description: 'Allow to access the administration form to configure OpenY Digital Signage Schedule entities.'
+  title: 'Administer Digital Signage Schedule entities'
+  description: 'Allow to access the administration form to configure Digital Signage Schedule entities.'
   restrict access: true
 
 delete OpenY Digital Signage Schedule entities:
-  title: 'Delete OpenY Digital Signage Schedule entities'
+  title: 'Delete Digital Signage Schedule entities'
 
 edit OpenY Digital Signage Schedule entities:
-  title: 'Edit OpenY Digital Signage Schedule entities'
+  title: 'Edit Digital Signage Schedule entities'
 
 access OpenY Digital Signage Schedule overview:
-  title: 'Access the OpenY Digital Signage Schedule overview page'
+  title: 'Access the Digital Signage Schedule overview page'
 
 view OpenY Digital Signage Schedule entities:
-  title: 'View OpenY Digital Signage Schedule entities'
+  title: 'View Digital Signage Schedule entities'
 
 
 add OpenY Digital Signage Schedule Item entities:
-  title: 'Create new OpenY Digital Signage Schedule Item entities'
+  title: 'Create new Digital Signage Schedule Item entities'
 
 administer OpenY Digital Signage Schedule Item entities:
-  title: 'Administer OpenY Digital Signage Schedule Item entities'
-  description: 'Allow to access the administration form to configure OpenY Digital Signage Schedule Item entities.'
+  title: 'Administer Digital Signage Schedule Item entities'
+  description: 'Allow to access the administration form to configure Digital Signage Schedule Item entities.'
   restrict access: true
 
 delete OpenY Digital Signage Schedule Item entities:
-  title: 'Delete OpenY Digital Signage Schedule Item entities'
+  title: 'Delete Digital Signage Schedule Item entities'
 
 edit OpenY Digital Signage Schedule Item entities:
-  title: 'Edit OpenY Digital Signage Schedule Item entities'
+  title: 'Edit Digital Signage Schedule Item entities'
 
 access OpenY Digital Signage Schedule Item overview:
-  title: 'Access the OpenY Digital Signage Schedule Item overview page'
+  title: 'Access the Digital Signage Schedule Item overview page'
 
 view OpenY Digital Signage Schedule Item entities:
-  title: 'View OpenY Digital Signage Schedule Item entities'
+  title: 'View Digital Signage Schedule Item entities'
