@@ -24,6 +24,9 @@ class RelToAbs extends FilterBase {
     $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
       $url = preg_replace('/\/{2,}/', '/', $matches[2]);
       try {
+        // Remove subfolder name if provided.
+        $base_path = base_path();
+        $url = str_replace($base_path, '', $url);
         $url = Url::fromUserInput($url)->setAbsolute(TRUE)->toString();
       }
       catch(\InvalidArgumentException $e) {
