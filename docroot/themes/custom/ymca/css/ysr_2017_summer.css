@@ -411,6 +411,10 @@ html, body {
 .theme-ymca--2017-compain-upcoming {
   height: 100%;
   position: relative;
+  min-height: 900px;
+  background: transparent url('../img/2017_summer/upc_top.png') 50% 0 no-repeat;
+}
+.theme-ymca--2017-compain-upcoming .compain-header--content {
   background: none;
 }
 .theme-ymca--2017-compain-upcoming .viewport,
@@ -419,38 +423,52 @@ html, body {
   background: none;
   margin-top: auto;
 }
+.theme-ymca--2017-compain-upcoming #main {
+  background: transparent url('../img/2017_summer/upc_bottom.png') 50% 100% no-repeat;
+}
 .theme-ymca--2017-compain-upcoming .compain-upcoming {
   padding: 20px;
   padding: 2rem;
   width: 100%;
   max-width: 740px;
   text-align: center;
-}
-@media (min-width: 48em) {
-  .theme-ymca--2017-compain-upcoming .compain-upcoming {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top: 40%;
-    left: 50%;
-  }
+  margin: 0px auto;
 }
 .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header {
   background: none;
   height: auto;
+  min-height: 400px;
+  margin-top: 250px;
+}
+@media (min-width: 48em) {
+  .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header {
+    margin-top: 300px;
+  }
 }
 .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .title {
-  color: #00aeef;
-  margin-bottom: 50px;
+  color: #0089d0;
+  margin-bottom: 40px;
   font-size: 46px;
   font-size: 4.6rem;
-  margin-top: 35px;
+  margin-top: -13px;
 }
 @media (min-width: 48em) {
   .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .title {
-    margin-top: -35px;
     font-size: 50px;
     font-size: 5rem;
   }
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .winner-text {
+  color: #01a490;
+  font-size: 30px;
+  font-size: 3rem;
+  line-height: 1em;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .winner-text:before {
+  content: url('../img/2017_summer/cup.png');
+  display: block;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .sub-title-grey {
   color: #777;
@@ -469,10 +487,17 @@ html, body {
   margin-top: 45px;
   font-size: 30px;
   font-size: 3rem;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
   line-height: 1.2em;
   text-transform: none;
   color: #555555;
+  text-transform: uppercase;
+}
+.theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .container .content .sub-title strong {
+  font-size: 50px;
+  font-size: 5rem;
+  display: inline-block;
+  padding-top: 10px;
 }
 .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .container .content a:hover, .theme-ymca--2017-compain-upcoming .compain-upcoming .compain-header .container .content a:focus {
   text-decoration: none;
