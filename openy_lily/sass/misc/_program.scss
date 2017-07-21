@@ -17,3 +17,9 @@
     }
   }
 }
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+  @include breakpoint( 0 $tablet) {
+    display: inline-block;
+  }
+}
