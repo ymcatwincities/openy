@@ -500,7 +500,7 @@ legend {
     }
   }
   @include breakpoint (0 $tablet) {
-    .js-form-type-select {
+    .js-form-item {
       width: 100% !important;
     }
     .filters-container .container {

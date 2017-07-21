@@ -1194,7 +1194,7 @@ legend {
   }
 }
 @media (min-width: 0) and (max-width: 48em) {
-  #schedules-search-form-wrapper .js-form-type-select {
+  #schedules-search-form-wrapper .js-form-item {
     width: 100% !important;
   }
   #schedules-search-form-wrapper .filters-container .container {
