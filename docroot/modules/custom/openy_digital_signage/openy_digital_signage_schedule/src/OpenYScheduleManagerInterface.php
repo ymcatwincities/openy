@@ -25,10 +25,12 @@ interface OpenYScheduleManagerInterface {
    *   Timespan lenght in seconds.
    * @param int $now
    *   Current timestamp.
+   * @param bool $include_disabled
+   *   Flags if disabled schedule items must not be ignored.
    *
    * @return mixed
    *   Array of Screen Content nodes or null.
    */
-  public function getUpcomingScreenContents(OpenYSchedule $schedule, $timespan, $now = NULL);
+  public function getUpcomingScreenContents(OpenYSchedule $schedule, $timespan, $now = NULL, $include_disabled = FALSE);
 
 }

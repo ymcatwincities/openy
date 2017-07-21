@@ -949,6 +949,7 @@ body.node--type-screen-content {
 .openy-digital-signage-block-time .time {
   font-family: 'Cachet-Bold', Arial;
   font-size: 300%;
+  font-weight: normal;
   line-height: 1.25;
   padding-left: 35px;
   text-transform: uppercase; }
