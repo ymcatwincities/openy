@@ -158,7 +158,7 @@ source:
       parent_link_path: 'schedules'
     -
       id: 17
-      title: 'Group Schedules(Embedded)'
+      title: 'Group Schedules (Embedded)'
       menu_name: 'footer-menu-center'
       link: 'schedules/group-schedules-embedded'
       weight: 2

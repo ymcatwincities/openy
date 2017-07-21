@@ -149,7 +149,7 @@ source:
           content_id: group_schedules_groupex_pro
     -
       id: group_schedules_embedded
-      title: 'Group Schedules(Embedded)'
+      title: 'Group Schedules (Embedded)'
       alias: '/schedules/group-schedules-embedded'
       header_content_ids:
         -

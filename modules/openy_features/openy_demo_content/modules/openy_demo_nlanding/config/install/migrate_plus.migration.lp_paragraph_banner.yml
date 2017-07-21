@@ -36,7 +36,7 @@ source:
     -
       id: group_schedules_embedded
       parent_id: group_schedules_embedded
-      headline: 'Group Schedules(Embedded)'
+      headline: 'Group Schedules (Embedded)'
       color: 14
   ids:
     id:
