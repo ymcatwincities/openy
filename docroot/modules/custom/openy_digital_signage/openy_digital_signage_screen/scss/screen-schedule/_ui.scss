@@ -46,7 +46,7 @@
 
   .screen-schedule-item {
     font-size: 16px;
-    padding: 3px;
+    padding: 3px 3em 3px 3px;
     position: absolute;
     height: 100px;
     overflow: hidden;
@@ -102,6 +102,21 @@
       }
     }
 
+    &--disabled {
+      border: 1px dashed grey;
+      background-color: rgba(234, 234, 234, .75);
+
+      .screen-schedule-item__title {
+        //text-decoration: black solid line-through;
+        font-style: italic;
+      }
+
+      .screen-schedule-item__disabled-message {
+        font-size: 80%;
+        font-style: italic;
+      }
+    }
+
     a {
       color: #333;
       border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
@@ -119,6 +134,7 @@
 
   .screen-schedule-item__time {
     font-size: 80%;
+    white-space: nowrap;
   }
 
   .screen-schedule-item__edit-link {
