@@ -18,8 +18,8 @@ class OpenYScheduleViewsData extends EntityViewsData implements EntityViewsDataI
 
     $data['openy_digital_signage_schedule']['table']['base'] = array(
       'field' => 'id',
-      'title' => $this->t('OpenY Digital Signage Schedule'),
-      'help' => $this->t('The OpenY Digital Signage Schedule ID.'),
+      'title' => $this->t('Digital Signage Schedule'),
+      'help' => $this->t('The Digital Signage Schedule ID.'),
     );
 
     return $data;
