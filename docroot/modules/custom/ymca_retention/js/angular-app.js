@@ -129,7 +129,7 @@
 
       self.logOut = function () {
         // Activate first tab.
-        $state.go('main', {tab: 'tab_1', update_mobile: true}, {reload: true});
+        $state.go('main', {tab: 'tab_1'});
         // Remove member cookie.
         self.storage.memberCookieRemove();
       };
