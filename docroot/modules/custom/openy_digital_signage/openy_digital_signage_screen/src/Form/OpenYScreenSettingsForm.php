@@ -61,7 +61,7 @@ class OpenYScreenSettingsForm extends ConfigFormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['OpenYScreen_settings']['#markup'] = $this->t('Settings form for OpenY Digital Signage Screen entities.');
+    $form['OpenYScreen_settings']['#markup'] = $this->t('Settings form for Digital Signage Screen entities.');
 
     $default_value = NULL;
     if ($id = $this->config('openy_digital_signage_screen.default_fallback_content')->get('target_id')) {

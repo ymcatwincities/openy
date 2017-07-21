@@ -15,7 +15,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *
  * @ContentEntityType(
  *   id = "openy_digital_signage_schedule",
- *   label = @Translation("OpenY Digital Signage Schedule"),
+ *   label = @Translation("Digital Signage Schedule"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\openy_digital_signage_schedule\OpenYScheduleListBuilder",
@@ -92,12 +92,12 @@ class OpenYSchedule extends ContentEntityBase implements OpenYScheduleInterface 
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the OpenY Digital Signage Schedule entity.'))
+      ->setDescription(t('The ID of the Digital Signage Schedule entity.'))
       ->setReadOnly(TRUE);
 
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the OpenY Digital Signage Schedule entity.'))
+      ->setDescription(t('The UUID of the Digital Signage Schedule entity.'))
       ->setReadOnly(TRUE);
 
     $fields['title'] = BaseFieldDefinition::create('string')
