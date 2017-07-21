@@ -9,13 +9,13 @@ use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 
 /**
- * Defines the OpenY Digital Signage Screen entity.
+ * Defines the Digital Signage Screen entity.
  *
  * @ingroup openy_digital_signage
  *
  * @ContentEntityType(
  *   id = "openy_digital_signage_screen",
- *   label = @Translation("OpenY Digital Signage Screen"),
+ *   label = @Translation("Digital Signage Screen"),
  *   handlers = {
  *     "view_builder" = "Drupal\openy_digital_signage_screen\Entity\OpenYScreenViewBuilder",
  *     "list_builder" = "Drupal\openy_digital_signage_screen\OpenYScreenListBuilder",
@@ -92,12 +92,12 @@ class OpenYScreen extends ContentEntityBase implements OpenYScreenInterface {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the OpenY Digital Signage Screen entity.'))
+      ->setDescription(t('The ID of the Digital Signage Screen entity.'))
       ->setReadOnly(TRUE);
 
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the OpenY Digital Signage Screen entity.'))
+      ->setDescription(t('The UUID of the Digital Signage Screen entity.'))
       ->setReadOnly(TRUE);
 
     $fields['title'] = BaseFieldDefinition::create('string')

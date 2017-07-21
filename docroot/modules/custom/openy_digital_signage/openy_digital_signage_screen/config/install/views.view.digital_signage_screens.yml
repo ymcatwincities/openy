@@ -829,8 +829,8 @@ display:
       path: admin/digital-signage/screens/list
       menu:
         type: 'default tab'
-        title: 'OpenY Digital Signage Screen list'
-        description: 'List OpenY Digital Signage Screen entities'
+        title: 'Digital Signage Screen list'
+        description: 'List Digital Signage Screen entities'
         expanded: false
         parent: system.admin_openy_digital_signage
         weight: 0

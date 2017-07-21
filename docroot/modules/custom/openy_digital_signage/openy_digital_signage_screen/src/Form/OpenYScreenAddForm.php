@@ -280,13 +280,13 @@ class OpenYScreenAddForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('OpenY Digital Signage Screen %label has been created.', [
+        drupal_set_message($this->t('Digital Signage Screen %label has been created.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('OpenY Digital Signage Screen %label has been saved.', [
+        drupal_set_message($this->t('Digital Signage Screen %label has been saved.', [
           '%label' => $entity->label(),
         ]));
     }

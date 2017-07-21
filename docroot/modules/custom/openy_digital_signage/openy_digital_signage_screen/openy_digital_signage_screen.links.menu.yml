@@ -1,12 +1,12 @@
 entity.openy_digital_signage_screen.collection:
   title: 'Screens'
   route_name: entity.openy_digital_signage_screen.collection
-  description: 'List OpenY Digital Signage Screen entities'
+  description: 'List Digital Signage Screen entities'
   parent: system.admin_openy_digital_signage
   weight: 100
 
 openy_digital_signage_screen.admin.structure.settings:
   title: 'Screens settings'
-  description: 'Configure OpenY Digital Signage Screen entities'
+  description: 'Configure Digital Signage Screen entities'
   route_name: openy_digital_signage_screen.settings
   parent: system.admin_openy_digital_signage_settings
