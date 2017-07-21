@@ -338,11 +338,11 @@ class MemberRegisterForm extends FormBase {
       ->condition('membership_id', $membership_id);
     $result = $query->execute();
     if (!empty($result)) {
-      if ($current_date > $campaign_open_date) {
+      if ($current_date < $campaign_open_date) {
         $error = $settings->get('error_msg_registered_before_start');
         $msg = check_markup($error['value'], $error['format']);
       }
-      elseif ($current_date < $campaign_open_date) {
+      elseif ($current_date > $campaign_open_date) {
         $error = $settings->get('error_msg_registered_after_start');
         $msg = check_markup($error['value'], $error['format']);
       }
