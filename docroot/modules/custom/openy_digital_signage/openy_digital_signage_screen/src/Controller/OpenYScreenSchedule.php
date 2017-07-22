@@ -273,7 +273,7 @@ class OpenYScreenSchedule extends ControllerBase {
     $schedule_entity = $screen->screen_schedule->entity;
     // Move to constructor or make method static.
     $schedule_manager = \Drupal::service('openy_digital_signage_schedule.manager');
-    $schedule = $schedule_manager->getUpcomingScreenContents($schedule_entity, 86400, $now);
+    $schedule = $schedule_manager->getUpcomingScreenContents($schedule_entity, 86400, $now, TRUE);
 
     $build = [
       '#type' => 'container',
