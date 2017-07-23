@@ -336,10 +336,10 @@ function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $va
  */
 function openy_rose_preprocess_html(&$variables) {
   // Preprocess landing page.
-  if (!empty($variables['node_type']) && $variables['node_type'] == 'landing') {
+  if (!empty($variables['node_type']) && $variables['node_type'] == 'landing_page') {
     $node = \Drupal::routeMatch()->getParameter('node');
     // Load page header paragraphs.
-    if ($header = $node->field_landing_header->getValue()) {
+    if ($header = $node->field_header_content->getValue()) {
       foreach ($header as $p) {
         if ($paragraph = \Drupal::service('entity.manager')
           ->getStorage('paragraph')
