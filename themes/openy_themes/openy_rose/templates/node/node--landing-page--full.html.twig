@@ -107,7 +107,7 @@
     {% endif %}
 
     {% if content.field_content is not empty %}
-      <article{{ attributes.addClass(content_classes) }}>
+      <div{{ attributes.addClass(content_classes) }}>
         {% if node.field_lp_layout.value == "one_column" %}
         <div class="main-region col-sm-12">
           {% endif %}
@@ -132,7 +132,7 @@
           {% if node.field_lp_layout.value == "one_column" %}
         </div>
         {% endif %}
-      </article>
+      </div>
     {% endif %}
 
     {% if node.field_lp_layout.value != "one_column_clean" %}
