@@ -65,4 +65,4 @@ Feature: WYSIWYG
     And I select "Full" from "Display as"
     And I click "//button/span[.='Embed']" xpath element
     Then I press "Save and keep published"
-    And I should see an "article.media-document .field-media-document iframe" element
+    And I should see an "div.media-document .field-media-document iframe" element
