@@ -479,3 +479,32 @@ legend {
     width: 100%;
   }
 }
+
+// Schedules form items
+
+#schedules-search-form-wrapper {
+  .js-form-type-select.form-item-time {
+    margin-right: 15px;
+  }
+  .js-form-type-checkbox {
+    margin-top: 50px;
+  }
+  @include breakpoint (0 $desktop) {
+    .js-form-type-select {
+      width: 125px !important;
+    }
+  }
+  @include breakpoint (0 $tablet-start) {
+    .js-form-type-select {
+      width: 80px !important;
+    }
+  }
+  @include breakpoint (0 $tablet) {
+    .js-form-item {
+      width: 100% !important;
+    }
+    .filters-container .container {
+      padding: 0;
+    }
+  }
+}

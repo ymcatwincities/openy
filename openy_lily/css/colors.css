@@ -123,6 +123,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 }
 
 /* Primary highlight color (purple.) */
+#banner .banner-caption .field-prgf-link a,
 .program-header.purple .content,
 #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn,
 #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button,
