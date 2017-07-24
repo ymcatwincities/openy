@@ -1,0 +1,9 @@
+.btn-lg {
+  #ymca-retention-modal & {
+    box-shadow: none;
+    @include rem(font-size, 18px);
+    @include breakpoint($tablet) {
+      @include rem(font-size, 20px);
+    }
+  }
+}
