@@ -1202,6 +1202,10 @@ legend {
   }
 }
 
+.captcha {
+  margin-left: 0;
+}
+
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
@@ -2397,7 +2401,7 @@ body.path-search #block-mainpagecontent li {
   margin-top: 30px;
 }
 .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity {
-  margin: 0;
+  margin: 0 0 30px 0;
 }
 
 .node--type-blog.node--view-mode-teaser {
