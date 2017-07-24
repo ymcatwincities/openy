@@ -5,7 +5,7 @@ third_party_settings:
   contextual:
     mode: '0'
 id: branch_amenities
-label: 'Center Amenities'
+label: 'Branch amenities'
 type: html_token
 description: 'Formatter to display list of amenities for the viewed Center.'
 field_types:

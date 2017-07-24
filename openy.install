@@ -378,3 +378,55 @@ function openy_update_8029() {
     'groupex_form_cache'
   ]);
 }
+
+/**
+ * Enable Amenities related modules.
+ */
+function openy_update_8030() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'better_exposed_filters',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'custom_formatters',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'token_filter'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'views_field_formatter'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_svg_formatter'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_block_branch_amenities'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_block_custom_simple'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_block_flexible_content'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_editor'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_1c'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_2c'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_3c'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_4c'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_amenities'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_lto'
+  ]);
+}

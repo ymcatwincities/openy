@@ -1,0 +1,66 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_block_content_simple_block
+migration_tags: {  }
+migration_group: openy_demo_simple_block
+label: 'Create simple blocks'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      code:
+      description: '2-col paragraph Block #1 for Home'
+      title: 'The Y Stands for Strong Communities'
+      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Learn More About the YMCA >'
+    -
+      id: 2
+      code:
+      description: '2-col paragraph Block #2 for Home'
+      title: 'The YMCA is for Everyone'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+
+  ids:
+    id:
+      type: integer
+process:
+  type:
+    -
+      plugin: default_value
+      default_value: simple_block
+  uuid:
+    -
+      plugin: get
+      source: code
+  info:
+    -
+      plugin: get
+      source: description
+  field_sb_title:
+    -
+      plugin: get
+      source: title
+  field_sb_body/value:
+    -
+      plugin: get
+      source: body
+  field_sb_body/format:
+    -
+      plugin: default_value
+      default_value: html
+  field_sb_link/uri:
+    -
+      plugin: get
+      source: link_url
+  field_sb_link/title:
+    -
+      plugin: get
+      source: link_title
+destination:
+  plugin: entity:block_content

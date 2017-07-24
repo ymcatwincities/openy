@@ -11,12 +11,12 @@
       }
       tr:nth-child(odd) {
         td {
-          background-color: $green-aa;
+          background-color: $green;
         }
       }
       tr:nth-child(even) {
         td {
-          background-color: $dark-green-aa;
+          background-color: $dark-green;
         }
       }
     }
@@ -116,7 +116,7 @@
             svg {
               * {
                 fill: $blue;
-                color: $green-aa;
+                color: $green;
               }
             }
           }

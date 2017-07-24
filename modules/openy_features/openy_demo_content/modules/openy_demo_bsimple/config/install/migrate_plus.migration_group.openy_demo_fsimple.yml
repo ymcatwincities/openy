@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_simple_block
+label: 'Block'
+description: 'Imports block demo content.'
+module: openy_demo_bsimple

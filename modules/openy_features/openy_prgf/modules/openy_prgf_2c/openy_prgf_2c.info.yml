@@ -2,6 +2,7 @@ name: 'OpenY Paragraph 2 Columns'
 description: 'Implements a paragraph with 2 columns.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - block_content
   - content_moderation
@@ -13,4 +14,3 @@ dependencies:
   - openy_block_flexible_content
   - openy_prgf_1c
   - paragraphs
-version: 8.x-1.1

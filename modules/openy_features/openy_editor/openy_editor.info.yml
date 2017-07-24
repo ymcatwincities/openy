@@ -1,6 +1,7 @@
 name: 'OpenY CKEditor'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - ckeditor
   - editor
@@ -8,4 +9,3 @@ dependencies:
   - filter
   - token_filter
   - colorbutton
-version: 8.x-1.1
