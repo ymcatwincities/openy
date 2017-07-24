@@ -1,0 +1,27 @@
+uuid: 39ece136-9dd5-4225-8dd6-013feaf4c25c
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:simple_block:e350fe26-bc73-4c69-af18-a51a052dbcd3'
+  module:
+    - block_content
+  theme:
+    - ygh
+_core:
+  default_config_hash: null
+id: footersocialblock
+theme: ygh
+region: footer_social
+weight: -10
+provider: null
+plugin: 'block_content:e350fe26-bc73-4c69-af18-a51a052dbcd3'
+settings:
+  id: 'block_content:e350fe26-bc73-4c69-af18-a51a052dbcd3'
+  label: 'Footer Social Block'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

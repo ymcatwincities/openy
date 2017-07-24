@@ -80,6 +80,8 @@ source:
           header_content_id: locations_small_banner
         -
           header_content_id: locations_location_finder_filters
+        -
+          header_content_id: locations_lto_amenities
       content_ids:
         -
           content_id: locations_location_finder
@@ -137,6 +139,13 @@ source:
           content_id: schedule_search_list
         -
           content_id: popup_schedules
+    -
+      id: amenities
+      title: 'Amenities at each Y'
+      alias: '/amenities'
+      content_ids:
+        -
+          content_id: all_amenities
   ids:
     id:
       type: string
@@ -174,6 +183,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
+          - openy_demo_lp_paragraph_lto
         source: header_content_id
       target_revision_id:
         plugin: migration
@@ -184,6 +194,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
+          - openy_demo_lp_paragraph_lto
         source: header_content_id
   field_content:
     plugin: iterator
@@ -205,6 +216,7 @@ process:
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
           - openy_demo_landing_paragraph_branches_popup_all
+          - openy_demo_lp_paragraph_all_amenities
         source: content_id
       target_revision_id:
         plugin: migration
@@ -222,6 +234,7 @@ process:
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
           - openy_demo_landing_paragraph_branches_popup_all
+          - openy_demo_lp_paragraph_all_amenities
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -245,5 +258,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_schedule_search_form
     - openy_demo_lp_paragraph_schedule_search_list
     - openy_demo_landing_paragraph_branches_popup_all
+    - openy_demo_lp_paragraph_all_amenities
+    - openy_demo_lp_paragraph_lto
   optional:
     - openy_demo_node_blog

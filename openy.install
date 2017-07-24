@@ -378,3 +378,27 @@ function openy_update_8029() {
     'groupex_form_cache'
   ]);
 }
+
+/**
+ * Enable modules for amenities.
+ */
+function openy_update_8030() {
+  \Drupal::service('module_installer')->install([
+    'better_exposed_filters'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_svg_formatter'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'token_filter'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_editor'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'views_field_formatter'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_amenities'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_lto'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'openy_block_branch_amenities'], TRUE);
+  \Drupal::service('module_installer')->install([
+    'custom_formatters'], TRUE);
+}

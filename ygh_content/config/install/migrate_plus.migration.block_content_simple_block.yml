@@ -1,0 +1,213 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_block_content_simple_block
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Create simple blocks'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      code:
+      description: '2-col paragraph Block #1 for Home'
+      title: 'The Y Stands for Strong Communities'
+      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Learn More About the YMCA >'
+    -
+      id: 2
+      code:
+      description: '2-col paragraph Block #2 for Home'
+      title: 'The YMCA is for Everyone'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+    -
+      id: 3
+      code:
+      description: '4-col paragraph Block #1 for Home'
+      title: 'Unlimited Access'
+      body: 'Get access to all 13 Seattle area branches includin heater indoor poolsand fitness equipment.'
+    -
+      id: 4
+      code:
+      description: '4-col paragraph Block #2 for Home'
+      title: 'Coaching and Training'
+      body: 'Free personalized wellness plan with a health coach.'
+    -
+      id: 5
+      code:
+      description: '4-col paragraph Block #3 for Home'
+      title: 'Child Care'
+      body: 'Take advantage of Kids Zone programs while you work out. Leave your kids with us for active and engaging fun.'
+    -
+      id: 6
+      code:
+      description: '4-col paragraph Block #4 for Home'
+      title: 'Savings for Your Whole Family'
+      body: 'Get discounts on swim lessons, day camp, youth sports and more with your membership.'
+    -
+      id: 7
+      code: 'e350fe26-bc73-4c69-af18-a51a052dbcd3'
+      description: 'Footer Social Block'
+      title: ''
+      body: |
+        <ul>
+          <li>
+            <a class="item-share--facebook" href="https://www.facebook.com/YMCAHouston">facebook</a>
+          </li>
+          <li>
+            <a class="item-share--twitter" href="https://twitter.com/ymcahouston">twitter</a>
+          </li>
+          <li>
+            <a class="item-share--youtube" href="https://www.youtube.com/user/YMCAHouston">youtube</a>
+          </li>
+        </ul>
+    -
+      id: 8
+      code: 'cb76bc7c-a957-4b69-96fb-e565ee85f38a'
+      description: 'Footer Copyright Block'
+      title: ''
+      body: |
+        <p>© 2017 Greater Houston YMCA</p>
+        <p>Our Mission: To put Judeo-Christian principles into practice through programs that build healthy spirit, mind and body for all. Everyone is Welcome.</p>
+    -
+      id: 9
+      code:
+      description: '3-col paragraph Block #1 for Camp Cullen'
+      title: 'Camp Amenities'
+      body: |
+            'Fitness and Cardio equipment
+             Olympic swimming poll
+             Kids gym and play area
+             Personalized training
+             Teen center'
+      link_url: 'base:see_amen'
+      link_title: 'See all amenities >'
+    -
+      id: 10
+      code:
+      description: '3-col paragraph Block #2 for Camp Cullen'
+      title: 'Jobs You Might Like'
+      body: 'Working at the YMCA may be one of the most rewarding things you will ever do!'
+      link_url: 'base:join'
+      link_title: 'Join the Y >'
+    -
+      id: 11
+      code:
+      description: '3-col paragraph Block #3 for Camp Cullen'
+      title: 'The YMCA is for Everyone'
+      body: 'Have an event coming up? Planning a retreat? Need a place for teambuilding? YMCA Camp Cullen serves outside groups and organizations throughout the year. Our variety of program offerings are customizable to fit the needs and goals of your group. Our staff will work with you to plan and execute a memorable day or overnight stay'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+    -
+      id: 12
+      code:
+      description: '2-col paragraph Block #1 for Camp Cullen'
+      title: 'Volunteers needed'
+      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Explore Volunteers Opportunity >'
+    -
+      id: 13
+      code:
+      description: '2-col paragraph Block #2 for Camp Cullen'
+      title: 'We appreciate your support'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+    -
+      id: 14
+      code:
+      description: '2-col paragraph Block #1 for Blog Home'
+      title: 'Volunteers needed'
+      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Explore Volunteers Opportunity >'
+    -
+      id: 15
+      code:
+      description: '2-col paragraph Block #2 for Blog Home'
+      title: 'We appreciate your support'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+    -
+      id: 16
+      code: 'c0225569-e804-4235-9c1b-f786a9a8a372'
+      description: 'Footer Address block'
+      title: ''
+      body: |
+        <p>YMCA of Greater Houston | PO Box 3007 | Houston, Texas 77253 | 713-659-5566</p>
+    -
+      id: 17
+      code: 'b4c1c75a-fdc9-4aea-838b-a98440f40bdf'
+      description: 'Footer United Way Agency block'
+      title: ''
+      body: |
+        <p class="item-share--uwa">A United Way Agency</p>
+    -
+      id: 18
+      code:
+      description: '2-col paragraph Block #1 for Join'
+      title: 'Volunteers needed!'
+      body: 'Are you interested in coaching? Want to help with youth programs? Looking for a volunteer opportunity your whole family can participate in? When we all join in, we rise together!'
+      link_url: 'base:learn_more'
+      link_title: 'Explore Volunteer Opportunities >'
+    -
+      id: 19
+      code:
+      description: '2-col paragraph Block #2 for Join'
+      title: 'We Appreciate Your Support'
+      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
+      link_url: 'base:support'
+      link_title: 'Support your local YMCA today >'
+    -
+      id: 20
+      code:
+      description: '1-col paragraph Block for Join'
+      title: ''
+      body: ''
+      link_url: 'base:classes'
+      link_title: 'Browse classes >'
+  ids:
+    id:
+      type: integer
+process:
+  type:
+    -
+      plugin: default_value
+      default_value: simple_block
+  uuid:
+    -
+      plugin: get
+      source: code
+  info:
+    -
+      plugin: get
+      source: description
+  field_sb_title:
+    -
+      plugin: get
+      source: title
+  field_sb_body/value:
+    -
+      plugin: get
+      source: body
+  field_sb_body/format:
+    -
+      plugin: default_value
+      default_value: html
+  field_sb_link/uri:
+    -
+      plugin: get
+      source: link_url
+  field_sb_link/title:
+    -
+      plugin: get
+      source: link_title
+destination:
+  plugin: entity:block_content

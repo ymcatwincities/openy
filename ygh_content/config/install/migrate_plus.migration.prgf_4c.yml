@@ -1,0 +1,67 @@
+langcode: en
+status: true
+dependencies: {  }
+id: yghc_prgf_4c
+migration_tags: {  }
+migration_group: ygh_content
+label: 'Creates Paragraphs (4 columns)'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      title: 'Membership Has its Privileges'
+      first: 3
+      second: 4
+      third: 5
+      fourth: 6
+      description: 'With the Y, you’re not just a member of a facility; you’re part of a cause. With a shared commitment to nurturing the potential of kids, improving health and well-being, and giving back and supporting our neighbors, your membership will not just bring about meaningful change in yourself, but also in your community.'
+      button_uri: 'base:members'
+      button_title: 'Explore all members benefits'
+  ids:
+    id:
+      type: integer
+process:
+  field_prgf_description:
+    -
+      plugin: get
+      source: description
+  field_prgf_title:
+    -
+      plugin: get
+      source: title
+  field_prgf_4c_button/uri:
+    -
+      plugin: get
+      source: button_uri
+  field_prgf_4c_button/title:
+    -
+      plugin: get
+      source: button_title
+  field_prgf_4c_1st/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: first
+  field_prgf_4c_2nd/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: second
+  field_prgf_4c_3rd/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: third
+  field_prgf_4c_4th/target_id:
+    -
+      plugin: migration
+      migration: yghc_block_content_simple_block
+      source: fourth
+
+destination:
+  plugin: entity_reference_revisions:paragraph
+  default_bundle: 4c
+migration_dependencies:
+  required:
+    - yghc_block_content_simple_block

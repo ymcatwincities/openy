@@ -13,11 +13,13 @@ dependencies:
   - action
   - block_content
   - breakpoint
+  - better_exposed_filters
   - ckeditor
   - color
   - config
   - contextual
   - contact
+  - custom_formatters
   - menu_link_content
   - datetime
   - datetime_range
@@ -36,6 +38,7 @@ dependencies:
   - telephone
   - taxonomy
   - text
+  - token_filter
   - dblog
   - shortcut
   - toolbar
@@ -44,10 +47,12 @@ dependencies:
   - rdf
   - views
   - views_ui
+  - views_field_formatter
   - link
   - migrate
   - tour
   # Contrib modules.
+  - openy_svg_formatter
   - features
   - features_ui
   - config_import
@@ -88,6 +93,7 @@ dependencies:
   - admin_toolbar
   - colorbutton
   # OpenY features.
+  - openy_editor
   - openy_media_image
   - openy_media_document
   - openy_media_video
@@ -95,6 +101,7 @@ dependencies:
   - openy_node
   - openy_block
   - openy_block_basic
+  - openy_block_branch_amenities
   - openy_datalayer
   - openy_taxonomy
   - openy_txnm_color
@@ -107,6 +114,7 @@ dependencies:
   - openy_node_category
   - openy_node_blog
   - openy_prgf
+  - openy_prgf_amenities
   - openy_prgf_small_banner
   - openy_prgf_banner
   - openy_prgf_branches_popup_all
@@ -122,6 +130,7 @@ dependencies:
   - openy_prgf_featured_blogs
   - openy_prgf_gallery
   - openy_prgf_teaser
+  - openy_prgf_lto
   - openy_prgf_classes_listing
   - openy_prgf_class_sessions
   - openy_prgf_blog_latest
