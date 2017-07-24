@@ -41,8 +41,7 @@ class RelToAbsTest extends WebTestBase {
     $filter = new RelToAbs(array(), 'rel_to_abs', array('provider' => 'rel_to_abs'));
 
     $markup = '<div><a href="/node/1">link</a><img src="/files/test.jpg"/><span background="/files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
-    $check = '<div><a href="' . $front . '/node/1">link</a><img src="' . $front . '/files/test.jpg"/><span background="' . $front . '/files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
-
+    $check = '<div><a href="' . $front . 'node/1">link</a><img src="' . $front . 'files/test.jpg"/><span background="' . $front . 'files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
     $result = $filter->process($markup, NULL);
 
     $this->assertEqual($check, $result);
