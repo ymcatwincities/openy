@@ -2393,6 +2393,13 @@ body.path-search #block-mainpagecontent li {
   }
 }
 
+.sub-category-classes-view .activity-group {
+  margin-top: 30px;
+}
+.sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity {
+  margin: 0;
+}
+
 .node--type-blog.node--view-mode-teaser {
   max-width: 100%;
 }
@@ -4562,6 +4569,11 @@ a.sports-icon.floor-hockey {
 
 .paragraph--type--classes-listing-filters .form-actions {
   float: left;
+}
+@media (min-width: 48em) {
+  .paragraph--type--classes-listing-filters .form-actions {
+    margin-top: 38px;
+  }
 }
 
 .paragraph--type--simple-content article.embedded-entity {

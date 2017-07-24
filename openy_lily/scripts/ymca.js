@@ -182,4 +182,15 @@
     }
   };
 
+  /**
+   * Match Height on classes.
+   */
+  Drupal.behaviors.matchHeightClass = {
+    attach: function (context, settings) {
+      $(".activity-group-slider", context).each(function () {
+        $('.activity-slide .views-field-rendered-entity').matchHeight();
+      });
+    }
+  };
+
 })(jQuery, Drupal, drupalSettings);

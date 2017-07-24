@@ -495,6 +495,9 @@
 
 .paragraph--type--classes-listing-filters .form-actions {
   float: left;
+  @include breakpoint ($tablet) {
+    margin-top: 38px;
+  }
 }
 
 .paragraph--type--simple-content {
