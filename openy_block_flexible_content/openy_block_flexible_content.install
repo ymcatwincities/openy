@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_block_flexible_content feature.
+ */
+
+/**
+ * Update bundles field_node_ref is referencing.
+ */
+function openy_block_flexible_content_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_block_flexible_content') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.block_content.flexible_content.field_node_ref',
+    ]);
+}
