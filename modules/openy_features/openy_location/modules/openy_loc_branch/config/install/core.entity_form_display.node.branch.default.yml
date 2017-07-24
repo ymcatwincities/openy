@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_coordinates
     - field.field.node.branch.field_location_directions
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_email
     - field.field.node.branch.field_location_fax
     - field.field.node.branch.field_location_phone
@@ -36,6 +37,7 @@ third_party_settings:
         - field_location_phone
         - field_location_fax
         - field_location_email
+        - field_location_amenities
         - field_location_directions
       parent_name: ''
       weight: 1
@@ -195,6 +197,14 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
+  field_location_amenities:
+    weight: 26
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   field_location_email:
     weight: 16
     settings:

@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_coordinates
     - field.field.node.branch.field_location_directions
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_email
     - field.field.node.branch.field_location_fax
     - field.field.node.branch.field_location_phone
@@ -71,6 +72,13 @@ content:
     third_party_settings: {  }
     type: address_plain
     region: content
+  field_location_amenities:
+    weight: 8
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_label
   field_location_coordinates:
     weight: 5
     label: above
