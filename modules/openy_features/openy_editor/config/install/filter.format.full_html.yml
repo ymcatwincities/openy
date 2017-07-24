@@ -5,8 +5,8 @@ dependencies:
     - editor
     - entity_embed
     - token_filter
-name: HTML
-format: html
+name: 'Full HTML'
+format: full_html
 weight: 0
 filters:
   editor_file_reference:
