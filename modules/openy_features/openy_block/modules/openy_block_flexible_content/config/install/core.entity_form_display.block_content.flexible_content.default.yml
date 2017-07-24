@@ -5,7 +5,6 @@ dependencies:
     - block_content.type.flexible_content
     - field.field.block_content.flexible_content.field_node_ref
   module:
-    - content_moderation
 id: block_content.flexible_content.default
 targetEntityType: block_content
 bundle: flexible_content

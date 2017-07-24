@@ -1,9 +1,9 @@
 name: 'Openy Block Flexible Content'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - drupal:block_content
-  - drupal:content_moderation
   - drupal:field
   - drupal:language
   - drupal:node
@@ -13,4 +13,3 @@ dependencies:
 # - openy:openy_node_event
 # - openy:openy_node_testimonial
 description: 'Implements Flexible Content Block'
-version: 8.x-1.1

@@ -7,7 +7,6 @@ dependencies:
     - field.field.block_content.branch_amenities.field_sb_link
     - field.field.block_content.branch_amenities.field_sb_title
   module:
-    - content_moderation
     - link
 id: block_content.branch_amenities.default
 targetEntityType: block_content
