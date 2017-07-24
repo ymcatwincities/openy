@@ -103,7 +103,7 @@
       &:not(:first-child) {
         @include rem(padding-top, 25px);
         @include breakpoint($tablet) {
-          @include rem(padding-top, 81px);
+          @include rem(padding-top, 31px);
         }
       }
       &:last-child {

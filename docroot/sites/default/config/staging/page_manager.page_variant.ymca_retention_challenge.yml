@@ -125,12 +125,12 @@ variant_settings:
       prize_1:
         winners: '4'
         copy:
-          value: "<ul class=\"prize-list\">\r\n\t<li class=\"calendar\">1 Free Month<br />\r\n\tof Membership</li>\r\n\t<li class=\"spacer\">+</li>\r\n\t<li class=\"towel\">3 Free Month<br />\r\n\tof Towel Service</li>\r\n\t<li class=\"spacer\">+</li>\r\n\t<li class=\"bottle\">Y Water<br />\r\n\t Bottle</li>\r\n</ul>\r\n"
+          value: "<ul class=\"prize-list\">\r\n\t<li class=\"calendar\">1 Free Month<br />\r\n\tof Membership</li>\r\n\t<li class=\"spacer\">+</li>\r\n\t<li class=\"towel\">3 Free Months<br />\r\n\tof Towel Service</li>\r\n\t<li class=\"spacer\">+</li>\r\n\t<li class=\"bottle\">Y Water<br />\r\n\t Bottle</li>\r\n</ul>\r\n"
           format: full_html
       prize_2:
         winners: '4'
         copy:
-          value: "<ul class=\"prize-list\">\r\n\t<li class=\"towel\">3 Free Month<br />\r\n\tof Towel Service</li>\r\n\t<li class=\"spacer\">+</li>\r\n\t<li class=\"bottle\">Y Water<br />\r\n\t Bottle</li>\r\n</ul>\r\n"
+          value: "<ul class=\"prize-list\">\r\n\t<li class=\"towel\">3 Free Months<br />\r\n\tof Towel Service</li>\r\n\t<li class=\"spacer\">+</li>\r\n\t<li class=\"bottle\">Y Water<br />\r\n\t Bottle</li>\r\n</ul>\r\n"
           format: full_html
       prize_3:
         winners: '4'
