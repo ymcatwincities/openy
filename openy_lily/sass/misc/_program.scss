@@ -18,8 +18,15 @@
   }
 }
 
-.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
-  @include breakpoint( 0 $tablet) {
+.carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
+  @include breakpoint(0 $tablet) {
     display: inline-block;
+  }
+}
+
+.sub-category-classes-view .activity-group {
+  margin-top: 30px;
+  .activity-group-slider .views-field-rendered-entity {
+    margin: 0 0 30px 0;
   }
 }

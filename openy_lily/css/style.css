@@ -1202,6 +1202,10 @@ legend {
   }
 }
 
+.captcha {
+  margin-left: 0;
+}
+
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
@@ -2391,6 +2395,13 @@ body.path-search #block-mainpagecontent li {
   .carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
     display: inline-block;
   }
+}
+
+.sub-category-classes-view .activity-group {
+  margin-top: 30px;
+}
+.sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity {
+  margin: 0 0 30px 0;
 }
 
 .node--type-blog.node--view-mode-teaser {
@@ -4562,6 +4573,11 @@ a.sports-icon.floor-hockey {
 
 .paragraph--type--classes-listing-filters .form-actions {
   float: left;
+}
+@media (min-width: 48em) {
+  .paragraph--type--classes-listing-filters .form-actions {
+    margin-top: 38px;
+  }
 }
 
 .paragraph--type--simple-content article.embedded-entity {
