@@ -4659,7 +4659,6 @@ function ymca_master_update_8210() {
   }
 }
 
-
 /**
  * Update personify old link by new links in configs.
  */

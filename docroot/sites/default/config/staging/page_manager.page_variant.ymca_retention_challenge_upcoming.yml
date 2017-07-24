@@ -8,7 +8,7 @@ dependencies:
     - panels
     - system
 id: ymca_retention_challenge_upcoming
-label: 'YMCA Recharge Upcoming page'
+label: 'YMCA Strive Upcoming page'
 variant: panels_variant
 variant_settings:
   blocks: {  }
@@ -16,11 +16,11 @@ variant_settings:
   uuid: 40051c50-5ca0-4a3e-b02e-83c154f93f75
   label: null
   weight: 0
-  layout: onecol
+  layout: layout_onecol
   layout_settings: {  }
   page_title: ''
   storage_type: page_manager
-  storage_id: ymca_retention_challenge_pages-panels_variant-0
+  storage_id: ymca_retention_challenge_upcoming
   builder: standard
 page: ymca_retention_challenge_pages
 weight: 0
