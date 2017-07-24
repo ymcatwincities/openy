@@ -1863,6 +1863,7 @@ body {
 }
 
 .paragraph--type--prgf-location-finder-filters {
+  padding: 0;
   overflow: visible;
 }
 .paragraph--type--prgf-location-finder-filters .messages {
@@ -6386,6 +6387,7 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
+  margin: -20px 0 40px;
 }
 .paragraph--type--lto .field-lto-title {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
@@ -6439,12 +6441,12 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 20px;
   padding: 0;
   width: 100%;
-  background: white;
+  border: 1px solid white;
 }
 .paragraph--type--lto .btn a, .paragraph--type--lto .button a {
   display: block;
   padding: 12px;
-  color: #0089d0;
+  color: white;
   font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
 }
