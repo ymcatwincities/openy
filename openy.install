@@ -40,6 +40,21 @@ function openy_install() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_update_dependencies() {
+  $dependencies['openy'] = [
+    8030 => [
+      'openy_block' => 8001,
+      'openy_location' => 8002,
+      'openy_loc_branch' => 8030,
+    ]
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Upgrade from 8.x-0.2 version.
  */
 function openy_update_8001() {
@@ -400,9 +415,6 @@ function openy_update_8030() {
     'openy_svg_formatter'
   ]);
   \Drupal::service('module_installer')->install([
-    'openy_block_branch_amenities'
-  ]);
-  \Drupal::service('module_installer')->install([
     'openy_block_custom_simple'
   ]);
   \Drupal::service('module_installer')->install([
@@ -428,5 +440,8 @@ function openy_update_8030() {
   ]);
   \Drupal::service('module_installer')->install([
     'openy_prgf_lto'
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_block_branch_amenities'
   ]);
 }
