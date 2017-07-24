@@ -531,3 +531,100 @@ function ymca_retention_update_8028() {
     ]
   );
 }
+
+/**
+ * Add copy settings and update general settings..
+ */
+function ymca_retention_update_8029() {
+  $path = drupal_get_path('module', 'ymca_retention') . '/config/install/';
+  $files = [
+    'ymca_retention.copy_settings',
+    'ymca_retention.general_settings',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory($path);
+  $importer->importConfigs($files);
+}
+
+/**
+ * Updating settings and panel pages.
+ */
+function ymca_retention_update_8030() {
+  $path = 'sites/default/config/staging/';
+  $files = [
+    'ymca_retention.copy_settings',
+    'ymca_retention.general_settings',
+    'page_manager.page.ymca_retention_challenge',
+    'page_manager.page.ymca_retention_challenge_pages',
+    'page_manager.page_variant.ymca_retention_challenge',
+    'page_manager.page_variant.ymca_retention_challenge_default',
+    'page_manager.page_variant.ymca_retention_challenge_team',
+    'page_manager.page_variant.ymca_retention_challenge_upcoming',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory($path);
+  $importer->importConfigs($files);
+}
+
+/**
+ * Updating settings and panel pages.
+ */
+function ymca_retention_update_8031() {
+  $files = [
+    'ymca_retention.general_settings',
+    'page_manager.page_variant.ymca_retention_challenge',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs($files);
+}
+
+/**
+ * Updating rules.
+ */
+function ymca_retention_update_8032() {
+  // Update rules.
+  $content = file_get_contents(drupal_get_path('module', 'ymca_retention') . '/includes/ymca-strive-rules.html');
+  $uuid = 'bbad4f73-e28a-423c-849a-5ba4f04710ce';
+  /** @var Drupal\block_content\Entity\BlockContent $block_content */
+  $block_content = \Drupal::entityManager()->loadEntityByUuid('block_content', $uuid);
+  $block_content->set('body', ['value' => $content, 'format' => 'full_html']);
+  $block_content->save();
+}
+
+/**
+ * Update api config.
+ */
+function ymca_retention_update_8033() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs(['ymca_retention.api.yml']);
+}
+
+/**
+ * Update YMCA Retention settings.
+ */
+function ymca_retention_update_8034() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs([
+    'ymca_retention.copy_settings',
+    'ymca_retention.instant_win',
+    'page_manager.page.ymca_retention_challenge',
+    'page_manager.page.ymca_retention_challenge_pages',
+    'page_manager.page_variant.ymca_retention_challenge',
+    'page_manager.page_variant.ymca_retention_challenge_default',
+    'page_manager.page_variant.ymca_retention_challenge_team',
+    'page_manager.page_variant.ymca_retention_challenge_upcoming',
+    'page_manager.page_variant.ymca_retention_challenge_winners',
+  ]);
+}
+
+/**
+ * Update YMCA Retention members view.
+ */
+function ymca_retention_update_8035() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs(['views.view.ymca_members']);
+}
