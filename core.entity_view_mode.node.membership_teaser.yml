@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.membership_teaser
-label: 'Membership teaser'
-targetEntityType: node
-cache: true
