@@ -2397,6 +2397,9 @@ body.path-search #block-mainpagecontent li {
   }
 }
 
+.sub-category-classes-view .container {
+  padding: 0;
+}
 .sub-category-classes-view .activity-group {
   margin-top: 30px;
 }
