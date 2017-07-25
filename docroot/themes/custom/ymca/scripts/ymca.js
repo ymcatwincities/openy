@@ -362,12 +362,12 @@
         }
         // Extended case, merge sidebar and navbar.
         if ($('.nav-location').length === 1) {
-          if ($('.panel-subnav').length === 1) {console.log($('.panel-subnav'));
-            $('.panel-subnav ul.nav').clone(true).appendTo('.nav-location .nav .current');
+          if ($('.panel-subnav').length === 1) {
+            $('.panel-subnav ul.nav:eq(0)').clone(true).appendTo('.nav-location .nav .current');
           }
           if ($('.nav-location a.home .name').length === 0) {
             var name = $('.masthead-brand').text();
-            $('.nav-location a.home').append('<span class="name">' + Drupal.t(name + ' homepage') + '</span><b class="caret"></b>')
+            $('.nav-location a.home').append('<span class="name">' + Drupal.t(name + ' homepage') + '</span><b class="caret"></b>');
             $('.nav-location a.home').click(function(e) {
               e.preventDefault();
               if ($(this).hasClass('open')) {
