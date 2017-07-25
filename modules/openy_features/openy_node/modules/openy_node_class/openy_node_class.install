@@ -222,3 +222,25 @@ function openy_node_class_update_8007() {
     'third_party_settings.field_group.group_header_area.format_settings.description'
   );
 }
+
+/**
+ * Update Pathauto pattern settings for Class CT and URL aliases for Class nodes.
+ */
+function openy_node_class_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_node_class') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'pathauto.pattern.class',
+  ]);
+
+  // Update URL aliases for Class nodes.
+  $result = \Drupal::entityQuery('node')
+    ->condition('type', 'class')
+    ->execute();
+  $entity_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $entities = $entity_storage->loadMultiple($result);
+  foreach ($entities as $entity) {
+    \Drupal::service('pathauto.generator')->updateEntityAlias($entity, 'update');
+  }
+}

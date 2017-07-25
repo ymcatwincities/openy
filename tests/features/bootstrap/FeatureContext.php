@@ -362,10 +362,32 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * @Given /^I select this "([^"]*)" from "([^"]*)"$/
+   */
+  public function iSelectThisFrom($time, $select) {
+    $option = date('n/d/y', strtotime($time));
+    // Mimic \Behat\MinkExtension\Context\MinkContext::selectOption.
+    $select = $this->fixStepArgument($select);
+    $option = $this->fixStepArgument($option);
+    $this->getSession()->getPage()->selectFieldOption($select, $option);
+  }
+
+  /**
    * @Given /^I print page$/
    */
   public function iPrintPage() {
     print $this->getSession()->getPage()->getHtml();
+  }
+
+  /**
+   * Returns fixed step argument (with \\" replaced back to ")
+   *
+   * @param string $argument
+   *
+   * @return string
+   */
+  protected function fixStepArgument($argument) {
+    return str_replace('\\"', '"', $argument);
   }
 
 }
