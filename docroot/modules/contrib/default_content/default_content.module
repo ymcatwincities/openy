@@ -12,7 +12,7 @@ function default_content_modules_installed($modules) {
   // @todo Move this to an event once we have HookEvent.
   foreach ($modules as $module) {
     if (!\Drupal::isConfigSyncing()) {
-      \Drupal::service('default_content.manager')->importContent($module);
+      \Drupal::service('default_content.importer')->importContent($module);
     }
   }
 }

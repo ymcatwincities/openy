@@ -152,6 +152,30 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
+    $fields['status'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Status'))
+      ->setDescription(t('Disabled schedule items are not shown on the screens but still can be edited.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setRequired(TRUE)
+      ->setSetting('on_label', 'Enabled')
+      ->setSetting('off_label', 'Disabled')
+      ->setDisplayOptions('view', [
+        'label' => 'visible',
+        'type' => 'boolean',
+        'weight' => 1,
+        'settings' => [
+          'format' => 'default',
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_buttons',
+        'weight' => 1,
+      ])
+      ->setDefaultValue(TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+
     $fields['time_slot'] = BaseFieldDefinition::create('daterange')
       ->setLabel(t('Time slot'))
       ->setDescription(t('When this schedule item will be active, for example from 10:00 to 11:00am.'))

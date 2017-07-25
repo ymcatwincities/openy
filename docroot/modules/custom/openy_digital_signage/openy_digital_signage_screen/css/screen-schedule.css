@@ -82,7 +82,7 @@
     overflow: hidden; }
   .screen-schedule-timeline .screen-schedule-item {
     font-size: 16px;
-    padding: 3px;
+    padding: 3px 3em 3px 3px;
     position: absolute;
     height: 100px;
     overflow: hidden;
@@ -122,6 +122,15 @@
       right: 40px; }
       .screen-schedule-timeline .screen-schedule-item--override:hover {
         z-index: 15; }
+    .screen-schedule-timeline .screen-schedule-item--disabled {
+      background-color: rgba(234, 234, 234, 0.75);
+      border: 1px dashed grey;
+      z-index: 4; }
+      .screen-schedule-timeline .screen-schedule-item--disabled .screen-schedule-item__title {
+        font-style: italic; }
+      .screen-schedule-timeline .screen-schedule-item--disabled .screen-schedule-item__disabled-message {
+        font-size: 80%;
+        font-style: italic; }
     .screen-schedule-timeline .screen-schedule-item a {
       color: #333;
       border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
@@ -131,7 +140,8 @@
   .screen-schedule-timeline .screen-schedule-item__title {
     font-weight: bold; }
   .screen-schedule-timeline .screen-schedule-item__time {
-    font-size: 80%; }
+    font-size: 80%;
+    white-space: nowrap; }
   .screen-schedule-timeline .screen-schedule-item__edit-link {
     position: absolute;
     top: 3px;

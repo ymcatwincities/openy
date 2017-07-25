@@ -42,12 +42,12 @@ class WebformElementStatesTest extends WebformTestBase {
    * Tests element #states selectors for basic and composite elements.
    */
   public function testSelectors() {
-    foreach (['example_elements', 'example_elements_composite'] as $weform_id) {
+    foreach (['example_elements', 'example_elements_composite'] as $webform_id) {
       /** @var \Drupal\webform\WebformInterface $webform */
-      $webform = Webform::load($weform_id);
+      $webform = Webform::load($webform_id);
       $webform->setStatus(WebformInterface::STATUS_OPEN)->save();
 
-      $this->drupalGet('webform/' . $weform_id);
+      $this->drupalGet('webform/' . $webform_id);
 
       $selectors = OptGroup::flattenOptions($webform->getElementsSelectorOptions());
       // Ignore text format and captcha selectors which are not available during

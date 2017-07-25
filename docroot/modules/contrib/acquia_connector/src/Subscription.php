@@ -1,12 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_connector\Subscription.
- */
-
 namespace Drupal\acquia_connector;
 
+use Drupal\acquia_connector\Helper\Storage;
+
+/**
+ * Class Subscription.
+ *
+ * @package Drupal\acquia_connector.
+ */
 class Subscription {
 
   /**
@@ -26,7 +28,8 @@ class Subscription {
   /**
    * Subscription message lifetime defined by the Acquia Network.
    */
-  const MESSAGE_LIFETIME = 900; // 15 * 60.
+  // 15 * 60.
+  const MESSAGE_LIFETIME = 900;
 
   /**
    * Get subscription status from the Acquia Network, and store the result.
@@ -35,10 +38,12 @@ class Subscription {
    * $params['no_heartbeat'] == 1.
    *
    * @param array $params
+   *   Optional parameters for \Drupal\acquia_connector\Client::getSubscription.
    *
-   * @return FALSE, integer (error number), or subscription data.
+   * @return mixed
+   *   FALSE, integer (error number), or subscription data.
    */
-  static function update($params = array()) {
+  public function update($params = array()) {
     $config = \Drupal::configFactory()->getEditable('acquia_connector.settings');
     $current_subscription = $config->get('subscription_data');
     $subscription = FALSE;
@@ -50,16 +55,20 @@ class Subscription {
     else {
       // Get our subscription data.
       try {
-        $subscription = \Drupal::service('acquia_connector.client')->getSubscription($config->get('identifier'), $config->get('key'), $params);
+        $storage = new Storage();
+        $key = $storage->getKey();
+        $identifier = $storage->getIdentifier();
+        $subscription = \Drupal::service('acquia_connector.client')->getSubscription($identifier, $key, $params);
       }
       catch (ConnectorException $e) {
         switch ($e->getCustomMessage('code')) {
-          case static::NOT_FOUND:
-          case static::EXPIRED:
+          case self::NOT_FOUND:
+          case self::EXPIRED:
             // Fall through since these values are stored and used by
             // acquia_search_acquia_subscription_status()
             $subscription = $e->getCustomMessage('code');
-          break;
+            break;
+
           default:
             // Likely server error (503) or connection timeout (-110) so leave
             // current subscription in place. _acquia_agent_request() logged an
@@ -79,31 +88,36 @@ class Subscription {
   /**
    * Helper function to check if an identifier and key exist.
    */
-  static function hasCredentials() {
-    $config = \Drupal::config('acquia_connector.settings');
-    return $config->get('identifier') && $config->get('key');
+  public function hasCredentials() {
+    $storage = new Storage();
+    return $storage->getIdentifier() && $storage->getKey();
   }
 
   /**
    * Helper function to check if the site has an active subscription.
    */
-  static function isActive() {
+  public function isActive() {
     $active = FALSE;
     // Subscription cannot be active if we have no credentials.
-    if(self::hasCredentials()) {
+    if (self::hasCredentials()) {
       $config = \Drupal::config('acquia_connector.settings');
       $subscription = $config->get('subscription_data');
 
       $subscription_timestamp = \Drupal::state()->get('acquia_subscription_data.timestamp');
       // Make sure we have data at least once per day.
-      if (isset($subscription_timestamp) && (time() - $subscription_timestamp > 60*60*24)) {
+      if (isset($subscription_timestamp) && (time() - $subscription_timestamp > 60 * 60 * 24)) {
         try {
-          $subscription = \Drupal::service('acquia_connector.client')->getSubscription($config->get('identifier'), $config->get('key'), ['no_heartbeat' => 1]);
+          $storage = new Storage();
+          $key = $storage->getKey();
+          $identifier = $storage->getIdentifier();
+          $subscription = \Drupal::service('acquia_connector.client')->getSubscription($identifier, $key, ['no_heartbeat' => 1]);
         }
-        catch (ConnectorException $e) {}
+        catch (ConnectorException $e) {
+        }
       }
       $active = !empty($subscription['active']);
     }
     return $active;
   }
+
 }

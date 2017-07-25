@@ -34,10 +34,15 @@ if (class_exists('\Drupal\file\Element\ManagedFile')) {
      * Render API callback: Adds media capture to the managed_file element type.
      */
     public static function preRenderWebformManagedFile($element) {
+      // Set accept and capture attributes.
       if (isset($element['upload']) && static::$accept) {
         $element['upload']['#attributes']['accept'] = static::$accept;;
-        $element['upload']['#attributes']['capture'] = TRUE;
       }
+
+      // Add class name to wrapper attributes.
+      $class_name = str_replace('_', '-', $element['#type']);
+      static::setAttributes($element, ['js-' . $class_name, $class_name]);
+
       return $element;
     }
 
