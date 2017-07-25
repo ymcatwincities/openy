@@ -1,16 +1,17 @@
 langcode: en
 status: open
-open: null
-close: null
 dependencies:
   enforced:
     module:
       - webform_test_translation
+open: null
+close: null
 uid: null
 template: false
 id: test_translation
 title: 'Test: Translations'
 description: 'Test translating a webform.'
+category: null
 elements: |
   textfield:
     '#type': textfield
@@ -39,21 +40,29 @@ elements: |
 css: ''
 javascript: ''
 settings:
+  ajax: false
   page: true
   page_submit_path: ''
   page_confirm_path: ''
+  form_submit_once: false
   form_exception_message: ''
   form_open_message: ''
   form_close_message: ''
+  form_previous_submissions: true
   form_confidential: false
   form_confidential_message: ''
+  form_convert_anonymous: false
   form_prepopulate: false
   form_prepopulate_source_entity: false
+  form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
   form_disable_back: false
   form_autofocus: false
   form_details_toggle: false
+  submission_label: ''
+  submission_log: false
+  submission_user_columns: {  }
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -61,18 +70,29 @@ settings:
   wizard_complete: true
   wizard_complete_label: ''
   preview: 0
+  preview_label: ''
+  preview_title: ''
   preview_message: ''
+  preview_attributes: {  }
   draft: none
+  draft_multiple: false
   draft_auto_save: false
   draft_saved_message: ''
   draft_loaded_message: ''
   confirmation_type: url_message
+  confirmation_title: ''
   confirmation_message: 'Your message has been sent.'
   confirmation_url: '<front>'
+  confirmation_attributes: {  }
+  confirmation_back: true
+  confirmation_back_label: ''
+  confirmation_back_attributes: {  }
   limit_total: null
   limit_total_message: ''
   limit_user: null
   limit_user_message: ''
+  purge: none
+  purge_days: null
   entity_limit_total: null
   entity_limit_user: null
   results_disabled: false
@@ -124,3 +144,12 @@ handlers:
       html: true
       attachments: false
       debug: false
+      states:
+        - completed
+      to_options: {  }
+      cc_options: {  }
+      bcc_options: {  }
+      from_options: {  }
+      reply_to: ''
+      return_path: ''
+      ignore_access: false

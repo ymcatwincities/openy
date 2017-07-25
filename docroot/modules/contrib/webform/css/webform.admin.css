@@ -4,13 +4,6 @@
  */
 
 /**
- * Hide throbber which causes layout issue in dropbutton
- */
-.dropbutton-multiple .ajax-progress-throbber {
-  display: none;
-}
-
-/**
  * Webform setting button displays a gear icon.
  * @see /admin/structure/webform/manage/contact/results/submissions
  */

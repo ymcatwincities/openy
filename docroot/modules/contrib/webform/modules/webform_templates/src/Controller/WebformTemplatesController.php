@@ -45,7 +45,7 @@ class WebformTemplatesController extends ControllerBase implements ContainerInje
    * Constructs a WebformTemplatesController object.
    *
    * @param \Drupal\Core\Session\AccountInterface $current_user
-   *   Current user.
+   *   The current user.
    * @param \Drupal\Core\Form\FormBuilderInterface $form_builder
    *   The webform builder.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager

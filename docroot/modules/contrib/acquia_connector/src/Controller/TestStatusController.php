@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_connector\Controller\TestController.
- */
-
 namespace Drupal\acquia_connector\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
@@ -13,15 +8,18 @@ use Drupal\Core\Controller\ControllerBase;
  * Class SpiController.
  */
 class TestStatusController extends ControllerBase {
+
   /**
-   * Determines the status of all user-contributed tests and logs any failures to
-   * a tracking table.
+   * Determines status of user-contributed tests.
    *
-   * @param boolean $log
-   *  (Optional) If TRUE, log all failures.
+   * Determines the status of all user-contributed tests and logs any failures
+   * to a tracking table.
    *
-   * @return array $custom_data
-   *  An associative array containing any tests which failed validation.
+   * @param bool $log
+   *   (Optional) If TRUE, log all failures.
+   *
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   *   An associative array containing any tests which failed validation.
    */
   public function testStatus($log = FALSE) {
     $custom_data = array();
@@ -58,7 +56,7 @@ class TestStatusController extends ControllerBase {
     // If a full validation check is being performed, go to the status page to
     // show the results.
     if ($log) {
-      $this->redirect('system.status');
+      return $this->redirect('system.status');
     }
 
     return $custom_data;
@@ -68,11 +66,11 @@ class TestStatusController extends ControllerBase {
    * Validates data from custom test callbacks.
    *
    * @param array $collection
-   *  An associative array containing a collection of user-contributed tests.
+   *   An associative array containing a collection of user-contributed tests.
    *
    * @return array
-   *  An associative array containing the validation result of the given tests,
-   *  along with any failed parameters.
+   *   An associative array containing the validation result of the given tests,
+   *   along with any failed parameters.
    */
   public function testValidate($collection) {
     $result = TRUE;

@@ -1,6 +1,4 @@
 cloud_migration: {  }
-identifier: ''
-key: ''
 subscription_data:
   active: false
 subscription_name: ''
@@ -34,8 +32,6 @@ spi:
     - block_cache
     - preprocess_css
     - page_compression
-    - cache
-    - cache_lifetime
     - image_allow_insecure_derivatives
     - googleanalytics_cache
     - acquia_spi_send_node_user
@@ -100,12 +96,6 @@ mapping:
     - system.performance
     - response
     - gzip
-  cache:
-    - system.performance
-    - cache
-    - page
-    - use_internal
-  cache_lifetime: {  }
   cron_last:
     - state
     - system.cron_last
@@ -182,3 +172,6 @@ mapping:
   allow_insecure_uploads:
     - system.file
     - allow_insecure_uploads
+  http_response_debug_cacheability_headers:
+    - container_parameter
+    - http.response.debug_cacheability_headers

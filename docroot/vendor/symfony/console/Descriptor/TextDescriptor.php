@@ -237,6 +237,10 @@ class TextDescriptor extends Descriptor
      */
     private function formatDefaultValue($default)
     {
+        if (INF === $default) {
+            return 'INF';
+        }
+
         if (is_string($default)) {
             $default = OutputFormatter::escape($default);
         } elseif (is_array($default)) {
@@ -247,7 +251,7 @@ class TextDescriptor extends Descriptor
             }
         }
 
-        if (PHP_VERSION_ID < 50400) {
+        if (\PHP_VERSION_ID < 50400) {
             return str_replace(array('\/', '\\\\'), array('/', '\\'), json_encode($default));
         }
 

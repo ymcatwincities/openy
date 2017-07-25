@@ -251,6 +251,38 @@ class TokenMenuTest extends TokenTestBase {
       ->range(0, 1);
     $result = $query->execute();
     $this->assertTrue($result);
+
+    // Create a node with a menu link and create 2 menu links linking to this
+    // node after. Verify that the menu link provided by the node has priority.
+    $node_title = $this->randomMachineName();
+    $edit = [
+      'title[0][value]' => $node_title,
+      'menu[enabled]' => 1,
+      'menu[title]' => 'menu link provided by node',
+    ];
+    $this->drupalPostForm('node/add/page', $edit, t('Save and publish'));
+    $this->assertText('page ' . $node_title . ' has been created');
+    $node = $this->drupalGetNodeByTitle($node_title);
+
+    $menu_ui_link1 = entity_create('menu_link_content', [
+      'link' => ['uri' => 'entity:node/' . $node->id()],
+      'title' => 'menu link 1 provided by menu ui',
+      'menu_name' => 'main-menu',
+    ]);
+    $menu_ui_link1->save();
+
+    $menu_ui_link2 = entity_create('menu_link_content', [
+      'link' => ['uri' => 'entity:node/' . $node->id()],
+      'title' => 'menu link 2 provided by menu ui',
+      'menu_name' => 'main-menu',
+    ]);
+    $menu_ui_link2->save();
+
+    $tokens = [
+      'menu-link' => 'menu link provided by node',
+      'menu-link:title' => 'menu link provided by node',
+    ];
+    $this->assertTokens('node', ['node' => $node], $tokens);
   }
 
   /**
