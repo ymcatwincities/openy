@@ -21,9 +21,9 @@ use Drupal\webform_scheduled_email\WebformScheduledEmailManagerInterface;
  *   label = @Translation("Scheduled email"),
  *   category = @Translation("Notification"),
  *   description = @Translation("Sends a webform submission via a scheduled email."),
- *   cardinality = \Drupal\webform\WebformHandlerInterface::CARDINALITY_UNLIMITED,
- *   results = \Drupal\webform\WebformHandlerInterface::RESULTS_PROCESSED,
- *   submission = \Drupal\webform\WebformHandlerInterface::SUBMISSION_REQUIRED,
+ *   cardinality = \Drupal\webform\Plugin\WebformHandlerInterface::CARDINALITY_UNLIMITED,
+ *   results = \Drupal\webform\Plugin\WebformHandlerInterface::RESULTS_PROCESSED,
+ *   submission = \Drupal\webform\Plugin\WebformHandlerInterface::SUBMISSION_REQUIRED,
  * )
  */
 class ScheduleEmailWebformHandler extends EmailWebformHandler {

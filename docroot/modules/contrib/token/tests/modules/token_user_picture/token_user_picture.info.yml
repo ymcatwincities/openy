@@ -7,8 +7,8 @@ hidden: TRUE
 dependencies:
   - image
 
-# Information added by Drupal.org packaging script on 2017-01-01
-version: '8.x-1.0-rc1'
+# Information added by Drupal.org packaging script on 2017-04-29
+version: '8.x-1.0'
 core: '8.x'
 project: 'token'
-datestamp: 1483290545
+datestamp: 1493466847

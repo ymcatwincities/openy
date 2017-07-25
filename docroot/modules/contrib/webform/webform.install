@@ -32,6 +32,36 @@ function webform_uninstall() {
 }
 
 /**
+ * Implements hook_schema().
+ *
+ * Even though Webform's are config entities we need to create a 'webform' table
+ * to track webform submission serial numbers using DB transaction locking.
+ *
+ * @see \Drupal\webform\WebformEntityStorage
+ */
+function webform_schema() {
+  $schema['webform'] = [
+    'description' => 'Stores all webform data.',
+    'fields' => [
+      'webform_id' => [
+        'description' => 'The webform id.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ],
+      'next_serial' => [
+        'description' => 'The serial number to give to the next submission to this webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ],
+    ],
+    'primary key' => ['webform_id', 'next_serial'],
+  ];
+  return $schema;
+}
+/**
  * Implements hook_requirements().
  */
 function webform_requirements($phase) {
@@ -45,19 +75,19 @@ function webform_requirements($phase) {
   /** @var \Drupal\webform\WebformEmailProviderInterface $email_provider */
   $email_provider = \Drupal::service('webform.email_provider');
   $email_provider->check();
-  $module = $email_provider->getModuleName();
+  $mail_module_name = $email_provider->getModuleName();
   $mail_plugin_id = $email_provider->getMailPluginId();
   $mail_plugin_definition = $email_provider->getMailPluginDefinition();
-  if ($module || $mail_plugin_id) {
+  if ($mail_module_name || $mail_plugin_id) {
     $t_args = [
-      '@module' => $module,
+      '@module' => $mail_module_name,
       '@plugin_id' => $mail_plugin_id,
       '@plugin_label' => $mail_plugin_definition['label'],
       '@plugin_description' => $mail_plugin_definition['description'],
     ];
     $requirements['webform_email'] = [
       'title' => t('Webform: HTML email support'),
-      'value' => ($module) ? t('Provided by the @module module.', $t_args) : t('Provided by @plugin_id mail plugin.', $t_args),
+      'value' => ($mail_module_name) ? t('Provided by the @module module.', $t_args) : t('Provided by @plugin_id mail plugin.', $t_args),
       'description' => new FormattableMarkup('@plugin_label: @plugin_description', $t_args),
       'severity' => REQUIREMENT_OK,
     ];
@@ -222,12 +252,12 @@ function _webform_update_webform_settings() {
  * @param $handler_id
  *   A webform handler id.
  *
- * @see \Drupal\webform\WebformHandlerInterface
+ * @see \Drupal\webform\Plugin\WebformHandlerInterface
  */
 function _webform_update_webform_handler_settings($handler_id) {
-  /** @var \Drupal\webform\WebformHandlerManagerInterface $handler_manager */
+  /** @var \Drupal\webform\Plugin\WebformHandlerManagerInterface $handler_manager */
   $handler_manager = \Drupal::service('plugin.manager.webform.handler');
-  /** @var \Drupal\webform\WebformHandlerInterface $handler */
+  /** @var \Drupal\webform\Plugin\WebformHandlerInterface $handler */
   $handler = $handler_manager->createInstance($handler_id);
 
   $default_settings = $handler->defaultConfiguration();
@@ -695,7 +725,7 @@ function webform_update_8048() {
   }
 
   // Change webform.settings.element.exclude_types to
-  // webform.settings.element..exclude_elements.
+  // webform.settings.element.exclude_elements.
   if (($element = $config->get('element')) && isset($element['excluded_types'])) {
     $element['excluded_elements'] = $element['excluded_types'];
     unset($element['excluded_types']);
@@ -718,5 +748,167 @@ function webform_update_8049() {
       $webform_config->set('elements', $elements);
       $webform_config->save(TRUE);
     }
+  }
+}
+
+/**
+ * Issue #2856472: Allow multiple drafts per users.
+ */
+function webform_update_8050() {
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2885183: Add support for customized webform submission labels.
+ */
+function webform_update_8051() {
+  _webform_update_admin_settings();
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2886173: Ability to have no empty option on a select element.
+ */
+function webform_update_8052() {
+  _webform_update_admin_settings();
+}
+
+/**
+ * Issue #2757491: Allow Webforms to be submitted using AJAX.
+ */
+function webform_update_8053() {
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2886853: Ability to customize user draft and submission columns.
+ */
+function webform_update_8054() {
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2887078: Allows preview page to customized.
+ */
+function webform_update_8055() {
+  _webform_update_admin_settings();
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2887443: Default to and from email settings missing and not used.
+ */
+function webform_update_8056() {
+  _webform_update_admin_settings();
+}
+
+/**
+ * Issue #2854021: Send email based on element options selection.
+ */
+function webform_update_8057() {
+  // Add ignore_access: FALSE to email handler settings.
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('webform.webform.') as $webform_config_name) {
+    $webform_config = $config_factory->getEditable($webform_config_name);
+
+    $data = $webform_config->getRawData();
+    $has_email_handler = FALSE;
+    foreach ($data['handlers'] as &$handler) {
+      if ($handler['id'] === 'email') {
+        $has_email_handler = TRUE;
+
+        $settings = [];
+        foreach ($handler['settings'] as $settings_key => $setting_value) {
+          $settings[$settings_key] = $setting_value;
+          if ($settings_key == 'excluded_elements') {
+            $settings['ignore_access'] = FALSE;
+          }
+        }
+        $handler['settings'] = $settings;
+      }
+    }
+
+    if ($has_email_handler) {
+      $webform_config->setData($data);
+      $webform_config->save();
+    }
+  }
+}
+
+/**
+ * Issue #2888076: Redirect users to login page when trying to access the a protected webform file.
+ */
+function webform_update_8058() {
+  _webform_update_admin_settings();
+}
+
+/**
+ * Issue #2888850: Validate source entity that passed as URL parameters.
+ */
+function webform_update_8059() {
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2888615: Allow preview to exclude elements.
+ */
+function webform_update_8060() {
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2871207: Random Multiple Submissions. Create webform table.
+ */
+function webform_update_8061() {
+  // Copied from: webform_schema().
+  $schema = [
+    'description' => 'Stores all webform data.',
+    'fields' => [
+      'webform_id' => [
+        'description' => 'The webform id.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ],
+      'next_serial' => [
+        'description' => 'The serial number to give to the next submission to this webform.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ],
+    ],
+    'primary key' => ['webform_id'],
+  ];
+  \Drupal::database()->schema()->createTable('webform', $schema);
+}
+
+/**
+ * Issue #2871207: Random Multiple Submissions. Populate next serial in webform table.
+ */
+function webform_update_8062() {
+  /** @var \Drupal\webform\WebformInterface[] $webforms */
+  $webforms = Webform::loadMultiple();
+  foreach ($webforms as $webform) {
+    \Drupal::database()->insert('webform')
+      ->fields(['webform_id', 'next_serial'])
+      ->values([$webform->id(), $webform->getState('next_serial') ?: 1])
+      ->execute();
+    $webform->deleteState('next_serial');
+  }
+}
+
+/**
+ * Issue #2891108: Recreating deleted webform with same name results in error.
+ */
+function webform_update_8063() {
+  $webform_ids = array_keys(Webform::loadMultiple());
+  if ($webform_ids) {
+    \Drupal::database()->delete('webform_submission_log')
+      ->condition('webform_id', $webform_ids, 'NOT IN')
+      ->execute();
+    \Drupal::database()->delete('webform')
+      ->condition('webform_id', $webform_ids, 'NOT IN')
+      ->execute();
   }
 }

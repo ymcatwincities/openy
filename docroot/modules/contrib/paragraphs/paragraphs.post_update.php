@@ -63,6 +63,7 @@ function paragraphs_post_update_set_paragraphs_parent_fields(&$sandbox) {
       ->range($sandbox['progress'], Settings::get('paragraph_limit', 50))
       ->allRevisions()
       ->sort($revision_id, 'ASC')
+      ->accessCheck(FALSE)
       ->execute();
   }
   else {
@@ -71,6 +72,7 @@ function paragraphs_post_update_set_paragraphs_parent_fields(&$sandbox) {
       ->condition($field_storage->getName(), NULL, 'IS NOT NULL')
       ->range($sandbox['progress'], Settings::get('paragraph_limit', 50))
       ->sort($id, 'ASC')
+      ->accessCheck(FALSE)
       ->execute();
   }
   foreach ($entity_ids as $revision_id => $entity_id) {

@@ -88,7 +88,7 @@ class MemberLoginForm extends FormBase {
           'btn',
           'btn-lg',
           'btn-primary',
-          'compain-green',
+          'campaign-blue',
         ],
       ],
       '#ajax' => [
@@ -232,14 +232,14 @@ class MemberLoginForm extends FormBase {
     $current_date = new \DateTime();
     // Validate that current date is less, than date when tracking activity page will be opened.
     if ($current_date < $from_date) {
-      $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y Recharge challenge open.', [
+      $form_state->setErrorByName('form', $this->t('Activity tracking begins %date when the Y Strive challenge open.', [
         '%date' => $from_date->format('F j'),
       ]));
       return;
     }
     // Validate that current date is higher, than date when tracking activity page was closed.
     if ($current_date > $to_date) {
-      $form_state->setErrorByName('form', $this->t('The Y Recharge challenge is now closed and activity is no longer able to be tracked.'));
+      $form_state->setErrorByName('form', $this->t('The Y Strive challenge is now closed and activity is no longer able to be tracked.'));
       return;
     }
 
@@ -280,7 +280,7 @@ class MemberLoginForm extends FormBase {
       $result = $query->execute();
       if (empty($result)) {
         $args = ['%mid' => $membership_id];
-        $msg = 'Member with member ID %mid is not registered. Please register.';
+        $msg = 'Member with member ID %mid is not registered. <a href="#" data-toggle="modal" data-target="#ymca-retention-modal" data-type="register">Please register.</a>';
 
         if ($mail) {
           $msg = 'Member with email %mail and member ID %mid is not registered. Please register.';

@@ -89,6 +89,18 @@ entity.webform.user.submissions:
   requirements:
     _entity_access: 'webform.submission_view_own'
 
+entity.webform.user.drafts:
+  path: '/webform/{webform}/drafts'
+  defaults:
+    _entity_list: 'webform_submission'
+    _title: 'Drafts'
+  options:
+    parameters:
+      webform:
+        type: 'entity:webform'
+  requirements:
+    _entity_access: 'webform.view'
+
 entity.webform.user.submission:
   path: '/webform/{webform}/submissions/{webform_submission}'
   defaults:

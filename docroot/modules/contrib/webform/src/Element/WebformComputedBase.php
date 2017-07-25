@@ -45,9 +45,6 @@ abstract class WebformComputedBase extends FormElement {
       '#process' => [
         [$class, 'processWebformComputed'],
       ],
-      '#pre_render' => [
-        [$class, 'preRenderWebformComputed'],
-      ],
       '#input' => TRUE,
       '#value' => '',
       '#mode' => NULL,
@@ -91,23 +88,21 @@ abstract class WebformComputedBase extends FormElement {
     }
 
     if ($webform_submission) {
-      $element['#markup'] = static::processValue($element, $webform_submission);
+      $value = static::processValue($element, $webform_submission);;
+
+      // Display markup.
+      $element['value']['#markup'] = static::processValue($element, $webform_submission);
+
+      // Include hidden element so that computed value will be available to
+      // conditional logic.
+      $element['#tree'] = TRUE;
+      $element['hidden'] = [
+        '#type' => 'hidden',
+        '#value' => ['#markup' => $value],
+        '#parents' => $element['#parents'],
+      ];
     }
 
-    return $element;
-  }
-
-  /**
-   * Computes value before rendering.
-   *
-   * @param $element
-   *   An associative array containing the properties and children of the
-   *   details.
-   *
-   * @return
-   *   The modified element.
-   */
-  public static function preRenderWebformComputed($element) {
     return $element;
   }
 

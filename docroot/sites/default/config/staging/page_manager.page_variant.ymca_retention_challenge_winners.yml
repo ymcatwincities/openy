@@ -9,7 +9,7 @@ dependencies:
     - system
     - ymca_retention
 id: ymca_retention_challenge_winners
-label: 'YMCA Recharge Winner page'
+label: 'YMCA Strive Winner page'
 variant: panels_variant
 variant_settings:
   blocks:
@@ -38,7 +38,7 @@ variant_settings:
   layout: ymca-retention-winners
   layout_settings:
     extra_classes: ''
-  page_title: 'YMCA Recharge Winners'
+  page_title: 'YMCA Strive Winners'
   storage_type: page_manager
   storage_id: ymca_retention_challenge_winners
   builder: standard

@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class WebformEntityReferenceFormatterBase extends EntityReferenceFormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The message manager.
+   * The webform message manager.
    *
    * @var \Drupal\webform\WebformMessageManagerInterface
    */
@@ -40,7 +40,7 @@ abstract class WebformEntityReferenceFormatterBase extends EntityReferenceFormat
    * @param array $third_party_settings
    *   Third party settings.
    * @param \Drupal\webform\WebformMessageManagerInterface $message_manager
-   *   The message manager.
+   *   The webform message manager.
    */
   public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, WebformMessageManagerInterface $message_manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);

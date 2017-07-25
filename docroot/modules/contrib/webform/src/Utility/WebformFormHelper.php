@@ -66,7 +66,7 @@ class WebformFormHelper {
    * @param array $build
    *   An render array.
    * @param array $elements
-   *   An empty array that  will be populated with references to all elements.
+   *   An empty array that will be populated with references to all elements.
    * @param array $duplicate_element_keys
    *   An array used to track elements with duplicate keys.
    */
