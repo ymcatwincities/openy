@@ -637,3 +637,17 @@ function ymca_retention_update_8036() {
   $importer->setDirectory('sites/default/config/staging/');
   $importer->importConfigs(['page_manager.page_variant.ymca_retention_challenge']);
 }
+
+/**
+ * Updating copy and links in about tab.
+ */
+function ymca_retention_update_8037() {
+  $path = 'sites/default/config/staging/';
+  $files = [
+    'ymca_retention.copy_settings',
+  ];
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory($path);
+  $importer->importConfigs($files);
+}
+
