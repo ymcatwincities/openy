@@ -1,0 +1,339 @@
+.compain-header {
+  @include rem(height, 434px);
+  position: relative;
+  background: image-url('2017_summer/retention_summer.jpg') 50% -32px no-repeat;
+  @include background-size(cover);
+
+  @include breakpoint($mobile-bp + 1) {
+
+  }
+
+  @include breakpoint($tablet-landscape) {
+    @include rem(height, 670px);
+    background-size: 1700px auto;
+    background-position: 50% -210px;
+  }
+
+  &--content {
+    background: $blue;
+    bottom: 0;
+    padding: {
+      bottom: 10px;
+      top: 20px;
+    }
+    position: absolute;
+    width: 100%;
+
+    .logo {
+      display: none;
+
+      @include breakpoint($tablet) {
+        @include rem(margin, 0 50px 60px 0);
+        display: inline-block;
+        vertical-align: top;
+        max-width: 102px;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+      }
+    }
+
+    .container {
+      @include breakpoint($tablet) {
+        width: 100%;
+        height: auto;
+      }
+
+      .content {
+        @include cachet-bold();
+        @include rem(font-size, 30px);
+        @include rem(line-height, 34px);
+        background: none;
+        text-align: center;
+        color: $white;
+        text-transform: uppercase;
+
+        @include breakpoint($tablet) {
+          @include rem(font-size, 50px);
+          @include rem(line-height, 54px);
+          vertical-align: top;
+        }
+
+        .date {
+          @include rem(font-size, 18px);
+
+          @include breakpoint($tablet) {
+            @include rem(font-size, 25px);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.compain-top-nav {
+  display: none;
+
+  @include breakpoint($tablet) {
+    display: block;
+    @include rem(padding, 0 48px 0 74px);
+    margin: 0;
+    text-align: left;
+    background: $green-medium;
+  }
+
+  .logo {
+    @include rem(width, 40px);
+    @include rem(margin, 12px auto 10px);
+    display: block;
+
+    @include breakpoint($tablet) {
+      @include rem(width, 74px);
+      @include rem(padding, 12px);
+      @include rem(margin, 0 0 0 -74px);
+      float: left;
+      top: 0;
+      left: 0;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .link-back {
+    @include cachet-bold();
+    @include rem(padding, 0 0 0 18px);
+    @include rem(line-height, 20px);
+    color: $white;
+    display: inline-block;
+    @include rem(font-size, 17px);
+    margin: 0;
+    position: relative;
+    vertical-align: top;
+    opacity: 0.5;
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 66px);
+      @include rem(margin, 0 0 0 16px);
+      opacity: 1;
+    }
+
+    &:before {
+      @include rem(height, 10px);
+      @include rem(width, 14px);
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-arrow-left.svg');
+      background-size: cover;
+      content: ' ';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.compain-user-menu {
+  padding: 9px 10%;
+  @include rem(height, 65px);
+  background: $green-dark;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  color: $white;
+
+  @include breakpoint($tablet) {
+    @include rem(padding, 0 18px 0 0);
+    @include rem(height, 66px);
+    left: auto;
+    bottom: auto;
+    top: 0;
+    margin: 0;
+  }
+
+  @include breakpoint($desktop-small) {
+    @include rem(padding, 0 48px 0 0);
+  }
+
+  a,
+  span {
+    @include cachet-normal();
+    @include rem(font-size, 17px);
+    @include rem(line-height, 65px);
+    color: inherit;
+    text-transform: uppercase;
+    display: block;
+
+    @include breakpoint(max-width ($tablet - 1)) {
+      @include rem(line-height, 45px);
+      font-weight: bold;
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 66px);
+      @include rem(margin, 0 0 0 28px);
+    }
+    @include breakpoint($desktop-small) {
+      @include rem(margin, 0 0 0 38px);
+    }
+
+    &:before {
+      opacity: 0.8;
+    }
+
+    &:hover {
+      &:before {
+        opacity: 1;
+      }
+    }
+  }
+  span:before {
+    @include breakpoint(max-width ($tablet - 1)) {
+      margin-top: 8px;
+    }
+  }
+
+  .link--register,
+  .link--sign-in,
+  .login--user,
+  .link--log-out,
+  .link--email {
+    @include rem(padding, 0 0 0 24px);
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+  }
+
+  .login--user,
+  .link--register {
+    float: left;
+  }
+
+  .link--register {
+    float: left;
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-register.svg');
+      width: 18px;
+      height: 22px;
+      background-size: auto 100%;
+    }
+  }
+
+  .login--user {
+    @include rem(padding, 0 0 0 44px);
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-signedin-user.svg');
+      width: 30px;
+      height: 30px;
+      background-size: cover;
+      opacity: 1;
+    }
+
+    @include breakpoint($tablet) {
+      background: $green-medium;
+      @include rem(padding-right, 18px);
+      margin: 0;
+      white-space: pre;
+      max-width: 180px;
+      display: inline-block;
+    }
+    @include breakpoint($desktop-small) {
+      max-width: none;
+    }
+  }
+
+  .link--log-out,
+  .link--sign-in {
+    float: right;
+  }
+
+  .link--log-out,
+  .link--email {
+    color: $green8;
+  }
+
+  .link--log-out {
+    text-transform: uppercase;
+    @include breakpoint(max-width ($tablet - 1 )) {
+      margin-top: 20px;
+    }
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-logout.svg');
+      width: 20px;
+      height: 16px;
+      background-size: auto 100%;
+    }
+  }
+
+  .link--sign-in {
+    float: right;
+
+    &:before {
+      background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-login.svg');
+      width: 20px;
+      height: 16px;
+      background-size: auto 100%;
+    }
+  }
+
+  .link-wrapper {
+    float: left;
+
+    @include breakpoint($tablet) {
+
+    }
+  }
+
+  .link--email {
+    @include rem(line-height, 20px);
+    @include rem(padding, 0 0 0 44px);
+    @include rem(top, -12px);
+    text-transform: inherit;
+    display: block;
+    clear: left;
+    position: relative;
+    @include breakpoint(max-width ($tablet - 1 )) {
+      text-transform: uppercase;
+    }
+
+    @include breakpoint($tablet) {
+      @include rem(line-height, 62px);
+      top: auto;
+      float: right;
+      clear: none;
+      margin: 0;
+      @include rem(margin-left, 18px);
+      @include rem(padding, 0 0 0 28px);
+
+      &:before {
+        background-image: inline-image('../prototypes/ysr_2017/img/icons/icon-mail.svg');
+        width: 20px;
+        height: 16px;
+        background-size: auto 100%;
+      }
+    }
+    @include breakpoint($desktop-small) {
+      @include rem(margin-left, 48px);
+    }
+
+  }
+
+  @include breakpoint($desktop-small) {}
+}

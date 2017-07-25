@@ -2,9 +2,8 @@
 
 namespace Drupal\mimemail\Utility;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Unicode;
-use Drupal\Component\Utility\Xss;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Core\Mail\MailFormatHelper;
 use Drupal\Core\Url;
@@ -311,13 +310,16 @@ class MimeMailFormatHelper {
     $is_image = preg_match('!\.(png|gif|jpg|jpeg)!i', $url);
     $is_absolute = \Drupal::service('file_system')->uriScheme($url) != FALSE || preg_match('!(mailto|callto|tel)\:!', $url);
 
+    // Strip the base path as Uri adds it again at the end.
+    $base_path = rtrim(base_path(), '/');
+    $url = preg_replace('!^' . $base_path . '!', '', $url, 1);
+
     if (!$to_embed) {
       if ($is_absolute) {
         return str_replace(' ', '%20', $url);
       }
     }
     else {
-      $url = preg_replace('!^' . base_path() . '!', '', $url, 1);
       if ($is_image) {
         if ($to_link) {
           // Exclude images from embedding if needed.
@@ -344,8 +346,7 @@ class MimeMailFormatHelper {
     }
 
     // Get a list of enabled languages.
-    $languages = \Drupal::languageManager()->getLanguages('enabled');
-    $languages = $languages[1];
+    $languages = \Drupal::languageManager()->getLanguages(LanguageInterface::STATE_ALL);
 
     // Default language settings.
     $prefix = '';
@@ -354,7 +355,7 @@ class MimeMailFormatHelper {
     // Check for language prefix.
     $args = explode('/', $path);
     foreach ($languages as $lang) {
-      if ($args[0] == $lang->prefix) {
+      if ($args[1] == $lang->getId()) {
         $prefix = array_shift($args);
         $language = $lang;
         $path = implode('/', $args);
@@ -362,8 +363,9 @@ class MimeMailFormatHelper {
       }
     }
 
+    parse_str($query, $arr);
     $options = array(
-      'query' => ($query) ? parse_url($query) : array(),
+      'query' => !empty($arr) ? $arr : array(),
       'fragment' => $fragment,
       'absolute' => TRUE,
       'language' => $language,
@@ -514,7 +516,7 @@ class MimeMailFormatHelper {
           $value = wordwrap($value, 50, "$crlf ", FALSE);
         }
       }
-      $header .= $key . ":" . $value . $crlf;
+      $header .= $key . ": " . $value . $crlf;
     }
     return trim($header);
   }

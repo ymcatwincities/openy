@@ -78,7 +78,7 @@ class WebformOptions extends FormElement {
         '#type' => 'webform_codemirror',
         '#mode' => 'yaml',
         '#default_value' => Yaml::encode($element['#default_value']),
-        '#description' => t('Key-value pairs MUST be specified as "safe_key: \'Some readable options\'". Use of only alphanumeric characters and underscores is recommended in keys. One option per line.') . '<br/>' .
+        '#description' => t('Key-value pairs MUST be specified as "safe_key: \'Some readable options\'". Use of only alphanumeric characters and underscores is recommended in keys. One option per line.') . '<br />' .
         t('Option groups can be created by using just the group name followed by indented group options.'),
       ];
       return $element;

@@ -1,8 +1,31 @@
+webform_devel.settings:
+  path: '/admin/structure/webform/settings/devel'
+  defaults:
+    _form: '\Drupal\webform_devel\Form\WebformDevelAdminSettingsForm'
+    _title: 'Webforms: Settings'
+  requirements:
+    _permission: 'administer webform'
+
 entity.webform.export_form:
   path: '/admin/structure/webform/manage/{webform}/export'
   defaults:
     _entity_form: 'webform.export'
     _title_callback: '\Drupal\webform\Controller\WebformController::title'
+  requirements:
+    _permission: 'access devel information'
+
+entity.webform.schema_form:
+  path: '/admin/structure/webform/manage/{webform}/schema'
+  defaults:
+    _entity_form: 'webform.schema'
+    _title_callback: '\Drupal\webform\Controller\WebformController::title'
+  requirements:
+    _permission: 'access devel information'
+
+webform_devel.schema.export:
+  path: '/admin/structure/webform/manage/{webform}/schema/export'
+  defaults:
+    _controller: '\Drupal\webform_devel\Controller\WebformDevelSchemaController::index'
   requirements:
     _permission: 'access devel information'
 

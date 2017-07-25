@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\sitemap\Tests\SitemapCssTest.
- */
-
 namespace Drupal\sitemap\Tests;
 
 use Drupal\simpletest\WebTestBase;
@@ -47,7 +42,7 @@ class SitemapCssTest extends WebTestBase {
 
     // Change module not to include css file.
     $edit = array(
-      'css' => TRUE,
+      'css' => FALSE,
     );
     $this->drupalPostForm('admin/config/search/sitemap', $edit, t('Save configuration'));
 

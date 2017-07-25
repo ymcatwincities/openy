@@ -8,7 +8,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Url;
 use Drupal\webform\Utility\WebformDialogHelper;
-use Drupal\webform\WebformHandlerInterface;
+use Drupal\webform\Plugin\WebformHandlerInterface;
 use Drupal\webform\WebformInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;

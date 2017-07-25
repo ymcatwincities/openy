@@ -12,7 +12,7 @@ trait WebformDisplayOnTrait {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     parent::prepare($element, $webform_submission);
 
     // Hide element if it should not be displayed on 'form'.
@@ -48,7 +48,7 @@ trait WebformDisplayOnTrait {
    * Check is the element is display on form, view, or both.
    *
    * @param array $element
-   *   An element
+   *   An element.
    * @param string $display_on
    *   Display on form or view.
    *
@@ -64,12 +64,13 @@ trait WebformDisplayOnTrait {
    * Get display on options.
    *
    * @param bool $none
-   *   If TRUE none is include
+   *   If TRUE none is include.
+   *
    * @return array
    *   An associative array of display on options.
    */
   protected function getDisplayOnOptions($none = FALSE) {
-    $options =  [
+    $options = [
       static::DISPLAY_ON_FORM => $this->t('form only'),
       static::DISPLAY_ON_VIEW => $this->t('viewed submission only'),
       static::DISPLAY_ON_BOTH => $this->t('both form and viewed submission'),

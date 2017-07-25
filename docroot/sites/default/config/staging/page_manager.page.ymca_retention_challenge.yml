@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: ymca_retention_challenge
-label: 'YMCA Recharge Challenge'
+label: 'YMCA Strive Challenge'
 description: null
 use_admin_theme: null
 path: /challenge

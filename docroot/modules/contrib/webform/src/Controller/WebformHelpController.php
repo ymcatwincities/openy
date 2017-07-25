@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class WebformHelpController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
-   * The help manager.
+   * The webform help manager.
    *
    * @var \Drupal\Component\Plugin\PluginManagerInterface
    */
@@ -25,7 +25,7 @@ class WebformHelpController extends ControllerBase implements ContainerInjection
    * Constructs a WebformHelpController object.
    *
    * @param \Drupal\webform\WebformHelpManagerInterface $help_manager
-   *   The help manager.
+   *   The webform help manager.
    */
   public function __construct(WebformHelpManagerInterface $help_manager) {
     $this->helpManager = $help_manager;

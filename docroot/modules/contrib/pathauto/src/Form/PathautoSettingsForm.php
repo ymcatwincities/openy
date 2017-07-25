@@ -2,7 +2,7 @@
 
 namespace Drupal\pathauto\Form;
 
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -219,7 +219,7 @@ class PathautoSettingsForm extends ConfigFormBase {
       }
       $form['punctuation'][$name] = array(
         '#type' => 'select',
-        '#title' => $details['name'] . ' (<code>' . SafeMarkup::checkPlain($details['value']) . '</code>)',
+        '#title' => $details['name'] . ' (<code>' . Html::escape($details['value']) . '</code>)',
         '#default_value' => $details['default'],
         '#options' => array(
           PathautoGeneratorInterface::PUNCTUATION_REMOVE => $this->t('Remove'),

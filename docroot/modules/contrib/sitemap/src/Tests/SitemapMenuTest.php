@@ -1,49 +1,13 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\sitemap\Tests\SitemapMenuTest.
- */
-
 namespace Drupal\sitemap\Tests;
-
-use Drupal\simpletest\WebTestBase;
 
 /**
  * Test the display of menus based on sitemap settings.
  *
  * @group sitemap
  */
-class SitemapMenuTest extends WebTestBase {
-
-  /**
-   * Modules to enable.
-   *
-   * @var array
-   */
-  public static $modules = array('sitemap', 'node', 'menu_ui');
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::setUp();
-
-    // Create an Article node type.
-    if ($this->profile != 'standard') {
-      $this->drupalCreateContentType(array('type' => 'article', 'name' => 'Article'));
-    }
-
-    // Create user then login.
-    $this->user = $this->drupalCreateUser(array(
-      'administer sitemap',
-      'access sitemap',
-      'administer menu',
-      'administer nodes',
-      'create article content',
-    ));
-    $this->drupalLogin($this->user);
-  }
+class SitemapMenuTest extends SitemapMenuTestBase {
 
   /**
    * Tests menus.
@@ -92,12 +56,24 @@ class SitemapMenuTest extends WebTestBase {
     );
     $this->drupalPostForm("admin/structure/menu/item/$mlid/edit", $edit, t('Save'));
 
+    // Add admin link that an anonymous user doesn't have access to.
+    $admin_link_title = $this->randomString();
+    $edit = [
+      'title[0][value]' => $admin_link_title,
+      'link[0][uri]' => '/admin/config/search/sitemap',
+      'menu_parent' => 'main:',
+    ];
+    $this->drupalPostForm("admin/structure/menu/manage/main/add", $edit, t('Save'));
+
     // Assert that main menu is included in the sitemap.
     $this->drupalGet('/sitemap');
     $elements = $this->cssSelect(".sitemap-box h2:contains('Main navigation')");
     $this->assertEqual(count($elements), 1, 'Main menu is included.');
-    // Assert that node 1 is listed in the sitemap, but not node 2.
+
+    // Assert that node 1 and the admin link are listed in the sitemap, but not
+    // node 2.
     $this->assertLink($node_1_title);
+    $this->assertLink($admin_link_title);
     $this->assertNoLink($node_2_title);
 
     // Configure module to show all menu items.
@@ -110,6 +86,11 @@ class SitemapMenuTest extends WebTestBase {
     $this->drupalGet('/sitemap');
     $this->assertLink($node_1_title);
     $this->assertLink($node_2_title);
+
+    // Check anon user doesn't see an inaccessible link for the admin link.
+    $this->drupalLogin($this->anonUser);
+    $this->drupalGet('/sitemap');
+    $this->assertNoLink(t('Inaccessible'));
   }
 
 }

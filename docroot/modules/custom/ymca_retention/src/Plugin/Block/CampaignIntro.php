@@ -36,9 +36,9 @@ class CampaignIntro extends BlockBase {
 
     $form['show_picture'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Show Picture'),
+      '#title' => $this->t('Show Logo'),
       '#default_value' => isset($config['show_picture']) ? $config['show_picture'] : TRUE,
-      '#description' => $this->t('Display a background picture for the intro block'),
+      '#description' => $this->t('Display a campaign logo for the intro block'),
     ];
 
     $form['slogan'] = [
@@ -54,6 +54,7 @@ class CampaignIntro extends BlockBase {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
+    $this->setConfigurationValue('show_picture', $form_state->getValue('show_picture'));
     $this->setConfigurationValue('slogan', $form_state->getValue('slogan'));
   }
 
@@ -82,7 +83,6 @@ class CampaignIntro extends BlockBase {
     else {
       $dates .= $date_formatter->format($date_end->getTimestamp(), 'custom', 'F j');
     }
-
     return [
       '#theme' => 'ymca_retention_intro',
       '#content' => [
