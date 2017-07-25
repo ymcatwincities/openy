@@ -2577,11 +2577,19 @@ body.path-search #block-mainpagecontent li {
   .blog-more-teaser .form-item-combine {
     padding: 0 0 0 140px !important;
   }
+  .two-column .blog-more-teaser .form-item-combine {
+    padding: 0 !important;
+  }
 }
 @media (min-width: 64em) {
   .blog-more-teaser .form-item-combine input {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+  }
+}
+@media (min-width: 64em) {
+  .two-column .blog-more-teaser .views-exposed-form > div.form-item-field-blog-category-target-id {
+    width: 133px !important;
   }
 }
 
