@@ -106,7 +106,7 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
     $mailer = new PHPMailer();
 
     // Turn on debugging, if requested.
-    if ($this->smtpConfig->get('smtp_debugging') == 1) {
+    if ($this->smtpConfig->get('smtp_debugging') && \Drupal::currentUser()->hasPermission('administer smtp module')) {
       $mailer->SMTPDebug = TRUE;
     }
 
@@ -129,6 +129,16 @@ class SMTPMailSystem implements MailInterface, ContainerFactoryPluginInterface {
     $mailer->From = $from;
     $mailer->FromName = $from_name;
     $mailer->Sender = $from;
+
+    $hostname = $this->smtpConfig->get('smtp_client_hostname');
+    if ($hostname != '') {
+      $mailer->Hostname = $hostname;
+    }
+
+    $helo = $this->smtpConfig->get('smtp_client_helo');
+    if ($helo != '') {
+      $mailer->Helo = $helo;
+    }
 
     // Create the list of 'To:' recipients.
     $torecipients = explode(',', $to);

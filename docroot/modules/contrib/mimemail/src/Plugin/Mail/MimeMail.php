@@ -5,8 +5,6 @@ namespace Drupal\mimemail\Plugin\Mail;
 use Drupal\Core\Mail\MailInterface;
 use Drupal\Core\Mail\MailFormatHelper;
 use Drupal\mimemail\Utility\MimeMailFormatHelper;
-use Drupal\Core\Mail\Plugin\Mail\PhpMail;
-use Drupal\Core\Site\Settings;
 
 /**
  * Defines the default Drupal mail backend, using PHP's native mail() function.
@@ -95,10 +93,10 @@ class MimeMail implements MailInterface {
     $subject = $message['subject'];
     $body = $message['body'];
 
-    $headers = isset($message['params']['headers']) ? $message['params']['headers'] : array();
+    $headers = isset($message['params']['headers']) ? $message['params']['headers'] : [];
     $plain = isset($message['params']['plain']) ? $message['params']['plain'] : NULL;
     $plaintext = isset($message['params']['plaintext']) ? $message['params']['plaintext'] : NULL;
-    $attachments = isset($message['params']['attachments']) ? $message['params']['attachments'] : array();
+    $attachments = isset($message['params']['attachments']) ? $message['params']['attachments'] : [];
 
     $site_name = \Drupal::config('system.site')->get('name');
     //$site_mail = variable_get('site_mail', ini_get('sendmail_from'));
@@ -119,10 +117,10 @@ class MimeMail implements MailInterface {
     if ((empty($from) || $from == $site_mail)) {
       $mimemail_name = \Drupal::config('mimemail.settings')->get('name');
       $mimemail_mail = \Drupal::config('mimemail.settings')->get('mail');
-      $from = array(
+      $from = [
         'name' => !empty($mimemail_name) ? $mimemail_name : $site_name,
         'mail' => !empty($mimemail_mail) ? $mimemail_mail : $site_mail,
-      );
+      ];
     }
 
     // Body is empty, this is a plaintext message.
@@ -146,10 +144,10 @@ class MimeMail implements MailInterface {
     // Removing newline character introduced by _drupal_wrap_mail_line();
     $subject = str_replace(array("\n"), '', trim(MailFormatHelper::htmlToText($subject)));
 
-    $hook = array(
+    $hook = [
       'mimemail_message__' . $key,
       'mimemail_message__' . $module .'__'. $key,
-    );
+    ];
 
     $body = [
       '#theme' => 'mimemail_messages',

@@ -34,7 +34,7 @@
         var plugins = drupalSettings['webform']['html_editor']['plugins'];
         for (var plugin_name in plugins) {
           if(plugins.hasOwnProperty(plugin_name)) {
-            CKEDITOR.plugins.addExternal(plugin_name , plugins[plugin_name]);
+            CKEDITOR.plugins.addExternal(plugin_name, plugins[plugin_name]);
           }
         }
 
@@ -54,8 +54,10 @@
           removePlugins: 'elementspath,magicline',
           // Toolbar settings.
           format_tags: 'p;h2;h3;h4;h5;h6',
-          // Extra plugins.
-          extraPlugins: ''
+          // Autogrow.
+          extraPlugins: 'autogrow',
+          autoGrow_minHeight: 100,
+          autoGrow_maxHeight: 300
         };
 
         // Add toolbar.
@@ -72,6 +74,7 @@
           else {
             options.toolbar.push({name: 'insert', items: ['SpecialChar']});
           }
+
           // Add link plugin.
           if (plugins['link']) {
             options.extraPlugins += (options.extraPlugins ? ',' : '') + 'link';
@@ -82,19 +85,24 @@
           options.toolbar.push({name: 'tools', items: ['Source', '-', 'Maximize']});
         }
 
-        // Add auto grow plugin.
-        if (plugins['autogrow'] && CKEDITOR.plugins.get('autogrow')) {
-          options.extraPlugins += (options.extraPlugins ? ',' : '') + 'autogrow';
-          options.autoGrow_minHeight = 100;
-          options.autoGrow_maxHeight = 300;
-        }
-
         options = $.extend(options, Drupal.webform.htmlEditor.options);
 
-        CKEDITOR.replace(this.id, options).on('change', function (evt) {
-          // Save data onchange since Ajax dialogs don't execute webform.onsubmit.
-          $textarea.val(evt.editor.getData().trim());
-        });
+        // Catch and suppress
+        // "Uncaught TypeError: Cannot read property 'getEditor' of undefined".
+        // 
+        // Steps to reproduce this error.
+        // - Goto any form elements.
+        // - Edit an element.
+        // - Save the element.
+        try {
+          CKEDITOR.replace(this.id, options).on('change', function (evt) {
+            // Save data onchange since Ajax dialogs don't execute form.onsubmit.
+            $textarea.val(evt.editor.getData().trim());
+          });
+        }
+        catch (e) {
+          // Do nothing.
+        }
       });
     }
   };

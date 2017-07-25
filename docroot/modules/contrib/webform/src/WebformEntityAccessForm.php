@@ -73,7 +73,7 @@ class WebformEntityAccessForm extends EntityForm {
 
     $context = [
       '@label' => $webform->label(),
-      'link' => $webform->toLink($this->t('Edit'), 'access-form')->toString()
+      'link' => $webform->toLink($this->t('Edit'), 'access-form')->toString(),
     ];
     $this->logger('webform')->notice('Webform access @label saved.', $context);
 

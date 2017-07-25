@@ -35,6 +35,25 @@ function google_tag_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
+ * Implements hook_rebuild().
+ */
+function google_tag_rebuild() {
+  $rebuild_snippets = \Drupal::config('google_tag.settings')->get('rebuild_snippets');
+  if ($rebuild_snippets) {
+    _google_tag_assets_create();
+  }
+}
+
+/**
+ * Saves snippet files and data layer classes based on current settings.
+ */
+function _google_tag_assets_create() {
+  $config_factory = \Drupal::configFactory();
+  $form = new Drupal\google_tag\Form\GoogleTagSettingsForm($config_factory);
+  $form->createAssets();
+}
+
+/**
  * Implements hook_page_attachments().
  */
 function google_tag_page_attachments(&$attachments) {

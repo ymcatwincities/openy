@@ -109,7 +109,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
 
     $form['role']['role_toggle'] = [
       '#type' => 'radios',
-      '#title' => t('Add snippet for specific roles'),
+      '#title' => $this->t('Add snippet for specific roles'),
       '#options' => [
         GOOGLE_TAG_EXCLUDE_LISTED => $this->t('All roles except the selected roles'),
         GOOGLE_TAG_INCLUDE_LISTED => $this->t('Only the selected roles'),
@@ -123,19 +123,19 @@ class GoogleTagSettingsForm extends ConfigFormBase {
 
     $form['role']['role_list'] = [
       '#type' => 'checkboxes',
-      '#title' => t('Selected roles'),
+      '#title' => $this->t('Selected roles'),
       '#default_value' => $config->get('role_list'),
       '#options' => $user_roles,
     ];
 
     // Response statuses tab.
-    $description = t('Enter one response status per line. For more information, refer to the <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">list of HTTP status codes</a>.');
+    $description = $this->t('Enter one response status per line. For more information, refer to the <a href="http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">list of HTTP status codes</a>.');
 
     $form['status'] = [
       '#type' => 'details',
       '#title' => $this->t('Response statuses'),
       '#group' => 'settings',
-      '#description' => t('On this tab, specify the page response status condition.'),
+      '#description' => $this->t('On this tab, specify the page response status condition.'),
     ];
 
     $form['status']['status_toggle'] = [
@@ -177,6 +177,13 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('include_file'),
     ];
 
+    $form['advanced']['rebuild_snippets'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Recreate snippets on cache rebuild'),
+      '#description' => $this->t('If checked, then the JavaScript snippet files will be created during a cache rebuild. This is <strong>recommended on production sites</strong>.'),
+      '#default_value' => $config->get('rebuild_snippets'),
+    ];
+
     $form['advanced']['debug_output'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show debug output'),
@@ -200,7 +207,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('include_classes'),
     ];
 
-    $description = t('The types of tags, triggers, and variables <strong>allowed</strong> on a page. Enter one class per line. For more information, refer to the <a href="https://developers.google.com/tag-manager/devguide#security">developer documentation</a>.');
+    $description = $this->t('The types of tags, triggers, and variables <strong>allowed</strong> on a page. Enter one class per line. For more information, refer to the <a href="https://developers.google.com/tag-manager/devguide#security">developer documentation</a>.');
 
     $form['advanced']['whitelist_classes'] = [
       '#type' => 'textarea',
@@ -227,7 +234,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('include_environment'),
     ];
 
-    $description = t('The environment ID to use with this website container. To get an environment ID, <a href="https://tagmanager.google.com/#/admin">select Environments</a>, create an environment, then click the "Get Snippet" action. The environment ID and token will be in the snippet.');
+    $description = $this->t('The environment ID to use with this website container. To get an environment ID, <a href="https://tagmanager.google.com/#/admin">select Environments</a>, create an environment, then click the "Get Snippet" action. The environment ID and token will be in the snippet.');
 
     $form['advanced']['environment_id'] = [
       '#type' => 'textfield',
@@ -300,7 +307,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       $form_state->setError($form['general']['container_id'], $this->t('A valid container ID is case sensitive and formatted like GTM-xxxxxx.'));
     }
     if ($form_state->getValue('include_environment') && !preg_match('/^env-\d{1,}$/', $environment_id)) {
-      $form_state->setError($form['advanced']['environment_id'], t('A valid environment ID is case sensitive and formatted like env-x.'));
+      $form_state->setError($form['advanced']['environment_id'], $this->t('A valid environment ID is case sensitive and formatted like env-x.'));
     }
 
     parent::validateForm($form, $form_state);
@@ -320,6 +327,7 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       ->set('status_list', $form_state->getValue('status_list'))
       ->set('compact_snippet', $form_state->getValue('compact_snippet'))
       ->set('include_file', $form_state->getValue('include_file'))
+      ->set('rebuild_snippets', $form_state->getValue('rebuild_snippets'))
       ->set('debug_output', $form_state->getValue('debug_output'))
       ->set('data_layer', $form_state->getValue('data_layer'))
       ->set('include_classes', $form_state->getValue('include_classes'))
@@ -332,7 +340,28 @@ class GoogleTagSettingsForm extends ConfigFormBase {
 
     parent::submitForm($form, $form_state);
 
-    $this->saveSnippets();
+    $this->createAssets();
+  }
+
+  /**
+   * Prepares directory for and saves snippet files based on current settings.
+   *
+   * @return bool
+   *   Whether the files were saved.
+   */
+  public function createAssets() {
+    $result = TRUE;
+    $directory = 'public://google_tag';
+    if (!is_dir($directory) || !is_writable($directory)) {
+      $result = file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+    }
+    if ($result) {
+      $result = $this->saveSnippets();
+    }
+    else {
+      $description = t('Failed to create or make writable the directory %directory, possibly due to a permissions problem. Make the directory writable.', array('%directory' => $directory));
+    }
+    return $result;
   }
 
   /**
@@ -350,14 +379,15 @@ class GoogleTagSettingsForm extends ConfigFormBase {
       $path = file_unmanaged_save_data($snippet, "public://google_tag/google_tag.$type.js", FILE_EXISTS_REPLACE);
       $result = !$path ? FALSE : $result;
     }
-    if (!$path) {
-      drupal_set_message(t('An error occurred saving one or more snippet files. Please try again or contact the site administrator if it persists.'));
+    if (!$result) {
+      drupal_set_message($this->t('An error occurred saving one or more snippet files. Please try again or contact the site administrator if it persists.'));
     }
     else {
-      drupal_set_message(t('Created three snippet files based on configuration.'));
+      drupal_set_message($this->t('Created three snippet files based on configuration.'));
       \Drupal::service('asset.js.collection_optimizer')->deleteAll();
       _drupal_flush_css_js();
     }
+    return $result;
   }
 
   /**

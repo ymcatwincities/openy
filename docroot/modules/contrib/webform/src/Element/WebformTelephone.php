@@ -15,7 +15,7 @@ class WebformTelephone extends WebformCompositeBase {
    * {@inheritdoc}
    */
   public function getInfo() {
-    $info = parent::getInfo();
+    $info = parent::getInfo() + ['#theme' => 'webform_composite_telephone'];
     unset($info['#title_display']);
     return $info;
   }

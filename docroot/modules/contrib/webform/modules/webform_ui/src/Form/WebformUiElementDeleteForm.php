@@ -6,7 +6,7 @@ use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\webform\WebformDialogTrait;
+use Drupal\webform\Form\WebformDialogFormTrait;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformEntityElementsValidator;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class WebformUiElementDeleteForm extends ConfirmFormBase {
 
-  use WebformDialogTrait;
+  use WebformDialogFormTrait;
 
   /**
    * The renderer.
@@ -43,7 +43,7 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
   /**
    * A webform element.
    *
-   * @var \Drupal\webform\WebformElementInterface
+   * @var \Drupal\webform\Plugin\WebformElementInterface
    */
   protected $webformElement;
 
@@ -110,7 +110,7 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
       $build['elements']['#title'] = t('The below nested elements will be also deleted.');
     }
 
-    return $this->renderer->render($build);
+    return $this->renderer->renderPlain($build);
   }
 
   /**
@@ -188,13 +188,13 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
       throw new NotFoundHttpException();
     }
 
-    /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+    /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
     $element_manager = \Drupal::service('plugin.manager.webform.element');
     $plugin_id = $element_manager->getElementPluginId($this->element);
     $this->webformElement = $element_manager->createInstance($plugin_id, $this->element);
 
     $form = parent::buildForm($form, $form_state);
-    $form = $this->buildConfirmFormDialog($form, $form_state);
+    $form = $this->buildDialogConfirmForm($form, $form_state);
     return $form;
   }
 
@@ -206,14 +206,7 @@ class WebformUiElementDeleteForm extends ConfirmFormBase {
     $this->webform->save();
 
     drupal_set_message($this->t('The webform element %title has been deleted.', ['%title' => $this->getElementTitle()]));
-    $form_state->setRedirectUrl($this->getRedirectUrl());
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function getRedirectUrl() {
-    return $this->webform->toUrl('edit-form');
+    $form_state->setRedirectUrl($this->webform->toUrl('edit-form'));
   }
 
   /**

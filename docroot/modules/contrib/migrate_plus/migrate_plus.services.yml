@@ -8,6 +8,3 @@ services:
   plugin.manager.migrate_plus.data_parser:
     class: Drupal\migrate_plus\DataParserPluginManager
     parent: default_plugin_manager
-  plugin.manager.config_entity_migration:
-    class: Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager
-    parent: plugin.manager.migration

@@ -461,6 +461,190 @@ elements: |
         three: Three
       '#default_value': one
       '#icheck': flat-aero
+  line:
+    '#type': details
+    '#title': Line
+    '#open': true
+    line_checkboxes:
+      '#type': checkboxes
+      '#title': 'Line checkboxes (line)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line
+    line_radios:
+      '#type': radios
+      '#title': 'Line radios (line)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line
+    line_grey_checkboxes:
+      '#type': checkboxes
+      '#title': 'Grey checkboxes (line-grey)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-grey
+    line_grey_radios:
+      '#type': radios
+      '#title': 'Grey radios (line-grey)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-grey
+    line_yellow_checkboxes:
+      '#type': checkboxes
+      '#title': 'Yellow checkboxes (line-yellow)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-yellow
+    line_yellow_radios:
+      '#type': radios
+      '#title': 'Yellow radios (line-yellow)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-yellow
+    line_orange_checkboxes:
+      '#type': checkboxes
+      '#title': 'Orange checkboxes (line-orange)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-orange
+    line_orange_radios:
+      '#type': radios
+      '#title': 'Orange radios (line-orange)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-orange
+    line_red_checkboxes:
+      '#type': checkboxes
+      '#title': 'Red checkboxes (line-red)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-red
+    line_red_radios:
+      '#type': radios
+      '#title': 'Red radios (line-red)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-red
+    line_pink_checkboxes:
+      '#type': checkboxes
+      '#title': 'Pink checkboxes (line-pink)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-pink
+    line_pink_radios:
+      '#type': radios
+      '#title': 'Pink radios (line-pink)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-pink
+    line_purple_checkboxes:
+      '#type': checkboxes
+      '#title': 'Purple checkboxes (line-purple)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-purple
+    line_purple_radios:
+      '#type': radios
+      '#title': 'Purple radios (line-purple)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-purple
+    line_blue_checkboxes:
+      '#type': checkboxes
+      '#title': 'Blue checkboxes (line-blue)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-blue
+    line_blue_radios:
+      '#type': radios
+      '#title': 'Blue radios (line-blue)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-blue
+    line_green_checkboxes:
+      '#type': checkboxes
+      '#title': 'Green checkboxes (line-green)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-green
+    line_green_radios:
+      '#type': radios
+      '#title': 'Green radios (line-green)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-green
+    line_aero_checkboxes:
+      '#type': checkboxes
+      '#title': 'Aero checkboxes (line-aero)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-aero
+    line_aero_radios:
+      '#type': radios
+      '#title': 'Aero radios (line-aero)'
+      '#options':
+        one: One
+        two: Two
+        three: Three
+      '#default_value': one
+      '#icheck': line-aero
   square:
     '#type': details
     '#title': Square
@@ -688,6 +872,7 @@ elements: |
 css: ''
 javascript: ''
 settings:
+  ajax: false
   page: true
   page_submit_path: ''
   page_confirm_path: ''
@@ -701,13 +886,17 @@ settings:
   form_convert_anonymous: false
   form_prepopulate: false
   form_prepopulate_source_entity: false
+  form_prepopulate_source_entity_required: false
+  form_prepopulate_source_entity_type: ''
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
   form_disable_back: false
   form_autofocus: false
   form_details_toggle: false
+  submission_label: ''
   submission_log: false
+  submission_user_columns: {  }
   wizard_progress_bar: true
   wizard_progress_pages: false
   wizard_progress_percentage: false
@@ -718,7 +907,10 @@ settings:
   preview_label: ''
   preview_title: ''
   preview_message: ''
+  preview_attributes: {  }
+  preview_excluded_elements: {  }
   draft: none
+  draft_multiple: false
   draft_auto_save: false
   draft_saved_message: ''
   draft_loaded_message: ''

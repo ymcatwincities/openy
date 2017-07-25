@@ -17,12 +17,6 @@ function address_requirements($phase) {
         'severity' => REQUIREMENT_ERROR,
       ];
     }
-    if (!class_exists('\CommerceGuys\Zone\Repository\ZoneRepository')) {
-      $requirements['zone_library'] = [
-        'description' => t('Address requires the commerceguys/zone library.'),
-        'severity' => REQUIREMENT_ERROR,
-      ];
-    }
   }
 
   return $requirements;
@@ -189,4 +183,19 @@ function address_update_8101() {
 
   // Used by address_post_update_convert_names_subdivisions.
   \Drupal::state()->set('address_8101_processed', $processed_fields);
+}
+
+/**
+ * Remove the stored zones.
+ */
+function address_update_8103() {
+  // Clear the caches to ensure the entity type is gone.
+  \Drupal::entityTypeManager()->clearCachedDefinitions();
+  \Drupal::service('entity_type.repository')->clearCachedDefinitions();
+  // Remove the underlying config.
+  $config_factory = \Drupal::configFactory();
+  $names = $config_factory->listAll('address.zone.');
+  foreach ($names as $name) {
+    $config_factory->getEditable($name)->delete();
+  }
 }
