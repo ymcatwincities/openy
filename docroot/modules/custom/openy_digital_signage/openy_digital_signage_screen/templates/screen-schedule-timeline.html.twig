@@ -18,11 +18,13 @@
     </div>
 
     {% for schedule_item in schedule_items %}
-      <div class="screen-schedule-item screen-schedule-item--{{ schedule_item.type }}"
+      <div class="screen-schedule-item screen-schedule-item--{{ schedule_item.type }} {{ schedule_item.status ?: 'screen-schedule-item--disabled' }}"
          data-from="{{ schedule_item.from }}"
          data-to="{{ schedule_item.to }}">
         <a href="{{ schedule_item.view_link }}" class="use-ajax screen-schedule-item__title">{{ schedule_item.title }}</a>
-
+        {% if not schedule_item.status %}
+          <span class="screen-schedule-item__disabled-message">{{ "(disabled)"|t }}</span>
+        {% endif %}
         <span class="screen-schedule-item__time">{{ schedule_item.formatted_time }}</span>
         <a href="{{ schedule_item.edit_link }}" class="use-ajax screen-schedule-item__edit-link">{{ "Edit"|t }}</a>
       </div>

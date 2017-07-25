@@ -74,13 +74,16 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getUpcomingScreenContents(OpenYSchedule $schedule, $timespan, $now = NULL) {
+  public function getUpcomingScreenContents(OpenYSchedule $schedule, $timespan, $now = NULL, $include_disabled = FALSE) {
     if (!$now) {
       $now = time();
     }
 
     $query = $this->entityQuery->get('openy_digital_signage_sch_item');
     $query->condition('schedule', $schedule->id());
+    if (!$include_disabled) {
+      $query->condition('status', 1);
+    }
     $entity_ids = $query->execute();
 
     if (!$entity_ids) {
