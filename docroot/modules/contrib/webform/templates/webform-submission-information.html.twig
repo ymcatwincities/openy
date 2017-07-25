@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Default theme implementation from webform submission information.
+ * Default theme implementation for webform submission information.
  *
  * Available variables:
  * @todo Add variables.
@@ -24,15 +24,15 @@
       {% if token_update %}
         <div><b>{{ 'Submission Update'|t }}:</b> {{ token_update }}</div>
       {% endif %}
-      <br/>
+      <br />
       <div><b>{{ 'Created'|t }}:</b> {{ created }}</div>
       <div><b>{{ 'Completed'|t }}:</b> {{ completed }}</div>
       <div><b>{{ 'Changed'|t }}:</b> {{ changed }}</div>
-      <br/>
+      <br />
       <div><b>{{ 'Remote IP address'|t }}:</b> {{ remote_addr }}</div>
       <div><b>{{ 'Submitted by'|t }}:</b> {{ submitted_by }}</div>
       <div><b>{{ 'Language'|t }}:</b> {{ language }}</div>
-      <br/>
+      <br />
       <div><b>{{ 'Is draft'|t }}:</b> {{ is_draft }}</div>
       {% if current_page %}
         <div><b>{{ 'Current page'|t }}:</b> {{ current_page }}</div>
@@ -42,7 +42,7 @@
         <div><b>{{ 'Submitted to'|t }}:</b> {{ submitted_to }}</div>
       {% endif %}
       {% if sticky or notes %}
-        <br/>
+        <br />
         {% if sticky %}
           <div><b>{{ 'Flagged'|t }}:</b> {{ sticky }}</div>
         {% endif %}

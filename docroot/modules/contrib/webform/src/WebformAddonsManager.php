@@ -81,11 +81,14 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
     $categories['migrate'] = [
       'title' => $this->t('Migrate'),
     ];
+    $categories['rest'] = [
+      'title' => $this->t('REST'),
+    ];
     $categories['spam'] = [
       'title' => $this->t('SPAM Protection'),
     ];
-    $categories['handler'] = [
-      'title' => $this->t('Submission handling'),
+    $categories['submission'] = [
+      'title' => $this->t('Submissions'),
     ];
     $categories['validation'] = [
       'title' => $this->t('Validation'),
@@ -107,6 +110,14 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
    */
   protected function initProjects() {
     $projects = [];
+
+    // Element: Webform Crosspage Conditions.
+    $projects['webform_crosspage_conditions'] = [
+      'title' => $this->t('Webform Crosspage Conditions'),
+      'description' => $this->t('Provides the handler that evaluates the field state conditions with the fields from other than current page'),
+      'url' => Url::fromUri('https://github.com/artemvd/webform_crosspage_conditions'),
+      'category' => 'element',
+    ];
 
     // Element: Webform Layout Container.
     $projects['webform_layout_container'] = [
@@ -174,22 +185,6 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'category' => 'validation',
     ];
 
-    // Integrations: Webform Views Integration.
-    $projects['webform_views'] = [
-      'title' => $this->t('Webform Views Integration'),
-      'description' => $this->t('Integrates Forms 8.x-5.x and Views modules.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/webform_views'),
-      'category' => 'integration',
-    ];
-
-    // Integration: Webform REST.
-    $projects['webform_rest'] = [
-      'title' => $this->t('Webform REST'),
-      'description' => $this->t('Retrieve and submit webforms via REST. '),
-      'url' => Url::fromUri('https://www.drupal.org/project/webform_rest'),
-      'category' => 'integration',
-    ];
-
     // Integration: Webform iContact.
     $projects['webform_icontact'] = [
       'title' => $this->t('Webform iContact'),
@@ -206,11 +201,27 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'category' => 'integration',
     ];
 
+    // Integrations: Webform Product
+    $projects['webform_product'] = [
+      'title' => $this->t('Webform Product'),
+      'description' => $this->t('Links commerce products to webform elements.'),
+      'url' => Url::fromUri('https://github.com/chx/webform_product'),
+      'category' => 'integration',
+    ];
+
     // Integrations: Webform Slack integration.
     $projects['webform_slack'] = [
-      'title' => $this->t('Webform Slack integration'),
+      'title' => $this->t('Webform Slack'),
       'description' => $this->t('Provides a Webform handler for posting a message to a slack channel when a submission is saved.'),
       'url' => Url::fromUri('https://www.drupal.org/sandbox/smaz/2833275'),
+      'category' => 'integration',
+    ];
+
+    // Integrations: Webform Stripe integration.
+    $projects['stripe_webform'] = [
+      'title' => $this->t('Webform Stripe'),
+      'description' => $this->t('Provides a stripe webform element and default handlers'),
+      'url' => Url::fromUri('https://www.drupal.org/project/stripe_webform'),
       'category' => 'integration',
     ];
 
@@ -230,14 +241,30 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'category' => 'integration',
     ];
 
-    // Handler: Web Form Queue.
+    // Webform submissions: Webform Views Integration.
+    $projects['webform_views'] = [
+      'title' => $this->t('Webform Views'),
+      'description' => $this->t('Integrates Webform 8.x-5.x and Views modules.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/webform_views'),
+      'category' => 'submission',
+    ];
+
+    // Webform submissions: Web Form Queue.
     $projects['webform_queue'] = [
       'title' => $this->t('Webform Queue'),
       'description' => $this->t('Posts form submissions into a Drupal queue.'),
       'url' => Url::fromUri('https://www.drupal.org/project/webform_queue'),
-      'category' => 'handler',
+      'category' => 'submission',
     ];
 
+    // REST: Webform REST.
+    $projects['webform_rest'] = [
+      'title' => $this->t('Webform REST'),
+      'description' => $this->t('Retrieve and submit webforms via REST.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/webform_rest'),
+      'category' => 'rest',
+    ];
+    
     // Mail: Mail System.
     $projects['mailsystem'] = [
       'title' => $this->t('Mail System'),
@@ -291,7 +318,7 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
     // Migrate: YAML Form Migrate.
     $projects['yamlform_migrate'] = [
       'title' => $this->t('YAML Form Migrate'),
-      'description' => $this->t('Provides migration routines from  Drupal 6 YAML Form module to  Drupal 8 YAML Form module.'),
+      'description' => $this->t('Provides migration routines from Drupal 6 YAML Form module to Drupal 8 YAML Form module.'),
       'url' => Url::fromUri('https://www.drupal.org/sandbox/dippers/2819169'),
       'category' => 'migrate',
     ];

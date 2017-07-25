@@ -2,7 +2,7 @@
 
 namespace Drupal\webform\Plugin\WebformHandler;
 
-use Drupal\webform\WebformHandlerBase;
+use Drupal\webform\Plugin\WebformHandlerBase;
 
 /**
  * Defines a fallback plugin for missing webform handler plugins.
@@ -12,9 +12,9 @@ use Drupal\webform\WebformHandlerBase;
  *   label = @Translation("Broken/Missing"),
  *   category = @Translation("Broken"),
  *   description = @Translation("Broken/missing webform handler plugin."),
- *   cardinality = \Drupal\webform\WebformHandlerInterface::CARDINALITY_UNLIMITED,
- *   results = \Drupal\webform\WebformHandlerInterface::RESULTS_IGNORED,
- *   submission = \Drupal\webform\WebformHandlerInterface::SUBMISSION_OPTIONAL,
+ *   cardinality = \Drupal\webform\Plugin\WebformHandlerInterface::CARDINALITY_UNLIMITED,
+ *   results = \Drupal\webform\Plugin\WebformHandlerInterface::RESULTS_IGNORED,
+ *   submission = \Drupal\webform\Plugin\WebformHandlerInterface::SUBMISSION_OPTIONAL,
  * )
  */
 class BrokenWebformHandler extends WebformHandlerBase {

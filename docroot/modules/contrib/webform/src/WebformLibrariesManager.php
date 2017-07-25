@@ -119,7 +119,7 @@ class WebformLibrariesManager implements WebformLibrariesManagerInterface {
       else {
         $value = $this->t('@version (CDN).', $t_args);
         $build = [];
-        $build['download'] = ['#markup' => $this->t('Please download the <a href=":homepage_href">@title</a> library from <a href=":download_href">:download_href</a> and copy it to <b>@path</b> or use <a href=":install_href">Drush</a> to install this library.',  $t_args)];
+        $build['download'] = ['#markup' => $this->t('Please download the <a href=":homepage_href">@title</a> library from <a href=":download_href">:download_href</a> and copy it to <b>@path</b> or use <a href=":install_href">Drush</a> to install this library.', $t_args)];
         if (!$cli) {
           $build['cdn'] = ['#prefix' => ' ', '#markup' => $this->t('(<a href=":settings_libraries_href">Disable CDN warning</a>)', $t_args)];
         }
@@ -214,15 +214,6 @@ class WebformLibrariesManager implements WebformLibrariesManagerInterface {
     $ckeditor_version = $core_libraries['ckeditor']['version'];
 
     $libraries = [];
-    $libraries['ckeditor.autogrow'] = [
-      'title' => $this->t('CKEditor: Autogrow'),
-      'description' => $this->t('Allows CKEditor to expand and shrink depending on the amount and size of content.'),
-      'notes' => $this->t('Autogrow makes it possible to reduce the size of empty HTML editor while still supporting HTML markup.'),
-      'homepage_url' => Url::fromUri('http://ckeditor.com/addon/autogrow'),
-      'download_url' => Url::fromUri("http://download.ckeditor.com/autogrow/releases/autogrow_$ckeditor_version.zip"),
-      'version' => $ckeditor_version,
-      'optional' => TRUE,
-    ];
     $libraries['ckeditor.fakeobjects'] = [
       'title' => $this->t('CKEditor: Fakeobjects'),
       'description' => $this->t('Utility required by CKEditor link plugin.'),
@@ -358,6 +349,15 @@ class WebformLibrariesManager implements WebformLibrariesManagerInterface {
       'version' => '2.3.5',
       'optional' => TRUE,
     ];
+    $libraries['progress-tracker'] = [
+      'title' => $this->t('Progress Tracker'),
+      'description' => $this->t("A flexible SASS component to illustrate the steps in a multi step process e.g. a multi step form, a timeline or a quiz."),
+      'notes' => $this->t('Progress Tracker is used by multi-step wizard forms.'),
+      'homepage_url' => Url::fromUri('http://nigelotoole.github.io/progress-tracker/'),
+      'download_url' => Url::fromUri('https://github.com/NigelOToole/progress-tracker/archive/v1.4.0.zip'),
+      'version' => '1.4.0',
+      'optional' => TRUE,
+    ];
     $libraries['signature_pad'] = [
       'title' => $this->t('Signature Pad'),
       'description' => $this->t("Signature Pad is a JavaScript library for drawing smooth signatures. It is HTML5 canvas based and uses variable width Bézier curve interpolation. It works in all modern desktop and mobile browsers and doesn't depend on any external libraries."),
@@ -386,7 +386,7 @@ class WebformLibrariesManager implements WebformLibrariesManagerInterface {
     }
 
     // Get excluded libraries based on excluded (element) types.
-    foreach($this->libraries as $library_name => $library) {
+    foreach ($this->libraries as $library_name => $library) {
       if (!empty($library['elements']) && $this->areElementsExcluded($library['elements'])) {
         $excluded_libraries[$library_name] = $library_name;
       }
@@ -411,4 +411,5 @@ class WebformLibrariesManager implements WebformLibrariesManagerInterface {
     }
     return WebformArrayHelper::keysExist($excluded_elements, $elements);
   }
+
 }

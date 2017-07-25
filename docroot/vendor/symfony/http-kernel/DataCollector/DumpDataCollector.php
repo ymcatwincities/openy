@@ -20,6 +20,7 @@ use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
+use Twig\Template;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -71,7 +72,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
         }
 
         $trace = DEBUG_BACKTRACE_PROVIDE_OBJECT | DEBUG_BACKTRACE_IGNORE_ARGS;
-        if (PHP_VERSION_ID >= 50400) {
+        if (\PHP_VERSION_ID >= 50400) {
             $trace = debug_backtrace($trace, 7);
         } else {
             $trace = debug_backtrace($trace);
@@ -96,7 +97,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
                         $line = $trace[$i]['line'];
 
                         break;
-                    } elseif (isset($trace[$i]['object']) && $trace[$i]['object'] instanceof \Twig_Template) {
+                    } elseif (isset($trace[$i]['object']) && $trace[$i]['object'] instanceof Template) {
                         $template = $trace[$i]['object'];
                         $name = $template->getTemplateName();
                         $src = method_exists($template, 'getSourceContext') ? $template->getSourceContext()->getCode() : (method_exists($template, 'getSource') ? $template->getSource() : false);
@@ -263,7 +264,7 @@ class DumpDataCollector extends DataCollector implements DataDumperInterface
 
     private function doDump($data, $name, $file, $line)
     {
-        if (PHP_VERSION_ID >= 50400 && $this->dumper instanceof CliDumper) {
+        if (\PHP_VERSION_ID >= 50400 && $this->dumper instanceof CliDumper) {
             $contextDumper = function ($name, $file, $line, $fileLinkFormat) {
                 if ($this instanceof HtmlDumper) {
                     if ($file) {

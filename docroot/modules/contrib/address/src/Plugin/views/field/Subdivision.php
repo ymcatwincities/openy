@@ -73,6 +73,7 @@ class Subdivision extends FieldPluginBase {
           $address->getCountryCode(),
         ];
         break;
+
       case 'locality':
         $code = $address->getLocality();
         $parents = [
@@ -80,6 +81,7 @@ class Subdivision extends FieldPluginBase {
           $address->getAdministrativeArea(),
         ];
         break;
+
       case 'dependent_locality':
         $code = $address->getDependentLocality();
         $parents = [
@@ -99,4 +101,5 @@ class Subdivision extends FieldPluginBase {
 
     return $this->sanitizeValue($value);
   }
+
 }

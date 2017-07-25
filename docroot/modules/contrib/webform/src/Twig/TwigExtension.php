@@ -2,17 +2,10 @@
 
 namespace Drupal\webform\Twig;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Block\TitleBlockPluginInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Site\Settings;
-use Drupal\image\Entity\ImageStyle;
 use Drupal\webform\Utility\WebformHtmlHelper;
-use Drupal\webform\WebformTokenManager;
 use Drupal\webform\WebformTokenManagerInterface;
-use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 
 /**
  * Twig extension with some useful functions and filters.
@@ -36,7 +29,6 @@ class TwigExtension extends \Twig_Extension {
     $this->tokenManager = $token_manager;
   }
 
-
   /**
    * {@inheritdoc}
    */
@@ -56,7 +48,7 @@ class TwigExtension extends \Twig_Extension {
   /**
    * Replace tokens in text.
    *
-   * @param string|array $text
+   * @param string|array $token
    *   A string of text that may contain tokens.
    * @param \Drupal\Core\Entity\EntityInterface|null $entity
    *   A Webform or Webform submission entity.

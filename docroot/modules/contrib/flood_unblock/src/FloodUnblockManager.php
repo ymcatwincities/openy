@@ -3,8 +3,11 @@
 namespace Drupal\flood_unblock;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 class FloodUnblockManager {
+
+	use StringTranslationTrait;
 
   /**
    * The Database Connection
@@ -39,29 +42,31 @@ class FloodUnblockManager {
   public function  get_blocked_ip_entries() {
     $entries = array();
 
-    $query = $this->database->select('flood', 'f');
-    $query->addField('f', 'identifier');
-    $query->addField('f', 'identifier', 'ip');
-    $query->addExpression('count(*)', 'count');
-    $query->condition('f.event', 'user.failed_login_ip');
-    $query->groupBy('identifier');
-    $results = $query->execute();
+    if (db_table_exists('flood')) {
+      $query = $this->database->select('flood', 'f');
+      $query->addField('f', 'identifier');
+      $query->addField('f', 'identifier', 'ip');
+      $query->addExpression('count(*)', 'count');
+      $query->condition('f.event', 'user.failed_login_ip');
+      $query->groupBy('identifier');
+      $results = $query->execute();
 
-     foreach ($results as $result) {
-       if (function_exists('smart_ip_get_location')) {
-         $location = smart_ip_get_location($result->ip);
-         $location_string = sprintf(" (%s %s %s)", $location['city'], $location['region'], $location['country_code']);
-       }
-       else {
-         $location_string = '';
-       }
-       $entries[$result->identifier] = array(
-         'type'     => 'ip',
-         'ip'       => $result->ip,
-         'count'    => $result->count,
-         'location' => $location_string,
-       );
-     }
+      foreach ($results as $result) {
+        if (function_exists('smart_ip_get_location')) {
+          $location = smart_ip_get_location($result->ip);
+          $location_string = sprintf(" (%s %s %s)", $location['city'], $location['region'], $location['country_code']);
+        }
+        else {
+          $location_string = '';
+        }
+        $entries[$result->identifier] = array(
+          'type'     => 'ip',
+          'ip'       => $result->ip,
+          'count'    => $result->count,
+          'location' => $location_string,
+        );
+      }
+    }
 
     return $entries;
   }
@@ -94,6 +99,7 @@ class FloodUnblockManager {
         $location_string = '';
       }
 
+      /** @var \Drupal\user\Entity\User $user */
       $user = $this->entityTypeManager->getStorage('user')->load($result->uid);
       $entries[$result->identifier] = array(
         'type'     => 'user',
@@ -121,14 +127,14 @@ class FloodUnblockManager {
       }
       $success = $query->execute();
       if ($success) {
-        drupal_set_message(t('Flood entries cleared.'), 'status', FALSE);
+        drupal_set_message($this->t('Flood entries cleared.'), 'status', FALSE);
       }
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       // Something went wrong somewhere, so roll back now.
       $txn->rollback();
       // Log the exception to watchdog.
       watchdog_exception('type', $e);
-      drupal_set_message("Error: " . $e, 'error');
+      drupal_set_message($this->t('Error: @error', ['@error' => (string) $e]), 'error');
     }
   }
 }

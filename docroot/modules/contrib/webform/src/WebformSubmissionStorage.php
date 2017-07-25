@@ -7,6 +7,7 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Database\Database;
@@ -14,6 +15,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\user\Entity\User;
 use Drupal\user\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -118,6 +120,21 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   /**
    * {@inheritdoc}
    */
+  protected function buildPropertyQuery(QueryInterface $entity_query, array $values) {
+    // Add account query wheneven filter by uid.
+    if (isset($values['uid'])) {
+      $account = User::load($values['uid']);
+      $this->addQueryConditions($entity_query, NULL, NULL, $account);
+      unset($values['uid']);
+    }
+
+    parent::buildPropertyQuery($entity_query, $values);
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
   public function deleteAll(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, $limit = NULL, $max_sid = NULL) {
     $query = $this->getQuery();
     $this->addQueryConditions($query, $webform, $source_entity, NULL);
@@ -138,9 +155,9 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   /**
    * {@inheritdoc}
    */
-  public function getTotal(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL) {
+  public function getTotal(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $in_draft = FALSE) {
     $query = $this->getQuery();
-    $this->addQueryConditions($query, $webform, $source_entity, $account, ['in_draft' => FALSE]);
+    $this->addQueryConditions($query, $webform, $source_entity, $account, ['in_draft' => $in_draft]);
 
     // Issue: Query count method is not working for SQL Lite.
     // return $query->count()->execute();
@@ -228,29 +245,29 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   /**
    * {@inheritdoc}
    */
-  public function getFirstSubmission(WebformInterface $webform, EntityInterface $source_entity = NULL, AccountInterface $account = NULL) {
-    return $this->getTerminusSubmission($webform, $source_entity, $account, 'ASC');
+  public function getFirstSubmission(WebformInterface $webform, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = []) {
+    return $this->getTerminusSubmission($webform, $source_entity, $account, $options, 'first');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getLastSubmission(WebformInterface $webform, EntityInterface $source_entity = NULL, AccountInterface $account = NULL) {
-    return $this->getTerminusSubmission($webform, $source_entity, $account, 'DESC');
+  public function getLastSubmission(WebformInterface $webform, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = []) {
+    return $this->getTerminusSubmission($webform, $source_entity, $account, $options, 'last');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getPreviousSubmission(WebformSubmissionInterface $webform_submission, EntityInterface $source_entity = NULL, AccountInterface $account = NULL) {
-    return $this->getSiblingSubmission($webform_submission, $source_entity, $account, 'previous');
+  public function getPreviousSubmission(WebformSubmissionInterface $webform_submission, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = []) {
+    return $this->getSiblingSubmission($webform_submission, $source_entity, $account, $options, 'previous');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getNextSubmission(WebformSubmissionInterface $webform_submission, EntityInterface $source_entity = NULL, AccountInterface $account = NULL) {
-    return $this->getSiblingSubmission($webform_submission, $source_entity, $account, 'next');
+  public function getNextSubmission(WebformSubmissionInterface $webform_submission, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = []) {
+    return $this->getSiblingSubmission($webform_submission, $source_entity, $account, $options, 'next');
   }
 
   /**
@@ -273,24 +290,53 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   }
 
   /**
-   * {@inheritdoc}
+   * Get a webform submission's terminus (aka first or last).
+   *
+   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+   *   A webform submission.
+   * @param \Drupal\Core\Entity\EntityInterface|null $source_entity
+   *   (optional) A webform submission source entity.
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The current user account.
+   * @param array $options
+   *   (optional) Additional options and query conditions.
+   * @param string $terminus
+   *   Submission terminus, first or last.
+   *
+   * @return \Drupal\webform\WebformSubmissionInterface|null
+   *   The webform submission's terminus (aka first or last).
    */
-  protected function getTerminusSubmission(WebformInterface $webform, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $sort = 'DESC') {
+  protected function getTerminusSubmission(WebformInterface $webform, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = [], $terminus = 'first') {
+    $options += ['in_draft' => FALSE];
     $query = $this->getQuery();
-    $this->addQueryConditions($query, $webform, $source_entity, $account, ['in_draft' => FALSE]);
-    $query->sort('sid', $sort);
+    $this->addQueryConditions($query, $webform, $source_entity, $account, $options);
+    $query->sort('sid', ($terminus == 'first') ? 'ASC' : 'DESC');
     $query->range(0, 1);
     return ($entity_ids = $query->execute()) ? $this->load(reset($entity_ids)) : NULL;
   }
 
   /**
-   * {@inheritdoc}
+   * Get a webform submission's sibling.
+   *
+   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+   *   A webform submission.
+   * @param \Drupal\Core\Entity\EntityInterface|null $source_entity
+   *   (optional) A webform submission source entity.
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   The current user account.
+   * @param array $options
+   *   (optional) Additional options and query conditions.
+   * @param string $direction
+   *   Direction of the sibliing.
+   *
+   * @return \Drupal\webform\WebformSubmissionInterface|null
+   *   The webform submission's sibling.
    */
-  protected function getSiblingSubmission(WebformSubmissionInterface $webform_submission, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $direction = 'previous') {
+  protected function getSiblingSubmission(WebformSubmissionInterface $webform_submission, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = [], $direction = 'previous') {
     $webform = $webform_submission->getWebform();
 
     $query = $this->getQuery();
-    $this->addQueryConditions($query, $webform, $source_entity, $account);
+    $this->addQueryConditions($query, $webform, $source_entity, $account, $options);
 
     if ($direction == 'previous') {
       $query->condition('sid', $webform_submission->id(), '<');
@@ -311,36 +357,73 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   /****************************************************************************/
 
   /**
+   * Get specified columns in specified order.
+   *
+   * @param array $column_names
+   *   An associative array of column names.
+   * @param array $columns
+   *   An associative array containing all available columns.
+   *
+   * @return array
+   *    An associative array containing all specified columns.
+   */
+  protected function filterColumns(array $column_names, array $columns) {
+    $filtered_columns = [];
+    foreach ($column_names as $column_name) {
+      if (isset($columns[$column_name])) {
+        $filtered_columns[$column_name] = $columns[$column_name];
+      }
+    }
+    return $filtered_columns;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getCustomColumns(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $include_elements = TRUE) {
     // Get custom columns from the webform's state.
     if ($source_entity) {
       $source_key = $source_entity->getEntityTypeId() . '.' . $source_entity->id();
-      $custom_column_names = $webform->getState("results.custom.columns.$source_key", []);
+      $column_names = $webform->getState("results.custom.columns.$source_key", []);
       // If the source entity does not have custom columns, then see if we
       // can use the main webform as the default custom columns.
-      if (empty($custom_column_names) && $webform->getState("results.custom.default", FALSE)) {
-        $custom_column_names = $webform->getState('results.custom.columns', []);
+      if (empty($column_names) && $webform->getState("results.custom.default", FALSE)) {
+        $column_names = $webform->getState('results.custom.columns', []);
       }
     }
     else {
-      $custom_column_names = $webform->getState('results.custom.columns', []);
+      $column_names = $webform->getState('results.custom.columns', []);
     }
 
-    if (empty($custom_column_names)) {
-      return $this->getDefaultColumns($webform, $source_entity, $account, $include_elements);
-    }
-
-    // Get custom column with labels.
+    // Get columns
+    $column_names =  $column_names ?: $this->getDefaultColumnNames($webform, $source_entity, $account, $include_elements);
     $columns = $this->getColumns($webform, $source_entity, $account, $include_elements);
-    $custom_columns = [];
-    foreach ($custom_column_names as $column_name) {
-      if (isset($columns[$column_name])) {
-        $custom_columns[$column_name] = $columns[$column_name];
-      }
-    }
-    return $custom_columns;
+    return $this->filterColumns($column_names, $columns);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUserColumns(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $include_elements = TRUE) {
+    $column_names = ($webform) ? $webform->getSetting('submission_user_columns', []) : [];
+    $column_names = $column_names ?: $this->getUserDefaultColumnNames($webform, $source_entity, $account, $include_elements);
+    $columns = $this->getColumns($webform, $source_entity, $account, $include_elements);
+    return $this->filterColumns($column_names, $columns);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUserDefaultColumnNames(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $include_elements = TRUE) {
+    return ['serial', 'created', 'remote_addr'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultColumnNames(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $include_elements = TRUE) {
+    $columns = $this->getDefaultColumns($webform, $source_entity, $account, $include_elements);
+    return array_keys($columns);
   }
 
   /**
@@ -348,14 +431,12 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
    */
   public function getDefaultColumns(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $include_elements = TRUE) {
     $columns = $this->getColumns($webform, $source_entity, $account, $include_elements);
-
     // Hide certain unnecessary columns, that have default set to FALSE.
     foreach ($columns as $column_name => $column) {
       if (isset($column['default']) && $column['default'] === FALSE) {
         unset($columns[$column_name]);
       }
     }
-
     return $columns;
   }
 
@@ -378,9 +459,22 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
       'default' => FALSE,
     ];
 
+    // Submission label.
+    $columns['label'] = [
+      'title' => $this->t('Submission title'),
+      'default' => FALSE,
+      'sort' => FALSE,
+    ];
+
     // UUID.
     $columns['uuid'] = [
       'title' => $this->t('UUID'),
+      'default' => FALSE,
+    ];
+
+    // Draft
+    $columns['in_draft'] = [
+      'title' => $this->t('In draft'),
       'default' => FALSE,
     ];
 
@@ -449,11 +543,11 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
 
     // Webform elements.
     if ($webform && $include_elements) {
-      /** @var \Drupal\webform\WebformElementManagerInterface $element_manager */
+      /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
       $element_manager = \Drupal::service('plugin.manager.webform.element');
       $elements = $webform->getElementsInitializedFlattenedAndHasValue('view');
       foreach ($elements as $element) {
-        /** @var \Drupal\webform\WebformElementInterface $element_handler */
+        /** @var \Drupal\webform\Plugin\WebformElementInterface $element_handler */
         $element_handler = $element_manager->createInstance($element['#type']);
         $columns += $element_handler->getTableColumn($element);
       }
@@ -565,7 +659,8 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
     $is_new = $entity->isNew();
 
     if (!$entity->serial()) {
-      $entity->set('serial', $this->getNextSerial($entity));
+      $next_serial = $this->entityManager->getStorage('webform')->getSerial($entity->getWebform());
+      $entity->set('serial', $next_serial);
     }
 
     $result = parent::doSave($id, $entity);
@@ -607,34 +702,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
     }
 
     return $result;
-  }
-
-  /**
-   * Returns the next serial number.
-   *
-   * @return int
-   *   The next serial number.
-   */
-  protected function getNextSerial(WebformSubmissionInterface $webform_submission) {
-    $webform = $webform_submission->getWebform();
-
-    $next_serial = $webform->getState('next_serial');
-    $max_serial = $this->getMaxSerial($webform);
-    $serial = max($next_serial, $max_serial);
-
-    $webform->setState('next_serial', $serial + 1);
-
-    return $serial;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getMaxSerial(WebformInterface $webform) {
-    $query = \Drupal::database()->select('webform_submission');
-    $query->condition('webform_id', $webform->id());
-    $query->addExpression('MAX(serial)');
-    return $query->execute()->fetchField() + 1;
   }
 
   /**
@@ -1018,6 +1085,9 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
 
     $query = $this->getQuery();
     $this->addQueryConditions($query, $webform, $source_entity, $account, $options);
+
+    // Only load the most recent draft.
+    $query->sort('sid', 'DESC');
 
     return ($sids = $query->execute()) ? $this->load(reset($sids)) : NULL;
   }

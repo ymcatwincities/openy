@@ -39,7 +39,7 @@ class FieldHelper {
   /**
    * Gets the autocomplete attribute for the given AddressField value.
    *
-   * Source: https://html.spec.whatwg.org/multipage/forms.html#autofill
+   * Source: https://html.spec.whatwg.org/multipage/forms.html#autofill.
    *
    * @param string $field
    *   An AddressField value.
