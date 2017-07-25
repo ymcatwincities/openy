@@ -1,0 +1,6 @@
+system.admin_openy_digital_signage_groupex_schedule_settings:
+  route_name: system.admin_openy_digital_signage_groupex_schedule_settings
+  parent: system.admin_openy_digital_signage_settings
+  description: 'Configure synchronization settings with GroupEx Pro'
+  title: 'GroupEx Pro Settings'
+  weight: 100

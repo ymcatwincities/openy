@@ -1,17 +1,17 @@
 <?php
 
-namespace Drupal\openy_digital_signage_classes_schedule;
+namespace Drupal\openy_digital_signage_groupex_schedule;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
- * Defines a cron service for classes schedule.
+ * Defines a cron service to work with GroupEx Pro.
  *
- * @ingroup openy_digital_signage_classes_schedule
+ * @ingroup openy_digital_signage_groupex_schedule
  */
-class OpenYClassesScheduleCron implements OpenYClassesScheduleCronInterface {
+class OpenYSessionsGroupExCron implements OpenYSessionsGroupExCronInterface {
 
   /**
    * The config factory service.
@@ -53,48 +53,36 @@ class OpenYClassesScheduleCron implements OpenYClassesScheduleCronInterface {
   /**
    * {@inheritdoc}
    */
-  public function removeOldSessions() {
+  public function isAllowed($allow_often = FALSE) {
+    if ($allow_often) {
+      return TRUE;
+    }
     // @todo Make sense to think about using module Ultimate Cron and configure schedule via this module.
-    $config = $this->configFactory->getEditable('openy_digital_signage_classes_schedule.cron_settings');
+    $config = $this->configFactory->get('openy_digital_signage_groupex_schedule.cron_settings');
     $current_time = new \DateTime();
     $last_run = new \DateTime();
     $last_run->setTimestamp($config->get('last_run'));
-    $diff = $last_run->diff($current_time);
-    // Check if cron was run less days than specified in settings.
-    if ($diff->days < $config->get('period_days')) {
+    $last_run->add(new \DateInterval('PT' . $config->get('period') . 'S'));
+    // Check if cron was run recently.
+    if ($current_time > $last_run) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function importSessions() {
+    if (!$this->isAllowed()) {
       return;
     }
-
-    // Verify start time.
-    $allowed_time = new \DateTime();
-    $allowed_time->setTime($config->get('start_run_hour'), 0);
-    if ($allowed_time < $current_time) {
-      return;
-    }
-
-    // Build a date for previous day.
-    $date = new \DateTime();
-    $date->setTime(0, 0, 0);
-    $date->sub(new \DateInterval('P' . $config->get('period_days') . 'D'));
-
-    // Get list of ids to delete.
-    $ids = \Drupal::entityQuery('openy_ds_classes_session')
-      ->condition('date_time__value', $date->format('Y-m-d'), '<=')
-      ->execute();
-    if (empty($ids)) {
-      return;
-    }
-
-    // Load session entities.
-    $sessions = $this->entityTypeManager->getStorage('openy_ds_classes_session')
-      ->loadMultiple($ids);
-
-    // Delete session entities.
-    $this->entityTypeManager->getStorage('openy_ds_classes_session')
-      ->delete($sessions);
-
-    // Save last run.
-    $config->set('last_run', time())->save();
+    /* @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher $service */
+    $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
+    $service->fetchAll();
+    // Update run time.
+    $config = $this->configFactory->getEditable('openy_digital_signage_groupex_schedule.cron_settings');
+    $config->set('last_run', REQUEST_TIME);
   }
 
 }
