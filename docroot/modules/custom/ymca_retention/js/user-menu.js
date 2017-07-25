@@ -35,14 +35,14 @@
           $modal_body.find('.ymca-retention-modal-form').appendTo($('.ymca-retention-user-menu-forms'));
         }
 
-        var title = Drupal.t('Login');
+        var title = Drupal.t('Sign In');
 
         // Add requested form to the modal body.
         if (type === 'login') {
           $('#ymca-retention-user-menu-login-form').appendTo($modal_body);
         }
         else if (type === 'register') {
-          title = Drupal.t('Sign Up');
+          title = Drupal.t('Registration');
           $('#ymca-retention-user-menu-register-form').appendTo($modal_body);
         }
         else if (type === 'email') {
@@ -74,6 +74,9 @@
         // Add requested form to the modal body.
         if (type === 'tabs-lock') {
           $('#ymca-retention-user-menu-tabs-lock').appendTo($modal_body);
+            var title = $modal_body.find('.days-left').text();
+            // Assign modal title.
+            $modal.find('.modal-title').text(Drupal.t(title));
         }
       });
   };
@@ -85,6 +88,14 @@
       }
       $(this).parents('form').find('input.form-submit').trigger('mousedown');
     });
+    var isIE = /(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    if (isIE) {
+      $(document).on('keyup', 'form', function (event) {
+        if (event.keyCode == 13) {
+          $(this).find("[type=submit]").trigger("mousedown");
+        }
+      });
+    }
   };
 
 })(jQuery);

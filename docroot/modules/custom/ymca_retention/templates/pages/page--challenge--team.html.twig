@@ -62,8 +62,14 @@
 <div id="top"></div>
 
 <div class="viewport">
-  <div id="main" role="main" class="page-middle container">
+  <div id="main" role="main" class="page-middle">
     <div class="compain-register">
+      {% if page.highlighted %}
+      <div class="container alerts-wrapper">
+        {{ page.highlighted }}
+      </div>
+      {% endif %}
+
       {% block content %}
         {{ page.content }}
       {% endblock %}
