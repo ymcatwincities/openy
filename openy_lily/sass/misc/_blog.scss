@@ -141,11 +141,21 @@
   .form-item-combine {
     @include breakpoint ($desktop-small $desktop) {
       padding: 0 0 0 140px !important;
+      .two-column & {
+        padding: 0 !important;
+      }
     }
     @include breakpoint ($desktop-small) {
       input {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+      }
+    }
+  }
+  .two-column & {
+    .views-exposed-form > div.form-item-field-blog-category-target-id {
+      @include breakpoint ($desktop-small) {
+        width: 133px !important;
       }
     }
   }
