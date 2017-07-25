@@ -378,3 +378,13 @@ function openy_update_8029() {
     'groupex_form_cache'
   ]);
 }
+
+/**
+ * Enable RH Taxonomy.
+ */
+function openy_update_8030() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'rh_taxonomy',
+  ]);
+}

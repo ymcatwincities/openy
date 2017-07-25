@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * OpenY Media install file.
+ */
+
+/**
+ * Import rabbit_hole config.
+ */
+function openy_media_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_media') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.taxonomy_vocabulary_media_tags',
+  ]);
+}
