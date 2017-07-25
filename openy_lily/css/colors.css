@@ -19,6 +19,8 @@ a,
 .btn-primary,
 .wysiwyg--button a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a,
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
+#banner .banner-caption .field-prgf-link a,
 .button:hover,
 .pink-button,
 .btn:hover,
@@ -29,9 +31,10 @@ header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a,
 .btn-primary:hover,
 .wysiwyg--button a:hover,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a:hover,
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover,
 .btn.white-blue:hover,
 .white-blue.button:hover {
-  background-color: #1dafec;
+  background-color: #b92f9e;
   color: #fffffc;
 }
 .button a,
@@ -123,7 +126,6 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 }
 
 /* Primary highlight color (purple.) */
-#banner .banner-caption .field-prgf-link a,
 .program-header.purple .content,
 #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .btn,
 #membership-calc-wrapper input[type="radio"]:checked + .form-element-wrapper label .button,
@@ -390,6 +392,7 @@ body .is-camp .branch-popup .ui-dialog-content h3 {
 .is-branch .btn.blue,
 .is-branch .modal-body .button,
 .is-branch .btn-primary,
+.is-branch #banner .banner-caption .field-prgf-link a,
 .is-branch .button:hover,
 .is-branch .btn:hover,
 .is-branch .button.blue:hover,
