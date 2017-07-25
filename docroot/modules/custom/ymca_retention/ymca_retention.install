@@ -650,4 +650,3 @@ function ymca_retention_update_8037() {
   $importer->setDirectory($path);
   $importer->importConfigs($files);
 }
-
