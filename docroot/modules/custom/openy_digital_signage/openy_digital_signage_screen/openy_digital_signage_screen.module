@@ -197,6 +197,7 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
       'type' => $schedule_item->show_date->value ? 'regular' : 'override',
       'id' => $schedule_item->id(),
       'title' => $schedule_item->label(),
+      'status' => $schedule_item->status->value,
       'formatted_time' => $formatted_time,
       'view_link' => $view_link,
       'edit_link' => $edit_link,
