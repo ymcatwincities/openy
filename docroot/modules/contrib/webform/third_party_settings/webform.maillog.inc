@@ -5,6 +5,7 @@
  * Integrates third party settings on the Maillog module's behalf.
  */
 
+use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\webform\Entity\Webform;
@@ -13,6 +14,17 @@ use Drupal\webform\Entity\Webform;
  * Implements hook_webform_submission_form_alter().
  */
 function maillog_webform_submission_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  // Never display Maillog message via CLI.
+  if (PHP_SAPI == 'cli') {
+    return;
+  }
+
+  // Never display Maillog message via dialogs or Ajax requests.
+  $wrapper_format = \Drupal::request()->get(MainContentViewSubscriber::WRAPPER_FORMAT);
+  if ($wrapper_format) {
+    return;
+  }
+
   $config = \Drupal::config('maillog.settings');
 
   // If this webform does not send any email do not display any warning.

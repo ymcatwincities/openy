@@ -32,6 +32,7 @@
 
   {% if sitemap_items %}
     {% for item in sitemap_items %}
+      {% if item.content is not empty %}
       <div{{ item.attributes.addClass('sitemap-box') }}>
         {% if item.options.show_titles %}
           <h2>{{ item.title }}</h2>
@@ -40,6 +41,7 @@
           {{ item.content }}
         </div>
       </div>
+      {% endif %}
     {% endfor %}
   {% endif %}
 

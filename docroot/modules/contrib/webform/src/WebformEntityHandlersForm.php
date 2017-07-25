@@ -5,6 +5,9 @@ namespace Drupal\webform;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\webform\Form\WebformEntityAjaxFormTrait;
+use Drupal\webform\Plugin\WebformHandlerInterface;
+use Drupal\webform\Plugin\WebformHandlerManagerInterface;
 use Drupal\webform\Utility\WebformDialogHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -12,6 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides a webform to manage submission handlers.
  */
 class WebformEntityHandlersForm extends EntityForm {
+
+  use WebformEntityAjaxFormTrait;
 
   /**
    * The webform.
@@ -23,19 +28,18 @@ class WebformEntityHandlersForm extends EntityForm {
   /**
    * Webform handler manager.
    *
-   * @var \Drupal\webform\WebformHandlerManagerInterface
+   * @var \Drupal\webform\Plugin\WebformHandlerManagerInterface
    */
   protected $handlerManager;
 
   /**
    * Constructs a WebformEntityHandlersForm.
    *
-   * @param \Drupal\webform\WebformHandlerManagerInterface $handler_manager
+   * @param \Drupal\webform\Plugin\WebformHandlerManagerInterface $handler_manager
    *   The webform handler manager.
    */
   public function __construct(WebformHandlerManagerInterface $handler_manager) {
     $this->handlerManager = $handler_manager;
-
   }
 
   /**
@@ -65,17 +69,17 @@ class WebformEntityHandlersForm extends EntityForm {
       ['data' => $this->t('Weight'), 'class' => [RESPONSIVE_PRIORITY_LOW]],
       ['data' => $this->t('Operations')],
     ];
-
+    
     // Build table rows for handlers.
     $handlers = $this->entity->getHandlers();
     $rows = [];
-    foreach ($handlers as $handler) {
-      $key = $handler->getHandlerId();
-      $rows[$key]['#attributes']['class'][] = 'draggable';
+    foreach ($handlers as $handler_id => $handler) {
+      $row['#attributes']['class'][] = 'draggable';
+      $row['#attributes']['data-webform-key'] = $handler_id;
 
-      $rows[$key]['#weight'] = isset($user_input['handlers']) ? $user_input['handlers'][$key]['weight'] : NULL;
+      $row['#weight'] = (isset($user_input['handlers']) && isset($user_input['handlers'][$handler_id])) ? $user_input['handlers'][$handler_id]['weight'] : NULL;
 
-      $rows[$key]['handler'] = [
+      $row['handler'] = [
         '#tree' => FALSE,
         'data' => [
           'label' => [
@@ -84,17 +88,17 @@ class WebformEntityHandlersForm extends EntityForm {
         ],
       ];
 
-      $rows[$key]['id'] = [
+      $row['id'] = [
         'data' => ['#markup' => $handler->getHandlerId()],
       ];
 
-      $rows[$key]['summary'] = $handler->getSummary();
+      $row['summary'] = $handler->getSummary();
 
-      $rows[$key]['status'] = [
+      $row['status'] = [
         'data' => ['#markup' => ($handler->isEnabled()) ? $this->t('Enabled') : $this->t('Disabled')],
       ];
 
-      $rows[$key]['weight'] = [
+      $row['weight'] = [
         '#type' => 'weight',
         '#title' => $this->t('Weight for @title', ['@title' => $handler->label()]),
         '#title_display' => 'invisible',
@@ -110,7 +114,7 @@ class WebformEntityHandlersForm extends EntityForm {
         'title' => $this->t('Edit'),
         'url' => Url::fromRoute('entity.webform.handler.edit_form', [
           'webform' => $this->entity->id(),
-          'webform_handler' => $key,
+          'webform_handler' => $handler_id,
         ]),
         'attributes' => WebformDialogHelper::getModalDialogAttributes(800),
       ];
@@ -119,7 +123,7 @@ class WebformEntityHandlersForm extends EntityForm {
           'title' => $this->t('Duplicate'),
           'url' => Url::fromRoute('entity.webform.handler.duplicate_form', [
             'webform' => $this->entity->id(),
-            'webform_handler' => $key,
+            'webform_handler' => $handler_id,
           ]),
           'attributes' => WebformDialogHelper::getModalDialogAttributes(800),
         ];
@@ -128,14 +132,16 @@ class WebformEntityHandlersForm extends EntityForm {
         'title' => $this->t('Delete'),
         'url' => Url::fromRoute('entity.webform.handler.delete_form', [
           'webform' => $this->entity->id(),
-          'webform_handler' => $key,
+          'webform_handler' => $handler_id,
         ]),
         'attributes' => WebformDialogHelper::getModalDialogAttributes(700),
       ];
-      $rows[$key]['operations'] = [
+      $row['operations'] = [
         '#type' => 'operations',
         '#links' => $operations,
       ];
+
+      $rows[$handler_id] = $row;
     }
 
     // Must manually add local actions to the webform because we can't alter local

@@ -32,6 +32,12 @@ ymca_retention.settings_branches:
   route_name: ymca_retention.settings_branches
   parent_id: ymca_retention.settings
 
+ymca_retention.settings_copy:
+  title: 'Copy Settings'
+  description: 'YMCA Retention Copy settings'
+  route_name: ymca_retention.settings_copy
+  parent_id: ymca_retention.settings
+
 ymca_retention.settings_cron:
   title: 'Cron'
   description: 'Run cron manually.'

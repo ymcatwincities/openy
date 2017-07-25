@@ -5,8 +5,8 @@ hidden: true
 package: Testing
 # core: 8.x
 
-# Information added by Drupal.org packaging script on 2017-01-12
-version: '8.x-1.4'
+# Information added by Drupal.org packaging script on 2017-04-26
+version: '8.x-1.5'
 core: '8.x'
 project: 'video_embed_field'
-datestamp: 1484253186
+datestamp: 1493246351

@@ -101,7 +101,7 @@ class WebformEmailMultiple extends FormElement {
   public static function preRenderWebformEmailMultiple(array $element) {
     $element['#attributes']['type'] = 'text';
     Element::setAttributes($element, ['id', 'name', 'value', 'size', 'maxlength', 'placeholder']);
-    static::setAttributes($element, ['form-textfield', 'form-email-multiple']);
+    static::setAttributes($element, ['form-textfield', 'webform-email-multiple']);
     return $element;
   }
 

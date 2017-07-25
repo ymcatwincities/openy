@@ -29,6 +29,30 @@
         // http://stackoverflow.com/questions/14313001/select2-not-calculating-resolved-width-correctly-if-select-is-hidden
         .css('width', '100%')
         .select2(Drupal.webform.select2.options);
+
+
+      /**
+       * ISSUE:
+       * Hiding/showing element via #states API cause select2 dropdown to appear in the wrong position.
+       *
+       * WORKAROUND:
+       * Close (aka hide) select2 dropdown when #states API hides or shows an element.
+       *
+       * Steps to reproduce:
+       * - Add custom 'Submit button(s)'
+       * - Hide submit button
+       * - Save
+       * - Open 'Submit button(s)' dialog
+       *
+       * Dropdown body is positioned incorrectly when dropdownParent isn't statically positioned.
+       * @see https://github.com/select2/select2/issues/3303
+       */
+      $(function () {
+        $(document).on('state:visible', function (e) {
+          $('select.js-webform-select2, .js-webform-select2 select').select2('close');
+        });
+      });
+
     }
   };
 

@@ -74,6 +74,14 @@ class TextFormatConfigurationTest extends BrowserTestBase {
       'editor[settings][toolbar][button_groups]' => '[[{"name":"Group","items":["video_embed"]}]]',
     ], t('Save configuration'));
     $this->assertSession()->pageTextContains('The text format Plain text has been updated.');
+
+    // Test the messages aren't triggered if they are in the second row.
+    $this->drupalGet($this->formatUrl);
+    $this->submitForm([
+      'filters[video_embed_wysiwyg][status]' => TRUE,
+      'editor[settings][toolbar][button_groups]' => '[[{"name":"Foo","items":["NumberedList"]}],[{"name":"Bar","items":["video_embed"]}]]',
+    ], t('Save configuration'));
+    $this->assertSession()->pageTextContains('The text format Plain text has been updated.');
   }
 
   /**

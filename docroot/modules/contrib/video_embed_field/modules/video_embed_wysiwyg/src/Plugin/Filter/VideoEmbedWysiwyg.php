@@ -45,6 +45,36 @@ class VideoEmbedWysiwyg extends FilterBase implements ContainerFactoryPluginInte
   protected $currentUser;
 
   /**
+   * VideoEmbedWysiwyg constructor.
+   *
+   * @param array $configuration
+   *   Plugin configuration.
+   * @param string $plugin_id
+   *   Plugin ID.
+   * @param mixed $plugin_definition
+   *   Plugin definition.
+   * @param \Drupal\video_embed_field\ProviderManagerInterface $provider_manager
+   *   The video provider manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
+   *   The current user.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ProviderManagerInterface $provider_manager, RendererInterface $renderer, AccountProxyInterface $current_user) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->providerManager = $provider_manager;
+    $this->renderer = $renderer;
+    $this->currentUser = $current_user;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static($configuration, $plugin_id, $plugin_definition, $container->get('video_embed_field.provider_manager'), $container->get('renderer'), $container->get('current_user'));
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function process($text, $langcode) {
@@ -130,36 +160,6 @@ class VideoEmbedWysiwyg extends FilterBase implements ContainerFactoryPluginInte
       }
     }
     return TRUE;
-  }
-
-  /**
-   * VideoEmbedWysiwyg constructor.
-   *
-   * @param array $configuration
-   *   Plugin configuration.
-   * @param string $plugin_id
-   *   Plugin ID.
-   * @param mixed $plugin_definition
-   *   Plugin definition.
-   * @param \Drupal\video_embed_field\ProviderManagerInterface $provider_manager
-   *   The video provider manager.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
-   * @param \Drupal\Core\Session\AccountProxyInterface $current_user
-   *   The current user.
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ProviderManagerInterface $provider_manager, RendererInterface $renderer, AccountProxyInterface $current_user) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->providerManager = $provider_manager;
-    $this->renderer = $renderer;
-    $this->currentUser = $current_user;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static($configuration, $plugin_id, $plugin_definition, $container->get('video_embed_field.provider_manager'), $container->get('renderer'), $container->get('current_user'));
   }
 
 }

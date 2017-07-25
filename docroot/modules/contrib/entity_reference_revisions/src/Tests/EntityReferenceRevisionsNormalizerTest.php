@@ -28,6 +28,7 @@ class EntityReferenceRevisionsNormalizerTest extends WebTestBase {
     'block',
     'hal',
     'serialization',
+    'rest',
   );
 
   /**
