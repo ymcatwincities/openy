@@ -650,3 +650,14 @@ function ymca_retention_update_8037() {
   $importer->setDirectory($path);
   $importer->importConfigs($files);
 }
+
+/**
+ * Updating general settings.
+ */
+function ymca_retention_update_8038() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs([
+    'ymca_retention.general_settings',
+  ]);
+}
