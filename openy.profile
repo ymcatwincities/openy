@@ -246,29 +246,51 @@ function openy_set_frontpage(array &$install_state) {
  * @see https://www.drupal.org/node/2889298
  */
 function openy_discover_broken_paragraphs(array &$install_state) {
-  $tables = ['paragraph__field_prgf_block', 'paragraph_revision__field_prgf_block'];
+  /**
+   * Reset data for broken paragraphs using block fields from plugin module.
+   *
+   * @param array $tables
+   * @param string $plugin_id_field
+   * @param string $config_field
+   */
+  $process_paragraphs = function (array $tables, $plugin_id_field, $config_field) {
+    foreach ($tables as $table) {
+      // Select all paragraphs that have "broken" as plugin_id.
+      $query = \Drupal::database()->select($table, 'ptable');
+      $query->fields('ptable');
+      $query->condition('ptable.' . $plugin_id_field, 'broken');
+      $broken_paragraphs = $query->execute()->fetchAll();
 
-  foreach ($tables as $table) {
-    // Select all paragraphs that have "broken" as plugin_id.
-    $query = \Drupal::database()->select($table, 'ptable');
-    $query->fields('ptable');
-    $query->condition('ptable.field_prgf_block_plugin_id', 'broken');
-    $broken_paragraphs = $query->execute()->fetchAll();
-
-    // Update to correct plugin_id based on data array.
-    foreach ($broken_paragraphs as $paragraph) {
-      $data = unserialize($paragraph->field_prgf_block_plugin_configuration);
-      $query = \Drupal::database()->update($table);
-      $query->fields([
-        'field_prgf_block_plugin_id' => $data['id'],
-      ]);
-      $query->condition('bundle', $paragraph->bundle);
-      $query->condition('entity_id', $paragraph->entity_id);
-      $query->condition('revision_id', $paragraph->revision_id);
-      $query->condition('langcode', $paragraph->langcode);
-      $query->execute();
+      // Update to correct plugin_id based on data array.
+      foreach ($broken_paragraphs as $paragraph) {
+        $data = unserialize($paragraph->{$config_field});
+        $query = \Drupal::database()->update($table);
+        $query->fields([
+          $plugin_id_field => $data['id'],
+        ]);
+        $query->condition('bundle', $paragraph->bundle);
+        $query->condition('entity_id', $paragraph->entity_id);
+        $query->condition('revision_id', $paragraph->revision_id);
+        $query->condition('langcode', $paragraph->langcode);
+        $query->execute();
+      }
     }
-  }
+  };
+
+  $process_paragraphs([
+    'paragraph__field_prgf_block',
+    'paragraph_revision__field_prgf_block',
+  ],
+    'field_prgf_block_plugin_id',
+    'field_prgf_block_plugin_configuration'
+  );
+  $process_paragraphs([
+    'paragraph__field_prgf_schedules_ref',
+    'paragraph_revision__field_prgf_schedules_ref',
+  ],
+    'field_prgf_schedules_ref_plugin_id',
+    'field_prgf_schedules_ref_plugin_configuration'
+  );
 }
 
 /**

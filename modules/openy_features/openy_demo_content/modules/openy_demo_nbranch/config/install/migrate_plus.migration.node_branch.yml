@@ -33,6 +33,8 @@ source:
         -
           content_id: blog_branch_1
         -
+          content_id: group_schedules_1
+        -
           content_id: branch_lower_grid_1
     -
       id: 2
@@ -56,6 +58,8 @@ source:
           content_id: branch_upper_grid_2
         -
           content_id: blog_branch_2
+        -
+          content_id: group_schedules_2
         -
           content_id: branch_lower_grid_2
     -
@@ -81,6 +85,8 @@ source:
         -
           content_id: blog_branch_3
         -
+          content_id: group_schedules_3
+        -
           content_id: branch_lower_grid_3
     -
       id: 4
@@ -104,6 +110,8 @@ source:
           content_id: branch_upper_grid_4
         -
           content_id: blog_branch_4
+        -
+          content_id: group_schedules_4
         -
           content_id: branch_lower_grid_4
   ids:
@@ -184,12 +192,14 @@ process:
           migration:
             - openy_demo_prgf_blog_branch
             - openy_demo_prgf_grid_content
+            - openy_demo_prgf_group_schedules
           source: content_id
         target_revision_id:
           plugin: migration
           migration:
             - openy_demo_prgf_blog_branch
             - openy_demo_prgf_grid_content
+            - openy_demo_prgf_group_schedules
           source: content_id
   field_header_content/target_id:
     -
@@ -209,4 +219,5 @@ migration_dependencies:
     - openy_demo_prgf_gallery
     - openy_demo_prgf_blog_branch
     - openy_demo_prgf_grid_content
+    - openy_demo_prgf_group_schedules
   optional: {  }
