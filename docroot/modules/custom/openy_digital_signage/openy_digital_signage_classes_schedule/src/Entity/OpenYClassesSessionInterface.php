@@ -34,7 +34,7 @@ interface OpenYClassesSessionInterface extends ContentEntityInterface {
    * Gets Digital Signage Classes Session creation timestamp.
    *
    * @return int
-   *   Creation timestamp of the OpenY Digital Signage Classes Schedule.
+   *   Creation timestamp of the OpenY Digital Signage Classes Session.
    */
   public function getCreatedTime();
 

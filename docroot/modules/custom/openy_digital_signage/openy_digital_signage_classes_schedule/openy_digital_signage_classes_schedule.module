@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_cron().
@@ -65,5 +66,22 @@ function openy_digital_signage_classes_schedule_entity_operation_alter(array &$o
       'weight' => 20,
     ];
     $operations['delete']['title'] = t('Restore original');
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function openy_digital_signage_classes_schedule_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id != 'views_exposed_form') {
+    return;
+  }
+
+  switch ($form['#id']) {
+    case 'views-exposed-form-digital-signage-classes-sessions-sessions-listing':
+      $form['title']['#attributes']['placeholder'] = t('Yoga');
+      $form['instructor']['#attributes']['placeholder'] = t('Instructor name');
+      $form['room_name']['#attributes']['placeholder'] = t('Studio 1');
+      break;
   }
 }
