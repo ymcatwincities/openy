@@ -1,81 +1,82 @@
-.field--widget-entity-reference-paragraphs .paragraph-type-top .paragraph-type-title {
-    float: left;
+.js .field--widget-entity-reference-paragraphs .dropbutton-wrapper {
+  display: inline-flex;
+  padding-right: 0em;
+  margin-right: 0em;
+  /* Override 600px breakpoint from core. */
+  width: auto;
 }
 
-.field--widget-entity-reference-paragraphs .paragraph-type-top .paragraphs-dropbutton-wrapper {
-    float:right;
-    margin: 0em;
-}
-
-.js .field--widget-entity-reference-paragraphs .paragraphs-dropbutton-wrapper .dropbutton-wrapper {
-    padding-right: 0em;
-    margin-right: 0em;
-}
-
-.js .field--widget-entity-reference-paragraphs td .paragraph-type-top .paragraphs-dropbutton-wrapper .dropbutton-wrapper .dropbutton-widget,
-.js .field--widget-entity-reference-paragraphs .paragraph-type-top .paragraphs-dropbutton-wrapper .dropbutton-wrapper .dropbutton-widget {
-    position: relative;
-}
-
-.field--widget-entity-reference-paragraphs .paragraph-type-top {
-    clear: both;
-    float: left;
-    width: 100%;
-}
-.field--widget-entity-reference-paragraphs .paragraphs-subform {
-    clear: both;
-    float: left;
-    width: 100%;
-}
-
-.paragraphs-dropbutton-wrapper .dropbutton-widget {
-    position: absolute;
-    display: block;
-}
-
-.js .paragraphs-subform .dropbutton-multiple {
-    margin: 0px 0px 0px 0px;
-    padding: 0;
-}
-
-.js .paragraphs-subform .dropbutton-wrapper,
 .js .field--widget-entity-reference-paragraphs .dropbutton-widget {
-    display: inline-flex;
-}
-
-.js .field--widget-entity-reference-paragraphs .dropbutton-wrapper,
-.js .field--widget-entity-reference-paragraphs .dropbutton-widget {
-    display: inline-flex;
-}
-
-.js .paragraphs-subform .dropbutton-widget {
-    position: relative;
+  position: relative;
 }
 
 .js .field--widget-entity-reference-paragraphs .field-multiple-table {
-    margin: 0 0 10px 0px;
+  margin-bottom: 10px;
 }
 
 .js .field--widget-entity-reference-paragraphs td {
-    padding: 10px 0px 10px 0px;
+  padding: 10px 0px 10px 0px;
 }
 
-.js .field--widget-entity-reference-paragraphs .draggable a.tabledrag-handle {
-    float: none;
-    padding-right: 0;
-    margin: 0;
+.js .field--widget-entity-reference-paragraphs .field-multiple-drag {
+  vertical-align: top;
+}
+.js .field--widget-entity-reference-paragraphs .draggable .tabledrag-handle {
+  padding-right: 0;
+  margin-left: 0;
+}
+.js .field--widget-entity-reference-paragraphs .tabledrag-handle .handle {
+  margin-left: 0;
+  margin-right: 0;
+  padding-right: 0.2em;
 }
 
-.js .field--widget-entity-reference-paragraphs a.tabledrag-handle .handle {
-    margin: -0.4em 0em 0;
+.js .paragraph-type-top {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.js .paragraphs-collapsed-description {
+  height: 1.538em;
+  padding-left: 1em;
+  padding-right: 1em;
+  position: relative;
+  width: 100%;
+
+  color: #777;
+  overflow: hidden;
+  word-break: break-all;
+}
+.js .paragraphs-collapsed-description:after {
+  content: '\00a0';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 1em;
+  width: 3em;
+
+  background: #fff;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #fff 100%);
+}
+.js .draggable:hover .paragraphs-collapsed-description:after,
+.js .draggable:hover .paragraphs-collapsed-description:after {
+  background: #f7fcff;
+  background: linear-gradient(to right, rgba(247, 252, 255, 0) 0%, #f7fcff 100%);
+}
+.js .drag-previous .paragraphs-collapsed-description:after {
+  background: #ffd;
+  background: linear-gradient(to right, rgba(255, 255, 221, 0) 0%, #ffd 100%);
+}
+.js .paragraph-type-title {
+  flex-basis: 25%;
+  min-width: 80px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.js .field--widget-entity-reference-paragraphs td.field-multiple-drag {
-    vertical-align: top;
-    float: none;
-    top: 0;
-}
-
-.js .field--widget-entity-reference-paragraphs .field-multiple-table .field-multiple-drag .tabledrag-handle {
-    padding-right: 0;
+.js .field--widget-entity-reference-paragraphs .delta-order {
+  padding-right: 10px;
+  text-align: right;
 }

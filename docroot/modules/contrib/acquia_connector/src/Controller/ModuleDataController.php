@@ -1,29 +1,24 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_connector\Form\Controller\StatusController.
- */
-
 namespace Drupal\acquia_connector\Controller;
 
+use Drupal\acquia_connector\Helper\Storage;
 use Drupal\acquia_connector\Subscription;
 use Drupal\acquia_connector\CryptConnector;
-use Drupal\Core\Access\AccessInterface;
 use Drupal\Core\Access\AccessResultAllowed;
 use Drupal\Core\Access\AccessResultForbidden;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Component\Utility\Url;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class StatusController.
+ * Class ModuleDataController.
+ *
+ * @package Drupal\acquia_connector\Controller
  */
 class ModuleDataController extends ControllerBase {
 
   /**
-   * Send a file's contents to the requestor
+   * Send a file's contents to the requestor.
    */
   public function sendModuleData($data = array()) {
     $request = \Drupal::request();
@@ -54,12 +49,19 @@ class ModuleDataController extends ControllerBase {
   }
 
   /**
-   * @param $data
-   * @param $message
+   * Validate request.
+   *
+   * @param array $data
+   *   Data array.
+   * @param string $message
+   *   Data string.
+   *
    * @return bool
+   *   TRUE if request is valid, FALSE otherwise.
    */
   public function isValidRequest($data, $message) {
-    $key = $this->config('acquia_connector.settings')->get('key');
+    $storage = new Storage();
+    $key = $storage->getKey();
     if (!isset($data['authenticator']) || !isset($data['authenticator']['time']) || !isset($data['authenticator']['nonce'])) {
       return FALSE;
     }
@@ -80,14 +82,15 @@ class ModuleDataController extends ControllerBase {
     $request = \Drupal::request();
     $data = json_decode($request->getContent(), TRUE);
 
-    // We only do this if we are on SSL
+    // We only do this if we are on SSL.
     $via_ssl = $request->isSecure();
     if ($this->config('acquia_connector.settings')->get('spi.ssl_override')) {
       $via_ssl = TRUE;
     }
 
     if ($this->config('acquia_connector.settings')->get('spi.module_diff_data') && $via_ssl) {
-      if (Subscription::hasCredentials() && isset($data['body']['file']) && $this->isValidRequest($data, $data['body']['file'])) {
+      $subscription = new Subscription();
+      if ($subscription->hasCredentials() && isset($data['body']['file']) && $this->isValidRequest($data, $data['body']['file'])) {
         return AccessResultAllowed::allowed();
       }
 
@@ -106,4 +109,5 @@ class ModuleDataController extends ControllerBase {
 
     return AccessResultForbidden::forbidden();
   }
+
 }

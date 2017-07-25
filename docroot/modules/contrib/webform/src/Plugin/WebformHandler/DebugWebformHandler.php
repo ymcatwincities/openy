@@ -5,7 +5,7 @@ namespace Drupal\webform\Plugin\WebformHandler;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Utility\WebformYaml;
-use Drupal\webform\WebformHandlerBase;
+use Drupal\webform\Plugin\WebformHandlerBase;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -16,9 +16,9 @@ use Drupal\webform\WebformSubmissionInterface;
  *   label = @Translation("Debug"),
  *   category = @Translation("Development"),
  *   description = @Translation("Debug webform submission."),
- *   cardinality = \Drupal\webform\WebformHandlerInterface::CARDINALITY_SINGLE,
- *   results = \Drupal\webform\WebformHandlerInterface::RESULTS_PROCESSED,
- *   submission = \Drupal\webform\WebformHandlerInterface::SUBMISSION_OPTIONAL,
+ *   cardinality = \Drupal\webform\Plugin\WebformHandlerInterface::CARDINALITY_SINGLE,
+ *   results = \Drupal\webform\Plugin\WebformHandlerInterface::RESULTS_PROCESSED,
+ *   submission = \Drupal\webform\Plugin\WebformHandlerInterface::SUBMISSION_OPTIONAL,
  * )
  */
 class DebugWebformHandler extends WebformHandlerBase {

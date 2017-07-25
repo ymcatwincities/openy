@@ -46,13 +46,12 @@ class CountryConstraintValidatorTest extends UnitTestCase {
    *
    * @dataProvider providerTestValidate
    */
-  public function testValidate($address, $expected_violation) {
+  public function testValidate($country_code, $expected_violation) {
     // If a violation is expected, then the context's buildViolation method
     // will be called, otherwise it should not be called.
     $context = $this->prophesize(ExecutionContextInterface::class);
     if ($expected_violation) {
       $violation_builder = $this->prophesize(ConstraintViolationBuilderInterface::class);
-      $violation_builder->atPath('country_code')->willReturn($violation_builder);
       $violation_builder->setParameter('%value', Argument::any())->willReturn($violation_builder);
       $violation_builder->addViolation()->willReturn($violation_builder);
       $context->buildViolation($expected_violation)->willReturn($violation_builder->reveal())->shouldBeCalled();
@@ -62,7 +61,7 @@ class CountryConstraintValidatorTest extends UnitTestCase {
     }
 
     $this->validator->initialize($context->reveal());
-    $this->validator->validate($address, $this->constraint);
+    $this->validator->validate($country_code, $this->constraint);
   }
 
   /**
@@ -74,47 +73,16 @@ class CountryConstraintValidatorTest extends UnitTestCase {
 
     $cases = [];
     // Case 1: Empty values.
-    $cases[] = [$this->getMockAddress(NULL), FALSE];
-    $cases[] = [$this->getMockAddress(''), FALSE];
+    $cases[] = [NULL, FALSE];
+    $cases[] = ['', FALSE];
     // Case 2: Valid country.
-    $cases[] = [$this->getMockAddress('FR'), FALSE];
+    $cases[] = ['FR', FALSE];
     // Case 3: Invalid country.
-    $cases[] = [$this->getMockAddress('InvalidValue'), $constraint->invalidMessage];
+    $cases[] = ['InvalidValue', $constraint->invalidMessage];
     // Case 4: Valid, but unavailable country.
-    $cases[] = [$this->getMockAddress('RS'), $constraint->notAvailableMessage];
+    $cases[] = ['RS', $constraint->notAvailableMessage];
 
     return $cases;
-  }
-
-  /**
-   * @covers ::validate
-   *
-   * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-   */
-  public function testInvalidValueType() {
-    $context = $this->prophesize(ExecutionContextInterface::class);
-    $this->validator->initialize($context->reveal());
-    $this->validator->validate(new \stdClass(), $this->constraint);
-  }
-
-  /**
-   * Gets a mock address.
-   *
-   * @param string $country_code
-   *   The country code to return via $address->getCountryCode().
-   *
-   * @return \Drupal\address\AddressInterface|\PHPUnit_Framework_MockObject_MockObject
-   *   The mock address.
-   */
-  protected function getMockAddress($country_code) {
-    $address = $this->getMockBuilder('Drupal\address\AddressInterface')
-      ->disableOriginalConstructor()
-      ->getMock();
-    $address->expects($this->any())
-      ->method('getCountryCode')
-      ->willReturn($country_code);
-
-    return $address;
   }
 
 }

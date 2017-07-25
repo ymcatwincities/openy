@@ -47,3 +47,18 @@ table {
 .ui-dialog-off-canvas .webform-ui-element-form details > .details-wrapper{
   padding: 0 .5em;
 }
+
+/**
+ * Tweak progress tracker.
+ *
+ * ISSUE:
+ * Bartik theme is not displaying line between the markers.
+ * The #main-wrapper {background: #ffffff) in core/themes/bartik/css/colors.css is causing the problem.
+ *
+ * WORKAROUND:
+ * Define z-index for .progress-step.
+ */
+.webform-progress-tracker .progress-step {
+  z-index: 0;
+}
+

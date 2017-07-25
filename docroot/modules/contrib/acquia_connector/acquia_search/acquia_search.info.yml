@@ -4,14 +4,13 @@ description: Provides integration between your Drupal site and Acquia's hosted s
 package: Acquia
 # core: 8.x
 configure: search_api.overview
-# version: VERSION
 dependencies:
  - acquia_connector
  - search_api_solr
  - views
 
-# Information added by Drupal.org packaging script on 2015-12-03
-version: '8.x-1.x-dev'
+# Information added by Drupal.org packaging script on 2017-06-08
+version: '8.x-1.12'
 core: '8.x'
 project: 'acquia_connector'
-datestamp: 1449131645
+datestamp: 1496931850

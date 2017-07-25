@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\sitemap\Form\SitemapSettingsForm.
- */
-
 namespace Drupal\sitemap\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -200,6 +195,25 @@ class SitemapSettingsForm extends ConfigFormBase {
         '#attributes' => ['class' => ['draggable']],
       );
     }
+    // Re-order content drag-and-drop items based on pre-existing config.
+    asort($sitemap_order_defaults);
+    foreach ($sitemap_order_defaults as $content_id => $weight) {
+      if (isset($form['sitemap_content']['order'][$content_id])) {
+        $item = $form['sitemap_content']['order'][$content_id];
+        unset($form['sitemap_content']['order'][$content_id]);
+        $form['sitemap_content']['order'][$content_id] = $item;
+      }
+    }
+    // Re-add new config items.
+    $new = array_diff_key($sitemap_ordering, $sitemap_order_defaults);
+    foreach ($new as $content_id => $content_title) {
+      $item = $form['sitemap_content']['order'][$content_id];
+      unset($form['sitemap_content']['order'][$content_id]);
+      $form['sitemap_content']['order'][$content_id] = $item;
+    }
+
+
+
     $form['#attached']['library'][] = 'sitemap/sitemap.admin';
 
     $form['sitemap_options'] = [
@@ -247,9 +261,9 @@ class SitemapSettingsForm extends ConfigFormBase {
     );
     $form['sitemap_options']['sitemap_css_options']['css'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Do not include sitemap CSS file'),
+      '#title' => $this->t('Include sitemap CSS file'),
       '#default_value' => $config->get('css'),
-      '#description' => $this->t("If you don't want to load the included CSS file you can check this box. To learn how to override or specify the CSS at the theme level, visit the @documentation_page.", array('@documentation_page' => $this->l($this->t("documentation page"), Url::fromUri('https://www.drupal.org/node/2615568')))),
+      '#description' => $this->t("Select this box if you wish to load the CSS file included with the module. To learn how to override or specify the CSS at the theme level, visit the @documentation_page.", array('@documentation_page' => $this->l($this->t("documentation page"), Url::fromUri('https://www.drupal.org/node/2615568')))),
     );
 
     if ($this->moduleHandler->moduleExists('book')) {
@@ -369,7 +383,13 @@ class SitemapSettingsForm extends ConfigFormBase {
     // Save config.
     foreach ($keys as $key) {
       if ($form_state->hasValue($key)) {
-        $config->set(is_string($key) ? $key : implode('.', $key), $form_state->getValue($key));
+        if ($key == 'order') {
+          $order = $form_state->getValue($key);
+          asort($order);
+          $config->set(is_string($key) ? $key : implode('.', $key), $order);
+        } else {
+          $config->set(is_string($key) ? $key : implode('.', $key), $form_state->getValue($key));
+        }
       }
     }
     $config->save();

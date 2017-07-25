@@ -12,7 +12,7 @@
   <body id="mimemail-body" {% if ( module | length > 0 ) and ( key | length > 0 ) %}  {% set class = 'class="' ~ module ~ '-' ~ key ~ '"' %} {% endif %} >
     <div id="center">
       <div id="main">
-        {{ body }}
+        {{ body|raw }}
       </div>
     </div>
   </body>

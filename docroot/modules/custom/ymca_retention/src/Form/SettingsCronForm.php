@@ -91,19 +91,19 @@ class SettingsCronForm extends FormBase {
     ];
 
     $form['actions']['#type'] = 'actions';
-    $form['actions']['submit'] = array(
+    $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Create a queue'),
       '#submit' => ['::createQueueSubmitForm'],
       '#button_type' => 'primary',
-    );
+    ];
     if (\Drupal::moduleHandler()->moduleExists('queue_ui')) {
-      $form['actions']['run_queue'] = array(
+      $form['actions']['run_queue'] = [
         '#type' => 'submit',
         '#value' => $this->t('Run queue'),
         '#submit' => ['::runQueueSubmitForm'],
         '#button_type' => 'secondary',
-      );
+      ];
     }
 
     return $form;

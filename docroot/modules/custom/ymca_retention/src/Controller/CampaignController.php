@@ -3,7 +3,6 @@
 namespace Drupal\ymca_retention\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
@@ -23,7 +22,7 @@ class CampaignController extends ControllerBase {
     $info = [
       'started' => $diff->invert,
       'days_left' => $diff->days + 1,
-      'dates' => $this->getDates(),
+      /* 'dates' => $this->getDates(),*/
     ];
 
     $response = new JsonResponse($info);
@@ -33,6 +32,8 @@ class CampaignController extends ControllerBase {
 
   /**
    * Return array with all dates of campaign.
+   *
+   * @todo seems unused anymore.
    */
   private function getDates() {
     $config = \Drupal::config('ymca_retention.general_settings');

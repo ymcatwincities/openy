@@ -3,7 +3,7 @@
 namespace Drupal\webform_test_handler\Plugin\WebformHandler;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\WebformHandlerBase;
+use Drupal\webform\Plugin\WebformHandlerBase;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionInterface;
 
@@ -15,9 +15,9 @@ use Drupal\webform\WebformSubmissionInterface;
  *   label = @Translation("Test"),
  *   category = @Translation("Testing"),
  *   description = @Translation("Tests webform submission handler behaviors."),
- *   cardinality = \Drupal\webform\WebformHandlerInterface::CARDINALITY_SINGLE,
- *   results = \Drupal\webform\WebformHandlerInterface::RESULTS_IGNORED,
- *   submission = \Drupal\webform\WebformHandlerInterface::SUBMISSION_REQUIRED,
+ *   cardinality = \Drupal\webform\Plugin\WebformHandlerInterface::CARDINALITY_SINGLE,
+ *   results = \Drupal\webform\Plugin\WebformHandlerInterface::RESULTS_IGNORED,
+ *   submission = \Drupal\webform\Plugin\WebformHandlerInterface::SUBMISSION_REQUIRED,
  * )
  */
 class TestWebformHandler extends WebformHandlerBase {

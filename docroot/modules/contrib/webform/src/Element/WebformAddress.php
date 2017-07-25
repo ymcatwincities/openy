@@ -12,6 +12,13 @@ class WebformAddress extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
+  public function getInfo() {
+    return parent::getInfo() + ['#theme' => 'webform_composite_address'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public static function getCompositeElements() {
     $elements = [];
     $elements['address'] = [
