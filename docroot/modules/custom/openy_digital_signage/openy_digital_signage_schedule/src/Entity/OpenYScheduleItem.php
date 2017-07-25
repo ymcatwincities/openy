@@ -172,7 +172,7 @@ class OpenYScheduleItem extends ContentEntityBase implements OpenYScheduleItemIn
         'type' => 'options_buttons',
         'weight' => 1,
       ])
-      ->setDefaultValue(0)
+      ->setDefaultValue(TRUE)
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 

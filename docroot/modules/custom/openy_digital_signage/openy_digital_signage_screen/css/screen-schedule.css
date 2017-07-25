@@ -123,8 +123,9 @@
       .screen-schedule-timeline .screen-schedule-item--override:hover {
         z-index: 15; }
     .screen-schedule-timeline .screen-schedule-item--disabled {
+      background-color: rgba(234, 234, 234, 0.75);
       border: 1px dashed grey;
-      background-color: rgba(234, 234, 234, 0.75); }
+      z-index: 4; }
       .screen-schedule-timeline .screen-schedule-item--disabled .screen-schedule-item__title {
         font-style: italic; }
       .screen-schedule-timeline .screen-schedule-item--disabled .screen-schedule-item__disabled-message {

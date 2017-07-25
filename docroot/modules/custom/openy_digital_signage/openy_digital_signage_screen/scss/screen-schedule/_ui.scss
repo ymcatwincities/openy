@@ -103,8 +103,9 @@
     }
 
     &--disabled {
-      border: 1px dashed grey;
       background-color: rgba(234, 234, 234, .75);
+      border: 1px dashed grey;
+      z-index: 4;
 
       .screen-schedule-item__title {
         //text-decoration: black solid line-through;
