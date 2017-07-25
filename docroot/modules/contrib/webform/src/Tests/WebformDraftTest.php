@@ -17,7 +17,7 @@ class WebformDraftTest extends WebformTestBase {
    *
    * @var array
    */
-  protected static $testWebforms = ['test_form_draft_authenticated', 'test_form_draft_anonymous', 'test_form_preview'];
+  protected static $testWebforms = ['test_form_draft_authenticated', 'test_form_draft_anonymous', 'test_form_draft_multiple', 'test_form_preview'];
 
   /**
    * {@inheritdoc}
@@ -30,9 +30,14 @@ class WebformDraftTest extends WebformTestBase {
   }
 
   /**
-   * Test webform draft with autosave.
+   * Test webform draft.
    */
-  public function testDraftWithAutosave() {
+  public function testWebformDraft() {
+
+    /**************************************************************************/
+    // Autosave for anonymous draft to authenticated draft.
+    /**************************************************************************/
+
     $webform_ids = [
       'test_form_draft_authenticated' => 'Test: Webform: Draft authenticated',
       'test_form_draft_anonymous' => 'Test: Webform: Draft anonymous',
@@ -46,7 +51,7 @@ class WebformDraftTest extends WebformTestBase {
       $webform = Webform::load($webform_id);
 
       // Save a draft.
-      $sid = $this->postSubmission($webform, ['name' => 'John Smith'], t('Save a draft'));
+      $sid = $this->postSubmission($webform, ['name' => 'John Smith'], t('Save Draft'));
       /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
       $webform_submission = WebformSubmission::load($sid);
 
@@ -74,7 +79,7 @@ class WebformDraftTest extends WebformTestBase {
       $this->drupalPostForm("webform/$webform_id", [
         'name' => '',
         'comment' => 'Hello World!',
-      ], t('Save a draft'));
+      ], t('Save Draft'));
       $this->assertRaw('Your draft has been saved');
       $this->assertNoRaw('You have an existing draft');
       $this->assertFieldByName('name', '');
@@ -89,8 +94,8 @@ class WebformDraftTest extends WebformTestBase {
       $this->assertNoRaw('You have an existing draft');
       $this->assertNoFieldByName('name', '');
       $this->assertNoFieldByName('comment', 'Hello World!');
-      $this->assertRaw('<b>Name</b><br/>');
-      $this->assertRaw('<b>Comment</b><br/>');
+      $this->assertRaw('<b>Name</b><br />');
+      $this->assertRaw('<b>Comment</b><br />');
       $this->assertRaw('Please review your submission. Your submission is not complete until you press the "Submit" button!');
 
       // Check submit.
@@ -112,7 +117,7 @@ class WebformDraftTest extends WebformTestBase {
     $webform = Webform::load('test_form_draft_anonymous');
 
     // Save a draft.
-    $sid = $this->postSubmission($webform, ['name' => 'John Smith'], t('Save a draft'));
+    $sid = $this->postSubmission($webform, ['name' => 'John Smith'], t('Save Draft'));
     $this->assertRaw('Your draft has been saved');
 
     // Check that submission is owned anonymous.
@@ -170,7 +175,71 @@ class WebformDraftTest extends WebformTestBase {
     $this->assertRaw('Please review your submission.');
     $this->drupalGet('webform/test_form_draft_authenticated');
     $this->assertRaw('You have an existing draft');
-    $this->assertRaw('<b>Name</b><br/>John Smith<br/><br/>');
+    $this->assertRaw('<b>Name</b><br />John Smith<br /><br />');
+  }
+
+  /**
+   * Test webform draft multiple.
+   */
+  public function testWebformDraftMultiple() {
+    $this->drupalLogin($this->normalUser);
+
+    $webform = Webform::load('test_form_draft_multiple');
+
+    // Save first draft.
+    $sid_1 = $this->postSubmission($webform, ['name' => 'John Smith'], t('Save Draft'));
+    $this->assertRaw('Submission saved. You may return to this form later and it will restore the current values.');
+    $webform_submission_1 = WebformSubmission::load($sid_1);
+
+    // Check restore first draft.
+    $this->drupalGet('webform/test_form_draft_multiple');
+    $this->assertNoRaw('You have saved drafts.');
+    $this->assertRaw('You have a pending draft for this webform.');
+    $this->assertFieldByName('name', '');
+
+    // Check load pending draft using token.
+    $this->drupalGet('webform/test_form_draft_multiple');
+    $this->clickLink('Load your pending draft');
+    $this->assertFieldByName('name', 'John Smith');
+    $this->drupalGet('webform/test_form_draft_multiple', ['query' => ['token' => $webform_submission_1->getToken()]]);
+    $this->assertFieldByName('name', 'John Smith');
+
+    // Check user drafts.
+    $this->drupalGet('webform/test_form_draft_multiple/drafts');
+    $this->assertRaw('token=' . $webform_submission_1->getToken());
+
+    // Save second draft.
+    $sid_2 = $this->postSubmission($webform, ['name' => 'John Smith'], t('Save Draft'));
+    $webform_submission_2 = WebformSubmission::load($sid_2);
+    $this->assertRaw('Submission saved. You may return to this form later and it will restore the current values.');
+    $this->drupalGet('webform/test_form_draft_multiple');
+    $this->assertNoRaw('You have a pending draft for this webform.');
+    $this->assertRaw('You have pending drafts for this webform. <a href="' . base_path() . 'webform/test_form_draft_multiple/drafts">View your pending drafts</a>.');
+
+    // Check user drafts now has second draft.
+    $this->drupalGet('webform/test_form_draft_multiple/drafts');
+    $this->assertRaw('token=' . $webform_submission_1->getToken());
+    $this->assertRaw('token=' . $webform_submission_2->getToken());
+
+    // Check that anonymous user can't load drafts.
+    $this->drupalLogout();
+    $this->drupalGet('webform/test_form_draft_multiple', ['query' => ['token' => $webform_submission_1->getToken()]]);
+    $this->assertFieldByName('name', '');
+
+    // Save third anonymous draft.
+    $sid_3 = $this->postSubmission($webform, ['name' => 'Jane Doe'], t('Save Draft'));
+    $this->assertRaw('Submission saved. You may return to this form later and it will restore the current values.');
+    $webform_submission_3 = WebformSubmission::load($sid_2);
+
+    // Check restore third anonymous draft.
+    $this->drupalGet('webform/test_form_draft_multiple');
+    $this->assertNoRaw('You have saved drafts.');
+    $this->assertRaw('You have a pending draft for this webform.');
+    $this->assertFieldByName('name', '');
+
+    $this->drupalGet('webform/test_form_draft_multiple');
+    $this->clickLink('Load your pending draft');
+    $this->assertFieldByName('name', 'Jane Doe');
   }
 
 }

@@ -3,6 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\WebformSubmissionInterface;
 
 /**
  * Provides a 'datelist' element.
@@ -34,8 +35,19 @@ class DateList extends DateBase {
         'year',
       ],
       'date_year_range' => '1900:2050',
+      'date_year_range_reverse' => FALSE,
       'date_increment' => 1,
     ];
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
+    parent::prepare($element, $webform_submission);
+
+    $element['#after_build'][] = [get_class($this), 'afterBuild'];
   }
 
   /**
@@ -67,10 +79,7 @@ class DateList extends DateBase {
    */
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
-    $form['date'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Date list settings'),
-    ];
+    $form['date']['#title'] = $this->t('Date list settings');
     $form['date']['date_part_order_label'] = [
       '#type' => 'item',
       '#title' => $this->t('Date part and order'),
@@ -107,7 +116,13 @@ class DateList extends DateBase {
       '#type' => 'textfield',
       '#title' => $this->t('Date year range'),
       '#description' => $this->t("A description of the range of years to allow, like '1900:2050', '-3:+3' or '2000:+3', where the first value describes the earliest year and the second the latest year in the range.") . ' ' .
-      $this->t('Use min/max validation to define a more specific date range.'),
+        $this->t('Use min/max validation to define a more specific date range.'),
+    ];
+    $form['date']['date_year_range_reverse'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Date year range reverse'),
+      '#description' => $this->t('If checked date year range will be listed from max to min.'),
+      '#return_type' => TRUE,
     ];
     $form['date']['date_increment'] = [
       '#type' => 'number',
@@ -138,6 +153,20 @@ class DateList extends DateBase {
       $element_properties[$property_name] = array_combine($element_properties[$property_name], $element_properties[$property_name]);
     }
     parent::setConfigurationFormDefaultValue($form, $element_properties, $property_element, $property_name);
+  }
+
+
+  /**
+   * After build hander for Date elements.
+   */
+  public static function afterBuild(array $element, \Drupal\Core\Form\FormStateInterface $form_state) {
+    // Reverse years from min:max to max:min.
+    // @see \Drupal\Core\Datetime\Element\DateElementBase::datetimeRangeYears
+    if (!empty($element['#date_year_range_reverse']) && isset($element['year']) && isset($element['year']['#options'])) {
+      $options = $element['year']['#options'];
+      $element['year']['#options'] = ['' => $options['']] + array_reverse($options, TRUE);
+    }
+    return $element;
   }
 
 }

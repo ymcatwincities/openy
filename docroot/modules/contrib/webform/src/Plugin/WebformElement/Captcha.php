@@ -3,7 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\webform\WebformElementBase;
+use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -44,6 +44,13 @@ class Captcha extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
+  public function isContainer(array $element) {
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getItemDefaultFormat() {
     return NULL;
   }
@@ -58,7 +65,7 @@ class Captcha extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
-  public function prepare(array &$element, WebformSubmissionInterface $webform_submission) {
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     // Enable admin mode for test or user with 'skip CAPTCHA' permission.
     $is_test = (strpos(\Drupal::routeMatch()->getRouteName(), '.webform.test') !== FALSE) ? TRUE : FALSE;
     $is_admin = \Drupal::currentUser()->hasPermission('skip CAPTCHA');

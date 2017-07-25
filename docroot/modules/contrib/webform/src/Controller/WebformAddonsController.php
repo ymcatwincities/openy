@@ -2,7 +2,6 @@
 
 namespace Drupal\webform\Controller;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\webform\Element\WebformMessage;
@@ -15,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class WebformAddonsController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
-   * The add-ons manager.
+   * The webform add-ons manager.
    *
    * @var \Drupal\webform\WebformAddonsManagerInterface
    */
@@ -25,7 +24,7 @@ class WebformAddonsController extends ControllerBase implements ContainerInjecti
    * Constructs a WebformAddonsController object.
    *
    * @param \Drupal\webform\WebformAddonsManagerInterface $addons
-   *   The add-ons manager.
+   *   The webform add-ons manager.
    */
   public function __construct(WebformAddonsManagerInterface $addons) {
     $this->addons = $addons;
@@ -67,12 +66,12 @@ class WebformAddonsController extends ControllerBase implements ContainerInjecti
       ];
       $projects = $this->addons->getProjects($category_name);
       foreach ($projects as $project_name => &$project) {
-        $project['description'] .= '<br/><small>' . $project['url']->toString() . '</small>';
+        $project['description'] .= '<br /><small>' . $project['url']->toString() . '</small>';
 
         if (!empty($project['recommended']) && !$this->moduleHandler()->moduleExists($project_name)) {
 
           // Append recommended to project's description.
-          $project['description'] .= '<br/><b class="color-error">' . $this->t('Recommended') . '</b>';
+          $project['description'] .= '<br /><b class="color-error">' . $this->t('Recommended') . '</b>';
 
           // If current user can install module then display a dismissible warning.
           if ($this->currentUser()->hasPermission('administer modules')) {

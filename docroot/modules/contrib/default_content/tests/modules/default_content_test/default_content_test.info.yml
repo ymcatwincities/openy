@@ -5,10 +5,10 @@ description: 'Default content tests'
 package: Web services
 # core: 8.x
 dependencies:
-  - default_content
+  - default_content:default_content
 
-# Information added by Drupal.org packaging script on 2016-09-15
-version: '8.x-1.0-alpha3'
+# Information added by Drupal.org packaging script on 2017-05-01
+version: '8.x-1.0-alpha6'
 core: '8.x'
 project: 'default_content'
-datestamp: 1473976449
+datestamp: 1493675948

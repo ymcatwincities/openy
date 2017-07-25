@@ -27,6 +27,19 @@ class WebformWizardTest extends WebformTestBase {
   protected static $testWebforms = ['test_form_wizard_basic', 'test_form_wizard_advanced', 'test_form_wizard_custom'];
 
   /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp();
+
+    // Exclude Progress tracker so that the default progress bar is displayed.
+    // The default progress bar is most likely never going to change.
+    \Drupal::configFactory()->getEditable('webform.settings')
+      ->set('libraries.excluded_libraries', ['progress-tracker'])
+      ->save();
+  }
+
+  /**
    * Test webform advanced wizard.
    */
   public function testBasicWizard() {
@@ -177,18 +190,18 @@ class WebformWizardTest extends WebformTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, t('Preview'));
     // Check progress bar is set to 'Preview'.
-    $this->assertCurrentPage('Preview', 'preview');
+    $this->assertCurrentPage('Preview', 'webform_preview');
     // Check progress pages.
     $this->assertRaw('Page 4 of 5');
     // Check progress percentage.
     $this->assertRaw('(75%)');
 
     // Check preview values.
-    $this->assertRaw('<b>Last Name</b><br/>Smith<br/><br/>');
-    $this->assertRaw('<b>Gender</b><br/>Female<br/><br/>');
-    $this->assertRaw('<b>Email</b><br/><a href="mailto:janesmith@example.com">janesmith@example.com</a><br/><br/>');
-    $this->assertRaw('<b>Phone</b><br/><a href="tel:111-111-1111">111-111-1111</a><br/><br/>');
-    $this->assertRaw('This is working fine.<br/><br/>');
+    $this->assertRaw('<b>Last Name</b><br />Smith<br /><br />');
+    $this->assertRaw('<b>Gender</b><br />Female<br /><br />');
+    $this->assertRaw('<b>Email</b><br /><a href="mailto:janesmith@example.com">janesmith@example.com</a><br /><br />');
+    $this->assertRaw('<b>Phone</b><br /><a href="tel:111-111-1111">111-111-1111</a><br /><br />');
+    $this->assertRaw('This is working fine.<br /><br />');
 
     // Submit the webform.
     $this->drupalPostForm(NULL, [], t('Submit'));

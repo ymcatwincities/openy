@@ -1,16 +1,13 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\stage_file_proxy\EventSubscriber\ProxySubscriber.
- */
-
 namespace Drupal\stage_file_proxy\EventSubscriber;
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Url;
 use Psr\Log\LoggerInterface;
+use Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher;
+use Drupal\stage_file_proxy\EventDispatcher\AlterExcludedPathsEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -37,16 +34,26 @@ class ProxySubscriber implements EventSubscriberInterface {
   protected $logger;
 
   /**
+   * The event dispatcher.
+   *
+   * @var ContainerAwareEventDispatcher
+   */
+  protected $eventDispatcher;
+
+  /**
    * Construct the FetchManager.
    *
    * @param \Drupal\stage_file_proxy\FetchManagerInterface $manager
    *   The manager used to fetch the file against.
    *
    * @param \Psr\Log\LoggerInterface $logger
+   * @param ContainerAwareEventDispatcher $event_dispatcher
+   *   The event dispatcher.
    */
-  public function __construct(FetchManagerInterface $manager, LoggerInterface $logger) {
+  public function __construct(FetchManagerInterface $manager, LoggerInterface $logger, ContainerAwareEventDispatcher $event_dispatcher) {
     $this->manager = $manager;
     $this->logger = $logger;
+    $this->eventDispatcher = $event_dispatcher;
   }
 
   /**
@@ -63,6 +70,15 @@ class ProxySubscriber implements EventSubscriberInterface {
 
     if (strpos($uri, '' . $file_dir) !== 0) {
       return;
+    }
+
+    $alter_excluded_paths_event = new AlterExcludedPathsEvent(array());
+    $event = $this->eventDispatcher->dispatch('stage_file_proxy.alter_excluded_paths', $alter_excluded_paths_event);
+    $excluded_paths = $event->getExcludedPaths();
+    foreach ($excluded_paths as $excluded_path) {
+      if (strpos($uri, $excluded_path) !== FALSE) {
+        return;
+      }
     }
 
     // Note if the origin server files location is different. This

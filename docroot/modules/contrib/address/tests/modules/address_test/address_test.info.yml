@@ -1,11 +1,14 @@
 name: Address test
 type: module
-description: 'Provides functionality for testing the events in address module.'
+description: 'Provides functionality for testing the address module.'
 package: Testing
 # core: 8.x
+dependencies:
+  - address
+  - views
 
-# Information added by Drupal.org packaging script on 2016-10-27
-version: '8.x-1.0-rc3'
+# Information added by Drupal.org packaging script on 2017-05-18
+version: '8.x-1.0'
 core: '8.x'
 project: 'address'
-datestamp: 1477581251
+datestamp: 1495109891

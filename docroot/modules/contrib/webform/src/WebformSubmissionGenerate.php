@@ -5,6 +5,7 @@ namespace Drupal\webform;
 use Drupal\Core\Form\OptGroup;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\webform\Plugin\WebformElementManagerInterface;
 
 /**
  * Webform submission generator.
@@ -31,7 +32,7 @@ class WebformSubmissionGenerate implements WebformSubmissionGenerateInterface {
   /**
    * The webform element manager.
    *
-   * @var \Drupal\webform\WebformElementManagerInterface
+   * @var \Drupal\webform\Plugin\WebformElementManagerInterface
    */
   protected $elementManager;
 
@@ -56,7 +57,7 @@ class WebformSubmissionGenerate implements WebformSubmissionGenerateInterface {
    *   The configuration object factory.
    * @param \Drupal\webform\WebformTokenManagerInterface $token_manager
    *   The webform token manager.
-   * @param \Drupal\webform\WebformElementManagerInterface $element_manager
+   * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
    *   The webform element manager.
    */
   public function __construct(ConfigFactoryInterface $config_factory, WebformTokenManagerInterface $token_manager, WebformElementManagerInterface $element_manager) {
@@ -94,7 +95,7 @@ class WebformSubmissionGenerate implements WebformSubmissionGenerateInterface {
       'random' => TRUE,
     ];
 
-    /** @var \Drupal\webform\WebformElementInterface $element_handler */
+    /** @var \Drupal\webform\Plugin\WebformElementInterface $element_handler */
     $plugin_id = $this->elementManager->getElementPluginId($element);
     $element_handler = $this->elementManager->createInstance($plugin_id);
 

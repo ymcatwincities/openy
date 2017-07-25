@@ -58,6 +58,7 @@ function template_preprocess_webform_help(array &$variables) {
     $video_display = \Drupal::config('webform.settings')->get('ui.video_display');
     switch ($video_display) {
       case 'dialog':
+        $variables['#attached']['library'][] = 'webform/webform.ajax';
         $help['link'] = [
           '#type' => 'link',
           '#title' => t('Watch video'),
@@ -121,13 +122,41 @@ function template_preprocess_webform_actions(array &$variables) {
 }
 
 /**
+ * Prepares variables for webform preview templates.
+ *
+ * Default template: webform-preview.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing the following key:
+ *   - webform_submission: A webform submission.
+ */
+function template_preprocess_webform_preview(array &$variables) {
+  /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
+  $webform_submission = $variables['webform_submission'];
+  $webform = $webform_submission->getWebform();
+
+  $variables['preview'] = [
+    '#theme' => 'webform_submission_html',
+    '#webform_submission' => $webform_submission,
+    '#excluded_elements' => $webform->getSetting('preview_excluded_elements'),
+  ];
+
+  $settings = $webform->getSettings();
+
+  // Set attributes.
+  $variables['attributes'] = new Attribute($settings['preview_attributes']);
+}
+
+/**
  * Prepares variables for webform confirmation templates.
  *
  * Default template: webform-confirmation.html.twig.
  *
  * @param array $variables
  *   An associative array containing the following key:
+ *   - webform: A webform.
  *   - webform_submission: A webform submission.
+ *   - source_entity: A webform submission source entity.
  */
 function template_preprocess_webform_confirmation(array &$variables) {
   /** @var \Drupal\webform\WebformInterface $webform */
@@ -143,6 +172,17 @@ function template_preprocess_webform_confirmation(array &$variables) {
   $message_manager->setSourceEntity($source_entity);
   $message_manager->setWebformSubmission($webform_submission);
 
+  // Assets: Add custom shared and webform specific CSS and JS.
+  // @see webform_css_alter()
+  // @see webform_js_alter()
+  $assets = $webform->getAssets();
+  foreach ($assets as $type => $value) {
+    if ($value) {
+      $variables['#attached']['library'][] = "webform/webform.assets.$type";
+      $variables['#attached']['drupalSettings']['webform']['assets'][$type][$webform->id()] = md5($value);
+    }
+  }
+
   $settings = $webform->getSettings();
 
   // Set progress.
@@ -150,7 +190,7 @@ function template_preprocess_webform_confirmation(array &$variables) {
     $variables['progress'] = [
       '#theme' => 'webform_progress',
       '#webform' => $webform,
-      '#current_page' => 'complete',
+      '#current_page' => 'webform_complete',
     ];
   }
 
@@ -165,9 +205,19 @@ function template_preprocess_webform_confirmation(array &$variables) {
   $variables['back_label'] = $settings['confirmation_back_label'] ?: \Drupal::config('webform.settings')->get('settings.default_confirmation_back_label');
   $variables['back_attributes'] = new Attribute($settings['confirmation_back_attributes']);
 
-  // Apply all passed query string parameters to the 'Back to form' link.
+  // Get query string parameters.
   $query = \Drupal::request()->query->all();
-  unset($query['webform_id']);
+
+  // Add Ajax trigger to back link.
+  // @see \Drupal\webform\WebformSubmissionForm::getCustomForm
+  // @see Drupal.behaviors.webformConfirmationBackAjax (js/webform.ajax.js)
+  $is_ajax = (!empty($query['ajax_form'])) ? TRUE : FALSE;
+  if (!empty($is_ajax)) {
+    $variables['back_attributes']->addClass('js-webform-confirmation-back-link-ajax');
+  }
+
+  // Apply all passed query string parameters to the 'Back to form' link.
+  unset($query['webform_id'], $query['ajax_form'], $query['_wrapper_format']);
   $options = ($query) ? ['query' => $query] : [];
 
   // Set back_url.
@@ -211,15 +261,17 @@ function template_preprocess_webform_submission_navigation(array &$variables) {
 
   if (strpos(\Drupal::routeMatch()->getRouteName(), 'webform.user.submission') !== FALSE) {
     $account = \Drupal::currentUser();
+    $options = ['in_draft' => FALSE];
   }
   else {
     $account = NULL;
+    $options = ['in_draft' => NULL];
   }
 
-  if ($previous_submission = $webform_submission_storage->getPreviousSubmission($webform_submission, $source_entity, $account)) {
+  if ($previous_submission = $webform_submission_storage->getPreviousSubmission($webform_submission, $source_entity, $account, $options)) {
     $variables['prev_url'] = Url::fromRoute($route_name, ['webform_submission' => $previous_submission->id()] + $route_parameters)->toString();
   }
-  if ($next_submission = $webform_submission_storage->getNextSubmission($webform_submission, $source_entity, $account)) {
+  if ($next_submission = $webform_submission_storage->getNextSubmission($webform_submission, $source_entity, $account, $options)) {
     $variables['next_url'] = Url::fromRoute($route_name, ['webform_submission' => $next_submission->id()] + $route_parameters)->toString();
   }
 
@@ -313,7 +365,8 @@ function template_preprocess_webform_submission_html(array &$variables) {
 
   $webform = $webform_submission->getWebform();
   $elements = $webform->getElementsInitialized();
-  $variables['data'] = $view_builder->buildElements($elements, $webform_submission);
+  $options = ['excluded_elements' => $variables['excluded_elements']];
+  $variables['data'] = $view_builder->buildElements($elements, $webform_submission, $options);
 }
 
 /**
@@ -334,7 +387,8 @@ function template_preprocess_webform_submission_table(array &$variables) {
 
   $webform = $webform_submission->getWebform();
   $elements = $webform->getElementsInitializedFlattenedAndHasValue();
-  $variables['table'] = $view_builder->buildTable($elements, $webform_submission);
+  $options = ['excluded_elements' => $variables['excluded_elements']];
+  $variables['table'] = $view_builder->buildTable($elements, $webform_submission, $options);
 }
 
 /**
@@ -379,7 +433,8 @@ function template_preprocess_webform_submission_text(array &$variables) {
 
   $webform = $webform_submission->getWebform();
   $elements = $webform->getElementsInitialized();
-  $variables['data'] = $view_builder->buildElements($elements, $webform_submission, [], 'text');
+  $options = ['excluded_elements' => $variables['excluded_elements']];
+  $variables['data'] = $view_builder->buildElements($elements, $webform_submission, $options, 'text');
 }
 
 /**
@@ -507,6 +562,9 @@ function template_preprocess_webform_container_base_text(array &$variables) {
  *   - current_page: The current wizard page.
  */
 function template_preprocess_webform_progress(array &$variables) {
+  /** @var \Drupal\webform\WebformLibrariesManagerInterface $libaries_manager */
+  $libaries_manager = \Drupal::service('webform.libraries_manager');
+
   /** @var \Drupal\webform\WebformInterface $webform */
   $webform = $variables['webform'];
   $current_page = $variables['current_page'];
@@ -520,8 +578,9 @@ function template_preprocess_webform_progress(array &$variables) {
   $total = count($page_keys);
 
   if ($webform->getSetting('wizard_progress_bar')) {
+
     $variables['bar'] = [
-      '#theme' => 'webform_progress_bar',
+      '#theme' => ($libaries_manager->isIncluded('progress-tracker')) ? 'webform_progress_tracker' : 'webform_progress_bar',
       '#webform' => $variables['webform'],
       '#current_page' => $variables['current_page'],
     ];
@@ -547,6 +606,32 @@ function template_preprocess_webform_progress(array &$variables) {
  *   - current_page: The current wizard page.
  */
 function template_preprocess_webform_progress_bar(array &$variables) {
+  _template_preprocess_webform_progress($variables);
+}
+
+/**
+ * Prepares variables for webform 'wizard' progress tracker template.
+ *
+ * Default template: webform-progress-tracker.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing the following key:
+ *   - webform: A webform.
+ *   - current_page: The current wizard page.
+ */
+function template_preprocess_webform_progress_tracker(array &$variables) {
+  _template_preprocess_webform_progress($variables);
+}
+
+/**
+ * Prepares variables for webform 'wizard' progress bar & tracker template.
+ *
+ * @param array $variables
+ *   An associative array containing the following key:
+ *   - webform: A webform.
+ *   - current_page: The current wizard page.
+ */
+function _template_preprocess_webform_progress(array &$variables) {
   /** @var \Drupal\webform\WebformInterface $webform */
   $webform = $variables['webform'];
   $current_page = $variables['current_page'];
@@ -564,7 +649,6 @@ function template_preprocess_webform_progress_bar(array &$variables) {
     $variables['progress'][] = (isset($page['#title'])) ? $page['#title'] : '';
   }
 }
-
 /******************************************************************************/
 // Element templates
 /******************************************************************************/
@@ -608,6 +692,23 @@ function template_preprocess_webform_message(array &$variables) {
 /******************************************************************************/
 
 /**
+ * Prepares variables for composite element templates.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ */
+function _template_preprocess_webform_composite(array &$variables) {
+  $element = $variables['element'];
+  foreach (Element::children($element) as $key) {
+    if (!isset($element[$key]['#access']) || $element[$key]['#access']) {
+      $variables['content'][$key] = $element[$key];
+    }
+  }
+  $variables['flexbox'] = (isset($element['#flexbox'])) ? $element['#flexbox'] : FALSE;
+}
+
+/**
  * Prepares variables for address composite element templates.
  *
  * Default template: webform-element-address.html.twig.
@@ -615,17 +716,9 @@ function template_preprocess_webform_message(array &$variables) {
  * @param array $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
- *     Properties used: #title, #value, #options, #description, #required,
- *     #attributes.
  */
 function template_preprocess_webform_composite_address(array &$variables) {
-  $element = $variables['element'];
-  foreach (Element::children($element) as $key) {
-    if ($element[$key]['#access']) {
-      $variables['content'][$key] = $element[$key];
-    }
-  }
-  $variables['flexbox'] = (isset($element['#flexbox'])) ? $element['#flexbox'] : FALSE;
+  _template_preprocess_webform_composite($variables);
 }
 
 /**
@@ -636,17 +729,9 @@ function template_preprocess_webform_composite_address(array &$variables) {
  * @param array $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
- *     Properties used: #title, #value, #options, #description, #required,
- *     #attributes.
  */
 function template_preprocess_webform_composite_contact(array &$variables) {
-  $element = $variables['element'];
-  foreach (Element::children($element) as $key) {
-    if ($element[$key]['#access']) {
-      $variables['content'][$key] = $element[$key];
-    }
-  }
-  $variables['flexbox'] = (isset($element['#flexbox'])) ? $element['#flexbox'] : FALSE;
+  _template_preprocess_webform_composite($variables);
 }
 
 /**
@@ -657,17 +742,22 @@ function template_preprocess_webform_composite_contact(array &$variables) {
  * @param array $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
- *     Properties used: #title, #value, #options, #description, #required,
- *     #attributes.
  */
 function template_preprocess_webform_composite_creditcard(array &$variables) {
-  $element = $variables['element'];
-  foreach (Element::children($element) as $key) {
-    if ($element[$key]['#access']) {
-      $variables['content'][$key] = $element[$key];
-    }
-  }
-  $variables['flexbox'] = (isset($element['#flexbox'])) ? $element['#flexbox'] : FALSE;
+  _template_preprocess_webform_composite($variables);
+}
+
+/**
+ * Prepares variables for link composite element templates.
+ *
+ * Default template: webform-element-link.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ */
+function template_preprocess_webform_composite_link(array &$variables) {
+  $variables['content'] = $variables['element'];
 }
 
 /**
@@ -678,8 +768,6 @@ function template_preprocess_webform_composite_creditcard(array &$variables) {
  * @param array $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
- *     Properties used: #title, #value, #options, #description, #required,
- *     #attributes.
  */
 function template_preprocess_webform_composite_location(array &$variables) {
   $variables['content'] = $variables['element'];
@@ -693,17 +781,9 @@ function template_preprocess_webform_composite_location(array &$variables) {
  * @param array $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
- *     Properties used: #title, #value, #options, #description, #required,
- *     #attributes.
  */
 function template_preprocess_webform_composite_name(array &$variables) {
-  $element = $variables['element'];
-  foreach (Element::children($element) as $key) {
-    if ($element[$key]['#access']) {
-      $variables['content'][$key] = $element[$key];
-    }
-  }
-  $variables['flexbox'] = (isset($element['#flexbox'])) ? $element['#flexbox'] : FALSE;
+  _template_preprocess_webform_composite($variables);
 }
 
 /**
@@ -714,16 +794,9 @@ function template_preprocess_webform_composite_name(array &$variables) {
  * @param array $variables
  *   An associative array containing:
  *   - element: An associative array containing the properties of the element.
- *     Properties used: #title, #value, #options, #description, #required,
- *     #attributes.
  */
 function template_preprocess_webform_composite_telephone(array &$variables) {
-  $element = $variables['element'];
-  foreach (Element::children($element) as $key) {
-    if ($element[$key]['#access']) {
-      $variables['content'][$key] = $element[$key];
-    }
-  }
+  _template_preprocess_webform_composite($variables);
 }
 
 /******************************************************************************/
@@ -741,15 +814,17 @@ function template_preprocess_webform_composite_telephone(array &$variables) {
  *   - file: The element's File object.
  */
 function template_preprocess_webform_element_managed_file(array &$variables) {
-  /** @var \Drupal\file\FileInterface $file */
-  $file = $variables['file'];
-  $variables['uri'] = file_create_url($file->getFileUri());
-  $variables['extension'] = strtolower(pathinfo($variables['uri'], PATHINFO_EXTENSION));
-  $variables['type'] = \Drupal::service('file.mime_type.guesser')->guess($variables['uri']);
-  $variables['file_link'] = [
-    '#theme' => 'file_link',
-    '#file' => $file,
-  ];
+  if (!empty($variables['file'])) {
+    /** @var \Drupal\file\FileInterface $file */
+    $file = $variables['file'];
+    $variables['uri'] = file_create_url($file->getFileUri());
+    $variables['extension'] = strtolower(pathinfo($variables['uri'], PATHINFO_EXTENSION));
+    $variables['type'] = \Drupal::service('file.mime_type.guesser')->guess($variables['uri']);
+    $variables['file_link'] = [
+      '#theme' => 'file_link',
+      '#file' => $file,
+    ];
+  }
 }
 
 /**

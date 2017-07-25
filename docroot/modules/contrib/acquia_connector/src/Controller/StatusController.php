@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\acquia_connector\Form\Controller\StatusController.
- */
-
 namespace Drupal\acquia_connector\Controller;
 
 use Drupal\acquia_connector\Subscription;
-use Drupal\Core\Access\AccessInterface;
 use Drupal\Core\Access\AccessResultAllowed;
 use Drupal\Core\Access\AccessResultForbidden;
 use Drupal\Core\Controller\ControllerBase;
@@ -27,7 +21,8 @@ class StatusController extends ControllerBase {
     // Refresh subscription information, so we are sure about our update status.
     // We send a heartbeat here so that all of our status information gets
     // updated locally via the return data.
-    Subscription::update();
+    $subscription = new Subscription();
+    $subscription->update();
 
     // Return to the setting pages (or destination).
     return $this->redirect('system.status');
@@ -102,8 +97,9 @@ class StatusController extends ControllerBase {
    * Gets the subscription UUID from subscription data.
    *
    * @param array $sub_data
-   *   An array of subscription data
-   *   @see acquia_agent_settings('acquia_subscription_data')
+   *   An array of subscription data.
+   *
+   * @see acquia_agent_settings('acquia_subscription_data')
    *
    * @return string
    *   The UUID taken from the subscription data.

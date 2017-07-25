@@ -55,9 +55,11 @@ class WebformActions extends Container {
   public static function processWebformActions(&$element, FormStateInterface $form_state, &$complete_form) {
     $prefix = ($element['#webform_key']) ? 'edit-' . $element['#webform_key'] . '-' : '';
 
-    // Add class names.
-    $element['#attributes']['class'][] = 'form-actions';
-    $element['#attributes']['class'][] = 'webform-actions';
+    // Add class names only if form['actions']['#type'] is set to 'actions'.
+    if (isset($complete_form['actions']['#type']) && $complete_form['actions']['#type'] == 'actions') {
+      $element['#attributes']['class'][] = 'form-actions';
+      $element['#attributes']['class'][] = 'webform-actions';
+    }
 
     // Copy the form's actions to this element.
     $element += $complete_form['actions'];

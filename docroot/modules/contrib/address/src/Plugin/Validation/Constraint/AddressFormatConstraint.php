@@ -22,7 +22,7 @@ class AddressFormatConstraint extends Constraint {
   public $invalidMessage = '@name field is not in the right format.';
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function __construct($options = NULL) {
     parent::__construct($options);
@@ -34,7 +34,7 @@ class AddressFormatConstraint extends Constraint {
   }
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function getTargets() {
     return self::CLASS_CONSTRAINT;

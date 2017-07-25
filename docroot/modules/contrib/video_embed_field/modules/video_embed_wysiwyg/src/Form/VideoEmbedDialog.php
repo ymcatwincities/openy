@@ -15,7 +15,6 @@ use Drupal\editor\Entity\Editor;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\video_embed_field\Plugin\Field\FieldFormatter\Video;
-use Drupal\video_embed_field\Plugin\Field\FieldWidget\VideoTextfield;
 use Drupal\video_embed_field\ProviderManager;
 use Drupal\video_embed_field\ProviderPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -38,6 +37,26 @@ class VideoEmbedDialog extends FormBase {
    * @var \Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
+
+  /**
+   * VideoEmbedDialog constructor.
+   *
+   * @param \Drupal\video_embed_field\ProviderManager $provider_manager
+   *   The video provider plugin manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   */
+  public function __construct(ProviderManager $provider_manager, RendererInterface $renderer) {
+    $this->providerManager = $provider_manager;
+    $this->render = $renderer;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('video_embed_field.provider_manager'), $container->get('renderer'));
+  }
 
   /**
    * {@inheritdoc}
@@ -143,7 +162,7 @@ class VideoEmbedDialog extends FormBase {
     $provider = $this->getProvider($form_state->getValue('video_url'));
     // Display an error if no provider can be loaded for this video.
     if (FALSE == $provider) {
-      $form_state->setError($form['video_url'], VideoTextfield::getProviderErrorMessage());
+      $form_state->setError($form['video_url'], $this->t('Could not find a video provider to handle the given URL.'));
       return;
     }
   }
@@ -196,26 +215,6 @@ class VideoEmbedDialog extends FormBase {
    */
   public function getFormId() {
     return 'video_embed_dialog';
-  }
-
-  /**
-   * VideoEmbedDialog constructor.
-   *
-   * @param \Drupal\video_embed_field\ProviderManager $provider_manager
-   *   The video provider plugin manager.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   The renderer.
-   */
-  public function __construct(ProviderManager $provider_manager, RendererInterface $renderer) {
-    $this->providerManager = $provider_manager;
-    $this->render = $renderer;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static($container->get('video_embed_field.provider_manager'), $container->get('renderer'));
   }
 
 }

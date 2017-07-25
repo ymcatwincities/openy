@@ -28,6 +28,7 @@ use Drupal\webform\Utility\WebformThemeHelper;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionForm;
 
+require_once __DIR__ . '/includes/webform.date.inc';
 require_once __DIR__ . '/includes/webform.libraries.inc';
 require_once __DIR__ . '/includes/webform.options.inc';
 require_once __DIR__ . '/includes/webform.translation.inc';
@@ -425,6 +426,16 @@ function webform_css_alter(&$css, AttachedAssetsInterface $assets) {
  * @see \Drupal\webform\WebformSubmissionForm::form
  */
 function webform_js_alter(&$javascript, AttachedAssetsInterface $assets) {
+  // Add Google API key required by webform/libraries.jquery.geocomplete
+  // which is dependency for webform/webform.element.location.
+  // @see \Drupal\webform\Element\WebformLocation::processWebformComposite
+  // @see webform.libraries.yml
+  $settings = $assets->getSettings();
+  if (!empty($settings['webform']['location']['google_maps_api_key'])) {
+    $api_key = $settings['webform']['location']['google_maps_api_key'];
+    $javascript['https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places']['data'] = "https://maps.googleapis.com/maps/api/js?key=$api_key&libraries=places";
+  }
+
   _webform_asset_alter($javascript, $assets, 'javascript', 'js');
 }
 
@@ -474,6 +485,7 @@ function webform_file_access(FileInterface $file, $operation, AccountInterface $
   if ($operation == 'download' && $file->isTemporary() && $file->getOwnerId() == 0 && strpos($file->getFileUri(), 'private://webform/') === 0) {
     return AccessResult::forbidden();
   }
+  return AccessResult::neutral();
 }
 
 /**
@@ -501,15 +513,22 @@ function webform_theme() {
     'webform_actions' => [
       'render element' => 'element',
     ],
+    'webform_handler_debug_summary' => [
+      'variables' => ['settings' => NULL, 'handler' => NULL],
+    ],
     'webform_handler_email_summary' => [
-      'variables' => ['settings' => NULL, 'handler' => []],
+      'variables' => ['settings' => NULL, 'handler' => NULL],
     ],
     'webform_handler_remote_post_summary' => [
-      'variables' => ['settings' => NULL, 'handler' => []],
+      'variables' => ['settings' => NULL, 'handler' => NULL],
     ],
 
     'webform_confirmation' => [
       'variables' => ['webform' => NULL, 'source_entity' => NULL, 'webform_submission' => NULL],
+    ],
+
+    'webform_preview' => [
+      'variables' => ['webform_submission' => NULL],
     ],
 
     'webform_submission_navigation' => [
@@ -520,13 +539,13 @@ function webform_theme() {
     ],
 
     'webform_submission_html' => [
-      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL],
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => []],
     ],
     'webform_submission_table' => [
-      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL],
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => []],
     ],
     'webform_submission_text' => [
-      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL],
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => []],
     ],
     'webform_submission_yaml' => [
       'variables' => ['webform_submission' => NULL, 'source_entity' => NULL],
@@ -566,6 +585,13 @@ function webform_theme() {
       'variables' => ['element' => [], 'value' => NULL, 'webform_submission' => NULL, 'options' => [], 'file' => NULL],
     ],
 
+    'webform_email_message_html' => [
+      'variables' => ['message' => '', 'webform_submission' => NULL, 'handler' => NULL],
+    ],
+    'webform_email_message_text' => [
+      'variables' => ['message' => '', 'webform_submission' => NULL, 'handler' => NULL],
+    ],
+
     'webform_message' => [
       'render element' => 'element',
     ],
@@ -579,6 +605,9 @@ function webform_theme() {
       'render element' => 'element',
     ],
     'webform_composite_location' => [
+      'render element' => 'element',
+    ],
+    'webform_composite_link' => [
       'render element' => 'element',
     ],
     'webform_composite_name' => [
@@ -600,6 +629,14 @@ function webform_theme() {
     ],
 
     'webform_progress_bar' => [
+      'variables' => [
+        'webform' => NULL,
+        'current_page' => NULL,
+        'max_pages' => 10,
+      ],
+    ],
+
+    'webform_progress_tracker' => [
       'variables' => [
         'webform' => NULL,
         'current_page' => NULL,

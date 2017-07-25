@@ -1,0 +1,17 @@
+# Schema for the configuration files of the acquia_search module.
+acquia_search.settings:
+  type: mapping
+  label: 'Acquia search settings'
+  mapping:
+    host:
+      type: string
+      label: Acquia search host
+    path:
+      type: string
+      label: 'Acquia search path'
+    derived_key_salt:
+      type: string
+      label: 'Acquia derived key salt'
+    version:
+      type: string
+      label: 'Acquia Search version'
