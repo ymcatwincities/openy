@@ -7,7 +7,6 @@ dependencies:
     - field.field.paragraph.lto.field_lto_title
     - paragraphs.paragraphs_type.lto
   module:
-    - content_moderation
     - link
 id: paragraph.lto.default
 targetEntityType: paragraph

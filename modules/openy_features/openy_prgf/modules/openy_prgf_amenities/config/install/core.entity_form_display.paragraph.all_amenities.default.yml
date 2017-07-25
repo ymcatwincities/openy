@@ -5,8 +5,7 @@ dependencies:
     - field.field.paragraph.all_amenities.field_field_prgf_amnts_view
     - field.field.paragraph.all_amenities.field_prgf_title
     - paragraphs.paragraphs_type.all_amenities
-  module:
-    - content_moderation
+  module: {  }
 id: paragraph.all_amenities.default
 targetEntityType: paragraph
 bundle: all_amenities

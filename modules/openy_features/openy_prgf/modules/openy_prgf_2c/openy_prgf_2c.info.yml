@@ -5,7 +5,6 @@ core: 8.x
 package: OpenY
 dependencies:
   - block_content
-  - content_moderation
   - entity_browser_entity_form
   - field
   - inline_entity_form

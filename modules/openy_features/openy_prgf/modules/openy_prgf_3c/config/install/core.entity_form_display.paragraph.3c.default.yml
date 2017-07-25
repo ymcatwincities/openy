@@ -9,7 +9,6 @@ dependencies:
     - field.field.paragraph.3c.field_prgf_title
     - paragraphs.paragraphs_type.3c
   module:
-    - content_moderation
     - entity_browser_entity_form
     - inline_entity_form
 id: paragraph.3c.default

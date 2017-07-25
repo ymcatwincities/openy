@@ -7,7 +7,6 @@ dependencies:
     - field.field.paragraph.2c.field_prgf_2c_right
     - paragraphs.paragraphs_type.2c
   module:
-    - content_moderation
     - entity_browser_entity_form
     - inline_entity_form
 id: paragraph.2c.default
