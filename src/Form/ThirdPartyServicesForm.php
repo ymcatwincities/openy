@@ -35,6 +35,9 @@ class ThirdPartyServicesForm extends FormBase {
     $optimizely_config = $config_factory->get('optimizely.settings');
     // Get Recaptcha settings container
     $recaptcha_config = $config_factory->get('recaptcha.settings');
+    // Get AddThis settings container
+    $addthis_config = $config_factory->get('openy_addthis.settings');
+
 
     $form['#title'] = $this->t('3rd Party Services');
 
@@ -103,6 +106,15 @@ class ThirdPartyServicesForm extends FormBase {
       '#placeholder' => '6LeQMCcUAAAAAPHA6nB1Z0GLpPV8DqrIHzzaSEe6',
       '#title' => $this->t('Secret key'),
       '#type' => 'textfield',
+    ];
+
+    $form['addthis']['public_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('AddThis public id'),
+      '#default_value' => $addthis_config->get('public_id'),
+      '#required' => TRUE,
+      '#description' => $this->t('Your AddThis public id. Example: 
+        ra-59662efe3f09cfcc. Currently we support only inline type.'),
     ];
 
     $form['actions'] = [
@@ -176,6 +188,7 @@ class ThirdPartyServicesForm extends FormBase {
     $config_factory = \Drupal::service('config.factory');
     $geo_loc_config = $config_factory->getEditable('geolocation.settings');
     $optimizely_config = $config_factory->getEditable('optimizely.settings');
+    $addthis_config = $config_factory->getEditable('openy_addthis.settings');
 
     $geo_loc_config->set('google_map_api_key', $form_state->getValue('google_map_api_key'));
     $geo_loc_config->save();
@@ -224,6 +237,10 @@ class ThirdPartyServicesForm extends FormBase {
       $captcha_config->set('default_validation', 'image_captcha/Image')
         ->save();
     }
+
+    $addthis_public_id = $form_state->getValue('public_id');
+    $addthis_config->set('public_id', $addthis_public_id);
+    $addthis_config->save();
   }
 
   /**
