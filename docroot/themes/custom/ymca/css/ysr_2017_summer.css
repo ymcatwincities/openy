@@ -2282,8 +2282,8 @@ html, body {
 }
 @media (min-width: 48em) {
   #prizes-info .prizes > .prize:not(:first-child) {
-    padding-top: 81px;
-    padding-top: 8.1rem;
+    padding-top: 31px;
+    padding-top: 3.1rem;
   }
 }
 #prizes-info .prizes > .prize:last-child {
