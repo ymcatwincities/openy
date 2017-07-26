@@ -228,9 +228,11 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
       'override' => 2,
     ];
 
+    $today = strtotime('today');
+
     // Init slots with fallback content.
     $slots = [
-      $now => [
+      $today => [
         'from' => strtotime('today'),
         'to' => $now + $timespan,
         'type' => 'fallback',
@@ -353,7 +355,7 @@ class OpenYScheduleManager implements OpenYScheduleManagerInterface {
           continue;
         }
 
-        $next_slot = $slots[$slot['to']];
+        $next_slot = $slots[$key];
 
         // Skip fallbacks.
         if ($next_slot['type'] == 'fallback') {
