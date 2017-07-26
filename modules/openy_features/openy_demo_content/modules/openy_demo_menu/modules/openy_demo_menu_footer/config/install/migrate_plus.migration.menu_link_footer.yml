@@ -147,6 +147,24 @@ source:
       parent_id: 0
       expanded: 0
       parent_link_path: ''
+    -
+      id: 16
+      title: 'Group Schedules'
+      menu_name: 'footer-menu-center'
+      link: 'schedules/group-schedules'
+      weight: 1
+      parent_id: 15
+      expanded: 1
+      parent_link_path: 'schedules'
+    -
+      id: 17
+      title: 'Group Schedules (Embedded)'
+      menu_name: 'footer-menu-center'
+      link: 'schedules/group-schedules-embedded'
+      weight: 2
+      parent_id: 15
+      expanded: 1
+      parent_link_path: 'schedules'
   ids:
     id:
       type: integer
