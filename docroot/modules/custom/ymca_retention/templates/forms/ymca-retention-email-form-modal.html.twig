@@ -20,9 +20,9 @@
 <div class="compain-email-form">
   <div class="description">
     {% if form.email_value is defined %}
-      <p>{{ 'Your current email is <b>@email</b>.'|t({ '@email': form.email_value['#value'] }) }}</p>
+      <p>{{ 'Your current email is <b>@email</b>'|t({ '@email': form.email_value['#value'] }) }}</p>
     {% else %}
-      <p>{{ 'Your current email is <b>@email</b>.'|t({ '@email': '{{retentionC.storage.member.email}}' }) }}</p>
+      <p>{{ 'Your current email is <b>@email</b>'|t({ '@email': '{{retentionC.storage.member.email}}' }) }}</p>
     {% endif %}
   </div>
   {% if form.email is defined %}
