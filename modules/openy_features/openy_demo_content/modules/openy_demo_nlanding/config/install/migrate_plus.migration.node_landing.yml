@@ -137,6 +137,26 @@ source:
           content_id: schedule_search_list
         -
           content_id: popup_schedules
+    -
+      id: group_schedules
+      title: 'Group Schedules'
+      alias: '/schedules/group-schedules'
+      header_content_ids:
+        -
+          header_content_id: group_schedules
+      content_ids:
+        -
+          content_id: group_schedules_groupex_pro
+    -
+      id: group_schedules_embedded
+      title: 'Group Schedules (Embedded)'
+      alias: '/schedules/group-schedules-embedded'
+      header_content_ids:
+        -
+          header_content_id: group_schedules_embedded
+      content_ids:
+        -
+          content_id: embedded_groupex_pro
   ids:
     id:
       type: string
@@ -205,6 +225,8 @@ process:
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
           - openy_demo_landing_paragraph_branches_popup_all
+          - openy_demo_lp_paragraph_embedded_groupexpro_schedule
+          - openy_demo_lp_paragraph_group_schedules
         source: content_id
       target_revision_id:
         plugin: migration
@@ -222,6 +244,8 @@ process:
           - openy_demo_lp_paragraph_membership_calculator
           - openy_demo_lp_paragraph_schedule_search_list
           - openy_demo_landing_paragraph_branches_popup_all
+          - openy_demo_lp_paragraph_embedded_groupexpro_schedule
+          - openy_demo_lp_paragraph_group_schedules
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -245,5 +269,7 @@ migration_dependencies:
     - openy_demo_lp_paragraph_schedule_search_form
     - openy_demo_lp_paragraph_schedule_search_list
     - openy_demo_landing_paragraph_branches_popup_all
+    - openy_demo_lp_paragraph_embedded_groupexpro_schedule
+    - openy_demo_lp_paragraph_group_schedules
   optional:
     - openy_demo_node_blog
