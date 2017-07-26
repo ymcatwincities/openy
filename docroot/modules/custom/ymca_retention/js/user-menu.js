@@ -88,6 +88,14 @@
       }
       $(this).parents('form').find('input.form-submit').trigger('mousedown');
     });
+    var isIE = /(MSIE|Trident\/|Edge\/)/i.test(navigator.userAgent);
+    if (isIE) {
+      $(document).on('keyup', 'form', function (event) {
+        if (event.keyCode == 13) {
+          $(this).find("[type=submit]").trigger("mousedown");
+        }
+      });
+    }
   };
 
 })(jQuery);
