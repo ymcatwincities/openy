@@ -4788,3 +4788,15 @@ function ymca_master_update_8221() {
     \Drupal::service('module_installer')->install([$module], TRUE);
   }
 }
+
+/**
+ * Enable openy_prgf_sidebar_menu module.
+ */
+function ymca_master_update_8222() {
+  $modules = [
+    'openy_prgf_sidebar_menu',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
