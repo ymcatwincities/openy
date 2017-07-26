@@ -44,11 +44,10 @@ function openy_install() {
  */
 function openy_update_dependencies() {
   $dependencies['openy'] = [
-    8030 => [
+    8031 => [
+      'openy_loc_branch' => 8010,
       'openy_block' => 8001,
-      'openy_location' => 8002,
-      'openy_loc_branch' => 8030,
-    ]
+    ],
   ];
 
   return $dependencies;
@@ -395,53 +394,58 @@ function openy_update_8029() {
 }
 
 /**
- * Enable Amenities related modules.
+ * Enable Contrib modules for Amenities related modules part1.
  */
 function openy_update_8030() {
   // Enable modules.
-  \Drupal::service('module_installer')->install([
+  $modules = [
     'better_exposed_filters',
-  ]);
-  \Drupal::service('module_installer')->install([
     'custom_formatters',
-  ]);
-  \Drupal::service('module_installer')->install([
-    'token_filter'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'views_field_formatter'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_svg_formatter'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_block_custom_simple'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_block_flexible_content'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_editor'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_prgf_1c'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_prgf_2c'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_prgf_3c'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_prgf_4c'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_prgf_amenities'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_prgf_lto'
-  ]);
-  \Drupal::service('module_installer')->install([
-    'openy_block_branch_amenities'
-  ]);
+    'token_filter',
+    'views_field_formatter',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable Amenities related modules part1.
+ */
+function openy_update_8031() {
+  // Enable modules.
+  $modules = [
+    'openy_svg_formatter',
+    'openy_prgf_lto',
+    'openy_editor',
+    'openy_block_custom_simple',
+    'openy_block_flexible_content',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable Amenities related modules part2.
+ */
+function openy_update_8032() {
+  // Enable modules.
+  $modules = [
+    'openy_block_branch_amenities',
+    'openy_prgf_1c',
+    'openy_prgf_2c',
+    'openy_prgf_3c',
+    'openy_prgf_4c',
+    'openy_prgf_amenities',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
 }

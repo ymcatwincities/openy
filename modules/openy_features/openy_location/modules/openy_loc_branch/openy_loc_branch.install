@@ -22,6 +22,9 @@ function openy_loc_branch_update_dependencies() {
     8006 => [
       'openy_node' => 8004,
     ],
+    8010 => [
+      'openy_location' => 8002,
+    ],
   ];
 
   return $dependencies;
