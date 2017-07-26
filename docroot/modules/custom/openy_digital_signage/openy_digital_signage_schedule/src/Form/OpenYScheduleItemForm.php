@@ -45,6 +45,7 @@ class OpenYScheduleItemForm extends ContentEntityForm {
     $route_name = \Drupal::service('current_route_match')->getRouteName();
 
     if (in_array($route_name, ['screen_schedule.edit_schedule_item', 'screen_schedule.add_schedule_item'])) {
+      $form_state->addBuildInfo('screen', $this->getRequest()->get('screen'));
       // Add new screen content link.
       $form['content']['widget'][0]['new_content'] = [
         '#type' => 'link',
@@ -100,6 +101,7 @@ class OpenYScheduleItemForm extends ContentEntityForm {
   public function ajaxFormSubmitHandler(array &$form, FormStateInterface $form_state) {
     $schedule_item = $this->entity;
     $screen_content = $schedule_item->content->entity;
+    $screen = $form_state->getBuildInfo()['screen'];
     // Build an edit Schedule item form.
     $build = [
       '#type' => 'container',
@@ -110,6 +112,10 @@ class OpenYScheduleItemForm extends ContentEntityForm {
         'class' => ['frame-container'],
       ],
     ];
+
+    if ($screen->orientation->value == 'portrait') {
+      $build['#attributes']['class'][] = 'frame-container--portrait';
+    }
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
