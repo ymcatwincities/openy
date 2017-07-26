@@ -122,12 +122,12 @@ class OpenyFacebookSyncSaver {
       'end_value' => empty($event['end_time']) ? clone $event['start_time'] : clone $event['end_time'],
     ];
 
-    // Convert date values from DateTime format to 2017-04-08T19:00:00 and update timezone.
-    $site_timezone = new \DateTimeZone($this->configFactory->get('system.date')->get('timezone')['default']);
+    // Convert date values from DateTime format to 2017-04-08T19:00:00 and update timezone to UTC.
+    $utc_timezone = new \DateTimeZone('Etc/UTC');
     $format = 'Y-m-d\TH:i:s';
-    $event_date_values['value']->setTimezone($site_timezone);
+    $event_date_values['value']->setTimezone($utc_timezone);
     $event_date_values['value'] = $event_date_values['value']->format($format);
-    $event_date_values['end_value']->setTimezone($site_timezone);
+    $event_date_values['end_value']->setTimezone($utc_timezone);
     $event_date_values['end_value'] = $event_date_values['end_value']->format($format);
 
     $event_node = [
