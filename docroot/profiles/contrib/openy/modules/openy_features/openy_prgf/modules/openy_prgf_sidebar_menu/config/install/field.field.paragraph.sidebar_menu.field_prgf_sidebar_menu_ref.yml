@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_sidebar_menu_ref
+    - paragraphs.paragraphs_type.sidebar_menu
+  module:
+    - plugin
+id: paragraph.sidebar_menu.field_prgf_sidebar_menu_ref
+field_name: field_prgf_sidebar_menu_ref
+entity_type: paragraph
+bundle: sidebar_menu
+label: 'Sidebar Menu'
+description: 'Reference to Sidebar Menu block'
+required: false
+translatable: true
+default_value:
+  -
+    plugin_id: openy_block_sidebar_menu
+    plugin_configuration:
+      id: openy_block_sidebar_menu
+      label: 'Sidebar Menu'
+      provider: null
+      label_display: null
+    plugin_configuration_schema_id: block.settings.openy_block_sidebar_menu
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:block'

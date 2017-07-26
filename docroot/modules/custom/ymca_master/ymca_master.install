@@ -4790,8 +4790,20 @@ function ymca_master_update_8221() {
 }
 
 /**
- * Enable openy_digital_signage module.
+ * Enable openy_prgf_sidebar_menu module.
  */
 function ymca_master_update_8222() {
+  $modules = [
+    'openy_prgf_sidebar_menu',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Enable openy_digital_signage module.
+ */
+function ymca_master_update_8223() {
   \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
 }
