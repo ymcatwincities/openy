@@ -46,8 +46,7 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
    *   The config factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   *
-   * @param \Drupal\ymca_mappings\LocationMappingRepository
+   * @param \Drupal\ymca_mappings\LocationMappingRepository $location_repository
    *   The location repository service.
    */
   public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LocationMappingRepository $location_repository) {
