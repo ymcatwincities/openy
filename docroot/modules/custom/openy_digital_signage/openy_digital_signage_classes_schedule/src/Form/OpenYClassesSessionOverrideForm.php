@@ -46,6 +46,7 @@ class OpenYClassesSessionOverrideForm extends ContentEntityForm {
     $this->overriddenEntity->enforceIsNew();
     $uuid = \Drupal::service('uuid');
     $this->overriddenEntity->set('id', NULL);
+    $this->overriddenEntity->set('source_id', NULL);
     $this->overriddenEntity->set('uuid', $uuid->generate());
   }
 

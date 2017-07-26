@@ -168,6 +168,40 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setDisplayConfigurable('form', TRUE)
       ->setRequired(TRUE);
 
+    $fields['source_id'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Reference to source entity.'))
+      ->setDescription(t('Store reference to the source entity.'))
+      ->setRevisionable(TRUE)
+      ->setRequired(FALSE)
+      ->setTranslatable(FALSE)
+      ->setDefaultValue(NULL)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
+    $fields['status'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Status'))
+      ->setDescription(t('Indicates that sessions is active or disabled.'))
+      ->setRevisionable(TRUE)
+      ->setTranslatable(FALSE)
+      ->setRequired(TRUE)
+      ->setSetting('on_label', 'Enabled')
+      ->setSetting('off_label', 'Disabled')
+      ->setDisplayOptions('view', [
+        'label' => 'visible',
+        'type' => 'boolean',
+        'weight' => 1,
+        'settings' => [
+          'format' => 'default',
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_buttons',
+        'weight' => 1,
+      ])
+      ->setDefaultValue(TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+
     $fields['title'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Class name'))
       ->setDescription(t('Name of a class.'))
