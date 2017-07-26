@@ -80,6 +80,9 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+{% set directions_url = content.field_location_directions.0['#url'] %}
+{% set directions_title = content.field_location_directions.0['#title'] %}
+
 <article{{ attributes.addClass(classes) }}>
 
   {{ title_prefix }}
