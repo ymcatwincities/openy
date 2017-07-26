@@ -73,6 +73,7 @@ dependencies:
   - geolocation
   - rabbit_hole
   - rh_node
+  - rh_taxonomy
   - redirect
   - simple_sitemap
   - metatag
