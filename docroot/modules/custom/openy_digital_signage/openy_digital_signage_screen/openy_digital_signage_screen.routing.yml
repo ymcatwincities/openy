@@ -7,7 +7,7 @@ screen_schedule.add_schedule_item:
       screen:
         type: entity:openy_digital_signage_screen
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'add OpenY Digital Signage Schedule Item entities'
 
 screen_schedule.edit_schedule_item:
   path: '/ajax/screen-schedule/edit-schedule-item/{schedule_item}'
@@ -18,7 +18,7 @@ screen_schedule.edit_schedule_item:
       schedule_item:
         type: entity:openy_digital_signage_sch_item
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'edit OpenY Digital Signage Schedule Item entities'
 
 screen_schedule.view_schedule_item:
   path: '/ajax/screen-schedule/view-schedule-item/{screen}/{schedule_item}'
@@ -31,7 +31,7 @@ screen_schedule.view_schedule_item:
       schedule_item:
         type: entity:openy_digital_signage_sch_item
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'view OpenY Digital Signage Schedule entities'
 
 screen_schedule.view_screen_content:
   path: '/ajax/screen-schedule/view-screen-content/{screen}/{screen_content}'
@@ -44,7 +44,7 @@ screen_schedule.view_screen_content:
       screen_content:
         type: entity:node
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'access content'
 
 screen_schedule.redraw_screen_schedule_timeline:
   path: '/ajax/screen-schedule/redraw-timeline/{screen}/{year}/{month}/{day}'
@@ -55,4 +55,4 @@ screen_schedule.redraw_screen_schedule_timeline:
       screen:
         type: entity:openy_digital_signage_screen
   requirements:
-    _permission: 'access administration pages'
+    _permission: 'view OpenY Digital Signage Schedule entities'
