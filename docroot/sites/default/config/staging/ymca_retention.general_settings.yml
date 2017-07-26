@@ -42,7 +42,7 @@ error_msg_registered_before_start:
   value: "<p><strong>You’re already signed up!</strong><br />\r\nIf you didn’t already sign up, please&nbsp;<a href=\"/contact_us\" rel=\"noreferrer\" target=\"_blank\">contact us</a>. Then, come back on August 1 to start tracking your progress and reporting activities.&nbsp;</p>\r\n"
   format: full_html
 error_msg_registered_after_start:
-  value: "<p><strong>You’re already signed up!</strong><br />\r\nThanks for logging in. You can check your progress or report activities.</p>\r\n"
+  value: "<p><strong>You’re already signed up!</strong><br />\r\nYou can check your progress or report activities by <a href=\"#\" data-toggle=\"modal\" data-target=\"#ymca-retention-modal\" data-type=\"login\">signing in here</a></p>\r\n"
   format: full_html
 error_msg_incorrect_id:
   value: "<p><strong>Please check your member ID</strong><br />\r\nIf you have entered your member ID correctly and it still isn’t working, <a href=\"/contact_us\" rel=\"noreferrer\" target=\"_blank\">contact us</a>.</p>\r\n"
