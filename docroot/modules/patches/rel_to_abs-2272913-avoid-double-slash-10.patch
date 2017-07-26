@@ -72,7 +72,12 @@ index a8f56b6..6198bb6 100644
 +    $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
 +      $url = preg_replace('/\/{2,}/', '/', $matches[2]);
 +      try {
-+        $url = Url::fromUserInput($url)->setAbsolute(true)->toString();
++        // Remove subfolder name if provided.
++        $base_path = base_path();
++        $url = str_replace($base_path, '/', $url);
++        // Decode url to prevent double encoding.
++        $url = urldecode($url);
++        $url = Url::fromUserInput($url)->setAbsolute(TRUE)->toString();
        }
 -      $txt = $new_txt . $txt;
 -      $new_txt = '';

@@ -661,3 +661,13 @@ function ymca_retention_update_8038() {
     'ymca_retention.general_settings',
   ]);
 }
+
+/**
+ * Reset retention member total visits.
+ */
+function ymca_retention_update_8039() {
+  \Drupal::database()
+    ->update('ymca_retention_member')
+    ->fields(['total_visits' => 0])
+    ->execute();
+}
