@@ -9,7 +9,7 @@ dependencies:
     - system
     - ymca_retention
 id: ymca_retention_challenge_team
-label: 'YMCA Y Recharge'
+label: 'YMCA Y Strive'
 variant: panels_variant
 variant_settings:
   blocks:
@@ -19,7 +19,7 @@ variant_settings:
       provider: ymca_retention
       label_display: '0'
       yteam: 1
-      region: middle
+      region: content
       weight: -9
       team: 1
       uuid: 416c4c9e-0a0e-4e45-9e2e-af2842fc34d9
@@ -29,9 +29,9 @@ variant_settings:
       label: '[YMCA Retention] Campaign intro'
       provider: ymca_retention
       label_display: '0'
-      slogan: 'Participate to win'
-      show_picture: true
-      region: middle
+      slogan: 'Y Strive Challenge'
+      show_picture: 0
+      region: content
       weight: -10
       uuid: 3c731e01-c64d-4612-bbdb-a4d270b1c7e0
       context_mapping: {  }
@@ -39,9 +39,9 @@ variant_settings:
   uuid: e05d3e1f-c5bd-4701-8000-c63a596a25fc
   label: null
   weight: 0
-  layout: onecol
+  layout: layout_onecol
   layout_settings: {  }
-  page_title: 'YMCA Y Recharge'
+  page_title: 'YMCA Y Strive'
   storage_type: page_manager
   storage_id: ymca_retention_challenge_team
   builder: standard
