@@ -44,8 +44,9 @@ function openy_digital_signage_classes_schedule_entity_operation_alter(array &$o
 
   /* @var \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession $entity */
   if ($entity->getSource() != 'manually') {
-    // Remove clone and edit options.
+    // Remove clone, edit and delete options, we allow only overriding.
     unset($operations['clone']);
+    unset($operations['delete']);
     unset($operations['edit']);
     // Add override option.
     $operations['override'] = [
@@ -82,6 +83,8 @@ function openy_digital_signage_classes_schedule_form_alter(&$form, FormStateInte
       $form['title']['#attributes']['placeholder'] = t('Yoga');
       $form['instructor']['#attributes']['placeholder'] = t('Instructor name');
       $form['room_name']['#attributes']['placeholder'] = t('Studio 1');
+      $form['status']['#options'][1] = t('Enabled');
+      $form['status']['#options'][0] = t('Disabled');
       break;
   }
 }
