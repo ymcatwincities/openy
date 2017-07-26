@@ -4,7 +4,7 @@ openy_digital_signage_schedule.new_screen_content_form:
     _form: 'Drupal\openy_digital_signage_schedule\Form\NewScreenContentForm'
     _title: 'New screen content'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'create screen_content content'
 
 openy_digital_signage_schedule.new_screen_content_form_modal:
   path: '/ajax/modal/schedule-item/new-screen-content'
@@ -12,6 +12,6 @@ openy_digital_signage_schedule.new_screen_content_form_modal:
     _title: 'New screen content'
     _controller: '\Drupal\openy_digital_signage_schedule\Controller\ModalFormController::openModalForm'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'create screen_content content'
   options:
     _admin_route: TRUE
