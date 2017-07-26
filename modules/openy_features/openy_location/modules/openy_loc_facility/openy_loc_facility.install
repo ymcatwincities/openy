@@ -126,3 +126,16 @@ function openy_loc_facility_update_8005() {
     'description'
   );
 }
+
+/**
+ * Import rabbit_hole config.
+ */
+function openy_loc_facility_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.taxonomy_vocabulary_facility_type',
+  ]);
+}
