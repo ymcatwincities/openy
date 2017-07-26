@@ -166,11 +166,6 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_webform_content',
       ],
     ],
-    'addthis' => [
-      'openy_demo_addthis' => [
-        'openy_demo_addthis_settings',
-      ],
-    ],
   ];
 
   return array_key_exists($key, $map) ? $map[$key] : [];

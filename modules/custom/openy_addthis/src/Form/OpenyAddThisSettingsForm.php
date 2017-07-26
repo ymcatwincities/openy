@@ -69,6 +69,7 @@ class OpenyAddThisSettingsForm extends ConfigFormBase implements ContainerInject
       '#title' => $this->t('AddThis public id'),
       '#default_value' => $config->get('public_id'),
       '#required' => TRUE,
+      '#placeholder' => 'ra-xxxxxxxxxxxxxxx',
       '#description' => $this->t('Your AddThis public id. Example: 
         ra-xxxxxxxxxxxxxxx. Currently we support only inline type.'),
     ];
