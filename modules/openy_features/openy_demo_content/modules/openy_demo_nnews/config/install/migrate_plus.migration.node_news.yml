@@ -12,7 +12,7 @@ source:
   data_rows:
     -
       id: 1
-      title: 'Mood-boosting foods'
+      title: 'All details are important'
       created: '2017-04-27 8:00am'
       category: 1
       related: null
@@ -20,26 +20,30 @@ source:
       promote: 1
       branch: 1
       body: >
-        <strong>Tip:</strong> Stave off the winter blues by loading up on foods that elevate your mood, fight depression, prevent seasonal affective disorder and add color to the dark, cold days of winter.
-
-        By the Chef Marshall O’Brien Group
-
-        The holidays have passed, the novelty of the new year is wearing off and the days are cold and dark. For many of us, the winter doldrums bring the winter blues. Don’t wait until spring to add color to your days! Fill your plate with a rainbow of mood-boosting foods to elevate your spirits and bring a blast of color to winter’s whites and greys. The foods you eat have a powerful impact on your mood. When you eat colorful, nutritionally uplifting foods, you can beat the winter blues right at your dining room table.
-
-        <strong>Eat a Rainbow</strong> – Against the backdrop of winter’s greys and whites, a burst of color on your plate enlivens your senses and takes you on a culinary vacation to warmer climes. The color of a food reflects which nutrients it contains, so eating an array of colorful fruits and vegetables ensures you are getting the full spectrum of nutrients and antioxidants to keep you energized and buoyant through the dark winter months. Chef Marshal’s Mango-Avocado Salsa offers a rainbow of flavors to brighten up any meal – try it scooped up on blue corn tortilla chips or as an accompaniment to chicken. Incorporate these colorful mood-boosters in your winter meals:
-
-        <ul>
-          <li>Pomegranates</li>
-          <li>Citrus</li>
-          <li>Winter squash</li>
-          <li>Tropical fruits, like mango and pineapple</li>
-          <li>Kale</li>
-          <li>Frozen berries</li>
-          <li>Purple cabbage</li>
-        </ul>
+        <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
+        vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
+        Morbi ornare ipsum eget sodales rutrum. Duis sit amet risus mi. Nullam massa neque, tincidunt
+        a ultrices eu, vestibulum eu nunc. Integer nec dui lobortis, viverra lectus at, pharetra odio.
+        Ut dignissim eros id leo tristique, eget venenatis enim dignissim. Sed eu laoreet odio.
+        Suspendisse aliquam arcu vel magna condimentum commodo. Mauris bibendum tincidunt arcu,
+        id pellentesque est semper vitae.</p>
+        <p>Nulla id vehicula massa. Phasellus accumsan massa leo, at consequat odio vestibulum et.
+        Nunc non purus et est ultricies iaculis. Integer tincidunt, enim vitae finibus tristique,
+        risus nisl molestie nisi, non laoreet est est id odio. Nullam vehicula, nunc ut pharetra
+        blandit, sem nulla suscipit diam, in malesuada diam diam quis dolor. Proin maximus augue
+        vitae ipsum porta hendrerit. Pellentesque eget facilisis nulla, vitae rutrum purus.
+        Pellentesque et lobortis ipsum, a placerat tortor.</p>
+        <p>Phasellus gravida purus lacus, id imperdiet elit faucibus non.</p>
+        <p>Nam fringilla dui est, in faucibus purus iaculis ut. Pellentesque volutpat enim porttitor,
+        luctus magna eget, porttitor lectus. Fusce finibus in ante nec commodo. Nam erat leo,
+        consequat vitae nulla in, pharetra consectetur dui. Phasellus porttitor ligula et lectus
+        semper auctor. Curabitur nec varius erat, egestas faucibus mauris. Mauris vehicula risus et
+        velit efficitur, at lacinia odio rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Nam luctus erat mi, sed maximus sapien tempus in. Nam maximus scelerisque nibh eu
+        iaculis. Donec lobortis rutrum ultrices.</p>
     -
       id: 2
-      title: 'Mango-Avocado Salsa'
+      title: 'Lorem ipsum'
       created: '2017-04-27 8:01am'
       category: 2
       related: null
@@ -47,31 +51,27 @@ source:
       promote: 1
       branch: 2
       body: >
-        By the Chef Marshall O’Brien Group
-
-        Serves 4
-
-        Ingredients
-
-        <ul>
-          <li>1 cup fresh or frozen mango, chopped</li>
-          <li>1 cup avocado, chopped</li>
-          <li>1/2 cup Roma tomato (1 medium), diced</li>
-          <li>1/4 cup red onion, diced</li>
-          <li>1 jalapeño pepper, seeded and minced</li>
-          <li>1 tablespoon fresh garlic, minced</li>
-          <li>1/4 cup fresh cilantro, chopped</li>
-          <li>1/4 cup fresh lime juice</li>
-          <li>1/8 teaspoon kosher salt</li>
-          <li>Directions</li>
-        </ul>
-
-        <ol>
-          <li>Combine mango, avocado, tomato, onion, pepper, garlic cilantro, lime juice and salt; mix well.</li>
-          <li>Let sit at least 15 minutes before serving.</li>
-          <li>Serve with corn tortilla chips, either purchased or homemade.</li>
-          <li>Our recipe for homemade corn chips is included below.</li>
-        </ol>
+        <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
+        vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
+        Morbi ornare ipsum eget sodales rutrum. Duis sit amet risus mi. Nullam massa neque, tincidunt
+        a ultrices eu, vestibulum eu nunc. Integer nec dui lobortis, viverra lectus at, pharetra odio.
+        Ut dignissim eros id leo tristique, eget venenatis enim dignissim. Sed eu laoreet odio.
+        Suspendisse aliquam arcu vel magna condimentum commodo. Mauris bibendum tincidunt arcu,
+        id pellentesque est semper vitae.</p>
+        <p>Nulla id vehicula massa. Phasellus accumsan massa leo, at consequat odio vestibulum et.
+        Nunc non purus et est ultricies iaculis. Integer tincidunt, enim vitae finibus tristique,
+        risus nisl molestie nisi, non laoreet est est id odio. Nullam vehicula, nunc ut pharetra
+        blandit, sem nulla suscipit diam, in malesuada diam diam quis dolor. Proin maximus augue
+        vitae ipsum porta hendrerit. Pellentesque eget facilisis nulla, vitae rutrum purus.
+        Pellentesque et lobortis ipsum, a placerat tortor.</p>
+        <p>Phasellus gravida purus lacus, id imperdiet elit faucibus non.</p>
+        <p>Nam fringilla dui est, in faucibus purus iaculis ut. Pellentesque volutpat enim porttitor,
+        luctus magna eget, porttitor lectus. Fusce finibus in ante nec commodo. Nam erat leo,
+        consequat vitae nulla in, pharetra consectetur dui. Phasellus porttitor ligula et lectus
+        semper auctor. Curabitur nec varius erat, egestas faucibus mauris. Mauris vehicula risus et
+        velit efficitur, at lacinia odio rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Nam luctus erat mi, sed maximus sapien tempus in. Nam maximus scelerisque nibh eu
+        iaculis. Donec lobortis rutrum ultrices.</p>
   ids:
     id:
       type: integer
