@@ -1,0 +1,44 @@
+uuid: 69f8efab-4efb-40fe-9bb1-ef8c97cbdb91
+langcode: en
+status: true
+dependencies: {  }
+id: digital_signage_editor
+label: 'Digital Signage editor'
+weight: 7
+is_admin: null
+permissions:
+  - 'access Digital Signage Classes Session overview'
+  - 'access OpenY Digital Signage Schedule Item overview'
+  - 'access OpenY Digital Signage Schedule overview'
+  - 'access OpenY Digital Signage Screen overview'
+  - 'access OpenY Digital Signage pages'
+  - 'access panels in-place editing'
+  - 'access toolbar'
+  - 'add Digital Signage Classes Session entities'
+  - 'add OpenY Digital Signage Schedule Item entities'
+  - 'add OpenY Digital Signage Schedule entities'
+  - 'administer OpenY Digital Signage Screen entities'
+  - 'administer blocks'
+  - 'administer panelizer node screen_content content'
+  - 'administer panelizer node screen_content layout'
+  - 'clone openy_digital_signage_sch_item entity'
+  - 'clone openy_digital_signage_schedule entity'
+  - 'clone openy_ds_classes_session entity'
+  - 'create screen_content content'
+  - 'delete Digital Signage Classes Session entities'
+  - 'delete OpenY Digital Signage Schedule Item entities'
+  - 'delete OpenY Digital Signage Schedule entities'
+  - 'delete any screen_content content'
+  - 'delete own screen_content content'
+  - 'edit Digital Signage Classes Session entities'
+  - 'edit OpenY Digital Signage Schedule Item entities'
+  - 'edit OpenY Digital Signage Schedule entities'
+  - 'edit any screen_content content'
+  - 'edit own screen_content content'
+  - 'revert screen_content revisions'
+  - 'use text format digital_signage_html'
+  - 'view Digital Signage Classes Session entities'
+  - 'view OpenY Digital Signage Schedule Item entities'
+  - 'view OpenY Digital Signage Schedule entities'
+  - 'view OpenY Digital Signage Screen entities'
+  - 'view screen_content revisions'
