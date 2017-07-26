@@ -10,11 +10,13 @@ screen_schedule.add_schedule_item:
     _permission: 'add OpenY Digital Signage Schedule Item entities'
 
 screen_schedule.edit_schedule_item:
-  path: '/ajax/screen-schedule/edit-schedule-item/{schedule_item}'
+  path: '/ajax/screen-schedule/edit-schedule-item/{screen}/{schedule_item}'
   defaults:
     _controller: '\Drupal\openy_digital_signage_screen\Controller\OpenYScreenSchedule::editScheduleItem'
   options:
     parameters:
+      screen:
+        type: entity:openy_digital_signage_screen
       schedule_item:
         type: entity:openy_digital_signage_sch_item
   requirements:

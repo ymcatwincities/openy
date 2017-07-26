@@ -17,6 +17,6 @@
 {% if content.classes %}
   {% set classes = ' ' ~ content.classes|join(' ') %}
 {% endif %}
-<div class="openy-ds-layout landscape{{ classes }}">
+<div class="openy-ds-layout {{ orientation }} {{ classes }}">
   {{ content.middle }}
 </div>
