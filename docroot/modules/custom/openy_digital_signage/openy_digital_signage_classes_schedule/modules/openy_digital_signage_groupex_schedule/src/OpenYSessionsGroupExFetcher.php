@@ -142,11 +142,13 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
    *   Location id.
    */
   protected function createEntity(\stdClass $item, $location) {
+    $json = json_encode($item);
     /* @var OpenYClassesGroupExSession $session */
     $session = $this->entityTypeManager
       ->getStorage('openy_ds_classes_groupex_session')
       ->create([
         'groupex_id' => $item->id,
+        'hash' => md5($json),
         'location' => ['target_id' => $location],
         'title' => $item->title,
         'date_time' => $this->getDateTimeValue($item),
@@ -157,7 +159,7 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
         'sub_instructor' => $item->sub_instructor,
         'length' => $item->length,
         'description' => $item->desc,
-        'session_id' => NULL,
+        'raw_data' => $json,
       ]);
     $session->save();
   }
@@ -171,6 +173,11 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
    *   Data from GroupEx Pro.
    */
   protected function updateEntity(OpenYClassesGroupExSession $entity, \stdClass $item) {
+    $json = json_encode($item);
+    $hash = md5($json);
+    if ($entity->get('hash')->value == $hash) {
+      return;
+    }
     $entity->set('title', $item->title);
     $entity->set('date_time', $this->getDateTimeValue($item));
     $entity->set('studio', $item->studio);
@@ -180,6 +187,7 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
     $entity->set('sub_instructor', $item->sub_instructor);
     $entity->set('length', $item->length);
     $entity->set('description', $item->desc);
+    $entity->set('raw_data', $json);
     $entity->save();
   }
 
@@ -193,6 +201,7 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
    *   Date and time range.
    */
   protected function getDateTimeValue(\stdClass $item) {
+    // @todo  To think in the future about the move this parser out of this class and store raw data from Groupex.
     $time = explode('-', $item->time);
     $start_date = new \DateTime($item->date . ' ' . $time[0]);
     $start_date->setTimezone(new \DateTimeZone('UTC'));

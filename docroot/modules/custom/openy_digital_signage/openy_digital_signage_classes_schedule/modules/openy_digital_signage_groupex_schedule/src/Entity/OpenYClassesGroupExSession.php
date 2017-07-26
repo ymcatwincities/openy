@@ -85,6 +85,17 @@ class OpenYClassesGroupExSession extends ContentEntityBase implements OpenYClass
       ])
       ->setDisplayConfigurable('form', TRUE);
 
+    $fields['hash'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Hash'))
+      ->setDescription(t('Entity hash needed to identify updates in GroupEx Pro.'))
+      ->setRequired(TRUE)
+      ->setTranslatable(TRUE)
+      ->setRevisionable(FALSE)
+      ->setDefaultValue(NULL)
+      ->setSetting('max_length', 255)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
     $fields['groupex_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
       ->setDescription(t('The ID of the GroupEx Pro Session.'))
@@ -182,12 +193,10 @@ class OpenYClassesGroupExSession extends ContentEntityBase implements OpenYClass
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
-    $fields['session_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Reference to the Digital Signage Classes Session'))
-      ->setDescription(t('Store reference to the Digital Signage Classes Session.'))
-      ->setRequired(FALSE)
-      ->setDefaultValue(NULL)
-      ->setSetting('target_type', 'openy_ds_classes_session')
+    $fields['raw_data'] = BaseFieldDefinition::create('text_long')
+      ->setLabel(t('Raw GroupEx Pro data'))
+      ->setDescription(t('Raw GroupEx data.'))
+      ->setRevisionable(FALSE)
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 

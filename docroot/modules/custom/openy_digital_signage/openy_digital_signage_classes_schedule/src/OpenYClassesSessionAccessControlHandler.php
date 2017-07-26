@@ -32,7 +32,8 @@ class OpenYClassesSessionAccessControlHandler extends EntityAccessControlHandler
         return AccessResult::allowedIfHasPermission($account, 'edit Digital Signage Classes Session entities');
 
       case 'delete':
-        if ($entity->isOverridden() && $entity->getSource() != 'manually') {
+        // Forbid remove imported entities, only allow overriding.
+        if ($entity->getSource() != 'manually' || $entity->isOverridden()) {
           return AccessResult::forbidden();
         }
         return AccessResult::allowedIfHasPermission($account, 'delete Digital Signage Classes Session entities');
