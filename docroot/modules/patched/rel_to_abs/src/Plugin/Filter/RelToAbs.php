@@ -27,6 +27,8 @@ class RelToAbs extends FilterBase {
         // Remove subfolder name if provided.
         $base_path = base_path();
         $url = str_replace($base_path, '/', $url);
+        // Decode url to prevent double encoding.
+        $url = urldecode($url);
         $url = Url::fromUserInput($url)->setAbsolute(TRUE)->toString();
       }
       catch(\InvalidArgumentException $e) {
