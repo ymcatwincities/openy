@@ -2489,7 +2489,7 @@ html, body {
   width: 0;
 }
 .compain-progress--fill-5--0 .line {
-  width: calc(100% / 4 * -1);
+  width: calc(100% / 4 * 0);
 }
 .compain-progress--fill-5--0 .point--5-1:before {
   content: none;
@@ -2591,7 +2591,7 @@ html, body {
   display: none;
 }
 .compain-progress--fill-6--0 .line {
-  width: calc(100% / 5 * -1);
+  width: calc(100% / 5 * 0);
 }
 .compain-progress--fill-6--0 .point--6-1:before {
   content: none;
@@ -2724,7 +2724,7 @@ html, body {
   display: none;
 }
 .compain-progress--fill-7--0 .line {
-  width: calc(100% / 6 * -1);
+  width: calc(100% / 6 * 0);
 }
 .compain-progress--fill-7--0 .point--7-1:before {
   content: none;
@@ -2892,7 +2892,7 @@ html, body {
   display: none;
 }
 .compain-progress--fill-8--0 .line {
-  width: calc(100% / 7 * -1);
+  width: calc(100% / 7 * 0);
 }
 .compain-progress--fill-8--0 .point--8-1:before {
   content: none;
@@ -3099,7 +3099,7 @@ html, body {
   display: none;
 }
 .compain-progress--fill-9--0 .line {
-  width: calc(100% / 8 * -1);
+  width: calc(100% / 8 * 0);
 }
 .compain-progress--fill-9--0 .point--9-1:before {
   content: none;
@@ -3349,7 +3349,7 @@ html, body {
   display: none;
 }
 .compain-progress--fill-10--0 .line {
-  width: calc(100% / 9 * -1);
+  width: calc(100% / 9 * 0);
 }
 .compain-progress--fill-10--0 .point--10-1:before {
   content: none;
