@@ -156,33 +156,47 @@ html, body {
   position: relative;
 
   .container-winners {
-    height: 100%;
-    background: url('../prototypes/ysr_2017/img/bg-page-winner.jpg') no-repeat;
+    /*height: 100%;
+    background: image-url('2017_summer/winners.jpg') no-repeat;
     background-size: cover;
-    @include rem(max-height, 522px);
+    @include rem(max-height, 522px);*/
   }
 
   .compain-winners {
-    @include rem(padding, 20px);
+    /*@include rem(padding, 20px);
     width: 100%;
     @include rem(max-width, 740px);
     @include rem(padding-top, 39px);
     @include rem(padding-bottom, 45px);
-    margin: 0 auto;
+    margin: 0 auto;*/
 
     .compain-header {
-      background: none;
+      /*background: none;
       height: auto;
-      padding-bottom: 0;
+      padding-bottom: 0;*/
+      background-image: image-url('2017_summer/winners.jpg');
+      background-position: 50% 0;
+      height: 580px;
 
       &--content {
         text-align: center;
-        .content {
-          text-align: center;
-          @include rem(margin-top, 31px);
-        }
         .title {
-          padding-bottom: 2px;
+          color: #94e2ff;
+          padding-top: 25px;
+          padding-bottom: 11px;
+        }
+        .sub-title {
+          font-size: 30px;
+          &:after,
+          &:before {
+            content: image-url('2017_summer/win_icon.png');
+            display: inline-block;
+            margin: 20px 29px 7px;
+          }
+          &:after {
+            transform: scale(-1,1);
+
+          }
         }
         .logo {
           display: block;
