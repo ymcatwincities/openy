@@ -98,8 +98,8 @@
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"] {
   @extend .pink-button;
-  padding: 10px 15px;
-  font-size: 14px !important;
+  padding: 13px 25px;
+  font-size: 16px !important;
   margin-bottom: 20px;
   text-transform: capitalize;
 }
@@ -117,7 +117,7 @@
   font-weight: normal;
   color: #0089d0 !important;
   padding: 0;
-  margin-top: 8px;
+  margin-top: 12px;
   margin-left: 10px;
   float: left;
   &:hover {
@@ -156,9 +156,8 @@ label {
     font-size: 16px !important;
   }
   .edit-login-actions {
-    border-bottom: 1px solid #636466;
     padding-bottom: 30px;
-    margin-bottom: 5px;
+    margin-bottom: 0;
   }
 }
 
@@ -201,8 +200,8 @@ label {
     float: none;
   }
   .ajax-progress {
-    left: 164px;
-    top: 0;
+    left: 215px;
+    top: 15px;
     margin-top: -4px !important;
   }
 }
@@ -210,6 +209,8 @@ label {
 .edit-registration-actions {
   margin-bottom: 30px !important;
   .fieldset-wrapper {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
     a.btn {
       margin-right: 3px !important;
       @extend .pink-button;
