@@ -190,6 +190,12 @@ function openy_import_content(array &$install_state) {
     unset($install_state['openy']['content']['webform']);
   }
 
+  if (!empty($install_state['openy']['settings']['addthis'])) {
+    // Install openy_addthis feature - it's not handled as content migration.
+    openy_enable_module('openy_demo_addthis');
+    unset($install_state['openy']['settings']['addthis']);
+  }
+
   // Build required migrations operations arrays.
   _openy_import_content_helper($module_operations, $migrate_operations, 'required');
 

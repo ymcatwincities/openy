@@ -36,11 +36,22 @@ class ContentSelectForm extends FormBase {
       'webform' => $this->t('Demo Webform'),
     ];
 
+    $settings_options = [
+      'addthis' => $this->t('Openy AddThis'),
+    ];
+
     $form['content'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Choose content to import'),
       '#default_value' => array_keys($options),
       '#options' => $options,
+    ];
+
+    $form['settings'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Choose settings to import'),
+      '#default_value' => array_keys($settings_options),
+      '#options' => $settings_options,
     ];
 
     $form['actions'] = [

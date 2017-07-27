@@ -11,13 +11,6 @@
 function openy_addthis_install() {
   // Add our base field to the schema.
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
-
-  $config_factory = \Drupal::configFactory()->getEditable('openy_addthis.settings');
-  if (empty($config_factory->get('public_id'))) {
-    $config_factory
-      ->set('public_id', 'ra-59662efe3f09cfcc')
-      ->save();
-  }
 }
 
 /**
