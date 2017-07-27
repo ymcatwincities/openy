@@ -69,6 +69,12 @@
         scrollTop: ($(event.target).offset().top-72)
       });
     });
+    $('[data-dismiss="modal"]').click(function () {
+      if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?tab=tab_1';
+        window.history.pushState({path: newurl}, '', newurl);
+      }
+    });
   };
 
 })(jQuery);
