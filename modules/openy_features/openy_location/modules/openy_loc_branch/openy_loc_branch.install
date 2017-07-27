@@ -22,7 +22,7 @@ function openy_loc_branch_update_dependencies() {
     8006 => [
       'openy_node' => 8004,
     ],
-    8010 => [
+    8011 => [
       'openy_location' => 8002,
     ],
   ];
@@ -252,9 +252,23 @@ function openy_loc_branch_update_8009() {
 }
 
 /**
+ * Import field_location_amenities.
+ */
+function openy_location_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'pathauto.pattern.amenities',
+    'taxonomy.vocabulary.amenities',
+  ]);
+}
+
+/**
  * Import new amenities config and update older.
  */
-function openy_loc_branch_update_8010() {
+function openy_loc_branch_update_8011() {
   $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
   // Import new configuration
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
@@ -267,8 +281,6 @@ function openy_loc_branch_update_8010() {
     'field.field.node.branch.field_location_amenities',
     'field.field.taxonomy_term.amenities.field_amenities_icon',
     'field.storage.taxonomy_term.field_amenities_icon',
-    'pathauto.pattern.amenities',
-    'taxonomy.vocabulary.amenities',
   ]);
 
   // Update multiple configurations.

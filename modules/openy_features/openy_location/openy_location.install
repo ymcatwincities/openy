@@ -4,6 +4,19 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_location_update_dependencies() {
+  $dependencies['openy_location'] = [
+    8002 => [
+      'openy_loc_branch' => 8010,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Import class_location view mode.
  */
 function openy_location_update_8001() {

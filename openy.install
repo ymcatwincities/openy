@@ -44,8 +44,10 @@ function openy_install() {
  */
 function openy_update_dependencies() {
   $dependencies['openy'] = [
-    8031 => [
+    8030 => [
       'openy_loc_branch' => 8010,
+    ],
+    8031 => [
       'openy_block' => 8001,
     ],
   ];
