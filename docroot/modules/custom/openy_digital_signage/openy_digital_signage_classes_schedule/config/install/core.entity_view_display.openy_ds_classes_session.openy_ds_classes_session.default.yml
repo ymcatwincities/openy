@@ -10,7 +10,7 @@ dependencies:
     - openy_digital_signage_classes_schedule
     - options
 _core:
-  default_config_hash: pU5LvgGYAnGJkjTGpHcSoY_fFDT7e0ndXvSzoYtt1gY
+  default_config_hash: RLM5xwMkVvN0AvyTGbFrWB3HGWmVdTYjiEnfXkb44jM
 id: openy_ds_classes_session.openy_ds_classes_session.default
 targetEntityType: openy_ds_classes_session
 bundle: openy_ds_classes_session
@@ -57,6 +57,16 @@ content:
     weight: 0
     region: content
     settings: {  }
+    third_party_settings: {  }
+  status:
+    label: above
+    type: boolean
+    weight: 7
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    region: content
     third_party_settings: {  }
   sub_instructor:
     label: above

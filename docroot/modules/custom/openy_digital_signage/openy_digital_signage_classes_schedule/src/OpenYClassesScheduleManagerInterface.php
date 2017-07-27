@@ -12,11 +12,6 @@ use Drupal\Core\Entity\EntityInterface;
 interface OpenYClassesScheduleManagerInterface {
 
   /**
-   * Dummy method.
-   */
-  public function dummy();
-
-  /**
    * Retrieves the schedule for given time period and location.
    *
    * @param array $period

@@ -67,13 +67,6 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
   /**
    * {@inheritdoc}
    */
-  public function dummy() {
-    // Intentionally empty.
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getClassesSchedule($period, EntityInterface $location, $room) {
     $datetime = new \DateTime();
     $datetime->setTimezone(new \DateTimeZone('UTC'));

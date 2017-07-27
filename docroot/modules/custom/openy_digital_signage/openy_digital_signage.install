@@ -27,6 +27,7 @@ function openy_digital_signage_update_8000() {
     'openy_digital_signage_screen',
     'openy_digital_signage_classes_schedule',
     'openy_digital_signage_blocks',
+    'openy_digital_signage_groupex_schedule',
   ], TRUE);
 }
 
