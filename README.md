@@ -50,25 +50,3 @@ For Development information please take a look at [docs/Development](https://git
 
 # Documentation
 Documentation is available at [docs](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs). For details please visit http://www.openymca.org.
-
-# Technologies
-
-#### Back-end
-|Name|Description|
-|:--:|:----------|
-|<a href="https://www.drupal.org"><img width="48" height="48" align="middle" src="https://worldvectorlogo.com/logos/drupal.svg"></a>|TBD|
-|<a href="http://php.net"><img width="48" height="48" align="middle" src="https://worldvectorlogo.com/logos/php.svg"></a>|TBD|
-|<a href="https://www.drupal.org"><img width="48" height="48" align="middle" src="https://worldvectorlogo.com/logos/composer.svg"></a>|TBD|
-
-#### Theming
-|Name|Description|
-|:--:|:----------|
-|<a href="http://php.net"><img width="48" height="48" align="middle" src="https://worldvectorlogo.com/logos/css-3.svg"></a>|TBD|
-|<a href="http://php.net"><img width="48" height="48" align="middle" src="https://worldvectorlogo.com/logos/sass-1.svg"></a>|TBD|
-|<a href="https://www.drupal.org"><img width="48" height="48" align="middle" src="https://worldvectorlogo.com/logos/html-5.svg"></a>|TBD|
-|<a href="http://php.net"><img width="48" height="48" align="middle" src="https://worldvectorlogo.com/logos/bootstrap-4.svg"></a>|TBD|
-
-#### Testing
-|Name|Description|
-|:--:|:----------|
-|<a href="http://php.net"><img height="48" align="middle" src="http://behat.org/en/latest/_static/images/b@2x.png"></a>|TBD|
