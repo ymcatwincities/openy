@@ -877,6 +877,16 @@ label {
   margin-bottom: 0;
 }
 
+#ajax-ccc-account-login-form [data-drupal-selector="edit-login"] {
+  padding: 13px 25px;
+  font-size: 16px !important;
+}
+#ajax-ccc-account-login-form .edit-login-actions {
+  border-bottom: 1px solid #636466;
+  padding-bottom: 30px;
+  margin-bottom: 5px;
+}
+
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
   font-family: 'Cachet';
@@ -924,12 +934,6 @@ label {
     float: none;
   }
 }
-.edit-login-actions .fieldset-wrapper div,
-.edit-registration-actions .fieldset-wrapper div {
-  margin-top: 10px;
-  float: left;
-  margin-left: 10px;
-}
 .edit-login-actions .ajax-progress,
 .edit-registration-actions .ajax-progress {
   left: 164px;
@@ -937,11 +941,14 @@ label {
   margin-top: -4px !important;
 }
 
+.edit-registration-actions {
+  margin-bottom: 30px !important;
+}
 .edit-registration-actions .fieldset-wrapper a.btn {
   margin-right: 3px !important;
-  padding: 10px 15px;
-  float: left;
-  font-size: 14px;
+  padding: 13px 25px !important;
+  background-color: black !important;
+  font-size: 16px !important;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
