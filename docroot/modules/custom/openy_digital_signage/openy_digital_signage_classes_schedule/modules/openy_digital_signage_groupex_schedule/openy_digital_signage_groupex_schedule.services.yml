@@ -1,0 +1,7 @@
+services:
+  openy_digital_signage_groupex_schedule.cron:
+    class: Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExCron
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory']
+  openy_digital_signage_groupex_schedule.fetcher:
+    class: Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher
+    arguments: ['@config.factory', '@entity_type.manager', '@ymca_mappings.location_repository']

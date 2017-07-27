@@ -1,0 +1,15 @@
+system.admin_openy_digital_signage_groupex_schedule_settings:
+  path: '/admin/digital-signage/settings/groupex-settings'
+  defaults:
+    _form: '\Drupal\openy_digital_signage_groupex_schedule\Form\SettingsForm'
+    _title: 'GroupEx Pro Settings'
+  requirements:
+    _permission: 'access Digital Signage GroupEx Pro settings'
+
+openy_digital_signage_groupex_schedule.import_groupex_sessions:
+  path: '/admin/digital-signage/classes/sessions/import-groupex-sessions'
+  defaults:
+    _controller: '\Drupal\openy_digital_signage_groupex_schedule\Controller\GroupExImportController::importSessions'
+    _title: 'Import sessions from GroupEx Pro'
+  requirements:
+    _permission: 'access Digital Signage GroupEx Pro settings'

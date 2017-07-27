@@ -21,8 +21,7 @@ class OpenYClassesSessionForm extends ContentEntityForm {
 
     if ($this->entity->isNew()) {
       $form['source']['#value'] = 'manually';
-      // @todo only for internal tests, after adding sync with GroupEx uncomment.
-      /* $form['source']['#access'] = FALSE; */
+      $form['source']['#access'] = FALSE;
       $current_user = \Drupal::currentUser();
       $user = \Drupal::entityTypeManager()->getStorage('user')
         ->load($current_user->id());
@@ -32,6 +31,7 @@ class OpenYClassesSessionForm extends ContentEntityForm {
       $form['source']['#disabled'] = TRUE;
       if ($this->entity->getSource() != 'manually') {
         $form['actions']['#access'] = FALSE;
+        $form['status']['#access'] = FALSE;
       }
       if ($this->entity->original_session->entity && !empty($form['actions']['delete']['#title'])) {
         $form['actions']['delete']['#title'] = t('Restore original session');
