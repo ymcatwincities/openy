@@ -47,9 +47,6 @@ function openy_update_dependencies() {
     8030 => [
       'openy_loc_branch' => 8010,
     ],
-    8031 => [
-      'openy_block' => 8001,
-    ],
   ];
 
   return $dependencies;

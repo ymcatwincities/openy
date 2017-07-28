@@ -23,6 +23,7 @@ function openy_loc_branch_update_dependencies() {
       'openy_node' => 8004,
     ],
     8011 => [
+      'openy_block' => 8001,
       'openy_location' => 8002,
     ],
   ];
@@ -302,4 +303,17 @@ function openy_loc_branch_update_8011() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+}
+
+/**
+ * Import tour config for CT Branch.
+ */
+function openy_location_update_8012() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/optional/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'tour.tour.openy-branch-add.yml',
+  ]);
 }
