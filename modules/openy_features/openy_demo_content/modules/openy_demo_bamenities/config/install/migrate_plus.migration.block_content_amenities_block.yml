@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_block_content_amenities_block
+migration_tags: {  }
+migration_group: openy_demo_branch_amenities
+label: 'Create Amenities blocks'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 14
+      parent_id: branch_upper_grid_1
+      code: 'e350fe26-bc73-4c69-af18-a51a046dbcd3'
+      description: 'Amenities in Branch'
+      title: 'Branch Amenities'
+      link_url: 'internal:/amenities'
+      link_title: 'See More'
+  ids:
+    id:
+      type: integer
+process:
+  type:
+    plugin: default_value
+    default_value: branch_amenities
+  uuid: code
+  info: description
+  field_sb_title: title
+  field_sb_link/uri: link_url
+  field_sb_link/title: link_title
+  field_branch_am:
+    plugin: default_value
+    default_value: ''
+
+destination:
+  plugin: entity:block_content

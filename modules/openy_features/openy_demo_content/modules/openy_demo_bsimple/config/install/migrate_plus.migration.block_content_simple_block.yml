@@ -10,57 +10,50 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: 1
-      code:
-      description: '2-col paragraph Block #1 for Home'
-      title: 'The Y Stands for Strong Communities'
-      body: 'Are you interested in coaching? Want to help with youth program? Looking for a volunteer your full family can participate in?  When we all join in we rise together!'
-      link_url: 'base:learn_more'
-      link_title: 'Learn More About the YMCA >'
+      id: 12
+      parent_id: branch_upper_grid_1
+      code: 'e350fe26-bc73-4c69-af18-a51a044dbcd3'
+      description: 'Become a Member in Branch'
+      title: 'Become a Member'
+      icon_class: 'user-plus'
+      body: |
+        <p>Every “Y” is Your “Y” In Washington. Your membership gives you access
+        to all 13 Seattle area branches, as well as every YMCA in Washington
+        State!</p>
+      link_url: 'internal:/join'
+      link_title: 'Join the Y'
     -
-      id: 2
-      code:
-      description: '2-col paragraph Block #2 for Home'
-      title: 'The YMCA is for Everyone'
-      body: 'Every year we rely on donators to help ensure that all of the people in oure community can access our services. There are lots ofway you can give and we grateful for your help!'
-      link_url: 'base:support'
-      link_title: 'Support your local YMCA today >'
-
+      id: 13
+      parent_id: branch_upper_grid_1
+      code: 'e350fe26-bc73-4c69-af18-a51a045dbcd3'
+      description: 'Schedules in Branch'
+      title: 'Schedules'
+      icon_class: 'info'
+      body:  |
+        <h2>Classes and Activities for the branch:</h2>
+        <ul>
+          <li>Lap Swim</li>
+          <li>Open Gym</li>
+          <li>Cycle - All Levels</li>
+          <li>Adult Swim 5.5 ft</li>
+          <li>Aqua Arthritis & Injury</li>
+        </ul>
   ids:
     id:
       type: integer
 process:
   type:
-    -
-      plugin: default_value
-      default_value: simple_block
-  uuid:
-    -
-      plugin: get
-      source: code
-  info:
-    -
-      plugin: get
-      source: description
-  field_sb_title:
-    -
-      plugin: get
-      source: title
-  field_sb_body/value:
-    -
-      plugin: get
-      source: body
-  field_sb_body/format:
-    -
-      plugin: default_value
-      default_value: html
-  field_sb_link/uri:
-    -
-      plugin: get
-      source: link_url
-  field_sb_link/title:
-    -
-      plugin: get
-      source: link_title
+    plugin: default_value
+    default_value: simple_block
+  uuid: code
+  info: description
+  field_sb_title: title
+  field_icon_class: icon_class
+  field_block_content/value: body
+  field_block_content/format:
+    plugin: default_value
+    default_value: full_html
+  field_sb_link/uri: link_url
+  field_sb_link/title: link_title
 destination:
   plugin: entity:block_content

@@ -45,7 +45,10 @@ function openy_install() {
 function openy_update_dependencies() {
   $dependencies['openy'] = [
     8031 => [
-      'openy_loc_branch' => 8010,
+      'openy_block' => 8001,
+    ],
+    8032 => [
+      'openy_location' => 8002,
     ],
   ];
 
@@ -445,9 +448,9 @@ function openy_update_8032() {
 function openy_update_8033() {
   // Enable modules.
   $modules = [
-    'openy_block_branch_amenities',
     'openy_prgf_1c',
     'openy_prgf_2c',
+    'openy_block_branch_amenities',
     'openy_prgf_3c',
     'openy_prgf_4c',
     'openy_prgf_amenities',

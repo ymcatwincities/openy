@@ -16,22 +16,19 @@ source:
   data_rows:
     -
       id: branch_3c
-      title: 'Welcome to Camp Cullen!'
-      left: 9
-      center: 10
-      right: 11
+      title: ''
+      left: 14
+      center: 12
+      right: 13
   ids:
     id:
       type: string
 process:
-  field_prgf_title:
-    -
-      plugin: get
-      source: title
+  field_prgf_title: title
   field_prgf_3c_left/target_id:
     -
       plugin: migration
-      migration: openy_demo_block_content_simple_block
+      migration: openy_demo_block_content_amenities_block
       source: left
   field_prgf_3c_center/target_id:
     -
@@ -48,4 +45,4 @@ destination:
   default_bundle: 3c
 migration_dependencies:
   required:
-    - yghc_block_content_simple_block
+    - openy_demo_block_content_simple_block
