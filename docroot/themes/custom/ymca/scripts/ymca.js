@@ -367,7 +367,7 @@
           }
           if ($('.nav-location a.home .name').length === 0) {
             var name = $('.masthead-brand').text();
-            $('.nav-location a.home').append('<span class="name">' + Drupal.t(name + ' homepage') + '</span><b class="caret"></b>');
+            $('.nav-location a.home').append('<span class="name">' + Drupal.t('Helpful links') + '</span><b class="caret"></b>');
             $('.nav-location a.home').click(function(e) {
               e.preventDefault();
               if ($(this).hasClass('open')) {
