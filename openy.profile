@@ -28,6 +28,9 @@ function openy_install_tasks() {
     'openy_discover_broken_paragraphs' => [
       'type' => 'batch',
     ],
+    'openy_fix_configured_paragraph_blocks' => [
+      'type' => 'batch',
+    ],
     'openy_third_party_services' => [
       'display_name' => t('3rd party services'),
       'display' => TRUE,
@@ -297,6 +300,45 @@ function openy_discover_broken_paragraphs(array &$install_state) {
     'field_prgf_schedules_ref_plugin_id',
     'field_prgf_schedules_ref_plugin_configuration'
   );
+}
+
+/**
+ * Add Block configuration to Branch demo content Group Schedules paragraphs.
+ *
+ * @see openy_discover_broken_paragraphs().
+ */
+function openy_fix_configured_paragraph_blocks(array &$install_state) {
+  $tables = [
+    'paragraph__field_prgf_schedules_ref',
+    'paragraph_revision__field_prgf_schedules_ref',
+  ];
+
+  foreach ($tables as $table) {
+    $query = \Drupal::database()
+      ->select($table, 'ptable');
+    $query->fields('ptable');
+    $query->condition('ptable.bundle', 'group_schedules');
+    $query->join('node__field_content', 'content', 'content.field_content_target_id = ptable.entity_id');
+    $query->condition('content.bundle', 'branch');
+    $group_schedule_paragraphs = $query->execute()->fetchAll();
+
+    $location_ids = ['1036', '204', '203', '202'];
+    // Update to correct plugin_id based on data array.
+    foreach ($group_schedule_paragraphs as $paragraph) {
+      $data = unserialize($paragraph->field_prgf_schedules_ref_plugin_configuration);
+      $data['enabled_locations'] = array_pop($location_ids);
+      $data['label_display'] = 0;
+      $query = \Drupal::database()->update($table);
+      $query->fields([
+        'field_prgf_schedules_ref_plugin_configuration' => serialize($data),
+      ]);
+      $query->condition('bundle', $paragraph->bundle);
+      $query->condition('entity_id', $paragraph->entity_id);
+      $query->condition('revision_id', $paragraph->revision_id);
+      $query->condition('langcode', $paragraph->langcode);
+      $query->execute();
+    }
+  }
 }
 
 /**
