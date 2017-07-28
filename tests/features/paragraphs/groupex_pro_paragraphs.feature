@@ -43,13 +43,13 @@ Feature: GroupEx Pro paragraphs
     And I should see text matching "Yoga GX2"
     And I should see text matching "John F."
     And I should see text matching "7:00pm 60 min"
-    And I should see text matching "3D XTREME­&trade; GX1"
+    And I should see text matching "3D XTREME"
     And I should see text matching "Melissa T."
     Then I click "a:contains('Jennifer K.')" element
     Then I wait for AJAX to finish
     And I should see an ".groupex-pdf-link-container a:contains('Download PDF')" element
     And I should see text matching "9:00am 60 min"
-    And I should see text matching "3D XTREME­&trade; GX1"
+    And I should see text matching "3D XTREME"
     And I should see text matching "Jennifer K."
     And I should see text matching "8:30am 60 min"
     And I should see text matching "Chisel"
