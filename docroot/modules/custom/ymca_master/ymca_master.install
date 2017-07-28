@@ -4800,3 +4800,15 @@ function ymca_master_update_8222() {
     \Drupal::service('module_installer')->install([$module], TRUE);
   }
 }
+
+/**
+ * Enable openy_prgf_content_banner module.
+ */
+function ymca_master_update_8223() {
+  $modules = [
+    'openy_prgf_content_banner',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
