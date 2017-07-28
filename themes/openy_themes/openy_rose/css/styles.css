@@ -5160,7 +5160,7 @@ html.js .branch__updates_queue__button {
     flex-basis: 50%;
   }
 }
-@media (min-width: laptop) {
+@media (min-width: 62em) {
   .groupex-form-full .js-webform-radios .js-form-type-radio {
     flex-basis: 33%;
   }
@@ -5275,7 +5275,7 @@ iframe#ga_iframe {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-@media (min-width: laptop) {
+@media (min-width: 62em) {
   iframe#ga_iframe {
     height: 460px;
   }

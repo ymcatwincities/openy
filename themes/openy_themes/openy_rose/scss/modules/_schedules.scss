@@ -614,7 +614,7 @@
       @include breakpoint($screen-tablet) {
         flex-basis: 50%;
       }
-      @include breakpoint(laptop) {
+      @include breakpoint($screen-desktop) {
         flex-basis: 33%;
       }
       label {
@@ -730,7 +730,7 @@ iframe#ga_iframe {
   height: 865px;
   margin-top: 10px;
   margin-bottom: 10px;
-  @include breakpoint(laptop) {
+  @include breakpoint($screen-desktop) {
     height: 460px;
   }
 }
