@@ -28,7 +28,7 @@ You can always evaluate distribution by visiting demo website - http://sandbox.o
 
 ![OpenY Sandbox](docs/assets/sandbox.gif "OpenY Demo")
 
-*\* OpenY version 1.2.*
+*\* OpenY version 1.3.*
 
 # Installation
 
