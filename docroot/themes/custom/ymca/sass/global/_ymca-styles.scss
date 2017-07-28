@@ -962,6 +962,7 @@ span.grey-caret {
 .mobile-subnav {
   background-color: #343434;
   display: none;
+  margin-bottom: 0;
   @include breakpoint(0 767px) {
     display: block;
   }
@@ -1072,7 +1073,7 @@ span.grey-caret {
   }
   #nav-location {
     position: relative;
-    margin-top: -30px;
+    margin-top: -15px;
     top: 0;
     height: auto;
     .col-lg-12 {

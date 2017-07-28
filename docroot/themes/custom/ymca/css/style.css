@@ -2388,9 +2388,14 @@ a.ms-brand:hover {
 }
 
 .page-middle .content {
-  padding-top: 40px;
+  padding-top: 10px;
   padding-bottom: 30px;
   background: white;
+}
+@media (min-width: 768px) {
+  .page-middle .content {
+    padding-top: 40px;
+  }
 }
 
 .panel-subnav > .panel-heading, .panel-group-ex > .panel-heading {
@@ -5663,12 +5668,19 @@ a.wrapper:hover {
   }
 
   .lead-copy, .home-template .lead-copy {
-    padding-top: 30px;
+    padding-top: 10px;
     padding-right: 0;
     padding-bottom: 20px;
     padding-left: 0;
   }
+}
+@media (max-width: 767px) and (min-width: 768px) {
+  .lead-copy, .home-template .lead-copy {
+    padding-top: 30px;
+  }
+}
 
+@media (max-width: 767px) {
   .lead-copy:before, .page-footer:before {
     display: none;
   }
@@ -8624,6 +8636,7 @@ span.grey-caret:after {
 .mobile-subnav {
   background-color: #343434;
   display: none;
+  margin-bottom: 0;
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
   .mobile-subnav {
@@ -8722,7 +8735,7 @@ span.grey-caret:after {
 
   #nav-location {
     position: relative;
-    margin-top: -30px;
+    margin-top: -15px;
     top: 0;
     height: auto;
   }
