@@ -52,5 +52,7 @@ function openy_tour_page_attachments_alter(array &$attachments) {
  * Implements hook_js_alter().
  */
 function openy_tour_js_alter(&$javascript, AttachedAssetsInterface $assets) {
-  $javascript['core/modules/tour/js/tour.js']['data'] = drupal_get_path('module', 'openy_tour') . '/js/tour.js';
+  if (isset($javascript['core/modules/tour/js/tour.js'])) {
+    $javascript['core/modules/tour/js/tour.js']['data'] = drupal_get_path('module', 'openy_tour') . '/js/tour.js';
+  }
 }

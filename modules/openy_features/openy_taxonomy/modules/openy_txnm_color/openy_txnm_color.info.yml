@@ -7,5 +7,6 @@ dependencies:
   - field
   - jquery_colorpicker
   - path
+  - rabbit_hole
   - taxonomy
   - text

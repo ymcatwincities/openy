@@ -7,5 +7,6 @@ dependencies:
   - field
   - image
   - media_entity
+  - rabbit_hole
   - taxonomy
   - user
