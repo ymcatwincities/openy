@@ -176,7 +176,8 @@ html, body {
       padding-bottom: 0;*/
       background-image: image-url('2017_summer/winners.jpg');
       background-position: 50% 0;
-      height: 580px;
+      height: 560px;
+      background-size: 100%;
 
       &--content {
         text-align: center;
@@ -191,7 +192,9 @@ html, body {
           &:before {
             content: image-url('2017_summer/win_icon.png');
             display: inline-block;
-            margin: 20px 29px 7px;
+            margin: 0px 29px 27px;
+            position: relative;
+            top: 20px;
           }
           &:after {
             transform: scale(-1,1);
@@ -220,7 +223,7 @@ html, body {
     margin: 0 auto;
 
     @include breakpoint($desktop-small) {
-      @include rem(padding, 27px);
+      @include rem(padding, 53px 37px 40px);
     }
 
     .btn {
@@ -296,14 +299,10 @@ html, body {
 
   }
   .winner-name {
-    color: $green-dark;
-    @include rem(font-size, 30px);
+    color: $green-medium;
+    @include rem(font-size, 24px);
     font-weight: bold;
     margin-bottom: 2px;
-    .col-sm-2 &,
-    .col-sm-4 & {
-      color: $green-medium;
-    }
     .col-sm-2 & {
       @include rem(margin-top, 6px);
     }
@@ -321,14 +320,18 @@ html, body {
 
 }
 
-.container.bucks-25 {
+.container.win-list {
   @include breakpoint($tablet) {
-    @include rem(margin-top, -75px);
-    padding: 0;
+    padding: 35px;
+    .col-sm-3 {
+      width: 24%;
+      display: inline-block;
+      float: none;
+      padding: 0;
+      margin: 0;
+    }
   }
-  img {
-    max-width: 60px;
-  }
+  text-align: center;
 }
 
 .bucks-5 {
@@ -356,7 +359,16 @@ html, body {
     margin-left: -100px;
   }
 }
-
+.theme-ymca--2017-compain-winners ul.prize-list{
+  max-width: 790px;
+  margin: 0 auto;
+  padding: 50px 0;
+  background: #f3faf9;
+  .prize-list .spacer {
+    margin-left: 45px;
+    margin-right: 45px;
+  }
+}
 
 .theme-ymca--2017-compain-upcoming {
   height: 100%;

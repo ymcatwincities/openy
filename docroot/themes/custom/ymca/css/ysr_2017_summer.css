@@ -218,7 +218,8 @@ html, body {
   padding-bottom: 0;*/
   background-image: url('../img/2017_summer/winners.jpg');
   background-position: 50% 0;
-  height: 580px;
+  height: 560px;
+  background-size: 100%;
 }
 .theme-ymca--2017-compain-winners .compain-winners .compain-header--content {
   text-align: center;
@@ -234,7 +235,9 @@ html, body {
 .theme-ymca--2017-compain-winners .compain-winners .compain-header--content .sub-title:after, .theme-ymca--2017-compain-winners .compain-winners .compain-header--content .sub-title:before {
   content: url('../img/2017_summer/win_icon.png');
   display: inline-block;
-  margin: 20px 29px 7px;
+  margin: 0px 29px 27px;
+  position: relative;
+  top: 20px;
 }
 .theme-ymca--2017-compain-winners .compain-winners .compain-header--content .sub-title:after {
   transform: scale(-1, 1);
@@ -262,8 +265,8 @@ html, body {
 }
 @media (min-width: 64em) {
   .theme-ymca--2017-compain-winners .compain-form-winners {
-    padding: 27px;
-    padding: 2.7rem;
+    padding: 53px 37px 40px;
+    padding: 5.3rem 3.7rem 4rem;
   }
 }
 .theme-ymca--2017-compain-winners .compain-form-winners .btn {
@@ -344,14 +347,11 @@ html, body {
   line-height: 2.5rem;
 }
 .winner .winner-name {
-  color: #006b6b;
-  font-size: 30px;
-  font-size: 3rem;
+  color: #01a490;
+  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: bold;
   margin-bottom: 2px;
-}
-.col-sm-2 .winner .winner-name, .col-sm-4 .winner .winner-name {
-  color: #01a490;
 }
 .col-sm-2 .winner .winner-name {
   margin-top: 6px;
@@ -371,15 +371,20 @@ html, body {
   font-size: 2.1rem;
 }
 
-@media (min-width: 48em) {
-  .container.bucks-25 {
-    margin-top: -75px;
-    margin-top: -7.5rem;
-    padding: 0;
-  }
+.container.win-list {
+  text-align: center;
 }
-.container.bucks-25 img {
-  max-width: 60px;
+@media (min-width: 48em) {
+  .container.win-list {
+    padding: 35px;
+  }
+  .container.win-list .col-sm-3 {
+    width: 24%;
+    display: inline-block;
+    float: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .bucks-5 .container {
@@ -412,6 +417,17 @@ html, body {
 .bucks-5 .row {
   margin-right: -100px;
   margin-left: -100px;
+}
+
+.theme-ymca--2017-compain-winners ul.prize-list {
+  max-width: 790px;
+  margin: 0 auto;
+  padding: 50px 0;
+  background: #f3faf9;
+}
+.theme-ymca--2017-compain-winners ul.prize-list .prize-list .spacer {
+  margin-left: 45px;
+  margin-right: 45px;
 }
 
 .theme-ymca--2017-compain-upcoming {
@@ -2246,14 +2262,22 @@ html, body {
     padding-top: 1.9rem;
   }
 }
-#prizes-info .prizes .header {
+#prizes-info .campaign-btn {
+  margin-bottom: 35px;
+  margin-bottom: 3.5rem;
+}
+
+.prizes {
+  text-align: center;
+}
+.prizes .header {
   font-size: 20px;
   font-size: 2rem;
   margin-bottom: 5px;
   margin-bottom: 0.5rem;
   position: relative;
 }
-#prizes-info .prizes .header:before {
+.prizes .header:before {
   border-bottom: 1px solid #e5e5e5;
   content: '';
   height: 1px;
@@ -2264,39 +2288,39 @@ html, body {
   width: 586px;
   z-index: 10;
 }
-#prizes-info .prizes .header .inner {
+.prizes .header .inner {
   background: #fff;
   padding-left: 35px;
   padding-right: 35px;
   position: relative;
   z-index: 15;
 }
-#prizes-info .prizes .header .inner span {
+.prizes .header .inner span {
   font-size: 40px;
   font-size: 4rem;
 }
-#prizes-info .prizes .sub-header {
+.prizes .sub-header {
   font-size: 16px;
   font-size: 1.6rem;
   line-height: normal;
   margin-bottom: 32px;
   margin-bottom: 3.2rem;
 }
-#prizes-info .prizes > .prize:not(:first-child) {
+.prizes > .prize:not(:first-child) {
   padding-top: 25px;
   padding-top: 2.5rem;
 }
 @media (min-width: 48em) {
-  #prizes-info .prizes > .prize:not(:first-child) {
+  .prizes > .prize:not(:first-child) {
     padding-top: 31px;
     padding-top: 3.1rem;
   }
 }
-#prizes-info .prizes > .prize:last-child {
+.prizes > .prize:last-child {
   margin-bottom: 43px;
   margin-bottom: 4.3rem;
 }
-#prizes-info .prizes .prize-list {
+.prizes .prize-list {
   font-family: "Cachet",Arial,sans-serif;
   letter-spacing: -0.025em;
   font-weight: bold;
@@ -2309,21 +2333,21 @@ html, body {
   padding-left: 0;
 }
 @media (min-width: 48em) {
-  #prizes-info .prizes .prize-list {
+  .prizes .prize-list {
     text-align: center;
   }
 }
-#prizes-info .prizes .prize-list li {
+.prizes .prize-list li {
   text-align: left;
 }
 @media (min-width: 48em) {
-  #prizes-info .prizes .prize-list li {
+  .prizes .prize-list li {
     display: inline-block;
   }
 }
-#prizes-info .prizes .prize-list .calendar,
-#prizes-info .prizes .prize-list .towel,
-#prizes-info .prizes .prize-list .bottle {
+.prizes .prize-list .calendar,
+.prizes .prize-list .towel,
+.prizes .prize-list .bottle {
   max-width: 210px;
   margin-left: auto;
   margin-right: auto;
@@ -2331,21 +2355,21 @@ html, body {
   padding-left: 65px;
   padding-top: 10px;
 }
-#prizes-info .prizes .prize-list .calendar {
-  background: url('../img/2017_summer/icon-calendar.jpg') 0 50% no-repeat;
+.prizes .prize-list .calendar {
+  background: url('../img/2017_summer/icon-calendar.png') 0 50% no-repeat;
 }
-#prizes-info .prizes .prize-list .towel {
-  background: url('../img/2017_summer/icon-towel.jpg') 0 50% no-repeat;
+.prizes .prize-list .towel {
+  background: url('../img/2017_summer/icon-towel.png') 0 50% no-repeat;
 }
-#prizes-info .prizes .prize-list .bottle {
-  background: url('../img/2017_summer/icon-bottle.jpg') 0 50% no-repeat;
+.prizes .prize-list .bottle {
+  background: url('../img/2017_summer/icon-bottle.png') 0 50% no-repeat;
 }
 @media (min-width: 48em) {
-  #prizes-info .prizes .prize-list .bottle {
+  .prizes .prize-list .bottle {
     margin-left: -15px;
   }
 }
-#prizes-info .prizes .prize-list .spacer {
+.prizes .prize-list .spacer {
   color: #a7a7a7;
   font-size: 30px;
   font-size: 3rem;
@@ -2357,14 +2381,10 @@ html, body {
   padding-top: 0.5rem;
 }
 @media (min-width: 48em) {
-  #prizes-info .prizes .prize-list .spacer {
+  .prizes .prize-list .spacer {
     margin-left: 26px;
     margin-right: 25px;
   }
-}
-#prizes-info .campaign-btn {
-  margin-bottom: 35px;
-  margin-bottom: 3.5rem;
 }
 
 #my-progress-block {
