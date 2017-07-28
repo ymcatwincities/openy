@@ -11,8 +11,7 @@ source:
   data_rows:
     -
       id: 14
-      parent_id: branch_upper_grid_1
-      code: 'e350fe26-bc73-4c69-af18-a51a046dbcd3'
+      code:
       description: 'Amenities in Branch'
       title: 'Branch Amenities'
       link_url: 'internal:/amenities'
@@ -21,6 +20,13 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
   type:
     plugin: default_value
     default_value: branch_amenities
@@ -32,6 +38,5 @@ process:
   field_branch_am:
     plugin: default_value
     default_value: ''
-
 destination:
   plugin: entity:block_content

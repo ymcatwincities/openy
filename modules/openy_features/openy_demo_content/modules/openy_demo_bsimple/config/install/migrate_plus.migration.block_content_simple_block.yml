@@ -1,6 +1,3 @@
-langcode: en
-status: true
-dependencies: {  }
 id: openy_demo_block_content_simple_block
 migration_tags: {  }
 migration_group: openy_demo_simple_block
@@ -11,8 +8,7 @@ source:
   data_rows:
     -
       id: 12
-      parent_id: branch_upper_grid_1
-      code: 'e350fe26-bc73-4c69-af18-a51a044dbcd3'
+      code:
       description: 'Become a Member in Branch'
       title: 'Become a Member'
       icon_class: 'user-plus'
@@ -24,8 +20,7 @@ source:
       link_title: 'Join the Y'
     -
       id: 13
-      parent_id: branch_upper_grid_1
-      code: 'e350fe26-bc73-4c69-af18-a51a045dbcd3'
+      code:
       description: 'Schedules in Branch'
       title: 'Schedules'
       icon_class: 'info'
@@ -42,6 +37,13 @@ source:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
   type:
     plugin: default_value
     default_value: simple_block
@@ -57,3 +59,4 @@ process:
   field_sb_link/title: link_title
 destination:
   plugin: entity:block_content
+  translations: true

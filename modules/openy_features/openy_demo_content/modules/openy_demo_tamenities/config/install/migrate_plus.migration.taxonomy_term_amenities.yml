@@ -11,81 +11,107 @@ source:
     -
       id: 1
       term_name: Adaptive programs
+      file: 1
     -
       id: 2
       term_name: Adult enrichment programs
+      file: 2
     -
       id: 3
       term_name: After school child care
+      file: 3
     -
       id: 4
       term_name: Child watch
+      file: 4
     -
       id: 5
       term_name: Community garden
+      file: 8
     -
       id: 6
       term_name: Community health
+      file: 5
     -
       id: 7
       term_name: Day camp
+      file: 6
     -
       id: 8
       term_name: Family pool/splash pad
+      file: 7
     -
       id: 9
       term_name: Group exercise classes
+      file: 9
     -
       id: 10
       term_name: Gymnasium
+      file: 10
     -
       id: 11
       term_name: Hot tub
+      file: 16
     -
       id: 12
       term_name: Indoor pool
+      file: 17
     -
       id: 13
       term_name: Indoor track
+      file: 18
     -
       id: 14
       term_name: Meeting rooms
+      file: 19
     -
       id: 15
       term_name: Outdoor pool
+      file: 20
     -
       id: 16
       term_name: Outdoor track
+      file: 21
     -
       id: 17
       term_name: Personal training
+      file: 22
     -
       id: 18
       term_name: Playground
+      file: 23
     -
       id: 19
       term_name: Racquetball/handball courts
+      file: 24
     -
       id: 20
       term_name: Sauna
+      file: 26
     -
       id: 21
       term_name: Steam room
+      file: 27
     -
       id: 22
       term_name: Strength/cardio equipment
+      file: 28
     -
       id: 23
       term_name: Swim lessons
+      file: 29
     -
       id: 24
       term_name: Teen programs
+      file: 30
     -
       id: 25
       term_name: YMCA children’s academy
+      file: 13
     -
       id: 26
       term_name: Youth enrichment
+      file: 31
   ids:
     id:
       type: integer
@@ -98,6 +124,10 @@ process:
     -
       plugin: default_value
       default_value: amenities
+  field_amenities_icon:
+      plugin: migration
+      migration: openy_demo_amenities_file
+      source: file
 destination:
   plugin: 'entity:taxonomy_term'
   default_bundle: amenities

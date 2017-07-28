@@ -1,0 +1,151 @@
+dependencies:
+  module:
+    - file
+id: openy_demo_amenities_file
+migration_tags: { }
+migration_group: openy_demo_term
+label: 'Demo Amenities files'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: adaptive-programs.svg
+    -
+      id: 2
+      name: adult-enrichment.svg
+    -
+      id: 3
+      name: after-school.svg
+    -
+      id: 4
+      name: child-watch.svg
+    -
+      id: 5
+      name: community-health.svg
+    -
+      id: 6
+      name: day-camp.svg
+    -
+      id: 7
+      name: family-pool.svg
+    -
+      id: 8
+      name: gardening.svg
+    -
+      id: 9
+      name: group-exercise.svg
+    -
+      id: 10
+      name: gymnasium.svg
+    -
+      id: 11
+      name: noun_859749_cc.svg
+    -
+      id: 12
+      name: noun_859749_cc.svg
+
+    -
+      id: 13
+      name: childrens-academy.svg
+    -
+      id: 14
+      name: gavel_wht_cmyk [Converted].svg
+    -
+      id: 15
+      name: holding-hands-1_wht_cmyk [Converted].svg
+    -
+      id: 16
+      name: hot-tub.svg
+    -
+      id: 17
+      name: indoor-pool.svg
+    -
+      id: 18
+      name: indoor-track.svg
+    -
+      id: 19
+      name: meeting-room.svg
+    -
+      id: 20
+      name: outdoor-pool.svg
+    -
+      id: 21
+      name: outdoor-track.svg
+    -
+      id: 22
+      name: personal-training.svg
+    -
+      id: 23
+      name: playground.svg
+    -
+      id: 24
+      name: racquetball.svg
+    -
+      id: 25
+      name: refugee-employment_0.svg
+    -
+      id: 26
+      name: sauna.svg
+    -
+      id: 27
+      name: steam-room.svg
+    -
+      id: 28
+      name: strength-equipment.svg
+    -
+      id: 29
+      name: swim-lessons.svg
+    -
+      id: 30
+      name: teen-programs.svg
+    -
+      id: 31
+      name: youth-enrichment.svg
+  ids:
+    id:
+      type: integer
+  constants:
+    source_relative_path: assets/images
+    uri_file: 'public:/'
+    module: openy_demo_tamenities
+process:
+  module_path:
+    plugin: module_path
+    source: constants/module
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - '@module_path'
+        - constants/source_relative_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - name
+    -
+      plugin: urlencode
+  filename: name
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }
