@@ -827,8 +827,8 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
 [data-drupal-selector="edit-registration"] {
-  padding: 10px 15px;
-  font-size: 14px !important;
+  padding: 13px 25px;
+  font-size: 16px !important;
   margin-bottom: 20px;
   text-transform: capitalize;
 }
@@ -846,7 +846,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   font-weight: normal;
   color: #0089d0 !important;
   padding: 0;
-  margin-top: 8px;
+  margin-top: 12px;
   margin-left: 10px;
   float: left;
 }
@@ -874,6 +874,15 @@ label {
   list-style-type: none;
 }
 .path-node .status-message, .path-frontpage .status-message, .node--type-program-subcategory .status-message {
+  margin-bottom: 0;
+}
+
+#ajax-ccc-account-login-form [data-drupal-selector="edit-login"] {
+  padding: 13px 25px;
+  font-size: 16px !important;
+}
+#ajax-ccc-account-login-form .edit-login-actions {
+  padding-bottom: 30px;
   margin-bottom: 0;
 }
 
@@ -924,24 +933,25 @@ label {
     float: none;
   }
 }
-.edit-login-actions .fieldset-wrapper div,
-.edit-registration-actions .fieldset-wrapper div {
-  margin-top: 10px;
-  float: left;
-  margin-left: 10px;
-}
 .edit-login-actions .ajax-progress,
 .edit-registration-actions .ajax-progress {
-  left: 164px;
-  top: 0;
+  left: 215px;
+  top: 15px;
   margin-top: -4px !important;
 }
 
+.edit-registration-actions {
+  margin-bottom: 30px !important;
+}
+.edit-registration-actions .fieldset-wrapper {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
 .edit-registration-actions .fieldset-wrapper a.btn {
   margin-right: 3px !important;
-  padding: 10px 15px;
-  float: left;
-  font-size: 14px;
+  padding: 13px 25px !important;
+  background-color: black !important;
+  font-size: 16px !important;
   margin-bottom: 10px;
   text-transform: capitalize;
 }
