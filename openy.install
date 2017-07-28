@@ -44,7 +44,7 @@ function openy_install() {
  */
 function openy_update_dependencies() {
   $dependencies['openy'] = [
-    8030 => [
+    8031 => [
       'openy_loc_branch' => 8010,
     ],
   ];
@@ -393,9 +393,19 @@ function openy_update_8029() {
 }
 
 /**
- * Enable Contrib modules for Amenities related modules part1.
+ * Enable RH Taxonomy.
  */
 function openy_update_8030() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'rh_taxonomy',
+  ]);
+}
+
+/**
+ * Enable Contrib modules for Amenities related modules part1.
+ */
+function openy_update_8031() {
   // Enable modules.
   $modules = [
     'better_exposed_filters',
@@ -413,7 +423,7 @@ function openy_update_8030() {
 /**
  * Enable Amenities related modules part1.
  */
-function openy_update_8031() {
+function openy_update_8032() {
   // Enable modules.
   $modules = [
     'openy_svg_formatter',
@@ -432,7 +442,7 @@ function openy_update_8031() {
 /**
  * Enable Amenities related modules part2.
  */
-function openy_update_8032() {
+function openy_update_8033() {
   // Enable modules.
   $modules = [
     'openy_block_branch_amenities',
