@@ -171,6 +171,7 @@
 
 .blog-more-teaser {
   .form-item-combine {
+    padding: 0 0 0 200px !important;
     @include breakpoint ($desktop-small $desktop) {
       padding: 0 0 0 140px !important;
       .two-column & {
@@ -182,6 +183,9 @@
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
       }
+    }
+    @media (max-width: 1023px) {
+      padding: 0 !important;
     }
   }
   .two-column & {

@@ -2407,6 +2407,120 @@ body.path-search #block-mainpagecontent li {
   margin: 0 0 30px 0;
 }
 
+.news-more-teaser {
+  margin-top: 40px;
+}
+.news-more-teaser .h1 {
+  padding-bottom: 0;
+}
+.news-more-teaser .views-view-grid {
+  text-align: center;
+}
+@media (max-width: 1200px) {
+  .news-more-teaser .views-view-grid .row, .news-more-teaser .views-view-grid #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .news-more-teaser .views-view-grid .landing-content {
+    display: inline;
+  }
+  .news-more-teaser .views-view-grid .row:before, .news-more-teaser .views-view-grid #membership-page #block-openy-lily-content .landing-content:before, #membership-page #block-openy-lily-content .news-more-teaser .views-view-grid .landing-content:before, .news-more-teaser .views-view-grid .row:after, .news-more-teaser .views-view-grid #membership-page #block-openy-lily-content .landing-content:after, #membership-page #block-openy-lily-content .news-more-teaser .views-view-grid .landing-content:after {
+    content: none;
+  }
+}
+@media (min-width: 1200px) {
+  .news-more-teaser .views-view-grid .row, .news-more-teaser .views-view-grid #membership-page #block-openy-lily-content .landing-content, #membership-page #block-openy-lily-content .news-more-teaser .views-view-grid .landing-content {
+    display: inline;
+  }
+}
+.news-more-teaser .views-exposed-form {
+  background-color: #ebebeb;
+  width: 100%;
+  padding: 17px 25px;
+  margin-bottom: 49px;
+}
+@media (min-width: 1024px) {
+  .news-more-teaser .views-exposed-form {
+    height: 92px;
+    display: table;
+  }
+}
+.news-more-teaser .views-exposed-form > div {
+  vertical-align: bottom;
+}
+@media (min-width: 1024px) {
+  .news-more-teaser .views-exposed-form > div {
+    display: table-cell;
+    padding: 0 20px 0 0;
+    width: 50%;
+  }
+  .news-more-teaser .views-exposed-form > div.form-item-field-news-category-target-id {
+    display: table-cell;
+    padding: 0;
+    width: 50%;
+  }
+  .news-more-teaser .views-exposed-form > div.form-item-combine {
+    padding: 0 0 0 200px;
+  }
+  .news-more-teaser .views-exposed-form > div.form-item-related-content-titles {
+    width: 258px;
+  }
+  .news-more-teaser .views-exposed-form > div.form-actions {
+    padding-right: 0;
+  }
+}
+.news-more-teaser .form-actions {
+  text-align: center;
+  padding-top: 20px;
+}
+@media (min-width: 1024px) {
+  .news-more-teaser .form-actions {
+    padding-top: 0;
+    text-align: inherit;
+  }
+}
+.news-more-teaser label {
+  display: block;
+  font-family: "Cachet", Arial, sans-serif;
+  letter-spacing: -0.025em;
+}
+.news-more-teaser .form-item-combine label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+.news-more-teaser select {
+  font-family: "Cachet", Arial, sans-serif;
+  letter-spacing: -0.025em;
+}
+.news-more-teaser .form-text {
+  width: 100%;
+  height: 34px;
+  padding-left: 10px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+@media (min-width: 1024px) {
+  .news-more-teaser .form-text {
+    width: 250px;
+  }
+}
+.news-more-teaser input[type="submit"] {
+  width: 90px;
+  height: 34px;
+  padding: 7px 16px;
+  border: solid 1px #636466;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Cachet", Arial, sans-serif;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+.news-more-teaser .no-results {
+  margin-bottom: 49px;
+}
+
 .node--type-blog.node--view-mode-teaser {
   max-width: 100%;
 }
@@ -2573,6 +2687,9 @@ body.path-search #block-mainpagecontent li {
   font-family: 'YMCA';
 }
 
+.blog-more-teaser .form-item-combine {
+  padding: 0 0 0 200px !important;
+}
 @media (min-width: 64em) and (max-width: 75em) {
   .blog-more-teaser .form-item-combine {
     padding: 0 0 0 140px !important;
@@ -2585,6 +2702,11 @@ body.path-search #block-mainpagecontent li {
   .blog-more-teaser .form-item-combine input {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+  }
+}
+@media (max-width: 1023px) {
+  .blog-more-teaser .form-item-combine {
+    padding: 0 !important;
   }
 }
 @media (min-width: 64em) {
