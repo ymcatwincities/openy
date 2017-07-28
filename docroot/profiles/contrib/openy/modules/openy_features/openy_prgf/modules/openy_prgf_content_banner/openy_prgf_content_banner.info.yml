@@ -1,0 +1,16 @@
+name: 'OpenY paragraph content banner'
+description: 'OpenY paragraph content banner'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - entity_browser
+  - field
+  - image
+  - media_entity
+  - openy_media_image
+  - openy_prgf
+  - paragraphs
+  - taxonomy
+  - text
+version: 8.x-1.0
