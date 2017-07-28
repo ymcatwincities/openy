@@ -24,7 +24,7 @@
 The Open Y platform is a content management system that uses Drupal 8 functionality and useful modules from YMCAs and digital partners. It’s easy and free to use — everyone is welcome to implement Open Y and run Open Y projects.
 
 # Demo
-You can always valuate distribution by visiting demo website - http://sandbox.openymca.org. If you want to test admin access - login is `admin`, password is `openy`.
+You can always evaluate distribution by visiting demo website - http://sandbox.openymca.org. If you want to test admin access - login is `admin`, password is `openy`.
 
 ![OpenY Sandbox](docs/assets/sandbox.gif "OpenY Demo")
 
@@ -43,7 +43,7 @@ We are using [composer](https://getcomposer.org/) for initiating new project tre
 composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
 ```
 
-In order to properly install OpenY Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [there](https://github.com/ymcatwincities/openy-project).
+In order to properly install OpenY Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).
 
 # Development
 For development environment please read documentation [openy-project](https://github.com/ymcatwincities/openy-project#development-environment).
