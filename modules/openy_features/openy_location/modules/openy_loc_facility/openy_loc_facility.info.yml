@@ -10,6 +10,7 @@ dependencies:
   - field
   - field_group
   - geolocation
+  - rabbit_hole
   - link
   - menu_ui
   - metatag

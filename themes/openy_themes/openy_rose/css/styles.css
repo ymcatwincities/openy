@@ -2804,6 +2804,9 @@ body {
 .sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity * {
   text-decoration: none;
 }
+.sub-category-classes-view .activity-group .activity-group-slider .views-field-rendered-entity a:hover h3 {
+  text-decoration: underline;
+}
 .sub-category-classes-view .activity-group .activity-group-slider .slick-track {
   display: -webkit-box;
   display: -webkit-flex;
