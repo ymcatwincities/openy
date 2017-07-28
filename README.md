@@ -50,15 +50,6 @@ For development environment please read documentation [openy-project](https://gi
 
 Other development information you can find at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
 
-# Features
-- Flexible and decoupled YMCA content structure
-- Customizable theme for YMCA brand
-- Media management & WYSIWYG Embed
-- User guide & tour around distribution
-- Optional demo content
-- Location finder
-- Membership calculator
-
 # Documentation
 - [Documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs)
 - [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
