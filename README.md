@@ -23,6 +23,13 @@
 
 The Open Y platform is a content management system that uses Drupal 8 functionality and useful modules from YMCAs and digital partners. It’s easy and free to use — everyone is welcome to implement Open Y and run Open Y projects.
 
+# Demo
+You can always valuate distribution by visiting demo website - http://sandbox.openymca.org. If you want to test admin access - login is `admin`, password is `openy`.
+
+![OpenY Sandbox](docs/assets/sandbox.gif "OpenY Demo")
+
+*\* OpenY version 1.2.*
+
 # Installation
 
 ### Prerequisites
@@ -36,8 +43,12 @@ We are using [composer](https://getcomposer.org/) for initiating new project tre
 composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
 ```
 
+In order to properly install OpenY Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [there](https://github.com/ymcatwincities/openy-project).
+
 # Development
-For Development information please take a look at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
+For development environment please read documentation [openy-project](https://github.com/ymcatwincities/openy-project#development-environment).
+
+Other development information you can find at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
 
 # Features
 - Flexible and decoupled YMCA content structure
@@ -49,4 +60,7 @@ For Development information please take a look at [docs/Development](https://git
 - Membership calculator
 
 # Documentation
-Documentation is available at [docs](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs). For details please visit http://www.openymca.org.
+- [Documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs)
+- [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
+- [Content structure](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Content%20structure)
+- [Technical documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development)
