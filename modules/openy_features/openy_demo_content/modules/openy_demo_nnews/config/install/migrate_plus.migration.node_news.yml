@@ -2,7 +2,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    - openy_node_news
+    -
+  enforced:
+    module:
+      - openy_demo_nnews
 id: openy_demo_node_news
 migration_tags: {  }
 migration_group: openy_demo_nnews
@@ -12,13 +15,12 @@ source:
   data_rows:
     -
       id: 1
-      title: 'All details are important'
+      title: 'Lorem ipsum 1'
       created: '2017-04-27 8:00am'
       category: 1
       related: null
       image: 1
-      promote: 1
-      branch: 1
+      promote: 0
       body: >
         <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
         vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
@@ -43,13 +45,162 @@ source:
         iaculis. Donec lobortis rutrum ultrices.</p>
     -
       id: 2
-      title: 'Lorem ipsum'
+      title: 'Lorem ipsum 2'
+      created: '2017-04-27 8:01am'
+      category: 1
+      related: null
+      image: 2
+      promote: 0
+      body: >
+        <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
+        vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
+        Morbi ornare ipsum eget sodales rutrum. Duis sit amet risus mi. Nullam massa neque, tincidunt
+        a ultrices eu, vestibulum eu nunc. Integer nec dui lobortis, viverra lectus at, pharetra odio.
+        Ut dignissim eros id leo tristique, eget venenatis enim dignissim. Sed eu laoreet odio.
+        Suspendisse aliquam arcu vel magna condimentum commodo. Mauris bibendum tincidunt arcu,
+        id pellentesque est semper vitae.</p>
+        <p>Nulla id vehicula massa. Phasellus accumsan massa leo, at consequat odio vestibulum et.
+        Nunc non purus et est ultricies iaculis. Integer tincidunt, enim vitae finibus tristique,
+        risus nisl molestie nisi, non laoreet est est id odio. Nullam vehicula, nunc ut pharetra
+        blandit, sem nulla suscipit diam, in malesuada diam diam quis dolor. Proin maximus augue
+        vitae ipsum porta hendrerit. Pellentesque eget facilisis nulla, vitae rutrum purus.
+        Pellentesque et lobortis ipsum, a placerat tortor.</p>
+        <p>Phasellus gravida purus lacus, id imperdiet elit faucibus non.</p>
+        <p>Nam fringilla dui est, in faucibus purus iaculis ut. Pellentesque volutpat enim porttitor,
+        luctus magna eget, porttitor lectus. Fusce finibus in ante nec commodo. Nam erat leo,
+        consequat vitae nulla in, pharetra consectetur dui. Phasellus porttitor ligula et lectus
+        semper auctor. Curabitur nec varius erat, egestas faucibus mauris. Mauris vehicula risus et
+        velit efficitur, at lacinia odio rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Nam luctus erat mi, sed maximus sapien tempus in. Nam maximus scelerisque nibh eu
+        iaculis. Donec lobortis rutrum ultrices.</p>
+    -
+      id: 3
+      title: 'Lorem ipsum 3'
+      created: '2017-04-27 8:01am'
+      category: 1
+      related: null
+      image: 2
+      promote: 0
+      body: >
+        <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
+        vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
+        Morbi ornare ipsum eget sodales rutrum. Duis sit amet risus mi. Nullam massa neque, tincidunt
+        a ultrices eu, vestibulum eu nunc. Integer nec dui lobortis, viverra lectus at, pharetra odio.
+        Ut dignissim eros id leo tristique, eget venenatis enim dignissim. Sed eu laoreet odio.
+        Suspendisse aliquam arcu vel magna condimentum commodo. Mauris bibendum tincidunt arcu,
+        id pellentesque est semper vitae.</p>
+        <p>Nulla id vehicula massa. Phasellus accumsan massa leo, at consequat odio vestibulum et.
+        Nunc non purus et est ultricies iaculis. Integer tincidunt, enim vitae finibus tristique,
+        risus nisl molestie nisi, non laoreet est est id odio. Nullam vehicula, nunc ut pharetra
+        blandit, sem nulla suscipit diam, in malesuada diam diam quis dolor. Proin maximus augue
+        vitae ipsum porta hendrerit. Pellentesque eget facilisis nulla, vitae rutrum purus.
+        Pellentesque et lobortis ipsum, a placerat tortor.</p>
+        <p>Phasellus gravida purus lacus, id imperdiet elit faucibus non.</p>
+        <p>Nam fringilla dui est, in faucibus purus iaculis ut. Pellentesque volutpat enim porttitor,
+        luctus magna eget, porttitor lectus. Fusce finibus in ante nec commodo. Nam erat leo,
+        consequat vitae nulla in, pharetra consectetur dui. Phasellus porttitor ligula et lectus
+        semper auctor. Curabitur nec varius erat, egestas faucibus mauris. Mauris vehicula risus et
+        velit efficitur, at lacinia odio rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Nam luctus erat mi, sed maximus sapien tempus in. Nam maximus scelerisque nibh eu
+        iaculis. Donec lobortis rutrum ultrices.</p>
+    -
+      id: 4
+      title: 'Lorem ipsum 4'
       created: '2017-04-27 8:01am'
       category: 2
       related: null
       image: 2
-      promote: 1
-      branch: 2
+      promote: 0
+      body: >
+        <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
+        vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
+        Morbi ornare ipsum eget sodales rutrum. Duis sit amet risus mi. Nullam massa neque, tincidunt
+        a ultrices eu, vestibulum eu nunc. Integer nec dui lobortis, viverra lectus at, pharetra odio.
+        Ut dignissim eros id leo tristique, eget venenatis enim dignissim. Sed eu laoreet odio.
+        Suspendisse aliquam arcu vel magna condimentum commodo. Mauris bibendum tincidunt arcu,
+        id pellentesque est semper vitae.</p>
+        <p>Nulla id vehicula massa. Phasellus accumsan massa leo, at consequat odio vestibulum et.
+        Nunc non purus et est ultricies iaculis. Integer tincidunt, enim vitae finibus tristique,
+        risus nisl molestie nisi, non laoreet est est id odio. Nullam vehicula, nunc ut pharetra
+        blandit, sem nulla suscipit diam, in malesuada diam diam quis dolor. Proin maximus augue
+        vitae ipsum porta hendrerit. Pellentesque eget facilisis nulla, vitae rutrum purus.
+        Pellentesque et lobortis ipsum, a placerat tortor.</p>
+        <p>Phasellus gravida purus lacus, id imperdiet elit faucibus non.</p>
+        <p>Nam fringilla dui est, in faucibus purus iaculis ut. Pellentesque volutpat enim porttitor,
+        luctus magna eget, porttitor lectus. Fusce finibus in ante nec commodo. Nam erat leo,
+        consequat vitae nulla in, pharetra consectetur dui. Phasellus porttitor ligula et lectus
+        semper auctor. Curabitur nec varius erat, egestas faucibus mauris. Mauris vehicula risus et
+        velit efficitur, at lacinia odio rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Nam luctus erat mi, sed maximus sapien tempus in. Nam maximus scelerisque nibh eu
+        iaculis. Donec lobortis rutrum ultrices.</p>
+    -
+      id: 5
+      title: 'Lorem ipsum 5'
+      created: '2017-04-27 8:01am'
+      category: 2
+      related: null
+      image: 2
+      promote: 0
+      body: >
+        <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
+        vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
+        Morbi ornare ipsum eget sodales rutrum. Duis sit amet risus mi. Nullam massa neque, tincidunt
+        a ultrices eu, vestibulum eu nunc. Integer nec dui lobortis, viverra lectus at, pharetra odio.
+        Ut dignissim eros id leo tristique, eget venenatis enim dignissim. Sed eu laoreet odio.
+        Suspendisse aliquam arcu vel magna condimentum commodo. Mauris bibendum tincidunt arcu,
+        id pellentesque est semper vitae.</p>
+        <p>Nulla id vehicula massa. Phasellus accumsan massa leo, at consequat odio vestibulum et.
+        Nunc non purus et est ultricies iaculis. Integer tincidunt, enim vitae finibus tristique,
+        risus nisl molestie nisi, non laoreet est est id odio. Nullam vehicula, nunc ut pharetra
+        blandit, sem nulla suscipit diam, in malesuada diam diam quis dolor. Proin maximus augue
+        vitae ipsum porta hendrerit. Pellentesque eget facilisis nulla, vitae rutrum purus.
+        Pellentesque et lobortis ipsum, a placerat tortor.</p>
+        <p>Phasellus gravida purus lacus, id imperdiet elit faucibus non.</p>
+        <p>Nam fringilla dui est, in faucibus purus iaculis ut. Pellentesque volutpat enim porttitor,
+        luctus magna eget, porttitor lectus. Fusce finibus in ante nec commodo. Nam erat leo,
+        consequat vitae nulla in, pharetra consectetur dui. Phasellus porttitor ligula et lectus
+        semper auctor. Curabitur nec varius erat, egestas faucibus mauris. Mauris vehicula risus et
+        velit efficitur, at lacinia odio rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Nam luctus erat mi, sed maximus sapien tempus in. Nam maximus scelerisque nibh eu
+        iaculis. Donec lobortis rutrum ultrices.</p>
+    -
+      id: 6
+      title: 'Lorem ipsum 6'
+      created: '2017-04-27 8:01am'
+      category: 2
+      related: null
+      image: 2
+      promote: 0
+      body: >
+        <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
+        vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
+        Morbi ornare ipsum eget sodales rutrum. Duis sit amet risus mi. Nullam massa neque, tincidunt
+        a ultrices eu, vestibulum eu nunc. Integer nec dui lobortis, viverra lectus at, pharetra odio.
+        Ut dignissim eros id leo tristique, eget venenatis enim dignissim. Sed eu laoreet odio.
+        Suspendisse aliquam arcu vel magna condimentum commodo. Mauris bibendum tincidunt arcu,
+        id pellentesque est semper vitae.</p>
+        <p>Nulla id vehicula massa. Phasellus accumsan massa leo, at consequat odio vestibulum et.
+        Nunc non purus et est ultricies iaculis. Integer tincidunt, enim vitae finibus tristique,
+        risus nisl molestie nisi, non laoreet est est id odio. Nullam vehicula, nunc ut pharetra
+        blandit, sem nulla suscipit diam, in malesuada diam diam quis dolor. Proin maximus augue
+        vitae ipsum porta hendrerit. Pellentesque eget facilisis nulla, vitae rutrum purus.
+        Pellentesque et lobortis ipsum, a placerat tortor.</p>
+        <p>Phasellus gravida purus lacus, id imperdiet elit faucibus non.</p>
+        <p>Nam fringilla dui est, in faucibus purus iaculis ut. Pellentesque volutpat enim porttitor,
+        luctus magna eget, porttitor lectus. Fusce finibus in ante nec commodo. Nam erat leo,
+        consequat vitae nulla in, pharetra consectetur dui. Phasellus porttitor ligula et lectus
+        semper auctor. Curabitur nec varius erat, egestas faucibus mauris. Mauris vehicula risus et
+        velit efficitur, at lacinia odio rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Nam luctus erat mi, sed maximus sapien tempus in. Nam maximus scelerisque nibh eu
+        iaculis. Donec lobortis rutrum ultrices.</p>
+    -
+      id: 7
+      title: 'Lorem ipsum 7'
+      created: '2017-04-27 8:01am'
+      category: 2
+      related: null
+      image: 2
+      promote: 0
       body: >
         <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Maecenas a mattis nibh,
         vel condimentum eros. Vestibulum aliquet tellus ac ex mattis, at consequat diam eleifend.
@@ -124,16 +275,10 @@ process:
       plugin: migration
       migration: openy_demo_nnews_media_image
       source: image
-  field_news_location:
-    -
-      plugin: migration
-      migration: openy_demo_node_branch
-      source: branch
 destination:
   plugin: 'entity:node'
 migration_dependencies:
   required:
     - openy_demo_taxonomy_term_news_category
     - openy_demo_nnews_media_image
-    - openy_demo_node_branch
   optional: {  }
