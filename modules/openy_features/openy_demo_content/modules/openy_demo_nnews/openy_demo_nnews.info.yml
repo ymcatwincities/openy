@@ -8,4 +8,4 @@ dependencies:
   - migrate_plus
   - migrate_tools
   - openy_demo_tnews
-  - openy_demo_nbranch
+  - openy_node_landing
