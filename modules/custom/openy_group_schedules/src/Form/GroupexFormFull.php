@@ -87,8 +87,17 @@ class GroupexFormFull extends GroupexFormBase {
     parent::__construct($config_factory);
     $this->groupexHelper = $groupex_helper;
     $this->scheduleFetcher = $scheduleFetcher;
+    $this->entityQuery = $entity_query;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->logger = $logger_factory->get('ymca_mindbody');
 
+    $query = $this->getRequest()->query->all();
+    $request = $this->getRequest()->request->all();
+
+    // Get location options.
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
+
+    // Get classes options.
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $processed_classes_data['any'] = $this->t('-All-');
     foreach ($raw_classes_data as $key => $class) {
@@ -96,12 +105,14 @@ class GroupexFormFull extends GroupexFormBase {
       $processed_classes_data[$id] = $class;
     }
     $this->classesOptions = $processed_classes_data;
-    $this->entityQuery = $entity_query;
-    $this->entityTypeManager = $entity_type_manager;
-    $this->logger = $logger_factory->get('ymca_mindbody');
 
-    $query = $this->getRequest()->query->all();
-    $request = $this->getRequest()->request->all();
+    // Get instructor options.
+    $location_id = isset($query['location']) ? $query['location'] : $request['location'];
+    $this->instructorOptions = ['any' => (string) $this->t('-All-')];
+    $raw_schedule_data = $this->request(['query' => ['schedule' => TRUE, 'location' => $location_id]]);
+    $instructors = $this->getOptions($raw_schedule_data, 'instructor', 'instructor');
+    $this->instructorOptions = array_merge($this->instructorOptions, $instructors);
+
     $state = [
       'location' => isset($query['location']) && is_numeric($query['location']) ? $query['location'] : NULL,
       'class' => isset($query['class']) ? $query['class'] : NULL,
@@ -161,7 +172,6 @@ class GroupexFormFull extends GroupexFormBase {
     $state = $this->state;
     $formatted_results = NULL;
     $conf = $this->configFactory->get('openy_group_schedules.settings');
-    $days_range = is_numeric($conf->get('days_range')) ? $conf->get('days_range') : 14;
     $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
 
     // Set location if value passed through form builder.
@@ -226,12 +236,7 @@ class GroupexFormFull extends GroupexFormBase {
       $location_select_classes = 'hidden';
     }
     if (!empty($state['class']) && is_numeric($state['class'])) {
-      $classes = 'hidden';
-      $location_select_classes = $class_select_classes = 'show';
-    }
-    if (isset($state['instructor'])) {
-      $classes = $class_select_classes = 'hidden';
-      $location_select_classes = 'show';
+      $location_select_classes = $class_select_classes = $classes = 'show';
     }
 
     $form['location'] = [
@@ -274,20 +279,26 @@ class GroupexFormFull extends GroupexFormBase {
       '#weight' => -3,
     ];
 
-    $date_options = [];
-    for ($i = 0; $i < $days_range; $i++) {
-      $time = REQUEST_TIME + $i * 86400;
-      $dateKey = date('n/d/y', $time);
-      $dateTitle = date('D, m/d', $time);
-      $date_options[$dateKey] = $dateTitle;
+    $tz = new \DateTimeZone(\Drupal::config('system.date')->get('timezone.default'));
+    $default_date = NULL;
+
+    if (!empty($state['date_select'])) {
+      $dt = new \DateTime($state['date_select'], $tz);
+      $default_date = $dt->format('Y-m-d');
     }
+    else {
+      $dt = new \DateTime();
+      $dt->setTimezone($tz);
+      $dt->setTimestamp(REQUEST_TIME);
+      $default_date = $dt->format('Y-m-d');
+    }
+
     $form['date_select'] = [
-      '#type' => 'select',
-      '#options' => $date_options,
+      '#type' => 'date',
       '#title' => $this->t('Date'),
       '#prefix' => '<div id="date-select-wrapper" class="' . $classes . '">',
       '#suffix' => '</div>',
-      '#default_value' => !empty($values['date_select']) ? $values['date_select'] : reset($date_options),
+      '#default_value' => $default_date,
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'groupex-full-form-wrapper',
@@ -324,7 +335,38 @@ class GroupexFormFull extends GroupexFormBase {
       ],
     ];
 
+    $form['instructor_select'] = [
+      '#type' => 'select',
+      '#options' => $this->instructorOptions,
+      '#default_value' => !empty($state['instructor']) ? $state['instructor'] : 'any',
+      '#title' => $this->t('Instructor:'),
+      '#prefix' => '<div id="instructor-select-wrapper" class="' . $class_select_classes . '">',
+      '#suffix' => '</div>',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'groupex-full-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+        '#weight' => 0,
+      ],
+    ];
+
     if (!empty($values['location'])) {
+      $form['groupex_pdf_link'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'class' => [
+            'groupex-pdf-link-container',
+            'clearfix',
+          ],
+        ],
+        '#weight' => 1,
+      ];
+
       $url = $this->groupexHelper->getPdfLink($values['location']);
       $form['groupex_pdf_link']['link'] = [
         '#title' => $this->t('Download PDF'),
@@ -372,6 +414,10 @@ class GroupexFormFull extends GroupexFormBase {
     $state = $this->state;
     $location = !empty($values['location_select']) ? $values['location_select'] : $values['location'];
     $filter_date = !empty($values['date_select']) ? $values['date_select'] : $values['date'];
+    $tz = \Drupal::config('system.date')->get('timezone.default');
+    $date = new \DateTime($filter_date, new \DateTimeZone($tz));
+    $filter_date = $date->format('n/d/y');
+
     $parameters = [
       'location' => $location,
       'filter_date' => $filter_date,
@@ -395,6 +441,16 @@ class GroupexFormFull extends GroupexFormBase {
       $parameters['groupex_class'] = 'groupex_table_class_individual';
       $parameters['view_mode'] = 'class';
     }
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'instructor_select') {
+      $parameters['class'] = $state['class'];
+      $parameters['filter_length'] = 'week';
+      $parameters['category'] = 'any';
+      $parameters['groupex_class'] = 'groupex_table_instructor_individual';
+      if ($triggering_element['#value'] != 'any') {
+        $parameters['instructor'] = $triggering_element['#value'];
+      }
+    }
+
     $formatted_results = self::buildResults($form, $form_state);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#groupex-full-form-wrapper .groupex-results', $formatted_results));
@@ -478,8 +534,8 @@ class GroupexFormFull extends GroupexFormBase {
       'groupex_class' => $groupex_class,
     ];
     // Add optional parameters.
-    if (!empty($query['instructor'])) {
-      $parameters['instructor'] = $query['instructor'];
+    if (!empty($user_input['instructor_select'])) {
+      $parameters['instructor'] = $user_input['instructor_select'];
     }
     if (isset($view_mode)) {
       $parameters['view_mode'] = $view_mode;
@@ -487,6 +543,11 @@ class GroupexFormFull extends GroupexFormBase {
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class = 'groupex_table_instructor_individual') {
       unset($parameters['instructor']);
       unset($parameters['view_mode']);
+    }
+
+    // Remove instructor parameter in case of no instructor selected.
+    if ($parameters['instructor'] == 'any') {
+      unset($parameters['instructor']);
     }
 
     $this->scheduleFetcher->__construct($this->groupexHelper, $this->configFactory, $parameters);

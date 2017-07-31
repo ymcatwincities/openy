@@ -74,15 +74,15 @@
     history.pushState(null, null, window.location.pathname + '?' + params.join('&'));
 
     if (typeof(parameters.instructor) !== 'undefined') {
-      $('#date-select-wrapper, #location-wrapper, #class-select-wrapper').addClass('hidden');
+      $('#location-wrapper').addClass('hidden');
     }
     else if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
-      $('#location-select-wrapper, #class-select-wrapper').removeClass('hidden');
-      $('#date-select-wrapper, #location-wrapper').addClass('hidden');
+      $('#location-select-wrapper, #class-select-wrapper, #instructor-select-wrapper').removeClass('hidden');
+      $('#location-wrapper').addClass('hidden');
     }
     else {
-      $('#location-select-wrapper, #date-select-wrapper').removeClass('hidden');
-      $('#class-select-wrapper, #location-wrapper').addClass('hidden');
+      $('#location-select-wrapper, #date-select-wrapper, #class-select-wrapper, #instructor-select-wrapper').removeClass('hidden');
+      $('#location-wrapper').addClass('hidden');
     }
 
     Drupal.openy_group_schedules.update_class_select(parameters);
