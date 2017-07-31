@@ -5091,7 +5091,7 @@ html.js .branch__updates_queue__button {
   outline: none;
   text-decoration: none;
   padding: 15px;
-  margin-bottom: -40px;
+  margin-bottom: -35px;
   position: relative;
   width: 100%;
 }
@@ -5292,7 +5292,7 @@ iframe#ga_iframe {
 
 .addtocalendar {
   position: relative;
-  right: 10px;
+  right: 15px;
   top: 10px;
   display: inline-block;
   background: transparent !important;
