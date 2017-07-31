@@ -41,6 +41,8 @@ source:
       alias: '/give'
       header_content_ids:
         -
+          header_content_id: give_microsites_menu
+        -
           header_content_id: give_gallery
       content_ids:
         -
@@ -203,6 +205,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
+          - openy_demo_lp_paragraph_microsites_menu
           - openy_demo_lp_paragraph_lto
         source: header_content_id
       target_revision_id:
@@ -214,6 +217,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
+          - openy_demo_lp_paragraph_microsites_menu
           - openy_demo_lp_paragraph_lto
         source: header_content_id
   field_content:
@@ -284,6 +288,7 @@ migration_dependencies:
     - openy_demo_landing_paragraph_branches_popup_all
     - openy_demo_lp_paragraph_embedded_groupexpro_schedule
     - openy_demo_lp_paragraph_group_schedules
+    - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_lto
   optional:

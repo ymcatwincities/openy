@@ -72,6 +72,9 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_bfooter' => [
         'openy_demo_block_content_footer',
       ],
+      'openy_demo_bmicrosites_menu' => [
+        'openy_demo_block_microsites_menu',
+      ],
       'openy_demo_bsimple' => [
         'openy_demo_block_content_simple_block',
       ],

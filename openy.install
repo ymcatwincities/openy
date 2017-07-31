@@ -44,10 +44,10 @@ function openy_install() {
  */
 function openy_update_dependencies() {
   $dependencies['openy'] = [
-    8031 => [
+    8032 => [
       'openy_block' => 8001,
     ],
-    8032 => [
+    8033 => [
       'openy_location' => 8002,
     ],
   ];
@@ -406,9 +406,22 @@ function openy_update_8030() {
 }
 
 /**
- * Enable Contrib modules for Amenities related modules part1.
+ * Enable Microsites menu modules.
  */
 function openy_update_8031() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install([
+    'openy_block_menu',
+  ]);
+  \Drupal::service('module_installer')->install([
+    'openy_prgf_microsites_menu',
+  ]);
+}
+
+/**
+ * Enable Contrib modules for Amenities related modules part1.
+ */
+function openy_update_8032() {
   // Enable modules.
   $modules = [
     'better_exposed_filters',
@@ -426,7 +439,7 @@ function openy_update_8031() {
 /**
  * Enable Amenities related modules part1.
  */
-function openy_update_8032() {
+function openy_update_8033() {
   // Enable modules.
   $modules = [
     'openy_svg_formatter',
@@ -445,7 +458,7 @@ function openy_update_8032() {
 /**
  * Enable Amenities related modules part2.
  */
-function openy_update_8033() {
+function openy_update_8034() {
   // Enable modules.
   $modules = [
     'openy_prgf_1c',

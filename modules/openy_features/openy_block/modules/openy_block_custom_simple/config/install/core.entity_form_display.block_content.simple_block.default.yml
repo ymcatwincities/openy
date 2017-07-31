@@ -65,13 +65,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 4
-    settings: {  }
-    third_party_settings: {  }
-  translation:
-    weight: 5
-    settings: {  }
-    third_party_settings: {  }
 hidden: {  }
