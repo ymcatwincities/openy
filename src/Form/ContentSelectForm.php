@@ -37,7 +37,7 @@ class ContentSelectForm extends FormBase {
     ];
 
     $settings_options = [
-      'addthis' => $this->t('Openy AddThis'),
+      'addthis' => $this->t('AddThis Demo Credentials'),
     ];
 
     $form['content'] = [
