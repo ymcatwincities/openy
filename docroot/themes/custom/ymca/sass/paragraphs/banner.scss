@@ -12,8 +12,12 @@
       -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
       position: absolute;
+      height: 100%;
       right: 0;
       width: calc(50% + #{ceil($container-desktop/6 - $grid-gutter-width)});
+      * {
+        height: 100%;
+      }
     }
 
     @include breakpoint($screen-lg) {
@@ -21,12 +25,10 @@
     }
 
     img {
-      width: 100% !important;
+      max-height: 100%;
+      width: auto;
       height: auto !important;
-
-      @include breakpoint($screen-sm) {
-        width: 120% !important;
-      }
+      max-width: none;
     }
   }
 
@@ -110,10 +112,10 @@
         width: 50%;
       }
       @include breakpoint($screen-md) {
-        width: calc(50% - #{ceil($container-desktop/8)});
+        width: calc(50% - 65px);
       }
       @include breakpoint($screen-lg) {
-        width: calc(50% - #{ceil($container-large-desktop/6)});
+        width: calc(50% - 70px);
       }
     }
 
