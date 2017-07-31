@@ -511,7 +511,8 @@ abstract class PersonifyMindbodySyncPusherBase implements PersonifyMindbodySyncP
 
       $emails = [];
       foreach ($staff as $trainer) {
-        $tokens['trainer_name'] = $trainer->get('name')->getString();
+        $tokens['trainer_name'] = $trainer->get('field_staff_name')->getString();
+        $tokens['trainer_name'] .= ' ' . $trainer->get('field_staff_surname')->getString();
         $trainer_email = $trainer->get('field_staff_email')->getString();
         $this->mailManager->mail('ymca_mindbody', $notification_type, $trainer_email, 'en', $tokens);
         $emails[] = $trainer_email;
