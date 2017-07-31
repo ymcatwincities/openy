@@ -155,25 +155,9 @@ html, body {
   height: 100%;
   position: relative;
 
-  .container-winners {
-    /*height: 100%;
-    background: image-url('2017_summer/winners.jpg') no-repeat;
-    background-size: cover;
-    @include rem(max-height, 522px);*/
-  }
-
   .compain-winners {
-    /*@include rem(padding, 20px);
-    width: 100%;
-    @include rem(max-width, 740px);
-    @include rem(padding-top, 39px);
-    @include rem(padding-bottom, 45px);
-    margin: 0 auto;*/
 
     .compain-header {
-      /*background: none;
-      height: auto;
-      padding-bottom: 0;*/
       background-image: image-url('2017_summer/winners.jpg');
       background-position: 50% 0;
       height: 560px;
