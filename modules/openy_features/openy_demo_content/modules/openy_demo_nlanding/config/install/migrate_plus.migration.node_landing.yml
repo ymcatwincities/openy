@@ -41,9 +41,9 @@ source:
       alias: '/give'
       header_content_ids:
         -
-          header_content_id: give_gallery
-        -
           header_content_id: give_microsites_menu
+        -
+          header_content_id: give_gallery
       content_ids:
         -
           content_id: give_featured_content

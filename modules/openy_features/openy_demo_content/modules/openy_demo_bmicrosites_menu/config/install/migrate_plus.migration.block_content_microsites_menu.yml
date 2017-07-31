@@ -29,9 +29,9 @@ source:
           title: Join
       color_ids:
         -
-          color_id: 5
+          color_id: 6
         -
-          color_id: 5
+          color_id: 6
       text_color: 1
   ids:
     id:
