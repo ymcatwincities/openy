@@ -312,6 +312,9 @@ header#page-head {
                 @media screen and (max-width: 1199px) {
                   font-size: 15px;
                 }
+                &:hover {
+                  text-decoration: none;
+                }
               }
 
               &.nav-level-2 {
