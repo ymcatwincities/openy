@@ -28,19 +28,12 @@
   };
 
   Drupal.openy_tour.click_button = function () {
-    var $tipGuide;
-
-    // Hide original next button if custom is appear and add focus.
-    $('.joyride-next-tip').focus(function () {
-      $tipGuide = $(this).parents('.joyride-tip-guide');
-      if ($tipGuide.find('.openy-click-button').length > 0) {
-        if ($tipGuide.find('.openy-click-button').attr('data-click-button') == 'false') {
-          $tipGuide.find('.openy-click-button').show().focus();
-          $tipGuide.find('.joyride-next-tip').hide();
-        }
+    $('.joyride-tip-guide').each(function() {
+      // Hide original next button if custom is appear.
+      if ($(this).find('.openy-click-button').length > 0) {
+        $(this).find('.joyride-next-tip').hide();
       }
     });
-
     $('.openy-click-button').on('click', function (e) {
       e.preventDefault();
       var selector = $(this).data('tour-selector'),
@@ -54,9 +47,7 @@
         element = $('input[data-drupal-selector="' + selector + '"]');
       }
       element.parents('details').attr('open', true);
-      element.trigger('click');
-      $(this).attr('data-click-button', 'true');
-      $(this).hide().parents('.joyride-content-wrapper').find('.joyride-next-tip').show().focus();
+      element.trigger('mousedown');
     });
   };
 
