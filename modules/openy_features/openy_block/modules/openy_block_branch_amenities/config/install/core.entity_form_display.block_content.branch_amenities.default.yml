@@ -6,6 +6,7 @@ dependencies:
     - field.field.block_content.branch_amenities.field_branch_am
     - field.field.block_content.branch_amenities.field_sb_link
     - field.field.block_content.branch_amenities.field_sb_title
+    - field.field.block_content.branch_amenities.field_icon_class
   module:
     - link
 id: block_content.branch_amenities.default
@@ -34,5 +35,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_icon_class:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
 hidden:
   field_branch_am: true

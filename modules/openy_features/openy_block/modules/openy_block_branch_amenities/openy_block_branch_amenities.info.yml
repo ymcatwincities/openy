@@ -10,3 +10,4 @@ dependencies:
   - language
   - link
   - openy_block
+  - openy_block_custom_simple

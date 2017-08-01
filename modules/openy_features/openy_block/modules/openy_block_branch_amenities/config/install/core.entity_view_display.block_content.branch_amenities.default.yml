@@ -7,6 +7,7 @@ dependencies:
     - field.field.block_content.branch_amenities.field_branch_am
     - field.field.block_content.branch_amenities.field_sb_link
     - field.field.block_content.branch_amenities.field_sb_title
+    - field.field.block_content.branch_amenities.field_icon_class
   module:
     - custom_formatters
     - link
@@ -34,6 +35,13 @@ content:
     type: link
   field_sb_title:
     weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_icon_class:
+    weight: 1
     label: hidden
     settings:
       link_to_entity: false

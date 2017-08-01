@@ -2,12 +2,13 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - openy_node
 id: openy-branch-add
 label: 'OpenY Node Branch Add'
 module: openy_node
 routes:
-  - route_name: node.add
+  -
+    route_name: node.add
     route_params:
       node_type: branch
 tips:
@@ -24,8 +25,7 @@ tips:
     body: 'Here add associated couple of Amenities with branch. Example: Indoor pool, Sauna.'
     weight: 2
     attributes:
-      data-id: 'edit-field-location-amenities-0-target-id'
-
+      data-id: edit-field-location-amenities-0-target-id
   3-col:
     id: 3-col
     plugin: text
@@ -33,8 +33,7 @@ tips:
     body: 'In Content area click on "Add 3 columns" [openy_tour:click:edit-field-branch-body-add-more-add-more-button-3c]'
     weight: 3
     attributes:
-      data-id: 'edit-group-content-area'
-
+      data-id: edit-group-content-area
   block-type:
     id: block-type
     plugin: text
@@ -43,24 +42,19 @@ tips:
     weight: 4
     attributes:
       data-class: 'form-submit[value="Add new custom block"]'
-
   create-block:
     id: create-type
     plugin: text
     label: 'Create block'
-    body: 'Fill in Title - it will appear on the page.</br>
-           Block Description - it''s needed to find block in Admin interface later,</br>
-           Link - This link will be displayed below block on branch page.</br>
-           And press "Create custom block" to save it.'
+    body: 'Fill in Title - it will appear on the page.</br> Block Description - it''s needed to find block in Admin interface later,</br> Link - This link will be displayed below block on branch page.</br> And press "Create custom block" to save it.'
     weight: 5
     location: right
     attributes:
       data-class: 'form-submit[value="Create custom block"]'
-
   result:
     id: result
     plugin: text
-    label: 'Result'
+    label: Result
     body: 'Now all columns are added. Press "Save and publish" and see resulting block on the page.'
     weight: 6
     attributes:

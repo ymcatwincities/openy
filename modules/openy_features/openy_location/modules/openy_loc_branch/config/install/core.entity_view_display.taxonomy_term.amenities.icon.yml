@@ -19,11 +19,13 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    region: content
   field_amenities_icon:
     weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: openy_svg_formatter
+    region: content
 hidden:
   langcode: true
