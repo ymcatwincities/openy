@@ -9,6 +9,7 @@ dependencies:
     - node
     - openy_digital_signage_screen
     - options
+    - user
 id: digital_signage_screens
 label: 'Digital Signage Screens'
 module: views
@@ -25,8 +26,9 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'access OpenY Digital Signage Screen overview'
       cache:
         type: tag
         options: {  }
@@ -808,6 +810,7 @@ display:
         operator: AND
         groups:
           1: AND
+      title: 'Screens listing'
     cache_metadata:
       max-age: 0
       contexts:
@@ -815,6 +818,7 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.permissions
       tags:
         - 'config:field.storage.openy_digital_signage_screen.field_screen_location'
   screens_listing:
@@ -837,8 +841,8 @@ display:
         context: '0'
         menu_name: admin
       tab_options:
-        type: none
-        title: ''
+        type: normal
+        title: 'Screens listing'
         description: ''
         weight: 0
     cache_metadata:
@@ -848,5 +852,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.permissions
       tags:
         - 'config:field.storage.openy_digital_signage_screen.field_screen_location'

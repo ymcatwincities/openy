@@ -48,7 +48,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "edit-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/edit",
  *     "schedule" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/schedule",
  *     "delete-form" = "/admin/digital-signage/screens/{openy_digital_signage_screen}/delete",
- *     "collection" = "/admin/digital-signage/screens/list",
+ *     "collection" = "/admin/digital-signage/screens",
  *   },
  *   field_ui_base_route = "openy_digital_signage_screen.settings"
  * )
