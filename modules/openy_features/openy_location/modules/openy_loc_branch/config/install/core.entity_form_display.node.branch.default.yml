@@ -247,6 +247,8 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
+    form_display_mode: default
     type: entity_reference_autocomplete
   path:
     type: path

@@ -130,26 +130,31 @@
 
   &--3 {
     .block-description--text {
-      h4 {
+      border-top: 1px solid $darker-grey;
+      border-bottom: 1px solid $darker-grey;
+
+      .field-branch-am,
+      .field-sb-body {
+        padding: 15px 0;
+      }
+      .field-sb-link {
+        display: block;
+        width: 100%;
+      }
+
+      h2 {
         @include cachet();
+        margin-top: 0px;
         font-size: 22px;
         color: $default-grey;
         text-align: left;
       }
-
-      .field-sb-body {
-        color: $darker-grey;
-      }
+      border-top: 1px solid $darker-grey;
+      border-bottom: 1px solid $darker-grey;
       @media (min-width: $screen-tablet){
         width: calc(100% / 3 - 30px);
         position: relative;
-        .block-share {
-          margin: 0 0 20px 0;
-        }
-        .field-sb-link a {
-          position: absolute;
-          bottom:10px;
-        }
+        margin-bottom: 10px;
       }
     }
 
