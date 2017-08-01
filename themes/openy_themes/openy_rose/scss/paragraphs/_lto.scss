@@ -8,7 +8,7 @@
     color: $white;
     font-size: 36px;
 
-    @include breakpoint(mobileonly) {
+    @media (max-width: $screen-phone) {
       margin: 0 0 0 10px;
       font-size: 24px;
     }
@@ -28,7 +28,7 @@
       padding-bottom: 14px;
 
     }
-    @include breakpoint(mobileonly) {
+    @media (max-width: $screen-phone) {
       margin: 0 0 0 10px;
       font-size: 18px;
     }

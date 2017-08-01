@@ -15,11 +15,33 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: branch_3c
+      id: branch_3c_1
+      parent_id: 1
       title: ''
-      left: 14
-      center: 12
-      right: 13
+      left: branch_amenities
+      center: branch_center_member
+      right: branch_right_schedules
+    -
+      id: branch_3c_2
+      parent_id: 2
+      title: ''
+      left: branch_amenities
+      center: branch_center_member
+      right: branch_right_schedules
+    -
+      id: branch_3c_3
+      parent_id: 3
+      title: ''
+      left: branch_amenities
+      center: branch_center_member
+      right: branch_right_schedules
+    -
+      id: branch_3c_4
+      parent_id: 4
+      title: ''
+      left: branch_amenities
+      center: branch_center_member
+      right: branch_right_schedules
   ids:
     id:
       type: string
@@ -40,9 +62,14 @@ process:
       plugin: migration
       migration: openy_demo_block_content_simple_block
       source: center
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_branch
+    no_stub: true
 destination:
   plugin: 'entity:paragraph'
   default_bundle: 3c
 migration_dependencies:
   required:
     - openy_demo_block_content_simple_block
+    - openy_demo_block_content_amenities_block

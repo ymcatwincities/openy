@@ -2,14 +2,14 @@ name: 'OpenY Block Custom Simple'
 description: 'Implements simple block with a body.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
-  - drupal:block_content
-  - drupal:content_translation
-  - entity_browser_patched:entity_browser
-  - drupal:field
-  - drupal:language
-  - drupal:link
-  - media_entity:media_entity
-  - openy:openy_block
-  - drupal:text
-version: 8.x-1.2
+  - block_content
+  - content_translation
+  - entity_browser
+  - field
+  - language
+  - link
+  - media_entity
+  - openy_block
+  - text

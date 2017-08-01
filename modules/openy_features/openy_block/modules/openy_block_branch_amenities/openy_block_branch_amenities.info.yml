@@ -4,9 +4,9 @@ type: module
 core: 8.x
 package: OpenY
 dependencies:
-  - drupal:block_content
-  - custom_formatters:custom_formatters
-  - drupal:field
-  - drupal:language
-  - drupal:link
-  - openy:openy_block
+  - block_content
+  - custom_formatters
+  - field
+  - language
+  - link
+  - openy_block

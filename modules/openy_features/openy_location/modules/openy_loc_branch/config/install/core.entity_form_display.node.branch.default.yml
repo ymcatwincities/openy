@@ -197,14 +197,6 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
-  field_location_amenities:
-    weight: 26
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
   field_location_email:
     weight: 16
     settings:
@@ -248,6 +240,14 @@ content:
     third_party_settings: {  }
     type: metatag_firehose
     region: content
+  field_location_amenities:
+    weight: 28
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
   path:
     type: path
     weight: 10

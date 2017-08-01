@@ -25,9 +25,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    settings: {  }
-    third_party_settings: {  }
 hidden: {  }

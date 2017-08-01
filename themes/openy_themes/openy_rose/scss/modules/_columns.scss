@@ -16,7 +16,7 @@
   .block-description--text {
     h4 {
       @include cachet();
-      font-size: 20px;
+      font-size: 22px;
       color: $default-grey;
       text-align: left;
     }
@@ -39,7 +39,7 @@
       font-size: 14px;
       padding-left: 20px;
       padding-right: 20px;
-      @include breakpoint(tablet) {
+      @include breakpoint('tablet') {
         font-size: 20px;
       }
     }
@@ -99,7 +99,7 @@
 
 .node--type-landing {
   .content-sidebar-region {
-    @include breakpoint(tablet) {
+    @media (min-width: $screen-tablet) {
       margin-top: 25px;
     }
   }

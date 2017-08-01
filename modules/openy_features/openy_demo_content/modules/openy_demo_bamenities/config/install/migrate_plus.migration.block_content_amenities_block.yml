@@ -10,15 +10,15 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: 14
+      id: branch_amenities
       code:
       description: 'Amenities in Branch'
       title: 'Branch Amenities'
       link_url: 'internal:/amenities'
-      link_title: 'See More'
+      link_title: 'See all amenities'
   ids:
     id:
-      type: integer
+      type: string
 process:
   langcode:
     plugin: default_value

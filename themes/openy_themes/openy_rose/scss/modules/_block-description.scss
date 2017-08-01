@@ -8,7 +8,7 @@
     padding: 12px 0;
     width: calc(100% - 15px);
 
-    @include breakpoint(tablet) {
+    @media (min-width: $screen-tablet) {
       margin: 0 15px;
       padding: 24px 0;
     }
@@ -39,7 +39,7 @@
       margin: 0 0 10px;
       vertical-align: middle;
 
-      @include breakpoint(tablet) {
+      @media (min-width: $screen-tablet) {
         font-size: 36px;
         line-height: lh(40, 36);
       }
@@ -54,12 +54,12 @@
       max-width: 24px;
       float: left;
       width: auto;
-      @include breakpoint(tablet) {
+      @media (min-width: $screen-tablet) {
         font-size: 26px;
         max-height: 26px;
         max-width: 26px;
       }
-      @include breakpoint(laptop) {
+      @media (min-width: $screen-desktop) {
         font-size: 30px;
         max-height: 30px;
         max-width: 30px;
@@ -75,11 +75,11 @@
         max-height: 24px;
         max-width: 24px;
         width: auto;
-        @include breakpoint(tablet) {
+        @media (min-width: $screen-tablet) {
           max-height: 28px;
           max-width: 28px;
         }
-        @include breakpoint(laptop) {
+        @media (min-width: $screen-desktop) {
           max-height: 35px;
           max-width: 35px;
         }
@@ -91,7 +91,7 @@
       line-height: lh(20, 13);
       margin: 0;
 
-      @include breakpoint(tablet){
+      @media (min-width: $screen-tablet){
         font-size: 15px;
         line-height: lh(22, 15);
       }
@@ -107,7 +107,7 @@
 
 
     .field-sb-body {
-      @include breakpoint(tablet) {
+      @media (min-width: $screen-tablet) {
         font-size: 15px;
         line-height: lh(22, 15);
       }
@@ -122,7 +122,7 @@
       &:nth-child(2) {
         margin-right: 0;
       }
-      @include breakpoint(tablet) {
+      @media (min-width: $screen-tablet) {
         width: calc(100% / 2 - 15px);
       }
     }
@@ -130,7 +130,17 @@
 
   &--3 {
     .block-description--text {
-      @include breakpoint(tablet){
+      h4 {
+        @include cachet();
+        font-size: 22px;
+        color: $default-grey;
+        text-align: left;
+      }
+
+      .field-sb-body {
+        color: $darker-grey;
+      }
+      @media (min-width: $screen-tablet){
         width: calc(100% / 3 - 30px);
         position: relative;
         .block-share {
@@ -147,17 +157,17 @@
 
   &--4 {
     display: block;
-    @include breakpoint(tablet) {
+    @media (min-width: $screen-tablet) {
       display: flex;
     }
-    @include breakpoint(tablet) {
+    @media (min-width: $screen-tablet) {
       .wrapper {
         display: flex;
         flex-wrap: wrap;
       }
     }
     .block-description--text {
-      @include breakpoint(tablet) {
+      @media (min-width: $screen-tablet) {
         width: calc(100% / 4 - 30px);
       }
     }

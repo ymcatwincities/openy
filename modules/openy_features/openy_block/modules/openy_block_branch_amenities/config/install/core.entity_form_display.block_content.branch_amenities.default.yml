@@ -34,10 +34,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 3
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   field_branch_am: true

@@ -43,7 +43,7 @@ source:
         - 26
       content_ids:
         -
-          content_id: openy_demo_prgf_3c_branch
+          content_id: branch_3c_1
         -
           content_id: blog_branch_1
         -
@@ -80,7 +80,7 @@ source:
         - 24
       content_ids:
         -
-          content_id: openy_demo_prgf_3c_branch
+          content_id: branch_3c_2
         -
           content_id: blog_branch_2
         -
@@ -124,7 +124,7 @@ source:
       - 26
       content_ids:
         -
-          content_id: openy_demo_prgf_3c_branch
+          content_id: branch_3c_3
         -
           content_id: blog_branch_3
         -
@@ -155,7 +155,7 @@ source:
         - 22
       content_ids:
         -
-          content_id: openy_demo_prgf_3c_branch
+          content_id: branch_3c_4
         -
           content_id: blog_branch_4
         -

@@ -7,7 +7,7 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: 12
+      id: branch_center_member
       code:
       description: 'Become a Member in Branch'
       title: 'Become a Member'
@@ -19,12 +19,12 @@ source:
       link_url: 'internal:/join'
       link_title: 'Join the Y'
     -
-      id: 13
+      id: branch_right_schedules
       code:
       description: 'Schedules in Branch'
       title: 'Schedules'
       icon_class: 'info'
-      body:  |
+      body: |
         <h2>Classes and Activities for the branch:</h2>
         <ul>
           <li>Lap Swim</li>
@@ -35,7 +35,7 @@ source:
         </ul>
   ids:
     id:
-      type: integer
+      type: string
 process:
   langcode:
     plugin: default_value
@@ -51,8 +51,8 @@ process:
   info: description
   field_sb_title: title
   field_icon_class: icon_class
-  field_block_content/value: body
-  field_block_content/format:
+  field_sb_body/value: body
+  field_sb_body/format:
     plugin: default_value
     default_value: full_html
   field_sb_link/uri: link_url

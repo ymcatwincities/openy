@@ -11,12 +11,12 @@
       }
       tr:nth-child(odd) {
         td {
-          background-color: $green;
+          background-color: $green-aa;
         }
       }
       tr:nth-child(even) {
         td {
-          background-color: $dark-green;
+          background-color: $dark-green-aa;
         }
       }
     }
@@ -49,7 +49,7 @@
     overflow: hidden;
     svg {
       * {
-        fill: $dark-green;
+        fill: $dark-green-aa;
       }
     }
   }
@@ -65,17 +65,17 @@
         -webkit-columns: 2;
         -moz-columns: 2;
         columns: 2;
-        @include breakpoint(mobileonly) {
+        @media (max-width: $screen-phone) {
           -webkit-columns: 1;
           -moz-columns: 1;
           columns: 1;
         }
-        @include breakpoint(tablet) {
+        @media (min-width: $screen-tablet) {
           -webkit-columns: 2;
           -moz-columns: 2;
           columns: 2;
         }
-        @include breakpoint(laptop) {
+        @media (min-width: $screen-desktop) {
           -webkit-columns: 4;
           -moz-columns: 4;
           columns: 4;
@@ -87,7 +87,7 @@
 
         }
         .field-amenities-icon {
-          padding: 0;
+          padding: 2px;
           width: 30px;
           height: 30px;
           margin: 0 4px;
@@ -97,17 +97,20 @@
             vertical-align: middle;
           }
           .term-name {
-            @include breakpoint(mobileonly) {
+            @media (max-width: $screen-phone) {
               width: auto;
+              
+              font-weight: bold;
             }
-            @include breakpoint(tablet) {
+            @media (min-width: $screen-tablet) {
               width: auto;
+              font-weight: normal;
             }
 
-            @include breakpoint(laptop) {
+            @media (min-width: $screen-desktop) {
               width: 155px;
             }
-            @include breakpoint(desktop) {
+            @media (min-width: $screen-lg-desktop) {
               width: auto;
             }
           }
@@ -116,7 +119,7 @@
             svg {
               * {
                 fill: $blue;
-                color: $green;
+                color: $green-aa;
               }
             }
           }

@@ -4520,6 +4520,33 @@ html.js .branch__updates_queue__button {
   padding: 20px 15px;
 }
 
+.field-prgf-title,
+.field-prgf-nu-title,
+.field-prgf-whay-title,
+.field-prgf-fc-title {
+  text-align: center;
+  width: 100%;
+  clear: both;
+}
+.field-prgf-title h2,
+.field-prgf-nu-title h2,
+.field-prgf-whay-title h2,
+.field-prgf-fc-title h2 {
+  font-weight: 600;
+  line-height: lh(30, 26);
+  color: #636466;
+  font-size: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.field-prgf-title.mobile h2,
+.field-prgf-nu-title.mobile h2,
+.field-prgf-whay-title.mobile h2,
+.field-prgf-fc-title.mobile h2 {
+  font-size: 28px;
+  margin-bottom: -15px;
+}
+
 #schedules-search-form-wrapper .controls-wrapper {
   padding-top: 9px;
   padding-bottom: 9px;
@@ -5933,12 +5960,12 @@ html.js .flag-waiting .flag-throbber {
   float: left;
   line-height: 40px;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .wrapper-field-menu-block-links .field-menu-block-links {
     line-height: 50px;
   }
 }
-@media (min-width: desktop) {
+@media (min-width: 1200px) {
   .wrapper-field-menu-block-links .field-menu-block-links {
     line-height: 55px;
   }
@@ -5951,14 +5978,14 @@ html.js .flag-waiting .flag-throbber {
   line-height: 40px;
   padding: 10px 15px 15px 15px;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .wrapper-field-menu-block-links .field-menu-block-links a {
     line-height: 50px;
     font-size: 16px;
     padding: 10px 20px 20px 20px;
   }
 }
-@media (min-width: desktop) {
+@media (min-width: 1200px) {
   .wrapper-field-menu-block-links .field-menu-block-links a {
     line-height: 55px;
     font-size: 20px;
@@ -5974,7 +6001,7 @@ html.js .flag-waiting .flag-throbber {
   padding: 12px 0;
   width: calc(100% - 15px);
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--text {
     margin: 0 15px;
     padding: 24px 0;
@@ -6011,7 +6038,7 @@ html.js .flag-waiting .flag-throbber {
   margin: 0 0 10px;
   vertical-align: middle;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--text h4 {
     font-size: 36px;
     line-height: lh(40, 36);
@@ -6027,14 +6054,14 @@ html.js .flag-waiting .flag-throbber {
   float: left;
   width: auto;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--text .fa {
     font-size: 26px;
     max-height: 26px;
     max-width: 26px;
   }
 }
-@media (min-width: laptop) {
+@media (min-width: 992px) {
   .block-description--text .fa {
     font-size: 30px;
     max-height: 30px;
@@ -6052,13 +6079,13 @@ html.js .flag-waiting .flag-throbber {
   max-width: 24px;
   width: auto;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--text .field-icon img {
     max-height: 28px;
     max-width: 28px;
   }
 }
-@media (min-width: laptop) {
+@media (min-width: 992px) {
   .block-description--text .field-icon img {
     max-height: 35px;
     max-width: 35px;
@@ -6069,7 +6096,7 @@ html.js .flag-waiting .flag-throbber {
   line-height: lh(20, 13);
   margin: 0;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--text p {
     font-size: 15px;
     line-height: lh(22, 15);
@@ -6094,7 +6121,7 @@ html.js .flag-waiting .flag-throbber {
   line-height: inherit;
   padding: 0 0 0 2px;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--text .field-sb-body {
     font-size: 15px;
     line-height: lh(22, 15);
@@ -6106,12 +6133,21 @@ html.js .flag-waiting .flag-throbber {
 .block-description--2 .block-description--text:nth-child(2) {
   margin-right: 0;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--2 .block-description--text {
     width: calc(100% / 2 - 15px);
   }
 }
-@media (min-width: tablet) {
+.block-description--3 .block-description--text h4 {
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-size: 22px;
+  color: #636466;
+  text-align: left;
+}
+.block-description--3 .block-description--text .field-sb-body {
+  color: #333333;
+}
+@media (min-width: 768px) {
   .block-description--3 .block-description--text {
     width: calc(100% / 3 - 30px);
     position: relative;
@@ -6127,18 +6163,18 @@ html.js .flag-waiting .flag-throbber {
 .block-description--4 {
   display: block;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--4 {
     display: flex;
   }
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--4 .wrapper {
     display: flex;
     flex-wrap: wrap;
   }
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .block-description--4 .block-description--text {
     width: calc(100% / 4 - 30px);
   }
@@ -6186,7 +6222,7 @@ html.js .flag-waiting .flag-throbber {
 }
 .block-description--4 .block-description--text h4 {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   color: #636466;
   text-align: left;
 }
@@ -6257,7 +6293,7 @@ html.js .flag-waiting .flag-throbber {
   bottom: -15px;
 }
 
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .node--type-landing .content-sidebar-region {
     margin-top: 25px;
   }
@@ -6290,7 +6326,7 @@ article .node--view-mode-flexible-content h2 a span {
   text-align: center;
   text-transform: uppercase;
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .paragraph-1c-wrapper .field-prgf-1c-title {
     font-size: 40px;
   }
@@ -6305,7 +6341,7 @@ article .node--view-mode-flexible-content h2 a span {
   margin: 0 0 5px;
 }
 
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .node--type-landing .field-landing-body > .paragraph-1c-wrapper {
     margin-top: 25px;
     margin-bottom: 25px;
@@ -6323,10 +6359,10 @@ article .node--view-mode-flexible-content h2 a span {
   padding: 7px 10px;
 }
 .paragraph--type--all-amenities .field-field-prgf-amnts-view table tr:nth-child(odd) td {
-  background-color: #20bdbe;
+  background-color: #008485;
 }
 .paragraph--type--all-amenities .field-field-prgf-amnts-view table tr:nth-child(even) td {
-  background-color: #006b6b;
+  background-color: #007677;
 }
 .paragraph--type--all-amenities .field-field-prgf-amnts-view .views-field-title {
   font-size: 16px;
@@ -6353,7 +6389,7 @@ article .node--view-mode-flexible-content h2 a span {
   overflow: hidden;
 }
 .paragraph--type--all-amenities .field-amenities-icon svg * {
-  fill: #006b6b;
+  fill: #007677;
 }
 .paragraph--type--all-amenities .views-element-container {
   margin: 0 15px 40px;
@@ -6369,21 +6405,21 @@ article .node--view-mode-flexible-content h2 a span {
   -moz-columns: 2;
   columns: 2;
 }
-@media (min-width: mobileonly) {
+@media (max-width: 480px) {
   .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
     -webkit-columns: 1;
     -moz-columns: 1;
     columns: 1;
   }
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
     -webkit-columns: 2;
     -moz-columns: 2;
     columns: 2;
   }
 }
-@media (min-width: laptop) {
+@media (min-width: 992px) {
   .paragraph--type--all-amenities .views-element-container form .webform-options-display-one-column.form-checkboxes {
     -webkit-columns: 4;
     -moz-columns: 4;
@@ -6394,7 +6430,7 @@ article .node--view-mode-flexible-content h2 a span {
   margin: 0 0 5px;
 }
 .paragraph--type--all-amenities .views-element-container form .form-item .field-amenities-icon {
-  padding: 0;
+  padding: 2px;
   width: 30px;
   height: 30px;
   margin: 0 4px;
@@ -6402,22 +6438,24 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--all-amenities .views-element-container form .form-item label .field-amenities-icon-wrapper {
   vertical-align: middle;
 }
-@media (min-width: mobileonly) {
+@media (max-width: 480px) {
   .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
     width: auto;
+    font-weight: bold;
   }
 }
-@media (min-width: tablet) {
+@media (min-width: 768px) {
   .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
     width: auto;
+    font-weight: normal;
   }
 }
-@media (min-width: laptop) {
+@media (min-width: 992px) {
   .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
     width: 155px;
   }
 }
-@media (min-width: desktop) {
+@media (min-width: 1200px) {
   .paragraph--type--all-amenities .views-element-container form .form-item label .term-name {
     width: auto;
   }
@@ -6427,7 +6465,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .paragraph--type--all-amenities .views-element-container form .form-item label div svg * {
   fill: #0089d0;
-  color: #20bdbe;
+  color: #008485;
 }
 .paragraph--type--all-amenities .views-field-field-location-amenities .term-name {
   display: none;
@@ -6448,7 +6486,7 @@ article .node--view-mode-flexible-content h2 a span {
   color: #fff;
   font-size: 36px;
 }
-@media (min-width: mobileonly) {
+@media (max-width: 480px) {
   .paragraph--type--lto .field-lto-title {
     margin: 0 0 0 10px;
     font-size: 24px;
@@ -6474,7 +6512,7 @@ article .node--view-mode-flexible-content h2 a span {
     padding-bottom: 14px;
   }
 }
-@media (min-width: mobileonly) {
+@media (max-width: 480px) {
   .paragraph--type--lto .field-lto-subtitle {
     margin: 0 0 0 10px;
     font-size: 18px;

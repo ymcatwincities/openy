@@ -11,107 +11,107 @@ source:
     -
       id: 1
       term_name: Adaptive programs
-      file: 1
+      file: adaptive-programs
     -
       id: 2
       term_name: Adult enrichment programs
-      file: 2
+      file: adult-enrichment
     -
       id: 3
       term_name: After school child care
-      file: 3
+      file: after-school
     -
       id: 4
       term_name: Child watch
-      file: 4
+      file: child-watch
     -
       id: 5
       term_name: Community garden
-      file: 8
+      file: gardening
     -
       id: 6
       term_name: Community health
-      file: 5
+      file: community-health
     -
       id: 7
       term_name: Day camp
-      file: 6
+      file: day-camp
     -
       id: 8
       term_name: Family pool/splash pad
-      file: 7
+      file: family-pool
     -
       id: 9
       term_name: Group exercise classes
-      file: 9
+      file: group-exercise
     -
       id: 10
       term_name: Gymnasium
-      file: 10
+      file: gymnasium
     -
       id: 11
       term_name: Hot tub
-      file: 16
+      file: hot-tub
     -
       id: 12
       term_name: Indoor pool
-      file: 17
+      file: indoor-pool
     -
       id: 13
       term_name: Indoor track
-      file: 18
+      file: indoor-track
     -
       id: 14
       term_name: Meeting rooms
-      file: 19
+      file: meeting-room
     -
       id: 15
       term_name: Outdoor pool
-      file: 20
+      file: outdoor-pool
     -
       id: 16
       term_name: Outdoor track
-      file: 21
+      file: outdoor-track
     -
       id: 17
       term_name: Personal training
-      file: 22
+      file: personal-training
     -
       id: 18
       term_name: Playground
-      file: 23
+      file: playground
     -
       id: 19
       term_name: Racquetball/handball courts
-      file: 24
+      file: racquetball
     -
       id: 20
       term_name: Sauna
-      file: 26
+      file: sauna
     -
       id: 21
       term_name: Steam room
-      file: 27
+      file: steam-room
     -
       id: 22
       term_name: Strength/cardio equipment
-      file: 28
+      file: strength-equipment
     -
       id: 23
       term_name: Swim lessons
-      file: 29
+      file: swim-lessons
     -
       id: 24
       term_name: Teen programs
-      file: 30
+      file: teen-programs
     -
       id: 25
       term_name: YMCA children’s academy
-      file: 13
+      file: childrens-academy
     -
       id: 26
       term_name: Youth enrichment
-      file: 31
+      file: youth-enrichment
   ids:
     id:
       type: integer
@@ -132,5 +132,6 @@ destination:
   plugin: 'entity:taxonomy_term'
   default_bundle: amenities
 migration_dependencies:
-  required: {  }
+  required:
+      - openy_demo_amenities_file
   optional: {  }

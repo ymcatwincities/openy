@@ -7,7 +7,7 @@
     color: $default-grey;
     text-align: center;
     text-transform: uppercase;
-    @include breakpoint(tablet) {
+    @media (min-width: $screen-tablet) {
       font-size: 40px;
     }
   }
@@ -25,7 +25,7 @@
 
 .node--type-landing {
   .field-landing-body > .paragraph-1c-wrapper {
-    @include breakpoint('tablet') {
+    @media (min-width: $screen-tablet) {
       margin-top: 25px;
       margin-bottom: 25px;
     }
