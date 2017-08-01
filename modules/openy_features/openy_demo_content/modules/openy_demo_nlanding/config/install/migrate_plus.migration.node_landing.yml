@@ -41,10 +41,14 @@ source:
       alias: '/give'
       header_content_ids:
         -
+          header_content_id: give_microsites_menu
+        -
           header_content_id: give_gallery
       content_ids:
         -
           content_id: give_featured_content
+        -
+          content_id: give_microsites_menu
     -
       id: blog
       title: 'Blog'
@@ -194,6 +198,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
+          - openy_demo_lp_paragraph_microsites_menu
         source: header_content_id
       target_revision_id:
         plugin: migration
@@ -204,6 +209,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
           - openy_demo_lp_paragraph_schedule_search_form
           - openy_demo_lp_paragraph_menu_camp
+          - openy_demo_lp_paragraph_microsites_menu
         source: header_content_id
   field_content:
     plugin: iterator
@@ -271,5 +277,6 @@ migration_dependencies:
     - openy_demo_landing_paragraph_branches_popup_all
     - openy_demo_lp_paragraph_embedded_groupexpro_schedule
     - openy_demo_lp_paragraph_group_schedules
+    - openy_demo_lp_paragraph_microsites_menu
   optional:
     - openy_demo_node_blog

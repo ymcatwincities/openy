@@ -348,9 +348,9 @@ class GroupexFormFull extends GroupexFormBase {
       '#default_value' => $filter_date_default,
     ];
 
-    $form['results'] = [
+    $form['result'] = [
       '#prefix' => '</div><div class="groupex-results">',
-      '#results' => $formatted_results,
+      'results' => $formatted_results,
       '#suffix' => '</div>',
       '#weight' => 10,
     ];
