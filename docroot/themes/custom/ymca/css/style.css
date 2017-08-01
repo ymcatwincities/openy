@@ -2388,9 +2388,14 @@ a.ms-brand:hover {
 }
 
 .page-middle .content {
-  padding-top: 40px;
+  padding-top: 10px;
   padding-bottom: 30px;
   background: white;
+}
+@media (min-width: 768px) {
+  .page-middle .content {
+    padding-top: 40px;
+  }
 }
 
 .panel-subnav > .panel-heading, .panel-group-ex > .panel-heading {
@@ -5663,12 +5668,19 @@ a.wrapper:hover {
   }
 
   .lead-copy, .home-template .lead-copy {
-    padding-top: 30px;
+    padding-top: 10px;
     padding-right: 0;
     padding-bottom: 20px;
     padding-left: 0;
   }
+}
+@media (max-width: 767px) and (min-width: 768px) {
+  .lead-copy, .home-template .lead-copy {
+    padding-top: 30px;
+  }
+}
 
+@media (max-width: 767px) {
   .lead-copy:before, .page-footer:before {
     display: none;
   }
@@ -8624,6 +8636,7 @@ span.grey-caret:after {
 .mobile-subnav {
   background-color: #343434;
   display: none;
+  margin-bottom: 0;
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
   .mobile-subnav {
@@ -8722,7 +8735,7 @@ span.grey-caret:after {
 
   #nav-location {
     position: relative;
-    margin-top: -30px;
+    margin-top: -15px;
     top: 0;
     height: auto;
   }
@@ -10997,7 +11010,7 @@ tr:nth-last-child(3) .atcb-list {
 .block-description--text {
   background-color: #f8f8f8;
   border-top: 2px solid #c6168d;
-  box-shadow: 5px 5px 10px #ececec;
+  box-shadow: 0px 0px 15px #d8d8d8;
   padding: 30px 25px;
   margin-top: 10px;
   width: 100%;
@@ -11104,6 +11117,7 @@ tr:nth-last-child(3) .atcb-list {
   font-size: 15px;
   line-height: 1.46667;
   margin: 0;
+  color: #424242;
 }
 .block-description--text .content {
   margin: 0 0 10px 0;
@@ -11183,8 +11197,12 @@ tr:nth-last-child(3) .atcb-list {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
     position: absolute;
+    height: 100%;
     right: 0;
     width: calc(50% + 132px);
+  }
+  .banner-image * {
+    height: 100%;
   }
 }
 @media (min-width: 75em) {
@@ -11193,13 +11211,10 @@ tr:nth-last-child(3) .atcb-list {
   }
 }
 .banner-image img {
-  width: 100% !important;
+  max-height: 100%;
+  width: auto;
   height: auto !important;
-}
-@media (min-width: 48em) {
-  .banner-image img {
-    width: 120% !important;
-  }
+  max-width: none;
 }
 .banner-cta-section {
   padding-bottom: 18px;
@@ -11286,12 +11301,12 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 62em) {
   .banner--small .banner-image {
-    width: calc(50% - 122px);
+    width: calc(50% - 65px);
   }
 }
 @media (min-width: 75em) {
   .banner--small .banner-image {
-    width: calc(50% - 195px);
+    width: calc(50% - 70px);
   }
 }
 .banner--small .banner-cta-section {
@@ -11312,6 +11327,77 @@ tr:nth-last-child(3) .atcb-list {
 }
 .banner--small.color-assigned {
   background: none;
+}
+
+.content-banner {
+  background: #f8f8f8;
+  box-shadow: 0px 0px 15px #d8d8d8;
+  margin: 40px 0;
+}
+.content-banner.page-title:before {
+  background: #f8f8f8;
+}
+.content-banner .banner-title {
+  color: #424242;
+  font-size: 30px;
+  margin: 0 25px 15px;
+}
+@media (min-width: 768px) {
+  .content-banner .banner-title {
+    margin: 0 45px 15px;
+  }
+}
+.content-banner .richtext {
+  padding: 0 25px 0;
+  color: #424242;
+  font-size: 15px;
+  line-height: 20px;
+}
+@media (min-width: 768px) {
+  .content-banner .richtext {
+    padding: 0 45px 0;
+  }
+}
+.content-banner .richtext p {
+  font-size: 15px;
+  line-height: 20px;
+}
+.content-banner .content-prgf-image {
+  position: relative;
+  right: inherit;
+  left: auto;
+  margin-right: -30px;
+  margin-left: 0;
+  padding: 0;
+  height: 100%;
+}
+@media (min-width: 768px) {
+  .content-banner .content-prgf-image {
+    position: absolute;
+    left: 50%;
+    padding-right: 30px;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+@media (min-width: 1200px) {
+  .content-banner .content-prgf-image {
+    padding-right: 100px;
+  }
+}
+.content-banner .content-prgf-image figure {
+  position: relative;
+  overflow: hidden;
+  margin: 0 -30px 0 -20px;
+  padding: 0;
+  height: 100%;
+}
+@media (min-width: 1200px) {
+  .content-banner .content-prgf-image figure {
+    margin-right: -100px;
+  }
 }
 
 .paragraph--type--sidebar-menu {
