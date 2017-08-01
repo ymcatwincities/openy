@@ -1,7 +1,7 @@
 entity.openy_digital_signage_screen.collection:
   title: 'Screens'
   route_name: entity.openy_digital_signage_screen.collection
-  description: 'List Digital Signage Screen entities'
+  description: 'List Digital Signage Screens'
   parent: system.admin_openy_digital_signage
   weight: 100
 
