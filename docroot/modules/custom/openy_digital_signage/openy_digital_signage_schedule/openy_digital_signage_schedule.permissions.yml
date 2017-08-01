@@ -1,40 +1,40 @@
 add OpenY Digital Signage Schedule entities:
-  title: 'Create new Digital Signage Schedule entities'
+  title: 'Create new Digital Signage Schedule'
 
 administer OpenY Digital Signage Schedule entities:
-  title: 'Administer Digital Signage Schedule entities'
-  description: 'Allow to access the administration form to configure Digital Signage Schedule entities.'
+  title: 'Administer Digital Signage Schedule'
+  description: 'Allow to access the administration form to configure Digital Signage Schedule.'
   restrict access: true
 
 delete OpenY Digital Signage Schedule entities:
-  title: 'Delete Digital Signage Schedule entities'
+  title: 'Delete Digital Signage Schedule'
 
 edit OpenY Digital Signage Schedule entities:
-  title: 'Edit Digital Signage Schedule entities'
+  title: 'Edit Digital Signage Schedule'
 
 access OpenY Digital Signage Schedule overview:
   title: 'Access the Digital Signage Schedule overview page'
 
 view OpenY Digital Signage Schedule entities:
-  title: 'View Digital Signage Schedule entities'
+  title: 'View Digital Signage Schedule'
 
 
 add OpenY Digital Signage Schedule Item entities:
-  title: 'Create new Digital Signage Schedule Item entities'
+  title: 'Create new Digital Signage Schedule Item'
 
 administer OpenY Digital Signage Schedule Item entities:
-  title: 'Administer Digital Signage Schedule Item entities'
+  title: 'Administer Digital Signage Schedule Item'
   description: 'Allow to access the administration form to configure Digital Signage Schedule Item entities.'
   restrict access: true
 
 delete OpenY Digital Signage Schedule Item entities:
-  title: 'Delete Digital Signage Schedule Item entities'
+  title: 'Delete Digital Signage Schedule Item'
 
 edit OpenY Digital Signage Schedule Item entities:
-  title: 'Edit Digital Signage Schedule Item entities'
+  title: 'Edit Digital Signage Schedule Item'
 
 access OpenY Digital Signage Schedule Item overview:
   title: 'Access the Digital Signage Schedule Item overview page'
 
 view OpenY Digital Signage Schedule Item entities:
-  title: 'View Digital Signage Schedule Item entities'
+  title: 'View Digital Signage Schedule Item'
