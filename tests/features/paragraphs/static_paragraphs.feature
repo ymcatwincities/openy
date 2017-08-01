@@ -10,6 +10,22 @@ Feature: Static Paragraphs
       | gallery_image_01 | Gallery Image 01 | gallery_01.png    |
       | gallery_image_02 | Gallery Image 02 | gallery_02.png    |
       | story_image_01   | Story Image O1   | story_01.png      |
+    And I create large block_content of type simple_block:
+      | KEY                                | behat_menu_block_01      |
+      | info                               | BEHAT MENU BLOCK 01      |
+      | field_menu_block_links:uri         | http://openymca.org      |
+      | :title                             | Behat menu block link 01 |
+      | field_menu_block_text_color:value1 | Blue                     |
+      | :value2                            | Blue                     |
+      | field_menu_block_text_color        | 1                        |
+    And I create large block_content of type flexible_content:
+      | KEY                                | behat_menu_block_01      |
+      | info                               | BEHAT MENU BLOCK 01      |
+      | field_menu_block_links:uri         | http://openymca.org      |
+      | :title                             | Behat menu block link 01 |
+      | field_menu_block_text_color:value1 | Blue                     |
+      | :value2                            | Blue                     |
+      | field_menu_block_text_color        | 1                        |
     And I create taxonomy_term of type color:
       | KEY     | name          | field_color |
       | green   | Behat Green   | 00FF00      |
@@ -68,6 +84,12 @@ Feature: Static Paragraphs
       | field_prgf_image       | story_image_01         |
       | field_prgf_link:uri    | internal:/test         |
       | :title                 | Test link              |
+    And I create large paragraph of type lto:
+      | KEY                    | behat_lto                  |
+      | field_lto_title        | BEHAT MY LTO               |
+      | field_lto_subtitle     | Lorem ipsum dolor sit lto. |
+      | field_lto_link:uri     | internal:/test             |
+      | :title                 | Test link                  |
     And I create landing_page content:
       | KEY                  | title                      | field_lp_layout | field_header_content |
       | landing_small_banner | Behat Landing Small Banner | one_column      | behat_small_banner   |
@@ -78,6 +100,7 @@ Feature: Static Paragraphs
       | KEY            | title                | field_lp_layout | field_content      |
       | landing_grid   | Behat Landing Grid   | one_column      | behat_grid_content |
       | landing_teaser | Behat Landing Teaser | one_column      | behat_teaser       |
+      | landing_lto    | Behat Landing LTO    | one_column      | behat_lto          |
     And I create landing_page content:
       | KEY           | title               | field_lp_layout | field_sidebar_content |
       | landing_promo | Behat Landing Promo | two_column      | behat_promo_card      |
@@ -132,4 +155,10 @@ Feature: Static Paragraphs
     Then I should see the heading "BEHAT MY TEASER"
     And I should see "Lorem ipsum dolor sit."
     And I should see a ".subprogram-listing-item img" element
+    And I should see the link "Test link"
+
+  Scenario: See LTO On Landing Page
+    Given I view node "landing_lto"
+    Then I should see "BEHAT MY LTO"
+    And I should see "Lorem ipsum dolor sit lto."
     And I should see the link "Test link"

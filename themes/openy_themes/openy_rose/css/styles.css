@@ -5978,20 +5978,6 @@ html.js .flag-waiting .flag-throbber {
   line-height: 40px;
   padding: 10px 15px 15px 15px;
 }
-@media (min-width: 768px) {
-  .wrapper-field-menu-block-links .field-menu-block-links a {
-    line-height: 50px;
-    font-size: 16px;
-    padding: 10px 20px 20px 20px;
-  }
-}
-@media (min-width: 1200px) {
-  .wrapper-field-menu-block-links .field-menu-block-links a {
-    line-height: 55px;
-    font-size: 20px;
-    padding: 10px 25px 25px 25px;
-  }
-}
 .wrapper-field-menu-block-links .field-menu-block-links a:hover {
   color: inherit;
   text-decoration: underline;
