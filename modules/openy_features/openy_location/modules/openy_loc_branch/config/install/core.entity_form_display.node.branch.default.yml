@@ -37,7 +37,6 @@ third_party_settings:
         - field_location_phone
         - field_location_fax
         - field_location_email
-        - field_location_amenities
         - field_location_directions
       parent_name: ''
       weight: 1
