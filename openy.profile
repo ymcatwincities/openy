@@ -76,10 +76,10 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_block_microsites_menu',
       ],
       'openy_demo_bsimple' => [
-        'openy_demo_block_content_simple_block',
+        'openy_demo_block_content_simple',
       ],
       'openy_demo_bamenities' => [
-        'openy_demo_block_content_amenities_block',
+        'openy_demo_block_content_amenities',
       ],
     ],
     'alerts' => [

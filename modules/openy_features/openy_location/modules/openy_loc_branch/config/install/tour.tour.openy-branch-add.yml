@@ -30,7 +30,7 @@ tips:
     id: 3-col
     plugin: text
     label: 'Add 3 column paragraph'
-    body: 'In Content area click on "Add 3 columns" [openy_tour:click:edit-field-branch-body-add-more-add-more-button-3c]'
+    body: 'In Content area click on "Add 3 columns" [openy_tour:click:edit-field-content-add-more-add-more-button-3c]'
     weight: 3
     attributes:
       data-id: edit-group-content-area
@@ -38,7 +38,7 @@ tips:
     id: block-type
     plugin: text
     label: 'Select Block type'
-    body: 'Select "Branch Amenities" and press "Add new custom block". [openy_tour:click:edit-field-branch-body-0-subform-field-prgf-3c-left-actions-ief-add]'
+    body: 'Select "Branch Amenities" and press "Add new custom block". [openy_tour:click:edit-field-content-0-subform-field-prgf-3c-left-actions-ief-add]'
     weight: 4
     attributes:
       data-class: 'form-submit[value="Add new custom block"]'

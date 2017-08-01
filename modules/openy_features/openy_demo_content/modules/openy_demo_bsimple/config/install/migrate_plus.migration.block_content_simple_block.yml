@@ -1,4 +1,7 @@
-id: openy_demo_block_content_simple_block
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_block_content_simple
 migration_tags: {  }
 migration_group: openy_demo_simple_block
 label: 'Create simple blocks'
@@ -59,4 +62,3 @@ process:
   field_sb_link/title: link_title
 destination:
   plugin: entity:block_content
-  translations: true
