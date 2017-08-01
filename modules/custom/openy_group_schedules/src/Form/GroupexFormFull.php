@@ -94,25 +94,6 @@ class GroupexFormFull extends GroupexFormBase {
     $query = $this->getRequest()->query->all();
     $request = $this->getRequest()->request->all();
 
-    // Get location options.
-    $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
-
-    // Get classes options.
-    $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
-    $processed_classes_data['any'] = $this->t('-All-');
-    foreach ($raw_classes_data as $key => $class) {
-      $id = str_replace('DESC--[', '', $key);
-      $processed_classes_data[$id] = $class;
-    }
-    $this->classesOptions = $processed_classes_data;
-
-    // Get instructor options.
-    $location_id = isset($query['location']) ? $query['location'] : $request['location'];
-    $this->instructorOptions = ['any' => (string) $this->t('-All-')];
-    $raw_schedule_data = $this->request(['query' => ['schedule' => TRUE, 'location' => $location_id]]);
-    $instructors = $this->getOptions($raw_schedule_data, 'instructor', 'instructor');
-    $this->instructorOptions = array_merge($this->instructorOptions, $instructors);
-
     $state = [
       'location' => isset($query['location']) && is_numeric($query['location']) ? $query['location'] : NULL,
       'class' => isset($query['class']) ? $query['class'] : NULL,
@@ -174,6 +155,9 @@ class GroupexFormFull extends GroupexFormBase {
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
 
+    // Get location options.
+    $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
+
     // Set location if value passed through form builder.
     if (is_numeric($locations)) {
       $state['location'] = $locations;
@@ -226,10 +210,10 @@ class GroupexFormFull extends GroupexFormBase {
     $class_select_classes = $location_select_classes = $classes = 'hidden';
     $location_classes = 'show';
     if (isset($groupex_id) && empty($state['class'])) {
-      $classes = 'show';
+      $classes = $class_select_classes = 'show';
     }
     if (isset($state['location']) && is_numeric($state['location'])) {
-      $location_select_classes = $classes = 'show';
+      $location_select_classes = $classes = $class_select_classes = 'show';
       $location_classes = 'hidden';
     }
     if (isset($site_section)) {
@@ -315,6 +299,17 @@ class GroupexFormFull extends GroupexFormBase {
       '#weight' => -2,
     ];
 
+    // Get classes options.
+    $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
+    $this->classesOptions = ['any' => $this->t('-All-')];
+    $processed_classes_data = [];
+    foreach ($raw_classes_data as $key => $class) {
+      // Remove excess key text & cleanup markup being sent back.
+      $id = str_replace('DESC--[', '', $key);
+      $processed_classes_data[$id] = t($class);
+    }
+    $this->classesOptions = array_merge($this->classesOptions, $processed_classes_data);
+
     $form['class_select'] = [
       '#type' => 'select',
       '#options' => $this->classesOptions,
@@ -334,6 +329,18 @@ class GroupexFormFull extends GroupexFormBase {
         '#weight' => -1,
       ],
     ];
+
+    // Get instructor options.
+    $instructors_location = isset($values['location_select']) ? $values['location_select'] : $values['location'];
+    $instructors_query = !empty($instructors_location) && $instructors_location != 'any' ? ['schedule' => TRUE, 'location' => $location] : ['schedule' => TRUE];
+    $this->instructorOptions = ['any' => (string) $this->t('-All-')];
+    $raw_schedule_data = $this->request(['query' => $instructors_query]);
+    $instructors = $this->getOptions($raw_schedule_data, 'instructor', 'instructor');
+    // Cleanup markup being sent back.
+    array_walk($instructors , function(&$value) {
+      $value = t($value);
+    });
+    $this->instructorOptions = array_merge($this->instructorOptions, $instructors);
 
     $form['instructor_select'] = [
       '#type' => 'select',
@@ -401,6 +408,13 @@ class GroupexFormFull extends GroupexFormBase {
 
     $form['#cache'] = [
       'max-age' => 0,
+      'contexts' => [
+        'url.query_args:location',
+        'url.query_args:filter_date',
+        'url.query_args:class',
+        'url.query_args:filter_length',
+        'url.query_args:groupex_class',
+      ],
     ];
 
     return $form;
