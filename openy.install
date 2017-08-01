@@ -442,6 +442,7 @@ function openy_update_8032() {
 function openy_update_8033() {
   // Enable modules.
   $modules = [
+    'openy_ckeditor',
     'openy_svg_formatter',
     'openy_prgf_lto',
     'openy_editor',

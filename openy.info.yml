@@ -165,6 +165,7 @@ dependencies:
   - openy_group_schedules
   - groupex_form_cache
   - openy_hf
+  - openy_ckeditor
   - openy_hours_formatter
   - openy_migrate
   - openy_map
