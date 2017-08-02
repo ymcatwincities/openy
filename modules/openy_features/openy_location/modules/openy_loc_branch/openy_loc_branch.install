@@ -238,12 +238,7 @@ function openy_loc_branch_update_8009() {
   $config_importer->update(
     $config,
     'core.entity_view_display.node.branch.full',
-    'content.field_bottom_content.weight',
-    'content.field_branch_hours.weight',
-    'content.field_content.weight',
-    'content.field_header_content.weight',
-    'content.field_location_directions',
-    'content.field_location_fax',
+    'content',
     'hidden'
   );
 }
