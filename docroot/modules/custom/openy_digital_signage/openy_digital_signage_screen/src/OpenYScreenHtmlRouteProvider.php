@@ -26,10 +26,6 @@ class OpenYScreenHtmlRouteProvider extends AdminHtmlRouteProvider {
       $collection->add("entity.{$entity_type_id}.collection", $collection_route);
     }
 
-    if ($settings_form_route = $this->getSettingsFormRoute($entity_type)) {
-      $collection->add("$entity_type_id.settings", $settings_form_route);
-    }
-
     // Add screen schedule route.
     $schedule_route = $this->getScheduleRoute($entity_type);
     $collection->add("entity.{$entity_type_id}.schedule", $schedule_route);
@@ -93,32 +89,6 @@ class OpenYScreenHtmlRouteProvider extends AdminHtmlRouteProvider {
     if ($this->getEntityTypeIdKeyType($entity_type) === 'integer') {
       $route->setRequirement($entity_type_id, '\d+');
     }
-
-    return $route;
-  }
-
-  /**
-   * Gets the settings form route.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
-   *   The entity type.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
-    if ($entity_type->getBundleEntityType()) {
-      return;
-    }
-
-    $route = new Route("/admin/digital-signage/screens/settings");
-    $route
-      ->setDefaults([
-        '_form' => 'Drupal\openy_digital_signage_screen\Form\OpenYScreenSettingsForm',
-        '_title' => "{$entity_type->getLabel()} settings",
-      ])
-      ->setRequirement('_permission', $entity_type->getAdminPermission())
-      ->setOption('_admin_route', TRUE);
 
     return $route;
   }
