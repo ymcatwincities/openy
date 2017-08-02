@@ -150,6 +150,7 @@ class GroupexFormFull extends GroupexFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $locations = []) {
     $values = $form_state->getValues();
+    $user_input = $form_state->getUserInput();
     $state = $this->state;
     $formatted_results = NULL;
     $conf = $this->configFactory->get('openy_group_schedules.settings');
@@ -197,6 +198,10 @@ class GroupexFormFull extends GroupexFormBase {
     }
     if (isset($state['filter_date'])) {
       $values['date_select'] = $state['filter_date'];
+    }
+    if (!empty($user_input['class_select'])) {
+      $state['class'] = $user_input['class_select'];
+      $this->state = $state;
     }
 
     $form['#prefix'] = '<div id="groupex-full-form-wrapper">';
@@ -313,7 +318,7 @@ class GroupexFormFull extends GroupexFormBase {
     $form['class_select'] = [
       '#type' => 'select',
       '#options' => $this->classesOptions,
-      '#default_value' => !empty($state['class']) ? $state['class'] : 'all',
+      '#default_value' => !empty($state['class']) ? $state['class'] : 'any',
       '#title' => $this->t('Class:'),
       '#prefix' => '<div id="class-select-wrapper" class="' . $class_select_classes . '">',
       '#suffix' => '</div>',
@@ -510,7 +515,7 @@ class GroupexFormFull extends GroupexFormBase {
       $filter_date == $user_input;
     }
     $class = !empty($values['class_select']) ? $values['class_select'] : 'any';
-    if ($class == 'any' && is_numeric($query['class'])) {
+    if ($class == 'any' && empty($user_input['class_select']) && is_numeric($query['class'])) {
       $class = $query['class'];
     }
 
