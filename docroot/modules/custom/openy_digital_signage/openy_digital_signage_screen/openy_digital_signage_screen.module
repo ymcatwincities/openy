@@ -324,7 +324,7 @@ function openy_digital_signage_screen_entity_operation(EntityInterface $entity) 
     'url' => Url::fromRoute('entity.openy_digital_signage_screen.schedule', [
       'openy_digital_signage_screen' => $entity->id(),
     ]),
-    'weight' => 50,
+    'weight' => -50,
   ];
 
   return $operations;
