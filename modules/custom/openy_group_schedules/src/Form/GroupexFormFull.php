@@ -308,7 +308,7 @@ class GroupexFormFull extends GroupexFormBase {
       $id = str_replace('DESC--[', '', $key);
       $processed_classes_data[$id] = t($class);
     }
-    $this->classesOptions = array_merge($this->classesOptions, $processed_classes_data);
+    $this->classesOptions = $this->classesOptions + $processed_classes_data;
 
     $form['class_select'] = [
       '#type' => 'select',
@@ -340,7 +340,7 @@ class GroupexFormFull extends GroupexFormBase {
     array_walk($instructors , function(&$value) {
       $value = t($value);
     });
-    $this->instructorOptions = array_merge($this->instructorOptions, $instructors);
+    $this->instructorOptions = $this->instructorOptions + $instructors;
 
     $form['instructor_select'] = [
       '#type' => 'select',
