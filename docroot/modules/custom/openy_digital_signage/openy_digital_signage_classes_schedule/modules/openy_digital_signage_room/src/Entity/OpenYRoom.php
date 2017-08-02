@@ -45,7 +45,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "add-form" = "/admin/digital-signage/rooms/add",
  *     "edit-form" = "/admin/digital-signage/rooms/{openy_ds_room}/edit",
  *     "delete-form" = "/admin/digital-signage/rooms/{openy_ds_room}/delete",
- *     "collection" = "/admin/digital-signage/rooms/list",
+ *     "collection" = "/admin/digital-signage/rooms",
  *   },
  *   field_ui_base_route = "openy_ds_room.settings"
  * )
