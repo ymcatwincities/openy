@@ -2,16 +2,36 @@ openy_digital_signage_schedule.new_screen_content_form:
   path: '/ajax/schedule-item/new-screen-content'
   defaults:
     _form: 'Drupal\openy_digital_signage_schedule\Form\NewScreenContentForm'
-    _title: 'New screen content'
+    _title: 'New Screen Content'
   requirements:
     _permission: 'create screen_content content'
 
 openy_digital_signage_schedule.new_screen_content_form_modal:
   path: '/ajax/modal/schedule-item/new-screen-content'
   defaults:
-    _title: 'New screen content'
+    _title: 'New Screen Content'
     _controller: '\Drupal\openy_digital_signage_schedule\Controller\ModalFormController::openModalForm'
   requirements:
     _permission: 'create screen_content content'
+  options:
+    _admin_route: TRUE
+
+openy_digital_signage_schedule.settings:
+  path: '/admin/digital-signage/settings/schedules'
+  defaults:
+    _form: 'Drupal\openy_digital_signage_schedule\Form\OpenYScheduleSettingsForm'
+    _title: 'Schedules Settings'
+  requirements:
+    _permission: 'administer OpenY Digital Signage Schedule entities'
+  options:
+    _admin_route: TRUE
+
+openy_digital_signage_sch_item.settings:
+  path: '/admin/digital-signage/settings/schedule-items'
+  defaults:
+    _form: 'Drupal\openy_digital_signage_schedule\Form\OpenYScheduleItemSettingsForm'
+    _title: 'Schedule Items settings'
+  requirements:
+    _permission: 'administer OpenY Digital Signage Schedule Item entities'
   options:
     _admin_route: TRUE

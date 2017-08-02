@@ -28,10 +28,6 @@ class OpenYClassesSessionHtmlRouteProvider extends AdminHtmlRouteProvider {
       $collection->add("entity.{$entity_type_id}.collection", $collection_route);
     }
 
-    if ($settings_form_route = $this->getSettingsFormRoute($entity_type)) {
-      $collection->add("$entity_type_id.settings", $settings_form_route);
-    }
-
     // Add override route.
     $schedule_route = $this->getOverrideRoute($entity_type);
     $collection->add("entity.{$entity_type_id}.override", $schedule_route);
@@ -61,32 +57,6 @@ class OpenYClassesSessionHtmlRouteProvider extends AdminHtmlRouteProvider {
         '_title' => "{$entity_type->getLabel()} list",
       ])
       ->setRequirement('_permission', 'access Digital Signage Classes Session overview')
-      ->setOption('_admin_route', TRUE);
-
-    return $route;
-  }
-
-  /**
-   * Gets the settings form route.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
-   *   The entity type.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
-    if ($entity_type->getBundleEntityType()) {
-      return NULL;
-    }
-
-    $route = new Route("/admin/digital-signage/classes/settings");
-    $route
-      ->setDefaults([
-        '_form' => 'Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionSettingsForm',
-        '_title' => "{$entity_type->getLabel()} settings",
-      ])
-      ->setRequirement('_permission', $entity_type->getAdminPermission())
       ->setOption('_admin_route', TRUE);
 
     return $route;
