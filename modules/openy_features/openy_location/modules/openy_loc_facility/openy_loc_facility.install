@@ -139,3 +139,19 @@ function openy_loc_facility_update_8006() {
     'rabbit_hole.behavior_settings.taxonomy_vocabulary_facility_type',
   ]);
 }
+
+/**
+ * Show directions in full view mode.
+ */
+function openy_loc_facility_update_8007() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_facility');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.node.facility.full.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.node.facility.full',
+    'content',
+    'hidden'
+  );
+}
