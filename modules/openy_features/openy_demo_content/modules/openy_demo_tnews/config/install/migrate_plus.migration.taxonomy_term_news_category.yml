@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_taxonomy_term_news_category
+migration_tags: {  }
+migration_group: openy_demo_term
+label: 'Create demo news category term(s)'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: Competitions
+    -
+      id: 2
+      name: Community Life
+  ids:
+    id:
+      type: integer
+process:
+  name: name
+  vid:
+    plugin: default_value
+    default_value: news_category
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required: {  }
+  optional: {  }
