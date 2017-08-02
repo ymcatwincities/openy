@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_block_menu feature.
+ */
+
+/**
+ * Import color and text color fields for block menu.
+ */
+function openy_block_menu_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_block_menu') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'field.field.block_content.menu_block.field_menu_block_color',
+      'field.field.block_content.menu_block.field_menu_block_text_color',
+      'field.storage.block_content.field_menu_block_color',
+      'field.storage.block_content.field_menu_block_text_color',
+      'core.entity_form_display.block_content.menu_block.default',
+      'core.entity_view_display.block_content.menu_block.default',
+    ]);
+}

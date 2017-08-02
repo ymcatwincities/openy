@@ -80,6 +80,9 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+{% set directions_url = content.field_location_directions.0['#url'] %}
+{% set directions_title = content.field_location_directions.0['#title'] %}
+
 <article{{ attributes.addClass(classes) }}>
 
   {{ title_prefix }}
@@ -92,18 +95,12 @@
 
   {{ content.field_location_area }}
 
-  {% if display_submitted %}
-    <footer class="node__meta">
-      {{ author_picture }}
-      <div{{ author_attributes.addClass('node__submitted') }}>
-        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-        {{ metadata }}
-      </div>
-    </footer>
-  {% endif %}
-
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without('field_location_area') }}
+    {{ content.field_location_address }}
+    {{ content.field_location_phone }}
+    {% if directions_title %}
+      <a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a>
+    {% endif %}
   </div>
 
 </article>
