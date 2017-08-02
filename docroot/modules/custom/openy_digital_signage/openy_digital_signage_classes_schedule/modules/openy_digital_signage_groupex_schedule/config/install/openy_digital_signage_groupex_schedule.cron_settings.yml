@@ -1,2 +1,2 @@
-period: 7200 # Run every 2 hours.
+period: 1800 # Run every 30 minutes.
 last_run: 1483257600
