@@ -26,10 +26,6 @@ class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
       $collection->add("entity.{$entity_type_id}.collection", $collection_route);
     }
 
-    if ($settings_form_route = $this->getSettingsFormRoute($entity_type)) {
-      $collection->add("$entity_type_id.settings", $settings_form_route);
-    }
-
     return $collection;
   }
 
@@ -55,32 +51,6 @@ class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
         '_title' => "{$entity_type->getLabel()} list",
       ])
       ->setRequirement('_permission', 'access OpenY Digital Signage Schedule Item overview')
-      ->setOption('_admin_route', TRUE);
-
-    return $route;
-  }
-
-  /**
-   * Gets the settings form route.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
-   *   The entity type.
-   *
-   * @return \Symfony\Component\Routing\Route|null
-   *   The generated route, if available.
-   */
-  protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
-    if ($entity_type->getBundleEntityType()) {
-      return NULL;
-    }
-
-    $route = new Route("/admin/digital-signage/schedules/settings");
-    $route
-      ->setDefaults([
-        '_form' => 'Drupal\openy_digital_signage_schedule\Form\OpenYScheduleSettingsForm',
-        '_title' => "{$entity_type->getLabel()} settings",
-      ])
-      ->setRequirement('_permission', $entity_type->getAdminPermission())
       ->setOption('_admin_route', TRUE);
 
     return $route;

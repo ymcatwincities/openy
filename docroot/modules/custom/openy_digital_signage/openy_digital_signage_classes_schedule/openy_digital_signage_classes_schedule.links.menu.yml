@@ -1,12 +1,12 @@
 openy_ds_classes_session.admin.structure.settings:
-  title: 'Classes Schedule settings'
-  description: 'Configure Digital Signage Classes Session entities'
+  title: 'Classes Sessions settings'
+  description: 'Manage Classes Session entities'
   route_name: openy_ds_classes_session.settings
   parent: system.admin_openy_digital_signage_settings
 
 entity.openy_ds_classes_session.collection:
   title: 'Classes Session list'
   route_name: entity.openy_ds_classes_session.collection
-  description: 'List Digital Signage Classes Session entities'
+  description: 'List Classes Session entities'
   parent: system.admin_openy_digital_signage
   weight: 100

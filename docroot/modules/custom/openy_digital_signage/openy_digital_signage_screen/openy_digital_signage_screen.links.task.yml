@@ -24,4 +24,3 @@ entity.openy_digital_signage_screen.delete_form:
   base_route:  entity.openy_digital_signage_screen.canonical
   title: 'Delete'
   weight: 10
-
