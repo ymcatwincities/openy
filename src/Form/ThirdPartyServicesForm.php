@@ -112,7 +112,6 @@ class ThirdPartyServicesForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('AddThis public id'),
       '#default_value' => $addthis_config->get('public_id'),
-      '#required' => TRUE,
       '#placeholder' => 'ra-xxxxxxxxxxxxxxx',
       '#description' => $this->t('Your AddThis public id. Example: 
         ra-xxxxxxxxxxxxxxx. Currently we support only inline type.'),

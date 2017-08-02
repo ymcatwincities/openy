@@ -72,6 +72,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_bmicrosites_menu' => [
         'openy_demo_block_microsites_menu',
       ],
+      'openy_demo_addthis' => [],
     ],
     'alerts' => [
       'openy_demo_nalert' => [
@@ -194,12 +195,6 @@ function openy_import_content(array &$install_state) {
     // Install webform feature - it's not handled as content migration.
     openy_enable_module('openy_demo_webform');
     unset($install_state['openy']['content']['webform']);
-  }
-
-  if (!empty($install_state['openy']['settings']['addthis'])) {
-    // Install openy_addthis feature - it's not handled as content migration.
-    openy_enable_module('openy_demo_addthis');
-    unset($install_state['openy']['settings']['addthis']);
   }
 
   // Build required migrations operations arrays.
