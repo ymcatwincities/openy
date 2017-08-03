@@ -186,6 +186,7 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
       'to' => $to_ts,
     ])->toString();
     $edit_link = Url::fromRoute('screen_schedule.edit_schedule_item', [
+      'screen' => $variables['screen']->id(),
       'schedule_item' => $schedule_item->id(),
     ])->toString();
 
@@ -203,7 +204,9 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
       'edit_link' => $edit_link,
     ];
   }
-  $variables['add_link'] = Url::fromRoute('screen_schedule.add_schedule_item', ['screen' => $variables['screen']->id()])->toString();
+  $variables['add_link'] = Url::fromRoute('screen_schedule.add_schedule_item', [
+    'screen' => $variables['screen']->id(),
+  ])->toString();
   $variables['schedule_items'] = $schedule_items;
   $variables['screen_id'] = $variables['screen']->id();
   $variables['current_time'] = date('H', $_SERVER['REQUEST_TIME']) + (date('i', $_SERVER['REQUEST_TIME']) / 60);

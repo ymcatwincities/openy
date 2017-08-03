@@ -225,6 +225,14 @@
   width: 100%;
   position: relative;
   padding-bottom: 56.25%; }
+  .frame-container.frame-container--portrait {
+    padding-bottom: 100%; }
+    .frame-container.frame-container--portrait iframe {
+      width: 56.25%;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+          -ms-transform: translateX(-50%);
+              transform: translateX(-50%); }
   .frame-container iframe {
     width: 100%;
     height: 100%;

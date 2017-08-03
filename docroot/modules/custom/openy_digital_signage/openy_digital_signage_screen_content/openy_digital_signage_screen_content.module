@@ -80,3 +80,15 @@ function openy_digital_signage_screen_content_node_access(EntityInterface $entit
 
   return AccessResult::neutral();
 }
+
+function  openy_digital_signage_screen_content_preprocess_layout(&$variables) {
+  /* var $layout \Drupal\Core\Layout\LayoutDefinition */
+  $layout = $variables['layout'];
+  if ($layout->getProvider() !== 'openy_digital_signage_screen_content') {
+    return;
+  }
+  $variables['orientation'] = 'landscape';
+  if ($screen = \Drupal::service('openy_digital_signage_screen.manager')->getScreenContext()) {
+    $variables['orientation'] = $screen->orientation->value;
+  }
+}
