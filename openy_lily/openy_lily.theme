@@ -263,15 +263,19 @@ function openy_lily_preprocess_page(&$variables) {
   $path = theme_get_setting('locations_path');
   $variables['locations_path'] = Url::fromUserInput($path);
 
-  // Set special CSS class name for Camp and Branch nodes.
+  $variables['site_section_bundle'] = '';
+
+  // Set special variables for Camp and Branch (Location) nodes.
   if (!empty($variables['node'])) {
     switch ($variables['node']->bundle()) {
       case 'camp':
         $variables['camp_class'] = 'is-camp';
+        $variables['site_section_bundle'] = 'camp';
         break;
 
       case 'branch':
         $variables['camp_class'] = 'is-branch';
+        $variables['site_section_bundle'] = 'location';
         break;
     }
   }
