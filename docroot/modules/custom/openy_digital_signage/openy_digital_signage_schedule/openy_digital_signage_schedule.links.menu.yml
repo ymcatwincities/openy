@@ -1,25 +1,25 @@
 openy_digital_signage_schedule.admin.structure.settings:
   title: 'Schedules settings'
-  description: 'Configure Digital Signage Schedule entities'
+  description: 'Manage Schedule entity fields'
   route_name: openy_digital_signage_schedule.settings
   parent: system.admin_openy_digital_signage_settings
 
 entity.openy_digital_signage_schedule.collection:
   title: 'Schedules'
   route_name: entity.openy_digital_signage_schedule.collection
-  description: 'List Digital Signage Schedule entities'
+  description: 'List Schedule entities'
   parent: system.admin_openy_digital_signage
   weight: 100
 
 openy_digital_signage_sch_item.admin.structure.settings:
   title: 'Schedule Items settings'
-  description: 'Configure Digital Signage Schedule Item entities'
+  description: 'Manage Schedule Item entity fields'
   route_name: openy_digital_signage_sch_item.settings
   parent: system.admin_openy_digital_signage_settings
 
 entity.openy_digital_signage_sch_item.collection:
   title: 'Schedule Items'
   route_name: entity.openy_digital_signage_sch_item.collection
-  description: 'List Digital Signage Schedule Item entities'
+  description: 'List Schedule Item entities'
   parent: system.admin_openy_digital_signage
   weight: 101
