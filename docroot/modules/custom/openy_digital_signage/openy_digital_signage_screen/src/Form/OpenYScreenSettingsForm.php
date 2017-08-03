@@ -61,7 +61,7 @@ class OpenYScreenSettingsForm extends ConfigFormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['OpenYScreen_settings']['#markup'] = $this->t('Settings form for Digital Signage Screen entities.');
+    $form['OpenYScreen_settings']['#markup'] = $this->t('Settings form for Digital Signage Screen.');
 
     $default_value = NULL;
     if ($id = $this->config('openy_digital_signage_screen.default_fallback_content')->get('target_id')) {
@@ -78,7 +78,7 @@ class OpenYScreenSettingsForm extends ConfigFormBase {
         'target_bundles' => array('screen_content'),
       ),
       '#default_value' => $default_value,
-      '#description' => $this->t('You can create a new Screen content node at @link', [
+      '#description' => $this->t('You can create a new Screen Content at @link', [
         '@link' => Link::fromTextAndUrl('the page', Url::fromUserInput('/node/add/screen_content'))->toString(),
       ]),
     );

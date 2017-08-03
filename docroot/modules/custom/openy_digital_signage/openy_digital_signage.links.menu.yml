@@ -8,6 +8,6 @@ system.admin_openy_digital_signage:
 system.admin_openy_digital_signage_settings:
   route_name: system.admin_openy_digital_signage_settings
   parent: system.admin_openy_digital_signage
-  description: 'Configure entities'
+  description: 'Configure Digital Signage settings'
   title: 'Settings'
   weight: 1000

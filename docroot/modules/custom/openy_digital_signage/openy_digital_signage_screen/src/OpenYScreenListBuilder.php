@@ -4,8 +4,8 @@ namespace Drupal\openy_digital_signage_screen;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of OpenY Digital Signage Screen entities.
@@ -13,8 +13,6 @@ use Drupal\Core\Url;
  * @ingroup openy_digital_signage_screen
  */
 class OpenYScreenListBuilder extends EntityListBuilder {
-
-  use LinkGeneratorTrait;
 
   /**
    * {@inheritdoc}
@@ -34,14 +32,11 @@ class OpenYScreenListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\openy_digital_signage_screen\Entity\OpenYScreen */
     $row['id'] = $entity->id();
-    $row['name'] = $this->l(
-      $entity->label(),
-      new Url(
-        'entity.openy_digital_signage_screen.canonical', array(
-          'openy_digital_signage_screen' => $entity->id(),
-        )
+    $row['name'] = new Link($entity->label(), new Url(
+      'entity.openy_digital_signage_screen.canonical', array(
+        'openy_digital_signage_screen' => $entity->id(),
       )
-    );
+    ));
     $row['machine_name'] = $entity->get('machine_name')->value;
     $row['created'] = $entity->getCreatedTime();
 
