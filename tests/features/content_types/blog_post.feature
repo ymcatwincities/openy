@@ -59,9 +59,8 @@ Feature: Blog Content type
     And I fill in "Title" with "Behat Gallery Blog"
     And I select "BEHAT BRANCH 01" from "Location"
     When I click "//*[@id='edit-group-content-area']/summary" xpath element
-    And I scroll to "#edit-field-content" element
-    Then I press "List additional actions"
     And I scroll to "input[name='field_content_gallery_add_more']" element
+    Then I press "List additional actions"
     And I press "Add Gallery"
     And I wait for AJAX to finish
     And I fill in "Headline" with "Behat gallery"
