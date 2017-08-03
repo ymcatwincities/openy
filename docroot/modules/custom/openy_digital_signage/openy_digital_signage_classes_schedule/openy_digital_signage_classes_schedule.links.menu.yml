@@ -5,7 +5,7 @@ openy_ds_classes_session.admin.structure.settings:
   parent: system.admin_openy_digital_signage_settings
 
 entity.openy_ds_classes_session.collection:
-  title: 'Classes Session list'
+  title: 'Classes Sessions list'
   route_name: entity.openy_ds_classes_session.collection
   description: 'List Classes Session entities'
   parent: system.admin_openy_digital_signage
