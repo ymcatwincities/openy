@@ -56,3 +56,13 @@ screen_schedule.redraw_screen_schedule_timeline:
         type: entity:openy_digital_signage_screen
   requirements:
     _permission: 'view OpenY Digital Signage Schedule entities'
+
+openy_digital_signage_screen.settings:
+  path: '/admin/digital-signage/settings/screens'
+  defaults:
+    _form: 'Drupal\openy_digital_signage_screen\Form\OpenYScreenSettingsForm'
+    _title: 'Screen Settings'
+  requirements:
+    _permission: 'administer OpenY Digital Signage Screen entities'
+  options:
+    _admin_route: TRUE
