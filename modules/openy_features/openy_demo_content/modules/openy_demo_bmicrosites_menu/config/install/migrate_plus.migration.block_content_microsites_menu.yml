@@ -10,33 +10,40 @@ source:
   plugin: embedded_data
   data_rows:
     -
-      id: 9
-      code: 'e350fe26-bc73-4c69-af18-a51a052dbcd9'
+      id: 15
+      code:
       description: 'Give Microsite Menu Block'
       title: ''
       links:
         -
-          uri: 'internal:/microsite_demo'
-          title: Welcome
+          uri: 'internal:/about'
+          title: About Y
         -
-          uri: 'internal:/microsite_demo/about'
-          title: About
+          uri: 'internal:/blog'
+          title: Blog
         -
-          uri: 'internal:/microsite_demo/about'
-          title: Welcome
+          uri: 'internal:/locations'
+          title: Locations
         -
-          uri: '/microsite_demo/about'
-          title: Twin Cities site
+          uri: 'internal:/join'
+          title: Join
       color_ids:
         -
-          color_id: 5
+          color_id: 6
         -
-          color_id: 5
+          color_id: 6
       text_color: 1
   ids:
     id:
       type: integer
 process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
   type:
     plugin: default_value
     default_value: menu_block

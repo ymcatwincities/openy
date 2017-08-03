@@ -358,3 +358,12 @@ function openy_rose_preprocess_html(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_theme_suggestions_form_alter().
+ */
+function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#form_id'])) {
+    array_push($suggestions, 'form__' . $variables['element']['#form_id']);
+  }
+}
