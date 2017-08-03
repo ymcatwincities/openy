@@ -40,19 +40,6 @@ function openy_install() {
 }
 
 /**
- * Implements hook_update_dependencies().
- */
-function openy_update_dependencies() {
-  $dependencies['openy'] = [
-    8033 => [
-      'openy_location' => 8002,
-    ],
-  ];
-
-  return $dependencies;
-}
-
-/**
  * Upgrade from 8.x-0.2 version.
  */
 function openy_update_8001() {
@@ -416,7 +403,7 @@ function openy_update_8031() {
 }
 
 /**
- * Enable Contrib modules for Amenities related modules part1.
+ * Enable Contrib modules for Amenities.
  */
 function openy_update_8032() {
   // Enable modules.
@@ -434,17 +421,13 @@ function openy_update_8032() {
 }
 
 /**
- * Enable Amenities related modules part1.
+ * Enable taxonomy vocabulary Amenities and svg formatter.
  */
 function openy_update_8033() {
   // Enable modules.
   $modules = [
-    'openy_ckeditor',
     'openy_svg_formatter',
-    'openy_prgf_lto',
-    'openy_editor',
-    'openy_block_custom_simple',
-    'openy_block_flexible_content',
+    'openy_txnm_amenities',
   ];
   foreach ($modules as $module) {
     \Drupal::service('module_installer')->install([
@@ -454,16 +437,48 @@ function openy_update_8033() {
 }
 
 /**
- * Enable Amenities related modules part2.
+ * Enable LTO paragraph, openy ckeditor and custom simple block type.
  */
 function openy_update_8034() {
   // Enable modules.
   $modules = [
+    'openy_prgf_lto',
+    'openy_ckeditor',
+    'openy_block_custom_simple',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+/**
+ * Enable Amenities related modules.
+ */
+function openy_update_8035() {
+  // Enable modules.
+  $modules = [
+    'openy_editor',
+    'openy_block_branch_amenities',
+    'openy_block_flexible_content',
     'openy_prgf_1c',
     'openy_prgf_2c',
-    'openy_block_branch_amenities',
     'openy_prgf_3c',
     'openy_prgf_4c',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
+
+/**
+ * Enable Amenities paragraphs.
+ */
+function openy_update_8036() {
+  // Enable modules.
+  $modules = [
     'openy_prgf_amenities',
   ];
   foreach ($modules as $module) {

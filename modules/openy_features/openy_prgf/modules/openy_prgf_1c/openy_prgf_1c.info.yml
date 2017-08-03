@@ -9,5 +9,7 @@ dependencies:
   - field
   - inline_entity_form
   - language
+  - openy_block_flexible_content
+  - openy_block_custom_simple
   - paragraphs
   - text
