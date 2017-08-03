@@ -31,11 +31,13 @@ Feature: GroupEx Pro paragraphs
     And Element "#edit-location--wrapper .fieldset-legend" has text "Locations"
     And I should see an "#edit-location" element
     And I should see an "#edit-location .form-item-location" element
-    When I select "202" from "location"
+    When I select "203" from "location"
     Then I wait for AJAX to finish
     And I select this "next monday" from "date_select"
+    When I select "202" from "location_select"
     Then I wait for AJAX to finish
     And I should see an ".groupex-pdf-link-container a:contains('Download PDF')" element
+#    And I wait 45 seconds
     And I should see text matching "8:30am 60 min"
     And I should see text matching "Chisel Studio 1"
     And I should see text matching "Jennifer K."
