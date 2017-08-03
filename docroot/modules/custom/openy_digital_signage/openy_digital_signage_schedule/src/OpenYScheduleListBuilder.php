@@ -4,8 +4,8 @@ namespace Drupal\openy_digital_signage_schedule;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of OpenY Digital Signage Schedule entities.
@@ -13,8 +13,6 @@ use Drupal\Core\Url;
  * @ingroup openy_digital_signage_schedule
  */
 class OpenYScheduleListBuilder extends EntityListBuilder {
-
-  use LinkGeneratorTrait;
 
   /**
    * {@inheritdoc}
@@ -34,14 +32,11 @@ class OpenYScheduleListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\openy_digital_signage_schedule\Entity\OpenYSchedule */
     $row['id'] = $entity->id();
-    $row['name'] = $this->l(
-      $entity->label(),
-      new Url(
-        'entity.openy_digital_signage_schedule.edit_form', array(
-          'openy_digital_signage_schedule' => $entity->id(),
-        )
+    $row['name'] = new Link($entity->label(), new Url(
+      'entity.openy_digital_signage_schedule.edit_form', array(
+        'openy_digital_signage_schedule' => $entity->id(),
       )
-    );
+    ));
     $description = $entity->get('description');
     $row['description'] = check_markup($description->value, $description->format);
     $row['created'] = $entity->getCreatedTime();
