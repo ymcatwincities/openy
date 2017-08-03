@@ -54,7 +54,7 @@ class OpenYClassesSessionHtmlRouteProvider extends AdminHtmlRouteProvider {
     $route
       ->setDefaults([
         '_entity_list' => $entity_type_id,
-        '_title' => "{$entity_type->getLabel()} list",
+        '_title' => "Classes Sessions list",
       ])
       ->setRequirement('_permission', 'access Digital Signage Classes Session overview')
       ->setOption('_admin_route', TRUE);
