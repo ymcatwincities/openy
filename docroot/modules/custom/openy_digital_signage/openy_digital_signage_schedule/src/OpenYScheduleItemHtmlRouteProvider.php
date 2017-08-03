@@ -48,7 +48,7 @@ class OpenYScheduleItemHtmlRouteProvider extends AdminHtmlRouteProvider {
     $route
       ->setDefaults([
         '_entity_list' => $entity_type_id,
-        '_title' => "{$entity_type->getLabel()} list",
+        '_title' => "Schedule Items list",
       ])
       ->setRequirement('_permission', 'access OpenY Digital Signage Schedule Item overview')
       ->setOption('_admin_route', TRUE);
