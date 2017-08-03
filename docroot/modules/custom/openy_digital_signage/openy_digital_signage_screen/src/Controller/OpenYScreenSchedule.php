@@ -155,13 +155,15 @@ class OpenYScreenSchedule extends ControllerBase {
   /**
    * Gets a schedule item edit form.
    *
+   * @param OpenYScreenInterface $screen
+   *   The Screen entity.
    * @param OpenYScheduleItemInterface $schedule_item
    *   The Schedule item.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    *   Ajax response object.
    */
-  public function editScheduleItem(OpenYScheduleItemInterface $schedule_item) {
+  public function editScheduleItem(OpenYScreenInterface $screen, OpenYScheduleItemInterface $schedule_item) {
     // Build an edit Schedule item form.
     $form = \Drupal::entityTypeManager()
       ->getFormObject('openy_digital_signage_sch_item', 'edit')
