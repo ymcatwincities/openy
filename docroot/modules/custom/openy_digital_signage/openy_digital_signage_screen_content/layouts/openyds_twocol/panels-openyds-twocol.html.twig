@@ -14,7 +14,7 @@
  *   - $content['right']: Content in the right column.
  */
 #}
-<div class="openy-ds-layout landscape openy-ds-layout-2col" {% if css_id %}{{ css_id }}{% endif %}>
+<div class="openy-ds-layout openy-ds-layout-2col  {{ orientation }}" {% if css_id %}{{ css_id }}{% endif %}>
 
   <div class="openy-ds-layout-region openy-ds-layout-2col--left">
     {{ content.left }}
