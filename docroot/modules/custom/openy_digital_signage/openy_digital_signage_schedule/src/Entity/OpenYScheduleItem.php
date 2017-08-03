@@ -47,7 +47,7 @@ use Drupal\datetime\Plugin\Field\FieldType\DateTimeItem;
  *     "add-form" = "/admin/digital-signage/schedule-items/add",
  *     "edit-form" = "/admin/digital-signage/schedule-items/{openy_digital_signage_sch_item}/edit",
  *     "delete-form" = "/admin/digital-signage/schedule-items/{openy_digital_signage_sch_item}/delete",
- *     "collection" = "/admin/digital-signage/schedule-items/list",
+ *     "collection" = "/admin/digital-signage/schedule-items",
  *   },
  *   field_ui_base_route = "openy_digital_signage_sch_item.settings"
  * )

@@ -1068,7 +1068,7 @@ display:
           entity_field: status
           plugin_id: boolean
       sorts: {  }
-      title: 'Digital Signage Classes Sessions'
+      title: 'Classes Sessions list'
       header: {  }
       footer: {  }
       empty:
@@ -1135,8 +1135,8 @@ display:
       path: admin/digital-signage/classes/sessions/list
       menu:
         type: 'default tab'
-        title: 'Digital Signage Classes Sessions list'
-        description: 'List Digital Signage Classes Sessions entities'
+        title: 'Classes Sessions list'
+        description: 'List Classes Sessions entities'
         expanded: false
         parent: ''
         weight: 0

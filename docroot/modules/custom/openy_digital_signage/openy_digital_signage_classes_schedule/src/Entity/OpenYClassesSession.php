@@ -42,11 +42,11 @@ use Drupal\Core\Entity\EntityTypeInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}",
- *     "add-form" = "/admin/digital-signage/classes/session/add",
- *     "edit-form" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}/edit",
- *     "delete-form" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}/delete",
- *     "collection" = "/admin/digital-signage/classes/sessions/list",
+ *     "canonical" = "/admin/digital-signage/classes/sessions/{openy_ds_classes_session}",
+ *     "add-form" = "/admin/digital-signage/classes/sessions/add",
+ *     "edit-form" = "/admin/digital-signage/classes/sessions/{openy_ds_classes_session}/edit",
+ *     "delete-form" = "/admin/digital-signage/classes/sessions/{openy_ds_classes_session}/delete",
+ *     "collection" = "/admin/digital-signage/classes/sessions",
  *     "override" = "/admin/digital-signage/classes/session/{openy_ds_classes_session}/override",
  *   },
  *   field_ui_base_route = "openy_ds_classes_session.settings"
