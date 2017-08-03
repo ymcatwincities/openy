@@ -11,8 +11,17 @@ Feature: Static Paragraphs
       | gallery_image_02 | Gallery Image 02 | gallery_02.png    |
       | story_image_01   | Story Image O1   | story_01.png      |
     And I create taxonomy_term of type color:
-      | KEY     | name          | field_color |
-      | green   | Behat Green   | 00FF00      |
+      | KEY       | name            | field_color |
+      | green     | Behat Green     | 00FF00      |
+      | dark_blue | Behat Dark Blue | 008BD0      |
+      | white     | Behat White     | FFFFFF      |
+    And I create large block_content of type menu_block:
+      | KEY                         | behat_menu_block_01                                                          |
+      | info                        | BEHAT MENU BLOCK 01                                                          |
+      | field_menu_block_links:uri  | http://openymca.org, http://openymca.org, internal:/give                     |
+      | :title                      | Behat menu block link 01, Behat menu block link 02, Behat menu block link 03 |
+      | field_menu_block_color      | dark_blue, dark_blue                                                         |
+      | field_menu_block_text_color | white                                                                        |
     And I create large paragraph of type small_banner:
       | KEY                    | behat_small_banner |
       | field_prgf_headline    | BEHAT SMALL BANNER |
@@ -68,12 +77,16 @@ Feature: Static Paragraphs
       | field_prgf_image       | story_image_01         |
       | field_prgf_link:uri    | internal:/test         |
       | :title                 | Test link              |
+    And I create large paragraph of type microsites_menu:
+      | KEY                             | behat_microsites_menu_01 |
+      | field_prgf_block_ref            | behat_menu_block_01      |
     And I create landing_page content:
-      | KEY                  | title                      | field_lp_layout | field_header_content |
-      | landing_small_banner | Behat Landing Small Banner | one_column      | behat_small_banner   |
-      | landing_banner       | Behat Landing Banner       | one_column      | behat_banner         |
-      | landing_gallery      | Behat Landing Gallery      | one_column      | behat_gallery        |
-      | landing_simple       | Behat Landing Simple       | one_column      | behat_simple         |
+      | KEY                  | title                      | field_lp_layout | field_header_content     |
+      | landing_small_banner | Behat Landing Small Banner | one_column      | behat_small_banner       |
+      | landing_banner       | Behat Landing Banner       | one_column      | behat_banner             |
+      | landing_gallery      | Behat Landing Gallery      | one_column      | behat_gallery            |
+      | landing_simple       | Behat Landing Simple       | one_column      | behat_simple             |
+      | landing_microsites   | Behat Landing Microsites   | one_column      | behat_microsites_menu_01 |
     And I create landing_page content:
       | KEY            | title                | field_lp_layout | field_content      |
       | landing_grid   | Behat Landing Grid   | one_column      | behat_grid_content |
@@ -133,3 +146,11 @@ Feature: Static Paragraphs
     And I should see "Lorem ipsum dolor sit."
     And I should see a ".subprogram-listing-item img" element
     And I should see the link "Test link"
+
+  Scenario: See Microsites On Landing Page
+    Given I view node "landing_microsites"
+    Then I should see the link "Behat menu block link 01"
+    And I should see the link "Behat menu block link 02"
+    And I should see the link "Behat menu block link 03"
+    And I should see a ".microsites-menu__wrapper[style='color: #FFFFFF; background: linear-gradient(to top, #008BD0, #008BD0);']" element
+    And I should see a ".microsites-menu--hide-main-menu" element
