@@ -8,6 +8,7 @@
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_help().
@@ -28,4 +29,16 @@ function openy_digital_signage_room_help($route_name, RouteMatchInterface $route
 
     default:
   }
+}
+
+/**
+ * Implements hook_entity_create().
+ */
+function openy_digital_signage_room_entity_create(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'openy_ds_classes_groupex_session') {
+    return;
+  }
+
+  $room_manager = \Drupal::service('openy_digital_signage_room.manager');
+  $room = $room_manager->getOrCreateRoomByExternalId($entity->get('studio')->value, $entity->get('location')->target_id, 'groupex');
 }
