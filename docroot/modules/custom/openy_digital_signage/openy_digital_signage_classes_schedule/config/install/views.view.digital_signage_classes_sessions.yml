@@ -10,15 +10,14 @@ dependencies:
     - entity_reference_exposed_filters
     - node
     - openy_digital_signage_classes_schedule
+    - openy_digital_signage_room
     - options
     - user
-_core:
-  default_config_hash: o6_kTV08523EZLArJ-xifESFVFxWsUO8LRKn0qBjoVQ
 id: digital_signage_classes_sessions
 label: 'Digital Signage Classes Sessions'
 module: views
 description: ''
-tag: ''
+tag: 'digital signage'
 base_table: openy_ds_classes_session
 base_field: id
 core: 8.x
@@ -363,11 +362,11 @@ display:
           entity_type: openy_ds_classes_session
           entity_field: date_time
           plugin_id: field
-        room_name:
-          id: room_name
-          table: openy_ds_classes_session
-          field: room_name
-          relationship: none
+        title_1:
+          id: title_1
+          table: openy_ds_room
+          field: title
+          relationship: room
           group_type: group
           admin_label: ''
           label: Room
@@ -425,8 +424,8 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: openy_ds_classes_session
-          entity_field: room_name
+          entity_type: openy_ds_room
+          entity_field: title
           plugin_id: field
         instructor:
           id: instructor
@@ -892,11 +891,11 @@ display:
           entity_type: openy_ds_classes_session
           entity_field: instructor
           plugin_id: string
-        room_name:
-          id: room_name
-          table: openy_ds_classes_session
-          field: room_name
-          relationship: none
+        title_1:
+          id: title_1
+          table: openy_ds_room
+          field: title
+          relationship: room
           group_type: group
           admin_label: ''
           operator: contains
@@ -904,12 +903,12 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: room_name_op
+            operator_id: title_1_op
             label: 'Room name'
             description: ''
             use_operator: false
-            operator: room_name_op
-            identifier: room_name
+            operator: title_1_op
+            identifier: room
             required: false
             remember: false
             multiple: false
@@ -921,6 +920,8 @@ display:
               location_editor: '0'
               contributor: '0'
               intern: '0'
+              digital_signage_editor: '0'
+              digital_signage_admin: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -933,8 +934,8 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: openy_ds_classes_session
-          entity_field: room_name
+          entity_type: openy_ds_room
+          entity_field: title
           plugin_id: string
         eref_node_titles:
           id: eref_node_titles
@@ -1104,6 +1105,17 @@ display:
           admin_label: 'field_session_author: User'
           required: false
           plugin_id: standard
+        room:
+          id: room
+          table: openy_ds_classes_session
+          field: room
+          relationship: none
+          group_type: group
+          admin_label: 'Digital Signage Room'
+          required: false
+          entity_type: openy_ds_classes_session
+          entity_field: room
+          plugin_id: standard
       arguments: {  }
       display_extenders:
         views_advanced_routing_route:
@@ -1132,7 +1144,7 @@ display:
       display_extenders:
         views_advanced_routing_route:
           route: ''
-      path: admin/digital-signage/classes/sessions/list
+      path: admin/digital-signage/classes/sessions
       menu:
         type: 'default tab'
         title: 'Classes Sessions list'

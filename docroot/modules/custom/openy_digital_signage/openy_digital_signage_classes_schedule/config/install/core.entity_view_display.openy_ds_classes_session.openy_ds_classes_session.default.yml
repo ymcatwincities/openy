@@ -9,8 +9,6 @@ dependencies:
     - ds_datetime_range
     - openy_digital_signage_classes_schedule
     - options
-_core:
-  default_config_hash: RLM5xwMkVvN0AvyTGbFrWB3HGWmVdTYjiEnfXkb44jM
 id: openy_ds_classes_session.openy_ds_classes_session.default
 targetEntityType: openy_ds_classes_session
 bundle: openy_ds_classes_session
@@ -97,3 +95,4 @@ content:
 hidden:
   field_session_author: true
   langcode: true
+  room: true
