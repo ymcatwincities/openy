@@ -16,6 +16,8 @@ dependencies:
   - openy_field_custom_hours
   - openy_hours_formatter
   - openy_prgf_microsites_menu
+  - openy_prgf_microsites_menu
+  - openy_txnm_amenities
   - openy_location
   - openy_node
   - options
