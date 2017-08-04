@@ -1,93 +1,189 @@
-/*
-Error: Undefined variable: "$grey7".
-        on line 107 of /Library/WebServer/Documents/ymca/docroot/themes/custom/ymca/sass/blocks/block-description.scss
+.block-description--wrapper {
+  display: flex;
+}
 
-102: 
-103:     p {
-104:       font-size: 15px;
-105:       line-height: lh(22, 15);
-106:       margin: 0;
-107:       color: $grey7;
-108:     }
-109: 
-110:     .content {
-111:       margin: 0 0 10px 0;
-112:     }
+.block-description--wrapper {
+  flex-wrap: wrap;
+}
 
-Backtrace:
-/Library/WebServer/Documents/ymca/docroot/themes/custom/ymca/sass/blocks/block-description.scss:107
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/script/tree/variable.rb:49:in `_perform'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/script/tree/node.rb:58:in `perform'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:397:in `visit_prop'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block (2 levels) in visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `map'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block in visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:431:in `visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block (2 levels) in visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `map'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block in visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:431:in `visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block (2 levels) in visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `map'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:433:in `block in visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:431:in `visit_rule'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `block in visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `block in with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:115:in `with_frame'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/stack.rb:79:in `with_base'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:160:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `map'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:52:in `visit_children'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:169:in `block in visit_children'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:181:in `with_environment'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:168:in `visit_children'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `block in visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:188:in `visit_root'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/base.rb:36:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:159:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/visitors/perform.rb:8:in `visit'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/root_node.rb:36:in `css_tree'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/engine.rb:381:in `_render_with_sourcemap'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/engine.rb:298:in `render_with_sourcemap'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:492:in `update_stylesheet'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:209:in `each'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:473:in `on_file_changed'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/lib/sass/plugin/compiler.rb:331:in `block in watch'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/vendor/listen/lib/listen/listener.rb:252:in `call'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/vendor/listen/lib/listen/listener.rb:252:in `on_change'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/vendor/listen/lib/listen/adapter.rb:254:in `call'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/vendor/listen/lib/listen/adapter.rb:254:in `report_changes'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/vendor/listen/lib/listen/adapter.rb:323:in `poll_changed_directories'
-/usr/local/lib/ruby/gems/2.2.0/gems/sass-3.4.22/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Error: Undefined variable: \"$grey7\".\A         on line 107 of /Library/WebServer/Documents/ymca/docroot/themes/custom/ymca/sass/blocks/block-description.scss\A \A 102: \A 103:     p {\A 104:       font-size: 15px;\A 105:       line-height: lh(22, 15);\A 106:       margin: 0;\A 107:       color: $grey7;\A 108:     }\A 109: \A 110:     .content {\A 111:       margin: 0 0 10px 0;\A 112:     }"; }
+.block-description--text {
+  background-color: #f8f8f8;
+  border-top: 2px solid #c6168d;
+  box-shadow: 0px 0px 15px #d8d8d8;
+  padding: 30px 25px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .block-description--text {
+    margin: 0 15px 40px;
+    padding: 35px 35px 45px 45px;
+  }
+}
+.block-description--text h2 {
+  text-transform: uppercase;
+  font-family: Cachet Bold;
+  margin: 0 0 15px;
+  font-size: 20px;
+}
+@media (min-width: 768px) {
+  .block-description--text h2 {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1024px) {
+  .block-description--text h2 {
+    font-size: 20px;
+  }
+}
+.block-description--text h2.with-icon {
+  padding-left: 28px;
+}
+@media (min-width: 768px) {
+  .block-description--text h2.with-icon {
+    padding-left: 32px;
+  }
+}
+@media (min-width: 1024px) {
+  .block-description--text h2.with-icon {
+    padding-left: 40px;
+  }
+}
+.block-description--text h2 a:after {
+  text-transform: none;
+  margin-left: 3px;
+}
+.block-description--text h4 {
+  font-family: Cachet Bold;
+  font-size: 26px;
+  line-height: lh(30, 26);
+  margin: 0 0 10px;
+  vertical-align: middle;
+}
+@media (min-width: tablet) {
+  .block-description--text h4 {
+    font-size: 36px;
+    line-height: lh(40, 36);
+  }
+}
+.block-description--text .fa {
+  font-size: 24px;
+  vertical-align: middle;
+  margin-right: 10px;
+  max-height: 24px;
+  max-width: 24px;
+  float: left;
+  width: auto;
+}
+@media (min-width: 768px) {
+  .block-description--text .fa {
+    font-size: 26px;
+    max-height: 26px;
+    max-width: 26px;
+  }
+}
+@media (min-width: laptop) {
+  .block-description--text .fa {
+    font-size: 30px;
+    max-height: 30px;
+    max-width: 30px;
+  }
+}
+.block-description--text .field-icon {
+  vertical-align: middle;
+  margin-right: 5px;
+  float: left;
+}
+.block-description--text .field-icon img {
+  vertical-align: middle;
+  max-height: 24px;
+  max-width: 24px;
+  width: auto;
+}
+@media (min-width: 768px) {
+  .block-description--text .field-icon img {
+    max-height: 28px;
+    max-width: 28px;
+  }
+}
+@media (min-width: laptop) {
+  .block-description--text .field-icon img {
+    max-height: 35px;
+    max-width: 35px;
+  }
+}
+.block-description--text p {
+  font-size: 15px;
+  line-height: lh(22, 15);
+  margin: 0;
+  color: #424242;
+}
+.block-description--text .content {
+  margin: 0 0 10px 0;
+}
+@media (min-width: 768px) {
+  .block-description--text .field-sb-body {
+    font-size: 15px;
+    line-height: lh(22, 15);
+  }
+}
+.block-description--2 .block-description--text:nth-child(1) {
+  margin-left: 0;
+}
+.block-description--2 .block-description--text:nth-child(2) {
+  margin-right: 0;
+}
+@media (min-width: 768px) {
+  .block-description--2 .block-description--text {
+    width: calc(100% / 2 - 15px);
+  }
+}
+@media (min-width: 768px) {
+  .block-description--3 .block-description--text {
+    width: calc(100% / 3 - 30px);
+    position: relative;
+  }
+  .block-description--3 .block-description--text .block-share {
+    margin: 0 0 20px 0;
+  }
+  .block-description--3 .block-description--text .field-sb-link a {
+    position: absolute;
+    bottom: 10px;
+  }
+}
+.block-description--4 {
+  display: block;
+}
+@media (min-width: 768px) {
+  .block-description--4 {
+    display: flex;
+  }
+}
+@media (min-width: 768px) {
+  .block-description--4 .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+@media (min-width: 768px) {
+  .block-description--4 .block-description--text {
+    width: calc(100% / 4 - 30px);
+  }
+}
+.block-description--4 .fa-icon {
+  text-align: center;
+}
+.block-description--4 .fa-icon .fa {
+  float: none;
+  margin: 15px auto;
+  width: 100%;
+}
+.block-description--4 .field-icon {
+  float: none;
+  margin: 10px auto;
+}
+.block-description--4 .field-icon .field-image {
+  width: 100%;
+}
+
+/*# sourceMappingURL=block-description.css.map */
