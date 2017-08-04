@@ -251,45 +251,16 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
     // A reference to the author of the session in case if session created
     // manually.
 
-    $fields['room_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Room name'))
-      ->setDescription(t('Name of a room in a branch.'))
-      ->setRequired(TRUE)
-      ->setTranslatable(TRUE)
-      ->setRevisionable(TRUE)
-      ->setSetting('max_length', 255)
-      ->setDisplayOptions('view', [
-        'label' => 'visible',
-        'type' => 'string',
-        'weight' => -4,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
-        'weight' => -4,
-      ])
-      ->setDisplayConfigurable('view', TRUE)
-      ->setDisplayConfigurable('form', TRUE);
-
-    $fields['room'] = BaseFieldDefinition::create('entity_reference')
+     $fields['room'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Room'))
       ->setDescription(t('Reference to a room/studio.'))
       ->setRequired(FALSE)
       ->setTranslatable(FALSE)
       ->setRevisionable(FALSE)
       ->setSetting('target_type', 'openy_ds_room')
-//      ->setDisplayOptions('view', [
-//        'label' => 'visible',
-//        'type' => 'node',
-//        'weight' => 4,
-//      ])
       ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
-        'weight' => 4,
-        'settings' => [
-          'match_operator' => 'CONTAINS',
-          'size' => '60',
-          'placeholder' => '',
-        ],
+        'type' => 'options_select',
+        'weight' => -4,
       ])
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);

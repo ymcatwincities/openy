@@ -54,4 +54,25 @@ interface OpenYRoomManagerInterface {
    */
   public function createRoomByExternalId($name, $location_id, $type);
 
+  /**
+   * Returns the list of location rooms usable in options list.
+   *
+   * @param string $location_id
+   *   The location id.
+   *
+   * @return array
+   *   The array of options.
+   */
+  public function getLocalizedRoomOptions($location_id);
+
+  /**
+   * Returns the list of All rooms usable in options list.
+   *
+   * The location name comes before room name.
+   *
+   * @return array
+   *   The array of options.
+   */
+  public function getAllRoomOptions();
+
 }

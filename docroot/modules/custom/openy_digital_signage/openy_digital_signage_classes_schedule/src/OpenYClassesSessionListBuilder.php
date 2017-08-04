@@ -19,7 +19,7 @@ class OpenYClassesSessionListBuilder extends EntityListBuilder {
   public function buildHeader() {
     $header = [];
     $header['name'] = $this->t('Title');
-    $header['room_name'] = $this->t('Room name');
+    $header['room'] = $this->t('Room name');
     $header['created'] = $this->t('Created');
     $header['source'] = $this->t('Source');
 
@@ -33,7 +33,7 @@ class OpenYClassesSessionListBuilder extends EntityListBuilder {
     $row = [];
     /* @var $entity \Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession */
     $row['name'] = $entity->getName();
-    $row['room_name'] = $entity->get('room_name')->value;
+    $row['room'] = $entity->get('room')->entity->label();
     $row['created'] = $entity->getCreatedTime();
     $sources = OpenYClassesSession::getSourceValues();
     $row['source'] = $sources[$entity->get('source')->value];
