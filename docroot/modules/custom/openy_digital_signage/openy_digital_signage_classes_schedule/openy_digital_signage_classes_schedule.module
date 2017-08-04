@@ -81,8 +81,8 @@ function openy_digital_signage_classes_schedule_form_alter(&$form, FormStateInte
   switch ($form['#id']) {
     case 'views-exposed-form-digital-signage-classes-sessions-sessions-listing':
       $form['title']['#attributes']['placeholder'] = t('Yoga');
-      $form['instructor']['#attributes']['placeholder'] = t('Instructor name');
-      $form['room_name']['#attributes']['placeholder'] = t('Studio 1');
+      $form['instructor']['#attributes']['placeholder'] = t('John Doe');
+      $form['room']['#attributes']['placeholder'] = t('Studio 1');
       $form['status']['#options'][1] = t('Enabled');
       $form['status']['#options'][0] = t('Disabled');
       break;

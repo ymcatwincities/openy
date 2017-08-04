@@ -200,4 +200,52 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
     return $room;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocalizedRoomOptions($location_id) {
+    $query = $this->storage->getQuery();
+    $query->condition('location', $location_id)
+      ->condition('status', TRUE)
+      ->sort('title', 'ASC');
+
+    $ids = $query->execute();
+
+    $room_entities = $this->storage->loadMultiple($ids);
+    $options = [
+      '_none' => $this->t('- None -'),
+    ];
+    foreach ($ids as $id) {
+      $options[$id] = $room_entities[$id]->label();
+    }
+
+    asort($options);
+
+    return $options;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAllRoomOptions() {
+    $query = $this->storage->getQuery();
+    $query->condition('status', TRUE);
+
+    $ids = $query->execute();
+
+    $room_entities = $this->storage->loadMultiple($ids);
+    $options = [
+      '_none' => $this->t('- None -'),
+    ];
+    foreach ($ids as $id) {
+      $label = $room_entities[$id]->location->entity->label() . ' - ' . $room_entities[$id]->label();
+      $options[$id] = $label;
+    }
+
+    asort($options);
+
+    return $options;
+  }
+
+
 }

@@ -75,13 +75,12 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
     $datetime->setTimestamp($period['from']);
     $period_from = $datetime->format('c');
 
-    $eq = $this->entityQuery->get('openy_ds_classes_session');
-    $eq->condition('room_name', $room);
-    $eq->condition('field_session_location', $location->id());
-    $eq->condition('date_time.value', $period_to, '<=');
-    $eq->condition('date_time.end_value', $period_from, '>=');
-    $eq->condition('overridden', FALSE);
-    $eq->sort('date_time.value');
+    $eq = $this->storage->getQuery();
+    $eq->condition('room', $room)
+      ->condition('date_time.value', $period_to, '<=')
+      ->condition('date_time.end_value', $period_from, '>=')
+      ->condition('overridden', FALSE)
+      ->sort('date_time.value');
     $results = $eq->execute();
 
     $class_sessions = $this->storage->loadMultiple($results);
