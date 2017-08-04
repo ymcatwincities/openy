@@ -366,9 +366,13 @@
             $('.panel-subnav ul.nav:eq(0)').clone(true).appendTo('.nav-location .nav .current');
           }
           if ($('.nav-location a.home .name').length === 0) {
-            var name = $('.masthead-brand').text();
-            $('.nav-location a.home').append('<span class="name">' + Drupal.t('Helpful links') + '</span><b class="caret"></b>');
-            $('.nav-location a.home').click(function(e) {
+            var home = $('.nav-location a.home'),
+                brand = $('.masthead-brand'),
+                name = brand.text(),
+                href = home.attr('href');
+            brand.wrapInner('<a href="' + href + '"></a>');
+            home.append('<span class="name">' + Drupal.t('Helpful links') + '</span><b class="caret"></b>');
+            home.click(function(e) {
               e.preventDefault();
               if ($(this).hasClass('open')) {
                 $(this).removeClass('open').parents('.nav').find('li:not(.heading)').slideUp();
