@@ -78,3 +78,12 @@ Feature: Blog Content type
     When I press "Save and publish"
     Then I should see the message "Blog Post Behat Gallery Blog has been created."
     And I should see an ".paragraph-gallery .field-media-image img" element
+
+  Scenario: Create blog post and check AddThis
+    When I go to "/node/add/blog"
+    And I fill in "Title" with "Behat test AddThis in blog"
+    And I select "BEHAT BRANCH 01" from "Location"
+    And I fill in "Category" with "BEHAT CATEGORY ONE"
+    When I press "Save and publish"
+    Then I should see the message "Blog Post Behat test AddThis in blog has been created."
+    And I should see an ".at-share-btn-elements" element

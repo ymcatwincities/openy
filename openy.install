@@ -403,9 +403,16 @@ function openy_update_8031() {
 }
 
 /**
- * Enable Contrib modules for Amenities.
+ * Enable openy_addthis module.
  */
 function openy_update_8032() {
+  \Drupal::service('module_installer')->install(['openy_addthis'], TRUE);
+}
+
+/**
+ * Enable Contrib modules for Amenities.
+ */
+function openy_update_8033() {
   // Enable modules.
   $modules = [
     'better_exposed_filters',
@@ -423,7 +430,7 @@ function openy_update_8032() {
 /**
  * Enable taxonomy vocabulary Amenities and svg formatter.
  */
-function openy_update_8033() {
+function openy_update_8034() {
   // Enable modules.
   $modules = [
     'openy_svg_formatter',
@@ -439,7 +446,7 @@ function openy_update_8033() {
 /**
  * Enable LTO paragraph, openy ckeditor and custom simple block type.
  */
-function openy_update_8034() {
+function openy_update_8035() {
   // Enable modules.
   $modules = [
     'openy_prgf_lto',
@@ -455,7 +462,7 @@ function openy_update_8034() {
 /**
  * Enable Amenities related modules.
  */
-function openy_update_8035() {
+function openy_update_8036() {
   // Enable modules.
   $modules = [
     'openy_editor',
@@ -476,7 +483,7 @@ function openy_update_8035() {
 /**
  * Enable Amenities paragraphs.
  */
-function openy_update_8036() {
+function openy_update_8037() {
   // Enable modules.
   $modules = [
     'openy_prgf_amenities',
