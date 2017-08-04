@@ -5,3 +5,4 @@ core: 8.x
 package: "OpenY: Digital Signage"
 dependencies:
   - ds_datetime_range
+  - openy_digital_signage_room
