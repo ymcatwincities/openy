@@ -6371,6 +6371,10 @@ html.js .flag-waiting .flag-throbber {
   text-decoration: underline;
 }
 
+.addthis {
+  margin-top: 10px;
+}
+
 a:focus,
 .dropdown-toggle:focus,
 .carousel-control:focus,
