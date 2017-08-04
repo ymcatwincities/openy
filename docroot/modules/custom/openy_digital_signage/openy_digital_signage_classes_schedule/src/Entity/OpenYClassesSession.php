@@ -270,6 +270,30 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
+    $fields['room'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Room'))
+      ->setDescription(t('Reference to a room/studio.'))
+      ->setRequired(FALSE)
+      ->setTranslatable(FALSE)
+      ->setRevisionable(FALSE)
+      ->setSetting('target_type', 'openy_ds_room')
+//      ->setDisplayOptions('view', [
+//        'label' => 'visible',
+//        'type' => 'node',
+//        'weight' => 4,
+//      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 4,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
+
     $fields['instructor'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Instructor name'))
       ->setDescription(t('Name of an instructor in a branch.'))
