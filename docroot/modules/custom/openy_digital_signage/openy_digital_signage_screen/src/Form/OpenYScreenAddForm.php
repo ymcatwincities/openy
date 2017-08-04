@@ -2,6 +2,8 @@
 
 namespace Drupal\openy_digital_signage_screen\Form;
 
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
@@ -95,10 +97,57 @@ class OpenYScreenAddForm extends ContentEntityForm {
     $form['actions']['submit']['#value'] = $this->t('Next');
     $form['actions']['submit']['#submit'] = ['::step1NextSubmit'];
 
+    $form['field_screen_location']['widget'][0]['target_id']['#ajax'] = [
+      'callback' => array($this, 'updateRoomListing'),
+      'event' => 'change',
+      'progress' => array(
+        'type' => 'throbber',
+        'message' => t('Fetching rooms...'),
+      ),
+    ];
+
+    $form_state_values = $form_state->getValues();
+    $location_id = NULL;
+    if (!isset($form_state_values['field_screen_location'][0])) {
+      if ($this->entity->field_screen_location->entity) {
+        $location_id = $this->entity->field_screen_location->entity->id();
+      }
+    }
+    else {
+      $location_id = $form_state->getValue('field_screen_location')[0]['target_id'];
+    }
+    if ($location_id) {
+      // It might be a good idea to DI it in the constructor.
+      $room_manager = \Drupal::service('openy_digital_signage_room.manager');
+      $rooms = $room_manager->getLocalizedRoomOptions($location_id);
+      $form['room']['widget']['#options'] = $rooms;
+    }
+    else {
+      $form['room']['widget']['#disabled'] = TRUE;
+    }
+
     // Hide Fallback content and schedule fields.
     $form['fallback_content']['#access'] = FALSE;
     $form['screen_schedule']['#access'] = FALSE;
     return $form;
+  }
+
+  /**
+   * Updates room field.
+   *
+   * @param array $form
+   *   The form.
+   * @param FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return AjaxResponse
+   *   The response
+   */
+  public function updateRoomListing(array &$form, FormStateInterface $form_state) {
+    $response = new AjaxResponse();
+    $renderer = \Drupal::service('renderer');
+    $response->addCommand(new ReplaceCommand('.field--name-room', $renderer->render($form['room'])));
+    return $response;
   }
 
   /**
