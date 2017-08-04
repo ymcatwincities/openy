@@ -25,7 +25,9 @@
  * @ingroup themeable
  */
 #}
+{% set title = name.0['#context']['value'] %}
+
 <div{{ attributes }}>
-  <div title="{{ name.0['#context']['value'] }}" class="field-amenities-icon-wrapper">{{ content }}</div>
+  <div title="{{ title }}" class="field-amenities-icon-wrapper">{{ content }}</div>
   <div class="term-name">{{ name }}</div>
 </div>

@@ -1,7 +1,0 @@
-machine:
-  services:
-    - docker
-
-test:
-  override:
-    - docker run --rm -v $(pwd):/dcir -it deciphered/dcir:latest
