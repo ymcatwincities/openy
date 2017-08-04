@@ -76,9 +76,8 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    // By default, the block will be placed in the left top corner.
     return [
-      'room' => '',
+      'room' => 0,
     ];
   }
 
@@ -86,10 +85,13 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
+    $room_manager = \Drupal::service('openy_digital_signage_room.manager');
     $form['room'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Room'),
-      '#default_value' => $this->configuration['room'],
+      '#description' => $this->t('The block is shown in context of the screen. If the screen has no room/studio specified, this value is used'),
+      '#default_value' => $this->configuration['room_ref'],
+      '#options' => $room_manager->getAllRoomOptions(),
     ];
     return $form;
   }
@@ -149,9 +151,9 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    *   The room context.
    */
   private function getRoom(OpenYScreenInterface $screen) {
-    $screen_room = $screen->field_screen_room->value;
+    $screen_room = $screen->room->entity;
     $configuration_room = $this->configuration['room'];
-    return $screen_room ?: $configuration_room;
+    return $screen_room ? $screen_room->id() : $configuration_room;
   }
 
   /**
