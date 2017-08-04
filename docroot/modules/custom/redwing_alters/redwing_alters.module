@@ -8,20 +8,6 @@
 use Drupal\Core\Render\Markup;
 
 /**
- * Implements hook_page_bottom().
- */
-function redwing_alters_page_bottom(array &$page_bottom) {
-  // Insert call tracking link to all pages.
-  $page_bottom['callrail'] = [
-    '#type' => 'inline_template',
-    '#template' => '{{ html | raw }}',
-    '#context' => [
-      'html' => '<script type="text/javascript" src="//cdn.callrail.com/companies/178817538/999e19f6d2f17cf6389b/12/swap.js"></script>',
-    ],
-  ];
-}
-
-/**
  * Implements hook_page_top().
  */
 function redwing_alters_page_top(array &$page_top) {
