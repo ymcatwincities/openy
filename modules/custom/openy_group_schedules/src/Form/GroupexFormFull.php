@@ -207,11 +207,6 @@ class GroupexFormFull extends GroupexFormBase {
     $form['#prefix'] = '<div id="groupex-full-form-wrapper">';
     $form['#suffix'] = '</div>';
 
-    $form['groupex_pdf_link'] = [
-      '#prefix' => '<div class="groupex-pdf-link-container clearfix">',
-      '#suffix' => '</div>',
-    ];
-
     $class_select_classes = $location_select_classes = $classes = 'hidden';
     $location_classes = 'show';
     if (isset($groupex_id) && empty($state['class'])) {
@@ -365,6 +360,11 @@ class GroupexFormFull extends GroupexFormBase {
         ],
         '#weight' => 0,
       ],
+    ];
+
+    $form['groupex_pdf_link'] = [
+      '#prefix' => '<div class="groupex-pdf-link-container clearfix">',
+      '#suffix' => '</div>',
     ];
 
     if (!empty($values['location'])) {

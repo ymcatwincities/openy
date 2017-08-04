@@ -145,6 +145,7 @@ dependencies:
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
   # OpenY custom modules
+  - openy_addthis
   - openy_branch_selector
   - openy_field_hours
   - openy_group_schedules
