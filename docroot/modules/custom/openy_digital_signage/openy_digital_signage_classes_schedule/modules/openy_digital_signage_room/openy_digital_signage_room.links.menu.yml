@@ -1,4 +1,4 @@
-openy_ds_classes_session.admin.structure.settings:
+openy_ds_room.admin.structure.settings:
   title: 'Rooms settings'
   description: 'Configure Digital Signage Rooms'
   route_name: openy_ds_room.settings

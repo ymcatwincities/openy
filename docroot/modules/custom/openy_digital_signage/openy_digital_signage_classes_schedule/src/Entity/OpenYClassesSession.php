@@ -246,7 +246,7 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
     // A reference to the author of the session in case if session created
     // manually.
 
-     $fields['room'] = BaseFieldDefinition::create('entity_reference')
+    $fields['room'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Room'))
       ->setDescription(t('Reference to a room/studio.'))
       ->setRequired(FALSE)
