@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_author
-    - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_location
   module:
     - ds_datetime_range
     - openy_digital_signage_classes_schedule
@@ -25,14 +24,6 @@ content:
       timezone_override: ''
       only_start_date: '1'
     third_party_settings: {  }
-  field_session_location:
-    weight: 6
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   instructor:
     label: above
     type: string

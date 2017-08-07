@@ -242,11 +242,6 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
-    // Field 'field_session_location' - Location reference.
-    // A reference to which branch location this screen belongs to.
-    // This will be used in the future when the digital signs feature is
-    // extended to other branch locations.
-
     // Field 'field_session_author' - Author reference.
     // A reference to the author of the session in case if session created
     // manually.
