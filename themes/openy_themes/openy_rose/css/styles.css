@@ -5183,7 +5183,8 @@ html.js .branch__updates_queue__button {
   overflow: hidden;
   padding: 20px;
 }
-.groupex-form-full .top-form-wrapper .js-form-type-select {
+.groupex-form-full .top-form-wrapper .js-form-type-select,
+.groupex-form-full .top-form-wrapper .js-form-type-date {
   margin: 0;
 }
 .groupex-form-full .top-form-wrapper select {

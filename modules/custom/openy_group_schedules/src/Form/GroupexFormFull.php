@@ -332,7 +332,7 @@ class GroupexFormFull extends GroupexFormBase {
 
     // Get instructor options.
     $instructors_location = isset($values['location_select']) ? $values['location_select'] : $values['location'];
-    $instructors_query = !empty($instructors_location) && $instructors_location != 'any' ? ['schedule' => TRUE, 'location' => $location] : ['schedule' => TRUE];
+    $instructors_query = !empty($instructors_location) && $instructors_location != 'any' ? ['schedule' => TRUE, 'location' => $instructors_location] : ['schedule' => TRUE];
     $this->instructorOptions = ['any' => (string) $this->t('-All-')];
     $raw_schedule_data = $this->request(['query' => $instructors_query]);
     $instructors = $this->getOptions($raw_schedule_data, 'instructor', 'instructor');

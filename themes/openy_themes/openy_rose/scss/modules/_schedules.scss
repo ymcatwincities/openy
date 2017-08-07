@@ -636,7 +636,8 @@
     background-color: $lighter-grey;
     overflow: hidden;
     padding: 20px;
-    .js-form-type-select {
+    .js-form-type-select,
+    .js-form-type-date {
       margin: 0;
     }
     select {
