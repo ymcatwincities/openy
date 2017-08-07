@@ -63,9 +63,6 @@ function openy_digital_signage_groupex_schedule_entity_create(EntityInterface $e
         'value' => $entity->get('date_time')->value,
         'end_value' => $entity->get('date_time')->end_value,
       ],
-      'field_session_location' => [
-        'target_id' => $entity->get('location')->target_id,
-      ],
       'field_session_author' => [
         'target_id' => $config->get('default_author'),
       ],

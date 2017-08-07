@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_author
-    - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_location
   module:
     - ds_datetime_range
     - openy_digital_signage_classes_schedule
@@ -22,15 +21,6 @@ content:
     third_party_settings: {  }
   field_session_author:
     weight: 8
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_session_location:
-    weight: 5
     settings:
       match_operator: CONTAINS
       size: 60
