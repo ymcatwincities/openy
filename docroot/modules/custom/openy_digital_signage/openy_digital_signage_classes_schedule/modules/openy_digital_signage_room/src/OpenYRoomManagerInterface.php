@@ -14,9 +14,9 @@ interface OpenYRoomManagerInterface {
    *
    * @param string $id
    *   The external id.
-   * @param string $location
+   * @param string $location_id
    *   The reference to location.
-   * @param string $room
+   * @param string $type
    *   The name of external system.
    *
    * @return mixed
@@ -29,9 +29,9 @@ interface OpenYRoomManagerInterface {
    *
    * @param string $id
    *   The external id.
-   * @param string $location
+   * @param string $location_id
    *   The reference to location.
-   * @param string $room
+   * @param string $type
    *   The name of external system.
    *
    * @return mixed
@@ -44,9 +44,9 @@ interface OpenYRoomManagerInterface {
    *
    * @param string $name
    *   The external id.
-   * @param string $location
+   * @param string $location_id
    *   The reference to location.
-   * @param string $room
+   * @param string $type
    *   The name of external system.
    *
    * @return bool|\Drupal\Core\Entity\EntityInterface

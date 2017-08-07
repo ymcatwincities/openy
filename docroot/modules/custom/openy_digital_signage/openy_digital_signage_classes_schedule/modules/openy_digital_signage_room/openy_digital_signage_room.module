@@ -41,4 +41,6 @@ function openy_digital_signage_room_entity_create(EntityInterface $entity) {
 
   $room_manager = \Drupal::service('openy_digital_signage_room.manager');
   $room = $room_manager->getOrCreateRoomByExternalId($entity->get('studio')->value, $entity->get('location')->target_id, 'groupex');
+  // TODO: perform all the related actions.
+  // To be implemented.
 }

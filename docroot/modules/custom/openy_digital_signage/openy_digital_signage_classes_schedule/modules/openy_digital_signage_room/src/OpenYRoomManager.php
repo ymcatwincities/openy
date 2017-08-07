@@ -120,11 +120,12 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
     switch ($type) {
       case 'groupex':
         return $config->get('groupex_default_status');
-        break;
+      break;
 
       case 'personify':
         return $config->get('personify_default_status');
-        break;
+      break;
+
     }
 
     return FALSE;
@@ -246,6 +247,5 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
 
     return $options;
   }
-
 
 }
