@@ -295,6 +295,14 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
       // Get the base view. we need it for bundle info and field defs.
       $base_table = array_keys($this->view->getBaseTables());
       $entity_type_db = reset($base_table);
+      $relationship_field_name = $relationship_fields[0];
+
+      $relationship = $this->view->getHandler($this->view->current_display, 'filter', $this->options['id']);
+      if (isset($relationship['relationship']) && $relationship['relationship'] != 'none') {
+        $relationship_field_name = $relationship['relationship'];
+        $entity_type_db = $this->getRelationships[$relationship_field_name]['entity_type'] ?: $entity_type_db;
+      }
+
       switch ($entity_type_db) {
         case 'users_field_data':
           $entity_type_id = 'user';
@@ -315,15 +323,6 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
 
       // Get bundles from a field name.
       $all_bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
-
-      $relationship = $this->view->getHandler($this->view->current_display, 'filter', $this->options['id']);
-      if (isset($relationship['relationship']) && $relationship['relationship'] != 'none') {
-        $relationship_field_name = $relationship['relationship'];
-      }
-      else {
-        // We need this as a default.
-        $relationship_field_name = $relationship_fields[0];
-      }
 
       // Run through the bundles.
       foreach (array_keys($all_bundles) as $bundle) {
