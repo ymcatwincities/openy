@@ -11,6 +11,7 @@ define('OPENY_DS_BLOCK_HTML_BUNDLE', 'digital_signage_block_free_html');
 use Drupal\Core\Template\Attribute;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_theme().
@@ -170,4 +171,17 @@ function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $for
       $form['revision_information']['#access'] = FALSE;
       break;
   }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function openy_digital_signage_blocks_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'block_content') {
+    return;
+  }
+  if ($entity->bundle() != 'digital_signage_promotional') {
+    return;
+  }
+  $entity->set('info', $entity->field_ds_headline->value);
 }
