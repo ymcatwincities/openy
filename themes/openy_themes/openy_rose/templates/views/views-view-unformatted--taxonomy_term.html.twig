@@ -24,6 +24,10 @@
     {% endif %}
 
     <div class="main-region col-sm-12">
+      {% if empty is not empty %}
+        {{ empty }}
+      {% endif %}
+
       {% for row in rows %}
         {%
           set row_classes = [
