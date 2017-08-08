@@ -26,10 +26,6 @@
    * @param parameters
    */
   Drupal.openy_group_schedules.update_class_select = function(parameters) {
-    if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
-      $('#date-select-wrapper, #location-wrapper').addClass('hidden');
-      $('#class-select-wrapper, #location-select-wrapper').removeClass('hidden');
-    }
     if (typeof(parameters.class) !== 'undefined') {
       var exists = 0 !== $('#class-select-wrapper select option[value="' + parameters.class + '"]').length;
       if (exists) {
