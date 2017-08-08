@@ -4,13 +4,14 @@ status: true
 dependencies:
   module:
     - datetime_range
+    - ds_datetime_range
     - openy_digital_signage_schedule
     - user
 id: digital_signage_schedule_items
 label: 'Digital Signage Schedule items'
 module: views
 description: ''
-tag: ''
+tag: 'digital signage'
 base_table: openy_digital_signage_sch_item
 base_field: id
 core: 8.x
@@ -318,11 +319,12 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: daterange_default
+          type: ds_daterange_default
           settings:
             timezone_override: ''
-            format_type: medium
+            format_type: html_time
             separator: '-'
+            only_start_date: 0
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -336,15 +338,15 @@ display:
           entity_type: openy_digital_signage_sch_item
           entity_field: time_slot
           plugin_id: field
-        time_slot__end_value:
-          id: time_slot__end_value
+        date__value:
+          id: date__value
           table: openy_digital_signage_sch_item
-          field: time_slot__end_value
+          field: date__value
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Time slot (end_value)'
-          exclude: false
+          label: Date
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -384,11 +386,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: end_value
-          type: daterange_default
+          click_sort_column: value
+          type: daterange_custom
           settings:
             timezone_override: ''
-            format_type: medium
+            date_format: 'F j'
             separator: '-'
           group_column: value
           group_columns: {  }
@@ -401,7 +403,7 @@ display:
           separator: ', '
           field_api_classes: false
           entity_type: openy_digital_signage_sch_item
-          entity_field: time_slot
+          entity_field: date
           plugin_id: field
         show_date:
           id: show_date
@@ -447,15 +449,15 @@ display:
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
-          empty: ''
+          empty: '{{ date__value }}'
           hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
+          empty_zero: true
+          hide_alter_empty: false
           click_sort_column: value
           type: boolean
           settings:
-            format: yes-no
-            format_custom_true: ''
+            format: custom
+            format_custom_true: 'Yes'
             format_custom_false: ''
           group_column: value
           group_columns: {  }
@@ -735,18 +737,26 @@ display:
               intern: '0'
               digital_signage_editor: '0'
               digital_signage_admin: '0'
-          is_grouped: false
+          is_grouped: true
           group_info:
-            label: ''
+            label: Status
             description: ''
-            identifier: ''
+            identifier: status
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: Enabled
+                operator: '='
+                value: '1'
+              2:
+                title: Disabled
+                operator: '='
+                value: '0'
           entity_type: openy_digital_signage_sch_item
           entity_field: status
           plugin_id: boolean
