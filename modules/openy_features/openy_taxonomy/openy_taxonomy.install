@@ -38,3 +38,10 @@ function openy_taxonomy_update_8002() {
     }
   }
 }
+
+/**
+ * Update tour with token support for demo.
+ */
+function openy_taxonomy_update_8003() {
+	openy_taxonomy_update_8002();
+}

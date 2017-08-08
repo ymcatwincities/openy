@@ -50,6 +50,7 @@
         element.trigger('mousedown');
       }
       else {
+        // Click on a selector.
         element.parents('details').attr('open', true);
         element.trigger('click');
         $(this)
