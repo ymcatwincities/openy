@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.branch_amenities
+    - field.field.block_content.branch_amenities.field_branch_am
+    - field.field.block_content.branch_amenities.field_sb_link
+    - field.field.block_content.branch_amenities.field_sb_title
+    - field.field.block_content.branch_amenities.field_icon_class
+  module:
+    - link
+id: block_content.branch_amenities.default
+targetEntityType: block_content
+bundle: branch_amenities
+mode: default
+content:
+  field_sb_link:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_sb_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  info:
+    type: string_textfield
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_icon_class:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+hidden:
+  field_branch_am: true

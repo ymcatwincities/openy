@@ -16,14 +16,19 @@ settings:
           items:
             - Bold
             - Italic
+            - Underline
             - Strike
-            - Superscript
-            - Subscript
-            - '-'
-            - RemoveFormat
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - JustifyBlock
             - TextColor
+            - BGColor
+            - Outdent
+            - Indent
+            - Format
         -
-          name: Linking
+          name: Links
           items:
             - DrupalLink
             - DrupalUnlink
@@ -36,29 +41,26 @@ settings:
           name: Media
           items:
             - Blockquote
-            - Table
-            - HorizontalRule
-            - embed_document
             - embed_video
             - embed_image
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
+            - embed_document
         -
           name: Tools
           items:
-            - ShowBlocks
+            - Table
             - Source
+            - SpecialChar
+            - Maximize
+            - Language
   plugins:
-    stylescombo:
-      styles: ''
     language:
       language_list: un
+    stylescombo:
+      styles: ''
     colorbutton:
-      colors: ''
+      colors: '5c2e91,92278f,c6168d,0060af,0089d0,00aeef,006b6b,01a490,20bdbe,dd5828,f47920,fcaf17,a92b31,ed1c24,f15922'
 image_upload:
-  status: true
+  status: false
   scheme: public
   directory: inline-images
   max_size: ''
