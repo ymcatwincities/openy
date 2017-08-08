@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\openy_digital_signage_classes_schedule\OpenYClassesScheduleManagerInterface;
+use Drupal\openy_digital_signage_room\OpenYRoomManagerInterface;
 use Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface;
 use Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -39,6 +40,13 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
   protected $screenManager;
 
   /**
+   * The Room Manager.
+   *
+   * @var \Drupal\openy_digital_signage_room\OpenYRoomManagerInterface
+   */
+  protected $roomManager;
+
+  /**
    * OpenYDigitalSignageBlockClassCurrent constructor.
    *
    * @param array $configuration
@@ -52,11 +60,12 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
    * @param \Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface $screen_manager
    *   The Open Y DS Screen Manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager, OpenYRoomManagerInterface $room_manager) {
     // Call parent construct method.
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->scheduleManager = $schedule_manager;
     $this->screenManager = $screen_manager;
+    $this->roomManager = $room_manager;
   }
 
   /**
@@ -68,7 +77,8 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
       $plugin_id,
       $plugin_definition,
       $container->get('openy_digital_signage_classes_schedule.manager'),
-      $container->get('openy_digital_signage_screen.manager')
+      $container->get('openy_digital_signage_screen.manager'),
+      $container->get('openy_digital_signage_room.manager')
     );
   }
 
@@ -85,13 +95,12 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
-    $room_manager = \Drupal::service('openy_digital_signage_room.manager');
     $form['room'] = [
       '#type' => 'select',
       '#title' => $this->t('Room'),
       '#description' => $this->t('The block is shown in context of the screen. If the screen has no room/studio specified, this value is used'),
       '#default_value' => $this->configuration['room_ref'],
-      '#options' => $room_manager->getAllRoomOptions(),
+      '#options' => $this->roomManager->getAllRoomOptions(),
     ];
     return $form;
   }
@@ -214,31 +223,6 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
     }
 
     return $classes;
-  }
-
-  /**
-   * Return screen contenxt.
-   *
-   * @return \Drupal\Core\Entity\EntityInterface|mixed|null
-   *   Screen context.
-   */
-  private static function getScreenContext() {
-    $route_name = \Drupal::routeMatch()->getRouteName();
-    $request = \Drupal::request();
-    if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
-      $screen = $request->get('openy_digital_signage_screen');
-      return $screen;
-    }
-    else {
-      $request = \Drupal::request();
-      if ($request->query->has('screen')) {
-        $storage = \Drupal::entityTypeManager()->getStorage('openy_digital_signage_screen');
-        $screen = $storage->load($request->query->get('screen'));
-        return $screen;
-      }
-    }
-
-    return NULL;
   }
 
 }

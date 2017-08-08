@@ -76,7 +76,7 @@ class OpenYRoomHtmlRouteProvider extends AdminHtmlRouteProvider {
       return NULL;
     }
 
-    $route = new Route("/admin/digital-signage/settings/room");
+    $route = new Route('/admin/digital-signage/settings/room');
     $route
       ->setDefaults([
         '_form' => 'Drupal\openy_digital_signage_room\Form\OpenYRoomSettingsForm',

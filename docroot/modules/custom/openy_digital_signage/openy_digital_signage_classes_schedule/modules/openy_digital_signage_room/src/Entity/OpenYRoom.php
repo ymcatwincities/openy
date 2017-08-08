@@ -89,12 +89,12 @@ class OpenYRoom extends ContentEntityBase implements OpenYRoomInterface {
     $fields = parent::baseFieldDefinitions($entity_type);
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
-      ->setDescription(t('The ID of the Digital Signage Classes GroupEx Pro Session.'))
+      ->setDescription(t('The ID of the Digital Signage Room entity.'))
       ->setReadOnly(TRUE);
 
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel(t('UUID'))
-      ->setDescription(t('The UUID of the Digital Signage Classes GroupEx Pro Session entity.'))
+      ->setDescription(t('The UUID of the Digital Signage Room entity.'))
       ->setReadOnly(TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')

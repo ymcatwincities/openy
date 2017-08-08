@@ -39,6 +39,13 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
   protected $screenManager;
 
   /**
+   * The Room Manager.
+   *
+   * @var \Drupal\openy_digital_signage_room\OpenYRoomManagerInterface
+   */
+  protected $roomManager;
+
+  /**
    * OpenYDigitalSignageBlockClassCurrent constructor.
    *
    * @param array $configuration
@@ -52,11 +59,12 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * @param \Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface $screen_manager
    *   The Open Y DS Screen Manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager, OpenYRoomManagerInterface $room_manager) {
     // Call parent construct method.
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->scheduleManager = $schedule_manager;
     $this->screenManager = $screen_manager;
+    $this->roomManager = $room_manager;
   }
 
   /**
@@ -68,7 +76,8 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
       $plugin_id,
       $plugin_definition,
       $container->get('openy_digital_signage_classes_schedule.manager'),
-      $container->get('openy_digital_signage_screen.manager')
+      $container->get('openy_digital_signage_screen.manager'),
+      $container->get('openy_digital_signage_room.manager')
     );
   }
 
@@ -85,13 +94,12 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
-    $room_manager = \Drupal::service('openy_digital_signage_room.manager');
     $form['room'] = [
       '#type' => 'select',
       '#title' => $this->t('Room'),
       '#description' => $this->t('The block is shown in context of the screen. If the screen has no room/studio specified, this value is used'),
       '#default_value' => $this->configuration['room_ref'],
-      '#options' => $room_manager->getAllRoomOptions(),
+      '#options' => $this->roomManager->getAllRoomOptions(),
     ];
     return $form;
   }
