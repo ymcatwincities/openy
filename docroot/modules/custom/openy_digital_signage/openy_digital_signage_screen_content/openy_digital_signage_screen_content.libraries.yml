@@ -16,6 +16,12 @@ openyds_onecol:
     theme:
       layouts/openyds_onecol/openyds-onecol.css: {}
 
+openyds_onecol_ticker:
+  version: VERSION
+  css:
+    theme:
+      layouts/openyds_onecol_ticker/openyds-onecol-ticker.css: {}
+
 openyds_twocol:
   version: VERSION
   css:

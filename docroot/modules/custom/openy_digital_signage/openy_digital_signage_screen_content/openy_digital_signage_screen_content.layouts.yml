@@ -38,6 +38,20 @@ openyds_onecol:
     middle:
       label: Middle column
 
+openyds_onecol_ticker:
+  label: Single column + Ticker
+  category: 'OpenY Digital Signage'
+  path: layouts/openyds_onecol_ticker
+  icon: openyds_onecol_ticker.png
+  library: openy_digital_signage_screen_content/openyds_onecol_ticker
+  template: panels-openyds-onecol-ticker
+  default_region: main
+  regions:
+    main:
+      label: Main
+    ticker:
+      label: Ticker
+
 openyds_twocol:
   label: Two column
   category: 'OpenY Digital Signage'
