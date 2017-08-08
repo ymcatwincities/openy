@@ -22,6 +22,9 @@ function openy_loc_branch_update_dependencies() {
     8006 => [
       'openy_node' => 8004,
     ],
+    8011 => [
+      'openy' => 8037,
+    ],
   ];
 
   return $dependencies;
@@ -241,4 +244,51 @@ function openy_loc_branch_update_8009() {
     'content',
     'hidden'
   );
+}
+
+/**
+ * Import new amenities config and update older.
+ */
+function openy_loc_branch_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_location_amenities',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.branch.default' =>[
+      'dependencies.config',
+      'content',
+    ],
+    'core.entity_view_display.node.branch.default' => [
+      'dependencies.config',
+      'content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Import tour config for CT Branch.
+ */
+function openy_loc_branch_update_8011() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.node.branch.field_location_amenities',
+    'tour.tour.openy-branch-add',
+  ]);
 }
