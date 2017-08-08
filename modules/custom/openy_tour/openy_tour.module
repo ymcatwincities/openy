@@ -27,7 +27,7 @@ function openy_tour_tokens($type, $tokens, array $data, array $options, Bubbleab
   $replacements = [];
   if ($type == 'openy_tour') {
     foreach ($tokens as $name => $original) {
-      list($token_name, $selector) = explode(':', $name);
+      list($token_name, $selector) = explode(':', $name, 2);
       if (!empty($selector)) {
         switch ($token_name) {
           case 'click':
