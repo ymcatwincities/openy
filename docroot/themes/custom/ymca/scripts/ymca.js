@@ -371,7 +371,7 @@
                 name = brand.text(),
                 href = home.attr('href');
             brand.wrapInner('<a href="' + href + '"></a>');
-            home.append('<span class="name">' + Drupal.t('Helpful links') + '</span><b class="caret"></b>');
+            home.append('<span class="name">' + Drupal.t('Helpful links, info, etc.') + '</span><b class="caret"></b>');
             home.click(function(e) {
               e.preventDefault();
               if ($(this).hasClass('open')) {
