@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class OpenYScheduleItemSettingsForm.
+ * Class OpenYClassesSessionSettingsForm.
  *
  * @package Drupal\openy_digital_signage_classes_schedule\Form
  *

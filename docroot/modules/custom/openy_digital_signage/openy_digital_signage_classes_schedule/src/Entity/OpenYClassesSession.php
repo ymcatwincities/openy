@@ -242,29 +242,19 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
       ->setDisplayConfigurable('view', TRUE)
       ->setDisplayConfigurable('form', TRUE);
 
-    // Field 'field_session_location' - Location reference.
-    // A reference to which branch location this screen belongs to.
-    // This will be used in the future when the digital signs feature is
-    // extended to other branch locations.
-
     // Field 'field_session_author' - Author reference.
     // A reference to the author of the session in case if session created
     // manually.
 
-    $fields['room_name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Room name'))
-      ->setDescription(t('Name of a room in a branch.'))
-      ->setRequired(TRUE)
-      ->setTranslatable(TRUE)
-      ->setRevisionable(TRUE)
-      ->setSetting('max_length', 255)
-      ->setDisplayOptions('view', [
-        'label' => 'visible',
-        'type' => 'string',
-        'weight' => -4,
-      ])
+    $fields['room'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Room'))
+      ->setDescription(t('Reference to a room/studio.'))
+      ->setRequired(FALSE)
+      ->setTranslatable(FALSE)
+      ->setRevisionable(FALSE)
+      ->setSetting('target_type', 'openy_ds_room')
       ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
+        'type' => 'options_select',
         'weight' => -4,
       ])
       ->setDisplayConfigurable('view', TRUE)

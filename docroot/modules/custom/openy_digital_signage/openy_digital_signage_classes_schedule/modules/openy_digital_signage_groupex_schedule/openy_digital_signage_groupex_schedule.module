@@ -36,7 +36,14 @@ function openy_digital_signage_groupex_schedule_help($route_name, RouteMatchInte
  * Implements hook_entity_create().
  */
 function openy_digital_signage_groupex_schedule_entity_create(EntityInterface $entity) {
+  /** @var OpenYClassesSession $entity */
   if ($entity->getEntityTypeId() != 'openy_ds_classes_groupex_session') {
+    return;
+  }
+
+  $room_manager = \Drupal::service('openy_digital_signage_room.manager');
+  $room = $room_manager->getOrCreateRoomByExternalId($entity->get('studio')->value, $entity->get('location')->target_id, 'groupex');
+  if (!$room || !$room->status->value) {
     return;
   }
 
@@ -45,7 +52,6 @@ function openy_digital_signage_groupex_schedule_entity_create(EntityInterface $e
     ->get('openy_digital_signage_groupex_schedule.settings');
 
   // Create a new Classes Session entity.
-  /** @var OpenYClassesSession $entity */
   $session = \Drupal::entityTypeManager()
     ->getStorage('openy_ds_classes_session')
     ->create([
@@ -57,13 +63,12 @@ function openy_digital_signage_groupex_schedule_entity_create(EntityInterface $e
         'value' => $entity->get('date_time')->value,
         'end_value' => $entity->get('date_time')->end_value,
       ],
-      'field_session_location' => [
-        'target_id' => $entity->get('location')->target_id,
-      ],
       'field_session_author' => [
         'target_id' => $config->get('default_author'),
       ],
-      'room_name' => $entity->get('studio')->value,
+      'room' => [
+        'target_id' => $room->id(),
+      ],
       'instructor' => $entity->get('original_instructor')->value,
       'sub_instructor' => $entity->get('sub_instructor')->value,
       'overridden' => FALSE,
@@ -86,17 +91,29 @@ function openy_digital_signage_groupex_schedule_entity_update(EntityInterface $e
   if (empty($entities)) {
     return;
   }
+
   // Update Classes Session associated with this GroupEx Pro session.
   $session = reset($entities);
   if (!$session instanceof OpenYClassesSession) {
     return;
   }
+
+  // Retrieve the corresponding Room entity.
+  $room_manager = \Drupal::service('openy_digital_signage_room.manager');
+  $room = $room_manager->getOrCreateRoomByExternalId($entity->get('studio')->value, $entity->get('location')->target_id, 'groupex');
+  if (!$room || !$room->status->value) {
+    $session->delete();
+    return;
+  }
+
   $session->set('title', $entity->get('title')->value);
   $session->set('date_time', [
     'value' => $entity->get('date_time')->value,
     'end_value' => $entity->get('date_time')->end_value,
   ]);
-  $session->set('room_name', $entity->get('studio')->value);
+  $session->set('room', [
+    'target_id' => $room->id(),
+  ]);
   $session->set('instructor', $entity->get('original_instructor')->value);
   $session->set('sub_instructor', $entity->get('sub_instructor')->value);
   $session->save();
