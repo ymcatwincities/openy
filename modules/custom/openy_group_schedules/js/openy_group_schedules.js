@@ -35,6 +35,20 @@
   };
 
   /**
+   * Update "Instructor" select value to be equal with "instructor" query param.
+   *
+   * @param parameters
+   */
+  Drupal.openy_group_schedules.update_instructor_select = function(parameters) {
+    if (typeof(parameters.instructor) !== 'undefined') {
+      var exists = 0 !== $('#instructor-select-wrapper select option[value="' + parameters.instructor + '"]').length;
+      if (exists) {
+        $('#instructor-select-wrapper select').val(parameters.instructor);
+      }
+    }
+  };
+
+  /**
    * Update "Location" select value to be equal with "location" query param.
    *
    * @param parameters
@@ -82,6 +96,7 @@
     }
 
     Drupal.openy_group_schedules.update_class_select(parameters);
+    Drupal.openy_group_schedules.update_instructor_select(parameters);
     Drupal.openy_group_schedules.update_filter_date(parameters);
     Drupal.openy_group_schedules.update_location_select(parameters);
   };
