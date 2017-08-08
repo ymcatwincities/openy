@@ -11,10 +11,10 @@
     display: block;
     float: left;
     line-height: 40px;
-    @include breakpoint(tablet) {
+    @media (min-width: $screen-tablet) {
       line-height: 50px;
     }
-    @include breakpoint(desktop) {
+    @media (min-width: $screen-lg-desktop) {
       line-height: 55px;
     }
     a {
@@ -24,16 +24,6 @@
       font-size: 14px;
       line-height: 40px;
       padding: 10px 15px 15px 15px;
-      @include breakpoint(tablet) {
-        line-height: 50px;
-        font-size: 16px;
-        padding: 10px 20px 20px 20px;
-      }
-      @include breakpoint(desktop) {
-        line-height: 55px;
-        font-size: 20px;
-        padding: 10px 25px 25px 25px;
-      }
       &:hover {
         color: inherit;
         text-decoration: underline;

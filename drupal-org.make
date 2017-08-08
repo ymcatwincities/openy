@@ -65,6 +65,10 @@ projects[admin_toolbar][patch][] = "https://www.drupal.org/files/issues/admin_to
 projects[admin_toolbar][patch][] = "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
 projects[panelbutton] = 1.1
 projects[colorbutton] = 1.1
+projects[better_exposed_filters] = 3.0-alpha2
+projects[custom_formatters] = 3.0-alpha1
+projects[token_filter] = 1.0-beta1
+projects[views_field_formatter] = 1.5
 
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
