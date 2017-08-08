@@ -293,9 +293,6 @@ class GroupexFormFull extends GroupexFormBase {
           'type' => 'throbber',
         ],
       ],
-      '#cache' => [
-        'max-age' => $max_age,
-      ],
       '#weight' => -2,
     ];
 
@@ -555,6 +552,9 @@ class GroupexFormFull extends GroupexFormBase {
     // Add optional parameters.
     if (!empty($user_input['instructor_select'])) {
       $parameters['instructor'] = $user_input['instructor_select'];
+    }
+    elseif (!empty($query['instructor'])) {
+      $parameters['instructor'] = $query['instructor'];
     }
     if (isset($view_mode)) {
       $parameters['view_mode'] = $view_mode;
