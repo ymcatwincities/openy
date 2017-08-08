@@ -34,7 +34,7 @@ interface OpenYRoomInterface extends ContentEntityInterface {
    * Gets Digital Signage Room created timestamp.
    *
    * @return int
-   *   Created timestamp of the Digital Signage Classes GroupEx Pro Session.
+   *   Created timestamp of the Digital Signage Room.
    */
   public function getCreatedTime();
 

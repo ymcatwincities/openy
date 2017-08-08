@@ -18,13 +18,7 @@ function openy_digital_signage_room_help($route_name, RouteMatchInterface $route
     case 'openy_ds_room.settings':
       $output = '';
       $output .= '<h3>' . t('Room settings') . '</h3>';
-      $output .= '<p>' . t('Specify locations you want to use for import from GroupEx. Only selected locations are used to import sessions.') . '</p>';
-      $output .= '<p>';
-      $output .= t('To configure mapping with GroupEx Pro go to the @url.', [
-        '@url' => Link::fromTextAndUrl('Locations Mapping page', Url::fromRoute('view.location_mapping.page_1'))
-          ->toString(),
-      ]);
-      $output .= '</p>';
+      $output .= '<p>' . t('Default configuration for rooms that are automatically created by GroupEx Pro and Personify integrations.') . '</p>';
       return $output;
 
     default:

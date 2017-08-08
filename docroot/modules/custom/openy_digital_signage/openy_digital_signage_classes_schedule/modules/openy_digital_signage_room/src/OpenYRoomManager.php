@@ -36,20 +36,6 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
   const CONFIG = 'openy_digital_signage_room.settings';
 
   /**
-   * The query factory.
-   *
-   * @var QueryFactory
-   */
-  protected $entityQuery;
-
-  /**
-   * The entity type manager.
-   *
-   * @var EntityTypeManager
-   */
-  protected $entityTypeManager;
-
-  /**
    * The entity storage.
    *
    * @var EntityStorageInterface
@@ -73,11 +59,9 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
   /**
    * Constructor.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $config_factory) {
-    $this->entityQuery = $entity_query;
-    $this->entityTypeManager = $entity_type_manager;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $config_factory) {
     $this->logger = $logger_factory->get(self::CHANNEL);
-    $this->storage = $this->entityTypeManager->getStorage(self::STORAGE);
+    $this->storage = $entity_type_manager->getStorage(self::STORAGE);
     $this->configFactory = $config_factory;
   }
 
@@ -133,18 +117,11 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
     if (!$field_name = $this->getFieldNameByType($type)) {
       return FALSE;
     }
-    $query = $this->entityQuery
-      ->get(self::STORAGE)
-      ->condition($field_name, $id)
-      ->condition('location', $location_id);
 
-    $ids = $query->execute();
-
-    if (!$ids) {
-      return FALSE;
-    }
-
-    return $this->storage->load(reset($ids));
+    return $this->storage->loadByProperties([
+      $field_name => $id,
+      'location' => $location_id,
+    ]);
   }
 
   /**
@@ -171,6 +148,11 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
    */
   public function createRoomByExternalId($name, $location_id, $type) {
     if (!$field_name = $this->getFieldNameByType($type)) {
+      $this->logger->warning('OpenYRoomManager is asked to created room with incorrect type @type. The name is @name, location id is @locationid', [
+        '@type' => $type,
+        '@name' => $name,
+        '@locationid' => $location_id,
+      ]);
       return FALSE;
     }
 
@@ -197,19 +179,14 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
    * {@inheritdoc}
    */
   public function getLocalizedRoomOptions($location_id) {
-    $query = $this->storage->getQuery();
-    $query->condition('location', $location_id)
-      ->condition('status', TRUE)
-      ->sort('title', 'ASC');
+    $room_entities = $this->storage->loadByProperties([
+      'location' => $location_id,
+      'status' => TRUE,
+    ]);
 
-    $ids = $query->execute();
-
-    $room_entities = $this->storage->loadMultiple($ids);
-    $options = [
-      '_none' => $this->t('- None -'),
-    ];
-    foreach ($ids as $id) {
-      $options[$id] = $room_entities[$id]->label();
+    $options = ['_none' => $this->t('- None -')];
+    foreach ($room_entities as $room_entity) {
+      $options[$room_entity->id()] = $room_entity->label();
     }
 
     asort($options);
@@ -221,18 +198,11 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
    * {@inheritdoc}
    */
   public function getAllRoomOptions() {
-    $query = $this->storage->getQuery();
-    $query->condition('status', TRUE);
-
-    $ids = $query->execute();
-
-    $room_entities = $this->storage->loadMultiple($ids);
-    $options = [
-      '_none' => $this->t('- None -'),
-    ];
-    foreach ($ids as $id) {
-      $label = $room_entities[$id]->location->entity->label() . ' - ' . $room_entities[$id]->label();
-      $options[$id] = $label;
+    $room_entities = $this->storage->loadByProperties(['status' => TRUE]);
+    $options = ['_none' => $this->t('- None -')];
+    foreach ($room_entities as $room_entity) {
+      $label = $room_entity->location->entity->label() . ' - ' . $room_entity->label();
+      $options[$room_entity->id()] = $label;
     }
 
     asort($options);
