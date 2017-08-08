@@ -432,7 +432,7 @@ header#page-head {
         li {
           &:first-child {
             a {
-              padding: 3px 15px;
+              padding: 7px 15px;
               border-radius: 5px;
               background-color: $main-purple;
               text-transform: capitalize;
@@ -441,7 +441,7 @@ header#page-head {
               line-height: 20px;
               color: white;
               text-shadow: none;
-              margin: 28px 5px 0 0;
+              margin: 24px 5px 0 0;
               border-top: none;
               &:hover {
                 border-top: none;
@@ -494,7 +494,7 @@ header#page-head {
           li {
             &:first-child {
               a {
-                margin: 13px 5px 0 0;
+                margin: 9px 5px 0 0;
               }
             }
           }
