@@ -24,6 +24,7 @@ function openy_digital_signage_install() {
  */
 function openy_digital_signage_update_8000() {
   \Drupal::service('module_installer')->install([
+    'openy_digital_signage_room',
     'openy_digital_signage_screen',
     'openy_digital_signage_classes_schedule',
     'openy_digital_signage_blocks',

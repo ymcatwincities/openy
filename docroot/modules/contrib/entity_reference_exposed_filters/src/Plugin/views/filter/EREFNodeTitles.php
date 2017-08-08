@@ -295,6 +295,14 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
       // Get the base view. we need it for bundle info and field defs.
       $base_table = array_keys($this->view->getBaseTables());
       $entity_type_db = reset($base_table);
+      $relationship_field_name = $relationship_fields[0];
+
+      $relationship = $this->view->getHandler($this->view->current_display, 'filter', $this->options['id']);
+      if (isset($relationship['relationship']) && $relationship['relationship'] != 'none') {
+        $relationship_field_name = $relationship['relationship'];
+        $entity_type_db = $this->getRelationships[$relationship_field_name]['entity_type'] ?: $entity_type_db;
+      }
+
       switch ($entity_type_db) {
         case 'users_field_data':
           $entity_type_id = 'user';
@@ -316,15 +324,6 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
       // Get bundles from a field name.
       $all_bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
 
-      $relationship = $this->view->getHandler($this->view->current_display, 'filter', $this->options['id']);
-      if (isset($relationship['relationship']) && $relationship['relationship'] != 'none') {
-        $relationship_field_name = $relationship['relationship'];
-      }
-      else {
-        // We need this as a default.
-        $relationship_field_name = $relationship_fields[0];
-      }
-
       // Run through the bundles.
       foreach (array_keys($all_bundles) as $bundle) {
         foreach ($this->entityFieldManager->getFieldDefinitions($entity_type_id, $bundle) as $field_definition) {
@@ -332,7 +331,12 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
             if ($field_definition->getName() == 'uid') {
               continue;
             }
-            $field_obj = FieldConfig::loadByName($entity_type_id, $bundle, $field_definition->getName());
+            if ($field_definition instanceof \Drupal\Core\Field\BaseFieldDefinition) {
+              $field_obj = $field_definition;
+            }
+            else {
+              $field_obj = FieldConfig::loadByName($entity_type_id, $bundle, $field_definition->getName());
+            }
             $target_entity_type_id = explode(':', $field_obj->getSetting('handler'));
             // Convert an entity reference view to node or user.
             if (in_array('views', $target_entity_type_id)) {
@@ -341,7 +345,12 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
 
             // Will tell us node, user etc.
             if ($target_entity_type_id[0] == 'default') {
-              $target_entity_type_id = $target_entity_type_id[1];
+              if (!isset($target_entity_type_id[1]) && $field_obj instanceof \Drupal\Core\Field\BaseFieldDefinition) {
+                $target_entity_type_id = $field_obj->getSetting('target_type');
+              }
+              else {
+                $target_entity_type_id = $target_entity_type_id[1];
+              }
             }
             // Filter out entity reference views.
             if (($handler_settings = $field_obj->getSetting('handler_settings')) && !empty($handler_settings['view'])) {
