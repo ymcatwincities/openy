@@ -1,0 +1,4 @@
+services:
+  openy_digital_signage_room.manager:
+    class: Drupal\openy_digital_signage_room\OpenYRoomManager
+    arguments: ['@entity.manager', '@entity.query', '@logger.factory', '@config.factory']

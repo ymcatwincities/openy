@@ -39,6 +39,13 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
   protected $screenManager;
 
   /**
+   * The Room Manager.
+   *
+   * @var \Drupal\openy_digital_signage_room\OpenYRoomManagerInterface
+   */
+  protected $roomManager;
+
+  /**
    * OpenYDigitalSignageBlockClassCurrent constructor.
    *
    * @param array $configuration
@@ -52,11 +59,12 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * @param \Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface $screen_manager
    *   The Open Y DS Screen Manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager, OpenYRoomManagerInterface $room_manager) {
     // Call parent construct method.
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->scheduleManager = $schedule_manager;
     $this->screenManager = $screen_manager;
+    $this->roomManager = $room_manager;
   }
 
   /**
@@ -68,7 +76,8 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
       $plugin_id,
       $plugin_definition,
       $container->get('openy_digital_signage_classes_schedule.manager'),
-      $container->get('openy_digital_signage_screen.manager')
+      $container->get('openy_digital_signage_screen.manager'),
+      $container->get('openy_digital_signage_room.manager')
     );
   }
 
@@ -76,9 +85,8 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    // By default, the block will be placed in the left top corner.
     return [
-      'room' => '',
+      'room' => 0,
     ];
   }
 
@@ -87,9 +95,11 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    */
   public function blockForm($form, FormStateInterface $form_state) {
     $form['room'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Room'),
-      '#default_value' => $this->configuration['room'],
+      '#description' => $this->t('The block is shown in context of the screen. If the screen has no room/studio specified, this value is used'),
+      '#default_value' => $this->configuration['room_ref'],
+      '#options' => $this->roomManager->getAllRoomOptions(),
     ];
     return $form;
   }
@@ -149,9 +159,9 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    *   The room context.
    */
   private function getRoom(OpenYScreenInterface $screen) {
-    $screen_room = $screen->field_screen_room->value;
+    $screen_room = $screen->room->entity;
     $configuration_room = $this->configuration['room'];
-    return $screen_room ?: $configuration_room;
+    return $screen_room ? $screen_room->id() : $configuration_room;
   }
 
   /**

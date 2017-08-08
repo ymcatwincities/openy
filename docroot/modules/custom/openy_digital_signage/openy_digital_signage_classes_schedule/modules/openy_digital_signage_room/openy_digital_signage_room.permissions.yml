@@ -1,0 +1,19 @@
+add Digital Signage Room entities:
+  title: 'Create new Digital Signage Room'
+
+administer Digital Signage Room entities:
+  title: 'Administer Digital Signage Rooms'
+  description: 'Allow to access the administration form to configure Digital Signage Room entities.'
+  restrict access: true
+
+delete Digital Signage Room entities:
+  title: 'Delete Digital Signage Room'
+
+edit Digital Signage Room entities:
+  title: 'Edit Digital Signage Room'
+
+access Digital Signage Room overview:
+  title: 'Access Digital Signage Room overview page'
+
+view Digital Signage Room entities:
+  title: 'View Digital Signage Room'
