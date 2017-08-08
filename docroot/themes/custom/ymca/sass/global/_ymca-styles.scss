@@ -1179,3 +1179,23 @@ span.grey-caret {
     }
   }
 }
+
+.masthead-brand {
+  position: relative;
+  a {
+    color: $white;
+    &:before {
+      display: none;
+      text-transform: none;
+      content: 'h';
+      font-weight: normal;
+      font-family: 'YMCA';
+      line-height: 1em;
+      margin-right: 10px;
+      font-size: 27px;
+      @include breakpoint(0 767px) {
+        display: inline-block;
+      }
+    }
+  }
+}

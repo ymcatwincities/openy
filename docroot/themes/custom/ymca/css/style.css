@@ -8841,6 +8841,28 @@ span.grey-caret:after {
     text-transform: none;
   }
 }
+.masthead-brand {
+  position: relative;
+}
+.masthead-brand a {
+  color: #fff;
+}
+.masthead-brand a:before {
+  display: none;
+  text-transform: none;
+  content: 'h';
+  font-weight: normal;
+  font-family: 'YMCA';
+  line-height: 1em;
+  margin-right: 10px;
+  font-size: 27px;
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  .masthead-brand a:before {
+    display: inline-block;
+  }
+}
+
 .form-item {
   margin-bottom: 15px;
 }
