@@ -116,19 +116,11 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
    *   The default status.
    */
   private function getDefaultStatusByType($type) {
-    $config = $this->configFactory->get(self::CONFIG);
-    switch ($type) {
-      case 'groupex':
-        return $config->get('groupex_default_status');
-      break;
-
-      case 'personify':
-        return $config->get('personify_default_status');
-      break;
-
+    if (!in_array($type, ['groupex', 'personify'])) {
+      return FALSE;
     }
-
-    return FALSE;
+    $config = $this->configFactory->get(self::CONFIG);
+    return $config->get($type == 'groupex' ? 'groupex_default_status' : 'personify_default_status');
   }
 
   /**
