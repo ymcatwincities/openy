@@ -11,6 +11,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_ENTITY_TYPE_build_defaults_alter().
@@ -33,6 +34,14 @@ function openy_digital_signage_screen_node_view_alter(&$build, $entity, $display
   if ($entity->bundle() == 'screen_content') {
     $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_theme';
     $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_handler';
+    unset($build['#contextual_links']);
+    foreach (Element::children($build) as $element) {
+      foreach (Element::children($build[$element]) as $region) {
+        foreach (Element::children($build[$element][$region]) as $block_id) {
+          unset($build[$element][$region][$block_id]['$contextual_links']);
+        }
+      }
+    }
   }
 }
 
