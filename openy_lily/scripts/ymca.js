@@ -199,6 +199,9 @@
    */
   Drupal.behaviors.scrollOffset = {
     attach: function (context, settings) {
+      if (typeof Drupal.AjaxCommands === 'undefined') {
+        return;
+      }
       Drupal.AjaxCommands.prototype.viewsScrollTop = function (ajax, response) {
         // Scroll to the top of the view. This will allow users
         // to browse newly loaded content after e.g. clicking a pager
