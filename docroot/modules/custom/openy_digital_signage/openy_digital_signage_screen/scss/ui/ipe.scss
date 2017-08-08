@@ -9,6 +9,10 @@
     h5,
     li {
       font-size: 12 / 1440 * 100vw;
+
+      @media (max-width: 1000px)  {
+        font-size: 10px;
+      }
     }
   }
 
@@ -27,14 +31,25 @@
 
     [data-action-id="move"] select {
       font-size: 14 / 1920 * 100vw;
+
+      @media (max-width: 1000px)  {
+        font-size: 10px;
+      }
     }
   }
 
   .ipe-icon {
     font-size: 24 / 1920 * 100vw;
 
+    @media (max-width: 1000px)  {
+      font-size: 12px;
+    }
+
     &.ipe-icon-remove {
       font-size: 20 / 1920 * 100vw;
+      @media (max-width: 1000px)  {
+        font-size: 10px;
+      }
     }
   }
 }

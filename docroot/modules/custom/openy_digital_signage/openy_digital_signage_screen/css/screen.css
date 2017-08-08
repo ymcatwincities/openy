@@ -430,6 +430,27 @@ body.node--type-screen-content {
     background: #c6168d;
     height: inherit; }
 
+.node--type-screen-content .ui-widget.ui-dialog {
+  max-height: 100% !important;
+  max-width: 100% !important; }
+  .node--type-screen-content .ui-widget.ui-dialog .ui-dialog-titlebar {
+    max-width: 100% !important;
+    padding: 5px; }
+    .node--type-screen-content .ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+      font-size: 1.5625vw;
+      line-height: 1.5625vw; }
+    .node--type-screen-content .ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+              transform: translateY(-50%); }
+  .node--type-screen-content .ui-widget.ui-dialog .ui-dialog-content {
+    padding: 1.04167vw;
+    max-height: 100% !important;
+    max-width: 100% !important; }
+    .node--type-screen-content .ui-widget.ui-dialog .ui-dialog-content iframe {
+      max-height: 90vh; }
+
 .openy-ds-layout .ipe-actions {
   min-height: 1.38889vw;
   border-radius: 0.34722vw 0.34722vw 0 0;
@@ -438,6 +459,10 @@ body.node--type-screen-content {
   .openy-ds-layout .ipe-actions h5,
   .openy-ds-layout .ipe-actions li {
     font-size: 0.83333vw; }
+    @media (max-width: 1000px) {
+      .openy-ds-layout .ipe-actions h5,
+      .openy-ds-layout .ipe-actions li {
+        font-size: 8px; } }
 
 .openy-ds-layout .ipe-actions-block {
   position: absolute;
@@ -451,11 +476,20 @@ body.node--type-screen-content {
 
 .openy-ds-layout .ipe-action-list [data-action-id="move"] select {
   font-size: 0.72917vw; }
+  @media (max-width: 1000px) {
+    .openy-ds-layout .ipe-action-list [data-action-id="move"] select {
+      font-size: 8px; } }
 
 .openy-ds-layout .ipe-icon {
   font-size: 1.25vw; }
+  @media (max-width: 1000px) {
+    .openy-ds-layout .ipe-icon {
+      font-size: 12px; } }
   .openy-ds-layout .ipe-icon.ipe-icon-remove {
     font-size: 1.04167vw; }
+    @media (max-width: 1000px) {
+      .openy-ds-layout .ipe-icon.ipe-icon-remove {
+        font-size: 10px; } }
 
 .ipe-tab a {
   font-size: 13px;
