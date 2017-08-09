@@ -1,0 +1,11 @@
+services:
+  ymca_camp_du_nord_sync.fetcher:
+    class: Drupal\ymca_camp_du_nord_sync\syncer\fetcher
+    arguments: []
+  ymca_camp_du_nord_sync.syncer:
+    class: Drupal\ymca_sync\Syncer
+    arguments: []
+    calls:
+      - [addStep, ['@ymca_camp_du_nord_sync.fetcher', 'fetch']]
+    tags:
+      - { name: syncer }
