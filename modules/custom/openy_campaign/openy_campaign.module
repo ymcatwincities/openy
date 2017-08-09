@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+use \Drupal\node\Entity\Node;
+
+/**
+ * Implements template_preprocess_node().
+ *
+ * Find published Landing page and render it on Campaign page
+ */
+function openy_campaign_preprocess_node(&$variables, $hook) {
+  if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
+    // Check if Campaign is Paused
+    $isPaused = $variables['node']->get('field_pause_campaign')->value;
+    $field_pause_landing_page = $variables['node']->get('field_pause_landing_page')->getValue();
+    $landingPageIds = [];
+    if ($isPaused && isset($field_pause_landing_page[0]['target_id'])) {
+      $landingPageIds[] = $field_pause_landing_page[0]['target_id'];
+    }
+    else {
+      $fieldCampaignPages = $variables['node']->get('field_campaign_pages')->getValue();
+      foreach ($fieldCampaignPages as $field) {
+        $landingPageIds[] = $field['target_id'];
+      }
+    }
+
+    // Load Landing page and check if it's published
+    $landingPages = Node::loadMultiple($landingPageIds);
+    foreach ($landingPages as $node) {
+      if ($node->isPublished()) {
+        $toRender[] = $node;
+      }
+    }
+
+    // Render the first published Landing page
+    $renderLandingPage = reset($toRender);
+    $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($renderLandingPage);
+    $variables['content']['landing_page'] = $build;
+  }
+}

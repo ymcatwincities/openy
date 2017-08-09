@@ -1,20 +1,17 @@
-name: 'OpenY Landing'
-description: 'OpenY Landing.'
+name: 'OpenY Node Campaign'
+description: 'OpenY node Campaign'
 type: module
 core: 8.x
-package: OpenY
 dependencies:
   - datalayer
   - entity_reference_revisions
   - field
-  - field_group
   - menu_ui
-  - metatag
   - node
-  - openy_node
-  - options
+  - openy_node_landing
   - paragraphs
   - path
   - pathauto
   - scheduler
   - user
+version: 8.x-1.0

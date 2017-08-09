@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.campaign.field_campaign_pages
+    - field.field.node.campaign.field_pause_campaign
+    - field.field.node.campaign.field_pause_landing_page
+    - node.type.campaign
+  module:
+    - user
+id: node.campaign.default
+targetEntityType: node
+bundle: campaign
+mode: default
+content:
+  field_campaign_pages:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_entity_id
+    region: content
+  field_pause_landing_page:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: entity_reference_entity_id
+    region: content
+hidden:
+  field_pause_campaign: true
+  links: true
