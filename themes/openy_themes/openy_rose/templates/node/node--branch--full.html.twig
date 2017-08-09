@@ -87,7 +87,7 @@ set classes = [
 
 {# Branch header #}
 <div{{ attributes.addClass('branch-header') }}>
-  <div class="hidden-xs desktop">
+  <section class="hidden-xs desktop">
     <div class="container">
       <address class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
         <div class="column col-sm-3 col-md-2 branch-header__item">
@@ -114,9 +114,9 @@ set classes = [
         </div>
       </address>
     </div>
-  </div>
+  </section>
 
-  <div class="hidden-sm hidden-md hidden-lg mobile">
+  <blockquote class="hidden-sm hidden-md hidden-lg mobile">
     <address class="container">
       <div class="row">
         <div class="col-xs-12">
@@ -150,7 +150,7 @@ set classes = [
         </div>
       </div>
     </address>
-  </div>
+  </blockquote>
 </div>
 <header>
   {{ content.field_header_content }}
@@ -161,11 +161,11 @@ set classes = [
   <div class="row">
     <div class="main-region col-sm-12">
       <div class="branch-content">
-        <section{{ attributes.addClass(classes) }}>
+        <article{{ attributes.addClass(classes) }}>
           <div{{ content_attributes.addClass('node__content') }}>
             {{ content.field_content }}
           </div>
-        </section>
+        </article>
       </div>
     </div>
   </div>

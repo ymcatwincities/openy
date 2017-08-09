@@ -86,7 +86,7 @@
 
 {# Camp header #}
 <div{{ attributes.addClass('branch-header') }}>
-  <div class="hidden-xs desktop">
+  <section class="hidden-xs desktop">
     <div class="container">
       <address class="row branch-header-inner camp-info" data-camp-name="{{ node.label }}">
         <div class="column col-sm-3 col-md-2">
@@ -105,9 +105,9 @@
         </div>
       </address>
     </div>
-  </div>
+  </section>
 
-  <div class="hidden-sm hidden-md hidden-lg mobile">
+  <blockquote class="hidden-sm hidden-md hidden-lg mobile">
     <address class="container">
       <div class="row">
         <div class="col-xs-12">
@@ -132,7 +132,7 @@
         </div>
       </div>
     </address>
-  </div>
+  </blockquote>
 </div>
 <header>
   {{ content.field_header_content }}

@@ -44,7 +44,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
 {% set title = 'What\'s New at '|t ~ label ~ '?' %}
-<section{{ attributes.addClass(classes) }}>
+<div{{ attributes.addClass(classes) }}>
     <h2 class="h1">{{ title }}</h2>
     {{ content }}
-</section>
+</div>

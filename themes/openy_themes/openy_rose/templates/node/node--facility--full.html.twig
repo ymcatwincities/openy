@@ -85,7 +85,7 @@ set classes = [
 {% set directions_title = content.field_location_directions.0['#title'] %}
 {% set directions_url = content.field_location_directions.0['#url'] %}
 
-<div class="container two-columns-container">
+<article class="container two-columns-container">
   <div class="row">
     <div class="col-sm-12">
       <h1{{ title_attributes.addClass('node-title') }}>{{ label }}</h1>
@@ -121,4 +121,4 @@ set classes = [
       </div>
     </div>
   </div>
-</div>
+</article>
