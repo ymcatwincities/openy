@@ -99,7 +99,7 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
       '#type' => 'select',
       '#title' => $this->t('Room'),
       '#description' => $this->t('The block is shown in context of the screen. If the screen has no room/studio specified, this value is used'),
-      '#default_value' => $this->configuration['room_ref'],
+      '#default_value' => $this->configuration['room'],
       '#options' => $this->roomManager->getAllRoomOptions(),
     ];
     return $form;
