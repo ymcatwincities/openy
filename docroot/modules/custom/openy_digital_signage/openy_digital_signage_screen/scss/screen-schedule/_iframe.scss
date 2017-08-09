@@ -1,7 +1,9 @@
 .frame-container {
-  width: 100%;
-  position: relative;
+  background-color: #CCCCCC;
+  border: 1px solid #808080;
   padding-bottom: 56.25%;
+  position: relative;
+  width: 100%;
 
   &.frame-container--portrait {
     padding-bottom: 100%;
@@ -14,10 +16,11 @@
   }
 
   iframe {
-    width: 100%;
+    border: none;
     height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
+    width: 100%;
   }
 }

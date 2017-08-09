@@ -222,9 +222,11 @@
   position: absolute; }
 
 .frame-container {
-  width: 100%;
+  background-color: #CCCCCC;
+  border: 1px solid #808080;
+  padding-bottom: 56.25%;
   position: relative;
-  padding-bottom: 56.25%; }
+  width: 100%; }
   .frame-container.frame-container--portrait {
     padding-bottom: 100%; }
     .frame-container.frame-container--portrait iframe {
@@ -234,8 +236,9 @@
           -ms-transform: translateX(-50%);
               transform: translateX(-50%); }
   .frame-container iframe {
-    width: 100%;
+    border: none;
     height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0; }
+    width: 100%; }
