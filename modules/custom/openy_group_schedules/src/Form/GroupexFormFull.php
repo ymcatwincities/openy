@@ -334,10 +334,16 @@ class GroupexFormFull extends GroupexFormBase {
     $raw_schedule_data = $this->request(['query' => $instructors_query]);
     $instructors = $this->getOptions($raw_schedule_data, 'instructor', 'instructor');
     // Cleanup markup being sent back.
-    array_walk($instructors , function(&$value) {
-      $value = t($value);
-    });
-    $this->instructorOptions = $this->instructorOptions + $instructors;
+    foreach($instructors as $key => $value) {
+      // Here we need to remove redundant HTML if exists.
+      $pos = strpos($key, '<span ');
+      if (FALSE !== $pos) {
+        $key = substr_replace($key, '', $pos);
+      }
+
+      $instructors_options[$key] = t(strip_tags($value));
+    }
+    $this->instructorOptions = $this->instructorOptions + $instructors_options;
 
     $form['instructor_select'] = [
       '#type' => 'select',
