@@ -66,6 +66,9 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_tfacility' => [
         'openy_demo_taxonomy_term_facility_type',
       ],
+      'openy_demo_tamenities' => [
+        'openy_demo_taxonomy_term_amenities',
+      ],
       'openy_demo_bfooter' => [
         'openy_demo_block_content_footer',
       ],
@@ -73,6 +76,12 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_block_microsites_menu',
       ],
       'openy_demo_addthis' => [],
+      'openy_demo_bsimple' => [
+        'openy_demo_block_content_simple',
+      ],
+      'openy_demo_bamenities' => [
+        'openy_demo_block_content_amenities',
+      ],
     ],
     'alerts' => [
       'openy_demo_nalert' => [
