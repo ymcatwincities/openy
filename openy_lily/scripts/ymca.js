@@ -48,7 +48,12 @@
   Drupal.behaviors.matchHeight = {
     attach: function (context, settings) {
       $(".news-more-teaser, .blog-more-teaser", context).each(function () {
+        $('.blog-up').matchHeight();
+        $('.blog-heading').matchHeight();
         $('.inner-wrapper').matchHeight();
+      });
+      $(".featured-highlights", context).each(function () {
+        $('.blog-up').matchHeight();
         $('.blog-heading').matchHeight();
       });
     }
