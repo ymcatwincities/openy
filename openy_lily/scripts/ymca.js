@@ -47,9 +47,9 @@
    */
   Drupal.behaviors.matchHeight = {
     attach: function (context, settings) {
-      $(".node--type-blog .inner-wrapper", context).each(function () {
-        $('.node--type-blog .inner-wrapper').matchHeight();
-        $('.node--type-blog .inner-wrapper .blog-heading').matchHeight();
+      $(".news-more-teaser, .blog-more-teaser", context).each(function () {
+        $('.inner-wrapper').matchHeight();
+        $('.blog-heading').matchHeight();
       });
     }
   };

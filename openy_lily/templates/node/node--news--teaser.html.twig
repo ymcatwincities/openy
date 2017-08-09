@@ -71,26 +71,40 @@
  */
 #}
 {% set classes = [
-  'node',
-  'node--type-' ~ node.bundle|clean_class,
-  node.isPromoted() ? 'node--promoted',
-  node.isSticky() ? 'node--sticky',
-  not node.isPublished() ? 'node--unpublished',
-  view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  'news-story'
+'node',
+'node--type-' ~ node.bundle|clean_class,
+node.isPromoted() ? 'node--promoted',
+node.isSticky() ? 'node--sticky',
+not node.isPublished() ? 'node--unpublished',
+view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+'news-story'
 ] %}
 {% set category_default = node.bundle|clean_class|capitalize %}
-{% set category = content.field_news_category.0 ? content.field_news_category.0 : category_default|t %}
+{% set category = content.field_blog_category[0]['#title'] ? content.field_blog_category[0]['#title'] : category_default|t %}
 
 <article{{ attributes.addClass(classes) }}>
-  <div class="inner-wrapper">
-    <div class="news-heading">
-      <h4>{{ category }}</h4>
-      <h2>
-        <a href="{{ url }}" rel="bookmark">
+  <a href="{{ url }}" rel="bookmark">
+    <div class="inner-wrapper">
+      <div class="blog-up">
+        <span class="category" style="{{ cat_bg_color }}">
+          {{ category }}
+        </span>
+        {% if content.field_blog_image['#field_type'] %}
+          {{ content.field_blog_image }}
+        {% else %}
+          <div class="default-img">
+            <img src="{{ directory }}/logo.svg">
+          </div>
+        {% endif %}
+      </div>
+      <div class="blog-heading">
+        <h2 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
           {{ label }}
-        </a>
-      </h2>
+        </h2>
+        <p {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
+          {{ description|striptags }}
+        </p>
+      </div>
     </div>
-  </div>
+  </a>
 </article>
