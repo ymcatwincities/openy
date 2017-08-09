@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\openy_digital_signage_classes_schedule\OpenYClassesScheduleManagerInterface;
+use Drupal\openy_digital_signage_room\OpenYRoomManagerInterface;
 use Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface;
 use Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -46,7 +47,7 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
   protected $roomManager;
 
   /**
-   * OpenYDigitalSignageBlockClassCurrent constructor.
+   * OpenYDigitalSignageBlockClassTicker constructor.
    *
    * @param array $configuration
    *   The configuration.
@@ -215,9 +216,9 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
         'to' => $to,
         'trainer' => 'Nichole C.',
         'substitute_trainer' => rand(0, 10) < 5 ? 'Substitute T.' : '',
-        'name' => 'OULA® Dance Fitness',
-        'from_formatted' => date('H:ia', $from),
-        'to_formatted' => date('H:ia', $to),
+        'name' => 'Dummy class! Please save and reload the schedule item',
+        'from_formatted' => date('g:ia', $from),
+        'to_formatted' => date('g:ia', $to),
       ];
     }
 
