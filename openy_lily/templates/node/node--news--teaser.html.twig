@@ -89,8 +89,8 @@ view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
         <span class="category" style="{{ cat_bg_color }}">
           {{ category }}
         </span>
-        {% if content.field_blog_image['#field_type'] %}
-          {{ content.field_blog_image }}
+        {% if content.field_news_image['#field_type'] %}
+          {{ content.field_news_image }}
         {% else %}
           <div class="default-img">
             <img src="{{ directory }}/logo.svg">
