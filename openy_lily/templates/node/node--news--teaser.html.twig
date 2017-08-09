@@ -79,16 +79,17 @@ not node.isPublished() ? 'node--unpublished',
 view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
 'news-story'
 ] %}
-{% set category_default = node.bundle|clean_class|capitalize %}
-{% set category = content.field_blog_category[0]['#title'] ? content.field_blog_category[0]['#title'] : category_default|t %}
+{% set category = content.field_news_category[0]['#title'] %}
 
 <article{{ attributes.addClass(classes) }}>
   <a href="{{ url }}" rel="bookmark">
     <div class="inner-wrapper">
       <div class="blog-up">
-        <span class="category" style="{{ cat_bg_color }}">
+        {% if category %}
+          <span class="category">
           {{ category }}
-        </span>
+          </span>
+        {% endif %}
         {% if content.field_news_image['#field_type'] %}
           {{ content.field_news_image }}
         {% else %}
@@ -98,11 +99,8 @@ view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
         {% endif %}
       </div>
       <div class="blog-heading">
-        <h2 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
-          {{ label }}
-        </h2>
-        <p {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
-          {{ description|striptags }}
+        <h2>{{ label }}</h2>
+        <p>{{ description|striptags }}
         </p>
       </div>
     </div>
