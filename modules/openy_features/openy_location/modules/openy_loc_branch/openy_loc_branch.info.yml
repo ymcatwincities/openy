@@ -5,6 +5,7 @@ core: 8.x
 package: OpenY
 dependencies:
   - address
+  - datalayer
   - entity_reference_revisions
   - field
   - field_group
@@ -17,10 +18,15 @@ dependencies:
   - openy_hours_formatter
   - openy_location
   - openy_node
+  - openy_prgf_microsites_menu
+  - openy_txnm_amenities
   - options
   - paragraphs
   - path
   - pathauto
   - rabbit_hole
+  - scheduler
+  - taxonomy
   - telephone
+  - tour
   - user

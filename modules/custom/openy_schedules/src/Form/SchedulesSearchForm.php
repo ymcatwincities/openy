@@ -737,7 +737,7 @@ class SchedulesSearchForm extends FormBase {
       $conditions['field_si_program'] = $parameters['program'];
     }
     if ($parameters['category'] !== 'all' && !empty($categoryOptions[$parameters['category']])) {
-      $conditions['field_si_program_subcat'] = $parameters['category'];
+      $conditions['field_si_program_subcategory'] = $parameters['category'];
     }
 
     if (!empty($conditions['class'])) {
@@ -896,7 +896,7 @@ class SchedulesSearchForm extends FormBase {
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .filters-container', $filters));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .alerts-wrapper', $alerts));
-    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .branch-hours-wrapper', $branch_hours));
+    $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .branch-hours-wrapper', $branch_hours));
     $response->addCommand(new InvokeCommand(NULL, 'schedulesAjaxAction', [$parameters]));
     $form_state->setRebuild();
     return $response;

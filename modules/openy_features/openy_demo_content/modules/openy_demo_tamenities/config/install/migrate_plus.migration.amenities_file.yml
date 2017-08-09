@@ -1,0 +1,141 @@
+dependencies:
+  enforced:
+    module:
+      - openy_demo_tamenities
+  module:
+    - file
+id: openy_demo_amenities_file
+migration_tags: { }
+migration_group: openy_demo_term
+label: 'Demo Amenities files'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: adaptive-programs
+      name: adaptive-programs.svg
+    -
+      id: adult-enrichment
+      name: adult-enrichment.svg
+    -
+      id: after-school
+      name: after-school.svg
+    -
+      id: child-watch
+      name: child-watch.svg
+    -
+      id: community-health
+      name: community-health.svg
+    -
+      id: day-camp
+      name: day-camp.svg
+    -
+      id: family-pool
+      name: family-pool.svg
+    -
+      id: gardening
+      name: gardening.svg
+    -
+      id: group-exercise
+      name: group-exercise.svg
+    -
+      id: gymnasium
+      name: gymnasium.svg
+    -
+      id: childrens-academy
+      name: childrens-academy.svg
+    -
+      id: hot-tub
+      name: hot-tub.svg
+    -
+      id: indoor-pool
+      name: indoor-pool.svg
+    -
+      id: indoor-track
+      name: indoor-track.svg
+    -
+      id: meeting-room
+      name: meeting-room.svg
+    -
+      id: outdoor-pool
+      name: outdoor-pool.svg
+    -
+      id: outdoor-track
+      name: outdoor-track.svg
+    -
+      id: personal-training
+      name: personal-training.svg
+    -
+      id: playground
+      name: playground.svg
+    -
+      id: racquetball
+      name: racquetball.svg
+    -
+      id: refugee-employment
+      name: refugee-employment_0.svg
+    -
+      id: sauna
+      name: sauna.svg
+    -
+      id: steam-room
+      name: steam-room.svg
+    -
+      id: strength-equipment
+      name: strength-equipment.svg
+    -
+      id: swim-lessons
+      name: swim-lessons.svg
+    -
+      id: teen-programs
+      name: teen-programs.svg
+    -
+      id: youth-enrichment
+      name: youth-enrichment.svg
+  ids:
+    id:
+      type: string
+  constants:
+    source_relative_path: assets/images
+    uri_file: 'public:/'
+    module: openy_demo_tamenities
+process:
+  module_path:
+    plugin: module_path
+    source: constants/module
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - '@module_path'
+        - constants/source_relative_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - name
+    -
+      plugin: urlencode
+  filename: name
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }
