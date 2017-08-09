@@ -462,7 +462,7 @@ body.node--type-screen-content {
     @media (max-width: 1000px) {
       .openy-ds-layout .ipe-actions h5,
       .openy-ds-layout .ipe-actions li {
-        font-size: 8px; } }
+        font-size: 10px; } }
 
 .openy-ds-layout .ipe-actions-block {
   position: absolute;
@@ -478,7 +478,7 @@ body.node--type-screen-content {
   font-size: 0.72917vw; }
   @media (max-width: 1000px) {
     .openy-ds-layout .ipe-action-list [data-action-id="move"] select {
-      font-size: 8px; } }
+      font-size: 10px; } }
 
 .openy-ds-layout .ipe-icon {
   font-size: 1.25vw; }
@@ -508,7 +508,8 @@ body.node--type-screen-content {
 
 .openy-ds-layout {
   background-size: cover;
-  background-position: center center; }
+  background-position: center center;
+  overflow: hidden; }
   .openy-ds-layout.scheme-orange {
     background-color: #fcaf17;
     background-image: url(../images/bg-body-orange.png); }
