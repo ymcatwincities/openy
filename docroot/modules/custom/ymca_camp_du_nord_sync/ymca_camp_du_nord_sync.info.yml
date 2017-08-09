@@ -1,0 +1,6 @@
+name: YMCA Camp Du Nord Sync
+type: module
+description: Syncs Personify data for Camp Du Nord.
+core: 8.x
+dependencies:
+  - ymca_sync:ymca_sync
