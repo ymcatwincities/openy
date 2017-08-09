@@ -1,5 +1,5 @@
 # Featured News Posts
-This is a paragraph type that will be used for the featured stories.
+This is a paragraph type that will be used for the featured news.
 
 ### Fields
 | Name  | Machine name | Required | Description |

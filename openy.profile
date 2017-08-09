@@ -63,6 +63,9 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_tblog' => [
         'openy_demo_taxonomy_term_blog_category',
       ],
+      'openy_demo_tnews' => [
+        'openy_demo_taxonomy_term_news_category',
+      ],
       'openy_demo_tfacility' => [
         'openy_demo_taxonomy_term_facility_type',
       ],
@@ -87,11 +90,17 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_ncamp' => [
         'openy_demo_node_camp',
         'openy_demo_node_camp_blog',
+        'openy_demo_node_camp_news',
       ],
     ],
     'blog' => [
       'openy_demo_nblog' => [
         'openy_demo_node_blog',
+      ],
+    ],
+    'news' => [
+      'openy_demo_nnews' => [
+        'openy_demo_node_news',
       ],
     ],
     'facility' => [
