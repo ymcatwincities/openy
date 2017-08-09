@@ -9,14 +9,11 @@
    */
   Drupal.openy_group_schedules.update_filter_date = function(parameters) {
     if (typeof(parameters.filter_date) !== 'undefined') {
-      var date = parameters.filter_date.replace('0','');
-      if (date.charAt(0) === '0') {
-        date = date.slice(1);
-      }
-      var exists = 0 !== $('select[name="date_select"] option[value="' + date + '"]').length;
-      if (exists) {
-        $('select[name="date_select"]').val(date);
-      }
+      var split_date = parameters.filter_date.split('/');
+      var day = split_date[0].length == 1 ? '0' + split_date[0] : split_date[0];
+      var year = parseInt(split_date[2]) + 2000;
+      var date =  year + '-' + day + '-' + split_date[1];
+      $('input[name="date_select"]').val(date);
     }
   };
 

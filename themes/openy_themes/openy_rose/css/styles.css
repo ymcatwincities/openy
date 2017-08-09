@@ -5224,6 +5224,10 @@ html.js .branch__updates_queue__button {
     float: left;
     margin-right: 30px;
   }
+  .groupex-form-full #submit-wrapper {
+    float: left;
+    margin: 2em 30px 0 0;
+  }
 }
 .groupex-form-full .groupex-pdf-link-container {
   margin-top: 10px;

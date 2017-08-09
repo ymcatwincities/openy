@@ -270,6 +270,10 @@ class GroupexFormFull extends GroupexFormBase {
       $dt = new \DateTime($state['date_select'], $tz);
       $default_date = $dt->format('Y-m-d');
     }
+    elseif (!empty($values['date_select'])) {
+      $dt = new \DateTime($values['date_select'], $tz);
+      $default_date = $dt->format('Y-m-d');
+    }
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
@@ -338,10 +342,10 @@ class GroupexFormFull extends GroupexFormBase {
       // Here we need to remove redundant HTML if exists.
       $pos = strpos($key, '<span ');
       if (FALSE !== $pos) {
-        $key = substr_replace($key, '', $pos);
+        $key = strip_tags(substr_replace($key, '', $pos));
       }
 
-      $instructors_options[$key] = t(strip_tags($value));
+      $instructors_options[$key] = t(strip_tags($key));
     }
     $this->instructorOptions = $this->instructorOptions + $instructors_options;
 
@@ -363,6 +367,16 @@ class GroupexFormFull extends GroupexFormBase {
         ],
         '#weight' => 0,
       ],
+    ];
+
+    $form['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Submit'),
+      '#prefix' => '<div id="submit-wrapper" class="' . $classes . '">',
+      '#suffix' => '</div>',
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+      ]
     ];
 
     $form['groupex_pdf_link'] = [
