@@ -51,7 +51,7 @@ tips:
     id: footer-menu-right
     plugin: text
     label: 'Footer menu right block'
-    body: 'This navigation block is for the right section of the footer of the default Open Y installation. The links for About, Give and Join, etc. are here when you first install Open Y. You can change these links, or remove them, by editing this Block.'
+    body: 'This navigation block is for the right section of the footer of the default Open Y installation. The links for About, Give and Join, etc. are here when you first install Open Y. You can change these links, or remove them, by editing this Block. [openy_tour:click:.dropbutton-wrapper:first .dropbutton-arrow]'
     weight: 6
     attributes:
       data-class: 'menu-label:contains("Footer menu right")'
@@ -59,7 +59,7 @@ tips:
     id: dropbutton-widget
     plugin: text
     label: 'Edit the blocks here'
-    body: 'Clicking on this button allows you to edit this navigation block so you can add, remove, or change the links on this part of your site. [openy_tour:click:Show operations:.dropbutton-wrapper:first .dropbutton-arrow]'
+    body: 'Clicking on this button allows you to edit this navigation block so you can add, remove, or change the links on this part of your site.'
     location: left
     weight: 7
     attributes:
