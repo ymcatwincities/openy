@@ -473,16 +473,17 @@ body.node--type-screen-content {
   width: 100%;
   z-index: 11; }
 
-.openy-ds-layout .ipe-action-list .ipe-icon {
-  height: 1.25vw;
-  margin-top: -0.52083vw;
-  display: block; }
-
-.openy-ds-layout .ipe-action-list [data-action-id="move"] select {
-  font-size: 0.72917vw; }
-  @media (max-width: 1000px) {
-    .openy-ds-layout .ipe-action-list [data-action-id="move"] select {
-      font-size: 10px; } }
+.openy-ds-layout .ipe-action-list {
+  padding-right: 20px; }
+  .openy-ds-layout .ipe-action-list .ipe-icon {
+    height: 1.25vw;
+    margin-top: -0.52083vw;
+    display: block; }
+  .openy-ds-layout .ipe-action-list [data-action-id="move"] select {
+    font-size: 0.72917vw; }
+    @media (max-width: 1000px) {
+      .openy-ds-layout .ipe-action-list [data-action-id="move"] select {
+        font-size: 10px; } }
 
 .openy-ds-layout .ipe-icon {
   font-size: 1.25vw; }

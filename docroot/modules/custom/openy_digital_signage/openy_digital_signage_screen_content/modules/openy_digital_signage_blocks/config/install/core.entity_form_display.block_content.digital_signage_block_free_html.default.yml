@@ -5,9 +5,8 @@ dependencies:
     - block_content.type.digital_signage_block_free_html
     - field.field.block_content.digital_signage_block_free_html.body
     - field.field.block_content.digital_signage_block_free_html.field_ds_background_image
-    - image.style.thumbnail
   module:
-    - image
+    - file_browser
     - text
 id: block_content.digital_signage_block_free_html.default
 targetEntityType: block_content
@@ -22,13 +21,20 @@ content:
       summary_rows: 3
       placeholder: ''
     third_party_settings: {  }
+    region: content
   field_ds_background_image:
     weight: 1
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      entity_browser: browse_files_modal
+      field_widget_edit: '1'
+      field_widget_remove: '1'
+      view_mode: default
+      field_widget_display: ''
+      open: 0
+      field_widget_display_settings: {  }
     third_party_settings: {  }
-    type: image_image
+    type: file_browser
+    region: content
   info:
     type: string_textfield
     weight: 0
@@ -36,5 +42,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   langcode: true
