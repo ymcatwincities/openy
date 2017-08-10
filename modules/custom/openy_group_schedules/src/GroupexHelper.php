@@ -53,7 +53,7 @@ class GroupexHelper {
     $account = $this->configFactory->get('openy_group_schedules.settings')->get('account_id');
     $query = [
       'font' => 'larger',
-      'a' => $account,
+      'account' => $account,
       'l' => $location,
     ];
 
