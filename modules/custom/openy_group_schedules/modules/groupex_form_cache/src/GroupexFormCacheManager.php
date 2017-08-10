@@ -214,4 +214,21 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
     $this->resetStaleCache(10, 172800);
   }
 
+  /**
+   * Quick reset of Groupex Form Cache.
+   */
+  public function quickResetCache() {
+    $tables = [
+      'groupex_form_cache',
+      'groupex_form_cache__field_gfc_created',
+      'groupex_form_cache__field_gfc_options',
+      'groupex_form_cache__field_gfc_response',
+    ];
+
+    foreach ($tables as $table) {
+      db_truncate($table)->execute();
+    }
+    $this->logger->info('Groupex Form Cache has been quickly erased using "TRUNCATE".');
+  }
+
 }

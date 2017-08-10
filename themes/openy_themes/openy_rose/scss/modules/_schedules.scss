@@ -636,7 +636,8 @@
     background-color: $lighter-grey;
     overflow: hidden;
     padding: 20px;
-    .js-form-type-select {
+    .js-form-type-select,
+    .js-form-type-date {
       margin: 0;
     }
     select {
@@ -676,6 +677,10 @@
     #instructor-select-wrapper {
       float: left;
       margin-right: 30px;
+    }
+    #submit-wrapper {
+      float: left;
+      margin: 2em 30px 0 0;
     }
   }
   .groupex-pdf-link-container {

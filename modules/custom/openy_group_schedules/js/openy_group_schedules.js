@@ -9,14 +9,11 @@
    */
   Drupal.openy_group_schedules.update_filter_date = function(parameters) {
     if (typeof(parameters.filter_date) !== 'undefined') {
-      var date = parameters.filter_date.replace('0','');
-      if (date.charAt(0) === '0') {
-        date = date.slice(1);
-      }
-      var exists = 0 !== $('select[name="date_select"] option[value="' + date + '"]').length;
-      if (exists) {
-        $('select[name="date_select"]').val(date);
-      }
+      var split_date = parameters.filter_date.split('/');
+      var day = split_date[0].length == 1 ? '0' + split_date[0] : split_date[0];
+      var year = parseInt(split_date[2]) + 2000;
+      var date =  year + '-' + day + '-' + split_date[1];
+      $('input[name="date_select"]').val(date);
     }
   };
 
@@ -26,14 +23,24 @@
    * @param parameters
    */
   Drupal.openy_group_schedules.update_class_select = function(parameters) {
-    if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
-      $('#date-select-wrapper, #location-wrapper').addClass('hidden');
-      $('#class-select-wrapper, #location-select-wrapper').removeClass('hidden');
-    }
     if (typeof(parameters.class) !== 'undefined') {
       var exists = 0 !== $('#class-select-wrapper select option[value="' + parameters.class + '"]').length;
       if (exists) {
         $('#class-select-wrapper select').val(parameters.class);
+      }
+    }
+  };
+
+  /**
+   * Update "Instructor" select value to be equal with "instructor" query param.
+   *
+   * @param parameters
+   */
+  Drupal.openy_group_schedules.update_instructor_select = function(parameters) {
+    if (typeof(parameters.instructor) !== 'undefined') {
+      var exists = 0 !== $('#instructor-select-wrapper select option[value="' + parameters.instructor + '"]').length;
+      if (exists) {
+        $('#instructor-select-wrapper select').val(parameters.instructor);
       }
     }
   };
@@ -74,18 +81,19 @@
     history.pushState(null, null, window.location.pathname + '?' + params.join('&'));
 
     if (typeof(parameters.instructor) !== 'undefined') {
-      $('#date-select-wrapper, #location-wrapper, #class-select-wrapper').addClass('hidden');
+      $('#location-wrapper').addClass('hidden');
     }
     else if (typeof(parameters.view_mode) !== 'undefined' && parameters.view_mode == 'class') {
-      $('#location-select-wrapper, #class-select-wrapper').removeClass('hidden');
-      $('#date-select-wrapper, #location-wrapper').addClass('hidden');
+      $('#location-select-wrapper, #class-select-wrapper, #instructor-select-wrapper').removeClass('hidden');
+      $('#location-wrapper').addClass('hidden');
     }
     else {
-      $('#location-select-wrapper, #date-select-wrapper').removeClass('hidden');
-      $('#class-select-wrapper, #location-wrapper').addClass('hidden');
+      $('#location-select-wrapper, #date-select-wrapper, #class-select-wrapper, #instructor-select-wrapper').removeClass('hidden');
+      $('#location-wrapper').addClass('hidden');
     }
 
     Drupal.openy_group_schedules.update_class_select(parameters);
+    Drupal.openy_group_schedules.update_instructor_select(parameters);
     Drupal.openy_group_schedules.update_filter_date(parameters);
     Drupal.openy_group_schedules.update_location_select(parameters);
   };
