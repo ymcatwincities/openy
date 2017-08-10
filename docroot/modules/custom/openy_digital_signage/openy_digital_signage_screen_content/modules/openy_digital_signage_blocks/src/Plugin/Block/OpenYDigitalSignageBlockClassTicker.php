@@ -99,7 +99,7 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
       '#type' => 'select',
       '#title' => $this->t('Room'),
       '#description' => $this->t('The block is shown in context of the screen. If the screen has no room/studio specified, this value is used'),
-      '#default_value' => $this->configuration['room_ref'],
+      '#default_value' => $this->configuration['room'],
       '#options' => $this->roomManager->getAllRoomOptions(),
     ];
     return $form;
@@ -153,11 +153,11 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    *   The room id context.
    */
   private function getRoom() {
-    if (!$screen = $this->screenManager->getScreenContext()) {
-      return $this->configuration['room'];
+    $screen = $this->screenManager->getScreenContext();
+    if ($screen && $screen->room->entity) {
+      return $screen->room->entity->id();
     }
-    $screen_room = $screen->room->entity;
-    return $screen_room ? $screen_room->id() : $this->configuration['room'];
+    return $this->configuration['room'];
   }
 
   /**
