@@ -1,6 +1,7 @@
 .openy-ds-layout {
 
   .ipe-actions {
+    display: flex;
     min-height: 20 / 1440 * 100vw;
     border-radius: 5 / 1440 * 100vw 5 / 1440 * 100vw 0 0;
     padding: 5 / 1440 * 100vw;
@@ -19,7 +20,7 @@
   .ipe-actions-block {
     position: absolute;
     width: 100%;
-    z-index:10;
+    z-index:11;
   }
 
   .ipe-action-list {
@@ -52,6 +53,20 @@
       }
     }
   }
+
+  .block-region-ticker {
+    > .ipe-actions {
+      margin-top: 0;
+      transition: margin-top 400ms;
+    }
+
+    &:hover {
+
+      > .ipe-actions {
+        margin-top: -20 / 1440 * 100vw;
+      }
+    }
+  }
 }
 
 .ipe-tab a {
@@ -69,6 +84,10 @@
   transition: bottom 0.4s;
 
   &:hover {
+    bottom: 0;
+  }
+
+  .panels-ipe-tabs-open & {
     bottom: 0;
   }
 }
