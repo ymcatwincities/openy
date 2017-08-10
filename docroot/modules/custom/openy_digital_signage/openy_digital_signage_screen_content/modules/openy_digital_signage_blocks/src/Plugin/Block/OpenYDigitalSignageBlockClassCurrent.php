@@ -120,13 +120,9 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
     $attributes->addClass('block');
     $attributes->addClass('block-class-current');
 
-    $classes = [];
     $period = $this->getSchedulePeriod();
-    if ($screen = $this->screenManager->getScreenContext()) {
-      if ($room = $this->getRoom($screen)) {
-        $location = $screen->field_screen_location->entity;
-        $classes = $this->scheduleManager->getClassesSchedule($period, $location, $room);
-      }
+    if ($room = $this->getRoom()) {
+      $classes = $this->scheduleManager->getClassesSchedule($period, $room);
     }
     else {
       $classes = $this->getDummyClassesSchedule($period);
@@ -153,16 +149,15 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
   /**
    * Retrieves room.
    *
-   * @param \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $screen
-   *   The screen context.
-   *
-   * @return mixed
-   *   The room context.
+   * @return int|null
+   *   The room id context.
    */
-  private function getRoom(OpenYScreenInterface $screen) {
+  private function getRoom() {
+    if (!$screen = $this->screenManager->getScreenContext()) {
+      return $this->configuration['room'];
+    }
     $screen_room = $screen->room->entity;
-    $configuration_room = $this->configuration['room'];
-    return $screen_room ? $screen_room->id() : $configuration_room;
+    return $screen_room ? $screen_room->id() : $this->configuration['room'];
   }
 
   /**
@@ -217,8 +212,8 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
         'trainer' => 'Nichole C.',
         'substitute_trainer' => rand(0, 10) < 5 ? 'Substitute T.' : '',
         'name' => 'OULA® Dance Fitness',
-        'from_formatted' => date('H:ia', $from),
-        'to_formatted' => date('H:ia', $to),
+        'from_formatted' => date('g:ia', $from),
+        'to_formatted' => date('g:ia', $to),
       ];
     }
 
