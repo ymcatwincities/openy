@@ -452,6 +452,10 @@ body.node--type-screen-content {
       max-height: 90vh; }
 
 .openy-ds-layout .ipe-actions {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   min-height: 1.38889vw;
   border-radius: 0.34722vw 0.34722vw 0 0;
   padding: 0.34722vw;
@@ -467,7 +471,7 @@ body.node--type-screen-content {
 .openy-ds-layout .ipe-actions-block {
   position: absolute;
   width: 100%;
-  z-index: 10; }
+  z-index: 11; }
 
 .openy-ds-layout .ipe-action-list .ipe-icon {
   height: 1.25vw;
@@ -491,6 +495,14 @@ body.node--type-screen-content {
       .openy-ds-layout .ipe-icon.ipe-icon-remove {
         font-size: 10px; } }
 
+.openy-ds-layout .block-region-ticker > .ipe-actions {
+  margin-top: 0;
+  -webkit-transition: margin-top 400ms;
+  transition: margin-top 400ms; }
+
+.openy-ds-layout .block-region-ticker:hover > .ipe-actions {
+  margin-top: -1.38889vw; }
+
 .ipe-tab a {
   font-size: 13px;
   padding: 5px 10px 7px 3px; }
@@ -504,6 +516,8 @@ body.node--type-screen-content {
   -webkit-transition: bottom 0.4s;
   transition: bottom 0.4s; }
   #panels-ipe-tray:hover {
+    bottom: 0; }
+  .panels-ipe-tabs-open #panels-ipe-tray {
     bottom: 0; }
 
 .openy-ds-layout {
