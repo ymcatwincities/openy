@@ -45,6 +45,11 @@
   @extend .btn;
 }
 
+.align-center {
+  text-align: center;
+  margin: 12px 0 25px;
+}
+
 // Embedded items.
 .embedded-entity {
   clear: both;
