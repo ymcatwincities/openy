@@ -68,6 +68,11 @@ figcaption {
   display: none !important;
 }
 
+.align-center {
+  text-align: center;
+  margin: 12px 0 25px;
+}
+
 .embedded-entity {
   clear: both;
   display: block;
