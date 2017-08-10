@@ -85,10 +85,10 @@
 {% set fax_suffix = content.field_location_fax.0['#title'] ? '(fax)'|t %}
 
 {# Camp header #}
-<article{{ attributes.addClass('branch-header') }}>
-  <div class="hidden-xs desktop">
+<div{{ attributes.addClass('branch-header') }}>
+  <section class="hidden-xs desktop">
     <div class="container">
-      <div class="row branch-header-inner camp-info" data-camp-name="{{ node.label }}">
+      <address class="row branch-header-inner camp-info" data-camp-name="{{ node.label }}">
         <div class="column col-sm-3 col-md-2">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
           <p>{{ label }}</p>
@@ -103,12 +103,12 @@
           <p>{{ content.field_location_phone }}</p>
           {{ content.field_location_fax }} {{ fax_suffix }}
         </div>
-      </div>
+      </address>
     </div>
-  </div>
+  </section>
 
-  <div class="hidden-sm hidden-md hidden-lg mobile">
-    <div class="container">
+  <blockquote class="hidden-sm hidden-md hidden-lg mobile">
+    <address class="container">
       <div class="row">
         <div class="col-xs-12">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
@@ -131,10 +131,12 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</article>
-{{ content.field_header_content }}
+    </address>
+  </blockquote>
+</div>
+<header>
+  {{ content.field_header_content }}
+</header>
 
 {# Camp content #}
 <div class="container">

@@ -39,29 +39,14 @@
  */
 #}
 
-{% if label_hidden %}
+<address{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
   {% if multiple %}
-    <section{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
-      {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
-      {% endfor %}
-    </section>
-  {% else %}
-    {% for item in items %}
-      <div{{ attributes.addClass(field_name|clean_class) }}>{{ item.content }}</div>
-    {% endfor %}
-  {% endif %}
-{% else %}
-  <section{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
-    <div{{ title_attributes.addClass('label-for-' ~ field_name|clean_class) }}>{{ label }}</div>
-    {% if multiple %}
-    <div>
-      {% endif %}
-      {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
-      {% endfor %}
-      {% if multiple %}
-    </div>
+  <div>
     {% endif %}
-  </section>
-{% endif %}
+    {% for item in items %}
+      <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
+    {% endfor %}
+    {% if multiple %}
+  </div>
+  {% endif %}
+</address>
