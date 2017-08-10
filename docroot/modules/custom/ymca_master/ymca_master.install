@@ -4812,3 +4812,15 @@ function ymca_master_update_8223() {
     \Drupal::service('module_installer')->install([$module], TRUE);
   }
 }
+
+/**
+ * Enable fullcalendar contrib module.
+ */
+function ymca_master_update_8224() {
+  $modules = [
+    'fullcalendar',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
