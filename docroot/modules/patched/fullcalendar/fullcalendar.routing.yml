@@ -1,0 +1,25 @@
+fullcalendar.settings:
+  path: '/admin/config/user-interface/fullcalendar'
+  defaults:
+    _form: '\Drupal\fullcalendar\Form\SettingsForm'
+    _title: 'FullCalendar'
+  requirements:
+    _permission: 'administer site configuration'
+
+fullcalendar.update:
+  path: '/fullcalendar/ajax/update/drop/{entity_type}/{entity}/{field}/{index}'
+  defaults:
+    _controller: '\Drupal\fullcalendar\Ajax\Update::drop'
+  requirements:
+    _access_fullcalendar_update: 'TRUE'
+  options:
+    parameters:
+      entity:
+        type: entity:{entity_type}
+
+fullcalendar.results:
+  path: '/fullcalendar/ajax/results/{view}/{display_id}'
+  defaults:
+    _controller: '\Drupal\fullcalendar\Ajax\ResultsController::getResults'
+  requirements:
+    _permission: 'access content'
