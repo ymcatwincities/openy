@@ -182,8 +182,8 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
   foreach ($schedule as $item) {
     $schedule_item = $item['item'];
 
-    $from_ts = strtotime($schedule_item->time_slot->value . 'z');
-    $to_ts = strtotime($schedule_item->time_slot->end_value . 'z');
+    $from_ts = $item['from_ts'];
+    $to_ts = $item['to_ts'];
     $from_hours = date('H', $from_ts) + (date('i', $from_ts) / 60);
     $to_hours = date('H', $to_ts) + (date('i', $to_ts) / 60);
     $formatted_time = date('g:ia', $from_ts) . '–' . date('g:ia', $to_ts);
