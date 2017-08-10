@@ -120,13 +120,9 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
     $attributes->addClass('block');
     $attributes->addClass('block-class-ticker');
 
-    $classes = [];
     $period = $this->getSchedulePeriod();
-    if ($screen = $this->screenManager->getScreenContext()) {
-      if ($room = $this->getRoom($screen)) {
-        $location = $screen->field_screen_location->entity;
-        $classes = $this->scheduleManager->getClassesSchedule($period, $location, $room);
-      }
+    if ($room = $this->getRoom()) {
+      $classes = $this->scheduleManager->getClassesSchedule($period, $room);
     }
     else {
       $classes = $this->getDummyClassesSchedule($period);
@@ -153,16 +149,15 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
   /**
    * Retrieves room.
    *
-   * @param \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $screen
-   *   The screen context.
-   *
-   * @return mixed
-   *   The room context.
+   * @return int|null
+   *   The room id context.
    */
-  private function getRoom(OpenYScreenInterface $screen) {
+  private function getRoom() {
+    if (!$screen = $this->screenManager->getScreenContext()) {
+      return $this->configuration['room'];
+    }
     $screen_room = $screen->room->entity;
-    $configuration_room = $this->configuration['room'];
-    return $screen_room ? $screen_room->id() : $configuration_room;
+    return $screen_room ? $screen_room->id() : $this->configuration['room'];
   }
 
   /**

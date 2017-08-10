@@ -2,12 +2,12 @@
 
 namespace Drupal\openy_digital_signage_classes_schedule;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\openy_digital_signage_room\Entity\OpenYRoomInterface;
 
 /**
  * Defines a classes schedule manager.
@@ -67,7 +67,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
   /**
    * {@inheritdoc}
    */
-  public function getClassesSchedule($period, EntityInterface $location, $room) {
+  public function getClassesSchedule($period, $room_id) {
     $datetime = new \DateTime();
     $datetime->setTimezone(new \DateTimeZone('UTC'));
     $datetime->setTimestamp($period['to']);
@@ -76,14 +76,14 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
     $period_from = $datetime->format('c');
 
     $eq = $this->storage->getQuery();
-    $eq->condition('room', $room)
+    $eq->condition('room', $room_id)
       ->condition('date_time.value', $period_to, '<=')
       ->condition('date_time.end_value', $period_from, '>=')
       ->condition('overridden', FALSE)
       ->sort('date_time.value');
     if (!$results = $eq->execute()) {
       $eq = $this->storage->getQuery();
-      $eq->condition('room', $room)
+      $eq->condition('room', $room_id)
         ->condition('date_time.value', $period_from, '>=')
         ->condition('overridden', FALSE)
         ->sort('date_time.value')

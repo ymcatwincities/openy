@@ -2,7 +2,7 @@
 
 namespace Drupal\openy_digital_signage_classes_schedule;
 
-use Drupal\Core\Entity\EntityInterface;
+use Drupal\openy_digital_signage_room\Entity\OpenYRoomInterface;
 
 /**
  * Interface OpenYClassesScheduleManagerInterface.
@@ -16,14 +16,12 @@ interface OpenYClassesScheduleManagerInterface {
    *
    * @param array $period
    *   Associative array with from and to keys.
-   * @param \Drupal\Core\Entity\EntityInterface $location
-   *   The reference to location.
    * @param string $room
    *   The room name.
    *
    * @return array
    *   The array of scheduled classes.
    */
-  public function getClassesSchedule($period, EntityInterface $location, $room);
+  public function getClassesSchedule($period, $room);
 
 }
