@@ -68,6 +68,11 @@ figcaption {
   display: none !important;
 }
 
+.align-center {
+  text-align: center;
+  margin: 12px 0 25px;
+}
+
 .embedded-entity {
   clear: both;
   display: block;
@@ -5307,6 +5312,9 @@ html.js .branch__updates_queue__button {
 }
 .groupex-form-full.branch-specific-form .class-description {
   display: block;
+}
+.groupex-form-full #submit-wrapper {
+  display: block !important;
 }
 
 iframe#ga_iframe {
