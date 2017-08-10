@@ -224,6 +224,6 @@
         "drupal/custom_formatters": "3.0-alpha1",
         "drupal/token_filter": "1.0-beta1",
         "drupal/views_field_formatter": "1.5",
-        "drupal/rules": "~3.0-alpha3"
+        "drupal/rules": "^3.0@alpha"
     }
 }
