@@ -5303,6 +5303,9 @@ html.js .branch__updates_queue__button {
 .groupex-form-full.branch-specific-form .class-description {
   display: block;
 }
+.groupex-form-full #submit-wrapper {
+  display: block !important;
+}
 
 iframe#ga_iframe {
   border: 0;
