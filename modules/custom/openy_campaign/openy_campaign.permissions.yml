@@ -1,0 +1,3 @@
+administer retention campaign:
+  title: 'Administer retention campaign'
+  description: 'Allow access to OpenY campaign admin pages.'
