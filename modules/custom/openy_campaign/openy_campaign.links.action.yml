@@ -1,0 +1,13 @@
+# All action links for this module
+
+entity.openy_campaign_member.delete_all:
+  route_name: 'openy_campaign.openy_campaign_member.delete_all'
+  title: 'Delete all members'
+  appears_on:
+    - entity.openy_campaign_member.collection
+
+entity.openy_campaign_member.add:
+  route_name: 'entity.openy_campaign_member.add'
+  title: 'Add new member'
+  appears_on:
+    - entity.openy_campaign_member.collection
