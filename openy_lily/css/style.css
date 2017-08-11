@@ -1073,10 +1073,6 @@ legend {
   clear: both;
 }
 
-.webform-submission-form {
-  margin: 30px 0;
-}
-
 .contact-form legend {
   max-width: 100%;
   margin-bottom: 5px;
@@ -1150,6 +1146,12 @@ legend {
   padding-bottom: 20px;
 }
 
+.webform-submission-form {
+  margin: 30px 0;
+}
+.webform-submission-form fieldset .fieldset-wrapper .fieldgroup {
+  margin: 0;
+}
 .webform-submission-form #edit-name--wrapper #edit-name--wrapper > div {
   float: left;
   width: 49%;
@@ -2860,10 +2862,10 @@ body.path-search #block-mainpagecontent li {
 .field-sidebar-content #small-text-banner .container-fluid .row .header-image figure img, .field-sidebar-content #small-text-banner .container-fluid #membership-page #block-openy-lily-content .landing-content .header-image figure img, #membership-page #block-openy-lily-content .field-sidebar-content #small-text-banner .container-fluid .landing-content .header-image figure img {
   display: block !important;
 }
+
 .wysiwyg--button {
   font-size: 14px;
 }
-
 .wysiwyg--button a {
   display: inline-block;
   margin-bottom: 0;
@@ -4278,6 +4280,11 @@ a.sports-icon.floor-hockey {
   }
 }
 
+.node--type-branch .container-fluid.featured-highlights,
+.node--type-camp .container-fluid.featured-highlights {
+  padding: 0;
+}
+
 .paragraph--type--gallery-cta-content {
   position: relative;
 }
@@ -4862,6 +4869,20 @@ a.sports-icon.floor-hockey {
   .landing-content .paragraph--type--gallery .cta-group-wrapper, .landing-footer .paragraph--type--gallery .cta-group-wrapper {
     margin: 0 -15px;
   }
+}
+
+a:focus,
+.dropdown-toggle:focus,
+.carousel-control:focus,
+.btn:focus,
+.btn.focus,
+.btn:active:focus,
+.btn:active.focus,
+.btn.active:focus,
+.btn.active.focus,
+.slick-arrow:focus:before,
+.navbar-toggle:focus {
+  outline: none;
 }
 
 /*# sourceMappingURL=style.css.map */

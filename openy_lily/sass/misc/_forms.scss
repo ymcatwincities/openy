@@ -347,10 +347,6 @@ legend {
   }
 }
 
-.webform-submission-form {
-  margin: 30px 0;
-}
-
 .contact-form {
   legend {
     max-width: 100%;
@@ -432,6 +428,17 @@ legend {
 }
 
 .webform-submission-form {
+  margin: 30px 0;
+
+  fieldset {
+    .fieldset-wrapper .fieldgroup {
+      margin: 0;
+      label {
+        display: none;
+      }
+    }
+  }
+
   #edit-name--wrapper {
     #edit-name--wrapper {
       > div {

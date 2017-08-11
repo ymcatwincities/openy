@@ -371,3 +371,12 @@
     display: block !important;
   }
 }
+
+.node--type-branch,
+.node--type-camp {
+  .container-fluid {
+    &.featured-highlights {
+      padding: 0;
+    }
+  }
+}
