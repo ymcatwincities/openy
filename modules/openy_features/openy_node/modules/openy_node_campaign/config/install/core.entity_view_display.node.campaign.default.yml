@@ -2,23 +2,85 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.campaign.field_campaign_age_maximum
+    - field.field.node.campaign.field_campaign_age_minimum
+    - field.field.node.campaign.field_campaign_branches
+    - field.field.node.campaign.field_campaign_fitness_category
+    - field.field.node.campaign.field_campaign_membership_u_t
     - field.field.node.campaign.field_campaign_pages
+    - field.field.node.campaign.field_campaign_payment_types
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
+    - field.field.node.campaign.field_rules_prizes_page
     - node.type.campaign
   module:
+    - options
     - user
 id: node.campaign.default
 targetEntityType: node
 bundle: campaign
 mode: default
 content:
+  addthis:
+    label: hidden
+    type: string
+    weight: 100
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_campaign_age_maximum:
+    weight: 106
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_campaign_age_minimum:
+    weight: 105
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_campaign_branches:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_campaign_fitness_category:
+    weight: 107
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_campaign_membership_u_t:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_campaign_pages:
     weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: entity_reference_entity_id
+    region: content
+  field_campaign_payment_types:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_pause_landing_page:
     weight: 1
@@ -27,6 +89,15 @@ content:
     third_party_settings: {  }
     type: entity_reference_entity_id
     region: content
+  field_rules_prizes_page:
+    weight: 101
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
 hidden:
   field_pause_campaign: true
+  langcode: true
   links: true
