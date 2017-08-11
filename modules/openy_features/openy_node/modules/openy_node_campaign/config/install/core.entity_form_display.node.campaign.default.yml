@@ -1,0 +1,186 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.campaign.field_campaign_age_maximum
+    - field.field.node.campaign.field_campaign_age_minimum
+    - field.field.node.campaign.field_campaign_branches
+    - field.field.node.campaign.field_campaign_fitness_category
+    - field.field.node.campaign.field_campaign_membership_u_t
+    - field.field.node.campaign.field_campaign_pages
+    - field.field.node.campaign.field_campaign_payment_types
+    - field.field.node.campaign.field_pause_campaign
+    - field.field.node.campaign.field_pause_landing_page
+    - field.field.node.campaign.field_rules_prizes_page
+    - node.type.campaign
+  module:
+    - field_group
+    - path
+third_party_settings:
+  field_group:
+    group_target_audience_settings:
+      children:
+        - field_campaign_branches
+        - field_campaign_membership_u_t
+        - field_campaign_payment_types
+        - group_age_range
+      parent_name: ''
+      weight: 13
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Target Audience Settings'
+    group_age_range:
+      children:
+        - field_campaign_age_minimum
+        - field_campaign_age_maximum
+      parent_name: group_target_audience_settings
+      weight: 16
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Age range'
+id: node.campaign.default
+targetEntityType: node
+bundle: campaign
+mode: default
+content:
+  addthis:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 6
+    region: content
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_campaign_age_maximum:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_campaign_age_minimum:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_campaign_branches:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_campaign_fitness_category:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_campaign_membership_u_t:
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_campaign_pages:
+    weight: 8
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_campaign_payment_types:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_pause_campaign:
+    weight: 11
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_pause_landing_page:
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_rules_prizes_page:
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    third_party_settings: {  }
+    region: content
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    third_party_settings: {  }
+    region: content
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  publish_on: true
+  unpublish_on: true

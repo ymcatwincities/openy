@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.campaign.field_campaign_pages
+    - field.field.node.campaign.field_pause_campaign
+    - field.field.node.campaign.field_pause_landing_page
+    - node.type.campaign
+  module:
+    - user
+id: node.campaign.teaser
+targetEntityType: node
+bundle: campaign
+mode: teaser
+content:
+  addthis:
+    label: hidden
+    type: string
+    weight: 100
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_campaign_pages: true
+  field_pause_campaign: true
+  field_pause_landing_page: true
+  langcode: true

@@ -1,0 +1,21 @@
+name: 'OpenY Node Campaign'
+description: 'OpenY node Campaign'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - entity_reference_revisions
+  - field
+  - field_group
+  - menu_ui
+  - node
+  - openy_loc_branch
+  - openy_node_landing
+  - options
+  - paragraphs
+  - path
+  - pathauto
+  - scheduler
+  - taxonomy
+  - user
+version: 8.x-1.0

@@ -4,6 +4,7 @@ type: module
 core: 8.x
 package: OpenY
 dependencies:
+  - datalayer
   - entity_reference_revisions
   - field
   - field_group

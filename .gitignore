@@ -7,3 +7,5 @@
 ./bin
 ./build/reports
 ./docroot
+vendor
+bin
