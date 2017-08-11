@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Installation file for OpenY Demo addThis module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function openy_demo_addthis_install() {
+  $config_factory = \Drupal::configFactory()
+    ->getEditable('openy_addthis.settings');
+  $config_factory
+    ->set('public_id', 'ra-59662efe3f09cfcc')
+    ->save();
+}
