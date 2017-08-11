@@ -488,3 +488,18 @@ function openy_update_8037() {
   \Drupal::service('module_installer')->install(['openy_prgf_amenities'], TRUE);
 
 }
+
+/**
+ * Enable and import demo Campaign page.
+ */
+function openy_update_8038() {
+  // Enable module.
+  \Drupal::service('module_installer')->install([
+    'openy_demo_ncampaign',
+  ], TRUE);
+
+  // Run openy_demo_node_landing & openy_demo_node_membership migrations.
+  $importer = \Drupal::service('openy_migrate.importer');
+  $importer->import('openy_demo_node_landing');
+  $importer->import('openy_demo_node_campaign');
+}
