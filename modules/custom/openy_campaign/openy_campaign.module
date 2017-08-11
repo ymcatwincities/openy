@@ -9,11 +9,11 @@ use \Drupal\node\Entity\Node;
 
 /**
  * Implements template_preprocess_node().
- *
- * Find published Landing page and render it on Campaign page
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
   if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
+    // Find published Landing page and render it on Campaign page.
+
     // Check if Campaign is Paused
     $isPaused = $variables['node']->get('field_pause_campaign')->value;
     $fieldPauseLandingPage = $variables['node']->get('field_pause_landing_page')->getValue();
