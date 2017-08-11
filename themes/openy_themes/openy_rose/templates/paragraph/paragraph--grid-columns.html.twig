@@ -44,7 +44,7 @@ set classes = [
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-<div{{ attributes.addClass(classes) }}>
+<article{{ attributes.addClass(classes) }}>
   <div class="content"{{ content_attributes }}>
     <div class="inner">
       {% if content.field_prgf_clm_class|render|trim %}
@@ -60,4 +60,4 @@ set classes = [
       <div class="more-link">{{ content.field_prgf_clm_link }}</div>
     </div>
   </div>
-</div>
+</article>
