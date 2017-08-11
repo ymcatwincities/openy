@@ -1,0 +1,69 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncampaign
+id: openy_demo_node_campaign
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create demo campaign nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: challenge_campaign
+      title: 'Challenge yourself'
+      alias: '/challenge-yourself'
+      landing_page_ids:
+        -
+          landing_page_id: challenge_yourself_preview
+        -
+          landing_page_id: challenge_yourself_registration_open
+        -
+          landing_page_id: challenge_yourself_started
+        -
+          landing_page_id: challenge_yourself_completed
+
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias:
+    plugin: get
+    source: alias
+  field_campaign_pages:
+    plugin: iterator
+    source: landing_page_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_node_landing
+        source: landing_page_ids
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_node_landing
+        source: landing_page_id
+destination:
+  plugin: 'entity:node'
+  default_bundle: campaign
+migration_dependencies:
+  required:
+    - openy_demo_node_landing
+  optional: {  }
