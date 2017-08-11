@@ -42,3 +42,46 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
     $variables['content']['landing_page'] = $build;
   }
 }
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
+  $fieldName = $context['items']->getName();
+  if ($fieldName == 'field_campaign_pages') {
+    // Output publishing dates in the backend.
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = $element['target_id']['#default_value'];
+
+    $publishOn = $unpublishOn = NULL;
+
+    $date_formatter = \Drupal::service('date.formatter');
+    if (!empty($node->publish_on->value) && $node->publish_on->value && is_numeric($node->publish_on->value)) {
+      $publishOn = $date_formatter->format($node->publish_on->value, 'short');
+    }
+    if (!empty($node->unpublish_on->value) && $node->unpublish_on->value && is_numeric($node->unpublish_on->value)) {
+      $unpublishOn = $date_formatter->format($node->unpublish_on->value, 'short');
+    }
+
+    if (!empty($publishOn) && !empty($unpublishOn)) {
+      $templateString = 'active from <i>@publish_on</i> to <i>@unpublish_on</i>';
+    }
+    else if (empty($publishOn) && !empty($unpublishOn)) {
+      $templateString = 'active until <i>@unpublish_on</i>';
+    }
+    else if (!empty($publishOn) && empty($unpublishOn)) {
+      $templateString = 'active since <i>@publish_on</i>';
+    }
+    else {
+      $templateString = '';
+    }
+
+    $message = t($templateString, [
+      '@publish_on' => $publishOn,
+      '@unpublish_on' => $unpublishOn,
+    ]);
+
+    $element['#suffix'] = '<div class="publishing-dates">' . $message . '</div>';
+  }
+
+}
