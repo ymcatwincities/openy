@@ -653,7 +653,7 @@ class GroupexScheduleFetcher {
   public function getPdfLink($location, $timestamp = FALSE, $category = FALSE) {
     $query = [
       'font' => 'larger',
-      'a' => GroupexRequestTrait::$account,
+      'account' => GroupexRequestTrait::$account,
       'l' => $location,
     ];
 
