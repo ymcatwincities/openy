@@ -1,3 +1,0 @@
-services:
-  openy_campaign.personify_api:
-    class: Drupal\openy_campaign\PersonifyApi
