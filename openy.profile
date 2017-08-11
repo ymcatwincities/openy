@@ -114,6 +114,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_landing',
       ],
     ],
+    'campaign' => [
+      'openy_demo_ncampaign' => [
+        'openy_demo_node_campaign',
+      ],
+    ],
     'membership' => [
       'openy_demo_nmbrshp' => [
         'openy_demo_node_membership',
@@ -229,6 +234,11 @@ function openy_import_content(array &$install_state) {
     $install_state['openy']['content'][] = 'sessions_02';
     $install_state['openy']['content'][] = 'sessions_03';
     $install_state['openy']['content'][] = 'sessions_04';
+  }
+
+  // Campaign requires Landing.
+  if (in_array('campaign', $install_state['openy']['content']) && !in_array('landing', $install_state['openy']['content'])) {
+    $install_state['openy']['content'][] = 'landing';
   }
 
   // Build migrations operations arrays, for selected content.

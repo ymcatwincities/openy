@@ -168,6 +168,34 @@ source:
       content_ids:
         -
           content_id: all_amenities
+    -
+      id: challenge_yourself_preview
+      title: 'Challenge Yourself Preview'
+      alias: '/challenge-yourself-coming'
+      content_ids:
+        -
+          content_id: challenge_yourself_preview_simple
+    -
+      id: challenge_yourself_registration_open
+      title: 'Challenge Yourself Register'
+      alias: '/challenge-yourself-register'
+      content_ids:
+        -
+          content_id: challenge_yourself_registration_open_simple
+    -
+      id: challenge_yourself_started
+      title: 'Challenge Yourself Started'
+      alias: '/challenge-yourself-started'
+      content_ids:
+        -
+          content_id: challenge_yourself_started_simple
+    -
+      id: challenge_yourself_completed
+      title: 'Challenge Yourself Winners'
+      alias: '/challenge-yourself-winners'
+      content_ids:
+        -
+          content_id: challenge_yourself_completed_simple
   ids:
     id:
       type: string
