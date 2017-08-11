@@ -1,0 +1,21 @@
+openy_campaign_member.view:
+  route_name: entity.openy_campaign_member.canonical
+  base_route: entity.openy_campaign_member.canonical
+  title: View
+
+openy_campaign_member.page_edit:
+  route_name: entity.openy_campaign_member.edit_form
+  base_route: entity.openy_campaign_member.canonical
+  title: Edit
+
+openy_campaign_member.delete_confirm:
+  route_name:  entity.openy_campaign_member.delete_form
+  base_route:  entity.openy_campaign_member.canonical
+  title: Delete
+  weight: 10
+
+openy_campaign.settings:
+  title: 'OpenY Campaign Settings'
+  description: 'OpenY Campaign Settings'
+  route_name: openy_campaign.settings
+  base_route: system.admin_config_system
