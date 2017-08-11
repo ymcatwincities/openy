@@ -90,7 +90,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_ncamp' => [
         'openy_demo_node_camp',
         'openy_demo_node_camp_blog',
-        'openy_demo_node_camp_news',
       ],
     ],
     'blog' => [
