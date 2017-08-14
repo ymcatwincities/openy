@@ -880,6 +880,23 @@ label {
 .path-node .status-message, .path-frontpage .status-message, .node--type-program-subcategory .status-message {
   margin-bottom: 0;
 }
+.status-message p, .status-message ul {
+  padding: 15px;
+  border-radius: 4px;
+  font-weight: normal;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.status-message p em, .status-message ul em {
+  color: #428bca !important;
+}
+.status-message .status-message__alert p, .status-message .status-message__alert ul {
+  color: #a94442;
+  background-color: #f2dede;
+  border: 1px solid #ebccd1;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
 #ajax-ccc-account-login-form [data-drupal-selector="edit-login"] {
   padding: 13px 25px;
@@ -1151,6 +1168,9 @@ legend {
 }
 .webform-submission-form fieldset .fieldset-wrapper .fieldgroup {
   margin: 0;
+}
+.webform-submission-form fieldset .fieldset-wrapper .fieldgroup label {
+  display: none;
 }
 .webform-submission-form #edit-name--wrapper #edit-name--wrapper > div {
   float: left;
