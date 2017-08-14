@@ -38,12 +38,10 @@ class MemberCampaignListBuilder extends EntityListBuilder {
     $row['member_id'] = $entity->getMemberId();
 
     // Get Member entity
-    $memberRes = \Drupal::entityQuery('openy_campaign_member')
-      ->condition('id', $entity->getMemberId())->execute();
     $memberStorage = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member');
     /* @var $member \Drupal\openy_campaign\Entity\Member */
-    $member = $memberStorage->load(reset($memberRes));
+    $member = $memberStorage->load($entity->getMemberId());
 
     $row['name'] = $member->getFullName();
     $row['membership_id'] = $member->getMemberId();

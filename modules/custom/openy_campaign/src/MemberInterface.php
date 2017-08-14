@@ -190,6 +190,22 @@ interface MemberInterface extends ContentEntityInterface {
   public function getVisitGoal();
 
   /**
+   * Returns user birthday.
+   *
+   * @return string
+   *   Birthday.
+   */
+  public function getBirthDate();
+
+  /**
+   * Sets user birthday.
+   *
+   * @return \Drupal\openy_campaign\MemberInterface
+   *   The called member entity.
+   */
+  public function setBirthDate($value);
+
+  /**
    * Sets user visit goal.
    *
    * @param string $value

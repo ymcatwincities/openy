@@ -180,7 +180,20 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['birth_date'] = BaseFieldDefinition::create('datetime')
       ->setLabel(t('Birthday'))
       ->setDescription(t('The date of birth.'))
-      ->setSetting('datetime_type', 'date');
+      ->setSetting('datetime_type', 'date')
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'datetime',
+        'weight' => -2,
+      ))
+      ->setDisplayOptions('form', array(
+        'label' => 'above',
+        'type' => 'datetime',
+        'weight' => -2,
+      ))
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
 
     $fields['is_employee'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('User is an employee'))
@@ -204,10 +217,26 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['branch'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Branch'))
       ->setDescription(t('Member branch ID.'))
-      ->setSettings([
-        'target_type' => 'mapping',
-        'default_value' => 0,
-      ]);
+      ->setSetting('target_type', 'node')
+      ->setSetting('handler', 'default')
+      ->setSetting('handler_settings',['target_bundles'=>['branch' => 'branch']] )
+      ->setDisplayOptions('view', array(
+        'label'  => 'hidden',
+        'type'   => 'branch',
+        'weight' => 0,
+      ))
+      ->setDisplayOptions('form', array(
+        'type'     => 'entity_reference_autocomplete',
+        'weight'   => -5,
+        'settings' => array(
+          'match_operator'    => 'CONTAINS',
+          'size'              => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder'       => '',
+        ),
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['visit_goal'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visit Goal'))
@@ -451,6 +480,20 @@ class Member extends ContentEntityBase implements MemberInterface {
   public function setVisitGoal($value) {
     $this->set('visit_goal', $value);
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getBirthDate() {
+    return $this->get('birth_date')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBirthDate($value) {
+    return $this->set('birth_date', $value);
   }
 
   /**
