@@ -209,27 +209,6 @@ class Member extends ContentEntityBase implements MemberInterface {
         'default_value' => 0,
       ]);
 
-    $fields['visit_goal'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Visit Goal'))
-      ->setDescription(t('Member visit goal.'))
-      ->setSettings([
-        'default_value' => 0,
-        'max_length' => 255,
-        'text_processing' => 0,
-      ])
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'string',
-        'weight' => -1,
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'string',
-        'weight' => -1,
-      ])
-      ->setDefaultValue(0)
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
-
     $fields['total_visits'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visits'))
       ->setDescription(t('Number of visits.'))
@@ -436,21 +415,6 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function isCreatedOnMobile() {
     return $this->get('created_on_mobile')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getVisitGoal() {
-    return $this->get('visit_goal')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setVisitGoal($value) {
-    $this->set('visit_goal', $value);
-    return $this;
   }
 
   /**

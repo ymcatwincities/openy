@@ -182,25 +182,6 @@ interface MemberInterface extends ContentEntityInterface {
   public function isCreatedOnMobile();
 
   /**
-   * Returns user visit goal.
-   *
-   * @return int
-   *   Visit goal.
-   */
-  public function getVisitGoal();
-
-  /**
-   * Sets user visit goal.
-   *
-   * @param string $value
-   *   Value.
-   *
-   * @return \Drupal\openy_campaign\MemberInterface
-   *   The called member entity.
-   */
-  public function setVisitGoal($value);
-
-  /**
    * Calculate visit goal.
    *
    * @param array $member_ids
