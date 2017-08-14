@@ -1,0 +1,167 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_taxonomy_term_fitness_category
+migration_tags: {  }
+migration_group: openy_demo_term
+label: 'Create demo fitness category term(s)'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      name: Aquatics
+      parent: 0
+    -
+      id: 2
+      name: Fitness
+      parent: 0
+    -
+      id: 3
+      name: Group Exercise
+      parent: 0
+    -
+      id: 4
+      name: Community
+      parent: 0
+    -
+      id: 5
+      name: Using the lap pool
+      parent: 1
+    -
+      id: 6
+      name: Using the warm-water leisure pool
+      parent: 1
+    -
+      id: 7
+      name: Using the splash deck
+      parent: 1
+    -
+      id: 8
+      name: Using the whirlpool
+      parent: 1
+    -
+      id: 9
+      name: Using the water slide
+      parent: 1
+    -
+      id: 10
+      name: Using the sauna
+      parent: 1
+    -
+      id: 11
+      name: Using the steam room
+      parent: 1
+    -
+      id: 12
+      name: Using the vortex pool
+      parent: 1
+    -
+      id: 13
+      name: Participating in or taking kids to Swim Lessons
+      parent: 1
+    -
+      id: 14
+      name: Using a cardio machine
+      parent: 2
+    -
+      id: 15
+      name: Using a strength machine
+      parent: 2
+    -
+      id: 16
+      name: Using weights
+      parent: 2
+    -
+      id: 17
+      name: Using the indoor track
+      parent: 2
+    -
+      id: 18
+      name: Using the Youth/Family Fitness Cards
+      parent: 2
+    -
+      id: 19
+      name: Using the climbing wall
+      parent: 2
+    -
+      id: 20
+      name: Participating in Open Gym
+      parent: 2
+    -
+      id: 21
+      name: Playing racquetball or handball
+      parent: 2
+    -
+      id: 22
+      name: Participating in any Personal Training program, including: one-on-one personal training, buddy training, small-group training, flex training, personal consultation, fitness assessment, metabolic assessment or equipment orientation
+      parent: 2
+    -
+      id: 23
+      name: Taking kids to Youth Sports
+      parent: 2
+    -
+      id: 24
+      name: Participating in any Group Exercise
+      parent: 3
+    -
+      id: 25
+      name: Water Exercise
+      parent: 3
+    -
+      id: 26
+      name: Kids & Family or Active Older Adults class
+      parent: 3
+    -
+      id: 27
+      name: Asking about volunteering at the Y
+      parent: 4
+    -
+      id: 28
+      name: Asking about birthday parties at the Y
+      parent: 4
+    -
+      id: 29
+      name: Attending a YMCA holiday party
+      parent: 4
+    -
+      id: 30
+      name: Attending an Active Older Adult event
+      parent: 4
+    -
+      id: 31
+      name: Dropping kids off at Kids Stuff
+      parent: 4
+    -
+      id: 32
+      name: Registering for Parents Night Out
+      parent: 4
+    -
+      id: 33
+      name: Visiting a Y Senior Center
+      parent: 4
+    -
+      id: 34
+      name: Visiting a Y Youth & Teen Center
+      parent: 4
+  ids:
+    id:
+      type: integer
+process:
+  name: name
+  vid:
+    plugin: default_value
+    default_value: fitness_category
+  parent:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: parent
+    -
+      plugin: migration
+      migration: openy_demo_taxonomy_term_fitness_category
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required: {  }
+  optional: {  }

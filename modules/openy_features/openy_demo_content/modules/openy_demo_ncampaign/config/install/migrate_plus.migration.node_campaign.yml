@@ -54,6 +54,9 @@ process:
         plugin: migration
         migration: openy_demo_node_landing
         source: landing_page_id
+  field_campaign_fitness_category:
+    plugin: default_value
+    default_value: fitness_category
 destination:
   plugin: 'entity:node'
   default_bundle: campaign
