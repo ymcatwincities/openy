@@ -36,23 +36,18 @@ class MemberCampaignListBuilder extends EntityListBuilder {
     /* @var $entity \Drupal\openy_campaign\Entity\MemberCampaign */
     $row['id'] = $entity->id();
     $row['member_id'] = $entity->getMemberId();
-    $row['campaign_id'] = $entity->getCampaignId();
 
     // Get Member entity
-    $query = \Drupal::entityQuery('openy_campaign_member')
-      ->condition('member_id', $entity->id());
+    $memberRes = \Drupal::entityQuery('openy_campaign_member')
+      ->condition('id', $entity->getMemberId())->execute();
+    $memberStorage = \Drupal::entityTypeManager()
+      ->getStorage('openy_campaign_member');
     /* @var $member \Drupal\openy_campaign\Entity\Member */
-    $member = $query->execute();
-    print_r($member);
+    $member = $memberStorage->load(reset($memberRes));
 
     $row['name'] = $member->getFullName();
-    $row['membership_id'] = $entity->getMemberId();
-
-    // Get Campaigns for this Member
-//    $query = \Drupal::entityQuery('openy_campaign_member_campaign')
-//      ->condition('member_id', $entity->id());
-//    $res = $query->execute();
-//    print_r($res);
+    $row['membership_id'] = $member->getMemberId();
+    $row['campaign_id'] = $entity->getCampaignId();
 
     return $row + parent::buildRow($entity);
   }
