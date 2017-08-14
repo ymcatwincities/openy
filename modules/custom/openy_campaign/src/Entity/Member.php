@@ -7,6 +7,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\openy_campaign\MemberInterface;
 use Drupal\openy_campaign\PersonifyApi;
+use Drupal\personify\PersonifyClient;
 
 /**
  * Defines the Member entity.
@@ -479,7 +480,8 @@ class Member extends ContentEntityBase implements MemberInterface {
     }
     $number_weeks = ceil($from_date->diff($to_date)->days / 7);
 
-    $results = PersonifyApi::getPersonifyVisitsBatch($member_ids, $from_date, $to_date);
+    $personifyClient = new PersonifyClient();
+    $results = $personifyClient->getPersonifyVisitsBatch($member_ids, $from_date, $to_date);
     if (!empty($results->ErrorMessage)) {
       $logger = \Drupal::logger('openy_campaign_queue');
       $logger->alert('Could not retrieve visits information for members for batch operation');
