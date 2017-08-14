@@ -132,7 +132,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * {@inheritdoc}
    */
   public function getMember() {
-    return $this->get('member');
+    return $this->get('member')->entity;
   }
 
   /**
@@ -147,7 +147,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * {@inheritdoc}
    */
   public function getCampaign() {
-    return $this->get('campaign');
+    return $this->get('campaign')->entity;
   }
 
   /**
@@ -158,12 +158,63 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     return $this;
   }
 
-  public function setGoal() {
+  /**
+   * {@inheritdoc}
+   */
+  public function getGoal() {
+    return $this->get('goal');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setGoal($goal) {
+    $this->set('goal', $goal);
+    return $this;
+  }
+
+  /**
+   * Set the Goal for the Member for this campaign.
+   */
+  public function defineGoal() {
+    /**
+     * To test generate Members, create MemberCampaign record and run code in /deve/php
+     *
+     * $entity = \Drupal\openy_campaign\Entity\MemberCampaign::load(1);
+     * $entity->defineGoal();
+     *
+     * Needs actual data in order to proceed.
+     */
+
     $campaign = $this->getCampaign();
 
-    $current_date = new \DateTime();
-    $from = $campaign->get('field_check_ins_start_date');
-    $to = $campaign->get('field_check_ins_end_date');
+    $current = new \DateTime();
+    $from = new \DateTime($campaign->field_check_ins_start_date->value);
+    $to = new \DateTime($campaign->field_check_ins_end_date->value);
+
+    // We should not call CRM for the future date.
+    if ($current < $to) {
+      $to = $current;
+    }
+
+    $memberId = $this->member->entity->getMemberId();
+
+    $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
+
+    $results = $client->getVisitCountByDate($memberId, $from, $to);
+    dpm($results);
+    return;
+
+    $visitsNumber = 1; // This should come from API's call.
+
+    $maxGoal = 5; // Add field to Campaign node and use that value.
+
+    $weeksSpan = ceil($from_date->diff($to_date)->days / 7);
+    $calculatedGoal = ceil(2 * $visitsNumber / $weeksSpan) + 1;
+
+    $goal = min($calculatedGoal, $maxGoal);
+
+    $this->setGoal($goal);
   }
 
 }
