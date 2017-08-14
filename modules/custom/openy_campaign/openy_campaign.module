@@ -52,6 +52,9 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
     // Output publishing dates in the backend.
     /** @var \Drupal\node\Entity\Node $node */
     $node = $element['target_id']['#default_value'];
+    if (empty($node)) {
+      return;
+    }
 
     $publishOn = $unpublishOn = NULL;
 
@@ -63,6 +66,7 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
       $unpublishOn = $date_formatter->format($node->unpublish_on->value, 'short');
     }
 
+    $templateString = '';
     if (!empty($publishOn) && !empty($unpublishOn)) {
       $templateString = 'active from <i>@publish_on</i> to <i>@unpublish_on</i>';
     }
@@ -72,14 +76,11 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
     else if (!empty($publishOn) && empty($unpublishOn)) {
       $templateString = 'active since <i>@publish_on</i>';
     }
-    else {
-      $templateString = '';
-    }
 
     $message = t($templateString, [
       '@publish_on' => $publishOn,
       '@unpublish_on' => $unpublishOn,
-    ]);
+    ]) . ' <a href="' . $node->url('edit-form') . '">' . t('Edit page') . '</a>';
 
     $element['#suffix'] = '<div class="publishing-dates">' . $message . '</div>';
   }
