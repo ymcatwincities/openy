@@ -21,38 +21,24 @@ class MemberCampaignListBuilder extends EntityListBuilder {
    * and inserts the 'edit' and 'delete' links as defined for the entity type.
    */
   public function buildHeader() {
-    $header['id'] = $this->t('Internal ID');
-    $header['member_id'] = $this->t('Member ID');
+    $header['id'] = $this->t('Record ID');
+    $header['member'] = $this->t('Member ID');
     $header['name'] = $this->t('Member name');
     $header['membership_id'] = $this->t('Membership ID');
-    $header['campaign_id'] = $this->t('Campaign ID');
-    return $header + parent::buildHeader();
+    $header['campaign'] = $this->t('Campaign');
+    $return = $header + parent::buildHeader();
+    return $return;
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\openy_campaign\Entity\MemberCampaign */
     $row['id'] = $entity->id();
-    $row['member_id'] = $entity->getMemberId();
-    $row['campaign_id'] = $entity->getCampaignId();
-
-    // Get Member entity
-    $query = \Drupal::entityQuery('openy_campaign_member')
-      ->condition('member_id', $entity->id());
-    /* @var $member \Drupal\openy_campaign\Entity\Member */
-    $member = $query->execute();
-    print_r($member);
-
-    $row['name'] = $member->getFullName();
-    $row['membership_id'] = $entity->getMemberId();
-
-    // Get Campaigns for this Member
-//    $query = \Drupal::entityQuery('openy_campaign_member_campaign')
-//      ->condition('member_id', $entity->id());
-//    $res = $query->execute();
-//    print_r($res);
+    $row['member'] = $entity->member->entity->id();
+    $row['name'] = $entity->member->entity->getFullName();
+    $row['membership_id'] = $entity->member->entity->getMemberId();
+    $row['campaign'] = $entity->campaign->entity->getTitle();
 
     return $row + parent::buildRow($entity);
   }
