@@ -6,3 +6,4 @@ package: OpenY
 dependencies:
   - scheduler
   - openy_node_campaign
+  - personify

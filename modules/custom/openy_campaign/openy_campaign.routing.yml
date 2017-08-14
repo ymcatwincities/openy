@@ -1,4 +1,5 @@
 # Route name can be used in several place (links, redirects, local actions etc.)
+# Member entity routes
 entity.openy_campaign_member.canonical:
   path: '/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}'
   defaults:
@@ -54,6 +55,55 @@ openy_campaign.openy_campaign_member.delete_all:
   requirements:
     _permission: 'administer retention campaign'
 
+# MemberCampaign entity routes.
+entity.openy_campaign_member_campaign.canonical:
+  path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}'
+  defaults:
+  # Calls the view controller, defined in the annotation of the member entity
+    _entity_view: 'openy_campaign_member_campaign'
+    _title: 'OpenY Campaign: Member Campaign List'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'openy_campaign_member.view'
+
+entity.openy_campaign_member_campaign.collection:
+  path: '/admin/config/openy-entities/openy-campaign-member-campaign/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the member entity.
+    _entity_list: 'openy_campaign_member_campaign'
+    _title: 'OpenY Campaign: Member Campaign List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'view member entity'
+
+entity.openy_campaign_member_campaign.add:
+  path: '/admin/config/openy-entities/openy-campaign-member-campaign/add'
+  defaults:
+  # Calls the form.add controller, defined in the member entity.
+    _entity_form: openy_campaign_member_campaign.add
+    _title: 'Add OpenY Member Campaign'
+  requirements:
+    _entity_create_access: 'openy_campaign_member'
+
+entity.openy_campaign_member_campaign.edit_form:
+  path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/edit'
+  defaults:
+  # Calls the form.edit controller, defined in the member entity.
+    _entity_form: openy_campaign_member_campaign.edit
+    _title: 'Edit OpenY Member Campaign'
+  requirements:
+    _entity_access: 'openy_campaign_member.edit'
+
+entity.openy_campaign_member_campaign.delete_form:
+  path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/delete'
+  defaults:
+    # Calls the form.delete controller, defined in the member entity.
+    _entity_form: openy_campaign_member_campaign.delete
+    _title: 'Delete OpenY Member Campaign'
+  requirements:
+    _entity_access: 'openy_campaign_member.delete'
+
+# Module settings form
 openy_campaign.settings:
   path: '/admin/config/system/openy-campaign'
   defaults:
@@ -61,3 +111,12 @@ openy_campaign.settings:
     _title: 'OpenY Campaign Settings'
   requirements:
     _permission: 'administer retention campaign'
+
+# Simplified Team Member Registration Portal
+openy_campaign.member-registration:
+  path: '/team-member-registration'
+  defaults:
+    _form: '\Drupal\openy_campaign\Form\MemberRegistrationForm'
+    _title: 'Simplified Team Member Registration Portal'
+  requirements:
+    _permission: 'view content'

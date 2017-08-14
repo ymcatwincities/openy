@@ -19,3 +19,15 @@ openy_campaign.settings:
   description: 'OpenY Campaign Settings'
   route_name: openy_campaign.settings
   base_route: system.admin_config_system
+
+# Define local tasks
+entity.openy_campaign_member.collection: # The first plugin ID
+  route_name: entity.openy_campaign_member.collection
+  title: 'Members'
+  base_route: entity.openy_campaign_member.collection
+
+entity.openy_campaign_member_campaign.collection: # The second plugin ID
+  route_name: entity.openy_campaign_member_campaign.collection
+  title: 'Member Campaigns'
+  base_route: entity.openy_campaign_member.collection
+  weight: 10
