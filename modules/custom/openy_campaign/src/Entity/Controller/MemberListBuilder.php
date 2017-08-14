@@ -27,7 +27,6 @@ class MemberListBuilder extends EntityListBuilder {
     $header['membership_id'] = $this->t('Membership ID');
     $header['is_employee'] = $this->t('Employee');
     $header['checkins'] = $this->t('Checkins');
-    $header['visit_goal'] = $this->t('Visit Goal');
     $header['created_by_staff'] = $this->t('Created by Staff');
     $header['campaigns'] = $this->t('Campaigns');
     return $header + parent::buildHeader();
@@ -44,7 +43,6 @@ class MemberListBuilder extends EntityListBuilder {
     $row['membership_id'] = $entity->getMemberId();
     $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
     $row['checkins'] = $entity->getVisits();
-    $row['visit_goal'] = $entity->getVisitGoal();
     $row['created_by_staff'] = $entity->isCreatedByStaff() ? $this->t('Yes') : $this->t('No');
 
     // Get Campaigns for this Member

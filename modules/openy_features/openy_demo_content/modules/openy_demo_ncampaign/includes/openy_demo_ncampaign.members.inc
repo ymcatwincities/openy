@@ -29,7 +29,6 @@ function _openy_demo_ncampaign_members_create($options) {
         'personify_id' => _openy_demo_ncampaign_generate_random_string(6, TRUE),
         //'branch' => $location_repository->findByLocationPersonifyBranchCode($fake_member['branch_id']),
         'is_employee' => $fake_member['is_employee'],
-        'visit_goal' => rand(5, 10),
         'total_visits' => 0,
         'total_bonuses' => 0,
         'created_by_staff' => FALSE,

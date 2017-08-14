@@ -182,14 +182,6 @@ interface MemberInterface extends ContentEntityInterface {
   public function isCreatedOnMobile();
 
   /**
-   * Returns user visit goal.
-   *
-   * @return int
-   *   Visit goal.
-   */
-  public function getVisitGoal();
-
-  /**
    * Returns user birthday.
    *
    * @return string
@@ -204,27 +196,5 @@ interface MemberInterface extends ContentEntityInterface {
    *   The called member entity.
    */
   public function setBirthDate($value);
-
-  /**
-   * Sets user visit goal.
-   *
-   * @param string $value
-   *   Value.
-   *
-   * @return \Drupal\openy_campaign\MemberInterface
-   *   The called member entity.
-   */
-  public function setVisitGoal($value);
-
-  /**
-   * Calculate visit goal.
-   *
-   * @param array $member_ids
-   *   Array of Master Customer IDs.
-   *
-   * @return array
-   *   Visit goals for members keyed by Master Customer ID.
-   */
-  public static function calculateVisitGoal($member_ids);
 
 }

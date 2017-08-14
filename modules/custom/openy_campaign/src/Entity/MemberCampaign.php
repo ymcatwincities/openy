@@ -5,7 +5,9 @@ namespace Drupal\openy_campaign\Entity;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\node\NodeInterface;
 use Drupal\openy_campaign\MemberCampaignInterface;
+use Drupal\openy_campaign\MemberInterface;
 
 /**
  * Defines the MemberCampaign entity to store Campaigns assigned to the Member.
@@ -32,7 +34,7 @@ use Drupal\openy_campaign\MemberCampaignInterface;
  *   fieldable = TRUE,
  *   entity_keys = {
  *     "id" = "id",
- *     "label" = "campaign_id"
+ *     "label" = "campaign"
  *   },
  *   links = {
  *     "canonical" = "/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}",
@@ -63,7 +65,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setReadOnly(TRUE);
 
     // Campaign entity ID field.
-    $fields['campaign_id'] = BaseFieldDefinition::create('entity_reference')
+    $fields['campaign'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Campaign ID'))
       ->setDescription(t('The id of the Campaign entity. Start typing Campaign name.'))
       ->setSetting('target_type', 'node')
@@ -88,8 +90,8 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setDisplayConfigurable('view', TRUE);
 
     // Member entity ID field.
-    $fields['member_id'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Member ID'))
+    $fields['member'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Member'))
       ->setDescription(t('The id of the Member entity. Start typing Membership ID.'))
       ->setSettings(['target_type' => 'openy_campaign_member'])
       ->setDisplayOptions('view', array(
@@ -110,6 +112,12 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    // Standard field, used as unique if primary index.
+    $fields['goal'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Goal'))
+      ->setDescription(t('How many visits member should do to reach the campaign goal.'))
+      ->setReadOnly(TRUE);
+
     return $fields;
   }
 
@@ -123,31 +131,39 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   /**
    * {@inheritdoc}
    */
-  public function getMemberId() {
-    return $this->get('member_id')->target_id;
+  public function getMember() {
+    return $this->get('member');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setMemberId($member_id) {
-    $this->set('member_id', $member_id);
+  public function setMember(MemberInterface $member) {
+    $this->set('member', $member);
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getCampaignId() {
-    return $this->get('campaign_id')->target_id;
+  public function getCampaign() {
+    return $this->get('campaign');
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setCampaignId($campaign_id) {
-    $this->set('campaign_id', $campaign_id);
+  public function setCampaign(NodeInterface $campaign) {
+    $this->set('campaign', $campaign);
     return $this;
+  }
+
+  public function setGoal() {
+    $campaign = $this->getCampaign();
+
+    $current_date = new \DateTime();
+    $from = $campaign->get('field_check_ins_start_date');
+    $to = $campaign->get('field_check_ins_end_date');
   }
 
 }
