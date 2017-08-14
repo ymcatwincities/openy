@@ -1,2 +1,2 @@
 ## OpenY Custom modules
-Contains the OpenY custom modules
+Contains the OpenY custom modules.
