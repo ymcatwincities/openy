@@ -10,7 +10,7 @@ use Drupal\Core\Entity\EntityListBuilder;
  *
  * @ingroup openy_campaign_member
  */
-class MemberListBuilder extends EntityListBuilder {
+class MemberCampaignListBuilder extends EntityListBuilder {
 
   /**
    * {@inheritdoc}
@@ -22,14 +22,10 @@ class MemberListBuilder extends EntityListBuilder {
    */
   public function buildHeader() {
     $header['id'] = $this->t('Internal ID');
-    $header['name'] = $this->t('Name');
-    $header['mail'] = $this->t('Email');
+    $header['member_id'] = $this->t('Member ID');
+    $header['name'] = $this->t('Member name');
     $header['membership_id'] = $this->t('Membership ID');
-    $header['is_employee'] = $this->t('Employee');
-    $header['checkins'] = $this->t('Checkins');
-    $header['visit_goal'] = $this->t('Visit Goal');
-    $header['created_by_staff'] = $this->t('Created by Staff');
-    $header['campaigns'] = $this->t('Campaigns');
+    $header['campaign_id'] = $this->t('Campaign ID');
     return $header + parent::buildHeader();
   }
 
@@ -37,22 +33,26 @@ class MemberListBuilder extends EntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    /* @var $entity \Drupal\openy_campaign\Entity\Member */
+    /* @var $entity \Drupal\openy_campaign\Entity\MemberCampaign */
     $row['id'] = $entity->id();
-    $row['name'] = $entity->getFullName();
-    $row['mail'] = $entity->getEmail();
+    $row['member_id'] = $entity->getMemberId();
+    $row['campaign_id'] = $entity->getCampaignId();
+
+    // Get Member entity
+    $query = \Drupal::entityQuery('openy_campaign_member')
+      ->condition('member_id', $entity->id());
+    /* @var $member \Drupal\openy_campaign\Entity\Member */
+    $member = $query->execute();
+    print_r($member);
+
+    $row['name'] = $member->getFullName();
     $row['membership_id'] = $entity->getMemberId();
-    $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
-    $row['checkins'] = $entity->getVisits();
-    $row['visit_goal'] = $entity->getVisitGoal();
-    $row['created_by_staff'] = $entity->isCreatedByStaff() ? $this->t('Yes') : $this->t('No');
 
     // Get Campaigns for this Member
 //    $query = \Drupal::entityQuery('openy_campaign_member_campaign')
 //      ->condition('member_id', $entity->id());
 //    $res = $query->execute();
 //    print_r($res);
-    $row['campaigns'] = '';
 
     return $row + parent::buildRow($entity);
   }

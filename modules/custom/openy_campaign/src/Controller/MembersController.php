@@ -20,26 +20,35 @@ class MembersController extends ControllerBase {
    */
   public static function deleteAllMembersProcessBatch(&$context) {
     if (empty($context['sandbox'])) {
-      $member_ids = \Drupal::entityQuery('openy_campaign_member')->execute();
+      $memberIds = \Drupal::entityQuery('openy_campaign_member')->execute();
+      $memberCampaignIds = \Drupal::entityQuery('openy_campaign_member_campaign')->execute();
 
       $context['sandbox']['progress'] = 0;
 
-      $context['sandbox']['members'] = array_values($member_ids);
-      $context['sandbox']['max'] = count($member_ids);
+      $context['sandbox']['members'] = array_values($memberIds);
+      $context['sandbox']['member_campaigns'] = array_values($memberCampaignIds);
+      $context['sandbox']['max'] = count($memberIds);
     }
-    // Get member id.
-    $member_id = $context['sandbox']['members'][$context['sandbox']['progress']];
+    // Get Member and MemberCampaign ids.
+    $memberId = $context['sandbox']['members'][$context['sandbox']['progress']];
+    $memberCampaignId = $context['sandbox']['member_campaigns'][$context['sandbox']['progress']];
 
-    // Get entity manager.
-    $storage = \Drupal::entityTypeManager()
+    // Get Member entity manager.
+    $memberStorage = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member');
+    // Get MemberCampaign entity manager.
+    $memberCampaignStorage = \Drupal::entityTypeManager()
+      ->getStorage('openy_campaign_member_campaign');
 
-    // Delete member entity.
-    $entities = $storage->loadMultiple(array($member_id));
-    $storage->delete($entities);
+    // Delete Member entity.
+    $entities = $memberStorage->loadMultiple(array($memberId));
+    $memberStorage->delete($entities);
+    // Delete MemberCampaign entity.
+    $entities = $memberCampaignStorage->loadMultiple(array($memberCampaignId));
+    $memberCampaignStorage->delete($entities);
 
     // Save results.
-    $context['results'][] = $member_id;
+    $context['results'][] = $memberId;
     $context['sandbox']['progress']++;
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];

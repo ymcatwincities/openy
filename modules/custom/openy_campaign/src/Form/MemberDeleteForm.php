@@ -47,7 +47,7 @@ class MemberDeleteForm extends ContentEntityConfirmFormBase {
     $entity = $this->getEntity();
     $entity->delete();
 
-    \Drupal::logger('openy_campaign_member')->notice('@type: deleted %title.', [
+    \Drupal::logger('openy_campaign')->notice('@type: deleted %title.', [
       '@type' => $this->entity->bundle(),
       '%title' => $this->entity->label(),
     ]);

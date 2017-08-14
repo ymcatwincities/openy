@@ -63,24 +63,6 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Limit goal of visits in this campaign.'),
     ];
 
-    $form['date_checkins_start'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Check-ins start date and time'),
-      '#size' => 50,
-      '#maxlength' => 500,
-      '#default_value' => $config->get('date_checkins_start'),
-      '#description' => $this->t('Start date and time, for getting data about check-ins in past months, before the campaign starts.'),
-    ];
-
-    $form['date_checkins_end'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Check-ins end date and time'),
-      '#size' => 50,
-      '#maxlength' => 500,
-      '#default_value' => $config->get('date_checkins_end'),
-      '#description' => $this->t('End date and time, for getting data about check-ins in past months, before the campaign starts.'),
-    ];
-
     $form['recent_winners_limit'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Recent winners limit'),
@@ -216,8 +198,6 @@ class SettingsForm extends ConfigFormBase {
       ->set('calculate_visit_goal', $form_state->getValue('calculate_visit_goal'))
       ->set('new_member_goal_number', $form_state->getValue('new_member_goal_number'))
       ->set('limit_goal_number', $form_state->getValue('limit_goal_number'))
-      ->set('date_checkins_start', $form_state->getValue('date_checkins_start'))
-      ->set('date_checkins_end', $form_state->getValue('date_checkins_end'))
       ->set('recent_winners_limit', $form_state->getValue('recent_winners_limit'))
       ->set('exclude_reg_product_codes', $excluded_product_codes)
       ->set('error_msg_excluded_members', $form_state->getValue('error_msg_excluded_members'))

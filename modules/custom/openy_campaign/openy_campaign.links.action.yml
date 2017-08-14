@@ -5,9 +5,23 @@ entity.openy_campaign_member.delete_all:
   title: 'Delete all members'
   appears_on:
     - entity.openy_campaign_member.collection
+    - entity.openy_campaign_member_campaign.collection
+
+openy_campaign.member-registration:
+  route_name: 'openy_campaign.member-registration'
+  title: 'Team Member Registration Portal'
+  appears_on:
+    - entity.openy_campaign_member.collection
+    - entity.openy_campaign_member_campaign.collection
 
 entity.openy_campaign_member.add:
   route_name: 'entity.openy_campaign_member.add'
-  title: 'Add new member'
+  title: 'Add new Member'
   appears_on:
     - entity.openy_campaign_member.collection
+
+entity.openy_campaign_member_campaign.add:
+  route_name: 'entity.openy_campaign_member_campaign.add'
+  title: 'Add new Member Campaign'
+  appears_on:
+    - entity.openy_campaign_member_campaign.collection
