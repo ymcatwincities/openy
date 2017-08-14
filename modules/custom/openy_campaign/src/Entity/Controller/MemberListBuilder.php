@@ -48,10 +48,6 @@ class MemberListBuilder extends EntityListBuilder {
     $row['created_by_staff'] = $entity->isCreatedByStaff() ? $this->t('Yes') : $this->t('No');
 
     // Get Campaigns for this Member
-//    $query = \Drupal::entityQuery('openy_campaign_member_campaign')
-//      ->condition('member_id', $entity->id());
-//    $res = $query->execute();
-//    print_r($res);
     $row['campaigns'] = '';
 
     return $row + parent::buildRow($entity);
