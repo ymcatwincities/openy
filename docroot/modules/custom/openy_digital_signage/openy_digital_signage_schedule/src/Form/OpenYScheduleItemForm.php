@@ -149,17 +149,20 @@ class OpenYScheduleItemForm extends ContentEntityForm {
 
     $status = parent::save($form, $form_state);
 
-    switch ($status) {
-      case SAVED_NEW:
-        drupal_set_message($this->t('Digital Signage Schedule Item %label has been created.', [
-          '%label' => $entity->label(),
-        ]));
-        break;
+    // Don't emit any messages in Ajax form.
+    if (empty($form['actions']['submit']['#ajax']['callback'])) {
+      switch ($status) {
+        case SAVED_NEW:
+          drupal_set_message($this->t('Digital Signage Schedule Item %label has been created.', [
+            '%label' => $entity->label(),
+          ]));
+          break;
 
-      default:
-        drupal_set_message($this->t('Digital Signage Schedule Item %label has been saved.', [
-          '%label' => $entity->label(),
-        ]));
+        default:
+          drupal_set_message($this->t('Digital Signage Schedule Item %label has been saved.', [
+            '%label' => $entity->label(),
+          ]));
+      }
     }
     $form_state->setRedirect('entity.openy_digital_signage_sch_item.collection');
   }
