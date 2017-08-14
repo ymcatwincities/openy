@@ -180,7 +180,20 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['birth_date'] = BaseFieldDefinition::create('datetime')
       ->setLabel(t('Birthday'))
       ->setDescription(t('The date of birth.'))
-      ->setSetting('datetime_type', 'date');
+      ->setSetting('datetime_type', 'date')
+      ->setDisplayOptions('view', array(
+        'label' => 'above',
+        'type' => 'datetime',
+        'weight' => -2,
+      ))
+      ->setDisplayOptions('form', array(
+        'label' => 'above',
+        'type' => 'datetime',
+        'weight' => -2,
+      ))
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('form', TRUE);
 
     $fields['is_employee'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('User is an employee'))
@@ -204,10 +217,26 @@ class Member extends ContentEntityBase implements MemberInterface {
     $fields['branch'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Branch'))
       ->setDescription(t('Member branch ID.'))
-      ->setSettings([
-        'target_type' => 'mapping',
-        'default_value' => 0,
-      ]);
+      ->setSetting('target_type', 'node')
+      ->setSetting('handler', 'default')
+      ->setSetting('handler_settings',['target_bundles'=>['branch' => 'branch']] )
+      ->setDisplayOptions('view', array(
+        'label'  => 'hidden',
+        'type'   => 'branch',
+        'weight' => 0,
+      ))
+      ->setDisplayOptions('form', array(
+        'type'     => 'entity_reference_autocomplete',
+        'weight'   => -5,
+        'settings' => array(
+          'match_operator'    => 'CONTAINS',
+          'size'              => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder'       => '',
+        ),
+      ))
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['total_visits'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visits'))
@@ -418,6 +447,20 @@ class Member extends ContentEntityBase implements MemberInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getBirthDate() {
+    return $this->get('birth_date')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setBirthDate($value) {
+    return $this->set('birth_date', $value);
+  }
+
+  /**
    * Get member rank.
    *
    * @return int
@@ -426,67 +469,5 @@ class Member extends ContentEntityBase implements MemberInterface {
   public function getMemberRank() {
     return 0;
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function calculateVisitGoal($member_ids) {
-    $goals = [];
-    $settings = \Drupal::config('openy_campaign.general_settings');
-    // Get information about number of checkins before campaign.
-    $current_date = new \DateTime();
-    $from_date = new \DateTime($settings->get('date_checkins_start'));
-    $to_date = new \DateTime($settings->get('date_checkins_end'));
-
-    if ($to_date > $current_date) {
-      $to_date = $current_date;
-    }
-    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
-
-    $personifyClient = new PersonifyClient();
-    $results = $personifyClient->getPersonifyVisitsBatch($member_ids, $from_date, $to_date);
-
-    if (!empty($results->ErrorMessage)) {
-      $logger = \Drupal::logger('openy_campaign_queue');
-      $logger->alert('Could not retrieve visits information for members for batch operation');
-      return [];
-    }
-
-    foreach ($results->FacilityVisitCustomerRecord as $past_result) {
-      // Get first visit date.
-      try {
-        $first_visit = new \DateTime($past_result->FirstVisitDate);
-      }
-      catch (\Exception $e) {
-        $first_visit = $from_date;
-      }
-
-      $member_weeks = $number_weeks;
-      // If user registered after From date, then recalculate number of weeks.
-      if ($first_visit > $from_date) {
-        $member_weeks = ceil($first_visit->diff($to_date)->days / 7);
-      }
-
-      // Calculate a goal for a member.
-      $goal = (int) $settings->get('new_member_goal_number');
-      if ($past_result->TotalVisits > 0) {
-        $limit_goal = $settings->get('limit_goal_number');
-        $calculated_goal = ceil((($past_result->TotalVisits / $member_weeks) * 2) + 1);
-        $goal = min(max($goal, $calculated_goal), $limit_goal);
-      }
-
-      // Visit goal for late members.
-      $close_date = new \DateTime($settings->get('date_campaign_close'));
-      $count_days = $current_date->diff($close_date)->days;
-      // Set visit goal not greater than number of days till the campaign end.
-      // TODO: is it correct? As we should still be able to get his visits for
-      // the period of campaign.
-      $count_days = max(1, $count_days);
-      $goal = min($goal, $count_days);
-      $goals[$past_result->MasterCustomerId] = $goal;
-    }
-
-    return $goals;
-  }
-
+  
 }
