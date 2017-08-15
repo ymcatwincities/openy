@@ -33,6 +33,7 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
   public function redirectToWinnersPage(GetResponseEvent $event) {
     $routes = array(
       'challenge' => 'page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge',
+      'team' => 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_team',
       'upcoming' => 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_upcoming',
       'winners' => 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_winners',
     );
