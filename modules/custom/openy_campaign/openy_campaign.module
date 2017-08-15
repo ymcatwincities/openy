@@ -9,6 +9,23 @@ use Drupal\node\Entity\Node;
 use Drupal\Component\Utility\Unicode;
 
 /**
+ * Implements hook_theme().
+ */
+function openy_campaign_theme($existing, $type, $theme, $path) {
+  return [
+    // Forms templates.
+    'openy_campaign_login_form' => [
+      'render element' => 'form',
+      'template' => 'forms/openy-campaign-login-form',
+    ],
+    'openy_campaign_register_form' => [
+      'render element' => 'form',
+      'template' => 'forms/openy-campaign-register-form',
+    ],
+  ];
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {

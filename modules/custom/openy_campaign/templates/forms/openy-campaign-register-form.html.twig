@@ -1,0 +1,45 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="container">
+    {% if form.messages is defined %}
+      <div class="row form-message">
+          {{ form.messages }}
+      </div>
+    {% endif %}
+  <div class="form-items campaign-register-form">
+    <div class="row">
+        {{ form.membership_id }}
+      <div class="form-btn">
+          {{ form.submit }}
+      </div>
+    </div>
+    <div class="campaign-link-collapsed">
+      <a href="javascript:void(0)" class="campaign-facility-access-hint-link collapsed" data-toggle="collapse" data-target=".campaign-facility-access-hint-wrapper">
+          {{ 'Where can I find my Member ID?'|t }}
+      </a>
+    </div>
+      {{ form|without('messages', 'membership_id', 'submit') }}
+  </div>
+  <div class="campaign-facility-access-hint-wrapper collapse">
+    <div class="campaign-facility-access-hint">
+      <p>
+        Please find your member ID below the barcode on your Membership Card.
+      </p>
+      <p class="small">
+        Please note it might be on the front of the card on older membership cards.
+      </p>
+    </div>
+  </div>
+</div>
