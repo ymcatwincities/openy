@@ -31,12 +31,12 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
    *   Event.
    */
   public function redirectToWinnersPage(GetResponseEvent $event) {
-    $routes = array(
+    $routes = [
       'challenge' => 'page_manager.page_view_ymca_retention_challenge_ymca_retention_challenge',
       'team' => 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_team',
       'upcoming' => 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_upcoming',
       'winners' => 'page_manager.page_view_ymca_retention_challenge_pages_ymca_retention_challenge_winners',
-    );
+    ];
     $current_route = \Drupal::service('current_route_match')->getRouteName();
 
     if (!in_array($current_route, $routes)) {
@@ -48,21 +48,22 @@ class YmcaRetentionWinnersRedirectSubscriber implements EventSubscriberInterface
     $current_date = new \DateTime();
     $date_winners_announcement = new \DateTime($settings->get('date_winners_announcement'));
     $date_campaign_close = new \DateTime($settings->get('date_campaign_close'));
-    $url = Url::fromRoute($routes['challenge']);
 
-    if ($current_date > $date_campaign_close) {
-      if ($current_date > $date_winners_announcement && 'winners' == $route_id) {
-        return;
-      }
-
-      if ($current_date < $date_winners_announcement && 'upcoming' == $route_id) {
-        return;
-      }
-
-      $redirect_url = $current_date > $date_winners_announcement ? '/winners' : '/upcoming';
-      $response = new RedirectResponse($url->toString() . $redirect_url, 302);
-      $event->setResponse($response);
+    if ($current_date < $date_campaign_close) {
+      return;
     }
+
+    if ($current_date > $date_winners_announcement && 'winners' == $route_id) {
+      return;
+    }
+
+    if ($current_date < $date_winners_announcement && 'upcoming' == $route_id) {
+      return;
+    }
+
+    $redirect_id = $current_date > $date_winners_announcement ? 'winners' : 'upcoming';
+    $response = new RedirectResponse(URL::fromRoute($routes[$redirect_id], ['string' => $redirect_id])->toString(), 302);
+    $event->setResponse($response);
   }
 
 }
