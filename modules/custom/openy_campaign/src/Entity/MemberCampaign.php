@@ -6,6 +6,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\node\NodeInterface;
+use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\MemberCampaignInterface;
 use Drupal\openy_campaign\MemberInterface;
 
@@ -86,6 +87,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
           'placeholder'       => '',
         ),
       ))
+      ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -109,6 +111,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
           'placeholder'       => '',
         ),
       ))
+      ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -199,6 +202,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
     $memberId = $this->member->entity->getMemberId();
 
+    /** @var $client \Drupal\openy_campaign\CRMClientInterface */
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
 
     $results = $client->getVisitCountByDate($memberId, $from, $to);
@@ -217,4 +221,94 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $this->setGoal($goal);
   }
 
+  /**
+   * Check if the member age fit to the Campaign age range.
+   *
+   * @return array Array with status and error message.
+   */
+  public function validateMemberAge() {
+    /** @var Node $campaign Campaign node object. */
+    $campaign = $this->getCampaign();
+    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    $member = $this->getMember();
+
+    $minAge = $campaign->get('field_campaign_age_minimum')->value;
+    $maxAge = $campaign->get('field_campaign_age_maximum')->value;
+
+    $birthday = new \DateTime($member->getBirthDate());
+    $now = new \DateTime();
+    $interval = $now->diff($birthday)->format('%y');
+
+    if ($interval >= $minAge) {
+      if (!empty($maxAge) &&  $interval <= $maxAge) {
+        return ['status' => TRUE, 'error' => ''];
+      }
+      return ['status' => TRUE, 'error' => ''];
+    }
+
+    return ['status' => FALSE, 'error' => t('Age is not between @min and @max', ['@min' => $minAge, '@max' => $maxAge])];
+  }
+
+  /**
+   * Check if the member type fit to the Campaign selected types.
+   *
+   * @return array Array with status and error message.
+   */
+  public function validateMemberUnitType() {
+    /** @var Node $campaign Campaign node object. */
+    $campaign = $this->getCampaign();
+    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    $member = $this->getMember();
+
+    $campaignMemberUnitTypes = $campaign->get('field_campaign_membership_u_t')->getString();
+    $memberMemberUnitType = $member->getMemberUnitType();
+
+    if (in_array($memberMemberUnitType, explode(', ', $campaignMemberUnitTypes))) {
+      return ['status' => TRUE, 'error' => ''];
+    }
+
+    return ['status' => FALSE, 'error' => t('Member unit type does not match types: @types', ['@types' => $campaignMemberUnitTypes])];
+  }
+
+  /**
+   * Check if the member branch fit to the Campaign selected branches.
+   *
+   * @return array Array with status and error message.
+   */
+  public function validateMemberBranch() {
+    /** @var Node $campaign Campaign node object. */
+    $campaign = $this->getCampaign();
+    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    $member = $this->getMember();
+
+    $campaignBranches = $campaign->get('field_campaign_branches')->getString();
+    $memberBranch = $member->getBranchId();
+
+    if (in_array($memberBranch, explode(', ', $campaignBranches))) {
+      return ['status' => TRUE, 'error' => ''];
+    }
+
+    return ['status' => FALSE, 'error' => t('Branch is not included.')];
+  }
+
+  /**
+   * Check if the member age fit to the Campaign payment types.
+   *
+   * @return array Array with status and error message.
+   */
+  public function validateMemberPaymentType() {
+    /** @var Node $campaign Campaign node object. */
+    $campaign = $this->getCampaign();
+    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    $member = $this->getMember();
+
+    $campaignPaymentTypes = $campaign->get('field_campaign_payment_types')->getString();
+    $memberPaymentType = $member->getPaymentType();
+
+    if (in_array($memberPaymentType, explode(', ', $campaignPaymentTypes))) {
+      return ['status' => TRUE, 'error' => ''];
+    }
+
+    return ['status' => FALSE, 'error' => t('Payment type does not match types: @types', ['@types' => $campaignPaymentTypes])];
+  }
 }

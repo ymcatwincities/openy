@@ -6,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\openy_campaign\MemberInterface;
-use Drupal\personify\PersonifyClient;
 
 /**
  * Defines the Member entity.
@@ -119,7 +118,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // Personify ID field for the member.
+    // Personify ID field for the member - Master Customer ID.
     $fields['personify_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Personify ID'))
       ->setDescription(t('The personify id of the member.'))
@@ -238,6 +237,50 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['payment_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Payment type'))
+      ->setDescription(t('Payment type is one of: FP, P3.'))
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setDisplayOptions('form', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['member_unit_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Member unit type'))
+      ->setDescription(t('Member unit type is one of: Adult, Dual, Family, Youth, Student, Contract.'))
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setDisplayOptions('form', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['total_visits'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visits'))
       ->setDescription(t('Number of visits.'))
@@ -328,6 +371,14 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function setMemberId($member_id) {
+    $this->set('membership_id', $member_id);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPersonifyId() {
     return $this->get('personify_id')->value;
   }
@@ -335,8 +386,8 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
-  public function setMemberId($member_id) {
-    $this->set('membership_id', $member_id);
+  public function setPersonifyId($personify_id) {
+    $this->set('personify_id', $personify_id);
     return $this;
   }
 
@@ -461,6 +512,36 @@ class Member extends ContentEntityBase implements MemberInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getPaymentType() {
+    return $this->get('payment_type')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPaymentType($value) {
+    $this->set('payment_type', $value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberUnitType() {
+    return $this->get('member_unit_type')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setMemberUnitType($value) {
+    $this->set('member_unit_type', $value);
+    return $this;
+  }
+
+  /**
    * Get member rank.
    *
    * @return int
@@ -468,6 +549,51 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function getMemberRank() {
     return 0;
+  }
+
+  /**
+   * Create Member from CRM values.
+   *
+   * @param $membershipID int Membership ID.
+   *
+   * @return string | \Drupal\openy_campaign\Entity\Member
+   *   Error message or Member object.
+   */
+  public static function createMemberFromCRMData ($membershipID) {
+    /** @var $client \Drupal\openy_campaign\CRMClientInterface */
+    $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
+
+    $resultsCRM = $client->getMemberInformation($membershipID);
+    if (!$resultsCRM->Success) {
+      \Drupal::logger('openy_campaign')
+        ->error('Failed getting information from CRM for card ID @membershipID', ['@membershipID' => $membershipID]);
+
+      return t('Failed getting information from CRM for card ID @membershipID', ['@membershipID' => $membershipID]);
+    }
+
+    // Get info from CRM
+    $email = cleanPersonifyEmail($resultsCRM->PrimaryEmail);
+    // Create Member entity
+    $memberValues = [
+      'membership_id' => $membershipID,
+      'personify_id' => $resultsCRM->MasterCustomerId,
+      'mail' => $email,
+      'personify_email' => $email,
+      'first_name' => $resultsCRM->FirstName,
+      'last_name' => $resultsCRM->LastName,
+      'is_employee' => !empty($resultsCRM->ProductCode) && strpos($resultsCRM->ProductCode, 'STAFF'),
+      'birth_date' => $resultsCRM->BirthDate, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
+      // Add these fields to CRM API
+      'branch' => $resultsCRM->BranchId, // 2 - target_id for node type Branch
+      'payment_type' => 'FP', // FP, P3
+      'member_unit_type' => 'Adult', // Adult, Dual, Family, Youth, Student, Contract
+    ];
+    /** @var Member $member Temporary Member object. Will be saved by submit. */
+    $member = \Drupal::entityTypeManager()
+      ->getStorage('openy_campaign_member')
+      ->create($memberValues);
+
+    return $member;
   }
   
 }

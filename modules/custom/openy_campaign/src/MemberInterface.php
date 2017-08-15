@@ -77,12 +77,23 @@ interface MemberInterface extends ContentEntityInterface {
   public function setMemberId($member_id);
 
   /**
-   * Returns the personify id(MasterCustomerId) of the user.
+   * Returns the personify id (MasterCustomerId) of the user.
    *
    * @return string
    *   The personify id.
    */
   public function getPersonifyId();
+
+  /**
+   * Sets the personify id for the user.
+   *
+   * @param string $personify_id
+   *   The member id.
+   *
+   * @return \Drupal\openy_campaign\MemberInterface
+   *   The called member entity.
+   */
+  public function setPersonifyId($personify_id);
 
   /**
    * Returns user first name.
@@ -196,5 +207,37 @@ interface MemberInterface extends ContentEntityInterface {
    *   The called member entity.
    */
   public function setBirthDate($value);
+
+  /**
+   * Returns user Payment type.
+   *
+   * @return string
+   *   Payment type.
+   */
+  public function getPaymentType();
+
+  /**
+   * Set user Payment type.
+   *
+   * @return \Drupal\openy_campaign\MemberInterface
+   *   The called member entity.
+   */
+  public function setPaymentType($value);
+
+  /**
+   * Returns user Member unit type.
+   *
+   * @return string
+   *   Member unit type.
+   */
+  public function getMemberUnitType();
+
+  /**
+   * Set user Member unit type.
+   *
+   * @return \Drupal\openy_campaign\MemberInterface
+   *   The called member entity.
+   */
+  public function setMemberUnitType($value);
 
 }
