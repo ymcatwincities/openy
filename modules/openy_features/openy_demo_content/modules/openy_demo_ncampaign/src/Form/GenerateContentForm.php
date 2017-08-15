@@ -41,6 +41,8 @@ class GenerateContentForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     module_load_include('inc', 'openy_demo_ncampaign', 'includes/openy_demo_ncampaign.members');
     _openy_demo_ncampaign_members_create($form_state->getValue('options'));
+
+    drupal_set_message($this->t('Members generated'));
   }
 
 }
