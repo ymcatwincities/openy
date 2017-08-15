@@ -3,6 +3,7 @@
 namespace Drupal\personify;
 
 use Drupal\openy_campaign\CRMClientInterface;
+use Drupal\Core\Site\Settings;
 
 /**
  * Helper for Personify API requests needed for retention campaign.
@@ -14,9 +15,9 @@ class PersonifyClient implements CRMClientInterface {
   protected $password;
 
   public function __construct() {
-    $this->endpoint = \Drupal\Core\Site\Settings::get('personify_endpoint');
-    $this->username = \Drupal\Core\Site\Settings::get('personify_username');
-    $this->password = \Drupal\Core\Site\Settings::get('personify_password');
+    $this->endpoint = Settings::get('personify_endpoint');
+    $this->username = Settings::get('personify_username');
+    $this->password = Settings::get('personify_password');
 
     if (empty($this->endpoint) || empty($this->username) || empty($this->password)) {
       throw new \LogicException(t('Personify module is misconfigured. Make sure endpoint, username and password details are set.'));

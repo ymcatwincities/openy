@@ -4,6 +4,7 @@ namespace Drupal\openy_campaign;
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\node\NodeInterface;
+use Drupal\openy_campaign\Entity\Member;
 
 /**
  * Provides an interface defining a MemberCampaign entity.
@@ -31,7 +32,7 @@ interface MemberCampaignInterface extends ContentEntityInterface {
   /**
    * Sets the campaign of the user.
    *
-   * @param Node $campaign
+   * @param NodeInterface $campaign
    *   The campaign object.
    *
    * @return \Drupal\openy_campaign\MemberCampaignInterface
@@ -50,7 +51,7 @@ interface MemberCampaignInterface extends ContentEntityInterface {
   /**
    * Sets the member object.
    *
-   * @param object $member
+   * @param MemberInterface $member
    *   The member.
    *
    * @return \Drupal\openy_campaign\MemberInterface

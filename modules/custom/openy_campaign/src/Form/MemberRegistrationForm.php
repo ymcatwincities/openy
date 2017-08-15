@@ -5,6 +5,8 @@ namespace Drupal\openy_campaign\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\Entity\Member;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 
 /**
  * Form controller for the Simplified Team Member Registration Portal form.
@@ -28,6 +30,7 @@ class MemberRegistrationForm extends FormBase {
     $campaigns = Node::loadMultiple($campaignIds);
     $options = [];
     foreach ($campaigns as $item) {
+      /** @var Node $item */
       $options[$item->id()] = $item->getTitle();
     }
 
@@ -62,142 +65,114 @@ class MemberRegistrationForm extends FormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $campaignId = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
+    if (!is_numeric($membershipID)) {
+      $form_state->setErrorByName('membership_id', $this->t('Please, check Membership ID number.'));
+      return;
+    }
 
     $memberIDRes = \Drupal::entityQuery('openy_campaign_member')
       ->condition('membership_id', $membershipID) // '12324324'
       ->execute();
     $memberID = reset($memberIDRes);
 
+    // Check MemberCampaign entity
+    $memberCampaignRes = \Drupal::entityQuery('openy_campaign_member_campaign')
+      ->condition('member', $memberID)
+      ->condition('campaign', $campaignId)
+      ->execute();
+
     // If the member is already registered, there will be a basic error message “This member has already registered”.
-    if ($this->isMemberRegistered($memberID, $campaignId)) {
+    if (!empty($memberCampaignRes)) {
       $form_state->setErrorByName('membership_id', $this->t('This member has already registered.'));
+      return;
     }
 
-    // Get Member entity
-    $memberStorage = \Drupal::entityTypeManager()
-      ->getStorage('openy_campaign_member');
-    /* @var $member \Drupal\openy_campaign\Entity\Member */
-    $member = $memberStorage->load($memberID);
+    /** @var Member $member Create Temporary Member object. Will be saved by submit. */
+    $member = Member::createMemberFromCRMData($membershipID);
+    if ($member instanceof \Drupal\Core\StringTranslation\TranslatableMarkup) {
+      $form_state->setErrorByName('membership_id', $member);
+      return;
+    }
+
     // Get Campaign entity
     $campaign = Node::load($campaignId);
 
+    // Create MemberCampaign entity
+    $memberCampaignValues = [
+      'campaign' => $campaign,
+      'member' => $member,
+    ];
+    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved by submit. */
+    $memberCampaign = \Drupal::entityTypeManager()
+      ->getStorage('openy_campaign_member_campaign')
+      ->create($memberCampaignValues);
+
+    if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
+      \Drupal::logger('openy_campaign')
+        ->error('Error while creating MemberCampaign temporary object.');
+      return;
+    }
+
     // Age is in the range from Target Audience Setting from Campaign.
-    if ($this->checkMemberAge($member, $campaign) !== TRUE) {
-      $errorMessage[] = $this->checkMemberAge($member, $campaign);
+    $validateAge = $memberCampaign->validateMemberAge();
+    if (!$validateAge['status']) {
+      $errorMessage[] = $validateAge['error'];
     }
-    // Member type match Target Audience Setting from Campaign.
-    if ($this->checkMemberType($member, $campaign) !== TRUE) {
-      $errorMessage[] = $this->checkMemberType($member, $campaign);
-    }
-    // Branch is one of the selected in the Target Audience Setting from Campaign.
-    if ($this->checkMemberBranch($member, $campaign) !== TRUE) {
-      $errorMessage[] = $this->checkMemberBranch($member, $campaign);
-    }
-    // Payment type is of the selected in the Target Audience Setting from Campaign.
-    if ($this->checkMemberPaymentType($member, $campaign) !== TRUE) {
-      $errorMessage[] = $this->checkMemberPaymentType($member, $campaign);
-    }
+    // TODO Uncomment this after all data will be available from CRM API
+//    // Member type match Target Audience Setting from Campaign.
+//    $validateMemberUnitType = $memberCampaign->validateMemberUnitType();
+//    if (!$validateMemberUnitType['status']) {
+//      $errorMessage[] = $validateMemberUnitType['error'];
+//    }
+//    // Branch is one of the selected in the Target Audience Setting from Campaign.
+//    $validateMemberBranch = $memberCampaign->validateMemberBranch();
+//    if ($validateMemberBranch['status']) {
+//      $errorMessage[] = $validateMemberBranch['error'];
+//    }
+//    // Payment type is of the selected in the Target Audience Setting from Campaign.
+//    $validateMemberPaymentType = $memberCampaign->validateMemberPaymentType();
+//    if ($validateMemberPaymentType['status']) {
+//      $errorMessage[] = $validateMemberPaymentType['error'];
+//    }
 
     // This member is not eligible for the campaign for the following reasons:
     if (!empty($errorMessage)) {
       $errorText = implode('<br>', $errorMessage);
       $form_state->setErrorByName('membership_id',
         $this->t('This member is not eligible for the campaign for the following reasons:<br>@errors', ['@errors' => $errorText]));
+      return;
     }
+
+    // Save Member and MemberCampaign entities in storage to save by submit.
+    $form_state->setStorage([
+      'member' => $member,
+      'member_campaign' => $memberCampaign,
+    ]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Save MemberCampaign entity.
+    // Get Member and MemberCampaign entities from storage.
+    $storage = $form_state->getStorage();
 
+    // Save Member entity.
+    if (!empty($storage['member'])) {
+      /** @var Member $member Member object. */
+      $member = $storage['member'];
+      $member->save();
+    }
+
+    // Save MemberCampaign entity.
+    if (!empty($storage['member_campaign'])) {
+      /** @var MemberCampaign $memberCampaign MemberCampaign object. */
+      $memberCampaign = $storage['member_campaign'];
+      $memberCampaign->save();
+    }
 
     // If the member has not previously registered, there will be a basic message "This member is now registered".
     drupal_set_message(t('This member is now registered'), 'status', TRUE);
-  }
-
-  // @TODO Merge with MemberCampaign entity
-
-  /**
-   * Check if the member already registered to Campaign.
-   *
-   * @param $memberID int Member entity ID
-   * @param $campaignId int Campaign entity ID
-   *
-   * @return bool
-   */
-  protected function isMemberRegistered($memberID, $campaignId) {
-    $memberCampaignRes = \Drupal::entityQuery('openy_campaign_member_campaign')
-      ->condition('member_id', $memberID)
-      ->condition('campaign_id', $campaignId)
-      ->execute();
-
-    return !empty($memberCampaignRes);
-  }
-
-  /**
-   * Check if the member age fit to the Campaign age range.
-   *
-   * @param $member object Member entity
-   * @param $campaign object Campaign entity
-   *
-   * @return bool | string TRUE or Error message
-   */
-  protected function checkMemberAge($member, $campaign) {
-    $minAge = $campaign->get('field_campaign_age_minimum')->value;
-    $maxAge = $campaign->get('field_campaign_age_maximum')->value;
-
-    $birthday = \DateTime::createFromFormat('Y-m-d', $member->getBirthDate());
-    $now = new \DateTime();
-    $interval = $now->diff($birthday)->format('%y');
-
-    return ($interval >= $minAge && $interval <= $maxAge) ? TRUE :
-      $this->t('Age is not between @min and @max', ['@min' => $minAge, '@max' => $maxAge]);
-  }
-
-  /**
-   * Check if the member type fit to the Campaign selected types.
-   *
-   * @param $member object Member entity
-   * @param $campaign object Campaign entity
-   *
-   * @return bool | string TRUE or Error message
-   */
-  protected function checkMemberType($member, $campaign) {
-    $memberTypes = [];
-
-    return (1) ? TRUE :
-      $this->t('Member type does not match @types', ['@types' => implode(',', $memberTypes)]);
-  }
-
-  /**
-   * Check if the member branch fit to the Campaign selected branches.
-   *
-   * @param $member object Member entity
-   * @param $campaign object Campaign entity
-   *
-   * @return bool | string TRUE or Error message
-   */
-  protected function checkMemberBranch($member, $campaign) {
-
-    return (1) ? TRUE :
-      $this->t('Branch is not included');
-  }
-
-  /**
-   * Check if the member age fit to the Campaign age range.
-   *
-   * @param $member object Member entity
-   * @param $campaign object Campaign entity
-   *
-   * @return bool | string TRUE or Error message
-   */
-  protected function checkMemberPaymentType($member, $campaign) {
-    $paymentTypes = [];
-
-    return (1) ? TRUE :
-      $this->t('Payment type does not match @types', ['@types' => implode(',', $paymentTypes)]);
   }
 
 }
