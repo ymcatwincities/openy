@@ -9,57 +9,57 @@ use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 
 /**
- * Form controller for the Simplified Team Member Registration Portal form.
+ * Form controller for the Member Login popup form.
  *
  * @ingroup openy_campaign_member
  */
-class MemberRegistrationForm extends FormBase {
+class MemberLoginForm extends FormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'openy_campaign_registration_form';
+    return 'openy_campaign_login_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $destination = '') {
-    $campaignIds = \Drupal::entityQuery('node')->condition('type','campaign')->execute();
-    $campaigns = Node::loadMultiple($campaignIds);
-    $options = [];
-    foreach ($campaigns as $item) {
-      /** @var Node $item */
-      $options[$item->id()] = $item->getTitle();
-    }
-
-    // Select Campaign to assign Member
+  public function buildForm(array $form, FormStateInterface $form_state, $campaign_id = NULL) {
+    // Set Campaign ID from URL
     $form['campaign_id'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Select Campaign'),
-      '#options' => $options,
+      '#type' => 'hidden',
+      '#value' => $campaign_id,
     ];
 
+    $validate_required = [get_class($this), 'elementValidateRequired'];
     // The id on the membership card.
     $form['membership_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Scan the Membership ID'),
-      '#default_value' => '',
       '#size' => 60,
       '#maxlength' => 128,
       '#required' => TRUE,
+      '#attributes' => [
+        'placeholder' => [
+          $this->t('Your member ID'),
+        ],
+      ],
+      '#element_required_error' => $this->t('Member ID is required.'),
+      '#element_validate' => [
+        $validate_required,
+      ],
     ];
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Register Team Member'),
+      '#value' => t('OK'),
     ];
 
     return $form;
   }
 
   /**
+   * TODO Add validation
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
@@ -151,28 +151,29 @@ class MemberRegistrationForm extends FormBase {
   }
 
   /**
+   * TODO Add submit
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Get Member and MemberCampaign entities from storage.
     $storage = $form_state->getStorage();
 
-    // Save Member entity.
-    if (!empty($storage['member'])) {
-      /** @var Member $member Member object. */
-      $member = $storage['member'];
-      $member->save();
-    }
-
-    // Save MemberCampaign entity.
-    if (!empty($storage['member_campaign'])) {
-      /** @var MemberCampaign $memberCampaign MemberCampaign object. */
-      $memberCampaign = $storage['member_campaign'];
-      $memberCampaign->save();
-    }
-
     // If the member has not previously registered, there will be a basic message "This member is now registered".
     drupal_set_message(t('This member is now registered'), 'status', TRUE);
+  }
+
+  /**
+   * Set a custom validation error on the #required element.
+   *
+   * @param array $element
+   *   Form element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state.
+   */
+  public function elementValidateRequired(array $element, FormStateInterface $form_state) {
+    if (!empty($element['#required_but_empty']) && isset($element['#element_required_error'])) {
+      $form_state->setError($element, $element['#element_required_error']);
+    }
   }
 
 }
