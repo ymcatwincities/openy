@@ -17,10 +17,10 @@ class GroupExImportController extends ControllerBase {
    */
   public function importSessions() {
     $operations = [
-      [
-        [get_class($this), 'processBatch'],
-        [],
-      ],
+      [[get_class($this), 'fetchFeeds'], []],
+      [[get_class($this), 'checkDeleted'], []],
+      [[get_class($this), 'removeDeleted'], []],
+      [[get_class($this), 'processBatch'], []],
     ];
     $batch = [
       'title' => t('Import Sessions from GroupEx Pro'),
@@ -34,32 +34,162 @@ class GroupExImportController extends ControllerBase {
   }
 
   /**
+   * Fetches GroupEx Pro feeds.
+   *
+   * @param array $context
+   *   The batch context.
+   */
+  public static function fetchFeeds(&$context) {
+    if (empty($context['results']['locations'])) {
+      $config = \Drupal::configFactory()
+        ->get('openy_digital_signage_groupex_schedule.settings');
+      $locations = $config->get('locations');
+      $context['results']['locations'] = array_values($locations);
+      $context['sandbox']['max'] = count($locations);
+      $context['sandbox']['progress'] = 0;
+    }
+
+    $location = $context['results']['locations'][$context['sandbox']['progress']];
+
+    /* @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher $service */
+    $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
+    $context['results']['feeds'][$location] = $service->fetchLocationFeed($location);
+
+    $context['sandbox']['progress']++;
+
+    $context['message'] = \Drupal::translation()->translate('Pulling GroupEx Pro feeds: @progress out of @total', [
+      '@progress' => $context['sandbox']['progress'],
+      '@total' => $context['sandbox']['max'],
+    ]);
+
+    if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+  }
+
+  /**
+   * Fetches GroupEx Pro feeds.
+   *
+   * @param array $context
+   *   The batch context.
+   */
+  public static function checkDeleted(&$context) {
+    if (!isset($context['sandbox']['max'])) {
+      $context['results']['to_be_deleted'] = [];
+      $query = \Drupal::entityQuery('openy_ds_classes_groupex_session')
+        ->count();
+      $context['sandbox']['max'] = $query->execute();
+      $context['sandbox']['current'] = 0;
+      $context['sandbox']['progress'] = 0;
+    }
+
+    $query = \Drupal::entityQuery('openy_ds_classes_groupex_session')
+      ->condition('id', $context['sandbox']['current'], '>')
+      ->sort('id')
+      ->range(0, 10);
+    $ids = $query->execute();
+    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_classes_groupex_session');
+    $entities = $storage->loadMultiple($ids);
+
+    if (!$entities) {
+      $context['sandbox']['progress'] = $context['sandbox']['max'];
+    }
+
+    foreach ($entities as $entity) {
+      $id = $entity->groupex_id->value;
+      $location = $entity->location->target_id;
+      if (!isset($context['results']['feeds'][$location][$id])) {
+        $context['results']['to_be_deleted'][] = $id;
+      }
+      $context['sandbox']['current'] = $id;
+      $context['sandbox']['progress']++;
+    }
+
+    $context['message'] = \Drupal::translation()->translate('Checking removed sessions: @progress out of @total', [
+      '@progress' => $context['sandbox']['progress'],
+      '@total' => $context['sandbox']['max'],
+    ]);
+
+    if ($context['sandbox']['progress'] <= $context['sandbox']['max']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+    else {
+      $context['finished'] = 1;
+    }
+  }
+
+  /**
+   * Fetches GroupEx Pro feeds.
+   *
+   * @param array $context
+   *   The batch context.
+   */
+  public static function removeDeleted(&$context) {
+    if (!isset($context['sandbox']['max'])) {
+      $context['sandbox']['max'] = count($context['results']['to_be_deleted']);
+      $context['sandbox']['progress'] = 0;
+    }
+
+    $ids = array_splice($context['results']['to_be_deleted'], 0, 10);
+    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_classes_groupex_session');
+    $entities = $storage->loadMultiple($ids);
+    $storage->delete($entities);
+
+    $context['sandbox']['progress'] += count($ids);
+
+    $context['message'] = \Drupal::translation()->translate('Checking removed sessions: @progress out of @total', [
+      '@progress' => $context['sandbox']['progress'],
+      '@total' => $context['sandbox']['max'],
+    ]);
+
+    if ($context['sandbox']['progress'] <= $context['sandbox']['max']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+    else {
+      $context['finished'] = 1;
+    }
+  }
+
+  /**
    * Processes the import sessions from GroupEx Pro.
    *
    * @param array $context
    *   The batch context.
    */
   public static function processBatch(&$context) {
-    if (empty($context['sandbox'])) {
-      $config = \Drupal::configFactory()
-        ->get('openy_digital_signage_groupex_schedule.settings');
-      $locations = $config->get('locations');
-      $context['sandbox']['locations'] = array_values($locations);
-      $context['sandbox']['max'] = count($locations);
+    if (empty($context['results']['pulled'])) {
+      $context['sandbox']['max'] = 0;
+      foreach ($context['results']['feeds'] as $location_feed) {
+        $context['sandbox']['max'] += count($location_feed);
+      }
       $context['sandbox']['progress'] = 0;
+      $context['sandbox']['location'] = 0;
     }
 
-    $location = $context['sandbox']['locations'][$context['sandbox']['progress']];
+    $location = $context['results']['locations'][$context['sandbox']['location']];
+    if (!$context['results']['feeds'][$location]) {
+      $context['sandbox']['location']++;
+      return;
+    }
 
+    $feed_part = array_splice($context['results']['feeds'][$location], 0, 10);
     /* @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher $service */
     $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
-    $service->fetchLocation($location);
-    $context['results'][] = $location;
+    $service->processData($feed_part, $location);
+    $context['results']['pulled'][$location] += count($feed_part);
 
-    $context['sandbox']['progress']++;
+    $context['sandbox']['progress'] += count($feed_part);
 
-    if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['message'] = \Drupal::translation()->translate('Importing pulled items: @progress out of @total', [
+      '@progress' => $context['sandbox']['progress'],
+      '@total' => $context['sandbox']['max'],
+    ]);
+
+    if ($context['sandbox']['progress'] <= $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+    else {
+      $context['sandbox']['progress'] = 1;
     }
   }
 
@@ -76,7 +206,7 @@ class GroupExImportController extends ControllerBase {
   public static function finishBatch($success, $results, $operations) {
     if ($success) {
       $message = \Drupal::translation()
-        ->formatPlural(count($results), 'Imported all sessions for one location.', 'Imported all session for @count locations.');
+        ->formatPlural(count($results['pulled']), 'Imported all sessions for one location.', 'Imported all session for @count locations.');
     }
     else {
       $message = t('Finished with an error.');
