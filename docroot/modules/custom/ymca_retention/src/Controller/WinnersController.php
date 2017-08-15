@@ -85,7 +85,7 @@ class WinnersController extends ControllerBase {
       $subquery->leftJoin('taxonomy_term__field_retention_activity_id', 'AID', 'AID.entity_id = H.parent');
 
       // We're only getting user who have reached a goal.
-      $subquery->condition('total_visits', 'visit_goal', '>=')
+      $subquery->where('total_visits >= visit_goal')
         ->condition('is_employee', FALSE)
         ->condition('branch', $branch_id)
         ->condition('AID.field_retention_activity_id_value', $activity_id)
