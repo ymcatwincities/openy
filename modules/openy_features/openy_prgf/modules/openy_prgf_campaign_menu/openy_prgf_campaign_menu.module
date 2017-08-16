@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Openy_campaign routines.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_prgf_campaign_menu_theme($existing, $type, $theme, $path) {
+  return [
+    'campaign_menu' => [
+      'variables' => [
+        'base_path' => base_path(),
+        'links' => [],
+      ],
+      'template' => 'campaign-menu',
+    ],
+  ];
+}
