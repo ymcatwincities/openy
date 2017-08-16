@@ -27,7 +27,7 @@ class MembersController extends ControllerBase {
 
       $context['sandbox']['members'] = array_values($memberIds);
       $context['sandbox']['member_campaigns'] = array_values($memberCampaignIds);
-      $context['sandbox']['max'] = count($memberIds);
+      $context['sandbox']['max'] = count($memberCampaignIds);
     }
     // Get Member and MemberCampaign ids.
     $memberId = $context['sandbox']['members'][$context['sandbox']['progress']];
@@ -72,7 +72,7 @@ class MembersController extends ControllerBase {
     $message = t('Finished with an error.');
     if ($success) {
       $message = \Drupal::translation()
-        ->formatPlural(count($results), 'Removed one member.', 'Removed @count members.');
+        ->formatPlural(count($results), 'Removed one item.', 'Removed @count items.');
     }
     drupal_set_message($message);
 
