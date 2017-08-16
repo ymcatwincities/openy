@@ -40,10 +40,10 @@ class GroupExImportController extends ControllerBase {
    *   The batch context.
    */
   public static function fetchFeeds(&$context) {
+    $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
+
     if (empty($context['results']['locations'])) {
-      $config = \Drupal::configFactory()
-        ->get('openy_digital_signage_groupex_schedule.settings');
-      $locations = $config->get('locations');
+      $locations = $service->getLocations();
       $context['results']['locations'] = array_values($locations);
       $context['sandbox']['max'] = count($locations);
       $context['sandbox']['progress'] = 0;
@@ -52,7 +52,6 @@ class GroupExImportController extends ControllerBase {
     $location = $context['results']['locations'][$context['sandbox']['progress']];
 
     /* @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher $service */
-    $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
     $context['results']['feeds'][$location] = $service->fetchLocationFeed($location);
 
     $context['sandbox']['progress']++;
@@ -104,7 +103,8 @@ class GroupExImportController extends ControllerBase {
     foreach ($entities as $entity) {
       $id = $entity->groupex_id->value;
       $location = $entity->location->target_id;
-      if (!isset($context['results']['feeds'][$location][$id])) {
+      $loc = \Drupal::service('ymca_mappings.location_repository')->findByLocationId($location);
+      if (!isset($context['results']['feeds'][$loc->id()][$id])) {
         $context['results']['to_be_deleted'][] = $id;
       }
       $context['sandbox']['current'] = $id;
@@ -175,10 +175,11 @@ class GroupExImportController extends ControllerBase {
     $location = $context['results']['locations'][$context['sandbox']['location']];
     if (!$context['results']['feeds'][$location]) {
       $context['sandbox']['location']++;
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
       return;
     }
 
-    $feed_part = array_splice($context['results']['feeds'][$location], 0, 10);
+    $feed_part = array_splice($context['results']['feeds'][$location], 0, 30);
     /* @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher $service */
     $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
     $service->processData($feed_part, $location);
@@ -194,11 +195,11 @@ class GroupExImportController extends ControllerBase {
       '@total' => $context['sandbox']['max'],
     ]);
 
-    if ($context['sandbox']['progress'] <= $context['sandbox']['max']) {
+    if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
     }
     else {
-      $context['sandbox']['progress'] = 1;
+      $context['finished'] = 1;
     }
   }
 

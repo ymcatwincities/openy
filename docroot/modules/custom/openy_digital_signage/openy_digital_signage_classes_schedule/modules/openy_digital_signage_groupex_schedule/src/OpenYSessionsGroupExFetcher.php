@@ -127,9 +127,7 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
    * {@inheritdoc}
    */
   public function fetchAll() {
-    $locations = $this->configFactory
-      ->get('openy_digital_signage_groupex_schedule.settings')
-      ->get('locations');
+    $locations = $this->getLocations();
     if (empty($locations)) {
       return;
     }
