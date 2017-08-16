@@ -76,7 +76,12 @@ class GroupExImportController extends ControllerBase {
   public static function checkDeleted(&$context) {
     if (!isset($context['sandbox']['max'])) {
       $context['results']['to_be_deleted'] = [];
+      $date = new \DateTime();
+      $date->setTimestamp(REQUEST_TIME);
+      $context['sandbox']['datetime'] = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
       $query = \Drupal::entityQuery('openy_ds_classes_groupex_session')
+        ->condition('date_time.value', $context['sandbox']['datetime'], '>')
         ->count();
       $context['sandbox']['max'] = $query->execute();
       $context['sandbox']['current'] = 0;
@@ -85,6 +90,7 @@ class GroupExImportController extends ControllerBase {
 
     $query = \Drupal::entityQuery('openy_ds_classes_groupex_session')
       ->condition('id', $context['sandbox']['current'], '>')
+      ->condition('date_time.value', $context['sandbox']['datetime'], '>')
       ->sort('id')
       ->range(0, 10);
     $ids = $query->execute();
@@ -110,7 +116,7 @@ class GroupExImportController extends ControllerBase {
       '@total' => $context['sandbox']['max'],
     ]);
 
-    if ($context['sandbox']['progress'] <= $context['sandbox']['max']) {
+    if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
     }
     else {
@@ -142,7 +148,7 @@ class GroupExImportController extends ControllerBase {
       '@total' => $context['sandbox']['max'],
     ]);
 
-    if ($context['sandbox']['progress'] <= $context['sandbox']['max']) {
+    if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
     }
     else {
@@ -176,6 +182,9 @@ class GroupExImportController extends ControllerBase {
     /* @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher $service */
     $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
     $service->processData($feed_part, $location);
+    if (!isset($context['results']['pulled'][$location])) {
+      $context['results']['pulled'][$location] = 0;
+    }
     $context['results']['pulled'][$location] += count($feed_part);
 
     $context['sandbox']['progress'] += count($feed_part);
