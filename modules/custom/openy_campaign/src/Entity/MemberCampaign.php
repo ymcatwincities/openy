@@ -222,11 +222,45 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   }
 
   /**
+   * Validate by Target Audience Settings from Campaign.
+   *
+   * @return array Array of error messages. Will be empty if validation passed.
+   */
+  public function validateTargetAudienceSettings() {
+    $errorMessages = [];
+
+    // Age is in the range from Target Audience Setting from Campaign.
+    $validateAge = $this->validateMemberAge();
+    if (!$validateAge['status']) {
+      $errorMessages[] = $validateAge['error'];
+    }
+
+    // TODO Uncomment this after all data will be available from CRM API
+//    // Member type match Target Audience Setting from Campaign.
+//    $validateMemberUnitType = $this->validateMemberUnitType();
+//    if (!$validateMemberUnitType['status']) {
+//      $errorMessages[] = $validateMemberUnitType['error'];
+//    }
+//    // Branch is one of the selected in the Target Audience Setting from Campaign.
+//    $validateMemberBranch = $this->validateMemberBranch();
+//    if ($validateMemberBranch['status']) {
+//      $errorMessages[] = $validateMemberBranch['error'];
+//    }
+//    // Payment type is of the selected in the Target Audience Setting from Campaign.
+//    $validateMemberPaymentType = $this->validateMemberPaymentType();
+//    if ($validateMemberPaymentType['status']) {
+//      $errorMessages[] = $validateMemberPaymentType['error'];
+//    }
+
+    return $errorMessages;
+  }
+
+  /**
    * Check if the member age fit to the Campaign age range.
    *
    * @return array Array with status and error message.
    */
-  public function validateMemberAge() {
+  protected function validateMemberAge() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -254,7 +288,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    *
    * @return array Array with status and error message.
    */
-  public function validateMemberUnitType() {
+  protected function validateMemberUnitType() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -275,7 +309,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    *
    * @return array Array with status and error message.
    */
-  public function validateMemberBranch() {
+  protected function validateMemberBranch() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -296,7 +330,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    *
    * @return array Array with status and error message.
    */
-  public function validateMemberPaymentType() {
+  protected function validateMemberPaymentType() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -311,4 +345,54 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
     return ['status' => FALSE, 'error' => t('Payment type does not match types: @types', ['@types' => $campaignPaymentTypes])];
   }
+
+  /**
+   * Check if MemberCampaign already exists.
+   *
+   * @param $membershipID int Membership ID.
+   * @param $campaignID int Campaign node ID.
+   *
+   * @return bool
+   */
+  public static function isMemberCampaignExists($membershipID, $campaignID) {
+    $connection = \Drupal::service('database');
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $connection->select('openy_campaign_member', 'm');
+    $query->condition('m.membership_id', $membershipID);
+    $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
+    $query->condition('mc.campaign', $campaignID);
+    $query->fields('mc', ['id']);
+    $memberCampaignRes = $query->execute()->fetchField();
+
+    return (!empty($memberCampaignRes)) ? TRUE : FALSE;
+  }
+
+  /**
+   * Create MemberCampaign entity.
+   *
+   * @param $member Member Member entity.
+   * @param $campaign Node Campaign node.
+   *
+   * @return bool | \Drupal\openy_campaign\Entity\MemberCampaign
+   *   FALSE or MemberCampaign entity
+   */
+  public static function createMemberCampaign($member, $campaign) {
+    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved later. */
+    $memberCampaign = \Drupal::entityTypeManager()
+      ->getStorage('openy_campaign_member_campaign')
+      ->create([
+        'campaign' => $campaign,
+        'member' => $member,
+      ]);
+
+    if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
+      \Drupal::logger('openy_campaign')
+        ->error('Error while creating MemberCampaign temporary object.');
+
+      return FALSE;
+    }
+
+    return $memberCampaign;
+  }
+
 }

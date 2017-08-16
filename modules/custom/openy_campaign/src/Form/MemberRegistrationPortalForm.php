@@ -63,83 +63,54 @@ class MemberRegistrationPortalForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $campaignId = $form_state->getValue('campaign_id');
+    $config = $this->config('openy_campaign.general_settings');
+    $errorDefault = $config->get('error_msg_default');
+
+    $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
+    // TODO Add check length of $membershipID
     if (!is_numeric($membershipID)) {
       $form_state->setErrorByName('membership_id', $this->t('Please, check Membership ID number.'));
       return;
     }
 
-    $memberIDRes = \Drupal::entityQuery('openy_campaign_member')
-      ->condition('membership_id', $membershipID) // '12324324'
-      ->execute();
-    $memberID = reset($memberIDRes);
-
     // Check MemberCampaign entity
-    $memberCampaignRes = \Drupal::entityQuery('openy_campaign_member_campaign')
-      ->condition('member', $memberID)
-      ->condition('campaign', $campaignId)
-      ->execute();
+    $isMemberCampaignExists = MemberCampaign::isMemberCampaignExists($membershipID, $campaignID);
 
     // If the member is already registered, there will be a basic error message “This member has already registered”.
-    if (!empty($memberCampaignRes)) {
+    if ($isMemberCampaignExists) {
       $form_state->setErrorByName('membership_id', $this->t('This member has already registered.'));
       return;
     }
 
-    /** @var Member $member Create Temporary Member object. Will be saved by submit. */
-    $member = Member::createMemberFromCRMData($membershipID);
-    if ($member instanceof \Drupal\Core\StringTranslation\TranslatableMarkup) {
-      $form_state->setErrorByName('membership_id', $member);
+    /** @var Member $member Load or create Temporary Member entity. Will be saved by submit. */
+    $member = Member::loadMemberFromCRMData($membershipID);
+    if (($member instanceof Member === FALSE) || empty($member)) {
+      $form_state->setErrorByName('membership_id', $errorDefault);
+
       return;
     }
 
     // Get Campaign entity
-    $campaign = Node::load($campaignId);
+    $campaign = Node::load($campaignID);
 
-    // Create MemberCampaign entity
-    $memberCampaignValues = [
-      'campaign' => $campaign,
-      'member' => $member,
-    ];
-    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign object. Will be saved by submit. */
-    $memberCampaign = \Drupal::entityTypeManager()
-      ->getStorage('openy_campaign_member_campaign')
-      ->create($memberCampaignValues);
-
+    /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
+    $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);
     if (($memberCampaign instanceof MemberCampaign === FALSE) || empty($memberCampaign)) {
-      \Drupal::logger('openy_campaign')
-        ->error('Error while creating MemberCampaign temporary object.');
+      $form_state->setErrorByName('membership_id', $errorDefault);
+
       return;
     }
 
-    // Age is in the range from Target Audience Setting from Campaign.
-    $validateAge = $memberCampaign->validateMemberAge();
-    if (!$validateAge['status']) {
-      $errorMessage[] = $validateAge['error'];
-    }
-    // TODO Uncomment this after all data will be available from CRM API
-//    // Member type match Target Audience Setting from Campaign.
-//    $validateMemberUnitType = $memberCampaign->validateMemberUnitType();
-//    if (!$validateMemberUnitType['status']) {
-//      $errorMessage[] = $validateMemberUnitType['error'];
-//    }
-//    // Branch is one of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberBranch = $memberCampaign->validateMemberBranch();
-//    if ($validateMemberBranch['status']) {
-//      $errorMessage[] = $validateMemberBranch['error'];
-//    }
-//    // Payment type is of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberPaymentType = $memberCampaign->validateMemberPaymentType();
-//    if ($validateMemberPaymentType['status']) {
-//      $errorMessage[] = $validateMemberPaymentType['error'];
-//    }
+    // Check Target Audience Settings from Campaign.
+    $validateAudienceErrorMessages = $memberCampaign->validateTargetAudienceSettings();
 
-    // This member is not eligible for the campaign for the following reasons:
-    if (!empty($errorMessage)) {
-      $errorText = implode('<br>', $errorMessage);
+    // Member is ineligible due to the Target Audience Setting
+    if (!empty($validateAudienceErrorMessages)) {
+      $errorText = implode('<br>', $validateAudienceErrorMessages);
       $form_state->setErrorByName('membership_id',
         $this->t('This member is not eligible for the campaign for the following reasons:<br>@errors', ['@errors' => $errorText]));
+
       return;
     }
 

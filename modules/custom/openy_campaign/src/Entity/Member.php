@@ -552,14 +552,14 @@ class Member extends ContentEntityBase implements MemberInterface {
   }
 
   /**
-   * Create Member from CRM values.
+   * Load Member from CRM values.
    *
    * @param $membershipID int Membership ID.
    *
-   * @return string | \Drupal\openy_campaign\Entity\Member
-   *   Error message or Member object.
+   * @return bool | \Drupal\openy_campaign\Entity\Member
+   *   FALSE or Member object.
    */
-  public static function createMemberFromCRMData ($membershipID) {
+  public static function loadMemberFromCRMData ($membershipID) {
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
 
@@ -568,11 +568,16 @@ class Member extends ContentEntityBase implements MemberInterface {
       \Drupal::logger('openy_campaign')
         ->error('Failed getting information from CRM for card ID @membershipID', ['@membershipID' => $membershipID]);
 
-      return t('Failed getting information from CRM for card ID @membershipID', ['@membershipID' => $membershipID]);
+      return FALSE;
     }
 
     // Get info from CRM
     $email = cleanPersonifyEmail($resultsCRM->PrimaryEmail);
+    if (!empty($resultsCRM->BirthDate)) {
+      $birthdate = new \DateTime($resultsCRM->BirthDate);
+      $birthdate = $birthdate->format('Y-m-d');
+    }
+
     // Create Member entity
     $memberValues = [
       'membership_id' => $membershipID,
@@ -582,13 +587,31 @@ class Member extends ContentEntityBase implements MemberInterface {
       'first_name' => $resultsCRM->FirstName,
       'last_name' => $resultsCRM->LastName,
       'is_employee' => !empty($resultsCRM->ProductCode) && strpos($resultsCRM->ProductCode, 'STAFF'),
-      'birth_date' => $resultsCRM->BirthDate, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
+      'birth_date' => (isset($birthdate)) ? $birthdate : NULL, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
       // Add these fields to CRM API
+      // TODO Set lookup table to connect Branch ID from CRM and Branch node on the site
       'branch' => $resultsCRM->BranchId, // 2 - target_id for node type Branch
       'payment_type' => 'FP', // FP, P3
       'member_unit_type' => 'Adult', // Adult, Dual, Family, Youth, Student, Contract
     ];
-    /** @var Member $member Temporary Member object. Will be saved by submit. */
+
+    // Load Member by unique Membership ID.
+    $query = \Drupal::entityQuery('openy_campaign_member')
+      ->condition('membership_id', $membershipID);
+    $result = $query->execute();
+    if (!empty($result)) {
+      $memberID = reset($result);
+      $member = Member::load($memberID);
+
+      // Update Member entity with values from CRM
+      foreach ($memberValues as $field => $value) {
+        $member->set($field, $value);
+      }
+
+      return $member;
+    }
+
+    /** @var Member $member Otherwise create temporary Member object. Will be saved later. */
     $member = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member')
       ->create($memberValues);

@@ -8,7 +8,7 @@ entity.openy_campaign_member.delete_all:
     - entity.openy_campaign_member_campaign.collection
 
 openy_campaign.member-registration-portal:
-  route_name: 'openy_campaign.member-registration'
+  route_name: 'openy_campaign.member-registration-portal'
   title: 'Team Member Registration Portal'
   appears_on:
     - entity.openy_campaign_member.collection
