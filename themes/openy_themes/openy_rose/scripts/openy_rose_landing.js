@@ -7,9 +7,9 @@
         var sidebarHeight = $(".sidebar-region").outerHeight();
 
         if (contentHeight > sidebarHeight) {
-          var $sidebar = $(".landing-sidebar.two-column-fixed>div");
+          var $sidebar = $(".landing-sidebar.two-column-fixed>.wrapper-field-sidebar-content");
           $sidebar.unbind();
-          var top_offset = $('.nav-global').outerHeight(true) + $('.site-alert--header').outerHeight(true) + $('.landing-header').outerHeight(true) + $('#block-tabs').outerHeight(true);
+          var top_offset = $('.nav-global').outerHeight(true) + $('.site-alert--header').outerHeight(true) + $('.landing-header').outerHeight(true) + $('#block-tabs').outerHeight(true) - 48;
           var bottom_offset = $(".footer").outerHeight(true) + 40;
           $sidebar.affix({
             offset: {
