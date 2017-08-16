@@ -148,6 +148,25 @@ label {
   .node--type-program-subcategory & {
     margin-bottom: 0;
   }
+  p, ul {
+    padding: 15px;
+    border-radius: 4px;
+    font-weight: normal;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    em {
+      color: $blue !important;
+    }
+  }
+  .status-message__alert {
+    p, ul {
+      color: #a94442;
+      background-color: #f2dede;
+      border: 1px solid #ebccd1;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+  }
 }
 
 #ajax-ccc-account-login-form {
