@@ -1152,6 +1152,9 @@ legend {
 .webform-submission-form fieldset .fieldset-wrapper .fieldgroup {
   margin: 0;
 }
+.webform-submission-form fieldset .fieldset-wrapper .fieldgroup label {
+  display: none;
+}
 .webform-submission-form #edit-name--wrapper #edit-name--wrapper > div {
   float: left;
   width: 49%;
@@ -1796,6 +1799,9 @@ article.site-alert ul li div {
   font-weight: bold;
   display: inline-block;
   margin-top: 6px;
+}
+#membership-calc-wrapper .membership-calc-embedded legend {
+  display: none;
 }
 
 #membership-page {
