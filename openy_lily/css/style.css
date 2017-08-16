@@ -2443,6 +2443,13 @@ body.path-search #block-mainpagecontent li {
   margin: 0 0 30px 0;
 }
 
+.prices-wrapper {
+  color: #333;
+}
+.prices-wrapper h4 {
+  font-size: 14px;
+}
+
 .news-more-teaser {
   margin-top: 20px;
 }
