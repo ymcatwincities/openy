@@ -146,8 +146,15 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
   public function checkDeleted($feed, $location_id) {
     $to_be_deleted = [];
 
+    $date = new \DateTime();
+    $date->setTimestamp(REQUEST_TIME);
+    $formatted = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
     $storage = $this->entityTypeManager->getStorage('openy_ds_classes_groupex_session');
-    $query = $storage->getQuery()->condition('location', $location_id);
+    $query = $storage->getQuery()
+      ->condition('location', $location_id)
+      ->condition('date_time.value', $formatted, '>');
+
     $ids = $query->execute();
 
     while ($part = array_splice($ids, 0, 10)) {
