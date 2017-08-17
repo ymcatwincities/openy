@@ -4,7 +4,7 @@ News Post content type is used for adding news posts on the site.
 ### Fields
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
-| Title  | drupal's default  | Yes | Title of the blog item. |
+| Title  | drupal's default  | Yes | Title of the news item. |
 | Locations | field\_news_location | Yes | Reference field to `branch` and `camp` nodes. Multiple Values. |
 | Category | field\_news_category | No | Reference field for choosing the term from "News Category" vocabulary. Multiple Values. |
 | **Content Area** | Field group |||
