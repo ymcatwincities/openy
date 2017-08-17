@@ -10,7 +10,6 @@
 @import 'base/fonts';
 @import 'base/typography';
 @import 'base/utilities';
-@import 'base/decor';
 
 // Modules
 @import 'modules/page';
@@ -42,14 +41,6 @@
 @import 'modules/webform';
 @import 'modules/programs';
 @import 'modules/microsites';
-@import 'modules/addthis';
-@import 'modules/block-description';
-@import 'modules/columns';
-@import 'modules/simple_content';
-// Paragraphs
-@import 'paragraphs/1c';
-@import 'paragraphs/amenities';
-@import 'paragraphs/lto';
 
 // Global state classes
 @import 'state/state';
