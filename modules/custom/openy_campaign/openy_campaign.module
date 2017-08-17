@@ -8,6 +8,17 @@
 use \Drupal\node\Entity\Node;
 
 /**
+ * Implements hook_theme().
+ */
+function openy_campaign_theme() {
+  return [
+    'openy_campaign_activity_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
