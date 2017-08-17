@@ -6,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\openy_campaign\MemberInterface;
-use Drupal\personify\PersonifyClient;
 
 /**
  * Defines the Member entity.
@@ -119,7 +118,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    // Personify ID field for the member.
+    // Personify ID field for the member - Master Customer ID.
     $fields['personify_id'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Personify ID'))
       ->setDescription(t('The personify id of the member.'))
@@ -238,24 +237,47 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['visit_goal'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Visit Goal'))
-      ->setDescription(t('Member visit goal.'))
+    $fields['payment_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Payment type'))
+      ->setDescription(t('Payment type is one of: FP, P3.'))
       ->setSettings([
-        'default_value' => 0,
+        'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
       ])
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => -1,
+        'weight' => -3,
       ])
       ->setDisplayOptions('form', [
+        'label' => 'above',
         'type' => 'string',
-        'weight' => -1,
+        'weight' => -3,
       ])
-      ->setDefaultValue(0)
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['member_unit_type'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Member unit type'))
+      ->setDescription(t('Member unit type is one of: Adult, Dual, Family, Youth, Student, Contract.'))
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setDisplayOptions('form', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setRequired(TRUE)
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -349,6 +371,14 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function setMemberId($member_id) {
+    $this->set('membership_id', $member_id);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getPersonifyId() {
     return $this->get('personify_id')->value;
   }
@@ -356,8 +386,8 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
-  public function setMemberId($member_id) {
-    $this->set('membership_id', $member_id);
+  public function setPersonifyId($personify_id) {
+    $this->set('personify_id', $personify_id);
     return $this;
   }
 
@@ -470,21 +500,6 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
-  public function getVisitGoal() {
-    return $this->get('visit_goal')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setVisitGoal($value) {
-    $this->set('visit_goal', $value);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getBirthDate() {
     return $this->get('birth_date')->value;
   }
@@ -494,6 +509,36 @@ class Member extends ContentEntityBase implements MemberInterface {
    */
   public function setBirthDate($value) {
     return $this->set('birth_date', $value);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPaymentType() {
+    return $this->get('payment_type')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPaymentType($value) {
+    $this->set('payment_type', $value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMemberUnitType() {
+    return $this->get('member_unit_type')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setMemberUnitType($value) {
+    $this->set('member_unit_type', $value);
+    return $this;
   }
 
   /**
@@ -507,65 +552,71 @@ class Member extends ContentEntityBase implements MemberInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Load Member from CRM values.
+   *
+   * @param $membershipID int Membership ID.
+   *
+   * @return bool | \Drupal\openy_campaign\Entity\Member
+   *   FALSE or Member object.
    */
-  public static function calculateVisitGoal($member_ids) {
-    $goals = [];
-    $settings = \Drupal::config('openy_campaign.general_settings');
-    // Get information about number of checkins before campaign.
-    $current_date = new \DateTime();
-    $from_date = new \DateTime($settings->get('date_checkins_start'));
-    $to_date = new \DateTime($settings->get('date_checkins_end'));
+  public static function loadMemberFromCRMData ($membershipID) {
+    /** @var $client \Drupal\openy_campaign\CRMClientInterface */
+    $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
 
-    if ($to_date > $current_date) {
-      $to_date = $current_date;
-    }
-    $number_weeks = ceil($from_date->diff($to_date)->days / 7);
+    $resultsCRM = $client->getMemberInformation($membershipID);
+    if (!$resultsCRM->Success) {
+      \Drupal::logger('openy_campaign')
+        ->error('Failed getting information from CRM for card ID @membershipID', ['@membershipID' => $membershipID]);
 
-    $personifyClient = new PersonifyClient();
-    $results = $personifyClient->getPersonifyVisitsBatch($member_ids, $from_date, $to_date);
-
-    if (!empty($results->ErrorMessage)) {
-      $logger = \Drupal::logger('openy_campaign_queue');
-      $logger->alert('Could not retrieve visits information for members for batch operation');
-      return [];
+      return FALSE;
     }
 
-    foreach ($results->FacilityVisitCustomerRecord as $past_result) {
-      // Get first visit date.
-      try {
-        $first_visit = new \DateTime($past_result->FirstVisitDate);
-      }
-      catch (\Exception $e) {
-        $first_visit = $from_date;
-      }
-
-      $member_weeks = $number_weeks;
-      // If user registered after From date, then recalculate number of weeks.
-      if ($first_visit > $from_date) {
-        $member_weeks = ceil($first_visit->diff($to_date)->days / 7);
-      }
-
-      // Calculate a goal for a member.
-      $goal = (int) $settings->get('new_member_goal_number');
-      if ($past_result->TotalVisits > 0) {
-        $limit_goal = $settings->get('limit_goal_number');
-        $calculated_goal = ceil((($past_result->TotalVisits / $member_weeks) * 2) + 1);
-        $goal = min(max($goal, $calculated_goal), $limit_goal);
-      }
-
-      // Visit goal for late members.
-      $close_date = new \DateTime($settings->get('date_campaign_close'));
-      $count_days = $current_date->diff($close_date)->days;
-      // Set visit goal not greater than number of days till the campaign end.
-      // TODO: is it correct? As we should still be able to get his visits for
-      // the period of campaign.
-      $count_days = max(1, $count_days);
-      $goal = min($goal, $count_days);
-      $goals[$past_result->MasterCustomerId] = $goal;
+    // Get info from CRM
+    $email = cleanPersonifyEmail($resultsCRM->PrimaryEmail);
+    if (!empty($resultsCRM->BirthDate)) {
+      $birthdate = new \DateTime($resultsCRM->BirthDate);
+      $birthdate = $birthdate->format('Y-m-d');
     }
 
-    return $goals;
+    // Create Member entity
+    $memberValues = [
+      'membership_id' => $membershipID,
+      'personify_id' => $resultsCRM->MasterCustomerId,
+      'mail' => $email,
+      'personify_email' => $email,
+      'first_name' => $resultsCRM->FirstName,
+      'last_name' => $resultsCRM->LastName,
+      'is_employee' => !empty($resultsCRM->ProductCode) && strpos($resultsCRM->ProductCode, 'STAFF'),
+      'birth_date' => (isset($birthdate)) ? $birthdate : NULL, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
+      // Add these fields to CRM API
+      // TODO Set lookup table to connect Branch ID from CRM and Branch node on the site
+      'branch' => $resultsCRM->BranchId, // 2 - target_id for node type Branch
+      'payment_type' => 'FP', // FP, P3
+      'member_unit_type' => 'Adult', // Adult, Dual, Family, Youth, Student, Contract
+    ];
+
+    // Load Member by unique Membership ID.
+    $query = \Drupal::entityQuery('openy_campaign_member')
+      ->condition('membership_id', $membershipID);
+    $result = $query->execute();
+    if (!empty($result)) {
+      $memberID = reset($result);
+      $member = Member::load($memberID);
+
+      // Update Member entity with values from CRM
+      foreach ($memberValues as $field => $value) {
+        $member->set($field, $value);
+      }
+
+      return $member;
+    }
+
+    /** @var Member $member Otherwise create temporary Member object. Will be saved later. */
+    $member = \Drupal::entityTypeManager()
+      ->getStorage('openy_campaign_member')
+      ->create($memberValues);
+
+    return $member;
   }
-
+  
 }

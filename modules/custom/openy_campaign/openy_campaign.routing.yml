@@ -113,10 +113,29 @@ openy_campaign.settings:
     _permission: 'administer retention campaign'
 
 # Simplified Team Member Registration Portal
-openy_campaign.member-registration:
+openy_campaign.member-registration-portal:
   path: '/team-member-registration'
   defaults:
-    _form: '\Drupal\openy_campaign\Form\MemberRegistrationForm'
+    _form: '\Drupal\openy_campaign\Form\MemberRegistrationPortalForm'
     _title: 'Simplified Team Member Registration Portal'
+  requirements:
+    _permission: 'view content'
+
+# Campaign Member registration/login popup
+openy_campaign.member-action:
+  path: '/campaign/{action}/{campaign_id}'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::showModal'
+    _title_callback: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::addTitle'
+  requirements:
+    _permission: 'view content'
+    action: ^[a-zA-Z]+
+    campaign_id: ^[0-9]+
+
+# Campaign Member logout link
+openy_campaign.member-logout:
+  path: '/campaign-logout/{campaign_id}'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::logout'
   requirements:
     _permission: 'view content'

@@ -2,19 +2,22 @@
 
 namespace Drupal\personify;
 
+use Drupal\openy_campaign\CRMClientInterface;
+use Drupal\Core\Site\Settings;
+
 /**
  * Helper for Personify API requests needed for retention campaign.
  */
-class PersonifyClient {
+class PersonifyClient implements CRMClientInterface {
 
   protected $endpoint;
   protected $username;
   protected $password;
 
   public function __construct() {
-    $this->endpoint = \Drupal\Core\Site\Settings::get('personify_endpoint');
-    $this->username = \Drupal\Core\Site\Settings::get('personify_username');
-    $this->password = \Drupal\Core\Site\Settings::get('personify_password');
+    $this->endpoint = Settings::get('personify_endpoint');
+    $this->username = Settings::get('personify_username');
+    $this->password = Settings::get('personify_password');
 
     if (empty($this->endpoint) || empty($this->username) || empty($this->password)) {
       throw new \LogicException(t('Personify module is misconfigured. Make sure endpoint, username and password details are set.'));
@@ -40,6 +43,13 @@ class PersonifyClient {
         throw new \LogicException(t('API Method %method is failed.', array('%method' => $method)));
       }
       $body = $response->getBody();
+
+      \Drupal::logger('personify')->info('Personify request to %method. Arguments %json. Response %body', [
+        '%method' => $method,
+        '%json' => json_encode($json),
+        '%body' => $body,
+      ]);
+
       return json_decode($body->getContents());
     }
     catch (\Exception $e) {
@@ -57,7 +67,7 @@ class PersonifyClient {
    * @return array
    *   Information about Member.
    */
-  public function getPersonifyMemberInformation($facility_id) {
+  public function getMemberInformation($facility_id) {
     $json = [
       'CL_GetCustomerBranchInformationInput' => [
         'CardNumber' => $facility_id,
@@ -80,12 +90,12 @@ class PersonifyClient {
    * @return array|\stdClass
    *   Information about Member visits for a period.
    */
-  public function getPersonifyVisitCountByDate($master_id, $date_from, $date_to) {
+  public function getVisitCountByDate($master_id, \DateTime $date_from, \DateTime $date_to) {
     $json = [
       'CL_GetFacilityVisitCountByDateInput' => [
         'MasterCustomerId' => $master_id,
-        'DateFrom' => $date_from,
-        'DateTo' => $date_to,
+        'DateFrom' => $date_from->format('Y-m-d H:i:s'),
+        'DateTo' => $date_to->format('Y-m-d H:i:s'),
       ],
     ];
 
@@ -116,7 +126,7 @@ class PersonifyClient {
    * @return array|\stdClass
    *   Information about Members visits for a period.
    */
-  public function getPersonifyVisitsBatch(array $list_ids, \DateTime $date_from, \DateTime $date_to) {
+  public function getVisitsBatch(array $list_ids, \DateTime $date_from, \DateTime $date_to) {
     $json = [
       'CL_GetFacilityVisitCountByDateInput' => [
         'MasterCustomerId' => implode(',', $list_ids),

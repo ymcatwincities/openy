@@ -77,12 +77,23 @@ interface MemberInterface extends ContentEntityInterface {
   public function setMemberId($member_id);
 
   /**
-   * Returns the personify id(MasterCustomerId) of the user.
+   * Returns the personify id (MasterCustomerId) of the user.
    *
    * @return string
    *   The personify id.
    */
   public function getPersonifyId();
+
+  /**
+   * Sets the personify id for the user.
+   *
+   * @param string $personify_id
+   *   The member id.
+   *
+   * @return \Drupal\openy_campaign\MemberInterface
+   *   The called member entity.
+   */
+  public function setPersonifyId($personify_id);
 
   /**
    * Returns user first name.
@@ -182,14 +193,6 @@ interface MemberInterface extends ContentEntityInterface {
   public function isCreatedOnMobile();
 
   /**
-   * Returns user visit goal.
-   *
-   * @return int
-   *   Visit goal.
-   */
-  public function getVisitGoal();
-
-  /**
    * Returns user birthday.
    *
    * @return string
@@ -206,25 +209,35 @@ interface MemberInterface extends ContentEntityInterface {
   public function setBirthDate($value);
 
   /**
-   * Sets user visit goal.
+   * Returns user Payment type.
    *
-   * @param string $value
-   *   Value.
+   * @return string
+   *   Payment type.
+   */
+  public function getPaymentType();
+
+  /**
+   * Set user Payment type.
    *
    * @return \Drupal\openy_campaign\MemberInterface
    *   The called member entity.
    */
-  public function setVisitGoal($value);
+  public function setPaymentType($value);
 
   /**
-   * Calculate visit goal.
+   * Returns user Member unit type.
    *
-   * @param array $member_ids
-   *   Array of Master Customer IDs.
-   *
-   * @return array
-   *   Visit goals for members keyed by Master Customer ID.
+   * @return string
+   *   Member unit type.
    */
-  public static function calculateVisitGoal($member_ids);
+  public function getMemberUnitType();
+
+  /**
+   * Set user Member unit type.
+   *
+   * @return \Drupal\openy_campaign\MemberInterface
+   *   The called member entity.
+   */
+  public function setMemberUnitType($value);
 
 }

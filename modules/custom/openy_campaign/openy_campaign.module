@@ -5,7 +5,31 @@
  * Module file.
  */
 
-use \Drupal\node\Entity\Node;
+use Drupal\node\Entity\Node;
+use Drupal\Component\Utility\Unicode;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_campaign_theme($existing, $type, $theme, $path) {
+  return [
+    // Popup templates.
+    'openy_campaign_login' => [
+      'variables' => [
+        'header' => NULL,
+        'form' => NULL,
+      ],
+      'template' => 'openy-campaign-login',
+    ],
+    'openy_campaign_register' => [
+      'variables' => [
+        'header' => NULL,
+        'form' => NULL,
+      ],
+      'template' => 'openy-campaign-register',
+    ],
+  ];
+}
 
 /**
  * Implements hook_theme().
@@ -96,4 +120,25 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
     $element['#suffix'] = '<div class="publishing-dates">' . $message . '</div>';
   }
 
+}
+
+/**
+ * Clean email from Personify.
+ *
+ * @param string $email
+ *   Email.
+ *
+ * @return string
+ *   Email.
+ */
+function cleanPersonifyEmail($email) {
+  $email = Unicode::strtolower($email);
+  if (Unicode::substr($email, -1, 1) == '.') {
+    $email = Unicode::substr($email, 0, Unicode::strlen($email) - 1);
+  }
+  if (Unicode::substr($email, 0, 1) == '/') {
+    $email = Unicode::substr($email, 1, Unicode::strlen($email));
+  }
+
+  return $email;
 }

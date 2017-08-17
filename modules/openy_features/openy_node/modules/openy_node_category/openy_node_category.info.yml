@@ -5,6 +5,7 @@ core: 8.x
 package: OpenY
 dependencies:
   - entity_browser
+  - entity_clone
   - entity_reference_revisions
   - field
   - field_group
