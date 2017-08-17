@@ -70,6 +70,9 @@ function openy_digital_signage_screen_theme($existing, $type, $theme, $path) {
     'page__screen' => [
       'template' => 'pages/page--screen',
     ],
+    'page__screen_content' => [
+      'template' => 'pages/page--screen-content',
+    ],
     'screen_schedule_ui' => [
       'variables' => [
         'schedule' => '',
@@ -115,7 +118,7 @@ function openy_digital_signage_screen_theme_suggestions_page_alter(array &$sugge
   elseif ($route_name == 'entity.node.canonical') {
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node->bundle() == 'screen_content') {
-      array_push($suggestions, 'page__screen');
+      array_push($suggestions, 'page__screen_content');
     }
   }
 }
@@ -152,6 +155,13 @@ function openy_digital_signage_screen_preprocess_page__screen(&$variables) {
       unset($variables['page']['content']['tabs']);
     }
   }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function openy_digital_signage_screen_preprocess_page__screen_content(&$variables) {
+  openy_digital_signage_screen_preprocess_page__screen($variables);
 }
 
 /**
