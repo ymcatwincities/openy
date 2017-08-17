@@ -88,7 +88,12 @@ dependencies:
   - recaptcha
   - admin_toolbar
   - colorbutton
+  - better_exposed_filters
+  - custom_formatters
+  - token_filter
+  - views_field_formatter
   # OpenY features.
+  - openy_svg_formatter
   - openy_media_image
   - openy_media_document
   - openy_media_video
@@ -99,6 +104,7 @@ dependencies:
   - openy_block_menu
   - openy_datalayer
   - openy_taxonomy
+  - openy_txnm_amenities
   - openy_txnm_color
   - openy_location
   - openy_loc_branch
@@ -144,12 +150,24 @@ dependencies:
   - openy_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
+  - openy_block_branch_amenities
+  - openy_block_custom_simple
+  - openy_block_flexible_content
+  - openy_editor
+  - openy_prgf_1c
+  - openy_prgf_2c
+  - openy_prgf_3c
+  - openy_prgf_4c
+  - openy_prgf_amenities
+  - openy_prgf_lto
   # OpenY custom modules
+  - openy_addthis
   - openy_branch_selector
   - openy_field_hours
   - openy_group_schedules
   - groupex_form_cache
   - openy_hf
+  - openy_ckeditor
   - openy_hours_formatter
   - openy_migrate
   - openy_map
