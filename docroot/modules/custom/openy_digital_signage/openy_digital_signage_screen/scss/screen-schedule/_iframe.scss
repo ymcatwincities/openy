@@ -1,26 +1,26 @@
 .frame-container {
-  width: 100%;
-  position: relative;
+  background-color: #CCCCCC;
+  border: 1px solid #808080;
   padding-bottom: 56.25%;
+  position: relative;
+  width: 100%;
 
-  //&--portrait {
-  //  height: 100%;
-  //  margin: auto;
-  //  padding-left: 56.25%;
-  //  padding-bottom: 0;
-  //  width: auto;
-  //  overflow: hidden;
-  //
-  //  img {
-  //    height: 100%;
-  //  }
-  //}
-  
+  &.frame-container--portrait {
+    padding-bottom: 100%;
+
+    iframe {
+      width: 56.25%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
   iframe {
-    width: 100%;
+    border: none;
     height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
-    left: 0;
+    width: 100%;
   }
 }

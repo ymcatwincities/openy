@@ -2,12 +2,12 @@
 
 namespace Drupal\openy_digital_signage_classes_schedule;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\openy_digital_signage_room\Entity\OpenYRoomInterface;
 
 /**
  * Defines a classes schedule manager.
@@ -67,7 +67,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
   /**
    * {@inheritdoc}
    */
-  public function getClassesSchedule($period, EntityInterface $location, $room) {
+  public function getClassesSchedule($period, $room_id) {
     $datetime = new \DateTime();
     $datetime->setTimezone(new \DateTimeZone('UTC'));
     $datetime->setTimestamp($period['to']);
@@ -75,14 +75,21 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
     $datetime->setTimestamp($period['from']);
     $period_from = $datetime->format('c');
 
-    $eq = $this->entityQuery->get('openy_ds_classes_session');
-    $eq->condition('room_name', $room);
-    $eq->condition('field_session_location', $location->id());
-    $eq->condition('date_time.value', $period_to, '<=');
-    $eq->condition('date_time.end_value', $period_from, '>=');
-    $eq->condition('overridden', FALSE);
-    $eq->sort('date_time.value');
-    $results = $eq->execute();
+    $eq = $this->storage->getQuery();
+    $eq->condition('room', $room_id)
+      ->condition('date_time.value', $period_to, '<=')
+      ->condition('date_time.end_value', $period_from, '>=')
+      ->condition('overridden', FALSE)
+      ->sort('date_time.value');
+    if (!$results = $eq->execute()) {
+      $eq = $this->storage->getQuery();
+      $eq->condition('room', $room_id)
+        ->condition('date_time.value', $period_from, '>=')
+        ->condition('overridden', FALSE)
+        ->sort('date_time.value')
+        ->range(0, 1);
+      $results = $eq->execute();
+    }
 
     $class_sessions = $this->storage->loadMultiple($results);
 
@@ -96,8 +103,8 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
         'trainer' => $class_session->instructor->value,
         'substitute_trainer' => trim($class_session->sub_instructor->value),
         'name' => $class_session->label(),
-        'from_formatted' => date('H:ia', $from),
-        'to_formatted' => date('H:ia', $to),
+        'from_formatted' => date('g:ia', $from),
+        'to_formatted' => date('g:ia', $to),
       ];
     }
 

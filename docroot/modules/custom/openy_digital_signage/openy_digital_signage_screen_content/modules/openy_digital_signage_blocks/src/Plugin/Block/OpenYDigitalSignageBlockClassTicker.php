@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\openy_digital_signage_classes_schedule\OpenYClassesScheduleManagerInterface;
+use Drupal\openy_digital_signage_room\OpenYRoomManagerInterface;
 use Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface;
 use Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -39,7 +40,14 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
   protected $screenManager;
 
   /**
-   * OpenYDigitalSignageBlockClassCurrent constructor.
+   * The Room Manager.
+   *
+   * @var \Drupal\openy_digital_signage_room\OpenYRoomManagerInterface
+   */
+  protected $roomManager;
+
+  /**
+   * OpenYDigitalSignageBlockClassTicker constructor.
    *
    * @param array $configuration
    *   The configuration.
@@ -52,11 +60,12 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * @param \Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface $screen_manager
    *   The Open Y DS Screen Manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, OpenYClassesScheduleManagerInterface $schedule_manager, OpenYScreenManagerInterface $screen_manager, OpenYRoomManagerInterface $room_manager) {
     // Call parent construct method.
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->scheduleManager = $schedule_manager;
     $this->screenManager = $screen_manager;
+    $this->roomManager = $room_manager;
   }
 
   /**
@@ -68,7 +77,8 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
       $plugin_id,
       $plugin_definition,
       $container->get('openy_digital_signage_classes_schedule.manager'),
-      $container->get('openy_digital_signage_screen.manager')
+      $container->get('openy_digital_signage_screen.manager'),
+      $container->get('openy_digital_signage_room.manager')
     );
   }
 
@@ -76,9 +86,8 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    // By default, the block will be placed in the left top corner.
     return [
-      'room' => '',
+      'room' => 0,
     ];
   }
 
@@ -87,9 +96,11 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
    */
   public function blockForm($form, FormStateInterface $form_state) {
     $form['room'] = [
-      '#type' => 'textfield',
+      '#type' => 'select',
       '#title' => $this->t('Room'),
+      '#description' => $this->t('The block is shown in context of the screen. If the screen has no room/studio specified, this value is used'),
       '#default_value' => $this->configuration['room'],
+      '#options' => $this->roomManager->getAllRoomOptions(),
     ];
     return $form;
   }
@@ -109,13 +120,9 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
     $attributes->addClass('block');
     $attributes->addClass('block-class-ticker');
 
-    $classes = [];
     $period = $this->getSchedulePeriod();
-    if ($screen = $this->screenManager->getScreenContext()) {
-      if ($room = $this->getRoom($screen)) {
-        $location = $screen->field_screen_location->entity;
-        $classes = $this->scheduleManager->getClassesSchedule($period, $location, $room);
-      }
+    if ($room = $this->getRoom()) {
+      $classes = $this->scheduleManager->getClassesSchedule($period, $room);
     }
     else {
       $classes = $this->getDummyClassesSchedule($period);
@@ -142,16 +149,15 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
   /**
    * Retrieves room.
    *
-   * @param \Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface $screen
-   *   The screen context.
-   *
-   * @return mixed
-   *   The room context.
+   * @return int|null
+   *   The room id context.
    */
-  private function getRoom(OpenYScreenInterface $screen) {
-    $screen_room = $screen->field_screen_room->value;
-    $configuration_room = $this->configuration['room'];
-    return $screen_room ?: $configuration_room;
+  private function getRoom() {
+    $screen = $this->screenManager->getScreenContext();
+    if ($screen && $screen->room->entity) {
+      return $screen->room->entity->id();
+    }
+    return $this->configuration['room'];
   }
 
   /**
@@ -205,9 +211,9 @@ class OpenYDigitalSignageBlockClassTicker extends BlockBase implements Container
         'to' => $to,
         'trainer' => 'Nichole C.',
         'substitute_trainer' => rand(0, 10) < 5 ? 'Substitute T.' : '',
-        'name' => 'OULA® Dance Fitness',
-        'from_formatted' => date('H:ia', $from),
-        'to_formatted' => date('H:ia', $to),
+        'name' => 'Dummy class! Please save and reload the schedule item',
+        'from_formatted' => date('g:ia', $from),
+        'to_formatted' => date('g:ia', $to),
       ];
     }
 

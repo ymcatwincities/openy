@@ -12,7 +12,7 @@
  *   - content.middle: The only panel in the layout.
  */
 #}
-<div class="openy-ds-layout landscape openy-ds-layout-1col" {% if css_id %}{{ css_id }}{% endif %}>
+<div class="openy-ds-layout openy-ds-layout-1col {{ orientation }}" {% if css_id %}{{ css_id }}{% endif %}>
 
   {{ content.middle }}
 

@@ -8,6 +8,7 @@ weight: 7
 is_admin: null
 permissions:
   - 'access Digital Signage Classes Session overview'
+  - 'access Digital Signage Room overview'
   - 'access OpenY Digital Signage Schedule Item overview'
   - 'access OpenY Digital Signage Schedule overview'
   - 'access OpenY Digital Signage Screen overview'
@@ -38,6 +39,7 @@ permissions:
   - 'revert screen_content revisions'
   - 'use text format digital_signage_html'
   - 'view Digital Signage Classes Session entities'
+  - 'view Digital Signage Room entities'
   - 'view OpenY Digital Signage Schedule Item entities'
   - 'view OpenY Digital Signage Schedule entities'
   - 'view OpenY Digital Signage Screen entities'

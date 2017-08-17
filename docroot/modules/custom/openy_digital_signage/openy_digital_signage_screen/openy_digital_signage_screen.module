@@ -11,6 +11,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Datetime\DateHelper;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_ENTITY_TYPE_build_defaults_alter().
@@ -33,6 +34,14 @@ function openy_digital_signage_screen_node_view_alter(&$build, $entity, $display
   if ($entity->bundle() == 'screen_content') {
     $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_theme';
     $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_handler';
+    unset($build['#contextual_links']);
+    foreach (Element::children($build) as $element) {
+      foreach (Element::children($build[$element]) as $region) {
+        foreach (Element::children($build[$element][$region]) as $block_id) {
+          unset($build[$element][$region][$block_id]['$contextual_links']);
+        }
+      }
+    }
   }
 }
 
@@ -173,8 +182,8 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
   foreach ($schedule as $item) {
     $schedule_item = $item['item'];
 
-    $from_ts = strtotime($schedule_item->time_slot->value . 'z');
-    $to_ts = strtotime($schedule_item->time_slot->end_value . 'z');
+    $from_ts = $item['from_ts'];
+    $to_ts = $item['to_ts'];
     $from_hours = date('H', $from_ts) + (date('i', $from_ts) / 60);
     $to_hours = date('H', $to_ts) + (date('i', $to_ts) / 60);
     $formatted_time = date('g:ia', $from_ts) . '–' . date('g:ia', $to_ts);
@@ -186,6 +195,7 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
       'to' => $to_ts,
     ])->toString();
     $edit_link = Url::fromRoute('screen_schedule.edit_schedule_item', [
+      'screen' => $variables['screen']->id(),
       'schedule_item' => $schedule_item->id(),
     ])->toString();
 
@@ -203,7 +213,9 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
       'edit_link' => $edit_link,
     ];
   }
-  $variables['add_link'] = Url::fromRoute('screen_schedule.add_schedule_item', ['screen' => $variables['screen']->id()])->toString();
+  $variables['add_link'] = Url::fromRoute('screen_schedule.add_schedule_item', [
+    'screen' => $variables['screen']->id(),
+  ])->toString();
   $variables['schedule_items'] = $schedule_items;
   $variables['screen_id'] = $variables['screen']->id();
   $variables['current_time'] = date('H', $_SERVER['REQUEST_TIME']) + (date('i', $_SERVER['REQUEST_TIME']) / 60);

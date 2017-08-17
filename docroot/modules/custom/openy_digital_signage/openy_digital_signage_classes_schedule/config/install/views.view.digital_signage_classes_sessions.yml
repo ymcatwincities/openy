@@ -2,23 +2,20 @@ uuid: ce24ab7a-2a35-43bb-8f66-28c6ea441c07
 langcode: en
 status: true
 dependencies:
-  config:
-    - field.storage.openy_ds_classes_session.field_session_location
   module:
     - datetime_range
     - ds_datetime_range
     - entity_reference_exposed_filters
     - node
     - openy_digital_signage_classes_schedule
+    - openy_digital_signage_room
     - options
     - user
-_core:
-  default_config_hash: o6_kTV08523EZLArJ-xifESFVFxWsUO8LRKn0qBjoVQ
 id: digital_signage_classes_sessions
 label: 'Digital Signage Classes Sessions'
 module: views
 description: ''
-tag: ''
+tag: 'digital signage'
 base_table: openy_ds_classes_session
 base_field: id
 core: 8.x
@@ -90,11 +87,12 @@ display:
             title: title
             date_time__value: date_time__value
             date_time__value_1: date_time__value_1
-            room_name: room_name
+            title_1: title_1
             instructor: instructor
             sub_instructor: sub_instructor
             source: source
-            field_session_location: field_session_location
+            title_2: title_2
+            status: status
             operations: operations
           info:
             title:
@@ -118,7 +116,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            room_name:
+            title_1:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -146,8 +144,15 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_session_location:
+            title_2:
               sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            status:
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -363,11 +368,11 @@ display:
           entity_type: openy_ds_classes_session
           entity_field: date_time
           plugin_id: field
-        room_name:
-          id: room_name
-          table: openy_ds_classes_session
-          field: room_name
-          relationship: none
+        title_1:
+          id: title_1
+          table: openy_ds_room
+          field: title
+          relationship: room
           group_type: group
           admin_label: ''
           label: Room
@@ -425,8 +430,8 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: openy_ds_classes_session
-          entity_field: room_name
+          entity_type: openy_ds_room
+          entity_field: title
           plugin_id: field
         instructor:
           id: instructor
@@ -622,11 +627,11 @@ display:
           entity_type: openy_ds_classes_session
           entity_field: source
           plugin_id: field
-        field_session_location:
-          id: field_session_location
-          table: openy_ds_classes_session__field_session_location
-          field: field_session_location
-          relationship: none
+        title_2:
+          id: title_2
+          table: node_field_data
+          field: title
+          relationship: location
           group_type: group
           admin_label: ''
           label: Location
@@ -662,7 +667,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -670,11 +675,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
+          click_sort_column: value
+          type: string
           settings:
-            link: true
-          group_column: target_id
+            link_to_entity: false
+          group_column: value
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -684,6 +689,8 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+          entity_type: node
+          entity_field: title
           plugin_id: field
         status:
           id: status
@@ -892,11 +899,11 @@ display:
           entity_type: openy_ds_classes_session
           entity_field: instructor
           plugin_id: string
-        room_name:
-          id: room_name
-          table: openy_ds_classes_session
-          field: room_name
-          relationship: none
+        title_1:
+          id: title_1
+          table: openy_ds_room
+          field: title
+          relationship: room
           group_type: group
           admin_label: ''
           operator: contains
@@ -904,12 +911,12 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: room_name_op
+            operator_id: title_1_op
             label: 'Room name'
             description: ''
             use_operator: false
-            operator: room_name_op
-            identifier: room_name
+            operator: title_1_op
+            identifier: room
             required: false
             remember: false
             multiple: false
@@ -921,6 +928,8 @@ display:
               location_editor: '0'
               contributor: '0'
               intern: '0'
+              digital_signage_editor: '0'
+              digital_signage_admin: '0'
           is_grouped: false
           group_info:
             label: ''
@@ -933,14 +942,14 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          entity_type: openy_ds_classes_session
-          entity_field: room_name
+          entity_type: openy_ds_room
+          entity_field: title
           plugin_id: string
         eref_node_titles:
           id: eref_node_titles
           table: node_field_data
           field: eref_node_titles
-          relationship: field_session_location
+          relationship: location
           group_type: group
           admin_label: ''
           operator: or
@@ -965,6 +974,8 @@ display:
               location_editor: '0'
               contributor: '0'
               intern: '0'
+              digital_signage_editor: '0'
+              digital_signage_admin: '0'
             reduce: 0
           is_grouped: false
           group_info:
@@ -983,7 +994,7 @@ display:
           plugin_id: eref_node_titles
           sort_order: '1'
           sort_by: '1'
-          get_unpublished: '2'
+          get_unpublished: '1'
           get_filter_no_results: '1'
         overridden:
           id: overridden
@@ -1086,15 +1097,6 @@ display:
             format: full_html
           plugin_id: text
       relationships:
-        field_session_location:
-          id: field_session_location
-          table: openy_ds_classes_session__field_session_location
-          field: field_session_location
-          relationship: none
-          group_type: group
-          admin_label: 'field_session_location: Content'
-          required: false
-          plugin_id: standard
         field_session_author:
           id: field_session_author
           table: openy_ds_classes_session__field_session_author
@@ -1103,6 +1105,28 @@ display:
           group_type: group
           admin_label: 'field_session_author: User'
           required: false
+          plugin_id: standard
+        room:
+          id: room
+          table: openy_ds_classes_session
+          field: room
+          relationship: none
+          group_type: group
+          admin_label: 'Digital Signage Room'
+          required: false
+          entity_type: openy_ds_classes_session
+          entity_field: room
+          plugin_id: standard
+        location:
+          id: location
+          table: openy_ds_room
+          field: location
+          relationship: room
+          group_type: group
+          admin_label: Location
+          required: false
+          entity_type: openy_ds_room
+          entity_field: location
           plugin_id: standard
       arguments: {  }
       display_extenders:
@@ -1121,8 +1145,7 @@ display:
         - url
         - url.query_args
         - user.permissions
-      tags:
-        - 'config:field.storage.openy_ds_classes_session.field_session_location'
+      tags: {  }
   sessions_listing:
     display_plugin: page
     id: sessions_listing
@@ -1132,7 +1155,7 @@ display:
       display_extenders:
         views_advanced_routing_route:
           route: ''
-      path: admin/digital-signage/classes/sessions/list
+      path: admin/digital-signage/classes/sessions
       menu:
         type: 'default tab'
         title: 'Classes Sessions list'
@@ -1155,5 +1178,4 @@ display:
         - url
         - url.query_args
         - user.permissions
-      tags:
-        - 'config:field.storage.openy_ds_classes_session.field_session_location'
+      tags: {  }

@@ -29,3 +29,37 @@ body.node--type-screen-content {
     height: inherit;
   }
 }
+
+.node--type-screen-content {
+
+  .ui-widget.ui-dialog {
+    max-height: 100% !important;
+    max-width: 100% !important;
+
+    .ui-dialog-titlebar {
+      max-width: 100% !important;
+      padding: 5px;
+
+      .ui-dialog-title {
+        font-size: 30 / 1920 * 100vw;
+        line-height: 30 / 1920 * 100vw;
+      }
+
+      .ui-dialog-titlebar-close {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+
+    .ui-dialog-content {
+      padding: 20 / 1920 * 100vw;
+      max-height: 100% !important;
+      max-width: 100% !important;
+
+      iframe {
+        max-height: 90vh;
+      }
+    }
+  }
+
+}
