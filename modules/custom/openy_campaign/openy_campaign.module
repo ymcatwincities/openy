@@ -13,14 +13,20 @@ use Drupal\Component\Utility\Unicode;
  */
 function openy_campaign_theme($existing, $type, $theme, $path) {
   return [
-    // Forms templates.
-    'openy_campaign_login_form' => [
-      'render element' => 'form',
-      'template' => 'forms/openy-campaign-login-form',
+    // Popup templates.
+    'openy_campaign_login' => [
+      'variables' => [
+        'header' => NULL,
+        'form' => NULL,
+      ],
+      'template' => 'openy-campaign-login',
     ],
-    'openy_campaign_register_form' => [
-      'render element' => 'form',
-      'template' => 'forms/openy-campaign-register-form',
+    'openy_campaign_register' => [
+      'variables' => [
+        'header' => NULL,
+        'form' => NULL,
+      ],
+      'template' => 'openy-campaign-register',
     ],
   ];
 }

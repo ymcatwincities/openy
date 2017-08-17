@@ -121,20 +121,21 @@ openy_campaign.member-registration-portal:
   requirements:
     _permission: 'view content'
 
-# Campaign Member registration popup
-openy_campaign.member-registration:
-  path: '/campaign-registration/{campaign_id}'
+# Campaign Member registration/login popup
+openy_campaign.member-action:
+  path: '/campaign/{action}/{campaign_id}'
   defaults:
-    _form: '\Drupal\openy_campaign\Form\MemberRegisterForm'
-    _title: 'Registration'
+    _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::showModal'
+    _title_callback: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::addTitle'
   requirements:
     _permission: 'view content'
+    action: ^[a-zA-Z]+
+    campaign_id: ^[0-9]+
 
-# Campaign Member login popup
-openy_campaign.member-login:
-  path: '/campaign-login/{campaign_id}'
+# Campaign Member logout link
+openy_campaign.member-logout:
+  path: '/campaign-logout/{campaign_id}'
   defaults:
-    _form: '\Drupal\openy_campaign\Form\MemberLoginForm'
-    _title: 'Log in'
+    _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::logout'
   requirements:
     _permission: 'view content'

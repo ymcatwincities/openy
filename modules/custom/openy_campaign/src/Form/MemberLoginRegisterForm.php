@@ -4,32 +4,49 @@ namespace Drupal\openy_campaign\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 
 /**
- * Form controller for the Member Login popup form.
+ * Form for the Member Login/Registration popup.
  *
  * @ingroup openy_campaign_member
  */
-class MemberLoginForm extends FormBase {
+class MemberLoginRegisterForm extends FormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'openy_campaign_login_form';
+    return 'openy_campaign_login_register_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $campaign_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $action = 'login', $campaign_id = NULL) {
+    $form['#prefix'] = '<div id="modal_openy_campaign_login_register_form">';
+    $form['#suffix'] = '</div>';
+
+    // The status messages that will contain any form errors.
+    $form['status_messages'] = [
+      '#type' => 'status_messages',
+      '#weight' => -10,
+    ];
+
     // Set Campaign ID from URL
     $form['campaign_id'] = [
       '#type' => 'hidden',
       '#value' => $campaign_id,
+    ];
+    // Set member action from URL
+    $form['member_action'] = [
+      '#type' => 'hidden',
+      '#value' => $action,
     ];
 
     $validate_required = [get_class($this), 'elementValidateRequired'];
@@ -52,8 +69,19 @@ class MemberLoginForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('OK'),
+      '#value' => $this->t('OK'),
+      '#attributes' => [
+        'class' => [
+          'use-ajax',
+        ],
+      ],
+      '#ajax' => [
+        'callback' => [$this, 'submitModalFormAjax'],
+        'event' => 'click',
+      ],
     ];
+
+    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
 
     return $form;
   }
@@ -84,8 +112,8 @@ class MemberLoginForm extends FormBase {
     // If the member is already registered previously, but the campaign challenges have not yet started.
     if ($isMemberCampaignExists) {
       if ($isCheckinsPeriod) {
-        // TODO Login member - set cookie
         drupal_set_message(t('Thank you for logging in.'), 'status', TRUE);
+        // TODO Login member - set cookie
       } else {
         $form_state->setErrorByName('membership_id', $config->get('error_msg_checkins_not_started'));
       }
@@ -133,10 +161,26 @@ class MemberLoginForm extends FormBase {
     ]);
   }
 
+
   /**
-   * {@inheritdoc}
+   * AJAX callback handler that displays any errors or a success message.
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitModalFormAjax(array $form, FormStateInterface $form_state) {
+    $response = new AjaxResponse();
+
+    // If there are any form errors, re-display the form.
+    if ($form_state->hasAnyErrors()) {
+      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_login_register_form', $form));
+
+      return $response;
+    }
+
+    // Submit handler.
+
+    // Get member action
+    $values = $form_state->getValues();
+    $action = (!empty($values['member_action'])) ? $values['member_action'] : 'login';
+
     // Get Member and MemberCampaign entities from storage.
     $storage = $form_state->getStorage();
 
@@ -158,12 +202,40 @@ class MemberLoginForm extends FormBase {
     if (!empty($storage['campaign'])) {
       /** @var Node $campaign Campaign object. */
       $campaign = $storage['campaign'];
+      $checkinsOpenDate = new \DateTime($campaign->get('field_check_ins_start_date')->getString());
+
+      // Set message depends on member action
+      $messageBeforeCheckins = t('Thank you for registering, you are all set! Be sure to check back on @date when the challenge starts!',
+        ['@date' => $checkinsOpenDate->format('F j')]);
+      $messageCheckins = t('Thank you for registering, you are all set and logged in!');
+      if ($action == 'login') {
+        $messageBeforeCheckins = t('Challenge is not started yet. Be sure to check back on @date when the challenge starts!',
+          ['@date' => $checkinsOpenDate->format('F j')]);
+        $messageCheckins = t('Thank you for logging in.');
+      }
+
+      $modalTitle = $this->t('Thank you!');
+      // If a member ID is successfully registered during the registration phase, but before checking start.
+      if ($checkinsOpenDate >= new \DateTime()) {
+        $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageBeforeCheckins, ['width' => 800]));
+      }
+
+      // If Campaign already in checkings phase - login member
       $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
       if ($isCheckinsPeriod) {
         // TODO Login member
-        drupal_set_message(t('Thank you for logging in.'), 'status', TRUE);
+
+        $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageCheckins, ['width' => 800]));
       }
     }
+
+    return $response;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
   }
 
   /**
