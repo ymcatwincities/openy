@@ -189,6 +189,8 @@ source:
       content_ids:
         -
           content_id: challenge_yourself_started_simple
+        -
+          content_id: challenge_yourself_campaign_activity
     -
       id: challenge_yourself_completed
       title: 'Challenge Yourself Winners'
@@ -271,6 +273,7 @@ process:
           - openy_demo_lp_paragraph_embedded_groupexpro_schedule
           - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
+          - openy_demo_lp_paragraph_campaign_activity
         source: content_id
       target_revision_id:
         plugin: migration
@@ -291,6 +294,7 @@ process:
           - openy_demo_lp_paragraph_embedded_groupexpro_schedule
           - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
+          - openy_demo_lp_paragraph_campaign_activity
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -319,5 +323,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_microsites_menu
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_lto
+    - openy_demo_lp_paragraph_campaign_activity
   optional:
     - openy_demo_node_blog
