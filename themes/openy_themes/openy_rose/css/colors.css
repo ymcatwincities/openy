@@ -91,7 +91,8 @@ a,
 #membership-calc-wrapper .pull-right,
 #membership-calc-wrapper .complete-registration,
 #membership-calc-wrapper .nav-pills > li.active div,
-#membership-calc-wrapper .nav-pills > li:first-child div {
+#membership-calc-wrapper .nav-pills > li:first-child div,
+.groupex-form-full .groupex-pdf-link-container a {
   background-color: #5c2e91; /* Primary highlight color (primaryhighlight) */
 }
 .paragraph--column-in-a-grid .fa,

@@ -1,0 +1,15 @@
+name: 'OpenY Paragraph 1 Column'
+description: 'Implements a paragraph with 1 column.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - block_content
+  - entity_browser_entity_form
+  - field
+  - inline_entity_form
+  - language
+  - openy_block_flexible_content
+  - openy_block_custom_simple
+  - paragraphs
+  - text
