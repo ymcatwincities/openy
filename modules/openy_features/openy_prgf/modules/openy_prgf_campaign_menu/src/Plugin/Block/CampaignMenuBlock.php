@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class CampaignMenu extends BlockBase implements ContainerFactoryPluginInterface {
+class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * The Campaign menu service.
@@ -38,7 +38,7 @@ class CampaignMenu extends BlockBase implements ContainerFactoryPluginInterface 
   protected $routeMatch;
 
   /**
-   * Constructs a new CampaignMenu.
+   * Constructs a new CampaignMenuBlock.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -74,6 +74,9 @@ class CampaignMenu extends BlockBase implements ContainerFactoryPluginInterface 
    * {@inheritdoc}
    */
   public function build() {
+    return array(
+      '#markup' => $this->t('Generate Campaign menu.'),
+    );
     // Extract node from route.
     if (!$node = $this->routeMatch->getParameter('node')) {
       return [];
