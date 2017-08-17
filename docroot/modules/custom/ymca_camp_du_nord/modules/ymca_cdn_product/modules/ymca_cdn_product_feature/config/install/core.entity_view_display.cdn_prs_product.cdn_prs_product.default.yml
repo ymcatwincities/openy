@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_end_date
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_start_date
+  module:
+    - datetime
+    - user
+    - ymca_cdn_product
+id: cdn_prs_product.cdn_prs_product.default
+targetEntityType: cdn_prs_product
+bundle: cdn_prs_product
+mode: default
+content:
+  field_cdn_prd_end_date:
+    weight: 2
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_cdn_prd_start_date:
+    weight: 1
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  name:
+    label: above
+    type: string
+    weight: -4
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
