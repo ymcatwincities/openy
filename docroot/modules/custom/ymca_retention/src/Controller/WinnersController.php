@@ -91,27 +91,37 @@ class WinnersController extends ControllerBase {
         ->condition('AID.field_retention_activity_id_value', $activity_id)
         ->groupBy('M.id, MA.timestamp, M.total_visits');
 
-      // Now we're calculating a number of entries we get from the subquery.
-      // Sorting by this number, if somebody has the same number we're sorting
-      // by total visitsm then - randomly.
+      // Calculate a number of entries we get from the subquery.
       $query = \Drupal::database()
         ->select($subquery, 'T')
         ->fields('T', ['id']);
 
       $query->addExpression('COUNT(T.id)', 'total_entries');
+      $query->groupBy('T.id');
 
-      // We're getting 12 candidates from each track since we need to be
-      // prepared if there are intersected winners from different tracks.
-      $query->groupBy('T.id, T.total_visits')
-        ->orderBy('total_entries', 'DESC')
-        ->orderBy('total_visits', 'DESC')
-        ->orderRandom()
-        ->range(0, 12);
+      $members = $query->execute()->fetchAllKeyed();
 
-      $member_ids = $query->execute()->fetchCol();
-      $members = Member::loadMultiple($member_ids);
-      foreach ($members as $member) {
-        $winners[$track][] = $member->getId();
+      // Randomly choose winners from the candidates. There are 12 candidates
+      // from each track since we need to be prepared if there are intersected
+      // winners from different tracks.
+      for ($i = 0; $i < 12; $i++) {
+        if (empty($members)) {
+          break;
+        }
+
+        $entries_sum = 0;
+        $entries_total = array_sum($members);
+        $winning_entry = mt_rand(1, $entries_total);
+
+        foreach ($members as $member_id => $member_entries) {
+          if ($winning_entry > $entries_sum && $winning_entry <= ($member_entries + $entries_sum)) {
+            unset($members[$member_id]);
+            $winners[$track][] = $member_id;
+            break;
+          }
+
+          $entries_sum += $member_entries;
+        }
       }
     }
 
