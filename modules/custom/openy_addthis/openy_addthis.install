@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Installation file for OpenY addThis module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function openy_addthis_install() {
+  // Add our base field to the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_addthis_uninstall() {
+  // Remove our base field from the schema.
+  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+}

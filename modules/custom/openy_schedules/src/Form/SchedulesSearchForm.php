@@ -737,7 +737,7 @@ class SchedulesSearchForm extends FormBase {
       $conditions['field_si_program'] = $parameters['program'];
     }
     if ($parameters['category'] !== 'all' && !empty($categoryOptions[$parameters['category']])) {
-      $conditions['field_si_program_subcat'] = $parameters['category'];
+      $conditions['field_si_program_subcategory'] = $parameters['category'];
     }
 
     if (!empty($conditions['class'])) {

@@ -5,7 +5,7 @@
 
   "use strict";
 
-  Drupal.openyMap = function() {
+  Drupal.openyMap = function () {
     return {
       // Array of location data.
       locations: null,
@@ -27,7 +27,7 @@
       search_center_marker: null,
       // Geocoder.
       geocoder: typeof google !== 'undefined' ? new google.maps.Geocoder() : {},
-      // Normalizes a map-vendor specicific representation of
+      // Normalizes a map-vendor specific representation of
       // a coordinate point to a {lat:x, lon:y} object.
       normalize_point: function (point) {
         return {
@@ -62,6 +62,7 @@
         this.locate_me_el = this.map_controls_el.find('.locateme');
 
         this.tags = {};
+        // @todo make this configurable, to allow override default tags.
         this.default_tags = ['YMCA', 'Camps'];
 
         this.init_map();
@@ -74,20 +75,20 @@
         this.draw_list_locations();
 
         var mapLocation = document.location.href.match(/&?[amp;]?map_location=([\w|\+]*)&?[amp;]?/),
-            component = this;
+          component = this;
 
         if (!navigator.geolocation) {
           $('.with-geo').remove();
         }
         this.component_el.find('.zip-code .btn-submit')
-            .on('click', $.proxy(this.apply_search, this));
+        .on('click', $.proxy(this.apply_search, this));
 
         this.search_field_el.on('keypress', function (e) {
           if (e.keyCode == 13) component.apply_search();
         });
         if (mapLocation) {
           $('.search_field')
-              .val(mapLocation[1].replace(/\+/g, ' '));
+          .val(mapLocation[1].replace(/\+/g, ' '));
 
           $('.distance_limit option').eq(2).attr('selected', true);
           $('.zip-code .btn-submit').click();
@@ -111,9 +112,9 @@
 
       init_map_center: function () {
         this.search_center_marker = this.search_center_marker || new google.maps.Marker({
-              position: this.center_point,
-              animation: google.maps.Animation.DROP
-            });
+            position: this.center_point,
+            animation: google.maps.Animation.DROP
+          });
 
         if (this.search_center_marker) {
           this.search_center_marker.setVisible(false);
@@ -135,14 +136,14 @@
         this.draw_list_locations();
       },
 
-      // Attaches events to various map controls
+      // Attaches events to various map controls.
       hookup_map_controls_events: function () {
         this.map_controls_el.find('.tag_filters input[type=checkbox]').on('change', $.proxy(this.filter_change, this));
         this.search_field_el.on('change', $.proxy(this.apply_search, this));
         this.distance_limit_el.on('change', $.proxy(this.apply_distance_limit, this));
         this.locate_me_el.on('click', $.proxy(this.locate_me_onclick, this));
         this.component_el.find('nav.types input[type=checkbox]').on('change', $.proxy(this.bar_filter_change, this));
-        this.search_field_el.on( "autocompleteselect", $.proxy(this.apply_autocomplete_search, this));
+        this.search_field_el.on("autocompleteselect", $.proxy(this.apply_autocomplete_search, this));
       },
 
       // Attempts a map search against Google's
@@ -186,7 +187,7 @@
 
       apply_autocomplete_search: function (event, ui) {
         var locations = [];
-        this.locations.forEach(function(location) {
+        this.locations.forEach(function (location) {
           if (location.name == ui.item.value) {
             // Get selected location from locations list.
             locations.push(location);
@@ -217,7 +218,10 @@
         }
 
         if (!locations.length) {
-          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>We\u2019re sorry no results were found in your area</p></div>').fadeIn();
+          var message_html = '<div class="col-xs-12 text-center"><p>' +
+            Drupal.t("We're sorry no results were found in your area") +
+            '</p></div>';
+          this.messages_el.hide().html(message_html).fadeIn();
           return;
         }
         // Show filtered locations.
@@ -229,7 +233,7 @@
         }
       },
 
-      // Executed every time the viewer sets the distance limit to a new value
+      // Executed every time the viewer sets the distance limit to a new value.
       apply_distance_limit: function () {
         if (this.search_center === null) {
           this.search_center = this.map.getCenter();
@@ -241,7 +245,7 @@
         this.draw_list_locations();
       },
 
-      // Executed if was provided empty ZIP code
+      // Executed if was provided empty ZIP code.
       reset_search_results: function () {
         if (this.search_center === null) {
           this.search_center = this.map.getCenter();
@@ -270,17 +274,17 @@
 
         this.map.setCenter(this.search_center_point);
         this.map.setZoom(14);
-        if (position.coords.accuracy <= 15840) { // 3 miles
+        if (position.coords.accuracy <= 15840) { // 3 miles.
 
           this.geocoder.geocode({
-                'latLng': this.search_center_point
+              'latLng': this.search_center_point
+            },
+            $.proxy(
+              function (results, status) {
+                if (results[0]) this.search_field_el.val(results[0].formatted_address);
+                this.apply_search();
               },
-              $.proxy(
-                  function (results, status) {
-                    if (results[0]) this.search_field_el.val(results[0].formatted_address);
-                    this.apply_search();
-                  },
-                  this));
+              this));
 
           navigator.geolocation.clearWatch(this.geolocation_watcher);
         }
@@ -297,7 +301,7 @@
             loc.tags = [];
           }
 
-          // Convert single-string tags to array
+          // Convert single-string tags to array.
           if (typeof(loc.tags) == typeof( "" )) {
             loc.tags = [loc.tags];
           }
@@ -359,7 +363,7 @@
             var tag_filter = this.tag_filters[j];
             if ($.inArray(tag_filter, loc.tags) >= 0) {
               filtered_locations.push(loc);
-              continue;  // If any tag matches, skip checking other tags
+              continue;  // If any tag matches, skip checking other tags.
             }
           }
         }
@@ -387,8 +391,8 @@
         for (var i = 0; i < locations.length; i++) {
           var loc = locations[i];
           var R = 3963,
-              lat2 = parseFloat(loc.lat),
-              lon2 = parseFloat(loc.lng);
+            lat2 = parseFloat(loc.lat),
+            lon2 = parseFloat(loc.lng);
 
           var rlat = this.toRad(lat2 - lat1);
           var rlon = this.toRad(lon2 - lon1);
@@ -399,7 +403,7 @@
           var d = R * c;
 
           if (d <= this.distance_limit) {
-            // Add the distance to the object
+            // Add the distance to the object.
             loc.distance = d;
             filtered_locations.push(loc);
           }
@@ -408,7 +412,7 @@
         return filtered_locations;
       },
 
-      // Populates an array of active tags from an URL parameter "type"
+      // Populates an array of active tags from an URL parameter "type".
       init_active_tags: function () {
         if (this.initial_active_tags) {
           return this.initial_active_tags;
@@ -451,18 +455,18 @@
 
       // Update url params.
       set_url_parameters: function () {
-        var url = document.location.pathname
-          , params = this.get_parameters()
-          , filterTagsRaw = this.tag_filters
-          , filterTags = ''
-          , mapLocation = $('.search_field').val() || (params.hasOwnProperty('map_location') && params['map_location']) || '';
+        var url = document.location.pathname,
+          params = this.get_parameters(),
+          filterTagsRaw = this.tag_filters,
+          filterTags = '',
+          mapLocation = $('.search_field').val() || (params.hasOwnProperty('map_location') && params.map_location) || '';
         if (mapLocation) {
           mapLocation = '?map_location=' + this.encode_to_url_format(mapLocation);
         }
         if (filterTagsRaw) {
           filterTags = !mapLocation ? '?' : '&';
           filterTags += 'type=';
-          filterTagsRaw.forEach(function(tag) {
+          filterTagsRaw.forEach(function (tag) {
             filterTags += this.encode_to_url_format(tag) + ',';
           }, this, filterTags);
           filterTags = filterTags.substring(0, filterTags.length - 1);
@@ -482,11 +486,12 @@
           // Sort tags alphabetically.
           var tags = Object.keys(this.tags).sort();
           // Move YMCA and Camps tags to begin.
+          // @todo Names are hardcoded, this should be refactored to allow use any name we want.
           tags.splice(tags.indexOf('YMCA'), 1);
           tags.splice(tags.indexOf('Camps'), 1);
           tags.unshift('Camps');
           tags.unshift('YMCA');
-          tags.forEach(function(tag) {
+          tags.forEach(function (tag) {
             var filter_checked = '';
             if ($.inArray(tag, this.initial_active_tags) >= 0) {
               filter_checked = 'selected';
@@ -528,7 +533,7 @@
         }
         // Add locations autocomplete to search field.
         var locations = [];
-        this.locations.forEach(function(location) {
+        this.locations.forEach(function (location) {
           locations.push(location.name);
         });
         this.search_field_el.autocomplete({
@@ -542,18 +547,18 @@
       // replace spaces with dashes.
       encode_to_url_format: function (txt) {
         return txt
-          .toLowerCase()
-          .replace(/[^\w ]+/g,'')
-          .replace(/ +/g,'-')
+        .toLowerCase()
+        .replace(/[^\w ]+/g, '')
+        .replace(/ +/g, '-')
           ;
       },
 
-      // Update locations on the map by setting their visiblity
-      // and refit the map bounds to the current set of visible locations
+      // Update locations on the map by setting their visibility
+      // and refit the map bounds to the current set of visible locations.
       draw_map_locations: function () {
         var locations = this.apply_filters(this.locations);
 
-        // If the location list is empty, don't adjust the map at all
+        // If the location list is empty, don't adjust the map at all.
         if (locations.length === 0) {
           this.map.setCenter(this.search_center_point);
           return;
@@ -567,7 +572,7 @@
           loc.marker.setVisible(true);
         }
 
-        // Don't zoom in too far on only one marker
+        // Don't zoom in too far on only one marker.
         if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
           var extendPoint1 = new google.maps.LatLng(bounds.getNorthEast().lat() + 0.001, bounds.getNorthEast().lng() + 0.001);
           var extendPoint2 = new google.maps.LatLng(bounds.getNorthEast().lat() - 0.001, bounds.getNorthEast().lng() - 0.001);
@@ -592,8 +597,7 @@
       // Render the list of locations.
       draw_list_locations: function () {
 
-        var list_locations_html = '',
-            locations = this.apply_filters(this.locations);
+        var locations = this.apply_filters(this.locations);
 
         // Hide all heading locations.
         for (var l = 0; l < this.locations.length; l++) {
@@ -604,7 +608,10 @@
         }
 
         if (!locations.length) {
-          this.messages_el.hide().html('<div class="col-xs-12 text-center"><p>No locations were found in this area. Please try a different area or increase your search distance.</p></div>').fadeIn();
+          var message_html = '<div class="col-xs-12 text-center"><p>' +
+            Drupal.t('No locations were found in this area. Please try a different area or increase your search distance.') +
+            '</p></div>';
+          this.messages_el.hide().html(message_html).fadeIn();
           return;
         }
         else {
@@ -712,16 +719,16 @@
       var data = settings.openyMap;
       var map = new Drupal.openyMap();
 
-      $('.locations-list .node--view-mode-teaser').each(function() {
+      $('.locations-list .node--view-mode-teaser').each(function () {
         var $self = $(this);
         for (var i = 0; i < data.length; i++) {
           if (typeof(data[i]) !== 'undefined' && $self.find('.location-item--title')[0].innerText !== 'undefined') {
-            if ($self.find('.location-item--title')[0].innerText == data[i]['name']){
+            if ($self.find('.location-item--title')[0].innerText == data[i].name) {
               data[i].element = {};
               data[i].element = $self.parent();
             }
           }
-        };
+        }
       });
 
       $('.openy-map-canvas', context).once().each(function () {

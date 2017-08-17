@@ -59,9 +59,8 @@ Feature: Blog Content type
     And I fill in "Title" with "Behat Gallery Blog"
     And I select "BEHAT BRANCH 01" from "Location"
     When I click "//*[@id='edit-group-content-area']/summary" xpath element
-    And I scroll to "#edit-field-content" element
-    Then I press "List additional actions"
     And I scroll to "input[name='field_content_gallery_add_more']" element
+    Then I press "List additional actions"
     And I press "Add Gallery"
     And I wait for AJAX to finish
     And I fill in "Headline" with "Behat gallery"
@@ -79,3 +78,12 @@ Feature: Blog Content type
     When I press "Save and publish"
     Then I should see the message "Blog Post Behat Gallery Blog has been created."
     And I should see an ".paragraph-gallery .field-media-image img" element
+
+  Scenario: Create blog post and check AddThis
+    When I go to "/node/add/blog"
+    And I fill in "Title" with "Behat test AddThis in blog"
+    And I select "BEHAT BRANCH 01" from "Location"
+    And I fill in "Category" with "BEHAT CATEGORY ONE"
+    When I press "Save and publish"
+    Then I should see the message "Blog Post Behat test AddThis in blog has been created."
+    And I should see an ".at-share-btn-elements" element
