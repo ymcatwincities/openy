@@ -1,7 +1,13 @@
 services:
+  logger.channel.ymca_cdn_sync:
+    parent: logger.channel_base
+    arguments: ['ymca_cdn_sync']
   ymca_cdn_sync.fetcher:
     class: Drupal\ymca_cdn_sync\syncer\fetcher
-    arguments: []
+    arguments:
+      - '@http_client'
+      - '@logger.channel.ymca_cdn_sync'
+      - '@config.factory'
   ymca_cdn_sync.syncer:
     class: Drupal\ymca_sync\Syncer
     arguments: []
