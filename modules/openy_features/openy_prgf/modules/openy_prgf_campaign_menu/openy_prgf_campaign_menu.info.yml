@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Campaign Menu'
+description: 'OpenY Paragraph Campaign Menu.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - openy_prgf
+  - paragraphs
+  - plugin

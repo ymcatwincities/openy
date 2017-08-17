@@ -1,0 +1,3 @@
+services:
+  openy_campaign.client_factory:
+    class: Drupal\openy_campaign\CRMClientFactory
