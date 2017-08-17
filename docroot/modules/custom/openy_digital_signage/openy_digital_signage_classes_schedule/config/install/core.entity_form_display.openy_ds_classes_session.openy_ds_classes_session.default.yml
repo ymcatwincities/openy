@@ -4,12 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_author
-    - field.field.openy_ds_classes_session.openy_ds_classes_session.field_session_location
   module:
     - ds_datetime_range
     - openy_digital_signage_classes_schedule
-_core:
-  default_config_hash: _U1TJRlyAT9-GeNAaWfXSQH0qD2zlEQ4PzRmO9u8yiE
 id: openy_ds_classes_session.openy_ds_classes_session.default
 targetEntityType: openy_ds_classes_session
 bundle: openy_ds_classes_session
@@ -17,7 +14,7 @@ mode: default
 content:
   date_time:
     type: ds_daterange_default
-    weight: 3
+    weight: 2
     settings:
       hide_end_date: 1
     region: content
@@ -31,30 +28,19 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_session_location:
-    weight: 6
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   instructor:
     type: string_textfield
-    weight: 4
+    weight: 3
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  room_name:
-    type: string_textfield
-    weight: 2
+  room:
+    type: options_select
+    weight: 6
     region: content
-    settings:
-      size: 60
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
   source:
     type: options_select
@@ -70,7 +56,7 @@ content:
     third_party_settings: {  }
   sub_instructor:
     type: string_textfield
-    weight: 5
+    weight: 4
     region: content
     settings:
       size: 60

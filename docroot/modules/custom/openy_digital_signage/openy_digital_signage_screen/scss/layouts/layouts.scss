@@ -1,6 +1,7 @@
 .openy-ds-layout {
   background-size: cover;
   background-position: center center;
+  overflow: hidden;
 
   &.scheme-orange {
     background-color: $orange-light;

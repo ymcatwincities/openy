@@ -45,6 +45,7 @@ class OpenYScheduleItemForm extends ContentEntityForm {
     $route_name = \Drupal::service('current_route_match')->getRouteName();
 
     if (in_array($route_name, ['screen_schedule.edit_schedule_item', 'screen_schedule.add_schedule_item'])) {
+      $form_state->addBuildInfo('screen', $this->getRequest()->get('screen'));
       // Add new screen content link.
       $form['content']['widget'][0]['new_content'] = [
         '#type' => 'link',
@@ -100,6 +101,7 @@ class OpenYScheduleItemForm extends ContentEntityForm {
   public function ajaxFormSubmitHandler(array &$form, FormStateInterface $form_state) {
     $schedule_item = $this->entity;
     $screen_content = $schedule_item->content->entity;
+    $screen = $form_state->getBuildInfo()['screen'];
     // Build an edit Schedule item form.
     $build = [
       '#type' => 'container',
@@ -110,6 +112,10 @@ class OpenYScheduleItemForm extends ContentEntityForm {
         'class' => ['frame-container'],
       ],
     ];
+
+    if ($screen->orientation->value == 'portrait') {
+      $build['#attributes']['class'][] = 'frame-container--portrait';
+    }
 
     // Return the rendered form as a proper Drupal AJAX response.
     $response = new AjaxResponse();
@@ -143,17 +149,20 @@ class OpenYScheduleItemForm extends ContentEntityForm {
 
     $status = parent::save($form, $form_state);
 
-    switch ($status) {
-      case SAVED_NEW:
-        drupal_set_message($this->t('Digital Signage Schedule Item %label has been created.', [
-          '%label' => $entity->label(),
-        ]));
-        break;
+    // Don't emit any messages in Ajax form.
+    if (empty($form['actions']['submit']['#ajax']['callback'])) {
+      switch ($status) {
+        case SAVED_NEW:
+          drupal_set_message($this->t('Digital Signage Schedule Item %label has been created.', [
+            '%label' => $entity->label(),
+          ]));
+          break;
 
-      default:
-        drupal_set_message($this->t('Digital Signage Schedule Item %label has been saved.', [
-          '%label' => $entity->label(),
-        ]));
+        default:
+          drupal_set_message($this->t('Digital Signage Schedule Item %label has been saved.', [
+            '%label' => $entity->label(),
+          ]));
+      }
     }
     $form_state->setRedirect('entity.openy_digital_signage_sch_item.collection');
   }
