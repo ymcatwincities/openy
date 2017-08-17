@@ -1,0 +1,11 @@
+services:
+  ymca_cdn_sync.fetcher:
+    class: Drupal\ymca_cdn_sync\syncer\fetcher
+    arguments: []
+  ymca_cdn_sync.syncer:
+    class: Drupal\ymca_sync\Syncer
+    arguments: []
+    calls:
+      - [addStep, ['@ymca_cdn_sync.fetcher', 'fetch']]
+    tags:
+      - { name: syncer }

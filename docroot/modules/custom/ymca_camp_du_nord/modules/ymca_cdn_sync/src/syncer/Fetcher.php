@@ -1,7 +1,12 @@
 <?php
 
-namespace Drupal\ymca_camp_du_nord_sync\syncer;
+namespace Drupal\ymca_cdn_sync\syncer;
 
+/**
+ * Class Fetcher.
+ *
+ * @package Drupal\ymca_cdn_sync\syncer
+ */
 class Fetcher implements FetcherInterface {
 
   /**

@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Module installation file.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ymca_camp_du_nord_install() {
+  $installer = \Drupal::service('module_installer');
+  $module_install = [
+    'ymca_cdn_product',
+    'ymca_cdn_product_feature',
+    'ymca_cdn_sync',
+  ];
+
+  $installer->install($module_install, TRUE);
+}

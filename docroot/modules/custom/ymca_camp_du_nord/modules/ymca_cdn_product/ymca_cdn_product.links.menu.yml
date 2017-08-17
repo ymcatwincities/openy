@@ -1,0 +1,14 @@
+
+# Camp du Nord Personify Product menu items definition
+entity.cdn_prs_product.collection:
+  title: 'Camp du Nord Personify Product list'
+  route_name: entity.cdn_prs_product.collection
+  description: 'List Camp du Nord Personify Product entities'
+  parent: system.admin_structure
+  weight: 100
+
+cdn_prs_product.admin.structure.settings:
+  title: Camp du Nord Personify Product settings
+  description: 'Configure Camp du Nord Personify Product entities'
+  route_name: cdn_prs_product.settings
+  parent: system.admin_structure
