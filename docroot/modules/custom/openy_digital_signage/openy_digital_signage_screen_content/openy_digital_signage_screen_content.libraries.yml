@@ -33,3 +33,9 @@ openyds_twocol_ticker:
   css:
     theme:
       layouts/openyds_twocol_ticker/openyds-twocol-ticker.css: {}
+
+openyds_panels_ipe:
+  version: VERSION
+  js:
+    js/views/OpenYDSBlockPicker.js: {}
+    js/panels_ipe.js: {}
