@@ -83,4 +83,5 @@ class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaig
 
     return $fields;
   }
+
 }
