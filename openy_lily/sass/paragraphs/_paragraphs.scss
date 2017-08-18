@@ -521,3 +521,14 @@
     }
   }
 }
+
+.paragraph--type--grid-columns {
+  .field-prgf-grid-clm-description {
+    .field-media-image {
+      img {
+        max-width: 100%;
+        max-height: none;
+      }
+    }
+  }
+}

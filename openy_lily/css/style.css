@@ -2450,6 +2450,13 @@ body.path-search #block-mainpagecontent li {
   font-size: 14px;
 }
 
+.node--type-program-subcategory .two-column {
+  padding: 15px 0;
+}
+.node--type-program-subcategory .two-column .main-region {
+  margin-top: 20px;
+}
+
 .news-more-teaser {
   margin-top: 20px;
 }
@@ -4896,6 +4903,11 @@ a.sports-icon.floor-hockey {
   .landing-content .paragraph--type--gallery .cta-group-wrapper, .landing-footer .paragraph--type--gallery .cta-group-wrapper {
     margin: 0 -15px;
   }
+}
+
+.paragraph--type--grid-columns .field-prgf-grid-clm-description .field-media-image img {
+  max-width: 100%;
+  max-height: none;
 }
 
 a:focus,
