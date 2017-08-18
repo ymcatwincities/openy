@@ -114,10 +114,11 @@ class OpenYDSPanelsIPEPageController extends PanelsIPEPageController {
         }
       }
 
+      $category = $definition['category'] == 'Custom' ? 'Reusable blocks' : $definition['category'];
       $blocks[] = [
         'plugin_id' => $plugin_id,
         'label' => $definition['admin_label'],
-        'category' => $definition['category'],
+        'category' => $category,
         'id' => $definition['id'],
         'provider' => $definition['provider'],
       ];
