@@ -56,10 +56,7 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
   }
 
   /**
-   * Get default options for a request to GroupEx Pro.
-   *
-   * @return array
-   *   Default options for a request.
+   * {@inheritdoc}
    */
   public function defaultOptions() {
     $config = $this->configFactory->get('openy_digital_signage_groupex_schedule.settings');
@@ -78,30 +75,63 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
    * {@inheritdoc}
    */
   public function fetchLocation($location_id) {
+    if (!$data = $this->fetchLocationFeed($location_id)) {
+      return;
+    }
+    if ($ids = $this->checkDeleted($data, $location_id)) {
+      $this->removeDeleted($ids);
+    }
+    $this->processData($data, $location_id);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fetchLocationFeed($location_id) {
     $options = $this->defaultOptions();
 
     /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
     $location = $this->locationRepository->load($location_id);
     if (empty($location)) {
-      return;
+      return [];
     }
     $options['query']['location'] = $location->get('field_groupex_id')->value;
 
-    $data = $this->request($options);
-    if (!empty($data)) {
-      $this->processData($data, $location);
+    $feed = [];
+    $raw_feed = $this->request($options);
+    if (!is_array($raw_feed)) {
+      return FALSE;
     }
+    foreach ($raw_feed as $item) {
+      if (empty($item->id)) {
+        continue;
+      }
+      $feed[$item->id] = $item;
+    }
+
+    return $feed;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLocations() {
+    $locations = $this->configFactory
+      ->get('openy_digital_signage_groupex_schedule.settings')
+      ->get('locations');
+
+    return $locations ?: [];
   }
 
   /**
    * {@inheritdoc}
    */
   public function fetchAll() {
-    $config = $this->configFactory->get('openy_digital_signage_groupex_schedule.settings');
-    $locations = $config->get('locations');
+    $locations = $this->getLocations();
     if (empty($locations)) {
       return;
     }
+
     // Get schedule items.
     foreach ($locations as $id) {
       $this->fetchLocation($id);
@@ -109,14 +139,54 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
   }
 
   /**
-   * Create or update sessions.
-   *
-   * @param array $data
-   *   Data received from GroupEx Pro.
-   * @param \Drupal\ymca_mappings\Entity\Mapping $location
-   *   Mapping location entity.
+   * {@inheritdoc}
    */
-  protected function processData(array $data, Mapping $location) {
+  public function checkDeleted($feed, $location_id) {
+    $to_be_deleted = [];
+
+    $date = new \DateTime();
+    $date->setTimestamp(REQUEST_TIME);
+    $formatted = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
+    $storage = $this->entityTypeManager->getStorage('openy_ds_classes_groupex_session');
+    $query = $storage->getQuery()
+      ->condition('location', $location_id)
+      ->condition('date_time.value', $formatted, '>');
+
+    $ids = $query->execute();
+
+    while ($part = array_splice($ids, 0, 10)) {
+      $entities = $storage->loadMultiple($part);
+      foreach ($entities as $entity) {
+        $id = $entity->groupex_id->value;
+        if (!isset($feed[$id])) {
+          $to_be_deleted[] = $id;
+        }
+      }
+    }
+
+    return $to_be_deleted;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function removeDeleted($ids) {
+    while ($part = array_splice($ids, 0, 10)) {
+      $storage = $this->entityTypeManager->getStorage('openy_ds_classes_groupex_session');
+      if (!$entities = $storage->loadMultiple($part)) {
+        continue;
+      }
+      $storage->delete($entities);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function processData(array $data, $location_id) {
+    /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
+    $location = $this->locationRepository->load($location_id);
     $entity_manager = $this->entityTypeManager->getStorage('openy_ds_classes_groupex_session');
     foreach ($data as $item) {
       $entity = $entity_manager->loadByProperties(['groupex_id' => $item->id]);
