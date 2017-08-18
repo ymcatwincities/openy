@@ -19,6 +19,9 @@
      *   Return this, for chaining.
      */
     render: function () {
+      if (this.activeCategory && this.activeCategory === 'Custom') {
+        this.activeCategory = 'Reusable Blocks';
+      }
       var create_active = this.activeCategory === 'Create Reusable Block';
 
       // Initialize our collections if they don't already exist.

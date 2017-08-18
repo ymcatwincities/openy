@@ -191,6 +191,7 @@ function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $for
       if (!empty($form['flipper']['front']['settings']['region']['#options'])) {
         if (count($form['flipper']['front']['settings']['region']['#options']) == 1) {
           $form['flipper']['front']['settings']['region']['#access'] = FALSE;
+          $form['flipper']['front']['settings']['region']['#default_value'] = 'middle';
         }
       }
 
