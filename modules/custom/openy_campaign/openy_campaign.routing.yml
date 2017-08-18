@@ -139,3 +139,11 @@ openy_campaign.member-logout:
     _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::logout'
   requirements:
     _permission: 'view content'
+
+# Campaign Member logout link
+openy_campaign.track-activity:
+  path: '/campaign-track-activity/{visit_date}/{campaign_member_id}/{top_term_id}'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\ActivityTrackingController::openModalForm'
+  requirements:
+    _permission: 'view content'

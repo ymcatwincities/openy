@@ -12,6 +12,8 @@ use Drupal\openy_calc\DataWrapperInterface;
 use Drupal\openy_socrates\OpenySocratesFacade;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Url;
+use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 
 /**
  * Provides a "openy_campaign_activity_block_form" form.
@@ -98,12 +100,6 @@ class ActivityBlockForm extends FormBase {
       ->range(0, 1)
       ->execute());
 
-    $activityIds = \Drupal::entityQuery('openy_member_campaign_activity')
-      ->condition('member', $campaignMemberId)
-      ->sort('date', 'ASC')
-      ->execute();
-
-
     $campaign = Node::load($campaignId);
 
     $vocabulary = $campaign->field_campaign_fitness_category->entity;
@@ -133,11 +129,37 @@ class ActivityBlockForm extends FormBase {
         $disabled = TRUE;
       }
 
-      foreach ($terms as $term) {
-        $form[$key][$term->id()] = [
-          '#type' => 'button',
-          '#value' => $term->getName(),
+      foreach ($terms as $tid => $term) {
+
+        $childTerms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree($vocabulary->id(), $tid, 1, TRUE);
+        $childTermIds = [];
+        foreach ($childTerms as $childTerm) {
+          $childTermIds[] = $childTerm->id();
+        }
+
+        $date = new \DateTime($key);
+        $activityIds = $this->getExistingActivities($campaignMemberId, $date, $childTermIds);
+
+        $name = $term->getName();
+        if (!empty($activityIds)) {
+          $name .= ' x ' . count($activityIds);
+        }
+
+        $form[$key][$tid] = [
+          '#type' => 'link',
+          '#title' => $name,
           '#disabled' => $disabled,
+          '#url' => Url::fromRoute('openy_campaign.track-activity', [
+            'visit_date' => $key,
+            'campaign_member_id' => $campaignMemberId,
+            'top_term_id' => $tid,
+          ]),
+          '#attributes' => [
+            'class' => [
+              'use-ajax',
+              'button',
+            ],
+          ],
         ];
       }
 
@@ -146,6 +168,9 @@ class ActivityBlockForm extends FormBase {
     }
 
     $form['#theme'] = 'openy_campaign_activity_form';
+
+    // Attach the library for pop-up dialogs/modals.
+    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
 
     return $form;
   }
@@ -162,6 +187,15 @@ class ActivityBlockForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
+  }
+
+  protected function getExistingActivities($campaignMemberId, $date, $activityIds) {
+    return \Drupal::entityQuery('openy_member_campaign_activity')
+      ->condition('member', $campaignMemberId)
+      ->condition('type', MemberCampaignActivity::TYPE_ACTIVITY)
+      ->condition('date', $date->format('U'))
+      ->condition('activity', $activityIds, 'IN')
+      ->execute();
   }
 
 }
