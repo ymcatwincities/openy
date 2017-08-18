@@ -1817,6 +1817,9 @@ article.site-alert ul li div {
   display: inline-block;
   margin-top: 6px;
 }
+#membership-calc-wrapper .membership-calc-embedded legend {
+  display: none;
+}
 
 #membership-page {
   position: relative;
