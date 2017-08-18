@@ -74,7 +74,8 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
       '#attributes' => [
         'class' => [
-          'use-ajax'
+          'use-ajax',
+          'register'
         ],
       ],
     ];
@@ -85,7 +86,8 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaign->id()]),
       '#attributes' => [
         'class' => [
-          'use-ajax'
+          'use-ajax',
+          'login'
         ],
       ],
     ];
@@ -96,7 +98,8 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       '#url' => Url::fromRoute('openy_campaign.member-logout', ['campaign_id' => $campaign->id()]),
       '#attributes' => [
         'class' => [
-          'use-ajax'
+          'use-ajax',
+          'logout'
         ],
       ],
     ];

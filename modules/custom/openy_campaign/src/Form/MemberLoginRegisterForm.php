@@ -112,8 +112,11 @@ class MemberLoginRegisterForm extends FormBase {
     // If the member is already registered previously, but the campaign challenges have not yet started.
     if ($isMemberCampaignExists) {
       if ($isCheckinsPeriod) {
-        drupal_set_message(t('Thank you for logging in.'), 'status', TRUE);
-        // TODO Login member - set cookie
+        // Login member - set cookie
+        MemberCampaign::login($campaignID);
+        $form_state->setStorage([
+          'loggedin' => TRUE,
+        ]);
       } else {
         $form_state->setErrorByName('membership_id', $config->get('error_msg_checkins_not_started'));
       }
@@ -155,6 +158,7 @@ class MemberLoginRegisterForm extends FormBase {
 
     // Save Member and MemberCampaign entities in storage to save by submit.
     $form_state->setStorage([
+      'loggedin' => FALSE,
       'member' => $member,
       'campaign' => $campaign,
       'member_campaign' => $memberCampaign,
@@ -177,12 +181,19 @@ class MemberLoginRegisterForm extends FormBase {
 
     // Submit handler.
 
+    // Get status info and entities from storage.
+    $storage = $form_state->getStorage();
+
+    // For existed and logged in during validation members
+    if ($storage['loggedin'] === TRUE) {
+      $response->addCommand(new OpenModalDialogCommand($this->t('Thank you!'), $this->t('Thank you for logging in.'), ['width' => 800]));
+
+      return $response;
+    }
+
     // Get member action
     $values = $form_state->getValues();
     $action = (!empty($values['member_action'])) ? $values['member_action'] : 'login';
-
-    // Get Member and MemberCampaign entities from storage.
-    $storage = $form_state->getStorage();
 
     // Save Member entity.
     if (!empty($storage['member'])) {
@@ -199,34 +210,33 @@ class MemberLoginRegisterForm extends FormBase {
     }
 
     // For just registered members
-    if (!empty($storage['campaign'])) {
-      /** @var Node $campaign Campaign object. */
-      $campaign = $storage['campaign'];
-      $checkinsOpenDate = new \DateTime($campaign->get('field_check_ins_start_date')->getString());
+    /** @var Node $campaign Campaign object. */
+    $campaign = $storage['campaign'];
+    $checkinsOpenDate = new \DateTime($campaign->get('field_check_ins_start_date')->getString());
 
-      // Set message depends on member action
-      $messageBeforeCheckins = t('Thank you for registering, you are all set! Be sure to check back on @date when the challenge starts!',
+    // Set message depends on member action
+    $messageBeforeCheckins = t('Thank you for registering, you are all set! Be sure to check back on @date when the challenge starts!',
+      ['@date' => $checkinsOpenDate->format('F j')]);
+    $messageCheckins = t('Thank you for registering, you are all set and logged in!');
+    if ($action == 'login') {
+      $messageBeforeCheckins = t('Challenge is not started yet. Be sure to check back on @date when the challenge starts!',
         ['@date' => $checkinsOpenDate->format('F j')]);
-      $messageCheckins = t('Thank you for registering, you are all set and logged in!');
-      if ($action == 'login') {
-        $messageBeforeCheckins = t('Challenge is not started yet. Be sure to check back on @date when the challenge starts!',
-          ['@date' => $checkinsOpenDate->format('F j')]);
-        $messageCheckins = t('Thank you for logging in.');
-      }
+      $messageCheckins = t('Thank you for logging in.');
+    }
 
-      $modalTitle = $this->t('Thank you!');
-      // If a member ID is successfully registered during the registration phase, but before checking start.
-      if ($checkinsOpenDate >= new \DateTime()) {
-        $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageBeforeCheckins, ['width' => 800]));
-      }
+    $modalTitle = $this->t('Thank you!');
+    // If a member ID is successfully registered during the registration phase, but before checking start.
+    if ($checkinsOpenDate >= new \DateTime()) {
+      $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageBeforeCheckins, ['width' => 800]));
+    }
 
-      // If Campaign already in checkings phase - login member
-      $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
-      if ($isCheckinsPeriod) {
-        // TODO Login member
+    // If Campaign already in checkings phase - login member
+    $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
+    if ($isCheckinsPeriod) {
+      // Login member
+      MemberCampaign::login($campaign->id());
 
-        $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageCheckins, ['width' => 800]));
-      }
+      $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageCheckins, ['width' => 800]));
     }
 
     return $response;
