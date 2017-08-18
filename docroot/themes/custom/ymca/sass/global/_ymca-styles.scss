@@ -963,8 +963,10 @@ span.grey-caret {
   background-color: #343434;
   display: none;
   margin-bottom: 0;
-  @include breakpoint(0 767px) {
-    display: block;
+  &.show {
+    @include breakpoint(0 767px) {
+      display: block;
+    }
   }
   .panel-heading {
     background-color: #3d3d3d;
@@ -1070,7 +1072,7 @@ span.grey-caret {
 }
 @include breakpoint(0 767px) {
   .show-mobile-sub-navigation {
-    .nav-location {
+    .nav-location.show {
       display: block !important;
     }
   }
