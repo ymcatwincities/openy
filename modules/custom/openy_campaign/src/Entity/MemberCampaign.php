@@ -396,48 +396,104 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   }
 
   /**
-   * Login member by Campaign ID. Save it to cookie.
+   * Login member by Campaign ID. Save it to SESSION.
    *
+   * @param $membershipID int Membership card number.
    * @param $campaignID int Campaign node ID.
    */
-  public static function login($campaignID) {
-    // Get cookie
+  public static function login($membershipID, $campaignID) {
+    // Get Campaign IDs
     $campaignIDs = self::getCampaignIds();
 
-    // Add new Campaign ID to cookie for 1 day.
+    // Add new Campaign ID, MembershipID and Full name to SESSION
     if (!in_array($campaignID, $campaignIDs)) {
+      $request = \Drupal::request();
+      $session = $request->getSession();
+
+      // Load Member by unique Membership ID.
+      $query = \Drupal::entityQuery('openy_campaign_member')
+        ->condition('membership_id', $membershipID);
+      $result = $query->execute();
+      if (!empty($result)) {
+        $memberID = reset($result);
+        $member = Member::load($memberID);
+      }
+
       $campaignIDs[] = $campaignID;
-      setcookie('Drupal.visitor.OpenYCampaigns', serialize($campaignIDs), time() + 86400, '/');
+      $session->set('openy_campaign', [
+        'campaign_ids' => $campaignIDs,
+        'membership_id' => $membershipID,
+        'full_name' => (!empty($member) && !empty($member->getFullName())) ? $member->getFullName() : t('Team member'),
+      ]);
     }
   }
 
   /**
-   * Logout member by Campaign ID. Delete it from cookie.
+   * Logout member by Campaign ID. Delete it from SESSION.
    *
    * @param $campaignID int Campaign node ID.
    */
   public static function logout($campaignID) {
     $campaignIDs = self::getCampaignIds();
 
-    // Delete Campaign ID from COOKIE
+    $request = \Drupal::request();
+    $session = $request->getSession();
+
+    // Delete Campaign ID from SESSION
     if (in_array($campaignID, $campaignIDs)) {
       $newCampaignIDs = array_diff($campaignIDs, [$campaignID]);
-      setcookie('Drupal.visitor.OpenYCampaigns', serialize($newCampaignIDs), time() + 86400, '/');
+      $session->set('openy_campaign', ['campaign_ids' => $newCampaignIDs]);
+    }
+    // Delete Membership ID from SESSION
+    $openyCampaignSession = $session->get('openy_campaign');
+    if (!empty($openyCampaignSession['membership_id'])) {
+      $session->set('openy_campaign', ['membership_id' => '', 'full_name' => '']);
     }
   }
 
+  /**
+   * Check if member already logged in for this Campaign.
+   *
+   * @param $campaignID int Campaign node ID.
+   *
+   * @return bool
+   */
+  public static function isLoggedIn($campaignID) {
+    $campaignIDs = self::getCampaignIds();
+
+    return (in_array($campaignID, $campaignIDs)) ? TRUE : FALSE;
+  }
+
+  /**
+   * Get campaign ids, membership id and full name from SESSION.
+   *
+   * @return array MemberCampaign data from SESSION.
+   */
+  public static function getMemberCampaignData() {
+    $request = \Drupal::request();
+    $session = $request->getSession();
+    $openyCampaignSession = $session->get('openy_campaign', [
+      'campaign_ids' => [],
+      'membership_id' => '',
+      'full_name' => '',
+    ]);
+
+    return $openyCampaignSession;
+  }
   /**
    * Get all Campaign IDs user logged in.
    *
    * @return array Array of Campaign IDs
    */
-  private function getCampaignIds() {
+  private static function getCampaignIds() {
     $campaignIDs = [];
-    if (!empty($_COOKIE['Drupal_visitor_OpenYCampaigns'])) {
-      $campaignIDs = unserialize($_COOKIE['Drupal_visitor_OpenYCampaigns']);
+    $request = \Drupal::request();
+    $session = $request->getSession();
+    if (!empty($session->get('openy_campaign'))) {
+      $openyCampaignSession = $session->get('openy_campaign');
+      $campaignIDs = $openyCampaignSession['campaign_ids'];
     }
 
     return $campaignIDs;
   }
-
 }

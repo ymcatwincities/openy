@@ -2,12 +2,13 @@
 
 namespace Drupal\openy_campaign\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
-use Drupal\openy_campaign\Entity\MemberCampaign;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 
 /**
  * Class MembersController.
@@ -81,13 +82,17 @@ class MemberRegisterLoginController extends ControllerBase {
   public function logout($campaign_id = NULL) {
     $response = new AjaxResponse();
 
-    // Logout member - clear Campaign ID from cookie
+    // Logout member - clear Campaign ID from SESSION
     MemberCampaign::logout($campaign_id);
 
     $logoutTitle = $this->t('Thank you!');
     $logoutMessage = $this->t('You were successfully logged out!');
 
     $response->addCommand(new OpenModalDialogCommand($logoutTitle, $logoutMessage, ['width' => 800]));
+
+    // Set redirect to Campaign page
+    $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign_id;
+    $response->addCommand(new RedirectCommand($fullPath));
 
     return $response;
   }

@@ -6,8 +6,6 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
 use Drupal\node\NodeInterface;
 use Drupal\openy_prgf_campaign_menu\CampaignMenuServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -74,9 +72,6 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-    return array(
-      '#markup' => $this->t('Generate Campaign menu.'),
-    );
     // Extract node from route.
     if (!$node = $this->routeMatch->getParameter('node')) {
       return [];
@@ -93,26 +88,6 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
     if ($node != $campaign) {
       $tags_campaign = $node->getCacheTags();
       $tags = Cache::mergeTags($tags, $tags_campaign);
-    }
-
-    $current_route = $this->routeMatch->getCurrentRouteMatch();
-    $current_route_url = Url::fromRoute($current_route->getRouteName(), $current_route->getRawParameters()->all());
-    $current_internal_path = $current_route_url->getInternalPath();
-
-    // Add default home link to the campaign node.
-    array_unshift($links, [
-      'uri' => 'entity:' . $campaign->getEntityTypeId() . '/' . $campaign->id(),
-      'title' => t('Home'),
-      'options' => [],
-    ]);
-
-    foreach ($links as &$link) {
-      $url = Url::fromUri($link['uri']);
-      $link = (new Link($link['title'], $url))->toRenderable();
-      // If link is to current page set 'active' class.
-      if (!$url->isExternal() && $url->isRouted() && $current_internal_path == $url->getInternalPath()) {
-        $link['#attributes']['class'] = ['active'];
-      }
     }
 
     return [

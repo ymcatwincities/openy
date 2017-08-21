@@ -2,11 +2,12 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\Core\Form\FormBase;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\Member;
 use Drupal\openy_campaign\Entity\MemberCampaign;
@@ -112,8 +113,8 @@ class MemberLoginRegisterForm extends FormBase {
     // If the member is already registered previously, but the campaign challenges have not yet started.
     if ($isMemberCampaignExists) {
       if ($isCheckinsPeriod) {
-        // Login member - set cookie
-        MemberCampaign::login($campaignID);
+        // Login member - set SESSION
+        MemberCampaign::login($membershipID, $campaignID);
         $form_state->setStorage([
           'loggedin' => TRUE,
         ]);
@@ -172,6 +173,11 @@ class MemberLoginRegisterForm extends FormBase {
   public function submitModalFormAjax(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
 
+    // Get member action
+    $values = $form_state->getValues();
+    $action = (!empty($values['member_action'])) ? $values['member_action'] : 'login';
+    $campaign_id = $values['campaign_id'];
+
     // If there are any form errors, re-display the form.
     if ($form_state->hasAnyErrors()) {
       $response->addCommand(new ReplaceCommand('#modal_openy_campaign_login_register_form', $form));
@@ -188,12 +194,12 @@ class MemberLoginRegisterForm extends FormBase {
     if ($storage['loggedin'] === TRUE) {
       $response->addCommand(new OpenModalDialogCommand($this->t('Thank you!'), $this->t('Thank you for logging in.'), ['width' => 800]));
 
+      // Set redirect to Campaign page
+      $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign_id;
+      $response->addCommand(new RedirectCommand($fullPath));
+
       return $response;
     }
-
-    // Get member action
-    $values = $form_state->getValues();
-    $action = (!empty($values['member_action'])) ? $values['member_action'] : 'login';
 
     // Save Member entity.
     if (!empty($storage['member'])) {
@@ -234,10 +240,15 @@ class MemberLoginRegisterForm extends FormBase {
     $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
     if ($isCheckinsPeriod) {
       // Login member
-      MemberCampaign::login($campaign->id());
+      $membershipID = $values['membership_id'];
+      MemberCampaign::login($membershipID, $campaign->id());
 
       $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageCheckins, ['width' => 800]));
     }
+
+    // Set redirect to Campaign page
+    $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign->id();
+    $response->addCommand(new RedirectCommand($fullPath));
 
     return $response;
   }
