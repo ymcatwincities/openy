@@ -177,7 +177,7 @@ class CdnPrsProduct extends ContentEntityBase implements CdnPrsProductInterface 
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Camp du Nord Personify Product entity.'))
       ->setSettings([
-        'max_length' => 50,
+        'max_length' => 255,
         'text_processing' => 0,
       ])
       ->setDefaultValue('')

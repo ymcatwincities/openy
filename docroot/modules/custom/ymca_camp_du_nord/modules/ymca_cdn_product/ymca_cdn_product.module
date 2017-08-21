@@ -5,20 +5,9 @@
  * Contains ymca_cdn_product.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
-
 /**
- * Implements hook_help().
+ * Remove all products.
  */
-function ymca_cdn_product_help($route_name, RouteMatchInterface $route_match) {
-  switch ($route_name) {
-    // Main module help for the ymca_cdn_product module.
-    case 'help.page.ymca_cdn_product':
-      $output = '';
-      $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('YMCA Camp du Nord Product') . '</p>';
-      return $output;
-
-    default:
-  }
+function ymca_cdn_product_remove_all() {
+  \Drupal::service('ymca_cdn_product.repository')->removeAll();
 }
