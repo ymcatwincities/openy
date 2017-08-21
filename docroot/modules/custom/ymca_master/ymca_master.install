@@ -4814,8 +4814,20 @@ function ymca_master_update_8223() {
 }
 
 /**
- * Install Camp du Nord features.
+ * Enable fullcalendar contrib module.
  */
 function ymca_master_update_8224() {
+  $modules = [
+    'fullcalendar',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Install Camp du Nord features.
+ */
+function ymca_master_update_8225() {
   \Drupal::service('module_installer')->install(['ymca_camp_du_nord'], TRUE);
 }

@@ -1,0 +1,5 @@
+fullcalendar.settings:
+  title: 'FullCalendar'
+  description: 'Adjust FullCalendar settings.'
+  parent: system.admin_config_ui
+  route_name: fullcalendar.settings

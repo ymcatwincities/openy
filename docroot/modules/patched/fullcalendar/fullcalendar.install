@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the FullCalendar module.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_requirements().
+ */
+function fullcalendar_requirements($phase) {
+  $requirements = array();
+
+  if ($phase == 'runtime') {
+    $path = fullcalendar_get_js_path();
+    if (!file_exists($path) || version_compare(fullcalendar_get_version($path), FULLCALENDAR_MIN_PLUGIN_VERSION, '<')) {
+      $pluginLink = \Drupal::l(t('FullCalendar plugin'), Url::fromUri('http://arshaw.com/fullcalendar/download'));
+      $requirements['fullcalendar_plugin'] = array(
+        'title' => t('FullCalendar plugin'),
+        'value' => t('At least @a', array('@a' => FULLCALENDAR_MIN_PLUGIN_VERSION)),
+        'severity' => REQUIREMENT_ERROR,
+        'description' => t('You need to download the !fullcalendar and extract the entire contents of the archive into the %path folder of your server.', array('!fullcalendar' => $pluginLink, '%path' => '/libraries')),
+      );
+    }
+    else {
+      $requirements['fullcalendar_plugin'] = array(
+        'title' => t('FullCalendar plugin'),
+        'severity' => REQUIREMENT_OK,
+        'value' => fullcalendar_get_version(),
+      );
+    }
+  }
+
+  return $requirements;
+}
