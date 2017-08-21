@@ -128,7 +128,7 @@ openy_campaign.member-action:
     _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::showModal'
     _title_callback: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::addTitle'
   requirements:
-    _permission: 'view content'
+    _permission: 'access content'
     action: ^[a-zA-Z]+
     campaign_id: ^[0-9]+
 
@@ -138,12 +138,12 @@ openy_campaign.member-logout:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::logout'
   requirements:
-    _permission: 'view content'
+    _permission: 'access content'
 
-# Campaign Member logout link
+# Track Activity.
 openy_campaign.track-activity:
   path: '/campaign-track-activity/{visit_date}/{campaign_member_id}/{top_term_id}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\ActivityTrackingController::openModalForm'
   requirements:
-    _permission: 'view content'
+    _permission: 'access content'

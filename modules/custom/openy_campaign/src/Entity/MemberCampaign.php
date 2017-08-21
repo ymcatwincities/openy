@@ -260,7 +260,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    *
    * @return array Array with status and error message.
    */
-  protected function validateMemberAge() {
+  private function validateMemberAge() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -288,7 +288,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    *
    * @return array Array with status and error message.
    */
-  protected function validateMemberUnitType() {
+  private function validateMemberUnitType() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -309,7 +309,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    *
    * @return array Array with status and error message.
    */
-  protected function validateMemberBranch() {
+  private function validateMemberBranch() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -330,7 +330,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    *
    * @return array Array with status and error message.
    */
-  protected function validateMemberPaymentType() {
+  private function validateMemberPaymentType() {
     /** @var Node $campaign Campaign node object. */
     $campaign = $this->getCampaign();
     /** @var Member $member Temporary Member object. Will be saved by submit. */
@@ -393,6 +393,51 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     }
 
     return $memberCampaign;
+  }
+
+  /**
+   * Login member by Campaign ID. Save it to cookie.
+   *
+   * @param $campaignID int Campaign node ID.
+   */
+  public static function login($campaignID) {
+    // Get cookie
+    $campaignIDs = self::getCampaignIds();
+
+    // Add new Campaign ID to cookie for 1 day.
+    if (!in_array($campaignID, $campaignIDs)) {
+      $campaignIDs[] = $campaignID;
+      setcookie('Drupal.visitor.OpenYCampaigns', serialize($campaignIDs), time() + 86400, '/');
+    }
+  }
+
+  /**
+   * Logout member by Campaign ID. Delete it from cookie.
+   *
+   * @param $campaignID int Campaign node ID.
+   */
+  public static function logout($campaignID) {
+    $campaignIDs = self::getCampaignIds();
+
+    // Delete Campaign ID from COOKIE
+    if (in_array($campaignID, $campaignIDs)) {
+      $newCampaignIDs = array_diff($campaignIDs, [$campaignID]);
+      setcookie('Drupal.visitor.OpenYCampaigns', serialize($newCampaignIDs), time() + 86400, '/');
+    }
+  }
+
+  /**
+   * Get all Campaign IDs user logged in.
+   *
+   * @return array Array of Campaign IDs
+   */
+  private function getCampaignIds() {
+    $campaignIDs = [];
+    if (!empty($_COOKIE['Drupal_visitor_OpenYCampaigns'])) {
+      $campaignIDs = unserialize($_COOKIE['Drupal_visitor_OpenYCampaigns']);
+    }
+
+    return $campaignIDs;
   }
 
 }

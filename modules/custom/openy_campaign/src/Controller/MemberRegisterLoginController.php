@@ -3,6 +3,7 @@
 namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
@@ -80,7 +81,8 @@ class MemberRegisterLoginController extends ControllerBase {
   public function logout($campaign_id = NULL) {
     $response = new AjaxResponse();
 
-    // TODO Logout member - clear $campaign_id from cookie
+    // Logout member - clear Campaign ID from cookie
+    MemberCampaign::logout($campaign_id);
 
     $logoutTitle = $this->t('Thank you!');
     $logoutMessage = $this->t('You were successfully logged out!');
