@@ -71,7 +71,12 @@ class Saver implements SaverInterface {
         $this->repository->removeProduct($existing->id());
       }
 
-      $this->repository->createEntity($product);
+      try {
+        $this->repository->createEntity($product);
+      }
+      catch (\Exception $e) {
+        $this->logger->error('Failed to create an Entity with the message: %message', ['%message' => $e->getMessage()]);
+      }
     }
   }
 
