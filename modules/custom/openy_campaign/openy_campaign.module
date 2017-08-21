@@ -5,7 +5,6 @@
  * Module file.
  */
 
-use Drupal\node\Entity\Node;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
 
@@ -36,33 +35,12 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
  * Implements template_preprocess_node().
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
+  // Find published Landing page and render it on Campaign page.
   if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
-    // Find published Landing page and render it on Campaign page.
-
-    // Check if Campaign is Paused
-    $isPaused = $variables['node']->get('field_pause_campaign')->value;
-    $fieldPauseLandingPage = $variables['node']->get('field_pause_landing_page')->getValue();
-    $landingPageIds = [];
-    if ($isPaused && isset($fieldPauseLandingPage[0]['target_id'])) {
-      $landingPageIds[] = $fieldPauseLandingPage[0]['target_id'];
-    }
-    else {
-      $fieldCampaignPages = $variables['node']->get('field_campaign_pages')->getValue();
-      foreach ($fieldCampaignPages as $field) {
-        $landingPageIds[] = $field['target_id'];
-      }
-    }
-
-    // Load Landing page and check if it's published
-    $landingPages = Node::loadMultiple($landingPageIds);
-    foreach ($landingPages as $node) {
-      if ($node->isPublished()) {
-        $toRender[] = $node;
-      }
-    }
-
     // Render the first published Landing page
-    $renderLandingPage = reset($toRender);
+    $campaignMenuService = \Drupal::service('openy_prgf_campaign_menu.menu_handler');
+    $renderLandingPage = $campaignMenuService->getActiveCampaignPage($variables['node']);
+
     $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($renderLandingPage);
     $variables['content']['landing_page'] = $build;
   }

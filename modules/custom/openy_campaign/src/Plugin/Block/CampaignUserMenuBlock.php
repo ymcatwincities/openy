@@ -7,6 +7,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 
 /**
  * Provides a Campaign user menu block.
@@ -68,41 +69,52 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       return $build;
     }
 
-    $build['register'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Register'),
-      '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
-      '#attributes' => [
-        'class' => [
-          'use-ajax',
-          'register'
-        ],
-      ],
-    ];
+    // For logged in members
+    if (MemberCampaign::isLoggedIn($campaign->id())) {
+      $userData = MemberCampaign::getMemberCampaignData();
+      $fullName = !empty($userData['full_name']) ? $userData['full_name'] : $this->t('Team member');
 
-    $build['login'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Sign in'),
-      '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaign->id()]),
-      '#attributes' => [
-        'class' => [
-          'use-ajax',
-          'login'
-        ],
-      ],
-    ];
+      $build['full_name'] = [
+        '#markup' => '<div class="member-full-name">' . $fullName . ', </div>' ,
+      ];
 
-    $build['logout'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Logout'),
-      '#url' => Url::fromRoute('openy_campaign.member-logout', ['campaign_id' => $campaign->id()]),
-      '#attributes' => [
-        'class' => [
-          'use-ajax',
-          'logout'
+      $build['logout'] = [
+        '#type' => 'link',
+        '#title' => $this->t('Logout'),
+        '#url' => Url::fromRoute('openy_campaign.member-logout', ['campaign_id' => $campaign->id()]),
+        '#attributes' => [
+          'class' => [
+            'use-ajax',
+            'logout'
+          ],
         ],
-      ],
-    ];
+      ];
+    }
+    else {
+      $build['register'] = [
+        '#type' => 'link',
+        '#title' => $this->t('Register'),
+        '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
+        '#attributes' => [
+          'class' => [
+            'use-ajax',
+            'register'
+          ],
+        ],
+      ];
+
+      $build['login'] = [
+        '#type' => 'link',
+        '#title' => $this->t('Sign in'),
+        '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaign->id()]),
+        '#attributes' => [
+          'class' => [
+            'use-ajax',
+            'login'
+          ],
+        ],
+      ];
+    }
 
     $build['#attached']['library'][] = 'core/drupal.dialog.ajax';
 
