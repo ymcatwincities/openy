@@ -1,0 +1,46 @@
+fullcalendar:
+  remote: http://fullcalendar.io
+  version: 2.7.3
+  license:
+    name: MIT
+    url: https://github.com/fullcalendar/fullcalendar/blob/master/LICENSE.txt
+    gpl-compatible: true
+  js:
+    /libraries/fullcalendar/lib/moment.min.js: {}
+    /libraries/fullcalendar/fullcalendar.js: {}
+    /libraries/fullcalendar/gcal.js: {}
+    /libraries/fullcalendar/lib/jquery-ui.min.js: { minified: true }
+  css:
+    theme:
+      /libraries/fullcalendar/fullcalendar.css: { media: screen }
+      /libraries/fullcalendar/fullcalendar.print.css: { media: print }
+  dependencies:
+    - core/jquery
+    - core/jquery.ui.draggable
+
+drupal.fullcalendar:
+  version: VERSION
+  js:
+    js/fullcalendar.library.js: { }
+    js/fullcalendar.views.js: { }
+  css:
+    theme:
+      css/fullcalendar.theme.css: { }
+  dependencies:
+    - fullcalendar/fullcalendar
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/jquery.once
+
+drupal.fullcalendar.js:
+  js:
+    js/fullcalendar.fullcalendar.js: { }
+  dependencies:
+    - fullcalendar/drupal.fullcalendar
+
+drupal.fullcalendar.ajax:
+  js:
+    js/fullcalendar.ajax.js: { }
+  dependencies:
+    - fullcalendar/drupal.fullcalendar
