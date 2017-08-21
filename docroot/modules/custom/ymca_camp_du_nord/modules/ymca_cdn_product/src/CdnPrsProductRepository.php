@@ -3,9 +3,10 @@
 namespace Drupal\ymca_cdn_product;
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\ymca_cdn_product\Entity\CdnPrsProduct;
+use Drupal\ymca_cdn_sync\SyncException;
 
 /**
  * Class CdnPrsProductRepository
@@ -87,9 +88,19 @@ class CdnPrsProductRepository implements CdnPrsProductRepositoryInterface {
    * {@inheritdoc}
    */
   public function createEntity(\SimpleXMLElement $xmlProduct) {
-    $entity = $this->storage->create();
-
     $product = json_decode(json_encode($xmlProduct), 1);
+
+    // Check whether the date is valid.
+    try {
+      $dateTimeZone = new \DateTimeZone('UTC');
+      /** @var \DateTime $dateTime */
+      $dateTime = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $product['BeginDate'], $dateTimeZone);
+    }
+    catch (\Exception $e) {
+      throw new SyncException(sprintf("Got invalid date format: %s.", $product['BeginDate']));
+    }
+
+    $entity = $this->storage->create();
     $entity->setName(Unicode::truncate(trim($product['ProductName']), 255));
 
     $popsToSave = [
@@ -97,6 +108,7 @@ class CdnPrsProductRepository implements CdnPrsProductRepositoryInterface {
       'field_cdn_prd_code' => $product['ProductCode'],
       'field_cdn_prd_id' => $product['ProductID'],
       'field_cdn_prd_object' => serialize($product),
+      'field_cdn_prd_start_date' => $dateTime->format(DATETIME_DATETIME_STORAGE_FORMAT),
     ];
 
     foreach ($popsToSave as $fieldName => $fieldValue) {
