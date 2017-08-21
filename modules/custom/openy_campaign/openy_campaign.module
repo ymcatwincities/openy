@@ -7,6 +7,7 @@
 
 use Drupal\node\Entity\Node;
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Entity\ContentEntityTypeInterface;
 
 /**
  * Implements hook_theme().
@@ -64,6 +65,20 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
     $renderLandingPage = reset($toRender);
     $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($renderLandingPage);
     $variables['content']['landing_page'] = $build;
+  }
+}
+
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function openy_campaign_entity_type_build(array &$entity_types) {
+  /** @var \Drupal\Core\Entity\EntityTypeInterface[] $entity_types */
+  foreach ($entity_types as &$entity_type) {
+    if ($entity_type instanceof ContentEntityTypeInterface) {
+      // Override handler by custom implementation.
+      $entity_type->setHandlerClass('entity_clone', 'Drupal\openy_campaign\EntityClone\Content\ContentEntityCloneBase');
+    }
   }
 }
 
