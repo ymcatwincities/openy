@@ -5,6 +5,9 @@ services:
   ymca_cdn_sync.wrapper:
     class: Drupal\ymca_cdn_sync\syncer\Wrapper
     arguments: []
+  ymca_cdn_sync.cleaner:
+    class: Drupal\ymca_cdn_sync\syncer\Cleaner
+    arguments: []
   ymca_cdn_sync.fetcher:
     class: Drupal\ymca_cdn_sync\syncer\Fetcher
     arguments:
@@ -24,5 +27,6 @@ services:
     calls:
       - [addStep, ['@ymca_cdn_sync.fetcher', 'fetch']]
       - [addStep, ['@ymca_cdn_sync.saver', 'save']]
+      - [addStep, ['@ymca_cdn_sync.cleaner', 'clean']]
     tags:
       - { name: syncer }
