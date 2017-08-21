@@ -10,5 +10,4 @@ dependencies:
   - user
   - ymca_cdn_product
   - ymca_page_manager
-  - ymca_cdn_product
 version: 8.x-1.0

@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cdn_prs_product.field_cdn_prd_hash
+  module:
+    - ymca_cdn_product
+id: cdn_prs_product.cdn_prs_product.field_cdn_prd_hash
+field_name: field_cdn_prd_hash
+entity_type: cdn_prs_product
+bundle: cdn_prs_product
+label: Hash
+description: 'Hash (md5) of serialized object.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
