@@ -45,6 +45,13 @@ class Fetcher implements FetcherInterface {
   protected $config;
 
   /**
+   * Wrapper.
+   *
+   * @var \Drupal\ymca_cdn_sync\syncer\WrapperInterface
+   */
+  protected $wrapper;
+
+  /**
    * Fetcher constructor.
    *
    * @param \GuzzleHttp\Client $client
@@ -54,10 +61,11 @@ class Fetcher implements FetcherInterface {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
    *   Config factory.
    */
-  public function __construct(Client $client, LoggerChannelInterface $logger, ConfigFactoryInterface $config) {
+  public function __construct(Client $client, LoggerChannelInterface $logger, ConfigFactoryInterface $config, WrapperInterface $wrapper) {
     $this->client = $client;
     $this->logger = $logger;
     $this->config = $config;
+    $this->wrapper = $wrapper;
   }
 
   /**
@@ -107,6 +115,8 @@ class Fetcher implements FetcherInterface {
    * {@inheritdoc}
    */
   public function fetch() {
+    $this->wrapper->setSourceData([]);
+
     $options = [
       'headers' => [
         'Content-Type' => 'text/xml',
@@ -161,7 +171,7 @@ class Fetcher implements FetcherInterface {
       throw new SyncException('Failed to get Personify products. Please, examine the logs.');
     }
 
-    return $products;
+    $this->wrapper->setSourceData($products);
   }
 
 }
