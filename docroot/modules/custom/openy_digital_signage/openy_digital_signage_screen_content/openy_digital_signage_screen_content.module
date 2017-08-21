@@ -33,6 +33,7 @@ function openy_digital_signage_screen_content_panels_build_alter(&$build, Panels
   }
   $build['#attached']['drupalSettings']['panelizer']['user_permission']['revert'] = FALSE;
   $build['#attached']['drupalSettings']['panelizer']['user_permission']['save_default'] = FALSE;
+  $build['#attached']['library'][] = 'openy_digital_signage_screen_content/openyds_panels_ipe';
 }
 
 /**
