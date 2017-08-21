@@ -8667,20 +8667,19 @@ span.grey-caret:after {
   border: 0;
   position: relative;
   float: right;
-  top: 7px;
+  top: -2px;
 }
 .mobile-subnav .panel-heading a .caret:before {
+  margin-right: .3em;
+  content: "\e081";
+  vertical-align: middle;
   text-transform: none;
-  position: relative;
-  display: inline-block;
-  padding: 2px 0 0 5px;
-  width: auto;
-  content: 'v';
-  vertical-align: top;
   font-weight: normal;
-  font-size: .7em;
-  font-family: 'YMCA';
-  line-height: .4em;
+  font-size: 16px;
+  font-family: 'Glyphicons Halflings';
+}
+.mobile-subnav .panel-heading a.open .caret:before {
+  content: "\e082";
 }
 .mobile-subnav .panel-default {
   background: none;
@@ -8819,20 +8818,19 @@ span.grey-caret:after {
     border: 0;
     position: relative;
     float: right;
-    top: 7px;
+    top: -2px;
   }
   #nav-location ul.nav a .caret:before {
+    margin-right: .3em;
+    content: "\e081";
+    vertical-align: middle;
     text-transform: none;
-    position: relative;
-    display: inline-block;
-    padding: 2px 0 0 5px;
-    width: auto;
-    content: 'v';
-    vertical-align: top;
     font-weight: normal;
-    font-size: .7em;
-    font-family: 'YMCA';
-    line-height: .4em;
+    font-size: 16px;
+    font-family: 'Glyphicons Halflings';
+  }
+  #nav-location ul.nav a.open .caret:before {
+    content: "\e082";
   }
   #nav-location ul.nav .current > a {
     font-weight: bold;
@@ -8841,6 +8839,28 @@ span.grey-caret:after {
     text-transform: none;
   }
 }
+.masthead-brand {
+  position: relative;
+}
+.masthead-brand a {
+  color: #fff;
+}
+.masthead-brand a:before {
+  display: none;
+  text-transform: none;
+  content: 'h';
+  font-weight: normal;
+  font-family: 'YMCA';
+  line-height: 1em;
+  margin-right: 10px;
+  font-size: 27px;
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  .masthead-brand a:before {
+    display: inline-block;
+  }
+}
+
 .form-item {
   margin-bottom: 15px;
 }
