@@ -2,15 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
-    - datetime
     - ymca_cdn_product
-id: cdn_prs_product.field_cdn_prd_end_date
-field_name: field_cdn_prd_end_date
+id: cdn_prs_product.field_cdn_prd_code
+field_name: field_cdn_prd_code
 entity_type: cdn_prs_product
-type: datetime
+type: string
 settings:
-  datetime_type: datetime
-module: datetime
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
 locked: false
 cardinality: 1
 translatable: true
