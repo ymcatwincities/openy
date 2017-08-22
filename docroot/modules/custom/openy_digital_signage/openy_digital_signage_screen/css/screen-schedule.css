@@ -184,6 +184,13 @@
           -ms-transform: translateX(-50%) translateY(-50%);
               transform: translateX(-50%) translateY(-50%); }
 
+.screen-schedule-redraw-button a.button {
+  margin: 20px 0;
+  float: left; }
+
+.screen-schedule-calendar {
+  padding-top: 25px; }
+
 .screen-schedule-calendar table {
   width: auto;
   margin: auto; }
