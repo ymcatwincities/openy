@@ -5587,27 +5587,32 @@ body .branch-popup + .ui-widget-overlay {
   width: 100%;
 }
 
-.two-column-fixed .affix {
+.two-column-fixed .affix,
+.two-column-fixed .affix-bottom {
   top: 126px;
   position: static;
 }
 @media (min-width: 48em) {
-  .two-column-fixed .affix {
+  .two-column-fixed .affix,
+  .two-column-fixed .affix-bottom {
     width: 220px;
     position: fixed;
   }
 }
 @media (min-width: 62em) {
-  .two-column-fixed .affix {
+  .two-column-fixed .affix,
+  .two-column-fixed .affix-bottom {
     width: 294px;
   }
 }
 @media (min-width: 75em) {
-  .two-column-fixed .affix {
+  .two-column-fixed .affix,
+  .two-column-fixed .affix-bottom {
     width: 360px;
   }
 }
-.toolbar-fixed .two-column-fixed .affix {
+.toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+.two-column-fixed .affix-bottom {
   top: 166px;
 }
 
@@ -6959,6 +6964,9 @@ article .node--view-mode-flexible-content h2 a span {
   color: white;
   font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
+}
+.wrapper-field-bottom-content .paragraph--type--lto {
+  margin: 0;
 }
 
 a:focus,

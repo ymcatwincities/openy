@@ -5,7 +5,7 @@ Landing Page content type is used for adding landing pages on the site.
 | Name  | Machine name | Required | Description |
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the landing page item. |
-| Layout | field\_lp_layout  | Yes | Select list with the options: <ul><li>one\_column\_clean\|One Column - Full width</li><li>one\_column\|One Column</li><li>two\_column\|Two Column</li><li>two\_column\_fixed\|Two column with fixed sidebar</li></ul> |
+| Layout | field\_lp_layout  | Yes | Select list with the options: <ul><li>one\_column\_clean\|One Column - Full width</li><li>one\_column\|One Column</li><li>two\_column\|Two Columns</li><li>two\_column\_fixed\|Two Columns with fixed sidebar (sticky at the top)</li></ul> |
 | Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Header Area** | Field group |||
 | Content | field\_header_content | No | A paragraph embed field that will allow us to add various flexible content modules, from the predefined list of paragraph types. |
