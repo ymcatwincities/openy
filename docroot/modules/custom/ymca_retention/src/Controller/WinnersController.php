@@ -18,7 +18,7 @@ class WinnersController extends ControllerBase {
    */
   public function drawWinners() {
     $operations = [
-      [[get_class($this), 'processSpring2017Batch'], []],
+      [[get_class($this), 'processBatch'], []],
     ];
     $batch = [
       'title' => t('Drawing winners'),
@@ -60,89 +60,71 @@ class WinnersController extends ControllerBase {
 
     // Select winner candidates - all with the same or better result as the
     // 12th place in each track.
+    $winners = [];
     $tracks = [
-      'total_visits' => 'visits',
-      'activity_track_swimming' => 'swimming',
-      'activity_track_fitness' => 'fitness',
-      'activity_track_groupx' => 'groupex',
+      YMCA_RETENTION_ACTIVITY_SWIMMING => 'swimming',
+      YMCA_RETENTION_ACTIVITY_FITNESS => 'fitness',
+      YMCA_RETENTION_ACTIVITY_GROUPX => 'groupx',
+      YMCA_RETENTION_ACTIVITY_COMMUNITY => 'community',
     ];
-    $candidates = [];
 
-    foreach ($tracks as $field => $track) {
-      // Count registered members in the branch qualified to win the track.
-      $query = \Drupal::entityQueryAggregate('ymca_retention_member')
+    foreach ($tracks as $activity_id => $track) {
+      // This subquery gets all activities filtered by an activity group and
+      // a branch and groupped by member id and a date the activity was taken.
+      // This will help us to get actual entries (winning chances) member has.
+      // Daily a member can get up to 4 entries (equals to a number of activity
+      // categories - 4). So if user tracks more than 1 activity for the
+      // swimming category it will be still counted as 1 entry.
+      $subquery = \Drupal::database()
+        ->select('ymca_retention_member', 'M')
+        ->fields('M', ['id', 'total_visits']);
+
+      $subquery->leftJoin('ymca_retention_member_activity', 'MA', 'M.id = MA.member');
+      $subquery->leftJoin('taxonomy_term_data', 'AT', 'MA.activity_type = AT.tid');
+      $subquery->leftJoin('taxonomy_term_hierarchy', 'H', 'AT.tid = H.tid');
+      $subquery->leftJoin('taxonomy_term__field_retention_activity_id', 'AID', 'AID.entity_id = H.parent');
+
+      // We're only getting user who have reached a goal.
+      $subquery->where('total_visits >= visit_goal')
+        ->condition('is_employee', FALSE)
         ->condition('branch', $branch_id)
-        ->condition('is_employee', FALSE);
-      if ($track == 'visits') {
-        $query->addTag('ymca_retention_visit_goal');
-      }
-      $count = $query->aggregate('id', 'COUNT')
-        ->execute();
-      $limit = min($count[0]['id_count'], 12);
-      if ($limit == 0) {
-        continue;
-      }
+        ->condition('AID.field_retention_activity_id_value', $activity_id)
+        ->groupBy('M.id, MA.timestamp, M.total_visits');
 
-      // Determine the limit-th member.
-      $query = \Drupal::entityQuery('ymca_retention_member')
-        ->condition('branch', $branch_id)
-        ->condition('is_employee', FALSE);
-      if ($track == 'visits') {
-        $query->addTag('ymca_retention_visit_goal');
-      }
-      $member_ids = $query->sort($field, 'DESC')
-        ->range($limit - 1, 1)
-        ->execute();
-      if (empty($member_ids)) {
-        continue;
-      }
-      $member_id = reset($member_ids);
-      $member = Member::load($member_id);
+      // Calculate a number of entries we get from the subquery.
+      $query = \Drupal::database()
+        ->select($subquery, 'T')
+        ->fields('T', ['id']);
 
-      // Select candidates.
-      $query = \Drupal::entityQuery('ymca_retention_member')
-        ->condition('branch', $branch_id)
-        ->condition('is_employee', FALSE);
-      if ($track == 'visits') {
-        $query->addTag('ymca_retention_visit_goal');
-      }
-      $member_ids = $query->condition($field, $member->get($field)->value, '>=')
-        ->sort($field, 'DESC')
-        ->execute();
-      $members = Member::loadMultiple($member_ids);
-      /** @var Member $member */
-      foreach ($members as $member) {
-        $candidates[$track][$member->getId()] = $member->get($field)->value;
-      }
-    }
+      $query->addExpression('COUNT(T.id)', 'total_entries');
+      $query->groupBy('T.id');
 
-    // Draw candidates ranking - preliminary winners.
-    $preliminary_winners = [];
-    foreach ($tracks as $track) {
-      $count = count($candidates[$track]);
-      for ($i = 1; $i <= $count; $i++) {
-        // Select candidates for this place.
-        $candidates_place = [];
-        $cut_value = 0;
-        foreach ($candidates[$track] as $id => $value) {
-          if ($value >= $cut_value) {
-            $candidates_place[$id] = $value;
-            $cut_value = $value;
-          }
-          else {
-            break;
-          }
+      $members = $query->execute()->fetchAllKeyed();
+
+      // Randomly choose winners from the candidates. There are 12 candidates
+      // from each track since we need to be prepared if there are intersected
+      // winners from different tracks.
+      for ($i = 0; $i < 12; $i++) {
+        if (empty($members)) {
+          break;
         }
 
-        // Select random winner from candidates for this place.
-        $winner_id = array_rand($candidates_place, 1);
-        $preliminary_winners[$track][] = $winner_id;
-        // Remove winner from candidates.
-        unset($candidates[$track][$winner_id]);
+        $entries_sum = 0;
+        $entries_total = array_sum($members);
+        $winning_entry = mt_rand(1, $entries_total);
+
+        foreach ($members as $member_id => $member_entries) {
+          if ($winning_entry > $entries_sum && $winning_entry <= ($member_entries + $entries_sum)) {
+            unset($members[$member_id]);
+            $winners[$track][] = $member_id;
+            break;
+          }
+
+          $entries_sum += $member_entries;
+        }
       }
     }
 
-    $winners = $preliminary_winners;
     // Filter preliminary winners so that winner gets only one best possible
     // reward. First filter by place, then by track.
     foreach ([0, 1, 2] as $place) {
@@ -178,10 +160,9 @@ class WinnersController extends ControllerBase {
         $winner->save();
         $context['results'][] = $member_id;
 
-        if ($place >= 3) {
+        if ($place++ >= 3) {
           break;
         }
-        $place++;
       }
     }
 
@@ -190,101 +171,6 @@ class WinnersController extends ControllerBase {
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
     }
-  }
-
-  /**
-   * Processes the drawing winners batch for Spring2017 campaign.
-   *
-   * @param array $context
-   *   The batch context.
-   */
-  public static function processSpring2017Batch(&$context) {
-    if (empty($context['sandbox'])) {
-      // Remove all winners.
-      $winner_ids = \Drupal::entityQuery('ymca_retention_winner')
-        ->execute();
-      $storage = \Drupal::entityTypeManager()->getStorage('ymca_retention_winner');
-      $winners = $storage->loadMultiple($winner_ids);
-      $storage->delete($winners);
-
-      $context['sandbox']['progress'] = 0;
-
-      /** @var \Drupal\ymca_retention\LeaderboardManager $service */
-      $service = \Drupal::service('ymca_retention.leaderboard_manager');
-      // Get all non excluded branches.
-      $branches = $service->getMemberBranches();
-
-      $context['sandbox']['branches'] = $branches;
-      $context['sandbox']['max'] = count($branches);
-    }
-
-    $branch_id = $context['sandbox']['branches'][$context['sandbox']['progress']];
-
-    $query = \Drupal::entityQuery('ymca_retention_member')
-      ->condition('branch', $branch_id)
-      ->condition('is_employee', FALSE);
-    $member_ids = $query->execute();
-
-    $nominations = [
-      '$100' => 1,
-      '$25' => 3,
-      '$5' => 30,
-    ];
-    $count = 0;
-    $place = 1;
-    foreach ($nominations as $nomination => $quantity) {
-      for ($i = 0; $i < $quantity; $i++) {
-        if (empty($member_ids)) {
-          break;
-        }
-        $member_id = self::selectOneMember($member_ids);
-        if (!$member_id) {
-          break;
-        }
-        $winner = Winner::create([
-          'branch' => $branch_id,
-          'member' => $member_id,
-          'place' => $place,
-        ]);
-        $winner->save();
-        $count++;
-        $context['results'][] = $member_id;
-        unset($member_ids[$member_id]);
-      }
-      $place++;
-    }
-
-    $message = \Drupal::translation()->formatPlural($count, 'Created one winner for branch ', 'Created @count winners for branch ') . $branch_id;
-    drupal_set_message($message);
-    $context['sandbox']['progress']++;
-
-    if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
-      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
-    }
-  }
-
-  /**
-   * Select one member from member list. The probability of selection is proportional to the number of member bonuses.
-   *
-   * @param array $member_ids
-   *   List of member ids.
-   *
-   * @return bool|int
-   *   Selected member id or False (if there is no any bonus).
-   */
-  private static function selectOneMember($member_ids) {
-    $query = \Drupal::entityQuery('ymca_retention_member_bonus')
-      ->condition('member', $member_ids, 'IN');
-    $member_bonuses_ids = $query->execute();
-
-    if (empty($member_bonuses_ids)) {
-      return FALSE;
-    }
-
-    $member_bonus_id = array_rand($member_bonuses_ids);
-    $member_bonus = MemberBonus::load($member_bonus_id);
-
-    return $member_bonus->getMember();
   }
 
   /**
