@@ -4829,5 +4829,11 @@ function ymca_master_update_8224() {
  * Install Camp du Nord features.
  */
 function ymca_master_update_8225() {
-  \Drupal::service('module_installer')->install(['ymca_camp_du_nord'], TRUE);
+  $modules = [
+    'ymca_camp_du_nord',
+    'ymca_prgf_camp_du_nord',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
 }

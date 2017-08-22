@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * Initial hook_updates runner.
+ */
+function ymca_prgf_camp_du_nord_install() {
+  for ($i = 8001; $i < 9000; $i++) {
+    $function = 'ymca_prgf_camp_du_nord' . $i;
+    if (function_exists($function)) {
+      \Drupal::logger('ymca_prgf_camp_du_nord')->info('running: ' . $function);
+      $function();
+    }
+  }
+}

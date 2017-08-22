@@ -1,0 +1,10 @@
+name: 'YMCA Camp du Nord Paragraphs'
+description: 'Contains YMCA Camp du Nord Paragraphs.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - ymca_camp_du_nord
+  - paragraphs
+  - plugin
+version: 8.x-1.0
