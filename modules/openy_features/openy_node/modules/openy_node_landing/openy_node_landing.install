@@ -186,3 +186,18 @@ function openy_node_landing_update_8007() {
     'third_party_settings.field_group.group_header_area.format_settings.description'
   );
 }
+
+/**
+ * Update sidebar option text.
+ */
+function openy_node_landing_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_landing');
+  $config .= '/config/install/';
+  $config .= 'field.storage.node.field_lp_layout.yml';
+  $config_importer->update(
+    $config,
+    'field.storage.node.field_lp_layout',
+    'settings.allowed_values'
+  );
+}

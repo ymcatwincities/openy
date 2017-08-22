@@ -13,7 +13,7 @@ function openy_node_landing_field_group_build_pre_render_alter(&$element) {
     return;
   }
   // Set visible states for Landing page form Group Sidebar Area when Layout has
-  // a two column option selected.
+  // a two columns option selected.
   $element['group_sidebar_area']['#states'] = [
     'visible' => [
       [
