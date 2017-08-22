@@ -18,6 +18,33 @@ class LndrServiceController extends ControllerBase {
     return 'lndr';
   }
 
+  public function sync_content() {
+    $response = new Response();
+    $response->headers->set('Content-Type', 'application/json; charset=utf-8');
+    $auth_response = $this->service_auth(FALSE);
+
+    // If token doesn't check out or others, we exit
+    if ($auth_response['response']['type'] === 'error') {
+      $content = json_encode($auth_response);
+      $response->setContent($content);
+      return $response;
+    }
+
+    // Fire the sync content
+    $controller = new \Drupal\lndr\Controller\LndrController();
+    $controller->sync_path();
+
+    $response_content = array(
+      'response' => array(
+        'type' => 'content_synced',
+        'message' => 'Content successfully synced',
+        'code' => '200',
+      ),
+    );
+    $response->setContent(json_encode($response_content));
+    return $response;
+  }
+
   /**
    * Check whether a path alias is available.
    * @return Response
@@ -156,7 +183,7 @@ class LndrServiceController extends ControllerBase {
    * performs various checks on the incoming web service request
    * @return array
    */
-  private function service_auth() {
+  private function service_auth($check_path = TRUE) {
     $request = \Drupal::request();
     $headers = $request->headers->all();
 
@@ -200,16 +227,19 @@ class LndrServiceController extends ControllerBase {
     }
 
     parse_str($request->getQueryString(), $query);
-    if (!array_key_exists('path', $query)) {
-      $response = array(
-        'response' => array(
-          'type' => 'error',
-          'message' => t('Required parameter path not given'),
-          'code' => '403',
-        ),
-      );
-      return $response;
+    if ($check_path === TRUE) {
+      if (!array_key_exists('path', $query)) {
+        $response = array(
+          'response' => array(
+            'type' => 'error',
+            'message' => t('Required parameter path not given'),
+            'code' => '403',
+          ),
+        );
+        return $response;
+      }
     }
+
     // if everything checks out, we just pass the query back
     $response = array(
       'response' => array(
