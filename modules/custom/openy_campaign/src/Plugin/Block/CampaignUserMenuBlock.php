@@ -62,6 +62,9 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
   public function build() {
     $build = [];
 
+    // Disable block cache.
+    $build['#cache']['max-age'] = 0;
+
     // Check if current page is campaign
     /** @var \Drupal\Node\Entity\Node $campaign */
     $campaign = $this->routeMatch->getParameter('node');
