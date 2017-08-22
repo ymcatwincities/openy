@@ -7,10 +7,9 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 
-const LNDR_BASE = 'http://alpha.makehero.co/';
-const LNDR_BASE_PUBLISHED = 'http://published.makehero.co/';
-const LNDR_API_GET_PROJECT = 'http://alpha.makehero.co/v1/projects';
-const LNDR_API_VALIDATE_TOKEN = 'http://alpha.makehero.co/v1/validate_token';
+const LNDR_BASE = 'https://www.lndr.co/';
+const LNDR_API_GET_PROJECT = 'https://www.lndr.co/v1/projects';
+const LNDR_API_VALIDATE_TOKEN = 'https://www.lndr.co/v1/validate_token';
 
 /**
  * Implements hook_help().
