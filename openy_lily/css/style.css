@@ -1803,17 +1803,48 @@ article.site-alert ul li div {
   display: inline;
 }
 
-@media (min-width: 30em) {
+@media (max-width: 991px) {
+  #membership-calc-wrapper .nav-pills > li {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) and (min-width: 0) {
+  #membership-calc-wrapper .nav-pills > li {
+    margin-bottom: 5px;
+    display: block;
+    overflow: hidden;
+    width: 100% !important;
+  }
+  #membership-calc-wrapper .nav-pills > li div {
+    width: calc(100% - 30px) !important;
+  }
+}
+@media (min-width: 40em) {
   #membership-calc-wrapper .nav-pills > li {
     width: 21%;
   }
 }
-@media (min-width: 30em) {
+@media (min-width: 768px) {
   #membership-calc-wrapper .nav-pills > li .step-1,
   #membership-calc-wrapper .nav-pills > li .step-2,
   #membership-calc-wrapper .nav-pills > li .step-3,
   #membership-calc-wrapper .nav-pills > li .step-4 {
     width: calc(100% - 15px);
+  }
+  #membership-calc-wrapper .step-2 {
+    padding-right: 2px;
+  }
+  #membership-calc-wrapper .step-2 span {
+    margin-left: 13px !important;
+  }
+  #membership-calc-wrapper .step-4 {
+    text-align: left;
+  }
+  #membership-calc-wrapper .step-4 span {
+    margin-left: 15px;
+  }
+  #membership-calc-wrapper li:last-child div {
+    padding-left: 21px;
   }
 }
 #membership-calc-wrapper legend {
