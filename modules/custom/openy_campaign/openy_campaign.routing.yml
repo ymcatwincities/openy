@@ -112,6 +112,15 @@ openy_campaign.settings:
   requirements:
     _permission: 'administer retention campaign'
 
+# Route to generate replacement content for tabs
+openy_campaign.landing-page:
+  path: '/campaign-pages/{landing_page_id}'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignMenuController::showPageContent'
+  requirements:
+    _permission: 'access content'
+    landing_page_id: ^[0-9]+
+
 # Simplified Team Member Registration Portal
 openy_campaign.member-registration-portal:
   path: '/team-member-registration'

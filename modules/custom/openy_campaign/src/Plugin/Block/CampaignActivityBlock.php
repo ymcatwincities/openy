@@ -65,6 +65,9 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
     $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityBlockForm', $campaignId);
     return [
       'form' => $form,
+      '#cache' => [
+        'max-age' => 0,
+      ],
     ];
   }
 

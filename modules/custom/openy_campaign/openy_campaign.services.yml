@@ -1,3 +1,7 @@
 services:
   openy_campaign.client_factory:
     class: Drupal\openy_campaign\CRMClientFactory
+
+  openy_campaign.campaign_menu_handler:
+    class: Drupal\openy_campaign\CampaignMenuService
+    arguments: ['@entity_type.manager', '@service_container']

@@ -13,6 +13,13 @@ use Drupal\Core\Entity\ContentEntityTypeInterface;
  */
 function openy_campaign_theme($existing, $type, $theme, $path) {
   return [
+    'openy_campaign_campaign_menu' => [
+      'variables' => [
+        'base_path' => base_path(),
+        'links' => [],
+      ],
+      'template' => 'openy-campaign-campaign-menu',
+    ],
     // Popup templates.
     'openy_campaign_login' => [
       'variables' => [
@@ -41,7 +48,7 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
   // Find published Landing page and render it on Campaign page.
   if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
     // Render the first published Landing page
-    $campaignMenuService = \Drupal::service('openy_prgf_campaign_menu.menu_handler');
+    $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
     $renderLandingPage = $campaignMenuService->getActiveCampaignPage($variables['node']);
 
     $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($renderLandingPage);
