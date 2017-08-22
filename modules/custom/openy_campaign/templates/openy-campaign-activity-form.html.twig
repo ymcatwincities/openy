@@ -1,0 +1,37 @@
+{# copy form so we can remove rendered elements from it #}
+{% set formCopy = form %}
+
+{% for key in form|keys %}
+    {# key should match 2017-08-12 pattern #}
+    {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
+        {% set row = attribute(form, key) %}
+
+        {# calculate how many grid-columns each column will take #}
+        {% if columns is empty %}
+            {% set columns = 0 %}
+            {% for formKey in row|keys %}
+                {%  if formKey matches '/^[\\d]+$/' %}
+                    {% set columns = columns + 1 %}
+                {% endif %}
+            {% endfor %}
+
+            {% set column = (12 / (columns + 2)) | round(0, 'floor') %}
+            {% set firstColumn = 12 - (columns + 1) * column %}
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-{{ firstColumn }}">{{ key|date('d M') }} <small>{{ key|date('l') }}</small></div>
+            <div class="col-md-{{ column }}">checked-in</div>
+            {% for formKey in row|keys %}
+                {%  if formKey matches '/^[\\d]+$/' %}
+                    <div class="col-md-{{ column }}">{{ attribute(row, formKey) }}</div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% set formCopy = formCopy|without(key) %}
+
+    {%  endif %}
+{% endfor %}
+
+{{ formCopy }}
