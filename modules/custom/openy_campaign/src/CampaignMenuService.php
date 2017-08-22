@@ -219,6 +219,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
 
     // Load Landing page and check if it's published
     $landingPages = Node::loadMultiple($landingPageIds);
+    /** @var Node $node */
     foreach ($landingPages as $node) {
       if ($node->isPublished()) {
         $publishedPages[] = $node;

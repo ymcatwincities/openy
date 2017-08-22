@@ -56,11 +56,11 @@ class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaig
       ->setLabel(t('Date'))
       ->setDescription(t('The timestamp for the day when activity was logged.'));
 
-    $fields['member'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Campaign Member ID'))
-      ->setDescription(t('The campaign member ID.'))
+    $fields['member_campaign'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Member Campaign'))
+      ->setDescription(t('The member campaign.'))
       ->setSettings([
-        'target_type' => 'openy_campaign_member',
+        'target_type' => 'openy_campaign_member_campaign',
         'default_value' => 0,
       ]);
 
@@ -84,4 +84,21 @@ class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaig
     return $fields;
   }
 
+  /**
+   * Get Existing Activities
+   *
+   * @param int $memberCampaignId MemberCampaign entity ID
+   * @param \DateTime $date Date
+   * @param array $activityIds Activities IDs
+   *
+   * @return array|int
+   */
+  public static function getExistingActivities($memberCampaignId, $date, $activityIds) {
+    return \Drupal::entityQuery('openy_member_campaign_activity')
+      ->condition('member_campaign', $memberCampaignId)
+      ->condition('type', MemberCampaignActivity::TYPE_ACTIVITY)
+      ->condition('date', $date->format('U'))
+      ->condition('activity', $activityIds, 'IN')
+      ->execute();
+  }
 }

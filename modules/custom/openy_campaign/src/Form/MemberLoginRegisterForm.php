@@ -106,12 +106,12 @@ class MemberLoginRegisterForm extends FormBase {
     }
 
     // Check MemberCampaign entity
-    $isMemberCampaignExists = MemberCampaign::isMemberCampaignExists($membershipID, $campaignID);
+    $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
     $campaign = Node::load($campaignID);
     $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
     // If the member is already registered previously, but the campaign challenges have not yet started.
-    if ($isMemberCampaignExists) {
+    if ($memberCampaignID) {
       if ($isCheckinsPeriod) {
         // Login member - set SESSION
         MemberCampaign::login($membershipID, $campaignID);

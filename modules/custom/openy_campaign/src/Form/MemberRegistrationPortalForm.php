@@ -75,10 +75,10 @@ class MemberRegistrationPortalForm extends FormBase {
     }
 
     // Check MemberCampaign entity
-    $isMemberCampaignExists = MemberCampaign::isMemberCampaignExists($membershipID, $campaignID);
+    $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
     // If the member is already registered, there will be a basic error message “This member has already registered”.
-    if ($isMemberCampaignExists) {
+    if ($memberCampaignID) {
       $form_state->setErrorByName('membership_id', $this->t('This member has already registered.'));
       return;
     }

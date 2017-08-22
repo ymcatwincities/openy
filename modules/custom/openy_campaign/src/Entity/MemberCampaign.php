@@ -347,14 +347,14 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   }
 
   /**
-   * Check if MemberCampaign already exists.
+   * Find MemberCampaign ID if it already exists.
    *
    * @param $membershipID int Membership ID.
    * @param $campaignID int Campaign node ID.
    *
-   * @return bool
+   * @return int | bool MemberCampaign ID or FALSE
    */
-  public static function isMemberCampaignExists($membershipID, $campaignID) {
+  public static function findMemberCampaign($membershipID, $campaignID) {
     $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $connection->select('openy_campaign_member', 'm');
@@ -364,7 +364,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $query->fields('mc', ['id']);
     $memberCampaignRes = $query->execute()->fetchField();
 
-    return (!empty($memberCampaignRes)) ? TRUE : FALSE;
+    return (!empty($memberCampaignRes)) ? $memberCampaignRes : FALSE;
   }
 
   /**
