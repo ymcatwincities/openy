@@ -28,6 +28,9 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-register',
     ],
+    'openy_campaign_activity_form' => [
+      'render element' => 'form',
+    ],
   ];
 }
 
