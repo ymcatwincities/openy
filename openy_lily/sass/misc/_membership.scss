@@ -1,9 +1,41 @@
 #membership-calc-wrapper {
+  .nav-pills > li {
+    @media (min-width: 30em) {
+      width: 21%;
+    }
+  }
+  @media (min-width: 30em) {
+    .nav-pills > li .step-1,
+    .nav-pills > li .step-2,
+    .nav-pills > li .step-3,
+    .nav-pills > li .step-4 {
+      width: calc(100% - 15px);
+    }
+  }
   legend {
     border: none;
     color: inherit;
     font-size: 36px;
     margin-bottom: 30px;
+  }
+  .register-form-loader {
+    margin-right: 3px !important;
+    padding: 13px 25px !important;
+    background-color: black !important;
+    font-size: 16px !important;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    line-height: normal;
+  }
+  [data-drupal-selector="edit-reset-password"] {
+    line-height: normal;
+    font-weight: normal;
+    margin-top: 4px;
+  }
+  [data-drupal-selector="edit-cancel"],
+  [data-drupal-selector="edit-submit"] {
+    line-height: 1.33;
+    padding: 13px 25px;
   }
   .js-webform-radios {
     .js-form-item {
@@ -18,6 +50,29 @@
   }
   .membership-calc-embedded legend {
     display: none;
+  }
+  .ymcali-ccc-registration-form {
+    legend {
+      margin-bottom: 0;
+      margin-left: 10px;
+      .fieldset-legend {
+        font-size: 21px !important;
+      }
+    }
+    [data-drupal-selector="edit-submit"],
+    .captcha {
+      margin-left: 10px;
+    }
+  }
+  [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    width: 47%;
+    float: left;
+    margin: 0 0 0 23px !important;
+    label {
+      margin-top: 0;
+    }
   }
 }
 
@@ -299,7 +354,7 @@
         .container {
           max-width: 100%;
           @include breakpoint (0 $tablet) {
-            padding:0;
+            padding: 0;
           }
         }
       }
