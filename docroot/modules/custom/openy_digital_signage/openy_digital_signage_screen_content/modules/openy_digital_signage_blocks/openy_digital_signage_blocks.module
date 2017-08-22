@@ -169,6 +169,7 @@ function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $for
 
     case 'block_content_digital_signage_block_free_html_panels_ipe_form':
       $form['revision_information']['#access'] = FALSE;
+      $form['body']['widget']['#after_build'][] = 'openy_digital_signage_blocks_hide_text_format_switcher';
       break;
 
     case 'panels_ipe_block_plugin_form':
@@ -217,4 +218,28 @@ function openy_digital_signage_blocks_entity_presave(EntityInterface $entity) {
     return;
   }
   $entity->set('info', $entity->field_ds_headline->value);
+}
+
+/**
+ * Hide text format switcher.
+ *
+ * @param array $form_element
+ *   Form element.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form state.
+ * @return array
+ *   Altered form element.
+ */
+function openy_digital_signage_blocks_hide_text_format_switcher($form_element, FormStateInterface $form_state) {
+  if (!isset($form_element[0]['format'])) {
+    return $form_element;
+  }
+  // All this stuff is needed to hide the help text.
+  unset($form_element[0]['format']['guidelines']);
+  unset($form_element[0]['format']['help']);
+  unset($form_element[0]['format']['#type']);
+  unset($form_element[0]['format']['#theme_wrappers']);
+  $form_element[0]['format']['format']['#access'] = FALSE;
+
+  return $form_element;
 }
