@@ -4,7 +4,6 @@ dependencies:
   enforced:
     module:
       - openy_demo_nlanding
-      - openy_prgf_campaign
 id: openy_demo_lp_paragraph_campaign_activity
 migration_tags: {  }
 migration_group: openy_demo_nlanding

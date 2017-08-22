@@ -145,6 +145,32 @@ source:
         a little more than yesterday? Or how can you challenge yourself this
         week a little more than last?
     -
+      id: challenge_yourself_rules_simple
+      parent_id: challenge_yourself_rules
+      description: |
+        <h4>Challenge yourself rules and prizes</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+        molestie ligula in nibh porta scelerisque. Proin posuere mi risus,
+        ac pretium diam ultrices sed.</p>
+        <p>Aliquam hendrerit, tellus quis mollis pellentesque, sem augue
+        consequat erat, ac gravida neque diam et nulla. Etiam iaculis, tortor
+        sed feugiat malesuada, nunc nisl convallis mi, sit amet finibus sapien
+        nunc eget magna. Aenean malesuada est ipsum. Ut id ipsum finibus nibh
+        tempus porta.</p>
+    -
+      id: challenge_yourself_pause_simple
+      parent_id: challenge_yourself_pause
+      description: |
+        <h4>Challenge yourself campaign paused</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
+        molestie ligula in nibh porta scelerisque. Proin posuere mi risus,
+        ac pretium diam ultrices sed.</p>
+        <p>Aliquam hendrerit, tellus quis mollis pellentesque, sem augue
+        consequat erat, ac gravida neque diam et nulla. Etiam iaculis, tortor
+        sed feugiat malesuada, nunc nisl convallis mi, sit amet finibus sapien
+        nunc eget magna. Aenean malesuada est ipsum. Ut id ipsum finibus nibh
+        tempus porta.</p>
+    -
       id: challenge_yourself_registration_open_simple
       parent_id: challenge_yourself_registration_open
       description: |
