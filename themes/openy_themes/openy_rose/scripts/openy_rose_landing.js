@@ -1,24 +1,24 @@
 (function ($) {
-  "use strict";
+  'use strict';
   Drupal.behaviors.openy_rose_fixed_sidbar = {
     attach: function (context, settings) {
       function sidebarAffix() {
-        var contentHeight = $(".main-region").outerHeight();
-        var sidebarHeight = $(".sidebar-region").outerHeight();
+        var contentHeight = $('.main-region').outerHeight();
+        var sidebarHeight = $('.sidebar-region').outerHeight();
 
         if (contentHeight > sidebarHeight) {
-          var $sidebar = $(".landing-sidebar.two-column-fixed>div");
+          var $sidebar = $('.landing-sidebar.two-column-fixed>.wrapper-field-sidebar-content');
           $sidebar.unbind();
-          var top_offset = $('.nav-global').outerHeight(true) + $('.site-alert--header').outerHeight(true) + $('.landing-header').outerHeight(true) + $('#block-tabs').outerHeight(true);
-          var bottom_offset = $(".footer").outerHeight(true) + 40;
+          var top_offset = $('.header-alerts-list').outerHeight(true) + $('.wrapper-field-header-content').outerHeight(true) + 48;
+          var bottom_offset = $('.footer').outerHeight(true) + $('.wrapper-field-bottom-content').outerHeight(true) + $('.site-alert--footer').outerHeight(true);
           $sidebar.affix({
             offset: {
               top: top_offset,
               bottom: bottom_offset
             }
           });
-          $sidebar.on("affixed.bs.affix", function () {
-            $sidebar.attr("style", "");
+          $sidebar.on('affixed.bs.affix', function () {
+            $sidebar.attr('style', '');
           });
         }
       }

@@ -40,41 +40,36 @@ Feature: GroupEx Pro paragraphs
 #    And I wait 45 seconds
     And I should see text matching "8:30am 60 min"
     And I should see text matching "Chisel Studio 1"
-    And I should see text matching "Jennifer K."
+    And I should see text matching "Lucy T."
     And I should see text matching "11:00am 60 min"
     And I should see text matching "Yoga GX2"
     And I should see text matching "John F."
     And I should see text matching "7:00pm 60 min"
     And I should see text matching "3D XTREME"
     And I should see text matching "Melissa T."
-    Then I click "a:contains('Jennifer K.')" element
+    Then I click "a:contains('Lucy T.')" element
     Then I wait for AJAX to finish
     And I should see an ".groupex-pdf-link-container a:contains('Download PDF')" element
-    And I should see text matching "9:00am 60 min"
-    And I should see text matching "3D XTREME"
-    And I should see text matching "Jennifer K."
-    And I should see text matching "8:30am 60 min"
-    And I should see text matching "Chisel"
-    And I should see text matching "Studio 1"
-    And I should see text matching "Jennifer K."
-    And I should see text matching "8:30am 60 min"
-    And I should see text matching "Chisel"
-    And I should see text matching "Studio 1"
-    And I should see text matching "Jennifer K."
-    And I should see text matching "1:30pm 60 min"
-    And I should see text matching "Barre Above"
-    And I should see text matching "Jennifer K."
+    And I should see text matching "5:45am 45 min"
+    And I should see text matching "Indoor Cycling"
+    And I should see text matching "Cycle"
+    And I should see text matching "Lucy T."
     And I should see text matching "7:00am 60 min"
-    And I should see text matching "U-Jam Fitness®"
+    And I should see text matching "Strike!"
     And I should see text matching "GX1"
-    And I should see text matching "Jennifer K."
+    And I should see text matching "Lucy T."
+    And I should see text matching "8:30am 60 min"
+    And I should see text matching "Chisel"
+    And I should see text matching "Studio 1"
+    And I should see text matching "Lucy T."
     Then I click "a:contains('Chisel')" element
     Then I wait for AJAX to finish
     And I should see an ".groupex-pdf-link-container a:contains('Download PDF')" element
     And I should see text matching "A full body strength workout. Using weights, tubing, body bars and more!  For all levels."
     And I should see text matching "Chisel"
     And I should see text matching "Studio 1"
-    And I should see text matching "Jennifer K."
+    And I should see text matching "Lisa W."
+    And I should see text matching "Lucy T."
 
   Scenario: Verify Embedded GroupEx Schedules is working.
     Given I view node "behat_embedded_groupexpro_schedules"
@@ -91,15 +86,16 @@ Feature: GroupEx Pro paragraphs
     And I should see an "#GXPThursday" element
     And I should see an "#GXPFriday" element
     And I should see an "#GXPSaturday" element
-    And I should see text matching "5:00am-9:00am"
-    And I should see text matching "Open Swim"
+#    And I wait 100 seconds
+    And I should see text matching "8:00am-9:00am"
+    And I should see text matching "Combo Cardio/Strength"
     And I should see text matching "John F."
-    And I should see text matching "Open Swim"
-    And I should see text matching "GXP Club - Reilly"
-    Then I select "5506" from "categories"
+    And I should see text matching "GX1"
+    And I should see text matching "GXP Club - Fable"
+    Then I select "469" from "categories"
     Then I wait for AJAX to finish
-    And I should see text matching "5:00am-9:00am"
-    And I should see text matching "Open Swim"
+    And I should see text matching "8:00am-9:00am"
+    And I should see text matching "Combo Cardio/Strength"
     And I should see text matching "John F."
-    And I should see text matching "Open Swim"
-    And I should see text matching "GXP Club - Reilly"
+    And I should see text matching "GX1"
+    And I should see text matching "GXP Club - Fable"
