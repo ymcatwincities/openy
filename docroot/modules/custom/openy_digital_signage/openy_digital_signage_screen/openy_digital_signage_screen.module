@@ -246,8 +246,14 @@ function openy_digital_signage_screen_preprocess_screen_schedule_timeline(&$vari
     'month' => $variables['month'],
     'day' => $variables['day'],
   ];
-  $redraw_link = Link::createFromRoute(t('redraw'), 'screen_schedule.redraw_screen_schedule_timeline', $redraw_link_route_options)->toRenderable();
-  $redraw_link['#attributes'] = ['class' => ['use-ajax', 'timeline-redraw-link']];
+  $redraw_link = Link::createFromRoute(
+    t('Update page'),
+    'screen_schedule.redraw_screen_schedule_timeline',
+    $redraw_link_route_options
+  )->toRenderable();
+  $redraw_link['#attributes'] = [
+    'class' => ['use-ajax', 'timeline-redraw-link', 'button'],
+  ];
   $variables['redraw_link'] = $redraw_link;
 }
 
