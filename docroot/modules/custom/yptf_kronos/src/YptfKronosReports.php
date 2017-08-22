@@ -140,7 +140,7 @@ class YptfKronosReports {
    *
    * @var array
    */
-  protected $kronosTrainingId = ['PT (one on one and buddy)', 'PT (group of 5 or more)'];
+  protected $kronosTrainingId = ['PT (small groups)', 'PT (group of 5 or more)'];
 
   /**
    * Flag for report calculation.

@@ -7443,6 +7443,14 @@ article.node--type-landing-page {
   background-color: #f4f4f4;
 }
 
+.paragraph-70-30-columns {
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  .paragraph-70-30-columns {
+    margin-bottom: 40px;
+  }
+}
 .paragraph-70-30-columns.lead-copy {
   background: #e5e5e5;
 }
@@ -8639,7 +8647,7 @@ span.grey-caret:after {
   margin-bottom: 0;
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
-  .mobile-subnav {
+  .mobile-subnav.show {
     display: block;
   }
 }
@@ -8659,20 +8667,19 @@ span.grey-caret:after {
   border: 0;
   position: relative;
   float: right;
-  top: 7px;
+  top: -2px;
 }
 .mobile-subnav .panel-heading a .caret:before {
+  margin-right: .3em;
+  content: "\e081";
+  vertical-align: middle;
   text-transform: none;
-  position: relative;
-  display: inline-block;
-  padding: 2px 0 0 5px;
-  width: auto;
-  content: 'v';
-  vertical-align: top;
   font-weight: normal;
-  font-size: .7em;
-  font-family: 'YMCA';
-  line-height: .4em;
+  font-size: 16px;
+  font-family: 'Glyphicons Halflings';
+}
+.mobile-subnav .panel-heading a.open .caret:before {
+  content: "\e082";
 }
 .mobile-subnav .panel-default {
   background: none;
@@ -8729,7 +8736,7 @@ span.grey-caret:after {
   }
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
-  .show-mobile-sub-navigation .nav-location {
+  .show-mobile-sub-navigation .nav-location.show {
     display: block !important;
   }
 
@@ -8811,20 +8818,19 @@ span.grey-caret:after {
     border: 0;
     position: relative;
     float: right;
-    top: 7px;
+    top: -2px;
   }
   #nav-location ul.nav a .caret:before {
+    margin-right: .3em;
+    content: "\e081";
+    vertical-align: middle;
     text-transform: none;
-    position: relative;
-    display: inline-block;
-    padding: 2px 0 0 5px;
-    width: auto;
-    content: 'v';
-    vertical-align: top;
     font-weight: normal;
-    font-size: .7em;
-    font-family: 'YMCA';
-    line-height: .4em;
+    font-size: 16px;
+    font-family: 'Glyphicons Halflings';
+  }
+  #nav-location ul.nav a.open .caret:before {
+    content: "\e082";
   }
   #nav-location ul.nav .current > a {
     font-weight: bold;
@@ -8833,6 +8839,28 @@ span.grey-caret:after {
     text-transform: none;
   }
 }
+.masthead-brand {
+  position: relative;
+}
+.masthead-brand a {
+  color: #fff;
+}
+.masthead-brand a:before {
+  display: none;
+  text-transform: none;
+  content: 'h';
+  font-weight: normal;
+  font-family: 'YMCA';
+  line-height: 1em;
+  margin-right: 10px;
+  font-size: 27px;
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  .masthead-brand a:before {
+    display: inline-block;
+  }
+}
+
 .form-item {
   margin-bottom: 15px;
 }
@@ -11012,18 +11040,18 @@ tr:nth-last-child(3) .atcb-list {
   border-top: 2px solid #c6168d;
   box-shadow: 0px 0px 15px #d8d8d8;
   padding: 30px 25px;
-  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100%;
 }
 @media (min-width: 48em) {
   .block-description--text {
-    margin: 40px 15px 0;
+    margin: 0 15px 40px;
     padding: 35px 35px 45px 45px;
   }
 }
 .block-description--text h2 {
   text-transform: uppercase;
-  font-family: Cachet Bold;
+  font-family: Cachet;
   margin: 0 0 15px;
   font-size: 20px;
 }
@@ -11055,7 +11083,7 @@ tr:nth-last-child(3) .atcb-list {
   margin-left: 3px;
 }
 .block-description--text h4 {
-  font-family: Cachet Bold;
+  font-family: Cachet;
   font-size: 26px;
   line-height: 1.15385;
   margin: 0 0 10px;
@@ -11331,8 +11359,13 @@ tr:nth-last-child(3) .atcb-list {
 
 .content-banner {
   background: #f8f8f8;
-  box-shadow: 0px 0px 15px #d8d8d8;
-  margin: 40px 0;
+  box-shadow: 0 0 15px #d8d8d8;
+  margin: 0 0 10px;
+}
+@media (min-width: 768px) {
+  .content-banner {
+    margin: 0 0 40px;
+  }
 }
 .content-banner.page-title:before {
   background: #f8f8f8;
