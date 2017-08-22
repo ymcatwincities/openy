@@ -3,12 +3,11 @@
 namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Url;
-use Drupal\openy_campaign\Entity\Member;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBuilder;
 
 /**
@@ -50,14 +49,20 @@ class ActivityTrackingController extends ControllerBase {
   /**
    * Callback for opening the modal form.
    */
-  public function openModalForm($visit_date, $campaign_member_id, $top_term_id) {
+  public function openModalForm($visit_date, $member_campaign_id, $top_term_id) {
     $response = new AjaxResponse();
 
     // Get the modal form using the form builder.
-    $modal_form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityTrackingModalForm', $visit_date, $campaign_member_id, $top_term_id);
+    $activityTrackingModalForm = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityTrackingModalForm', $visit_date, $member_campaign_id, $top_term_id);
 
-    // Add an AJAX command to open a modal dialog with the form as the content.
-    $response->addCommand(new OpenModalDialogCommand('My Modal Form', $modal_form, ['width' => '800']));
+    $memberCampaign = MemberCampaign::load($member_campaign_id);
+    /** @var \Drupal\node\Entity\Node $campaign */
+    $campaign = $memberCampaign->getCampaign();
+    // If member logged in
+    if (MemberCampaign::isLoggedIn($campaign->id())) {
+      // Add an AJAX command to open a modal dialog with the form as the content.
+      $response->addCommand(new OpenModalDialogCommand(t('Track activity'), $activityTrackingModalForm, ['width' => '800']));
+    }
 
     return $response;
   }

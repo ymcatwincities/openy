@@ -3,6 +3,7 @@
 namespace Drupal\openy_campaign\Plugin\Block;
 
 use Drupal\Core\Form\FormBuilderInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -26,6 +27,13 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
   protected $formBuilder;
 
   /**
+   * The current route match.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
+
+  /**
    * Constructs a new Block instance.
    *
    * @param array $configuration
@@ -37,9 +45,10 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, RouteMatchInterface $route_match) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
+    $this->routeMatch = $route_match;
   }
 
   /**
@@ -50,7 +59,8 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('current_route_match')
     );
   }
 
@@ -59,10 +69,14 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
    */
   public function build() {
 
-    // @TODO: Get the ID of campaign.
-    $campaignId = 68; // Node id of Campaign.
+    // Check if current page is campaign
+    /** @var \Drupal\Node\Entity\Node $campaign */
+    $campaign = $this->routeMatch->getParameter('node');
+    if (!empty($campaign) && $campaign->getType() != 'campaign') {
+      return [];
+    }
 
-    $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityBlockForm', $campaignId);
+    $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityBlockForm', $campaign->id());
     return [
       'form' => $form,
       '#cache' => [

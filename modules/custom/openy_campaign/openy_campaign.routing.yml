@@ -151,7 +151,7 @@ openy_campaign.member-logout:
 
 # Track Activity.
 openy_campaign.track-activity:
-  path: '/campaign-track-activity/{visit_date}/{campaign_member_id}/{top_term_id}'
+  path: '/campaign-track-activity/{visit_date}/{member_campaign_id}/{top_term_id}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\ActivityTrackingController::openModalForm'
   requirements:

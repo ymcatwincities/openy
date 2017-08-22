@@ -7,12 +7,13 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 
 
 /**
@@ -66,7 +67,7 @@ class ActivityTrackingModalForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $date = NULL, $campaignMemberId = NULL, $topTermId = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $date = NULL, $memberCampaignId = NULL, $topTermId = NULL) {
     $term = Term::load($topTermId);
     $childTerms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
 
@@ -80,16 +81,18 @@ class ActivityTrackingModalForm extends FormBase {
     ];
 
     $options = [];
+    /** @var Term $term */
     foreach ($childTerms as $term) {
       $options[$term->id()] = $term->getName();
     }
 
     // Build default values (already marked activities).
     $dateObject = new \DateTime($date);
-    $existingActivitiesIds = $this->getExistingActivities($campaignMemberId, $dateObject, array_keys($options));
+    $existingActivitiesIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $dateObject, array_keys($options));
 
-    $existingActivitiesEntities = \Drupal::entityManager()->getStorage('openy_member_campaign_activity')->loadMultiple($existingActivitiesIds);
+    $existingActivitiesEntities = \Drupal::service('entity_type.manager')->getStorage('openy_member_campaign_activity')->loadMultiple($existingActivitiesIds);
     $default_values = [];
+    /** @var MemberCampaignActivity $activity */
     foreach ($existingActivitiesEntities as $activity) {
       $default_values[$activity->activity->entity->id()] = $activity->activity->entity->id();
     }
@@ -100,8 +103,8 @@ class ActivityTrackingModalForm extends FormBase {
       '#default_value' => $default_values,
     ];
 
-    $form['campaign_member_id'] = [
-      '#value' => $campaignMemberId,
+    $form['member_campaign_id'] = [
+      '#value' => $memberCampaignId,
       '#type' => 'value',
     ];
 
@@ -140,21 +143,21 @@ class ActivityTrackingModalForm extends FormBase {
       $response->addCommand(new ReplaceCommand('#activity_tracking_modal_form_wrapper', $form));
     }
     else {
-      $campaignMemberId = $form_state->getValue('campaign_member_id');
+      $memberCampaignId = $form_state->getValue('member_campaign_id');
       $date = new \DateTime($form_state->getValue('date'));
       $activityIds = $form_state->getValue('activities');
 
       // Delete all records first.
-      $existingActivityIds = $this->getExistingActivities($campaignMemberId, $date, array_keys($activityIds));
+      $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, array_keys($activityIds));
       entity_delete_multiple('openy_member_campaign_activity', $existingActivityIds);
 
       // Save new selection.
       $activityIds = array_filter($activityIds);
       foreach ($activityIds as $activityTermId) {
         $activity = MemberCampaignActivity::create([
-          'created' => REQUEST_TIME,
+          'created' => time(),
           'date' => $date->format('U'),
-          'member' => $campaignMemberId,
+          'member_campaign' => $memberCampaignId,
           'type' => MemberCampaignActivity::TYPE_ACTIVITY,
           'activity' => $activityTermId,
         ]);
@@ -162,20 +165,20 @@ class ActivityTrackingModalForm extends FormBase {
         $activity->save();
       }
 
-      $response->addCommand(new OpenModalDialogCommand("Great Success!", 'The modal form has been submitted.', ['width' => 800]));
+      $response->addCommand(new OpenModalDialogCommand($this->t('Successful!'), $this->t('Thank you for tracking activities.'), ['width' => 800]));
+
+      // Set redirect to Campaign page
+      $memberCampaign = MemberCampaign::load($memberCampaignId);
+      /** @var \Drupal\node\Entity\Node $campaign */
+      $campaign = $memberCampaign->getCampaign();
+
+      $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign->id();
+      $response->addCommand(new RedirectCommand($fullPath));
     }
 
     return $response;
   }
 
-  protected function getExistingActivities($campaignMemberId, $date, $activityIds) {
-    return \Drupal::entityQuery('openy_member_campaign_activity')
-      ->condition('member', $campaignMemberId)
-      ->condition('type', MemberCampaignActivity::TYPE_ACTIVITY)
-      ->condition('date', $date->format('U'))
-      ->condition('activity', $activityIds, 'IN')
-      ->execute();
-  }
 
   /**
    * {@inheritdoc}
