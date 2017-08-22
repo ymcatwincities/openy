@@ -34,3 +34,10 @@ lndr.reserve_path:
     _controller: '\Drupal\lndr\Controller\LndrServiceController::reserve_path'
   requirements:
     _permission: 'access content'
+
+lndr.sync_content:
+  path: 'service/lndr/sync_content'
+  defaults:
+    _controller: '\Drupal\lndr\Controller\LndrServiceController::sync_content'
+  requirements:
+    _permission: 'access content'
