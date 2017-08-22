@@ -51,7 +51,7 @@ settings:
     stylescombo:
       styles: ''
     colorbutton:
-      colors: ''
+      colors: '20bdbe,01a490,006b6b,00aeef,0089d0,0060af,c6168d,92278f,5c2e91,f15922,ed1c24,a92b31,fcaf17,f47920,dd5828,636466,231f20,ffffff'
 image_upload:
   status: false
   scheme: public
