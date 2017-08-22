@@ -5,6 +5,10 @@ article.node--type-landing-page {
   background-color: $grey22;
 }
 .paragraph-70-30-columns {
+  margin-bottom: 20px;
+  @media (min-width: 768px) {
+    margin-bottom: 40px;
+  }
   &.lead-copy {
     background: $grey12;
   }
