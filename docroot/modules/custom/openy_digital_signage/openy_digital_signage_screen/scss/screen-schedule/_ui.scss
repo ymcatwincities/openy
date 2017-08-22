@@ -183,8 +183,15 @@
   }
 
 }
+.screen-schedule-redraw-button {
+  a.button {
+    margin: 20px 0;
+    float: left;
+  }
+}
 
 .screen-schedule-calendar {
+  padding-top: 25px;
 
   table {
     width: auto;
