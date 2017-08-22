@@ -234,12 +234,14 @@ function openy_digital_signage_blocks_hide_text_format_switcher($form_element, F
   if (!isset($form_element[0]['format'])) {
     return $form_element;
   }
-  // All this stuff is needed to hide the help text.
+  // All this stuff is needed to hide the the field and help text.
   unset($form_element[0]['format']['guidelines']);
   unset($form_element[0]['format']['help']);
   unset($form_element[0]['format']['#type']);
   unset($form_element[0]['format']['#theme_wrappers']);
-  $form_element[0]['format']['format']['#access'] = FALSE;
+  $form_element[0]['format']['format']['#title'] = NULL;
+  $form_element[0]['format']['format']['#attributes']['class'][] = 'hidden';
+  $form_element[0]['format']['format']['#attributes']['disabled'] = TRUE;
 
   return $form_element;
 }
