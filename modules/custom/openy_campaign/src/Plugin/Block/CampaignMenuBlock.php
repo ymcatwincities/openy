@@ -1,20 +1,20 @@
 <?php
 
-namespace Drupal\openy_prgf_campaign_menu\Plugin\Block;
+namespace Drupal\openy_campaign\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
-use Drupal\openy_prgf_campaign_menu\CampaignMenuServiceInterface;
+use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a campaign menu block.
  *
  * @Block(
- *   id = "campaign_menu",
+ *   id = "campaign_menu_block",
  *   admin_label = @Translation("Campaign menu block"),
  *   category = @Translation("Paragraph Blocks")
  * )
@@ -24,7 +24,7 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
   /**
    * The Campaign menu service.
    *
-   * @var \Drupal\openy_prgf_campaign_menu\CampaignMenuServiceInterface
+   * @var \Drupal\openy_campaign\CampaignMenuServiceInterface
    */
   protected $campaignMenuService;
 
@@ -63,7 +63,7 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('openy_prgf_campaign_menu.menu_handler'),
+      $container->get('openy_campaign.campaign_menu_handler'),
       $container->get('current_route_match')
     );
   }
@@ -82,19 +82,11 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
       return [];
     }
 
-    /* @var NodeInterface $campaign */
-    $campaign = $this->campaignMenuService->getNodeCampaignNode($node);
-    $tags = $campaign->getCacheTags();
-    if ($node != $campaign) {
-      $tags_campaign = $node->getCacheTags();
-      $tags = Cache::mergeTags($tags, $tags_campaign);
-    }
-
     return [
-      '#theme' => 'campaign_menu',
+      '#theme' => 'openy_campaign_campaign_menu',
       '#links' => $links,
       '#cache' => [
-        'tags' => Cache::mergeTags(['campaign_menu'], $tags),
+        'max-age' => 0,
       ],
     ];
   }

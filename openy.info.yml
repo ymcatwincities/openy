@@ -151,7 +151,6 @@ dependencies:
   - openy_menu_footer
   - openy_prgf_categories_listing
   - openy_prgf_camp_menu
-  - openy_prgf_campaign_menu
   - openy_block_branch_amenities
   - openy_block_custom_simple
   - openy_block_flexible_content

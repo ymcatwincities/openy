@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_prgf_campaign_menu\Controller;
+namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;

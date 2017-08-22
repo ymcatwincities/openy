@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\openy_prgf_campaign_menu;
+namespace Drupal\openy_campaign;
 
 use Drupal\node\NodeInterface;
 
 /**
  * Class CampaignMenuService.
  *
- * @package Drupal\openy_prgf_campaign_menu
+ * @package Drupal\openy_campaign
  */
 interface CampaignMenuServiceInterface {
 

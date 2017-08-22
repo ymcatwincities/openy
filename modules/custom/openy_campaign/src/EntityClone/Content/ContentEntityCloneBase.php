@@ -22,10 +22,11 @@ class ContentEntityCloneBase extends EntityCloneContentBase {
 
     // Make clones of all referenced pages.
     if ($clonedEntity->hasField('field_pause_landing_page')) {
-      $nid = $clonedEntity->get('field_pause_landing_page')->getValue();
+      $values = $clonedEntity->get('field_pause_landing_page')->getValue();
 
-      if (!empty($nid)) {
-        $landingPage = Node::load($clonedEntity->get('field_pause_landing_page')->getValue());
+      if (!empty($values)) {
+        $nid = $values[0]['target_id'];
+        $landingPage = Node::load($nid);
         $clonedLandingPage = $landingPage->createDuplicate();
         $clonedLandingPage->save();
         $clonedEntity->set('field_pause_landing_page', $clonedLandingPage->id());
@@ -33,9 +34,10 @@ class ContentEntityCloneBase extends EntityCloneContentBase {
     }
 
     if ($clonedEntity->hasField('field_rules_prizes_page')) {
-      $nid = $clonedEntity->get('field_rules_prizes_page')->getValue();
+      $values = $clonedEntity->get('field_rules_prizes_page')->getValue();
 
-      if (!empty($nid)) {
+      if (!empty($values)) {
+        $nid = $values[0]['target_id'];
         $landingPage = Node::load($nid);
         $clonedLandingPage = $landingPage->createDuplicate();
         $clonedLandingPage->save();

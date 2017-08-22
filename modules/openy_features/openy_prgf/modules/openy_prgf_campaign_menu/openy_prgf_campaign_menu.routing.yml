@@ -1,8 +1,0 @@
-# Rote to generate replacement content for tabs
-openy_campaign.landing-page:
-  path: '/campaign-pages/{landing_page_id}'
-  defaults:
-    _controller: '\Drupal\openy_prgf_campaign_menu\Controller\CampaignMenuController::showPageContent'
-  requirements:
-    _permission: 'access content'
-    landing_page_id: ^[0-9]+

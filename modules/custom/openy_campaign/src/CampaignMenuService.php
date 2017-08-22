@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_prgf_campaign_menu;
+namespace Drupal\openy_campaign;
 
 use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class CampaignMenuService.
  *
- * @package Drupal\openy_prgf_campaign_menu
+ * @package Drupal\openy_campaign
  */
 class CampaignMenuService implements CampaignMenuServiceInterface {
 

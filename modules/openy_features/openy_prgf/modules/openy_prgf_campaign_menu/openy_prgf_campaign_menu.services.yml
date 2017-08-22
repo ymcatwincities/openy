@@ -1,4 +1,0 @@
-services:
-  openy_prgf_campaign_menu.menu_handler:
-    class: Drupal\openy_prgf_campaign_menu\CampaignMenuService
-    arguments: ['@entity_type.manager', '@service_container']
