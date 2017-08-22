@@ -176,6 +176,20 @@ source:
         -
           content_id: challenge_yourself_preview_simple
     -
+      id: challenge_yourself_rules
+      title: 'Challenge Yourself Rules and Prizes'
+      alias: '/challenge-yourself-rules'
+      content_ids:
+        -
+          content_id: challenge_yourself_rules_simple
+    -
+      id: challenge_yourself_pause
+      title: 'Challenge Yourself Campaign Paused'
+      alias: '/challenge-yourself-paused'
+      content_ids:
+        -
+          content_id: challenge_yourself_pause_simple
+    -
       id: challenge_yourself_registration_open
       title: 'Challenge Yourself Register'
       alias: '/challenge-yourself-register'
