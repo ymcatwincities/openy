@@ -27,20 +27,21 @@
 // @param int
 // The number of dots a progress bar will have.
 @mixin progress-bar-fill($num) {
-  @for $i from 1 through $num {
-    @if $i != 1 {
-      $x: $num - 1;
-      $y: ($i - 1);
-      &-#{$num}--#{$i} {
-        .line {
-          width: calc(100% / #{$x} * #{$y});
-        }
-        @for $k from $i through $num {
-          .point--#{$num}-#{$k + 1} {
-            &:before {
-              content: none;
-              display: none;
-            }
+  @for $i from 0 through $num {
+    $x: $num - 1;
+    $y: ($i - 1);
+    @if $i == 0 {
+      $y: 0;
+    }
+    &-#{$num}--#{$i} {
+      .line {
+        width: calc(100% / #{$x} * #{$y});
+      }
+      @for $k from $i through $num {
+        .point--#{$num}-#{$k + 1} {
+          &:before {
+            content: none;
+            display: none;
           }
         }
       }

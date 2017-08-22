@@ -963,8 +963,10 @@ span.grey-caret {
   background-color: #343434;
   display: none;
   margin-bottom: 0;
-  @include breakpoint(0 767px) {
-    display: block;
+  &.show {
+    @include breakpoint(0 767px) {
+      display: block;
+    }
   }
   .panel-heading {
     background-color: #3d3d3d;
@@ -980,19 +982,22 @@ span.grey-caret {
         border: 0;
         position: relative;
         float: right;
-        top: 7px;
+        top: -2px;
         &:before {
+          margin-right: .3em;
+          content: "\e081";
+          vertical-align: middle;
           text-transform: none;
-          position: relative;
-          display: inline-block;
-          padding: 2px 0 0 5px;
-          width: auto;
-          content: 'v';
-          vertical-align: top;
           font-weight: normal;
-          font-size: .7em;
-          font-family: 'YMCA';
-          line-height: .4em;
+          font-size: 16px;
+          font-family: 'Glyphicons Halflings';
+        }
+      }
+      &.open {
+        .caret {
+          &:before {
+            content: "\e082";
+          }
         }
       }
     }
@@ -1067,7 +1072,7 @@ span.grey-caret {
 }
 @include breakpoint(0 767px) {
   .show-mobile-sub-navigation {
-    .nav-location {
+    .nav-location.show {
       display: block !important;
     }
   }
@@ -1145,28 +1150,31 @@ span.grey-caret {
         .name {
           display: inline-block;
         }
-       .caret {
-         display: inline-block;
-         width: auto;
-         height: 10px;
-         border: 0;
-         position: relative;
-         float: right;
-         top: 7px;
-         &:before {
-           text-transform: none;
-           position: relative;
-           display: inline-block;
-           padding: 2px 0 0 5px;
-           width: auto;
-           content: 'v';
-           vertical-align: top;
-           font-weight: normal;
-           font-size: .7em;
-           font-family: 'YMCA';
-           line-height: .4em;
-         }
-       }
+        .caret {
+          display: inline-block;
+          width: auto;
+          height: 10px;
+          border: 0;
+          position: relative;
+          float: right;
+          top: -2px;
+          &:before {
+            margin-right: .3em;
+            content: "\e081";
+            vertical-align: middle;
+            text-transform: none;
+            font-weight: normal;
+            font-size: 16px;
+            font-family: 'Glyphicons Halflings';
+          }
+        }
+        &.open {
+          .caret {
+            &:before {
+              content: "\e082";
+            }
+          }
+        }
       }
       .current > a {
         font-weight: bold;
@@ -1175,6 +1183,26 @@ span.grey-caret {
         a {
           text-transform: none;
         }
+      }
+    }
+  }
+}
+
+.masthead-brand {
+  position: relative;
+  a {
+    color: $white;
+    &:before {
+      display: none;
+      text-transform: none;
+      content: 'h';
+      font-weight: normal;
+      font-family: 'YMCA';
+      line-height: 1em;
+      margin-right: 10px;
+      font-size: 27px;
+      @include breakpoint(0 767px) {
+        display: inline-block;
       }
     }
   }
