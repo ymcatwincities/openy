@@ -139,6 +139,9 @@ class MemberRegistrationPortalForm extends FormBase {
     if (!empty($storage['member_campaign'])) {
       /** @var MemberCampaign $memberCampaign MemberCampaign object. */
       $memberCampaign = $storage['member_campaign'];
+      // define visits goal
+      $memberCampaign->defineGoal();
+
       $memberCampaign->save();
     }
 

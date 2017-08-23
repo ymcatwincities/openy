@@ -117,9 +117,26 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
     // Standard field, used as unique if primary index.
     $fields['goal'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Goal'))
+      ->setLabel(t('Visit Goal'))
       ->setDescription(t('How many visits member should do to reach the campaign goal.'))
-      ->setReadOnly(TRUE);
+      ->setReadOnly(TRUE)
+      ->setSettings([
+        'default_value' => 0,
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string',
+        'weight' => -1,
+      ])
+      ->setDefaultValue(0)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     return $fields;
   }
@@ -165,7 +182,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * {@inheritdoc}
    */
   public function getGoal() {
-    return $this->get('goal');
+    return $this->get('goal')->value;
   }
 
   /**
@@ -177,7 +194,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   }
 
   /**
-   * Set the Goal for the Member for this campaign.
+   * Set the Goal for the MemberCampaign.
+   *
+   * @return bool
    */
   public function defineGoal() {
     /**
@@ -189,6 +208,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
      * Needs actual data in order to proceed.
      */
 
+    /** @var Node $campaign Current campaign */
     $campaign = $this->getCampaign();
 
     $current = new \DateTime();
@@ -200,25 +220,26 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $to = $current;
     }
 
-    $memberId = $this->member->entity->getMemberId();
+    $member = $this->getMember();
 
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
+    // Get total visits from CRM
+    $results = $client->getVisitCountByDate($member->getPersonifyId(), $from, $to);
 
-    $results = $client->getVisitCountByDate($memberId, $from, $to);
-    var_dump($results);
-    return;
+    $visitsNumber = $results->TotalVisits;
 
-    $visitsNumber = 1; // This should come from API's call.
+    $limitVisitsGoal = $campaign->field_limit_visits_goal->value;
 
-    $maxGoal = 5; // Add field to Campaign node and use that value.
+    $weeksSpan = ceil($from->diff($to)->days / 7);
 
-    $weeksSpan = ceil($from_date->diff($to_date)->days / 7);
     $calculatedGoal = ceil(2 * $visitsNumber / $weeksSpan) + 1;
 
-    $goal = min($calculatedGoal, $maxGoal);
+    $goal = min($calculatedGoal, $limitVisitsGoal);
 
     $this->setGoal($goal);
+
+    return TRUE;
   }
 
   /**
