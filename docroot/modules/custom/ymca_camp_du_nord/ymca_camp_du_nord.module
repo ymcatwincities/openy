@@ -22,3 +22,63 @@ function ymca_camp_du_nord_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_camp_du_nord_theme($existing, $type, $theme, $path) {
+  return [
+    'cdn_results_wrapper' => [
+      'variables' => [
+        'teasers' => [],
+      ],
+      'template' => 'cdn-results-wrapper',
+    ],
+    'cdn_village_teaser' => [
+      'variables' => [
+        'title' => '',
+        'image' => '',
+        'availability' => '',
+      ],
+      'template' => 'cdn-village-teaser',
+    ],
+  ];
+}
+
+/**
+ * Helper function to make results layout.
+ *
+ * @param array $cdn_products
+ *   Fetched products.
+ *
+ * @return array
+ *   Results render array.
+ */
+function ymca_camp_du_nord_results_layout(array $cdn_products) {
+  $results = $teasers = [];
+  $cache = [
+    'max-age' => 3600,
+    'contexts' => ['url.query_args'],
+  ];
+  $default_image = '';
+  $default_availability = t('Available');
+
+  if (!empty($cdn_products)) {
+    foreach ($cdn_products as $product) {
+      $teasers[] = [
+        '#theme' => 'cdn_village_teaser',
+        '#title' => !empty($product->getName()) ? $product->getName() : '',
+        '#image' => $default_image,
+        '#availability' => $default_availability,
+        '#cache' => $cache,
+      ];
+    }
+    $results = [
+      '#theme' => 'cdn_results_wrapper',
+      '#teasers' => $teasers,
+      '#cache' => $cache,
+    ];
+  }
+
+  return $results;
+}
