@@ -6,3 +6,4 @@ package: "OpenY: Digital Signage"
 dependencies:
   - panelizer
   - openy_digital_signage
+  - ckeditor_font
