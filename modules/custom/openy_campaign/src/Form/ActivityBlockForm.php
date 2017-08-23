@@ -72,6 +72,17 @@ class ActivityBlockForm extends FormBase {
         'message' => [
           '#markup' => $this->t('Please, sign in or register.'),
         ],
+        'link' => [
+          '#type' => 'link',
+          '#title' => $this->t('Register / Sign in'),
+          '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaignId]),
+          '#attributes' => [
+            'class' => [
+              'use-ajax',
+              'login'
+            ],
+          ],
+        ]
       ];
     }
 
