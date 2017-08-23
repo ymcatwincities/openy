@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.camp_du_nord_calendar_view.field_prgf_cdn_cal_view_ref
+    - paragraphs.paragraphs_type.camp_du_nord_calendar_view
+id: paragraph.camp_du_nord_calendar_view.default
+targetEntityType: paragraph
+bundle: camp_du_nord_calendar_view
+mode: default
+content:
+  field_prgf_cdn_cal_view_ref:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

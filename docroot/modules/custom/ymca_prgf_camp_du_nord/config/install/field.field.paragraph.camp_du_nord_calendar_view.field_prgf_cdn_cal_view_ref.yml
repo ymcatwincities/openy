@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_cdn_cal_view_ref
+    - paragraphs.paragraphs_type.camp_du_nord_calendar_view
+    - views.view.cdn_calendar
+id: paragraph.camp_du_nord_calendar_view.field_prgf_cdn_cal_view_ref
+field_name: field_prgf_cdn_cal_view_ref
+entity_type: paragraph
+bundle: camp_du_nord_calendar_view
+label: View
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 763e9b22-c130-4045-bb00-a331f65773cd
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference
