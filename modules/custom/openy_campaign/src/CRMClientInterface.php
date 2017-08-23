@@ -5,10 +5,10 @@ namespace Drupal\openy_campaign;
 
 interface CRMClientInterface {
 
-  public function getMemberInformation($facility_id);
+  public function getMemberInformation($facilityId);
 
-  public function getVisitCountByDate($master_id, \DateTime $date_from, \DateTime $date_to);
+  public function getVisitCountByDate($masterId, \DateTime $dateFrom, \DateTime $dateTo);
 
-  public function getVisitsBatch(array $list_ids, \DateTime $date_from, \DateTime $date_to);
+  public function getVisitsBatch(array $listIds, \DateTime $dateFrom, \DateTime $dateTo);
 
 }
