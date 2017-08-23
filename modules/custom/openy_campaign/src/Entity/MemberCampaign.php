@@ -242,12 +242,12 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     }
     // Branch is one of the selected in the Target Audience Setting from Campaign.
     //$validateMemberBranch = $this->validateMemberBranch();
-    //if ($validateMemberBranch['status']) {
+    //if (!$validateMemberBranch['status']) {
     //  $errorMessages[] = $validateMemberBranch['error'];
     //}
     // Payment type is of the selected in the Target Audience Setting from Campaign.
     $validateMemberPaymentType = $this->validateMemberPaymentType();
-    if ($validateMemberPaymentType['status']) {
+    if (!$validateMemberPaymentType['status']) {
       $errorMessages[] = $validateMemberPaymentType['error'];
     }
 
