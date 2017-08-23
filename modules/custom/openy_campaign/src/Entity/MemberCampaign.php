@@ -421,6 +421,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
       $campaignIDs[] = $campaignID;
       $session->set('openy_campaign', [
+        'member_id' => $member->id(),
         'campaign_ids' => $campaignIDs,
         'membership_id' => $membershipID,
         'full_name' => (!empty($member) && !empty($member->getFullName())) ? $member->getFullName() : t('Team member'),
@@ -447,7 +448,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     // Delete Membership ID from SESSION
     $openyCampaignSession = $session->get('openy_campaign');
     if (!empty($openyCampaignSession['membership_id'])) {
-      $session->set('openy_campaign', ['membership_id' => '', 'full_name' => '']);
+      $session->set('openy_campaign', ['membership_id' => '', 'full_name' => '', 'member_id' => '']);
     }
   }
 
@@ -476,6 +477,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       'campaign_ids' => [],
       'membership_id' => '',
       'full_name' => '',
+      'member_id' => '',
     ]);
 
     return $openyCampaignSession;
