@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\Component\Utility\SafeMarkup;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Drupal\openy_campaign\Entity\MemberCheckin;
 
 /**
  * Provides a "openy_campaign_activity_block_form" form.
@@ -106,6 +108,14 @@ class ActivityBlockForm extends FormBase {
       ];
     }
 
+    $facilityCheckInIds = MemberCheckin::getFacilityCheckIns($memberCampaignData['member_id'], $start, $end);
+    $checkinRecords = [];
+
+    foreach (MemberCheckin::loadMultiple($facilityCheckInIds) as $checkIn) {
+      $checkInDate = new \DateTime('@' . $checkIn->date->value);
+      $checkinRecords[$checkInDate->format('Y-m-d')] = $checkInDate->format('Y-m-d');
+    }
+
     $stopper = 0;
     while ($end->format('U') > $start->format('U') && $stopper < 100) {
       $key = $start->format('Y-m-d');
@@ -113,6 +123,12 @@ class ActivityBlockForm extends FormBase {
       $disabled = FALSE;
       if (\Drupal::time()->getRequestTime() < $start->format('U')) {
         $disabled = TRUE;
+      }
+
+      if (isset($checkinRecords[$key])) {
+        $form[$key]['checkin'] = [
+          '#markup' => 'checked in',
+        ];
       }
 
       /**
@@ -136,22 +152,29 @@ class ActivityBlockForm extends FormBase {
           $name .= ' x ' . count($activityIds);
         }
 
-        $form[$key][$tid] = [
-          '#type' => 'link',
-          '#title' => $name,
-          '#disabled' => $disabled,
-          '#url' => Url::fromRoute('openy_campaign.track-activity', [
-            'visit_date' => $key,
-            'member_campaign_id' => $memberCampaignId,
-            'top_term_id' => $tid,
-          ]),
-          '#attributes' => [
-            'class' => [
-              'use-ajax',
-              'button',
+        if ($disabled) {
+          $form[$key][$tid] = [
+            '#markup' => '<div class="btn btn-primary" disabled="disabled">' . SafeMarkup::checkPlain($name) . '</div>'
+          ];
+        }
+        else {
+          $form[$key][$tid] = [
+            '#type' => 'link',
+            '#title' => $name,
+            '#url' => Url::fromRoute('openy_campaign.track-activity', [
+              'visit_date' => $key,
+              'member_campaign_id' => $memberCampaignId,
+              'top_term_id' => $tid,
+            ]),
+            '#attributes' => [
+              'class' => [
+                'use-ajax',
+                'btn',
+                'btn-primary',
+              ],
             ],
-          ],
-        ];
+          ];
+        }
       }
 
       $start->modify('+1 day');
