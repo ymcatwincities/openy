@@ -126,6 +126,15 @@ class Member extends ContentEntityBase implements MemberInterface {
         'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string',
+        'weight' => -6,
       ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')

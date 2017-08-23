@@ -91,6 +91,9 @@ class ActivityBlockForm extends FormBase {
 
     // Get MemberCampaign ID
     $memberCampaignId = MemberCampaign::findMemberCampaign($membershipId, $campaignId);
+    if (!$memberCampaignId) {
+      return [];
+    }
 
     /** @var Node $campaign */
     $campaign = Node::load($campaignId);
