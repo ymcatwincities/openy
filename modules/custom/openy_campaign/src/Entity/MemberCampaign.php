@@ -181,7 +181,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    */
   public function defineGoal() {
     /**
-     * To test generate Members, create MemberCampaign record and run code in /deve/php
+     * To test generate Members, create MemberCampaign record and run code in /devel/php
      *
      * $entity = \Drupal\openy_campaign\Entity\MemberCampaign::load(1);
      * $entity->defineGoal();
@@ -206,7 +206,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
 
     $results = $client->getVisitCountByDate($memberId, $from, $to);
-    dpm($results);
+    var_dump($results);
     return;
 
     $visitsNumber = 1; // This should come from API's call.
