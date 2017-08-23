@@ -235,22 +235,21 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $errorMessages[] = $validateAge['error'];
     }
 
-    // TODO Uncomment this after all data will be available from CRM API
-//    // Member type match Target Audience Setting from Campaign.
-//    $validateMemberUnitType = $this->validateMemberUnitType();
-//    if (!$validateMemberUnitType['status']) {
-//      $errorMessages[] = $validateMemberUnitType['error'];
-//    }
-//    // Branch is one of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberBranch = $this->validateMemberBranch();
-//    if ($validateMemberBranch['status']) {
-//      $errorMessages[] = $validateMemberBranch['error'];
-//    }
-//    // Payment type is of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberPaymentType = $this->validateMemberPaymentType();
-//    if ($validateMemberPaymentType['status']) {
-//      $errorMessages[] = $validateMemberPaymentType['error'];
-//    }
+    // Member type match Target Audience Setting from Campaign.
+    $validateMemberUnitType = $this->validateMemberUnitType();
+    if (!$validateMemberUnitType['status']) {
+      $errorMessages[] = $validateMemberUnitType['error'];
+    }
+    // Branch is one of the selected in the Target Audience Setting from Campaign.
+    //$validateMemberBranch = $this->validateMemberBranch();
+    //if ($validateMemberBranch['status']) {
+    //  $errorMessages[] = $validateMemberBranch['error'];
+    //}
+    // Payment type is of the selected in the Target Audience Setting from Campaign.
+    $validateMemberPaymentType = $this->validateMemberPaymentType();
+    if ($validateMemberPaymentType['status']) {
+      $errorMessages[] = $validateMemberPaymentType['error'];
+    }
 
     return $errorMessages;
   }
@@ -273,14 +272,16 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $now = new \DateTime();
     $interval = $now->diff($birthday)->format('%y');
 
-    if ($interval >= $minAge) {
-      if (!empty($maxAge) &&  $interval <= $maxAge) {
-        return ['status' => TRUE, 'error' => ''];
-      }
+    if (
+      (!empty($minAge) && !empty($maxAge) && $interval >= $minAge &&  $interval <= $maxAge) ||
+      (!empty($minAge) && empty($maxAge) && $interval >= $minAge) ||
+      (empty($minAge) && !empty($maxAge) && $interval <= $maxAge)
+    ) {
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Age is not between @min and @max', ['@min' => $minAge, '@max' => $maxAge])];
+    return ['status' => FALSE, 'error' => t('Age is not between @min and @max.', ['@min' => $minAge, '@max' => $maxAge])->render()];
+
   }
 
   /**
@@ -301,7 +302,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Member unit type does not match types: @types', ['@types' => $campaignMemberUnitTypes])];
+    return ['status' => FALSE, 'error' => t('Member unit type does not match types: @types.', ['@types' => $campaignMemberUnitTypes])->render()];
   }
 
   /**
@@ -322,7 +323,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Branch is not included.')];
+    return ['status' => FALSE, 'error' => t('Branch is not included.')->render()];
   }
 
   /**
@@ -343,7 +344,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Payment type does not match types: @types', ['@types' => $campaignPaymentTypes])];
+    return ['status' => FALSE, 'error' => t('Payment type does not match types: @types.', ['@types' => $campaignPaymentTypes])->render()];
   }
 
   /**
