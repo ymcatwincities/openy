@@ -150,47 +150,12 @@ interface MemberInterface extends ContentEntityInterface {
   public function getBranchId();
 
   /**
-   * Returns user visits number.
-   *
-   * @return string
-   *   Visits number.
-   */
-  public function getVisits();
-
-  /**
-   * Sets user visits number.
-   *
-   * @param string $value
-   *   Visits number.
-   *
-   * @return \Drupal\openy_campaign\MemberInterface
-   *   The called member entity.
-   */
-  public function setVisits($value);
-
-  /**
    * Return status, is user employee or not.
    *
    * @return bool
    *   Status.
    */
   public function isMemberEmployee();
-
-  /**
-   * Return status, is user created by staff.
-   *
-   * @return bool
-   *   Status.
-   */
-  public function isCreatedByStaff();
-
-  /**
-   * Return status, is user created via mobile app.
-   *
-   * @return bool
-   *   Status.
-   */
-  public function isCreatedOnMobile();
 
   /**
    * Returns user birthday.
