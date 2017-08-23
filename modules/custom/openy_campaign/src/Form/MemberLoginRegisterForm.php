@@ -152,7 +152,8 @@ class MemberLoginRegisterForm extends FormBase {
 
     // Member is ineligible due to the Target Audience Setting
     if (!empty($validateAudienceErrorMessages)) {
-      $form_state->setErrorByName('membership_id', $config->get('error_msg_target_audience_settings'));
+      $errorMessages = implode(' - ', $validateAudienceErrorMessages);
+      $form_state->setErrorByName('membership_id', $errorMessages . $config->get('error_msg_target_audience_settings'));
 
       return;
     }
