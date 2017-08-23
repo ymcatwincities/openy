@@ -93,9 +93,9 @@ class ActivityBlockForm extends FormBase {
     $terms = Term::loadMultiple($tids);
 
     /** @var \DateTime $start */
-    $start = $campaign->field_campaign_start_date->date;
+    $start = $campaign->field_check_ins_start_date->date;
     /** @var \DateTime $end */
-    $end = $campaign->field_campaign_end_date->date;
+    $end = $campaign->field_check_ins_end_date->date;
 
     if (empty($start) || empty($end)) {
       drupal_set_message('Start or End dates are not set for campaign.', 'error');
@@ -106,14 +106,15 @@ class ActivityBlockForm extends FormBase {
       ];
     }
 
-    $stopper = 0;
-    while ($end->format('U') > $start->format('U') && $stopper < 100) {
+    $currentTime = \Drupal::time()->getRequestTime();
+
+    while ($start->format('U') <= $currentTime && $currentTime < $end->format('U')) {
       $key = $start->format('Y-m-d');
 
-      $disabled = FALSE;
-      if (\Drupal::time()->getRequestTime() < $start->format('U')) {
-        $disabled = TRUE;
-      }
+//      $disabled = FALSE;
+//      if (\Drupal::time()->getRequestTime() < $start->format('U')) {
+//        $disabled = TRUE;
+//      }
 
       /**
        * @var int $tid Term ID
@@ -139,7 +140,7 @@ class ActivityBlockForm extends FormBase {
         $form[$key][$tid] = [
           '#type' => 'link',
           '#title' => $name,
-          '#disabled' => $disabled,
+          //'#disabled' => $disabled,
           '#url' => Url::fromRoute('openy_campaign.track-activity', [
             'visit_date' => $key,
             'member_campaign_id' => $memberCampaignId,
@@ -154,8 +155,9 @@ class ActivityBlockForm extends FormBase {
         ];
       }
 
+      // Reset time to include the current day to the list.
+      $start->setTime(0, 0, 0);
       $start->modify('+1 day');
-      $stopper++;
     }
 
     $form['#theme'] = 'openy_campaign_activity_form';
