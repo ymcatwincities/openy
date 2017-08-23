@@ -80,18 +80,21 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-
+<section class="page-heading black-header page-title title-only">
+  <div class="container-fluid">
+    {{ title_prefix }}
+    <h1{{ title_attributes }}>
+      {{ label }}
+    </h1>
+    {{ title_suffix }}
+  </div>
+</section>
+<br>
 <div class="container two-columns-container">
   <div class="row">
     <div class="two-column">
       <div class="main-region col-sm-8">
         <article{{ attributes.addClass(classes) }}>
-          {{ title_prefix }}
-          <h1{{ title_attributes }}>
-             {{ label }}
-          </h1>
-          {{ title_suffix }}
-
           <div{{ content_attributes.addClass('node__content') }}>
             {{ content|without('field_news_related', 'field_sidebar_content') }}
           </div>
