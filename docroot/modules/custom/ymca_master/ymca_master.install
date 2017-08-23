@@ -4830,6 +4830,7 @@ function ymca_master_update_8224() {
  */
 function ymca_master_update_8225() {
   $modules = [
+    'views_field_formatter',
     'ymca_camp_du_nord',
     'ymca_prgf_camp_du_nord',
   ];
