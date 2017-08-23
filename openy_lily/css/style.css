@@ -1861,6 +1861,7 @@ article.site-alert ul li div {
   margin-bottom: 10px;
   text-transform: capitalize;
   line-height: normal;
+  border-radius: 3px;
 }
 #membership-calc-wrapper [data-drupal-selector="edit-reset-password"] {
   line-height: normal;
