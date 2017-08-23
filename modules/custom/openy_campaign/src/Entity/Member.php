@@ -418,37 +418,8 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
-  public function getBonuses() {
-    return $this->get('total_bonuses')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setBonuses($value) {
-    $this->set('total_bonuses', $value);
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function isMemberEmployee() {
     return $this->get('is_employee')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isCreatedByStaff() {
-    return $this->get('created_by_staff')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isCreatedOnMobile() {
-    return $this->get('created_on_mobile')->value;
   }
 
   /**
