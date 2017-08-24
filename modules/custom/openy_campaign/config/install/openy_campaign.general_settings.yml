@@ -1,15 +1,5 @@
-error_msg_membership_id:
-  value: "Please check your member ID to ensure it has been entered correctly. If you have entered your number correctly and it still is not working, please contact our customer service center at 612-230-9622.\r\n"
-  format: full_html
-error_msg_checkins_not_started:
-  value: "Good news! Our records show you have already registered. If you think this is a mistake, please contact our customer service center at 612-230-9622.\r\n"
-  format: full_html
-error_msg_member_is_inactive:
-  value: "Our records indicate the member ID entered is inactive. Please check your member ID and re-enter it, or contact the customer service center at 612-230-9622.\r\n"
-  format: full_html
-error_msg_target_audience_settings:
-  value: "We're sorry, but you are not eligible to participate in this promotion. Please check the rules page for details. If you have any questions, please contact our customer service center at 612-230-9622.\r\n"
-  format: full_html
-error_msg_default:
-  value: "Something went wrong. Please contact our customer service center at 612-230-9622.\r\n"
-  format: full_html
+error_msg_membership_id: 'Please check your member ID to ensure it has been entered correctly. If you have entered your number correctly and it still is not working, please contact our customer service center at 612-230-9622.'
+error_msg_checkins_not_started: 'Good news! Our records show you have already registered. If you think this is a mistake, please contact our customer service center at 612-230-9622.'
+error_msg_member_is_inactive: 'Our records indicate the member ID entered is inactive. Please check your member ID and re-enter it, or contact the customer service center at 612-230-9622.'
+error_msg_target_audience_settings: 'We''re sorry, but you are not eligible to participate in this promotion. Please check the rules page for details. If you have any questions, please contact our customer service center at 612-230-9622.'
+error_msg_default: 'Something went wrong. Please contact our customer service center at 612-230-9622.'
