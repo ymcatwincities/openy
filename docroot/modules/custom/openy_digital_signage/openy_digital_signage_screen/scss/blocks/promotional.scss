@@ -154,23 +154,51 @@
 }
 
 .openy-digital-signage-block-promotional__headline {
-  text-transform: uppercase;
-  font-size: 90 / 1920 * 100vw;
-  line-height:  90 / 1920 * 100vw;
+  font-size: 120 / 1920 * 100vw;
+  line-height: 120 / 1920 * 100vw;
   margin: 0;
+  text-transform: uppercase;
+
+  .portrait & {
+    font-size: 80 / 1920 * 100vh;
+    line-height: 80 / 1920 * 100vh;
+  }
+
+  .openy-ds-layout-2col--right & {
+    font-size: 60 / 1920 * 100vw;
+    line-height: 60 / 1920 * 100vw;
+  }
 }
 
 .openy-digital-signage-block-promotional__subheading {
-  text-transform: uppercase;
-  font-size: 50 / 1920 * 100vw;
-  line-height: 50 / 1920 * 100vw;
+  font-size: 60 / 1920 * 100vw;
+  line-height: 70 / 1920 * 100vw;
   margin: 0;
+  margin-top: 60 / 1920 * 100vw;
+  text-transform: uppercase;
+
+  .portrait & {
+    font-size: 50 / 1920 * 100vh;
+    line-height: 60 / 1920 * 100vh;
+  }
+
+  .openy-ds-layout-2col--right & {
+    font-size: 40 / 1920 * 100vw;
+    line-height: 48 / 1920 * 100vw;
+  }
 }
 
 .openy-digital-signage-block-promotional__message {
-  font-size: 35 / 1920 * 100vw;
-  margin-top: 1.2em;
-  letter-spacing: -1.5 / 1920 * 100vw;
+  font-size: 30 / 1920 * 100vw;
+  letter-spacing: -1.4 / 1920 * 100vw;
+  line-height: 40 / 1920 * 100vw;
+  margin-top: 60 / 1920 * 100vw;
+
+  .portrait & {
+    font-size: 30 / 1920 * 100vh;
+    letter-spacing: -1.4 / 1920 * 100vh;
+    line-height: 40 / 1920 * 100vh;
+  }
 
   .openy-digital-signage-block-promotional__message__inner {
 
@@ -179,7 +207,7 @@
 
 .openy-digital-signage-block-promotional__text-content {
   font-family: $fontBook;
-  padding: 4vw 5vw;
+  padding: 150 / 1920 * 100vw;
   position: absolute;
 
   .block-promotional-message-position-top & {
@@ -189,4 +217,37 @@
   .block-promotional-message-position-bottom & {
     bottom: 0;
   }
+
+  .block-promotional-layout-l-left-50 & {
+    width: (1920 / 2 + 150) / 1920 * 100vw;
+  }
+
+  .block-promotional-layout-l-bottom-50 & {
+    width: 100%;
+  }
+
+  .block-promotional-layout-l-bottom-50.block-promotional-message-position-top & {
+    top: 50%;
+    transform: translateY(-150 / 1920 * 100vw);
+  }
+
+  .openy-ds-layout-2col--right & {
+    padding-left: 90 / 1920 * 100vw;
+    max-width:100%;
+  }
+
+  .portrait & {
+    padding: 150 / 1920 * 100vh;
+  }
+
+  .portrait .block-promotional-message-position-bottom.block-promotional-layout-p-top-33 & {
+    bottom: 66.667%;
+    transform: translateY(150 / 1920 * 100vh);
+  }
+
+  .portrait .block-promotional-message-position-top.block-promotional-layout-p-bottom-33 & {
+    top: 66.667%;
+    transform: translateY(-150 / 1920 * 100vh);
+  }
+
 }
