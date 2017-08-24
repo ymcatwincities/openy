@@ -1,0 +1,21 @@
+uuid: c75fcd56-1ab4-439e-8192-66b28ad1c79b
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+    - field.storage.block_content.field_ds_layout
+  module:
+    - options
+id: block_content.digital_signage_promotional.field_ds_layout
+field_name: field_ds_layout
+entity_type: block_content
+bundle: digital_signage_promotional
+label: 'Layout variation'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

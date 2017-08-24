@@ -11,6 +11,7 @@ dependencies:
     - field.field.block_content.digital_signage_promotional.field_ds_background_size
     - field.field.block_content.digital_signage_promotional.field_ds_color_scheme
     - field.field.block_content.digital_signage_promotional.field_ds_headline
+    - field.field.block_content.digital_signage_promotional.field_ds_layout
     - field.field.block_content.digital_signage_promotional.field_ds_message
     - field.field.block_content.digital_signage_promotional.field_ds_message_position
     - field.field.block_content.digital_signage_promotional.field_ds_subheading
@@ -29,31 +30,34 @@ content:
       image_link: ''
     third_party_settings: {  }
     type: image
+    region: content
   field_ds_headline:
     weight: 1
     label: hidden
-    settings:
-      link_to_entity: false
+    settings: {  }
     third_party_settings: {  }
-    type: string
+    type: basic_string
+    region: content
   field_ds_message:
     weight: 3
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_ds_subheading:
     weight: 2
     label: hidden
-    settings:
-      link_to_entity: false
+    settings: {  }
     third_party_settings: {  }
-    type: string
+    type: basic_string
+    region: content
 hidden:
   field_ds_background_color: true
   field_ds_background_position: true
   field_ds_background_scheme: true
   field_ds_background_size: true
   field_ds_color_scheme: true
+  field_ds_layout: true
   field_ds_message_position: true
   langcode: true

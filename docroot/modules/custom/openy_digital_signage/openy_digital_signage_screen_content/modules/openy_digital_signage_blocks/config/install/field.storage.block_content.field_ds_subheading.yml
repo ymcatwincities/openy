@@ -1,4 +1,4 @@
-uuid: f2d6ab7e-87e8-49ee-a984-85854d263cd8
+uuid: deab946c-2a01-416f-8d63-74c25f01b7ea
 langcode: en
 status: true
 dependencies:
@@ -7,10 +7,8 @@ dependencies:
 id: block_content.field_ds_subheading
 field_name: field_ds_subheading
 entity_type: block_content
-type: string
+type: string_long
 settings:
-  max_length: 255
-  is_ascii: false
   case_sensitive: false
 module: core
 locked: false
