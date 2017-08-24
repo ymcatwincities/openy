@@ -212,8 +212,8 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $campaign = $this->getCampaign();
 
     $current = new \DateTime();
-    $from = new \DateTime($campaign->field_check_ins_start_date->value);
-    $to = new \DateTime($campaign->field_check_ins_end_date->value);
+    $from = new \DateTime($campaign->field_goal_check_ins_start_date->value);
+    $to = new \DateTime($campaign->field_goal_check_ins_end_date->value);
 
     // We should not call CRM for the future date.
     if ($current < $to) {

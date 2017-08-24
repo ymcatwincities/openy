@@ -222,7 +222,7 @@ class MemberLoginRegisterForm extends FormBase {
     // For just registered members
     /** @var Node $campaign Campaign object. */
     $campaign = $storage['campaign'];
-    $checkinsOpenDate = new \DateTime($campaign->get('field_check_ins_start_date')->getString());
+    $checkinsOpenDate = new \DateTime($campaign->get('field_goal_check_ins_start_date')->getString());
 
     // Set message depends on member action
     $messageBeforeCheckins = t('Thank you for registering, you are all set! Be sure to check back on @date when the challenge starts!',
@@ -286,8 +286,8 @@ class MemberLoginRegisterForm extends FormBase {
    */
   protected function checkCheckinsPeriod(Node $campaign) {
     /** @var Node $campaign Campaign node. */
-    $checkinsOpenDate = new \DateTime($campaign->get('field_check_ins_start_date')->getString());
-    $checkinsCloseDate = new \DateTime($campaign->get('field_check_ins_end_date')->getString());
+    $checkinsOpenDate = new \DateTime($campaign->get('field_goal_check_ins_start_date')->getString());
+    $checkinsCloseDate = new \DateTime($campaign->get('field_goal_check_ins_end_date')->getString());
     $currentDate = new \DateTime();
 
     return $currentDate >= $checkinsOpenDate && $currentDate <= $checkinsCloseDate;

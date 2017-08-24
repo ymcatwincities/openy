@@ -11,8 +11,8 @@ dependencies:
     - field.field.node.campaign.field_campaign_pages
     - field.field.node.campaign.field_campaign_payment_types
     - field.field.node.campaign.field_campaign_start_date
-    - field.field.node.campaign.field_check_ins_end_date
-    - field.field.node.campaign.field_check_ins_start_date
+    - field.field.node.campaign.field_goal_check_ins_end_date
+    - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_limit_visits_goal
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
@@ -56,8 +56,8 @@ third_party_settings:
       children:
         - field_campaign_start_date
         - field_campaign_end_date
-        - field_check_ins_start_date
-        - field_check_ins_end_date
+        - field_goal_check_ins_start_date
+        - field_goal_check_ins_end_date
       parent_name: ''
       weight: 10
       format_type: fieldset
@@ -146,13 +146,13 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
-  field_check_ins_end_date:
+  field_goal_check_ins_end_date:
     weight: 18
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
-  field_check_ins_start_date:
+  field_goal_check_ins_start_date:
     weight: 17
     settings: {  }
     third_party_settings: {  }

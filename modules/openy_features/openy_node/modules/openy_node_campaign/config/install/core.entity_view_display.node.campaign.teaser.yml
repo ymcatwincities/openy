@@ -12,8 +12,8 @@ dependencies:
     - field.field.node.campaign.field_campaign_pages
     - field.field.node.campaign.field_campaign_payment_types
     - field.field.node.campaign.field_campaign_start_date
-    - field.field.node.campaign.field_check_ins_end_date
-    - field.field.node.campaign.field_check_ins_start_date
+    - field.field.node.campaign.field_goal_check_ins_end_date
+    - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
     - field.field.node.campaign.field_rules_prizes_page
@@ -46,8 +46,8 @@ hidden:
   field_campaign_pages: true
   field_campaign_payment_types: true
   field_campaign_start_date: true
-  field_check_ins_end_date: true
-  field_check_ins_start_date: true
+  field_goal_check_ins_end_date: true
+  field_goal_check_ins_start_date: true
   field_pause_campaign: true
   field_pause_landing_page: true
   field_rules_prizes_page: true
