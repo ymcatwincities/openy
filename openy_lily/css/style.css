@@ -205,6 +205,15 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
   border-top: 1px solid #ddd;
 }
 
+.embedded-entity .view-mode-embedded-half img {
+  max-width: 50%;
+}
+.embedded-entity img {
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
+
 .toolbar-fixed .navbar-fixed-top {
   margin-top: 39px;
 }
