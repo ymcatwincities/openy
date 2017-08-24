@@ -424,14 +424,22 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @param $campaignID int Campaign node ID.
    */
   public static function login($membershipID, $campaignID) {
-    // Get Campaign IDs
-    $campaignIDs = self::getCampaignIds();
+    $campaignIDs = [];
+    $membershipIDs = [];
+    $fullNames = [];
+
+    $request = \Drupal::request();
+    $session = $request->getSession();
+
+    if (!empty($session->get('openy_campaign'))) {
+      $openyCampaignSession = $session->get('openy_campaign');
+      $campaignIDs = $openyCampaignSession['campaign_ids'];
+      $membershipIDs = $openyCampaignSession['membership_ids'];
+      $fullNames = $openyCampaignSession['full_names'];
+    }
 
     // Add new Campaign ID, MembershipID and Full name to SESSION
-    if (!in_array($campaignID, $campaignIDs)) {
-      $request = \Drupal::request();
-      $session = $request->getSession();
-
+    if (!in_array($campaignID, $campaignIDs) || !in_array($membershipID, $membershipIDs)) {
       // Load Member by unique Membership ID.
       $query = \Drupal::entityQuery('openy_campaign_member')
         ->condition('membership_id', $membershipID);
@@ -442,11 +450,15 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       }
 
       $campaignIDs[] = $campaignID;
+      $membershipIDs[$campaignID] = $membershipID;
+      $fullName = (!empty($member) && !empty($member->getFullName())) ? $member->getFullName() : t('Team member');
+      $fullNames[$campaignID] = $fullName;
+
       $session->set('openy_campaign', [
         'member_id' => $member->id(),
         'campaign_ids' => $campaignIDs,
-        'membership_id' => $membershipID,
-        'full_name' => (!empty($member) && !empty($member->getFullName())) ? $member->getFullName() : t('Team member'),
+        'membership_ids' => $membershipIDs,
+        'full_names' => $fullNames,
       ]);
     }
   }
@@ -457,20 +469,37 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @param $campaignID int Campaign node ID.
    */
   public static function logout($campaignID) {
-    $campaignIDs = self::getCampaignIds();
+    $campaignIDs = [];
+    $membershipIDs = [];
+    $fullNames = [];
 
     $request = \Drupal::request();
     $session = $request->getSession();
 
-    // Delete Campaign ID from SESSION
+    if (!empty($session->get('openy_campaign'))) {
+      $openyCampaignSession = $session->get('openy_campaign');
+      $campaignIDs = $openyCampaignSession['campaign_ids'];
+      $membershipIDs = $openyCampaignSession['membership_ids'];
+      $fullNames = $openyCampaignSession['full_names'];
+      $memberId = $openyCampaignSession['member_id'];
+    }
+
+    // Delete Campaign ID, Membership ID and Full name from SESSION
     if (in_array($campaignID, $campaignIDs)) {
       $newCampaignIDs = array_diff($campaignIDs, [$campaignID]);
-      $session->set('openy_campaign', ['campaign_ids' => $newCampaignIDs]);
-    }
-    // Delete Membership ID from SESSION
-    $openyCampaignSession = $session->get('openy_campaign');
-    if (!empty($openyCampaignSession['membership_id'])) {
-      $session->set('openy_campaign', ['membership_id' => '', 'full_name' => '', 'member_id' => '']);
+
+      $membershipID = $membershipIDs[$campaignID];
+      $newMembershipIDs = array_diff($membershipIDs, [$membershipID]);
+
+      $fullName = $fullNames[$campaignID];
+      $newFullNames = array_diff($fullNames, [$fullName]);
+
+      $session->set('openy_campaign', [
+        'campaign_ids' => $newCampaignIDs,
+        'membership_ids' => $newMembershipIDs,
+        'full_names' => $newFullNames,
+        'member_id' => $memberId,
+      ]);
     }
   }
 
@@ -482,34 +511,6 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * @return bool
    */
   public static function isLoggedIn($campaignID) {
-    $campaignIDs = self::getCampaignIds();
-
-    return (in_array($campaignID, $campaignIDs)) ? TRUE : FALSE;
-  }
-
-  /**
-   * Get campaign ids, membership id and full name from SESSION.
-   *
-   * @return array MemberCampaign data from SESSION.
-   */
-  public static function getMemberCampaignData() {
-    $request = \Drupal::request();
-    $session = $request->getSession();
-    $openyCampaignSession = $session->get('openy_campaign', [
-      'campaign_ids' => [],
-      'membership_id' => '',
-      'full_name' => '',
-      'member_id' => '',
-    ]);
-
-    return $openyCampaignSession;
-  }
-  /**
-   * Get all Campaign IDs user logged in.
-   *
-   * @return array Array of Campaign IDs
-   */
-  private static function getCampaignIds() {
     $campaignIDs = [];
     $request = \Drupal::request();
     $session = $request->getSession();
@@ -518,6 +519,36 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $campaignIDs = $openyCampaignSession['campaign_ids'];
     }
 
-    return $campaignIDs;
+    return in_array($campaignID, $campaignIDs);
   }
+
+  /**
+   * Get campaign ids, membership id and full name from SESSION.
+   *
+   * @param int $campaignId Campaign node ID.
+   *
+   * @return array MemberCampaign data from SESSION.
+   */
+  public static function getMemberCampaignData($campaignId) {
+    $request = \Drupal::request();
+    $session = $request->getSession();
+
+    $openyCampaignSession = $session->get('openy_campaign', [
+      'campaign_ids' => [],
+      'member_id' => '',
+      'membership_ids' => [],
+      'full_names' => [],
+    ]);
+
+    $membershipIDs = $openyCampaignSession['membership_ids'];
+    $fullNames = $openyCampaignSession['full_names'];
+
+    return [
+      'campaign_id' => $campaignId,
+      'membership_id' => !empty($membershipIDs[$campaignId]) ? $membershipIDs[$campaignId] : '',
+      'full_name' => !empty($fullNames[$campaignId]) ? $fullNames[$campaignId] : '',
+      'member_id' => !empty($openyCampaignSession['member_id']) ? $openyCampaignSession['member_id'] : '',
+    ];
+  }
+
 }
