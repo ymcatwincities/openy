@@ -74,7 +74,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
 
     // For logged in members
     if (MemberCampaign::isLoggedIn($campaign->id())) {
-      $userData = MemberCampaign::getMemberCampaignData();
+      $userData = MemberCampaign::getMemberCampaignData($campaign->id());
       $fullName = !empty($userData['full_name']) ? $userData['full_name'] : $this->t('Team member');
 
       $build['full_name'] = [

@@ -27,7 +27,6 @@ class MemberListBuilder extends EntityListBuilder {
     $header['membership_id'] = $this->t('Membership ID');
     $header['is_employee'] = $this->t('Employee');
     $header['checkins'] = $this->t('Checkins');
-    $header['created_by_staff'] = $this->t('Created by Staff');
     $header['campaigns'] = $this->t('Campaigns');
     return $header + parent::buildHeader();
   }
@@ -42,11 +41,22 @@ class MemberListBuilder extends EntityListBuilder {
     $row['mail'] = $entity->getEmail();
     $row['membership_id'] = $entity->getMemberId();
     $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
-    $row['checkins'] = $entity->getVisits();
-    $row['created_by_staff'] = $entity->isCreatedByStaff() ? $this->t('Yes') : $this->t('No');
 
-    // Get Campaigns for this Member
-    $row['campaigns'] = '';
+    // TODO Get Checkins from MemberCheckin entity
+    $row['checkins'] = '';
+
+    // Get Campaign titles list for this Member
+    $connection = \Drupal::service('database');
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $connection->select('openy_campaign_member', 'm');
+    $query->condition('m.id', 1);
+    $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
+    $query->join('node_field_data', 'n', 'n.nid = mc.campaign');
+    $query->condition('n.type', 'campaign');
+    $query->fields('n', ['title']);
+    $campaignTitlesArray = $query->execute()->fetchCol();
+
+    $row['campaigns'] = !empty($campaignTitlesArray) ? implode('; ', $campaignTitlesArray) : '';
 
     return $row + parent::buildRow($entity);
   }

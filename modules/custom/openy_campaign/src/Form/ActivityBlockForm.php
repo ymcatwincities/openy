@@ -88,7 +88,7 @@ class ActivityBlockForm extends FormBase {
       ];
     }
 
-    $memberCampaignData = MemberCampaign::getMemberCampaignData();
+    $memberCampaignData = MemberCampaign::getMemberCampaignData($campaignId);
     $membershipId = $memberCampaignData['membership_id'];
 
     // Get MemberCampaign ID
