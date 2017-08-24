@@ -167,3 +167,19 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
     width: auto;
   }
 }
+
+// Media styling
+
+.path-media {
+  .field-media-image {
+    img {
+      margin: 0 auto;
+    }
+  }
+  .field-media-video-embed-field {
+    text-align: center;
+    iframe {
+      margin: 0 auto;
+    }
+  }
+}
