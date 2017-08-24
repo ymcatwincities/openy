@@ -113,6 +113,7 @@ function openy_digital_signage_blocks_preprocess_block(&$variables) {
       $attributes->addClass('block-promotional-background-' . $block->field_ds_background_scheme->value);
       $attributes->addClass('block-promotional-color-' . $block->field_ds_color_scheme->value);
       $attributes->addClass('block-promotional-message-position-' . $block->field_ds_message_position->value);
+      $attributes->addClass('block-promotional-layout-' . $block->field_ds_layout->value);
       $background_styles = ['background-color: ' . $block->field_ds_background_color->value . ';'];
       if ($background_image = $block->field_ds_background_image->entity) {
         $background_styles[] = 'background-image:url(' . file_create_url($background_image->getFileUri()) . ');';

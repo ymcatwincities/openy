@@ -32,17 +32,23 @@
   <div{{ wrapper_attributes }}>
     {% block content %}
       <div class="openy-digital-signage-block-promotional__text-content">
+        {% if content.field_ds_headline[0]['#context'].value %}
         <h1 class="openy-digital-signage-block-promotional__headline">
           {{ content.field_ds_headline }}
         </h1>
+        {% endif %}
+        {% if content.field_ds_subheading[0]['#context'].value %}
         <h2 class="openy-digital-signage-block-promotional__subheading">
           {{ content.field_ds_subheading }}
         </h2>
+        {% endif %}
+        {% if content.field_ds_message[0]['#context'].value %}
         <div class="openy-digital-signage-block-promotional__message">
           <div class="openy-digital-signage-block-promotional__message__inner">
             {{ content|without('field_ds_background_image', 'field_ds_headline', 'field_ds_subheading') }}
           </div>
         </div>
+        {% endif %}
       </div>
     {% endblock %}
   </div>
