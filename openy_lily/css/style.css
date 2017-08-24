@@ -901,6 +901,7 @@ label {
 #ajax-ccc-account-login-form [data-drupal-selector="edit-login"] {
   padding: 13px 25px;
   font-size: 16px !important;
+  line-height: normal;
 }
 #ajax-ccc-account-login-form .edit-login-actions {
   padding-bottom: 30px;
@@ -1802,11 +1803,75 @@ article.site-alert ul li div {
   display: inline;
 }
 
+@media (max-width: 991px) {
+  #membership-calc-wrapper .nav-pills > li {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) and (min-width: 0) {
+  #membership-calc-wrapper .nav-pills > li {
+    margin-bottom: 5px;
+    display: block;
+    overflow: hidden;
+    width: 100% !important;
+  }
+  #membership-calc-wrapper .nav-pills > li div {
+    width: calc(100% - 30px) !important;
+  }
+}
+@media (min-width: 40em) {
+  #membership-calc-wrapper .nav-pills > li {
+    width: 21%;
+  }
+}
+@media (min-width: 768px) {
+  #membership-calc-wrapper .nav-pills > li .step-1,
+  #membership-calc-wrapper .nav-pills > li .step-2,
+  #membership-calc-wrapper .nav-pills > li .step-3,
+  #membership-calc-wrapper .nav-pills > li .step-4 {
+    width: calc(100% - 15px);
+  }
+  #membership-calc-wrapper .step-2 {
+    padding-right: 2px;
+  }
+  #membership-calc-wrapper .step-2 span {
+    margin-left: 13px !important;
+  }
+  #membership-calc-wrapper .step-4 {
+    text-align: left;
+  }
+  #membership-calc-wrapper .step-4 span {
+    margin-left: 15px;
+  }
+  #membership-calc-wrapper li:last-child div {
+    padding-left: 21px;
+  }
+}
 #membership-calc-wrapper legend {
   border: none;
   color: inherit;
   font-size: 36px;
   margin-bottom: 30px;
+}
+#membership-calc-wrapper .register-form-loader {
+  margin-right: 3px !important;
+  padding: 13px 25px !important;
+  background-color: black !important;
+  font-size: 16px !important;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+  line-height: normal;
+  border-radius: 3px;
+}
+#membership-calc-wrapper [data-drupal-selector="edit-reset-password"] {
+  line-height: normal;
+  font-weight: normal;
+  margin-top: 4px;
+}
+#membership-calc-wrapper [data-drupal-selector="edit-cancel"],
+#membership-calc-wrapper [data-drupal-selector="edit-submit"] {
+  line-height: 1.33;
+  padding: 13px 25px;
 }
 #membership-calc-wrapper .js-webform-radios .js-form-item {
   padding: 0;
@@ -1819,6 +1884,27 @@ article.site-alert ul li div {
 }
 #membership-calc-wrapper .membership-calc-embedded legend {
   display: none;
+}
+#membership-calc-wrapper .ymcali-ccc-registration-form legend {
+  margin-bottom: 0;
+  margin-left: 10px;
+}
+#membership-calc-wrapper .ymcali-ccc-registration-form legend .fieldset-legend {
+  font-size: 21px !important;
+}
+#membership-calc-wrapper .ymcali-ccc-registration-form [data-drupal-selector="edit-submit"],
+#membership-calc-wrapper .ymcali-ccc-registration-form .captcha {
+  margin-left: 10px;
+}
+#membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  width: 47%;
+  float: left;
+  margin: 0 0 0 23px !important;
+}
+#membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item label {
+  margin-top: 0;
 }
 
 #membership-page {
