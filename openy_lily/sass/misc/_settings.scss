@@ -152,3 +152,18 @@ html.js .path-account .ajax-progress .throbber, html.js .path-account .flag-wait
     }
   }
 }
+
+//Image Styles
+
+.embedded-entity {
+  .view-mode-embedded-half {
+    img {
+      max-width: 50%;
+    }
+  }
+  img {
+    height: auto;
+    max-width: 100%;
+    width: auto;
+  }
+}
