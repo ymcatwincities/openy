@@ -68,21 +68,18 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build() {
+    $block = [];
+    $block['#cache']['max-age'] = 0;
 
     // Check if current page is campaign
     /** @var \Drupal\Node\Entity\Node $campaign */
     $campaign = $this->routeMatch->getParameter('node');
-    if (!empty($campaign) && $campaign->getType() != 'campaign') {
-      return [];
+    if (!empty($campaign) && $campaign->getType() == 'campaign') {
+      $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityBlockForm', $campaign->id());
+      $block['form'] = $form;
     }
 
-    $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityBlockForm', $campaign->id());
-    return [
-      'form' => $form,
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+    return $block;
   }
 
 }

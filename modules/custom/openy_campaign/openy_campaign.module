@@ -71,6 +71,25 @@ function openy_campaign_entity_type_build(array &$entity_types) {
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Forbid editing some Member entity fields from admin panel.
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function openy_campaign_form_openy_campaign_member_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $readonlyFields = [
+    'membership_id',
+    'personify_id',
+    'personify_email'
+  ];
+  foreach ($readonlyFields as $field) {
+    $form[$field]['widget'][0]['value']['#attributes'] = ['readonly' => 'readonly'];
+  }
+}
+
+/**
  * Implements hook_field_widget_form_alter().
  */
 function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {

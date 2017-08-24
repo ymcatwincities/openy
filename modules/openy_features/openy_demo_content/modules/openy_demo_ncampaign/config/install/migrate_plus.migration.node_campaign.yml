@@ -103,7 +103,7 @@ process:
   field_check_ins_end_date:
     -
       plugin: default_value
-      default_value: '+1 week'
+      default_value: '+3 week'
     -
       plugin: callback
       callable: strtotime

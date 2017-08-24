@@ -61,16 +61,16 @@ class PersonifyClient implements CRMClientInterface {
   /**
    * Get information about member by its facility access ID.
    *
-   * @param int $facility_id
+   * @param int $facilityId
    *   Facility Access ID.
    *
    * @return array
    *   Information about Member.
    */
-  public function getMemberInformation($facility_id) {
+  public function getMemberInformation($facilityId) {
     $json = [
       'CL_GetCustomerBranchInformationInput' => [
-        'CardNumber' => $facility_id,
+        'CardNumber' => $facilityId,
       ],
     ];
 
@@ -80,22 +80,22 @@ class PersonifyClient implements CRMClientInterface {
   /**
    * Get information about member visits for a period.
    *
-   * @param int $master_id
+   * @param int $masterId
    *   Master Customer ID.
-   * @param int $date_from
+   * @param \DateTime $dateFrom
    *   Date From.
-   * @param int $date_to
+   * @param \DateTime $dateTo
    *   Date To.
    *
    * @return array|\stdClass
    *   Information about Member visits for a period.
    */
-  public function getVisitCountByDate($master_id, \DateTime $date_from, \DateTime $date_to) {
+  public function getVisitCountByDate($masterId, \DateTime $dateFrom, \DateTime $dateTo) {
     $json = [
       'CL_GetFacilityVisitCountByDateInput' => [
-        'MasterCustomerId' => $master_id,
-        'DateFrom' => $date_from->format('Y-m-d H:i:s'),
-        'DateTo' => $date_to->format('Y-m-d H:i:s'),
+        'MasterCustomerId' => $masterId,
+        'DateFrom' => $dateFrom->format('Y-m-d H:i:s'),
+        'DateTo' => $dateTo->format('Y-m-d H:i:s'),
       ],
     ];
 
@@ -116,22 +116,22 @@ class PersonifyClient implements CRMClientInterface {
   /**
    * Get information about member visits for a period.
    *
-   * @param array $list_ids
+   * @param array $listIds
    *   Array with list of master customer ids.
-   * @param \DateTime $date_from
+   * @param \DateTime $dateFrom
    *   Date From.
-   * @param \DateTime $date_to
+   * @param \DateTime $dateTo
    *   Date To.
    *
    * @return array|\stdClass
    *   Information about Members visits for a period.
    */
-  public function getVisitsBatch(array $list_ids, \DateTime $date_from, \DateTime $date_to) {
+  public function getVisitsBatch(array $listIds, \DateTime $dateFrom, \DateTime $dateTo) {
     $json = [
       'CL_GetFacilityVisitCountByDateInput' => [
-        'MasterCustomerId' => implode(',', $list_ids),
-        'DateFrom' => $date_from->format('Y-m-d H:i:s'),
-        'DateTo' => $date_to->format('Y-m-d H:i:s'),
+        'MasterCustomerId' => implode(',', $listIds),
+        'DateFrom' => $dateFrom->format('Y-m-d H:i:s'),
+        'DateTo' => $dateTo->format('Y-m-d H:i:s'),
       ],
     ];
 

@@ -117,9 +117,26 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
     // Standard field, used as unique if primary index.
     $fields['goal'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Goal'))
+      ->setLabel(t('Visit Goal'))
       ->setDescription(t('How many visits member should do to reach the campaign goal.'))
-      ->setReadOnly(TRUE);
+      ->setReadOnly(TRUE)
+      ->setSettings([
+        'default_value' => 0,
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string',
+        'weight' => -1,
+      ])
+      ->setDefaultValue(0)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     return $fields;
   }
@@ -165,7 +182,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    * {@inheritdoc}
    */
   public function getGoal() {
-    return $this->get('goal');
+    return $this->get('goal')->value;
   }
 
   /**
@@ -177,11 +194,13 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   }
 
   /**
-   * Set the Goal for the Member for this campaign.
+   * Set the Goal for the MemberCampaign.
+   *
+   * @return bool
    */
   public function defineGoal() {
     /**
-     * To test generate Members, create MemberCampaign record and run code in /deve/php
+     * To test generate Members, create MemberCampaign record and run code in /devel/php
      *
      * $entity = \Drupal\openy_campaign\Entity\MemberCampaign::load(1);
      * $entity->defineGoal();
@@ -189,6 +208,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
      * Needs actual data in order to proceed.
      */
 
+    /** @var Node $campaign Current campaign */
     $campaign = $this->getCampaign();
 
     $current = new \DateTime();
@@ -200,25 +220,26 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $to = $current;
     }
 
-    $memberId = $this->member->entity->getMemberId();
+    $member = $this->getMember();
 
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
+    // Get total visits from CRM
+    $results = $client->getVisitCountByDate($member->getPersonifyId(), $from, $to);
 
-    $results = $client->getVisitCountByDate($memberId, $from, $to);
-    dpm($results);
-    return;
+    $visitsNumber = $results->TotalVisits;
 
-    $visitsNumber = 1; // This should come from API's call.
+    $limitVisitsGoal = $campaign->field_limit_visits_goal->value;
 
-    $maxGoal = 5; // Add field to Campaign node and use that value.
+    $weeksSpan = ceil($from->diff($to)->days / 7);
 
-    $weeksSpan = ceil($from_date->diff($to_date)->days / 7);
     $calculatedGoal = ceil(2 * $visitsNumber / $weeksSpan) + 1;
 
-    $goal = min($calculatedGoal, $maxGoal);
+    $goal = min($calculatedGoal, $limitVisitsGoal);
 
     $this->setGoal($goal);
+
+    return TRUE;
   }
 
   /**
@@ -235,22 +256,21 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $errorMessages[] = $validateAge['error'];
     }
 
-    // TODO Uncomment this after all data will be available from CRM API
-//    // Member type match Target Audience Setting from Campaign.
-//    $validateMemberUnitType = $this->validateMemberUnitType();
-//    if (!$validateMemberUnitType['status']) {
-//      $errorMessages[] = $validateMemberUnitType['error'];
-//    }
-//    // Branch is one of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberBranch = $this->validateMemberBranch();
-//    if ($validateMemberBranch['status']) {
-//      $errorMessages[] = $validateMemberBranch['error'];
-//    }
-//    // Payment type is of the selected in the Target Audience Setting from Campaign.
-//    $validateMemberPaymentType = $this->validateMemberPaymentType();
-//    if ($validateMemberPaymentType['status']) {
-//      $errorMessages[] = $validateMemberPaymentType['error'];
-//    }
+    // Member type match Target Audience Setting from Campaign.
+    $validateMemberUnitType = $this->validateMemberUnitType();
+    if (!$validateMemberUnitType['status']) {
+      $errorMessages[] = $validateMemberUnitType['error'];
+    }
+    // Branch is one of the selected in the Target Audience Setting from Campaign.
+    //$validateMemberBranch = $this->validateMemberBranch();
+    //if (!$validateMemberBranch['status']) {
+    //  $errorMessages[] = $validateMemberBranch['error'];
+    //}
+    // Payment type is of the selected in the Target Audience Setting from Campaign.
+    $validateMemberPaymentType = $this->validateMemberPaymentType();
+    if (!$validateMemberPaymentType['status']) {
+      $errorMessages[] = $validateMemberPaymentType['error'];
+    }
 
     return $errorMessages;
   }
@@ -273,14 +293,16 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     $now = new \DateTime();
     $interval = $now->diff($birthday)->format('%y');
 
-    if ($interval >= $minAge) {
-      if (!empty($maxAge) &&  $interval <= $maxAge) {
-        return ['status' => TRUE, 'error' => ''];
-      }
+    if (
+      (!empty($minAge) && !empty($maxAge) && $interval >= $minAge &&  $interval <= $maxAge) ||
+      (!empty($minAge) && empty($maxAge) && $interval >= $minAge) ||
+      (empty($minAge) && !empty($maxAge) && $interval <= $maxAge)
+    ) {
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Age is not between @min and @max', ['@min' => $minAge, '@max' => $maxAge])];
+    return ['status' => FALSE, 'error' => t('Age is not between @min and @max.', ['@min' => $minAge, '@max' => $maxAge])->render()];
+
   }
 
   /**
@@ -301,7 +323,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Member unit type does not match types: @types', ['@types' => $campaignMemberUnitTypes])];
+    return ['status' => FALSE, 'error' => t('Member unit type does not match types: @types.', ['@types' => $campaignMemberUnitTypes])->render()];
   }
 
   /**
@@ -322,7 +344,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Branch is not included.')];
+    return ['status' => FALSE, 'error' => t('Branch is not included.')->render()];
   }
 
   /**
@@ -343,7 +365,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       return ['status' => TRUE, 'error' => ''];
     }
 
-    return ['status' => FALSE, 'error' => t('Payment type does not match types: @types', ['@types' => $campaignPaymentTypes])];
+    return ['status' => FALSE, 'error' => t('Payment type does not match types: @types.', ['@types' => $campaignPaymentTypes])->render()];
   }
 
   /**

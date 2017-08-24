@@ -126,6 +126,15 @@ class Member extends ContentEntityBase implements MemberInterface {
         'default_value' => '',
         'max_length' => 255,
         'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -6,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string',
+        'weight' => -6,
       ]);
 
     $fields['created'] = BaseFieldDefinition::create('created')
@@ -281,46 +290,6 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['total_visits'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Visits'))
-      ->setDescription(t('Number of visits.'))
-      ->setDefaultValue(0);
-
-    $fields['total_bonuses'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Bonuses'))
-      ->setDescription(t('Number of bonuses.'))
-      ->setDefaultValue(0);
-
-    $fields['created_by_staff'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Created by Staff'))
-      ->setDescription(t('Created by Staff'))
-      ->setDefaultValue(FALSE);
-
-    $fields['created_on_mobile'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Created using Mobile app'))
-      ->setDescription(t('Created using Mobile app'))
-      ->setDefaultValue(FALSE);
-
-    $fields['activity_track_swimming'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Swimming'))
-      ->setDescription(t('Number of Swimming activities.'))
-      ->setDefaultValue(0);
-
-    $fields['activity_track_fitness'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Fitness'))
-      ->setDescription(t('Number of Fitness activities.'))
-      ->setDefaultValue(0);
-
-    $fields['activity_track_groupx'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Group X'))
-      ->setDescription(t('Number of Group X activities.'))
-      ->setDefaultValue(0);
-
-    $fields['activity_track_community'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Community'))
-      ->setDescription(t('Number of Community activities.'))
-      ->setDefaultValue(0);
-
     return $fields;
   }
 
@@ -449,23 +418,8 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
-  public function getVisits() {
-    return $this->get('total_visits')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getBonuses() {
     return $this->get('total_bonuses')->value;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setVisits($value) {
-    $this->set('total_visits', $value);
-    return $this;
   }
 
   /**
@@ -539,16 +493,6 @@ class Member extends ContentEntityBase implements MemberInterface {
   public function setMemberUnitType($value) {
     $this->set('member_unit_type', $value);
     return $this;
-  }
-
-  /**
-   * Get member rank.
-   *
-   * @return int
-   *   Member rank.
-   */
-  public function getMemberRank() {
-    return 0;
   }
 
   /**
