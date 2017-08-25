@@ -34,6 +34,7 @@ projects[entity_clone][version] = 1.x-dev
 projects[entity_clone][patch][] = https://www.drupal.org/files/issues/entity_clone-event_dispatcher-2800203-5.patch
 projects[entity_clone][patch][] = https://www.drupal.org/files/issues/entity_clone-attached_entities-2706639-25.patch
 projects[entity_clone][patch][] = https://www.drupal.org/files/issues/entity_clone-abort_clone_causes_fatal_error-2769823-4.patch
+projects[entity_clone][patch][] = https://www.drupal.org/files/issues/2770687_wrong_redirection_for_entity_9.patch
 projects[views_block_filter_block] = 1.x-dev
 projects[plugin][subdir] = contrib
 projects[plugin][version] = 2.5
