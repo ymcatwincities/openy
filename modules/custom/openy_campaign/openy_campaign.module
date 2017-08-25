@@ -42,6 +42,26 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_cron().
+ */
+function openy_campaign_cron() {
+  // Check if cron was run less then 23 hrs ago and at 2 AM.
+  $lastRun = \Drupal::state()->get('openy_campaign.cron_visits_last_run', 0);
+  $current = new \DateTime();
+  $currentHour = $current->format('H');
+  if ((\Drupal::time()->getRequestTime() - $lastRun) < 23 * 60 * 60 || ($currentHour != 2)) {
+    return FALSE;
+  }
+
+  /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
+  $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
+  $regularUpdater->createQueue();
+
+  // Update last run.
+  \Drupal::state()->set('openy_campaign.cron_visits_last_run', \Drupal::time()->getRequestTime());
+}
+
+/**
  * Implements template_preprocess_node().
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
