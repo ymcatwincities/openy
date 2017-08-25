@@ -5,3 +5,7 @@ services:
   openy_campaign.campaign_menu_handler:
     class: Drupal\openy_campaign\CampaignMenuService
     arguments: ['@entity_type.manager', '@service_container']
+
+  openy_campaign.regular_updater:
+    class: Drupal\openy_campaign\RegularUpdater
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue']

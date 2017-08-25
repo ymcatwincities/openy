@@ -42,14 +42,17 @@ class MemberListBuilder extends EntityListBuilder {
     $row['membership_id'] = $entity->getMemberId();
     $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
 
-    // TODO Get Checkins from MemberCheckin entity
-    $row['checkins'] = '';
+    // Get Checkins from MemberCheckin entity
+    $memberCheckins = \Drupal::entityQuery('openy_campaign_member_checkin')
+      ->condition('member', $entity->id())
+      ->execute();
+    $row['checkins'] = count($memberCheckins);
 
     // Get Campaign titles list for this Member
     $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $connection->select('openy_campaign_member', 'm');
-    $query->condition('m.id', 1);
+    $query->condition('m.id', $entity->id());
     $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
     $query->join('node_field_data', 'n', 'n.nid = mc.campaign');
     $query->condition('n.type', 'campaign');
