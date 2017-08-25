@@ -340,8 +340,8 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
-  public function setMemberId($member_id) {
-    $this->set('membership_id', $member_id);
+  public function setMemberId($membership_id) {
+    $this->set('membership_id', $membership_id);
     return $this;
   }
 

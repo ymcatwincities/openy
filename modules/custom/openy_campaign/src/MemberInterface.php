@@ -68,13 +68,13 @@ interface MemberInterface extends ContentEntityInterface {
   /**
    * Sets the member id for the user.
    *
-   * @param string $member_id
+   * @param string $membership_id
    *   The member id.
    *
    * @return \Drupal\openy_campaign\MemberInterface
    *   The called member entity.
    */
-  public function setMemberId($member_id);
+  public function setMemberId($membership_id);
 
   /**
    * Returns the personify id (MasterCustomerId) of the user.
