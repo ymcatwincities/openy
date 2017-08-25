@@ -90,7 +90,7 @@ process:
     -
       plugin: date_timestamp
       to_format: 'Y-m-d\TH:i:s'
-  field_check_ins_start_date:
+  field_goal_check_ins_start_date:
     -
       plugin: default_value
       default_value: '-1 week'
@@ -100,7 +100,7 @@ process:
     -
       plugin: date_timestamp
       to_format: 'Y-m-d\TH:i:s'
-  field_check_ins_end_date:
+  field_goal_check_ins_end_date:
     -
       plugin: default_value
       default_value: '+3 week'

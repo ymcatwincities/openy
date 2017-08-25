@@ -4,8 +4,8 @@ dependencies:
   module:
     - datetime
     - node
-id: node.field_check_ins_end_date
-field_name: field_check_ins_end_date
+id: node.field_goal_check_ins_end_date
+field_name: field_goal_check_ins_end_date
 entity_type: node
 type: datetime
 settings:
