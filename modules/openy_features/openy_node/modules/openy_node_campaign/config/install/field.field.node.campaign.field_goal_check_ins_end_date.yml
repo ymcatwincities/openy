@@ -15,7 +15,7 @@ id: node.campaign.field_goal_check_ins_end_date
 field_name: field_goal_check_ins_end_date
 entity_type: node
 bundle: campaign
-label: 'Check-ins end date'
+label: 'Goal check-ins end date'
 description: ''
 required: false
 translatable: false

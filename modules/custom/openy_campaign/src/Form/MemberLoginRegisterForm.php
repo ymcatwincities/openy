@@ -50,7 +50,6 @@ class MemberLoginRegisterForm extends FormBase {
       '#value' => $action,
     ];
 
-    $validate_required = [get_class($this), 'elementValidateRequired'];
     // The id on the membership card.
     $form['membership_id'] = [
       '#type' => 'textfield',
@@ -63,9 +62,7 @@ class MemberLoginRegisterForm extends FormBase {
         ],
       ],
       '#element_required_error' => $this->t('Member ID is required.'),
-      '#element_validate' => [
-        $validate_required,
-      ],
+      '#element_validate' => [$this, 'elementValidateRequired'],
     ];
 
     $form['submit'] = [

@@ -93,7 +93,7 @@ process:
   field_goal_check_ins_start_date:
     -
       plugin: default_value
-      default_value: '-1 week'
+      default_value: '-3 months'
     -
       plugin: callback
       callable: strtotime
@@ -103,7 +103,7 @@ process:
   field_goal_check_ins_end_date:
     -
       plugin: default_value
-      default_value: '+3 week'
+      default_value: '-1 month'
     -
       plugin: callback
       callable: strtotime
@@ -113,6 +113,9 @@ process:
   field_campaign_fitness_category:
     plugin: default_value
     default_value: fitness_category
+  field_limit_visits_goal:
+    plugin: default_value
+    default_value: 10
 destination:
   plugin: 'entity:node'
   default_bundle: campaign
