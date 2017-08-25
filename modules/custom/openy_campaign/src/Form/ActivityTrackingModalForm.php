@@ -158,7 +158,6 @@ class ActivityTrackingModalForm extends FormBase {
           'created' => time(),
           'date' => $date->format('U'),
           'member_campaign' => $memberCampaignId,
-          'type' => MemberCampaignActivity::TYPE_ACTIVITY,
           'activity' => $activityTermId,
         ]);
 

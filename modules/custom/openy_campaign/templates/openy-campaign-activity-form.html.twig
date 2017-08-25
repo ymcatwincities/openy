@@ -21,7 +21,14 @@
 
         <div class="row">
             <div class="col-md-{{ firstColumn }}">{{ key|date('d M') }} <small>{{ key|date('l') }}</small></div>
-            <div class="col-md-{{ column }}">checked-in</div>
+            <div class="col-md-{{ column }}">
+                {%  if row.checkin is defined %}
+                    checked-in
+                {% else %}
+                    not checked-in
+                {%  endif %}
+
+            </div>
             {% for formKey in row|keys %}
                 {%  if formKey matches '/^[\\d]+$/' %}
                     <div class="col-md-{{ column }}">{{ attribute(row, formKey) }}</div>
