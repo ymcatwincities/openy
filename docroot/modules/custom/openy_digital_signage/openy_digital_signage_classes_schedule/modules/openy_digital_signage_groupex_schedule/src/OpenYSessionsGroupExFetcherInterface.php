@@ -21,6 +21,7 @@ interface OpenYSessionsGroupExFetcherInterface {
    * Retrieves list of locations ids to be imported.
    *
    * @return array
+   *   IDs of location to be imported.
    */
   public function getLocations();
 
@@ -53,13 +54,8 @@ interface OpenYSessionsGroupExFetcherInterface {
   /**
    * Removes entities by chunks.
    *
-   * @param array $feed
+   * @param array $ids
    *   Pulled GroupEx pro feed.
-   * @param int $location_id
-   *   The location id.
-   *
-   * @return array
-   *   The array on entity ids to be deleted.
    */
   public function removeDeleted($ids);
 
