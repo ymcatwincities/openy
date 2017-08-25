@@ -15,14 +15,11 @@ id: node.campaign.field_goal_check_ins_start_date
 field_name: field_goal_check_ins_start_date
 entity_type: node
 bundle: campaign
-label: 'Check-ins start date'
+label: 'Goal check-ins start date'
 description: ''
 required: false
 translatable: false
-default_value:
-  -
-    default_date_type: now
-    default_date: now
+default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: datetime

@@ -31,7 +31,7 @@ third_party_settings:
         - field_campaign_payment_types
         - group_age_range
       parent_name: ''
-      weight: 13
+      weight: 14
       format_type: fieldset
       format_settings:
         id: ''
@@ -56,8 +56,6 @@ third_party_settings:
       children:
         - field_campaign_start_date
         - field_campaign_end_date
-        - field_goal_check_ins_start_date
-        - field_goal_check_ins_end_date
       parent_name: ''
       weight: 10
       format_type: fieldset
@@ -67,6 +65,20 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Campaign dates'
+    group_visits_goal:
+      children:
+        - field_limit_visits_goal
+        - field_goal_check_ins_start_date
+        - field_goal_check_ins_end_date
+      parent_name: ''
+      weight: 11
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: 'Choose dates from the past to get visits history for every member. New visits goal for every member will be calculated based on it. Member''s goal can''t be more than "Limit visits goal"'
+        required_fields: true
+      label: 'Visits goal'
 id: node.campaign.default
 targetEntityType: node
 bundle: campaign
@@ -114,7 +126,7 @@ content:
     type: datetime_default
     region: content
   field_campaign_fitness_category:
-    weight: 14
+    weight: 15
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -147,33 +159,33 @@ content:
     type: datetime_default
     region: content
   field_goal_check_ins_end_date:
-    weight: 18
+    weight: 21
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_goal_check_ins_start_date:
-    weight: 17
+    weight: 20
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_limit_visits_goal:
-    weight: 28
+    weight: 19
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_pause_campaign:
-    weight: 12
+    weight: 13
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_pause_landing_page:
-    weight: 11
+    weight: 12
     settings:
       match_operator: CONTAINS
       size: 60
