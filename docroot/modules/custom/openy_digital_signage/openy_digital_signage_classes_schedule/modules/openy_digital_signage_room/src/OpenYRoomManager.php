@@ -118,7 +118,7 @@ class OpenYRoomManager implements OpenYRoomManagerInterface {
       return FALSE;
     }
 
-    $entities =  $this->storage->loadByProperties([
+    $entities = $this->storage->loadByProperties([
       $field_name => $id,
       'location' => $location_id,
     ]);

@@ -222,12 +222,13 @@ function openy_digital_signage_blocks_entity_presave(EntityInterface $entity) {
 }
 
 /**
- * Hide text format switcher.
+ * Hides text format switcher.
  *
  * @param array $form_element
  *   Form element.
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  *   Form state.
+ *
  * @return array
  *   Altered form element.
  */
