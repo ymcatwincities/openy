@@ -455,6 +455,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $fullNames[$campaignID] = $fullName;
 
       $session->set('openy_campaign', [
+        'member_id' => $member->id(),
         'campaign_ids' => $campaignIDs,
         'membership_ids' => $membershipIDs,
         'full_names' => $fullNames,
@@ -480,6 +481,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       $campaignIDs = $openyCampaignSession['campaign_ids'];
       $membershipIDs = $openyCampaignSession['membership_ids'];
       $fullNames = $openyCampaignSession['full_names'];
+      $memberId = $openyCampaignSession['member_id'];
     }
 
     // Delete Campaign ID, Membership ID and Full name from SESSION
@@ -496,6 +498,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
         'campaign_ids' => $newCampaignIDs,
         'membership_ids' => $newMembershipIDs,
         'full_names' => $newFullNames,
+        'member_id' => $memberId,
       ]);
     }
   }
@@ -532,6 +535,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
     $openyCampaignSession = $session->get('openy_campaign', [
       'campaign_ids' => [],
+      'member_id' => '',
       'membership_ids' => [],
       'full_names' => [],
     ]);
@@ -543,6 +547,7 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       'campaign_id' => $campaignId,
       'membership_id' => !empty($membershipIDs[$campaignId]) ? $membershipIDs[$campaignId] : '',
       'full_name' => !empty($fullNames[$campaignId]) ? $fullNames[$campaignId] : '',
+      'member_id' => !empty($openyCampaignSession['member_id']) ? $openyCampaignSession['member_id'] : '',
     ];
   }
 

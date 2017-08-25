@@ -12,7 +12,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\openy_campaign\MemberCampaignActivityInterface;
 
 /**
- * Track participant's check-ins and activities.
+ * Track participant's activities.
  *
  * @ingroup openy_campaign
  *
@@ -30,12 +30,6 @@ use Drupal\openy_campaign\MemberCampaignActivityInterface;
  * )
  */
 class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaignActivityInterface {
-
-  /**
-   * Types of entity.
-   */
-  const TYPE_CHECKIN  = 0;
-  const TYPE_ACTIVITY = 1;
 
   /**
    * {@inheritdoc}
@@ -64,15 +58,6 @@ class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaig
         'default_value' => 0,
       ]);
 
-    $fields['type'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Either facility check in or activity.'))
-      ->setDefaultValue(FALSE)
-      ->setDisplayOptions('view', [
-        'label' => 'above',
-        'type' => 'integer',
-        'weight' => -1,
-      ]);
-
     $fields['activity'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Activity term'))
       ->setDescription(t('What activity this record is for.'))
@@ -96,9 +81,9 @@ class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaig
   public static function getExistingActivities($memberCampaignId, $date, $activityIds) {
     return \Drupal::entityQuery('openy_member_campaign_activity')
       ->condition('member_campaign', $memberCampaignId)
-      ->condition('type', MemberCampaignActivity::TYPE_ACTIVITY)
       ->condition('date', $date->format('U'))
       ->condition('activity', $activityIds, 'IN')
       ->execute();
   }
+  
 }
