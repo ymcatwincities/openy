@@ -1833,7 +1833,7 @@ article.site-alert ul li div {
 
 .form__locations .tag_filters label {
   background-color: white;
-  color: black;
+  color: #333;
 }
 
 @media (max-width: 991px) {
