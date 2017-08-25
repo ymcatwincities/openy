@@ -240,7 +240,7 @@ class MemberLoginRegisterForm extends FormBase {
       $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageBeforeCheckins, ['width' => 800]));
     }
 
-    // If Campaign already in checkings phase - login member
+    // If Campaign already in active phase - login member
     $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
     if ($isCheckinsPeriod) {
       // Login member
@@ -286,8 +286,8 @@ class MemberLoginRegisterForm extends FormBase {
    */
   protected function checkCheckinsPeriod(Node $campaign) {
     /** @var Node $campaign Campaign node. */
-    $checkinsOpenDate = new \DateTime($campaign->get('field_goal_check_ins_start_date')->getString());
-    $checkinsCloseDate = new \DateTime($campaign->get('field_goal_check_ins_end_date')->getString());
+    $checkinsOpenDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+    $checkinsCloseDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
     $currentDate = new \DateTime();
 
     return $currentDate >= $checkinsOpenDate && $currentDate <= $checkinsCloseDate;

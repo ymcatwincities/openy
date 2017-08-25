@@ -109,13 +109,13 @@ class ActivityBlockForm extends FormBase {
     $terms = Term::loadMultiple($tids);
 
     /** @var \DateTime $start */
-    $start = $campaign->field_goal_check_ins_start_date->date;
+    $start = $campaign->field_campaign_start_date->date;
 
     // Reset time to include the current day to the list.
     $start->setTime(0, 0, 0);
 
     /** @var \DateTime $end */
-    $end = $campaign->field_goal_check_ins_end_date->date;
+    $end = $campaign->field_campaign_end_date->date;
 
     if (empty($start) || empty($end)) {
       drupal_set_message('Start or End dates are not set for campaign.', 'error');

@@ -61,6 +61,15 @@ class MemberCheckin  extends ContentEntityBase implements MemberCampaignActivity
     return $fields;
   }
 
+  /**
+   * Get Member check-ins for a period.
+   *
+   * @param int $memberId Member id
+   * @param \DateTime $startDate
+   * @param \DateTime $endDate
+   *
+   * @return array|int
+   */
   public static function getFacilityCheckIns($memberId, $startDate, $endDate) {
     return \Drupal::entityQuery('openy_campaign_member_checkin')
       ->condition('member', $memberId)
