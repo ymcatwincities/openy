@@ -95,13 +95,26 @@
     .captcha {
       margin-left: 10px;
     }
+    [data-drupal-selector="edit-emergency-contact"] {
+      .form-item-emergency-contact-name {
+        padding-left: 0 !important;
+      }
+    }
+    .js-form-item-emergency-phone {
+      padding: 0 10px;
+    }
+    [data-drupal-selector="edit-parent-information"] {
+      .form-item-parent-first-name {
+        padding-left: 0 !important;
+      }
+    }
   }
   [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
     padding-left: 10px !important;
     padding-right: 10px !important;
     width: 47%;
     float: left;
-    margin: 0 0 0 23px !important;
+    margin: 0 0 0 20px !important;
     label {
       margin-top: 0;
     }
