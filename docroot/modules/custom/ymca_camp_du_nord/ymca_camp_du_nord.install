@@ -16,6 +16,7 @@ function ymca_camp_du_nord_install() {
     'ymca_cdn_product',
     'ymca_cdn_product_feature',
     'ymca_cdn_sync',
+    'ymca_cdn_mapping',
   ];
   $installer->install($module_install, TRUE);
 
