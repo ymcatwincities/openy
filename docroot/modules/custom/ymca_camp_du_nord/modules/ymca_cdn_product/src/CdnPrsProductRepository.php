@@ -109,6 +109,9 @@ class CdnPrsProductRepository implements CdnPrsProductRepositoryInterface {
       'field_cdn_prd_id' => $product['ProductID'],
       'field_cdn_prd_object' => serialize($product),
       'field_cdn_prd_start_date' => $dateTime->format(DATETIME_DATETIME_STORAGE_FORMAT),
+      'field_cdn_prd_cabin_id' => substr($product['ProductCode'], 6, 4),
+      'field_cdn_prd_capacity' => abs(substr($product['ProductCode'], 11, 2)),
+      'field_cdn_prd_cabin_number' => abs(substr($product['ProductCode'], 7, 4)),
     ];
 
     foreach ($popsToSave as $fieldName => $fieldValue) {
