@@ -195,11 +195,12 @@ source:
       publish_date: '-1 week'
       unpublish_date: '+3 weeks'
       publish_status: 1
+      header_content_ids:
+        -
+          header_content_id: lp_campaign_menu_1
       content_ids:
         -
           content_id: challenge_yourself_started_simple
-        -
-          content_id: challenge_yourself_campaign_activity
     -
       id: challenge_yourself_completed
       title: 'Challenge Yourself Winners'
@@ -214,6 +215,9 @@ source:
       id: challenge_yourself_rules
       title: 'Challenge Yourself Rules and Prizes'
       alias: '/challenge-yourself-rules'
+      header_content_ids:
+        -
+          header_content_id: lp_campaign_menu_2
       content_ids:
         -
           content_id: challenge_yourself_rules_simple
@@ -224,6 +228,16 @@ source:
       content_ids:
         -
           content_id: challenge_yourself_pause_simple
+    -
+      id: challenge_yourself_my_progress
+      title: 'Challenge Yourself My Progress'
+      alias: '/challenge-yourself-my-progress'
+      header_content_ids:
+        -
+          header_content_id: lp_campaign_menu_3
+      content_ids:
+        -
+          content_id: challenge_yourself_campaign_activity
   ids:
     id:
       type: string
@@ -287,6 +301,7 @@ process:
           - openy_demo_lp_paragraph_menu_camp
           - openy_demo_lp_paragraph_microsites_menu
           - openy_demo_lp_paragraph_lto
+          - openy_demo_lp_paragraph_campaign_menu
         source: header_content_id
       target_revision_id:
         plugin: migration
@@ -299,6 +314,7 @@ process:
           - openy_demo_lp_paragraph_menu_camp
           - openy_demo_lp_paragraph_microsites_menu
           - openy_demo_lp_paragraph_lto
+          - openy_demo_lp_paragraph_campaign_menu
         source: header_content_id
   field_content:
     plugin: iterator
@@ -374,5 +390,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_all_amenities
     - openy_demo_lp_paragraph_lto
     - openy_demo_lp_paragraph_campaign_activity
+    - openy_demo_lp_paragraph_campaign_menu
   optional:
     - openy_demo_node_blog
