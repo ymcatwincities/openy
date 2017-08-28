@@ -13,6 +13,7 @@ use Drupal\Core\Entity\ContentEntityTypeInterface;
  */
 function openy_campaign_theme($existing, $type, $theme, $path) {
   return [
+    // Campaign menu.
     'openy_campaign_campaign_menu' => [
       'variables' => [
         'base_path' => base_path(),
@@ -35,8 +36,17 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-register',
     ],
+    // Activity tracking form.
     'openy_campaign_activity_form' => [
       'render element' => 'form',
+    ],
+    // Visits goal block.
+    'openy_campaign_visits_goal' => [
+      'variables' => [
+        'goal' => NULL,
+        'current' => NULL,
+      ],
+      'template' => 'openy-campaign-visits-goal',
     ],
   ];
 }

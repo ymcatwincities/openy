@@ -67,6 +67,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ->condition('type', 'campaign');
     $orGroup = $query->orConditionGroup()
       ->condition('field_campaign_pages', $node->id(), 'IN')
+      ->condition('field_my_progress_page', $node->id())
       ->condition('field_rules_prizes_page', $node->id())
       ->condition('field_pause_landing_page', $node->id());
     $nids = $query->condition($orGroup)->execute();
@@ -130,48 +131,25 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ]
     ];
 
-    // Show only for logged in members
-    if (MemberCampaign::isLoggedIn($node->id())) {
-      $links['progress'] = [
-        '#type' => 'link',
-        '#title' => t('My progress'),
-        '#url' => Url::fromRoute('entity.node.canonical', ['node' => $node->id()]),
-        '#attributes' => [
-          'class' => [
-            'my-progress'
-          ],
+    // My progress link
+    $myProgressID = $node->get('field_my_progress_page')->getString();
+    $links['progress'] = [
+      '#type' => 'link',
+      '#title' => t('My progress'),
+      '#url' => Url::fromRoute('openy_campaign.my-progress', ['node' => $node->id(), 'landing_page_id' => $myProgressID]),
+      '#attributes' => [
+        'class' => [
+          'use-ajax',
+          'campaign-my-progress',
+          'node-' . $myProgressID,
         ],
-      ];
-
-      $links['activity'] = [
-        '#type' => 'link',
-        '#title' => t('Activity Tracking'),
-        '#url' => Url::fromRoute('entity.node.canonical', ['node' => $node->id()]),
-        '#attributes' => [
-          'class' => [
-            'activity-tracking'
-          ],
-        ],
-      ];
-    }
-    else {
-      $links['login'] = [
-        '#type' => 'link',
-        '#title' => t('Register/Login'),
-        '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $node->id()]),
-        '#attributes' => [
-          'class' => [
-            'use-ajax',
-            'login'
-          ],
-        ],
-        '#attached' => [
-          'library' => [
-            'core/drupal.dialog.ajax'
-          ]
+      ],
+      '#attached' => [
+        'library' => [
+          'core/drupal.ajax'
         ]
-      ];
-    }
+      ]
+    ];
 
     $rulesID = $node->get('field_rules_prizes_page')->getString();
     $links['rules'] = [
