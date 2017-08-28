@@ -11027,6 +11027,72 @@ tr:nth-last-child(3) .atcb-list {
   background: #4281f4;
 }
 
+.fullcalendar .fc-header-toolbar {
+  background-color: #fff;
+  margin-bottom: 0;
+  padding: 23px 0 20px;
+}
+.fullcalendar .fc-header-toolbar .fc-center h2 {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: #2e2e2e;
+  text-transform: uppercase;
+}
+.fullcalendar .fc-header-toolbar .ui-button {
+  border: none;
+  background: none;
+  height: 24px;
+}
+.fullcalendar .fc-header-toolbar .fc-prev-button {
+  margin-right: 30px;
+}
+.fullcalendar .fc-header-toolbar .fc-prev-button span {
+  background: url("../img/arrow-left.svg") no-repeat 0 0;
+}
+.fullcalendar .fc-header-toolbar .fc-next-button {
+  margin-left: 30px;
+}
+.fullcalendar .fc-header-toolbar .fc-next-button span {
+  background: url("../img/arrow-right.svg") no-repeat 0 0;
+}
+.fullcalendar .fc-view-container .fc-view * {
+  border-color: #d7d7d7;
+}
+.fullcalendar .fc-view-container .fc-view .fc-head-container .fc-row {
+  background: #f3f3f3;
+}
+.fullcalendar .fc-view-container .fc-view .fc-head-container th {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 17px;
+  letter-spacing: -0.4px;
+  color: #2e2e2e;
+  font-weight: normal;
+}
+.fullcalendar .fc-view-container .fc-view .fc-head-container th span {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  background-color: #f3f3f3;
+}
+.fullcalendar .fc-view-container .fc-view .ui-widget-content {
+  background: none;
+}
+.fullcalendar .fc-view-container .fc-view .fc-day {
+  background-color: #eeeeee;
+}
+.fullcalendar .fc-view-container .fc-view .fc-day-top {
+  font-family: Cachet;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: -0.6px;
+  text-align: center;
+  color: #999999;
+  padding-top: 24px;
+}
+.fullcalendar .fc-view-container .fc-view .fc-day-top .fc-day-number {
+  float: none;
+}
+
 .block-description--wrapper {
   display: flex;
 }
