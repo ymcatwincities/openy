@@ -581,6 +581,17 @@
         color: $purple;
       }
     }
+    .sub_instructor {
+      font-size: 12px;
+      .fa {
+        color: $pink;
+        margin-left: 16px;
+        margin-right: 5px;
+      }
+      a {
+        color: $pink;
+      }
+    }
   }
 }
 
