@@ -26,7 +26,9 @@ class MemberRegistrationPortalForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $campaignIds = \Drupal::entityQuery('node')->condition('type','campaign')->execute();
+    $campaignIds = \Drupal::entityQuery('node')
+      ->condition('type', 'campaign')
+      ->execute();
     $campaigns = Node::loadMultiple($campaignIds);
     $options = [];
     foreach ($campaigns as $item) {
@@ -117,6 +119,7 @@ class MemberRegistrationPortalForm extends FormBase {
     // Save Member and MemberCampaign entities in storage to save by submit.
     $form_state->setStorage([
       'member' => $member,
+      'campaign' => $campaign,
       'member_campaign' => $memberCampaign,
     ]);
   }
@@ -144,6 +147,27 @@ class MemberRegistrationPortalForm extends FormBase {
 
       $memberCampaign->save();
     }
+
+    /** @var Node $campaign Campaign object. */
+    $campaign = $storage['campaign'];
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+
+    // Get visits history from CRM for the past Campaign dates.
+    /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
+    $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
+
+    // Get visits history from Campaign start to yesterday date.
+    $dateFrom = $campaignStartDate->setTime(0, 0, 0);
+    $dateTo = new \DateTime();
+    $dateTo->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
+    $membersData[] = [
+      'member_id' => $member->getId(),
+      'master_customer_id' => $member->getPersonifyId(),
+      'start_date' => $dateFrom,
+      'end_date' => $campaignEndDate,
+    ];
+    $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
     // If the member has not previously registered, there will be a basic message "This member is now registered".
     drupal_set_message(t('This member is now registered'), 'status', TRUE);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ymca_retention\Plugin\QueueWorker;
+namespace Drupal\openy_campaign\Plugin\QueueWorker;
 
 use Drupal\Core\Queue\QueueWorkerBase;
 use Drupal\openy_campaign\Entity\MemberCheckIn;
@@ -14,7 +14,7 @@ use Drupal\openy_campaign\Entity\MemberCheckIn;
  *   cron = {"time" = 60}
  * )
  */
-class MemberCheckinWorkerUpdate extends QueueWorkerBase {
+class MemberVisitsWorkerUpdate extends QueueWorkerBase {
 
   /**
    * Campaign start date.

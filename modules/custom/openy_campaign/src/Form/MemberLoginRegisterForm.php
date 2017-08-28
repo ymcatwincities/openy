@@ -219,21 +219,38 @@ class MemberLoginRegisterForm extends FormBase {
     // For just registered members
     /** @var Node $campaign Campaign object. */
     $campaign = $storage['campaign'];
-    $checkinsOpenDate = new \DateTime($campaign->get('field_goal_check_ins_start_date')->getString());
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+
+    // Get visits history from CRM for the past Campaign dates.
+    /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
+    $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
+
+    // Get visits history from Campaign start to yesterday date.
+    $dateFrom = $campaignStartDate->setTime(0, 0, 0);
+    $dateTo = new \DateTime();
+    $dateTo->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
+    $membersData[] = [
+      'member_id' => $member->getId(),
+      'master_customer_id' => $member->getPersonifyId(),
+      'start_date' => $dateFrom,
+      'end_date' => $campaignEndDate,
+    ];
+    $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
     // Set message depends on member action
     $messageBeforeCheckins = t('Thank you for registering, you are all set! Be sure to check back on @date when the challenge starts!',
-      ['@date' => $checkinsOpenDate->format('F j')]);
+      ['@date' => $campaignStartDate->format('F j')]);
     $messageCheckins = t('Thank you for registering, you are all set and logged in!');
     if ($action == 'login') {
       $messageBeforeCheckins = t('Challenge is not started yet. Be sure to check back on @date when the challenge starts!',
-        ['@date' => $checkinsOpenDate->format('F j')]);
+        ['@date' => $campaignStartDate->format('F j')]);
       $messageCheckins = t('Thank you for logging in.');
     }
 
     $modalTitle = $this->t('Thank you!');
     // If a member ID is successfully registered during the registration phase, but before checking start.
-    if ($checkinsOpenDate >= new \DateTime()) {
+    if ($campaignStartDate >= new \DateTime()) {
       $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageBeforeCheckins, ['width' => 800]));
     }
 
@@ -283,11 +300,11 @@ class MemberLoginRegisterForm extends FormBase {
    */
   protected function checkCheckinsPeriod(Node $campaign) {
     /** @var Node $campaign Campaign node. */
-    $checkinsOpenDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-    $checkinsCloseDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
     $currentDate = new \DateTime();
 
-    return $currentDate >= $checkinsOpenDate && $currentDate <= $checkinsCloseDate;
+    return $currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate;
   }
 
 }
