@@ -181,6 +181,21 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
 }
 
 /**
+ * Manually create checkin. To be used for testing.
+ *
+ * @param $campaignMemberId
+ * @param $dateString
+ */
+function openy_campaign_create_checkin($campaignMemberId, $dateString) {
+  $date = new \DateTime($dateString);
+  $checkin = \Drupal\openy_campaign\Entity\MemberCheckin::create([
+    'member' => $campaignMemberId,
+    'date' => $date->format('U'),
+  ]);
+  $checkin->save();
+}
+
+/**
  * Clean email from Personify.
  *
  * @param string $email

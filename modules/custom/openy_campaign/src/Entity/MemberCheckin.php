@@ -8,6 +8,7 @@ namespace Drupal\openy_campaign\Entity;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 use Drupal\openy_campaign\MemberCampaignActivityInterface;
 
@@ -76,6 +77,41 @@ class MemberCheckin  extends ContentEntityBase implements MemberCampaignActivity
       ->condition('date', $startDate->format('U'), '>=')
       ->condition('date', $endDate->format('U'), '<')
       ->execute();
+  }
+
+
+  /**
+   * Create Game oportunity while checkin record is created.
+   */
+  public function save() {
+    $return = parent::save();
+
+    // Create Game opportunity.
+    // Get the list of all active campaigns.
+    $currentDate = new DrupalDateTime('now');
+    $currentDate->setTimezone(new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
+    $formatted = $currentDate->format(DATETIME_DATETIME_STORAGE_FORMAT);
+
+    $campaigns = \Drupal::entityQuery('node')
+      ->condition('type', 'campaign')
+      ->condition('field_campaign_start_date', $formatted, '<=')
+      ->condition('field_campaign_end_date', $formatted, '>=')
+      ->execute();
+
+    $campaignMembers = \Drupal::entityQuery('openy_campaign_member_campaign')
+      ->condition('campaign', array_keys($campaigns), 'IN')
+      ->condition('member', $this->get('member')->entity->id())
+      ->execute();
+
+    foreach (array_keys($campaignMembers) as $campaignMemberId) {
+      $game = MemberGame::create([
+        'member' => $campaignMemberId,
+      ]);
+
+      $game->save();
+    }
+
+    return $return;
   }
 
 }
