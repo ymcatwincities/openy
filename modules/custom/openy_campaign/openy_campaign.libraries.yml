@@ -1,0 +1,6 @@
+magic_ball:
+  css:
+    theme:
+      css/magic-ball.css: {}
+  js:
+    js/magic-ball.js: {}

@@ -199,6 +199,8 @@ source:
         -
           content_id: challenge_yourself_started_simple
         -
+          content_id: challenge_yourself_campaign_game
+        -
           content_id: challenge_yourself_campaign_activity
     -
       id: challenge_yourself_completed

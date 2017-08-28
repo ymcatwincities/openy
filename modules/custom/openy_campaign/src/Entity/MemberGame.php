@@ -26,16 +26,16 @@ use Drupal\openy_campaign\MemberCampaignActivityInterface;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "id",
+ *     "uuid" = "uuid",
  *   },
  * )
  */
-class MemberGame  extends ContentEntityBase implements MemberCampaignActivityInterface {
+class MemberGame extends ContentEntityBase implements MemberCampaignActivityInterface {
 
   /**
    * {@inheritdoc}
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
-
     // Standard field, used as unique if primary index.
     $fields['id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
@@ -61,6 +61,10 @@ class MemberGame  extends ContentEntityBase implements MemberCampaignActivityInt
     $fields['result'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Result'))
       ->setDescription(t('Whether member won or not.'));
+
+    $fields['uuid'] = BaseFieldDefinition::create('uuid')
+      ->setLabel('UUID')
+      ->setReadOnly(TRUE);
 
     return $fields;
   }
