@@ -21,7 +21,7 @@
     </div>
     {% if class.sub_instructor is not empty %}
       <div class="sub_instructor">
-        <span class="fa fa-refresh"></span><a class="use-ajax" href="{{ class.sub_instructor_link }}">{{ class.sub_instructor|raw }}</a>
+        <span class="fa fa-refresh" aria-hidden=true></span><a class="use-ajax" href="{{ class.sub_instructor_link }}">{{ class.sub_instructor|raw }}</a>
       </div>
     {% endif %}
   </div>
