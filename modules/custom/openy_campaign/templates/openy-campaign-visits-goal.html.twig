@@ -1,0 +1,20 @@
+<div class="visits-goal">
+    <div class="visits-goal-header">
+        <div class="header-text">
+            {{ 'Your goal is:'|t }} <span class="goal goal-number">{{ goal }}<span class="goal goal-text"> {{ 'visits'|t }}</span></span>
+        </div>
+        <div class="header-description">
+            {{ '(Visits are updated nightly)'|t }}
+        </div>
+    </div>
+    <div class="visits-goal-progress">
+        <div class="progress-line"></div>
+        {% for i in 1..goal %}
+            {% set activeClass = '' %}
+            {% if (i <= current) %}
+               {% set activeClass = ' active' %}
+            {% endif %}
+            <span class="point point-{{ i }}{{ activeClass }}"></span>
+        {% endfor %}
+    </div>
+</div>
