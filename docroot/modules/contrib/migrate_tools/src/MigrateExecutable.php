@@ -342,7 +342,7 @@ class MigrateExecutable extends MigrateExecutableBase {
         ->getIds())), $row->getSourceIdValues());
       $skip = TRUE;
       foreach ($this->idlist as $item) {
-        if (array_values($source_id) === $item) {
+        if (array_values($source_id) == $item) {
           $skip = FALSE;
           break;
         }

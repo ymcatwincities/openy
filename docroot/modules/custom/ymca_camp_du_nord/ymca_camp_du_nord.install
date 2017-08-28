@@ -12,6 +12,7 @@ function ymca_camp_du_nord_install() {
   // Install all required modules.
   $installer = \Drupal::service('module_installer');
   $module_install = [
+    'migrate_tools',
     'ymca_cdn_product',
     'ymca_cdn_product_feature',
     'ymca_cdn_sync',
