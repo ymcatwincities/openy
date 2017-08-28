@@ -2,6 +2,9 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_cabin_id
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_cabin_number
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_capacity
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_code
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_hash
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_id
@@ -15,6 +18,28 @@ targetEntityType: cdn_prs_product
 bundle: cdn_prs_product
 mode: default
 content:
+  field_cdn_prd_cabin_id:
+    weight: 11
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_cdn_prd_cabin_number:
+    weight: 13
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_cdn_prd_capacity:
+    weight: 12
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_cdn_prd_code:
     weight: 9
     settings:
