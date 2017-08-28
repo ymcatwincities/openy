@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_cdn_prd_cabin_desc
+    - ymca_mappings.mapping_type.cdn_prs_product
+  module:
+    - text
+id: mapping.cdn_prs_product.field_cdn_prd_cabin_desc
+field_name: field_cdn_prd_cabin_desc
+entity_type: mapping
+bundle: cdn_prs_product
+label: 'Cabin Description'
+description: 'Cabin description.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
