@@ -99,7 +99,7 @@ class MemberCheckin  extends ContentEntityBase implements MemberCampaignActivity
       ->execute();
 
     $campaignMembers = \Drupal::entityQuery('openy_campaign_member_campaign')
-      ->condition('campaign', array_keys($campaigns), 'IN')
+      ->condition('campaign', array_values($campaigns), 'IN')
       ->condition('member', $this->get('member')->entity->id())
       ->execute();
 

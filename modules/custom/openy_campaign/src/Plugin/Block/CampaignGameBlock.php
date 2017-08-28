@@ -9,16 +9,16 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
-use Drupal\openy_campaign\Entity\MemberCheckin;
+use Drupal\openy_campaign\Entity\MemberGame;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 
 /**
- * Provides a 'Activity Tracking' block.
+ * Provides a 'Campaign Game' block where members can play the game.
  *
  * @Block(
- *   id = "campaign_activity_block",
- *   admin_label = @Translation("Campaign Activity Tracking"),
+ *   id = "campaign_game_block",
+ *   admin_label = @Translation("Campaign Game Block"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */
@@ -111,10 +111,21 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
     $userData = MemberCampaign::getMemberCampaignData($campaign->id());
     $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
 
-    $games = \Drupal::entityQuery('openy_campaign_member_game')
+    $gameIds = \Drupal::entityQuery('openy_campaign_member_game')
       ->condition('member', $memberCampaignID)
-      ->condition('result', '')
       ->execute();
+
+    $games = MemberGame::loadMultiple($gameIds);
+    $unplayedGames = [];
+    foreach ($games as $game) {
+      if (!empty($game->result->value)) {
+        continue;
+      }
+
+      $unplayedGames[] = $game;
+    }
+
+//    dpm($games);
 
 //    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
 //    $campaignStartDate->setTime(0, 0, 0);
@@ -122,9 +133,9 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
 //    $yesterday->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
 //    $currentCheckins = MemberCheckin::getFacilityCheckIns($userData['member_id'], $campaignStartDate, $yesterday);
 
-    $block['games'] = [
-      '#markup' => var_export($games, TRUE),
-    ];
+//    $block['games'] = [
+//      '#markup' => var_export($games, TRUE),
+//    ];
 
 //    $block['goal_block'] = [
 //      '#theme' => 'openy_campaign_visits_goal',
@@ -132,9 +143,8 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
 //      '#current' => count($currentCheckins),
 //    ];
 //
-//    // Show Activity block form
-//    $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityBlockForm', $campaign->id());
-//    $block['form'] = $form;
+    $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\GameBlockForm', $unplayedGames);
+    $block['form'] = $form;
 
     return $block;
   }

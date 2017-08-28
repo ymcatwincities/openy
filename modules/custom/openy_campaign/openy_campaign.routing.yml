@@ -166,3 +166,11 @@ openy_campaign.track-activity:
     _controller: '\Drupal\openy_campaign\Controller\ActivityTrackingController::openModalForm'
   requirements:
     _permission: 'access content'
+
+# Play the Game.
+openy_campaign.game:
+  path: '/campaign-game/{uuid}'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\GameController::playGamePage'
+  requirements:
+    _permission: 'access content'

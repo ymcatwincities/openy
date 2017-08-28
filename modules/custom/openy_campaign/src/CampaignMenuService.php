@@ -67,7 +67,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ->condition('type', 'campaign');
     $orGroup = $query->orConditionGroup()
       ->condition('field_campaign_pages', $node->id(), 'IN')
-      ->condition('field_my_progress_page', $node->id())
+//      ->condition('field_my_progress_page', $node->id())
       ->condition('field_rules_prizes_page', $node->id())
       ->condition('field_pause_landing_page', $node->id());
     $nids = $query->condition($orGroup)->execute();
@@ -132,7 +132,8 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     ];
 
     // My progress link
-    $myProgressID = $node->get('field_my_progress_page')->getString();
+    $myProgressID = 1;
+//    $myProgressID = $node->get('field_my_progress_page')->getString();
     $links['progress'] = [
       '#type' => 'link',
       '#title' => t('My progress'),
