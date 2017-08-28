@@ -55,7 +55,24 @@ function openy_campaign_cron() {
 
   /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
   $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
-  $regularUpdater->createQueue();
+
+  /**
+   * Test data:
+   *
+   * MasterCustomerId - 2052250592, FacilityCardNumber - 4000301612, 2 visits 2017-08-15 and 2017-08-16
+   * MasterCustomerId - 2030086900, FacilityCardNumber - 4000044307, 1 visit 2017-08-15
+   */
+  // Yesterday date - From.
+  $dateFrom = new \DateTime();
+  //    $dateFrom->setDate(2017, 8, 15)->setTime(0, 0, 0);
+  $dateFrom->sub(new \DateInterval('P1D'))->setTime(0, 0, 0);
+
+  // Yesterday date - To.
+  $dateTo = new \DateTime();
+  //    $dateTo->setDate(2017, 8, 16)->setTime(23, 59, 59);
+  $dateTo->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
+
+  $regularUpdater->createQueue($dateFrom, $dateTo);
 
   // Update last run.
   \Drupal::state()->set('openy_campaign.cron_visits_last_run', \Drupal::time()->getRequestTime());

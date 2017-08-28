@@ -60,10 +60,67 @@ class RegularUpdater {
   }
 
   /**
-   * Create queue once a day.
+   * Add specified or all Members to queue.
+   *
+   * @param \DateTime $dateFrom
+   * @param \DateTime $dateTo
+   * @param array $membersData Array of items with needed data: Member ID,
+   *   Master Customer ID, Start date, End date to get visits
    */
-  public function createQueue() {
-    // Get: Member ID, Campaign start, Campaign end to receive visits from CRM
+  public function createQueue(\DateTime $dateFrom, \DateTime $dateTo, $membersData = []) {
+    // If Member doesn't specified - get all Member ID, Campaign start, Campaign end to receive visits from CRM
+    if (empty($membersData)) {
+      $membersData = $this->getAllMembersDataForQueue();
+    }
+
+    // Collect all Master Customer Ids if yesterday date is in the range of Member dates
+    $masterCustomerIds = [];
+    $memberIds = [];
+    foreach ($membersData as $item) {
+      if ($item['start_date'] <= $dateFrom && $item['end_date'] >= $dateTo) {
+        $masterCustomerIds[$item['member_id']] = $item['master_customer_id'];
+        $memberIds[$item['master_customer_id']] = $item['member_id'];
+      }
+    }
+
+    if (empty($masterCustomerIds)) {
+      return;
+    }
+
+    $queue = $this->queueFactory->get('openy_campaign_updates_member_visits');
+
+    $interval = \DateInterval::createFromDateString('1 day');
+    $period = new \DatePeriod($dateFrom, $interval, $dateTo);
+
+    /** @var \DateTime $from */
+    foreach ($period as $from) {
+      // Foreach by date - for every date in date interval create queue item.
+      $to = clone $from;
+      $to->setTime(23, 59, 59);
+      $data = [
+        'date_from' => $from,
+        'date_to' => $to,
+      ];
+
+      $chunks = array_chunk($masterCustomerIds, 100);
+      foreach ($chunks as $chunk) {
+        $data['items'] = [];
+        foreach ($chunk as $masterCustomerID) {
+          $memberID = $memberIds[$masterCustomerID];
+          $data['items'][$memberID] = $masterCustomerID;
+        }
+        // Add data to queue
+        $queue->createItem($data);
+      }
+    }
+  }
+
+  /**
+   * Get all members data to create queue.
+   *
+   * @return array
+   */
+  private function getAllMembersDataForQueue() {
     $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $connection->select('node_field_data', 'n');
@@ -103,54 +160,7 @@ class RegularUpdater {
       ];
     }
 
-    /**
-     * Test data:
-     *
-     * MasterCustomerId - 2052250592, FacilityCardNumber - 4000301612, 2 visits 2017-08-15 and 2017-08-16
-     * MasterCustomerId - 2030086900, FacilityCardNumber - 4000044307, 1 visit 2017-08-15
-     */
-    // Yesterday date - From.
-    $dateFrom = new \DateTime();
-//    $dateFrom->setDate(2017, 8, 15)->setTime(0, 0, 0);
-    $dateFrom->sub(new \DateInterval('P1D'))->setTime(0, 0, 0);
-
-    // Yesterday date - To.
-    $dateTo = new \DateTime();
-//    $dateTo->setDate(2017, 8, 16)->setTime(23, 59, 59);
-    $dateTo->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
-
-    // Collect all Master Customer Ids if yesterday date is in the range of Member dates
-    $masterCustomerIds = [];
-    $memberIds = [];
-    foreach ($membersData as $item) {
-      if ($item['start_date'] <= $dateFrom && $item['end_date'] >= $dateTo) {
-        $masterCustomerIds[$item['member_id']] = $item['master_customer_id'];
-        $memberIds[$item['master_customer_id']] = $item['member_id'];
-      }
-    }
-
-    if (empty($masterCustomerIds)) {
-      return;
-    }
-
-    $data = [
-      'date_from' => $dateFrom,
-      'date_to' => $dateTo,
-    ];
-
-    $queue = $this->queueFactory->get('openy_campaign_updates_member_visits');
-
-    $chunks = array_chunk($masterCustomerIds, 100);
-
-    foreach ($chunks as $chunk) {
-      $data['items'] = [];
-      foreach ($chunk as $masterCustomerID) {
-        $memberID = $memberIds[$masterCustomerID];
-        $data['items'][$memberID] = $masterCustomerID;
-      }
-      // Add data to queue
-      $queue->createItem($data);
-    }
+    return $membersData;
   }
 
 }
