@@ -5167,6 +5167,20 @@ html.js .branch__updates_queue__button {
 .groupex-results .card .instructor a {
   color: #5c2e91;
 }
+#group-ex-results .card .sub_instructor,
+.groupex-results .card .sub_instructor {
+  font-size: 12px;
+}
+#group-ex-results .card .sub_instructor .fa,
+.groupex-results .card .sub_instructor .fa {
+  color: #c6168d;
+  margin-left: 16px;
+  margin-right: 5px;
+}
+#group-ex-results .card .sub_instructor a,
+.groupex-results .card .sub_instructor a {
+  color: #c6168d;
+}
 
 .groupex-form-full .instructor-chosen {
   margin-bottom: 30px;

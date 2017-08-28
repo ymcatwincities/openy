@@ -153,20 +153,27 @@ class GroupexScheduleFetcher {
       $class_url_options['view_mode'] = 'class';
       unset($class_url_options['instructor']);
 
+      // Original Instructor
       $instructor_url_options = $this->parameters;
       $instructor_url_options['filter_date'] = $current_date;
       $instructor_url_options['filter_length'] = 'week';
 
-      $instructor_url_options['instructor'] = $item->instructor;
-      // Here we need to remove redundant HTML if exists.
-      $pos = strpos($item->instructor, '<br>');
-      if (FALSE !== $pos) {
-        $instructor_url_options['instructor'] = substr_replace($item->instructor, '', $pos);
-      }
+      $instructor_url_options['instructor'] = $item->original_instructor;
 
       $instructor_url_options['class'] = 'any';
       $instructor_url_options['groupex_class'] = 'groupex_table_instructor_individual';
       unset($instructor_url_options['view_mode']);
+
+      // Sub Instructor
+      $sub_instructor_url_options                  = $this->parameters;
+      $sub_instructor_url_options['filter_date']   = $current_date;
+      $sub_instructor_url_options['filter_length'] = 'week';
+
+      $sub_instructor_url_options['instructor'] = $item->sub_instructor;
+
+      $sub_instructor_url_options['class']         = 'any';
+      $sub_instructor_url_options['groupex_class'] = 'groupex_table_instructor_individual';
+      unset($sub_instructor_url_options['view_mode']);
 
       $date_url_options = $this->parameters;
       $date_url_options['filter_date'] = date('m/d/y', strtotime($item->date));
@@ -190,10 +197,12 @@ class GroupexScheduleFetcher {
           'date_short' => date('F, d', strtotime($item->date)),
           'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
-          'instructor' => $item->instructor,
+          'instructor' => $item->original_instructor,
+          'sub_instructor' => $item->sub_instructor,
           'class_id' => $item->class_id,
           'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $class_url_options]),
           'instructor_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $instructor_url_options]),
+          'sub_instructor_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $sub_instructor_url_options]),
           'date_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $date_url_options]),
           'calendar' => $item->calendar,
         ],
@@ -214,7 +223,10 @@ class GroupexScheduleFetcher {
     if (!empty($this->parameters['class']) && is_numeric($this->parameters['class'])) {
       $schedule['type'] = 'week';
     }
-    if (!empty($this->parameters['instructor'])) {
+    if (!empty($this->parameters['original_instructor'])) {
+      $schedule['type'] = 'instructor';
+    }
+    if (!empty($this->parameters['sub_instructor'])) {
       $schedule['type'] = 'instructor';
     }
     switch ($schedule['type']) {
@@ -557,11 +569,17 @@ class GroupexScheduleFetcher {
       if (!empty($test)) {
         $item->address_1 = str_replace($test[0], ' ' . $test[1], $item->address_1);
       }
-      preg_match('/<span class=\"subbed\".*><br>(.*)<\/span>/', $item->instructor, $test1);
-      if (!empty($test1)) {
-        $test1[1] = str_replace('(sub for ', '', $test1[1]);
-        $test1[1] = str_replace(')', '', $test1[1]);
-        $item->instructor = str_replace($test1[0], '<br><span class="icon icon-loop2"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
+    }
+
+    // Crate short name for original and sub instructors.
+    foreach ($data as &$item) {
+      if (!empty($item->original_instructor)) {
+        $original_instructor       = explode(' ', $item->original_instructor);
+        $item->original_instructor = $original_instructor[0] . ' ' . $original_instructor[1][0] . '.';
+      }
+      if (!empty($item->sub_instructor)) {
+        $original_instructor  = explode(' ', $item->sub_instructor);
+        $item->sub_instructor = $original_instructor[0] . ' ' . $original_instructor[1][0] . '.';
       }
     }
 

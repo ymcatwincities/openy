@@ -19,6 +19,11 @@
     <div class="instructor">
       <span class="fa fa-link" aria-hidden=true></span><span class="fa fa-user"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
     </div>
+    {% if class.sub_instructor is not empty %}
+      <div class="sub_instructor">
+        <span class="fa fa-refresh"></span><a class="use-ajax" href="{{ class.sub_instructor_link }}">{{ class.sub_instructor|raw }}</a>
+      </div>
+    {% endif %}
   </div>
   <div class="ical">
     <span class="addtocalendar atc-style-blue">
