@@ -50,7 +50,7 @@ class Json extends DataParserPluginBase implements ContainerFactoryPluginInterfa
     // valid utf8 - see http://php.net/manual/en/function.json-decode.php#86997.
     if (is_null($source_data)) {
       $utf8response = utf8_encode($response);
-      $source_data = json_decode($utf8response);
+      $source_data = json_decode($utf8response, TRUE);
     }
 
     // Backwards-compatibility for depth selection.

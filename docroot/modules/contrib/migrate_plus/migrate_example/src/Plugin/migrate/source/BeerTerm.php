@@ -50,9 +50,9 @@ class BeerTerm extends SqlBase {
      * to humans what the field represents. You should always
      */
     $fields = [
-      'style' => $this->t('Account ID'),
-      'details' => $this->t('Blocked/Allowed'),
-      'style_parent' => $this->t('Registered date'),
+      'style' => $this->t('Beer style'),
+      'details' => $this->t('Style details'),
+      'style_parent' => $this->t('Parent style'),
       // These values are not currently migrated - it's OK to skip fields you
       // don't need.
       'region' => $this->t('Region the style is associated with'),
