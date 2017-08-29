@@ -1,0 +1,33 @@
+uuid: adcc6332-3f9a-4bf8-a785-8cfd29b17a14
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_ds_layout
+field_name: field_ds_layout
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: l-left-50
+      label: 'Landscape A (left half)'
+    -
+      value: l-bottom-50
+      label: 'Landscape B (bottom half)'
+    -
+      value: p-top-33
+      label: 'Portrait A (top third)'
+    -
+      value: p-bottom-33
+      label: 'Portrait B (bottom third)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
