@@ -96,7 +96,7 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
     }
     $campaign = $this->campaignMenuService->getNodeCampaignNode($node);
 
-    if (!empty($campaign) && $campaign->getType() == 'campaign') {
+    if (!empty($campaign) && $campaign->getType() == 'campaign' && MemberCampaign::isLoggedIn($campaign->id())) {
       // Show Visits goal block
       $userData = MemberCampaign::getMemberCampaignData($campaign->id());
       $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
