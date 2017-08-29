@@ -39,6 +39,7 @@ function ymca_camp_du_nord_theme($existing, $type, $theme, $path) {
         'title' => '',
         'image' => '',
         'availability' => '',
+        'capacity' => '',
       ],
       'template' => 'cdn-village-teaser',
     ],
@@ -60,16 +61,15 @@ function ymca_camp_du_nord_results_layout(array $cdn_products) {
     'max-age' => 3600,
     'contexts' => ['url.query_args'],
   ];
-  $default_image = '';
   $default_availability = t('Available');
-
   if (!empty($cdn_products)) {
     foreach ($cdn_products as $product) {
       $teasers[] = [
         '#theme' => 'cdn_village_teaser',
-        '#title' => !empty($product->getName()) ? $product->getName() : '',
-        '#image' => $default_image,
+        '#title' => !empty($product->getName()) ? substr($product->getName(), 9) : '',
+        '#image' => drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin' . rand(1, 3) . '.png',
         '#availability' => $default_availability,
+        '#capacity' => rand(2, 14),
         '#cache' => $cache,
       ];
     }
