@@ -89,15 +89,19 @@ class MemberLoginRegisterForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('openy_campaign.general_settings');
-    $errorDefault = $config->get('error_msg_default');
+    $msgDefault = $config->get('error_msg_default');
+    $errorDefault = check_markup($msgDefault['value'], $msgDefault['format']);
 
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
+    $action = $form_state->getValue('member_action');
 
     // TODO Add check length of $membershipID
     // Check correct Membership ID
     if (!is_numeric($membershipID)) {
-      $form_state->setErrorByName('membership_id', $config->get('error_msg_membership_id'));
+      $msgMembershipId = $config->get('error_msg_membership_id');
+      $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
+      $form_state->setErrorByName('membership_id', $errorMembershipId);
 
       return;
     }
@@ -105,22 +109,47 @@ class MemberLoginRegisterForm extends FormBase {
     // Check MemberCampaign entity
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
+    /** @var Node $campaign */
     $campaign = Node::load($campaignID);
-    $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
-    // If the member is already registered previously, but the campaign challenges have not yet started.
-    if ($memberCampaignID) {
-      if ($isCheckinsPeriod) {
+    $isCampaignPeriod = $this->checkCampaignPeriod($campaign);
+
+    // If the member is already registered previously.
+    if ($action == 'login' && $memberCampaignID) {
+      if ($isCampaignPeriod) {
         // Login member - set SESSION
         MemberCampaign::login($membershipID, $campaignID);
         $form_state->setStorage([
-          'loggedin' => TRUE,
+          'status' => 'loggedin',
+          'campaign' => $campaign,
         ]);
       } else {
-        $form_state->setErrorByName('membership_id', $config->get('error_msg_checkins_not_started'));
+        $msgNotStarted = $config->get('error_msg_checkins_not_started');
+        $errorNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
+        $form_state->setErrorByName('membership_id', $errorNotStarted);
       }
 
       return;
     }
+
+    // For not registered users.
+    if ($action == 'login' && !$memberCampaignID) {
+      $msgNotRegistered = $config->get('error_msg_not_registered');
+      $errorNotRegistered = check_markup($msgNotRegistered['value'], $msgNotRegistered['format']);
+      $form_state->setErrorByName('membership_id', $errorNotRegistered);
+
+      return;
+    }
+
+    // Registration attempt for already registered member.
+    if ($action == 'registration' && $memberCampaignID) {
+      $msgAlreadyRegistered = $config->get('error_msg_already_registered');
+      $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
+      $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
+
+      return;
+    }
+
+    // Register logic: $action == 'register' && !$memberCampaignID
 
     /** @var Member $member Load or create Temporary Member object. Will be saved by submit. */
     $member = Member::loadMemberFromCRMData($membershipID);
@@ -133,7 +162,9 @@ class MemberLoginRegisterForm extends FormBase {
     // TODO Check from CRM API if a member shows as inactive
     $isInactiveMember = FALSE;
     if ($isInactiveMember) {
-      $form_state->setErrorByName('membership_id', $config->get('error_msg_member_is_inactive'));
+      $msgMemberInactive = $config->get('error_msg_member_is_inactive');
+      $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+      $form_state->setErrorByName('membership_id', $errorMemberInactive);
     }
 
     /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
@@ -149,24 +180,30 @@ class MemberLoginRegisterForm extends FormBase {
 
     // Member is ineligible due to the Target Audience Setting
     if (!empty($validateAudienceErrorMessages)) {
-      $errorMessages = implode(' - ', $validateAudienceErrorMessages);
-      $form_state->setErrorByName('membership_id', $errorMessages . $config->get('error_msg_target_audience_settings'));
+      $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
+      $msgValue = implode(' - ', $validateAudienceErrorMessages) . $msgAudienceMessages['value'];
+      $errorAudience = check_markup($msgValue, $msgAudienceMessages['format']);
+      $form_state->setErrorByName('membership_id', $errorAudience);
 
       return;
     }
 
     // Save Member and MemberCampaign entities in storage to save by submit.
     $form_state->setStorage([
-      'loggedin' => FALSE,
+      'status' => FALSE,
       'member' => $member,
       'campaign' => $campaign,
       'member_campaign' => $memberCampaign,
     ]);
   }
 
-
   /**
    * AJAX callback handler that displays any errors or a success message.
+   *
+   * @param array $form
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
    */
   public function submitModalFormAjax(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
@@ -174,7 +211,6 @@ class MemberLoginRegisterForm extends FormBase {
     // Get member action
     $values = $form_state->getValues();
     $action = (!empty($values['member_action'])) ? $values['member_action'] : 'login';
-    $campaign_id = $values['campaign_id'];
 
     // If there are any form errors, re-display the form.
     if ($form_state->hasAnyErrors()) {
@@ -183,42 +219,86 @@ class MemberLoginRegisterForm extends FormBase {
       return $response;
     }
 
-    // Submit handler.
+    // Login handler.
+    if ($action == 'login') {
+      $response = $this->submitLoginForm($form, $form_state);
+    }
+    // Registration handler.
+    else {
+      $response = $this->submitRegistrationForm($form, $form_state);
+    }
 
-    // Get status info and entities from storage.
+    return $response;
+  }
+
+  /**
+   * Submit handler for Login.
+   *
+   * @param array $form
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  private function submitLoginForm(array $form, FormStateInterface $form_state) {
+    $response = new AjaxResponse();
     $storage = $form_state->getStorage();
 
-    // For existed and logged in during validation members
-    if ($storage['loggedin'] === TRUE) {
-      $response->addCommand(new OpenModalDialogCommand($this->t('Thank you!'), $this->t('Thank you for logging in.'), ['width' => 800]));
+    // For existed and logged in during validation members. All other cases were checked during validation.
+    if ($storage['status'] === 'loggedin') {
+      $modalTitle = $this->t('Thank you!');
+      $modalMessage = t('Thank you for logging in.');
+
+      // Login before Campaign start
+      /** @var Node $campaign Campaign object. */
+      $campaign = $storage['campaign'];
+      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+
+      if ($campaignStartDate > new \DateTime()) {
+        $modalMessage = $this->t('Challenge is not started yet. Be sure to check back on @date when the challenge starts!',
+          ['@date' => $campaignStartDate->format('F j')]);
+      }
+
+      $response->addCommand(new OpenModalDialogCommand(
+        $modalTitle,
+        $modalMessage,
+        ['width' => 800]
+      ));
 
       // Set redirect to Campaign page
-      $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign_id;
+      $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign->id();
       $response->addCommand(new RedirectCommand($fullPath));
 
       return $response;
     }
 
-    // Save Member entity.
-    if (!empty($storage['member'])) {
-      /** @var Member $member Member object. */
-      $member = $storage['member'];
-      $member->save();
-    }
+    return $response;
+  }
 
-    // Save MemberCampaign entity.
-    if (!empty($storage['member_campaign'])) {
-      /** @var MemberCampaign $memberCampaign MemberCampaign object. */
-      $memberCampaign = $storage['member_campaign'];
-      // define visits goal
-      $memberCampaign->defineGoal();
+  /**
+   * Submit handler for registration.
+   *
+   * @param array $form
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  private function submitRegistrationForm(array $form, FormStateInterface $form_state) {
+    $response = new AjaxResponse();
+    $storage = $form_state->getStorage();
 
-      $memberCampaign->save();
-    }
+    /** @var Member $member Save Member entity. */
+    $member = $storage['member'];
+    $member->save();
 
-    // For just registered members
+    /** @var MemberCampaign $memberCampaign Save MemberCampaign entity. */
+    $memberCampaign = $storage['member_campaign'];
+    // Define visits goal
+    $memberCampaign->defineGoal();
+    $memberCampaign->save();
+
     /** @var Node $campaign Campaign object. */
     $campaign = $storage['campaign'];
+
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
 
@@ -238,31 +318,15 @@ class MemberLoginRegisterForm extends FormBase {
     ];
     $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
-    // Set message depends on member action
-    $messageBeforeCheckins = t('Thank you for registering, you are all set! Be sure to check back on @date when the challenge starts!',
-      ['@date' => $campaignStartDate->format('F j')]);
-    $messageCheckins = t('Thank you for registering, you are all set and logged in!');
-    if ($action == 'login') {
-      $messageBeforeCheckins = t('Challenge is not started yet. Be sure to check back on @date when the challenge starts!',
-        ['@date' => $campaignStartDate->format('F j')]);
-      $messageCheckins = t('Thank you for logging in.');
-    }
-
     $modalTitle = $this->t('Thank you!');
-    // If a member ID is successfully registered during the registration phase, but before checking start.
+    $modalMessage = t('Thank you for registering. Now you can sign in!');
+    // If Campaign is not started
     if ($campaignStartDate >= new \DateTime()) {
-      $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageBeforeCheckins, ['width' => 800]));
+      $modalMessage = t('Thank you for registering. Be sure to check back on @date when the challenge starts!',
+        ['@date' => $campaignStartDate->format('F j')]);
     }
 
-    // If Campaign already in active phase - login member
-    $isCheckinsPeriod = $this->checkCheckinsPeriod($campaign);
-    if ($isCheckinsPeriod) {
-      // Login member
-      $membershipID = $values['membership_id'];
-      MemberCampaign::login($membershipID, $campaign->id());
-
-      $response->addCommand(new OpenModalDialogCommand($modalTitle, $messageCheckins, ['width' => 800]));
-    }
+    $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalMessage, ['width' => 800]));
 
     // Set redirect to Campaign page
     $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign->id();
@@ -298,7 +362,7 @@ class MemberLoginRegisterForm extends FormBase {
    *
    * @return bool
    */
-  protected function checkCheckinsPeriod(Node $campaign) {
+  protected function checkCampaignPeriod(Node $campaign) {
     /** @var Node $campaign Campaign node. */
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
