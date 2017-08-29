@@ -2526,6 +2526,9 @@ body.path-search #block-mainpagecontent li {
   font-weight: bold;
 }
 
+.program-header {
+  margin-bottom: 35px;
+}
 .program-header .content {
   padding: 0;
 }
@@ -2542,6 +2545,11 @@ body.path-search #block-mainpagecontent li {
   top: 0;
   height: 100%;
   width: auto;
+}
+.program-header .description .field-program-description {
+  font-size: 14px;
+  line-height: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @media (min-width: 0) and (max-width: 48em) {
