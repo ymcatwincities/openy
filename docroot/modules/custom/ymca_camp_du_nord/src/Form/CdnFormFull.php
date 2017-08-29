@@ -28,6 +28,13 @@ class CdnFormFull extends FormBase {
   protected $entityQuery;
 
   /**
+   * The entity query factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $ajaxOptions;
+
+  /**
    * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -62,6 +69,10 @@ class CdnFormFull extends FormBase {
     $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get('ymca_camp_du_nord');
+
+    $this->villageOptions = $this->getVillageOptions();
+    $this->capacityOptions = $this->getCapacityOptions();
+    $this->ajaxOptions = $this->getAjaxOptions();
 
     $query = $this->getRequest()->query->all();
     $request = $this->getRequest()->request->all();
@@ -134,17 +145,9 @@ class CdnFormFull extends FormBase {
     $form['arrival_date'] = [
       '#type' => 'date',
       '#title' => $this->t('Arrival'),
+      '#prefix' => '<div class="top-elements-wrapper">',
       '#default_value' => $default_arrival_date,
-      '#ajax' => [
-        'callback' => [$this, 'rebuildAjaxCallback'],
-        'wrapper' => 'cdn-full-form-wrapper',
-        'event' => 'change',
-        'method' => 'replace',
-        'effect' => 'fade',
-        'progress' => [
-          'type' => 'throbber',
-        ],
-      ],
+      '#ajax' => $this->ajaxOptions,
     ];
 
     $default_departure_date = NULL;
@@ -163,35 +166,47 @@ class CdnFormFull extends FormBase {
       '#type' => 'date',
       '#title' => $this->t('Departure'),
       '#default_value' => $default_departure_date,
-      '#ajax' => [
-        'callback' => [$this, 'rebuildAjaxCallback'],
-        'wrapper' => 'cdn-full-form-wrapper',
-        'event' => 'change',
-        'method' => 'replace',
-        'effect' => 'fade',
-        'progress' => [
-          'type' => 'throbber',
-        ],
-      ],
+      '#ajax' => $this->ajaxOptions,
     ];
 
     $form['range'] = [
       '#type' => 'select',
-      '#title' => '',
+      '#suffix' => '</div>', // closes top-elements-wrapper.
       '#default_value' => $state['range'],
       '#options' => [
         0 => '+/- 3 Days'
       ],
-      '#ajax' => [
-        'callback' => [$this, 'rebuildAjaxCallback'],
-        'wrapper' => 'cdn-full-form-wrapper',
-        'event' => 'change',
-        'method' => 'replace',
-        'effect' => 'fade',
-        'progress' => [
-          'type' => 'throbber',
-        ],
-      ],
+      '#ajax' => $this->ajaxOptions,
+    ];
+
+    $form['village_select'] = [
+      '#type' => 'select',
+      '#title' => t('Village:'),
+      '#default_value' => $state['village_select'],
+      '#options' => $this->villageOptions,
+      '#ajax' => $this->ajaxOptions,
+    ];
+
+    $form['capacity'] = [
+      '#type' => 'select',
+      '#title' => t('Capacity:'),
+      '#default_value' => $state['capacity'],
+      '#options' => $this->capacityOptions,
+      '#ajax' => $this->ajaxOptions,
+    ];
+
+    $form['booked'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Include booked'),
+      '#default_value' => $state['booked'],
+      '#ajax' => $this->ajaxOptions,
+    ];
+
+    $form['partly_available'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Include partly available'),
+      '#default_value' => $state['partly_available'],
+      '#ajax' => $this->ajaxOptions,
     ];
 
     $form['results'] = [
@@ -245,5 +260,62 @@ class CdnFormFull extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {}
+
+  /**
+   * Return Village options.
+   */
+  public function getVillageOptions() {
+    $options = ['all' => t('Show All')];
+    $mapping_ids = $this->entityQuery
+      ->get('mapping')
+      ->condition('type', 'cdn_prs_product')
+      ->execute();
+    if ($mappings = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_ids)) {
+      foreach ($mappings as $mapping) {
+        $ref = $mapping->field_cdn_prd_village_ref->getValue();
+        $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
+        if ($page_node = $this->entityTypeManager->getStorage('node')->load($page_id)) {
+          $options[$page_id] = $page_node->getTitle();
+        }
+      }
+    }
+    return $options;
+  }
+
+  /**
+   * Return Capacity options.
+   */
+  public function getCapacityOptions() {
+    $options = ['all' => t('Show All')];
+    $cdn_products_ids = $this->entityQuery
+      ->get('cdn_prs_product')
+      ->execute();
+    if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_products_ids)) {
+      foreach ($cdn_products as $cdn_product) {
+        $value = $cdn_product->field_cdn_prd_capacity->getValue();
+        if (!empty($value[0]['value'])) {
+          $options[$value[0]['value']] = $value[0]['value'] . ' ' . t('people');
+        }
+      }
+    }
+    return $options;
+  }
+
+
+  /**
+   * Provides default ajax build options.
+   */
+  public function getAjaxOptions() {
+    return [
+      'callback' => [$this, 'rebuildAjaxCallback'],
+      'wrapper' => 'cdn-full-form-wrapper',
+      'event' => 'change',
+      'method' => 'replace',
+      'effect' => 'fade',
+      'progress' => [
+        'type' => 'throbber',
+      ],
+    ];
+  }
 
 }

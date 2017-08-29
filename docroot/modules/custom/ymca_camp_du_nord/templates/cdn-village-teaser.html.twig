@@ -7,7 +7,10 @@
  */
 #}
 <div class="cdn-village-teaser">
-  {{ title }}
-  {{ image }}
-  {{ availability }}
+  <div class="available">{{ availability }}</div>
+  <img src="{{ image }}" alt="{{ title }}" />
+  <div class="info">
+    <span class="title">{{ title }}</span>
+    <span class="capacity">{{ capacity }}</span>
+  </div>
 </div>

@@ -11027,6 +11027,150 @@ tr:nth-last-child(3) .atcb-list {
   background: #4281f4;
 }
 
+.cdn-form-full {
+  max-width: 1050px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+.cdn-form-full .top-elements-wrapper {
+  background-color: #f5f5f5;
+  padding-top: 35px;
+  margin-bottom: 60px;
+}
+.cdn-form-full .top-elements-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cdn-form-full .form-item-arrival-date label,
+.cdn-form-full .form-item-departure-date label {
+  font-family: Cachet;
+  font-size: 20px;
+  height: 28px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  color: #2e2e2e;
+  text-transform: uppercase;
+}
+.cdn-form-full .form-item-arrival-date input,
+.cdn-form-full .form-item-departure-date input {
+  background: #fff url("../img/icon-calendar.png") no-repeat 15px center;
+  height: 50px;
+  padding-left: 55px;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 18px;
+  color: #2e2e2e;
+  border-color: #bfbfbf;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-arrival-date,
+  .cdn-form-full .form-item-departure-date {
+    width: 330px;
+    float: left;
+    margin-right: 30px;
+  }
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-range {
+    float: left;
+    width: 210px;
+  }
+}
+.cdn-form-full .form-item-range select {
+  background: #f5f5f5;
+  border-color: #bfbfbf;
+  height: 50px;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 18px;
+  text-indent: 25px;
+  color: #2e2e2e;
+  margin-top: 38px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-village-select,
+  .cdn-form-full .form-item-capacity {
+    float: left;
+    margin-right: 40px;
+  }
+}
+.cdn-form-full .form-item-village-select label,
+.cdn-form-full .form-item-capacity label {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  color: #888888;
+  display: inline-block;
+  font-weight: normal;
+  margin: 0 3px 0 0;
+  vertical-align: top;
+}
+.cdn-form-full .form-item-village-select select,
+.cdn-form-full .form-item-capacity select {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  color: #2e2e2e;
+  border: none;
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  outline: none;
+  box-shadow: none;
+  width: auto;
+  height: auto;
+  padding: 0 25px 0 0;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-partly-available,
+  .cdn-form-full .form-item-booked {
+    float: right;
+    margin-left: 40px;
+  }
+  .cdn-form-full .form-item-partly-available label,
+  .cdn-form-full .form-item-booked label {
+    font-weight: normal;
+    font-family: "Cachet Book", Arial, sans-serif;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    color: #2e2e2e;
+  }
+}
+.cdn-form-full .cdn-results {
+  border-top: solid 1px #eaeaea;
+  padding: 50px 0;
+  margin-top: 20px;
+  clear: both;
+}
+.cdn-form-full .cdn-results:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .cdn-results .cdn-village-teaser {
+    display: inline-block;
+    width: 31%;
+  }
+  .cdn-form-full .cdn-results .cdn-village-teaser:nth-child(3n+2) {
+    margin: 0 3%;
+  }
+}
+
+.paragraph--type--camp-du-nord-calendar-view .views-element-container {
+  max-width: 868px;
+  margin: 0 auto;
+}
+.paragraph--type--camp-du-nord-calendar-view .views-element-container .views-exposed-form {
+  display: none;
+}
+
 .fullcalendar .fc-header-toolbar {
   background-color: #fff;
   margin-bottom: 0;
@@ -11091,6 +11235,61 @@ tr:nth-last-child(3) .atcb-list {
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top .fc-day-number {
   float: none;
+}
+
+.cdn-village-teaser {
+  position: relative;
+}
+.cdn-village-teaser .available {
+  background-color: #00ac95;
+  border-radius: 8px;
+  color: #fff;
+  font-family: Cachet;
+  font-size: 20px;
+  font-weight: bold;
+  height: 47px;
+  left: 20px;
+  letter-spacing: -0.5px;
+  line-height: 47px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: -16px;
+  width: 140px;
+}
+.cdn-village-teaser img {
+  border-radius: 14px 14px 0 0;
+  max-width: 100%;
+}
+.cdn-village-teaser .info {
+  border-radius: 0 0 14px 14px;
+  border-left: solid 1px #979797;
+  border-right: solid 1px #979797;
+  border-bottom: solid 1px #979797;
+  padding: 25px 0;
+}
+.cdn-village-teaser .info:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cdn-village-teaser .info .title {
+  font-family: Cachet;
+  font-size: 25px;
+  font-weight: 500;
+  letter-spacing: -0.6px;
+  color: #2e2e2e;
+  float: left;
+  margin-left: 25px;
+  line-height: 25px;
+  width: 200px;
+}
+.cdn-village-teaser .info .capacity {
+  background: url("../img/icon-cdn-capacity.png") no-repeat 0 center;
+  padding-left: 40px;
+  margin-right: 18px;
+  margin-top: 2px;
+  float: right;
 }
 
 .block-description--wrapper {
