@@ -1831,6 +1831,11 @@ article.site-alert ul li div {
   display: inline;
 }
 
+.form__locations .tag_filters label {
+  background-color: white;
+  color: #333;
+}
+
 @media (max-width: 991px) {
   #membership-calc-wrapper .nav-pills > li {
     font-size: 18px;
