@@ -6,7 +6,9 @@
  */
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\migrate\Exception\RequirementsException;
 use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate\Plugin\RequirementsInterface;
 use Drupal\migrate_tools\MigrateExecutable;
 use Drupal\migrate_tools\DrushLogMigrateMessage;
 use Drupal\Core\Datetime\DateFormatter;
@@ -175,29 +177,29 @@ function drush_migrate_tools_migrate_status($migration_names = '') {
           ['@migration' => $migration_id, '@message' => $e->getMessage()]));
         continue;
       }
-      try {
-        $source_rows = $source_plugin->count();
-        // -1 indicates uncountable sources.
-        if ($source_rows == -1) {
-          $source_rows = dt('N/A');
-          $unprocessed = dt('N/A');
-        }
-        else {
-          $unprocessed = $source_rows - $map->processedCount();
-        }
-      }
-      catch (Exception $e) {
-        drush_print($e->getMessage());
-        drush_log(dt('Could not retrieve source count from @migration: @message',
-          ['@migration' => $migration_id, '@message' => $e->getMessage()]));
-        $source_rows = dt('N/A');
-        $unprocessed = dt('N/A');
-      }
-
       if ($names_only) {
         $table[] = [$migration_id];
       }
       else {
+        try {
+          $source_rows = $source_plugin->count();
+          // -1 indicates uncountable sources.
+          if ($source_rows == -1) {
+            $source_rows = dt('N/A');
+            $unprocessed = dt('N/A');
+          }
+          else {
+            $unprocessed = $source_rows - $map->processedCount();
+          }
+        }
+        catch (Exception $e) {
+          drush_print($e->getMessage());
+          drush_log(dt('Could not retrieve source count from @migration: @message',
+            ['@migration' => $migration_id, '@message' => $e->getMessage()]));
+          $source_rows = dt('N/A');
+          $unprocessed = dt('N/A');
+        }
+
         $status = $migration->getStatusLabel();
         $migrate_last_imported_store = \Drupal::keyValue('migrate_last_imported');
         $last_imported = $migrate_last_imported_store->get($migration->id(), FALSE);
@@ -263,7 +265,7 @@ function _drush_migrate_tools_execute_migration(MigrationInterface $migration, $
 
   if (drush_get_option('execute-dependencies')) {
     if ($required_IDS = $migration->get('requirements')) {
-      $manager = \Drupal::service('plugin.manager.config_entity_migration');
+      $manager = \Drupal::service('plugin.manager.migration');
       $required_migrations = $manager->createInstances($required_IDS);
       $dependency_options = array_merge($options, ['is_dependency' => TRUE]);
       array_walk($required_migrations, __FUNCTION__, $dependency_options);
@@ -278,6 +280,10 @@ function _drush_migrate_tools_execute_migration(MigrationInterface $migration, $
   $executable = new MigrateExecutable($migration, $log, $options);
   // drush_op() provides --simulate support
   drush_op(array($executable, 'import'));
+  if ($count = $executable->getFailedCount()) {
+    // Nudge Drush to use a non-zero exit code.
+    drush_set_error('MIGRATE_ERROR', dt('!name Migration - !count failed.', array('!name' => $migration_id, '!count' => $count)));
+  }
 }
 
 /**
@@ -445,20 +451,33 @@ function drush_migrate_tools_migration_list($migration_ids = '') {
   $filter['migration_group'] = drush_get_option('group') ? explode(',', drush_get_option('group')) : [];
   $filter['migration_tags'] = drush_get_option('tag') ? explode(',', drush_get_option('tag')) : [];
 
-  $manager = \Drupal::service('plugin.manager.config_entity_migration');
+  $manager = \Drupal::service('plugin.manager.migration');
   $plugins = $manager->createInstances([]);
   $matched_migrations = [];
 
   // Get the set of migrations that may be filtered.
   if (empty($migration_ids)) {
-    $matched_migrations  = $plugins;
+    $matched_migrations = $plugins;
   }
   else {
     // Get the requested migrations.
     $migration_ids = explode(',', Unicode::strtolower($migration_ids));
     foreach ($plugins as $id => $migration) {
       if (in_array(Unicode::strtolower($id), $migration_ids)) {
-        $matched_migrations [$id] = $migration;
+        $matched_migrations[$id] = $migration;
+      }
+    }
+  }
+
+  // Do not return any migrations which fail to meet requirements.
+  /** @var \Drupal\migrate\Plugin\Migration $migration */
+  foreach ($matched_migrations as $id => $migration) {
+    if ($migration->getSourcePlugin() instanceof RequirementsInterface) {
+      try {
+        $migration->getSourcePlugin()->checkRequirements();
+      }
+      catch (RequirementsException $e) {
+        unset($matched_migrations[$id]);
       }
     }
   }
