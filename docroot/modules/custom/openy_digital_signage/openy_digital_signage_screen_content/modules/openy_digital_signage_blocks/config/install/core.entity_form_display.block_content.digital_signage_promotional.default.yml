@@ -11,25 +11,71 @@ dependencies:
     - field.field.block_content.digital_signage_promotional.field_ds_background_size
     - field.field.block_content.digital_signage_promotional.field_ds_color_scheme
     - field.field.block_content.digital_signage_promotional.field_ds_headline
+    - field.field.block_content.digital_signage_promotional.field_ds_layout
     - field.field.block_content.digital_signage_promotional.field_ds_message
     - field.field.block_content.digital_signage_promotional.field_ds_message_position
     - field.field.block_content.digital_signage_promotional.field_ds_subheading
   module:
+    - field_group
     - file_browser
+third_party_settings:
+  field_group:
+    group_ds_layout:
+      children:
+        - field_ds_layout
+        - field_ds_message_position
+      parent_name: ''
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Layout
+    group_ds_background:
+      children:
+        - field_ds_background_color
+        - field_ds_background_image
+        - field_ds_background_position
+        - field_ds_background_size
+      parent_name: ''
+      weight: 5
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: Background
+    group_ds_color_scheme:
+      children:
+        - field_ds_color_scheme
+        - field_ds_background_scheme
+      parent_name: ''
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Color scheme'
 id: block_content.digital_signage_promotional.default
 targetEntityType: block_content
 bundle: digital_signage_promotional
 mode: default
 content:
   field_ds_background_color:
-    weight: 6
+    weight: 5
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_ds_background_image:
-    weight: 7
+    weight: 6
     settings:
       entity_browser: browse_files_modal
       field_widget_remove: '1'
@@ -40,33 +86,45 @@ content:
       field_widget_display_settings: {  }
     third_party_settings: {  }
     type: file_browser
+    region: content
   field_ds_background_position:
-    weight: 8
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_ds_background_scheme:
-    weight: 5
+    weight: 7
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_ds_background_size:
-    weight: 9
+    weight: 8
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_ds_color_scheme:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_ds_headline:
+    weight: 0
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_ds_layout:
     weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
-  field_ds_headline:
-    weight: 0
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
+    region: content
   field_ds_message:
     weight: 2
     settings:
@@ -74,18 +132,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_ds_message_position:
-    weight: 3
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
   field_ds_subheading:
     weight: 1
     settings:
-      size: 60
+      rows: 3
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
+    type: string_textarea
+    region: content
 hidden:
   info: true
   langcode: true
