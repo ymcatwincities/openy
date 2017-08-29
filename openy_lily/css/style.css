@@ -1173,6 +1173,25 @@ legend {
 .calc-block-form .field-mbrshp-description {
   min-height: 50px;
 }
+.calc-block-form .js-webform-radios .js-form-type-membership-subtype-radio {
+  margin: 0 0 20px 0 !important;
+}
+.calc-block-form .js-webform-radios .js-form-type-membership-subtype-radio input {
+  display: inline-block;
+  width: 5%;
+  vertical-align: top;
+  margin-top: 13px;
+}
+.calc-block-form .js-webform-radios .js-form-type-membership-subtype-radio .form-element-wrapper {
+  display: inline-block !important;
+  width: 90% !important;
+}
+.calc-block-form .js-webform-radios .js-form-type-membership-subtype-radio .form-element-wrapper h4 {
+  margin-bottom: 0;
+}
+.calc-block-form .js-webform-radios .js-form-type-membership-subtype-radio .form-element-wrapper .price-month {
+  margin: 0;
+}
 
 @media (min-width: 0) and (max-width: 48em) {
   #membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item {
@@ -1929,12 +1948,21 @@ article.site-alert ul li div {
 #membership-calc-wrapper .ymcali-ccc-registration-form .captcha {
   margin-left: 10px;
 }
+#membership-calc-wrapper .ymcali-ccc-registration-form [data-drupal-selector="edit-emergency-contact"] .form-item-emergency-contact-name {
+  padding-left: 0 !important;
+}
+#membership-calc-wrapper .ymcali-ccc-registration-form .js-form-item-emergency-phone {
+  padding: 0 10px;
+}
+#membership-calc-wrapper .ymcali-ccc-registration-form [data-drupal-selector="edit-parent-information"] .form-item-parent-first-name {
+  padding-left: 0 !important;
+}
 #membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
   padding-left: 10px !important;
   padding-right: 10px !important;
   width: 47%;
   float: left;
-  margin: 0 0 0 23px !important;
+  margin: 0 0 0 20px !important;
 }
 #membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item label {
   margin-top: 0;
