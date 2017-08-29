@@ -23,7 +23,7 @@
 
     h2 {
       text-transform: uppercase;
-      font-family: Cachet Bold;
+      font-family: Cachet;
       margin: 0 0 15px;
       font-size: 20px;
       @include breakpoint (768px) {
@@ -48,7 +48,7 @@
     }
 
     h4 {
-      font-family: Cachet Bold;
+      font-family: Cachet;
       font-size: 26px;
       line-height: lh(30, 26);
       margin: 0 0 10px;

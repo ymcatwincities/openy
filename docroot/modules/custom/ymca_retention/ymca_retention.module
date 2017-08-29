@@ -16,6 +16,11 @@ use Drupal\ymca_retention\Entity\MemberChance;
 use Drupal\ymca_retention\Entity\MemberCheckIn;
 use Drupal\ymca_retention\PersonifyApi;
 
+define('YMCA_RETENTION_ACTIVITY_SWIMMING', 'a');
+define('YMCA_RETENTION_ACTIVITY_FITNESS', 'b');
+define('YMCA_RETENTION_ACTIVITY_GROUPX', 'c');
+define('YMCA_RETENTION_ACTIVITY_COMMUNITY', 'd');
+
 /**
  * Implements hook_form_alter().
  */
@@ -540,19 +545,19 @@ function _ymca_retention_activity_track_update(EntityInterface $entity) {
   }
   foreach ($activity_groups as $activity_group) {
     switch ($activity_group['retention_activity_id']) {
-      case 'a':
+      case YMCA_RETENTION_ACTIVITY_SWIMMING:
         $member->set('activity_track_swimming', $tracks[$activity_group['id']]);
         break;
 
-      case 'b':
+      case YMCA_RETENTION_ACTIVITY_FITNESS:
         $member->set('activity_track_fitness', $tracks[$activity_group['id']]);
         break;
 
-      case 'c':
+      case YMCA_RETENTION_ACTIVITY_GROUPX:
         $member->set('activity_track_groupx', $tracks[$activity_group['id']]);
         break;
 
-      case 'd':
+      case YMCA_RETENTION_ACTIVITY_COMMUNITY:
         $member->set('activity_track_community', $tracks[$activity_group['id']]);
         break;
     }
