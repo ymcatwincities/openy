@@ -182,3 +182,18 @@ function openy_node_program_update_8007() {
     'third_party_settings.field_group.group_header_area.format_settings.description'
   );
 }
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_node_program_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_program');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.program.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.node.program.default',
+    'content'
+  );
+}

@@ -39,3 +39,18 @@ function openy_prgf_teaser_update_8001() {
     }
   }
 }
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_prgf_teaser_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_teaser');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.paragraph.teaser.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.paragraph.teaser.default',
+    'content'
+  );
+}

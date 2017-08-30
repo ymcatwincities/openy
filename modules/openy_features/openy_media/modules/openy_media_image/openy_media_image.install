@@ -70,3 +70,30 @@ function openy_media_image_update_8002() {
     }
   }
 }
+
+/**
+ * Import new image style config for thumbnail.
+ */
+function openy_media_image_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'image.style.thumbnail_for_preview',
+  ]);
+}
+
+/**
+ * Import new view mode config for thumbnail.
+ */
+function openy_media_image_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_mode.media.thumbnail_for_preview',
+    'core.entity_view_display.media.image.thumbnail_for_preview',
+  ]);
+}
