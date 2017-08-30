@@ -51,20 +51,20 @@ class CampaignController extends ControllerBase {
   /**
    * Render My progress tab content on Campaign node
    *
-   * @param int $node Node ID of the current campaign.
+   * @param int $campaign_id Node ID of the current campaign.
    * @param int $landing_page_id Landing page node ID to get new content for replacement.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    */
-  public function showMyProgressContent($node, $landing_page_id) {
+  public function showMyProgressContent($campaign_id, $landing_page_id) {
     $response = new AjaxResponse();
 
     // Show modal popup if user is not logged in.
-    if (!MemberCampaign::isLoggedIn($node)) {
+    if (!MemberCampaign::isLoggedIn($campaign_id)) {
       // Get the modal form using the form builder.
       $modalPopup = [
         '#theme' => 'openy_campaign_popup',
-        '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginForm', $node),
+        '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginForm', $campaign_id),
       ];
 
       // Add an AJAX command to open a modal dialog with the form as the content.
@@ -81,11 +81,12 @@ class CampaignController extends ControllerBase {
   /**
    * Show needed content on Campaign node
    *
+   * @param int $campaign_id Node ID of the current campaign.
    * @param int $landing_page_id Landing page node ID to get new content for replacement.
    *
    * @return \Drupal\Core\Ajax\AjaxResponse
    */
-  public function showPageContent($landing_page_id) {
+  public function showPageContent($campaign_id, $landing_page_id) {
 
     return $this->replaceLandingPageParagraph($landing_page_id);
   }

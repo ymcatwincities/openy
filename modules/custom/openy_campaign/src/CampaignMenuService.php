@@ -6,8 +6,8 @@ use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
-use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Class CampaignMenuService.
@@ -31,16 +31,45 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   protected $container;
 
   /**
+   * The current route match.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
+
+  /**
    * Constructs a new CampMenuService.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity manager.
+   *   The entity type manager.
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The current service container.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container, RouteMatchInterface $route_match) {
     $this->entityTypeManager = $entity_type_manager;
     $this->container = $container;
+    $this->routeMatch = $route_match;
+  }
+
+  /**
+   * Get campaign node from current page URL.
+   *
+   * @return bool|\Drupal\Node\Entity\Node
+   */
+  public function getCampaignNodeFromRoute() {
+    $node = $this->routeMatch->getParameter('node');
+    // For custom routes - get campaign_id
+    if ($node instanceof NodeInterface !== TRUE) {
+      $campaignId = $this->routeMatch->getParameter('campaign_id');
+      $node = Node::load($campaignId);
+    }
+    if (empty($node)) {
+      return FALSE;
+    }
+    /** @var \Drupal\Node\Entity\Node $campaign */
+    $campaign = $this->getNodeCampaignNode($node);
+
+    return !empty($campaign) && ($campaign->getType() == 'campaign') ? $campaign : FALSE;
   }
 
   /**
@@ -115,7 +144,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $links['campaign'] = [
       '#type' => 'link',
       '#title' => $node->getTitle(),
-      '#url' => Url::fromRoute('openy_campaign.landing-page', ['landing_page_id' => $landingPage->id()]),
+      '#url' => Url::fromRoute('openy_campaign.landing-page', ['campaign_id' => $node->id(), 'landing_page_id' => $landingPage->id()]),
       '#attributes' => [
         'class' => [
           'use-ajax',
@@ -136,7 +165,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $links['progress'] = [
       '#type' => 'link',
       '#title' => t('My progress'),
-      '#url' => Url::fromRoute('openy_campaign.my-progress', ['node' => $node->id(), 'landing_page_id' => $myProgressID]),
+      '#url' => Url::fromRoute('openy_campaign.my-progress', ['campaign_id' => $node->id(), 'landing_page_id' => $myProgressID]),
       '#attributes' => [
         'class' => [
           'use-ajax',
@@ -155,7 +184,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $links['rules'] = [
       '#type' => 'link',
       '#title' => t('Detailed Rules'),
-      '#url' => Url::fromRoute('openy_campaign.landing-page', ['landing_page_id' => $rulesID]),
+      '#url' => Url::fromRoute('openy_campaign.landing-page', ['campaign_id' => $node->id(), 'landing_page_id' => $rulesID]),
       '#attributes' => [
         'class' => [
           'use-ajax',

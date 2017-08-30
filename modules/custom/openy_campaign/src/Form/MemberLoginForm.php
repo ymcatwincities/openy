@@ -56,7 +56,9 @@ class MemberLoginForm extends FormBase {
         ],
       ],
       '#element_required_error' => $this->t('Member ID is required.'),
-      '#element_validate' => [$this, 'elementValidateRequired'],
+      '#element_validate' => [
+        [$this, 'elementValidateRequired'],
+      ],
     ];
 
     $form['submit'] = [

@@ -3,10 +3,8 @@
 namespace Drupal\openy_campaign\Plugin\Block;
 
 use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCheckin;
@@ -32,13 +30,6 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
   protected $formBuilder;
 
   /**
-   * The current route match.
-   *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
-   */
-  protected $routeMatch;
-
-  /**
    * The Campaign menu service.
    *
    * @var \Drupal\openy_campaign\CampaignMenuServiceInterface
@@ -57,10 +48,9 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, RouteMatchInterface $route_match, CampaignMenuServiceInterface $campaign_menu_service) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, CampaignMenuServiceInterface $campaign_menu_service) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
-    $this->routeMatch = $route_match;
     $this->campaignMenuService = $campaign_menu_service;
   }
 
@@ -73,7 +63,6 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
       $plugin_id,
       $plugin_definition,
       $container->get('form_builder'),
-      $container->get('current_route_match'),
       $container->get('openy_campaign.campaign_menu_handler')
     );
   }
@@ -85,18 +74,11 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
     $block = [];
     $block['#cache']['max-age'] = 0;
 
-    // Get campaign node from current page
-    /** @var \Drupal\Node\Entity\Node $campaign */
-    $node = $this->routeMatch->getParameter('node');
-    if ($node instanceof NodeInterface !== TRUE) {
-      $node = Node::load($node);
-    }
-    if (empty($node)) {
-      return [];
-    }
-    $campaign = $this->campaignMenuService->getNodeCampaignNode($node);
+    // Get campaign node from current page URL
+    /** @var Node $campaign */
+    $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
-    if (!empty($campaign) && $campaign->getType() == 'campaign' && MemberCampaign::isLoggedIn($campaign->id())) {
+    if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
       // Show Visits goal block
       $userData = MemberCampaign::getMemberCampaignData($campaign->id());
       $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());

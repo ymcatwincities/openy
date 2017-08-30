@@ -4,7 +4,7 @@ services:
 
   openy_campaign.campaign_menu_handler:
     class: Drupal\openy_campaign\CampaignMenuService
-    arguments: ['@entity_type.manager', '@service_container']
+    arguments: ['@entity_type.manager', '@service_container', '@current_route_match']
 
   openy_campaign.regular_updater:
     class: Drupal\openy_campaign\RegularUpdater
