@@ -63,8 +63,8 @@ class CampaignController extends ControllerBase {
     if (!MemberCampaign::isLoggedIn($node)) {
       // Get the modal form using the form builder.
       $modalPopup = [
-        '#theme' => 'openy_campaign_login',
-        '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginRegisterForm', 'login', $node),
+        '#theme' => 'openy_campaign_popup',
+        '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginForm', $node),
       ];
 
       // Add an AJAX command to open a modal dialog with the form as the content.

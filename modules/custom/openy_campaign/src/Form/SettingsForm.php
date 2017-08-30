@@ -105,6 +105,14 @@ class SettingsForm extends ConfigFormBase {
       '),
     ];
 
+    $form['register_form_text'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Register form: Member ID text'),
+      '#default_value' => $config->get('register_form_text')['value'],
+      '#format' => $config->get('register_form_text')['format'],
+      '#description' => $this->t('"Where can I find my Member ID?" link text.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -120,6 +128,7 @@ class SettingsForm extends ConfigFormBase {
     $config->set('error_msg_member_is_inactive', $form_state->getValue('error_msg_member_is_inactive'));
     $config->set('error_msg_target_audience_settings', $form_state->getValue('error_msg_target_audience_settings'));
     $config->set('error_msg_default', $form_state->getValue('error_msg_default'));
+    $config->set('register_form_text', $form_state->getValue('register_form_text'));
     $config->save();
 
     parent::submitForm($form, $form_state);
