@@ -64,12 +64,13 @@ function ymca_camp_du_nord_results_layout(array $cdn_products) {
   $default_availability = t('Available');
   if (!empty($cdn_products)) {
     foreach ($cdn_products as $product) {
+      $capacity = $product->field_cdn_prd_capacity->getValue();
       $teasers[] = [
         '#theme' => 'cdn_village_teaser',
         '#title' => !empty($product->getName()) ? substr($product->getName(), 9) : '',
         '#image' => drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin' . rand(1, 3) . '.png',
         '#availability' => $default_availability,
-        '#capacity' => rand(2, 14),
+        '#capacity' => !empty($capacity) ? $capacity[0]['value']: '',
         '#cache' => $cache,
       ];
     }

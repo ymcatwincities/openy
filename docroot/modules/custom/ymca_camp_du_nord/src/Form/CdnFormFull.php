@@ -246,12 +246,41 @@ class CdnFormFull extends FormBase {
     $values = $form_state->getValues();
     $query = $this->state;
 
-    $cdn_product_ids = \Drupal::entityQuery('cdn_prs_product')
+    $cdn_product_ids = $this->entityQuery
+      ->get('cdn_prs_product')
+      ->condition('field_cdn_prd_start_date', '%' . $user_input['arrival_date'] . '%', 'LIKE')
       ->execute();
-    $cdn_product_ids = array_slice($cdn_product_ids, 0, 3);
     $formatted_results = $this->t('No results. Please try again.');
-    if ($cdn_products = \Drupal::entityManager()->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
-      $formatted_results = ymca_camp_du_nord_results_layout($cdn_products);
+    if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
+      if ($user_input['village_select'] !== 'all' || $user_input['capacity'] !== 'all') {
+      foreach ($cdn_products as $key => $product) {
+        $capacity = $product->field_cdn_prd_capacity->value;
+        $cabin_id = $product->field_cdn_prd_cabin_id->value;
+        // Filter by capacity.
+        if ($user_input['capacity'] !== $capacity && $user_input['capacity'] !== 'all') {
+          unset($cdn_products[$key]);
+        }
+        // Filter by village.
+        if (!empty($cabin_id)) {
+          $mapping_id = $this->entityQuery
+            ->get('mapping')
+            ->condition('type', 'cdn_prs_product')
+            ->condition('field_cdn_prd_cabin_id', $cabin_id)
+            ->execute();
+          if ($mapping = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_id)) {
+            $ref = $mapping->field_cdn_prd_village_ref->getValue();
+            $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
+            // Filter by village.
+            if ($page_id !== $user_input['village_select'] && $user_input['village_select'] !== 'all') {
+              unset($cdn_products[$key]);
+            }
+          }
+        }
+      }
+      }
+      if (!empty($cdn_products)) {
+        $formatted_results = ymca_camp_du_nord_results_layout($cdn_products);
+      }
     }
     return $formatted_results;
   }
