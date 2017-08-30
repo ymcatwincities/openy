@@ -21,20 +21,19 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-campaign-menu',
     ],
-    // Popup templates.
-    'openy_campaign_login' => [
+    // Popup template.
+    'openy_campaign_popup' => [
       'variables' => [
-        'header' => NULL,
         'form' => NULL,
       ],
-      'template' => 'openy-campaign-login',
+      'template' => 'openy-campaign-popup',
     ],
-    'openy_campaign_register' => [
+    // Registration popup text
+    'openy_campaign_register_text' => [
       'variables' => [
-        'header' => NULL,
-        'form' => NULL,
+        'text' => NULL,
       ],
-      'template' => 'openy-campaign-register',
+      'template' => 'openy-campaign-register-text',
     ],
     // Activity tracking form.
     'openy_campaign_activity_form' => [

@@ -3,10 +3,8 @@
 namespace Drupal\openy_campaign\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\node\NodeInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -29,13 +27,6 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $campaignMenuService;
 
   /**
-   * The current route match.
-   *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
-   */
-  protected $routeMatch;
-
-  /**
    * Constructs a new CampaignMenuBlock.
    *
    * @param array $configuration
@@ -49,10 +40,9 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param RouteMatchInterface $route_match
    *   The Campaign menu service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, CampaignMenuServiceInterface $campaign_menu_service, RouteMatchInterface $route_match) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, CampaignMenuServiceInterface $campaign_menu_service) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->campaignMenuService = $campaign_menu_service;
-    $this->routeMatch = $route_match;
   }
 
   /**
@@ -63,8 +53,7 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('openy_campaign.campaign_menu_handler'),
-      $container->get('current_route_match')
+      $container->get('openy_campaign.campaign_menu_handler')
     );
   }
 
@@ -72,13 +61,11 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
-    // Extract node from route.
-    if (!$node = $this->routeMatch->getParameter('node')) {
-      return [];
-    }
+    // Extract Campaign node from route.
+    $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     // There is no campaign associated with the node or empty campaign menu.
-    if (!$links = $this->campaignMenuService->getNodeCampaignMenu($node)) {
+    if (!$links = $this->campaignMenuService->getNodeCampaignMenu($campaign)) {
       return [];
     }
 
