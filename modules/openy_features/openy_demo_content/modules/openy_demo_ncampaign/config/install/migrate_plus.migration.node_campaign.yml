@@ -18,6 +18,7 @@ source:
       alias: '/challenge-yourself'
       rules_page_id: challenge_yourself_rules
       pause_page_id: challenge_yourself_pause
+      my_progress_page_id: challenge_yourself_my_progress
       landing_page_ids:
         -
           landing_page_id: challenge_yourself_preview
@@ -70,10 +71,17 @@ process:
   field_pause_landing_page:
     plugin: get
     source: '@pause_target_id'
+  my_progress_target_id:
+    plugin: migration
+    migration: openy_demo_node_landing
+    source: my_progress_page_id
+  field_my_progress_page:
+    plugin: get
+    source: '@my_progress_target_id'
   field_campaign_start_date:
     -
       plugin: default_value
-      default_value: '-1 month'
+      default_value: '14 August 2017'
     -
       plugin: callback
       callable: strtotime
@@ -116,6 +124,20 @@ process:
   field_limit_visits_goal:
     plugin: default_value
     default_value: 10
+  field_campaign_payment_types:
+    plugin: default_value
+    default_value:
+      - FP
+      - P3
+  field_campaign_membership_u_t:
+    plugin: default_value
+    default_value:
+      - Adult
+      - Dual
+      - Family
+      - Youth
+      - Student
+      - Contract
 destination:
   plugin: 'entity:node'
   default_bundle: campaign

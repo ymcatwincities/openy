@@ -114,21 +114,22 @@ openy_campaign.settings:
 
 # Route to generate replacement content for tabs
 openy_campaign.landing-page:
-  path: '/campaign-pages/{landing_page_id}'
+  path: '/campaign-pages/{campaign_id}/{landing_page_id}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showPageContent'
   requirements:
     _permission: 'access content'
+    campaign_id: ^[0-9]+
     landing_page_id: ^[0-9]+
 
 # My progress page
 openy_campaign.my-progress:
-  path: '/campaign-my-progress/{node}/{landing_page_id}'
+  path: '/campaign-my-progress/{campaign_id}/{landing_page_id}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showMyProgressContent'
   requirements:
     _permission: 'access content'
-    node: ^[0-9]+
+    campaign_id: ^[0-9]+
     landing_page_id: ^[0-9]+
 
 # Simplified Team Member Registration Portal
@@ -145,7 +146,6 @@ openy_campaign.member-action:
   path: '/campaign/{action}/{campaign_id}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::showModal'
-    _title_callback: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::addTitle'
   requirements:
     _permission: 'access content'
     action: ^[a-zA-Z]+

@@ -3,7 +3,7 @@
 namespace Drupal\openy_campaign\Form;
 
 use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -28,11 +28,11 @@ class ActivityBlockForm extends FormBase {
   protected $renderer;
 
   /**
-   * Entity Manager
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $manager;
+  protected $entityTypeManager;
 
 
   /**
@@ -40,10 +40,12 @@ class ActivityBlockForm extends FormBase {
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    */
-  public function __construct(RendererInterface $renderer, EntityManagerInterface $manager) {
+  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entity_type_manager) {
     $this->renderer = $renderer;
-    $this->manager = $manager;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -52,7 +54,7 @@ class ActivityBlockForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('entity.manager')
+      $container->get('entity_type.manager')
     );
   }
 
@@ -76,7 +78,7 @@ class ActivityBlockForm extends FormBase {
         ],
         'link' => [
           '#type' => 'link',
-          '#title' => $this->t('Register / Sign in'),
+          '#title' => $this->t('Sign in'),
           '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaignId]),
           '#attributes' => [
             'class' => [
@@ -103,7 +105,7 @@ class ActivityBlockForm extends FormBase {
     /** @var \Drupal\taxonomy\Entity\Vocabulary $vocabulary */
     $vocabulary = $campaign->field_campaign_fitness_category->entity;
     /** @var \Drupal\taxonomy\VocabularyStorageInterface $vocabularyStorage */
-    $vocabularyStorage = $this->manager->getStorage('taxonomy_vocabulary');
+    $vocabularyStorage = $this->entityTypeManager->getStorage('taxonomy_vocabulary');
     $tids = $vocabularyStorage->getToplevelTids([$vocabulary->id()]);
 
     $terms = Term::loadMultiple($tids);
@@ -155,7 +157,7 @@ class ActivityBlockForm extends FormBase {
        */
       foreach ($terms as $tid => $term) {
 
-        $childTerms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree($vocabulary->id(), $tid, 1, TRUE);
+        $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($vocabulary->id(), $tid, 1, TRUE);
         $childTermIds = [];
         /** @var Term $childTerm */
         foreach ($childTerms as $childTerm) {
