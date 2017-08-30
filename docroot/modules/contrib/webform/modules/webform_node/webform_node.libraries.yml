@@ -1,0 +1,5 @@
+webform_node.references:
+  version: 1.x
+  css:
+    theme:
+      css/webform_node.references.css: {}

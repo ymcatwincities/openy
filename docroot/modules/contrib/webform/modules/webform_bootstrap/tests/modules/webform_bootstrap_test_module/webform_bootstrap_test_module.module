@@ -7,8 +7,6 @@
 
 use Drupal\webform\Utility\WebformThemeHelper;
 
-// module_load_include('inc', 'webform_bootstrap_test_module');
-
 /**
  * Implements hook_page_attachments().
  */

@@ -14,6 +14,9 @@ webform.settings:
         default_submit_button_label:
           type: label
           label: 'Default webform submit button label'
+        default_reset_button_label:
+          type: label
+          label: 'Default webform reset button label'
         default_form_submit_once:
           type: boolean
           label: 'Prevent duplicate submissions'
@@ -124,6 +127,9 @@ webform.settings:
       type: mapping
       label: 'Element default settings'
       mapping:
+        empty_message:
+          type: label
+          label: 'Empty element message/placeholder'
         allowed_tags:
           type: string
           label: 'Allowed tags'
@@ -154,6 +160,19 @@ webform.settings:
         excluded_elements:
           type: ignore
           label: 'Excluded types'
+    html_editor:
+      type: mapping
+      label: 'HTML editor settings'
+      mapping:
+        disabled:
+          type: boolean
+          label: 'Disable HTML editor'
+        format:
+          type: string
+          label: 'Text format'
+        tidy:
+          type: boolean
+          label: 'Tidy HTML markup'
     file:
       type: mapping
       label: 'File upload default settings'
@@ -324,9 +343,9 @@ webform.settings:
         offcanvas_disabled:
           type: boolean
           label: 'Disable system tray'
-        html_editor_disabled:
+        promotions_disabled:
           type: boolean
-          label: 'Disable HTML editor'
+          label: 'Disable promotions'
         details_save:
           type: boolean
           label: 'Save details open/close state'
@@ -456,6 +475,9 @@ webform.webform.*:
         form_details_toggle:
           type: boolean
           label: 'Display collapse/expand all details link'
+        form_reset:
+          type: boolean
+          label: 'Display reset button'
         submission_label:
           type: label
           label: 'Default submission label'
@@ -510,6 +532,9 @@ webform.webform.*:
           sequence:
             type: string
             label: 'Element name'
+        preview_exclude_empty:
+          type: boolean
+          label: 'Preview exclude empty elements'
         draft:
           type: string
           label: 'Allow users to save and finish the webform later.'
@@ -602,6 +627,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
         view_any:
           type: mapping
           label: 'View any webform submissions'
@@ -618,6 +649,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
         update_any:
           type: mapping
           label: 'Update any webform submissions'
@@ -634,6 +671,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
         delete_any:
           type: mapping
           label: 'Delete any webform submissions'
@@ -650,6 +693,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
         purge_any:
           type: mapping
           label: 'Purge any webform submissions'
@@ -666,6 +715,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
         view_own:
           type: mapping
           label: 'View own webform submissions'
@@ -682,6 +737,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
         update_own:
           type: mapping
           label: 'Update own webform submissions'
@@ -698,6 +759,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
         delete_own:
           type: mapping
           label: 'Delete own webform submissions'
@@ -714,6 +781,12 @@ webform.webform.*:
               sequence:
                 type: integer
                 label: 'User IDs'
+            permissions:
+              type: sequence
+              label: 'Permissions'
+              sequence:
+                type: string
+                label: 'Permission'
     handlers:
       type: sequence
       label: 'Webform handlers'
@@ -805,6 +878,9 @@ webform.handler.email:
     ignore_access:
       type: boolean
       label: 'Always include private and restricted access elements.'
+    exclude_empty:
+      type: boolean
+      label: 'Preview exclude empty elements'
     html:
       type: boolean
       label: 'HTML'
@@ -822,15 +898,6 @@ webform.handler.remote_post:
     type:
       label: 'Type'
       type: string
-    insert_url:
-      label: 'Insert URL'
-      type: uri
-    update_url:
-      label: 'Update URL'
-      type: uri
-    delete_url:
-      label: 'Delete URL'
-      type: uri
     excluded_data:
       type: sequence
       label: 'Excluded data'
@@ -840,18 +907,42 @@ webform.handler.remote_post:
     custom_data:
       label: 'Custom data'
       type: string
-    insert_custom_data:
-      label: 'Insert custom data'
-      type: string
-    update_custom_data:
-      label: 'Update custom data'
-      type: string
-    delete_custom_data:
-      label: 'Delete custom data'
+    custom_options:
+      label: 'Custom options'
       type: string
     debug:
       type: boolean
       label: 'Enable debugging'
+    completed_url:
+      label: 'Completed URL'
+      type: uri
+    completed_custom_data:
+      label: 'Completed custom data'
+      type: string
+    updated_url:
+      label: 'Updated URL'
+      type: uri
+    updated_custom_data:
+      label: 'Updated custom data'
+      type: string
+    deleted_url:
+      label: 'Deleted URL'
+      type: uri
+    deleted_custom_data:
+      label: 'Deleted custom data'
+      type: string
+    draft_url:
+      label: 'Draft URL'
+      type: uri
+    draft_custom_data:
+      label: 'Draft custom data'
+      type: string
+    converted_url:
+      label: 'Converted URL'
+      type: uri
+    converted_custom_data:
+      label: 'Converted custom data'
+      type: string
 
 webform.exporter.*:
   type: mapping

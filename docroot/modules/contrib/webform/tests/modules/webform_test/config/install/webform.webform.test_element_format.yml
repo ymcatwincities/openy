@@ -54,11 +54,13 @@ elements: |
       textarea_value:
         '#type': textarea
         '#title': 'Textarea (Value)'
+        '#rows': 2
         '#default_value': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Negat esse eam, inquit, propter se expetendam. Primum Theophrasti, Strato, physicum se voluit; Id mihi magnum videtur. Itaque mihi non satis videmini considerare quod iter sit naturae quaeque progressio. Quare hoc videndum est, possitne nobis hoc ratio philosophorum dare. Est enim tanti philosophi tamque nobilis audacter sua decreta defendere.'
         '#format': value
       textarea_raw:
         '#type': textarea
         '#title': 'Textarea (Raw value)'
+        '#rows': 2
         '#default_value': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Negat esse eam, inquit, propter se expetendam. Primum Theophrasti, Strato, physicum se voluit; Id mihi magnum videtur. Itaque mihi non satis videmini considerare quod iter sit naturae quaeque progressio. Quare hoc videndum est, possitne nobis hoc ratio philosophorum dare. Est enim tanti philosophi tamque nobilis audacter sua decreta defendere.'
         '#format': raw
     textfield:
@@ -84,13 +86,11 @@ elements: |
       webform_autocomplete_value:
         '#type': webform_autocomplete
         '#title': 'Autocomplete (Value)'
-        '#autocomplete_items': country_names
         '#default_value': Loremipsum
         '#format': value
       webform_autocomplete_raw:
         '#type': webform_autocomplete
         '#title': 'Autocomplete (Raw value)'
-        '#autocomplete_items': country_names
         '#default_value': Loremipsum
         '#format': raw
     webform_codemirror:
@@ -326,18 +326,37 @@ elements: |
         '#international': true
         '#default_value': '+1 212-333-4444'
         '#format': link
+    webform_terms_of_service:
+      '#type': details
+      '#title': 'I agree to the {terms of service}.'
+      webform_terms_of_service_value:
+        '#type': webform_terms_of_service
+        '#title': 'I agree to the {terms of service}. (Value)'
+        '#required': true
+        '#terms_type': slideout
+        '#terms_content': '<em>These are the terms of service.</em>'
+        '#default_value': true
+        '#format': value
+      webform_terms_of_service_raw:
+        '#type': webform_terms_of_service
+        '#title': 'I agree to the {terms of service}. (Raw value)'
+        '#required': true
+        '#terms_type': slideout
+        '#terms_content': '<em>These are the terms of service.</em>'
+        '#default_value': true
+        '#format': raw
     webform_toggle:
       '#type': details
       '#title': Toggle
       webform_toggle_value:
         '#type': webform_toggle
         '#title': 'Toggle (Value)'
-        '#default_value': Loremipsum
+        '#default_value': true
         '#format': value
       webform_toggle_raw:
         '#type': webform_toggle
         '#title': 'Toggle (Raw value)'
-        '#default_value': Loremipsum
+        '#default_value': true
         '#format': raw
     url:
       '#type': details
@@ -371,8 +390,6 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
         '#format': value
       webform_buttons_raw:
@@ -382,8 +399,6 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
         '#format': raw
     webform_buttons_other:
@@ -396,8 +411,6 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
         '#format': value
       webform_buttons_other_raw:
@@ -407,8 +420,6 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
         '#format': raw
     webform_image_select:
@@ -419,15 +430,15 @@ elements: |
         '#title': 'Image select (Value)'
         '#show_label': true
         '#images':
-          kitten_1:
-            text: 'Cute Kitten 1'
-            src: 'http://placekitten.com/220/200'
-          kitten_2:
-            text: 'Cute Kitten 2'
-            src: 'http://placekitten.com/180/200'
-          kitten_3:
-            text: 'Cute Kitten 3'
-            src: 'http://placekitten.com/130/200'
+          bear_1:
+            text: 'Bear 1'
+            src: 'https://www.placebear.com/80/100'
+          bear_2:
+            text: 'Bear 2'
+            src: 'https://www.placebear.com/100/100'
+          bear_3:
+            text: 'Bear 3'
+            src: 'https://www.placebear.com/120/100'
         '#default_value': Loremipsum
         '#format': value
       webform_image_select_raw:
@@ -435,15 +446,15 @@ elements: |
         '#title': 'Image select (Raw value)'
         '#show_label': true
         '#images':
-          kitten_1:
-            text: 'Cute Kitten 1'
-            src: 'http://placekitten.com/220/200'
-          kitten_2:
-            text: 'Cute Kitten 2'
-            src: 'http://placekitten.com/180/200'
-          kitten_3:
-            text: 'Cute Kitten 3'
-            src: 'http://placekitten.com/130/200'
+          bear_1:
+            text: 'Bear 1'
+            src: 'https://www.placebear.com/80/100'
+          bear_2:
+            text: 'Bear 2'
+            src: 'https://www.placebear.com/100/100'
+          bear_3:
+            text: 'Bear 3'
+            src: 'https://www.placebear.com/120/100'
         '#default_value': Loremipsum
         '#format': raw
       webform_image_select_image:
@@ -451,15 +462,15 @@ elements: |
         '#title': 'Image select (Image)'
         '#show_label': true
         '#images':
-          kitten_1:
-            text: 'Cute Kitten 1'
-            src: 'http://placekitten.com/220/200'
-          kitten_2:
-            text: 'Cute Kitten 2'
-            src: 'http://placekitten.com/180/200'
-          kitten_3:
-            text: 'Cute Kitten 3'
-            src: 'http://placekitten.com/130/200'
+          bear_1:
+            text: 'Bear 1'
+            src: 'https://www.placebear.com/80/100'
+          bear_2:
+            text: 'Bear 2'
+            src: 'https://www.placebear.com/100/100'
+          bear_3:
+            text: 'Bear 3'
+            src: 'https://www.placebear.com/120/100'
         '#default_value': Loremipsum
         '#format': image
     radios:
@@ -472,8 +483,7 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
+        '#options_display': side_by_side
         '#default_value': one
         '#format': value
       radios_raw:
@@ -483,8 +493,7 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
+        '#options_display': side_by_side
         '#default_value': one
         '#format': raw
     webform_radios_other:
@@ -497,8 +506,7 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
+        '#options_display': side_by_side
         '#default_value': one
         '#format': value
       webform_radios_other_raw:
@@ -508,8 +516,7 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
+        '#options_display': side_by_side
         '#default_value': one
         '#format': raw
     select:
@@ -522,8 +529,6 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
         '#format': value
       select_raw:
@@ -533,8 +538,6 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
         '#format': raw
     webform_select_other:
@@ -547,8 +550,6 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
         '#format': value
       webform_select_other_raw:
@@ -558,9 +559,41 @@ elements: |
           one: One
           two: Two
           three: Three
-          four: Four
-          five: Five
         '#default_value': one
+        '#format': raw
+  computed_elements:
+    '#type': details
+    '#title': 'Computed Elements'
+    '#open': true
+    webform_computed_token:
+      '#type': details
+      '#title': 'Computed token'
+      webform_computed_token_value:
+        '#type': webform_computed_token
+        '#title': 'Computed token (Value)'
+        '#value': 'This is a Computed token value.'
+        '#default_value': Loremipsum
+        '#format': value
+      webform_computed_token_raw:
+        '#type': webform_computed_token
+        '#title': 'Computed token (Raw value)'
+        '#value': 'This is a Computed token value.'
+        '#default_value': Loremipsum
+        '#format': raw
+    webform_computed_twig:
+      '#type': details
+      '#title': 'Computed Twig'
+      webform_computed_twig_value:
+        '#type': webform_computed_twig
+        '#title': 'Computed Twig (Value)'
+        '#value': 'This is a Computed Twig value.'
+        '#default_value': Loremipsum
+        '#format': value
+      webform_computed_twig_raw:
+        '#type': webform_computed_twig
+        '#title': 'Computed Twig (Raw value)'
+        '#value': 'This is a Computed Twig value.'
+        '#default_value': Loremipsum
         '#format': raw
   date_time_elements:
     '#type': details
@@ -868,6 +901,7 @@ elements: |
       webform_entity_radios_value:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Value)'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -880,6 +914,7 @@ elements: |
       webform_entity_radios_raw:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Raw value)'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -892,6 +927,7 @@ elements: |
       webform_entity_radios_link:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Link)'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -904,6 +940,7 @@ elements: |
       webform_entity_radios_id:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Entity ID)'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -916,6 +953,7 @@ elements: |
       webform_entity_radios_label:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Label)'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -928,6 +966,7 @@ elements: |
       webform_entity_radios_text:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Label (ID))'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -940,6 +979,7 @@ elements: |
       webform_entity_radios_teaser:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Teaser)'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -952,6 +992,7 @@ elements: |
       webform_entity_radios_default:
         '#type': webform_entity_radios
         '#title': 'Entity radios (Default)'
+        '#options_display': side_by_side
         '#target_type': user
         '#selection_handler': 'default:user'
         '#selection_settings':
@@ -971,6 +1012,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': value
       webform_entity_select_raw:
@@ -980,6 +1024,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': raw
       webform_entity_select_link:
@@ -989,6 +1036,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': link
       webform_entity_select_id:
@@ -998,6 +1048,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': id
       webform_entity_select_label:
@@ -1007,6 +1060,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': label
       webform_entity_select_text:
@@ -1016,6 +1072,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': text
       webform_entity_select_teaser:
@@ -1025,6 +1084,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': teaser
       webform_entity_select_default:
@@ -1034,6 +1096,9 @@ elements: |
         '#selection_handler': 'default:user'
         '#selection_settings':
           include_anonymous: true
+        '#options':
+          1: Administrator
+          0: Anonymous
         '#default_value': 1
         '#format': default
     webform_term_select:
@@ -1043,55 +1108,55 @@ elements: |
         '#type': webform_term_select
         '#title': 'Term select (Value)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': value
       webform_term_select_raw:
         '#type': webform_term_select
         '#title': 'Term select (Raw value)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': raw
       webform_term_select_link:
         '#type': webform_term_select
         '#title': 'Term select (Link)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': link
       webform_term_select_id:
         '#type': webform_term_select
         '#title': 'Term select (Entity ID)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': id
       webform_term_select_label:
         '#type': webform_term_select
         '#title': 'Term select (Label)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': label
       webform_term_select_text:
         '#type': webform_term_select
         '#title': 'Term select (Label (ID))'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': text
       webform_term_select_teaser:
         '#type': webform_term_select
         '#title': 'Term select (Teaser)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': teaser
       webform_term_select_default:
         '#type': webform_term_select
         '#title': 'Term select (Default)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': default
       webform_term_select_breadcrumb:
         '#type': webform_term_select
         '#title': 'Term select (Breadcrumb)'
         '#vocabulary': tags
-        '#default_value': Loremipsum
+        '#default_value': 49
         '#format': breadcrumb
   other_elements:
     '#type': details
@@ -1129,6 +1194,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -1150,6 +1216,7 @@ settings:
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: none
   draft_multiple: false
   draft_auto_save: false
@@ -1180,27 +1247,35 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers:
   email_text:
     id: email
@@ -1224,6 +1299,7 @@ handlers:
       body: default
       excluded_elements: {  }
       ignore_access: false
+      exclude_empty: true
       html: false
       attachments: false
       debug: true
@@ -1251,6 +1327,7 @@ handlers:
       body: default
       excluded_elements: {  }
       ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: true

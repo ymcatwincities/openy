@@ -16,9 +16,10 @@ class SchedulerRequiredTest extends SchedulerBrowserTestBase {
    * Tests creating and editing nodes with required scheduling enabled.
    */
   public function testRequiredScheduling() {
-    $this->drupalLogin($this->adminUser);
+    $this->drupalLogin($this->schedulerUser);
 
     // Define test scenarios with expected results.
+    // @TODO Re-write this with a dataProvider function.
     $test_cases = [
       // The 1-10 numbering used below matches the test cases described in
       // http://drupal.org/node/1198788#comment-7816119
@@ -186,7 +187,6 @@ class SchedulerRequiredTest extends SchedulerBrowserTestBase {
         $node = $this->drupalCreateNode($options);
         // Define the path and button to use for editing the node.
         $path = 'node/' . $node->id() . '/edit';
-        $button_text = $node->status->value ? t('Save and keep published') : t('Save and keep unpublished');
       }
       else {
         // Set the default status, used when testing creation of the new node.
@@ -194,20 +194,20 @@ class SchedulerRequiredTest extends SchedulerBrowserTestBase {
           ->setDefaultValue($test_case['status'])
           ->save();
         // Define the path and button to use for creating the node.
-        $path = 'node/add/page';
-        $button_text = t('Save and publish');
+        $path = 'node/add/' . $this->type;
       }
 
       // Make sure that both date fields are empty so we can check if they throw
       // validation errors when the fields are required.
-      $edit = [
+      $values = [
         'title[0][value]' => $title,
         'publish_on[0][value][date]' => '',
         'publish_on[0][value][time]' => '',
         'unpublish_on[0][value][date]' => '',
         'unpublish_on[0][value][time]' => '',
       ];
-      $this->drupalPostForm($path, $edit, $button_text);
+      // Add or edit the node.
+      $this->drupalPostForm($path, $values, t('Save'));
 
       // Check for the expected result.
       switch ($test_case['expected']) {
