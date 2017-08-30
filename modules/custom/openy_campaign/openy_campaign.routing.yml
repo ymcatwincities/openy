@@ -174,3 +174,12 @@ openy_campaign.game:
     _controller: '\Drupal\openy_campaign\Controller\GameController::playGamePage'
   requirements:
     _permission: 'access content'
+
+openy_campaign.results:
+  path: '/node/{node}/campaign-results'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\GameController::campaignResults'
+  requirements:
+    _custom_access:  '\Drupal\openy_campaign\Controller\GameController::campaignResultsAccess'
+  options:
+      _node_operation_route: TRUE

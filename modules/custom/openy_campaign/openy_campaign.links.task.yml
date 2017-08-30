@@ -31,3 +31,9 @@ entity.openy_campaign_member_campaign.collection: # The second plugin ID
   title: 'Member Campaigns'
   base_route: entity.openy_campaign_member.collection
   weight: 10
+
+openy_campaign.results:
+  route_name: openy_campaign.results
+  base_route: entity.node.canonical
+  title: 'Campaign Results'
+  weight: 50

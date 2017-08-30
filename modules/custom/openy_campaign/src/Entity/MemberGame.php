@@ -62,6 +62,10 @@ class MemberGame extends ContentEntityBase implements MemberCampaignActivityInte
       ->setLabel(t('Result'))
       ->setDescription(t('Whether member won or not.'));
 
+    $fields['log'] = BaseFieldDefinition::create('text')
+      ->setLabel(t('Log'))
+      ->setDescription(t('Detailed log for the draw result'));
+
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel('UUID')
       ->setReadOnly(TRUE);
