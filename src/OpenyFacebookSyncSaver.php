@@ -175,12 +175,16 @@ class OpenyFacebookSyncSaver {
     $event->field_landing_body->appendItem($paragraph_data);
     $event->field_sidebar_content->setValue($sidebar_content);
 
-    $location = $this->getLocationByFacebookPage($event_data['owner']);
-    if ($location) {
-      $location_value = [
-        'target_id' => $location->id(),
-      ];
-      $event->field_location_ref->setValue($location_value);
+    // Set locations reference for event.
+    $locations = $this->getLocationsByFacebookPage($event_data['owner']);
+    if ($locations) {
+      $location_value = [];
+      foreach ($locations as $location) {
+        $location_value[] = [
+          'target_id' => $location->id(),
+        ];
+      }
+      $event->field_locations_ref->setValue($location_value);
     }
 
     $event->save();
@@ -193,13 +197,14 @@ class OpenyFacebookSyncSaver {
    * Update Event and EventMapping.
    *
    * @param \Drupal\Core\Entity\EntityInterface $event_mapping
-   *   Event Mapping Entity.
+   *   Event Mapping Entity for event node that should be updated.
    * @param array $event_data
-   *   Event Data to update.
+   *   Event data to update event node.
    */
   private function updateEvent(EntityInterface $event_mapping, array $event_data) {
     $event = $event_mapping->get('field_event_ref')->referencedEntities()[0];
     $event_node = $this->prepareEvent($event_data);
+
     // Update attached Description paragraph.
     if (!empty($event_data['description']) && !$event->get('field_landing_body')->isEmpty()) {
       $paragraph = $event->get('field_landing_body')->referencedEntities()[0];
@@ -211,12 +216,15 @@ class OpenyFacebookSyncSaver {
     $event->set('field_event_date_range', $event_node['field_event_date_range']);
     $event->set('title', $event_node['title']);
 
-    $location = $this->getLocationByFacebookPage($event_data['owner']);
-    if ($location) {
-      $location_value = [
-        'target_id' => $location->id(),
-      ];
-      $event->field_location_ref->setValue($location_value);
+    $locations = $this->getLocationsByFacebookPage($event_data['owner']);
+    if ($locations) {
+      $location_value = [];
+      foreach ($locations as $location) {
+        $location_value[] = [
+          'target_id' => $location->id(),
+        ];
+      }
+      $event->field_locations_ref->setValue($location_value);
     }
 
     $event->save();
@@ -259,15 +267,16 @@ class OpenyFacebookSyncSaver {
   }
 
   /**
-   * Return node mapped to facebook page in openy_facebook_sync.locations_map.yml.
+   * Return location nodes mapped to facebook page in openy_facebook_sync.locations_map.yml.
    *
    * @param array $page_data
    *   Facebook page data.
    *
-   * @return \Drupal\Core\Entity\EntityInterface
-   *   Node entity of Branch or Camp type.
+   * @return \Drupal\Core\Entity\EntityInterface|array
+   *   Node entities array of Branch or Camp type that Facebook page belongs.
    */
-  private function getLocationByFacebookPage(array $page_data) {
+  private function getLocationsByFacebookPage(array $page_data) {
+    $locations = [];
     $conf = $this->configFactory->get('openy_facebook_sync.locations_map');
     $map = $conf->get('map');
     $uuid = '';
@@ -286,16 +295,19 @@ class OpenyFacebookSyncSaver {
       $storage = $this->entityTypeManager->getStorage('node');
       $nodes = $storage->loadByProperties(['uuid' => $uuid]);
       if (!empty($nodes)) {
-        $node = array_pop($nodes);
-        if (in_array($node->getType(), ['branch', 'camp'])) {
-          return $node;
+        foreach ($nodes as $node) {
+          if (in_array($node->getType(), ['branch', 'camp'])) {
+            $locations[] = $node;
+          }
+          else {
+            $this->logger->warning('Location node @uuid not found during event import', ['@uuid' => $node->uuid()]);
+            return NULL;
+          }
         }
       }
-
-      $this->logger->warning('Location node @uuid not found during event import', ['@uuid' => $uuid]);
     }
 
-    return NULL;
+    return $locations;
   }
 
 }

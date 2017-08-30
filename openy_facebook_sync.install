@@ -59,3 +59,16 @@ function openy_facebook_sync_update_8003() {
   $entities = $storage_handler->loadMultiple($mapping_ids);
   $storage_handler->delete($entities);
 }
+
+/**
+ * Update locations map config for FB page with 2 locations.
+ */
+function openy_facebook_sync_update_8004() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_facebook_sync') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'openy_facebook_sync.locations_map',
+    ]
+  );
+}
