@@ -145,7 +145,6 @@ openy_campaign.member-action:
   path: '/campaign/{action}/{campaign_id}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::showModal'
-    _title_callback: '\Drupal\openy_campaign\Controller\MemberRegisterLoginController::addTitle'
   requirements:
     _permission: 'access content'
     action: ^[a-zA-Z]+
