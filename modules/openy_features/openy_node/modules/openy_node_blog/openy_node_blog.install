@@ -172,3 +172,18 @@ function openy_node_blog_update_8006() {
     'description'
   );
 }
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_node_blog_update_8007() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_blog');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.blog.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.node.blog.default',
+    'content'
+  );
+}

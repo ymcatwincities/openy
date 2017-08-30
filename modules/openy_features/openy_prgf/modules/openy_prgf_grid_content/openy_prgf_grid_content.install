@@ -49,3 +49,18 @@ function openy_prgf_grid_content_update_8001() {
     }
   }
 }
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_prgf_grid_content_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_grid_content');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.paragraph.grid_columns.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.paragraph.grid_columns.default',
+    'content'
+  );
+}
