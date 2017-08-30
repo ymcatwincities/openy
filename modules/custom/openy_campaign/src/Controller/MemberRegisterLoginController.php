@@ -60,14 +60,22 @@ class MemberRegisterLoginController extends ControllerBase {
 
     $response = new AjaxResponse();
 
-    // Get the modal form using the form builder.
+    // Registration
+    $formArg = 'Drupal\openy_campaign\Form\MemberRegisterForm';
+    $modalTitle = $this->t('Registration');
+    // Login
+    if ($action == 'login') {
+      $modalTitle = $this->t('Sign in');
+      $formArg = 'Drupal\openy_campaign\Form\MemberLoginForm';
+    }
+
     $modalPopup = [
-      '#theme' => ($action == 'login') ? 'openy_campaign_login' : 'openy_campaign_register',
-      '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginRegisterForm', $action, $campaign_id),
+      '#theme' => 'openy_campaign_popup',
+      '#form' => $this->formBuilder->getForm($formArg, $campaign_id),
     ];
 
     // Add an AJAX command to open a modal dialog with the form as the content.
-    $response->addCommand(new OpenModalDialogCommand($this->addTitle($action), $modalPopup, ['width' => '800']));
+    $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
 
     return $response;
   }
@@ -95,22 +103,6 @@ class MemberRegisterLoginController extends ControllerBase {
     $response->addCommand(new RedirectCommand($fullPath));
 
     return $response;
-  }
-
-  /**
-   * Title callback for popup.
-   *
-   * @param string $action Member action: 'login' or 'registration'.
-   * @param string $campaign_id Campaign node ID.
-   *
-   * @return \Drupal\Core\StringTranslation\TranslatableMarkup Popup title.
-   */
-  public function addTitle($action = 'login', $campaign_id = NULL) {
-
-    if ($action == 'login') {
-      return $this->t('Sign in');
-    }
-    return $this->t('Registration');
   }
 
 }
