@@ -10,15 +10,20 @@ use Drupal\editor\Entity\Editor;
  *
  * @CKEditorPlugin(
  *   id = "panelbutton",
- *   label = @Translation("Panel Button"),
+ *   label = @Translation("CKEditor Panel Button"),
  * )
  */
 class PanelButton extends CKEditorPluginBase {
+
   /**
    * {@inheritdoc}
    */
   public function getFile() {
-    return 'libraries/panelbutton/plugin.js';
+    $path = '/libraries/panelbutton/plugin.js';
+    if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+      $path = libraries_get_path('panelbutton') . '/plugin.js';
+    }
+    return $path;
   }
 
   /**
@@ -34,4 +39,5 @@ class PanelButton extends CKEditorPluginBase {
   public function getButtons() {
     return [];
   }
+
 }
