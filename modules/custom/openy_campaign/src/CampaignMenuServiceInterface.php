@@ -12,6 +12,13 @@ use Drupal\node\NodeInterface;
 interface CampaignMenuServiceInterface {
 
   /**
+   * Get campaign node from current page URL.
+   *
+   * @return bool|\Drupal\Node\Entity\Node
+   */
+  public function getCampaignNodeFromRoute();
+
+  /**
    * Retrieves referenced Campaign node for the node.
    *
    * @param \Drupal\node\NodeInterface $node
