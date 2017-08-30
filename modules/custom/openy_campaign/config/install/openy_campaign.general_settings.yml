@@ -19,3 +19,7 @@ error_msg_target_audience_settings:
 error_msg_default:
   value: '<p>Something went wrong.<br /> Please contact our customer service center at 612-230-9622.</p>'
   format: full_html
+register_form_text:
+  value: '<p>Please find your member ID below the barcode on your Membership Card.</p>
+          <p class="small">Please note it might be on the front of the card on older membership cards.</p>'
+  format: full_html
