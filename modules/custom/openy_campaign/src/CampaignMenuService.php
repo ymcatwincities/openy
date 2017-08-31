@@ -44,6 +44,8 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *   The entity type manager.
    * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
    *   The current service container.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   The current route match.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container, RouteMatchInterface $route_match) {
     $this->entityTypeManager = $entity_type_manager;
@@ -96,7 +98,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ->condition('type', 'campaign');
     $orGroup = $query->orConditionGroup()
       ->condition('field_campaign_pages', $node->id(), 'IN')
-//      ->condition('field_my_progress_page', $node->id())
+      ->condition('field_my_progress_page', $node->id())
       ->condition('field_rules_prizes_page', $node->id())
       ->condition('field_pause_landing_page', $node->id());
     $nids = $query->condition($orGroup)->execute();
@@ -161,8 +163,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     ];
 
     // My progress link
-    $myProgressID = 1;
-//    $myProgressID = $node->get('field_my_progress_page')->getString();
+    $myProgressID = $node->get('field_my_progress_page')->getString();
     $links['progress'] = [
       '#type' => 'link',
       '#title' => t('My progress'),

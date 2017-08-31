@@ -60,6 +60,11 @@ class MemberRegisterLoginController extends ControllerBase {
 
     $response = new AjaxResponse();
 
+    // Don't show popup for already logged in members
+    if (MemberCampaign::isLoggedIn($campaign_id)) {
+      return $response;
+    }
+
     // Registration
     $formArg = 'Drupal\openy_campaign\Form\MemberRegisterForm';
     $modalTitle = $this->t('Registration');

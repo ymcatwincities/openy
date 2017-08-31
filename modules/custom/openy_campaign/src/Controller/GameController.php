@@ -3,7 +3,10 @@
 namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Access\AccessResult;
@@ -14,15 +17,48 @@ use Drupal\Core\Access\AccessResult;
 class GameController extends ControllerBase {
 
   /**
+   * The entity repository.
+   *
+   * @var \Drupal\Core\Entity\EntityRepositoryInterface
+   */
+  protected $entityRepository;
+
+  /**
+   * Constructs a new GameController.
+   *
+   * @param \Drupal\Core\Entity\EntityRepositoryInterface $entity_repository
+   *   The entity repository.
+   */
+  public function __construct(EntityRepositoryInterface $entity_repository) {
+    $this->entityRepository = $entity_repository;
+  }
+
+  /**
+   * {@inheritdoc}
+   *
+   * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+   *   The Drupal service container.
+   *
+   * @return static
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity.repository')
+    );
+  }
+
+  /**
    * Play the Game page.
    */
   public function playGamePage($uuid) {
-    $game = \Drupal::entityManager()->loadEntityByUuid('openy_campaign_member_game', $uuid);
+    /** @var \Drupal\openy_campaign\Entity\MemberGame $game */
+    $game = $this->entityRepository->loadEntityByUuid('openy_campaign_member_game', $uuid);
 
     $result = $game->result->value;
+    /** @var \Drupal\Node\Entity\Node $campaign */
     $campaign = $game->member->entity->campaign->entity;
 
-    $link = \Drupal::l('Back to Campaign', new Url('entity.node.canonical', [ 'node' => $campaign->id()]));
+    $link = Link::fromTextAndUrl(t('Back to Campaign'), new Url('entity.node.canonical', [ 'node' => $campaign->id()]))->toString();
 
     if (!empty($result)) {
       return [
@@ -66,7 +102,7 @@ class GameController extends ControllerBase {
     ]);
 
     $game->result->value = $result;
-    $game->date = REQUEST_TIME;
+    $game->date = \Drupal::time()->getRequestTime();
     $game->log->value = $logMessage;
     $game->save();
 
@@ -95,17 +131,25 @@ class GameController extends ControllerBase {
     ];
   }
 
-
   /**
    * Checks access for a specific request.
    *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node.
    * @param \Drupal\Core\Session\AccountInterface $account
    *   Run access checks for this account.
+   *
+   * @return \Drupal\Core\Access\AccessResult
    */
   public function campaignResultsAccess(NodeInterface $node, AccountInterface $account) {
     return AccessResult::allowedIf($account->hasPermission('administer retention campaign') && $node->getType() == 'campaign');
   }
 
+  /**
+   * @param \Drupal\node\NodeInterface $node
+   *
+   * @return array Render array
+   */
   public function campaignResults(NodeInterface $node) {
     $build = [
       'view' => views_embed_view('campaign_results', 'default', $node->id()),

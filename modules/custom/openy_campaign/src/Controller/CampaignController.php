@@ -4,6 +4,8 @@ namespace Drupal\openy_campaign\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Form\FormBuilder;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
@@ -13,7 +15,7 @@ use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 
 /**
- * Class CampaignMyProgressController.
+ * Class CampaignController.
  */
 class CampaignController extends ControllerBase {
 
@@ -25,13 +27,33 @@ class CampaignController extends ControllerBase {
   protected $formBuilder;
 
   /**
-   * The ModalFormExampleController constructor.
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * Renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The CampaignController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   Renderer.
    */
-  public function __construct(FormBuilder $formBuilder) {
+  public function __construct(FormBuilder $formBuilder, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer) {
     $this->formBuilder = $formBuilder;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -44,7 +66,9 @@ class CampaignController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('entity_type.manager'),
+      $container->get('renderer')
     );
   }
 
@@ -67,8 +91,11 @@ class CampaignController extends ControllerBase {
         '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginForm', $campaign_id),
       ];
 
+      $options = [
+        'width' => '800',
+      ];
       // Add an AJAX command to open a modal dialog with the form as the content.
-      $response->addCommand(new OpenModalDialogCommand($this->t('Sign in'), $modalPopup, ['width' => '800']));
+      $response->addCommand(new OpenModalDialogCommand($this->t('Sign in'), $modalPopup, $options));
 
       return $response;
     }
@@ -92,7 +119,7 @@ class CampaignController extends ControllerBase {
   }
 
   /**
-   * Place new landing page paragraph instead of current one.
+   * Place new landing page Content area paragraphs instead of current ones.
    *
    * @param int $landing_page_id Landing page node ID to get new content for replacement.
    *
@@ -101,21 +128,20 @@ class CampaignController extends ControllerBase {
   private function replaceLandingPageParagraph($landing_page_id) {
     $response = new AjaxResponse();
 
-    // Replace field_content in Landing page.
+    /** @var Node $node New landing page node to replace. */
     $node = Node::load($landing_page_id);
 
-    /** @var \Drupal\Core\Entity\EntityInterface $fieldEntity */
-    $fieldEntity = $node->get('field_content')->entity;
+    $fieldsView = [];
+    foreach ($node->field_content as $item) {
+      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+      $paragraph = $item->entity;
+      $viewBuilder = $this->entityTypeManager->getViewBuilder($paragraph->getEntityTypeId());
+      $fieldsView[] = $viewBuilder->view($paragraph, 'default');
+    }
+    $fieldsRender = '<section class="wrapper-field-content">' . $this->renderer->renderRoot($fieldsView) . '</section>';
 
-    $viewBuilder = \Drupal::entityTypeManager()->getViewBuilder($fieldEntity->getEntityTypeId());
-    $fieldView = $viewBuilder->view($fieldEntity, 'default');
-
-    $renderField =  \Drupal::service('renderer')->renderRoot($fieldView);
-
-    // TODO Remove one extra div after $renderField
-    // Replace every paragraph with default view in field-content of landing page node.
-    $replacementClass = '.' . $fieldEntity->getEntityTypeId() . '--view-mode--default';
-    $response->addCommand(new ReplaceCommand('.node__content > .container .wrapper-field-content ' . $replacementClass, $renderField));
+    // Replace Content area of current landing page with all paragraphs from field-content of new landing page node.
+    $response->addCommand(new ReplaceCommand('.node__content > .container .wrapper-field-content', $fieldsRender));
 
     // Set 'active' class to menu link.
     $response->addCommand(new InvokeCommand('.campaign-menu a', 'removeClass', ['active']));

@@ -1,7 +1,4 @@
 <?php
-/**
- *
- */
 
 namespace Drupal\openy_campaign\Entity;
 
@@ -9,7 +6,6 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
-
 use Drupal\openy_campaign\MemberCampaignActivityInterface;
 
 /**

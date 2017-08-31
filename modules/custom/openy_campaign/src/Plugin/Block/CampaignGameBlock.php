@@ -3,11 +3,8 @@
 namespace Drupal\openy_campaign\Plugin\Block;
 
 use Drupal\Core\Form\FormBuilderInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\node\NodeInterface;
-use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberGame;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,11 +29,11 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $formBuilder;
 
   /**
-   * The current route match.
+   * The service container.
    *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
+   * @var \Symfony\Component\DependencyInjection\ContainerInterface
    */
-  protected $routeMatch;
+  protected $container;
 
   /**
    * The Campaign menu service.
@@ -57,10 +54,10 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, RouteMatchInterface $route_match, CampaignMenuServiceInterface $campaign_menu_service) {
+  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, CampaignMenuServiceInterface $campaign_menu_service) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
-    $this->routeMatch = $route_match;
+    $this->container = $container;
     $this->campaignMenuService = $campaign_menu_service;
   }
 
@@ -69,11 +66,11 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
+      $container,
       $configuration,
       $plugin_id,
       $plugin_definition,
       $container->get('form_builder'),
-      $container->get('current_route_match'),
       $container->get('openy_campaign.campaign_menu_handler')
     );
   }
@@ -95,23 +92,17 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
 
     // Get campaign node from current page
     /** @var \Drupal\Node\Entity\Node $campaign */
-    $node = $this->routeMatch->getParameter('node');
-    if ($node instanceof NodeInterface !== TRUE) {
-      $node = Node::load($node);
-    }
-    if (empty($node)) {
-      return [];
-    }
-    $campaign = $this->campaignMenuService->getNodeCampaignNode($node);
+    $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
-    if (empty($campaign) || $campaign->getType() != 'campaign') {
+    if (empty($campaign)) {
       return $block;
     }
 
     $userData = MemberCampaign::getMemberCampaignData($campaign->id());
     $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
 
-    $gameIds = \Drupal::entityQuery('openy_campaign_member_game')
+    $entity_query_service = $this->container->get('entity.query');
+    $gameIds = $entity_query_service->get('openy_campaign_member_game')
       ->condition('member', $memberCampaignID)
       ->execute();
 

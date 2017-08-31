@@ -2,60 +2,13 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\RendererInterface;
-use Drupal\node\Entity\Node;
-use Drupal\taxonomy\Entity\Term;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Url;
-use Drupal\openy_campaign\Entity\MemberCampaignActivity;
-use Drupal\openy_campaign\Entity\MemberCampaign;
-use Drupal\openy_campaign\Entity\MemberCheckin;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Provides a "openy_campaign_game_block_form" form.
  */
 class GameBlockForm extends FormBase {
-
-  /**
-   * Renderer.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
-
-  /**
-   * Entity Manager
-   *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
-   */
-  protected $manager;
-
-
-  /**
-   * CalcBlockForm constructor.
-   *
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   Renderer.
-   */
-  public function __construct(RendererInterface $renderer, EntityManagerInterface $manager) {
-    $this->renderer = $renderer;
-    $this->manager = $manager;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('renderer'),
-      $container->get('entity.manager')
-    );
-  }
 
   /**
    * {@inheritdoc}
@@ -72,7 +25,7 @@ class GameBlockForm extends FormBase {
     if (empty($unplayedGames)) {
       return [
         'message' => [
-          '#markup' => 'You do not have any Games available. Visit facility more',
+          '#markup' => $this->t('You do not have any Games available. Visit facility more'),
         ],
       ];
     }
@@ -88,7 +41,7 @@ class GameBlockForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => 'Play now!',
+      '#value' => $this->t('Play now!'),
     ];
 
     return $form;
