@@ -183,18 +183,30 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
+    $campaignID = $form_state->getValue('campaign_id');
+    $membershipID = $form_state->getValue('membership_id');
+
+    /** @var Node $campaign */
+    $campaign = Node::load($campaignID);
+
     $config = $this->config('openy_campaign.general_settings');
     $msgDefault = $config->get('error_msg_default');
     $errorDefault = check_markup($msgDefault['value'], $msgDefault['format']);
-
-    $campaignID = $form_state->getValue('campaign_id');
-    $membershipID = $form_state->getValue('membership_id');
+    // Get error from Campaign node
+    if (!empty($campaign->field_error_default->value)) {
+      $errorDefault = check_markup($campaign->field_error_default->value, $campaign->field_error_default->format);
+    }
 
     // TODO Add check length of $membershipID
     // Check correct Membership ID
     if (!is_numeric($membershipID)) {
       $msgMembershipId = $config->get('error_msg_membership_id');
       $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
+      // Get error from Campaign node
+      if (!empty($campaign->field_error_membership_id->value)) {
+        $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
+      }
+
       $form_state->setErrorByName('membership_id', $errorMembershipId);
 
       return;
@@ -205,8 +217,13 @@ class MemberRegisterForm extends FormBase {
 
     // Registration attempt for already registered member.
     if ($memberCampaignID) {
-      $msgAlreadyRegistered = $config->get('error_msg_already_registered');
+      $msgAlreadyRegistered = $config->get('error_register_already_registered');
       $errorAlreadyRegistered = check_markup($msgAlreadyRegistered['value'], $msgAlreadyRegistered['format']);
+      // Get error from Campaign node
+      if (!empty($campaign->field_reg_already_registered->value)) {
+        $errorAlreadyRegistered = check_markup($campaign->field_reg_already_registered->value, $campaign->field_reg_already_registered->format);
+      }
+
       $form_state->setErrorByName('membership_id', $errorAlreadyRegistered);
 
       return;
@@ -225,11 +242,13 @@ class MemberRegisterForm extends FormBase {
     if ($isInactiveMember) {
       $msgMemberInactive = $config->get('error_msg_member_is_inactive');
       $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+      // Get error from Campaign node
+      if (!empty($campaign->field_error_member_is_inactive->value)) {
+        $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+      }
+
       $form_state->setErrorByName('membership_id', $errorMemberInactive);
     }
-
-    /** @var Node $campaign */
-    $campaign = Node::load($campaignID);
 
     /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
     $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);
@@ -247,6 +266,11 @@ class MemberRegisterForm extends FormBase {
       $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
       $msgValue = implode(' - ', $validateAudienceErrorMessages) . $msgAudienceMessages['value'];
       $errorAudience = check_markup($msgValue, $msgAudienceMessages['format']);
+      // Get error from Campaign node
+      if (!empty($campaign->field_error_target_audience->value)) {
+        $errorAudience = check_markup($campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
+      }
+
       $form_state->setErrorByName('membership_id', $errorAudience);
 
       return;
@@ -345,12 +369,26 @@ class MemberRegisterForm extends FormBase {
       ];
       $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
-      $modalTitle = $this->t('Thank you!');
-      $modalMessage = t('Thank you for registering. Now you can sign in!');
+      $modalTitle = $this->t('Registration');
+
+      // Get default values from settings
+      $config = $this->config('openy_campaign.general_settings');
+
+      $msgSuccess = $config->get('successful_registration');
+      $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
+      // Get message from Campaign node
+      if (!empty($campaign->field_successful_registration->value)) {
+        $modalMessage = check_markup($campaign->field_successful_registration->value, $campaign->field_successful_registration->format);
+      }
+
       // If Campaign is not started
       if ($campaignStartDate >= new \DateTime()) {
-        $modalMessage = t('Thank you for registering. Be sure to check back on @date when the challenge starts!',
-          ['@date' => $campaignStartDate->format('F j')]);
+        $msgNotStarted = $config->get('error_register_checkins_not_started');
+        $modalMessage = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
+        // Get message from Campaign node
+        if (!empty($campaign->field_reg_checkins_not_started->value)) {
+          $modalMessage = check_markup($campaign->field_reg_checkins_not_started->value, $campaign->field_reg_checkins_not_started->format);
+        }
       }
 
       $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalMessage, ['width' => 800]));

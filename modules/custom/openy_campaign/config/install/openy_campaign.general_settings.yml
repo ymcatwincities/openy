@@ -1,14 +1,23 @@
-error_msg_membership_id:
-  value: '<p><strong>Please check your member ID to ensure it has been entered correctly.</strong><br /> If you have entered your number correctly and it still is not working, please contact our customer service center at 612-230-9622.</p>'
-  format: full_html
-error_msg_checkins_not_started:
+error_login_checkins_not_started:
   value: '<p><strong>Good news! Our records show you have already registered.</strong><br /> If you think this is a mistake, please contact our customer service center at 612-230-9622.</p>'
   format: full_html
-error_msg_not_registered:
-  value: '<p>Member with this member ID is not registered. <strong>Please register.</strong></p>'
+error_login_not_registered:
+  value: '<p>Member with this member ID is not registered. <strong>Please [campaign:register-link].</strong></p>'
   format: full_html
-error_msg_already_registered:
-  value: '<p><strong>You''re already signed up!</strong><br /> You can check your progress or report activities by signing in here.</p>'
+successful_login:
+  value: '<p>Thank you for logging in!</p>'
+  format: full_html
+error_register_checkins_not_started:
+  value: '<p><strong>Thank you for registering!</strong><br /> Be sure to [campaign:check-back-date] when the challenge starts!</p>'
+  format: full_html
+error_register_already_registered:
+  value: '<p><strong>You''re already signed up!</strong><br /> You can check your progress or report activities by [campaign:login-link].</p>'
+  format: full_html
+successful_registration:
+  value: '<p>Thank you for registering. Now you can sign in!</p>'
+  format: full_html
+error_msg_membership_id:
+  value: '<p><strong>Please check your member ID to ensure it has been entered correctly.</strong><br /> If you have entered your number correctly and it still is not working, please contact our customer service center at 612-230-9622.</p>'
   format: full_html
 error_msg_member_is_inactive:
   value: '<p><strong>Our records indicate the member ID entered is inactive.</strong><br /> Please check your member ID and re-enter it, or contact the customer service center at 612-230-9622.</p>'

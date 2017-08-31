@@ -2,7 +2,7 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
@@ -29,11 +29,11 @@ class ActivityTrackingModalForm extends FormBase {
   protected $renderer;
 
   /**
-   * Entity Manager
+   * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $manager;
+  protected $entityTypeManager;
 
 
   /**
@@ -41,10 +41,12 @@ class ActivityTrackingModalForm extends FormBase {
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    */
-  public function __construct(RendererInterface $renderer, EntityManagerInterface $manager) {
+  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entity_type_manager) {
     $this->renderer = $renderer;
-    $this->manager = $manager;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -53,7 +55,7 @@ class ActivityTrackingModalForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('entity.manager')
+      $container->get('entity_type.manager')
     );
   }
 
@@ -69,7 +71,7 @@ class ActivityTrackingModalForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $date = NULL, $memberCampaignId = NULL, $topTermId = NULL) {
     $term = Term::load($topTermId);
-    $childTerms = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
+    $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
 
     $form['#prefix'] = '<div id="activity_tracking_modal_form_wrapper">';
     $form['#suffix'] = '</div>';
@@ -90,7 +92,7 @@ class ActivityTrackingModalForm extends FormBase {
     $dateObject = new \DateTime($date);
     $existingActivitiesIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $dateObject, array_keys($options));
 
-    $existingActivitiesEntities = \Drupal::service('entity_type.manager')->getStorage('openy_member_campaign_activity')->loadMultiple($existingActivitiesIds);
+    $existingActivitiesEntities = $this->entityTypeManager->getStorage('openy_member_campaign_activity')->loadMultiple($existingActivitiesIds);
     $default_values = [];
     /** @var MemberCampaignActivity $activity */
     foreach ($existingActivitiesEntities as $activity) {

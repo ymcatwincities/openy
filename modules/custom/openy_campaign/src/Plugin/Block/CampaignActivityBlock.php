@@ -92,8 +92,7 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
 
       $block['goal_block'] = [
         '#theme' => 'openy_campaign_visits_goal',
-//        '#goal' => $memberCampaign->getGoal(),
-        '#goal' => 5,
+        '#goal' => !empty($memberCampaign->getGoal()) ? $memberCampaign->getGoal() : 0,
         '#current' => count($currentCheckins),
       ];
 

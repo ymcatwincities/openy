@@ -65,11 +65,19 @@ class MemberRegistrationPortalForm extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-    $config = $this->config('openy_campaign.general_settings');
-    $errorDefault = $config->get('error_msg_default');
-
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
+
+    /** @var Node $campaign Current campaign. */
+    $campaign = Node::load($campaignID);
+
+    $config = $this->config('openy_campaign.general_settings');
+    $errorDefault = $config->get('error_msg_default');
+    // Get error from Campaign node
+    if (!empty($campaign->field_error_default->value)) {
+      $errorDefault = check_markup($campaign->field_error_default->value, $campaign->field_error_default->format);
+    }
+
     // TODO Add check length of $membershipID
     if (!is_numeric($membershipID)) {
       $form_state->setErrorByName('membership_id', $this->t('Please, check Membership ID number.'));
@@ -92,9 +100,6 @@ class MemberRegistrationPortalForm extends FormBase {
 
       return;
     }
-
-    // Get Campaign entity
-    $campaign = Node::load($campaignID);
 
     /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
     $memberCampaign = MemberCampaign::createMemberCampaign($member, $campaign);

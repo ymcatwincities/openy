@@ -89,11 +89,19 @@ class MemberLoginForm extends FormBase {
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
 
+    /** @var Node $campaign Current campaign. */
+    $campaign = Node::load($campaignID);
+
     // TODO Add check length of $membershipID
     // Check correct Membership ID
     if (!is_numeric($membershipID)) {
       $msgMembershipId = $config->get('error_msg_membership_id');
       $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
+      // Get error from Campaign node
+      if (!empty($campaign->field_error_membership_id->value)) {
+        $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
+      }
+
       $form_state->setErrorByName('membership_id', $errorMembershipId);
 
       return;
@@ -102,8 +110,6 @@ class MemberLoginForm extends FormBase {
     // Check MemberCampaign entity
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
 
-    /** @var Node $campaign */
-    $campaign = Node::load($campaignID);
     $isCampaignPeriod = $this->checkCampaignPeriod($campaign);
 
     // If the member is already registered previously.
@@ -116,8 +122,13 @@ class MemberLoginForm extends FormBase {
           'campaign' => $campaign,
         ]);
       } else {
-        $msgNotStarted = $config->get('error_msg_checkins_not_started');
+        $msgNotStarted = $config->get('error_login_checkins_not_started');
         $errorNotStarted = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
+        // Get error from Campaign node
+        if (!empty($campaign->field_login_checkins_not_started->value)) {
+          $errorNotStarted = check_markup($campaign->field_login_checkins_not_started->value, $campaign->field_login_checkins_not_started->format);
+        }
+
         $form_state->setErrorByName('membership_id', $errorNotStarted);
       }
 
@@ -125,8 +136,13 @@ class MemberLoginForm extends FormBase {
     }
 
     // For not registered users.
-    $msgNotRegistered = $config->get('error_msg_not_registered');
+    $msgNotRegistered = $config->get('error_login_not_registered');
     $errorNotRegistered = check_markup($msgNotRegistered['value'], $msgNotRegistered['format']);
+    // Get error from Campaign node
+    if (!empty($campaign->field_login_not_registered->value)) {
+      $errorNotRegistered = check_markup($campaign->field_login_not_registered->value, $campaign->field_login_not_registered->format);
+    }
+
     $form_state->setErrorByName('membership_id', $errorNotRegistered);
   }
 
@@ -152,17 +168,30 @@ class MemberLoginForm extends FormBase {
 
     // For existed and logged in during validation members. All other cases were checked during validation.
     if ($storage['status'] === 'loggedin') {
-      $modalTitle = $this->t('Thank you!');
-      $modalMessage = t('Thank you for logging in.');
-
-      // Login before Campaign start
       /** @var Node $campaign Campaign object. */
       $campaign = $storage['campaign'];
-      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
 
+      $modalTitle = $this->t('Thank you');
+
+      // Get default values from settings
+      $config = $this->config('openy_campaign.general_settings');
+
+      $msgSuccess = $config->get('successful_login');
+      $modalMessage = check_markup($msgSuccess['value'], $msgSuccess['format']);
+      // Get message from Campaign node
+      if (!empty($campaign->field_successful_login->value)) {
+        $modalMessage = check_markup($campaign->field_successful_login->value, $campaign->field_successful_login->format);
+      }
+
+      // Login before Campaign start
+      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
       if ($campaignStartDate > new \DateTime()) {
-        $modalMessage = $this->t('Challenge is not started yet. Be sure to check back on @date when the challenge starts!',
-          ['@date' => $campaignStartDate->format('F j')]);
+        $msgNotStarted = $config->get('error_login_checkins_not_started');
+        $modalMessage = check_markup($msgNotStarted['value'], $msgNotStarted['format']);
+        // Get message from Campaign node
+        if (!empty($campaign->field_login_checkins_not_started->value)) {
+          $modalMessage = check_markup($campaign->field_login_checkins_not_started->value, $campaign->field_login_checkins_not_started->format);
+        }
       }
 
       $response->addCommand(new OpenModalDialogCommand(

@@ -7,6 +7,8 @@
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\ContentEntityTypeInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Implements hook_theme().
@@ -48,6 +50,92 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'template' => 'openy-campaign-visits-goal',
     ],
   ];
+}
+
+/**
+ * Implements hook_token_info().
+ */
+function openy_campaign_token_info() {
+  $type = array(
+    'name' => t('Campaigns'),
+    'description' => t('Tokens related to campaigns.'),
+  );
+
+  // Custom tokens for Campaign node.
+  $node['login-link'] = array(
+    'name' => t('Login link'),
+    'description' => t('Show Member login link for campaign (linked text from Campaign edit page).'),
+  );
+  $node['register-link'] = array(
+    'name' => t('Registration link'),
+    'description' => t('Show Member registration URL for campaign (linked text from Campaign edit page).'),
+  );
+  $node['check-back-date'] = array(
+    'name' => t('Check back on XX DATE'),
+    'description' => t('Specific date text entered in Campaign edit page'),
+  );
+
+  return array(
+    'types' => array('campaign' => $type),
+    'tokens' => array('campaign' => $node),
+  );
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function openy_campaign_tokens($type, $tokens, array $data, array $options, \Drupal\Core\Render\BubbleableMetadata $bubbleable_metadata) {
+  $replacements = [];
+  if ($type != 'campaign') {
+    return [];
+  }
+
+  // Get node from current page URL and check referenced campaign.
+  /** @var \Drupal\Node\Entity\Node $campaign */
+  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+
+  foreach ($tokens as $name => $original) {
+    switch ($name) {
+      case 'login-link':
+        $text = $campaign->field_token_login_link_text->value;
+
+        $url = Url::fromRoute('openy_campaign.member-action',
+          ['action' => 'login', 'campaign_id' => $campaign->id()]
+        );
+        $url->setOptions([
+          'attributes' => [
+            'class' => [
+              'use-ajax',
+              'login'
+            ],
+          ],
+        ]);
+        $replacements[$original] = Link::fromTextAndUrl($text, $url)->toString();;
+        break;
+
+      case 'register-link':
+        $text = $campaign->field_token_register_link_text->value;
+
+        $url = Url::fromRoute('openy_campaign.member-action',
+          ['action' => 'registration', 'campaign_id' => $campaign->id()]
+        );
+        $url->setOptions([
+          'attributes' => [
+            'class' => [
+              'use-ajax',
+              'register'
+            ],
+          ],
+        ]);
+        $replacements[$original] = Link::fromTextAndUrl($text, $url)->toString();
+        break;
+
+      case 'check-back-date':
+        $replacements[$original] = $campaign->field_token_check_back_date->value;
+        break;
+    }
+  }
+  return $replacements;
 }
 
 /**
@@ -140,7 +228,13 @@ function openy_campaign_form_openy_campaign_member_edit_form_alter(&$form, \Drup
  */
 function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
   $fieldName = $context['items']->getName();
-  if ($fieldName == 'field_campaign_pages') {
+  $landingFields = [
+    'field_campaign_pages',
+    'field_my_progress_page',
+    'field_pause_landing_page',
+    'field_rules_prizes_page',
+  ];
+  if (in_array($fieldName, $landingFields)) {
     // Output publishing dates in the backend.
     /** @var \Drupal\node\Entity\Node $node */
     $node = $element['target_id']['#default_value'];

@@ -5,7 +5,7 @@ namespace Drupal\openy_campaign\Plugin\Block;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Url;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 
@@ -21,14 +21,14 @@ use Drupal\openy_campaign\Entity\MemberCampaign;
 class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The current route match.
+   * The Campaign menu service.
    *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
+   * @var \Drupal\openy_campaign\CampaignMenuServiceInterface
    */
-  protected $routeMatch;
+  protected $campaignMenuService;
 
   /**
-   * Constructs a new CampaignMenuBlock.
+   * Constructs a new Campaign user menu block.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -36,12 +36,12 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
    *   The plugin ID for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param RouteMatchInterface $route_match
+   * @param CampaignMenuServiceInterface $campaign_menu_service
    *   The Campaign menu service.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, CampaignMenuServiceInterface $campaign_menu_service) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->routeMatch = $route_match;
+    $this->campaignMenuService = $campaign_menu_service;
   }
 
   /**
@@ -52,7 +52,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('current_route_match')
+      $container->get('openy_campaign.campaign_menu_handler')
     );
   }
 
@@ -65,10 +65,9 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
     // Disable block cache.
     $build['#cache']['max-age'] = 0;
 
-    // Check if current page is campaign
-    /** @var \Drupal\Node\Entity\Node $campaign */
-    $campaign = $this->routeMatch->getParameter('node');
-    if ($campaign->getType() != 'campaign') {
+    // Extract Campaign node from route.
+    $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
+    if (empty($campaign)) {
       return $build;
     }
 
