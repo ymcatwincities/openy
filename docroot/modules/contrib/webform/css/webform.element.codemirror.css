@@ -22,6 +22,6 @@ pre.webform-codemirror-runmode {
   border: 1px solid #ccc;
   font-size: 13px;
   overflow: auto;
-  padding: 3px;
+  padding: .5em 1em;
   margin: 0;
 }

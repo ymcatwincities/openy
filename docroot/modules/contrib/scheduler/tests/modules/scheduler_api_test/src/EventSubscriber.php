@@ -11,7 +11,8 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  *
  * These events allow modules to react to the Scheduler process being performed.
  * They are all triggered during Scheduler cron processing with the exception of
- * 'publish_immediately' which is triggered from scheduler_node_presave().
+ * 'pre_publish_immediately' and 'publish_immediately' which are triggered from
+ * scheduler_node_presave().
  *
  * The tests use the standard 'sticky' and 'promote' fields as a simple way to
  * check the processing. Use extra conditional checks on $node->isPublished() to
@@ -31,9 +32,10 @@ class EventSubscriber implements EventSubscriberInterface {
   public static function getSubscribedEvents() {
     // The values in the arrays give the function names below.
     $events[SchedulerEvents::PRE_PUBLISH][] = ['apiTestPrePublish'];
-    $events[SchedulerEvents::PRE_UNPUBLISH][] = ['apiTestPreUnpublish'];
     $events[SchedulerEvents::PUBLISH][] = ['apiTestPublish'];
+    $events[SchedulerEvents::PRE_UNPUBLISH][] = ['apiTestPreUnpublish'];
     $events[SchedulerEvents::UNPUBLISH][] = ['apiTestUnpublish'];
+    $events[SchedulerEvents::PRE_PUBLISH_IMMEDIATELY][] = ['apiTestPrePublishImmediately'];
     $events[SchedulerEvents::PUBLISH_IMMEDIATELY][] = ['apiTestPublishImmediately'];
     return $events;
   }
@@ -66,6 +68,22 @@ class EventSubscriber implements EventSubscriberInterface {
     if ($node->isPublished() && strpos($node->title->value, 'API TEST') === 0) {
       // Before unpublishing a node make it unsticky.
       $node->setSticky(FALSE);
+      $event->setNode($node);
+    }
+  }
+
+  /**
+   * Operations before Scheduler publishes a node immediately not via cron.
+   *
+   * @param \Drupal\scheduler\SchedulerEvent $event
+   *   The scheduler event.
+   */
+  public function apiTestPrePublishImmediately(SchedulerEvent $event) {
+    /** @var \Drupal\node\Entity\Node $node */
+    $node = $event->getNode();
+    // Before publishing immediately set the node to sticky.
+    if (!$node->isPromoted() && strpos($node->title->value, 'API TEST') === 0) {
+      $node->setSticky(TRUE);
       $event->setNode($node);
     }
   }
@@ -111,12 +129,11 @@ class EventSubscriber implements EventSubscriberInterface {
   public function apiTestPublishImmediately(SchedulerEvent $event) {
     /** @var \Drupal\node\Entity\Node $node */
     $node = $event->getNode();
-    // When publishing immediately set the node to sticky and promoted, and
-    // also change the title.
+    // After publishing immediately set the node to promoted and change the
+    // title.
     if (!$node->isPromoted() && strpos($node->title->value, 'API TEST') === 0) {
       $node->setTitle('Published immediately')
-        ->setPromoted(TRUE)
-        ->setSticky(TRUE);
+        ->setPromoted(TRUE);
       $event->setNode($node);
     }
   }

@@ -4,6 +4,7 @@ settings:
   default_form_close_message: 'Sorry...This form is closed to new submissions.'
   default_form_exception_message: 'Unable to display this webform. Please contact the site administrator.'
   default_submit_button_label: Submit
+  default_reset_button_label: Reset
   default_form_submit_once: false
   default_form_confidential_message: 'This form is confidential. You must <a href="[site:login-url]/logout?destination=[current-page:url:relative]">Log out</a> to submit it.'
   default_form_disable_back: false
@@ -74,6 +75,7 @@ batch:
 purge:
   cron_size: 100
 element:
+  empty_message: '{Empty}'
   allowed_tags: admin
   wrapper_classes: |
     container-inline clearfix
@@ -94,6 +96,10 @@ element:
   default_icheck: ''
   default_google_maps_api_key: ''
   excluded_elements: {  }
+html_editor:
+  disabled: false
+  format: ''
+  tidy: true
 file:
   file_public: false
   file_private_redirect: true
@@ -226,7 +232,7 @@ ui:
   dialog_disabled: false
   offcanvas_disabled: false
   help_menu_disabled: false
-  html_editor_disabled: false
+  promotions_disabled: false
 libraries:
   excluded_libraries:
     - jquery.chosen

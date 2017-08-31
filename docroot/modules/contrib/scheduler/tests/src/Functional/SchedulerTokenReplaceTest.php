@@ -13,7 +13,7 @@ class SchedulerTokenReplaceTest extends SchedulerBrowserTestBase {
    * Creates a node, then tests the tokens generated from it.
    */
   public function testSchedulerTokenReplacement() {
-    $this->drupalLogin($this->adminUser);
+    $this->drupalLogin($this->schedulerUser);
     $date_formatter = \Drupal::service('date.formatter');
 
     // Define timestamps for consistent use when repeated throughout this test.
@@ -48,7 +48,7 @@ class SchedulerTokenReplaceTest extends SchedulerBrowserTestBase {
       $edit = [
         'body[0][value]' => 'Publish on: [node:scheduler-publish' . $test_data['token_format'] . ']. Unpublish on: [node:scheduler-unpublish' . $test_data['token_format'] . '].',
       ];
-      $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save and keep unpublished'));
+      $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save'));
       $this->drupalGet('node/' . $node->id());
 
       // Refresh the node and get the body output value.

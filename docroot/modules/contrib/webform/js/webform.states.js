@@ -7,8 +7,9 @@
 
   'use strict';
 
-  // Issue #2860529: Conditional required File upload field don't work.
   var $document = $(document);
+
+  // Issue #2860529: Conditional required File upload field don't work.
   $document.on('state:required', function (e) {
     if (e.trigger) {
       if (e.value) {
@@ -20,16 +21,15 @@
     }
   });
 
-  // Make absolutely sure the below event handlers are triggered after
-  // the /core/misc/states.js event handlers by attaching them after DOM load.
-  $(function () {
-    var $document = $(document);
-    $document.on('state:visible', function (e) {
-      if (!e.trigger) {
-        return true;
+  $document.on('state:visible', function (e) {
+    if (e.trigger) {
+      if (e.value) {
+        $(':input', e.target).andSelf().each(function () {
+          restoreValueAndRequired(this);
+          triggerEventHandlers(this);
+        });
       }
-
-      if (!e.value) {
+      else {
         // @see https://www.sitepoint.com/jquery-function-clear-form-data/
         $(':input', e.target).andSelf().each(function () {
           backupValueAndRequired(this);
@@ -37,21 +37,22 @@
           triggerEventHandlers(this);
         });
       }
-      else {
-        $(':input', e.target).andSelf().each(function () {
-          restoreValueAndRequired(this);
-          triggerEventHandlers(this);
-        });
-      }
-    });
+    }
+  });
 
-    $document.on('state:disabled', function (e) {
-      if (e.trigger) {
-        $(e.target).trigger('webform:disabled')
-          .find('select, input, textarea').trigger('webform:disabled');
-      }
-    });
+  $document.on('state:disabled', function (e) {
+    if (e.trigger) {
+      // Make sure disabled property is set before triggering webform:disabled.
+      // Copied from: core/misc/states.js
+      $(e.target)
+        .prop('disabled', e.value)
+        .closest('.js-form-item, .js-form-submit, .js-form-wrapper').toggleClass('form-disabled', e.value)
+        .find('select, input, textarea').prop('disabled', e.value);
 
+      // Trigger webform:disabled.
+      $(e.target).trigger('webform:disabled')
+        .find('select, input, textarea').trigger('webform:disabled');
+    }
   });
 
   /**
@@ -114,7 +115,6 @@
     else if (type != 'submit' && type != 'button') {
       $input.data('webform-value', input.value);
     }
-
   }
 
   /**
