@@ -10,6 +10,7 @@ dependencies:
   - entity_reference_revisions
   - field
   - field_group
+  - jquery_colorpicker
   - menu_ui
   - node
   - openy_campaign
@@ -22,5 +23,6 @@ dependencies:
   - pathauto
   - scheduler
   - taxonomy
+  - text
   - user
 version: 8.x-1.0

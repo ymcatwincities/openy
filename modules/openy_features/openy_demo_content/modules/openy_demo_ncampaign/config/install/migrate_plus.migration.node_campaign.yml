@@ -138,6 +138,15 @@ process:
       - Youth
       - Student
       - Contract
+  field_token_check_back_date:
+    plugin: default_value
+    default_value: 'check back on 22 of August'
+  field_token_login_link_text:
+    plugin: default_value
+    default_value: 'sign in here'
+  field_token_register_link_text:
+    plugin: default_value
+    default_value: 'register'
 destination:
   plugin: 'entity:node'
   default_bundle: campaign

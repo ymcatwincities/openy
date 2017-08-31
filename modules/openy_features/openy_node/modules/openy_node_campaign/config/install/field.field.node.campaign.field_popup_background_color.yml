@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_popup_background_color
+    - node.type.campaign
+  module:
+    - datalayer
+    - jquery_colorpicker
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_popup_background_color
+id: node.campaign.field_popup_background_color
+field_name: field_popup_background_color
+entity_type: node
+bundle: campaign
+label: 'Popup background color'
+description: 'Select background color for Login / Registration popup'
+required: false
+translatable: false
+default_value:
+  -
+    value: FFFFFF
+default_value_callback: ''
+settings: {  }
+field_type: jquery_colorpicker

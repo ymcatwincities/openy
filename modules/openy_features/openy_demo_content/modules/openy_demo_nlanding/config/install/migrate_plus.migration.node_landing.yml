@@ -237,6 +237,8 @@ source:
           header_content_id: lp_campaign_menu_3
       content_ids:
         -
+          content_id: challenge_yourself_campaign_game
+        -
           content_id: challenge_yourself_campaign_activity
   ids:
     id:
@@ -340,6 +342,7 @@ process:
           - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
           - openy_demo_lp_paragraph_campaign_activity
+          - openy_demo_lp_paragraph_campaign_game
         source: content_id
       target_revision_id:
         plugin: migration
@@ -361,6 +364,7 @@ process:
           - openy_demo_lp_paragraph_group_schedules
           - openy_demo_lp_paragraph_all_amenities
           - openy_demo_lp_paragraph_campaign_activity
+          - openy_demo_lp_paragraph_campaign_game
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -391,5 +395,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_lto
     - openy_demo_lp_paragraph_campaign_activity
     - openy_demo_lp_paragraph_campaign_menu
+    - openy_demo_lp_paragraph_campaign_game
   optional:
     - openy_demo_node_blog
