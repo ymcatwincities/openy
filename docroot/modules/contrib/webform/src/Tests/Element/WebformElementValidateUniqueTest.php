@@ -22,7 +22,7 @@ class WebformElementValidateUniqueTest extends WebformTestBase {
   /**
    * Tests element validate unique.
    */
-  public function testElementValidateUnique() {
+  public function testValidateUnique() {
     $this->drupalLogin($this->rootUser);
 
     $webform = Webform::load('test_element_validate_unique');

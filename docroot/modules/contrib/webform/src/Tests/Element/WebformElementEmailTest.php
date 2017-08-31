@@ -21,7 +21,7 @@ class WebformElementEmailTest extends WebformTestBase {
   /**
    * Test email_confirm and email_multiple element.
    */
-  public function testEmailElement() {
+  public function testEmail() {
 
     /**************************************************************************/
     // email_multiple
@@ -30,7 +30,7 @@ class WebformElementEmailTest extends WebformTestBase {
     // Check basic email multiple.
     $this->drupalGet('webform/test_element_email');
     $this->assertRaw('<label for="edit-email-multiple-basic">Multiple email addresses (basic)</label>');
-    $this->assertRaw('<input data-drupal-selector="edit-email-multiple-basic" aria-describedby="edit-email-multiple-basic--description" type="text" id="edit-email-multiple-basic" name="email_multiple_basic" value="" size="60" class="form-textfield webform-email-multiple" />');
+    $this->assertRaw('<input data-drupal-selector="edit-email-multiple-basic" aria-describedby="edit-email-multiple-basic--description" type="text" id="edit-email-multiple-basic" name="email_multiple_basic" value="" size="60" class="form-text webform-email-multiple" />');
     $this->assertRaw('Multiple email addresses may be separated by commas.');
 
     // Check email multiple invalid second email address.

@@ -48,6 +48,11 @@ abstract class WebformMarkupBase extends WebformElementBase implements WebformEl
     if (!$this->isDisplayOn($element, static::DISPLAY_ON_FORM)) {
       $element['#access'] = FALSE;
     }
+
+    // Add form element wrapper.
+    if ($this->hasProperty('wrapper_attributes')) {
+      $element['#theme_wrappers'][] = 'form_element';
+    }
   }
 
   /**

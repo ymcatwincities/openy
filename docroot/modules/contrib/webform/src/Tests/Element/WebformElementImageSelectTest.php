@@ -21,7 +21,7 @@ class WebformElementImageSelectTest extends WebformTestBase {
   /**
    * Test webform image select element.
    */
-  public function testWebformImageSelectElement() {
+  public function testImageSelect() {
     $this->drupalGet('webform/test_element_image_select');
 
     // Check rendering of image select with required.

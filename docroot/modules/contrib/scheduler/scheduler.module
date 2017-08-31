@@ -77,9 +77,6 @@ function scheduler_form_node_form_alter(&$form, FormStateInterface $form_state) 
     return;
   }
 
-  $date_format = $config->get('date_format');
-  $date_only_format = $config->get('date_only_format');
-  $time_only_format = $config->get('time_only_format');
   $date_only_allowed = $config->get('allow_date_only');
 
   /* @var $node \Drupal\node\NodeInterface */
@@ -128,25 +125,17 @@ function scheduler_form_node_form_alter(&$form, FormStateInterface $form_state) 
   // Define the descriptions depending on whether the time can be skipped.
   $date_formatter = \Drupal::service('date.formatter');
   $descriptions = [];
-  if ($date_only_allowed && ($date_only_format != $date_format)) {
-    $descriptions['format'] = t('Format: %date_only_format or %standard_format.', [
-      '%date_only_format' => $date_formatter->format(time(), 'custom', $date_only_format),
-      '%standard_format' => $date_formatter->format(time(), 'custom', $date_format),
+  if ($date_only_allowed) {
+    $descriptions['format'] = t('Enter a date. The time part is optional.');
+    // Show the default time so users know what they will get if they do not
+    // enter a time.
+    $default_time = strtotime($config->get('default_time'));
+    $descriptions['default'] = t('The default time is @default_time.', [
+      '@default_time' => $date_formatter->format($default_time, 'custom', 'H:i:s'),
     ]);
   }
   else {
-    $descriptions['format'] = t('Format: %standard_format.', [
-      '%standard_format' => $date_formatter->format(time(), 'custom', $date_format),
-    ]);
-  }
-
-  // Show the default time so users know what they will get if they do not enter
-  // a time.
-  if ($date_only_allowed) {
-    $default_time = strtotime($config->get('default_time'));
-    $descriptions['default'] = t('The default time is @default_time.', [
-      '@default_time' => $date_formatter->format($default_time, 'custom', $time_only_format),
-    ]);
+    $descriptions['format'] = t('Enter a date and time.');
   }
 
   if (!$publishing_required) {
@@ -188,14 +177,71 @@ function scheduler_form_node_form_alter(&$form, FormStateInterface $form_state) 
   foreach (['publish_on' => $publishing_enabled, 'unpublish_on' => $unpublishing_enabled] as $field => $enabled) {
     $actual_widget_id = $content[$field]['type'];
     if ($enabled && $actual_widget_id != $correct_widget_id) {
-      drupal_set_message(t('The widget for field %field is incorrectly set to %wrong. This should be changed to %correct by an admin user via <a href="@link">content type form display</a>', [
+      drupal_set_message(t('The widget for field %field is incorrectly set to %wrong. This should be changed to %correct by an admin user via Field UI <a href="@link">content type form display</a> :not_available', [
         '%field' => (string) $form[$field]['widget']['#title'],
         '%correct' => (string) $pluginDefinitions[$correct_widget_id]['label'],
         '%wrong' => (string) $pluginDefinitions[$actual_widget_id]['label'],
-        '@link' => Url::fromRoute('entity.entity_form_display.node.default', ['node_type' => $type->get('type')])->toString(),
+        '@link' => \Drupal::moduleHandler()->moduleExists('field_ui') ? Url::fromRoute('entity.entity_form_display.node.default', ['node_type' => $type->get('type')])->toString() : '#',
+        ':not_available' => \Drupal::moduleHandler()->moduleExists('field_ui') ? '' : ('(' . t('not available') . ')'),
       ]), 'warning', FALSE);
     }
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for devel_generate_form_content.
+ */
+function scheduler_form_devel_generate_form_content_alter(array &$form, FormStateInterface $form_state) {
+  // Add an extra column to the node_types table to show which type are enabled
+  // for scheduled publishing and unpublishing.
+  $publishing_enabled_types = array_keys(_scheduler_get_scheduler_enabled_node_types('publish'));
+  $unpublishing_enabled_types = array_keys(_scheduler_get_scheduler_enabled_node_types('unpublish'));
+
+  $form['node_types']['#header']['scheduler'] = t('Scheduler settings');
+
+  foreach (array_keys($form['node_types']['#options']) as $type) {
+    $items = [];
+    if (in_array($type, $publishing_enabled_types)) {
+      $items[] = t('Enabled for publishing');
+    }
+    if (in_array($type, $unpublishing_enabled_types)) {
+      $items[] = t('Enabled for unpublishing');
+    }
+    if (empty($items)) {
+      $scheduler_settings = t('None');
+    }
+    else {
+      $scheduler_settings = [
+        'data' => [
+          '#theme' => 'item_list',
+          '#items' => $items,
+        ],
+      ];
+    }
+    $form['node_types']['#options'][$type]['scheduler'] = $scheduler_settings;
+  }
+
+  // Add form items to specify what proportion of generated nodes should have a
+  // publish-on and unpublish-on date assigned. See hook_node_presave() for the
+  // code which sets the node values.
+  $form['scheduler_publishing'] = [
+    '#type' => 'number',
+    '#title' => t('Publishing date for Scheduler'),
+    '#description' => t('Enter the percentage of randomly selected Scheduler-enabled nodes to be given a publish-on date. Enter 0 for none, 100 for all. The date and time will be random within the range starting at node creation date, up to a time in the future matching the same span as selected above for node creation date.'),
+    '#default_value' => 50,
+    '#required' => TRUE,
+    '#min' => 0,
+    '#max' => 100,
+  ];
+  $form['scheduler_unpublishing'] = [
+    '#type' => 'number',
+    '#title' => t('Unpublishing date for Scheduler'),
+    '#description' => t('Enter the percentage of randomly selected Scheduler-enabled nodes to be given an unpublish-on date. Enter 0 for none, 100 for all. The date and time will be random within the range starting at the later of node creation date and publish-on date, up to a time in the future matching the same span as selected above for node creation date.'),
+    '#default_value' => 50,
+    '#required' => TRUE,
+    '#min' => 0,
+    '#max' => 100,
+  ];
 }
 
 /**
@@ -244,48 +290,44 @@ function scheduler_node_view(array &$build, EntityInterface $node, EntityViewDis
 }
 
 /**
- * Implements hook_node_validate().
- *
- * @deprecated hook_node_validate() and hook_node_submit() have been removed.
- *
- * @see https://www.drupal.org/node/2420295
- * @see https://www.drupal.org/node/2490570
- * @see https://www.drupal.org/node/2490578
- */
-function scheduler_node_validate($node, array $form, FormStateInterface $form_state) {
-  // Adjust the entered times for timezone consideration. Note, we must check
-  // to see if the value is numeric. If it is, assume we have already done the
-  // strtotime conversion. This prevents us running strtotime on a value we have
-  // already converted. This is needed because Drupal 6 removed 'submit' and
-  // added 'presave' and all this happens at different times.
-  $date_format = \Drupal::config('scheduler.settings')->get('date_format');
-  $date_formatter = \Drupal::service('date.formatter');
-
-  if (!empty($node->publish_on->value) && !is_numeric($node->publish_on->value)) {
-    $publishtime = $node->publish_on->value;
-    if ($publishtime === FALSE) {
-      $form_state->setErrorByName('publish_on', t("The 'publish on' value does not match the expected format of %time", [
-        '%time' => $date_formatter->format(REQUEST_TIME, 'custom', $date_format),
-      ]));
-    }
-  }
-
-  if (!empty($node->unpublish_on->value) && !is_numeric($node->unpublish_on->value)) {
-    $unpublishtime = $node->unpublish_on->value;
-    if ($unpublishtime === FALSE) {
-      $form_state->setErrorByName('unpublish_on', t("The 'unpublish on' value does not match the expected format of %time", [
-        '%time' => $date_formatter->format(REQUEST_TIME, 'custom', $date_format),
-      ]));
-    }
-  }
-}
-
-/**
  * Implements hook_ENTITY_TYPE_presave() for node entities.
  */
 function scheduler_node_presave(EntityInterface $node) {
   $config = \Drupal::config('scheduler.settings');
   $entity = $node->type->entity;
+
+  // If this node is being created via Devel Generate then set values for the
+  // publish_on and unpublish_on dates as specified in the devel_generate form.
+  if (isset($node->devel_generate)) {
+    static $publishing_enabled_types;
+    static $unpublishing_enabled_types;
+    static $publishing_percent;
+    static $unpublishing_percent;
+    static $time_range;
+
+    if (!isset($publishing_enabled_types)) {
+      $publishing_enabled_types = array_keys(_scheduler_get_scheduler_enabled_node_types('publish'));
+      $unpublishing_enabled_types = array_keys(_scheduler_get_scheduler_enabled_node_types('unpublish'));
+      $publishing_percent = $node->devel_generate['scheduler_publishing'];
+      $unpublishing_percent = $node->devel_generate['scheduler_unpublishing'];
+      // Reuse the selected 'node creation' time range for our future date span.
+      $time_range = $node->devel_generate['time_range'];
+    }
+    if ($publishing_percent && in_array($node->getType(), $publishing_enabled_types)) {
+      if (rand(1, 100) <= $publishing_percent) {
+        // Randomly assign a publish_on value in the range starting with the
+        // created date and up to the selected time range in the future.
+        $node->set('publish_on', rand($node->created->value + 1, REQUEST_TIME + $time_range));
+      }
+    }
+    if ($unpublishing_percent && in_array($node->getType(), $unpublishing_enabled_types)) {
+      if (rand(1, 100) <= $unpublishing_percent) {
+        // Randomly assign an unpublish_on value in the range from the later of
+        // created date/publish_on date up to the time range in the future.
+        $node->set('unpublish_on', rand(max($node->created->value, $node->publish_on->value), REQUEST_TIME + $time_range));
+      }
+    }
+  }
 
   // If the node type is not enabled for Scheduler then do nothing.
   if (!$entity->getThirdPartySetting('scheduler', 'publish_enable', $config->get('default_publish_enable'))) {
@@ -300,6 +342,12 @@ function scheduler_node_presave(EntityInterface $node) {
     $publish_immediately = $entity->getThirdPartySetting('scheduler', 'publish_past_date', $config->get('default_publish_past_date')) == 'publish';
 
     if ($publication_allowed && $publish_immediately && $node->publish_on->value <= REQUEST_TIME) {
+      // Trigger the PRE_PUBLISH_INMEDIATELY event so that modules can react
+      // before the node has been published.
+      $event = new SchedulerEvent($node);
+      \Drupal::service('event_dispatcher')->dispatch(SchedulerEvents::PRE_PUBLISH_IMMEDIATELY, $event);
+      $node = $event->getNode();
+
       // If required, set the created date to match published date.
       if ($entity->getThirdPartySetting('scheduler', 'publish_touch', $config->get('default_publish_touch'))) {
         $node->setCreatedTime($node->publish_on->value);
@@ -321,10 +369,9 @@ function scheduler_node_presave(EntityInterface $node) {
       // been prevented by other modules. Those modules have to display a
       // message themselves explaining why publication is denied.
       if ($publication_allowed) {
-        $date_format = $config->get('date_format');
         $date_formatter = \Drupal::service('date.formatter');
         drupal_set_message(t('This post is unpublished and will be published @publish_time.', [
-          '@publish_time' => $date_formatter->format($node->publish_on->value, 'custom', $date_format),
+          '@publish_time' => $date_formatter->format($node->publish_on->value, 'long'),
         ]), 'status', FALSE);
       }
     }
@@ -369,6 +416,15 @@ function scheduler_cron() {
   $scheduler_manager = \Drupal::service('scheduler.manager');
   $scheduler_manager->publish();
   $scheduler_manager->unpublish();
+
+  // Scheduler 7.x provided hook_scheduler_api() which has been replaced by
+  // event dispatching in 8.x. Display a warning in the log if any of these
+  // hooks still exist, so that admins and developers are informed.
+  foreach (Drupal::moduleHandler()->getImplementations('scheduler_api') as $module) {
+    \Drupal::logger('scheduler')->warning('Function %function has not been executed. In Drupal 8, implementations of hook_scheduler_api() should be replaced by Scheduler event listeners.', [
+      '%function' => $module . '_scheduler_api',
+    ]);
+  }
 
   // Reset the static scheduler_cron flag.
   drupal_static_reset(__FUNCTION__);
@@ -424,12 +480,11 @@ function scheduler_preprocess_node(&$variables) {
   $date_formatter = \Drupal::service('date.formatter');
   /* @var $node \Drupal\node\NodeInterface */
   $node = $variables['node'];
-  $date_format = \Drupal::config('scheduler.settings')->get('date_format');
   if (!empty($node->publish_on->value) && $node->publish_on->value && is_numeric($node->publish_on->value)) {
-    $variables['publish_on'] = $date_formatter->format($node->publish_on->value, 'custom', $date_format);
+    $variables['publish_on'] = $date_formatter->format($node->publish_on->value, 'long');
   }
   if (!empty($node->unpublish_on->value) && $node->unpublish_on->value && is_numeric($node->unpublish_on->value)) {
-    $variables['unpublish_on'] = $date_formatter->format($node->unpublish_on->value, 'custom', $date_format);
+    $variables['unpublish_on'] = $date_formatter->format($node->unpublish_on->value, 'long');
   }
 }
 

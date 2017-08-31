@@ -3,6 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\webform\Plugin\WebformElementBase;
+use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -25,6 +26,13 @@ abstract class BooleanBase extends WebformElementBase {
       default:
         return ($value) ? 1 : 0;
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestValues(array $element, WebformInterface $webform, array $options = []) {
+    return TRUE;
   }
 
 }

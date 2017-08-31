@@ -139,6 +139,7 @@ function template_preprocess_webform_preview(array &$variables) {
     '#theme' => 'webform_submission_html',
     '#webform_submission' => $webform_submission,
     '#excluded_elements' => $webform->getSetting('preview_excluded_elements'),
+    '#exclude_empty' => $webform->getSetting('preview_exclude_empty'),
   ];
 
   $settings = $webform->getSettings();
@@ -168,9 +169,11 @@ function template_preprocess_webform_confirmation(array &$variables) {
 
   /** @var \Drupal\webform\WebformMessageManagerInterface $message_manager */
   $message_manager = \Drupal::service('webform.message_manager');
+  $message_manager->setWebformSubmission($webform_submission);
+  // Must set webform and source entity because webform submission could be
+  // NULL.
   $message_manager->setWebform($webform);
   $message_manager->setSourceEntity($source_entity);
-  $message_manager->setWebformSubmission($webform_submission);
 
   // Assets: Add custom shared and webform specific CSS and JS.
   // @see webform_css_alter()
@@ -217,7 +220,7 @@ function template_preprocess_webform_confirmation(array &$variables) {
   }
 
   // Apply all passed query string parameters to the 'Back to form' link.
-  unset($query['webform_id'], $query['ajax_form'], $query['_wrapper_format']);
+  unset($query['webform_id'], $query['ajax_form'], $query['_wrapper_format'], $query['token']);
   $options = ($query) ? ['query' => $query] : [];
 
   // Set back_url.
@@ -280,6 +283,58 @@ function template_preprocess_webform_submission_navigation(array &$variables) {
   // Never cache navigation because previous and next submission will change
   // as submissions are added and deleted.
   $variables['#cache'] = ['max-age' => 0];
+}
+
+/**
+ * Prepares variables for webform submission template.
+ *
+ * Default template: webform-submission.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing the following key:
+ *   - webform_submission: A webform submission.
+ */
+function template_preprocess_webform_submission(array &$variables) {
+  /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
+  $webform_submission = $variables['webform_submission'];
+  /** @var \Drupal\Core\Entity\EntityInterface $source_entity */
+  $source_entity = $variables['source_entity'];
+  $type = $variables['type'];
+
+  // Make sure $type is supported, else use the HTML template and
+  // display submission information because the submission is most likely
+  // being rendered without context.
+  if (in_array($type, ['html', 'table', 'text', 'yaml'])) {
+    $submission_template = 'webform_submission_' . $type;
+  }
+  else {
+    $submission_template = 'webform_submission_html';
+  }
+
+  // Information.
+  $variables['information'] = [
+    '#theme' => 'webform_submission_information',
+    '#webform_submission' => $webform_submission,
+    '#source_entity' => $source_entity,
+  ];
+
+  // Submission.
+  $variables['data'] = [
+    '#theme' => $submission_template,
+    '#webform_submission' => $webform_submission,
+    '#source_entity' => $source_entity,
+  ];
+
+  // Wrap plain text and YAML in CodeMirror view widget.
+  if (in_array($type, ['text', 'yaml'])) {
+    $variables['data'] = [
+      '#theme' => 'webform_codemirror',
+      '#code' => $variables['data'],
+      '#type' => $type,
+    ];
+  }
+
+  $variables['#attached']['library'][] = 'webform/webform.admin';
 }
 
 /**
@@ -365,8 +420,11 @@ function template_preprocess_webform_submission_html(array &$variables) {
 
   $webform = $webform_submission->getWebform();
   $elements = $webform->getElementsInitialized();
-  $options = ['excluded_elements' => $variables['excluded_elements']];
-  $variables['data'] = $view_builder->buildElements($elements, $webform_submission, $options);
+  $options = [
+    'excluded_elements' => $variables['excluded_elements'],
+    'exclude_empty' => $variables['exclude_empty'],
+  ];
+  $variables['html'] = $view_builder->buildElements($elements, $webform_submission, $options);
 }
 
 /**
@@ -387,7 +445,10 @@ function template_preprocess_webform_submission_table(array &$variables) {
 
   $webform = $webform_submission->getWebform();
   $elements = $webform->getElementsInitializedFlattenedAndHasValue();
-  $options = ['excluded_elements' => $variables['excluded_elements']];
+  $options = [
+    'excluded_elements' => $variables['excluded_elements'],
+    'exclude_empty' => $variables['exclude_empty'],
+  ];
   $variables['table'] = $view_builder->buildTable($elements, $webform_submission, $options);
 }
 
@@ -404,37 +465,16 @@ function template_preprocess_webform_submission_text(array &$variables) {
   /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
   $webform_submission = $variables['webform_submission'];
 
-  $variables['sid'] = $webform_submission->id();
-  $variables['uuid'] = $webform_submission->uuid();
-  $variables['is_draft'] = $webform_submission->isDraft() ? t('Yes') : t('No');
-  $variables['current_page'] = $webform_submission->getCurrentPage();
-  $variables['remote_addr'] = $webform_submission->getRemoteAddr();
-  $variables['submitted_by'] = $webform_submission->getOwner()->label();
-  $variables['webform'] = $webform_submission->getWebform()->label();
-  $variables['created'] = WebformDateHelper::format($webform_submission->getCreatedTime());
-  $variables['completed'] = WebformDateHelper::format($webform_submission->getCompletedTime());
-  $variables['changed'] = WebformDateHelper::format($webform_submission->getChangedTime());
-
-  // @see \Drupal\Core\Field\Plugin\Field\FieldFormatter\LanguageFormatter::viewValue()
-  $languages = \Drupal::languageManager()->getNativeLanguages();
-  $langcode = $webform_submission->get('langcode')->value;
-  $variables['language'] = isset($languages[$langcode]) ? $languages[$langcode]->getName() : $langcode;
-
-  if ($source_url = $webform_submission->getSourceUrl()) {
-    $variables['uri'] = $source_url->toString();
-  }
-
-  if ($source_entity = $webform_submission->getSourceEntity()) {
-    $variables['submitted_to'] = $source_entity->label();
-  }
-
   /** @var \Drupal\webform\WebformSubmissionViewBuilderInterface $view_builder */
   $view_builder = \Drupal::entityTypeManager()->getViewBuilder('webform_submission');
 
   $webform = $webform_submission->getWebform();
   $elements = $webform->getElementsInitialized();
-  $options = ['excluded_elements' => $variables['excluded_elements']];
-  $variables['data'] = $view_builder->buildElements($elements, $webform_submission, $options, 'text');
+  $options = [
+    'excluded_elements' => $variables['excluded_elements'],
+    'exclude_empty' => $variables['exclude_empty'],
+  ];
+  $variables['text'] = $view_builder->buildElements($elements, $webform_submission, $options, 'text');
 }
 
 /**
@@ -494,7 +534,37 @@ function template_preprocess_webform_codemirror(array &$variables) {
  */
 function template_preprocess_webform_element_base_html(array &$variables) {
   $element = $variables['element'];
-  $variables['title'] = (WebformElementHelper::isTitleDisplayed($element)) ? $element['#title'] : NULL;
+
+  // Set title.
+  _template_progress_webform_set_title($variables);
+
+  // Build form (item) element for HTML display.
+  // @see form-element.html.twig
+  // @see template_preprocess_form_element
+  if (empty($variables['options']['email'])) {
+    $type = $element['#type'];
+
+    $variables['item'] = [
+      '#type' => 'item',
+      '#title' => $variables['title'],
+      '#name' => $element['#webform_key'],
+      // Use wrapper attributes for the id instead of #id,
+      // this stops the <label> from having a 'for' attribute.
+      '#wrapper_attributes' => [
+        'id' => $element['#webform_id'],
+        'class' => [
+          'webform-element',
+          'webform-element-type-' . str_replace('_', '-', $type),
+        ],
+      ],
+    ];
+    if (is_array($variables['value'])) {
+      $variables['item']['value'] = $variables['value'];
+    }
+    else {
+      $variables['item']['#markup'] = $variables['value'];
+    }
+  }
 }
 
 /**
@@ -511,45 +581,37 @@ function template_preprocess_webform_element_base_html(array &$variables) {
  *     - email: Flag to determine if element is for an email.
  */
 function template_preprocess_webform_element_base_text(array &$variables) {
-  template_preprocess_webform_element_base_html($variables);
+  // Set title.
+  _template_progress_webform_set_title($variables, TRUE);
 }
 
 /**
- * Prepares variables for webform container base HTML template.
- *
- * Default template: webform-container-base-html.html.twig.
+ * Set variables title to element #title or #admin_title.
  *
  * @param array $variables
  *   An associative array containing the following key:
  *   - element: The webform element.
- *   - value: The content for the element.
- *   - options Associative array of options for element.
- *     - multiline: Flag to determine if value spans multiple lines.
- *     - email: Flag to determine if element is for an email.
+ * @param bool $strip_tags
+ *   Remove HTML tags from title.
  */
-function template_preprocess_webform_container_base_html(array &$variables) {
+function _template_progress_webform_set_title(array &$variables, $strip_tags = FALSE) {
   $element = $variables['element'];
-  $variables['title'] = (isset($element['#title'])) ? $element['#title'] : NULL;
-  $variables['id'] = $element['#webform_id'];
+
+  // Set title.
+  $variables['title'] = (WebformElementHelper::isTitleDisplayed($element)) ? $element['#title'] : NULL;
+  if (empty($variables['title']) && !empty($element['#admin_title'])) {
+    $variables['title'] = $element['#admin_title'];
+  }
+
+  // Strip all HTML tags from the title.
+  if ($strip_tags) {
+    $variables['title'] = strip_tags($variables['title']);
+  }
 }
 
-/**
- * Prepares variables for webform container base text template.
- *
- * Default template: webform-container-base-text.html.twig.
- *
- * @param array $variables
- *   An associative array containing the following key:
- *   - element: The webform element.
- *   - value: The content for the element.
- *   - options Associative array of options for element.
- *     - multiline: Flag to determine if value spans multiple lines.
- *     - email: Flag to determine if element is for an email.
- */
-function template_preprocess_webform_container_base_text(array &$variables) {
-  $element = $variables['element'];
-  $variables['title'] = (isset($element['#title'])) ? $element['#title'] : NULL;
-}
+/******************************************************************************/
+// Progress templates.
+/******************************************************************************/
 
 /**
  * Prepares variables for webform 'wizard' progress template.
@@ -578,7 +640,6 @@ function template_preprocess_webform_progress(array &$variables) {
   $total = count($page_keys);
 
   if ($webform->getSetting('wizard_progress_bar')) {
-
     $variables['bar'] = [
       '#theme' => ($libaries_manager->isIncluded('progress-tracker')) ? 'webform_progress_tracker' : 'webform_progress_bar',
       '#webform' => $variables['webform'],
@@ -649,8 +710,9 @@ function _template_preprocess_webform_progress(array &$variables) {
     $variables['progress'][] = (isset($page['#title'])) ? $page['#title'] : '';
   }
 }
+
 /******************************************************************************/
-// Element templates
+// Element templates.
 /******************************************************************************/
 
 /**
@@ -700,11 +762,15 @@ function template_preprocess_webform_message(array &$variables) {
  */
 function _template_preprocess_webform_composite(array &$variables) {
   $element = $variables['element'];
+
+  // Copy all accessible element children to content.
   foreach (Element::children($element) as $key) {
     if (!isset($element[$key]['#access']) || $element[$key]['#access']) {
       $variables['content'][$key] = $element[$key];
     }
   }
+
+  // Set flexbox variable used for multi column element layout.
   $variables['flexbox'] = (isset($element['#flexbox'])) ? $element['#flexbox'] : FALSE;
 }
 
