@@ -80,8 +80,8 @@ class WebformElementManagedFilePublicTest extends WebformTestBase {
 
     // Check disabled managed_file element warning.
     $this->drupalGet('admin/structure/webform/manage/test_element_managed_file');
-    $this->assertRaw('<em class="placeholder">managed_file (single)</em> is a <em class="placeholder">File</em> element, which has been disabled and will not be rendered.');
-    $this->assertRaw('<em class="placeholder">managed_file (multiple)</em> is a <em class="placeholder">File</em> element, which has been disabled and will not be rendered.');
+    $this->assertRaw('<em class="placeholder">managed_file_single</em> is a <em class="placeholder">File</em> element, which has been disabled and will not be rendered.');
+    $this->assertRaw('<em class="placeholder">managed_file_multiple</em> is a <em class="placeholder">File</em> element, which has been disabled and will not be rendered.');
   }
 
 }

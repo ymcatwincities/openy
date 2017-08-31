@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\webform\Element\WebformHtmlEditor;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -126,6 +127,17 @@ class WebformMessageManager implements WebformMessageManagerInterface {
   /**
    * {@inheritdoc}
    */
+  public function setWebformSubmission(WebformSubmissionInterface $webform_submission = NULL) {
+    $this->webformSubmission = $webform_submission;
+    if ($webform_submission) {
+      $this->webform = $webform_submission->getWebform();
+      $this->sourceEntity = $webform_submission->getSourceEntity();
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setWebform(WebformInterface $webform = NULL) {
     $this->webform = $webform;
   }
@@ -135,16 +147,6 @@ class WebformMessageManager implements WebformMessageManagerInterface {
    */
   public function setSourceEntity(EntityInterface $entity = NULL) {
     $this->sourceEntity = $entity;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setWebformSubmission(WebformSubmissionInterface $webform_submission = NULL) {
-    $this->webformSubmission = $webform_submission;
-    if ($webform_submission && empty($this->webform)) {
-      $this->webform = $webform_submission->getWebform();
-    }
   }
 
   /**
@@ -174,10 +176,21 @@ class WebformMessageManager implements WebformMessageManagerInterface {
    */
   public function build($key) {
     if ($message = $this->get($key)) {
-      return [
-        '#markup' => $message,
-        '#allowed_tags' => Xss::getAdminTagList(),
-      ];
+      // Make sure $message is renderable array.
+      if (!is_array($message)) {
+        $message = [
+          '#markup' => $message,
+          '#allowed_tags' => Xss::getAdminTagList(),
+        ];
+      }
+
+      // Set max-age to 0 if settings message contains any [token] values.
+      $setting_message = $this->setting($key);
+      if ($setting_message && strpos($setting_message, '[') !== FALSE) {
+        $message['#cache']['max-age'] = 0;
+      }
+
+      return $message;
     }
     else {
       return [];
@@ -187,16 +200,27 @@ class WebformMessageManager implements WebformMessageManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function get($key) {
+  public function setting($key) {
     $webform_settings = ($this->webform) ? $this->webform->getSettings() : [];
-    $entity = $this->webformSubmission ?: $this->webform;
     if (!empty($webform_settings[$key])) {
-      return $this->tokenManager->replace($webform_settings[$key], $entity);
+      return $webform_settings[$key];
     }
 
     $default_settings = $this->configFactory->get('webform.settings')->get('settings');
     if (!empty($default_settings['default_' . $key])) {
-      return $this->tokenManager->replace($default_settings['default_' . $key], $entity);
+      return $default_settings['default_' . $key];
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function get($key) {
+    // Get message from settings.
+    if ($setting = $this->setting($key)) {
+      $entity = $this->webformSubmission ?: $this->webform;
+      return WebformHtmlEditor::checkMarkup($this->tokenManager->replace($setting, $entity));
     }
 
     $webform = $this->webform;

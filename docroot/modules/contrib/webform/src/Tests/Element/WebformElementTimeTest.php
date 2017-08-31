@@ -21,7 +21,7 @@ class WebformElementTimeTest extends WebformTestBase {
   /**
    * Test time element.
    */
-  public function testTimeElement() {
+  public function testTime() {
     $this->drupalGet('webform/test_element_time');
 
     // Check time element.

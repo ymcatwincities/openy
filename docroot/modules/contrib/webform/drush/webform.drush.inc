@@ -229,6 +229,9 @@ function webform_drush_help($section) {
     case 'drush:webform-libraries-remove':
       return dt('This command removes all downloaded third party libraries required by the Webform module.');
 
+    case 'drush:webform-libraries-composer-update':
+      return dt("Adds the Webform module's libraries as repositories to Drupal's composer.json.");
+
     case 'drush:webform-repair':
       return dt('Makes sure all Webform admin settings and webforms are up-to-date. Only use this command if you are having problems with your existing Webform configuration.');
 
@@ -240,6 +243,9 @@ function webform_drush_help($section) {
 
     case 'drush:webform-generate':
       return dt('This command will create submissions in specified webform.');
+
+    case 'drush:webform-composer-update':
+      return dt("Updates the Drupal installation's composer.json to include the Webform module's selected libraries as repositories.");
 
     case 'meta:webform:title':
       return dt('Webform commands');
@@ -504,6 +510,12 @@ function drush_webform_libraries_make() {
   drush_print(_drush_webform_libraries_make());
 }
 
+/**
+ * Generate drush make as YAML.
+ *
+ * @return string
+ *   Drush make as YAML
+ */
 function _drush_webform_libraries_make() {
   /** @var \Drupal\webform\WebformLibrariesManagerInterface $libraries_manager */
   $libraries_manager = \Drupal::service('webform.libraries_manager');
@@ -583,7 +595,7 @@ function drush_webform_libraries_composer() {
           'type' => $dist_type,
         ],
         'require' => [
-          'composer/installers' => '~1.0'
+          'composer/installers' => '~1.0',
         ],
       ],
     ];
@@ -593,12 +605,9 @@ function drush_webform_libraries_composer() {
   ksort($repositories);
   ksort($require);
   $data['repositories'] = $repositories;
-  $data['require'] = $require;
-
   // Drupal.org test bot is throwing...
   // Your requirements could not be resolved to an installable set of packages.
-  // @todo Try to be require all libraries so that they can be installed via composer.
-  // $data['require'];
+  $data['require'] = $require;
 
   drush_print(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
@@ -856,8 +865,8 @@ function drush_webform_composer_update() {
   }
 
   // Get repositories and require.
-  $repositories =& $data['repositories'];
-  $require =& $data['require'];
+  $repositories = &$data['repositories'];
+  $require = &$data['require'];
 
   // Remove all existing _webform repositories.
   foreach ($repositories as $repository_name => $repository) {

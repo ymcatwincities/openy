@@ -1,0 +1,82 @@
+# Schema for the configuration files of the custom formatters module.
+
+custom_formatters.settings:
+  type: config_object
+  label: 'Custom formatters settings'
+  mapping:
+    label_prefix:
+      type: boolean
+      label: 'Use Label prefix?'
+    label_prefix_value:
+      type: string
+      label: 'Label prefix'
+
+custom_formatters.formatter.*:
+  type: config_entity
+  label: 'Custom formatter'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: string
+      label: 'Label'
+    type:
+      type: string
+      label: 'Type'
+    description:
+      type: string
+      label: 'Description'
+    field_types:
+      type: sequence
+      label: 'Field types'
+      sequence:
+        type: string
+        label: 'Field type'
+    data:
+      type: custom_formatters.formatter_type.[%parent.type]
+      label: 'Data'
+    third_party_settings:
+      type: sequence
+      label: 'Third party settings'
+      sequence:
+        type: custom_formatters.third_party.[%key]
+#      'mode'        => array(
+#        'type'     => 'varchar',
+#        'length'   => 32,
+#        'not null' => TRUE,
+#        'default'  => '',
+#      ),
+#      'fapi'        => array(
+#        'type' => 'blob',
+#      ),
+#    ),
+
+custom_formatters.formatter_type.formatter_preset:
+  type: mapping
+  mapping:
+    formatter:
+      type: string
+      label: 'Formatter'
+    settings:
+      type: field.formatter.settings.[%parent.formatter]
+      label: 'Formatter settings'
+
+custom_formatters.formatter_type.html_token:
+  type: string
+  label: 'Data'
+
+custom_formatters.formatter_type.php:
+  type: string
+  label: 'Data'
+
+custom_formatters.formatter_type.twig:
+  type: string
+  label: 'Data'
+
+custom_formatters.third_party.contextual:
+  type: mapping
+  mapping:
+    mode:
+      type: string
+      label: 'Mode'
