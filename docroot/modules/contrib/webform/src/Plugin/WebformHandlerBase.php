@@ -323,7 +323,7 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {}
 
   /**
-   * Apply submitted form state settings to configuration.
+   * Apply submitted form state to configuration.
    *
    * This method can used to update configuration when the configuration form
    * is being rebuilt during an #ajax callback.
@@ -331,11 +331,11 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  protected function applyFormStateSettingsToConfiguration(FormStateInterface $form_state) {
-    $settings = $form_state->getValue('settings') ?: [];
-    foreach ($settings as $setting_key => $setting_value) {
-      if (isset($this->configuration[$setting_key])) {
-        $this->configuration[$setting_key] = $setting_value;
+  protected function applyFormStateToConfiguration(FormStateInterface $form_state) {
+    $values = $form_state->getValues();
+    foreach ($values as $key => $value) {
+      if (isset($this->configuration[$key])) {
+        $this->configuration[$key] = $value;
       }
     }
   }

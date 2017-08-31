@@ -37,6 +37,7 @@ class WebformSignature extends WebformElementBase {
   public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
     if (empty($element['#description'])) {
       $element['#description'] = $this->t('Sign above');
+      $element['#description_display'] = 'after';
     }
     parent::prepare($element, $webform_submission);
   }

@@ -131,7 +131,6 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
     parent::buildPropertyQuery($entity_query, $values);
   }
 
-
   /**
    * {@inheritdoc}
    */
@@ -881,64 +880,9 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
   /****************************************************************************/
 
   /**
-   * Save webform submission data from the 'webform_submission_data' table.
-   *
-   * @param array $webform_submissions
-   *   An array of webform submissions.
+   * {@inheritdoc}
    */
-  protected function loadData(array &$webform_submissions) {
-    // Load webform submission data.
-    if ($sids = array_keys($webform_submissions)) {
-      /** @var \Drupal\Core\Database\StatementInterface $result */
-      $result = $this->database->select('webform_submission_data', 'sd')
-        ->fields('sd', ['webform_id', 'sid', 'name', 'property', 'delta', 'value'])
-        ->condition('sd.sid', $sids, 'IN')
-        ->orderBy('sd.sid', 'ASC')
-        ->orderBy('sd.name', 'ASC')
-        ->orderBy('sd.property', 'ASC')
-        ->orderBy('sd.delta', 'ASC')
-        ->execute();
-      $submissions_data = [];
-      while ($record = $result->fetchAssoc()) {
-        $sid = $record['sid'];
-        $name = $record['name'];
-
-        $elements = $webform_submissions[$sid]->getWebform()->getElementsInitializedFlattenedAndHasValue();
-        $element = (isset($elements[$name])) ? $elements[$name] : ['#webform_multiple' => FALSE, '#webform_composite' => FALSE];
-
-        if ($element['#webform_composite']) {
-          if ($element['#webform_multiple']) {
-            $submissions_data[$sid][$name][$record['delta']][$record['property']] = $record['value'];
-          }
-          else {
-            $submissions_data[$sid][$name][$record['property']] = $record['value'];
-          }
-        }
-        elseif ($element['#webform_multiple']) {
-          $submissions_data[$sid][$name][$record['delta']] = $record['value'];
-        }
-        else {
-          $submissions_data[$sid][$name] = $record['value'];
-        }
-      }
-
-      // Set webform submission data via setData().
-      foreach ($submissions_data as $sid => $submission_data) {
-        $webform_submissions[$sid]->setData($submission_data);
-        $webform_submissions[$sid]->setOriginalData($submission_data);
-      }
-    }
-  }
-
-  /**
-   * Save webform submission data to the 'webform_submission_data' table.
-   *
-   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
-   *   A webform submission.
-   * @param bool $delete_first
-   *   TRUE to delete any data first. For new submissions this is not needed.
-   */
-  protected function saveData(WebformSubmissionInterface $webform_submission, $delete_first = TRUE) {
+  public function saveData(WebformSubmissionInterface $webform_submission, $delete_first = TRUE) {
     // Get submission data rows.
     $data = $webform_submission->getData();
     $webform_id = $webform_submission->getWebform()->id();
@@ -1007,6 +951,56 @@ class WebformSubmissionStorage extends SqlContentEntityStorage implements Webfor
       $query->values($row);
     }
     $query->execute();
+  }
+
+  /**
+   * Save webform submission data from the 'webform_submission_data' table.
+   *
+   * @param array $webform_submissions
+   *   An array of webform submissions.
+   */
+  protected function loadData(array &$webform_submissions) {
+    // Load webform submission data.
+    if ($sids = array_keys($webform_submissions)) {
+      /** @var \Drupal\Core\Database\StatementInterface $result */
+      $result = $this->database->select('webform_submission_data', 'sd')
+        ->fields('sd', ['webform_id', 'sid', 'name', 'property', 'delta', 'value'])
+        ->condition('sd.sid', $sids, 'IN')
+        ->orderBy('sd.sid', 'ASC')
+        ->orderBy('sd.name', 'ASC')
+        ->orderBy('sd.property', 'ASC')
+        ->orderBy('sd.delta', 'ASC')
+        ->execute();
+      $submissions_data = [];
+      while ($record = $result->fetchAssoc()) {
+        $sid = $record['sid'];
+        $name = $record['name'];
+
+        $elements = $webform_submissions[$sid]->getWebform()->getElementsInitializedFlattenedAndHasValue();
+        $element = (isset($elements[$name])) ? $elements[$name] : ['#webform_multiple' => FALSE, '#webform_composite' => FALSE];
+
+        if ($element['#webform_composite']) {
+          if ($element['#webform_multiple']) {
+            $submissions_data[$sid][$name][$record['delta']][$record['property']] = $record['value'];
+          }
+          else {
+            $submissions_data[$sid][$name][$record['property']] = $record['value'];
+          }
+        }
+        elseif ($element['#webform_multiple']) {
+          $submissions_data[$sid][$name][$record['delta']] = $record['value'];
+        }
+        else {
+          $submissions_data[$sid][$name] = $record['value'];
+        }
+      }
+
+      // Set webform submission data via setData().
+      foreach ($submissions_data as $sid => $submission_data) {
+        $webform_submissions[$sid]->setData($submission_data);
+        $webform_submissions[$sid]->setOriginalData($submission_data);
+      }
+    }
   }
 
   /**

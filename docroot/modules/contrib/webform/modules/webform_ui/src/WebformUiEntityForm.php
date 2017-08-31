@@ -42,33 +42,39 @@ class WebformUiEntityForm extends WebformEntityForm {
     // Must manually add local actions to the webform because we can't alter local
     // actions and add the needed dialog attributes.
     // @see https://www.drupal.org/node/2585169
-    $local_action_attributes = WebformDialogHelper::getModalDialogAttributes(800, ['button', 'button-action', 'button--primary', 'button--small']);
-    $form['local_actions'] = [
-      '#prefix' => '<div class="webform-ui-local-actions">',
-      '#suffix' => '</div>',
-    ];
-    $form['local_actions']['add_element'] = [
-      '#type' => 'link',
-      '#title' => $this->t('Add element'),
-      '#url' => new Url('entity.webform_ui.element', ['webform' => $webform->id()]),
-      '#attributes' => $local_action_attributes,
+    $local_actions = [];
+    $local_actions['add_element'] = [
+      '#theme' => 'menu_local_action',
+      '#link' => [
+        'title' => $this->t('Add element'),
+        'url' => new Url('entity.webform_ui.element', ['webform' => $webform->id()]),
+        'attributes' => WebformDialogHelper::getModalDialogAttributes(800),
+      ]
     ];
     if ($this->elementManager->createInstance('webform_wizard_page')->isEnabled()) {
-      $form['local_actions']['add_page'] = [
-        '#type' => 'link',
-        '#title' => $this->t('Add page'),
-        '#url' => new Url('entity.webform_ui.element.add_form', ['webform' => $webform->id(), 'type' => 'webform_wizard_page']),
-        '#attributes' => $local_action_attributes,
+      $local_actions['add_page'] = [
+        '#theme' => 'menu_local_action',
+        '#link' => [
+          'title' => $this->t('Add page'),
+          'url' => new Url('entity.webform_ui.element.add_form', ['webform' => $webform->id(), 'type' => 'webform_wizard_page']),
+          'attributes' => WebformDialogHelper::getModalDialogAttributes(800),
+        ]
       ];
     }
     if ($webform->hasFlexboxLayout()) {
-      $form['local_actions']['add_layout'] = [
-        '#type' => 'link',
-        '#title' => $this->t('Add layout'),
-        '#url' => new Url('entity.webform_ui.element.add_form', ['webform' => $webform->id(), 'type' => 'webform_flexbox']),
-        '#attributes' => $local_action_attributes,
+      $local_actions['add_layout'] = [
+        '#theme' => 'menu_local_action',
+        '#link' => [
+          'title' => $this->t('Add layout'),
+          'url' => new Url('entity.webform_ui.element.add_form', ['webform' => $webform->id(), 'type' => 'webform_flexbox']),
+          'attributes' => WebformDialogHelper::getModalDialogAttributes(800),
+        ]
       ];
     }
+    $form['local_actions'] = [
+      '#prefix' => '<ul class="action-links">',
+      '#suffix' => '</ul>',
+    ] + $local_actions;
 
     $form['webform_ui_elements'] = [
       '#type' => 'table',

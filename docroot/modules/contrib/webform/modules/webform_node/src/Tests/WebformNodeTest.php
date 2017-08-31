@@ -50,8 +50,8 @@ class WebformNodeTest extends WebformNodeTestBase {
 
     // Check table names.
     $this->assertEqual(WebformEntityReferenceItem::getTableNames(), [
-      "{$this->databasePrefix}node__webform" => 'webform',
-      "{$this->databasePrefix}node_revision__webform" => 'webform',
+      "node__webform" => 'webform',
+      "node_revision__webform" => 'webform',
     ]);
 
     /**************************************************************************/
