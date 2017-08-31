@@ -10,6 +10,15 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
+ * Implements hook_webform_element_ELEMENT_TYPE_alter().
+ */
+function webform_bootstrap_webform_element_webform_terms_of_service_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+  // Terms of service agreement must always be displayed, so disable
+  // smart description.
+  $element['#smart_description'] = FALSE;
+}
+
+/**
  * Implements hook_webform_element_alter().
  */
 function webform_bootstrap_webform_element_alter(array &$element, FormStateInterface $form_state, array $context) {
@@ -22,6 +31,18 @@ function webform_bootstrap_webform_element_alter(array &$element, FormStateInter
   if (isset($element['#attached']['library'][0]) && $element['#attached']['library'][0] === 'webform/webform.tooltip') {
     unset($element['#attached']['library'][0]);
     $element['#attached']['library'] = array_values($element['#attached']['library']);
+  }
+
+  // Convert #description are being changed smart descriptions which
+  // contain render arrays to rendered markup.
+  // @see \Drupal\bootstrap\Utility\Element::smartDescription
+  static $smart_description_enabled;
+  if (!isset($smart_description_enabled)) {
+    $theme = \Drupal\bootstrap\Bootstrap::getTheme();
+    $smart_description_enabled = $theme->getSetting('tooltip_enabled') && $theme->getSetting('forms_smart_descriptions');
+  }
+  if ($smart_description_enabled && isset($element['#description']) && is_array($element['#description']) && (empty($element['#smart_description']) || $element['#smart_description'] === TRUE)) {
+    $element['#description'] =  \Drupal::service('renderer')->renderPlain($element['#description']);
   }
 }
 
@@ -45,20 +66,9 @@ function webform_bootstrap_link_alter(&$variables) {
     return;
   }
 
-  $drupal_to_bootstrap = [
-    // Convert Drupal's button classes to Bootstrap's btn classes.
-    'button-action' => 'btn-primary',
-    'button--small' => 'btn-sm',
-    'button--primary' => 'btn-primary',
-    'button--danger' => 'btn-danger',
-    'button' => 'btn',
-  ];
-  if (isset($variables['options']['attributes']['class'])) {
-    foreach ($variables['options']['attributes']['class'] as $index => $class) {
-      if (isset($drupal_to_bootstrap[$class])) {
-        $variables['options']['attributes']['class'][$index] = $drupal_to_bootstrap[$class];
-      }
-    }
+  // Convert .button classes to .btn CSS classes.
+  if (isset($variables['options']['attributes']['class']) && is_array($variables['options']['attributes']['class'])) {
+    _webform_bootstrap_convert_button_classes($variables['options']['attributes']['class']);
   }
 }
 
@@ -70,7 +80,7 @@ function webform_bootstrap_preprocess_input(&$variables) {
     return;
   }
 
-  $element =& $variables['element'];
+  $element = &$variables['element'];
 
   // Bootstrap theme does not support image buttons so we are going to use
   // Bootstrap's icon buttons.
@@ -86,6 +96,49 @@ function webform_bootstrap_preprocess_input(&$variables) {
     elseif (strpos($variables['attributes']['src'], '/webform/images/icons/ex.svg') !== FALSE) {
       $element['#title'] = t('Remove');
       $element['#icon'] = \Drupal\bootstrap\Bootstrap::glyphicon('minus-sign');
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_file_managed_file().
+ *
+ * @see webform_preprocess_file_managed_file()
+ */
+function webform_bootstrap_preprocess_file_managed_file(&$variables) {
+  if (!WebformThemeHelper::isActiveTheme('bootstrap')) {
+    return;
+  }
+
+  $element = &$variables['element'];
+  if (empty($element['#button'])) {
+    return;
+  }
+
+  // Convert .button classes to .btn CSS classes.
+  if (isset($element['label']['#attributes']['class'])) {
+    _webform_bootstrap_convert_button_classes($element['label']['#attributes']['class']);
+  }
+}
+
+/**
+ * Convert .button classes to .btn CSS classes.
+ *
+ * @param array $classes
+ *   An array of CSS classes.
+ */
+function _webform_bootstrap_convert_button_classes(array &$classes) {
+  $drupal_to_bootstrap = [
+    // Convert Drupal's button classes to Bootstrap's btn classes.
+    'button-action' => 'btn-primary',
+    'button--small' => 'btn-sm',
+    'button--primary' => 'btn-primary',
+    'button--danger' => 'btn-danger',
+    'button' => 'btn',
+  ];
+  foreach ($classes as $index => $class) {
+    if (isset($drupal_to_bootstrap[$class])) {
+      $classes[$index] = $drupal_to_bootstrap[$class];
     }
   }
 }

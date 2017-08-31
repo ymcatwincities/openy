@@ -22,7 +22,7 @@ class LightweightCronController extends ControllerBase {
   public function index() {
     // @TODO: \Drupal calls should be avoided in classes.
     // Replace \Drupal::service with dependency injection?
-    \Drupal::service('scheduler.manager')->runCron();
+    \Drupal::service('scheduler.manager')->runLightweightCron();
 
     return new Response('', 204);
   }
