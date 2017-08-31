@@ -15,19 +15,36 @@ dependencies:
     - field.field.node.campaign.field_campaign_prize_nowin
     - field.field.node.campaign.field_campaign_prizes
     - field.field.node.campaign.field_campaign_start_date
+    - field.field.node.campaign.field_error_default
+    - field.field.node.campaign.field_error_member_is_inactive
+    - field.field.node.campaign.field_error_membership_id
+    - field.field.node.campaign.field_error_target_audience
     - field.field.node.campaign.field_goal_check_ins_end_date
     - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_limit_visits_goal
+    - field.field.node.campaign.field_login_checkins_not_started
+    - field.field.node.campaign.field_login_not_registered
     - field.field.node.campaign.field_my_progress_page
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
+    - field.field.node.campaign.field_popup_background_color
+    - field.field.node.campaign.field_reg_already_registered
+    - field.field.node.campaign.field_reg_checkins_not_started
+    - field.field.node.campaign.field_register_form_text
     - field.field.node.campaign.field_rules_prizes_page
+    - field.field.node.campaign.field_successful_login
+    - field.field.node.campaign.field_successful_registration
+    - field.field.node.campaign.field_token_check_back_date
+    - field.field.node.campaign.field_token_login_link_text
+    - field.field.node.campaign.field_token_register_link_text
     - node.type.campaign
   module:
     - datetime
     - field_group
     - paragraphs
+    - jquery_colorpicker
     - path
+    - text
 third_party_settings:
   field_group:
     group_target_audience_settings:
@@ -85,6 +102,80 @@ third_party_settings:
         description: 'Choose dates from the past to get visits history for every member. New visits goal for every member will be calculated based on it. Member''s goal can''t be more than "Limit visits goal"'
         required_fields: true
       label: 'Visits goal'
+    group_campaign_customisation:
+      children:
+        - group_token_settings
+        - field_popup_background_color
+        - group_login_messages
+        - group_registration_messages
+        - group_general_messages
+      parent_name: ''
+      weight: 17
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Campaign customisation'
+    group_token_settings:
+      children:
+        - field_token_check_back_date
+        - field_token_login_link_text
+        - field_token_register_link_text
+      parent_name: group_campaign_customisation
+      weight: 20
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Token settings'
+    group_login_messages:
+      children:
+        - field_login_not_registered
+        - field_login_checkins_not_started
+        - field_successful_login
+      parent_name: group_campaign_customisation
+      weight: 22
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Login messages'
+    group_registration_messages:
+      children:
+        - field_reg_already_registered
+        - field_successful_registration
+        - field_reg_checkins_not_started
+      parent_name: group_campaign_customisation
+      weight: 23
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Registration messages'
+    group_general_messages:
+      children:
+        - field_error_membership_id
+        - field_error_member_is_inactive
+        - field_error_target_audience
+        - field_error_default
+        - field_register_form_text
+      parent_name: group_campaign_customisation
+      weight: 24
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'General messages'
 id: node.campaign.default
 targetEntityType: node
 bundle: campaign
@@ -198,6 +289,38 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_error_default:
+    weight: 40
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_error_member_is_inactive:
+    weight: 38
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_error_membership_id:
+    weight: 37
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_error_target_audience:
+    weight: 39
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_goal_check_ins_end_date:
     weight: 21
     settings: {  }
@@ -216,6 +339,22 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: number
+    region: content
+  field_login_checkins_not_started:
+    weight: 33
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_login_not_registered:
+    weight: 32
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
     region: content
   field_my_progress_page:
     weight: 9
@@ -242,6 +381,37 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
+  field_popup_background_color:
+    weight: 21
+    settings:
+      color: FFFFFF
+    third_party_settings: {  }
+    type: jquery_colorpicker
+    region: content
+  field_reg_already_registered:
+    weight: 35
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_reg_checkins_not_started:
+    weight: 37
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_register_form_text:
+    weight: 41
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_rules_prizes_page:
     weight: 10
     settings:
@@ -251,6 +421,46 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
+  field_successful_login:
+    weight: 34
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_successful_registration:
+    weight: 36
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_token_check_back_date:
+    weight: 28
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_token_login_link_text:
+    weight: 29
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_token_register_link_text:
+    type: string_textfield
+    weight: 30
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 1

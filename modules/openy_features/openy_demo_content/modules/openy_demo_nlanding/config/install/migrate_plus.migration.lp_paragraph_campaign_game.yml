@@ -14,7 +14,7 @@ source:
   data_rows:
     -
       id: challenge_yourself_campaign_game
-      parent_id: challenge_yourself_registration_open
+      parent_id: challenge_yourself_my_progress
   ids:
     id:
       type: string

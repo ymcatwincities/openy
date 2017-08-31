@@ -76,6 +76,6 @@ filters:
   token_filter:
     id: token_filter
     provider: token_filter
-    status: false
+    status: true
     weight: -43
     settings: {  }

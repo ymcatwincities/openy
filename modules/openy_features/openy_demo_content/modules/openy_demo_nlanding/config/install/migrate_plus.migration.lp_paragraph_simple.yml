@@ -189,6 +189,8 @@ source:
         <p>Challenge yourself today! What can you do today to challenge yourself
         a little more than yesterday? Or how can you challenge yourself this
         week a little more than last?</p>
+        <p>Example of token login link - [campaign:login-link]</p>
+        <p>Example of token registration link - [campaign:register-link]</p>
         <p>Make your goals challenging but also keep in mind that they should be attainable.
         They need to challenge you but cannot be too hard to maintain. It is always
         good to have goals, big and small, to help keep you motivated and going.</p>
