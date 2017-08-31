@@ -6,10 +6,14 @@ dependencies:
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
     - field.field.node.campaign.field_campaign_end_date
+    - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
     - field.field.node.campaign.field_campaign_membership_u_t
     - field.field.node.campaign.field_campaign_pages
     - field.field.node.campaign.field_campaign_payment_types
+    - field.field.node.campaign.field_campaign_prize_coefficient
+    - field.field.node.campaign.field_campaign_prize_nowin
+    - field.field.node.campaign.field_campaign_prizes
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_goal_check_ins_end_date
     - field.field.node.campaign.field_goal_check_ins_start_date
@@ -22,6 +26,7 @@ dependencies:
   module:
     - datetime
     - field_group
+    - paragraphs
     - path
 third_party_settings:
   field_group:
@@ -126,6 +131,13 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_campaign_expected_visits:
+    weight: 30
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
   field_campaign_fitness_category:
     weight: 16
     settings: {  }
@@ -152,6 +164,33 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_buttons
+    region: content
+  field_campaign_prize_coefficient:
+    weight: 31
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_campaign_prize_nowin:
+    weight: 29
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_campaign_prizes:
+    type: entity_reference_paragraphs
+    weight: 28
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
     region: content
   field_campaign_start_date:
     weight: 15
