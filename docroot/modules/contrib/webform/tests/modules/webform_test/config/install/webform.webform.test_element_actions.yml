@@ -41,6 +41,12 @@ elements: |
         - custom-submit
       style: 'font-weight: bold'
       data-custom-submit: true
+    '#reset__label': '{Custom reset}'
+    '#reset__attributes':
+      class:
+        - custom-reet
+      style: 'font-weight: bold'
+      data-custom-reset: true
     '#draft__label': '{Custom draft}'
     '#draft__attributes':
       class:
@@ -74,6 +80,16 @@ elements: |
   actions_submit:
     '#type': webform_actions
     '#title': 'Submit button'
+    '#reset_hide': true
+    '#draft_hide': true
+    '#wizard_prev_hide': true
+    '#wizard_next_hide': true
+    '#preview_prev_hide': true
+    '#preview_next_hide': true
+  actions_reset:
+    '#type': webform_actions
+    '#title': 'Reset button'
+    '#submit_hide': true
     '#draft_hide': true
     '#wizard_prev_hide': true
     '#wizard_next_hide': true
@@ -83,6 +99,7 @@ elements: |
     '#type': webform_actions
     '#title': 'Draft button'
     '#submit_hide': true
+    '#reset_hide': true
     '#wizard_prev_hide': true
     '#wizard_next_hide': true
     '#preview_prev_hide': true
@@ -91,6 +108,7 @@ elements: |
     '#type': webform_actions
     '#title': 'Wizard previous button'
     '#submit_hide': true
+    '#reset_hide': true
     '#draft_hide': true
     '#preview_prev_hide': true
     '#preview_next_hide': true
@@ -99,6 +117,7 @@ elements: |
     '#type': webform_actions
     '#title': 'Wizard next button'
     '#submit_hide': true
+    '#reset_hide': true
     '#draft_hide': true
     '#preview_prev_hide': true
     '#preview_next_hide': true
@@ -107,6 +126,7 @@ elements: |
     '#type': webform_actions
     '#title': 'Preview buttons'
     '#submit_hide': true
+    '#reset_hide': true
     '#draft_hide': true
     '#wizard_prev_hide': true
     '#wizard_next_hide': true
@@ -129,6 +149,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: true
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -150,6 +171,7 @@ settings:
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: all
   draft_multiple: false
   draft_auto_save: false
@@ -180,25 +202,33 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers: {  }

@@ -53,6 +53,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -74,6 +75,7 @@ settings:
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: all
   draft_multiple: false
   draft_auto_save: false
@@ -104,27 +106,35 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers:
   tomorrow:
     id: scheduled_email
@@ -158,6 +168,7 @@ handlers:
       days: 1
       unschedule: false
       ignore_access: false
+      exclude_empty: true
   yesterday:
     id: scheduled_email
     label: Yesterday
@@ -190,6 +201,7 @@ handlers:
       days: -1
       unschedule: false
       ignore_access: false
+      exclude_empty: true
   last_year:
     id: scheduled_email
     label: 'Last year'
@@ -222,6 +234,7 @@ handlers:
       days: 0
       unschedule: false
       ignore_access: false
+      exclude_empty: true
   broken:
     id: scheduled_email
     label: Broken
@@ -254,6 +267,7 @@ handlers:
       days: 0
       unschedule: false
       ignore_access: false
+      exclude_empty: true
   other:
     id: scheduled_email
     label: Other
@@ -288,6 +302,7 @@ handlers:
       days: 14
       unschedule: false
       ignore_access: false
+      exclude_empty: true
   draft_reminder:
     id: scheduled_email
     label: 'Draft reminder'
@@ -320,3 +335,4 @@ handlers:
       days: 14
       unschedule: true
       ignore_access: false
+      exclude_empty: true

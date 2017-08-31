@@ -17,6 +17,7 @@ class WebformActions extends Container {
 
   public static $buttons = [
     'submit',
+    'reset',
     'draft',
     'wizard_prev',
     'wizard_next',

@@ -3,6 +3,7 @@
 namespace Drupal\webform\Tests\Handler;
 
 use Drupal\webform\Entity\Webform;
+use Drupal\webform\Entity\WebformSubmission;
 use Drupal\webform\Tests\WebformTestBase;
 
 /**
@@ -17,7 +18,7 @@ class WebformHandlerRemotePostTest extends WebformTestBase {
    *
    * @var array
    */
-  public static $modules = ['webform', 'webform_test_handler'];
+  public static $modules = ['webform', 'webform_test_handler_remote_post'];
 
   /**
    * Webforms to load.
@@ -30,73 +31,109 @@ class WebformHandlerRemotePostTest extends WebformTestBase {
    * Test remote post handler.
    */
   public function testRemotePostHandler() {
-    /** @var \Drupal\webform\WebformInterface $webform_handler_remote */
-    $webform_handler_remote = Webform::load('test_handler_remote_post');
-
     $this->drupalLogin($this->rootUser);
 
-    // Check remote post 'create' operation.
-    $sid = $this->postSubmission($webform_handler_remote);
-    $this->assertPattern('#<label>Remote operation</label>\s+insert#ms');
-    $this->assertRaw('custom_insert: true');
-    $this->assertRaw('custom_all: true');
-    $this->assertRaw("custom_title: 'Test: Handler: Remote post: Submission #$sid'");
-    $this->assertRaw('first_name: John');
-    $this->assertRaw('last_name: Smith');
-    $this->assertRaw('email: from@example.com');
-    $this->assertRaw("subject: '{subject}'");
-    $this->assertRaw("message: '{message}'");
-    $this->assertNoRaw("sid: '$sid'");
+    /** @var \Drupal\webform\WebformInterface $webform */
+    $webform = Webform::load('test_handler_remote_post');
 
-    // Check remote post 'update' operation.
+    // Check 'completed' operation.
+    $sid = $this->postSubmission($webform);
+    $webform_submission = WebformSubmission::load($sid);
+    $this->assertRaw("form_params:
+  custom_completed: true
+  custom_data: true
+  response_type: '200'
+  first_name: John
+  last_name: Smith");
+    $this->assertRaw('Processed completed request.');
+
+    // Check confirmation number is set via the
+    // [webform:handler:remote_post:completed:confirmation_number] token.
+    $this->assertRaw('Your confirmation number is ' . $webform_submission->getData('confirmation_number') . '.');
+
+    // Check custom header.
+    $this->assertRaw('{&quot;custom_header&quot;:&quot;true&quot;}');
+
+    // Sleep for 1 second to make sure submission timestamp is updated.
+    sleep(1);
+
+    // Check 'updated' operation.
     $this->drupalPostForm("admin/structure/webform/manage/test_handler_remote_post/submission/$sid/edit", [], t('Save'));
-    $this->assertRaw('custom_update: true');
-    $this->assertRaw('custom_all: true');
-    $this->assertRaw("custom_title: 'Test: Handler: Remote post: Submission #$sid'");
-    $this->assertRaw('first_name: John');
-    $this->assertPattern('#<label>Remote operation</label>\s+update#ms');
+    $this->assertRaw("form_params:
+  custom_updated: true
+  custom_data: true
+  response_type: '200'
+  first_name: John
+  last_name: Smith");
+    $this->assertRaw('Processed updated request.');
 
-    // Check remote post 'delete' operation.
+    // Check 'deleted`' operation.
     $this->drupalPostForm("admin/structure/webform/manage/test_handler_remote_post/submission/$sid/delete", [], t('Delete'));
-    $this->assertRaw('custom_delete: true');
-    $this->assertRaw('custom_all: true');
-    $this->assertRaw("custom_title: 'Test: Handler: Remote post: Submission #$sid'");
-    $this->assertRaw('first_name: John');
-    $this->assertPattern('#<label>Remote operation</label>\s+delete#ms');
+    $this->assertRaw("form_params:
+  custom_deleted: true
+  custom_data: true
+  first_name: John
+  last_name: Smith
+  response_type: '200'");
+    $this->assertRaw('Processed deleted request.');
 
-    // Check including data.
-    $handler = $webform_handler_remote->getHandler('remote_post');
+    // Switch anonymous user.
+    $this->drupalLogout();
+
+    // Check 'draft' operation.
+    $this->postSubmission($webform, [], t('Save Draft'));
+    $this->assertRaw("form_params:
+  custom_draft: true
+  custom_data: true
+  response_type: '200'
+  first_name: John
+  last_name: Smith");
+    $this->assertRaw('Processed draft request.');
+
+    // Login root user.
+    $this->drupalLogin($this->rootUser);
+
+    // Check 'convert' operation.
+    $this->assertRaw("form_params:
+  custom_converted: true
+  custom_data: true
+  first_name: John
+  last_name: Smith
+  response_type: '200'");
+    $this->assertRaw('Processed converted request.');
+
+    // Check excluded data.
+    $handler = $webform->getHandler('remote_post');
     $configuration = $handler->getConfiguration();
     $configuration['settings']['excluded_data'] = [
-      'subject' => 'subject',
-      'message' => 'message',
+      'last_name' => 'last_name',
     ];
     $handler->setConfiguration($configuration);
-    $webform_handler_remote->save();
-    $sid = $this->postSubmission($webform_handler_remote);
+    $webform->save();
+    $sid = $this->postSubmission($webform);
     $this->assertRaw('first_name: John');
-    $this->assertRaw('last_name: Smith');
-    $this->assertRaw('email: from@example.com');
-    $this->assertNoRaw("subject: '{subject}'");
-    $this->assertNoRaw("message: '{message}'");
+    $this->assertNoRaw('last_name: Smith');
     $this->assertRaw("sid: '$sid'");
 
-    // @todo Figure out why the below test is failing on Drupal.org.
-    // Check remote post 'create' 500 error handling.
-    // $this->postSubmission($webform_handler_remote, ['first_name' => 'FAIL']);
-    // $this->assertPattern('#<label>Response status code</label>\s+500#ms');
+    // Check 500 Internal Server Error.
+    $this->postSubmission($webform, ['response_type' => '500']);
+    $this->assertRaw('Failed to process completed request.');
 
-    // @todo Figure out why the below test is failing on Drupal.org.
-    // Update the remote post handlers insert url to return a 404 error.
-    // /** @var \Drupal\webform\Plugin\WebformHandler\RemotePostWebformHandler $handler */
-    // $handler = $webform_handler_remote->getHandler('remote_post');
-    // $configuration = $handler->getConfiguration();
-    // $configuration['settings']['insert_url'] .= '/broken';
-    // $handler->setConfiguration($configuration);
-    // $webform_handler_remote->save();
+    // Check 404 Not Found.
+    $this->postSubmission($webform, ['response_type' => '404']);
+    $this->assertRaw('File not found');
 
-    // $this->postSubmission($webform_handler_remote, ['first_name' => 'FAIL']);
-    // $this->assertPattern('#<label>Response status code</label>\s+404#ms');
+    // Disable saving of results
+    $webform->setSetting('results_disabled', TRUE);
+    $webform->save();
+
+    // Check confiramtion number when results disabled.
+    $sid = $this->postSubmission($webform);
+    $this->assertNull($sid);
+
+    // Get confiramtion number from JSON packet.
+    preg_match('/&quot;confirmation_number&quot;:&quot;([a-zA-z0-9]+)&quot;/', $this->getRawContent(), $match);
+    $this->assertRaw('Your confirmation number is ' . $match[1] . '.');
   }
 
 }

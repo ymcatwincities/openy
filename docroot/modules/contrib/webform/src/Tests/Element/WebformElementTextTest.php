@@ -26,7 +26,7 @@ class WebformElementTextTest extends WebformTestBase {
   protected static $testWebforms = ['test_element_text'];
 
   /**
-   * Tests building of custom elements.
+   * Tests text elements.
    */
   public function testTextElements() {
 
@@ -73,7 +73,7 @@ class WebformElementTextTest extends WebformTestBase {
     // Check basic creditcard_number.
     $this->drupalGet('webform/test_element_text');
     $this->assertRaw('<label for="edit-creditcard-number-basic">Credit card number basic</label>');
-    $this->assertRaw('<input data-drupal-selector="edit-creditcard-number-basic" type="text" id="edit-creditcard-number-basic" name="creditcard_number_basic" value="" size="16" maxlength="16" class="form-textfield webform-creditcard-number" />');
+    $this->assertRaw('<input data-drupal-selector="edit-creditcard-number-basic" type="text" id="edit-creditcard-number-basic" name="creditcard_number_basic" value="" size="16" maxlength="16" class="form-text webform-creditcard-number" />');
 
     // Check invalid credit card number.
     $edit = [

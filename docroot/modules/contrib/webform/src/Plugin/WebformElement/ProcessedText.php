@@ -34,7 +34,9 @@ class ProcessedText extends WebformMarkupBase {
     else {
       $default_format = '';
     }
+
     return parent::getDefaultProperties() + [
+      'wrapper_attributes' => [],
       // Markup settings.
       'text' => '',
       'format' => $default_format ,
@@ -62,6 +64,13 @@ class ProcessedText extends WebformMarkupBase {
     unset($element['#type'], $element['#text'], $element['#format']);
 
     return parent::buildText($element, $webform_submission, $options);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return (\Drupal::moduleHandler()->moduleExists('filter')) ? parent::preview() : [];
   }
 
   /**
