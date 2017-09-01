@@ -28,6 +28,10 @@
       ) {
         params.push(key + '=' + parameters[key]);
       }
+      // Handle the display.
+      if (key === 'display' && parameters[key] !== 0 && parameters[key] !== null) {
+        params.push(key + '=' + parameters[key]);
+      }
     }
     history.replaceState({}, '', window.location.pathname + '?' + params.join('&'));
   };
@@ -253,4 +257,16 @@
     }
   };
 
+  /**
+   * Makes all select elements read-only when the Week View checkbox state is changed.
+   */
+  Drupal.behaviors.ymcali_schedules = {
+    attach: function(context, settings) {
+      var form = $('.openy-schedules-search-form');
+      form.find('.js-form-item-display input')
+        .on('change', function() {
+          form.find('.js-form-type-select select').attr('readonly', true);
+        });
+    }
+  };
 })(jQuery);
