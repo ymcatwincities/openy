@@ -2,9 +2,8 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -28,7 +27,7 @@ class MemberLoginForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $campaign_id = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, $campaign_id = NULL, $landing_page_id = NULL) {
     $form['#prefix'] = '<div id="modal_openy_campaign_login_form">';
     $form['#suffix'] = '</div>';
 
@@ -42,6 +41,12 @@ class MemberLoginForm extends FormBase {
     $form['campaign_id'] = [
       '#type' => 'hidden',
       '#value' => $campaign_id,
+    ];
+
+    // Set Landing page ID to change URL
+    $form['landing_page_id'] = [
+      '#type' => 'hidden',
+      '#value' => $landing_page_id,
     ];
 
     // The id on the membership card.
@@ -171,8 +176,6 @@ class MemberLoginForm extends FormBase {
       /** @var Node $campaign Campaign object. */
       $campaign = $storage['campaign'];
 
-      $modalTitle = $this->t('Thank you');
-
       // Get default values from settings
       $config = $this->config('openy_campaign.general_settings');
 
@@ -194,15 +197,16 @@ class MemberLoginForm extends FormBase {
         }
       }
 
-      $response->addCommand(new OpenModalDialogCommand(
-        $modalTitle,
-        $modalMessage,
-        ['width' => 800]
-      ));
+      $landingPageId = $form_state->getValue('landing_page_id');
+      $queryParameters = [];
+      if (!empty($landingPageId)) {
+        $landingPage = Node::load($landingPageId);
+        $queryParameters = [trim($landingPage->toUrl()->toString(), "/")];
+      }
 
-      // Set redirect to Campaign page
-      $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign->id();
-      $response->addCommand(new RedirectCommand($fullPath));
+      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_login_form', $modalMessage));
+
+      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', $queryParameters));
 
       return $response;
     }

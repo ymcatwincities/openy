@@ -40,4 +40,13 @@ interface CampaignMenuServiceInterface {
    */
   public function getNodeCampaignMenu(NodeInterface $node);
 
+  /**
+   * Place new landing page Content area paragraphs instead of current ones.
+   *
+   * @param int $landing_page_id Landing page node ID to get new content for replacement.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  public function ajaxReplaceLandingPage($landing_page_id);
+
 }

@@ -2,9 +2,8 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -369,8 +368,6 @@ class MemberRegisterForm extends FormBase {
       ];
       $regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
-      $modalTitle = $this->t('Registration');
-
       // Get default values from settings
       $config = $this->config('openy_campaign.general_settings');
 
@@ -391,11 +388,9 @@ class MemberRegisterForm extends FormBase {
         }
       }
 
-      $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalMessage, ['width' => 800]));
+      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_register_form', $modalMessage));
 
-      // Set redirect to Campaign page
-      $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign->id();
-      $response->addCommand(new RedirectCommand($fullPath));
+      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog'));
 
       return $response;
     }
