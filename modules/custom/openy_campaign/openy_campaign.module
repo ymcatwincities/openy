@@ -179,17 +179,17 @@ function openy_campaign_cron() {
  * Implements template_preprocess_node().
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
-  // Find published Landing page and render it on Campaign page.
+  // Find what published Landing page needs to be rendered on Campaign page.
   if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
-    // Render the first published Landing page
     $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
-    $renderLandingPage = $campaignMenuService->getActiveCampaignPage($variables['node']);
+    $requestLandingPage = $campaignMenuService->showRequestLandingPage($variables['node']);
 
-    $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($renderLandingPage);
+    $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($requestLandingPage);
     $variables['content']['landing_page'] = $build;
+
+    $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
   }
 }
-
 
 /**
  * Implements hook_entity_type_build().

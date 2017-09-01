@@ -4,15 +4,14 @@ namespace Drupal\openy_campaign\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Render\RendererInterface;
+use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Form\FormBuilder;
-use Drupal\Core\Ajax\InvokeCommand;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Url;
 
 /**
  * Class CampaignController.
@@ -27,33 +26,23 @@ class CampaignController extends ControllerBase {
   protected $formBuilder;
 
   /**
-   * The entity type manager.
+   * The Campaign menu service.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\openy_campaign\CampaignMenuServiceInterface
    */
-  protected $entityTypeManager;
-
-  /**
-   * Renderer.
-   *
-   * @var \Drupal\Core\Render\RendererInterface
-   */
-  protected $renderer;
+  protected $campaignMenuService;
 
   /**
    * The CampaignController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
-   * @param \Drupal\Core\Render\RendererInterface $renderer
-   *   Renderer.
+   * @param CampaignMenuServiceInterface $campaign_menu_service
+   *   The Campaign menu service.
    */
-  public function __construct(FormBuilder $formBuilder, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer) {
+  public function __construct(FormBuilder $formBuilder, CampaignMenuServiceInterface $campaign_menu_service) {
     $this->formBuilder = $formBuilder;
-    $this->entityTypeManager = $entity_type_manager;
-    $this->renderer = $renderer;
+    $this->campaignMenuService = $campaign_menu_service;
   }
 
   /**
@@ -67,28 +56,36 @@ class CampaignController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('form_builder'),
-      $container->get('entity_type.manager'),
-      $container->get('renderer')
+      $container->get('openy_campaign.campaign_menu_handler')
     );
   }
 
   /**
-   * Render My progress tab content on Campaign node
+   * Show needed content on Campaign node
    *
    * @param int $campaign_id Node ID of the current campaign.
    * @param int $landing_page_id Landing page node ID to get new content for replacement.
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return \Drupal\Core\Ajax\AjaxResponse | \Symfony\Component\HttpFoundation\RedirectResponse
    */
-  public function showMyProgressContent($campaign_id, $landing_page_id) {
+  public function showPageContent($campaign_id, $landing_page_id) {
+    $is_ajax = \Drupal::request()->isXmlHttpRequest();
+    if (!$is_ajax) {
+      return new RedirectResponse(Url::fromRoute('entity.node.canonical', ['node' => $campaign_id])->toString());
+    }
+
     $response = new AjaxResponse();
 
-    // Show modal popup if user is not logged in.
-    if (!MemberCampaign::isLoggedIn($campaign_id)) {
+    $campaign = Node::load($campaign_id);
+    $fieldMyProgress = $campaign->field_my_progress_page->target_id;
+    $isMyProgress = (!empty($fieldMyProgress) && $fieldMyProgress == $landing_page_id);
+
+    // Only for My Progress page. Show modal popup if user is not logged in.
+    if ($isMyProgress && !MemberCampaign::isLoggedIn($campaign_id)) {
       // Get the modal form using the form builder.
       $modalPopup = [
         '#theme' => 'openy_campaign_popup',
-        '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginForm', $campaign_id),
+        '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginForm', $campaign_id, $landing_page_id),
       ];
 
       $options = [
@@ -100,52 +97,7 @@ class CampaignController extends ControllerBase {
       return $response;
     }
 
-    $response = $this->replaceLandingPageParagraph($landing_page_id);
-
-    return $response;
-  }
-
-  /**
-   * Show needed content on Campaign node
-   *
-   * @param int $campaign_id Node ID of the current campaign.
-   * @param int $landing_page_id Landing page node ID to get new content for replacement.
-   *
-   * @return \Drupal\Core\Ajax\AjaxResponse
-   */
-  public function showPageContent($campaign_id, $landing_page_id) {
-
-    return $this->replaceLandingPageParagraph($landing_page_id);
-  }
-
-  /**
-   * Place new landing page Content area paragraphs instead of current ones.
-   *
-   * @param int $landing_page_id Landing page node ID to get new content for replacement.
-   *
-   * @return \Drupal\Core\Ajax\AjaxResponse
-   */
-  private function replaceLandingPageParagraph($landing_page_id) {
-    $response = new AjaxResponse();
-
-    /** @var Node $node New landing page node to replace. */
-    $node = Node::load($landing_page_id);
-
-    $fieldsView = [];
-    foreach ($node->field_content as $item) {
-      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-      $paragraph = $item->entity;
-      $viewBuilder = $this->entityTypeManager->getViewBuilder($paragraph->getEntityTypeId());
-      $fieldsView[] = $viewBuilder->view($paragraph, 'default');
-    }
-    $fieldsRender = '<section class="wrapper-field-content">' . $this->renderer->renderRoot($fieldsView) . '</section>';
-
-    // Replace Content area of current landing page with all paragraphs from field-content of new landing page node.
-    $response->addCommand(new ReplaceCommand('.node__content > .container .wrapper-field-content', $fieldsRender));
-
-    // Set 'active' class to menu link.
-    $response->addCommand(new InvokeCommand('.campaign-menu a', 'removeClass', ['active']));
-    $response->addCommand(new InvokeCommand('.campaign-menu a.node-' . $landing_page_id, 'addClass', ['active']));
+    $response = $this->campaignMenuService->ajaxReplaceLandingPage($landing_page_id);
 
     return $response;
   }

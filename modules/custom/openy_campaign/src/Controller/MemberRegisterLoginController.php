@@ -3,10 +3,12 @@
 namespace Drupal\openy_campaign\Controller;
 
 use Drupal\Core\Ajax\AjaxResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormBuilder;
+use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 
@@ -52,11 +54,16 @@ class MemberRegisterLoginController extends ControllerBase {
    * @param string $action Member action: 'login' or 'registration'.
    * @param string $campaign_id Campaign node ID.
    *
-   * @return \Drupal\Core\Ajax\AjaxResponse
+   * @return \Drupal\Core\Ajax\AjaxResponse | \Symfony\Component\HttpFoundation\RedirectResponse
    */
   public function showModal($action = 'login', $campaign_id = NULL) {
     $actionsArray = ['login', 'registration'];
     $action = (in_array($action, $actionsArray)) ? $action : 'login';
+
+    $is_ajax = \Drupal::request()->isXmlHttpRequest();
+    if (!$is_ajax) {
+      return new RedirectResponse(Url::fromRoute('entity.node.canonical', ['node' => $campaign_id])->toString());
+    }
 
     $response = new AjaxResponse();
 
@@ -103,9 +110,8 @@ class MemberRegisterLoginController extends ControllerBase {
 
     $response->addCommand(new OpenModalDialogCommand($logoutTitle, $logoutMessage, ['width' => 800]));
 
-    // Set redirect to Campaign page
-    $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign_id;
-    $response->addCommand(new RedirectCommand($fullPath));
+    // Close dialog and redirect ot Campaign main page
+    $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog', ['<campaign-front>']));
 
     return $response;
   }

@@ -6,8 +6,13 @@ use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\node\Entity\Node;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Ajax\InvokeCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Ajax\AjaxResponse;
 
 /**
  * Class CampaignMenuService.
@@ -38,6 +43,13 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   protected $routeMatch;
 
   /**
+   * Renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
    * Constructs a new CampMenuService.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -46,11 +58,14 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *   The current service container.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   The current route match.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   Renderer.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container, RouteMatchInterface $route_match) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ContainerInterface $container, RouteMatchInterface $route_match, RendererInterface $renderer) {
     $this->entityTypeManager = $entity_type_manager;
     $this->container = $container;
     $this->routeMatch = $route_match;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -63,7 +78,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     // For custom routes - get campaign_id
     if ($node instanceof NodeInterface !== TRUE) {
       $campaignId = $this->routeMatch->getParameter('campaign_id');
-      $node = Node::load($campaignId);
+      $node = !empty($campaignId) ? Node::load($campaignId) : FALSE;
     }
     if (empty($node)) {
       return FALSE;
@@ -136,17 +151,21 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *   Array of menu links.
    */
   private function getCampaignNodeCampaignMenu(NodeInterface $node) {
+    /** @var Node $node */
     if ($node->bundle() != 'campaign') {
       return [];
     }
 
     $links = [];
 
+    /** @var Node $landingPage */
     $landingPage = $this->getActiveCampaignPage($node);
+    $parameters = ['campaign_id' => $node->id(), 'landing_page_id' => $landingPage->id()];
+    // Main tab
     $links['campaign'] = [
       '#type' => 'link',
       '#title' => $node->getTitle(),
-      '#url' => Url::fromRoute('openy_campaign.landing-page', ['campaign_id' => $node->id(), 'landing_page_id' => $landingPage->id()]),
+      '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
       '#attributes' => [
         'class' => [
           'use-ajax',
@@ -162,17 +181,19 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ]
     ];
 
+    /** @var Node $myProgress */
+    $myProgress = $node->field_my_progress_page->entity;
+    $parameters = ['campaign_id' => $node->id(), 'landing_page_id' => $myProgress->id()];
     // My progress link
-    $myProgressID = $node->get('field_my_progress_page')->getString();
     $links['progress'] = [
       '#type' => 'link',
       '#title' => t('My progress'),
-      '#url' => Url::fromRoute('openy_campaign.my-progress', ['campaign_id' => $node->id(), 'landing_page_id' => $myProgressID]),
+      '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
       '#attributes' => [
         'class' => [
           'use-ajax',
           'campaign-my-progress',
-          'node-' . $myProgressID,
+          'node-' . $myProgress->id(),
         ],
       ],
       '#attached' => [
@@ -182,16 +203,18 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ]
     ];
 
-    $rulesID = $node->get('field_rules_prizes_page')->getString();
+    /** @var Node $rules */
+    $rules = $node->field_rules_prizes_page->entity;
+    $parameters = ['campaign_id' => $node->id(), 'landing_page_id' => $rules->id()];
     $links['rules'] = [
       '#type' => 'link',
       '#title' => t('Detailed Rules'),
-      '#url' => Url::fromRoute('openy_campaign.landing-page', ['campaign_id' => $node->id(), 'landing_page_id' => $rulesID]),
+      '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
       '#attributes' => [
         'class' => [
           'use-ajax',
           'campaign-rules',
-          'node-' . $rulesID,
+          'node-' . $rules->id(),
         ],
       ],
       '#attached' => [
@@ -211,7 +234,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *
    * @return mixed Published landing page or FALSE if there is no published referenced landing page.
    */
-  public function getActiveCampaignPage($campaign) {
+  private function getActiveCampaignPage($campaign) {
     // Check if Campaign is Paused
     $isPaused = $campaign->get('field_pause_campaign')->value;
     $fieldPauseLandingPage = $campaign->get('field_pause_landing_page')->getValue();
@@ -236,5 +259,85 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     }
 
     return reset($publishedPages);
+  }
+
+  /**
+   * Get Landing page based on query string tab or active main landing page.
+   *
+   * @param \Drupal\node\Entity\Node $campaign Campaign node.
+   *
+   * @return \Drupal\node\Entity\Node | null | static
+   */
+  public function showRequestLandingPage($campaign) {
+    // Check query string for tab parameter.
+    $tab = \Drupal::request()->get('tab');
+    if (!empty($tab)) {
+      $aliasLanding = \Drupal::service('path.alias_manager')->getPathByAlias($tab);
+      $route = Url::fromUri("internal:/" . $aliasLanding);
+      if ($route->isRouted()) {
+        $paramsLanding = $route->getRouteParameters();
+      }
+    }
+
+    // Show My Progress page only for logged in members.
+    /** @var Node $myProgressId */
+    $myProgressId = $campaign->get('field_my_progress_page')->getString();
+    $isMyProgress = !empty($paramsLanding['node']) && $paramsLanding['node'] == $myProgressId;
+    // Show Campaign main landing page.
+    if ($isMyProgress && !MemberCampaign::isLoggedIn($campaign->id())) {
+      $landingPage = $this->getActiveCampaignPage($campaign);
+
+      return $landingPage;
+    }
+
+    // Show landing page by query string.
+    if (!empty($paramsLanding['node']) and is_numeric($paramsLanding['node'])) {
+      $landingPage = Node::load($paramsLanding['node']);
+    }
+    // Show the first published Landing page.
+    else {
+      $landingPage = $this->getActiveCampaignPage($campaign);
+    }
+
+    return $landingPage;
+  }
+
+  /**
+   * Place new landing page Content area paragraphs instead of current ones.
+   *
+   * @param int $landing_page_id Landing page node ID to get new content for replacement.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   */
+  public function ajaxReplaceLandingPage($landing_page_id) {
+    $response = new AjaxResponse();
+
+    /** @var Node $node New landing page node to replace. */
+    $node = Node::load($landing_page_id);
+    if (empty($node)) {
+      return $response;
+    }
+
+    $fieldsView = [];
+    foreach ($node->field_content as $item) {
+      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+      $paragraph = $item->entity;
+      $viewBuilder = $this->entityTypeManager->getViewBuilder($paragraph->getEntityTypeId());
+      $fieldsView[] = $viewBuilder->view($paragraph, 'default');
+    }
+    $fieldsRender = '<section class="wrapper-field-content">' . $this->renderer->renderRoot($fieldsView) . '</section>';
+
+    // Replace Content area of current landing page with all paragraphs from field-content of new landing page node.
+    $response->addCommand(new ReplaceCommand('.node__content > .container .wrapper-field-content', $fieldsRender));
+
+    // Set 'active' class to menu link.
+    $response->addCommand(new InvokeCommand('.campaign-menu a', 'removeClass', ['active']));
+    $response->addCommand(new InvokeCommand('.campaign-menu a.node-' . $landing_page_id, 'addClass', ['active']));
+
+    // Replace URL query string
+    $queryParameter = trim($node->toUrl()->toString(), "/");
+    $response->addCommand(new InvokeCommand('#drupal-modal', 'replaceQuery', [$queryParameter]));
+
+    return $response;
   }
 }

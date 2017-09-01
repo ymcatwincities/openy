@@ -4,3 +4,7 @@ magic_ball:
       css/magic-ball.css: {}
   js:
     js/magic-ball.js: {}
+
+campaign_modal:
+  js:
+    js/campaign-modal.js: {}
