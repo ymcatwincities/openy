@@ -61,9 +61,9 @@ display:
           times:
             default_date: false
             date: ''
-          left: 'today prev,next'
-          center: title
-          right: 'month agendaWeek agendaDay'
+          left: ''
+          center: 'prev title next'
+          right: ''
           timeformat: 'h:mm'
           advanced: false
           slotLabelFormat: 'h(:mm)a'
