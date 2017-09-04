@@ -19,13 +19,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class LazyLoaderAdminConfigure extends ConfigFormBase implements ContainerInjectionInterface {
 
   /**
-   * The config factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configuration;
-
-  /**
    * The theme registry.
    *
    * @var \Drupal\Core\Theme\Registry
@@ -43,7 +36,6 @@ class LazyLoaderAdminConfigure extends ConfigFormBase implements ContainerInject
   public function __construct(ConfigFactoryInterface $config_factory, Registry $theme_registry) {
     parent::__construct($config_factory);
 
-    $this->configuration = $this->config('lazyloader.configuration');
     $this->themeRegistry = $theme_registry;
   }
 
@@ -93,33 +85,34 @@ class LazyLoaderAdminConfigure extends ConfigFormBase implements ContainerInject
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
+    $form = [];
+    $config = $this->config('lazyloader.configuration');
     $form['enabled'] = [
-      '#type'          => 'checkbox',
-      '#title'         => $this->t('Enabled'),
-      '#default_value' => $this->configuration->get('enabled'),
-      '#description'   => $this->t('Enable/Disable Lazyloader (Useful for testing)'),
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enabled'),
+      '#default_value' =>$config->get('enabled'),
+      '#description' => $this->t('Enable/Disable Lazyloader (Useful for testing)'),
     ];
 
     $form['debugging'] = [
-      '#type'          => 'checkbox',
-      '#title'         => $this->t('Use development javascript'),
-      '#default_value' => $this->configuration->get('debugging'),
-      '#description'   => $this->t('By default lazyloader will use the minified version of the lazysizes library. By checking this option it will use the non-minified version instead.'),
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use development javascript'),
+      '#default_value' => $config->get('debugging'),
+      '#description' => $this->t('By default lazyloader will use the minified version of the lazysizes library. By checking this option it will use the non-minified version instead.'),
     ];
 
     $form['cdn'] = [
-      '#type'          => 'checkbox',
-      '#title'         => $this->t('Serve javascript from CDN'),
-      '#default_value' => $this->configuration->get('cdn'),
-      '#description'   => $this->t('Serve the lazyloading script from a CDN instead of your own server'),
+      '#type' => 'checkbox',
+      '#title' => $this->t('Serve javascript from CDN'),
+      '#default_value' => $config->get('cdn'),
+      '#description' => $this->t('Serve the lazyloading script from a CDN instead of your own server'),
     ];
 
     $form['placeholder'] = [
-      '#type'          => 'textfield',
-      '#title'         => $this->t('Placeholder Image'),
-      '#default_value' => $this->configuration->get('placeholder'),
-      '#description'   => $this->t('Path to your placeholder image, ex. sites/default/files/placeholder_image.gif. Leave it blank to use the default image.'),
+      '#type' => 'textfield',
+      '#title' => $this->t('Placeholder Image'),
+      '#default_value' => $config->get('placeholder'),
+      '#description' => $this->t('Path to your placeholder image, ex. sites/default/files/placeholder_image.gif. Leave it blank to use the default image.'),
     ];
 
     return parent::buildForm($form, $form_state);
