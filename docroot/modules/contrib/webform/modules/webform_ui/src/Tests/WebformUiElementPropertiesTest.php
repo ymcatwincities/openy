@@ -24,7 +24,15 @@ class WebformUiElementPropertiesTest extends WebformTestBase {
    *
    * @var array
    */
-  protected static $testWebforms = ['example_layout_basic', 'example_elements', 'example_elements_states', 'example_elements_composite', 'test_element', 'test_element_access', 'test_form_states_triggers'];
+  protected static $testWebforms = [
+    'example_style_guide',
+    'example_element_states',
+    'test_element',
+    'test_element_access',
+    'test_form_states_triggers',
+    'test_example_elements',
+    'test_example_elements_composite',
+  ];
 
   /**
    * {@inheritdoc}

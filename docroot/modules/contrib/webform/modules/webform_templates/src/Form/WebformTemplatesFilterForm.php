@@ -30,9 +30,7 @@ class WebformtemplatesFilterForm extends FormBase {
    * Constructs a WebformResultsCustomForm object.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager
-   * @param \Drupal\webform\WebformRequestInterface $request_handler
-   *   The webform request handler.
+   *   The entity type manager.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->webformStorage = $entity_type_manager->getStorage('webform');

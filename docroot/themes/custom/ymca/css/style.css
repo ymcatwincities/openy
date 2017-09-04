@@ -8646,11 +8646,6 @@ span.grey-caret:after {
   display: none;
   margin-bottom: 0;
 }
-@media (min-width: 0) and (max-width: 47.9375em) {
-  .mobile-subnav.show {
-    display: block;
-  }
-}
 .mobile-subnav .panel-heading {
   background-color: #3d3d3d;
   border: none;
@@ -8736,8 +8731,12 @@ span.grey-caret:after {
   }
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
-  .show-mobile-sub-navigation .nav-location.show {
+  .show-mobile-sub-navigation .nav-location.show,
+  .show-mobile-sub-navigation .mobile-subnav.show {
     display: block !important;
+  }
+  .show-mobile-sub-navigation .mobile-subnav {
+    display: block;
   }
 
   #nav-location {

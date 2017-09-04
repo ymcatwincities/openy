@@ -1,3 +1,19 @@
+Metatag 8.x-1.2, 2017-07-31
+---------------------------
+#2882954 by DamienMcKenna: Added Devel as a test dependency.
+#2882954, #2877737 by DamienMcKenna, René-Marc Simard, a.henry: Fixed
+  compatibility with WebProfiler, added tests to ensure site still works when it
+  or Devel is enabled.
+#2878158 by DamienMcKenna: Listed Context Metadata as a related module.
+#2894566 by StijnStroobants: Make all routes start with a leading slash.
+By DamienMcKenna: Use ComposerCat to update composer.json.
+By DamienMcKenna: Don't list Drupal core as a dependency in composer.json.
+#2636852 by hanoii, DamienMcKenna, Grayside, pcho, skorzh, fjgarlin, vincic:
+  Make Metatag fields available as JSON.
+#2893448 by Sam152: Add correct meta tags to latest-version route to support
+  content moderation.
+
+
 Metatag 8.x-1.1, 2017-05-31
 ---------------------------
 #2852737 by DamienMcKenna: Added CodeClimate config files.

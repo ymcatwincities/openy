@@ -18,7 +18,7 @@ class SchedulerMetaInformationTest extends SchedulerBrowserTestBase {
    */
   public function testMetaInformation() {
     // Log in.
-    $this->drupalLogin($this->adminUser);
+    $this->drupalLogin($this->schedulerUser);
 
     // Create a published node without scheduling.
     $published_node = $this->drupalCreateNode([
@@ -37,7 +37,7 @@ class SchedulerMetaInformationTest extends SchedulerBrowserTestBase {
       'unpublish_on[0][value][date]' => \Drupal::service('date.formatter')->format($unpublish_date, 'custom', 'Y-m-d'),
       'unpublish_on[0][value][time]' => \Drupal::service('date.formatter')->format($unpublish_date, 'custom', 'H:i:s'),
     ];
-    $this->drupalPostForm('node/' . $published_node->id() . '/edit', $edit, t('Save and keep published'));
+    $this->drupalPostForm('node/' . $published_node->id() . '/edit', $edit, t('Save'));
 
     // The node page should now have an X-Robots-Tag header with an
     // unavailable_after-directive and RFC850 date- and time-value.

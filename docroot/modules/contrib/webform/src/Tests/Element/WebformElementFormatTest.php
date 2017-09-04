@@ -32,7 +32,7 @@ class WebformElementFormatTest extends WebformTestBase {
   /**
    * Tests element format.
    */
-  public function testElementFormat() {
+  public function testFormat() {
 
     /**************************************************************************/
     /* Format (single) element as HTML and text */
@@ -54,7 +54,7 @@ class WebformElementFormatTest extends WebformTestBase {
       'Signature (Status)' => '[signed]',
       'Signature (Image)' => '[signed]',
       'Telephone (Link)' => '<a href="tel:+1 212-333-4444">+1 212-333-4444</a>',
-      'Toggle (Value)' => 'No',
+      'Toggle (Value)' => 'Yes',
       'URL (Link)' => '<a href="http://example.com">http://example.com</a>',
       'Date (Raw value)' => '1942-06-18',
       'Date (Fallback date format)' => 'Thu, 06/18/1942 - 00:00',
@@ -90,7 +90,7 @@ class WebformElementFormatTest extends WebformTestBase {
       'Color (Color swatch): #ffffcc',
       'Email (Link): example@example.com',
       'Email multiple (Link): example@example.com, test@test.com, random@random.com',
-      'Toggle (Value): No',
+      'Toggle (Value): Yes',
       'URL (Link): http://example.com',
       'Date (Raw value): 1942-06-18',
       'Date (Fallback date format): Thu, 06/18/1942 - 00:00',
