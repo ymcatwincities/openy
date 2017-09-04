@@ -486,5 +486,12 @@ function openy_update_8036() {
 function openy_update_8037() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['openy_prgf_amenities'], TRUE);
+}
 
+/**
+ * Enable lazyloader module.
+ */
+function openy_update_8038() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['lazyloader'], TRUE);
 }
