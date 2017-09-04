@@ -61,7 +61,7 @@ class GameBlockForm extends FormBase {
     $games = $form_state->getValue('games');
     $game = array_shift($games);
 
-    $form_state->setRedirect('openy_campaign.game', [ 'uuid' => $game->uuid()]);
+    $form_state->setRedirect('openy_campaign.campaign-game', [ 'uuid' => $game->uuid()]);
   }
 
 }

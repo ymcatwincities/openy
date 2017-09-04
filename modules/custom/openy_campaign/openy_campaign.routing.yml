@@ -158,18 +158,18 @@ openy_campaign.track-activity:
     _permission: 'access content'
 
 # Play the Game.
-openy_campaign.game:
+openy_campaign.campaign_game:
   path: '/campaign-game/{uuid}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\GameController::playGamePage'
   requirements:
     _permission: 'access content'
 
-openy_campaign.results:
-  path: '/node/{node}/campaign-results'
+openy_campaign.campaign_game_results:
+  path: '/node/{node}/campaign-game-results'
   defaults:
-    _controller: '\Drupal\openy_campaign\Controller\GameController::campaignResults'
+    _controller: '\Drupal\openy_campaign\Controller\GameController::gameResults'
   requirements:
-    _custom_access:  '\Drupal\openy_campaign\Controller\GameController::campaignResultsAccess'
+    _custom_access:  '\Drupal\openy_campaign\Controller\GameController::gameResultsAccess'
   options:
       _node_operation_route: TRUE
