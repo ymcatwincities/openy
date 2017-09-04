@@ -1,0 +1,14 @@
+lazyloader.admin_configure:
+  path: /admin/config/media/lazyloader
+  defaults:
+    _title: 'Image Lazyloader'
+    _form: \Drupal\lazyloader\Form\LazyLoaderAdminConfigure
+  requirements:
+    _permission: 'administer lazyloader'
+lazyloader.admin_exclude:
+  path: /admin/config/media/lazyloader/exclude
+  defaults:
+    _title: 'Exclude options'
+    _form: \Drupal\lazyloader\Form\LazyLoaderAdminExclude
+  requirements:
+    _permission: 'administer lazyloader'

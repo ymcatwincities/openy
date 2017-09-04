@@ -1,0 +1,18 @@
+<?php
+
+function lazyloader_requirements() {
+  $requirements = [];
+
+  if (!file_exists('libraries/lazysizes/lazysizes.js') || !file_exists('libraries/lazysizes/lazysizes.min.js')) {
+    $requirements = array(
+      'lazyloader.library' => array(
+        'title' => t('Lazyloader'),
+        'value' => t('Lazysizes library missing'),
+        'description' => t("The lazysizes library could not be located. We automatically fall back to a CDN hosted version of the library. If you wish to host your own version, please place it inside the <em>libraries/lazysizes</em> folder. The library can be downloaded from <a href=\"https://github.com/aFarkas/lazysizes/releases\">https://github.com/aFarkas/lazysizes/releases</a>"),
+        'severity' => REQUIREMENT_WARNING,
+      ),
+    );
+  }
+
+  return $requirements;
+}

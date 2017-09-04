@@ -1,0 +1,8 @@
+lazyloader.admin_configure:
+  route_name: lazyloader.admin_configure
+  title: Configure
+  base_route: lazyloader.admin_configure
+lazyloader.admin_exclude:
+  route_name: lazyloader.admin_exclude
+  title: 'Exclude options'
+  base_route: lazyloader.admin_configure

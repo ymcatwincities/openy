@@ -1,0 +1,130 @@
+<?php
+/**
+ * @file
+ * Lazyloader Module
+ *
+ * Note: Obviously, this will not work unless javascript is enabled.
+ */
+
+use Drupal\Core\Template\Attribute;
+use Drupal\lazyloader\Hooks\ThemeRegistryAlter;
+use Drupal\lazyloader\ResponsiveImage;
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function lazyloader_theme_registry_alter(&$theme_registry) {
+  $alter = new ThemeRegistryAlter(\Drupal::moduleHandler(), \Drupal::configFactory());
+  $alter->themeRegistryAlter($theme_registry);
+}
+
+/**
+ * Implements hook_preprocess_image().
+ */
+function lazyloader_preprocess_image(&$vars) {
+  /** @var \Drupal\lazyloader\ThemePreprocess $preprocess */
+  $preprocess = \Drupal::service('lazyloader.preprocess');
+  $vars = $preprocess->addCacheTags($vars);
+  $vars = $preprocess->attachLibrary($vars);
+
+  $config = \Drupal::config('lazyloader.configuration');
+  // Add noscript as a fallback.
+  $vars['old_attributes'] = new Attribute($vars['attributes']);
+
+  // Add support for responsive images.
+  // @todo Ensure that this logic is enough.
+
+  if (!empty($vars['attributes']['srcset'])) {
+    $responsive_image = ResponsiveImage::parse($vars['attributes']['srcset']);
+    $uri = $responsive_image->get(0)->uri;
+  }
+  else {
+    $uri = $vars['uri'];
+  }
+  unset($vars['attributes']['srcset']);
+
+  if($vars['theme_hook_original'] !== 'lazyloader_image'){
+    /** @var \Drupal\lazyloader\LazyLoaderVisibilityChecker $checker */
+    $checker = \Drupal::service('lazyloader.visibility_checker');
+    if (!$checker->isEnabled() || !$checker->isValidFilename($uri)
+      || !$checker->isValidImageStyle($uri)) {
+      return;
+    }
+  }
+
+  $image_placeholder_src = NULL;
+
+  // Set placeholder image.
+  if (!isset($image_placeholder_src)) {
+    // Path to dummy placeholder image, to be replaced by actual image.
+    $image_placeholder = trim($config->get('placeholder'));
+    $image_placeholder_src = $image_placeholder ? base_path() . $image_placeholder : 'data:image/gif;base64,R0lGODlhAQABAIAAAP7//wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==';
+  }
+
+  $vars['attributes']['class'][] = 'lazyload';
+  $vars['attributes']['src'] = file_create_url($image_placeholder_src);
+
+  if (isset($responsive_image)) {
+    $vars['attributes']['data-srcset'] = $responsive_image->__toString();
+  }
+  else {
+    $vars['attributes']['data-src'] = file_create_url($uri);
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_responsive_image().
+ */
+function lazyloader_preprocess_responsive_image(&$vars) {
+  /** @var \Drupal\lazyloader\ThemePreprocess $preprocess */
+  $preprocess = \Drupal::service('lazyloader.preprocess');
+  $vars = $preprocess->attachLibrary($vars);
+  $vars = $preprocess->addCacheTags($vars);
+
+  /** @var \Drupal\lazyloader\LazyLoaderVisibilityChecker $checker */
+  $checker = \Drupal::service('lazyloader.visibility_checker');
+  if (!$checker->isEnabled()) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Template\Attribute $image_attributes */
+  foreach ($vars['sources'] as $key => $image_attributes) {
+    $responsive_image = ResponsiveImage::parse((string) $image_attributes['srcset']);
+    $uri = $responsive_image->get(0)->uri;
+    if (!$checker->isValidFilename($uri) || !$checker->isValidImageStyle($uri)) {
+      continue;
+    }
+
+    $image_attributes->addClass('lazyload');
+
+    unset($vars['sources'][$key]['srcset']);
+    $variables['sources'][$key]['data-srcset'] = $responsive_image->__toString();
+  }
+}
+
+
+/**
+ * Implements hook_libraries_info().
+ */
+function lazyloader_libraries_info() {
+  $libraries ['lazysizes'] = array(
+    'name' => 'Lazysizes',
+    'vendor url' => 'https://afarkas.github.io/lazysizes',
+    'download url' => 'https://github.com/aFarkas/lazysizes/archive/master.zip',
+    'path' => 'dist',
+    'files' => array(
+      'js' => array('lazysizes.js'),
+    ),
+    'variants' => array(
+      'minified' => array(
+        'files' => array(
+          'js' => array('lazysizes.min.js'),
+        ),
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+

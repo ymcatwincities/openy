@@ -1,0 +1,17 @@
+lazysizes:
+  js:
+    /libraries/lazysizes/lazysizes.js: {}
+
+lazysizes-min:
+  js:
+    /libraries/lazysizes/lazysizes.min.js: { minified: true }
+
+lazysizes-min.cdn:
+  remote: https://github.com/aFarkas/lazysizes/blob/2.0.0/lazysizes.min.js
+  version: 2.0.0
+  license:
+    name: MIT
+    url: https://github.com/aFarkas/lazysizes/blob/gh-pages/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/lazysizes/2.0.0/lazysizes.min.js: { type: external, minified: true }

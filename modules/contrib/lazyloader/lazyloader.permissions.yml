@@ -1,0 +1,4 @@
+administer lazyloader:
+  title: 'Administer Lazyloader'
+  description: 'Perform administration tasks for Lazyloader.'
+  restrict access: TRUE

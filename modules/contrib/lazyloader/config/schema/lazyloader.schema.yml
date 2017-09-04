@@ -1,0 +1,25 @@
+lazyloader.configuration:
+  type: config_object
+  label: 'Lazyloader configuration'
+  mapping:
+    enabled:
+      type: boolean
+    placeholder:
+      type: string
+    debugging:
+      type: boolean
+    cdn:
+      type: boolean
+
+lazyloader.exclude:
+  type: config_object
+  label: 'Lazyloader exclude configuration'
+  mapping:
+    paths:
+      type: string
+    visibility:
+      type: sequence
+      label: 'Visibility Conditions'
+      sequence:
+        type: condition.plugin.[id]
+        label: 'Visibility Condition'
