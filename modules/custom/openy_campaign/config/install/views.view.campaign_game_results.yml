@@ -3,8 +3,8 @@ status: true
 dependencies:
   module:
     - openy_campaign
-id: campaign_results
-label: 'Campaign Results'
+id: campaign_game_results
+label: 'Campaign Game Results'
 module: views
 description: ''
 tag: ''

@@ -141,7 +141,7 @@ class GameController extends ControllerBase {
    *
    * @return \Drupal\Core\Access\AccessResult
    */
-  public function campaignResultsAccess(NodeInterface $node, AccountInterface $account) {
+  public function gameResultsAccess(NodeInterface $node, AccountInterface $account) {
     return AccessResult::allowedIf($account->hasPermission('administer retention campaign') && $node->getType() == 'campaign');
   }
 
@@ -150,9 +150,9 @@ class GameController extends ControllerBase {
    *
    * @return array Render array
    */
-  public function campaignResults(NodeInterface $node) {
+  public function gameResults(NodeInterface $node) {
     $build = [
-      'view' => views_embed_view('campaign_results', 'default', $node->id()),
+      'view' => views_embed_view('campaign_game_results', 'default', $node->id()),
     ];
 
     return $build;

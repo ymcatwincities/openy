@@ -32,8 +32,8 @@ entity.openy_campaign_member_campaign.collection: # The second plugin ID
   base_route: entity.openy_campaign_member.collection
   weight: 10
 
-openy_campaign.results:
-  route_name: openy_campaign.results
+openy_campaign.campaign_game_results:
+  route_name: openy_campaign.campaign_game_results
   base_route: entity.node.canonical
-  title: 'Campaign Results'
+  title: 'Instant Game Results'
   weight: 50
