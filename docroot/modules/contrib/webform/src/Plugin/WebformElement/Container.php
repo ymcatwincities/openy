@@ -26,6 +26,8 @@ class Container extends ContainerBase {
       'flex' => 1,
       // Conditional logic.
       'states' => [],
+      // Format.
+      'format' => $this->getItemDefaultFormat(),
     ];
   }
 

@@ -1,0 +1,13 @@
+name: Custom Formatters
+description: Allows users to easily define custom Field Formatters.
+type: module
+dependencies:
+  - field
+package: Fields
+configure: admin/structure/formatters
+# core: 8.x
+# Information added by Drupal.org packaging script on 2016-10-19
+version: '8.x-3.0-alpha1'
+core: '8.x'
+project: 'custom_formatters'
+datestamp: 1476912841
