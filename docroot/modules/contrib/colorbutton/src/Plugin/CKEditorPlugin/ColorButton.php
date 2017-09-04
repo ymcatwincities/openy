@@ -12,10 +12,23 @@ use Drupal\editor\Entity\Editor;
  *
  * @CKEditorPlugin(
  *   id = "colorbutton",
- *   label = @Translation("Color Button")
+ *   label = @Translation("CKEditor Color Button")
  * )
  */
 class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurableInterface {
+
+  /**
+   * Get path to library folder.
+   */
+  public function getLibraryPath() {
+    $path = '/libraries/colorbutton';
+    if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+      $path = libraries_get_path('colorbutton');
+    }
+
+    return $path;
+  }
+
   /**
    * {@inheritdoc}
    */
@@ -27,7 +40,7 @@ class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurab
    * {@inheritdoc}
    */
   public function getFile() {
-    return 'libraries/colorbutton/plugin.js';
+    return $this->getLibraryPath() . '/plugin.js';
   }
 
   /**
@@ -38,8 +51,8 @@ class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurab
 
     // enableMore can only be supported if the Color Dialog plugin is present.
     $config = [
-      'colorButton_enableMore' => false,
-      'colorButton_enableAutomatic' => true,
+      'colorButton_enableMore' => FALSE,
+      'colorButton_enableAutomatic' => TRUE,
     ];
 
     if (!empty($settings['plugins']['colorbutton']['colors'])) {
@@ -53,15 +66,16 @@ class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurab
    * {@inheritdoc}
    */
   public function getButtons() {
+    $path = $this->getLibraryPath();
     return [
-      'TextColor' => array(
+      'TextColor' => [
         'label' => $this->t('Text Color'),
-        'image' => 'libraries/colorbutton/icons/textcolor.png',
-      ),
-      'BGColor' => array(
+        'image' => $path . '/icons/textcolor.png',
+      ],
+      'BGColor' => [
         'label' => $this->t('Background Color'),
-        'image' => 'libraries/colorbutton/icons/bgcolor.png',
-      ),
+        'image' => $path . '/icons/bgcolor.png',
+      ],
     ];
   }
 
@@ -71,14 +85,14 @@ class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurab
   public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor) {
     $settings = $editor->getSettings();
 
-    $form['colors'] = array(
+    $form['colors'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Text Colors'),
       '#description' => $this->t('Enter the hex values of all colors you would like to support (without the # symbol) separated by a comma. Leave blank to use the default colors for Color Button.'),
       '#default_value' => !empty($settings['plugins']['colorbutton']['colors']) ? $settings['plugins']['colorbutton']['colors'] : '',
-    );
+    ];
 
-    $form['colors']['#element_validate'][] = array($this, 'validateInput');
+    $form['colors']['#element_validate'][] = [$this, 'validateInput'];
     return $form;
   }
 
@@ -88,10 +102,17 @@ class ColorButton extends CKEditorPluginBase implements CKEditorPluginConfigurab
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    */
   public function validateInput(array $element, FormStateInterface $form_state) {
-    $input = $form_state->getValue(['editor', 'settings', 'plugins', 'colorbutton', 'colors']);
+    $input = $form_state->getValue([
+      'editor',
+      'settings',
+      'plugins',
+      'colorbutton',
+      'colors',
+    ]);
 
     if (preg_match('/([^A-F0-9,])/i', $input)) {
       $form_state->setError($element, 'Only valid hex values are allowed (A-F, 0-9). No other symbols or letters are allowed. Please check your settings and try again.');
     }
   }
+
 }

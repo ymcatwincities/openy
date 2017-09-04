@@ -23,7 +23,7 @@
         return;
       }
 
-      $(context).find('.js-form-type-webform-html-editor textarea').once('webform-html-editor').each(function () {
+      $(context).find('textarea.js-html-editor').once('webform-html-editor').each(function () {
         var $textarea = $(this);
 
         var allowedContent = drupalSettings['webform']['html_editor']['allowedContent'];

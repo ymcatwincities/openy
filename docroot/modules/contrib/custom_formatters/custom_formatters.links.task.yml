@@ -1,0 +1,9 @@
+entity.formatter.collection:
+  title: 'List'
+  route_name: entity.formatter.collection
+  base_route: entity.formatter.collection
+
+custom_formatters.settings_form:
+  title: 'Settings'
+  route_name: custom_formatters.settings_form
+  base_route: entity.formatter.collection

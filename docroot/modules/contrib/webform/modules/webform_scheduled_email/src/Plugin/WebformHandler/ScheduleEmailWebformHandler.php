@@ -239,7 +239,7 @@ class ScheduleEmailWebformHandler extends EmailWebformHandler {
         $this->t("Multiple handlers can be used to schedule multiple emails."),
         $this->t('Deleting this handler will unschedule all scheduled emails.'),
         ['#markup' => $this->t('Scheduled emails are automatically sent starting at midnight using <a href=":href">cron</a>, which is executed at predefined interval.', [':href' => 'https://www.drupal.org/docs/7/setting-up-cron/overview'])],
-      ]
+      ],
     ];
 
     $form['scheduled']['token_tree_link'] = $this->tokenManager->buildTreeLink();

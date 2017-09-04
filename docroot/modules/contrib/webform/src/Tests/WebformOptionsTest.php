@@ -104,7 +104,7 @@ class WebformOptionsTest extends WebformTestBase {
     $country_names_options = WebformOptions::load('country_names');
     $country_names_options->set('options', Yaml::encode(['Switzerland' => 'Switzerland'] + $country_names_options->getOptions()));
     $country_names_options->save();
-    
+
     // Check that 'Switzerland' is the now first option.
     $options = WebformOptions::getElementOptions(['#options' => 'country_names']);
     $this->assertEqual(reset($options), 'Switzerland');

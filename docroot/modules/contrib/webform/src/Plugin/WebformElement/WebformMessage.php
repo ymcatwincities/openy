@@ -3,6 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\webform\Element\WebformHtmlEditor;
 use Drupal\webform\WebformSubmissionInterface;
 use Drupal\webform\Element\WebformMessage as WebformMessageElement;
 
@@ -62,6 +63,20 @@ class WebformMessage extends WebformMarkupBase {
       $id[] = $element['#webform_key'];
       $element['#message_id'] = implode('--', $id);
     }
+
+    if (isset($element['#message_message'])) {
+      $element['#message_message'] = WebformHtmlEditor::checkMarkup($element['#message_message']);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return parent::preview() + [
+      '#message_type' => 'warning',
+      '#message_message' => $this->t('This is a <strong>warning</strong> message.'),
+    ];
   }
 
   /**
@@ -79,10 +94,12 @@ class WebformMessage extends WebformMarkupBase {
         'warning' => t('Warning'),
         'info' => t('Info'),
       ],
+      '#required' => TRUE,
     ];
     $form['markup']['message_message'] = [
       '#type' => 'webform_html_editor',
       '#title' => $this->t('Message content'),
+      '#required' => TRUE,
     ];
     $form['markup']['message_close'] = [
       '#type' => 'checkbox',
