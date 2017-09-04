@@ -211,6 +211,8 @@ source:
       content_ids:
         -
           content_id: challenge_yourself_completed_simple
+        -
+          content_id: challenge_yourself_campaign_winners
     -
       id: challenge_yourself_rules
       title: 'Challenge Yourself Rules and Prizes'
@@ -343,6 +345,7 @@ process:
           - openy_demo_lp_paragraph_all_amenities
           - openy_demo_lp_paragraph_campaign_activity
           - openy_demo_lp_paragraph_campaign_game
+          - openy_demo_lp_paragraph_campaign_winners
         source: content_id
       target_revision_id:
         plugin: migration
@@ -365,6 +368,7 @@ process:
           - openy_demo_lp_paragraph_all_amenities
           - openy_demo_lp_paragraph_campaign_activity
           - openy_demo_lp_paragraph_campaign_game
+          - openy_demo_lp_paragraph_campaign_winners
         source: content_id
 destination:
   plugin: 'entity:node'
@@ -396,5 +400,6 @@ migration_dependencies:
     - openy_demo_lp_paragraph_campaign_activity
     - openy_demo_lp_paragraph_campaign_menu
     - openy_demo_lp_paragraph_campaign_game
+    - openy_demo_lp_paragraph_campaign_winners
   optional:
     - openy_demo_node_blog
