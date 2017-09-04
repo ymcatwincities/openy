@@ -1,0 +1,257 @@
+.cdn-form-full {
+  max-width: 1050px;
+  margin: 0 auto;
+  background-color: $white;
+  .top-elements-wrapper {
+    background-color: #f5f5f5;
+    @include clearfix();
+    padding-top: 35px;
+    margin-bottom: 60px;
+  }
+  .form-item-arrival-date,
+  .form-item-departure-date {
+    label {
+      font-family: Cachet;
+      font-size: 20px;
+      height: 28px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      letter-spacing: -0.5px;
+      color: #2e2e2e;
+      text-transform: uppercase;
+    }
+    input {
+      background: #fff url("../img/icon-calendar.png") no-repeat 15px center;
+      height: 50px;
+      padding-left: 55px;
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 18px;
+      color: #2e2e2e;
+      border-color: #bfbfbf;
+    }
+    @include breakpoint(768px) {
+      width: 330px;
+      float: left;
+      margin-right: 30px;
+    }
+  }
+  .form-item-range {
+    @include breakpoint(768px) {
+      float: left;
+      width: 210px;
+    }
+    select {
+      background: #f5f5f5;
+      border-color: #bfbfbf;
+      height: 50px;
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 18px;
+      text-indent: 25px;
+      color: #2e2e2e;
+      margin-top: 38px;
+    }
+  }
+  .form-item-village-select,
+  .form-item-capacity {
+    @include breakpoint(768px) {
+      float: left;
+      margin-right: 40px;
+    }
+    label {
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      color: #888888;
+      display: inline-block;
+      font-weight: normal;
+      margin: 0 3px 0 0;
+      vertical-align: top;
+    }
+    select {
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+      color: #2e2e2e;
+      border: none;
+      display: inline-block;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      appearance: none;
+      background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+      background-position: 100% 50%;
+      background-repeat: no-repeat;
+      background-color: $white;
+      outline: none;
+      box-shadow: none;
+      width: auto;
+      height: auto;
+      padding: 0 25px 0 0;
+    }
+  }
+  .form-item-partly-available,
+  .form-item-booked {
+    @include breakpoint(768px) {
+      float: right;
+      margin-left: 40px;
+      label {
+        font-weight: normal;
+        font-family: "Cachet Book", Arial, sans-serif;
+        font-size: 18px;
+        letter-spacing: -0.5px;
+        color: #2e2e2e;
+      }
+    }
+  }
+  .cdn-results {
+    border-top: solid 1px #eaeaea;
+    padding: 50px 0;
+    @include clearfix();
+    margin-top: 20px;
+    clear: both;
+    .cdn-village-teaser {
+      @include breakpoint(768px) {
+        display: inline-block;
+        width: 31%;
+        &:nth-child(3n+2) {
+          margin: 0 3%;
+        }
+      }
+    }
+  }
+}
+
+.paragraph--type--camp-du-nord-calendar-view .views-element-container {
+  max-width: 868px;
+  margin: 0 auto;
+  .views-exposed-form {
+    display: none;
+  }
+}
+.fullcalendar {
+  .fc-header-toolbar {
+    background-color: #fff;
+    margin-bottom: 0;
+    padding: 23px 0 20px;
+    .fc-center {
+      h2 {
+        font-size: 20px;
+        letter-spacing: -0.5px;
+        color: #2e2e2e;
+        text-transform: uppercase;
+      }
+    }
+    .ui-button {
+      border: none;
+      background: none;
+      height: 24px;
+    }
+    .fc-prev-button {
+      margin-right: 30px;
+      span {
+        background: url('../img/arrow-left.svg') no-repeat 0 0;
+      }
+    }
+    .fc-next-button {
+      margin-left: 30px;
+      span {
+        background: url('../img/arrow-right.svg') no-repeat 0 0;
+      }
+    }
+  }
+  .fc-view-container .fc-view {
+    * {
+      border-color: #d7d7d7;
+    }
+    .fc-head-container {
+      .fc-row {
+        background: #f3f3f3;
+      }
+      th {
+        font-family: "Cachet Book", Arial, sans-serif;
+        font-size: 17px;
+        letter-spacing: -0.4px;
+        color: #2e2e2e;
+        font-weight: normal;
+        span {
+          display: block;
+          height: 50px;
+          line-height: 50px;
+          background-color: #f3f3f3;
+        }
+      }
+    }
+    .ui-widget-content {
+      background: none;
+    }
+    .fc-day {
+      background-color: #eeeeee;
+    }
+    .fc-day-top {
+      font-family: Cachet;
+      font-size: 25px;
+      font-weight: bold;
+      letter-spacing: -0.6px;
+      text-align: center;
+      color: #999999;
+      padding-top: 24px;
+      .fc-day-number {
+        float: none;
+      }
+    }
+    td {
+
+    }
+  }
+}
+
+.cdn-village-teaser {
+  position: relative;
+  .available {
+    background-color: #00ac95;
+    border-radius: 8px;
+    color: #fff;
+    font-family: Cachet;
+    font-size: 20px;
+    font-weight: bold;
+    height: 47px;
+    left: 20px;
+    letter-spacing: -0.5px;
+    line-height: 47px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    top: -16px;
+    width: 140px;
+  }
+  img {
+    border-radius: 14px 14px 0 0;
+    max-width: 100%;
+  }
+  .info {
+    border-radius: 0 0 14px 14px;
+    border-left: solid 1px #979797;
+    border-right: solid 1px #979797;
+    border-bottom: solid 1px #979797;
+    @include clearfix();
+    padding: 25px 0;
+    .title {
+      font-family: Cachet;
+      font-size: 25px;
+      font-weight: 500;
+      letter-spacing: -0.6px;
+      color: #2e2e2e;
+      float: left;
+      margin-left: 25px;
+      line-height: 25px;
+      width: 200px;
+    }
+    .capacity {
+      background: url("../img/icon-cdn-capacity.png") no-repeat 0 center;
+      padding-left: 40px;
+      margin-right: 18px;
+      margin-top: 2px;
+      float: right;
+    }
+  }
+}
