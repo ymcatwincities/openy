@@ -1,5 +1,0 @@
-lazyloader.admin_configure:
-  route_name: lazyloader.admin_configure
-  title: 'Image Lazyloader'
-  description: 'Configure Lazyloader'
-  parent: system.admin_config_media
