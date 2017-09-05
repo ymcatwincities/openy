@@ -27,4 +27,5 @@ dependencies:
   - text
   - user
   - views
+  - views_data_export
 version: 8.x-1.0

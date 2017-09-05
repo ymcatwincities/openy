@@ -230,6 +230,7 @@
         "drupal/better_exposed_filters": "3.0-alpha2",
         "drupal/custom_formatters": "3.0-alpha1",
         "drupal/token_filter": "1.0-beta1",
-        "drupal/views_field_formatter": "1.5"
+        "drupal/views_field_formatter": "1.5",
+        "drupal/views_data_export": "^1.0@alpha"
     }
 }
