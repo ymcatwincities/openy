@@ -5,6 +5,7 @@ core: 8.x
 dependencies:
   - better_exposed_filters
   - block
+  - csv_serialization
   - ctools
   - datalayer
   - datetime
@@ -22,7 +23,9 @@ dependencies:
   - paragraphs
   - path
   - pathauto
+  - rest
   - scheduler
+  - serialization
   - taxonomy
   - text
   - user
