@@ -4,7 +4,7 @@ dependencies:
   module:
     - better_exposed_filters
     - csv_serialization
-    - openy_campaign
+    #- openy_campaign
     - rest
     - serialization
     - user
