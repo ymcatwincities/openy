@@ -26,7 +26,7 @@ use Drupal\openy_campaign\MemberCampaignActivityInterface;
  *   },
  * )
  */
-class MemberCheckin  extends ContentEntityBase implements MemberCampaignActivityInterface {
+class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityInterface {
 
   /**
    * {@inheritdoc}
@@ -77,7 +77,7 @@ class MemberCheckin  extends ContentEntityBase implements MemberCampaignActivity
 
 
   /**
-   * Create Game oportunity while checkin record is created.
+   * Create Game opportunity while checkin record is created.
    */
   public function save() {
     $return = parent::save();

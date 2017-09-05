@@ -3,6 +3,7 @@ description: 'OpenY node Campaign'
 type: module
 core: 8.x
 dependencies:
+  - better_exposed_filters
   - block
   - ctools
   - datalayer
@@ -25,4 +26,5 @@ dependencies:
   - taxonomy
   - text
   - user
+  - views
 version: 8.x-1.0

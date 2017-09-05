@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Controller;
 
+use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
@@ -100,6 +101,19 @@ class CampaignController extends ControllerBase {
     $response = $this->campaignMenuService->ajaxReplaceLandingPage($landing_page_id);
 
     return $response;
+  }
+
+  /**
+   * @param \Drupal\node\NodeInterface $node
+   *
+   * @return array Render array
+   */
+  public function showMembers(NodeInterface $node) {
+    $build = [
+      'view' => views_embed_view('campaign_members', 'default', $node->id()),
+    ];
+
+    return $build;
   }
 
 }

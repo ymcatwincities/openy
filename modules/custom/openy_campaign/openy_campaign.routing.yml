@@ -173,3 +173,12 @@ openy_campaign.campaign_game_results:
     _custom_access:  '\Drupal\openy_campaign\Controller\GameController::gameResultsAccess'
   options:
       _node_operation_route: TRUE
+
+openy_campaign.campaign_members:
+  path: '/node/{node}/campaign-members'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignController::showMembers'
+  requirements:
+    _permission: 'administer retention campaign'
+  options:
+      _node_operation_route: TRUE

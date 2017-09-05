@@ -40,8 +40,8 @@ dependencies:
     - node.type.campaign
   module:
     - datetime
-    - jquery_colorpicker
     - entity_reference_revisions
+    - jquery_colorpicker
     - options
     - text
     - user
