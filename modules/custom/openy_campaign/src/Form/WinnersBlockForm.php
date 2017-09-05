@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -62,21 +63,73 @@ class WinnersBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $campaignId = NULL) {
+    // Disable caching on this form.
+    $form_state->setCached(FALSE);
+
     // Get all regions - branches
-    $branches = [];
+    $branches = $this->getBranches();
 
-    // Ajax reload blocks with winners
-    $winners = [];
-    $winners = $this->getCampaignWinners($campaignId);
-    $prizes = [];
-    $prizes = $this->getCampaignPrizes($campaignId);
+    $selected = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : key($branches);
+    $form['branch'] = [
+      '#type' => 'select',
+      '#title' => 'Select your region',
+      '#options' => $branches,
+      '#default_value' => $selected,
+      '#ajax' => [
+        'callback' => '::ajaxWinnersCallback',
+        'wrapper' => 'winners-block-wrapper',
+      ],
+    ];
 
+    $winnersBlock = '';
+    if (!empty($form_state->getValue('branch'))) {
+      $branch = $form_state->getValue('branch');
+      $winnersBlock = $this->showWinnersBlock($campaignId, $branch);
+    }
 
-
-    // Attach the library for pop-up dialogs/modals.
-    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
+    $form['winners'] = [
+      '#prefix' => '<div id="winners-block-wrapper">',
+      '#suffix' => '</div>',
+      '#markup' =>  $winnersBlock,
+    ];
 
     return $form;
+  }
+
+  /**
+   * Render Winners Block
+   *
+   * @param $campaignId
+   * @param $branch
+   *
+   * @return \Drupal\Component\Render\MarkupInterface
+   */
+  public function showWinnersBlock($campaignId, $branch) {
+    $places = [
+      '1st',
+      '2nd',
+      '3rd',
+    ];
+    $winners = $this->getCampaignWinners($campaignId, $branch);
+    $prizes = $this->getCampaignPrizes($campaignId);
+
+    $output = [];
+    foreach ($places as $key => $place) {
+      $output[] = [
+        '#theme' => 'openy_campaign_winners',
+        '#title' => $place,
+        '#winners' => $winners[$key],
+        '#prizes' => $prizes[$key],
+      ];
+    }
+
+    $render = $this->renderer->renderRoot($output);
+
+    return $render;
+  }
+
+  public function ajaxWinnersCallback($form, $form_state) {
+    return $form['winners'];
   }
 
   /**
@@ -93,13 +146,41 @@ class WinnersBlockForm extends FormBase {
 
   }
 
-  protected function getCampaignWinners($campaignId) {
+  /**
+   * Get all available branches
+   *
+   * @return \Drupal\Core\Entity\EntityInterface[]
+   */
+  private function getBranches() {
+    $locations = [];
+    $values = [
+      'type' => 'branch',
+      'status' => 1,
+    ];
+    $branches = $this->entityTypeManager->getListBuilder('node')->getStorage()->loadByProperties($values);
+
+    /** @var \Drupal\node\Entity\Node $branch */
+    foreach ($branches as $branch) {
+      /** @var Term $locationName */
+      $locationName = Term::load($branch->field_location_area->target_id);
+      if (empty($locationName)) {
+        continue;
+      }
+      $locations[$branch->id()] = $locationName->getName();
+    }
+
+    return $locations;
+  }
+
+  private function getCampaignWinners($campaignId, $branch) {
     $winners = [];
+
+    // Get all
 
     return $winners;
   }
 
-  protected function getCampaignPrizes($campaignId) {
+  private function getCampaignPrizes($campaignId) {
     $prizes = [];
 
     return $prizes;
