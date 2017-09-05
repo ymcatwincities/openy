@@ -3,9 +3,9 @@ status: false
 dependencies:
   module:
     - ctools
-    - openy_campaign
-  theme:
-    - openy_rose
+#    - openy_campaign
+#  theme:
+#    - openy_rose
 id: campaignusermenublock
 theme: openy_rose
 region: header
