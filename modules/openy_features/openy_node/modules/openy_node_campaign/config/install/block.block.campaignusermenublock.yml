@@ -1,14 +1,14 @@
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - ctools
-#    - openy_campaign
-#  theme:
-#    - openy_rose
+    - openy_campaign
+  theme:
+    - openy_rose
 id: campaignusermenublock
 theme: openy_rose
-region: content
+region: header
 weight: -7
 provider: null
 plugin: campaign_user_menu_block

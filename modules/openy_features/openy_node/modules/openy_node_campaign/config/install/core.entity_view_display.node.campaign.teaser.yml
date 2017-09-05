@@ -16,13 +16,28 @@ dependencies:
     - field.field.node.campaign.field_campaign_prize_nowin
     - field.field.node.campaign.field_campaign_prizes
     - field.field.node.campaign.field_campaign_start_date
+    - field.field.node.campaign.field_error_default
+    - field.field.node.campaign.field_error_member_is_inactive
+    - field.field.node.campaign.field_error_membership_id
+    - field.field.node.campaign.field_error_target_audience
     - field.field.node.campaign.field_goal_check_ins_end_date
     - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_limit_visits_goal
+    - field.field.node.campaign.field_login_checkins_not_started
+    - field.field.node.campaign.field_login_not_registered
     - field.field.node.campaign.field_my_progress_page
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
+    - field.field.node.campaign.field_popup_background_color
+    - field.field.node.campaign.field_reg_already_registered
+    - field.field.node.campaign.field_reg_checkins_not_started
+    - field.field.node.campaign.field_register_form_text
     - field.field.node.campaign.field_rules_prizes_page
+    - field.field.node.campaign.field_successful_login
+    - field.field.node.campaign.field_successful_registration
+    - field.field.node.campaign.field_token_check_back_date
+    - field.field.node.campaign.field_token_login_link_text
+    - field.field.node.campaign.field_token_register_link_text
     - node.type.campaign
   module:
     - user
@@ -56,11 +71,26 @@ hidden:
   field_campaign_prize_nowin: true
   field_campaign_prizes: true
   field_campaign_start_date: true
+  field_error_default: true
+  field_error_member_is_inactive: true
+  field_error_membership_id: true
+  field_error_target_audience: true
   field_goal_check_ins_end_date: true
   field_goal_check_ins_start_date: true
   field_limit_visits_goal: true
+  field_login_checkins_not_started: true
+  field_login_not_registered: true
   field_my_progress_page: true
   field_pause_campaign: true
   field_pause_landing_page: true
+  field_popup_background_color: true
+  field_reg_already_registered: true
+  field_reg_checkins_not_started: true
+  field_register_form_text: true
   field_rules_prizes_page: true
+  field_successful_login: true
+  field_successful_registration: true
+  field_token_check_back_date: true
+  field_token_login_link_text: true
+  field_token_register_link_text: true
   langcode: true

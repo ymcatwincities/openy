@@ -37,3 +37,9 @@ openy_campaign.campaign_game_results:
   base_route: entity.node.canonical
   title: 'Instant Game Results'
   weight: 50
+
+openy_campaign.campaign_members:
+  route_name: openy_campaign.campaign_members
+  base_route: entity.node.canonical
+  title: 'Campaign Members'
+  weight: 40

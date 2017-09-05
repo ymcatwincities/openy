@@ -41,8 +41,8 @@ dependencies:
   module:
     - datetime
     - field_group
-    - paragraphs
     - jquery_colorpicker
+    - paragraphs
     - path
     - text
 third_party_settings:
