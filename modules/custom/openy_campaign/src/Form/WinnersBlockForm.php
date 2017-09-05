@@ -69,7 +69,7 @@ class WinnersBlockForm extends FormBase {
     // Get all regions - branches
     $branches = $this->getBranches();
 
-    $selected = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : key($branches);
+    $selected = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : $branches['default'];
     $form['branch'] = [
       '#type' => 'select',
       '#title' => 'Select your region',
@@ -82,9 +82,9 @@ class WinnersBlockForm extends FormBase {
     ];
 
     $winnersBlock = '';
-    if (!empty($form_state->getValue('branch'))) {
-      $branch = $form_state->getValue('branch');
-      $winnersBlock = $this->showWinnersBlock($campaignId, $branch);
+    if (!empty($form_state->getValue('branch')) && $form_state->getValue('branch') != 'default') {
+      $branchId = $form_state->getValue('branch');
+      $winnersBlock = $this->showWinnersBlock($campaignId, $branchId);
     }
 
     $form['winners'] = [
@@ -100,17 +100,17 @@ class WinnersBlockForm extends FormBase {
    * Render Winners Block
    *
    * @param $campaignId
-   * @param $branch
+   * @param $branchId
    *
    * @return \Drupal\Component\Render\MarkupInterface
    */
-  public function showWinnersBlock($campaignId, $branch) {
+  public function showWinnersBlock($campaignId, $branchId) {
     $places = [
-      '1st',
-      '2nd',
-      '3rd',
+      1 => '1st',
+      2 => '2nd',
+      3 => '3rd',
     ];
-    $winners = $this->getCampaignWinners($campaignId, $branch);
+    $winners = $this->getCampaignWinners($campaignId, $branchId);
     $prizes = $this->getCampaignPrizes($campaignId);
 
     $output = [];
@@ -118,7 +118,7 @@ class WinnersBlockForm extends FormBase {
       $output[] = [
         '#theme' => 'openy_campaign_winners',
         '#title' => $place,
-        '#winners' => $winners[$key],
+        '#members' => $winners[$key],
         '#prizes' => $prizes[$key],
       ];
     }
@@ -152,7 +152,9 @@ class WinnersBlockForm extends FormBase {
    * @return \Drupal\Core\Entity\EntityInterface[]
    */
   private function getBranches() {
-    $locations = [];
+    $locations = [
+      'default' => $this->t('Please, select your location.'),
+    ];
     $values = [
       'type' => 'branch',
       'status' => 1,
@@ -172,10 +174,39 @@ class WinnersBlockForm extends FormBase {
     return $locations;
   }
 
-  private function getCampaignWinners($campaignId, $branch) {
-    $winners = [];
+  /**
+   * Get all winners of current Campaign by branch.
+   *
+   * @param $campaignId
+   * @param $branchId
+   *
+   * @return array
+   */
+  private function getCampaignWinners($campaignId, $branchId) {
+    $connection = \Drupal::service('database');
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $connection->select('openy_campaign_winner', 'w');
+    $query->join('openy_campaign_member_campaign', 'mc', 'mc.id = w.member_campaign');
+    $query->condition('mc.campaign', $campaignId);
+    $query->join('openy_campaign_member', 'm', 'm.id = mc.member');
+    $query->condition('m.branch', $branchId);
+    $query->condition('m.is_employee', FALSE);
+    $query->fields('m', ['id', 'first_name', 'last_name', 'membership_id']);
+    $query->fields('w', ['place']);
+    $query->addField('mc', 'id', 'member_campaign');
+    $results = $query->execute()->fetchAll();
 
-    // Get all
+    $winners = [];
+    foreach ($results as $item) {
+      $lastNameLetter = !empty($item->last_name) ? ' ' . strtoupper($item->last_name[0]) : '';
+
+      $winners[$item->place][] = [
+        'member_id' => $item->id,
+        'member_campaign_id' => $item->member_campaign,
+        'name' => $item->first_name . $lastNameLetter,
+        'membership_id' => substr($item->membership_id, -4),
+      ];
+    }
 
     return $winners;
   }
