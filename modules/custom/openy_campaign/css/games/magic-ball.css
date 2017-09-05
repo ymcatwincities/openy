@@ -1,21 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Oswald:400);
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
+.game-magic-ball {
+    position: relative;
+    width: 400px;
+    height:400px;
+    margin: 0 auto;
 }
 
-html, body{
-    width: 100%;
-    height: 100%;
-    background: rgba(20,0,20,1);
-    -webkit-transform: translate3d(0, 0, 0);
-    -webkit-transform-style: preserve-3d;
-}
-
-.epos{
+.game-magic-ball .epos {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,7 +16,7 @@ html, body{
     z-index: 10;
 }
 
-.eball{
+.game-magic-ball .eball {
     height: 400px;
     width: 400px;
     background: rgb(30,30,30);
@@ -34,7 +26,7 @@ html, body{
     box-shadow: inset -10px 10px 50px rgba(255,255,255,0.4), inset 5px -5px 50px rgba(0,0,0,1), inset 50px -50px 200px rgba(0,0,0,1), inset 0px -20px 20px rgba(60,0,60, 1);
 }
 
-.egrad{
+.game-magic-ball.egrad {
     position: absolute;
     background: radial-gradient(ellipse at center, rgba(255,255,255,0.2) 0%,rgba(242,242,242,0.2) 7%,rgba(30,30,30,0.1) 30%,rgba(30,30,30,0.00) 100%);
     width: 400px;
@@ -46,7 +38,7 @@ html, body{
     transform: translate(-50%,-50%);
 }
 
-.ewin{
+.game-magic-ball .ewin {
     position: absolute;
     background: linear-gradient(45deg, rgba(20,0,20,1) 0%, rgba(40,0,40,1) 100%);
     width: 160px;
@@ -60,7 +52,7 @@ html, body{
     transform: translate(-50%,-50%);
 }
 
-.triangle{
+.game-magic-ball .triangle {
     -webkit-transform: translate(-50%,-50%) rotate(5deg);
     transform: translate(-50%,-50%) rotate(5deg);
     position: absolute;
@@ -75,7 +67,7 @@ html, body{
     transition: ease-in all 0.2s;
 }
 
-.textbox{
+.game-magic-ball .textbox {
     font: 400 11px Oswald;
     text-shadow: 1px 1px 2px rgba(40,0,200,0.8);
     color: rgba(240,220,240,0.8);
@@ -93,14 +85,14 @@ html, body{
     transition: ease-in all 0.2s;
 }
 
-.eball:hover .textbox{
+.game-magic-ball .eball:hover .textbox {
     opacity: 1;
     -webkit-transform: translate(-50%,-50%) rotate(0deg);
     transform: translate(-50%,-50%) rotate(0deg);
     transition: ease-in all 0.2s;
 }
 
-.eball:hover .triangle{
+.game-magic-ball .eball:hover .triangle {
     border-top: 90px solid rgba(60,10,120,0.9);
     -webkit-transform: translate(-50%,-50%) rotate(0deg);
     transform: translate(-50%,-50%) rotate(0deg);
@@ -108,7 +100,7 @@ html, body{
     transition: ease-in all 0.2s;
 }
 
-.shadow{
+.game-magic-ball .shadow {
     background: rgba(10,10,10,1);
     border-radius: 100%;
     height: 200px;

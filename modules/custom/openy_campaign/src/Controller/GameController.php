@@ -16,6 +16,8 @@ use Drupal\Core\Access\AccessResult;
  */
 class GameController extends ControllerBase {
 
+  static $gamesList = ['magic_ball', 'scratchcard', 'flip_cards'];
+
   /**
    * The entity repository.
    *
@@ -84,7 +86,7 @@ class GameController extends ControllerBase {
       $previousRange = $nextRange;
     }
 
-    $randomNumber = rand(0, $expected);
+    $randomNumber = mt_rand(0, $expected);
 
     $result = $campaign->field_campaign_prize_nowin->value;
     foreach ($ranges as $range) {
@@ -106,21 +108,16 @@ class GameController extends ControllerBase {
     $game->log->value = $logMessage;
     $game->save();
 
-    $html = '<div class="shadow"></div>
-    <div class="epos">
-    <div class="eball">
-      <div class="egrad"></div>
-      <div class="ewin"><div>
-      <div class="triangle"></div>
-      <div class="textbox"></div>
-    </div>
-    </div>';
+    // Select random game type from the list.
+    $gameType = self::$gamesList[array_rand(self::$gamesList)];
 
     return [
-      '#markup' => $link . $html,
+      '#theme' => 'openy_campaign_game_' . $gameType,
+      '#result' => $result,
+      '#link' => $link,
       '#attached' => [
         'library' => [
-          'openy_campaign/magic_ball',
+          'openy_campaign/game_' . $gameType,
         ],
         'drupalSettings' => [
           'openy_campaign' => [

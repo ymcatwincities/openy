@@ -1,0 +1,40 @@
+.flip-cards .container {
+  height: 260px;
+  position: relative;
+  perspective: 800px;
+  margin: 20px auto;
+}
+
+.flip-cards .card {
+  width: 200px;
+  float: left;
+  margin-right: 30px;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+  position: relative;
+  cursor: pointer;
+}
+
+.flip-cards .card figure {
+  margin: 0;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+.flip-cards .card .front {
+  background: red;
+}
+.flip-cards .card .back {
+  background: blue;
+  transform: rotateY( 180deg );
+}
+
+.flip-cards .card.flipped {
+  transform: rotateY( 180deg );
+}
