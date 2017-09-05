@@ -1,9 +1,24 @@
-magic_ball:
+game_magic_ball:
   css:
     theme:
-      css/magic-ball.css: {}
+      css/games/magic-ball.css: {}
   js:
-    js/magic-ball.js: {}
+    js/games/magic-ball.js: {}
+
+game_scratchcard:
+  css:
+    theme:
+      css/games/scratchcard.css: {}
+  js:
+    js/games/scratchcard.js: {}
+
+game_flip_cards:
+  css:
+    theme:
+      css/games/flip-cards.css: {}
+  js:
+    js/games/flip-cards.js: {}
+
 
 campaign_modal:
   js:

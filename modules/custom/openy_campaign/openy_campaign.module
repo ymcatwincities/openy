@@ -49,6 +49,34 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-visits-goal',
     ],
+
+    // Instant Game: Magic Ball
+    'openy_campaign_game_magic_ball' => [
+      'variables' => [
+        'link' => NULL,
+        'result' => NULL,
+      ],
+      'template' => 'games/magic-ball',
+    ],
+
+    // Instant Game: Scratchpad
+    'openy_campaign_game_scratchcard' => [
+      'variables' => [
+        'link' => NULL,
+        'result' => NULL,
+      ],
+      'template' => 'games/scratchcard',
+    ],
+
+    // Instant Game: Flip Card
+    'openy_campaign_game_flip_cards' => [
+      'variables' => [
+        'link' => NULL,
+        'result' => NULL,
+      ],
+      'template' => 'games/flip-cards',
+    ],
+
   ];
 }
 
