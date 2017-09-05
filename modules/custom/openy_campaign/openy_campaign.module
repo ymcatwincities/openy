@@ -37,6 +37,15 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-register-text',
     ],
+    // Winners block text
+    'openy_campaign_winners' => [
+      'variables' => [
+        'title' => NULL,
+        'members' => [],
+        'prizes' => [],
+      ],
+      'template' => 'openy-campaign-winners',
+    ],
     // Activity tracking form.
     'openy_campaign_activity_form' => [
       'render element' => 'form',

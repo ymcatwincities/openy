@@ -3,27 +3,22 @@
 entity.openy_campaign_member.canonical:
   path: '/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}'
   defaults:
-  # Calls the view controller, defined in the annotation of the member entity
     _entity_view: 'openy_campaign_member'
     _title: 'OpenY Campaign: Member List'
   requirements:
-  # Calls the access controller of the entity, $operation 'view'
     _entity_access: 'openy_campaign_member.view'
 
 entity.openy_campaign_member.collection:
   path: '/admin/config/openy-entities/openy-campaign-member/list'
   defaults:
-  # Calls the list controller, defined in the annotation of the member entity.
     _entity_list: 'openy_campaign_member'
     _title: 'OpenY Campaign: Member List'
   requirements:
-  # Checks for permission directly.
     _permission: 'view member entity'
 
 entity.openy_campaign_member.add:
   path: '/admin/config/openy-entities/openy-campaign-member/add'
   defaults:
-  # Calls the form.add controller, defined in the member entity.
     _entity_form: openy_campaign_member.add
     _title: 'Add OpenY Member'
   requirements:
@@ -32,7 +27,6 @@ entity.openy_campaign_member.add:
 entity.openy_campaign_member.edit_form:
   path: '/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}/edit'
   defaults:
-  # Calls the form.edit controller, defined in the member entity.
     _entity_form: openy_campaign_member.edit
     _title: 'Edit OpenY Member'
   requirements:
@@ -41,7 +35,6 @@ entity.openy_campaign_member.edit_form:
 entity.openy_campaign_member.delete_form:
   path: '/admin/config/openy-entities/openy-campaign-member/{openy_campaign_member}/delete'
   defaults:
-    # Calls the form.delete controller, defined in the member entity.
     _entity_form: openy_campaign_member.delete
     _title: 'Delete OpenY Member'
   requirements:
@@ -59,27 +52,22 @@ openy_campaign.openy_campaign_member.delete_all:
 entity.openy_campaign_member_campaign.canonical:
   path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}'
   defaults:
-  # Calls the view controller, defined in the annotation of the member entity
     _entity_view: 'openy_campaign_member_campaign'
     _title: 'OpenY Campaign: Member Campaign List'
   requirements:
-  # Calls the access controller of the entity, $operation 'view'
     _entity_access: 'openy_campaign_member.view'
 
 entity.openy_campaign_member_campaign.collection:
   path: '/admin/config/openy-entities/openy-campaign-member-campaign/list'
   defaults:
-  # Calls the list controller, defined in the annotation of the member entity.
     _entity_list: 'openy_campaign_member_campaign'
     _title: 'OpenY Campaign: Member Campaign List'
   requirements:
-  # Checks for permission directly.
     _permission: 'view member entity'
 
 entity.openy_campaign_member_campaign.add:
   path: '/admin/config/openy-entities/openy-campaign-member-campaign/add'
   defaults:
-  # Calls the form.add controller, defined in the member entity.
     _entity_form: openy_campaign_member_campaign.add
     _title: 'Add OpenY Member Campaign'
   requirements:
@@ -88,7 +76,6 @@ entity.openy_campaign_member_campaign.add:
 entity.openy_campaign_member_campaign.edit_form:
   path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/edit'
   defaults:
-  # Calls the form.edit controller, defined in the member entity.
     _entity_form: openy_campaign_member_campaign.edit
     _title: 'Edit OpenY Member Campaign'
   requirements:
@@ -97,11 +84,51 @@ entity.openy_campaign_member_campaign.edit_form:
 entity.openy_campaign_member_campaign.delete_form:
   path: '/admin/config/openy-entities/openy-campaign-member-campaign/{openy_campaign_member_campaign}/delete'
   defaults:
-    # Calls the form.delete controller, defined in the member entity.
     _entity_form: openy_campaign_member_campaign.delete
     _title: 'Delete OpenY Member Campaign'
   requirements:
     _entity_access: 'openy_campaign_member.delete'
+
+# Mapping Branch entity routes.
+entity.openy_campaign_mapping_branch.canonical:
+  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}'
+  defaults:
+    _entity_view: 'openy_campaign_mapping_branch'
+    _title: 'OpenY Campaign: Mapping Branch List'
+  requirements:
+    _entity_access: 'openy_campaign_member.view'
+
+entity.openy_campaign_mapping_branch.collection:
+  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/list'
+  defaults:
+    _entity_list: 'openy_campaign_mapping_branch'
+    _title: 'OpenY Campaign: Mapping Branch List'
+  requirements:
+    _permission: 'view member entity'
+
+entity.openy_campaign_mapping_branch.add:
+  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/add'
+  defaults:
+    _entity_form: openy_campaign_mapping_branch.add
+    _title: 'Add OpenY Mapping Branch'
+  requirements:
+    _entity_create_access: 'openy_campaign_member'
+
+entity.openy_campaign_mapping_branch.edit_form:
+  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/edit'
+  defaults:
+    _entity_form: openy_campaign_mapping_branch.edit
+    _title: 'Edit OpenY Mapping Branch'
+  requirements:
+    _permission: 'edit member entity'
+
+entity.openy_campaign_mapping_branch.delete_form:
+  path: '/admin/config/openy-entities/openy-campaign-mapping-branch/{openy_campaign_mapping_branch}/delete'
+  defaults:
+    _entity_form: openy_campaign_mapping_branch.delete
+    _title: 'Delete OpenY Mapping Branch'
+  requirements:
+    _permission: 'delete member entity'
 
 # Module settings form
 openy_campaign.settings:
@@ -178,6 +205,17 @@ openy_campaign.campaign_members:
   path: '/node/{node}/campaign-members'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showMembers'
+  requirements:
+    _permission: 'administer retention campaign'
+  options:
+      _node_operation_route: TRUE
+
+# Calculate Campaign winners batch
+openy_campaign.campaign_winners:
+  path: '/node/{node}/campaign-winners'
+  defaults:
+    _form: '\Drupal\openy_campaign\Form\WinnersCalculateForm'
+    _title: 'Calculate Campaign winners'
   requirements:
     _permission: 'administer retention campaign'
   options:

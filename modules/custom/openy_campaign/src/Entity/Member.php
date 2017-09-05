@@ -493,6 +493,9 @@ class Member extends ContentEntityBase implements MemberInterface {
       $birthdate = $birthdate->format('Y-m-d');
     }
 
+    // Find branch from Mapping entity. It connects Branch ID from CRM and Branch node on the site
+    $branch = Mapping::getBranchByPersonifyId($resultsCRM->BranchId);
+
     // Create Member entity
     $memberValues = [
       'membership_id' => $membershipID,
@@ -504,8 +507,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       'is_employee' => !empty($resultsCRM->ProductCode) && strpos($resultsCRM->ProductCode, 'STAFF'),
       'birth_date' => (isset($birthdate)) ? $birthdate : NULL, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
       // Add these fields to CRM API
-      // TODO Set lookup table to connect Branch ID from CRM and Branch node on the site
-      'branch' => $resultsCRM->BranchId, // 2 - target_id for node type Branch
+      'branch' => !empty($branch) ? $branch : '', // 2 - target_id for node type Branch
       'payment_type' => 'FP', // FP, P3
       'member_unit_type' => 'Adult', // Adult, Dual, Family, Youth, Student, Contract
     ];

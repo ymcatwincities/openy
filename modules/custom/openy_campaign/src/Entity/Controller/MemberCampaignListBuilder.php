@@ -6,9 +6,9 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 
 /**
- * Provides a list controller for ymca_campaign_member entity.
+ * Provides a list controller for openy_campaign_member_campaign entity.
  *
- * @ingroup openy_campaign_member
+ * @ingroup openy_campaign_member_campaign
  */
 class MemberCampaignListBuilder extends EntityListBuilder {
 

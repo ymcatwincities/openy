@@ -25,3 +25,9 @@ entity.openy_campaign_member_campaign.add:
   title: 'Add new Member Campaign'
   appears_on:
     - entity.openy_campaign_member_campaign.collection
+
+entity.openy_campaign_mapping_branch.add:
+  route_name: 'entity.openy_campaign_mapping_branch.add'
+  title: 'Add new Mapping'
+  appears_on:
+    - entity.openy_campaign_mapping_branch.collection

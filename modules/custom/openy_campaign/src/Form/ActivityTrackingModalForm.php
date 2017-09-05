@@ -11,10 +11,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
-use Drupal\Core\Ajax\RedirectCommand;
+use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
-use Drupal\openy_campaign\Entity\MemberCampaign;
-
 
 /**
  * Provides a "openy_campaign_activity_block_form" form.
@@ -168,13 +166,8 @@ class ActivityTrackingModalForm extends FormBase {
 
       $response->addCommand(new OpenModalDialogCommand($this->t('Successful!'), $this->t('Thank you for tracking activities.'), ['width' => 800]));
 
-      // Set redirect to Campaign page
-      $memberCampaign = MemberCampaign::load($memberCampaignId);
-      /** @var \Drupal\node\Entity\Node $campaign */
-      $campaign = $memberCampaign->getCampaign();
-
-      $fullPath = \Drupal::request()->getSchemeAndHttpHost() . '/node/' . $campaign->id();
-      $response->addCommand(new RedirectCommand($fullPath));
+      // Close dialog with redirect ot current page
+      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog'));
     }
 
     return $response;
