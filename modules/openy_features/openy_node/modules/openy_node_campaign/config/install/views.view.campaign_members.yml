@@ -1135,9 +1135,9 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  data_export_1:
+  data_export:
     display_plugin: data_export
-    id: data_export_1
+    id: data_export
     display_title: 'Data export'
     position: 2
     display_options:
@@ -1846,6 +1846,10 @@ display:
             goal:
               alias: visit_goal
               raw_output: false
+      pager:
+        type: none
+        options:
+          offset: 0
     cache_metadata:
       max-age: -1
       contexts:
