@@ -11,6 +11,9 @@ dependencies:
     - field.field.node.campaign.field_campaign_membership_u_t
     - field.field.node.campaign.field_campaign_pages
     - field.field.node.campaign.field_campaign_payment_types
+    - field.field.node.campaign.field_campaign_prize_1
+    - field.field.node.campaign.field_campaign_prize_2
+    - field.field.node.campaign.field_campaign_prize_3
     - field.field.node.campaign.field_campaign_prize_coefficient
     - field.field.node.campaign.field_campaign_prize_nowin
     - field.field.node.campaign.field_campaign_prizes
@@ -19,6 +22,7 @@ dependencies:
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
     - field.field.node.campaign.field_error_target_audience
+    - field.field.node.campaign.field_exclude_activities
     - field.field.node.campaign.field_goal_check_ins_end_date
     - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_limit_visits_goal
@@ -110,7 +114,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 17
+      weight: 19
       format_type: fieldset
       format_settings:
         id: ''
@@ -176,6 +180,20 @@ third_party_settings:
         open: false
         required_fields: true
       label: 'General messages'
+    group_campaign_prizes:
+      children:
+        - field_campaign_prize_1
+        - field_campaign_prize_2
+        - field_campaign_prize_3
+      parent_name: ''
+      weight: 18
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: 'Campaign prizes'
 id: node.campaign.default
 targetEntityType: node
 bundle: campaign
@@ -223,7 +241,7 @@ content:
     type: datetime_default
     region: content
   field_campaign_expected_visits:
-    weight: 30
+    weight: 22
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -256,15 +274,39 @@ content:
     third_party_settings: {  }
     type: options_buttons
     region: content
+  field_campaign_prize_1:
+    weight: 24
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_campaign_prize_2:
+    weight: 25
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_campaign_prize_3:
+    weight: 26
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
   field_campaign_prize_coefficient:
-    weight: 31
+    weight: 23
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_campaign_prize_nowin:
-    weight: 29
+    weight: 21
     settings:
       size: 60
       placeholder: ''
@@ -273,7 +315,7 @@ content:
     region: content
   field_campaign_prizes:
     type: entity_reference_paragraphs
-    weight: 28
+    weight: 20
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -320,6 +362,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_exclude_activities:
+    weight: 17
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   field_goal_check_ins_end_date:
     weight: 21

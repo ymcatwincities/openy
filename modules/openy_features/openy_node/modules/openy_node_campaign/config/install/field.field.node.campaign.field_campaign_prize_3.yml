@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campaign_prize_3
+    - node.type.campaign
+  module:
+    - datalayer
+    - text
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_campaign_prize_3
+id: node.campaign.field_campaign_prize_3
+field_name: field_campaign_prize_3
+entity_type: node
+bundle: campaign
+label: '3rd prize'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: "<p class=\"text-align-center\">Hydro flask water bottle</p>\r\n"
+    format: full_html
+default_value_callback: ''
+settings: {  }
+field_type: text_long
