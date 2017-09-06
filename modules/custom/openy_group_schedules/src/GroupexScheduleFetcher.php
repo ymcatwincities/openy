@@ -158,7 +158,7 @@ class GroupexScheduleFetcher {
       $instructor_url_options['filter_date'] = $current_date;
       $instructor_url_options['filter_length'] = 'week';
 
-      $instructor_url_options['instructor'] = $item->original_instructor;
+      $instructor_url_options['instructor'] = $item->instructor;
 
       $instructor_url_options['class'] = 'any';
       $instructor_url_options['groupex_class'] = 'groupex_table_instructor_individual';
@@ -197,7 +197,7 @@ class GroupexScheduleFetcher {
           'date_short' => date('F, d', strtotime($item->date)),
           'time' => $item->start,
           'duration' => sprintf('%d min', trim($item->length)),
-          'instructor' => $item->original_instructor,
+          'instructor' => $item->instructor,
           'sub_instructor' => $item->sub_instructor,
           'class_id' => $item->class_id,
           'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $class_url_options]),
@@ -223,7 +223,7 @@ class GroupexScheduleFetcher {
     if (!empty($this->parameters['class']) && is_numeric($this->parameters['class'])) {
       $schedule['type'] = 'week';
     }
-    if (!empty($this->parameters['original_instructor'])) {
+    if (!empty($this->parameters['instructor'])) {
       $schedule['type'] = 'instructor';
     }
     if (!empty($this->parameters['sub_instructor'])) {
@@ -574,12 +574,12 @@ class GroupexScheduleFetcher {
     // Crate short name for original and sub instructors.
     foreach ($data as &$item) {
       if (!empty($item->original_instructor)) {
-        $original_instructor       = explode(' ', $item->original_instructor);
-        $item->original_instructor = $original_instructor[0] . ' ' . $original_instructor[1][0] . '.';
+        $instructor       = explode(' ', $item->original_instructor);
+        $item->instructor = $instructor[0] . ' ' . $instructor[1][0] . '.';
       }
       if (!empty($item->sub_instructor)) {
-        $original_instructor  = explode(' ', $item->sub_instructor);
-        $item->sub_instructor = $original_instructor[0] . ' ' . $original_instructor[1][0] . '.';
+        $instructor  = explode(' ', $item->sub_instructor);
+        $item->sub_instructor = $instructor[0] . ' ' . $instructor[1][0] . '.';
       }
     }
 
