@@ -216,7 +216,7 @@ function openy_campaign_cron() {
  * Implements template_preprocess_node().
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
-  // Find what published Landing page needs to be rendered on Campaign page.
+  // Find which published Landing page needs to be rendered on Campaign page.
   if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
     $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
     $requestLandingPage = $campaignMenuService->showRequestLandingPage($variables['node']);
