@@ -8,8 +8,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\node\NodeInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Access\AccessResult;
 
 /**
  * Class GameController.
@@ -126,20 +124,6 @@ class GameController extends ControllerBase {
         ],
       ]
     ];
-  }
-
-  /**
-   * Checks access for a specific request.
-   *
-   * @param \Drupal\node\NodeInterface $node
-   *   Node.
-   * @param \Drupal\Core\Session\AccountInterface $account
-   *   Run access checks for this account.
-   *
-   * @return \Drupal\Core\Access\AccessResult
-   */
-  public function gameResultsAccess(NodeInterface $node, AccountInterface $account) {
-    return AccessResult::allowedIf($account->hasPermission('administer retention campaign') && $node->getType() == 'campaign');
   }
 
   /**

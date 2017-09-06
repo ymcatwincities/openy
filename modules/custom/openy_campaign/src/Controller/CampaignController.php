@@ -13,6 +13,9 @@ use Drupal\node\Entity\Node;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Access\AccessResult;
+
 
 /**
  * Class CampaignController.
@@ -114,6 +117,20 @@ class CampaignController extends ControllerBase {
     ];
 
     return $build;
+  }
+
+  /**
+   * Checks access for a specific request.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *   Node.
+   * @param \Drupal\Core\Session\AccountInterface $account
+   *   Run access checks for this account.
+   *
+   * @return \Drupal\Core\Access\AccessResult
+   */
+  public function campaignPagesAccess(NodeInterface $node, AccountInterface $account) {
+    return AccessResult::allowedIf($account->hasPermission('administer retention campaign') && $node->getType() == 'campaign');
   }
 
 }

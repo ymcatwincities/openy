@@ -197,18 +197,18 @@ openy_campaign.campaign_game_results:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\GameController::gameResults'
   requirements:
-    _custom_access:  '\Drupal\openy_campaign\Controller\GameController::gameResultsAccess'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
   options:
-      _node_operation_route: TRUE
+    _node_operation_route: TRUE
 
 openy_campaign.campaign_members:
   path: '/node/{node}/campaign-members'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showMembers'
   requirements:
-    _permission: 'administer retention campaign'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
   options:
-      _node_operation_route: TRUE
+    _node_operation_route: TRUE
 
 # Calculate Campaign winners batch
 openy_campaign.campaign_winners:
@@ -219,4 +219,4 @@ openy_campaign.campaign_winners:
   requirements:
     _permission: 'administer retention campaign'
   options:
-      _node_operation_route: TRUE
+    _node_operation_route: TRUE
