@@ -2,7 +2,7 @@
 
 namespace Drupal\openy_campaign\Form;
 
-use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -27,7 +27,6 @@ class WinnersBlockForm extends FormBase {
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
-
 
   /**
    * CalcBlockForm constructor.
@@ -115,12 +114,14 @@ class WinnersBlockForm extends FormBase {
 
     $output = [];
     foreach ($places as $key => $place) {
-      $output[] = [
-        '#theme' => 'openy_campaign_winners',
-        '#title' => $place,
-        '#members' => $winners[$key],
-        '#prizes' => $prizes[$key],
-      ];
+      if (!empty($winners[$key])) {
+        $output[] = [
+          '#theme' => 'openy_campaign_winners',
+          '#title' => $place,
+          '#members' => $winners[$key],
+          '#prizes' => $prizes[$key],
+        ];
+      }
     }
 
     $render = $this->renderer->renderRoot($output);
@@ -163,12 +164,7 @@ class WinnersBlockForm extends FormBase {
 
     /** @var \Drupal\node\Entity\Node $branch */
     foreach ($branches as $branch) {
-      /** @var Term $locationName */
-      $locationName = Term::load($branch->field_location_area->target_id);
-      if (empty($locationName)) {
-        continue;
-      }
-      $locations[$branch->id()] = $locationName->getName();
+      $locations[$branch->id()] = $branch->getTitle();
     }
 
     return $locations;
@@ -212,7 +208,17 @@ class WinnersBlockForm extends FormBase {
   }
 
   private function getCampaignPrizes($campaignId) {
+    $prizesFields = [
+      1 => 'field_campaign_prize_1',
+      2 => 'field_campaign_prize_2',
+      3 => 'field_campaign_prize_3',
+    ];
+    $campaign = Node::load($campaignId);
+
     $prizes = [];
+    foreach ($prizesFields as $key => $field) {
+      $prizes[$key] = check_markup($campaign->$field->value, $campaign->$field->format);
+    }
 
     return $prizes;
   }
