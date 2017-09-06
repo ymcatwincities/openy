@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_exclude_activities
+    - node.type.campaign
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_exclude_activities
+id: node.campaign.field_exclude_activities
+field_name: field_exclude_activities
+entity_type: node
+bundle: campaign
+label: 'Exclude activities'
+description: 'These activities will not be used during winners calculation'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
