@@ -11,10 +11,15 @@
         <div class="progress-line"></div>
         {% for i in 1..goal %}
             {% set activeClass = '' %}
+
+            {# Used for the development purpose only #}
+            {% set symbol = '-' %}
+
             {% if (i <= current) %}
                {% set activeClass = ' active' %}
+                {% set symbol = '*' %}
             {% endif %}
-            <span class="point point-{{ i }}{{ activeClass }}"></span>
+            <span class="point point-{{ i }}{{ activeClass }}">{{ symbol }}</span>
         {% endfor %}
     </div>
 </div>

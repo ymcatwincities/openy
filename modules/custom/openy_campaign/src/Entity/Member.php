@@ -502,7 +502,7 @@ class Member extends ContentEntityBase implements MemberInterface {
     $productCode = '';
     $productCodeParts = explode('_', $resultsCRM->ProductCode);
     if (!empty($productCodeParts[2])) {
-      $productCode = ucfirst($productCodeParts[2]);
+      $productCode = ucfirst(strtolower($productCodeParts[2]));
     }
 
     // Create Member entity
