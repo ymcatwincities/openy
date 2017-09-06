@@ -1,8 +1,8 @@
 langcode: en
 status: true
-#dependencies:
-#  module:
-#    - openy_campaign
+dependencies:
+  module:
+    - openy_campaign
 id: campaign_game_results
 label: 'Campaign Game Results'
 module: views
