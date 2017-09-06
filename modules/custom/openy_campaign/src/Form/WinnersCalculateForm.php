@@ -91,6 +91,12 @@ class WinnersCalculateForm extends FormBase {
     $campaignId = $form_state->getValue('campaign_id');
     /** @var Node $campaign */
     $campaign = Node::load($campaignId);
+    // Get excluded terms
+    $excludedTids = $campaign->get('field_exclude_activities')->getValue();
+    $excluded = [];
+    foreach ($excludedTids as $value) {
+      $excluded[] = $value['value'];
+    }
 
     $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
     $activitiesTree = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0);
@@ -98,6 +104,11 @@ class WinnersCalculateForm extends FormBase {
     $activities = [];
     foreach ($activitiesTree as $item) {
       $parent = isset($item->parents[0]) ? $item->parents[0] : '';
+      // Exclude terms from 'field_exclude_activities'
+      if (in_array($item->tid, $excluded) || in_array($parent, $excluded)) {
+        continue;
+      }
+
       if (empty($parent)) {
         $activities[$item->tid][] = $item->tid;
       } else {
@@ -166,11 +177,13 @@ class WinnersCalculateForm extends FormBase {
 
     // Get all member campaigns for this branch with goal, visits and main activity
     $memberCampaignsInfo = self::getInfoByBranch($campaign, $branchId, $activities);
+    // All members to get winners by visits
+    $allResults = $memberCampaignsInfo['all_visits'];
 
     $mainActivities = array_keys($memberCampaignsInfo);
     // Calculate winners per category
     foreach ($mainActivities as $category) {
-      $memberCampaigns = $memberCampaignsInfo[$category];
+      $memberCampaigns = ($category != 'all_visits') ? $memberCampaignsInfo[$category] : $allResults;
 
       // Separate all reached the goal MemberCampaigns - get place with random
       $reachedGoal = [];
@@ -188,11 +201,13 @@ class WinnersCalculateForm extends FormBase {
         return $a['percentage'] - $b['percentage'];
       });
 
+      // Randomize array
+      shuffle($reachedGoal);
+
       // Assign places
       $places = [1, 2, 3];
       foreach ($places as $place) {
         if (!empty($reachedGoal)) {
-          shuffle($reachedGoal);
           $memberCampaignItem = array_shift($reachedGoal);
         }
         elseif (!empty($other)) {
@@ -203,10 +218,13 @@ class WinnersCalculateForm extends FormBase {
           break;
         }
 
-        // Create Winner entity
+        // Delete winner from all results array
+        unset($allResults[$memberCampaignItem['member_campaign']]);
+
+        // Create Winner entity. If winner defined by all visits without activity - set Activity = 0
         $winner = Winner::create([
           'member_campaign' => $memberCampaignItem['member_campaign'],
-          'activity' => $category,
+          'activity' => (is_numeric($category) && in_array($category, array_keys($activities))) ? $category : 0,
           'place' => $place,
         ]);
         $winner->save();
@@ -288,13 +306,9 @@ class WinnersCalculateForm extends FormBase {
     // Get main activity for each MemberCampaign and collect result array
     $resultInfo = [];
     foreach ($memberCampaignsInfo as &$mcData) {
-      // TODO Check: If there were no activity checkins and we couldn't define visits per activity - set random activity
+      // Get only members who tracked activities on site
       if (!empty($mcData['activity_visits'])) {
         $mcData['main_activity'] = array_search(max($mcData['activity_visits']), $mcData['activity_visits']);
-      }
-      else {
-        $randomKey = mt_rand(0, count($mainActivities) - 1);
-        $mcData['main_activity'] = $mainActivities[$randomKey];
       }
       // Calculate percentage
       if ($mcData['visits'] - $mcData['goal'] >= 0) {
@@ -304,8 +318,13 @@ class WinnersCalculateForm extends FormBase {
       }
 
       // Collect result array grouped by main activity
-      $resultInfo[$mcData['main_activity']][] = $mcData;
+      if (isset($mcData['main_activity'])) {
+        $resultInfo[$mcData['main_activity']][] = $mcData;
+      }
     }
+
+    // Collect all data to get winner by visits
+    $resultInfo['all_visits'] = $memberCampaignsInfo;
 
     return $resultInfo;
   }

@@ -4,6 +4,7 @@ namespace Drupal\openy_campaign\Entity\Controller;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Provides a list controller for ymca_campaign_member entity.
@@ -24,6 +25,7 @@ class MemberListBuilder extends EntityListBuilder {
     $header['id'] = $this->t('Internal ID');
     $header['name'] = $this->t('Name');
     $header['mail'] = $this->t('Email');
+    $header['region'] = $this->t('Branch (Region)');
     $header['membership_id'] = $this->t('Membership ID');
     $header['is_employee'] = $this->t('Employee');
     $header['checkins'] = $this->t('Checkins');
@@ -39,6 +41,14 @@ class MemberListBuilder extends EntityListBuilder {
     $row['id'] = $entity->id();
     $row['name'] = $entity->getFullName();
     $row['mail'] = $entity->getEmail();
+
+    /** @var \Drupal\node\Entity\Node $branch */
+    $branch = $entity->branch->entity;
+    /** @var Term $locationName */
+    $locationName = Term::load($branch->field_location_area->target_id);
+    $region = !empty($locationName) ? ' (' . $locationName->getName() . ')' : '';
+    $row['region'] = $branch->getTitle() . $region;
+
     $row['membership_id'] = $entity->getMemberId();
     $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
 
