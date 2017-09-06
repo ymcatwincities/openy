@@ -7,6 +7,7 @@
 
 namespace Drupal\openy_campaign\Plugin\views\field;
 
+use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberCheckin;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
@@ -32,8 +33,13 @@ class MemberCampaignCheckins extends FieldPluginBase {
    */
   public function render(ResultRow $values) {
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $entity */
-    $entity = $values->_entity;
-    
+    if ($values->_entity instanceof MemberCampaign) {
+      $entity = $values->_entity;
+    } else {
+      $relationship_entities = $values->_relationship_entities;
+      $entity = $relationship_entities['member_campaign'];
+    }
+
     /** @var \Drupal\openy_campaign\Entity\Member $member */
     $member = $entity->getMember();
     
