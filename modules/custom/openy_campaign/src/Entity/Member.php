@@ -496,6 +496,15 @@ class Member extends ContentEntityBase implements MemberInterface {
     // Find branch from Mapping entity. It connects Branch ID from CRM and Branch node on the site
     $branch = Mapping::getBranchByPersonifyId($resultsCRM->BranchId);
 
+    // Transform ProductCode into MemberUnitType.
+    // Use last part of it as type (32_ME_ADULT => Adult, 30_ME_FAMILY => Family).
+    // Possible values: Adult, Dual, Family, Youth, Student, Contract
+    $productCode = '';
+    $productCodeParts = explode('_', $resultsCRM->ProductCode);
+    if (!empty($productCodeParts[2])) {
+      $productCode = ucfirst($productCodeParts[2]);
+    }
+
     // Create Member entity
     $memberValues = [
       'membership_id' => $membershipID,
@@ -508,8 +517,8 @@ class Member extends ContentEntityBase implements MemberInterface {
       'birth_date' => (isset($birthdate)) ? $birthdate : NULL, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
       // Add these fields to CRM API
       'branch' => !empty($branch) ? $branch : '', // 2 - target_id for node type Branch
-      'payment_type' => 'FP', // FP, P3
-      'member_unit_type' => 'Adult', // Adult, Dual, Family, Youth, Student, Contract
+      'payment_type' => '', // FP, P3
+      'member_unit_type' => $productCode,
     ];
 
     // Load Member by unique Membership ID.
