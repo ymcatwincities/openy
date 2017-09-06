@@ -35,10 +35,12 @@ Feature: All Amenities Paragraph
     And I wait for AJAX to finish
     Then I should see "ABRANCH 01"
     When I check the box "Behat Amenity One"
+    And I wait for AJAX to finish
     And I check the box "Behat Amenity Two"
     And I wait for AJAX to finish
     Then I should not see "ABRANCH 01"
     When I uncheck the box "Behat Amenity One"
+    And I wait for AJAX to finish
     And I check the box "Behat Amenity Two"
     And I wait for AJAX to finish
     Then I should not see "ABRANCH 01"
