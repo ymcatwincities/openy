@@ -24,6 +24,11 @@ class FaqDefault extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     foreach ($items as $delta => $item) {
+      $answer = [
+        '#type' => 'processed_text',
+        '#text' => $item->answer,
+        '#format' => 'full_html',
+      ];
       $elements[$delta] = [
         'question' => [
           '#type' => 'html_tag',
@@ -43,7 +48,7 @@ class FaqDefault extends FormatterBase {
               'field-answer',
             ],
           ],
-          '#value' => $item->answer,
+          '#value' => render($answer),
         ],
         '#prefix' => '<div class="paragraph--type--faq-item">',
         '#suffix' => '</div>',
