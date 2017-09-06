@@ -69,6 +69,9 @@ projects[better_exposed_filters] = 3.0-alpha2
 projects[custom_formatters] = 3.0-alpha1
 projects[token_filter] = 1.0-beta1
 projects[views_field_formatter] = 1.5
+projects[lndr] = 1.0
+
+
 
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
