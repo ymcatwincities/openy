@@ -82,6 +82,14 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
+  field_location_fax:
+    type: telephone_link
+    weight: 8
+    region: content
+    label: hidden
+    settings:
+      title: ''
+    third_party_settings: {  }
   field_location_phone:
     type: telephone_link
     weight: 1
@@ -94,7 +102,6 @@ hidden:
   field_location_area: true
   field_location_coordinates: true
   field_location_email: true
-  field_location_fax: true
   field_location_state: true
   field_location_temp_url: true
   field_meta_tags: true
