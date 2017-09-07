@@ -16,6 +16,9 @@ settings:
     -
       value: footer
       label: Footer
+    -
+      value: modal
+      label: Modal
   allowed_values_function: ''
 module: options
 locked: false

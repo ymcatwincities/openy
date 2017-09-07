@@ -29,3 +29,17 @@ function openy_alerts_update_8002() {
       'views.view.alerts',
     ]);
 }
+
+/**
+ * Update settings to make alerts available in modal.
+ */
+function openy_alerts_update_8003() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_alerts') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'block.block.views_block__modal_alerts_local',
+      'field.storage.node.field_alert_place',
+      'views.view.modal_alerts'
+    ]);
+}
