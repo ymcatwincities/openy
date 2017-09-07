@@ -198,12 +198,12 @@ sup {
   }
 
   50% {
-    height: 50px;
+    height: 70px;
     opacity: 0;
   }
 
   100% {
-    height: 50px;
+    height: 70px;
     opacity: 1;
   }
 }
@@ -211,7 +211,7 @@ sup {
 
 @-webkit-keyframes sidebar-nav-item-out {
   0% {
-    height: 50px;
+    height: 70px;
     opacity: 1;
   }
 
@@ -224,7 +224,7 @@ sup {
 
 @keyframes sidebar-nav-item-out {
   0% {
-    height: 50px;
+    height: 70px;
     opacity: 1;
   }
 
@@ -242,12 +242,12 @@ sup {
   }
 
   50% {
-    height: 50px;
+    height: 70px;
     opacity: 0;
   }
 
   100% {
-    height: 50px;
+    height: 70px;
     opacity: 1;
   }
 }
@@ -260,12 +260,12 @@ sup {
   }
 
   50% {
-    height: 50px;
+    height: 70px;
     opacity: 0;
   }
 
   100% {
-    height: 50px;
+    height: 70px;
     opacity: 1;
   }
 }
@@ -278,12 +278,12 @@ sup {
   }
 
   50% {
-    height: 50px;
+    height: 70px;
     opacity: 0;
   }
 
   100% {
-    height: 50px;
+    height: 70px;
     opacity: 1;
   }
 }
@@ -685,8 +685,6 @@ body {
     box-shadow: none;
   }
   .active > a {
-    height: 50px;
-    line-height: 50px;
     -webkit-transition: height .3s .3s ease-out,opacity .3s 0s ease-out,background-color .2s .6s ease-out,color .2s .6s ease-out,color .2s .6s ease-out,border-color 0s ease-out;
     -moz-transition: height .3s .3s ease-out,opacity .3s 0s ease-out,background-color .2s .6s ease-out,color .2s .6s ease-out,color .2s .6s ease-out,border-color 0s ease-out;
     -ms-transition: height .3s .3s ease-out,opacity .3s 0s ease-out,background-color .2s .6s ease-out,color .2s .6s ease-out,color .2s .6s ease-out,border-color 0s ease-out;
@@ -697,7 +695,6 @@ body {
     height: 0;
     background: #ccc;
     text-overflow: ellipsis;
-    line-height: 50px;
     opacity: 0;
     cursor: pointer;
     -webkit-transition: height .3s 0s ease-out,opacity .3s 0s ease-out;
@@ -1199,7 +1196,6 @@ body {
     }
   }
   .active a {
-    height: 50px;
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.13);
     text-shadow: 0 1px rgba(255, 255, 255, 0.2);
     opacity: 1;
@@ -2845,7 +2841,6 @@ img {
     -o-animation: sidebar-nav-item .6s ease-out both;
   }
   .dropdown-menu > li a {
-    height: 50px;
     -webkit-animation: sidebar-nav-item-out .3s ease-out both;
     -moz-animation: sidebar-nav-item-out .3s ease-out both;
     -ms-animation: sidebar-nav-item-out .3s ease-out both;
@@ -3255,11 +3250,11 @@ legend {
 }
 
 .no-csstransitions .sidebar .active .health-fitness.nav-level-2:before, .sidebar .health-fitness.nav-level-2:before {
-                                                                          content: 'Programs';
+                                                                          //content: 'Programs';
                                                                         }
 
 .no-csstransitions .sidebar .active .jobs.nav-level-2:before, .sidebar .jobs.nav-level-2:before {
-                                                                content: 'More';
+                                                                //content: 'More';
                                                               }
 
 .nav-home {
