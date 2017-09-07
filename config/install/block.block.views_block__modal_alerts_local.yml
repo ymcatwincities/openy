@@ -10,7 +10,7 @@ dependencies:
     - ygh
 id: views_block__modal_alerts_local
 theme: ygh
-region: header
+region: pre_footer
 weight: 0
 provider: null
 plugin: 'views_block:modal_alerts-local'
