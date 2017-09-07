@@ -794,7 +794,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   padding: 7px 0;
 }
 .field--type-list-integer .fieldset-legend {
-  color: #000;
+  color: #000000;
   text-transform: none;
   margin-bottom: 5px;
   font-weight: bold;
@@ -1876,6 +1876,18 @@ article.site-alert ul li div {
     width: 21%;
   }
 }
+#membership-calc-wrapper .nav-pills > li div {
+  background-color: #c6168d !important;
+}
+#membership-calc-wrapper .nav-pills > li div:after {
+  border-left-color: #c6168d !important;
+}
+#membership-calc-wrapper .nav-pills > li.active div {
+  background-color: #5c2e91 !important;
+}
+#membership-calc-wrapper .nav-pills > li.active div:after {
+  border-left-color: #5c2e91 !important;
+}
 @media (min-width: 768px) {
   #membership-calc-wrapper .nav-pills > li .step-1,
   #membership-calc-wrapper .nav-pills > li .step-2,
@@ -1966,6 +1978,107 @@ article.site-alert ul li div {
 }
 #membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item label {
   margin-top: 0;
+}
+#membership-calc-wrapper [data-drupal-selector="edit-add-member"] .fieldset-wrapper {
+  margin: 0 -15px;
+}
+#membership-calc-wrapper .add-member-message {
+  padding: 0 15px;
+}
+@media (max-width: 1199px) {
+  #membership-calc-wrapper .webform-options-display-four-columns .form-checkboxes {
+    column-count: 2;
+  }
+}
+@media (max-width: 991px) {
+  #membership-calc-wrapper .webform-options-display-four-columns .form-checkboxes {
+    column-count: 2;
+  }
+}
+@media (max-width: 767px) {
+  #membership-calc-wrapper .webform-options-display-four-columns .form-checkboxes {
+    column-count: 1;
+  }
+}
+@media (min-width: 768px) {
+  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-first-name {
+    width: 49%;
+    float: left;
+  }
+  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-last-name {
+    width: 48%;
+    margin-left: 2%;
+    display: inline-block;
+  }
+  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-card-number {
+    width: 49%;
+    float: left;
+  }
+  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-exp-month {
+    width: 16%;
+    display: inline-block;
+    margin-left: 2%;
+  }
+  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-exp-year {
+    width: 17%;
+    margin-left: 1%;
+    display: inline-block;
+  }
+  #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-security-code {
+    width: 12%;
+    float: left;
+    margin-left: 2%;
+  }
+}
+#membership-calc-wrapper .i-accept {
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+}
+#membership-calc-wrapper .initials {
+  width: 35%;
+  display: inline-block;
+}
+#membership-calc-wrapper .signature {
+  width: 49%;
+  float: left;
+}
+#membership-calc-wrapper .signature + .js-form-type-date {
+  width: 49%;
+  float: left;
+  margin-left: 2%;
+}
+#membership-calc-wrapper .js-form-type-checkbox.form-item-agreement input {
+  float: left;
+  display: block;
+}
+#membership-calc-wrapper .js-form-type-checkbox.form-item-agreement label {
+  margin-left: 25px;
+  display: block;
+}
+#membership-calc-wrapper .billing-payment-info .billing-info .form-item-state {
+  width: 49%;
+  float: left;
+}
+#membership-calc-wrapper .billing-payment-info .billing-info .form-item-zip {
+  width: 49%;
+  float: left;
+  margin-left: 2%;
+}
+#membership-calc-wrapper .payment-info .form-item-security-code {
+  float: left;
+  width: 32%;
+}
+#membership-calc-wrapper .payment-info .form-item-exp-month {
+  float: left;
+  width: 32%;
+  margin-left: 2%;
+}
+#membership-calc-wrapper .payment-info .form-item-exp-year {
+  float: left;
+  width: 32%;
+  margin-left: 2%;
+  margin-top: 24px;
 }
 
 #membership-page {

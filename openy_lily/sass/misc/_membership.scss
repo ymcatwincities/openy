@@ -19,8 +19,23 @@
     @media (min-width: 40em) {
       width: 21%;
     }
+    div {
+      background-color: #c6168d !important;
+      &:after {
+        border-left-color: #c6168d !important;
+      }
+    }
+    &.active {
+      div {
+        background-color: #5c2e91 !important;
+        &:after {
+          border-left-color: #5c2e91 !important;
+        }
+      }
+    }
   }
   @media (min-width: 768px) {
+
     .nav-pills > li .step-1,
     .nav-pills > li .step-2,
     .nav-pills > li .step-3,
@@ -117,6 +132,119 @@
     margin: 0 0 0 20px !important;
     label {
       margin-top: 0;
+    }
+  }
+  [data-drupal-selector="edit-add-member"] {
+    .fieldset-wrapper {
+      margin: 0 -15px;
+    }
+  }
+  .add-member-message {
+    padding: 0 15px;
+  }
+  @media (max-width: 1199px) {
+    .webform-options-display-four-columns .form-checkboxes {
+      column-count: 2;
+    }
+  }
+  @media (max-width: 991px) {
+    .webform-options-display-four-columns .form-checkboxes {
+      column-count: 2;
+    }
+  }
+  @media (max-width: 767px) {
+    .webform-options-display-four-columns .form-checkboxes {
+      column-count: 1;
+    }
+  }
+  @media (min-width: 768px) {
+    [data-drupal-selector="edit-draft-form"] {
+      .form-item-first-name {
+        width: 49%;
+        float: left;
+      }
+      .form-item-last-name {
+        width: 48%;
+        margin-left: 2%;
+        display: inline-block;
+      }
+      .form-item-card-number {
+        width: 49%;
+        float: left;
+      }
+      .form-item-exp-month {
+        width: 16%;
+        display: inline-block;
+        margin-left: 2%;
+      }
+      .form-item-exp-year {
+        width: 17%;
+        margin-left: 1%;
+        display: inline-block;
+      }
+      .form-item-security-code {
+        width: 12%;
+        float: left;
+        margin-left: 2%;
+      }
+    }
+  }
+  .i-accept {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .initials {
+    width: 35%;
+    display: inline-block;
+  }
+  .signature {
+    width: 49%;
+    float: left;
+  }
+  .signature + .js-form-type-date {
+    width: 49%;
+    float: left;
+    margin-left: 2%;
+  }
+  .js-form-type-checkbox.form-item-agreement {
+    input {
+      float: left;
+      display: block;
+    }
+    label {
+      margin-left: 25px;
+      display: block;
+    }
+  }
+  .billing-payment-info {
+    .billing-info {
+      .form-item-state {
+        width: 49%;
+        float: left;
+      }
+      .form-item-zip {
+        width: 49%;
+        float: left;
+        margin-left: 2%;
+      }
+    }
+  }
+  .payment-info {
+    .form-item-security-code {
+      float: left;
+      width: 32%;
+    }
+    .form-item-exp-month {
+      float: left;
+      width: 32%;
+      margin-left: 2%;
+    }
+    .form-item-exp-year {
+      float: left;
+      width: 32%;
+      margin-left: 2%;
+      margin-top: 24px;
     }
   }
 }
