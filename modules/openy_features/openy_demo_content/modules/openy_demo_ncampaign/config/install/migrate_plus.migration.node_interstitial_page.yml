@@ -1,0 +1,65 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_ncampaign
+id: openy_demo_node_interstitial_page
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create demo interstitial page nodes'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: interstitial_page
+      title: 'Interstitial Content'
+      alias: '/interstitial_page'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias:
+    plugin: get
+    source: alias
+  body/value:
+    plugin: default_value
+    default_value: |
+    <drupal-entity data-align="center" data-embed-button="embed_image" data-entity-embed-display="view_mode:media.embedded_half"
+    data-entity-embed-display-settings="{&quot;link_url&quot;:&quot;&quot;}" data-entity-type="media" data-entity-uuid="14bb4b98-dc7f-4311-9508-b84b1e66216c">
+    </drupal-entity><p>Some text for popup.&nbsp;</p>
+    <p>Lorem ipsum <strong>dolor</strong><strong> </strong><strong>sit</strong><strong> </strong><strong>amet</strong><strong>,
+    </strong><strong>consectetur</strong><strong> </strong><strong>adipiscing</strong><strong> </strong><strong>elit</strong>.
+    Aliquam et sollicitudin felis, non volutpat dolor.</p>
+    <p>Cras fermentum, nibh at ultrices luctus, <strong>erat odio faucibus tortor</strong>, sed egestas enim magna et nibh.</p>
+    <p>Nam feugiat odio ac felis imperdiet aliquet. Donec pretium pretium velit a volutpat. Vivamus maximus eros eget
+    libero sodales rhoncus. Phasellus porta ligula sed scelerisque blandit. Sed egestas eget nunc vitae congue. Proin bibendum gravida ultricies.</p>
+  field_dialog_title:
+    plugin: default_value
+    default_value: Terms and Conditions
+  field_show_times:
+    plugin: default_value
+    default_value: 3
+  field_close_time:
+    plugin: default_value
+    default_value: 5
+  field_close_interaction:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:node'
+  default_bundle: interstitial_page
