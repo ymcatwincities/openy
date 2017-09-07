@@ -200,6 +200,14 @@ class OpenYClassesGroupExSession extends ContentEntityBase implements OpenYClass
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
+    $fields['canceled'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Canceled'))
+      ->setDescription(t('Indicates that sessions is canceled or not.'))
+      ->setRevisionable(FALSE)
+      ->setDefaultValue(FALSE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
     return $fields;
   }
 

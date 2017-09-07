@@ -58,7 +58,7 @@ function openy_digital_signage_groupex_schedule_entity_create(EntityInterface $e
       'source' => 'groupex',
       'source_id' => $entity->get('groupex_id')->value,
       'title' => $entity->get('title')->value,
-      'status' => TRUE,
+      'status' => !$entity->get('canceled')->value,
       'date_time' => [
         'value' => $entity->get('date_time')->value,
         'end_value' => $entity->get('date_time')->end_value,
@@ -87,7 +87,9 @@ function openy_digital_signage_groupex_schedule_entity_update(EntityInterface $e
 
   $entity_manager = \Drupal::entityTypeManager()
     ->getStorage('openy_ds_classes_session');
-  $entities = $entity_manager->loadByProperties(['source_id' => $entity->id()]);
+  $entities = $entity_manager->loadByProperties([
+    'source_id' => $entity->get('groupex_id')->value,
+  ]);
   if (empty($entities)) {
     return;
   }
@@ -107,6 +109,7 @@ function openy_digital_signage_groupex_schedule_entity_update(EntityInterface $e
   }
 
   $session->set('title', $entity->get('title')->value);
+  $session->set('status', !$entity->get('canceled')->value);
   $session->set('date_time', [
     'value' => $entity->get('date_time')->value,
     'end_value' => $entity->get('date_time')->end_value,
