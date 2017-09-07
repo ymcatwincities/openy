@@ -62,6 +62,13 @@
 
   Drupal.behaviors.openy_schedules = {
     attach: function(context, settings) {
+      // Makes all select elements read-only when the Week View checkbox state is changed.
+      var form = $('.openy-schedules-search-form');
+      form.find('.js-form-item-display input')
+        .on('change', function() {
+          form.find('.js-form-type-select select').attr('readonly', true);
+        });
+
       $('.openy-schedules-search-form .js-form-item-date input').datepicker({
         onSelect: function(dateText, ins) {
           $(this)
@@ -257,16 +264,4 @@
     }
   };
 
-  /**
-   * Makes all select elements read-only when the Week View checkbox state is changed.
-   */
-  Drupal.behaviors.ymcali_schedules = {
-    attach: function(context, settings) {
-      var form = $('.openy-schedules-search-form');
-      form.find('.js-form-item-display input')
-        .on('change', function() {
-          form.find('.js-form-type-select select').attr('readonly', true);
-        });
-    }
-  };
 })(jQuery);
