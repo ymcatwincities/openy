@@ -156,6 +156,9 @@
             },
             "drupal/views_field_formatter": {
                 "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
+            },
+            "drupal/lazyloader": {
+                "2860152 - Image template missing": "https://www.drupal.org/files/issues/2860152-rename-file.patch"
             }
         }
     },
@@ -225,7 +228,7 @@
         "drupal/token_filter": "1.0-beta1",
         "drupal/views_field_formatter": "1.5",
         "drupal/lndr": "1.0",
-        "drupal/lazyloader": "1.0-alpha2",
+        "drupal/lazyloader": "1.x-dev",
         "doctrine/inflector": "1.1.*"
     }
 }
