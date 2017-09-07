@@ -7,7 +7,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openy_digital_signage_groupex_schedule\Entity\OpenYClassesGroupExSession;
 use Drupal\ymca_mappings\LocationMappingRepository;
-use Drupal\ymca_mappings\Entity\Mapping;
 
 /**
  * Fetch data from GroupEx Pro.
@@ -230,6 +229,7 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
         'length' => $item->length,
         'description' => $item->desc,
         'raw_data' => $json,
+        'canceled' => isset($item->canceled) && $item->canceled == 'true',
       ]);
     $session->save();
   }
@@ -258,6 +258,8 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
     $entity->set('length', $item->length);
     $entity->set('description', $item->desc);
     $entity->set('raw_data', $json);
+    $entity->set('hash', $hash);
+    $entity->set('canceled', isset($item->canceled) && $item->canceled == 'true');
     $entity->save();
   }
 
