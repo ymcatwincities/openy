@@ -106,7 +106,7 @@ third_party_settings:
         description: 'Choose dates from the past to get visits history for every member. New visits goal for every member will be calculated based on it. Member''s goal can''t be more than "Limit visits goal"'
         required_fields: true
       label: 'Visits goal'
-    group_campaign_customisation:
+    group_campaign_customization:
       children:
         - group_token_settings
         - field_popup_background_color
@@ -121,13 +121,13 @@ third_party_settings:
         classes: ''
         description: ''
         required_fields: true
-      label: 'Campaign customisation'
+      label: 'Campaign Customization'
     group_token_settings:
       children:
         - field_token_check_back_date
         - field_token_login_link_text
         - field_token_register_link_text
-      parent_name: group_campaign_customisation
+      parent_name: group_campaign_customization
       weight: 20
       format_type: details
       format_settings:
@@ -141,7 +141,7 @@ third_party_settings:
         - field_login_not_registered
         - field_login_checkins_not_started
         - field_successful_login
-      parent_name: group_campaign_customisation
+      parent_name: group_campaign_customization
       weight: 22
       format_type: details
       format_settings:
@@ -155,7 +155,7 @@ third_party_settings:
         - field_reg_already_registered
         - field_successful_registration
         - field_reg_checkins_not_started
-      parent_name: group_campaign_customisation
+      parent_name: group_campaign_customization
       weight: 23
       format_type: details
       format_settings:
@@ -171,7 +171,7 @@ third_party_settings:
         - field_error_target_audience
         - field_error_default
         - field_register_form_text
-      parent_name: group_campaign_customisation
+      parent_name: group_campaign_customization
       weight: 24
       format_type: details
       format_settings:
