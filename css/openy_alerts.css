@@ -12,3 +12,7 @@
   overflow: visible;
   height: auto;
 }
+
+.views-openy-alerts-modal-wrapper {
+  display: none;
+}

@@ -47,11 +47,7 @@
             self.remove();
           }
           // Store dimsmissed alerts ids into cookie.
-          dismissed = Drupal.behaviors.alert_dismiss.getDismissed();
-          if ($.inArray(nid, dismissed) == -1) {
-            dismissed.push(nid);
-          }
-          Drupal.behaviors.alert_dismiss.setDismissed(dismissed);
+          Drupal.behaviors.alert_dismiss.addDismissed(nid);
           return false;
         });
       });
@@ -73,6 +69,50 @@
         expires: 7
       });
       $.cookie.json = jQueryCookieJson;
+    },
+
+    addDismissed: function (nid) {
+      // Store dimsmissed alerts ids into cookie.
+      var dismissed = Drupal.behaviors.alert_dismiss.getDismissed();
+      if ($.inArray(nid, dismissed) == -1) {
+        dismissed.push(nid);
+      }
+      Drupal.behaviors.alert_dismiss.setDismissed(dismissed);
+    },
+
+    isDismissed: function (nid) {
+      var dismissed = Drupal.behaviors.alert_dismiss.getDismissed();
+      if ($.inArray(nid, dismissed) === -1) {
+        return false;
+      }
+      return true;
+    }
+
+  };
+
+  Drupal.behaviors.alert_modal = {
+    attach: function (context, settings) {
+      $('.openy-alert-dialog', context).once('openy-alert-process-dialog').each(function () {
+        var self = $(this);
+        var nid = parseInt(self.data('nid'));
+        if (!Drupal.behaviors.alert_dismiss.isDismissed(nid)) {
+          // Init dialog modal.
+          // See jqueryui.com/dialog
+          self.dialog({
+            autoOpen: false,
+            modal: true,
+            show: { effect: "blind", duration: 600, delay: 300 },
+            hide: { effect: "drop", duration: 600, delay: 0 },
+            width: 320,
+            close: function (event, ui) {
+              Drupal.behaviors.alert_dismiss.addDismissed(nid);
+            }
+          });
+          // Open dialog modal.
+          self.dialog('open');
+        }
+      });
+
     }
   };
 

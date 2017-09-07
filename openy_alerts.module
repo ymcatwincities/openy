@@ -36,3 +36,11 @@ function openy_alerts_preprocess_node(&$variables) {
     }
   }
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function openy_alerts_preprocess_page(&$variables) {
+  $variables['page']['#attached']['library'][] =  'core/jquery.ui.dialog';
+  $variables['page']['#attached']['library'][] =  'openy_alerts/alerts';
+}
