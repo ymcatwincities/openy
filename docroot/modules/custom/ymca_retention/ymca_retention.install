@@ -682,3 +682,14 @@ function ymca_retention_update_8040() {
     'page_manager.page_variant.ymca_retention_challenge_winners',
   ]);
 }
+
+/**
+ * Updating general settings.
+ */
+function ymca_retention_update_8041() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs([
+    'ymca_retention.general_settings',
+  ]);
+}
