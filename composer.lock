@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "092adb02899fd085aa756d7492b8f4de",
+    "content-hash": "64ccff78f6fa4140f4e61b2a18df7377",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -249,7 +249,7 @@
                 }
             ],
             "description": "Zone management library.",
-            "time": "2017-04-20T12:44:24+00:00"
+            "time": "2017-04-20 12:44:24"
         },
         {
             "name": "composer/installers",
@@ -1756,7 +1756,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/datalayer"
             },
-            "time": "2017-07-21T23:35:48+00:00"
+            "time": "2017-07-21 23:35:48"
         },
         {
             "name": "drupal/dropzonejs",
@@ -2459,7 +2459,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/google_tag"
             },
-            "time": "2017-06-16T21:53:17+00:00"
+            "time": "2017-06-16 21:53:17"
         },
         {
             "name": "drupal/inline_entity_form",
@@ -2579,6 +2579,65 @@
             }
         },
         {
+            "name": "drupal/lazyloader",
+            "version": "1.0.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/lazyloader",
+                "reference": "8.x-1.0-alpha2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/lazyloader-8.x-1.0-alpha2.zip",
+                "reference": "8.x-1.0-alpha2",
+                "shasum": "9179e614f802134568b7fd1a8e7f96988ac3fb3b"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha2",
+                    "datestamp": "1467566339",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "beeradb",
+                    "homepage": "https://www.drupal.org/user/120651"
+                },
+                {
+                    "name": "danielhonrade",
+                    "homepage": "https://www.drupal.org/user/351112"
+                },
+                {
+                    "name": "guilopes",
+                    "homepage": "https://www.drupal.org/user/2594268"
+                },
+                {
+                    "name": "legolasbo",
+                    "homepage": "https://www.drupal.org/user/2480548"
+                }
+            ],
+            "description": "Automatically lazyload images on windows scroll, makes sites with multiple images load faster.",
+            "homepage": "https://www.drupal.org/project/lazyloader",
+            "support": {
+                "source": "http://cgit.drupalcode.org/lazyloader"
+            }
+        },
+        {
             "name": "drupal/libraries",
             "version": "dev-3.x",
             "source": {
@@ -2632,7 +2691,7 @@
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             },
-            "time": "2017-03-15T17:04:08+00:00"
+            "time": "2017-03-15 17:04:08"
         },
         {
             "name": "drupal/lndr",
@@ -2774,7 +2833,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/media_entity"
             },
-            "time": "2017-05-03T17:50:35+00:00"
+            "time": "2017-05-03 17:50:35"
         },
         {
             "name": "drupal/media_entity_document",
@@ -2817,7 +2876,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/media_entity_document"
             },
-            "time": "2017-05-07T12:33:40+00:00"
+            "time": "2017-05-07 12:33:40"
         },
         {
             "name": "drupal/media_entity_image",
@@ -2877,7 +2936,7 @@
                 "source": "https://www.drupal.org/project/media_entity_image",
                 "issues": "https://www.drupal.org/project/issues/media_entity_image"
             },
-            "time": "2017-02-19T09:44:14+00:00"
+            "time": "2017-02-19 09:44:14"
         },
         {
             "name": "drupal/metatag",
@@ -3685,7 +3744,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/simple_menu_icons"
             },
-            "time": "2016-10-03T15:25:52+00:00"
+            "time": "2016-10-03 15:25:52"
         },
         {
             "name": "drupal/simple_sitemap",
@@ -4141,7 +4200,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/views_block_filter_block"
             },
-            "time": "2017-05-25T11:05:23+00:00"
+            "time": "2017-05-25 11:05:23"
         },
         {
             "name": "drupal/views_field_formatter",
@@ -7239,7 +7298,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2017-03-17T23:00:29+00:00"
+            "time": "2017-03-17 23:00:29"
         },
         {
             "name": "emuse/behat-html-formatter",
