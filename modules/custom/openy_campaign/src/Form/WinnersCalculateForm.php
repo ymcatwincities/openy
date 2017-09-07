@@ -256,7 +256,7 @@ class WinnersCalculateForm extends FormBase {
    *
    * @return array
    */
-  private function getInfoByBranch($campaign, $branchId, $activities) {
+  private static function getInfoByBranch($campaign, $branchId, $activities) {
     /** @var Node $campaign */
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());

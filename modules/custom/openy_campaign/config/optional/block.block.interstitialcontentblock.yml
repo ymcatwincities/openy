@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  theme:
+    - openy_rose
+id: interstitialcontentblock
+theme: openy_rose
+region: content
+weight: 0
+provider: null
+plugin: campaign_interstitial_block
+settings:
+  id: campaign_interstitial_block
+  label: 'Interstitial Content Block'
+  provider: openy_campaign
+  label_display: '0'
+visibility: {  }
