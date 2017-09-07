@@ -1115,17 +1115,17 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  campaign_members_block:
-    display_plugin: block
-    id: campaign_members_block
-    display_title: Block
+  campaign_members_page:
+    display_plugin: page
+    id: campaign_members_page
+    display_title: Page
     position: 1
     display_options:
       display_extenders: {  }
-      block_description: 'Campaign Members'
       footer: {  }
       defaults:
         footer: false
+      path: admin/content/campaign/%/members
     cache_metadata:
       max-age: 0
       contexts:
@@ -1142,10 +1142,10 @@ display:
     position: 2
     display_options:
       display_extenders: {  }
-      path: admin/content/campaign-members/export.csv
-      filename: export.csv
+      path: admin/content/campaign/%/members/export_members.csv
+      filename: export_members.csv
       displays:
-        campaign_members_block: campaign_members_block
+        campaign_members_page: campaign_members_page
         default: '0'
       fields:
         id:

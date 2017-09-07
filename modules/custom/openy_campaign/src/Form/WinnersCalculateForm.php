@@ -65,7 +65,7 @@ class WinnersCalculateForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $node = NULL) {
     // Show campaign winners
-    $form['winners_view'] = views_embed_view('campaign_winners', 'campaign_winners_block', $node);
+    $form['winners_view'] = views_embed_view('campaign_winners', 'campaign_winners_page', $node);
 
     $form['campaign_id'] = [
       '#type' => 'value',

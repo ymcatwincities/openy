@@ -263,11 +263,11 @@ class MemberRegisterForm extends FormBase {
     // Member is ineligible due to the Target Audience Setting
     if (!empty($validateAudienceErrorMessages)) {
       $msgAudienceMessages = $config->get('error_msg_target_audience_settings');
-      $msgValue = implode(' - ', $validateAudienceErrorMessages) . $msgAudienceMessages['value'];
-      $errorAudience = check_markup($msgValue, $msgAudienceMessages['format']);
+      $msgValue = implode('<br/>', $validateAudienceErrorMessages);
+      $errorAudience = check_markup($msgValue . $msgAudienceMessages['value'], $msgAudienceMessages['format']);
       // Get error from Campaign node
       if (!empty($campaign->field_error_target_audience->value)) {
-        $errorAudience = check_markup($campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
+        $errorAudience = check_markup($msgValue . $campaign->field_error_target_audience->value, $campaign->field_error_target_audience->format);
       }
 
       $form_state->setErrorByName('membership_id', $errorAudience);

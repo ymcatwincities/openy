@@ -1,4 +1,3 @@
-uuid: 382c968b-883d-45db-bef5-192d08093363
 langcode: en
 status: true
 dependencies:
@@ -1197,14 +1196,14 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  campaign_winners_block:
-    display_plugin: block
-    id: campaign_winners_block
-    display_title: Block
+  campaign_winners_page:
+    display_plugin: page
+    id: campaign_winners_page
+    display_title: Page
     position: 1
     display_options:
       display_extenders: {  }
-      block_description: 'Campaign Winners'
+      path: admin/content/campaign/%/winners
     cache_metadata:
       max-age: 0
       contexts:
@@ -1214,9 +1213,9 @@ display:
         - url.query_args
         - user.permissions
       tags: {  }
-  data_export_1:
+  data_export:
     display_plugin: data_export
-    id: data_export_1
+    id: data_export
     display_title: 'Data export'
     position: 2
     display_options:
@@ -1225,10 +1224,10 @@ display:
         type: none
         options:
           offset: 0
-      path: admin/content/campaign-winners/export_winners.csv
+      path: admin/content/campaign/%/winners/export_winners.csv
       filename: export_winners.csv
       displays:
-        campaign_winners_block: campaign_winners_block
+        campaign_winners_page: campaign_winners_page
         default: '0'
       style:
         type: data_export

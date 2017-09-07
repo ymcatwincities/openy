@@ -113,7 +113,7 @@ class CampaignController extends ControllerBase {
    */
   public function showMembers(NodeInterface $node) {
     $build = [
-      'view' => views_embed_view('campaign_members', 'campaign_members_block', $node->id()),
+      'view' => views_embed_view('campaign_members', 'campaign_members_page', $node->id()),
     ];
 
     return $build;
