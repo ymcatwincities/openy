@@ -365,6 +365,13 @@ function openy_rose_preprocess_html(&$variables) {
       }
     }
   }
+  // Get title from node or page.
+  if (isset($variables['node'])) {
+    $variables['title'] = $variables['node']->title->value;
+  }
+  else {
+    $variables['title'] = $variables['page']['#title'];
+  }
 }
 
 /**
