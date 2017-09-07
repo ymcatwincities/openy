@@ -214,9 +214,8 @@ openy_campaign.campaign_members:
 openy_campaign.campaign_winners:
   path: '/node/{node}/campaign-winners'
   defaults:
-    _form: '\Drupal\openy_campaign\Form\WinnersCalculateForm'
-    _title: 'Calculate Campaign winners'
+    _controller: '\Drupal\openy_campaign\Controller\CampaignController::showWinners'
   requirements:
-    _permission: 'administer retention campaign'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
   options:
     _node_operation_route: TRUE

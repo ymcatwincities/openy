@@ -120,6 +120,23 @@ class CampaignController extends ControllerBase {
   }
 
   /**
+   * @param \Drupal\node\NodeInterface $node
+   *
+   * @return array Render array
+   */
+  public function showWinners(NodeInterface $node) {
+    $winnersList = views_embed_view('campaign_winners', 'campaign_winners_page', $node->id());
+    $winnersCalculateForm = \Drupal::formBuilder()->getForm(\Drupal\openy_campaign\Form\WinnersCalculateForm::class, $node->id());
+
+    $build = [
+      'view' => $winnersList,
+      'form' => $winnersCalculateForm,
+    ];
+
+    return $build;
+  }
+
+  /**
    * Checks access for a specific request.
    *
    * @param \Drupal\node\NodeInterface $node

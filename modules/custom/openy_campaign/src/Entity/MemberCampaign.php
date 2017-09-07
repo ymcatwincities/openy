@@ -250,6 +250,9 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
   public function validateTargetAudienceSettings() {
     $errorMessages = [];
 
+    // @TODO: Enable validation after CRM is updated.
+    return [];
+
     // Age is in the range from Target Audience Setting from Campaign.
     $validateAge = $this->validateMemberAge();
     if (!$validateAge['status']) {
