@@ -207,7 +207,6 @@ class CalcBlockForm extends FormBase {
         '#attributes' => [
           'class' => [
             'btn',
-            'btn-default',
             'complete-registration',
             'pull-right',
           ],
