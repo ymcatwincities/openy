@@ -104,6 +104,7 @@
             dialogClass: dialog_classes,
             autoOpen: false,
             modal: true,
+            draggable: false,
             show: { effect: "blind", duration: 600, delay: 300 },
             hide: { effect: "drop", duration: 600, delay: 0 },
             width: 371,
