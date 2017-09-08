@@ -5167,18 +5167,16 @@ html.js .branch__updates_queue__button {
 .groupex-results .card .instructor a {
   color: #5c2e91;
 }
-#group-ex-results .card .sub_instructor,
-.groupex-results .card .sub_instructor {
+#group-ex-results .card .instructor .fa-refresh,
+.groupex-results .card .instructor .fa-refresh {
   font-size: 12px;
-}
-#group-ex-results .card .sub_instructor .fa,
-.groupex-results .card .sub_instructor .fa {
   color: #c6168d;
   margin-left: 16px;
   margin-right: 5px;
 }
-#group-ex-results .card .sub_instructor a,
-.groupex-results .card .sub_instructor a {
+#group-ex-results .card .instructor .sub,
+.groupex-results .card .instructor .sub {
+  font-size: 12px;
   color: #c6168d;
 }
 

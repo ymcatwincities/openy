@@ -14,16 +14,11 @@
     <span class="icon icon-clock"></span><span class="hh-mm">{{ class.time }}</span> <span class="duration">{{ class.duration }}</span>
   </div>
   <div class="card">
-    <h3><span class="fa fa-link" aria-hidden=true></span>&nbsp;<a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a></h3>
+    <h3><span class="fa fa-link" aria-hidden="true"></span>&nbsp;<a class="use-ajax" href="{{ class.class_link }}">{{ class.name|raw }}</a></h3>
     <p>{{ class.studio }}</p>
     <div class="instructor">
-      <span class="fa fa-link" aria-hidden=true></span><span class="fa fa-user" aria-hidden=true></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
+      <span class="fa fa-link" aria-hidden="true"></span><span class="fa fa-user" aria-hidden="true"></span><a class="use-ajax" href="{{ class.instructor_link }}">{{ class.instructor|raw }}</a>
     </div>
-    {% if class.sub_instructor is not empty %}
-      <div class="sub_instructor">
-        <span class="fa fa-refresh" aria-hidden=true></span><a class="use-ajax" href="{{ class.sub_instructor_link }}">{{ class.sub_instructor|raw }}</a>
-      </div>
-    {% endif %}
   </div>
   <div class="ical">
     <span class="addtocalendar atc-style-blue">
