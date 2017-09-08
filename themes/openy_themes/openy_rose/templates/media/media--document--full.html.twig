@@ -12,7 +12,7 @@
  * @ingroup themeable
  */
 #}
-<div{{ attributes }}>
+<div{{ attributes.addclass('col-xs-12') }}>
   <h1>{{ name }}</h1>
   {% if content %}
     {{ content }}
