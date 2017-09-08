@@ -229,13 +229,16 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
 
     $visitsNumber = $results->TotalVisits;
 
-    $limitVisitsGoal = $campaign->field_limit_visits_goal->value;
+    // Visits goal will be between these 2 values
+    $maxVisitsGoal = $campaign->field_limit_visits_goal->value;
+    $minVisitsGoal = $campaign->field_min_visits_goal->value;
 
     $weeksSpan = ceil($from->diff($to)->days / 7);
 
     $calculatedGoal = ceil(2 * $visitsNumber / $weeksSpan) + 1;
+    $visitsGoal = max($minVisitsGoal, $calculatedGoal);
 
-    $goal = min($calculatedGoal, $limitVisitsGoal);
+    $goal = min($visitsGoal, $maxVisitsGoal);
 
     $this->setGoal($goal);
 

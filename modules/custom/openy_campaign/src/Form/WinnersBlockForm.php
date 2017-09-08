@@ -104,22 +104,17 @@ class WinnersBlockForm extends FormBase {
    * @return \Drupal\Component\Render\MarkupInterface
    */
   public function showWinnersBlock($campaignId, $branchId) {
-    $places = [
-      1 => '1st',
-      2 => '2nd',
-      3 => '3rd',
-    ];
     $winners = $this->getCampaignWinners($campaignId, $branchId);
     $prizes = $this->getCampaignPrizes($campaignId);
 
     $output = [];
-    foreach ($places as $key => $place) {
-      if (!empty($winners[$key])) {
+    foreach ($prizes as $place => $prize) {
+      if (!empty($winners[$place])) {
         $output[] = [
           '#theme' => 'openy_campaign_winners',
-          '#title' => $place,
-          '#members' => $winners[$key],
-          '#prizes' => $prizes[$key],
+          '#title' => $prize['title'],
+          '#prize' => $prize['text'],
+          '#winners' => $winners[$place],
         ];
       }
     }
@@ -207,17 +202,29 @@ class WinnersBlockForm extends FormBase {
     return $winners;
   }
 
+  /**
+   * Get all prizes of current Campaign.
+   *
+   * @param $campaignId
+   *
+   * @return array
+   */
   private function getCampaignPrizes($campaignId) {
-    $prizesFields = [
-      1 => 'field_campaign_prize_1',
-      2 => 'field_campaign_prize_2',
-      3 => 'field_campaign_prize_3',
-    ];
+    /** @var Node $campaign Campaign node. */
     $campaign = Node::load($campaignId);
 
     $prizes = [];
-    foreach ($prizesFields as $key => $field) {
-      $prizes[$key] = check_markup($campaign->$field->value, $campaign->$field->format);
+    foreach ($campaign->field_campaign_winners_prizes as $item) {
+      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+      $paragraph = $item->entity;
+      $place = $paragraph->field_prgf_place->value;
+      if (!empty($place)) {
+        $prizes[$place] = [
+          'place' => $place,
+          'title' => $paragraph->field_prgf_prize_title->value,
+          'text' => check_markup($paragraph->field_prgf_prize_text->value, $paragraph->field_prgf_prize_text->format),
+        ];
+      }
     }
 
     return $prizes;

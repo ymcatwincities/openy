@@ -2,14 +2,14 @@
 
     'use strict';
     
-    Drupal.behaviors.openyCampaignInterstitialBlock = {
+    Drupal.behaviors.openyInterstitialBlock = {
         attach: function (context) {
             // Get values from Interstitial page node
-            var time = drupalSettings.openyCampaign.InterstitialContentBlock.time;
-            var interaction = drupalSettings.openyCampaign.InterstitialContentBlock.interaction;
+            var time = drupalSettings.openyInterstitial.InterstitialContentBlock.time;
+            var interaction = drupalSettings.openyInterstitial.InterstitialContentBlock.interaction;
             var dialogSelector = '#interstitial-block';
 
-            // Check and update localStorage
+            // Check and update Cookie
             if (isShowDialog() === false) {
                 $('#block-interstitialcontentblock').hide();
                 return;
@@ -17,7 +17,7 @@
 
             // Create new dialog
             $(dialogSelector).dialog({
-                title: drupalSettings.openyCampaign.InterstitialContentBlock.title,
+                title: drupalSettings.openyInterstitial.InterstitialContentBlock.title,
                 closeOnEscape: false,
                 draggable: false,
                 modal: true,
@@ -80,7 +80,7 @@
                     current = 1;
                 }
 
-                var showTimes = drupalSettings.openyCampaign.InterstitialContentBlock.showTimes * 1;
+                var showTimes = drupalSettings.openyInterstitial.InterstitialContentBlock.showTimes * 1;
                 if (current > showTimes) {
                     return false;
                 }

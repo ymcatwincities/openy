@@ -8,10 +8,10 @@ theme: openy_rose
 region: content
 weight: 0
 provider: null
-plugin: campaign_interstitial_block
+plugin: openy_interstitial_block
 settings:
-  id: campaign_interstitial_block
+  id: openy_interstitial_block
   label: 'Interstitial Content Block'
-  provider: openy_campaign
+  provider: openy_interstitial
   label_display: '0'
 visibility: {  }
