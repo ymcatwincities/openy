@@ -500,8 +500,11 @@ function openy_update_8038() {
  * Set placeholder for lazyloader module.
  */
 function openy_update_8039() {
-  $config_factory = \Drupal::configFactory()->getEditable('lazyloader.configuration');
-  $config_factory
-    ->set('placeholder', 'profiles/contrib/openy/themes/openy_themes/openy_rose/img/placeholder-image.jpg')
-    ->save();
+  if (\Drupal::service('module_handler')->moduleExists('lazyloader')) {
+    $config_factory = \Drupal::configFactory()
+                             ->getEditable('lazyloader.configuration');
+    $config_factory
+      ->set('placeholder', 'profiles/contrib/openy/themes/openy_themes/openy_rose/img/placeholder-image.jpg')
+      ->save(TRUE);
+  }
 }

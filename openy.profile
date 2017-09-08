@@ -25,6 +25,9 @@ function openy_install_tasks() {
     'openy_set_frontpage' => [
       'type' => 'batch',
     ],
+    'openy_set_lazyloader_placeholder' => [
+      'type' => 'batch',
+    ],
     'openy_discover_broken_paragraphs' => [
       'type' => 'batch',
     ],
@@ -251,6 +254,19 @@ function openy_set_frontpage(array &$install_state) {
   $nids = $query->execute();
   $config_factory = Drupal::configFactory();
   $config_factory->getEditable('system.site')->set('page.front', '/node/' . reset($nids))->save();
+
+  return ['operations' => []];
+}
+
+/**
+ * Set the homepage whether from demo content or default one.
+ */
+function openy_set_lazyloader_placeholder(array &$install_state) {
+  // Set placeholder for lazyloader.
+  $config_factory = \Drupal::configFactory()->getEditable('lazyloader.configuration');
+  $config_factory
+    ->set('placeholder', 'profiles/contrib/openy/themes/openy_themes/openy_rose/img/placeholder-image.jpg')
+    ->save(TRUE);
 
   return ['operations' => []];
 }
