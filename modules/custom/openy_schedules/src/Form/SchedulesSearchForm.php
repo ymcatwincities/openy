@@ -810,9 +810,16 @@ class SchedulesSearchForm extends FormBase {
     $session_instances = $this->getSessions($parameters);
     $content = [];
     $title_date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date']);
+    $title_date_week_to = DrupalDateTime::createFromTimestamp(strtotime($parameters['date'] . 'T00:00:00 + 6 days'));
+    $title_date_week_from = $title_date->format('n/j/Y');
+    $title_date_week_to = $title_date_week_to->format('n/j/Y');
     $title_date = $title_date->format('F j, Y');
     // Default results title.
     $title_results = $this->t('Classes for %date', ['%date' => $title_date]);
+    $title_results_week = $this->t('Classes from %from to %to', [
+      '%from' => $title_date_week_from,
+      '%to' => $title_date_week_to,
+    ]);
 
     foreach ($session_instances as $session_instance) {
       /* @var $session_instance \Drupal\openy_session_instance\Entity\SessionInstanceInterface */
@@ -856,10 +863,8 @@ class SchedulesSearchForm extends FormBase {
         if (!isset($day_from)) {
           $day_from = $timestamp->format('n/j/Y');
         }
-        $title_results = $this->t('Classes from %from to %to', [
-          '%from' => $day_from,
-          '%to' => $day_to,
-        ]);
+        $title_results = $title_results_week;
+
         $content[$day][$time] = [
           'label' => $class->getTitle(),
           'time' => $time,
