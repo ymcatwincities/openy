@@ -96,20 +96,22 @@
         var self = $(this);
         var nid = parseInt(self.data('nid'));
         if (!Drupal.behaviors.alert_dismiss.isDismissed(nid)) {
+          // ToDo: pass head colors through settings.
+          var dialog_classes = 'openy-alert-modal openy-alert-modal-head-yellow openy-alert-modal-' + nid;
           // Init dialog modal.
           // See jqueryui.com/dialog
           self.dialog({
+            dialogClass: dialog_classes,
             autoOpen: false,
             modal: true,
             show: { effect: "blind", duration: 600, delay: 300 },
             hide: { effect: "drop", duration: 600, delay: 0 },
-            width: 320,
-            close: function (event, ui) {
-              Drupal.behaviors.alert_dismiss.addDismissed(nid);
-            }
+            width: 370,
           });
           // Open dialog modal.
           self.dialog('open');
+          // We want to show it only once anyway.
+          Drupal.behaviors.alert_dismiss.addDismissed(nid);
         }
       });
 
