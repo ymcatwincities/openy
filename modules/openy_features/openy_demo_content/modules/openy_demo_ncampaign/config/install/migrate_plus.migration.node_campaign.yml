@@ -7,7 +7,7 @@ dependencies:
       - openy_prgf_camp_menu
 id: openy_demo_node_campaign
 migration_tags: {  }
-migration_group: openy_demo_nlanding
+migration_group: openy_demo_ncampaign
 label: 'Create demo campaign nodes'
 source:
   plugin: embedded_data
@@ -124,6 +124,9 @@ process:
   field_limit_visits_goal:
     plugin: default_value
     default_value: 10
+  field_min_visits_goal:
+    plugin: default_value
+    default_value: 2
   field_campaign_payment_types:
     plugin: default_value
     default_value:

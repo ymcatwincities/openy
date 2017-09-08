@@ -122,6 +122,11 @@ function openy_demo_content_configs_map($key = NULL) {
         'openy_demo_node_campaign',
       ],
     ],
+    'interstitial' => [
+      'openy_demo_ninterstitial' => [
+        'openy_demo_node_interstitial_page',
+      ],
+    ],
     'membership' => [
       'openy_demo_nmbrshp' => [
         'openy_demo_node_membership',

@@ -3,13 +3,14 @@ status: true
 dependencies:
   module:
     - node
-    - text
-id: node.field_campaign_prize_1
-field_name: field_campaign_prize_1
+id: node.field_min_visits_goal
+field_name: field_min_visits_goal
 entity_type: node
-type: text_long
-settings: {  }
-module: text
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
 locked: false
 cardinality: 1
 translatable: true

@@ -2,21 +2,21 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_campaign_prizes
+    - field.storage.node.field_campaign_winners_prizes
     - node.type.campaign
-    - paragraphs.paragraphs_type.campaign_prizes
+    - paragraphs.paragraphs_type.campaign_winners_prizes
   module:
     - datalayer
     - entity_reference_revisions
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_campaign_prizes
-id: node.campaign.field_campaign_prizes
-field_name: field_campaign_prizes
+    label: field_campaign_winners_prizes
+id: node.campaign.field_campaign_winners_prizes
+field_name: field_campaign_winners_prizes
 entity_type: node
 bundle: campaign
-label: 'Game prizes'
+label: 'Winners prizes'
 description: ''
 required: false
 translatable: false
@@ -26,147 +26,150 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      campaign_prizes: campaign_prizes
+      campaign_winners_prizes: campaign_winners_prizes
     target_bundles_drag_drop:
       1c:
-        weight: 47
-        enabled: false
-      2c:
-        weight: 48
-        enabled: false
-      3c:
         weight: 49
         enabled: false
-      4c:
+      2c:
         weight: 50
         enabled: false
-      addthis:
+      3c:
         weight: 51
         enabled: false
-      all_amenities:
+      4c:
         weight: 52
         enabled: false
-      banner:
+      addthis:
         weight: 53
         enabled: false
-      blog_posts_listing:
+      all_amenities:
         weight: 54
         enabled: false
-      branches_popup_all:
+      banner:
         weight: 55
         enabled: false
-      branches_popup_class:
+      blog_posts_listing:
         weight: 56
         enabled: false
-      camp_menu:
+      branches_popup_all:
         weight: 57
         enabled: false
-      campaign_activity:
+      branches_popup_class:
         weight: 58
         enabled: false
-      campaign_game:
+      campaign_activity:
         weight: 59
         enabled: false
-      campaign_menu:
+      campaign_game:
         weight: 60
         enabled: false
-      campaign_prizes:
-        enabled: true
+      campaign_menu:
         weight: 61
-      categories_listing:
+        enabled: false
+      campaign_prizes:
         weight: 62
         enabled: false
       campaign_winners:
         weight: 63
         enabled: false
-      class_location:
-        weight: 63
-        enabled: false
-      class_sessions:
+      campaign_winners_prizes:
+        enabled: true
         weight: 64
-        enabled: false
-      classes_listing:
+      camp_menu:
         weight: 65
         enabled: false
-      classes_listing_filters:
+      categories_listing:
         weight: 66
         enabled: false
-      embedded_groupexpro_schedule:
+      classes_listing:
         weight: 67
         enabled: false
-      featured_blogs:
+      classes_listing_filters:
         weight: 68
         enabled: false
-      featured_content:
+      class_location:
         weight: 69
         enabled: false
-      gallery:
+      class_sessions:
         weight: 70
         enabled: false
-      grid_columns:
+      embedded_groupexpro_schedule:
         weight: 71
         enabled: false
-      grid_content:
+      featured_blogs:
         weight: 72
         enabled: false
-      group_schedules:
+      featured_content:
         weight: 73
         enabled: false
-      latest_blog_posts:
+      gallery:
         weight: 74
         enabled: false
-      latest_blog_posts_branch:
+      grid_columns:
         weight: 75
         enabled: false
-      latest_blog_posts_camp:
+      grid_content:
         weight: 76
         enabled: false
-      lto:
+      group_schedules:
         weight: 77
         enabled: false
-      membership_info:
+      latest_blog_posts:
         weight: 78
         enabled: false
-      microsites_menu:
+      latest_blog_posts_branch:
         weight: 79
         enabled: false
-      openy_prgf_mbrshp_calc:
+      latest_blog_posts_camp:
         weight: 80
         enabled: false
-      prgf_location_finder:
+      lto:
         weight: 81
         enabled: false
-      prgf_location_finder_filters:
+      membership_info:
         weight: 82
         enabled: false
-      program_registration:
+      microsites_menu:
         weight: 83
         enabled: false
-      promo_card:
+      openy_prgf_mbrshp_calc:
         weight: 84
         enabled: false
-      schedule_search_form:
+      prgf_location_finder:
         weight: 85
         enabled: false
-      schedule_search_list:
+      prgf_location_finder_filters:
         weight: 86
         enabled: false
-      session_time:
+      program_registration:
         weight: 87
         enabled: false
-      simple_content:
+      promo_card:
         weight: 88
         enabled: false
-      small_banner:
+      schedule_search_form:
         weight: 89
         enabled: false
-      story_card:
+      schedule_search_list:
         weight: 90
         enabled: false
-      teaser:
+      session_time:
         weight: 91
         enabled: false
-      webform:
+      simple_content:
         weight: 92
+        enabled: false
+      small_banner:
+        weight: 93
+        enabled: false
+      story_card:
+        weight: 94
+        enabled: false
+      teaser:
+        weight: 95
+        enabled: false
+      webform:
+        weight: 96
         enabled: false
 field_type: entity_reference_revisions

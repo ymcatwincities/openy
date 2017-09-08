@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - paragraphs
     - text
-id: node.field_campaign_prize_2
-field_name: field_campaign_prize_2
-entity_type: node
+id: paragraph.field_prgf_prize_text
+field_name: field_prgf_prize_text
+entity_type: paragraph
 type: text_long
 settings: {  }
 module: text
