@@ -6,3 +6,4 @@ package: OpenY
 dependencies:
   - openy_demo_nlanding
   - openy_demo_tfitness
+  - openy_node_campaign

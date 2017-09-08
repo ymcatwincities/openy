@@ -11,13 +11,11 @@ dependencies:
     - field.field.node.campaign.field_campaign_membership_u_t
     - field.field.node.campaign.field_campaign_pages
     - field.field.node.campaign.field_campaign_payment_types
-    - field.field.node.campaign.field_campaign_prize_1
-    - field.field.node.campaign.field_campaign_prize_2
-    - field.field.node.campaign.field_campaign_prize_3
     - field.field.node.campaign.field_campaign_prize_coefficient
     - field.field.node.campaign.field_campaign_prize_nowin
     - field.field.node.campaign.field_campaign_prizes
     - field.field.node.campaign.field_campaign_start_date
+    - field.field.node.campaign.field_campaign_winners_prizes
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -28,6 +26,7 @@ dependencies:
     - field.field.node.campaign.field_limit_visits_goal
     - field.field.node.campaign.field_login_checkins_not_started
     - field.field.node.campaign.field_login_not_registered
+    - field.field.node.campaign.field_min_visits_goal
     - field.field.node.campaign.field_my_progress_page
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
@@ -94,6 +93,7 @@ third_party_settings:
       label: 'Campaign dates'
     group_visits_goal:
       children:
+        - field_min_visits_goal
         - field_limit_visits_goal
         - field_goal_check_ins_start_date
         - field_goal_check_ins_end_date
@@ -101,10 +101,11 @@ third_party_settings:
       weight: 11
       format_type: fieldset
       format_settings:
+        label: 'Visits goal'
+        description: "Choose dates from the past to get visits history for every member. New visits goal for every member will be calculated based on it. \nMember's goal can't be more than \"Maximum visits goal\" and less than \"Minimum visits goal\""
+        required_fields: true
         id: ''
         classes: ''
-        description: 'Choose dates from the past to get visits history for every member. New visits goal for every member will be calculated based on it. Member''s goal can''t be more than "Limit visits goal"'
-        required_fields: true
       label: 'Visits goal'
     group_campaign_customization:
       children:
@@ -114,7 +115,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 16
+      weight: 17
       format_type: fieldset
       format_settings:
         id: ''
@@ -180,20 +181,6 @@ third_party_settings:
         open: false
         required_fields: true
       label: 'General messages'
-    group_campaign_prizes:
-      children:
-        - field_campaign_prize_1
-        - field_campaign_prize_2
-        - field_campaign_prize_3
-      parent_name: ''
-      weight: 15
-      format_type: details
-      format_settings:
-        id: ''
-        classes: ''
-        open: false
-        required_fields: true
-      label: 'Campaign prizes'
     group_instant_win_game:
       children:
         - field_campaign_prizes
@@ -201,7 +188,7 @@ third_party_settings:
         - field_campaign_expected_visits
         - field_campaign_prize_coefficient
       parent_name: ''
-      weight: 17
+      weight: 18
       format_type: details
       format_settings:
         id: ''
@@ -304,30 +291,6 @@ content:
     third_party_settings: {  }
     type: options_buttons
     region: content
-  field_campaign_prize_1:
-    weight: 24
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-    region: content
-  field_campaign_prize_2:
-    weight: 25
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-    region: content
-  field_campaign_prize_3:
-    weight: 26
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_campaign_prize_coefficient:
     weight: 23
     settings:
@@ -360,6 +323,18 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_campaign_winners_prizes:
+    type: entity_reference_paragraphs
+    weight: 15
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
     region: content
   field_error_default:
     weight: 40
@@ -400,19 +375,19 @@ content:
     type: options_buttons
     region: content
   field_goal_check_ins_end_date:
-    weight: 21
+    weight: 45
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_goal_check_ins_start_date:
-    weight: 20
+    weight: 44
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_limit_visits_goal:
-    weight: 19
+    weight: 43
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -433,6 +408,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_min_visits_goal:
+    weight: 42
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
     region: content
   field_my_progress_page:
     weight: 9
