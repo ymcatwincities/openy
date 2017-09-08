@@ -187,6 +187,7 @@ dependencies:
   - logger_entity
   - openy_campaign
   - personify
+  - openy_interstitial
 
 themes:
   - bartik

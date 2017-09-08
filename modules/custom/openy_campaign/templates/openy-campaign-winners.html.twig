@@ -1,10 +1,10 @@
 <div class="winners-wrapper">
-    <div class="winners-title">{{ title }} <span>{{ 'prize' | t }}</span></div>
-    <div class="winners-prizes">{{ prizes }}</div>
+    <div class="winners-title">{{ title }}</div>
+    <div class="winners-prize">{{ prize }}</div>
     <div class="winners-members">
-    {% for member in members %}
-        <div class="member-name">{{ member.name }}</div>
-        <div class="member-id">ID: ***** {{ member.membership_id }}</div>
+    {% for winner in winners %}
+        <div class="member-name">{{ winner.name }}</div>
+        <div class="member-id">ID: ***** {{ winner.membership_id }}</div>
     {% endfor %}
     </div>
 </div>

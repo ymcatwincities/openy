@@ -97,16 +97,24 @@ class WinnersCalculateForm extends FormBase {
     $campaignId = $form_state->getValue('campaign_id');
     /** @var Node $campaign */
     $campaign = Node::load($campaignId);
+
+    // Get all branches.
+    $values = [
+      'type' => 'branch',
+      'status' => 1,
+    ];
+    $branches = $this->entityTypeManager->getListBuilder('node')->getStorage()->loadByProperties($values);
+
+    // Get all needed activities grouped by it's parent item.
+    $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
+    $activitiesTree = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0);
     // Get excluded terms
     $excludedTids = $campaign->get('field_exclude_activities')->getValue();
     $excluded = [];
     foreach ($excludedTids as $value) {
       $excluded[] = $value['value'];
     }
-
-    $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
-    $activitiesTree = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0);
-    // Collect activities by it's parent item
+    // Collect activities
     $activities = [];
     foreach ($activitiesTree as $item) {
       $parent = isset($item->parents[0]) ? $item->parents[0] : '';
@@ -122,16 +130,19 @@ class WinnersCalculateForm extends FormBase {
       }
     }
 
-    // Get all branches
-    $values = [
-      'type' => 'branch',
-      'status' => 1,
-    ];
-    $branches = $this->entityTypeManager->getListBuilder('node')->getStorage()->loadByProperties($values);
+    // Get all places to determinate winners. Example: [1, 2, 3, 4]
+    $places = [];
+    foreach ($campaign->field_campaign_winners_prizes as $item) {
+      /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+      $paragraph = $item->entity;
+      if (!empty($paragraph->field_prgf_place->value)) {
+        $places[] = $paragraph->field_prgf_place->value;
+      }
+    }
 
     $operations = [
       [[get_class($this), 'deleteWinners'], [$campaignId]],
-      [[get_class($this), 'processCampaignBatch'], [$campaign, $branches, $activities]],
+      [[get_class($this), 'processCampaignBatch'], [$campaign, $branches, $activities, $places]],
     ];
     $batch = [
       'title' => t('Get winners'),
@@ -166,13 +177,14 @@ class WinnersCalculateForm extends FormBase {
   /**
    * Batch step to calculate winners for each branch.
    */
-  public static function processCampaignBatch($campaign, $branches, $activities, &$context) {
+  public static function processCampaignBatch($campaign, $branches, $activities, $places, &$context) {
     if (empty($context['sandbox'])) {
       $context['sandbox']['progress'] = 0;
 
       $context['sandbox']['campaign'] = $campaign;
       $context['sandbox']['activities'] = $activities;
       $context['sandbox']['branches'] = array_keys($branches);
+      $context['sandbox']['places'] = $places;
 
       $context['sandbox']['max'] = count($branches);
     }
@@ -180,6 +192,7 @@ class WinnersCalculateForm extends FormBase {
     $branchId = $context['sandbox']['branches'][$context['sandbox']['progress']];
     $campaign = $context['sandbox']['campaign'];
     $activities = $context['sandbox']['activities'];
+    $places = $context['sandbox']['places'];
 
     // Get all member campaigns for this branch with goal, visits and main activity
     $memberCampaignsInfo = self::getInfoByBranch($campaign, $branchId, $activities);
@@ -211,7 +224,6 @@ class WinnersCalculateForm extends FormBase {
       shuffle($reachedGoal);
 
       // Assign places
-      $places = [1, 2, 3];
       foreach ($places as $place) {
         if (!empty($reachedGoal)) {
           $memberCampaignItem = array_shift($reachedGoal);

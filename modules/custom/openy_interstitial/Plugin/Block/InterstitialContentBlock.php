@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_campaign\Plugin\Block;
+namespace Drupal\openy_interstitial\Plugin\Block;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
@@ -12,9 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
  * Provides an 'Interstitial Content Block' dialog block.
  *
  * @Block(
- *   id = "campaign_interstitial_block",
+ *   id = "openy_interstitial_block",
  *   admin_label = @Translation("Interstitial Content Block"),
- *   category = @Translation("Campaign Blocks")
+ *   category = @Translation("Interstitial Blocks")
  * )
  */
 class InterstitialContentBlock extends BlockBase implements ContainerFactoryPluginInterface {
@@ -94,9 +94,9 @@ class InterstitialContentBlock extends BlockBase implements ContainerFactoryPlug
       return $block;
     }
 
-    $block['#attached']['library'][] = 'openy_campaign/campaign_interstitial';
+    $block['#attached']['library'][] = 'openy_interstitial/openy_interstitial';
 
-    $block['#attached']['drupalSettings']['openyCampaign']['InterstitialContentBlock'] = [
+    $block['#attached']['drupalSettings']['openyInterstitial']['InterstitialContentBlock'] = [
       'time' => $interstitialPage->field_close_time->value,
       'interaction' => $interstitialPage->field_close_interaction->value,
       'title' => $interstitialPage->field_dialog_title->value,

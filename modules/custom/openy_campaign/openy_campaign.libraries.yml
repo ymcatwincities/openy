@@ -22,9 +22,3 @@ game_flip_cards:
 campaign_modal:
   js:
     js/campaign-modal.js: {}
-
-campaign_interstitial:
-  js:
-    js/campaign-interstitial.js: {}
-  dependencies:
-    - core/drupalSettings
