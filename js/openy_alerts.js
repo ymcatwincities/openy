@@ -106,7 +106,7 @@
             modal: true,
             show: { effect: "blind", duration: 600, delay: 300 },
             hide: { effect: "drop", duration: 600, delay: 0 },
-            width: 370,
+            width: 371,
           });
           // Open dialog modal.
           self.dialog('open');
