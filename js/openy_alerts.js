@@ -108,11 +108,19 @@
             show: { effect: "blind", duration: 600, delay: 300 },
             hide: { effect: "drop", duration: 600, delay: 0 },
             width: 375,
+            close: function () {
+              Drupal.behaviors.alert_dismiss.addDismissed(nid);
+            }
           });
           // Open dialog modal.
           self.dialog('open');
-          // We want to show it only once anyway.
-          Drupal.behaviors.alert_dismiss.addDismissed(nid);
+
+          // If user click on any link inside modal contents, dismiss it.
+          self.find('a').each(function(){
+            $(this).click(function(){
+              Drupal.behaviors.alert_dismiss.addDismissed(nid);
+            });
+          });
         }
       });
 
