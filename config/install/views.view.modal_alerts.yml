@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.modal_alert
     - field.storage.node.field_alert_body
     - node.type.alert
   module:
@@ -60,7 +61,10 @@ display:
           row_class: openy-alerts-modal
           default_row_class: false
       row:
-        type: fields
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: modal_alert
       fields:
         nid:
           id: nid
@@ -681,7 +685,7 @@ display:
           specify_validation: true
           validate:
             type: 'entity:node'
-            fail: 'not found'
+            fail: empty
           validate_options:
             operation: view
             multiple: 0
@@ -702,6 +706,7 @@ display:
           view_to_insert: 'modal_alerts:global'
           inherit_arguments: false
           plugin_id: view
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
