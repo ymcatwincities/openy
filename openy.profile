@@ -242,6 +242,7 @@ function openy_import_content(array &$install_state) {
     $install_state['openy']['content'][] = 'sessions_02';
     $install_state['openy']['content'][] = 'sessions_03';
     $install_state['openy']['content'][] = 'sessions_04';
+    $install_state['openy']['content'][] = 'interstitial';
   }
 
   // Campaign requires Landing.
