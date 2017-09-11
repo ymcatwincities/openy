@@ -1999,6 +1999,10 @@ article.site-alert ul li div {
   #membership-calc-wrapper .webform-options-display-four-columns .form-checkboxes {
     column-count: 1;
   }
+  #membership-calc-wrapper .openy-ccc-add-family-member-form td {
+    font-size: 12px;
+    word-break: break-all;
+  }
 }
 @media (min-width: 768px) {
   #membership-calc-wrapper [data-drupal-selector="edit-draft-form"] .form-item-first-name {
