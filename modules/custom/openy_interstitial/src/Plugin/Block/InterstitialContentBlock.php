@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Provides an 'Interstitial Content Block' dialog block.
  *
  * @Block(
- *   id = "openy_interstitial_block",
+ *   id = "interstitial_content_block",
  *   admin_label = @Translation("Interstitial Content Block"),
  *   category = @Translation("Interstitial Blocks")
  * )
