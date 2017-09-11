@@ -1,6 +1,8 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - ctools
   theme:
     - openy_rose
 id: interstitialcontentblock
@@ -8,9 +10,9 @@ theme: openy_rose
 region: content
 weight: 0
 provider: null
-plugin: openy_interstitial_block
+plugin: interstitial_content_block
 settings:
-  id: openy_interstitial_block
+  id: interstitial_content_block
   label: 'Interstitial Content Block'
   provider: openy_interstitial
   label_display: '0'
