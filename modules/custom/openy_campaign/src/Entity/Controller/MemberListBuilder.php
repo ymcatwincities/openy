@@ -44,10 +44,13 @@ class MemberListBuilder extends EntityListBuilder {
 
     /** @var \Drupal\node\Entity\Node $branch */
     $branch = $entity->branch->entity;
-    /** @var Term $locationName */
-    $locationName = Term::load($branch->field_location_area->target_id);
-    $region = !empty($locationName) ? ' (' . $locationName->getName() . ')' : '';
-    $row['region'] = $branch->getTitle() . $region;
+    $row['region'] = '';
+    if (!empty($branch)) {
+      /** @var Term $locationName */
+      $locationName = Term::load($branch->field_location_area->target_id);
+      $region = !empty($locationName) ? ' (' . $locationName->getName() . ')' : '';
+      $row['region'] = $branch->getTitle() . $region;
+    }
 
     $row['membership_id'] = $entity->getMemberId();
     $row['is_employee'] = $entity->isMemberEmployee() ? $this->t('Yes') : $this->t('No');
