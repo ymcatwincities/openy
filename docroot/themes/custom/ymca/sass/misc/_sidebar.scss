@@ -1,3 +1,90 @@
+@-webkit-keyframes sidebar-nav-item-n {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+
+  50% {
+    height: 70px;
+    opacity: 0;
+  }
+
+  100% {
+    height: 70px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes sidebar-nav-item-out-n {
+  0% {
+    height: 70px;
+    opacity: 1;
+  }
+
+  100% {
+    height: 0;
+    opacity: 0;
+  }
+}
+@keyframes sidebar-nav-item-out-n {
+  0% {
+    height: 70px;
+    opacity: 1;
+  }
+
+  100% {
+    height: 0;
+    opacity: 0;
+  }
+}
+@-o-keyframes sidebar-nav-item-n {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+
+  50% {
+    height: 70px;
+    opacity: 0;
+  }
+
+  100% {
+    height: 70px;
+    opacity: 1;
+  }
+}
+@-moz-keyframes sidebar-nav-item-n {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+
+  50% {
+    height: 70px;
+    opacity: 0;
+  }
+
+  100% {
+    height: 70px;
+    opacity: 1;
+  }
+}
+@keyframes sidebar-nav-item-n {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+
+  50% {
+    height: 70px;
+    opacity: 0;
+  }
+
+  100% {
+    height: 70px;
+    opacity: 1;
+  }
+}
+
 body.show-new-mobile-menu {
   &.sidebar-in.viewport.in {
     width: 0;
@@ -8,6 +95,21 @@ body.show-new-mobile-menu {
     border-right: none;
     z-index: 45;
     width: 100% !important;
+
+    .active .dropdown-menu > li a {
+      -webkit-animation: sidebar-nav-item-n .6s ease-out both;
+      -moz-animation: sidebar-nav-item-n .6s ease-out both;
+      -ms-animation: sidebar-nav-item-n .6s ease-out both;
+      -o-animation: sidebar-nav-item-n .6s ease-out both;
+    }
+    .dropdown-menu > li a {
+      -webkit-animation: sidebar-nav-item-out-n .3s ease-out both;
+      -moz-animation: sidebar-nav-item-out-n .3s ease-out both;
+      -ms-animation: sidebar-nav-item-out-n .3s ease-out both;
+      -o-animation: sidebar-nav-item-out-n .3s ease-out both;
+      opacity: 1;
+    }
+
     .top-bar {
       background-color: #0060af;
       min-height: 60px;
@@ -220,5 +322,9 @@ body.show-new-mobile-menu {
         color: #6c439c;
       }
     }
+  }
+  .sidebar .active .health-fitness.nav-level-2:before, .sidebar .health-fitness.nav-level-2:before,
+  .sidebar .active .jobs.nav-level-2:before, .sidebar .jobs.nav-level-2:before {
+    content: '';
   }
 }
