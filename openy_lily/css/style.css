@@ -2539,6 +2539,13 @@ article.site-alert ul li div {
   column-count: 4;
 }
 
+.openy-ccc-account-memberships-form .button.js-form-submit.form-submit {
+  margin-top: 20px;
+}
+.openy-ccc-account-memberships-form .membership-renewal-check-response {
+  margin: 20px 0;
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
