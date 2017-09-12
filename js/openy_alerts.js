@@ -108,17 +108,29 @@
             show: { effect: "blind", duration: 600, delay: 300 },
             hide: { effect: "drop", duration: 600, delay: 0 },
             width: 375,
+            open: function() {
+              // Disable page scroll.
+              $('html').css({
+                overflow: 'hidden',
+                height: '100%'
+              });
+            },
             close: function () {
+              // Bring page scroll back.
+              $('html').css({
+                overflow: 'auto',
+                height: 'auto'
+              });
               Drupal.behaviors.alert_dismiss.addDismissed(nid);
             }
           });
           // Open dialog modal.
           self.dialog('open');
 
-          // If user click on any link inside modal contents, dismiss it.
+          // If user click on any link inside modal contents, close it.
           self.find('a').each(function(){
             $(this).click(function(){
-              Drupal.behaviors.alert_dismiss.addDismissed(nid);
+              self.dialog('close');
             });
           });
         }
