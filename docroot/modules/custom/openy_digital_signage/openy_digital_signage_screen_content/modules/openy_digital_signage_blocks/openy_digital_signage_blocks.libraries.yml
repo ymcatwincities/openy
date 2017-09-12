@@ -35,7 +35,7 @@ momentjs-timezone:
   version: 0.5.13
   license:
     name: MIT License
-    url: hhttps://github.com/moment/moment-timezone/blob/master/LICENSE
+    url: https://github.com/moment/moment-timezone/blob/master/LICENSE
     gpl-compatible: true
   js:
     /libraries/momentjs-timezone/moment-timezone.min.js: { minified: true }
@@ -56,3 +56,11 @@ class_ticker:
   version: VERSION
   js:
     js/class-ticker.js: {}
+
+promotional_layout_preview:
+  version: VERSION
+  js:
+    js/promo-block-form-preview.js: {}
+  css:
+    component:
+      css/promo-block-form-preview.css: {}
