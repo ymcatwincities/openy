@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_expander
+migration_tags: {  }
+migration_group: openy_demo_group_expander
+label: 'Create demo expander block'
+migration_dependencies: {}
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: 1
+      code: 'e350fe26-bc73-4c69-af18-a51a052fghd3'
+      description: 'Demo Expander Block'
+      title: 'Click to expand/collapse'
+      body: |
+        <ul class="list-inline">
+        	<li><a class="fa fa-facebook" title="Go to YMCA Facebook" href="#">Facebook</a></li>
+        	<li><a class="fa fa-twitter" title="Go to YMCA Twitter" href="#">Twitter</a></li>
+        	<li><a class="fa fa-youtube" title="Go to YMCA Youtube channel" href="#">Youtube</a></li>
+        </ul>
+  ids:
+    id:
+      type: integer
+process:
+  type:
+    plugin: default_value
+    default_value: expander_block
+  uuid: code
+  info: description
+  field_block_content/value: body
+  field_block_content/format:
+    plugin: default_value
+    default_value: full_html
+  field_block_header: title
+destination:
+  plugin: entity:block_content

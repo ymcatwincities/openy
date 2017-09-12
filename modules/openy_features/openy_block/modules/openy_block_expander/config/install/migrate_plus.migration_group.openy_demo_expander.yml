@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: openy_demo_group_expander
+label: 'Expander Block'
+description: 'Imports expander block demo content.'
+module: openy_block_expander
