@@ -156,6 +156,13 @@
     .webform-options-display-four-columns .form-checkboxes {
       column-count: 1;
     }
+    .openy-ccc-add-family-member-form {
+      td {
+        font-size: 12px;
+        word-break: break-all;
+      }
+    }
+
   }
   @media (min-width: 768px) {
     [data-drupal-selector="edit-draft-form"] {
@@ -247,6 +254,10 @@
       margin-top: 24px;
     }
   }
+}
+
+#ui-datepicker-div {
+  z-index: 4000 !important;
 }
 
 #membership-page {
