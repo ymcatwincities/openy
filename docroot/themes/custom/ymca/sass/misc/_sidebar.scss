@@ -1,4 +1,7 @@
-body.sidebar-in {
+body.show-new-mobile-menu {
+  &.sidebar-in.viewport.in {
+    width: 0;
+  }
   .sidebar {
     background: #ffffff;
     padding-top: 0;
@@ -217,8 +220,5 @@ body.sidebar-in {
         color: #6c439c;
       }
     }
-  }
-  .viewport.in {
-    width: 0;
   }
 }
