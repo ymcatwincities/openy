@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: expander_block
+label: 'Expander block'
+revision: 0
+description: 'Collapsible block.'
