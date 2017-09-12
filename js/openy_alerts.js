@@ -2,7 +2,7 @@
   "use strict";
   Drupal.behaviors.build_counter = {
     attach: function (context, settings) {
-      $('.header-alerts-list, .footer-alerts-list', context).once('header-alert-list-arrows').each(function () {
+      $('.header-alerts-list > .slick--initialized, .footer-alerts-list > .slick--initialized').once('header-alert-list-arrows').each(function () {
         $('.slick__arrow', this).wrap('<div class="container"></div>');
         if ($(this).find('.slick__counter').length === 0) {
           var current = $(this).find('.slick-active button').text(),
