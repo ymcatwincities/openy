@@ -166,6 +166,18 @@ function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $for
       unset($form['field_ds_background_position']);
       $form['background_image_settings']['field_ds_background_size'] = $form['field_ds_background_size'];
       unset($form['field_ds_background_size']);
+      $url = base_path() . drupal_get_path('module', 'openy_digital_signage_blocks') . '/icons/promo/';
+      $form['#attached']['drupalSettings']['promo_block_form_preview']['path'] = $url;
+      $form['#attached']['library'][] = 'openy_digital_signage_blocks/promotional_layout_preview';
+
+      $form['form-preview'] = [
+        '#type' => 'markup',
+        '#markup' => '<div class="promo-block-preview">' . $url . '</div>',
+        '#weight' => $form['field_ds_layout']['#weight'] - 0.01,
+      ];
+      $group = $form['#group_children']['field_ds_layout'];
+      $form['#group_children']['form-preview'] = $group;
+      $form['#fieldgroups'][$group]->children[] = 'form-preview';
       break;
 
     case 'block_content_digital_signage_block_free_html_panels_ipe_form':
