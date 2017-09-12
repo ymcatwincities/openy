@@ -3067,6 +3067,14 @@ legend small {
   -webkit-transition-delay: 0s;
 }
 
+.no-csstransitions .sidebar .active .health-fitness.nav-level-2:before, .sidebar .health-fitness.nav-level-2:before {
+  content: 'Programs';
+}
+
+.no-csstransitions .sidebar .active .jobs.nav-level-2:before, .sidebar .jobs.nav-level-2:before {
+  content: 'More';
+}
+
 .nav-home .nav-level-3.camp-icaghowan, .nav-home .nav-level-3.camp-ihduhapi, .nav-home .nav-level-3.camp-st-croix, .nav-home .nav-level-3.camp-warren, .nav-home .nav-level-3.camp-du-nord, .nav-home .nav-level-3.day-camp-daycroix, .nav-home .nav-level-3.day-camp-christmas-tree, .nav-home .nav-level-3.camp-widjiwagan, .nav-home .nav-level-3.camp-warren, .nav-home .nav-level-3.camp-menogyn, .nav-home .nav-level-3.day-camp-guy-robinson, .nav-home .nav-level-3.day-camp-heritage, .nav-home .nav-level-3.day-camp-ihduhapi, .nav-home .nav-level-3.day-camp-kumalya, .nav-home .nav-level-3.day-camp-manitou, .nav-home .nav-level-3.day-camp-spring-lake, .nav-home .nav-level-3.day-camp-streefland, .nav-home .nav-level-3.day-camp-kici-yapi {
   display: none;
 }
