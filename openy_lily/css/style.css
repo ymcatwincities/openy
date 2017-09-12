@@ -2085,6 +2085,10 @@ article.site-alert ul li div {
   margin-top: 24px;
 }
 
+#ui-datepicker-div {
+  z-index: 4000 !important;
+}
+
 #membership-page {
   position: relative;
   z-index: 901;
