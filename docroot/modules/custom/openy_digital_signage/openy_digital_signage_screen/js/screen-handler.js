@@ -161,6 +161,7 @@ function TimeManager() {
         .animate({opacity: 1}, self.options.animation, function() {
           self.afterInit();
         });
+      $("body > .loader").fadeOut(self.options.animation);
     };
 
     this.afterInit = function() {
