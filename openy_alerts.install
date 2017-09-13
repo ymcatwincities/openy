@@ -40,18 +40,6 @@ function openy_alerts_update_8003() {
     [
       'block.block.views_block__modal_alerts_local',
       'field.storage.node.field_alert_place',
-      'views.view.modal_alerts'
-    ]);
-}
-
-/**
- * Rework modal alerts to use display mode.
- */
-function openy_alerts_update_8004() {
-  $config_importer = \Drupal::service('config_import.importer');
-  $config_importer->setDirectory(drupal_get_path('module', 'openy_alerts') . '/config/install');
-  $config_importer->importConfigs(
-    [
       'core.entity_view_display.node.alert.modal_alert',
       'core.entity_view_mode.node.modal_alert',
       'views.view.modal_alerts'
