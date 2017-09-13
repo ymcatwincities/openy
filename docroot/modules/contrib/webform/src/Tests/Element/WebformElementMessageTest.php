@@ -20,7 +20,7 @@ class WebformElementMessageTest extends WebformTestBase {
   protected static $testWebforms = ['test_element_message'];
 
   /**
-   * Tests building of custom elements.
+   * Tests message element.
    */
   public function testMessage() {
     $webform = Webform::load('test_element_message');

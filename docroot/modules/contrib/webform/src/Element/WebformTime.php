@@ -29,7 +29,7 @@ class WebformTime extends FormElement {
     $class = get_class($this);
     return [
       '#input' => TRUE,
-      '#theme' => 'input__time',
+      '#theme' => 'input__webform_time',
       '#process' => [[$class, 'processWebformTime']],
       '#pre_render' => [[$class, 'preRenderWebformTime']],
       '#element_validate' => [[$class, 'validateWebformTime']],

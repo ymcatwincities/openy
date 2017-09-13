@@ -39,7 +39,7 @@ class WebformElementTermReferenceTest extends WebformTestBase {
   /**
    * Test term reference element.
    */
-  public function testTermReferenceElement() {
+  public function testTermReference() {
     $webform = Webform::load('test_element_term_reference');
 
     /**************************************************************************/
@@ -69,7 +69,8 @@ class WebformElementTermReferenceTest extends WebformTestBase {
       'webform_term_checkboxes_breadcrumb_advanced[3]' => TRUE,
     ];
     $this->postSubmission($webform, $edit, t('Preview'));
-    $this->assertRaw('<b>webform_term_checkboxes_breadcrumb_advanced</b><br /><div class="item-list"><ul><li>Parent 1 › Parent 1: Child 1</li><li>Parent 1 › Parent 1: Child 2</li></ul></div>');
+    $this->assertRaw('<label>webform_term_checkboxes_breadcrumb_advanced</label>');
+    $this->assertRaw('<div class="item-list"><ul><li>Parent 1 › Parent 1: Child 1</li><li>Parent 1 › Parent 1: Child 2</li></ul></div>');
 
     /**************************************************************************/
     // Term select.
@@ -106,7 +107,8 @@ class WebformElementTermReferenceTest extends WebformTestBase {
       'webform_term_select_breadcrumb_advanced[]' => [2, 3],
     ];
     $this->postSubmission($webform, $edit, t('Preview'));
-    $this->assertRaw('<b>webform_term_select_breadcrumb_advanced</b><br /><div class="item-list"><ul><li>Parent 1 › Parent 1: Child 1</li><li>Parent 1 › Parent 1: Child 2</li></ul></div>');
+    $this->assertRaw('<label>webform_term_select_breadcrumb_advanced</label>');
+    $this->assertRaw('<div class="item-list"><ul><li>Parent 1 › Parent 1: Child 1</li><li>Parent 1 › Parent 1: Child 2</li></ul></div>');
   }
 
 }

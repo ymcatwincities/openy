@@ -5,10 +5,77 @@
  * Provides a webform content type which allows webforms to be integrated into a website as nodes.
  */
 
-use Drupal\Core\Session\AccountInterface;
-use Drupal\node\NodeInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
+use Drupal\webform\Element\WebformMessage;
+use Drupal\webform\Entity\Webform;
 use Drupal\webform\Plugin\Field\FieldType\WebformEntityReferenceItem;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function webform_node_entity_type_alter(array &$entity_types) {
+  if (isset($entity_types['webform'])) {
+    /** @var \Drupal\Core\Entity\ContentEntityTypeInterface $webform_entity_type */
+    $webform_entity_type = $entity_types['webform'];
+    $webform_entity_type->setLinkTemplate('references', '/admin/structure/webform/manage/{webform}/references');
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function webform_node_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name != 'node.add') {
+    return NULL;
+  }
+
+  // Don't show the warning is the user can't create webforms.
+  if (!\Drupal::currentUser()->hasPermission('create webform')) {
+    return NULL;
+  }
+
+  /** @var \Drupal\node\NodeTypeInterface $node_type */
+  $node_type = $route_match->getParameter('node_type');
+
+  // Determine if the node type has webform (entity reference) field.
+  $has_webform_field = FALSE;
+  $field_configs = \Drupal::entityTypeManager()->getStorage('field_config')->loadByProperties(['entity_type' => 'node', 'bundle' => $node_type->id()]);
+  foreach ($field_configs as $field_config) {
+    if ($field_config->get('field_type') === 'webform') {
+      $has_webform_field = TRUE;
+      break;
+    }
+  }
+
+  // Display warning message if webform query string parameter is missing.
+  if ($has_webform_field && !\Drupal::request()->get('webform')) {
+    $build = [
+      '#type' => 'webform_message',
+      '#message_type' => 'warning',
+      '#message_close' => TRUE,
+      '#message_id' => 'webform_node.references',
+      '#message_storage' => WebformMessage::STORAGE_USER,
+      '#message_message' => t('Webforms must first be <a href=":href">created</a> before referencing them in the below form.', [':href' => Url::fromRoute('entity.webform.collection')->toString()]),
+      '#cache' => ['max-age' => 0],
+    ];
+  }
+  elseif (\Drupal::request()->get('webform')) {
+    // If there is a webform query string parameter, then disable caching.
+    $build = ['#cache' => ['max-age' => 0]];
+  }
+  else {
+    $build = [];
+  }
+
+  // Makes sure if a webform field is added to a node type it is accounted for.
+  \Drupal::service('renderer')->addCacheableDependency($build, $node_type);
+  return $build;
+}
 
 /**
  * Implements hook_node_access().
@@ -43,5 +110,31 @@ function webform_node_node_access(NodeInterface $node, $operation, AccountInterf
     }
 
     return AccessResult::forbidden();
+  }
+}
+
+/**
+ * Implements hook_node_prepare_form().
+ *
+ * Prepopulate a node's webform field target id.
+ *
+ * @see \Drupal\webform_node\Controller\WebformNodeReferencesListController::render
+ */
+function webform_node_node_prepare_form(NodeInterface $node, $operation, FormStateInterface $form_state) {
+  // Only prepopulate new nodes.
+  if (!$node->isNew()) {
+    return;
+  }
+
+  // Make the node has a webform (entity reference) field.
+  $field_name = WebformEntityReferenceItem::getEntityWebformFieldName($node);
+  if (!$field_name) {
+    return;
+  }
+
+  // Populate the webform field.
+  $webform = \Drupal::request()->get('webform');
+  if ($webform && Webform::load($webform)) {
+    $node->$field_name->target_id = $webform;
   }
 }
