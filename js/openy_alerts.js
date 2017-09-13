@@ -96,8 +96,10 @@
         var self = $(this);
         var nid = parseInt(self.data('nid'));
         if (!Drupal.behaviors.alert_dismiss.isDismissed(nid)) {
-          // ToDo: pass head colors through settings.
-          var dialog_classes = 'openy-alert-modal openy-alert-modal-head-yellow openy-alert-modal-' + nid;
+          var dialog_classes = 'openy-alert-modal  openy-alert-modal-' + nid;
+          var color = self.data('color'); // openy-alert-modal-head-yellow
+          dialog_classes += ' openy-alert-modal-head-' + color;
+
           // Init dialog modal.
           // See jqueryui.com/dialog
           self.dialog({
