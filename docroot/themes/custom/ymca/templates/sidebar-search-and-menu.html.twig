@@ -16,14 +16,13 @@
           </span>
         </div>
       </div>
-   </form>
-  {% else %}
+    </form>
     {% if not hide_mobile_sign_button %}
-       <div class="col-xs-12">
-          <a class="btn btn-block btn-default" href="https://account.ymcamn.org/PersonifyEBusiness/Default.aspx?TabID=337">{{ "Sign In"|t }}</a>
-       </div>
+      <div class="col-xs-12">
+        <a class="btn btn-block btn-default" href="https://account.ymcamn.org/PersonifyEBusiness/Default.aspx?TabID=337">{{ "Sign In"|t }}</a>
+      </div>
     {% endif %}
-
+  {% else %}
     <div class="top-bar">
       <a class="home-icon" href="{{ base_path }}" title="{{ "YMCA Twin Cities"|t }}"><i class="fa fa-home" aria-hidden="true"></i></a>
       {% if not hide_mobile_sign_button %}
