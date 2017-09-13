@@ -116,6 +116,8 @@
                 overflow: 'hidden',
                 height: '100%'
               });
+
+              $(this).closest(".ui-dialog").find('.ui-dialog-titlebar-close').html("&#10006;");
             },
             close: function () {
               // Bring page scroll back.
