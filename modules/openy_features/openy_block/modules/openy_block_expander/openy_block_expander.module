@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+//function openy_block_theme_registry_alter(&$theme_registry) {
+//  $theme_registry['page']['path'] = drupal_get_path('module', 'openy_block_expander') . '/templates';
+//}
+
+//function openy_block_expander_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+//  if ($node = \Drupal::routeMatch()->getRouteName() == 'openy_block_expander.demo') {
+//    $suggestions[] = 'page__expander';
+//  }
+//}
+
+function openy_block_expander_theme($existing, $type, $theme, $path) {
+  return array(
+    // Make Drupal aware of our node template for my view mode.
+    'page__openy_block_expander_demo' => array(
+      'base hook' => 'page',
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function openy_block_expander_preprocess(&$variables, $hook, &$info) {
+  if ($node = \Drupal::routeMatch()->getRouteName() == 'openy_block_expander.demo') {
+    if ($hook == 'page') {
+      if (substr($info['theme path'], 0, 7) != 'themes/') {
+        $info['theme path'] = drupal_get_path('module', 'openy_block_expander');
+        $info['path'] = $info['theme path'] . '/templates';
+      }
+    }
+  }
+}
