@@ -77,7 +77,7 @@ class TextFormat extends WebformElementBase {
       // Display tips in a modal.
       $element['format']['help']['about']['#attributes']['class'][] = 'use-ajax';
       $element['format']['help']['about']['#attributes'] += [
-        'data-dialog-type' => 'modal',
+        'data-dialog-type' => 'dialog',
         'data-dialog-options' => Json::encode([
           'dialogClass' => 'webform-text-format-help-dialog',
           'width' => 800,
@@ -177,6 +177,13 @@ class TextFormat extends WebformElementBase {
       'value' => $title . ' [' . t('Textarea') . ']',
       'format' => $title . ' [' . t('Select') . ']',
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return (\Drupal::moduleHandler()->moduleExists('filter')) ? parent::preview() : [];
   }
 
   /**

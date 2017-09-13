@@ -4,7 +4,6 @@ namespace Drupal\webform\Element;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
-use Drupal\webform\Entity\Webform as WebformEntity;
 
 /**
  * Provides a base webform element for webform excluded elements and columns.

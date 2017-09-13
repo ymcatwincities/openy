@@ -17,31 +17,19 @@ use Drupal\webform\WebformSubmissionInterface;
  *   states_wrapper = TRUE,
  * )
  */
-class WebformContact extends WebformAddress {
+class WebformContact extends WebformCompositeBase {
 
   /**
    * {@inheritdoc}
    */
   protected function formatHtmlItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
-    $value = $this->getValue($element, $webform_submission, $options);
-
-    $lines = [];
-    if (!empty($value['name'])) {
-      $lines['name'] = $value['name'];
-    }
-    if (!empty($value['company'])) {
-      $lines['company'] = $value['company'];
-    }
-    $lines += parent::formatHtmlItemValue($element, $webform_submission, $options);
-    if (!empty($value['email'])) {
+    $lines = $this->formatTextItemValue($element, $webform_submission, $options);
+    if (!empty($lines['email'])) {
       $lines['email'] = [
         '#type' => 'link',
-        '#title' => $value['email'],
-        '#url' => \Drupal::pathValidator()->getUrlIfValid('mailto:' . $value['email']),
+        '#title' => $lines['email'],
+        '#url' => \Drupal::pathValidator()->getUrlIfValid('mailto:' . $lines['email']),
       ];
-    }
-    if (!empty($value['phone'])) {
-      $lines['phone'] = $value['phone'];
     }
     return $lines;
   }
@@ -52,6 +40,19 @@ class WebformContact extends WebformAddress {
   protected function formatTextItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $value = $this->getValue($element, $webform_submission, $options);
 
+    $location = '';
+    if (!empty($value['city'])) {
+      $location .= $value['city'];
+    }
+    if (!empty($value['state_province'])) {
+      $location .= ($location) ? ', ' : '';
+      $location .= $value['state_province'];
+    }
+    if (!empty($value['postal_code'])) {
+      $location .= ($location) ? '. ' : '';
+      $location .= $value['postal_code'];
+    }
+
     $lines = [];
     if (!empty($value['name'])) {
       $lines['name'] = $value['name'];
@@ -59,7 +60,18 @@ class WebformContact extends WebformAddress {
     if (!empty($value['company'])) {
       $lines['company'] = $value['company'];
     }
-    $lines += parent::formatTextItemValue($element, $webform_submission, $options);
+    if (!empty($value['address'])) {
+      $lines['address'] = $value['address'];
+    }
+    if (!empty($value['address_2'])) {
+      $lines['address_2'] = $value['address_2'];
+    }
+    if ($location) {
+      $lines['location'] = $location;
+    }
+    if (!empty($value['country'])) {
+      $lines['country'] = $value['country'];
+    }
     if (!empty($value['email'])) {
       $lines['email'] = $value['email'];
     }

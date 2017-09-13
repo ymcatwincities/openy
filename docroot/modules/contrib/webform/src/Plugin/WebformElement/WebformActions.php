@@ -14,7 +14,7 @@ use Drupal\webform\WebformSubmissionInterface;
  *   id = "webform_actions",
  *   label = @Translation("Submit button(s)"),
  *   description = @Translation("Provides an element that contains a Webform's submit, draft, wizard, and/or preview buttons."),
- *   category = @Translation("Actions"),
+ *   category = @Translation("Buttons"),
  * )
  */
 class WebformActions extends ContainerBase {
@@ -70,10 +70,31 @@ class WebformActions extends ContainerBase {
   /**
    * {@inheritdoc}
    */
+  public function getItemDefaultFormat() {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemFormats() {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getTestValues(array $element, WebformInterface $webform, array $options = []) {
     // Containers should never have values and therefore should never have
     // a test value.
     return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return [];
   }
 
   /**
@@ -90,6 +111,7 @@ class WebformActions extends ContainerBase {
       '#title' => $this->t('Buttons'),
     ];
     $draft_enabled = ($webform->getSetting('draft') != WebformInterface::DRAFT_NONE);
+    $reset_enabled = $webform->getSetting('form_reset');
     $wizard_enabled = $webform->hasWizardPages();
     $preview_enabled = ($webform->getSetting('preview') != DRUPAL_DISABLED);
 
@@ -98,6 +120,11 @@ class WebformActions extends ContainerBase {
         'title' => $this->t('Submit'),
         'label' => $this->t('submit'),
         'access' => TRUE,
+      ],
+      'reset' => [
+        'title' => $this->t('Reset'),
+        'label' => $this->t('reset'),
+        'access' => $reset_enabled,
       ],
       'draft' => [
         'title' => $this->t('Draft'),
@@ -155,7 +182,7 @@ class WebformActions extends ContainerBase {
         '#title' => $this->t('Hide @label button', $t_args),
         '#return_value' => TRUE,
       ];
-      if (strpos($name, '_prev') === FALSE) {
+      if (strpos($name, '_prev') === FALSE && $name !== 'reset') {
         $form[$name . '_settings'][$name . '_hide_message'] = [
           '#type' => 'webform_message',
           '#access' => TRUE,

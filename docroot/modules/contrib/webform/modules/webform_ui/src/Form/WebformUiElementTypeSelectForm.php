@@ -4,7 +4,6 @@ namespace Drupal\webform_ui\Form;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\webform\Utility\WebformDialogHelper;
 use Drupal\webform\WebformInterface;
 
 /**
@@ -25,19 +24,18 @@ class WebformUiElementTypeSelectForm extends WebformUiElementTypeFormBase {
   public function buildForm(array $form, FormStateInterface $form_state, WebformInterface $webform = NULL) {
     $parent = $this->getRequest()->query->get('parent');
 
-    $headers = [];
-    $headers[] = ['data' => $this->t('Element')];
-    $headers[] = ['data' => $this->t('Category')];
-    if (!$this->isOffCanvasDialog()) {
-      $headers[] = ['data' => $this->t('Operations')];
-    }
-
     $elements = $this->elementManager->getInstances();
     $definitions = $this->getDefinitions();
-    $rows = [];
+    $category_index = 0;
+    $categories = [];
+
+    $form = parent::buildForm($form, $form_state, $webform);
+
     foreach ($definitions as $plugin_id => $plugin_definition) {
+      $element_type = $plugin_id;
+
       /** @var \Drupal\webform\Plugin\WebformElementInterface $webform_element */
-      $webform_element = $elements[$plugin_id];
+      $webform_element = $elements[$element_type];
 
       // Skip hidden plugins.
       if ($webform_element->isHidden()) {
@@ -45,73 +43,41 @@ class WebformUiElementTypeSelectForm extends WebformUiElementTypeFormBase {
       }
 
       // Skip wizard page which has a dedicated URL.
-      if ($plugin_id == 'webform_wizard_page') {
+      if ($element_type == 'webform_wizard_page') {
         continue;
       }
 
-      $route_parameters = ['webform' => $webform->id(), 'type' => $plugin_id];
-      $route_options = ($parent) ? ['query' => ['parent' => $parent]] : [];
-      $row = [];
-      $row['title']['data'] = [
-        '#type' => 'link',
-        '#title' => $plugin_definition['label'],
-        '#url' => Url::fromRoute('entity.webform_ui.element.add_form', $route_parameters, $route_options),
-        '#attributes' => WebformDialogHelper::getModalDialogAttributes(800),
-        '#prefix' => '<div class="webform-form-filter-text-source">',
-        '#suffix' => '</div>',
-      ];
-      $row['category']['data'] = $plugin_definition['category'];
-      if (!$this->isOffCanvasDialog()) {
-        $row['operations']['data'] = [
-          '#type' => 'link',
-          '#title' => $this->t('Add element'),
-          '#url' => Url::fromRoute('entity.webform_ui.element.add_form', $route_parameters, $route_options),
-          '#attributes' => WebformDialogHelper::getModalDialogAttributes(800, ['button', 'button-action', 'button--primary', 'button--small']),
+      $category_name = (string) $plugin_definition['category'];
+      if (!isset($categories[$category_name])) {
+        $categories[$category_name] = $category_index++;
+        $category_id = $categories[$category_name];
+        $form[$category_id] = [
+          '#type' => 'details',
+          '#title' => $plugin_definition['category'],
+          '#open' => TRUE,
+          '#attributes' => ['data-webform-element-id' => 'webform-ui-element-type-' . $category_id],
+        ];
+        $form[$category_id]['elements'] = [
+          '#type' => 'table',
+          '#header' => $this->getHeader(),
+          '#rows' => [],
+          '#empty' => $this->t('No element available.'),
+          '#attributes' => [
+            'class' => ['webform-ui-element-type-table'],
+          ],
         ];
       }
-      // Issue #2741877 Nested modals don't work: when using CKEditor in a
-      // modal, then clicking the image button opens another modal,
-      // which closes the original modal.
-      // @todo Remove the below workaround once this issue is resolved.
-      if ($webform_element->getPluginId() == 'processed_text') {
-        unset($row['title']['data']['#attributes']);
-        unset($row['operations']['data']['#attributes']);
-        $row['operations']['data']['#attributes']['class'] = ['button', 'button-action', 'button--primary', 'button--small'];
+      else {
+        $category_id = $categories[$category_name];
       }
 
-      $row['title']['data']['#attributes']['class'][] = 'js-webform-tooltip-link';
-      $row['title']['data']['#attributes']['class'][] = 'webform-tooltip-link';
-      $row['title']['data']['#attributes']['title'] = $plugin_definition['description'];
-
-      $rows[] = $row;
+      $url = Url::fromRoute(
+        'entity.webform_ui.element.add_form',
+        ['webform' => $webform->id(), 'type' => $element_type],
+        ($parent) ? ['query' => ['parent' => $parent]] : []
+      );
+      $form[$category_id]['elements'][$element_type] = $this->buildRow($plugin_definition, $webform_element, $url, $this->t('Add element'));
     }
-
-    $form['#attached']['library'][] = 'webform/webform.form';
-    $form['#attached']['library'][] = 'webform/webform.tooltip';
-
-    $form['filter'] = [
-      '#type' => 'search',
-      '#title' => $this->t('Filter'),
-      '#title_display' => 'invisible',
-      '#size' => 30,
-      '#placeholder' => $this->t('Filter by element name'),
-      '#attributes' => [
-        'class' => ['webform-form-filter-text'],
-        'data-element' => '.webform-ui-element-type-table',
-        'title' => $this->t('Enter a part of the element name to filter by.'),
-        'autofocus' => 'autofocus',
-      ],
-    ];
-
-    $form['elements'] = [
-      '#type' => 'table',
-      '#header' => $headers,
-      '#rows' => $rows,
-      '#empty' => $this->t('No element available.'),
-      '#attributes' => [
-        'class' => ['webform-ui-element-type-table'],
-      ],
-    ];
 
     return $form;
   }

@@ -16,8 +16,8 @@ class SchedulerStatusReportTest extends SchedulerBrowserTestBase {
     $this->drupalLogin($this->adminUser);
     $this->drupalGet('admin/reports/status');
 
-    $this->assertText('Time Check');
-    $this->assertText('In most cases the server time matches Coordinated Universal Time (UTC)');
+    $this->assertText('Scheduler Time Check');
+    $this->assertText('In most cases the server time should match Coordinated Universal Time (UTC) / Greenwich Mean Time (GMT)');
 
     $admin_regional_settings = \Drupal::url('system.regional_settings');
     $this->assertLink('changed by admin users');
