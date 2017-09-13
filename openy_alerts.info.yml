@@ -23,4 +23,4 @@ dependencies:
   - drupal:text
   - drupal:user
   - drupal:views
-version: 8.x-1.1
+version: 8.x-1.2  
