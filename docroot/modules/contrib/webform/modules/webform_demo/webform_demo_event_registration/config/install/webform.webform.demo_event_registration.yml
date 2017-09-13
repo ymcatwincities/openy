@@ -150,6 +150,7 @@ handlers:
       reply_to: ''
       return_path: ''
       ignore_access: false
+      exclude_empty: true
   email_reminder:
     id: scheduled_email
     label: 'Email Reminder'
@@ -180,3 +181,4 @@ handlers:
       days: -1
       unschedule: false
       ignore_access: false
+      exclude_empty: true

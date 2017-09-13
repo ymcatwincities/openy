@@ -77,11 +77,15 @@ function scheduler_api_test_scheduler_allow_publishing($node) {
     $allowed = $node->field_approved_publishing->value;
     // If publication is denied then inform the user why.
     if (!$allowed) {
-      drupal_set_message(t('The content can be scheduled for publishing, but will not be published until approved by the CEO.'), 'status', FALSE);
+      drupal_set_message(t('%title is scheduled for publishing, but will not be published until approved.', ['%title' => $node->title->value]), 'status', FALSE);
       // If the time is in the past it means that the action has been prevented.
-      // Write a dblog message to show this.
+      // Write a dblog message to show this. Give a link to view the node but
+      // cater for no nid as the node may be new and not yet saved.
       if ($node->publish_on->value <= REQUEST_TIME) {
-        \Drupal::logger('scheduler_api_test')->warning('Publishing of "%title" is prevented until approved by the CEO.', ['%title' => $node->title->value]);
+        \Drupal::logger('scheduler_api_test')->warning('Publishing of "%title" is prevented until approved.', [
+          '%title' => $node->title->value,
+          'link' => $node->id() ? $node->link(t('View node')) : '',
+        ]);
       }
     }
   }
@@ -101,11 +105,15 @@ function scheduler_api_test_scheduler_allow_unpublishing($node) {
     $allowed = $node->field_approved_unpublishing->value;
     // If unpublication is denied then inform the user why.
     if (!$allowed) {
-      drupal_set_message(t('The content can be scheduled for unpublishing, but will not be unpublished until approved by the CEO.'), 'status', FALSE);
+      drupal_set_message(t('%title is scheduled for unpublishing, but will not be unpublished until approved.', ['%title' => $node->title->value]), 'status', FALSE);
       // If the time is in the past it means that the action has been prevented.
-      // Write a dblog message to show this.
+      // Write a dblog message to show this. Give a link to view the node but
+      // cater for no nid as the node may be new and not yet saved.
       if ($node->unpublish_on->value <= REQUEST_TIME) {
-        \Drupal::logger('scheduler_api_test')->warning('Unpublishing of "%title" is prevented until approved by the CEO.', ['%title' => $node->title->value]);
+        \Drupal::logger('scheduler_api_test')->warning('Unpublishing of "%title" is prevented until approved.', [
+          '%title' => $node->title->value,
+          'link' => $node->id() ? $node->link(t('View node')) : '',
+        ]);
       }
     }
   }

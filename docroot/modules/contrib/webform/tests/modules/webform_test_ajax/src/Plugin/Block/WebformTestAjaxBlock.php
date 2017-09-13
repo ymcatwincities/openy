@@ -3,11 +3,8 @@
 namespace Drupal\webform_test_ajax\Plugin\Block;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Session\AccountInterface;
 use Drupal\webform\Entity\Webform;
-use Drupal\webform\WebformInterface;
 
 /**
  * Provides a 'webform_test_block_context' block.

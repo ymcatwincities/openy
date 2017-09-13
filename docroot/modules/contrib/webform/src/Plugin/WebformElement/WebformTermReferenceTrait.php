@@ -3,6 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\taxonomy\Entity\Vocabulary;
 
 /**
  * Provides an 'term_reference' trait.
@@ -17,6 +18,23 @@ trait WebformTermReferenceTrait {
    */
   public function getRelatedTypes(array $element) {
     return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    if ($vocabularies = Vocabulary::loadMultiple()) {
+      $vocabulary = reset($vocabularies);
+      $vocabulary_id = $vocabulary->id();
+    }
+    else {
+      $vocabulary_id = 'tags';
+    }
+
+    return parent::preview() + [
+      '#vocabulary' => $vocabulary_id,
+    ];
   }
 
   /**

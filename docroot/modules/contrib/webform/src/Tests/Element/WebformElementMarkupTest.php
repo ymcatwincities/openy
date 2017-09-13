@@ -21,7 +21,7 @@ class WebformElementMarkupTest extends WebformTestBase {
   /**
    * Test markup element.
    */
-  public function testMarkupElement() {
+  public function testMarkup() {
     $this->drupalGet('webform/test_element_markup');
 
     $this->assertRaw('<p>This is normal markup</p>');

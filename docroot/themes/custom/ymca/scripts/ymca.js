@@ -362,6 +362,7 @@
         }
         // Extended case, merge sidebar and navbar.
         if ($('.nav-location').length === 1) {
+          $('.nav-location').removeClass('hidden-xs');
           if ($('.panel-subnav').length === 1) {
             $('.panel-subnav ul.nav:eq(0)').clone(true).appendTo('.nav-location .nav .current');
           }

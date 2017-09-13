@@ -441,13 +441,15 @@ abstract class WebformTestBase extends WebTestBase {
    *   Submission values.
    * @param string $submit
    *   Value of the submit button whose click is to be emulated.
+   * @param array $options
+   *   Options to be forwarded to the url generator.
    *
    * @return int
    *   The created submission's sid.
    */
-  protected function postSubmission(WebformInterface $webform, array $edit = [], $submit = NULL) {
+  protected function postSubmission(WebformInterface $webform, array $edit = [], $submit = NULL, array $options = []) {
     $submit = $this->getWebformSubmitButtonLabel($webform, $submit);
-    $this->drupalPostForm('webform/' . $webform->id(), $edit, $submit);
+    $this->drupalPostForm('webform/' . $webform->id(), $edit, $submit, $options);
     return $this->getLastSubmissionId($webform);
   }
 
