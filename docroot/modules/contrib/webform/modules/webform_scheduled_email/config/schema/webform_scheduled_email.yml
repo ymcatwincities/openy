@@ -57,6 +57,9 @@ webform.handler.scheduled_email:
     ignore_access:
       type: boolean
       label: 'Always include private and restricted access elements.'
+    exclude_empty:
+      type: boolean
+      label: 'Preview exclude empty elements'
     html:
       type: boolean
       label: 'HTML'

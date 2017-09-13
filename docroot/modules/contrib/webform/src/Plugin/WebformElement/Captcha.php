@@ -78,6 +78,19 @@ class Captcha extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
+  public function preview() {
+    $element = parent::preview() + [
+      '#captcha_admin_mode' => TRUE,
+    ];
+    if (\Drupal::moduleHandler()->moduleExists('image_captcha')) {
+      $element['#captcha_type'] = 'image_captcha/Image';
+    }
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function preSave(array &$element, WebformSubmissionInterface $webform_submission) {
     // Remove all captcha related keys from the webform submission's data.
     $key = $element['#webform_key'];

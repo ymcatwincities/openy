@@ -51,7 +51,7 @@ class TestEntityMappingWebformHandler extends WebformHandlerBase {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $this->applyFormStateSettingsToConfiguration($form_state);
+    $this->applyFormStateToConfiguration($form_state);
 
     $entity_type_manager = \Drupal::entityTypeManager();
 
