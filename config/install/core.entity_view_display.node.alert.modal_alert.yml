@@ -14,19 +14,22 @@ dependencies:
     - link
     - text
     - user
-id: node.alert.footer_alert
+id: node.alert.modal_alert
 targetEntityType: node
 bundle: alert
-mode: footer_alert
+mode: modal_alert
 content:
   field_alert_body:
-    weight: 1
+    weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
   field_alert_link:
-    weight: 0
+    type: link
+    weight: 1
+    region: content
     label: hidden
     settings:
       trim_length: 80
@@ -35,7 +38,6 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
 hidden:
   field_alert_belongs: true
   field_alert_color: true
