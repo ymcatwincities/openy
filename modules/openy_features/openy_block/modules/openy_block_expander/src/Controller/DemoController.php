@@ -13,11 +13,10 @@ class DemoController extends ControllerBase {
    * {@inheritdoc}
    */
   public function content() {
-    $build = array(
-      '#type' => 'markup',
-      '#markup' => t('Hello Expander World!'),
-    );
-    return $build;
+    $block = \Drupal\block_content\Entity\BlockContent::load(3);
+    $render = \Drupal::entityTypeManager()->getViewBuilder('block_content')->view($block);
+
+    return $render;
   }
 
 }

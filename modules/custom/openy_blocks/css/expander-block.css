@@ -1,0 +1,16 @@
+.expander-block h4 {
+  cursor: pointer;
+  color: green;
+}
+
+.fa-plus-circle {
+  display: none;
+}
+
+.expander-block.collapsed .content .fa-minus-circle {
+  display:none;
+}
+
+.expander-block.collapsed .content .fa-plus-circle {
+  display: inline-block;
+}
