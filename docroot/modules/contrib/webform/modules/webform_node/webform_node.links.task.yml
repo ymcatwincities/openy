@@ -1,3 +1,7 @@
+entity.webform.references:
+  title: 'References'
+  route_name: entity.webform.references
+  base_route: entity.webform.canonical
 
 entity.node.webform.test:
   title: 'Test'

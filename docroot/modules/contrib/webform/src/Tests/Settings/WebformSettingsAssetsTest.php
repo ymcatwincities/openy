@@ -27,16 +27,16 @@ class WebformSettingsAssetsTest extends WebformTestBase {
 
     // Check has CSS and JavaScript.
     $this->drupalGet('webform/test_form_assets');
-    $this->assertRaw('<link rel="stylesheet" href="' . base_path() . 'webform/test_form_assets/assets/css?v=');
-    $this->assertRaw('<script src="' . base_path() . 'webform/test_form_assets/assets/javascript?v=');
+    $this->assertRaw('<link rel="stylesheet" href="' . base_path() . 'webform/css/test_form_assets?');
+    $this->assertRaw('<script src="' . base_path() . 'webform/javascript/test_form_assets?');
 
     // Clear CSS and JavaScript.
     $webform_assets->setCss('')->setJavaScript('')->save();
 
     // Check has no CSS or JavaScript.
     $this->drupalGet('webform/test_form_assets');
-    $this->assertNoRaw('<link rel="stylesheet" href="' . base_path() . 'webform/test_form_assets/assets/css?v=');
-    $this->assertNoRaw('<script src="' . base_path() . 'webform/test_form_assets/assets/javascript?v=');
+    $this->assertNoRaw('<link rel="stylesheet" href="' . base_path() . 'webform/css/test_form_assets?');
+    $this->assertNoRaw('<script src="' . base_path() . 'webform/javascript/test_form_assets?');
 
     // Add global CSS and JS on all webforms.
     \Drupal::configFactory()->getEditable('webform.settings')
@@ -46,8 +46,8 @@ class WebformSettingsAssetsTest extends WebformTestBase {
 
     // Check has global CSS and JavaScript.
     $this->drupalGet('webform/test_form_assets');
-    $this->assertRaw('<link rel="stylesheet" href="' . base_path() . 'webform/test_form_assets/assets/css?v=');
-    $this->assertRaw('<script src="' . base_path() . 'webform/test_form_assets/assets/javascript?v=');
+    $this->assertRaw('<link rel="stylesheet" href="' . base_path() . 'webform/css/test_form_assets?');
+    $this->assertRaw('<script src="' . base_path() . 'webform/javascript/test_form_assets?');
   }
 
 }

@@ -14,7 +14,6 @@ use Drupal\webform\WebformSubmissionInterface;
  */
 abstract class WebformComputedBase extends FormElement {
 
-
   /**
    * Denotes HTML.
    *
@@ -67,31 +66,12 @@ abstract class WebformComputedBase extends FormElement {
    *   The processed element.
    */
   public static function processWebformComputed(&$element, FormStateInterface $form_state, &$complete_form) {
-    /** @var \Drupal\webform\WebformSubmissionForm $form_object */
-    $form_object = $form_state->getFormObject();
-
-    if (isset($element['#webform_submission'])) {
-      if (is_string($element['#webform_submission'])) {
-        $webform_submission = WebformSubmission::load($element['#webform_submission']);
-      }
-      else {
-        /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
-        $webform_submission = $element['#webform_submission'];
-      }
-    }
-    elseif ($form_object instanceof WebformSubmissionForm) {
-      /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
-      $webform_submission = $form_object->getEntity();
-    }
-    else {
-      return $element;
-    }
-
+    $webform_submission = static::getWebformSubmission($element, $form_state);
     if ($webform_submission) {
       $value = static::processValue($element, $webform_submission);;
 
       // Display markup.
-      $element['value']['#markup'] = static::processValue($element, $webform_submission);
+      $element['value']['#markup'] = $value;
 
       // Include hidden element so that computed value will be available to
       // conditional logic.
@@ -101,6 +81,14 @@ abstract class WebformComputedBase extends FormElement {
         '#value' => ['#markup' => $value],
         '#parents' => $element['#parents'],
       ];
+
+      // Set #type to item to trigger #states behavior.
+      // @see drupal_process_states;
+      $element['#type'] = 'item';
+    }
+
+    if (isset($element['#states'])) {
+      webform_process_states($element, '#wrapper_attributes');
     }
 
     return $element;
@@ -136,6 +124,35 @@ abstract class WebformComputedBase extends FormElement {
     }
     else {
       return $element['#mode'];
+    }
+  }
+
+  /**
+   * Get the Webform submission for element.
+   *
+   * @param array $element
+   *   The element.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return \Drupal\webform\WebformSubmissionInterface|null
+   *   A webform submission.
+   */
+  protected static function getWebformSubmission(array $element, FormStateInterface $form_state) {
+    $form_object = $form_state->getFormObject();
+    if (isset($element['#webform_submission'])) {
+      if (is_string($element['#webform_submission'])) {
+        return WebformSubmission::load($element['#webform_submission']);
+      }
+      else {
+        return $element['#webform_submission'];
+      }
+    }
+    elseif ($form_object instanceof WebformSubmissionForm) {
+      return $form_object->getEntity();
+    }
+    else {
+      return NULL;
     }
   }
 

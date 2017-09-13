@@ -9,7 +9,7 @@ namespace Drupal\webform\Plugin\WebformElement;
  *   id = "webform_computed_token",
  *   label = @Translation("Computed token"),
  *   description = @Translation("Provides an item to display computed webform submission values using tokens."),
- *   category = @Translation("Computed"),
+ *   category = @Translation("Computed Elements"),
  * )
  */
 class WebformComputedToken extends WebformComputedBase {

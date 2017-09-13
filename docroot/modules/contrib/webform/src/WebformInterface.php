@@ -50,6 +50,41 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
   const STATUS_SCHEDULED = 'scheduled';
 
   /**
+   * Webform confirmation page.
+   */
+  const CONFIRMATION_PAGE = 'page';
+
+  /**
+   * Webform confirmation URL.
+   */
+  const CONFIRMATION_URL = 'url';
+
+  /**
+   * Webform confirmation URL with message.
+   */
+  const CONFIRMATION_URL_MESSAGE = 'url_message';
+
+  /**
+   * Webform confirmation inline.
+   */
+  const CONFIRMATION_INLINE = 'inline';
+
+  /**
+   * Webform confirmation message.
+   */
+  const CONFIRMATION_MESSAGE = 'message';
+
+  /**
+   * Webform confirmation modal.
+   */
+  const CONFIRMATION_MODAL = 'modal';
+
+  /**
+   * Webform confirmation default.
+   */
+  const CONFIRMATION_DEFAULT = 'default';
+
+  /**
    * Returns the webform's (original) langcode.
    *
    * @return string
@@ -498,11 +533,12 @@ interface WebformInterface extends ConfigEntityInterface, EntityWithPluginCollec
    *
    * @param string $key
    *   The element's key.
-   *
+   * @param bool $include_children
+   *   Include initialized children.
    * @return array|null
    *   An associative array containing an initialized element.
    */
-  public function getElement($key);
+  public function getElement($key, $include_children = FALSE);
 
   /**
    * Get a webform's raw (uninitialized) element.

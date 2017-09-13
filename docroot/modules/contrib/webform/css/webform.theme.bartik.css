@@ -44,7 +44,7 @@ table {
  */
 /* @todo Issue #2862625: Rename offcanvas to two words in code and comments. https://www.drupal.org/node/2862625 */
 .ui-dialog-offcanvas .webform-ui-element-form details > .details-wrapper,
-.ui-dialog-off-canvas .webform-ui-element-form details > .details-wrapper{
+.ui-dialog-off-canvas .webform-ui-element-form details > .details-wrapper {
   padding: 0 .5em;
 }
 
@@ -61,4 +61,3 @@ table {
 .webform-progress-tracker .progress-step {
   z-index: 0;
 }
-
