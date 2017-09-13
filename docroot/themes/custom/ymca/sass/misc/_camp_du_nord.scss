@@ -187,7 +187,8 @@
     .fc-day {
       background-color: #eeeeee;
     }
-    .fc-day-top {
+    .fc-day-top,
+    .fc-day-number {
       font-family: Cachet;
       font-size: 25px;
       font-weight: bold;
@@ -195,12 +196,58 @@
       text-align: center;
       color: #999999;
       padding-top: 24px;
+      padding-bottom: 15px;
       .fc-day-number {
         float: none;
       }
     }
-    td {
-
+    a.cdn-prs-product {
+      background: $white;
+      border: solid 1px $white;
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 15px;
+      letter-spacing: -0.4px;
+      color: #3e3e3e;
+      margin: 0;
+      border-radius: 0;
+      text-align: center;
+      &.selected {
+        background-color: rgba(0, 172, 149, 0.2);
+        border: solid 1px #006b6c;
+        .icon {
+          background: url("../img/cdn-icon-check.png") no-repeat 0 0;
+          display: block;
+          height: 26px;
+          width: 26px;
+          position: absolute;
+          right: -13px;
+          top: 50%;
+          margin-top: -13px;
+        }
+      }
+      &.no-left-border {
+        border-left: none;
+      }
+      &.no-right-border {
+        border-right: none;
+      }
+      .fc-content {
+        position: relative;
+        overflow: inherit;
+      }
+      .fc-time {
+        display: none;
+      }
+    }
+    .fc-content-skeleton {
+      tbody {
+        tr {
+          display: none;
+          &:first-child {
+            display: table-row;
+          }
+        }
+      }
     }
   }
 }

@@ -19,6 +19,7 @@ global-styling:
     scripts/legacy/plugins.min.js: {}
     scripts/legacy/main.min.js: {}
     scripts/ymca.js: {}
+    scripts/ymca_cdn_cal.js: {}
   dependencies:
     - core/jquery
     - core/drupal
