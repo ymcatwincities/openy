@@ -1,11 +1,3 @@
-webform_devel.settings:
-  path: '/admin/structure/webform/settings/devel'
-  defaults:
-    _form: '\Drupal\webform_devel\Form\WebformDevelAdminSettingsForm'
-    _title: 'Webforms: Settings'
-  requirements:
-    _permission: 'administer webform'
-
 entity.webform.export_form:
   path: '/admin/structure/webform/manage/{webform}/export'
   defaults:

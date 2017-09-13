@@ -29,7 +29,7 @@ class WebformElementEntityReferenceTest extends WebformTestBase {
   /**
    * Test entity reference elements.
    */
-  public function testWebformElementEntityReferenceTest() {
+  public function testEntityReferenceTest() {
     $webform = Webform::load('test_element_entity_reference');
 
     // Check render entity_autocomplete.
