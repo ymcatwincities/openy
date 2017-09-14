@@ -72,57 +72,55 @@
  * @ingroup themeable
  */
 #}
-{%
-set classes = [
-  'program-header',
-  'program-header-sub-category',
-]
-%}
+{% set classes = [
+'program-header',
+'program-header-sub-category',
+] %}
 
 {% if content.field_category_color is empty %}
-  {% set bg_color = '' %}
+    {% set bg_color = '' %}
 {% else %}
-  {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
-  {% set bg_color = 'background-color: '  ~  color %}
+    {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
+    {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
-
+{% set has_sidebar = node.field_sidebar_content.value %}
 {# Category header #}
 <article{{ attributes.addClass(classes) }}>
-  <div{{ content_attributes.addClass('content').setAttribute('style', bg_color) }}>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-7 main">
-          <h1>{{ label }}</h1>
-          <h2>{{ content.field_category_program }}</h2>
+    <div{{ content_attributes.addClass('content').setAttribute('style', bg_color) }}>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 main">
+                    <h1>{{ label }}</h1>
+                    <h2>{{ content.field_category_program }}</h2>
+                </div>
+                <div class="col-md-4 col-md-offset-1 hidden-xs hidden-sm image">
+                    {{ content.field_category_image }}
+                </div>
+            </div>
         </div>
-        <div class="col-md-4 col-md-offset-1 hidden-xs hidden-sm image">
-          {{ content.field_category_image }}
-        </div>
-      </div>
     </div>
-  </div>
-  <div>
-    {{ content.field_header_content }}
-  </div>
+    <div>
+        {{ content.field_header_content }}
+    </div>
 </article>
 
-<div class="container">
-  <div class="row">
-    <div class="two-column">
-      {# Category content #}
-      <div class="main-region col-sm-8">
-        {{ content.field_category_description }}
-        {{ content.field_content }}
-      </div>
+<div class="container sub-category-listing">
+    <div class="two-column row">
+        {# Category content #}
+        <div class="main-region {% if has_sidebar %} col-sm-8 {% else %} col-sm-12 {% endif %}">
 
-      {# Category sidebar #}
-      <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar program-sidebar-sub-category">
-          {{ content.field_sidebar_content }}
-        </article>
-      </div>
+            {{ content.field_category_description }}
+            {{ content.field_content }}
+        </div>
+        {% if has_sidebar %}
+            {# Category sidebar #}
+            <div class="sidebar-region col-sm-4">
+                <article class="program-sidebar program-sidebar-sub-category">
+                    {{ content.field_sidebar_content }}
+                </article>
+            </div>
+        {% endif %}
     </div>
-  </div>
 </div>
 
 {{ content.field_bottom_content }}

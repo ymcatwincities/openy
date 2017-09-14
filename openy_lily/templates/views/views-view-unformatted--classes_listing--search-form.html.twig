@@ -17,16 +17,10 @@
  * @ingroup themeable
  */
 #}
-<div class="container">
-  <div class="row">
+{% for row in rows %}
     <div class="activity-group">
-      <div class="activity-group-slider">
-        {% for row in rows %}
-          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 activity-slide">
+        <div class="activity-item">
             {{ row.content }}
-          </div>
-        {% endfor %}
-      </div>
+        </div>
     </div>
-  </div>
-</div>
+{% endfor %}
