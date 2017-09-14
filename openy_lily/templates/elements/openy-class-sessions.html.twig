@@ -2,6 +2,15 @@
   <!-- Schedule -->
   <div class="col-xs-12">
     <h2>{{ 'Class Times'|t }}</h2>
+      {% if sessions_short_list is not empty %}
+        <div class="class__session-instances-short_list">
+          <ul>
+            {% for sessions_short_info_list_item in sessions_short_list %}
+              <li>{{ sessions_short_info_list_item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
     <div class="class__session-instances">
       <table class="class__session-instances-list">
         <tbody>
