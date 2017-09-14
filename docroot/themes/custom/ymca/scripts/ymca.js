@@ -386,6 +386,38 @@
           }
         }
       }
+      $('.site-search-sidebar')
+        .once()
+        .on('show.bs.collapse',
+          function (e) {
+            $('.sidebar .search-icon').addClass('form-shown');
+          }
+        )
+        .on('hide.bs.collapse',
+          function (e) {
+            $('.sidebar .search-icon').removeClass('form-shown');
+          }
+        );
+      $('.footer-links li').each(function() {
+        if (typeof(settings.footer_links_classes) === 'undefined') {
+            settings.footer_links_classes = [];
+        }
+        settings.footer_links_classes.push($(this).attr('class'));
+      });
+      $('.sidebar')
+        .on('DOMSubtreeModified',
+          function (e) {
+            if (typeof(settings.footer_links_classes) !== 'undefined') {
+              $(this).find('.nav-level-2').each(function() {
+                for (var i = 0; i < settings.footer_links_classes.length; i++) {
+                  if ($(this).attr('class').match(settings.footer_links_classes[i])) {
+                    $(this).addClass('footer-link-style');
+                  }
+                }
+              });
+            }
+          }
+        );
     }
   };
 
