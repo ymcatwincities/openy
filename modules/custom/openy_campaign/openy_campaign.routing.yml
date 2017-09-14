@@ -202,7 +202,7 @@ openy_campaign.campaign_game_results:
     _node_operation_route: TRUE
 
 openy_campaign.campaign_members:
-  path: '/node/{node}/campaign-members'
+  path: '/node/{node}/campaign/members'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showMembers'
   requirements:
@@ -212,9 +212,41 @@ openy_campaign.campaign_members:
 
 # Calculate Campaign winners batch
 openy_campaign.campaign_winners:
-  path: '/node/{node}/campaign-winners'
+  path: '/node/{node}/campaign/winners'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showWinners'
+  requirements:
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+  options:
+    _node_operation_route: TRUE
+
+openy_campaign.campaign_reports_summary:
+  path: '/node/{node}/campaign/reports/summary'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::showSummary'
+  requirements:
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+  options:
+    _node_operation_route: TRUE
+
+openy_campaign.campaign_reports_summary_members_csv:
+  path: '/node/{node}/campaign/reports/summary/members/csv'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::generateSummaryMembersCsv'
+  requirements:
+    _permission: 'administer retention campaign'
+
+openy_campaign.campaign_reports_summary_activities_csv:
+  path: '/node/{node}/campaign/reports/summary/activities/csv'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::generateSummaryActivitiesCsv'
+  requirements:
+    _permission: 'administer retention campaign'
+
+openy_campaign.campaign_reports_activities:
+  path: '/node/{node}/campaign/reports/activities'
+  defaults:
+    _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::showActivities'
   requirements:
     _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
   options:

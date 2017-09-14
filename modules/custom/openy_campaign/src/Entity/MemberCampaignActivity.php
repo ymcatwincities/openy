@@ -17,12 +17,12 @@ use Drupal\openy_campaign\MemberCampaignActivityInterface;
  * @ingroup openy_campaign
  *
  * @ContentEntityType(
- *   id = "openy_member_campaign_activity",
+ *   id = "openy_campaign_memb_camp_actv",
  *   label = @Translation("Member Activity entity"),
  *   handlers = {
  *     "views_data" = "Drupal\views\EntityViewsData",
  *   },
- *   base_table = "openy_member_campaign_activity",
+ *   base_table = "openy_campaign_memb_camp_actv",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "id",
@@ -79,7 +79,7 @@ class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaig
    * @return array|int
    */
   public static function getExistingActivities($memberCampaignId, $date, $activityIds) {
-    return \Drupal::entityQuery('openy_member_campaign_activity')
+    return \Drupal::entityQuery('openy_campaign_memb_camp_actv')
       ->condition('member_campaign', $memberCampaignId)
       ->condition('date', $date->format('U'))
       ->condition('activity', $activityIds, 'IN')
