@@ -90,7 +90,7 @@ class ActivityTrackingModalForm extends FormBase {
     $dateObject = new \DateTime($date);
     $existingActivitiesIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $dateObject, array_keys($options));
 
-    $existingActivitiesEntities = $this->entityTypeManager->getStorage('openy_member_campaign_activity')->loadMultiple($existingActivitiesIds);
+    $existingActivitiesEntities = $this->entityTypeManager->getStorage('openy_campaign_memb_camp_actv')->loadMultiple($existingActivitiesIds);
     $default_values = [];
     /** @var MemberCampaignActivity $activity */
     foreach ($existingActivitiesEntities as $activity) {
@@ -149,7 +149,7 @@ class ActivityTrackingModalForm extends FormBase {
 
       // Delete all records first.
       $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, array_keys($activityIds));
-      entity_delete_multiple('openy_member_campaign_activity', $existingActivityIds);
+      entity_delete_multiple('openy_campaign_memb_camp_actv', $existingActivityIds);
 
       // Save new selection.
       $activityIds = array_filter($activityIds);

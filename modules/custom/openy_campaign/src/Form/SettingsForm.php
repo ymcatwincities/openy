@@ -30,6 +30,15 @@ class SettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy_campaign.general_settings');
 
+    // Total amount of visitors taken from the CRM
+    $form['total_amount_of_visitors'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Total amount of visitors'),
+      '#default_value' => $config->get('total_amount_of_visitors'),
+      '#description' => $this->t('Total amount of the visitors. 
+      This value should be taken from the CRM. It is used for the analytics.'),
+    ];
+
     // Login only messages
     $form['error_login_checkins_not_started'] = [
       '#type' => 'text_format',
@@ -142,6 +151,8 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('openy_campaign.general_settings');
+    // Total amount of visitors taken from the CRM
+    $config->set('total_amount_of_visitors', (int)$form_state->getValue('total_amount_of_visitors'));
     // Login only messages
     $config->set('error_login_checkins_not_started', $form_state->getValue('error_login_checkins_not_started'));
     $config->set('error_login_not_registered', $form_state->getValue('error_login_not_registered'));

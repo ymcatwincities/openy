@@ -297,7 +297,7 @@ class WinnersCalculateForm extends FormBase {
     $queryAct->addField('mc', 'id', 'member_campaign');
     $queryAct->fields('mc', ['member', 'goal']);
     $queryAct->addField('vis', 'visits');
-    $queryAct->leftjoin('openy_member_campaign_activity', 'a', 'mc.id = a.member_campaign');
+    $queryAct->leftjoin('openy_campaign_memb_camp_actv', 'a', 'mc.id = a.member_campaign');
     $queryAct->fields('a', ['activity']);
 
     $results = $queryAct->execute()->fetchAll();

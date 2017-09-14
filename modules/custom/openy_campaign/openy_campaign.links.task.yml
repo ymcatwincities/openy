@@ -38,20 +38,32 @@ entity.openy_campaign_mapping_branch.collection: # The second plugin ID
   base_route: entity.openy_campaign_member.collection
   weight: 20
 
-openy_campaign.campaign_game_results:
-  route_name: openy_campaign.campaign_game_results
-  base_route: entity.node.canonical
-  title: 'Instant Game Results'
-  weight: 50
-
 openy_campaign.campaign_members:
   route_name: openy_campaign.campaign_members
   base_route: entity.node.canonical
   title: 'Campaign Members'
+  weight: 30
+
+openy_campaign.campaign_game_results:
+  route_name: openy_campaign.campaign_game_results
+  base_route: entity.node.canonical
+  title: 'Instant Game Results'
   weight: 40
 
 openy_campaign.campaign_winners:
   route_name: openy_campaign.campaign_winners
   base_route: entity.node.canonical
   title: 'Campaign Winners'
+  weight: 50
+
+openy_campaign.campaign_reports_summary:
+  route_name: openy_campaign.campaign_reports_summary
+  base_route: entity.node.canonical
+  title: 'Reports: Summary'
   weight: 60
+
+openy_campaign.campaign_reports_activities:
+  route_name: openy_campaign.campaign_reports_activities
+  base_route: entity.node.canonical
+  title: 'Reports: Activities'
+  weight: 70
