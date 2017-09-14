@@ -71,10 +71,38 @@ class WinnersCalculateForm extends FormBase {
 
     $form['generate'] = [
       '#type' => 'details',
-      '#title' => t('Generate winners'),
-      '#description' => t('Note! All current winners will be deleted.'),
+      '#title' => $this->t('Generate winners'),
+      '#description' => $this->t('Note! All current winners will be deleted.'),
       '#open' => FALSE,
     ];
+
+    $form['generate']['visits_goal'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Generate winners by Visits goal'),
+      '#default_value' => TRUE,
+    ];
+
+    /** @var Node $campaign */
+    $campaign = \Drupal::routeMatch()->getParameter('node');
+    $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
+    if (!empty($form_state->getValue('field_campaign_fitness_category'))) {
+      $activitiesVoc = $form_state->getValue('field_campaign_fitness_category')[0]['target_id'];
+    }
+    $activitiesTree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0, 1);
+    $options = [];
+    foreach ($activitiesTree as $item) {
+      $options[$item->tid] = $item->name;
+    }
+
+    $form['generate']['not_matched_activities'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Activities, not related to check-ins.'),
+      '#description' => $this->t('Select activities that NOT related to real branch visits (check-ins). They will not be matched with today check-in.'),
+      '#default_value' => 58, // hardcoded value for Community
+      '#options' => $options,
+      '#multiple' => TRUE,
+    ];
+
     $form['generate']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Calculate winners'),
@@ -140,10 +168,17 @@ class WinnersCalculateForm extends FormBase {
       }
     }
 
+    // Define should we calculate winners for Visits goal
+    $isVisitsGoal = !empty($form_state->getValue('visits_goal')) ? TRUE : FALSE;
+
+    // Not matched activities
+    $notMatchedVisitsActivities = $form_state->getValue('not_matched_activities');
+
     $operations = [
-      [[get_class($this), 'deleteWinners'], [$campaignId]],
-      [[get_class($this), 'processCampaignBatch'], [$campaign, $branches, $activities, $places]],
+      [[get_class($this), 'deleteWinners'], [$campaignId, $isVisitsGoal]],
+      [[get_class($this), 'processCampaignWinnersBatch'], [$campaign, $branches, $activities, $notMatchedVisitsActivities, $places, $isVisitsGoal]],
     ];
+
     $batch = [
       'title' => t('Get winners'),
       'operations' => $operations,
@@ -154,15 +189,44 @@ class WinnersCalculateForm extends FormBase {
   }
 
   /**
+   * Recursive function to get random winner excluding already won members.
+   *
+   * @param array $data
+   * @param array $alreadyWinners
+   *
+   * @return mixed
+   */
+  private static function getRandomWinner(&$data, &$alreadyWinners) {
+    // Randomize array
+    shuffle($data);
+
+    $memberCampaignItem = array_shift($data);
+
+    if (!in_array($memberCampaignItem['member_campaign'], $alreadyWinners)) {
+      $alreadyWinners[] = $memberCampaignItem['member_campaign'];
+      return $memberCampaignItem;
+    }
+    else {
+      if (!empty($data)) {
+        return self::getRandomWinner($data, $alreadyWinners);
+      }
+    }
+  }
+
+  /**
    * Delete current Campaign winners.
    *
-   * @param Node $campaignId Campaign node ID
+   * @param int $campaignId Campaign node ID
+   * @param bool $isAll Should we delete all winners or only winners with defined activity
    */
-  public static function deleteWinners($campaignId) {
-    // Remove all winners.
+  public static function deleteWinners($campaignId, $isAll = TRUE) {
     $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $connection->select('openy_campaign_winner', 'w');
+    // Delete only winners with defined activity
+    if (!$isAll) {
+      $query->condition('w.activity', 0, '!=');
+    }
     $query->join('openy_campaign_member_campaign', 'mc', 'w.member_campaign = mc.id');
     $query->condition('mc.campaign', $campaignId);
     $query->fields('w', ['id']);
@@ -177,7 +241,7 @@ class WinnersCalculateForm extends FormBase {
   /**
    * Batch step to calculate winners for each branch.
    */
-  public static function processCampaignBatch($campaign, $branches, $activities, $places, &$context) {
+  public static function processCampaignWinnersBatch($campaign, $branches, $activities, $notMatchedVisitsActivities, $places, $isVisitsGoal, &$context) {
     if (empty($context['sandbox'])) {
       $context['sandbox']['progress'] = 0;
 
@@ -186,6 +250,18 @@ class WinnersCalculateForm extends FormBase {
       $context['sandbox']['branches'] = array_keys($branches);
       $context['sandbox']['places'] = $places;
 
+      $connection = \Drupal::service('database');
+      /** @var \Drupal\Core\Database\Query\Select $queryCheck */
+      $queryCheck = $connection->select('openy_campaign_member_checkin', 'ch');
+      $queryCheck->fields('ch', ['member', 'date']);
+      $checksRes = $queryCheck->execute()->fetchAll();
+      // Group check-ins dates by member
+      $allChecks = [];
+      foreach ($checksRes as $res) {
+        $allChecks[$res->member][] = $res->date;
+      }
+      $context['sandbox']['all_checks'] = $allChecks;
+
       $context['sandbox']['max'] = count($branches);
     }
 
@@ -193,62 +269,55 @@ class WinnersCalculateForm extends FormBase {
     $campaign = $context['sandbox']['campaign'];
     $activities = $context['sandbox']['activities'];
     $places = $context['sandbox']['places'];
+    $allChecks = $context['sandbox']['all_checks'];
 
     // Get all member campaigns for this branch with goal, visits and main activity
-    $memberCampaignsInfo = self::getInfoByBranch($campaign, $branchId, $activities);
-    // All members to get winners by visits
-    $allResults = $memberCampaignsInfo['all_visits'];
+    $memberCampaignsInfo = self::getInfoByBranch($campaign, $branchId, $activities, $notMatchedVisitsActivities, $allChecks);
 
-    $mainActivities = array_keys($memberCampaignsInfo);
-    // Calculate winners per category
-    foreach ($mainActivities as $category) {
-      $memberCampaigns = ($category != 'all_visits') ? $memberCampaignsInfo[$category] : $allResults;
+    $alreadyWinners = [];
 
-      // Separate all reached the goal MemberCampaigns - get place with random
-      $reachedGoal = [];
-      $other = [];
-      foreach ($memberCampaigns as $item) {
-        if ($item['percentage'] == 100) {
-          $reachedGoal[] = $item;
-        } else {
-          $other[] = $item;
-        }
+    // Calculate winners for Visits goal
+    $goalWinners = [];
+    if ($isVisitsGoal) {
+      $goalWinners = self::getVisitsGoalWinners($memberCampaignsInfo['all_visits'], $places);
+      // Collect $alreadyWinners array
+      foreach ($goalWinners as $item) {
+        $alreadyWinners[] = $item['member_campaign'];
       }
+    }
 
-      // Sort not reached the goal by percentage
-      usort($other, function($a, $b) {
-        return $a['percentage'] - $b['percentage'];
-      });
-
-      // Randomize array
-      shuffle($reachedGoal);
-
-      // Assign places
-      foreach ($places as $place) {
-        if (!empty($reachedGoal)) {
-          $memberCampaignItem = array_shift($reachedGoal);
+    $activityWinners = [];
+    // Assign places
+    foreach ($places as $place) {
+      // Calculate winners per activity
+      foreach ($memberCampaignsInfo as $category => $data) {
+        if ($category == 'all_visits') {
+          continue;
         }
-        elseif (!empty($other)) {
-          $memberCampaignItem = $other[0];
-          unset($other);
-        }
-        else {
+        if (empty($data)) {
           break;
         }
 
-        // Delete winner from all results array
-        unset($allResults[$memberCampaignItem['member_campaign']]);
+        $memberCampaignItem = self::getRandomWinner($data, $alreadyWinners);
 
         // Create Winner entity. If winner defined by all visits without activity - set Activity = 0
-        $winner = Winner::create([
-          'member_campaign' => $memberCampaignItem['member_campaign'],
-          'activity' => (is_numeric($category) && in_array($category, array_keys($activities))) ? $category : 0,
-          'place' => $place,
-        ]);
-        $winner->save();
-
-        $context['results'][] = $memberCampaignItem['member_campaign'];
+        if (!empty($memberCampaignItem)) {
+          $activityWinners[] = [
+            'member_campaign' => $memberCampaignItem['member_campaign'],
+            'activity' => (is_numeric($category) && in_array($category, array_keys($activities))) ? $category : 0,
+            'place' => $place,
+          ];
+        }
       }
+    }
+
+    $winners = array_merge($goalWinners, $activityWinners);
+
+    foreach ($winners as $item) {
+      $winner = Winner::create($item);
+      $winner->save();
+
+      $context['results'][] = $item['member_campaign'];
     }
 
     $context['sandbox']['progress']++;
@@ -259,16 +328,70 @@ class WinnersCalculateForm extends FormBase {
   }
 
   /**
+   * @param array $memberCampaignsData All needed data after getInfoByBranch() function.
+   * @param $places
+   *
+   * @return array
+   */
+  private static function getVisitsGoalWinners($memberCampaignsData, $places) {
+    $goalWinners = [];
+
+    // Separate all reached the goal MemberCampaigns - get place with random
+    $reachedGoal = [];
+    $other = [];
+    foreach ($memberCampaignsData as $item) {
+      if ($item['percentage'] == 100) {
+        $reachedGoal[] = $item;
+      } else {
+        $other[] = $item;
+      }
+    }
+
+    // Sort not reached the goal by percentage
+    usort($other, function($a, $b) {
+      return $a['percentage'] - $b['percentage'];
+    });
+
+    // Randomize array
+    shuffle($reachedGoal);
+
+    // Assign places
+    foreach ($places as $place) {
+      if (!empty($reachedGoal)) {
+        $memberCampaignItem = array_shift($reachedGoal);
+      }
+      elseif (!empty($other)) {
+        $memberCampaignItem = $other[0];
+        unset($other);
+      }
+      else {
+        break;
+      }
+
+      // Create Winner entity. If winner defined by Visits goal without activity - set Activity = 0
+      $goalWinners[] = [
+        'member_campaign' => $memberCampaignItem['member_campaign'],
+        'activity' => 0,
+        'place' => $place,
+      ];
+    }
+
+    return $goalWinners;
+  }
+
+  /**
    * Get all needed data for current campaign
    *
    * @param Node $campaign Campaign node entity.
    * @param int $branchId Branch ID to calculate winners for.
    * @param array $activities Array of arrays with all activities for current Campaign.
    *    Key - parent activity, value - array of child ones.
+   * @param array $notMatchedVisitsActivities Array of parent activities that shouldn't be checked with visits (like Community).
+   * @param array $allChecks Grouped by member ID array of check-ins time.
    *
    * @return array
    */
-  private static function getInfoByBranch($campaign, $branchId, $activities) {
+  private static function getInfoByBranch($campaign, $branchId, $activities, $notMatchedVisitsActivities, $allChecks) {
     /** @var Node $campaign */
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
     $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
@@ -298,7 +421,7 @@ class WinnersCalculateForm extends FormBase {
     $queryAct->fields('mc', ['member', 'goal']);
     $queryAct->addField('vis', 'visits');
     $queryAct->leftjoin('openy_campaign_memb_camp_actv', 'a', 'mc.id = a.member_campaign');
-    $queryAct->fields('a', ['activity']);
+    $queryAct->fields('a', ['activity', 'date']);
 
     $results = $queryAct->execute()->fetchAll();
 
@@ -314,8 +437,16 @@ class WinnersCalculateForm extends FormBase {
       foreach ($mainActivities as $category) {
         $allItems = $activities[$category];
         if (in_array($item->activity, $allItems)) {
-          $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] = !empty($memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category]) ?
-            $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] + 1 : 1;
+          // Check with real visits - check-ins
+          if (!in_array($category, $notMatchedVisitsActivities)) {
+            if (in_array($item->date, $allChecks[$item->member])) {
+              $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] = !empty($memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category]) ?
+                $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] + 1 : 1;
+            }
+          } else {
+            $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] = !empty($memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category]) ?
+              $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] + 1 : 1;
+          }
           break;
         }
       }
@@ -335,9 +466,13 @@ class WinnersCalculateForm extends FormBase {
         $mcData['percentage'] = round($mcData['visits'] / $mcData['goal'] * 100, 2);
       }
 
-      // Collect result array grouped by main activity
-      if (isset($mcData['main_activity'])) {
-        $resultInfo[$mcData['main_activity']][] = $mcData;
+      // Collect result array grouped by activity
+      if (!empty($mcData['activity_visits'])) {
+        foreach ($mcData['activity_visits'] as $cat => $count) {
+          if ($count > 0) {
+            $resultInfo[$cat][] = $mcData;
+          }
+        }
       }
     }
 
