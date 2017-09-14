@@ -248,8 +248,6 @@ class CampaignReportsController extends ControllerBase {
    * @return array Render array
    */
   public function showActivities(NodeInterface $node) {
-    $form = [];
-
     $build = [
       'view' => views_embed_view('campaign_activities_report', 'campaign_activities_report_page', $node->id()),
     ];

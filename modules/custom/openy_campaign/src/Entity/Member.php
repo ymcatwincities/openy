@@ -497,12 +497,32 @@ class Member extends ContentEntityBase implements MemberInterface {
     $branch = Mapping::getBranchByPersonifyId($resultsCRM->BranchId);
 
     // Transform ProductCode into MemberUnitType.
-    // Use last part of it as type (32_ME_ADULT => Adult, 30_ME_FAMILY => Family).
-    // Possible values: Adult, Dual, Family, Youth, Student, Contract
+    // Trying to find type as a part of the product code among allowed field's values.
     $productCode = '';
-    $productCodeParts = explode('_', $resultsCRM->ProductCode);
-    if (!empty($productCodeParts[2])) {
-      $productCode = ucfirst(strtolower($productCodeParts[2]));
+    $productCodeFull = strtolower($resultsCRM->ProductCode);
+    $allowedValues = [];
+    $membershipUnitTypesSettings = [];
+    foreach (\Drupal::getContainer()->get('entity.manager')->getFieldDefinitions('node', 'campaign') as $field_name => $field_definition) {
+      if ($field_name == 'field_campaign_membership_u_t') {
+        /** var \Drupal\Core\Field\FieldDefinitionInterface $field_definition */
+        $membershipUnitTypesSettings = $field_definition->getSettings();
+        $allowedValues = array_map(
+          function($v) {
+            return strtolower($v);
+          },
+          array_keys($membershipUnitTypesSettings['allowed_values'])
+        );
+        break;
+      }
+    }
+
+    if (!empty($membershipUnitTypesSettings)) {
+      foreach ($allowedValues as $allowedValue) {
+        if (strpos($productCodeFull, $allowedValue) !== FALSE) {
+          $productCode = $allowedValue;
+          break;
+        }
+      }
     }
 
     // Create Member entity
