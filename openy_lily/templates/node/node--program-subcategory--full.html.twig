@@ -72,12 +72,10 @@
  * @ingroup themeable
  */
 #}
-{%
-set classes = [
-  'program-header',
-  'program-header-sub-category',
-]
-%}
+{% set classes = [
+'program-header',
+'program-header-sub-category',
+] %}
 
 {% if content.field_category_color is empty %}
   {% set bg_color = '' %}
@@ -85,7 +83,7 @@ set classes = [
   {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
-
+{% set has_sidebar = node.field_sidebar_content.value %}
 {# Category header #}
 <article{{ attributes.addClass(classes) }}>
   <div{{ content_attributes.addClass('content').setAttribute('style', bg_color) }}>
@@ -106,22 +104,22 @@ set classes = [
   </div>
 </article>
 
-<div class="container">
-  <div class="row">
-    <div class="two-column">
-      {# Category content #}
-      <div class="main-region col-sm-8">
-        {{ content.field_category_description }}
-        {{ content.field_content }}
-      </div>
+<div class="container sub-category-listing">
+  <div class="two-column row">
+    {# Category content #}
+    <div class="main-region {% if has_sidebar %} col-sm-8 {% else %} col-sm-12 {% endif %}">
 
+      {{ content.field_category_description }}
+      {{ content.field_content }}
+    </div>
+    {% if has_sidebar %}
       {# Category sidebar #}
       <div class="sidebar-region col-sm-4">
         <article class="program-sidebar program-sidebar-sub-category">
           {{ content.field_sidebar_content }}
         </article>
       </div>
-    </div>
+    {% endif %}
   </div>
 </div>
 

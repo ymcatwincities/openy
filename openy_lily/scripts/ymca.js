@@ -193,8 +193,8 @@
    */
   Drupal.behaviors.matchHeightClass = {
     attach: function (context, settings) {
-      $(".activity-group-slider", context).each(function () {
-        $('.activity-slide .views-field-rendered-entity').matchHeight();
+      $(".paragraph--type--classes-listing", context).each(function () {
+        $('.activity-item').matchHeight();
       });
     }
   };
