@@ -100,10 +100,12 @@
           </div>
         </article>
       </div>
-      <div class="sidebar-region col-sm-4">
-        {{ content.field_news_related }}
-        {{ content.field_sidebar_content }}
-      </div>
+      {% if content.field_news_related is not empty or content.field_sidebar_content is not empty %}
+        <div class="sidebar-region col-sm-4">
+          {{ content.field_news_related }}
+          {{ content.field_sidebar_content }}
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>

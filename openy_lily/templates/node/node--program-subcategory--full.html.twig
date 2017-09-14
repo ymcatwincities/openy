@@ -116,11 +116,13 @@ set classes = [
       </div>
 
       {# Category sidebar #}
-      <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar program-sidebar-sub-category">
-          {{ content.field_sidebar_content }}
-        </article>
-      </div>
+      {% if content.field_sidebar_content is not empty %}
+        <div class="sidebar-region col-sm-4">
+          <article class="program-sidebar program-sidebar-sub-category">
+            {{ content.field_sidebar_content }}
+          </article>
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
