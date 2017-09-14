@@ -11,22 +11,22 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: Adult
+      value: adult
       label: Adult
     -
-      value: Dual
+      value: dual
       label: Dual
     -
-      value: Family
+      value: family
       label: Family
     -
-      value: Youth
+      value: youth
       label: Youth
     -
-      value: Student
+      value: student
       label: Student
     -
-      value: Contract
+      value: contract
       label: Contract
   allowed_values_function: ''
 module: options
