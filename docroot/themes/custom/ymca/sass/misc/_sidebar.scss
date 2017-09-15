@@ -88,17 +88,23 @@
 body.show-new-mobile-menu {
   &.sidebar-in {
     .sidebar {
-      width: 100% !important;
     }
-  }
-  &.sidebar-in.viewport.in {
-    width: 0;
+    .viewport.in {
+      width: 0;
+      * {
+        display: none;
+      }
+    }
   }
   .sidebar {
     background: #ffffff;
     padding-top: 0;
     border-right: none;
-    z-index: 45;
+    width: 100% !important;
+
+    &.collapse {
+      width: 0 !important;
+    }
 
     .top-bar {
       background-color: #0060af;
@@ -251,7 +257,7 @@ body.show-new-mobile-menu {
         height: 60px;
         font-size: 18px;
         line-height: 60px;
-        width: 90%;
+        width: 86%;
         padding: 5px 15px;
       }
       .btn {
@@ -328,6 +334,19 @@ body.show-new-mobile-menu {
         content: "\f041";
         margin-right: 10px;
         color: #6c439c;
+      }
+    }
+    .nav li.more {
+      position: relative;
+      a.expand {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: none;
+        padding: 0;
+        width: 40px;
+        font-size: 30px !important;
+        line-height: 55px;
       }
     }
   }
