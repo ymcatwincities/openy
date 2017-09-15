@@ -1,14 +1,14 @@
-date_campaign_open: '07/01/2017 12:00 AM'
-date_campaign_close: '08/01/2017 11:59 PM'
-date_registration_open: '07/01/2017 12:00 AM'
-date_registration_close: '08/01/2017 11:59 PM'
-date_reporting_open: '07/01/2017 12:00 AM'
-date_reporting_close: '08/01/2017 11:59 PM'
+date_campaign_open: '08/01/2017 12:00 AM'
+date_campaign_close: '08/14/2017 11:59 PM'
+date_registration_open: '07/25/2017 12:00 AM'
+date_registration_close: '08/14/2017 11:59 PM'
+date_reporting_open: '08/01/2017 12:00 AM'
+date_reporting_close: '08/14/2017 11:59 PM'
 new_member_goal_number: '5'
 limit_goal_number: '10'
-date_checkins_start: '07/01/2017 12:00 AM'
-date_checkins_end: '08/01/2017 11:59 PM'
-date_winners_announcement: '09/22/2017 12:00 AM'
+date_checkins_start: '05/28/2017 12:00 AM'
+date_checkins_end: '07/22/2017 11:59 PM'
+date_winners_announcement: '08/31/2018 12:00 AM'
 calculate_visit_goal: 1
 recent_winners_limit: '30'
 exclude_reg_product_codes:
@@ -42,7 +42,7 @@ error_msg_registered_before_start:
   value: "<p><strong>You’re already signed up!</strong><br />\r\nIf you didn’t already sign up, please&nbsp;<a href=\"/contact_us\" rel=\"noreferrer\" target=\"_blank\">contact us</a>. Then, come back on August 1 to start tracking your progress and reporting activities.&nbsp;</p>\r\n"
   format: full_html
 error_msg_registered_after_start:
-  value: "<p><strong>You’re already signed up!</strong><br />\r\nYou can check your progress or report activities by <a href=\"#\" data-toggle=\"modal\" data-target=\"#ymca-retention-modal\" data-type=\"login\">signing in here</a></p>\r\n"
+  value: "<p><strong>You’re already signed up!</strong><br />\r\nYou can check your progress or report activities by <a data-target=\"#ymca-retention-modal\" data-toggle=\"modal\" data-type=\"login\" href=\"#\">signing in here</a></p>\r\n"
   format: full_html
 error_msg_incorrect_id:
   value: "<p><strong>Please check your member ID</strong><br />\r\nIf you have entered your member ID correctly and it still isn’t working, <a href=\"/contact_us\" rel=\"noreferrer\" target=\"_blank\">contact us</a>.</p>\r\n"
