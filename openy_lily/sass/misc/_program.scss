@@ -54,7 +54,7 @@
         width: 50%;
         float: left;
       }
-      }
+    }
   }
 }
 
@@ -68,5 +68,66 @@
 .node--type-program-subcategory {
   .two-column {
     padding: 15px 0;
+  }
+}
+
+[data-drupal-selector="edit-add-to-cart-button"] {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.ui-dialog {
+  .ui-dialog-buttonpane {
+    .ui-dialog-buttonset {
+      button {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 2px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background-color: #b92f9e;
+        color: white;
+        &:hover {
+          background-color: #92288d;
+        }
+      }
+    }
+  }
+}
+
+.openy-ccc-add-program-to-cart-form {
+  .ajax-progress-throbber {
+    display: none;
   }
 }
