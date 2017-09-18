@@ -118,10 +118,7 @@
               });
 
               var $close = $(this).closest(".ui-dialog").find('.ui-dialog-titlebar-close');
-              // Unfocus focused by default modal contents.
               $close.html("&#10006;");
-              $close.select().focus();
-              $close.blur();
             },
             close: function () {
               // Bring page scroll back.
