@@ -7,9 +7,6 @@
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
-use Drupal\Core\Template\Attribute;
-use Drupal\text\Plugin\Field\FieldType\TextLongItem;
-use Drupal\file\Entity\File;
 
 /**
  * Implements hook_ENTITY_TYPE_view_alter().
@@ -20,29 +17,6 @@ function openy_blocks_block_content_view_alter(array &$build, EntityInterface $e
   switch ($entity->bundle()) {
     case 'date_block':
       \Drupal::service('openy.date_block')->viewAlter($build, $entity);
-      break;
-
-    case 'expander_block':
-      $content = $entity->field_block_content->get(0);
-      if (!$content) {
-        \Drupal::logger('openy_blocks')->notice(t('Content(expander block) is not found for entity: @id', ['@id' => $entity->id()]));
-        break;
-      }
-      $build['expander'] = array(
-        '#theme' => 'expander_block',
-        '#header' => $entity->field_block_header->value,
-        '#content' => array(
-          '#type' => 'processed_text',
-          '#text' => $content->value,
-          '#format' => $content->format,
-          '#langcode' => $content->getLangcode(),
-        ),
-        '#entity' => $entity,
-        '#cache' => [
-          'tags' => ['openy_cron']
-        ],
-      );
-      $build['#attached']['library'][] = 'openy_blocks/expander-block';
       break;
   }
 }
