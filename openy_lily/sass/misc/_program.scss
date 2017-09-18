@@ -94,6 +94,9 @@
 }
 
 .ui-dialog {
+  .ui-dialog-content {
+    overflow: visible !important;
+  }
   .ui-dialog-buttonpane {
     .ui-dialog-buttonset {
       button {
@@ -128,6 +131,9 @@
 
 .openy-ccc-add-program-to-cart-form {
   .ajax-progress-throbber {
-    display: none;
+    top: 6px;
+    margin-top: 27px !important;
+    right: 145px !important;
+    left: auto !important;
   }
 }
