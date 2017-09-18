@@ -12,7 +12,10 @@ function openy_node_mbrshp_update_dependencies() {
   $dependencies['openy_node_mbrshp'] = [
     8002 => [
       'openy_node' => 8003,
-    ]
+    ],
+    8007 => [
+      'openy_media_image' => 8004,
+    ],
   ];
 
   return $dependencies;

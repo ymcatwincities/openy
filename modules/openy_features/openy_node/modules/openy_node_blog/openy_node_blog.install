@@ -15,7 +15,10 @@ function openy_node_blog_update_dependencies() {
     ],
     8003 => [
       'openy' => 8015,
-    ]
+    ],
+    8007 => [
+      'openy_media_image' => 8004,
+    ],
   ];
 
   return $dependencies;
