@@ -1374,6 +1374,13 @@ legend {
   margin-top: 30px;
 }
 
+.path-frontpage .footer-alerts-list {
+  margin-top: 0;
+}
+.path-frontpage .viewport #main {
+  padding-bottom: 30px;
+}
+
 .breadcrumb-container {
   background: #3a3a3a;
 }

@@ -92,3 +92,14 @@
 .footer-alerts-list {
   margin-top: 30px;
 }
+
+.path-frontpage {
+  .footer-alerts-list {
+    margin-top: 0;
+  }
+  .viewport {
+    #main {
+      padding-bottom: 30px;
+    }
+  }
+}
