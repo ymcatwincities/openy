@@ -6,6 +6,19 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_small_banner_dependencies() {
+  $dependencies['openy_prgf_small_banner'] = [
+    8004 => [
+      'openy_media_image' => 8004,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Update Paragraph Small Banner with field_prgf_description.
  */
 function openy_prgf_small_banner_update_8001() {
