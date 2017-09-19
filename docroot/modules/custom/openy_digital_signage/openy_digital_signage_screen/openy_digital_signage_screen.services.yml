@@ -2,3 +2,7 @@ services:
   openy_digital_signage_screen.manager:
     class: Drupal\openy_digital_signage_screen\OpenYScreenManager
     arguments: ['@entity.manager', '@entity.query', '@logger.factory', '@current_route_match', '@request_stack']
+  openy_digital_signage_screen:
+    class: '\Drupal\openy_digital_signage_screen\EventSubscriber\ResponseEventSubscriber'
+    tags:
+      - { name: 'event_subscriber' }
