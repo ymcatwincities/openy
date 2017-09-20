@@ -100,4 +100,5 @@ hidden:
   field_location_fax: true
   field_location_state: true
   field_location_temp_url: true
+  langcode: true
   links: true
