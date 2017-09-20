@@ -188,7 +188,7 @@ class OpenyFacebookSyncSaver {
     }
 
     $event->save();
-
+    $this->logger->notice('Created event @label id @id.', ['@id' => $event->id(), '@label' => $event->label()]);
     // Create mapping entity.
     $this->eventMappingRepo->create($event, $event_data);
   }
@@ -228,6 +228,7 @@ class OpenyFacebookSyncSaver {
     }
 
     $event->save();
+    $this->logger->notice('Updated event @label id @id.', ['@id' => $event->id(), '@label' => $event->label()]);
     // Update mapping entity.
     $this->eventMappingRepo->update($event_mapping, $event_data);
   }
