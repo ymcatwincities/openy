@@ -83,7 +83,7 @@ class OpenyFacebookSyncSaver {
    */
   public function save() {
     $data = $this->wrapper->getSourceData();
-
+    $additions = $updates = 0;
     foreach ($data as $event) {
       // @todo Add setting to create nodes in certain status (published|unpublished).
       $stored_event_mappings = $this->eventMappingRepo->getByProperties([
@@ -97,13 +97,21 @@ class OpenyFacebookSyncSaver {
           // Do update if hash differs.
           if ($event_mapping->get('field_event_hash')->value !== $hash) {
             $this->updateEvent($event_mapping, $event);
+            $updates++;
           }
         }
       }
       else {
         $this->createEvent($event);
+        $additions++;
       }
+
     }
+    $this->logger->notice('Events imported: %total fetched, %number added, %update updated.', [
+      '%total' => count($data),
+      '%number' => $additions,
+      '%update' => $updates
+    ]);
   }
 
   /**
