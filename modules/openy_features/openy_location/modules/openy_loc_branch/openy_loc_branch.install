@@ -306,16 +306,29 @@ function openy_loc_branch_update_8011() {
  * Show directions and fax in full view mode.
  */
 function openy_loc_branch_update_8012() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_loc_branch');
-  $config .= '/config/install/';
-  $config .= 'core.entity_view_display.node.branch.full.yml';
-  $config_importer->update(
-    $config,
-    'core.entity_view_display.node.branch.full',
-    'content',
-    'hidden'
-  );
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.node.field_location_amenities',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.branch.full' => [
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
 
 /**
@@ -340,6 +353,7 @@ function openy_loc_branch_update_8013() {
       'hidden',
     ],
     'core.entity_view_display.node.branch.full' => [
+      'content',
       'hidden',
     ],
   ];
