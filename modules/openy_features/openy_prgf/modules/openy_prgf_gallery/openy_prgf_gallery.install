@@ -32,3 +32,34 @@ function openy_prgf_gallery_update_8001() {
     'content'
   );
 }
+
+/**
+ * Update OpenY gallery paragraph feature configs.
+ */
+function openy_prgf_gallery_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.gallery.default' => [
+      'content',
+    ],
+    'core.entity_view_display.media.image.prgf_gallery' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.paragraph.gallery.default' => [
+      'content',
+    ],
+    'paragraphs.paragraphs_type.gallery' => [
+      'behavior_plugins',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
