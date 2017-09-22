@@ -125,3 +125,34 @@ function openy_prgf_banner_update_8004() {
     'content'
   );
 }
+
+/**
+ * Update OpenY banner paragraph feature configs.
+ */
+function openy_prgf_banner_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.banner.default' => [
+      'content',
+    ],
+    'core.entity_view_display.media.image.prgf_banner' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.paragraph.banner.default' => [
+      'content',
+    ],
+    'paragraphs.paragraphs_type.banner' => [
+      'behavior_plugins',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
