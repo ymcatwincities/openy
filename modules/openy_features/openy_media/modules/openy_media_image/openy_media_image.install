@@ -97,3 +97,52 @@ function openy_media_image_update_8004() {
     'core.entity_view_display.media.image.thumbnail_for_preview',
   ]);
 }
+
+/**
+ * Update OpenY media image feature configs.
+ */
+function openy_media_image_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.media.image.default' => [
+      'content',
+    ],
+    'core.entity_view_display.media.image.default' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.media.image.embedded_full' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.media.image.embedded_half' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.media.image.embedded_link' => [
+      'dependencies.module',
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.media.image.icon' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_display.media.image.teaser' => [
+      'content',
+      'hidden',
+    ],
+    'core.entity_view_mode.media.thumbnail_for_preview' => [
+      'label',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
