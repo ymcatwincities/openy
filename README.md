@@ -23,8 +23,6 @@ Configuration stored in openy_facebook_sync.settings.yml and openy_facebook_sync
 openy_facebook_sync.settings.yml stores main config for facebook sync process
 app_id - list of facebook page ids of branch/camps that should be synced. 
 
-Data to this config now pushed directly using devops reinstall job in file 
-docroot/devops/reinstall/vars/environments/default_env.yml
 
 openy_facebook_sync.locations_map - stores mapping between location facebook page id 
 and uuid of location page on site. 
