@@ -24,6 +24,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_prgf_image:
     weight: 1
     settings:
@@ -37,6 +38,7 @@ content:
       open: false
     third_party_settings: {  }
     type: entity_browser_entity_reference
+    region: content
   field_prgf_link:
     weight: 3
     settings:
@@ -44,6 +46,7 @@ content:
       placeholder_title: 'Teaser subpage title'
     third_party_settings: {  }
     type: link_default
+    region: content
   field_prgf_title:
     weight: 0
     settings:
@@ -51,6 +54,7 @@ content:
       placeholder: 'Provide a title here'
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   status: true
