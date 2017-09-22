@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * @file
  * Install file.
@@ -71,4 +72,13 @@ function openy_facebook_sync_update_8004() {
       'openy_facebook_sync.locations_map',
     ]
   );
+}
+
+/**
+ * Update location app_id list for facebook sync.
+ */
+function openy_facebook_sync_update_8005() {
+  $config = drupal_get_path('module', 'openy_facebook_sync') . '/config/install/openy_facebook_sync.settings.yml';
+  $config_importer = \Drupal::service('config_import.param_updater');
+  $config_importer->update($config, 'openy_facebook_sync.settings', 'app_id');
 }
