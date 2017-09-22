@@ -1,0 +1,159 @@
+body {
+  color: #636466;
+  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+}
+
+h1, .h1, h2, .h2, h3, h4, h5, h6 {
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+}
+
+h1,
+.h1 {
+  font-size: 40px;
+}
+
+h2,
+.h2 {
+  font-size: 36px;
+}
+
+p {
+  word-wrap: break-word;
+}
+
+figcaption {
+  font-size: 13px;
+  font-style: italic;
+  text-align: right;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+
+@media (min-width: 62em) {
+  .pull-right-lg {
+    float: right !important;
+  }
+}
+
+.ajax-progress-throbber {
+  position: absolute;
+  opacity: 0.2;
+}
+
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.row-eq-height:before, .row-eq-height:after {
+  content: none;
+}
+
+body {
+  padding-top: 70px !important;
+  background-color: #5c2e91;
+}
+
+.layout-container {
+  position: relative;
+}
+
+.block-region-header .node-title {
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.taxonomy-term {
+  margin-top: 20px;
+}
+.taxonomy-term > h3 {
+  margin-top: 0;
+}
+
+.error-page {
+  padding: 25px 0;
+}
+
+.openy-page-tabs .is-active {
+  color: #fff;
+  background: #00aeef;
+}
+.openy-page-tabs > ul {
+  display: table;
+  margin: 10px auto;
+  padding: 0;
+  font-size: 0;
+  list-style: none;
+}
+.openy-page-tabs > ul li {
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  display: inline-block;
+  font-size: 16px;
+  line-height: 17px;
+  text-align: center;
+  font-weight: 500;
+  border: solid 1px #00aeef;
+  border-right: 0;
+}
+@media (max-width: 480px) {
+  .openy-page-tabs > ul li {
+    font-size: 12px;
+  }
+}
+.openy-page-tabs > ul li:last-child {
+  border-right: solid 1px #00aeef;
+}
+.openy-page-tabs > ul li a {
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  display: block;
+  padding: 9px;
+  text-decoration: none;
+  text-align: center;
+}
+@media (max-width: 480px) {
+  .openy-page-tabs > ul li a {
+    padding: 6px;
+  }
+}
+
+a:focus,
+.dropdown-toggle:focus,
+.carousel-control:focus,
+.btn:focus,
+.button:focus,
+.btn.focus,
+.focus.button,
+.btn:active:focus,
+.button:active:focus,
+.btn:active.focus,
+.button:active.focus,
+.btn.active:focus,
+.active.button:focus,
+.btn.active.focus,
+.active.focus.button,
+.slick-arrow:focus:before,
+.navbar-toggle:focus {
+  outline: 5px auto #69ff00;
+}
+
+.focusable.skip-link:focus {
+  position: fixed !important;
+  top: 0;
+}
+
+/*# sourceMappingURL=styles.css.map */
