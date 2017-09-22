@@ -302,7 +302,7 @@ function openy_loc_branch_update_8011() {
   ]);
 }
 
-/*
+/**
  * Show directions and fax in full view mode.
  */
 function openy_loc_branch_update_8012() {
