@@ -1849,6 +1849,9 @@ article.site-alert ul li div {
 .paragraph--type--prgf-location-finder .views-element-container .locations-list h1 {
   color: #636466 !important;
 }
+.paragraph--type--prgf-location-finder .views-element-container .locations-list .views-element-container .locations-list {
+  margin-left: 0;
+}
 
 .label-for-field-location-fax,
 .label-for-field-location-phone {
