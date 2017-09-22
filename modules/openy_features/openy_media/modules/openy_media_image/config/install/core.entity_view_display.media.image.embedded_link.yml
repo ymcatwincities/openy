@@ -9,7 +9,7 @@ dependencies:
     - field.field.media.image.field_media_tags
     - media_entity.bundle.image
   module:
-    - openy_media
+    - openy_media_image
 id: media.image.embedded_link
 targetEntityType: media
 bundle: image
@@ -21,11 +21,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: openy_image_link
+    region: content
 hidden:
   created: true
   field_media_caption: true
   field_media_in_library: true
   field_media_tags: true
+  langcode: true
   name: true
   thumbnail: true
   uid: true
