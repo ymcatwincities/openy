@@ -23,6 +23,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_prgf_description:
     weight: 2
     settings:
@@ -30,6 +31,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_prgf_headline:
     weight: 0
     settings:
@@ -37,6 +39,7 @@ content:
       placeholder: 'Provide title here'
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_prgf_image:
     weight: 3
     settings:
@@ -50,6 +53,7 @@ content:
       open: false
     third_party_settings: {  }
     type: entity_browser_entity_reference
+    region: content
   field_prgf_link:
     weight: 4
     settings:
@@ -57,6 +61,7 @@ content:
       placeholder_title: 'Banner subpage title'
     third_party_settings: {  }
     type: link_default
+    region: content
 hidden:
   created: true
   status: true
