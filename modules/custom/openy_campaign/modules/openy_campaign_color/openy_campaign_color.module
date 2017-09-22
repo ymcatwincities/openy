@@ -1,0 +1,163 @@
+<?php
+
+DEFINE('CAMPAIGN_THEME', 'openy_campaign');
+DEFINE('OPENY_THEME', 'openy_rose');
+
+/**
+ * Implements hook_theme().
+ */
+function openy_campaign_color_theme() {
+  return [
+    'openy_campaign_color_scheme_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_campaign_color_form_node_campaign_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+  if (color_get_info(OPENY_THEME) && function_exists('gd_info')) {
+    $form['color'] = [
+      '#type' => 'details',
+      '#title' => t('Color scheme'),
+      '#open' => TRUE,
+      '#weight' => -1,
+      '#attributes' => ['id' => 'openy_campaign_color_color_scheme_form'],
+      '#theme' => 'openy_campaign_color_scheme_form',
+    ];
+    $form['color'] += openy_campaign_color_scheme_form($form, $form_state);
+    $form['#validate'][] = 'color_scheme_form_validate';
+    // Ensure color submission happens first so we can unset extra values.
+    array_unshift($form['#submit'], 'color_scheme_form_submit');
+  }
+}
+
+/**
+ * Form constructor for the color configuration form for a particular theme.
+ *
+ * @param $theme
+ *   The machine name of the theme whose color settings are being configured.
+ *
+ * @see color_scheme_form_validate()
+ * @see color_scheme_form_submit()
+ */
+function openy_campaign_color_scheme_form($complete_form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+  $info = color_get_info(OPENY_THEME);
+
+  $color_sets = [];
+  $schemes = [];
+  foreach ($info['schemes'] as $key => $scheme) {
+    $color_sets[$key] = $scheme['title'];
+    $schemes[$key] = $scheme['colors'];
+    $schemes[$key] += $info['schemes']['default']['colors'];
+  }
+
+
+  // Add scheme selector.
+  $palette = color_get_palette(OPENY_THEME, TRUE);
+
+  $form['scheme'] = [
+    '#type' => 'select',
+    '#title' => t('Color set'),
+    '#options' => $color_sets,
+    '#default_value' => 'default',
+    '#attached' => [
+      'library' => [
+        'openy_campaign_color/drupal.openy_campaign_color',
+      ],
+      // Add custom JavaScript.
+      'drupalSettings' => [
+        'color' => [
+          'reference' => $palette,
+          'schemes' => $schemes,
+        ]
+      ],
+    ],
+  ];
+
+  $campaignColorFields = ['mainlight', 'mainmedium', 'maindark'];
+
+  // Add palette fields. Use the configuration if available.
+  $names = $info['fields'];
+  $form['palette']['#tree'] = TRUE;
+  foreach ($palette as $name => $value) {
+    if (isset($names[$name]) && in_array($name, $campaignColorFields)) {
+      $form['palette'][$name] = [
+        '#type' => 'textfield',
+        '#title' => $names[$name],
+        '#value_callback' => 'color_palette_color_value',
+        '#default_value' => $value,
+        '#size' => 8,
+        '#attributes' => ['disabled' => 'disabled']
+      ];
+    }
+  }
+  $form['theme'] = ['#type' => 'value', '#value' => OPENY_THEME];
+
+  return $form;
+}
+
+
+
+/**
+ * Form submission handler for color_scheme_form().
+ *
+ * @see color_scheme_form_validate()
+ */
+function openy_campaign_color_scheme_form_submit($form, FormStateInterface $form_state) {
+
+
+
+  $palette = $form_state->getValue('scheme');
+  $theme = CAMPAIGN_THEME;
+
+  // Prepare target locations for generated files.
+  $id = $theme . '-' . substr(hash('sha256', serialize($palette) . microtime()), 0, 8);
+  $paths['color'] = 'public://color';
+  $paths['target'] = $paths['color'] . '/' . $id;
+  foreach ($paths as $path) {
+    file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+  }
+  $paths['target'] = $paths['target'] . '/';
+  $paths['id'] = $id;
+  $paths['source'] = drupal_get_path('theme', $theme) . '/';
+  $paths['files'] = $paths['map'] = [];
+
+
+  // Rewrite theme stylesheets.
+  $css = [];
+  foreach ($info['css'] as $stylesheet) {
+    // Build a temporary array with CSS files.
+    $files = [];
+    if (file_exists($paths['source'] . $stylesheet)) {
+      $files[] = $stylesheet;
+    }
+
+    foreach ($files as $file) {
+      $css_optimizer = new CssOptimizer();
+      // Aggregate @imports recursively for each configured top level CSS file
+      // without optimization. Aggregation and optimization will be
+      // handled by drupal_build_css_cache() only.
+      $style = $css_optimizer->loadFile($paths['source'] . $file, FALSE);
+
+      // Return the path to where this CSS file originated from, stripping
+      // off the name of the file at the end of the path.
+      $css_optimizer->rewriteFileURIBasePath = base_path() . dirname($paths['source'] . $file) . '/';
+
+      // Prefix all paths within this CSS file, ignoring absolute paths.
+      $style = preg_replace_callback('/url\([\'"]?(?![a-z]+:|\/+)([^\'")]+)[\'"]?\)/i', [$css_optimizer, 'rewriteFileURI'], $style);
+
+      // Rewrite stylesheet with new colors.
+      $style = _color_rewrite_stylesheet($theme, $info, $paths, $palette, $style);
+      $base_file = drupal_basename($file);
+      $css[] = $paths['target'] . $base_file;
+      _color_save_stylesheet($paths['target'] . $base_file, $style, $paths);
+    }
+  }
+}
+
+
