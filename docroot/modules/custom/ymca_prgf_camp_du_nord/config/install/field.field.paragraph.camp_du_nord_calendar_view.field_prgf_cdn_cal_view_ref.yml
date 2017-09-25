@@ -4,7 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_prgf_cdn_cal_view_ref
     - paragraphs.paragraphs_type.camp_du_nord_calendar_view
-    - views.view.cdn_calendar
 id: paragraph.camp_du_nord_calendar_view.field_prgf_cdn_cal_view_ref
 field_name: field_prgf_cdn_cal_view_ref
 entity_type: paragraph
