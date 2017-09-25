@@ -25,6 +25,14 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-campaign-menu',
     ],
+    // Campaign register block.
+    'openy_campaign_campaign_register' => [
+      'variables' => [
+        'base_path' => base_path(),
+        'campaign' => NULL,
+      ],
+      'template' => 'openy-campaign-campaign-register',
+    ],
     // Popup template.
     'openy_campaign_popup' => [
       'variables' => [
