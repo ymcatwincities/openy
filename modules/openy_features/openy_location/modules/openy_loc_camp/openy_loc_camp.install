@@ -239,3 +239,37 @@ function openy_loc_camp_update_8008() {
     }
   }
 }
+
+/**
+ * Update OpenY camp location paragraph feature configs.
+ */
+function openy_loc_camp_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.camp.default' => [
+      'dependencies.module',
+      'content',
+    ],
+    'core.entity_view_display.node.camp.class_location' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.camp.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.camp.full' => [
+      'dependencies.module',
+    ],
+    'core.entity_view_display.node.camp.teaser' => [
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
