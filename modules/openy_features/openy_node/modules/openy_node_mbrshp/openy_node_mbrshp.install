@@ -175,3 +175,30 @@ function openy_node_mbrshp_update_8008() {
     }
   }
 }
+
+/**
+ * Update OpenY membership node feature configs.
+ */
+function openy_node_mbrshp_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.membership.default' => [
+      'hidden',
+    ],
+    'core.entity_view_display.node.membership.teaser' => [
+      'hidden',
+    ],
+    'paragraphs.paragraphs_type.membership_info' => [
+      'behavior_plugins',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
