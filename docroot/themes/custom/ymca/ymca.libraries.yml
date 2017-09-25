@@ -7,6 +7,7 @@ global-styling:
       css/legacy/components.css: {}
       css/style.css: {}
   js:
+    //use.fontawesome.com/95fd5fcc01.js: {}
     /libraries/equalize/js/equalize.min.js: {}
     scripts/vendor/iframeSizer.min.js: {}
     scripts/legacy/modernizr-2.6.2-respond-1.1.0.min.js: {}
