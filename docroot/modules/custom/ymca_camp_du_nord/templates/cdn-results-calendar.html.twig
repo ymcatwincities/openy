@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Camp du Nord List calendar template.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="cdn-calendar-list-row{% if data.booked %} booked{% endif %}">
+  <a href="#" class="{% if data.selected %}selected{% endif %}">
+    <div class="date">
+      <div class="month">{{ data.date1 }}</div>
+      <div class="day">{{ data.date2 }} <span>{{ data.date3 }}</span></div>
+    </div>
+    <div class="price">{{ data.price }}</div>
+  </a>
+</div>
