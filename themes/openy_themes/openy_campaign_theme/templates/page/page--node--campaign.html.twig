@@ -45,18 +45,58 @@
  * @ingroup themeable
  */
 #}
-<div class="layout-container {{ camp_class }}">
+<div class="layout-container">
     <div class="viewport">
 
-        {{ page.header }}
+        <header id="page-head" class="page-head">
+            <div class="top-navs nav hidden-xs hidden-sm" data-offset-top="1">
+                    <div class="container">
+                        <div class="row">
+                            <div class="page-head__logo">
+                                {% block page_logo_2 %}
+                                    {{ page.logo }}
+                                {% endblock %}
+                            </div>
 
-        {{ page.breadcrumb }}
+                            <a class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-left">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
 
-        {{ page.highlighted }}
+                            <div class="col-md-offset-5 col-md-7 page-head__main-menu header-content hidden-xs">
 
-        {{ page.help }}
+                                <div class="col-md-10 page-head__primary-menu nav-home">
+                                    {{ page.primary_menu }}
 
-        <main role="main">
+                                </div>
+                                <div class="col-md-2 pull-right page-head__secondary-menu">
+                                    {{ page.secondary_menu }}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+            </div>
+            {{ page.header }}
+        </header>
+
+
+
+
+        <main role="main" class="container">
+
+
+
+            {{ page.breadcrumb }}
+
+            {{ page.highlighted }}
+
+            {{ page.help }}
+
+
+
             <a id="main-content" tabindex="-1"></a>{# link is in html.html.twig #}
 
             <div class="layout-content">

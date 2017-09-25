@@ -1,0 +1,15 @@
+<div class="container" style="
+        background-image: url('{{ file_url(campaign.field_campaign_image.entity.fileuri) }}');
+        height: {{  campaign.field_campaign_image.0.height }}px
+        ">
+<h1>{{ campaign.title.value }} </h1>
+    <h2 class="finish-date">
+        {{ campaign.field_campaign_start_date.value|date('F') }}
+
+        {{ campaign.field_campaign_start_date.value|date('d') }} -
+        {{ campaign.field_campaign_end_date.value|date('d') }} ,
+        {{ campaign.field_campaign_end_date.value|date('Y') }}
+    </h2>
+    <div id="countDown" class="countdown">
+    </div>
+</div>
