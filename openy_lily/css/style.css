@@ -2832,6 +2832,18 @@ body.path-search #block-mainpagecontent li {
   left: auto !important;
 }
 
+.ymcali-class-sessions-accordion details summary {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  float: left;
+  width: 80%;
+  margin-bottom: 20px;
+}
+.ymcali-class-sessions-accordion details input {
+  float: right;
+}
+
 .news-more-teaser {
   margin-top: 20px;
 }
