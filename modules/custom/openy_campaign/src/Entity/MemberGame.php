@@ -28,6 +28,10 @@ use Drupal\openy_campaign\MemberCampaignActivityInterface;
  */
 class MemberGame extends ContentEntityBase implements MemberCampaignActivityInterface {
 
+  const TYPE_REGISTER = 1;
+  const TYPE_CHECKIN = 2;
+  const TYPE_ACTIVITY = 3;
+
   /**
    * {@inheritdoc}
    */
@@ -65,6 +69,16 @@ class MemberGame extends ContentEntityBase implements MemberCampaignActivityInte
     $fields['uuid'] = BaseFieldDefinition::create('uuid')
       ->setLabel('UUID')
       ->setReadOnly(TRUE);
+
+    $fields['chance_type'] = BaseFieldDefinition::create('integer')
+      ->setLabel('Chance type')
+      ->setDescription(t('Rule which created the chance'))
+      ->setReadOnly(TRUE);
+
+    $fields['event_date'] = BaseFieldDefinition::create('timestamp')
+      ->setLabel(t('Event date'))
+      ->setDescription(t('The timestamp for the day when an event generated the chance.'));
+
 
     return $fields;
   }
