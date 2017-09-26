@@ -142,10 +142,8 @@
                 "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
             },
             "drupal/entity_clone": {
-                "2800203 - Event dispatcher for clone events": "https://www.drupal.org/files/issues/entity_clone-event_dispatcher-2800203-5.patch",
-                "2706639 - Support for cloning nodes that have another entities attached": "https://www.drupal.org/files/issues/entity_clone-attached_entities-2706639-25.patch",
-                "2769823 - Getting error after clicking on abort clone button": "https://www.drupal.org/files/issues/entity_clone-abort_clone_causes_fatal_error-2769823-4.patch",
-                "2770687 - Wrong redirection of page for entity clone module": "https://www.drupal.org/files/issues/2770687_wrong_redirection_for_entity_9.patch"
+                "2800203 - Event dispatcher for clone events": "https://www.drupal.org/files/issues/entity_clone-event_dispatcher-2800203-10.patch",
+                "2908414 - Error on abort and redirects - one patch to solve everything": "https://www.drupal.org/files/issues/entity_clone-redirect_and_abort_issue-2908414-2-d8.patch"
             },
             "drupal/confi": {
                 "11963348 - Drush attempts to call hooks for disabled confi module": "https://www.drupal.org/files/issues/confi-drush-call-hooks-from-disabled-2856910.patch"
