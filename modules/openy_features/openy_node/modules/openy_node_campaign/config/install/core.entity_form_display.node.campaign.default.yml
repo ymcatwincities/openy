@@ -39,6 +39,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_ways_to_earn_entries
     - node.type.campaign
   module:
     - datetime
@@ -182,6 +183,7 @@ third_party_settings:
       label: 'General messages'
     group_instant_win_game:
       children:
+        - field_ways_to_earn_entries
         - field_campaign_prizes
         - field_campaign_prize_nowin
         - field_campaign_expected_visits
@@ -257,7 +259,7 @@ content:
     type: datetime_default
     region: content
   field_campaign_expected_visits:
-    weight: 22
+    weight: 49
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -291,14 +293,14 @@ content:
     type: options_buttons
     region: content
   field_campaign_prize_coefficient:
-    weight: 23
+    weight: 50
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: number
     region: content
   field_campaign_prize_nowin:
-    weight: 21
+    weight: 48
     settings:
       size: 60
       placeholder: ''
@@ -307,7 +309,7 @@ content:
     region: content
   field_campaign_prizes:
     type: entity_reference_paragraphs
-    weight: 20
+    weight: 47
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -514,6 +516,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_ways_to_earn_entries:
+    weight: 46
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
   langcode:
     type: language_select
     weight: 1

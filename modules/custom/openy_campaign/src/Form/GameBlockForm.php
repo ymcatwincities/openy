@@ -25,7 +25,7 @@ class GameBlockForm extends FormBase {
     if (empty($unplayedGames)) {
       return [
         'message' => [
-          '#markup' => $this->t('You do not have any Games available. Visit facility more'),
+          '#markup' => $this->t('You do not have any Games available.'),
         ],
       ];
     }

@@ -565,4 +565,31 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     ];
   }
 
+  public function save() {
+    $return = parent::save();
+
+    $isAllowedToCreateAnEntry = FALSE;
+
+    /** @var \Drupal\node\NodeInterface $campaign */
+    $campaign = $this->getCampaign();
+    foreach ($campaign->get('field_ways_to_earn_entries')->getValue() as $item) {
+      if ($item['value'] == MemberGame::TYPE_REGISTER) {
+        $isAllowedToCreateAnEntry = TRUE;
+        break;
+      }
+    }
+
+    if ($isAllowedToCreateAnEntry) {
+      // Create Instant-Win game chance.
+      $game = MemberGame::create([
+        'member' => $this->id(),
+        'chance_type' => MemberGame::TYPE_REGISTER,
+      ]);
+      $game->save();
+    }
+
+    return $return;
+
+  }
+
 }
