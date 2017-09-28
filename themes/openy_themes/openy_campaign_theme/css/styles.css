@@ -69,13 +69,28 @@ body {
 }
 
 .container {
-  background-color: #ffffff;
   max-width: 1400px;
   width: 100%;
 }
 
-main[role="main"] {
-  padding-top: 15px;
+.paragraph-container {
+  background-color: #ffffff;
+  padding-left: 125px;
+  padding-right: 125px;
+}
+
+.paragraph-background-container {
+  background-color: inherit;
+}
+.paragraph-background-container .paragraph-container {
+  background-color: inherit;
+  color: #ffffff;
+}
+.paragraph-background-container .paragraph-container h1, .paragraph-background-container .paragraph-container h2 {
+  color: inherit;
+}
+.paragraph-background-container .paragraph-container .fa {
+  color: inherit;
 }
 
 .layout-container {
@@ -112,6 +127,34 @@ main[role="main"] {
 #block-campaignmemberregister .countdown .simply-word {
   font-size: 16px;
   display: block;
+}
+
+.block-description--text .field-icon img {
+  max-width: 400px;
+  height: auto;
+  max-height: 400px;
+  display: block;
+}
+
+.block-description--text .field-sb-body {
+  padding-top: 30px;
+}
+
+.block-description--text {
+  border: none !important;
+}
+
+.block-description--text h2 {
+  padding-left: 0px !important;
+  font-size: 24px !important;
+}
+.block-description--text h2.with-icon .field-sb-title {
+  padding-top: 35px;
+  text-transform: uppercase;
+}
+
+footer {
+  background-color: inherit !important;
 }
 
 .viewport .top-navs {

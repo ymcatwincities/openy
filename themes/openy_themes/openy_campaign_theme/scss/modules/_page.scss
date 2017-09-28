@@ -4,14 +4,35 @@ body {
 }
 
 .container {
-  background-color: #ffffff;
+  //background-color: #ffffff;
   max-width: 1400px;
   width: 100%;
 
 }
+.paragraph-container {
+  background-color: #ffffff;
+  padding-left: 125px;
+  padding-right: 125px;
+}
+
+.paragraph-background-container {
+  background-color: inherit;
+  .paragraph-container {
+    background-color: inherit;
+    color: #ffffff;
+    h1, h2 {
+      color: inherit;
+    }
+    .fa {
+      color: inherit;
+    }
+  }
+}
 
 main[role="main"] {
-  padding-top: 15px;
+  //padding-left: 125px;
+  //padding-right: 125px;
+  //padding-top: 15px;
 }
 
 .layout-container {
@@ -46,6 +67,30 @@ main[role="main"] {
     .simply-word{
       font-size: 16px;
       display: block;
+    }
+  }
+}
+
+.block-description--text .field-icon img {
+  max-width: 400px;
+  height: auto;
+  max-height: 400px;
+  display: block;
+}
+
+.block-description--text .field-sb-body {
+  padding-top: 30px;
+}
+.block-description--text {
+  border: none !important;
+}
+.block-description--text h2 {
+  padding-left: 0px !important;
+  font-size: 24px !important;
+  &.with-icon {
+    .field-sb-title {
+      padding-top: 35px;
+      text-transform: uppercase;
     }
   }
 }
