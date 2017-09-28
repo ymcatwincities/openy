@@ -25,10 +25,8 @@
               return;
           }
 
-          console.log('here');
           // Set up colorScheme selector.
           form.find('#edit-scheme').on('change', function () {
-              console.log('changed');
               var schemes = settings.color.schemes;
               var colorScheme = this.options[this.selectedIndex].value;
               if (colorScheme !== '' && schemes[colorScheme]) {
