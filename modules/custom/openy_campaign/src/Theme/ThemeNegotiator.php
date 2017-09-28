@@ -19,6 +19,14 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
     if (in_array($route_match->getRouteName(), $possible_routes)) {
       $node = $route_match->getParameter('node');
 
+      if (!in_array($node->getType(), ['campaign', 'landing_page'])) {
+        return FALSE;
+      }
+
+      if ($node->getType() === 'campaign') {
+        return TRUE;
+      }
+
       // Check if requested node uses in campaign.
       $query = \Drupal::entityQuery('node')
         ->condition('status', 1)
@@ -27,17 +35,14 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
         ->condition('field_campaign_pages', $node->id(), 'IN')
         ->condition('field_my_progress_page', $node->id())
         ->condition('field_rules_prizes_page', $node->id())
-        ->condition('field_pause_landing_page', $node->id());
+        ->condition('field_pause_landing_page', $node->id())
+        ->condition('field_about_challenge_page', $node->id());
       $campaignLandingPages = $query->condition($orGroup)->execute();
 
-      if (!empty($campaignLandingPages)) {
-        return true;
-      }
-
-      return ($node->getType() === 'campaign');
+      return !empty($campaignLandingPages);
     }
 
-    return false;
+    return FALSE;
   }
 
   /**
