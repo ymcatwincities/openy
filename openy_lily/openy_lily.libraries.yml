@@ -1,3 +1,8 @@
+jquery.matchHeight:
+  version: VERSION
+  js:
+    /libraries/jquery.matchHeight/jquery.matchHeight-min.js: {}
+
 global-styling:
   version: VERSION
   css:
@@ -8,14 +13,13 @@ global-styling:
       css/colors.css: {}
       css/print.css: { media: print }
   js:
-    scripts/contrib/jquery.matchHeight-min.js: {}
-    scripts/init-templates.js: {}
     scripts/ymca.js: {}
   dependencies:
     - core/jquery
     - core/drupal
     - core/drupalSettings
     - core/drupal.dialog
+    - openy_lily/jquery.matchHeight
 
 color.preview:
   version: VERSION
