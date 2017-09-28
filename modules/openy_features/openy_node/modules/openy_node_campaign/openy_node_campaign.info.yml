@@ -13,6 +13,8 @@ dependencies:
   - entity_reference_revisions
   - field
   - field_group
+  - file
+  - image
   - jquery_colorpicker
   - menu_ui
   - node
@@ -32,4 +34,5 @@ dependencies:
   - user
   - views
   - views_data_export
+  - views_field_formatter
 version: 8.x-1.0
