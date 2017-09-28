@@ -577,3 +577,14 @@ legend {
 .captcha {
   margin-left: 0;
 }
+
+// Password reset form
+
+[data-drupal-selector="openy-ccc-reset-password-form"] {
+  [data-drupal-selector="edit-birth-info"] {
+    margin-top: 15px;
+    .fieldset-wrapper {
+      margin: 10px -10px;
+    }
+  }
+}

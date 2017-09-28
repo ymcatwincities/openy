@@ -1290,6 +1290,13 @@ legend {
   margin-left: 0;
 }
 
+[data-drupal-selector="openy-ccc-reset-password-form"] [data-drupal-selector="edit-birth-info"] {
+  margin-top: 15px;
+}
+[data-drupal-selector="openy-ccc-reset-password-form"] [data-drupal-selector="edit-birth-info"] .fieldset-wrapper {
+  margin: 10px -10px;
+}
+
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
