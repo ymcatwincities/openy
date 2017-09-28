@@ -22,3 +22,13 @@ game_flip_cards:
 campaign_modal:
   js:
     js/campaign-modal.js: {}
+
+simply_counter:
+  js:
+    js/simplyCountdown.min.js: {}
+
+campaign_countdown:
+  js:
+    js/campaignCountdown.js: {}
+  dependencies:
+    - openy_campaign/simply_counter

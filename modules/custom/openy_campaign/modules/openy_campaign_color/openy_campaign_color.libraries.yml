@@ -1,0 +1,7 @@
+drupal.openy_campaign_color:
+  version: VERSION
+  js:
+    color.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
