@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_exclude_activities
+    - field.storage.node.field_ways_to_earn_entries
     - node.type.campaign
   module:
     - datalayer
@@ -10,13 +10,13 @@ dependencies:
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_exclude_activities
-id: node.campaign.field_exclude_activities
-field_name: field_exclude_activities
+    label: field_ways_to_earn_entries
+id: node.campaign.field_ways_to_earn_entries
+field_name: field_ways_to_earn_entries
 entity_type: node
 bundle: campaign
-label: 'Exclude activities'
-description: 'These activities will not be used during winners calculation'
+label: 'Ways to Earn Entries'
+description: 'Business rules used for a member to earn a game-of-chance entry.'
 required: false
 translatable: false
 default_value: {  }

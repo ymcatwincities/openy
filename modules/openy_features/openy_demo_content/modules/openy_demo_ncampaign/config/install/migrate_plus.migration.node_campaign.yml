@@ -135,21 +135,30 @@ process:
   field_campaign_membership_u_t:
     plugin: default_value
     default_value:
-      - Adult
-      - Dual
-      - Family
-      - Youth
-      - Student
-      - Contract
+      - adult
+      - dual
+      - family
+      - youth
+      - student
+      - contract
   field_token_check_back_date:
     plugin: default_value
-    default_value: 'check back on 22 of August'
+    default_value: 'check back on 22 of September'
   field_token_login_link_text:
     plugin: default_value
     default_value: 'sign in here'
   field_token_register_link_text:
     plugin: default_value
     default_value: 'register'
+  field_ways_to_earn_entries:
+    plugin: default_value
+    default_value:
+      - 1
+      - 2
+      - 3
+  field_campaign_expected_visits:
+      plugin: default_value
+      default_value: '3500'
 destination:
   plugin: 'entity:node'
   default_bundle: campaign

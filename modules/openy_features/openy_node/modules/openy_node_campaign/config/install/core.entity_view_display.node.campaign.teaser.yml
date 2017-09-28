@@ -21,7 +21,6 @@ dependencies:
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
     - field.field.node.campaign.field_error_target_audience
-    - field.field.node.campaign.field_exclude_activities
     - field.field.node.campaign.field_goal_check_ins_end_date
     - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_limit_visits_goal
@@ -79,7 +78,6 @@ hidden:
   field_error_member_is_inactive: true
   field_error_membership_id: true
   field_error_target_audience: true
-  field_exclude_activities: true
   field_goal_check_ins_end_date: true
   field_goal_check_ins_start_date: true
   field_limit_visits_goal: true

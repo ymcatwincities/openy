@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Entity;
 
+use Drupal\Core\Entity\Entity;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -100,11 +101,27 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
       ->execute();
 
     foreach (array_keys($campaignMembers) as $campaignMemberId) {
-      $game = MemberGame::create([
-        'member' => $campaignMemberId,
-      ]);
+      $isAllowedToCreateAnEntry = FALSE;
 
-      $game->save();
+      $memberCampaign = Entity::load($campaignMemberId);
+      /** @var \Drupal\node\NodeInterface $campaign */
+      $campaign = $memberCampaign->getCampaign();
+      foreach ($campaign->get('field_ways_to_earn_entries')->getValue() as $item) {
+        if ($item['value'] == MemberGame::TYPE_CHECKIN) {
+          $isAllowedToCreateAnEntry = TRUE;
+          break;
+        }
+      }
+
+      if ($isAllowedToCreateAnEntry) {
+        $game = MemberGame::create([
+          'member' => $campaignMemberId,
+          'chance_type' => MemberGame::TYPE_CHECKIN,
+        ]);
+
+        $game->save();
+      }
+
     }
 
     return $return;

@@ -162,6 +162,7 @@ set classes = [
     <div class="main-region col-sm-12">
       <div class="branch-content">
         <article{{ attributes.addClass(classes) }}>
+          <h2 class="visually-hidden">{{ node.label }}</h2>
           <div{{ content_attributes.addClass('node__content') }}>
             {{ content.field_content }}
           </div>

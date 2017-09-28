@@ -5121,7 +5121,6 @@ html.js .branch__updates_queue__button {
   #group-ex-results .time,
   .groupex-results .time {
     font-size: 30px;
-    padding-left: 15px;
     margin-bottom: 10px;
   }
 }
@@ -5132,7 +5131,7 @@ html.js .branch__updates_queue__button {
   outline: none;
   text-decoration: none;
   padding: 15px;
-  margin-bottom: -35px;
+  margin-bottom: -10px;
   position: relative;
   width: 100%;
 }
@@ -5342,7 +5341,7 @@ iframe#ga_iframe {
 .addtocalendar {
   position: relative;
   right: 15px;
-  top: 10px;
+  top: -15px;
   display: inline-block;
   background: transparent !important;
   float: right;

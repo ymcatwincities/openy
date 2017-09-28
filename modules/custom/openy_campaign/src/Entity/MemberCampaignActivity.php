@@ -5,6 +5,7 @@
 
 namespace Drupal\openy_campaign\Entity;
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
@@ -29,7 +30,7 @@ use Drupal\openy_campaign\MemberCampaignActivityInterface;
  *   },
  * )
  */
-class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaignActivityInterface {
+class MemberCampaignActivity extends ContentEntityBase implements MemberCampaignActivityInterface {
 
   /**
    * {@inheritdoc}
@@ -84,6 +85,51 @@ class MemberCampaignActivity  extends ContentEntityBase implements MemberCampaig
       ->condition('date', $date->format('U'))
       ->condition('activity', $activityIds, 'IN')
       ->execute();
+  }
+
+  public function save() {
+    $return = parent::save();
+    /** @var \Drupal\openy_campaign\Entity\MemberCampaign $memberCampaign */
+    $memberCampaign = $this->get('member_campaign')->entity;
+
+    $isAllowedToCreateAnEntry = FALSE;
+
+    /** @var \Drupal\node\NodeInterface $campaign */
+    $campaign = $memberCampaign->getCampaign();
+    foreach ($campaign->get('field_ways_to_earn_entries')->getValue() as $item) {
+      if ($item['value'] == MemberGame::TYPE_ACTIVITY) {
+        $isAllowedToCreateAnEntry = TRUE;
+        break;
+      }
+    }
+
+    if ($isAllowedToCreateAnEntry) {
+      $date = $this->get('date')->value;
+
+      $beginOfDay = strtotime("midnight", $date);
+      $endOfDay = strtotime("tomorrow", $date) - 1;
+
+      $query = \Drupal::entityQuery('openy_campaign_member_game')
+        ->condition('event_date', $beginOfDay, '>=')
+        ->condition('event_date', $endOfDay, '<=')
+        ->condition('member', $memberCampaign->id(), '=')
+        ->condition('chance_type', MemberGame::TYPE_ACTIVITY, '=');
+
+      $games = $query->execute();
+
+      if (empty($games)) {
+        // Create Instant-Win game chance.
+        $game = MemberGame::create([
+          'member' => $memberCampaign->id(),
+          'chance_type' => MemberGame::TYPE_ACTIVITY,
+          'event_date' => $date,
+        ]);
+        $game->save();
+      }
+    }
+
+    return $return;
+
   }
   
 }

@@ -42,6 +42,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_ways_to_earn_entries
     - image.style.thumbnail
     - node.type.campaign
   module:
