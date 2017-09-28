@@ -1,0 +1,94 @@
+paths: "media/*/format-form\nadmin/*\nnode/add/*\nnode/*/edit"
+visibility:
+  'entity_bundle:block_content':
+    id: 'entity_bundle:block_content'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:contact_message':
+    id: 'entity_bundle:contact_message'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:logger_entity':
+    id: 'entity_bundle:logger_entity'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:media':
+    id: 'entity_bundle:media'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:mapping':
+    id: 'entity_bundle:mapping'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:redirect':
+    id: 'entity_bundle:redirect'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:shortcut':
+    id: 'entity_bundle:shortcut'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:taxonomy_term':
+    id: 'entity_bundle:taxonomy_term'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:webform_submission':
+    id: 'entity_bundle:webform_submission'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:menu_link_content':
+    id: 'entity_bundle:menu_link_content'
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  'entity_bundle:paragraph':
+    id: 'entity_bundle:paragraph'
+    bundles:
+      gallery: gallery
+    negate: false
+    context_mapping: {  }
+  language:
+    id: language
+    langcodes: {  }
+    negate: false
+    context_mapping: {  }
+  node_type:
+    id: node_type
+    bundles: {  }
+    negate: false
+    context_mapping: {  }
+  current_theme:
+    id: current_theme
+    theme: bartik
+    negate: false
+    context_mapping: {  }
+  request_path:
+    id: request_path
+    pages: ''
+    negate: false
+    context_mapping: {  }
+  user_role:
+    id: user_role
+    roles: {  }
+    negate: false
+    context_mapping: {  }
+  webform:
+    id: webform
+    webforms: {  }
+    negate: false
+    context_mapping: {  }
+filenames: null
