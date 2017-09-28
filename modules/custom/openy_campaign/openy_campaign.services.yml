@@ -9,3 +9,8 @@ services:
   openy_campaign.regular_updater:
     class: Drupal\openy_campaign\RegularUpdater
     arguments: ['@config.factory', '@entity_type.manager', '@logger.factory', '@queue']
+
+  theme.negotiator.openy_campaign:
+    class: Drupal\openy_campaign\Theme\ThemeNegotiator
+    tags:
+      - { name: theme_negotiator, priority: 0 }

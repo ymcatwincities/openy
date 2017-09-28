@@ -73,10 +73,6 @@ class CampaignController extends ControllerBase {
    * @return \Drupal\Core\Ajax\AjaxResponse | \Symfony\Component\HttpFoundation\RedirectResponse
    */
   public function showPageContent($campaign_id, $landing_page_id) {
-    $is_ajax = \Drupal::request()->isXmlHttpRequest();
-    if (!$is_ajax) {
-      return new RedirectResponse(Url::fromRoute('entity.node.canonical', ['node' => $campaign_id])->toString());
-    }
 
     $response = new AjaxResponse();
 
@@ -101,9 +97,8 @@ class CampaignController extends ControllerBase {
       return $response;
     }
 
-    $response = $this->campaignMenuService->ajaxReplaceLandingPage($landing_page_id);
+    return new RedirectResponse(Url::fromRoute('entity.node.canonical', ['node' => $landing_page_id])->toString());
 
-    return $response;
   }
 
   /**

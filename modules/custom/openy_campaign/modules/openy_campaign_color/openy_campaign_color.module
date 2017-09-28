@@ -1,0 +1,103 @@
+<?php
+
+DEFINE('CAMPAIGN_THEME', 'openy_campaign');
+DEFINE('OPENY_THEME', 'openy_rose');
+
+/**
+ * Implements hook_theme().
+ */
+function openy_campaign_color_theme() {
+  return [
+    'openy_campaign_color_scheme_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_campaign_color_form_node_campaign_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+  if (color_get_info(OPENY_THEME) && function_exists('gd_info')) {
+    $form['color'] = [
+      '#type' => 'details',
+      '#title' => t('Color scheme'),
+      '#open' => TRUE,
+      '#weight' => -1,
+      '#attributes' => ['id' => 'openy_campaign_color_color_scheme_form'],
+      '#theme' => 'openy_campaign_color_scheme_form',
+    ];
+    $form['color'] += openy_campaign_color_scheme_form($form, $form_state);
+    $form['#validate'][] = 'color_scheme_form_validate';
+    // Ensure color submission happens first so we can unset extra values.
+    array_unshift($form['#submit'], 'color_scheme_form_submit');
+  }
+}
+
+/**
+ * Form constructor for the color configuration form for a particular theme.
+ *
+ * @param $theme
+ *   The machine name of the theme whose color settings are being configured.
+ *
+ * @see color_scheme_form_validate()
+ * @see color_scheme_form_submit()
+ */
+function openy_campaign_color_scheme_form($complete_form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+  $info = color_get_info(OPENY_THEME);
+  $color_sets = [];
+  $schemes = [];
+  foreach ($info['schemes'] as $key => $scheme) {
+    $color_sets[$key] = $scheme['title'];
+    $schemes[$key] = $scheme['colors'];
+    $schemes[$key] += $info['schemes']['default']['colors'];
+  }
+
+  // Add scheme selector.
+  $palette = color_get_palette(OPENY_THEME, TRUE);
+
+  $form['scheme'] = [
+    '#type' => 'select',
+    '#title' => t('Color set'),
+    '#options' => $color_sets,
+    '#default_value' => 'default',
+    '#attached' => [
+      'library' => [
+        'openy_campaign_color/drupal.openy_campaign_color',
+      ],
+      // Add custom JavaScript.
+      'drupalSettings' => [
+        'color' => [
+          'reference' => $palette,
+          'schemes' => $schemes,
+        ]
+      ],
+    ],
+  ];
+
+  $campaignColorFields = ['mainlight', 'mainmedium', 'maindark'];
+
+  // Add palette fields. Use the configuration if available.
+  $names = $info['fields'];
+  $form['palette']['#tree'] = TRUE;
+  foreach ($palette as $name => $value) {
+    if (isset($names[$name]) && in_array($name, $campaignColorFields)) {
+      $form['palette'][$name] = [
+        '#type' => 'textfield',
+        '#title' => $names[$name],
+        '#value_callback' => 'color_palette_color_value',
+        '#default_value' => $value,
+        '#size' => 8,
+        '#attributes' => ['disabled' => 'disabled']
+      ];
+    }
+  }
+  $form['theme'] = ['#type' => 'value', '#value' => OPENY_THEME];
+
+  return $form;
+}
+
+
+

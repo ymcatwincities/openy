@@ -60,7 +60,6 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
   public function build() {
     // Extract Campaign node from route.
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
-
     // There is no campaign associated with the node or empty campaign menu.
     if (!$links = $this->campaignMenuService->getNodeCampaignMenu($campaign)) {
       return [];

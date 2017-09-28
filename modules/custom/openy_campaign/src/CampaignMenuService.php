@@ -168,17 +168,26 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
       '#attributes' => [
         'class' => [
-          'use-ajax',
           'campaign-page',
           'node-' . $landingPage->id(),
           'active'
         ],
       ],
-      '#attached' => [
-        'library' => [
-          'core/drupal.ajax'
-        ]
-      ]
+    ];
+
+    // About the challenge tab
+    $about = $node->field_about_challenge_page->entity;
+    $links['about'] = [
+      '#type' => 'link',
+      '#title' => 'About the challenge',
+      '#url' => Url::fromRoute('entity.node.canonical', ['node' => $about->id()]),
+      '#attributes' => [
+        'class' => [
+          'campaign-page',
+          'node-' . $about->id(),
+          'active'
+        ],
+      ],
     ];
 
     /** @var Node $myProgress */
@@ -191,16 +200,10 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
       '#attributes' => [
         'class' => [
-          'use-ajax',
           'campaign-my-progress',
           'node-' . $myProgress->id(),
         ],
       ],
-      '#attached' => [
-        'library' => [
-          'core/drupal.ajax'
-        ]
-      ]
     ];
 
     /** @var Node $rules */
@@ -212,16 +215,10 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
       '#attributes' => [
         'class' => [
-          'use-ajax',
           'campaign-rules',
           'node-' . $rules->id(),
         ],
       ],
-      '#attached' => [
-        'library' => [
-          'core/drupal.ajax'
-        ]
-      ]
     ];
 
     return $links;
@@ -328,7 +325,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $fieldsRender = '<section class="wrapper-field-content">' . $this->renderer->renderRoot($fieldsView) . '</section>';
 
     // Replace Content area of current landing page with all paragraphs from field-content of new landing page node.
-    $response->addCommand(new ReplaceCommand('.node__content > .container .wrapper-field-content', $fieldsRender));
+    $response->addCommand(new ReplaceCommand('.wrapper-field-content', $fieldsRender));
 
     // Set 'active' class to menu link.
     $response->addCommand(new InvokeCommand('.campaign-menu a', 'removeClass', ['active']));
