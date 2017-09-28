@@ -29,18 +29,17 @@ class WinnersCalculateForm extends FormBase {
    */
   protected $entityTypeManager;
 
-
   /**
    * CalcBlockForm constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    */
-  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager) {
     $this->renderer = $renderer;
-    $this->entityTypeManager = $entity_type_manager;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -76,12 +75,6 @@ class WinnersCalculateForm extends FormBase {
       '#open' => FALSE,
     ];
 
-    $form['generate']['visits_goal'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Generate winners by Visits goal'),
-      '#default_value' => TRUE,
-    ];
-
     /** @var Node $campaign */
     $campaign = \Drupal::routeMatch()->getParameter('node');
     $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
@@ -94,28 +87,26 @@ class WinnersCalculateForm extends FormBase {
       $options[$item->tid] = $item->name;
     }
 
-    $form['generate']['not_matched_activities'] = [
-      '#type' => 'select',
-      '#title' => $this->t('Activities, not related to check-ins.'),
-      '#description' => $this->t('Select activities that NOT related to real branch visits (check-ins). They will not be matched with today check-in.'),
-      '#default_value' => 58, // hardcoded value for Community
+    $form['generate']['excluded_activities'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Activities, excluded from the drawing.'),
+      '#default_value' => '',
       '#options' => $options,
       '#multiple' => TRUE,
     ];
 
+    $form['generate']['visits_goal'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Run Visit Goal Random Drawing'),
+      '#default_value' => TRUE,
+    ];
+
     $form['generate']['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Calculate winners'),
+      '#value' => $this->t('Draw winners'),
     ];
 
     return $form;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-
   }
 
   /**
@@ -137,16 +128,17 @@ class WinnersCalculateForm extends FormBase {
     $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
     $activitiesTree = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree($activitiesVoc, 0);
     // Get excluded terms
-    $excludedTids = $campaign->get('field_exclude_activities')->getValue();
+    $excludedTids = $form_state->getValue('excluded_activities');
+
     $excluded = [];
     foreach ($excludedTids as $value) {
-      $excluded[] = $value['value'];
+      $excluded[] = $value;
     }
     // Collect activities
     $activities = [];
     foreach ($activitiesTree as $item) {
       $parent = isset($item->parents[0]) ? $item->parents[0] : '';
-      // Exclude terms from 'field_exclude_activities'
+      // Exclude terms from 'excluded_activities'
       if (in_array($item->tid, $excluded) || in_array($parent, $excluded)) {
         continue;
       }
@@ -171,12 +163,9 @@ class WinnersCalculateForm extends FormBase {
     // Define should we calculate winners for Visits goal
     $isVisitsGoal = !empty($form_state->getValue('visits_goal')) ? TRUE : FALSE;
 
-    // Not matched activities
-    $notMatchedVisitsActivities = $form_state->getValue('not_matched_activities');
-
     $operations = [
       [[get_class($this), 'deleteWinners'], [$campaignId, $isVisitsGoal]],
-      [[get_class($this), 'processCampaignWinnersBatch'], [$campaign, $branches, $activities, $notMatchedVisitsActivities, $places, $isVisitsGoal]],
+      [[get_class($this), 'processCampaignWinnersBatch'], [$campaign, $branches, $activities, $places, $isVisitsGoal]],
     ];
 
     $batch = [
@@ -223,13 +212,15 @@ class WinnersCalculateForm extends FormBase {
     $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
     $query = $connection->select('openy_campaign_winner', 'w');
+    $query->fields('w', ['id']);
+    $query->join('openy_campaign_member_campaign', 'mc', 'w.member_campaign = mc.id');
+
     // Delete only winners with defined activity
     if (!$isAll) {
       $query->condition('w.activity', 0, '!=');
     }
-    $query->join('openy_campaign_member_campaign', 'mc', 'w.member_campaign = mc.id');
     $query->condition('mc.campaign', $campaignId);
-    $query->fields('w', ['id']);
+
     $winnerIDs = $query->execute()->fetchCol();
 
     /** @var \Drupal\Core\Entity\EntityStorageInterface $storage */
@@ -241,7 +232,7 @@ class WinnersCalculateForm extends FormBase {
   /**
    * Batch step to calculate winners for each branch.
    */
-  public static function processCampaignWinnersBatch($campaign, $branches, $activities, $notMatchedVisitsActivities, $places, $isVisitsGoal, &$context) {
+  public static function processCampaignWinnersBatch($campaign, $branches, $activities, $places, $isVisitsGoal, &$context) {
     if (empty($context['sandbox'])) {
       $context['sandbox']['progress'] = 0;
 
@@ -250,18 +241,6 @@ class WinnersCalculateForm extends FormBase {
       $context['sandbox']['branches'] = array_keys($branches);
       $context['sandbox']['places'] = $places;
 
-      $connection = \Drupal::service('database');
-      /** @var \Drupal\Core\Database\Query\Select $queryCheck */
-      $queryCheck = $connection->select('openy_campaign_member_checkin', 'ch');
-      $queryCheck->fields('ch', ['member', 'date']);
-      $checksRes = $queryCheck->execute()->fetchAll();
-      // Group check-ins dates by member
-      $allChecks = [];
-      foreach ($checksRes as $res) {
-        $allChecks[$res->member][] = $res->date;
-      }
-      $context['sandbox']['all_checks'] = $allChecks;
-
       $context['sandbox']['max'] = count($branches);
     }
 
@@ -269,45 +248,46 @@ class WinnersCalculateForm extends FormBase {
     $campaign = $context['sandbox']['campaign'];
     $activities = $context['sandbox']['activities'];
     $places = $context['sandbox']['places'];
-    $allChecks = $context['sandbox']['all_checks'];
 
-    // Get all member campaigns for this branch with goal, visits and main activity
-    $memberCampaignsInfo = self::getInfoByBranch($campaign, $branchId, $activities, $notMatchedVisitsActivities, $allChecks);
+    // Get all member campaigns for this branch
+    $memberCampaignsInfo = self::getInfoByBranch($campaign, $branchId, $activities);
 
     $alreadyWinners = [];
-
-    // Calculate winners for Visits goal
-    $goalWinners = [];
-    if ($isVisitsGoal) {
-      $goalWinners = self::getVisitsGoalWinners($memberCampaignsInfo['all_visits'], $places);
-      // Collect $alreadyWinners array
-      foreach ($goalWinners as $item) {
-        $alreadyWinners[] = $item['member_campaign'];
-      }
-    }
 
     $activityWinners = [];
     // Assign places
     foreach ($places as $place) {
       // Calculate winners per activity
       foreach ($memberCampaignsInfo as $category => $data) {
-        if ($category == 'all_visits') {
-          continue;
-        }
         if (empty($data)) {
           break;
         }
 
         $memberCampaignItem = self::getRandomWinner($data, $alreadyWinners);
 
-        // Create Winner entity. If winner defined by all visits without activity - set Activity = 0
+        // Create Winner entities.
         if (!empty($memberCampaignItem)) {
           $activityWinners[] = [
             'member_campaign' => $memberCampaignItem['member_campaign'],
-            'activity' => (is_numeric($category) && in_array($category, array_keys($activities))) ? $category : 0,
+            'activity' => $category,
             'place' => $place,
           ];
         }
+      }
+    }
+
+    // Calculate winners by Visits goal.
+    $goalWinners = [];
+    if ($isVisitsGoal) {
+      $goalWinnersIds = self::getVisitsGoalWinners($campaign, $branchId, $alreadyWinners);
+      // Create Winner entity. If winner defined by Visits goal without activity - set Activity = 0
+      foreach ($places as $place) {
+        $goalWinnerId = array_shift($goalWinnersIds);
+        $goalWinners[] = [
+          'member_campaign' => $goalWinnerId,
+          'activity' => 0,
+          'place' => $place,
+        ];
       }
     }
 
@@ -328,124 +308,46 @@ class WinnersCalculateForm extends FormBase {
   }
 
   /**
-   * @param array $memberCampaignsData All needed data after getInfoByBranch() function.
-   * @param $places
-   *
-   * @return array
-   */
-  private static function getVisitsGoalWinners($memberCampaignsData, $places) {
-    $goalWinners = [];
-
-    // Separate all reached the goal MemberCampaigns - get place with random
-    $reachedGoal = [];
-    $other = [];
-    foreach ($memberCampaignsData as $item) {
-      if ($item['percentage'] == 100) {
-        $reachedGoal[] = $item;
-      } else {
-        $other[] = $item;
-      }
-    }
-
-    // Sort not reached the goal by percentage
-    usort($other, function($a, $b) {
-      return $a['percentage'] - $b['percentage'];
-    });
-
-    // Randomize array
-    shuffle($reachedGoal);
-
-    // Assign places
-    foreach ($places as $place) {
-      if (!empty($reachedGoal)) {
-        $memberCampaignItem = array_shift($reachedGoal);
-      }
-      elseif (!empty($other)) {
-        $memberCampaignItem = $other[0];
-        unset($other);
-      }
-      else {
-        break;
-      }
-
-      // Create Winner entity. If winner defined by Visits goal without activity - set Activity = 0
-      $goalWinners[] = [
-        'member_campaign' => $memberCampaignItem['member_campaign'],
-        'activity' => 0,
-        'place' => $place,
-      ];
-    }
-
-    return $goalWinners;
-  }
-
-  /**
    * Get all needed data for current campaign
    *
    * @param Node $campaign Campaign node entity.
    * @param int $branchId Branch ID to calculate winners for.
    * @param array $activities Array of arrays with all activities for current Campaign.
    *    Key - parent activity, value - array of child ones.
-   * @param array $notMatchedVisitsActivities Array of parent activities that shouldn't be checked with visits (like Community).
-   * @param array $allChecks Grouped by member ID array of check-ins time.
    *
    * @return array
    */
-  private static function getInfoByBranch($campaign, $branchId, $activities, $notMatchedVisitsActivities, $allChecks) {
-    /** @var Node $campaign */
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
-
+  private static function getInfoByBranch($campaign, $branchId, $activities) {
     $connection = \Drupal::service('database');
 
-    // Get visits
     /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $connection->select('openy_campaign_member_checkin', 'ch');
-    $query->condition('ch.date', $campaignStartDate->format('U'), '>=');
-    $query->condition('ch.date', $campaignEndDate->format('U'), '<');
-    $query->addExpression('COUNT(ch.id)', 'visits');
-    $query->groupBy('ch.member');
-    $query->fields('ch', ['member']);
-    $query->join('openy_campaign_member', 'm', 'm.id = ch.member');
+    $query = $connection->select('openy_campaign_member', 'm');
+
+    $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
+    $query->join('openy_campaign_memb_camp_actv', 'mca', 'mc.id = mca.member_campaign');
+
+    $query->addField('m', 'id', 'member');
+    $query->addField('mca', 'activity');
+    $query->addField('mca', 'member_campaign');
+
     $query->condition('m.branch', $branchId);
     $query->condition('m.is_employee', FALSE);
-    $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
     $query->condition('mc.campaign', $campaign->id());
 
-    // Get activities for all members
-    /** @var \Drupal\Core\Database\Query\Select $queryAct */
-    $queryAct = $connection->select('openy_campaign_member_campaign', 'mc');
-    $queryAct->join($query, 'vis', 'mc.member = vis.member');
-    $queryAct->condition('mc.campaign', $campaign->id());
-    $queryAct->addField('mc', 'id', 'member_campaign');
-    $queryAct->fields('mc', ['member', 'goal']);
-    $queryAct->addField('vis', 'visits');
-    $queryAct->leftjoin('openy_campaign_memb_camp_actv', 'a', 'mc.id = a.member_campaign');
-    $queryAct->fields('a', ['activity', 'date']);
-
-    $results = $queryAct->execute()->fetchAll();
+    $results = $query->execute()->fetchAll();
 
     $mainActivities = array_keys($activities);
 
-    $memberCampaignsInfo = [];
-    // Get visits by activity
     foreach ($results as $item) {
       $memberCampaignsInfo[$item->member_campaign]['member_campaign'] = $item->member_campaign;
-      $memberCampaignsInfo[$item->member_campaign]['goal'] = $item->goal;
-      $memberCampaignsInfo[$item->member_campaign]['visits'] = $item->visits;
-
       foreach ($mainActivities as $category) {
         $allItems = $activities[$category];
         if (in_array($item->activity, $allItems)) {
-          // Check with real visits - check-ins
-          if (!in_array($category, $notMatchedVisitsActivities)) {
-            if (in_array($item->date, $allChecks[$item->member])) {
-              $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] = !empty($memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category]) ?
-                $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] + 1 : 1;
-            }
-          } else {
-            $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] = !empty($memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category]) ?
-              $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] + 1 : 1;
+          if (empty($memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category])) {
+            $memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category] = 1;
+          }
+          else {
+            ++$memberCampaignsInfo[$item->member_campaign]['activity_visits'][$category];
           }
           break;
         }
@@ -459,12 +361,6 @@ class WinnersCalculateForm extends FormBase {
       if (!empty($mcData['activity_visits'])) {
         $mcData['main_activity'] = array_search(max($mcData['activity_visits']), $mcData['activity_visits']);
       }
-      // Calculate percentage
-      if ($mcData['visits'] - $mcData['goal'] >= 0) {
-        $mcData['percentage'] = 100;
-      } else {
-        $mcData['percentage'] = round($mcData['visits'] / $mcData['goal'] * 100, 2);
-      }
 
       // Collect result array grouped by activity
       if (!empty($mcData['activity_visits'])) {
@@ -476,10 +372,56 @@ class WinnersCalculateForm extends FormBase {
       }
     }
 
-    // Collect all data to get winner by visits
-    $resultInfo['all_visits'] = $memberCampaignsInfo;
-
     return $resultInfo;
+  }
+
+  /**
+   * @param Node $campaign Campaign node entity.
+   * @param int $branchId Branch ID to calculate winners for.
+   * @param array $alreadyWinners Already defined winners.
+   *
+   * @return array
+   */
+  private static function getVisitsGoalWinners($campaign, $branchId, &$alreadyWinners) {
+    $goalWinners = [];
+
+    /** @var Node $campaign */
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+
+    $connection = \Drupal::service('database');
+    // Get visits
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $connection->select('openy_campaign_member_checkin', 'ch');
+    $query->join('openy_campaign_member', 'm', 'm.id = ch.member');
+    $query->join('openy_campaign_member_campaign', 'mc', 'm.id = mc.member');
+
+    $query->addField('mc', 'id', 'member_campaign');
+
+    $query->condition('ch.date', $campaignStartDate->format('U'), '>=');
+    $query->condition('ch.date', $campaignEndDate->format('U'), '<');
+    $query->condition('m.branch', $branchId);
+    $query->condition('m.is_employee', FALSE);
+    $query->condition('mc.campaign', $campaign->id());
+
+    $query->groupBy('ch.member');
+    $query->groupBy('mc.id');
+    $query->groupBy('mc.goal');
+
+    $query->having('COUNT(ch.id) >= mc.goal');
+
+    $query->orderRandom();
+
+    $results = $query->execute()->fetchAll();
+
+    foreach ($results as $item) {
+      $memberCampaignId = $item->member_campaign;
+      if (!in_array($memberCampaignId, $alreadyWinners)) {
+        $goalWinners[] = $memberCampaignId;
+      }
+    }
+
+    return $goalWinners;
   }
 
   /**

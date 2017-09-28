@@ -17,7 +17,7 @@ class GroupexHelper {
   /**
    * PDF print uri.
    */
-  const PRINT_URI = 'https://www.groupexpro.com/schedule/print_calendar.php';
+  const PRINT_URI = 'https://www.groupexpro.com/schedule/print.php';
 
   /**
    * Config factory.
