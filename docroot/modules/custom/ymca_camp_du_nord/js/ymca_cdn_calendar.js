@@ -12,7 +12,7 @@
 
   Drupal.behaviors.cdn = {
     attach: function(context, settings) {
-      $('.fullcalendar').each(function() {
+      $('.fullcalendar', context).each(function() {
         $(this).find('.fc-day-top').each(function() {
           var number = $(this).find('.fc-day-number').text();
           var i = $(this).index();
@@ -41,7 +41,7 @@
         $(this).addClass('processed');
       });
 
-      $('a.cdn-prs-product').each(function() {
+      $('a.cdn-prs-product', context).each(function() {
         $(this).on('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
