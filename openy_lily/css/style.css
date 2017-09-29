@@ -3284,6 +3284,11 @@ body.path-search #block-mainpagecontent li {
   display: block !important;
 }
 
+.node--view-mode-full .sidebar-card_h3 {
+  position: relative;
+  margin-bottom: 0;
+}
+
 .wysiwyg--button {
   font-size: 14px;
 }
@@ -4262,6 +4267,10 @@ a.sports-icon.floor-hockey {
   .node--type-class .class__session-instances-list {
     font-size: 16px;
   }
+}
+
+.addthis {
+  margin-top: 20px;
 }
 
 .account-page-sidebar ul {
