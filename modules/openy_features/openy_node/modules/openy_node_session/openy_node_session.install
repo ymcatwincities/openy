@@ -113,3 +113,27 @@ function openy_node_session_update_8002() {
     }
   }
 }
+
+/**
+ * Update description for fields.
+ */
+function openy_node_session_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.paragraph.session_time.field_session_time_date' => [
+      'description',
+    ],
+    'field.field.paragraph.session_time.field_session_time_days' => [
+      'description',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

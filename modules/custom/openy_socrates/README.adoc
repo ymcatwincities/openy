@@ -42,3 +42,11 @@ Add the command to your crontab:
 ```
 * * * * *   drush ev '\Drupal::service("socrates")->cron();'
 ```
+
+Your data class usage with socrates is fairly simple:
+
+```
+  /* @var \Drupal\my_module_data_service\dataService $dataService */
+  $myDataService = \Drupal::service('socrates');
+  $myDataService->myMethod();
+```

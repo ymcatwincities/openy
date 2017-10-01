@@ -389,6 +389,9 @@
   .link {
     font-size: 15px;
     color: $blue;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -556,7 +559,7 @@
     }
 
     .banner-title {
-      margin: 0;
+      margin: 0 0 10px;
       max-width: 700px;
     }
 
@@ -605,6 +608,7 @@
   }
 }
 .paragraph--type--prgf-location-finder-filters {
+  padding: 0;
   overflow: visible;
   .messages {
     padding: 20px;
@@ -899,7 +903,7 @@
   .form-actions {
     margin-top: 10px;
     @include breakpoint($screen-sm) {
-      margin-top: 31px;
+      margin-top: 49px;
     }
   }
 }

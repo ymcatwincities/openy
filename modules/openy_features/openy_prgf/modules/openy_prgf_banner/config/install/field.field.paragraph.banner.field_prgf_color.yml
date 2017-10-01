@@ -5,8 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_color
     - paragraphs.paragraphs_type.banner
     - taxonomy.vocabulary.color
-  module:
-    - datalayer
+  module: {}
 third_party_settings:
   datalayer:
     expose: 0

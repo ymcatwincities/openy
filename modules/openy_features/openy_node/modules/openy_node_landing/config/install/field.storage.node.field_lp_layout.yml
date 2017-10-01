@@ -18,10 +18,10 @@ settings:
       label: 'One Column'
     -
       value: two_column
-      label: 'Two Column'
+      label: 'Two Columns'
     -
       value: two_column_fixed
-      label: 'Two column with fixed sidebar'
+      label: 'Two Columns with fixed sidebar (sticky at the top)'
   allowed_values_function: ''
 module: options
 locked: false

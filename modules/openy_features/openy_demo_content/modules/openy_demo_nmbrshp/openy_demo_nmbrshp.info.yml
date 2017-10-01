@@ -1,7 +1,8 @@
-name: 'OpenY demo node membership'
-description: 'OpenY demo node membership'
+name: 'OpenY Demo Node Membership'
+description: 'OpenY Demo Node Membership.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - migrate
   - migrate_plus
@@ -9,4 +10,3 @@ dependencies:
   - openy_node_mbrshp
   - openy_calc
   - openy_prgf_mbrshp_calc
-version: 8.x-1.0
