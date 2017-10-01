@@ -207,7 +207,6 @@ class CalcBlockForm extends FormBase {
         '#attributes' => [
           'class' => [
             'btn',
-            'btn-default',
             'complete-registration',
             'pull-right',
           ],
@@ -215,6 +214,7 @@ class CalcBlockForm extends FormBase {
       ];
     }
 
+    $form['#attached']['library'] = 'openy_calc/scripts';
     return $form;
   }
 

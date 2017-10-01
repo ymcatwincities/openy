@@ -1,7 +1,8 @@
 name: 'OpenY Demo Node Branch'
-description: 'OpenY demo node branch.'
+description: 'OpenY Demo Node Branch.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - migrate
   - migrate_plus

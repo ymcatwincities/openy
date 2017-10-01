@@ -95,8 +95,9 @@
       }
     }
 
-    h2 {
+    .field-category-program {
       color: $white;
+      font-family: $font-style-cachet-ubuntu;
       font-size: 28px;
       letter-spacing: -0.8px;
       line-height: 28px;
@@ -129,13 +130,12 @@
 }
 
 .subprogram-listing-item {
-  display: flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-  margin: 20px 0 25px;
+  display: table;
+  margin-top: 20px;
+  margin-bottom: 25px;
   @include breakpoint($screen-sm) {
-    margin: 20px -15px 45px;
-    flex-direction: row-reverse;
+    display: block;
+    margin-bottom: 45px;
   }
   img {
     height: auto;
@@ -143,7 +143,7 @@
     max-width: 100%;
   }
   .image {
-    flex: 1 1 42%;
+    display: table-caption;
     margin-bottom: 20px;
     text-align: center;
     @include breakpoint(0 $screen-xs) {
@@ -153,7 +153,8 @@
       }
     }
     @include breakpoint($screen-sm) {
-      padding: 0 15px;
+      display: block;
+      float: left;
       text-align: right;
     }
     @include breakpoint($screen-lg) {
@@ -162,26 +163,25 @@
         max-width: 260px;
       }
     }
-    .media {
-      @include breakpoint(0 $screen-xs) {
-        zoom: 2;
-      }
-    }
   }
-  .content {
-    flex: 2 0 58%;
-    font-size: 14px;
-    line-height: 20px;
-    color: $dark-grey;
-    @include breakpoint($screen-sm) {
-      padding-right: 0;
-      padding-left: 15px;
-    }
+  .title {
     h2 {
       font-size: 20px;
       line-height: 20px;
       margin: -2px 0 15px;
       color: $blue;
+    }
+    @include breakpoint($screen-sm) {
+      float: right;
+    }
+  }
+  .content {
+    font-size: 14px;
+    line-height: 20px;
+    color: $dark-grey;
+    @include breakpoint($screen-sm) {
+      float: right;
+      padding-right: 0;
     }
     .btn {
       display: block;
@@ -373,7 +373,7 @@
   }
 
   .activity-group {
-    h3 {
+    h2 {
       @include cachet-medium();
       font-size: 30px;
       line-height: 1.6;
@@ -436,6 +436,9 @@
         border: 1px solid $pink;
         * {
           text-decoration: none;
+        }
+        a:hover h3 {
+          text-decoration: underline;
         }
       }
 

@@ -28,7 +28,8 @@
               .next('.viewport')
               .addBack()
               .removeClass('out')
-              .addClass('collapsing-in');
+              .addClass('collapsing-in')
+              .removeAttr('aria-hidden');
 
             current_scroll = $(window).scrollTop();
             $('.nav-global').css({
@@ -43,7 +44,8 @@
               .next('.viewport')
               .addBack()
               .removeClass('collapsing-in')
-              .addClass('in');
+              .addClass('in')
+              .removeAttr('aria-hidden');
 
             var body = $('body');
 
@@ -60,7 +62,9 @@
               .next('.viewport')
               .addBack()
               .removeClass('in')
-              .addClass('collapsing-out');
+              .addClass('collapsing-out')
+              .attr('aria-hidden', 'true');
+
 
             $(window).scrollTop(current_scroll);
 
@@ -111,10 +115,10 @@
     }
   };
 
-  // Horisontal scroll for camp menu.
+  // Horizontal scroll for camp menu.
   Drupal.behaviors.scrollableList = {
     attach: function (context, settings) {
-      $('.camp-menu-wrapper').once().each(function () {
+      $('.camp-menu-wrapper', context).once().each(function () {
         var $this = $(this),
             $list = $this.find('ul'),
             $items = $list.find('li'),
@@ -128,7 +132,11 @@
 
           $list.css('width', listWidth + listPadding + "px");
 
-          var scroll = new IScroll($this.find('.columns')[0], {
+          var columns = $this.find('.columns');
+          if (columns.length == 0) {
+            return;
+          }
+          var scroll = new IScroll(columns[0], {
             scrollX: true,
             scrollY: false,
             momentum: false,
@@ -140,7 +148,7 @@
 
           // GRADIENT BEHAVIOUR SCRIPT.
           var obj = $('.camp-menu');
-          var objWrap = $this.find('.columns').append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
+          var objWrap = columns.append('<div class="columns-gradient gradient-right" onclick="void(0)"></div>');
           objWrap = document.querySelector('.columns-gradient');
           var sliderLength = listWidth - objWrap.offsetWidth + 40;
           var firstGap = 20;
@@ -205,6 +213,35 @@
       // When focus is lost, remove the unneeded height.
       $('.skip-link').on('focusout', function () {
         $('.top-navs').css({'margin-top': '0'});
+      });
+    }
+  };
+
+  /**
+   * Add focus for first loaded element.
+   */
+  Drupal.behaviors.load_more_focus = {
+    attach: function (context, settings) {
+      $('.views-element-container .load_more_button .button', context).click(function () {
+        var $viewsRow = $('.views-element-container .views-row'),
+          indexLastRow = $viewsRow.length,
+          getElement,
+          itemFocus;
+        if (Drupal.views !== undefined) {
+          $.each(Drupal.views.instances, function (i, view) {
+            if (view.settings.view_name.length != 0) {
+              $(document).ajaxComplete(function (event, xhr, settings) {
+                getElement = $('.views-element-container .views-row');
+                itemFocus = getElement[indexLastRow];
+                // Add focus to element.
+                $(itemFocus).find('h3 a').focus();
+                // Update number indexLastRow.
+                $viewsRow = $('.views-element-container .views-row');
+                indexLastRow = $viewsRow.length;
+              });
+            }
+          });
+        }
       });
     }
   };

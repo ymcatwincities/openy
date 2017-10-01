@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Implement install hooks for module.
+ */
+
+/**
+ * Add field_prfg_display_line_above.
+ */
+function openy_prgf_1c_update_8001() {
+  // @see openy_prgf_4c_update_8001().
+}

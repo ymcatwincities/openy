@@ -141,9 +141,17 @@ function openy_rose_preprocess_input(array &$variables) {
 /**
  * Implements hook_preprocess_field().
  */
-function openy_rose_preprocess_field__node__field_location_directions(array &$variables) {
-  // Change link title to Directions.
-  $variables['items'][0]['content']['#title'] = t('Directions');
+function openy_rose_preprocess_field(array &$variables) {
+  // Logic for node.
+  if ($variables['entity_type'] == 'node') {
+    // Check if exist sidebar field.
+    if ($variables['field_name'] == 'field_sidebar_content') {
+      $variables['wrapper_tag'] = 'aside';
+    }
+    else {
+      $variables['wrapper_tag'] = 'section';
+    }
+  }
 }
 
 /**
@@ -205,14 +213,14 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_rose theme.
-  $image_fields = theme_get_setting('openy_rose_image_fields');
-
-  foreach ($image_fields as $image_field) {
-    $fid_array = theme_get_setting($image_field);
-    if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
-      $file = File::load(reset($fid_array));
-      if ($file !== NULL) {
-        openy_rose_set_theme_file_usage($file);
+  if ($image_fields = theme_get_setting('openy_rose_image_fields')) {
+    foreach ($image_fields as $image_field) {
+      $fid_array = theme_get_setting($image_field);
+      if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
+        $file = File::load(reset($fid_array));
+        if ($file !== NULL) {
+          openy_rose_set_theme_file_usage($file);
+        }
       }
     }
   }
@@ -329,4 +337,48 @@ function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $va
     $types[] = 'slick__' . $item['slide']['#node']->bundle();
   }
   $suggestions += array_unique($types);
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function openy_rose_preprocess_html(&$variables) {
+  // Preprocess landing page.
+  if (!empty($variables['node_type']) && $variables['node_type'] == 'landing_page') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    // Load page header paragraphs.
+    if ($header = $node->field_header_content->getValue()) {
+      foreach ($header as $p) {
+        if ($paragraph = \Drupal::service('entity.manager')
+          ->getStorage('paragraph')
+          ->load($p['target_id'])
+        ) {
+          // Take action for microsites_menu paragraph.
+          if ($paragraph->bundle() == 'microsites_menu') {
+            // Add class to the body.
+            $variables['attributes']['class'][] = 'microsites-menu';
+            if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
+              $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
+            }
+          }
+        }
+      }
+    }
+  }
+  // Get title from node or page.
+  if (isset($variables['node'])) {
+    $variables['title'] = $variables['node']->title->value;
+  }
+  else {
+    $variables['title'] = $variables['page']['#title'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_form_alter().
+ */
+function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#form_id'])) {
+    array_push($suggestions, 'form__' . $variables['element']['#form_id']);
+  }
 }

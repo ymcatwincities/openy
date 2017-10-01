@@ -2,7 +2,7 @@
   <!-- Schedule -->
   <div class="col-xs-12">
     {% if session_instances_rows is not empty %}
-      <h3>{{ 'Class Times'|t }}</h3>
+      <h2>{{ 'Class Times'|t }}</h2>
       <div class="class__session-instances">
         <table class="class__session-instances-list">
           <tbody>
@@ -48,7 +48,7 @@
         </table>
       </div>
     {% else %}
-      <h3>{{ 'Class Times'|t }}</h3>
+      <h2>{{ 'Class Times'|t }}</h2>
       <div>
         {% if conditions_location is empty %}
           <span>{{ "No sessions are available at any location."|t }}</span>
