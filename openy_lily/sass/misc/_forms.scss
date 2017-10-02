@@ -588,3 +588,14 @@ legend {
     }
   }
 }
+
+#ajax-ccc-account-remind-password-form {
+  .openy-ccc-remind-password {
+    [data-drupal-selector="edit-actions"] {
+      .ajax-progress {
+        left: 205px !important;
+        top: 14px !important;
+      }
+    }
+  }
+}

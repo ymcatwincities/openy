@@ -1297,6 +1297,11 @@ legend {
   margin: 10px -10px;
 }
 
+#ajax-ccc-account-remind-password-form .openy-ccc-remind-password [data-drupal-selector="edit-actions"] .ajax-progress {
+  left: 205px !important;
+  top: 14px !important;
+}
+
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
@@ -2846,6 +2851,9 @@ body.path-search #block-mainpagecontent li {
   float: left;
   width: 80%;
   margin-bottom: 20px;
+}
+.ymcali-class-sessions-accordion details .status-message {
+  clear: both;
 }
 .ymcali-class-sessions-accordion details input {
   float: right;
