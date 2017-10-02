@@ -11290,17 +11290,20 @@ tr:nth-last-child(3) .atcb-list {
     opacity: 1;
   }
 }
-body.show-new-mobile-menu.sidebar-in .sidebar {
-  width: 100% !important;
-}
-body.show-new-mobile-menu.sidebar-in.viewport.in {
+body.show-new-mobile-menu.sidebar-in .viewport.in {
   width: 0;
+}
+body.show-new-mobile-menu.sidebar-in .viewport.in * {
+  display: none;
 }
 body.show-new-mobile-menu .sidebar {
   background: #ffffff;
   padding-top: 0;
   border-right: none;
-  z-index: 45;
+  width: 100% !important;
+}
+body.show-new-mobile-menu .sidebar.collapse {
+  width: 0 !important;
 }
 body.show-new-mobile-menu .sidebar .top-bar {
   background-color: #0060af;
@@ -11451,7 +11454,7 @@ body.show-new-mobile-menu .sidebar .site-search-sidebar .form-control {
   height: 60px;
   font-size: 18px;
   line-height: 60px;
-  width: 89%;
+  width: 86%;
   padding: 5px 15px;
 }
 body.show-new-mobile-menu .sidebar .site-search-sidebar .btn {
@@ -11524,6 +11527,19 @@ body.show-new-mobile-menu .sidebar .nav li.locations.nav-level-2.open .open.nav-
   content: "\f041";
   margin-right: 10px;
   color: #6c439c;
+}
+body.show-new-mobile-menu .sidebar .nav li.more {
+  position: relative;
+}
+body.show-new-mobile-menu .sidebar .nav li.more a.expand {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  padding: 0;
+  width: 40px;
+  font-size: 30px !important;
+  line-height: 55px;
 }
 body.show-new-mobile-menu .sidebar .active .health-fitness.nav-level-2:before, body.show-new-mobile-menu .sidebar .health-fitness.nav-level-2:before,
 body.show-new-mobile-menu .sidebar .active .jobs.nav-level-2:before, body.show-new-mobile-menu .sidebar .jobs.nav-level-2:before {
