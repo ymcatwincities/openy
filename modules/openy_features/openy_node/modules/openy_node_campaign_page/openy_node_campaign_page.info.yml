@@ -1,0 +1,22 @@
+name: 'OpenY Node Campaign Page'
+description: 'OpenY node Campaign Page'
+type: module
+core: 8.x
+dependencies:
+  - datalayer
+  - entity_reference_revisions
+  - field
+  - field_group
+  - language
+  - menu_ui
+  - metatag
+  - node
+  - openy_node
+  - openy_node_campaign
+  - openy_node_landing
+  - options
+  - paragraphs
+  - path
+  - scheduler
+  - user
+version: 8.x-1.0

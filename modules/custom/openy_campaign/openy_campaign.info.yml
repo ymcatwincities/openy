@@ -8,4 +8,4 @@ dependencies:
   - openy_node_campaign
   - personify
   - openy_campaign_color
-  - openy_campaign_theme
+#  - openy_campaign_theme

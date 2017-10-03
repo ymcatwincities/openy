@@ -12,6 +12,8 @@ use Drupal\Core\Link;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 
+define('CAMPAIGN_MENU_PAGES_MAX', 5);
+
 /**
  * Implements hook_theme().
  */
@@ -227,7 +229,7 @@ function openy_campaign_cron() {
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
 
-  // Find which published Landing page needs to be rendered on Campaign page.
+  // Find which published Campaign page needs to be rendered on Campaign page.
   if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
     $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
     $requestLandingPage = $campaignMenuService->showRequestLandingPage($variables['node']);
@@ -302,13 +304,13 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
 
     $templateString = '';
     if (!empty($publishOn) && !empty($unpublishOn)) {
-      $templateString = 'active from <i>@publish_on</i> to <i>@unpublish_on</i>';
+      $templateString = 'published from <i>@publish_on</i> to <i>@unpublish_on</i>';
     }
     else if (empty($publishOn) && !empty($unpublishOn)) {
-      $templateString = 'active until <i>@unpublish_on</i>';
+      $templateString = 'published until <i>@unpublish_on</i>';
     }
     else if (!empty($publishOn) && empty($unpublishOn)) {
-      $templateString = 'active since <i>@publish_on</i>';
+      $templateString = 'published since <i>@publish_on</i>';
     }
 
     $message = t($templateString, [
@@ -319,6 +321,142 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
     $element['#suffix'] = '<div class="publishing-dates">' . $message . '</div>';
   }
 
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_campaign_form_node_campaign_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  openy_campaign_campaign_menu_field_render($form, $form_state);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_campaign_form_node_campaign_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  openy_campaign_campaign_menu_field_render($form, $form_state);
+}
+
+function openy_campaign_campaign_menu_field_render(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = 'openy_campaign_campaign_menu_field_submit';
+    }
+  }
+
+  $form['campaign_menu'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Campaign Menu'),
+    '#tree' => TRUE,
+    '#weight' => 10,
+  ];
+
+  $campaignPages = [];
+  $campaignMenu = [];
+  if ($form_state->getFormObject() instanceof \Drupal\Core\Entity\EntityForm) {
+    $campaign = $form_state->getFormObject()->getEntity();
+    foreach ($campaign->get('field_campaign_pages')->getValue() as $item) {
+      if (!empty($item)) {
+        $campaignPage = \Drupal\node\Entity\Node::load($item['target_id']);
+        $campaignPages[$campaignPage->id()] = $campaignPage->getTitle();
+      }
+    }
+    $campaignMenu = $campaign->get('field_campaign_menu')->getValue();
+
+    if (!empty($campaignMenu)) {
+      $campaignMenu = unserialize($campaign->field_campaign_menu->value);
+    }
+  }
+
+  foreach ($campaignPages as $campaignPageId => $campaignPageTitle) {
+    $form['campaign_menu'][$campaignPageId] = [
+      '#type' => 'details',
+      '#title' => t('Menu: @title', ['@title' => $campaignPageTitle]),
+    ];
+
+    $menuBlock = &$form['campaign_menu'][$campaignPageId];
+    $links = $campaignMenu[$campaignPageId]['links'];
+
+    $menuBlock['links'] = [
+      '#type' => 'table',
+      '#header' => [
+        t('Page'),
+        '',
+        t('Menu Title'),
+        t('Logged'),
+        t('Actions'),
+      ],
+      '#tabledrag' => [
+        [
+          'action' => 'order',
+          'relationship' => 'sibling',
+          'group' => 'menu-weight-' . $campaignPageId,
+        ],
+      ],
+    ];
+
+    for ($row = 0; $row < CAMPAIGN_MENU_PAGES_MAX; $row++) {
+      $linksRow = array_shift($links);
+      $menuBlock['links'][$row]['#attributes']['class'][] = 'draggable';
+      $menuBlock['links'][$row]['#weight'] = $linksRow['weight'];
+
+      $page = \Drupal\node\Entity\Node::load($linksRow['page'][0]['target_id']);
+
+      $menuBlock['links'][$row]['page'] = [
+        '#type' => 'entity_autocomplete',
+        '#target_type' => 'node',
+        '#title' => t('Pages'),
+        '#title_display' => 'invisible',
+        '#default_value' => $page,
+        '#tags' => TRUE,
+        '#size' => 25,
+        '#selection_settings' => [
+          'target_bundles' => ['campaign_page'],
+        ],
+      ];
+
+      $menuBlock['links'][$row]['weight'] = [
+        '#type' => 'textfield',
+        '#title' => t('Weight for @title', ['@title' => $linksRow['title']]),
+        '#title_display' => 'invisible',
+        '#size' => 4,
+        '#default_value' => $linksRow['weight'],
+        '#attributes' => ['class' => ['menu-weight-' . $campaignPageId]],
+      ];
+
+      $menuBlock['links'][$row]['title'] = [
+        '#type' => 'textfield',
+        '#title_display' => 'invisible',
+        '#title' => t('Menu Title'),
+        '#default_value' => $linksRow['title'],
+        '#size' => 15,
+      ];
+
+      $menuBlock['links'][$row]['logged'] = [
+        '#type' => 'checkbox',
+        '#title_display' => 'invisible',
+        '#title' => t('Logged'),
+        '#default_value' => $linksRow['logged'],
+      ];
+
+      $menuBlock['links'][$row]['actions'] = [
+        '#markup' => !empty($page)
+          ? '<a href="' . $page->url('edit-form') . '">' . t('Edit') . '</a>'
+          : '',
+      ];
+
+    }
+
+  }
+}
+
+function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $campaignMenu = serialize($form_state->getValue('campaign_menu'));
+  /** @var Drupal\node\Entity\Node $entity */
+  if ($entity = $form_state->getFormObject()->getEntity()) {
+    $entity->set('field_campaign_menu', $campaignMenu);
+    $entity->save();
+  }
 }
 
 /**

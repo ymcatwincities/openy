@@ -140,7 +140,7 @@ openy_campaign.settings:
     _permission: 'administer retention campaign'
 
 # Route to generate replacement content for tabs
-openy_campaign.landing-page:
+openy_campaign.campaign-page:
   path: '/campaign-pages/{campaign_id}/{landing_page_id}'
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showPageContent'
