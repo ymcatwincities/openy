@@ -55,25 +55,25 @@ process:
     process:
       target_id:
         plugin: migration
-        migration: openy_demo_node_landing
+        migration: openy_demo_node_campaign_page
         source: landing_page_id
   rules_target_id:
     plugin: migration
-    migration: openy_demo_node_landing
+    migration: openy_demo_node_campaign_page
     source: rules_page_id
   field_rules_prizes_page:
     plugin: get
     source: '@rules_target_id'
   pause_target_id:
     plugin: migration
-    migration: openy_demo_node_landing
+    migration: openy_demo_node_campaign_page
     source: pause_page_id
   field_pause_landing_page:
     plugin: get
     source: '@pause_target_id'
   my_progress_target_id:
     plugin: migration
-    migration: openy_demo_node_landing
+    migration: openy_demo_node_campaign_page
     source: my_progress_page_id
   field_my_progress_page:
     plugin: get
@@ -81,7 +81,7 @@ process:
   field_campaign_start_date:
     -
       plugin: default_value
-      default_value: '14 August 2017'
+      default_value: '14 September 2017'
     -
       plugin: callback
       callable: strtotime
@@ -143,7 +143,7 @@ process:
       - contract
   field_token_check_back_date:
     plugin: default_value
-    default_value: 'check back on 22 of September'
+    default_value: 'check back on 22 of November'
   field_token_login_link_text:
     plugin: default_value
     default_value: 'sign in here'
@@ -164,5 +164,5 @@ destination:
   default_bundle: campaign
 migration_dependencies:
   required:
-    - openy_demo_node_landing
+    - openy_demo_node_campaign_page
   optional: {  }

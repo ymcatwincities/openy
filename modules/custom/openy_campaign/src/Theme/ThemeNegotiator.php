@@ -19,7 +19,7 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
     if (in_array($route_match->getRouteName(), $possible_routes)) {
       $node = $route_match->getParameter('node');
 
-      if (!in_array($node->getType(), ['campaign', 'landing_page'])) {
+      if (!in_array($node->getType(), ['campaign', 'campaign_page'])) {
         return FALSE;
       }
 

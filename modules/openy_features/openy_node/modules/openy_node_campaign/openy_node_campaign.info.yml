@@ -20,6 +20,7 @@ dependencies:
   - node
   - openy_campaign
   - openy_loc_branch
+  - openy_node_campaign_page
   - openy_node_landing
   - openy_txnm_fitness_category
   - options
