@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains logger_entity.install.
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Fix logger_entity name length.
+ */
+function logger_entity_update_8001() {
+  $spec = [
+    'type' => 'varchar',
+    'length' => 128,
+  ];
+  $schema = Database::getConnection()->schema();
+  $schema->changeField('logger_entity', 'name', 'name', $spec);
+}
