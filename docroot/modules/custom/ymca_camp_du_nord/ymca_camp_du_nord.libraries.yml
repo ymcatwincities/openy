@@ -1,0 +1,8 @@
+cdn:
+  js:
+    js/ymca_cdn_calendar.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - fullcalendar/drupal.fullcalendar.js

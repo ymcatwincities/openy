@@ -6,7 +6,6 @@ dependencies:
     - paragraphs.paragraphs_type.camp_du_nord_form
   module:
     - plugin
-third_party_settings: {  }
 id: paragraph.camp_du_nord_form.field_prgf_cdn_form_ref
 field_name: field_prgf_cdn_form_ref
 entity_type: paragraph
