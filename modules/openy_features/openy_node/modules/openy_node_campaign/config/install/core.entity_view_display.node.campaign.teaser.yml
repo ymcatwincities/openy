@@ -3,12 +3,14 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.campaign.field_about_challenge_page
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
     - field.field.node.campaign.field_campaign_end_date
     - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
+    - field.field.node.campaign.field_campaign_image
     - field.field.node.campaign.field_campaign_membership_u_t
     - field.field.node.campaign.field_campaign_pages
     - field.field.node.campaign.field_campaign_payment_types
@@ -40,6 +42,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_ways_to_earn_entries
     - node.type.campaign
   module:
     - user
@@ -60,12 +63,14 @@ content:
     weight: 100
     region: content
 hidden:
+  field_about_challenge_page: true
   field_campaign_age_maximum: true
   field_campaign_age_minimum: true
   field_campaign_branches: true
   field_campaign_end_date: true
   field_campaign_expected_visits: true
   field_campaign_fitness_category: true
+  field_campaign_image: true
   field_campaign_membership_u_t: true
   field_campaign_pages: true
   field_campaign_payment_types: true
@@ -97,4 +102,5 @@ hidden:
   field_token_check_back_date: true
   field_token_login_link_text: true
   field_token_register_link_text: true
+  field_ways_to_earn_entries: true
   langcode: true

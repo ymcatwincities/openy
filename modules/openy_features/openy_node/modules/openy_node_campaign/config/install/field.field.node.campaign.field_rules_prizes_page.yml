@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_rules_prizes_page
     - node.type.campaign
-    - node.type.landing_page
+    - node.type.campaign_page
   module:
     - datalayer
 third_party_settings:
@@ -25,7 +25,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      landing_page: landing_page
+      campaign_page: campaign_page
     sort:
       field: _none
     auto_create: false
