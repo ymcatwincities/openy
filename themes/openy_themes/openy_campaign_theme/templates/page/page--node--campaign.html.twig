@@ -51,7 +51,7 @@
         <header id="page-head" class="page-head">
             <div class="top-navs nav hidden-xs hidden-sm" data-offset-top="1">
                     <div class="container">
-                        <div class="row">
+
                             <div class="page-head__logo">
                                 {% block page_logo_2 %}
                                     {{ page.logo }}
@@ -64,20 +64,17 @@
                                 <span class="icon-bar"></span>
                             </a>
 
-                            <div class="col-md-offset-5 col-md-7 page-head__main-menu header-content hidden-xs">
+                            <div class="page-head__main-menu header-content hidden-xs">
 
-                                <div class="col-md-10 page-head__primary-menu nav-home">
-                                    {{ page.primary_menu }}
-
-                                </div>
-                                <div class="col-md-2 pull-right page-head__secondary-menu">
+                                <div class="pull-right page-head__secondary-menu">
                                     {{ page.secondary_menu }}
                                 </div>
+                                <div class="pull-right page-head__primary-menu nav-home">
+                                    {{ page.primary_menu }}
+                                </div>
                             </div>
-                        </div>
 
                     </div>
-
             </div>
             {{ page.header }}
         </header>

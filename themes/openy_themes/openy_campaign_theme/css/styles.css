@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Cachet W01 Book";
+  src: url("/profiles/contrib/openy/themes/openy_themes/openy_campaign_theme/fonts/CachetBook.ttf");
+}
 body {
   color: #636466;
   font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
@@ -5,6 +9,7 @@ body {
 
 h1, .h1, h2, .h2, h3, h4, h5, h6 {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-weight: 700;
 }
 
 h1,
@@ -112,9 +117,6 @@ body {
   padding-bottom: 0px;
 }
 
-.page-node-type-campaign .container {
-  padding: 0px;
-}
 .page-node-type-campaign .wrapper-field-content {
   padding-top: 50px;
   background: #fff;
@@ -125,8 +127,11 @@ body {
   padding-top: 50px;
 }
 .page-node-type-campaign main[role="main"] {
-  padding-left: -15px;
-  padding-right: -15px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.page-node-type-campaign main[role="main"] .container {
+  padding: 0px;
 }
 
 .paragraph-background-container {
@@ -224,6 +229,7 @@ body {
 #block-campaignmemberregister .countdown .simply-amount {
   font-size: 30px;
   display: block;
+  font-weight: 700;
 }
 #block-campaignmemberregister .countdown .simply-word {
   font-size: 16px;
@@ -291,6 +297,17 @@ footer {
   background-color: inherit !important;
 }
 
+.member-full-name {
+  text-transform: uppercase;
+  color: #fff;
+  border-left: 2px solid #fff;
+  padding-left: 15px;
+}
+.member-full-name .fa {
+  padding-right: 5px;
+  font-weight: 700;
+}
+
 .viewport .top-navs {
   margin-top: 0px !important;
   background-color: inherit;
@@ -301,8 +318,8 @@ footer {
 }
 .viewport .top-navs .campaign-menu > li {
   display: inline-block;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .viewport .top-navs .page-head__logo img {
   width: 50px;
@@ -348,6 +365,8 @@ footer {
   color: #fff;
   max-width: 400px;
   margin: 0 auto;
+  font-family: "Cachet W01 Book";
+  font-weight: 700;
 }
 .ui-dialog .ui-dialog-titlebar-close {
   display: none;

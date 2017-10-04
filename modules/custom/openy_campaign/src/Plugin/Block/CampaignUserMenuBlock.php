@@ -77,10 +77,11 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       $fullName = !empty($userData['full_name']) ? $userData['full_name'] : $this->t('Team member');
 
       $build['full_name'] = [
-        '#markup' => '<div class="member-full-name">' . $fullName . ', </div>' ,
+        '#markup' => '<div class="member-full-name">'.
+            '<i class="fa fa-user-o" aria-hidden="true"></i>' . $fullName . '</div>' ,
       ];
 
-      $build['logout'] = [
+      /*$build['logout'] = [
         '#type' => 'link',
         '#title' => $this->t('Logout'),
         '#url' => Url::fromRoute('openy_campaign.member-logout', ['campaign_id' => $campaign->id()]),
@@ -90,7 +91,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
             'logout'
           ],
         ],
-      ];
+      ];*/
     }
     else {
       $build['register'] = [
