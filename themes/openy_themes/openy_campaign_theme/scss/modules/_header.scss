@@ -3,6 +3,17 @@
 
 }
 
+.member-full-name {
+  text-transform: uppercase;
+  color: #fff;
+  border-left: 2px solid #fff;
+  padding-left: 15px;
+  .fa {
+    padding-right: 5px;
+    font-weight: 700;
+  }
+}
+
 .viewport .top-navs {
 
   margin-top: 0px !important;
@@ -16,8 +27,8 @@
 
   .campaign-menu > li {
     display: inline-block;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   .page-head__logo img {

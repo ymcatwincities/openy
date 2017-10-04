@@ -57,9 +57,7 @@ body {
 
 
 .page-node-type-campaign {
-  .container {
-    padding: 0px;
-  }
+
   .wrapper-field-content {
     padding-top: 50px;
     background: #fff;
@@ -70,8 +68,11 @@ body {
     padding-top: 50px;
   }
   main[role="main"] {
-    padding-left: -15px;
-    padding-right: -15px;
+    padding-left: 0px;
+    padding-right: 0px;
+    .container {
+      padding: 0px;
+    }
   }
 }
 
@@ -165,6 +166,7 @@ body {
     .simply-amount {
       font-size: 30px;
       display: block;
+      font-weight: 700;
     }
     .simply-word{
       font-size: 16px;
