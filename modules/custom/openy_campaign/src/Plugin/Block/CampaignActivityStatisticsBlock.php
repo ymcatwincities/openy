@@ -15,12 +15,12 @@ use Drupal\openy_campaign\CampaignMenuServiceInterface;
  * Provides a 'Activity Tracking' block.
  *
  * @Block(
- *   id = "campaign_activity_block",
+ *   id = "campaign_activity_statistics_block",
  *   admin_label = @Translation("Campaign Activity Tracking"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginInterface {
+class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * Form builder.
@@ -79,26 +79,12 @@ class CampaignActivityBlock extends BlockBase implements ContainerFactoryPluginI
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
-      // Show Visits goal block
-      $userData = MemberCampaign::getMemberCampaignData($campaign->id());
-      $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
-      $memberCampaign = MemberCampaign::load($memberCampaignID);
 
-      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-      $campaignStartDate->setTime(0, 0, 0);
-      $yesterday = new \DateTime();
-      $yesterday->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
-      $currentCheckins = MemberCheckin::getFacilityCheckIns($userData['member_id'], $campaignStartDate, $yesterday);
-
-      $block['goal_block'] = [
-        '#theme' => 'openy_campaign_visits_goal',
-        '#goal' => !empty($memberCampaign->getGoal()) ? $memberCampaign->getGoal() : 0,
-        '#current' => count($currentCheckins),
-      ];
-
-      // Show Activity block form
-      $form = $this->formBuilder->getForm('Drupal\openy_campaign\Form\ActivityBlockForm', $campaign->id());
-      $block['form'] = $form;
+      // Show Activity form
+      return $this->formBuilder->getForm(
+        'Drupal\openy_campaign\Form\ActivityBlockForm',
+         $campaign->id()
+      );
     }
 
     return $block;

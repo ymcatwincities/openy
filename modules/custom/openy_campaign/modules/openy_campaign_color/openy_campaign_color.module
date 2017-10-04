@@ -14,6 +14,30 @@ function openy_campaign_color_theme() {
   ];
 }
 
+function openy_campaign_color_add_color_switcher() {
+
+}
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_campaign_color_form_node_campaign_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+  if (color_get_info(OPENY_THEME) && function_exists('gd_info')) {
+    $form['color'] = [
+      '#type' => 'details',
+      '#title' => t('Color scheme'),
+      '#open' => TRUE,
+      '#weight' => -1,
+      '#attributes' => ['id' => 'openy_campaign_color_color_scheme_form'],
+      '#theme' => 'openy_campaign_color_scheme_form',
+    ];
+    $form['color'] += openy_campaign_color_scheme_form($form, $form_state);
+    $form['#validate'][] = 'color_scheme_form_validate';
+    // Ensure color submission happens first so we can unset extra values.
+    array_unshift($form['#submit'], 'color_scheme_form_submit');
+  }
+}
+
 /**
  * Implements hook_form_FORM_ID_alter().
  */

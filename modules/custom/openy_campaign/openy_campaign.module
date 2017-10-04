@@ -30,6 +30,7 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'variables' => [
         'base_path' => base_path(),
         'campaign' => NULL,
+        'form' => NULL
       ],
       'template' => 'openy-campaign-campaign-register',
     ],
@@ -65,6 +66,7 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'variables' => [
         'goal' => NULL,
         'current' => NULL,
+        'title' => NULL,
       ],
       'template' => 'openy-campaign-visits-goal',
     ],

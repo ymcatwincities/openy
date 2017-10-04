@@ -4,39 +4,141 @@ body {
 }
 
 .container {
-  //background-color: #ffffff;
   max-width: 1400px;
   width: 100%;
-
-}
-.paragraph-container {
-  background-color: #ffffff;
-  padding-left: 125px;
-  padding-right: 125px;
 }
 
-.paragraph-background-container {
-  background-color: inherit;
-  .paragraph-container {
-    background-color: inherit;
-    color: #ffffff;
-    h1, h2 {
-      color: inherit;
-    }
-    .fa {
-      color: inherit;
+
+.layout-content {
+  //padding: 40px;
+}
+
+.page-node-type-landing-page {
+  main[role="main"] {
+    background-color: #ffffff;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .layout-content {
+      background-color: inherit;
+      margin-left: 125px;
+      margin-right: 125px;
+      position: relative;
+      margin-bottom: 100px;
+      margin-top: -400px;
+      box-shadow: 10px 20px 115px 10px;
+      padding: 40px;
+      h1 {
+        margin-top: 60px;
+        margin-bottom: 70px;
+        text-transform: uppercase;
+        text-align: center;
+      }
+      .main-region {
+        padding: 0px;
+      }
+      .paragraph-background-container {
+        margin-right: -40px;
+        margin-left: -40px;
+        padding-left: 40px;
+        padding-right: 40px;
+        .paragraph-container {
+          padding: 0px;
+        }
+      }
+      .paragraph-container {
+
+        padding-top: 0px;
+        padding-bottom: 0px;
+      }
     }
   }
 }
 
-main[role="main"] {
-  //padding-left: 125px;
-  //padding-right: 125px;
-  //padding-top: 15px;
+
+.page-node-type-campaign {
+  .container {
+    padding: 0px;
+  }
+  .wrapper-field-content {
+    padding-top: 50px;
+    background: #fff;
+  }
+  .paragraph-container {
+    padding-left: 125px;
+    padding-right: 125px;
+    padding-top: 50px;
+  }
+  main[role="main"] {
+    padding-left: -15px;
+    padding-right: -15px;
+  }
+}
+
+.paragraph-background-container {
+  @include gradient($pink, $purple);
+  //margin-right: -40px;
+  //margin-left: -40px;
+
+  .paragraph-container {
+    background-color: inherit;
+    color: #ffffff;
+    h1, h2, h4 {
+      color: inherit !important;
+      text-transform: uppercase;
+    }
+    .fa {
+      color: inherit;
+      font-size: 64px;
+      max-width: 100%;
+      max-height: 100%;
+      float: none;
+    }
+  }
+}
+
+.btn {
+  background-color: $pink;
+  font-size: 18px;
+  padding-top: 13px;
+  text-align: center;
+  min-width: 150px;
+  height: 50px;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px black;
+  margin-top: 20px;
 }
 
 .layout-container {
   position: relative;
+}
+
+.block-description--wrapper {
+  display: flex;
+  flex-direction: row;
+  .block-description--text {
+    float: left;
+    margin-top: 0px;
+    padding-bottom: 70px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    .field-sb-title {
+      h4 {
+        margin-top: 15px;
+        font-size: $h4-size;
+        padding-left: 0px !important;
+        text-transform: uppercase;
+        color: $default-grey;
+      }
+
+    }
+    .field-sb-body {
+      margin-top: 5px;
+      p {
+        margin: 0 0 5px;
+      }
+    }
+  }
 }
 
 #block-campaignmemberregister {
@@ -69,28 +171,72 @@ main[role="main"] {
       display: block;
     }
   }
+  .openy-campaign-registration-simple-form {
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    padding: 40px;
+    margin-top: 40px;
+    .button {
+      width: 100%;
+    }
+    .form-item {
+      margin: 0px;
+    }
+    .form-item-membership-id label {
+      text-transform: uppercase;
+      font-weight: normal;
+      font-size: 18px;
+    }
+    .form-control {
+      height: 50px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+  }
 }
 
-.block-description--text .field-icon img {
-  max-width: 400px;
-  height: auto;
-  max-height: 400px;
-  display: block;
+.field-prgf-1c-column {
+  text-align: center;
+  padding-bottom: 15px;
+  .field-sb-body {
+    p {
+      text-transform: uppercase;
+    }
+  }
 }
 
-.block-description--text .field-sb-body {
-  padding-top: 30px;
+.field-inner-paragraph {
+  .paragraph-container {
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+  }
 }
+
 .block-description--text {
   border: none !important;
-}
-.block-description--text h2 {
-  padding-left: 0px !important;
-  font-size: 24px !important;
-  &.with-icon {
-    .field-sb-title {
-      padding-top: 35px;
-      text-transform: uppercase;
+  .field-icon {
+    float: none;
+  }
+  .field-icon img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    margin: 0 auto;
+    display: block;
+  }
+  .field-sb-body {
+    //padding-top: 30px;
+  }
+  h2 {
+    &.with-icon {
+      .field-sb-title {
+        padding-top: 35px;
+        text-transform: uppercase;
+      }
     }
   }
 }

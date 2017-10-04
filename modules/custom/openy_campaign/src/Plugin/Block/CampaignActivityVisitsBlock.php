@@ -12,15 +12,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 
 /**
- * Provides a 'Register' block.
+ * Provides a 'Activity Visits Tracking' block.
  *
  * @Block(
- *   id = "campaign_register_block",
- *   admin_label = @Translation("Campaign Member Register"),
+ *   id = "campaign_activity_visits_block",
+ *   admin_label = @Translation("Campaign Activity Visits"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginInterface {
+class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * Form builder.
@@ -48,9 +48,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition,
-                              FormBuilderInterface $formBuilder,
-                              CampaignMenuServiceInterface $campaign_menu_service) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, CampaignMenuServiceInterface $campaign_menu_service) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
@@ -59,8 +57,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container, array $configuration,
-                                $plugin_id, $plugin_definition) {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
       $plugin_id,
@@ -74,31 +71,33 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build() {
+    $block = [];
+    $block['#cache']['max-age'] = 0;
+
     // Get campaign node from current page URL
     /** @var Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
-    $block = [
-      '#theme' => 'openy_campaign_campaign_register',
-      '#attached' => [
-        'library' => [
-          'openy_campaign/campaign_countdown'
-        ]
-      ],
-      '#campaign' => $campaign,
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+    if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
+      // Show Visits goal block
+      $userData = MemberCampaign::getMemberCampaignData($campaign->id());
+      $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
+      $memberCampaign = MemberCampaign::load($memberCampaignID);
 
-    if (!empty($campaign) && !(MemberCampaign::isLoggedIn($campaign->id()))) {
-      // Show Register block form
-      $form = $this->formBuilder->getForm(
-        'Drupal\openy_campaign\Form\MemberRegistrationSimpleForm',
-        $campaign->id()
-      );
-      $block['#form'] = $form;
+      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+      $campaignStartDate->setTime(0, 0, 0);
+      $yesterday = new \DateTime();
+      $yesterday->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
+      $currentCheckins = MemberCheckin::getFacilityCheckIns($userData['member_id'], $campaignStartDate, $yesterday);
+
+      $block['goal_block'] = [
+        '#theme' => 'openy_campaign_visits_goal',
+        '#goal' => !empty($memberCampaign->getGoal()) ? $memberCampaign->getGoal() : 0,
+        '#current' => count($currentCheckins),
+      ];
     }
+
     return $block;
   }
+
 }

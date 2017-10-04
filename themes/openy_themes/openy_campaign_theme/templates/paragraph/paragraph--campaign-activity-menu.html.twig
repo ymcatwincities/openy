@@ -36,19 +36,16 @@
   * @ingroup themeable
   */
   #}
-{%
-  set classes = [
-    'block-description--wrapper',
-    'block-description--2'
-  ]
-%}
-
-{% if paragraph.field_prfg_display_line_above.value %}
-  {% set classes = classes|merge(['block-description--wrapper--outline--top']) %}
-{% endif %}
 
 <div class="paragraph-container">
   <div{{ attributes.addClass(classes) }}>
-    {{ content }}
+    <div class="row">
+      <div class="col-md-6">
+        {{ content.field_campaign_activity_visits }}
+      </div>
+      <div class="col-md-6">
+        {{ content.field_prgf_campaign_game }}
+      </div>
+    </div>
   </div>
 </div>

@@ -26,7 +26,7 @@ class MemberRegistrationSimpleForm extends MemberRegistrationPortalForm {
     // The id on the membership card.
     $form['membership_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Membership ID'),
+      '#title' => $this->t('Facility access id'),
       '#default_value' => '',
       '#size' => 60,
       '#maxlength' => 128,
