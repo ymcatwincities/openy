@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_fitness_category
     - field.field.node.campaign.field_campaign_image
     - field.field.node.campaign.field_campaign_membership_u_t
+    - field.field.node.campaign.field_campaign_menu
     - field.field.node.campaign.field_campaign_pages
     - field.field.node.campaign.field_campaign_payment_types
     - field.field.node.campaign.field_campaign_prize_coefficient
@@ -61,7 +62,7 @@ third_party_settings:
         - field_campaign_payment_types
         - group_age_range
       parent_name: ''
-      weight: 12
+      weight: 13
       format_type: fieldset
       format_settings:
         id: ''
@@ -87,7 +88,7 @@ third_party_settings:
         - field_campaign_start_date
         - field_campaign_end_date
       parent_name: ''
-      weight: 10
+      weight: 11
       format_type: fieldset
       format_settings:
         id: ''
@@ -102,7 +103,7 @@ third_party_settings:
         - field_goal_check_ins_start_date
         - field_goal_check_ins_end_date
       parent_name: ''
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         label: 'Visits goal'
@@ -119,7 +120,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 17
+      weight: 16
       format_type: fieldset
       format_settings:
         id: ''
@@ -193,7 +194,7 @@ third_party_settings:
         - field_campaign_prize_coefficient
         - field_ways_to_earn_entries
       parent_name: ''
-      weight: 18
+      weight: 17
       format_type: details
       format_settings:
         id: ''
@@ -205,10 +206,11 @@ third_party_settings:
       children:
         - field_campaign_pages
         - field_my_progress_page
+        - field_about_challenge_page
         - field_rules_prizes_page
         - field_pause_landing_page
       parent_name: ''
-      weight: 9
+      weight: 10
       format_type: fieldset
       format_settings:
         id: ''
@@ -235,7 +237,7 @@ content:
     third_party_settings: {  }
     region: content
   field_about_challenge_page:
-    weight: 47
+    weight: 11
     settings:
       match_operator: CONTAINS
       size: 60
@@ -279,13 +281,13 @@ content:
     type: number
     region: content
   field_campaign_fitness_category:
-    weight: 13
+    weight: 14
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   field_campaign_image:
-    weight: 46
+    weight: 8
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -391,7 +393,7 @@ content:
     type: text_textarea
     region: content
   field_goal_check_ins_end_date:
-    weight: 45
+    weight: 46
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -433,7 +435,7 @@ content:
     type: number
     region: content
   field_my_progress_page:
-    weight: 9
+    weight: 10
     settings:
       match_operator: CONTAINS
       size: 60
@@ -442,14 +444,14 @@ content:
     type: entity_reference_autocomplete
     region: content
   field_pause_campaign:
-    weight: 8
+    weight: 9
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_pause_landing_page:
-    weight: 11
+    weight: 13
     settings:
       match_operator: CONTAINS
       size: 60
@@ -489,7 +491,7 @@ content:
     type: text_textarea
     region: content
   field_rules_prizes_page:
-    weight: 10
+    weight: 12
     settings:
       match_operator: CONTAINS
       size: 60
@@ -587,5 +589,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_campaign_menu: true
   publish_on: true
   unpublish_on: true

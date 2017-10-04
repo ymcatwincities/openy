@@ -119,6 +119,7 @@ function openy_demo_content_configs_map($key = NULL) {
     ],
     'campaign' => [
       'openy_demo_ncampaign' => [
+        'openy_demo_node_campaign_page',
         'openy_demo_node_campaign',
       ],
     ],

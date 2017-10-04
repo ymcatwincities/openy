@@ -500,7 +500,7 @@ function openy_update_8038() {
 
   // Run openy_demo_node_landing & openy_demo_node_membership migrations.
   $importer = \Drupal::service('openy_migrate.importer');
-  $importer->import('openy_demo_node_landing');
+  $importer->import('openy_demo_node_campaign_page');
   $importer->import('openy_demo_node_campaign');
 }
 

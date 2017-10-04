@@ -165,7 +165,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $links['campaign'] = [
       '#type' => 'link',
       '#title' => $node->getTitle(),
-      '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
+      '#url' => Url::fromRoute('openy_campaign.campaign-page', $parameters),
       '#attributes' => [
         'class' => [
           'campaign-page',
@@ -198,7 +198,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $links['progress'] = [
       '#type' => 'link',
       '#title' => t('My progress'),
-      '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
+      '#url' => Url::fromRoute('openy_campaign.campaign-page', $parameters),
       '#attributes' => [
         'class' => [
            $renderLinkAsAjax,
@@ -214,7 +214,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $links['rules'] = [
       '#type' => 'link',
       '#title' => t('Detailed Rules'),
-      '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
+      '#url' => Url::fromRoute('openy_campaign.campaign-page', $parameters),
       '#attributes' => [
         'class' => [
           'campaign-rules',
@@ -227,11 +227,11 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   }
 
   /**
-   * Get Landing page referenced in Campaign node.
+   * Get Campaign page referenced in Campaign node.
    *
    * @param \Drupal\node\NodeInterface $campaign Campaign node.
    *
-   * @return mixed Published landing page or FALSE if there is no published referenced landing page.
+   * @return mixed Published campaign page or FALSE if there is no published referenced campaign page.
    */
   private function getActiveCampaignPage($campaign) {
     // Check if Campaign is Paused
