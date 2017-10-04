@@ -280,6 +280,17 @@ function openy_lily_preprocess_page(&$variables) {
       }
     }
   }
+
+  // Add welcome message for logged in CCC user.
+  $variables['ccc_logged_in'] = FALSE;
+  /** @var \Drupal\openy_ccc_api\Session $ccc_session */
+  $ccc_session = \Drupal::service('openy_ccc_session');
+  if (!$ccc_session->isAnonymous()) {
+    $variables['ccc_logged_in'] = TRUE;
+    $variables['welcome_message'] = t('welcome @first_name', [
+      '@first_name' => $ccc_session->getFirstName(),
+    ]);
+  }
 }
 
 /**

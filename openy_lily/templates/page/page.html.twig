@@ -98,6 +98,11 @@
               {% block page_logo %}
                 {{ page.logo }}
               {% endblock %}
+              {% if ccc_logged_in %}
+                <span class="pull-left">
+                  {{ welcome_message }}
+                </span>
+              {% endif %}
             </div>
             {{ page.secondary_menu }}
           </div>
