@@ -192,6 +192,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
 
     /** @var Node $myProgress */
     $myProgress = $node->field_my_progress_page->entity;
+    $renderLinkAsAjax = MemberCampaign::isLoggedIn($node->id()) ? '' : 'use-ajax';
     $parameters = ['campaign_id' => $node->id(), 'landing_page_id' => $myProgress->id()];
     // My progress link
     $links['progress'] = [
@@ -200,6 +201,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       '#url' => Url::fromRoute('openy_campaign.landing-page', $parameters),
       '#attributes' => [
         'class' => [
+           $renderLinkAsAjax,
           'campaign-my-progress',
           'node-' . $myProgress->id(),
         ],
