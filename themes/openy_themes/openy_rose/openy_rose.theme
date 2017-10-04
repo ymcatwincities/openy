@@ -152,6 +152,9 @@ function openy_rose_preprocess_field(array &$variables) {
       $variables['wrapper_tag'] = 'section';
     }
   }
+  else {
+    $variables['wrapper_tag'] = 'div';
+  }
 }
 
 /**
