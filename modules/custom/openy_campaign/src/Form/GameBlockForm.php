@@ -44,6 +44,8 @@ class GameBlockForm extends FormBase {
       '#value' => $this->t('Play now!'),
     ];
 
+    $form['#theme'] = 'openy_campaign_games';
+
     return $form;
   }
 

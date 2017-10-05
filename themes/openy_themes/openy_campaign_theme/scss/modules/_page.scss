@@ -13,7 +13,8 @@ body {
   //padding: 40px;
 }
 
-.page-node-type-landing-page {
+.page-node-type-campaign-page,
+.path-campaign-game {
   main[role="main"] {
     background-color: #ffffff;
     padding-left: 0px;
@@ -28,6 +29,9 @@ body {
       margin-top: -400px;
       box-shadow: 10px 20px 115px 10px;
       padding: 40px;
+      padding-left: 70px;
+      padding-right: 70px;
+      min-height: 500px;
       h1 {
         margin-top: 60px;
         margin-bottom: 70px;
@@ -38,8 +42,8 @@ body {
         padding: 0px;
       }
       .paragraph-background-container {
-        margin-right: -40px;
-        margin-left: -40px;
+        margin-right: -70px;
+        margin-left: -70px;
         padding-left: 40px;
         padding-right: 40px;
         .paragraph-container {
@@ -200,6 +204,10 @@ body {
   }
 }
 
+.paragraph-1c-wrapper .field-prgf-1c-description {
+  color: $dark-grey !important;
+}
+
 .field-prgf-1c-column {
   text-align: center;
   padding-bottom: 15px;
@@ -226,7 +234,7 @@ body {
   .field-icon img {
     max-width: 100%;
     height: auto;
-    max-height: 400px;
+    max-height: 100%;
     margin: 0 auto;
     display: block;
   }
@@ -241,4 +249,76 @@ body {
       }
     }
   }
+}
+
+
+
+.activity-tracking-menu-columns {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+.visits-goal {
+
+  .description {
+    text-align: center;
+    .goal {
+      color: $pink;
+    }
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .bold {
+    text-style: bold;
+  }
+
+  .visits-goal-progress{
+    margin-top: 5px;
+    margin-bottom: 40px;
+
+    .clearfix {
+      clear: both;
+    }
+
+    .progress-row {
+      clear: both;
+    }
+
+    .point {
+      background: url('../img/inactive.png');
+      background-repeat: no-repeat;
+      background-position: right;
+      width: 85px;
+      padding-left: 65px;
+      margin-top: 35px;
+      height: 60px;
+      color: #fff;
+      float: left;
+      border-bottom: 4px solid #cecece;
+      display: block;
+      padding-top: 2px;
+      margin-right: 0px;
+    }
+
+    .point.active {
+      background: url('../img/active.png');
+      background-repeat: no-repeat;
+      background-position: right;
+
+    }
+
+    .point-1 {
+      background-position: left !important;
+      width: 33px !important;
+      padding-left: 12px !important;
+    }
+
+
+  }
+}
+
+.field-prgf-campaign-activity {
+  margin-top: 50px;
 }

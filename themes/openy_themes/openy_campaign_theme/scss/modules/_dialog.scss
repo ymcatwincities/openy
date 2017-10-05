@@ -14,13 +14,13 @@
     font-weight: normal;
     text-align: center;
     color: #fff;
-    max-width: 400px;
+    max-width: 800px;
     margin: 0 auto;
     font-family: "Cachet W01 Book";
     font-weight: 700;
   }
   .ui-dialog-titlebar-close {
-    display: none;
+    display: none !important;
   }
   .ui-dialog-content {
     height: auto;

@@ -14,8 +14,9 @@ use Drupal\node\NodeInterface;
  */
 class GameController extends ControllerBase {
 
-  static $gamesList = ['magic_ball', 'scratchcard', 'flip_cards'];
+  //static $gamesList = ['magic_ball', 'scratchcard', 'flip_cards'];
 
+  static $gamesList = ['flip_cards'];
   /**
    * The entity repository.
    *

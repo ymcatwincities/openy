@@ -4,12 +4,13 @@
 }
 body {
   color: #636466;
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
 }
 
 h1, .h1, h2, .h2, h3, h4, h5, h6 {
   font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 h1,
@@ -23,14 +24,13 @@ h2,
   font-size: 36px;
 }
 
-p {
-  word-wrap: break-word;
+h4 {
+  font-size: 24px;
 }
 
-figcaption {
-  font-size: 13px;
-  font-style: italic;
-  text-align: right;
+p {
+  word-wrap: break-word;
+  font-size: 18px !important;
 }
 
 .clearfix {
@@ -79,12 +79,14 @@ body {
   width: 100%;
 }
 
-.page-node-type-landing-page main[role="main"] {
+.page-node-type-campaign-page main[role="main"],
+.path-campaign-game main[role="main"] {
   background-color: #ffffff;
   padding-left: 0px;
   padding-right: 0px;
 }
-.page-node-type-landing-page main[role="main"] .layout-content {
+.page-node-type-campaign-page main[role="main"] .layout-content,
+.path-campaign-game main[role="main"] .layout-content {
   background-color: inherit;
   margin-left: 125px;
   margin-right: 125px;
@@ -93,26 +95,34 @@ body {
   margin-top: -400px;
   box-shadow: 10px 20px 115px 10px;
   padding: 40px;
+  padding-left: 70px;
+  padding-right: 70px;
+  min-height: 500px;
 }
-.page-node-type-landing-page main[role="main"] .layout-content h1 {
+.page-node-type-campaign-page main[role="main"] .layout-content h1,
+.path-campaign-game main[role="main"] .layout-content h1 {
   margin-top: 60px;
   margin-bottom: 70px;
   text-transform: uppercase;
   text-align: center;
 }
-.page-node-type-landing-page main[role="main"] .layout-content .main-region {
+.page-node-type-campaign-page main[role="main"] .layout-content .main-region,
+.path-campaign-game main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
-.page-node-type-landing-page main[role="main"] .layout-content .paragraph-background-container {
-  margin-right: -40px;
-  margin-left: -40px;
+.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container,
+.path-campaign-game main[role="main"] .layout-content .paragraph-background-container {
+  margin-right: -70px;
+  margin-left: -70px;
   padding-left: 40px;
   padding-right: 40px;
 }
-.page-node-type-landing-page main[role="main"] .layout-content .paragraph-background-container .paragraph-container {
+.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container .paragraph-container,
+.path-campaign-game main[role="main"] .layout-content .paragraph-background-container .paragraph-container {
   padding: 0px;
 }
-.page-node-type-landing-page main[role="main"] .layout-content .paragraph-container {
+.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-container,
+.path-campaign-game main[role="main"] .layout-content .paragraph-container {
   padding-top: 0px;
   padding-bottom: 0px;
 }
@@ -261,6 +271,10 @@ body {
   border: 1px solid #ccc;
 }
 
+.paragraph-1c-wrapper .field-prgf-1c-description {
+  color: #4f4f4f !important;
+}
+
 .field-prgf-1c-column {
   text-align: center;
   padding-bottom: 15px;
@@ -284,7 +298,7 @@ body {
 .block-description--text .field-icon img {
   max-width: 100%;
   height: auto;
-  max-height: 400px;
+  max-height: 100%;
   margin: 0 auto;
   display: block;
 }
@@ -293,17 +307,80 @@ body {
   text-transform: uppercase;
 }
 
+.activity-tracking-menu-columns {
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.visits-goal .description {
+  text-align: center;
+}
+.visits-goal .description .goal {
+  color: #c6168d;
+}
+.visits-goal .uppercase {
+  text-transform: uppercase;
+}
+.visits-goal .bold {
+  text-style: bold;
+}
+.visits-goal .visits-goal-progress {
+  margin-top: 5px;
+  margin-bottom: 40px;
+}
+.visits-goal .visits-goal-progress .clearfix {
+  clear: both;
+}
+.visits-goal .visits-goal-progress .progress-row {
+  clear: both;
+}
+.visits-goal .visits-goal-progress .point {
+  background: url("../img/inactive.png");
+  background-repeat: no-repeat;
+  background-position: right;
+  width: 85px;
+  padding-left: 65px;
+  margin-top: 35px;
+  height: 60px;
+  color: #fff;
+  float: left;
+  border-bottom: 4px solid #cecece;
+  display: block;
+  padding-top: 2px;
+  margin-right: 0px;
+}
+.visits-goal .visits-goal-progress .point.active {
+  background: url("../img/active.png");
+  background-repeat: no-repeat;
+  background-position: right;
+}
+.visits-goal .visits-goal-progress .point-1 {
+  background-position: left !important;
+  width: 33px !important;
+  padding-left: 12px !important;
+}
+
+.field-prgf-campaign-activity {
+  margin-top: 50px;
+}
+
 footer {
   background-color: inherit !important;
 }
 
-.member-full-name {
-  text-transform: uppercase;
-  color: #fff;
+#block-openy-campaign-theme-campaignusermenublock {
   border-left: 2px solid #fff;
   padding-left: 15px;
 }
-.member-full-name .fa {
+#block-openy-campaign-theme-campaignusermenublock .member-full-name {
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 16px;
+  float: left;
+  margin-top: -2px;
+  padding-right: 33px;
+}
+#block-openy-campaign-theme-campaignusermenublock .member-full-name .fa {
   padding-right: 5px;
   font-weight: 700;
 }
@@ -363,13 +440,13 @@ footer {
   font-weight: normal;
   text-align: center;
   color: #fff;
-  max-width: 400px;
+  max-width: 800px;
   margin: 0 auto;
   font-family: "Cachet W01 Book";
   font-weight: 700;
 }
 .ui-dialog .ui-dialog-titlebar-close {
-  display: none;
+  display: none !important;
 }
 .ui-dialog .ui-dialog-content {
   height: auto;

@@ -53,7 +53,7 @@
   {% endif %}
 {% else %}
   <{{ wrapper_tag }} {{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
-  <div{{ title_attributes.addClass('label-for-' ~ field_name|clean_class) }}><h2>{{ label }}</h2></div>
+  <div{{ title_attributes.addClass('label-for-' ~ field_name|clean_class) }}><h4>{{ label }}</h4></div>
     {% if multiple %}
     <div>
       {% endif %}

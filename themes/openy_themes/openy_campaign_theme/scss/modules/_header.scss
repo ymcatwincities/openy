@@ -3,14 +3,20 @@
 
 }
 
-.member-full-name {
-  text-transform: uppercase;
-  color: #fff;
+#block-openy-campaign-theme-campaignusermenublock {
   border-left: 2px solid #fff;
   padding-left: 15px;
-  .fa {
-    padding-right: 5px;
-    font-weight: 700;
+  .member-full-name {
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 16px;
+    float: left;
+    margin-top: -2px;
+    padding-right: 33px;
+    .fa {
+      padding-right: 5px;
+      font-weight: 700;
+    }
   }
 }
 

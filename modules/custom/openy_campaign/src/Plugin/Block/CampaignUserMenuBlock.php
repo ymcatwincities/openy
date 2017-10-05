@@ -81,7 +81,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
             '<i class="fa fa-user-o" aria-hidden="true"></i>' . $fullName . '</div>' ,
       ];
 
-      /*$build['logout'] = [
+      $build['logout'] = [
         '#type' => 'link',
         '#title' => $this->t('Logout'),
         '#url' => Url::fromRoute('openy_campaign.member-logout', ['campaign_id' => $campaign->id()]),
@@ -91,10 +91,10 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
             'logout'
           ],
         ],
-      ];*/
+      ];
     }
     else {
-      $build['register'] = [
+      /*$build['register'] = [
         '#type' => 'link',
         '#title' => $this->t('Register'),
         '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
@@ -104,7 +104,7 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
             'register'
           ],
         ],
-      ];
+      ];*/
 
       $build['login'] = [
         '#type' => 'link',

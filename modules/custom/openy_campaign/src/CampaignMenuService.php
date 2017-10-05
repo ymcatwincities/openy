@@ -78,6 +78,9 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     // For custom routes - get campaign_id
     if ($node instanceof NodeInterface !== TRUE) {
       $campaignId = $this->routeMatch->getParameter('campaign_id');
+      if (is_null($campaignId)) {
+        $campaignId = $this->container->get('request_stack')->getCurrentRequest()->get('campaign_id');
+      }
       $node = !empty($campaignId) ? Node::load($campaignId) : FALSE;
     }
     if (empty($node)) {
@@ -115,6 +118,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
       ->condition('field_campaign_pages', $node->id(), 'IN')
       ->condition('field_my_progress_page', $node->id())
       ->condition('field_rules_prizes_page', $node->id())
+      ->condition('field_about_challenge_page', $node->id())
       ->condition('field_pause_landing_page', $node->id());
     $nids = $query->condition($orGroup)->execute();
 
@@ -165,7 +169,8 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $links['campaign'] = [
       '#type' => 'link',
       '#title' => $node->getTitle(),
-      '#url' => Url::fromRoute('openy_campaign.campaign-page', $parameters),
+      //'#url' => Url::fromRoute('openy_campaign.campaign-page', $parameters),
+      '#url' => Url::fromRoute('entity.node.canonical', ['node' => $node->id()]),
       '#attributes' => [
         'class' => [
           'campaign-page',

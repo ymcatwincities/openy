@@ -14,11 +14,17 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
 
     $possible_routes = array(
       'entity.node.canonical',
+      'openy_campaign.campaign_game'
     );
 
     if (in_array($route_match->getRouteName(), $possible_routes)) {
       $node = $route_match->getParameter('node');
 
+
+      if ($route_match->getRouteName() === 'openy_campaign.campaign_game') {
+        return TRUE;
+      }
+      
       if (!in_array($node->getType(), ['campaign', 'campaign_page'])) {
         return FALSE;
       }
@@ -26,6 +32,7 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
       if ($node->getType() === 'campaign') {
         return TRUE;
       }
+
 
       // Check if requested node uses in campaign.
       $query = \Drupal::entityQuery('node')
