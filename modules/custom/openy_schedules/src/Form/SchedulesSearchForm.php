@@ -865,7 +865,7 @@ class SchedulesSearchForm extends FormBase {
         }
         $title_results = $title_results_week;
 
-        $content[$day][$time] = [
+        $content[$day][$class->id() . '--' . $time] = [
           'label' => $class->getTitle(),
           'time' => $time,
           'time_from' => $session_instance->getTimestamp(),
