@@ -35,6 +35,7 @@ class GameBlockForm extends FormBase {
       '#value' => $unplayedGames,
     ];
 
+
     $form['label'] = [
       '#markup' => $this->formatPlural(count($unplayedGames), 'You have one game remaining', 'You have @count games available'),
     ];
@@ -44,7 +45,6 @@ class GameBlockForm extends FormBase {
       '#value' => $this->t('Play now!'),
     ];
 
-    $form['#theme'] = 'openy_campaign_games';
 
     return $form;
   }
@@ -63,7 +63,9 @@ class GameBlockForm extends FormBase {
     $games = $form_state->getValue('games');
     $game = array_shift($games);
 
-    $form_state->setRedirect('openy_campaign.campaign_game', [ 'uuid' => $game->uuid()]);
+    $form_state->setRedirect('openy_campaign.campaign_game', [ 'uuid' => $game->uuid()], [
+      'query'=> ['campaign_id' => 71]
+    ]);
   }
 
 }

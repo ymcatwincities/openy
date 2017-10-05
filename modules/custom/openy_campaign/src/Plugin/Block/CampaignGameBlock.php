@@ -134,7 +134,10 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
 //      '#current' => count($currentCheckins),
 //    ];
 //
-    return $this->formBuilder->getForm('Drupal\openy_campaign\Form\GameBlockForm', $unplayedGames);
+
+    $block['#theme'] = 'openy_campaign_games';
+    $block['#form'] = $this->formBuilder->getForm('Drupal\openy_campaign\Form\GameBlockForm', $unplayedGames);
+    return $block;
 
   }
 
