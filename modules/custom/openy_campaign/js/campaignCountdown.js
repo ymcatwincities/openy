@@ -4,11 +4,14 @@ Drupal.behaviors.campaignCountdown = {
             return;
         }
         jQuery('.countdown').html('');
-        console.log(settings);
+
+        // Parse campaign end date to the Date object
+        var compaignEndDate = new Date(settings.campaignSettigns.endDate);
+
         simplyCountdown('.countdown', {
-            year: 2020, // required
-            month: 6, // required
-            day: 28, // required
+            year: compaignEndDate.getUTCFullYear(), // required
+            month: compaignEndDate.getUTCMonth() + 1, // required
+            day: compaignEndDate.getUTCDate(), // required
             hours: 0, // Default is 0 [0-23] integer
             minutes: 0, // Default is 0 [0-59] integer
             seconds: 0, // Default is 0 [0-59] integer

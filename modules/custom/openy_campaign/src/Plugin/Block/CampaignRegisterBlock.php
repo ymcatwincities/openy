@@ -88,6 +88,12 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       '#attached' => [
         'library' => [
           'openy_campaign/campaign_countdown'
+        ],
+        'drupalSettings' => [
+          'campaignSettigns' => [
+            'startDate' => $campaign->get('field_campaign_start_date')->value,
+            'endDate' => $campaign->get('field_campaign_end_date')->value
+          ]
         ]
       ],
       '#campaign' => $campaign,
