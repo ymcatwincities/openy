@@ -64,14 +64,3 @@ function openy_media_preprocess_entity_embed_container(array &$variables) {
     '_' => '-',
   ]);
 }
-
-/**
- * Implements hook_ENTITY_TYPE_presave().
- *
- * Please see https://www.drupal.org/node/2749695#comment-11950133.
- */
-function openy_media_media_presave(MediaInterface $media) {
-  if ('image' == $media->bundle() && !$media->isNew()) {
-    $media->automaticallySetThumbnail();
-  }
-}
