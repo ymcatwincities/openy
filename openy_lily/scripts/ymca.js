@@ -56,6 +56,13 @@
         $('.blog-up').matchHeight();
         $('.blog-heading').matchHeight();
       });
+      $(document).ajaxComplete(function(event, xhr, settings) {
+        $(".news-more-teaser, .blog-more-teaser").each(function () {
+          $('.blog-up').matchHeight();
+          $('.blog-heading').matchHeight();
+          $('.inner-wrapper').matchHeight();
+        });
+      });
     }
   };
 
