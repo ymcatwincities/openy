@@ -19,7 +19,7 @@ source:
     -
       id: 1
       title: 'Health and Fitness'
-      color: 7
+      color: 17
       listing_id: 1
       card_ids:
         -
@@ -39,7 +39,7 @@ source:
     -
       id: 2
       title: 'Swimming'
-      color: 2
+      color: 17
       listing_id: 2
       card_ids:
         -
@@ -58,7 +58,7 @@ source:
     -
       id: 3
       title: 'Kids and Family Activities'
-      color: 3
+      color: 17
       listing_id: 3
       card_ids: {  }
       body: |
@@ -76,7 +76,7 @@ source:
     -
       id: 4
       title: 'Camps'
-      color: 4
+      color: 17
       listing_id: 4
       card_ids: {  }
       body: |
@@ -93,7 +93,7 @@ source:
     -
       id: 5
       title: 'Child Care'
-      color: 5
+      color: 17
       listing_id: 5
       card_ids: {  }
       body: |
@@ -108,7 +108,7 @@ source:
     -
       id: 6
       title: 'Youth Programs'
-      color: 6
+      color: 17
       listing_id: 6
       card_ids: {  }
       body: |

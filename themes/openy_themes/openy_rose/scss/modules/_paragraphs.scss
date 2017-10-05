@@ -195,9 +195,6 @@
           margin-left: 5px;
         }
       }
-      &:focus {
-        outline: auto 5px $blue;
-      }
     }
 
     .carousel-inner > .item img,
@@ -301,14 +298,7 @@
           @include breakpoint (1025px) {
             padding: 15px;
           }
-          &:focus {
-            outline: 5px auto $blue;
-            outline-offset: -2px;
-          }
         }
-      }
-      &:focus {
-        outline: auto 5px $blue;
       }
     }
   }
@@ -341,7 +331,7 @@
     margin-bottom: 27px;
   }
 
-  h3 {
+  h2 {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     color: $default-grey;
@@ -352,9 +342,12 @@
     letter-spacing: 2px;
   }
 
-  h2 {
+  .field-prgf-description h2 {
     color: $purple;
+    font-family: $font-style-cachet-ubuntu;
     font-weight: bold;
+    letter-spacing: normal;
+    text-transform: none;
 
     a {
       text-decoration: none;
@@ -396,6 +389,9 @@
   .link {
     font-size: 15px;
     color: $blue;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -563,7 +559,7 @@
     }
 
     .banner-title {
-      margin: 0;
+      margin: 0 0 10px;
       max-width: 700px;
     }
 
@@ -584,7 +580,7 @@
   &--type--latest-blog-posts-camp {
     .h1 {
       margin-bottom: 10px;
-      font-size: $h1;
+      font-size: $h1-size;
     }
     .blog-more-teaser {
       margin-top: 0;
@@ -612,6 +608,7 @@
   }
 }
 .paragraph--type--prgf-location-finder-filters {
+  padding: 0;
   overflow: visible;
   .messages {
     padding: 20px;
@@ -906,7 +903,7 @@
   .form-actions {
     margin-top: 10px;
     @include breakpoint($screen-sm) {
-      margin-top: 31px;
+      margin-top: 49px;
     }
   }
 }

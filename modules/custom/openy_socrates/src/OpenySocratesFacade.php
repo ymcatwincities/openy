@@ -2,6 +2,9 @@
 
 namespace Drupal\openy_socrates;
 
+use Drupal\Component\Utility\Timer;
+use Drupal\Core\State\StateInterface;
+
 /**
  * Class OpenySocratesFacade.
  *
@@ -13,11 +16,35 @@ namespace Drupal\openy_socrates;
 class OpenySocratesFacade {
 
   /**
-   * Services.
+   * State interface.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
+   * Data Services.
    *
    * @var array
    */
   private $services;
+
+  /**
+   * Cron Services.
+   *
+   * @var array
+   */
+  private $cronServices;
+
+  /**
+   * OpenySocratesFacade constructor.
+   *
+   * @param \Drupal\Core\State\StateInterface $state
+   *   State.
+   */
+  public function __construct(StateInterface $state) {
+    $this->state = $state;
+  }
 
   /**
    * Magic method call.
@@ -66,6 +93,44 @@ class OpenySocratesFacade {
         foreach ($service->addDataServices($todo_services) as $method) {
           $this->services[$method][$priority] = $service;
           krsort($this->services[$method]);
+        }
+      }
+    }
+  }
+
+  /**
+   * Setter for services tagged with 'openy_cron_service' tag.
+   *
+   * @param array $services
+   *   Services.
+   */
+  public function collectCronServices(array $services) {
+    /** @var OpenyCronServiceInterface $service */
+    foreach ($services as $periodicity => $service) {
+      $this->cronServices[$periodicity] = $service;
+    }
+  }
+
+  /**
+   * Runner for all openy cron services.
+   */
+  public function cron() {
+    // @todo Use config to stop/resume the runner.
+    $prefix = 'openy_cron_';
+    /** @var OpenyCronServiceInterface $service */
+    foreach ($this->cronServices as $periodicity => $services) {
+      foreach ($services as $service) {
+        $name = $prefix . $service->_serviceId;
+        $last_run = $this->state->get($name);
+        if ((REQUEST_TIME - $last_run) > $periodicity) {
+          // @todo Fix DI on OpenY sprint.
+          \Drupal::logger("openy_cron")->info('Service %service has been started.', ['%service' => $service->_serviceId]);
+          Timer::start($name);
+          $service->runCronServices();
+          $execution_time = Timer::read($name) / 1000;
+          $this->state->set($name, REQUEST_TIME);
+          \Drupal::logger("openy_cron")->info('Service %service has been finished. Execution time: %time sec.', ['%service' => $service->_serviceId, '%time' => $execution_time]);
+          Timer::stop($name);
         }
       }
     }

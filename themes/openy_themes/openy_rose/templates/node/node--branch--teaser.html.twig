@@ -80,6 +80,9 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+{% set directions_url = content.field_location_directions.0['#url'] %}
+{% set directions_title = content.field_location_directions.0['#title'] %}
+
 <article{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if not page %}
@@ -90,27 +93,22 @@
       {% set title_url = url %}
     {% endif %}
 
-    <h2{{ title_attributes }}>
+    <h3 class="location-item--title" {{ title_attributes }}>
       <a href="{{ title_url }}" rel="bookmark">{{ label }}</a>
-    </h2>
+    </h3>
   {% endif %}
   {{ title_suffix }}
 
   {{ content.field_location_state }}
   {{ content.field_location_area }}
 
-  {% if display_submitted %}
-    <footer class="node__meta">
-      {{ author_picture }}
-      <div{{ author_attributes.addClass('node__submitted') }}>
-        {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-        {{ metadata }}
-      </div>
-    </footer>
-  {% endif %}
-
   <div{{ content_attributes.addClass('node__content') }}>
-    {{ content|without('field_location_area', 'field_location_state') }}
+    {{ content.field_location_address }}
+    {{ content.field_location_phone }}
+    {% if directions_title %}
+      <a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a>
+    {% endif %}
+    {{ content.field_branch_hours }}
   </div>
 
 </article>

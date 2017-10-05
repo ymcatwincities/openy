@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Update routines.
+ */
+
+/**
+ * Add description to color vocabulary.
+ */
+function openy_txnm_color_update_8001() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_txnm_color');
+  $config .= '/config/install/';
+  $config .= 'taxonomy.vocabulary.color.yml';
+  $config_importer->update($config, 'taxonomy.vocabulary.color', 'description');
+}
+
+/**
+ * Import rabbit_hole config.
+ */
+function openy_txnm_color_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_txnm_color') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'rabbit_hole.behavior_settings.taxonomy_vocabulary_color',
+  ]);
+}

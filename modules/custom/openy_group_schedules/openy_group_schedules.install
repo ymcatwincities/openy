@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * Initial hook_updates runner.
+ */
+function openy_group_schedules_install() {
+  for ($i = 8001; $i < 9000; $i++) {
+    $function = 'openy_group_schedules_' . $i;
+    if (function_exists($function)) {
+      \Drupal::logger('openy_group_schedules')->info('running: ' . $function);
+      $function();
+    }
+  }
+}
+
+/**
+ * Update Group schedules functionality.
+ */
+function openy_group_schedules_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_group_schedules') . '/config/install');
+  $config_importer->importConfigs(
+    [
+      'openy_group_schedules.settings',
+    ]);
+}

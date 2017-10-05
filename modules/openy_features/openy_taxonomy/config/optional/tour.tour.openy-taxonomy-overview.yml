@@ -23,12 +23,20 @@ tips:
     weight: 2
     attributes:
       data-class: 'button-action:contains("Add vocabulary")'
+  amenities-vocabulary:
+    id: amenities-vocabulary
+    plugin: text
+    label: 'Amenities vocabulary'
+    body: 'In this vocabulary you can list services provided in Branches. Example: Sauna, Gym.  Associate Branch nodes with this Amenities. Further you can use "All  Amenities" paragraph to view and filter branches by available Amenity.'
+    weight: 3
+    attributes:
+      data-class: 'taxonomy-overview-vocabularies tr td:contains("Amenities")'
   area-vocabulary:
     id: area-vocabulary
     plugin: text
     label: 'Area vocabulary'
     body: 'In this vocabulary you can manage different areas.'
-    weight: 3
+    weight: 4
     attributes:
       data-class: 'taxonomy-overview-vocabularies tr td:contains("Area")'
   blog-category-vocabulary:
@@ -36,7 +44,7 @@ tips:
     plugin: text
     label: 'Blog Category vocabulary'
     body: 'In this vocabulary you can manage different blog categories.'
-    weight: 4
+    weight: 5
     attributes:
       data-class: 'taxonomy-overview-vocabularies tr td:contains("Blog Category")'
   color-vocabulary:
@@ -44,7 +52,7 @@ tips:
     plugin: text
     label: 'Color vocabulary'
     body: 'In this vocabulary you can manage YMCA branded colors that will be used by various content.'
-    weight: 5
+    weight: 6
     attributes:
       data-class: 'taxonomy-overview-vocabularies tr td:contains("Color")'
   facility-type-vocabulary:
@@ -52,28 +60,29 @@ tips:
     plugin: text
     label: 'Facility Type'
     body: 'In this vocabulary you can manage facility types.'
-    weight: 6
+    weight: 7
     attributes:
       data-class: 'taxonomy-overview-vocabularies tr td:contains("Facility Type")'
   media-tags-vocabulary:
     id: media-tags-vocabulary
     plugin: text
     label: 'Media Tags'
-    body: 'In this vocabulary you can manage media tags that will allow you to structurize your media assets library.'
-    weight: 7
+    body: 'In this vocabulary you can manage media tags that will allow you to structurize your media assets library. [openy_tour:click:.dropbutton-wrapper:last .dropbutton-arrow]'
+    weight: 8
     attributes:
       data-class: 'taxonomy-overview-vocabularies tr td:contains("Media Tags")'
   dropdown-widget:
     id: dropdown-widget
     plugin: text
     label: 'Dropdown widget'
-    body: 'This button allows users to manage vocabulary and add taxonomy terms'
-    weight: 8
+    body: 'This button allows users to manage vocabulary and add taxonomy terms.'
+    location: left
+    weight: 9
     attributes:
-      data-class: 'dropbutton a[href="/admin/structure/taxonomy/manage/media_tags/overview"]'
+      data-class: 'dropbutton a[href$="/admin/structure/taxonomy/manage/media_tags/overview"]'
   next-tutorial:
     id: next-tutorial
     plugin: text
     label: 'Next tutorial'
     body: '<a href="[site:url]admin/structure/taxonomy/manage/color/overview?tour=1" class="button--primary button">Click here</a> to open next tutorial where you can learn how to manage taxonomy vocabulary.'
-    weight: 9
+    weight: 10
