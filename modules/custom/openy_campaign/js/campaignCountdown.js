@@ -3,7 +3,7 @@ Drupal.behaviors.campaignCountdown = {
         if (Drupal.behaviors.campaignCountdown.length){
             return;
         }
-
+        jQuery('.countdown').html('');
         console.log(settings);
         simplyCountdown('.countdown', {
             year: 2020, // required
