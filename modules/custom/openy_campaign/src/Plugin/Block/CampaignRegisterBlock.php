@@ -22,6 +22,7 @@ use Drupal\openy_campaign\CampaignMenuServiceInterface;
  */
 class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
+  protected $request_stack;
   /**
    * Form builder.
    *
@@ -50,10 +51,12 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition,
                               FormBuilderInterface $formBuilder,
-                              CampaignMenuServiceInterface $campaign_menu_service) {
+                              CampaignMenuServiceInterface $campaign_menu_service,
+                              $request_stack) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
+    $this->request_stack = $request_stack;
   }
 
   /**
@@ -67,7 +70,8 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       $plugin_id,
       $plugin_definition,
       $container->get('form_builder'),
-      $container->get('openy_campaign.campaign_menu_handler')
+      $container->get('openy_campaign.campaign_menu_handler'),
+      $container->get('request_stack')
     );
   }
 
@@ -93,9 +97,14 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     ];
 
     /**
-     * @var Node $currentPageType
+     * @var Node $currentNode
      */
-    $currentNode= \Drupal::requestStack()->getCurrentRequest()->get('node');
+    $currentNode= $this->request_stack->getCurrentRequest()->get('node');
+
+    if(empty($currentNode)) {
+      return $block;
+    }
+
     $currentNodeType = $currentNode->getType();
 
     if (!empty($campaign)

@@ -364,6 +364,10 @@ body {
   margin-top: 50px;
 }
 
+.campaign-game .btn, .campaign-game .button {
+  width: 100%;
+}
+
 footer {
   background-color: inherit !important;
 }
