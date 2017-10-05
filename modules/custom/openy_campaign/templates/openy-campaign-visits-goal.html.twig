@@ -1,16 +1,19 @@
 <div class="visits-goal">
     <div class="visits-goal-header">
-        <div class="header-text">
-            {{ 'Your goal is:'|t }} <span class="goal goal-number">{{ goal }}<span class="goal goal-text"> {{ 'visits'|t }}</span></span>
-        </div>
+
         <div class="header-description">
-            {{ '(Visits are updated nightly)'|t }}
+            <p>{{ 'Fill up the meter to trigger your next visit. Your goal is 5 visits and etiam ac arcu purus.'|t }}</p>
         </div>
     </div>
     <div class="visits-goal-progress">
         <div class="progress-line"></div>
+        {% set pointNum = 0 %}
+
+        <div class="progress-row">
         {% for i in 1..goal %}
+
             {% set activeClass = '' %}
+            {% set pointNum = pointNum + 1 %}
 
             {# Used for the development purpose only #}
             {% set symbol = '-' %}
@@ -19,7 +22,28 @@
                {% set activeClass = ' active' %}
                 {% set symbol = '*' %}
             {% endif %}
-            <span class="point point-{{ i }}{{ activeClass }}">{{ symbol }}</span>
+
+            <span class="point point-{{ pointNum }}{{ activeClass }}">{{ i }}</span>
+
+            {% if i is divisible by(5) %}
+                {% set pointNum = 0 %}
+                </div><div class="progress-row">
+            {% endif %}
+
         {% endfor %}
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div>
+
+
+    <div class="description">
+        <p class="uppercase">
+            {{ 'Your goal is:'|t }} <span class="goal goal-number">{{ goal }}<span class="goal goal-text"> {{ 'visits'|t }}</span></span>
+        </p>
+        <p>
+           {{ 'Visits are updated nightly'|t }}
+        </p>
     </div>
 </div>

@@ -61,6 +61,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
    */
   public static function create(ContainerInterface $container, array $configuration,
                                 $plugin_id, $plugin_definition) {
+
     return new static(
       $configuration,
       $plugin_id,
@@ -91,7 +92,15 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       ],
     ];
 
-    if (!empty($campaign) && !(MemberCampaign::isLoggedIn($campaign->id()))) {
+    /**
+     * @var Node $currentPageType
+     */
+    $currentNode= \Drupal::requestStack()->getCurrentRequest()->get('node');
+    $currentNodeType = $currentNode->getType();
+
+    if (!empty($campaign)
+        && !(MemberCampaign::isLoggedIn($campaign->id()))
+        && $currentNodeType !== 'campaign_page') {
       // Show Register block form
       $form = $this->formBuilder->getForm(
         'Drupal\openy_campaign\Form\MemberRegistrationSimpleForm',

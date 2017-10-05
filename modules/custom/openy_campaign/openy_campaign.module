@@ -73,6 +73,14 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'template' => 'openy-campaign-visits-goal',
     ],
 
+    // Games block.
+    'openy_campaign_games' => [
+      'variables' => [
+        'form' => NULL,
+      ],
+      'template' => 'openy-campaign-games',
+    ],
+
     // Instant Game: Magic Ball
     'openy_campaign_game_magic_ball' => [
       'variables' => [

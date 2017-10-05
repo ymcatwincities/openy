@@ -39,11 +39,12 @@
 
 <div class="paragraph-container">
   <div{{ attributes.addClass(classes) }}>
+    <div class="row"> <h2> {{ content.field_prgf_campaign_menu_title }} </h2></div>
     <div class="row">
-      <div class="col-md-6">
-        {{ content.field_campaign_activity_visits }}
+      <div class="col-md-6 activity-tracking-menu-columns">
+        {{ content.field_prgf_activity_visits }}
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 activity-tracking-menu-columns">
         {{ content.field_prgf_campaign_game }}
       </div>
     </div>

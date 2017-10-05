@@ -1,11 +1,12 @@
 body {
   color: $default-grey;
-  @include helvetica-neue();
+  @include cachet();
 }
 
 h1, .h1, h2, .h2, h3, h4, h5, h6 {
   @include cachet();
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 h1,
@@ -19,12 +20,11 @@ h2,
   font-size: $h2-size;
 }
 
-p {
-  word-wrap: break-word;
+h4 {
+  font-size: $h4-size;
 }
 
-figcaption {
-  font-size: 13px;
-  font-style: italic;
-  text-align: right;
+p {
+  word-wrap: break-word;
+  font-size: 18px !important;
 }
