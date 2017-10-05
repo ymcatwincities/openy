@@ -75,6 +75,12 @@ content:
     third_party_settings: {  }
     type: options_select
     region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
     weight: 30
@@ -93,6 +99,10 @@ content:
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
+  scheduler_settings:
+    weight: 20
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
@@ -122,4 +132,5 @@ content:
     weight: 30
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden: {  }

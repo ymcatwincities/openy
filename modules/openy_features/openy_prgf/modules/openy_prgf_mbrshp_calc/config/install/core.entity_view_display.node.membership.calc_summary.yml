@@ -31,3 +31,4 @@ content:
 hidden:
   field_mbrshp_description: true
   field_mbrshp_info: true
+  langcode: true
