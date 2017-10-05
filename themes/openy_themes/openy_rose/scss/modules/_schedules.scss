@@ -644,7 +644,7 @@
   .top-form-wrapper {
     background-color: $lighter-grey;
     overflow: hidden;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     .js-form-type-select,
     .js-form-type-date {
       margin: 0;
@@ -669,45 +669,43 @@
         display: none;
       }
     }
-  }
-  @include breakpoint($screen-tablet) {
-    #location-select-wrapper {
-      float: left;
-      margin-right: 30px;
-    }
-    #class-select-wrapper {
-      float: left;
-      margin-right: 30px;
+    > div {
+      margin-top: 20px;
+      @include breakpoint($screen-tablet) {
+        float: left;
+        margin-right: 30px;
+      }
     }
     #date-select-wrapper {
-      float: left;
-      margin-right: 30px;
-    }
-    #instructor-select-wrapper {
-      float: left;
-      margin-right: 30px;
+      max-width: 220px;
     }
     #submit-wrapper {
-      float: left;
-      margin: 2em 30px 0 0;
+      @include breakpoint($screen-tablet) {
+        margin: 46px 30px 0 0;
+      }
+      @include breakpoint($screen-md) {
+        clear: both;
+        float: left;
+        margin-top: 20px;
+      }
+      @include breakpoint($screen-lg) {
+        clear: none;
+        margin-top: 46px;
+      }
     }
-  }
-  .groupex-pdf-link-container {
-    margin-top: 10px;
-    @include breakpoint($screen-tablet) {
-      float: right;
-      margin: 5px 0 0 0;
-    }
-    a {
-      background-color: $purple;
-      border-radius: 0;
-      border: none;
-      color: #fff;
-      font-size: 18px;
-      height: 50px;
-      padding: 0 10px;
-      line-height: 50px;
-      text-transform: uppercase;
+    .groupex-pdf-link-container {
+      @include breakpoint($screen-tablet) {
+        margin-top: 46px;
+      }
+      @include breakpoint($screen-md) {
+        margin-top: 20px;
+      }
+      @include breakpoint($screen-lg) {
+        margin-top: 46px;
+      }
+      a {
+        color: #fff;
+      }
     }
   }
   .groupex-results {
