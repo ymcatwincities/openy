@@ -199,10 +199,13 @@ function ymca_membership_preprocess_membership_mail_message(&$variables) {
     $url = URL::fromUri('entity:node/' . $location->id(), $options);
     $url->setAbsolute(TRUE);
     $more_link = new Link('More about this location', $url);
-
+    $title = $location->getTitle();
+    if (!preg_match('/YMCA/', $title)) {
+      $title = $title . ' YMCA';
+    }
     $variables['location'] = [
       // TODO: full title should be taken from other field.
-      'name' => $location->getTitle(),
+      'name' => $title,
       'address_line1' => $line1,
       'address_line2' => $line2,
       'zip' => $address['postal_code'],
