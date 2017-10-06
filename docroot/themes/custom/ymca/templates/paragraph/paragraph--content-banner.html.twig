@@ -66,7 +66,6 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
     'page-header',
     'page-title',
-    'content-banner',
     (colors.top is not empty and colors.bottom is empty) ? 'color-assigned' : '',
   ]
 %}
@@ -83,7 +82,7 @@
         </article>
       </div>
       <div class="col-sm-6 header-button content-prgf-image">
-        {{ content.field_prgf_image }}
+        {{ content.field_prgf_content_image }}
       </div>
     </div>
   </div>
