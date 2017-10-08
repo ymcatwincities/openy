@@ -70,6 +70,7 @@ projects[custom_formatters] = 3.0-alpha1
 projects[token_filter] = 1.0-beta1
 projects[views_field_formatter] = 1.5
 projects[lndr] = 1.0
+projects[bootstrap_library] = 1.9
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
