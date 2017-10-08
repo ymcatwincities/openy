@@ -5121,7 +5121,6 @@ html.js .branch__updates_queue__button {
   #group-ex-results .time,
   .groupex-results .time {
     font-size: 30px;
-    padding-left: 15px;
     margin-bottom: 10px;
   }
 }
@@ -5132,7 +5131,7 @@ html.js .branch__updates_queue__button {
   outline: none;
   text-decoration: none;
   padding: 15px;
-  margin-bottom: -35px;
+  margin-bottom: -10px;
   position: relative;
   width: 100%;
 }
@@ -5166,6 +5165,18 @@ html.js .branch__updates_queue__button {
 #group-ex-results .card .instructor a,
 .groupex-results .card .instructor a {
   color: #5c2e91;
+}
+#group-ex-results .card .instructor .fa-refresh,
+.groupex-results .card .instructor .fa-refresh {
+  font-size: 12px;
+  color: #c6168d;
+  margin-left: 16px;
+  margin-right: 5px;
+}
+#group-ex-results .card .instructor .sub,
+.groupex-results .card .instructor .sub {
+  font-size: 12px;
+  color: #c6168d;
 }
 
 .groupex-form-full .instructor-chosen {
@@ -5342,7 +5353,7 @@ iframe#ga_iframe {
 .addtocalendar {
   position: relative;
   right: 15px;
-  top: 10px;
+  top: -15px;
   display: inline-block;
   background: transparent !important;
   float: right;
@@ -5587,27 +5598,32 @@ body .branch-popup + .ui-widget-overlay {
   width: 100%;
 }
 
-.two-column-fixed .affix {
+.two-column-fixed .affix,
+.two-column-fixed .affix-bottom {
   top: 126px;
   position: static;
 }
 @media (min-width: 48em) {
-  .two-column-fixed .affix {
+  .two-column-fixed .affix,
+  .two-column-fixed .affix-bottom {
     width: 220px;
     position: fixed;
   }
 }
 @media (min-width: 62em) {
-  .two-column-fixed .affix {
+  .two-column-fixed .affix,
+  .two-column-fixed .affix-bottom {
     width: 294px;
   }
 }
 @media (min-width: 75em) {
-  .two-column-fixed .affix {
+  .two-column-fixed .affix,
+  .two-column-fixed .affix-bottom {
     width: 360px;
   }
 }
-.toolbar-fixed .two-column-fixed .affix {
+.toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+.two-column-fixed .affix-bottom {
   top: 166px;
 }
 
@@ -6959,6 +6975,9 @@ article .node--view-mode-flexible-content h2 a span {
   color: white;
   font-family: "Cachet W01 Medium", 'Ubuntu Condensed', sans-serif;
   text-transform: uppercase;
+}
+.wrapper-field-bottom-content .paragraph--type--lto {
+  margin: 0;
 }
 
 a:focus,

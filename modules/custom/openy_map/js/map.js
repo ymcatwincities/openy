@@ -723,7 +723,7 @@
         var $self = $(this);
         for (var i = 0; i < data.length; i++) {
           if (typeof(data[i]) !== 'undefined' && $self.find('.location-item--title')[0].innerText !== 'undefined') {
-            if ($self.find('.location-item--title')[0].innerText == data[i].name) {
+            if ($.trim($self.find('.location-item--title')[0].innerText).toLowerCase() == $.trim(data[i].name).toLocaleLowerCase()) {
               data[i].element = {};
               data[i].element = $self.parent();
             }

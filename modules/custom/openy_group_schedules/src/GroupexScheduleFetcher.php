@@ -18,7 +18,7 @@ class GroupexScheduleFetcher {
   /**
    * PDF print uri.
    */
-  const PRINT_URI = 'https://www.groupexpro.com/schedule/print_calendar.php';
+  const PRINT_URI = 'https://www.groupexpro.com/schedule/print.php';
 
   /**
    * Fetched raw data.
@@ -159,9 +159,13 @@ class GroupexScheduleFetcher {
 
       $instructor_url_options['instructor'] = $item->instructor;
       // Here we need to remove redundant HTML if exists.
-      $pos = strpos($item->instructor, '<br>');
+      // Example: Melissa T.<br><span class="fa fa-refresh" aria-hidden="true"></span><span class="sub">Lucy T.</span>
+      $pos = strpos($item->instructor, '<span class="sub">');
       if (FALSE !== $pos) {
-        $instructor_url_options['instructor'] = substr_replace($item->instructor, '', $pos);
+        $original_instructor = substr_replace($item->instructor, '', 0, $pos);
+        $original_instructor = str_replace('<span class="sub">', '', $original_instructor);
+        $original_instructor = str_replace('</span>', '', $original_instructor);
+        $instructor_url_options['instructor'] = $original_instructor;
       }
 
       $instructor_url_options['class'] = 'any';
@@ -561,7 +565,7 @@ class GroupexScheduleFetcher {
       if (!empty($test1)) {
         $test1[1] = str_replace('(sub for ', '', $test1[1]);
         $test1[1] = str_replace(')', '', $test1[1]);
-        $item->instructor = str_replace($test1[0], '<br><span class="icon icon-loop2"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
+        $item->instructor = str_replace($test1[0], '<br><span class="fa fa-refresh" aria-hidden="true"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
       }
     }
 
