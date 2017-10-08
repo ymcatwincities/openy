@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "092adb02899fd085aa756d7492b8f4de",
+    "content-hash": "4eda174d42a6f6d601c6546ddfa521d0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -996,7 +996,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.19",
-                    "datestamp": "1491487683",
+                    "datestamp": "1505199844",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1015,6 +1015,14 @@
                 {
                     "name": "Mohamed Anis Taktak",
                     "homepage": "https://www.drupal.org/u/matio89"
+                },
+                {
+                    "name": "adriancid",
+                    "homepage": "https://www.drupal.org/user/1962106"
+                },
+                {
+                    "name": "bolbol",
+                    "homepage": "https://www.drupal.org/user/3400070"
                 },
                 {
                     "name": "eme",
@@ -1362,7 +1370,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.3",
-                    "datestamp": "1484770683",
+                    "datestamp": "1505755744",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1921,7 +1929,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-alpha4",
-                    "datestamp": "1481194983",
+                    "datestamp": "1505895844",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
@@ -2391,7 +2399,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.1",
-                    "datestamp": "1470845408",
+                    "datestamp": "1506372845",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2911,7 +2919,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1501584761",
+                    "datestamp": "1506714244",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3205,7 +3213,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.1",
-                    "datestamp": "1487331784",
+                    "datestamp": "1505802544",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3398,7 +3406,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta3",
-                    "datestamp": "1491779583",
+                    "datestamp": "1506790444",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -3711,7 +3719,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.9",
-                    "datestamp": "1490775483",
+                    "datestamp": "1506357544",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4099,7 +4107,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/views_block_filter_block",
-                "reference": "ca039afb46ae9603e8c034a2ecd8c7e261af6c7f"
+                "reference": "4faadcca776fceca7d6ffd05fc63861e5d8dcc5a"
             },
             "require": {
                 "drupal/core": "*"
@@ -4141,7 +4149,7 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/views_block_filter_block"
             },
-            "time": "2017-05-25T11:05:23+00:00"
+            "time": "2017-10-06T10:50:46+00:00"
         },
         {
             "name": "drupal/views_field_formatter",
@@ -4268,7 +4276,7 @@
                 },
                 "drupal": {
                     "version": "8.x-5.0-beta16",
-                    "datestamp": "1502286865",
+                    "datestamp": "1505089745",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -6204,6 +6212,57 @@
             "time": "2017-06-01T20:52:29+00:00"
         },
         {
+            "name": "twbs/bootstrap",
+            "version": "v3.3.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "reference": "0b9c4a4007c44201dce9a6cc1a38407005c26c86",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2016-07-25T15:51:55+00:00"
+        },
+        {
             "name": "twig/twig",
             "version": "v1.34.4",
             "source": {
@@ -7196,12 +7255,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/BR0kEN-/TqExtension.git",
-                "reference": "129c23b041fa3aa08a122572ddd97bdb27e689c4"
+                "reference": "13973dc7afbdefcd7539a4ce2fe0b61e9f33f2b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BR0kEN-/TqExtension/zipball/129c23b041fa3aa08a122572ddd97bdb27e689c4",
-                "reference": "129c23b041fa3aa08a122572ddd97bdb27e689c4",
+                "url": "https://api.github.com/repos/BR0kEN-/TqExtension/zipball/13973dc7afbdefcd7539a4ce2fe0b61e9f33f2b2",
+                "reference": "13973dc7afbdefcd7539a4ce2fe0b61e9f33f2b2",
                 "shasum": ""
             },
             "require": {
@@ -7239,7 +7298,7 @@
                 "testing",
                 "web"
             ],
-            "time": "2017-03-17T23:00:29+00:00"
+            "time": "2017-09-27T15:44:21+00:00"
         },
         {
             "name": "emuse/behat-html-formatter",

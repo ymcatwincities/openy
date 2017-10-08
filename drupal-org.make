@@ -98,3 +98,7 @@ libraries[colorbutton][type] = library
 libraries[colorbutton][download][type] = get
 libraries[colorbutton][download][url] = http://download.ckeditor.com/colorbutton/releases/colorbutton_4.7.0.zip
 libraries[colorbutton][destination] = libraries
+libraries[bootstrap][type] = library
+libraries[bootstrap][download][type] = get
+libraries[bootstrap][download][url] = https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+libraries[bootstrap][destination] = libraries
