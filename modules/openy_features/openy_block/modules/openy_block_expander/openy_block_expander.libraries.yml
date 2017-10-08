@@ -8,3 +8,5 @@ expander-block:
   dependencies:
     - core/drupal
     - core/jquery
+    - bootstrap_library/bootstrap
+

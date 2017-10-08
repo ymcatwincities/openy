@@ -17,8 +17,8 @@
    */
   Drupal.behaviors.expanderBlock = {
     attach: function(context, settings) {
-      $('.expander-block h4', context).on('click', function() {
-        $(this).parent().toggleClass('collapsed expanded');
+      $('.expander-block h4 a', context).on('click', function() {
+        $(this).toggleClass('collapsed expanded');
       });
     }
   };

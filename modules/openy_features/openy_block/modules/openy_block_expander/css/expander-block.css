@@ -1,16 +1,8 @@
-.expander-block h4 {
-  cursor: pointer;
-  color: green;
+// Put here needed CSS for the component.
+.expander-block a.collapsed .fa-minus-circle {
+display:none;
 }
 
-.fa-plus-circle {
-  display: none;
-}
-
-.expander-block.collapsed .content .fa-minus-circle {
-  display:none;
-}
-
-.expander-block.collapsed .content .fa-plus-circle {
-  display: inline-block;
+.expander-block a.expanded .fa-plus-circle {
+display:none;
 }

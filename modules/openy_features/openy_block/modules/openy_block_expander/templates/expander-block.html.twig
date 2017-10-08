@@ -11,11 +11,12 @@
  */
 #}
 {{ attach_library('openy_block_expander/expander-block') }}
-<div class="expander-block collapsed">
+<div class="expander-block">
   <h4>
+    <a data-toggle="collapse" class="collapsed" href=".expander-content">
     <i class="fa fa-plus-circle" aria-hidden="true"></i>
     <i class="fa fa-minus-circle" aria-hidden="true"></i>
-    {{ header }}
+    {{ header }}</a>
   </h4>
-  <div class="content">{{ content }}</div>
+  <div class="expander-content collapse">{{ content }}</div>
 </div>

@@ -21,7 +21,7 @@ class DemoController extends ControllerBase implements ThemeNegotiatorInterface 
 
     // -> here
     // @todo use form_builder service to render the form here.
-    $block = \Drupal\block_content\Entity\BlockContent::load(3);
+    $block = \Drupal\block_content\Entity\BlockContent::load(61);
     $render = \Drupal::entityTypeManager()->getViewBuilder('block_content')->view($block);
 
     return $render;
@@ -34,7 +34,7 @@ class DemoController extends ControllerBase implements ThemeNegotiatorInterface 
 
   public function determineActiveTheme(RouteMatchInterface $route_match) {
     // select from config
-    return 'stark';
+    return 'openy_rose';
   }
 
 }
