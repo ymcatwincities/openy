@@ -116,19 +116,20 @@ class CdnContactForm extends FormBase {
 
     $form['additional'] = [
       '#type' => 'container',
-      '#prefix' => '<div class="container"><h2>' . $this->t('Additional information') . '</h2>',
+      '#prefix' => '<div class="container">',
     ];
 
     $form['additional']['first_time'] = [
       '#type' => 'radios',
       '#required' => TRUE,
+      '#prefix' => '<h2>' . $this->t('Additional information') . '</h2>',
       '#title' => $this->t('Is it your first time at a camp?'),
       '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
       '#default_value' => $state['first_time'],
     ];
 
     $form['additional']['title'] = [
-      '#markup' => $this->t('Do you need any of the following in your cabin?'),
+      '#markup' => '<h3>' . $this->t('Do you need any of the following in your cabin?') . '</h3>',
     ];
 
     $form['additional']['extra_mattress'] = [
@@ -165,7 +166,10 @@ class CdnContactForm extends FormBase {
 
     $form['emergency_contact'] = [
       '#type' => 'container',
-      '#prefix' => '<div class="container"><h2>' . $this->t('Emergency contact') . '</h2>',
+    ];
+
+    $form['emergency_contact']['help'] = [
+      '#markup' => '<h2>' . $this->t('Emergency contact') . '</h2><h4>' . $this->t('Enter at least one emergency contact who will not be attending camp during this time') . '</h4>',
     ];
 
     $form['emergency_contact']['name'] = [
@@ -196,6 +200,8 @@ class CdnContactForm extends FormBase {
       '#default_value' => $state['phone_number'],
     ];
 
+    $form['actions']['#prefix'] = '</div><div class="actions"><div class="container">';
+    $form['actions']['#suffix'] = '</div></div>';
     $form['actions']['submit'] = array(
       '#type' => 'submit',
       '#value' => $this->t('Confirm reservation ->'),
