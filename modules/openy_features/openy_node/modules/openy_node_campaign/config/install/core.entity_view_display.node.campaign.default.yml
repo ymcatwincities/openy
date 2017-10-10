@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
     - field.field.node.campaign.field_error_target_audience
+    - field.field.node.campaign.field_flip_cards_cover_image
     - field.field.node.campaign.field_goal_check_ins_end_date
     - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_limit_visits_goal
@@ -232,6 +233,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
+    region: content
+  field_flip_cards_cover_image:
+    weight: 136
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
     region: content
   field_goal_check_ins_end_date:
     weight: 111

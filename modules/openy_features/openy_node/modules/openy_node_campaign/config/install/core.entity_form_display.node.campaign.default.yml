@@ -23,6 +23,7 @@ dependencies:
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
     - field.field.node.campaign.field_error_target_audience
+    - field.field.node.campaign.field_flip_cards_cover_image
     - field.field.node.campaign.field_goal_check_ins_end_date
     - field.field.node.campaign.field_goal_check_ins_start_date
     - field.field.node.campaign.field_limit_visits_goal
@@ -193,6 +194,7 @@ third_party_settings:
         - field_campaign_expected_visits
         - field_campaign_prize_coefficient
         - field_ways_to_earn_entries
+        - field_flip_cards_cover_image
       parent_name: ''
       weight: 17
       format_type: details
@@ -392,6 +394,14 @@ content:
     third_party_settings: {  }
     type: text_textarea
     region: content
+  field_flip_cards_cover_image:
+    weight: 25
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
   field_goal_check_ins_end_date:
     weight: 46
     settings: {  }
@@ -540,7 +550,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_ways_to_earn_entries:
-    weight: 46
+    weight: 24
     settings: {  }
     third_party_settings: {  }
     type: options_buttons

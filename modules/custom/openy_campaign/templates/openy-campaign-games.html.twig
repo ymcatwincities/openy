@@ -1,8 +1,17 @@
 <div class="campaign-game">
 
-    {#<p>{{ form.label }}</p>
-    <div class="">{{ form.submit }}</div>#}
-        {{ form }}
+    <form{{ form.attributes }}>
+        {{ form.form_build_id }}
+        {{ form.form_token }}
+        {{ form.form_id }}
+
+    <p>{{ form.label }}</p>
+    <div class="">  {{ form.submit }}</div>
+    {{ campaign.title.value }}
+{{ campaign.field_flip_cards_cover_image.value }}
+        {{ form | without('label', 'submit' ) }}
+    </form>
+{{ form }}
 
 
 </div>

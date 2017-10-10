@@ -3,6 +3,4 @@ status: true
 dependencies: {  }
 id: campaign_winners_prizes
 label: 'Campaign Winners Prizes'
-icon_uuid: null
-description: null
 behavior_plugins: {  }
