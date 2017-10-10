@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.campaign_page.field_bottom_content
+    - field.field.node.campaign_page.field_campaign_page_hide_title
     - field.field.node.campaign_page.field_campaign_parent
     - field.field.node.campaign_page.field_content
     - field.field.node.campaign_page.field_header_content
@@ -36,6 +37,16 @@ content:
       link: ''
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
+    region: content
+  field_campaign_page_hide_title:
+    weight: 107
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_campaign_parent:
     weight: 106

@@ -98,6 +98,8 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
       return $block;
     }
 
+    $block['#campaign'] = $campaign;
+
     $userData = MemberCampaign::getMemberCampaignData($campaign->id());
     $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
 

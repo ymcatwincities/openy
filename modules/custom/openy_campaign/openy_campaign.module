@@ -77,8 +77,10 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
     'openy_campaign_games' => [
       'variables' => [
         'form' => NULL,
+        'campaign' => NULL
       ],
       'template' => 'openy-campaign-games',
+      'render element' => 'form',
     ],
 
     // Instant Game: Magic Ball
