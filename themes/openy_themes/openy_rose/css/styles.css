@@ -5232,6 +5232,7 @@ html.js .branch__updates_queue__button {
 }
 .groupex-form-full .top-form-wrapper {
   background-color: #ebebeb;
+  margin-top: 20px;
   overflow: hidden;
   padding: 0 20px 20px 20px;
 }
