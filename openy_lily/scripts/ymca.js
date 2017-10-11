@@ -62,6 +62,11 @@
           $('.blog-heading').matchHeight();
           $('.inner-wrapper').matchHeight();
         });
+        $(".featured-highlights", context).each(function () {
+          $('.blog-up').matchHeight();
+          $('.blog-heading').matchHeight();
+        });
+
       });
     }
   };
@@ -202,6 +207,11 @@
     attach: function (context, settings) {
       $(".paragraph--type--classes-listing", context).each(function () {
         $('.activity-item').matchHeight();
+      });
+      $(document).ajaxComplete(function(event, xhr, settings) {
+        $(".paragraph--type--classes-listing", context).each(function () {
+          $('.activity-item').matchHeight();
+        });
       });
     }
   };
