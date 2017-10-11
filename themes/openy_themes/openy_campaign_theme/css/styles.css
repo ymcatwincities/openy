@@ -1,3 +1,4 @@
+/*@import 'vendor/bootstrap/bootstrap/variables';*/
 @font-face {
   font-family: "Cachet W01 Book";
   src: url("/profiles/contrib/openy/themes/openy_themes/openy_campaign_theme/fonts/CachetBook.ttf");
@@ -399,6 +400,14 @@ body {
   margin-top: 50px;
 }
 
+.campaign-game .cover-images span {
+  margin-right: 10px;
+  width: 30%;
+  display: inline-block;
+}
+.campaign-game .cover-images span img {
+  width: 100%;
+}
 .campaign-game .btn, .campaign-game .button {
   width: 100%;
 }

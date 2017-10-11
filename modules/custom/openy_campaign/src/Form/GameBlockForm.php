@@ -35,14 +35,29 @@ class GameBlockForm extends FormBase {
       '#value' => $unplayedGames,
     ];
 
+    /** @var \Drupal\Node\Entity\Node $campaign */
+    $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
+    $coverImagePath = NULL;
+    if (!empty($campaign->field_flip_cards_cover_image->entity)) {
+      /** @var \Drupal\file\Entity\File $coverImage */
+      $coverImage = $campaign->field_flip_cards_cover_image->entity;
+      $coverImagePath = \Drupal::service('stream_wrapper_manager')->getViaUri($coverImage->getFileUri())->getExternalUrl();
+    }
+    else {
+      $coverImagePath = base_path() . \Drupal::theme()->getActiveTheme()->getPath() . '/img/instant_game_cover_1.png';
+    }
 
     $form['label'] = [
-      '#markup' => $this->formatPlural(count($unplayedGames), 'You have one game remaining', 'You have @count games available'),
+      '#markup' => $this->formatPlural(count($unplayedGames), 'You have one game remaining.', 'You have @count games available.'),
+    ];
+
+    $form['cover_image'] = [
+      '#markup' => $coverImagePath,
     ];
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Play now!'),
+      '#value' => $this->t('Play instant-win game now!'),
     ];
 
 
@@ -63,8 +78,11 @@ class GameBlockForm extends FormBase {
     $games = $form_state->getValue('games');
     $game = array_shift($games);
 
+    /** @var \Drupal\Node\Entity\Node $campaign */
+    $campaign = $game->member->entity->campaign->entity;
+
     $form_state->setRedirect('openy_campaign.campaign_game', [ 'uuid' => $game->uuid()], [
-      'query'=> ['campaign_id' => 71]
+      'query'=> ['campaign_id' => $campaign->id()]
     ]);
   }
 

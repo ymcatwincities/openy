@@ -67,6 +67,19 @@ class GameController extends ControllerBase {
       ];
     }
 
+    $coverImagePath = NULL;
+    if (!empty($campaign->field_flip_cards_cover_image->entity)) {
+      /** @var \Drupal\file\Entity\File $coverImage */
+      $coverImage = $campaign->field_flip_cards_cover_image->entity;
+      $coverImagePath = \Drupal::service('stream_wrapper_manager')->getViaUri($coverImage->getFileUri())->getExternalUrl();
+    }
+    else {
+      $coverImagePath = base_path() . \Drupal::theme()->getActiveTheme()->getPath() . '/img/instant_game_cover_1.png';
+    }
+
+    $title = $campaign->field_campaign_game_title->value;
+    $description = $campaign->field_campaign_game_description->value;
+
     $expected = $campaign->field_campaign_expected_visits->value;
     $coefficient = $campaign->field_campaign_prize_coefficient->value;
     $ranges = [];
@@ -85,12 +98,13 @@ class GameController extends ControllerBase {
       $previousRange = $nextRange;
     }
 
+    $isWinner = FALSE;
     $randomNumber = mt_rand(0, $expected);
-
     $result = $campaign->field_campaign_prize_nowin->value;
     foreach ($ranges as $range) {
       if ($randomNumber >= $range['min'] && $randomNumber < $range['max']) {
         $result = $range['description'];
+        $isWinner = TRUE;
         break;
       }
     }
@@ -114,6 +128,10 @@ class GameController extends ControllerBase {
       '#theme' => 'openy_campaign_game_' . $gameType,
       '#result' => $result,
       '#link' => $link,
+      '#title' => $title,
+      '#description' => $description,
+      '#coverImagePath' => $coverImagePath,
+      '#isWinner' => $isWinner,
       '#attached' => [
         'library' => [
           'openy_campaign/game_' . $gameType,
