@@ -602,5 +602,15 @@ legend {
 
 #openy-ccc-add-program-to-cart-continue-form {
   padding-top: 10px;
-  
+}
+
+#ajax-ccc-account-cart-checkout-form {
+  [data-drupal-selector="edit-submit"] {
+    &.form-disabled {
+      background-color: #9c1f7b;
+      &:hover {
+        background-color: #9c1f7b;
+      }
+    }
+  }
 }

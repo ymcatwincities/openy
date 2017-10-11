@@ -1306,6 +1306,13 @@ legend {
   padding-top: 10px;
 }
 
+#ajax-ccc-account-cart-checkout-form [data-drupal-selector="edit-submit"].form-disabled {
+  background-color: #9c1f7b;
+}
+#ajax-ccc-account-cart-checkout-form [data-drupal-selector="edit-submit"].form-disabled:hover {
+  background-color: #9c1f7b;
+}
+
 .social-disclaimer .contextual-region .contextual .contextual-links li {
   width: auto;
 }
