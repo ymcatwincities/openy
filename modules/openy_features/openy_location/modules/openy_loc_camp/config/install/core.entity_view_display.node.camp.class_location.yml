@@ -61,4 +61,5 @@ hidden:
   field_location_email: true
   field_location_fax: true
   field_meta_tags: true
+  langcode: true
   links: true

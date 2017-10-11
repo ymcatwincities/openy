@@ -104,6 +104,7 @@ class SchedulesSearchForm extends FormBase {
       'class' => isset($parameters['class']) ? $parameters['class'] : 'all',
       'date' => isset($parameters['date']) ? $parameters['date'] : $today,
       'time' => isset($parameters['time']) ? $parameters['time'] : 'all',
+      'display' => isset($parameters['display']) ? $parameters['display'] : 0,
     ];
     $this->logger = $logger_factory->get('openy_schedules');
     $this->setRequestStack($request_stack);
@@ -122,6 +123,26 @@ class SchedulesSearchForm extends FormBase {
       $container->get('entity_type.manager'),
       $container->get('session_instance.manager')
     );
+  }
+
+  /**
+   * Helper method retrieving the display theme.
+   *
+   * @return string
+   *   The theme name to use.
+   */
+  public function getDisplay() {
+    $display = $this->state['display'];
+    switch ($display) {
+      case 1:
+        $theme = 'openy_schedules_main_class';
+        break;
+
+      default:
+        $theme = 'openy_schedules_main';
+        break;
+    }
+    return $theme;
   }
 
   /**
@@ -305,6 +326,7 @@ class SchedulesSearchForm extends FormBase {
         'url.query_args:category',
         'url.query_args:date',
         'url.query_args:time',
+        'url.query_args:display',
       ],
     ];
   }
@@ -451,8 +473,26 @@ class SchedulesSearchForm extends FormBase {
       ],
     ];
 
-    if ($values['class'] !== 'all') {
-      $form['selects']['time']['#attributes']['readonly'] = TRUE;
+    $form['selects']['display'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Weekly View'),
+      '#default_value' => isset($values['display']) ? $values['display'] : 0,
+      '#ajax' => [
+        'callback' => [$this, 'rebuildAjaxCallback'],
+        'wrapper' => 'schedules-search-form-wrapper',
+        'event' => 'change',
+        'method' => 'replace',
+        'effect' => 'fade',
+        'progress' => [
+          'type' => 'throbber',
+        ],
+      ],
+    ];
+
+    // If on Weekly View, default and disable time field.
+    if (isset($values['display']) && $values['display']) {
+      $form['selects']['time']['#disabled'] = TRUE;
+      $form['selects']['time']['#default_value'] = 'all';
     }
 
     $form['selects']['button'] = [
@@ -519,6 +559,9 @@ class SchedulesSearchForm extends FormBase {
     }
     if (!empty($user_input['time'])) {
       $user_input['time'] = isset($this->getTimeOptions()[$values['time']]) ? $values['time'] : 'all';
+    }
+    if (!empty($user_input['display'])) {
+      $user_input['display'] = !empty($values['display']) ? $values['display'] : 0;
     }
 
     $form_state->setUserInput($user_input);
@@ -740,7 +783,8 @@ class SchedulesSearchForm extends FormBase {
       $conditions['field_si_program_subcategory'] = $parameters['category'];
     }
 
-    if (!empty($conditions['class'])) {
+    // Format for weekly view.
+    if (!empty($parameters['display'])) {
       $conditions['from'] = strtotime($parameters['date'] . 'T00:00:00');
       $conditions['to'] = strtotime($parameters['date'] . 'T00:00:00 + 6 days');
     }
@@ -764,41 +808,64 @@ class SchedulesSearchForm extends FormBase {
    */
   public function buildResults(&$form, $parameters) {
     $session_instances = $this->getSessions($parameters);
-
     $content = [];
+    $title_date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date']);
+    $title_date_week_to = DrupalDateTime::createFromTimestamp(strtotime($parameters['date'] . 'T00:00:00 + 6 days'));
+    $title_date_week_from = $title_date->format('n/j/Y');
+    $title_date_week_to = $title_date_week_to->format('n/j/Y');
+    $title_date = $title_date->format('F j, Y');
+    // Default results title.
+    $title_results = $this->t('Classes for %date', ['%date' => $title_date]);
+    $title_results_week = $this->t('Classes from %from to %to', [
+      '%from' => $title_date_week_from,
+      '%to' => $title_date_week_to,
+    ]);
 
-    // Build results as Class dependent.
-    $classOptions = $this->getClassOptions();
-    if ($parameters['class'] !== 'all' && !empty($classOptions[$parameters['class']])) {
-      $class = $this->entityTypeManager->getStorage('node')->load($parameters['class']);
-      /* @var $session_instance \Drupal\openy_session_instance\Entity\SessionInstanceInterface*/
-      foreach ($session_instances as $session_instance) {
+    foreach ($session_instances as $session_instance) {
+      /* @var $session_instance \Drupal\openy_session_instance\Entity\SessionInstanceInterface */
+      $session = $session_instance->session->referencedEntities();
+      $session = reset($session);
+      // Check for class arg.
+      $classOptions = $this->getClassOptions();
+      if ($parameters['class'] !== 'all' && !empty($classOptions[$parameters['class']])) {
+        $class = $this->entityTypeManager->getStorage('node')
+          ->load($parameters['class']);
+      }
+      else {
+        $class = $session_instance->class->referencedEntities();
+        $class = reset($class);
+      }
+      // Included in membership logic.
+      $included_in_membership = TRUE;
+      if ($member_price_items = $session->field_session_mbr_price->getValue()) {
+        $member_price = (float) reset($member_price_items)['value'];
+        if ($member_price) {
+          $included_in_membership = FALSE;
+        }
+      }
+      // Ticket required logic.
+      $ticket_required = FALSE;
+      if ($ticket_required_items = $session->field_session_ticket->getValue()) {
+        $ticket_required = (int) reset($ticket_required_items)['value'];
+      }
+      if ($parameters['display'] && !is_null($parameters['display'])) {
         $timestamp = DrupalDateTime::createFromTimestamp($session_instance->getTimestamp());
-        $day = $timestamp->format('m/d/Y');
+        $day = $timestamp->format('D n/j/Y');
         $time_from = $timestamp->format('g:i a');
-
         $timestamp_to = DrupalDateTime::createFromTimestamp($session_instance->getTimestampTo());
+        $day_to = $timestamp_to->format('n/j/Y');
         $time_to = $timestamp_to->format('g:i a');
-
         $time = $time_from;
         if ($time_from !== $time_to) {
           $time .= ' - ' . $time_to;
         }
-        $session = $session_instance->session->referencedEntities();
-        $session = reset($session);
-        $included_in_membership = TRUE;
-        if ($member_price_items = $session->field_session_mbr_price->getValue()) {
-          $member_price = (float) reset($member_price_items)['value'];
-          if ($member_price) {
-            $included_in_membership = FALSE;
-          }
+        // Set day from on first session.
+        if (!isset($day_from)) {
+          $day_from = $timestamp->format('n/j/Y');
         }
-        // Ticket required.
-        $ticket_required = FALSE;
-        if ($ticket_required_items = $session->field_session_ticket->getValue()) {
-          $ticket_required = (int) reset($ticket_required_items)['value'];
-        }
-        $content[$day][$time] = [
+        $title_results = $title_results_week;
+
+        $content[$day][$class->id() . '--' . $time] = [
           'label' => $class->getTitle(),
           'time' => $time,
           'time_from' => $session_instance->getTimestamp(),
@@ -809,27 +876,15 @@ class SchedulesSearchForm extends FormBase {
             'query' => [
               'location' => $session_instance->location->target_id,
               'session' => $session_instance->session->target_id,
+              'instance' => $session_instance->id(),
             ],
           ]),
         ];
-        $form['#cache']['tags'] = !empty($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
-        $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
       }
-
-      $formatted_results = [
-        '#theme' => 'openy_schedules_main_class',
-        '#title' => $this->t($classOptions[$parameters['class']]),
-        '#content' => $content,
-      ];
-    }
-    else {
-      // Build results as default.
-      foreach ($session_instances as $session_instance) {
-        $class = $session_instance->class->referencedEntities();
-        $class = reset($class);
-        $date = DrupalDateTime::createFromTimestamp($session_instance->getTimestamp());
-        $hour = $date->format('g');
-        $minutes = $date->format('i');
+      else {
+        $timestamp = DrupalDateTime::createFromTimestamp($session_instance->getTimestamp());
+        $hour = $timestamp->format('g');
+        $minutes = $timestamp->format('i');
         $minute = '00';
         if ($minutes >= 15) {
           $minute = '15';
@@ -840,21 +895,7 @@ class SchedulesSearchForm extends FormBase {
         if ($minutes >= 45 && $minutes <= 59) {
           $minute = '45';
         }
-        $rounded_time = $hour . ':' . $minute . ' ' . $date->format('a');
-        $session = $session_instance->session->referencedEntities();
-        $session = reset($session);
-        $included_in_membership = TRUE;
-        if ($member_price_items = $session->field_session_mbr_price->getValue()) {
-          $member_price = (float) reset($member_price_items)['value'];
-          if ($member_price) {
-            $included_in_membership = FALSE;
-          }
-        }
-        // Ticket required.
-        $ticket_required = FALSE;
-        if ($ticket_required_items = $session->field_session_ticket->getValue()) {
-          $ticket_required = (int) reset($ticket_required_items)['value'];
-        }
+        $rounded_time = $hour . ':' . $minute . ' ' . $timestamp->format('a');
         $content[$rounded_time][$session_instance->session->target_id] = [
           'teaser' => node_view($class, 'teaser'),
           'included_in_membership' => $included_in_membership,
@@ -863,21 +904,21 @@ class SchedulesSearchForm extends FormBase {
             'query' => [
               'location' => $session_instance->location->target_id,
               'session' => $session_instance->session->target_id,
+              'instance' => $session_instance->id(),
             ],
           ]),
         ];
-        $form['#cache']['tags'] = is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
-        $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
       }
-      $title_date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date']);
-      $title_date = $title_date->format('F j, Y');
 
-      $formatted_results = [
-        '#theme' => 'openy_schedules_main',
-        '#title' => $this->t('Classes and Activities for %date', ['%date' => $title_date]),
-        '#content' => $content,
-      ];
+      $form['#cache']['tags'] = is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+      $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
     }
+
+    $formatted_results = [
+      '#theme' => $this->getDisplay(),
+      '#title' => $title_results,
+      '#content' => $content,
+    ];
 
     return $formatted_results;
   }
@@ -887,6 +928,13 @@ class SchedulesSearchForm extends FormBase {
    */
   public function rebuildAjaxCallback(array &$form, FormStateInterface $form_state) {
     $parameters = $form_state->getUserInput();
+    // Remove empty/NULL display.
+    if (empty($parameters['display'])) {
+      unset($parameters['display']);
+    }
+    else {
+      unset($parameters['time']);
+    }
     $formatted_results = $this->buildResults($form, $parameters);
     $filters = self::buildFilters($parameters);
     $alerts = self::buildAlerts($parameters);

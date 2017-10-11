@@ -337,6 +337,8 @@ class GroupexFormFull extends GroupexFormBase {
     $this->instructorOptions = ['any' => (string) $this->t('-All-')];
     $raw_schedule_data = $this->request(['query' => $instructors_query]);
     $instructors = $this->getOptions($raw_schedule_data, 'instructor', 'instructor');
+    // Sorting array with instructors by name.
+    ksort($instructors);
     // Cleanup markup being sent back.
     foreach($instructors as $key => $value) {
       // Here we need to remove redundant HTML if exists.
@@ -376,7 +378,10 @@ class GroupexFormFull extends GroupexFormBase {
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
-      ]
+      ],
+      '#attributes' => [
+        'class' => ['btn'],
+      ],
     ];
 
     $form['groupex_pdf_link'] = [
@@ -405,7 +410,6 @@ class GroupexFormFull extends GroupexFormBase {
           'class' => [
             'btn',
             'btn-default',
-            'btn-xs',
             'pdf-link',
           ],
         ],
@@ -500,7 +504,6 @@ class GroupexFormFull extends GroupexFormBase {
         'class' => [
           'btn',
           'btn-default',
-          'btn-xs',
           'pdf-link',
         ],
       ],
@@ -585,7 +588,7 @@ class GroupexFormFull extends GroupexFormBase {
     }
 
     // Remove instructor parameter in case of no instructor selected.
-    if ($parameters['instructor'] == 'any') {
+    if (isset($parameters['instructor']) && $parameters['instructor'] == 'any') {
       unset($parameters['instructor']);
     }
 
