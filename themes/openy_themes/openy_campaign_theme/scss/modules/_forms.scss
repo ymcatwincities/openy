@@ -1,0 +1,12 @@
+.calendar .month {
+  overflow: hidden;
+  white-space: nowrap;
+
+  .date-data {
+    display: inline-block;
+    width: 20%;
+    .data {
+      display: none;
+    }
+  }
+}

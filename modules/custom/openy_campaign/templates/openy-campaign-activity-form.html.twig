@@ -1,44 +1,50 @@
 {# copy form so we can remove rendered elements from it #}
 {% set formCopy = form %}
-
-{% for key in form|keys %}
-    {# key should match 2017-08-12 pattern #}
-    {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
-        {% set row = attribute(form, key) %}
-
-        {# calculate how many grid-columns each column will take #}
-        {% if columns is empty %}
-            {% set columns = 0 %}
-            {% for formKey in row|keys %}
-                {%  if formKey matches '/^[\\d]+$/' %}
-                    {% set columns = columns + 1 %}
+<div class="activity">
+<div class="row calendar">
+    <div class="prev"><<<<</div>
+    <ul class="month">
+        {% for key in form|keys %}
+            {# key should match 2017-08-12 pattern #}
+            {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
+                {# if another month started close the list and open a new one. #}
+                {% set additionClass = '' %}
+                {% if  key|date('d/m') ==  "now"|date("d/m")  %}
+                    {% set additionClass = 'active' %}
                 {% endif %}
-            {% endfor %}
+                <li class="date-data {{ additionClass }}" style="display: none;">
+                    <span class="day">{{ key|date('d') }}</span>
+                    <span class="weekday">{{ key|date('l') }}</span>
+                    <span class="month">{{ key|date('M') }}</span>
+                    <div class="data">
+                        {% set row = attribute(form, key) %}
+                        <span class="visits">
+                              {%  if row.checkin is defined %}
+                                  checked-in
+                              {% else %}
+                                  not checked-in
+                              {%  endif %}
+                        </span>
+                        <span class="categories">
+                            {% for formKey in row|keys %}
+                                {%  if formKey matches '/^[\\d]+$/' %}
+                                    <div class="row">{{ attribute(row, formKey) }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </span>
+                    </div>
+                </li>
+            {%  endif %}
+        {% endfor %}
+    </ul>
+    <div class="next">>>>></div>
+  </div>
+  <div class="activity-data">
+    <div class="categories">
 
-            {% set column = (12 / (columns + 2)) | round(0, 'floor') %}
-            {% set firstColumn = 12 - (columns + 1) * column %}
-        {% endif %}
+    </div>
+      <div class="category-data">
 
-        <div class="row">
-            <div class="col-md-{{ firstColumn }}">{{ key|date('d M') }} <small>{{ key|date('l') }}</small></div>
-            <div class="col-md-{{ column }}">
-                {%  if row.checkin is defined %}
-                    checked-in
-                {% else %}
-                    not checked-in
-                {%  endif %}
-
-            </div>
-            {% for formKey in row|keys %}
-                {%  if formKey matches '/^[\\d]+$/' %}
-                    <div class="col-md-{{ column }}">{{ attribute(row, formKey) }}</div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-        {% set formCopy = formCopy|without(key) %}
-
-    {%  endif %}
-{% endfor %}
-
-{{ formCopy }}
+      </div>
+  </div>
+</div>
