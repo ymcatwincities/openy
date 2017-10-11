@@ -1,0 +1,6 @@
+services:
+ theme.negotiator.oy_expander_demo:
+    class: Drupal\openy_block_expander\Controller\DemoController
+    arguments: []
+    tags:
+      - { name: theme_negotiator, priority: -40 }

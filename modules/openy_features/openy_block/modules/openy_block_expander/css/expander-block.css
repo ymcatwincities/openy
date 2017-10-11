@@ -1,0 +1,7 @@
+.expander-block a.collapsed .fa-minus-circle {
+  display: none;
+}
+
+.expander-block a.expanded .fa-plus-circle {
+  display: none;
+}

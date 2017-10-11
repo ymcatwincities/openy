@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains yd_blocks.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function openy_blocks_block_content_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  /** @var \Drupal\block_content\Entity\BlockContent $entity */
+
+  switch ($entity->bundle()) {
+    case 'date_block':
+      \Drupal::service('openy.date_block')->viewAlter($build, $entity);
+      break;
+  }
+}

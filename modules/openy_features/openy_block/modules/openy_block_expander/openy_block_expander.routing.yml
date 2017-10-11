@@ -1,0 +1,7 @@
+openy_block_expander.demo:
+  path: '/openy-block-expander-demo'
+  defaults:
+    _controller: '\Drupal\openy_block_expander\Controller\DemoController::content'
+    _title: 'Hello Expander World'
+  requirements:
+    _permission: 'access content'
