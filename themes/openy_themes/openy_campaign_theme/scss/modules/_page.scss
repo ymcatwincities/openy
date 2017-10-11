@@ -360,3 +360,63 @@ body {
     width: 100%;
   }
 }
+
+.paragraph--type--campaign-winners {
+
+  .winners-branches-select {
+    @extend .paragraph-background-container;
+
+    .form-item-branch {
+      text-align: center;
+      width: 300px;
+      margin: 0 auto;
+      padding: 30px 0 40px 0;
+      label {
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 18px;
+      }
+    }
+  }
+
+  #winners-block-wrapper {
+    margin: 20px auto 0 auto;
+    width: 90%;
+
+    .winners-wrapper {
+      margin-top: 20px;
+
+      .winners-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .winners-prize {
+        text-align: center;
+        font-size: 18px;
+        color: $pink;
+        margin-bottom: 20px;
+      }
+
+      .winners-members {
+        text-transform: uppercase;
+        width: 60%;
+        margin: 0 auto;
+
+        thead {
+          font-size: 14px;
+        }
+        tbody {
+          font-size: 18px;
+
+          td:first-child {
+            color: $pink;
+            width: 70%;
+          }
+        }
+      }
+    }
+
+  }
+}
