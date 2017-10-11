@@ -71,7 +71,7 @@ class ActivityTrackingModalForm extends FormBase {
     $term = Term::load($topTermId);
     $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
 
-    $form['#prefix'] = '<div id="activity_tracking_modal_form_wrapper">';
+    $form['#prefix'] = '<div class="activity_tracking_form_wrapper">';
     $form['#suffix'] = '</div>';
 
     // The status messages that will contain any form errors.

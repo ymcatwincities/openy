@@ -168,6 +168,7 @@ class ActivityBlockForm extends FormBase {
         $activityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, $childTermIds);
 
         $name = $term->getName();
+        $cleanName = $name;
         if (!empty($activityIds)) {
           $name .= ' x ' . count($activityIds);
         }
@@ -178,22 +179,36 @@ class ActivityBlockForm extends FormBase {
           ];
         }
         else {
-          $form[$key][$tid] = [
-            '#type' => 'link',
+
+          $form_class = 'Drupal\openy_campaign\Form\ActivityTrackingModalForm';
+          $activityTrackingForm = \Drupal::formBuilder()->getForm(
+            $form_class,
+            $key,
+            $memberCampaignId,
+            $tid
+          );
+
+          $form[$key][$tid] = $activityTrackingForm;
+          $form[$key][$tid]['#prefix'] .= '<span class="activity-name '. $cleanName .'">'. $cleanName . '</span>';
+          /*$form[$key][$tid] = [
+            '#type' => 'checkboxes',
             '#title' => $name,
-            '#url' => Url::fromRoute('openy_campaign.track-activity', [
+            '#options' => [
+
+            ],
+            /*'#url' => Url::fromRoute('openy_campaign.track-activity', [
               'visit_date' => $key,
               'member_campaign_id' => $memberCampaignId,
               'top_term_id' => $tid,
-            ]),
-            '#attributes' => [
-              'class' => [
+            ]),*/
+            /*'#attributes' => [
+              /*'class' => [
                 'use-ajax',
                 'btn',
                 'btn-primary',
-              ],
-            ],
-          ];
+              ],*/
+            /*], */
+         // ];
         }
       }
 
@@ -207,6 +222,74 @@ class ActivityBlockForm extends FormBase {
 
     return $form;
   }
+
+
+//
+//  public function buildActivityTrackingForm($date = NULL, $memberCampaignId = NULL, $topTermId = NULL) {
+//    $term = Term::load($topTermId);
+//    $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")
+//      ->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
+//
+//    $form['#prefix'] = '<div id="activity_tracking_form_wrapper">';
+//    $form['#suffix'] = '</div>';
+//
+//    // The status messages that will contain any form errors.
+//    $form['status_messages'] = [
+//      '#type' => 'status_messages',
+//      '#weight' => -10,
+//    ];
+//
+//    $options = [];
+//    /** @var Term $term */
+//    foreach ($childTerms as $term) {
+//      $options[$term->id()] = $term->getName();
+//    }
+//
+//    // Build default values (already marked activities).
+//    $dateObject = new \DateTime($date);
+//    $existingActivitiesIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $dateObject, array_keys($options));
+//
+//    $existingActivitiesEntities = $this->entityTypeManager->getStorage('openy_campaign_memb_camp_actv')->loadMultiple($existingActivitiesIds);
+//    $default_values = [];
+//    /** @var MemberCampaignActivity $activity */
+//    foreach ($existingActivitiesEntities as $activity) {
+//      $default_values[$activity->activity->entity->id()] = $activity->activity->entity->id();
+//    }
+//    $form['activities'] = [
+//      '#title' => $this->t('What activities did you do?'),
+//      '#type' => 'checkboxes',
+//      '#options' => $options,
+//      '#default_value' => $default_values,
+//    ];
+//
+//    $form['member_campaign_id'] = [
+//      '#value' => $memberCampaignId,
+//      '#type' => 'value',
+//    ];
+//
+//    $form['date'] = [
+//      '#value' => $date,
+//      '#type' => 'value',
+//    ];
+//
+//    $form['submit'] = [
+//      '#type' => 'submit',
+//      '#value' => 'check',
+//      '#attributes' => [
+//        'class' => [
+//          'use-ajax',
+//        ],
+//      ],
+//      '#ajax' => [
+//        'callback' => [$this, 'submitModalFormAjax'],
+//        'event' => 'click',
+//      ],
+//    ];
+//
+//    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
+//
+//    return $form;
+//  }
 
   /**
    * {@inheritdoc}

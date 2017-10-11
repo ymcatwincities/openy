@@ -71,8 +71,6 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    * {@inheritdoc}
    */
   public function build() {
-    $block = [];
-    $block['#cache']['max-age'] = 0;
 
     // Get campaign node from current page URL
     /** @var Node $campaign */
@@ -81,12 +79,19 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
 
       // Show Activity form
-      return $this->formBuilder->getForm(
+      $block = $this->formBuilder->getForm(
         'Drupal\openy_campaign\Form\ActivityBlockForm',
          $campaign->id()
       );
     }
 
+    $block['#attached'] = [
+      'library' => [
+        'openy_campaign/activityTracking'
+      ],
+    ];
+
+    $block['#cache']['max-age'] = 0;
     return $block;
   }
 

@@ -22,8 +22,19 @@ body {
 
     .layout-content {
       background-color: inherit;
-      margin-left: 125px;
-      margin-right: 125px;
+
+      @include breakpoint($screen-sm) {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+      @include breakpoint($screen-md) {
+         margin-left: 15px;
+         margin-right: 15px;
+       }
+      @include breakpoint($screen-lg-desktop) {
+        margin-left: 125px;
+        margin-right: 125px;
+      }
       position: relative;
       margin-bottom: 100px;
       margin-top: -400px;
@@ -61,16 +72,26 @@ body {
 
 
 .page-node-type-campaign {
-
   .wrapper-field-content {
     padding-top: 50px;
     background: #fff;
   }
   .paragraph-container {
-    padding-left: 125px;
-    padding-right: 125px;
+    @include breakpoint($screen-sm) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    @include breakpoint($screen-md) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      padding-left: 125px;
+      padding-right: 125px;
+    }
     padding-top: 50px;
   }
+
   main[role="main"] {
     padding-left: 0px;
     padding-right: 0px;
