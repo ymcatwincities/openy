@@ -106,6 +106,10 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'variables' => [
         'link' => NULL,
         'result' => NULL,
+        'title' => NULL,
+        'description' => NULL,
+        'coverImagePath' => NULL,
+        'isWinner' => NULL,
       ],
       'template' => 'games/flip-cards',
     ],

@@ -345,6 +345,17 @@ body {
 }
 
 .campaign-game {
+  .cover-images {
+    span {
+      margin-right: 10px;
+      width: 30%;
+      display: inline-block;
+      img {
+        width: 100%;
+      }
+    }
+  }
+
   .btn {
     width: 100%;
   }
