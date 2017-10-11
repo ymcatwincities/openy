@@ -463,16 +463,118 @@ footer {
   padding-right: 20px;
 }
 
+.calendar h2 {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
 .calendar .month {
   overflow: hidden;
   white-space: nowrap;
+  width: 90%;
+  margin: 0px;
+  padding: 0px;
 }
 .calendar .month .date-data {
-  display: inline-block;
-  width: 20%;
+  width: 14%;
+  text-align: center;
+  margin-bottom: 180px;
+}
+.calendar .month .date-data .month {
+  display: none;
+}
+.calendar .month .date-data .visits {
+  display: none;
+  font-size: 18px;
+}
+.calendar .month .date-data span {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+.calendar .month .date-data .day {
+  display: block;
+  cursor: pointer;
+}
+.calendar .month .date-data .weekday {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: block;
+  cursor: pointer;
 }
 .calendar .month .date-data .data {
   display: none;
+}
+.calendar .month .date-data.active .weekday {
+  border-radius: 58%;
+  border-color: #fff;
+  border: 1px solid;
+  width: 63px;
+  padding-top: 10px;
+  background: #fff;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  color: #c6168d;
+  cursor: pointer;
+}
+.calendar .month .date-data.active .visits {
+  display: block;
+  position: absolute;
+  width: 315px;
+  border-radius: 10px;
+  z-index: 1000;
+  top: 140px;
+  text-transform: uppercase;
+}
+.calendar .month .date-data.active .visits:before {
+  border: 1px solid;
+}
+.calendar .month .date-data.active .visits:after {
+  border: 1px solid;
+}
+.calendar .month .date-data.active .visits .visited {
+  background: #C6168D;
+  color: #fff;
+  padding: 10px;
+  /* border-top: 1px solid; */
+  text-align: center;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.calendar .month .date-data.active .visits .entriesNum {
+  background: #fff;
+  color: #92278F;
+  padding: 10px;
+  /* border-bottom: 1px solid; */
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.calendar-wrapper {
+  position: relative;
+}
+.calendar-wrapper .prev {
+  float: left;
+  height: 100px;
+  background: #C6168D;
+  padding-top: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+.calendar-wrapper ul.month {
+  float: left;
+}
+.calendar-wrapper .next {
+  cursor: pointer;
+  height: 100px;
+  background: #C6168D;
+  float: right;
+  padding-top: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .ui-dialog {
