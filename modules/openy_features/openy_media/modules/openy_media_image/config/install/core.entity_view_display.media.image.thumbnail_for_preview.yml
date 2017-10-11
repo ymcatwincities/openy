@@ -2,25 +2,25 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.media.embedded_full
+    - core.entity_view_mode.media.thumbnail_for_preview
     - field.field.media.image.field_media_caption
     - field.field.media.image.field_media_image
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_tags
-    - image.style.media_full
+    - image.style.thumbnail_for_preview
     - media_entity.bundle.image
   module:
     - image
-id: media.image.embedded_full
+id: media.image.thumbnail_for_preview
 targetEntityType: media
 bundle: image
-mode: embedded_full
+mode: thumbnail_for_preview
 content:
   field_media_image:
     weight: 0
     label: hidden
     settings:
-      image_style: media_full
+      image_style: thumbnail_for_preview
       image_link: ''
     third_party_settings: {  }
     type: image

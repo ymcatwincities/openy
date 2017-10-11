@@ -12,6 +12,7 @@ dependencies:
   - image
   - media_entity
   - openy_media
+  - openy_media_video
   - taxonomy
   - user
   - video_embed_field

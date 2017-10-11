@@ -21,6 +21,7 @@ content:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_media_tags:
     weight: 1
     settings:
@@ -29,9 +30,17 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete_tags
+    region: content
   field_media_video_embed_field:
     type: video_embed_field_textfield
     weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
   name:
@@ -41,6 +50,7 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_media_source: true
