@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.news_posts_listing.field_prgf_block
+    - paragraphs.paragraphs_type.news_posts_listing
+id: paragraph.news_posts_listing.default
+targetEntityType: paragraph
+bundle: news_posts_listing
+mode: default
+content: {  }
+hidden:
+  created: true
+  field_prgf_block: true
+  status: true
+  uid: true

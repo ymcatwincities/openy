@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.news_posts_listing.field_prgf_block
+    - paragraphs.paragraphs_type.news_posts_listing
+  module:
+    - plugin
+id: paragraph.news_posts_listing.default
+targetEntityType: paragraph
+bundle: news_posts_listing
+mode: default
+content:
+  field_prgf_block:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+hidden:
+  created: true
+  uid: true
