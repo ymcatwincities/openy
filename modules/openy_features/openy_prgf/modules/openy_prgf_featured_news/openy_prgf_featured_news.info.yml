@@ -1,0 +1,11 @@
+name: 'OpenY Paragraph Featured News Posts'
+description: 'OpenY Paragraph Featured News Posts'
+package: 'OpenY (Experimental)'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - node
+  - openy_node_news
+  - openy_prgf
+  - paragraphs
