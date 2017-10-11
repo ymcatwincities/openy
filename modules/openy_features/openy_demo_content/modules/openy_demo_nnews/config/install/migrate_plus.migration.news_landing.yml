@@ -1,0 +1,81 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nnews
+id: openy_demo_news_landing
+migration_tags: {  }
+migration_group: openy_demo_nnews
+label: 'Create demo landing news page'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: news
+      title: 'News'
+      alias: '/news'
+      header_content_ids:
+        -
+          header_content_id: news_small_banner
+      content_ids:
+        -
+          content_id: news_posts_listing
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  path/pathauto:
+    plugin: default_value
+    default_value: 0
+  path/alias:
+    plugin: get
+    source: alias
+  field_lp_layout:
+    plugin: default_value
+    default_value: one_column
+  field_header_content:
+    plugin: iterator
+    source: header_content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_news_small_banner
+        source: header_content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_news_small_banner
+        source: header_content_id
+  field_content:
+    plugin: iterator
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_news_posts_listing
+        source: content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_lp_paragraph_news_posts_listing
+        source: content_id
+destination:
+  plugin: 'entity:node'
+  default_bundle: landing_page
+migration_dependencies:
+  required: { }
+  optional: { }
