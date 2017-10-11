@@ -4294,7 +4294,11 @@ a.sports-icon.floor-hockey {
   list-style-type: none;
 }
 .account-page-sidebar ul li {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+}
+.account-page-sidebar ul li i.fa {
+  padding-right: 20px;
+  width: 16px;
 }
 
 .account-page-content {
