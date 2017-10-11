@@ -378,7 +378,10 @@ class GroupexFormFull extends GroupexFormBase {
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
-      ]
+      ],
+      '#attributes' => [
+        'class' => ['btn'],
+      ],
     ];
 
     $form['groupex_pdf_link'] = [
@@ -407,7 +410,6 @@ class GroupexFormFull extends GroupexFormBase {
           'class' => [
             'btn',
             'btn-default',
-            'btn-xs',
             'pdf-link',
           ],
         ],
@@ -502,7 +504,6 @@ class GroupexFormFull extends GroupexFormBase {
         'class' => [
           'btn',
           'btn-default',
-          'btn-xs',
           'pdf-link',
         ],
       ],
@@ -587,7 +588,7 @@ class GroupexFormFull extends GroupexFormBase {
     }
 
     // Remove instructor parameter in case of no instructor selected.
-    if ($parameters['instructor'] == 'any') {
+    if (isset($parameters['instructor']) && $parameters['instructor'] == 'any') {
       unset($parameters['instructor']);
     }
 

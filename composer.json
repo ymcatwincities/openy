@@ -147,10 +147,6 @@
             "drupal/datalayer": {
                 "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
             },
-            "drupal/admin_toolbar": {
-                "2838636 - Issue with z-index of dropdown in horizontal tray": "https://www.drupal.org/files/issues/admin_toolbar-2838636-10.patch",
-                "2838636 - Issue with z-index of dropdown in horizontal tray 2": "https://www.drupal.org/files/issues/admin_toolbar-2838636-14.patch"
-            },
             "drupal/plugin": {
                 "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
             },
@@ -217,7 +213,7 @@
         "drupal/captcha": "^1.0@beta",
         "drupal/recaptcha": "^2.2",
         "drupal/rabbit_hole": "1.0-beta3",
-        "drupal/admin_toolbar": "1.19",
+        "drupal/admin_toolbar": "1.20",
         "drupal/panelbutton": "1.1",
         "drupal/colorbutton": "1.1",
         "drupal/better_exposed_filters": "3.0-alpha2",
