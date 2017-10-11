@@ -46,7 +46,7 @@ Feature: Blog Content type
     Then I switch to an iframe "entity_browser_iframe_images_library"
     And I click "All Images"
     And I wait for AJAX to finish
-    And I click "img.image-style-browser-thumbnail[title='behat_blog_image.jpg']" element
+    And I click "img.lazyloaded[title='behat_blog_image.jpg']" element
     And I press "Select images"
     Then I switch back from an iframe
     And I wait for AJAX to finish
@@ -71,7 +71,7 @@ Feature: Blog Content type
     Then I switch to an iframe "entity_browser_iframe_images_library"
     And I click "All Images"
     And I wait for AJAX to finish
-    And I click "img.image-style-browser-thumbnail[title='behat_blog_image.jpg']" element
+    And I click "img.lazyloaded[title='behat_blog_image.jpg']" element
     And I press "Select images"
     Then I switch back from an iframe
     And I wait for AJAX to finish
