@@ -5125,7 +5125,6 @@ html.js .branch__updates_queue__button {
   #group-ex-results .time,
   .groupex-results .time {
     font-size: 30px;
-    padding-left: 15px;
     margin-bottom: 10px;
   }
 }
@@ -5136,7 +5135,7 @@ html.js .branch__updates_queue__button {
   outline: none;
   text-decoration: none;
   padding: 15px;
-  margin-bottom: -35px;
+  margin-bottom: -10px;
   position: relative;
   width: 100%;
 }
@@ -5170,6 +5169,18 @@ html.js .branch__updates_queue__button {
 #group-ex-results .card .instructor a,
 .groupex-results .card .instructor a {
   color: #5c2e91;
+}
+#group-ex-results .card .instructor .fa-refresh,
+.groupex-results .card .instructor .fa-refresh {
+  font-size: 12px;
+  color: #c6168d;
+  margin-left: 16px;
+  margin-right: 5px;
+}
+#group-ex-results .card .instructor .sub,
+.groupex-results .card .instructor .sub {
+  font-size: 12px;
+  color: #c6168d;
 }
 
 .groupex-form-full .instructor-chosen {
@@ -5225,8 +5236,9 @@ html.js .branch__updates_queue__button {
 }
 .groupex-form-full .top-form-wrapper {
   background-color: #ebebeb;
+  margin-top: 20px;
   overflow: hidden;
-  padding: 20px;
+  padding: 0 20px 20px 20px;
 }
 .groupex-form-full .top-form-wrapper .js-form-type-select,
 .groupex-form-full .top-form-wrapper .js-form-type-date {
@@ -5252,47 +5264,53 @@ html.js .branch__updates_queue__button {
 .groupex-form-full .top-form-wrapper select ::-ms-expand {
   display: none;
 }
-@media (min-width: 48em) {
-  .groupex-form-full #location-select-wrapper {
-    float: left;
-    margin-right: 30px;
-  }
-  .groupex-form-full #class-select-wrapper {
-    float: left;
-    margin-right: 30px;
-  }
-  .groupex-form-full #date-select-wrapper {
-    float: left;
-    margin-right: 30px;
-  }
-  .groupex-form-full #instructor-select-wrapper {
-    float: left;
-    margin-right: 30px;
-  }
-  .groupex-form-full #submit-wrapper {
-    float: left;
-    margin: 2em 30px 0 0;
-  }
-}
-.groupex-form-full .groupex-pdf-link-container {
-  margin-top: 10px;
+.groupex-form-full .top-form-wrapper > div {
+  margin-top: 20px;
 }
 @media (min-width: 48em) {
-  .groupex-form-full .groupex-pdf-link-container {
-    float: right;
-    margin: 5px 0 0 0;
+  .groupex-form-full .top-form-wrapper > div {
+    float: left;
+    margin-right: 30px;
   }
 }
-.groupex-form-full .groupex-pdf-link-container a {
-  background-color: #5c2e91;
-  border-radius: 0;
-  border: none;
+.groupex-form-full .top-form-wrapper #date-select-wrapper {
+  max-width: 220px;
+}
+@media (min-width: 48em) {
+  .groupex-form-full .top-form-wrapper #submit-wrapper {
+    margin: 46px 30px 0 0;
+  }
+}
+@media (min-width: 62em) {
+  .groupex-form-full .top-form-wrapper #submit-wrapper {
+    clear: both;
+    float: left;
+    margin-top: 20px;
+  }
+}
+@media (min-width: 75em) {
+  .groupex-form-full .top-form-wrapper #submit-wrapper {
+    clear: none;
+    margin-top: 46px;
+  }
+}
+@media (min-width: 48em) {
+  .groupex-form-full .top-form-wrapper .groupex-pdf-link-container {
+    margin-top: 46px;
+  }
+}
+@media (min-width: 62em) {
+  .groupex-form-full .top-form-wrapper .groupex-pdf-link-container {
+    margin-top: 20px;
+  }
+}
+@media (min-width: 75em) {
+  .groupex-form-full .top-form-wrapper .groupex-pdf-link-container {
+    margin-top: 46px;
+  }
+}
+.groupex-form-full .top-form-wrapper .groupex-pdf-link-container a {
   color: #fff;
-  font-size: 18px;
-  height: 50px;
-  padding: 0 10px;
-  line-height: 50px;
-  text-transform: uppercase;
 }
 .groupex-form-full .groupex-results {
   clear: both;
@@ -5346,7 +5364,7 @@ iframe#ga_iframe {
 .addtocalendar {
   position: relative;
   right: 15px;
-  top: 10px;
+  top: -15px;
   display: inline-block;
   background: transparent !important;
   float: right;

@@ -92,6 +92,7 @@ dependencies:
   - custom_formatters
   - token_filter
   - views_field_formatter
+  - ctools
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image

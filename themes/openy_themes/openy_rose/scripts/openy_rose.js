@@ -28,7 +28,8 @@
               .next('.viewport')
               .addBack()
               .removeClass('out')
-              .addClass('collapsing-in');
+              .addClass('collapsing-in')
+              .removeAttr('aria-hidden');
 
             current_scroll = $(window).scrollTop();
             $('.nav-global').css({
@@ -43,7 +44,8 @@
               .next('.viewport')
               .addBack()
               .removeClass('collapsing-in')
-              .addClass('in');
+              .addClass('in')
+              .removeAttr('aria-hidden');
 
             var body = $('body');
 
@@ -60,7 +62,9 @@
               .next('.viewport')
               .addBack()
               .removeClass('in')
-              .addClass('collapsing-out');
+              .addClass('collapsing-out')
+              .attr('aria-hidden', 'true');
+
 
             $(window).scrollTop(current_scroll);
 
