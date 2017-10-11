@@ -130,15 +130,19 @@ body {
 .path-campaign-game main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
-.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container,
-.path-campaign-game main[role="main"] .layout-content .paragraph-background-container {
+.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select,
+.path-campaign-game main[role="main"] .layout-content .paragraph-background-container,
+.path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select,
+.paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select {
   margin-right: -70px;
   margin-left: -70px;
   padding-left: 40px;
   padding-right: 40px;
 }
-.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container .paragraph-container,
-.path-campaign-game main[role="main"] .layout-content .paragraph-background-container .paragraph-container {
+.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container .paragraph-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select .paragraph-container, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select .paragraph-container,
+.path-campaign-game main[role="main"] .layout-content .paragraph-background-container .paragraph-container,
+.path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select .paragraph-container,
+.paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select .paragraph-container {
   padding: 0px;
 }
 .page-node-type-campaign-page main[role="main"] .layout-content .paragraph-container,
@@ -180,7 +184,7 @@ body {
   padding: 0px;
 }
 
-.paragraph-background-container {
+.paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
   /* fallback/image non-cover color */
   background-color: #c6168d;
   /* Firefox 3.6+ */
@@ -192,15 +196,15 @@ body {
   /* Opera 11.10+ */
   background-image: -o-linear-gradient(#c6168d, #5c2e91);
 }
-.paragraph-background-container .paragraph-container {
+.paragraph-background-container .paragraph-container, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container {
   background-color: inherit;
   color: #ffffff;
 }
-.paragraph-background-container .paragraph-container h1, .paragraph-background-container .paragraph-container h2, .paragraph-background-container .paragraph-container h4 {
+.paragraph-background-container .paragraph-container h1, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h1, .paragraph-background-container .paragraph-container h2, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h2, .paragraph-background-container .paragraph-container h4, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h4 {
   color: inherit !important;
   text-transform: uppercase;
 }
-.paragraph-background-container .paragraph-container .fa {
+.paragraph-background-container .paragraph-container .fa, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container .fa {
   color: inherit;
   font-size: 64px;
   max-width: 100%;
@@ -410,6 +414,51 @@ body {
 }
 .campaign-game .btn, .campaign-game .button {
   width: 100%;
+}
+
+.paragraph--type--campaign-winners .winners-branches-select .form-item-branch {
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+  padding: 30px 0 40px 0;
+}
+.paragraph--type--campaign-winners .winners-branches-select .form-item-branch label {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper {
+  margin: 20px auto 0 auto;
+  width: 90%;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper {
+  margin-top: 20px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-prize {
+  text-align: center;
+  font-size: 18px;
+  color: #c6168d;
+  margin-bottom: 20px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
+  text-transform: uppercase;
+  width: 60%;
+  margin: 0 auto;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members thead {
+  font-size: 14px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody {
+  font-size: 18px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
+  color: #c6168d;
+  width: 70%;
 }
 
 footer {
