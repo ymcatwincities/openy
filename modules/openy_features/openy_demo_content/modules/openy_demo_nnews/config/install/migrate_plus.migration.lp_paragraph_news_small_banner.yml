@@ -19,7 +19,7 @@ source:
       id: news_small_banner
       parent_id: news
       headline: 'OpenY News'
-      color: 17
+      color: 20
   ids:
     id:
       type: string
