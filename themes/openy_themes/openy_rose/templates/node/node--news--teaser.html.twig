@@ -76,21 +76,25 @@
   node.isPromoted() ? 'node--promoted',
   node.isSticky() ? 'node--sticky',
   not node.isPublished() ? 'node--unpublished',
-  view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  'news-story'
+  view_mode ? 'node--view-mode-' ~ view_mode|clean_class
 ] %}
 {% set category_default = node.bundle|clean_class|capitalize %}
 {% set category = content.field_news_category.0 ? content.field_news_category.0 : category_default|t %}
 
 <article{{ attributes.addClass(classes) }}>
   <div class="inner-wrapper">
+    <div>
+      {{ content.field_news_image }}
+    </div>
     <div class="news-heading">
-      <h4>{{ category }}</h4>
-      <h2>
-        <a href="{{ url }}" rel="bookmark">
-          {{ label }}
-        </a>
-      </h2>
+      <div class="clearfix">
+        <h3>
+          <a href="{{ url }}" rel="bookmark">
+            {{ label }}
+          </a>
+        </h3>
+        <div class="news-category">{{ category }}</div>
+      </div>
     </div>
   </div>
 </article>
