@@ -463,6 +463,182 @@ footer {
   padding-right: 20px;
 }
 
+.form-item input.form-checkbox {
+  visibility: hidden;
+}
+
+.form-item input:checked + label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  position: relative;
+  border: 2px solid;
+  border-radius: 30px;
+  padding-left: 50px;
+  font-weight: bold;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  width: 93%;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  color: #C6168D;
+  background-position: 26px 27px;
+}
+.form-item input:checked + label:hover {
+  background-repeat: no-repeat;
+  background-position: 26px 27px;
+}
+
+.form-item input + label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  position: relative;
+  border: 2px solid;
+  border-radius: 30px;
+  padding-left: 50px;
+  font-weight: bold;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  width: 93%;
+}
+.form-item input + label:hover {
+  background: #fff;
+  cursor: pointer;
+  color: #C6168D;
+}
+
+.form-item input + label:before {
+  font-family: "Cachet",Arial,sans-serif;
+  letter-spacing: -0.025em;
+  height: 22px;
+  height: 2.2rem;
+  width: 22px;
+  width: 2.2rem;
+  left: 24px;
+  left: 2.4rem;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border: inherit;
+  content: '';
+  position: absolute;
+  text-align: center;
+  top: 50%;
+}
+
+.activity .paragraph-background-container {
+  background-color: #92278F;
+  background-image: -moz-linear-gradient(#c6168d, #92278F);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
+  background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
+  background-image: -o-linear-gradient(#c6168d, #92278F);
+}
+
+.category-data {
+  background: #92278F;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 25px;
+  border-radius: 10px;
+  padding-top: 10px;
+}
+.category-data .activity-name {
+  display: none;
+}
+.category-data form input[type="submit"] {
+  visibility: hidden;
+}
+.category-data form .fieldgroup legend {
+  display: none;
+}
+.category-data form .fieldgroup .form-checkboxes .form-item {
+  float: left;
+  width: 30%;
+  font-size: 16px;
+  overflow: hidden;
+  word-wrap: unset;
+  white-space: nowrap;
+}
+
+.activity-data {
+  margin-top: 30px;
+}
+.activity-data .activity-daily-data .category-data {
+  display: none;
+}
+
+.activity-data .categories ul {
+  padding: 0px;
+}
+.activity-data .categories ul li {
+  display: inline-block;
+  padding: 15px;
+  background: #92278F;
+  opacity: 0.7;
+  margin: 25px;
+  width: 200px;
+  height: 200px;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 22px;
+  border-radius: 10px;
+  padding-top: 105px;
+  cursor: pointer;
+}
+.activity-data .categories ul li.active {
+  opacity: 1;
+}
+.activity-data .categories ul li.Aquatics {
+  background-image: url("../img/swimming.png");
+  background-repeat: no-repeat;
+  background-position: 70px 50px;
+}
+.activity-data .categories ul li.Fitness {
+  background-image: url("../img/fitnes.png");
+  background-repeat: no-repeat;
+  background-position: 70px 50px;
+}
+.activity-data .categories ul li.Community {
+  background-image: url("../img/community.png");
+  background-repeat: no-repeat;
+  background-position: 70px 50px;
+}
+.activity-data .categories ul li.GroupExercise {
+  background-image: url("../img/groupex.png");
+  background-repeat: no-repeat;
+  background-position: 70px 50px;
+}
+
+.activity .paragraph-background-container {
+  padding-left: 130px !important;
+  padding-right: 130px !important;
+  position: relative;
+}
+.activity .paragraph-background-container:before {
+  content: '';
+  position: absolute;
+  left: 47%;
+  bottom: -57px;
+  border: 30px solid transparent;
+  border-top: 30px solid #92278F;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
 .calendar h2 {
   padding-top: 30px;
   padding-bottom: 30px;
@@ -472,9 +648,11 @@ footer {
 .calendar .month {
   overflow: hidden;
   white-space: nowrap;
-  width: 90%;
+  width: 72%;
   margin: 0px;
   padding: 0px;
+  margin-left: 80px;
+  margin-right: 80px;
 }
 .calendar .month .date-data {
   width: 14%;
@@ -497,7 +675,7 @@ footer {
   cursor: pointer;
 }
 .calendar .month .date-data .weekday {
-  padding-top: 20px;
+  padding-top: 35px;
   padding-bottom: 20px;
   display: block;
   cursor: pointer;
@@ -509,11 +687,11 @@ footer {
   border-radius: 58%;
   border-color: #fff;
   border: 1px solid;
-  width: 63px;
+  width: 50px;
   padding-top: 10px;
   background: #fff;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 25px;
   padding-bottom: 10px;
   color: #c6168d;
   cursor: pointer;
@@ -528,10 +706,15 @@ footer {
   text-transform: uppercase;
 }
 .calendar .month .date-data.active .visits:before {
-  border: 1px solid;
-}
-.calendar .month .date-data.active .visits:after {
-  border: 1px solid;
+  content: '';
+  position: absolute;
+  left: 135px;
+  top: -50px;
+  border: 20px solid transparent;
+  border-bottom: 30px solid #fff;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .calendar .month .date-data.active .visits .visited {
   background: #C6168D;

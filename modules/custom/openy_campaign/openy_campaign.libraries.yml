@@ -36,3 +36,5 @@ campaign_countdown:
 activityTracking:
   js:
     js/activityTracking.js: {}
+  dependencies:
+    - core/jquery
