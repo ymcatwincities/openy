@@ -1,15 +1,17 @@
+.flip-cards h2 {
+  text-align: center;
+}
 .flip-cards .container {
-  height: 260px;
   position: relative;
   perspective: 800px;
   margin: 20px auto;
 }
 
 .flip-cards .card {
-  width: 200px;
+  width: 293px;
+  height: 409px;
   float: left;
   margin-right: 30px;
-  height: 100%;
   transform-style: preserve-3d;
   transition: transform 1s;
   position: relative;
@@ -23,17 +25,37 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  color: #fff;
   text-align: center;
+}
+.flip-cards .card figure img {
+  width: 100%;
+}
+
+.flip-cards .card figure span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  font-size: 40px;
 }
 
 .flip-cards .card .front {
-  background: red;
+  background: #fff no-repeat left top;
+  background-size: contain;
 }
 .flip-cards .card .back {
-  background: blue;
+  background: #F47920;
   transform: rotateY( 180deg );
+  border: 2px solid #eee;
+  border-radius: 5px;
+  color: #fff;
 }
+
+.flip-cards .card .back.winner {
+  background: #01A490;
+}
+
 
 .flip-cards .card.flipped {
   transform: rotateY( 180deg );

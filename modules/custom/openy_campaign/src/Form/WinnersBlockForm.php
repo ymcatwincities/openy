@@ -71,13 +71,15 @@ class WinnersBlockForm extends FormBase {
     $selected = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : $branches['default'];
     $form['branch'] = [
       '#type' => 'select',
-      '#title' => 'Select your region',
+      '#title' => 'Select your branch',
       '#options' => $branches,
       '#default_value' => $selected,
       '#ajax' => [
         'callback' => '::ajaxWinnersCallback',
         'wrapper' => 'winners-block-wrapper',
       ],
+      '#prefix' => '<div class="winners-branches-select">',
+      '#suffix' => '</div>',
     ];
 
     $winnersBlock = '';
@@ -149,7 +151,7 @@ class WinnersBlockForm extends FormBase {
    */
   private function getBranches() {
     $locations = [
-      'default' => $this->t('Please, select your location.'),
+      'default' => $this->t('Location'),
     ];
     $values = [
       'type' => 'branch',
