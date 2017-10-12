@@ -38,15 +38,12 @@
 #}
 {%
 set classes = [
-  'paragraph',
-  'news-card',
-  'paragraph--type--' ~ paragraph.bundle|clean_class,
-  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+'paragraph',
+'paragraph--type--' ~ paragraph.bundle|clean_class,
+view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  <h3 class="h1">
-    {{ content.field_prgf_headline }}
-  </h3>
-  {{ content.field_fnews_posts }}
+  <h2 class="h1">{{ 'What\'s happening at the Y?'|t }}</h2>
+  {{ content }}
 </div>
