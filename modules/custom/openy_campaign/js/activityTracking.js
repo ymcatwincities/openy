@@ -97,7 +97,7 @@
                             ).hide()
                         );*/
                         $('.activity-data .categories ul').append(
-                            '<li class="' + activityName + '">' + activityName + '</li>'
+                            '<li class="' + activityName.replace(/ /g,'') + '">' + activityName + '</li>'
                         );
                     });
 
@@ -108,7 +108,7 @@
                         var activityName = $(e.target).attr('class');
                         $(e.target).addClass('active');
                         $dataEl.find('.category-data').hide();
-                        $dataEl.find('.' + activityName).parents('.category-data').show();
+                        $dataEl.find('.' + activityName.replace(/ /g,'')).parents('.category-data').show();
                         //console.log($dataEl.find('.' + activityName).parents('.category-data'));
                     });
 
