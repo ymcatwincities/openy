@@ -68,6 +68,7 @@ class ActivityTrackingModalForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $date = NULL, $memberCampaignId = NULL, $topTermId = NULL) {
+
     $term = Term::load($topTermId);
     $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
 
@@ -101,6 +102,7 @@ class ActivityTrackingModalForm extends FormBase {
       '#type' => 'checkboxes',
       '#options' => $options,
       '#default_value' => $default_values,
+      '#validated' => true
     ];
 
     $form['member_campaign_id'] = [
@@ -138,14 +140,21 @@ class ActivityTrackingModalForm extends FormBase {
   public function submitModalFormAjax(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
 
+    $memberCampaignId = $form_state->getValue('member_campaign_id');
+    $date = new \DateTime($form_state->getValue('date'));
+    $activityIds = $form_state->getValue('activities');
     // If there are any form errors, re-display the form.
     if ($form_state->hasAnyErrors()) {
+      //print_r($form_state->errors);
+      //die();
       $response->addCommand(new ReplaceCommand('#activity_tracking_modal_form_wrapper', $form));
     }
     else {
       $memberCampaignId = $form_state->getValue('member_campaign_id');
       $date = new \DateTime($form_state->getValue('date'));
       $activityIds = $form_state->getValue('activities');
+
+      //print_r($form_state->getValue('activities'));
 
       // Delete all records first.
       $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, array_keys($activityIds));

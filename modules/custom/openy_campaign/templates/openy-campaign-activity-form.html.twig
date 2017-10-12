@@ -15,9 +15,9 @@
                         {# if another month started close the list and open a new one. #}
                         {% set additionClass = '' %}
                         {% if  key|date('d/m') ==  "now"|date("d/m")  %}
-                            {% set additionClass = 'active' %}
+                            {% set additionClass = 'now' %}
                         {% endif %}
-                        <li class="date-data {{ additionClass }}" style="display: none;">
+                        <li data-date="{{ key }}" class="date-data {{ additionClass }}" style="display: none;">
                             <span class="day">{{ key|date('d') }}</span>
                             <span class="weekday">{{ key|date('D') }}</span>
                             <span class="month">{{ key|date('M') }}</span>
@@ -25,26 +25,21 @@
                                 <div class="entriesNum">
                                     No entry found
                                 </div>
-
                                 {% set row = attribute(form, key) %}
                                 <div class="visited">
-                              {%  if row.checkin is defined %}
-                                  visited
-                              {% else %}
-                                  not visited
-                              {%  endif %}
+                                  {%  if row.checkin is defined %}
+                                    visited
+                                  {% else %}
+                                    not visited
+                                  {%  endif %}
                               </div>
 
                             </div>
-                            <div class="data">
+                            {#<div class="data">
                                 <span class="categories">
-                            {% for formKey in row|keys %}
-                                {%  if formKey matches '/^[\\d]+$/' %}
-                                    <div class="row">{{ attribute(row, formKey) }}</div>
-                                {% endif %}
-                            {% endfor %}
+
                         </span>
-                            </div>
+                            </div>#}
                         </li>
                     {%  endif %}
                 {% endfor %}
@@ -56,13 +51,35 @@
 </div>
     </div>
 
-
-
   <div class="activity-data">
-    <div class="categories">
-    </div>
-      <div class="category-data">
+      <div class="categories">
+          <ul></ul>
       </div>
+      {% for key in form|keys %}
+        {# key should match 2017-08-12 pattern #}
+        {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
+
+
+        <div class="activity-daily-data {{ key }}" style="display:none">
+            <input type="hidden" name="date" value="{{ key }}">
+            <input type="hidden" name="campaign_id" value="1">
+
+            {% set row = attribute(form, key) %}
+            {% for formKey in row|keys %}
+                {%  if formKey matches '/^[\\d]+$/' %}
+                    <div class="category-data">
+                        {{ attribute(row, formKey) }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+            {% set formCopy = formCopy|without(key) %}
+
+        {%  endif %}
+      {% endfor %}
   </div>
 </div>
+
+{{ formCopy }}
 

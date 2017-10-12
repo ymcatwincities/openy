@@ -9,6 +9,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
 use Drupal\Core\Ajax\RedirectCommand;
 use Drupal\Core\Form\FormBuilder;
+use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 
 /**
  * Class ActivityTrackingController.
@@ -22,14 +23,17 @@ class ActivityTrackingController extends ControllerBase {
    */
   protected $formBuilder;
 
+  protected $request_stack;
+
   /**
    * The ModalFormExampleController constructor.
    *
    * @param \Drupal\Core\Form\FormBuilder $formBuilder
    *   The form builder.
    */
-  public function __construct(FormBuilder $formBuilder) {
+  public function __construct(FormBuilder $formBuilder, $request_stack) {
     $this->formBuilder = $formBuilder;
+    $this->request_stack = $request_stack;
   }
 
   /**
@@ -42,8 +46,39 @@ class ActivityTrackingController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('request_stack')
     );
+  }
+
+  public function saveTrackingInfo() {
+    $params = $this->request_stack->getCurrentRequest()->request->all();
+    //$memberCampaignId = 1;
+    $date = new \DateTime($params['date']);
+    $activityIds = $params['activities'];
+
+
+    $userData = MemberCampaign::getMemberCampaignData(71);
+    $memberCampaignId = 71;
+    // Delete all records first.
+    $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, array_values($activityIds));
+
+    entity_delete_multiple('openy_campaign_memb_camp_actv', $existingActivityIds);
+
+    // Save new selection.
+    $activityIds = array_filter($activityIds);
+    foreach ($activityIds as $activityTermId) {
+      $activity = MemberCampaignActivity::create([
+        'created' => time(),
+        'date' => $date->format('U'),
+        'member_campaign' => $memberCampaignId,
+        'activity' => $activityTermId,
+      ]);
+
+      $activity->save();
+    }
+    return new AjaxResponse();
+
   }
 
   /**

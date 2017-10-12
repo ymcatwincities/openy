@@ -188,6 +188,7 @@ class ActivityBlockForm extends FormBase {
             $tid
           );
 
+
           $form[$key][$tid] = $activityTrackingForm;
           $form[$key][$tid]['#prefix'] .= '<span class="activity-name '. $cleanName .'">'. $cleanName . '</span>';
           /*$form[$key][$tid] = [
