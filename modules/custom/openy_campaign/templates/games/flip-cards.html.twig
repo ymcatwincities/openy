@@ -1,17 +1,22 @@
 <div class="flip-cards">
-    <div class="title">Select one card</div>
+    <h1>{{ title }}</h1>
+    {{ description }}
     <section class="container">
+        {% for i in 1..3 %}
         <div class="card">
-            <figure class="front"></figure>
-            <figure class="back">{{ result }}</figure>
+            <figure class="front"><img src="{{ coverImagePath }}" alt="" /></figure>
+            <figure class="back{% if isWinner %} winner{% endif %}">
+                <span>
+                    {% if isWinner %}
+                        <h3>{{ 'Congratulations'|t }}</h3>
+                        <p>{% trans %}You have won: {{ result }}{% endtrans %}</p>
+                    {% else %}
+                        <h3>{{ 'Sorry not this time'|t }}</h3>
+                        <p>{% trans %}Thank you for entering into the &quot;{{ title }}&quot; of promotion.{% endtrans %}</p>
+                    {% endif %}
+                </span>
+            </figure>
         </div>
-        <div class="card">
-            <figure class="front"></figure>
-            <figure class="back">{{ result }}</figure>
-        </div>
-        <div class="card">
-            <figure class="front"></figure>
-            <figure class="back">{{ result }}</figure>
-        </div>
+        {% endfor %}
     </section>
 </div>
