@@ -73,11 +73,11 @@
                         $(e.target).prev('.form-checkbox').click();
                         //console.log($(e.target).prev('.form-checkbox'));
                         var formData = $(e.target).parents('form');
-                        var data = $(e.target).parents('.activity-daily-data').find('input[name="date"]').val()
-                        console.log(data);
+                        var data = $(e.target).parents('.activity-daily-data').find('input[name="date"]').val();
+                        //console.log(formData);
                         $.post(
-                            '/campaign-save-activity',
-                            { data: data, activities: formData.serialize() },
+                            '/campaign-save-activity/' + data,
+                            formData.serialize() ,
                             function(data) {
                                 console.log(data);
                              }
