@@ -190,7 +190,7 @@ class ActivityBlockForm extends FormBase {
 
 
           $form[$key][$tid] = $activityTrackingForm;
-          $form[$key][$tid]['#prefix'] .= '<span class="activity-name '. $cleanName .'">'. $cleanName . '</span>';
+          $form[$key][$tid]['#prefix'] .= '<span class="activity-name '. str_replace(' ', '', $cleanName). '">'. $cleanName . '</span>';
           /*$form[$key][$tid] = [
             '#type' => 'checkboxes',
             '#title' => $name,
