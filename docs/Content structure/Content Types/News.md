@@ -7,6 +7,7 @@ News Post content type is used for adding news posts on the site.
 | Title  | drupal's default  | Yes | Title of the news item. |
 | Locations | field\_news_location | Yes | Reference field to `branch` and `camp` nodes. Multiple Values. |
 | Category | field\_news_category | No | Reference field for choosing the term from "News Category" vocabulary. Multiple Values. |
+| Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Content Area** | Field group |||
 | Image | field\_news_image | No | Image field for the News item. Entity reference to Media bundle. |
 | Description | field_news_description | No | Textarea for the description/body with WYSIWYG, without summary. |
