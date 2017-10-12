@@ -18,26 +18,32 @@
   Drupal.behaviors.openy_campaign_color = {
       attach: function (context, settings) {
 
+          function init() {
+            var colorSelector = form.find('#edit-scheme');
+            var schemes = settings.color.schemes;
+            var colorScheme = colorSelector.val();
+            if (colorScheme !== '' && schemes[colorScheme]) {
+              // Get colors of active scheme.
+              colors = schemes[colorScheme];
+              for (var fieldName in colors) {
+                if (colors.hasOwnProperty(fieldName)) {
+                  callback($('#edit-palette-' + fieldName), colors[fieldName], true);
+                }
+              }
+            }
+          }
+
           var colors;
           // This behavior attaches by ID, so is only valid once on a page.
-          var form = $(context).find('.node-campaign-form .color-form');
+          var form = $(context).find('#openy_campaign_color_color_scheme_form');
           if (form.length === 0) {
               return;
           }
 
+          init();
           // Set up colorScheme selector.
           form.find('#edit-scheme').on('change', function () {
-              var schemes = settings.color.schemes;
-              var colorScheme = this.options[this.selectedIndex].value;
-              if (colorScheme !== '' && schemes[colorScheme]) {
-                  // Get colors of active scheme.
-                  colors = schemes[colorScheme];
-                  for (var fieldName in colors) {
-                      if (colors.hasOwnProperty(fieldName)) {
-                          callback($('#edit-palette-' + fieldName), colors[fieldName], true);
-                      }
-                  }
-              }
+            init();
           });
 
 
