@@ -679,6 +679,14 @@ header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   background-color: #fff;
   color: black;
 }
+header#page-head .top-navs #block-cccuseraccountmenu ul li:first-child.is-active .welcome {
+  background: none !important;
+}
+header#page-head .top-navs #block-cccuseraccountmenu ul li:first-child.is-active .welcome:hover {
+  border-top: 2px solid transparent;
+  color: #777777;
+  cursor: default;
+}
 header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
   padding: 7px 15px;

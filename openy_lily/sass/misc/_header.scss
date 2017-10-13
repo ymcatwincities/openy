@@ -426,6 +426,24 @@ header#page-head {
         }
       }
     }
+    #block-cccuseraccountmenu {
+      ul {
+        li {
+          &:first-child {
+            &.is-active {
+              .welcome {
+                background: none !important;
+                &:hover {
+                  border-top: 2px solid transparent;
+                  color: $gray-dark;
+                  cursor: default;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     #block-anonymoususersmenu,
     #block-openy-lily-user-menu {
       .nav {
