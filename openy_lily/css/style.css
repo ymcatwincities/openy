@@ -659,14 +659,18 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 }
 @media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs #block-anonymoususersmenu--2,
+  header#page-head .top-navs #block-anonymoususersmenu,
   header#page-head .top-navs #block-openy-lily-user-menu,
-  header#page-head .top-navs #block-cccuseraccountmenu--2 {
+  header#page-head .top-navs #block-cccuseraccountmenu--2,
+  header#page-head .top-navs #block-cccuseraccountmenu {
     display: none !important;
   }
 }
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a,
+header#page-head .top-navs #block-anonymoususersmenu .nav li a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a,
-header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a {
+header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a,
+header#page-head .top-navs #block-cccuseraccountmenu .nav li a {
   color: #777777;
   border-top: 2px solid transparent;
   line-height: 50px;
@@ -678,30 +682,37 @@ header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a {
   transition: all 0.2s linear;
 }
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li a:hover,
+header#page-head .top-navs #block-anonymoususersmenu .nav li a:hover,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li a:hover,
-header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a:hover {
+header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li a:hover,
+header#page-head .top-navs #block-cccuseraccountmenu .nav li a:hover {
   border-top: 2px solid #aa228d;
   background-color: #fff;
   color: black;
 }
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li.is-active a,
+header#page-head .top-navs #block-anonymoususersmenu .nav li.is-active a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li.is-active a,
-header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li.is-active a {
+header#page-head .top-navs #block-cccuseraccountmenu--2 .nav li.is-active a,
+header#page-head .top-navs #block-cccuseraccountmenu .nav li.is-active a {
   border-top: 2px solid #aa228d;
   background-color: #fff;
   color: black;
 }
+header#page-head .top-navs #block-cccuseraccountmenu ul li:first-child .welcome,
 header#page-head .top-navs #block-cccuseraccountmenu--2 ul li:first-child .welcome {
   background: none;
   border-top: 2px solid transparent;
   color: #777777;
   cursor: default;
 }
+header#page-head .top-navs #block-cccuseraccountmenu ul li:first-child .welcome:hover,
 header#page-head .top-navs #block-cccuseraccountmenu--2 ul li:first-child .welcome:hover {
   border-top: 2px solid transparent;
   color: #777777;
   cursor: default;
 }
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li:first-child a,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
   padding: 7px 15px;
@@ -716,6 +727,7 @@ header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a {
   margin: 24px 5px 0 0;
   border-top: none;
 }
+header#page-head .top-navs #block-anonymoususersmenu .nav li:first-child a:hover,
 header#page-head .top-navs #block-anonymoususersmenu--2 .nav li:first-child a:hover,
 header#page-head .top-navs #block-openy-lily-user-menu .nav li:first-child a:hover {
   border-top: none;
@@ -737,12 +749,15 @@ header#page-head.tiny .top-navs .nav-global .navbar-header {
 header#page-head.tiny .top-navs .nav-global .navbar-header #block-openy-lily-branding a img {
   width: 55px;
 }
+header#page-head.tiny .top-navs #block-anonymoususersmenu li a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 li a,
 header#page-head.tiny .top-navs #block-openy-lily-user-menu li a,
+header#page-head.tiny .top-navs #block-cccuseraccountmenu li a,
 header#page-head.tiny .top-navs #block-cccuseraccountmenu--2 li a {
   line-height: 19px;
 }
 header#page-head.tiny .top-navs #block-openy-lily-user-menu ul li:first-child a,
+header#page-head.tiny .top-navs #block-anonymoususersmenu ul li:first-child a,
 header#page-head.tiny .top-navs #block-anonymoususersmenu--2 ul li:first-child a {
   margin: 9px 5px 0 0;
 }

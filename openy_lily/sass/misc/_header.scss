@@ -408,8 +408,10 @@ header#page-head {
       }
     }
     #block-anonymoususersmenu--2,
+    #block-anonymoususersmenu,
     #block-openy-lily-user-menu,
-    #block-cccuseraccountmenu--2 {
+    #block-cccuseraccountmenu--2,
+    #block-cccuseraccountmenu {
       @include breakpoint (0 $tablet-start) {
         display: none !important;
       }
@@ -437,6 +439,7 @@ header#page-head {
         }
       }
     }
+    #block-cccuseraccountmenu,
     #block-cccuseraccountmenu--2 {
       ul {
         li {
@@ -456,6 +459,7 @@ header#page-head {
         }
       }
     }
+    #block-anonymoususersmenu,
     #block-anonymoususersmenu--2,
     #block-openy-lily-user-menu {
       .nav {
@@ -509,8 +513,10 @@ header#page-head {
           }
         }
       }
+      #block-anonymoususersmenu,
       #block-anonymoususersmenu--2,
       #block-openy-lily-user-menu,
+      #block-cccuseraccountmenu,
       #block-cccuseraccountmenu--2 {
         li {
           a {
@@ -519,6 +525,7 @@ header#page-head {
         }
       }
       #block-openy-lily-user-menu,
+      #block-anonymoususersmenu,
       #block-anonymoususersmenu--2 {
         ul {
           li {
