@@ -2,12 +2,10 @@ langcode: en
 status: true
 dependencies:
   module:
-    -
-  enforced:
-    module:
-      - openy_demo_nnews
+    - openy_node_news
 id: openy_demo_node_news
-migration_tags: {  }
+migration_tags:
+  - 'OpenY Demo News'
 migration_group: openy_demo_nnews
 label: 'Import demo news posts'
 source:
@@ -81,7 +79,7 @@ source:
       id: 3
       title: 'Resolve to Be Light in This Darkness'
       created: '2017-04-27 8:02am'
-      category: 1
+      category: 2
       related: null
       image: 3
       promote: 0
@@ -125,7 +123,7 @@ source:
       id: 4
       title: 'What Kids Gain From Summer Camp'
       created: '2017-04-27 8:03am'
-      category: 2
+      category: 1
       related: null
       image: 4
       promote: 1
@@ -163,7 +161,7 @@ source:
       id: 5
       title: 'Water Safety at the Y'
       created: '2017-04-27 8:04am'
-      category: 2
+      category: 3
       related: null
       image: 5
       promote: 1
@@ -192,7 +190,7 @@ source:
       id: 6
       title: 'Celebrate LatinX Heritage Month'
       created: '2017-04-27 8:05am'
-      category: 2
+      category: 4
       related: null
       image: 6
       promote: 0
@@ -224,7 +222,7 @@ source:
       id: 7
       title: 'Yoga for Stress Resilience'
       created: '2017-04-27 8:06am'
-      category: 2
+      category: 5
       related: null
       image: 7
       promote: 0
