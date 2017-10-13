@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.news.field_content
+    - field.field.node.news.field_meta_tags
     - field.field.node.news.field_news_category
     - field.field.node.news.field_news_description
     - field.field.node.news.field_news_image
@@ -13,11 +14,29 @@ dependencies:
     - node.type.news
   module:
     - user
+    - views_field_formatter
 id: node.news.teaser
 targetEntityType: node
 bundle: news
 mode: teaser
 content:
+  addthis:
+    label: hidden
+    type: views_field_formatter
+    weight: 100
+    region: content
+    settings:
+      view: ''
+      arguments:
+        field_value:
+          checked: true
+        entity_id:
+          checked: true
+        delta:
+          checked: true
+      multiple: false
+      implode_character: ''
+    third_party_settings: {  }
   field_news_category:
     type: entity_reference_label
     weight: 3
@@ -37,12 +56,14 @@ content:
     region: content
   links:
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   field_content: true
+  field_meta_tags: true
   field_news_description: true
   field_news_location: true
   field_news_related: true
   field_sidebar_content: true
+  langcode: true

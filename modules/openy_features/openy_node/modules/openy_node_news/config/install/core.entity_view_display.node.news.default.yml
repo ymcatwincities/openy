@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.news.field_content
+    - field.field.node.news.field_meta_tags
     - field.field.node.news.field_news_category
     - field.field.node.news.field_news_description
     - field.field.node.news.field_news_image
@@ -12,15 +13,34 @@ dependencies:
     - node.type.news
   module:
     - entity_reference_revisions
+    - metatag
     - text
     - user
+    - views_field_formatter
 id: node.news.default
 targetEntityType: node
 bundle: news
 mode: default
 content:
+  addthis:
+    label: hidden
+    type: views_field_formatter
+    weight: 8
+    region: content
+    settings:
+      view: ''
+      arguments:
+        field_value:
+          checked: true
+        entity_id:
+          checked: true
+        delta:
+          checked: true
+      multiple: false
+      implode_character: ''
+    third_party_settings: {  }
   field_content:
-    weight: 3
+    weight: 5
     label: hidden
     settings:
       view_mode: default
@@ -28,8 +48,23 @@ content:
     third_party_settings: {  }
     type: entity_reference_revisions_entity_view
     region: content
+  field_meta_tags:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_news_category:
+    type: entity_reference_label
+    weight: 3
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
   field_news_description:
-    weight: 2
+    weight: 4
     label: hidden
     settings: {  }
     third_party_settings: {  }
@@ -43,8 +78,16 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_news_location:
+    type: entity_reference_label
+    weight: 2
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
   field_news_related:
-    weight: 4
+    weight: 6
     label: hidden
     settings:
       link: true
@@ -52,7 +95,7 @@ content:
     type: entity_reference_label
     region: content
   field_sidebar_content:
-    weight: 5
+    weight: 7
     label: hidden
     settings:
       view_mode: default
@@ -66,5 +109,4 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_news_category: true
-  field_news_location: true
+  langcode: true
