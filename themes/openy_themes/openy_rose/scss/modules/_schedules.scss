@@ -336,6 +336,12 @@
       text-decoration: none;
       position: relative;
 
+      &:hover {
+        h3 {
+          text-decoration: underline;
+        }
+      }
+
       .included-in-membership {
         background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
         background-size: contain;
