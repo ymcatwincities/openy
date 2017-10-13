@@ -9,13 +9,9 @@
  *
  */
 function openy_demo_nnews_install() {
-    $importer = \Drupal::service('openy_migrate.importer');
-    $importer->import('openy_demo_nnews_file');
-    $importer->import('openy_demo_nnews_media_image');
-    $importer->import('openy_demo_taxonomy_term_news_category');
-    $importer->import('openy_demo_node_news');
-    $importer->import('openy_demo_lp_paragraph_news_small_banner');
-    $importer->import('openy_demo_lp_paragraph_news_posts_listing');
-    $importer->import('openy_demo_menu_link_main_news');
-    $importer->import('openy_demo_news_landing');
+//  $importer = \Drupal::service('openy_migrate.importer');
+//  $importer->import('openy_demo_lp_paragraph_news_small_banner');
+//  $importer->import('openy_demo_lp_paragraph_news_posts_listing');
+//  $importer->import('openy_demo_news_landing');
+//  $importer->import('openy_demo_menu_link_main_news');
 }

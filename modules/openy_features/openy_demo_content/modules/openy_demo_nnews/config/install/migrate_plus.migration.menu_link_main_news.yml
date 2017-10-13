@@ -5,7 +5,8 @@ dependencies:
     module:
       - openy_demo_nnews
 id: openy_demo_menu_link_main_news
-migration_tags: {  }
+migration_tags:
+  - 'OpenY Demo News'
 migration_group: openy_demo_nnews
 label: 'Create news demo main menu link'
 migration_dependencies:
