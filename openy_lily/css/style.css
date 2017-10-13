@@ -2912,6 +2912,10 @@ body.path-search #block-mainpagecontent li {
   float: right;
 }
 
+#schedules-search-listing-wrapper .branch-hours-wrapper .card {
+  background-color: #b92f9e;
+}
+
 .news-more-teaser {
   margin-top: 20px;
 }
