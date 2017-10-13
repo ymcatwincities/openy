@@ -15,6 +15,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
+use Drupal\block\Entity\Block;
 
 /**
  * Implements hook_preprocess_template() for footer menus.
@@ -74,6 +75,7 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
     }
   }
 }
+
 /**
  * Implements hook_theme_HOOK_alter().
  */
@@ -284,13 +286,13 @@ function openy_lily_preprocess_page(&$variables) {
   $ccc_session = \Drupal::service('openy_ccc_session');
   $variables['ccc_logged_in'] = !$ccc_session->isAnonymous();
 
-  $block_ann_menu = \Drupal\block\Entity\Block::load('anonymoususersmenu');
+  $block_ann_menu = Block::load('anonymoususersmenu');
   $ccc_ann_block_content = \Drupal::entityTypeManager()
     ->getViewBuilder('block')
     ->view($block_ann_menu);
   $variables['cccmenuann'] = $ccc_ann_block_content;
 
-  $block_ccc_menu = \Drupal\block\Entity\Block::load('cccuseraccountmenu');
+  $block_ccc_menu = Block::load('cccuseraccountmenu');
   $ccc_block_content = \Drupal::entityTypeManager()
     ->getViewBuilder('block')
     ->view($block_ccc_menu);
