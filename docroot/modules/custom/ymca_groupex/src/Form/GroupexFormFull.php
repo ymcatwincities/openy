@@ -70,7 +70,7 @@ class GroupexFormFull extends GroupexFormBase {
     $this->groupexHelper = $groupex_helper;
 
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
-    sort($this->locationOptions);
+    asort($this->locationOptions);
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
     $processed_classes_data['any'] = $this->t('-All-');
     foreach ($raw_classes_data as $key => $class) {
