@@ -1235,12 +1235,22 @@ legend {
   line-height: 2;
 }
 
+#membership-calc-wrapper .selected-membership .form-radio {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 11px;
+  margin-right: 5px;
+}
+#membership-calc-wrapper .selected-membership .form-element-wrapper {
+  display: inline-block;
+  width: 90%;
+}
 @media (min-width: 0) and (max-width: 48em) {
-  #membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item {
+  #membership-calc-wrapper .selected-membership .js-webform-radios .js-form-item {
     margin: 0 20px 10px 20px;
   }
 }
-#membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item label {
+#membership-calc-wrapper .selected-membership .js-webform-radios .js-form-item label {
   padding-bottom: 20px;
 }
 

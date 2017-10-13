@@ -464,11 +464,22 @@ legend {
 }
 
 #membership-calc-wrapper {
-  [data-drupal-selector="edit-type"] {
+  .selected-membership {
+    .form-radio {
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 11px;
+      margin-right: 5px;
+    }
+    .form-element-wrapper {
+      display: inline-block;
+      width: 90%;
+    }
     .js-webform-radios .js-form-item {
       @include breakpoint (0 $tablet) {
         margin: 0 20px 10px 20px;
       }
+
       label {
         padding-bottom: 20px;
       }
