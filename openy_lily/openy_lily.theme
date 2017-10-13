@@ -74,7 +74,6 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
     }
   }
 }
-
 /**
  * Implements hook_theme_HOOK_alter().
  */
@@ -280,6 +279,23 @@ function openy_lily_preprocess_page(&$variables) {
       }
     }
   }
+
+  /** @var \Drupal\openy_ccc_api\Session $ccc_session */
+  $ccc_session = \Drupal::service('openy_ccc_session');
+  $variables['ccc_logged_in'] = !$ccc_session->isAnonymous();
+
+  $block_ann_menu = \Drupal\block\Entity\Block::load('anonymoususersmenu');
+  $ccc_ann_block_content = \Drupal::entityTypeManager()
+    ->getViewBuilder('block')
+    ->view($block_ann_menu);
+  $variables['cccmenuann'] = $ccc_ann_block_content;
+
+  $block_ccc_menu = \Drupal\block\Entity\Block::load('cccuseraccountmenu');
+  $ccc_block_content = \Drupal::entityTypeManager()
+    ->getViewBuilder('block')
+    ->view($block_ccc_menu);
+  $variables['cccmenu'] = $ccc_block_content;
+
 }
 
 /**

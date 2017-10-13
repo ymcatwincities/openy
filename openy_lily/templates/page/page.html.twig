@@ -71,12 +71,10 @@
           </div>
         </div>
       </form>
-      {% if logged_in %}
-        <a class="login-link"
-           href="{{ path('user.logout') }}">{{ "Sign Out"|t }}</a>
+      {% if ccc_logged_in %}
+        {{ cccmenu }}
       {% else %}
-        <a class="login-link"
-           href="{{ path('user.login') }}">{{ "Sign In"|t }}</a>
+        {{ cccmenuann }}
       {% endif %}
     </div>
     {% block mobile_menu %}

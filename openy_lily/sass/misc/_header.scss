@@ -104,6 +104,9 @@ body {
       padding: 0 15px;
     }
   }
+  .search-toggle {
+    display: none;
+  }
   a {
     color: #fffffb;
     line-height: 20px;
@@ -124,7 +127,9 @@ body {
     border-top: 1px solid #979797;
     margin: 0;
     padding-top: 7px;
-    min-height: 650px;
+    &.nav-level-1 {
+      min-height: 650px;
+    }
     li {
       display: block;
       .dropdown-menu {
@@ -277,7 +282,7 @@ header#page-head {
       @include breakpoint ($tablet-start) {
         display: block;
       }
-      @include breakpoint  (0 $tablet-start ) {
+      @include breakpoint (0 $tablet-start) {
         min-height: 0;
       }
       position: relative;
@@ -402,10 +407,9 @@ header#page-head {
         }
       }
     }
-
-    #block-anonymoususersmenu,
+    #block-anonymoususersmenu--2,
     #block-openy-lily-user-menu,
-    #block-cccuseraccountmenu {
+    #block-cccuseraccountmenu--2 {
       @include breakpoint (0 $tablet-start) {
         display: none !important;
       }
@@ -423,28 +427,36 @@ header#page-head {
               color: black;
             }
           }
+          &.is-active {
+            a {
+              border-top: 2px solid #aa228d;
+              background-color: #fff;
+              color: black;
+            }
+          }
         }
       }
     }
-    #block-cccuseraccountmenu {
+    #block-cccuseraccountmenu--2 {
       ul {
         li {
           &:first-child {
-            &.is-active {
-              .welcome {
-                background: none !important;
-                &:hover {
-                  border-top: 2px solid transparent;
-                  color: $gray-dark;
-                  cursor: default;
-                }
+            .welcome {
+              background: none;
+              border-top: 2px solid transparent;
+              color: $gray-dark;
+              cursor: default;
+              &:hover {
+                border-top: 2px solid transparent;
+                color: $gray-dark;
+                cursor: default;
               }
             }
           }
         }
       }
     }
-    #block-anonymoususersmenu,
+    #block-anonymoususersmenu--2,
     #block-openy-lily-user-menu {
       .nav {
         li {
@@ -497,9 +509,9 @@ header#page-head {
           }
         }
       }
-      #block-anonymoususersmenu,
+      #block-anonymoususersmenu--2,
       #block-openy-lily-user-menu,
-      #block-cccuseraccountmenu {
+      #block-cccuseraccountmenu--2 {
         li {
           a {
             line-height: 19px;
@@ -507,7 +519,7 @@ header#page-head {
         }
       }
       #block-openy-lily-user-menu,
-      #block-anonymoususersmenu {
+      #block-anonymoususersmenu--2 {
         ul {
           li {
             &:first-child {
