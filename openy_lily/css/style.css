@@ -1230,6 +1230,10 @@ legend {
 .calc-block-form .js-webform-radios .js-form-type-membership-subtype-radio .form-element-wrapper .price-month {
   margin: 0;
 }
+.calc-block-form [data-drupal-selector="edit-location"] .form-item-location {
+  margin-bottom: 0px;
+  line-height: 2;
+}
 
 @media (min-width: 0) and (max-width: 48em) {
   #membership-calc-wrapper [data-drupal-selector="edit-type"] .js-webform-radios .js-form-item {

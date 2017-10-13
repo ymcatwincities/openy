@@ -455,6 +455,12 @@ legend {
         }
       }
   }
+  [data-drupal-selector="edit-location"] {
+    .form-item-location {
+      margin-bottom: 0px;
+      line-height: 2;
+    }
+  }
 }
 
 #membership-calc-wrapper {
