@@ -7294,6 +7294,9 @@ article .node--view-mode-flexible-content h2 a span {
 }
 
 a:focus,
+input:focus,
+select:focus,
+textarea:focus,
 .dropdown-toggle:focus,
 .carousel-control:focus,
 .btn:focus,
@@ -7308,6 +7311,7 @@ a:focus,
 .active.button:focus,
 .btn.active.focus,
 .active.focus.button,
+.form-control:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
   outline: 5px auto #69ff00;
