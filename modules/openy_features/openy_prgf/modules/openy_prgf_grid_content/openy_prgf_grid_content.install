@@ -6,6 +6,19 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_prgf_grid_content_dependencies() {
+  $dependencies['openy_prgf_grid_content'] = [
+    8002 => [
+      'openy_media_image' => 8004,
+    ],
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Update description for fields.
  */
 function openy_prgf_grid_content_update_8001() {
@@ -48,4 +61,19 @@ function openy_prgf_grid_content_update_8001() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+}
+
+/**
+ * Update entity reference for field image.
+ */
+function openy_prgf_grid_content_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_grid_content');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.paragraph.grid_columns.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.paragraph.grid_columns.default',
+    'content'
+  );
 }
