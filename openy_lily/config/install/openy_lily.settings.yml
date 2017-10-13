@@ -42,3 +42,9 @@ header_search: 1
 hide_mobile_sign_button: 0
 locations_path: '/locations'
 membership_path: ''
+# OpenY Rose theme image_template_variable: theme_setting_key configuration.
+openy_rose_image_fields:
+  footer_logo: openy_rose_footer_logo
+  camp_section_logo: openy_rose_camp_section_logo
+  camp_footer_logo: openy_rose_camp_footer_logo
+  camp_favicon: openy_rose_camp_favicon
