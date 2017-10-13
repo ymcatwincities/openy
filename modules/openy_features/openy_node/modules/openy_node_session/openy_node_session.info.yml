@@ -19,5 +19,6 @@ dependencies:
   - paragraphs
   - path
   - rabbit_hole
+  - scheduler
   - text
   - user

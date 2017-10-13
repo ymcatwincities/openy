@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.branch.field_content
     - field.field.node.branch.field_header_content
     - field.field.node.branch.field_location_address
+    - field.field.node.branch.field_location_amenities
     - field.field.node.branch.field_location_area
     - field.field.node.branch.field_location_coordinates
     - field.field.node.branch.field_location_directions
@@ -31,7 +32,7 @@ mode: full
 content:
   field_bottom_content:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 5
     label: hidden
     settings:
       view_mode: default
@@ -40,14 +41,14 @@ content:
     region: content
   field_branch_hours:
     type: openy_today_custom_hours
-    weight: 6
+    weight: 4
     label: hidden
     settings: {  }
     third_party_settings: {  }
     region: content
   field_content:
     type: entity_reference_revisions_entity_view
-    weight: 3
+    weight: 2
     label: hidden
     settings:
       view_mode: default
@@ -56,7 +57,7 @@ content:
     region: content
   field_header_content:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 3
     label: hidden
     settings:
       view_mode: default
@@ -71,8 +72,8 @@ content:
     type: address_plain
     region: content
   field_location_directions:
-    type: link
-    weight: 4
+    type: link_separate
+    weight: 7
     region: content
     label: hidden
     settings:
@@ -84,7 +85,7 @@ content:
     third_party_settings: {  }
   field_location_fax:
     type: telephone_link
-    weight: 2
+    weight: 8
     region: content
     label: hidden
     settings:
@@ -99,10 +100,12 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  field_location_amenities: true
   field_location_area: true
   field_location_coordinates: true
   field_location_email: true
   field_location_state: true
   field_location_temp_url: true
   field_meta_tags: true
+  langcode: true
   links: true

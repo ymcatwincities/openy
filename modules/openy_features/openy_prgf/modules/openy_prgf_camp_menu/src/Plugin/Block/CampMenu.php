@@ -75,7 +75,7 @@ class CampMenu extends BlockBase implements ContainerFactoryPluginInterface {
    */
   public function build() {
     // Extract node from route.
-    if (!$node = \Drupal::routeMatch()->getParameter('node')) {
+    if (!$node = $this->routeMatch->getParameter('node')) {
       return [];
     }
 
