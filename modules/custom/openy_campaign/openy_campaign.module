@@ -296,9 +296,7 @@ function openy_campaign_field_widget_form_alter(&$element, \Drupal\Core\Form\For
   $fieldName = $context['items']->getName();
   $landingFields = [
     'field_campaign_pages',
-    'field_my_progress_page',
     'field_pause_landing_page',
-    'field_rules_prizes_page',
   ];
   if (in_array($fieldName, $landingFields)) {
     // Output publishing dates in the backend.
@@ -467,11 +465,33 @@ function openy_campaign_campaign_menu_field_render(&$form, \Drupal\Core\Form\For
 }
 
 function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
-  $campaignMenu = serialize($form_state->getValue('campaign_menu'));
-  /** @var Drupal\node\Entity\Node $entity */
-  if ($entity = $form_state->getFormObject()->getEntity()) {
-    $entity->set('field_campaign_menu', $campaignMenu);
-    $entity->save();
+  $campaignMenu = $form_state->getValue('campaign_menu');
+  /** @var Drupal\node\Entity\Node $campaign */
+  if ($campaign = $form_state->getFormObject()->getEntity()) {
+    $campaign->set('field_campaign_menu', serialize($campaignMenu));
+    $campaign->save();
+
+    $pagesIds = [];
+    // Update relations of Campaign pages with the Campaign.
+    foreach ($campaignMenu as $menu) {
+      foreach ($menu['links'] as $link) {
+        if (empty($link['page'])) {
+          continue;
+        }
+        $pagesIds[] = $link['page'][0]['target_id'];
+      }
+    }
+
+    // Update Pause Campaign Page.
+    $pagesIds[] = $form_state->getValue('field_pause_landing_page');
+
+    foreach ($pagesIds as $id) {
+      $campaignPage = \Drupal\node\Entity\Node::load($id);
+      if ($campaignPage->hasField('field_campaign_parent')) {
+        $campaignPage->set('field_campaign_parent', $campaign);
+        $campaignPage->save();
+      }
+    }
   }
 }
 
@@ -499,7 +519,7 @@ function openy_campaign_create_checkin($campaignMemberId, $dateString) {
  * @return string
  *   Email.
  */
-function cleanPersonifyEmail($email) {
+function openy_campaign_clean_personify_email($email) {
   $email = Unicode::strtolower($email);
   if (Unicode::substr($email, -1, 1) == '.') {
     $email = Unicode::substr($email, 0, Unicode::strlen($email) - 1);

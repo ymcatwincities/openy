@@ -57,13 +57,6 @@ process:
         plugin: migration
         migration: openy_demo_node_campaign_page
         source: landing_page_id
-  rules_target_id:
-    plugin: migration
-    migration: openy_demo_node_campaign_page
-    source: rules_page_id
-  field_rules_prizes_page:
-    plugin: get
-    source: '@rules_target_id'
   pause_target_id:
     plugin: migration
     migration: openy_demo_node_campaign_page
@@ -71,13 +64,6 @@ process:
   field_pause_landing_page:
     plugin: get
     source: '@pause_target_id'
-  my_progress_target_id:
-    plugin: migration
-    migration: openy_demo_node_campaign_page
-    source: my_progress_page_id
-  field_my_progress_page:
-    plugin: get
-    source: '@my_progress_target_id'
   field_campaign_start_date:
     -
       plugin: default_value
