@@ -487,7 +487,7 @@ class Member extends ContentEntityBase implements MemberInterface {
     }
 
     // Get info from CRM
-    $email = cleanPersonifyEmail($resultsCRM->PrimaryEmail);
+    $email = openy_campaign_clean_personify_email($resultsCRM->PrimaryEmail);
     if (!empty($resultsCRM->BirthDate)) {
       $birthdate = new \DateTime($resultsCRM->BirthDate);
       $birthdate = $birthdate->format('Y-m-d');

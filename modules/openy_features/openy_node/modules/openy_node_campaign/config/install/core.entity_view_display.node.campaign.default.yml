@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.campaign.field_about_challenge_page
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
@@ -34,14 +33,12 @@ dependencies:
     - field.field.node.campaign.field_login_checkins_not_started
     - field.field.node.campaign.field_login_not_registered
     - field.field.node.campaign.field_min_visits_goal
-    - field.field.node.campaign.field_my_progress_page
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
     - field.field.node.campaign.field_popup_background_color
     - field.field.node.campaign.field_reg_already_registered
     - field.field.node.campaign.field_reg_checkins_not_started
     - field.field.node.campaign.field_register_form_text
-    - field.field.node.campaign.field_rules_prizes_page
     - field.field.node.campaign.field_successful_login
     - field.field.node.campaign.field_successful_registration
     - field.field.node.campaign.field_token_check_back_date
@@ -70,14 +67,6 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-  field_about_challenge_page:
-    weight: 38
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_campaign_age_maximum:
     weight: 106
     label: above
@@ -327,14 +316,6 @@ content:
     third_party_settings: {  }
     type: number_integer
     region: content
-  field_my_progress_page:
-    weight: 113
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_pause_landing_page:
     weight: 1
     label: hidden
@@ -369,14 +350,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-    region: content
-  field_rules_prizes_page:
-    weight: 101
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   field_successful_login:
     weight: 119

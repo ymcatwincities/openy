@@ -33,18 +33,6 @@ class ContentEntityCloneBase extends EntityCloneContentBase {
       }
     }
 
-    if ($clonedEntity->hasField('field_rules_prizes_page')) {
-      $values = $clonedEntity->get('field_rules_prizes_page')->getValue();
-
-      if (!empty($values)) {
-        $nid = $values[0]['target_id'];
-        $landingPage = Node::load($nid);
-        $clonedLandingPage = $landingPage->createDuplicate();
-        $clonedLandingPage->save();
-        $clonedEntity->set('field_rules_prizes_page', $clonedLandingPage->id());
-      }
-    }
-
     if ($clonedEntity->hasField('field_campaign_pages')) {
       $fieldCampaignPages = $clonedEntity->get('field_campaign_pages')->getValue();
       $landingPageIds = [];
