@@ -130,6 +130,7 @@
 .activity-data .categories {
   ul {
     padding: 0px;
+    text-align: center;
     li {
       display: inline-block;
       padding: 15px;
@@ -174,8 +175,20 @@
   }
 
 .activity .paragraph-background-container {
-  padding-left: 130px !important;
-  padding-right: 130px !important;
+
+  @include breakpoint($screen-sm) {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  @include breakpoint($screen-md) {
+    padding-left: 70px !important;
+    padding-right: 70px !important;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    padding-left: 130px !important;
+    padding-right: 130px !important;
+  }
+
   position: relative;
   &:before {
     content: '';
@@ -189,24 +202,27 @@
     border-top-right-radius: 10px;
   }
 }
+
 .calendar h2 {
   padding-top: 30px;
   padding-bottom: 30px;
   text-align: center;
 }
+
 .calendar .month {
   overflow: hidden;
   white-space: nowrap;
-  width: 72%;
   margin: 0px;
   padding: 0px;
   margin-left: 80px;
   margin-right: 80px;
 
   .date-data {
-    width: 14%;
+    padding-left: 25px;
+    padding-right: 25px;
     text-align: center;
     margin-bottom: 180px;
+    display: inline-block;
     .month {
       display: none;
     }
@@ -227,6 +243,7 @@
       padding-bottom: 20px;
       display: block;
       cursor: pointer;
+      width: 50px;
     }
     .data {
       display: none;
@@ -269,7 +286,6 @@
           background: #C6168D;
           color: #fff;
           padding: 10px;
-          /* border-top: 1px solid; */
           text-align: center;
           border-bottom-left-radius: 10px;
           border-bottom-right-radius: 10px;
@@ -278,7 +294,6 @@
           background: #fff;
           color: #92278F;
           padding: 10px;
-          /* border-bottom: 1px solid; */
           text-align: center;
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
@@ -299,9 +314,6 @@
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
-  }
-  ul.month {
-    float: left;
   }
   .next {
     cursor: pointer;

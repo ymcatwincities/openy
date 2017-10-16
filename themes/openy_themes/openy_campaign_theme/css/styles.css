@@ -596,7 +596,7 @@ footer {
   top: 50%;
 }
 
-.activity .paragraph-background-container {
+.activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
   background-color: #92278F;
   background-image: -moz-linear-gradient(#c6168d, #92278F);
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
@@ -639,6 +639,7 @@ footer {
 
 .activity-data .categories ul {
   padding: 0px;
+  text-align: center;
 }
 .activity-data .categories ul li {
   display: inline-block;
@@ -680,12 +681,28 @@ footer {
   background-position: 70px 50px;
 }
 
-.activity .paragraph-background-container {
-  padding-left: 130px !important;
-  padding-right: 130px !important;
+.activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
   position: relative;
 }
-.activity .paragraph-background-container:before {
+@media (min-width: 48em) {
+  .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+@media (min-width: 62em) {
+  .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
+    padding-left: 70px !important;
+    padding-right: 70px !important;
+  }
+}
+@media (min-width: 75em) {
+  .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
+    padding-left: 130px !important;
+    padding-right: 130px !important;
+  }
+}
+.activity .paragraph-background-container:before, .activity .paragraph--type--campaign-winners .winners-branches-select:before, .paragraph--type--campaign-winners .activity .winners-branches-select:before {
   content: '';
   position: absolute;
   left: 47%;
@@ -706,16 +723,17 @@ footer {
 .calendar .month {
   overflow: hidden;
   white-space: nowrap;
-  width: 72%;
   margin: 0px;
   padding: 0px;
   margin-left: 80px;
   margin-right: 80px;
 }
 .calendar .month .date-data {
-  width: 14%;
+  padding-left: 25px;
+  padding-right: 25px;
   text-align: center;
   margin-bottom: 180px;
+  display: inline-block;
 }
 .calendar .month .date-data .month {
   display: none;
@@ -737,6 +755,7 @@ footer {
   padding-bottom: 20px;
   display: block;
   cursor: pointer;
+  width: 50px;
 }
 .calendar .month .date-data .data {
   display: none;
@@ -778,7 +797,6 @@ footer {
   background: #C6168D;
   color: #fff;
   padding: 10px;
-  /* border-top: 1px solid; */
   text-align: center;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -787,7 +805,6 @@ footer {
   background: #fff;
   color: #92278F;
   padding: 10px;
-  /* border-bottom: 1px solid; */
   text-align: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -804,9 +821,6 @@ footer {
   padding-left: 10px;
   padding-right: 10px;
   cursor: pointer;
-}
-.calendar-wrapper ul.month {
-  float: left;
 }
 .calendar-wrapper .next {
   cursor: pointer;
