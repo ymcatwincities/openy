@@ -77,6 +77,29 @@ class WebformSubmissionDeleteForm extends ContentEntityDeleteForm {
   /**
    * {@inheritdoc}
    */
+  protected function actions(array $form, FormStateInterface $form_state) {
+    // Issue #2582295: Confirmation cancel links are incorrect if installed in
+    // a subdirectory
+    // Work-around: Remove sudirectory from destination before generating
+    // actions.
+    $request = $this->getRequest();
+    $destination = $request->query->get('destination');
+    if ($destination) {
+      // Remove subdirectory from destination.
+      $update_destination = preg_replace('/^' . preg_quote(base_path(), '/') . '/', '/', $destination);
+      $request->query->set('destination', $update_destination);
+      $actions = parent::actions($form, $form_state);
+      $request->query->set('destination', $destination);
+      return $actions;
+    }
+    else {
+      return parent::actions($form, $form_state);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getQuestion() {
     return $this->t('Are you sure you want to delete @title?', ['@title' => $this->webformSubmission->label()]);
   }

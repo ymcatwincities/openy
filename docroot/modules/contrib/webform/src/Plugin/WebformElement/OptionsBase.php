@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\OptGroup;
 use Drupal\webform\Utility\WebformArrayHelper;
+use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform\Utility\WebformOptionsHelper;
 use Drupal\webform\Plugin\WebformElementBase;
 use Drupal\webform\Plugin\WebformElementEntityReferenceInterface;
@@ -111,16 +112,17 @@ abstract class OptionsBase extends WebformElementBase {
       $is_description_display = (isset($element['#description_display'])) ? TRUE : FALSE;
       $has_description = (!empty($element['#description'])) ? TRUE : FALSE;
       if ($is_description_display && $has_description) {
+        $description = WebformElementHelper::convertToString($element['#description']);
         switch ($element['#description_display']) {
           case 'before':
             $element += ['#field_prefix' => ''];
-            $element['#field_prefix'] = '<div class="description">' . $element['#description'] . '</div>' . $element['#field_prefix'];
+            $element['#field_prefix'] = '<div class="description">' . $description . '</div>' . $element['#field_prefix'];
             unset($element['#description']);
             break;
 
           case 'invisible':
             $element += ['#field_suffix' => ''];
-            $element['#field_suffix'] .= '<div class="description visually-hidden">' . $element['#description'] . '</div>';
+            $element['#field_suffix'] .= '<div class="description visually-hidden">' . $description . '</div>';
             unset($element['#description']);
             break;
         }
@@ -180,6 +182,24 @@ abstract class OptionsBase extends WebformElementBase {
     return 'comma';
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    $element = parent::preview();
+    if ($this->hasProperty('options')) {
+      $element['#options'] = [
+        'one' => 'One',
+        'two' => 'Two',
+        'three' => 'Three',
+      ];
+    }
+    if ($this->hasProperty('options_display')) {
+      $element['#options_display'] = 'side_by_side';
+    }
+    return $element;
+  }
+  
   /**
    * {@inheritdoc}
    */

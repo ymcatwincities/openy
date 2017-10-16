@@ -28,7 +28,7 @@ function scheduler_drush_command() {
  * Run lighweight scheduler cron.
  */
 function drush_scheduler_cron() {
-  \Drupal::service('scheduler.manager')->runCron();
+  \Drupal::service('scheduler.manager')->runLightweightCron();
   $nomsg = drush_get_option('nomsg', NULL);
   $nomsg ? NULL : drupal_set_message(t('Scheduler lightweight cron completed'));
 }

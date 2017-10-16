@@ -55,6 +55,21 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  protected function doCreate(array $values) {
+    $entity = parent::doCreate($values);
+    // Cache new created webform entity so that it can be loaded using just the
+    // webform's id.
+    // @see '_webform_ui_temp_form'
+    // @see \Drupal\webform_ui\Form\WebformUiElementTestForm
+    // @see \Drupal\webform_ui\Form\WebformUiElementTypeFormBase
+    if ($id = $entity->id()) {
+      $this->entities[$id] = $entity;
+    }
+    return $entity;
+  }
 
   /**
    * {@inheritdoc}
@@ -172,7 +187,7 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
    */
   public function getNextSerial(WebformInterface $webform) {
     return $this->database->select('webform', 'w')
-      ->fields('w', array('next_serial'))
+      ->fields('w', ['next_serial'])
       ->condition('webform_id', $webform->id())
       ->execute()
       ->fetchField();
@@ -205,7 +220,7 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
     $next_serial = $this->database->select('webform', 'w')
       // Only add FOR UPDATE when incrementing.
       ->forUpdate()
-      ->fields('w', array('next_serial'))
+      ->fields('w', ['next_serial'])
       ->condition('webform_id', $webform->id())
       ->execute()
       ->fetchField();

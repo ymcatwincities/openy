@@ -23,6 +23,7 @@ elements: |
         - 'First Name'
         - 'Last Name'
         - Gender
+        - Markup
       table__1:
         table__1__first_name:
           '#type': textfield
@@ -36,6 +37,8 @@ elements: |
           '#type': select
           '#options': gender
           '#default_value': Male
+        table__1__markup:
+          '#markup': '{markup_1}'
       table__2:
         table__2__first_name:
           '#type': textfield
@@ -49,6 +52,8 @@ elements: |
           '#type': select
           '#options': gender
           '#default_value': Female
+        table__2__markup:
+          '#markup': '{markup_2}'
   tableselect_sort_elements:
     '#type': details
     '#title': 'Table Select Elements'
@@ -195,6 +200,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -210,12 +216,13 @@ settings:
   wizard_start_label: ''
   wizard_complete: true
   wizard_complete_label: ''
-  preview: 0
+  preview: 1
   preview_label: ''
   preview_title: ''
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: none
   draft_multiple: false
   draft_auto_save: false
@@ -246,27 +253,35 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers:
   debug:
     id: debug
