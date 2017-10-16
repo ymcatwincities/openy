@@ -2,9 +2,7 @@
 
 namespace Drupal\webform;
 
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Uuid\Php;
 use Drupal\Core\Url;
 
 /**
@@ -15,33 +13,9 @@ class WebformSubmissionDuplicateForm extends WebformSubmissionForm {
   /**
    * {@inheritdoc}
    */
-  public function setEntity(EntityInterface $entity) {
-    /** @var \Drupal\webform\WebformSubmissionInterface $entity */
-    $entity = clone $entity;
-
-    // Clear IDs.
-    $entity->set('uuid', (new Php())->generate());
-    $entity->set('sid', NULL);
-    $entity->set('serial', NULL);
-
-    // Clear state.
-    $entity->set('in_draft', FALSE);
-
-    // Create timestamps.
-    $entity->set('created', NULL);
-    $entity->set('changed', NULL);
-    $entity->set('completed', NULL);
-
-    // Clear admin notes and sticky.
-    $entity->set('notes', '');
-    $entity->set('sticky', FALSE);
-
-    $this->messageManager->setWebformSubmission($entity);
-    $this->messageManager->setWebform($entity->getWebform());
-    $this->messageManager->setSourceEntity($entity->getSourceEntity());
-
-    $this->entity = $entity;
-    return $this;
+  protected function prepareEntity() {
+    $this->setEntity($this->getEntity()->createDuplicate());
+    parent::prepareEntity();
   }
 
   /**

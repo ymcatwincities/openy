@@ -7,6 +7,7 @@
 
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Url;
+use Drupal\webform\Utility\WebformElementHelper;
 
 /******************************************************************************/
 // Generate elements.
@@ -81,6 +82,59 @@ function _webform_test_load_include($id) {
 }
 
 /**
+ * Get a preview/example element for a specified element type.
+ *
+ * @param string $type
+ *   An element type.
+ * @param array $options
+ *   Options for generating the example element.
+ *
+ * @return array|bool
+ *   An example element or FALSE if the element type can't have an example.
+ */
+function _webform_test_get_element_preview($type, array $options = []) {
+  static $skipped = [
+    'webform_example_element',
+    'webform_example_composite',
+  ];
+
+  // Skip certain elements that should never be included in test forms.
+  if (in_array($type, $skipped )) {
+    return FALSE;
+  }
+
+  $options += [
+    'issues' => TRUE,
+  ];
+
+  /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
+  $element_manager = \Drupal::service('plugin.manager.webform.element');
+  $webform_element = $element_manager->createInstance($type);
+
+  $element = $webform_element->preview();
+  if (empty($element)) {
+    return FALSE;
+  }
+
+  // Add known issues to #description.
+  if ($options['issues']) {
+    $issues = _webform_test_issues();
+    if (isset($issues[$type])) {
+      $items = [];
+      foreach ($issues[$type] as $issue_number => $issue_title) {
+        $items[$issue_number] = "<a href=\"https://www.drupal.org/node/$issue_number\">Issue #$issue_number: $issue_title</a>";
+      }
+      $element['#description'] = '<b>' . t('Known Issues:') . '</b><br />' . implode('<br />', $items);
+    }
+  }
+
+  // Remove markup so that the element can be serialized to YAML.
+  WebformElementHelper::convertRenderMarkupToStrings($element);
+
+  return $element;
+}
+
+/**
  * Get issues related to elements #states API.
  *
  * @return array
@@ -141,124 +195,4 @@ function _webform_test_issues() {
       '1838234' => 'Add jQuery Timepicker for the Time element of the datetime field',
     ],
   ];
-}
-
-/**
- * Generate an example of a specified element type.
- *
- * @param string $type
- *   An element type.
- * @param array $options
- *   Options for generating the example element.
- *
- * @return array|bool
- *   An example element or FALSE if the element type can't have an example.
- */
-function _webform_test_get_example_element($type, array $options = []) {
-  static $skipped_elements;
-  static $default_elements;
-
-  // Elements to be ignored.
-  if (!isset($skipped_elements)) {
-    $skipped_elements = [
-      'hidden',
-      'table',
-      'webform_element',
-      'webform_flexbox',
-      'webform_test',
-      'webform_wizard_page',
-    ];
-
-    // Some tests don't install the filter.module so we should skip elements
-    // that is depend on the filter.module.
-    if (!\Drupal::moduleHandler()->moduleExists('filter')) {
-      $skipped_elements[] = 'processed_text';
-      $skipped_elements[] = 'text_format';
-    }
-  }
-
-  $options += [
-    'issues' => TRUE,
-  ];
-  // Default element properties.
-  if (!isset($default_elements)) {
-    $yaml = file_get_contents(drupal_get_path('module', 'webform_test') . '/includes/webform_test.example_elements.yml');
-    $default_elements = Yaml::decode($yaml);
-  }
-
-  if (isset($skipped_elements[$type])) {
-    return FALSE;
-  }
-
-  /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
-  $element_manager = \Drupal::service('plugin.manager.webform.element');
-
-  $webform_element = $element_manager->createInstance($type);
-
-  $element = [
-    '#type' => (string) $webform_element->getTypeName(),
-    '#title' => (string) $webform_element->getPluginLabel(),
-  ];
-
-  // Add known issues to #description.
-  if ($options['issues']) {
-    $issues = _webform_test_issues();
-    if (isset($issues[$type])) {
-      $items = [];
-      foreach ($issues[$type] as $issue_number => $issue_title) {
-        $items[$issue_number] = "<a href=\"https://www.drupal.org/node/$issue_number\">Issue #$issue_number: $issue_title</a>";
-      }
-      $element['#description'] = '<b>' . t('Known Issues:') . '</b><br />' . implode('<br />', $items);
-    }
-  }
-
-  // Set default element properties.
-  if (isset($default_elements[$type])) {
-    $element += $default_elements[$type];
-  }
-
-  // Set default container content.
-  if ($webform_element->isContainer($element)) {
-    if (!in_array($type, ['captcha'])) {
-      $element[$type . '_content'] = [
-        '#markup' => 'This is a ' . $webform_element->getPluginLabel() . ' container.',
-      ];
-    }
-  }
-
-  // Add known issues to #description.
-  if (isset($issues[$type])) {
-    $items = [];
-    foreach ($issues[$type] as $issue_number => $issue_title) {
-      $items[$issue_number] = "<a href=\"https://www.drupal.org/node/$issue_number\">Issue #$issue_number: $issue_title</a>";
-    }
-    $element['#description'] = '<b>' . t('Known Issues:') . '</b><br />' . implode('<br />', $items);
-  }
-
-  // Set default element properties.
-  if (isset($default_elements[$type])) {
-    $element += $default_elements[$type];
-  }
-
-  // Set default options.
-  if ($webform_element->hasProperty('options')) {
-    $element['#options'] = [
-      'one' => 'One',
-      'two' => 'Two',
-      'three' => 'Three',
-      'four' => 'Four',
-      'five' => 'Five',
-    ];
-  }
-
-  // Set default container content.
-  if ($webform_element->isContainer($element)) {
-    if (!in_array($type, ['captcha'])) {
-      $element[$type . '_content'] = [
-        '#markup' => 'This is a ' . $webform_element->getPluginLabel() . ' container.',
-      ];
-    }
-  }
-
-  return $element;
 }

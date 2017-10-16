@@ -6,7 +6,6 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\webform\WebformInterface;
 use Drupal\webform_devel\WebformDevelSchemaInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class WebformDevelSchemaController extends ControllerBase implements ContainerInjectionInterface {
 
   /**
-   * The webform devel schema generator
+   * The webform devel schema generator.
    *
    * @var \Drupal\webform_devel\WebformDevelSchemaInterface
    */
@@ -26,7 +25,7 @@ class WebformDevelSchemaController extends ControllerBase implements ContainerIn
    * Constructs a WebformDevelSchemaController object.
    *
    * @param \Drupal\webform_devel\WebformDevelSchemaInterface $schema
-   *   The webform devel schema generator
+   *   The webform devel schema generator.
    */
   public function __construct(WebformDevelSchemaInterface $schema) {
     $this->schema = $schema;

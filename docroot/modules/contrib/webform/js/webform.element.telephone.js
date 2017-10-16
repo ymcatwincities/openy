@@ -28,7 +28,7 @@
 
         // Add error message container.
         var $error = $('<div class="form-item--error-message">' + Drupal.t('Invalid phone number') + '</div>').hide();
-        $telephone.closest('.form-item').append($error);
+        $telephone.closest('.js-form-item').append($error);
 
         // @todo: Figure out how to lazy load utilsScript (build/js/utils.js).
         // @see https://github.com/jackocnr/intl-tel-input#utilities-script
