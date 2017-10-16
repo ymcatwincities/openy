@@ -1,0 +1,5 @@
+entity.formatter.collection:
+  title: 'Formatters'
+  parent: system.admin_structure
+  description: 'Administer Formatters.'
+  route_name: entity.formatter.collection

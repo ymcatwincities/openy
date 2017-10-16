@@ -395,6 +395,25 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
   public function purge($count);
 
   /****************************************************************************/
+  // Data handlers.
+  /****************************************************************************/
+
+  /**
+   * Save webform submission data to the 'webform_submission_data' table.
+   *
+   * This method is public the allow webform handler (ie remote posts) to
+   * update [webform:handler] tokens stored in the submission data.
+   *
+   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+   *   A webform submission.
+   * @param bool $delete_first
+   *   TRUE to delete any data first. For new submissions this is not needed.
+   *
+   * @see \Drupal\webform\Plugin\WebformHandler\RemotePostWebformHandler::remotePost
+   */
+  public function saveData(WebformSubmissionInterface $webform_submission, $delete_first = TRUE);
+
+  /****************************************************************************/
   // Log methods.
   /****************************************************************************/
 

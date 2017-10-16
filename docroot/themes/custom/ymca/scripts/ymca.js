@@ -362,6 +362,7 @@
         }
         // Extended case, merge sidebar and navbar.
         if ($('.nav-location').length === 1) {
+          $('.nav-location').removeClass('hidden-xs');
           if ($('.panel-subnav').length === 1) {
             $('.panel-subnav ul.nav:eq(0)').clone(true).appendTo('.nav-location .nav .current');
           }
@@ -385,6 +386,32 @@
           }
         }
       }
+      $('.site-search-sidebar')
+        .once()
+        .on('show.bs.collapse',
+          function (e) {
+            $('.sidebar .search-icon').addClass('form-shown');
+          }
+        )
+        .on('hide.bs.collapse',
+          function (e) {
+            $('.sidebar .search-icon').removeClass('form-shown');
+          }
+        );
+      $('.sidebar')
+        .on('DOMSubtreeModified',
+          function (e) {
+            var more = $(this).find('li.more');
+            if (more.find('.expand').length === 0) {
+              more.append('<a href="#" class="expand">...</a>').nextAll().hide();
+            }
+            more.find('.expand').on('click', function(e) {
+              e.preventDefault();
+              more.hide().nextAll().show();
+              $(this).hide();
+            })
+          }
+        );
     }
   };
 

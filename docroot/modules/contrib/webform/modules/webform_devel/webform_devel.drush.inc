@@ -52,9 +52,9 @@ function drush_webform_devel_reset() {
     return drush_user_abort();
   }
 
-  drush_print('Resetting message closed via State API...');
+  drush_print(dt('Resetting message closed via State API...'));
   \Drupal::state()->delete('webform.element.message');
 
-  drush_print('Resetting message closed via User Data...');
+  drush_print(dt('Resetting message closed via User Data...'));
   \Drupal::service('user.data')->delete('webform', NULL, 'webform.element.message');
 }

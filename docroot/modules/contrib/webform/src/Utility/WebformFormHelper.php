@@ -80,21 +80,21 @@ class WebformFormHelper {
           // element's reference to be an array of references.
           if (empty($duplicate_element_keys[$key])) {
             // Store a temporary references to the first element.
-            $first_element =& $elements[$key];
+            $first_element = &$elements[$key];
             // Use unset() to break the reference.
             unset($elements[$key]);
             // Create an array of element references.
             $elements[$key] = [];
             // Append the first to the array of element references.
-            $elements[$key][] =& $first_element;
+            $elements[$key][] = &$first_element;
           }
           // Now append the current element to array of element references.
-          $elements[$key][] =& $build[$key];
+          $elements[$key][] = &$build[$key];
           // Finally †rack elements with duplicate keys.
           $duplicate_element_keys[$key] = TRUE;
         }
         else {
-          $elements[$key] =& $build[$key];
+          $elements[$key] = &$build[$key];
         }
 
         self::flattenElementsRecursive($element, $elements, $duplicate_element_keys);

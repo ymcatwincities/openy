@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\webform\Element\WebformHtmlEditor;
 use Drupal\webform\Entity\Webform;
 use Drupal\webform\WebformRequestInterface;
 use Drupal\webform\WebformTokenManagerInterface;
@@ -245,9 +246,9 @@ class WebformSubmissionLimitBlock extends BlockBase implements ContainerFactoryP
   public function build() {
     $build = [];
     if ($this->configuration['content']) {
-      $build['content'] = [
-        '#markup' => $this->replaceTokens($this->configuration['content']),
-      ];
+      $build['content'] = WebformHtmlEditor::checkMarkup(
+        $this->replaceTokens($this->configuration['content'])
+      );
     }
     if ($this->configuration['progress_bar']) {
       $total = $this->getTotal();

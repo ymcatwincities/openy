@@ -468,15 +468,19 @@ elements: |
     line_checkboxes:
       '#type': checkboxes
       '#title': 'Line checkboxes (line)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line
     line_radios:
       '#type': radios
       '#title': 'Line radios (line)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -486,15 +490,19 @@ elements: |
     line_grey_checkboxes:
       '#type': checkboxes
       '#title': 'Grey checkboxes (line-grey)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-grey
     line_grey_radios:
       '#type': radios
       '#title': 'Grey radios (line-grey)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -504,15 +512,19 @@ elements: |
     line_yellow_checkboxes:
       '#type': checkboxes
       '#title': 'Yellow checkboxes (line-yellow)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-yellow
     line_yellow_radios:
       '#type': radios
       '#title': 'Yellow radios (line-yellow)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -522,15 +534,19 @@ elements: |
     line_orange_checkboxes:
       '#type': checkboxes
       '#title': 'Orange checkboxes (line-orange)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-orange
     line_orange_radios:
       '#type': radios
       '#title': 'Orange radios (line-orange)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -540,15 +556,19 @@ elements: |
     line_red_checkboxes:
       '#type': checkboxes
       '#title': 'Red checkboxes (line-red)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-red
     line_red_radios:
       '#type': radios
       '#title': 'Red radios (line-red)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -558,15 +578,19 @@ elements: |
     line_pink_checkboxes:
       '#type': checkboxes
       '#title': 'Pink checkboxes (line-pink)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-pink
     line_pink_radios:
       '#type': radios
       '#title': 'Pink radios (line-pink)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -576,15 +600,19 @@ elements: |
     line_purple_checkboxes:
       '#type': checkboxes
       '#title': 'Purple checkboxes (line-purple)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-purple
     line_purple_radios:
       '#type': radios
       '#title': 'Purple radios (line-purple)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -594,15 +622,19 @@ elements: |
     line_blue_checkboxes:
       '#type': checkboxes
       '#title': 'Blue checkboxes (line-blue)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-blue
     line_blue_radios:
       '#type': radios
       '#title': 'Blue radios (line-blue)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -612,15 +644,19 @@ elements: |
     line_green_checkboxes:
       '#type': checkboxes
       '#title': 'Green checkboxes (line-green)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-green
     line_green_radios:
       '#type': radios
       '#title': 'Green radios (line-green)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -630,15 +666,19 @@ elements: |
     line_aero_checkboxes:
       '#type': checkboxes
       '#title': 'Aero checkboxes (line-aero)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
         three: Three
       '#default_value': one
+      '#wrapper_attributes':
+        class: container-inline
       '#icheck': line-aero
     line_aero_radios:
       '#type': radios
       '#title': 'Aero radios (line-aero)'
+      '#options_display': side_by_side
       '#options':
         one: One
         two: Two
@@ -888,6 +928,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -909,6 +950,7 @@ settings:
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: none
   draft_multiple: false
   draft_auto_save: false
@@ -939,25 +981,33 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers: {  }
