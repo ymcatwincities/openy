@@ -72,7 +72,6 @@ p {
 
 body {
   padding-top: 0px !important;
-  background-color: #5c2e91;
 }
 
 .container {
@@ -184,18 +183,6 @@ body {
   padding: 0px;
 }
 
-.paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
-  /* fallback/image non-cover color */
-  background-color: #c6168d;
-  /* Firefox 3.6+ */
-  background-image: -moz-linear-gradient(#c6168d, #5c2e91);
-  /* Safari 4+, Chrome 1+ */
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#5c2e91));
-  /* Safari 5.1+, Chrome 10+ */
-  background-image: -webkit-linear-gradient(left, #c6168d, #5c2e91);
-  /* Opera 11.10+ */
-  background-image: -o-linear-gradient(#c6168d, #5c2e91);
-}
 .paragraph-background-container .paragraph-container, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container {
   background-color: inherit;
   color: #ffffff;
@@ -213,7 +200,6 @@ body {
 }
 
 .btn, .button {
-  background-color: #c6168d;
   font-size: 18px;
   padding-top: 13px;
   text-align: center;
@@ -244,7 +230,6 @@ body {
   font-size: 24px;
   padding-left: 0px !important;
   text-transform: uppercase;
-  color: #636466;
 }
 .block-description--wrapper .block-description--text .field-sb-body {
   margin-top: 5px;
@@ -311,10 +296,6 @@ body {
   border: 1px solid #ccc;
 }
 
-.paragraph-1c-wrapper .field-prgf-1c-description {
-  color: #4f4f4f !important;
-}
-
 .field-prgf-1c-column {
   text-align: center;
   padding-bottom: 15px;
@@ -355,14 +336,11 @@ body {
 .visits-goal .description {
   text-align: center;
 }
-.visits-goal .description .goal {
-  color: #c6168d;
-}
 .visits-goal .uppercase {
   text-transform: uppercase;
 }
 .visits-goal .bold {
-  text-style: bold;
+  font-weight: bold;
 }
 .visits-goal .visits-goal-progress {
   margin-top: 5px;
@@ -442,7 +420,6 @@ body {
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-prize {
   text-align: center;
   font-size: 18px;
-  color: #c6168d;
   margin-bottom: 20px;
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
@@ -457,7 +434,6 @@ body {
   font-size: 18px;
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
-  color: #c6168d;
   width: 70%;
 }
 
@@ -540,7 +516,6 @@ footer {
   background-color: #fff;
   background-repeat: no-repeat;
   cursor: pointer;
-  color: #C6168D;
   background-position: 26px 27px;
 }
 .form-item input:checked + label:hover {
@@ -564,7 +539,6 @@ footer {
 .form-item input + label:hover {
   background: #fff;
   cursor: pointer;
-  color: #C6168D;
 }
 
 .form-item input + label:before {
@@ -596,17 +570,7 @@ footer {
   top: 50%;
 }
 
-.activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
-  background-color: #92278F;
-  background-image: -moz-linear-gradient(#c6168d, #92278F);
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
-  background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
-  background-image: -o-linear-gradient(#c6168d, #92278F);
-}
-
 .category-data {
-  background: #92278F;
-  color: #fff;
   text-transform: uppercase;
   margin: 25px;
   border-radius: 10px;
@@ -644,12 +608,10 @@ footer {
 .activity-data .categories ul li {
   display: inline-block;
   padding: 15px;
-  background: #92278F;
   opacity: 0.7;
   margin: 25px;
   width: 200px;
   height: 200px;
-  color: #fff;
   text-align: center;
   text-transform: uppercase;
   font-size: 22px;
@@ -708,7 +670,6 @@ footer {
   left: 47%;
   bottom: -57px;
   border: 30px solid transparent;
-  border-top: 30px solid #92278F;
   text-align: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -770,7 +731,6 @@ footer {
   margin: 0 auto;
   margin-top: 25px;
   padding-bottom: 10px;
-  color: #c6168d;
   cursor: pointer;
 }
 .calendar .month .date-data.active .visits {
@@ -794,7 +754,6 @@ footer {
   border-top-right-radius: 10px;
 }
 .calendar .month .date-data.active .visits .visited {
-  background: #C6168D;
   color: #fff;
   padding: 10px;
   text-align: center;
@@ -803,7 +762,6 @@ footer {
 }
 .calendar .month .date-data.active .visits .entriesNum {
   background: #fff;
-  color: #92278F;
   padding: 10px;
   text-align: center;
   border-top-left-radius: 10px;
@@ -816,7 +774,6 @@ footer {
 .calendar-wrapper .prev {
   float: left;
   height: 100px;
-  background: #C6168D;
   padding-top: 18px;
   padding-left: 10px;
   padding-right: 10px;
@@ -825,7 +782,6 @@ footer {
 .calendar-wrapper .next {
   cursor: pointer;
   height: 100px;
-  background: #C6168D;
   float: right;
   padding-top: 18px;
   padding-left: 10px;
