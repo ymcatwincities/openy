@@ -2,7 +2,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.campaign.field_about_challenge_page
     - field.field.node.campaign.field_campaign_age_maximum
     - field.field.node.campaign.field_campaign_age_minimum
     - field.field.node.campaign.field_campaign_branches
@@ -34,14 +33,12 @@ dependencies:
     - field.field.node.campaign.field_login_checkins_not_started
     - field.field.node.campaign.field_login_not_registered
     - field.field.node.campaign.field_min_visits_goal
-    - field.field.node.campaign.field_my_progress_page
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
     - field.field.node.campaign.field_popup_background_color
     - field.field.node.campaign.field_reg_already_registered
     - field.field.node.campaign.field_reg_checkins_not_started
     - field.field.node.campaign.field_register_form_text
-    - field.field.node.campaign.field_rules_prizes_page
     - field.field.node.campaign.field_successful_login
     - field.field.node.campaign.field_successful_registration
     - field.field.node.campaign.field_token_check_back_date
@@ -244,15 +241,6 @@ content:
     weight: 3
     settings: {  }
     third_party_settings: {  }
-    region: content
-  field_about_challenge_page:
-    weight: 11
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
     region: content
   field_campaign_age_maximum:
     weight: 27
@@ -475,15 +463,6 @@ content:
     third_party_settings: {  }
     type: number
     region: content
-  field_my_progress_page:
-    weight: 10
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_pause_campaign:
     weight: 9
     settings:
@@ -530,15 +509,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
-    region: content
-  field_rules_prizes_page:
-    weight: 12
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
     region: content
   field_successful_login:
     weight: 34

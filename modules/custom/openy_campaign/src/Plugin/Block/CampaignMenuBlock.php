@@ -58,21 +58,19 @@ class CampaignMenuBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   public function build() {
+    $noCache = ['#cache' => ['max-age' => 0]];
     // Extract Campaign node from route.
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
     // There is no campaign associated with the node or empty campaign menu.
     if (!$links = $this->campaignMenuService->getNodeCampaignMenu($campaign)) {
-      return [];
+      return $noCache;
     }
 
     return [
       '#theme' => 'openy_campaign_campaign_menu',
       '#links' => $links,
-      '#cache' => [
-        'max-age' => 0,
-      ],
-    ];
+    ] + $noCache;
   }
 
 }

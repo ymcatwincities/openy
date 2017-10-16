@@ -65,43 +65,6 @@ class CampaignController extends ControllerBase {
   }
 
   /**
-   * Show needed content on Campaign node
-   *
-   * @param int $campaign_id Node ID of the current campaign.
-   * @param int $landing_page_id Landing page node ID to get new content for replacement.
-   *
-   * @return \Drupal\Core\Ajax\AjaxResponse | \Symfony\Component\HttpFoundation\RedirectResponse
-   */
-  public function showPageContent($campaign_id, $landing_page_id) {
-
-    $response = new AjaxResponse();
-
-    $campaign = Node::load($campaign_id);
-    $fieldMyProgress = $campaign->field_my_progress_page->target_id;
-    $isMyProgress = (!empty($fieldMyProgress) && $fieldMyProgress == $landing_page_id);
-
-    // Only for My Progress page. Show modal popup if user is not logged in.
-    if ($isMyProgress && !MemberCampaign::isLoggedIn($campaign_id)) {
-      // Get the modal form using the form builder.
-      $modalPopup = [
-        '#theme' => 'openy_campaign_popup',
-        '#form' => $this->formBuilder->getForm('Drupal\openy_campaign\Form\MemberLoginForm', $campaign_id, $landing_page_id),
-      ];
-
-      $options = [
-        'width' => '800',
-      ];
-      // Add an AJAX command to open a modal dialog with the form as the content.
-      $response->addCommand(new OpenModalDialogCommand($this->t('Sign in'), $modalPopup, $options));
-
-      return $response;
-    }
-
-    return new RedirectResponse(Url::fromRoute('entity.node.canonical', ['node' => $landing_page_id])->toString());
-
-  }
-
-  /**
    * @param \Drupal\node\NodeInterface $node
    *
    * @return array Render array
