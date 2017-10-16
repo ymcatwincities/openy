@@ -27,6 +27,7 @@ use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\webform\Utility\WebformThemeHelper;
 use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionForm;
+use Drupal\Component\Utility\Html;
 
 require_once __DIR__ . '/includes/webform.date.inc';
 require_once __DIR__ . '/includes/webform.libraries.inc';
@@ -39,7 +40,7 @@ require_once __DIR__ . '/includes/webform.translation.inc';
 function webform_help($route_name, RouteMatchInterface $route_match) {
   // Get path from route match.
   $path = preg_replace('/^' . preg_quote(base_path(), '/') . '/', '/', Url::fromRouteMatch($route_match)->setAbsolute(FALSE)->toString());
-  if (!in_array($route_name, ['system.modules_list']) && strpos($route_name, 'webform') === FALSE && strpos($path, '/webform') === FALSE) {
+  if (!in_array($route_name, ['system.modules_list', 'update.status']) && strpos($route_name, 'webform') === FALSE && strpos($path, '/webform') === FALSE) {
     return NULL;
   }
 
@@ -121,12 +122,12 @@ function webform_cron() {
  * Implements hook_local_tasks_alter().
  */
 function webform_local_tasks_alter(&$local_tasks) {
+  // Change config translation local task hierarchy.
   if (isset($local_tasks['config_translation.local_tasks:entity.webform.config_translation_overview'])) {
-    // Change 'Translate' base route from 'entity.webform.edit_form'
-    // to 'entity.webform.canonical' because by default config entities don't
-    // have canonical views but the webform entity does.
-    $local_tasks['config_translation.local_tasks:entity.webform.config_translation_overview']['title'] = 'Translate';
     $local_tasks['config_translation.local_tasks:entity.webform.config_translation_overview']['base_route'] = 'entity.webform.canonical';
+  }
+  if (isset($local_tasks['config_translation.local_tasks:config_translation.item.overview.webform.settings'])) {
+    $local_tasks['config_translation.local_tasks:config_translation.item.overview.webform.settings']['parent_id'] = 'webform.settings';
   }
 }
 
@@ -134,11 +135,12 @@ function webform_local_tasks_alter(&$local_tasks) {
  * Implements hook_menu_local_tasks_alter().
  */
 function webform_menu_local_tasks_alter(&$data, $route_name) {
-  // Change 'Translate webform' tab to be just label 'Translate'.
-  if (strpos($route_name, 'entity.webform.') === 0) {
-    if (isset($data['tabs'][0]['config_translation.local_tasks:entity.webform.config_translation_overview']['#link']['title'])) {
-      $data['tabs'][0]['config_translation.local_tasks:entity.webform.config_translation_overview']['#link']['title'] = t('Translate');
-    }
+  // Change 'Translate *' tab to be just label 'Translate'.
+  if (isset($data['tabs'][0]['config_translation.local_tasks:entity.webform.config_translation_overview']['#link']['title'])) {
+    $data['tabs'][0]['config_translation.local_tasks:entity.webform.config_translation_overview']['#link']['title'] = t('Translate');
+  }
+  if (isset($data['tabs'][1]['config_translation.local_tasks:config_translation.item.overview.webform.settings'])) {
+    $data['tabs'][1]['config_translation.local_tasks:config_translation.item.overview.webform.settings']['#link']['title'] = t('Translate');
   }
 
   // ISSUE:
@@ -318,7 +320,7 @@ function webform_mail($key, &$message, $params) {
   // value is used instead of site's email address.
   // See: \Drupal\Core\Mail\MailManager::mail.
   if (!empty($params['from_mail'])) {
-    $message['from'] = $message['headers']['From'] = (!empty($params['from_name'])) ? $params['from_name'] . ' <' . $params['from_mail'] . '>' : $params['from_mail'];
+    $message['from'] = $message['headers']['From'] = (!empty($params['from_name'])) ? Unicode::mimeHeaderEncode($params['from_name']) . ' <' . $params['from_mail'] . '>' : $params['from_mail'];
   }
 
   // Set header 'Reply-to'.
@@ -412,18 +414,40 @@ function _webform_page_attachments(array &$attachments) {
 }
 
 /**
+ * Implements hook_library_info_build().
+ */
+function webform_library_info_build() {
+  /** @var \Drupal\webform\WebformInterface[] $webforms */
+  $webforms = Webform::loadMultiple();
+  $libraries = [];
+  foreach ($webforms as $webform_id => $webform) {
+    $assets = array_filter($webform->getAssets());
+    foreach ($assets as $type => $value) {
+      $settings = ['preprocess' => FALSE, 'minified' => FALSE];
+      if ($type === 'css') {
+        $libraries["webform.css.$webform_id"] = [
+          'css' => ['theme' => ["/webform/css/$webform_id" => $settings]],
+        ];
+      }
+      else {
+        $libraries["webform.javascript.$webform_id"] = [
+          'js' => ["/webform/javascript/$webform_id" => $settings],
+        ];
+      }
+    }
+  }
+  return $libraries;
+}
+
+/**
  * Implements hook_css_alter().
- *
- * @see \Drupal\webform\WebformSubmissionForm::form
  */
 function webform_css_alter(&$css, AttachedAssetsInterface $assets) {
-  _webform_asset_alter($css, $assets, 'css', 'css');
+  _webform_asset_alter($css, 'css');
 }
 
 /**
  * Implements hook_js_alter().
- *
- * @see \Drupal\webform\WebformSubmissionForm::form
  */
 function webform_js_alter(&$javascript, AttachedAssetsInterface $assets) {
   // Add Google API key required by webform/libraries.jquery.geocomplete
@@ -436,40 +460,24 @@ function webform_js_alter(&$javascript, AttachedAssetsInterface $assets) {
     $javascript['https://maps.googleapis.com/maps/api/js?key=API_KEY&libraries=places']['data'] = "https://maps.googleapis.com/maps/api/js?key=$api_key&libraries=places";
   }
 
-  _webform_asset_alter($javascript, $assets, 'javascript', 'js');
+  _webform_asset_alter($javascript, 'javascript');
 }
 
 /**
- * Alter CSS or JavaScript assets to include custom webform assets.
- *
- * Note: CSS and JavaScript are not aggregated or minified to make it easier
- * for themers to debug and custom their code.  We could write the CSS and JS
- * to the 'files/css' and 'files/js' using the hash key and aggregrate them.
+ * Alter Webform CSS or JavaScript assets and make sure they appear last.
  *
  * @param array $items
  *   An array of all CSS or JavaScript being presented on the page.
- * @param \Drupal\Core\Asset\AttachedAssetsInterface $assets
- *   The assets attached to the current response.
  * @param string $type
  *   The type of asset being attached.
- * @param string $extension
- *   The asset file extension being attached.
+ *
+ * @see hook_library_info_build()
  */
-function _webform_asset_alter(array &$items, AttachedAssetsInterface $assets, $type, $extension) {
-  $settings = $assets->getSettings();
-  if (empty($settings['webform']['assets'][$type])) {
-    return;
-  }
-
-  $path = drupal_get_path('module', 'webform');
-  foreach ($settings['webform']['assets'][$type] as $id => $hash) {
-    $key = "$path/$extension/webform.assets.$extension";
-    if (isset($items[$key])) {
-      $items[$key] = [
-        'data' => base_path() . "webform/$id/assets/$type?v=$hash",
-        'group' => 1000,
-        'weight' => 1000,
-      ] + $items[$key];
+function _webform_asset_alter(array &$items, $type) {
+  foreach ($items as $key => &$item) {
+    if (strpos($key, "webform/$type/") === 0) {
+      $item['weight'] = 1000;
+      $item['group'] = 1000;
     }
   }
 }
@@ -531,21 +539,25 @@ function webform_theme() {
       'variables' => ['webform_submission' => NULL],
     ],
 
+    'webform_submission' => [
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'type' => NULL],
+    ],
+
     'webform_submission_navigation' => [
       'variables' => ['webform_submission' => NULL],
     ],
     'webform_submission_information' => [
-      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'open' => FALSE],
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'open' => TRUE],
     ],
 
     'webform_submission_html' => [
-      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => []],
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => [], 'exclude_empty' => TRUE],
     ],
     'webform_submission_table' => [
-      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => []],
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => [], 'exclude_empty' => TRUE],
     ],
     'webform_submission_text' => [
-      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => []],
+      'variables' => ['webform_submission' => NULL, 'source_entity' => NULL, 'excluded_elements' => [], 'exclude_empty' => TRUE],
     ],
     'webform_submission_yaml' => [
       'variables' => ['webform_submission' => NULL, 'source_entity' => NULL],
@@ -667,40 +679,39 @@ function webform_theme_registry_alter(&$theme_registry) {
 }
 
 /**
- * Implements hook_theme_suggestions_alter().
+ * Prepares variables for single local action link templates.
+ *
+ * Applies custom link attributes to local actions.
+ * Custom attributes are used to open Webform UI modals.
+ *
+ * Issue #2897396: Add a Reference Tab to track Webform nodes.
+ * @see https://www.drupal.org/node/2897396
+ *
+ * @see template_preprocess_menu_local_action();
+ * @see \Drupal\webform\WebformEntityHandlersForm
+ * @see \Drupal\webform_ui\WebformUiEntityForm
  */
-function webform_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
-  if (strpos($hook, 'webform') !== 0) {
+function webform_preprocess_menu_local_action(&$variables) {
+  $link = $variables['element']['#link'];
+  // Only need to update local actions with link attributes.
+  if (!isset($link['attributes'])) {
     return;
   }
 
-  if ($hook == 'webform') {
-    $suggestions[] = $hook . '__' . $variables['element']['#webform_id'];
-  }
-  elseif (strpos($hook, 'webform_element_base_') === 0 || strpos($hook, 'webform_container_base_') === 0) {
-    $element = $variables['element'];
+  $link += [
+    'localized_options' => [],
+  ];
+  $link['localized_options']['attributes'] = $link['attributes'];
+  $link['localized_options']['attributes']['class'][] = 'button';
+  $link['localized_options']['attributes']['class'][] = 'button-action';
+  $link['localized_options']['set_active_class'] = TRUE;
 
-    if (empty($element['#type'])) {
-      return;
-    }
-
-    $type = $element['#type'];
-    $name = $element['#webform_key'];
-
-    $suggestions[] = $hook . '__' . $type;
-    $suggestions[] = $hook . '__' . $type . '__' . $name;
-  }
-  elseif (isset($variables['webform_submission'])) {
-    /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
-    $webform_submission = $variables['webform_submission'];
-    $webform = $webform_submission->getWebform();
-    $suggestions[] = $hook . '__' . $webform->id();
-  }
-  elseif (isset($variables['webform'])) {
-    /** @var \Drupal\webform\WebformInterface $webform */
-    $webform = $variables['webform'];
-    $suggestions[] = $hook . '__' . $webform->id();
-  }
+  $variables['link'] = [
+    '#type' => 'link',
+    '#title' => $link['title'],
+    '#options' => $link['localized_options'],
+    '#url' => $link['url'],
+  ];
 }
 
 /**
@@ -724,6 +735,59 @@ function webform_preprocess_radios(&$variables) {
   webform_preprocess_checkboxes($variables);
   // @see js/webform.element.radios.js
   $variables['attributes']['class'][] = 'js-webform-radios';
+}
+
+/**
+ * Prepares variables for file managed file templates.
+ *
+ * @see https://stackoverflow.com/questions/21842274/cross-browser-custom-styling-for-file-upload-button
+ * @see template_preprocess_file_managed_file().
+ */
+function webform_preprocess_file_managed_file(&$variables) {
+  $element = &$variables['element'];
+  if (empty($element['#button'])) {
+    return;
+  }
+
+  // Don't alter hidden file upload input.
+  if (isset($element['upload']['#access']) && $element['upload']['#access'] === FALSE) {
+    return;
+  }
+
+  // Create an unique id for the file upload input and label.
+  $button_id = Html::getUniqueId($variables['element']['upload']['#id'] . '-button');
+
+  // Create a label that is styled like an action button.
+  $label = [
+    '#type' => 'html_tag',
+    '#tag' => 'label',
+    '#value' => (isset($element['#button__title'])) ? $element['#button__title'] : (empty($element['#multiple']) ? t('Choose file') : t('Choose files')),
+    '#attributes' => (isset($element['#button__attributes'])) ? $element['#button__attributes'] : [],
+  ];
+
+  // Add 'for' attribute.
+  $label['#attributes']['for'] = $button_id;
+
+  // Add default button classes.
+  if (empty($label['#attributes']['class'])) {
+    $label['#attributes']['class'][] = 'button' ;
+    $label['#attributes']['class'][] = 'button-action';
+  }
+
+  // Add .webform-file-button.
+  $label['#attributes']['class'][] = 'webform-file-button';
+
+  // Make sure the label is first.
+  $element = ['label' => $label] + $element;
+
+  // Set the custom button ID for file upload input.
+  $element['upload']['#attributes']['id'] = $button_id;
+
+  // Hide the file upload.
+  $element['upload']['#attributes']['class'][] = 'webform-file-button-input';
+
+  // Attach library.
+  $element['#attached']['library'][] = 'webform/webform.element.file.button';
 }
 
 /**
@@ -763,6 +827,226 @@ function webform_process_states(array &$elements, $key = '#attributes') {
   if (empty($elements[$key]['class']) || !WebformArrayHelper::inArray(['js-form-item', 'js-form-submit', 'js-form-wrapper'], $elements[$key]['class'])) {
     $elements[$key]['class'][] = 'js-form-item';
   }
+}
+
+/******************************************************************************/
+// Theme suggestions.
+/******************************************************************************/
+
+/**
+ * Provides alternate named suggestions for a specific theme hook.
+ *
+ * @param array $variables
+ *   An array of variables passed to the theme hook.
+ * @param string $hook
+ *   The base hook name.
+ *
+ * @return array
+ *   An array of theme suggestions.
+ */
+function _webform_theme_suggestions(array $variables, $hook) {
+  $suggestions = [];
+
+  if ($hook == 'webform') {
+    $suggestions[] = $hook . '__' . $variables['element']['#webform_id'];
+  }
+  elseif (strpos($hook, 'webform_element_base_') === 0 || strpos($hook, 'webform_container_base_') === 0) {
+    $element = $variables['element'];
+
+    if (!empty($element['#type'])) {
+      $type = $element['#type'];
+      $name = $element['#webform_key'];
+
+      $suggestions[] = $hook . '__' . $type;
+      $suggestions[] = $hook . '__' . $type . '__' . $name;
+    }
+  }
+  elseif (isset($variables['webform_submission'])) {
+    /** @var \Drupal\webform\WebformSubmissionInterface $webform_submission */
+    $webform_submission = $variables['webform_submission'];
+    $webform = $webform_submission->getWebform();
+    $suggestions[] = $hook . '__' . $webform->id();
+  }
+  elseif (isset($variables['webform'])) {
+    /** @var \Drupal\webform\WebformInterface $webform */
+    $webform = $variables['webform'];
+    $suggestions[] = $hook . '__' . $webform->id();
+  }
+
+  return $suggestions;
+}
+
+/**
+ * Helper function used to generate hook_theme_suggestions_HOOK().
+ */
+function _webform_devel_hook_theme_suggestions_generate() {
+  $theme = webform_theme();
+  print '<pre>';
+  foreach ($theme as $hook => $info) {
+    $suggestion = FALSE;
+    if ($hook == 'webform') {
+      $suggestion = TRUE;
+    }
+    elseif (strpos($hook, 'webform_element_base_') === 0 || strpos($hook, 'webform_container_base_') === 0) {
+      $suggestion = TRUE;
+    }
+    elseif (isset($info['variables'])
+      && !array_key_exists('element', $info['variables'])
+      && (array_key_exists('webform_submission', $info['variables']) || array_key_exists('webform', $info['variables']))) {
+      $suggestion = TRUE;
+    }
+
+    if ($suggestion) {
+      print "/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_$hook(array \$variables) {
+  return _webform_theme_suggestions(\$variables, '$hook');
+}
+
+";
+    }
+  }
+  print '</pre>';
+  exit;
+}
+
+/******************************************************************************/
+// Theme suggestions.
+// Generate using _webform_devel_hook_theme_suggestions_generate();
+/******************************************************************************/
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_confirmation(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_confirmation');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_preview(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_preview');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_submission_navigation(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_submission_navigation');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_submission(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_submission');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_submission_information(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_submission_information');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_submission_html(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_submission_html');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_submission_table(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_submission_table');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_submission_text(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_submission_text');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_submission_yaml(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_submission_yaml');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_element_base_html(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_element_base_html');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_element_base_text(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_element_base_text');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_container_base_html(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_container_base_html');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_container_base_text(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_container_base_text');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_email_message_html(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_email_message_html');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_email_message_text(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_email_message_text');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_progress(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_progress');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_progress_bar(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_progress_bar');
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function webform_theme_suggestions_webform_progress_tracker(array $variables) {
+  return _webform_theme_suggestions($variables, 'webform_progress_tracker');
 }
 
 /******************************************************************************/

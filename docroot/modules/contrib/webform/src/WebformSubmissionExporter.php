@@ -114,6 +114,8 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration object factory.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   File system service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
@@ -124,8 +126,6 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
    *   The webform element manager.
    * @param \Drupal\webform\Plugin\WebformExporterManagerInterface $exporter_manager
    *   The results exporter manager.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
-   *   File system service
    */
   public function __construct(ConfigFactoryInterface $config_factory, FileSystemInterface $file_system, EntityTypeManagerInterface $entity_type_manager, QueryFactory $query_factory, StreamWrapperManagerInterface $stream_wrapper_manager, WebformElementManagerInterface $element_manager, WebformExporterManagerInterface $exporter_manager) {
     $this->configFactory = $config_factory;

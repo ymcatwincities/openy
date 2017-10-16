@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Url;
+use Drupal\webform\Element\WebformHtmlEditor;
 use Drupal\webform\Utility\WebformDialogHelper;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -146,11 +147,10 @@ class WebformEntityListBuilder extends ConfigEntityListBuilder {
     ];
     $header['results_operations'] = [
       'data' => $this->t('Operations'),
-      'class' => [RESPONSIVE_PRIORITY_MEDIUM, 'webform-entity-list-builder-results-operations'],
+      'class' => [RESPONSIVE_PRIORITY_MEDIUM],
     ];
     $header['operations'] = [
       'data' => '',
-      'class' => ['webform-entity-list-builder-operations'],
     ];
     return $header;
   }
@@ -170,7 +170,7 @@ class WebformEntityListBuilder extends ConfigEntityListBuilder {
     if ($entity->isTemplate()) {
       $row['title']['data']['template'] = ['#markup' => ' <b>(' . $this->t('Template') . ')</b>'];
     }
-    $row['description']['data']['#markup'] = $entity->get('description');
+    $row['description']['data'] = WebformHtmlEditor::checkMarkup($entity->get('description'));
     $row['category']['data']['#markup'] = $entity->get('category');
     switch ($entity->get('status')) {
       case WebformInterface::STATUS_OPEN:

@@ -1,5 +1,5 @@
 metatag_views.metatags.list:
-  path: 'admin/config/search/metatag/views'
+  path: '/admin/config/search/metatag/views'
   defaults:
     _controller: '\Drupal\metatag_views\Controller\MetatagViewsController::listViews'
     _title: 'Views metatags'
@@ -9,7 +9,7 @@ metatag_views.metatags.list:
     _admin_route: TRUE
 
 metatag_views.metatags.edit:
-  path: 'admin/config/search/metatag/views/{view_id}/{display_id}/edit'
+  path: '/admin/config/search/metatag/views/{view_id}/{display_id}/edit'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsEditForm'
     _title: 'Edit metatags for a view'
@@ -19,7 +19,7 @@ metatag_views.metatags.edit:
     _admin_route: TRUE
 
 metatag_views.metatags.add:
-  path: 'admin/config/search/metatag/views/add'
+  path: '/admin/config/search/metatag/views/add'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsAddForm'
     _title: 'Add metatags for a view'
@@ -29,7 +29,7 @@ metatag_views.metatags.add:
     _admin_route: TRUE
 
 metatag_views.metatags.revert:
-  path: 'admin/config/search/metatag/views/{view_id}/{display_id}/revert'
+  path: '/admin/config/search/metatag/views/{view_id}/{display_id}/revert'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsRevertForm'
     _title: 'Revert metatags for a view'
@@ -40,7 +40,7 @@ metatag_views.metatags.revert:
 
 # Provide easy access to translate views metatags.
 metatag_views.metatags.translate_overview:
-  path: 'admin/config/search/metatag/views/{view_id}/{display_id}/translate'
+  path: '/admin/config/search/metatag/views/{view_id}/{display_id}/translate'
   defaults:
     _controller: '\Drupal\metatag_views\Controller\MetatagViewsTranslationController::itemPage'
     _title: 'Translate metatags for a view'
@@ -51,7 +51,7 @@ metatag_views.metatags.translate_overview:
     _admin_route: TRUE
 
 metatag_views.metatags.translate:
-  path: 'admin/config/search/metatag/views/{view_id}/{display_id}/translate/{langcode}'
+  path: '/admin/config/search/metatag/views/{view_id}/{display_id}/translate/{langcode}'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsTranslationForm'
     _title: 'Translate metatags for a view'

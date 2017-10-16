@@ -183,9 +183,12 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                 $now = $now->format('Y-m-d');
                 if ($now >= $start_date && $now <= $end_date) {
                   $show_special_prices = TRUE;
+                  // Temporary remove 8 and 12 packages.
+                  if ($product_code_array[2] == 8 || $product_code_array[2] == 12) {
+                    continue;
+                  }
                 }
               }
-
               // Fill in products for members.
               $products_to_display_member[$product_code_array[4]][] = [
                 'price' => $product_member_price,
@@ -296,9 +299,12 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
                     $now = $now->format('Y-m-d');
                     if ($now >= $start_date && $now <= $end_date) {
                       $show_special_prices = TRUE;
+                      // Temporary remove 8 and 12 packages.
+                      if ($product_code_array[2] == 8 || $product_code_array[2] == 12) {
+                        continue;
+                      }
                     }
                   }
-
                   $products_to_display_member[$product_code_array[4]][$product_code_array[2]] = [
                     'price' => $product_member_price,
                     'special_price' => $product_member_special_price,

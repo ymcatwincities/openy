@@ -194,7 +194,7 @@ elements: |
       '#default_value': '<p>The quick brown fox jumped over the lazy dog.</p>'
     entity_autocomplete_user:
       '#type': entity_autocomplete
-      '#title': 'entity_autocomplete (user)'
+      '#title': entity_autocomplete_user
       '#target_type': user
       '#selection_handler': 'default:user'
       '#selection_settings':
@@ -202,7 +202,7 @@ elements: |
       '#default_value': 1
     entity_autocomplete_users:
       '#type': entity_autocomplete
-      '#title': 'entity_autocomplete (user tags)'
+      '#title': entity_autocomplete_users
       '#tags': true
       '#target_type': user
       '#selection_handler': 'default:user'
@@ -250,6 +250,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -271,6 +272,7 @@ settings:
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: none
   draft_multiple: false
   draft_auto_save: false
@@ -301,25 +303,33 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers: {  }
