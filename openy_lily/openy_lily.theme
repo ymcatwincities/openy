@@ -293,16 +293,6 @@ function openy_lily_preprocess_page(&$variables) {
   else {
     $variables['cccmenuann'] = ymcali_get_header_menu('anonymoususersmenu');
   }
-
-  /** Function to print menu block.*/
-  function ymcali_get_header_menu($menu_name) {
-    $block_menu = Block::load($menu_name);
-    $block_content = \Drupal::entityTypeManager()
-      ->getViewBuilder('block')
-      ->view($block_menu);
-    return $block_content;
-  }
-
 }
 
 /**
@@ -568,4 +558,15 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
 function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
   unset($form['logo']['openy_rose_footer_logo']);
   unset($form['camp_section']['openy_rose_camp_footer_logo']);
+}
+
+/**
+ * Function for printing menu block.
+ */
+function ymcali_get_header_menu($menu_name) {
+  $block_menu = Block::load($menu_name);
+  $block_content = \Drupal::entityTypeManager()
+    ->getViewBuilder('block')
+    ->view($block_menu);
+  return $block_content;
 }
