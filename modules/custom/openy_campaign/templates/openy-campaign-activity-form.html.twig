@@ -8,6 +8,7 @@
           <h2>My Activity</h2>
           <div class="calendar-wrapper">
             <div class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
+            <div class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
             <ul class="month">
                 {% for key in form|keys %}
                     {# key should match 2017-08-12 pattern #}
@@ -17,7 +18,7 @@
                         {% if  key|date('d/m') ==  "now"|date("d/m")  %}
                             {% set additionClass = 'now' %}
                         {% endif %}
-                        <li data-date="{{ key }}" class="date-data {{ additionClass }}" style="display: none;">
+                        <li data-date="{{ key }}" class="date-data {{ additionClass }}">
                             <span class="day">{{ key|date('d') }}</span>
                             <span class="weekday">{{ key|date('D') }}</span>
                             <span class="month">{{ key|date('M') }}</span>
@@ -44,7 +45,7 @@
                     {%  endif %}
                 {% endfor %}
             </ul>
-            <div class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
+
             <div style="clear:both;"></div>
         </div>
     </div>
