@@ -571,7 +571,7 @@ function _datalayer_field_get_value($field_item, $field_type) {
 
     default:
       $value = $field_item->getValue();
-      if (count($value) == 1) {
+      if (count($value) == 1 && array_key_exists('value', $value)) {
         $value = $value['value'];
       }
       break;

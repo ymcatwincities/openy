@@ -404,7 +404,7 @@ class GroupexScheduleFetcher {
   private function enrichData() {
     $data = $this->rawData;
 
-    foreach ($data as &$item) {
+    foreach ($data as $key => &$item) {
       // Get address_1.
       $item->address_1 = sprintf('%s with %s', trim($item->studio), trim($item->instructor));
 
@@ -442,6 +442,11 @@ class GroupexScheduleFetcher {
             $address = $node->field_location->address_line1;
           }
         }
+      }
+      // Remove any class without set time.
+      if (empty($item->start) || empty($item->end)) {
+        unset($data[$key]);
+        continue;
       }
       $date_start = DrupalDateTime::createFromFormat('l, F j, Y g:ia', $item->date . ' ' . $item->start);
       $date_end = DrupalDateTime::createFromFormat('l, F j, Y g:ia', $item->date . ' ' . $item->end);

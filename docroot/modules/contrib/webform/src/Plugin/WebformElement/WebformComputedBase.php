@@ -105,7 +105,7 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
    * {@inheritdoc}
    */
   protected function formatHtmlItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
-    $value = $this->processValue($element, $webform_submission);
+    $value = $this->getValue($element, $webform_submission);
     if ($this->getMode($element) === WebformComputedBaseElement::MODE_TEXT) {
       return nl2br($value);
     }
@@ -118,7 +118,7 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
    * {@inheritdoc}
    */
   protected function formatTextItem(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
-    $value = $this->processValue($element, $webform_submission);
+    $value = $this->getValue($element, $webform_submission);
     if ($this->getMode($element) === WebformComputedBaseElement::MODE_HTML) {
       return MailFormatHelper::htmlToText($value);
     }
@@ -132,6 +132,17 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
    */
   public function getRelatedTypes(array $element) {
     return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return [
+      '#type' => $this->getTypeName(),
+      '#title' => $this->getPluginLabel(),
+      '#value' => $this->t('This is a @label value.', ['@label' => $this->getPluginLabel()]),
+    ];
   }
 
   /**

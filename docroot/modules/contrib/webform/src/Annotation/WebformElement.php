@@ -56,6 +56,13 @@ class WebformElement extends Plugin {
   public $label;
 
   /**
+   * The default key used for new webform element.
+   *
+   * @var string
+   */
+  public $default_key;
+
+  /**
    * The category in the admin UI where the webform will be listed.
    *
    * @var \Drupal\Core\Annotation\Translation
