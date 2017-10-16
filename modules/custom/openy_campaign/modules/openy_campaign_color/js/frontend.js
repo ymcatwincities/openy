@@ -15,8 +15,6 @@
         href: drupalSettings.openy_campaign_color.frontend.css
       }).appendTo("head");
 
-      console.log(drupalSettings.openy_campaign_color.frontend.css);
-
     }
   };
 
