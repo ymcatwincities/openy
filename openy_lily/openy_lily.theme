@@ -15,6 +15,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
+use Drupal\block\Entity\Block;
 
 /**
  * Implements hook_preprocess_template() for footer menus.
@@ -279,6 +280,18 @@ function openy_lily_preprocess_page(&$variables) {
         $variables['site_section_bundle'] = 'location';
       }
     }
+  }
+
+  /** @var \Drupal\openy_ccc_api\Session $ccc_session */
+  $ccc_session = \Drupal::service('openy_ccc_session');
+  $variables['ccc_logged_in'] = !$ccc_session->isAnonymous();
+
+  /**Check if CCC User is logged in.*/
+  if ($variables['ccc_logged_in']) {
+    $variables['cccmenu'] = ymcali_get_header_menu('cccuseraccountmenu');
+  }
+  else {
+    $variables['cccmenuann'] = ymcali_get_header_menu('anonymoususersmenu');
   }
 }
 
@@ -545,4 +558,15 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
 function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
   unset($form['logo']['openy_rose_footer_logo']);
   unset($form['camp_section']['openy_rose_camp_footer_logo']);
+}
+
+/**
+ * Function for printing menu block.
+ */
+function ymcali_get_header_menu($menu_name) {
+  $block_menu = Block::load($menu_name);
+  $block_content = \Drupal::entityTypeManager()
+    ->getViewBuilder('block')
+    ->view($block_menu);
+  return $block_content;
 }
