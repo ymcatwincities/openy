@@ -286,16 +286,15 @@ function openy_lily_preprocess_page(&$variables) {
   $ccc_session = \Drupal::service('openy_ccc_session');
   $variables['ccc_logged_in'] = !$ccc_session->isAnonymous();
 
-  /**
-   * Check if CCC User is logged in.
-   */
+  /**Check if CCC User is logged in.*/
   if ($variables['ccc_logged_in']) {
     $block_ccc_menu = Block::load('cccuseraccountmenu');
     $ccc_block_content = \Drupal::entityTypeManager()
       ->getViewBuilder('block')
       ->view($block_ccc_menu);
     $variables['cccmenu'] = $ccc_block_content;
-  } else {
+  }
+  else {
     $block_ann_menu = Block::load('anonymoususersmenu');
     $ccc_ann_block_content = \Drupal::entityTypeManager()
       ->getViewBuilder('block')
