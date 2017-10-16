@@ -1,0 +1,119 @@
+@import 'compass';
+@import 'breakpoint';
+
+@import 'base/colors';
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/fonts';
+@import 'base/typography';
+@import 'base/utilities';
+
+
+// _page.scss
+body {
+  background-color: $purple;
+}
+.paragraph-background-container {
+  @include gradient($pink, $purple);
+}
+.btn {
+  background-color: $pink;
+}
+.block-description--wrapper {
+  .block-description--text {
+    .field-sb-title {
+      h4 {
+        color: $default-grey;
+      }
+    }
+  }
+}
+.paragraph-1c-wrapper .field-prgf-1c-description {
+  color: $dark-grey !important;
+}
+.visits-goal {
+  .description {
+    .goal {
+      color: $pink;
+    }
+  }
+}
+
+.paragraph--type--campaign-winners {
+  #winners-block-wrapper {
+    .winners-wrapper {
+      .winners-prize {
+        color: $pink;
+      }
+      .winners-members {
+        tbody {
+          td:first-child {
+            color: $pink;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// _forms.scss
+.form-item input + label {
+  color: #C6168D;
+  &:hover{
+    color: #C6168D;
+  }
+}
+.activity {
+  .paragraph-background-container {
+    background-color: #92278F;
+    background-image: -moz-linear-gradient(#c6168d, #92278F);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
+    background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
+    background-image: -o-linear-gradient(#c6168d, #92278F);
+  }
+}
+.category-data {
+  background: #92278F;
+  color: #fff;
+}
+
+.activity-data .categories {
+  ul {
+    li {
+      background: #92278F;
+      color: #fff;
+    }
+  }
+}
+
+.activity .paragraph-background-container {
+  &:before {
+    border-top: 30px solid #92278F;
+  }
+}
+.calendar .month {
+  .date-data {
+    &.active .weekday{
+      color: $pink;
+    }
+    &.active {
+      .visits {
+        .visited {
+          background: #C6168D;
+        }
+        .entriesNum {
+          color: #92278F;
+        }
+      }
+    }
+  }
+}
+.calendar-wrapper {
+  .prev {
+    background: #C6168D;
+  }
+  .next {
+    background: #C6168D;
+  }
+}

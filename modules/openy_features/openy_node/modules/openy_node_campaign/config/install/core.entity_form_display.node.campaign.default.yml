@@ -35,7 +35,6 @@ dependencies:
     - field.field.node.campaign.field_min_visits_goal
     - field.field.node.campaign.field_pause_campaign
     - field.field.node.campaign.field_pause_landing_page
-    - field.field.node.campaign.field_popup_background_color
     - field.field.node.campaign.field_reg_already_registered
     - field.field.node.campaign.field_reg_checkins_not_started
     - field.field.node.campaign.field_register_form_text
@@ -51,7 +50,6 @@ dependencies:
     - datetime
     - field_group
     - image
-    - jquery_colorpicker
     - paragraphs
     - path
     - text
@@ -478,13 +476,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
-  field_popup_background_color:
-    weight: 21
-    settings:
-      color: FFFFFF
-    third_party_settings: {  }
-    type: jquery_colorpicker
     region: content
   field_reg_already_registered:
     weight: 35

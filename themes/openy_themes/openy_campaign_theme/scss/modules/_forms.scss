@@ -20,7 +20,6 @@
   //background-image: url(http://ymcatc.ixm.ca/themes/custom/ymca/img/2017_summer/icon-activity-check.png);
   background-repeat: no-repeat;
   cursor: pointer;
-  color: #C6168D;
   background-position: 26px 27px;
   &:hover {
     //background-image: url(http://ymcatc.ixm.ca/themes/custom/ymca/img/2017_summer/icon-activity-check.png);
@@ -44,7 +43,6 @@
   &:hover{
     background: #fff;
     cursor: pointer;
-    color: #C6168D;
   }
 }
 
@@ -78,17 +76,11 @@
 }
 .activity {
   .paragraph-background-container {
-    background-color: #92278F;
-    background-image: -moz-linear-gradient(#c6168d, #92278F);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
-    background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
-    background-image: -o-linear-gradient(#c6168d, #92278F);
   }
 }
 
 .category-data {
-  background: #92278F;
-  color: #fff;
+
   text-transform: uppercase;
   margin: 25px;
   border-radius: 10px;
@@ -134,12 +126,10 @@
     li {
       display: inline-block;
       padding: 15px;
-      background: #92278F;
       opacity: 0.7;
       margin: 25px;
       width: 200px;
       height: 200px;
-      color: #fff;
       text-align: center;
       text-transform: uppercase;
       font-size: 22px;
@@ -196,7 +186,6 @@
     left: 47%;
     bottom: -57px;
     border: 30px solid transparent;
-    border-top: 30px solid #92278F;
     text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -258,7 +247,6 @@
       margin: 0 auto;
       margin-top: 25px;
       padding-bottom: 10px;
-      color: $pink;
       cursor: pointer;
     }
     &.active {
@@ -283,7 +271,7 @@
         }
 
         .visited {
-          background: #C6168D;
+
           color: #fff;
           padding: 10px;
           text-align: center;
@@ -292,7 +280,7 @@
         }
         .entriesNum {
           background: #fff;
-          color: #92278F;
+
           padding: 10px;
           text-align: center;
           border-top-left-radius: 10px;
@@ -309,7 +297,6 @@
   .prev {
     float: left;
     height: 100px;
-    background: #C6168D;
     padding-top: 18px;
     padding-left: 10px;
     padding-right: 10px;
@@ -318,7 +305,6 @@
   .next {
     cursor: pointer;
     height: 100px;
-    background: #C6168D;
     float: right;
     padding-top: 18px;
     padding-left: 10px;
