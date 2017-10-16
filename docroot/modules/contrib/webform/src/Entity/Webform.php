@@ -2,6 +2,7 @@
 
 namespace Drupal\webform\Entity;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Serialization\Yaml;
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
@@ -93,7 +94,6 @@ use Drupal\webform\WebformSubmissionStorageInterface;
  *   lookup_keys = {
  *     "status",
  *     "template",
- *     "category",
  *   },
  * )
  */
@@ -705,6 +705,7 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       'form_prepopulate_source_entity' => FALSE,
       'form_prepopulate_source_entity_required' => FALSE,
       'form_prepopulate_source_entity_type' => FALSE,
+      'form_reset' => FALSE,
       'form_disable_autocomplete' => FALSE,
       'form_novalidate' => FALSE,
       'form_unsaved' => FALSE,
@@ -726,12 +727,13 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       'preview_message' => '',
       'preview_attributes' => [],
       'preview_excluded_elements' => [],
+      'preview_exclude_empty' => TRUE,
       'draft' => self::DRAFT_NONE,
       'draft_multiple' => FALSE,
       'draft_auto_save' => FALSE,
       'draft_saved_message' => '',
       'draft_loaded_message' => '',
-      'confirmation_type' => 'page',
+      'confirmation_type' => WebformInterface::CONFIRMATION_PAGE,
       'confirmation_title' => '',
       'confirmation_message' => '',
       'confirmation_url' => '',
@@ -764,34 +766,42 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
           'authenticated',
         ],
         'users' => [],
+        'permissions' => [],
       ],
       'view_any' => [
         'roles' => [],
         'users' => [],
+        'permissions' => [],
       ],
       'update_any' => [
         'roles' => [],
         'users' => [],
+        'permissions' => [],
       ],
       'delete_any' => [
         'roles' => [],
         'users' => [],
+        'permissions' => [],
       ],
       'purge_any' => [
         'roles' => [],
         'users' => [],
+        'permissions' => [],
       ],
       'view_own' => [
         'roles' => [],
         'users' => [],
+        'permissions' => [],
       ],
       'update_own' => [
         'roles' => [],
         'users' => [],
+        'permissions' => [],
       ],
       'delete_own' => [
         'roles' => [],
         'users' => [],
+        'permissions' => [],
       ],
     ];
   }
@@ -849,6 +859,8 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
    *
    * @return bool
    *   The access result. Returns a TRUE if access is allowed.
+   *
+   * @see \Drupal\webform\Plugin\WebformElementBase::checkAccessRule
    */
   protected function checkAccessRule(array $access_rule, AccountInterface $account) {
     if (!empty($access_rule['roles']) && array_intersect($access_rule['roles'], $account->getRoles())) {
@@ -857,9 +869,15 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
     elseif (!empty($access_rule['users']) && in_array($account->id(), $access_rule['users'])) {
       return TRUE;
     }
-    else {
-      return FALSE;
+    elseif (!empty($access_rule['permissions'])) {
+      foreach ($access_rule['permissions'] as $permission) {
+        if ($account->hasPermission($permission)) {
+          return TRUE;
+        }
+      }
     }
+
+    return FALSE;
   }
 
   /**
@@ -1026,7 +1044,7 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       // If current webform is translated, load the base (default) webform and apply
       // the translation to the elements.
       if ($config_translation && $this->langcode != $language_manager->getCurrentLanguage()->getId()) {
-        $elements = $translation_manager->getConfigElements($this);
+        $elements = $translation_manager->getElements($this);
         $this->elementsTranslations = Yaml::decode($this->elements);
       }
       else {
@@ -1121,7 +1139,14 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
         // Set #parent_flexbox to TRUE is the parent element is a
         // 'webform_flexbox'.
         $element['#webform_parent_flexbox'] = (isset($parent_element['#type']) && $parent_element['#type'] == 'webform_flexbox') ? TRUE : FALSE;
+
+        $element['#webform_parents'] = $parent_element['#webform_parents'];
       }
+
+      // Add element key to parents.
+      // #webform_parents allows make it possible to use NestedArray::getValue
+      // to get the entire unflattened element.
+      $element['#webform_parents'][] = $key;
 
       // Set #title and #admin_title to NULL if it is not defined.
       $element += [
@@ -1186,7 +1211,7 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
       // Check if element has value (aka can be exported) and add it to
       // flattened has value array.
       if ($element_handler && $element_handler->isInput($element)) {
-        $this->elementsInitializedFlattenedAndHasValue[$key] =& $this->elementsInitializedAndFlattened[$key];
+        $this->elementsInitializedFlattenedAndHasValue[$key] = &$this->elementsInitializedAndFlattened[$key];
       }
 
       $this->initElementsRecursive($element, $key, $depth + 1);
@@ -1196,9 +1221,16 @@ class Webform extends ConfigEntityBundleBase implements WebformInterface {
   /**
    * {@inheritdoc}
    */
-  public function getElement($key) {
+  public function getElement($key, $include_children = FALSE) {
     $elements_flattened = $this->getElementsInitializedAndFlattened();
-    return (isset($elements_flattened[$key])) ? $elements_flattened[$key] : NULL;
+    $element = (isset($elements_flattened[$key])) ? $elements_flattened[$key] : NULL;
+    if ($element && $include_children) {
+      $elements = $this->getElementsInitialized();
+      return NestedArray::getValue($elements, $element['#webform_parents']);
+    }
+    else {
+      return $element;
+    }
   }
 
   /**
