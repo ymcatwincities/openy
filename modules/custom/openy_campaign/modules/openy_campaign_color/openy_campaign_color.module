@@ -197,27 +197,3 @@ function openy_campaign_color_rebuild() {
     file_unmanaged_save_data($newCss, 'public://' . CAMPAIGN_COLORS_CSS_FOLDER . '/' . $key . '.css', FILE_EXISTS_REPLACE);
   }
 }
-
-function openy_campaign_page_attachments_alter(array &$page) {
-  if (\Drupal::theme()->getActiveTheme()->getName() != CAMPAIGN_THEME) {
-    return;
-  }
-  // Get campaign node from current page URL.
-  /** @var \Drupal\node\Entity\Node $campaign */
-  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
-  if (empty($campaign)) {
-    return;
-  }
-
-  $cssFile = 'public://' . CAMPAIGN_COLORS_CSS_FOLDER . '/' . $campaign->field_campaign_palette->value . '.css';
-  $cssUrl = file_url_transform_relative(file_create_url($cssFile));
-  if (empty($cssUrl)) {
-    return;
-  }
-
-  // Add random CSS/JS value.
-  $cssUrl .= '?' . \Drupal::service('state')->get('system.css_js_query_string') ?: 0;
-
-  $page['#attached']['library'][] = 'openy_campaign_color/frontend';
-  $page['#attached']['drupalSettings']['openy_campaign_color']['frontend']['css'] = $cssUrl;
-}
