@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_cdn_contact_form_ref
+    - paragraphs.paragraphs_type.cdn_emergency_contact_form
+  module:
+    - plugin
+id: paragraph.cdn_emergency_contact_form.field_prgf_cdn_contact_form_ref
+field_name: field_prgf_cdn_contact_form_ref
+entity_type: paragraph
+bundle: cdn_emergency_contact_form
+label: 'Camp du Nord Emergency Contact block'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    plugin_id: cdn_contact_form_block
+    plugin_configuration:
+      id: cdn_contact_form_block
+      label: 'Camp du Nord Emergency Contact block'
+      provider: null
+      label_display: null
+    plugin_configuration_schema_id: block.settings.cdn_contact_form_block
+default_value_callback: ''
+settings: {  }
+field_type: 'plugin:block'
