@@ -420,11 +420,16 @@
    */
   Drupal.behaviors.cdn_contact_form = {
     attach: function (context, settings) {
-      $('.cdn-contact-form .form-radio').on('change', function() {
-        if ($(this).prop('checked') === true) {
-          $(this).parents('.js-webform-radios').find('.checked').removeClass('checked');
-          $(this).parent().addClass('checked');
+      $('.cdn-contact-form .form-radio').each(function() {
+        if ($(this).val() == 0) {
+          $(this).next().addClass('no');
         }
+        $(this).on('change', function() {
+          if ($(this).prop('checked') === true) {
+            $(this).parents('.js-webform-radios').find('.checked').removeClass('checked');
+            $(this).parent().addClass('checked');
+          }
+        });
       });
     }
   };
