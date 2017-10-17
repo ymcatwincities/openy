@@ -5,11 +5,3 @@ backend:
   dependencies:
     - core/jquery
     - core/drupal
-
-frontend:
-  version: VERSION
-  js:
-    js/frontend.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupal
