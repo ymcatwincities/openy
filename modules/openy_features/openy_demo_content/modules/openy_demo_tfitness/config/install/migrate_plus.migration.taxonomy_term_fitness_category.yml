@@ -26,123 +26,167 @@ source:
       parent: 0
     -
       id: 5
-      name: Using the lap pool
+      name: Lap Pool
       parent: 1
     -
       id: 6
-      name: Using the warm-water leisure pool
+      name: Water Slide
       parent: 1
     -
       id: 7
-      name: Using the splash deck
+      name: Sauna
       parent: 1
     -
       id: 8
-      name: Using the whirlpool
+      name: Splash Deck
       parent: 1
     -
       id: 9
-      name: Using the water slide
+      name: Steam Room
       parent: 1
     -
       id: 10
-      name: Using the sauna
+      name: Swim Lessons
       parent: 1
     -
       id: 11
-      name: Using the steam room
+      name: Using the whirlpool
       parent: 1
     -
       id: 12
-      name: Using the vortex pool
+      name: Vortex Pool
       parent: 1
     -
       id: 13
-      name: Participating in or taking kids to Swim Lessons
+      name: Warm-Water Leisure Pool
       parent: 1
     -
       id: 14
-      name: Using a cardio machine
+      name: Whirlpool
+      parent: 1
+    -
+      id: 14
+      name: Buddy Training
       parent: 2
     -
       id: 15
-      name: Using a strength machine
+      name: Equipment Orientation
       parent: 2
     -
       id: 16
-      name: Using weights
+      name: Climbing Wall
       parent: 2
     -
       id: 17
-      name: Using the indoor track
+      name: Cardio Machine
       parent: 2
     -
       id: 18
-      name: Using the Youth/Family Fitness Cards
+      name: Fitness Assessment
       parent: 2
     -
       id: 19
-      name: Using the climbing wall
+      name: Open Gym
       parent: 2
     -
       id: 20
-      name: Participating in Open Gym
+      name: Outdoor Trail
       parent: 2
     -
       id: 21
-      name: Playing racquetball or handball
+      name: Personal Training
       parent: 2
     -
       id: 22
-      name: Participating in any Personal Training program, including: one-on-one personal training, buddy training, small-group training, flex training, personal consultation, fitness assessment, metabolic assessment or equipment orientation
+      name: Racquet/Handball
       parent: 2
     -
       id: 23
-      name: Taking kids to Youth Sports
+      name: Strength Machine
       parent: 2
     -
       id: 24
-      name: Participating in any Group Exercise
-      parent: 3
+      name: Using weights
+      parent: 2
     -
       id: 25
-      name: Water Exercise
-      parent: 3
+      name: Weights
+      parent: 2
     -
       id: 26
-      name: Kids & Family or Active Older Adults class
-      parent: 3
+      name: Youth Sports
+      parent: 2
     -
       id: 27
-      name: Asking about volunteering at the Y
-      parent: 4
+      name: Indoor Track
+      parent: 2
     -
       id: 28
-      name: Asking about birthday parties at the Y
-      parent: 4
+      name: Personal Consultation
+      parent: 2
     -
       id: 29
-      name: Attending a YMCA holiday party
-      parent: 4
+      name: Stretching/Mobility equipment
+      parent: 2
     -
       id: 30
-      name: Attending an Active Older Adult event
-      parent: 4
+      name: Small-Group Training Class
+      parent: 3
     -
       id: 31
-      name: Dropping kids off at Kids Stuff
-      parent: 4
+      name: Group Exercise Class
+      parent: 3
     -
       id: 32
-      name: Registering for Parents Night Out
-      parent: 4
+      name: ForeverWell Class
+      parent: 3
     -
       id: 33
-      name: Visiting a Y Senior Center
-      parent: 4
+      name: Kids & Family Class
+      parent: 3
     -
       id: 34
-      name: Visiting a Y Youth & Teen Center
+      name: Water Exercise Class
+      parent: 3
+    -
+      id: 35
+      name: Did sit-ups during TV commercial
+      parent: 4
+    -
+      id: 36
+      name: Family bike ride
+      parent: 4
+    -
+      id: 37
+      name: Volunteered
+      parent: 4
+    -
+      id: 38
+      name: Biked to work
+      parent: 4
+    -
+      id: 39
+      name: Did household chores
+      parent: 4
+    -
+      id: 40
+      name: Coached a sports team
+      parent: 4
+    -
+      id: 41
+      name: Worked out outside
+      parent: 4
+    -
+      id: 42
+      name: Family park day
+      parent: 4
+    -
+      id: 43
+      name: Other
+      parent: 4
+    -
+      id: 44
+      name: Walked to the bus
       parent: 4
   ids:
     id:
