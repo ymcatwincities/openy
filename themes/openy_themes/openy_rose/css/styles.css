@@ -129,6 +129,10 @@ figcaption {
   }
 }
 
+.media.view-mode-full {
+  margin: 20px auto;
+}
+
 .block-description--wrapper {
   display: flex;
 }
