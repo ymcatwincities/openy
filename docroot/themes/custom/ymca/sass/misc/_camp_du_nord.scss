@@ -640,6 +640,7 @@
     select {
       height: 60px;
       color: #222222;
+      background: #fff;
     }
   }
   #edit-first-time--wrapper {
@@ -684,6 +685,9 @@
           background: #00ab92;
           color: #fff;
           border-radius: 4px;
+          &.no {
+            background: #a1a1a1;
+          }
         }
       }
     }

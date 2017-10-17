@@ -11742,6 +11742,7 @@ tr:nth-last-child(3) .atcb-list {
 #cdn-contact-form-wrapper #edit-emergency-contact select {
   height: 60px;
   color: #222222;
+  background: #fff;
 }
 #cdn-contact-form-wrapper #edit-first-time--wrapper legend {
   border-bottom: none;
@@ -11784,6 +11785,9 @@ tr:nth-last-child(3) .atcb-list {
   background: #00ab92;
   color: #fff;
   border-radius: 4px;
+}
+#cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio.checked label.no {
+  background: #a1a1a1;
 }
 #cdn-contact-form-wrapper #edit-phone {
   margin-bottom: -16px;
