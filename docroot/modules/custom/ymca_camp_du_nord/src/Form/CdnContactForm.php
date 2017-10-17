@@ -189,6 +189,7 @@ class CdnContactForm extends FormBase {
     $form['emergency_contact']['phone'] = [
       '#type' => 'select',
       '#required' => TRUE,
+      '#disabled' => TRUE,
       '#title' => $this->t('Phone'),
       '#options' => ['cell' => $this->t('Cell')],
       '#default_value' => $state['phone'],
