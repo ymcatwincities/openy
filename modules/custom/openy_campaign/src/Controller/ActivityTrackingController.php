@@ -53,13 +53,11 @@ class ActivityTrackingController extends ControllerBase {
 
   public function saveTrackingInfo($visit_date) {
     $params = $this->request_stack->getCurrentRequest()->request->all();
-    $memberCampaignId = 1;
+
     $dateRoute = \DateTime::createFromFormat('Y-m-d', $visit_date);
     $date =  new \DateTime($dateRoute->format('d-m-Y'));
     $activityIds = $params['activities'];
-
-    $userData = MemberCampaign::getMemberCampaignData(71);
-    $memberCampaignId = 1;
+    $memberCampaignId = $params['member_campaign_id'];
 
     // Delete all records first.
     $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, array_values($activityIds));
@@ -68,7 +66,6 @@ class ActivityTrackingController extends ControllerBase {
 
     // Save new selection.
     $activityIds = array_filter($activityIds);
-
 
     foreach ($activityIds as $activityTermId) {
       $preparedData = [
@@ -81,6 +78,7 @@ class ActivityTrackingController extends ControllerBase {
       $activity = MemberCampaignActivity::create($preparedData);
 
       $activity->save();
+
     }
     return new AjaxResponse();
 

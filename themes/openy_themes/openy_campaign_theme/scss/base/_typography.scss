@@ -11,8 +11,21 @@ h1, .h1, h2, .h2, h3, h4, h5, h6 {
 
 h1,
 .h1 {
-  font-size: $h1-size;
+
   margin-bottom: 70px;
+
+  @include breakpoint($screen-phone) {
+    font-size: 24px;
+  }
+  @include breakpoint($screen-sm) {
+    font-size: 24px;
+  }
+  @include breakpoint($screen-md) {
+    font-size: $h1-size;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    font-size: $h1-size;
+  }
 }
 
 h2,
@@ -21,10 +34,40 @@ h2,
 }
 
 h4 {
-  font-size: $h4-size;
+  @include breakpoint($screen-phone) {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  @include breakpoint($screen-sm) {
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  @include breakpoint($screen-md) {
+    font-size: $h4-size;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    font-size: $h4-size;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 }
 
 p {
   word-wrap: break-word;
-  font-size: 18px !important;
+  @include breakpoint($screen-phone) {
+    font-size: 16px !important;
+  }
+  @include breakpoint($screen-sm) {
+    font-size: 16px !important;
+  }
+  @include breakpoint($screen-md) {
+    font-size: 18px !important;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    font-size: 18px !important;
+  }
 }

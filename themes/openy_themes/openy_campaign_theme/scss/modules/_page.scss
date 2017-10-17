@@ -5,12 +5,22 @@ body {
 
 .container {
   max-width: 1400px;
-  width: 100%;
-}
-
-
-.layout-content {
-  //padding: 40px;
+  @include breakpoint($screen-phone) {
+    max-width: 340px;
+    width: 100%;
+  }
+  @include breakpoint($screen-sm) {
+    max-width: 100%;
+    width: 100%;
+  }
+  @include breakpoint($screen-md) {
+    max-width: 100%;
+    width: 100%;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    width: 100%;
+    max-width: 1400px;
+  }
 }
 
 .page-node-type-campaign-page,
@@ -19,33 +29,67 @@ body {
     background-color: #ffffff;
     padding-left: 0px;
     padding-right: 0px;
+    margin: 0 auto;
 
     .layout-content {
       background-color: inherit;
 
+      @include breakpoint($screen-phone) {
+        margin-left: 15px;
+        margin-right: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding: 0px;
+        margin-top: 0px;
+        box-shadow: 0px;
+      }
       @include breakpoint($screen-sm) {
         margin-left: 15px;
         margin-right: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding: 0px;
+        margin-top: -550px;
+        box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-md) {
          margin-left: 15px;
          margin-right: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding: 0px;
+        margin-top: -400px;
+        box-shadow: 10px 20px 115px 10px;
        }
       @include breakpoint($screen-lg-desktop) {
         margin-left: 125px;
         margin-right: 125px;
+        padding-left: 70px;
+        padding-right: 70px;
+        padding: 40px;
+        margin-top: -400px;
+        box-shadow: 10px 20px 115px 10px;
       }
       position: relative;
       margin-bottom: 100px;
-      margin-top: -400px;
-      box-shadow: 10px 20px 115px 10px;
-      padding: 40px;
-      padding-left: 70px;
-      padding-right: 70px;
       min-height: 500px;
       h1 {
-        margin-top: 60px;
-        margin-bottom: 70px;
+        @include breakpoint($screen-phone) {
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+        @include breakpoint($screen-sm) {
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+        @include breakpoint($screen-md) {
+          margin-top: 60px;
+          margin-bottom: 70px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          margin-top: 60px;
+          margin-bottom: 70px;
+        }
         text-transform: uppercase;
         text-align: center;
       }
@@ -53,10 +97,27 @@ body {
         padding: 0px;
       }
       .paragraph-background-container {
-        margin-right: -70px;
-        margin-left: -70px;
-        padding-left: 40px;
-        padding-right: 40px;
+        //margin-right: -70px;
+        //margin-left: -70px;
+
+        @include breakpoint($screen-phone) {
+          margin-right: -15px;
+          margin-left: -15px;
+        }
+        @include breakpoint($screen-sm) {
+          margin-right: -15px;
+          margin-left: -15px;
+        }
+        @include breakpoint($screen-md) {
+          margin-right: -15px;
+          margin-left: -15px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          margin-right: -40px;
+          margin-left: -40px;
+        }
+        //padding-left: 40px;
+        //padding-right: 40px;
         .paragraph-container {
           padding: 0px;
         }
@@ -169,29 +230,76 @@ body {
 
 #block-campaignmemberregister {
   text-align: center;
+
+
+  .container {
+    @include breakpoint($screen-phone) {
+      height: 100% !important;
+    }
+    @include breakpoint($screen-sm) {
+      height: 100% !important;
+    }
+    @include breakpoint($screen-md) {
+      height: 100% !important;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      height: 100% !important;
+    }
+    background-size: cover;
+    padding-bottom: 60px;
+  }
+
+
   h1 {
     padding-top: 100px;
     color: #fff;
     text-transform: uppercase;
     margin: 0 auto;
-    font-size: 48px;
     text-align: center;
+
   }
   .finish-date {
-    font-size: 18px;
+
     color: #ffffff;
+
+    @include breakpoint($screen-phone) {
+      font-size: 14px;
+    }
+    @include breakpoint($screen-sm) {
+      font-size: 18px;
+    }
+    @include breakpoint($screen-md) {
+      font-size: 18px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      font-size: 18px;
+    }
+
   }
   .countdown {
     margin: 0 auto;
     color: #ffffff;
     .simply-section {
       display: inline-flex;
-      margin-right: 35px;
+      padding-left: 15px;
+      padding-right: 15px;
     }
     .simply-amount {
-      font-size: 30px;
+
       display: block;
       font-weight: 700;
+      @include breakpoint($screen-phone) {
+        font-size: 20px;
+      }
+      @include breakpoint($screen-sm) {
+        font-size: 30px;
+      }
+      @include breakpoint($screen-md) {
+        font-size: 30px;
+      }
+      @include breakpoint($screen-lg-desktop) {
+        font-size: 30px;
+      }
     }
     .simply-word{
       font-size: 16px;
@@ -275,9 +383,59 @@ body {
 
 
 .activity-tracking-menu-columns {
-  padding-left: 45px;
-  padding-right: 45px;
+  &.left {
+    @include breakpoint($screen-phone) {
+      padding-right: 0px;
+    }
+    @include breakpoint($screen-sm) {
+      padding-right: 0px;
+    }
+    @include breakpoint($screen-md) {
+      padding-right: 0px;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      padding-right: 53px;
+    }
+  }
+  &.right {
+    padding-left: 15px;
+    h4 {
+      @include breakpoint($screen-phone) {
+        padding-left: 0px;
+      }
+      @include breakpoint($screen-sm) {
+        padding-left: 0px;
+      }
+      @include breakpoint($screen-md) {
+        padding-left: 0px;
+      }
+      @include breakpoint($screen-lg-desktop) {
+        padding-left: 60px;
+      }
+
+    }
+    .field-prgf-campaign-game {
+
+      @include breakpoint($screen-phone) {
+        padding-left: 0px;
+        border-left: none;
+      }
+      @include breakpoint($screen-sm) {
+        padding-left: 0px;
+        border-left: none;
+      }
+      @include breakpoint($screen-md) {
+        padding-left: 0px;
+        border-left: none;
+      }
+      @include breakpoint($screen-lg-desktop) {
+        padding-left: 60px;
+        border-left: 1px solid;
+      }
+    }
+  }
 }
+
 .visits-goal {
 
   .description {
@@ -310,9 +468,12 @@ body {
     .point {
       background: url('../img/inactive.png');
       background-repeat: no-repeat;
-      background-position: right;
-      width: 85px;
-      padding-left: 65px;
+      background-position: center;
+
+      width: 35px;
+      padding-left: 30px;
+      padding-right: 35px;
+
       margin-top: 35px;
       height: 60px;
       color: #fff;
@@ -326,8 +487,7 @@ body {
     .point.active {
       background: url('../img/active.png');
       background-repeat: no-repeat;
-      background-position: right;
-
+      background-position: center;
     }
 
     .point-1 {
@@ -344,12 +504,35 @@ body {
   margin-top: 50px;
 }
 
+.wrapper-field-prgf-campaign-game {
+
+  @include breakpoint($screen-phone) {
+    border-top: 1px solid;
+    padding-top: 20px;
+  }
+  @include breakpoint($screen-sm) {
+    border-top: none;
+    padding-top: 0px;
+  }
+  @include breakpoint($screen-md) {
+    border-top: none;
+    padding-top: 0px;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    border-top: none;
+    padding-top: 0px;
+  }
+}
+
 .campaign-game {
+
   .cover-images {
+    display: flex;
     span {
-      margin-right: 10px;
-      width: 30%;
-      display: inline-block;
+      margin-left: 5px;
+      margin-right: 5px;
+      display: flex;
+      flex-flow: column;
       img {
         width: 100%;
       }
