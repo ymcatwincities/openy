@@ -1,5 +1,7 @@
 {# copy form so we can remove rendered elements from it #}
 {% set formCopy = form %}
+
+
 <div class="activity">
 
     <div class="paragraph-background-container">
@@ -7,9 +9,8 @@
         <div class="paragraph-container">
           <h2>My Activity</h2>
           <div class="calendar-wrapper">
-            <div class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></div>
-            <div class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></div>
-            <ul class="month">
+              <h3 class="current-month"></h3>
+            <div class="month">
                 {% for key in form|keys %}
                     {# key should match 2017-08-12 pattern #}
                     {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
@@ -18,10 +19,10 @@
                         {% if  key|date('d/m') ==  "now"|date("d/m")  %}
                             {% set additionClass = 'now' %}
                         {% endif %}
-                        <li data-date="{{ key }}" class="date-data {{ additionClass }}">
+                        <div data-date="{{ key }}" class="date-data {{ additionClass }}">
                             <span class="day">{{ key|date('d') }}</span>
                             <span class="weekday">{{ key|date('D') }}</span>
-                            <span class="month">{{ key|date('M') }}</span>
+                            <span class="month">{{ key|date('F') }}</span>
                             <div class="visits">
                                 <div class="entriesNum">
                                     No entry found
@@ -36,15 +37,10 @@
                               </div>
 
                             </div>
-                            {#<div class="data">
-                                <span class="categories">
-
-                        </span>
-                            </div>#}
-                        </li>
+                        </div>
                     {%  endif %}
                 {% endfor %}
-            </ul>
+            </div>
 
             <div style="clear:both;"></div>
         </div>
@@ -62,9 +58,6 @@
 
 
         <div class="activity-daily-data {{ key }}" style="display:none">
-            <input type="hidden" name="date" value="{{ key }}">
-            <input type="hidden" name="campaign_id" value="71">
-
             {% set row = attribute(form, key) %}
             {% for formKey in row|keys %}
                 {%  if formKey matches '/^[\\d]+$/' %}
@@ -82,5 +75,5 @@
   </div>
 </div>
 
-{{ formCopy }}
+
 

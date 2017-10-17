@@ -1,8 +1,6 @@
 .form-item input.form-checkbox {
-  visibility: hidden;
+  display: none;
 }
-
-
 
 .form-item input:checked + label {
   display: inline-block;
@@ -10,20 +8,20 @@
   margin-bottom: 5px;
   position: relative;
   border: 2px solid;
-  border-radius: 30px;
-  padding-left: 50px;
+  border-radius: 40px;
+  padding-left: 30px;
   font-weight: bold;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  width: 93%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
   background-color: #fff;
-  //background-image: url(http://ymcatc.ixm.ca/themes/custom/ymca/img/2017_summer/icon-activity-check.png);
   background-repeat: no-repeat;
   cursor: pointer;
   color: #C6168D;
   background-position: 26px 27px;
+  white-space: normal;
+  padding-right: 50px;
   &:hover {
-    //background-image: url(http://ymcatc.ixm.ca/themes/custom/ymca/img/2017_summer/icon-activity-check.png);
     background-repeat: no-repeat;
     background-position: 26px 27px;
   }
@@ -35,12 +33,14 @@
   margin-bottom: 5px;
   position: relative;
   border: 2px solid;
-  border-radius: 30px;
-  padding-left: 50px;
+  border-radius: 40px;
+  padding-left: 30px;
   font-weight: bold;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  width: 93%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+  white-space: normal;
+  padding-right: 50px;
   &:hover{
     background: #fff;
     cursor: pointer;
@@ -49,33 +49,25 @@
 }
 
 .form-item input + label:before {
-  font-family: "Cachet",Arial,sans-serif;
-  letter-spacing: -0.025em;
-  height: 22px;
-  height: 2.2rem;
-  width: 22px;
-  width: 2.2rem;
-  left: 24px;
-  left: 2.4rem;
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
+  content: "\f00c";
+  font-family: "FontAwesome";
   border-radius: 50%;
-  -moz-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   border: inherit;
-  content: '';
   position: absolute;
   text-align: center;
-  top: 50%;
+  top: 35%;
+  height: 2.2rem;
+  width: 2.2rem;
+  right: 2rem;
 }
+
+.form-item input:checked + label:before {
+  content: "\f00c";
+  font-family: "FontAwesome";
+}
+
 .activity {
   .paragraph-background-container {
     background-color: #92278F;
@@ -90,7 +82,7 @@
   background: #92278F;
   color: #fff;
   text-transform: uppercase;
-  margin: 25px;
+  margin: 8px;
   border-radius: 10px;
   padding-top: 10px;
   .activity-name {
@@ -107,75 +99,214 @@
 
       .form-checkboxes {
         .form-item {
-          float: left;
-          width: 30%;
+
+          margin: 5px;
+          margin-bottom: 25px;
           font-size: 16px;
           overflow: hidden;
           word-wrap: unset;
           white-space: nowrap;
+          @include breakpoint($screen-phone) {
+            float: none;
+            //width: 100%;
+          }
+          @include breakpoint($screen-sm) {
+            float: left;
+            width: 30%;
+          }
+          @include breakpoint($screen-md) {
+            float: left;
+            width: 30%;
+          }
+          @include breakpoint($screen-lg-desktop) {
+            float: left;
+            width: 32%;
+          }
 
         }
       }
     }
   }
 }
+
 .activity-data {
   margin-top: 30px;
+  @include breakpoint($screen-phone) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  @include breakpoint($screen-sm) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  @include breakpoint($screen-md) {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    margin-left: 85px;
+    margin-right: 85px;
+  }
   .activity-daily-data {
     .category-data {
       display: none;
     }
   }
 }
+
 .activity-data .categories {
   ul {
     padding: 0px;
     text-align: center;
+    display: flex;
     li {
-      display: inline-block;
-      padding: 15px;
       background: #92278F;
       opacity: 0.7;
-      margin: 25px;
-      width: 200px;
-      height: 200px;
       color: #fff;
       text-align: center;
       text-transform: uppercase;
-      font-size: 22px;
       border-radius: 10px;
-      padding-top: 105px;
       cursor: pointer;
+
+      @include breakpoint($screen-phone) {
+        flex-flow: column;
+        margin: 9px;
+        width: 60px;
+        height: 60px;
+        font-size: 9px;
+      }
+      @include breakpoint($screen-sm) {
+        flex-flow: column;
+        margin: 9px;
+        width: 60px;
+        height: 60px;
+        font-size: 9px;
+      }
+      @include breakpoint($screen-md) {
+        flex-flow: column;
+        margin: 9px;
+        width: 60px;
+        height: 60px;
+        font-size: 9px;
+      }
+      @include breakpoint($screen-lg-desktop) {
+        flex-flow: column;
+        margin: 13px;
+        width: 200px;
+        height: 200px;
+        font-size: 22px;
+      }
 
       &.active{
         opacity: 1;
       }
+
       &.Aquatics {
         background-image: url('../img/swimming.png');
         background-repeat: no-repeat;
-        background-position: 70px 50px;
+
+
+        @include breakpoint($screen-phone) {
+          background-position: center 15px;
+          background-size: 35px;
+          padding-top: 38px;
+        }
+        @include breakpoint($screen-sm) {
+          background-position: center 15px;
+          background-size: 35px;
+          padding-top: 38px;
+        }
+        @include breakpoint($screen-md) {
+          background-position: center 15px;
+          background-size: 35px;
+          padding-top: 38px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          background-position: center 50px;
+          background-size: auto;
+          padding-top: 115px;
+        }
+
       }
       &.Fitness {
         background-image: url('../img/fitnes.png');
         background-repeat: no-repeat;
         background-position: 70px 50px;
+
+
+        @include breakpoint($screen-phone) {
+          background-position: center 10px;
+          background-size: 35px;
+          padding-top: 38px;
+        }
+        @include breakpoint($screen-sm) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-md) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          background-position: center 50px;
+          background-size: auto;
+          padding-top: 115px;
+        }
       }
       &.Community {
         background-image: url('../img/community.png');
         background-repeat: no-repeat;
-        background-position: 70px 50px;
+        //background-position: 70px 50px;
+
+        @include breakpoint($screen-phone) {
+          background-position: center 5px;
+          background-size: 35px;
+          padding-top: 33px;
+        }
+        @include breakpoint($screen-sm) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-md) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          background-position: center 50px;
+          background-size: auto;
+          padding-top: 115px;
+        }
       }
       &.GroupExercise {
         background-image: url('../img/groupex.png');
         background-repeat: no-repeat;
-        background-position: 70px 50px;
+        //background-position: 70px 50px;
+
+        @include breakpoint($screen-phone) {
+          background-position: center 5px;
+          background-size: 35px;
+          padding-top: 33px;
+        }
+        @include breakpoint($screen-sm) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-md) {
+          background-position: center 10px;
+          background-size: 35px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          background-position: center 50px;
+          background-size: auto;
+          padding-top: 115px;
+        }
       }
     }
-    }
+
   }
+}
 
 .activity .paragraph-background-container {
-
   @include breakpoint($screen-sm) {
     padding-left: 15px !important;
     padding-right: 15px !important;
@@ -214,15 +345,16 @@
   white-space: nowrap;
   margin: 0px;
   padding: 0px;
-  margin-left: 80px;
-  margin-right: 80px;
+  padding-left: 80px;
+  padding-right: 80px;
 
   .date-data {
-    padding-left: 25px;
-    padding-right: 25px;
+    //padding-left: 25px;
+    //padding-right: 25px;
     text-align: center;
     margin-bottom: 180px;
     display: inline-block;
+    position: relative;
     .month {
       display: none;
     }
@@ -244,15 +376,15 @@
       display: block;
       cursor: pointer;
       width: 50px;
+      margin: 0 auto;
     }
     .data {
       display: none;
     }
-    &.active .weekday{
+    &.slick-current .weekday{
       border-radius: 58%;
       border-color: #fff;
       border: 1px solid;
-      width: 50px;
       padding-top: 10px;
       background: #fff;
       margin: 0 auto;
@@ -261,20 +393,55 @@
       color: $pink;
       cursor: pointer;
     }
-    &.active {
+    &.slick-current {
       .visits {
         display: block;
         position: absolute;
         width: 315px;
         border-radius: 10px;
-        z-index: 1000;
+        left: -105px;
+
+
+        @include breakpoint($screen-phone) {
+          width: 178px;
+          left: -57px;
+        }
+        @include breakpoint($screen-sm) {
+          width: 315px;
+          left: -105px;
+        }
+        @include breakpoint($screen-md) {
+          width: 315px;
+          left: -105px;
+        }
+        @include breakpoint($screen-lg-desktop) {
+          width: 315px;
+          left: -105px;
+        }
+
+
+
         top: 140px;
         text-transform: uppercase;
         &:before {
           content: '';
           position: absolute;
-          left: 135px;
+
           top: -50px;
+
+          @include breakpoint($screen-phone) {
+            left: 70px;
+          }
+          @include breakpoint($screen-sm) {
+            left: 135px;
+          }
+          @include breakpoint($screen-md) {
+            left: 135px;
+          }
+          @include breakpoint($screen-lg-desktop) {
+            left: 135px;
+          }
+
           border: 20px solid transparent;
           border-bottom: 30px solid #fff;
           text-align: center;
@@ -306,22 +473,46 @@
 
 .calendar-wrapper {
   position: relative;
-  .prev {
-    float: left;
+  .current-month {
+    text-align: center;
+  }
+  .slick-prev.slick-arrow,
+  .slick-next.slick-arrow {
+    border: none;
     height: 100px;
     background: #C6168D;
-    padding-top: 18px;
-    padding-left: 10px;
-    padding-right: 10px;
+    display: block;
+    position: absolute;
     cursor: pointer;
+    color: transparent;
+    width: 42px;
+    padding-left: 12px;
   }
-  .next {
-    cursor: pointer;
-    height: 100px;
-    background: #C6168D;
-    float: right;
-    padding-top: 18px;
-    padding-left: 10px;
-    padding-right: 10px;
+  .slick-prev.slick-arrow {
+    &:before {
+      content: "\f104";
+      color: #ffffff;
+      font-family: "FontAwesome";
+      font-size: 35px;
+    }
+    left: 15px;
   }
+  .slick-next  {
+    &:before {
+      content: "\f105";
+      color: #ffffff;
+      font-family: "FontAwesome";
+      font-size: 35px;
+    }
+    right: 5px;
+    top: 0px;
+  }
+}
+
+a:active, a:focus,
+div:active, div:focus,
+button:active, button:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none
 }

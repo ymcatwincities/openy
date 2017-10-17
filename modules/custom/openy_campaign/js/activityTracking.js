@@ -2,37 +2,50 @@ Drupal.behaviors.activityTracking = {
     attach: function (context, settings) {
 
         var $ = jQuery;
-        var activeItemIndex;
-        var nextElIndex;
-        var prevElIndex;
-        var $listModel = $('.month li');
-        var currentActiveEl;
-
-        function setActiveEl($el) {
-            var currentActiveElPos = $el.offset();
-            $('.month li').removeClass('active');
-            $el.addClass('active');
-
-
-            $('ul.month').scrollLeft(currentActiveElPos.left - 100);
-
-            var currentActiveElPosVis = $el.position();
-
-            $el.find('.visits').css('left', currentActiveElPosVis.left - 105);
-        }
 
         function initActiveEl() {
-            $listModel.each(function (index, val) {
-                if ($(val).hasClass('now')) {
-                    activeItemIndex = index;
-                }
+            $('div.month').slick({
+                infinite: true,
+                slidesToShow: 7,
+                slidesToScroll: 7,
+                centerMode: true,
+                focusOnSelect: true,
+                centerPadding: '0px',
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3,
+                            infinite: true,
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
+                        }
+                    }
+                    // You can unslick at a given breakpoint now by adding:
+                    // settings: "unslick"
+                    // instead of a settings object
+                ]
             });
-            // Today is active by default.
-            currentActiveEl = $($listModel[activeItemIndex]);
-            setActiveEl(currentActiveEl);
+            var currentEl = $('.slick-current');
+            var currentMonth = currentEl.find('span.month').html();
+            $('h3.current-month').html(currentMonth);
 
-            nextElIndex = activeItemIndex + 1;
-            prevElIndex = activeItemIndex - 1;
+            // set active element data.
+            var activeElData = currentEl.data('date');
+            openActivityData(activeElData);
         }
 
 
@@ -40,45 +53,14 @@ Drupal.behaviors.activityTracking = {
         initActiveEl();
 
 
-
         /** Events */
-        $('.calendar-wrapper .next').on('click', function (e) {
-            console.log('next');
-            nextElIndex++;
-            prevElIndex++;
-            // increase activeElIndex
-            activeItemIndex++;
-            setActiveEl($($listModel[activeItemIndex]));
-        });
-
-        $('.calendar .prev').on('click', function (e) {
-
-            nextElIndex--;
-            prevElIndex--;
-            // increase activeElIndex
-            activeItemIndex--;
-            setActiveEl($($listModel[activeItemIndex]));
-        });
-
         function openActivityData(date) {
             $('.activity-data').find('.activity-daily-data').hide();
             var $dataEl = $('.activity-data').find('.' + date);
 
             $dataEl.show();
 
-            $dataEl.find('.category-data label').on('click', function (e) {
-                $(e.target).prev('.form-checkbox').click();
-                var formData = $(e.target).parents('form');
-                var data = $(e.target).parents('.activity-daily-data').find('input[name="date"]').val();
-                $.post(
-                    '/campaign-save-activity/' + data,
-                    formData.serialize(),
-                    function (data) {
-                        console.log(data);
-                    }
-                );
 
-            });
 
             var categories = $dataEl.find('.activity-name');
             // Complete categories list.
@@ -92,7 +74,6 @@ Drupal.behaviors.activityTracking = {
 
             // Event to handle categories data.
             $('.activity-data .categories ul li').on('click', function (e) {
-
                 $('.activity-data .categories ul li').removeClass('active');
                 var activityName = $(e.target).attr('class');
                 $(e.target).addClass('active');
@@ -102,18 +83,27 @@ Drupal.behaviors.activityTracking = {
 
         }
 
-        $('.calendar ul li.date-data').on('click', function (e) {
-            // remove active class from previous el.
-            $('.calendar li.date-data').removeClass('active');
-            // set class to active elm.
-            var currentActiveEl = $(e.target).parent('li');
-            currentActiveEl.addClass('active');
-            // get active's elm position and set offset for visits container.
-            var currentActiveElPos = currentActiveEl.position();
-            console.log(currentActiveElPos.left);
-            currentActiveEl.find('.visits').css('left', currentActiveElPos.left - 105);
+        $('.activity-data .activity-daily-data .category-data input').on('change', function (e) {
 
+            var formData = $(e.target).closest('form');
+            var data = $(e.target).parents('.activity-daily-data').find('input[name="date"]').val();
+
+            $.post(
+             '/campaign-save-activity/' + data,
+             formData.serialize(),
+             function (data) {
+               console.log(data);
+               }
+             );
+
+        });
+
+
+        $('.calendar .month .date-data').on('click', function (e) {
+            var currentActiveEl = $(e.target).parent('div.date-data');
             var activeDate = currentActiveEl.data('date');
+            var currentMonth = currentActiveEl.find('span.month').html();
+            $('h3.current-month').html(currentMonth);
             openActivityData(activeDate);
         });
     }

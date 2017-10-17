@@ -69,8 +69,10 @@ class ActivityTrackingModalForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $date = NULL, $memberCampaignId = NULL, $topTermId = NULL) {
 
+
     $term = Term::load($topTermId);
     $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
+
 
     $form['#prefix'] = '<div class="activity_tracking_form_wrapper">';
     $form['#suffix'] = '</div>';
@@ -102,85 +104,22 @@ class ActivityTrackingModalForm extends FormBase {
       '#type' => 'checkboxes',
       '#options' => $options,
       '#default_value' => $default_values,
-      '#validated' => true
+      '#validated' => true,
     ];
 
     $form['member_campaign_id'] = [
       '#value' => $memberCampaignId,
-      '#type' => 'value',
+      '#type' => 'hidden',
     ];
 
     $form['date'] = [
       '#value' => $date,
-      '#type' => 'value',
+      '#type' => 'hidden',
     ];
-
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => 'check',
-      '#attributes' => [
-        'class' => [
-          'use-ajax',
-        ],
-      ],
-      '#ajax' => [
-        'callback' => [$this, 'submitModalFormAjax'],
-        'event' => 'click',
-      ],
-    ];
-
-    $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
 
     return $form;
   }
 
-  /**
-   * AJAX callback handler that displays any errors or a success message.
-   */
-  public function submitModalFormAjax(array $form, FormStateInterface $form_state) {
-    $response = new AjaxResponse();
-
-    $memberCampaignId = $form_state->getValue('member_campaign_id');
-    $date = new \DateTime($form_state->getValue('date'));
-    $activityIds = $form_state->getValue('activities');
-    // If there are any form errors, re-display the form.
-    if ($form_state->hasAnyErrors()) {
-      //print_r($form_state->errors);
-      //die();
-      $response->addCommand(new ReplaceCommand('#activity_tracking_modal_form_wrapper', $form));
-    }
-    else {
-      $memberCampaignId = $form_state->getValue('member_campaign_id');
-      $date = new \DateTime($form_state->getValue('date'));
-      $activityIds = $form_state->getValue('activities');
-
-      //print_r($form_state->getValue('activities'));
-
-      // Delete all records first.
-      $existingActivityIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $date, array_keys($activityIds));
-      entity_delete_multiple('openy_campaign_memb_camp_actv', $existingActivityIds);
-
-      // Save new selection.
-      $activityIds = array_filter($activityIds);
-      foreach ($activityIds as $activityTermId) {
-        $activity = MemberCampaignActivity::create([
-          'created' => time(),
-          'date' => $date->format('U'),
-          'member_campaign' => $memberCampaignId,
-          'activity' => $activityTermId,
-        ]);
-
-        $activity->save();
-      }
-
-      $response->addCommand(new OpenModalDialogCommand($this->t('Successful!'), $this->t('Thank you for tracking activities.'), ['width' => 800]));
-
-      // Close dialog with redirect ot current page
-      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog'));
-    }
-
-    return $response;
-  }
 
 
   /**
@@ -194,7 +133,6 @@ class ActivityTrackingModalForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
   }
 
 }
