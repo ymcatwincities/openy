@@ -256,9 +256,12 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
       $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($requestLandingPage);
       $variables['content']['landing_page'] = $build;
     }
+    $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
 
+  } elseif ($variables['node']->getType() == 'campaign_page') {
     $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
   }
+
 }
 
 /**
