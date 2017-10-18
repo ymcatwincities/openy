@@ -1,0 +1,5 @@
+openy_digital_signage_personify_schedule.import_personify_sessions:
+  route_name: openy_digital_signage_personify_schedule.import_personify_sessions
+  title: 'Run Import from Personify'
+  appears_on:
+    - entity.openy_ds_classes_session.collection
