@@ -1,0 +1,7 @@
+services:
+  openy_digital_signage_personify_schedule.cron:
+    class: Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyCron
+    arguments: ['@config.factory', '@entity_type.manager', '@logger.factory']
+  openy_digital_signage_personify_schedule.fetcher:
+    class: Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyFetcher
+    arguments: ['@config.factory', '@entity_type.manager', '@ymca_mappings.location_repository']
