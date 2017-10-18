@@ -129,6 +129,10 @@ figcaption {
   }
 }
 
+.media.view-mode-full {
+  margin: 20px auto;
+}
+
 .block-description--wrapper {
   display: flex;
 }
@@ -4917,6 +4921,9 @@ html.js .branch__updates_queue__button {
   outline: none;
   text-decoration: none;
   position: relative;
+}
+#schedules-search-listing-wrapper .results .views-row:hover h3 {
+  text-decoration: underline;
 }
 #schedules-search-listing-wrapper .results .views-row .included-in-membership {
   background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
