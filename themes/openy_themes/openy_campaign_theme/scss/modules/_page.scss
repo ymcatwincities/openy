@@ -73,6 +73,8 @@ body {
       margin-bottom: 100px;
       min-height: 500px;
       h1 {
+        text-transform: uppercase;
+        text-align: center;
         @include breakpoint($screen-phone) {
           margin-top: 30px;
           margin-bottom: 30px;
@@ -89,8 +91,6 @@ body {
           margin-top: 60px;
           margin-bottom: 70px;
         }
-        text-transform: uppercase;
-        text-align: center;
       }
       .main-region {
         padding: 0px;
@@ -162,9 +162,6 @@ body {
 }
 
 .paragraph-background-container {
-  //margin-right: -40px;
-  //margin-left: -40px;
-
   .paragraph-container {
     background-color: inherit;
     color: #ffffff;
@@ -227,8 +224,9 @@ body {
 #block-campaignmemberregister {
   text-align: center;
 
-
   .container {
+    background-size: cover;
+    padding-bottom: 60px;
     @include breakpoint($screen-phone) {
       height: 100% !important;
     }
@@ -241,10 +239,7 @@ body {
     @include breakpoint($screen-lg-desktop) {
       height: 100% !important;
     }
-    background-size: cover;
-    padding-bottom: 60px;
   }
-
 
   h1 {
     padding-top: 100px;
@@ -254,10 +249,9 @@ body {
     text-align: center;
 
   }
+
   .finish-date {
-
     color: #ffffff;
-
     @include breakpoint($screen-phone) {
       font-size: 14px;
     }
@@ -270,18 +264,19 @@ body {
     @include breakpoint($screen-lg-desktop) {
       font-size: 18px;
     }
-
   }
+
   .countdown {
     margin: 0 auto;
     color: #ffffff;
+
     .simply-section {
       display: inline-flex;
       padding-left: 15px;
       padding-right: 15px;
     }
-    .simply-amount {
 
+    .simply-amount {
       display: block;
       font-weight: 700;
       @include breakpoint($screen-phone) {
@@ -297,11 +292,13 @@ body {
         font-size: 30px;
       }
     }
-    .simply-word{
+
+    .simply-word {
       font-size: 16px;
       display: block;
     }
   }
+
   .openy-campaign-registration-simple-form {
     max-width: 400px;
     display: block;
@@ -464,9 +461,12 @@ body {
       background-repeat: no-repeat;
       background-position: center;
 
-      width: 35px;
-      padding-left: 30px;
-      padding-right: 35px;
+      //width: 35px;
+      //padding-left: 30px;
+      //padding-right: 35px;
+      width: calc(100%/5);
+      padding-left: calc(100%/10 - 4px);
+      padding-right: calc(100%/10);
 
       margin-top: 35px;
       height: 60px;

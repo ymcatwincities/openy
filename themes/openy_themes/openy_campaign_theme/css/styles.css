@@ -647,9 +647,9 @@ body {
   background: url("../img/inactive.png");
   background-repeat: no-repeat;
   background-position: center;
-  width: 35px;
-  padding-left: 30px;
-  padding-right: 35px;
+  width: calc(100%/5);
+  padding-left: calc(100%/10 - 4px);
+  padding-right: calc(100%/10);
   margin-top: 35px;
   height: 60px;
   color: #fff;
@@ -849,16 +849,16 @@ footer {
 
 .form-item input + label {
   display: inline-block;
-  max-width: 100%;
-  margin-bottom: 5px;
   position: relative;
+  max-width: 100%;
+  width: 100%;
+  margin-bottom: 5px;
   border: 2px solid;
   border-radius: 40px;
-  padding-left: 30px;
   font-weight: bold;
   padding-top: 20px;
   padding-bottom: 20px;
-  width: 100%;
+  padding-left: 30px;
   white-space: normal;
   padding-right: 50px;
 }
@@ -869,7 +869,7 @@ footer {
 }
 
 .form-item input + label:before {
-  content: "\f00c";
+  content: "";
   font-family: "FontAwesome";
   border-radius: 50%;
   background-repeat: no-repeat;

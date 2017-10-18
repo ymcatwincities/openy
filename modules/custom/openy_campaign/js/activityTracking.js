@@ -3,12 +3,25 @@ Drupal.behaviors.activityTracking = {
 
         var $ = jQuery;
 
+        function countEntry() {
+            jQuery('div.date-data').each((ind,val) => {
+              var itemDate = jQuery(val).data('date');
+              var entryContainer = jQuery('.activity-data').find('div.' + itemDate);
+              var entryCount = entryContainer.find('input[type="checkbox"]:checked').length;
+              if (entryCount !== 0) {
+                  $(val).find('.entriesNum').html('You have ' + entryCount + ' today');
+              }
+              return entryCount;
+           });
+        }
+
         function initActiveEl() {
             $('div.month').slick({
-                infinite: true,
+                //infinite: true,
                 slidesToShow: 7,
                 slidesToScroll: 7,
                 centerMode: true,
+                initialSlide: 3,
                 focusOnSelect: true,
                 centerPadding: '0px',
                 responsive: [
@@ -17,7 +30,7 @@ Drupal.behaviors.activityTracking = {
                         settings: {
                             slidesToShow: 3,
                             slidesToScroll: 3,
-                            infinite: true,
+                            //infinite: true,
                         }
                     },
                     {
@@ -34,9 +47,6 @@ Drupal.behaviors.activityTracking = {
                             slidesToScroll: 3
                         }
                     }
-                    // You can unslick at a given breakpoint now by adding:
-                    // settings: "unslick"
-                    // instead of a settings object
                 ]
             });
             var currentEl = $('.slick-current');
@@ -46,12 +56,11 @@ Drupal.behaviors.activityTracking = {
             // set active element data.
             var activeElData = currentEl.data('date');
             openActivityData(activeElData);
+            countEntry();
         }
-
 
         // Initiate default Active Item in calendar.
         initActiveEl();
-
 
         /** Events */
         function openActivityData(date) {
@@ -59,8 +68,6 @@ Drupal.behaviors.activityTracking = {
             var $dataEl = $('.activity-data').find('.' + date);
 
             $dataEl.show();
-
-
 
             var categories = $dataEl.find('.activity-name');
             // Complete categories list.
@@ -80,7 +87,6 @@ Drupal.behaviors.activityTracking = {
                 $dataEl.find('.category-data').hide();
                 $dataEl.find('.' + activityName.replace(/ /g, '')).parents('.category-data').show();
             });
-
         }
 
         $('.activity-data .activity-daily-data .category-data input').on('change', function (e) {
@@ -92,12 +98,11 @@ Drupal.behaviors.activityTracking = {
              '/campaign-save-activity/' + data,
              formData.serialize(),
              function (data) {
-               console.log(data);
+               //console.log(data);
+                 countEntry();
                }
              );
-
         });
-
 
         $('.calendar .month .date-data').on('click', function (e) {
             var currentActiveEl = $(e.target).parent('div.date-data');
