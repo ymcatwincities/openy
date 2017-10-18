@@ -1,10 +1,7 @@
 <?php
 
-DEFINE('CAMPAIGN_THEME', 'openy_campaign_theme');
-DEFINE('OPENY_THEME', 'openy_rose');
-
 DEFINE('CAMPAIGN_BASIC_PALETTE', 'purpleorchid');
-DEFINE('CAMPAIGN_COLORS_CSS_FILE', 'campaign_colors');
+DEFINE('CAMPAIGN_COLORS_CSS_FOLDER', 'campaign_colors');
 DEFINE('CAMPAIGN_MAIN_COLORS', ['mainlight', 'mainmedium', 'maindark']);
 
 /**
@@ -89,7 +86,7 @@ function openy_campaign_color_scheme_form($complete_form, \Drupal\Core\Form\Form
     '#default_value' => $campaignPalette,
     '#attached' => [
       'library' => [
-        'openy_campaign_color/drupal.openy_campaign_color',
+        'openy_campaign_color/backend',
       ],
       // Add custom JavaScript.
       'drupalSettings' => [
@@ -133,7 +130,7 @@ function openy_campaign_color_rebuild() {
   // Build CSS files for each color scheme.
 
   // Read basic CSS file.
-  $cssPath = DRUPAL_ROOT . '/' . drupal_get_path('theme', CAMPAIGN_THEME) . '/css/styles.css';
+  $cssPath = DRUPAL_ROOT . '/' . drupal_get_path('theme', CAMPAIGN_THEME) . '/css/colors.css';
   $cssData = file_get_contents($cssPath);
 
   // Get list of all possible colors palettes.
@@ -167,15 +164,23 @@ function openy_campaign_color_rebuild() {
   preg_match_all($re, $cssData, $matches, PREG_SET_ORDER, 0);
 
   $basicCssColors = [];
+  $colorsMapping = [];
   foreach ($matches as $match) {
+    $foundColor = $match[0];
     $color = strtolower($match[0]);
     // Replace 3digits colors by full values.
     if (strlen($color) == 4) {
       $color = $color . ltrim($color, '#');
     }
     $basicCssColors[] = $color;
+    $colorsMapping[$foundColor] = $color;
   }
   $basicCssColors = array_unique($basicCssColors);
+
+  // Replace all colors by lowercase values.
+  foreach ($colorsMapping as $foundColor => $color) {
+    $cssData = str_replace($foundColor, $color, $cssData);
+  }
 
   // Generate CSS files for each palette.
   foreach ($schemes as $key => $scheme) {
@@ -188,52 +193,7 @@ function openy_campaign_color_rebuild() {
       $colorKey = $basicColorSet[$color];
       $newCss = str_replace($color, $scheme[$colorKey], $newCss);
     }
-    file_unmanaged_save_data($newCss, 'public://' . CAMPAIGN_COLORS_CSS_FILE . '_' . $key . '.css', FILE_EXISTS_REPLACE);
+
+    file_unmanaged_save_data($newCss, 'public://' . CAMPAIGN_COLORS_CSS_FOLDER . '/' . $key . '.css', FILE_EXISTS_REPLACE);
   }
-}
-
-function openy_campaign_color_css_alter(&$css, \Drupal\Core\Asset\AttachedAssetsInterface $assets) {
-  // Get campaign node from current page URL
-  /** @var \Drupal\node\Entity\Node $campaign */
-  $campaign = \Drupal::service('openy_campaign.campaign_menu_handler')->getCampaignNodeFromRoute();
-  if (empty($campaign)) {
-    return;
-  }
-
-  $route = \Drupal::routeMatch()->getRouteObject();
-
-  $is_admin = FALSE;
-  if (!empty($route)) {
-    $is_admin_route = \Drupal::service('router.admin_context')->isAdminRoute($route);
-    $has_node_operation_option = $route->getOption('_node_operation_route');
-    $is_admin = ($is_admin_route || $has_node_operation_option);
-  }
-  else {
-    $current_path = \Drupal::service('path.current')->getPath();
-    if(preg_match('/node\/(\d+)\/edit/', $current_path, $matches)) {
-      $is_admin = TRUE;
-    }
-    elseif(preg_match('/taxonomy\/term\/(\d+)\/edit/', $current_path, $matches)) {
-      $is_admin = TRUE;
-    }
-  }
-
-  if ($is_admin) {
-    return;
-  }
-
-  $cssFile = 'public://' . CAMPAIGN_COLORS_CSS_FILE . '_' . $campaign->field_campaign_palette->value . '.css';
-  $css[$cssFile] = [
-    'weight' => 1000,
-    'group' => 100,
-    'type' => 'file',
-    'data' => $cssFile,
-    'media' => 'all',
-    'preprocess' => 1,
-    'browsers' => [
-      'IE' => 1,
-      '!IE' => 1
-    ]
-  ];
-
 }

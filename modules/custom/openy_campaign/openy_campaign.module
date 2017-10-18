@@ -13,6 +13,8 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
+define('CAMPAIGN_THEME', 'openy_campaign_theme');
+define('OPENY_THEME', 'openy_rose');
 
 /**
  * Implements hook_theme().
@@ -250,8 +252,10 @@ function openy_campaign_preprocess_node(&$variables, $hook) {
     $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
     $requestLandingPage = $campaignMenuService->showRequestLandingPage($variables['node']);
 
-    $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($requestLandingPage);
-    $variables['content']['landing_page'] = $build;
+    if (!empty($requestLandingPage)) {
+      $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($requestLandingPage);
+      $variables['content']['landing_page'] = $build;
+    }
 
     $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
   }

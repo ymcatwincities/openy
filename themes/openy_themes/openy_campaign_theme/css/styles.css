@@ -139,7 +139,6 @@ p {
 
 body {
   padding-top: 0px !important;
-  background-color: #5c2e91;
 }
 
 .container {
@@ -350,18 +349,6 @@ body {
   padding: 0px;
 }
 
-.paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
-  /* fallback/image non-cover color */
-  background-color: #c6168d;
-  /* Firefox 3.6+ */
-  background-image: -moz-linear-gradient(#c6168d, #5c2e91);
-  /* Safari 4+, Chrome 1+ */
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#5c2e91));
-  /* Safari 5.1+, Chrome 10+ */
-  background-image: -webkit-linear-gradient(left, #c6168d, #5c2e91);
-  /* Opera 11.10+ */
-  background-image: -o-linear-gradient(#c6168d, #5c2e91);
-}
 .paragraph-background-container .paragraph-container, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container {
   background-color: inherit;
   color: #ffffff;
@@ -379,7 +366,6 @@ body {
 }
 
 .btn, .button {
-  background-color: #c6168d;
   font-size: 18px;
   padding-top: 13px;
   text-align: center;
@@ -410,7 +396,6 @@ body {
   font-size: 24px;
   padding-left: 0px !important;
   text-transform: uppercase;
-  color: #636466;
 }
 .block-description--wrapper .block-description--text .field-sb-body {
   margin-top: 5px;
@@ -539,10 +524,6 @@ body {
   border: 1px solid #ccc;
 }
 
-.paragraph-1c-wrapper .field-prgf-1c-description {
-  color: #4f4f4f !important;
-}
-
 .field-prgf-1c-column {
   text-align: center;
   padding-bottom: 15px;
@@ -646,14 +627,11 @@ body {
 .visits-goal .description {
   text-align: center;
 }
-.visits-goal .description .goal {
-  color: #c6168d;
-}
 .visits-goal .uppercase {
   text-transform: uppercase;
 }
 .visits-goal .bold {
-  text-style: bold;
+  font-weight: bold;
 }
 .visits-goal .visits-goal-progress {
   margin-top: 5px;
@@ -763,7 +741,6 @@ body {
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-prize {
   text-align: center;
   font-size: 18px;
-  color: #c6168d;
   margin-bottom: 20px;
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
@@ -778,7 +755,6 @@ body {
   font-size: 18px;
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
-  color: #c6168d;
   width: 70%;
 }
 

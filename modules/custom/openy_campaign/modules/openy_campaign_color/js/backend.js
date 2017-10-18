@@ -1,6 +1,6 @@
 /**
  * @file
- * Attaches the behaviors for the Color module.
+ * Attaches the behaviors for the OpenY Campaign Color module.
  */
 
 (function ($, Drupal) {
@@ -15,7 +15,7 @@
    * @prop {Drupal~behaviorAttach} attach
    *   Attach color selection behavior to relevant context.
    */
-  Drupal.behaviors.openy_campaign_color = {
+  Drupal.behaviors.openy_campaign_color_backend = {
       attach: function (context, settings) {
 
           function init() {
