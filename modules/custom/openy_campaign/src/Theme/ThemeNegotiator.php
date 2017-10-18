@@ -50,6 +50,6 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
    */
   public function determineActiveTheme(RouteMatchInterface $route_match) {
     // Here return the actual theme name.
-    return 'openy_campaign_theme';
+    return CAMPAIGN_THEME;
   }
 }

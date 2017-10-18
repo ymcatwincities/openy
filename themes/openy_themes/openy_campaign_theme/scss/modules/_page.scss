@@ -1,6 +1,5 @@
 body {
   padding-top: 0px !important;
-  background-color: $purple;
 }
 
 .container {
@@ -163,7 +162,6 @@ body {
 }
 
 .paragraph-background-container {
-  @include gradient($pink, $purple);
   //margin-right: -40px;
   //margin-left: -40px;
 
@@ -185,7 +183,6 @@ body {
 }
 
 .btn {
-  background-color: $pink;
   font-size: 18px;
   padding-top: 13px;
   text-align: center;
@@ -215,7 +212,6 @@ body {
         font-size: $h4-size;
         padding-left: 0px !important;
         text-transform: uppercase;
-        color: $default-grey;
       }
 
     }
@@ -334,7 +330,6 @@ body {
 }
 
 .paragraph-1c-wrapper .field-prgf-1c-description {
-  color: $dark-grey !important;
 }
 
 .field-prgf-1c-column {
@@ -441,7 +436,6 @@ body {
   .description {
     text-align: center;
     .goal {
-      color: $pink;
     }
   }
 
@@ -450,7 +444,7 @@ body {
   }
 
   .bold {
-    text-style: bold;
+    font-weight: bold;
   }
 
   .visits-goal-progress{
@@ -578,7 +572,6 @@ body {
       .winners-prize {
         text-align: center;
         font-size: 18px;
-        color: $pink;
         margin-bottom: 20px;
       }
 
@@ -594,7 +587,6 @@ body {
           font-size: 18px;
 
           td:first-child {
-            color: $pink;
             width: 70%;
           }
         }

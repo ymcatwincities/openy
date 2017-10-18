@@ -1,0 +1,158 @@
+@font-face {
+  font-family: "Cachet W01 Book";
+  src: url("/profiles/contrib/openy/themes/openy_themes/openy_campaign_theme/fonts/CachetBook.ttf");
+}
+body {
+  color: #636466;
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+}
+
+h1, .h1, h2, .h2, h3, h4, h5, h6 {
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1,
+.h1 {
+  font-size: 48px;
+  margin-bottom: 70px;
+}
+
+h2,
+.h2 {
+  font-size: 36px;
+}
+
+h4 {
+  font-size: 24px;
+}
+
+p {
+  word-wrap: break-word;
+  font-size: 18px !important;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
+
+@media (min-width: 62em) {
+  .pull-right-lg {
+    float: right !important;
+  }
+}
+
+.ajax-progress-throbber {
+  position: absolute;
+  opacity: 0.2;
+}
+
+/*
+ * Row with equal height columns
+ * --------------------------------------------------
+ */
+.row-eq-height {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.row-eq-height:before, .row-eq-height:after {
+  content: none;
+}
+
+body {
+  background-color: #5c2e91;
+}
+
+.paragraph-background-container {
+  /* fallback/image non-cover color */
+  background-color: #c6168d;
+  /* Firefox 3.6+ */
+  background-image: -moz-linear-gradient(#c6168d, #5c2e91);
+  /* Safari 4+, Chrome 1+ */
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#5c2e91));
+  /* Safari 5.1+, Chrome 10+ */
+  background-image: -webkit-linear-gradient(left, #c6168d, #5c2e91);
+  /* Opera 11.10+ */
+  background-image: -o-linear-gradient(#c6168d, #5c2e91);
+}
+
+.btn, .button {
+  background-color: #c6168d;
+}
+
+.block-description--wrapper .block-description--text .field-sb-title h4 {
+  color: #636466;
+}
+
+.paragraph-1c-wrapper .field-prgf-1c-description {
+  color: #4f4f4f !important;
+}
+
+.visits-goal .description .goal {
+  color: #c6168d;
+}
+
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-prize {
+  color: #c6168d;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
+  color: #c6168d;
+}
+
+.form-item input + label {
+  color: #C6168D;
+}
+.form-item input + label:hover {
+  color: #C6168D;
+}
+
+.activity .paragraph-background-container {
+  background-color: #92278F;
+  background-image: -moz-linear-gradient(#c6168d, #92278F);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
+  background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
+  background-image: -o-linear-gradient(#c6168d, #92278F);
+}
+
+.category-data {
+  background: #92278F;
+  color: #fff;
+}
+
+.activity-data .categories ul li {
+  background: #92278F;
+  color: #fff;
+}
+
+.activity .paragraph-background-container:before {
+  border-top: 30px solid #92278F;
+}
+
+.calendar .month .date-data.active .weekday {
+  color: #c6168d;
+}
+.calendar .month .date-data.active .visits .visited {
+  background: #C6168D;
+}
+.calendar .month .date-data.active .visits .entriesNum {
+  color: #92278F;
+}
+
+.calendar-wrapper .prev {
+  background: #C6168D;
+}
+.calendar-wrapper .next {
+  background: #C6168D;
+}
+
+/*# sourceMappingURL=colors.css.map */

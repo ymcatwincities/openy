@@ -6,6 +6,7 @@ global-styling:
       css/vendor/bootstrap/bootstrap-theme.min.css: {}
     theme:
       css/styles.css: {}
+      #css/colors.css: {}
   dependencies:
     - core/jquery
     - core/jquery.once
