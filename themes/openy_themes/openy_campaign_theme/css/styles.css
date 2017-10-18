@@ -146,7 +146,7 @@ body {
 }
 @media (min-width: 20em) {
   .container {
-    max-width: 340px;
+    max-width: 100%;
     width: 100%;
   }
 }
@@ -761,6 +761,61 @@ body {
 footer {
   background-color: inherit !important;
 }
+@media (min-width: 20em) {
+  footer .container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+@media (min-width: 48em) {
+  footer .container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+@media (min-width: 62em) {
+  footer .container {
+    padding-left: 135px !important;
+    padding-right: 0px !important;
+  }
+}
+@media (min-width: 75em) {
+  footer .container {
+    padding-left: 135px !important;
+    padding-right: 0px !important;
+  }
+}
+footer .container .footer__social .fa {
+  /* background-color: #fff; */
+  border-radius: 0px;
+  color: #fff;
+  height: 0px;
+  margin-right: 0px;
+  line-height: 32px;
+  text-align: center;
+  text-decoration: none;
+  width: auto;
+}
+footer .container .footer__nav nav {
+  float: none;
+  width: 100%;
+}
+footer .container .footer__nav nav ul {
+  display: inline-block;
+}
+footer .container .footer__nav nav ul > li {
+  display: inline;
+  padding: 0px 25px;
+  border-left: 1px solid;
+}
+footer .container .footer__nav nav ul > li:first-child {
+  border-left: none;
+  padding: 0px 25px 0px 0px;
+}
+footer .container .footer__nav nav ul > li a {
+  font-size: 11px;
+  text-transform: uppercase;
+}
 
 #block-openy-campaign-theme-campaignusermenublock {
   border-left: 2px solid #fff;
@@ -778,7 +833,22 @@ footer {
   padding-right: 5px;
   font-weight: 700;
 }
+#block-openy-campaign-theme-campaignusermenublock .dropdown-menu {
+  top: 37px;
+  left: 10px;
+}
+#block-openy-campaign-theme-campaignusermenublock .dropdown-menu a {
+  color: #424242;
+  padding-left: 20px;
+  padding-top: 15px;
+  height: 40px;
+  display: block;
+}
 
+.viewport {
+  margin: 0px 15px;
+  width: auto;
+}
 .viewport .top-navs {
   margin-top: 0px !important;
   background-color: inherit;
@@ -786,11 +856,11 @@ footer {
 }
 .viewport .top-navs .container {
   background-color: inherit;
+  padding: 0px 135px;
 }
 .viewport .top-navs .campaign-menu > li {
   display: inline-block;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0px 15px;
 }
 .viewport .top-navs .page-head__logo img {
   width: 50px;
