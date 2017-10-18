@@ -77,11 +77,15 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       $fullName = !empty($userData['full_name']) ? $userData['full_name'] : $this->t('Team member');
 
       $build['full_name'] = [
-        '#markup' => '<div class="member-full-name">'.
+        '#markup' => '<div id="dropdownUsername" class="member-full-name dropdown-toggle" 
+             role="button" aria-haspopup="true" aria-expanded="false" 
+             data-toggle="dropdown">'.
             '<i class="fa fa-user-o" aria-hidden="true"></i>' . $fullName . '</div>' ,
       ];
 
       $build['logout'] = [
+        '#prefix' => '<div class="dropdown-menu" aria-labelledby="dropdownUsername">',
+        '#suffix' => '</div>',
         '#type' => 'link',
         '#title' => $this->t('Logout'),
         '#url' => Url::fromRoute('openy_campaign.member-logout', ['campaign_id' => $campaign->id()]),

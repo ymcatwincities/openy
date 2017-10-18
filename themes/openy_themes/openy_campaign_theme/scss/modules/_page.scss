@@ -5,7 +5,7 @@ body {
 .container {
   max-width: 1400px;
   @include breakpoint($screen-phone) {
-    max-width: 340px;
+    max-width: 100%;
     width: 100%;
   }
   @include breakpoint($screen-sm) {
@@ -460,10 +460,6 @@ body {
       background: url('../img/inactive.png');
       background-repeat: no-repeat;
       background-position: center;
-
-      //width: 35px;
-      //padding-left: 30px;
-      //padding-right: 35px;
       width: calc(100%/5);
       padding-left: calc(100%/10 - 4px);
       padding-right: calc(100%/10);

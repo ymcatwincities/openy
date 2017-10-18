@@ -1,3 +1,52 @@
 footer {
   background-color: inherit !important;
+  .container {
+    @include breakpoint($screen-phone) {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+    @include breakpoint($screen-sm) {
+      padding-left: 15px !important;
+      padding-right: 15px !important;
+    }
+    @include breakpoint($screen-md) {
+      padding-left: 135px !important;
+      padding-right: 0px !important;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      padding-left: 135px !important;
+      padding-right: 0px !important;
+    }
+    .footer__social .fa {
+      /* background-color: #fff; */
+      border-radius: 0px;
+      color: #fff;
+      height: 0px;
+      margin-right: 0px;
+      line-height: 32px;
+      text-align: center;
+      text-decoration: none;
+      width: auto;
+    }
+    .footer__nav nav {
+      float: none;
+      width: 100%;
+      ul {
+        display: inline-block;
+        > li {
+          display: inline;
+          padding: 0px 25px;
+          border-left: 1px solid;
+          &:first-child {
+            border-left: none;
+            padding: 0px 25px 0px 0px;
+          }
+          a {
+            font-size: 11px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
 }
