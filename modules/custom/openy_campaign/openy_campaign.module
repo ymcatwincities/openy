@@ -473,6 +473,9 @@ function openy_campaign_campaign_menu_field_render(&$form, \Drupal\Core\Form\For
 
 function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
   $campaignMenu = $form_state->getValue('campaign_menu');
+  if (empty($campaignMenu)) {
+    return;
+  }
   /** @var Drupal\node\Entity\Node $campaign */
   if ($campaign = $form_state->getFormObject()->getEntity()) {
     $campaign->set('field_campaign_menu', serialize($campaignMenu));
@@ -490,7 +493,10 @@ function openy_campaign_campaign_menu_field_submit(&$form, \Drupal\Core\Form\For
     }
 
     // Update Pause Campaign Page.
-    $pagesIds[] = $form_state->getValue('field_pause_landing_page');
+    $pausePage = $form_state->getValue('field_pause_landing_page');
+    if (!empty($pausePage)) {
+      $pagesIds[] = $pausePage[0]['target_id'];
+    }
 
     foreach ($pagesIds as $id) {
       $campaignPage = \Drupal\node\Entity\Node::load($id);
