@@ -32,14 +32,46 @@ footer {
       float: none;
       width: 100%;
       ul {
-        display: inline-block;
+        //display: inline-block;
         > li {
-          display: inline;
-          padding: 0px 25px;
-          border-left: 1px solid;
+          @include breakpoint($screen-phone) {
+            display: block;
+            padding: 0px 0px;
+            border-left: none;
+            text-align: center;
+          }
+          @include breakpoint($screen-sm) {
+            display: block;
+            padding: 0px 0px;
+            border-left: none;
+            text-align: center;
+          }
+          @include breakpoint($screen-md) {
+            display: inline;
+            padding: 0px 25px;
+            border-left: 1px solid;
+            text-align: left;
+          }
+          @include breakpoint($screen-lg-desktop) {
+            display: inline;
+            padding: 0px 25px;
+            border-left: 1px solid;
+            text-align: left;
+          }
           &:first-child {
             border-left: none;
-            padding: 0px 25px 0px 0px;
+            @include breakpoint($screen-phone) {
+              padding: 0px 0px 0px 0px;
+            }
+            @include breakpoint($screen-sm) {
+              padding: 0px 0px 0px 0px;
+            }
+            @include breakpoint($screen-md) {
+              padding: 0px 25px 0px 0px;
+            }
+            @include breakpoint($screen-lg-desktop) {
+              padding: 0px 25px 0px 0px;
+            }
           }
           a {
             font-size: 11px;

@@ -99,6 +99,10 @@ body {
         //margin-right: -70px;
         //margin-left: -70px;
 
+        p {
+          font-size: 18px;
+        }
+
         @include breakpoint($screen-phone) {
           margin-right: -15px;
           margin-left: -15px;
@@ -162,9 +166,17 @@ body {
 }
 
 .paragraph-background-container {
+  padding-left: 20px;
+  padding-right: 20px;
+  //padding-top: 60px;
+  //padding-bottom: 60px;
   .paragraph-container {
     background-color: inherit;
     color: #ffffff;
+    .block-description--wrapper .block-description--text {
+      padding-top: 70px !important;
+      padding-bottom: 0px !important;
+    }
     h1, h2, h4 {
       color: inherit !important;
       text-transform: uppercase;
@@ -195,14 +207,14 @@ body {
 }
 
 .block-description--wrapper {
-  display: flex;
-  flex-direction: row;
+  //padding-top: 60px;
+  padding-bottom: 70px;
   .block-description--text {
     float: left;
     margin-top: 0px;
-    padding-bottom: 70px;
     margin-bottom: 0px;
-    padding-top: 0px;
+    //padding-bottom: 0px;
+    //padding-top: 0px;
     .field-sb-title {
       h4 {
         margin-top: 15px;
