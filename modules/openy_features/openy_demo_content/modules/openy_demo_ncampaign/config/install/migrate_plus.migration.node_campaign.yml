@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - openy_demo_ncampaign
-      - openy_prgf_camp_menu
+      - openy_prgf_campaign_menu
 id: openy_demo_node_campaign
 migration_tags: {  }
 migration_group: openy_demo_ncampaign
@@ -16,9 +16,7 @@ source:
       id: challenge_campaign
       title: 'Challenge yourself'
       alias: '/challenge-yourself'
-      rules_page_id: challenge_yourself_rules
       pause_page_id: challenge_yourself_pause
-      my_progress_page_id: challenge_yourself_my_progress
       landing_page_ids:
         -
           landing_page_id: challenge_yourself_preview
