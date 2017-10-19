@@ -116,11 +116,26 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     if (!empty($campaign)
         && !(MemberCampaign::isLoggedIn($campaign->id()))
         && $currentNodeType !== 'campaign_page') {
-      // Show Register block form
-      $form = $this->formBuilder->getForm(
-        'Drupal\openy_campaign\Form\MemberRegistrationSimpleForm',
-        $campaign->id()
-      );
+
+      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+      $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+      $campaignRegistrationStartDate = new \DateTime($campaign->get('field_campaign_reg_start_date')->getString());
+      $campaignRegistrationEndDate = new \DateTime($campaign->get('field_campaign_reg_end_date')->getString());
+      $currentDate = new \DateTime();
+
+      if (($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) ||
+        ($currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate)
+      ) {
+        // Show Register block form
+        $form = $this->formBuilder->getForm(
+          'Drupal\openy_campaign\Form\MemberRegistrationSimpleForm',
+          $campaign->id()
+        );
+      }
+      else {
+        $form = [];
+      }
+
       $block['#form'] = $form;
     }
     return $block;
