@@ -421,7 +421,10 @@ function openy_campaign_campaign_menu_field_render(&$form, \Drupal\Core\Form\For
       $menuBlock['links'][$row]['#attributes']['class'][] = 'draggable';
       $menuBlock['links'][$row]['#weight'] = $linksRow['weight'];
 
-      $page = \Drupal\node\Entity\Node::load($linksRow['page'][0]['target_id']);
+      $page = NULL;
+      if (!empty($linksRow['page'])) {
+        $page = \Drupal\node\Entity\Node::load($linksRow['page'][0]['target_id']);
+      }
 
       $menuBlock['links'][$row]['page'] = [
         '#type' => 'entity_autocomplete',

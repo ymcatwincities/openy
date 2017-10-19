@@ -66,7 +66,7 @@ class WinnersBlockForm extends FormBase {
     $form_state->setCached(FALSE);
 
     // Get all regions - branches
-    $branches = $this->getBranches();
+    $branches = $this->getBranches($campaignId);
 
     $selected = !empty($form_state->getValue('branch')) ? $form_state->getValue('branch') : $branches['default'];
     $form['branch'] = [
@@ -147,9 +147,10 @@ class WinnersBlockForm extends FormBase {
   /**
    * Get all available branches
    *
+   * @param int $campaignId
    * @return \Drupal\Core\Entity\EntityInterface[]
    */
-  private function getBranches() {
+  private function getBranches($campaignId = NULL) {
     $locations = [
       'default' => $this->t('Location'),
     ];
@@ -159,8 +160,22 @@ class WinnersBlockForm extends FormBase {
     ];
     $branches = $this->entityTypeManager->getListBuilder('node')->getStorage()->loadByProperties($values);
 
+    // Get list of branches related to the Campaign.
+    $campaign = NULL;
+    $campaignBranches = [];
+    if (!empty($campaignId)) {
+      /** @var Node $campaign Campaign node. */
+      $campaign = Node::load($campaignId);
+      foreach ($campaign->field_campaign_branches as $branch) {
+        $campaignBranches[] = $branch->entity->id();
+
+      }
+    }
     /** @var \Drupal\node\Entity\Node $branch */
     foreach ($branches as $branch) {
+      if (!empty($campaignBranches) && !in_array($branch->id(), $campaignBranches)) {
+        continue;
+      }
       $locations[$branch->id()] = $branch->getTitle();
     }
 
