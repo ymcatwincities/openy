@@ -52,14 +52,14 @@ body {
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-md) {
-         margin-left: 15px;
-         margin-right: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
         padding-left: 0px;
         padding-right: 0px;
         padding: 0px;
         margin-top: -400px;
         box-shadow: 10px 20px 115px 10px;
-       }
+      }
       @include breakpoint($screen-lg-desktop) {
         margin-left: 125px;
         margin-right: 125px;
@@ -133,7 +133,6 @@ body {
     }
   }
 }
-
 
 .page-node-type-campaign {
   .wrapper-field-content {
@@ -336,6 +335,19 @@ body {
       border: 1px solid #ccc;
     }
   }
+
+  .message-wrapper {
+    background: #fff;
+    display: block;
+    max-width: calc(100% / 2);
+    margin: 0 auto;
+    margin-top: 100px;
+    padding-top: 25px;
+    padding-bottom: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
 }
 
 .paragraph-1c-wrapper .field-prgf-1c-description {
@@ -383,8 +395,6 @@ body {
     }
   }
 }
-
-
 
 .activity-tracking-menu-columns {
   &.left {
@@ -456,7 +466,7 @@ body {
     font-weight: bold;
   }
 
-  .visits-goal-progress{
+  .visits-goal-progress {
     margin-top: 5px;
     margin-bottom: 40px;
 
@@ -472,9 +482,9 @@ body {
       background: url('../img/inactive.png');
       background-repeat: no-repeat;
       background-position: center;
-      width: calc(100%/5);
-      padding-left: calc(100%/10 - 4px);
-      padding-right: calc(100%/10);
+      width: calc(100% / 5);
+      padding-left: calc(100% / 10 - 4px);
+      padding-right: calc(100% / 10);
 
       margin-top: 35px;
       height: 60px;
@@ -497,7 +507,6 @@ body {
       width: 33px !important;
       padding-left: 12px !important;
     }
-
 
   }
 }
