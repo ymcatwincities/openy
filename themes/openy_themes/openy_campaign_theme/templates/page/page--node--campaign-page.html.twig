@@ -46,6 +46,38 @@
  */
 #}
 <div class="layout-container">
+
+
+    <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
+        <div class="nav-global navbar-default navbar">
+            <div class="container">
+                <div class="row">
+                    <div class="page-head__logo">
+                        {% block page_logo %}
+                            {{ page.logo }}
+                        {% endblock %}
+                    </div>
+
+                    <button aria-controls="sidebar" aria-expanded="false" class="collapsed navbar-toggle visible-xs visible-sm" data-target="#sidebar" data-toggle="collapse" type=button>
+                        <div class=sr-only>{{ 'Navigation menu'|t }}</div>
+                        <span class=icon-bar></span>
+                        <span class=icon-bar></span>
+                        <span class=icon-bar></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sidebar" class="sidebar sidebar-left collapse width" aria-hidden="true">
+        <div class="col-xs-12 page-head__top-menu">
+            {{ page.mobile_menu.campaignusermenublock_2 }}
+        </div>
+        <div class="col-xs-12 page-head__main-menu nav-home">
+            {{ page.mobile_menu.campaignmenublock_2 }}
+        </div>
+    </div>
+
     <div class="viewport">
         <header id="page-head" class="page-head">
 
