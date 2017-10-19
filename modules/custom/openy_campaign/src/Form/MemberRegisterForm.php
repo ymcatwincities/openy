@@ -388,7 +388,9 @@ class MemberRegisterForm extends FormBase {
         }
       }
 
-      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_register_form', $modalMessage));
+      //TODO: use hook_theme instead of inline template.
+      $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
+      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_register_form', $wrappedModalMessage));
 
       $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog'));
 
