@@ -265,16 +265,16 @@ body {
   .finish-date {
     color: #ffffff;
     @include breakpoint($screen-phone) {
-      font-size: 14px;
+      font-size: 14px !important;
     }
     @include breakpoint($screen-sm) {
-      font-size: 18px;
+      font-size: 18px !important;
     }
     @include breakpoint($screen-md) {
-      font-size: 18px;
+      font-size: 18px !important;
     }
     @include breakpoint($screen-lg-desktop) {
-      font-size: 18px;
+      font-size: 18px !important;
     }
   }
 
