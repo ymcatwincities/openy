@@ -43,37 +43,57 @@ h1,
   }
 }
 
-h2,
-.h2 {
-  font-size: 36px;
+@media (min-width: 20em) {
+  h2,
+  .h2 {
+    font-size: 24px !important;
+  }
+}
+@media (min-width: 48em) {
+  h2,
+  .h2 {
+    font-size: 36px !important;
+  }
+}
+@media (min-width: 62em) {
+  h2,
+  .h2 {
+    font-size: 36px !important;
+  }
+}
+@media (min-width: 75em) {
+  h2,
+  .h2 {
+    font-size: 36px !important;
+  }
 }
 
 @media (min-width: 20em) {
   h4 {
-    font-size: 18px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 18px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
   }
 }
 @media (min-width: 48em) {
   h4 {
-    font-size: 18px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 18px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
   }
 }
 @media (min-width: 62em) {
   h4 {
-    font-size: 24px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 24px !important;
+    margin-top: 30px  !important;
+    margin-bottom: 30px  !important;
   }
 }
 @media (min-width: 75em) {
   h4 {
-    font-size: 24px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 24px !important;
+    margin-top: 30px  !important;
+    margin-bottom: 30px  !important;
   }
 }
 
@@ -268,6 +288,12 @@ body {
 .path-campaign-game main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
+.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container p, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select p, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select p,
+.path-campaign-game main[role="main"] .layout-content .paragraph-background-container p,
+.path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select p,
+.paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select p {
+  font-size: 18px;
+}
 @media (min-width: 20em) {
   .page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select,
   .path-campaign-game main[role="main"] .layout-content .paragraph-background-container,
@@ -349,9 +375,17 @@ body {
   padding: 0px;
 }
 
+.paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .paragraph-background-container .paragraph-container, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container {
   background-color: inherit;
   color: #ffffff;
+}
+.paragraph-background-container .paragraph-container .block-description--wrapper .block-description--text, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container .block-description--wrapper .block-description--text {
+  padding-top: 70px !important;
+  padding-bottom: 0px !important;
 }
 .paragraph-background-container .paragraph-container h1, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h1, .paragraph-background-container .paragraph-container h2, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h2, .paragraph-background-container .paragraph-container h4, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h4 {
   color: inherit !important;
@@ -381,15 +415,12 @@ body {
 }
 
 .block-description--wrapper {
-  display: flex;
-  flex-direction: row;
+  padding-bottom: 70px;
 }
 .block-description--wrapper .block-description--text {
   float: left;
   margin-top: 0px;
-  padding-bottom: 70px;
   margin-bottom: 0px;
-  padding-top: 0px;
 }
 .block-description--wrapper .block-description--text .field-sb-title h4 {
   margin-top: 15px;
@@ -800,17 +831,60 @@ footer .container .footer__nav nav {
   float: none;
   width: 100%;
 }
-footer .container .footer__nav nav ul {
-  display: inline-block;
+@media (min-width: 20em) {
+  footer .container .footer__nav nav ul > li {
+    display: block;
+    padding: 0px 0px;
+    border-left: none;
+    text-align: center;
+  }
 }
-footer .container .footer__nav nav ul > li {
-  display: inline;
-  padding: 0px 25px;
-  border-left: 1px solid;
+@media (min-width: 48em) {
+  footer .container .footer__nav nav ul > li {
+    display: block;
+    padding: 0px 0px;
+    border-left: none;
+    text-align: center;
+  }
+}
+@media (min-width: 62em) {
+  footer .container .footer__nav nav ul > li {
+    display: inline;
+    padding: 0px 25px;
+    border-left: 1px solid;
+    text-align: left;
+  }
+}
+@media (min-width: 75em) {
+  footer .container .footer__nav nav ul > li {
+    display: inline;
+    padding: 0px 25px;
+    border-left: 1px solid;
+    text-align: left;
+  }
 }
 footer .container .footer__nav nav ul > li:first-child {
   border-left: none;
-  padding: 0px 25px 0px 0px;
+}
+@media (min-width: 20em) {
+  footer .container .footer__nav nav ul > li:first-child {
+    padding: 0px 0px 0px 0px;
+  }
+}
+@media (min-width: 48em) {
+  footer .container .footer__nav nav ul > li:first-child {
+    padding: 0px 0px 0px 0px;
+  }
+}
+@media (min-width: 62em) {
+  footer .container .footer__nav nav ul > li:first-child {
+    padding: 0px 25px 0px 0px;
+  }
+}
+@media (min-width: 75em) {
+  footer .container .footer__nav nav ul > li:first-child {
+    padding: 0px 25px 0px 0px;
+  }
 }
 footer .container .footer__nav nav ul > li a {
   font-size: 11px;
@@ -848,6 +922,7 @@ footer .container .footer__nav nav ul > li a {
 .viewport {
   margin: 0px 15px;
   width: auto;
+  z-index: 35;
 }
 .viewport .top-navs {
   margin-top: 0px !important;
@@ -886,6 +961,53 @@ footer .container .footer__nav nav ul > li a {
 }
 .viewport .top-navs #block-openy-campaign-theme-campaignusermenublock a:first-child {
   padding-right: 20px;
+}
+
+.top-navs,
+.sidebar,
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active {
+  background: #5c2e91;
+}
+
+.sidebar .page-head__top-menu a {
+  height: 47px;
+  background-color: #7C57A7;
+  width: 100%;
+  padding-top: 15px;
+  padding-left: 15px;
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.sidebar .page-head__main-menu .campaign-menu {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+.sidebar .page-head__main-menu .campaign-menu > li {
+  height: 47px;
+  background-color: #7C57A7;
+  width: 100%;
+  padding-top: 15px;
+  padding-left: 15px;
+}
+
+.top-navs {
+  z-index: 100;
+}
+.top-navs button.navbar-toggle {
+  position: absolute;
+  left: 15px;
+  top: 0px;
+}
+.top-navs .page-head__logo {
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  z-index: 100;
 }
 
 .form-item input.form-checkbox {

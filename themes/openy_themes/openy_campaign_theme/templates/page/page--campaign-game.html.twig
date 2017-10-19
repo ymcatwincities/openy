@@ -46,6 +46,16 @@
  */
 #}
 <div class="layout-container">
+
+    <div id="sidebar" class="sidebar sidebar-left collapse width" aria-hidden="true">
+        <div class="col-xs-12 page-head__top-menu">
+            {{ page.mobile_menu.useraccountmenu }}
+        </div>
+        <div class="col-xs-12 page-head__main-menu nav-home">
+            {{ page.mobile_menu.mainnavigation }}
+        </div>
+    </div>
+
     <div class="viewport">
         <header id="page-head" class="page-head">
 
