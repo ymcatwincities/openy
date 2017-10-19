@@ -17,7 +17,7 @@ Drupal.behaviors.activityTracking = {
 
         function initActiveEl() {
             $('div.month').slick({
-                //infinite: true,
+                infinite: false,
                 slidesToShow: 7,
                 slidesToScroll: 7,
                 centerMode: true,
