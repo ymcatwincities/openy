@@ -20,6 +20,8 @@ dependencies:
     - field.field.node.campaign.field_campaign_prize_coefficient
     - field.field.node.campaign.field_campaign_prize_nowin
     - field.field.node.campaign.field_campaign_prizes
+    - field.field.node.campaign.field_campaign_reg_end_date
+    - field.field.node.campaign.field_campaign_reg_start_date
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_winners_prizes
     - field.field.node.campaign.field_error_default
@@ -208,6 +210,24 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_campaign_reg_end_date:
+    weight: 143
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_campaign_reg_start_date:
+    weight: 142
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
     region: content
   field_campaign_start_date:
     weight: 108
