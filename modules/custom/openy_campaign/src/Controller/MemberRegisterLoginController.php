@@ -88,7 +88,7 @@ class MemberRegisterLoginController extends ControllerBase {
 
     // Add an AJAX command to open a modal dialog with the form as the content.
     $response->addCommand(new OpenModalDialogCommand($modalTitle, $modalPopup, ['width' => '800']));
-
+    $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialogByClick'));
     return $response;
   }
 
