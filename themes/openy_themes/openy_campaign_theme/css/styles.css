@@ -346,6 +346,9 @@ body {
   padding-top: 50px;
   background: #fff;
 }
+.page-node-type-campaign .paragraph-container {
+  padding-bottom: 50px;
+}
 @media (min-width: 48em) {
   .page-node-type-campaign .paragraph-container {
     padding-left: 15px;
