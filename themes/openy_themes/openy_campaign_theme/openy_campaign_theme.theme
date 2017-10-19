@@ -56,9 +56,9 @@ function openy_campaign_theme_preprocess_node(&$variables) {
   $campaignRegistrationEndDate = new \DateTime($campaign->get('field_campaign_reg_end_date')->getString());
   $currentDate = new \DateTime();
 
-  if (($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) ||
-    ($currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate)
-  ) {
+  if ($currentDate <= $campaignRegistrationStartDate || $currentDate >= $campaignEndDate) {
     $variables['page_simplify_header'] = TRUE;
   }
+
+  $variables['#cache']['max-age'] = 0;
 }
