@@ -7,6 +7,13 @@
         history.replaceState('', '', window.location.pathname + '?tab=' + fragment);
     };
 
+
+    $.fn.closeDialogByClick = function() {
+        $(".ui-widget-overlay").click(function () {
+            $("#drupal-modal").dialog( "close" );
+        });
+    };
+
     // Custom function to close dialog and update user menu block
     $.fn.closeDialog = function(queryParameter) {
         setTimeout(function(){

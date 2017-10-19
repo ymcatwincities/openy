@@ -554,6 +554,17 @@ body {
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+#block-campaignmemberregister .message-wrapper {
+  background: #fff;
+  display: block;
+  max-width: calc(100% / 2);
+  margin: 0 auto;
+  margin-top: 100px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
 
 .field-prgf-1c-column {
   text-align: center;
@@ -678,9 +689,9 @@ body {
   background: url("../img/inactive.png");
   background-repeat: no-repeat;
   background-position: center;
-  width: calc(100%/5);
-  padding-left: calc(100%/10 - 4px);
-  padding-right: calc(100%/10);
+  width: calc(100% / 5);
+  padding-left: calc(100% / 10 - 4px);
+  padding-right: calc(100% / 10);
   margin-top: 35px;
   height: 60px;
   color: #fff;
@@ -917,6 +928,11 @@ footer .container .footer__nav nav ul > li a {
   padding-top: 15px;
   height: 40px;
   display: block;
+}
+#block-openy-campaign-theme-campaignusermenublock .dropdown-menu a:before {
+  content: "\f08b";
+  font-family: "FontAwesome";
+  padding-right: 5px;
 }
 
 .viewport {
@@ -1566,7 +1582,7 @@ button:active, button:focus {
 .ui-dialog {
   background: transparent;
   border: none !important;
-  width: 400px !important;
+  width: auto !important;
 }
 .ui-dialog .ui-dialog-title {
   float: none;
