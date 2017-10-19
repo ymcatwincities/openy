@@ -347,6 +347,7 @@ body {
   background: #fff;
 }
 .page-node-type-campaign .paragraph-container {
+  padding-top: 50px;
   padding-bottom: 50px;
 }
 @media (min-width: 48em) {
@@ -471,22 +472,22 @@ body {
 }
 @media (min-width: 20em) {
   #block-campaignmemberregister .finish-date {
-    font-size: 14px;
+    font-size: 14px !important;
   }
 }
 @media (min-width: 48em) {
   #block-campaignmemberregister .finish-date {
-    font-size: 18px;
+    font-size: 18px !important;
   }
 }
 @media (min-width: 62em) {
   #block-campaignmemberregister .finish-date {
-    font-size: 18px;
+    font-size: 18px !important;
   }
 }
 @media (min-width: 75em) {
   #block-campaignmemberregister .finish-date {
-    font-size: 18px;
+    font-size: 18px !important;
   }
 }
 #block-campaignmemberregister .countdown {
