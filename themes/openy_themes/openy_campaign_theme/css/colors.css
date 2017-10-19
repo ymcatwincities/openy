@@ -42,37 +42,57 @@ h1,
   }
 }
 
-h2,
-.h2 {
-  font-size: 36px;
+@media (min-width: 20em) {
+  h2,
+  .h2 {
+    font-size: 24px !important;
+  }
+}
+@media (min-width: 48em) {
+  h2,
+  .h2 {
+    font-size: 36px !important;
+  }
+}
+@media (min-width: 62em) {
+  h2,
+  .h2 {
+    font-size: 36px !important;
+  }
+}
+@media (min-width: 75em) {
+  h2,
+  .h2 {
+    font-size: 36px !important;
+  }
 }
 
 @media (min-width: 20em) {
   h4 {
-    font-size: 18px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 18px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
   }
 }
 @media (min-width: 48em) {
   h4 {
-    font-size: 18px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 18px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
   }
 }
 @media (min-width: 62em) {
   h4 {
-    font-size: 24px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 24px !important;
+    margin-top: 30px  !important;
+    margin-bottom: 30px  !important;
   }
 }
 @media (min-width: 75em) {
   h4 {
-    font-size: 24px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 24px !important;
+    margin-top: 30px  !important;
+    margin-bottom: 30px  !important;
   }
 }
 

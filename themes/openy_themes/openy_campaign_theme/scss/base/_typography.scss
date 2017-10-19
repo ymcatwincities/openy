@@ -30,29 +30,41 @@ h1,
 
 h2,
 .h2 {
-  font-size: $h2-size;
+
+  @include breakpoint($screen-phone) {
+    font-size: 24px !important;
+  }
+  @include breakpoint($screen-sm) {
+    font-size: $h2-size !important;
+  }
+  @include breakpoint($screen-md) {
+    font-size: $h2-size !important;
+  }
+  @include breakpoint($screen-lg-desktop) {
+    font-size: $h2-size !important;
+  }
 }
 
 h4 {
   @include breakpoint($screen-phone) {
-    font-size: 18px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 18px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
   }
   @include breakpoint($screen-sm) {
-    font-size: 18px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 18px !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
   }
   @include breakpoint($screen-md) {
-    font-size: $h4-size;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: $h4-size  !important;
+    margin-top: 30px  !important;
+    margin-bottom: 30px  !important;
   }
   @include breakpoint($screen-lg-desktop) {
-    font-size: $h4-size;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: $h4-size  !important;
+    margin-top: 30px  !important;
+    margin-bottom: 30px  !important;
   }
 }
 

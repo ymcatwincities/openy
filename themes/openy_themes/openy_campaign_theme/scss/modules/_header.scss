@@ -30,6 +30,7 @@
 .viewport {
   margin: 0px 15px;
   width: auto;
+  z-index: 35;
   .top-navs {
 
     margin-top: 0px !important;
@@ -78,5 +79,57 @@
       padding-right: 20px;
     }
 
+  }
+}
+
+.top-navs,
+.sidebar,
+.navbar-default .navbar-toggle,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:active {
+
+  background: $purple;
+}
+
+.sidebar .page-head__top-menu {
+  a {
+    height: 47px;
+    background-color: #7C57A7;
+    width: 100%;
+    padding-top: 15px;
+    padding-left: 15px;
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+}
+
+.sidebar .page-head__main-menu {
+    .campaign-menu {
+      margin-left: 0px;
+      padding-left: 0px;
+      > li {
+        height: 47px;
+        background-color: #7C57A7;
+        width: 100%;
+        padding-top: 15px;
+        padding-left: 15px;
+      }
+    }
+}
+
+.top-navs {
+  z-index: 100;
+  button.navbar-toggle {
+    position: absolute;
+    left: 15px;
+    top: 0px;
+  }
+  .page-head__logo {
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+    z-index: 100;
   }
 }

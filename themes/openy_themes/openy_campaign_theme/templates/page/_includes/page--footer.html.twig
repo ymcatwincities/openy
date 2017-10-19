@@ -58,7 +58,7 @@
 #}
 <footer class="footer">
   <div class="container">
-    <div class="col-sm-2 col-xs-4 hidden-sm hidden-md">
+    <div class="col-sm-2 hidden-xs hidden-sm hidden-md">
       {% block footer_image_link %}
         {% set background_image = '' %}
         {% if footer_logo %}
@@ -67,7 +67,7 @@
         <a href="{{ front_page }}" class="footer__brand brand" title="{{ "Site-logo"|t }}"{{ background_image|raw }}></a>
       {% endblock %}
     </div>
-    <div class="col-xs-8 col-sm-12 col-md-7 col-lg-8">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8">
       <div class="footer__nav row">
         {{ page.footer_menus }}
       </div>
