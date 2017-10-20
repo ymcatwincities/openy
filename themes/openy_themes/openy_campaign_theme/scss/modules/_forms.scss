@@ -467,6 +467,12 @@
         }
       }
     }
+    &.disabled {
+      color: #a9a9a9;
+      .visits {
+        display: none !important;
+      }
+    }
   }
 
 }
