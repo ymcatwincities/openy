@@ -56,6 +56,9 @@
  * @see html.html.twig
  */
 #}
+
+{% if not is_mobile %}
+
 <footer class="footer">
   <div class="container">
     <div class="col-sm-2 hidden-xs hidden-sm hidden-md">
@@ -77,3 +80,5 @@
     </div>
   </div>
 </footer>
+
+{% endif %}

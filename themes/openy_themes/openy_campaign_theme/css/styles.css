@@ -343,29 +343,38 @@ body {
 }
 
 .page-node-type-campaign .wrapper-field-content {
-  padding-top: 50px;
   background: #fff;
 }
-.page-node-type-campaign .paragraph-container {
-  padding-top: 50px;
-  padding-bottom: 50px;
+@media (min-width: 20em) {
+  .page-node-type-campaign .paragraph-container {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 }
 @media (min-width: 48em) {
   .page-node-type-campaign .paragraph-container {
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 }
 @media (min-width: 62em) {
   .page-node-type-campaign .paragraph-container {
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 }
 @media (min-width: 75em) {
   .page-node-type-campaign .paragraph-container {
     padding-left: 125px;
     padding-right: 125px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 }
 .page-node-type-campaign main[role="main"] {
@@ -900,17 +909,29 @@ footer .container .footer__nav nav ul > li a {
   text-transform: uppercase;
 }
 
+.sidebar .page-head__top-menu .member-full-name {
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  background: #7C57A7;
+  font-size: 18px;
+}
+.sidebar .page-head__top-menu .member-full-name .fa {
+  padding-right: 5px;
+}
+
 #block-openy-campaign-theme-campaignusermenublock {
   border-left: 2px solid #fff;
   padding-left: 15px;
 }
 #block-openy-campaign-theme-campaignusermenublock .member-full-name {
+  border-left: 2px solid #fff;
+  padding-left: 15px;
   text-transform: uppercase;
   color: #fff;
   font-size: 16px;
   float: left;
   margin-top: -2px;
-  padding-right: 33px;
 }
 #block-openy-campaign-theme-campaignusermenublock .member-full-name .fa {
   padding-right: 5px;
@@ -1529,6 +1550,12 @@ footer .container .footer__nav nav ul > li a {
   text-align: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+.calendar .month .date-data.disabled {
+  color: #a9a9a9;
+}
+.calendar .month .date-data.disabled .visits {
+  display: none !important;
 }
 
 .calendar-wrapper {

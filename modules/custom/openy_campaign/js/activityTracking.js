@@ -57,6 +57,22 @@ Drupal.behaviors.activityTracking = {
             var activeElData = currentEl.data('date');
             openActivityData(activeElData);
             countEntry();
+
+            // Disable future dates.
+            let nowInd = null;
+            $('.calendar-wrapper .slick-slide').each((ind, val) => {
+                if (nowInd !== null) {
+                  $(val).addClass('disabled');
+                }
+                if ($(val).hasClass('now')) {
+                  nowInd = ind;
+                }
+            });
+            $('.calendar-wrapper .slick-slide.disabled').on('click', (e) => {
+                e.preventDefault();
+                console.log($(e.target).parent('.date-data'));
+                $(e.target).parent('.date-data').removeClass('slick-current');
+            });
         }
 
         // Initiate default Active Item in calendar.

@@ -1,14 +1,27 @@
 // Header styles.
+.sidebar .page-head__top-menu .member-full-name {
+  color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  background: #7C57A7;
+  font-size: 18px;
+  .fa {
+    padding-right: 5px;
+  }
+}
+
 #block-openy-campaign-theme-campaignusermenublock {
   border-left: 2px solid #fff;
   padding-left: 15px;
   .member-full-name {
+    border-left: 2px solid #fff;
+    padding-left: 15px;
     text-transform: uppercase;
     color: #fff;
     font-size: 16px;
     float: left;
     margin-top: -2px;
-    padding-right: 33px;
+    //padding-right: 33px;
     .fa {
       padding-right: 5px;
       font-weight: 700;
