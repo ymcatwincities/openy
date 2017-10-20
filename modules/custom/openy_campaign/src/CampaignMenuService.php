@@ -149,22 +149,22 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   /**
    * Retrieves Campaign menu for the Campaign CT node.
    *
-   * @param \Drupal\node\NodeInterface $node
+   * @param \Drupal\node\NodeInterface $campaign
    *   The Campaign node.
    *
    * @return array
    *   Array of menu links.
    */
-  private function getCampaignNodeCampaignMenu(NodeInterface $node) {
-    /** @var Node $node */
-    if ($node->bundle() != 'campaign') {
+  private function getCampaignNodeCampaignMenu(NodeInterface $campaign) {
+    /** @var Node $campaign */
+    if ($campaign->bundle() != 'campaign') {
       return [];
     }
 
     // Get full menu from the Campaign node.
-    $campaignMenu = $node->get('field_campaign_menu')->getValue();
+    $campaignMenu = $campaign->get('field_campaign_menu')->getValue();
     if (!empty($campaignMenu)) {
-      $campaignMenu = unserialize($node->field_campaign_menu->value);
+      $campaignMenu = unserialize($campaign->field_campaign_menu->value);
     }
 
     if (empty($campaignMenu)) {
@@ -172,7 +172,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     }
 
     /** @var Node $landingPage */
-    $landingPage = $this->getActiveCampaignPage($node);
+    $landingPage = $this->getActiveCampaignPage($campaign);
 
     if (empty($landingPage)) {
       return [];
@@ -184,13 +184,18 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
         continue;
       }
       $linkPageId = $link['page'][0]['target_id'];
-      $needsLogin = $link['logged'] && !MemberCampaign::isLoggedIn($node->id());
+
+      // Replace the link on the main Campaign page by the Campaign's URL.
+      if ($linkPageId == $landingPage->id()) {
+        $linkPageId = $campaign->id();
+      }
+      $needsLogin = $link['logged'] && !MemberCampaign::isLoggedIn($campaign->id());
       $links['campaign_' . $k] = [
         '#type' => 'link',
         '#title' => $link['title'],
         '#url' => !$needsLogin
           ? Url::fromRoute('entity.node.canonical', ['node' => $linkPageId])
-          : Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $node->id()])
+          : Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaign->id()])
         ,
         '#attributes' => [
           'class' => [
