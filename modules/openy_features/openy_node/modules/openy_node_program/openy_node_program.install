@@ -236,3 +236,18 @@ function openy_node_program_update_8009() {
     }
   }
 }
+
+/**
+ * Update OpenY node program feature configs for Blazy support.
+ */
+function openy_node_program_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.node_program_header',
+    'field.field.node.program.field_meta_tags',
+    'field.field.node.program.field_program_description',
+  ]);
+}
