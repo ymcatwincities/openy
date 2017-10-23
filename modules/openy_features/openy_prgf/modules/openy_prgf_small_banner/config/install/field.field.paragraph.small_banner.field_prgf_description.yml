@@ -5,6 +5,7 @@ dependencies:
     - field.storage.paragraph.field_prgf_description
     - paragraphs.paragraphs_type.small_banner
   module:
+    - datalayer
     - text
 third_party_settings:
   datalayer:
