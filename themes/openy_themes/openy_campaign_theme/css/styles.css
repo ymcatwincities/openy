@@ -338,6 +338,7 @@ body {
 }
 .page-node-type-campaign-page main[role="main"] .layout-content .paragraph-container,
 .path-campaign-game main[role="main"] .layout-content .paragraph-container {
+  width: 100%;
   padding-top: 0px;
   padding-bottom: 0px;
 }
@@ -805,6 +806,81 @@ body {
 }
 .paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
   width: 70%;
+}
+
+.prizes {
+  padding-left: 50px;
+  margin-top: -65px;
+}
+.prizes div.first-prize {
+  font-size: 48px;
+}
+.prizes div.first-prize span.h2 {
+  background-image: url("../img/star.png");
+  background-repeat: no-repeat;
+  display: block;
+  float: left;
+  width: 135px;
+  color: #fff;
+  height: 130px;
+  position: relative;
+  padding-left: 30px;
+  padding-top: 45px;
+  text-transform: none;
+}
+.prizes div.first-prize span.title {
+  line-height: 140px;
+  font-size: 48px;
+  border-bottom: none;
+  color: #5c2e91;
+  position: relative;
+  border-bottom: none;
+  color: #5c2e91;
+  left: 15px;
+  top: 15px;
+}
+.prizes div span.title {
+  text-transform: uppercase;
+  border-bottom: 1px solid;
+  padding-bottom: 5px;
+  font-size: 24px;
+}
+.prizes div span.title small {
+  font-size: 100%;
+  text-transform: none;
+}
+.prizes div ul {
+  list-style: none;
+  padding-top: 30px;
+  padding-bottom: 25px;
+}
+.prizes div ul li {
+  color: #c6168d;
+  position: relative;
+  padding-left: 20px;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+.prizes div ul li:after {
+  content: "\f00c";
+  font-family: "FontAwesome";
+  display: block;
+  color: #c6168d;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.prizes div ul li:not(:first-child):after {
+  left: 0px;
+  top: 22px;
+}
+.prizes div ul li:not(:first-child):before {
+  content: "\f067";
+  font-family: "FontAwesome";
+  display: block;
+  color: #c6168d;
+  font-weight: 700;
+  padding-left: 70px;
 }
 
 footer {
