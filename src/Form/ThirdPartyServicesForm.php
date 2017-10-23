@@ -34,11 +34,11 @@ class ThirdPartyServicesForm extends FormBase {
     $gtm_config = $config_factory->get('google_tag.settings');
     // Get Optimizely settings container.
     $optimizely_config = $config_factory->get('optimizely.settings');
-    // Get Recaptcha settings container
+    // Get Recaptcha settings container.
     $recaptcha_config = $config_factory->get('recaptcha.settings');
-    // Get AddThis settings container
+    // Get AddThis settings container.
     $addthis_config = $config_factory->get('openy_addthis.settings');
-    // Get Lndr settings container
+    // Get Lndr settings container.
     $lndr_config = $config_factory->get('lndr.settings');
 
 
