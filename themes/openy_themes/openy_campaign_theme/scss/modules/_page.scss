@@ -293,7 +293,21 @@ body {
       display: inline-flex;
       padding-left: 15px;
       padding-right: 15px;
+      position: relative;
+      &:not(:last-child) {
+        &:after {
+          content: "\f111";
+          display: block;
+          font-family: "FontAwesome";
+          font-size: 8px;
+          position: absolute;
+          right: -5px;
+          left: unset;
+          top: 20px;
+        }
+      }
     }
+
 
     .simply-amount {
       display: block;

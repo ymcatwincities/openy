@@ -508,6 +508,17 @@ body {
   display: inline-flex;
   padding-left: 15px;
   padding-right: 15px;
+  position: relative;
+}
+#block-campaignmemberregister .countdown .simply-section:not(:last-child):after {
+  content: "\f111";
+  display: block;
+  font-family: "FontAwesome";
+  font-size: 8px;
+  position: absolute;
+  right: -5px;
+  left: unset;
+  top: 20px;
 }
 #block-campaignmemberregister .countdown .simply-amount {
   display: block;
