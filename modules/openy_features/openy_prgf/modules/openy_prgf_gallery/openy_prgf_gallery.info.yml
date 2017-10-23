@@ -4,6 +4,7 @@ type: module
 core: 8.x
 package: OpenY
 dependencies:
+  - blazy
   - entity_browser
   - field
   - image

@@ -146,3 +146,19 @@ function openy_media_image_update_8005() {
     }
   }
 }
+
+/**
+ * Update OpenY media image feature configs for Blazy support.
+ */
+function openy_media_image_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.default',
+    'core.entity_view_display.media.image.embedded_full',
+    'core.entity_view_display.media.image.embedded_half',
+    'core.entity_view_display.media.image.icon',
+  ]);
+}

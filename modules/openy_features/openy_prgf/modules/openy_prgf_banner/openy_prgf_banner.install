@@ -156,3 +156,17 @@ function openy_prgf_banner_update_8005() {
     }
   }
 }
+
+/**
+ * Update OpenY paragraph banner feature configs for Blazy support.
+ */
+function openy_prgf_banner_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.prgf_banner',
+    'field.field.paragraph.banner.field_prgf_color.yml',
+  ]);
+}
