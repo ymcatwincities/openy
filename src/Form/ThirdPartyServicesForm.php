@@ -126,7 +126,7 @@ class ThirdPartyServicesForm extends FormBase {
       '#open' => TRUE,
     ];
 
-    // Lndr
+    // Lndr.
     $form['lndr']['markup'] = [
       '#type' => 'markup',
       '#markup' => $this->t('<p>Lndr is a simple landing page builder that let you create campaigns, events and other landing pages. To learn more, please visit <a href=":url" target="_blank">http://www.lndr.co/</a></p>', [':url' => 'http://www.lndr.co']),
@@ -194,24 +194,24 @@ class ThirdPartyServicesForm extends FormBase {
       $recaptcha_site_key = trim($form_state->getValue('recaptcha_site_key'));
       $recaptcha_secret_key = trim($form_state->getValue('recaptcha_secret_key'));
       if (!empty($recaptcha_site_key) && empty($recaptcha_secret_key)) {
-        //Site key is populated, secret key is not
+        //Site key is populated, secret key is not.
         $form_state->setErrorByName('recaptcha_secret_key', t('A Secret Key must be provided if a Site Key has been entered.'));
       }
       if (!empty($recaptcha_secret_key) && empty($recaptcha_site_key)) {
-        //Site key is not populated, secret key is
+        //Site key is not populated, secret key is.
         $form_state->setErrorByName('recaptcha_site_key', t('A Site Key must be provided if a Secret Key has been entered.'));
       }
     }
 
     if (!empty(trim($form_state->getValue('lndr_api_token')))) {
-      // Check Lndr API token to see if it is valid
+      // Check Lndr API token to see if it is valid.
       try {
         $response = \Drupal::httpClient()->request('POST', 'https://www.lndr.co/v1/validate_token', [
           'form_params' => [
             'token' => $form_state->getValue('lndr_api_token'),
           ]]);
 
-        // @todo: token validation is successful. Let's store this in config
+        // @todo: token validation is successful. Let's store this in config.
       }
       catch(ClientException $e) {
         // "You have entered an invalid API token, please copy and paste the API token from your profile in Lndr"
@@ -259,7 +259,7 @@ class ThirdPartyServicesForm extends FormBase {
       ->condition('oid', '1')
       ->execute();
 
-    // Set Recaptcha settings if provided
+    // Set Recaptcha settings if provided.
     if (!empty($form_state->getValue('recaptcha_site_key'))) {
       $recaptcha_config = $config_factory->getEditable('recaptcha.settings');
       $recaptcha_config
@@ -267,18 +267,18 @@ class ThirdPartyServicesForm extends FormBase {
         ->set('secret_key', $form_state->getValue('recaptcha_secret_key'))
         ->save();
       
-      //Set default captcha config to use reCaptcha
+      //Set default captcha config to use reCaptcha.
       $captcha_config = $config_factory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'recaptcha/reCAPTCHA')
         ->save();
     } else {
-      //Set default captcha config to use image captcha
+      //Set default captcha config to use image captcha.
       $captcha_config = $config_factory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'image_captcha/Image')
         ->save();
     }
 
-    // Set Lndr API token
+    // Set Lndr API token.
     if (!empty($form_state->getValue('lndr_api_token'))) {
       $lndr_config = $config_factory->getEditable('lndr.settings');
       $lndr_config->set('lndr_token', $form_state->getValue('lndr_api_token'));
