@@ -23,7 +23,7 @@ content:
     weight: 2
     label: hidden
     settings:
-      view_mode: trimmed
+      view_mode: full
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
@@ -32,7 +32,7 @@ content:
     weight: 3
     label: hidden
     settings:
-      view_mode: trimmed
+      view_mode: full
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
@@ -42,7 +42,7 @@ content:
     weight: 4
     label: hidden
     settings:
-      view_mode: trimmed
+      view_mode: full
       link: false
     third_party_settings: {  }
     region: content
@@ -51,7 +51,7 @@ content:
     weight: 5
     label: hidden
     settings:
-      view_mode: trimmed
+      view_mode: full
       link: false
     third_party_settings: {  }
     region: content
