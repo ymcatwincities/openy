@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_prgf_3с feature.
+ */
+
+/**
+ * Change view mode to full for 3-column paragraph.
+ */
+function openy_prgf_3c_update_8001() {
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}
+
+/**
+ * Add field_prfg_display_line_above.
+ */
+function openy_prgf_3c_update_8002() {
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}

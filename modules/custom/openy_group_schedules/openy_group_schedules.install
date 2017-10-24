@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Installation file.
+ */
+
+/**
+ * Update Group schedules functionality.
+ */
+function openy_group_schedules_update_8001() {
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}
+

@@ -1,10 +1,10 @@
-name: 'OpenY demo block footer'
-description: 'OpenY demo block footer'
+name: 'OpenY Demo Block Footer'
+description: 'OpenY Demo Block Footer.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
   - openy_block_basic
-version: 8.x-1.0

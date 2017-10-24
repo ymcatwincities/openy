@@ -1,8 +1,10 @@
-name: 'OpenY paragraph small banner'
-description: 'OpenY paragraph small banner'
+name: 'OpenY Paragraph Small Banner'
+description: 'OpenY Paragraph Small Banner.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
+  - blazy
   - datalayer
   - entity_browser
   - field
@@ -15,4 +17,3 @@ dependencies:
   - paragraphs
   - taxonomy
   - text
-version: 8.x-1.0

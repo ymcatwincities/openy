@@ -92,7 +92,8 @@
       <h3>{{ data.title }}</h3>
       {{ data.description }}
       <label for="{{ element['#attributes'].id }}">
-        <div class="btn btn-default blue btn-lg">{{ 'select'|t }}</div>
+        <span class="visually-hidden">{{ data.title }}</span>
+        <div class="btn btn-default blue btn-lg" aria-hidden="true">{{ 'select'|t }}</div>
       </label>
     </div>
   {% endif %}

@@ -6,6 +6,7 @@ Camp content type is used for adding Camps on the site.
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the camp item. |
 | Menu links | field\_camp\_menu_links  | Yes | Link field with multiple values, that should have the Title and Link field. Based on it, we will complete the Camp Menu. |
+| Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Contact** | Field group |||
 | Address | field\_location_address | Yes | An address field that will provide the ability to add details about the locations. Details to be completed: <ul><li>Address</li><li>City</li><li>State</li><li>Zip Code</li></ul> |
 | Camp Coordinates | field_location_coordinates | No | Input for providing the latitude and longitude information. |

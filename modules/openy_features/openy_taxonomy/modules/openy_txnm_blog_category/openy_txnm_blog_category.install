@@ -19,3 +19,18 @@ function openy_txnm_blog_category_update_8001() {
     'field.storage.taxonomy_term.field_taxonomy_content'
   ]);
 }
+
+/**
+ * Remove DataLayer from dependency in the field instance.
+ */
+function openy_txnm_blog_category_update_8002() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_txnm_blog_category');
+  $config .= '/config/install/';
+  $config .= 'field.field.taxonomy_term.blog_category.field_taxonomy_content.yml';
+  $config_importer->update(
+    $config,
+    'field.field.taxonomy_term.blog_category.field_taxonomy_content',
+    'dependencies.module'
+  );
+}

@@ -1,0 +1,52 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+id: openy_demo_lp_paragraph_lto
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create Limited Time Offer paragraph(s) for demo landing page nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: locations_lto_amenities
+      parent_id: locations
+      title: 'Search by amenities'
+      link_uri: 'internal:/amenities'
+      link_title: 'Search by amenities'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_landing
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  # TODO: get parent_field_name from data?
+  field_lto_title: title
+  field_lto_subtitle:
+      plugin: default_value
+      default_value: ''
+  field_lto_link/uri: link_uri
+  field_lto_link/title: link_title
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: lto
