@@ -12,10 +12,10 @@ use Drupal\Core\Entity\EntityTypeInterface;
  * @ingroup openy_digital_signage_personify_schedule
  *
  * @ContentEntityType(
- *   id = "openy_ds_classes_personify_session",
+ *   id = "openy_ds_class_personify_session",
  *   label = @Translation("Digital Signage Classes Personify Session"),
  *
- *   base_table = "openy_ds_classes_personify_session",
+ *   base_table = "openy_ds_class_personify_session",
  *   admin_permission = "administer Digital Signage Classes Personify Session entities",
  *   entity_keys = {
  *     "id" = "id",

@@ -114,7 +114,7 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
     $date->setTimestamp(REQUEST_TIME);
     $formatted = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
-    $storage = $this->entityTypeManager->getStorage('openy_ds_classes_personify_session');
+    $storage = $this->entityTypeManager->getStorage('openy_ds_class_personify_session');
     $query = $storage->getQuery()
       ->condition('location', $location_id)
       ->condition('date_time.value', $formatted, '>');
@@ -139,7 +139,7 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
    */
   public function removeDeleted($ids) {
     while ($part = array_splice($ids, 0, 10)) {
-      $storage = $this->entityTypeManager->getStorage('openy_ds_classes_personify_session');
+      $storage = $this->entityTypeManager->getStorage('openy_ds_class_personify_session');
       if (!$entities = $storage->loadMultiple($part)) {
         continue;
       }
@@ -153,7 +153,7 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
   public function processData(array $data, $location_id) {
     /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
     $location = $this->locationRepository->load($location_id);
-    $entity_manager = $this->entityTypeManager->getStorage('openy_ds_classes_personify_session');
+    $entity_manager = $this->entityTypeManager->getStorage('openy_ds_class_personify_session');
     foreach ($data as $item) {
       $entity = $entity_manager->loadByProperties(['personify_id' => $item->id]);
       if (is_array($entity)) {
@@ -181,7 +181,7 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
     $json = json_encode($item);
     /* @var OpenYClassesPersonifySession $session */
     $session = $this->entityTypeManager
-      ->getStorage('openy_ds_classes_personify_session')
+      ->getStorage('openy_ds_class_personify_session')
       ->create([
         'personify_id' => $item->id,
         'hash' => md5($json),
