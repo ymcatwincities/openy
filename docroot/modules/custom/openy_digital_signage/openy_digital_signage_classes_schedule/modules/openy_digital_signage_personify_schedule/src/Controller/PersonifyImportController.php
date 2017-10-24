@@ -79,7 +79,7 @@ class PersonifyImportController extends ControllerBase {
       $date->setTimestamp(REQUEST_TIME);
       $context['sandbox']['datetime'] = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
-      $query = \Drupal::entityQuery('openy_ds_classes_personify_session')
+      $query = \Drupal::entityQuery('openy_ds_class_personify_session')
         ->condition('date_time.value', $context['sandbox']['datetime'], '>')
         ->count();
       $context['sandbox']['max'] = $query->execute();
@@ -87,13 +87,13 @@ class PersonifyImportController extends ControllerBase {
       $context['sandbox']['progress'] = 0;
     }
 
-    $query = \Drupal::entityQuery('openy_ds_classes_personify_session')
+    $query = \Drupal::entityQuery('openy_ds_class_personify_session')
       ->condition('id', $context['sandbox']['current'], '>')
       ->condition('date_time.value', $context['sandbox']['datetime'], '>')
       ->sort('id')
       ->range(0, 10);
     $ids = $query->execute();
-    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_classes_personify_session');
+    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_class_personify_session');
     $entities = $storage->loadMultiple($ids);
 
     if (!$entities) {
@@ -137,7 +137,7 @@ class PersonifyImportController extends ControllerBase {
     }
 
     $ids = array_splice($context['results']['to_be_deleted'], 0, 10);
-    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_classes_personify_session');
+    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_class_personify_session');
     $entities = $storage->loadMultiple($ids);
     $storage->delete($entities);
 
