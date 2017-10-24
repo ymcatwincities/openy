@@ -6,6 +6,7 @@ Program Subcategory content type is used for adding program subcategories on the
 | ------------- | ------------- | ------------- | ------------- |
 | Title  | drupal's default  | Yes | Title of the program subcategory item. |
 | Program  | field\_category_program  | Yes | A reference field for selecting the program. |
+| Meta Tags  | field\_meta_tags  | No | A meta tags field allows us to provide structured metadata and Graph meta tags for Facebook, Pinterest, LinkedIn and other social networking sites. |
 | **Header Area** | Field group |||
 | Image | field\_category_image | No | A image field, for uploading the category image. |
 | Color | field\_category_color | No | Reference field for choosing the term from "Color" vocabulary. |

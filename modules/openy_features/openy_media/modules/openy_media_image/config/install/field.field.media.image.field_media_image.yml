@@ -11,7 +11,7 @@ field_name: field_media_image
 entity_type: media
 bundle: image
 label: Image
-description: ''
+description: 'Please upload an image.'
 required: true
 translatable: true
 default_value: {  }
@@ -23,7 +23,7 @@ settings:
   max_resolution: ''
   min_resolution: ''
   alt_field: true
-  alt_field_required: false
+  alt_field_required: true
   title_field: false
   title_field_required: false
   default_image:

@@ -19,7 +19,7 @@ source:
       id: homepage_banner
       parent_id: homepage
       headline: 'Explore the Open Y!'
-      color: 15
+      color: 14
       image: homepage_banner
       description: |
         <p>
@@ -28,6 +28,16 @@ source:
         <br/><br/>
         <i>* please login as admin user</i>
         </p>
+    -
+      id: group_schedules
+      parent_id: group_schedules
+      headline: 'Group Schedules'
+      color: 14
+    -
+      id: group_schedules_embedded
+      parent_id: group_schedules_embedded
+      headline: 'Group Schedules (Embedded)'
+      color: 14
   ids:
     id:
       type: string

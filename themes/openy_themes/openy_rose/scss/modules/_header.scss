@@ -196,19 +196,19 @@
       width: 28px;
       @include border-radius(1px);
 
-      &:first-child {
+      &:first-of-type {
         -webkit-transform: translate(0, 8px) rotate(-45deg);
         transform: translate(0, 8px) rotate(-45deg);
         -webkit-transform-origin: 50%;
         transform-origin: 50%;
       }
-      &:last-child {
+      &:last-of-type {
         -webkit-transform: translate(0px, -18px) rotate(45deg);
         transform: translate(0px, -18px) rotate(45deg);
         -webkit-transform-origin: 50%;
         transform-origin: 50%;
       }
-      &:nth-child(2) {
+      &:nth-of-type(2) {
         -webkit-transform: scale(0);
         transform: scale(0);
       }

@@ -5,7 +5,6 @@ dependencies:
     - field.storage.node.field_meta_tags
     - node.type.landing_page
   module:
-    - datalayer
     - metatag
 third_party_settings:
   datalayer:
@@ -16,7 +15,7 @@ field_name: field_meta_tags
 entity_type: node
 bundle: landing_page
 label: 'Meta Tags'
-description: ''
+description: 'A Meta Tags provides metadata about some aspect of the contents of a Web page. <br/> The metadata can be used by browsers, search engines, or other web services as Facebook, Pinterest, LinkedIn and other social networking sites.'
 required: false
 translatable: true
 default_value:

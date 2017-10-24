@@ -1,7 +1,8 @@
 name: 'OpenY Facility'
-description: 'OpenY Facility'
+description: 'OpenY Facility.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
   - address
   - ctools
@@ -19,7 +20,8 @@ dependencies:
   - paragraphs
   - path
   - pathauto
+  - rabbit_hole
+  - scheduler
   - taxonomy
   - telephone
   - user
-version: 8.x-1.3

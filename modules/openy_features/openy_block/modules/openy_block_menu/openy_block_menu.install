@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the openy_block_menu feature.
+ */
+
+/**
+ * Import color and text color fields for block menu.
+ */
+function openy_block_menu_update_8001() {
+  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+}

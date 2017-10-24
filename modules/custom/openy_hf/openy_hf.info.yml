@@ -2,3 +2,4 @@ name: OpenY Headerless Footerless HTML templating
 type: module
 description: Module aims to let users use query parameters for not showing predefined DOM elements to end users.
 core: 8.x
+package: OpenY

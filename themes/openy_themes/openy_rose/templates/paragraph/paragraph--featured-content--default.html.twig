@@ -45,9 +45,9 @@ set classes = [
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
-  <h3 class="h1">
+  <h2 class="h1">
     {{ content.field_prgf_headline }}
-  </h3>
+  </h2>
   <div class="description">
       {{ content.field_prgf_description }}
   </div>
@@ -75,11 +75,11 @@ set classes = [
     {% endfor %}
   </div>
 
-  <center>
+  <div class="align-center">
     {% if content.field_prgf_link.0["#title"] %}
       <div class="btn btn-default btn-link blue">
         {{ content.field_prgf_link }}
       </div>
     {% endif %}
-  </center>
+  </div>
 </div>

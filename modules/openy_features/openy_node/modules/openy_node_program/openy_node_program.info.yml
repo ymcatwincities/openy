@@ -1,8 +1,11 @@
-name: 'OpenY program'
-description: 'OpenY program'
+name: 'OpenY Program'
+description: 'OpenY Program.'
 type: module
 core: 8.x
+package: OpenY
 dependencies:
+  - blazy
+  - datalayer
   - entity_browser
   - entity_reference_revisions
   - field
@@ -22,4 +25,3 @@ dependencies:
   - taxonomy
   - text
   - user
-version: 8.x-1.1

@@ -45,3 +45,4 @@ hidden:
   field_session_reg_link: true
   field_session_ticket: true
   field_session_time: true
+  langcode: true

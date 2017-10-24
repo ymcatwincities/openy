@@ -24,7 +24,7 @@ class EmbeddedGroupExProSettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'embeddedgroupexpro.settings',
+      'embedded_groupexpro_schedule.settings',
     ];
   }
 
@@ -32,8 +32,8 @@ class EmbeddedGroupExProSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('embeddedgroupexpro.settings');
-    
+    $config = $this->config('embedded_groupexpro_schedule.settings');
+
     $url = Url::fromUri('https://www.groupexpro.com/');
     $link = Link::fromTextAndUrl('GroupEx Pro', $url);
 
@@ -52,7 +52,7 @@ class EmbeddedGroupExProSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Retrieve the configuration.
-    $this->config('embeddedgroupexpro.settings')->set('account', $form_state->getValue('account'))->save();
+    $this->config('embedded_groupexpro_schedule.settings')->set('account', $form_state->getValue('account'))->save();
 
     parent::submitForm($form, $form_state);
   }

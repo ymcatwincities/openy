@@ -44,11 +44,11 @@ set classes = [
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-<div{{ attributes.addClass(classes) }}>
+<article{{ attributes.addClass(classes) }}>
   <div class="content"{{ content_attributes }}>
     <div class="inner">
       {% if content.field_prgf_clm_class|render|trim %}
-        <i class="fa fa-{{ paragraph.field_prgf_clm_class.value }}"></i>
+        <i class="fa fa-{{ paragraph.field_prgf_clm_class.value }}" aria-hidden="true"></i>
         <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
       {% elseif content.field_prgf_clm_icon|render|trim %}
         {{ content.field_prgf_clm_icon }}
@@ -60,4 +60,4 @@ set classes = [
       <div class="more-link">{{ content.field_prgf_clm_link }}</div>
     </div>
   </div>
-</div>
+</article>
