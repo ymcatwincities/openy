@@ -9,7 +9,7 @@ Drupal.behaviors.activityTracking = {
               var entryContainer = jQuery('.activity-data').find('div.' + itemDate);
               var entryCount = entryContainer.find('input[type="checkbox"]:checked').length;
               if (entryCount !== 0) {
-                  $(val).find('.entriesNum').html('You have ' + entryCount + ' today');
+                  $(val).find('.entriesNum').html('You have ' + entryCount + ' entries today');
               }
               return entryCount;
            });
