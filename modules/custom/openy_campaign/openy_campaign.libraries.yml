@@ -36,7 +36,7 @@ campaign_countdown:
 slick_carousel:
   version: VERSION
   js:
-    js/vendor/slick/slick.min.js: {}
+    js/libs/slick/slick.min.js: {}
 
 activityTracking:
   js:
