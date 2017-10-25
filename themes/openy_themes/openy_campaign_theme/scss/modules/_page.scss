@@ -243,6 +243,12 @@ body {
 #block-campaignmemberregister {
   text-align: center;
 
+  .content-wrapper {
+    background-color: rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    padding: 40px;
+    margin: 75px auto;
+  }
   .container {
     background-size: cover;
     padding-bottom: 60px;
@@ -261,7 +267,7 @@ body {
   }
 
   h1 {
-    padding-top: 100px;
+    //padding-top: 100px;
     color: #fff;
     text-transform: uppercase;
     margin: 0 auto;
@@ -307,7 +313,6 @@ body {
         }
       }
     }
-
 
     .simply-amount {
       display: block;
