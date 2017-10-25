@@ -477,6 +477,7 @@ class SchedulesSearchForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Weekly View'),
       '#default_value' => isset($values['display']) ? $values['display'] : 0,
+      '#title_display' => 'before',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'schedules-search-form-wrapper',
