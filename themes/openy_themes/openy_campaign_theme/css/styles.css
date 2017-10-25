@@ -446,6 +446,12 @@ body {
 #block-campaignmemberregister {
   text-align: center;
 }
+#block-campaignmemberregister .content-wrapper {
+  background-color: rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  padding: 40px;
+  margin: 75px auto;
+}
 #block-campaignmemberregister .container {
   background-size: cover;
   padding-bottom: 60px;
@@ -471,7 +477,6 @@ body {
   }
 }
 #block-campaignmemberregister h1 {
-  padding-top: 100px;
   color: #fff;
   text-transform: uppercase;
   margin: 0 auto;
@@ -1228,6 +1233,30 @@ footer .container .footer__nav nav ul > li a {
 .category-data form .fieldgroup legend {
   display: none;
 }
+.category-data form .fieldgroup .form-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (min-width: 20em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: column;
+  }
+}
+@media (min-width: 48em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: row;
+  }
+}
+@media (min-width: 62em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: row;
+  }
+}
+@media (min-width: 75em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: row;
+  }
+}
 .category-data form .fieldgroup .form-checkboxes .form-item {
   margin: 5px;
   margin-bottom: 25px;
@@ -1255,7 +1284,7 @@ footer .container .footer__nav nav ul > li a {
 }
 @media (min-width: 75em) {
   .category-data form .fieldgroup .form-checkboxes .form-item {
-    float: left;
+    float: none;
     width: 32%;
   }
 }
