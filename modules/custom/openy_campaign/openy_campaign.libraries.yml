@@ -34,7 +34,6 @@ campaign_countdown:
     - openy_campaign/simply_counter
 
 slick_carousel:
-  version: VERSION
   js:
     js/libs/slick/slick.min.js: {}
 
@@ -43,4 +42,4 @@ activityTracking:
     js/activityTracking.js: {}
   dependencies:
     - core/jquery
-    - openy_campaign/slick-carousel
+    - openy_campaign/slick_carousel
