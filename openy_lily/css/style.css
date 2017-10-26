@@ -2871,7 +2871,7 @@ body.path-search #block-mainpagecontent li {
 }
 
 .ui-dialog .ui-dialog-content {
-  overflow: visible !important;
+  overflow: auto;
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button {
   display: inline-block;
