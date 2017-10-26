@@ -38,7 +38,8 @@
   }
 }
 
-[data-drupal-selector="edit-add-to-cart"] {
+[data-drupal-selector="edit-add-to-cart"],
+.remove-from-cart-button {
   @extend .pink-button;
   margin-top: -15px;
   padding: 13px 25px;

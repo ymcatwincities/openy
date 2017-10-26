@@ -792,7 +792,8 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 .pink-button, [data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
-[data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, [data-drupal-selector="edit-add-to-cart"], [data-drupal-selector="edit-checkout"],
+[data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, [data-drupal-selector="edit-add-to-cart"],
+.remove-from-cart-button, [data-drupal-selector="edit-checkout"],
 .cart-item-remove-button,
 .cart-item-activate-coupon-button,
 .cart-item-donation-button, #banner .banner-caption a {
@@ -814,13 +815,18 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 .pink-button:hover, [data-drupal-selector="edit-cancel"]:hover,
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
-[data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, [data-drupal-selector="edit-add-to-cart"]:hover, [data-drupal-selector="edit-checkout"]:hover,
+[data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, [data-drupal-selector="edit-add-to-cart"]:hover,
+.remove-from-cart-button:hover, [data-drupal-selector="edit-checkout"]:hover,
 .cart-item-remove-button:hover,
 .cart-item-activate-coupon-button:hover,
 .cart-item-donation-button:hover, #banner .banner-caption a:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   border: 0;
   background-position: 0;
+}
+
+input.error {
+  border: 1px solid red !important;
 }
 
 #edit-preview {
@@ -2184,7 +2190,6 @@ article.site-alert ul li div {
   color: #5c2e91;
   font-weight: bold;
   font-size: 120%;
-  text-decoration: underline;
   margin-bottom: 5px;
 }
 
@@ -4382,7 +4387,8 @@ a.sports-icon.floor-hockey {
   padding-top: 30px;
 }
 
-[data-drupal-selector="edit-add-to-cart"] {
+[data-drupal-selector="edit-add-to-cart"],
+.remove-from-cart-button {
   margin-top: -15px;
   padding: 13px 25px;
 }

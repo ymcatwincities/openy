@@ -20,6 +20,12 @@
   }
 }
 
+input {
+  &.error {
+    border: 1px solid red !important;
+  }
+}
+
 #edit-preview {
   display: none;
 }
