@@ -204,7 +204,7 @@ class GroupexFormFull extends GroupexFormBase {
       $classes = 'show';
     }
     if (isset($state['location']) && is_numeric($state['location'])) {
-      $location_select_classes = $classes = 'show';
+      $class_select_classes = $location_select_classes = $classes = 'show';
       $location_classes = 'hidden';
     }
     if (isset($site_section)) {
