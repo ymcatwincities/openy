@@ -792,7 +792,10 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 .pink-button, [data-drupal-selector="edit-cancel"],
 [data-drupal-selector="edit-submit"],
 [data-drupal-selector="edit-login"],
-[data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, #banner .banner-caption a {
+[data-drupal-selector="edit-registration"], .edit-registration-actions .fieldset-wrapper a.btn, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn, [data-drupal-selector="edit-add-to-cart"], [data-drupal-selector="edit-checkout"],
+.cart-item-remove-button,
+.cart-item-activate-coupon-button,
+.cart-item-donation-button, #banner .banner-caption a {
   margin: 0;
   border: 0;
   color: white;
@@ -811,7 +814,10 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 .pink-button:hover, [data-drupal-selector="edit-cancel"]:hover,
 [data-drupal-selector="edit-submit"]:hover,
 [data-drupal-selector="edit-login"]:hover,
-[data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, #banner .banner-caption a:hover {
+[data-drupal-selector="edit-registration"]:hover, .edit-registration-actions .fieldset-wrapper a.btn:hover, .path-frontpage .masthead .find-locations .location-search .location-search-collapse .input-group .btn:hover, [data-drupal-selector="edit-add-to-cart"]:hover, [data-drupal-selector="edit-checkout"]:hover,
+.cart-item-remove-button:hover,
+.cart-item-activate-coupon-button:hover,
+.cart-item-donation-button:hover, #banner .banner-caption a:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   border: 0;
   background-position: 0;
@@ -2907,28 +2913,6 @@ body.path-search #block-mainpagecontent li {
   background-color: #92288d;
 }
 
-.openy-ccc-add-program-to-cart-form .ajax-progress-throbber {
-  top: 6px;
-  margin-top: 27px !important;
-  right: 145px !important;
-  left: auto !important;
-}
-
-.ymcali-class-sessions-accordion details summary {
-  font-weight: bold;
-  font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
-  float: left;
-  width: 80%;
-  margin-bottom: 20px;
-}
-.ymcali-class-sessions-accordion details .status-message {
-  clear: both;
-}
-.ymcali-class-sessions-accordion details input {
-  float: right;
-}
-
 #schedules-search-listing-wrapper .branch-hours-wrapper .card {
   background-color: #b92f9e;
 }
@@ -4396,6 +4380,48 @@ a.sports-icon.floor-hockey {
 
 .path-account #block-openy-lily-content {
   padding-top: 30px;
+}
+
+[data-drupal-selector="edit-add-to-cart"] {
+  margin-top: -15px;
+  padding: 13px 25px;
+}
+
+.openy-ccc-add-program-to-cart-form .ajax-progress-throbber {
+  top: 6px;
+  margin-top: 27px !important;
+  right: 145px !important;
+  left: auto !important;
+}
+
+.ymcali-class-sessions-accordion details {
+  position: relative;
+}
+.ymcali-class-sessions-accordion details .ajax-progress {
+  right: 150px;
+  top: -8px;
+}
+.ymcali-class-sessions-accordion details summary {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  float: left;
+  width: 75%;
+  margin-bottom: 20px;
+}
+.ymcali-class-sessions-accordion details .status-message {
+  clear: both;
+}
+.ymcali-class-sessions-accordion details input {
+  float: right;
+}
+
+[data-drupal-selector="edit-checkout"],
+.cart-item-remove-button,
+.cart-item-activate-coupon-button,
+.cart-item-donation-button {
+  margin-top: 0;
+  padding: 13px 25px;
 }
 
 .paragraph--type--microsites-menu,
