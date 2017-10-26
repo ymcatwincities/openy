@@ -20,3 +20,19 @@ function openy_prgf_4c_update_8002() {
 function openy_prgf_4c_update_8003() {
   // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
 }
+
+/**
+ * Change view mode for columns fields to full.
+ * @see https://github.com/ymcatwincities/openy/issues/824
+ */
+function openy_prgf_4c_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_4c');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.paragraph.4c.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_view_display.paragraph.4c.default',
+    'content'
+  );
+}
