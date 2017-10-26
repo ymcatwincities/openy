@@ -2487,6 +2487,7 @@ body {
   }
   .subprogram-listing-item .image img {
     max-width: 260px;
+    height: auto;
   }
 }
 .subprogram-listing-item .title h2 {
