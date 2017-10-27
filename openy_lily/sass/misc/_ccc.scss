@@ -38,3 +38,57 @@
   }
 }
 
+[data-drupal-selector="edit-add-to-cart"],
+.remove-from-cart-button {
+  @extend .pink-button;
+  margin-top: -15px;
+  padding: 13px 25px;
+}
+
+#ajax-ccc-class-sessions-form {
+  details {
+  }
+}
+
+.openy-ccc-add-program-to-cart-form {
+  .ajax-progress-throbber {
+    top: 6px;
+    margin-top: 27px !important;
+    right: 145px !important;
+    left: auto !important;
+  }
+}
+
+.ymcali-class-sessions-accordion {
+  details {
+    position: relative;
+    .ajax-progress {
+      right: 150px;
+      top: -8px;
+    }
+    summary {
+      font-weight: bold;
+      font-size: 18px;
+      font-family: 'Cachet', Helvetica, Arial, sans-serif;
+      float: left;
+      width: 75%;
+      margin-bottom: 20px;
+    }
+    .status-message {
+      clear: both;
+    }
+    input {
+      float: right;
+    }
+  }
+}
+
+[data-drupal-selector="edit-checkout"],
+.cart-item-remove-button,
+.cart-item-activate-coupon-button,
+.cart-item-donation-button {
+  @extend .pink-button;
+  margin-top: 0;
+  padding: 13px 25px;
+}
+
