@@ -12,6 +12,7 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
+        - IntegratedExperts\BehatScreenshotExtension\Context\ScreenshotContext
   formatters:
     html:
       output_path: %paths.base%/build/reports/behat
