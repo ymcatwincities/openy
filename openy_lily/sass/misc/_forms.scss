@@ -20,7 +20,7 @@
   }
 }
 
-input {
+input, textarea {
   &.error {
     border: 1px solid red !important;
   }

@@ -825,7 +825,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   background-position: 0;
 }
 
-input.error {
+input.error, textarea.error {
   border: 1px solid red !important;
 }
 
