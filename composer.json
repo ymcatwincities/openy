@@ -220,7 +220,7 @@
         "drupal/custom_formatters": "3.0-alpha1",
         "drupal/token_filter": "1.0-beta1",
         "drupal/views_field_formatter": "1.5",
-        "drupal/lndr": "1.0",
+        "drupal/lndr": "1.11",
         "doctrine/inflector": "1.1.*"
     }
 }
