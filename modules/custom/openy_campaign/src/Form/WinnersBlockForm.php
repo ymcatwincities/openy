@@ -154,11 +154,13 @@ class WinnersBlockForm extends FormBase {
     $locations = [
       'default' => $this->t('Location'),
     ];
-    $values = [
-      'type' => 'branch',
-      'status' => 1,
-    ];
-    $branches = $this->entityTypeManager->getListBuilder('node')->getStorage()->loadByProperties($values);
+
+    $query = $this->entityTypeManager->getStorage('node')->getQuery();
+    $nids = $query->condition('type', 'branch')
+      ->condition('status', '1')
+      ->sort('title' , 'ASC')
+      ->execute();
+    $branches = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
 
     // Get list of branches related to the Campaign.
     $campaign = NULL;

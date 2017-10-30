@@ -47,7 +47,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   protected $renderer;
 
   /**
-   * Constructs a new CampMenuService.
+   * Constructs a new CampaignMenuService.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
