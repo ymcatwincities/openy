@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Install file for Logger Entity module.
+ */
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_update_N().
+ *
+ * Fix logger_entity name length.
+ */
+function logger_entity_update_8001() {
+  /**
+   * See https://www.drupal.org/node/2227275
+   * A config file name can be as long as 250 characters.
+   */
+  $spec = [
+    'type' => 'varchar',
+    'length' => 250,
+  ];
+  $schema = Database::getConnection()->schema();
+  $schema->changeField('logger_entity', 'name', 'name', $spec);
+}
