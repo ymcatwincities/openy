@@ -13,6 +13,18 @@ use Drupal\Core\Database\Database;
  */
 function logger_entity_update_8001() {
   /**
+   * Entity does not like you trying to alter tables with data, so this will
+   * retrieve the data, updte the table, then put it back.
+   */
+  $query = \Drupal::database()->select('logger_entity')->fields('logger_entity');
+  $results = $query->execute()->fetchAll();
+
+  // Delete the data.
+  $query = \Drupal::database()->delete('logger_entity')->execute();
+
+  /**
+   * Update the table.
+   *
    * See https://www.drupal.org/node/2227275
    * A config file name can be as long as 250 characters.
    */
@@ -22,4 +34,13 @@ function logger_entity_update_8001() {
   ];
   $schema = Database::getConnection()->schema();
   $schema->changeField('logger_entity', 'name', 'name', $spec);
+
+  // Put the old records back.
+  foreach ($results as $result) {
+    $query = \Drupal::database()->insert('logger_entity');
+    $query->fields(array_keys((array)$result));
+    $query->values((array)$result);
+    $query->execute();
+  }
+
 }
