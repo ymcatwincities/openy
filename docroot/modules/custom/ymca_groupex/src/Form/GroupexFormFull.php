@@ -343,8 +343,8 @@ class GroupexFormFull extends GroupexFormBase {
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location') {
       $parameters['location'] = $triggering_element['#value'];
     }
-    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $state['class'] != 'any') {
-      $parameters['class'] = $state['class'];
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $values['class_select'] != 'any') {
+      $parameters['class'] = $values['class_select'];
       $parameters['filter_length'] = 'week';
       $parameters['category'] = 'any';
       $parameters['groupex_class'] = 'groupex_table_class_individual';
@@ -425,7 +425,7 @@ class GroupexFormFull extends GroupexFormBase {
       $groupex_class = 'groupex_table_class_individual';
       $view_mode = 'class';
     }
-    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class = 'groupex_table_instructor_individual') {
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class == 'groupex_table_instructor_individual') {
       $location = $triggering_element['#value'];
       $class = 'any';
       $filter_length = 'day';
