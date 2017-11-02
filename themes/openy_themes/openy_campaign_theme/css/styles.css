@@ -1015,6 +1015,7 @@ footer .container .footer__nav nav ul > li a {
 #block-openy-campaign-theme-campaignusermenublock {
   border-left: 2px solid #fff;
   padding-left: 15px;
+  position: relative;
 }
 #block-openy-campaign-theme-campaignusermenublock .member-full-name {
   border-left: 2px solid #fff;
@@ -1031,7 +1032,8 @@ footer .container .footer__nav nav ul > li a {
 }
 #block-openy-campaign-theme-campaignusermenublock .dropdown-menu {
   top: 37px;
-  left: 10px;
+  right: 10px;
+  left: unset;
 }
 #block-openy-campaign-theme-campaignusermenublock .dropdown-menu a {
   color: #424242;

@@ -13,6 +13,7 @@
 #block-openy-campaign-theme-campaignusermenublock {
   border-left: 2px solid #fff;
   padding-left: 15px;
+  position: relative;
   .member-full-name {
     border-left: 2px solid #fff;
     padding-left: 15px;
@@ -27,9 +28,11 @@
       font-weight: 700;
     }
   }
+
   .dropdown-menu {
     top: 37px;
-    left: 10px;
+    right: 10px;
+    left: unset;
     a {
       &:before {
         content: "\f08b";
