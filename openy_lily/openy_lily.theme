@@ -18,14 +18,14 @@ use Drupal\node\NodeInterface;
 use Drupal\block\Entity\Block;
 
 /**
- * Implements hook_preprocess_template() for footer menus.
+ * Implements hook_preprocess_HOOK() for footer menus.
  */
 function openy_lily_preprocess_menu__footer_menus(&$variables) {
   $variables['#cache']['contexts'][] = 'url.path';
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
   $footer_menus = [
@@ -43,7 +43,7 @@ function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $var
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   $route_name = Drupal::routeMatch()->getRouteName();
@@ -77,7 +77,7 @@ function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $var
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $variables) {
   if (in_array('node__blog__default', $suggestions)) {
@@ -86,7 +86,7 @@ function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $var
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#name'])) {
@@ -95,7 +95,7 @@ function openy_lily_theme_suggestions_form_element_alter(array &$suggestions, ar
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_form_element_label_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#name'])) {
@@ -104,7 +104,7 @@ function openy_lily_theme_suggestions_form_element_label_alter(array &$suggestio
 }
 
 /**
- * Implements hook_theme_HOOK_alter().
+ * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_lily_theme_suggestions_input_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#name'])) {
@@ -113,7 +113,7 @@ function openy_lily_theme_suggestions_input_alter(array &$suggestions, array $va
 }
 
 /**
- * Implements hook_preprocess_picture().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_picture(&$variables) {
   // Add responsiveness.
@@ -121,7 +121,7 @@ function openy_lily_preprocess_picture(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_image().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_image(&$variables) {
   // Add responsiveness.
@@ -129,7 +129,7 @@ function openy_lily_preprocess_image(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_expander_block().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_expander_block(&$variables) {
   $id = 'collapse-' . $variables['entity']->bundle() . '-' . $variables['entity']->id();
@@ -137,7 +137,7 @@ function openy_lily_preprocess_expander_block(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_node().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_node(&$variables) {
   if (!in_array($variables['view_mode'], ['full', 'default'])) {
@@ -160,7 +160,7 @@ function openy_lily_preprocess_node(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_html().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_html(&$variables) {
   $current_route_name = Drupal::service('current_route_match')->getRouteName();
@@ -282,6 +282,8 @@ function openy_lily_preprocess_page(&$variables) {
     }
   }
 
+  $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
+
   /** @var \Drupal\openy_ccc_api\Session $ccc_session */
   $ccc_session = \Drupal::service('openy_ccc_session');
   $variables['ccc_logged_in'] = !$ccc_session->isAnonymous();
@@ -296,7 +298,7 @@ function openy_lily_preprocess_page(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_pager().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_pager(&$vars) {
   if (empty($vars['items']['pages'])) {
@@ -308,7 +310,7 @@ function openy_lily_preprocess_pager(&$vars) {
 }
 
 /**
- * Implements hook_preprocess_node__blog__camp_blog_teaser().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_node__blog__camp_blog_teaser(&$vars) {
   if ($site_section = Drupal::service('ymcali.page.context')->getContext()) {
@@ -317,8 +319,9 @@ function openy_lily_preprocess_node__blog__camp_blog_teaser(&$vars) {
 }
 
 /**
- * Prepares variables for input templates.
+ * Implements hook_preprocess_HOOK().
  *
+ * Prepares variables for input templates.
  * Default template: input.html.twig.
  *
  * @param mixed $variables
@@ -363,8 +366,9 @@ function openy_lily_preprocess_input(&$variables) {
 }
 
 /**
- * Prepares variables for textarea templates.
+ * Implements hook_preprocess_HOOK().
  *
+ * Prepares variables for textarea templates.
  * Default template: textarea.html.twig.
  *
  * @param mixed $variables
@@ -393,8 +397,9 @@ function openy_lily_preprocess_textarea(&$variables) {
 }
 
 /**
- * Prepares variables for select element templates.
+ * Implements hook_preprocess_HOOK().
  *
+ * Prepares variables for select element templates.
  * Default template: select.html.twig.
  *
  * It is possible to group options together; to do this, change the format of
@@ -437,7 +442,7 @@ function openy_lily_preprocess_select(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_form_element().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_form_element(&$variables) {
   $element = $variables['element'];
@@ -485,8 +490,9 @@ function openy_lily_preprocess_form_element_label(&$variables) {
 }
 
 /**
- * Prepares variables for form templates.
+ * Implements hook_preprocess_HOOK().
  *
+ * Prepares variables for form templates.
  * Default template: form.html.twig.
  *
  * @param mixed $variables
@@ -512,7 +518,7 @@ function openy_lily_preprocess_form(&$variables) {
 }
 
 /**
- * Implements THEME_proprocess_file_link().
+ * Implements hook_preprocess_HOOK().
  */
 function openy_lily_preprocess_file_link(&$variables) {
   $file = $variables['file'];
@@ -538,7 +544,7 @@ function openy_lily_preprocess_file_link(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_field().
+ * Implements hook_preprocess_HOOK().
  *
  * This is hardcoded in profile so we need this to be able to change the title.
  */
@@ -553,7 +559,7 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
 }
 
 /**
- * Implements hook_form_system_theme_settings_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
 function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
   unset($form['logo']['openy_rose_footer_logo']);

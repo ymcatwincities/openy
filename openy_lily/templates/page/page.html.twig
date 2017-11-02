@@ -94,7 +94,17 @@
                 <span class="icon-bar"></span>
               </button>
               {% block page_logo %}
-                {{ page.logo }}
+                {% if (camp_class == 'is-camp') and (camp_section_image is not empty) %}
+                  <div>
+                    <div id="block-openy-lily-branding">
+                      <a href="{{ front_page }}" title="{{ "Home"|t }}" rel="{{ "home"|t }}">
+                        <img src="{{ camp_section_image }}" alt="{{ "Home"|t }}">
+                      </a>
+                    </div>
+                  </div>
+                {% else %}
+                  {{ page.logo }}
+                {% endif %}
               {% endblock %}
             </div>
             {{ page.secondary_menu }}
