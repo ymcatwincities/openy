@@ -1,4 +1,7 @@
 #!/bin/bash
+# To get OpenY on DigitalOcean one-app LAMP 16.04 droplet run the command:
+# bash < <(curl -s https://raw.githubusercontent.com/ymcatwincities/openy-project/8.1.x/scripts/openyonclickinstall.sh)
+# as root user
 echo "Hello, OpenY evaluator.\n"
 
 echo "Installing OpenY into /var/www/html\n"
