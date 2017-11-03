@@ -13,7 +13,9 @@ textarea:focus,
 .form-control:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
-  outline: 5px auto $bright-green;
+  border-color: $bright-green;
+  box-shadow: 0 0 0 5px $bright-green;
+  outline: none !important;
 }
 
 .focusable.skip-link:focus {
