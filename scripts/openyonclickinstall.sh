@@ -25,7 +25,7 @@ sudo service apache2 restart
 
 drush dl -y drupal --destination=/tmp --default-major=8 --drupal-project-rename=drupal
 cd /tmp/drupal
-drush si -y minimal --db-url=mysql://root:$root_pass@localhost/drupal
+drush si -y minimal --db-url=mysql://root:$root_pass@localhost/drupal && drush sql-drop -y
 cp /tmp/drupal/sites/default/settings.php /var/www/html/docroot/sites/default/settings.php
 sudo mkdir /var/www/html/docroot/sites/default/files
 echo "\$config['system.logging']['error_level'] = 'hide';" >> /var/www/html/docroot/sites/default/settings.php
