@@ -80,7 +80,7 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-<article{{ attributes.addClass(classes) }}>
+<article{{ attributes.addClass(classes).setAttribute('tabindex', '0') }}>
   <h3>{{ label }}</h3>
   <div{{ content_attributes.addClass('node__content') }}>
      {{ content }}
