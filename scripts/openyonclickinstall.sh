@@ -14,8 +14,7 @@ sudo mv drush.phar /usr/local/bin/drush
 echo "Installing needed php extensions"
 sudo apt-get -y update || true
 sudo apt-get -y install php-mbstring php-curl php-zip unzip php-dom php-xml php-simplexml|| true
-echo "Preparing OpenY code tree"
-composer create-project ymcatwincities/openy-project:8.1.x-dev /var/www/html --no-interaction
+
 root_pass=$(awk -F\= '{gsub(/"/,"",$2);print $2}' /root/.digitalocean_password)
 sudo mysql -uroot -p$root_pass -e "drop database drupal;" || true
 sudo mysql -uroot -p$root_pass -e "create database drupal;" || true
@@ -26,6 +25,10 @@ sudo service apache2 restart
 drush dl -y drupal --destination=/tmp --default-major=8 --drupal-project-rename=drupal
 cd /tmp/drupal
 drush si -y minimal --db-url=mysql://root:$root_pass@localhost/drupal && drush sql-drop -y
+
+echo "Preparing OpenY code tree"
+composer create-project ymcatwincities/openy-project:8.1.x-dev /var/www/html --no-interaction
+
 cp /tmp/drupal/sites/default/settings.php /var/www/html/docroot/sites/default/settings.php
 sudo mkdir /var/www/html/docroot/sites/default/files
 echo "\$config['system.logging']['error_level'] = 'hide';" >> /var/www/html/docroot/sites/default/settings.php
