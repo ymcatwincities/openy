@@ -227,3 +227,18 @@ function openy_node_category_update_8010() {
     'core.entity_view_display.media.image.node_program_subcategory_teaser',
   ]);
 }
+
+/**
+ * Update configuration for images preview.
+ */
+function openy_node_category_update_8011() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_category');
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.program_subcategory.default.yml';
+  $config_importer->update(
+    $config,
+    'core.entity_form_display.node.program_subcategory.default',
+    'content'
+  );
+}
