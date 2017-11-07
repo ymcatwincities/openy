@@ -39,8 +39,7 @@ function logger_entity_update_8001() {
   $storage_definition = $manager->getFieldStorageDefinition('name', 'logger_entity');
   $storage_definition->setSetting('max_length', '250');
   $manager->updateFieldStorageDefinition($storage_definition);
-
-  \Drupal::service('entity.last_installed_schema.repository')->setLastInstalledFieldStorageDefinition($storage_definition);
+  $manager->applyUpdates();
 
   // Put the old records back.
   foreach ($results as $result) {
