@@ -187,7 +187,8 @@ openy_campaign.campaign_game_results:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\GameController::gameResults'
   requirements:
-    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
 
@@ -196,7 +197,8 @@ openy_campaign.campaign_members:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showMembers'
   requirements:
-    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
 
@@ -206,7 +208,8 @@ openy_campaign.campaign_winners:
   defaults:
     _controller: '\Drupal\openy_campaign\Controller\CampaignController::showWinners'
   requirements:
-    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+    #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
 
@@ -216,7 +219,7 @@ openy_campaign.campaign_reports_summary:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::showSummary'
   requirements:
     #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
-    _permission: 'view retention campaign reports'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
 
@@ -242,6 +245,6 @@ openy_campaign.campaign_reports_activities:
     _controller: '\Drupal\openy_campaign\Controller\CampaignReportsController::showActivities'
   requirements:
     #_custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesAccess'
-    _permission: 'view retention campaign reports'
+    _custom_access: '\Drupal\openy_campaign\Controller\CampaignController::campaignPagesReportsAccess'
   options:
     _node_operation_route: TRUE
