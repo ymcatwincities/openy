@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_session_instance;
 
+use Drupal;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
