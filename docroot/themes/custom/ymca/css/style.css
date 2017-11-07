@@ -7874,7 +7874,7 @@ nav#block-footermenuright {
     height: calc(100vh - 39px);
   }
   .toolbar-vertical.sidebar-in #sidebar .news {
-    padding-bottom: 50px;
+    padding-bottom: 0;
   }
 
   .toolbar-vertical.toolbar-fixed #page-head .top-navs.navbar-fixed-top.affix .nav-global {
@@ -11531,7 +11531,7 @@ body.show-new-mobile-menu .sidebar .nav li.locations.nav-level-2.open .open.nav-
 body.show-new-mobile-menu .sidebar .nav li.more {
   position: relative;
 }
-body.show-new-mobile-menu .sidebar .nav li.more a.expand {
+body.show-new-mobile-menu .sidebar .nav li.more a.expand span {
   position: absolute;
   top: 0;
   right: 0;
@@ -11544,6 +11544,13 @@ body.show-new-mobile-menu .sidebar .nav li.more a.expand {
 body.show-new-mobile-menu .sidebar .active .health-fitness.nav-level-2:before, body.show-new-mobile-menu .sidebar .health-fitness.nav-level-2:before,
 body.show-new-mobile-menu .sidebar .active .jobs.nav-level-2:before, body.show-new-mobile-menu .sidebar .jobs.nav-level-2:before {
   content: '';
+}
+body.show-new-mobile-menu .dropdown.open > .dropdown-menu {
+  padding-bottom: 70px;
+  background: #fff;
+}
+body.show-new-mobile-menu li > a.overview {
+  display: none;
 }
 
 .banner {
