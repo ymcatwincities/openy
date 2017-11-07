@@ -386,28 +386,27 @@
           }
         }
       }
-      $('.site-search-sidebar')
-        .once()
-        .on('show.bs.collapse',
-          function (e) {
-            $('.sidebar .search-icon').addClass('form-shown');
-          }
-        )
-        .on('hide.bs.collapse',
-          function (e) {
-            $('.sidebar .search-icon').removeClass('form-shown');
-          }
-        );
+      $('.sidebar .search-icon', context).on('click', function(e) {
+        e.preventDefault();
+        if ($(this).hasClass('form-shown')) {
+          $('.site-search-sidebar').slideUp();
+          $(this).removeClass('form-shown');
+        }
+        else {
+          $('.site-search-sidebar').slideDown();
+          $(this).addClass('form-shown');
+        }
+      });
       $('.sidebar')
         .on('DOMSubtreeModified',
           function (e) {
-            var more = $(this).find('li.more');
-            if (more.find('.expand').length === 0) {
-              more.append('<a href="#" class="expand">...</a>').nextAll().hide();
+            var more = $(this).find('li.more a');
+            if (!more.hasClass('expand')) {
+              more.addClass('expand').append('<span>...</span>').parent().nextAll().hide();
             }
-            more.find('.expand').on('click', function(e) {
+            more.on('click', function(e) {
               e.preventDefault();
-              more.hide().nextAll().show();
+              more.hide().parent().nextAll().show();
               $(this).hide();
             })
           }
