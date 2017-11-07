@@ -20,7 +20,7 @@ function logger_entity_update_8001() {
   $results = $query->execute()->fetchAll();
 
   // Delete the data.
-  $query = \Drupal::database()->delete('logger_entity')->execute();
+  $query = \Drupal::database()->truncate('logger_entity')->execute();
 
   /**
    * Update the table.
@@ -34,6 +34,13 @@ function logger_entity_update_8001() {
   ];
   $schema = Database::getConnection()->schema();
   $schema->changeField('logger_entity', 'name', 'name', $spec);
+
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $storage_definition = $manager->getFieldStorageDefinition('name', 'logger_entity');
+  $storage_definition->setSetting('max_length', '250');
+  $manager->updateFieldStorageDefinition($storage_definition);
+
+  \Drupal::service('entity.last_installed_schema.repository')->setLastInstalledFieldStorageDefinition($storage_definition);
 
   // Put the old records back.
   foreach ($results as $result) {
