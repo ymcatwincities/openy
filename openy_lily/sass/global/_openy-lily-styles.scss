@@ -557,6 +557,12 @@ p.legend {
   }
   .ui-dialog-content {
     padding: 0px 30px 10px;
+    .landing-header {
+      display: none;
+    }
+    .paragraph--type--simple-content {
+      padding-top: 0;
+    }
   }
 }
 

@@ -2689,6 +2689,161 @@ article.site-alert ul li div {
   margin: 20px 0;
 }
 
+[data-drupal-selector="edit-membership-application"] .form-item {
+  padding: 0 10px;
+}
+[data-drupal-selector="edit-membership-application"] .form-item-first,
+[data-drupal-selector="edit-membership-application"] .form-item-last {
+  float: left;
+  width: 45%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  [data-drupal-selector="edit-membership-application"] .form-item-first,
+  [data-drupal-selector="edit-membership-application"] .form-item-last {
+    float: none;
+    width: 100%;
+  }
+}
+[data-drupal-selector="edit-membership-application"] .form-item-middle {
+  float: left;
+  width: 10%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  [data-drupal-selector="edit-membership-application"] .form-item-middle {
+    float: none;
+    width: 100%;
+  }
+}
+[data-drupal-selector="edit-membership-application"] .form-item-emergency-contact,
+[data-drupal-selector="edit-membership-application"] .form-item-member-id,
+[data-drupal-selector="edit-membership-application"] .form-item-city,
+[data-drupal-selector="edit-membership-application"] .form-item-parent-name,
+[data-drupal-selector="edit-membership-application"] .form-item-primary-phone {
+  float: left;
+  width: 34%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  [data-drupal-selector="edit-membership-application"] .form-item-emergency-contact,
+  [data-drupal-selector="edit-membership-application"] .form-item-member-id,
+  [data-drupal-selector="edit-membership-application"] .form-item-city,
+  [data-drupal-selector="edit-membership-application"] .form-item-parent-name,
+  [data-drupal-selector="edit-membership-application"] .form-item-primary-phone {
+    float: none;
+    width: 100%;
+  }
+}
+[data-drupal-selector="edit-membership-application"] .form-item-relationship-2,
+[data-drupal-selector="edit-membership-application"] .form-item-relationship-1,
+[data-drupal-selector="edit-membership-application"] .form-item-phone-2,
+[data-drupal-selector="edit-membership-application"] .form-item-phone-1,
+[data-drupal-selector="edit-membership-application"] .form-item-bus-phone,
+[data-drupal-selector="edit-membership-application"] .form-item-join-date,
+[data-drupal-selector="edit-membership-application"] .form-item-expiration-date,
+[data-drupal-selector="edit-membership-application"] .form-item-cell,
+[data-drupal-selector="edit-membership-application"] .form-item-state,
+[data-drupal-selector="edit-membership-application"] .form-item-zip-code {
+  float: left;
+  width: 33%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  [data-drupal-selector="edit-membership-application"] .form-item-relationship-2,
+  [data-drupal-selector="edit-membership-application"] .form-item-relationship-1,
+  [data-drupal-selector="edit-membership-application"] .form-item-phone-2,
+  [data-drupal-selector="edit-membership-application"] .form-item-phone-1,
+  [data-drupal-selector="edit-membership-application"] .form-item-bus-phone,
+  [data-drupal-selector="edit-membership-application"] .form-item-join-date,
+  [data-drupal-selector="edit-membership-application"] .form-item-expiration-date,
+  [data-drupal-selector="edit-membership-application"] .form-item-cell,
+  [data-drupal-selector="edit-membership-application"] .form-item-state,
+  [data-drupal-selector="edit-membership-application"] .form-item-zip-code {
+    float: none;
+    width: 100%;
+  }
+}
+[data-drupal-selector="edit-membership-application"] .form-item-member-initials-1,
+[data-drupal-selector="edit-membership-application"] .form-item-member-initials-2,
+[data-drupal-selector="edit-membership-application"] .form-item-member-initials-3,
+[data-drupal-selector="edit-membership-application"] .form-item-member-initials-4,
+[data-drupal-selector="edit-membership-application"] .form-item-member-initials-6,
+[data-drupal-selector="edit-membership-application"] .form-item-member-initials-5 {
+  width: 150px;
+}
+[data-drupal-selector="edit-membership-application"] [data-drupal-selector="edit-gender"],
+[data-drupal-selector="edit-membership-application"] .form-item-program-policy-signature,
+[data-drupal-selector="edit-membership-application"] .form-item-signature-of-bank-depositor-credit-card-holder,
+[data-drupal-selector="edit-membership-application"] .form-item-member-signature,
+[data-drupal-selector="edit-membership-application"] .form-item-bottom-date,
+[data-drupal-selector="edit-membership-application"] .form-item-member-print-name,
+[data-drupal-selector="edit-membership-application"] .form-item-bank-draft-signature-date,
+[data-drupal-selector="edit-membership-application"] .form-item-program-policy-date,
+[data-drupal-selector="edit-membership-application"] .form-item-electronic-signature,
+[data-drupal-selector="edit-membership-application"] .form-item-dob {
+  width: 50%;
+  float: left;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  [data-drupal-selector="edit-membership-application"] [data-drupal-selector="edit-gender"],
+  [data-drupal-selector="edit-membership-application"] .form-item-program-policy-signature,
+  [data-drupal-selector="edit-membership-application"] .form-item-signature-of-bank-depositor-credit-card-holder,
+  [data-drupal-selector="edit-membership-application"] .form-item-member-signature,
+  [data-drupal-selector="edit-membership-application"] .form-item-bottom-date,
+  [data-drupal-selector="edit-membership-application"] .form-item-member-print-name,
+  [data-drupal-selector="edit-membership-application"] .form-item-bank-draft-signature-date,
+  [data-drupal-selector="edit-membership-application"] .form-item-program-policy-date,
+  [data-drupal-selector="edit-membership-application"] .form-item-electronic-signature,
+  [data-drupal-selector="edit-membership-application"] .form-item-dob {
+    float: none;
+    width: 100%;
+  }
+}
+[data-drupal-selector="edit-membership-application"] .form-item-member-print-name,
+[data-drupal-selector="edit-membership-application"] .form-item-electronic-signature {
+  float: none;
+}
+[data-drupal-selector="edit-membership-application"] .form-item-dob {
+  margin-top: 50px;
+}
+[data-drupal-selector="edit-membership-application"] [data-drupal-selector="edit-questionnaire"] {
+  width: 100%;
+}
+[data-drupal-selector="edit-membership-application"] [data-drupal-selector="edit-how-did-you-hear-about"],
+[data-drupal-selector="edit-membership-application"] [data-drupal-selector="edit-race-ethnicity"],
+[data-drupal-selector="edit-membership-application"] [data-drupal-selector="edit-household-income-range"] {
+  padding: 0;
+}
+[data-drupal-selector="edit-membership-application"] #edit-how-did-you-hear-about .form-item,
+[data-drupal-selector="edit-membership-application"] #edit-household-income-range .form-item,
+[data-drupal-selector="edit-membership-application"] #edit-race-ethnicity .form-item {
+  width: 30%;
+  float: left;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  [data-drupal-selector="edit-membership-application"] #edit-how-did-you-hear-about .form-item,
+  [data-drupal-selector="edit-membership-application"] #edit-household-income-range .form-item,
+  [data-drupal-selector="edit-membership-application"] #edit-race-ethnicity .form-item {
+    float: none;
+    width: 100%;
+  }
+}
+[data-drupal-selector="edit-membership-application"] .js-webform-radios .js-form-item label {
+  margin-top: 0 !important;
+}
+[data-drupal-selector="edit-membership-application"] [data-drupal-selector="edit-privacy-policy-link"] {
+  display: block;
+  font-weight: bold;
+  margin: 25px 10px 10px;
+}
+[data-drupal-selector="edit-membership-application"] .js-form-item-confirm-checkbox label {
+  max-width: 90%;
+  vertical-align: top;
+}
+
+@media (min-width: 0) and (max-width: 48em) {
+  .ui-widget.ui-dialog .ui-dialog-content {
+    padding: 0 10px 10px;
+  }
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
@@ -3936,6 +4091,12 @@ p.legend {
 }
 .ui-widget.ui-dialog .ui-dialog-content {
   padding: 0px 30px 10px;
+}
+.ui-widget.ui-dialog .ui-dialog-content .landing-header {
+  display: none;
+}
+.ui-widget.ui-dialog .ui-dialog-content .paragraph--type--simple-content {
+  padding-top: 0;
 }
 
 /* End of jQuery Modal Form */
