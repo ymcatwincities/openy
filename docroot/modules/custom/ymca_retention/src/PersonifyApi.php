@@ -2,14 +2,17 @@
 
 namespace Drupal\ymca_retention;
 
-// @todo Refactoring!!! Should be merged with ymca_personify module.
+// @todo Move all API methods to the service ymca_personify.personify_api.
 /**
  * Helper for Personify API requests needed for retention campaign.
+ * @deprecated
  */
 class PersonifyApi {
 
   /**
    * Get config.
+   *
+   * @deprecated Should be moved to ymca_personify and method PersonifyApi.
    *
    * @return array
    *   Config params.
@@ -35,6 +38,8 @@ class PersonifyApi {
 
   /**
    * Get information about member by its facility access ID.
+   *
+   * @deprecated Use module ymca_personify and method PersonifyApi->getMemberInformation() instead.
    *
    * @param int $facility_id
    *   Facility Access ID.
