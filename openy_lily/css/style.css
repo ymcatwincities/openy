@@ -1356,7 +1356,10 @@ legend {
   margin-right: 15px;
 }
 #schedules-search-form-wrapper .js-form-type-checkbox {
-  margin-top: 50px;
+  margin-top: 35px;
+}
+#schedules-search-form-wrapper .form-item-display input {
+  display: inline-block;
 }
 @media (min-width: 0) and (max-width: 75em) {
   #schedules-search-form-wrapper .js-form-type-select {
@@ -3075,6 +3078,7 @@ body.path-search #block-mainpagecontent li {
 
 .node--type-news.node--view-mode-teaser {
   max-width: 100%;
+  min-width: 100%;
 }
 .node--type-news.node--view-mode-teaser a .inner-wrapper {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
@@ -3094,6 +3098,8 @@ body.path-search #block-mainpagecontent li {
   background-color: #b92f9e;
   color: white;
   font-weight: bold;
+  z-index: 1;
+  margin-left: 15px;
 }
 .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-up .field-media-image {
   height: 210px;

@@ -608,7 +608,10 @@ legend {
     margin-right: 15px;
   }
   .js-form-type-checkbox {
-    margin-top: 50px;
+    margin-top: 35px;
+  }
+  .form-item-display input {
+    display: inline-block;
   }
   @include breakpoint (0 $desktop) {
     .js-form-type-select {

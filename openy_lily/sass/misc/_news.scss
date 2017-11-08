@@ -126,6 +126,7 @@
 
 .node--type-news.node--view-mode-teaser {
   max-width: 100%;
+  min-width: 100%;
   a {
     .inner-wrapper {
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
@@ -143,6 +144,8 @@
           background-color: $main-purple;
           color: white;
           font-weight: bold;
+          z-index: 1;
+          margin-left: 15px;
         }
         .field-media-image {
           height: 210px;
