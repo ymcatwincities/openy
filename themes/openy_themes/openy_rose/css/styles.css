@@ -7044,7 +7044,9 @@ textarea:focus,
 .form-control:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
-  outline: 5px auto #69ff00;
+  border-color: #69ff00;
+  box-shadow: 0 0 0 5px #69ff00;
+  outline: none !important;
 }
 
 .focusable.skip-link:focus {
