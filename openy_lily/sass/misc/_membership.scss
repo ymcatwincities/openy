@@ -747,7 +747,7 @@
   }
 }
 
-[data-drupal-selector="edit-membership-application"] {
+.membership-application-form  {
   .form-item {
     padding: 0 10px;
   }
@@ -815,7 +815,7 @@
     width: 150px;
   }
 
-  [data-drupal-selector="edit-gender"],
+  .form-item-email-address + fieldset,
   .form-item-program-policy-signature,
   .form-item-signature-of-bank-depositor-credit-card-holder,
   .form-item-member-signature,
@@ -843,16 +843,18 @@
     margin-top: 50px;
   }
 
-  [data-drupal-selector="edit-questionnaire"] {
+  .form-item-dob + fieldset {
     width: 100%;
   }
 
-  [data-drupal-selector="edit-how-did-you-hear-about"],
-  [data-drupal-selector="edit-race-ethnicity"],
-  [data-drupal-selector="edit-household-income-range"] {
+  fieldset.js-webform-radios-fieldset {
     padding: 0;
   }
 
+  .form-item-expiration-date + fieldset {
+    padding: 0 10px;
+  }
+  
   #edit-how-did-you-hear-about,
   #edit-household-income-range,
   #edit-race-ethnicity {
