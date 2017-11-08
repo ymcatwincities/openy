@@ -2075,8 +2075,12 @@ article.site-alert ul li div {
   display: inline-block;
   margin-top: 6px;
 }
-#membership-calc-wrapper .membership-calc-embedded legend {
+#membership-calc-wrapper .membership-calc-embedded > legend {
   display: none;
+}
+#membership-calc-wrapper .membership-calc-embedded legend {
+  margin-bottom: 0;
+  font-size: 21px;
 }
 #membership-calc-wrapper .ymcali-ccc-registration-form legend {
   margin-bottom: 0;
@@ -2108,7 +2112,13 @@ article.site-alert ul li div {
 #membership-calc-wrapper [data-drupal-selector="edit-emergency-info"] fieldset .form-item label {
   margin-top: 0;
 }
-#membership-calc-wrapper [data-drupal-selector="edit-add-member"] .fieldset-wrapper {
+#membership-calc-wrapper #ajax-ccc-add-family-member-form [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
+  margin: 0 0 0 0 !important;
+}
+#membership-calc-wrapper #ajax-ccc-add-family-member-form [data-drupal-selector="edit-emergency-info"] fieldset .form-item-age-group {
+  padding-left: 20px !important;
+}
+#membership-calc-wrapper [data-drupal-selector="edit-add-member"] > .fieldset-wrapper {
   margin: 0 -15px;
 }
 #membership-calc-wrapper .add-member-message {

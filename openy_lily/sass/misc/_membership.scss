@@ -95,8 +95,12 @@
       }
     }
   }
-  .membership-calc-embedded legend {
+  .membership-calc-embedded > legend {
     display: none;
+  }
+  .membership-calc-embedded legend {
+    margin-bottom: 0;
+    font-size: 21px;
   }
   .ymcali-ccc-registration-form {
     legend {
@@ -134,10 +138,14 @@
       margin-top: 0;
     }
   }
-  [data-drupal-selector="edit-add-member"] {
-    .fieldset-wrapper {
-      margin: 0 -15px;
-    }
+  #ajax-ccc-add-family-member-form [data-drupal-selector="edit-emergency-info"] fieldset .form-item {
+    margin: 0 0 0 0 !important;
+  }
+  #ajax-ccc-add-family-member-form [data-drupal-selector="edit-emergency-info"] fieldset .form-item-age-group {
+    padding-left: 20px !important;
+  }
+  [data-drupal-selector="edit-add-member"] > .fieldset-wrapper {
+    margin: 0 -15px;
   }
   .add-member-message {
     padding: 0 15px;
