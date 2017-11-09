@@ -754,3 +754,147 @@
     margin: 20px 0;
   }
 }
+
+.membership-application-form  {
+  .form-item {
+    padding: 0 10px;
+  }
+
+  .form-item-first,
+  .form-item-last {
+    float: left;
+    width: 45%;
+
+    @include breakpoint (0 $tablet) {
+      float: none;
+      width: 100%;
+    }
+  }
+
+  .form-item-middle {
+    float: left;
+    width: 10%;
+    @include breakpoint (0 $tablet) {
+      float: none;
+      width: 100%;
+    }
+
+  }
+
+  .form-item-emergency-contact,
+  .form-item-member-id,
+  .form-item-city,
+  .form-item-parent-name,
+  .form-item-primary-phone {
+    float: left;
+    width: 34%;
+    @include breakpoint (0 $tablet) {
+      float: none;
+      width: 100%;
+    }
+
+  }
+
+  .form-item-relationship-2,
+  .form-item-relationship-1,
+  .form-item-phone-2,
+  .form-item-phone-1,
+  .form-item-bus-phone,
+  .form-item-join-date,
+  .form-item-expiration-date,
+  .form-item-cell,
+  .form-item-state,
+  .form-item-zip-code {
+    float: left;
+    width: 33%;
+    @include breakpoint (0 $tablet) {
+      float: none;
+      width: 100%;
+    }
+
+  }
+
+  .form-item-member-initials-1,
+  .form-item-member-initials-2,
+  .form-item-member-initials-3,
+  .form-item-member-initials-4,
+  .form-item-member-initials-6,
+  .form-item-member-initials-5 {
+    width: 150px;
+  }
+
+  .form-item-email-address + fieldset,
+  .form-item-program-policy-signature,
+  .form-item-signature-of-bank-depositor-credit-card-holder,
+  .form-item-member-signature,
+  .form-item-bottom-date,
+  .form-item-member-print-name,
+  .form-item-bank-draft-signature-date,
+  .form-item-program-policy-date,
+  .form-item-electronic-signature,
+  .form-item-dob {
+    width: 50%;
+    float: left;
+
+    @include breakpoint (0 $tablet) {
+      float: none;
+      width: 100%;
+    }
+  }
+
+  .form-item-member-print-name,
+  .form-item-electronic-signature {
+    float: none;
+  }
+
+  .form-item-dob {
+    margin-top: 50px;
+  }
+
+  .form-item-dob + fieldset {
+    width: 100%;
+  }
+
+  fieldset.js-webform-radios-fieldset {
+    padding: 0;
+  }
+
+  .form-item-expiration-date + fieldset {
+    padding: 0 10px;
+  }
+  
+  #edit-how-did-you-hear-about,
+  #edit-household-income-range,
+  #edit-race-ethnicity {
+    .form-item {
+      width: 30%;
+      float: left;
+
+      @include breakpoint (0 $tablet) {
+        float: none;
+        width: 100%;
+      }
+    }
+  }
+
+  .js-webform-radios .js-form-item label {
+    margin-top: 0 !important;
+  }
+
+  [data-drupal-selector="edit-privacy-policy-link"] {
+    display: block;
+    font-weight: bold;
+    margin: 25px 10px 10px;
+  }
+
+  .js-form-item-confirm-checkbox label {
+    max-width: 90%;
+    vertical-align: top;
+  }
+}
+
+.ui-widget.ui-dialog .ui-dialog-content {
+  @include breakpoint (0 $tablet) {
+    padding: 0 10px 10px;
+  }
+}
