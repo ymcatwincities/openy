@@ -2825,16 +2825,42 @@ article.site-alert ul li div {
 .membership-application-form .form-item-expiration-date + fieldset {
   padding: 0 10px;
 }
+.membership-application-form #edit-branch .form-item,
 .membership-application-form #edit-how-did-you-hear-about .form-item,
 .membership-application-form #edit-household-income-range .form-item,
-.membership-application-form #edit-race-ethnicity .form-item {
+.membership-application-form #edit-race-ethnicity .form-item,
+.membership-application-form #edit-membership-category .form-item {
   width: 30%;
   float: left;
 }
 @media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form #edit-branch .form-item,
   .membership-application-form #edit-how-did-you-hear-about .form-item,
   .membership-application-form #edit-household-income-range .form-item,
-  .membership-application-form #edit-race-ethnicity .form-item {
+  .membership-application-form #edit-race-ethnicity .form-item,
+  .membership-application-form #edit-membership-category .form-item {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form #edit-gender .form-item,
+.membership-application-form #edit-type-of-membership .form-item {
+  width: 20%;
+  float: left;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form #edit-gender .form-item,
+  .membership-application-form #edit-type-of-membership .form-item {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form #edit-credit-card-confirm .form-item {
+  width: 10%;
+  float: left;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form #edit-credit-card-confirm .form-item {
     float: none;
     width: 100%;
   }
@@ -3351,6 +3377,7 @@ body.path-search #block-mainpagecontent li {
   background-color: #b92f9e;
   color: white;
   font-weight: bold;
+  z-index: 1;
 }
 .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-up .field-media-image {
   height: 210px;
