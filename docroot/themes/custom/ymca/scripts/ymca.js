@@ -374,13 +374,15 @@
             brand.wrapInner('<a href="' + href + '"></a>');
             home.append('<span class="name">' + Drupal.t('Helpful links, info, etc.') + '</span><b class="caret"></b>');
             home.click(function(e) {
-              e.preventDefault();
-              if ($(this).hasClass('open')) {
-                $(this).removeClass('open').parents('.nav').find('li:not(.heading)').slideUp();
-              }
-              else {
-                $(this).parents('.nav').find('li:eq(0)').addClass('heading');
-                $(this).addClass('open').parents('.nav').find('li').slideDown();
+              if ($(window).width() < 768) {
+                e.preventDefault();
+                if ($(this).hasClass('open')) {
+                  $(this).removeClass('open').parents('.nav').find('li:not(.heading)').slideUp();
+                }
+                else {
+                  $(this).parents('.nav').find('li:eq(0)').addClass('heading');
+                  $(this).addClass('open').parents('.nav').find('li').slideDown();
+                }
               }
             });
           }
