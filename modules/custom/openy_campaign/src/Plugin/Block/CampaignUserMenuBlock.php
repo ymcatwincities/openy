@@ -98,29 +98,39 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
       ];
     }
     else {
-      /*$build['register'] = [
-        '#type' => 'link',
-        '#title' => $this->t('Register'),
-        '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
-        '#attributes' => [
-          'class' => [
-            'use-ajax',
-            'register'
-          ],
-        ],
-      ];*/
+      $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
+      $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString());
+      $campaignRegistrationStartDate = new \DateTime($campaign->get('field_campaign_reg_start_date')->getString());
+      $campaignRegistrationEndDate = new \DateTime($campaign->get('field_campaign_reg_end_date')->getString());
+      $currentDate = new \DateTime();
 
-      $build['login'] = [
-        '#type' => 'link',
-        '#title' => $this->t('Sign in'),
-        '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaign->id()]),
-        '#attributes' => [
-          'class' => [
-            'use-ajax',
-            'login'
+      if ($currentDate >= $campaignStartDate && $currentDate <= $campaignEndDate) {
+        $build['login'] = [
+          '#type' => 'link',
+          '#title' => $this->t('Sign in'),
+          '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'login', 'campaign_id' => $campaign->id()]),
+          '#attributes' => [
+            'class' => [
+              'use-ajax',
+              'login'
+            ],
           ],
-        ],
-      ];
+        ];
+      }
+      else if ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
+        $build['register'] = [
+          '#type' => 'link',
+          '#title' => $this->t('Register'),
+          '#url' => Url::fromRoute('openy_campaign.member-action', ['action' => 'registration', 'campaign_id' => $campaign->id()]),
+          '#attributes' => [
+            'class' => [
+              'use-ajax',
+              'register'
+            ],
+          ],
+        ];
+      }
+
     }
 
     $build['#attached']['library'][] = 'core/drupal.dialog.ajax';
