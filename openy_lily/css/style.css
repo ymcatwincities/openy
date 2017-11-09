@@ -3351,6 +3351,7 @@ body.path-search #block-mainpagecontent li {
   background-color: #b92f9e;
   color: white;
   font-weight: bold;
+  z-index: 1;
 }
 .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-up .field-media-image {
   height: 210px;
