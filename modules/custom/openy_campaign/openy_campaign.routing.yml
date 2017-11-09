@@ -146,7 +146,7 @@ openy_campaign.member-registration-portal:
     _form: '\Drupal\openy_campaign\Form\MemberRegistrationPortalForm'
     _title: 'Simplified Team Member Registration Portal'
   requirements:
-    _permission: 'view content'
+    _permission: 'access content'
 
 # Campaign Member registration/login popup
 openy_campaign.member-action:

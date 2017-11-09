@@ -55,7 +55,7 @@ class MemberRegistrationPortalForm extends FormBase {
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Register Team Member'),
+      '#value' => t('Register'),
     ];
 
     return $form;
