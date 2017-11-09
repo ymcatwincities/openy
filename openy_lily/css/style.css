@@ -5640,18 +5640,4 @@ a.sports-icon.floor-hockey {
   max-height: none;
 }
 
-a:focus,
-.dropdown-toggle:focus,
-.carousel-control:focus,
-.btn:focus,
-.btn.focus,
-.btn:active:focus,
-.btn:active.focus,
-.btn.active:focus,
-.btn.active.focus,
-.slick-arrow:focus:before,
-.navbar-toggle:focus {
-  outline: none;
-}
-
 /*# sourceMappingURL=style.css.map */
