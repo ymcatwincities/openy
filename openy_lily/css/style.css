@@ -2699,6 +2699,162 @@ article.site-alert ul li div {
   margin: 20px 0;
 }
 
+.membership-application-form .form-item {
+  padding: 0 10px;
+}
+.membership-application-form .form-item-first,
+.membership-application-form .form-item-last {
+  float: left;
+  width: 45%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form .form-item-first,
+  .membership-application-form .form-item-last {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form .form-item-middle {
+  float: left;
+  width: 10%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form .form-item-middle {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form .form-item-emergency-contact,
+.membership-application-form .form-item-member-id,
+.membership-application-form .form-item-city,
+.membership-application-form .form-item-parent-name,
+.membership-application-form .form-item-primary-phone {
+  float: left;
+  width: 34%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form .form-item-emergency-contact,
+  .membership-application-form .form-item-member-id,
+  .membership-application-form .form-item-city,
+  .membership-application-form .form-item-parent-name,
+  .membership-application-form .form-item-primary-phone {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form .form-item-relationship-2,
+.membership-application-form .form-item-relationship-1,
+.membership-application-form .form-item-phone-2,
+.membership-application-form .form-item-phone-1,
+.membership-application-form .form-item-bus-phone,
+.membership-application-form .form-item-join-date,
+.membership-application-form .form-item-expiration-date,
+.membership-application-form .form-item-cell,
+.membership-application-form .form-item-state,
+.membership-application-form .form-item-zip-code {
+  float: left;
+  width: 33%;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form .form-item-relationship-2,
+  .membership-application-form .form-item-relationship-1,
+  .membership-application-form .form-item-phone-2,
+  .membership-application-form .form-item-phone-1,
+  .membership-application-form .form-item-bus-phone,
+  .membership-application-form .form-item-join-date,
+  .membership-application-form .form-item-expiration-date,
+  .membership-application-form .form-item-cell,
+  .membership-application-form .form-item-state,
+  .membership-application-form .form-item-zip-code {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form .form-item-member-initials-1,
+.membership-application-form .form-item-member-initials-2,
+.membership-application-form .form-item-member-initials-3,
+.membership-application-form .form-item-member-initials-4,
+.membership-application-form .form-item-member-initials-6,
+.membership-application-form .form-item-member-initials-5 {
+  width: 150px;
+}
+.membership-application-form .form-item-email-address + fieldset,
+.membership-application-form .form-item-program-policy-signature,
+.membership-application-form .form-item-signature-of-bank-depositor-credit-card-holder,
+.membership-application-form .form-item-member-signature,
+.membership-application-form .form-item-bottom-date,
+.membership-application-form .form-item-member-print-name,
+.membership-application-form .form-item-bank-draft-signature-date,
+.membership-application-form .form-item-program-policy-date,
+.membership-application-form .form-item-electronic-signature,
+.membership-application-form .form-item-dob {
+  width: 50%;
+  float: left;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form .form-item-email-address + fieldset,
+  .membership-application-form .form-item-program-policy-signature,
+  .membership-application-form .form-item-signature-of-bank-depositor-credit-card-holder,
+  .membership-application-form .form-item-member-signature,
+  .membership-application-form .form-item-bottom-date,
+  .membership-application-form .form-item-member-print-name,
+  .membership-application-form .form-item-bank-draft-signature-date,
+  .membership-application-form .form-item-program-policy-date,
+  .membership-application-form .form-item-electronic-signature,
+  .membership-application-form .form-item-dob {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form .form-item-member-print-name,
+.membership-application-form .form-item-electronic-signature {
+  float: none;
+}
+.membership-application-form .form-item-dob {
+  margin-top: 50px;
+}
+.membership-application-form .form-item-dob + fieldset {
+  width: 100%;
+}
+.membership-application-form fieldset.js-webform-radios-fieldset {
+  padding: 0;
+}
+.membership-application-form .form-item-expiration-date + fieldset {
+  padding: 0 10px;
+}
+.membership-application-form #edit-how-did-you-hear-about .form-item,
+.membership-application-form #edit-household-income-range .form-item,
+.membership-application-form #edit-race-ethnicity .form-item {
+  width: 30%;
+  float: left;
+}
+@media (min-width: 0) and (max-width: 48em) {
+  .membership-application-form #edit-how-did-you-hear-about .form-item,
+  .membership-application-form #edit-household-income-range .form-item,
+  .membership-application-form #edit-race-ethnicity .form-item {
+    float: none;
+    width: 100%;
+  }
+}
+.membership-application-form .js-webform-radios .js-form-item label {
+  margin-top: 0 !important;
+}
+.membership-application-form [data-drupal-selector="edit-privacy-policy-link"] {
+  display: block;
+  font-weight: bold;
+  margin: 25px 10px 10px;
+}
+.membership-application-form .js-form-item-confirm-checkbox label {
+  max-width: 90%;
+  vertical-align: top;
+}
+
+@media (min-width: 0) and (max-width: 48em) {
+  .ui-widget.ui-dialog .ui-dialog-content {
+    padding: 0 10px 10px;
+  }
+}
+
 .node-preview-container {
   background-color: #fff;
   bottom: 0;
@@ -3946,6 +4102,12 @@ p.legend {
 }
 .ui-widget.ui-dialog .ui-dialog-content {
   padding: 0px 30px 10px;
+}
+.ui-widget.ui-dialog .ui-dialog-content .landing-header {
+  display: none;
+}
+.ui-widget.ui-dialog .ui-dialog-content .paragraph--type--simple-content {
+  padding-top: 0;
 }
 
 /* End of jQuery Modal Form */
