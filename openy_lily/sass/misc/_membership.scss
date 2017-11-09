@@ -862,12 +862,39 @@
   .form-item-expiration-date + fieldset {
     padding: 0 10px;
   }
-  
+
+  #edit-branch,
   #edit-how-did-you-hear-about,
   #edit-household-income-range,
-  #edit-race-ethnicity {
+  #edit-race-ethnicity,
+  #edit-membership-category {
     .form-item {
       width: 30%;
+      float: left;
+
+      @include breakpoint (0 $tablet) {
+        float: none;
+        width: 100%;
+      }
+    }
+  }
+
+  #edit-gender,
+  #edit-type-of-membership {
+    .form-item {
+      width: 20%;
+      float: left;
+
+      @include breakpoint (0 $tablet) {
+        float: none;
+        width: 100%;
+      }
+    }
+  }
+
+  #edit-credit-card-confirm {
+    .form-item {
+      width: 10%;
       float: left;
 
       @include breakpoint (0 $tablet) {
