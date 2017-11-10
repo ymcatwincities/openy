@@ -17,6 +17,7 @@
 <p align="center">
   <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/v/ymcatwincities/openy-project.svg?style=flat-square"></a>
   <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
+  <a href="https://circleci.com/gh/ymcatwincities/openy-project"><img src="https://img.shields.io/circleci/project/github/ymcatwincities/openy-project/8.1.x.svg?style=flat-square"></a>
 </p>
 
 ***
