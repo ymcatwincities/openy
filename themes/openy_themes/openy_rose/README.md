@@ -6,7 +6,10 @@
 
 `\curl -sSL https://get.rvm.io | bash -s stable`
 
-Restart sh client.
+To start using RVM you need to run 
+`source ~/.rvm/scripts/rvm`
+
+If still not working restart sh client.
 
 `rvm install ruby-2.2.5`
 
@@ -21,6 +24,9 @@ Set as default ruby:
 3. Go to the theme folder
 
 `bundle install`
+
+If you see error like this `tmpdir': could not find a temporary directory (ArgumentError)`
+Run command `chmod o+t /tmp` and try again.
 
 4. To compile css use
 

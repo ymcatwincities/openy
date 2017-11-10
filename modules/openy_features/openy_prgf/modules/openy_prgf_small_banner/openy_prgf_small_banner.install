@@ -117,3 +117,18 @@ function openy_prgf_small_banner_update_8004() {
     'content'
   );
 }
+
+/**
+ * Update OpenY paragraph small banner feature configs for Blazy support.
+ */
+function openy_prgf_small_banner_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.prgf_small_banner',
+    'field.field.paragraph.small_banner.field_prgf_description',
+    'paragraphs.paragraphs_type.small_banner.yml',
+  ]);
+}
