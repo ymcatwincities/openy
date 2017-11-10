@@ -477,6 +477,7 @@ class SchedulesSearchForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Weekly View'),
       '#default_value' => isset($values['display']) ? $values['display'] : 0,
+      '#title_display' => 'before',
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'schedules-search-form-wrapper',
@@ -848,7 +849,7 @@ class SchedulesSearchForm extends FormBase {
       if ($ticket_required_items = $session->field_session_ticket->getValue()) {
         $ticket_required = (int) reset($ticket_required_items)['value'];
       }
-      if ($parameters['display'] && !is_null($parameters['display'])) {
+      if (isset($parameters['display']) && $parameters['display']) {
         $timestamp = DrupalDateTime::createFromTimestamp($session_instance->getTimestamp());
         $day = $timestamp->format('D n/j/Y');
         $time_from = $timestamp->format('g:i a');
@@ -910,7 +911,7 @@ class SchedulesSearchForm extends FormBase {
         ];
       }
 
-      $form['#cache']['tags'] = is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
+      $form['#cache']['tags'] = isset($form['#cache']['tags']) && is_array($form['#cache']['tags']) ? $form['#cache']['tags'] : [];
       $form['#cache']['tags'] = $form['#cache']['tags'] + $session_instance->getCacheTags();
     }
 
