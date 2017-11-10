@@ -129,6 +129,10 @@ figcaption {
   }
 }
 
+.media.view-mode-full {
+  margin: 20px auto;
+}
+
 .block-description--wrapper {
   display: flex;
 }
@@ -2523,6 +2527,7 @@ body {
   }
   .subprogram-listing-item .image img {
     max-width: 260px;
+    height: auto;
   }
 }
 .subprogram-listing-item .title h2 {
@@ -4923,7 +4928,7 @@ html.js .branch__updates_queue__button {
 }
 @media (min-width: 48em) {
   #schedules-search-form-wrapper .js-form-type-select.form-item-time {
-    margin-right: 70px;
+    margin-right: 18px;
     padding: 15px 0;
     width: 90px;
   }
@@ -4963,6 +4968,34 @@ html.js .branch__updates_queue__button {
   background: #fff url("../img/icons/input_calc_icon.png") no-repeat 95% center;
   padding-right: 20px;
   padding-left: 5px;
+}
+#schedules-search-form-wrapper .form-item-display {
+  float: left;
+  display: inline-block;
+  padding: 10px 0 5px;
+  width: 100%;
+}
+@media (min-width: 48em) {
+  #schedules-search-form-wrapper .form-item-display {
+    padding: 15px 0;
+    margin-right: 18px;
+    width: 110px;
+  }
+}
+#schedules-search-form-wrapper .form-item-display label {
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  color: #4f4f4f;
+  margin-bottom: 0;
+}
+@media (min-width: 48em) {
+  #schedules-search-form-wrapper .form-item-display label {
+    margin-bottom: 5px;
+  }
+}
+#schedules-search-form-wrapper .form-item-display input {
+  display: block;
 }
 #schedules-search-form-wrapper .selects-container hr {
   border-color: #636466;
@@ -5223,6 +5256,9 @@ html.js .branch__updates_queue__button {
   outline: none;
   text-decoration: none;
   position: relative;
+}
+#schedules-search-listing-wrapper .results .views-row:hover h3 {
+  text-decoration: underline;
 }
 #schedules-search-listing-wrapper .results .views-row .included-in-membership {
   background: url("../img/icons/included-in-membership.png") no-repeat 0 0;
@@ -7314,7 +7350,9 @@ textarea:focus,
 .form-control:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
-  outline: 5px auto #69ff00;
+  border-color: #69ff00;
+  box-shadow: 0 0 0 5px #69ff00;
+  outline: none !important;
 }
 
 .focusable.skip-link:focus {

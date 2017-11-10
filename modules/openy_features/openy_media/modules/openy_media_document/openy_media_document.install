@@ -85,3 +85,34 @@ function openy_media_document_update_8002() {
     }
   }
 }
+
+/**
+ * Update default document display.
+ */
+function openy_media_document_update_8003() {
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.media.document.default' => [
+      'dependencies',
+      'content',
+      'hidden'
+    ],
+  ];
+
+  $config_dir = drupal_get_path('module', 'openy_media_document') . '/config/install/';
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update default document display.
+ */
+function openy_media_document_update_8004() {
+  // Re trigger update after fixed name.
+  openy_media_document_update_8003();
+}
