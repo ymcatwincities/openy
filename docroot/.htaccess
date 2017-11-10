@@ -167,10 +167,10 @@ RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^rochfamy\.org$
 RewriteRule ^our\-focus/healthy\-living/fitness\-center\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness? [L,R=301]
 
-# 301 --- http://www.rochfamy.org/our-focus/social-responsibility/togetherhood-.php => https://www.ymcamn.org/locations/rochester/about/volunteer
+# 301 --- http://www.rochfamy.org/our-focus/social-responsibility/togetherhood-.php => https://www.ymcamn.org/locations/rochester_ymca/about/volunteer
 RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^rochfamy\.org$
-RewriteRule ^our\-focus/social\-responsibility/togetherhood\-\.php$ https://www.ymcamn.org/locations/rochester/about/volunteer? [L,R=301]
+RewriteRule ^our\-focus/social\-responsibility/togetherhood\-\.php$ https://www.ymcamn.org/locations/rochester_ymca/about/volunteer? [L,R=301]
 
 # 301 --- http://www.rochfamy.org/our-focus/youth-development/kids-care.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
 RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
@@ -252,10 +252,10 @@ RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^rochfamy\.org$
 RewriteRule ^our\-focus/healthy\-living/adult\-classes\-sports/livestrong\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_training? [L,R=301]
 
-# 301 --- http://www.rochfamy.org/our-focus/social-responsibility/silver-sneakers-litter-league.php => https://www.ymcamn.org/locations/rochester/about/volunteer
+# 301 --- http://www.rochfamy.org/our-focus/social-responsibility/silver-sneakers-litter-league.php => https://www.ymcamn.org/locations/rochester_ymca/about/volunteer
 RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
 RewriteCond %{HTTP_HOST} ^rochfamy\.org$
-RewriteRule ^our\-focus/social\-responsibility/silver\-sneakers\-litter\-league\.php$ https://www.ymcamn.org/locations/rochester/about/volunteer? [L,R=301]
+RewriteRule ^our\-focus/social\-responsibility/silver\-sneakers\-litter\-league\.php$ https://www.ymcamn.org/locations/rochester_ymca/about/volunteer? [L,R=301]
 
 # 301 --- http://www.rochfamy.org/about-us/ymca-vote.php => https://www.ymcamn.org/news/2017/08/30/7096/rochester_area_family_ymca_joins_ymca_of_the_greater_twin_cities
 RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
