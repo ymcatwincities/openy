@@ -863,11 +863,11 @@
     padding: 0 10px;
   }
 
-  #edit-branch,
-  #edit-how-did-you-hear-about,
-  #edit-household-income-range,
-  #edit-race-ethnicity,
-  #edit-membership-category {
+  .branch,
+  .how-did-you-hear-about,
+  .household-income-range,
+  .race-ethnicity,
+  .membership-category {
     .form-item {
       width: 30%;
       float: left;
@@ -879,8 +879,8 @@
     }
   }
 
-  #edit-gender,
-  #edit-type-of-membership {
+  .gender,
+  .type-of-membership {
     .form-item {
       width: 20%;
       float: left;
@@ -892,7 +892,7 @@
     }
   }
 
-  #edit-credit-card-confirm {
+  .credit-card-confirm {
     .form-item {
       width: 10%;
       float: left;

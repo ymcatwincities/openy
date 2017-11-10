@@ -2825,42 +2825,42 @@ article.site-alert ul li div {
 .membership-application-form .form-item-expiration-date + fieldset {
   padding: 0 10px;
 }
-.membership-application-form #edit-branch .form-item,
-.membership-application-form #edit-how-did-you-hear-about .form-item,
-.membership-application-form #edit-household-income-range .form-item,
-.membership-application-form #edit-race-ethnicity .form-item,
-.membership-application-form #edit-membership-category .form-item {
+.membership-application-form .branch .form-item,
+.membership-application-form .how-did-you-hear-about .form-item,
+.membership-application-form .household-income-range .form-item,
+.membership-application-form .race-ethnicity .form-item,
+.membership-application-form .membership-category .form-item {
   width: 30%;
   float: left;
 }
 @media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form #edit-branch .form-item,
-  .membership-application-form #edit-how-did-you-hear-about .form-item,
-  .membership-application-form #edit-household-income-range .form-item,
-  .membership-application-form #edit-race-ethnicity .form-item,
-  .membership-application-form #edit-membership-category .form-item {
+  .membership-application-form .branch .form-item,
+  .membership-application-form .how-did-you-hear-about .form-item,
+  .membership-application-form .household-income-range .form-item,
+  .membership-application-form .race-ethnicity .form-item,
+  .membership-application-form .membership-category .form-item {
     float: none;
     width: 100%;
   }
 }
-.membership-application-form #edit-gender .form-item,
-.membership-application-form #edit-type-of-membership .form-item {
+.membership-application-form .gender .form-item,
+.membership-application-form .type-of-membership .form-item {
   width: 20%;
   float: left;
 }
 @media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form #edit-gender .form-item,
-  .membership-application-form #edit-type-of-membership .form-item {
+  .membership-application-form .gender .form-item,
+  .membership-application-form .type-of-membership .form-item {
     float: none;
     width: 100%;
   }
 }
-.membership-application-form #edit-credit-card-confirm .form-item {
+.membership-application-form .credit-card-confirm .form-item {
   width: 10%;
   float: left;
 }
 @media (min-width: 0) and (max-width: 48em) {
-  .membership-application-form #edit-credit-card-confirm .form-item {
+  .membership-application-form .credit-card-confirm .form-item {
     float: none;
     width: 100%;
   }
