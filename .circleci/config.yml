@@ -1,34 +1,27 @@
-# PHP CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-php/ for more details
-#
+# Check https://circleci.com/docs/2.0/language-php/ for more details.
 version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
+      # Specify the version you desire here.
+      # See https://circleci.com/docs/2.0/circleci-images/ for more details.
       - image: circleci/php:7.1.8-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
 
     working_directory: ~/openy
 
     steps:
       - checkout
 
-      # Download and cache dependencies
+      # Download and cache dependencies.
       - restore_cache:
           keys:
           - composer-v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - omposer-v1-dependencies-
+          # Fallback to using the latest cache if no exact match is found.
+          - composer-v1-dependencies-
 
       - run: composer install -n --prefer-dist
 
       - save_cache:
-          key: omposer-v1-dependencies-{{ checksum "composer.json" }}
+          key: composer-v1-dependencies-{{ checksum "composer.json" }}
           paths:
             - ./vendor
