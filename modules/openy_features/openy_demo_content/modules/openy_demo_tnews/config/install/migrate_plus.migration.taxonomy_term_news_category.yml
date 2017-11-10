@@ -10,10 +10,19 @@ source:
   data_rows:
     -
       id: 1
-      name: Competitions
+      name: Summer Day Camp
     -
       id: 2
       name: Community Life
+    -
+      id: 3
+      name: Swim
+    -
+      id: 4
+      name: Community Outreach
+    -
+      id: 5
+      name: General Wellness
   ids:
     id:
       type: integer

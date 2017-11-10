@@ -1,11 +1,9 @@
 dependencies:
   module:
     - file
-  enforced:
-    module:
-      - openy_demo_nnews
 id: openy_demo_nnews_file
-migration_tags: { }
+migration_tags:
+  - 'OpenY Demo News'
 migration_group: openy_demo_nnews
 label: Files
 source:
@@ -17,6 +15,21 @@ source:
     -
       id: 2
       name: 2.jpg
+    -
+      id: 3
+      name: 3.jpg
+    -
+      id: 4
+      name: 4.jpg
+    -
+      id: 5
+      name: 5.jpg
+    -
+      id: 6
+      name: 6.jpg
+    -
+      id: 7
+      name: 7.jpg
   ids:
     id:
       type: integer

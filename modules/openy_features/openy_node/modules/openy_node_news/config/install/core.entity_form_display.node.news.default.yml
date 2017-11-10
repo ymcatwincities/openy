@@ -4,6 +4,7 @@ dependencies:
   config:
     - entity_browser.browser.images_library
     - field.field.node.news.field_content
+    - field.field.node.news.field_meta_tags
     - field.field.node.news.field_news_category
     - field.field.node.news.field_news_description
     - field.field.node.news.field_news_image
@@ -14,6 +15,7 @@ dependencies:
   module:
     - entity_browser
     - field_group
+    - metatag
     - paragraphs
     - path
     - scheduler
@@ -54,9 +56,16 @@ targetEntityType: node
 bundle: news
 mode: default
 content:
+  addthis:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 11
+    region: content
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
-    weight: 8
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -68,8 +77,15 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
+    region: content
+  field_meta_tags:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
     region: content
   field_news_category:
     weight: 2
@@ -124,12 +140,19 @@ content:
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
+  langcode:
+    type: language_select
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   path:
     type: path
-    weight: 12
+    weight: 10
     settings: {  }
     third_party_settings: {  }
     region: content
@@ -137,12 +160,12 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 9
+    weight: 7
     third_party_settings: {  }
     region: content
   publish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 13
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -150,7 +173,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 10
+    weight: 8
     third_party_settings: {  }
     region: content
   title:
@@ -163,7 +186,7 @@ content:
     region: content
   uid:
     type: entity_reference_autocomplete
-    weight: 11
+    weight: 9
     settings:
       match_operator: CONTAINS
       size: 60
@@ -172,7 +195,7 @@ content:
     region: content
   unpublish_on:
     type: datetime_timestamp_no_default
-    weight: 30
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
