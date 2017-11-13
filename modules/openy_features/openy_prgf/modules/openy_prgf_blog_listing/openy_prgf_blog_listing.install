@@ -46,3 +46,32 @@ function openy_prgf_blog_listing_update_8002() {
     }
   }
 }
+
+/**
+ * Add Paragraph Blog Listing field_prgf_title & update configs.
+ */
+function openy_prgf_blog_listing_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_blog_listing');
+  $config_dir .= '/config/install/';
+
+  // Update multiple configurations.
+  $configs = [
+    'field.field.paragraph.blog_posts_listing.field_prgf_title' =>[
+      'description',
+    ],
+    'core.entity_form_display.paragraph.blog_posts_listing.default' => [
+      'content',
+    ],
+    'core.entity_view_display.paragraph.blog_posts_listing.default' => [
+      'content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
