@@ -3,11 +3,9 @@
 namespace Drupal\ymca_personify;
 
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use GuzzleHttp\Client;
-
 
 /**
  * Helper for Personify API requests needed for retention campaign.
@@ -45,7 +43,7 @@ class PersonifyApi implements PersonifyApiInterface {
    *
    * @var array
    */
-  protected $endpoint_settings;
+  protected $endpointSettings = [];
 
   /**
    * Creates a new PersonifyApi service.
@@ -61,7 +59,7 @@ class PersonifyApi implements PersonifyApiInterface {
     $this->client = $client;
     $this->config = $config;
     $this->logger = $logger_factory->get('ymca_personify');
-    $this->endpoint_settings = $this->getConfig();
+    $this->endpointSettings = $this->getConfig();
   }
 
   /**
@@ -98,8 +96,8 @@ class PersonifyApi implements PersonifyApiInterface {
    * @return string
    *   URL.
    */
-  public function buildAPIUrl($api) {
-    return $this->endpoint_settings['endpoint'] . $api;
+  public function buildApiUrl($api) {
+    return $this->endpointSettings['endpoint'] . $api;
   }
 
   /**
@@ -122,20 +120,22 @@ class PersonifyApi implements PersonifyApiInterface {
         'Content-Type' => 'application/json;charset=utf-8',
       ],
       'auth' => [
-        $this->endpoint_settings['username'],
-        $this->endpoint_settings['password'],
+        $this->endpointSettings['username'],
+        $this->endpointSettings['password'],
       ],
     ];
     try {
-      $url = $this->buildAPIUrl('CL_GetCustomerBranchInformation');
+      $url = $this->buildApiUrl('CL_GetCustomerBranchInformation');
       $response = $this->client->request('POST', $url, $options);
 
       if ($response->getStatusCode() != '200') {
         throw new \LogicException(t('API Method GetCustomerBranchInformation is failed.'));
       }
       $body = $response->getBody();
+
       return json_decode($body->getContents());
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       $this->logger->error('Failed to get Personify data: %msg', [
         '%msg' => $e->getMessage(),
       ]);
@@ -153,7 +153,7 @@ class PersonifyApi implements PersonifyApiInterface {
    *   Available date.
    * @param \DateTime $expiration_date
    *   Expiration date.
-   * @param string|NULL $branch
+   * @param string|null $branch
    *   Branch ID in Personify. One id or multiple split by coma.
    *
    * @return array
@@ -163,7 +163,7 @@ class PersonifyApi implements PersonifyApiInterface {
     $options = [
       'json' => [
         'CL_GetProductListingInput' => [
-          'ProductClassCode' => $product_class_code, // FW
+          'ProductClassCode' => $product_class_code,
           'ProductStatusCode' => 'A',
           'AvailableDate' => $available_date->format(DATETIME_DATETIME_STORAGE_FORMAT),
           'ExpirationDate' => $expiration_date->format(DATETIME_DATETIME_STORAGE_FORMAT),
@@ -174,8 +174,8 @@ class PersonifyApi implements PersonifyApiInterface {
         'Content-Type' => 'application/json;charset=utf-8',
       ],
       'auth' => [
-        $this->endpoint_settings['username'],
-        $this->endpoint_settings['password'],
+        $this->endpointSettings['username'],
+        $this->endpointSettings['password'],
       ],
     ];
     // If branch is not empty then add filter by branch.
@@ -184,7 +184,7 @@ class PersonifyApi implements PersonifyApiInterface {
     }
 
     try {
-      $url = $this->buildAPIUrl('CL_GetProductListing');
+      $url = $this->buildApiUrl('CL_GetProductListing');
       $response = $this->client->request('POST', $url, $options);
 
       if ($response->getStatusCode() != '200') {
@@ -192,7 +192,8 @@ class PersonifyApi implements PersonifyApiInterface {
       }
       $body = $response->getBody();
       return json_decode($body->getContents());
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
       $this->logger->error('Failed to get Personify data: %msg', [
         '%msg' => $e->getMessage(),
       ]);
