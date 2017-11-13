@@ -179,7 +179,7 @@ class PersonifyApi implements PersonifyApiInterface {
       ],
     ];
     // If branch is not empty then add filter by branch.
-    if (!empty($branch) & FALSE) {
+    if (!empty($branch)) {
       $options['json']['CL_GetProductListingInput']['BranchCodes'] = $branch;
     }
 
