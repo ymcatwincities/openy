@@ -6,3 +6,4 @@ package: "OpenY: Digital Signage"
 dependencies:
   - openy_digital_signage_classes_schedule
   - ymca_mappings
+  - ymca_personify
