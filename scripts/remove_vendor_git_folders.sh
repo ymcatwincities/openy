@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Remove .git folders from vendor folder to avoid git submodule issues for some
 # workflows.
-FOLDERS=('vendor' 'docroot/library' 'docroot/modules/contrib')
+FOLDERS=('vendor docroot/libraries docroot/modules/contrib')
 
 for folder in $FOLDERS
 do

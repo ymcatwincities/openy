@@ -17,6 +17,7 @@
 <p align="center">
   <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/v/ymcatwincities/openy-project.svg?style=flat-square"></a>
   <a href="https://packagist.org/packages/ymcatwincities/openy-project"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy-project.svg?style=flat-square"></a>
+  <a href="https://circleci.com/gh/ymcatwincities/openy-project"><img src="https://img.shields.io/circleci/project/github/ymcatwincities/openy-project/8.1.x.svg?style=flat-square"></a>
 </p>
 
 ***
@@ -70,7 +71,11 @@ Read more details on [CIBox VM](https://github.com/ymcatwincities/openy-cibox-vm
 Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) repo.
 
 # Use Fork for the development
-1. Add your repository to `composer.json`
+
+All development happens in the [Open Y Drupal 8 installation profile](https://github.com/ymcatwincities/openy). In order to start development:
+
+1. Create fork of [Open Y installation profile](https://github.com/ymcatwincities/openy)
+2. Add your repository to `composer.json`
 ```
 "repositories": [
     {
@@ -80,7 +85,7 @@ Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) 
 ]
 ```
 
-2. Change a version for `ymcatwincities/openy` to `dev-8.x-1.x` or any other branch. E.g.:
+3. Change a version for `ymcatwincities/openy` to `dev-8.x-1.x` or any other branch. E.g.:
 - branch name "bugfix" - version name `dev-bugfix`
 - branch name "feature/workflow" - version name `dev-feature/workflow`
 
@@ -95,8 +100,8 @@ Read more details on [Docksal](https://github.com/ymcatwincities/openy-docksal) 
 }
 ```
 
-3. Run `composer update` to update packages
-4. Add and commits changes in `docroot/profiles/contrib/openy`. Now it should be pointed to your fork.
+4. Run `composer update` to update packages
+5. Add and commits changes in `docroot/profiles/contrib/openy`. Now it should be pointed to your fork.
 
 # Directory structure
 | Directory | Purpose |

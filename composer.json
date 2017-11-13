@@ -116,6 +116,30 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/colordialog",
+                "version": "4.7.0",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/colordialog/releases/colordialog_4.7.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-ckeditor/glyphicons",
+                "version": "2.2",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "http://download.ckeditor.com/glyphicons/releases/glyphicons_2.2.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
