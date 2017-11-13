@@ -201,6 +201,14 @@ function openy_digital_signage_personify_clean_session_title(OpenYClassesPersoni
   return trim($title_parts[0]);
 }
 
+/**
+ * Create Personify sessions.
+ *
+ * @param \Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession $entity
+ *   Personify class entity.
+ * @param \Drupal\openy_digital_signage_room\Entity\OpenYRoom $room
+ *   Room entity.
+ */
 function openy_digital_signage_personify_create_sessions(OpenYClassesPersonifySession $entity, OpenYRoom $room) {
   // Get Personify class expired date.
   $expired_date = new \DateTime($entity->get('date')->end_value);
