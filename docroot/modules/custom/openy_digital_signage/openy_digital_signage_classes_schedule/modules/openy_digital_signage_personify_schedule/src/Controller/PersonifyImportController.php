@@ -4,6 +4,10 @@ namespace Drupal\openy_digital_signage_personify_schedule\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession;
+use Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyFetcher;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Import sessions from Personify.
@@ -13,9 +17,42 @@ use Drupal\Core\Url;
 class PersonifyImportController extends ControllerBase {
 
   /**
+   * Personify Fetcher.
+   *
+   * @var \Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyFetcher
+   */
+  public $personifyFetcher;
+
+  /**
+   * Creates data fetcher service.
+   *
+   * @param OpenYSessionsPersonifyFetcher $personifyFetcher
+   *   GroupEx Fetcher.
+   */
+  public function __construct(OpenYSessionsPersonifyFetcher $personifyFetcher) {
+    $this->personifyFetcher = $personifyFetcher;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('openy_digital_signage_personify_schedule.fetcher')
+    );
+  }
+
+  /**
    * Run batch to import sessions from Personify.
    */
   public function importSessions() {
+    $locations = $this->personifyFetcher->getLocations();
+    if (empty($locations)) {
+      drupal_set_message($this->t('Locations are not set in Personify settings. Please specify locations you want to use and try again.'), 'error');
+      $url = new Url('entity.openy_ds_classes_session.collection');
+      return new RedirectResponse($url->toString());
+    }
+
     $operations = [
       [[get_class($this), 'fetchFeeds'], []],
       [[get_class($this), 'checkDeleted'], []],
@@ -40,26 +77,24 @@ class PersonifyImportController extends ControllerBase {
    *   The batch context.
    */
   public static function fetchFeeds(&$context) {
+    /* @var \Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyFetcher $service */
     $service = \Drupal::service('openy_digital_signage_personify_schedule.fetcher');
 
-    if (empty($context['results']['locations'])) {
-      $locations = $service->getLocations();
-      $context['results']['locations'] = array_values($locations);
-      $context['sandbox']['max'] = count($locations);
+    if (empty($context['results']['branch_codes'])) {
+      $context['results']['branch_codes'] = $service->getLocationBranchCodes();
+      $context['sandbox']['max'] = 1;
       $context['sandbox']['progress'] = 0;
     }
 
-    $location = $context['results']['locations'][$context['sandbox']['progress']];
-
-    /* @var \Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyFetcher $service */
-    $context['results']['feeds'][$location] = $service->fetchLocationFeed($location);
+    $context['results']['feed'] = $service->fetchLocationsFeed($context['results']['branch_codes']);
 
     $context['sandbox']['progress']++;
 
-    $context['message'] = \Drupal::translation()->translate('Pulling Personify feeds: @progress out of @total', [
-      '@progress' => $context['sandbox']['progress'],
-      '@total' => $context['sandbox']['max'],
-    ]);
+    $context['message'] = \Drupal::translation()
+      ->translate('Pulling Personify feeds: @progress out of @total', [
+        '@progress' => $context['sandbox']['progress'],
+        '@total' => $context['sandbox']['max'],
+      ]);
 
     if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
@@ -80,7 +115,8 @@ class PersonifyImportController extends ControllerBase {
       $context['sandbox']['datetime'] = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
       $query = \Drupal::entityQuery('openy_ds_class_personify_session')
-        ->condition('date_time.value', $context['sandbox']['datetime'], '>')
+        ->condition('date.value', $context['sandbox']['datetime'], '<')
+        ->condition('date.end_value', $context['sandbox']['datetime'], '>')
         ->count();
       $context['sandbox']['max'] = $query->execute();
       $context['sandbox']['current'] = 0;
@@ -89,11 +125,13 @@ class PersonifyImportController extends ControllerBase {
 
     $query = \Drupal::entityQuery('openy_ds_class_personify_session')
       ->condition('id', $context['sandbox']['current'], '>')
-      ->condition('date_time.value', $context['sandbox']['datetime'], '>')
+      ->condition('date.value', $context['sandbox']['datetime'], '<')
+      ->condition('date.end_value', $context['sandbox']['datetime'], '>')
       ->sort('id')
       ->range(0, 10);
     $ids = $query->execute();
-    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_class_personify_session');
+    $storage = \Drupal::entityTypeManager()
+      ->getStorage('openy_ds_class_personify_session');
     $entities = $storage->loadMultiple($ids);
 
     if (!$entities) {
@@ -101,20 +139,20 @@ class PersonifyImportController extends ControllerBase {
     }
 
     foreach ($entities as $entity) {
-      $id = $entity->personify_id->value;
-      $location = $entity->location->target_id;
-      $loc = \Drupal::service('ymca_mappings.location_repository')->findByLocationId($location);
-      if (!isset($context['results']['feeds'][$loc->id()][$id])) {
-        $context['results']['to_be_deleted'][] = $id;
+      /* @var OpenYClassesPersonifySession $entity */
+      $id = $entity->get('personify_id')->value;
+      if (!isset($context['results']['feed'][$id])) {
+        $context['results']['to_be_deleted'][] = $entity->id();
       }
       $context['sandbox']['current'] = $id;
       $context['sandbox']['progress']++;
     }
 
-    $context['message'] = \Drupal::translation()->translate('Checking removed sessions: @progress out of @total', [
-      '@progress' => $context['sandbox']['progress'],
-      '@total' => $context['sandbox']['max'],
-    ]);
+    $context['message'] = \Drupal::translation()
+      ->translate('Checking removed sessions: @progress out of @total', [
+        '@progress' => $context['sandbox']['progress'],
+        '@total' => $context['sandbox']['max'],
+      ]);
 
     if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
@@ -137,16 +175,20 @@ class PersonifyImportController extends ControllerBase {
     }
 
     $ids = array_splice($context['results']['to_be_deleted'], 0, 10);
-    $storage = \Drupal::entityTypeManager()->getStorage('openy_ds_class_personify_session');
-    $entities = $storage->loadMultiple($ids);
-    $storage->delete($entities);
+    if (!empty($ids)) {
+      $storage = \Drupal::entityTypeManager()
+        ->getStorage('openy_ds_class_personify_session');
+      $entities = $storage->loadMultiple($ids);
+      $storage->delete($entities);
+    }
 
     $context['sandbox']['progress'] += count($ids);
 
-    $context['message'] = \Drupal::translation()->translate('Checking removed sessions: @progress out of @total', [
-      '@progress' => $context['sandbox']['progress'],
-      '@total' => $context['sandbox']['max'],
-    ]);
+    $context['message'] = \Drupal::translation()
+      ->translate('Checking removed sessions: @progress out of @total', [
+        '@progress' => $context['sandbox']['progress'],
+        '@total' => $context['sandbox']['max'],
+      ]);
 
     if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
@@ -164,36 +206,26 @@ class PersonifyImportController extends ControllerBase {
    */
   public static function processBatch(&$context) {
     if (empty($context['results']['pulled'])) {
-      $context['sandbox']['max'] = 0;
-      foreach ($context['results']['feeds'] as $location_feed) {
-        $context['sandbox']['max'] += count($location_feed);
-      }
+      $context['sandbox']['max'] = count($context['results']['feed']);
       $context['sandbox']['progress'] = 0;
-      $context['sandbox']['location'] = 0;
     }
 
-    $location = $context['results']['locations'][$context['sandbox']['location']];
-    if (!$context['results']['feeds'][$location]) {
-      $context['sandbox']['location']++;
-      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
-      return;
-    }
-
-    $feed_part = array_splice($context['results']['feeds'][$location], 0, 30);
+    $feed_part = array_splice($context['results']['feed'], 0, 10);
     /* @var \Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyFetcher $service */
     $service = \Drupal::service('openy_digital_signage_personify_schedule.fetcher');
-    $service->processData($feed_part, $location);
-    if (!isset($context['results']['pulled'][$location])) {
-      $context['results']['pulled'][$location] = 0;
+    $service->processData($feed_part);
+    if (!isset($context['results']['pulled'])) {
+      $context['results']['pulled'] = 0;
     }
-    $context['results']['pulled'][$location] += count($feed_part);
+    $context['results']['pulled'] += count($feed_part);
 
     $context['sandbox']['progress'] += count($feed_part);
 
-    $context['message'] = \Drupal::translation()->translate('Importing pulled items: @progress out of @total', [
-      '@progress' => $context['sandbox']['progress'],
-      '@total' => $context['sandbox']['max'],
-    ]);
+    $context['message'] = \Drupal::translation()
+      ->translate('Importing pulled items: @progress out of @total', [
+        '@progress' => $context['sandbox']['progress'],
+        '@total' => $context['sandbox']['max'],
+      ]);
 
     if ($context['sandbox']['progress'] < $context['sandbox']['max']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
@@ -216,7 +248,7 @@ class PersonifyImportController extends ControllerBase {
   public static function finishBatch($success, $results, $operations) {
     if ($success) {
       $message = \Drupal::translation()
-        ->formatPlural(count($results['pulled']), 'Imported all sessions for one location.', 'Imported all session for @count locations.');
+        ->formatPlural(count($results['branch_codes']), 'Imported all sessions for one location.', 'Imported all session for @count locations.');
     }
     else {
       $message = t('Finished with an error.');

@@ -126,12 +126,47 @@ class OpenYClassesPersonifySession extends ContentEntityBase implements OpenYCla
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
-    $fields['date_time'] = BaseFieldDefinition::create('daterange')
+    $fields['date'] = BaseFieldDefinition::create('daterange')
       ->setLabel(t('Date and time'))
-      ->setDescription(t('The date and time when session happens.'))
+      ->setDescription(t('The date and time when session starts and expires.'))
       ->setRevisionable(FALSE)
       ->setTranslatable(FALSE)
       ->setRequired(TRUE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
+    $fields['repeat'] = BaseFieldDefinition::create('text')
+      ->setLabel(t('Repeat settings'))
+      ->setDescription(t('Repeat settings for the class.'))
+      ->setRevisionable(FALSE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
+    $fields['canceled'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Canceled'))
+      ->setDescription(t('Indicates that sessions is canceled or not.'))
+      ->setRevisionable(FALSE)
+      ->setDefaultValue(FALSE)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
+    $fields['start_time'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Start Time'))
+      ->setDescription(t('Start time.'))
+      ->setRequired(TRUE)
+      ->setTranslatable(TRUE)
+      ->setRevisionable(FALSE)
+      ->setSetting('max_length', 255)
+      ->setDisplayConfigurable('view', FALSE)
+      ->setDisplayConfigurable('form', FALSE);
+
+    $fields['end_time'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('End Time'))
+      ->setDescription(t('End time.'))
+      ->setRequired(TRUE)
+      ->setTranslatable(TRUE)
+      ->setRevisionable(FALSE)
+      ->setSetting('max_length', 255)
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
@@ -145,30 +180,11 @@ class OpenYClassesPersonifySession extends ContentEntityBase implements OpenYCla
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
-    $fields['category'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Category'))
-      ->setDescription(t('Category.'))
-      ->setRequired(TRUE)
-      ->setTranslatable(TRUE)
-      ->setRevisionable(FALSE)
-      ->setSetting('max_length', 255)
-      ->setDisplayConfigurable('view', FALSE)
-      ->setDisplayConfigurable('form', FALSE);
-
-    $fields['instructor'] = BaseFieldDefinition::create('text')
+    $fields['instructor'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Instructor name'))
       ->setDescription(t('Name of an instructor in a branch.'))
       ->setTranslatable(TRUE)
       ->setRevisionable(FALSE)
-      ->setDisplayConfigurable('view', FALSE)
-      ->setDisplayConfigurable('form', FALSE);
-
-    $fields['original_instructor'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Full instructor name'))
-      ->setDescription(t('Name of an instructor in a branch.'))
-      ->setTranslatable(TRUE)
-      ->setRevisionable(FALSE)
-      ->setSetting('max_length', 255)
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
@@ -180,15 +196,9 @@ class OpenYClassesPersonifySession extends ContentEntityBase implements OpenYCla
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 
-    $fields['length'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Length of the session'))
-      ->setDescription(t('Length of the session.'))
-      ->setDisplayConfigurable('view', FALSE)
-      ->setDisplayConfigurable('form', FALSE);
-
-    $fields['description'] = BaseFieldDefinition::create('text_long')
-      ->setLabel(t('Session description'))
-      ->setDescription(t('Session description.'))
+    $fields['raw_data'] = BaseFieldDefinition::create('text_long')
+      ->setLabel(t('Raw Personify data'))
+      ->setDescription(t('Raw Personify data.'))
       ->setRevisionable(FALSE)
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
@@ -198,13 +208,6 @@ class OpenYClassesPersonifySession extends ContentEntityBase implements OpenYCla
       ->setDescription(t('Indicates that sessions is canceled or not.'))
       ->setRevisionable(FALSE)
       ->setDefaultValue(FALSE)
-      ->setDisplayConfigurable('view', FALSE)
-      ->setDisplayConfigurable('form', FALSE);
-
-    $fields['raw_data'] = BaseFieldDefinition::create('text_long')
-      ->setLabel(t('Raw Personify data'))
-      ->setDescription(t('Raw Personify data.'))
-      ->setRevisionable(FALSE)
       ->setDisplayConfigurable('view', FALSE)
       ->setDisplayConfigurable('form', FALSE);
 

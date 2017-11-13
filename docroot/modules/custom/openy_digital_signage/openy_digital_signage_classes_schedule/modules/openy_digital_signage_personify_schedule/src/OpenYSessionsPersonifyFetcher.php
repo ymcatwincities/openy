@@ -6,6 +6,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession;
 use Drupal\ymca_mappings\LocationMappingRepository;
+use Drupal\ymca_personify\PersonifyApi;
 
 /**
  * Fetch data from Personify.
@@ -54,33 +55,6 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
   /**
    * {@inheritdoc}
    */
-  public function fetchLocation($location_id) {
-    if (!$data = $this->fetchLocationFeed($location_id)) {
-      return;
-    }
-    if ($ids = $this->checkDeleted($data, $location_id)) {
-      $this->removeDeleted($ids);
-    }
-    $this->processData($data, $location_id);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fetchLocationFeed($location_id) {
-    /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
-    $location = $this->locationRepository->load($location_id);
-    if (empty($location)) {
-      return [];
-    }
-    $feed = [];
-
-    return $feed;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getLocations() {
     $locations = $this->configFactory
       ->get('openy_digital_signage_personify_schedule.settings')
@@ -90,41 +64,118 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
   }
 
   /**
-   * {@inheritdoc}
+   * Get a ist of Personify branch codes.
+   *
+   * @return array
+   *   Personify branch codes.
    */
-  public function fetchAll() {
+  public function getLocationBranchCodes() {
+    $branches = [];
     $locations = $this->getLocations();
     if (empty($locations)) {
-      return;
+      return $branches;
     }
 
-    // Get schedule items.
+    // Build a list of Personify branch ids.
+    $branches = [];
     foreach ($locations as $id) {
-      $this->fetchLocation($id);
+      /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
+      $location = $this->locationRepository->load($id);
+      if (empty($location)) {
+        continue;
+      }
+      $branches[] = (int) $location->get('field_location_personify_brcode')->value;
     }
+
+    return $branches;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function checkDeleted($feed, $location_id) {
+  public function fetchLocationsFeed($branches) {
+    $feed = [];
+    $available_date = new \DateTime();
+    $available_date->setTime(0, 0, 0);
+    $expiration_date = new \DateTime();
+    $expiration_date->setTime(0, 0, 0);
+    $branch_ids = implode(',', $branches);
+    /* @var PersonifyApi $api */
+    $api = \Drupal::service('ymca_personify.personify_api');
+    /* @var \stdClass $response */
+    $response = $api->getProductListing('FW', $available_date, $expiration_date, $branch_ids);
+
+    if (empty($response) || empty($response->ProductListingRecord)) {
+      return $feed;
+    }
+
+    $date = new \DateTime();
+    $date->setTime(0, 0, 0);
+    foreach ($response->ProductListingRecord as $product) {
+      // If branch not equal to branch from settings then skip.
+      if (!in_array((int) $product->Branch, $branches)) {
+        continue;
+      }
+      // If product already expired then skip.
+      $expr_date = new \DateTime($product->ExpirationDate);
+      if ($date > $expr_date) {
+        continue;
+      }
+
+      $feed[$product->ProductId] = $product;
+    }
+
+    return $feed;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fetchAll() {
+    $branch_codes = $this->getLocationBranchCodes();
+    if (empty($branch_codes)) {
+      return;
+    }
+
+    // Get schedule items.
+    if (!$data = $this->fetchLocationsFeed($branch_codes)) {
+      return;
+    }
+
+    if ($ids = $this->checkDeleted($data)) {
+      $this->removeDeleted($ids);
+    }
+    $this->processData($data);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function checkDeleted($feed) {
     $to_be_deleted = [];
 
     $date = new \DateTime();
     $date->setTimestamp(REQUEST_TIME);
     $formatted = $date->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
-    $storage = $this->entityTypeManager->getStorage('openy_ds_class_personify_session');
-    $query = $storage->getQuery()
-      ->condition('location', $location_id)
-      ->condition('date_time.value', $formatted, '>');
+    $locations = $this->getLocations();
+    if (empty($locations)) {
+      return $to_be_deleted;
+    }
 
+    $storage = $this->entityTypeManager->getStorage('openy_ds_class_personify_session');
+
+    $query = $storage->getQuery()
+      ->condition('location', array_values($locations), 'IN')
+      ->condition('date.value', $formatted, '<')
+      ->condition('date.end_value', $formatted, '>');
     $ids = $query->execute();
 
     while ($part = array_splice($ids, 0, 10)) {
       $entities = $storage->loadMultiple($part);
       foreach ($entities as $entity) {
-        $id = $entity->personify_id->value;
+        /* @var OpenYClassesPersonifySession $entity */
+        $id = $entity->get('personify_id')->value;
         if (!isset($feed[$id])) {
           $to_be_deleted[] = $id;
         }
@@ -150,17 +201,20 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
   /**
    * {@inheritdoc}
    */
-  public function processData(array $data, $location_id) {
-    /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
-    $location = $this->locationRepository->load($location_id);
+  public function processData(array $data) {
     $entity_manager = $this->entityTypeManager->getStorage('openy_ds_class_personify_session');
     foreach ($data as $item) {
-      $entity = $entity_manager->loadByProperties(['personify_id' => $item->id]);
+      $entity = $entity_manager->loadByProperties([
+        'personify_id' => $item->ProductId,
+      ]);
       if (is_array($entity)) {
         $entity = reset($entity);
       }
       /* @var OpenYClassesPersonifySession $entity */
       if (empty($entity)) {
+        $locations = $this->locationRepository->findByLocationPersonifyBranchCode($item->Branch);
+        /* @var \Drupal\ymca_mappings\Entity\Mapping $location */
+        $location = reset($locations);
         $this->createEntity($item, $location->get('field_location_ref')->target_id);
       }
       elseif ($entity instanceof OpenYClassesPersonifySession) {
@@ -183,20 +237,22 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
     $session = $this->entityTypeManager
       ->getStorage('openy_ds_class_personify_session')
       ->create([
-        'personify_id' => $item->id,
+        'personify_id' => $item->ProductId,
         'hash' => md5($json),
         'location' => ['target_id' => $location],
-        'title' => $item->title,
-        'date_time' => $this->getDateTimeValue($item),
-        'studio' => $item->studio,
-        'category' => $item->category,
-        'instructor' => $item->instructor,
-        'original_instructor' => $item->original_instructor,
-        'sub_instructor' => $item->sub_instructor,
-        'length' => $item->length,
-        'description' => $item->desc,
+        'title' => $item->ShortName,
+        'date' => [
+          'value' => $item->AvailableDate,
+          'end_value' => $item->ExpirationDate,
+        ],
+        'repeat' => $this->getRepeatSettings($item),
+        'start_time' => $item->StartTime,
+        'end_time' => $item->EndTime,
+        'studio' => $item->Room,
+        'instructor' => $this->getInstructorName($item),
+        'sub_instructor' => '',
+        'canceled' => $this->getCanceledStatus($item),
         'raw_data' => $json,
-        'canceled' => isset($item->canceled) && $item->canceled == 'true',
       ]);
     $session->save();
   }
@@ -215,41 +271,105 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
     if ($entity->get('hash')->value == $hash) {
       return;
     }
-    $entity->set('title', $item->title);
-    $entity->set('date_time', $this->getDateTimeValue($item));
-    $entity->set('studio', $item->studio);
-    $entity->set('category', $item->category);
-    $entity->set('instructor', $item->instructor);
-    $entity->set('original_instructor', $item->original_instructor);
-    $entity->set('sub_instructor', $item->sub_instructor);
-    $entity->set('length', $item->length);
-    $entity->set('description', $item->desc);
+    $repeat_settings = $this->getRepeatSettings($item);
+    if ($repeat_settings != $entity->get('repeat')->value) {
+      // Set marker which is used in the hook_entity_update to identify that
+      // sessions have to be recreated.
+      $entity->update_repeat = true;
+      $entity->set('repeat', $repeat_settings);
+    }
+    $entity->set('title', $item->ShortName);
+    $entity->set('studio', $item->Room);
+    $entity->set('date', [
+      'value' => $item->AvailableDate,
+      'end_value' => $item->ExpirationDate,
+    ]);
+    $entity->set('start_time', $item->StartTime);
+    $entity->set('end_time', $item->EndTime);
+    $entity->set('instructor', $this->getInstructorName($item));
+    $entity->set('sub_instructor', $this->getSubstituteInstructorName($entity, $item));
     $entity->set('raw_data', $json);
+    $entity->set('canceled', $this->getCanceledStatus($item));
     $entity->set('hash', $hash);
-    $entity->set('canceled', isset($item->canceled) && $item->canceled == 'true');
     $entity->save();
   }
 
   /**
-   * Convert date and time from Personify to Drupal field format.
+   * Find instructor name.
+   *
+   * @param \stdClass $item
+   *   Data from Personify.
+   *
+   * @return string
+   *   Instructor name.
+   */
+  protected function getInstructorName(\stdClass $item) {
+    $instructor = '';
+    if (empty($item->RelatedCustomerInformation)) {
+      return $instructor;
+    }
+    $customer_info = reset($item->RelatedCustomerInformation);
+    if (empty($customer_info) || empty($customer_info->Evaluation) || $customer_info->Relationship != 'INSTRUCTOR') {
+      return $instructor;
+    }
+
+    return $customer_info->Evaluation;
+  }
+
+  /**
+   * Get substitute instructor name.
+   *
+   * @param \Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession $entity
+   *   Personify Class entity.
+   * @param \stdClass $item
+   *   Data from Personify.
+   *
+   * @return string
+   *   Substitute instructor or empty string.
+   */
+  protected function getSubstituteInstructorName(OpenYClassesPersonifySession $entity, \stdClass $item) {
+    $instructor_name = $entity->get('instructor')->value;
+    $new_instructor_name = $this->getInstructorName($item);
+
+    return $instructor_name != $new_instructor_name ? $new_instructor_name : '';
+  }
+
+  /**
+   * Get class repeat settings.
    *
    * @param \stdClass $item
    *   Data from Personify.
    *
    * @return array
-   *   Date and time range.
+   *   Class repeat settings.
    */
-  protected function getDateTimeValue(\stdClass $item) {
-    // @todo  To think in the future about the move this parser out of this class and store raw data from Personify.
-    $time = explode('-', $item->time);
-    $start_date = new \DateTime($item->date . ' ' . $time[0]);
-    $start_date->setTimezone(new \DateTimeZone('UTC'));
-    $end_date = new \DateTime($item->date . ' ' . $time[1]);
-    $end_date->setTimezone(new \DateTimeZone('UTC'));
-    return [
-      'value' => $start_date->format('Y-m-d\TH:i:s'),
-      'end_value' => $end_date->format('Y-m-d\TH:i:s'),
+  protected function getRepeatSettings(\stdClass $item) {
+    $settings = [
+      'week_day' => [
+        'monday' => $item->MondayFlag,
+        'tuesday' => $item->TuesdayFlag,
+        'wednesday' => $item->WednesdayFlag,
+        'thursday' => $item->ThursdayFlag,
+        'friday' => $item->FridayFlag,
+        'saturday' => $item->SaturdayFlag,
+        'sunday' => $item->SundayFlag,
+      ],
     ];
+
+    return serialize($settings);
+  }
+
+  /**
+   * Get canceled status.
+   *
+   * @param \stdClass $item
+   *   Data from Personify.
+   *
+   * @return bool
+   *   Canceled or not.
+   */
+  protected function getCanceledStatus(\stdClass $item) {
+    return FALSE;
   }
 
 }

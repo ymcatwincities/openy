@@ -18,14 +18,6 @@ interface OpenYSessionsPersonifyFetcherInterface {
   public function getLocations();
 
   /**
-   * Import sessions for specific location.
-   *
-   * @param int $location_id
-   *   Mapping location id.
-   */
-  public function fetchLocation($location_id);
-
-  /**
    * Fetch from Personify.
    */
   public function fetchAll();
@@ -35,13 +27,11 @@ interface OpenYSessionsPersonifyFetcherInterface {
    *
    * @param array $feed
    *   Pulled Personify pro feed.
-   * @param int $location_id
-   *   The location id.
    *
    * @return array
    *   The array on entity ids to be deleted.
    */
-  public function checkDeleted($feed, $location_id);
+  public function checkDeleted($feed);
 
   /**
    * Removes entities by chunks.
@@ -56,9 +46,7 @@ interface OpenYSessionsPersonifyFetcherInterface {
    *
    * @param array $data
    *   Data received from Personify.
-   * @param int $location_id
-   *   Location node id.
    */
-  public function processData(array $data, $location_id);
+  public function processData(array $data);
 
 }
