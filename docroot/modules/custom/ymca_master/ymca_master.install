@@ -4695,7 +4695,7 @@ function ymca_master_update_8213() {
 }
 
 /**
- * [YPTF-264] Configure MindBody Cache Proxy settings.
+ * YPTF-264 Configure MindBody Cache Proxy settings.
  */
 function ymca_master_update_8215() {
   // Change max_length for mindbody_cache name column.
