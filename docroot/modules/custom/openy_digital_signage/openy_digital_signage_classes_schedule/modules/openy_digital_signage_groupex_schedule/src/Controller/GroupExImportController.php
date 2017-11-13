@@ -4,6 +4,9 @@ namespace Drupal\openy_digital_signage_groupex_schedule\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Url;
+use Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Import sessions from GroupEx Pro.
@@ -13,9 +16,42 @@ use Drupal\Core\Url;
 class GroupExImportController extends ControllerBase {
 
   /**
+   * GroupEx Fetcher.
+   *
+   * @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher
+   */
+  public $groupExFetcher;
+
+  /**
+   * Creates data fetcher service.
+   *
+   * @param OpenYSessionsGroupExFetcher $groupExFetcher
+   *   GroupEx Fetcher.
+   */
+  public function __construct(OpenYSessionsGroupExFetcher $groupExFetcher) {
+    $this->groupExFetcher = $groupExFetcher;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('openy_digital_signage_groupex_schedule.fetcher')
+    );
+  }
+
+  /**
    * Run batch to import sessions from GroupEx Pro.
    */
   public function importSessions() {
+    $locations = $this->groupExFetcher->getLocations();
+    if (empty($locations)) {
+      drupal_set_message($this->t('Locations are not set in GroupEx Pro settings. Please specify locations you want to use and try again.'), 'error');
+      $url = new Url('entity.openy_ds_classes_session.collection');
+      return new RedirectResponse($url->toString());
+    }
+
     $operations = [
       [[get_class($this), 'fetchFeeds'], []],
       [[get_class($this), 'checkDeleted'], []],

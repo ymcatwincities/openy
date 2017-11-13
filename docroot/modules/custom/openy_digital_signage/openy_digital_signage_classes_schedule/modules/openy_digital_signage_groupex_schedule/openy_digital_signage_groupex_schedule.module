@@ -9,6 +9,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession;
+use Drupal\openy_digital_signage_groupex_schedule\Entity\OpenYClassesGroupExSession;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -126,23 +127,31 @@ function openy_digital_signage_groupex_schedule_entity_update(EntityInterface $e
  * Implements hook_entity_delete().
  */
 function openy_digital_signage_groupex_schedule_entity_delete(EntityInterface $entity) {
-  if ($entity->getEntityTypeId() != 'openy_ds_classes_session') {
-    return;
+  switch ($entity->getEntityTypeId()) {
+    case 'openy_ds_classes_session':
+      /* @var OpenYClassesSession $entity */
+      if (empty($entity->get('source_id')->value)) {
+        break;
+      }
+      // While removing Classes Session by cron remove GroupEx Entity
+      // used while Classes Session created.
+      $entity_manager = \Drupal::entityTypeManager()
+        ->getStorage('openy_ds_classes_groupex_session');
+      $groupex_entity = $entity_manager->loadByProperties([
+        'groupex_id' => $entity->get('source_id')->value,
+      ]);
+      if (empty($groupex_entity)) {
+        return;
+      }
+      $groupex_entity = reset($groupex_entity);
+      $groupex_entity->delete();
+      break;
+
+    case 'openy_ds_classes_groupex_session':
+      /* @var OpenYClassesGroupExSession $entity */
+      openy_digital_signage_classes_schedule_delete_sessions_by_source_id($entity->get('groupex_id')->value);
+      break;
   }
-  if (empty($entity->get('source_id')->value)) {
-    return;
-  }
-  // While removing Classes Session remove GroupEx Entity used while Classes Session created.
-  $entity_manager = \Drupal::entityTypeManager()
-    ->getStorage('openy_ds_classes_groupex_session');
-  $groupex_entity = $entity_manager->loadByProperties([
-    'groupex_id' => $entity->get('source_id')->value,
-  ]);
-  if (empty($groupex_entity)) {
-    return;
-  }
-  $groupex_entity = reset($groupex_entity);
-  $groupex_entity->delete();
 }
 
 /**
