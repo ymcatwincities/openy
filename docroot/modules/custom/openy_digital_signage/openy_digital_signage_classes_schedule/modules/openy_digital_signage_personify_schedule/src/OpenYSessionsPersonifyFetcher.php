@@ -275,7 +275,7 @@ class OpenYSessionsPersonifyFetcher implements OpenYSessionsPersonifyFetcherInte
     if ($repeat_settings != $entity->get('repeat')->value) {
       // Set marker which is used in the hook_entity_update to identify that
       // sessions have to be recreated.
-      $entity->update_repeat = true;
+      $entity->update_repeat = TRUE;
       $entity->set('repeat', $repeat_settings);
     }
     $entity->set('title', $item->ShortName);
