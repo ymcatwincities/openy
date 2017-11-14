@@ -269,6 +269,12 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     }
 
     $landingPage = $this->getActiveCampaignPage($campaign);
+
+    // Show Pause page without the permissions check.
+    if ($campaign->get('field_pause_campaign')->value) {
+      return $landingPage;
+    }
+
     foreach ($campaignMenu[$landingPage->id()]['links'] as $k => $link) {
       if (empty($link['page'])) {
         continue;
