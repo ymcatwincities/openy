@@ -54,11 +54,15 @@ function openy_prgf_blog_listing_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_prgf_blog_listing');
   $config_dir .= '/config/install/';
 
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.paragraph.blog_posts_listing.field_prgf_title',
+  ]);
+
   // Update multiple configurations.
   $configs = [
-    'field.field.paragraph.blog_posts_listing.field_prgf_title' =>[
-      'description',
-    ],
     'core.entity_form_display.paragraph.blog_posts_listing.default' => [
       'content',
     ],

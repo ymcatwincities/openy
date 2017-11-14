@@ -27,11 +27,15 @@ function openy_prgf_blog_latest_update_8002() {
   $config_dir = drupal_get_path('module', 'openy_prgf_blog_latest');
   $config_dir .= '/config/install/';
 
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.paragraph.latest_blog_posts.field_prgf_title',
+  ]);
+
   // Update multiple configurations.
   $configs = [
-    'field.field.paragraph.latest_blog_posts.field_prgf_title' =>[
-      'description',
-    ],
     'core.entity_form_display.paragraph.latest_blog_posts.default' => [
       'content',
     ],
