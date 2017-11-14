@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\openy_digital_signage_groupex_schedule;
+namespace Drupal\openy_digital_signage_classes_schedule;
 
 /**
- * Provides an interface for cron methods.
+ * Provides an interface for cron methods to import data from 3rd party services.
  *
- * @ingroup openy_digital_signage_groupex_schedule
+ * @ingroup openy_digital_signage_classes_schedule
  */
-interface OpenYSessionsGroupExCronInterface {
+interface OpenYSessionsCronImporterInterface {
 
   /**
    * Checks if import is allowed.
@@ -21,7 +21,7 @@ interface OpenYSessionsGroupExCronInterface {
   public function isAllowed($allow_often = FALSE);
 
   /**
-   * Import sessions from GroupEx Pro.
+   * Import sessions from 3rd party service.
    */
   public function importSessions();
 

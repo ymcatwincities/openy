@@ -5,9 +5,252 @@
  * Contains specific features related to the functionality provided by module.
  */
 
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession;
+use Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession;
+use Drupal\openy_digital_signage_room\Entity\OpenYRoom;
+
+/**
+ * Implements hook_help().
+ */
+function openy_digital_signage_personify_schedule_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'system.admin_openy_digital_signage_personify_schedule_settings':
+      $output = '';
+      $output .= '<h3>' . t('Personify settings') . '</h3>';
+      $output .= '<p>' . t('Specify locations you want to use for import from Personify. Only selected locations are used to import sessions.') . '</p>';
+      $output .= '<p>';
+      $output .= t('To configure mapping with Personify go to the @url.', [
+        '@url' => Link::fromTextAndUrl('Locations Mapping page', Url::fromRoute('view.location_mapping.page_1'))
+          ->toString(),
+      ]);
+      $output .= '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_create().
+ */
+function openy_digital_signage_personify_schedule_entity_create(EntityInterface $entity) {
+  /* @var OpenYClassesPersonifySession $entity */
+  if ($entity->getEntityTypeId() != 'openy_ds_class_personify_session') {
+    return;
+  }
+  /* @var \Drupal\openy_digital_signage_room\OpenYRoomManager $room_manager */
+  $room_manager = \Drupal::service('openy_digital_signage_room.manager');
+  $room = $room_manager->getOrCreateRoomByExternalId($entity->get('studio')->value, $entity->get('location')->target_id, 'personify');
+  if (!$room || !$room->status->value) {
+    return;
+  }
+
+  openy_digital_signage_personify_create_sessions($entity, $room);
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function openy_digital_signage_personify_schedule_entity_update(EntityInterface $entity) {
+  /* @var OpenYClassesPersonifySession $entity */
+  if ($entity->getEntityTypeId() != 'openy_ds_class_personify_session') {
+    return;
+  }
+  // Get sessions.
+  $entity_manager = \Drupal::entityTypeManager()
+    ->getStorage('openy_ds_classes_session');
+  $sessions = $entity_manager->loadByProperties([
+    'source_id' => $entity->get('personify_id')->value,
+  ]);
+  if (empty($sessions)) {
+    return;
+  }
+
+  /* @var \Drupal\openy_digital_signage_room\OpenYRoomManager $room_manager */
+  $room_manager = \Drupal::service('openy_digital_signage_room.manager');
+  $room = $room_manager->getOrCreateRoomByExternalId($entity->get('studio')->value, $entity->get('location')->target_id, 'personify');
+  if (!$room || !$room->status->value) {
+    foreach ($sessions as $session) {
+      $session->leave_parrent = TRUE;
+      $session->delete();
+    }
+    return;
+  }
+
+  // Repeat settings were updated, all sessions have to be recreated.
+  if (isset($entity->update_repeat) && $entity->update_repeat) {
+    foreach ($sessions as $session) {
+      $session->leave_parrent = TRUE;
+      $session->delete();
+    }
+    openy_digital_signage_personify_create_sessions($entity, $room);
+    return;
+  }
+
+  // Update sessions.
+  foreach ($sessions as $session) {
+    $title = openy_digital_signage_personify_clean_session_title($entity);
+    $session->set('title', $title);
+    $session->set('status', !$entity->get('canceled')->value);
+    $session->set('room', [
+      'target_id' => $room->id(),
+    ]);
+    $session->set('instructor', $entity->get('instructor')->value);
+    $session->set('sub_instructor', $entity->get('sub_instructor')->value);
+    $session->set('overridden', FALSE);
+    $session->save();
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function openy_digital_signage_personify_schedule_entity_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() != 'openy_ds_classes_session') {
+    return;
+  }
+  /* @var OpenYClassesSession $entity */
+  if (empty($entity->get('source_id')->value) || isset($entity->leave_parrent)) {
+    return;
+  }
+  // While removing Classes Session by cron remove Personify Entity
+  // used while Classes Session created.
+  $entity_manager = \Drupal::entityTypeManager()
+    ->getStorage('openy_ds_class_personify_session');
+  $personify_entity = $entity_manager->loadByProperties([
+    'personify_id' => $entity->get('source_id')->value,
+  ]);
+  if (empty($personify_entity)) {
+    return;
+  }
+  $personify_entity = reset($personify_entity);
+  $personify_entity->delete();
+}
+
 /**
  * Implements hook_cron().
  */
 function openy_digital_signage_personify_schedule_cron() {
-  // @todo Add implementation here.
+  /* @var \Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyCron $cron_service */
+  $cron_service = \Drupal::service('openy_digital_signage_personify_schedule.cron');
+
+  $cron_service->importSessions();
+}
+
+/**
+ * Build start and end date with time based on class repeat settings.
+ *
+ * @param \Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession $entity
+ *   Personify class entity.
+ * @param \DateTime $date
+ *   Date object.
+ *
+ * @return array|bool
+ *   Array with start and end date or FALSE.
+ */
+function openy_digital_signage_personify_build_session_datetime(OpenYClassesPersonifySession $entity, \DateTime $date) {
+  // Get and unserialize repeat settings.
+  $repeat_settings = $entity->get('repeat')->value;
+  $repeat_settings = unserialize($repeat_settings);
+
+  // Get day of week and check status in the Personify class.
+  $date_day = strtolower($date->format('l'));
+  if (!$repeat_settings['week_day'][$date_day]) {
+    return FALSE;
+  }
+
+  // Prepare Start Date and Time.
+  $start_date = clone $date;
+  $start_time = $entity->get('start_time')->value;
+  $start_time_ar = explode(':', $start_time);
+  $start_date->setTime($start_time_ar[0], $start_time_ar[1], $start_time_ar[2]);
+  $start_date->setTimezone(new \DateTimeZone('UTC'));
+
+  // Prepare End Date and Time.
+  $end_date = clone $date;
+  $end_time = $entity->get('end_time')->value;
+  $end_time_ar = explode(':', $end_time);
+  $end_date->setTime($end_time_ar[0], $end_time_ar[1], $end_time_ar[2]);
+  $end_date->setTimezone(new \DateTimeZone('UTC'));
+
+  return [
+    'start' => $start_date->format(DATETIME_DATETIME_STORAGE_FORMAT),
+    'end' => $end_date->format(DATETIME_DATETIME_STORAGE_FORMAT),
+  ];
+}
+
+/**
+ * Clean session title.
+ *
+ * @param \Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession $entity
+ *   Personify class entity.
+ *
+ * @return string
+ *   Session title.
+ */
+function openy_digital_signage_personify_clean_session_title(OpenYClassesPersonifySession $entity) {
+  $title = $entity->get('title')->value;
+
+  $title = str_replace('YMCA at Gaviidae', '', $title);
+  $title_parts = explode('-', $title);
+
+  return trim($title_parts[0]);
+}
+
+/**
+ * Create Personify sessions.
+ *
+ * @param \Drupal\openy_digital_signage_personify_schedule\Entity\OpenYClassesPersonifySession $entity
+ *   Personify class entity.
+ * @param \Drupal\openy_digital_signage_room\Entity\OpenYRoom $room
+ *   Room entity.
+ */
+function openy_digital_signage_personify_create_sessions(OpenYClassesPersonifySession $entity, OpenYRoom $room) {
+  // Get Personify class expired date.
+  $expired_date = new \DateTime($entity->get('date')->end_value);
+
+  // Get settings config.
+  $config = \Drupal::config('openy_digital_signage_personify_schedule.settings');
+  $num_days = (int) $config->get('period');
+  $date = new \DateTime();
+  $date->sub(new \DateInterval('P1D'));
+  for ($i = 0; $i <= $num_days; $i++) {
+    $date->add(new \DateInterval('P1D'));
+    if ($date > $expired_date) {
+      continue;
+    }
+    $datetime = openy_digital_signage_personify_build_session_datetime($entity, $date);
+    if (empty($datetime)) {
+      continue;
+    }
+    $title = openy_digital_signage_personify_clean_session_title($entity);
+    // Create a new Classes Session entity.
+    $session = \Drupal::entityTypeManager()
+      ->getStorage('openy_ds_classes_session')
+      ->create([
+        'source' => 'personify',
+        'source_id' => $entity->get('personify_id')->value,
+        'title' => $title,
+        'status' => !$entity->get('canceled')->value,
+        'date_time' => [
+          'value' => $datetime['start'],
+          'end_value' => $datetime['end'],
+        ],
+        'field_session_author' => [
+          'target_id' => $config->get('default_author'),
+        ],
+        'room' => [
+          'target_id' => $room->id(),
+        ],
+        'instructor' => $entity->get('instructor')->value,
+        'sub_instructor' => $entity->get('sub_instructor')->value,
+        'overridden' => FALSE,
+        'original_session' => NULL,
+      ]);
+    $session->save();
+  }
 }
