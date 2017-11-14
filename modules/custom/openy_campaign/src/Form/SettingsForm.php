@@ -190,9 +190,9 @@ class SettingsForm extends ConfigFormBase {
     for ($i = 1; $i <= 5; $i++) {
       $form['instant_game_win_message_' . $i] = [
         '#type' => 'text_format',
-        '#title' => $this->t('Instant-win Game page: Loose message ' . $i),
-        '#default_value' => $config->get('instant_game_loose_message_' . $i)['value'],
-        '#format' => $config->get('instant_game_loose_message_' . $i)['format'],
+        '#title' => $this->t('Instant-win Game page: Win message ' . $i),
+        '#default_value' => $config->get('instant_game_win_message_' . $i)['value'],
+        '#format' => $config->get('instant_game_win_message_' . $i)['format'],
         '#description' => $this->t('Instant-win Game page: Win message ' . $i . '. Use "[game:result]" as a placeholder for the gift name.'),
       ];
     }
