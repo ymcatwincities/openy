@@ -11,6 +11,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\openy_campaign\Entity\MemberCampaign;
 
 define('CAMPAIGN_MENU_PAGES_MAX', 5);
 define('CAMPAIGN_THEME', 'openy_campaign_theme');
@@ -71,6 +72,7 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
         'goal' => NULL,
         'current' => NULL,
         'title' => NULL,
+        'goal_message' => NULL,
       ],
       'template' => 'openy-campaign-visits-goal',
     ],
@@ -112,6 +114,8 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
         'description' => NULL,
         'coverImagePath' => NULL,
         'isWinner' => NULL,
+        'msgWin' => NULL,
+        'msgLoose' => NULL,
       ],
       'template' => 'games/flip-cards',
     ],
@@ -140,6 +144,13 @@ function openy_campaign_token_info() {
   $node['check-back-date'] = array(
     'name' => t('Check back on XX DATE'),
     'description' => t('Specific date text entered in Campaign edit page'),
+  );
+  $node['title'] = array(
+    'name' => t('Campaign Title'),
+  );
+  $node['goal'] = array(
+    'name' => t('Visits goal'),
+    'description' => t('Visits goal for the current user.'),
   );
 
   return array(
@@ -200,6 +211,22 @@ function openy_campaign_tokens($type, $tokens, array $data, array $options, \Dru
       case 'check-back-date':
         $replacements[$original] = $campaign->field_token_check_back_date->value;
         break;
+
+      case 'title':
+        $replacements[$original] = $campaign->getTitle();
+        break;
+
+      case 'goal':
+        $goal = 0;
+        if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
+          $userData = MemberCampaign::getMemberCampaignData($campaign->id());
+          $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
+          $memberCampaign = MemberCampaign::load($memberCampaignID);
+          $goal = !empty($memberCampaign->getGoal()) ? $memberCampaign->getGoal() : 0;
+        }
+
+        $replacements[$original] = $goal;
+        break;
     }
   }
   return $replacements;
@@ -220,20 +247,12 @@ function openy_campaign_cron() {
   /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
   $regularUpdater = \Drupal::service('openy_campaign.regular_updater');
 
-  /**
-   * Test data:
-   *
-   * MasterCustomerId - 2052250592, FacilityCardNumber - 4000301612, 2 visits 2017-08-15 and 2017-08-16
-   * MasterCustomerId - 2030086900, FacilityCardNumber - 4000044307, 1 visit 2017-08-15
-   */
   // Yesterday date - From.
   $dateFrom = new \DateTime();
-  //    $dateFrom->setDate(2017, 8, 15)->setTime(0, 0, 0);
   $dateFrom->sub(new \DateInterval('P1D'))->setTime(0, 0, 0);
 
   // Yesterday date - To.
   $dateTo = new \DateTime();
-  //    $dateTo->setDate(2017, 8, 16)->setTime(23, 59, 59);
   $dateTo->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
 
   $regularUpdater->createQueue($dateFrom, $dateTo);

@@ -90,9 +90,16 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
       $yesterday->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
       $currentCheckins = MemberCheckin::getFacilityCheckIns($userData['member_id'], $campaignStartDate, $yesterday);
 
+      // Get default values from settings
+      $config = \Drupal::config('openy_campaign.general_settings');
+
+      $msgMyVisits = $config->get('track_activity_my_visits');
+      $msgMyVisits = check_markup($msgMyVisits['value'], $msgMyVisits['format']);
+
       $block['goal_block'] = [
         '#theme' => 'openy_campaign_visits_goal',
         '#goal' => !empty($memberCampaign->getGoal()) ? $memberCampaign->getGoal() : 0,
+        '#goal_message' => $msgMyVisits,
         '#current' => count($currentCheckins),
       ];
     }
