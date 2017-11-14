@@ -9,6 +9,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\openy_digital_signage_classes_schedule\Entity\OpenYClassesSession;
+use Drupal\openy_digital_signage_groupex_schedule\Entity\OpenYClassesGroupExSession;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -129,10 +130,12 @@ function openy_digital_signage_groupex_schedule_entity_delete(EntityInterface $e
   if ($entity->getEntityTypeId() != 'openy_ds_classes_session') {
     return;
   }
+  /* @var OpenYClassesSession $entity */
   if (empty($entity->get('source_id')->value)) {
     return;
   }
-  // While removing Classes Session remove GroupEx Entity used while Classes Session created.
+  // While removing Classes Session by cron remove GroupEx Entity
+  // used while Classes Session created.
   $entity_manager = \Drupal::entityTypeManager()
     ->getStorage('openy_ds_classes_groupex_session');
   $groupex_entity = $entity_manager->loadByProperties([
