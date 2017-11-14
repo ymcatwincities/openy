@@ -250,7 +250,7 @@ class LocationMappingRepository {
     if (is_array($location_mapping)) {
       $location_mapping = reset($location_mapping);
     }
-    if (!empty($location_mapping->field_mindbody_id->getValue())) {
+    if ($location_mapping && !empty($location_mapping->field_mindbody_id->getValue())) {
       return $location_mapping->field_mindbody_id->getValue()[0]['value'];
     }
 
