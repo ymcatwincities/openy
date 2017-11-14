@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\openy_digital_signage_groupex_schedule;
+namespace Drupal\openy_digital_signage_personify_schedule;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -8,11 +8,11 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\openy_digital_signage_classes_schedule\OpenYSessionsCronImporterAbstract;
 
 /**
- * Defines a cron service to work with GroupEx Pro.
+ * Defines a cron service to work with Personify.
  *
- * @ingroup openy_digital_signage_groupex_schedule
+ * @ingroup openy_digital_signage_personify_schedule
  */
-class OpenYSessionsGroupExCron extends OpenYSessionsCronImporterAbstract {
+class OpenYSessionsPersonifyCron extends OpenYSessionsCronImporterAbstract {
 
   /**
    * Creates a new RegularUpdater.
@@ -26,7 +26,7 @@ class OpenYSessionsGroupExCron extends OpenYSessionsCronImporterAbstract {
    */
   public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory) {
     parent::__construct($config_factory, $entity_type_manager, $logger_factory);
-    $this->config = $this->configFactory->get('openy_digital_signage_groupex_schedule.cron_settings');
+    $this->config = $this->configFactory->get('openy_digital_signage_personify_schedule.cron_settings');
   }
 
   /**
@@ -36,11 +36,12 @@ class OpenYSessionsGroupExCron extends OpenYSessionsCronImporterAbstract {
     if (!$this->isAllowed()) {
       return;
     }
-    /* @var \Drupal\openy_digital_signage_groupex_schedule\OpenYSessionsGroupExFetcher $service */
-    $service = \Drupal::service('openy_digital_signage_groupex_schedule.fetcher');
+    /* @var \Drupal\openy_digital_signage_personify_schedule\OpenYSessionsPersonifyFetcher $service */
+    $service = \Drupal::service('openy_digital_signage_personify_schedule.fetcher');
     $service->fetchAll();
+
     // Update run time.
-    $config = $this->configFactory->getEditable('openy_digital_signage_groupex_schedule.cron_settings');
+    $config = $this->configFactory->getEditable('openy_digital_signage_personify_schedule.cron_settings');
     $config->set('last_run', REQUEST_TIME);
   }
 
