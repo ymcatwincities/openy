@@ -143,6 +143,60 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('"Where can I find my Member ID?" link text.'),
     ];
 
+    // Tracking Activity page messages
+    $form['track_activity_my_visits'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Track Activity page: My Visits block text'),
+      '#default_value' => $config->get('track_activity_my_visits')['value'],
+      '#format' => $config->get('track_activity_my_visits')['format'],
+      '#description' => $this->t('Track Activity page: Text into My Visits block. Use "[campaign:goal]" placeholder to show the goal number.'),
+    ];
+
+    $form['track_activity_game_no_games'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Track Activity page: The Game - No games available'),
+      '#default_value' => $config->get('track_activity_game_no_games')['value'],
+      '#format' => $config->get('track_activity_game_no_games')['format'],
+      '#description' => $this->t('Track Activity page: The Game block. "No games available" message.'),
+    ];
+
+    $form['track_activity_game_games_remaining_one'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Track Activity page: The Game - One Game Remaining text'),
+      '#default_value' => $config->get('track_activity_game_games_remaining_one')['value'],
+      '#format' => $config->get('track_activity_game_games_remaining_one')['format'],
+      '#description' => $this->t('Track Activity page: The Game block. "One Game Remaining" message.'),
+    ];
+
+    $form['track_activity_game_games_remaining_multiple'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Track Activity page: The Game - Multiple Game Remaining text'),
+      '#default_value' => $config->get('track_activity_game_games_remaining_multiple')['value'],
+      '#format' => $config->get('track_activity_game_games_remaining_multiple')['format'],
+      '#description' => $this->t('Track Activity page: The Game block. "Multiple Game Remaining" message. Use "@count" placeholder for the number of remaining games.'),
+    ];
+
+    // Instant Game messages.
+    for ($i = 1; $i <= 5; $i++) {
+      $form['instant_game_loose_message_' . $i] = [
+        '#type' => 'text_format',
+        '#title' => $this->t('Instant-win Game page: Loose message ' . $i),
+        '#default_value' => $config->get('instant_game_loose_message_' . $i)['value'],
+        '#format' => $config->get('instant_game_loose_message_' . $i)['format'],
+        '#description' => $this->t('Instant-win Game page: Loose message ' . $i . '. You can use "[campaign:title]" placeholder for the campaign name.'),
+      ];
+    }
+
+    for ($i = 1; $i <= 5; $i++) {
+      $form['instant_game_win_message_' . $i] = [
+        '#type' => 'text_format',
+        '#title' => $this->t('Instant-win Game page: Loose message ' . $i),
+        '#default_value' => $config->get('instant_game_loose_message_' . $i)['value'],
+        '#format' => $config->get('instant_game_loose_message_' . $i)['format'],
+        '#description' => $this->t('Instant-win Game page: Win message ' . $i . '. Use "[game:result]" as a placeholder for the gift name.'),
+      ];
+    }
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -167,6 +221,18 @@ class SettingsForm extends ConfigFormBase {
     $config->set('error_msg_target_audience_settings', $form_state->getValue('error_msg_target_audience_settings'));
     $config->set('error_msg_default', $form_state->getValue('error_msg_default'));
     $config->set('register_form_text', $form_state->getValue('register_form_text'));
+    // Tracking Activity page messages
+    $config->set('track_activity_my_visits', $form_state->getValue('track_activity_my_visits'));
+    $config->set('track_activity_game_no_games', $form_state->getValue('track_activity_game_no_games'));
+    $config->set('track_activity_game_games_remaining_one', $form_state->getValue('track_activity_game_games_remaining_one'));
+    $config->set('track_activity_game_games_remaining_multiple', $form_state->getValue('track_activity_game_games_remaining_multiple'));
+
+    // Instant Game messages.
+    for ($i = 1; $i <= 5; $i++) {
+      $config->set('instant_game_loose_message_' . $i, $form_state->getValue('instant_game_loose_message_' . $i));
+      $config->set('instant_game_win_message_' . $i, $form_state->getValue('instant_game_win_message_' . $i));
+    }
+
     $config->save();
 
     parent::submitForm($form, $form_state);

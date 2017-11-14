@@ -118,25 +118,6 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
       $unplayedGames[] = $game;
     }
 
-//    dpm($games);
-
-//    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());
-//    $campaignStartDate->setTime(0, 0, 0);
-//    $yesterday = new \DateTime();
-//    $yesterday->sub(new \DateInterval('P1D'))->setTime(23, 59, 59);
-//    $currentCheckins = MemberCheckin::getFacilityCheckIns($userData['member_id'], $campaignStartDate, $yesterday);
-
-//    $block['games'] = [
-//      '#markup' => var_export($games, TRUE),
-//    ];
-
-//    $block['goal_block'] = [
-//      '#theme' => 'openy_campaign_visits_goal',
-//      '#goal' => $memberCampaign->getGoal(),
-//      '#current' => count($currentCheckins),
-//    ];
-//
-
     $block['#theme'] = 'openy_campaign_games';
     $block['#form'] = $this->formBuilder->getForm('Drupal\openy_campaign\Form\GameBlockForm', $unplayedGames);
     return $block;

@@ -21,11 +21,22 @@ class GameBlockForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $unplayedGames = NULL) {
+    // Get default values from settings
+    $config = \Drupal::config('openy_campaign.general_settings');
+
+    $msgGameNoGames = $config->get('track_activity_game_no_games');
+    $msgGameNoGames = check_markup($msgGameNoGames['value'], $msgGameNoGames['format']);
+
+    $msgGameRemainingOne = $config->get('track_activity_game_games_remaining_one');
+    $msgGameRemainingOne = check_markup($msgGameRemainingOne['value'], $msgGameRemainingOne['format']);
+
+    $msgGameRemainingMultiple = $config->get('track_activity_game_games_remaining_multiple');
+    $msgGameRemainingMultiple = check_markup($msgGameRemainingMultiple['value'], $msgGameRemainingMultiple['format']);
 
     if (empty($unplayedGames)) {
       return [
         'message' => [
-          '#markup' => $this->t('You do not have any Games available.'),
+          '#markup' => $msgGameNoGames,
         ],
       ];
     }
@@ -48,7 +59,7 @@ class GameBlockForm extends FormBase {
     }
 
     $form['label'] = [
-      '#markup' => $this->formatPlural(count($unplayedGames), 'You have one game remaining.', 'You have @count games available.'),
+      '#markup' => $this->formatPlural(count($unplayedGames), $msgGameRemainingOne, $msgGameRemainingMultiple),
     ];
 
     $form['cover_image'] = [

@@ -31,3 +31,45 @@ error_msg_default:
 register_form_text:
   value: '<p>Please find your member ID below the barcode on your Membership Card.</p> <p class="small">Please note it might be on the front of the card on older membership cards.</p>'
   format: full_html
+track_activity_my_visits:
+  value: '<p>Fill up the meter to trigger your next visit. Your goal is [campaign:goal].</p>'
+  format: full_html
+track_activity_game_no_games:
+  value: '<p>You do not have any games available.</p>'
+  format: full_html
+track_activity_game_games_remaining_one:
+  value: '<p>You have one game remaining.</p>'
+  format: full_html
+track_activity_game_games_remaining_multiple:
+  value: '<p>You have @count games available.</p>'
+  format: full_html
+instant_game_loose_message_1:
+  value: '<p>Thank you for entering into the [campaign:title] of promotion.</p>'
+  format: full_html
+instant_game_loose_message_2:
+  value: '<p>Thank you for entering into the [campaign:title] of promotion.</p>'
+  format: full_html
+instant_game_loose_message_3:
+  value: '<p>Thank you for entering into the [campaign:title] of promotion.</p>'
+  format: full_html
+instant_game_loose_message_4:
+  value: '<p>Thank you for entering into the [campaign:title] of promotion.</p>'
+  format: full_html
+instant_game_loose_message_5:
+  value: '<p>Thank you for entering into the [campaign:title] of promotion.</p>'
+  format: full_html
+instant_game_win_message_1:
+  value: '<p>You have won: [game:result].</p>'
+  format: full_html
+instant_game_win_message_2:
+  value: '<p>You have won: [game:result].</p>'
+  format: full_html
+instant_game_win_message_3:
+  value: '<p>You have won: [game:result].</p>'
+  format: full_html
+instant_game_win_message_4:
+  value: '<p>You have won: [game:result].</p>'
+  format: full_html
+instant_game_win_message_5:
+  value: '<p>You have won: [game:result].</p>'
+  format: full_html

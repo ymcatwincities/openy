@@ -124,6 +124,20 @@ class GameController extends ControllerBase {
     // Select random game type from the list.
     $gameType = self::$gamesList[array_rand(self::$gamesList)];
 
+    // Output different messages.
+    // Get default values from settings
+    $config = \Drupal::config('openy_campaign.general_settings');
+
+    $messageNumber = mt_rand(1, 5);
+    $msgLoose = $config->get('instant_game_loose_message_' . $messageNumber);
+    $msgLoose = check_markup($msgLoose['value'], $msgLoose['format']);
+
+    $messageNumber = mt_rand(1, 5);
+    $msgWin = $config->get('instant_game_win_message_' . $messageNumber);
+    $msgWin = check_markup($msgWin['value'], $msgWin['format']);
+    $msgWin = str_replace('[game:result]', $result, $msgWin);
+
+
     return [
       '#theme' => 'openy_campaign_game_' . $gameType,
       '#result' => $result,
@@ -131,6 +145,8 @@ class GameController extends ControllerBase {
       '#title' => $title,
       '#description' => $description,
       '#coverImagePath' => $coverImagePath,
+      '#msgWin' => $msgWin,
+      '#msgLoose' => $msgLoose,
       '#isWinner' => $isWinner,
       '#attached' => [
         'library' => [

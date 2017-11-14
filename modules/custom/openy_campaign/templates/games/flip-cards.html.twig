@@ -9,10 +9,10 @@
                 <span>
                     {% if isWinner %}
                         <h3>{{ 'Congratulations'|t }}</h3>
-                        <p>{% trans %}You have won: {{ result }}{% endtrans %}</p>
+                        <p>{{ msgWin }}</p>
                     {% else %}
                         <h3>{{ 'Sorry not this time'|t }}</h3>
-                        <p>{% trans %}Thank you for entering into the &quot;{{ title }}&quot; of promotion.{% endtrans %}</p>
+                        <p>{{ msgLoose }}</p>
                     {% endif %}
                 </span>
             </figure>
