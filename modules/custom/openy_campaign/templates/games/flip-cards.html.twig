@@ -9,10 +9,10 @@
                 <span>
                     {% if isWinner %}
                         <h3>{{ 'Congratulations'|t }}</h3>
-                        <p>{{ msgWin }}</p>
+                        <p>{{ msgWin|raw }}</p>
                     {% else %}
                         <h3>{{ 'Sorry not this time'|t }}</h3>
-                        <p>{{ msgLoose }}</p>
+                        <p>{{ msgLoose|raw }}</p>
                     {% endif %}
                 </span>
             </figure>
