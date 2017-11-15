@@ -45,7 +45,7 @@
                 redirectPath = window.location.pathname + '?tab=' + queryParameter;
                 // Redirect to Campaign main page. Used with logout action.
                 if (queryParameter === '<campaign-front>') {
-                    redirectPath = window.location.pathname;
+                    redirectPath = window.location.origin + '/node/' + drupalSettings.openy_campaign.campaignId;
                 }
             }
 
