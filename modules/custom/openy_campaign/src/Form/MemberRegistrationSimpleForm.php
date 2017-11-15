@@ -6,6 +6,8 @@ use Drupal\Core\Form\FormStateInterface;
 
 class MemberRegistrationSimpleForm extends MemberRegisterForm {
 
+  protected static $containerId = 'openy_campaign_register_form';
+
   /**
    * {@inheritdoc}
    */
