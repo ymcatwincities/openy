@@ -27,7 +27,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer retention campaign'
+          perm: 'view retention campaign reports'
       cache:
         type: tag
         options: {  }
@@ -1058,7 +1058,7 @@ display:
           relationship: none
           group_type: group
           admin_label: 'Member entity'
-          required: false
+          required: true
           entity_type: openy_campaign_member_campaign
           entity_field: member
           plugin_id: standard

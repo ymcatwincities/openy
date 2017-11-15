@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_enable_visits_goal
+    - node.type.campaign
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_enable_visits_goal
+id: node.campaign.field_enable_visits_goal
+field_name: field_enable_visits_goal
+entity_type: node
+bundle: campaign
+label: 'Enable Visits Goal'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

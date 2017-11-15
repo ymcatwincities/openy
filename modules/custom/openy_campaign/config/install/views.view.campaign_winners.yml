@@ -27,7 +27,7 @@ display:
       access:
         type: perm
         options:
-          perm: 'administer retention campaign'
+          perm: 'view retention campaign reports'
       cache:
         type: none
         options: {  }

@@ -561,6 +561,7 @@ body {
   border-radius: 5px;
   padding: 40px;
   margin-top: 40px;
+  overflow: hidden;
 }
 #block-campaignmemberregister .openy-campaign-registration-simple-form .button {
   width: 100%;
