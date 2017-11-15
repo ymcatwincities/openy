@@ -18,6 +18,8 @@ use Drupal\openy_campaign\Entity\MemberCampaign;
  */
 class MemberRegisterForm extends FormBase {
 
+  protected static $containerId = 'modal_openy_campaign_register_form';
+
   /**
    * {@inheritdoc}
    */
@@ -29,7 +31,7 @@ class MemberRegisterForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $campaign_id = NULL) {
-    $form['#prefix'] = '<div id="modal_openy_campaign_register_form">';
+    $form['#prefix'] = '<div id="' . static::$containerId . '">';
     $form['#suffix'] = '</div>';
 
     // The status messages that will contain any form errors.
@@ -317,14 +319,14 @@ class MemberRegisterForm extends FormBase {
           ->rebuildForm($this->getFormId(), $form_state, $form);
 
       // Refreshing form.
-      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_register_form', $new_form));
+      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $new_form));
 
       return $response;
     }
 
     // If there are any form errors, re-display the form.
     if ($form_state->hasAnyErrors()) {
-      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_register_form', $form));
+      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $form));
 
       return $response;
     }
@@ -390,7 +392,7 @@ class MemberRegisterForm extends FormBase {
 
       //TODO: use hook_theme instead of inline template.
       $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
-      $response->addCommand(new ReplaceCommand('#modal_openy_campaign_register_form', $wrappedModalMessage));
+      $response->addCommand(new ReplaceCommand('#' . static::$containerId, $wrappedModalMessage));
 
       $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog'));
 
