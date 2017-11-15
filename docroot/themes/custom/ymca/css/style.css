@@ -8865,6 +8865,11 @@ body.ancestor-camps .lead a:hover,
 body.ancestor-camps .call-to-action a:hover {
   color: #01a490;
 }
+body.ancestor-camps .node--type-article p.button a:hover,
+body.ancestor-camps .lead p.button a:hover,
+body.ancestor-camps .call-to-action p.button a:hover {
+  color: #fff;
+}
 body.ancestor-camps .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
   background-color: #01a490;
 }
