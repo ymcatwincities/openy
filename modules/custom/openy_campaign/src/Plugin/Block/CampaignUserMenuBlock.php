@@ -133,6 +133,13 @@ class CampaignUserMenuBlock extends BlockBase implements ContainerFactoryPluginI
 
     }
 
+    $build['#attached']['drupalSettings'] = [
+      'openy_campaign' => [
+        'campaignId' => $campaign->id(),
+        'isLoggedIn' => MemberCampaign::isLoggedIn($campaign->id())
+      ]
+    ];
+
     $build['#attached']['library'][] = 'core/drupal.dialog.ajax';
 
     return $build;
