@@ -42,6 +42,10 @@ class MemberCampaignCheckins extends FieldPluginBase {
 
     /** @var \Drupal\openy_campaign\Entity\Member $member */
     $member = $entity->getMember();
+
+    if (empty($member)) {
+      return;
+    }
     
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $entity->getCampaign();
