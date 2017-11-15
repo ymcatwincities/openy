@@ -1033,7 +1033,6 @@ footer .container .footer__nav nav ul > li a {
 }
 #block-openy-campaign-theme-campaignusermenublock .dropdown-menu {
   top: 37px;
-  right: 10px;
   left: unset;
 }
 #block-openy-campaign-theme-campaignusermenublock .dropdown-menu a {
@@ -1534,8 +1533,7 @@ footer .container .footer__nav nav ul > li a {
 }
 
 .calendar h2 {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding: 30px;
   text-align: center;
 }
 
@@ -1543,9 +1541,11 @@ footer .container .footer__nav nav ul > li a {
   overflow: hidden;
   white-space: nowrap;
   margin: 0px;
-  padding: 0px;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding: 0 80px;
+  position: relative;
+}
+.calendar .month .slick-list {
+  overflow: hidden;
 }
 .calendar .month .date-data {
   text-align: center;
