@@ -95,11 +95,17 @@ class WinnersCalculateForm extends FormBase {
       '#multiple' => TRUE,
     ];
 
+    $enableVisitsGoal = $campaign->field_enable_visits_goal->value;
     $form['generate']['visits_goal'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Run Visit Goal Random Drawing'),
-      '#default_value' => TRUE,
+      '#default_value' => $enableVisitsGoal,
     ];
+    if (!$enableVisitsGoal) {
+      $form['generate']['visits_goal']['#attributes'] = [
+        'disabled' => TRUE,
+      ];
+    }
 
     $form['generate']['submit'] = [
       '#type' => 'submit',
@@ -384,6 +390,11 @@ class WinnersCalculateForm extends FormBase {
    */
   private static function getVisitsGoalWinners($campaign, $branchId, &$alreadyWinners) {
     $goalWinners = [];
+
+    $enableVisitsGoal = $campaign->field_enable_visits_goal->value;
+    if (!$enableVisitsGoal) {
+      return $goalWinners;
+    }
 
     /** @var Node $campaign */
     $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString());

@@ -211,6 +211,13 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
     /** @var Node $campaign Current campaign */
     $campaign = $this->getCampaign();
 
+    $enableVisitsGoal = $campaign->field_enable_visits_goal->value;
+
+    if (!$enableVisitsGoal) {
+      $this->setGoal(0);
+      return TRUE;
+    }
+
     $current = new \DateTime();
     $from = new \DateTime($campaign->field_goal_check_ins_start_date->value);
     $to = new \DateTime($campaign->field_goal_check_ins_end_date->value);
