@@ -4827,6 +4827,10 @@ html.js .branch__updates_queue__button {
     font-size: 16px;
   }
 }
+#schedules-search-form-wrapper .form-control[readonly], #schedules-search-form-wrapper .form-control[disabled] {
+  color: #4f4f4f;
+  background: #ebebeb;
+}
 
 #schedules-search-listing-wrapper .results {
   margin-bottom: 40px;
