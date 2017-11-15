@@ -77,8 +77,13 @@ class CampaignActivityVisitsBlock extends BlockBase implements ContainerFactoryP
     // Get campaign node from current page URL
     /** @var Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
+    if (empty($campaign)) {
+      return $block;
+    }
 
-    if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
+    $enableVisitsGoal = $campaign->field_enable_visits_goal->value;
+
+    if ($enableVisitsGoal && MemberCampaign::isLoggedIn($campaign->id())) {
       // Show Visits goal block
       $userData = MemberCampaign::getMemberCampaignData($campaign->id());
       $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());

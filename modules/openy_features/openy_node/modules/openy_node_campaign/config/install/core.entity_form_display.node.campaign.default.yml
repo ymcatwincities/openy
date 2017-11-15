@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_reg_start_date
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_winners_prizes
+    - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -102,6 +103,7 @@ third_party_settings:
       label: 'Campaign dates'
     group_visits_goal:
       children:
+        - field_enable_visits_goal
         - field_min_visits_goal
         - field_limit_visits_goal
         - field_goal_check_ins_start_date
@@ -123,7 +125,7 @@ third_party_settings:
         - group_registration_messages
         - group_general_messages
       parent_name: ''
-      weight: 17
+      weight: 16
       format_type: fieldset
       format_settings:
         id: ''
@@ -201,7 +203,7 @@ third_party_settings:
         - field_ways_to_earn_entries
         - field_flip_cards_cover_image
       parent_name: ''
-      weight: 18
+      weight: 17
       format_type: details
       format_settings:
         id: ''
@@ -263,7 +265,7 @@ content:
     type: options_buttons
     region: content
   field_campaign_end_date:
-    weight: 48
+    weight: 6
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -362,19 +364,19 @@ content:
     third_party_settings: {  }
     region: content
   field_campaign_reg_end_date:
-    weight: 46
+    type: datetime_default
+    weight: 4
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_campaign_reg_start_date:
-    weight: 45
+    type: datetime_default
+    weight: 3
+    region: content
     settings: {  }
     third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_campaign_start_date:
-    weight: 47
+    weight: 5
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
@@ -390,6 +392,13 @@ content:
       form_display_mode: default
       default_paragraph_type: ''
     third_party_settings: {  }
+    region: content
+  field_enable_visits_goal:
+    weight: 56
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   field_error_default:
     weight: 40
@@ -432,19 +441,19 @@ content:
     type: image_image
     region: content
   field_goal_check_ins_end_date:
-    weight: 46
+    weight: 60
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_goal_check_ins_start_date:
-    weight: 44
+    weight: 59
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
     region: content
   field_limit_visits_goal:
-    weight: 43
+    weight: 58
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -467,7 +476,7 @@ content:
     type: text_textarea
     region: content
   field_min_visits_goal:
-    weight: 42
+    weight: 57
     settings:
       placeholder: ''
     third_party_settings: {  }
