@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_reg_start_date
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_winners_prizes
+    - field.field.node.campaign.field_enable_visits_goal
     - field.field.node.campaign.field_error_default
     - field.field.node.campaign.field_error_member_is_inactive
     - field.field.node.campaign.field_error_membership_id
@@ -211,24 +212,6 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
-  field_campaign_reg_end_date:
-    weight: 143
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_campaign_reg_start_date:
-    weight: 142
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_campaign_start_date:
     weight: 108
     label: above
@@ -246,6 +229,16 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_enable_visits_goal:
+    weight: 142
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
   field_error_default:
     weight: 126
@@ -400,6 +393,8 @@ content:
     type: list_default
     region: content
 hidden:
+  field_campaign_reg_end_date: true
+  field_campaign_reg_start_date: true
   field_pause_campaign: true
   field_token_register_link_text: true
   langcode: true
