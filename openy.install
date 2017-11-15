@@ -487,3 +487,11 @@ function openy_update_8037() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['openy_prgf_amenities'], TRUE);
 }
+
+/**
+ * Enable inline_form_errors Drupal Core 8.4.
+ */
+function openy_update_8038() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['inline_form_errors'], TRUE);
+}
