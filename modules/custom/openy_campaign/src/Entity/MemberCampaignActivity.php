@@ -109,11 +109,18 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
       $beginOfDay = strtotime("midnight", $date);
       $endOfDay = strtotime("tomorrow", $date) - 1;
 
+      /** @var \Drupal\taxonomy\Entity\Term $activityCategory */
+      $activityCategory = $this->get('activity')->entity;
+      $ancestors = \Drupal::service('entity_type.manager')->getStorage("taxonomy_term")->loadAllParents($activityCategory->id());
+      /** @var \Drupal\taxonomy\Entity\Term $activityTopCategory */
+      $activityTopCategory = array_pop($ancestors);
+
       $query = \Drupal::entityQuery('openy_campaign_member_game')
         ->condition('event_date', $beginOfDay, '>=')
         ->condition('event_date', $endOfDay, '<=')
         ->condition('member', $memberCampaign->id(), '=')
-        ->condition('chance_type', MemberGame::TYPE_ACTIVITY, '=');
+        ->condition('chance_type', MemberGame::TYPE_ACTIVITY, '=')
+        ->condition('chance_activity', $activityTopCategory->id(), '=');
 
       $games = $query->execute();
 
@@ -122,6 +129,7 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
         $game = MemberGame::create([
           'member' => $memberCampaign->id(),
           'chance_type' => MemberGame::TYPE_ACTIVITY,
+          'chance_activity' => $activityTopCategory->id(),
           'event_date' => $date,
         ]);
         $game->save();
