@@ -466,10 +466,19 @@
   }
 }
 
-a:active, a:focus,
-div:active, div:focus,
-button:active, button:focus {
-  outline: 0;
-  border: none;
-  -moz-outline-style: none
+
+#modal_openy_campaign_login_form {
+  .campaign-link-collapsed {
+    text-align: center;
+    .campaign-facility-access-hint-link {
+      color: #0060ac;
+      font-size: 14px;
+    }
+  }
+  .campaign-facility-access-hint-wrapper {
+    margin-top: 10px;
+    .campaign-facility-access-hint p {
+      font-size: 14px!important;
+    }
+  }
 }
