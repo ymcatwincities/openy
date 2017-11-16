@@ -98,19 +98,19 @@
       }
 
       .form-checkboxes {
-        display: flex;
-        flex-wrap: wrap;
+        //display: flex;
+        //flex-wrap: wrap;
         @include breakpoint($screen-phone) {
-          flex-direction: column;
+          //flex-direction: column;
         }
         @include breakpoint($screen-sm) {
-          flex-direction: row;
+          //flex-direction: row;
         }
         @include breakpoint($screen-md) {
-          flex-direction: row;
+          //flex-direction: row;
         }
         @include breakpoint($screen-lg-desktop) {
-          flex-direction: row;
+          //flex-direction: row;
         }
         .form-item {
           margin: 5px;
@@ -131,7 +131,7 @@
             width: 30%;
           }
           @include breakpoint($screen-lg-desktop) {
-            float: none;
+            float: left;
             width: 32%;
           }
 
@@ -160,10 +160,14 @@
 
 .activity-data .categories {
   ul {
+    display: inline-block;
+    width: 100%;
     padding: 0px;
     text-align: center;
-    display: flex;
     li {
+      display: block;
+      width: calc(100%/4 - 20px);
+      float: left;
       background: #92278F;
       opacity: 0.7;
       color: #fff;
@@ -171,18 +175,13 @@
       text-transform: uppercase;
       border-radius: 10px;
       cursor: pointer;
+      margin: 10px;
 
       @include breakpoint($screen-phone) {
-        flex-flow: column;
-        margin: 9px;
-        width: 60px;
         height: 60px;
         font-size: 9px;
       }
       @include breakpoint($screen-lg-desktop) {
-        flex-flow: column;
-        margin: 13px;
-        width: 200px;
         height: 200px;
         font-size: 22px;
       }
