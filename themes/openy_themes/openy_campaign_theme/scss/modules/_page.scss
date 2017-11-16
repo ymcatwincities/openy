@@ -213,7 +213,7 @@ body {
   .message-wrapper {
     background: #fff;
     display: block;
-    max-width: calc(100% / 2);
+    max-width: calc(100% / 1.2);
     margin: 0 auto;
     margin-top: 100px;
     padding: 25px;
@@ -413,4 +413,13 @@ body {
     }
 
   }
+}
+
+
+a:active, a:focus,
+div:active, div:focus,
+button:active, button:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none
 }
