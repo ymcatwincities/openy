@@ -86,13 +86,19 @@ class GameController extends ControllerBase {
 
     $previousRange = 0;
     foreach ($campaign->field_campaign_prizes as $target) {
+      /** @var \Drupal\paragraphs\Entity\Paragraph $prize */
       $prize = $target->entity;
+      $amount = $prize->field_prgf_prize_amount->value;
+      if ($amount == 0) {
+        continue;
+      }
       $nextRange = $previousRange + ceil($prize->field_prgf_prize_amount->value * $coefficient);
 
       $ranges[] = [
         'min' => $previousRange,
         'max' => $nextRange,
         'description' => $prize->field_prgf_prize_description->value,
+        'prize' => $prize,
       ];
 
       $previousRange = $nextRange;
@@ -105,15 +111,24 @@ class GameController extends ControllerBase {
       if ($randomNumber >= $range['min'] && $randomNumber < $range['max']) {
         $result = $range['description'];
         $isWinner = TRUE;
+
+        // Decrease an amount of the prizes.
+        $prize = $range['prize'];
+        $amount = $prize->field_prgf_prize_amount->value;
+        $prize->set('field_prgf_prize_amount', $amount - 1);
+        $prize->save();
+
         break;
       }
     }
 
     $logMessage = json_encode([
-      'randomNumber' => $randomNumber,
+      'number' => $randomNumber,
       'expected' => $expected,
-      'coefficient' => $coefficient,
-      'ranges' => $ranges,
+      'coeff' => $coefficient,
+      'ranges' => array_map(function ($item) {
+        return $item['min'] . '-' . $item['max'] . ':' . substr($item['description'],0, 10);
+      }, $ranges),
     ]);
 
     $game->result->value = $result;
