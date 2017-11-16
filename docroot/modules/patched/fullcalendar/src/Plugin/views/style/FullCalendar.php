@@ -382,7 +382,7 @@ class FullCalendar extends StylePluginBase {
 
           $event[] = $url->toRenderArray() + array(
             '#type' => 'link',
-            '#title' => $item['raw']->value,
+            '#title' => $title,
           );
         }
       }
