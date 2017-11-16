@@ -27,11 +27,16 @@ simply_counter:
   js:
     js/simplyCountdown.min.js: {}
 
+moment:
+  js:
+    js/libs/moment.js: {}
+
 campaign_countdown:
   js:
     js/campaignCountdown.js: {}
   dependencies:
     - openy_campaign/simply_counter
+    - openy_campaign/moment
 
 slick_carousel:
   js:
