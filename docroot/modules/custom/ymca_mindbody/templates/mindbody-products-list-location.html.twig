@@ -33,7 +33,7 @@
               {% for key, product in product_list %}
               <li><a href="{{ product.url }}" target="_blank">
                 {% if product.show_special_prices and product.special_price %}
-                  <s>${{ product.price }}</s>&nbsp;${{ product.special_price }}
+                  ${{ product.special_price }}
                 {% else %}
                   ${{ product.price }}
                 {% endif %}
@@ -51,7 +51,7 @@
               {% for key, product in product_list %}
               <li><a href="{{ product.url }}" target="_blank">
                 {% if product.show_special_prices and product.special_price %}
-                  <s>${{ product.price }}</s>&nbsp;${{ product.special_price }}
+                  ${{ product.special_price }}
                 {% else %}
                   ${{ product.price }}
                 {% endif %}
