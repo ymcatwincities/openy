@@ -97,20 +97,20 @@ class MemberLoginForm extends FormBase {
     /** @var Node $campaign Current campaign. */
     $campaign = Node::load($campaignID);
 
+    $msgMembershipId = $config->get('error_msg_membership_id');
+    $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
+    // Get error from Campaign node
+    if (!empty($campaign->field_error_membership_id->value)) {
+      $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
+    }
+
     // TODO Add check length of $membershipID
     // Check correct Membership ID
-    if (!is_numeric($membershipID)) {
-      $msgMembershipId = $config->get('error_msg_membership_id');
-      $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
-      // Get error from Campaign node
-      if (!empty($campaign->field_error_membership_id->value)) {
-        $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
-      }
-
+    /*if (!is_numeric($membershipID)) {
       $form_state->setErrorByName('membership_id', $errorMembershipId);
 
       return;
-    }
+    }*/
 
     // Check MemberCampaign entity
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
