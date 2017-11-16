@@ -9,7 +9,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\ymca_cdn_sync\SyncException;
 
 /**
- * Class CdnPrsProductRepository
+ * Class CdnPrsProductRepository.
  *
  * @package Drupal\ymca_cdn_product
  */

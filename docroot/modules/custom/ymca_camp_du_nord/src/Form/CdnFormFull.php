@@ -96,7 +96,7 @@ class CdnFormFull extends FormBase {
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME+(86400*7));
+      $dt->setTimestamp(REQUEST_TIME + (86400 * 7));
       $default_departure_date = $dt->format('Y-m-d');
     }
     $state = [
@@ -171,7 +171,8 @@ class CdnFormFull extends FormBase {
     $form['actions']['submit'] = array(
       '#type' => 'submit',
       '#value' => $this->t('Search'),
-      '#suffix' => '</div></div>', // closes top-elements-wrapper.
+      // Close top-elements-wrapper.
+      '#suffix' => '</div></div>',
       '#button_type' => 'primary',
     );
 
@@ -191,7 +192,8 @@ class CdnFormFull extends FormBase {
     ];
 
     $form['results'] = [
-      '#prefix' => '</div></div><div class="cdn-results">', // closes bottom-elements-wrapper.
+      // Close bottom-elements-wrapper.
+      '#prefix' => '</div></div><div class="cdn-results">',
       '#markup' => render($formatted_results),
       '#suffix' => '</div>',
       '#weight' => 10,
@@ -236,30 +238,30 @@ class CdnFormFull extends FormBase {
     $formatted_results = $this->t('No results. Please try again.');
     if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
       if ($query['village'] !== 'all' || $query['capacity'] !== 'all') {
-      foreach ($cdn_products as $key => $product) {
-        $capacity = $product->field_cdn_prd_capacity->value;
-        $cabin_id = $product->field_cdn_prd_cabin_id->value;
-        // Filter by capacity.
-        if ($query['capacity'] !== $capacity && $query['capacity'] !== 'all') {
-          unset($cdn_products[$key]);
-        }
-        // Filter by village.
-        if (!empty($cabin_id)) {
-          $mapping_id = $this->entityQuery
-            ->get('mapping')
-            ->condition('type', 'cdn_prs_product')
-            ->condition('field_cdn_prd_cabin_id', $cabin_id)
-            ->execute();
-          if ($mapping = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_id)) {
-            $ref = $mapping->field_cdn_prd_village_ref->getValue();
-            $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
-            // Filter by village.
-            if ($page_id !== $query['village'] && $query['village'] !== 'all') {
-              unset($cdn_products[$key]);
+        foreach ($cdn_products as $key => $product) {
+          $capacity = $product->field_cdn_prd_capacity->value;
+          $cabin_id = $product->field_cdn_prd_cabin_id->value;
+          // Filter by capacity.
+          if ($query['capacity'] !== $capacity && $query['capacity'] !== 'all') {
+            unset($cdn_products[$key]);
+          }
+          // Filter by village.
+          if (!empty($cabin_id)) {
+            $mapping_id = $this->entityQuery
+              ->get('mapping')
+              ->condition('type', 'cdn_prs_product')
+              ->condition('field_cdn_prd_cabin_id', $cabin_id)
+              ->execute();
+            if ($mapping = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_id)) {
+              $ref = $mapping->field_cdn_prd_village_ref->getValue();
+              $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
+              // Filter by village.
+              if ($page_id !== $query['village'] && $query['village'] !== 'all') {
+                unset($cdn_products[$key]);
+              }
             }
           }
         }
-      }
       }
       if (!empty($cdn_products)) {
         $formatted_results = $this->buildResultsLayout($cdn_products, $query, $user_input);
@@ -483,7 +485,7 @@ class CdnFormFull extends FormBase {
    */
   public function getCabinImage($name) {
     $path = '';
-    $name = str_replace( ' cabin', '', strtolower(substr($name, 9)));
+    $name = str_replace(' cabin', '', strtolower(substr($name, 9)));
     $fids = $this->entityQuery
       ->get('file')
       ->condition('filename', '%' . $name . '%', 'LIKE')
