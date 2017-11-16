@@ -414,3 +414,12 @@ body {
 
   }
 }
+
+
+a:active, a:focus,
+div:active, div:focus,
+button:active, button:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none
+}

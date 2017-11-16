@@ -793,6 +793,14 @@ body {
   padding-left: 70px;
 }
 
+a:active, a:focus,
+div:active, div:focus,
+button:active, button:focus {
+  outline: 0;
+  border: none;
+  -moz-outline-style: none;
+}
+
 footer {
   background-color: inherit !important;
 }
@@ -1499,12 +1507,18 @@ footer .container .footer__nav nav ul > li a {
   font-size: 35px;
 }
 
-a:active, a:focus,
-div:active, div:focus,
-button:active, button:focus {
-  outline: 0;
-  border: none;
-  -moz-outline-style: none;
+#modal_openy_campaign_login_form .campaign-link-collapsed {
+  text-align: center;
+}
+#modal_openy_campaign_login_form .campaign-link-collapsed .campaign-facility-access-hint-link {
+  color: #0060ac;
+  font-size: 14px;
+}
+#modal_openy_campaign_login_form .campaign-facility-access-hint-wrapper {
+  margin-top: 10px;
+}
+#modal_openy_campaign_login_form .campaign-facility-access-hint-wrapper .campaign-facility-access-hint p {
+  font-size: 14px !important;
 }
 
 .ui-dialog {
