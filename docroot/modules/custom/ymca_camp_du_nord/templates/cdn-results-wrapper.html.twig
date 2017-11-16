@@ -32,3 +32,18 @@
   {% endfor %}
   </div>
 </div>
+<div class="cdn-village-footer">
+  <div class="container">
+    {% for key, teaser in teasers %}
+      <div class="cdn-village-footer-bar" data-index="{{ key }}">
+        <div class="total">
+          {{ 'Total for'|t }}
+          <span class="nights">0</span>
+          {{ 'nights:' }}
+          <span class="price">$0</span>
+        </div>
+        <a href="{{ teaser.footer.login_url }}" class="next-step">{{ 'Next step ->'|t }}</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>

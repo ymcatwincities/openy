@@ -73,7 +73,7 @@ class Fetcher implements FetcherInterface {
    *
    * @todo Move to lower level to reuse.
    *
-   * @param $property
+   * @param mixed $property
    *   Property name.
    *
    * @return array|mixed|null
@@ -99,6 +99,7 @@ class Fetcher implements FetcherInterface {
    *
    * @param string $input
    *   Input.
+   *
    * @return string
    *   Output.
    */
@@ -127,14 +128,13 @@ class Fetcher implements FetcherInterface {
       ],
     ];
 
-
     // @todo Make this XML from array. Possibly move to config.
     // @todo Make iterator if there is more item per page.
     $max_count = 10000;
-    $options['body'] = "<ProductListingInput><PageSize>$max_count</PageSize><SortType>TO_DATE:ASC</SortType><ProductClass>RS</ProductClass></ProductListingInput>";
+    $options['body'] = "<CL_GetProductListingInput><ProductClassCode>RS</ProductClassCode><AvailableToOrdersFlag>true</AvailableToOrdersFlag></CL_GetProductListingInput>";
 
     try {
-      $endpoint = $this->dataServiceUrl . '/GetProductListing';
+      $endpoint = $this->dataServiceUrl . '/CL_GetProductListing';
 
       $response = $this->client->request('POST', $endpoint, $options);
       if ($response->getStatusCode() == '200') {
@@ -148,9 +148,9 @@ class Fetcher implements FetcherInterface {
           $this->logger->error('Max count reached. Please implement pagination');
         }
 
-        $listingItems = $xml->ListingItems;
+        $listingItems = $xml->ProductListingRecord;
         $children = $listingItems->children();
-        foreach ($children->ProductListingItem as $product) {
+        foreach ($children->CL_ProductListingRecord as $product) {
           $products[] = $product;
         }
       }
