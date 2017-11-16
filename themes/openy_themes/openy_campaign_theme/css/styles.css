@@ -603,7 +603,7 @@ body {
 #block-campaignmemberregister .message-wrapper {
   background: #fff;
   display: block;
-  max-width: calc(100% / 2);
+  max-width: calc(100% / 1.2);
   margin: 0 auto;
   margin-top: 100px;
   padding: 25px;
@@ -1088,6 +1088,30 @@ footer .container .footer__nav nav ul > li a {
 }
 .category-data form .fieldgroup legend {
   display: none;
+}
+.category-data form .fieldgroup .form-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+}
+@media (min-width: 20em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: column;
+  }
+}
+@media (min-width: 48em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: row;
+  }
+}
+@media (min-width: 62em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: row;
+  }
+}
+@media (min-width: 75em) {
+  .category-data form .fieldgroup .form-checkboxes {
+    flex-direction: row;
+  }
 }
 .category-data form .fieldgroup .form-checkboxes .form-item {
   margin: 5px;
