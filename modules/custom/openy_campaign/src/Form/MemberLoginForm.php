@@ -65,6 +65,14 @@ class MemberLoginForm extends FormBase {
         [$this, 'elementValidateRequired'],
       ],
     ];
+    // Member ID text
+    $settings = $this->config('openy_campaign.general_settings');
+    $msgMemberIdText = $settings->get('register_form_text');
+    $memberIdText = check_markup($msgMemberIdText['value'], $msgMemberIdText['format']);
+    $form['member_id_text'] = [
+      '#theme' => 'openy_campaign_register_text',
+      '#text' => $memberIdText,
+    ];
 
     $form['submit'] = [
       '#type' => 'submit',
