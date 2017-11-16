@@ -198,20 +198,19 @@ class MemberRegisterForm extends FormBase {
       $errorDefault = check_markup($campaign->field_error_default->value, $campaign->field_error_default->format);
     }
 
-    // TODO Add check length of $membershipID
-    // Check correct Membership ID
-    if (!is_numeric($membershipID)) {
-      $msgMembershipId = $config->get('error_msg_membership_id');
-      $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
-      // Get error from Campaign node
-      if (!empty($campaign->field_error_membership_id->value)) {
-        $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
-      }
-
-      $form_state->setErrorByName('membership_id', $errorMembershipId);
-
-      return;
+    $msgMembershipId = $config->get('error_msg_membership_id');
+    $errorMembershipId = check_markup($msgMembershipId['value'], $msgMembershipId['format']);
+    // Get error from Campaign node
+    if (!empty($campaign->field_error_membership_id->value)) {
+      $errorMembershipId = check_markup($campaign->field_error_membership_id->value, $campaign->field_error_membership_id->format);
     }
+
+    // TODO Add check length of $membershipID
+    // Check correct Membership ID - commented out, because IDs may contain letters.
+    /*if (!is_numeric($membershipID)) {
+      $form_state->setErrorByName('membership_id', $errorMembershipId);
+      return;
+    }*/
 
     // Check MemberCampaign entity
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
@@ -233,7 +232,7 @@ class MemberRegisterForm extends FormBase {
     /** @var Member $member Load or create Temporary Member object. Will be saved by submit. */
     $member = Member::loadMemberFromCRMData($membershipID);
     if (($member instanceof Member === FALSE) || empty($member)) {
-      $form_state->setErrorByName('membership_id', $errorDefault);
+      $form_state->setErrorByName('membership_id', $errorMembershipId);
 
       return;
     }
@@ -393,8 +392,7 @@ class MemberRegisterForm extends FormBase {
       //TODO: use hook_theme instead of inline template.
       $wrappedModalMessage = '<div class="message-wrapper">' . $modalMessage . '</div>';
       $response->addCommand(new ReplaceCommand('#' . static::$containerId, $wrappedModalMessage));
-
-      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialog'));
+      $response->addCommand(new InvokeCommand('#drupal-modal', 'closeDialogByClick'));
 
       return $response;
     }
