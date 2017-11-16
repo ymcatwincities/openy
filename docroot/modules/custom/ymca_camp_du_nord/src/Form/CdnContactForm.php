@@ -194,7 +194,6 @@ class CdnContactForm extends FormBase {
    *
    * @param array $data
    *   Fetched view with products.
-   *
    * @param array $state
    *   State of form.
    *
@@ -241,5 +240,5 @@ class CdnContactForm extends FormBase {
     }
     return $form;
   }
-}
 
+}
