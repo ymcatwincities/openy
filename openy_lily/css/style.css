@@ -3180,6 +3180,10 @@ body.path-search #block-mainpagecontent li {
   background-color: #b92f9e;
 }
 
+.paragraph--type--latest-news-posts-branch .field-prgf-block {
+  margin: 0 -15px;
+}
+
 .news-more-teaser {
   margin-top: 20px;
 }
@@ -3308,6 +3312,7 @@ body.path-search #block-mainpagecontent li {
 }
 .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-up {
   text-align: center;
+  position: relative;
 }
 .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-up .category {
   position: absolute;
@@ -3317,7 +3322,6 @@ body.path-search #block-mainpagecontent li {
   color: white;
   font-weight: bold;
   z-index: 1;
-  margin-left: 15px;
 }
 .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-up .field-media-image {
   height: 210px;

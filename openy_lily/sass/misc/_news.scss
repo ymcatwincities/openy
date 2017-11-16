@@ -1,3 +1,9 @@
+.paragraph--type--latest-news-posts-branch {
+  .field-prgf-block {
+    margin: 0 -15px;
+  }
+}
+
 .news-more-teaser {
   margin-top: 20px;
 
@@ -137,6 +143,7 @@
       background-color: rgba(255, 255, 255, 0.61);
       .blog-up {
         text-align: center;
+        position: relative;
         .category {
           position: absolute;
           left: 0;
@@ -145,7 +152,6 @@
           color: white;
           font-weight: bold;
           z-index: 1;
-          margin-left: 15px;
         }
         .field-media-image {
           height: 210px;
