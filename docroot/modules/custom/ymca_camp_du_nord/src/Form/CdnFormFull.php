@@ -14,6 +14,7 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\views\Views;
+use Drupal\Core\Url;
 
 /**
  * Implements Cdn Form Full.
@@ -84,7 +85,7 @@ class CdnFormFull extends FormBase {
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME+(86400*2));
+      $dt->setTimestamp(REQUEST_TIME);
       $default_arrival_date = $dt->format('Y-m-d');
     }
     $default_departure_date = NULL;
@@ -95,17 +96,16 @@ class CdnFormFull extends FormBase {
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME);
+      $dt->setTimestamp(REQUEST_TIME+(86400*7));
       $default_departure_date = $dt->format('Y-m-d');
     }
     $state = [
+      'ids' => isset($query['ids']) && is_numeric($query['ids']) ? $query['ids'] : '',
       'village' => isset($query['village']) && is_numeric($query['village']) ? $query['village'] : 'all',
       'arrival_date' => isset($query['arrival_date']) ? $query['arrival_date'] : $default_arrival_date,
       'departure_date' => isset($query['departure_date']) ? $query['departure_date'] : $default_departure_date,
-      'range' => isset($query['range']) ? $query['range'] : NULL,
+      'range' => isset($query['range']) ? $query['range'] : 3,
       'capacity' => isset($query['capacity']) ? $query['capacity'] : 'all',
-      'partly_available' => isset($query['partly_available']) ? $query['partly_available'] : NULL,
-      'booked' => isset($query['booked']) ? $query['booked'] : NULL,
     ];
 
     $this->state = $state;
@@ -141,6 +141,10 @@ class CdnFormFull extends FormBase {
     $form['#prefix'] = '<div id="cdn-full-form-wrapper">';
     $form['#suffix'] = '</div>';
 
+    $form['ids'] = [
+      '#type' => 'hidden',
+      '#value' => $state['ids'],
+    ];
 
     $form['arrival_date'] = [
       '#type' => 'date',
@@ -155,9 +159,12 @@ class CdnFormFull extends FormBase {
 
     $form['range'] = [
       '#type' => 'select',
-      '#default_value' => $state['range'],
+      '#default_value' => !empty($state['range']) ? $state['range'] : 3,
       '#options' => [
-        0 => '+/- 3 Days'
+        0 => '+/- 0 Days',
+        3 => '+/- 3 Days',
+        7 => '+/- 7 Days',
+        10 => '+/- 10 Days'
       ],
     ];
 
@@ -183,21 +190,8 @@ class CdnFormFull extends FormBase {
       '#options' => $this->capacityOptions,
     ];
 
-    $form['partly_available'] = [
-      '#type' => 'checkbox',
-      '#title' => t('Include partly available'),
-      '#default_value' => $state['partly_available'],
-    ];
-
-    $form['booked'] = [
-      '#type' => 'checkbox',
-      '#suffix' => '</div></div>', // closes bottom-elements-wrapper.
-      '#title' => t('Include booked'),
-      '#default_value' => $state['booked'],
-    ];
-
     $form['results'] = [
-      '#prefix' => '<div class="cdn-results">',
+      '#prefix' => '</div></div><div class="cdn-results">', // closes bottom-elements-wrapper.
       '#markup' => render($formatted_results),
       '#suffix' => '</div>',
       '#weight' => 10,
@@ -268,7 +262,7 @@ class CdnFormFull extends FormBase {
       }
       }
       if (!empty($cdn_products)) {
-        $formatted_results = $this->buildResultsLayout($cdn_products, $query);
+        $formatted_results = $this->buildResultsLayout($cdn_products, $query, $user_input);
       }
     }
     return $formatted_results;
@@ -348,21 +342,29 @@ class CdnFormFull extends FormBase {
    * @return array
    *   Results render array.
    */
-  function buildResultsLayout(array $cdn_products, $query) {
+  public function buildResultsLayout(array $cdn_products, $query, $user_input) {
     $attached = $results = $teasers = [];
     $cache = [
-      'max-age' => 3600,
-      'contexts' => ['url.query_args'],
+      'max-age' => 0,
     ];
     $default_availability = t('Available');
     if (!empty($cdn_products)) {
       foreach ($cdn_products as $product) {
         $code = $product->field_cdn_prd_code->value;
         $code = substr($code, 0, 14);
+        $arrival_date = new \DateTime($query['arrival_date']);
+        $departure_date = new \DateTime($query['departure_date']);
+        if (!empty($query['range'])) {
+          for ($i = 0; $i < $query['range']; $i++) {
+            // @todo: limit to past dates.
+            $codes[] = $code . $arrival_date->modify('- 1 day')->format('mdy') . '_YHL';
+            $codes[] = $code . $departure_date->modify('+ 1 day')->format('mdy') . '_YHL';
+          }
+        }
         $period = new \DatePeriod(
-          new \DateTime($query['arrival_date']),
+          $arrival_date,
           new \DateInterval('P1D'),
-          new \DateTime($query['departure_date'])
+          $departure_date
         );
         $codes = [];
         $attached['drupalSettings']['cdn']['selected_dates'] = [];
@@ -381,25 +383,28 @@ class CdnFormFull extends FormBase {
           $view->preExecute();
           $view->execute();
         }
-        $calendar_list = $this->buildListCalendar($view);
+        $calendar_list_data = $this->buildListCalendarAndFooter($view);
         $calendar = $view->buildRenderable('embed_1', $args);
-        $capacity = $product->field_cdn_prd_capacity->getValue();
+        $total_capacity = $product->field_cdn_prd_capacity->value;
         $image = $this->getCabinImage($product->getName());
+
         $teasers[] = [
           'teaser' => [
             '#theme' => 'cdn_village_teaser',
             '#title' => !empty($product->getName()) ? substr($product->getName(), 9) : '',
             '#image' => $image,
             '#availability' => $default_availability,
-            '#capacity' => !empty($capacity) ? $capacity[0]['value']: '',
+            '#capacity' => $total_capacity,
             '#cache' => $cache,
           ],
           'calendar' => [
-            'list' => $calendar_list,
+            'list' => $calendar_list_data['list'],
             'calendar' => $calendar
           ],
+          'footer' => $calendar_list_data['footer'],
         ];
       }
+
       $results = [
         '#theme' => 'cdn_results_wrapper',
         '#teasers' => $teasers,
@@ -420,27 +425,50 @@ class CdnFormFull extends FormBase {
    * @return array
    *   Results render array.
    */
-  function buildListCalendar($view) {
-    $builds = [];
+  public function buildListCalendarAndFooter($view) {
+    $product_ids = $builds = [];
+    $total_nights = 0;
+    $total_price = '';
     foreach ($view->result as $row) {
       $entity = $row->_entity;
-      $date = $entity->field_cdn_prd_start_date->value;
+      $product_id = !$entity->field_cdn_prd_id->isEmpty() ? $entity->field_cdn_prd_id->value : '';
+      $date = !$entity->field_cdn_prd_start_date->isEmpty() ? $entity->field_cdn_prd_start_date->value : '';
+      $price = !$entity->field_cdn_prd_list_price->isEmpty() ? $entity->field_cdn_prd_list_price->value : '';
+      $capacity = !$entity->field_cdn_prd_capacity_left->isEmpty() ? $entity->field_cdn_prd_capacity_left->value : '';
+      $registrations = !$entity->field_cdn_prd_regs->isEmpty() ? $entity->field_cdn_prd_regs->value : '';
+      $pid = !$entity->field_cdn_prd_id->isEmpty() ? $entity->field_cdn_prd_id->value : '';
+      // Check if cabin is booked.
+      $is_booked = FALSE;
+      if ($capacity - $registrations == 0) {
+        $is_booked = TRUE;
+      }
       $date = substr($date, 0, 10);
       $date1 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('F');
       $date2 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('d');
       $date3 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('D');
-      $builds[] = [
+      $builds['list'][] = [
         '#theme' => 'cdn_results_calendar',
         '#data' => [
+          'id' => $entity->id(),
+          'pid' => $pid,
           'date1' => $date1,
           'date2' => $date2,
           'date3' => $date3,
-          'booked' => FALSE, // To Do: add real flag when API is ready.
-          'selected' => FALSE,
-          'price' => '$380', // To Do: add real price when API is ready.
+          'is_booked' => $is_booked,
+          'is_selected' => FALSE,
+          'price' => $price,
         ],
       ];
+      $total_price += $price;
+      $total_nights++;
+      $product_ids[] = $product_id;
     }
+    $login_url = Url::fromUri('internal:/cdn/personify/login', ['query' => ['ids' => implode(',', $product_ids)]])->toString();
+    $builds['footer'] = [
+      'total_nights' => $total_nights,
+      'total_price' => $total_price,
+      'login_url' => $login_url,
+    ];
     return $builds;
   }
 
@@ -453,14 +481,14 @@ class CdnFormFull extends FormBase {
    * @return string
    *   Path to image.
    */
-  function getCabinImage($name) {
+  public function getCabinImage($name) {
     $path = '';
     $name = str_replace( ' cabin', '', strtolower(substr($name, 9)));
-    $fids = \Drupal::service('entity.query')
+    $fids = $this->entityQuery
       ->get('file')
       ->condition('filename', '%' . $name . '%', 'LIKE')
       ->execute();
-    if ($files = \Drupal::service('entity_type.manager')->getStorage('file')->loadMultiple($fids)) {
+    if ($files = $this->entityTypeManager->getStorage('file')->loadMultiple($fids)) {
       foreach ($files as $file) {
         if (preg_match('/cabin/', $file->getFilename())) {
           $path = file_create_url($file->getFileUri());
