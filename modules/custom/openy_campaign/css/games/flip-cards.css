@@ -35,7 +35,7 @@
   text-align: center;
 }
 
-.card.flipped {
+.flip-cards .card.flipped figure{
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
   -ms-backface-visibility: visible;
