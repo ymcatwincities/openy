@@ -98,19 +98,19 @@
       }
 
       .form-checkboxes {
-        //display: flex;
-        //flex-wrap: wrap;
+        display: flex;
+        flex-wrap: wrap;
         @include breakpoint($screen-phone) {
-          //flex-direction: column;
+          flex-direction: column;
         }
         @include breakpoint($screen-sm) {
-          //flex-direction: row;
+          flex-direction: row;
         }
         @include breakpoint($screen-md) {
-          //flex-direction: row;
+          flex-direction: row;
         }
         @include breakpoint($screen-lg-desktop) {
-          //flex-direction: row;
+          flex-direction: row;
         }
         .form-item {
           margin: 5px;
