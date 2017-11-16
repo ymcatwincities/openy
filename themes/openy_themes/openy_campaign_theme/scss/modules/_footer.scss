@@ -5,20 +5,11 @@ footer {
       padding-left: 15px !important;
       padding-right: 15px !important;
     }
-    @include breakpoint($screen-sm) {
-      padding-left: 15px !important;
-      padding-right: 15px !important;
-    }
     @include breakpoint($screen-md) {
       padding-left: 135px !important;
       padding-right: 0px !important;
     }
-    @include breakpoint($screen-lg-desktop) {
-      padding-left: 135px !important;
-      padding-right: 0px !important;
-    }
     .footer__social .fa {
-      /* background-color: #fff; */
       border-radius: 0px;
       color: #fff;
       height: 0px;
@@ -32,15 +23,8 @@ footer {
       float: none;
       width: 100%;
       ul {
-        //display: inline-block;
         > li {
           @include breakpoint($screen-phone) {
-            display: block;
-            padding: 0px 0px;
-            border-left: none;
-            text-align: center;
-          }
-          @include breakpoint($screen-sm) {
             display: block;
             padding: 0px 0px;
             border-left: none;
@@ -52,24 +36,12 @@ footer {
             border-left: 1px solid;
             text-align: left;
           }
-          @include breakpoint($screen-lg-desktop) {
-            display: inline;
-            padding: 0px 25px;
-            border-left: 1px solid;
-            text-align: left;
-          }
           &:first-child {
             border-left: none;
             @include breakpoint($screen-phone) {
               padding: 0px 0px 0px 0px;
             }
-            @include breakpoint($screen-sm) {
-              padding: 0px 0px 0px 0px;
-            }
             @include breakpoint($screen-md) {
-              padding: 0px 25px 0px 0px;
-            }
-            @include breakpoint($screen-lg-desktop) {
               padding: 0px 25px 0px 0px;
             }
           }

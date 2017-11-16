@@ -1,7 +1,6 @@
-/*@import 'vendor/bootstrap/bootstrap/variables';*/
 @font-face {
   font-family: "Cachet W01 Book";
-  src: url("/profiles/contrib/openy/themes/openy_themes/openy_campaign_theme/fonts/CachetBook.ttf");
+  src: url("../fonts/CachetBook.ttf");
 }
 body {
   color: #636466;
@@ -157,6 +156,214 @@ p {
   content: none;
 }
 
+.btn, .button {
+  font-size: 18px;
+  text-align: center;
+  min-width: 150px;
+  height: 50px;
+  border-radius: 7px;
+  box-shadow: 0px 0px 5px black;
+  margin-top: 20px;
+  padding-top: 13px;
+}
+
+.field-prgf-1c-column {
+  text-align: center;
+  padding-bottom: 15px;
+}
+.field-prgf-1c-column .field-sb-body p {
+  text-transform: uppercase;
+}
+
+.paragraph--type--campaign-winners .winners-branches-select .form-item-branch {
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+  padding: 30px 0 40px 0;
+}
+.paragraph--type--campaign-winners .winners-branches-select .form-item-branch label {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 18px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper {
+  margin: 20px auto 0 auto;
+  width: 90%;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper {
+  margin-top: 20px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-prize {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
+  text-transform: uppercase;
+  width: 60%;
+  margin: 0 auto;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members thead {
+  font-size: 14px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody {
+  font-size: 18px;
+}
+.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
+  width: 70%;
+}
+
+.paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
+  padding: 0 20px;
+}
+.paragraph-background-container .field-inner-paragraph .paragraph-container, .paragraph--type--campaign-winners .winners-branches-select .field-inner-paragraph .paragraph-container {
+  padding: 0px;
+}
+.paragraph-background-container .paragraph-container, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container {
+  background-color: inherit;
+  color: #ffffff;
+}
+.paragraph-background-container .paragraph-container h2, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h2 {
+  margin: 0px;
+  padding-top: 30px;
+}
+.paragraph-background-container .paragraph-container h1, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h1, .paragraph-background-container .paragraph-container h2, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h2, .paragraph-background-container .paragraph-container h4, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h4 {
+  color: inherit !important;
+  text-transform: uppercase;
+}
+.paragraph-background-container .paragraph-container .fa, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container .fa {
+  color: inherit;
+  font-size: 64px;
+  max-width: 100%;
+  max-height: 100%;
+  float: none;
+}
+
+.block-description--wrapper .block-description--text {
+  vertical-align: top;
+  border: none !important;
+}
+.block-description--wrapper .block-description--text .field-icon {
+  float: none;
+}
+.block-description--wrapper .block-description--text .field-icon img {
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+  margin: 0 auto;
+  display: block;
+}
+.block-description--wrapper .block-description--text h2.with-icon .field-sb-title {
+  padding-top: 35px;
+  text-transform: uppercase;
+}
+.block-description--wrapper .block-description--text .field-sb-title h4 {
+  margin-top: 15px;
+  font-size: 24px;
+  padding-left: 0px !important;
+  text-transform: uppercase;
+}
+.block-description--wrapper .block-description--text .field-sb-body {
+  margin-top: 5px;
+}
+.block-description--wrapper .block-description--text .field-sb-body p {
+  margin: 0 0 5px;
+}
+
+@media (min-width: 20em) {
+  .columns .paragraph-container .block-description--text {
+    display: block;
+  }
+}
+@media (min-width: 48em) {
+  .columns .paragraph-container .block-description--text {
+    padding: 10px;
+    display: table-cell;
+  }
+}
+@media (min-width: 75em) {
+  .columns .paragraph-container .block-description--text {
+    display: table-cell;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 20em) {
+  .page-node-type-campaign .columns .paragraph-container {
+    padding: 30px 15px;
+  }
+}
+@media (min-width: 75em) {
+  .page-node-type-campaign .columns .paragraph-container {
+    padding: 50px 125px;
+  }
+}
+
+.page-node-type-campaign-page .paragraph-background-container p, .page-node-type-campaign-page .paragraph--type--campaign-winners .winners-branches-select p, .paragraph--type--campaign-winners .page-node-type-campaign-page .winners-branches-select p,
+.path-campaign-game .paragraph-background-container p,
+.path-campaign-game .paragraph--type--campaign-winners .winners-branches-select p,
+.paragraph--type--campaign-winners .path-campaign-game .winners-branches-select p {
+  font-size: 18px;
+}
+@media (min-width: 20em) {
+  .page-node-type-campaign-page .paragraph-background-container, .page-node-type-campaign-page .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page .winners-branches-select,
+  .path-campaign-game .paragraph-background-container,
+  .path-campaign-game .paragraph--type--campaign-winners .winners-branches-select,
+  .paragraph--type--campaign-winners .path-campaign-game .winners-branches-select {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+}
+@media (min-width: 75em) {
+  .page-node-type-campaign-page .paragraph-background-container, .page-node-type-campaign-page .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page .winners-branches-select,
+  .path-campaign-game .paragraph-background-container,
+  .path-campaign-game .paragraph--type--campaign-winners .winners-branches-select,
+  .paragraph--type--campaign-winners .path-campaign-game .winners-branches-select {
+    margin-right: -40px;
+    margin-left: -40px;
+  }
+}
+.page-node-type-campaign-page .paragraph-background-container .paragraph-container, .page-node-type-campaign-page .paragraph--type--campaign-winners .winners-branches-select .paragraph-container, .paragraph--type--campaign-winners .page-node-type-campaign-page .winners-branches-select .paragraph-container,
+.path-campaign-game .paragraph-background-container .paragraph-container,
+.path-campaign-game .paragraph--type--campaign-winners .winners-branches-select .paragraph-container,
+.paragraph--type--campaign-winners .path-campaign-game .winners-branches-select .paragraph-container {
+  padding: 0px;
+}
+
+.paragraph-1c-wrapper .paragraph-container {
+  margin: 0 auto;
+}
+.paragraph-1c-wrapper .paragraph-container .block-description--text {
+  display: block;
+}
+
+@media (min-width: 20em) {
+  .paragraph-2c-wrapper .block-description--text {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph-2c-wrapper .block-description--text {
+    width: 50%;
+  }
+}
+
+@media (min-width: 20em) {
+  .paragraph-3c-wrapper .block-description--text {
+    width: 100%;
+  }
+}
+@media (min-width: 48em) {
+  .paragraph-3c-wrapper .block-description--text {
+    width: 33%;
+  }
+}
+
 body {
   padding-top: 0px !important;
 }
@@ -208,10 +415,8 @@ body {
   .path-campaign-game main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding: 0px;
     margin-top: 0px;
+    padding: 0px;
     box-shadow: 0px;
   }
 }
@@ -220,10 +425,8 @@ body {
   .path-campaign-game main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding: 0px;
     margin-top: -550px;
+    padding: 0px;
     box-shadow: 10px 20px 115px 10px;
   }
 }
@@ -232,10 +435,8 @@ body {
   .path-campaign-game main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding: 0px;
     margin-top: -400px;
+    padding: 0px;
     box-shadow: 10px 20px 115px 10px;
   }
 }
@@ -244,10 +445,8 @@ body {
   .path-campaign-game main[role="main"] .layout-content {
     margin-left: 125px;
     margin-right: 125px;
-    padding-left: 70px;
-    padding-right: 70px;
-    padding: 40px;
     margin-top: -400px;
+    padding: 40px;
     box-shadow: 10px 20px 115px 10px;
   }
 }
@@ -288,95 +487,9 @@ body {
 .path-campaign-game main[role="main"] .layout-content .main-region {
   padding: 0px;
 }
-.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container p, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select p, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select p,
-.path-campaign-game main[role="main"] .layout-content .paragraph-background-container p,
-.path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select p,
-.paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select p {
-  font-size: 18px;
-}
-@media (min-width: 20em) {
-  .page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select,
-  .path-campaign-game main[role="main"] .layout-content .paragraph-background-container,
-  .path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select,
-  .paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-}
-@media (min-width: 48em) {
-  .page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select,
-  .path-campaign-game main[role="main"] .layout-content .paragraph-background-container,
-  .path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select,
-  .paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-}
-@media (min-width: 62em) {
-  .page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select,
-  .path-campaign-game main[role="main"] .layout-content .paragraph-background-container,
-  .path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select,
-  .paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-}
-@media (min-width: 75em) {
-  .page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select,
-  .path-campaign-game main[role="main"] .layout-content .paragraph-background-container,
-  .path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select,
-  .paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select {
-    margin-right: -40px;
-    margin-left: -40px;
-  }
-}
-.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-background-container .paragraph-container, .page-node-type-campaign-page main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select .paragraph-container, .paragraph--type--campaign-winners .page-node-type-campaign-page main[role="main"] .layout-content .winners-branches-select .paragraph-container,
-.path-campaign-game main[role="main"] .layout-content .paragraph-background-container .paragraph-container,
-.path-campaign-game main[role="main"] .layout-content .paragraph--type--campaign-winners .winners-branches-select .paragraph-container,
-.paragraph--type--campaign-winners .path-campaign-game main[role="main"] .layout-content .winners-branches-select .paragraph-container {
-  padding: 0px;
-}
-.page-node-type-campaign-page main[role="main"] .layout-content .paragraph-container,
-.path-campaign-game main[role="main"] .layout-content .paragraph-container {
-  width: 100%;
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
 
 .page-node-type-campaign .wrapper-field-content {
   background: #fff;
-}
-@media (min-width: 20em) {
-  .page-node-type-campaign .paragraph-container {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-}
-@media (min-width: 48em) {
-  .page-node-type-campaign .paragraph-container {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-  }
-}
-@media (min-width: 62em) {
-  .page-node-type-campaign .paragraph-container {
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-}
-@media (min-width: 75em) {
-  .page-node-type-campaign .paragraph-container {
-    padding-left: 125px;
-    padding-right: 125px;
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
 }
 .page-node-type-campaign main[role="main"] {
   padding-left: 0px;
@@ -386,61 +499,8 @@ body {
   padding: 0px;
 }
 
-.paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-.paragraph-background-container .paragraph-container, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container {
-  background-color: inherit;
-  color: #ffffff;
-}
-.paragraph-background-container .paragraph-container .block-description--wrapper .block-description--text, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container .block-description--wrapper .block-description--text {
-  padding-top: 70px !important;
-  padding-bottom: 0px !important;
-}
-.paragraph-background-container .paragraph-container h1, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h1, .paragraph-background-container .paragraph-container h2, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h2, .paragraph-background-container .paragraph-container h4, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container h4 {
-  color: inherit !important;
-  text-transform: uppercase;
-}
-.paragraph-background-container .paragraph-container .fa, .paragraph--type--campaign-winners .winners-branches-select .paragraph-container .fa {
-  color: inherit;
-  font-size: 64px;
-  max-width: 100%;
-  max-height: 100%;
-  float: none;
-}
-
-.btn, .button {
-  font-size: 18px;
-  padding-top: 13px;
-  text-align: center;
-  min-width: 150px;
-  height: 50px;
-  border-radius: 7px;
-  box-shadow: 0px 0px 5px black;
-  margin-top: 20px;
-}
-
 .layout-container {
   position: relative;
-}
-
-.block-description--wrapper .block-description--text {
-  float: left;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-.block-description--wrapper .block-description--text .field-sb-title h4 {
-  margin-top: 15px;
-  font-size: 24px;
-  padding-left: 0px !important;
-  text-transform: uppercase;
-}
-.block-description--wrapper .block-description--text .field-sb-body {
-  margin-top: 5px;
-}
-.block-description--wrapper .block-description--text .field-sb-body p {
-  margin: 0 0 5px;
 }
 
 #block-campaignmemberregister {
@@ -449,32 +509,13 @@ body {
 #block-campaignmemberregister .content-wrapper {
   background-color: rgba(0, 0, 0, 0.2);
   max-width: 800px;
-  padding: 40px;
+  padding: 40px 0px;
   margin: 75px auto;
 }
 #block-campaignmemberregister .container {
   background-size: cover;
   padding-bottom: 60px;
-}
-@media (min-width: 20em) {
-  #block-campaignmemberregister .container {
-    height: 100% !important;
-  }
-}
-@media (min-width: 48em) {
-  #block-campaignmemberregister .container {
-    height: 100% !important;
-  }
-}
-@media (min-width: 62em) {
-  #block-campaignmemberregister .container {
-    height: 100% !important;
-  }
-}
-@media (min-width: 75em) {
-  #block-campaignmemberregister .container {
-    height: 100% !important;
-  }
+  height: 100% !important;
 }
 #block-campaignmemberregister h1 {
   color: #fff;
@@ -495,24 +536,14 @@ body {
     font-size: 18px !important;
   }
 }
-@media (min-width: 62em) {
-  #block-campaignmemberregister .finish-date {
-    font-size: 18px !important;
-  }
-}
-@media (min-width: 75em) {
-  #block-campaignmemberregister .finish-date {
-    font-size: 18px !important;
-  }
-}
 #block-campaignmemberregister .countdown {
+  display: flex;
   margin: 0 auto;
   color: #ffffff;
+  width: 300px;
 }
 #block-campaignmemberregister .countdown .simply-section {
-  display: inline-flex;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 15px;
   position: relative;
 }
 #block-campaignmemberregister .countdown .simply-section:not(:last-child):after {
@@ -539,16 +570,6 @@ body {
     font-size: 30px;
   }
 }
-@media (min-width: 62em) {
-  #block-campaignmemberregister .countdown .simply-amount {
-    font-size: 30px;
-  }
-}
-@media (min-width: 75em) {
-  #block-campaignmemberregister .countdown .simply-amount {
-    font-size: 30px;
-  }
-}
 #block-campaignmemberregister .countdown .simply-word {
   font-size: 16px;
   display: block;
@@ -556,11 +577,11 @@ body {
 #block-campaignmemberregister .openy-campaign-registration-simple-form {
   max-width: 400px;
   display: block;
-  margin: 0 auto;
   background: #fff;
   border-radius: 5px;
-  padding: 40px;
+  margin: 0 auto;
   margin-top: 40px;
+  padding: 40px;
   overflow: hidden;
 }
 #block-campaignmemberregister .openy-campaign-registration-simple-form .button {
@@ -585,55 +606,10 @@ body {
   max-width: calc(100% / 2);
   margin: 0 auto;
   margin-top: 100px;
-  padding-top: 25px;
-  padding-bottom: 20px;
-  padding-left: 25px;
-  padding-right: 25px;
-}
-
-.field-prgf-1c-column {
-  text-align: center;
-  padding-bottom: 15px;
-}
-.field-prgf-1c-column .field-sb-body p {
-  text-transform: uppercase;
-}
-
-.field-inner-paragraph .paragraph-container {
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 0px;
-}
-
-.block-description--text {
-  border: none !important;
-}
-.block-description--text .field-icon {
-  float: none;
-}
-.block-description--text .field-icon img {
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
-  margin: 0 auto;
-  display: block;
-}
-.block-description--text h2.with-icon .field-sb-title {
-  padding-top: 35px;
-  text-transform: uppercase;
+  padding: 25px;
 }
 
 @media (min-width: 20em) {
-  .activity-tracking-menu-columns.left {
-    padding-right: 0px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-tracking-menu-columns.left {
-    padding-right: 0px;
-  }
-}
-@media (min-width: 62em) {
   .activity-tracking-menu-columns.left {
     padding-right: 0px;
   }
@@ -651,34 +627,12 @@ body {
     padding-left: 0px;
   }
 }
-@media (min-width: 48em) {
-  .activity-tracking-menu-columns.right h4 {
-    padding-left: 0px;
-  }
-}
-@media (min-width: 62em) {
-  .activity-tracking-menu-columns.right h4 {
-    padding-left: 0px;
-  }
-}
 @media (min-width: 75em) {
   .activity-tracking-menu-columns.right h4 {
     padding-left: 60px;
   }
 }
 @media (min-width: 20em) {
-  .activity-tracking-menu-columns.right .field-prgf-campaign-game {
-    padding-left: 0px;
-    border-left: none;
-  }
-}
-@media (min-width: 48em) {
-  .activity-tracking-menu-columns.right .field-prgf-campaign-game {
-    padding-left: 0px;
-    border-left: none;
-  }
-}
-@media (min-width: 62em) {
   .activity-tracking-menu-columns.right .field-prgf-campaign-game {
     padding-left: 0px;
     border-left: none;
@@ -717,14 +671,14 @@ body {
   width: calc(100% / 5);
   padding-left: calc(100% / 10 - 4px);
   padding-right: calc(100% / 10);
+  padding-top: 2px;
   margin-top: 35px;
+  margin-right: 0px;
   height: 60px;
   color: #fff;
   float: left;
   border-bottom: 4px solid #cecece;
   display: block;
-  padding-top: 2px;
-  margin-right: 0px;
 }
 .visits-goal .visits-goal-progress .point.active {
   background: url("../img/active.png");
@@ -753,18 +707,6 @@ body {
     padding-top: 0px;
   }
 }
-@media (min-width: 62em) {
-  .wrapper-field-prgf-campaign-game {
-    border-top: none;
-    padding-top: 0px;
-  }
-}
-@media (min-width: 75em) {
-  .wrapper-field-prgf-campaign-game {
-    border-top: none;
-    padding-top: 0px;
-  }
-}
 
 .campaign-game .cover-images {
   display: flex;
@@ -780,49 +722,6 @@ body {
 }
 .campaign-game .btn, .campaign-game .button {
   width: 100%;
-}
-
-.paragraph--type--campaign-winners .winners-branches-select .form-item-branch {
-  text-align: center;
-  width: 300px;
-  margin: 0 auto;
-  padding: 30px 0 40px 0;
-}
-.paragraph--type--campaign-winners .winners-branches-select .form-item-branch label {
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 18px;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper {
-  margin: 20px auto 0 auto;
-  width: 90%;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper {
-  margin-top: 20px;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-prize {
-  text-align: center;
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members {
-  text-transform: uppercase;
-  width: 60%;
-  margin: 0 auto;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members thead {
-  font-size: 14px;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody {
-  font-size: 18px;
-}
-.paragraph--type--campaign-winners #winners-block-wrapper .winners-wrapper .winners-members tbody td:first-child {
-  width: 70%;
 }
 
 .prizes {
@@ -852,7 +751,6 @@ body {
   color: #5c2e91;
   position: relative;
   border-bottom: none;
-  color: #5c2e91;
   left: 15px;
   top: 15px;
 }
@@ -909,26 +807,13 @@ footer {
     padding-right: 15px !important;
   }
 }
-@media (min-width: 48em) {
-  footer .container {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-  }
-}
 @media (min-width: 62em) {
   footer .container {
     padding-left: 135px !important;
     padding-right: 0px !important;
   }
 }
-@media (min-width: 75em) {
-  footer .container {
-    padding-left: 135px !important;
-    padding-right: 0px !important;
-  }
-}
 footer .container .footer__social .fa {
-  /* background-color: #fff; */
   border-radius: 0px;
   color: #fff;
   height: 0px;
@@ -950,23 +835,7 @@ footer .container .footer__nav nav {
     text-align: center;
   }
 }
-@media (min-width: 48em) {
-  footer .container .footer__nav nav ul > li {
-    display: block;
-    padding: 0px 0px;
-    border-left: none;
-    text-align: center;
-  }
-}
 @media (min-width: 62em) {
-  footer .container .footer__nav nav ul > li {
-    display: inline;
-    padding: 0px 25px;
-    border-left: 1px solid;
-    text-align: left;
-  }
-}
-@media (min-width: 75em) {
   footer .container .footer__nav nav ul > li {
     display: inline;
     padding: 0px 25px;
@@ -982,17 +851,7 @@ footer .container .footer__nav nav ul > li:first-child {
     padding: 0px 0px 0px 0px;
   }
 }
-@media (min-width: 48em) {
-  footer .container .footer__nav nav ul > li:first-child {
-    padding: 0px 0px 0px 0px;
-  }
-}
 @media (min-width: 62em) {
-  footer .container .footer__nav nav ul > li:first-child {
-    padding: 0px 25px 0px 0px;
-  }
-}
-@media (min-width: 75em) {
   footer .container .footer__nav nav ul > li:first-child {
     padding: 0px 25px 0px 0px;
   }
@@ -1159,7 +1018,7 @@ footer .container .footer__nav nav ul > li a {
   background-color: #fff;
   background-repeat: no-repeat;
   cursor: pointer;
-  color: #C6168D;
+  color: #c6168d;
   background-position: 26px 27px;
   white-space: normal;
   padding-right: 50px;
@@ -1211,15 +1070,15 @@ footer .container .footer__nav nav ul > li a {
 }
 
 .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
-  background-color: #92278F;
-  background-image: -moz-linear-gradient(#c6168d, #92278F);
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
-  background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
-  background-image: -o-linear-gradient(#c6168d, #92278F);
+  background-color: #92278f;
+  background-image: -moz-linear-gradient(#c6168d, #92278f);
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278f));
+  background-image: -webkit-linear-gradient(top, #c6168d, #92278f);
+  background-image: -o-linear-gradient(#c6168d, #92278f);
 }
 
 .category-data {
-  background: #92278F;
+  background: #92278f;
   color: #fff;
   text-transform: uppercase;
   margin: 8px;
@@ -1300,18 +1159,6 @@ footer .container .footer__nav nav ul > li a {
     margin-right: 0px;
   }
 }
-@media (min-width: 48em) {
-  .activity-data {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-}
-@media (min-width: 62em) {
-  .activity-data {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-}
 @media (min-width: 75em) {
   .activity-data {
     margin-left: 85px;
@@ -1345,24 +1192,6 @@ footer .container .footer__nav nav ul > li a {
     font-size: 9px;
   }
 }
-@media (min-width: 48em) {
-  .activity-data .categories ul li {
-    flex-flow: column;
-    margin: 9px;
-    width: 60px;
-    height: 60px;
-    font-size: 9px;
-  }
-}
-@media (min-width: 62em) {
-  .activity-data .categories ul li {
-    flex-flow: column;
-    margin: 9px;
-    width: 60px;
-    height: 60px;
-    font-size: 9px;
-  }
-}
 @media (min-width: 75em) {
   .activity-data .categories ul li {
     flex-flow: column;
@@ -1380,20 +1209,6 @@ footer .container .footer__nav nav ul > li a {
   background-repeat: no-repeat;
 }
 @media (min-width: 20em) {
-  .activity-data .categories ul li.Aquatics {
-    background-position: center 15px;
-    background-size: 35px;
-    padding-top: 38px;
-  }
-}
-@media (min-width: 48em) {
-  .activity-data .categories ul li.Aquatics {
-    background-position: center 15px;
-    background-size: 35px;
-    padding-top: 38px;
-  }
-}
-@media (min-width: 62em) {
   .activity-data .categories ul li.Aquatics {
     background-position: center 15px;
     background-size: 35px;
@@ -1485,12 +1300,6 @@ footer .container .footer__nav nav ul > li a {
     background-size: 35px;
   }
 }
-@media (min-width: 62em) {
-  .activity-data .categories ul li.GroupExercise {
-    background-position: center 10px;
-    background-size: 35px;
-  }
-}
 @media (min-width: 75em) {
   .activity-data .categories ul li.GroupExercise {
     background-position: center 50px;
@@ -1504,20 +1313,17 @@ footer .container .footer__nav nav ul > li a {
 }
 @media (min-width: 48em) {
   .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding: 0 15px !important;
   }
 }
 @media (min-width: 62em) {
   .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
-    padding-left: 70px !important;
-    padding-right: 70px !important;
+    padding: 0 70px !important;
   }
 }
 @media (min-width: 75em) {
   .activity .paragraph-background-container, .activity .paragraph--type--campaign-winners .winners-branches-select, .paragraph--type--campaign-winners .activity .winners-branches-select {
-    padding-left: 130px !important;
-    padding-right: 130px !important;
+    padding: 0 130px !important;
   }
 }
 .activity .paragraph-background-container:before, .activity .paragraph--type--campaign-winners .winners-branches-select:before, .paragraph--type--campaign-winners .activity .winners-branches-select:before {
@@ -1612,12 +1418,6 @@ footer .container .footer__nav nav ul > li a {
     left: -105px;
   }
 }
-@media (min-width: 62em) {
-  .calendar .month .date-data.slick-current .visits {
-    width: 315px;
-    left: -105px;
-  }
-}
 @media (min-width: 75em) {
   .calendar .month .date-data.slick-current .visits {
     width: 315px;
@@ -1640,16 +1440,6 @@ footer .container .footer__nav nav ul > li a {
   }
 }
 @media (min-width: 48em) {
-  .calendar .month .date-data.slick-current .visits:before {
-    left: 135px;
-  }
-}
-@media (min-width: 62em) {
-  .calendar .month .date-data.slick-current .visits:before {
-    left: 135px;
-  }
-}
-@media (min-width: 75em) {
   .calendar .month .date-data.slick-current .visits:before {
     left: 135px;
   }

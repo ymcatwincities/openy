@@ -17,7 +17,7 @@
   background-color: #fff;
   background-repeat: no-repeat;
   cursor: pointer;
-  color: #C6168D;
+  color: $pink;
   background-position: 26px 27px;
   white-space: normal;
   padding-right: 50px;
@@ -70,16 +70,16 @@
 
 .activity {
   .paragraph-background-container {
-    background-color: #92278F;
-    background-image: -moz-linear-gradient(#c6168d, #92278F);
-    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278F));
-    background-image: -webkit-linear-gradient(top, #c6168d, #92278F);
-    background-image: -o-linear-gradient(#c6168d, #92278F);
+    background-color: $dark-magenta;
+    background-image: -moz-linear-gradient($pink, $dark-magenta);
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($pink), to($dark-magenta));
+    background-image: -webkit-linear-gradient(top, $pink, $dark-magenta);
+    background-image: -o-linear-gradient($pink, $dark-magenta);
   }
 }
 
 .category-data {
-  background: #92278F;
+  background: $dark-magenta;
   color: #fff;
   text-transform: uppercase;
   margin: 8px;
@@ -121,7 +121,6 @@
           white-space: nowrap;
           @include breakpoint($screen-phone) {
             float: none;
-            //width: 100%;
           }
           @include breakpoint($screen-sm) {
             float: left;
@@ -132,9 +131,6 @@
             width: 30%;
           }
           @include breakpoint($screen-lg-desktop) {
-            //float: left;
-            //width: 32%;
-
             float: none;
             width: 32%;
           }
@@ -148,14 +144,6 @@
 .activity-data {
   margin-top: 30px;
   @include breakpoint($screen-phone) {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  @include breakpoint($screen-sm) {
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  @include breakpoint($screen-md) {
     margin-left: 0px;
     margin-right: 0px;
   }
@@ -191,20 +179,6 @@
         height: 60px;
         font-size: 9px;
       }
-      @include breakpoint($screen-sm) {
-        flex-flow: column;
-        margin: 9px;
-        width: 60px;
-        height: 60px;
-        font-size: 9px;
-      }
-      @include breakpoint($screen-md) {
-        flex-flow: column;
-        margin: 9px;
-        width: 60px;
-        height: 60px;
-        font-size: 9px;
-      }
       @include breakpoint($screen-lg-desktop) {
         flex-flow: column;
         margin: 13px;
@@ -220,19 +194,7 @@
       &.Aquatics {
         background-image: url('../img/swimming.png');
         background-repeat: no-repeat;
-
-
         @include breakpoint($screen-phone) {
-          background-position: center 15px;
-          background-size: 35px;
-          padding-top: 38px;
-        }
-        @include breakpoint($screen-sm) {
-          background-position: center 15px;
-          background-size: 35px;
-          padding-top: 38px;
-        }
-        @include breakpoint($screen-md) {
           background-position: center 15px;
           background-size: 35px;
           padding-top: 38px;
@@ -272,7 +234,6 @@
       &.Community {
         background-image: url('../img/community.png');
         background-repeat: no-repeat;
-        //background-position: 70px 50px;
 
         @include breakpoint($screen-phone) {
           background-position: center 5px;
@@ -296,7 +257,6 @@
       &.GroupExercise {
         background-image: url('../img/groupex.png');
         background-repeat: no-repeat;
-        //background-position: 70px 50px;
 
         @include breakpoint($screen-phone) {
           background-position: center 5px;
@@ -304,10 +264,6 @@
           padding-top: 33px;
         }
         @include breakpoint($screen-sm) {
-          background-position: center 10px;
-          background-size: 35px;
-        }
-        @include breakpoint($screen-md) {
           background-position: center 10px;
           background-size: 35px;
         }
@@ -324,16 +280,13 @@
 
 .activity .paragraph-background-container {
   @include breakpoint($screen-sm) {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
+    padding: 0 15px !important;
   }
   @include breakpoint($screen-md) {
-    padding-left: 70px !important;
-    padding-right: 70px !important;
+    padding: 0 70px !important;
   }
   @include breakpoint($screen-lg-desktop) {
-    padding-left: 130px !important;
-    padding-right: 130px !important;
+    padding: 0 130px !important;
   }
 
   position: relative;
@@ -425,17 +378,10 @@
           width: 315px;
           left: -105px;
         }
-        @include breakpoint($screen-md) {
-          width: 315px;
-          left: -105px;
-        }
         @include breakpoint($screen-lg-desktop) {
           width: 315px;
           left: -105px;
         }
-
-
-
         top: 140px;
         text-transform: uppercase;
         &:before {
@@ -450,20 +396,12 @@
           @include breakpoint($screen-sm) {
             left: 135px;
           }
-          @include breakpoint($screen-md) {
-            left: 135px;
-          }
-          @include breakpoint($screen-lg-desktop) {
-            left: 135px;
-          }
-
           border: 20px solid transparent;
           border-bottom: 30px solid #fff;
           text-align: center;
           border-top-left-radius: 10px;
           border-top-right-radius: 10px;
         }
-
         .visited {
           background: #C6168D;
           color: #fff;
@@ -489,7 +427,6 @@
       }
     }
   }
-
 }
 
 .calendar-wrapper {
