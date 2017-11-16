@@ -61,6 +61,7 @@ class RoboFile extends \Robo\Tasks {
   function OpenyBuildFolder($docroot_path, $build_path) {
     $this->taskFilesystemStack()
       ->symlink($docroot_path, $build_path)
-      ->chgrp('www-data', 'jenkins');
+      ->chgrp('www-data', 'jenkins')
+      ->run();
   }
 }
