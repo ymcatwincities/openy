@@ -4814,27 +4814,48 @@ function ymca_master_update_8223() {
 }
 
 /**
- * Enable fullcalendar contrib module.
+ * Update PR prices.
  */
 function ymca_master_update_8224() {
-  $modules = [
-    'fullcalendar',
-  ];
-  foreach ($modules as $module) {
-    \Drupal::service('module_installer')->install([$module], TRUE);
+  $ids = \Drupal::entityQuery('mapping')
+    ->condition('type', 'personify_product')
+    ->execute();
+
+  $mapping = Mapping::loadMultiple($ids);
+  foreach ($mapping as $map) {
+    $package = $map->field_package->value;
+    $length = $map->field_session_length->value;
+    if ($length == 30) {
+      if ($package == 1) {
+        $map->set('field_special_member_price', 32);
+        $map->set('field_special_non_member_price', 54);
+      }
+      if ($package == 4) {
+        $map->set('field_special_member_price', 128);
+        $map->set('field_special_non_member_price', 208);
+      }
+      if ($package == 20) {
+        $map->set('field_special_member_price', 640);
+        $map->set('field_special_non_member_price', 1040);
+      }
+    }
+    if ($length == 60) {
+      if ($package == 1) {
+        $map->set('field_special_member_price', 55);
+        $map->set('field_special_non_member_price', 75);
+      }
+      if ($package == 4) {
+        $map->set('field_special_member_price', 220);
+        $map->set('field_special_non_member_price', 300);
+      }
+      if ($package == 20) {
+        $map->set('field_member_price', 1099);
+        $map->set('field_nonmember_price', 1499);
+      }
+    }
+    $map->set('field_price_available_from', '2017-10-01');
+    $map->set('field_price_available_to', '2017-10-16');
+    $map->save();
   }
 }
 
-/**
- * Install Camp du Nord features.
- */
-function ymca_master_update_8225() {
-  $modules = [
-    'views_field_formatter',
-    'ymca_camp_du_nord',
-    'ymca_prgf_camp_du_nord',
-  ];
-  foreach ($modules as $module) {
-    \Drupal::service('module_installer')->install([$module], TRUE);
-  }
-}

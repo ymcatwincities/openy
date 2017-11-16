@@ -164,7 +164,7 @@ body.show-new-mobile-menu {
       background: #ffffff;
       box-shadow: inset 0 1px #c9ddee;
       color: #0089d0;
-      font-family: "Cachet Book", Arial, sans-serif;
+      font-family: "Cachet", Arial, sans-serif;
       font-size: 20px;
       text-shadow: none;
       height: 70px;
@@ -180,7 +180,7 @@ body.show-new-mobile-menu {
     .nav li.active > a,
     .nav li.open > a {
       background: #0089d0;
-      font-family: "Cachet Book", Arial, sans-serif;
+      font-family: "Cachet", Arial, sans-serif;
       box-shadow: inset 0 1px #0080c9;
       font-size: 20px;
       text-shadow: none;
@@ -239,7 +239,7 @@ body.show-new-mobile-menu {
       background: #0089d1;
       box-shadow: inset 0 1px #0181cc;
       color: #ffffff;
-      font-family: "Cachet Book", Arial, sans-serif;
+      font-family: "Cachet", Arial, sans-serif;
       font-size: 20px;
       text-shadow: none;
       text-transform: uppercase;
@@ -290,7 +290,7 @@ body.show-new-mobile-menu {
       background: #0089d1;
       box-shadow: inset 0 1px #0181cc;
       color: #ffffff;
-      font-family: "Cachet Book", Arial, sans-serif;
+      font-family: "Cachet", Arial, sans-serif;
       font-size: 20px;
       text-shadow: none;
       text-transform: uppercase;
@@ -339,19 +339,28 @@ body.show-new-mobile-menu {
     .nav li.more {
       position: relative;
       a.expand {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: none;
-        padding: 0;
-        width: 40px;
-        font-size: 30px !important;
-        line-height: 55px;
+        span {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: none;
+          padding: 0;
+          width: 40px;
+          font-size: 30px !important;
+          line-height: 55px;
+        }
       }
     }
   }
   .sidebar .active .health-fitness.nav-level-2:before, .sidebar .health-fitness.nav-level-2:before,
   .sidebar .active .jobs.nav-level-2:before, .sidebar .jobs.nav-level-2:before {
     content: '';
+  }
+  .dropdown.open > .dropdown-menu {
+    padding-bottom: 70px;
+    background: #fff;
+  }
+  li > a.overview {
+    display: none;
   }
 }
