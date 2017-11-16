@@ -476,23 +476,23 @@ legend {
     .js-form-type-membership-subtype-radio {
       margin: 0 0 20px 0 !important;
 
-        input {
-          display: inline-block;
-          width: 5%;
-          vertical-align: top;
-          margin-top: 13px;
+      input {
+        display: inline-block;
+        width: 5%;
+        vertical-align: top;
+        margin-top: 13px;
+      }
+      .form-element-wrapper {
+        display: inline-block !important;
+        width: 90% !important;
+        h4 {
+          margin-bottom: 0;
         }
-        .form-element-wrapper {
-          display: inline-block !important;
-          width: 90% !important;
-          h4 {
-            margin-bottom: 0;
-          }
-          .price-month {
-            margin: 0;
-          }
+        .price-month {
+          margin: 0;
         }
       }
+    }
   }
   [data-drupal-selector="edit-location"] {
     .form-item-location {
@@ -670,6 +670,49 @@ legend {
       &:hover {
         background-color: #9c1f7b;
       }
+    }
+  }
+}
+
+// Contact
+
+.webform-submission-contact-add-form {
+  .form-item {
+    padding: 0 15px;
+
+    &.js-form-item-name {
+      padding: 0;
+
+      label {
+        display: block;
+        margin-left: 15px;
+      }
+
+      .form-item {
+        padding: 0 15px;
+        float: left;
+        width: 50%;
+      }
+    }
+
+    &.form-item-area-of-interest,
+    &.form-item-branch,
+    &.form-item-email,
+    &.form-item-phone {
+      float: left;
+      width: 50%;
+    }
+    @include breakpoint (0 $tablet) {
+      width: 100% !important;
+      padding: 0 !important;
+    }
+  }
+
+  .form-actions,
+  .captcha {
+    margin-left: 15px;
+    @include breakpoint (0 $tablet) {
+      margin-left: 0
     }
   }
 }
