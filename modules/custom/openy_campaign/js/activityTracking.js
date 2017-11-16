@@ -4,7 +4,7 @@ Drupal.behaviors.activityTracking = {
         var $ = jQuery;
 
         function countEntry() {
-            jQuery('div.date-data').each((ind,val) => {
+            jQuery('div.date-data').each( function(ind,val) {
               var itemDate = jQuery(val).data('date');
               var entryContainer = jQuery('.activity-data').find('div.' + itemDate);
               var entryCount = entryContainer.find('input[type="checkbox"]:checked').length;
@@ -59,8 +59,8 @@ Drupal.behaviors.activityTracking = {
             countEntry();
 
             // Disable future dates.
-            let nowInd = null;
-            $('.calendar-wrapper .slick-slide').each((ind, val) => {
+            var nowInd = null;
+            $('.calendar-wrapper .slick-slide').each(function(ind, val) {
                 if (nowInd !== null) {
                   $(val).addClass('disabled');
                 }
@@ -68,9 +68,8 @@ Drupal.behaviors.activityTracking = {
                   nowInd = ind;
                 }
             });
-            $('.calendar-wrapper .slick-slide.disabled').on('click', (e) => {
+            $('.calendar-wrapper .slick-slide.disabled').on('click', function(e) {
                 e.preventDefault();
-                console.log($(e.target).parent('.date-data'));
                 $(e.target).parent('.date-data').removeClass('slick-current');
             });
         }
@@ -114,7 +113,6 @@ Drupal.behaviors.activityTracking = {
              '/campaign-save-activity/' + data,
              formData.serialize(),
              function (data) {
-               //console.log(data);
                  countEntry();
                }
              );
