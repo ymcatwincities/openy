@@ -21,7 +21,7 @@ Drupal.behaviors.activityTracking = {
                 slidesToShow: 7,
                 slidesToScroll: 7,
                 centerMode: true,
-                initialSlide: 3,
+                initialSlide: 0,
                 focusOnSelect: true,
                 centerPadding: '0px',
                 responsive: [
