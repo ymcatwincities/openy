@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_cdn_prd_cabin_id
+    - ymca_mappings.mapping_type.cdn_prs_product
+id: mapping.cdn_prs_product.field_cdn_prd_cabin_id
+field_name: field_cdn_prd_cabin_id
+entity_type: mapping
+bundle: cdn_prs_product
+label: 'Cabin ID'
+description: 'Cabin ID.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

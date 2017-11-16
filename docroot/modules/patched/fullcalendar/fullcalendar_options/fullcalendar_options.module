@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Processes various FullCalendar configuration extenders.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_help().
+ */
+function fullcalendar_options_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.fullcalendar_options':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module provides some additional advanced features for the FullCalendar module. To enable these features, go to the administration interface at Configuration > FullCalendar options or go to <a href=":options">FullCalendar options</a> admin page.', [':options' => \Drupal::url('fullcalendar_options.settings')]) . '</p>';
+      $output .= '<p>' . t('You can then choose to enable these options, which will become available in the FullCalendar Views display, under a new fieldset labeled "Additional Options".') . '</p>';
+      $output .= '<h3>' . t('Available options') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('<strong>First hour:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Determines the first hour that will be visible in the scroll pane.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Minimum time:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Determines the first hour/time that will be displayed, even when the scrollbars have been scrolled all the way up.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Maximum time:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Determines the last hour/time (exclusively) that will be displayed, even when the scrollbars have been scrolled all the way down.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Slot minutes:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('The frequency for displaying time slots, in minutes.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Default event minutes:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Determines the length (in minutes) an event appears to be when it has an unspecified end date.') . '</dd>';
+      $output .= '<dt>' . t('<strong>All day slot:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Determines if the "all-day" slot is displayed at the top of the calendar.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Weekends:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Whether to include Saturday/Sunday columns in any of the calendar views.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Lazy fetching:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Determines when event fetching should occur.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Disable dragging:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Disables all event dragging, even when events are editable.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Disable resizing:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Disables all event resizing, even when events are editable.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Drag revert duration:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Time (in ms) it takes for an event to revert to its original position after an unsuccessful drag.') . '</dd>';
+      $output .= '<dt>' . t('<strong>Day click:</strong>') . '</dt>';
+      $output .= '<dd>' .  t('Switch the display when a day is clicked.') . '</dd>';
+      $output .= '</dl>';
+      return $output;
+  }
+}
