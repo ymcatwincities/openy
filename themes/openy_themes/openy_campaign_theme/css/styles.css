@@ -818,13 +818,17 @@ footer {
 }
 footer .container .footer__social .fa {
   border-radius: 0px;
-  color: #fff;
+  color: #5c2e91;
   height: 0px;
   margin-right: 0px;
   line-height: 32px;
   text-align: center;
   text-decoration: none;
   width: auto;
+  font-size: 1px;
+}
+footer .container .footer__social .fa:before {
+  color: #ffffff;
 }
 footer .container .footer__nav nav {
   float: none;

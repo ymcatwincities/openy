@@ -11,13 +11,17 @@ footer {
     }
     .footer__social .fa {
       border-radius: 0px;
-      color: #fff;
+      color: $purple;
       height: 0px;
       margin-right: 0px;
       line-height: 32px;
       text-align: center;
       text-decoration: none;
       width: auto;
+      font-size: 1px;
+      &:before {
+        color: #ffffff;
+      }
     }
     .footer__nav nav {
       float: none;
