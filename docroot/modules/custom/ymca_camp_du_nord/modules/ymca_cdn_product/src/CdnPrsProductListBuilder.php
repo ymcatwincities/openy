@@ -13,7 +13,6 @@ use Drupal\Core\Link;
  */
 class CdnPrsProductListBuilder extends EntityListBuilder {
 
-
   /**
    * {@inheritdoc}
    */
