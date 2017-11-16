@@ -7874,7 +7874,7 @@ nav#block-footermenuright {
     height: calc(100vh - 39px);
   }
   .toolbar-vertical.sidebar-in #sidebar .news {
-    padding-bottom: 50px;
+    padding-bottom: 0;
   }
 
   .toolbar-vertical.toolbar-fixed #page-head .top-navs.navbar-fixed-top.affix .nav-global {
@@ -8858,6 +8858,33 @@ span.grey-caret:after {
   .masthead-brand a:before {
     display: inline-block;
   }
+}
+
+body.ancestor-camps .node--type-article a:hover,
+body.ancestor-camps .lead a:hover,
+body.ancestor-camps .call-to-action a:hover {
+  color: #01a490;
+}
+body.ancestor-camps .node--type-article p.button a:hover,
+body.ancestor-camps .lead p.button a:hover,
+body.ancestor-camps .call-to-action p.button a:hover {
+  color: #fff;
+}
+body.ancestor-camps .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
+  background-color: #01a490;
+}
+body.ancestor-camps .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a:hover {
+  background-color: #01a490;
+  border-color: #01a490;
+}
+body.ancestor-camps .post-excerpt .read-more {
+  color: #01a490;
+}
+body.ancestor-camps .footer-themes-b .social-icon {
+  border-color: #01a490;
+}
+body.ancestor-camps .footer-themes-b .social-icon:hover {
+  color: #01a490;
 }
 
 .form-item {
@@ -12249,7 +12276,7 @@ body.show-new-mobile-menu .sidebar .nav a {
   background: #ffffff;
   box-shadow: inset 0 1px #c9ddee;
   color: #0089d0;
-  font-family: "Cachet Book", Arial, sans-serif;
+  font-family: "Cachet", Arial, sans-serif;
   font-size: 20px;
   text-shadow: none;
   height: 70px;
@@ -12264,7 +12291,7 @@ body.show-new-mobile-menu .sidebar .nav .home > a,
 body.show-new-mobile-menu .sidebar .nav li.active > a,
 body.show-new-mobile-menu .sidebar .nav li.open > a {
   background: #0089d0;
-  font-family: "Cachet Book", Arial, sans-serif;
+  font-family: "Cachet", Arial, sans-serif;
   box-shadow: inset 0 1px #0080c9;
   font-size: 20px;
   text-shadow: none;
@@ -12321,7 +12348,7 @@ body.show-new-mobile-menu .sidebar .nav .nav-level-1 > ul > li > a {
   background: #0089d1;
   box-shadow: inset 0 1px #0181cc;
   color: #ffffff;
-  font-family: "Cachet Book", Arial, sans-serif;
+  font-family: "Cachet", Arial, sans-serif;
   font-size: 20px;
   text-shadow: none;
   text-transform: uppercase;
@@ -12370,7 +12397,7 @@ body.show-new-mobile-menu .sidebar .nav li.locations.nav-level-2.open .open.nav-
   background: #0089d1;
   box-shadow: inset 0 1px #0181cc;
   color: #ffffff;
-  font-family: "Cachet Book", Arial, sans-serif;
+  font-family: "Cachet", Arial, sans-serif;
   font-size: 20px;
   text-shadow: none;
   text-transform: uppercase;
@@ -12417,7 +12444,7 @@ body.show-new-mobile-menu .sidebar .nav li.locations.nav-level-2.open .open.nav-
 body.show-new-mobile-menu .sidebar .nav li.more {
   position: relative;
 }
-body.show-new-mobile-menu .sidebar .nav li.more a.expand {
+body.show-new-mobile-menu .sidebar .nav li.more a.expand span {
   position: absolute;
   top: 0;
   right: 0;
@@ -12430,6 +12457,13 @@ body.show-new-mobile-menu .sidebar .nav li.more a.expand {
 body.show-new-mobile-menu .sidebar .active .health-fitness.nav-level-2:before, body.show-new-mobile-menu .sidebar .health-fitness.nav-level-2:before,
 body.show-new-mobile-menu .sidebar .active .jobs.nav-level-2:before, body.show-new-mobile-menu .sidebar .jobs.nav-level-2:before {
   content: '';
+}
+body.show-new-mobile-menu .dropdown.open > .dropdown-menu {
+  padding-bottom: 70px;
+  background: #fff;
+}
+body.show-new-mobile-menu li > a.overview {
+  display: none;
 }
 
 .banner {
