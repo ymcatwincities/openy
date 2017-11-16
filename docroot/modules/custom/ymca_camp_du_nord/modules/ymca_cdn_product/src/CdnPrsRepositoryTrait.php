@@ -5,7 +5,8 @@ namespace Drupal\ymca_cdn_product;
 use Drupal\Core\Entity\EntityStorageInterface;
 
 /**
- * Class CdnPrsRepositoryTrait
+ * Class CdnPrsRepositoryTrait.
+ *
  * @package Drupal\openy_socrates
  */
 trait CdnPrsRepositoryTrait {

@@ -73,7 +73,7 @@ class Fetcher implements FetcherInterface {
    *
    * @todo Move to lower level to reuse.
    *
-   * @param $property
+   * @param mixed $property
    *   Property name.
    *
    * @return array|mixed|null
@@ -99,6 +99,7 @@ class Fetcher implements FetcherInterface {
    *
    * @param string $input
    *   Input.
+   *
    * @return string
    *   Output.
    */
@@ -126,7 +127,6 @@ class Fetcher implements FetcherInterface {
         $this->dataServicePassword,
       ],
     ];
-
 
     // @todo Make this XML from array. Possibly move to config.
     // @todo Make iterator if there is more item per page.

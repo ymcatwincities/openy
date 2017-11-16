@@ -76,7 +76,7 @@ class AddToCart implements AddToCartInterface {
    *
    * @todo Move to lower level to reuse.
    *
-   * @param $property
+   * @param mixed $property
    *   Property name.
    *
    * @return array|mixed|null
@@ -102,6 +102,7 @@ class AddToCart implements AddToCartInterface {
    *
    * @param string $input
    *   Input.
+   *
    * @return string
    *   Output.
    */
@@ -330,7 +331,7 @@ class AddToCart implements AddToCartInterface {
         $contents = str_replace("&gt;", ">", $contents);
         $xml = simplexml_load_string($contents);
         $json = json_encode($xml);
-        $data = json_decode($json,TRUE);
+        $data = json_decode($json, TRUE);
         if ($data) {
           return $data;
         }
@@ -385,11 +386,13 @@ class AddToCart implements AddToCartInterface {
       $key = $key == 'SUBSYSTEM' ? 'Subsystem' : $key;
       $key = $key == 'PRODUCT_CLASS_CODE' ? 'ProductClassCode' : $key;
       $key = $key == 'PRODUCT_SUBCLASS_CODE' ? 'ProductSubClassCode' : $key;
-      $key = $key == 'PRODUCT_CLASS_QUESTION_ID' ? 'ProductClassQuestionId' : $key; // own suggestion, not checked.
+      // Own suggestion, not checked.
+      $key = $key == 'PRODUCT_CLASS_QUESTION_ID' ? 'ProductClassQuestionId' : $key;
       $key = $key == 'SORT_ORDER' ? 'SortOrder' : $key;
       $key = $key == 'COPY_ANSWERS_FLAG' ? 'CopyAnswersFeatureFlag' : $key;
       $key = $key == 'COPY_ANSWERS_FROM_ID' ? 'CopyAnswersFromId' : $key;
-      $key = $key == 'PRODUCT_ID_ROW_NUMBER' ? 'ProductIdRowNumber' : $key; // own suggestion, not checked.
+      // Own suggestion, not checked.
+      $key = $key == 'PRODUCT_ID_ROW_NUMBER' ? 'ProductIdRowNumber' : $key;
       $key = $key == 'DYN_QUES_WEB_EDIT_FLAG' ? 'EditFlag' : $key;
 
       if ($item == 'Y') {
@@ -402,7 +405,7 @@ class AddToCart implements AddToCartInterface {
         $body .= '<' . $key . ' />';
         continue;
       }
-      $body .= '<' . $key . '>' . $item . '</'.$key.'>';
+      $body .= '<' . $key . '>' . $item . '</' . $key . '>';
     }
     // Add fields which exist in documentaion but not in response.
     $body .= '<ProcessedFlag>true</ProcessedFlag>';
@@ -420,9 +423,11 @@ class AddToCart implements AddToCartInterface {
         $key = $key == 'CODE' ? 'Code' : $key;
         $key = $key == 'SORT_ORDER' ? 'SortOrder' : $key;
         $key = $key == 'REGISTRANT_INFO' ? 'RegistrantInfo' : $key;
-        $key = $key == 'CATEGORY_ROW' ? 'CategoryRow' : $key; // own suggestion, not checked.
+        // Own suggestion, not checked.
+        $key = $key == 'CATEGORY_ROW' ? 'CategoryRow' : $key;
         $key = $key == 'QUESTION_TEXT' ? 'QuestionText' : $key;
-        $key = $key == 'START_DATE' ? 'StartDate' : $key; // own suggestion, not checked.
+        // Own suggestion, not checked.
+        $key = $key == 'START_DATE' ? 'StartDate' : $key;
         $key = $key == 'ALLOW_MULTIPLE_ANSWERS_FLAG' ? 'AllowMultipleAnswers' : $key;
         $key = $key == 'ANSWER_REQUIRED_FLAG' ? 'AnswerRequired' : $key;
         $key = $key == 'ANSWER_TYPE_CODE' ? 'AnswerTypeCode' : $key;
@@ -445,10 +450,10 @@ class AddToCart implements AddToCartInterface {
         if ($item == 'N') {
           $item = 'false';
         }
-        if ($key =='AnswerText') {
+        if ($key == 'AnswerText') {
           $item = $a;
         }
-        if ($key =='AnswerTextII') {
+        if ($key == 'AnswerTextII') {
           $item = 'testAnswer2';
         }
         if (is_array($item) && empty($item)) {
@@ -635,8 +640,9 @@ class AddToCart implements AddToCartInterface {
       $cost += (float) $product['info']->ListPrice;
     }
     $config = \Drupal::config('ymca_camp_du_nord.settings')->getRawData();
+    // @todo pass real name.
     $parameters = [
-      'village_name' => 'Northland Village', //@todo pass real name.
+      'village_name' => 'Northland Village',
       'cabin_name' => $data['Data']['NewDataSet']['Table']['PRODUCT_INFO'],
       'cabin_available' => $cabin_available,
       'nights' => count($products),
