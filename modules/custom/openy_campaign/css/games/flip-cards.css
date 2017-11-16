@@ -8,8 +8,8 @@
 }
 
 .flip-cards .card {
-  width: 293px;
-  height: 409px;
+  width: 270px;
+  height: 378px;
   float: left;
   margin-right: 30px;
   transform-style: preserve-3d;
