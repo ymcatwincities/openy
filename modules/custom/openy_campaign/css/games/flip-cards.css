@@ -58,13 +58,24 @@
 .flip-cards .card .front {
   background: #fff no-repeat left top;
   background-size: contain;
+  z-index: 2;
 }
+
 .flip-cards .card .back {
   background: #F47920;
   transform: rotateY( 180deg );
   border: 2px solid #eee;
   border-radius: 5px;
   color: #fff;
+  z-index: 1;
+}
+
+.flip-cards .card.flipped .front {
+    z-index: 1;
+}
+
+.flip-cards .card.flipped .back {
+    z-index: 2;
 }
 
 .flip-cards .card .back.winner {
@@ -74,4 +85,5 @@
 
 .flip-cards .card.flipped {
   transform: rotateY( 180deg );
+  -webkit-transform: rotateY(180deg);
 }
