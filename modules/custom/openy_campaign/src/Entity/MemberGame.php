@@ -75,6 +75,11 @@ class MemberGame extends ContentEntityBase implements MemberCampaignActivityInte
       ->setDescription(t('Rule which created the chance'))
       ->setReadOnly(TRUE);
 
+    $fields['chance_activity'] = BaseFieldDefinition::create('integer')
+      ->setLabel('Activity ID')
+      ->setDescription(t('Activity which generated the chance'))
+      ->setReadOnly(TRUE);
+
     $fields['event_date'] = BaseFieldDefinition::create('timestamp')
       ->setLabel(t('Event date'))
       ->setDescription(t('The timestamp for the day when an event generated the chance.'));
