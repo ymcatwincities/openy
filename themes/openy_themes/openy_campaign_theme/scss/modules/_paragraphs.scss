@@ -209,4 +209,7 @@
   @include breakpoint($screen-sm) {
     width: 33%;
   }
+  p:first-child {
+    min-height: 75px;
+  }
 }

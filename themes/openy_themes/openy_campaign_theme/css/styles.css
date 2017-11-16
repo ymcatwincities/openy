@@ -363,6 +363,9 @@ p {
     width: 33%;
   }
 }
+.paragraph-3c-wrapper .block-description--text p:first-child {
+  min-height: 75px;
+}
 
 body {
   padding-top: 0px !important;
