@@ -12,6 +12,7 @@ class RoboFile extends \Robo\Tasks {
     $this->taskComposerCreateProject()
       ->source('ymcatwincities/openy-project:8.1.x-development-dev')
       ->target($path . '/openy-project')
+      ->ansi(TRUE)
       ->noInstall(TRUE)
       ->noInteraction()
       ->run();
@@ -26,6 +27,7 @@ class RoboFile extends \Robo\Tasks {
     $this->taskComposerConfig()
       ->dir($path . '/openy-project')
       ->repository(99, $repository, 'vcs')
+      ->ansi(TRUE)
       ->run();
   }
 
@@ -38,6 +40,7 @@ class RoboFile extends \Robo\Tasks {
     $this->taskComposerRequire()
       ->dir($path . '/openy-project')
       ->dependency('ymcatwincities/openy', $branch)
+      ->ansi(TRUE)
       ->run();
   }
 
@@ -50,5 +53,14 @@ class RoboFile extends \Robo\Tasks {
       ->noInteraction()
       ->ansi(TRUE)
       ->run();
+  }
+
+  /**
+   * This method create symlink for web accessible build folder.
+   */
+  function OpenyBuildFolder($docroot_path, $build_path) {
+    $this->taskFilesystemStack()
+      ->symlink($docroot_path, $build_path)
+      ->chgrp('www-data', 'jenkins');
   }
 }
