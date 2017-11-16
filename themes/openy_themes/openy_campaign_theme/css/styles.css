@@ -708,14 +708,9 @@ body {
   }
 }
 
-.campaign-game .cover-images {
-  display: flex;
-}
 .campaign-game .cover-images span {
-  margin-left: 5px;
-  margin-right: 5px;
-  display: flex;
-  flex-flow: column;
+  display: table-cell;
+  padding: 5px;
 }
 .campaign-game .cover-images span img {
   width: 100%;
