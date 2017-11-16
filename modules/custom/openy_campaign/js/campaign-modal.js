@@ -2,6 +2,19 @@
 
     'use strict';
 
+
+    // Prevent pages being opening that require user being logged in.
+    $('.login').each(function(ind, item) {
+        if (!drupalSettings.openy_campaign.isLoggedIn) {
+            $(item).on('click', function(e) {
+               e.preventDefault();
+               var campaignId = drupalSettings.openy_campaign.campaignId;
+                Drupal.ajax({url: '/campaign/login/' + campaignId}).execute();
+            });
+        }
+
+    });
+
     // Replace URL query string - IE10+
     $.fn.replaceQuery = function(fragment) {
         history.replaceState('', '', window.location.pathname + '?tab=' + fragment);
@@ -32,7 +45,7 @@
                 redirectPath = window.location.pathname + '?tab=' + queryParameter;
                 // Redirect to Campaign main page. Used with logout action.
                 if (queryParameter === '<campaign-front>') {
-                    redirectPath = window.location.pathname;
+                    redirectPath = window.location.origin + '/node/' + drupalSettings.openy_campaign.campaignId;
                 }
             }
 
