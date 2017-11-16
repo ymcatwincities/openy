@@ -101,17 +101,20 @@ class CdnPrsProductRepository implements CdnPrsProductRepositoryInterface {
     }
 
     $entity = $this->storage->create();
-    $entity->setName(Unicode::truncate(trim($product['ProductName']), 255));
+    $entity->setName(Unicode::truncate(trim($product['ShortName']), 255));
 
     $popsToSave = [
       'field_cdn_prd_hash' => $this->getProductHash($xmlProduct),
       'field_cdn_prd_code' => $product['ProductCode'],
-      'field_cdn_prd_id' => $product['ProductID'],
+      'field_cdn_prd_id' => $product['ProductId'],
       'field_cdn_prd_object' => serialize($product),
       'field_cdn_prd_start_date' => $dateTime->format(DATETIME_DATETIME_STORAGE_FORMAT),
       'field_cdn_prd_cabin_id' => substr($product['ProductCode'], 6, 4),
       'field_cdn_prd_capacity' => abs(substr($product['ProductCode'], 11, 2)),
+      'field_cdn_prd_capacity_left' => $product['Capacity'],
       'field_cdn_prd_cabin_number' => abs(substr($product['ProductCode'], 7, 4)),
+      'field_cdn_prd_list_price' => $product['ListPrice'],
+      'field_cdn_prd_regs' => $product['Registrations'],
     ];
 
     foreach ($popsToSave as $fieldName => $fieldValue) {
