@@ -1,7 +1,7 @@
 wsdl: https://ygtctrain3ebiz.personifycloud.com/SSO/webservice/service.asmx?wsdl
 vendor_id: 8
 vendor_username: ClockWork
-vendor_password: ***REMOVED***rm
+vendor_password: ***REMOVED***
 vendor_block: ***REMOVED***
 url_login: https://ygtctrain3ebiz.personifycloud.com/PersonifyEbusiness/Default.aspx?TabID=337
 url_account: https://ygtctrain3ebiz.personifycloud.com/personifyebusiness/MyY.aspx
