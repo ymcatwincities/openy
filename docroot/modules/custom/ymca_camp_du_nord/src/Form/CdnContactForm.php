@@ -14,6 +14,8 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\views\Views;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Url;
 
 /**
  * Implements Cdn Contact Form.
@@ -73,11 +75,6 @@ class CdnContactForm extends FormBase {
     $query = $this->getRequest()->query->all();
 
     $state = [
-      'first_time' => isset($query['first_time']) && is_bool($query['first_time']) ? $query['first_time'] : 0,
-      'extra_mattress' => isset($query['extra_mattress']) && is_bool($query['extra_mattress']) ? $query['extra_mattress'] : 0,
-      'pack_n_pay' => isset($query['pack_n_pay']) && is_bool($query['pack_n_pay']) ? $query['pack_n_pay'] : 0,
-      'high_chair' => isset($query['high_chair']) && is_bool($query['high_chair']) ? $query['high_chair'] : 0,
-      'booster_seat' => isset($query['booster_seat']) && is_bool($query['booster_seat']) ? $query['booster_seat'] : 0,
       'name' => isset($query['name']) && is_string($query['name']) ? $query['name'] : '',
       'relationship' => isset($query['relationship']) && is_string($query['relationship']) ? $query['relationship'] : '',
       'phone' => isset($query['phone']) && is_string($query['phone']) ? $query['phone'] : 'cell',
@@ -108,61 +105,13 @@ class CdnContactForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, $locations = []) {
+  public function buildForm(array $form, FormStateInterface $form_state, $data = []) {
     $state = $this->state;
 
     $form['#prefix'] = '<div id="cdn-contact-form-wrapper">';
     $form['#suffix'] = '</div>';
 
-    $form['additional'] = [
-      '#type' => 'container',
-      '#prefix' => '<div class="container">',
-    ];
-
-    $form['additional']['first_time'] = [
-      '#type' => 'radios',
-      '#required' => TRUE,
-      '#prefix' => '<h2>' . $this->t('Additional information') . '</h2>',
-      '#title' => $this->t('Is it your first time at a camp?'),
-      '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
-      '#default_value' => $state['first_time'],
-    ];
-
-    $form['additional']['title'] = [
-      '#markup' => '<h3>' . $this->t('Do you need any of the following in your cabin?') . '</h3>',
-    ];
-
-    $form['additional']['extra_mattress'] = [
-      '#type' => 'radios',
-      '#required' => TRUE,
-      '#title' => $this->t('Extra Matress'),
-      '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
-      '#default_value' => $state['extra_mattress'],
-    ];
-
-    $form['additional']['pack_n_pay'] = [
-      '#type' => 'radios',
-      '#required' => TRUE,
-      '#title' => $this->t('Pack-n-pay'),
-      '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
-      '#default_value' => $state['pack_n_pay'],
-    ];
-
-    $form['additional']['high_chair'] = [
-      '#type' => 'radios',
-      '#required' => TRUE,
-      '#title' => $this->t('High Chair'),
-      '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
-      '#default_value' => $state['high_chair'],
-    ];
-
-    $form['additional']['booster_seat'] = [
-      '#type' => 'radios',
-      '#required' => TRUE,
-      '#title' => $this->t('Booster Seat'),
-      '#options' => [1 => $this->t('Yes'), 0 => $this->t('No')],
-      '#default_value' => $state['booster_seat'],
-    ];
+    $form += $this->buildAdditionalQuestionsFields($data, $state);
 
     $form['emergency_contact'] = [
       '#type' => 'container',
@@ -205,7 +154,7 @@ class CdnContactForm extends FormBase {
     $form['actions']['#suffix'] = '</div></div>';
     $form['actions']['submit'] = array(
       '#type' => 'submit',
-      '#value' => $this->t('Confirm reservation ->'),
+      '#value' => $this->t('Next step ->'),
       '#button_type' => 'primary',
     );
 
@@ -220,25 +169,76 @@ class CdnContactForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $values = $form_state->getValues();
+    $values = $form_state->getUserInput();
     $parameters = [];
+    $values['answers'] = 1;
     unset($values['submit']);
     unset($values['form_build_id']);
     unset($values['form_token']);
     unset($values['op']);
     unset($values['form_id']);
     $route = \Drupal::routeMatch()->getRouteName();
-    $node = \Drupal::routeMatch()->getParameter('node');
-    if ($route == 'entity.node.canonical') {
-      $parameters = [
-        'node' => $node->id(),
-      ];
-    }
     $form_state->setRedirect(
       $route,
       $parameters,
       ['query' => $values]
     );
+    $query = \Drupal::service('request_stack')->getCurrentRequest()->query->all();
+    $service = \Drupal::service('ymca_cdn_sync.add_to_cart');
+    $data = $service->askAdditionalQuestions(explode(',', $values['cart_items_ids']));
+    $service->updateCartInfo($values, $data, $query['cdn_personify_chosen_ids']);
+  }
+
+  /**
+   * Helper method to build dynamic fields.
+   *
+   * @param array $data
+   *   Fetched view with products.
+   * @param array $state
+   *   State of form.
+   *
+   * @return array
+   *   Results render array.
+   */
+  public function buildAdditionalQuestionsFields($data, $state) {
+    $form['additional'] = [
+      '#type' => 'container',
+      '#prefix' => '<div class="container"><h2>' . $this->t('Additional information') . '</h2>',
+    ];
+    $form['cart_items_ids'] = [
+      '#type' => 'hidden',
+      '#default_value' => implode(',', $data['cart_items_ids']),
+    ];
+    $cabin_q = FALSE;
+    foreach ($data['data']['Data']['NewDataSet']['Table2'] as $q) {
+      if (!$cabin_q && strpos($q['QUESTION_TEXT'], 'cabin')) {
+        $form['additional']['title'] = [
+          '#markup' => '<h3>' . $this->t('Do you need any of the following in your cabin?') . '</h3>',
+        ];
+        $cabin_q = TRUE;
+      }
+      switch ($q['ANSWER_TYPE_CODE']) {
+        case 'NUMBER_TEXT_BOX':
+          $form['additional'][$q['CODE']] = [
+            '#type' => 'textfield',
+            '#required' => TRUE,
+            '#title' => $q['QUESTION_TEXT'],
+            '#default_value' => isset($state[$q['CODE']]) ? $state[$q['CODE']] : '',
+          ];
+          break;
+
+        case 'DROP_DOWN':
+          $form['additional'][$q['CODE']] = [
+            '#type' => 'radios',
+            '#required' => TRUE,
+            '#title' => $q['QUESTION_TEXT'],
+            '#options' => ['Y' => $this->t('Yes'), 'N' => $this->t('No')],
+            '#default_value' => isset($state[$q['CODE']]) ? $state[$q['CODE']] : 'N',
+          ];
+          break;
+      }
+    }
+    return $form;
   }
 
 }
