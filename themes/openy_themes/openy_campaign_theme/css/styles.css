@@ -537,7 +537,6 @@ body {
   }
 }
 #block-campaignmemberregister .countdown {
-  display: flex;
   margin: 0 auto;
   color: #ffffff;
   width: 300px;
@@ -545,6 +544,7 @@ body {
 #block-campaignmemberregister .countdown .simply-section {
   padding: 0 15px;
   position: relative;
+  display: table-cell;
 }
 #block-campaignmemberregister .countdown .simply-section:not(:last-child):after {
   content: "\f111";

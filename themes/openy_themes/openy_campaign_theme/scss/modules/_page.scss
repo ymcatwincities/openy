@@ -145,13 +145,13 @@ body {
   }
 
   .countdown {
-    display: flex;
     margin: 0 auto;
     color: #ffffff;
     width: 300px;
     .simply-section {
       padding: 0 15px;
       position: relative;
+      display: table-cell;
       &:not(:last-child) {
         &:after {
           content: "\f111";
