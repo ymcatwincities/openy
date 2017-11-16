@@ -6,16 +6,30 @@
   perspective: 800px;
   margin: 20px auto;
 }
-
 .flip-cards .card {
-  width: 293px;
   height: 409px;
   float: left;
-  margin-right: 30px;
+  margin-right: 2%;
   transform-style: preserve-3d;
   transition: transform 1s;
   position: relative;
   cursor: pointer;
+}
+
+@media screen and (min-width: 300px) {
+  .flip-cards .card  {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 767px) {
+  .flip-cards .card {
+    width: 32%;
+  }
+}
+
+.flip-cards .card:last-child {
+  margin-right: 0px;
 }
 
 .flip-cards .card figure {
