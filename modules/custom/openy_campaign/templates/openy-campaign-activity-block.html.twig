@@ -1,7 +1,3 @@
-{# copy form so we can remove rendered elements from it #}
-{% set formCopy = form %}
-
-
 <div class="activity">
 
     <div class="paragraph-background-container">
@@ -11,7 +7,7 @@
           <div class="calendar-wrapper">
               <h3 class="current-month"></h3>
             <div class="month">
-                {% for key in form|keys %}
+                {% for key in activities|keys %}
                     {# key should match 2017-08-12 pattern #}
                     {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
                         {# if another month started close the list and open a new one. #}
@@ -27,7 +23,7 @@
                                 <div class="entriesNum">
                                     No entry found
                                 </div>
-                                {% set row = attribute(form, key) %}
+                                {% set row = attribute(activities, key) %}
                                 <div class="visited">
                                   {%  if row.checkin is defined %}
                                     visited
@@ -52,23 +48,21 @@
       <div class="categories">
           <ul></ul>
       </div>
-      {% for key in form|keys %}
+      {% for key in activities|keys %}
         {# key should match 2017-08-12 pattern #}
         {%  if key matches '/^[\\d]\{4\}-[\\d]\{2\}-[\\d]\{2\}$/' %}
 
 
         <div class="activity-daily-data {{ key }}" style="display:none">
-            {% set row = attribute(form, key) %}
+            {% set row = attribute(activities, key) %}
             {% for formKey in row|keys %}
                 {%  if formKey matches '/^[\\d]+$/' %}
-                    <div class="category-data">
+                    <div class="category-data {{ formKey }}">
                         {{ attribute(row, formKey) }}
                     </div>
                 {% endif %}
             {% endfor %}
         </div>
-
-            {% set formCopy = formCopy|without(key) %}
 
         {%  endif %}
       {% endfor %}
