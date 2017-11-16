@@ -28,9 +28,13 @@ body {
     }
   }
 }
-.paragraph-1c-wrapper .field-prgf-1c-description {
-  color: $dark-grey !important;
+
+.paragraph-1c-wrapper {
+  .field-prgf-1c-description {
+    color: $dark-grey !important;
+  }
 }
+
 .visits-goal {
   .description {
     .goal {

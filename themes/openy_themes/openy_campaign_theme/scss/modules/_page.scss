@@ -28,6 +28,7 @@ body {
     background-color: #ffffff;
     padding-left: 0px;
     padding-right: 0px;
+
     margin: 0 auto;
 
     .layout-content {
@@ -36,39 +37,32 @@ body {
       @include breakpoint($screen-phone) {
         margin-left: 15px;
         margin-right: 15px;
-        padding-left: 0px;
-        padding-right: 0px;
-        padding: 0px;
         margin-top: 0px;
+        padding: 0px;
         box-shadow: 0px;
       }
       @include breakpoint($screen-sm) {
         margin-left: 15px;
         margin-right: 15px;
-        padding-left: 0px;
-        padding-right: 0px;
-        padding: 0px;
         margin-top: -550px;
+        padding: 0px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-md) {
         margin-left: 15px;
         margin-right: 15px;
-        padding-left: 0px;
-        padding-right: 0px;
-        padding: 0px;
         margin-top: -400px;
+        padding: 0px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-lg-desktop) {
         margin-left: 125px;
         margin-right: 125px;
-        padding-left: 70px;
-        padding-right: 70px;
-        padding: 40px;
         margin-top: -400px;
+        padding: 40px;
         box-shadow: 10px 20px 115px 10px;
       }
+
       position: relative;
       margin-bottom: 100px;
       min-height: 500px;
@@ -95,72 +89,14 @@ body {
       .main-region {
         padding: 0px;
       }
-      .paragraph-background-container {
-        p {
-          font-size: 18px;
-        }
-        @include breakpoint($screen-phone) {
-          margin-right: -15px;
-          margin-left: -15px;
-        }
-        @include breakpoint($screen-sm) {
-          margin-right: -15px;
-          margin-left: -15px;
-        }
-        @include breakpoint($screen-md) {
-          margin-right: -15px;
-          margin-left: -15px;
-        }
-        @include breakpoint($screen-lg-desktop) {
-          margin-right: -40px;
-          margin-left: -40px;
-        }
-        //padding-left: 40px;
-        //padding-right: 40px;
-        .paragraph-container {
-          padding: 0px;
-        }
-      }
-      .paragraph-container {
-        width: 100%;
-        padding-top: 0px;
-        padding-bottom: 0px;
-      }
+
     }
   }
 }
 
 .page-node-type-campaign {
   .wrapper-field-content {
-    //padding-top: 50px;
     background: #fff;
-  }
-  .paragraph-container {
-    @include breakpoint($screen-phone) {
-      padding-left: 15px;
-      padding-right: 15px;
-      padding-top: 30px;
-      padding-bottom: 30px;
-    }
-    @include breakpoint($screen-sm) {
-      padding-left: 15px;
-      padding-right: 15px;
-      padding-top: 30px;
-      padding-bottom: 30px;
-    }
-    @include breakpoint($screen-md) {
-      padding-left: 15px;
-      padding-right: 15px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-    }
-    @include breakpoint($screen-lg-desktop) {
-      padding-left: 125px;
-      padding-right: 125px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-    }
-
   }
 
   main[role="main"] {
@@ -172,108 +108,32 @@ body {
   }
 }
 
-.paragraph-background-container {
-  padding-left: 20px;
-  padding-right: 20px;
-  //padding-top: 60px;
-  //padding-bottom: 60px;
-  .paragraph-container {
-    background-color: inherit;
-    color: #ffffff;
-    .block-description--wrapper .block-description--text {
-      padding-top: 70px !important;
-      padding-bottom: 0px !important;
-    }
-    h1, h2, h4 {
-      color: inherit !important;
-      text-transform: uppercase;
-    }
-    .fa {
-      color: inherit;
-      font-size: 64px;
-      max-width: 100%;
-      max-height: 100%;
-      float: none;
-    }
-  }
-}
 
-.btn {
-  font-size: 18px;
-  padding-top: 13px;
-  text-align: center;
-  min-width: 150px;
-  height: 50px;
-  border-radius: 7px;
-  box-shadow: 0px 0px 5px black;
-  margin-top: 20px;
-}
 
 .layout-container {
   position: relative;
 }
 
-.block-description--wrapper {
-  //padding-top: 60px;
-  //padding-bottom: 70px;
-  .block-description--text {
-    float: left;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    //padding-bottom: 0px;
-    //padding-top: 0px;
-    .field-sb-title {
-      h4 {
-        margin-top: 15px;
-        font-size: $h4-size;
-        padding-left: 0px !important;
-        text-transform: uppercase;
-      }
-
-    }
-    .field-sb-body {
-      margin-top: 5px;
-      p {
-        margin: 0 0 5px;
-      }
-    }
-  }
-}
 
 #block-campaignmemberregister {
   text-align: center;
   .content-wrapper {
     background-color: rgba(0, 0, 0, 0.2);
     max-width: 800px;
-    padding: 40px;
+    padding: 40px 0px;
     margin: 75px auto;
   }
   .container {
     background-size: cover;
     padding-bottom: 60px;
-    @include breakpoint($screen-phone) {
-      height: 100% !important;
-    }
-    @include breakpoint($screen-sm) {
-      height: 100% !important;
-    }
-    @include breakpoint($screen-md) {
-      height: 100% !important;
-    }
-    @include breakpoint($screen-lg-desktop) {
-      height: 100% !important;
-    }
+    height: 100% !important;
   }
-
   h1 {
-    //padding-top: 100px;
     color: #fff;
     text-transform: uppercase;
     margin: 0 auto;
     text-align: center;
-
   }
-
   .finish-date {
     color: #ffffff;
     @include breakpoint($screen-phone) {
@@ -282,22 +142,15 @@ body {
     @include breakpoint($screen-sm) {
       font-size: 18px !important;
     }
-    @include breakpoint($screen-md) {
-      font-size: 18px !important;
-    }
-    @include breakpoint($screen-lg-desktop) {
-      font-size: 18px !important;
-    }
   }
 
   .countdown {
+    display: flex;
     margin: 0 auto;
     color: #ffffff;
-
+    width: 300px;
     .simply-section {
-      display: inline-flex;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding: 0 15px;
       position: relative;
       &:not(:last-child) {
         &:after {
@@ -322,12 +175,6 @@ body {
       @include breakpoint($screen-sm) {
         font-size: 30px;
       }
-      @include breakpoint($screen-md) {
-        font-size: 30px;
-      }
-      @include breakpoint($screen-lg-desktop) {
-        font-size: 30px;
-      }
     }
 
     .simply-word {
@@ -339,11 +186,11 @@ body {
   .openy-campaign-registration-simple-form {
     max-width: 400px;
     display: block;
-    margin: 0 auto;
     background: #fff;
     border-radius: 5px;
-    padding: 40px;
+    margin: 0 auto;
     margin-top: 40px;
+    padding: 40px;
     overflow: hidden;
     .button {
       width: 100%;
@@ -369,69 +216,15 @@ body {
     max-width: calc(100% / 2);
     margin: 0 auto;
     margin-top: 100px;
-    padding-top: 25px;
-    padding-bottom: 20px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding: 25px;
   }
 
 }
 
-.paragraph-1c-wrapper .field-prgf-1c-description {
-}
-
-.field-prgf-1c-column {
-  text-align: center;
-  padding-bottom: 15px;
-  .field-sb-body {
-    p {
-      text-transform: uppercase;
-    }
-  }
-}
-
-.field-inner-paragraph {
-  .paragraph-container {
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 0px;
-  }
-}
-
-.block-description--text {
-  border: none !important;
-  .field-icon {
-    float: none;
-  }
-  .field-icon img {
-    max-width: 100%;
-    height: auto;
-    max-height: 100%;
-    margin: 0 auto;
-    display: block;
-  }
-  .field-sb-body {
-    //padding-top: 30px;
-  }
-  h2 {
-    &.with-icon {
-      .field-sb-title {
-        padding-top: 35px;
-        text-transform: uppercase;
-      }
-    }
-  }
-}
 
 .activity-tracking-menu-columns {
   &.left {
     @include breakpoint($screen-phone) {
-      padding-right: 0px;
-    }
-    @include breakpoint($screen-sm) {
-      padding-right: 0px;
-    }
-    @include breakpoint($screen-md) {
       padding-right: 0px;
     }
     @include breakpoint($screen-lg-desktop) {
@@ -444,28 +237,13 @@ body {
       @include breakpoint($screen-phone) {
         padding-left: 0px;
       }
-      @include breakpoint($screen-sm) {
-        padding-left: 0px;
-      }
-      @include breakpoint($screen-md) {
-        padding-left: 0px;
-      }
       @include breakpoint($screen-lg-desktop) {
         padding-left: 60px;
       }
 
     }
     .field-prgf-campaign-game {
-
       @include breakpoint($screen-phone) {
-        padding-left: 0px;
-        border-left: none;
-      }
-      @include breakpoint($screen-sm) {
-        padding-left: 0px;
-        border-left: none;
-      }
-      @include breakpoint($screen-md) {
         padding-left: 0px;
         border-left: none;
       }
@@ -478,33 +256,24 @@ body {
 }
 
 .visits-goal {
-
   .description {
     text-align: center;
-    .goal {
-    }
   }
-
   .uppercase {
     text-transform: uppercase;
   }
-
   .bold {
     font-weight: bold;
   }
-
   .visits-goal-progress {
     margin-top: 5px;
     margin-bottom: 40px;
-
     .clearfix {
       clear: both;
     }
-
     .progress-row {
       clear: both;
     }
-
     .point {
       background: url('../img/inactive.png');
       background-repeat: no-repeat;
@@ -512,23 +281,20 @@ body {
       width: calc(100% / 5);
       padding-left: calc(100% / 10 - 4px);
       padding-right: calc(100% / 10);
-
+      padding-top: 2px;
       margin-top: 35px;
+      margin-right: 0px;
       height: 60px;
       color: #fff;
       float: left;
       border-bottom: 4px solid #cecece;
       display: block;
-      padding-top: 2px;
-      margin-right: 0px;
     }
-
     .point.active {
       background: url('../img/active.png');
       background-repeat: no-repeat;
       background-position: center;
     }
-
     .point-1 {
       background-position: left !important;
       width: 33px !important;
@@ -552,18 +318,9 @@ body {
     border-top: none;
     padding-top: 0px;
   }
-  @include breakpoint($screen-md) {
-    border-top: none;
-    padding-top: 0px;
-  }
-  @include breakpoint($screen-lg-desktop) {
-    border-top: none;
-    padding-top: 0px;
-  }
 }
 
 .campaign-game {
-
   .cover-images {
     display: flex;
     span {
@@ -576,69 +333,11 @@ body {
       }
     }
   }
-
   .btn {
     width: 100%;
   }
 }
 
-.paragraph--type--campaign-winners {
-
-  .winners-branches-select {
-    @extend .paragraph-background-container;
-
-    .form-item-branch {
-      text-align: center;
-      width: 300px;
-      margin: 0 auto;
-      padding: 30px 0 40px 0;
-      label {
-        color: #fff;
-        text-transform: uppercase;
-        font-size: 18px;
-      }
-    }
-  }
-
-  #winners-block-wrapper {
-    margin: 20px auto 0 auto;
-    width: 90%;
-
-    .winners-wrapper {
-      margin-top: 20px;
-
-      .winners-title {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-      }
-
-      .winners-prize {
-        text-align: center;
-        font-size: 18px;
-        margin-bottom: 20px;
-      }
-
-      .winners-members {
-        text-transform: uppercase;
-        width: 60%;
-        margin: 0 auto;
-
-        thead {
-          font-size: 14px;
-        }
-        tbody {
-          font-size: 18px;
-
-          td:first-child {
-            width: 70%;
-          }
-        }
-      }
-    }
-
-  }
-}
 
 .prizes {
   padding-left: 50px;
@@ -666,7 +365,6 @@ body {
         color: $purple;
         position: relative;
         border-bottom: none;
-        color: #5c2e91;
         left: 15px;
         top: 15px;
       }

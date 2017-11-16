@@ -2,7 +2,6 @@
 @import 'breakpoint';
 
 @import 'base/colors';
-/*@import 'vendor/bootstrap/bootstrap/variables';*/
 
 // Base
 @import 'base/variables';
@@ -11,11 +10,13 @@
 @import 'base/typography';
 @import 'base/utilities';
 
+
 // Modules
+@import 'modules/buttons';
+@import 'modules/paragraphs';
 @import 'modules/page';
 @import 'modules/footer';
 @import 'modules/header';
-@import 'modules/menu';
 @import 'modules/forms';
 @import 'modules/dialog';
 @import 'modules/_administrative_tabs';
