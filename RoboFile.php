@@ -16,4 +16,39 @@ class RoboFile extends \Robo\Tasks {
       ->noInteraction()
       ->run();
   }
+
+  /**
+   * This method adds fork as repository to composer.json.
+   *
+   * Example: https://github.com/Sanchiz/openy
+   */
+  function OpenyAddFork($path, $repository) {
+    $this->taskComposerConfig()
+      ->dir($path . '/openy-project')
+      ->repository(99, $repository, 'vcs')
+      ->run();
+  }
+
+
+  /**
+   * This method adds branch for OpenY distro in composer.json.
+   * Example: 'dev-feature/drupal-8.4'
+   */
+  function OpenySetBranch($path, $branch) {
+    $this->taskComposerRequire()
+      ->dir($path . '/openy-project')
+      ->dependency('ymcatwincities/openy', $branch)
+      ->run();
+  }
+
+  /**
+   * This method installs OpenY.
+   */
+  function OpenyInstall($path) {
+    $this->taskComposerInstall()
+      ->dir($path . '/openy-project')
+      ->noInteraction()
+      ->ansi(TRUE)
+      ->run();
+  }
 }
