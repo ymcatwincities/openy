@@ -6,7 +6,8 @@ Drupal.behaviors.campaignCountdown = {
         jQuery('.countdown').html('');
 
         // Parse campaign end date to the Date object
-        var compaignEndDate = new Date(settings.campaignSettigns.endDate);
+        var dateObj = moment(settings.campaignSettigns.endDate);
+        var compaignEndDate = new Date(dateObj);
 
         simplyCountdown('.countdown', {
             year: compaignEndDate.getUTCFullYear(), // required
