@@ -17,6 +17,7 @@ use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\paragraphs\Entity\Paragraph;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
