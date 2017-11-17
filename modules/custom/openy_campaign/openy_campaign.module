@@ -267,20 +267,27 @@ function openy_campaign_cron() {
  * Implements hook_preprocess_node().
  */
 function openy_campaign_preprocess_node(&$variables, $hook) {
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $variables['node'];
+  if (!in_array($node->getType(), ['campaign', 'campaign_page'])) {
+    return;
+  }
 
+  $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
   // Find which published Campaign page needs to be rendered on Campaign page.
-  if ($variables['node']->getType() == 'campaign' && $variables['view_mode'] == 'full') {
-    $campaignMenuService = \Drupal::service('openy_campaign.campaign_menu_handler');
-    $requestLandingPage = $campaignMenuService->showRequestLandingPage($variables['node']);
+  if ($node->getType() == 'campaign' && $variables['view_mode'] == 'full') {
+    $requestLandingPage = $campaignMenuService->getActiveCampaignPage($node);
 
     if (!empty($requestLandingPage)) {
       $build = \Drupal::entityTypeManager()->getViewBuilder('node')->view($requestLandingPage);
       $variables['content']['landing_page'] = $build;
     }
-    $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
+  }
+  $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
 
-  } elseif ($variables['node']->getType() == 'campaign_page') {
-    $variables['#attached']['library'][] = 'openy_campaign/campaign_modal';
+  // Check if user is allowed to enter the page.
+  if (!$campaignMenuService->checkPermissions($node)) {
+    // TODO: open login popup.
   }
 
 }

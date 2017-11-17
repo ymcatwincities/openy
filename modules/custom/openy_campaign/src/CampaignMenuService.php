@@ -218,7 +218,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
    *
    * @return mixed Published campaign page or FALSE if there is no published referenced campaign page.
    */
-  private function getActiveCampaignPage($campaign) {
+  public function getActiveCampaignPage($campaign) {
     // Check if Campaign is Paused
     $isPaused = $campaign->get('field_pause_campaign')->value;
     $fieldPauseLandingPage = $campaign->get('field_pause_landing_page')->getValue();
@@ -251,13 +251,24 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   }
 
   /**
-   * Get Landing page based active main landing page.
+   * Check permissions of the current page.
    *
-   * @param \Drupal\node\Entity\Node $campaign Campaign node.
+   * @param \Drupal\node\Entity\Node $node Campaign/Campaign Page node.
    *
-   * @return \Drupal\node\Entity\Node | null | static
+   * @return boolean
    */
-  public function showRequestLandingPage($campaign) {
+  public function checkPermissions($node) {
+    switch ($node->getType()) {
+      case 'campaign':
+        $campaign = $node;
+        break;
+      case 'campaign_page':
+        $campaign = $this->getCampaignNodeFromRoute();
+        break;
+      default:
+        return FALSE;
+    }
+
     // Get full menu from the Campaign node.
     $campaignMenu = $campaign->get('field_campaign_menu')->getValue();
     if (!empty($campaignMenu)) {
@@ -265,31 +276,34 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     }
 
     if (empty($campaignMenu)) {
-      return NULL;
+      return FALSE;
     }
 
     $landingPage = $this->getActiveCampaignPage($campaign);
 
     // Show Pause page without the permissions check.
     if ($campaign->get('field_pause_campaign')->value) {
-      return $landingPage;
+      return TRUE;
     }
 
+    if ($node->getType() == 'campaign') {
+      $pageId = $landingPage->id();
+    }
+    else {
+      $pageId = $node->id();
+    }
     foreach ($campaignMenu[$landingPage->id()]['links'] as $k => $link) {
       if (empty($link['page'])) {
         continue;
       }
       $linkPageId = $link['page'][0]['target_id'];
-      if ($linkPageId != $landingPage->id()) {
+      if ($linkPageId != $pageId) {
         continue;
       }
-      $accessGranted = !$link['logged'] || MemberCampaign::isLoggedIn($campaign->id());
+      return !$link['logged'] || MemberCampaign::isLoggedIn($campaign->id());
 
-      if ($accessGranted) {
-        return $landingPage;
-      }
       break;
     }
-    return NULL;
+    return FALSE;
   }
 }
