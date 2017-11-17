@@ -1,0 +1,10 @@
+expander-block:
+  version: 1.x
+  js:
+    js/expander-block.js: {}
+  css:
+    theme:
+      css/expander-block.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
