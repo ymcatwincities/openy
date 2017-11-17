@@ -537,7 +537,6 @@ class GroupexScheduleFetcher {
 
         if ($current_day == $item_date->format('N')) {
           // Set proper data.
-          $item_date->sub(new \DateInterval('P7D'));
           $full_date = $item_date->format(GroupexRequestTrait::$dateFullFormat);
           $item->date = $full_date;
           $item->day = $full_date;
@@ -560,7 +559,12 @@ class GroupexScheduleFetcher {
         $item->instructor = str_replace($test1[0], '<br><span class="icon icon-loop2"></span><span class="sub">' . $test1[1] . '</span>', $item->instructor);
       }
     }
-
+    // Sort classes by timestamp.
+    $sort = [];
+    foreach ($data as $key => $row) {
+      $sort[$key] = $row->timestamp;
+    }
+    array_multisort($sort, SORT_ASC, $data);
     $this->processedData = $data;
   }
 
