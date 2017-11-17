@@ -40,7 +40,7 @@ campaign_countdown:
 
 slick_carousel:
   js:
-    js/libs/slick/slick.min.js: {}
+    js/libs/slick/slick.js: {}
 
 activityTracking:
   js:

@@ -28,12 +28,9 @@ body {
     background-color: #ffffff;
     padding-left: 0px;
     padding-right: 0px;
-
     margin: 0 auto;
-
     .layout-content {
       background-color: inherit;
-
       @include breakpoint($screen-phone) {
         margin-left: 15px;
         margin-right: 15px;
@@ -45,14 +42,14 @@ body {
         margin-left: 15px;
         margin-right: 15px;
         margin-top: -550px;
-        padding: 0px;
+        padding: 30px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-md) {
         margin-left: 15px;
         margin-right: 15px;
         margin-top: -400px;
-        padding: 0px;
+        padding: 30px;
         box-shadow: 10px 20px 115px 10px;
       }
       @include breakpoint($screen-lg-desktop) {
@@ -73,15 +70,7 @@ body {
           margin-top: 30px;
           margin-bottom: 30px;
         }
-        @include breakpoint($screen-sm) {
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
         @include breakpoint($screen-md) {
-          margin-top: 60px;
-          margin-bottom: 70px;
-        }
-        @include breakpoint($screen-lg-desktop) {
           margin-top: 60px;
           margin-bottom: 70px;
         }
@@ -117,16 +106,37 @@ body {
 
 #block-campaignmemberregister {
   text-align: center;
+
+  @include breakpoint($screen-phone) {
+    margin-top: 65px;
+  }
+  @include breakpoint($screen-md) {
+    margin-top: 0px;
+  }
   .content-wrapper {
     background-color: rgba(0, 0, 0, 0.2);
     max-width: 800px;
     padding: 40px 0px;
-    margin: 75px auto;
+
+    @include breakpoint($screen-phone) {
+      margin: 15px auto 15px auto;
+    }
+    @include breakpoint($screen-md) {
+      margin: 75px auto 15px auto;
+    }
   }
   .container {
     background-size: cover;
-    padding-bottom: 60px;
     height: 100% !important;
+    @include breakpoint($screen-phone) {
+      padding-bottom: 0px;
+    }
+    @include breakpoint($screen-sm) {
+      padding-bottom: 0px;
+    }
+    @include breakpoint($screen-md) {
+      padding-bottom: 60px;
+    }
   }
   h1 {
     color: #fff;

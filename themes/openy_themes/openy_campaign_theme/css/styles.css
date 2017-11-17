@@ -289,7 +289,7 @@ p {
 @media (min-width: 75em) {
   .columns .paragraph-container .block-description--text {
     display: table-cell;
-    padding: 10px;
+    padding: 25px 10px 40px 10px;
   }
 }
 
@@ -429,7 +429,7 @@ body {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: -550px;
-    padding: 0px;
+    padding: 30px;
     box-shadow: 10px 20px 115px 10px;
   }
 }
@@ -439,7 +439,7 @@ body {
     margin-left: 15px;
     margin-right: 15px;
     margin-top: -400px;
-    padding: 0px;
+    padding: 30px;
     box-shadow: 10px 20px 115px 10px;
   }
 }
@@ -465,21 +465,7 @@ body {
     margin-bottom: 30px;
   }
 }
-@media (min-width: 48em) {
-  .page-node-type-campaign-page main[role="main"] .layout-content h1,
-  .path-campaign-game main[role="main"] .layout-content h1 {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
-}
 @media (min-width: 62em) {
-  .page-node-type-campaign-page main[role="main"] .layout-content h1,
-  .path-campaign-game main[role="main"] .layout-content h1 {
-    margin-top: 60px;
-    margin-bottom: 70px;
-  }
-}
-@media (min-width: 75em) {
   .page-node-type-campaign-page main[role="main"] .layout-content h1,
   .path-campaign-game main[role="main"] .layout-content h1 {
     margin-top: 60px;
@@ -509,16 +495,49 @@ body {
 #block-campaignmemberregister {
   text-align: center;
 }
+@media (min-width: 20em) {
+  #block-campaignmemberregister {
+    margin-top: 65px;
+  }
+}
+@media (min-width: 62em) {
+  #block-campaignmemberregister {
+    margin-top: 0px;
+  }
+}
 #block-campaignmemberregister .content-wrapper {
   background-color: rgba(0, 0, 0, 0.2);
   max-width: 800px;
   padding: 40px 0px;
-  margin: 75px auto;
+}
+@media (min-width: 20em) {
+  #block-campaignmemberregister .content-wrapper {
+    margin: 15px auto 15px auto;
+  }
+}
+@media (min-width: 62em) {
+  #block-campaignmemberregister .content-wrapper {
+    margin: 75px auto 15px auto;
+  }
 }
 #block-campaignmemberregister .container {
   background-size: cover;
-  padding-bottom: 60px;
   height: 100% !important;
+}
+@media (min-width: 20em) {
+  #block-campaignmemberregister .container {
+    padding-bottom: 0px;
+  }
+}
+@media (min-width: 48em) {
+  #block-campaignmemberregister .container {
+    padding-bottom: 0px;
+  }
+}
+@media (min-width: 62em) {
+  #block-campaignmemberregister .container {
+    padding-bottom: 60px;
+  }
 }
 #block-campaignmemberregister h1 {
   color: #fff;
@@ -1338,7 +1357,7 @@ footer .container .footer__nav nav ul > li a {
 .activity .paragraph-background-container:before, .activity .paragraph--type--campaign-winners .winners-branches-select:before, .paragraph--type--campaign-winners .activity .winners-branches-select:before {
   content: '';
   position: absolute;
-  left: 47%;
+  left: calc(50% - 30px);
   bottom: -57px;
   border: 30px solid transparent;
   border-top: 30px solid #92278F;
@@ -1356,7 +1375,7 @@ footer .container .footer__nav nav ul > li a {
   overflow: hidden;
   white-space: nowrap;
   margin: 0px;
-  padding: 0 80px;
+  padding: 0 55px;
   position: relative;
 }
 .calendar .month .slick-list {
@@ -1417,20 +1436,14 @@ footer .container .footer__nav nav ul > li a {
 }
 @media (min-width: 20em) {
   .calendar .month .date-data.slick-current .visits {
-    width: 178px;
-    left: -57px;
+    width: 180px;
+    left: calc(50% - 90px);
   }
 }
 @media (min-width: 48em) {
   .calendar .month .date-data.slick-current .visits {
     width: 315px;
-    left: -105px;
-  }
-}
-@media (min-width: 75em) {
-  .calendar .month .date-data.slick-current .visits {
-    width: 315px;
-    left: -105px;
+    left: calc(50% - 160px);
   }
 }
 .calendar .month .date-data.slick-current .visits:before {
@@ -1445,12 +1458,12 @@ footer .container .footer__nav nav ul > li a {
 }
 @media (min-width: 20em) {
   .calendar .month .date-data.slick-current .visits:before {
-    left: 70px;
+    left: calc(50% - 20px);
   }
 }
 @media (min-width: 48em) {
   .calendar .month .date-data.slick-current .visits:before {
-    left: 135px;
+    left: calc(50% - 17px);
   }
 }
 .calendar .month .date-data.slick-current .visits .visited {
