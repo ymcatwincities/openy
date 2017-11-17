@@ -144,7 +144,7 @@
   @include breakpoint($screen-lg-desktop) {
     .block-description--text {
       display: table-cell;
-      padding: 10px;
+      padding: 25px 10px 40px 10px;
     }
   }
 }

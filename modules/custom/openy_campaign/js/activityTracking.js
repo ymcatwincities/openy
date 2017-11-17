@@ -16,7 +16,7 @@ Drupal.behaviors.activityTracking = {
         }
 
         function initActiveEl() {
-            $('div.month').slick({
+            $('div.month').not('.slick-initialized').slick({
                 infinite: false,
                 slidesToShow: 7,
                 slidesToScroll: 7,
@@ -28,7 +28,7 @@ Drupal.behaviors.activityTracking = {
                     {
                         breakpoint: 1024,
                         settings: {
-                            slidesToShow: 3,
+                            slidesToShow: 5,
                             slidesToScroll: 3,
                             //infinite: true,
                         }
@@ -36,7 +36,7 @@ Drupal.behaviors.activityTracking = {
                     {
                         breakpoint: 600,
                         settings: {
-                            slidesToShow: 3,
+                            slidesToShow: 5,
                             slidesToScroll: 3
                         }
                     },
@@ -49,6 +49,10 @@ Drupal.behaviors.activityTracking = {
                     }
                 ]
             });
+
+            var todayInd = $('.now.slick-slide').index();
+            $('div.month').slick('slickGoTo', parseInt(todayInd));
+
             var currentEl = $('.slick-current');
             var currentMonth = currentEl.find('span.month').html();
             $('h3.current-month').html(currentMonth);

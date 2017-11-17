@@ -292,7 +292,7 @@
   &:before {
     content: '';
     position: absolute;
-    left: 47%;
+    left:  calc(50% - 30px);
     bottom: -57px;
     border: 30px solid transparent;
     border-top: 30px solid #92278F;
@@ -311,7 +311,7 @@
   overflow: hidden;
   white-space: nowrap;
   margin: 0px;
-  padding: 0 80px;
+  padding: 0 55px;
   position: relative;
   .slick-list {
     overflow: hidden;  
@@ -370,30 +370,24 @@
 
 
         @include breakpoint($screen-phone) {
-          width: 178px;
-          left: -57px;
+          width: 180px;
+          left: calc(50% - 90px);
         }
         @include breakpoint($screen-sm) {
           width: 315px;
-          left: -105px;
-        }
-        @include breakpoint($screen-lg-desktop) {
-          width: 315px;
-          left: -105px;
+          left: calc(50% - 160px);
         }
         top: 140px;
         text-transform: uppercase;
         &:before {
           content: '';
           position: absolute;
-
           top: -50px;
-
           @include breakpoint($screen-phone) {
-            left: 70px;
+            left: calc(50% - 20px)
           }
           @include breakpoint($screen-sm) {
-            left: 135px;
+            left: calc(50% - 17px)
           }
           border: 20px solid transparent;
           border-bottom: 30px solid #fff;
