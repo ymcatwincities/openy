@@ -51,7 +51,16 @@ class GameController extends ControllerBase {
   /**
    * Play the Game page.
    */
-  public function playGamePage($uuid) {
+  public function playGamePage($node) {
+
+  }
+
+  /**
+   * Play one Game page.
+   */
+  public function playOneGamePage($uuid) {
+    $gameResult = $this->generateGameResult($uuid);
+
     /** @var \Drupal\openy_campaign\Entity\MemberGame $game */
     $game = $this->entityRepository->loadEntityByUuid('openy_campaign_member_game', $uuid);
 
@@ -59,9 +68,9 @@ class GameController extends ControllerBase {
     /** @var \Drupal\Node\Entity\Node $campaign */
     $campaign = $game->member->entity->campaign->entity;
 
-    $link = Link::fromTextAndUrl(t('Back to Campaign'), new Url('entity.node.canonical', [ 'node' => $campaign->id()]))->toString();
+    if (!empty($gameResult['already_used_chance'])) {
+      $link = Link::fromTextAndUrl(t('Back to Campaign'), new Url('entity.node.canonical', [ 'node' => $campaign->id()]))->toString();
 
-    if (!empty($result)) {
       return [
         '#markup' => $link . ' You have played this chance already. Your result: ' . $result,
       ];
@@ -79,6 +88,76 @@ class GameController extends ControllerBase {
 
     $title = $campaign->field_campaign_game_title->value;
     $description = $campaign->field_campaign_game_description->value;
+
+    // Select random game type from the list.
+    $gameType = self::$gamesList[array_rand(self::$gamesList)];
+
+    $isWinner = $gameResult['is_winner'];
+    $result = $gameResult['result'];
+
+    // Output different messages.
+    // Get default values from settings
+    $config = \Drupal::config('openy_campaign.general_settings');
+    $messageNumber = mt_rand(1, 5);
+    $message = $config->get('instant_game_' . ($isWinner ? 'win' : 'loose') . '_message_' . $messageNumber);
+    $message = check_markup($message['value'], $message['format']);
+    $messageTitle = $config->get('instant_game_' . ($isWinner ? 'win' : 'loose') . ' _title');
+    $messageTitle = check_markup($messageTitle['value'], $messageTitle['format']);
+
+    if ($isWinner) {
+      $message = str_replace('[game:result]', $result, $message);
+    }
+
+    return [
+      '#theme' => 'openy_campaign_game_' . $gameType,
+      '#result' => $result,
+      '#title' => $title,
+      '#description' => $description,
+      '#coverImagePath' => $coverImagePath,
+      '#message' => $message,
+      '#messageTitle' => $messageTitle,
+      '#isWinner' => $isWinner,
+      '#attached' => [
+        'library' => [
+          'openy_campaign/game_' . $gameType,
+        ],
+        'drupalSettings' => [
+          'openy_campaign' => [
+            'result' => $result,
+          ],
+        ],
+      ]
+    ];
+  }
+
+  /**
+   * Show list of all game results.
+   *
+   * @param \Drupal\node\NodeInterface $node
+   *
+   * @return array Render array
+   */
+  public function gameResults(NodeInterface $node) {
+    $build = [
+      'view' => views_embed_view('campaign_game_results', 'default', $node->id()),
+    ];
+
+    return $build;
+  }
+
+  private function generateGameResult($uuid) {
+    /** @var \Drupal\openy_campaign\Entity\MemberGame $game */
+    $game = $this->entityRepository->loadEntityByUuid('openy_campaign_member_game', $uuid);
+
+    $result = $game->result->value;
+    /** @var \Drupal\Node\Entity\Node $campaign */
+    $campaign = $game->member->entity->campaign->entity;
+
+    if (!empty($result)) {
+      return [
+        'already_used_chance' => TRUE,
+      ];
+    }
 
     $expected = $campaign->field_campaign_expected_visits->value;
     $coefficient = $campaign->field_campaign_prize_coefficient->value;
@@ -136,57 +215,14 @@ class GameController extends ControllerBase {
     $game->log->value = $logMessage;
     $game->save();
 
-    // Select random game type from the list.
-    $gameType = self::$gamesList[array_rand(self::$gamesList)];
-
-    // Output different messages.
-    // Get default values from settings
-    $config = \Drupal::config('openy_campaign.general_settings');
-
-    $messageNumber = mt_rand(1, 5);
-    $msgLoose = $config->get('instant_game_loose_message_' . $messageNumber);
-    $msgLoose = check_markup($msgLoose['value'], $msgLoose['format']);
-
-    $messageNumber = mt_rand(1, 5);
-    $msgWin = $config->get('instant_game_win_message_' . $messageNumber);
-    $msgWin = check_markup($msgWin['value'], $msgWin['format']);
-    $msgWin = str_replace('[game:result]', $result, $msgWin);
-
-
     return [
-      '#theme' => 'openy_campaign_game_' . $gameType,
-      '#result' => $result,
-      '#link' => $link,
-      '#title' => $title,
-      '#description' => $description,
-      '#coverImagePath' => $coverImagePath,
-      '#msgWin' => $msgWin,
-      '#msgLoose' => $msgLoose,
-      '#isWinner' => $isWinner,
-      '#attached' => [
-        'library' => [
-          'openy_campaign/game_' . $gameType,
-        ],
-        'drupalSettings' => [
-          'openy_campaign' => [
-            'result' => $result,
-          ],
-        ],
-      ]
-    ];
-  }
-
-  /**
-   * @param \Drupal\node\NodeInterface $node
-   *
-   * @return array Render array
-   */
-  public function gameResults(NodeInterface $node) {
-    $build = [
-      'view' => views_embed_view('campaign_game_results', 'default', $node->id()),
+      'is_winner' => $isWinner,
+      'result' => $result,
     ];
 
-    return $build;
+
+
+
   }
 
 }

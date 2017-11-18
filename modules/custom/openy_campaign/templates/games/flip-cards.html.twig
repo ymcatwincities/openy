@@ -7,13 +7,8 @@
             <figure class="front"><img src="{{ coverImagePath }}" alt="" /></figure>
             <figure class="back{% if isWinner %} winner{% endif %}">
                 <span>
-                    {% if isWinner %}
-                        <h3>{{ 'Congratulations'|t }}</h3>
-                        <p>{{ msgWin|raw }}</p>
-                    {% else %}
-                        <h3>{{ 'Sorry not this time'|t }}</h3>
-                        <p>{{ msgLoose|raw }}</p>
-                    {% endif %}
+                    <h3>{{ messageTitle }}</h3>
+                    <p>{{ message|raw }}</p>
                 </span>
             </figure>
         </div>

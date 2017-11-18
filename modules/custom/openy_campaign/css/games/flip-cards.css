@@ -34,14 +34,14 @@
   -moz-backface-visibility: hidden;
   text-align: center;
 }
-
-.flip-cards .card.flipped figure{
+/*
+.flip-cards .card.flipped figure {
   backface-visibility: visible;
   -webkit-backface-visibility: visible;
   -ms-backface-visibility: visible;
   -moz-backface-visibility: visible;
 }
-
+*/
 .flip-cards .card figure img {
   width: 100%;
 }
