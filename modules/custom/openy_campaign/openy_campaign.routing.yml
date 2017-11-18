@@ -178,10 +178,19 @@ openy_campaign.track-activity:
 openy_campaign.campaign_game:
   path: '/campaign-game/{uuid}'
   defaults:
+    _controller: '\Drupal\openy_campaign\Controller\GameController::playOneGamePage'
+  requirements:
+    _permission: 'access content'
+
+openy_campaign.campaign_games:
+  path: '/node/{node}/game'
+  defaults:
     _controller: '\Drupal\openy_campaign\Controller\GameController::playGamePage'
   requirements:
     _permission: 'access content'
 
+
+# Reports.
 openy_campaign.campaign_game_results:
   path: '/node/{node}/campaign-game-results'
   defaults:

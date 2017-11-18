@@ -176,6 +176,13 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Track Activity page: The Game block. "Multiple Game Remaining" message. Use "@count" placeholder for the number of remaining games.'),
     ];
 
+    $form['instant_game_loose_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Game Loose message title'),
+      '#default_value' => $config->get('instant_game_loose_title'),
+      '#description' => $this->t('Title shown on loose card. F.x. "Sorry not this time".'),
+    ];
+
     // Instant Game messages.
     for ($i = 1; $i <= 5; $i++) {
       $form['instant_game_loose_message_' . $i] = [
@@ -186,6 +193,13 @@ class SettingsForm extends ConfigFormBase {
         '#description' => $this->t('Instant-win Game page: Loose message ' . $i . '. You can use "[campaign:title]" placeholder for the campaign name.'),
       ];
     }
+
+    $form['instant_game_win_title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Game Win message title'),
+      '#default_value' => $config->get('instant_game_win_title'),
+      '#description' => $this->t('Title shown on win card. F.x. "Congratulations".'),
+    ];
 
     for ($i = 1; $i <= 5; $i++) {
       $form['instant_game_win_message_' . $i] = [
