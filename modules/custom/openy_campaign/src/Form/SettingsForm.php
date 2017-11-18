@@ -246,6 +246,8 @@ class SettingsForm extends ConfigFormBase {
       $config->set('instant_game_loose_message_' . $i, $form_state->getValue('instant_game_loose_message_' . $i));
       $config->set('instant_game_win_message_' . $i, $form_state->getValue('instant_game_win_message_' . $i));
     }
+    $config->set('instant_game_loose_title', $form_state->getValue('instant_game_loose_title'));
+    $config->set('instant_game_win_title', $form_state->getValue('instant_game_win_title'));
 
     $config->save();
 
