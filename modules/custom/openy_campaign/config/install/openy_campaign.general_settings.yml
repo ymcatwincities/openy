@@ -73,3 +73,7 @@ instant_game_win_message_4:
 instant_game_win_message_5:
   value: '<p>You have won: [game:result].</p>'
   format: full_html
+instant_game_loose_title:
+  value: 'Sorry not this time'
+instant_game_loose_title:
+  value: 'Congratulations'
