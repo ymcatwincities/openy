@@ -42,7 +42,7 @@
         nights++;
       }
     });
-    var href = settings.path.baseUrl + 'cdn/personify/login?ids=' + ids.join('%2C');
+    var href = settings.path.baseUrl + 'cdn/personify/login?ids=' + ids.join('%2C') + '&total=' + price + '&nights=' + nights;
     footer.find('.next-step').attr('href', href);
     footer.find('.price').text('$' + price);
     footer.find('.nights').text(nights);
