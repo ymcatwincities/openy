@@ -1,6 +1,6 @@
 <?php
 /**
- * This is project's console commands configuration for Robo task runner.
+ * OpenY Robo commands.
  *
  * @see http://robo.li/
  */
