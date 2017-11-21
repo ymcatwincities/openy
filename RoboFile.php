@@ -26,7 +26,7 @@ class RoboFile extends \Robo\Tasks {
   function OpenyAddFork($path, $repository) {
     $this->taskComposerConfig()
       ->dir($path . '/openy-project')
-      ->repository(99, $repository, 'vcs')
+      ->repository(99, $repository, 'path')
       ->ansi(TRUE)
       ->run();
   }
