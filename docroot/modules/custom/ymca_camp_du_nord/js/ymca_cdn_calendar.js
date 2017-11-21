@@ -55,6 +55,9 @@
   Drupal.behaviors.cdn = {
     attach: function(context, settings) {
       $('.fullcalendar', context).each(function() {
+        // Change month based on start date.
+        var date = $.fullCalendar.moment($('input[name="arrival_date"]').val());
+        $(this).fullCalendar('gotoDate', date);
         $(this).find('.fc-day-top').each(function() {
           var number = $(this).find('.fc-day-number').text();
           var i = $(this).index();
@@ -80,7 +83,6 @@
             }
           }
         });
-        $(this).addClass('processed');
       });
 
       $('a.cdn-prs-product', context).each(function() {
