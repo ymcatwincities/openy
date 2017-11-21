@@ -33,7 +33,12 @@ class WebformEntityReferenceAutocompleteWidget extends EntityReferenceAutocomple
 
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
 
+    // Get field name.
     $field_name = $items->getName();
+
+    // Get field input name from field parents, field name, and the delta.
+    $field_parents = array_merge($element['target_id']['#field_parents'], [$field_name, $delta]);
+    $field_input_name = (array_shift($field_parents)) . ('[' . implode('][', $field_parents) . ']');
 
     // Set element 'target_id' default properties.
     $element['target_id'] += [
@@ -72,7 +77,7 @@ class WebformEntityReferenceAutocompleteWidget extends EntityReferenceAutocomple
         $this->t('If the close date/time is left blank, this webform will never be closed.'),
       '#states' => [
         'visible' => [
-          'input[name="' . $field_name . '[' . $delta . '][settings][status]"]' => ['value' => WebformInterface::STATUS_SCHEDULED],
+          'input[name="' . $field_input_name . '[settings][status]"]' => ['value' => WebformInterface::STATUS_SCHEDULED],
         ],
       ],
     ];

@@ -24,6 +24,7 @@ class WebformMarkup extends WebformMarkupBase {
    */
   public function getDefaultProperties() {
     return parent::getDefaultProperties() + [
+      'wrapper_attributes' => [],
       // Markup settings.
       'markup' => '',
     ];
@@ -46,6 +47,7 @@ class WebformMarkup extends WebformMarkupBase {
       '#type' => 'webform_html_editor',
       '#title' => $this->t('HTML markup'),
       '#description' => $this->t('Enter custom HTML into your webform.'),
+      '#format' => FALSE,
     ];
     return $form;
   }

@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Views Field Formatter module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function views_field_formatter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the gss module.
+    case 'help.page.views_field_formatter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t("Provide a new field formatter: '<strong>View</strong>' for each field types and allows you to select a View and to use its result instead of the original field value.") . '</p>';
+      $output .= '<h3>' . t('More Information') . '</h3>';
+      $output .= '<p>' . t('for more information about this module please visite the <a href="@link">project page</a>', array('@link' => 'https://www.drupal.org/project/views_field_formatter')) . '</p>';
+      return $output;
+
+    default:
+      return '';
+  }
+}

@@ -16,4 +16,33 @@ namespace Drupal\webform\Plugin\WebformElement;
  */
 class Label extends ContainerBase {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefaultProperties() {
+    return [
+        'title' => '',
+        // General settings.
+        'description' => '',
+        // Form validation.
+        'required' => FALSE,
+        // Attributes.
+        'attributes' => [],
+      ] + $this->getDefaultBaseProperties();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemDefaultFormat() {
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getItemFormats() {
+    return [];
+  }
+
 }

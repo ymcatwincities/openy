@@ -14,14 +14,19 @@
    *   TRUE will display the text field. FALSE with hide and clear the text field.
    * @param {object} $element
    *   The input (text) field to be toggled.
+   * @param {string} effect
+   *   Effect.
    */
-  function toggleOther(show, $element) {
+  function toggleOther(show, $element, effect) {
     var $input = $element.find('input');
+    var hideEffect = (effect === false) ? 'hide' : 'slideUp';
+    var showEffect = (effect === false) ? 'show' : 'slideDown';
+
     if (show) {
       // Limit the other inputs width to the parent's container.
       $element.width($element.parent().width());
       // Display the element.
-      $element.slideDown();
+      $element[showEffect]();
       // Focus and require the input.
       $input.focus().prop('required', true);
       // Restore the input's value.
@@ -36,7 +41,8 @@
       });
     }
     else {
-      $element.slideUp();
+      // Hide the element.
+      $element[hideEffect]();
       // Save the input's value.
       $input.data('webform-value', $input.val());
       // Empty and un-required the input.
@@ -58,13 +64,11 @@
         var $otherOption = $element.find('option[value="_other_"]');
         var $input = $element.find('.js-webform-select-other-input');
 
-        if ($otherOption.is(':selected')) {
-          $input.show().find('input').prop('required', true);
-        }
-
         $select.on('change', function () {
           toggleOther($otherOption.is(':selected'), $input);
         });
+
+        toggleOther($otherOption.is(':selected'), $input, false);
       });
     }
   };
@@ -81,13 +85,11 @@
         var $checkbox = $element.find('input[value="_other_"]');
         var $input = $element.find('.js-webform-checkboxes-other-input');
 
-        if ($checkbox.is(':checked')) {
-          $input.show().find('input').prop('required', true);
-        }
-
         $checkbox.on('change', function () {
           toggleOther(this.checked, $input);
         });
+
+        toggleOther($checkbox.is(':checked'), $input, false);
       });
     }
   };
@@ -105,13 +107,11 @@
         var $radios = $element.find('input[type="radio"]');
         var $input = $element.find('.js-webform-radios-other-input');
 
-        if ($radios.filter(':checked').val() === '_other_') {
-          $input.show().find('input').prop('required', true);
-        }
-
         $radios.on('change', function () {
           toggleOther(($radios.filter(':checked').val() === '_other_'), $input);
         });
+
+        toggleOther(($radios.filter(':checked').val() === '_other_'), $input, false);
       });
     }
   };
@@ -128,10 +128,6 @@
 
         var $buttons = $element.find('input[type="radio"]');
         var $input = $element.find('.js-webform-buttons-other-input');
-
-        if ($buttons.filter(':checked').val() === '_other_') {
-          $input.show().find('input').prop('required', true);
-        }
 
         // Note: Initializing buttonset here so that we can set the onchange
         // event handler.
@@ -150,6 +146,8 @@
         $container.on('webform:disabled', function () {
           $container.buttonset('option', 'disabled', $container.find('input[type="radio"]:disabled').length);
         });
+
+        toggleOther(($buttons.filter(':checked').val() === '_other_'), $input, false);
       });
     }
   };

@@ -133,6 +133,17 @@ class WebformLocation extends WebformCompositeBase {
   /**
    * {@inheritdoc}
    */
+  public function preview() {
+    return parent::preview() + [
+      '#map' => TRUE,
+      '#geolocation' => TRUE,
+      '#format' => 'map',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
@@ -181,7 +192,7 @@ class WebformLocation extends WebformCompositeBase {
     else {
       $form['composite']['api_key']['#required'] = TRUE;
       if (\Drupal::currentUser()->hasPermission('administer webform')) {
-        $t_args = [':href' => UrlGenerator::fromRoute('webform.settings')->toString()];
+        $t_args = [':href' => UrlGenerator::fromRoute('webform.settings.elements')->toString()];
         $form['composite']['api_key']['#description'] .= '<br />' . $this->t('You can either enter an element specific API key here or set the <a href=":href">default site-wide API key</a>.', $t_args);
       }
     }

@@ -103,7 +103,6 @@ class WebformTelephone extends WebformCompositeBase {
       '#type' => 'checkbox',
       '#description' => $this->t('Enhance the telephone element\'s international support using the jQuery <a href=":href">International Telephone Input</a> plugin.', [':href' => 'http://intl-tel-input.com/']),
       '#return_value' => TRUE,
-      '#access' => $this->librariesManager->isIncluded('jquery.intl-tel-input'),
     ];
     $form['composite']['phone__international_initial_country'] = [
       '#title' => $this->t('Initial country'),
@@ -117,8 +116,12 @@ class WebformTelephone extends WebformCompositeBase {
           ':input[name="properties[phone__international]"]' => ['checked' => TRUE],
         ],
       ],
-      '#access' => $this->librariesManager->isIncluded('jquery.intl-tel-input'),
     ];
+    if ($this->librariesManager->isExcluded('jquery.intl-tel-input')) {
+      $form['composite']['phone__international']['#access'] = FALSE;
+      $form['composite']['phone__international_initial_country']['#access'] = FALSE;
+    }
+
     return $form;
   }
 

@@ -38,5 +38,5 @@ if (class_exists('\Drupal\bootstrap\Plugin\Preprocess\PreprocessBase')) {
 
 }
 else {
-  class Region { }
+  class Region {}
 }

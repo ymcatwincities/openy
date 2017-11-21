@@ -67,30 +67,13 @@ class WebformSubmissionController extends ControllerBase implements ContainerInj
       '#webform_submission' => $webform_submission,
     ];
 
-    // Information.
-    $build['information'] = [
-      '#theme' => 'webform_submission_information',
-      '#webform_submission' => $webform_submission,
-      '#source_entity' => $source_entity,
-    ];
-
     // Submission.
     $build['submission'] = [
-      '#theme' => 'webform_submission_' . $type,
+      '#theme' => 'webform_submission',
       '#webform_submission' => $webform_submission,
       '#source_entity' => $source_entity,
+      '#type' => $type,
     ];
-
-    // Wrap plain text and YAML in CodeMirror view widget.
-    if (in_array($type, ['text', 'yaml'])) {
-      $build['submission'] = [
-        '#theme' => 'webform_codemirror',
-        '#code' => $build['submission'],
-        '#type' => $type,
-      ];
-    }
-
-    $build['#attached']['library'][] = 'webform/webform.admin';
 
     return $build;
   }

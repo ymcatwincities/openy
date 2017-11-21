@@ -155,34 +155,35 @@ html, body {
   height: 100%;
   position: relative;
 
-  .container-winners {
-    height: 100%;
-    background: url('../prototypes/ysr_2017/img/bg-page-winner.jpg') no-repeat;
-    background-size: cover;
-    @include rem(max-height, 522px);
-  }
-
   .compain-winners {
-    @include rem(padding, 20px);
-    width: 100%;
-    @include rem(max-width, 740px);
-    @include rem(padding-top, 39px);
-    @include rem(padding-bottom, 45px);
-    margin: 0 auto;
 
     .compain-header {
-      background: none;
-      height: auto;
-      padding-bottom: 0;
+      background-image: image-url('2017_summer/winners.jpg');
+      background-position: 50% 0;
+      height: 560px;
+      background-size: 100%;
 
       &--content {
         text-align: center;
-        .content {
-          text-align: center;
-          @include rem(margin-top, 31px);
-        }
         .title {
-          padding-bottom: 2px;
+          color: #94e2ff;
+          padding-top: 25px;
+          padding-bottom: 11px;
+        }
+        .sub-title {
+          font-size: 30px;
+          &:after,
+          &:before {
+            content: image-url('2017_summer/win_icon.png');
+            display: inline-block;
+            margin: 0px 29px 27px;
+            position: relative;
+            top: 20px;
+          }
+          &:after {
+            transform: scale(-1,1);
+
+          }
         }
         .logo {
           display: block;
@@ -206,7 +207,7 @@ html, body {
     margin: 0 auto;
 
     @include breakpoint($desktop-small) {
-      @include rem(padding, 27px);
+      @include rem(padding, 53px 37px 40px);
     }
 
     .btn {
@@ -282,14 +283,10 @@ html, body {
 
   }
   .winner-name {
-    color: $green-dark;
-    @include rem(font-size, 30px);
+    color: $green-medium;
+    @include rem(font-size, 24px);
     font-weight: bold;
     margin-bottom: 2px;
-    .col-sm-2 &,
-    .col-sm-4 & {
-      color: $green-medium;
-    }
     .col-sm-2 & {
       @include rem(margin-top, 6px);
     }
@@ -307,14 +304,18 @@ html, body {
 
 }
 
-.container.bucks-25 {
+.container.win-list {
   @include breakpoint($tablet) {
-    @include rem(margin-top, -75px);
-    padding: 0;
+    padding: 35px;
+    .col-sm-3 {
+      width: 24%;
+      display: inline-block;
+      float: none;
+      padding: 0;
+      margin: 0;
+    }
   }
-  img {
-    max-width: 60px;
-  }
+  text-align: center;
 }
 
 .bucks-5 {
@@ -342,108 +343,14 @@ html, body {
     margin-left: -100px;
   }
 }
-
-
-.theme-ymca--2017-compain-upcoming {
-  height: 100%;
-  position: relative;
-  min-height: 900px;
-  background: transparent image-url('2017_summer/upc_top.png') 50% 0 no-repeat;
-  .compain-header--content {
-    background: none;
-  }
-
-  .viewport,
-  #main {
-    height: 100%;
-    background: none;
-    margin-top: auto;
-  }
-
-  #main {
-    background: transparent image-url('2017_summer/upc_bottom.png') 50% 100% no-repeat;
-  }
-
-  .compain-upcoming {
-    @include rem(padding, 20px);
-    width: 100%;
-    max-width: 740px;
-    text-align: center;
-    margin: 0px auto;
-
-    .compain-header {
-      background: none;
-      height: auto;
-      min-height: 400px;
-      margin-top: 250px;
-      @include breakpoint($tablet) {
-        margin-top: 300px;
-      }
-      .title {
-        color: $blue-medium;
-        margin-bottom: 40px ;
-        @include rem(font-size, 46px);
-        margin-top: -13px;
-        @include breakpoint($tablet) {
-          @include rem(font-size, 50px);
-        }
-      }
-      .winner-text {
-        color: $green-medium;
-        @include rem(font-size, 30px);
-        line-height: 1em;
-        &:before {
-          content: image-url('2017_summer/cup.png');
-          display: block;
-          padding-bottom: 20px;
-          padding-top: 20px;
-        }
-      }
-      .sub-title-grey {
-        color: $grey5;
-        @include rem(font-size, 20px);
-      }
-      .container .content {
-        text-align: center;
-        hr {
-          width: 175px;
-          border-bottom: 1px solid $green-light-lighter;
-          opacity: 0.5;
-        }
-        .sub-title {
-          margin-top: 45px;
-          @include rem(font-size, 30px);
-          margin-bottom: 25px ;
-          line-height: 1.2em;
-          text-transform: none;
-          color: #555555;
-          text-transform: uppercase;
-          strong {
-            @include rem(font-size, 50px);
-            display: inline-block;
-            padding-top: 10px;
-          }
-        }
-        a:hover, a:focus {
-          text-decoration: none;
-        }
-      }
-      &--content {
-        .logo {
-          display: block;
-          margin: 0 auto;
-          max-width: 175px;
-          @include breakpoint($tablet) {
-            margin-top: 185px;
-          }
-        }
-      }
-    }
-
-    .container {
-      text-align: center;
-      padding: 0;
-    }
+.theme-ymca--2017-compain-winners ul.prize-list{
+  max-width: 790px;
+  margin: 0 auto;
+  padding: 50px 0;
+  background: #f3faf9;
+  .prize-list .spacer {
+    margin-left: 45px;
+    margin-right: 45px;
   }
 }
 

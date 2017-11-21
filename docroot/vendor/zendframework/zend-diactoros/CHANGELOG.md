@@ -2,6 +2,103 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.5.0 - 2017-08-22
+
+### Added
+
+- [#205](https://github.com/zendframework/zend-diactoros/pull/205) adds support
+  for PHP 7.2.
+
+- [#250](https://github.com/zendframework/zend-diactoros/pull/250) adds a new
+  API to `JsonResponse` to avoid the need for decoding the response body in
+  order to make changes to the underlying content. New methods include:
+  - `getPayload()`: retrieve the unencoded payload.
+  - `withPayload($data)`: create a new instance with the given data.
+  - `getEncodingOptions()`: retrieve the flags to use when encoding the payload
+    to JSON.
+  - `withEncodingOptions(int $encodingOptions)`: create a new instance that uses
+    the provided flags when encoding the payload to JSON.
+
+### Changed
+
+- [#249](https://github.com/zendframework/zend-diactoros/pull/249) changes the
+  behavior of the various `Uri::with*()` methods slightly: if the value
+  represents no change, these methods will return the same instance instead of a
+  new one.
+
+- [#248](https://github.com/zendframework/zend-diactoros/pull/248) changes the
+  behavior of `Uri::getUserInfo()` slightly: it now (correctly) returns the
+  percent-encoded values for the user and/or password, per RFC 3986 Section
+  3.2.1. `withUserInfo()` will percent-encode values, using a mechanism that
+  prevents double-encoding.
+
+- [#243](https://github.com/zendframework/zend-diactoros/pull/243) changes the
+  exception messages thrown by `UploadedFile::getStream()` and `moveTo()` when
+  an upload error exists to include details about the upload error.
+
+- [#233](https://github.com/zendframework/zend-diactoros/pull/233) adds a new
+  argument to `SapiStreamEmitter::emit`, `$maxBufferLevel` **between** the
+  `$response` and `$maxBufferLength` arguments. This was done because the
+  `Server::listen()` method passes only the response and `$maxBufferLevel` to
+  emitters; previously, this often meant that streams were being chunked 2 bytes
+  at a time versus the expected default of 8kb.
+
+  If you were calling the `SapiStreamEmitter::emit()` method manually
+  previously, you will need to update your code.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#205](https://github.com/zendframework/zend-diactoros/pull/205) and
+  [#243](https://github.com/zendframework/zend-diactoros/pull/243) **remove
+  support for PHP versions prior to 5.6 as well as HHVM**.
+
+### Fixed
+
+- [#248](https://github.com/zendframework/zend-diactoros/pull/248) fixes how the
+  `Uri` class provides user-info within the URI authority; the value is now
+  correctly percent-encoded , per RFC 3986 Section 3.2.1.
+
+## 1.4.1 - 2017-08-17
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#260](https://github.com/zendframework/zend-diactoros/pull/260) removes
+  support for HHVM, as tests have failed against it for some time.
+
+### Fixed
+
+- [#247](https://github.com/zendframework/zend-diactoros/pull/247) fixes the
+  `Stream` and `RelativeStream` `__toString()` method implementations to check
+  if the stream `isSeekable()` before attempting to `rewind()` it, ensuring that
+  the method does not raise exceptions (PHP does not allow exceptions in that
+  method). In particular, this fixes an issue when using AWS S3 streams.
+
+- [#252](https://github.com/zendframework/zend-diactoros/pull/252) provides a
+  fix to the `SapiEmitterTrait` to ensure that any `Set-Cookie` headers in the
+  response instance do not override those set by PHP when a session is created
+  and/or regenerated.
+
+- [#257](https://github.com/zendframework/zend-diactoros/pull/257) provides a
+  fix for the `PhpInputStream::read()` method to ensure string content that
+  evaluates as empty (including `0`) is still cached.
+
+- [#258](https://github.com/zendframework/zend-diactoros/pull/258) updates the
+  `Uri::filterPath()` method to allow parens within a URI path, per [RFC 3986
+  section 3.3](https://tools.ietf.org/html/rfc3986#section-3.3) (parens are
+  within the character set "sub-delims").
+
 ## 1.4.0 - 2017-04-06
 
 ### Added

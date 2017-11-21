@@ -27,6 +27,11 @@ details details details {
   background: #fff;
 }
 
+/* CodeMirror viewer */
+pre.webform-codemirror-runmode {
+  padding: .5em 1.5em;
+}
+
 /* Hide tabs and elements from printing. */
 @media print {
   body {
@@ -64,4 +69,16 @@ details details details {
 .ui-dialog.ui-dialog-offcanvas .ui-dialog-content .form-actions,
 .ui-dialog.ui-dialog-off-canvas .ui-dialog-content .form-actions {
   margin: 1em 0;
+}
+
+/* jQuery UI button states */
+.webform-buttons .ui-button.ui-state-default {
+  background: #f5f5f2;
+  border: solid 1px #bfbfba;
+}
+
+.webform-buttons .ui-button.ui-state-active {
+  color: #840;
+  background: #fe6;
+  border: solid 1px #ed5;
 }

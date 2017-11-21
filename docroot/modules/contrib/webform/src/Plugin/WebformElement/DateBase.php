@@ -28,6 +28,10 @@ abstract class DateBase extends WebformElementBase {
     ] + parent::getDefaultProperties();
   }
 
+  /****************************************************************************/
+  // Element rendering methods.
+  /****************************************************************************/
+  
   /**
    * {@inheritdoc}
    */
@@ -86,6 +90,10 @@ abstract class DateBase extends WebformElementBase {
     }
   }
 
+  /****************************************************************************/
+  // Display submission value methods.
+  /****************************************************************************/
+
   /**
    * {@inheritdoc}
    */
@@ -140,6 +148,10 @@ abstract class DateBase extends WebformElementBase {
     return $formats;
   }
 
+  /****************************************************************************/
+  // Export methods.
+  /****************************************************************************/
+
   /**
    * {@inheritdoc}
    */
@@ -147,6 +159,10 @@ abstract class DateBase extends WebformElementBase {
     $element['#format'] = ($this->getDateType($element) === 'datetime') ? 'Y-m-d H:i:s' : 'Y-m-d';
     return [$this->formatText($element, $webform_submission, $export_options)];
   }
+
+  /****************************************************************************/
+  // Element configuration methods.
+  /****************************************************************************/
 
   /**
    * {@inheritdoc}
@@ -156,6 +172,9 @@ abstract class DateBase extends WebformElementBase {
 
     // Append supported date input format to #default_value description.
     $form['element']['default_value']['#description'] .= '<br />' . $this->t('Accepts any date in any <a href="https://www.gnu.org/software/tar/manual/html_chapter/tar_7.html#Date-input-formats">GNU Date Input Format</a>. Strings such as today, +2 months, and Dec 9 2004 are all valid.');
+
+    // Append token date format to #default_value description.
+    $form['element']['default_value']['#description'] .= '<br />' . $this->t("You may use tokens. Tokens should use the 'html_date' or 'html_datetime' date format. (ie @date_format)", ['@date_format' => '[webform-authenticated-user:field_date_of_birth:date:html_date]']);
 
     // Allow custom date formats to be entered.
     $form['display']['format']['#type'] = 'webform_select_other';
@@ -190,15 +209,15 @@ abstract class DateBase extends WebformElementBase {
     $properties = $this->getConfigurationFormProperties($form, $form_state);
 
     // Validate #default_value GNU Date Input Format.
-    if (isset($properties['#default_value']) && strtotime($properties['#default_value']) === FALSE) {
-      $this->setInputFormatError($form['properties']['element']['default_value'], $form_state);
+    if (!$this->validateGnuDateInputFormat($properties, '#default_value')) {
+      $this->setGnuDateInputFormatError($form['properties']['element']['default_value'], $form_state);
     }
 
     // Validate #min and #max GNU Date Input Format.
     $input_formats = ['min', 'max'];
     foreach ($input_formats as $input_format) {
-      if (!empty($properties["#$input_format"]) && strtotime($properties["#$input_format"]) === FALSE) {
-        $this->setInputFormatError($form['properties']['date'][$input_format], $form_state);
+      if (!$this->validateGnuDateInputFormat($properties, "#$input_format")) {
+        $this->setGnuDateInputFormatError($form['properties']['date'][$input_format], $form_state);
       }
     }
 
@@ -252,15 +271,43 @@ abstract class DateBase extends WebformElementBase {
     }
   }
 
+  /****************************************************************************/
+  // Validation methods.
+  /****************************************************************************/
+
   /**
-   * Set GNU input format error.
+   * Validate GNU date input format.
+   *
+   * @param array $properties
+   *   An array of element properties.
+   * @param string $key
+   *   The property name containing the GNU date input format.
+   *
+   * @return bool
+   *   TRUE if property's value is a valid GNU date input format or contains
+   *   a token.
+   */
+  protected function validateGnuDateInputFormat(array $properties, $key) {
+    if (empty($properties[$key])) {
+      return TRUE;
+    }
+
+    if (preg_match('/^\[[^]]+\]$/', $properties[$key])) {
+      return TRUE;
+    }
+
+    return (strtotime($properties[$key]) === FALSE) ? FALSE : TRUE;
+  }
+
+  /**
+   * Set GNU date input format error.
    *
    * @param array $element
    *   The property element.
    * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  protected function setInputFormatError(array $element, FormStateInterface $form_state) {
+  protected function setGnuDateInputFormatError(array $element, FormStateInterface $form_state) {
     $t_args = [
       '@title' => $element['#title'] ?: $element['#key'],
     ];

@@ -52,6 +52,13 @@ class WebformTestElement extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
+  public function preview() {
+    return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function preCreate(array &$element, array $values) {
     $this->displayMessage(__FUNCTION__);
   }

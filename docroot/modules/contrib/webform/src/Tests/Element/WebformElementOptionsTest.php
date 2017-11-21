@@ -19,9 +19,9 @@ class WebformElementOptionsTest extends WebformTestBase {
   protected static $testWebforms = ['test_element_options'];
 
   /**
-   * Tests building of options elements.
+   * Tests options element.
    */
-  public function testWebformElementOptions() {
+  public function testElementOptions() {
 
     // Check default value handling.
     $this->drupalPostForm('webform/test_element_options', [], t('Submit'));

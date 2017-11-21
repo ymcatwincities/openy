@@ -141,10 +141,17 @@ trait WebformTestTrait {
   /**
    * Get the last submission id.
    *
-   * @return int
-   *   The last submission id.
+   * @param \Drupal\webform\WebformInterface $webform
+   *   A webform.
+   *
+   * @return int|null
+   *   The last submission id. NULL is saving of results is disabled.
    */
-  protected function getLastSubmissionId($webform) {
+  protected function getLastSubmissionId(WebformInterface $webform) {
+    if ($webform->getSetting('results_disabled')) {
+      return NULL;
+    }
+
     // Get submission sid.
     $url = UrlHelper::parse($this->getUrl());
     if (isset($url['query']['sid'])) {

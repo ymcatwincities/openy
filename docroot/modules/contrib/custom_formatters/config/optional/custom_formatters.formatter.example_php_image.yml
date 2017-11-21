@@ -1,0 +1,32 @@
+uuid: 141af1f3-a182-4b23-a63c-3b08071760e8
+langcode: en
+status: true
+dependencies:
+  module:
+    - image
+third_party_settings:
+  contextual:
+    mode: '1'
+id: example_php_image
+label: 'Example: Image (PHP)'
+type: php
+description: 'A PHP example formatter; Display a Thumbnail image linked to a Large image.'
+field_types:
+  image: image
+data: "// Formatter settings.\r\n$settings = $variables['#display']['settings'];\r\n\r\n$element = array();\r\nforeach ($variables['#items'] as $delta => $item) {\r\n  $element[$delta] = array(\r\n    '#type' => 'link',\r\n    '#href' => file_create_url(image_style_path($settings['destination_image_style'], $item['uri'])),\r\n    '#title' => theme('image_style', array(\r\n      'style_name\\' => isset($settings['source_image_style']) ? $settings['source_image_style'] : 'thumbnail',\r\n      'path' => $item['uri'],\r\n    )),\r\n    '#options' => array(\r\n      'html' => TRUE,\r\n    ),\r\n  );\r\n}\r\nreturn $element;"
+
+#  $formatter->fapi = '$form = array();
+#$form[\'source_image_style\'] = array(
+#  \'#title\' => t(\'Source image styles\'),
+#  \'#multiple_toggle\' => \'1\',
+#  \'#required\' => \'0\',
+#  \'#type\' => \'custom_formatters_image_styles\',
+#  \'#weight\' => \'0\',
+#);
+#$form[\'destination_image_style\'] = array(
+#  \'#title\' => t(\'Destination image styles\'),
+#  \'#multiple_toggle\' => \'1\',
+#  \'#required\' => \'0\',
+#  \'#type\' => \'custom_formatters_image_styles\',
+#  \'#weight\' => \'1\',
+#);"

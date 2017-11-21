@@ -19,11 +19,13 @@ class Checkbox extends BooleanBase {
    * {@inheritdoc}
    */
   public function getDefaultProperties() {
-    return [
+    $properties = [
       'title_display' => 'after',
       // iCheck settings.
       'icheck' => '',
     ] + parent::getDefaultProperties();
+    unset($properties['unique'], $properties['unique_error']);
+    return $properties;
   }
 
 }

@@ -518,11 +518,7 @@ class WebformSubmission extends ContentEntityBase implements WebformSubmissionIn
   }
 
   /**
-   * Track the state of a submission.
-   *
-   * @return int
-   *   Either STATE_UNSAVED, STATE_CONVERTED, STATE_DRAFT, STATE_COMPLETED, or STATE_UPDATED,
-   *   depending on the last save operation performed.
+   * {@inheritdoc}
    */
   public function getState() {
     if (!$this->id()) {
@@ -549,6 +545,32 @@ class WebformSubmission extends ContentEntityBase implements WebformSubmissionIn
     $uri_route_parameters = parent::urlRouteParameters($rel);
     $uri_route_parameters['webform'] = $this->getWebform()->id();
     return $uri_route_parameters;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function createDuplicate() {
+    /** @var \Drupal\webform\WebformSubmissionInterface $duplicate */
+    $duplicate = parent::createDuplicate();
+
+    $duplicate->set('serial', NULL);
+    $duplicate->set('token', Crypt::randomBytesBase64());
+
+    // Clear state.
+    $duplicate->set('in_draft', FALSE);
+    $duplicate->set('current_page', NULL);
+
+    // Create timestamps.
+    $duplicate->set('created', NULL);
+    $duplicate->set('changed', NULL);
+    $duplicate->set('completed', NULL);
+
+    // Clear admin notes and sticky.
+    $duplicate->set('notes', '');
+    $duplicate->set('sticky', FALSE);
+
+    return $duplicate;
   }
 
   /**

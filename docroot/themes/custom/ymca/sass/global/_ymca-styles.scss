@@ -154,7 +154,7 @@ nav#block-footermenuright {
       height: calc(100vh - 39px);
 
       .news {
-        padding-bottom: 50px;
+        padding-bottom: 0;
       }
     }
   }
@@ -962,9 +962,7 @@ span.grey-caret {
 .mobile-subnav {
   background-color: #343434;
   display: none;
-  @include breakpoint(0 767px) {
-    display: block;
-  }
+  margin-bottom: 0;
   .panel-heading {
     background-color: #3d3d3d;
     border: none;
@@ -979,19 +977,22 @@ span.grey-caret {
         border: 0;
         position: relative;
         float: right;
-        top: 7px;
+        top: -2px;
         &:before {
+          margin-right: .3em;
+          content: "\e081";
+          vertical-align: middle;
           text-transform: none;
-          position: relative;
-          display: inline-block;
-          padding: 2px 0 0 5px;
-          width: auto;
-          content: 'v';
-          vertical-align: top;
           font-weight: normal;
-          font-size: .7em;
-          font-family: 'YMCA';
-          line-height: .4em;
+          font-size: 16px;
+          font-family: 'Glyphicons Halflings';
+        }
+      }
+      &.open {
+        .caret {
+          &:before {
+            content: "\e082";
+          }
         }
       }
     }
@@ -1066,13 +1067,17 @@ span.grey-caret {
 }
 @include breakpoint(0 767px) {
   .show-mobile-sub-navigation {
-    .nav-location {
+    .nav-location.show,
+    .mobile-subnav.show {
       display: block !important;
+    }
+    .mobile-subnav {
+      display: block;
     }
   }
   #nav-location {
     position: relative;
-    margin-top: -30px;
+    margin-top: -15px;
     top: 0;
     height: auto;
     .col-lg-12 {
@@ -1144,28 +1149,31 @@ span.grey-caret {
         .name {
           display: inline-block;
         }
-       .caret {
-         display: inline-block;
-         width: auto;
-         height: 10px;
-         border: 0;
-         position: relative;
-         float: right;
-         top: 7px;
-         &:before {
-           text-transform: none;
-           position: relative;
-           display: inline-block;
-           padding: 2px 0 0 5px;
-           width: auto;
-           content: 'v';
-           vertical-align: top;
-           font-weight: normal;
-           font-size: .7em;
-           font-family: 'YMCA';
-           line-height: .4em;
-         }
-       }
+        .caret {
+          display: inline-block;
+          width: auto;
+          height: 10px;
+          border: 0;
+          position: relative;
+          float: right;
+          top: -2px;
+          &:before {
+            margin-right: .3em;
+            content: "\e081";
+            vertical-align: middle;
+            text-transform: none;
+            font-weight: normal;
+            font-size: 16px;
+            font-family: 'Glyphicons Halflings';
+          }
+        }
+        &.open {
+          .caret {
+            &:before {
+              content: "\e082";
+            }
+          }
+        }
       }
       .current > a {
         font-weight: bold;
@@ -1175,6 +1183,57 @@ span.grey-caret {
           text-transform: none;
         }
       }
+    }
+  }
+}
+
+.masthead-brand {
+  position: relative;
+  a {
+    color: $white;
+    &:before {
+      display: none;
+      text-transform: none;
+      content: 'h';
+      font-weight: normal;
+      font-family: 'YMCA';
+      line-height: 1em;
+      margin-right: 10px;
+      font-size: 27px;
+      @include breakpoint(0 767px) {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+body.ancestor-camps {
+  .node--type-article,
+  .lead,
+  .call-to-action {
+    a:hover {
+      color: #01a490;
+    }
+    p.button {
+      a:hover {
+        color: #fff;
+      }
+    }
+  }
+  .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
+    background-color: #01a490;
+    &:hover {
+      background-color: #01a490;
+      border-color: #01a490;
+    }
+  }
+  .post-excerpt .read-more {
+    color: #01a490;
+  }
+  .footer-themes-b .social-icon {
+    border-color: #01a490;
+    &:hover {
+      color: #01a490;
     }
   }
 }

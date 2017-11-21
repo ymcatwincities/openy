@@ -126,7 +126,7 @@
       if ($messages.length) {
         var $floatingMessage = $('#webform-ajax-messages');
         if ($floatingMessage.length === 0) {
-          $floatingMessage = $('<div id="webform-ajax-messages" class="webform-ajax-messages"></div>')
+          $floatingMessage = $('<div id="webform-ajax-messages" class="webform-ajax-messages"></div>');
           $('body').append($floatingMessage);
         }
         if ($floatingMessage.is(":animated")) {

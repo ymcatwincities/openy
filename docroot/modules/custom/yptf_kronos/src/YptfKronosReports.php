@@ -140,7 +140,7 @@ class YptfKronosReports {
    *
    * @var array
    */
-  protected $kronosTrainingId = ['PT (one on one and buddy)', 'PT (group of 5 or more)'];
+  protected $kronosTrainingId = ['PT (small groups)', 'PT (group of 5 or more)'];
 
   /**
    * Flag for report calculation.
@@ -352,6 +352,9 @@ class YptfKronosReports {
 
     $loc_total['wf_hours'] = $loc_total['mb_hours'] = $loc_total['historical_hours'] = 0;
     foreach ($location_reports as &$row) {
+      if (!is_array($row)) {
+        continue;
+      }
       if (!isset($row['mb_hours'])) {
         $row['variance'] = '-';
         $row['mb_hours'] = '-';
@@ -910,6 +913,9 @@ class YptfKronosReports {
           // Sort by names.
           $names = [];
           foreach ($data['rows'] as &$name) {
+            if (!isset($name["name"])) {
+              continue;
+            }
             $names[] = &$name["name"];
           }
           array_multisort($names, $data['rows']);

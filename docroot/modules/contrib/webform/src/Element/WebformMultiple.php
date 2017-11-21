@@ -2,10 +2,10 @@
 
 namespace Drupal\webform\Element;
 
-use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Utility\WebformElementHelper;
 
@@ -200,13 +200,19 @@ class WebformMultiple extends FormElement {
    *   A render array containing inputs for an element's header.
    */
   public static function buildElementHeader(array $element) {
+    $table_id = implode('-', $element['#parents']) . '-table';
+
     if (empty($element['#header'])) {
       return [
         ['data' => '', 'colspan' => 4],
       ];
     }
     elseif (is_array($element['#header'])) {
-      return array_merge([''], $element['#header'], ['', '']);
+      return array_merge(
+        [['class' => ["$table_id--handle", "webform-multiple-table--handle"]]],
+        $element['#header'],
+        [['class' => ["$table_id--weight", "webform-multiple-table--weight"]], ['class' => ["$table_id--handle", "webform-multiple-table--operations"]]]
+      );
     }
     elseif (is_string($element['#header'])) {
       return [
@@ -214,22 +220,36 @@ class WebformMultiple extends FormElement {
       ];
     }
     else {
+
       $header = [];
-      $header['_handle_'] = '';
+      $header['_handle_'] = [
+        'class' => ["$table_id--handle", "webform-multiple-table--handle"],
+      ];
       if ($element['#child_keys']) {
         foreach ($element['#child_keys'] as $child_key) {
           if (static::isHidden($element['#element'][$child_key])) {
             continue;
           }
-          $header[$child_key] = (!empty($element['#element'][$child_key]['#title'])) ? $element['#element'][$child_key]['#title'] : '';
+          $header[$child_key] = [
+            'data' => (!empty($element['#element'][$child_key]['#title'])) ? $element['#element'][$child_key]['#title'] : '',
+            'class' => ["$table_id--$child_key", "webform-multiple-table--$child_key"],
+          ];
         }
       }
       else {
-        $header['item'] = (isset($element['#element']['#title'])) ? $element['#element']['#title'] : '';
+        $header['item'] = [
+          'data' => (isset($element['#element']['#title'])) ? $element['#element']['#title'] : '',
+          'class' => ["$table_id--item", "webform-multiple-table--item"],
+        ];
       }
-      $header['weight'] = t('Weight');
+      $header['weight'] = [
+        'data' => t('Weight'),
+        'class' => ["$table_id--weight", "webform-multiple-table--weight"],
+      ];
       if (empty($element['#cardinality'])) {
-        $header['_operations_'] = '';
+        $header['_operations_'] = [
+          'class' => ["$table_id--operations", "webform-multiple-table--operations"],
+        ];
       }
       return $header;
     }
@@ -486,7 +506,7 @@ class WebformMultiple extends FormElement {
       $items = static::convertValuesToItems($element, $values['items']);
     }
     catch (\Exception $exception) {
-      $form_state->setError($element, new FormattableMarkup($exception->getMessage(), []));
+      $form_state->setError($element, Markup::create($exception->getMessage()));
       return;
     }
 

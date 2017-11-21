@@ -9,4 +9,13 @@ use Drupal\Core\Render\Element\Textfield;
  *
  * @FormElement("webform_test_element")
  */
-class WebformTestElement extends Textfield {}
+class WebformTestElement extends Textfield {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return [];
+  }
+
+}

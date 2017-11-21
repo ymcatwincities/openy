@@ -56,7 +56,7 @@ class WebformBlockContextTest extends WebformTestBase {
   /**
    * Tests webform block context.
    */
-  public function testBlockcontext() {
+  public function testBlockContext() {
     $this->drupalLogin($this->rootUser);
     $webform = Webform::load('contact');
 

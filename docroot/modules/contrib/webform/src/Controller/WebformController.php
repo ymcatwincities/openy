@@ -159,7 +159,14 @@ class WebformController extends ControllerBase implements ContainerInjectionInte
       '#webform_submission' => $webform_submission,
     ];
 
+    // Add entities cacheable dependency.
     $this->renderer->addCacheableDependency($build, $webform);
+    if ($webform_submission) {
+      $this->renderer->addCacheableDependency($build, $webform_submission);
+    }
+    if ($source_entity) {
+      $this->renderer->addCacheableDependency($build, $source_entity);
+    }
 
     return $build;
   }

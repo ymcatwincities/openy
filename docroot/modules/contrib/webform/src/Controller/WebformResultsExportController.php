@@ -12,10 +12,10 @@ use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformRequestInterface;
 use Drupal\webform\WebformSubmissionExporterInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller routines for webform submission export.
@@ -177,30 +177,9 @@ class WebformResultsExportController extends ControllerBase implements Container
    *   A response object containing the CSV file.
    */
   public function downloadFile($file_path, $download = TRUE) {
-    // Return the export file.
-    $contents = file_get_contents($file_path);
-    unlink($file_path);
-
-    $content_type = $this->mimeTypeGuesser->guess($file_path);
-
-    if ($download) {
-      $headers = [
-        'Content-Length' => strlen($contents),
-        'Content-Type' => $content_type,
-        'Content-Disposition' => 'attachment; filename="' . basename($file_path) . '"',
-      ];
-    }
-    else {
-      if ($content_type != 'text/html') {
-        $content_type = 'text/plain';
-      }
-      $headers = [
-        'Content-Length' => strlen($contents),
-        'Content-Type' => $content_type . '; charset=utf-8',
-      ];
-    }
-
-    return new Response($contents, 200, $headers);
+    $response = new BinaryFileResponse($file_path, 200, [], FALSE, $download ? 'attachment' : 'inline');
+    $response->deleteFileAfterSend(TRUE);
+    return $response;
   }
 
   /****************************************************************************/

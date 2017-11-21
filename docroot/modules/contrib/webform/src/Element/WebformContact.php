@@ -7,7 +7,14 @@ namespace Drupal\webform\Element;
  *
  * @FormElement("webform_contact")
  */
-class WebformContact extends WebformAddress {
+class WebformContact extends WebformCompositeBase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInfo() {
+    return parent::getInfo() + ['#theme' => 'webform_composite_contact'];
+  }
 
   /**
    * {@inheritdoc}
@@ -30,7 +37,32 @@ class WebformContact extends WebformAddress {
       '#type' => 'tel',
       '#title' => t('Phone'),
     ];
-    $elements += parent::getCompositeElements();
+    $elements['address'] = [
+      '#type' => 'textfield',
+      '#title' => t('Address'),
+    ];
+    $elements['address_2'] = [
+      '#type' => 'textfield',
+      '#title' => t('Address 2'),
+    ];
+    $elements['city'] = [
+      '#type' => 'textfield',
+      '#title' => t('City/Town'),
+    ];
+    $elements['state_province'] = [
+      '#type' => 'select',
+      '#title' => t('State/Province'),
+      '#options' => 'state_province_names',
+    ];
+    $elements['postal_code'] = [
+      '#type' => 'textfield',
+      '#title' => t('Zip/Postal Code'),
+    ];
+    $elements['country'] = [
+      '#type' => 'select',
+      '#title' => t('Country'),
+      '#options' => 'country_names',
+    ];
     return $elements;
   }
 

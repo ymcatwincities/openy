@@ -6,6 +6,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Drupal\scheduler\SchedulerManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -21,20 +22,30 @@ class SchedulerCronForm extends ConfigFormBase {
   protected $moduleHandler;
 
   /**
+   * The scheduler manager service.
+   *
+   * @var Drupal\scheduler\SchedulerManager
+   */
+  protected $schedulerManager;
+
+  /**
    * Creates a SchedulerCronForm instance.
    *
    * @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
+   * @var Drupal\scheduler\SchedulerManager $scheduler_manager
+   *   The scheduler manager service.
    */
-  public function __construct(ModuleHandlerInterface $module_handler) {
+  public function __construct(ModuleHandlerInterface $module_handler, SchedulerManager $scheduler_manager) {
     $this->moduleHandler = $module_handler;
+    $this->schedulerManager = $scheduler_manager;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static($container->get('module_handler'));
+    return new static($container->get('module_handler'), $container->get('scheduler.manager'));
   }
 
   /**
@@ -136,9 +147,7 @@ class SchedulerCronForm extends ConfigFormBase {
    *   The current state of the form.
    */
   public function runLightweightCron(array &$form, FormStateInterface $form_state) {
-    // @TODO: \Drupal calls should be avoided in classes.
-    // Replace \Drupal::service with dependency injection?
-    \Drupal::service('scheduler.manager')->runCron();
+    $this->schedulerManager->runLightweightCron();
 
     if ($this->moduleHandler->moduleExists('dblog')) {
       $url = Url::fromRoute('dblog.overview')->toString();

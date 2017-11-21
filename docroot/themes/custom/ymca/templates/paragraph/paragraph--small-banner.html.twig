@@ -60,40 +60,30 @@
   {% set background_style = "background-color: color_top;" %}
 {% endif %}
 {%
-set main_col_count = content.field_prgf_image|render|trim is empty ? '12' : '7'
-%}
-{%
-set main_col_count_small = content.field_prgf_image|render|trim is empty ? '12' : '6'
-%}
-{%
   set classes = [
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    'banner',
-    'banner--small',
+    'page-header',
+    'page-title',
     (colors.top is not empty and colors.bottom is empty) ? 'color-assigned' : '',
   ]
 %}
 
-<div{{ attributes.addClass(classes) }} style="{{ background_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
-  <div class="container">
+<section{{ attributes.addClass(classes) }} style="{{ background_style|replace({'color_bottom': colors.bottom, 'color_top': colors.top}) }}">
+  <div class="container title-container">
     <div class="row">
-      <div class="col-xs-12 col-sm-{{ main_col_count_small }} col-md-{{ main_col_count }}">
-        <div class="banner-cta-section">
-          <h1 class="banner-title">
-            {{ content.field_prgf_headline }}
-          </h1>
-          <div class="banner-description">
-            {{ content.field_prgf_description }}
-          </div>
-        </div>
+      <div class="col-sm-6 header-copy">
+        <h1 class="banner-title">
+          {{ content.field_prgf_headline }}
+        </h1>
+        <article class="richtext">
+          {{ content.field_prgf_description }}
+        </article>
+      </div>
+      <div class="col-sm-6 header-image header-button">
+        {{ content.field_prgf_image }}
       </div>
     </div>
   </div>
-  <div class="banner-image">
-    <div class="banner-image-wrapper">
-      {{ content.field_prgf_image }}
-    </div>
-  </div>
-</div>
+</section>

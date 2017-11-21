@@ -44,6 +44,9 @@ abstract class WebformManagedFileBase extends WebformElementBase {
       'max_filesize' => $max_filesize,
       'file_extensions' => $file_extensions,
       'uri_scheme' => 'private',
+      'button' => FALSE,
+      'button__title' => '',
+      'button__attributes' => [],
     ];
   }
 
@@ -611,6 +614,37 @@ abstract class WebformManagedFileBase extends WebformElementBase {
       '#description' => $this->t('Check this option if the user should be allowed to upload multiple files.'),
       '#return_value' => TRUE,
     ];
+
+    // Button.
+    // @see webform_preprocess_file_managed_file()
+    $form['file']['button'] = [
+      '#title' => $this->t('Replace file upload input with button'),
+      '#type' => 'checkbox',
+      '#description' => $this->t('If checked the file upload input will be replaced with click-able label styled as button.'),
+      '#return_value' => TRUE,
+    ];
+    $form['file']['button__title'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Button title'),
+      '#description' => $this->t('Defaults to: %value', ['%value' => $this->t('Choose file')]),
+      '#states' => [
+        'visible' => [
+          ':input[name="properties[button]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+    $form['file']['button__attributes'] = [
+      '#type' => 'webform_element_attributes',
+      '#title' => $this->t('Button attributes'),
+      '#classes' => $this->configFactory->get('webform.settings')->get('settings.button_classes'),
+      '#class__description' => $this->t("Apply classes to the button. Button classes default to 'button button-primary'."),
+      '#states' => [
+        'visible' => [
+          ':input[name="properties[button]"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
     return $form;
   }
 

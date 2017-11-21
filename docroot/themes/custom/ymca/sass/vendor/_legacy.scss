@@ -2524,9 +2524,12 @@ a.ms-brand:hover {
 }
 
 .page-middle .content {
-  padding-top: 40px;
+  padding-top: 10px;
   padding-bottom: 30px;
   background: white;
+  @media (min-width: 768px) {
+    padding-top: 40px;
+  }
 }
 
 .panel-subnav > .panel-heading, .panel-group-ex > .panel-heading {
@@ -5910,10 +5913,13 @@ a.wrapper:hover {
       padding-top: 0;
     }
     .lead-copy, .home-template .lead-copy {
-      padding-top: 30px;
+      padding-top: 10px;
       padding-right: 0;
       padding-bottom: 20px;
       padding-left: 0;
+      @media (min-width: 768px) {
+        padding-top: 30px;
+      }
     }
     .lead-copy:before, .page-footer:before {
                          display: none;

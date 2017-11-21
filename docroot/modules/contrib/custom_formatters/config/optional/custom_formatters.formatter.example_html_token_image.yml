@@ -1,0 +1,17 @@
+uuid: 366b4b4f-8913-4f66-b508-cfe7c924a9f8
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_tokens
+    - image
+third_party_settings:
+  contextual:
+    mode: '1'
+id: example_html_token_image
+label: 'Example: Image (HTML + Token)'
+type: html_token
+description: "A HTML + Tokens example formatter; Display a Thumbnail image linked to a Large image.\r\n\r\nRequires the Image URL Formatter and Field tokens modules:\r\n- https://www.drupal.org/project/image_url_formatter\r\n- https://www.drupal.org/project/field_tokens"
+field_types:
+  - image
+data: '<a href="[formatted_field-image:image_url:image_style-large]"><img src="[formatted_field-image:image_url:image_style-thumbnail]" alt="[field_property:alt]" title="[field_property:title]" /></a>'

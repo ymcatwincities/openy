@@ -86,7 +86,10 @@ class WebformEntityAccessControlHandler extends EntityAccessControlHandler {
       }
     }
 
-    return parent::checkAccess($entity, $operation, $account);
+    $access_result = parent::checkAccess($entity, $operation, $account);
+    // Make sure the webform is added as a cache dependency.
+    $access_result->addCacheableDependency($entity);
+    return $access_result;
   }
 
 }

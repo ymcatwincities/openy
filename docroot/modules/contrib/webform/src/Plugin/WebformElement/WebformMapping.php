@@ -5,6 +5,7 @@ namespace Drupal\webform\Plugin\WebformElement;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element as RenderElement;
+use Drupal\webform\Element\WebformHtmlEditor;
 use Drupal\webform\Element\WebformMapping as WebformMappingElement;
 use Drupal\webform\Entity\WebformOptions;
 use Drupal\webform\Utility\WebformElementHelper;
@@ -77,6 +78,16 @@ class WebformMapping extends WebformElementBase {
     }
     if (isset($element['#destination'])) {
       $element['#destination'] = WebformOptions::getElementOptions($element, '#destination');
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepare(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
+    parent::prepare($element, $webform_submission);
+    if (isset($element['#destination__description'])) {
+      $element['#destination__description'] = WebformHtmlEditor::checkMarkup($element['#destination__description']);
     }
   }
 
@@ -193,6 +204,24 @@ class WebformMapping extends WebformElementBase {
         return implode(PHP_EOL, $list);
 
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return parent::preview() + [
+      '#source' => [
+        'one' => $this->t('One'),
+        'two' => $this->t('Two'),
+        'three' => $this->t('Three'),
+      ],
+      '#destination' => [
+        'four' => $this->t('Four'),
+        'five' => $this->t('Five'),
+        'six' => $this->t('Six'),
+      ],
+    ];
   }
 
   /**

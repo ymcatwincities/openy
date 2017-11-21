@@ -26,4 +26,11 @@ class Hidden extends TextBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return [];
+  }
+
 }

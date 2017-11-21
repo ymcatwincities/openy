@@ -7,7 +7,9 @@
 
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -196,7 +198,7 @@ function metatag_get_route_entity() {
 
   // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
   $matches = [];
-  preg_match('/entity\.(.*)\.canonical/', $route_name, $matches);
+  preg_match('/entity\.(.*)\.(latest[_-]version|canonical)/', $route_name, $matches);
   if (!empty($matches[1])) {
     $entity_type = $matches[1];
     return $route_match->getParameter($entity_type);
@@ -329,17 +331,19 @@ function metatag_preprocess_html(&$variables) {
  * @return mixed
  *   Array of metatags or NULL.
  */
-function metatag_get_tags_from_route() {
+function metatag_get_tags_from_route($entity = NULL) {
   $metatag_manager = \Drupal::service('metatag.manager');
 
   // First, get defaults.
-  $metatags = metatag_get_default_tags();
+  $metatags = metatag_get_default_tags($entity);
   if (!$metatags) {
     return NULL;
   }
 
   // Then, set tag overrides for this particular entity.
-  $entity = metatag_get_route_entity();
+  if (!$entity) {
+    $entity = metatag_get_route_entity();
+  }
   if (!empty($entity) && $entity instanceof ContentEntityInterface) {
     foreach ($metatag_manager->tagsFromEntity($entity) as $tag => $data) {
       $metatags[$tag] = $data;
@@ -362,7 +366,7 @@ function metatag_get_tags_from_route() {
  * @return mixed
  *   Array of tags or NULL;
  */
-function metatag_get_default_tags() {
+function metatag_get_default_tags($entity = NULL) {
   /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $global_metatag_manager */
   $global_metatag_manager = \Drupal::entityTypeManager()->getStorage('metatag_defaults');
   // First we load global defaults.
@@ -379,7 +383,9 @@ function metatag_get_default_tags() {
 
   // Next check if there is this page is an entity that has meta tags.
   else {
-    $entity = metatag_get_route_entity();
+    if (!$entity) {
+      $entity = metatag_get_route_entity();
+    }
 
     if (!empty($entity)) {
       $entity_metatags = $global_metatag_manager->load($entity->getEntityTypeId());
@@ -399,3 +405,17 @@ function metatag_get_default_tags() {
 
   return $metatags->get('tags');
 }
+
+/**
+ * Implements hook_entity_base_field_info_alter().
+ */
+function metatag_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  $fields['metatag'] = BaseFieldDefinition::create('map')
+    ->setName('Metatags')
+    ->setLabel(t('Metatags'))
+    ->setDescription(t('The metatags for the entity.'))
+    ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
+    ->setQueryable(FALSE)
+    ->setComputed(TRUE);
+}
+

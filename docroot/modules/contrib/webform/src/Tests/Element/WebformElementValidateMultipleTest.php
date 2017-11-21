@@ -21,7 +21,7 @@ class WebformElementValidateMultipleTest extends WebformTestBase {
   /**
    * Tests element validate multiple.
    */
-  public function testElementValidateMultiple() {
+  public function testValidateMultiple() {
     $this->drupalGet('webform/test_element_validate_multiple');
 
     // Check that only three textfields are displayed.

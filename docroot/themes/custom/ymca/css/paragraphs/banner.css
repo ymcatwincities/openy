@@ -8,8 +8,12 @@
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
     clip-path: polygon(0 0, 100% 0, 100% 100%, 30% 100%);
     position: absolute;
+    height: 100%;
     right: 0;
     width: calc(50% + 132px);
+  }
+  .banner-image * {
+    height: 100%;
   }
 }
 @media (min-width: 1200px) {
@@ -18,13 +22,10 @@
   }
 }
 .banner-image img {
-  width: 100% !important;
+  max-height: 100%;
+  width: auto;
   height: auto !important;
-}
-@media (min-width: 768px) {
-  .banner-image img {
-    width: 120% !important;
-  }
+  max-width: none;
 }
 .banner-cta-section {
   padding-bottom: 18px;
@@ -111,12 +112,12 @@
 }
 @media (min-width: 992px) {
   .banner--small .banner-image {
-    width: calc(50% - 122px);
+    width: calc(50% - 65px);
   }
 }
 @media (min-width: 1200px) {
   .banner--small .banner-image {
-    width: calc(50% - 195px);
+    width: calc(50% - 70px);
   }
 }
 .banner--small .banner-cta-section {

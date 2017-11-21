@@ -22,8 +22,8 @@ webform.admin.dialog:
     js/webform.admin.js:  {}
     js/webform.dialog.js:  {}
   dependencies:
-    - core/jquery.ui.dialog
     - core/drupal.dialog.ajax
+    - core/jquery.ui.dialog
     - webform/webform.ajax
     - webform/webform.form
     - webform/webform.admin.dropbutton
@@ -49,6 +49,21 @@ webform.admin.translation:
     theme:
       css/webform.admin.translation.css: {}
 
+# Admin.
+
+webform.addons:
+  version: VERSION
+  css:
+    theme:
+      css/webform.addons.css: {}
+  dependencies:
+    - webform/webform.ajax
+    - webform/webform.element.details.toggle
+    - webform/webform.element.details.save
+    - webform/webform.promotions
+
+# Ajax.
+
 webform.ajax:
   version: VERSION
   css:
@@ -57,12 +72,12 @@ webform.ajax:
   js:
     js/webform.ajax.js:  {}
   dependencies:
-    - core/jquery
     - core/drupal
     - core/drupalSettings
+    - core/drupal.ajax
+    - core/jquery
     - core/jquery.once
     - core/jquery.form
-    - core/drupal.ajax
 
 # Block
 
@@ -77,22 +92,28 @@ webform.block:
 webform.block.submission_limit:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.block.submission_limit.css: {}
 
-# Theme
+# Confirmation
 
-webform.theme.bartik:
+webform.confirmation:
   version: VERSION
   css:
     theme:
-      css/webform.theme.bartik.css: {}
+      css/webform.confirmation.css: {}
 
-webform.theme.seven:
+webform.confirmation.modal:
   version: VERSION
-  css:
-    theme:
-      css/webform.theme.seven.css: {}
+  js:
+    js/webform.confirmation.modal.js:  {}
+  dependencies:
+    - core/drupal
+    - core/drupal.dialog
+    - core/drupal.dialog.position
+    - core/jquery
+    - core/jquery.once
+    - webform/webform.confirmation
 
 # Help.
 
@@ -109,73 +130,52 @@ webform.help:
     - core/jquery.once
     - core/jquery.ui.accordion
 
-# Webform.
-
-webform.confirmation:
-  version: VERSION
-  css:
-    theme:
-      css/webform.confirmation.css: {}
-
-webform.form:
-  version: VERSION
-  css:
-    theme:
-      css/webform.form.css: {}
-  js:
-    js/webform.form.js:  {}
-  dependencies:
-    - core/drupal
-    - core/jquery
-    - core/jquery.once
-    - webform/webform.states
-
-webform.assets.css:
-  version: VERSION
-  css:
-    theme:
-      css/webform.assets.css: { preprocess: false, minified: false }
-
-webform.assets.javascript:
-  version: VERSION
-  js:
-    js/webform.assets.js: { preprocess: false, minified: false }
-  dependencies:
-    - core/drupal
-    - core/jquery
-    - core/jquery.once
+# Navigation.
 
 webform.navigation:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.navigation.css: {}
+
+# Progress.
 
 webform.progress:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.progress.css: {}
 
 webform.progress.bar:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.progress.bar.css: {}
 
 webform.progress.tracker:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.progress.tracker.css: {}
   dependencies:
     - webform/libraries.progress-tracker
 
+# Promotions.
+
+webform.promotions:
+  version: VERSION
+  css:
+    component:
+      css/webform.promotions.css: {}
+
+# States.
 
 webform.states:
   version: VERSION
   js:
     js/webform.states.js:  {}
+
+# Tooltip.
 
 webform.tooltip:
   version: VERSION
@@ -185,6 +185,35 @@ webform.tooltip:
     - core/drupal
     - core/jquery.once
     - core/jquery.ui.tooltip
+
+# Theme
+
+webform.theme.bartik:
+  version: VERSION
+  css:
+    theme:
+      css/webform.theme.bartik.css: {}
+
+webform.theme.seven:
+  version: VERSION
+  css:
+    theme:
+      css/webform.theme.seven.css: {}
+
+# Form.
+
+webform.form:
+  version: VERSION
+  css:
+    component:
+      css/webform.form.css: {}
+  js:
+    js/webform.form.js:  {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+    - webform/webform.states
 
 webform.form.disable_back:
   version: VERSION
@@ -197,21 +226,21 @@ webform.form.submit_once:
   js:
     js/webform.form.submit_once.js:  {}
   dependencies:
-    - system/base
     - core/drupal
     - core/jquery
     - core/jquery.once
+    - system/base
 
 webform.form.unsaved:
   version: VERSION
   js:
     js/webform.form.unsaved.js:  {}
   dependencies:
-    - core/drupal
     - core/jquery
     - core/jquery.once
+    - core/drupal
 
-# Elements.
+# Element.
 
 webform.element.buttons:
   version: VERSION
@@ -233,67 +262,67 @@ webform.element.chosen:
 webform.element.codemirror.text:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.codemirror.css: {}
   js:
-    js/webform.element.codemirror.js: {}
+    js/webform.element.codemirror.js: {weight: -1}
   dependencies:
     - webform/libraries.codemirror.text
 
 webform.element.codemirror.yaml:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.codemirror.css: {}
   js:
-    js/webform.element.codemirror.js: {}
+    js/webform.element.codemirror.js: {weight: -1}
   dependencies:
     - webform/libraries.codemirror.yaml
 
 webform.element.codemirror.html:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.codemirror.css: {}
   js:
-    js/webform.element.codemirror.js: {}
+    js/webform.element.codemirror.js: {weight: -1}
   dependencies:
     - webform/libraries.codemirror.html
 
 webform.element.codemirror.css:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.codemirror.css: {}
   js:
-    js/webform.element.codemirror.js: {}
+    js/webform.element.codemirror.js: {weight: -1}
   dependencies:
     - webform/libraries.codemirror.css
 
 webform.element.codemirror.javascript:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.codemirror.css: {}
   js:
-    js/webform.element.codemirror.js: {}
+    js/webform.element.codemirror.js: {weight: -1}
   dependencies:
     - webform/libraries.codemirror.javascript
 
 webform.element.codemirror.php:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.codemirror.css: {}
   js:
-    js/webform.element.codemirror.js: {}
+    js/webform.element.codemirror.js: {weight: -1}
   dependencies:
     - webform/libraries.codemirror.php
 
 webform.element.color:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.color.css: {}
   js:
     js/webform.element.color.js: {}
@@ -342,7 +371,7 @@ webform.element.details.save:
 webform.element.details.toggle:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.details.toggle.css: {}
   js:
     js/webform.element.details.toggle.js: {}
@@ -351,36 +380,42 @@ webform.element.details.toggle:
     - core/jquery
     - core/jquery.once
 
+webform.element.file.button:
+  version: VERSION
+  css:
+    component:
+      css/webform.element.file.button.css: {}
+
 webform.element.flexbox:
   version: VERSION
   css:
-    theme:
+    layout:
       css/webform.element.flexbox.css: {}
 
 webform.element.image_file:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.image_file.css: {}
 
 webform.element.html_editor:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.html_editor.css: {}
   js:
     js/webform.element.html_editor.js: {}
   dependencies:
+    - core/ckeditor
     - core/drupal
     - core/drupalSettings
     - core/jquery
     - core/jquery.once
-    - core/ckeditor
 
 webform.element.icheck:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.icheck.css: {}
   js:
     js/webform.element.icheck.js: { weight: -10 } # iCheck library must be executed before #states.
@@ -403,7 +438,7 @@ webform.element.inputmask:
 webform.element.image_select:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.image_select.css: {}
   js:
     js/webform.element.image_select.js: {}
@@ -435,7 +470,7 @@ webform.element.location:
 webform.element.message:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.message.css: {}
   js:
     js/webform.element.message.js: {}
@@ -482,7 +517,7 @@ webform.element.radios:
 webform.element.range:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.range.css: {}
   js:
     js/webform.element.range.js: {}
@@ -511,7 +546,7 @@ webform.element.roles:
 webform.element.select2:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.select2.css: {}
   js:
     js/webform.element.select2.js: {}
@@ -554,6 +589,20 @@ webform.element.term_checkboxes:
     component:
       css/webform.element.term_checkboxes.css: {}
 
+webform.element.terms_of_service:
+  version: VERSION
+  css:
+    component:
+      css/webform.element.terms_of_service.css: {}
+  js:
+    js/webform.element.terms_of_service.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.dialog.ajax
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.ui.dialog
+
 webform.element.text_format:
   version: VERSION
   css:
@@ -565,13 +614,13 @@ webform.element.text_format:
 webform.element.tableselect:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.tableselect.css: {}
 
 webform.element.tableselect_sort:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.tableselect_sort.css: {}
 
 webform.element.time:
@@ -597,7 +646,7 @@ webform.element.toggle:
 webform.element.video_file:
   version: VERSION
   css:
-    theme:
+    component:
       css/webform.element.video_file.css: {}
 
 # Contrib Module.
@@ -622,10 +671,10 @@ libraries.codemirror.text:
     /libraries/codemirror/lib/: https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.2/
     /libraries/codemirror/: https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.2/
   css:
-    theme:
+    component:
       /libraries/codemirror/lib/codemirror.css: {}
   js:
-    /libraries/codemirror/lib/codemirror.js: {}
+    /libraries/codemirror/lib/codemirror.js: {weight: -1}
     /libraries/codemirror/addon/runmode/runmode.js: {}
 
 libraries.codemirror.yaml:
@@ -724,7 +773,7 @@ libraries.jquery.icheck.flat:
   license: *webform_icheck_license
   cdn: *webform_icheck_cdn
   css:
-    theme:
+    component:
       /libraries/jquery.icheck/skins/flat/_all.css: {}
   dependencies:
     - webform/libraries.jquery.icheck
@@ -734,7 +783,7 @@ libraries.jquery.icheck.line:
   license: *webform_icheck_license
   cdn: *webform_icheck_cdn
   css:
-    theme:
+    component:
       /libraries/jquery.icheck/skins/line/_all.css: {}
   dependencies:
     - webform/libraries.jquery.icheck
@@ -744,7 +793,7 @@ libraries.jquery.icheck.minimal:
   license: *webform_icheck_license
   cdn: *webform_icheck_cdn
   css:
-    theme:
+    component:
       /libraries/jquery.icheck/skins/minimal/_all.css: {}
   dependencies:
     - webform/libraries.jquery.icheck
@@ -754,7 +803,7 @@ libraries.jquery.icheck.square:
   license: *webform_icheck_license
   cdn: *webform_icheck_cdn
   css:
-    theme:
+    component:
       /libraries/jquery.icheck/skins/square/_all.css: {}
   dependencies:
     - webform/libraries.jquery.icheck
@@ -769,7 +818,7 @@ libraries.jquery.image-picker:
   cdn:
     /libraries/jquery.image-picker/image-picker/: https://cdnjs.cloudflare.com/ajax/libs/image-picker/0.3.0/
   css:
-    theme:
+    component:
       /libraries/jquery.image-picker/image-picker/image-picker.css: {}
   js:
     /libraries/jquery.image-picker/image-picker/image-picker.js: {}
@@ -800,7 +849,7 @@ libraries.jquery.intl-tel-input:
   cdn:
     /libraries/jquery.intl-tel-input/build/: https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.12/
   css:
-    theme:
+    component:
       /libraries/jquery.intl-tel-input/build/css/intlTelInput.css: {}
   js:
     /libraries/jquery.intl-tel-input/build/js/utils.js : {}
@@ -818,7 +867,7 @@ libraries.jquery.rateit:
   cdn:
     /libraries/jquery.rateit/: https://cdn.rawgit.com/gjunge/rateit.js/1.1.1/
   css:
-    theme:
+    component:
       /libraries/jquery.rateit/scripts/rateit.css: {}
   js:
     /libraries/jquery.rateit/scripts/jquery.rateit.min.js: {}
@@ -835,7 +884,7 @@ libraries.jquery.select2:
   cdn:
     /libraries/jquery.select2/dist/: https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/
   css:
-    theme:
+    component:
       /libraries/jquery.select2/dist/css/select2.min.css: {}
   js:
     /libraries/jquery.select2/dist/js/select2.min.js: {}
@@ -852,7 +901,7 @@ libraries.jquery.chosen:
   cdn:
     /libraries/jquery.chosen/: https://cdnjs.cloudflare.com/ajax/libs/chosen/1.7.0/
   css:
-    theme:
+    component:
       /libraries/jquery.chosen/chosen.css: {}
   js:
     /libraries/jquery.chosen/chosen.jquery.js: {}
@@ -869,7 +918,7 @@ libraries.jquery.timepicker:
   cdn:
     /libraries/jquery.timepicker/: https://cdn.rawgit.com/jonthornton/jquery-timepicker/1.11.10/
   css:
-    theme:
+    component:
       /libraries/jquery.timepicker/jquery.timepicker.css: {}
   js:
     /libraries/jquery.timepicker/jquery.timepicker.min.js: {}
@@ -886,7 +935,7 @@ libraries.jquery.toggles:
   cdn:
     /libraries/jquery.toggles/: https://cdn.rawgit.com/simontabor/jquery-toggles/v4.0.0/
   css:
-    theme:
+    component:
       /libraries/jquery.toggles/css/toggles-full.css: {}
   js:
     /libraries/jquery.toggles/toggles.min.js: {}
@@ -903,7 +952,7 @@ libraries.progress-tracker:
   cdn:
     /libraries/progress-tracker/: https://cdn.rawgit.com/NigelOToole/progress-tracker/v1.4.0/
   css:
-    theme:
+    component:
       /libraries/progress-tracker/app/styles/progress-tracker.css: {}
 
 libraries.signature_pad:

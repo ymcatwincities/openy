@@ -41,6 +41,12 @@ drush webform-libraries-make > webform.libraries.make.yml
 drush webform-libraries-composer > composer.json
 ```
 
+**Manually Execute an Update Hook**
+
+```bash
+drush php-eval 'module_load_include('install', 'webform'); webform_update_8032()';
+```
+
 **Import and Export Configuration**
 
 ```bash
@@ -48,6 +54,9 @@ drush webform-libraries-composer > composer.json
 # These files will be ignored. @see .gitignore.
 echo 'true' > webform.features.yml
 echo 'true' > modules/webform_examples/webform_examples.features.yml
+echo 'true' > modules/webform_example_element/webform_example_element.features.yml
+echo 'true' > modules/webform_example_composite/webform_example_composite.features.yml
+echo 'true' > modules/webform_example_element/webform_example_remote_post.features.yml
 echo 'true' > modules/webform_templates/webform_templates.features.yml
 echo 'true' > modules/webform_node/webform_node.features.yml
 
@@ -56,10 +65,14 @@ drush en -y webform\
   webform_demo_application_evaluation\
   webform_demo_event_registration\
   webform_examples\
+  webform_examples\
+  webform_example_element\
+  webform_example_remote_post\
   webform_templates\
   webform_test\
   webform_test_element\
   webform_test_handler\
+  webform_test_handler_remote_post\
   webform_test_options\
   webform_test_views\
   webform_test_translation\
@@ -75,13 +88,18 @@ drush features-export -y webform
 drush features-export -y webform_demo_application_evaluation
 drush features-export -y webform_demo_event_registration
 drush features-export -y webform_examples
+drush features-export -y webform_example_element
+drush features-export -y webform_example_composite
+drush features-export -y webform_example_remote_post
 drush features-export -y webform_templates
 drush features-export -y webform_testdrush cr
 drush features-export -y webform_test_element
 drush features-export -y webform_test_handler
+drush features-export -y webform_test_handler_remote_post
 drush features-export -y webform_test_options
 drush features-export -y webform_test_views
 drush features-export -y webform_test_translation
+drush features-export -y webform_test_paragraphs
 drush features-export -y webform_node
 drush features-export -y webform_scheduled_email_test
 drush features-export -y webform_test_block_submission_limit
@@ -94,13 +112,18 @@ drush webform-tidy -y --dependencies webform
 drush webform-tidy -y --dependencies webform_demo_application_evaluation
 drush webform-tidy -y --dependencies webform_demo_event_registration
 drush webform-tidy -y --dependencies webform_examples
+drush webform-tidy -y --dependencies webform_example_element
+drush webform-tidy -y --dependencies webform_example_composite
+drush webform-tidy -y --dependencies webform_example_remote_post
 drush webform-tidy -y --dependencies webform_templates
 drush webform-tidy -y --dependencies webform_test
 drush webform-tidy -y --dependencies webform_test_element
 drush webform-tidy -y --dependencies webform_test_handler
+drush webform-tidy -y --dependencies webform_test_handler_remote_post
 drush webform-tidy -y --dependencies webform_test_options
 drush webform-tidy -y --dependencies webform_test_views
 drush webform-tidy -y --dependencies webform_test_translation
+drush webform-tidy -y --dependencies webform_test_paragraphs
 drush webform-tidy -y --dependencies webform_node
 drush webform-tidy -y --dependencies webform_scheduled_email_test
 drush webform-tidy -y --dependencies webform_test_block_submission_limit
@@ -109,13 +132,18 @@ drush webform-tidy -y --dependencies webform_test_block_submission_limit
 drush features-import -y webform
 drush features-import -y webform_demo_application_evaluation
 drush features-import -y webform_examples
+drush features-import -y webform_example_element
+drush features-import -y webform_example_composite
+drush features-import -y webform_example_remote_post
 drush features-import -y webform_templates
 drush features-import -y webform_test
 drush features-import -y webform_test_element
 drush features-import -y webform_test_handler
+drush features-import -y webform_test_handler_remote_post
 drush features-import -y webform_test_options
 drush features-import -y webform_test_views
 drush features-import -y webform_test_translation
+drush features-import -y webform_test_paragraphs
 drush features-import -y webform_node
 drush features-import -y webform_scheduled_email_test
 drush features-import -y webform_test_block_submission_limit

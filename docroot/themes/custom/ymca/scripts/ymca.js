@@ -362,25 +362,57 @@
         }
         // Extended case, merge sidebar and navbar.
         if ($('.nav-location').length === 1) {
+          $('.nav-location').removeClass('hidden-xs');
           if ($('.panel-subnav').length === 1) {
             $('.panel-subnav ul.nav:eq(0)').clone(true).appendTo('.nav-location .nav .current');
           }
           if ($('.nav-location a.home .name').length === 0) {
-            var name = $('.masthead-brand').text();
-            $('.nav-location a.home').append('<span class="name">' + Drupal.t(name + ' homepage') + '</span><b class="caret"></b>');
-            $('.nav-location a.home').click(function(e) {
-              e.preventDefault();
-              if ($(this).hasClass('open')) {
-                $(this).removeClass('open').parents('.nav').find('li:not(.heading)').slideUp();
-              }
-              else {
-                $(this).parents('.nav').find('li:eq(0)').addClass('heading');
-                $(this).addClass('open').parents('.nav').find('li').slideDown();
+            var home = $('.nav-location a.home'),
+                brand = $('.masthead-brand'),
+                name = brand.text(),
+                href = home.attr('href');
+            brand.wrapInner('<a href="' + href + '"></a>');
+            home.append('<span class="name">' + Drupal.t('Helpful links, info, etc.') + '</span><b class="caret"></b>');
+            home.click(function(e) {
+              if ($(window).width() < 768) {
+                e.preventDefault();
+                if ($(this).hasClass('open')) {
+                  $(this).removeClass('open').parents('.nav').find('li:not(.heading)').slideUp();
+                }
+                else {
+                  $(this).parents('.nav').find('li:eq(0)').addClass('heading');
+                  $(this).addClass('open').parents('.nav').find('li').slideDown();
+                }
               }
             });
           }
         }
       }
+      $('.sidebar .search-icon', context).on('click', function(e) {
+        e.preventDefault();
+        if ($(this).hasClass('form-shown')) {
+          $('.site-search-sidebar').slideUp();
+          $(this).removeClass('form-shown');
+        }
+        else {
+          $('.site-search-sidebar').slideDown();
+          $(this).addClass('form-shown');
+        }
+      });
+      $('.sidebar')
+        .on('DOMSubtreeModified',
+          function (e) {
+            var more = $(this).find('li.more a');
+            if (!more.hasClass('expand')) {
+              more.addClass('expand').append('<span>...</span>').parent().nextAll().hide();
+            }
+            more.on('click', function(e) {
+              e.preventDefault();
+              more.hide().parent().nextAll().show();
+              $(this).hide();
+            })
+          }
+        );
     }
   };
 
