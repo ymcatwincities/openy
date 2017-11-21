@@ -79,6 +79,8 @@ class CdnContactForm extends FormBase {
       'relationship' => isset($query['relationship']) && is_string($query['relationship']) ? $query['relationship'] : '',
       'phone' => isset($query['phone']) && is_string($query['phone']) ? $query['phone'] : 'cell',
       'phone_number' => isset($query['phone_number']) && is_string($query['phone_number']) ? $query['phone_number'] : '',
+      'total' => isset($query['total']) ? $query['total'] : '',
+      'nights' => isset($query['nights']) ? $query['nights'] : '',
     ];
 
     $this->state = $state;
@@ -150,8 +152,8 @@ class CdnContactForm extends FormBase {
       '#default_value' => $state['phone_number'],
     ];
 
-    $form['actions']['#prefix'] = '</div><div class="actions"><div class="container">';
-    $form['actions']['#suffix'] = '</div></div>';
+    $form['actions']['#prefix'] = '<div class="cdn-village-footer"><div class="container"><div class="cdn-village-footer-bar active"><div class="total">Total for <span class="nights">' . $state['nights'] . '</span> nights: <span class="price">$' . $state['total'] . '</span>';
+    $form['actions']['#suffix'] = '</div></div></div></div>';
     $form['actions']['submit'] = array(
       '#type' => 'submit',
       '#value' => $this->t('Next step ->'),

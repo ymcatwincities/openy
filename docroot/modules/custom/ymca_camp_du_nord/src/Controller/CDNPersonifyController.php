@@ -58,6 +58,12 @@ class CDNPersonifyController extends ControllerBase {
     if (!empty($query['ids'])) {
       $options['query']['cdn_personify_chosen_ids'] = $query['ids'];
     }
+    if (!empty($query['total'])) {
+      $options['query']['total'] = $query['total'];
+    }
+    if (!empty($query['nights'])) {
+      $options['query']['nights'] = $query['nights'];
+    }
     $url = Url::fromRoute('ymca_camp_du_nord.personify_auth', [], $options)->toString();
 
     $vendor_token = $this->sso->getVendorToken($url);

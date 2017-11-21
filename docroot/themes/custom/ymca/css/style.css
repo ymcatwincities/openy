@@ -11358,7 +11358,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-village-calendars .cdn-calendar .description {
-    margin: 70px auto;
+    margin: 70px auto 10px;
     max-width: 690px;
   }
 }
@@ -11372,7 +11372,7 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 48em) {
   .cdn-village-calendars .cdn-calendar .description .title {
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 70px;
   }
 }
 .cdn-village-calendars .cdn-calendar .description .view {
@@ -11888,6 +11888,7 @@ tr:nth-last-child(3) .atcb-list {
 .cdn-village-footer {
   background: #383838;
   padding: 50px 0 25px;
+  clear: both;
 }
 .cdn-village-footer .cdn-village-footer-bar {
   display: none;
@@ -11918,7 +11919,8 @@ tr:nth-last-child(3) .atcb-list {
   color: #fff;
 }
 .cdn-village-footer .cdn-village-footer-bar .prev-step,
-.cdn-village-footer .cdn-village-footer-bar .next-step {
+.cdn-village-footer .cdn-village-footer-bar .next-step,
+.cdn-village-footer .cdn-village-footer-bar .form-submit {
   background: #0089d0;
   font-size: 18px;
   color: #fff;
@@ -11934,9 +11936,24 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 62em) {
   .cdn-village-footer .cdn-village-footer-bar .prev-step,
-  .cdn-village-footer .cdn-village-footer-bar .next-step {
+  .cdn-village-footer .cdn-village-footer-bar .next-step,
+  .cdn-village-footer .cdn-village-footer-bar .form-submit {
     margin-left: 30px;
   }
+}
+
+.confirmation-body h2 {
+  font-weight: normal;
+}
+.confirmation-body .description {
+  margin-bottom: 20px;
+}
+.confirmation-body .description .cabin-name {
+  font-weight: bold;
+}
+.confirmation-body .col-xs-12 {
+  padding-top: 50px;
+  padding-bottom: 100px;
 }
 
 .block-description--wrapper {

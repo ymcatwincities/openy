@@ -42,7 +42,7 @@
         nights++;
       }
     });
-    var href = settings.path.baseUrl + 'cdn/personify/login?ids=' + ids.join('%2C');
+    var href = settings.path.baseUrl + 'cdn/personify/login?ids=' + ids.join('%2C') + '&total=' + price + '&nights=' + nights;
     footer.find('.next-step').attr('href', href);
     footer.find('.price').text('$' + price);
     footer.find('.nights').text(nights);
@@ -55,6 +55,9 @@
   Drupal.behaviors.cdn = {
     attach: function(context, settings) {
       $('.fullcalendar', context).each(function() {
+        // Change month based on start date.
+        var date = $.fullCalendar.moment($('input[name="arrival_date"]').val());
+        $(this).fullCalendar('gotoDate', date);
         $(this).find('.fc-day-top').each(function() {
           var number = $(this).find('.fc-day-number').text();
           var i = $(this).index();
@@ -80,7 +83,6 @@
             }
           }
         });
-        $(this).addClass('processed');
       });
 
       $('a.cdn-prs-product', context).each(function() {
