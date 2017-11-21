@@ -4723,6 +4723,7 @@ a.sports-icon.floor-hockey {
 .paragraph--type--camp-menu .camp-menu-wrapper {
   padding: 0 30px;
   background: #383838;
+  z-index: 5;
 }
 .paragraph--type--microsites-menu .camp-menu-wrapper .columns-gradient,
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
@@ -5420,7 +5421,7 @@ a.sports-icon.floor-hockey {
   display: block;
   visibility: visible;
   width: 66%;
-  height: 100%;
+  height: 101%;
   background: #434343;
   content: '';
   -webkit-transform: skew(-20deg);
