@@ -37,7 +37,12 @@
           self.current_date_index = i;
         }
       });
-      self.date_selected = self.storage.dates[self.current_date_index];
+
+      // @todo Reimplement the current logic since in case the current date is
+      // not in the range of date_reporting_open and date_reporting_close dates
+      // it eventually leads to exceptions since self.date_selected gets
+      // undefined.
+      self.date_selected = self.storage.dates[self.current_date_index] || { index: 0 };
       self.dateClass = function (index) {
         var classes = [];
         if (self.storage.dates[index].past && self.date_selected.index != index) {
@@ -64,13 +69,13 @@
         return classes.join(' ');
       };
       self.activitiesCount = function (index) {
-        if (!self.storage.member_activities || self.storage.member_activities.length == 0) {
+        if (!self.storage.member_activities_counts || self.storage.member_activities_counts.length == 0) {
           return 0;
         }
 
         var count = 0;
-        for (var activity in self.storage.member_activities[self.storage.dates[index].timestamp]) {
-          if (self.storage.member_activities[self.storage.dates[index].timestamp][activity]) {
+        for (var activity in self.storage.member_activities_counts[self.storage.dates[index].timestamp]) {
+          if (self.storage.member_activities_counts[self.storage.dates[index].timestamp][activity]) {
             count++;
           }
         }

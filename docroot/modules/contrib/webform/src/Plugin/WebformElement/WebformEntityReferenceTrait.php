@@ -3,6 +3,7 @@
 namespace Drupal\webform\Plugin\WebformElement;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\webform\Element\WebformEntityTrait;
@@ -144,17 +145,38 @@ trait WebformEntityReferenceTrait {
    */
   public function getItemFormats() {
     $formats = parent::getItemFormats() + [
-      'link' => $this->t('Link'),
-      'id' => $this->t('Entity ID'),
-      'label' => $this->t('Label'),
-      'text' => $this->t('Label (ID)'),
-      'teaser' => $this->t('Teaser'),
-      'default' => $this->t('Default'),
-    ];
+        'link' => $this->t('Link'),
+        'id' => $this->t('Entity ID'),
+        'label' => $this->t('Label'),
+        'text' => $this->t('Label (ID)'),
+        'teaser' => $this->t('Teaser'),
+        'default' => $this->t('Default'),
+      ];
     if ($this->hasProperty('breadcrumb')) {
       $formats['breadcrumb'] = $this->t('Breadcrumb');
     }
     return $formats;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    $element = parent::preview();
+    $element += [
+      '#target_type' => 'user',
+      '#selection_handler' => 'default:user',
+      '#selection_settings' => [
+        'include_anonymous' => TRUE,
+      ],
+    ];
+    if ($this instanceof OptionsBase) {
+      $element['#options'] = [
+        '1' => 'Administrator',
+        '0' => 'Anonymous',
+      ];
+    }
+    return $element;
   }
 
   /**
@@ -305,21 +327,32 @@ trait WebformEntityReferenceTrait {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
+    /**************************************************************************/
+    // IMPORTANT: Most of the below code and #ajax tweaks compensate for the
+    // fact that the EntityReferenceSelection plugin specifically targets
+    // entity references managed via the Field API.
+    // @see \Drupal\webform\Plugin\WebformElementBase::setConfigurationFormDefaultValueRecursive
+    // @see \Drupal\webform\Plugin\WebformElementBase::buildConfigurationForm
+    /**************************************************************************/
+
     // Get element properties.
     $element_properties = $form_state->get('element_properties');
 
     // Alter element properties.
-    if ($properties = $form_state->getValue('properties')) {
-      $target_type = (isset($properties['target_type'])) ? $properties['target_type'] : 'node';
-      $selection_handler = (isset($properties['selection_handler'])) ? $properties['selection_handler'] : 'default:' . $target_type;
+    if ($form_state->isRebuilding()) {
+      // Get entity reference value from user input because
+      // $form_state->getValue() does not always contain every input's value.
+      $user_input = $form_state->getUserInput();
+      $target_type = (isset($user_input['properties']['target_type'])) ? $user_input['properties']['target_type'] : 'node';
+      $selection_handler = (isset($user_input['properties']['selection_handler'])) ? $user_input['properties']['selection_handler'] : 'default:' . $target_type;
+      $selection_settings = (isset($user_input['properties']['selection_settings'])) ? $user_input['properties']['selection_settings'] : [];
       // If the default selection handler has changed when need to update its
       // value.
       if (strpos($selection_handler, 'default:') === 0 && $selection_handler != "default:$target_type") {
         $selection_handler = "default:$target_type";
         $selection_settings = [];
-      }
-      else {
-        $selection_settings = (isset($properties['selection_settings'])) ? $properties['selection_settings'] : [];
+        NestedArray::setValue($form_state->getUserInput(), ['properties', 'selection_handler'], $selection_handler);
+        NestedArray::setValue($form_state->getUserInput(), ['properties', 'selection_settings'], $selection_settings);
       }
     }
     else {
@@ -335,11 +368,25 @@ trait WebformEntityReferenceTrait {
       $selection_settings = $element_properties['selection_settings'];
     }
 
+    // Set 'User' entity reference selection filter type role's #default_value
+    // to an array and not NULL, which throws
+    // "Warning: Invalid argument supplied for foreach()
+    // in Drupal\Core\Render\Element\Checkboxes::valueCallback() "
+    // @see \Drupal\user\Plugin\EntityReferenceSelection\UserSelection::buildConfigurationForm
+    if ($target_type == 'user'
+      && isset($selection_settings['filter']['type'])
+      && $selection_settings['filter']['type'] == 'role'
+      && empty($selection_settings['filter']['role'])) {
+      $selection_settings['filter']['role'] = [];
+    }
+
     // Reset element properties.
     $element_properties['target_type'] = $target_type;
     $element_properties['selection_handler'] = $selection_handler;
     $element_properties['selection_settings'] = $selection_settings;
     $form_state->set('element_properties', $element_properties);
+
+    /**************************************************************************/
 
     /** @var \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $entity_reference_selection_manager */
     $entity_reference_selection_manager = \Drupal::service('plugin.manager.entity_reference_selection');
@@ -357,20 +404,11 @@ trait WebformEntityReferenceTrait {
       }
     }
 
-    // ISSUE:
-    // The Ajax handling for @EntityReferenceSelection plugins is just broken.
-    //
-    // WORKAROUND:
-    // Implement custom #ajax that refresh the entire details element and
-    // remove #ajax from selection settings to just get an MVP UI
-    // for entity reference elements.
-    //
-    // @see https://www.drupal.org/project/issues/drupal?text=EntityReferenceSelection&version=8.x
-    // @todo Figure out how to properly implement @EntityReferenceSelection plugins.
-    $ajax_settings = [
-      'callback' => [get_class($this), 'ajaxEntityReference'],
-      'wrapper' => 'webform-entity-reference-selection-wrapper',
-    ];
+    // Entity Reference fields are no longer supported to reference Paragraphs.
+    // @see paragraphs_form_field_storage_config_edit_form_alter()
+    $target_type_options = \Drupal::service('entity_type.repository')->getEntityTypeLabels(TRUE);
+    unset($target_type_options[(string) $this->t('Content')]['paragraph']);
+
     $form['entity_reference'] = [
       '#type' => 'fieldset',
       '#title' => t('Entity reference settings'),
@@ -378,15 +416,14 @@ trait WebformEntityReferenceTrait {
       '#suffix' => '</div>',
       '#weight' => -40,
     ];
-
     // Target type.
     $form['entity_reference']['target_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Type of item to reference'),
-      '#options' => \Drupal::service('entity_type.repository')->getEntityTypeLabels(TRUE),
+      '#options' => $target_type_options,
       '#required' => TRUE,
       '#empty_option' => t('- Select a target type -'),
-      '#ajax' => $ajax_settings,
+      '#attributes' => ['data-webform-trigger-submit' => '.js-webform-entity-reference-submit'],
       '#default_value' => $target_type,
     ];
     // Selection handler.
@@ -395,7 +432,7 @@ trait WebformEntityReferenceTrait {
       '#title' => $this->t('Reference method'),
       '#options' => $handlers_options,
       '#required' => TRUE,
-      '#ajax' => $ajax_settings,
+      '#attributes' => ['data-webform-trigger-submit' => '.js-webform-entity-reference-submit'],
       '#default_value' => $selection_handler,
     ];
     // Selection settings.
@@ -409,9 +446,11 @@ trait WebformEntityReferenceTrait {
     $form['entity_reference']['selection_settings'] = $entity_reference_selection_handler->buildConfigurationForm([], $form_state);
     $form['entity_reference']['selection_settings']['#tree'] = TRUE;
 
-    $this->updateAjaxCallbackRecursive($form['entity_reference']['selection_settings'], $ajax_settings);
+    // Replace #ajax = TRUE with [data-webform-trigger-submit] attribute.
+    $this->updateAjaxCallbackRecursive($form['entity_reference']['selection_settings']);
 
-    // Remove the no-ajax submit button.
+    // Remove the no-ajax submit button because we are not using the
+    // EntityReferenceSelection with in Field API.
     unset(
       $form['entity_reference']['selection_settings']['target_bundles_update']
     );
@@ -424,14 +463,6 @@ trait WebformEntityReferenceTrait {
       );
     }
 
-    // Disable Ajax callback that we don't need.
-    unset($form['entity_reference']['selection_settings']['target_bundles']['#ajax']);
-    unset($form['entity_reference']['selection_settings']['sort']['field']['#ajax']);
-
-    // Remove user role filter, which is not working correctly.
-    // @see \Drupal\user\Plugin\EntityReferenceSelection\UserSelection
-    unset($form['entity_reference']['selection_settings']['filter']);
-
     // Add hide/show #format_items based on #tags.
     if ($this->supportsMultipleValues() && $this->hasProperty('tags')) {
       $form['display']['format_items']['#states'] = [
@@ -440,6 +471,36 @@ trait WebformEntityReferenceTrait {
         ],
       ];
     }
+
+    // Add Update button.
+    // @see \Drupal\webform_test_element\Plugin\WebformElement\WebformTestElementProperties
+    $form['entity_reference']['update'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Update'),
+      // Set access to make sure the button is visible.
+      '#access' => TRUE,
+      // Validate the form.
+      '#validate' => [[get_called_class(), 'validateEntityReferenceCallback']],
+      // Submit the form.
+      '#submit' => [[get_called_class(), 'submitEntityReferenceCallback']],
+      // Refresh the entity reference details container.
+      '#ajax' => [
+        'callback' => [get_called_class(), 'entityReferenceAjaxCallback'],
+        'wrapper' => 'webform-entity-reference-selection-wrapper',
+        'progress' => ['type' => 'fullscreen'],
+      ],
+      // Hide button, add submit button trigger class, and disable validation.
+      '#attributes' => [
+        'class' => [
+          'js-hide',
+          'js-webform-entity-reference-submit',
+          'js-webform-novalidate',
+        ]
+      ],
+    ];
+
+    // Attached webform.form library for .js-webform-novalidate behavior.
+    $form['#attached']['library'][] = 'webform/webform.form';
 
     // Tags (only applies to 'entity_autocomplete' element).
     $form['element']['tags'] = [
@@ -473,29 +534,57 @@ trait WebformEntityReferenceTrait {
     if (isset($values['selection_settings']['include_anonymous'])) {
       $values['selection_settings']['include_anonymous'] = (bool) $values['selection_settings']['include_anonymous'];
     }
+
     $form_state->setValues($values);
   }
 
+  /****************************************************************************/
+  // Form/Ajax helpers and callbacks.
+  /****************************************************************************/
+
   /**
-   * Replace #ajax = TRUE with a work #ajax callback.
+   * Replace #ajax = TRUE with [data-webform-trigger-submit] attribute.
    *
    * @param array $element
-   *   A element.
-   * @param array $ajax_settings
-   *   A #ajax callback.
+   *   An element.
    */
-  protected function updateAjaxCallbackRecursive(array &$element, array $ajax_settings) {
+  protected function updateAjaxCallbackRecursive(array &$element) {
+    $element['#access'] = TRUE;
     foreach (Element::children($element) as $key) {
-      $element[$key]['#access'] = TRUE;
       if (isset($element[$key]['#ajax']) && $element[$key]['#ajax'] === TRUE) {
-        $element[$key]['#ajax'] = $ajax_settings;
+        $element[$key]['#attributes']['data-webform-trigger-submit'] = '.js-webform-entity-reference-submit';
       }
-      $this->updateAjaxCallbackRecursive($element[$key], $ajax_settings);
+      unset($element[$key]['#ajax'], $element[$key]['#limit_validation_errors']);
+      $this->updateAjaxCallbackRecursive($element[$key]);
     }
   }
 
   /**
-   * Ajax callback for entity reference details element.
+   * Entity reference validate callback.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  static public function validateEntityReferenceCallback(array $form, FormStateInterface $form_state) {
+    $form_state->clearErrors();
+  }
+
+  /**
+   * Entity reference submit callback.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  static public function submitEntityReferenceCallback(array $form, FormStateInterface $form_state) {
+    $form_state->setRebuild();
+  }
+
+  /**
+   * Entity reference Ajax callback.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
@@ -503,10 +592,11 @@ trait WebformEntityReferenceTrait {
    *   The current state of the form.
    *
    * @return array
-   *   An associative array containing entity reference details element.
+   *   The properties element.
    */
-  public function ajaxEntityReference(array $form, FormStateInterface $form_state) {
-    $element = $form['properties']['entity_reference'];
+  static public function entityReferenceAjaxCallback(array $form, FormStateInterface $form_state) {
+    $button = $form_state->getTriggeringElement();
+    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
     return $element;
   }
 

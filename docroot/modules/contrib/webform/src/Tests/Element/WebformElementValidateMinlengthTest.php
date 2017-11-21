@@ -22,7 +22,7 @@ class WebformElementValidateMinlengthTest extends WebformTestBase {
   /**
    * Tests element validate minlength.
    */
-  public function testElementValidateMinlength() {
+  public function testValidateMinlength() {
     $webform = Webform::load('test_element_validate_minlength');
 
     // Check minlength validation.

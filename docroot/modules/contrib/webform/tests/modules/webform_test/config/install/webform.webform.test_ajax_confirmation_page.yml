@@ -15,6 +15,9 @@ category: 'Test: Ajax'
 elements: |
   description:
     '#markup': 'This webform will redirect to the confirmation page when submitted.'
+  test:
+    '#type': textfield
+    '#title': test
 css: ''
 javascript: ''
 settings:
@@ -34,6 +37,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -55,6 +59,7 @@ settings:
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: none
   draft_multiple: false
   draft_auto_save: false
@@ -62,7 +67,7 @@ settings:
   draft_loaded_message: ''
   confirmation_type: page
   confirmation_title: ''
-  confirmation_message: 'This is a custom confirmation page.'
+  confirmation_message: 'This is a custom confirmation page. (test: [webform_submission:values:test])'
   confirmation_url: ''
   confirmation_attributes: {  }
   confirmation_back: true
@@ -76,8 +81,8 @@ settings:
   purge_days: null
   entity_limit_total: null
   entity_limit_user: null
-  results_disabled: true
-  results_disabled_ignore: true
+  results_disabled: false
+  results_disabled_ignore: false
   token_update: false
 access:
   create:
@@ -85,25 +90,33 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers: {  }

@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\webform\Unit\Utility;
 
-use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Render\Markup;
 use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\Tests\UnitTestCase;
 
@@ -165,11 +165,11 @@ class WebformElementHelperTest extends UnitTestCase {
   public function providerConvertRenderMarkupToStrings() {
     return [
       [
-        ['test' => new FormattableMarkup('markup', [])],
+        ['test' => Markup::create('markup')],
         ['test' => 'markup'],
       ],
       [
-        ['test' => ['nested' => new FormattableMarkup('markup', [])]],
+        ['test' => ['nested' => Markup::create('markup')]],
         ['test' => ['nested' => 'markup']],
       ],
     ];

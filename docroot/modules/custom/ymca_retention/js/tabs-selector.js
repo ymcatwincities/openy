@@ -66,8 +66,14 @@
     // Scroll to just opened tab.
     $(document).on('shown.bs.collapse', function (event) {
       $('body').animate({
-        scrollTop: $(this.activeElement).offset().top
+        scrollTop: ($(event.target).offset().top-72)
       });
+    });
+    $('[data-dismiss="modal"]').click(function () {
+      if (history.pushState) {
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?tab=tab_1';
+        window.history.pushState({path: newurl}, '', newurl);
+      }
     });
   };
 

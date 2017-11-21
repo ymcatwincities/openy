@@ -249,7 +249,7 @@ interface WebformScheduledEmailManagerInterface {
   /****************************************************************************/
 
   /**
-   * Get all the handler's statistics
+   * Get all the handler's statistics.
    *
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   A webform, webform submission, or source entity.

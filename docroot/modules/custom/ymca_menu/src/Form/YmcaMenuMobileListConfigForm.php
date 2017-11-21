@@ -35,8 +35,14 @@ class YmcaMenuMobileListConfigForm extends ConfigFormBase {
 
     $form['show_mobile_submenu'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Show mobile sub navigation'),
+      '#title' => $this->t('Show mobile sub navigation.'),
       '#default_value' => $this->getConfig()->get('show_mobile_submenu'),
+    ];
+
+    $form['show_new_mobile_menu'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show new mobile primary navigation design.'),
+      '#default_value' => $this->getConfig()->get('show_new_mobile_menu'),
     ];
 
     $form['menu_list_table'] = [
@@ -124,6 +130,7 @@ class YmcaMenuMobileListConfigForm extends ConfigFormBase {
     $config = $this->getConfig();
     $config->set('menu_list', $config_values);
     $config->set('show_mobile_submenu', $form_state->getValue('show_mobile_submenu'));
+    $config->set('show_new_mobile_menu', $form_state->getValue('show_new_mobile_menu'));
     $config->save();
 
     parent::submitForm($form, $form_state);

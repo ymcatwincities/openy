@@ -504,10 +504,10 @@ function webform_update_8025() {
                 'length' => 20,
               ]);
               \Drupal::database()
-                ->query("UPDATE {$table_name} SET $temp_field_name = 'open' WHERE $field_name = 1")
+                ->query("UPDATE {" . $table_name . "} SET $temp_field_name = 'open' WHERE $field_name = 1")
                 ->execute();
               \Drupal::database()
-                ->query("UPDATE {$table_name} SET $temp_field_name = 'closed' WHERE $field_name <> 1")
+                ->query("UPDATE {" . $table_name . "} SET $temp_field_name = 'closed' WHERE $field_name <> 1")
                 ->execute();
 
               // Drop, re-create, and restore status field.
@@ -519,7 +519,7 @@ function webform_update_8025() {
               $database_schema->dropField($table_name, $field_name);
               $database_schema->addField($table_name, $field_name, $schema[$item_name][$table_name]['fields'][$field_name]);
               \Drupal::database()
-                ->query("UPDATE {$table_name} SET $field_name = $temp_field_name")
+                ->query("UPDATE {" . $table_name . "} SET $field_name = $temp_field_name")
                 ->execute();
 
               // Drop temp field.

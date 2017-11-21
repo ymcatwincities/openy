@@ -8,8 +8,8 @@ dependencies:
   - options
   - views
 
-# Information added by Drupal.org packaging script on 2017-07-05
-version: '8.3.5'
+# Information added by Drupal.org packaging script on 2017-08-16
+version: '8.3.7'
 core: '8.x'
 project: 'drupal'
-datestamp: 1499274885
+datestamp: 1502903957

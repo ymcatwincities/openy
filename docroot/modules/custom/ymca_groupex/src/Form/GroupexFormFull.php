@@ -70,8 +70,9 @@ class GroupexFormFull extends GroupexFormBase {
     $this->groupexHelper = $groupex_helper;
 
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
+    asort($this->locationOptions);
     $raw_classes_data = $this->getOptions($this->request(['query' => ['classes' => TRUE]]), 'id', 'title');
-    $processed_classes_data['any'] = $this->t('-All-');
+    $processed_classes_data['any'] = $this->t('-All Classes-');
     foreach ($raw_classes_data as $key => $class) {
       $id = str_replace('DESC--[', '', $key);
       $processed_classes_data[$id] = $class;
@@ -203,7 +204,7 @@ class GroupexFormFull extends GroupexFormBase {
       $classes = 'show';
     }
     if (isset($state['location']) && is_numeric($state['location'])) {
-      $location_select_classes = $classes = 'show';
+      $class_select_classes = $location_select_classes = $classes = 'show';
       $location_classes = 'hidden';
     }
     if (isset($site_section)) {
@@ -342,8 +343,8 @@ class GroupexFormFull extends GroupexFormBase {
     if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location') {
       $parameters['location'] = $triggering_element['#value'];
     }
-    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $state['class'] != 'any') {
-      $parameters['class'] = $state['class'];
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $values['class_select'] != 'any') {
+      $parameters['class'] = $values['class_select'];
       $parameters['filter_length'] = 'week';
       $parameters['category'] = 'any';
       $parameters['groupex_class'] = 'groupex_table_class_individual';
@@ -424,7 +425,7 @@ class GroupexFormFull extends GroupexFormBase {
       $groupex_class = 'groupex_table_class_individual';
       $view_mode = 'class';
     }
-    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class = 'groupex_table_instructor_individual') {
+    if (isset($triggering_element['#name']) && $triggering_element['#name'] == 'location_select' && $groupex_class == 'groupex_table_instructor_individual') {
       $location = $triggering_element['#value'];
       $class = 'any';
       $filter_length = 'day';

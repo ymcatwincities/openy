@@ -244,28 +244,16 @@ class LndrController extends ControllerBase {
         }
       }
 
-      // prepend all of the div blocks that have background images
-      $div_classes = array(
-        'large-block',
-        'small-block',
-        'image',
-        'image-slide',
+      $elements = array(
+        'div',
+        'a',
+        'section',
       );
 
-      foreach($div_classes as $class) {
-        foreach ($html->find('div[class="' . $class . '"]') as $key => $div) {
-          $bg_image = $div->{'data-background-image'};
-          if (isset($bg_image)) {
-            $html->find('div[class="' . $class . '"]', $key)->{'data-background-image'} = $url . $bg_image;
-          }
-        }
-      }
-
-      // logo if there's any
-      foreach($html->find('a[class="image"]') as $key => $a) {
-        $bg_image = $a->{'data-background-image'};
-        if (isset($bg_image)) {
-          $html->find('a[class="image"]', $key)->{'data-background-image'} = $url . $bg_image;
+      foreach ($elements as $element) {
+        foreach ($html->find($element . '[data-background-image]') as $key => $_element) {
+          $bg_image = $_element->{'data-background-image'};
+          $html->find($element . '[data-background-image]', $key)->{'data-background-image'} = $url . $bg_image;
         }
       }
 

@@ -4,6 +4,13 @@
  */
 
 /**
+ * Local actions.
+ */
+.webform-form .action-links {
+  margin-bottom: 0;
+}
+
+/**
  * Webform setting button displays a gear icon.
  * @see /admin/structure/webform/manage/contact/results/submissions
  */
@@ -14,14 +21,6 @@
 .button.button-webform-setting:before {
   content: '⚙';
   font-size: 1.2em;
-}
-
-/**
- * Add light gray background to Add-on details widget.
- * @see /admin/structure/webform/addons
- */
-.webform-addons details {
-  background-color: #f8f8f8;
 }
 
 /**

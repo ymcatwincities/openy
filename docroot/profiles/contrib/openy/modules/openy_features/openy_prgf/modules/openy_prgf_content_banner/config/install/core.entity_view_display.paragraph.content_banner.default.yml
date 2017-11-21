@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.content_banner.field_prgf_description
+    - field.field.paragraph.content_banner.field_prgf_headline
+    - field.field.paragraph.content_banner.field_prgf_image
+    - paragraphs.paragraphs_type.content_banner
+  module:
+    - text
+id: paragraph.content_banner.default
+targetEntityType: paragraph
+bundle: content_banner
+mode: default
+content:
+  field_prgf_color:
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: color
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+  field_prgf_description:
+    weight: 3
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_prgf_headline:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_prgf_image:
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: prgf_content_banner
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: content
+hidden:
+  created: true
+  uid: true

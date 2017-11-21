@@ -23,7 +23,7 @@ class WebformElementDateTimeTest extends WebformTestBase {
   /**
    * Test datetime element.
    */
-  public function testDateTimeElement() {
+  public function testDateTime() {
     $webform = Webform::load('test_element_datetime');
     $this->drupalGet('webform/test_element_datetime');
 

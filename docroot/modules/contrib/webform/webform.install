@@ -912,3 +912,158 @@ function webform_update_8063() {
       ->execute();
   }
 }
+
+/**
+ * Issue #2878193: Allow actions (aka submit buttons) to be placed anywhere on a webform.
+ */
+function webform_update_8064() {
+  // Move disabled HTML editor from ui to element.html_editor.
+  $config = \Drupal::configFactory()->getEditable('webform.settings');
+  $data = $config->getRawData();
+  if (isset($data['ui']['html_editor_disabled'])) {
+    $data['html_editor']['disabled'] = $data['ui']['html_editor_disabled'];
+  }
+  $config->setData($data);
+  $config->save();
+
+  _webform_update_admin_settings();
+}
+
+/**
+ * Issue #2888717: Option to include empty components in [webform_submission:values] token.
+ */
+function webform_update_8065() {
+  _webform_update_webform_settings();
+
+  // Add exclude_empty: TRUE to email handler settings.
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('webform.webform.') as $webform_config_name) {
+    $webform_config = $config_factory->getEditable($webform_config_name);
+
+    $data = $webform_config->getRawData();
+    $has_email_handler = FALSE;
+    foreach ($data['handlers'] as &$handler) {
+      if ($handler['id'] === 'email') {
+        $has_email_handler = TRUE;
+
+        $settings = [];
+        foreach ($handler['settings'] as $settings_key => $setting_value) {
+          $settings[$settings_key] = $setting_value;
+          if ($settings_key == 'ignore_access') {
+            $settings['exclude_empty'] = TRUE;
+          }
+        }
+        $handler['settings'] = $settings;
+      }
+    }
+
+    if ($has_email_handler) {
+      $webform_config->setData($data);
+      $webform_config->save();
+    }
+  }
+}
+
+/**
+ * Issue #2893111: Add permissions to form and element access controls.
+ */
+function webform_update_8066() {
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('webform.webform.') as $webform_config_name) {
+    $webform_config = $config_factory->getEditable($webform_config_name);
+    $data = $webform_config->getRawData();
+    foreach ($data['access'] as &$rules) {
+      $rules['permissions'] = [];
+    }
+    $webform_config->setData($data)->save();
+  }
+}
+
+/**
+ * Issue #2893147: Allow empty element label to be customized.
+ */
+function webform_update_8067() {
+  _webform_update_admin_settings();
+}
+
+/**
+ * Issue #2896667: Add Reset button.
+ */
+function webform_update_8068() {
+  _webform_update_admin_settings();
+  _webform_update_webform_settings();
+}
+
+/**
+ * Issue #2895140: Email handler field(s) convert special chars to HTML code.
+ */
+function webform_update_8069() {
+  $config_factory = \Drupal::configFactory();
+  foreach ($config_factory->listAll('webform.webform.') as $webform_config_name) {
+    $webform_config = $config_factory->getEditable($webform_config_name);
+
+    $data = $webform_config->getRawData();
+    $has_email_handler = FALSE;
+    foreach ($data['handlers'] as &$handler) {
+      if ($handler['id'] === 'email') {
+        $has_email_handler = TRUE;
+        foreach ($handler['settings'] as $settings_key => $setting_value) {
+          if (in_array($settings_key, ['from_name', 'subject'])) {
+            $handler['settings'][$settings_key] = preg_replace('/^\[([^]]+):value\]$/', '[\1:raw]', $setting_value);
+          }
+        }
+      }
+    }
+
+    if ($has_email_handler) {
+      $webform_config->setData($data);
+      $webform_config->save();
+    }
+  }
+}
+
+/**
+ * Issue #2895809: Promote partnerships within the Webform module.
+ */
+function webform_update_8070() {
+  _webform_update_admin_settings();
+}
+
+/**
+ * Issue #2898424: Improve Remote Post.
+ */
+function webform_update_8071() {
+  $settings_mapping = [
+    'insert_url' => 'completed_url',
+    'insert_custom_data' => 'completed_custom_data',
+    'update_url' => 'updated_url',
+    'update_custom_data' => 'updated_custom_data',
+    'delete_url' => 'deleted_url',
+    'delete_custom_data' => 'deleted_custom_data',
+  ];
+
+  /** @var \Drupal\webform\WebformInterface[] $webforms */
+  $webforms = Webform::loadMultiple();
+  foreach ($webforms as $webform) {
+    $has_remote_post = FALSE;
+    $handlers = $webform->getHandlers();
+    foreach ($handlers as $handler) {
+      if ($handler instanceof \Drupal\webform\Plugin\WebformHandler\RemotePostWebformHandler) {
+        $has_remote_post = TRUE;
+        $configuration = $handler->getConfiguration();
+        foreach ($configuration['settings'] as $key => $value) {
+          if (isset($settings_mapping[$key])) {
+            $configuration['settings'][$settings_mapping[$key]] = $value;
+            unset($configuration['settings'][$key]);
+          }
+        }
+        $configuration['settings'] += $handler->defaultConfiguration();
+        $handler->setConfiguration($configuration);
+      }
+    }
+    if ($has_remote_post) {
+      $webform->save();
+    }
+  }
+
+}

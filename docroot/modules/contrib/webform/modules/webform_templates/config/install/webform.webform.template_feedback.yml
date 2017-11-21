@@ -57,6 +57,7 @@ settings:
   form_prepopulate_source_entity: false
   form_prepopulate_source_entity_required: false
   form_prepopulate_source_entity_type: ''
+  form_reset: false
   form_disable_autocomplete: false
   form_novalidate: false
   form_unsaved: false
@@ -78,6 +79,7 @@ settings:
   preview_message: ''
   preview_attributes: {  }
   preview_excluded_elements: {  }
+  preview_exclude_empty: true
   draft: none
   draft_multiple: false
   draft_auto_save: false
@@ -108,27 +110,35 @@ access:
       - anonymous
       - authenticated
     users: {  }
+    permissions: {  }
   view_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   purge_any:
     roles: {  }
     users: {  }
+    permissions: {  }
   view_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   update_own:
     roles: {  }
     users: {  }
+    permissions: {  }
   delete_own:
     roles: {  }
     users: {  }
+    permissions: {  }
 handlers:
   email_confirmation:
     id: email
@@ -152,6 +162,7 @@ handlers:
       body: '[webform_submission:values:comments:value]'
       excluded_elements: {  }
       ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: false
@@ -184,11 +195,12 @@ handlers:
       bcc_options: {  }
       from_mail: '[webform_submission:values:email:raw]'
       from_options: {  }
-      from_name: '[webform_submission:values:name:value]'
+      from_name: '[webform_submission:values:name:raw]'
       subject: default
       body: '[webform_submission:values:comments:value]'
       excluded_elements: {  }
       ignore_access: false
+      exclude_empty: true
       html: true
       attachments: false
       debug: false

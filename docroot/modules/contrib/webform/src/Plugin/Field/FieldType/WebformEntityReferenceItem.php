@@ -166,7 +166,7 @@ class WebformEntityReferenceItem extends EntityReferenceItem {
     $tables = [];
     foreach ($field_storage_configs as $field_storage_config) {
       if ($field_storage_config->getType() == 'webform') {
-        $webform_field_table = \Drupal::database()->tablePrefix($field_storage_config->getTargetEntityTypeId()) . $field_storage_config->getTargetEntityTypeId();
+        $webform_field_table = $field_storage_config->getTargetEntityTypeId();
         $webform_field_name = $field_storage_config->getName();
         $tables[$webform_field_table . '__' . $webform_field_name] = $webform_field_name;
         $tables[$webform_field_table . '_revision__' . $webform_field_name] = $webform_field_name;

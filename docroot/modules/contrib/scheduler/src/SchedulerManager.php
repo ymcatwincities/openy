@@ -427,7 +427,7 @@ class SchedulerManager {
    * /scheduler/cron/{access key} or it can be run interactively from the
    * Scheduler configuration page at /admin/config/content/scheduler/cron.
    */
-  public function runCron() {
+  public function runLightweightCron() {
     $log = $this->setting('log');
     if ($log) {
       $this->logger->notice('Lightweight cron run activated.');

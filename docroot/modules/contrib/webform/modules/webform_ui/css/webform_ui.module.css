@@ -4,15 +4,6 @@
  */
 
 /**
- * Local actions.
- */
-.webform-ui-local-actions .button,
-.webform-ui-local-actions .button:first-child {
-  margin-left: 0;
-  margin-right: 1em;
-}
-
-/**
  * Tables
  */
 th.webform-ui-element-operations {
@@ -62,4 +53,64 @@ thead th .dropbutton {
   border-bottom: 1px solid #a6a6a6;
   background-color: #f5f5f2;
   font-weight: bold;
+}
+
+/**
+ * Element types (/admin/structure/webform/manage/[webform_id]/element/add)
+ */
+.webform-ui-element-type-select-form > details > .details-wrapper {
+  padding: 0.5em 0.5em 0 0.5em;
+}
+
+.webform-ui-element-type-select-form .tableresponsive-toggle,
+.webform-ui-element-type-change-form .tableresponsive-toggle /* Hide unneeded responsive toggle. @see Drupal.behaviors.tableResponsive */ {
+  display: none !important;
+}
+
+.webform-ui-element-type-table details {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.webform-ui-element-type-table tr td:first-child,
+.webform-ui-element-type-table tr td:last-child {
+  white-space: nowrap;
+}
+
+.webform-ui-element-type-table > tbody > tr > td:last-child {
+  text-align: right;
+}
+
+.webform-ui-element-type-table .webform-flexbox {
+  margin: 0 -.5em;
+}
+
+.webform-ui-element-type-table .webform-flexbox .form-item {
+  margin-right: .5em;
+}
+
+.webform-ui-element-type-table input.form-autocomplete,
+.webform-ui-element-type-table input.form-text,
+.webform-ui-element-type-table input.form-tel,
+.webform-ui-element-type-table input.form-email,
+.webform-ui-element-type-table input.form-url,
+.webform-ui-element-type-table input.form-search,
+.webform-ui-element-type-table input.form-number,
+.webform-ui-element-type-table input.form-color,
+.webform-ui-element-type-table input.form-file,
+.webform-ui-element-type-table input.form-date,
+.webform-ui-element-type-table input.form-time,
+.webform-ui-element-type-table textarea.form-textarea,
+.webform-ui-element-type-table select {
+  max-width: 385px;
+}
+
+.webform-ui-element-type-table .cke_contents {
+  height: 100px !important;
+}
+
+.webform-ui-element-type-placeholder {
+  border: 1px dashed #bbb;
+  padding: .4em;
+  color: #888;
 }

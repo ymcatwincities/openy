@@ -1,5 +1,5 @@
-flexbox_properites:
-  '#type': flexbox
+flexbox_properties:
+  '#type': webform_flexbox
   properties_number:
     '#type': number
     '#title': 'currency'
@@ -12,7 +12,7 @@ flexbox_properites:
     '#description': 'A description'
 
 flexbox_checkboxes:
-  '#type': flexbox
+  '#type': webform_flexbox
   checkboxes_textfield:
     '#type': textfield
     '#title': 'textfield'
@@ -26,7 +26,7 @@ flexbox_checkboxes:
       three: Three
 
 flexbox_toggle:
-  '#type': flexbox
+  '#type': webform_flexbox
   '#align_items': flex-end
   toggle:
     '#type': toggle
@@ -40,7 +40,7 @@ flexbox_toggle:
     '#title': 'rating'
 
 flexbox_date:
-  '#type': flexbox
+  '#type': webform_flexbox
   '#align_items': center
   date:
     '#type': date

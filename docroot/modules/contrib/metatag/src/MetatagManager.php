@@ -4,7 +4,7 @@ namespace Drupal\metatag;
 
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\field\Entity\FieldConfig;
@@ -37,13 +37,13 @@ class MetatagManager implements MetatagManagerInterface {
    * @param MetatagTagPluginManager $tagPluginManager
    * @param MetatagToken $token
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $channelFactory
-   * @param EntityTypeManager $entityTypeManager
+   * @param EntityTypeManagerInterface $entityTypeManager
    */
   public function __construct(MetatagGroupPluginManager $groupPluginManager,
                               MetatagTagPluginManager $tagPluginManager,
                               MetatagToken $token,
                               LoggerChannelFactoryInterface $channelFactory,
-                              EntityTypeManager $entityTypeManager) {
+                              EntityTypeManagerInterface $entityTypeManager) {
     $this->groupPluginManager = $groupPluginManager;
     $this->tagPluginManager = $tagPluginManager;
     $this->tokenService = $token;

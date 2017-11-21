@@ -81,8 +81,8 @@
       $('#date-select-wrapper, #location-wrapper').addClass('hidden');
     }
     else {
-      $('#location-select-wrapper, #date-select-wrapper').removeClass('hidden');
-      $('#class-select-wrapper, #location-wrapper').addClass('hidden');
+      $('#class-select-wrapper, #location-select-wrapper, #date-select-wrapper').removeClass('hidden');
+      $('#location-wrapper').addClass('hidden');
     }
 
     Drupal.ymca_groupex.update_class_select(parameters);

@@ -26,11 +26,46 @@ function webform_devel_entity_type_alter(array &$entity_types) {
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function webform_form_config_single_export_form_alter(&$form, FormStateInterface $form_state) {
+function webform_devel_form_config_single_export_form_alter(&$form, FormStateInterface $form_state) {
   $form['export']['#type'] = 'webform_codemirror';
   $form['export']['#mode'] = 'yaml';
 
   $form['config_name']['#ajax']['callback'] = '_webform_form_config_single_export_form_update_export';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function webform_devel_form_webform_admin_settings_advanced_form_alter(&$form, FormStateInterface $form_state) {
+  $form['logger'] = [
+    '#type' => 'details',
+    '#title' => t('Logging and errors'),
+    '#open' => TRUE,
+    '#tree' => TRUE,
+  ];
+  $form['logger']['debug'] = [
+    '#type' => 'radios',
+    '#title' => t("Display debugging notices and errors on screen"),
+    '#default_value' => \Drupal::config('webform_devel.settings')->get('logger.debug') ? '1' : '0',
+    '#description' => t("Checking 'Yes' will display PHP and theme notices onscreen."),
+    '#options' => [
+      '0' => t('No'),
+      '1' => t('Yes'),
+    ],
+    '#required' => TRUE,
+  ];
+  $form['#submit'][] = '_webform_devel_form_webform_admin_settings_advanced_form_submit';
+}
+
+/**
+ * Submit callback webform devel module settings.
+ */
+function _webform_devel_form_webform_admin_settings_advanced_form_submit(&$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  $values['logger']['debug'] = (boolean) $values['logger']['debug'];
+  \Drupal::configFactory()->getEditable('webform_devel.settings')
+    ->set('logger', $values['logger'])
+    ->save();
 }
 
 /**

@@ -1,0 +1,108 @@
+diff --git a/src/Plugin/Filter/RelToAbs.php b/src/Plugin/Filter/RelToAbs.php
+index a8f56b6..6198bb6 100644
+--- a/src/Plugin/Filter/RelToAbs.php
++++ b/src/Plugin/Filter/RelToAbs.php
+@@ -4,6 +4,7 @@
+ 
+ use Drupal\filter\FilterProcessResult;
+ use Drupal\filter\Plugin\FilterBase;
++use Drupal\Core\Url;
+ 
+ /**
+  * Provides a filter to convert relative paths to absolute URLs.
+@@ -20,66 +21,18 @@ class RelToAbs extends FilterBase {
+    * {@inheritdoc}
+    */
+   public function process($text, $langcode) {
+-
+-    $base_url = \Drupal::url('<front>', array(), array(
+-      'absolute' => TRUE,
+-      'language' => \Drupal::getContainer()
+-        ->get('language_manager')
+-        ->getLanguage($langcode),
+-    ));
+-
+-    $text = $this->absoluteUrl($text, $base_url);
+-    return new FilterProcessResult($text);
+-
+-  }
+-
+-  /**
+-   * Absolute url callback.
+-   *
+-   * @param string $txt
+-   *   Text to be parsed.
+-   * @param string $base_url
+-   *   Base url of the site to prefix.
+-   *
+-   * @return string
+-   *   Processed text.
+-   */
+-  public function absoluteUrl($txt, $base_url) {
+-    $needles = array('href="', 'src="', 'background="');
+-    $new_txt = '';
+-    if (substr($base_url, -1) != '/') {
+-      $base_url .= '/';
+-    }
+-    $new_base_url = $base_url;
+-
+-    // Check if Drupal installed in subdirectory.
+-    $sub_dir = FALSE;
+-    $parts = parse_url($new_base_url);
+-    if ($parts['path'] !== '/') {
+-      $sub_dir = $parts['path'];
+-    }
+-
+-    foreach ($needles as $needle) {
+-      while ($pos = strpos($txt, $needle)) {
+-        $pos += strlen($needle);
+-        if (substr($txt, $pos, 7) != 'http://' && substr($txt, $pos, 8) != 'https://' && substr($txt, $pos, 6) != 'ftp://' && substr($txt, $pos, 7) != 'mailto:' && substr($txt, $pos, 2) != '//' && substr($txt, $pos, 1) != '#' && substr($txt, $pos, 4) != 'tel:') {
+-          $new_txt .= substr($txt, 0, $pos) . $new_base_url;
+-        }
+-        else {
+-          $new_txt .= substr($txt, 0, $pos);
+-        }
+-        $txt = substr($txt, $pos);
+-        // Remove leading sub-directory prefix if site installed in subdir.
+-        if ($sub_dir) {
+-          if (substr($txt, 0, strlen($sub_dir)) == $sub_dir) {
+-            $txt = substr($txt, strlen($sub_dir));
+-          }
+-        }
++    $resultText = preg_replace_callback('/(href|background|src)=["\']([\/#][^"\']*)["\']/', function($matches) {
++      $url = preg_replace('/\/{2,}/', '/', $matches[2]);
++      try {
++        // Remove subfolder name if provided.
++        $base_path = base_path();
++        $url = str_replace($base_path, '/', $url);
++        // Decode url to prevent double encoding.
++        $url = urldecode($url);
++        $url = Url::fromUserInput($url)->setAbsolute(TRUE)->toString();
+       }
+-      $txt = $new_txt . $txt;
+-      $new_txt = '';
+-    }
+-    return $txt;
++      catch(\InvalidArgumentException $e) {
++        drupal_set_message($e->getMessage(), 'error');
++      }
++      return $matches[1] . '="' . $url . '"';
++    }, $text);
++
++    return new FilterProcessResult($resultText);
+   }
+ 
+ }
+diff --git a/src/Tests/RelToAbsTest.php b/src/Tests/RelToAbsTest.php
+index c5ae0c7..65f66ba 100644
+--- a/src/Tests/RelToAbsTest.php
++++ b/src/Tests/RelToAbsTest.php
+@@ -41,7 +41,7 @@ public function testRelToAbsFilterUnitTestCase() {
+     $filter = new RelToAbs(array(), 'rel_to_abs', array('provider' => 'rel_to_abs'));
+ 
+     $markup = '<div><a href="/node/1">link</a><img src="/files/test.jpg"/><span background="/files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
+-    $check = '<div><a href="' . $front . '/node/1">link</a><img src="' . $front . '/files/test.jpg"/><span background="' . $front . '/files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
++    $check = '<div><a href="' . $front . 'node/1">link</a><img src="' . $front . 'files/test.jpg"/><span background="' . $front . 'files/test.jpg">test</span><a href="mailto:test@test.test"></a><a href="#anchor"></a></div>';
+ 
+     $result = $filter->process($markup, NULL);
+ 

@@ -87,4 +87,11 @@ class WebformTestComposite extends WebformCompositeBase {
     return $elements;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return [];
+  }
+
 }

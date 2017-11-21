@@ -88,14 +88,14 @@
     {{ content.field_header_content }}
     <div class="container">
       <div class="row">
+        {% if node.field_sidebar_content.getValue() is not empty %}
+          <div class="content-sidebar-region col-sm-4">
+            {{ content.field_sidebar_content }}
+          </div>
+        {% endif %}
         <div class="content-main-region col-sm-{{ main_col_count }}">
           {{ content.field_oy_content }}
         </div>
-        {% if node.field_sidebar_content.getValue() is not empty %}
-        <div class="content-sidebar-region col-sm-4">
-          {{ content.field_sidebar_content }}
-        </div>
-        {% endif %}
       </div>
     </div>
     {{ content.field_bottom_content }}

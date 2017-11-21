@@ -3,7 +3,9 @@
 namespace Drupal\webform;
 
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
+use Drupal\webform\Utility\WebformDialogHelper;
 
 /**
  * Webform add-ons manager.
@@ -23,7 +25,15 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
    * Constructs a WebformAddOnsManager object.
    */
   public function __construct() {
+    $this->promotions = $this->initPromotions();
     $this->projects = $this->initProjects();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPromotions() {
+    return $this->promotions;
   }
 
   /**
@@ -81,6 +91,9 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
     $categories['migrate'] = [
       'title' => $this->t('Migrate'),
     ];
+    $categories['multilingual'] = [
+      'title' => $this->t('Multilingual'),
+    ];
     $categories['rest'] = [
       'title' => $this->t('REST'),
     ];
@@ -103,6 +116,61 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
   }
 
   /**
+   * Initialize add-on promotions.
+   *
+   * @return array
+   *   An associative array containing add-on promotions.
+   */
+  protected function initPromotions() {
+    $promotions = [];
+
+    // Lingotek.
+    $img_attributes = new Attribute([
+      'src' => base_path() . drupal_get_path('module', 'webform') . '/images/promotions/lingotek-logo.png',
+      'alt' => $this->t('Lingotek: The Translation Network'),
+      'title' => $this->t('Lingotek: The Translation Network'),
+    ]);
+    $promotions['promotion_lingotek'] = [];
+    $promotions['promotion_lingotek']['content'] = [
+      [
+        '#markup' => '<img' . $img_attributes . ' />',
+      ],
+      [
+        '#markup' => $this->t('The Lingotek-Inside Drupal Module is the only Drupal module to integrate a translation management system (TMS) directly into Drupal, thus allowing the Drupal community to use professional-grade translation technologies (e.g. machine translation, translation memory, CAT tool) without ever having to leave the comfort of the Drupal environment.'),
+        '#prefix' => '<p>',
+        '#suffix' => '<p>',
+      ],
+      [
+        '#markup' => $this->t('You can help support the Webform module by signing up and trying the Lingotek-Inside Drupal Module for <strong>free</strong>. The maintainer of Webform for Drupal 8 (<a href="http://www.jrockowitz.com/">jrockowitz</a>) has become a Lingotek partner. If you become a customer of Lingotek\'s professional translation service, Jacob Rockowitz will receive a software referral fee, which will help fund his ongoing and dedicated effort to improving and making the Webform module for Drupal 8 <strong>awesome!!!</strong>'),
+        '#prefix' => '<blockquote>',
+        '#suffix' => '</blockquote>',
+      ],
+      [
+        '#markup' => $this->t('It only takes 5 simple questions to indicate that the Webform module referred you to Lingotek. Then you can download and try the Lingotek module for free.'),
+        '#prefix' => '<p>',
+        '#suffix' => '<p>',
+      ],
+      ['#markup' => '<hr/>'],
+      'actions' => [
+        'try' => [
+          '#type' => 'link',
+          '#title' => $this->t('Sign up and try Lingotek'),
+          '#url' => Url::fromUri('https://lingotek.com/webform'),
+          '#attributes' => ['class' =>  ['button', 'button--primary']],
+        ],
+        'video' => [
+          '#type' => 'link',
+          '#title' => $this->t('Watch video'),
+          '#url' => Url::fromRoute('webform.help.video', ['id' => 'promotion-lingotek']),
+          '#attributes' => WebformDialogHelper::getModalDialogAttributes(1000, ['button', 'button-action', 'button-webform-play']),
+        ],
+      ],
+    ];
+
+    return $promotions;
+  }
+
+  /**
    * Initialize add-on projects.
    *
    * @return array
@@ -110,6 +178,30 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
    */
   protected function initProjects() {
     $projects = [];
+
+    // Config: Drush CMI tools.
+    $projects['drush_cmi_tools'] = [
+      'title' => $this->t('Drush CMI tools'),
+      'description' => $this->t('Provides advanced CMI import and export functionality for CMI workflows. Drush CMI tools should be used to protect Forms from being overwritten during a configuration import.'),
+      'url' => Url::fromUri('https://github.com/previousnext/drush_cmi_tools'),
+      'category' => 'config',
+    ];
+
+    // Config: Configuration Ignore.
+    $projects['config_ignore'] = [
+      'title' => $this->t('Config Ignore'),
+      'description' => $this->t('Ignore certain configuration during import'),
+      'url' => Url::fromUri('https://www.drupal.org/project/config_ignore'),
+      'category' => 'config',
+    ];
+
+    // Config: Configuration Split.
+    $projects['config_split'] = [
+      'title' => $this->t('Configuration Split'),
+      'description' => $this->t('Provides configuration filter for importing and exporting split config.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/config_split'),
+      'category' => 'config',
+    ];
 
     // Element: Webform Crosspage Conditions.
     $projects['webform_crosspage_conditions'] = [
@@ -127,6 +219,14 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'category' => 'element',
     ];
 
+    // Element: Webform Node Element.
+    $projects['webform_node_element'] = [
+      'title' => $this->t('Webform Node Element'),
+      'description' => $this->t("Provides a 'Node' element to display node content as an element on a webform. Can be modified dynamically using an event handler."),
+      'url' => Url::fromUri('https://www.drupal.org/project/webform_node_element'),
+      'category' => 'element',
+    ];
+
     // Element: Webform Score.
     $projects['webform_score'] = [
       'title' => $this->t('Webform Score'),
@@ -141,48 +241,6 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'description' => $this->t('Adds Crafty Clicks UK postcode lookup to the Webform Address composite element.'),
       'url' => Url::fromUri('https://www.drupal.org/project/webform_craftyclicks'),
       'category' => 'element',
-    ];
-
-    // Spam: Antibot.
-    $projects['antibot'] = [
-      'title' => $this->t('Antibot'),
-      'description' => $this->t('Prevent forms from being submitted without JavaScript enabled.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/antibot'),
-      'category' => 'spam',
-      'third_party_settings' => TRUE,
-    ];
-
-    // Spam: CAPTCHA.
-    $projects['captcha'] = [
-      'title' => $this->t('CAPTCHA'),
-      'description' => $this->t('Provides CAPTCHA for adding challenges to arbitrary forms.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/captcha'),
-      'category' => 'spam',
-    ];
-
-    // Spam: Honeypot.
-    $projects['honeypot'] = [
-      'title' => $this->t('Honeypot'),
-      'description' => $this->t('Mitigates spam form submissions using the honeypot method.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/honeypot'),
-      'category' => 'spam',
-      'third_party_settings' => TRUE,
-    ];
-
-    // Validation: Clientside Validation.
-    $projects['clientside_validation'] = [
-      'title' => $this->t('Clientside Validation'),
-      'description' => $this->t('Adds clientside validation to forms.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/clientside_validation'),
-      'category' => 'validation',
-    ];
-
-    // Validation: Validators.
-    $projects['validators'] = [
-      'title' => $this->t('Validators'),
-      'description' => $this->t('Provides Symfony (form) Validators for Drupal 8.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/validators'),
-      'category' => 'validation',
     ];
 
     // Integration: Webform iContact.
@@ -241,30 +299,7 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'category' => 'integration',
     ];
 
-    // Webform submissions: Webform Views Integration.
-    $projects['webform_views'] = [
-      'title' => $this->t('Webform Views'),
-      'description' => $this->t('Integrates Webform 8.x-5.x and Views modules.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/webform_views'),
-      'category' => 'submission',
-    ];
 
-    // Webform submissions: Web Form Queue.
-    $projects['webform_queue'] = [
-      'title' => $this->t('Webform Queue'),
-      'description' => $this->t('Posts form submissions into a Drupal queue.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/webform_queue'),
-      'category' => 'submission',
-    ];
-
-    // REST: Webform REST.
-    $projects['webform_rest'] = [
-      'title' => $this->t('Webform REST'),
-      'description' => $this->t('Retrieve and submit webforms via REST.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/webform_rest'),
-      'category' => 'rest',
-    ];
-    
     // Mail: Mail System.
     $projects['mailsystem'] = [
       'title' => $this->t('Mail System'),
@@ -279,6 +314,80 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'description' => $this->t('Allows for site emails to be sent through an SMTP server of your choice.'),
       'url' => Url::fromUri('https://www.drupal.org/project/smtp'),
       'category' => 'mail',
+    ];
+
+    // Multilingual: Lingotek Translation.
+    $projects['lingotek'] = [
+      'title' => $this->t('Lingotek Translation.'),
+      'description' => $this->t('Translates content, configuration, and interface using the Lingotek Translation Management System.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/lingotek'),
+      'category' => 'multilingual',
+    ];
+
+    // Migrate: Webform Migrate.
+    $projects['webform_migrate'] = [
+      'title' => $this->t('Webform Migrate'),
+      'description' => $this->t('Provides migration routines from d6, d7 webform to d8 webform.'),
+      'url' => Url::fromUri('https://github.com/heshanlk/webform_migrate'),
+      'category' => 'migrate',
+    ];
+
+    // Migrate: YAML Form Migrate.
+    $projects['yamlform_migrate'] = [
+      'title' => $this->t('YAML Form Migrate'),
+      'description' => $this->t('Provides migration routines from Drupal 6 YAML Form module to Drupal 8 YAML Form module.'),
+      'url' => Url::fromUri('https://www.drupal.org/sandbox/dippers/2819169'),
+      'category' => 'migrate',
+    ];
+
+    // Spam: Antibot.
+    $projects['antibot'] = [
+      'title' => $this->t('Antibot'),
+      'description' => $this->t('Prevent forms from being submitted without JavaScript enabled.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/antibot'),
+      'category' => 'spam',
+      'third_party_settings' => TRUE,
+    ];
+
+    // Spam: CAPTCHA.
+    $projects['captcha'] = [
+      'title' => $this->t('CAPTCHA'),
+      'description' => $this->t('Provides CAPTCHA for adding challenges to arbitrary forms.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/captcha'),
+      'category' => 'spam',
+    ];
+
+    // Spam: Honeypot.
+    $projects['honeypot'] = [
+      'title' => $this->t('Honeypot'),
+      'description' => $this->t('Mitigates spam form submissions using the honeypot method.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/honeypot'),
+      'category' => 'spam',
+      'third_party_settings' => TRUE,
+    ];
+
+    // Submissions: Webform Views Integration.
+    $projects['webform_views'] = [
+      'title' => $this->t('Webform Views'),
+      'description' => $this->t('Integrates Webform 8.x-5.x and Views modules.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/webform_views'),
+      'category' => 'submission',
+    ];
+
+    // Submissions: Webform Queue.
+    $projects['webform_queue'] = [
+      'title' => $this->t('Webform Queue'),
+      'description' => $this->t('Posts form submissions into a Drupal queue.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/webform_queue'),
+      'category' => 'submission',
+    ];
+
+    // REST: Webform REST.
+    $projects['webform_rest'] = [
+      'title' => $this->t('Webform REST'),
+      'description' => $this->t('Retrieve and submit webforms via REST.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/webform_rest'),
+      'category' => 'rest',
     ];
 
     // Utility: Webform Encrypt.
@@ -307,44 +416,21 @@ class WebformAddonsManager implements WebformAddonsManagerInterface {
       'category' => 'utility',
     ];
 
-    // Migrate: Webform Migrate.
-    $projects['webform_migrate'] = [
-      'title' => $this->t('Webform Migrate'),
-      'description' => $this->t('Provides migration routines from d6, d7 webform to d8 webform.'),
-      'url' => Url::fromUri('https://github.com/heshanlk/webform_migrate'),
-      'category' => 'migrate',
+
+    // Validation: Clientside Validation.
+    $projects['clientside_validation'] = [
+      'title' => $this->t('Clientside Validation'),
+      'description' => $this->t('Adds clientside validation to forms.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/clientside_validation'),
+      'category' => 'validation',
     ];
 
-    // Migrate: YAML Form Migrate.
-    $projects['yamlform_migrate'] = [
-      'title' => $this->t('YAML Form Migrate'),
-      'description' => $this->t('Provides migration routines from Drupal 6 YAML Form module to Drupal 8 YAML Form module.'),
-      'url' => Url::fromUri('https://www.drupal.org/sandbox/dippers/2819169'),
-      'category' => 'migrate',
-    ];
-
-    // Config: Drush CMI tools.
-    $projects['drush_cmi_tools'] = [
-      'title' => $this->t('Drush CMI tools'),
-      'description' => $this->t('Provides advanced CMI import and export functionality for CMI workflows. Drush CMI tools should be used to protect Forms from being overwritten during a configuration import.'),
-      'url' => Url::fromUri('https://github.com/previousnext/drush_cmi_tools'),
-      'category' => 'config',
-    ];
-
-    // Config: Configuration Ignore.
-    $projects['config_ignore'] = [
-      'title' => $this->t('Config Ignore'),
-      'description' => $this->t('Ignore certain configuration during import'),
-      'url' => Url::fromUri('https://www.drupal.org/project/config_ignore'),
-      'category' => 'config',
-    ];
-
-    // Config: Configuration Split.
-    $projects['config_split'] = [
-      'title' => $this->t('Configuration Split'),
-      'description' => $this->t('Provides configuration filter for importing and exporting split config.'),
-      'url' => Url::fromUri('https://www.drupal.org/project/config_split'),
-      'category' => 'config',
+    // Validation: Validators.
+    $projects['validators'] = [
+      'title' => $this->t('Validators'),
+      'description' => $this->t('Provides Symfony (form) Validators for Drupal 8.'),
+      'url' => Url::fromUri('https://www.drupal.org/project/validators'),
+      'category' => 'validation',
     ];
 
     // Devel: Maillog / Mail Developer

@@ -26,14 +26,21 @@ entity.webform_submission.results_log:
   route_name: entity.webform_submission.results_log
   parent_id: entity.webform_submission.collection
 
+# Settings.
+
 webform.settings:
   title: 'Settings'
   route_name: webform.settings
   base_route: entity.webform.collection
 
-webform.settings.default:
-  title: 'General'
+webform.settings.forms:
+  title: 'Forms'
   route_name: webform.settings
+  parent_id: webform.settings
+
+webform.settings.elements:
+  title: 'Elements'
+  route_name: webform.settings.elements
   parent_id: webform.settings
 
 webform.settings.options:
@@ -41,20 +48,51 @@ webform.settings.options:
   route_name: entity.webform_options.collection
   parent_id: webform.settings
 
-webform.settings.elements:
-  title: 'Elements'
-  route_name: webform.element_plugins
+webform.settings.submissions:
+  title: 'Submissions'
+  route_name: webform.settings.submissions
   parent_id: webform.settings
 
 webform.settings.handlers:
   title: 'Handlers'
-  route_name: webform.handler_plugins
+  route_name: webform.settings.handlers
   parent_id: webform.settings
 
 webform.settings.exporters:
   title: 'Exporters'
-  route_name: webform.exporter_plugins
+  route_name: webform.settings.exporters
   parent_id: webform.settings
+
+webform.settings.libraries:
+  title: 'Libraries'
+  route_name: webform.settings.libraries
+  parent_id: webform.settings
+
+webform.settings.advanced:
+  title: 'Advanced'
+  route_name: webform.settings.advanced
+  parent_id: webform.settings
+
+# Plugins
+webform.plugins:
+  title: 'Plugins'
+  route_name: webform.element_plugins
+  base_route: entity.webform.collection
+
+webform.plugins.elements:
+  title: 'Elements'
+  route_name: webform.element_plugins
+  parent_id: webform.plugins
+
+webform.plugins.handlers:
+  title: 'Handlers'
+  route_name: webform.handler_plugins
+  parent_id: webform.plugins
+
+webform.plugins.exporters:
+  title: 'Exporters'
+  route_name: webform.exporter_plugins
+  parent_id: webform.plugins
 
 webform.addons:
   title: 'Add-ons'

@@ -34,7 +34,7 @@ env:
     # Configure synchroniation.
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_sync.settings')->set('active_syncers', ['personify_mindbody_sync.syncer_fast'])->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('personify_mindbody_sync.settings')->set('is_production', '0')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'https://account.ymcamn.org/PersonifyDataServices/PersonifyData.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_endpoint', 'http://ygtctrain2.personifycloud.com/PersonifyDataServices/Personifydata.svc/CL_MindBodyCustomerOrder')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_username', '***REMOVED***')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_personify.settings')->set('customer_orders_password', '***REMOVED***')->save(TRUE);\"" }
     # Enable production mode for booking.

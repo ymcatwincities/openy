@@ -98,8 +98,10 @@ class Select extends OptionsBase {
           ':input[name="properties[chosen]"]' => ['checked' => TRUE],
         ],
       ],
-      '#access' => $this->librariesManager->isIncluded('jquery.select2'),
     ];
+    if ($this->librariesManager->isExcluded('jquery.select2')) {
+      $form['options']['select2']['#access'] = FALSE;
+    }
     $form['options']['chosen'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Chosen'),
@@ -110,8 +112,11 @@ class Select extends OptionsBase {
           ':input[name="properties[select2]"]' => ['checked' => TRUE],
         ],
       ],
-      '#access' => $this->librariesManager->isIncluded('jquery.chosen'),
+
     ];
+    if ($this->librariesManager->isExcluded('jquery.chosen')) {
+      $form['options']['chosen']['#access'] = FALSE;
+    }
     if ($this->librariesManager->isIncluded('jquery.select2') && $this->librariesManager->isIncluded('jquery.chosen')) {
       $form['options']['select_message'] = [
         '#type' => 'webform_message',

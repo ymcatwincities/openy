@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Default theme implementation to list formatter types for adding a formatter.
+ *
+ * This list is displayed on the Add formatter admin page.
+ *
+ * Available variables:
+ * - types: A list of formatter types, each with the following properties:
+ *   - add_link: Link to create a formatter of this type.
+ *   - description: Description of this formatter type.
+ *
+ * @see template_preprocess_formatter_add_list()
+ *
+ * @ingroup themeable
+ */
+#}
+<dl>
+  {% for type in types %}
+    <dt>{{ type.add_link }}</dt>
+    <dd>{{ type.description }}</dd>
+  {% endfor %}
+</dl>

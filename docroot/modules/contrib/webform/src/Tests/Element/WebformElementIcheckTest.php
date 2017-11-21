@@ -21,7 +21,7 @@ class WebformElementIcheckTest extends WebformTestBase {
   /**
    * Test iCheck element.
    */
-  public function testICheckElement() {
+  public function testIcheckElement() {
 
     $this->drupalGet('webform/test_element_icheck');
 

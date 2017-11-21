@@ -169,6 +169,29 @@ class WebformImageSelect extends Select {
   /**
    * {@inheritdoc}
    */
+  public function preview() {
+    return parent::preview() + [
+      '#show_label' => TRUE,
+      '#images' => [
+        'bear_1' => [
+          'text' => 'Bear 1',
+          'src' => 'https://www.placebear.com/80/100',
+        ],
+        'bear_2' => [
+          'text' => 'Bear 2',
+          'src' => 'https://www.placebear.com/100/100',
+        ],
+        'bear_3' => [
+          'text' => 'Bear 3',
+          'src' => 'https://www.placebear.com/120/100',
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
     $form['options']['#title'] = $this->t('Image options');
@@ -216,7 +239,7 @@ class WebformImageSelect extends Select {
     ];
 
     if (function_exists('imce_process_url_element')) {
-      $src_element =& $form['options']['images']['#element']['src'];
+      $src_element = &$form['options']['images']['#element']['src'];
       imce_process_url_element($src_element, 'link');
       $form['#attached']['library'][] = 'webform/imce.input';
     }

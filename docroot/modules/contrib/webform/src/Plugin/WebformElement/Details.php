@@ -41,6 +41,13 @@ class Details extends ContainerBase {
   /**
    * {@inheritdoc}
    */
+  public function getItemDefaultFormat() {
+    return 'details';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getElementSelectorOptions(array $element) {
     $title = $this->getAdminLabel($element);
     $name = $element['#webform_key'];

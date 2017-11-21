@@ -1,0 +1,13 @@
+name: Custom Formatters test
+type: module
+description: Support module for Custom Formatters related testing.
+dependencies:
+  - custom_formatters
+package: Testing
+# core: 8.x
+hidden: TRUE
+# Information added by Drupal.org packaging script on 2016-10-19
+version: '8.x-3.0-alpha1'
+core: '8.x'
+project: 'custom_formatters'
+datestamp: 1476912841

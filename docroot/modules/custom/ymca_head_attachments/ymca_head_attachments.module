@@ -31,7 +31,7 @@ function ymca_head_attachments_page_attachments(array &$page) {
         'hours_sat' => 'Saturday',
         'hours_sun' => 'Sunday',
       ];
-      $hours = '';
+      $hours = [];
       if (!empty($facility_hours[0])) {
         foreach ($facility_hours[0] as $key => $day) {
           $hours[] = '"' . $days_mapping[$key] . ' ' . $day . '"';
