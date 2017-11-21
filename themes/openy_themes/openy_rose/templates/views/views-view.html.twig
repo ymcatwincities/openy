@@ -35,6 +35,8 @@
 {%
   set classes = [
     dom_id ? 'js-view-dom-id-' ~ dom_id,
+    css_name,
+    css_name == 'taxonomy-term' ? 'container',
   ]
 %}
 <div{{ attributes.addClass(classes) }}>
