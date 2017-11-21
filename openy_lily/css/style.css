@@ -967,7 +967,7 @@ label {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .path-account .status-message {
-  margin: 0 0 30px 0 !important;
+  margin: 30px 0 0 0 !important;
 }
 
 #ajax-ccc-account-login-form [data-drupal-selector="edit-login"] {
