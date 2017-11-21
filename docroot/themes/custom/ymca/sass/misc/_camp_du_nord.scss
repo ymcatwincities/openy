@@ -244,7 +244,7 @@
       margin: 0 15px 35px;
       position: relative;
       @include breakpoint(768px) {
-        margin: 70px auto;
+        margin: 70px auto 10px;
         max-width: 690px;
       }
       .title {
@@ -255,7 +255,7 @@
         margin: 0;
         @include breakpoint(768px) {
           margin-top: 20px;
-          margin-bottom: 10px;
+          margin-bottom: 70px;
         }
       }
       .view {
@@ -786,6 +786,7 @@
 .cdn-village-footer {
   background: #383838;
   padding: 50px 0 25px;
+  clear: both;
   .cdn-village-footer-bar {
     display: none;
     &.active {
@@ -810,7 +811,8 @@
       }
     }
     .prev-step,
-    .next-step {
+    .next-step,
+    .form-submit {
       background: #0089d0;
       font-size: 18px;
       color: #fff;
@@ -827,5 +829,21 @@
         margin-left: 30px;
       }
     }
+  }
+}
+
+.confirmation-body {
+  h2 {
+    font-weight: normal;
+  }
+  .description {
+    margin-bottom: 20px;
+    .cabin-name {
+      font-weight: bold;
+    }
+  }
+  .col-xs-12 {
+    padding-top: 50px;
+    padding-bottom: 100px;
   }
 }

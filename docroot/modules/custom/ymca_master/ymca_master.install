@@ -4914,6 +4914,7 @@ function ymca_master_update_8227() {
       'parent_type' => 'node',
       'parent_field_name' => 'field_header_content',
       'status' => 1,
+      'uid' => 1,
     ]);
     $paragraph->save();
     $query = \Drupal::entityQuery('paragraph')
@@ -4925,6 +4926,7 @@ function ymca_master_update_8227() {
       ->getStorage('paragraph')
       ->load($paragraph_id);
     $page->field_header_content->entity = $paragraph;
+    $page->path->pathauto = 0;
     $page->save();
     $path = \Drupal::service('path.alias_storage')->save('/node/' . $page_id, '/cdn/search/form', 'en');
   }
