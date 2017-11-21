@@ -346,6 +346,10 @@ class WebformEntitySettingsForm extends EntityForm {
         'form_description' => $this->t('If checked, an expand/collapse all (details) link will be added to this webform when there are two or more details elements available on the webform.'),
       ],
       // Form specific behaviors.
+      'form_reset' => [
+        'title' => $this->t('Display reset button.'),
+        'form_description' => $this->t("If checked, users will be able to reset form and restart multistep wizards."),
+      ],
       'form_disable_autocomplete' => [
         'title' => $this->t('Disable autocompletion'),
         'form_description' => $this->t('If checked, the <a href=":href">autocomplete</a> attribute will be set to off, which disables autocompletion for all form elements.', [':href' => 'http://www.w3schools.com/tags/att_form_autocomplete.asp']),
@@ -376,8 +380,7 @@ class WebformEntitySettingsForm extends EntityForm {
       'visible' => [':input[name="form_prepopulate_source_entity"]' => ['checked' => TRUE]],
     ];
     $entity_type_options = [];
-    $entity_type_manager = \Drupal::entityTypeManager();
-    foreach ($entity_type_manager->getDefinitions() as $entity_type_id => $entity_type) {
+    foreach ($this->entityTypeManager->getDefinitions() as $entity_type_id => $entity_type) {
       $entity_type_options[$entity_type_id] = $entity_type->getLabel();
     }
     $form['form_behaviors']['form_prepopulate_source_entity_type'] = [
@@ -507,6 +510,12 @@ class WebformEntitySettingsForm extends EntityForm {
       '#type' => 'webform_excluded_elements',
       '#webform_id' => $this->getEntity()->id(),
       '#default_value' => $settings['preview_excluded_elements'],
+    ];
+    $form['preview_settings']['preview_container']['elements']['preview_exclude_empty'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Exclude empty elements'),
+      '#return_value' => TRUE,
+      '#default_value' => $settings['preview_exclude_empty'],
     ];
 
     // Draft settings.
@@ -657,6 +666,7 @@ class WebformEntitySettingsForm extends EntityForm {
       '#description' => $this->t('Confidential submissions have no recorded IP address and must be submitted while logged out.'),
       '#return_value' => TRUE,
       '#default_value' => $settings['form_confidential'],
+      '#weight' => -100,
     ];
     $form['submission_behaviors']['form_confidential_message'] = [
       '#type' => 'webform_html_editor',
@@ -668,6 +678,7 @@ class WebformEntitySettingsForm extends EntityForm {
           ':input[name="form_confidential"]' => ['checked' => TRUE],
         ],
       ],
+      '#weight' => -99,
     ];
     $form['submission_behaviors']['form_convert_anonymous'] = [
       '#type' => 'checkbox',
@@ -680,6 +691,7 @@ class WebformEntitySettingsForm extends EntityForm {
           ':input[name="form_confidential"]' => ['checked' => FALSE],
         ],
       ],
+      '#weight' => -98,
     ];
     $behavior_elements = [
       // Form specific behaviors.
@@ -832,11 +844,12 @@ class WebformEntitySettingsForm extends EntityForm {
       '#title' => $this->t('Confirmation type'),
       '#type' => 'radios',
       '#options' => [
-        'page' => $this->t('Page (redirects to new page and displays the confirmation message)'),
-        'inline' => $this->t('Inline (reloads the current page and replaces the webform with the confirmation message.)'),
-        'message' => $this->t('Message (reloads the current page/form and displays the confirmation message at the top of the page.)'),
-        'url' => $this->t('URL (redirects to a custom path or URL)'),
-        'url_message' => $this->t('URL with message (redirects to a custom path or URL and displays the confirmation message at the top of the page.)'),
+        WebformInterface::CONFIRMATION_PAGE => $this->t('Page (redirects to new page and displays the confirmation message)'),
+        WebformInterface::CONFIRMATION_INLINE => $this->t('Inline (reloads the current page and replaces the webform with the confirmation message.)'),
+        WebformInterface::CONFIRMATION_MESSAGE => $this->t('Message (reloads the current page/form and displays the confirmation message at the top of the page.)'),
+        WebformInterface::CONFIRMATION_MODAL => $this->t('Modal (reloads the current page/form and displays the confirmation message in a modal dialog.)'),
+        WebformInterface::CONFIRMATION_URL => $this->t('URL (redirects to a custom path or URL)'),
+        WebformInterface::CONFIRMATION_URL_MESSAGE => $this->t('URL with message (redirects to a custom path or URL and displays the confirmation message at the top of the page.)'),
       ],
       '#default_value' => $settings['confirmation_type'],
     ];
@@ -848,9 +861,9 @@ class WebformEntitySettingsForm extends EntityForm {
       '#maxlength' => NULL,
       '#states' => [
         'visible' => [
-          [':input[name="confirmation_type"]' => ['value' => 'url']],
+          [':input[name="confirmation_type"]' => ['value' => WebformInterface::CONFIRMATION_URL]],
           'or',
-          [':input[name="confirmation_type"]' => ['value' => 'url_message']],
+          [':input[name="confirmation_type"]' => ['value' => WebformInterface::CONFIRMATION_URL_MESSAGE]],
         ],
       ],
     ];
@@ -861,7 +874,9 @@ class WebformEntitySettingsForm extends EntityForm {
       '#default_value' => $settings['confirmation_title'],
       '#states' => [
         'visible' => [
-          ':input[name="confirmation_type"]' => ['value' => 'page'],
+          [':input[name="confirmation_type"]' => ['value' => WebformInterface::CONFIRMATION_PAGE]],
+          'or',
+          [':input[name="confirmation_type"]' => ['value' => WebformInterface::CONFIRMATION_MODAL]],
         ],
       ],
     ];
@@ -872,7 +887,7 @@ class WebformEntitySettingsForm extends EntityForm {
       '#default_value' => $settings['confirmation_message'],
       '#states' => [
         'invisible' => [
-          ':input[name="confirmation_type"]' => ['value' => 'url'],
+          ':input[name="confirmation_type"]' => ['value' => WebformInterface::CONFIRMATION_URL],
         ],
       ],
     ];
@@ -880,9 +895,9 @@ class WebformEntitySettingsForm extends EntityForm {
       '#type' => 'container',
       '#states' => [
         'visible' => [
-          [':input[name="confirmation_type"]' => ['value' => 'page']],
+          [':input[name="confirmation_type"]' => ['value' => WebformInterface::CONFIRMATION_PAGE]],
           'or',
-          [':input[name="confirmation_type"]' => ['value' => 'inline']],
+          [':input[name="confirmation_type"]' => ['value' => WebformInterface::CONFIRMATION_INLINE]],
         ],
       ],
     ];

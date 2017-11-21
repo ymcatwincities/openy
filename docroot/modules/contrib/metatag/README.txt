@@ -183,6 +183,11 @@ functionality:
   https://www.drupal.org/project/schema_metatag
   Extensive solution for adding schema.org support to Metatag.
 
+* Context Metadata
+  https://www.drupal.org/project/context_metadata
+  Allow assignment of meta tags based upon different system contexts, e.g. per
+  path.
+
 * Real-time SEO for Drupal
   https://www.drupal.org/project/yoast_seo
   Uses the YoastSEO.js library and service (https://yoast.com/) to provide

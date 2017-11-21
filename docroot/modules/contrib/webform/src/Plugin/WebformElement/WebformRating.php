@@ -103,6 +103,16 @@ class WebformRating extends Range {
   /**
    * {@inheritdoc}
    */
+  public function preview() {
+    return [
+      '#type' => $this->getTypeName(),
+      '#title' => $this->getPluginLabel(),
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
     $form['number']['#title'] = $this->t('Rating settings');

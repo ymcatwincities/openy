@@ -59,7 +59,7 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
     $this->drupalLogin($this->webUser);
     // Check the 'approved for publishing' field is shown on the node form.
     $this->drupalGet('node/add/' . $this->customName);
-    $this->assertFieldById('edit-field-approved-publishing-value', '', 'The "Approved for publishing" field is shown on the node form');
+    $this->assertFieldById('edit-field-approved-publishing-value', NULL, 'The "Approved for publishing" field is shown on the node form');
 
     // Check that the message is shown when scheduling a node for publishing
     // which is not yet allowed to be published.
@@ -69,7 +69,7 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
       'publish_on[0][value][time]' => date('H:i:s', time() + 3),
     ];
     $this->drupalPostForm('node/add/' . $this->customName, $edit, t('Save'));
-    $this->assertText('The content can be scheduled for publishing, but will not be published until approved by the CEO.', 'The message is shown when scheduling a node which is not yet allowed to be published.');
+    $this->assertText('is scheduled for publishing, but will not be published until approved.', 'The message is shown when scheduling a node which is not yet allowed to be published.');
 
     // Create a node that is scheduled but not approved for publication. Then
     // simulate a cron run, and check that the node is still not published.
@@ -126,7 +126,7 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
     $this->drupalLogin($this->webUser);
     // Check the 'approved for unpublishing' field is shown on the node form.
     $this->drupalGet('node/add/' . $this->customName);
-    $this->assertFieldById('edit-field-approved-unpublishing-value', '', 'The "Approved for unpublishing" field is shown on the node form');
+    $this->assertFieldById('edit-field-approved-unpublishing-value', NULL, 'The "Approved for unpublishing" field is shown on the node form');
 
     // Check that the message is shown when scheduling a node for unpublishing
     // which is not yet allowed to be unpublished.
@@ -136,7 +136,7 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
       'unpublish_on[0][value][time]' => date('H:i:s', time() + 3),
     ];
     $this->drupalPostForm('node/add/' . $this->customName, $edit, t('Save'));
-    $this->assertText('The content can be scheduled for unpublishing, but will not be unpublished until approved by the CEO.', 'The message is shown when scheduling a node which is not yet allowed to be unpublished.');
+    $this->assertText('is scheduled for unpublishing, but will not be unpublished until approved.', 'The message is shown when scheduling a node which is not yet allowed to be unpublished.');
 
     // Create a node that is scheduled but not approved for unpublication. Then
     // simulate a cron run, and check that the node is still published.
@@ -200,14 +200,14 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
   }
 
   /**
-   * Covers hook_scheduler_api($node, $action)
+   * Covers six events.
    *
-   * This hook allows other modules to react to the Scheduler process being run.
-   * The API test implementation of this hook alters the nodes 'promote' and
-   * 'sticky' settings.
+   * The events allow other modules to react to the Scheduler process being run.
+   * The API test implementations of the event listeners alter the nodes
+   * 'promote' and 'sticky' settings and changes the title.
    */
   public function testApiNodeAction() {
-    $this->drupalLogin($this->adminUser);
+    $this->drupalLogin($this->schedulerUser);
 
     // Create a test node. Having the 'approved' fields here would complicate
     // the tests, so use the ordinary page type.
@@ -247,17 +247,21 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
 
     // Turn on immediate publication when a publish date is in the past.
     $this->nodetype->setThirdPartySetting('scheduler', 'publish_past_date', 'publish')->save();
+
+    // Ensure 'sticky' and 'promote' are not set, so that the assertions are not
+    // affected by any failures above.
+    $node->set('sticky', FALSE)->set('promote', FALSE)->save();
+
+    // Edit the node and set a publish-on date in the past.
     $edit = [
       'publish_on[0][value][date]' => date('Y-m-d', strtotime('-2 day', REQUEST_TIME)),
       'publish_on[0][value][time]' => date('H:i:s', strtotime('-2 day', REQUEST_TIME)),
-      'promote[value]' => FALSE,
-      'sticky[value]' => FALSE,
     ];
-    // Edit the node and verify that the values have been altered as expected.
-    $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save and keep unpublished'));
+    $this->drupalPostForm('node/' . $node->id() . '/edit', $edit, t('Save'));
+    // Verify that the values have been altered as expected.
     $this->nodeStorage->resetCache([$node->id()]);
     $node = $this->nodeStorage->load($node->id());
-    $this->assertTrue($node->isSticky(), 'API action "PUBLISH_IMMEDIATELY" has changed the node to sticky.');
+    $this->assertTrue($node->isSticky(), 'API action "PRE_PUBLISH_IMMEDIATELY" has changed the node to sticky.');
     $this->assertTrue($node->isPromoted(), 'API action "PUBLISH_IMMEDIATELY" has changed the node to promoted.');
     $this->assertEqual($node->title->value, 'Published immediately', 'API action "PUBLISH_IMMEDIATELY" has changed the node title correctly.');
   }
@@ -272,7 +276,7 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
    * by the text of the title.
    */
   public function testNidList() {
-    $this->drupalLogin($this->adminUser);
+    $this->drupalLogin($this->schedulerUser);
 
     // Create test nodes. Use the ordinary page type for this test, as having
     // the 'approved' fields here would unnecessarily complicate the processing.
@@ -314,7 +318,7 @@ class SchedulerApiTest extends SchedulerBrowserTestBase {
    * to identify which nodes to act on.
    */
   public function testNidListAlter() {
-    $this->drupalLogin($this->adminUser);
+    $this->drupalLogin($this->schedulerUser);
 
     // Create test nodes. Use the ordinary page type for this test, as having
     // the 'approved' fields here would unnecessarily complicate the processing.

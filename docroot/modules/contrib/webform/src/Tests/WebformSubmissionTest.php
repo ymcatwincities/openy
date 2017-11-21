@@ -82,7 +82,7 @@ class WebformSubmissionTest extends WebformTestBase {
   /**
    * Tests duplicating webform submission.
    */
-  public function testDuplicateWebformSubmission() {
+  public function testDuplicate() {
     $this->createUsers();
     $this->drupalLogin($this->adminSubmissionUser);
 

@@ -32,13 +32,6 @@ class WebformAddress extends WebformCompositeBase {
   protected function formatTextItemValue(array $element, WebformSubmissionInterface $webform_submission, array $options = []) {
     $value = $this->getValue($element, $webform_submission, $options);
 
-    $lines = [];
-    if (!empty($value['address'])) {
-      $lines['address'] = $value['address'];
-    }
-    if (!empty($value['address_2'])) {
-      $lines['address_2'] = $value['address_2'];
-    }
     $location = '';
     if (!empty($value['city'])) {
       $location .= $value['city'];
@@ -50,6 +43,14 @@ class WebformAddress extends WebformCompositeBase {
     if (!empty($value['postal_code'])) {
       $location .= ($location) ? '. ' : '';
       $location .= $value['postal_code'];
+    }
+
+    $lines = [];
+    if (!empty($value['address'])) {
+      $lines['address'] = $value['address'];
+    }
+    if (!empty($value['address_2'])) {
+      $lines['address_2'] = $value['address_2'];
     }
     if ($location) {
       $lines['location'] = $location;

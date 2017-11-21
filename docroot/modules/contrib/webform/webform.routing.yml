@@ -1,16 +1,66 @@
+# Must have webform.settings route for config translation which is why there
+# is no 'webform.settings.forms' route.
 webform.settings:
   path: '/admin/structure/webform/settings'
   defaults:
-    _form: '\Drupal\webform\Form\WebformAdminSettingsForm'
-    _title: 'Webforms: Settings'
+    _form: '\Drupal\webform\Form\AdminSettings\WebformAdminSettingsFormsForm'
+    _title: 'Webforms: Forms'
   requirements:
     _permission: 'administer webform'
 
+webform.settings.elements:
+  path: '/admin/structure/webform/settings/elements'
+  defaults:
+    _form: '\Drupal\webform\Form\AdminSettings\WebformAdminSettingsElementsForm'
+    _title: 'Webforms: Elements'
+  requirements:
+    _permission: 'administer webform'
+
+webform.settings.submissions:
+  path: '/admin/structure/webform/settings/submissions'
+  defaults:
+    _form: '\Drupal\webform\Form\AdminSettings\WebformAdminSettingsSubmissionsForm'
+    _title: 'Webforms: Submissions'
+  requirements:
+    _permission: 'administer webform'
+
+webform.settings.handlers:
+  path: '/admin/structure/webform/settings/handlers'
+  defaults:
+    _form: '\Drupal\webform\Form\AdminSettings\WebformAdminSettingsHandlersForm'
+    _title: 'Webforms: Handlers'
+  requirements:
+    _permission: 'administer webform'
+
+webform.settings.exporters:
+  path: '/admin/structure/webform/settings/exporters'
+  defaults:
+    _form: '\Drupal\webform\Form\AdminSettings\WebformAdminSettingsExportersForm'
+    _title: 'Webforms: Exporters'
+  requirements:
+    _permission: 'administer webform'
+
+webform.settings.libraries:
+  path: '/admin/structure/webform/settings/libraries'
+  defaults:
+    _form: '\Drupal\webform\Form\AdminSettings\WebformAdminSettingsLibrariesForm'
+    _title: 'Webforms: Libraries'
+  requirements:
+    _permission: 'administer webform'
+
+webform.settings.advanced:
+  path: '/admin/structure/webform/settings/advanced'
+  defaults:
+    _form: '\Drupal\webform\Form\AdminSettings\WebformAdminSettingsAdvancedForm'
+    _title: 'Webforms: Advanced'
+  requirements:
+    _permission: 'administer webform'
+
+# Help
 webform.help.video:
   path: '/admin/help/webform/video/{id}'
   defaults:
-    _controller: '\Drupal\webform\Controller\WebformHelpController::video'
-    _title_callback: '\Drupal\webform\Controller\WebformHelpController::videoTitle'
+    _form: '\Drupal\webform\Form\WebformHelpVideoForm'
   requirements:
     _permission: 'access administration pages'
 
@@ -56,14 +106,14 @@ entity.webform.canonical:
     _entity_access: 'webform.submission_page'
 
 entity.webform.assets.javascript:
-  path: '/webform/{webform}/assets/javascript'
+  path: '/webform/javascript/{webform}'
   defaults:
     _controller: '\Drupal\webform\Controller\WebformController::javascript'
   requirements:
     _entity_access: 'webform.view'
 
 entity.webform.assets.css:
-  path: '/webform/{webform}/assets/css'
+  path: '/webform/css/{webform}'
   defaults:
     _controller: '\Drupal\webform\Controller\WebformController::css'
   requirements:
@@ -480,14 +530,6 @@ webform_submission.multiple_delete_confirm:
 
 # Handlers
 
-webform.handler_plugins:
-  path: '/admin/structure/webform/settings/handlers'
-  defaults:
-    _controller: '\Drupal\webform\Controller\WebformPluginHandlerController::index'
-    _title: 'Webforms: Handlers'
-  requirements:
-    _permission: 'administer webform'
-
 entity.webform.handlers_form:
   path: '/admin/structure/webform/manage/{webform}/handlers'
   defaults:
@@ -536,20 +578,26 @@ entity.webform.handler.delete_form:
   requirements:
     _entity_access: 'webform.update'
 
-# Elements
+# Plugins
 
 webform.element_plugins:
-  path: '/admin/structure/webform/settings/elements'
+  path: '/admin/structure/webform/plugins/elements'
   defaults:
     _controller: '\Drupal\webform\Controller\WebformPluginElementController::index'
     _title: 'Webforms: Elements'
   requirements:
     _permission: 'administer webform'
 
-# Exporters
+webform.handler_plugins:
+  path: '/admin/structure/webform/plugins/handlers'
+  defaults:
+    _controller: '\Drupal\webform\Controller\WebformPluginHandlerController::index'
+    _title: 'Webforms: Handlers'
+  requirements:
+    _permission: 'administer webform'
 
 webform.exporter_plugins:
-  path: '/admin/structure/webform/settings/exporters'
+  path: '/admin/structure/webform/plugins/exporters'
   defaults:
     _controller: '\Drupal\webform\Controller\WebformPluginExporterController::index'
     _title: 'Webforms: Exports'

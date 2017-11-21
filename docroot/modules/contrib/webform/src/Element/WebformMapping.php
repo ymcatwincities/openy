@@ -115,7 +115,18 @@ class WebformMapping extends FormElement {
       ],
     ] + $rows;
 
+    // Build table element with selected properties.
+    $properties = [
+      '#states',
+      '#sticky',
+    ];
+    $element['table'] += array_intersect_key($element, array_combine($properties, $properties));
+
     $element['#element_validate'] = [[get_called_class(), 'validateWebformMapping']];
+
+    if (isset($element['#states'])) {
+      webform_process_states($element, '#wrapper_attributes');
+    }
 
     return $element;
   }

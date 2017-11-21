@@ -21,15 +21,14 @@ class WebformElementCompositeTest extends WebformTestBase {
   /**
    * Test composite element.
    */
-  public function testCompositeElement() {
+  public function testComposite() {
 
     /* Display */
 
     $this->drupalGet('webform/test_element_composite');
 
     // Check webform contact basic.
-    $this->assertRaw('<fieldset data-drupal-selector="edit-contact-basic" id="edit-contact-basic--wrapper" class="fieldgroup form-composite js-webform-contact webform-contact required js-form-item form-item js-form-wrapper form-wrapper" required="required" aria-required="true">');
-    $this->assertNoRaw('<span class="fieldset-legend js-form-required form-required">Contact basic</span>');
+    $this->assertRaw('<div id="edit-contact-basic--wrapper" class="form-composite js-form-item form-item js-form-type-webform-contact form-type-webform-contact js-form-item-contact-basic form-item-contact-basic form-no-label">');
     $this->assertRaw('<label for="edit-contact-basic-name" class="js-form-required form-required">Name</label>');
     $this->assertRaw('<input data-drupal-selector="edit-contact-basic-name" type="text" id="edit-contact-basic-name" name="contact_basic[name]" value="John Smith" size="60" maxlength="255" class="form-text required" required="required" aria-required="true" />');
 
@@ -46,9 +45,8 @@ class WebformElementCompositeTest extends WebformTestBase {
     $this->assertNoRaw('edit-contact-advanced-country');
 
     // Check credit card.
-    $this->assertRaw('<fieldset data-drupal-selector="edit-creditcard-basic" id="edit-creditcard-basic--wrapper" class="fieldgroup form-composite js-webform-creditcard webform-creditcard js-form-item form-item js-form-wrapper form-wrapper">');
-    $this->assertRaw('<span class="visually-hidden fieldset-legend">Credit Card</span>');
-    $this->assertNoRaw('<span class="fieldset-legend">Credit Card</span>');
+    $this->assertRaw('<div id="edit-creditcard-basic--wrapper" class="form-composite js-form-item form-item js-form-type-webform-creditcard form-type-webform-creditcard js-form-item-creditcard-basic form-item-creditcard-basic form-no-label">');
+    $this->assertRaw('<label for="edit-creditcard-basic" class="visually-hidden">Credit Card</label>');
     $this->assertRaw('The credit card element is experimental and insecure because it stores submitted information as plain text.');
     $this->assertRaw('<label for="edit-creditcard-basic-name">Name on Card</label>');
     $this->assertRaw('<input data-drupal-selector="edit-creditcard-basic-name" type="text" id="edit-creditcard-basic-name" name="creditcard_basic[name]" value="John Smith" size="60" maxlength="255" class="form-text" />');

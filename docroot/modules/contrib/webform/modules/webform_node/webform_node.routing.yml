@@ -1,3 +1,11 @@
+entity.webform.references:
+  path: '/admin/structure/webform/manage/{webform}/references'
+  defaults:
+    _controller: '\Drupal\webform_node\Controller\WebformNodeReferencesListController::listing'
+    _title_callback: '\Drupal\webform\Controller\WebformController::title'
+  requirements:
+    _entity_access: 'webform.update'
+
 entity.node.webform.confirmation:
   path: '/node/{node}/webform/confirmation'
   defaults:

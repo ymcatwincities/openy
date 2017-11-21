@@ -18,4 +18,11 @@ use Drupal\webform\Plugin\WebformElement\WebformCompositeBase;
  */
 class WebformTestComposite extends WebformCompositeBase {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function preview() {
+    return [];
+  }
+
 }

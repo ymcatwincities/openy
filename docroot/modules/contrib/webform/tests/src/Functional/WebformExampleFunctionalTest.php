@@ -21,6 +21,7 @@ class WebformExampleFunctionalTest extends BrowserTestBase {
    */
   public function testGet() {
     $this->drupalGet('/webform/contact');
+    $this->verbose('hi');
     $this->assertSession()->responseContains('Contact');
   }
 

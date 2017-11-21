@@ -1,0 +1,14 @@
+uuid: f6894dbc-cd15-46a2-a3e5-58f08f0468f4
+langcode: en
+status: true
+dependencies: {  }
+third_party_settings:
+  contextual:
+    mode: '1'
+id: test_formatter
+label: 'Test Formatter'
+type: php
+description: ''
+field_types:
+  - text_with_summary
+data:

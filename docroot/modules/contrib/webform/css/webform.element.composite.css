@@ -6,6 +6,6 @@
  */
 
 /* Remove extra margin are composite element which already contain form elements with margins */
-fieldset.form-composite {
+.form-composite {
   margin: 0;
 }

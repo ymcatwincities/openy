@@ -33,6 +33,13 @@ abstract class SchedulerBrowserTestBase extends BrowserTestBase {
   protected $adminUser;
 
   /**
+   * A user with permission to schedule content.
+   *
+   * @var \Drupal\Core\Session\AccountInterface
+   */
+  protected $schedulerUser;
+
+  /**
    * The internal name of the standard content type created for testing.
    *
    * @var string
@@ -96,7 +103,6 @@ abstract class SchedulerBrowserTestBase extends BrowserTestBase {
 
     // Create an administrator user having the main admin permissions, full
     // rights on the 'page' content type and all of the Scheduler permissions.
-    // Users with reduced permissions are created in the tests that need them.
     // 'access site reports' is required for admin/reports/dblog.
     // 'administer site configuration' is required for admin/reports/status.
     $this->adminUser = $this->drupalCreateUser([
@@ -110,6 +116,17 @@ abstract class SchedulerBrowserTestBase extends BrowserTestBase {
       'delete own ' . $this->type . ' content',
       'view own unpublished content',
       'administer scheduler',
+      'schedule publishing of nodes',
+      'view scheduled content',
+    ]);
+
+    // Create an ordinary Scheduler user, with permission to create and schedule
+    // content but not with administrator permissions.
+    $this->schedulerUser = $this->drupalCreateUser([
+      'create ' . $this->type . ' content',
+      'edit own ' . $this->type . ' content',
+      'delete own ' . $this->type . ' content',
+      'view own unpublished content',
       'schedule publishing of nodes',
       'view scheduled content',
     ]);

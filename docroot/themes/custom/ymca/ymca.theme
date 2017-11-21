@@ -513,6 +513,9 @@ function ymca_preprocess_html(&$variables) {
       'type' => $file->getMimeType(),
     ]]];
   }
+  if (\Drupal::config('ymca_menu.mobile_menu_list')->get('show_new_mobile_menu')) {
+    $variables['attributes']['class'][] = 'show-new-mobile-menu';
+  }
 }
 
 /**
@@ -657,6 +660,10 @@ function ymca_preprocess_page(&$variables) {
 
   // Hide/Show mobile sign in button.
   $variables['hide_mobile_sign_button'] = (bool) theme_get_setting('hide_mobile_sign_button');
+  $variables['is_new_mobile_nav'] = FALSE;
+  if (\Drupal::config('ymca_menu.mobile_menu_list')->get('show_new_mobile_menu')) {
+    $variables['is_new_mobile_nav'] = TRUE;
+  }
 }
 
 /**

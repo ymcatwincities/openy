@@ -32,7 +32,7 @@ class WebformSubmissionTokenUpdateTest extends WebformTestBase {
   /**
    * Test updating webform submission using tokenized URL.
    */
-  public function testWebformSubmissionTokenUpdateTest() {
+  public function testTokenUpdateTest() {
     // Post test submission.
     $this->drupalLogin($this->rootUser);
     $webform_token_update = Webform::load('test_token_update');

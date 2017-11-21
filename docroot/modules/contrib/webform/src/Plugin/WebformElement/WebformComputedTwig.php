@@ -13,7 +13,7 @@ use Drupal\webform\Utility\WebformElementHelper;
  *   id = "webform_computed_twig",
  *   label = @Translation("Computed Twig"),
  *   description = @Translation("Provides an item to display computed webform submission values using Twig."),
- *   category = @Translation("Computed"),
+ *   category = @Translation("Computed Elements"),
  * )
  */
 class WebformComputedTwig extends WebformComputedBase {

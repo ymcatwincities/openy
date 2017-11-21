@@ -124,7 +124,7 @@ interface WebformMessageManagerInterface {
   const SUBMISSION_CONFIRMATION = 'confirmation_message';
 
   /**
-   * Submission confirmation.
+   * Template preview.
    */
   const TEMPLATE_PREVIEW = 'template_preview';
 
@@ -132,6 +132,16 @@ interface WebformMessageManagerInterface {
    * Prepopulate source entity required.
    */
   const PREPOPULATE_SOURCE_ENTITY_REQUIRED = 'prepopulate_source_entity_required';
+
+  /**
+   * Set the webform submission used for token replacement.
+   *
+   * Webform and source entity will also be set using the webform submission.
+   *
+   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
+   *   A webform submission.
+   */
+  public function setWebformSubmission(WebformSubmissionInterface $webform_submission = NULL);
 
   /**
    * Prepopulate source entity type.
@@ -155,12 +165,15 @@ interface WebformMessageManagerInterface {
   public function setSourceEntity(EntityInterface $entity = NULL);
 
   /**
-   * Set the webform submission used for token replacement.
+   * Get message from webform specific setting or global setting.
    *
-   * @param \Drupal\webform\WebformSubmissionInterface $webform_submission
-   *   A webform submission.
+   * @param string $key
+   *   The name of webform settings message to be displayed.
+   *
+   * @return string|bool
+   *   A message or FALSE if no message is found.
    */
-  public function setWebformSubmission(WebformSubmissionInterface $webform_submission = NULL);
+  public function setting($key);
 
   /**
    * Get message.

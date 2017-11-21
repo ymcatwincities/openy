@@ -38,8 +38,8 @@ function scheduler_requirements($phase) {
     ];
 
     $descriptions = [
-      t('In most cases the server time matches Coordinated Universal Time (UTC).', $t_options),
-      t('Default timezone: %date_default_timezone (%date_default_code), offset from GMT by %date_default_offset hours. This timezone can be <a href="@admin_regional_settings">changed by admin users</a> with the appropriate access.', $t_options),
+      t('In most cases the server time should match Coordinated Universal Time (UTC) / Greenwich Mean Time (GMT).', $t_options),
+      t('Default timezone: %date_default_timezone (%date_default_code), offset from UTC/GMT by %date_default_offset hours. This timezone can be <a href="@admin_regional_settings">changed by admin users</a> with the appropriate access.', $t_options),
     ];
     if ($system_date->get('timezone.user.configurable')) {
       $descriptions[] = t('Local time: %localtime (%daylight_saving). You can change this via your <a href="@account_edit">user account</a>.', $t_options);
@@ -52,7 +52,7 @@ function scheduler_requirements($phase) {
     }
 
     $requirements['scheduler_timecheck'] = [
-      'title' => t('Time Check'),
+      'title' => t('Scheduler Time Check'),
       'value' => t('Server time: @utc', [
         '@utc' => $date_formatter->format($now, 'custom', 'jS F Y, H:i:s P', 'GMT'),
       ]),
@@ -87,4 +87,19 @@ function scheduler_uninstall() {
   \Drupal::service('entity.definition_update_manager')->applyUpdates();
   // Delete the scheduled content view.
   \Drupal::configFactory()->getEditable('views.view.scheduler_scheduled_content')->delete();
+}
+
+/**
+ * Reset date and time formats to default.
+ *
+ * @see https://www.drupal.org/node/2799869
+ */
+function scheduler_update_8001() {
+  $config = \Drupal::configFactory()->getEditable('scheduler.settings');
+  $config
+    ->set('date_format', 'Y-m-d H:i:s')
+    ->set('date_only_format', 'Y-m-d')
+    ->set('time_only_format', 'H:i:s')
+    ->save();
+  return t('The date and time format has been reset.');
 }

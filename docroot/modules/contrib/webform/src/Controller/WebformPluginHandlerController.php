@@ -83,9 +83,27 @@ class WebformPluginHandlerController extends ControllerBase implements Container
         $rows[$plugin_id]['class'] = ['color-warning'];
       }
     }
-
     ksort($rows);
-    return [
+
+    $build = [];
+
+    // Settings
+    $build['settings'] = [
+      '#type' => 'link',
+      '#title' => $this->t('Edit settings'),
+      '#url' => Url::fromRoute('webform.settings.handlers'),
+      '#attributes' => ['class' => ['button', 'button--small'], 'style' => 'float: right'],
+    ];
+
+    // Display info.
+    $build['info'] = [
+      '#markup' => $this->t('@total handlers', ['@total' => count($rows)]),
+      '#prefix' => '<p>',
+      '#suffix' => '</p>',
+    ];
+
+    // Handlers.
+    $build['webform_handlers'] = [
       '#type' => 'table',
       '#header' => [
         $this->t('ID'),
@@ -101,6 +119,8 @@ class WebformPluginHandlerController extends ControllerBase implements Container
       '#rows' => $rows,
       '#sticky' => TRUE,
     ];
+
+    return $build;
   }
 
   /**

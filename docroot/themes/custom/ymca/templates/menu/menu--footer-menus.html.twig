@@ -37,7 +37,10 @@
       {% else %}
         {% set attributes = attributes.addClass('nav nav-stacked') %}
       {% endif %}
-      <ul{{ attributes }}>
+      {%
+        set classes = 'footer-links'
+      %}
+      <ul{{ attributes.addClass(classes) }}>
     {% else %}
       <ul>
     {% endif %}

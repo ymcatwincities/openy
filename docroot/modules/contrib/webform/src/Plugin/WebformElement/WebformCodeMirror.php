@@ -73,6 +73,15 @@ class WebformCodeMirror extends WebformElementBase {
   /**
    * {@inheritdoc}
    */
+  public function preview() {
+    return parent::preview() + [
+      '#mode' => 'yaml',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getTestValues(array $element, WebformInterface $webform, array $options = []) {
     $element += ['#mode' => 'text'];
     switch ($element['#mode']) {
@@ -89,7 +98,6 @@ class WebformCodeMirror extends WebformElementBase {
         return [];
 
     }
-
   }
 
   /**

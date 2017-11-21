@@ -20,8 +20,13 @@ function scheduler_api_test_uninstall() {
     ->fields('n', ['nid'])
     ->condition('n.type', ['scheduler_api_test'], 'IN')
     ->execute();
-  $nids = $nids_query->fetchCol();
-  entity_delete_multiple('node', $nids);
+  if ($nids = $nids_query->fetchCol()) {
+    entity_delete_multiple('node', $nids);
+    drupal_set_message(t('@number %type node(s) have been deleted.', [
+      '@number' => count($nids),
+      '%type' => 'scheduler_api_test',
+    ]));
+  }
 
   // The content type, custom fields and storage are deleted automatically by
   // having 'enforced: module: - scheduler_api_test' in the

@@ -661,3 +661,35 @@ function ymca_retention_update_8038() {
     'ymca_retention.general_settings',
   ]);
 }
+
+/**
+ * Reset retention member total visits.
+ */
+function ymca_retention_update_8039() {
+  \Drupal::database()
+    ->update('ymca_retention_member')
+    ->fields(['total_visits' => 0])
+    ->execute();
+}
+
+/**
+ * Updating general settings.
+ */
+function ymca_retention_update_8040() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs([
+    'page_manager.page_variant.ymca_retention_challenge_winners',
+  ]);
+}
+
+/**
+ * Updating general settings.
+ */
+function ymca_retention_update_8041() {
+  $importer = \Drupal::service('config_import.importer');
+  $importer->setDirectory('sites/default/config/staging/');
+  $importer->importConfigs([
+    'ymca_retention.general_settings',
+  ]);
+}

@@ -43,7 +43,7 @@ class SchedulerMultilingualTest extends SchedulerBrowserTestBase {
     // created in SchedulerBrowserTestBase and add this role to the translator
     // user, to avoid switching between users throughout this test.
     $admin_roles = $this->adminUser->getRoles();
-    // Key 0 is 'authenticated' role.
+    // Key 0 is 'authenticated' role. Key 1 is the first real role.
     $this->translatorUser->addRole($admin_roles[1]);
     $this->translatorUser->save();
     $this->drupalLogin($this->translatorUser);
@@ -107,20 +107,21 @@ class SchedulerMultilingualTest extends SchedulerBrowserTestBase {
   }
 
   /**
-   * Test the 'publish on' functionality.
+   * Test creating translations with independent scheduling.
    *
    * @dataProvider dataPublishingTranslations()
    */
   public function testPublishingTranslations($publish_on_translatable, $unpublish_on_translatable, array $expected_status_values_before, array $expected_status_values_after) {
 
-    // Set publish_on to be translatable and unpublish_on not translatable.
+    // Set the scheduler fields to be translatable yes/no depending on the
+    // parameters passed in.
     $this->drupalGet('admin/config/regional/content-language');
     $settings = [
       'edit-settings-node-page-settings-language-language-alterable' => TRUE,
       'edit-settings-node-page-fields-publish-on' => $publish_on_translatable,
       'edit-settings-node-page-fields-unpublish-on' => $unpublish_on_translatable,
     ];
-    // Shows the updates, so no need for second get.
+    // The submit shows the updated values, so no need for second get.
     $this->submitForm($settings, 'Save configuration');
 
     // Create a node. This will known as the 'original' before any translations.
@@ -140,7 +141,20 @@ class SchedulerMultilingualTest extends SchedulerBrowserTestBase {
       'publish_on[0][value][date]' => '',
       'publish_on[0][value][time]' => '',
     ];
-    $this->submitForm($edit, 'Save and publish');
+    // At core 8.4 an enhancement will be committed to change the 'save and ...'
+    // button into a 'save' with a corresponding status checkbox. This test has
+    // to pass at 8.3 but the core change will not be backported. Hence derive
+    // the button text and whether we need a 'status'field.
+    // @see https://www.drupal.org/node/2873108
+    $checkbox = $this->xpath('//input[@type="checkbox" and @id="edit-status-value"]');
+    if ($checkbox) {
+      $edit['status[value]'] = TRUE;
+      $save_button_text = 'Save';
+    }
+    else {
+      $save_button_text = 'Save and publish';
+    }
+    $this->submitForm($edit, $save_button_text);
 
     // Create the second translation, to be published in the future.
     $this->drupalGet('node/' . $node->id() . '/translations/add/' . $this->languages[0]['code'] . '/' . $this->languages[2]['code']);
@@ -149,7 +163,7 @@ class SchedulerMultilingualTest extends SchedulerBrowserTestBase {
       'publish_on[0][value][date]' => date('Y-m-d', strtotime('+2 day', REQUEST_TIME)),
       'publish_on[0][value][time]' => date('H:i:s', strtotime('+2 day', REQUEST_TIME)),
     ];
-    $this->submitForm($edit, 'Save and publish');
+    $this->submitForm($edit, $save_button_text);
 
     // Create the third translation, to be published in the past.
     $this->drupalGet('node/' . $node->id() . '/translations/add/' . $this->languages[0]['code'] . '/' . $this->languages[3]['code']);
@@ -158,7 +172,7 @@ class SchedulerMultilingualTest extends SchedulerBrowserTestBase {
       'publish_on[0][value][date]' => date('Y-m-d', strtotime('-2 day', REQUEST_TIME)),
       'publish_on[0][value][time]' => date('H:i:s', strtotime('-2 day', REQUEST_TIME)),
     ];
-    $this->submitForm($edit, 'Save and publish');
+    $this->submitForm($edit, $save_button_text);
 
     // For info only.
     $this->drupalGet($this->languages[0]['code'] . '/node/' . $node->id() . '/translations');
