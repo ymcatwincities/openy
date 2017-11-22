@@ -66,7 +66,7 @@ view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
       </div>
       {% if background is not empty %}
         <div class="col-sm-6 header-image"
-             style="background-image: url({{ file_url(content.field_prgf_image.0['#item'].entity.uri.value) }});">
+             style="background-image: url({{ content.image_path }});">
           <figure class="text-center visible-xs">
             {{ content.field_prgf_image }}
           </figure>

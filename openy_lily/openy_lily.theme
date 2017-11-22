@@ -16,6 +16,7 @@ use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
 use Drupal\block\Entity\Block;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Implements hook_preprocess_HOOK() for footer menus.
@@ -290,10 +291,10 @@ function openy_lily_preprocess_page(&$variables) {
 
   /**Check if CCC User is logged in.*/
   if ($variables['ccc_logged_in']) {
-    $variables['cccmenu'] = ymcali_get_header_menu('cccuseraccountmenu');
+    $variables['cccmenu'] = openy_lily_get_header_menu('cccuseraccountmenu');
   }
   else {
-    $variables['cccmenuann'] = ymcali_get_header_menu('anonymoususersmenu');
+    $variables['cccmenuann'] = openy_lily_get_header_menu('anonymoususersmenu');
   }
 }
 
@@ -569,10 +570,30 @@ function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInte
 /**
  * Function for printing menu block.
  */
-function ymcali_get_header_menu($menu_name) {
+function openy_lily_get_header_menu($menu_name) {
   $block_menu = Block::load($menu_name);
   $block_content = \Drupal::entityTypeManager()
     ->getViewBuilder('block')
     ->view($block_menu);
+
   return $block_content;
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function openy_lily_preprocess_paragraph(&$variables) {
+  if (empty($variables['paragraph'])) {
+    return;
+  }
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+  switch ($paragraph->getType()) {
+    case 'small_text_banner':
+      $image = $variables['content']['field_prgf_image'][0];
+      $path = ImageStyle::load($image['#image_style'])
+        ->buildUrl($image['#item']->entity->uri->value);
+      $variables['content']['image_path'] = $path;
+      break;
+  }
 }
