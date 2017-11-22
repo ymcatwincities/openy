@@ -564,7 +564,9 @@ class AddToCart implements AddToCartInterface {
         $this->dataServicePassword,
       ],
     ];
-    $product_ids = explode(',', $product_ids);
+    if (!is_array($product_ids)) {
+      $product_ids = explode(',', $product_ids);
+    }
     $options['body'] = "<CL_GetProductListingInput><Products>";
     foreach ($product_ids as $product_id) {
       $options['body'] .= "<CL_ProductInfoInput><ProductId>$product_id</ProductId></CL_ProductInfoInput>";
@@ -585,7 +587,7 @@ class AddToCart implements AddToCartInterface {
             'available' => TRUE,
             'info' => $product,
           ];
-          if ($product->Capacity - $product->Registrations === 0) {
+          if ($product->Capacity - $product->Registrations == 0) {
             // Set product unavailable flag.
             $products[(string) $product->ProductId] = [
               'available' => FALSE,
