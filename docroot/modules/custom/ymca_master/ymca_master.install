@@ -18,6 +18,8 @@ use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\ymca_mappings\Entity\Mapping;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -4930,4 +4932,7 @@ function ymca_master_update_8227() {
     $page->save();
     $path = \Drupal::service('path.alias_storage')->save('/node/' . $page_id, '/cdn/search/form', 'en');
   }
+  Role::load(RoleInterface::ANONYMOUS_ID)
+    ->grantPermission('view published camp du nord personify product entities')
+    ->save();
 }
