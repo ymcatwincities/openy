@@ -452,6 +452,15 @@ class CdnFormFull extends FormBase {
     $product_ids = $builds = [];
     $total_nights = 0;
     $total_price = '';
+    // Collect products ids.
+    $product_ids = [];
+    foreach ($view->result as $row) {
+      $product_ids[] = !$row->_entity->field_cdn_prd_id->isEmpty() ? $row->_entity->field_cdn_prd_id->value : '';
+    }
+    // Check availability for given products.
+    if (!empty($product_ids)) {
+      $products = \Drupal::service('ymca_cdn_sync.add_to_cart')->checkProductAvailability($product_ids);
+    }
     foreach ($view->result as $row) {
       $entity = $row->_entity;
       $product_id = !$entity->field_cdn_prd_id->isEmpty() ? $entity->field_cdn_prd_id->value : '';
@@ -464,6 +473,10 @@ class CdnFormFull extends FormBase {
       $is_booked = FALSE;
       if ($capacity - $registrations == 0) {
         $is_booked = TRUE;
+      }
+      // Additional check from live results if they were provided.
+      if (!empty($products[$pid])) {
+        $is_booked = !$products[$pid]['available'];
       }
       $date = substr($date, 0, 10);
       $date1 = DrupalDateTime::createFromFormat('Y-m-d', $date)->format('F');
