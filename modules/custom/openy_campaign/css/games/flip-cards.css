@@ -28,18 +28,20 @@
   position: absolute;
   width: 100%;
   height: 100%;
+  text-align: center;
+}
+
+.flip-cards .card.flipped figure.front {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
-  text-align: center;
 }
-
-.flip-cards .card.flipped figure {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+.flip-cards .card.flipped figure.back {
+  backface-visibility: visible;
+  -webkit-backface-visibility: visible;
   -ms-backface-visibility: visible;
-  -moz-backface-visibility: hidden;
+  -moz-backface-visibility: visible;
 }
 
 .flip-cards .card figure img {
