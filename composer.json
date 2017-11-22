@@ -199,7 +199,7 @@
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
-        "drupal/optimizely": "1.2",
+        "drupal/optimizely": "3.0",
         "drupal/google_tag": "1.x-dev",
         "drupal/google_analytics": "2.2",
         "drupal/simple_sitemap": "2.9",

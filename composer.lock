@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff8b44fc6e7d6708aca7b5cb39b92828",
-    "content-hash": "32c5cac7ce689a93ab23f691a7c28308",
+    "hash": "22f8bf76be18aa4e4e8fdecfa586b3d6",
+    "content-hash": "94919be384d756d3da432f3e9955a55a",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1311,8 +1311,7 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
-                },
-                "patches_applied": []
+                }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -3077,17 +3076,17 @@
         },
         {
             "name": "drupal/optimizely",
-            "version": "1.2.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/optimizely",
-                "reference": "8.x-1.2"
+                "reference": "8.x-3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/optimizely-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "b721c201de478724efd2d088aa37ac2af115ff45"
+                "url": "https://ftp.drupal.org/files/projects/optimizely-8.x-3.0.zip",
+                "reference": "8.x-3.0",
+                "shasum": "226bf82892ef2b66b18b5fe062b4b5559ef54742"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -3095,11 +3094,11 @@
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-3.x": "3.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1490665386",
+                    "version": "8.x-3.0",
+                    "datestamp": "1507339145",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
