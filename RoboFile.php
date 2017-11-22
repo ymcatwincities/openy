@@ -1,6 +1,6 @@
 <?php
 /**
- * This is project's console commands configuration for Robo task runner.
+ * OpenY Robo commands.
  *
  * @see http://robo.li/
  */
@@ -21,12 +21,12 @@ class RoboFile extends \Robo\Tasks {
   /**
    * This method adds fork as repository to composer.json.
    *
-   * Example: https://github.com/Sanchiz/openy
+   * Example: 'https://github.com/Sanchiz/openy'.
    */
   function OpenyAddFork($path, $repository) {
     $this->taskComposerConfig()
       ->dir($path . '/openy-project')
-      ->repository(99, $repository, 'vcs')
+      ->repository(99, $repository, 'path')
       ->ansi(TRUE)
       ->run();
   }
@@ -34,7 +34,8 @@ class RoboFile extends \Robo\Tasks {
 
   /**
    * This method adds branch for OpenY distro in composer.json.
-   * Example: 'dev-feature/drupal-8.4'
+   *
+   * Example: 'dev-feature/drupal-8.4'.
    */
   function OpenySetBranch($path, $branch) {
     $this->taskComposerRequire()
