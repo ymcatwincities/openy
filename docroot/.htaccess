@@ -90,6 +90,280 @@ AddEncoding gzip svgz
   RewriteCond %{HTTP_HOST} ^www\.redwingymca\.org$
   RewriteRule ^membership/.*$ /membership [R=301,NC,L]
 
+# Rochester start
+
+# 301 --- http://www.rochfamy.org/about-us.php => https://www.ymcamn.org/locations/rochester_ymca/about
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^about\-us\.php$ https://www.ymcamn.org/locations/rochester_ymca/about? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/schedules-events.php => https://www.ymcamn.org/locations/rochester_ymca/schedules
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^schedules\-events\.php$ https://www.ymcamn.org/locations/rochester_ymca/schedules? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/get-involved/volunteer.php => https://www.ymcamn.org/locations/rochester_ymca/about/volunteer
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^get\-involved/volunteer\.php$ https://www.ymcamn.org/locations/rochester_ymca/about/volunteer? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/schedules-events/hours.php => https://www.ymcamn.org/locations/rochester_ymca/about
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^schedules\-events/hours\.php$ https://www.ymcamn.org/locations/rochester_ymca/about? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/schedules-events/schedules.php => https://www.ymcamn.org/locations/rochester_ymca/schedules
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^schedules\-events/schedules\.php$ https://www.ymcamn.org/locations/rochester_ymca/schedules? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/get-involved/join-membership.php => https://www.ymcamn.org/locations/rochester_ymca/membership
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^get\-involved/join\-membership\.php$ https://www.ymcamn.org/locations/rochester_ymca/membership? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/get-involved/mayo-membership.php => https://www.ymcamn.org/locations/rochester_ymca/membership
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^get\-involved/mayo\-membership\.php$ https://www.ymcamn.org/locations/rochester_ymca/membership? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/camps.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/camps\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/connect-with-the-y/careers.php => https://www.ymcamn.org/locations/rochester_ymca/about/careers
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^connect\-with\-the\-y/careers\.php$ https://www.ymcamn.org/locations/rochester_ymca/about/careers? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/personal-training.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/personal_training
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/personal\-training\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/personal_training? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/youth-sports.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities/sports
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/youth\-sports\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities/sports? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/y-mentors.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities/y_mentors
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/y\-mentors\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities/y_mentors? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/get-involved/join-membership/day-passes.php => https://www.ymcamn.org/locations/rochester_ymca/membership
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^get\-involved/join\-membership/day\-passes\.php$ https://www.ymcamn.org/locations/rochester_ymca/membership? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/wellness-nutrition.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/wellness_nutrition_coaching
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/wellness\-nutrition\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/wellness_nutrition_coaching? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/fitness-center.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/fitness\-center\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/social-responsibility/togetherhood-.php => https://www.ymcamn.org/locations/rochester_ymca/about/volunteer
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/social\-responsibility/togetherhood\-\.php$ https://www.ymcamn.org/locations/rochester_ymca/about/volunteer? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/kids-care.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/kids\-care\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/kids-gym.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/kids\-gym\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/connect-with-the-y/y-blog.php => https://www.ymcamn.org/blog
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^connect\-with\-the\-y/y\-blog\.php$ https://www.ymcamn.org/blog? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/lifeguard-training-wsi.php => https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/lifeguard\-training\-wsi\.php$ https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/adult-classes-sports.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_training
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/adult\-classes\-sports\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_training? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/camps/summer-camp.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/camps/summer\-camp\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/schedules-events/events/parent-s-night-out.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^schedules\-events/events/parent\-s\-night\-out\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/get-involved/join-membership/military-outreach-program.php => https://www.ymcamn.org/locations/rochester_ymca/membership/military_outreach
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^get\-involved/join\-membership/military\-outreach\-program\.php$ https://www.ymcamn.org/locations/rochester_ymca/membership/military_outreach? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/family-youth-classes.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/family\-youth\-classes\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/camps/adventure-camp.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/camps/adventure\-camp\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/y-tots-preschool.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities/preschool
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/y\-tots\-preschool\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities/preschool? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/youth-swim-lessons.php => https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/youth\-swim\-lessons\.php$ https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/safety-around-water.php => https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/safety\-around\-water\.php$ https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/social-responsibility/open-doors-scholarship.php => https://www.ymcamn.org/membership/financial_assistance
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/social\-responsibility/open\-doors\-scholarship\.php$ https://www.ymcamn.org/membership/financial_assistance? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development/afterschool-academic-enrichment.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development/afterschool\-academic\-enrichment\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/adult-classes-sports/livestrong.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_training
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/adult\-classes\-sports/livestrong\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_training? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/social-responsibility/silver-sneakers-litter-league.php => https://www.ymcamn.org/locations/rochester_ymca/about/volunteer
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/social\-responsibility/silver\-sneakers\-litter\-league\.php$ https://www.ymcamn.org/locations/rochester_ymca/about/volunteer? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/about-us/ymca-vote.php => https://www.ymcamn.org/news/2017/08/30/7096/rochester_area_family_ymca_joins_ymca_of_the_greater_twin_cities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^about\-us/ymca\-vote\.php$ https://www.ymcamn.org/news/2017/08/30/7096/rochester_area_family_ymca_joins_ymca_of_the_greater_twin_cities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/about-us/ymca-vote/twin-cities-merger.php => https://www.ymcamn.org/locations/rochester_ymca/about/twin_cities_merger
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^about\-us/ymca\-vote/twin\-cities\-merger\.php$ https://www.ymcamn.org/locations/rochester_ymca/about/twin_cities_merger? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/connect-with-the-y/e-mail-the-y.php => https://www.ymcamn.org/contact_us
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^connect\-with\-the\-y/e\-mail\-the\-y\.php$ https://www.ymcamn.org/contact_us? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/cpr-aed-first-aid.php => https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/cpr\-aed\-first\-aid\.php$ https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/get-involved/join-membership/silversneakers-and-silver-fit.php => https://www.ymcamn.org/locations/rochester_ymca/membership
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^get\-involved/join\-membership/silversneakers\-and\-silver\-fit\.php$ https://www.ymcamn.org/locations/rochester_ymca/membership? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/youth-development.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/youth\-development\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/get-involved/join-membership/membership-packages-and-payment-options.php => https://www.ymcamn.org/locations/rochester_ymca/membership
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^get\-involved/join\-membership/membership\-packages\-and\-payment\-options\.php$ https://www.ymcamn.org/locations/rochester_ymca/membership? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/connect-with-the-y/y-blog/exercise-and-wellness.php => https://www.ymcamn.org/blog/fitness
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^connect\-with\-the\-y/y\-blog/exercise\-and\-wellness\.php$ https://www.ymcamn.org/blog/fitness? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/adult-classes-sports/group-fitness.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_exercise
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/adult\-classes\-sports/group\-fitness\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_exercise? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/adult-classes-sports/yoga-piyo.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_exercise
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/adult\-classes\-sports/yoga\-piyo\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_exercise? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/adult-classes-sports/kettlebells-and-bootcamp.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_exercise
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/adult\-classes\-sports/kettlebells\-and\-bootcamp\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_exercise? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/lap-pool-and-water-park-info.php => https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/lap\-pool\-and\-water\-park\-info\.php$ https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/personal-training/meet-the-personal-trainers.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/personal_training
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/personal\-training/meet\-the\-personal\-trainers\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/personal_training? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/connect-with-the-y/y-blog/family-and-youth-resources.php => https://www.ymcamn.org/blog/healthy_kids
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^connect\-with\-the\-y/y\-blog/family\-and\-youth\-resources\.php$ https://www.ymcamn.org/blog/healthy_kids? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/connect-with-the-y/y-blog/news-from-the-y.php => https://www.ymcamn.org/news
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^connect\-with\-the\-y/y\-blog/news\-from\-the\-y\.php$ https://www.ymcamn.org/news? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/family-youth-classes/conqueror-s-boxing.php => https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/family\-youth\-classes/conqueror\-s\-boxing\.php$ https://www.ymcamn.org/locations/rochester_ymca/kid_teen_activities? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/connect-with-the-y/y-blog/recipes-and-food-ideas.php => https://www.ymcamn.org/blog/nutrition
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^connect\-with\-the\-y/y\-blog/recipes\-and\-food\-ideas\.php$ https://www.ymcamn.org/blog/nutrition? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/family-youth-classes/parent-child-swimming-lessons.php => https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/family\-youth\-classes/parent\-child\-swimming\-lessons\.php$ https://www.ymcamn.org/locations/rochester_ymca/swim_lessons_aquatics? [L,R=301]
+
+# 301 --- http://www.rochfamy.org/our-focus/healthy-living/adult-classes-sports/women-s-self-defense.php => https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_training
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^our\-focus/healthy\-living/adult\-classes\-sports/women\-s\-self\-defense\.php$ https://www.ymcamn.org/locations/rochester_ymca/health_fitness/group_training? [L,R=301]
+
+# All other rochfamy to location page.
+RewriteCond %{HTTP_HOST} ^www\.rochfamy\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^rochfamy\.org$
+RewriteRule ^(.*)$ https://www.ymcamn.org/locations/rochester_ymca [L,R=301]
+
+# Rochester end
+
   # REDWING END
 
   # 301 --- http://give.ymcamn.org => http://give.ymcatwincities.org
@@ -787,6 +1061,10 @@ RewriteRule ^$ https://www.ymcamn.org/locations/eagan_ymca/kid__teen_activities/
 # 301 --- http://www.ysportssouthdale.org => http://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports
 RewriteCond %{HTTP_HOST} ^www\.ysportssouthdale\.org$
 RewriteRule ^$ https://www.ymcamn.org/locations/southdale_ymca/kid__teen_activities/sports? [L,R=301]
+
+# 301 --- http://www.ymcavendors.org => http://www.ymcamn.org/suppliers
+RewriteCond %{HTTP_HOST} ^www\.ymcavendors\.org$
+RewriteRule ^$ https://www.ymcamn.org/suppliers? [L,R=301]
 
 # Redirect for old retention campaigns.
 RewriteCond %{REQUEST_URI} ^/(march|ygames)
