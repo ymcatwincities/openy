@@ -3,19 +3,14 @@ status: true
 dependencies:
   config:
     - block_content.type.date_block
-    - field.storage.block_content.field_end_date
+    - field.storage.block_content.field_start_date
   module:
-    - datalayer
     - datetime
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_end_date
-id: block_content.date_block.field_end_date
-field_name: field_end_date
+id: block_content.date_block.field_start_date
+field_name: field_start_date
 entity_type: block_content
 bundle: date_block
-label: 'End date'
+label: 'Start date'
 description: ''
 required: false
 translatable: false

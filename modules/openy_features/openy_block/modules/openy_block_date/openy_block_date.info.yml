@@ -1,10 +1,9 @@
 name: 'OpenY Date Block'
-description: 'OpenY Date Block'
+description: 'Implements OpenY Date Block.'
 type: module
 core: 8.x
 dependencies:
   - block_content
-  - datalayer
   - datetime
   - entity_reference_revisions
   - field

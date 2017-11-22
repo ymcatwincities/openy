@@ -1,3 +1,0 @@
-services:
-  openy.date_block:
-    class: Drupal\openy_blocks\DateBlockService

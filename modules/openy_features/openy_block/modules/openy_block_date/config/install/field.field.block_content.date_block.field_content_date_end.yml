@@ -5,12 +5,7 @@ dependencies:
     - block_content.type.date_block
     - field.storage.block_content.field_content_date_end
   module:
-    - datalayer
     - entity_reference_revisions
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_content_date_end
 id: block_content.date_block.field_content_date_end
 field_name: field_content_date_end
 entity_type: block_content
