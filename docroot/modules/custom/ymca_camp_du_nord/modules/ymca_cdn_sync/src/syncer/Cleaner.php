@@ -13,7 +13,9 @@ class Cleaner implements CleanerInterface {
    * {@inheritdoc}
    */
   public function clean() {
-    // @todo Remove cache entities with "DateBegin" in the past.
+    $controller = \Drupal::entityManager()->getStorage('cdn_prs_product');
+    $entities = $controller->loadMultiple();
+    $controller->delete($entities);
   }
 
 }
