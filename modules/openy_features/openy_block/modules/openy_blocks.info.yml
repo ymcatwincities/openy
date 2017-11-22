@@ -1,5 +1,0 @@
-name: OpenY Blocks
-type: module
-description: OpenY blocks implementation.
-core: 8.x
-package: OpenY
