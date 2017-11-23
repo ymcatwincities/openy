@@ -6,7 +6,10 @@
  */
 class RoboFile extends \Robo\Tasks {
   /**
-   * This method creates OpenY project without installation.
+   * Create OpenY project https://github.com/ymcatwincities/openy-project without installation.
+   *
+   * @param string $path
+   *   Installation path that will be used to create "openy-project" folder.
    */
   function OpenyCreateProject($path) {
     $this->taskComposerCreateProject()
@@ -19,9 +22,13 @@ class RoboFile extends \Robo\Tasks {
   }
 
   /**
-   * This method adds fork as repository to composer.json.
+   * Add fork as repository to composer.json.
    *
-   * Example: 'https://github.com/Sanchiz/openy'.
+   * @param string $path
+   *   Installation path where repository should be added.
+   *
+   * @param string $repository
+   *   Local path of the repository.
    */
   function OpenyAddFork($path, $repository) {
     $this->taskComposerConfig()
@@ -33,9 +40,13 @@ class RoboFile extends \Robo\Tasks {
 
 
   /**
-   * This method adds branch for OpenY distro in composer.json.
+   * Set target branch of the fork.
    *
-   * Example: 'dev-feature/drupal-8.4'.
+   * @param string $path
+   *   Installation path where "openy-project" is placed.
+   *
+   * @param string $branch
+   *   Branch name.
    */
   function OpenySetBranch($path, $branch) {
     $this->taskComposerRequire()
@@ -46,7 +57,10 @@ class RoboFile extends \Robo\Tasks {
   }
 
   /**
-   * This method installs OpenY.
+   * Installs OpenY from fork as dependency.
+   *
+   * @param string $path
+   *   Installation path where "openy-project" is placed.
    */
   function OpenyInstall($path) {
     $this->taskComposerInstall()
@@ -57,7 +71,13 @@ class RoboFile extends \Robo\Tasks {
   }
 
   /**
-   * This method create symlink for web accessible build folder.
+   * Creates symlink to mirror build folder into web accessible dir.
+   *
+   * @param string $docroot_path
+   *   Path where website folder should be created.
+   *
+   * @param string $build_path
+   *   Path where source code for build is placed.
    */
   function OpenyBuildFolder($docroot_path, $build_path) {
     $this->taskFilesystemStack()
