@@ -15,6 +15,17 @@ function openy_media_image_install() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_media_image_update_dependencies() {
+  $dependencies['openy_media_image'][8007] = [
+    'openy_media' => 8003,
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Update description for fields.
  */
 function openy_media_image_update_8001() {
