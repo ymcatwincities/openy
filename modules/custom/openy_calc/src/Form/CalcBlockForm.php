@@ -186,6 +186,7 @@ class CalcBlockForm extends FormBase {
           'class' => ['btn', 'blue', 'pull-left'],
         ],
       ];
+      $form['#attached']['library'][] = 'openy_calc/submit';
     }
 
     if ($step < 3) {
@@ -213,8 +214,7 @@ class CalcBlockForm extends FormBase {
         ],
       ];
     }
-
-    $form['#attached']['library'] = 'openy_calc/scripts';
+    $form['#attached']['library'][] = 'openy_calc/scripts';
     return $form;
   }
 
