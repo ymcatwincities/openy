@@ -6,3 +6,13 @@ scripts:
     - core/jquery
     - core/drupal
     - core/drupalSettings
+
+submit:
+  version: 1.0
+  js:
+    js/openy_calc_submit.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
