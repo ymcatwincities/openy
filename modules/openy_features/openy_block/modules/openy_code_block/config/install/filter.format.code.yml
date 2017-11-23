@@ -5,7 +5,7 @@ dependencies:
     - entity_embed
 name: Code
 format: code
-weight: 0
+weight: 20
 filters:
   filter_htmlcorrector:
     id: filter_htmlcorrector
