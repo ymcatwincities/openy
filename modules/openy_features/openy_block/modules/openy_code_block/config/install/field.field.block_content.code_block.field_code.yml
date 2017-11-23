@@ -19,7 +19,10 @@ label: Code
 description: ''
 required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: ' '
+    format: code
 default_value_callback: ''
 settings: {  }
 field_type: text_long
