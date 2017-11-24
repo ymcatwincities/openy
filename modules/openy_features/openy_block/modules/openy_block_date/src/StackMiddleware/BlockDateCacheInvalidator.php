@@ -13,6 +13,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 class BlockDateCacheInvalidator implements HttpKernelInterface {
 
   /**
+   * Date block tag.
+   */
+  const TAG = 'block_date';
+
+  /**
    * The wrapped HTTP kernel.
    *
    * @var \Symfony\Component\HttpKernel\HttpKernelInterface
@@ -56,14 +61,15 @@ class BlockDateCacheInvalidator implements HttpKernelInterface {
 
     $requestTime = $request->server->get('REQUEST_TIME');
     $allTags = $response->getCacheableMetadata()->getCacheTags();
+    $tagPrefix = self::TAG . ":";
 
     // Try to find even single outdated timestamp.
     foreach ($allTags as $tag) {
-      if (strpos($tag, 'block_date:') === FALSE) {
+      if (strpos($tag, $tagPrefix) === FALSE) {
         continue;
       }
 
-      $timestamp = substr($tag, strlen('block_date:'));
+      $timestamp = substr($tag, strlen($tagPrefix));
       if ($requestTime > $timestamp) {
         // Found outdated tag. Let's invalidate it! And handle request again.
         $this->cacheTagsInvalidator->invalidateTags([$tag]);
