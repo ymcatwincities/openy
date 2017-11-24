@@ -16,4 +16,4 @@ Feature: OpenY main pages
   Scenario: Check Log In text on user page
     When I go to "user"
     Then I should see "Log In"
-    And I should see "TEST IS FAILED AND SCREENSHOT IS SAVED"
+

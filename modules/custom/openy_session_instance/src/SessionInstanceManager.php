@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_session_instance;
 
+use Drupal;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -118,7 +119,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getSessionData(NodeInterface $session) {
-    $moderation_wrapper = \Drupal::service('openy_moderation_wrapper.entity_moderation_status');
+    $moderation_wrapper = Drupal::service('openy_moderation_wrapper.entity_moderation_status');
 
     // Skip session with empty location reference.
     if (empty($session->field_session_location->target_id)) {

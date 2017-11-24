@@ -16,6 +16,13 @@ textarea:focus,
   outline: 5px auto $bright-green;
 }
 
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  box-shadow: 0px 0px 3px 3px $bright-green;
+  outline: none;
+}
+
 .focusable.skip-link:focus {
   position: fixed !important;
   top: 0;

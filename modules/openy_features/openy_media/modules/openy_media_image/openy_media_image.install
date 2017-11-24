@@ -15,6 +15,17 @@ function openy_media_image_install() {
 }
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function openy_media_image_update_dependencies() {
+  $dependencies['openy_media_image'][8007] = [
+    'openy_media' => 8003,
+  ];
+
+  return $dependencies;
+}
+
+/**
  * Update description for fields.
  */
 function openy_media_image_update_8001() {
@@ -160,5 +171,19 @@ function openy_media_image_update_8006() {
     'core.entity_view_display.media.image.embedded_full',
     'core.entity_view_display.media.image.embedded_half',
     'core.entity_view_display.media.image.icon',
+  ]);
+}
+
+/**
+ * Import OpenY media image view modes without Blazy support.
+ */
+function openy_media_image_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.media.image.full_without_blazy',
+    'core.entity_view_display.media.image.half_without_blazy',
   ]);
 }
