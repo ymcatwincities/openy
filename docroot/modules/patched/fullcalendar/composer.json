@@ -1,0 +1,14 @@
+{
+  "name": "drupal/fullcalendar",
+  "type": "drupal-module",
+  "description": "Integrates the Fullcalender Library from https://fullcalendar.io",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/fullcalendar",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/fullcalendar",
+    "source": "http://cgit.drupalcode.org/fullcalendar"
+  },
+  "require": { }
+}
