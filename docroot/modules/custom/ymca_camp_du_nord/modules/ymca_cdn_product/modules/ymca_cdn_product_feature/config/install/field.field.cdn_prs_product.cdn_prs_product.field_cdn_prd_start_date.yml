@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.cdn_prs_product.field_cdn_prd_start_date
+  module:
+    - datetime
+    - ymca_cdn_product
+id: cdn_prs_product.cdn_prs_product.field_cdn_prd_start_date
+field_name: field_cdn_prd_start_date
+entity_type: cdn_prs_product
+bundle: cdn_prs_product
+label: 'Start Date'
+description: 'Cabin availability start date.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

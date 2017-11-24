@@ -8865,6 +8865,11 @@ body.ancestor-camps .lead a:hover,
 body.ancestor-camps .call-to-action a:hover {
   color: #01a490;
 }
+body.ancestor-camps .node--type-article p.button a:hover,
+body.ancestor-camps .lead p.button a:hover,
+body.ancestor-camps .call-to-action p.button a:hover {
+  color: #fff;
+}
 body.ancestor-camps .navbar-default #block-top-menu-2 .navbar-nav > li:first-child > a {
   background-color: #01a490;
 }
@@ -11046,6 +11051,789 @@ tr:nth-last-child(3) .atcb-list {
 .atc-style-blue .atcb-item.hover,
 .atc-style-blue .atcb-item:hover {
   background: #4281f4;
+}
+
+.cdn-form-full {
+  background-color: #fff;
+}
+.cdn-form-full .top-elements-wrapper {
+  border-bottom: 1px solid #ddd;
+  padding-top: 30px;
+  padding-bottom: 40px;
+  margin: 0 auto 40px;
+}
+.cdn-form-full .top-elements-wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .top-elements-wrapper {
+    padding-bottom: 65px;
+    margin: 0 auto 80px;
+  }
+}
+.cdn-form-full .top-elements-wrapper h2 {
+  font-size: 20px;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+.cdn-form-full .form-item-arrival-date label,
+.cdn-form-full .form-item-departure-date label {
+  font-family: Cachet;
+  font-size: 20px;
+  height: 28px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  color: #222222;
+  text-transform: uppercase;
+}
+.cdn-form-full .form-item-arrival-date input,
+.cdn-form-full .form-item-departure-date input {
+  background: #fff url("../img/icon-calendar2.png") no-repeat 20px center;
+  height: 60px;
+  padding-left: 65px;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 18px;
+  color: #222222;
+  border-color: #dadada;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-arrival-date,
+  .cdn-form-full .form-item-departure-date {
+    width: 250px;
+    float: left;
+  }
+}
+@media (min-width: 64.0625em) {
+  .cdn-form-full .form-item-arrival-date,
+  .cdn-form-full .form-item-departure-date {
+    width: 335px;
+  }
+}
+.cdn-form-full .form-item-arrival-date {
+  margin-bottom: -1px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-arrival-date {
+    margin-bottom: 0;
+  }
+}
+.cdn-form-full .form-item-arrival-date input {
+  border-radius: 4px 4px 0 0;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-arrival-date input {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+  }
+}
+.cdn-form-full .form-item-departure-date input {
+  border-radius: 0 0 4px 4px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-departure-date input {
+    border-radius: 0 4px 4px 0;
+  }
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-range {
+    float: left;
+    width: 200px;
+  }
+}
+@media (min-width: 64.0625em) {
+  .cdn-form-full .form-item-range {
+    margin: 0 30px;
+    width: 270px;
+  }
+}
+.cdn-form-full .form-item-range select {
+  background: #fff;
+  border-color: #dadada;
+  height: 60px;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 18px;
+  text-indent: 25px;
+  color: #222222;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+  background-position: 93% 50%;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+.cdn-form-full .form-item-village,
+.cdn-form-full .form-item-capacity {
+  border: 1px solid #dadada;
+  background-color: #fff;
+  height: 60px;
+  line-height: 60px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-village,
+  .cdn-form-full .form-item-capacity {
+    float: left;
+    margin-right: 40px;
+    border: none;
+    background-color: transparent;
+    height: auto;
+    line-height: inherit;
+  }
+}
+.cdn-form-full .form-item-village label,
+.cdn-form-full .form-item-capacity label {
+  font-size: 15px;
+  letter-spacing: -0.5px;
+  color: #777777;
+  display: inline-block;
+  font-weight: normal;
+  margin: 0 0 0 15px;
+  height: 40px;
+  line-height: 40px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-village label,
+  .cdn-form-full .form-item-capacity label {
+    margin: 0 15px 0 0;
+  }
+}
+.cdn-form-full .form-item-village select,
+.cdn-form-full .form-item-capacity select {
+  font-size: 15px;
+  letter-spacing: -0.5px;
+  color: #222222;
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  height: 58px;
+  background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+  background-position: 93% 50%;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  outline: none;
+  box-shadow: none;
+  padding-right: 25px;
+  border: none;
+  width: 70%;
+  float: right;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-village select,
+  .cdn-form-full .form-item-capacity select {
+    border: 1px solid #dadada;
+    width: auto;
+    float: none;
+    height: 40px;
+  }
+}
+.cdn-form-full .form-item-partly-available,
+.cdn-form-full .form-item-booked {
+  margin: 0;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-partly-available,
+  .cdn-form-full .form-item-booked {
+    margin: 0 40px 0 0;
+    float: left;
+  }
+}
+.cdn-form-full .form-item-partly-available label,
+.cdn-form-full .form-item-booked label {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  letter-spacing: -0.5px;
+  color: #777777;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-partly-available label,
+  .cdn-form-full .form-item-booked label {
+    line-height: 40px;
+  }
+}
+.cdn-form-full .form-item-partly-available input,
+.cdn-form-full .form-item-booked input {
+  margin: 5px 10px 0 5px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-item-partly-available input,
+  .cdn-form-full .form-item-booked input {
+    margin: 0 10px 0 0;
+  }
+}
+.cdn-form-full .form-submit {
+  background: #f4791f;
+  border: none;
+  box-shadow: none;
+  font-size: 16px;
+  height: 60px;
+  width: 100%;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .form-submit {
+    float: left;
+    width: 170px;
+  }
+}
+@media (min-width: 64em) {
+  .cdn-form-full .form-submit {
+    float: right;
+  }
+}
+.cdn-form-full .cdn-results {
+  padding: 15px 0 80px;
+  clear: both;
+}
+.cdn-form-full .cdn-results:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cdn-form-full .cdn-results .cdn-village-teasers {
+  padding-bottom: 30px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .cdn-results .cdn-village-teasers {
+    padding-bottom: 80px;
+  }
+}
+.cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+@media (min-width: 48em) {
+  .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
+    display: inline-block;
+    margin-bottom: 0;
+    width: 31%;
+  }
+  .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser:nth-child(3n+2) {
+    margin: 0 3%;
+  }
+}
+.cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser.not-active {
+  opacity: 0.5 !important;
+}
+.cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser.active {
+  opacity: 1 !important;
+}
+
+.paragraph--type--camp-du-nord-calendar-view {
+  display: none;
+}
+
+.cdn-village-calendars {
+  padding-bottom: 20px;
+}
+@media (min-width: 48em) {
+  .cdn-village-calendars {
+    background: #f5f5f5;
+    padding-bottom: 80px;
+  }
+}
+.cdn-village-calendars .cdn-calendar {
+  height: 0;
+  overflow: hidden;
+}
+.cdn-village-calendars .cdn-calendar.not-active {
+  height: 0 !important;
+}
+.cdn-village-calendars .cdn-calendar.active {
+  height: auto !important;
+}
+.cdn-village-calendars .cdn-calendar .description {
+  margin: 0 15px 35px;
+  position: relative;
+}
+@media (min-width: 48em) {
+  .cdn-village-calendars .cdn-calendar .description {
+    margin: 70px auto;
+    max-width: 770px;
+  }
+}
+.cdn-village-calendars .cdn-calendar .description .title {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 50px;
+  font-weight: normal;
+  color: #222222;
+  margin: 0;
+}
+@media (min-width: 48em) {
+  .cdn-village-calendars .cdn-calendar .description .title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+}
+.cdn-village-calendars .cdn-calendar .description .view {
+  border-radius: 4px;
+  border: 2px solid #f4791f;
+  color: #f4791f;
+  display: none;
+  font-size: 27px;
+  height: 60px;
+  line-height: 55px;
+  position: absolute;
+  right: 60px;
+  text-align: center;
+  top: 10px;
+  width: 60px;
+}
+@media (min-width: 48em) {
+  .cdn-village-calendars .cdn-calendar .description .view {
+    display: block;
+  }
+}
+.cdn-village-calendars .cdn-calendar .description .close-cal {
+  color: #939393;
+  display: none;
+  font-size: 35px;
+  font-weight: normal;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 12px;
+  width: 50px;
+}
+@media (min-width: 48em) {
+  .cdn-village-calendars .cdn-calendar .description .close-cal {
+    display: block;
+  }
+}
+
+.cdn-calendar .views-element-container,
+.paragraph--type--camp-du-nord-calendar-view .views-element-container {
+  height: 0;
+}
+@media (min-width: 48em) {
+  .cdn-calendar .views-element-container,
+  .paragraph--type--camp-du-nord-calendar-view .views-element-container {
+    height: auto;
+    max-width: 770px;
+    margin: 0 auto 3px;
+    box-shadow: 0 0 6px #ccc;
+    background: none;
+  }
+}
+.cdn-calendar .views-element-container .views-exposed-form,
+.paragraph--type--camp-du-nord-calendar-view .views-element-container .views-exposed-form {
+  display: none;
+}
+
+.fullcalendar {
+  padding: 35px;
+}
+@media (min-width: 48em) {
+  .fullcalendar {
+    background-color: #fff;
+  }
+}
+.fullcalendar .fc-scroller {
+  height: 550px !important;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-scroller {
+    overflow: inherit !important;
+    height: auto !important;
+  }
+}
+.fullcalendar .fc-toolbar .fc-left,
+.fullcalendar .fc-toolbar .fc-left * {
+  float: none;
+  text-align: center;
+}
+.fullcalendar .fc-toolbar .fc-right {
+  display: none;
+}
+.fullcalendar .fc-header-toolbar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-header-toolbar {
+    background-color: #fff;
+    margin-bottom: 0;
+    padding: 23px 0 20px;
+    display: block;
+  }
+}
+.fullcalendar .fc-header-toolbar .fc-center h2 {
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: #2e2e2e;
+  text-transform: uppercase;
+}
+.fullcalendar .fc-header-toolbar .ui-button {
+  border: none;
+  background: none;
+  height: 24px;
+}
+.fullcalendar .fc-header-toolbar .fc-prev-button {
+  margin-right: 30px;
+}
+.fullcalendar .fc-header-toolbar .fc-prev-button span {
+  background: url("../img/arrow-left.svg") no-repeat 0 0;
+}
+.fullcalendar .fc-header-toolbar .fc-next-button {
+  margin-left: 30px;
+}
+.fullcalendar .fc-header-toolbar .fc-next-button span {
+  background: url("../img/arrow-right.svg") no-repeat 0 0;
+}
+.fullcalendar .fc-view-container .fc-view * {
+  border: none;
+}
+.fullcalendar .fc-view-container .fc-view .fc-head {
+  display: none;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view .fc-head {
+    display: table-header-group;
+  }
+}
+.fullcalendar .fc-view-container .fc-view .fc-head-container .fc-row {
+  background: #fff;
+}
+.fullcalendar .fc-view-container .fc-view .fc-head-container th {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 18px;
+  letter-spacing: -0.4px;
+  color: #2e2e2e;
+  font-weight: normal;
+}
+.fullcalendar .fc-view-container .fc-view .fc-head-container th span {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  background-color: #fff;
+}
+.fullcalendar .fc-view-container .fc-view .ui-widget-content {
+  background: none;
+}
+.fullcalendar .fc-view-container .fc-view .fc-day {
+  background-color: #fff;
+}
+.fullcalendar .fc-view-container .fc-view .fc-day-top,
+.fullcalendar .fc-view-container .fc-view .fc-day-number {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 30px;
+  letter-spacing: -0.6px;
+  text-align: left;
+  color: #555;
+  padding: 15px 25px;
+}
+.fullcalendar .fc-view-container .fc-view .fc-day-top .fc-day-number,
+.fullcalendar .fc-view-container .fc-view .fc-day-number .fc-day-number {
+  float: none;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view .fc-day-top,
+  .fullcalendar .fc-view-container .fc-view .fc-day-number {
+    text-align: center;
+    padding: 24px 0 15px 0;
+  }
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product {
+  background: none;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: -0.4px;
+  color: #3e3e3e;
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  text-align: center;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product {
+    background: #fff;
+    border: solid 1px #fff;
+  }
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.selected {
+  border: solid 2px #f4791f;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.selected .fc-day-number {
+  color: #f4791f;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.first-selected {
+  border-radius: 5px 0 0 5px;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected {
+  border-radius: 0 5px 5px 0;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.no-left-border {
+    border-left: none;
+  }
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.no-right-border {
+    border-right: none;
+  }
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-content {
+  background: #eaeaea;
+  margin: 0;
+  overflow: inherit;
+  border-radius: 5px;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-content {
+    margin: 8px;
+  }
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-time {
+  display: none;
+}
+.fullcalendar .fc-view-container .fc-view .fc-content-skeleton {
+  background: #f5f5f5;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view .fc-content-skeleton {
+    background: #fff;
+  }
+}
+.fullcalendar .fc-view-container .fc-view .fc-content-skeleton tbody tr td {
+  display: block;
+}
+@media (min-width: 768px) {
+  .fullcalendar .fc-view-container .fc-view .fc-content-skeleton tbody tr td {
+    background: #fff;
+    display: table-cell;
+  }
+}
+
+.cdn-village-teaser .inner {
+  position: relative;
+  display: inline-block;
+}
+.cdn-village-teaser img {
+  border-radius: 4px;
+  max-width: 100%;
+}
+.cdn-village-teaser .info {
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.cdn-village-teaser .info:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cdn-village-teaser .info .title {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 30px;
+  letter-spacing: -0.6px;
+  color: #fff;
+  float: left;
+  line-height: 30px;
+  max-width: 270px;
+}
+.cdn-village-teaser .info .capacity {
+  float: right;
+  color: #fff;
+  font-size: 20px;
+  margin-top: 4px;
+}
+.cdn-village-teaser .info .capacity i {
+  margin-right: 5px;
+}
+
+.cdn-calendar-list {
+  background: #f5f5f5;
+  display: none;
+}
+@media (max-width: 767px) {
+  .cdn-calendar-list {
+    display: block;
+  }
+}
+.cdn-calendar-list .cdn-calendar-list-row {
+  margin: 0 15px;
+  height: 75px;
+  padding: 10px 15px 10px 15px;
+}
+.cdn-calendar-list .cdn-calendar-list-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.cdn-calendar-list .cdn-calendar-list-row > a {
+  text-decoration: none;
+}
+.cdn-calendar-list .cdn-calendar-list-row > a.selected .month,
+.cdn-calendar-list .cdn-calendar-list-row > a.selected .day,
+.cdn-calendar-list .cdn-calendar-list-row > a.selected .day span {
+  color: #f4791f;
+}
+.cdn-calendar-list .cdn-calendar-list-row .date {
+  float: left;
+}
+.cdn-calendar-list .cdn-calendar-list-row .date .month {
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #999;
+}
+.cdn-calendar-list .cdn-calendar-list-row .date .day {
+  text-transform: uppercase;
+  font-size: 30px;
+  color: #555;
+  line-height: 30px;
+}
+.cdn-calendar-list .cdn-calendar-list-row .date .day span {
+  color: #999;
+}
+.cdn-calendar-list .cdn-calendar-list-row .price {
+  float: right;
+  margin: 10px 0 0;
+  font-size: 16px;
+  color: #999;
+}
+
+#cdn-contact-form-wrapper {
+  background: #fff;
+}
+#cdn-contact-form-wrapper h2 {
+  font-size: 25px;
+  text-transform: uppercase;
+  margin: 40px 0 25px;
+  font-weight: normal;
+}
+#cdn-contact-form-wrapper h3 {
+  font-size: 16px;
+  color: #222;
+  text-transform: none;
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+#cdn-contact-form-wrapper h4 {
+  color: #777777;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+@media (min-width: 0) and (max-width: 61.9375em) {
+  #cdn-contact-form-wrapper h4 {
+    display: none;
+  }
+}
+#cdn-contact-form-wrapper fieldset legend {
+  border-bottom: none;
+  margin-bottom: 8px;
+}
+#cdn-contact-form-wrapper fieldset legend span {
+  color: #a1a1a1;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: normal;
+}
+#cdn-contact-form-wrapper #edit-extra-mattress--wrapper {
+  float: left;
+}
+#cdn-contact-form-wrapper #edit-high-chair--wrapper {
+  float: left;
+}
+@media (min-width: 62em) {
+  #cdn-contact-form-wrapper #edit-additional {
+    border-right: 1px solid #f4f4f4;
+    float: left;
+    width: 49%;
+  }
+}
+@media (min-width: 62em) {
+  #cdn-contact-form-wrapper #edit-emergency-contact {
+    padding-left: 55px;
+    float: left;
+    width: 49%;
+  }
+}
+#cdn-contact-form-wrapper #edit-emergency-contact label {
+  color: #a1a1a1;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: normal;
+}
+#cdn-contact-form-wrapper #edit-emergency-contact input,
+#cdn-contact-form-wrapper #edit-emergency-contact select {
+  height: 60px;
+  color: #222222;
+  background: #fff;
+}
+#cdn-contact-form-wrapper #edit-first-time--wrapper legend {
+  border-bottom: none;
+  margin-bottom: 15px;
+}
+#cdn-contact-form-wrapper #edit-first-time--wrapper legend span {
+  font-size: 16px;
+  color: #222;
+  text-transform: none;
+  font-weight: normal;
+}
+#cdn-contact-form-wrapper #edit-extra-mattress--wrapper,
+#cdn-contact-form-wrapper #edit-high-chair--wrapper {
+  margin-right: 20px;
+}
+#cdn-contact-form-wrapper .js-webform-radios {
+  background: #fff;
+  display: inline-block;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+  padding: 5px;
+}
+#cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio {
+  display: inline-block;
+  padding: 0;
+}
+#cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio label {
+  width: 70px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 15px;
+  color: #a1a1a1;
+  display: block;
+  text-align: center;
+}
+#cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio input {
+  display: none;
+}
+#cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio.checked label {
+  background: #00ab92;
+  color: #fff;
+  border-radius: 4px;
+}
+#cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio.checked label.no {
+  background: #a1a1a1;
+}
+#cdn-contact-form-wrapper #edit-phone {
+  margin-bottom: -16px;
+}
+#cdn-contact-form-wrapper .actions {
+  background: #383838;
+  padding: 50px 0 25px;
+}
+#cdn-contact-form-wrapper .actions .form-submit {
+  background: #f4791f;
+  font-size: 15px;
+  width: 100%;
+  box-shadow: none;
+}
+@media (min-width: 62em) {
+  #cdn-contact-form-wrapper .actions .form-submit {
+    float: right;
+    width: auto;
+  }
 }
 
 .block-description--wrapper {

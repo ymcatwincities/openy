@@ -1,0 +1,22 @@
+# Camp du Nord Personify Product routing definition
+cdn_prs_product.settings_tab:
+  route_name: cdn_prs_product.settings
+  title: 'Settings'
+  base_route: cdn_prs_product.settings
+
+entity.cdn_prs_product.canonical:
+  route_name: entity.cdn_prs_product.canonical
+  base_route: entity.cdn_prs_product.canonical
+  title: 'View'
+
+entity.cdn_prs_product.edit_form:
+  route_name: entity.cdn_prs_product.edit_form
+  base_route: entity.cdn_prs_product.canonical
+  title: 'Edit'
+
+entity.cdn_prs_product.delete_form:
+  route_name:  entity.cdn_prs_product.delete_form
+  base_route:  entity.cdn_prs_product.canonical
+  title: Delete
+  weight: 10
+
