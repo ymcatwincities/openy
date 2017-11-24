@@ -489,9 +489,21 @@ function openy_update_8037() {
 }
 
 /**
- * Enable inline_form_errors Drupal Core 8.4.
+ * Enable openy_code_block and openy_prgf_code_block modules.
  */
 function openy_update_8038() {
+  $modules = [
+    'openy_code_block',
+    'openy_prgf_code_block',
+  ];
+  // Enable modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Enable inline_form_errors Drupal Core 8.4.
+ */
+function openy_update_8039() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['inline_form_errors'], TRUE);
 }
