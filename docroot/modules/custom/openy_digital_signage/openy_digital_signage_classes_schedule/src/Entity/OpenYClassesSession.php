@@ -171,6 +171,8 @@ class OpenYClassesSession extends ContentEntityBase implements OpenYClassesSessi
     $fields['source_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Reference to source entity.'))
       ->setDescription(t('Store reference to the source entity.'))
+      ->setSetting('unsigned', TRUE)
+      ->setSetting('size', 'big')
       ->setRevisionable(TRUE)
       ->setRequired(FALSE)
       ->setTranslatable(FALSE)
