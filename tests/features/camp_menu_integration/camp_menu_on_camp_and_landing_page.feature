@@ -13,7 +13,7 @@ Feature: Camp menu on camp and landing page
     And I fill in "Title" with "Landing page with camp"
     And I uncheck the box "Generate automatic URL alias"
     When I select "One Column" from "Layout"
-    And I press "Save and publish"
+    And I press "Save"
     Then I should see "Landing Page With Camp"
     Then I should see the message "Landing Page Landing page with camp has been created."
     And I store the Node as "landing-page-node"
@@ -31,7 +31,7 @@ Feature: Camp menu on camp and landing page
       | Zip code       | 98101          |
       | Phone          | +1234567890    |
     When I press "Add Camp menu" in the "header_area"
-    And I press "Save and publish"
+    And I press "Save"
     Then I should see the message "Camp Camp with camp menu has been created."
     And I should see "Landing page with camp link"
     And I store the Node as "camp-node"
