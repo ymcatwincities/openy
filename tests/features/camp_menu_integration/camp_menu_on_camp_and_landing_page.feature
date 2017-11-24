@@ -39,7 +39,7 @@ Feature: Camp menu on camp and landing page
     # Edit Landing page with camp to add a Camp menu
     Given I go to stored Node "edit_url" from "landing-page-node"
     And I press "Add Camp menu" in the "header_area"
-    Then I press "Save and keep published"
+    Then I press "Save"
     And I should see the message "Landing Page Landing page with camp has been updated."
     And I should see "Landing page with camp link"
 
@@ -58,7 +58,7 @@ Feature: Camp menu on camp and landing page
     # Edit Camp with camp menu to set Landing page with camp link to <front>
     Given I go to stored Node "edit_url" from "camp-node"
     And I fill in "URL" with "<front>"
-    Then I press "Save and keep published"
+    Then I press "Save"
     And I should see the message "Camp Camp with camp menu has been updated."
     Then I go to homepage
     And I should see "Landing page with camp link"
@@ -80,7 +80,7 @@ Feature: Camp menu on camp and landing page
     # Edit Camp with camp menu to set Landing page with camp link to it's system url
     Given I go to stored Node "edit_url" from "camp-node"
     And I fill in "URL" with stored Node "system_url" from "landing-page-node"
-    Then I press "Save and keep published"
+    Then I press "Save"
     And I should see the message "Camp Camp with camp menu has been updated."
     Then I go to homepage
     And I should see "Landing page with camp link"
@@ -105,7 +105,7 @@ Feature: Camp menu on camp and landing page
     # Edit Camp with camp menu to set Landing page with camp link to it's new alias
     Given I go to stored Node "edit_url" from "camp-node"
     And I fill in "URL" with "/landing-page-new-alias"
-    Then I press "Save and keep published"
+    Then I press "Save"
     And I should see the message "Camp Camp with camp menu has been updated."
     Then I go to homepage
     And I should see "Landing page with camp link"
