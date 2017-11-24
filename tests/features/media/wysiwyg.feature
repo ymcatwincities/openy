@@ -33,7 +33,7 @@ Feature: WYSIWYG
     Then I switch back from an iframe
     And I wait for AJAX to finish
     And I select "Full" from "Display as"
-    And I click "//button/span[.='Embed']" xpath element
+    And I click "//button[.='Embed']" xpath element
     Then I press "Save and keep published"
     And I should see an ".field-media-image img" element
 
@@ -48,7 +48,7 @@ Feature: WYSIWYG
     Then I switch back from an iframe
     And I wait for AJAX to finish
     And I select "Full" from "Display as"
-    And I click "//button/span[.='Embed']" xpath element
+    And I click "//button[.='Embed']" xpath element
     Then I press "Save and keep published"
     And I should see an "div.media-video .video-embed-field-responsive-video iframe" element
 
@@ -63,6 +63,6 @@ Feature: WYSIWYG
     Then I switch back from an iframe
     And I wait for AJAX to finish
     And I select "Full" from "Display as"
-    And I click "//button/span[.='Embed']" xpath element
+    And I click "//button[.='Embed']" xpath element
     Then I press "Save and keep published"
     And I should see an "div.media-document .field-media-document iframe" element
