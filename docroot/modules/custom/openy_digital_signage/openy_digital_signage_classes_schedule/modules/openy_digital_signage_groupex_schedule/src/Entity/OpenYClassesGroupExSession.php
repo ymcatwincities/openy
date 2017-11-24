@@ -99,6 +99,8 @@ class OpenYClassesGroupExSession extends ContentEntityBase implements OpenYClass
     $fields['groupex_id'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('ID'))
       ->setDescription(t('The ID of the GroupEx Pro Session.'))
+      ->setSetting('unsigned', TRUE)
+      ->setSetting('size', 'big')
       ->setReadOnly(TRUE);
 
     $fields['location'] = BaseFieldDefinition::create('entity_reference')

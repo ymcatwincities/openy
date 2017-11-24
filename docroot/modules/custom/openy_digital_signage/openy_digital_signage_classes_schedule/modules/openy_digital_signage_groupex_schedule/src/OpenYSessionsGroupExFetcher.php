@@ -105,6 +105,8 @@ class OpenYSessionsGroupExFetcher implements OpenYSessionsGroupExFetcherInterfac
       if (empty($item->id)) {
         continue;
       }
+      $date = new \DateTime($item->date);
+      $item->id = (int)($item->id . $date->format('dmY'));
       $feed[$item->id] = $item;
     }
 
