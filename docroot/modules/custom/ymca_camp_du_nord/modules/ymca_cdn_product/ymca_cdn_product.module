@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_cdn_product.module.
+ */
+
+/**
+ * Remove all products.
+ */
+function ymca_cdn_product_remove_all() {
+  \Drupal::service('ymca_cdn_product.repository')->removeAll();
+}
