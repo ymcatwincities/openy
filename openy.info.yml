@@ -93,6 +93,7 @@ dependencies:
   - token_filter
   - views_field_formatter
   - ctools
+  - lndr
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
@@ -103,6 +104,7 @@ dependencies:
   - openy_block
   - openy_block_basic
   - openy_block_menu
+  - openy_code_block
   - openy_datalayer
   - openy_taxonomy
   - openy_txnm_amenities
@@ -121,6 +123,7 @@ dependencies:
   - openy_prgf_branches_popup_all
   - openy_prgf_branches_popup_class
   - openy_prgf_class_location
+  - openy_prgf_code_block
   - openy_prgf_simple_content
   - openy_prgf_schedule_search
   - openy_prgf_featured_content
