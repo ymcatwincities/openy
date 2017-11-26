@@ -444,10 +444,15 @@ class GroupexScheduleFetcher {
       // Get day.
       $item->day = $item->date;
 
-      // Get start and end time.
-      preg_match("/(.*)-(.*)/i", $item->time, $output);
-      $item->start = $output[1];
-      $item->end = $output[2];
+      // Get start and end time. Add To Calendar does not support All Day events.
+      if ($item->time == "All Day") {
+        $item->start = "12:00am";
+        $item->end = "11:59pm";
+      } else {
+        preg_match("/(.*)-(.*)/i", $item->time, $output);
+        $item->start = $output[1];
+        $item->end = $output[2];
+      }
 
       // Get time of day.
       $datetime = new \DateTime($item->start);
