@@ -5,7 +5,7 @@ id: openy_demo_nnews_file
 migration_tags:
   - 'OpenY Demo News'
 migration_group: openy_demo_nnews
-label: Files
+label: 'Files'
 source:
   plugin: embedded_data
   data_rows:
