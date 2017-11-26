@@ -4,11 +4,11 @@ dependencies:
   enforced:
     module:
       - openy_demo_nnews
-id: openy_demo_menu_link_main_news
+id: openy_demo_menu_link_footer_news
 migration_tags:
   - 'OpenY Demo News'
 migration_group: openy_demo_nnews
-label: 'Create news demo main menu link'
+label: 'Create news demo footer menu link'
 migration_dependencies:
   required:
     - openy_demo_news_landing
@@ -18,9 +18,9 @@ source:
     -
       id: 40
       title: 'News'
-      menu_name: 'main'
+      menu_name: 'footer-menu-center'
       link: 'news'
-      weight: 8
+      weight: 5
       parent_id: 0
       expanded: 0
       parent_link_path: ''
