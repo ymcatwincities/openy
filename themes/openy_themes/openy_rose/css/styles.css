@@ -4827,6 +4827,10 @@ html.js .branch__updates_queue__button {
     font-size: 16px;
   }
 }
+#schedules-search-form-wrapper .form-control[readonly], #schedules-search-form-wrapper .form-control[disabled] {
+  color: #4f4f4f;
+  background: #ebebeb;
+}
 
 #schedules-search-listing-wrapper .results {
   margin-bottom: 40px;
@@ -7044,9 +7048,14 @@ textarea:focus,
 .form-control:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
-  border-color: #69ff00;
-  box-shadow: 0 0 0 5px #69ff00;
-  outline: none !important;
+  outline: 5px auto #69ff00;
+}
+
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  box-shadow: 0px 0px 3px 3px #69ff00;
+  outline: none;
 }
 
 .focusable.skip-link:focus {

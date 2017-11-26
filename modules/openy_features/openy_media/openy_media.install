@@ -30,3 +30,17 @@ function openy_media_update_8002() {
     'blazy.settings',
   ]);
 }
+
+/**
+ * Import full_without_blazy and half_without_blazy view mode configs.
+ */
+function openy_media_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_media') . '/config/install/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_mode.media.full_without_blazy',
+    'core.entity_view_mode.media.half_without_blazy',
+  ]);
+}
