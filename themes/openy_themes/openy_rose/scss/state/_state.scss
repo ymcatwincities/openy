@@ -13,9 +13,14 @@ textarea:focus,
 .form-control:focus,
 .slick-arrow:focus:before,
 .navbar-toggle:focus {
-  border-color: $bright-green;
-  box-shadow: 0 0 0 5px $bright-green;
-  outline: none !important;
+  outline: 5px auto $bright-green;
+}
+
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  box-shadow: 0px 0px 3px 3px $bright-green;
+  outline: none;
 }
 
 .focusable.skip-link:focus {
