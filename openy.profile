@@ -110,6 +110,8 @@ function openy_demo_content_configs_map($key = NULL) {
     'news' => [
       'openy_demo_nnews' => [
         'openy_demo_node_news',
+        'openy_demo_news_landing',
+        'openy_demo_menu_link_footer_news',
       ],
     ],
     'facility' => [
