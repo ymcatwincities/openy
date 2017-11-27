@@ -16,7 +16,6 @@ dependencies:
     - entity_reference_revisions
     - text
     - user
-    - views_field_formatter
 id: node.news.full
 targetEntityType: node
 bundle: news
@@ -24,20 +23,13 @@ mode: full
 content:
   addthis:
     label: hidden
-    type: views_field_formatter
+    type: boolean
     weight: 8
     region: content
     settings:
-      view: ''
-      arguments:
-        field_value:
-          checked: true
-        entity_id:
-          checked: true
-        delta:
-          checked: true
-      multiple: false
-      implode_character: ''
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
   field_content:
     weight: 3
