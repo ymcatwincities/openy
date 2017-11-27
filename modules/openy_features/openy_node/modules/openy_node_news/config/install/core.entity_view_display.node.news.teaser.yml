@@ -14,7 +14,6 @@ dependencies:
     - node.type.news
   module:
     - user
-    - views_field_formatter
 id: node.news.teaser
 targetEntityType: node
 bundle: news
@@ -22,20 +21,13 @@ mode: teaser
 content:
   addthis:
     label: hidden
-    type: views_field_formatter
+    type: boolean
     weight: 100
     region: content
     settings:
-      view: ''
-      arguments:
-        field_value:
-          checked: true
-        entity_id:
-          checked: true
-        delta:
-          checked: true
-      multiple: false
-      implode_character: ''
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
     third_party_settings: {  }
   field_news_category:
     type: entity_reference_label
