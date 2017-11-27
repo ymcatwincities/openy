@@ -590,6 +590,10 @@ function openy_lily_preprocess_paragraph(&$variables) {
   $paragraph = $variables['paragraph'];
   switch ($paragraph->getType()) {
     case 'small_text_banner':
+      $variables['content']['image_path'] = '';
+      if (empty($variables['content']['field_prgf_image'][0])) {
+        break;
+      }
       $image = $variables['content']['field_prgf_image'][0];
       $path = ImageStyle::load($image['#image_style'])
         ->buildUrl($image['#item']->entity->uri->value);
