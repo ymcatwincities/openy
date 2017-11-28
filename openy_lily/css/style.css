@@ -4724,8 +4724,8 @@ a.sports-icon.floor-hockey {
 .cart-item-remove-button,
 .cart-item-activate-coupon-button,
 .cart-item-donation-button {
-  padding: 13px 25px;
   margin-top: 0;
+  padding: 13px 25px;
 }
 
 .paragraph--type--microsites-menu,
@@ -4742,7 +4742,7 @@ a.sports-icon.floor-hockey {
 .paragraph--type--camp-menu .camp-menu-wrapper {
   padding: 0 30px;
   background: #383838;
-  z-index: 5;
+  z-index: 8;
 }
 .paragraph--type--microsites-menu .camp-menu-wrapper .columns-gradient,
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
