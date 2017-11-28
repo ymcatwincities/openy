@@ -87,7 +87,7 @@
 
       $('a.cdn-prs-product', context).each(function() {
         // Check id date is booked.
-        var id = $(this).attr('href').replace('/admin/structure/cdn_prs_product/', '');
+        var id = $(this).attr('href').replace(settings.path.baseUrl + 'admin/structure/cdn_prs_product/', '');
         if ($('.cdn-calendar-list-row[data-id="' + id + '"]').hasClass('booked')) {
           $(this).addClass('booked');
         }
