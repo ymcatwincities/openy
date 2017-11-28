@@ -4709,12 +4709,12 @@ a.sports-icon.floor-hockey {
   top: -8px;
 }
 .ymcali-class-sessions-accordion details summary {
-  display: inline-block;
+  display: list-item;
   font-weight: bold;
   font-size: 18px;
   font-family: 'Cachet', Helvetica, Arial, sans-serif;
   float: left;
-  width: 75%;
+  width: 80%;
 }
 .ymcali-class-sessions-accordion details .status-message {
   clear: both;
