@@ -16,12 +16,23 @@
       z-index: 1001;
     }
 
-    img {
+    .logo {
       height: 38px;
       margin: 16px;
 
       @include breakpoint($screen-desktop) {
         height: 70px;
+      }
+    }
+
+    .aof {
+      display: none;
+
+      @include breakpoint($screen-lg-desktop) {
+        display: inline;
+        height: 33px;
+        margin-left: -22px;
+        margin-top: 35px;
       }
     }
   }
