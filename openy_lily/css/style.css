@@ -967,7 +967,23 @@ label {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .path-account .status-message {
-  margin: 30px 0 0 0 !important;
+  margin: 30px auto 0 !important;
+  max-width: 100%;
+}
+@media (min-width: 768px) {
+  .path-account .status-message {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .path-account .status-message {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .path-account .status-message {
+    width: 1170px;
+  }
 }
 
 #ajax-ccc-account-login-form [data-drupal-selector="edit-login"] {
@@ -1378,7 +1394,7 @@ legend {
   #schedules-search-form-wrapper .js-form-item {
     width: 100% !important;
   }
-  #schedules-search-form-wrapper .filters-container .container {
+  #schedules-search-form-wrapper .filters-container .container, #schedules-search-form-wrapper .filters-container .path-account .status-message, .path-account #schedules-search-form-wrapper .filters-container .status-message {
     padding: 0;
   }
 }
@@ -2299,7 +2315,7 @@ article.site-alert ul li div {
   line-height: 32px;
   margin: 0 0 30px 0;
 }
-#membership-page #block-openy-lily-content .landing-header:first-of-type .container {
+#membership-page #block-openy-lily-content .landing-header:first-of-type .container, #membership-page #block-openy-lily-content .landing-header:first-of-type .path-account .status-message, .path-account #membership-page #block-openy-lily-content .landing-header:first-of-type .status-message {
   width: 100% !important;
 }
 #membership-page #block-openy-lily-content .landing-header:first-of-type .buttons-wrap p {
@@ -2545,15 +2561,15 @@ article.site-alert ul li div {
 #membership-page #block-openy-lily-content .landing-content article.webform form {
   margin-top: 0;
 }
-#membership-page #block-openy-lily-content .landing-content article.webform .container {
+#membership-page #block-openy-lily-content .landing-content article.webform .container, #membership-page #block-openy-lily-content .landing-content article.webform .path-account .status-message, .path-account #membership-page #block-openy-lily-content .landing-content article.webform .status-message {
   max-width: 100%;
 }
 @media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content .landing-content article.webform .container {
+  #membership-page #block-openy-lily-content .landing-content article.webform .container, #membership-page #block-openy-lily-content .landing-content article.webform .path-account .status-message, .path-account #membership-page #block-openy-lily-content .landing-content article.webform .status-message {
     padding: 0;
   }
 }
-#membership-page #block-openy-lily-content .container {
+#membership-page #block-openy-lily-content .container, #membership-page #block-openy-lily-content .path-account .status-message, .path-account #membership-page #block-openy-lily-content .status-message {
   width: 100%;
 }
 #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content {
@@ -4219,13 +4235,13 @@ body .ajax-progress-throbber .throbber.path-account {
   top: 1px !important;
 }
 
-.green-3-col.container {
+.green-3-col.container, .path-account .green-3-col.status-message {
   background: #26bcbd;
   position: relative;
   margin: 50px -100px -30px;
   padding: 50px 100px;
 }
-.green-3-col.container:before {
+.green-3-col.container:before, .path-account .green-3-col.status-message:before {
   position: absolute;
   top: 0px;
   left: -60%;
@@ -4242,27 +4258,27 @@ body .ajax-progress-throbber .throbber.path-account {
   -ms-transform: skew(30deg);
   transform: skew(30deg);
 }
-.green-3-col.container .row h3, .green-3-col.container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .green-3-col.container .landing-content h3 {
+.green-3-col.container .row h3, .path-account .green-3-col.status-message .row h3, .green-3-col.container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .green-3-col.container .landing-content h3, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content h3 {
   color: #fff;
 }
-.green-3-col.container .row h4, .green-3-col.container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .green-3-col.container .landing-content h4 {
+.green-3-col.container .row h4, .path-account .green-3-col.status-message .row h4, .green-3-col.container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .green-3-col.container .landing-content h4, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content h4 {
   color: #006a6a;
   text-transform: uppercase;
   font-size: 18px;
 }
-.green-3-col.container .row p, .green-3-col.container #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .green-3-col.container .landing-content p {
+.green-3-col.container .row p, .path-account .green-3-col.status-message .row p, .green-3-col.container #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .green-3-col.container .landing-content p, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content p {
   color: #fff;
   font-size: 15px;
 }
-.green-3-col.container .row ul, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ul, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ul, .green-3-col.container .row ol, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ol, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ol {
+.green-3-col.container .row ul, .path-account .green-3-col.status-message .row ul, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ul, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ul, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ul, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ul, .green-3-col.container .row ol, .path-account .green-3-col.status-message .row ol, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ol, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ol, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ol, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ol {
   font-size: 15px;
   padding-left: 18px;
   margin: 20px 0;
 }
-.green-3-col.container .row ul li, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ul li, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ul li, .green-3-col.container .row ol li, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ol li, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ol li {
+.green-3-col.container .row ul li, .path-account .green-3-col.status-message .row ul li, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ul li, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ul li, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ul li, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ul li, .green-3-col.container .row ol li, .path-account .green-3-col.status-message .row ol li, .green-3-col.container #membership-page #block-openy-lily-content .landing-content ol li, #membership-page #block-openy-lily-content .green-3-col.container .landing-content ol li, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content ol li, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content ol li {
   color: #fff;
 }
-.green-3-col.container .row .button a, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .button a, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .button a {
+.green-3-col.container .row .button a, .path-account .green-3-col.status-message .row .button a, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .button a, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .button a, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content .button a, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content .button a {
   box-shadow: none;
   background-color: #00aa95;
   background-image: -webkit-linear-gradient(#00aa95, #008c7a);
@@ -4273,17 +4289,17 @@ body .ajax-progress-throbber .throbber.path-account {
   font-weight: bold;
 }
 @media screen and (min-width: 992px) {
-  .green-3-col.container .row .col-md-3, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .col-md-3, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .col-md-3 {
+  .green-3-col.container .row .col-md-3, .path-account .green-3-col.status-message .row .col-md-3, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .col-md-3, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .col-md-3, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content .col-md-3, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content .col-md-3 {
     padding: 0;
   }
 }
 @media screen and (max-width: 767px) {
-  .green-3-col.container .row .col-sm-4, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .col-sm-4, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .col-sm-4 {
+  .green-3-col.container .row .col-sm-4, .path-account .green-3-col.status-message .row .col-sm-4, .green-3-col.container #membership-page #block-openy-lily-content .landing-content .col-sm-4, #membership-page #block-openy-lily-content .green-3-col.container .landing-content .col-sm-4, .path-account .green-3-col.status-message #membership-page #block-openy-lily-content .landing-content .col-sm-4, #membership-page #block-openy-lily-content .path-account .green-3-col.status-message .landing-content .col-sm-4 {
     margin-bottom: 30px;
   }
 }
 
-.sports-promo.container {
+.sports-promo.container, .path-account .sports-promo.status-message {
   background: url("../img/march/openy_lily_member_retention_hero.jpg") no-repeat center 0;
   background-size: cover;
   position: relative;
@@ -4293,32 +4309,32 @@ body .ajax-progress-throbber .throbber.path-account {
   margin: 50px -100px;
   padding: 50px 100px;
 }
-.sports-promo.container .row h3, .sports-promo.container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .sports-promo.container .landing-content h3 {
+.sports-promo.container .row h3, .path-account .sports-promo.status-message .row h3, .sports-promo.container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .sports-promo.container .landing-content h3, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content h3 {
   color: #fff;
   font-size: 30px;
   line-height: 40px;
   text-shadow: 1px 1px 4px #000;
   margin: 0 0 10px;
 }
-.sports-promo.container .row h4, .sports-promo.container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .sports-promo.container .landing-content h4 {
+.sports-promo.container .row h4, .path-account .sports-promo.status-message .row h4, .sports-promo.container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .sports-promo.container .landing-content h4, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content h4 {
   color: #fff;
   font-size: 18px;
   margin: 0 0 20px;
 }
-.sports-promo.container .row p, .sports-promo.container #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .sports-promo.container .landing-content p {
+.sports-promo.container .row p, .path-account .sports-promo.status-message .row p, .sports-promo.container #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .sports-promo.container .landing-content p, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content p, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content p {
   color: #e2e2e2;
   margin: 0 0 30px;
 }
-.sports-promo.container .row .sports-icon, .sports-promo.container #membership-page #block-openy-lily-content .landing-content .sports-icon, #membership-page #block-openy-lily-content .sports-promo.container .landing-content .sports-icon {
+.sports-promo.container .row .sports-icon, .path-account .sports-promo.status-message .row .sports-icon, .sports-promo.container #membership-page #block-openy-lily-content .landing-content .sports-icon, #membership-page #block-openy-lily-content .sports-promo.container .landing-content .sports-icon, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content .sports-icon, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content .sports-icon {
   text-align: left;
   color: #9c1f7b;
 }
-.sports-promo.container .row .description, .sports-promo.container #membership-page #block-openy-lily-content .landing-content .description, #membership-page #block-openy-lily-content .sports-promo.container .landing-content .description {
+.sports-promo.container .row .description, .path-account .sports-promo.status-message .row .description, .sports-promo.container #membership-page #block-openy-lily-content .landing-content .description, #membership-page #block-openy-lily-content .sports-promo.container .landing-content .description, .path-account .sports-promo.status-message #membership-page #block-openy-lily-content .landing-content .description, #membership-page #block-openy-lily-content .path-account .sports-promo.status-message .landing-content .description {
   color: #9c1f7b;
   font-size: 18px;
   margin-top: 20px;
 }
-.sports-promo.container .col-xs-12 {
+.sports-promo.container .col-xs-12, .path-account .sports-promo.status-message .col-xs-12 {
   max-width: 480px;
   margin: 0 auto;
 }
@@ -4343,13 +4359,13 @@ body .ajax-progress-throbber .throbber {
     margin: 25px -15px;
   }
 }
-.session_schedules .container .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2 {
+.session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2 {
   text-align: center;
   color: #9c1f7b;
   margin: 0 0 80px;
 }
 @media screen and (max-width: 767px) {
-  .session_schedules .container .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2 {
+  .session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2 {
     margin: 0 0 20px;
   }
 }
@@ -4418,19 +4434,19 @@ body .ajax-progress-throbber .throbber {
     margin: 0 -15px;
   }
 }
-.clinics_schedule .container .row h2, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h2 {
+.clinics_schedule .container .row h2, .clinics_schedule .path-account .status-message .row h2, .path-account .clinics_schedule .status-message .row h2, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h2, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h2, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h2 {
   text-align: center;
   color: #0889cd;
   margin: 0 0 15px;
 }
-.clinics_schedule .container .row h3, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h3 {
+.clinics_schedule .container .row h3, .clinics_schedule .path-account .status-message .row h3, .path-account .clinics_schedule .status-message .row h3, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h3, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h3, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h3, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h3 {
   text-align: center;
   text-transform: none;
   color: #424242;
   font-size: 18px;
   margin: 0 0 15px;
 }
-.clinics_schedule .container .row h4, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h4 {
+.clinics_schedule .container .row h4, .clinics_schedule .path-account .status-message .row h4, .path-account .clinics_schedule .status-message .row h4, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h4, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h4, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h4, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h4 {
   text-align: center;
   text-transform: uppercase;
   color: #424242;
@@ -4449,7 +4465,7 @@ body .ajax-progress-throbber .throbber {
     text-align: center;
   }
 }
-.clinics_schedule .container .row .columns, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns {
+.clinics_schedule .container .row .columns, .clinics_schedule .path-account .status-message .row .columns, .path-account .clinics_schedule .status-message .row .columns, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns {
   display: inline-block;
   padding: 10px 30px;
   text-align: center;
@@ -4458,31 +4474,31 @@ body .ajax-progress-throbber .throbber {
   width: 100%;
 }
 @media screen and (min-width: 768px) {
-  .clinics_schedule .container .row .columns, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns {
+  .clinics_schedule .container .row .columns, .clinics_schedule .path-account .status-message .row .columns, .path-account .clinics_schedule .status-message .row .columns, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns {
     border-right: 1px solid #e2e2e2;
     margin-bottom: 0;
     width: 33%;
     max-width: 235px;
   }
 }
-.clinics_schedule .container .row .columns:nth-last-child(1), .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns:nth-last-child(1), #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns:nth-last-child(1) {
+.clinics_schedule .container .row .columns:nth-last-child(1), .clinics_schedule .path-account .status-message .row .columns:nth-last-child(1), .path-account .clinics_schedule .status-message .row .columns:nth-last-child(1), .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns:nth-last-child(1), #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns:nth-last-child(1), .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns:nth-last-child(1), #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns:nth-last-child(1), .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns:nth-last-child(1), #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns:nth-last-child(1) {
   border: none;
 }
-.clinics_schedule .container .row .columns h5, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns h5, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns h5 {
+.clinics_schedule .container .row .columns h5, .clinics_schedule .path-account .status-message .row .columns h5, .path-account .clinics_schedule .status-message .row .columns h5, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns h5, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns h5, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns h5, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns h5, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns h5, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns h5 {
   color: #0889cd;
   font-size: 18px;
   font-weight: normal;
   margin: 0;
 }
-.clinics_schedule .container .row .columns .date, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .date, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .date {
+.clinics_schedule .container .row .columns .date, .clinics_schedule .path-account .status-message .row .columns .date, .path-account .clinics_schedule .status-message .row .columns .date, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .date, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .date, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns .date, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns .date, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns .date, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns .date {
   color: #9c1f7b;
   font-size: 18px;
 }
-.clinics_schedule .container .row .columns .date p, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .date p, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .date p {
+.clinics_schedule .container .row .columns .date p, .clinics_schedule .path-account .status-message .row .columns .date p, .path-account .clinics_schedule .status-message .row .columns .date p, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .date p, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .date p, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns .date p, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns .date p, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns .date p, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns .date p {
   color: #9c1f7b;
   margin: 0;
 }
-.clinics_schedule .container .row .columns .img-wrapper img, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .img-wrapper img, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .img-wrapper img {
+.clinics_schedule .container .row .columns .img-wrapper img, .clinics_schedule .path-account .status-message .row .columns .img-wrapper img, .path-account .clinics_schedule .status-message .row .columns .img-wrapper img, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .columns .img-wrapper img, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .columns .img-wrapper img, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .columns .img-wrapper img, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .columns .img-wrapper img, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .columns .img-wrapper img, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .columns .img-wrapper img {
   display: inline-block;
   margin-bottom: 20px;
 }
@@ -4708,8 +4724,8 @@ a.sports-icon.floor-hockey {
 .cart-item-remove-button,
 .cart-item-activate-coupon-button,
 .cart-item-donation-button {
-  margin-top: 0;
   padding: 13px 25px;
+  margin-top: 0;
 }
 
 .paragraph--type--microsites-menu,

@@ -173,10 +173,21 @@ label {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
   }
-
   .path-account & {
-    margin: 30px 0 0 0 !important;
+    @extend .container;
+    margin: 30px auto 0 !important;
+    max-width: 100%;
+    @media (min-width: 768px) {
+      width: 750px;
+    }
+    @media (min-width: 992px) {
+      width: 970px;
+    }
+    @media (min-width: 1200px) {
+      width: 1170px;
+    }
   }
+
 }
 
 #ajax-ccc-account-login-form {
