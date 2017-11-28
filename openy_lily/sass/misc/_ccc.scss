@@ -61,18 +61,22 @@
 
 .ymcali-class-sessions-accordion {
   details {
+    display: inline-block;
     position: relative;
+    margin: 20px 0 0 !important;
+    width: 100%;
+
     .ajax-progress {
       right: 150px;
       top: -8px;
     }
     summary {
+      display: inline-block;
       font-weight: bold;
       font-size: 18px;
       font-family: 'Cachet', Helvetica, Arial, sans-serif;
       float: left;
       width: 75%;
-      margin-bottom: 20px;
     }
     .status-message {
       clear: both;

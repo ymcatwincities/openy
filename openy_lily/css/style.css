@@ -4680,19 +4680,22 @@ a.sports-icon.floor-hockey {
 }
 
 .ymcali-class-sessions-accordion details {
+  display: inline-block;
   position: relative;
+  margin: 20px 0 0 !important;
+  width: 100%;
 }
 .ymcali-class-sessions-accordion details .ajax-progress {
   right: 150px;
   top: -8px;
 }
 .ymcali-class-sessions-accordion details summary {
+  display: inline-block;
   font-weight: bold;
   font-size: 18px;
   font-family: 'Cachet', Helvetica, Arial, sans-serif;
   float: left;
   width: 75%;
-  margin-bottom: 20px;
 }
 .ymcali-class-sessions-accordion details .status-message {
   clear: both;
