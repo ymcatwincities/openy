@@ -132,6 +132,11 @@
       }
     }
   }
+  .node--type-class & {
+    .ui-dialog-content {
+      overflow: visible;
+    }
+  }
 }
 
 #schedules-search-listing-wrapper .branch-hours-wrapper .card {

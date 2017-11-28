@@ -3198,6 +3198,9 @@ body.path-search #block-mainpagecontent li {
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button:hover {
   background-color: #92288d;
 }
+.node--type-class .ui-dialog .ui-dialog-content {
+  overflow: visible;
+}
 
 #schedules-search-listing-wrapper .branch-hours-wrapper .card {
   background-color: #b92f9e;
@@ -4726,6 +4729,15 @@ a.sports-icon.floor-hockey {
 .cart-item-donation-button {
   margin-top: 0;
   padding: 13px 25px;
+}
+
+.openy-ccc-show-program-info .ajax-progress {
+  right: 150px;
+  top: auto;
+  margin-top: -4px !important;
+  z-index: 999;
+  bottom: -57px;
+  left: auto !important;
 }
 
 .paragraph--type--microsites-menu,
