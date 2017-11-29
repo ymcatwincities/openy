@@ -461,6 +461,7 @@ display:
         groups:
           1: AND
       css_class: eb-media
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
