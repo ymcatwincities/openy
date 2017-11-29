@@ -1563,7 +1563,18 @@ footer .container .footer__nav nav ul > li a {
   font-weight: 700;
 }
 .ui-dialog .ui-dialog-titlebar-close {
-  display: none !important;
+  /*display: none !important;*/
+  background: none;
+  border: none;
+  color: #fff;
+}
+.ui-dialog .ui-dialog-titlebar-close:before {
+  content: "\f00d";
+  font-family: "FontAwesome";
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: -15px;
 }
 .ui-dialog .ui-dialog-content {
   height: auto;
