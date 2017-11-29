@@ -115,6 +115,10 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(t('Created'))
+      ->setDescription(t('The time that the record was created.'));
+
     // Standard field, used as unique if primary index.
     $fields['goal'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Visit Goal'))
