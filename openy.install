@@ -499,3 +499,10 @@ function openy_update_8038() {
   // Enable modules.
   \Drupal::service('module_installer')->install($modules, TRUE);
 }
+
+/**
+ * Enable OpenY Block Date.
+ */
+function openy_update_8039() {
+  \Drupal::service('module_installer')->install(['openy_prgf_block_date'], TRUE);
+}
