@@ -94,6 +94,11 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       return $block;
     }
 
+    $activeRegistration = FALSE;
+    if ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
+      $activeRegistration = TRUE;
+    }
+
     $block = [
       '#theme' => 'openy_campaign_campaign_register',
       '#attached' => [
@@ -101,13 +106,16 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
           'openy_campaign/campaign_countdown'
         ],
         'drupalSettings' => [
-          'campaignSettigns' => [
+          'campaignSettings' => [
             'startDate' => $campaign->get('field_campaign_start_date')->value,
-            'endDate' => $campaign->get('field_campaign_end_date')->value
+            'endDate' => $campaign->get('field_campaign_end_date')->value,
+            'startRegDate' => $campaign->get('field_campaign_reg_start_date')->value,
+            'endRegDate' => $campaign->get('field_campaign_reg_end_date')->value
           ]
         ]
       ],
       '#campaign' => $campaign,
+      '#activeRegistration' => $activeRegistration,
       '#cache' => [
         'max-age' => 0,
       ],

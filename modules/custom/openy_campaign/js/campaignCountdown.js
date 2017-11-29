@@ -5,14 +5,14 @@ Drupal.behaviors.campaignCountdown = {
         }
         jQuery('.countdown').html('');
 
-        // Parse campaign end date to the Date object
-        var dateObj = moment(settings.campaignSettigns.endDate);
-        var compaignEndDate = new Date(dateObj);
+        // Parse campaign end registration date to the Date object
+        var dateObj = moment(settings.campaignSettings.endRegDate);
+        var campaignRegEndDate = new Date(dateObj);
 
         simplyCountdown('.countdown', {
-            year: compaignEndDate.getUTCFullYear(), // required
-            month: compaignEndDate.getUTCMonth() + 1, // required
-            day: compaignEndDate.getUTCDate(), // required
+            year: campaignRegEndDate.getUTCFullYear(), // required
+            month: campaignRegEndDate.getUTCMonth() + 1, // required
+            day: campaignRegEndDate.getUTCDate(), // required
             hours: 0, // Default is 0 [0-23] integer
             minutes: 0, // Default is 0 [0-59] integer
             seconds: 0, // Default is 0 [0-59] integer
