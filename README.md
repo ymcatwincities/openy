@@ -30,7 +30,7 @@ You can always evaluate distribution by visiting demo website - http://sandbox.o
 
 *\* OpenY version 1.3.*
 
-# Installation
+# Installation 
 
 ### Prerequisites
 
