@@ -82,7 +82,7 @@ Feature: Class Content type
   Scenario: Create basic Class
     Given I go to "/node/add/class"
     And I fill in "Title" with "Class One"
-    When I press "Save and publish"
+    When I press "Save"
     Then I should see the message "Class Class One has been created."
 
   Scenario: I see appropriate branch content on class
