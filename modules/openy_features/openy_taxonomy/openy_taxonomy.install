@@ -61,3 +61,14 @@ function openy_taxonomy_update_8003() {
     }
   }
 }
+
+/**
+ * Update empty area settings in Taxonomy Term view.
+ */
+function openy_taxonomy_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_taxonomy');
+  $config .= '/config/install/';
+  $config .= 'views.view.taxonomy_term.yml';
+  $config_importer->update($config, 'views.view.taxonomy_term', 'display.page_1.display_options');
+}

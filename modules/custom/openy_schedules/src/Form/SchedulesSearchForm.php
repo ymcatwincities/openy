@@ -444,15 +444,20 @@ class SchedulesSearchForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Date'),
       '#default_value' => isset($values['date']) ? $values['date'] : '',
+      '#attributes' => [
+        'class' => ['openy-schedule-datepicker'],
+      ],
       '#ajax' => [
         'callback' => [$this, 'rebuildAjaxCallback'],
         'wrapper' => 'schedules-search-form-wrapper',
-        'event' => 'keyup',
+        'event' => 'change',
         'method' => 'replace',
         'effect' => 'fade',
         'progress' => [
           'type' => 'throbber',
         ],
+        // Do not focus current input element after ajax finish.
+        'disable-refocus' => TRUE,
       ],
     ];
 

@@ -241,6 +241,13 @@
       }
     }
   }
+
+  .form-control  {
+    &[readonly], &[disabled] {
+      color: $dark_grey;
+      background: $lighter-grey;
+    }
+  }
 }
 
 #schedules-search-listing-wrapper {
