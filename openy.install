@@ -487,3 +487,15 @@ function openy_update_8037() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['openy_prgf_amenities'], TRUE);
 }
+
+/**
+ * Enable openy_code_block and openy_prgf_code_block modules.
+ */
+function openy_update_8038() {
+  $modules = [
+    'openy_code_block',
+    'openy_prgf_code_block',
+  ];
+  // Enable modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
