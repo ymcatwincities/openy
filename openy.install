@@ -489,10 +489,24 @@ function openy_update_8037() {
 }
 
 /**
- * Enable OpenY Block Date.
+ * Enable openy_code_block and openy_prgf_code_block modules.
  */
 function openy_update_8038() {
-  \Drupal::service('module_installer')->install([
+  $modules = [
+    'openy_code_block',
+    'openy_prgf_code_block',
+  ];
+  // Enable modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
+}
+
+/**
+ * Enable OpenY Block Date.
+ */
+function openy_update_8039() {
+  $modules = [
     'openy_prgf_block_date',
-  ]);
+  ];
+  // Enable modules.
+  \Drupal::service('module_installer')->install($modules, TRUE);
 }
