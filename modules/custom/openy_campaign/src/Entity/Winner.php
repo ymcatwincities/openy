@@ -37,6 +37,10 @@ class Winner extends ContentEntityBase {
       ->setDescription(t('The ID of the Winner entity.'))
       ->setReadOnly(TRUE);
 
+    $fields['created'] = BaseFieldDefinition::create('created')
+      ->setLabel(t('Created'))
+      ->setDescription(t('The time that the record was created.'));
+
     $fields['member_campaign'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Member Campaign winner'))
       ->setDescription(t('Member Campaign winner'))
