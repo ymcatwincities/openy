@@ -33,6 +33,10 @@
       top: -12px;
       font-size: 30px;
     }
+    .ui-button-icon-primary,
+    .ui-button-text {
+      display: none;
+    }
 
   }
   .ui-dialog-content {
