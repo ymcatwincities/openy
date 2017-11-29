@@ -29,8 +29,7 @@
 #}
 <div{{ attributes }}>
   <div class="openy-digital-signage-block-html">
-    <div class="block-background-image"
-         style="background-image: url({{ background_image }});">
+    <div{% if background_image %} class="block-background-image" style="background-image: url({{ background_image }});"{% endif %}>
       {{ title_prefix }}
       {% if label %}
         <h2{{ title_attributes }}>{{ label }}</h2>
