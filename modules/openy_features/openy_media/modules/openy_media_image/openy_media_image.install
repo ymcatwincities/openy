@@ -187,3 +187,18 @@ function openy_media_image_update_8007() {
     'core.entity_view_display.media.image.half_without_blazy',
   ]);
 }
+
+/**
+ * Update OpenY media images library view config.
+ */
+function openy_media_image_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_media_image');
+  $config .= '/config/install/';
+  $config .= 'views.view.images_library.yml';
+  $config_importer->update(
+    $config,
+    'views.view.images_library',
+    'display.default.display_options'
+  );
+}
