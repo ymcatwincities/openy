@@ -59,6 +59,9 @@ class GameController extends ControllerBase {
    * Play one Game page.
    */
   public function playOneGamePage($uuid) {
+    // Disable response caching.
+    \Drupal::service('page_cache_kill_switch')->trigger();
+
     $gameResult = $this->generateGameResult($uuid);
 
     /** @var \Drupal\openy_campaign\Entity\MemberGame $game */
@@ -69,7 +72,7 @@ class GameController extends ControllerBase {
     $campaign = $game->member->entity->campaign->entity;
 
     if (!empty($gameResult['already_used_chance'])) {
-      $link = Link::fromTextAndUrl(t('Back to Campaign'), new Url('entity.node.canonical', [ 'node' => $campaign->id()]))->toString();
+      $link = Link::fromTextAndUrl(t('Back to Campaign'), new Url('entity.node.canonical', ['node' => $campaign->id()]))->toString();
 
       return [
         '#markup' => $link . ' You have played this chance already. Your result: ' . $result,
@@ -186,6 +189,9 @@ class GameController extends ControllerBase {
     $isWinner = FALSE;
     $randomNumber = mt_rand(0, $expected);
     $result = $campaign->field_campaign_prize_nowin->value;
+    if (empty($result)) {
+      $result = 'Did not win.';
+    }
     foreach ($ranges as $range) {
       if ($randomNumber >= $range['min'] && $randomNumber < $range['max']) {
         $result = $range['description'];
