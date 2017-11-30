@@ -70,7 +70,8 @@
       var jQueryCookieJson = $.cookie.json;
       $.cookie.json = true;
       $.cookie('alerts_dismiss', dismissed, {
-        expires: 7
+        expires: 7,
+        path: '/'
       });
       $.cookie.json = jQueryCookieJson;
     }
