@@ -8,6 +8,7 @@
     padding: 0 30px;
     background: #383838;
     z-index:8;
+    overflow: visible !important;
     .columns-gradient {
       background: #383838;
       &:before {

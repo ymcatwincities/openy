@@ -743,6 +743,28 @@ header#page-head #block-openy-lily-branding a img {
   width: 85px;
   height: auto;
 }
+header#page-head #block-openy-lily-branding .ymca-branding-slogan {
+  font-family: 'Cachet Medium';
+  color: #0089d0;
+  display: block;
+  float: right;
+  font-size: 10px;
+  line-height: 10px;
+  margin-top: 35px;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.node--type-camp header#page-head #block-openy-lily-branding .ymca-branding-slogan {
+  color: #f47820;
+}
+header#page-head.tiny #block-openy-lily-branding .ymca-branding-slogan {
+  font-size: 6px;
+  line-height: 7px;
+  margin-top: 21px;
+}
 header#page-head.tiny .top-navs .nav-global .navbar-header {
   padding: 5px 0 4px;
 }
@@ -4751,6 +4773,7 @@ a.sports-icon.floor-hockey {
   padding: 0 30px;
   background: #383838;
   z-index: 8;
+  overflow: visible !important;
 }
 .paragraph--type--microsites-menu .camp-menu-wrapper .columns-gradient,
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
@@ -5624,6 +5647,7 @@ a.sports-icon.floor-hockey {
   font-weight: 200;
   line-height: 1.4;
   font-size: 21px;
+  z-index: 8;
 }
 .paragraph--type--promo-text:before {
   position: absolute;
