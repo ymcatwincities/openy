@@ -4774,6 +4774,7 @@ a.sports-icon.floor-hockey {
   padding: 0 30px;
   background: #383838;
   z-index: 8;
+  overflow: visible !important;
 }
 .paragraph--type--microsites-menu .camp-menu-wrapper .columns-gradient,
 .paragraph--type--camp-menu .camp-menu-wrapper .columns-gradient {
