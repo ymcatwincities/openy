@@ -99,15 +99,8 @@
 }
 
 .ui-dialog {
-  form {
-    [data-drupal-selector="edit-actions"] .ajax-progress {
-      left: auto;
-      top: auto;
-      margin-top: 0;
-      -webkit-background-clip: 0;
-      right: -25px;
-      bottom: 10px;
-    }
+  .ui-dialog-content {
+    overflow: auto;
   }
   .ui-dialog-buttonpane {
     .ui-dialog-buttonset {
@@ -139,9 +132,14 @@
       }
     }
   }
-  .node--type-class & {
-    .ui-dialog-content {
-      overflow: visible;
+  form {
+    [data-drupal-selector="edit-actions"] .ajax-progress {
+      left: auto !important;
+      top: auto;
+      margin-top: 0 !important;
+      -webkit-background-clip: 0;
+      right: -9px;
+      bottom: 10px;
     }
   }
 }
