@@ -19,7 +19,8 @@
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
         "emuse/behat-html-formatter": "^0.1.0",
-        "drupal/tqextension": "dev-drupal-8"
+        "drupal/tqextension": "dev-drupal-8",
+        "integratedexperts/behat-screenshot": "^0.6.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
