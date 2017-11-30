@@ -497,9 +497,26 @@ header#page-head {
         height: auto;
       }
     }
+    .ymca-branding-slogan {
+      font-family: 'Cachet Medium';
+      color: #0089d0;
+      display: block;
+      float: right;
+      font-size: 10px;
+      line-height: 10px;
+      margin-top: 35px;
+      @include transition(all 0.2s linear);
+    }
   }
 
   &.tiny {
+    #block-openy-lily-branding {
+      .ymca-branding-slogan {
+        font-size: 6px;
+        line-height: 7px;
+        margin-top: 21px;
+      }
+    }
     .top-navs {
       .nav-global {
         .navbar-header {
