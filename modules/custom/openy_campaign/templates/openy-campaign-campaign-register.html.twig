@@ -22,9 +22,8 @@
                 {{ campaign.field_campaign_end_date.value|date('Y') }}
             </h2>
             {% if activeRegistration %}
-            <div id="countDown" class="countdown">
+            <div id="countDown" class="countdown"></div>
             {% endif %}
-            </div>
             {{ form }}
         </div>
     </div>
