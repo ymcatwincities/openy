@@ -757,6 +757,9 @@ header#page-head #block-openy-lily-branding .ymca-branding-slogan {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
+.node--type-camp header#page-head #block-openy-lily-branding .ymca-branding-slogan {
+  color: #f47820;
+}
 header#page-head.tiny #block-openy-lily-branding .ymca-branding-slogan {
   font-size: 6px;
   line-height: 7px;
