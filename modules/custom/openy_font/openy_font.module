@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_font.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\file\FileInterface;
+
+/**
+ * Implements hook_help().
+ */
+function openy_font_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the openy_font module.
+    case 'help.page.openy_font':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('OpenY Font settings module.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Checks that the filename is allowed.
+ *
+ * @param \Drupal\file\FileInterface $file
+ *   A file entity.
+ * @param string $filename
+ *   A file name.
+ *
+ * @return array
+ *   An empty array if the file name is allowed or an array containing an
+ *   error message if it's not.
+ *
+ * @see hook_file_validate()
+ */
+function file_validate_filename(FileInterface $file, $filename) {
+  $errors = [];
+
+  if ($file->getFilename() != $filename) {
+    $errors[] = t('Only file with the following name is allowed: <strong>%file-name-allowed</strong>.', ['%file-name-allowed' => $filename]);
+  }
+  return $errors;
+}
