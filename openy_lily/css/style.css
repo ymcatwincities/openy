@@ -3169,8 +3169,13 @@ body.path-search #block-mainpagecontent li {
   border-radius: 4px;
 }
 
-.ui-dialog .ui-dialog-content {
-  overflow: auto;
+.ui-dialog form [data-drupal-selector="edit-actions"] .ajax-progress {
+  left: auto;
+  top: auto;
+  margin-top: 0;
+  -webkit-background-clip: 0;
+  right: -25px;
+  bottom: 10px;
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button {
   display: inline-block;
@@ -4729,15 +4734,6 @@ a.sports-icon.floor-hockey {
 .cart-item-donation-button {
   margin-top: 0;
   padding: 13px 25px;
-}
-
-.openy-ccc-show-program-info .ajax-progress {
-  right: 150px;
-  top: auto;
-  margin-top: -4px !important;
-  z-index: 999;
-  bottom: -57px;
-  left: auto !important;
 }
 
 .paragraph--type--microsites-menu,
