@@ -18,6 +18,11 @@ h2,
   font-size: 36px;
 }
 
+h3,
+.h3 {
+  font-size: 22px;
+}
+
 p {
   word-wrap: break-word;
 }
@@ -1542,8 +1547,8 @@ body {
 }
 @media (min-width: 64em) {
   .paragraph-gallery .cta-group-wrapper .cta-group h1 {
-    font-size: 46px;
-    line-height: 50px;
+    font-size: 40px;
+    line-height: 44px;
     margin: 0 0 10px;
   }
 }
@@ -1555,13 +1560,11 @@ body {
 }
 @media (min-width: 48em) {
   .paragraph-gallery .cta-group-wrapper .cta-group .text {
-    font-size: 20px;
     margin-bottom: 15px;
   }
 }
 @media (min-width: 64em) {
   .paragraph-gallery .cta-group-wrapper .cta-group .text {
-    font-size: 20px;
     margin-bottom: 30px;
   }
 }
@@ -5714,7 +5717,7 @@ a[href="#step2"] {
 #membership-calc-wrapper legend {
   border: none;
   color: inherit;
-  font-size: 36px;
+  font-size: 32px;
 }
 #membership-calc-wrapper .label-for-field-mbrshp-join-fee,
 #membership-calc-wrapper .label-for-field-mbrshp-monthly-rate {
@@ -5739,7 +5742,7 @@ a[href="#step2"] {
 }
 #membership-calc-wrapper .btn, #membership-calc-wrapper .button {
   line-height: 40px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   padding: 10px 10px;
 }
@@ -5802,6 +5805,9 @@ a[href="#step2"] {
 #membership-calc-wrapper .complete-registration {
   background-color: #5c2e91;
 }
+#membership-calc-wrapper .calc-summary-col h2 {
+  font-size: 34px;
+}
 
 #membership-calc-wrapper .nav-pills {
   display: table;
@@ -5813,7 +5819,7 @@ a[href="#step2"] {
 }
 @media (min-width: 48em) {
   #membership-calc-wrapper .nav-pills {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 42px;
   }
 }

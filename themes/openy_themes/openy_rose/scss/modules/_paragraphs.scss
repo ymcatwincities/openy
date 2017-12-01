@@ -254,8 +254,8 @@
         }
 
         @include breakpoint (1024px) {
-          font-size: 46px;
-          line-height: 50px;
+          font-size: 40px;
+          line-height: 44px;
           margin: 0 0 10px;
         }
       }
@@ -267,12 +267,10 @@
         margin-bottom: 15px;
 
         @include breakpoint (768px) {
-          font-size: 20px;
           margin-bottom: 15px;
         }
 
         @include breakpoint (1024px) {
-          font-size: 20px;
           margin-bottom: 30px;
         }
 
