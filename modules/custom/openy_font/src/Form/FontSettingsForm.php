@@ -42,44 +42,44 @@ class FontSettingsForm extends ConfigFormBase {
         ]) . '</p>',
     ];
 
-    $form['cachet_bold'] = array(
+    $form['cachet_bold'] = [
       '#type' => 'managed_file',
       '#field_name' => 'cachet_bold',
       '#title' => $this->t('Cachet Bold'),
       '#description' => $this->t('Upload Cachet Bold here. File name should be <strong>Cachet-Bold.ttf</strong>.'),
-      '#upload_validators' => array(
-        'file_validate_extensions' => array('ttf'),
-        'file_validate_filename' => array('Cachet-Bold.ttf'),
-      ),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['ttf'],
+        'openy_font_file_validation' => ['bold'],
+      ],
       '#upload_location' => 'public://fonts/',
       '#default_value' => $config->get('cachet_bold'),
-    );
+    ];
 
-    $form['cachet_book'] = array(
+    $form['cachet_book'] = [
       '#type' => 'managed_file',
       '#field_name' => 'cachet_book',
       '#title' => $this->t('Cachet Book'),
       '#description' => $this->t('Upload Cachet Book here. File name should be <strong>Cachet-Book.ttf</strong>.'),
-      '#upload_validators' => array(
-        'file_validate_extensions' => array('ttf'),
-        'file_validate_filename' => array('Cachet-Book.ttf'),
-      ),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['ttf'],
+        'openy_font_file_validation' => ['book'],
+      ],
       '#upload_location' => 'public://fonts/',
       '#default_value' => $config->get('cachet_book'),
-    );
+    ];
 
-    $form['cachet_medium'] = array(
+    $form['cachet_medium'] = [
       '#type' => 'managed_file',
       '#field_name' => 'cachet_medium',
       '#title' => $this->t('Cachet Medium'),
       '#description' => $this->t('Upload Cachet Medium here. File name should be <strong>Cachet-Medium.ttf</strong>.'),
-      '#upload_validators' => array(
-        'file_validate_extensions' => array('ttf'),
-        'file_validate_filename' => array('Cachet-Medium.ttf'),
-      ),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['ttf'],
+        'openy_font_file_validation' => ['medium'],
+      ],
       '#upload_location' => 'public://fonts/',
       '#default_value' => $config->get('cachet_medium'),
-    );
+    ];
 
     return parent::buildForm($form, $form_state);
   }

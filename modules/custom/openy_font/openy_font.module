@@ -29,8 +29,8 @@ function openy_font_help($route_name, RouteMatchInterface $route_match) {
  *
  * @param \Drupal\file\FileInterface $file
  *   A file entity.
- * @param string $filename
- *   A file name.
+ * @param string $font_style
+ *   A font style name.
  *
  * @return array
  *   An empty array if the file name is allowed or an array containing an
@@ -38,11 +38,12 @@ function openy_font_help($route_name, RouteMatchInterface $route_match) {
  *
  * @see hook_file_validate()
  */
-function file_validate_filename(FileInterface $file, $filename) {
+function openy_font_file_validation(FileInterface $file, $font_style) {
   $errors = [];
 
-  if ($file->getFilename() != $filename) {
-    $errors[] = t('Only file with the following name is allowed: <strong>%file-name-allowed</strong>.', ['%file-name-allowed' => $filename]);
+  $regex = '/.*' . preg_quote($font_style) . '.*$/i';
+  if (!preg_match($regex, $file->getFilename())) {
+    $errors[] = t("It looks like that you're trying to upload wrong font. Font name should contain %font_style in the name.", ['%font_style' => $font_style]);
   }
   return $errors;
 }
