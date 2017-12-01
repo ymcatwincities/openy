@@ -138,6 +138,16 @@ figcaption {
   margin: 20px auto;
 }
 
+/**
+ * Date picker.
+ *
+ * The date picker pop-up comes with a series of styles that are all em based.
+ * This should reduce it at the parent level to got most down to about 12px.
+ */
+.ui-datepicker {
+  font-size: 1em;
+}
+
 .block-description--wrapper {
   display: flex;
 }
@@ -3728,6 +3738,7 @@ html.js .branch__updates_queue__button {
 .locations-list header h1,
 .locations-list header h2,
 .locations-list header h2.h1 {
+  font-size: 36px;
   padding-left: 20px;
   padding-bottom: 0px;
   clear: both;
@@ -4812,7 +4823,7 @@ html.js .branch__updates_queue__button {
   border-radius: 4px;
   color: #00aeef;
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   height: 30px;
   line-height: 30px;
   text-transform: uppercase;
@@ -4860,8 +4871,8 @@ html.js .branch__updates_queue__button {
 }
 @media (min-width: 48em) {
   #schedules-search-listing-wrapper .results h2 {
-    font-size: 44px;
-    line-height: 48px;
+    font-size: 40px;
+    line-height: 44px;
   }
 }
 #schedules-search-listing-wrapper .results h2 em {
@@ -4878,7 +4889,7 @@ html.js .branch__updates_queue__button {
 }
 @media (min-width: 48em) {
   #schedules-search-listing-wrapper .results .group_time {
-    font-size: 30px;
+    font-size: 28px;
   }
 }
 #schedules-search-listing-wrapper .results .schedule-sessions-group-slider {
@@ -6985,7 +6996,7 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto .field-lto-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   color: #fff;
-  font-size: 36px;
+  font-size: 32px;
 }
 @media (max-width: 480px) {
   .paragraph--type--lto .field-lto-title {
@@ -7031,7 +7042,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .paragraph--type--lto .btn, .paragraph--type--lto .button {
   white-space: normal;
-  font-size: 20px;
+  font-size: 18px;
   padding: 0;
   width: 100%;
   border: 1px solid white;
