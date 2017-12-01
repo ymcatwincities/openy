@@ -4086,6 +4086,7 @@ html.js .branch__updates_queue__button {
   margin-bottom: 50px;
 }
 .node--type-blog h1 {
+  font-size: 36px;
   letter-spacing: -1.2px;
   padding-bottom: 8px;
 }
@@ -4229,7 +4230,7 @@ html.js .branch__updates_queue__button {
 }
 .blog-related h3 {
   font-weight: bold;
-  font-size: 36px;
+  font-size: 28px;
 }
 .blog-related h3 a {
   color: inherit;
