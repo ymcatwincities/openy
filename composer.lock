@@ -1694,6 +1694,9 @@
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "2857270 - Entity reference field selected causing Fatal Error": "https://www.drupal.org/files/issues/2857270-4-fix-entity-reference-field-using-name-property.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1973,6 +1976,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2053,6 +2059,9 @@
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3312,6 +3321,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
                 }
             },
             "autoload": {
@@ -3619,6 +3631,9 @@
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
                     }
+                },
+                "patches_applied": {
+                    "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -4142,6 +4157,9 @@
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -7553,6 +7571,57 @@
                 "webtest"
             ],
             "time": "2017-06-30 04:02:48"
+        },
+        {
+            "name": "integratedexperts/behat-screenshot",
+            "version": "0.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/integratedexperts/behat-screenshot.git",
+                "reference": "55a1497784346b2a68131956fd7a0bd364275e55"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/integratedexperts/behat-screenshot/zipball/55a1497784346b2a68131956fd7a0bd364275e55",
+                "reference": "55a1497784346b2a68131956fd7a0bd364275e55",
+                "shasum": ""
+            },
+            "require": {
+                "behat/behat": ">=3.3.1",
+                "behat/mink-extension": "~v2.2",
+                "behat/mink-goutte-driver": "*",
+                "behat/mink-selenium2-driver": "*",
+                "symfony/finder": "^3.2"
+            },
+            "require-dev": {
+                "beet/box": "^0.5.1",
+                "behat/mink": "~1.5",
+                "escapestudios/symfony2-coding-standard": "~2.0",
+                "integratedexperts/behat-phpserver": "^0.1",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "IntegratedExperts\\BehatScreenshot": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Skrypnyk",
+                    "email": "alex.designworks@gmail.com"
+                },
+                {
+                    "name": "Alexander Sharkov",
+                    "email": "blade.didan@gmail.com"
+                }
+            ],
+            "description": "Behat Context to capture screenshots from failed tests",
+            "time": "2017-08-07 07:14:56"
         },
         {
             "name": "league/container",
