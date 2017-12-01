@@ -28,6 +28,7 @@ class MemberRegistrationPortalForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $campaignIds = \Drupal::entityQuery('node')
       ->condition('type', 'campaign')
+      ->condition('status', TRUE)
       ->execute();
     $campaigns = Node::loadMultiple($campaignIds);
     $options = [];
