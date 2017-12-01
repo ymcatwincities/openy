@@ -1048,6 +1048,7 @@ body {
 .form-control {
   border: 1px solid #979797;
   border-radius: 0;
+  font-size: 12px;
   text-shadow: none;
   padding: 6px 12px 6px 5px;
 }
@@ -1688,7 +1689,7 @@ body {
 }
 .promo-card .btn, .promo-card .button {
   white-space: normal;
-  font-size: 20px;
+  font-size: 18px;
   padding: 0px;
   width: 100%;
 }
@@ -2412,7 +2413,7 @@ body {
 }
 @media (min-width: 48em) {
   .program-header h1 {
-    font-size: 60px;
+    font-size: 56px;
     margin-bottom: 80px;
   }
 }
@@ -2533,7 +2534,7 @@ body {
 @media (min-width: 48em) {
   .subprogram-listing-item .content .btn, .subprogram-listing-item .content .button {
     max-width: 360px;
-    font-size: 20px;
+    font-size: 18px;
     padding: 16px;
     margin-top: 25px;
   }
@@ -4362,7 +4363,7 @@ html.js .branch__updates_queue__button {
   height: 34px;
   padding: 7px 16px;
   border: solid 1px #636466;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   text-transform: uppercase;
@@ -4557,7 +4558,7 @@ html.js .branch__updates_queue__button {
   font-weight: 600;
   line-height: lh(30, 26);
   color: #636466;
-  font-size: 40px;
+  font-size: 38px;
   text-transform: uppercase;
   letter-spacing: 2px;
 }

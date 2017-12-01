@@ -78,7 +78,7 @@
     text-transform: uppercase;
     margin: 0 0 15px;
     @include breakpoint($screen-sm) {
-      font-size: 60px;
+      font-size: 56px;
       margin-bottom: 80px;
     }
   }
@@ -191,7 +191,7 @@
       margin-top: 15px;
       @include breakpoint($screen-sm) {
         max-width: 360px;
-        font-size: 20px;
+        font-size: 18px;
         padding: 16px;
         margin-top: 25px;
       }
