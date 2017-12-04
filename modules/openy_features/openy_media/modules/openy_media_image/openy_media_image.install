@@ -18,8 +18,13 @@ function openy_media_image_install() {
  * Implements hook_update_dependencies().
  */
 function openy_media_image_update_dependencies() {
-  $dependencies['openy_media_image'][8007] = [
-    'openy_media' => 8003,
+  $dependencies['openy_media_image'] = [
+    8007 => [
+      'openy_media' => 8003,
+    ],
+    8008 => [
+      'openy' => 8042,
+    ],
   ];
 
   return $dependencies;
