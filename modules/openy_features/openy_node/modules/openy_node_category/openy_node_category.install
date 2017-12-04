@@ -253,7 +253,9 @@ function openy_node_category_update_8012() {
   $config .= 'image.style.node_program_subcategory_teaser.yml';
   $config_importer->update(
     $config,
-    'image.style.node_program_subcategory_teaser',
-    'effects'
+    'image.style.node_program_subcategory_teaser', [
+      'dependencies',
+      'effects',
+    ]
   );
 }

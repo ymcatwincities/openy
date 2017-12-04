@@ -122,7 +122,9 @@ function openy_prgf_teaser_update_8005() {
   $config .= 'image.style.prgf_teaser.yml';
   $config_importer->update(
     $config,
-    'image.style.prgf_teaser',
-    'effects'
+    'image.style.prgf_teaser', [
+      'dependencies',
+      'effects',
+    ]
   );
 }

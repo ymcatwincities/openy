@@ -197,9 +197,7 @@ function openy_media_image_update_8008() {
   // Import configuration.
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'image.style.thumbnail_focal_point',
-  ]);
+  $config_importer->importConfigs(['image.style.thumbnail_focal_point']);
 
   // Update configuration.
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');

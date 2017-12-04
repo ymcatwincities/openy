@@ -254,9 +254,11 @@ function openy_node_blog_update_8010() {
   // Update multiple configurations.
   $configs = [
     'image.style.node_blog' => [
+      'dependencies',
       'effects',
     ],
     'image.style.node_blog_teaser' => [
+      'dependencies',
       'effects',
     ],
   ];

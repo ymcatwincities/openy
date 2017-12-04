@@ -143,7 +143,9 @@ function openy_prgf_small_banner_update_8006() {
   $config .= 'image.style.prgf_small_banner.yml';
   $config_importer->update(
     $config,
-    'image.style.prgf_small_banner',
-    'effects'
+    'image.style.prgf_small_banner', [
+      'dependencies',
+      'effects',
+    ]
   );
 }

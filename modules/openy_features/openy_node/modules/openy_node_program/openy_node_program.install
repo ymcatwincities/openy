@@ -262,7 +262,9 @@ function openy_node_program_update_8011() {
   $config .= 'image.style.node_program_header.yml';
   $config_importer->update(
     $config,
-    'image.style.node_program_header',
-    'effects'
+    'image.style.node_program_header', [
+      'dependencies',
+      'effects',
+    ]
   );
 }
