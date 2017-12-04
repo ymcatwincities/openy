@@ -4859,3 +4859,15 @@ function ymca_master_update_8224() {
   }
 }
 
+/**
+ * Enable openy_prgf_content_banner module.
+ */
+function ymca_master_update_8225() {
+  // Update timezone to America/Chicago on the site.
+  $config = \Drupal::service('config.factory')->getEditable('system.date');
+  $timezone = $config->get('timezone');
+  $timezone['default'] = 'America/Chicago';
+  $config->set('timezone', $timezone);
+  $config->save();
+}
+
