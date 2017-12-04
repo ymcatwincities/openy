@@ -242,3 +242,18 @@ function openy_node_category_update_8011() {
     'content'
   );
 }
+
+/**
+ * Update OpenY node category feature config for Focal Point support.
+ */
+function openy_node_category_update_8012() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_category');
+  $config .= '/config/install/';
+  $config .= 'image.style.node_program_subcategory_teaser.yml';
+  $config_importer->update(
+    $config,
+    'image.style.node_program_subcategory_teaser',
+    'effects'
+  );
+}

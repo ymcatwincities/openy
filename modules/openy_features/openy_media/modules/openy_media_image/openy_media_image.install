@@ -187,3 +187,25 @@ function openy_media_image_update_8007() {
     'core.entity_view_display.media.image.half_without_blazy',
   ]);
 }
+
+/**
+ * Import OpenY media image style "Thumbnail focal point".
+ */
+function openy_media_image_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'image.style.thumbnail_focal_point',
+  ]);
+
+  // Update configuration.
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = $config_dir . 'core.entity_form_display.media.image.default.yml';
+  $config_updater->update($config, 'core.entity_form_display.media.image.default', [
+    'dependencies',
+    'content.field_media_image',
+  ]);
+}

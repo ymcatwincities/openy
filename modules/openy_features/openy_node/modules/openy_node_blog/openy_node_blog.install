@@ -245,3 +245,27 @@ function openy_node_blog_update_8009() {
     }
   }
 }
+
+/**
+ * Update OpenY node blog feature configs for Focal Point support.
+ */
+function openy_node_blog_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_node_blog') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.node_blog' => [
+      'effects',
+    ],
+    'image.style.node_blog_teaser' => [
+      'effects',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

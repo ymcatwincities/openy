@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - focal_point
+name: thumbnail_focal_point
+label: 'Thumbnail focal point'
+effects:
+  34e04922-8470-4641-9e6a-d7a91fc19e6f:
+    uuid: 34e04922-8470-4641-9e6a-d7a91fc19e6f
+    id: focal_point_scale_and_crop
+    weight: 1
+    data:
+      width: 500
+      height: 500
+      crop_type: focal_point
