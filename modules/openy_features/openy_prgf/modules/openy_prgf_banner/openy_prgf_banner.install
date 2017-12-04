@@ -181,7 +181,9 @@ function openy_prgf_banner_update_8007() {
   $config .= 'image.style.prgf_banner.yml';
   $config_importer->update(
     $config,
-    'image.style.prgf_banner',
-    'effects'
+    'image.style.prgf_banner', [
+      'dependencies',
+      'effects',
+    ]
   );
 }
