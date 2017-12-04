@@ -116,15 +116,20 @@ function openy_prgf_teaser_update_8004() {
  * Update OpenY paragraph teaser feature config for Focal Point support.
  */
 function openy_prgf_teaser_update_8005() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = drupal_get_path('module', 'openy_prgf_teaser');
-  $config .= '/config/install/';
-  $config .= 'image.style.prgf_teaser.yml';
-  $config_importer->update(
-    $config,
-    'image.style.prgf_teaser', [
+  $config_dir = drupal_get_path('module', 'openy_prgf_teaser') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.prgf_teaser' =>[
       'dependencies',
       'effects',
-    ]
-  );
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
