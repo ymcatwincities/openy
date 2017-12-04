@@ -152,6 +152,9 @@
             },
             "drupal/views_field_formatter": {
                 "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
+            },
+            "drupal/core": {
+                "2346893 - Fix duplicate AJAX wrapper around a file field issue": "https://www.drupal.org/files/issues/2346893-233.patch"
             }
         }
     },
