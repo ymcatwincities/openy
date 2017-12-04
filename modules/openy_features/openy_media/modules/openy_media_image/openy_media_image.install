@@ -199,11 +199,19 @@ function openy_media_image_update_8008() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs(['image.style.thumbnail_focal_point']);
 
-  // Update configuration.
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.media.image.default' => [
+      'dependencies',
+      'content.field_media_image',
+    ],
+  ];
+
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config = $config_dir . 'core.entity_form_display.media.image.default.yml';
-  $config_updater->update($config, 'core.entity_form_display.media.image.default', [
-    'dependencies',
-    'content.field_media_image',
-  ]);
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
