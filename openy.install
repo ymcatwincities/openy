@@ -514,3 +514,11 @@ function openy_update_8040() {
   // Enable modules.
   \Drupal::service('module_installer')->install(['inline_form_errors'], TRUE);
 }
+
+/**
+ * Enable crop and focal_point modules.
+ */
+function openy_update_8041() {
+  // Enable modules.
+  \Drupal::service('module_installer')->install(['crop', 'focal_point'], TRUE);
+}
