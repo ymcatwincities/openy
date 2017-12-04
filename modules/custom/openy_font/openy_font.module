@@ -45,5 +45,12 @@ function openy_font_file_validation(FileInterface $file, $font_style) {
   if (!preg_match($regex, $file->getFilename())) {
     $errors[] = t("It looks like that you're trying to upload wrong font. Font name should contain %font_style in the name.", ['%font_style' => $font_style]);
   }
+  else {
+    $file->setPermanent();
+    $file->save();
+    /** @var \Drupal\file\FileUsage\DatabaseFileUsageBackend $file_usage */
+    $file_usage = \Drupal::service('file.usage');
+    $file_usage->add($file, 'openy_font', 'user', \Drupal::currentUser()->id());
+  }
   return $errors;
 }
