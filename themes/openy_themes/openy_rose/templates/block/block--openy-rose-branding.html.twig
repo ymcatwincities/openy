@@ -18,7 +18,8 @@
 {% block content %}
   {% if site_logo %}
     <a href="{{ path('<front>') }}" title="{{ 'Go to the homepage'|t }}" rel="home">
-      <img src="{{ site_logo }}" alt="{{ 'Site-logo'|t }}" />
+      <img class="logo" src="{{ site_logo }}" alt="{{ 'Site-logo'|t }}" />
+      <img class="aof" src="{{ base_path }}{{ directory }}/img/aof.svg" alt="{{ 'Areas of focus'|t }}"/>
     </a>
   {% endif %}
   {% if site_name %}
