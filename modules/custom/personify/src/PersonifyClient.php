@@ -44,11 +44,13 @@ class PersonifyClient implements CRMClientInterface {
       }
       $body = $response->getBody();
 
+      /*
       \Drupal::logger('personify')->info('Personify request to %method. Arguments %json. Response %body', [
         '%method' => $method,
         '%json' => json_encode($json),
         '%body' => $body,
       ]);
+      */
 
       return json_decode($body->getContents());
     }
