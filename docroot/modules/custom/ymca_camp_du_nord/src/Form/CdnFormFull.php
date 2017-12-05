@@ -528,9 +528,12 @@ class CdnFormFull extends FormBase {
       foreach ($files as $file) {
         if (preg_match('/cabin/', $file->getFilename())) {
           $path = file_create_url($file->getFileUri());
-          return $path;
         }
       }
+    }
+    if (empty($path)) {
+      // Provide default image.
+      $path = base_path() . drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin3.png';
     }
     return $path;
   }
