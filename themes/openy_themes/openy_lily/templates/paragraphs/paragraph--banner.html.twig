@@ -43,15 +43,23 @@
 view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 'banner',
 ] %}
+{% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
+
+<section{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
 <section id="banner" {{ attributes.addClass(classes).removeClass('banner') }}>
   <div class="row">
     <div class="col-md-8 image">
-      <div class="banner-img visible-md visible-lg"
-           style="background-image: url({{ file_url(content.field_prgf_image.0['#item'].entity.uri.value) }})">
-      </div>
-      <div class="banner-img-mobile">
-        <div class="visible-xs visible-sm">{{ content.field_prgf_image }}</div>
-      </div>
+      {% if content.image_path is not empty %}
+        <div class="banner-img visible-md visible-lg"
+          {% if content.image_path %} style="background-image: url({{ content.image_path }});"{% endif %}>
+        </div>
+      {% endif %}
+      {% if content.image_path is not empty %}
+        <div class="banner-img-mobile">
+          <div
+              class="visible-xs visible-sm">{{ content.field_prgf_image }}</div>
+        </div>
+      {% endif %}
     </div>
     <div class="col-md-4">
       <div class="banner-caption">

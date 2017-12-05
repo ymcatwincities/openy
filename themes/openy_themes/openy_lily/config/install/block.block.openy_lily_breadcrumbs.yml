@@ -1,23 +1,19 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.main
   module:
     - system
   theme:
     - openy_lily
-id: openy_lily_main_menu
+id: breadcrumbs
 theme: openy_lily
-region: primary_menu
+region: breadcrumb
 weight: 0
 provider: null
-plugin: 'system_menu_block:main'
+plugin: system_breadcrumb_block
 settings:
-  id: 'system_menu_block:main'
-  label: 'Main navigation'
+  id: system_breadcrumb_block
+  label: Breadcrumbs
   provider: system
   label_display: '0'
-  level: 1
-  depth: 4
 visibility: {  }

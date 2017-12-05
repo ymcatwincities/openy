@@ -1,4 +1,3 @@
-uuid: e4b7b3f8-45d0-42db-b29f-06fb9688ded0
 langcode: en
 status: false
 dependencies:
@@ -8,11 +7,9 @@ dependencies:
     - system
   theme:
     - openy_lily
-_core:
-  default_config_hash: Rb4GLpTBlQi_xpo9P8nc9PEO31WaMEIZo4-AzFj7XQI
 id: openy_lily_footermenuleft
 theme: openy_lily
-region: '-1'
+region: footer_menu
 weight: -7
 provider: null
 plugin: 'system_menu_block:footer-menu-left'

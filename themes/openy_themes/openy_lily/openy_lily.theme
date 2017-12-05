@@ -15,7 +15,6 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
-use Drupal\block\Entity\Block;
 use Drupal\image\Entity\ImageStyle;
 
 /**
@@ -174,9 +173,12 @@ function openy_lily_preprocess_html(&$variables) {
     $node = Drupal::routeMatch()->getParameter('node_preview');
   }
 
-  if (!$variables['is_front'] = Drupal::service('path.matcher')->isFrontPage() && !empty($node)) {
+  if (!$variables['is_front'] = Drupal::service('path.matcher')
+      ->isFrontPage() && !empty($node)
+  ) {
     if ($current_route_name == 'entity.node.preview') {
-      $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')->get('page.front');
+      $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')
+          ->get('page.front');
     }
   }
 
@@ -239,7 +241,7 @@ function openy_lily_preprocess_page(&$variables) {
             'site-phone',
           ],
           'title' => t('Call us at @tel', ['@tel' => $site_phone]),
-        ]
+        ],
       ],
     ];
   }
@@ -259,7 +261,7 @@ function openy_lily_preprocess_page(&$variables) {
             'btn-info',
           ],
           'target' => '_blank',
-        ]
+        ],
       ],
     ];
   }
@@ -271,31 +273,19 @@ function openy_lily_preprocess_page(&$variables) {
   // Set special variables for Camp and Branch (Location) nodes.
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
     $node = $variables['node'];
-    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
-      if ($service->nodeHasOrIsOfBundle($node, 'camp', FALSE)) {
-        $variables['camp_class'] = 'is-camp';
-        $variables['site_section_bundle'] = 'camp';
-      }
-      if ($service->nodeHasOrIsOfBundle($node, 'branch', FALSE)) {
-        $variables['camp_class'] = 'is-branch';
-        $variables['site_section_bundle'] = 'location';
-      }
-    }
+//    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
+//      if ($service->nodeHasOrIsOfBundle($node, 'camp', FALSE)) {
+//        $variables['camp_class'] = 'is-camp';
+//        $variables['site_section_bundle'] = 'camp';
+//      }
+//      if ($service->nodeHasOrIsOfBundle($node, 'branch', FALSE)) {
+//        $variables['camp_class'] = 'is-branch';
+//        $variables['site_section_bundle'] = 'location';
+//      }
+//    }
   }
 
   $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
-
-  /** @var \Drupal\openy_ccc_api\Session $ccc_session */
-  $ccc_session = \Drupal::service('openy_ccc_session');
-  $variables['ccc_logged_in'] = !$ccc_session->isAnonymous();
-
-  /**Check if CCC User is logged in.*/
-  if ($variables['ccc_logged_in']) {
-    $variables['cccmenu'] = openy_lily_get_header_menu('cccuseraccountmenu');
-  }
-  else {
-    $variables['cccmenuann'] = openy_lily_get_header_menu('anonymoususersmenu');
-  }
 }
 
 /**
@@ -568,18 +558,6 @@ function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInte
 }
 
 /**
- * Function for printing menu block.
- */
-function openy_lily_get_header_menu($menu_name) {
-  $block_menu = Block::load($menu_name);
-  $block_content = \Drupal::entityTypeManager()
-    ->getViewBuilder('block')
-    ->view($block_menu);
-
-  return $block_content;
-}
-
-/**
  * Implements hook_preprocess_paragraph().
  */
 function openy_lily_preprocess_paragraph(&$variables) {
@@ -589,14 +567,32 @@ function openy_lily_preprocess_paragraph(&$variables) {
   /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
   $paragraph = $variables['paragraph'];
   switch ($paragraph->getType()) {
-    case 'small_text_banner':
+    case 'small_banner':
+    case 'banner':
       $variables['content']['image_path'] = '';
       if (empty($variables['content']['field_prgf_image'][0])) {
         break;
       }
-      $image = $variables['content']['field_prgf_image'][0];
-      $path = ImageStyle::load($image['#image_style'])
-        ->buildUrl($image['#item']->entity->uri->value);
+      /* @var \Drupal\media_entity\Entity\Media $media */
+      $media = $variables['content']['field_prgf_image'][0]['#media'];
+      $media_entity = $media->getEntityTypeId();
+      $media_bundle = $media->bundle();
+      $media_view_mode = $variables['content']['field_prgf_image'][0]['#view_mode'];
+
+      // Load Media entity view mode.
+      /* @var \Drupal\core\Entity\Entity\EntityViewDisplay $view */
+      $view = \Drupal::entityTypeManager()
+        ->getStorage('entity_view_display')
+        ->load($media_entity . '.' . $media_bundle . '.' . $media_view_mode);
+      $image_style = $view->getRenderer('field_media_image')
+        ->getSetting('image_style');
+
+      // Load image file.
+      $image = $media->get('field_media_image');
+
+      // Get image style path.
+      $path = ImageStyle::load($image_style)
+        ->buildUrl($image->entity->uri->value);
       $variables['content']['image_path'] = $path;
       break;
   }
