@@ -19,6 +19,9 @@ function openy_node_program_update_dependencies() {
     8008 => [
       'openy_media_image' => 8004,
     ],
+    8011 => [
+      'openy' => 8042,
+    ],
   ];
 
   return $dependencies;
@@ -250,4 +253,26 @@ function openy_node_program_update_8010() {
     'field.field.node.program.field_meta_tags',
     'field.field.node.program.field_program_description',
   ]);
+}
+
+/**
+ * Update OpenY node program feature config for Focal Point support.
+ */
+function openy_node_program_update_8011() {
+  $config_dir = drupal_get_path('module', 'openy_node_program') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.node_program_header' =>[
+      'dependencies',
+      'effects',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
