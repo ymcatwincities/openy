@@ -12,7 +12,10 @@ function openy_node_category_update_dependencies() {
   $dependencies['openy_node_category'] = [
     8002 => [
       'openy_node' => 8003,
-    ]
+    ],
+    8012 => [
+      'openy' => 8042,
+    ],
   ];
 
   return $dependencies;
@@ -241,4 +244,26 @@ function openy_node_category_update_8011() {
     'core.entity_form_display.node.program_subcategory.default',
     'content'
   );
+}
+
+/**
+ * Update OpenY node category feature config for Focal Point support.
+ */
+function openy_node_category_update_8012() {
+  $config_dir = drupal_get_path('module', 'openy_node_category') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'image.style.node_program_subcategory_teaser' =>[
+      'dependencies',
+      'effects',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

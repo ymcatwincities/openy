@@ -94,6 +94,8 @@ dependencies:
   - views_field_formatter
   - ctools
   - lndr
+  - crop
+  - focal_point
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
