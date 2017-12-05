@@ -11081,14 +11081,13 @@ tr:nth-last-child(3) .atcb-list {
 }
 .cdn-form-full .form-item-arrival-date label,
 .cdn-form-full .form-item-departure-date label {
-  font-family: Cachet;
+  font-family: "Cachet Book", Arial, sans-serif;
   font-size: 20px;
   height: 28px;
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: normal;
   letter-spacing: -0.5px;
   color: #222222;
-  text-transform: uppercase;
 }
 .cdn-form-full .form-item-arrival-date input,
 .cdn-form-full .form-item-departure-date input {
@@ -11149,6 +11148,15 @@ tr:nth-last-child(3) .atcb-list {
     margin: 0 30px;
     width: 250px;
   }
+}
+.cdn-form-full .form-item-range label {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 20px;
+  height: 28px;
+  margin-bottom: 10px;
+  font-weight: normal;
+  letter-spacing: -0.5px;
+  color: #222222;
 }
 .cdn-form-full .form-item-range select {
   background: #fff;
@@ -11283,6 +11291,7 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 48em) {
   .cdn-form-full .form-submit {
     float: left;
+    margin-top: 38px;
     width: 150px;
   }
 }
