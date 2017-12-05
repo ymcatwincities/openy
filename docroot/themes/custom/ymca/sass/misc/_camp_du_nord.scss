@@ -20,14 +20,13 @@
   .form-item-arrival-date,
   .form-item-departure-date {
     label {
-      font-family: Cachet;
+      font-family: "Cachet Book", Arial, sans-serif;
       font-size: 20px;
       height: 28px;
       margin-bottom: 10px;
-      font-weight: bold;
+      font-weight: normal;
       letter-spacing: -0.5px;
       color: #222222;
-      text-transform: uppercase;
     }
     input {
       background: #fff url("../img/icon-calendar2.png") no-repeat 20px center;
@@ -73,6 +72,15 @@
     @include breakpoint(1025px) {
       margin: 0 30px;
       width: 250px;
+    }
+    label {
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 20px;
+      height: 28px;
+      margin-bottom: 10px;
+      font-weight: normal;
+      letter-spacing: -0.5px;
+      color: #222222;
     }
     select {
       background: #fff;
@@ -184,6 +192,7 @@
     width: 100%;
     @include breakpoint(768px) {
       float: left;
+      margin-top: 38px;
       width: 150px;
     }
     @include breakpoint(1024px) {

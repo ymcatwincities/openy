@@ -148,17 +148,20 @@ class CdnFormFull extends FormBase {
 
     $form['arrival_date'] = [
       '#type' => 'date',
+      '#title' => t('Check-in Date'),
       '#prefix' => '<div class="top-elements-wrapper"><div class="container"><h2>' . $this->t('Search') . '</h2>',
       '#default_value' => $state['arrival_date'],
     ];
 
     $form['departure_date'] = [
       '#type' => 'date',
+      '#title' => t('Check-out Date'),
       '#default_value' => $state['departure_date'],
     ];
 
     $form['range'] = [
       '#type' => 'select',
+      '#title' => t('Expand date range by'),
       '#default_value' => !empty($state['range']) ? $state['range'] : 3,
       '#options' => [
         0 => '+/- 0 Days',
