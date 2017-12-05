@@ -1,0 +1,26 @@
+uuid: b010f253-a874-49db-a649-8881ccac2058
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.footer-menu-right
+  module:
+    - system
+  theme:
+    - openy_lily
+_core:
+  default_config_hash: HeEhM_9D7p70Dikll8-GcqsQGJFboveIhN9DyIp02cI
+id: openy_lily_footermenuright
+theme: openy_lily
+region: '-1'
+weight: -6
+provider: null
+plugin: 'system_menu_block:footer-menu-right'
+settings:
+  id: 'system_menu_block:footer-menu-right'
+  label: 'Footer menu right'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: 0e5b05ed-08c1-4c29-93da-dddbd3be213f
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - openy_lily
+_core:
+  default_config_hash: DL-9CUxXVpvA2F64cHyotZV3E1z9ywlmXfcVAkkAe-8
+id: openy_lily_branding
+theme: openy_lily
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: false
+  use_site_slogan: false
+visibility: {  }

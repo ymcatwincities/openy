@@ -1,0 +1,22 @@
+uuid: 3febce68-971d-48f9-a0db-ab4dde834b87
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - openy_lily
+_core:
+  default_config_hash: zpgAeyZvecsGX24gH5gQ-ZTMDSTiAydu4u_WypEL31Q
+id: openy_lily_content
+theme: openy_lily
+region: content
+weight: -1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }
