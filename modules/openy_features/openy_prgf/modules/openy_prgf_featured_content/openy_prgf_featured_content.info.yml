@@ -1,0 +1,14 @@
+name: 'OpenY Paragraph Featured Content'
+description: 'OpenY Paragraph Featured Content.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - blazy
+  - field
+  - link
+  - openy_prgf
+  - options
+  - paragraphs
+  - slick
+  - text

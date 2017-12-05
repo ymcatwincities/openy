@@ -1,0 +1,172 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+id: openy_demo_lp_paragraph_simple
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create banner paragraph(s) for demo landing page nodes'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: about_simple
+      parent_id: about
+      description: |
+        <h1><strong>The Y is a founding nonprofit organization, offering
+        health, hope, and opportunity:</strong></h1>
+        <ul>
+          <li>
+            <h4>Parents find a safe, nurturing environment for their children
+            to stay active, be engaged, and learn positive values.</h4>
+          </li>
+          <li>
+            <h4>Children and teens play and develop self-confidence while
+            feeling accepted and supported. </h4>
+          </li>
+          <li>
+            <h4>Former foster kids and homeless young people receive assistance
+            with housing, employment, life skills, and other resources to learn
+            and work.</h4>
+          </li>
+          <li>
+            <h4>Adults connect with friends, pursue interests, and learn how to
+            live healthier.</h4>
+          </li>
+          <li>
+            <h4>Families in crisis due to mental health, child abuse, neglect,
+            or substance abuse receive support and resources from licensed
+            counselors.</h4>
+          </li>
+          <li>
+            <h4>People from all backgrounds and walks of life come together to
+            volunteer and help strengthen their community. </h4>
+          </li>
+        </ul>
+        <h2><strong>Nonprofit</strong></h2>
+        <h4>As a 501(c)3 nonprofit organization, the Y provides crucial
+        programs and services to more than 230,000 people every year. With the
+        help of generous donors, we are able to provide more than 250 homeless
+        youth safe, stable housing, 115,000 healthy meals to school-age youth,
+        and more than $9.5 million in financial assistance to more than 27,000
+        people to ensure everyone has a chance to succeed and belong at the Y.
+        </h4>
+    -
+      id: camp_page_1_simple
+      parent_id: lp_camp_page_1
+      description: |
+        <h4>Do you love Camp Colman? Or maybe you have never been here before
+        and you can't wait to learn more? This page will give you some great
+        insight into our rich history.</h4>
+        <br>
+        <ul>
+          <li>
+            <h4>Explore nature, learn new skills, make new friends and gain
+            respect for the environment.</h4>
+          </li>
+          <li>
+            <h4>Hear stories from our parents and campers.</h4>
+          </li>
+        </ul>
+        <br>
+        <h4>Are you ready to grow, learn, and have the time of your life?
+        Do you want to change the world, one child at a time? Camp Colman
+        summer camp staff applications are up and running, so what are you
+        waiting for?! </h4>
+        <br>
+        <h4>We're looking for dedicated, creative, responsible people to
+        inspire children to discover possibilities and become themselves.
+        Staff training starts in mid-June and will go until the end of August.
+        Check out the positions tab and see all of the possibilities then fill
+        out that app so we can chat. I can't wait to get to know you!</h4>
+    -
+      id: camp_page_2_simple
+      parent_id: lp_camp_page_2
+      description: |
+        <h4>There's no place like overnight camp to discover who you are and
+        the gifts you have to share. Hear stories from our parents and
+        campers.</h4>
+        <br>
+        <h4>Do you love Camp Orkila? Or maybe you have never been here before
+        and you can't wait to learn more? This page will give you some great
+        insight into our rich history.</h4>
+        <br>
+        <h4>There are a lot of really wonderful things about being here on
+        Orcas Island. There's the opportunity for adventure in the woods,
+        mountains, and sea. We have astounding views of the Salish Sea right
+        here at camp. That's just to name a couple of the features we value
+        so much about this island. We can't mention these merits without
+        highlighting one of the greatest things one can find here:
+        An abundantly welcoming and vibrant island community. The people,
+        businesses, schools, organizations, and sense of place all come
+        together to make Orcas Island the gem that it is. </h4>
+
+    -
+      id: camp_page_3_simple
+      parent_id: lp_camp_page_3
+      description: |
+        <h4>Have you been dreaming about sleeping under the stars?  Are you
+        wanting to learn archery and play on the giant swing?  Then this Family
+        Campout is perfect for you!  We provide the games, camp fire, food and
+        fun!  You just need your sleeping bags, tent, and energy. Our goal is
+        to bring the fun of camping to you without the worry of planning what
+        to do.  </h4>
+        <br>
+        <ul>
+          <li>
+            <h4>Make Friends.</h4>
+          </li>
+          <li>
+            <h4>Have Fun.</h4>
+          </li>
+          <li>
+            <h4>Explore Nature.</h4>
+          </li>
+        </ul>
+        <br>
+        <h4>Camp Terry serves as the perfect place for a family reunion,
+        church outing, staff retreat, educational opportunity or any other
+        group gathering that wishes to take advantage the camp's beautiful
+        placement along Raging River. Also, Camp Terry has two comfortable
+        yurts that can accommodate up to 25 people for staff straining
+        and workshops. </h4>
+        <br>
+        <h4> Does your child dream of being an archer, rock climber, or chef?
+        These high-quality programs take some favorite Camp Terry activities
+         to the next level with fun, week-long, learning adventures.</h4>
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_node_landing
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: node
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_content
+  field_prgf_description/value: description
+  field_prgf_description/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: simple_content

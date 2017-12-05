@@ -1,0 +1,25 @@
+name: 'OpenY Paragraph Membership Calculator'
+description: 'OpenY Paragraph Membership Calculator.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - address
+  - blazy
+  - entity_reference_revisions
+  - field
+  - image
+  - media_entity
+  - node
+  - openy_calc
+  - openy_field_custom_hours
+  - openy_hours_formatter
+  - openy_loc_branch
+  - openy_media_image
+  - openy_node_mbrshp
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - telephone
+  - text
+  - user
