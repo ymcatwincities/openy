@@ -8,12 +8,10 @@ dependencies:
     - block_content
   theme:
     - openy_lily
-_core:
-  default_config_hash: q7UVv0kmhgYZY2-FX12kgjTEZiCsj7e4iIWLQARSsqs
 id: openy_lily_footersocialblock
 theme: openy_lily
 region: footer_social
-weight: -8
+weight: -7
 provider: null
 plugin: 'block_content:e350fe26-bc73-4c69-af18-a51a052dbcd3'
 settings:

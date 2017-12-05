@@ -1,4 +1,3 @@
-uuid: 0e5b05ed-08c1-4c29-93da-dddbd3be213f
 langcode: en
 status: true
 dependencies:
@@ -6,12 +5,10 @@ dependencies:
     - system
   theme:
     - openy_lily
-_core:
-  default_config_hash: DL-9CUxXVpvA2F64cHyotZV3E1z9ywlmXfcVAkkAe-8
 id: openy_lily_branding
 theme: openy_lily
-region: header
-weight: 0
+region: logo
+weight: -7
 provider: null
 plugin: system_branding_block
 settings:

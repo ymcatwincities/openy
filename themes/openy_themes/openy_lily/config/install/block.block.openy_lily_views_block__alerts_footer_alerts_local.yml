@@ -1,6 +1,5 @@
-uuid: ef3650ad-ae13-4a4e-ad85-e7affaa49608
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - views.view.alerts
@@ -8,12 +7,10 @@ dependencies:
     - views
   theme:
     - openy_lily
-_core:
-  default_config_hash: HT3OUmu2bpDWOHkPt3CvMvotNBVg1ic-DG2YYI_FRsM
 id: openy_lily_views_block__alerts_footer_alerts_local
 theme: openy_lily
-region: '-1'
-weight: -4
+region: pre_footer
+weight: -6
 provider: null
 plugin: 'views_block:alerts-footer_alerts_local'
 settings:

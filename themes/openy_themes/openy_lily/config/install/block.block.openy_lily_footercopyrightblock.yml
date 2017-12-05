@@ -1,4 +1,3 @@
-uuid: a80a9c2b-a9bb-4e5c-b737-1a0f805a194d
 langcode: en
 status: true
 dependencies:
@@ -8,12 +7,10 @@ dependencies:
     - block_content
   theme:
     - openy_lily
-_core:
-  default_config_hash: E6ZtVmoM0KjmmUzwNg21RHPlZTA713sw_ynyz5jImm4
 id: openy_lily_footercopyrightblock
 theme: openy_lily
 region: footer_social
-weight: 0
+weight: -6
 provider: null
 plugin: 'block_content:cb76bc7c-a957-4b69-96fb-e565ee85f38a'
 settings:

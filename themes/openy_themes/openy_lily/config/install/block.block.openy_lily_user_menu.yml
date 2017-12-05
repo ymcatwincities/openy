@@ -1,4 +1,3 @@
-uuid: 8107ed49-64b9-41d8-889b-eaa1b3cced41
 langcode: en
 status: true
 dependencies:
@@ -8,8 +7,6 @@ dependencies:
     - system
   theme:
     - openy_lily
-_core:
-  default_config_hash: 1bJ9Dm3ka9RDspd2afCyFY2KC-Z15hlj6i89N0TWWKc
 id: openy_lily_user_menu
 theme: openy_lily
 region: secondary_menu

@@ -1,15 +1,12 @@
-uuid: 1de9dfa7-884d-48e7-bdd5-18ac4f5c10ba
 langcode: en
 status: true
 dependencies:
   theme:
     - openy_lily
-_core:
-  default_config_hash: WnJzIFTU6_ipuhzdUAcgkWZkzQkXThMk6WeH6VY1fzI
 id: openy_lily_tabs
 theme: openy_lily
-region: content
-weight: -2
+region: highlighted
+weight: -7
 provider: null
 plugin: local_tasks_block
 settings:
