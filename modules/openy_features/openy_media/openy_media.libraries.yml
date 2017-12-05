@@ -1,0 +1,11 @@
+browser:
+  version: VERSION
+  js:
+    js/browser.js: {}
+  css:
+    theme:
+      css/browser.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/underscore

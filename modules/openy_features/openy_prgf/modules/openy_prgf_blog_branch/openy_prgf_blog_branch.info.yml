@@ -1,0 +1,16 @@
+name: 'OpenY Paragraph Latest Blog Posts (Branch)'
+description: 'OpenY Paragraph Latest Blog Posts (Branch).'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - node
+  - openy_loc_branch
+  - openy_node_blog
+  - openy_prgf
+  - paragraphs
+  - plugin
+  - user
+  - views
+  - views_infinite_scroll

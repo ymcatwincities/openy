@@ -1,0 +1,73 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nlanding
+id: openy_demo_lp_paragraph_grid_columns
+migration_tags: {  }
+migration_group: openy_demo_nlanding
+label: 'Create grid column paragraphs for demo landing page node grid content paragraphs'
+migration_dependencies: {  }
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: homepage_volunteers_grid_col
+      parent_id: homepage_grid
+      headline: 'Volunteers needed!'
+      icon_class: 'handshake-o'
+      description: |
+        <p>Are you interested in coaching? Want to help with youth programs?
+        Looking for a volunteer opportunity your whole family can participate
+        in? When we all join in, we rise together!</p>
+      link_uri: 'internal:/accelerator'
+      link_text: 'Explore Volunteer Opportunities >'
+    -
+      id: homepage_appreciate_grid_col
+      parent_id: homepage_grid
+      headline: 'We Appreciate Your Support'
+      icon_class: 'thumbs-o-up'
+      description: |
+        <p>Every year, we rely on donations to help ensure that all of the
+        people in our community can access our services. There are lots of
+        ways you can give, and we’re grateful for your help!</p>
+      link_uri: 'internal:/give'
+      link_text: 'Support your local YMCA today >'
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: und
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  parent_id:
+    plugin: migration
+    migration: openy_demo_lp_paragraph_grid_content
+    no_stub: true
+    source: parent_id
+  parent_type:
+    plugin: default_value
+    default_value: paragraph
+  # TODO: get parent_field_name from data?
+  parent_field_name:
+    plugin: default_value
+    default_value: field_grid_columns
+  field_prgf_clm_headline: headline
+  field_prgf_clm_class: icon_class
+  field_prgf_grid_clm_description/value: description
+  field_prgf_grid_clm_description/format:
+    plugin: default_value
+    default_value: full_html
+  field_prgf_clm_link/uri: link_uri
+  field_prgf_clm_link/title: link_text
+destination:
+  plugin: 'entity:paragraph'
+  default_bundle: grid_columns

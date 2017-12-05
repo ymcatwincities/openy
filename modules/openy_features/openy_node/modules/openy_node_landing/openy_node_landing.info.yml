@@ -1,0 +1,19 @@
+name: 'OpenY Landing'
+description: 'OpenY Landing.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - entity_reference_revisions
+  - field
+  - field_group
+  - menu_ui
+  - metatag
+  - node
+  - openy_node
+  - options
+  - paragraphs
+  - path
+  - pathauto
+  - scheduler
+  - user

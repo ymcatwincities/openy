@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * OpenY Node Landing module file.
+ */
+
+/**
+ * Implements hook_field_group_build_pre_render_alter().
+ */
+function openy_node_landing_field_group_build_pre_render_alter(&$element) {
+  if (!isset($element['group_sidebar_area']) || !isset($element['group_sidebar_area']['#bundle']) || $element['group_sidebar_area']['#bundle'] != 'landing_page') {
+    return;
+  }
+  // Set visible states for Landing page form Group Sidebar Area when Layout has
+  // a two columns option selected.
+  $element['group_sidebar_area']['#states'] = [
+    'visible' => [
+      [
+        'select[name="field_lp_layout"]' => ['value' => 'two_column'],
+      ],
+      [
+        'select[name="field_lp_layout"]' => ['value' => 'two_column_fixed'],
+      ],
+    ],
+  ];
+}

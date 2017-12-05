@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_map_theme() {
+  $items = [
+    'openy_map' => [
+      'render element' => 'element',
+    ],
+  ];
+  return $items;
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function openy_map_library_info_alter(&$libraries, $extension) {
+  if ($extension != 'openy_map') {
+    return;
+  }
+
+  // Adding Google Maps API key.
+  foreach ($libraries['openy_map']['js'] as $key => $value) {
+    if ($key != 'https://maps.googleapis.com/maps/api/js') {
+      continue;
+    }
+    $api_key = \Drupal::configFactory()->get('geolocation.settings')->get('google_map_api_key');
+    unset($libraries['openy_map']['js'][$key]);
+    $libraries['openy_map']['js'][$key . '?key=' . $api_key] = $value;
+  }
+}

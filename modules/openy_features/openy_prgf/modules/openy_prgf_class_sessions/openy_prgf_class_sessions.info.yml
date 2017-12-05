@@ -1,0 +1,10 @@
+name: 'OpenY Paragraph Class Sessions'
+description: 'OpenY Paragraph Class Sessions.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - field
+  - openy_prgf
+  - paragraphs
+  - plugin

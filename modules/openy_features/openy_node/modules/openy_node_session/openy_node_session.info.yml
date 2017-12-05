@@ -1,0 +1,24 @@
+name: 'OpenY Session'
+description: 'OpenY Session.'
+type: module
+core: 8.x
+package: OpenY
+dependencies:
+  - datetime_range
+  - entity_reference_revisions
+  - field
+  - field_group
+  - link
+  - menu_ui
+  - node
+  - openy_loc_branch
+  - openy_loc_camp
+  - openy_loc_facility
+  - openy_node_class
+  - options
+  - paragraphs
+  - path
+  - rabbit_hole
+  - scheduler
+  - text
+  - user
