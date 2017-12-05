@@ -11305,7 +11305,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-form-full .cdn-results .cdn-village-teasers {
-    padding-bottom: 80px;
+    padding-bottom: 50px;
   }
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
@@ -11315,7 +11315,7 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 48em) {
   .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
     display: inline-block;
-    margin-bottom: 0;
+    padding-bottom: 30px;
     width: 31%;
   }
   .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser:nth-child(3n+2) {
@@ -11742,24 +11742,25 @@ tr:nth-last-child(3) .atcb-list {
   background: #fff;
 }
 #cdn-contact-form-wrapper h2 {
-  font-size: 25px;
-  text-transform: uppercase;
+  font-size: 24px;
   margin: 40px 0 25px;
   font-weight: normal;
 }
 #cdn-contact-form-wrapper h3 {
-  font-size: 16px;
+  font-size: 18px;
   color: #222;
   text-transform: none;
   font-weight: normal;
   margin-bottom: 15px;
 }
 #cdn-contact-form-wrapper h4 {
-  color: #777777;
-  font-size: 15px;
+  color: #646464;
+  font-size: 18px;
   text-transform: none;
   font-weight: normal;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   margin-bottom: 30px;
+  line-height: 24px;
 }
 @media (min-width: 0) and (max-width: 61.9375em) {
   #cdn-contact-form-wrapper h4 {
@@ -11786,6 +11787,7 @@ tr:nth-last-child(3) .atcb-list {
   height: 50px;
   color: #222222;
   background: #fff;
+  border: 1px solid #d8d8d8;
 }
 #cdn-contact-form-wrapper #edit-extra-mattress--wrapper {
   float: left;
@@ -11814,11 +11816,17 @@ tr:nth-last-child(3) .atcb-list {
   text-transform: none;
   font-weight: normal;
 }
-#cdn-contact-form-wrapper #edit-emergency-contact input,
+#cdn-contact-form-wrapper #edit-emergency-contact input {
+  height: 50px;
+  color: #222222;
+  background: #fff;
+}
 #cdn-contact-form-wrapper #edit-emergency-contact select {
   height: 50px;
   color: #222222;
   background: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 #cdn-contact-form-wrapper #edit-first-time--wrapper legend {
   border-bottom: none;
@@ -11835,38 +11843,37 @@ tr:nth-last-child(3) .atcb-list {
   margin-right: 20px;
 }
 #cdn-contact-form-wrapper .js-webform-radios {
-  background: #fff;
   display: inline-block;
-  border: 1px solid #dadada;
-  border-radius: 4px;
-  padding: 5px;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio {
   display: inline-block;
   padding: 0;
+  margin-right: 5px;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio label {
-  width: 70px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 15px;
+  width: 90px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
   color: #a1a1a1;
   display: block;
   text-align: center;
+  border: 1px solid #d8d8d8;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-weight: bold;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio input {
   display: none;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio.checked label {
-  background: #00ab92;
+  background: #92278f;
+  border: 1px solid #92278f;
   color: #fff;
-  border-radius: 4px;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio.checked label.no {
   background: #a1a1a1;
-}
-#cdn-contact-form-wrapper #edit-phone {
-  margin-bottom: -16px;
 }
 #cdn-contact-form-wrapper .actions {
   background: #383838;
