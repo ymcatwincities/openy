@@ -158,6 +158,9 @@
             "drupal/plugin": {
                 "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
             },
+            "drupal/views_data_export": {
+                "2789531 - Support for batch operations": "https://www.drupal.org/files/issues/2789531-105.patch"
+            },
             "drupal/views_field_formatter": {
                 "2874811 - Add option to show/hide empty views": "https://www.drupal.org/files/issues/Option-added-to-hide-empty-views-2874811.patch"
             }
