@@ -20,7 +20,7 @@
       var last = cell.parents('.fc-view').find('a.selected:last');
       last.addClass('no-left-border last-selected').removeClass('no-right-border');
       if (last.find('.fc-content .tip').length === 0) {
-        last.find('.fc-content').append('<div class="tip"><span>' + Drupal.t('You pay only per night') + '</span></div>');
+        last.find('.fc-content').append('<div class="tip"><span>' + Drupal.t('$0 Check Out Date') + '</span></div>');
         $('<div class="tip-q">$0<span class="q-mark"><i class="fa fa-question-circle"></i></span></div>').insertAfter(last.find('.fc-title'));
       }
     }
