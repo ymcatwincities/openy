@@ -43,16 +43,15 @@ class PersonifyClient implements CRMClientInterface {
         throw new \LogicException(t('API Method %method is failed.', array('%method' => $method)));
       }
       $body = $response->getBody();
+      $content = $body->getContents();
 
-      /*
       \Drupal::logger('personify')->info('Personify request to %method. Arguments %json. Response %body', [
         '%method' => $method,
         '%json' => json_encode($json),
-        '%body' => $body,
+        '%body' => $content,
       ]);
-      */
 
-      return json_decode($body->getContents());
+      return json_decode($content);
     }
     catch (\Exception $e) {
       watchdog_exception('personify', $e);
