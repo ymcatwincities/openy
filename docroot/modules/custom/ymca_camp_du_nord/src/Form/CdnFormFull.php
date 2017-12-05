@@ -235,7 +235,7 @@ class CdnFormFull extends FormBase {
       ->get('cdn_prs_product')
       ->condition('field_cdn_prd_start_date', '%' . $query['arrival_date'] . '%', 'LIKE')
       ->execute();
-    $formatted_results = $this->t('No results. Please try again.');
+    $formatted_results = $this->t('Please select another village, change capacity or date range to see if there are other cabins available.');
     if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
       if ($query['village'] !== 'all' || $query['capacity'] !== 'all') {
         foreach ($cdn_products as $key => $product) {
