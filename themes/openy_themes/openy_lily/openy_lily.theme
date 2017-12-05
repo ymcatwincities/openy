@@ -1,0 +1,603 @@
+<?php
+
+/**
+ * @file
+ * OpenY Lily Theme File.
+ */
+
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Link;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
+use Drupal\file\Entity\File;
+use Drupal\node\NodeInterface;
+use Drupal\block\Entity\Block;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_preprocess_HOOK() for footer menus.
+ */
+function openy_lily_preprocess_menu__footer_menus(&$variables) {
+  $variables['#cache']['contexts'][] = 'url.path';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  $footer_menus = [
+    'menu__footer_menu_left',
+    'menu__footer_menu_center',
+    'menu__footer_menu_right',
+    'menu__footer',
+  ];
+  if (in_array($variables['theme_hook_original'], $footer_menus)) {
+    $suggestions[] = 'menu__footer_menus';
+  }
+  if (in_array($variables['theme_hook_original'], ['menu__top_menu_2'])) {
+    $suggestions[] = 'menu__top_menu';
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $route_name = Drupal::routeMatch()->getRouteName();
+  $node = Drupal::routeMatch()->getParameter('node');
+  if (empty($node)) {
+    $node = Drupal::routeMatch()->getParameter('node_preview');
+  }
+
+  if (empty($node)) {
+    return;
+  }
+
+  if (is_object($node)) {
+    array_unshift($suggestions, 'page__node__' . $node->bundle());
+  }
+  if (!Drupal::service('path.matcher')->isFrontPage()) {
+    if ($route_name == 'entity.node.preview') {
+      $front_page = Drupal::config('system.site')->get('page.front');
+      if ('/node/' . $node->id() == $front_page) {
+        array_push($suggestions, 'page__front');
+      }
+    }
+  }
+  if (is_object($node)) {
+    $current_path = \Drupal::service('path.current')->getPath();
+    $alias_settings = theme_get_setting('membership_path');
+    if ($current_path == $alias_settings) {
+      array_push($suggestions, 'page__membership');
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_node_alter(array &$suggestions, array $variables) {
+  if (in_array('node__blog__default', $suggestions)) {
+    array_push($suggestions, 'node__blog__full');
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_form_element_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'form_element__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_form_element_label_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'form_element_label__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_lily_theme_suggestions_input_alter(array &$suggestions, array $variables) {
+  if (isset($variables['element']['#name'])) {
+    array_push($suggestions, 'input__' . $variables['element']['#name']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_picture(&$variables) {
+  // Add responsiveness.
+  $variables['attributes']['class'][] = 'img-responsive';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_image(&$variables) {
+  // Add responsiveness.
+  $variables['attributes']['class'][] = 'img-responsive';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_expander_block(&$variables) {
+  $id = 'collapse-' . $variables['entity']->bundle() . '-' . $variables['entity']->id();
+  $variables['block_id'] = Html::getUniqueId($id);
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_node(&$variables) {
+  if (!in_array($variables['view_mode'], ['full', 'default'])) {
+    return;
+  }
+  $variables['base_path'] = base_path();
+
+  $variables['is_front'] = Drupal::service('path.matcher')->isFrontPage();
+  if (!$variables['is_front']) {
+    $front_page = Drupal::config('system.site')->get('page.front');
+    $variables['is_front'] = '/node/' . $variables['node']->id() == $front_page;
+  }
+
+  // Blog specific preprocessing.
+  if ($variables['node']->bundle() == 'blog') {
+    $back_link_title = t('Back to Blog');
+    $variables['back_link_title'] = $back_link_title;
+    $variables['back_link_path'] = Url::fromUri('internal:/blog')->toString();
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_html(&$variables) {
+  $current_route_name = Drupal::service('current_route_match')->getRouteName();
+  $classes = [];
+
+  if ($current_route_name == 'entity.node.canonical') {
+    $node = Drupal::routeMatch()->getParameter('node');
+  }
+  if ($current_route_name == 'entity.node.preview') {
+    $node = Drupal::routeMatch()->getParameter('node_preview');
+  }
+
+  if (!$variables['is_front'] = Drupal::service('path.matcher')->isFrontPage() && !empty($node)) {
+    if ($current_route_name == 'entity.node.preview') {
+      $variables['is_front'] = '/node/' . $node->id() == Drupal::config('system.site')->get('page.front');
+    }
+  }
+
+  if ($variables['is_front']) {
+    $classes = ['page_home'];
+  }
+  if (!is_array($variables['attributes'])) {
+    $variables['attributes']->addClass($classes);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_page(&$variables) {
+  $header_search = theme_get_setting('header_search');
+  if ($header_search !== NULL) {
+    // Rely on config.
+    $variables['header_search'] = $header_search;
+  }
+  else {
+    // Display by default.
+    $variables['header_search'] = TRUE;
+  }
+  if (Drupal::routeMatch()->getRouteName() == 'entity.node.preview') {
+    $variables['node'] = Drupal::routeMatch()->getParameter('node_preview');
+  }
+  $route_name = 'view.site_search.search_results';
+  $route_provider = \Drupal::service('router.route_provider');
+  $routes = $route_provider->getRoutesByNames([$route_name]);
+  if (!empty($routes)) {
+    $variables['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
+  }
+  else {
+    $variables['search_view_content_path'] = '';
+    \Drupal::logger('ymca')
+      ->error('Route "%route" does not exist.', ['%route' => $route_name]);
+  }
+
+  // Adds page title for login and register pages.
+  $request = \Drupal::request();
+  $route_match = \Drupal::routeMatch();
+  $title = \Drupal::service('title_resolver')
+    ->getTitle($request, $route_match->getRouteObject());
+  $variables['page_title'] = $title;
+
+  $site_config = \Drupal::config('system.site');
+  $variables['site_name'] = $site_config->get('name');
+  $site_phone = $site_config->get('phone');
+  $site_extra_phone = $site_config->get('extra_phone');
+  if (!empty($site_phone) && !empty($site_extra_phone)) {
+    $variables['site_phone'] = [
+      '#type' => 'link',
+      '#title' => $site_extra_phone,
+      '#url' => Url::fromUri('tel:' . rawurlencode(preg_replace('/[^0-9]/', '', $site_phone))),
+      '#options' => [
+        'external' => TRUE,
+        'attributes' => [
+          'class' => [
+            'site-phone',
+          ],
+          'title' => t('Call us at @tel', ['@tel' => $site_phone]),
+        ]
+      ],
+    ];
+  }
+  $newsletter_link = $site_config->get('newsletter_link');
+  if (!empty($newsletter_link)) {
+    $variables['newsletter_link'] = [
+      '#type' => 'link',
+      '#title' => t('Sign Up For Our Newsletter'),
+      '#url' => Url::fromUri($newsletter_link),
+      '#options' => [
+        'external' => TRUE,
+        'attributes' => [
+          'class' => [
+            'newsletter-link',
+            'btn',
+            'btn-block',
+            'btn-info',
+          ],
+          'target' => '_blank',
+        ]
+      ],
+    ];
+  }
+  $path = theme_get_setting('locations_path');
+  $variables['locations_path'] = Url::fromUserInput($path);
+
+  $variables['site_section_bundle'] = '';
+
+  // Set special variables for Camp and Branch (Location) nodes.
+  if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
+    $node = $variables['node'];
+    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
+      if ($service->nodeHasOrIsOfBundle($node, 'camp', FALSE)) {
+        $variables['camp_class'] = 'is-camp';
+        $variables['site_section_bundle'] = 'camp';
+      }
+      if ($service->nodeHasOrIsOfBundle($node, 'branch', FALSE)) {
+        $variables['camp_class'] = 'is-branch';
+        $variables['site_section_bundle'] = 'location';
+      }
+    }
+  }
+
+  $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
+
+  /** @var \Drupal\openy_ccc_api\Session $ccc_session */
+  $ccc_session = \Drupal::service('openy_ccc_session');
+  $variables['ccc_logged_in'] = !$ccc_session->isAnonymous();
+
+  /**Check if CCC User is logged in.*/
+  if ($variables['ccc_logged_in']) {
+    $variables['cccmenu'] = openy_lily_get_header_menu('cccuseraccountmenu');
+  }
+  else {
+    $variables['cccmenuann'] = openy_lily_get_header_menu('anonymoususersmenu');
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_pager(&$vars) {
+  if (empty($vars['items']['pages'])) {
+    return;
+  }
+  foreach ($vars['items']['pages'] as &$item) {
+    $item['attributes'] = new Attribute();
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_node__blog__camp_blog_teaser(&$vars) {
+  if ($site_section = Drupal::service('ymcali.page.context')->getContext()) {
+    $vars['page_title'] = $site_section->getTitle();
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Prepares variables for input templates.
+ * Default template: input.html.twig.
+ *
+ * @param mixed $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes.
+ */
+function openy_lily_preprocess_input(&$variables) {
+  $element = $variables['element'];
+  $variables['children'] = $element['#children'];
+
+  if (isset($element['#skip_ymca_preprocess']) && $element['#skip_ymca_preprocess']) {
+    return;
+  }
+
+  $types = ['url', 'textfield', 'tel', 'password', 'date'];
+  if (in_array($element['#type'], $types)) {
+    $classes = [
+      'form-control',
+      'text',
+    ];
+  }
+  elseif ($element['#type'] == 'submit' && $element['#ajax_processed'] != TRUE) {
+    $classes = [
+      'form_submit',
+      'btn',
+      'btn-lg',
+      'btn-primary',
+    ];
+  }
+  elseif ($element['#type'] == 'email') {
+    $classes = [
+      'form-control',
+      'text',
+      'email',
+    ];
+  }
+
+  if (isset($classes)) {
+    $variables['attributes']['class'] = array_merge($variables['attributes']['class'], $classes);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Prepares variables for textarea templates.
+ * Default template: textarea.html.twig.
+ *
+ * @param mixed $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #description, #rows, #cols,
+ *     #placeholder, #required, #attributes, #resizable.
+ */
+function openy_lily_preprocess_textarea(&$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, [
+    'id',
+    'name',
+    'rows',
+    'cols',
+    'placeholder',
+  ]);
+  RenderElement::setAttributes($element, ['form-textarea']);
+  $variables['wrapper_attributes'] = new Attribute();
+  $variables['attributes'] = new Attribute($element['#attributes']);
+  $variables['value'] = $element['#value'];
+  $variables['resizable'] = !empty($element['#resizable']) ? $element['#resizable'] : NULL;
+  $variables['required'] = !empty($element['#required']) ? $element['#required'] : NULL;
+  $variables['attributes']['class'][] = 'form-control';
+  $variables['attributes']['class'][] = 'text';
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Prepares variables for select element templates.
+ * Default template: select.html.twig.
+ *
+ * It is possible to group options together; to do this, change the format of
+ * $options to an associative array in which the keys are group labels, and the
+ * values are associative arrays in the normal $options format.
+ *
+ * @param mixed $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #extra,
+ *     #multiple, #required, #name, #attributes, #size.
+ */
+function openy_lily_preprocess_select(&$variables) {
+  $element = $variables['element'];
+  Element::setAttributes($element, ['id', 'name', 'size']);
+  RenderElement::setAttributes($element, ['form-select']);
+
+  $variables['attributes'] = $element['#attributes'];
+  $variables['options'] = form_select_options($element);
+  $variables['attributes']['class'][] = 'form-control';
+  $variables['attributes']['class'][] = 'text';
+
+  // Sort location options.
+  if (in_array('option_emails', $variables['element']['#parents'])) {
+    $options = $variables['options'];
+    // Remove empty option from array, due to sort reason.
+    $empty_option = $options[0];
+    unset($options[0]);
+    // Sort options array by location's label.
+    $sort = [];
+    foreach ($options as $key => $row) {
+      $sort[$key] = $row['label'];
+    }
+    array_multisort($sort, SORT_ASC, $options);
+    // Pass back empty option on first position.
+    array_unshift($options, $empty_option);
+    // Finally pass back sorted options array.
+    $variables['options'] = $options;
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_form_element(&$variables) {
+  $element = $variables['element'];
+  if (!empty($element['#title_extra'])) {
+    $variables['label']['#title_extra'] = $element['#title_extra'];
+  }
+  // Prepare address field.
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line1') {
+    $variables['label']['#title'] = t('Address 1');
+  }
+  if (isset($element['#attributes']['class'][0]) && $element['#attributes']['class'][0] == 'address-line2') {
+    $variables['label']['#title_display'] = $variables['label_display'] = $variables['title_display'] = 'before';
+    $variables['label']['#title'] = t('Address 2 <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level2') {
+    $variables['label']['#title'] = t('City <small>(optional) </small>');
+  }
+  if (isset($element['#attributes']['autocomplete']) && $element['#attributes']['autocomplete'] == 'address-level1') {
+    $variables['label']['#title'] = t('State <small>(optional) </small>');
+    $element['#empty_option'] = t('Select State or Province');
+    $element['#options'][''] = $element['#empty_option'];
+  }
+  if (isset($element['#attributes']['checked']) && $element['#attributes']['checked'] == 'checked') {
+    $variables['attributes']['class'] = 'checked';
+  }
+  $elements_names = [
+    'mb_session_type',
+    'mb_program',
+    'mb_location',
+  ];
+  if (isset($element['#name']) && in_array($element['#name'], $elements_names)) {
+    $variables['title'] = $element['#title'];
+    $variables['id'] = $element['#id'];
+  }
+  $variables['element'] = $element;
+}
+
+/**
+ * Implements hook_preprocess_form_element_label().
+ */
+function openy_lily_preprocess_form_element_label(&$variables) {
+  if (!empty($variables['element']['#title_extra'])) {
+    $variables['title_extra']['#markup'] = $variables['element']['#title_extra'];
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Prepares variables for form templates.
+ * Default template: form.html.twig.
+ *
+ * @param mixed $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #action, #method, #attributes, #children.
+ */
+function openy_lily_preprocess_form(&$variables) {
+  $element = $variables['element'];
+  if (isset($element['#action'])) {
+    $element['#attributes']['action'] = UrlHelper::stripDangerousProtocols($element['#action']);
+  }
+  Element::setAttributes($element, ['method', 'id']);
+  if (empty($element['#attributes']['accept-charset'])) {
+    $element['#attributes']['accept-charset'] = "UTF-8";
+  }
+  $variables['attributes'] = $element['#attributes'];
+  $variables['children'] = $element['#children'];
+
+  if ($element['#form_id'] == 'user_login_form' || $element['#form_id'] == 'user_pass') {
+    $variables['attributes']['class'][] = 'container';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function openy_lily_preprocess_file_link(&$variables) {
+  $file = $variables['file'];
+  $options = [];
+
+  $file_entity = ($file instanceof File) ? $file : File::load($file->fid);
+  $url = file_create_url($file_entity->getFileUri());
+  $options['query'][$file->getChangedTime()] = '';
+
+  $mime_type = $file->getMimeType();
+  $options['attributes']['type'] = $mime_type . '; length=' . $file->getSize();
+
+  // Use the description as the link text if available.
+  if (empty($variables['description'])) {
+    $link_text = $file_entity->getFilename();
+  }
+  else {
+    $link_text = $variables['description'];
+    $options['attributes']['title'] = $file_entity->getFilename();
+  }
+
+  $variables['link'] = Link::fromTextAndUrl($link_text, Url::fromUri($url, $options));
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * This is hardcoded in profile so we need this to be able to change the title.
+ */
+function openy_lily_preprocess_field__node__field_location_directions(array &$variables) {
+  // Change link title to 'website:' since it's changed to 'Directions' in
+  // openy_rose theme.
+  $variables['items'][0]['content']['#title'] = t('website:');
+  $link_title = $variables['element']['#items']->title;
+  // Change link text since URL is used as link text for
+  // 'Separate link text and URL' format by default.
+  $variables['items'][0]['content']['#url_title'] = $link_title;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInterface &$form_state, $form_id = NULL) {
+  unset($form['logo']['openy_rose_footer_logo']);
+  unset($form['camp_section']['openy_rose_camp_footer_logo']);
+}
+
+/**
+ * Function for printing menu block.
+ */
+function openy_lily_get_header_menu($menu_name) {
+  $block_menu = Block::load($menu_name);
+  $block_content = \Drupal::entityTypeManager()
+    ->getViewBuilder('block')
+    ->view($block_menu);
+
+  return $block_content;
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function openy_lily_preprocess_paragraph(&$variables) {
+  if (empty($variables['paragraph'])) {
+    return;
+  }
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+  switch ($paragraph->getType()) {
+    case 'small_text_banner':
+      $variables['content']['image_path'] = '';
+      if (empty($variables['content']['field_prgf_image'][0])) {
+        break;
+      }
+      $image = $variables['content']['field_prgf_image'][0];
+      $path = ImageStyle::load($image['#image_style'])
+        ->buildUrl($image['#item']->entity->uri->value);
+      $variables['content']['image_path'] = $path;
+      break;
+  }
+}
