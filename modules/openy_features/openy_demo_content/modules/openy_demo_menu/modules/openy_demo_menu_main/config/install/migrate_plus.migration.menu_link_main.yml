@@ -11,6 +11,8 @@ label: 'Create demo main menu links'
 migration_dependencies:
   required:
     - openy_demo_menu_main_file
+    - openy_demo_node_program_subcategory
+    - openy_demo_node_program
 source:
   plugin: embedded_data
   data_rows:
