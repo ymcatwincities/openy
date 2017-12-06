@@ -1558,7 +1558,7 @@ body {
 @media (min-width: 64em) {
   .paragraph-gallery .cta-group-wrapper .cta-group h1 {
     font-size: 40px;
-    line-height: 44px;
+    line-height: 42px;
     margin: 0 0 10px;
   }
 }
@@ -1588,11 +1588,6 @@ body {
   font-size: 18px;
   padding: 0px;
   width: 100%;
-}
-@media (min-width: 48em) {
-  .paragraph-gallery .cta-group-wrapper .cta-group .btn, .paragraph-gallery .cta-group-wrapper .cta-group .button {
-    font-size: 20px;
-  }
 }
 .paragraph-gallery .cta-group-wrapper .cta-group .btn a, .paragraph-gallery .cta-group-wrapper .cta-group .button a {
   display: block;
@@ -1787,8 +1782,8 @@ body {
 }
 @media (min-width: 75em) {
   .banner-title {
-    font-size: 44px;
-    line-height: 48px;
+    font-size: 50px;
+    line-height: 55px;
   }
 }
 .banner-description {
@@ -2426,7 +2421,7 @@ body {
 }
 @media (min-width: 48em) {
   .program-header h1 {
-    font-size: 56px;
+    font-size: 50px;
     margin-bottom: 80px;
   }
 }
@@ -2912,7 +2907,7 @@ body {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 .branch-header .desktop h4 {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.1;
   text-transform: uppercase;
   margin: 0 0 5px;

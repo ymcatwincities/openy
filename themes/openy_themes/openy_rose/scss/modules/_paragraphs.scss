@@ -255,7 +255,7 @@
 
         @include breakpoint (1024px) {
           font-size: 40px;
-          line-height: 44px;
+          line-height: 42px;
           margin: 0 0 10px;
         }
       }
@@ -284,10 +284,6 @@
         font-size: 18px;
         padding: 0px;
         width: 100%;
-
-        @include breakpoint (768px) {
-          font-size: 20px;
-        }
 
         a {
           display: block;
@@ -487,8 +483,8 @@
     }
 
     @include breakpoint($screen-lg-desktop) {
-      font-size: 44px;
-      line-height: 48px;
+      font-size: 50px;
+      line-height: 55px;
     }
   }
 
