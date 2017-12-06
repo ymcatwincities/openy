@@ -5,7 +5,7 @@ dependencies:
     - system
   theme:
     - openy_lily
-id: breadcrumbs
+id: openy_lily_breadcrumbs
 theme: openy_lily
 region: breadcrumb
 weight: 0
