@@ -6,6 +6,7 @@
   }
 
   h1 {
+    font-size: 36px;
     letter-spacing: -1.2px;
     padding-bottom: 8px;
   }
@@ -59,7 +60,7 @@
       font-weight: 500;
 
       h3 {
-        font-size: 32px;
+        font-size: 28px;
         margin-top: 0;
         margin-bottom: 20px;
       }
@@ -179,7 +180,7 @@
 
   h3 {
     font-weight: bold;
-    font-size: 36px;
+    font-size: 28px;
 
     a {
       color: inherit;
@@ -335,7 +336,7 @@
     height: 34px;
     padding: 7px 16px;
     border: solid 1px #636466;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     @include cachet();
     text-transform: uppercase;
