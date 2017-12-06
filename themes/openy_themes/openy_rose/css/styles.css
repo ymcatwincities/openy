@@ -351,6 +351,7 @@ body {
 
 .page-head__logo {
   display: inline-block;
+  width: 100%;
 }
 @media (min-width: 62em) {
   .page-head__logo {
@@ -380,6 +381,29 @@ body {
     margin-left: -22px;
     margin-top: 35px;
   }
+}
+.page-head__logo .site-slogan {
+  color: #ebebeb;
+  display: block;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  text-transform: uppercase;
+  top: 20px;
+}
+.page-head__logo .site-slogan:hover {
+  text-decoration: none;
+}
+@media (min-width: 62em) {
+  .page-head__logo .site-slogan {
+    top: 10px;
+  }
+}
+.page-head__logo .site-slogan span {
+  border-bottom: 1px solid #00aeef;
+  padding: 0 5px 8px 5px;
 }
 .page-head__search {
   padding-left: 140px;
@@ -674,6 +698,9 @@ body {
   margin-bottom: 13px;
   margin-top: 13px;
   padding: 9px 6px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .navbar-default .navbar-toggle,
