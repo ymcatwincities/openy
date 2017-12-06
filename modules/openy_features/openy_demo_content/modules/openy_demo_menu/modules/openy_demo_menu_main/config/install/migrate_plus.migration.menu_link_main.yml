@@ -13,6 +13,7 @@ migration_dependencies:
     - openy_demo_menu_main_file
     - openy_demo_node_program_subcategory
     - openy_demo_node_program
+    - openy_demo_node_landing
 source:
   plugin: embedded_data
   data_rows:
