@@ -239,12 +239,12 @@ function openy_campaign_tokens($type, $tokens, array $data, array $options, \Dru
  * Implements hook_cron().
  */
 function openy_campaign_cron() {
-  // Check if cron was run less then 23 hrs ago and at 2 AM.
+  // Check if cron was run less then 1 hrs ago and not at 2 AM.
   $lastRun = \Drupal::state()->get('openy_campaign.cron_visits_last_run', 0);
   $current = new \DateTime();
   $currentHour = $current->format('H');
-  if ((\Drupal::time()->getRequestTime() - $lastRun) < 23 * 60 * 60 || ($currentHour != 2)) {
-    //return FALSE;
+  if ((\Drupal::time()->getRequestTime() - $lastRun) < 1 * 60 * 60 || ($currentHour != 2)) {
+    return FALSE;
   }
 
   /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
