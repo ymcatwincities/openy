@@ -126,14 +126,18 @@ class CdnContactForm extends FormBase {
     $form['emergency_contact']['name'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
-      '#title' => $this->t('Name'),
+      '#attributes' => [
+        'placeholder' => $this->t('Name'),
+      ],
       '#default_value' => $state['name'],
     ];
 
     $form['emergency_contact']['relationship'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
-      '#title' => $this->t('Relationship'),
+      '#attributes' => [
+        'placeholder' => $this->t('Relationship'),
+      ],
       '#default_value' => $state['relationship'],
     ];
 
@@ -141,7 +145,6 @@ class CdnContactForm extends FormBase {
       '#type' => 'select',
       '#required' => TRUE,
       '#disabled' => TRUE,
-      '#title' => $this->t('Phone'),
       '#options' => ['cell' => $this->t('Cell')],
       '#default_value' => $state['phone'],
     ];
@@ -150,6 +153,9 @@ class CdnContactForm extends FormBase {
       '#type' => 'textfield',
       '#required' => TRUE,
       '#default_value' => $state['phone_number'],
+      '#attributes' => [
+        'placeholder' => $this->t('Phone'),
+      ],
     ];
 
     $form['actions']['#prefix'] = '<div class="cdn-village-footer"><div class="container"><div class="cdn-village-footer-bar active"><div class="total">Total for <span class="nights">' . $state['nights'] . '</span> nights: <span class="price">$' . $state['total'] . '</span>';
@@ -205,7 +211,10 @@ class CdnContactForm extends FormBase {
   public function buildAdditionalQuestionsFields($data, $state) {
     $form['additional'] = [
       '#type' => 'container',
-      '#prefix' => '<div class="container"><h2>' . $this->t('Additional information') . '</h2>',
+      '#prefix' => '<div class="container">',
+    ];
+    $form['additional']['head'] = [
+      '#markup' => '<h2>' . $this->t('Additional Information') . '</h2>',
     ];
     $form['cart_items_ids'] = [
       '#type' => 'hidden',

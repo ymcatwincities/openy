@@ -148,17 +148,20 @@ class CdnFormFull extends FormBase {
 
     $form['arrival_date'] = [
       '#type' => 'date',
+      '#title' => t('Check-in Date'),
       '#prefix' => '<div class="top-elements-wrapper"><div class="container"><h2>' . $this->t('Search') . '</h2>',
       '#default_value' => $state['arrival_date'],
     ];
 
     $form['departure_date'] = [
       '#type' => 'date',
+      '#title' => t('Check-out Date'),
       '#default_value' => $state['departure_date'],
     ];
 
     $form['range'] = [
       '#type' => 'select',
+      '#title' => t('Expand date range by'),
       '#default_value' => !empty($state['range']) ? $state['range'] : 3,
       '#options' => [
         0 => '+/- 0 Days',
@@ -235,7 +238,7 @@ class CdnFormFull extends FormBase {
       ->get('cdn_prs_product')
       ->condition('field_cdn_prd_start_date', '%' . $query['arrival_date'] . '%', 'LIKE')
       ->execute();
-    $formatted_results = $this->t('No results. Please try again.');
+    $formatted_results = $this->t('Please select another village, change capacity or date range to see if there are other cabins available.');
     if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
       if ($query['village'] !== 'all' || $query['capacity'] !== 'all') {
         foreach ($cdn_products as $key => $product) {
@@ -528,9 +531,12 @@ class CdnFormFull extends FormBase {
       foreach ($files as $file) {
         if (preg_match('/cabin/', $file->getFilename())) {
           $path = file_create_url($file->getFileUri());
-          return $path;
         }
       }
+    }
+    if (empty($path)) {
+      // Provide default image.
+      $path = base_path() . drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin3.png';
     }
     return $path;
   }
