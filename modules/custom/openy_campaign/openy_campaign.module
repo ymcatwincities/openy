@@ -244,7 +244,7 @@ function openy_campaign_cron() {
   $current = new \DateTime();
   $currentHour = $current->format('H');
   if ((\Drupal::time()->getRequestTime() - $lastRun) < 23 * 60 * 60 || ($currentHour != 2)) {
-    return FALSE;
+    //return FALSE;
   }
 
   /** @var \Drupal\openy_campaign\RegularUpdater $regularUpdater */
