@@ -175,11 +175,11 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
 
               // Check special prices should be applied.
               if ($start_date && $end_date) {
-                $start_date = new DrupalDateTime($start_date . ' 00:00:00', 'America/Chicago');
+                $start_date = new DrupalDateTime($start_date . ' 00:00:00', drupal_get_user_timezone());
                 $start_date = $start_date->format('Y-m-d');
-                $end_date = new DrupalDateTime($end_date . ' 00:00:00', 'America/Chicago');
+                $end_date = new DrupalDateTime($end_date . ' 00:00:00', drupal_get_user_timezone());
                 $end_date = $end_date->format('Y-m-d');
-                $now = new DrupalDateTime('now', 'America/Chicago');
+                $now = new DrupalDateTime('now', drupal_get_user_timezone());
                 $now = $now->format('Y-m-d');
                 if ($now >= $start_date && $now <= $end_date) {
                   $show_special_prices = TRUE;
@@ -291,9 +291,9 @@ function ymca_mindbody_tokens($type, $tokens, array $data, array $options, Bubbl
 
                   $show_special_prices = FALSE;
                   if ($start_date && $end_date) {
-                    $start_date = new DrupalDateTime($start_date . ' 00:00:00', 'America/Chicago');
+                    $start_date = new DrupalDateTime($start_date . ' 00:00:00', drupal_get_user_timezone());
                     $start_date = $start_date->format('Y-m-d');
-                    $end_date = new DrupalDateTime($end_date . ' 00:00:00', 'America/Chicago');
+                    $end_date = new DrupalDateTime($end_date . ' 00:00:00', drupal_get_user_timezone());
                     $end_date = $end_date->format('Y-m-d');
                     $now = new DrupalDateTime('now', 'America/Chicago');
                     $now = $now->format('Y-m-d');
