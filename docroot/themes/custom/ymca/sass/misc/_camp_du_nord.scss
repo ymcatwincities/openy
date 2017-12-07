@@ -20,14 +20,13 @@
   .form-item-arrival-date,
   .form-item-departure-date {
     label {
-      font-family: Cachet;
+      font-family: "Cachet Book", Arial, sans-serif;
       font-size: 20px;
       height: 28px;
       margin-bottom: 10px;
-      font-weight: bold;
+      font-weight: normal;
       letter-spacing: -0.5px;
       color: #222222;
-      text-transform: uppercase;
     }
     input {
       background: #fff url("../img/icon-calendar2.png") no-repeat 20px center;
@@ -73,6 +72,15 @@
     @include breakpoint(1025px) {
       margin: 0 30px;
       width: 250px;
+    }
+    label {
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 20px;
+      height: 28px;
+      margin-bottom: 10px;
+      font-weight: normal;
+      letter-spacing: -0.5px;
+      color: #222222;
     }
     select {
       background: #fff;
@@ -184,6 +192,7 @@
     width: 100%;
     @include breakpoint(768px) {
       float: left;
+      margin-top: 38px;
       width: 150px;
     }
     @include breakpoint(1024px) {
@@ -197,7 +206,7 @@
     .cdn-village-teasers {
       padding-bottom: 30px;
       @include breakpoint(768px) {
-        padding-bottom: 80px;
+        padding-bottom: 50px;
       }
       .container {
         .cdn-village-teaser {
@@ -205,7 +214,7 @@
           margin-bottom: 10px;
           @include breakpoint(768px) {
             display: inline-block;
-            margin-bottom: 0;
+            padding-bottom: 30px;
             width: 31%;
             &:nth-child(3n+2) {
               margin: 0 3%;
@@ -635,24 +644,25 @@
 #cdn-contact-form-wrapper {
   background: #fff;
   h2 {
-    font-size: 25px;
-    text-transform: uppercase;
+    font-size: 24px;
     margin: 40px 0 25px;
     font-weight: normal;
   }
   h3 {
-    font-size: 16px;
+    font-size: 18px;
     color: #222;
     text-transform: none;
     font-weight: normal;
     margin-bottom: 15px;
   }
   h4 {
-    color: #777777;
-    font-size: 15px;
+    color: #646464;
+    font-size: 18px;
     text-transform: none;
     font-weight: normal;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     margin-bottom: 30px;
+    line-height: 24px;
     @include breakpoint(0 991px) {
       display: none;
     }
@@ -680,6 +690,7 @@
       height: 50px;
       color: #222222;
       background: #fff;
+      border: 1px solid #d8d8d8;
     }
   }
   #edit-extra-mattress--wrapper {
@@ -708,11 +719,17 @@
       text-transform: none;
       font-weight: normal;
     }
-    input,
+    input {
+      height: 50px;
+      color: #222222;
+      background: #fff;
+    }
     select {
       height: 50px;
       color: #222222;
       background: #fff;
+      font-weight: bold;
+      text-transform: uppercase;
     }
   }
   #edit-first-time--wrapper {
@@ -732,31 +749,33 @@
     margin-right: 20px;
   }
   .js-webform-radios {
-    background: #fff;
     display: inline-block;
-    border: 1px solid #dadada;
-    border-radius: 4px;
-    padding: 5px;
     .js-form-type-radio {
       display: inline-block;
       padding: 0;
+      margin-right: 5px;
       label {
-        width: 70px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 15px;
+        width: 90px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
         color: #a1a1a1;
         display: block;
         text-align: center;
+        border: 1px solid #d8d8d8;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-family: "Cachet Book", Arial, sans-serif;
+        font-weight: bold;
       }
       input {
         display: none;
       }
       &.checked {
         label {
-          background: #00ab92;
+          background: #92278f;
+          border: 1px solid #92278f;
           color: #fff;
-          border-radius: 4px;
           &.no {
             background: #a1a1a1;
           }
@@ -765,7 +784,7 @@
     }
   }
   #edit-phone {
-    margin-bottom: -16px;
+
   }
   .actions {
     background: #383838;
