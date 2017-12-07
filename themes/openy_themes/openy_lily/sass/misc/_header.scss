@@ -110,7 +110,7 @@ body {
   a {
     color: #fffffb;
     line-height: 20px;
-    font-family: "Cachet", Arial, sans-serif;
+    font-family: "Cachet", Verdana, Geneva, sans-serif;
     font-size: 18px;
     font-weight: bold;
     padding: 12px 15px;
@@ -177,7 +177,7 @@ body {
 header#page-head {
   @include clearfix;
   width: 100%;
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   @include breakpoint (0 $tablet-start) {
     position: relative;
     z-index: 999;
@@ -498,7 +498,7 @@ header#page-head {
       }
     }
     .ymca-branding-slogan {
-      font-family: 'Cachet Medium';
+      font-family: "Cachet Medium", Verdana, Geneva, sans-serif;
       color: #0089d0;
       display: block;
       float: right;
@@ -508,6 +508,9 @@ header#page-head {
       @include transition(all 0.2s linear);
       .node--type-camp & {
         color: #f47820;
+      }
+      @include breakpoint (0 $tablet-start) {
+        display: none;
       }
     }
   }
