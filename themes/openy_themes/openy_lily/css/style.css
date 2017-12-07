@@ -31,12 +31,12 @@
 }
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
 h1, .h1 {
@@ -83,7 +83,7 @@ h6, .h6 {
   color: white;
   font-size: 48px;
   text-transform: uppercase;
-  font-family: 'Cachet';
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   font-weight: bold;
 }
 @media (min-width: 0) and (max-width: 48em) {
@@ -342,7 +342,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 #side-area a {
   color: #fffffb;
   line-height: 20px;
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-size: 18px;
   font-weight: bold;
   padding: 12px 15px;
@@ -402,7 +402,7 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 
 header#page-head {
   width: 100%;
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 header#page-head:after {
   content: "";
@@ -744,7 +744,7 @@ header#page-head #block-openy-lily-branding a img {
   height: auto;
 }
 header#page-head #block-openy-lily-branding .ymca-branding-slogan {
-  font-family: 'Cachet Medium';
+  font-family: "Cachet Medium", Verdana, Geneva, sans-serif;
   color: #0089d0;
   display: block;
   float: right;
@@ -759,6 +759,11 @@ header#page-head #block-openy-lily-branding .ymca-branding-slogan {
 }
 .node--type-camp header#page-head #block-openy-lily-branding .ymca-branding-slogan {
   color: #f47820;
+}
+@media (min-width: 0) and (max-width: 62em) {
+  header#page-head #block-openy-lily-branding .ymca-branding-slogan {
+    display: none;
+  }
 }
 header#page-head.tiny #block-openy-lily-branding .ymca-branding-slogan {
   font-size: 6px;
@@ -826,7 +831,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   border-radius: 3px;
   line-height: 1.33;
   text-align: center;
@@ -950,11 +955,11 @@ input.error, textarea.error {
 }
 
 label {
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
 .fieldset-legend {
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   color: #92288d;
   font-weight: bold;
   text-transform: uppercase;
@@ -986,7 +991,7 @@ label {
   color: #a94442;
   background-color: #f2dede;
   border: 1px solid #ebccd1;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 .path-account .status-message {
   margin: 30px auto 0 !important;
@@ -1020,14 +1025,14 @@ label {
 
 .openy-ccc-login-form,
 .openy-ccc-registration-form {
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
 #edit-intro-text {
   font-size: 16px;
   line-height: 1.6em;
   color: #636466;
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-weight: 400;
   font-style: normal;
   margin-bottom: .7em;
@@ -1160,6 +1165,13 @@ legend {
   width: 50%;
   float: left;
 }
+@media (min-width: 0) and (max-width: 47.9375em) {
+  [data-drupal-selector="edit-parent-information"] .form-item,
+  [data-drupal-selector="edit-contact-info"] .form-item {
+    width: 100%;
+    float: none;
+  }
+}
 
 [data-drupal-selector="edit-passwords"] div.password-confirm,
 [data-drupal-selector="edit-passwords"] .password-strength,
@@ -1174,6 +1186,12 @@ legend {
   padding-right: 10px;
   width: 50%;
   float: left;
+}
+@media (min-width: 0) and (max-width: 47.9375em) {
+  [data-drupal-selector="edit-passwords"] .form-item .form-item {
+    width: 100%;
+    float: none;
+  }
 }
 
 [data-drupal-selector="edit-parent-information"] .fieldset-wrapper {
@@ -1338,7 +1356,7 @@ legend {
   padding: 13px 25px;
   font-size: 16px !important;
   border-radius: 3px;
-  font-family: "Cachet W01 Book", 'Ubuntu Condensed', sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-weight: bold;
   text-transform: capitalize;
 }
@@ -1553,7 +1571,7 @@ legend {
   top: -20px;
 }
 #page-footer #block-openy-lily-footercopyrightblock p {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   display: inline-block;
   margin: 0;
   font-size: 13px;
@@ -1610,7 +1628,7 @@ legend {
   -webkit-border-radius: 3px;
   border-radius: 3px;
   color: #fff;
-  font-family: 'Cachet';
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   margin-bottom: 12px;
   min-height: 50px;
   padding: 12px;
@@ -1841,23 +1859,23 @@ article.site-alert ul li div {
   text-transform: uppercase;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   line-height: 1.3em;
-  font-size: 63px;
+  font-size: 54px;
 }
 @media (min-width: 75em) and (max-width: 84.375em) {
   .path-frontpage .masthead .masthead-brand {
-    font-size: 56px;
+    font-size: 44px;
   }
 }
 @media (min-width: 0) and (max-width: 75em) {
   .path-frontpage .masthead .masthead-brand {
-    font-size: 50px;
+    font-size: 44px;
   }
 }
 @media (min-width: 0) and (max-width: 62em) {
   .path-frontpage .masthead .masthead-brand {
-    font-size: 38px;
+    font-size: 32px;
   }
 }
 @media (min-width: 0) and (max-width: 47.9375em) {
@@ -1868,7 +1886,7 @@ article.site-alert ul li div {
     min-height: 0;
     text-align: center;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 26px;
   }
 }
 .path-frontpage .masthead .find-locations {
@@ -1881,7 +1899,7 @@ article.site-alert ul li div {
 }
 .path-frontpage .masthead .find-locations .location-search {
   position: absolute;
-  bottom: 15px;
+  bottom: 8px;
   right: 265px;
 }
 @media (min-width: 0) and (max-width: 75em) {
@@ -1968,7 +1986,7 @@ article.site-alert ul li div {
 .path-frontpage .masthead .newsletter-link-wrapper a {
   background-color: #0f74c7;
   max-width: 240px;
-  width: 217px;
+  width: 230px;
   display: inline-block;
   transition: background-color .3s;
   -webkit-transition: background-color .3s;
@@ -1977,8 +1995,8 @@ article.site-alert ul li div {
   margin: 0;
   color: white;
   text-transform: uppercase;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  font-size: 13px;
   font-weight: normal;
   line-height: 1.428571429;
   text-align: center;
@@ -1996,11 +2014,11 @@ article.site-alert ul li div {
 }
 .path-frontpage .masthead .site-phone {
   color: white;
-  font-size: 24px;
+  font-size: 22px;
   display: block;
   margin-top: 18px;
   position: absolute;
-  right: 20px;
+  right: 40px;
 }
 @media (min-width: 0) and (max-width: 63.9375em) {
   .path-frontpage .masthead .site-phone {
@@ -2027,7 +2045,7 @@ article.site-alert ul li div {
     right: 27px !important;
   }
   .path-frontpage .masthead .newsletter-link-wrapper {
-    top: 61px;
+    top: 50px;
   }
   .path-frontpage .masthead .site-phone {
     right: -40px;
@@ -2366,7 +2384,7 @@ article.site-alert ul li div {
   width: auto;
   display: inline-block;
   color: #fff;
-  font-family: Cachet;
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   border-radius: 4px;
   outline: 0 !important;
   position: relative;
@@ -2388,7 +2406,7 @@ article.site-alert ul li div {
   width: auto;
   display: inline-block;
   color: #fff;
-  font-family: Cachet;
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   border-radius: 4px;
   outline: 0 !important;
   position: relative;
@@ -2635,7 +2653,7 @@ article.site-alert ul li div {
   width: auto;
   display: inline-block;
   color: #fff;
-  font-family: Cachet;
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   border-radius: 4px;
   outline: 0 !important;
   position: relative;
@@ -2657,7 +2675,7 @@ article.site-alert ul li div {
   width: auto;
   display: inline-block;
   color: #fff;
-  font-family: Cachet;
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   border-radius: 4px;
   outline: 0 !important;
   position: relative;
@@ -3026,7 +3044,7 @@ body.path-search #block-mainpagecontent li {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -3087,7 +3105,7 @@ body.path-search #block-mainpagecontent li {
 }
 .search-results .views-row .views-field-title {
   font-size: 18px;
-  font-family: 'Cachet';
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -3125,7 +3143,7 @@ body.path-search #block-mainpagecontent li {
 .program-header .description .field-program-description {
   font-size: 14px;
   line-height: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
 @media (min-width: 0) and (max-width: 48em) {
@@ -3307,7 +3325,7 @@ body.path-search #block-mainpagecontent li {
 }
 .news-more-teaser label {
   display: block;
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   letter-spacing: -0.025em;
 }
 .news-more-teaser .form-item-combine label {
@@ -3321,7 +3339,7 @@ body.path-search #block-mainpagecontent li {
   width: 1px;
 }
 .news-more-teaser select {
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   letter-spacing: -0.025em;
 }
 .news-more-teaser .form-text {
@@ -3343,7 +3361,7 @@ body.path-search #block-mainpagecontent li {
   border: solid 1px #636466;
   font-size: 16px;
   font-weight: 600;
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   letter-spacing: -0.025em;
   text-transform: uppercase;
 }
@@ -3556,7 +3574,7 @@ body.path-search #block-mainpagecontent li {
   font-size: 14px;
   line-height: 1.28;
   letter-spacing: 2px;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   padding: 0 22px;
 }
 .node--type-blog.node--view-mode-teaser.blog-news h2, .node--type-blog.node--view-mode-teaser.blog-color h2, .node--type-blog.node--view-mode-teaser.blog-story h2 {
@@ -3568,7 +3586,7 @@ body.path-search #block-mainpagecontent li {
 }
 
 .back-to-blog a {
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   text-transform: uppercase;
 }
 
@@ -3597,7 +3615,7 @@ body.path-search #block-mainpagecontent li {
   color: #5e5e5e;
   font-weight: bold;
   font-size: 24px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   margin-bottom: 10px;
 }
 .blog-related h2 {
@@ -3979,7 +3997,7 @@ body form .field--widget-boolean-checkbox label {
 .post-excerpt .read-more-wrapper a {
   color: #0089d0;
   font-size: 16px;
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   -webkit-transition: color .2s ease-out;
@@ -3999,7 +4017,7 @@ body form .field--widget-boolean-checkbox label {
   content: 'o';
   vertical-align: baseline;
   font-size: 20px;
-  font-family: 'OPENY_LILY';
+  font-family: 'YMCA';
 }
 
 .checkbox-custom-label {
@@ -4075,7 +4093,7 @@ p.legend {
 #modal.annual-report-modal .modal-header #modal-title .modal-close {
   background: none;
   color: #fff;
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-weight: bold;
   right: 10px;
   text-decoration: none;
@@ -4191,7 +4209,7 @@ p.legend {
   background: #92288d;
   border: 0;
   border-radius: 0;
-  font-family: 'Cachet';
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   position: relative;
   padding: 17px 50px 15px;
 }
@@ -4216,7 +4234,7 @@ p.legend {
 .ui-widget.ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close::before {
   content: "X";
   color: #fff;
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-weight: bold;
   text-decoration: none;
 }
@@ -4661,7 +4679,7 @@ a.sports-icon.floor-hockey {
 
 .node--type-class .field-class-description {
   margin-top: 30px;
-  font-family: "Helvetica Neue LT W01_55 Roman",Verdana,sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 .node--type-class .class__session-instances-list {
   margin-bottom: 30px;
@@ -4739,7 +4757,7 @@ a.sports-icon.floor-hockey {
   display: list-item;
   font-weight: bold;
   font-size: 18px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   float: left;
   width: 80%;
 }
@@ -4898,7 +4916,7 @@ a.sports-icon.floor-hockey {
 .branch-header .back-link {
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 .branch-header .back-link a {
   color: rgba(255, 255, 255, 0.7);
@@ -4927,7 +4945,7 @@ a.sports-icon.floor-hockey {
   text-transform: uppercase;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   margin: 0;
   min-height: 55px;
   font-size: 48px;
@@ -4971,7 +4989,7 @@ a.sports-icon.floor-hockey {
   border-radius: 3px;
   text-transform: uppercase;
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   margin-top: 0;
   padding: 12px 20px;
   outline: 0;
@@ -5251,7 +5269,7 @@ a.sports-icon.floor-hockey {
   }
 }
 .paragraph--type--gallery-cta-content .cta-group-wrapper .cta-group .text {
-  font-family: "Cachet", Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
   letter-spacing: -0.025em;
   font-size: 18px;
   line-height: 22px;
@@ -5436,7 +5454,7 @@ a.sports-icon.floor-hockey {
   line-height: 1.1em;
   margin: 20px 0 10px;
   color: white;
-  font-family: 'Cachet';
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
 }
 @media (min-width: 0) and (max-width: 62em) {
   .text-banner h1 {
@@ -5609,7 +5627,7 @@ a.sports-icon.floor-hockey {
 }
 #small-text-banner .header-copy .banner-copy p {
   font-size: 24px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 #small-text-banner .header-image {
   z-index: 1;
@@ -5671,8 +5689,13 @@ a.sports-icon.floor-hockey {
   color: #5e5e5e;
   font-weight: bold;
   font-size: 34px;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
   text-transform: uppercase;
+}
+@media (min-width: 0) and (max-width: 62em) {
+  .paragraph--type--promo-text h2 {
+    font-size: 28px;
+  }
 }
 .paragraph--type--promo-text p {
   font-size: 21px;
@@ -5701,7 +5724,7 @@ a.sports-icon.floor-hockey {
 }
 .paragraph--type--promo-text ul li a {
   font-weight: bold;
-  font-family: 'Cachet', Helvetica, Arial, sans-serif;
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
 }
 
 .paragraph--type--faq-item {
@@ -5728,7 +5751,7 @@ a.sports-icon.floor-hockey {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
   font-weight: bold;
-  font-family: 'Cachet';
+  font-family: 'Cachet', Verdana, Geneva, sans-serif;
 }
 .paragraph--type--faq-item .field-answer {
   display: none;
@@ -5764,6 +5787,10 @@ a.sports-icon.floor-hockey {
 .paragraph--type--grid-columns .field-prgf-grid-clm-description .field-media-image img {
   max-width: 100%;
   max-height: none;
+}
+
+.field-prgf-grid-clm-description table {
+  max-width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
