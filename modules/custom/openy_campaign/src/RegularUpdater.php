@@ -102,7 +102,7 @@ class RegularUpdater {
         'date_to' => $to,
       ];
 
-      $chunks = array_chunk($masterCustomerIds, 1000);
+      $chunks = array_chunk($masterCustomerIds, 100);
       foreach ($chunks as $chunk) {
         $data['items'] = [];
         foreach ($chunk as $masterCustomerID) {
