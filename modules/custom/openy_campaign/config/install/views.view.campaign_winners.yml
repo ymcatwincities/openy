@@ -1230,6 +1230,8 @@ display:
             goal:
               alias: visit_goal
               raw_output: false
+      export_method: batch
+      export_batch_size: 50
     cache_metadata:
       max-age: -1
       contexts:

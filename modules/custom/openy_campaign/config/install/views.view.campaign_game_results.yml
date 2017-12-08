@@ -2,7 +2,12 @@ langcode: en
 status: true
 dependencies:
   module:
+    - csv_serialization
     - openy_campaign
+    - rest
+    - serialization
+    - user
+    - views_data_export
 id: campaign_game_results
 label: 'Campaign Game Results'
 module: views
@@ -19,8 +24,9 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'view retention campaign reports'
       cache:
         type: tag
         options: {  }
@@ -620,7 +626,18 @@ display:
           empty: false
           content: 'Displaying @start - @end of @total'
           plugin_id: result
-      footer: {  }
+      footer:
+        area_text_custom:
+          id: area_text_custom
+          table: views
+          field: area_text_custom
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          content: '<div class="csv-feed views-data-export-feed"><a class="feed-icon" href="/node/{{ raw_arguments.campaign }}/campaign-game-results/csv">Get CSV</a></div>'
+          plugin_id: text_custom
       empty:
         area:
           id: area
@@ -697,6 +714,8 @@ display:
           entity_field: campaign
           plugin_id: numeric
       display_extenders: {  }
+      link_url: ''
+      link_display: data_export_1
     cache_metadata:
       max-age: 0
       contexts:
@@ -704,4 +723,53 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - user.permissions
+      tags: {  }
+  data_export_1:
+    display_plugin: data_export
+    id: data_export_1
+    display_title: 'Data export'
+    position: 1
+    display_options:
+      display_extenders: {  }
+      export_method: batch
+      export_batch_size: 100
+      path: node/%/campaign-game-results/csv
+      filename: campaign-game-results.csv
+      automatic_download: true
+      redirect_path: ''
+      displays:
+        default: default
+      style:
+        type: data_export
+        options:
+          formats:
+            csv: csv
+          csv_settings:
+            delimiter: ','
+            enclosure: '"'
+            escape_char: \
+            strip_tags: true
+            trim: true
+            encoding: utf8
+          xls_settings:
+            xls_format: Excel2007
+            metadata:
+              creator: ''
+              last_modified_by: ''
+              title: ''
+              description: ''
+              subject: ''
+              keywords: ''
+              category: ''
+              manager: ''
+              company: ''
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - request_format
+        - url
+        - user.permissions
       tags: {  }

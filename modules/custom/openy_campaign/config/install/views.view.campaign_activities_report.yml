@@ -1120,6 +1120,8 @@ display:
             activity:
               alias: subcategory
               raw_output: false
+      export_method: batch
+      export_batch_size: 500
     cache_metadata:
       max-age: -1
       contexts:

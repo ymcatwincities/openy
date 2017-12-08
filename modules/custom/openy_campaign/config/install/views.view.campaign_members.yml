@@ -1992,6 +1992,8 @@ display:
         type: none
         options:
           offset: 0
+      export_method: batch
+      export_batch_size: 500
     cache_metadata:
       max-age: -1
       contexts:
