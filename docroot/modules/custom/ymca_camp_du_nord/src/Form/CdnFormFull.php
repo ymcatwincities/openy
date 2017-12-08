@@ -255,12 +255,15 @@ class CdnFormFull extends FormBase {
               ->condition('type', 'cdn_prs_product')
               ->condition('field_cdn_prd_cabin_id', $cabin_id)
               ->execute();
-            if ($mapping = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_id)) {
-              $ref = $mapping->field_cdn_prd_village_ref->getValue();
-              $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
-              // Filter by village.
-              if ($page_id !== $query['village'] && $query['village'] !== 'all') {
-                unset($cdn_products[$key]);
+            $mapping_id = reset($mapping_id);
+            if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+              if (!$mapping->field_cdn_prd_village_ref->isEmpty()) {
+                $ref = $mapping->field_cdn_prd_village_ref->getValue();
+                $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
+                // Filter by village.
+                if ($page_id !== $query['village'] && $query['village'] !== 'all') {
+                  unset($cdn_products[$key]);
+                }
               }
             }
           }
@@ -316,6 +319,32 @@ class CdnFormFull extends FormBase {
       $parameters,
       ['query' => $values]
     );
+  }
+
+  /**
+   * Return Village options.
+   */
+  public function getVillageByCabinId($cid) {
+    $village_id = '';
+    $mapping_ids = $this->entityQuery
+      ->get('mapping')
+      ->condition('type', 'cdn_prs_product')
+      ->condition('field_cdn_prd_cabin_id', $cid)
+      ->execute();
+    if (empty($mapping_ids)) {
+      $abu=1;
+    }
+    $mapping_id = reset($mapping_ids);
+    if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+      if ($cid == 'N005') {
+        $abu=1;
+      }
+      $village_id = !$mapping->field_cdn_prd_village_ref->isEmpty() ? $mapping->field_cdn_prd_village_ref->target_id : '';
+      if (empty($village_id)) {
+        $abu=1;
+      }
+    }
+    return $village_id;
   }
 
   /**
@@ -413,11 +442,24 @@ class CdnFormFull extends FormBase {
         $calendar = $view->buildRenderable('embed_1', $args);
         $total_capacity = $product->field_cdn_prd_capacity->value;
         $image = $this->getCabinImage($product->getName());
-
+        // Load description from mapping.
+        $description = '';
+        if (!empty($product->field_cdn_prd_cabin_id->value)) {
+          $mapping_id = $this->entityQuery
+            ->get('mapping')
+            ->condition('type', 'cdn_prs_product')
+            ->condition('field_cdn_prd_cabin_id', $product->field_cdn_prd_cabin_id->value)
+            ->execute();
+          $mapping_id = reset($mapping_id);
+          if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+            $description = $mapping->field_cdn_prd_cabin_desc->view('default');
+          }
+        }
         $teasers[] = [
           'teaser' => [
             '#theme' => 'cdn_village_teaser',
             '#title' => !empty($product->getName()) ? substr($product->getName(), 9) : '',
+            '#description' => $description,
             '#image' => $image,
             '#availability' => $default_availability,
             '#capacity' => $total_capacity,
@@ -466,12 +508,15 @@ class CdnFormFull extends FormBase {
     }
     foreach ($view->result as $row) {
       $entity = $row->_entity;
+      $cid = !$entity->field_cdn_prd_cabin_id->isEmpty() ? $entity->field_cdn_prd_cabin_id->value : '';
       $product_id = !$entity->field_cdn_prd_id->isEmpty() ? $entity->field_cdn_prd_id->value : '';
       $date = !$entity->field_cdn_prd_start_date->isEmpty() ? $entity->field_cdn_prd_start_date->value : '';
       $price = !$entity->field_cdn_prd_list_price->isEmpty() ? $entity->field_cdn_prd_list_price->value : '';
+      $total_capacity = !$entity->field_cdn_prd_capacity->isEmpty() ? $entity->field_cdn_prd_capacity->value : '';
       $capacity = !$entity->field_cdn_prd_capacity_left->isEmpty() ? $entity->field_cdn_prd_capacity_left->value : '';
       $registrations = !$entity->field_cdn_prd_regs->isEmpty() ? $entity->field_cdn_prd_regs->value : '';
       $pid = !$entity->field_cdn_prd_id->isEmpty() ? $entity->field_cdn_prd_id->value : '';
+      $village_id = $this->getVillageByCabinId($cid);
       // Check if cabin is booked.
       $is_booked = FALSE;
       if ($capacity - $registrations == 0) {
@@ -496,6 +541,8 @@ class CdnFormFull extends FormBase {
           'is_booked' => $is_booked,
           'is_selected' => FALSE,
           'price' => $price,
+          'total_capacity' => $total_capacity,
+          'village_id' => $village_id,
         ],
       ];
       $total_price += $price;

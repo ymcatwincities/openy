@@ -6,13 +6,20 @@
  * @ingroup themeable
  */
 #}
+<div class="cdn-no-results">
+  <div class="container">
+  {{ 'Please select another village, change capacity or date range to see if there are other cabins available.'|t }}
+  </div>
+</div>
 <div class="cdn-village-teasers">
   <div class="container">
+    <div class="row">
     {% for key, teaser in teasers %}
       <div class="cdn-village-teaser" data-index="{{ key }}">
       {{ teaser.teaser }}
       </div>
     {% endfor %}
+    </div>
   </div>
 </div>
 <div class="cdn-village-calendars">
@@ -23,6 +30,7 @@
         <a href="#" class="close-cal">x</a>
         <a href="#" class="view"><i class="fa fa-eye" aria-hidden="true"></i></a>
         <h2 class="title">{{ teaser.teaser['#title'] }}</h2>
+        <div class="description">{{ teaser.teaser['#description'] }}</div>
         <p><strong>{{ 'Please select check in and check out dates*'|t }}</strong></p>
       </div>
       <div class="cdn-calendar-list">
