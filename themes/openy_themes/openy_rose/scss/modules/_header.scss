@@ -37,9 +37,16 @@
       }
     }
 
+    .site-logo {
+      @include breakpoint($screen-desktop) {
+        position: absolute;
+      }
+    }
+
     .site-slogan {
       color: $lighter-grey;
       display: block;
+      height: 0;
       left: 0;
       margin: auto;
       position: absolute;
