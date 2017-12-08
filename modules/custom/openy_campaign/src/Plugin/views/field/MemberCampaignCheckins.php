@@ -44,7 +44,7 @@ class MemberCampaignCheckins extends FieldPluginBase {
     $member = $entity->getMember();
 
     if (empty($member)) {
-      return;
+      return 0;
     }
     
     /** @var \Drupal\node\Entity\Node $campaign */

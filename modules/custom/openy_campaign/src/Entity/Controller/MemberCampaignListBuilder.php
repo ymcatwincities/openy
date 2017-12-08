@@ -37,10 +37,22 @@ class MemberCampaignListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /** @var \Drupal\openy_campaign\Entity\MemberCampaign $entity */
     $row['id'] = $entity->id();
-    $row['member'] = $entity->member->entity->id();
-    $row['name'] = $entity->member->entity->getFullName();
-    $row['membership_id'] = $entity->member->entity->getMemberId();
-    $row['campaign'] = $entity->campaign->entity->getTitle();
+    if ($entity->member && $entity->member->entity) {
+      $row['member'] = $entity->member->entity->id();
+      $row['name'] = $entity->member->entity->getFullName();
+      $row['membership_id'] = $entity->member->entity->getMemberId();
+    }
+    else {
+      $row['member'] = NULL;
+      $row['name'] = 'undefined';
+      $row['membership_id'] = NULL;
+    }
+    if ($entity->campaign && $entity->campaign->entity) {
+      $row['campaign'] = $entity->campaign->entity->getTitle();
+    }
+    else {
+      $row['campaign'] = 'undefined';
+    }
     $row['goal'] = $entity->getGoal();
 
     return $row + parent::buildRow($entity);
