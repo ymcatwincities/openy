@@ -390,6 +390,7 @@ body {
 .page-head__logo .site-slogan {
   color: #ebebeb;
   display: block;
+  font-size: 13px;
   height: 0;
   left: 0;
   margin: auto;
@@ -401,6 +402,11 @@ body {
 }
 .page-head__logo .site-slogan:hover {
   text-decoration: none;
+}
+@media (min-width: 48em) {
+  .page-head__logo .site-slogan {
+    font-size: 14px;
+  }
 }
 @media (min-width: 62em) {
   .page-head__logo .site-slogan {
