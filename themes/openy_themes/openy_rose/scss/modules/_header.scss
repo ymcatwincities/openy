@@ -46,6 +46,7 @@
     .site-slogan {
       color: $lighter-grey;
       display: block;
+      font-size: 13px;
       height: 0;
       left: 0;
       margin: auto;
@@ -56,6 +57,9 @@
       top: 20px;
       &:hover {
         text-decoration: none;
+      }
+      @include breakpoint($screen-tablet) {
+        font-size: 14px;
       }
       @include breakpoint($screen-desktop) {
         top: 10px;
