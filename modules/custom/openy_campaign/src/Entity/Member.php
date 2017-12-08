@@ -268,6 +268,29 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['order_number'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Order Number'))
+      ->setDescription(t('Member active order number.'))
+      ->setSettings([
+        'default_value' => '',
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setDisplayOptions('form', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -3,
+      ])
+      ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+
     $fields['member_unit_type'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Member unit type'))
       ->setDescription(t('Member unit type is one of: Adult, Dual, Family, Youth, Student, Contract.'))
@@ -454,6 +477,21 @@ class Member extends ContentEntityBase implements MemberInterface {
   /**
    * {@inheritdoc}
    */
+  public function getOrderNumber() {
+    return $this->get('order_number')->value;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setOrderNumber($value) {
+    $this->set('order_number', $value);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getMemberUnitType() {
     return $this->get('member_unit_type')->value;
   }
@@ -474,7 +512,7 @@ class Member extends ContentEntityBase implements MemberInterface {
    * @return bool | \Drupal\openy_campaign\Entity\Member
    *   FALSE or Member object.
    */
-  public static function loadMemberFromCRMData ($membershipID) {
+  public static function loadMemberFromCRMData($membershipID) {
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
     $client = \Drupal::getContainer()->get('openy_campaign.client_factory')->getClient();
 
@@ -537,6 +575,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       'birth_date' => (isset($birthdate)) ? $birthdate : NULL, // '1970-08-20' | '1950-10-02T00:00:00' - string with Birthday year
       // Add these fields to CRM API
       'branch' => !empty($branch) ? $branch : '', // 2 - target_id for node type Branch
+      'order_number' => $resultsCRM->OrderNumber,
       'payment_type' => '', // FP, P3
       'member_unit_type' => $productCode,
     ];

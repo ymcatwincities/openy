@@ -80,10 +80,10 @@ class MemberRegistrationPortalForm extends FormBase {
     }
 
     // TODO Add check length of $membershipID
-    if (!is_numeric($membershipID)) {
-      $form_state->setErrorByName('membership_id', $this->t('Please, check Membership ID number.'));
-      return;
-    }
+    //if (!is_numeric($membershipID)) {
+    //  $form_state->setErrorByName('membership_id', $this->t('Please, check Membership ID number.'));
+    //  return;
+    //}
 
     // Check MemberCampaign entity
     $memberCampaignID = MemberCampaign::findMemberCampaign($membershipID, $campaignID);
@@ -99,6 +99,20 @@ class MemberRegistrationPortalForm extends FormBase {
     if (($member instanceof Member === FALSE) || empty($member)) {
       $form_state->setErrorByName('membership_id', $errorDefault);
 
+      return;
+    }
+
+    // User is inactive if he does not have an active order number.
+    $isInactiveMember = empty($member->get('order_number'));
+    if ($isInactiveMember) {
+      $msgMemberInactive = $config->get('error_msg_member_is_inactive');
+      $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+      // Get error from Campaign node
+      if (!empty($campaign->field_error_member_is_inactive->value)) {
+        $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+      }
+
+      $form_state->setErrorByName('membership_id', $errorMemberInactive);
       return;
     }
 
