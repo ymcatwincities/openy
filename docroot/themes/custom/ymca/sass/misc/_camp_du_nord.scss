@@ -215,10 +215,9 @@
           @include breakpoint(768px) {
             display: inline-block;
             padding-bottom: 30px;
+            padding-left: 15px;
+            padding-right: 15px;
             width: 31%;
-            &:nth-child(3n+2) {
-              margin: 0 3%;
-            }
           }
           &.not-active {
             opacity: 0.5 !important;
@@ -229,6 +228,9 @@
         }
       }
     }
+  }
+  .cdn-no-results {
+    display: none;
   }
 }
 .paragraph--type--camp-du-nord-calendar-view {
@@ -258,14 +260,19 @@
       }
       .title {
         font-family: "Cachet Book", Arial, sans-serif;
-        font-size: 50px;
+        font-size: 40px;
         font-weight: normal;
         color: #222222;
         margin: 0;
         @include breakpoint(768px) {
           margin-top: 20px;
-          margin-bottom: 70px;
         }
+      }
+      .description {
+        margin-bottom: 70px;
+        font-size: 18px;
+        color: #777777;
+        line-height: 26px;
       }
       .view {
         border-radius: 4px;
@@ -293,8 +300,9 @@
         position: absolute;
         right: 0;
         text-align: center;
-        top: 12px;
+        top: 0;
         width: 50px;
+        text-decoration: none;
         @include breakpoint(768px) {
           display: block;
         }
