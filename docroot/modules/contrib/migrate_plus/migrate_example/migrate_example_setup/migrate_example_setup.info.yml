@@ -11,8 +11,8 @@ dependencies:
   - drupal:options
   - drupal:taxonomy
 
-# Information added by Drupal.org packaging script on 2017-05-10
-version: '8.x-4.0-beta1'
+# Information added by Drupal.org packaging script on 2017-08-15
+version: '8.x-4.0-beta1+3-dev'
 core: '8.x'
 project: 'migrate_plus'
-datestamp: 1494450189
+datestamp: 1502832547

@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: cdn_emergency_contact_form
+label: 'Camp du Nord Emergency Contact form'
+behavior_plugins: {  }
