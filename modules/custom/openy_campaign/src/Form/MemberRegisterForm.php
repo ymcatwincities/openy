@@ -238,7 +238,7 @@ class MemberRegisterForm extends FormBase {
     }
 
     // User is inactive if he does not have active order number.
-    $isInactiveMember = empty($member->get('order_number'));
+    $isInactiveMember = empty($member->order_number->value);
     if ($isInactiveMember) {
       $msgMemberInactive = $config->get('error_msg_member_is_inactive');
       $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
