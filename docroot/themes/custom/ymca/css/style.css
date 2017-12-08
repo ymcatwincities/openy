@@ -11325,10 +11325,9 @@ tr:nth-last-child(3) .atcb-list {
   .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
     display: inline-block;
     padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
     width: 31%;
-  }
-  .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser:nth-child(3n+2) {
-    margin: 0 3%;
   }
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser.not-active {
@@ -11336,6 +11335,9 @@ tr:nth-last-child(3) .atcb-list {
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser.active {
   opacity: 1 !important;
+}
+.cdn-form-full .cdn-no-results {
+  display: none;
 }
 
 .paragraph--type--camp-du-nord-calendar-view {
@@ -11373,7 +11375,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 .cdn-village-calendars .cdn-calendar .description .title {
   font-family: "Cachet Book", Arial, sans-serif;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: normal;
   color: #222222;
   margin: 0;
@@ -11381,8 +11383,13 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 48em) {
   .cdn-village-calendars .cdn-calendar .description .title {
     margin-top: 20px;
-    margin-bottom: 70px;
   }
+}
+.cdn-village-calendars .cdn-calendar .description .description {
+  margin-bottom: 70px;
+  font-size: 18px;
+  color: #777777;
+  line-height: 26px;
 }
 .cdn-village-calendars .cdn-calendar .description .view {
   border-radius: 4px;
@@ -11407,8 +11414,9 @@ tr:nth-last-child(3) .atcb-list {
   position: absolute;
   right: 0;
   text-align: center;
-  top: 12px;
+  top: 0;
   width: 50px;
+  text-decoration: none;
 }
 @media (min-width: 48em) {
   .cdn-village-calendars .cdn-calendar .description .close-cal {
@@ -12491,11 +12499,11 @@ body.show-new-mobile-menu .sidebar .active .health-fitness.nav-level-2:before, b
 body.show-new-mobile-menu .sidebar .active .jobs.nav-level-2:before, body.show-new-mobile-menu .sidebar .jobs.nav-level-2:before {
   content: '';
 }
-body.show-new-mobile-menu .dropdown.open > .dropdown-menu {
+body.show-new-mobile-menu .sidebar .dropdown.open > .dropdown-menu {
   padding-bottom: 70px;
   background: #fff;
 }
-body.show-new-mobile-menu li > a.overview {
+body.show-new-mobile-menu .sidebar li > a.overview {
   display: none;
 }
 

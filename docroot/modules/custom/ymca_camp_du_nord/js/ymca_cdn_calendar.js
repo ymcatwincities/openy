@@ -107,6 +107,51 @@
         });
       });
 
+      function cdn_change_village_capacity(val_v, val_c) {
+        $('.cdn-village-teaser, .cdn-calendar, .cdn-no-results').hide();
+        if (val_v !== 'all' || val_c !== 'all') {
+          $('.cdn-calendar-list-row').each(function () {
+            var i = $(this).parents('.cdn-calendar').data('index');
+            // Filter only by village.
+            if (val_v !== 'all' && val_c === 'all') {
+              if ($(this).data('village_id') * 1 === val_v * 1) {
+                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i + '"]').show();
+              }
+            }
+            // Filter only by capacity.
+            if (val_v === 'all' && val_c !== 'all') {
+              if ($(this).data('total_capacity') * 1 === val_c * 1) {
+                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i + '"]').show();
+              }
+            }
+            // Filter by village and capacity.
+            if (val_v !== 'all' && val_c !== 'all') {
+              if ($(this).data('village_id') * 1 === val_v * 1 && $(this).data('total_capacity') * 1 === val_c * 1) {
+                $('.cdn-village-teaser[data-index="' + i + '"], .cdn-calendar[data-index="' + i +'"]').show();
+              }
+            }
+          });
+        }
+        else if (val_v === 'all' && val_c === 'all') {
+          $('.cdn-village-teaser, .cdn-calendar').show();
+        }
+        // if there are no results show a message.
+        if ($('.cdn-village-teaser:visible').length === 0) {
+          $('.cdn-no-results').show();
+        }
+      }
+      // Search form filters.
+      $('.cdn-form-full select[name="village"]').change(function () {
+        var val_v = $(this).val(),
+            val_c = $('.cdn-form-full select[name="capacity"]').val();
+        cdn_change_village_capacity(val_v, val_c);
+      });
+      $('.cdn-form-full select[name="capacity"]').change(function () {
+        var val_c = $(this).val(),
+            val_v = $('.cdn-form-full select[name="village"]').val();
+        cdn_change_village_capacity(val_v, val_c);
+      });
+
       $('.cdn-village-teaser:eq(0)').addClass('active');
       $('.cdn-calendar:eq(0)').addClass('active');
       $('.cdn-village-teaser').on('click', function() {
