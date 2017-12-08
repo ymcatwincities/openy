@@ -8,11 +8,10 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Routing\CurrentRouteMatch;
+use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
 use Drupal\migrate_plus\Entity\MigrationGroup;
-use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Datetime\DateFormatter;
 
 /**
  * Provides a listing of migration entities in a given group.
@@ -33,9 +32,9 @@ class MigrationListBuilder extends ConfigEntityListBuilder implements EntityHand
   /**
    * Plugin manager for migration plugins.
    *
-   * @var \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager
+   * @var \Drupal\migrate\Plugin\MigrationPluginManagerInterface
    */
-  protected $migrationConfigEntityPluginManager;
+  protected $migrationPluginManager;
 
   /**
    * Constructs a new EntityListBuilder object.
@@ -46,13 +45,13 @@ class MigrationListBuilder extends ConfigEntityListBuilder implements EntityHand
    *   The entity storage class.
    * @param \Drupal\Core\Routing\CurrentRouteMatch $current_route_match
    *   The current route match service.
-   * @param \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager $migration_config_entity_plugin_manager
+   * @param \Drupal\migrate\Plugin\MigrationPluginManagerInterface $migration_plugin_manager
    *   The plugin manager for config entity-based migrations.
    */
-  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, CurrentRouteMatch $current_route_match, MigrationConfigEntityPluginManager $migration_config_entity_plugin_manager) {
+  public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, CurrentRouteMatch $current_route_match, MigrationPluginManagerInterface $migration_plugin_manager) {
     parent::__construct($entity_type, $storage);
     $this->currentRouteMatch = $current_route_match;
-    $this->migrationConfigEntityPluginManager = $migration_config_entity_plugin_manager;
+    $this->migrationPluginManager = $migration_plugin_manager;
   }
 
   /**
@@ -63,7 +62,7 @@ class MigrationListBuilder extends ConfigEntityListBuilder implements EntityHand
       $entity_type,
       $container->get('entity.manager')->getStorage($entity_type->id()),
       $container->get('current_route_match'),
-      $container->get('plugin.manager.config_entity_migration')
+      $container->get('plugin.manager.migration')
     );
   }
 
@@ -123,10 +122,10 @@ class MigrationListBuilder extends ConfigEntityListBuilder implements EntityHand
    * @return array
    *   A render array of the table row for displaying the plugin information.
    *
-   * @see Drupal\Core\Entity\EntityListController::render()
+   * @see \Drupal\Core\Entity\EntityListController::render()
    */
   public function buildRow(EntityInterface $migration_entity) {
-    $migration = $this->migrationConfigEntityPluginManager->createInstance($migration_entity->id());
+    $migration = $this->migrationPluginManager->createInstance($migration_entity->id());
     $migration_group = $migration->get('migration_group');
     if (!$migration_group) {
       $migration_group = 'default';
