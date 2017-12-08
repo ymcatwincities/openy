@@ -3,7 +3,7 @@ api = 2
 defaults[projects][subdir] = contrib
 
 projects[features] = 3.5
-projects[config_update] = 1.4
+projects[config_update] = 1.5
 projects[entity] = 1.0-beta1
 projects[datalayer][subdir] = contrib
 projects[datalayer][version] = 1.x-dev
