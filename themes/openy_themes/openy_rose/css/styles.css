@@ -382,9 +382,15 @@ body {
     margin-top: 35px;
   }
 }
+@media (min-width: 62em) {
+  .page-head__logo .site-logo {
+    position: absolute;
+  }
+}
 .page-head__logo .site-slogan {
   color: #ebebeb;
   display: block;
+  height: 0;
   left: 0;
   margin: auto;
   position: absolute;
