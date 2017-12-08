@@ -237,8 +237,8 @@ class MemberRegisterForm extends FormBase {
       return;
     }
 
-    // TODO Check from CRM API if a member shows as inactive
-    $isInactiveMember = FALSE;
+    // User is inactive if he does not have active order number.
+    $isInactiveMember = empty($member->get('order_number'));
     if ($isInactiveMember) {
       $msgMemberInactive = $config->get('error_msg_member_is_inactive');
       $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
@@ -248,6 +248,7 @@ class MemberRegisterForm extends FormBase {
       }
 
       $form_state->setErrorByName('membership_id', $errorMemberInactive);
+      return;
     }
 
     /** @var MemberCampaign $memberCampaign Create temporary MemberCampaign entity. Will be saved by submit. */
