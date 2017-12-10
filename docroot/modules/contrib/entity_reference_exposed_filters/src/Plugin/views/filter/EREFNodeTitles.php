@@ -29,7 +29,7 @@ use Drupal\Core\Database\Connection;
  */
 class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, ContainerFactoryPluginInterface {
 
-  // TODO this doesnt work for tax terms or users. separate filter.
+  // TODO this doesn't work for tax terms or users. separate filter.
   /**
    * Options to sort by.
    *
@@ -245,6 +245,9 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
    */
   public function valueForm(&$form, FormStateInterface $form_state) {
     parent::valueForm($form, $form_state);
+    // Reduce duplicates does not work. Do we need it?
+    $form['reduce_duplicates']['#default_value'] = 0;
+    $form['reduce_duplicates'] = ['#disabled' => TRUE];
     // Disable the none option. we have to have a relationship.
     unset($form['relationship']['#options']['none']);
     // Disable the expose button. this should be an exposed filter.
@@ -279,7 +282,7 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
    */
   public function getValueOptions() {
     // Generate the values from the helper function.
-    // TODO? - regenerate the list everytime the relationship field is changed.
+    // TODO? - regenerate the list every time the relationship field is changed.
     $this->valueOptions = $this->generateOptions();
     return $this->valueOptions;
   }
@@ -289,40 +292,33 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
    */
   public function generateOptions() {
     $res = [];
-    $relationship_fields = array_keys($this->getRelationships);
+    $relationships = $this->getRelationships;
+    $relationship_fields = array_keys($relationships);
 
-    if (!empty($this->getRelationships) && isset($relationship_fields[0])) {
-      // Get the base view. we need it for bundle info and field defs.
-      $base_table = array_keys($this->view->getBaseTables());
-      $entity_type_db = reset($base_table);
-      $relationship_field_name = $relationship_fields[0];
-
+    if (!empty($relationships) && isset($relationship_fields[0])) {
+      // Get the relationship of this Views handler
       $relationship = $this->view->getHandler($this->view->current_display, 'filter', $this->options['id']);
       if (isset($relationship['relationship']) && $relationship['relationship'] != 'none') {
         $relationship_field_name = $relationship['relationship'];
-        $entity_type_db = $this->getRelationships[$relationship_field_name]['entity_type'] ?: $entity_type_db;
+      }
+      else {
+        // We need this as a default.
+        $relationship_field_name = $relationship_fields[0];
       }
 
-      switch ($entity_type_db) {
-        case 'users_field_data':
-          $entity_type_id = 'user';
-          break;
-
-        case 'node_field_data':
-          $entity_type_id = 'node';
-          break;
-
-        case 'taxonomy_term_field_data':
-          $entity_type_id = 'taxonomy_term';
-          break;
-
-        default:
-          $entity_type_id = $entity_type_db;
-          break;
-      }
+      // Get the base view. we need it for bundle info and field defs.
+      $entity_type_id = explode('__', $relationships[$relationship_field_name]['table'])[0];
 
       // Get bundles from a field name.
       $all_bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
+
+      // If that didn't work, attempt again as an entity revision reference table
+      if (empty($all_bundles)) {
+        $entity_type_id = rtrim($entity_type_id, '_revision');
+        $all_bundles = $this->entityTypeBundleInfo->getBundleInfo($entity_type_id);
+      }
+
+      $gen_options = [];
 
       // Run through the bundles.
       foreach (array_keys($all_bundles) as $bundle) {
@@ -331,11 +327,9 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
             if ($field_definition->getName() == 'uid') {
               continue;
             }
-            if ($field_definition instanceof \Drupal\Core\Field\BaseFieldDefinition) {
-              $field_obj = $field_definition;
-            }
-            else {
-              $field_obj = FieldConfig::loadByName($entity_type_id, $bundle, $field_definition->getName());
+            $field_obj = FieldConfig::loadByName($entity_type_id, $bundle, $field_definition->getName());
+            if (empty($field_obj)) {
+              continue;
             }
             $target_entity_type_id = explode(':', $field_obj->getSetting('handler'));
             // Convert an entity reference view to node or user.
@@ -345,17 +339,12 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
 
             // Will tell us node, user etc.
             if ($target_entity_type_id[0] == 'default') {
-              if (!isset($target_entity_type_id[1]) && $field_obj instanceof \Drupal\Core\Field\BaseFieldDefinition) {
-                $target_entity_type_id = $field_obj->getSetting('target_type');
-              }
-              else {
-                $target_entity_type_id = $target_entity_type_id[1];
-              }
+              $target_entity_type_id = $target_entity_type_id[1];
             }
             // Filter out entity reference views.
             if (($handler_settings = $field_obj->getSetting('handler_settings')) && !empty($handler_settings['view'])) {
-              drupal_set_message('This is targeting a field filtered by a view. Cannot get bundle.', 'error');
-              drupal_set_message('Please use a field filtered by content type only.', 'error');
+              drupal_set_message(t('This is targeting a field filtered by a view. Cannot get bundle.'), 'error');
+              drupal_set_message(t('Please use a field filtered by content type only.'), 'error');
               return [];
             }
             // Get all the targets (content types etc) that this might hit.
@@ -363,7 +352,6 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
             $bundles_needed[] = $bundle;
 
             // Get the options together.
-            $gen_options = [];
             $gen_options = [
               'field' => $field_definition->getName(),
               'entity_type_id' => $entity_type_id,
@@ -374,6 +362,9 @@ class EREFNodeTitles extends ManyToOne implements PluginInspectionInterface, Con
           }
 
         }
+      }
+      if (empty($gen_options)) {
+        return [];
       }
 
       // Run the query.
