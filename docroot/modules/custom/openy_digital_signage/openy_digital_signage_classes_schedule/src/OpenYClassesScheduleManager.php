@@ -99,7 +99,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
       $classes[] = [
         'from' => $from,
         'to' => $to,
-        'trainer' => $class_session->instructor->value,
+        'trainer' => $this->prepareTrainerName($class_session->instructor->value),
         'substitute_trainer' => trim($class_session->sub_instructor->value),
         'name' => $class_session->label(),
         'from_formatted' => date('g:ia', $from),
@@ -108,6 +108,37 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
     }
 
     return $classes;
+  }
+
+  /**
+   * Truncate last name into short version.
+   *
+   * @param string $name
+   *   Trainer name.
+   *
+   * @return string
+   *   Return first name and only first letter of last name.
+   */
+  protected function prepareTrainerName($name) {
+    $new_name = '';
+    // Divide name into 2 parts.
+    $array = explode(' ', $name);
+    // Add first name to the new name.
+    $new_name .= $array[0];
+    if (empty($array[1])) {
+      return $new_name;
+    }
+    // Verify is last name full or already cut to one symbol and point.
+    if (strlen($array[1]) == 2 && substr($array[1], 1, 1) == '.') {
+      // Leave as is.
+      $new_name .= ' ' . $array[1];
+    }
+    else {
+      // Add only first latter of last name..
+      $new_name .= ' ' . strtoupper(substr($array[1], 0, 1)) . '.';
+    }
+
+    return $new_name;
   }
 
 }
