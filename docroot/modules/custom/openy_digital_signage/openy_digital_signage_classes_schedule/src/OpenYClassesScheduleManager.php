@@ -7,7 +7,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\openy_digital_signage_room\Entity\OpenYRoomInterface;
 
 /**
  * Defines a classes schedule manager.
