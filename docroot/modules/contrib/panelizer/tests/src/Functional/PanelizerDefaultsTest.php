@@ -59,38 +59,36 @@ class PanelizerDefaultsTest extends BrowserTestBase {
     $this->setupContentType();
     $this->loginUser1();
 
-    // Create an additional default layout so we can assert that it's available
-    // as an option when choosing the layout on the node form.
-    $default_id = $this->addPanelizerDefault();
-
-    $this->assertDefaultExists('page', 'default', $default_id);
-
-    // The user should only be able to choose the layout if specifically allowed
-    // to (the panelizer[allow] checkbox in the view display configuration). By
-    // default, they aren't.
-    $this->drupalGet('node/add/page');
-    $this->assertResponse(200);
-    $this->assertNoFieldByName('panelizer[0][default]');
-
-    // Enable layout selection and assert that all the expected fields show up.
-    $this->panelize('page', NULL, ['panelizer[allow]' => TRUE]);
-    $this->drupalGet('node/add/page');
-    $this->assertResponse(200);
-    $view_modes = \Drupal::service('entity_display.repository')->getViewModes('node');
-    $view_modes = array_filter($view_modes, function (array $view_mode) {
-      // View modes that are inheriting the default display (i.e., status is
-      // FALSE) will not show up unless they, too, are panelized. But in this
-      // test, we only panelized the default display.
-      return $view_mode['status'] == FALSE;
-    });
-    for ($i = 0; $i < count($view_modes); $i++) {
+    // Get all enabled view modes machine names for page.
+    $view_modes = array_keys(\Drupal::service('entity_display.repository')
+                               ->getViewModeOptionsByBundle('node', 'page'));
+    foreach ($view_modes as $i => $view_mode_name) {
+      // Be sure view mode can be panelized.
+      $this->panelize('page', $view_mode_name);
+      // Create an additional default layout so we can assert that it's available
+      // as an option when choosing the layout on the node form.
+      $panelizer_id = $this->addPanelizerDefault('page', $view_mode_name);
+      $this->assertDefaultExists('page', $view_mode_name, $panelizer_id);
+      // The user should only be able to choose the layout if specifically allowed
+      // to (the panelizer[allow] checkbox in the view display configuration). By
+      // default, they aren't.
+      $this->drupalGet('node/add/page');
+      $this->assertResponse(200);
+      $this->assertNoFieldByName("panelizer['{$i}][default]");
+      // Allow user to select panelized modes in UI.
+      $this->panelize('page', $view_mode_name, [
+        'panelizer[custom]' => TRUE,
+        'panelizer[allow]' => TRUE,
+      ]);
+      $this->drupalGet('node/add/page');
+      $this->assertResponse(200);
       $this->assertFieldByName("panelizer[{$i}][default]");
       $this->assertOption("edit-panelizer-{$i}-default", 'default');
-      $this->assertOption("edit-panelizer-{$i}-default", $default_id);
+      $this->assertOption("edit-panelizer-{$i}-default", $panelizer_id);
+      // Clean up.
+      $this->deletePanelizerDefault('page', $view_mode_name, $panelizer_id);
+      $this->assertDefaultNotExists('page', $view_mode_name, $panelizer_id);
     }
-
-    $this->deletePanelizerDefault('page', 'default', $default_id);
-    $this->assertDefaultNotExists('page', 'default', $default_id);
   }
 
 }

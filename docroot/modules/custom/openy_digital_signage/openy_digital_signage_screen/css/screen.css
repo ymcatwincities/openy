@@ -1414,6 +1414,11 @@ body.node--type-screen-content {
       font-weight: bold;
       margin: 0;
       display: inline; }
+      .class-active .block-class-ticker__content .class .class-name sup,
+      .class-next .block-class-ticker__content .class .class-name sup,
+      .class-prev .block-class-ticker__content .class .class-name sup {
+        font-size: 0.9375vw;
+        vertical-align: super; }
     .class-active .block-class-ticker__content .class .trainer,
     .class-next .block-class-ticker__content .class .trainer,
     .class-prev .block-class-ticker__content .class .trainer {
