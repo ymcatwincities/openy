@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.mapping.field_cdn_prd_village_ref
+    - node.type.article
+    - ymca_mappings.mapping_type.cdn_prs_product
+id: mapping.cdn_prs_product.field_cdn_prd_village_ref
+field_name: field_cdn_prd_village_ref
+entity_type: mapping
+bundle: cdn_prs_product
+label: 'Village Page Ref'
+description: 'Village page reference.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      article: article
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

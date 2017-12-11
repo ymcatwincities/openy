@@ -1,0 +1,6 @@
+fullcalendar_options.settings:
+  path: '/admin/config/user-interface/fullcalendar/options'
+  defaults:
+    _form: '\Drupal\fullcalendar_options\Form\SettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
