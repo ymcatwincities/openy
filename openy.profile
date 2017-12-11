@@ -404,5 +404,5 @@ function openy_import_migration($migration_id) {
  * @param $form_id
  */
 function openy_form_system_site_information_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  $form['site_information']['site_slogan']['#description'] = t("This will display your association name in the header as per Y USA brand guidelines.");
+  $form['site_information']['site_slogan']['#description'] = t("This will display your association name in the header as per Y USA brand guidelines. Try to use less than 27 characters. The text may get cut off on smaller devices.");
 }
