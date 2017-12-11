@@ -627,7 +627,7 @@ body .features-wrapper .features-alt_intro {
 }
 @media screen and (max-width: 767px) {
   .region-header .site-branding__logo {
-    max-width: 50px;
+    max-width: 110px;
   }
 }
 
