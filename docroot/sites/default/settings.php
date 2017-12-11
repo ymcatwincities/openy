@@ -714,6 +714,7 @@ $settings["install_profile"] = "pp";
 
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
+$config['system.file']['path']['temporary'] = "/mnt/gfs/{$_ENV['AH_SITE_GROUP']}.{$_ENV['AH_SITE_ENVIRONMENT']}/tmp";
 ini_set('memory_limit', '256M');
   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/admin') === 0) {
     ini_set('memory_limit', '2048M');
@@ -728,7 +729,7 @@ $settings["hash_salt"] = "1N26qj6mgJF6BpGU_Flo4SLiA72DCZMRd-WkCInvTd3VumZoxvGK_t
 // $settings['cache']['default'] = 'cache.backend.database';
 
 // @see https://docs.acquia.com/article/drupal-8-cache-backend
-if (file_exists('/var/www/site-php')) { 
+if (file_exists('/var/www/site-php')) {
 
   // Put the following AFTER the Acquia Require Line: 
 
