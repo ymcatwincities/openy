@@ -80,6 +80,38 @@
 
       return this;
     },
+
+    /**
+     * Informs the CategoryView of our form's callback URL.
+     *
+     * @param {Object} e
+     *   The event object.
+     *
+     * @return {Object}
+     *   An object containing the properties "url" and "model".
+     */
+    getFormInfo: function (e) {
+      // Get the current plugin_id or type.
+      var plugin_id = $(e.currentTarget).data('plugin-id');
+      var url = Drupal.panels_ipe.urlRoot(drupalSettings);
+      var model;
+
+      // Generate a base URL for the form.
+      if (plugin_id) {
+        model = this.collection.get(plugin_id);
+        url += '/block_plugins/' + plugin_id + '/form';
+      }
+      else {
+        var block_type = $(e.currentTarget).data('block-type');
+
+        model = this.contentCollection.get(block_type);
+        url += '/block_content/' + block_type + '/form';
+      }
+      // Add schedule item context via URL query parameters.
+      url += window.location.search;
+
+      return {url: url, model: model};
+    }
   });
 
 }(jQuery, _, Backbone, Drupal, drupalSettings));
