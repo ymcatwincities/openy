@@ -88,15 +88,15 @@
       percentage = percentage * 100;
       var passiveColor = '#ffefcf';
       var activeColor = $('.class-time-countdown-progress-container', self.context)
-        .css('background-color');
+      .css('background-color');
       var activeBorder = $('.class-time-countdown-progress', self.context);
       if (percentage > 100) percentage = 100;
       var deg = percentage * 3.6;
-      if (deg <= 180){
-        activeBorder.css('background-image','linear-gradient(' + (90+deg) + 'deg, transparent 50%, ' + passiveColor + ' 50%), linear-gradient(90deg, ' + passiveColor + ' 50%, transparent 50%)');
+      if (deg <= 180) {
+        activeBorder.css('background-image', 'linear-gradient(' + (90 + deg) + 'deg, transparent 50%, ' + passiveColor + ' 50%), linear-gradient(90deg, ' + passiveColor + ' 50%, transparent 50%)');
       }
-      else{
-        activeBorder.css('background-image','linear-gradient(' + (deg-90) + 'deg, transparent 50%, ' + activeColor + ' 50%), linear-gradient(90deg, ' + passiveColor + ' 50%, transparent 50%)');
+      else {
+        activeBorder.css('background-image', 'linear-gradient(' + (deg - 90) + 'deg, transparent 50%, ' + activeColor + ' 50%), linear-gradient(90deg, ' + passiveColor + ' 50%, transparent 50%)');
       }
     };
 
@@ -108,7 +108,7 @@
       var to = $class.data('to');
       var progress = 100 * (offset - from) / (to - from);
       $class.find('.class-time-frame-progress-bar').css({width: progress + '%'});
-      $class.find('.class-time-frame-progress-bar').stop().animate({width:'100%'}, (to - offset) * 1000 / window.tm.speed, 'linear');
+      $class.find('.class-time-frame-progress-bar').stop().animate({width: '100%'}, (to - offset) * 1000 / window.tm.speed, 'linear');
     };
 
     // Checks if the current class needs replacing.
@@ -143,14 +143,14 @@
 
         // Slide active class up.
         $activeClassContainer
-          .removeClass('class-active')
-          .addClass('class-prev');
+        .removeClass('class-active')
+        .addClass('class-prev');
 
-        setTimeout(function() {
+        setTimeout(function () {
           // Slide Upcomming Class Up
           $upcomingClassContainer
-            .removeClass('class-next')
-            .addClass('class-active');
+          .removeClass('class-next')
+          .addClass('class-active');
 
           $activeClasses.removeClass('has-class-awaiting');
           $upcomingClass = $('.class', $upcomingClassContainer);
@@ -200,7 +200,7 @@
     this.getCurrentAndNext = function () {
       var $current = null, $next = null;
       var offset = self.getTimeOffset();
-      $('.all-classes .class', self.context).each(function(){
+      $('.all-classes .class', self.context).each(function () {
         var $this = $(this);
         if ($this.data('to') >= offset) {
           if (!$current) {
