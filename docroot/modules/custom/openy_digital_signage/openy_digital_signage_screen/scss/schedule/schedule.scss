@@ -97,6 +97,10 @@
     padding-top: 0;
     text-align: center;
     transition: font-size 2s, padding-top 2s;
+    sup {
+      font-size: 2vw;
+      vertical-align: super;
+    }
   }
 
   .class-time-frame {
@@ -279,6 +283,10 @@
       color: #0065b3;
       font-size: 3.4vw;
       padding-top: 2.7vw;
+      sup {
+        font-size: 1.1vw;
+        vertical-align: super;
+      }
     }
 
     .class-time-frame {

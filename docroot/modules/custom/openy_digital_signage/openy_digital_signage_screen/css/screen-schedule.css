@@ -190,43 +190,37 @@
 
 .screen-schedule-calendar {
   padding-top: 25px; }
-
-.screen-schedule-calendar table {
-  width: auto;
-  margin: auto; }
-
-.screen-schedule-calendar th,
-.screen-schedule-calendar td {
-  text-align: center;
-  padding: 0; }
-
-.screen-schedule-calendar th {
-  padding-top: 2px;
-  padding-bottom: 2px; }
-
-.screen-schedule-calendar th > a {
-  display: inline; }
-
-.screen-schedule-calendar td > a {
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  line-height: 24px;
-  padding: 6px;
-  text-align: center;
-  color: #333333; }
-  .screen-schedule-calendar td > a:hover {
-    background-color: #c0c0c0; }
-  .screen-schedule-calendar td > a.today {
-    background-color: #e1e1e1; }
-  .screen-schedule-calendar td > a.selected {
-    border: 2px solid black;
-    line-height: 20px; }
-  .screen-schedule-calendar td > a.has-override {
-    background-color: #FFB040; }
-
-.screen-schedule-calendar .ajax-progress.ajax-progress-throbber {
-  position: absolute; }
+  .screen-schedule-calendar table {
+    width: auto;
+    margin: auto; }
+  .screen-schedule-calendar th,
+  .screen-schedule-calendar td {
+    text-align: center;
+    padding: 0; }
+  .screen-schedule-calendar th {
+    padding-top: 2px;
+    padding-bottom: 2px; }
+  .screen-schedule-calendar th > a {
+    display: inline; }
+  .screen-schedule-calendar td > a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 24px;
+    padding: 6px;
+    text-align: center;
+    color: #333333; }
+    .screen-schedule-calendar td > a:hover {
+      background-color: #c0c0c0; }
+    .screen-schedule-calendar td > a.today {
+      background-color: #e1e1e1; }
+    .screen-schedule-calendar td > a.selected {
+      border: 2px solid black;
+      line-height: 20px; }
+    .screen-schedule-calendar td > a.has-override {
+      background-color: #FFB040; }
+  .screen-schedule-calendar .ajax-progress.ajax-progress-throbber {
+    position: absolute; }
 
 .frame-container {
   background-color: #CCCCCC;
