@@ -1,0 +1,712 @@
+.cdn-form-full {
+  background-color: $white;
+  .top-elements-wrapper {
+    border-bottom: 1px solid #ddd;
+    @include clearfix();
+    padding-top: 30px;
+    padding-bottom: 40px;
+    margin: 0 auto 40px;
+    @include breakpoint(768px) {
+      padding-bottom: 65px;
+      margin: 0 auto 80px;
+    }
+    h2 {
+      font-size: 20px;
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+  }
+  .form-item-arrival-date,
+  .form-item-departure-date {
+    label {
+      font-family: Cachet;
+      font-size: 20px;
+      height: 28px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      letter-spacing: -0.5px;
+      color: #222222;
+      text-transform: uppercase;
+    }
+    input {
+      background: #fff url("../img/icon-calendar2.png") no-repeat 20px center;
+      height: 60px;
+      padding-left: 65px;
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 18px;
+      color: #222222;
+      border-color: #dadada;
+    }
+    @include breakpoint(768px) {
+      width: 250px;
+      float: left;
+    }
+    @include breakpoint(1025px) {
+      width: 335px;
+    }
+  }
+  .form-item-arrival-date {
+    margin-bottom: -1px;
+    @include breakpoint(768px) {
+      margin-bottom: 0;
+    }
+    input {
+      border-radius: 4px 4px 0 0;
+      @include breakpoint(768px) {
+        border-radius: 4px 0 0 4px;
+        border-right: none;
+      }
+    }
+  }
+  .form-item-departure-date input {
+    border-radius: 0 0 4px 4px;
+    @include breakpoint(768px) {
+      border-radius: 0 4px 4px 0;
+    }
+  }
+  .form-item-range {
+    @include breakpoint(768px) {
+      float: left;
+      width: 200px;
+    }
+    @include breakpoint(1025px) {
+      margin: 0 30px;
+      width: 270px;
+    }
+    select {
+      background: #fff;
+      border-color: #dadada;
+      height: 60px;
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 18px;
+      text-indent: 25px;
+      color: #222222;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      appearance: none;
+      background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+      background-position: 93% 50%;
+      background-repeat: no-repeat;
+      background-color: $white;
+    }
+  }
+  .form-item-village,
+  .form-item-capacity {
+    border: 1px solid #dadada;
+    background-color: #fff;
+    height: 60px;
+    line-height: 60px;
+    @include breakpoint(768px) {
+      float: left;
+      margin-right: 40px;
+      border: none;
+      background-color: transparent;
+      height: auto;
+      line-height: inherit;
+    }
+    label {
+      font-size: 15px;
+      letter-spacing: -0.5px;
+      color: #777777;
+      display: inline-block;
+      font-weight: normal;
+      margin: 0 0 0 15px;
+      height: 40px;
+      line-height: 40px;
+      @include breakpoint(768px) {
+        margin: 0 15px 0 0;
+      }
+    }
+    select {
+      font-size: 15px;
+      letter-spacing: -0.5px;
+      color: #222222;
+      display: inline-block;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      appearance: none;
+      height: 58px;
+      background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+      background-position: 93% 50%;
+      background-repeat: no-repeat;
+      background-color: $white;
+      outline: none;
+      box-shadow: none;
+      padding-right: 25px;
+      border: none;
+      width: 70%;
+      float: right;
+      @include breakpoint(768px) {
+        border: 1px solid #dadada;
+        width: auto;
+        float: none;
+        height: 40px;
+      }
+    }
+  }
+  .form-item-partly-available,
+  .form-item-booked {
+    margin: 0;
+    @include breakpoint(768px) {
+      margin: 0 40px 0 0;
+      float: left;
+    }
+    label {
+      font-weight: normal;
+      font-size: 15px;
+      line-height: 20px;
+      letter-spacing: -0.5px;
+      color: #777777;
+      @include breakpoint(768px) {
+        line-height: 40px;
+      }
+    }
+    input {
+      margin: 5px 10px 0 5px;
+      @include breakpoint(768px) {
+        margin: 0 10px 0 0;
+      }
+    }
+  }
+  .form-submit {
+    background: #f4791f;
+    border: none;
+    box-shadow: none;
+    font-size: 16px;
+    height: 60px;
+    width: 100%;
+    @include breakpoint(768px) {
+      float: left;
+      width: 170px;
+    }
+    @include breakpoint(1024px) {
+      float: right;
+    }
+  }
+  .cdn-results {
+    padding: 15px 0 80px;
+    @include clearfix();
+    clear: both;
+    .cdn-village-teasers {
+      padding-bottom: 30px;
+      @include breakpoint(768px) {
+        padding-bottom: 80px;
+      }
+      .container {
+        .cdn-village-teaser {
+          opacity: 0.5;
+          margin-bottom: 10px;
+          @include breakpoint(768px) {
+            display: inline-block;
+            margin-bottom: 0;
+            width: 31%;
+            &:nth-child(3n+2) {
+              margin: 0 3%;
+            }
+          }
+          &.not-active {
+            opacity: 0.5 !important;
+          }
+          &.active {
+            opacity: 1 !important;
+          }
+        }
+      }
+    }
+  }
+}
+.paragraph--type--camp-du-nord-calendar-view {
+  display: none;
+}
+.cdn-village-calendars {
+  padding-bottom: 20px;
+  @include breakpoint(768px) {
+    background: #f5f5f5;
+    padding-bottom: 80px;
+  }
+  .cdn-calendar {
+    height: 0;
+    overflow: hidden;
+    &.not-active {
+      height: 0 !important;
+    }
+    &.active {
+      height: auto !important;
+    }
+    .description {
+      margin: 0 15px 35px;
+      position: relative;
+      @include breakpoint(768px) {
+        margin: 70px auto;
+        max-width: 770px;
+      }
+      .title {
+        font-family: "Cachet Book", Arial, sans-serif;
+        font-size: 50px;
+        font-weight: normal;
+        color: #222222;
+        margin: 0;
+        @include breakpoint(768px) {
+          margin-top: 20px;
+          margin-bottom: 10px;
+        }
+      }
+      .view {
+        border-radius: 4px;
+        border: 2px solid #f4791f;
+        color: #f4791f;
+        display: none;
+        font-size: 27px;
+        height: 60px;
+        line-height: 55px;
+        position: absolute;
+        right: 60px;
+        text-align: center;
+        top: 10px;
+        width: 60px;
+        @include breakpoint(768px) {
+          display: block;
+        }
+      }
+      .close-cal {
+        color: #939393;
+        display: none;
+        font-size: 35px;
+        font-weight: normal;
+        height: 50px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 12px;
+        width: 50px;
+        @include breakpoint(768px) {
+          display: block;
+        }
+      }
+    }
+  }
+}
+.cdn-calendar .views-element-container,
+.paragraph--type--camp-du-nord-calendar-view .views-element-container {
+  height: 0;
+  @include breakpoint(768px) {
+    height: auto;
+    max-width: 770px;
+    margin: 0 auto 3px;
+    box-shadow: 0 0 6px #ccc;
+    background: none;
+  }
+  .views-exposed-form {
+    display: none;
+  }
+}
+.fullcalendar {
+  padding: 35px;
+  @include breakpoint(768px) {
+    background-color: #fff;
+  }
+  .fc-scroller {
+    height: 550px !important;
+    @media (min-width: 768px) {
+      overflow: inherit !important;
+      height: auto !important;
+    }
+  }
+  .fc-toolbar {
+    .fc-left,
+    .fc-left * {
+      float: none;
+      text-align: center;
+    }
+    .fc-right {
+      display: none;
+    }
+  }
+  .fc-header-toolbar {
+    display: none;
+    @media (min-width: 768px) {
+      background-color: #fff;
+      margin-bottom: 0;
+      padding: 23px 0 20px;
+      display: block;
+    }
+    .fc-center {
+      h2 {
+        font-size: 20px;
+        letter-spacing: -0.5px;
+        color: #2e2e2e;
+        text-transform: uppercase;
+      }
+    }
+    .ui-button {
+      border: none;
+      background: none;
+      height: 24px;
+    }
+    .fc-prev-button {
+      margin-right: 30px;
+      span {
+        background: url('../img/arrow-left.svg') no-repeat 0 0;
+      }
+    }
+    .fc-next-button {
+      margin-left: 30px;
+      span {
+        background: url('../img/arrow-right.svg') no-repeat 0 0;
+      }
+    }
+  }
+  .fc-view-container .fc-view {
+    * {
+      border: none;
+    }
+    .fc-head {
+      display: none;
+      @media (min-width: 768px) {
+        display: table-header-group;
+      }
+    }
+    .fc-head-container {
+      .fc-row {
+        background: #fff;
+      }
+      th {
+        font-family: "Cachet Book", Arial, sans-serif;
+        font-size: 18px;
+        letter-spacing: -0.4px;
+        color: #2e2e2e;
+        font-weight: normal;
+        span {
+          display: block;
+          height: 50px;
+          line-height: 50px;
+          background-color: #fff;
+        }
+      }
+    }
+    .ui-widget-content {
+      background: none;
+    }
+    .fc-day {
+      background-color: #fff;
+    }
+    .fc-day-top,
+    .fc-day-number {
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 30px;
+      letter-spacing: -0.6px;
+      text-align: left;
+      color: #555;
+      padding: 15px 25px;
+      .fc-day-number {
+        float: none;
+      }
+      @media (min-width: 768px) {
+        text-align: center;
+        padding: 24px 0 15px 0;
+      }
+    }
+    a.cdn-prs-product {
+      background: none;
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 15px;
+      letter-spacing: -0.4px;
+      color: #3e3e3e;
+      margin: 0;
+      border-radius: 0;
+      padding: 0;
+      text-align: center;
+      position: relative;
+      @media (min-width: 768px) {
+        background: $white;
+        border: solid 1px $white;
+      }
+      &.selected {
+        border: solid 2px #f4791f;
+        .fc-day-number {
+          color: #f4791f;
+        }
+      }
+      &.first-selected {
+        border-radius: 5px 0 0 5px;
+      }
+      &.last-selected {
+        border-radius: 0 5px 5px 0;
+      }
+      &.no-left-border {
+        //border-top-color: #eaeaea;
+        @media (min-width: 768px) {
+          border-left: none;
+        }
+        .fc-content {
+          //margin-left: 0;
+        }
+      }
+      &.no-right-border {
+        //border-bottom-color: #eaeaea;
+        @media (min-width: 768px) {
+          border-right: none;
+        }
+        .fc-content {
+          //margin-right: 0;
+        }
+      }
+      .fc-content {
+        background: #eaeaea;
+        margin: 0;
+        overflow: inherit;
+        border-radius: 5px;
+        @media (min-width: 768px) {
+          margin: 8px;
+        }
+      }
+      .fc-time {
+        display: none;
+      }
+      .fc-title {
+
+      }
+    }
+    .fc-content-skeleton {
+      background: #f5f5f5;
+      @media (min-width: 768px) {
+        background: #fff;
+      }
+      tbody {
+        tr {
+          td {
+            display: block;
+            @media (min-width: 768px) {
+              background: #fff;
+              display: table-cell;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.cdn-village-teaser {
+  .inner {
+    position: relative;
+    display: inline-block;
+  }
+  img {
+    border-radius: 4px;
+    max-width: 100%;
+  }
+  .info {
+    @include clearfix();
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .title {
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 30px;
+      letter-spacing: -0.6px;
+      color: #fff;
+      float: left;
+      line-height: 30px;
+      max-width: 270px;
+    }
+    .capacity {
+      float: right;
+      color: #fff;
+      font-size: 20px;
+      margin-top: 4px;
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+.cdn-calendar-list {
+  background: #f5f5f5;
+  display: none;
+  @media (max-width: 767px) {
+    display: block;
+  }
+  .cdn-calendar-list-row {
+    @include clearfix();
+    margin: 0 15px;
+    height: 75px;
+    padding: 10px 15px 10px 15px;
+    > a {
+      text-decoration: none;
+      &.selected {
+        .month,
+        .day,
+        .day span {
+          color: #f4791f;
+        }
+      }
+    }
+    .date {
+      float: left;
+      .month {
+        text-transform: uppercase;
+        font-size: 11px;
+        color: #999;
+      }
+      .day {
+        text-transform: uppercase;
+        font-size: 30px;
+        color: #555;
+        line-height: 30px;
+        span {
+          color: #999;
+        }
+      }
+    }
+    .price {
+      float: right;
+      margin: 10px 0 0;
+      font-size: 16px;
+      color: #999;
+    }
+  }
+}
+
+// Emergency Contact form
+#cdn-contact-form-wrapper {
+  background: #fff;
+  h2 {
+    font-size: 25px;
+    text-transform: uppercase;
+    margin: 40px 0 25px;
+    font-weight: normal;
+  }
+  h3 {
+    font-size: 16px;
+    color: #222;
+    text-transform: none;
+    font-weight: normal;
+    margin-bottom: 15px;
+  }
+  h4 {
+    color: #777777;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: normal;
+    margin-bottom: 30px;
+    @include breakpoint(0 991px) {
+      display: none;
+    }
+  }
+  fieldset {
+    legend {
+      border-bottom: none;
+      margin-bottom: 8px;
+      span {
+        color: #a1a1a1;
+        font-size: 15px;
+        text-transform: none;
+        font-weight: normal;
+      }
+    }
+  }
+  #edit-extra-mattress--wrapper {
+    float: left;
+  }
+  #edit-high-chair--wrapper {
+    float: left;
+  }
+  #edit-additional {
+    @include breakpoint(992px) {
+      border-right: 1px solid #f4f4f4;
+      float: left;
+      width: 49%;
+    }
+  }
+  #edit-emergency-contact {
+    @include breakpoint(992px) {
+      padding-left: 55px;
+      float: left;
+      width: 49%;
+    }
+    label {
+      color: #a1a1a1;
+      font-size: 15px;
+      text-transform: none;
+      font-weight: normal;
+    }
+    input,
+    select {
+      height: 60px;
+      color: #222222;
+      background: #fff;
+    }
+  }
+  #edit-first-time--wrapper {
+    legend {
+      border-bottom: none;
+      margin-bottom: 15px;
+      span {
+        font-size: 16px;
+        color: #222;
+        text-transform: none;
+        font-weight: normal;
+      }
+    }
+  }
+  #edit-extra-mattress--wrapper,
+  #edit-high-chair--wrapper {
+    margin-right: 20px;
+  }
+  .js-webform-radios {
+    background: #fff;
+    display: inline-block;
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    padding: 5px;
+    .js-form-type-radio {
+      display: inline-block;
+      padding: 0;
+      label {
+        width: 70px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 15px;
+        color: #a1a1a1;
+        display: block;
+        text-align: center;
+      }
+      input {
+        display: none;
+      }
+      &.checked {
+        label {
+          background: #00ab92;
+          color: #fff;
+          border-radius: 4px;
+          &.no {
+            background: #a1a1a1;
+          }
+        }
+      }
+    }
+  }
+  #edit-phone {
+    margin-bottom: -16px;
+  }
+  .actions {
+    background: #383838;
+    padding: 50px 0 25px;
+    .form-submit {
+      background: #f4791f;
+      font-size: 15px;
+      width: 100%;
+      box-shadow: none;
+      @include breakpoint(992px) {
+        float: right;
+        width: auto;
+      }
+    }
+  }
+}
