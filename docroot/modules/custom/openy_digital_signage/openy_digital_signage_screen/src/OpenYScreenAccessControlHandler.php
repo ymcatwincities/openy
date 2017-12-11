@@ -11,6 +11,8 @@ use Drupal\Core\Access\AccessResult;
  * Access controller for the OpenY Digital Signage Screen entity.
  *
  * @see \Drupal\openy_digital_signage_screen\Entity\OpenYScreen
+ *
+ * @ingroup openy_digital_signage_screen
  */
 class OpenYScreenAccessControlHandler extends EntityAccessControlHandler {
 

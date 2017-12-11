@@ -97,6 +97,9 @@
     text-align: center;
     -webkit-transition: font-size 2s, padding-top 2s;
     transition: font-size 2s, padding-top 2s; }
+    .class .class-name sup {
+      font-size: 2vw;
+      vertical-align: super; }
   .class .class-time-frame {
     position: relative;
     font-size: 2.45vw;
@@ -252,6 +255,10 @@
       color: #0065b3;
       font-size: 3.4vw;
       padding-top: 2.7vw; }
+      .class-next .class .class-name sup,
+      .class-prev .class .class-name sup {
+        font-size: 1.1vw;
+        vertical-align: super; }
     .class-next .class .class-time-frame,
     .class-prev .class .class-time-frame {
       position: relative;

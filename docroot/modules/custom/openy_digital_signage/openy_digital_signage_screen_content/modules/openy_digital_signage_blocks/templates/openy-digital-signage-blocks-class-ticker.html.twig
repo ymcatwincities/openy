@@ -43,7 +43,7 @@
   <div class="all-classes">
     {% for class in classes %}
       <div class="class" data-from="{{ class.from }}" data-to="{{ class.to }}">
-        <div class="class-name">{{ class.name }}</div>
+        <div class="class-name">{{ class.name|raw }}</div>
         <div class="trainer">
           {% if class.substitute_trainer %}
             <span class="trainer__substitute">{{ class.substitute_trainer }}</span>

@@ -2,7 +2,7 @@
  * @file
  * Provides OpenY Digital Signage layouts related behavior.
  */
-;(function ($, window, Drupal, drupalSettings) {
+(function ($, window, Drupal, drupalSettings) {
 
   'use strict';
 

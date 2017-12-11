@@ -56,7 +56,7 @@ class PanelizerIntegrationTest extends PanelsIPETestBase {
 
     // Create a new Basic Page.
     $this->drupalGet('node/add/page');
-    $this->submitForm(['title[0][value]' => 'Test Node'], t('Save and publish'));
+    $this->submitForm(['title[0][value]' => 'Test Node'], t('Save'));
 
     $this->test_route = 'node/1';
   }
@@ -75,7 +75,7 @@ class PanelizerIntegrationTest extends PanelsIPETestBase {
 
     // Create a second node.
     $this->drupalGet('node/add/page');
-    $this->submitForm(['title[0][value]' => 'Test Node 2'], t('Save and publish'));
+    $this->submitForm(['title[0][value]' => 'Test Node 2'], t('Save'));
     $this->test_route = 'node/2';
 
     // Ensure the second node does not use the session of the other node.
