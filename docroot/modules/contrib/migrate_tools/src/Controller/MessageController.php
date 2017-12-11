@@ -6,7 +6,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Database\Connection;
 use Drupal\migrate\Plugin\MigrationInterface;
-use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
+use Drupal\migrate\Plugin\MigrationPluginManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,9 +24,9 @@ class MessageController extends ControllerBase {
   /**
    * Plugin manager for migration plugins.
    *
-   * @var \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager
+   * @var \Drupal\migrate\Plugin\MigrationPluginManagerInterface
    */
-  protected $migrationConfigEntityPluginManager;
+  protected $migrationPluginManager;
 
   /**
    * {@inheritdoc}
@@ -34,7 +34,7 @@ class MessageController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('database'),
-      $container->get('plugin.manager.config_entity_migration')
+      $container->get('plugin.manager.migration')
     );
   }
 
@@ -43,12 +43,12 @@ class MessageController extends ControllerBase {
    *
    * @param \Drupal\Core\Database\Connection $database
    *   A database connection.
-   * @param \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager $migration_config_entity_plugin_manager
-   *   The plugin manager for config entity-based migrations.
+   * @param \Drupal\migrate\Plugin\MigrationPluginManagerInterface $migration_plugin_manager
+   *   The migration plugin manager.
    */
-  public function __construct(Connection $database, MigrationConfigEntityPluginManager $migration_config_entity_plugin_manager) {
+  public function __construct(Connection $database, MigrationPluginManagerInterface $migration_plugin_manager) {
     $this->database = $database;
-    $this->migrationConfigEntityPluginManager = $migration_config_entity_plugin_manager;
+    $this->migrationPluginManager = $migration_plugin_manager;
   }
 
   /**
@@ -84,7 +84,7 @@ class MessageController extends ControllerBase {
     $rows = [];
     $classes = static::getLogLevelClassMap();
     /** @var MigrationInterface $migration */
-    $migration = $this->migrationConfigEntityPluginManager->createInstance($migration);
+    $migration = $this->migrationPluginManager->createInstance($migration);
     $source_id_field_names = array_keys($migration->getSourcePlugin()->getIds());
     $column_number = 1;
     foreach ($source_id_field_names as $source_id_field_name) {

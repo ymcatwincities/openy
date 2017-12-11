@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.camp_du_nord_calendar_view.field_prgf_cdn_cal_view_ref
+    - paragraphs.paragraphs_type.camp_du_nord_calendar_view
+    - views.view.cdn_calendar
+  module:
+    - views_field_formatter
+id: paragraph.camp_du_nord_calendar_view.default
+targetEntityType: paragraph
+bundle: camp_du_nord_calendar_view
+mode: default
+content:
+  field_prgf_cdn_cal_view_ref:
+    weight: 0
+    label: hidden
+    settings:
+      view: 'cdn_calendar::embed_1'
+      arguments:
+        field_value:
+          weight: '0'
+          checked: 0
+        entity_id:
+          weight: '0'
+          checked: 0
+        delta:
+          weight: '0'
+          checked: 0
+      implode_character: ''
+      hide_empty: 0
+      multiple: 0
+    third_party_settings: {  }
+    type: views_field_formatter
+    region: content
+hidden: {  }

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: ymca_cdn_mapping_import
+label: 'Camp Du Nord mapping import'
+description: 'Imports Camp Du Nord mapping entities.'
+module: ymca_cdn_mapping_import
