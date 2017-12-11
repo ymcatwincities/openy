@@ -90,6 +90,10 @@
         font-weight: bold;
         margin: 0;
         display: inline;
+        sup {
+          font-size: 18 / 1920 * 100vw;
+          vertical-align: super;
+        }
       }
 
       .trainer {

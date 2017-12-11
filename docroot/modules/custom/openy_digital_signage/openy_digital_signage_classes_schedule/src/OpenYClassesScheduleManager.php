@@ -101,13 +101,27 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
         'to' => $to,
         'trainer' => $this->prepareTrainerName($class_session->instructor->value),
         'substitute_trainer' => trim($class_session->sub_instructor->value),
-        'name' => $class_session->label(),
+        'name' => $this->prepareClassName($class_session->label()),
         'from_formatted' => date('g:ia', $from),
         'to_formatted' => date('g:ia', $to),
       ];
     }
 
     return $classes;
+  }
+
+  /**
+   * Prepare class name to display.
+   *
+   * @param $name
+   *   Class name.
+   * @return string
+   *   Prepared to display class name.
+   */
+  protected function prepareClassName($name) {
+    $name = str_replace('®', '<sup>®</sup>', $name);
+
+    return $name;
   }
 
   /**
