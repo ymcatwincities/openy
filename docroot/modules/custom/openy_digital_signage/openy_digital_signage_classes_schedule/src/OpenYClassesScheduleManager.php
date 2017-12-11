@@ -113,8 +113,9 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
   /**
    * Prepare class name to display.
    *
-   * @param $name
+   * @param string $name
    *   Class name.
+   *
    * @return string
    *   Prepared to display class name.
    */
