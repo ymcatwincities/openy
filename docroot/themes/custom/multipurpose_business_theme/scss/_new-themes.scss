@@ -39,14 +39,14 @@ body {
 
   .site-branding__logo {
     display: block;
-    max-width: 86px;
+    max-width: 195px;
 
     img {
       vertical-align: top;
     }
 
     @media screen and (max-width: 767px) {
-      max-width: 50px;
+      max-width: 110px;
     }
   }
 }

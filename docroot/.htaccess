@@ -920,7 +920,7 @@ RewriteRule ^$ https://www.ymcamn.org/locations/west_st_paul_ymca? [L,R=301]
 
 # 301 --- http://www.whitebearareaymca.org => http://www.ymcamn.org/locations/white_bear_area_ymca
 RewriteCond %{HTTP_HOST} ^www\.whitebearareaymca\.org$
-RewriteRule ^$ https://www.ymcamn.org/locations/white_bear_area_ymca? [L,R=301]
+RewriteRule ^(.*)$ https://www.ymcamn.org/locations/white_bear_area_ymca? [L,R=301]
 
 # 301 --- http://www.whitebearlakeymca.org => http://www.ymcamn.org/locations/white_bear_area_ymca
 RewriteCond %{HTTP_HOST} ^www\.whitebearlakeymca\.org$
