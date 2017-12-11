@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Class OpenYScreenManager.
+ *
+ * @ingroup openy_digital_signage_screen
  */
 class OpenYScreenManager implements OpenYScreenManagerInterface {
 
@@ -82,26 +84,20 @@ class OpenYScreenManager implements OpenYScreenManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function dummy() {
-    // Intentionally empty.
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getScreenContext() {
-    $screen = NULL;
     $route_name = $this->routeMatch->getRouteName();
     $request = $this->requestStack->getCurrentRequest();
+    // If route is a screen route, get screen context from the screen entity.
     if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
-      $screen = $request->get('openy_digital_signage_screen');
+      return $request->get('openy_digital_signage_screen');
     }
-    else {
-      $request = \Drupal::request();
-      if ($request->query->has('screen')) {
-        $storage = \Drupal::entityTypeManager()->getStorage('openy_digital_signage_screen');
-        $screen = $storage->load($request->query->get('screen'));
-      }
+    // Try to find Screen ID in a URL.
+    $screen = NULL;
+    $request = \Drupal::request();
+    if ($request->query->has('screen')) {
+      $storage = \Drupal::entityTypeManager()
+        ->getStorage('openy_digital_signage_screen');
+      $screen = $storage->load($request->query->get('screen'));
     }
 
     return $screen;

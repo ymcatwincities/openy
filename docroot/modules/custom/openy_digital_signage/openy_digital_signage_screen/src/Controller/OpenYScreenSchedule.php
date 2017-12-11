@@ -12,7 +12,6 @@ use Drupal\node\NodeInterface;
 use Drupal\openy_digital_signage_schedule\Entity\OpenYScheduleItemInterface;
 use Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface;
 use Drupal\panels\CachedValuesGetterTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
