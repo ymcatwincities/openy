@@ -7,6 +7,8 @@ use Drupal\Core\DependencyInjection\ServiceProviderBase;
 
 /**
  * Modifies the IPE Access manager service.
+ *
+ * @ingroup openy_digital_signage_screen
  */
 class OpenyDigitalSignageScreenServiceProvider extends ServiceProviderBase {
 

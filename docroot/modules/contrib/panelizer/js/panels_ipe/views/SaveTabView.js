@@ -78,7 +78,9 @@
           Drupal.panels_ipe.setUrlRoot(drupalSettings);
 
           // Show/hide the revert to default tab.
-          self.revertTab.set({hidden: storage_type === 'panelizer_default'});
+          if (self.revertTab) {
+            self.revertTab.set({hidden: storage_type === 'panelizer_default'});
+          }
           self.tabsView.render();
         });
       }

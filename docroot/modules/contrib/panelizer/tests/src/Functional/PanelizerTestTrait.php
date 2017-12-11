@@ -144,8 +144,11 @@ trait PanelizerTestTrait {
         'js' => 'nojs',
       ],
     ];
-
-    $this->drupalGet("admin/structure/types/manage/{$content_type}/display");
+    $path = "admin/structure/types/manage/{$content_type}/display";
+    if (!empty($display)) {
+      $path .= '/' . $display;
+    }
+    $this->drupalGet($path);
     $this->assertResponse(200);
     $this->clickLink('Add a new Panelizer default display');
 

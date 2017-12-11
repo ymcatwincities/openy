@@ -65,7 +65,7 @@ class PanelizerWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $entity = $items->getEntity();
     $entity_type_id = $entity->getEntityTypeId();
-    $entity_view_modes = $this->getEntityDisplayRepository()->getViewModes($entity_type_id);
+    $entity_view_modes = $this->getEntityDisplayRepository()->getViewModeOptionsByBundle($entity_type_id, $entity->bundle());
 
     // Get the current values from the entity.
     $values = [];
@@ -113,7 +113,7 @@ class PanelizerWidget extends WidgetBase {
           $options[$machine_name] = $panels_display['label'];
         }
         $element[$delta]['default'] = [
-          '#title' => $entity_view_modes[$view_mode]['label'],
+          '#title' => $entity_view_modes[$view_mode],
           '#type' => 'select',
           '#options' => $options,
           '#default_value' => $value['default'],

@@ -2,8 +2,6 @@
 
 namespace Drupal\openy_digital_signage_classes_schedule;
 
-use Drupal\openy_digital_signage_room\Entity\OpenYRoomInterface;
-
 /**
  * Interface OpenYClassesScheduleManagerInterface.
  *
