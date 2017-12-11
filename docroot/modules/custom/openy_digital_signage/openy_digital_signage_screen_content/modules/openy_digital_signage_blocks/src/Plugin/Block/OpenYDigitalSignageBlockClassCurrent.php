@@ -8,7 +8,6 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Template\Attribute;
 use Drupal\openy_digital_signage_classes_schedule\OpenYClassesScheduleManagerInterface;
 use Drupal\openy_digital_signage_room\OpenYRoomManagerInterface;
-use Drupal\openy_digital_signage_screen\Entity\OpenYScreenInterface;
 use Drupal\openy_digital_signage_screen\OpenYScreenManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -23,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements ContainerFactoryPluginInterface {
 
-  const DEFAULT_PERIOD_LENGTH = 28800;
+  const DEFAULT_PERIOD_LENGTH = 86400;
 
   /**
    * The Classes Schedule Manager.
@@ -211,7 +210,7 @@ class OpenYDigitalSignageBlockClassCurrent extends BlockBase implements Containe
         'to' => $to,
         'trainer' => 'Nichole C.',
         'substitute_trainer' => rand(0, 10) < 5 ? 'Substitute T.' : '',
-        'name' => 'OULA® Dance Fitness',
+        'name' => 'OULA<sup>®</sup> Dance Fitness',
         'from_formatted' => date('g:ia', $from),
         'to_formatted' => date('g:ia', $to),
       ];
