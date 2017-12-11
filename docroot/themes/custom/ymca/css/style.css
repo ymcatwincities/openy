@@ -579,9 +579,6 @@ body {
   background: #414141;
   -webkit-overflow-scrolling: touch;
 }
-.sidebar .news {
-  padding-bottom: 50px;
-}
 .sidebar.collapsing-out {
   -webkit-transition: visibility 0s .4s linear;
   -moz-transition: visibility 0s .4s linear;
@@ -12355,11 +12352,11 @@ body.show-new-mobile-menu .sidebar .active .health-fitness.nav-level-2:before, b
 body.show-new-mobile-menu .sidebar .active .jobs.nav-level-2:before, body.show-new-mobile-menu .sidebar .jobs.nav-level-2:before {
   content: '';
 }
-body.show-new-mobile-menu .dropdown.open > .dropdown-menu {
+body.show-new-mobile-menu .sidebar .dropdown.open > .dropdown-menu {
   padding-bottom: 70px;
   background: #fff;
 }
-body.show-new-mobile-menu li > a.overview {
+body.show-new-mobile-menu .sidebar li > a.overview {
   display: none;
 }
 
