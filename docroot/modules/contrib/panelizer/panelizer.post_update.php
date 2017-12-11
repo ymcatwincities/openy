@@ -69,6 +69,7 @@ function panelizer_post_update_rename_layout_machine_names(&$sandbox) {
           }
         }
       }
+      $entity->search_api_skip_tracking = TRUE;
       $entity->save();
     }
     // Update our progress information.
