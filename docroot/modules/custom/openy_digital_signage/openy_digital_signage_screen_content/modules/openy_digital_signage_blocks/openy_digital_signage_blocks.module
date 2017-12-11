@@ -211,11 +211,31 @@ function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $for
 
       // Assign ticker blocks to ticker region if presented.
       if (strpos($block_id, 'ticker') !== FALSE) {
-        $regions = $panels_variant->getLayout()->getPluginDefinition()->get('regions');
+        $regions = $panels_variant->getLayout()
+          ->getPluginDefinition()
+          ->get('regions');
         if (isset($regions['ticker'], $form['flipper']['front']['settings']['region']['#options']['ticker'])) {
           $form['flipper']['front']['settings']['region']['#default_value'] = 'ticker';
         }
       }
+      // Add room as default value based on screen context.
+      $class_blocks = [
+        'openy_digital_signage_class_current',
+        'openy_digital_signage_class_ticker',
+      ];
+      if (in_array($block_id, $class_blocks)) {
+        /** @var \Drupal\openy_digital_signage_screen\OpenYScreenManager $screen_manager */
+        $screen_manager = \Drupal::service('openy_digital_signage_screen.manager');
+        $screen_context = $screen_manager->getScreenContext();
+        if (!empty($screen_context)) {
+          $room = $screen_context->get('room');
+          if (!empty($room->entity)) {
+            $value = $room->entity->id();
+            $form['flipper']['front']['settings']['room']['#default_value'] = $value;
+          }
+        }
+      }
+
       break;
   }
 }
