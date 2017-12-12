@@ -356,11 +356,11 @@ body.show-new-mobile-menu {
   .sidebar .active .jobs.nav-level-2:before, .sidebar .jobs.nav-level-2:before {
     content: '';
   }
-  .dropdown.open > .dropdown-menu {
+  .sidebar .dropdown.open > .dropdown-menu {
     padding-bottom: 70px;
     background: #fff;
   }
-  li > a.overview {
+  .sidebar li > a.overview {
     display: none;
   }
 }
