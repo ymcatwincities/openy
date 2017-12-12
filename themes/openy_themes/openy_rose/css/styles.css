@@ -1,7 +1,7 @@
 @charset "UTF-8";
 body {
   color: #636466;
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-family: Verdana, sans-serif;
 }
 
 h1, .h1, h2, .h2, h3, h4, h5, h6 {
@@ -1667,7 +1667,7 @@ body {
   }
 }
 .sidebar-card h2 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Verdana, sans-serif;
   text-transform: uppercase;
   color: #636466;
   margin: 0 0 25px;
@@ -3572,7 +3572,7 @@ html.js .branch__updates_queue__button {
   padding: 10px 18px 10px;
 }
 .branch-sessions-group h4 {
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-family: Verdana, sans-serif;
   font-size: 14px;
   text-transform: uppercase;
   line-height: 1.2;
@@ -3967,7 +3967,7 @@ html.js .branch__updates_queue__button {
 
 .node--type-branch.node--view-mode-class-location h2 {
   font-size: 15px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Verdana, sans-serif;
   font-weight: normal;
   margin: 0;
 }
@@ -4030,7 +4030,7 @@ html.js .branch__updates_queue__button {
 }
 
 .sidebar-card_h3 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Verdana, sans-serif;
   text-transform: uppercase;
   color: #636466;
   margin: 0 0 25px;
@@ -4198,7 +4198,7 @@ html.js .branch__updates_queue__button {
   font-size: 14px;
   line-height: 1.28;
   letter-spacing: 2px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Verdana, sans-serif;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -4267,7 +4267,7 @@ html.js .branch__updates_queue__button {
   position: relative;
 }
 .blog-related h2 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Verdana, sans-serif;
   text-transform: uppercase;
   color: #636466 !important;
   margin: 0 0 25px;
@@ -5320,7 +5320,7 @@ html.js .branch__updates_queue__button {
   }
 }
 .groupex-form-full .js-webform-radios .js-form-type-radio label {
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-family: Verdana, sans-serif;
   font-size: 15px;
   margin: 0 0 0 7px;
   vertical-align: top;
@@ -6454,7 +6454,7 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 .programs-search-block-form fieldset .js-webform-radios .js-form-type-radio label {
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-family: Verdana, sans-serif;
   font-size: 15px;
   margin: 0 0 0 7px;
   vertical-align: top;
@@ -7019,7 +7019,7 @@ article .node--view-mode-flexible-content h2 a span {
 
 .list-branch-amenities-wrapper h5 {
   font-size: 15px;
-  font-family: "Helvetica Neue LT W01_55 Roman", Verdana, sans-serif;
+  font-family: Verdana, sans-serif;
 }
 
 .paragraph--type--lto {
