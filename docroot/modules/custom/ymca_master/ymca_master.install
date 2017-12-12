@@ -17,6 +17,9 @@ use Drupal\redirect\Entity\Redirect;
 use Drupal\redirect\Exception\RedirectLoopException;
 use Drupal\ymca_aliases\UrlCleaner;
 use Drupal\ymca_mappings\Entity\Mapping;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\user\Entity\Role;
+use Drupal\user\RoleInterface;
 
 define('YGTC_CONFDIR', 'sites/default/config/staging/');
 
@@ -4859,3 +4862,77 @@ function ymca_master_update_8224() {
   }
 }
 
+/**
+ * Enable fullcalendar contrib module.
+ */
+function ymca_master_update_8225() {
+  $modules = [
+    'fullcalendar',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Install Camp du Nord features.
+ */
+function ymca_master_update_8226() {
+  $modules = [
+    'views_field_formatter',
+    'ymca_camp_du_nord',
+    'ymca_prgf_camp_du_nord',
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([$module], TRUE);
+  }
+}
+
+/**
+ * Create Camp du Nord page.
+ */
+function ymca_master_update_8227() {
+  $node = Node::create([
+    'type' => 'landing_page',
+    'title' => 'Camp du Nord',
+    'langcode' => 'en',
+    'uid' => '1',
+    'status' => 1,
+    'field_lp_layout' => 'one_column_clean',
+  ]);
+  $node->save();
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'landing_page')
+    ->condition('title', 'Camp du Nord');
+  $page_id = $query->execute();
+  $page_id = reset($page_id);
+  if (!empty($page_id)) {
+    $page = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->load($page_id);
+    $paragraph = Paragraph::create([
+      'type' => 'camp_du_nord_form',
+      'parent_id' => $page->id(),
+      'parent_type' => 'node',
+      'parent_field_name' => 'field_header_content',
+      'status' => 1,
+      'uid' => 1,
+    ]);
+    $paragraph->save();
+    $query = \Drupal::entityQuery('paragraph')
+      ->condition('type', 'camp_du_nord_form')
+      ->condition('parent_id', $page_id);
+    $paragraph_id = $query->execute();
+    $paragraph_id = reset($paragraph_id);
+    $paragraph = \Drupal::entityTypeManager()
+      ->getStorage('paragraph')
+      ->load($paragraph_id);
+    $page->field_header_content->entity = $paragraph;
+    $page->path->pathauto = 0;
+    $page->save();
+    $path = \Drupal::service('path.alias_storage')->save('/node/' . $page_id, '/cdn/search/form', 'en');
+  }
+  Role::load(RoleInterface::ANONYMOUS_ID)
+    ->grantPermission('view published camp du nord personify product entities')
+    ->save();
+}

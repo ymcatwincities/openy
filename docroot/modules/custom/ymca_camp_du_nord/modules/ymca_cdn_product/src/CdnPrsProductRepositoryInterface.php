@@ -5,6 +5,11 @@ namespace Drupal\ymca_cdn_product;
 use Drupal\ymca_cdn_product\Entity\CdnPrsProduct;
 use Drupal\ymca_cdn_product\Entity\CdnPrsProductInterface;
 
+/**
+ * Interface CdnPrsProductRepositoryInterface.
+ *
+ * @package Drupal\ymca_cdn_product
+ */
 Interface CdnPrsProductRepositoryInterface {
 
   /**
