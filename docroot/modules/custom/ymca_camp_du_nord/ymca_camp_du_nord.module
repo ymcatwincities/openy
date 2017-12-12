@@ -50,5 +50,11 @@ function ymca_camp_du_nord_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'cdn-results-calendar',
     ],
+    'cdn_confirmation_page' => [
+      'variables' => [
+        'data' => [],
+      ],
+      'template' => 'cdn-confirmation-page',
+    ],
   ];
 }

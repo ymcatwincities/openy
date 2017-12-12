@@ -25,8 +25,15 @@ services:
     class: Drupal\ymca_sync\Syncer
     arguments: []
     calls:
+      - [addStep, ['@ymca_cdn_sync.cleaner', 'clean']]
       - [addStep, ['@ymca_cdn_sync.fetcher', 'fetch']]
       - [addStep, ['@ymca_cdn_sync.saver', 'save']]
-      - [addStep, ['@ymca_cdn_sync.cleaner', 'clean']]
     tags:
       - { name: syncer }
+  ymca_cdn_sync.add_to_cart:
+    class: Drupal\ymca_cdn_sync\syncer\AddToCart
+    arguments:
+      - '@http_client'
+      - '@logger.channel.ymca_cdn_sync'
+      - '@config.factory'
+      - '@ymca_cdn_sync.wrapper'

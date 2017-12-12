@@ -11,27 +11,26 @@
       margin: 0 auto 80px;
     }
     h2 {
-      font-size: 20px;
+      font-size: 30px;
       font-family: "Cachet Book", Arial, sans-serif;
-      font-weight: normal;
       margin-bottom: 20px;
+      color: #2f2f2f;
     }
   }
   .form-item-arrival-date,
   .form-item-departure-date {
     label {
-      font-family: Cachet;
+      font-family: "Cachet Book", Arial, sans-serif;
       font-size: 20px;
       height: 28px;
       margin-bottom: 10px;
-      font-weight: bold;
+      font-weight: normal;
       letter-spacing: -0.5px;
       color: #222222;
-      text-transform: uppercase;
     }
     input {
       background: #fff url("../img/icon-calendar2.png") no-repeat 20px center;
-      height: 60px;
+      height: 50px;
       padding-left: 65px;
       font-family: "Cachet Book", Arial, sans-serif;
       font-size: 18px;
@@ -43,7 +42,7 @@
       float: left;
     }
     @include breakpoint(1025px) {
-      width: 335px;
+      width: 290px;
     }
   }
   .form-item-arrival-date {
@@ -72,16 +71,26 @@
     }
     @include breakpoint(1025px) {
       margin: 0 30px;
-      width: 270px;
+      width: 250px;
+    }
+    label {
+      font-family: "Cachet Book", Arial, sans-serif;
+      font-size: 20px;
+      height: 28px;
+      margin-bottom: 10px;
+      font-weight: normal;
+      letter-spacing: -0.5px;
+      color: #222222;
     }
     select {
       background: #fff;
       border-color: #dadada;
-      height: 60px;
+      height: 50px;
       font-family: "Cachet Book", Arial, sans-serif;
-      font-size: 18px;
+      font-size: 16px;
+      font-weight: bold;
       text-indent: 25px;
-      color: #222222;
+      color: #2f2f2f;
       -webkit-appearance: none;
       -moz-appearance: none;
       -ms-appearance: none;
@@ -90,14 +99,15 @@
       background-position: 93% 50%;
       background-repeat: no-repeat;
       background-color: $white;
+      text-transform: uppercase;
     }
   }
   .form-item-village,
   .form-item-capacity {
     border: 1px solid #dadada;
     background-color: #fff;
-    height: 60px;
-    line-height: 60px;
+    height: 50px;
+    line-height: 50px;
     @include breakpoint(768px) {
       float: left;
       margin-right: 40px;
@@ -109,7 +119,7 @@
     label {
       font-size: 15px;
       letter-spacing: -0.5px;
-      color: #777777;
+      color: #959595;
       display: inline-block;
       font-weight: normal;
       margin: 0 0 0 15px;
@@ -128,7 +138,7 @@
       -moz-appearance: none;
       -ms-appearance: none;
       appearance: none;
-      height: 58px;
+      height: 48px;
       background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
       background-position: 93% 50%;
       background-repeat: no-repeat;
@@ -159,7 +169,7 @@
       font-size: 15px;
       line-height: 20px;
       letter-spacing: -0.5px;
-      color: #777777;
+      color: #2f2f2f;
       @include breakpoint(768px) {
         line-height: 40px;
       }
@@ -175,12 +185,15 @@
     background: #f4791f;
     border: none;
     box-shadow: none;
-    font-size: 16px;
-    height: 60px;
+    font-size: 18px;
+    font-family: "Cachet Book", Arial, sans-serif;
+    font-weight: bold;
+    height: 50px;
     width: 100%;
     @include breakpoint(768px) {
       float: left;
-      width: 170px;
+      margin-top: 38px;
+      width: 150px;
     }
     @include breakpoint(1024px) {
       float: right;
@@ -193,7 +206,7 @@
     .cdn-village-teasers {
       padding-bottom: 30px;
       @include breakpoint(768px) {
-        padding-bottom: 80px;
+        padding-bottom: 50px;
       }
       .container {
         .cdn-village-teaser {
@@ -201,11 +214,10 @@
           margin-bottom: 10px;
           @include breakpoint(768px) {
             display: inline-block;
-            margin-bottom: 0;
+            padding-bottom: 30px;
+            padding-left: 15px;
+            padding-right: 15px;
             width: 31%;
-            &:nth-child(3n+2) {
-              margin: 0 3%;
-            }
           }
           &.not-active {
             opacity: 0.5 !important;
@@ -217,6 +229,9 @@
       }
     }
   }
+  .cdn-no-results {
+    display: none;
+  }
 }
 .paragraph--type--camp-du-nord-calendar-view {
   display: none;
@@ -224,7 +239,7 @@
 .cdn-village-calendars {
   padding-bottom: 20px;
   @include breakpoint(768px) {
-    background: #f5f5f5;
+    background: #f8f8f8;
     padding-bottom: 80px;
   }
   .cdn-calendar {
@@ -240,19 +255,24 @@
       margin: 0 15px 35px;
       position: relative;
       @include breakpoint(768px) {
-        margin: 70px auto;
-        max-width: 770px;
+        margin: 70px auto 10px;
+        max-width: 690px;
       }
       .title {
         font-family: "Cachet Book", Arial, sans-serif;
-        font-size: 50px;
+        font-size: 40px;
         font-weight: normal;
         color: #222222;
         margin: 0;
         @include breakpoint(768px) {
           margin-top: 20px;
-          margin-bottom: 10px;
         }
+      }
+      .description {
+        margin-bottom: 70px;
+        font-size: 18px;
+        color: #777777;
+        line-height: 26px;
       }
       .view {
         border-radius: 4px;
@@ -260,7 +280,7 @@
         color: #f4791f;
         display: none;
         font-size: 27px;
-        height: 60px;
+        height: 50px;
         line-height: 55px;
         position: absolute;
         right: 60px;
@@ -268,7 +288,7 @@
         top: 10px;
         width: 60px;
         @include breakpoint(768px) {
-          display: block;
+
         }
       }
       .close-cal {
@@ -280,8 +300,9 @@
         position: absolute;
         right: 0;
         text-align: center;
-        top: 12px;
+        top: 0;
         width: 50px;
+        text-decoration: none;
         @include breakpoint(768px) {
           display: block;
         }
@@ -294,9 +315,10 @@
   height: 0;
   @include breakpoint(768px) {
     height: auto;
-    max-width: 770px;
+    max-width: 690px;
     margin: 0 auto 3px;
-    box-shadow: 0 0 6px #ccc;
+    border-radius: 10px;
+    border: 2px solid #d8d8d8;
     background: none;
   }
   .views-exposed-form {
@@ -304,9 +326,10 @@
   }
 }
 .fullcalendar {
-  padding: 35px;
+  padding: 30px;
   @include breakpoint(768px) {
-    background-color: #fff;
+    background-color: #f8f8f8;
+    border-radius: 10px;
   }
   .fc-scroller {
     height: 550px !important;
@@ -328,9 +351,9 @@
   .fc-header-toolbar {
     display: none;
     @media (min-width: 768px) {
-      background-color: #fff;
+      background-color: #f8f8f8;
       margin-bottom: 0;
-      padding: 23px 0 20px;
+      padding: 13px 0 10px;
       display: block;
     }
     .fc-center {
@@ -371,7 +394,7 @@
     }
     .fc-head-container {
       .fc-row {
-        background: #fff;
+        background: #f8f8f8;
       }
       th {
         font-family: "Cachet Book", Arial, sans-serif;
@@ -383,7 +406,7 @@
           display: block;
           height: 50px;
           line-height: 50px;
-          background-color: #fff;
+          background-color: #f8f8f8;
         }
       }
     }
@@ -391,22 +414,22 @@
       background: none;
     }
     .fc-day {
-      background-color: #fff;
+      background-color: #f8f8f8;
     }
     .fc-day-top,
     .fc-day-number {
       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-      font-size: 30px;
+      font-size: 24px;
       letter-spacing: -0.6px;
       text-align: left;
-      color: #555;
+      color: #2f2f2f;
       padding: 15px 25px;
       .fc-day-number {
         float: none;
       }
       @media (min-width: 768px) {
         text-align: center;
-        padding: 24px 0 15px 0;
+        padding: 25px 0 0 0;
       }
     }
     a.cdn-prs-product {
@@ -415,31 +438,45 @@
       font-size: 15px;
       letter-spacing: -0.4px;
       color: #3e3e3e;
-      margin: 0;
       border-radius: 0;
       padding: 0;
       text-align: center;
       position: relative;
       @media (min-width: 768px) {
-        background: $white;
-        border: solid 1px $white;
+        background: #f8f8f8;
+        border: solid 2px #f8f8f8;
+        margin: 2px;
       }
       &.selected {
-        border: solid 2px #f4791f;
+        border: solid 2px #0089d0;
+        border-radius: 8px;
         .fc-day-number {
-          color: #f4791f;
+          color: #0089d0;
         }
       }
       &.first-selected {
-        border-radius: 5px 0 0 5px;
+        //border-radius: 8px 0 0 8px;
       }
       &.last-selected {
-        border-radius: 0 5px 5px 0;
+        .fc-title {
+          display: none;
+        }
+        .q-mark {
+          display: inline;
+        }
+        .tip-q {
+          display: block;
+        }
+        &:hover {
+          .tip {
+            display: block;
+          }
+        }
       }
       &.no-left-border {
         //border-top-color: #eaeaea;
         @media (min-width: 768px) {
-          border-left: none;
+          //border-left: none;
         }
         .fc-content {
           //margin-left: 0;
@@ -448,39 +485,77 @@
       &.no-right-border {
         //border-bottom-color: #eaeaea;
         @media (min-width: 768px) {
-          border-right: none;
+          //border-right: none;
         }
         .fc-content {
           //margin-right: 0;
         }
       }
+      .fc-day-number {
+        padding: 10px 0 0 0;
+      }
       .fc-content {
-        background: #eaeaea;
+        position: relative;
         margin: 0;
         overflow: inherit;
-        border-radius: 5px;
+        border-radius: 8px;
         @media (min-width: 768px) {
           margin: 8px;
+        }
+      }
+      &.booked {
+        .fc-content {
+          background: #d8d8d8;
+        }
+        .fc-title {
+          display: none;
+        }
+        .fc-day-number {
+          padding: 18px 0;
         }
       }
       .fc-time {
         display: none;
       }
       .fc-title {
-
+        color: #959595;
+        font-size: 16px;
+        display: block;
+        padding-bottom: 8px;
+        .q-mark {
+          display: none;
+        }
+      }
+      .tip-q {
+        color: #959595;
+        font-size: 16px;
+        display: none;
+        padding-bottom: 8px;
+        .q-mark {
+          margin-left: 5px;
+        }
+      }
+      .tip {
+        background: #f8f8f8;
+        top: 0;
+        position: absolute;
+        display: none;
+        white-space: normal;
+        width: 100%;
+        height: 100%;
       }
     }
     .fc-content-skeleton {
       background: #f5f5f5;
       @media (min-width: 768px) {
-        background: #fff;
+        background: #f8f8f8;
       }
       tbody {
         tr {
           td {
             display: block;
             @media (min-width: 768px) {
-              background: #fff;
+              background: #f8f8f8;
               display: table-cell;
             }
           }
@@ -577,24 +652,25 @@
 #cdn-contact-form-wrapper {
   background: #fff;
   h2 {
-    font-size: 25px;
-    text-transform: uppercase;
+    font-size: 24px;
     margin: 40px 0 25px;
     font-weight: normal;
   }
   h3 {
-    font-size: 16px;
+    font-size: 18px;
     color: #222;
     text-transform: none;
     font-weight: normal;
     margin-bottom: 15px;
   }
   h4 {
-    color: #777777;
-    font-size: 15px;
+    color: #646464;
+    font-size: 18px;
     text-transform: none;
     font-weight: normal;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     margin-bottom: 30px;
+    line-height: 24px;
     @include breakpoint(0 991px) {
       display: none;
     }
@@ -611,6 +687,20 @@
       }
     }
   }
+  .js-form-type-textfield {
+    label {
+      color: #a1a1a1;
+      font-size: 15px;
+      text-transform: none;
+      font-weight: normal;
+    }
+    input {
+      height: 50px;
+      color: #222222;
+      background: #fff;
+      border: 1px solid #d8d8d8;
+    }
+  }
   #edit-extra-mattress--wrapper {
     float: left;
   }
@@ -621,6 +711,7 @@
     @include breakpoint(992px) {
       border-right: 1px solid #f4f4f4;
       float: left;
+      padding-right: 50px;
       width: 49%;
     }
   }
@@ -636,11 +727,17 @@
       text-transform: none;
       font-weight: normal;
     }
-    input,
-    select {
-      height: 60px;
+    input {
+      height: 50px;
       color: #222222;
       background: #fff;
+    }
+    select {
+      height: 50px;
+      color: #222222;
+      background: #fff;
+      font-weight: bold;
+      text-transform: uppercase;
     }
   }
   #edit-first-time--wrapper {
@@ -660,31 +757,33 @@
     margin-right: 20px;
   }
   .js-webform-radios {
-    background: #fff;
     display: inline-block;
-    border: 1px solid #dadada;
-    border-radius: 4px;
-    padding: 5px;
     .js-form-type-radio {
       display: inline-block;
       padding: 0;
+      margin-right: 5px;
       label {
-        width: 70px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 15px;
+        width: 90px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
         color: #a1a1a1;
         display: block;
         text-align: center;
+        border: 1px solid #d8d8d8;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-family: "Cachet Book", Arial, sans-serif;
+        font-weight: bold;
       }
       input {
         display: none;
       }
       &.checked {
         label {
-          background: #00ab92;
+          background: #92278f;
+          border: 1px solid #92278f;
           color: #fff;
-          border-radius: 4px;
           &.no {
             background: #a1a1a1;
           }
@@ -693,7 +792,7 @@
     }
   }
   #edit-phone {
-    margin-bottom: -16px;
+
   }
   .actions {
     background: #383838;
@@ -708,5 +807,70 @@
         width: auto;
       }
     }
+  }
+}
+
+.cdn-village-footer {
+  background: #383838;
+  padding: 50px 0 25px;
+  clear: both;
+  .cdn-village-footer-bar {
+    display: none;
+    &.active {
+      display: block;
+    }
+    @include breakpoint(768px) {
+      float: right;
+      text-align: right;
+    }
+    .total {
+      display: inline-block;
+      font-size: 24px;
+      color: #888888;
+      width: 100%;
+      @include breakpoint(768px) {
+        margin-right: 30px;
+        display: inline-block;
+        width: auto;
+      }
+      .price {
+        color: #fff;
+      }
+    }
+    .prev-step,
+    .next-step,
+    .form-submit {
+      background: #0089d0;
+      font-size: 18px;
+      color: #fff;
+      text-transform: uppercase;
+      display: inline-block;
+      border-radius: 7px;
+      padding: 10px 22px;
+      box-shadow: none;
+      font-family: "Cachet Book", Arial, sans-serif;
+      text-decoration: none;
+      font-weight: bold;
+      line-height: 40px;
+      @include breakpoint(992px) {
+        margin-left: 30px;
+      }
+    }
+  }
+}
+
+.confirmation-body {
+  h2 {
+    font-weight: normal;
+  }
+  .description {
+    margin-bottom: 20px;
+    .cabin-name {
+      font-weight: bold;
+    }
+  }
+  .col-xs-12 {
+    padding-top: 50px;
+    padding-bottom: 100px;
   }
 }

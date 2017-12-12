@@ -3,3 +3,5 @@ type: module
 description: YMCA Camp du Nord base module.
 core: 8.x
 package: YMCA CDN
+dependencies:
+  - ymca_personify
