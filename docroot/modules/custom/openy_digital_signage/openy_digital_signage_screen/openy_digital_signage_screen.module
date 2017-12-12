@@ -31,15 +31,23 @@ function openy_digital_signage_screen_openy_digital_signage_screen_view(&$build,
  * Implements hook_ENTITY_TYPE_view().
  */
 function openy_digital_signage_screen_node_view_alter(&$build, $entity, $display, $view_mode = '') {
-  if ($entity->bundle() == 'screen_content') {
-    $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_theme';
-    $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_handler';
-    unset($build['#contextual_links']);
-    foreach (Element::children($build) as $element) {
-      foreach (Element::children($build[$element]) as $region) {
-        foreach (Element::children($build[$element][$region]) as $block_id) {
-          unset($build[$element][$region][$block_id]['$contextual_links']);
-        }
+  if ($entity->bundle() != 'screen_content') {
+    return;
+  }
+  $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_theme';
+  $build['#attached']['library'][] = 'openy_digital_signage_screen/openy_ds_screen_handler';
+  unset($build['#contextual_links']);
+  foreach (Element::children($build) as $element) {
+    foreach (Element::children($build[$element]) as $region) {
+      if (empty($build[$element][$region]) || $region == 'classes') {
+        continue;
+      }
+      $render = Element::children($build[$element][$region]);
+      if (empty($render)) {
+        continue;
+      }
+      foreach ($render as $block_id) {
+        unset($build[$element][$region][$block_id]['#contextual_links']);
       }
     }
   }
