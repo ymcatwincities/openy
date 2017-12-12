@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.camp_du_nord_form.field_prgf_cdn_form_ref
+    - paragraphs.paragraphs_type.camp_du_nord_form
+  module:
+    - plugin
+id: paragraph.camp_du_nord_form.default
+targetEntityType: paragraph
+bundle: camp_du_nord_form
+mode: default
+content:
+  field_prgf_cdn_form_ref:
+    type: 'plugin_selector:plugin_select_list'
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
