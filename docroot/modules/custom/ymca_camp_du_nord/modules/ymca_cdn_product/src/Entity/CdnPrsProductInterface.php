@@ -11,7 +11,7 @@ use Drupal\user\EntityOwnerInterface;
  *
  * @ingroup ymca_cdn_product
  */
-interface CdnPrsProductInterface extends  ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
+interface CdnPrsProductInterface extends ContentEntityInterface, EntityChangedInterface, EntityOwnerInterface {
 
   // Add get/set methods for your configuration properties here.
 
