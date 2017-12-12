@@ -49,7 +49,8 @@ env:
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_cdn_sync.settings')->set('data_service_url', 'https://ygtctrain3ebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_cdn_sync.settings')->set('data_service_user', 'FFW17')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_cdn_sync.settings')->set('data_service_password', 'Summer2017')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_camp_du_nord.settings')->set('url_login', 'https://ygtctrain3ebiz.personifycloud.com/PersonifyEbusiness/Default.aspx?TabID=337')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_camp_du_nord.settings')->set('url_cart', 'https://ygtctrain3ebiz.personifycloud.com/PersonifyEbusiness/YMCA/ShoppingCart.aspx')->save(TRUE);\"" }
   post_settings:
     - { name: '$settings["cache"]["bins"]["render"]', status: false, value: 'cache.backend.memory' }
     - { name: '$config["stage_file_proxy.settings"]["origin"]', status: true, value: '{{ origin_site_url }}' }
-
