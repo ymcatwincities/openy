@@ -100,7 +100,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
         'from' => $from,
         'to' => $to,
         'trainer' => $this->prepareTrainerName($class_session->instructor->value),
-        'substitute_trainer' => trim($class_session->sub_instructor->value),
+        'substitute_trainer' => $this->prepareTrainerName($class_session->sub_instructor->value),
         'name' => $this->prepareClassName($class_session->label()),
         'from_formatted' => date('g:ia', $from),
         'to_formatted' => date('g:ia', $to),
@@ -120,7 +120,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
    *   Prepared to display class name.
    */
   protected function prepareClassName($name) {
-    $name = str_replace('®', '<sup>®</sup>', $name);
+    $name = str_replace('®', '<sup>®</sup>', trim($name));
 
     return $name;
   }
@@ -136,8 +136,11 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
    */
   protected function prepareTrainerName($name) {
     $new_name = '';
+    if (empty($name)) {
+      return $new_name;
+    }
     // Divide name into 2 parts.
-    $array = explode(' ', $name);
+    $array = explode(' ', trim($name));
     // Add first name to the new name.
     $new_name .= $array[0];
     if (empty($array[1])) {

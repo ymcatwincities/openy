@@ -504,6 +504,9 @@ body.node--type-screen-content {
 .openy-ds-layout .block-region-ticker:hover > .ipe-actions {
   margin-top: -1.38889vw; }
 
+.openy-ds-layout [data-block-id].syncing:before {
+  margin-top: 20px; }
+
 .ipe-tab a {
   font-size: 13px;
   padding: 5px 10px 7px 3px; }
