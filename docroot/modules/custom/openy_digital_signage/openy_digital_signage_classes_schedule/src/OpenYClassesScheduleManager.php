@@ -121,6 +121,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
    */
   protected function prepareClassName($name) {
     $name = str_replace('®', '<sup>®</sup>', trim($name));
+    $name = str_replace('™', '<sup>™</sup>', trim($name));
 
     return $name;
   }
