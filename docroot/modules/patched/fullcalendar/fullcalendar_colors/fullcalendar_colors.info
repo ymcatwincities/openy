@@ -5,9 +5,9 @@ package = FullCalendar
 dependencies[] = colors
 dependencies[] = fullcalendar
 
-; Information added by Drupal.org packaging script on 2016-11-19
-version = "8.x-1.0-alpha2+69-dev"
+; Information added by Drupal.org packaging script on 2017-09-21
+version = "8.x-1.0-alpha2+71-dev"
 core = "8.x"
 project = "fullcalendar"
-datestamp = "1479533387"
+datestamp = "1505968751"
 
