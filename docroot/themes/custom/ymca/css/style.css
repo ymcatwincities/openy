@@ -579,9 +579,6 @@ body {
   background: #414141;
   -webkit-overflow-scrolling: touch;
 }
-.sidebar .news {
-  padding-bottom: 50px;
-}
 .sidebar.collapsing-out {
   -webkit-transition: visibility 0s .4s linear;
   -moz-transition: visibility 0s .4s linear;
@@ -11074,26 +11071,25 @@ tr:nth-last-child(3) .atcb-list {
   }
 }
 .cdn-form-full .top-elements-wrapper h2 {
-  font-size: 20px;
+  font-size: 30px;
   font-family: "Cachet Book", Arial, sans-serif;
-  font-weight: normal;
   margin-bottom: 20px;
+  color: #2f2f2f;
 }
 .cdn-form-full .form-item-arrival-date label,
 .cdn-form-full .form-item-departure-date label {
-  font-family: Cachet;
+  font-family: "Cachet Book", Arial, sans-serif;
   font-size: 20px;
   height: 28px;
   margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: normal;
   letter-spacing: -0.5px;
   color: #222222;
-  text-transform: uppercase;
 }
 .cdn-form-full .form-item-arrival-date input,
 .cdn-form-full .form-item-departure-date input {
   background: #fff url("../img/icon-calendar2.png") no-repeat 20px center;
-  height: 60px;
+  height: 50px;
   padding-left: 65px;
   font-family: "Cachet Book", Arial, sans-serif;
   font-size: 18px;
@@ -11110,7 +11106,7 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 64.0625em) {
   .cdn-form-full .form-item-arrival-date,
   .cdn-form-full .form-item-departure-date {
-    width: 335px;
+    width: 290px;
   }
 }
 .cdn-form-full .form-item-arrival-date {
@@ -11147,17 +11143,27 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 64.0625em) {
   .cdn-form-full .form-item-range {
     margin: 0 30px;
-    width: 270px;
+    width: 250px;
   }
+}
+.cdn-form-full .form-item-range label {
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-size: 20px;
+  height: 28px;
+  margin-bottom: 10px;
+  font-weight: normal;
+  letter-spacing: -0.5px;
+  color: #222222;
 }
 .cdn-form-full .form-item-range select {
   background: #fff;
   border-color: #dadada;
-  height: 60px;
+  height: 50px;
   font-family: "Cachet Book", Arial, sans-serif;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: bold;
   text-indent: 25px;
-  color: #222222;
+  color: #2f2f2f;
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -11166,13 +11172,14 @@ tr:nth-last-child(3) .atcb-list {
   background-position: 93% 50%;
   background-repeat: no-repeat;
   background-color: #fff;
+  text-transform: uppercase;
 }
 .cdn-form-full .form-item-village,
 .cdn-form-full .form-item-capacity {
   border: 1px solid #dadada;
   background-color: #fff;
-  height: 60px;
-  line-height: 60px;
+  height: 50px;
+  line-height: 50px;
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-village,
@@ -11189,7 +11196,7 @@ tr:nth-last-child(3) .atcb-list {
 .cdn-form-full .form-item-capacity label {
   font-size: 15px;
   letter-spacing: -0.5px;
-  color: #777777;
+  color: #959595;
   display: inline-block;
   font-weight: normal;
   margin: 0 0 0 15px;
@@ -11212,7 +11219,7 @@ tr:nth-last-child(3) .atcb-list {
   -moz-appearance: none;
   -ms-appearance: none;
   appearance: none;
-  height: 58px;
+  height: 48px;
   background: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
   background-position: 93% 50%;
   background-repeat: no-repeat;
@@ -11250,7 +11257,7 @@ tr:nth-last-child(3) .atcb-list {
   font-size: 15px;
   line-height: 20px;
   letter-spacing: -0.5px;
-  color: #777777;
+  color: #2f2f2f;
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-item-partly-available label,
@@ -11272,14 +11279,17 @@ tr:nth-last-child(3) .atcb-list {
   background: #f4791f;
   border: none;
   box-shadow: none;
-  font-size: 16px;
-  height: 60px;
+  font-size: 18px;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-weight: bold;
+  height: 50px;
   width: 100%;
 }
 @media (min-width: 48em) {
   .cdn-form-full .form-submit {
     float: left;
-    width: 170px;
+    margin-top: 38px;
+    width: 150px;
   }
 }
 @media (min-width: 64em) {
@@ -11301,7 +11311,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-form-full .cdn-results .cdn-village-teasers {
-    padding-bottom: 80px;
+    padding-bottom: 50px;
   }
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
@@ -11311,11 +11321,10 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 48em) {
   .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
     display: inline-block;
-    margin-bottom: 0;
+    padding-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
     width: 31%;
-  }
-  .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser:nth-child(3n+2) {
-    margin: 0 3%;
   }
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser.not-active {
@@ -11323,6 +11332,9 @@ tr:nth-last-child(3) .atcb-list {
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser.active {
   opacity: 1 !important;
+}
+.cdn-form-full .cdn-no-results {
+  display: none;
 }
 
 .paragraph--type--camp-du-nord-calendar-view {
@@ -11334,7 +11346,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-village-calendars {
-    background: #f5f5f5;
+    background: #f8f8f8;
     padding-bottom: 80px;
   }
 }
@@ -11354,13 +11366,13 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 48em) {
   .cdn-village-calendars .cdn-calendar .description {
-    margin: 70px auto;
-    max-width: 770px;
+    margin: 70px auto 10px;
+    max-width: 690px;
   }
 }
 .cdn-village-calendars .cdn-calendar .description .title {
   font-family: "Cachet Book", Arial, sans-serif;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: normal;
   color: #222222;
   margin: 0;
@@ -11368,8 +11380,13 @@ tr:nth-last-child(3) .atcb-list {
 @media (min-width: 48em) {
   .cdn-village-calendars .cdn-calendar .description .title {
     margin-top: 20px;
-    margin-bottom: 10px;
   }
+}
+.cdn-village-calendars .cdn-calendar .description .description {
+  margin-bottom: 70px;
+  font-size: 18px;
+  color: #777777;
+  line-height: 26px;
 }
 .cdn-village-calendars .cdn-calendar .description .view {
   border-radius: 4px;
@@ -11377,18 +11394,13 @@ tr:nth-last-child(3) .atcb-list {
   color: #f4791f;
   display: none;
   font-size: 27px;
-  height: 60px;
+  height: 50px;
   line-height: 55px;
   position: absolute;
   right: 60px;
   text-align: center;
   top: 10px;
   width: 60px;
-}
-@media (min-width: 48em) {
-  .cdn-village-calendars .cdn-calendar .description .view {
-    display: block;
-  }
 }
 .cdn-village-calendars .cdn-calendar .description .close-cal {
   color: #939393;
@@ -11399,8 +11411,9 @@ tr:nth-last-child(3) .atcb-list {
   position: absolute;
   right: 0;
   text-align: center;
-  top: 12px;
+  top: 0;
   width: 50px;
+  text-decoration: none;
 }
 @media (min-width: 48em) {
   .cdn-village-calendars .cdn-calendar .description .close-cal {
@@ -11416,9 +11429,10 @@ tr:nth-last-child(3) .atcb-list {
   .cdn-calendar .views-element-container,
   .paragraph--type--camp-du-nord-calendar-view .views-element-container {
     height: auto;
-    max-width: 770px;
+    max-width: 690px;
     margin: 0 auto 3px;
-    box-shadow: 0 0 6px #ccc;
+    border-radius: 10px;
+    border: 2px solid #d8d8d8;
     background: none;
   }
 }
@@ -11428,11 +11442,12 @@ tr:nth-last-child(3) .atcb-list {
 }
 
 .fullcalendar {
-  padding: 35px;
+  padding: 30px;
 }
 @media (min-width: 48em) {
   .fullcalendar {
-    background-color: #fff;
+    background-color: #f8f8f8;
+    border-radius: 10px;
   }
 }
 .fullcalendar .fc-scroller {
@@ -11457,9 +11472,9 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 768px) {
   .fullcalendar .fc-header-toolbar {
-    background-color: #fff;
+    background-color: #f8f8f8;
     margin-bottom: 0;
-    padding: 23px 0 20px;
+    padding: 13px 0 10px;
     display: block;
   }
 }
@@ -11498,7 +11513,7 @@ tr:nth-last-child(3) .atcb-list {
   }
 }
 .fullcalendar .fc-view-container .fc-view .fc-head-container .fc-row {
-  background: #fff;
+  background: #f8f8f8;
 }
 .fullcalendar .fc-view-container .fc-view .fc-head-container th {
   font-family: "Cachet Book", Arial, sans-serif;
@@ -11511,21 +11526,21 @@ tr:nth-last-child(3) .atcb-list {
   display: block;
   height: 50px;
   line-height: 50px;
-  background-color: #fff;
+  background-color: #f8f8f8;
 }
 .fullcalendar .fc-view-container .fc-view .ui-widget-content {
   background: none;
 }
 .fullcalendar .fc-view-container .fc-view .fc-day {
-  background-color: #fff;
+  background-color: #f8f8f8;
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top,
 .fullcalendar .fc-view-container .fc-view .fc-day-number {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-size: 30px;
+  font-size: 24px;
   letter-spacing: -0.6px;
   text-align: left;
-  color: #555;
+  color: #2f2f2f;
   padding: 15px 25px;
 }
 .fullcalendar .fc-view-container .fc-view .fc-day-top .fc-day-number,
@@ -11536,7 +11551,7 @@ tr:nth-last-child(3) .atcb-list {
   .fullcalendar .fc-view-container .fc-view .fc-day-top,
   .fullcalendar .fc-view-container .fc-view .fc-day-number {
     text-align: center;
-    padding: 24px 0 15px 0;
+    padding: 25px 0 0 0;
   }
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product {
@@ -11545,7 +11560,6 @@ tr:nth-last-child(3) .atcb-list {
   font-size: 15px;
   letter-spacing: -0.4px;
   color: #3e3e3e;
-  margin: 0;
   border-radius: 0;
   padding: 0;
   text-align: center;
@@ -11553,52 +11567,89 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 768px) {
   .fullcalendar .fc-view-container .fc-view a.cdn-prs-product {
-    background: #fff;
-    border: solid 1px #fff;
+    background: #f8f8f8;
+    border: solid 2px #f8f8f8;
+    margin: 2px;
   }
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.selected {
-  border: solid 2px #f4791f;
+  border: solid 2px #0089d0;
+  border-radius: 8px;
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.selected .fc-day-number {
-  color: #f4791f;
+  color: #0089d0;
 }
-.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.first-selected {
-  border-radius: 5px 0 0 5px;
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected .fc-title {
+  display: none;
 }
-.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected {
-  border-radius: 0 5px 5px 0;
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected .q-mark {
+  display: inline;
 }
-@media (min-width: 768px) {
-  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.no-left-border {
-    border-left: none;
-  }
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected .tip-q {
+  display: block;
 }
-@media (min-width: 768px) {
-  .fullcalendar .fc-view-container .fc-view a.cdn-prs-product.no-right-border {
-    border-right: none;
-  }
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.last-selected:hover .tip {
+  display: block;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-day-number {
+  padding: 10px 0 0 0;
 }
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-content {
-  background: #eaeaea;
+  position: relative;
   margin: 0;
   overflow: inherit;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 @media (min-width: 768px) {
   .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-content {
     margin: 8px;
   }
 }
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-content {
+  background: #d8d8d8;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-title {
+  display: none;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product.booked .fc-day-number {
+  padding: 18px 0;
+}
 .fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-time {
   display: none;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-title {
+  color: #959595;
+  font-size: 16px;
+  display: block;
+  padding-bottom: 8px;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .fc-title .q-mark {
+  display: none;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .tip-q {
+  color: #959595;
+  font-size: 16px;
+  display: none;
+  padding-bottom: 8px;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .tip-q .q-mark {
+  margin-left: 5px;
+}
+.fullcalendar .fc-view-container .fc-view a.cdn-prs-product .tip {
+  background: #f8f8f8;
+  top: 0;
+  position: absolute;
+  display: none;
+  white-space: normal;
+  width: 100%;
+  height: 100%;
 }
 .fullcalendar .fc-view-container .fc-view .fc-content-skeleton {
   background: #f5f5f5;
 }
 @media (min-width: 768px) {
   .fullcalendar .fc-view-container .fc-view .fc-content-skeleton {
-    background: #fff;
+    background: #f8f8f8;
   }
 }
 .fullcalendar .fc-view-container .fc-view .fc-content-skeleton tbody tr td {
@@ -11606,7 +11657,7 @@ tr:nth-last-child(3) .atcb-list {
 }
 @media (min-width: 768px) {
   .fullcalendar .fc-view-container .fc-view .fc-content-skeleton tbody tr td {
-    background: #fff;
+    background: #f8f8f8;
     display: table-cell;
   }
 }
@@ -11705,24 +11756,25 @@ tr:nth-last-child(3) .atcb-list {
   background: #fff;
 }
 #cdn-contact-form-wrapper h2 {
-  font-size: 25px;
-  text-transform: uppercase;
+  font-size: 24px;
   margin: 40px 0 25px;
   font-weight: normal;
 }
 #cdn-contact-form-wrapper h3 {
-  font-size: 16px;
+  font-size: 18px;
   color: #222;
   text-transform: none;
   font-weight: normal;
   margin-bottom: 15px;
 }
 #cdn-contact-form-wrapper h4 {
-  color: #777777;
-  font-size: 15px;
+  color: #646464;
+  font-size: 18px;
   text-transform: none;
   font-weight: normal;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   margin-bottom: 30px;
+  line-height: 24px;
 }
 @media (min-width: 0) and (max-width: 61.9375em) {
   #cdn-contact-form-wrapper h4 {
@@ -11739,6 +11791,18 @@ tr:nth-last-child(3) .atcb-list {
   text-transform: none;
   font-weight: normal;
 }
+#cdn-contact-form-wrapper .js-form-type-textfield label {
+  color: #a1a1a1;
+  font-size: 15px;
+  text-transform: none;
+  font-weight: normal;
+}
+#cdn-contact-form-wrapper .js-form-type-textfield input {
+  height: 50px;
+  color: #222222;
+  background: #fff;
+  border: 1px solid #d8d8d8;
+}
 #cdn-contact-form-wrapper #edit-extra-mattress--wrapper {
   float: left;
 }
@@ -11749,6 +11813,7 @@ tr:nth-last-child(3) .atcb-list {
   #cdn-contact-form-wrapper #edit-additional {
     border-right: 1px solid #f4f4f4;
     float: left;
+    padding-right: 50px;
     width: 49%;
   }
 }
@@ -11765,11 +11830,17 @@ tr:nth-last-child(3) .atcb-list {
   text-transform: none;
   font-weight: normal;
 }
-#cdn-contact-form-wrapper #edit-emergency-contact input,
-#cdn-contact-form-wrapper #edit-emergency-contact select {
-  height: 60px;
+#cdn-contact-form-wrapper #edit-emergency-contact input {
+  height: 50px;
   color: #222222;
   background: #fff;
+}
+#cdn-contact-form-wrapper #edit-emergency-contact select {
+  height: 50px;
+  color: #222222;
+  background: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 #cdn-contact-form-wrapper #edit-first-time--wrapper legend {
   border-bottom: none;
@@ -11786,38 +11857,37 @@ tr:nth-last-child(3) .atcb-list {
   margin-right: 20px;
 }
 #cdn-contact-form-wrapper .js-webform-radios {
-  background: #fff;
   display: inline-block;
-  border: 1px solid #dadada;
-  border-radius: 4px;
-  padding: 5px;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio {
   display: inline-block;
   padding: 0;
+  margin-right: 5px;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio label {
-  width: 70px;
-  height: 40px;
-  line-height: 40px;
-  font-size: 15px;
+  width: 90px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
   color: #a1a1a1;
   display: block;
   text-align: center;
+  border: 1px solid #d8d8d8;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-family: "Cachet Book", Arial, sans-serif;
+  font-weight: bold;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio input {
   display: none;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio.checked label {
-  background: #00ab92;
+  background: #92278f;
+  border: 1px solid #92278f;
   color: #fff;
-  border-radius: 4px;
 }
 #cdn-contact-form-wrapper .js-webform-radios .js-form-type-radio.checked label.no {
   background: #a1a1a1;
-}
-#cdn-contact-form-wrapper #edit-phone {
-  margin-bottom: -16px;
 }
 #cdn-contact-form-wrapper .actions {
   background: #383838;
@@ -11834,6 +11904,77 @@ tr:nth-last-child(3) .atcb-list {
     float: right;
     width: auto;
   }
+}
+
+.cdn-village-footer {
+  background: #383838;
+  padding: 50px 0 25px;
+  clear: both;
+}
+.cdn-village-footer .cdn-village-footer-bar {
+  display: none;
+}
+.cdn-village-footer .cdn-village-footer-bar.active {
+  display: block;
+}
+@media (min-width: 48em) {
+  .cdn-village-footer .cdn-village-footer-bar {
+    float: right;
+    text-align: right;
+  }
+}
+.cdn-village-footer .cdn-village-footer-bar .total {
+  display: inline-block;
+  font-size: 24px;
+  color: #888888;
+  width: 100%;
+}
+@media (min-width: 48em) {
+  .cdn-village-footer .cdn-village-footer-bar .total {
+    margin-right: 30px;
+    display: inline-block;
+    width: auto;
+  }
+}
+.cdn-village-footer .cdn-village-footer-bar .total .price {
+  color: #fff;
+}
+.cdn-village-footer .cdn-village-footer-bar .prev-step,
+.cdn-village-footer .cdn-village-footer-bar .next-step,
+.cdn-village-footer .cdn-village-footer-bar .form-submit {
+  background: #0089d0;
+  font-size: 18px;
+  color: #fff;
+  text-transform: uppercase;
+  display: inline-block;
+  border-radius: 7px;
+  padding: 10px 22px;
+  box-shadow: none;
+  font-family: "Cachet Book", Arial, sans-serif;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 40px;
+}
+@media (min-width: 62em) {
+  .cdn-village-footer .cdn-village-footer-bar .prev-step,
+  .cdn-village-footer .cdn-village-footer-bar .next-step,
+  .cdn-village-footer .cdn-village-footer-bar .form-submit {
+    margin-left: 30px;
+  }
+}
+
+.confirmation-body h2 {
+  font-weight: normal;
+}
+.confirmation-body .description {
+  margin-bottom: 20px;
+}
+.confirmation-body .description .cabin-name {
+  font-weight: bold;
+}
+.confirmation-body .col-xs-12 {
+  padding-top: 50px;
+  padding-bottom: 100px;
 }
 
 .block-description--wrapper {
@@ -12355,11 +12496,11 @@ body.show-new-mobile-menu .sidebar .active .health-fitness.nav-level-2:before, b
 body.show-new-mobile-menu .sidebar .active .jobs.nav-level-2:before, body.show-new-mobile-menu .sidebar .jobs.nav-level-2:before {
   content: '';
 }
-body.show-new-mobile-menu .dropdown.open > .dropdown-menu {
+body.show-new-mobile-menu .sidebar .dropdown.open > .dropdown-menu {
   padding-bottom: 70px;
   background: #fff;
 }
-body.show-new-mobile-menu li > a.overview {
+body.show-new-mobile-menu .sidebar li > a.overview {
   display: none;
 }
 
