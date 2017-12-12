@@ -360,10 +360,12 @@ body.show-new-mobile-menu {
     padding-bottom: 70px;
     background: #fff;
   }
-  .sidebar li > a.overview,
-  .sidebar li.camps,
-  .sidebar li.lineup,
-  .sidebar li.tickets {
+  .sidebar li > a.overview {
+    display: none !important;
+  }
+  #sidebar-nav > li.dropdown > ul.dropdown-menu > li.camps,
+  #sidebar-nav > li.dropdown > ul.dropdown-menu > li.lineup,
+  #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tickets {
     display: none !important;
   }
 }
