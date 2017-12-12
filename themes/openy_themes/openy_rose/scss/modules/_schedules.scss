@@ -664,7 +664,7 @@
         flex-basis: 33%;
       }
       label {
-        @include helvetica-neue();
+        font-family: Verdana, sans-serif;
         font-size: 15px;
         margin: 0 0 0 7px;
         vertical-align: top;
