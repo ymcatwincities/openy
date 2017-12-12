@@ -6,12 +6,12 @@
  * @ingroup themeable
  */
 #}
-<div class="cdn-calendar-list-row{% if data.booked %} booked{% endif %}">
-  <a href="#" class="{% if data.selected %}selected{% endif %}">
+<div class="cdn-calendar-list-row{% if data.is_booked %} booked{% endif %}" data-id="{{ data.id }}" data-pid="{{ data.pid }}" data-total_capacity="{{ data.total_capacity }}" data-village_id="{{ data.village_id }}">
+  <a href="#" class="{% if data.is_selected %}selected{% endif %}">
     <div class="date">
       <div class="month">{{ data.date1 }}</div>
       <div class="day">{{ data.date2 }} <span>{{ data.date3 }}</span></div>
     </div>
-    <div class="price">{{ data.price }}</div>
+    <div class="price">${{ data.price }}</div>
   </a>
 </div>

@@ -5,10 +5,13 @@ dependencies:
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_cabin_id
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_cabin_number
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_capacity
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_capacity_left
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_code
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_hash
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_id
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_list_price
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_object
+    - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_regs
     - field.field.cdn_prs_product.cdn_prs_product.field_cdn_prd_start_date
   module:
     - datetime
@@ -45,6 +48,14 @@ content:
     third_party_settings: {  }
     type: number_integer
     region: content
+  field_cdn_prd_capacity_left:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_cdn_prd_code:
     weight: 4
     label: above
@@ -69,12 +80,28 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_cdn_prd_list_price:
+    weight: 9
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_cdn_prd_object:
     weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_cdn_prd_regs:
+    weight: 10
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_cdn_prd_start_date:
     weight: 1
