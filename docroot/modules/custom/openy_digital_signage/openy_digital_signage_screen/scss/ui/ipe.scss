@@ -69,6 +69,11 @@
       }
     }
   }
+  [data-block-id].syncing{
+    &:before {
+      margin-top: 20px;
+    }
+  }
 }
 
 .ipe-tab a {
