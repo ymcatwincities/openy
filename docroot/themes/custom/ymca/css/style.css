@@ -12501,7 +12501,12 @@ body.show-new-mobile-menu .sidebar .dropdown.open > .dropdown-menu {
   background: #fff;
 }
 body.show-new-mobile-menu .sidebar li > a.overview {
-  display: none;
+  display: none !important;
+}
+body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.camps,
+body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.lineup,
+body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tickets {
+  display: none !important;
 }
 
 .banner {
