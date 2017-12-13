@@ -4,6 +4,11 @@
  */
 
 /**
+ * @namespace
+ */
+Drupal.openyDigitalSignageBlocks = Drupal.openyDigitalSignageBlocks || {};
+
+/**
  * TimeManager class.
  *
  * Makes it possible to override current page time.

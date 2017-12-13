@@ -7,6 +7,11 @@
   'use strict';
 
   /**
+   * Block current class storage.
+   */
+  Drupal.openyDigitalSignageBlocks.currentClass = Drupal.openyDigitalSignageBlocks.currentClass || {};
+
+  /**
    * Static bar specific behaviour.
    *
    * @type {Drupal~behavior}
@@ -17,14 +22,30 @@
   Drupal.behaviors.openyDigitalSignageBlockClassCurrent = {
     attach: function (context, settings) {
       $('.block-class-current', context).once().each(function () {
-        var blockProto = new OpenYDigitalSignageBlockClassCurrent(this);
+        if (!(Drupal.openyDigitalSignageBlocks.currentClass instanceof OpenYDigitalSignageBlockClassCurrent)) {
+          Drupal.openyDigitalSignageBlocks.currentClass = new OpenYDigitalSignageBlockClassCurrent(this);
+        }
+        if (Drupal.openyDigitalSignageBlocks.currentClass.isActive()) {
+          Drupal.openyDigitalSignageBlocks.currentClass.deactivate();
+          Drupal.openyDigitalSignageBlocks.currentClass.updateContext(this);
+        }
+        Drupal.openyDigitalSignageBlocks.currentClass.init();
       });
     }
   };
 
+  /**
+   * Block current class handler.
+   *
+   * @param context
+   *   Block.
+   *
+   * @returns {OpenYDigitalSignageBlockClassCurrent}
+   */
   function OpenYDigitalSignageBlockClassCurrent(context) {
     this.context = context;
     var self = this;
+    this.activated = 0;
 
     // General loop – basically swaps classes.
     this.loop = function () {
@@ -191,12 +212,19 @@
       }
     };
 
-    // Returns current time.
+    /**
+     * Returns current time.
+     */
     this.getTimeOffset = function () {
       return window.tm.getTime();
     };
 
-    // Returns current and the upcoming classes.
+    /**
+     * Returns current and the upcoming classes.
+     *
+     * @returns {{last: *, next: *}}
+     *   Object with next and last classes.
+     */
     this.getCurrentAndNext = function () {
       var $current = null, $next = null;
       var offset = self.getTimeOffset();
@@ -223,32 +251,70 @@
       };
     };
 
-    // Returns the awaiting class.
+    /**
+     * Returns the awaiting class.
+     *
+     * @returns {*|HTMLElement}
+     *   Awaiting class.
+     */
     this.getAwaitingClass = function () {
       return $('.active-classes .class-awaiting', self.context);
     };
 
-    // Activates the block.
+    /**
+     * Activates the block.
+     */
     this.activate = function () {
-      self.actualizeActiveClasses(self.getCurrentAndNext());
       self.fastloop();
       self.timer = setInterval(self.loop, 5000);
       self.fasttimer = setInterval(self.fastloop, 1000 / window.tm.speed);
       self.activated = self.getTimeOffset();
     };
 
-    // Deactivates the block.
+    /**
+     * Deactivates the block.
+     */
     this.deactivate = function () {
       clearInterval(self.timer);
       clearInterval(self.fasttimer);
+      self.activated = 0;
     };
 
-    self.blockObject = ObjectsManager.getObject(self.context);
-    self.blockObject.activate = self.activate;
-    self.blockObject.deactivate = self.deactivate;
-    if (self.blockObject.isActive() || $(self.context).parents('.screen').size() === 0) {
-      self.activate();
-    }
+    /**
+     * Initialize block.
+     */
+    this.init = function () {
+      self.blockObject = ObjectsManager.getObject(self.context);
+      self.blockObject.activate = self.activate;
+      self.blockObject.deactivate = self.deactivate;
+      if (self.blockObject.isActive() || $(self.context).parents('.screen').size() === 0) {
+        self.activate();
+        if ($('.active-classes .class-active .class', self.context).length == 0) {
+          self.actualizeActiveClasses(self.getCurrentAndNext());
+        }
+      }
+    };
+
+    /**
+     * Check is block active and initialized or not.
+     *
+     * @returns {boolean}
+     *   Status.
+     */
+    this.isActive = function () {
+      return self.activated != 0;
+    };
+
+    /**
+     * Update class context.
+     *
+     * @param context
+     *   Block.
+     */
+    this.updateContext = function (context) {
+      this.context = context;
+      self = this;
+    };
 
     return this;
   }
