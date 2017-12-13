@@ -119,6 +119,7 @@ class Fetcher implements FetcherInterface {
     $this->wrapper->setSourceData([]);
 
     $options = [
+      'timeout' => 90,
       'headers' => [
         'Content-Type' => 'text/xml',
       ],
