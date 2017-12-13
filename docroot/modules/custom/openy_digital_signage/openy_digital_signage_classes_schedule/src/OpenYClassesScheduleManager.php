@@ -142,6 +142,7 @@ class OpenYClassesScheduleManager implements OpenYClassesScheduleManagerInterfac
     }
     // Divide name into 2 parts.
     $array = explode(' ', trim($name));
+    $array = array_values(array_filter($array, 'trim'));
     // Add first name to the new name.
     $new_name .= $array[0];
     if (empty($array[1])) {
