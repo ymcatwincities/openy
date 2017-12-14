@@ -363,6 +363,7 @@ body.show-new-mobile-menu {
   .sidebar li > a.overview {
     display: none !important;
   }
+  #sidebar-nav > li.dropdown > ul.dropdown-menu > li.locations,
   #sidebar-nav > li.dropdown > ul.dropdown-menu > li.camps,
   #sidebar-nav > li.dropdown > ul.dropdown-menu > li.lineup,
   #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tickets {
