@@ -93,14 +93,6 @@ class YMCAMenuController extends ControllerBase {
         if ($menu_id == 'main-menu' && $key === 0) {
           continue;
         }
-        if ($menu_id == 'main-menu' && unserialize($row->title) == 'Locations') {
-          $locations_parent = $row->mlid;
-        }
-        // Skip location root.
-        if ($menu_id == 'locations' && $key === 0) {
-          $locations_root = $row->mlid;
-          continue;
-        }
         $row->menu_id = $menu_id;
 
         $rows[$row->id] = $row;
@@ -113,9 +105,6 @@ class YMCAMenuController extends ControllerBase {
         for ($i = 1; $i < 9; $i++) {
           if (!empty($row->{'p' . $i}) && $row->{'p' . $i} != $row->mlid) {
             $anc_mlid = $row->{'p' . $i};
-            if ($menu_id == 'locations' && $anc_mlid == $locations_root && isset($locations_parent)) {
-              $anc_mlid = $locations_parent;
-            }
             $ancestors[] = $anc_mlid;
             $ctree = &$ctree[$anc_mlid];
           }
