@@ -94,3 +94,26 @@ function openy_prgf_blog_listing_update_8004() {
     'display.default.display_options.empty'
   );
 }
+
+/**
+ * Update Listing Blog Posts for core upgrade.
+ */
+function openy_prgf_blog_listing_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_blog_listing') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'views.view.listing_blog_posts' => [
+      'display.default.display_options.fields',
+      'display.default.cache_metadata',
+      'display.block.cache_metadata',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
