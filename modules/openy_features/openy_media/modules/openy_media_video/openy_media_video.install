@@ -109,6 +109,11 @@ function openy_media_video_update_8004() {
       'display.default.cache_metadata',
       'display.videos_library.cache_metadata',
     ],
+    'core.entity_form_display.media.video.default' => [
+      'dependencies.module',
+      'content.langcode',
+      'content.path',
+    ],
   ];
 
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');

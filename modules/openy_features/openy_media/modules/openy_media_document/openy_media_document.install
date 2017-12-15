@@ -147,6 +147,11 @@ function openy_media_document_update_8005() {
       'dependencies.config',
       'widgets',
     ],
+    'core.entity_form_display.media.document.default' => [
+      'dependencies.module',
+      'content.langcode',
+      'content.path',
+    ],
   ];
 
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');

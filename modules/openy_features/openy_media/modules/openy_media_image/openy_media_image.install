@@ -240,6 +240,11 @@ function openy_media_image_update_8009() {
       'dependencies.config',
       'widgets',
     ],
+    'core.entity_form_display.media.image.default' => [
+      'dependencies.module',
+      'content.langcode',
+      'content.path',
+    ],
   ];
 
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
