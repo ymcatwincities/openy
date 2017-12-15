@@ -30,6 +30,13 @@ targetEntityType: node
 bundle: activity
 mode: default
 content:
+  addthis:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 4
@@ -57,7 +64,8 @@ content:
     type: language_select
     weight: 2
     region: content
-    settings: {  }
+    settings:
+      include_locked: true
     third_party_settings: {  }
   path:
     type: path
@@ -78,6 +86,13 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
   sticky:
     type: boolean_checkbox
     settings:
