@@ -94,3 +94,18 @@ function openy_prgf_blog_listing_update_8004() {
     'display.default.display_options.empty'
   );
 }
+
+/**
+ * Update Listing Blog Posts for core upgrade.
+ */
+function openy_prgf_blog_listing_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf_blog_listing');
+  $config .= '/config/install/';
+  $config .= 'views.view.listing_blog_posts.yml';
+  $config_importer->update(
+    $config,
+    'views.view.listing_blog_posts',
+    'display.default.display_options.fields'
+  );
+}
