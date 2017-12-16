@@ -194,7 +194,9 @@
         }, 3000);
       }
       else {
-        $activeClassContainer.empty().append(classes.last.clone(true));
+        if (classes.last) {
+          $activeClassContainer.empty().append(classes.last.clone(true));
+        }
         if (classes.next) {
           $upcomingClassContainer.empty().append(classes.next.clone(true));
           $activeClasses.addClass('has-class');
