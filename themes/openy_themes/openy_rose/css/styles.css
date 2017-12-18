@@ -2546,7 +2546,6 @@ body {
     margin-bottom: 0;
   }
   .subprogram-listing-item .image img {
-    max-width: 260px;
     height: auto;
   }
 }
