@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Storage;
 
 use Drupal\Component\Plugin\PluginBase;

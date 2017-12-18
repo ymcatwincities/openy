@@ -4698,7 +4698,7 @@ function ymca_master_update_8213() {
 }
 
 /**
- * [YPTF-264] Configure MindBody Cache Proxy settings.
+ * YPTF-264 Configure MindBody Cache Proxy settings.
  */
 function ymca_master_update_8215() {
   // Change max_length for mindbody_cache name column.
@@ -4946,4 +4946,10 @@ function ymca_master_update_8228() {
   $timezone['default'] = 'America/Chicago';
   $config->set('timezone', $timezone);
   $config->save();
+}
+/**
+ * Enable openy_digital_signage module.
+ */
+function ymca_master_update_8229() {
+  \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
 }
