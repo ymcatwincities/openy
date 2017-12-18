@@ -1,0 +1,96 @@
+uuid: 86c5cdd8-b74d-4582-bd4e-2b2718223fa3
+langcode: en
+status: true
+dependencies:
+  module:
+    - editor
+    - entity_embed
+    - rel_to_abs
+    - token_filter
+    - ymca_entity_embed
+name: 'Digital Signage HTML'
+format: digital_signage_html
+weight: 0
+filters:
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
+    status: true
+    weight: -41
+    settings: {  }
+  entity_embed:
+    id: entity_embed
+    provider: entity_embed
+    status: false
+    weight: -48
+    settings: {  }
+  filter_align:
+    id: filter_align
+    provider: filter
+    status: true
+    weight: -47
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: false
+    weight: -46
+    settings: {  }
+  filter_caption:
+    id: filter_caption
+    provider: filter
+    status: true
+    weight: -45
+    settings: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
+    status: false
+    weight: -50
+    settings:
+      allowed_html: '<a href hreflang> <em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <img src alt data-entity-type data-entity-uuid data-align data-caption> <p> <h1> <pre> <table> <caption> <tbody> <thead> <tfoot> <th> <td> <tr> <hr> <s> <u> <sup> <sub>'
+      filter_html_help: true
+      filter_html_nofollow: false
+  filter_htmlcorrector:
+    id: filter_htmlcorrector
+    provider: filter
+    status: true
+    weight: -42
+    settings: {  }
+  filter_html_escape:
+    id: filter_html_escape
+    provider: filter
+    status: false
+    weight: -49
+    settings: {  }
+  filter_html_image_secure:
+    id: filter_html_image_secure
+    provider: filter
+    status: false
+    weight: -39
+    settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: false
+    weight: -44
+    settings:
+      filter_url_length: 72
+  rel_to_abs:
+    id: rel_to_abs
+    provider: rel_to_abs
+    status: true
+    weight: -38
+    settings: {  }
+  token_filter:
+    id: token_filter
+    provider: token_filter
+    status: true
+    weight: -43
+    settings: {  }
+  ymca_entity_embed:
+    id: ymca_entity_embed
+    provider: ymca_entity_embed
+    status: true
+    weight: -40
+    settings: {  }

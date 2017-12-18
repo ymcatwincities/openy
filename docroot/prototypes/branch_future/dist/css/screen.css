@@ -50,8 +50,7 @@ body {
   margin: 0;
   color: #555;
   line-height: 1.43571;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
+  box-sizing: border-box; }
 
 a:focus {
   outline: thin dotted; }
@@ -75,8 +74,7 @@ dfn {
   font-style: italic; }
 
 hr {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   height: 0; }
 
 mark {
@@ -160,13 +158,11 @@ html input[disabled] {
 
 input[type="checkbox"],
 input[type="radio"] {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   padding: 0; }
 
 input[type="search"] {
   -webkit-appearance: textfield;
-  -webkit-box-sizing: content-box;
   box-sizing: content-box; }
 
 input[type="search"]::-webkit-search-cancel-button,
@@ -338,8 +334,7 @@ table {
   margin: 0 auto;
   color: #fff;
   padding: 0 50px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
+  box-sizing: border-box; }
   .block-table .table-title {
     font-family: "Cachet-Bold";
     font-size: 2rem;
@@ -356,8 +351,7 @@ table {
   .block-table .row {
     border-bottom: 1px solid rgba(109, 78, 146, 0.6);
     padding: 18px 40px 17px;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box; }
+    box-sizing: border-box; }
     .block-table .row + .row--active {
       margin: 20px 0 0; }
   .block-table .row--disabled {
@@ -483,8 +477,7 @@ table {
 
 .section--shedules {
   padding: 0 50px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
+  box-sizing: border-box; }
   .section--shedules .title {
     font-family: "Cachet-Bold";
     font-weight: normal;
@@ -497,8 +490,7 @@ table {
 .block-banner--small {
   width: 50%;
   padding: 64px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   height: 410px;
   color: #fff;
   position: relative;
@@ -556,8 +548,7 @@ table {
   background: #3a1e5c url("../images/bg-entry.jpg") 50% 100% no-repeat;
   background-size: cover;
   padding: 90px 150px 150px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box; }
+  box-sizing: border-box; }
   .section--entry .block-banner {
     padding: 84px;
     background: #000 url("../images/bg-entry-small.jpg") 100% 0 no-repeat;
@@ -587,8 +578,7 @@ table {
       color: #c6168d;
       text-decoration: none; }
       .block-banner .description a:hover {
-        -webkit-box-shadow: 0 2px 0 0 currentColor;
-                box-shadow: 0 2px 0 0 currentColor; }
+        box-shadow: 0 2px 0 0 currentColor; }
 
 .block-banner--footer {
   background: #f0f0f0; }
@@ -611,8 +601,7 @@ table {
   border-radius: 20px;
   background: #f0f0f0;
   margin: 0 0 74px 0;
-  -webkit-box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.3);
-          box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.3); }
+  box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.3); }
   .block-banner--footer .block-event {
     margin: 0; }
   .wrapper-coming .block-event {

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels;
 
 use Drupal\Core\Cache\CacheBackendInterface;
