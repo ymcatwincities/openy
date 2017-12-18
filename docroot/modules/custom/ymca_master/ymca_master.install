@@ -4936,3 +4936,14 @@ function ymca_master_update_8227() {
     ->grantPermission('view published camp du nord personify product entities')
     ->save();
 }
+
+/**
+ * Update timezone to America/Chicago on the site.
+ */
+function ymca_master_update_8228() {
+  $config = \Drupal::service('config.factory')->getEditable('system.date');
+  $timezone = $config->get('timezone');
+  $timezone['default'] = 'America/Chicago';
+  $config->set('timezone', $timezone);
+  $config->save();
+}
