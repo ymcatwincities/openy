@@ -4947,3 +4947,22 @@ function ymca_master_update_8228() {
   $config->set('timezone', $timezone);
   $config->save();
 }
+
+/**
+ * Setup CDN configs.
+ */
+function ymca_master_update_8229() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'ymca_cdn_sync') . '/config/install/');
+  $config_importer->importConfigs(
+    [
+      'ymca_cdn_sync.settings',
+    ]
+  );
+  $config_importer->setDirectory(drupal_get_path('module', 'ymca_camp_du_nord') . '/config/install/');
+  $config_importer->importConfigs(
+    [
+      'ymca_camp_du_nord.settings',
+    ]
+  );
+}
