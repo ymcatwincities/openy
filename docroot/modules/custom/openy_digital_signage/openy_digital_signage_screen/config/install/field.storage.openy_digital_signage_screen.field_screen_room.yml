@@ -1,0 +1,21 @@
+uuid: 3cb45565-1abd-4ef8-adb8-96829c84a666
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_digital_signage_screen
+id: openy_digital_signage_screen.field_screen_room
+field_name: field_screen_room
+entity_type: openy_digital_signage_screen
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

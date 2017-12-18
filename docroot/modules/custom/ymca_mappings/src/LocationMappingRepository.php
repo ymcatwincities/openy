@@ -66,6 +66,59 @@ class LocationMappingRepository {
   }
 
   /**
+   * Loads one entity.
+   *
+   * @param mixed $id
+   *   The ID of the entity to load.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   *   An entity object. NULL if no matching entity is found.
+   */
+  public function load($id) {
+    return $this->storage->load($id);
+  }
+
+  /**
+   * Load all location mappings where GroupEx ID is present.
+   *
+   * @return array
+   *   An array of found location mapping objects sorted by name.
+   */
+  public function loadAllLocationsWithGroupExId() {
+    $mapping_ids = $this->queryFactory
+      ->get('mapping')
+      ->condition('type', self::TYPE)
+      ->condition('field_groupex_id', 0, '>')
+      ->sort('name', 'ASC')
+      ->execute();
+    if (!$mapping_ids) {
+      return [];
+    }
+
+    return $this->storage->loadMultiple($mapping_ids);
+  }
+
+  /**
+   * Load all location mappings where Personify branch code is present.
+   *
+   * @return array
+   *   An array of found location mapping objects sorted by name.
+   */
+  public function loadAllLocationsWithPersonifyId() {
+    $mapping_ids = $this->queryFactory
+      ->get('mapping')
+      ->condition('type', self::TYPE)
+      ->condition('field_location_personify_brcode', 0, '>')
+      ->sort('name', 'ASC')
+      ->execute();
+    if (!$mapping_ids) {
+      return [];
+    }
+
+    return $this->storage->loadMultiple($mapping_ids);
+  }
+
+  /**
    * Return all Groupex location IDs.
    *
    * @return array

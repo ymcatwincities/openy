@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Form;
 
 use Drupal\Core\Form\ConfirmFormBase;

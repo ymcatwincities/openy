@@ -1,0 +1,31 @@
+{#
+/**
+ * @file
+ * Template for a 1 column panel + Ticker layout.
+ *
+ * This template provides a two column panel display layout with full width
+ * areas at the top, bottom and in the middle.
+ *
+ * Variables:
+ * - $id: An optional CSS id to use for the layout.
+ * - $content: An array of content, each item in the array is keyed to one
+ *   panel of the layout. This layout supports the following sections:
+ *   - content.main: Content in the left column.
+ *   - content.ticker: Content in the ticker row.
+ */
+#}
+
+{% set classes = '' %}
+{% if content.classes %}
+  {% set classes = ' ' ~ content.classes|join(' ') %}
+{% endif %}
+<div class="openy-ds-layout openy-ds-layout-1col-ticker  {{ orientation }} {{ classes }}">
+
+  <div class="openy-ds-layout-region openy-ds-layout-1col--main">
+    {{ content.main }}
+  </div>
+
+  <div class="openy-ds-layout-region openy-ds-layout-1col--ticker">
+    {{ content.ticker }}
+  </div>
+</div>
