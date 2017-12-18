@@ -1,0 +1,89 @@
+# Panels IPE
+panelizer.panels_ipe.revert_to_default:
+  path: '/admin/panelizer/panels_ipe/{entity_type_id}/{entity}/{view_mode}/revert_to_default'
+  options:
+    parameters:
+      entity:
+        type: entity:{entity_type_id}
+  defaults:
+    _controller: '\Drupal\panelizer\Controller\PanelizerPanelsIPEController::revertToDefault'
+  requirements:
+    _method: 'POST'
+    _permission: 'access panels in-place editing'
+    _custom_access: '\Drupal\panelizer\Controller\PanelizerPanelsIPEController::accessRevertToDefault'
+
+# Wizard
+panelizer.wizard.add:
+  path: '/admin/structure/panelizer/add/{entity_type_id}/{bundle}/{view_mode_name}'
+  defaults:
+    _wizard: '\Drupal\panelizer\Wizard\PanelizerAddWizard'
+    _title: 'Panelizer Wizard'
+    tempstore_id: 'panelizer.wizard'
+  requirements:
+    _panelizer_default_access: 'TRUE'
+    _permission: 'administer panelizer'
+
+panelizer.wizard.add.step:
+  path: '/admin/structure/panelizer/add/{machine_name}/{step}'
+  defaults:
+    _wizard: '\Drupal\panelizer\Wizard\PanelizerAddWizard'
+    _title: 'Panelizer Wizard'
+    tempstore_id: 'panelizer.wizard'
+  requirements:
+    _permission: 'administer panelizer'
+
+panelizer.wizard.edit:
+  path: '/admin/structure/panelizer/edit/{machine_name}/{step}'
+  defaults:
+    _wizard: '\Drupal\panelizer\Wizard\PanelizerEditWizard'
+    _title: 'Panelizer Wizard'
+    tempstore_id: 'panelizer.wizard'
+    step: 'general'
+  requirements:
+    _permission: 'administer panelizer'
+
+panelizer.default.delete:
+  path: '/admin/structure/panelizer/delete/{machine_name}'
+  defaults:
+    _form: '\Drupal\panelizer\Form\PanelizerDefaultDelete'
+    _title: 'Delete panelizer default'
+  requirements:
+    _panelizer_field_ui_view_mode_access: 'TRUE'
+    _custom_access: '\Drupal\panelizer\Access\PanelizerDefaultsDisplayAccess::isNotDefaultDisplay'
+
+panelizer.default.select:
+  path: '/admin/structure/panelizer/set_default/{machine_name}'
+  defaults:
+    _form: '\Drupal\panelizer\Form\PanelizerDefaultSelect'
+    _title: 'Set as default'
+  requirements:
+    _panelizer_field_ui_view_mode_access: 'TRUE'
+    _custom_access: '\Drupal\panelizer\Access\PanelizerDefaultsDisplayAccess::isNotDefaultDisplay'
+
+# Contexts
+panelizer.wizard.step.context.add:
+  path: '/admin/panelizer/wizard/{machine_name}/contexts/add/{context_id}'
+  defaults:
+    _form: '\Drupal\panelizer\Form\PanelizerWizardContextConfigure'
+    _title: 'Add custom context'
+    tempstore_id: 'panelizer.wizard'
+  requirements:
+    _permission: 'administer panelizer'
+
+panelizer.wizard.step.context.edit:
+  path: '/admin/panelizer/wizard/{machine_name}/contexts/edit/{context_id}'
+  defaults:
+    _form: '\Drupal\panelizer\Form\PanelizerWizardContextConfigure'
+    _title: 'Edit context'
+    tempstore_id: 'panelizer.wizard'
+  requirements:
+    _permission: 'administer panelizer'
+
+panelizer.wizard.step.context.delete:
+  path: '/admin/panelizer/wizard/{machine_name}/context/delete/{context_id}'
+  defaults:
+    _form: '\Drupal\panelizer\Form\PanelizerWizardContextDeleteForm'
+    _title: 'Delete static context'
+    tempstore_id: 'panelizer.wizard'
+  requirements:
+    _permission: 'administer panelizer'
