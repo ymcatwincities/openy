@@ -1,0 +1,44 @@
+{
+  "name": "drupal/panelizer",
+  "description": "Allow any entity view mode to be rendered using a Panels display.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/panelizer",
+  "authors": [
+    {
+      "name": "Damien McKenna",
+      "homepage": "https://www.drupal.org/u/damienmckenna"
+    },
+    {
+      "name": "Kris Vanderwater",
+      "homepage": "https://www.drupal.org/u/eclipsegc"
+    },
+    {
+      "name": "David Snopek",
+      "homepage": "https://www.drupal.org/u/dsnopek"
+    },
+    {
+      "name": "Jakob Perry",
+      "homepage": "https://www.drupal.org/u/japerry"
+    },
+    {
+      "name": "Earl Miles",
+      "homepage": "https://www.drupal.org/u/merlinofchaos"
+    },
+    {
+      "name": "See other contributors",
+      "homepage":"https://www.drupal.org/node/1072922/committers"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/panelizer",
+    "irc": "irc://irc.freenode.org/drupal-scotch",
+    "source": "http://git.drupal.org/project/panelizer.git"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {
+    "drupal/ctools": ">=3.0.0-beta1",
+    "drupal/panels": ">=4.0.0-alpha1",
+    "drupal/panels_ipe": ">=4.0.0-alpha1"
+  }
+}
