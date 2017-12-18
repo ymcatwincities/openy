@@ -360,10 +360,9 @@ body.show-new-mobile-menu {
     padding-bottom: 70px;
     background: #fff;
   }
-  .sidebar li > a.overview {
-    display: none !important;
-  }
-  #sidebar-nav > li.dropdown > ul.dropdown-menu > li.locations,
+
+  .sidebar li > a.overview,
+  #sidebar-nav > li.dropdown > ul.dropdown-menu > li.locations.dropdown,
   #sidebar-nav > li.dropdown > ul.dropdown-menu > li.camps,
   #sidebar-nav > li.dropdown > ul.dropdown-menu > li.lineup,
   #sidebar-nav > li.dropdown > ul.dropdown-menu > li.tickets {
