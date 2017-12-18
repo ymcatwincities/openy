@@ -85,7 +85,7 @@ class CdnFormFull extends FormBase {
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME + (86400 * 3));
+      $dt->setTimestamp(REQUEST_TIME + (86400 * 2));
       $default_arrival_date = $dt->format('Y-m-d');
     }
     $default_departure_date = NULL;
@@ -175,7 +175,7 @@ class CdnFormFull extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Search'),
       // Close top-elements-wrapper.
-      '#suffix' => '</div></div>',
+      '#suffix' => '<p class="help-tip">' . t('Please scroll down and select dates on calendar *') . '</p></div></div>',
       '#button_type' => 'primary',
     );
 
@@ -238,7 +238,8 @@ class CdnFormFull extends FormBase {
       ->get('cdn_prs_product')
       ->condition('field_cdn_prd_start_date', '%' . $query['arrival_date'] . '%', 'LIKE')
       ->execute();
-    $formatted_results = $this->t('Please select another village, change capacity or date range to see if there are other cabins available.');
+    $cdn_product_ids = array_slice($cdn_product_ids, 2, 4);
+    $formatted_results = '<div class="container">' . $this->t('Please select another village, change capacity or date range to see if there are other cabins available.') . '</div>';
     if ($cdn_products = $this->entityTypeManager->getStorage('cdn_prs_product')->loadMultiple($cdn_product_ids)) {
       if ($query['village'] !== 'all' || $query['capacity'] !== 'all') {
         foreach ($cdn_products as $key => $product) {
@@ -281,14 +282,19 @@ class CdnFormFull extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $today = new DrupalDateTime();
-    $today_modified = new DrupalDateTime('+ 3 days');
+    $today_modified = new DrupalDateTime('+ 2 days');
     $arrival_date = $form_state->getValue('arrival_date');
     $departure_date = $form_state->getValue('departure_date');
     $arrival_date = DrupalDateTime::createFromFormat('Y-m-d', $arrival_date);
     $departure_date = DrupalDateTime::createFromFormat('Y-m-d', $departure_date);
+    // Check if range less than 30 days.
+    $range = $departure_date->diff($arrival_date);
+    if ($range->days > 30) {
+      $form_state->setErrorByName('departure_date', t('Please select less than 30 days for date range.'));
+    }
     // Check if arrival date less than today + 3 days.
     if ($today_modified > $arrival_date) {
-      $form_state->setErrorByName('arrival_date', t('Arrival date should not be less than today + 3 days.'));
+      $form_state->setErrorByName('arrival_date', t('Arrival date should not be less than today + 2 days.'));
     }
     // Check if arrival date less than departure.
     if ($arrival_date >= $departure_date) {
@@ -384,6 +390,7 @@ class CdnFormFull extends FormBase {
         }
       }
     }
+    ksort($options);
     return $options;
   }
 
@@ -443,7 +450,7 @@ class CdnFormFull extends FormBase {
         $total_capacity = $product->field_cdn_prd_capacity->value;
         $image = $this->getCabinImage($product->getName());
         // Load description from mapping.
-        $description = '';
+        $panorama = $description = '';
         if (!empty($product->field_cdn_prd_cabin_id->value)) {
           $mapping_id = $this->entityQuery
             ->get('mapping')
@@ -453,6 +460,7 @@ class CdnFormFull extends FormBase {
           $mapping_id = reset($mapping_id);
           if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
             $description = $mapping->field_cdn_prd_cabin_desc->view('default');
+            $panorama = $mapping->field_cdn_prd_panorama->view('default');
           }
         }
         $teasers[] = [
@@ -460,6 +468,7 @@ class CdnFormFull extends FormBase {
             '#theme' => 'cdn_village_teaser',
             '#title' => !empty($product->getName()) ? substr($product->getName(), 9) : '',
             '#description' => $description,
+            '#panorama' => $panorama,
             '#image' => $image,
             '#availability' => $default_availability,
             '#capacity' => $total_capacity,
