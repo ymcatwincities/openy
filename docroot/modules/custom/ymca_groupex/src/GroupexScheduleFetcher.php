@@ -462,7 +462,7 @@ class GroupexScheduleFetcher {
       $item->calendar = [
         'atc_date_start' => $date_start,
         'atc_date_end' => $date_end,
-        'atc_timezone' => 'America/Chicago',
+        'atc_timezone' => drupal_get_user_timezone(),
         'atc_title' => $item->title,
         'atc_description' => $desc,
         'atc_location' => $address,
