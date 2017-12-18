@@ -26,3 +26,6 @@ services:
       class: Drupal\ymca_personify\PDFGenerator
       tags:
         - { name: pdf_generator }
+  ymca_personify.personify_api:
+    class: Drupal\ymca_personify\PersonifyApi
+    arguments: ['@http_client', '@config.factory', '@logger.factory']

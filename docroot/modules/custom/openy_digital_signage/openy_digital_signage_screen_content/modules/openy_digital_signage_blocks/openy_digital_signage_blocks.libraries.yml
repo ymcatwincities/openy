@@ -1,0 +1,66 @@
+static_ticker:
+  version: VERSION
+  css:
+    theme:
+      css/static-ticker.css: {}
+  js:
+    js/static-ticker.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+block_time:
+  version: VERSION
+  css:
+    theme:
+      css/time.css: {}
+  js:
+    js/block-time.js: {}
+  dependencies:
+    - openy_digital_signage_blocks/momentjs
+    - openy_digital_signage_blocks/momentjs-timezone
+
+momentjs:
+  remote: https://github.com/moment/moment/
+  version: 2.17.0
+  license:
+    name: MIT License
+    url: https://github.com/moment/moment/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    /libraries/momentjs/min/moment.min.js: { minified: true }
+
+momentjs-timezone:
+  remote: https://github.com/moment/moment-timezone
+  version: 0.5.13
+  license:
+    name: MIT License
+    url: https://github.com/moment/moment-timezone/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    /libraries/momentjs-timezone/moment-timezone.min.js: { minified: true }
+    /libraries/momentjs-timezone/moment-timezone-with-data-2012-2022.min.js: { minified: true }
+
+block_html:
+  version: VERSION
+  css:
+    theme:
+      css/free-html.css: {}
+
+class_current:
+  version: VERSION
+  js:
+    js/class-current.js: {}
+
+class_ticker:
+  version: VERSION
+  js:
+    js/class-ticker.js: {}
+
+promotional_layout_preview:
+  version: VERSION
+  js:
+    js/promo-block-form-preview.js: {}
+  css:
+    component:
+      css/promo-block-form-preview.css: {}
