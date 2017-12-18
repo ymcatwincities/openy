@@ -427,6 +427,10 @@
   overflow: hidden;
   position: relative;
 
+  @include breakpoint($screen-desktop) {
+    height: 600px;
+  }
+
   // Color variations.
   &--dark-blue { background-color: $dark-blue; }
   &--dark-green { background-color: $dark-green; }
@@ -446,9 +450,27 @@
       width: calc(50% + #{ceil($container-large-desktop/6 - $grid-gutter-width)});
     }
 
-    img {
+    .media--image {
+      @include breakpoint($screen-desktop) {
+        height: 600px;
+        overflow: hidden;
+        padding-bottom: 0 !important;
+        position: relative;
+      }
+    }
+
+    img.media__element {
       width: 100% !important;
       height: auto !important;
+
+      @include breakpoint($screen-desktop) {
+        bottom: -100%;
+        top: -100%;
+        left: 0;
+        right: 0;
+        margin: auto;
+        position: absolute;
+      }
 
       @include breakpoint($screen-desktop $screen-lg-desktop) {
         width: 120% !important;
