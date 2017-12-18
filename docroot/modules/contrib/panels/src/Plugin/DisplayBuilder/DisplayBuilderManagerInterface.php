@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Plugin\DisplayBuilder;
 
 use Drupal\Component\Plugin\PluginManagerInterface;
