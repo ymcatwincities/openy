@@ -1,0 +1,20 @@
+uuid: 560b8082-5167-443d-8de6-8dda497b90b8
+langcode: en
+status: true
+dependencies:
+  module:
+    - openy_digital_signage_classes_schedule
+    - user
+id: openy_ds_classes_session.field_session_author
+field_name: field_session_author
+entity_type: openy_ds_classes_session
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels\Plugin\PanelsPattern;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;

@@ -1,0 +1,12 @@
+# Prod endpoint.
+prod_endpoint: 'https://account.ymcamn.org/PersonifyDataServices/PersonifyData.svc/'
+prod_username: ***REMOVED***
+prod_password: ***REMOVED***
+
+# Stage endpoint.
+stage_endpoint: 'https://ygtctrain3ebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc/'
+stage_username: ***REMOVED***
+stage_password: ***REMOVED***
+
+# Environment: stage or prod
+environment: stage
