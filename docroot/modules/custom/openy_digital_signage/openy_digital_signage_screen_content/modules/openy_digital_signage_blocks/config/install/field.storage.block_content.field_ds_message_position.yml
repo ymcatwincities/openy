@@ -1,0 +1,27 @@
+uuid: 0c37fa79-9744-4bf5-93e8-84988946f2a8
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_ds_message_position
+field_name: field_ds_message_position
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: top
+      label: Top
+    -
+      value: bottom
+      label: Bottom
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

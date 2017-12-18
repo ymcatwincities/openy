@@ -1,0 +1,11 @@
+uuid: 7766b905-2056-4cbf-8947-f5ccf98ab6cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_promotional
+id: block_content.digital_signage_promotional
+target_entity_type_id: block_content
+target_bundle: digital_signage_promotional
+default_langcode: site_default
+language_alterable: false

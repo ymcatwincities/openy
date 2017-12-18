@@ -1,0 +1,5 @@
+entity.openy_digital_signage_screen.add_form:
+  route_name: entity.openy_digital_signage_screen.add_form
+  title: 'Add Screen'
+  appears_on:
+    - entity.openy_digital_signage_screen.collection

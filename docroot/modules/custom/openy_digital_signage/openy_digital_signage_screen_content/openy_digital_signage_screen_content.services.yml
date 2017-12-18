@@ -1,0 +1,5 @@
+services:
+  openy_digital_signage_screen_content.route_subscriber:
+    class: Drupal\openy_digital_signage_screen_content\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
