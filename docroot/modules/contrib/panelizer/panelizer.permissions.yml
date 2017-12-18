@@ -1,0 +1,8 @@
+administer panelizer:
+  title: 'Administer Panelizer'
+  description: 'Fully administer Panelizer and all Panelizer settings.'
+set panelizer default:
+  title: 'Set Panelizer Default'
+  description: 'Allow user to "Set as default" in the Panelizer IPE.'
+permission_callbacks:
+  - panelizer:getPermissions

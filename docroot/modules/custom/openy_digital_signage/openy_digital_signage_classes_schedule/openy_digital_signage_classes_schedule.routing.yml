@@ -1,0 +1,9 @@
+openy_ds_classes_session.settings:
+  path: '/admin/digital-signage/settings/classes-sessions'
+  defaults:
+    _form: 'Drupal\openy_digital_signage_classes_schedule\Form\OpenYClassesSessionSettingsForm'
+    _title: 'Classes Sessions settings'
+  requirements:
+    _permission: 'administer Digital Signage Classes Session entities'
+  options:
+    _admin_route: TRUE
