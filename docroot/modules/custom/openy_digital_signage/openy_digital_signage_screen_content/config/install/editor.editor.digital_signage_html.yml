@@ -1,0 +1,67 @@
+uuid: 5d8cc242-501a-46b6-9fd0-a263b07e1275
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.digital_signage_html
+  module:
+    - ckeditor
+format: digital_signage_html
+editor: ckeditor
+settings:
+  toolbar:
+    rows:
+      -
+        -
+          name: Formatting
+          items:
+            - Bold
+            - Italic
+            - Underline
+            - Strike
+            - Superscript
+            - Subscript
+            - '-'
+            - RemoveFormat
+            - Font
+            - FontSize
+        -
+          name: Lists
+          items:
+            - BulletedList
+            - NumberedList
+        -
+          name: Media
+          items:
+            - Blockquote
+            - DrupalImage
+            - Table
+            - HorizontalRule
+        -
+          name: Tools
+          items:
+            - Source
+            - Format
+        -
+          name: 'Text color'
+          items:
+            - TextColor
+            - BGColor
+  plugins:
+    language:
+      language_list: un
+    stylescombo:
+      styles: ''
+    font:
+      font_names: "Cachet, Helvetica, Arial, sans-serif|Cachet\r\nVerdana, Georgia, sans-serif|Verdana\r\nHelvetica, Arial, sans-serif|Helvetica\r\nHelvetica Neue, Helvetica, Arial, sans-serif|Helvetica Neue"
+      font_sizes: ''
+    colorbutton:
+      colors: '20bdbe,01a490,006b6b,00aeef,0089d0,0060af,c6168d,92278f,5c2e91,f15922,ed1c24,a92b31,fcaf17,f47920,dd5828,636466,231f20,ffffff'
+image_upload:
+  status: false
+  scheme: public
+  directory: inline-images
+  max_size: ''
+  max_dimensions:
+    width: null
+    height: null

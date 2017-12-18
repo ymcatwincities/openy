@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.digital_signage_block_free_html
+    - field.field.block_content.digital_signage_block_free_html.body
+    - field.field.block_content.digital_signage_block_free_html.field_ds_background_image
+  module:
+    - text
+id: block_content.digital_signage_block_free_html.default
+targetEntityType: block_content
+bundle: digital_signage_block_free_html
+mode: default
+content:
+  body:
+    type: text_default
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_ds_background_image:
+    type: entity_reference_entity_view
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+hidden:
+  langcode: true

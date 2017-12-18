@@ -1,0 +1,6 @@
+entity.node.add_form:
+  route_name: node.add
+  route_parameters: { node_type: 'screen_content' }
+  title: 'Add Screen Content'
+  appears_on:
+    - view.digital_signage_screen_content_listing.page

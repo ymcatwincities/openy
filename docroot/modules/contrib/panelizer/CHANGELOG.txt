@@ -1,0 +1,119 @@
+Panelizer 8.x-4.x-dev, xxxx-xx-xx
+---------------------------------
+#2889815 by samuel.mortenson: Fix tests for Panelizer 8.x.
+#2889810 by douggreen: Standardize test group as "panelizer". Fix
+  PanelizerLayoutIDUpdateTest group.
+#2908917 by phenaproxima: SaveTabView assumes a Revert tab exists.
+#2899910 by DamienMcKenna, anshuljain2k8: Fixed naming convention for info file
+  dependencies.
+#2912622 by gaydabura: Panelizer field should only show enabled view modes.
+#2878095 by zuernBernhard: Panelizer Post Update fails in combination with
+  search_api index tracking.
+
+
+Panelizer 8.x-4.0, 2017-04-28
+-----------------------------
+By DamienMcKenna: Identify hook_post_update_NAME().
+#2871157 by tim.plunkett, carstenG, samerali:
+  panelizer_post_update_rename_layout_machine_names() does not work.
+#2677924 by maxneaga: 'Revert to default' needs a confirmation.
+
+
+Panelizer 8.x-4.0-beta3, 2017-04-18
+-----------------------------------
+#2867568 by japerry: Update hook to fix layout machine names.
+#2866705 by japerry: Add handling for revision support when saving custom
+  panelizer layouts.
+#2856471 by phenaproxima, samuel.mortenson, japerry: IPE on Panelizer nodes
+  should only allow for custom overrides.
+#2867503 by DamienMcKenna, phenaproxima: Change tests to not use the "standard"
+  installation profile, move PanelizerAddDefaultLinkTest to functional tests.
+#2699085 by tim.plunkett: Lock PanelsIPE when a user has made TempStore changes.
+#2867819 by DamienMcKenna: Cloned NodeFunctionalTests to focus on translations.
+By japerry: Make it clear to the site builder that they can select defaults by
+  adding the panelizer field.
+By DamienMcKenna: Noting some translation todos.
+#2870719 by DamienMcKenna: Moved all tests to the 'panelizer' test group.
+
+
+Panelizer 8.x-4.0-beta2, 2017-04-04
+-----------------------------------
+By DamienMcKenna: Tidied up the dependencies a little.
+By DamienMcKenna: Trying to solve composer dependencies in Panels by
+  specifically requiring Panels IPE 4.x.
+#2858488 by tim.plunkett: Moved PanelizerIntegrationTest from Panels to
+  Panelizer.
+#2866903 by japerry, EclipseGc: Updated composer.json for compatibility with
+  core 8.3.
+
+
+Panelizer 8.x-4.0-beta1, 2017-03-04
+-----------------------------------
+#2856102 by japerry, DamienMcKenna, tim.plunkett, Mixologic: Updated to work
+  with Panels 8.x-4.x and Drupal core 8.3.x.
+
+
+Panelizer 8.x-3.x-dev, xxxx-xx-xx
+---------------------------------
+#2850246 by DamienMcKenna: Added a new permission to control who has access to
+  the 'reset to default' option, added some tests for IPE functionality.
+#2852739 by DamienMcKenna: Added files for controlling the codeclimate testing
+  system.
+#2854655 by DamienMcKenna: Added a custom composer.json file to clearly define
+  the dependencies.
+By DamienMcKenna: Grouped theme functions together in panelizer.module.
+
+
+Panelizer 8.x-3.0-beta1, 2017-02-04
+-----------------------------------
+#2828840 by hctom, DamienMcKenna: Handle entity types that use
+  RevisionableInterface but are not revisionable.
+#2664574 by artreaktor, phenaproxima, hctom, jiff, floretan: Add support for
+  Taxonomy Term entities.
+#2835590 by DamienMcKenna: Hide the custom Panelizer field, it's no longer used.
+#2800991 by garethhallnz: Allow other modules to change the view_mode being
+  rendered.
+#2847351 by porchlight, rvillan, DamienMcKenna: Permission to 'Set as Default'
+  in the Panelizer IPE.
+#2727629 by samuel.mortenson, Dane Powell, dsnopek: Panelized nodes sporadically
+  become locked.
+#2664572 by hctom, balsama, smurrayatwork, DamienMcKenna: Support for user
+  entities.
+By DamienMcKenna: Does not support comment entities.
+#2835587 by DamienMcKenna: Minor UX tweaks, code improvements.
+
+
+Panelizer 8.x-3.0-alpha3, 2016-12-15
+------------------------------------
+#2664648: Added unit tests for PanelizerDefaultPanelsStorage and
+  PanelizerFieldPanelsStorage.
+Reverted #2664616.
+#2688951 by swentel, hampercm, wiifm: Panels IPE javascript loaded, even when
+  you have no access to the in place editor.
+#2760051 by Gravypower: Undefined index: #attached.
+#2795375 by webflo: Theme suggestions are in the wrong order.
+#2820562 by jiff: Node functional test fails due to non-existent permission.
+#2716071 by Xano: PanelizerFieldPanelsStorage::access() calls entity access with
+  incorrect operations and excludes cacheability metadata.
+#2693163 by samuel.mortenson: Quick Edit support for fields displayed using the
+  ctools_field block.
+#2700597 by samuel.mortenson, mdooley: Explicitly set the Panels IPE URL root
+  when saving in Panelizer.
+#2664682 by juampynr, EclipseGc, phenaproxima, balsama, japerry, Dane Powell,
+  samuel.mortenson, hctom: Implement admin UI for editing Panelizer defaults.
+#2701349 by EclipseGc: Generate new UUIDs for displays when switching from
+  default to field storage.
+
+
+Panelizer 8.x-3.0-alpha2, 2016-02-16
+------------------------------------
+- Add basic functional tests.
+- Add permission for changing layout.
+- "Undefined Index: label in Drupal\panelizer\Panelizer->getPermissions()."
+- Contextual blocks not shown in the IPE.
+- PanelizerFieldType::generateSampleValue() needs to specify a view mode.
+
+
+Panelizer 8.x-3.0-alpha1, 2016-02-05
+------------------------------------
+Initial D8 port by dsnopek and the Panels contributors.

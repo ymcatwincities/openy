@@ -4698,7 +4698,7 @@ function ymca_master_update_8213() {
 }
 
 /**
- * [YPTF-264] Configure MindBody Cache Proxy settings.
+ * YPTF-264 Configure MindBody Cache Proxy settings.
  */
 function ymca_master_update_8215() {
   // Change max_length for mindbody_cache name column.
@@ -4949,9 +4949,16 @@ function ymca_master_update_8228() {
 }
 
 /**
- * Setup CDN configs.
+ * Enable openy_digital_signage module.
  */
 function ymca_master_update_8229() {
+  \Drupal::service('module_installer')->install(['openy_digital_signage'], TRUE);
+}
+
+/**
+ * Setup CDN configs.
+ */
+function ymca_master_update_8230() {
   $config_importer = \Drupal::service('config_import.importer');
   $config_importer->setDirectory(drupal_get_path('module', 'ymca_cdn_sync') . '/config/install/');
   $config_importer->importConfigs(

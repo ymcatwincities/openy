@@ -1,0 +1,11 @@
+entity.openy_digital_signage_schedule.add_form:
+  route_name: entity.openy_digital_signage_schedule.add_form
+  title: 'Add Schedule'
+  appears_on:
+    - entity.openy_digital_signage_schedule.collection
+
+entity.openy_digital_signage_sch_item.add_form:
+  route_name: entity.openy_digital_signage_sch_item.add_form
+  title: 'Add Schedule Item'
+  appears_on:
+    - entity.openy_digital_signage_sch_item.collection

@@ -1,0 +1,59 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_quickedit_render_field().
+ */
+function panelizer_quickedit_render_field(EntityInterface $entity, $field_name, $view_mode_id, $langcode) {
+  // Ensure that the correct translation of this Entity is loaded.
+  $entity = \Drupal::service('entity.repository')->getTranslationFromContext($entity, $langcode);
+
+  // Grab the information required to re-render the entity_field block.
+  $temp = str_replace('panelizer-', '', $view_mode_id);
+  list($view_mode, $block_id) = explode('-block-id-', $temp);
+
+  // Load the Panelizer display.
+  /** @var \Drupal\panelizer\PanelizerInterface $panelizer */
+  $panelizer = \Drupal::service('panelizer');
+  $display = $panelizer->getPanelsDisplay($entity, $view_mode);
+
+  /** @var \Drupal\ctools_block\Plugin\Block\EntityField $plugin */
+  $plugin = $display->getBlock($block_id);
+
+  // Set the appropriate Entity context and build the plugin.
+  $plugin->setContextValue('entity', $entity);
+  $build = $plugin->build();
+
+  // Add our custom field view-mode in case the user wants to edit again.
+  $build['field']['#view_mode'] = $view_mode_id;
+
+  return $build;
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function panelizer_quickedit_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  // Explicitly add support for ctools_block by attaching a custom view-mode to
+  // every Block that's about to be rendered.
+  if (isset($build['#panels_display'])) {
+    // We only support known Display Builders.
+    $supported_plugins = ['ipe', 'standard'];
+    if (in_array($build['#panels_display']->getBuilder()->getPluginId(), $supported_plugins)) {
+      $region_names = Element::getVisibleChildren($build['content']);
+      foreach ($region_names as $region_name) {
+        $block_ids = Element::getVisibleChildren($build['content'][$region_name]);
+        foreach ($block_ids as $block_id) {
+          $block = &$build['content'][$region_name][$block_id];
+          if (isset($block['#base_plugin_id']) && $block['#base_plugin_id'] === 'entity_field') {
+            $view_mode = 'panelizer-' . $build['#view_mode'] . '-block-id-' . $block_id;
+            $block['content']['field']['#view_mode'] = $view_mode;
+          }
+        }
+      }
+    }
+  }
+}
