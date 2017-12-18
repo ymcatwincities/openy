@@ -1,0 +1,8 @@
+uuid: aca79ac4-4267-4edd-a398-455cd9690728
+langcode: en
+status: true
+dependencies: {  }
+id: digital_signage_promotional
+label: 'Digital Signage Promotional'
+revision: 0
+description: 'This is a flexible content module that will be used to display most of the promotional contents on digital signs.'
