@@ -1,0 +1,5 @@
+entity.openy_ds_room.add_form:
+  route_name: entity.openy_ds_room.add_form
+  title: 'Add Room'
+  appears_on:
+    - entity.openy_ds_room.collection

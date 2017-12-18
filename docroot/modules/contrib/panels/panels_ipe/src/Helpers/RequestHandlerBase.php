@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 namespace Drupal\panels_ipe\Helpers;
 
 use Drupal\Component\Serialization\Json;
