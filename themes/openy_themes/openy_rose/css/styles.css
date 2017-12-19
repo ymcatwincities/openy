@@ -1750,15 +1750,26 @@ body {
   }
 }
 
+@media (min-width: 62em) {
+  .paragraph--type--banner {
+    height: 600px;
+  }
+}
+@media (min-width: 62em) {
+  .paragraph--type--banner img.media__element {
+    bottom: -100%;
+    top: -100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+  }
+}
+
 .banner {
   background-color: #01A490;
   overflow: hidden;
   position: relative;
-}
-@media (min-width: 62em) {
-  .banner {
-    height: 600px;
-  }
 }
 .banner--dark-blue {
   background-color: #0060af;
@@ -1798,16 +1809,6 @@ body {
 .banner-image img.media__element {
   width: 100% !important;
   height: auto !important;
-}
-@media (min-width: 62em) {
-  .banner-image img.media__element {
-    bottom: -100%;
-    top: -100%;
-    left: 0;
-    right: 0;
-    margin: auto;
-    position: absolute;
-  }
 }
 @media (min-width: 62em) and (max-width: 75em) {
   .banner-image img.media__element {
