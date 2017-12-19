@@ -11113,9 +11113,6 @@ tr:nth-last-child(3) .atcb-list {
     width: 290px;
   }
 }
-.cdn-form-full .form-item-arrival-date {
-  margin-bottom: -1px;
-}
 @media (min-width: 48em) {
   .cdn-form-full .form-item-arrival-date {
     margin-bottom: 0;
@@ -11311,11 +11308,11 @@ tr:nth-last-child(3) .atcb-list {
   clear: both;
 }
 .cdn-form-full .cdn-results .cdn-village-teasers {
-  padding-bottom: 30px;
+  padding: 0 15px 30px;
 }
 @media (min-width: 48em) {
   .cdn-form-full .cdn-results .cdn-village-teasers {
-    padding-bottom: 50px;
+    padding: 0 0 50px;
   }
 }
 .cdn-form-full .cdn-results .cdn-village-teasers .container .cdn-village-teaser {
@@ -11357,6 +11354,12 @@ tr:nth-last-child(3) .atcb-list {
 .cdn-village-calendars .cdn-calendar {
   height: 0;
   overflow: hidden;
+  margin: 0 -15px;
+}
+@media (min-width: 48em) {
+  .cdn-village-calendars .cdn-calendar {
+    margin: 0;
+  }
 }
 .cdn-village-calendars .cdn-calendar.not-active {
   height: 0 !important;
@@ -11392,10 +11395,10 @@ tr:nth-last-child(3) .atcb-list {
   color: #777777;
   line-height: 26px;
 }
-.cdn-village-calendars .cdn-calendar .main-description .panorama {
+.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper {
   margin: 30px 0 70px;
 }
-.cdn-village-calendars .cdn-calendar .main-description .panorama .open-panorama {
+.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper .open-panorama {
   display: inline-block;
   border-radius: 4px;
   background: #92278f;
@@ -11408,10 +11411,10 @@ tr:nth-last-child(3) .atcb-list {
   font-size: 18px;
   text-transform: uppercase;
 }
-.cdn-village-calendars .cdn-calendar .main-description .panorama .open-panorama i {
+.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper .open-panorama i {
   margin-left: 10px;
 }
-.cdn-village-calendars .cdn-calendar .main-description .panorama .field--name-field-cdn-prd-panorama {
+.cdn-village-calendars .cdn-calendar .main-description .panorama-wrapper .panorama {
   height: 0;
   overflow: hidden;
   margin-top: 30px;
@@ -11761,12 +11764,13 @@ tr:nth-last-child(3) .atcb-list {
 @media (max-width: 767px) {
   .cdn-calendar-list {
     display: block;
+    background: #f8f8f8;
   }
 }
 .cdn-calendar-list .cdn-calendar-list-row {
   margin: 0 15px;
   height: 75px;
-  padding: 10px 15px 10px 15px;
+  padding: 10px 0 10px 0;
 }
 .cdn-calendar-list .cdn-calendar-list-row:after {
   content: "";
@@ -11775,11 +11779,26 @@ tr:nth-last-child(3) .atcb-list {
 }
 .cdn-calendar-list .cdn-calendar-list-row > a {
   text-decoration: none;
+  display: block;
+  overflow: hidden;
+  padding: 8px 13px;
+  border: 2px solid #f8f8f8;
+}
+.cdn-calendar-list .cdn-calendar-list-row > a.selected {
+  border-radius: 5px;
+  border: 2px solid #0089d0;
 }
 .cdn-calendar-list .cdn-calendar-list-row > a.selected .month,
 .cdn-calendar-list .cdn-calendar-list-row > a.selected .day,
 .cdn-calendar-list .cdn-calendar-list-row > a.selected .day span {
-  color: #f4791f;
+  color: #0089d0;
+}
+.cdn-calendar-list .cdn-calendar-list-row > a.last-selected .price {
+  display: none;
+}
+.cdn-calendar-list .cdn-calendar-list-row > a .tip {
+  text-align: right;
+  margin-top: 15px;
 }
 .cdn-calendar-list .cdn-calendar-list-row .date {
   float: left;
@@ -11795,14 +11814,14 @@ tr:nth-last-child(3) .atcb-list {
   color: #555;
   line-height: 30px;
 }
-.cdn-calendar-list .cdn-calendar-list-row .date .day span {
+.cdn-calendar-list .cdn-calendar-list-row .date .day .weekday {
   color: #999;
 }
 .cdn-calendar-list .cdn-calendar-list-row .price {
   float: right;
   margin: 10px 0 0;
   font-size: 16px;
-  color: #999;
+  color: #959595;
 }
 
 #cdn-contact-form-wrapper {

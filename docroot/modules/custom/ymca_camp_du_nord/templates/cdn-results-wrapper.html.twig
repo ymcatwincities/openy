@@ -32,9 +32,11 @@
         <h2 class="title">{{ teaser.teaser['#title'] }}</h2>
         <div class="description">{{ teaser.teaser['#description'] }}</div>
         {% if teaser.teaser['#panorama'] is not empty %}
-        <div class="panorama">
+        <div class="panorama-wrapper">
           <a class="open-panorama">{{ 'View panorama'|t }}<i class="fa fa-eye"></i></a>
+          <div class="panorama">
           {{ teaser.teaser['#panorama'] }}
+          </div>
         </div>
         {% endif %}
         <p><strong>{{ 'Please select check in and check out dates*'|t }}</strong></p>
