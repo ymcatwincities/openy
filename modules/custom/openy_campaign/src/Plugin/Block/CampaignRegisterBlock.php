@@ -94,10 +94,17 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       return $block;
     }
 
-    $activeRegistration = FALSE;
-    if ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
+    $activeRegistration = TRUE;
+
+    /*if ($currentDate >= $campaignRegistrationStartDate && $currentDate <= $campaignRegistrationEndDate) {
       $activeRegistration = TRUE;
+    }*/
+
+    // Define if we need to show register block or not.
+    if ($currentDate <= $campaignRegistrationStartDate || $currentDate >= $campaignEndDate) {
+      $activeRegistration = FALSE;
     }
+
 
     $block = [
       '#theme' => 'openy_campaign_campaign_register',
