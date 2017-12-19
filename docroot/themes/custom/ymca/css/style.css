@@ -11516,6 +11516,7 @@ tr:nth-last-child(3) .atcb-list {
   height: 24px;
 }
 .fullcalendar .fc-header-toolbar .fc-prev-button {
+  display: none;
   margin-right: 30px;
   position: absolute;
   left: 25px;
@@ -11533,6 +11534,7 @@ tr:nth-last-child(3) .atcb-list {
   font-size: 0;
 }
 .fullcalendar .fc-header-toolbar .fc-next-button {
+  display: none;
   margin-left: 30px;
   position: absolute;
   right: 25px;
@@ -12551,7 +12553,6 @@ body.show-new-mobile-menu .sidebar .dropdown.open > .dropdown-menu {
   padding-bottom: 70px;
   background: #fff;
 }
-
 body.show-new-mobile-menu .sidebar li > a.overview,
 body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.locations.dropdown,
 body.show-new-mobile-menu #sidebar-nav > li.dropdown > ul.dropdown-menu > li.camps,
