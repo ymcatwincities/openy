@@ -45,7 +45,7 @@
  * @ingroup themeable
  */
 #}
-<div class="layout-container{% if page_simplify_header %} simplified-header{% endif %}">
+<div class="layout-container {#{% if page_simplify_header %} simplified-header{% endif %}#}">
 
 
     <div class="top-navs navbar-fixed-top visible-xs visible-sm" data-spy="affix" data-offset-top="1">
@@ -82,11 +82,10 @@
         <header id="page-head" class="page-head">
 
             {% include directory ~ '/templates/page/_includes/page--header--top-navs.html.twig' %}
-            {% if not page_simplify_header %}{{ page.header }}{% endif %}
+            {{ page.header }}
 
         </header>
         <main role="main" class="container">
-            {% if page_simplify_header %}{{ page.header }}{% endif %}
             {{ page.breadcrumb }}
             {{ page.highlighted }}
             {{ page.help }}
