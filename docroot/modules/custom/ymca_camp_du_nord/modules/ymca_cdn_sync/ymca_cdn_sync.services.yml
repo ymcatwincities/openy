@@ -37,3 +37,5 @@ services:
       - '@logger.channel.ymca_cdn_sync'
       - '@config.factory'
       - '@ymca_cdn_sync.wrapper'
+      - '@entity.query'
+      - '@entity_type.manager'
