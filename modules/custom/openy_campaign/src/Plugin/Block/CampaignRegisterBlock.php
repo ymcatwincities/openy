@@ -90,9 +90,9 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     $currentDate = new \DateTime();
 
     $block['#cache']['max-age'] = 0;
-    if ($currentDate >= $campaignEndDate) {
-      return $block;
-    }
+    //if ($currentDate >= $campaignEndDate) {
+      //return $block;
+    //}
 
     $activeRegistration = TRUE;
 
