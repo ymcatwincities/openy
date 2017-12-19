@@ -398,6 +398,7 @@
       height: 24px;
     }
     .fc-prev-button {
+      display: none;
       margin-right: 30px;
       position: absolute;
       left: 25px;
@@ -415,6 +416,7 @@
       }
     }
     .fc-next-button {
+      display: none;
       margin-left: 30px;
       position: absolute;
       right: 25px;
