@@ -26,6 +26,25 @@
     }
   };
 
+  Drupal.cdn.validate_range = function(cell) {
+    var products = cell.parents('.fc-view').find('a.cdn-prs-product'),
+        first_selected = cell.parents('.fc-view').find('a.selected:first').find('.fc-day-number').text() * 1,
+        last_selected = cell.parents('.fc-view').find('a.selected:last').find('.fc-day-number').text() * 1;
+    // Select all dates we have to join.
+    var list = [];
+    for (var i = first_selected; i <= last_selected; i++) {
+      list.push(i);
+    }
+    console.log(list);
+    // Go through each product end ensure range is not splitted.
+    products.each(function() {
+      var day_number = $(this).find('.fc-day-number').text() * 1;
+      if (list.length > 1 && $.inArray(day_number, list) !== -1 && !$(this).hasClass('selected')) {
+        $(this).addClass('selected');
+      }
+    });
+  };
+
   Drupal.cdn.update_total = function(link, settings) {
     var calendar = link.parents('.cdn-calendar'),
         index = calendar.data('index'),
@@ -51,6 +70,46 @@
       footer.addClass('not-active').removeClass('active');
     }
   };
+
+  /**
+   * Parse Drupal events from the DOM.
+   */
+  Drupal.cdn.parseEvents = function (details) {
+    var events = [];
+    for (var i = 0; i < details.length; i++) {
+      var event = $(details[i]);
+      events.push({
+        field: event.data('field'),
+        index: event.data('index'),
+        eid: event.data('eid'),
+        entity_type: event.data('entity-type'),
+        title: event.attr('title'),
+        start: event.data('start'),
+        end: event.data('end'),
+        url: event.attr('href'),
+        allDay: (event.data('all-day') === 1),
+        className: event.data('cn'),
+        editable: (event.data('editable') === 1),
+        dom_id: this.dom_id
+      });
+    }
+   return events;
+  };
+
+  // Fullcalendar handlers work only in global scope.
+  $('.fullcalendar').each(function() {
+    $(this).fullCalendar({
+      defaultView: 'week',
+      views: {
+        week: {
+          type: 'basicWeek',
+          duration: { weeks: 6 }
+        }
+      }
+    });
+    var events = Drupal.cdn.parseEvents($(this).parents('.cdn-calendar').find('.fullcalendar-event-details'));
+    $(this).fullCalendar('renderEvents', events);
+  });
 
   Drupal.behaviors.cdn = {
     attach: function(context, settings) {
@@ -103,6 +162,7 @@
             $(this).removeClass('selected');
           }
           Drupal.cdn.check_borders($(this));
+          Drupal.cdn.validate_range($(this));
           Drupal.cdn.update_total($(this), settings);
         });
       });
@@ -171,6 +231,11 @@
         var index = $(this).parents('.cdn-calendar').data('index');
         $(this).parents('.cdn-calendar').removeClass('active').addClass('not-active');
         $('.cdn-village-teaser[data-index="' + index + '"]').removeClass('active').addClass('not-active');
+      });
+      // Panorama handler.
+      $('.panorama .open-panorama').on('click', function (e) {
+        e.preventDefault();
+        $(this).parent().find('.field--name-field-cdn-prd-panorama').animate({'height': '100%'});
       });
     }
   };
