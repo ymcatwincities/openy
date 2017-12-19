@@ -17,6 +17,10 @@
       color: #2f2f2f;
     }
   }
+  .help-tip {
+    clear: both;
+    font-weight: bold;
+  }
   .form-item-arrival-date,
   .form-item-departure-date {
     label {
@@ -251,7 +255,7 @@
     &.active {
       height: auto !important;
     }
-    .description {
+    .main-description {
       margin: 0 15px 35px;
       position: relative;
       @include breakpoint(768px) {
@@ -269,10 +273,34 @@
         }
       }
       .description {
-        margin-bottom: 70px;
+        margin-bottom: 30px;
         font-size: 18px;
         color: #777777;
         line-height: 26px;
+      }
+      .panorama {
+        margin: 30px 0 70px;
+        .open-panorama {
+          display: inline-block;
+          border-radius: 4px;
+          background: #92278f;
+          height: 60px;
+          font-family: "Cachet Book", Arial, sans-serif;
+          line-height: 60px;
+          font-weight:bold;
+          padding: 0 20px;
+          color: #fff;
+          font-size: 18px;
+          text-transform: uppercase;
+          i {
+            margin-left: 10px;
+          }
+        }
+        .field--name-field-cdn-prd-panorama {
+          height: 0;
+          overflow: hidden;
+          margin-top: 30px;
+        }
       }
       .view {
         border-radius: 4px;
@@ -345,7 +373,6 @@
       text-align: center;
     }
     .fc-right {
-      display: none;
     }
   }
   .fc-header-toolbar {
@@ -355,6 +382,7 @@
       margin-bottom: 0;
       padding: 13px 0 10px;
       display: block;
+      position: relative;
     }
     .fc-center {
       h2 {
@@ -370,16 +398,43 @@
       height: 24px;
     }
     .fc-prev-button {
+      display: none;
       margin-right: 30px;
+      position: absolute;
+      left: 25px;
+      top: 17px;
+      border: none;
+      background: none;
+      box-shadow: none;
       span {
         background: url('../img/arrow-left.svg') no-repeat 0 0;
+        height: 17px;
+        width: 11px;
+        &:after {
+          font-size: 0;
+        }
       }
     }
     .fc-next-button {
+      display: none;
       margin-left: 30px;
+      position: absolute;
+      right: 25px;
+      top: 17px;
+      border: none;
+      background: none;
+      box-shadow: none;
       span {
         background: url('../img/arrow-right.svg') no-repeat 0 0;
+        height: 17px;
+        width: 11px;
+        &:after {
+          font-size: 0;
+        }
       }
+    }
+    .fc-today-button {
+      display: none;
     }
   }
   .fc-view-container .fc-view {
