@@ -50,7 +50,6 @@
     }
   }
   .form-item-arrival-date {
-    margin-bottom: -1px;
     @include breakpoint(768px) {
       margin-bottom: 0;
     }
@@ -208,9 +207,9 @@
     @include clearfix();
     clear: both;
     .cdn-village-teasers {
-      padding-bottom: 30px;
+      padding: 0 15px 30px;
       @include breakpoint(768px) {
-        padding-bottom: 50px;
+        padding: 0 0 50px;
       }
       .container {
         .cdn-village-teaser {
@@ -249,6 +248,10 @@
   .cdn-calendar {
     height: 0;
     overflow: hidden;
+    margin: 0 -15px;
+    @include breakpoint(768px) {
+      margin: 0;
+    }
     &.not-active {
       height: 0 !important;
     }
@@ -278,7 +281,7 @@
         color: #777777;
         line-height: 26px;
       }
-      .panorama {
+      .panorama-wrapper {
         margin: 30px 0 70px;
         .open-panorama {
           display: inline-block;
@@ -296,7 +299,7 @@
             margin-left: 10px;
           }
         }
-        .field--name-field-cdn-prd-panorama {
+        .panorama {
           height: 0;
           overflow: hidden;
           margin-top: 30px;
@@ -661,20 +664,36 @@
   display: none;
   @media (max-width: 767px) {
     display: block;
+    background: #f8f8f8;
   }
   .cdn-calendar-list-row {
     @include clearfix();
     margin: 0 15px;
     height: 75px;
-    padding: 10px 15px 10px 15px;
+    padding: 10px 0 10px 0;
     > a {
       text-decoration: none;
+      display: block;
+      overflow: hidden;
+      padding: 8px 13px;
+      border: 2px solid #f8f8f8;
       &.selected {
+        border-radius: 5px;
+        border: 2px solid #0089d0;
         .month,
         .day,
         .day span {
-          color: #f4791f;
+          color: #0089d0;
         }
+      }
+      &.last-selected {
+        .price {
+          display: none;
+        }
+      }
+      .tip {
+        text-align: right;
+        margin-top: 15px;
       }
     }
     .date {
@@ -689,7 +708,7 @@
         font-size: 30px;
         color: #555;
         line-height: 30px;
-        span {
+        .weekday {
           color: #999;
         }
       }
@@ -698,7 +717,7 @@
       float: right;
       margin: 10px 0 0;
       font-size: 16px;
-      color: #999;
+      color: #959595;
     }
   }
 }
