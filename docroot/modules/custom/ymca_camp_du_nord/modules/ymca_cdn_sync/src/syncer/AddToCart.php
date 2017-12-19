@@ -9,6 +9,8 @@ use GuzzleHttp\Client;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Url;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Class AddToCart.
@@ -55,6 +57,20 @@ class AddToCart implements AddToCartInterface {
   protected $wrapper;
 
   /**
+   * The entity query factory.
+   *
+   * @var \Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * Fetcher constructor.
    *
    * @param \GuzzleHttp\Client $client
@@ -63,12 +79,16 @@ class AddToCart implements AddToCartInterface {
    *   Logger channel.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
    *   Config factory.
+   * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
+   *   The entity query factory.
    */
-  public function __construct(Client $client, LoggerChannelInterface $logger, ConfigFactoryInterface $config, WrapperInterface $wrapper) {
+  public function __construct(Client $client, LoggerChannelInterface $logger, ConfigFactoryInterface $config, WrapperInterface $wrapper, QueryFactory $entity_query,  EntityTypeManagerInterface $entity_type_manager) {
     $this->client = $client;
     $this->logger = $logger;
     $this->config = $config;
     $this->wrapper = $wrapper;
+    $this->entityQuery = $entity_query;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -642,9 +662,35 @@ class AddToCart implements AddToCartInterface {
       $cost += (float) $product['info']->ListPrice;
     }
     $config = \Drupal::config('ymca_camp_du_nord.settings')->getRawData();
-    // @todo pass real name.
+    // Get village name for the products.
+    if (!empty($product['info']->ProductId)) {
+      $p_id = $this->entityQuery
+        ->get('cdn_prs_product')
+        ->condition('field_cdn_prd_id', $product['info']->ProductId)
+        ->execute();
+      $p_id = reset($p_id);
+      if ($p = $this->entityTypeManager->getStorage('cdn_prs_product')->load($p_id)) {
+        if (!$p->field_cdn_prd_cabin_id->isEmpty()) {
+          $mapping_id = $this->entityQuery
+            ->get('mapping')
+            ->condition('type', 'cdn_prs_product')
+            ->condition('field_cdn_prd_cabin_id', $p->field_cdn_prd_cabin_id->value)
+            ->execute();
+          $mapping_id = reset($mapping_id);
+          if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
+            if (!$mapping->field_cdn_prd_village_ref->isEmpty()) {
+              $ref = $mapping->field_cdn_prd_village_ref->getValue();
+              $page_id = isset($ref[0]['target_id']) ? $ref[0]['target_id'] : FALSE;
+              if ($node = $this->entityTypeManager->getStorage('node')->load($page_id)) {
+                $village_name = $node->getTitle();
+              }
+            }
+          }
+        }
+      }
+    }
     $parameters = [
-      'village_name' => 'Northland Village',
+      'village_name' => $village_name,
       'cabin_name' => $data['Data']['NewDataSet']['Table']['PRODUCT_INFO'],
       'cabin_available' => $cabin_available,
       'nights' => count($products),
