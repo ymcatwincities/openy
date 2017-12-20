@@ -696,7 +696,7 @@ class AddToCart implements AddToCartInterface {
       'nights' => count($products),
       'dates' => $dates,
       'cost' => $cost,
-      'prev_link' => Url::fromUri('internal:/cdn/search/form')->toString(),
+      'prev_link' => Url::fromUri('internal:/camps/camp_du_nord/search/form')->toString(),
       'next_link' => Url::fromUri($config['url_cart'])->toString(),
     ];
     $redirect_url = Url::fromRoute('ymca_camp_du_nord.confirmation_page', $parameters)->toString();
