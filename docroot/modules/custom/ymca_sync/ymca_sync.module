@@ -29,7 +29,7 @@ function ymca_sync_run($name, $method) {
 
   $lock = \Drupal::lock();
   if ($lock->acquire($name, 250.0)) {
-    call_user_func(array($service, $method));
+    $service->{$method}();
     $lock->release($name);
   }
   else {
