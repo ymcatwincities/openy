@@ -447,9 +447,8 @@ class CdnFormFull extends FormBase {
         $calendar_list_data = $this->buildListCalendarAndFooter($view);
         $calendar = $view->buildRenderable('embed_1', $args);
         $total_capacity = $product->field_cdn_prd_capacity->value;
-        $image = $this->getCabinImage($product->getName());
         // Load description from mapping.
-        $panorama = $description = '';
+        $image = $panorama = $description = '';
         if (!empty($product->field_cdn_prd_cabin_id->value)) {
           $mapping_id = $this->entityQuery
             ->get('mapping')
@@ -458,8 +457,16 @@ class CdnFormFull extends FormBase {
             ->execute();
           $mapping_id = reset($mapping_id);
           if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
-            $description = $mapping->field_cdn_prd_cabin_desc->view('default');
-            $panorama = $mapping->field_cdn_prd_panorama->view('default');
+            $description = !$mapping->field_cdn_prd_cabin_desc->isEmpty() ? $mapping->field_cdn_prd_cabin_desc->view('default') : '';
+            $panorama = !$mapping->field_cdn_prd_panorama->isEmpty() ? $mapping->field_cdn_prd_panorama->view('default') : '';
+            $fid = !$mapping->field_cdn_prd_image->isEmpty() ? $mapping->field_cdn_prd_image->target_id : '';
+            if ($file = $this->entityTypeManager->getStorage('file')->load($fid)) {
+              $image = file_create_url($file->getFileUri());
+            }
+            if (empty($image)) {
+              // Provide default image.
+              $image = base_path() . drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin3.png';
+            }
           }
         }
         $teasers[] = [
@@ -564,36 +571,6 @@ class CdnFormFull extends FormBase {
       'login_url' => $login_url,
     ];
     return $builds;
-  }
-
-  /**
-   * Helper method to get cabin image.
-   *
-   * @param string $name
-   *   Name of the product.
-   *
-   * @return string
-   *   Path to image.
-   */
-  public function getCabinImage($name) {
-    $path = '';
-    $name = str_replace(' cabin', '', strtolower(substr($name, 9)));
-    $fids = $this->entityQuery
-      ->get('file')
-      ->condition('filename', '%' . $name . '%', 'LIKE')
-      ->execute();
-    if ($files = $this->entityTypeManager->getStorage('file')->loadMultiple($fids)) {
-      foreach ($files as $file) {
-        if (preg_match('/cabin/', $file->getFilename())) {
-          $path = file_create_url($file->getFileUri());
-        }
-      }
-    }
-    if (empty($path)) {
-      // Provide default image.
-      $path = base_path() . drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin3.png';
-    }
-    return $path;
   }
 
 }
