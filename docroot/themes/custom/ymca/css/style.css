@@ -11077,8 +11077,8 @@ tr:nth-last-child(3) .atcb-list {
   color: #2f2f2f;
 }
 .cdn-form-full .help-tip {
-  clear: both;
   font-weight: bold;
+  margin-top: 12px;
 }
 .cdn-form-full .form-item-arrival-date label,
 .cdn-form-full .form-item-departure-date label {
@@ -11239,6 +11239,14 @@ tr:nth-last-child(3) .atcb-list {
     width: auto;
     float: none;
     height: 40px;
+  }
+}
+.cdn-form-full .form-item-capacity {
+  float: none;
+}
+@media (min-width: 62em) {
+  .cdn-form-full .form-item-capacity {
+    float: left;
   }
 }
 .cdn-form-full .form-item-partly-available,
@@ -11889,9 +11897,13 @@ tr:nth-last-child(3) .atcb-list {
     width: 49%;
   }
 }
+#cdn-contact-form-wrapper #edit-emergency-contact {
+  padding: 0 15px;
+}
 @media (min-width: 62em) {
   #cdn-contact-form-wrapper #edit-emergency-contact {
     padding-left: 55px;
+    padding-right: 0;
     float: left;
     width: 49%;
   }
@@ -11980,8 +11992,15 @@ tr:nth-last-child(3) .atcb-list {
 
 .cdn-village-footer {
   background: #383838;
-  padding: 50px 0 25px;
+  padding: 50px 15px 25px;
   clear: both;
+  margin: 0 -15px;
+}
+@media (min-width: 48em) {
+  .cdn-village-footer {
+    padding: 50px 0 25px;
+    margin: 0 -30px;
+  }
 }
 .cdn-village-footer .cdn-village-footer-bar {
   display: none;

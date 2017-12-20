@@ -114,6 +114,12 @@ class CdnContactForm extends FormBase {
     $form['#suffix'] = '</div>';
 
     $form += $this->buildAdditionalQuestionsFields($data, $state);
+    $contact = $this->getEmergencyData($data, $state);
+
+    $form['emergency_contact_exist'] = [
+      '#type' => 'hidden',
+      '#default_value' => empty($contact) ? 0 : 1,
+    ];
 
     $form['emergency_contact'] = [
       '#type' => 'container',
@@ -129,7 +135,7 @@ class CdnContactForm extends FormBase {
       '#attributes' => [
         'placeholder' => $this->t('Name'),
       ],
-      '#default_value' => $state['name'],
+      '#default_value' => $contact['name'],
     ];
 
     $form['emergency_contact']['relationship'] = [
@@ -138,7 +144,7 @@ class CdnContactForm extends FormBase {
       '#attributes' => [
         'placeholder' => $this->t('Relationship'),
       ],
-      '#default_value' => $state['relationship'],
+      '#default_value' => $contact['relationship'],
     ];
 
     $form['emergency_contact']['phone'] = [
@@ -152,7 +158,8 @@ class CdnContactForm extends FormBase {
     $form['emergency_contact']['phone_number'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
-      '#default_value' => $state['phone_number'],
+      '#default_value' => $contact['phone_number'],
+      '#suffix' => '</div>',
       '#attributes' => [
         'placeholder' => $this->t('Phone'),
       ],
@@ -193,6 +200,12 @@ class CdnContactForm extends FormBase {
     );
     $query = \Drupal::service('request_stack')->getCurrentRequest()->query->all();
     $service = \Drupal::service('ymca_cdn_sync.add_to_cart');
+    if (!$values['emergency_contact_exist']) {
+      $record['name'] = $values['name'];
+      $record['relationship'] = $values['relationship'];
+      $record['phone_number'] = $values['phone_number'];
+      $service->emergencyContactsAddRecord($_COOKIE['Drupal_visitor_personify_id'], $record);
+    }
     $data = $service->askAdditionalQuestions(explode(',', $values['cart_items_ids']));
     $service->updateCartInfo($values, $data, $query['cdn_personify_chosen_ids']);
   }
@@ -221,7 +234,7 @@ class CdnContactForm extends FormBase {
       '#default_value' => implode(',', $data['cart_items_ids']),
     ];
     $cabin_q = FALSE;
-    foreach ($data['data']['Data']['NewDataSet']['Table2'] as $q) {
+    foreach ($data['data']['additional']['Data']['NewDataSet']['Table2'] as $q) {
       if (!$cabin_q && strpos($q['QUESTION_TEXT'], 'cabin')) {
         $form['additional']['title'] = [
           '#markup' => '<h3>' . $this->t('Do you need any of the following in your cabin?') . '</h3>',
@@ -250,6 +263,29 @@ class CdnContactForm extends FormBase {
       }
     }
     return $form;
+  }
+
+  /**
+   * Helper method to get emergency field data.
+   *
+   * @param array $data
+   *   Fetched view with products.
+   * @param array $state
+   *   State of form.
+   *
+   * @return array
+   *   Results render array.
+   */
+  public function getEmergencyData($data, $state) {
+    $contact = [];
+    if (!empty($data['data']['emergency'])) {
+      // @To do: decide if build all the records.
+      $data = reset($data['data']['emergency']);
+      $contact['name'] = $data['EmergencyContactName'];
+      $contact['relationship'] = $data['EmergencyContactRelationship'];
+      $contact['phone_number'] = $data['PhoneNumber'];
+    }
+    return $contact;
   }
 
 }
