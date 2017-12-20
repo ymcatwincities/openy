@@ -175,7 +175,7 @@ class CdnFormFull extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Search'),
       // Close top-elements-wrapper.
-      '#suffix' => '<p class="help-tip">' . t('Please scroll down and select dates on calendar *') . '</p></div></div>',
+      '#suffix' => '</div></div>',
       '#button_type' => 'primary',
     );
 
@@ -192,6 +192,7 @@ class CdnFormFull extends FormBase {
       '#title' => t('Capacity'),
       '#default_value' => $state['capacity'],
       '#options' => $this->capacityOptions,
+      '#suffix' => '<p class="help-tip">' . t('Please scroll down and select dates on calendar *') . '</p>',
     ];
 
     $form['results'] = [
