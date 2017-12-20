@@ -280,7 +280,9 @@ class AddToCart implements AddToCartInterface {
           $cart_items_ids[] = (string) $item->WebShoppingCartItemId;
         }
         // Ask additional questions.
-        $data['data'] = $this->askAdditionalQuestions($cart_items_ids);
+        $data['data']['additional'] = $this->askAdditionalQuestions($cart_items_ids);
+        // Ask emergency contact info.
+        $data['data']['emergency'] = $this->emergencyContactsRetrieveRecords($user_id);
         $data['cart_items_ids'] = $cart_items_ids;
         $data['product_ids'] = $product_ids;
         $this->updateWorkflowInCart($cart_items_ids);
@@ -808,6 +810,112 @@ class AddToCart implements AddToCartInterface {
       throw new SyncException('Failed to get Personify products. Please, examine the logs.');
     }
     return $package;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function emergencyContactsRetrieveRecords($user_id) {
+    $data = [];
+    $options = [
+      'headers' => [
+        'Content-Type' => 'text/xml',
+      ],
+      'auth' => [
+        $this->dataServiceUser,
+        $this->dataServicePassword,
+      ],
+      'timeout' => 90
+    ];
+    $options['body'] = "";
+    try {
+      $endpoint = $this->dataServiceUrl . '/CusCommunicationEmergencyContacts()?$filter=(MasterCustomerId%20eq%20%27' . $user_id . '%27)%20and%20(SubCustomerId%20eq%200)';
+      $response = $this->client->request('GET', $endpoint, $options);
+      if ($response->getStatusCode() == '200') {
+        $contents = $response->getBody()->getContents();
+        $contents = str_replace('m:', '', $contents);
+        $contents = str_replace('d:', '', $contents);
+        $xml = simplexml_load_string($contents);
+        foreach ($xml->entry as $entry) {
+          $data[] = (array) $entry->content->properties;
+        }
+      }
+      else {
+        $msg = 'Got %code response from Personify: %msg';
+        $this->logger->error(
+          $msg,
+          [
+            '%code' => $response->getStatusCode(),
+            '%msg' => $response->getReasonPhrase(),
+          ]
+        );
+        throw new SyncException('Failed to get Emergency contact information. Please, examine the logs.');
+      }
+    }
+    catch (\Exception $e) {
+      $this->logger->error('Failed to get Personify data: %msg', ['%msg' => $e->getMessage()]);
+      throw new SyncException('Failed to get Emergency contact information.');
+    }
+    return $data;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function emergencyContactsAddRecord($user_id, $record) {
+    $options = [
+      'headers' => [
+        'Content-Type' => 'text/xml',
+      ],
+      'auth' => [
+        $this->dataServiceUser,
+        $this->dataServicePassword,
+      ],
+      'timeout' => 90
+    ];
+    $options['body'] = "<CL_CustomerEmergencyContactInput xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">
+      <MasterCustomerId>$user_id</MasterCustomerId>
+      <SubCustomerId>0</SubCustomerId>
+      <CustomerCommunicationEmergencyContactId>0</CustomerCommunicationEmergencyContactId>
+      <EmergencyContactName>" . $record['name'] . "</EmergencyContactName>
+      <EmergencyContactRelationship>" . $record['relationship'] . "</EmergencyContactRelationship>
+      <PhoneTypeCodeString>CELL</PhoneTypeCodeString>
+      <PhoneNumber>" . $record['phone_number'] . "</PhoneNumber>
+      <ChangedDate xsi:nil=\"true\" />
+      <CL_UserDefinedPhoneTypeCode1String></CL_UserDefinedPhoneTypeCode1String>
+      <CL_UserDefinedPhoneNumber1></CL_UserDefinedPhoneNumber1>
+      <CL_UserDefinedPhoneTypeCode2String></CL_UserDefinedPhoneTypeCode2String>
+      <CL_UserDefinedPhoneNumber2></CL_UserDefinedPhoneNumber2>
+      <CL_UserDefinedYDriverLicense />
+      <CL_UserDefinedYAuthorizeToPickupFlag>true</CL_UserDefinedYAuthorizeToPickupFlag>
+      <Comments></Comments>
+      <Mode>ADD</Mode>
+      <Priority>1</Priority>
+    </CL_CustomerEmergencyContactInput>";
+    try {
+      $endpoint = $this->dataServiceUrl . '/CL_CustomerEmergencyContact';
+      $response = $this->client->request('POST', $endpoint, $options);
+      if ($response->getStatusCode() == '200') {
+        $contents = $response->getBody()->getContents();
+        $xml = simplexml_load_string($contents);
+        if ($xml->Success) {}
+      }
+      else {
+        $msg = 'Got %code response from Personify: %msg';
+        $this->logger->error(
+          $msg,
+          [
+            '%code' => $response->getStatusCode(),
+            '%msg' => $response->getReasonPhrase(),
+          ]
+        );
+        throw new SyncException('Failed to add a new record to Emergency contact information. Please, examine the logs.');
+      }
+    }
+    catch (\Exception $e) {
+      $this->logger->error('Failed to update Personify data: %msg', ['%msg' => $e->getMessage()]);
+      throw new SyncException('Failed to add a new record to Emergency contact information.');
+    }
   }
 
 }
