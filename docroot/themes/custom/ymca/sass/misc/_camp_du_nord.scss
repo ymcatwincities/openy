@@ -18,8 +18,8 @@
     }
   }
   .help-tip {
-    clear: both;
     font-weight: bold;
+    margin-top: 12px;
   }
   .form-item-arrival-date,
   .form-item-departure-date {
@@ -158,6 +158,12 @@
         float: none;
         height: 40px;
       }
+    }
+  }
+  .form-item-capacity {
+    float: none;
+    @include breakpoint(992px) {
+      float: left;
     }
   }
   .form-item-partly-available,
@@ -790,8 +796,10 @@
     }
   }
   #edit-emergency-contact {
+    padding: 0 15px;
     @include breakpoint(992px) {
       padding-left: 55px;
+      padding-right: 0;
       float: left;
       width: 49%;
     }
@@ -886,8 +894,13 @@
 
 .cdn-village-footer {
   background: #383838;
-  padding: 50px 0 25px;
+  padding: 50px 15px 25px;
   clear: both;
+  margin: 0 -15px;
+  @include breakpoint(768px) {
+    padding: 50px 0 25px;
+    margin: 0 -30px;
+  }
   .cdn-village-footer-bar {
     display: none;
     &.active {
