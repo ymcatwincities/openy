@@ -421,7 +421,7 @@
    */
   Drupal.behaviors.cdn_contact_form = {
     attach: function (context, settings) {
-      $('.cdn-contact-form .form-radio').each(function() {
+      $('.cdn-contact-form .form-radio', context).each(function() {
         if ($(this).val() == 0) {
           $(this).next().addClass('no');
         }
