@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Tests\FileEntityEditTest.
- */
-
 namespace Drupal\file_entity\Tests;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;

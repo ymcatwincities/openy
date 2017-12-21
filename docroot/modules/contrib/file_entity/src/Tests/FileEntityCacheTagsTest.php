@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Tests\FileEntityCacheTagsTest.
- */
-
 namespace Drupal\file_entity\Tests;
 
 use Drupal\Component\Utility\SafeMarkup;
@@ -107,38 +102,39 @@ class FileEntityCacheTagsTest extends FileEntityTestBase {
 
     // Check cache tags.
     $contexts = ['languages:language_interface', 'user.permissions', 'theme', 'timezone', 'url.query_args:_wrapper_format', 'user.roles:anonymous'];
-    $this->assertPageCacheContextsAndTags($node1->urlInfo(), $contexts, [
+    $this->assertPageCacheContextsAndTags($node1->toUrl(), $contexts, [
       'node:' . $node1->id(),
       'node_view',
       'rendered',
       'user:0',
       'user_view',
       'config:user.role.anonymous',
+      'http_response',
     ]);
-    $this->assertPageCacheContextsAndTags($node2->urlInfo(), $contexts, [
+    $this->assertPageCacheContextsAndTags($node2->toUrl(), $contexts, [
       'node:' . $node2->id(),
       'node_view',
       'rendered',
       'user:0',
       'user_view',
       'config:user.role.anonymous',
+      'http_response',
     ]);
-    $this->assertPageCacheContextsAndTags($node3->urlInfo(), $contexts, [
+    $this->assertPageCacheContextsAndTags($node3->toUrl(), $contexts, [
       'node:' . $node3->id(),
       'node_view',
       'rendered',
       'user:0',
       'user_view',
       'config:user.role.anonymous',
+      'http_response',
     ]);
 
     // Save the first file to invalidate cache tags.
     $file1->save();
-    $this->verifyPageCache($node1->urlInfo(), 'MISS');
-    $this->verifyPageCache($node2->urlInfo(), 'MISS');
-    $this->verifyPageCache($node3->urlInfo(), 'HIT');
-
-
+    $this->verifyPageCache($node1->toUrl(), 'MISS');
+    $this->verifyPageCache($node2->toUrl(), 'MISS');
+    $this->verifyPageCache($node3->toUrl(), 'HIT');
   }
 
   /**
