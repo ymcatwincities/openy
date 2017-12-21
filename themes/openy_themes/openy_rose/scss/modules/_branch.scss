@@ -933,9 +933,20 @@ html.js {
         color: $purple;
       }
     }
+
     .edit-class-popup {
+      background-color: #00aeef;
+      color: #ffffff;
       display: inline-block;
-      margin-left: 10px;
+      font-size: 15px;
+      font-weight: normal;
+      padding: 3px 15px;
+      text-transform: lowercase;
+      vertical-align: middle;
+
+      &:hover {
+        background-color: #0089d0;
+      }
     }
   }
   .marker_tooltip & {
@@ -1009,6 +1020,21 @@ html.js {
       letter-spacing: 2px;
       margin: 0;
       text-transform: uppercase;
+    }
+  }
+
+  .edit-class-popup {
+    background-color: #00aeef;
+    color: #ffffff;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: normal;
+    padding: 3px 15px;
+    text-transform: lowercase;
+    vertical-align: middle;
+
+    &:hover {
+      background-color: #0089d0;
     }
   }
 }
