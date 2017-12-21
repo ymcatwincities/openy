@@ -325,7 +325,7 @@ function _datalayer_get_entity_data($entity) {
     // For entities with an owner/author, get the username.
     if ((empty($selected_properties) || array_key_exists('name', $properties))
       && !isset($output_data['entityName']) && is_object($entity->uid)) {
-      if ($entity->uid->entity && !$entity->uid->entity->isEmpty()) {
+      if ($entity->uid->entity) {
         if ($entity->uid->entity instanceof EntityInterface) {
           $eentity = $entity->uid->entity;
           $value = ['id' => $eentity->id(), 'label' => $eentity->label(), 'bundle' => $eentity->bundle()];
