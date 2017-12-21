@@ -52,3 +52,7 @@ description: Fix WYSIWYG
 patch: drupal_packagist_is_deprecated-2857817-4-rc1.patch
 drupal.org issue: https://www.drupal.org/node/2842779
 description: fix composer_manager fails on composer drupal-update command
+
+patch: docroot/modules/patches/2857270.patch
+drupal.org issue: https://www.drupal.org/project/datalayer/issues/2857270#comment-12393678
+description: Entity reference field selected causing Fatal Error
