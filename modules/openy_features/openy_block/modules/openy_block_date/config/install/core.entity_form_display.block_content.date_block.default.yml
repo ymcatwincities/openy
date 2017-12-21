@@ -26,6 +26,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_content_date_between:
     type: entity_reference_paragraphs
     weight: 5
@@ -36,6 +37,7 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_content_date_end:
     type: entity_reference_paragraphs
     weight: 6
@@ -46,16 +48,19 @@ content:
       add_mode: dropdown
       form_display_mode: default
     third_party_settings: {  }
+    region: content
   field_end_date:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_start_date:
     weight: 2
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   info:
     type: string_textfield
     weight: 0
@@ -63,9 +68,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    region: content
   langcode:
     type: language_select
     weight: 1
-    settings: {  }
+    settings:
+      include_locked: true
     third_party_settings: {  }
+    region: content
 hidden: {  }
