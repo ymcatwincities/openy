@@ -18,7 +18,7 @@ a[href="#step2"] {
   legend {
     border: none;
     color: inherit;
-    font-size: 36px;
+    font-size: 32px;
   }
   .label-for-field-mbrshp-join-fee,
   .label-for-field-mbrshp-monthly-rate {
@@ -44,7 +44,7 @@ a[href="#step2"] {
   }
   .btn {
     line-height: 40px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     padding: 10px 10px;
   }
@@ -103,6 +103,11 @@ a[href="#step2"] {
   .complete-registration {
     background-color: $purple;
   }
+  .calc-summary-col {
+    h2 {
+      font-size: 34px;
+    }
+  }
 }
 
 #membership-calc-wrapper .nav-pills {
@@ -113,7 +118,7 @@ a[href="#step2"] {
   margin-bottom: 20px;
   font-size: 13px;
   @include breakpoint($screen-sm) {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 42px;
   }
   & > li {
@@ -272,7 +277,7 @@ a[href="#step2"] {
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: $h2-size;
-    font-family: $font-style-cachet-ubuntu;
+    font-family: $font-style-sans;
     font-weight: 500;
     line-height: 1.1;
     color: inherit;

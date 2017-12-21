@@ -10,6 +10,7 @@ dependencies:
     - media_entity.bundle.image
   module:
     - focal_point
+    - path
 id: media.image.default
 targetEntityType: media
 bundle: image
@@ -53,7 +54,8 @@ content:
     type: language_select
     weight: 2
     region: content
-    settings: {  }
+    settings:
+      include_locked: true
     third_party_settings: {  }
   name:
     type: string_textfield
@@ -63,6 +65,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     region: content
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   created: true
   uid: true

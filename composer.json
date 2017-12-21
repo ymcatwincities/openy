@@ -166,7 +166,7 @@
         "drupal/core": "8.4.2",
         "drupal/features": "3.5",
         "drupal/confi": "1.4",
-        "drupal/config_update": "1.4",
+        "drupal/config_update": "1.5",
         "drupal/entity": "1.0-beta1",
         "drupal/media_entity": "1.x-dev",
         "drupal/media_entity_image": "1.x-dev",
