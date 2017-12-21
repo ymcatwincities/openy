@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Plugin\QueueWorker\FileDetermineType.
- */
-
 namespace Drupal\file_entity\Plugin\QueueWorker;
 
 use Drupal\Core\Queue\QueueWorkerBase;

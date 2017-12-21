@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\file_entity\Plugin\views\filter\Type.
- */
-
 namespace Drupal\file_entity\Plugin\views\filter;
 
 use Drupal\file_entity\Entity\FileType;

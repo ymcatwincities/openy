@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\file_entity\Plugin\views\argument\Type.
- */
-
 namespace Drupal\file_entity\Plugin\views\argument;
 
 use Drupal\file_entity\Entity\FileType;
