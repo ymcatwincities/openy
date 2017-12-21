@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Mimetypes.
- */
 
 namespace Drupal\file_entity;
 use Drupal\Core\File\MimeType\ExtensionMimeTypeGuesser;
