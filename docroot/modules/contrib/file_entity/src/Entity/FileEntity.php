@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Entity\FileEntity.
- */
-
 namespace Drupal\file_entity\Entity;
 
 use Drupal\Core\Cache\Cache;

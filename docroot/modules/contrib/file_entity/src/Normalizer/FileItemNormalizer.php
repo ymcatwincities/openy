@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Normalizer\FileItemNormalizer.
- */
 
 namespace Drupal\file_entity\Normalizer;
 

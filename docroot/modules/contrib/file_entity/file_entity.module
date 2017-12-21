@@ -404,7 +404,7 @@ function file_entity_entity_storage_load($entities, $entity_type) {
               foreach (['alt', 'title'] as $key) {
                 if (empty($item->$key)) {
                   $token_bubbleable_metadata = new BubbleableMetadata();
-                  $item->key = $token_service->replace($config->get($key), ['file' => $item->entity], $replace_options, $token_bubbleable_metadata);
+                  $item->$key = $token_service->replace($config->get($key), ['file' => $item->entity], $replace_options, $token_bubbleable_metadata);
                   // Add the cacheability metadata of the token to the entity.
                   // This means attachments are discarded, but it does not ever
                   // make sense to have attachments for an image's "alt" and

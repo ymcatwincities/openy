@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\UploadValidatorsTrait.
- */
 
 namespace Drupal\file_entity;
 

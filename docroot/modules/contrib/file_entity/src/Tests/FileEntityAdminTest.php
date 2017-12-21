@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Tests\FileEntityAdminTest.
- */
-
 namespace Drupal\file_entity\Tests;
 
 use Drupal\field\Entity\FieldConfig;
