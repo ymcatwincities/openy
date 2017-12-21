@@ -1,5 +1,5 @@
 diff --git a/datalayer.module b/datalayer.module
-index e4eb570..de3291c 100644
+index e4eb570..badb9c8 100644
 --- a/datalayer.module
 +++ b/datalayer.module
 @@ -325,7 +325,15 @@ function _datalayer_get_entity_data($entity) {
@@ -7,7 +7,7 @@ index e4eb570..de3291c 100644
      if ((empty($selected_properties) || array_key_exists('name', $properties))
        && !isset($output_data['entityName']) && is_object($entity->uid)) {
 -      $output_data['entityName'] = $entity->uid->entity->name->getString();
-+      if ($entity->uid->entity && !$entity->uid->entity->isEmpty()) {
++      if ($entity->uid->entity) {
 +        if ($entity->uid->entity instanceof EntityInterface) {
 +          $eentity = $entity->uid->entity;
 +          $value = ['id' => $eentity->id(), 'label' => $eentity->label(), 'bundle' => $eentity->bundle()];
@@ -33,5 +33,3 @@ index e4eb570..de3291c 100644
 +        }
 +      }
        break;
- 
-     case 'metatag':
