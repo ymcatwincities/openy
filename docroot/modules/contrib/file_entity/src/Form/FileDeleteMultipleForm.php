@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Form\FileDeleteMultipleForm.
- */
-
 namespace Drupal\file_entity\Form;
 
 use Drupal\Component\Utility\SafeMarkup;

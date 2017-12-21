@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\file_entity\Plugin\views\field\Link.
- */
-
 namespace Drupal\file_entity\Plugin\views\field;
 
 use Drupal\views\Plugin\views\field\FieldPluginBase;
