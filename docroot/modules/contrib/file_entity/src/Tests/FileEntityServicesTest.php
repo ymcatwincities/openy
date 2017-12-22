@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Tests\FileEntityServicesTest
- */
 
 namespace Drupal\file_entity\Tests;
 
@@ -29,6 +25,7 @@ class FileEntityServicesTest extends RESTTestBase {
   public static $modules = array(
     'node',
     'hal',
+    'rest',
     'file_entity'
   );
 
@@ -93,6 +90,7 @@ class FileEntityServicesTest extends RESTTestBase {
     $this->assertResponse(404);
 
     // POST node to create new.
+    unset($response_data['nid']);
     unset($response_data['created']);
     unset($response_data['changed']);
     unset($response_data['status']);

@@ -45,7 +45,7 @@ function file_entity_views_data_alter(&$data) {
       'id' => 'standard',
     ),
     'filter' => array(
-      'id' => 'file_entity_type',
+      'id' => 'bundle',
     ),
   );
 

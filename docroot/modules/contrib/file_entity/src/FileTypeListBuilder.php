@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\FileTypeListBuilder.
- */
-
 namespace Drupal\file_entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
