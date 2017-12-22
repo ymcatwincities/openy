@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Plugin\Action\FileSetTemporary.
- */
-
 namespace Drupal\file_entity\Plugin\Action;
 
 use Drupal\Core\Access\AccessResult;

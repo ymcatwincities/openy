@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Tests\FileEntityTokenTest.
- */
-
 namespace Drupal\file_entity\Tests;
 
 use Drupal\Core\Render\BubbleableMetadata;

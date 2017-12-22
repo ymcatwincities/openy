@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Plugin\Action\FileSetPermanent.
- */
-
 namespace Drupal\file_entity\Plugin\Action;
 
 use Drupal\Core\Access\AccessResult;
