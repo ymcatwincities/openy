@@ -130,3 +130,10 @@ action.configuration.file_temporary_action:
 field.widget.settings.file_editable:
   type: field.widget.settings.file_generic
   label: 'File format settings'
+
+views.filter_value.file_entity_type:
+  type: sequence
+  label: 'Values'
+  sequence:
+    type: string
+    label: 'Value'

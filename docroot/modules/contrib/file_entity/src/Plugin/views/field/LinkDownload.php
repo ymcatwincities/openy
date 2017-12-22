@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\file_entity\Plugin\views\field\LinkDownload.
- */
-
 namespace Drupal\file_entity\Plugin\views\field;
 
 use Drupal\views\ResultRow;
