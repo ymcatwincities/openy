@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\Tests\file_entity\Kernel\FileEntityNormalizerTest.
- */
 
 namespace Drupal\Tests\file_entity\Kernel;
 

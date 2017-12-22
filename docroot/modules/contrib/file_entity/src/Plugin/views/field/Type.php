@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\file_entity\Plugin\views\field\Type.
- */
-
 namespace Drupal\file_entity\Plugin\views\field;
 
 use Drupal\file_entity\Entity\FileType;

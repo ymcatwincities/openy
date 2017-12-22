@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Form\FileTypeDisableForm.
- */
-
 namespace Drupal\file_entity\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
