@@ -98,7 +98,7 @@ abstract class AbstractProxyFactory
     {
         $this->proxyGenerator  = $proxyGenerator;
         $this->metadataFactory = $metadataFactory;
-        $this->autoGenerate    = (bool)$autoGenerate;
+        $this->autoGenerate    = (int)$autoGenerate;
     }
 
     /**
