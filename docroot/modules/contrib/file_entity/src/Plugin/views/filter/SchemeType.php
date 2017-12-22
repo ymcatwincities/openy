@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\file_entity\Plugin\views\filter\SchemeType.
- */
-
 namespace Drupal\file_entity\Plugin\views\filter;
 
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;

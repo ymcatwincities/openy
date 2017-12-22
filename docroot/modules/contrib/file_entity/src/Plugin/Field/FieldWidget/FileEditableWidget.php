@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Plugin\Field\FieldWidget\FileEditableWidget.
- */
 
 namespace Drupal\file_entity\Plugin\Field\FieldWidget;
 
