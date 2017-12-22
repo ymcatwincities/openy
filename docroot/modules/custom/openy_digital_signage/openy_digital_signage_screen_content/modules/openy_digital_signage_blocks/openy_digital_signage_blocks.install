@@ -46,3 +46,27 @@ function openy_digital_signage_blocks_requirements($phase) {
 
   return $requirements;
 }
+
+/**
+ * Update Promotional Block form view mode.
+ */
+function openy_digital_signage_blocks_update_8001() {
+  $config_importer = \Drupal::service('config_import.importer');
+  $config_importer->setDirectory(drupal_get_path('module', 'openy_digital_signage_blocks') . '/config/install/');
+  $config_importer->importConfigs(
+    [
+      'core.entity_form_display.block_content.digital_signage_promotional.default',
+    ]
+  );
+
+  // Update Existing blocks.
+  $entity_manager = \Drupal::entityTypeManager()->getStorage('block_content');
+  $result = $entity_manager->loadByProperties(['type' => 'digital_signage_promotional']);
+  foreach ($result as $block) {
+    if (!empty($block->get('info')->value)) {
+      continue;
+    }
+    $block->set('info', 'Digital Signage Promotional Block');
+    $block->save();
+  }
+}

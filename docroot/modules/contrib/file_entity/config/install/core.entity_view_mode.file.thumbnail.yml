@@ -1,9 +1,11 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - file_entity
   module:
     - file
-    - file_entity
 id: file.thumbnail
 label: Thumbnail
 targetEntityType: file
