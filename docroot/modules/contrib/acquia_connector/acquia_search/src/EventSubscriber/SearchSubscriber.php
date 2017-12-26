@@ -16,6 +16,7 @@ use Solarium\Core\Plugin\Plugin;
 use Drupal\Component\Utility\Crypt;
 use Solarium\Exception\HttpException;
 use Drupal\acquia_connector\CryptConnector;
+use Drupal\acquia_search\AcquiaSearchV3ApiClient;
 
 /**
  * Extends Solarium plugin: authenticate, etc.
@@ -194,6 +195,17 @@ class SearchSubscriber extends Plugin {
     if (empty($env_id)) {
       $env_id = $this->client->getEndpoint()->getKey();
     }
+
+    // Get derived key for search v3 core if enabled.
+    $search_v3_enabled = \Drupal::config('acquia_search.settings')->get('search_v3_enabled');
+    if ($search_v3_enabled) {
+      $search_v3_index = $this->getSearchV3IndexKeys();
+      if ($search_v3_index) {
+        $this->derivedKey[$env_id] = CryptConnector::createDerivedKey($search_v3_index['product_policies']['salt'], $search_v3_index['key'], $search_v3_index['secret_key']);
+        return $this->derivedKey[$env_id];
+      }
+    }
+
     if (!isset($this->derivedKey[$env_id])) {
       $server = $this->client->getEndpoint();
 
@@ -290,6 +302,35 @@ class SearchSubscriber extends Plugin {
       $time = REQUEST_TIME;
       return 'acquia_solr_time=' . $time . '; acquia_solr_nonce=' . $nonce . '; acquia_solr_hmac=' . hash_hmac('sha1', $time . $nonce . $string, $derived_key) . ';';
     }
+  }
+
+  /**
+   * Fetches the search v3 index keys.
+   *
+   * @return array | FALSE
+   *   Search v3 index keys.
+   */
+  public function getSearchV3IndexKeys() {
+    $core_service = acquia_search_get_core_service();
+    if (!$core_service->isPreferredCoreAvailable()) {
+      return;
+    }
+    $core = $core_service->getPreferredCore();
+    // Check the core version to see if it's v2 or v3 core.
+    if (empty($core['version']) || $core['version'] !== 'v3') {
+      return;
+    }
+
+    $search_v3_client = acquia_search_get_v3_client();
+    if (!$search_v3_client) {
+      return;
+    }
+
+    $search_v3_index = $search_v3_client->getKeys($core['core_id'], $core_service->acquia_identifier);
+    if (is_array($search_v3_index) && !empty($search_v3_index)) {
+      return $search_v3_index;
+    }
+
   }
 
 }

@@ -11,19 +11,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Defines a confirmation form for reverting configuration.
+ * Defines a confirmation form for importing configuration.
  */
-class ConfigRevertConfirmForm extends ConfirmFormBase {
+class ConfigImportConfirmForm extends ConfirmFormBase {
 
   /**
-   * The type of config being reverted.
+   * The type of config being imported.
    *
    * @var string
    */
   protected $type;
 
   /**
-   * The name of the config item being reverted, without the prefix.
+   * The name of the config item being imported, without the prefix.
    *
    * @var string
    */
@@ -44,7 +44,7 @@ class ConfigRevertConfirmForm extends ConfirmFormBase {
   protected $configRevert;
 
   /**
-   * Constructs a ConfigRevertConfirmForm object.
+   * Constructs a ConfigImportConfirmForm object.
    *
    * @param \Drupal\config_update\ConfigListInterface $config_list
    *   The config lister.
@@ -70,7 +70,7 @@ class ConfigRevertConfirmForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'config_update_confirm';
+    return 'config_import_confirm';
   }
 
   /**
@@ -89,16 +89,16 @@ class ConfigRevertConfirmForm extends ConfirmFormBase {
       $type_label = $definition->get('label');
     }
 
-    // To revert (as opposed to import), the configuration item must exist in
-    // both active storage and extension storage, so check that and make a 404
+    // To import (as opposed to revert), the configuration item must exist in
+    // extension storage but not active storage, so check that, and make a 404
     // error if not.
     $extension = $this->configRevert->getFromExtension($this->type, $this->name);
     $active = $this->configRevert->getFromActive($this->type, $this->name);
-    if (!$extension || !$active) {
+    if (!$extension || $active) {
       throw new NotFoundHttpException();
     }
 
-    return $this->t('Are you sure you want to revert the %type config %item to its source configuration?', ['%type' => $type_label, '%item' => $this->name]);
+    return $this->t('Are you sure you want to import the %type config %item from its source configuration?', ['%type' => $type_label, '%item' => $this->name]);
   }
 
   /**
@@ -112,14 +112,14 @@ class ConfigRevertConfirmForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getDescription() {
-    return $this->t('Customizations will be lost. This action cannot be undone.');
+    return $this->t('Configuration will be added to your site. This action cannot be undone.');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getConfirmText() {
-    return $this->t('Revert');
+    return $this->t('Import');
   }
 
   /**
@@ -137,9 +137,9 @@ class ConfigRevertConfirmForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->configRevert->revert($this->type, $this->name);
+    $this->configRevert->import($this->type, $this->name);
 
-    drupal_set_message($this->t('The configuration was reverted to its source.'));
+    drupal_set_message($this->t('The configuration was imported from its source.'));
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
 
