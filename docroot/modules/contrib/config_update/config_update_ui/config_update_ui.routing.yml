@@ -12,9 +12,7 @@ config_update_ui.import:
   path: '/admin/config/development/configuration/report/import/{config_type}/{config_name}'
   defaults:
     _title: 'Import'
-    _controller: '\Drupal\config_update_ui\Controller\ConfigUpdateController::import'
-    config_type: NULL
-    config_name: NULL
+    _form: '\Drupal\config_update_ui\Form\ConfigImportConfirmForm'
   requirements:
     _permission: 'import configuration'
 

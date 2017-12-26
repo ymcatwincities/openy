@@ -13,7 +13,8 @@ use Drupal\rules\Core\RulesConditionBase;
  *   category = @Translation("Scheduler"),
  *   context = {
  *     "node" = @ContextDefinition("entity:node",
- *       label = @Translation("The node to test for scheduling properties")
+ *       label = @Translation("The node to use for scheduled publishing enabled"),
+ *       description = @Translation("Enter 'node' for the node being processed, or use data selection.")
  *     )
  *   }
  * )
