@@ -64,9 +64,7 @@ class SpiController extends ControllerBase {
    *   An associative array keyed by types of information.
    */
   public function get($method = '') {
-    // Get file hashes and compute serialized version.
-    list($hashes, $fileinfo) = $this->getFileHashes();
-    $hashes_string = serialize($hashes);
+    $config = \Drupal::configFactory()->getEditable('acquia_connector.settings');
 
     // Get the Drupal version.
     $drupal_version = $this->getVersionInfo();
@@ -80,22 +78,29 @@ class SpiController extends ControllerBase {
     }
 
     $acquia_hosted = $this->checkAcquiaHosted();
+    $environment = $this->config('acquia_connector.settings')->get('spi.site_environment');
+    $env_detection_enabled = $this->config('acquia_connector.settings')->get('spi.env_detection_enabled');
     if ($acquia_hosted) {
-      $config = \Drupal::configFactory()->getEditable('acquia_connector.settings');
-      $name = $this->getAcquiaHostedName();
-      if ($name != $this->config('acquia_connector.settings')->get('spi.site_name')) {
-        $config->set('spi.site_name', $name);
-      }
-
-      $machine_name = $this->getAcquiaHostedMachineName();
-      if ($machine_name != $this->config('acquia_connector.settings')->get('spi.site_machine_name')) {
-        $config->set('spi.site_machine_name', $machine_name);
+      if ($environment != $_SERVER['AH_SITE_ENVIRONMENT']) {
+        $config->set('spi.site_environment', $_SERVER['AH_SITE_ENVIRONMENT']);
+        $environment = $_SERVER['AH_SITE_ENVIRONMENT'];
+        if ($env_detection_enabled) {
+          $config->set('spi.site_machine_name', $this->getAcquiaHostedMachineName());
+        }
       }
     }
     else {
-      $name = $this->config('acquia_connector.settings')->get('spi.site_name');
-      $machine_name = $this->config('acquia_connector.settings')->get('spi.site_machine_name');
+      if ($environment) {
+        $config->set('spi.site_environment', NULL);
+      }
+      $environment = NULL;
     }
+
+    if ($env_detection_enabled === NULL) {
+      $config->set('spi.env_detection_enabled', TRUE);
+    }
+
+    $config->save();
 
     $spi = array(
     // Used in HMAC validation.
@@ -106,8 +111,9 @@ class SpiController extends ControllerBase {
       'site_uuid'          => $this->config('acquia_connector.settings')->get('spi.site_uuid'),
       'env_changed_action' => $this->config('acquia_connector.settings')->get('spi.environment_changed_action'),
       'acquia_hosted'      => $acquia_hosted,
-      'name'               => $name,
-      'machine_name'       => $machine_name,
+      'name'               => $this->config('acquia_connector.settings')->get('spi.site_name'),
+      'machine_name'       => $this->config('acquia_connector.settings')->get('spi.site_machine_name'),
+      'environment'        => $environment,
       'modules'            => $this->getModules(),
       'platform'           => $platform,
       'quantum'            => $this->getQuantum(),
@@ -120,10 +126,6 @@ class SpiController extends ControllerBase {
       'last_users'         => $this->config('acquia_connector.settings')->get('spi.send_node_user') ? $this->getLastUsers() : array(),
       'extra_files'        => $this->checkFilesPresent(),
       'ssl_login'          => $this->checkLogin(),
-      'file_hashes'        => $hashes,
-      'hashes_md5'         => md5($hashes_string),
-      'hashes_sha1'        => sha1($hashes_string),
-      'fileinfo'           => $fileinfo,
       'distribution'       => isset($drupal_version['distribution']) ? $drupal_version['distribution'] : '',
       'base_version'       => $drupal_version['base_version'],
       'build_data'         => $drupal_version,
@@ -272,8 +274,7 @@ class SpiController extends ControllerBase {
    *   1 if they are removed, 0 if they aren't.
    */
   private function checkFilesPresent() {
-    $store = $this->dataStoreGet(array('platform'));
-    $server = (!empty($store) && isset($store['platform'])) ? $store['platform']['php_quantum']['SERVER'] : \Drupal::request()->server->all();
+    $server = \Drupal::request()->server->all();
     $files_exist = FALSE;
     $files_to_remove = array('CHANGELOG.txt', 'COPYRIGHT.txt', 'INSTALL.mysql.txt', 'INSTALL.pgsql.txt', 'INSTALL.txt', 'LICENSE.txt',
       'MAINTAINERS.txt', 'README.txt', 'UPGRADE.txt', 'PRESSFLOW.txt', 'install.php',
@@ -326,7 +327,7 @@ class SpiController extends ControllerBase {
       $uuid = new StatusController();
       $sub_uuid = str_replace('-', '_', $uuid->getIdFromSub($sub_data));
 
-      return $sub_uuid . '__' . $_SERVER['AH_SITE_NAME'];
+      return $sub_uuid . '__' . $_SERVER['AH_SITE_NAME'] . '__' . uniqid();
     }
   }
 
@@ -683,89 +684,6 @@ class SpiController extends ControllerBase {
   }
 
   /**
-   * Gather hashes of all important files, ignoring line ending and CVS Ids.
-   *
-   * @param array $exclude_dirs
-   *   Optional array of directory paths to be excluded.
-   *
-   * @return array
-   *   An associative array keyed by filename of hashes.
-   */
-  private function getFileHashes($exclude_dirs = array()) {
-    $exclude_dirs[] = 'core/vendor';
-    $exclude_dirs[] = 'core/assets';
-    // The list of directories for the third parameter are the only ones that
-    // will be recursed into.  Thus, we avoid sending hashes for any others.
-    list($hashes, $fileinfo) = $this->generateHashes('.', $exclude_dirs, [
-      'modules',
-      'profiles',
-      'themes',
-      'core',
-    ]);
-    ksort($hashes);
-    // Add .htaccess file.
-    $htaccess = DRUPAL_ROOT . DIRECTORY_SEPARATOR . '.htaccess';
-    if (is_file($htaccess)) {
-      $owner = fileowner($htaccess);
-      if (function_exists('posix_getpwuid')) {
-        $userinfo = posix_getpwuid($owner);
-        $owner = $userinfo['name'];
-      }
-      $fileinfo['.htaccess'] = 'mt:' . filemtime($htaccess) . '$p:' . substr(sprintf('%o', fileperms($htaccess)), -4) . '$o:' . $owner . '$s:' . filesize($htaccess);
-    }
-    return array($hashes, $fileinfo);
-  }
-
-  /**
-   * Recursive helper function for getFileHashes().
-   */
-  private function generateHashes($dir, $exclude_dirs = array(), $limit_dirs = array(), $module_break = FALSE, $orig_dir = NULL) {
-    $hashes = array();
-    $fileinfo = array();
-
-    // Ensure that we have not nested into another module's dir.
-    if ($dir != $orig_dir && $module_break) {
-      if (is_dir($dir) && $handle = opendir($dir)) {
-        while ($file = readdir($handle)) {
-          if (stristr($file, '.info.yml')) {
-            return;
-          }
-        }
-      }
-    }
-    if (isset($handle)) {
-      closedir($handle);
-    }
-
-    // Standard nesting function.
-    if (is_dir($dir) && $handle = opendir($dir)) {
-      while ($file = readdir($handle)) {
-        if (!in_array($file, array('.', '..', 'CVS', '.svn', '.git'))) {
-          $path = $dir == '.' ? $file : "{$dir}/{$file}";
-          if (is_dir($path) && !in_array($path, $exclude_dirs) && (empty($limit_dirs) || in_array($path, $limit_dirs)) && ($file != 'translations')) {
-            list($sub_hashes, $sub_fileinfo) = $this->generateHashes($path, $exclude_dirs);
-            $hashes = array_merge($sub_hashes, $hashes);
-            $fileinfo = array_merge($sub_fileinfo, $fileinfo);
-            $hashes[$path] = $this->hashPath($path);
-          }
-          elseif ($this->isManifestType($file)) {
-            $hashes[$path] = $this->hashPath($path);
-            $owner = fileowner($path);
-            if (function_exists('posix_getpwuid')) {
-              $userinfo = posix_getpwuid($owner);
-              $owner = $userinfo['name'];
-            }
-            $fileinfo[$path] = 'mt:' . filemtime($path) . '$p:' . substr(sprintf('%o', fileperms($path)), -4) . '$o:' . $owner . '$s:' . filesize($path);
-          }
-        }
-      }
-      closedir($handle);
-    }
-
-    return array($hashes, $fileinfo);
-  }
-
-  /**
    * Determine if a path is a file type we care about for modificaitons.
    */
   private function isManifestType($path) {
@@ -828,8 +746,7 @@ class SpiController extends ControllerBase {
    *   An array containing some detail about the version
    */
   private function getVersionInfo() {
-    $store = $this->dataStoreGet(array('platform'));
-    $server = (!empty($store) && isset($store['platform'])) ? $store['platform']['php_quantum']['SERVER'] : \Drupal::request()->server->all();
+    $server = \Drupal::request()->server->all();
     $ver = array();
 
     $ver['base_version'] = \Drupal::VERSION;
@@ -931,10 +848,6 @@ class SpiController extends ControllerBase {
 
     if (isset($webserver[1]) && stristr($webserver[1], 'Apache') && function_exists('apache_get_version')) {
       $webserver[2] = apache_get_version();
-      $apache_modules = apache_get_modules();
-    }
-    else {
-      $apache_modules = '';
     }
 
     // Get some basic PHP vars.
@@ -951,7 +864,6 @@ class SpiController extends ControllerBase {
       'session.cookie_domain' => ini_get('session.cookie_domain'),
       'session.cookie_lifetime' => ini_get('session.cookie_lifetime'),
       'newrelic.appname' => ini_get('newrelic.appname'),
-      'SERVER' => $server->all(),
       'sapi' => php_sapi_name(),
     );
 
@@ -959,7 +871,6 @@ class SpiController extends ControllerBase {
       'php'               => PHP_VERSION,
       'webserver_type'    => isset($webserver[1]) ? $webserver[1] : '',
       'webserver_version' => isset($webserver[2]) ? $webserver[2] : '',
-      'apache_modules'    => $apache_modules,
       'php_extensions'    => get_loaded_extensions(),
       'php_quantum'       => $php_quantum,
       'database_type'     => (string) $db_tasks->name(),
@@ -968,100 +879,9 @@ class SpiController extends ControllerBase {
       // php_uname() only accepts one character, so we need to concatenate
       // ourselves.
       'system_version'    => php_uname('r') . ' ' . php_uname('v') . ' ' . php_uname('m') . ' ' . php_uname('n'),
-      'mysql'             => (Database::getConnection()->driver() == 'mysql') ? self::getPlatformMysqlData() : array(),
     );
 
     return $platform;
-  }
-
-  /**
-   * Gather mysql specific information.
-   *
-   * @return array
-   *   An associative array keyed by a mysql information type.
-   */
-  private static function getPlatformMysqlData() {
-    $connection = Database::getConnection('default');
-    $result = $connection->query('SHOW GLOBAL STATUS', array(), array())->fetchAll();
-
-    $ret = array();
-    if (empty($result)) {
-      return $ret;
-    }
-
-    foreach ($result as $record) {
-      if (!isset($record->Variable_name)) {
-        continue;
-      }
-      switch ($record->Variable_name) {
-        case 'Table_locks_waited':
-          $ret['Table_locks_waited'] = $record->Value;
-          break;
-
-        case 'Slow_queries':
-          $ret['Slow_queries'] = $record->Value;
-          break;
-
-        case 'Qcache_hits':
-          $ret['Qcache_hits'] = $record->Value;
-          break;
-
-        case 'Qcache_inserts':
-          $ret['Qcache_inserts'] = $record->Value;
-          break;
-
-        case 'Qcache_queries_in_cache':
-          $ret['Qcache_queries_in_cache'] = $record->Value;
-          break;
-
-        case 'Qcache_lowmem_prunes':
-          $ret['Qcache_lowmem_prunes'] = $record->Value;
-          break;
-
-        case 'Open_tables':
-          $ret['Open_tables'] = $record->Value;
-          break;
-
-        case 'Opened_tables':
-          $ret['Opened_tables'] = $record->Value;
-          break;
-
-        case 'Select_scan':
-          $ret['Select_scan'] = $record->Value;
-          break;
-
-        case 'Select_full_join':
-          $ret['Select_full_join'] = $record->Value;
-          break;
-
-        case 'Select_range_check':
-          $ret['Select_range_check'] = $record->Value;
-          break;
-
-        case 'Created_tmp_disk_tables':
-          $ret['Created_tmp_disk_tables'] = $record->Value;
-          break;
-
-        case 'Created_tmp_tables':
-          $ret['Created_tmp_tables'] = $record->Value;
-          break;
-
-        case 'Handler_read_rnd_next':
-          $ret['Handler_read_rnd_next'] = $record->Value;
-          break;
-
-        case 'Sort_merge_passes':
-          $ret['Sort_merge_passes'] = $record->Value;
-          break;
-
-        case 'Qcache_not_cached':
-          $ret['Qcache_not_cached'] = $record->Value;
-          break;
-
-      }
-    }
-
-    return $ret;
   }
 
   /**
@@ -1089,96 +909,9 @@ class SpiController extends ControllerBase {
         $info['project'] = 'drupal';
       }
 
-      // Determine which files belong to this module and hash them.
-      $module_path = explode('/', $info['filename']);
-      array_pop($module_path);
-
-      // We really only care about this module if it is in 'sites' or in
-      // 'modules' folder.
-      // Otherwise it is covered by the hash of the distro's modules.
-      if ($module_path[0] == 'sites' || $module_path[0] == 'modules') {
-        $contrib_path = implode('/', $module_path);
-
-        // Get a hash for this module's files. If we nest into another module,
-        // we'll return. and that other module will be covered by it's entry in
-        // the system table.
-        //
-        // !! At present we aren't going to do a per module hash, but rather a
-        // per-project hash. The reason being that it is too hard to tell an
-        // individual module apart from a project.
-        list($info['module_data']['hashes'], $info['module_data']['fileinfo']) = self::generateHashesHelper($contrib_path);
-      }
-      else {
-        $info['module_data']['hashes'] = array();
-        $info['module_data']['fileinfo'] = array();
-      }
-
       $result[] = $info;
     }
     return $result;
-  }
-
-  /**
-   * Recursive helper function for getFileHashes().
-   *
-   * @param string $dir
-   *   Directory to generate hashes.
-   * @param array $exclude_dirs
-   *   Exclude directories.
-   * @param array $limit_dirs
-   *   Generate only for the directories.
-   * @param bool $module_break
-   *   Currently is not used directly by Acquia Connector.
-   * @param string $orig_dir
-   *   Currently is not used directly by Acquia Connector.
-   *
-   * @return mixed
-   *   Array of generated hashes or void.
-   */
-  private function generateHashesHelper($dir, $exclude_dirs = array(), $limit_dirs = array(), $module_break = FALSE, $orig_dir = NULL) {
-    $hashes = array();
-    $fileinfo = array();
-
-    // Ensure that we have not nested into another module's dir.
-    if ($dir != $orig_dir && $module_break) {
-      if (is_dir($dir) && $handle = opendir($dir)) {
-        while ($file = readdir($handle)) {
-          if (stristr($file, '.info.yml')) {
-            return;
-          }
-        }
-      }
-    }
-    if (isset($handle)) {
-      closedir($handle);
-    }
-
-    // Standard nesting function.
-    if (is_dir($dir) && $handle = opendir($dir)) {
-      while ($file = readdir($handle)) {
-        if (!in_array($file, array('.', '..', 'CVS', '.svn', '.git'))) {
-          $path = $dir == '.' ? $file : "{$dir}/{$file}";
-          if (is_dir($path) && !in_array($path, $exclude_dirs) && (empty($limit_dirs) || in_array($path, $limit_dirs)) && ($file != 'translations')) {
-            list($sub_hashes, $sub_fileinfo) = $this->generateHashesHelper($path, $exclude_dirs);
-            $hashes = array_merge($sub_hashes, $hashes);
-            $fileinfo = array_merge($sub_fileinfo, $fileinfo);
-            $hashes[$path] = $this->hashPath($path);
-          }
-          elseif ($this->isManifestType($file)) {
-            $hashes[$path] = $this->hashPath($path);
-            $owner = fileowner($path);
-            if (function_exists('posix_getpwuid')) {
-              $userinfo = posix_getpwuid($owner);
-              $owner = $userinfo['name'];
-            }
-            $fileinfo[$path] = 'mt:' . filemtime($path) . '$p:' . substr(sprintf('%o', fileperms($path)), -4) . '$o:' . $owner . '$s:' . filesize($path);
-          }
-        }
-      }
-      closedir($handle);
-    }
-
-    return array($hashes, $fileinfo);
   }
 
   /**
@@ -1342,17 +1075,17 @@ class SpiController extends ControllerBase {
     }
 
     $spi_environment_changes = isset($spi_response['body']['spi_environment_changes']) ? Json::decode($spi_response['body']['spi_environment_changes']) : array();
-    $site_blocked = array_key_exists('blocked', $spi_environment_changes);
+    $site_blocked = array_key_exists('blocked', $spi_environment_changes) || !empty($spi_response['site_revoked']);
 
     // Address any actions taken based on a site environment change.
     if (!empty($changed_action) || $site_blocked) {
       if ($changed_action == 'create' && isset($spi_response['body']['site_uuid'])) {
         $config_set->set('spi.site_uuid', $spi_response['body']['site_uuid'])->save();
       }
-      elseif (($changed_action == 'block' && isset($spi_response['body']['spi_error']) && empty($spi_response['body']['spi_error'])) || $site_blocked) {
+      elseif (($changed_action == 'block' && array_key_exists('spi_error', $spi_response['body']) && empty($spi_response['body']['spi_error'])) || $site_blocked) {
         $config_set->set('spi.blocked', TRUE)->save();
       }
-      elseif ($changed_action == 'unblock' && isset($spi_response['body']['spi_error']) && empty($spi_response['body']['spi_error'])) {
+      elseif ($changed_action == 'unblock' && array_key_exists('spi_error', $spi_response['body']) && empty($spi_response['body']['spi_error'])) {
         $config_set->set('spi.blocked', FALSE)->save();
       }
 
