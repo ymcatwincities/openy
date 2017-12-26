@@ -26,7 +26,10 @@ function scheduler_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.scheduler':
       $output = '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('The Scheduler module provides the functionality for automatic publishing and unpublishing of nodes at specified future dates.') . '</p>';
-      $output .= '<p>' . t('You can read more in the <a href="@readme">readme.txt</a> file.', ['@readme' => $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'scheduler') . '/README.txt']) . '</p>';
+      $output .= '<p>' . t('You can read more in the <a href="@readme">readme</a> file or our <a href="@project">project page on Drupal.org</a>.', [
+        '@readme' => $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'scheduler') . '/README.md',
+        '@project' => 'https://drupal.org/project/scheduler',
+      ]) . '</p>';
       break;
 
     case 'scheduler.admin_form':
@@ -296,6 +299,13 @@ function scheduler_node_presave(EntityInterface $node) {
   $config = \Drupal::config('scheduler.settings');
   $entity = $node->type->entity;
 
+  // If there is no entity object or the class is incorrect then stop here. This
+  // should not really happen but it has been observed, so better to be safe.
+  // @see https://www.drupal.org/node/2902512
+  if (is_null($entity) || !get_class($entity) == 'Drupal\node\Entity\NodeType') {
+    return;
+  };
+
   // If this node is being created via Devel Generate then set values for the
   // publish_on and unpublish_on dates as specified in the devel_generate form.
   if (isset($node->devel_generate)) {
@@ -329,12 +339,10 @@ function scheduler_node_presave(EntityInterface $node) {
     }
   }
 
-  // If the node type is not enabled for Scheduler then do nothing.
-  if (!$entity->getThirdPartySetting('scheduler', 'publish_enable', $config->get('default_publish_enable'))) {
-    return;
-  };
-
-  if ($node->publish_on->value > 0) {
+  // If the node type is enabled for scheduled publishing and has a publish_on
+  // date then check if publishing is allowed and if the content needs to be
+  // published immediately.
+  if ($entity->getThirdPartySetting('scheduler', 'publish_enable', $config->get('default_publish_enable')) && !empty($node->publish_on->value)) {
     // Check that other modules allow the action on this node.
     $publication_allowed = \Drupal::service('scheduler.manager')->isAllowed($node, 'publish');
 
@@ -376,7 +384,8 @@ function scheduler_node_presave(EntityInterface $node) {
       }
     }
   }
-  if (!empty($node->unpublish_on->value)) {
+
+  if ($entity->getThirdPartySetting('scheduler', 'unpublish_enable', $config->get('default_unpublish_enable')) && !empty($node->unpublish_on->value)) {
     // Scheduler does not do the same 'immediate' processing for unpublishing.
     // However, the api hook should still be called during presave as there may
     // be messages to be displayed if the unpublishing will be disallowed later.

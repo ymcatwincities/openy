@@ -78,7 +78,6 @@ class CommentTest extends KernelTestBase {
       'pid' => $parent_comment->id(),
       'entity_type' => 'node',
       'field_name' => 'comment',
-      'uid' => 1,
       'name' => 'anonymous user',
       'mail' => 'anonymous@example.com',
       'subject' => $this->randomMachineName(),
