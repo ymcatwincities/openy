@@ -1,5 +1,5 @@
 
-(function ($) {
+(function ($, Drupal, drupalSettings) {
 
   'use strict';
 
@@ -20,39 +20,68 @@
 
       $('.token-click-insert .token-key', context).once('token-click-insert').each(function () {
         var newThis = $('<a href="javascript:void(0);" title="' + Drupal.t('Insert this token into your form') + '">' + $(this).html() + '</a>').click(function () {
-          if (typeof drupalSettings.tokenFocusedField == 'undefined') {
-            alert(Drupal.t('First click a text field to insert your tokens into.'));
+          var content = this.text;
+
+          // Always work in normal text areas that currently have focus.
+          if (drupalSettings.tokenFocusedField && (drupalSettings.tokenFocusedField.tokenDialogFocus || drupalSettings.tokenFocusedField.tokenHasFocus)) {
+            insertAtCursor(drupalSettings.tokenFocusedField, content);
+          }
+          // Direct tinyMCE support.
+          else if (typeof(tinyMCE) != 'undefined' && tinyMCE.activeEditor) {
+            tinyMCE.activeEditor.execCommand('mceInsertContent', false, content);
+          }
+          // Direct CKEditor support. Only works if the field currently has focus,
+          // which is unusual since the dialog is open.
+          else if (typeof(CKEDITOR) != 'undefined' && CKEDITOR.currentInstance) {
+            CKEDITOR.currentInstance.insertHtml(content);
+          }
+          // WYSIWYG support, should work in all editors if available.
+          else if (Drupal.wysiwyg && Drupal.wysiwyg.activeId) {
+            Drupal.wysiwyg.instances[Drupal.wysiwyg.activeId].insert(content)
+          }
+          // CKeditor module support.
+          else if (typeof(CKEDITOR) != 'undefined' && typeof(Drupal.ckeditorActiveId) != 'undefined') {
+            CKEDITOR.instances[Drupal.ckeditorActiveId].insertHtml(content);
+          }
+          else if (drupalSettings.tokenFocusedField) {
+            insertAtCursor(drupalSettings.tokenFocusedField, content);
           }
           else {
-            var myField = drupalSettings.tokenFocusedField;
-            var myValue = $(this).text();
-
-            // IE support.
-            if (document.selection) {
-              myField.focus();
-              var sel = document.selection.createRange();
-              sel.text = myValue;
-            }
-
-            // MOZILLA/NETSCAPE support.
-            else if (myField.selectionStart || myField.selectionStart === '0') {
-              var startPos = myField.selectionStart;
-              var endPos = myField.selectionEnd;
-              myField.value = myField.value.substring(0, startPos)
-                            + myValue
-                            + myField.value.substring(endPos, myField.value.length);
-            }
-            else {
-              myField.value += myValue;
-            }
-
-            $('html,body').animate({scrollTop: $(myField).offset().top}, 500);
+            alert(Drupal.t('First click a text field to insert your tokens into.'));
           }
+
           return false;
         });
         $(this).html(newThis);
       });
+
+      function insertAtCursor(editor, content) {
+        // Record the current scroll position.
+        var scroll = editor.scrollTop;
+
+        // IE support.
+        if (document.selection) {
+          editor.focus();
+          var sel = document.selection.createRange();
+          sel.text = content;
+        }
+
+        // Mozilla/Firefox/Netscape 7+ support.
+        else if (editor.selectionStart || editor.selectionStart == '0') {
+          var startPos = editor.selectionStart;
+          var endPos = editor.selectionEnd;
+          editor.value = editor.value.substring(0, startPos) + content + editor.value.substring(endPos, editor.value.length);
+        }
+
+        // Fallback, just add to the end of the content.
+        else {
+          editor.value += content;
+        }
+
+        // Ensure the textarea does not unexpectedly scroll.
+        editor.scrollTop = scroll;
+      }
     }
   };
 
-})(jQuery, drupalSettings);
+})(jQuery, Drupal, drupalSettings);
