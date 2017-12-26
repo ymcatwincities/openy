@@ -7,8 +7,6 @@ use Drupal\Core\Config\StorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Extension\ThemeHandlerInterface;
-use Drupal\Core\Site\Settings;
-use Drupal\Core\Extension\Extension;
 
 /**
  * Provides methods related to config listing, including provider calculation.
@@ -88,12 +86,10 @@ class ConfigListerWithProviders extends ConfigLister implements ConfigListByProv
     }
 
     // Calculate if it hasn't been set up yet.
-
     // List all of the profile, modules, and themes.
     $extensionsToDo = [];
-    $profile = Settings::get('install_profile');
+    $profile = $this->getProfileName();
     $extensionsToDo[] = ['profile', $profile];
-
     $modules = $this->moduleHandler->getModuleList();
     foreach ($modules as $machine_name => $module) {
       if ($machine_name != $profile) {
@@ -114,14 +110,14 @@ class ConfigListerWithProviders extends ConfigLister implements ConfigListByProv
       'theme' => [],
     ];
 
-    foreach($extensionsToDo as $item) {
+    foreach ($extensionsToDo as $item) {
       $type = $item[0];
       $name = $item[1];
       $configs = array_merge($this->listProvidedItems($type, $name),
         $this->listProvidedItems($type, $name, TRUE));
       if (!empty($configs)) {
         $this->extensionsWithConfig[$type][$name] = $name;
-        foreach($configs as $config) {
+        foreach ($configs as $config) {
           $this->providers[$config] = [$type, $name];
         }
       }
