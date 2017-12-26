@@ -4,9 +4,6 @@ acquia_connector.settings:
   type: config_object
   label: 'Acquia connector settings'
   mapping:
-    cloud_migration:
-      type: sequence
-      label: 'Acquia connector migration data'
     subscription_data:
       label: 'Acquia subscription data'
       type: mapping
@@ -56,6 +53,8 @@ acquia_connector.settings:
                     type: string
                   core_id:
                     type: string
+                  version:
+                    type: string
     subscription_name:
       type: string
       lable: 'Acquia Subscripiton Name'
@@ -71,13 +70,6 @@ acquia_connector.settings:
     banner_service:
       type: string
       label: 'Acquia banner service uri'
-    migrate:
-      type: mapping
-      label: 'Migrate'
-      mapping:
-        files:
-          type: integer
-          label: 'Migrate files directory'
     hide_signup_messages:
       type: integer
       label: 'Hide signup messages'

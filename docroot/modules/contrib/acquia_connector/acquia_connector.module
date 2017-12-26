@@ -14,7 +14,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 
 // Version of SPI data format.
-define('ACQUIA_SPI_DATA_VERSION', 3.0);
+define('ACQUIA_SPI_DATA_VERSION', 3.1);
 
 /**
  * Identifiers for the method of sending SPI data.

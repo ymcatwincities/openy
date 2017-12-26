@@ -75,14 +75,16 @@ function token_theme() {
  * Implements hook_block_view_alter().
  */
 function token_block_view_alter(&$build, BlockPluginInterface $block) {
-  $label = $build['#configuration']['label'];
-  if ($label != '<none>') {
-    // The label is automatically escaped, avoid escaping it twice.
-    // @todo https://www.drupal.org/node/2580723 will add a method or option
-    //   to the token API to do this, use that when available.
-    $bubbleable_metadata = BubbleableMetadata::createFromRenderArray($build);
-    $build['#configuration']['label'] = PlainTextOutput::renderFromHtml(\Drupal::token()->replace($label, [], [], $bubbleable_metadata));
-    $bubbleable_metadata->applyTo($build);
+  if (isset($build['#configuration'])) {
+    $label = $build['#configuration']['label'];
+    if ($label != '<none>') {
+      // The label is automatically escaped, avoid escaping it twice.
+      // @todo https://www.drupal.org/node/2580723 will add a method or option
+      //   to the token API to do this, use that when available.
+      $bubbleable_metadata = BubbleableMetadata::createFromRenderArray($build);
+      $build['#configuration']['label'] = PlainTextOutput::renderFromHtml(\Drupal::token()->replace($label, [], [], $bubbleable_metadata));
+      $bubbleable_metadata->applyTo($build);
+    }
   }
 }
 
@@ -214,7 +216,7 @@ function token_entity_type_alter(array &$entity_types) {
  * Adds missing token support for core modules.
  */
 function token_module_implements_alter(&$implementations, $hook) {
-  module_load_include('inc', 'token', 'token.tokens');
+  \Drupal::moduleHandler()->loadInclude('token', 'inc', 'token.tokens');
 
   if ($hook == 'tokens' || $hook == 'token_info' || $hook == 'token_info_alter' || $hook == 'tokens_alter') {
     foreach (_token_core_supported_modules() as $module) {
@@ -340,18 +342,20 @@ function token_form_field_config_edit_form_alter(&$form, FormStateInterface $for
  * adds the token tree for a better token UI and selection.
  */
 function token_form_action_form_alter(&$form, $form_state) {
-  switch ($form['plugin']['#value']) {
-    case 'action_message_action':
-    case 'action_send_email_action':
-    case 'action_goto_action':
-      $form['token_tree'] = [
-        '#theme' => 'token_tree_link',
-        '#token_types' => 'all',
-        '#weight' => 100,
-      ];
-      $form['actions']['#weight'] = 101;
-      // @todo Add token validation to the action fields that can use tokens.
-      break;
+  if (isset($form['plugin'])) {
+    switch ($form['plugin']['#value']) {
+      case 'action_message_action':
+      case 'action_send_email_action':
+      case 'action_goto_action':
+        $form['token_tree'] = [
+          '#theme' => 'token_tree_link',
+          '#token_types' => 'all',
+          '#weight' => 100,
+        ];
+        $form['actions']['#weight'] = 101;
+        // @todo Add token validation to the action fields that can use tokens.
+        break;
+    }
   }
 }
 
@@ -675,11 +679,11 @@ function token_entity_base_field_info(EntityTypeInterface $entity_type) {
       ->setTranslatable(TRUE)
       ->setDisplayOptions('view', array(
         'label' => 'hidden',
-        'type' => 'hidden',
+        'region' => 'hidden',
       ))
       ->setComputed(TRUE)
       ->setDisplayOptions('form', array(
-        'type' => 'hidden',
+        'region' => 'hidden',
       ));
 
     return $fields;

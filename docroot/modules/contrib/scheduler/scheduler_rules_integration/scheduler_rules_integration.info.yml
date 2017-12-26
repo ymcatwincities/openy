@@ -6,8 +6,8 @@ dependencies:
   - rules:rules
   - scheduler:scheduler
 
-# Information added by Drupal.org packaging script on 2017-08-07
-version: '8.x-1.0-rc2'
+# Information added by Drupal.org packaging script on 2017-11-14
+version: '8.x-1.0'
 core: '8.x'
 project: 'scheduler'
-datestamp: 1502105062
+datestamp: 1510690392
