@@ -132,3 +132,13 @@ function _acquia_search_set_version() {
     \Drupal::configFactory()->getEditable('acquia_search.settings')->set('version', $new_version)->save();
   }
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function acquia_search_uninstall() {
+  \Drupal::state()->deleteMultiple(array(
+    'acquia_search.v3_api_host',
+    'acquia_search.v3_api_key'
+  ));
+}
