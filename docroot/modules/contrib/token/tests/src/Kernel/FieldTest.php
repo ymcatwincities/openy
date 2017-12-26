@@ -16,8 +16,8 @@ use Drupal\node\Entity\NodeType;
 use Drupal\contact\Entity\Message;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\taxonomy\Tests\TaxonomyTestTrait;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\Tests\taxonomy\Functional\TaxonomyTestTrait;
 
 /**
  * Tests field tokens.
@@ -191,30 +191,32 @@ class FieldTest extends KernelTestBase {
     $language->save();
 
     // Add a datetime field.
-    $field_datetime_storage = FieldStorageConfig::create(array(
-        'field_name' => 'field_datetime',
-        'type' => 'datetime',
-        'entity_type' => 'node',
-        'settings' => array('datetime_type' => DateTimeItem::DATETIME_TYPE_DATETIME),
-    ));
+    $field_datetime_storage = FieldStorageConfig::create([
+      'field_name' => 'field_datetime',
+      'type' => 'datetime',
+      'entity_type' => 'node',
+      'settings' => ['datetime_type' => DateTimeItem::DATETIME_TYPE_DATETIME],
+      'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
+    ]);
     $field_datetime_storage->save();
     $field_datetime = FieldConfig::create([
-        'field_storage' => $field_datetime_storage,
-        'bundle' => 'article',
+      'field_storage' => $field_datetime_storage,
+      'bundle' => 'article',
     ]);
     $field_datetime->save();
 
     // Add a daterange field.
-    $field_daterange_storage = FieldStorageConfig::create(array(
-        'field_name' => 'field_daterange',
-        'type' => 'daterange',
-        'entity_type' => 'node',
-        'settings' => array('datetime_type' => DateRangeItem::DATETIME_TYPE_DATETIME),
-    ));
+    $field_daterange_storage = FieldStorageConfig::create([
+      'field_name' => 'field_daterange',
+      'type' => 'daterange',
+      'entity_type' => 'node',
+      'settings' => ['datetime_type' => DateRangeItem::DATETIME_TYPE_DATETIME],
+      'cardinality' => FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED,
+    ]);
     $field_daterange_storage->save();
     $field_daterange = FieldConfig::create([
-        'field_storage' => $field_daterange_storage,
-        'bundle' => 'article',
+      'field_storage' => $field_daterange_storage,
+      'bundle' => 'article',
     ]);
     $field_daterange->save();
   }
@@ -676,11 +678,17 @@ class FieldTest extends KernelTestBase {
       'type' => 'article',
     ]);
 
-    $node->set('field_datetime', '1925-09-28T00:00:00')->save();
+    $node->set('field_datetime', ['1925-09-28T00:00:00', '1930-10-28T00:00:00'])->save();
     $this->assertTokens('node', ['node' => $node], [
       'field_datetime:date:custom:Y' => '1925',
       'field_datetime:date:html_month' => '1925-09',
-      'field_datetime:date' => $node->field_datetime->date->getTimestamp(),
+      'field_datetime:date' => $node->get('field_datetime')->date->getTimestamp(),
+      'field_datetime:0:date:custom:Y' => '1925',
+      'field_datetime:0:date:html_month' => '1925-09',
+      'field_datetime:0:date' => $node->get('field_datetime')->date->getTimestamp(),
+      'field_datetime:1:date:custom:Y' => '1930',
+      'field_datetime:1:date:html_month' => '1930-10',
+      'field_datetime:1:date' => $node->get('field_datetime')->get(1)->date->getTimestamp(),
     ]);
   }
 
@@ -689,19 +697,34 @@ class FieldTest extends KernelTestBase {
    */
   public function testDatetimeRangeFieldTokens() {
 
+    /** @var \Drupal\node\NodeInterface $node */
     $node = Node::create([
         'title' => 'Node for daterange field',
         'type' => 'article',
     ]);
 
-    $node->field_daterange->value = '2013-12-22T00:00:00';
-    $node->field_daterange->end_value = '2016-08-26T00:00:00';
+    $node->get('field_daterange')->value = '2013-12-22T00:00:00';
+    $node->get('field_daterange')->end_value = '2016-08-26T00:00:00';
+    $node->get('field_daterange')->appendItem([
+      'value' => '2014-08-22T00:00:00',
+      'end_value' => '2017-12-20T00:00:00',
+    ]);
+    $node->get('field_daterange')->value = '2013-12-22T00:00:00';
+    $node->get('field_daterange')->end_value = '2016-08-26T00:00:00';
     $node->save();
     $this->assertTokens('node', ['node' => $node], [
       'field_daterange:start_date:html_month' => '2013-12',
       'field_daterange:start_date:custom:Y' => '2013',
       'field_daterange:end_date:custom:Y' => '2016',
-      'field_daterange:start_date' => $node->field_daterange->start_date->getTimestamp(),
+      'field_daterange:start_date' => $node->get('field_daterange')->start_date->getTimestamp(),
+      'field_daterange:0:start_date:html_month' => '2013-12',
+      'field_daterange:0:start_date:custom:Y' => '2013',
+      'field_daterange:0:end_date:custom:Y' => '2016',
+      'field_daterange:0:start_date' => $node->get('field_daterange')->start_date->getTimestamp(),
+      'field_daterange:1:start_date:html_month' => '2014-08',
+      'field_daterange:1:start_date:custom:Y' => '2014',
+      'field_daterange:1:end_date:custom:Y' => '2017',
+      'field_daterange:1:end_date' => $node->get('field_daterange')->get(1)->end_date->getTimestamp(),
     ]);
   }
 

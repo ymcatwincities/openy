@@ -98,23 +98,60 @@ class PreferredSearchCoreService {
    *     ].
    */
   public function getPreferredCore() {
+    static $preferred_core;
+
+    if (!empty($preferred_core)) {
+      return $preferred_core;
+    }
 
     $expected_cores = $this->getListOfPossibleCores();
+    $available_cores_sorted = $this->sortCores($this->available_cores);
 
     foreach ($expected_cores as $expected_core) {
 
-      foreach ($this->available_cores as $available_core) {
+      foreach ($available_cores_sorted as $available_core) {
 
         if ($expected_core == $available_core['core_id']) {
-
-          return $available_core;
-
+          $preferred_core = $available_core;
+          return $preferred_core;
         }
 
       }
 
     }
+  }
 
+  /**
+   * Sorts and returns search cores.
+   *
+   * It puts v3 cores first.
+   *
+   * @param $cores
+   *
+   * @return array
+   */
+  protected function sortCores($cores) {
+
+    $v3_cores = array_filter($cores, function($core) {
+      return $this->isCoreV3($core);
+    });
+
+    $regular_cores = array_filter($cores, function($core) {
+      return !$this->isCoreV3($core);
+    });
+
+    return array_merge($v3_cores, $regular_cores);
+  }
+
+  /**
+   * Determines whether given search core is version 3.
+   *
+   * @param $core
+   *
+   * @return bool
+   */
+  protected function isCoreV3($core) {
+    return !empty($core['version']) && $core['version'] === 'v3';
   }
 
   /**
