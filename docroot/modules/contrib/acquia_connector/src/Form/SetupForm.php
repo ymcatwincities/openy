@@ -178,10 +178,10 @@ class SetupForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $storage = $form_state->getStorage();
-    if (isset($storage['choose']) && isset($storage['response']['subscription'][$form_state->getValue('subscription')])) {
+    $form_data = $form_state->getStorage();
+    if (isset($form_data['choose']) && isset($form_data['response']['subscription'][$form_state->getValue('subscription')])) {
       $config = $this->config('acquia_connector.settings');
-      $sub = $storage['response']['subscription'][$form_state->getValue('subscription')];
+      $sub = $form_data['response']['subscription'][$form_state->getValue('subscription')];
       $config->set('subscription_name', $sub['name'])->save();
 
       $storage = new Storage();
@@ -193,7 +193,7 @@ class SetupForm extends ConfigFormBase {
     }
 
     // Don't set message or redirect if multistep.
-    if (!$form_state->getErrors($form_state) && empty($storage['rebuild'])) {
+    if (!$form_state->getErrors() && empty($form_data['rebuild'])) {
       // Check subscription and send a heartbeat to Acquia Network via XML-RPC.
       // Our status gets updated locally via the return data.
       $subscription = new Subscription();

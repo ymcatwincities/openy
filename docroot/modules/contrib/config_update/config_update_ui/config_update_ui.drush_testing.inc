@@ -8,9 +8,24 @@
  */
 
 if (!function_exists('drush_print')) {
-  function drush_print() {}
+
+  /**
+   * Stub for drush_print() function for testing.
+   */
+  function drush_print() {
+  }
+
 }
+
 if (!function_exists('dt')) {
-  function dt($text) { return $text; }
+
+  /**
+   * Stub for dt() function for testing.
+   */
+  function dt($text) {
+    return $text;
+  }
+
 }
+
 defined('STDERR') or define('STDERR', 25);
