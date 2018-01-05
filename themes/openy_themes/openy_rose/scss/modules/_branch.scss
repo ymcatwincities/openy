@@ -1014,11 +1014,10 @@ html.js {
     border: solid 1px $light-grey;
     padding: 20px;
     h2 {
-      display: inline;
       font-family: $font-family-sans-serif;
       font-size: 14px;
       letter-spacing: 2px;
-      margin: 0;
+      margin: 0 0 10px;
       text-transform: uppercase;
     }
   }

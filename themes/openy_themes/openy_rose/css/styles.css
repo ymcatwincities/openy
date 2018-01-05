@@ -3990,11 +3990,10 @@ html.js .branch__updates_queue__button {
   padding: 20px;
 }
 .paragraph--type--class-location.paragraph--view-mode--default .empty-text h2 {
-  display: inline;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 2px;
-  margin: 0;
+  margin: 0 0 10px;
   text-transform: uppercase;
 }
 .paragraph--type--class-location.paragraph--view-mode--default .edit-class-popup {
