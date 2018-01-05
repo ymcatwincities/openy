@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Form\FileTypeForm.
- */
-
 namespace Drupal\file_entity\Form;
 
 use Drupal\Core\Entity\EntityForm;

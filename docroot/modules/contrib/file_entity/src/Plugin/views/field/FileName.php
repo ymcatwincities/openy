@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Definition of Drupal\file_entity\Plugin\views\field\FieldName.
- */
-
 namespace Drupal\file_entity\Plugin\views\field;
 
 use Drupal\Core\Form\FormStateInterface;

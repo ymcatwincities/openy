@@ -43,14 +43,12 @@ class AcquiaConnectorSpiTest extends WebTestBase {
     'php',
     'webserver_type',
     'webserver_version',
-    'apache_modules',
     'php_extensions',
     'php_quantum',
     'database_type',
     'database_version',
     'system_type',
     'system_version',
-    'mysql',
   ];
   protected $spiDataKeys = [
     'spi_data_version',
@@ -67,10 +65,6 @@ class AcquiaConnectorSpiTest extends WebTestBase {
     'last_users',
     'extra_files',
     'ssl_login',
-    'file_hashes',
-    'hashes_md5',
-    'hashes_sha1',
-    'fileinfo',
     'distribution',
     'base_version',
     'build_data',
@@ -168,10 +162,10 @@ class AcquiaConnectorSpiTest extends WebTestBase {
         return 'confirm the action you wish to take';
 
       case 'block-site-message':
-        return 'This site has been blocked from sending profile data to Acquia Cloud.';
+        return 'This site has been disabled from sending profile data to Acquia Cloud.';
 
       case 'unblock-site':
-        return 'Unblock this site';
+        return 'Enable this site';
 
       case 'acquia-hosted':
         return 'Your site is now Acquia hosted.';
@@ -260,7 +254,7 @@ class AcquiaConnectorSpiTest extends WebTestBase {
 
     $submit_button = 'Save configuration';
     $this->drupalPostForm($this->environmentChangePath, $edit_fields, $submit_button);
-    $this->assertText('Your site has been unblocked and is sending data to Acquia Cloud', 'Unblock site');
+    $this->assertText('Your site has been enabled and is sending data to Acquia Cloud', 'Enable site');
     $this->assertText($this->acquiaSPIStrings('spi-data-sent'), 'SPI data was sent');
     $this->assertNoText($this->acquiaSPIStrings('spi-not-sent'), 'SPI does not say "data has not been sent"');
 
@@ -287,72 +281,6 @@ class AcquiaConnectorSpiTest extends WebTestBase {
     $this->assertNoText($this->acquiaSPIStrings('spi-not-sent'), 'SPI does not say "data has not been sent"');
     $this->clickLink($this->acquiaSPIStrings('spi-send-text'));
     $this->assertText('Site name updated (from ' . $this->acqtestName . ' to ' . $this->acqtestName . ' change).', 'Change name');
-
-    // Test acquia hosted site.
-    $settings['_SERVER']['AH_SITE_NAME'] = (object) [
-      'value' => 'acqtest_drupal',
-      'required' => TRUE,
-    ];
-    $settings['_SERVER']['AH_SITE_ENVIRONMENT'] = (object) [
-      'value' => 'dev',
-      'required' => TRUE,
-    ];
-
-    $this->writeSettings($settings);
-
-    $this->drupalGet($this->settingsPath);
-    $submit_button = 'Save configuration';
-    $this->drupalPostForm($this->settingsPath, [], $submit_button);
-
-    $spi = new SpiControllerTest();
-    $host_name = $spi->getAcquiaHostedName();
-    $host_machine_name = $spi->getAcquiaHostedMachineName();
-
-    $this->assertText('Site name updated (from ' . $this->acqtestName . ' change to ' . $host_name . ').', 'Change name');
-    $this->assertText('A change has been detected in your site environment. Please check the Acquia SPI status on your Status Report page for more information.', 'Change environment detected on settings page');
-
-    $this->drupalGet($this->statusReportUrl);
-    $this->assertText($this->acquiaSPIStrings('change-env-detected'), 'Change environment detected');
-    $this->clickLink($this->acquiaSPIStrings('confirm-action'));
-    $this->assertText($this->acquiaSPIStrings('acquia-hosted'), 'Site is now Acquia hosted');
-    $this->assertText('Your site machine name changed from ' . $this->acqtestMachineName . '_change to ' . $host_machine_name . '.', 'Change machine name');
-
-    $edit_fields = [
-      'env_change_action' => 'update',
-    ];
-
-    $submit_button = 'Save configuration';
-    $this->drupalPostForm($this->environmentChangePath, $edit_fields, $submit_button);
-
-    // Test no acquia hosted site.
-    $settings['_SERVER']['AH_SITE_NAME'] = (object) [
-      'value' => NULL,
-      'required' => FALSE,
-    ];
-    $settings['_SERVER']['AH_SITE_ENVIRONMENT'] = (object) [
-      'value' => NULL,
-      'required' => FALSE,
-    ];
-
-    $this->writeSettings($settings);
-
-    $this->drupalGet($this->settingsPath);
-
-    $edit_fields = [
-      'name' => $this->acqtestName,
-      'machine_name' => $this->acqtestMachineName,
-    ];
-
-    $submit_button = 'Save configuration';
-    $this->drupalPostForm($this->settingsPath, $edit_fields, $submit_button);
-    $this->assertText('A change has been detected in your site environment. Please check the Acquia SPI status on your Status Report page for more information.', 'Change environment detected on settings page');
-    $this->assertText('Site name updated (from ' . $host_name . ' to ' . $this->acqtestName . ').', 'Change name');
-
-    $this->drupalGet($this->statusReportUrl);
-    $this->assertText($this->acquiaSPIStrings('change-env-detected'), 'Change environment detected');
-    $this->clickLink($this->acquiaSPIStrings('confirm-action'));
-    $this->assertText($this->acquiaSPIStrings('no-acquia-hosted'), 'Site is no longer Acquia hosted');
-    $this->assertText('Your site machine name changed from ' . $host_machine_name . ' to ' . $this->acqtestMachineName . '.', 'Change machine name');
   }
 
   /**
@@ -403,15 +331,9 @@ class AcquiaConnectorSpiTest extends WebTestBase {
       $this->assertTrue(empty($diff), 'Module elements have expected keys');
       $diff = array_diff(array_keys($spi_data['platform']), $this->platformKeys);
       $this->assertTrue(empty($diff), 'Platform contains expected keys');
-      $this->assertTrue(isset($spi_data['platform']['php_quantum']['SERVER']), 'Global server data included in SPI data');
-      $this->assertTrue(isset($spi_data['platform']['php_quantum']['SERVER']['SERVER_SOFTWARE']), 'Server software data set within global server info');
-      $this->assertTrue(isset($spi_data['platform']['mysql']['Select_scan']), 'Mysql info in platform contains an expected key');
-      $this->assertTrue(isset($spi_data['file_hashes']['core/includes/database.inc']), 'File hashes array contains an expected key');
       $roles = Json::decode($spi_data['roles']);
       $this->assertTrue(is_array($roles), 'Roles is an array');
       $this->assertTrue(isset($roles) && array_key_exists('anonymous', $roles), 'Roles array contains anonymous user');
-      $this->assertTrue(isset($spi_data['fileinfo']['core/scripts/drupal.sh']), 'Fileinfo contains an expected key');
-      $this->assertTrue(strpos($spi_data['fileinfo']['core/scripts/drupal.sh'], 'mt') === 0, 'Fileinfo element begins with expected value');
     }
   }
 

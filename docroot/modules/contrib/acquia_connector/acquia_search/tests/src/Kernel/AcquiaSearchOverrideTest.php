@@ -33,6 +33,18 @@ class AcquiaSearchOverrideTest extends KernelTestBase {
 
     $this->installConfig(array('acquia_connector'));
 
+    $guzzle = $this->getMock('GuzzleHttp\Client');
+    $guzzle->expects($this->any())
+      ->method('get')
+      ->will($this->returnValue(''));
+
+    $client_factory = $this->getMockBuilder('Drupal\Core\Http\ClientFactory')->disableOriginalConstructor()->getMock();
+    $client_factory->expects($this->any())
+      ->method('fromOptions')
+      ->will($this->returnValue($guzzle));
+
+    $this->container->set('http_client_factory', $client_factory);
+
   }
 
   /**
@@ -70,6 +82,31 @@ class AcquiaSearchOverrideTest extends KernelTestBase {
 
     $this->assertEquals(ACQUIA_SEARCH_OVERRIDE_AUTO_SET, $config['overridden_by_acquia_search']);
     $this->assertEquals('WXYZ-12345.dev.' . $db_name, $config['index_id']);
+
+    $this->_assertGetUpdateQueryNoException($solr_connector);
+
+  }
+
+  /**
+   * Acquia Dev hosting environment and search v3 core detected - configs point to the index on the
+   * Dev environment and host pointing to search v3.
+   */
+  public function testAcquiaSearchV3CoreDetected() {
+
+    $_ENV['AH_SITE_ENVIRONMENT'] = 'dev';
+    $_ENV['AH_SITE_NAME'] = 'testsite1dev';
+    $_ENV['AH_SITE_GROUP'] = 'testsite1';
+
+    $this->_setAvailableSearchCores();
+
+    $solr_connector = new SearchApiSolrAcquiaConnector(array(), 'foo', array('foo'));
+    $config = $solr_connector->defaultConfiguration();
+
+    $db_name = $this->_getDbName();
+
+    $this->assertEquals(ACQUIA_SEARCH_OVERRIDE_AUTO_SET, $config['overridden_by_acquia_search']);
+    $this->assertEquals('WXYZ-12345.dev.' . $db_name, $config['index_id']);
+    $this->assertEquals('sr-dev.acquia.com', $config['host']);
 
     $this->_assertGetUpdateQueryNoException($solr_connector);
 
@@ -231,6 +268,12 @@ class AcquiaSearchOverrideTest extends KernelTestBase {
       'core_id' => "{$acquia_identifier}"
     );
 
+    $search_v3_core = array(
+      'balancer' => 'sr-dev.acquia.com',
+      'core_id' => "{$acquia_identifier}.dev.{$ah_db_name}",
+      'version' => "v3"
+    );
+
     if ($no_db_flag) {
       $available_cores = array(
         $core_with_folder_name,
@@ -242,6 +285,7 @@ class AcquiaSearchOverrideTest extends KernelTestBase {
         $core_with_folder_name,
         $core_with_db_name,
         $core_with_acquia_identifier,
+        $search_v3_core,
       );
     }
 
