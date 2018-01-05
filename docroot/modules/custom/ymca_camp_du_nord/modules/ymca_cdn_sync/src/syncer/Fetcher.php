@@ -151,9 +151,17 @@ class Fetcher implements FetcherInterface {
 
         $listingItems = $xml->ProductListingRecord;
         $children = $listingItems->children();
+        $a = $b = $c = 0;
         foreach ($children->CL_ProductListingRecord as $product) {
+          $c++;
+          if ($product->WebDisplayFlag == 'false') {
+            $a++;
+            continue;
+          }
+          $b++;
           $products[] = $product;
         }
+        $this->logger->notice($a . ' skipped. '. $b .' imported. ' . $c . ' total');
       }
       else {
         $msg = 'Got %code response from Personify: %msg';
