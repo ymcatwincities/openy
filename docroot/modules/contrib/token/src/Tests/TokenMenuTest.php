@@ -164,7 +164,7 @@ class TokenMenuTest extends TokenTestBase {
       'body[0][value]' => 'This is a [node:menu-link:title] token to the menu link title',
       'menu[enabled]' => 1,
       'menu[title]' => 'Test preview',
-    ], t('Save and publish'));
+    ], t('Save'));
     $node = $this->drupalGetNodeByTitle('Node menu title test');
     $this->assertEqual('This is a Test preview token to the menu link title', $node->body->value);
 
@@ -173,7 +173,7 @@ class TokenMenuTest extends TokenTestBase {
     $link = menu_ui_get_menu_link_defaults($node);
     $this->drupalPostForm('admin/structure/menu/manage/main-menu', ['links[menu_plugin_id:' . $link['id'] . '][enabled]' => FALSE], t('Save'));
     $this->assertText('Menu Main menu has been updated.');
-    $this->drupalPostForm('node/' . $node->id() . '/edit', [], t('Save and keep published'));
+    $this->drupalPostForm('node/' . $node->id() . '/edit', [], t('Save'));
     $this->assertNoLink('Test preview');
 
     // Now test a parent link and token.
@@ -196,7 +196,7 @@ class TokenMenuTest extends TokenTestBase {
       'menu[enabled]' => 1,
       'menu[title]' => 'Child link',
       'menu[menu_parent]' => 'main-menu:' .  $parent_link->getPluginId(),
-    ], t('Save and publish'));
+    ], t('Save'));
     $node = $this->drupalGetNodeByTitle('Node menu title parent path test');
     $this->assertEqual('This is a /admin/config token to the menu link parent', $node->body->value);
 
@@ -205,7 +205,7 @@ class TokenMenuTest extends TokenTestBase {
       'menu[menu_parent]' => 'main-menu:' .  $node_link->getPluginId(),
       'title[0][value]' => 'Node menu title edit parent path test',
       'body[0][value]' => 'This is a [node:menu-link:parent:url:path] token to the menu link parent',
-    ], t('Save and keep published'));
+    ], t('Save'));
     $node = $this->drupalGetNodeByTitle('Node menu title edit parent path test', TRUE);
     $this->assertEqual(sprintf('This is a /node/%d token to the menu link parent', $loaded_node->id()), $node->body->value);
 
@@ -229,7 +229,7 @@ class TokenMenuTest extends TokenTestBase {
       'title[0][value]' => 'Node menu adding menu later test',
       'body[0][value]' => 'Going to add a menu link on edit',
       'menu[enabled]' => 0,
-    ], t('Save and publish'));
+    ], t('Save'));
     $node = $this->drupalGetNodeByTitle('Node menu adding menu later test');
     // Now edit it and add a menu item.
     $this->drupalGet('node/' . $node->id() . '/edit');
@@ -239,7 +239,7 @@ class TokenMenuTest extends TokenTestBase {
       'menu[enabled]' => 1,
       'menu[title]' => 'Child link',
       'menu[menu_parent]' => 'main-menu:' .  $parent_link->getPluginId(),
-    ], t('Save and keep published'));
+    ], t('Save'));
     $node = $this->drupalGetNodeByTitle('Node menu adding menu later test', TRUE);
     $this->assertEqual('This is a /admin/config token to the menu link parent', $node->body->value);
     // And make sure the menu link exists with the right URI.
@@ -260,7 +260,7 @@ class TokenMenuTest extends TokenTestBase {
       'menu[enabled]' => 1,
       'menu[title]' => 'menu link provided by node',
     ];
-    $this->drupalPostForm('node/add/page', $edit, t('Save and publish'));
+    $this->drupalPostForm('node/add/page', $edit, t('Save'));
     $this->assertText('page ' . $node_title . ' has been created');
     $node = $this->drupalGetNodeByTitle($node_title);
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\FileEntityAccessControlHandler.
- */
-
 namespace Drupal\file_entity;
 
 use Drupal\Core\Access\AccessResult;

@@ -14,9 +14,9 @@ interface ConfigDiffInterface {
    * have the same keys and values. It is up to the particular implementing
    * class to decide what normalizing means.
    *
-   * @param array $source
+   * @param array|null $source
    *   Source config.
-   * @param array $target
+   * @param array|null $target
    *   Target config.
    *
    * @return bool
@@ -32,9 +32,9 @@ interface ConfigDiffInterface {
    * differences. It is up to the particular implementing class to decide what
    * normalizing means.
    *
-   * @param array $source
+   * @param array|null $source
    *   Source config.
-   * @param array $target
+   * @param array|null $target
    *   Target config.
    *
    * @return \Drupal\Component\Diff\Diff

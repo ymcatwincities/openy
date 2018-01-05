@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\FileEntityPermissions.
- */
 
 namespace Drupal\file_entity;
 

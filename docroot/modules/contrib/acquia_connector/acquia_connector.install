@@ -46,7 +46,7 @@ function acquia_connector_requirements($phase) {
         if ($blocked) {
           $severity = REQUIREMENT_WARNING;
           $config_url = Url::fromRoute('acquia_connector.environment_change')->toString();
-          $description = (string) t('This site has been blocked from sending profile data to Acquia Cloud. <a href="@config-page">Unblock this site</a>.');
+          $description = (string) t('This site has been disabled from sending profile data to Acquia Cloud. <a href="@config-page">Enable this site</a>.');
         }
         elseif ($environment_change) {
           $severity = REQUIREMENT_ERROR;

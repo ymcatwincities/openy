@@ -11,7 +11,6 @@ define('OPENY_DS_BLOCK_HTML_BUNDLE', 'digital_signage_block_free_html');
 use Drupal\Core\Template\Attribute;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Implements hook_theme().
@@ -152,6 +151,7 @@ function openy_digital_signage_blocks_block_content_view(array &$build, BlockCon
 function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   switch ($form_id) {
     case 'block_content_digital_signage_promotional_panels_ipe_form':
+    case 'block_content_digital_signage_promotional_form':
       $form['revision_information']['#access'] = FALSE;
 
       $form['background_image_settings'] = [
@@ -181,6 +181,7 @@ function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $for
       break;
 
     case 'block_content_digital_signage_block_free_html_panels_ipe_form':
+    case 'block_content_digital_signage_block_free_html_form':
       $form['revision_information']['#access'] = FALSE;
       $form['body']['widget']['#after_build'][] = 'openy_digital_signage_blocks_hide_text_format_switcher';
       break;
@@ -238,19 +239,6 @@ function openy_digital_signage_blocks_form_alter(&$form, FormStateInterface $for
 
       break;
   }
-}
-
-/**
- * Implements hook_entity_presave().
- */
-function openy_digital_signage_blocks_entity_presave(EntityInterface $entity) {
-  if ($entity->getEntityTypeId() != 'block_content') {
-    return;
-  }
-  if ($entity->bundle() != 'digital_signage_promotional') {
-    return;
-  }
-  $entity->set('info', $entity->field_ds_headline->value);
 }
 
 /**
