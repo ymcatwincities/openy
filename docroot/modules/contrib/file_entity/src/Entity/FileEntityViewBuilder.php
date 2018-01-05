@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Entity\FileEntityViewBuilder.
- */
 
 namespace Drupal\file_entity\Entity;
 

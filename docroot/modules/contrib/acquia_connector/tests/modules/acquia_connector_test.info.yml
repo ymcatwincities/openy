@@ -5,8 +5,8 @@ description: Support module for the Acquia Connector module tests.
 package: Testing
 # version: VERSION
 
-# Information added by Drupal.org packaging script on 2017-06-08
-version: '8.x-1.12'
+# Information added by Drupal.org packaging script on 2017-11-29
+version: '8.x-1.14'
 core: '8.x'
 project: 'acquia_connector'
-datestamp: 1496931850
+datestamp: 1511982791

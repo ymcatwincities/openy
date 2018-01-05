@@ -32,7 +32,7 @@ class TokenUserTest extends TokenTestBase {
   public function setUp() {
     parent::setUp();
 
-    $this->account = $this->drupalCreateUser(['administer users', 'administer account settings']);
+    $this->account = $this->drupalCreateUser(['administer users', 'administer account settings', 'access content']);
     $this->drupalLogin($this->account);
   }
 

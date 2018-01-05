@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\FileEntityStorageSchema.
- */
-
 namespace Drupal\file_entity;
 
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
