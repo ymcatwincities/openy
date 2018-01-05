@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Plugin\Field\FieldFormatter\FileSizeFormatter.
- */
-
 namespace Drupal\file_entity\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldDefinitionInterface;

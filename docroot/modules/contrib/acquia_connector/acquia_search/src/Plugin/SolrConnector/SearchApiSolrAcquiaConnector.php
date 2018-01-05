@@ -12,7 +12,7 @@ use Drupal\Core\Url;
 use Drupal\search_api_solr\SolrConnector\SolrConnectorPluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\acquia_search\EventSubscriber\SearchSubscriber;
-use Solarium\Client;
+use Solarium\Core\Client\Client;
 
 /**
  * Class SearchApiSolrAcquiaConnector.
@@ -34,7 +34,6 @@ class SearchApiSolrAcquiaConnector extends SolrConnectorPluginBase {
    */
   public function defaultConfiguration() {
     $configuration = parent::defaultConfiguration();
-
     $storage = new Storage();
     $configuration['index_id'] = $storage->getIdentifier();
     $configuration['path'] = '/solr/' . $storage->getIdentifier();

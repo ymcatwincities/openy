@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- *  Contains Drupal\file_entity\Plugin\Field\FieldFormatter\FileAudioFormatter
- */
-
 namespace Drupal\file_entity\Plugin\Field\FieldFormatter;
 
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- *  Contains Drupal\file_entity\Plugin\Field\FieldFormatter\FileVideoFormatter.
- */
-
 namespace Drupal\file_entity\Plugin\Field\FieldFormatter;
 
 
@@ -186,7 +181,7 @@ class FileVideoFormatter extends FileFormatterBase implements ContainerFactoryPl
         $source_attributes->setAttribute('src', file_create_url($file->getFileUri()));
         $source_attributes->setAttribute('type', $file->getMimeType());
         if ($multiple_file_behavior == 'tags') {
-          $source_files[] = array(array('file' => $file, 'source_attributes' => $source_attributes));
+          $source_files[$delta] = array(array('file' => $file, 'source_attributes' => $source_attributes));
         }
         else {
           $source_files[0][] = array('file' => $file, 'source_attributes' => $source_attributes);
