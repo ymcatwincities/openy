@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\file_entity\Plugin\views\field\LinkDelete.
- */
-
 namespace Drupal\file_entity\Plugin\views\field;
 
 use Drupal\views\ResultRow;

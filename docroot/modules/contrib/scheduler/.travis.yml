@@ -1,0 +1,89 @@
+language: php
+# The Travis CI container mode has random functional test fails, so we must use
+# sudo here.
+sudo: true
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+
+env:
+  global:
+    # Make the script re-usable for other modules.
+    - MODULE=scheduler
+  matrix:
+    - DRUPAL_CORE=8.3.x
+    - DRUPAL_CORE=8.4.x
+    - DRUPAL_CORE=8.5.x
+
+matrix:
+  fast_finish: true
+
+# Be sure to cache composer downloads.
+cache:
+  directories:
+    - $HOME/.composer
+
+before_script:
+  - echo $MODULE
+
+  # Remove Xdebug as we don't need it and it causes
+  # PHP Fatal error:  Maximum function nesting level of '256' reached.
+  # We also don't care if that file exists or not on PHP 7.
+  - phpenv config-rm xdebug.ini || true
+
+  # Navigate out of module directory to prevent blown stack by recursive module
+  # lookup.
+  - cd ..
+
+  # Create database.
+  - mysql -e "create database $MODULE"
+  # Export database variable for kernel tests.
+  - export SIMPLETEST_DB=mysql://root:@127.0.0.1/$MODULE
+
+  # Download Drupal 8 core from the Github mirror because it is faster.
+  - travis_retry git clone --branch $DRUPAL_CORE --depth 1 https://github.com/drupal/drupal.git
+  - cd drupal
+  # Store the path to Drupal root.
+  - DRUPAL_ROOT=$(pwd)
+  - echo $DRUPAL_ROOT
+
+  # Make a directory for module and copy the built source into it.
+  - mkdir $DRUPAL_ROOT/modules/$MODULE
+  - cp -R $TRAVIS_BUILD_DIR/* $DRUPAL_ROOT/modules/$MODULE/
+
+  # Install dependencies.
+  - travis_retry git clone --branch 8.x-3.x --depth 1 https://github.com/fago/rules.git modules/rules
+  - travis_retry git clone --branch 8.x-1.x --depth 1 http://git.drupal.org/project/devel.git modules/devel
+  - travis_retry git clone --branch 8.x-1.x --depth 1 http://git.drupal.org/project/typed_data.git modules/typed_data
+
+  # Run composer install for Drupal 8.1 and up. We need an up-to-date composer
+  # when installing Drupal 8.1.
+  - travis_retry composer self-update && travis_retry composer install
+
+  # Coder is already installed as part of composer install. We just need to set
+  # the installed_paths to pick up the Drupal standards.
+  - $DRUPAL_ROOT/vendor/bin/phpcs --config-set installed_paths $DRUPAL_ROOT/vendor/drupal/coder/coder_sniffer
+
+  # Start a web server on port 8888, run in the background.
+  - php -S localhost:8888 &
+
+  # Export web server URL for browser tests.
+  - export SIMPLETEST_BASE_URL=http://localhost:8888
+
+script:
+  # Run the PHPUnit tests.
+  - ./vendor/bin/phpunit -c ./core/phpunit.xml.dist ./modules/$MODULE/tests/
+
+  # Change directory to our module.
+  - cd $DRUPAL_ROOT/modules/$MODULE
+
+  # Check for coding standards. First list all the sniffs to be used.
+  - $DRUPAL_ROOT/vendor/bin/phpcs -e
+
+  # Show the coding standards violations in detail.
+  - $DRUPAL_ROOT/vendor/bin/phpcs --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1
+
+  # Run again to give a summary and total count.
+  - $DRUPAL_ROOT/vendor/bin/phpcs --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 --report=summary

@@ -43,7 +43,7 @@ class ConfigDiffer implements ConfigDiffInterface {
   /**
    * Constructs a ConfigDiffer.
    *
-   * @param TranslationInterface $translation
+   * @param \Drupal\Core\StringTranslation\TranslationInterface $translation
    *   String translation service.
    * @param string[] $ignore
    *   Config components to ignore.
@@ -52,7 +52,7 @@ class ConfigDiffer implements ConfigDiffInterface {
    * @param string $value_prefix
    *   Prefix to use in diffs for array value.
    */
-  public function __construct(TranslationInterface $translation, $ignore = ['uuid', '_core'], $hierarchy_prefix = '::', $value_prefix = ' : ') {
+  public function __construct(TranslationInterface $translation, array $ignore = ['uuid', '_core'], $hierarchy_prefix = '::', $value_prefix = ' : ') {
     $this->stringTranslation = $translation;
     $this->hierarchyPrefix = $hierarchy_prefix;
     $this->valuePrefix = $value_prefix;
@@ -66,7 +66,7 @@ class ConfigDiffer implements ConfigDiffInterface {
    * as well as empty array values, and sorts at each level by array key, so
    * that config from different storage can be compared meaningfully.
    *
-   * @param array $config
+   * @param array|null $config
    *   Configuration array to normalize.
    *
    * @return array
@@ -109,7 +109,7 @@ class ConfigDiffer implements ConfigDiffInterface {
   public function same($source, $target) {
     $source = $this->normalize($source);
     $target = $this->normalize($target);
-    return $source == $target;
+    return $source === $target;
   }
 
   /**
@@ -136,15 +136,15 @@ class ConfigDiffer implements ConfigDiffInterface {
    *   (optional) When called recursively, the prefix to put on each line. Omit
    *   when initially calling this function.
    *
-   * @return string[] Array of config lines formatted so that a line-by-line
-   *   diff will show the context in each line, and meaningful differences will
-   *   be computed.
+   * @return string[]
+   *   Array of config lines formatted so that a line-by-line diff will show the
+   *   context in each line, and meaningful differences will be computed.
    *
    * @see ConfigDiffer::normalize()
    * @see ConfigDiffer::$hierarchyPrefix
    * @see ConfigDiffer::$valuePrefix
    */
-  protected function format($config, $prefix = '') {
+  protected function format(array $config, $prefix = '') {
     $lines = [];
 
     foreach ($config as $key => $value) {

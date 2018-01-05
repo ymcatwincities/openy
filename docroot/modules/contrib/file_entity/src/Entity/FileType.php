@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Entity\FileType.
- */
-
 namespace Drupal\file_entity\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBundleBase;

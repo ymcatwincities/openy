@@ -1,15 +1,11 @@
 <?php
-/**
- * @file
- * Contains \Drupal\file_entity\Controller\FileController.
- */
 
 namespace Drupal\file_entity\Controller;
 
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Ajax\AjaxResponse;
-use Drupal\Core\Ajax\CloseModalDialogCommand;
-use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Ajax\CloseDialogCommand;
+use Drupal\Core\Ajax\OpenDialogCommand;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Form\FormState;
 use Drupal\file\FileInterface;
@@ -105,18 +101,19 @@ class FileController extends ControllerBase {
       ->disableRedirect();
     // Building the form also submits.
     $form = $this->formBuilder()->buildForm($form_object, $form_state);
+    $dialog_selector = '#file-entity-inline-edit-' . $file->id();
 
     // Return a response, depending on whether it's successfully submitted.
     if (!$form_state->isExecuted()) {
       // Return the form as a modal dialog.
       $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
       $title = $this->t('Edit file @file', ['@file' => $file->label()]);
-      $response = AjaxResponse::create()->addCommand(new OpenModalDialogCommand($title, $form, ['width' => 800]));
+      $response = AjaxResponse::create()->addCommand(new OpenDialogCommand($dialog_selector, $title, $form, ['width' => 800]));
       return $response;
     }
     else {
       // Return command for closing the modal.
-      return AjaxResponse::create()->addCommand(new CloseModalDialogCommand());
+      return AjaxResponse::create()->addCommand(new CloseDialogCommand($dialog_selector));
     }
   }
 }

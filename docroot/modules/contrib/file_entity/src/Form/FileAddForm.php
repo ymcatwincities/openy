@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\file_entity\Form\FileAddForm.
- */
-
 namespace Drupal\file_entity\Form;
 
 use Drupal\Component\Utility\SafeMarkup;
