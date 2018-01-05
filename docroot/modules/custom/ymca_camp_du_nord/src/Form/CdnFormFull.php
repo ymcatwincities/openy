@@ -85,7 +85,7 @@ class CdnFormFull extends FormBase {
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME + (86400 * 2));
+      $dt->setTimestamp(REQUEST_TIME + (86400 * 3));
       $default_arrival_date = $dt->format('Y-m-d');
     }
     $default_departure_date = NULL;
@@ -282,7 +282,7 @@ class CdnFormFull extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $today = new DrupalDateTime();
-    $today_modified = new DrupalDateTime('+ 2 days');
+    $today_modified = new DrupalDateTime('+ 3 days');
     $arrival_date = $form_state->getValue('arrival_date');
     $departure_date = $form_state->getValue('departure_date');
     $arrival_date = DrupalDateTime::createFromFormat('Y-m-d', $arrival_date);
@@ -294,7 +294,7 @@ class CdnFormFull extends FormBase {
     }
     // Check if arrival date less than today + 3 days.
     if ($today_modified > $arrival_date) {
-      $form_state->setErrorByName('arrival_date', t('Arrival date should not be less than today + 2 days.'));
+      $form_state->setErrorByName('arrival_date', t('Arrival date should not be less than today + 3 days.'));
     }
     // Check if arrival date less than departure.
     if ($arrival_date >= $departure_date) {
