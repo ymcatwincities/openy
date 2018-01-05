@@ -12,6 +12,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Render\Markup;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\Entity\Server;
+use Drupal\acquia_search\AcquiaSearchV3ApiClient;
 
 define('ACQUIA_SEARCH_OVERRIDE_AUTO_SET', 1);
 define('ACQUIA_SEARCH_AUTO_OVERRIDE_READ_ONLY', 2);
@@ -535,6 +536,9 @@ function acquia_search_get_core_service() {
     $available_cores = $subscription['heartbeat_data']['search_cores'];
   }
 
+  $search_v3_cores = acquia_search_get_v3_cores($acquia_identifier);
+  $available_cores = array_merge($available_cores, $search_v3_cores);
+
   $core_service = new PreferredSearchCoreService($acquia_identifier, $ah_env, $sites_foldername, $ah_db_name, $available_cores);
   return $core_service;
 }
@@ -613,4 +617,49 @@ function acquia_search_theme_search_api_server($variables) {
   ];
 
   return render($info_box) . theme_search_api_server($variables);
+}
+
+/**
+ * Initializes and returns an instance of AcquiaSearchV3ApiClient.
+ *
+ * @return AcquiaSearchV3ApiClient|false
+ */
+function acquia_search_get_v3_client() {
+  $search_v3_host = \Drupal::state()->get('acquia_search.v3_api_host') ? \Drupal::state()->get('acquia_search.v3_api_host') : 'https://api.sr.acquia.com';
+  $search_v3_api_key = \Drupal::state()->get('acquia_search.v3_api_key');
+  $drupal_http_client = \Drupal::service('http_client');
+  $cache = \Drupal::cache();
+
+  // If any of these variables are empty return FALSE.
+  if (empty($search_v3_host) || empty($search_v3_api_key)) {
+    return FALSE;
+  }
+
+  return new AcquiaSearchV3ApiClient($search_v3_host, $search_v3_api_key, $drupal_http_client, $cache);
+}
+
+/**
+ * Retrieves list of search v3 cores.
+ *
+ * @param string $acquia_identifier
+ * @return array|false
+ */
+function acquia_search_get_v3_cores($acquia_identifier) {
+  $search_v3_enabled = \Drupal::config('acquia_search.settings')->get('search_v3_enabled');
+
+  if (!$search_v3_enabled) {
+    return array();
+  }
+
+  $search_v3_client = acquia_search_get_v3_client();
+  if (!$search_v3_client) {
+    return array();
+  }
+
+  $search_v3_cores = $search_v3_client->getSearchV3Indexes($acquia_identifier);
+  if (!is_array($search_v3_cores) || empty($search_v3_cores)) {
+    return array();
+  }
+
+  return $search_v3_cores;
 }

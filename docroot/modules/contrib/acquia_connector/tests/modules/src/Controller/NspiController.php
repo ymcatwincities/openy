@@ -133,14 +133,14 @@ class NspiController extends ControllerBase {
           case 'unblock':
             \Drupal::state()->delete('acqtest_site_blocked');
             $result['body']['spi_error'] = '';
-            $result['body']['nspi_messages'][] = t('Your site has been unblocked and is sending data to Acquia Cloud.');
+            $result['body']['nspi_messages'][] = t('Your site has been enabled and is sending data to Acquia Cloud.');
             return new JsonResponse($result);
 
           break;
           case 'block':
             \Drupal::state()->set('acqtest_site_blocked', TRUE);
             $result['body']['spi_error'] = '';
-            $result['body']['nspi_messages'][] = t('You have blocked your site from sending data to Acquia Cloud.');
+            $result['body']['nspi_messages'][] = t('You have disabled your site from sending data to Acquia Cloud.');
             return new JsonResponse($result);
 
           break;
@@ -191,7 +191,7 @@ class NspiController extends ControllerBase {
     $site_blocked = \Drupal::state()->get('acqtest_site_blocked');
 
     if ($site_blocked) {
-      $changes['changes']['blocked'] = (string) t('Your site has been unblocked.');
+      $changes['changes']['blocked'] = (string) t('Your site has been enabled.');
     }
     else {
 
@@ -550,95 +550,6 @@ class NspiController extends ControllerBase {
     $result['authenticator']['time'] += 1;
     $result['authenticator']['nonce'] = $data['authenticator']['nonce'];
     return $result;
-  }
-
-  /**
-   * Test returns environments available for site import.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   Request.
-   *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
-   *   JsonResponse.
-   */
-  public function cloudMigrationEnvironments(Request $request) {
-    $data = json_decode($request->getContent(), TRUE);
-
-    global $base_url;
-    $fields = [
-      'time' => 'is_numeric',
-      'nonce' => 'is_string',
-      'hash' => 'is_string',
-    ];
-    $result = $this->basicAuthenticator($fields, $data);
-    if (!empty($result['error'])) {
-      return new JsonResponse($result, self::ACQTEST_SUBSCRIPTION_SERVICE_UNAVAILABLE);
-    }
-    if (!empty($data['body']['identifier'])) {
-      if (strpos($data['body']['identifier'], 'TEST_') !== 0) {
-        return new JsonResponse($this->errorResponse(self::ACQTEST_SUBSCRIPTION_VALIDATION_ERROR, t('Subscription not found')), self::ACQTEST_SUBSCRIPTION_SERVICE_UNAVAILABLE);
-      }
-    }
-    else {
-      return new JsonResponse($this->errorResponse(self::ACQTEST_SUBSCRIPTION_VALIDATION_ERROR, t('Invalid arguments')), self::ACQTEST_SUBSCRIPTION_SERVICE_UNAVAILABLE);
-    }
-    if ($data['body']['identifier'] == self::ACQTEST_ERROR_ID) {
-      return new JsonResponse($this->errorResponse(self::ACQTEST_SUBSCRIPTION_SITE_NOT_FOUND, t("Hosting not available under your subscription. Upgrade your subscription to continue with import.")), self::ACQTEST_SUBSCRIPTION_SERVICE_UNAVAILABLE);
-    }
-    $result = [];
-    $result['is_error'] = FALSE;
-    foreach (['dev' => 'Development', 'test' => 'Stage', 'prod' => 'Production'] as $key => $name) {
-      $result['body']['environments'][$key] = [
-        'url' => $base_url . '/system/acquia-connector-test-upload/AH_UPLOAD',
-        'stage' => $key,
-        'nonce' => 'nonce',
-        'secret' => 'secret',
-        'site_name' => $name,
-      ];
-    }
-    return new JsonResponse($result);
-  }
-
-  /**
-   * Test migration upload.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   Request.
-   *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\Response
-   *   Invalid request Response or JsonResponse.
-   */
-  public function testMigrationUpload(Request $request) {
-    $server_to_fail = \Drupal::configFactory()->getEditable('acquia_connector.settings')->get('acquia_connector_test_upload_server_to_fail');
-    if ($server_to_fail) {
-      $data = [
-        'network_url' => 'site.acquia.dev',
-        'success' => TRUE,
-        'error' => FALSE,
-        'sig' => 'rh4gr4@%#^fnreg',
-      ];
-      return new JsonResponse($data, Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
-    return new Response('invalid request', Response::HTTP_BAD_REQUEST);
-  }
-
-  /**
-   * Test complete final migration.
-   *
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   Request.
-   *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
-   *   Json response.
-   */
-  public function testMigrationComplete(Request $request) {
-    $data = [
-      'network_url' => 'site.acquia.dev',
-      'success' => TRUE,
-      'error' => FALSE,
-    ];
-    return new JsonResponse($data);
   }
 
   /**

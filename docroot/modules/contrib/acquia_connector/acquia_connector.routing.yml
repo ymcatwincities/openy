@@ -55,22 +55,6 @@ acquia_connector.refresh_status:
   requirements:
     _permission: 'administer site configuration'
 
-acquia_connector.migrate:
-  path: '/admin/config/system/acquia-agent/migrate'
-  defaults:
-    _controller: '\Drupal\acquia_connector\Controller\MigrateController::migratePage'
-    _title: 'Acquia Cloud Migrate'
-  requirements:
-    _permission: 'administer site configuration'
-
-acquia_connector.migrate_check:
-  path: '/system/acquia-migrate-check'
-  defaults:
-    _controller: '\Drupal\acquia_connector\Controller\MigrateController::migrateCheck'
-    _title: 'Upload capable'
-  requirements:
-    _permission: 'access content'
-
 acquia_connector.send:
   path: '/system/acquia-spi-send'
   defaults:
