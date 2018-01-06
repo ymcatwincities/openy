@@ -109,6 +109,8 @@ class SchedulesSearchForm extends FormBase {
     $this->logger = $logger_factory->get('openy_schedules');
     $this->setRequestStack($request_stack);
     $this->node = $this->getRequest()->get('node');
+    // Invoke hook_openy_schedule_search_form_states_pre_build_alter to changing init field value.
+    \Drupal::moduleHandler()->alter('openy_schedule_search_form_states_pre_build', $state);
     $this->state = $state;
   }
 
