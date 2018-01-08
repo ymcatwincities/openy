@@ -965,7 +965,6 @@ body {
 @media (min-width: 75em) {
   .viewport .page-head__main-menu .nav-level-3 > a {
     display: block;
-    min-height: 134px;
   }
 }
 .viewport .page-head__main-menu .nav-level-3 .section-icon {
