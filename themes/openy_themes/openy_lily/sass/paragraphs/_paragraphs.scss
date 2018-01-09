@@ -15,6 +15,7 @@
         margin: 0 135px;
       }
     }
+
     @include breakpoint (768px) {
       position: absolute;
       max-height: 100%;
