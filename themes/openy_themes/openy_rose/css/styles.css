@@ -4183,7 +4183,22 @@ html.js .branch__updates_queue__button {
   margin: 15px 0;
   position: relative;
   overflow: hidden;
-  height: 305px;
+  height: 315px;
+}
+@media (min-width: 48em) {
+  .node--type-blog.node--view-mode-teaser .inner-wrapper {
+    height: 292px;
+  }
+}
+@media (min-width: 62em) {
+  .node--type-blog.node--view-mode-teaser .inner-wrapper {
+    height: 248px;
+  }
+}
+@media (min-width: 75em) {
+  .node--type-blog.node--view-mode-teaser .inner-wrapper {
+    height: 305px;
+  }
 }
 .node--type-blog.node--view-mode-teaser img {
   height: auto;

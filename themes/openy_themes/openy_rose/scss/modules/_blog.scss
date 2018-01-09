@@ -38,7 +38,17 @@
       margin: 15px 0;
       position: relative;
       overflow: hidden;
-      height: 305px;
+      height: 315px;
+      @include breakpoint($screen-sm) {
+        height: 292px;
+      }
+      @include breakpoint($screen-md) {
+        height: 248px;
+      }
+      @include breakpoint($screen-lg) {
+        height: 305px;
+      }
+
     }
 
     img {
