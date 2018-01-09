@@ -6,7 +6,7 @@
    * @param url string
    *   String url, with possible parameters.
    * @param base {}
-   *   Ojbect to return base.url without parameters.
+   *   Object to return base.url without parameters.
    *
    * @returns {Array}
    */
@@ -62,13 +62,17 @@
           setTimeout(function() {
             // When an openy_preferred_branch cookie is present and the location
             // is not set then set location from the cookie and submit the form.
-            var preferred_branch = $.cookie('openy_preferred_branch');
-            pagebase = {};
-            var query = getUrlParams(window.location.href, pagebase);
-            var location = query['location'];
+            var preferred_branch = $.cookie('openy_preferred_branch')
+              , pagebase = {}
+              , query = getUrlParams(window.location.href, pagebase)
+              , location = query['location'];
             if (typeof location === 'undefined' && typeof preferred_branch !== 'undefined') {
               $self.find('.js-form-item-location select').val(preferred_branch);
               $self.submit();
+            }
+            if (!$self.hasClass('filter-was-applied')) {
+              $self.addClass('filter-was-applied');
+              $self.find('.form-submit').click();
             }
           }, 0);
         });
