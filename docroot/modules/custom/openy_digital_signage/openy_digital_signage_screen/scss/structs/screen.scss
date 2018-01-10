@@ -13,6 +13,19 @@
   }
 }
 
+.ds-screen {
+  &.ds-screen-full-size {
+    .screen.screen-active {
+      cursor: none;
+    }
+    &.user-logged-in {
+      .screen.screen-active {
+        cursor: default;
+      }
+    }
+  }
+}
+
 .screen {
   display: none;
 }
