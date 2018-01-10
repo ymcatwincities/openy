@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Default theme implementation to display a node.
+ * Theme override to display a node.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -68,61 +68,20 @@
  * @todo Remove the id attribute (or make it a class), because if that gets
  *   rendered twice on a page this is invalid CSS for example: two lists
  *   in different view modes.
- *
- * @ingroup themeable
  */
 #}
-{% set classes = [
-'program-header',
-'program-header-sub-category',
-] %}
-
-{% if content.field_category_color is empty %}
-  {% set bg_color = '' %}
-{% else %}
-  {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
-  {% set bg_color = 'background-color: '  ~  color %}
-{% endif %}
-{% set has_sidebar = node.field_sidebar_content.value %}
-{# Category header #}
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
 <article{{ attributes.addClass(classes) }}>
-  <div{{ content_attributes.addClass('content').setAttribute('style', bg_color) }}>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 main">
-          <h1>{{ label }}</h1>
-          <h2>{{ content.field_category_program }}</h2>
-        </div>
-        <div class="col-md-4 col-md-offset-1 hidden-xs hidden-sm image">
-          {{ content.field_category_image }}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div>
-    {{ content.field_header_content }}
+  <div{{ content_attributes.addClass('node__content') }}>
+    {{ content.field_mbrshp_image }}
   </div>
 </article>
-
-<div class="container sub-category-listing">
-  <div class="two-column row">
-    {# Category content #}
-    <div class="main-region {% if has_sidebar %} col-sm-8 {% else %} col-sm-12 {% endif %}">
-
-      {{ content.field_category_description }}
-      {{ content.field_content }}
-      <div class="hidden-print hidden">
-        {{ content.field_category_thrustcode }}
-      </div>
-    </div>
-    {% if has_sidebar %}
-      {# Category sidebar #}
-      <div class="sidebar-region col-sm-4">
-        <article class="program-sidebar program-sidebar-sub-category">
-          {{ content.field_sidebar_content }}
-        </article>
-      </div>
-    {% endif %}
-  </div>
-</div>
-{{ content.field_bottom_content }}

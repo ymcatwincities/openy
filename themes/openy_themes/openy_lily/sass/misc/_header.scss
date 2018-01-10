@@ -134,8 +134,10 @@ body {
       display: block;
       .dropdown-menu {
         min-height: 40px;
+        background: none;
         &.open {
           display: block;
+          background: none;
           position: static;
           float: none;
           border: none;
@@ -146,6 +148,14 @@ body {
           li {
             a {
               white-space: pre-wrap;
+              .section-icon {
+                display: none;
+              }
+            }
+            &.menu-item-online-store---rewards {
+              a {
+                white-space: initial;
+              }
             }
           }
         }
@@ -392,13 +402,16 @@ header#page-head {
                 a {
                   display: block;
                   font-size: 18px;
-                  padding: 10px 28px;
+                  padding: 10px 24px;
                   text-overflow: initial;
                   white-space: normal;
                   color: #7d7b7b;
                   &:hover {
                     background: none;
                     color: #7d7b7b;
+                  }
+                  .section-icon {
+                    display: none;
                   }
                 }
               }
@@ -502,11 +515,11 @@ header#page-head {
       color: #0089d0;
       display: block;
       float: right;
-      font-size: 10px;
+      font-size: 8px;
       line-height: 10px;
       margin-top: 35px;
       @include transition(all 0.2s linear);
-      .node--type-camp & {
+      .is-camp & {
         color: #f47820;
       }
       @include breakpoint (0 $tablet-start) {
@@ -592,5 +605,5 @@ header#page-head {
 }
 
 .landing-header {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
