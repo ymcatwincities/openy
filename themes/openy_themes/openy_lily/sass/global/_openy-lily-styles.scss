@@ -301,7 +301,7 @@ body form .field--widget-boolean-checkbox {
   .read-more-wrapper a {
     color: #0089d0;
     font-size: 16px;
-    font-family: "Cachet", Arial, sans-serif;
+    font-family: "Cachet", Verdana, Geneva, sans-serif;
     font-weight: bold;
     text-transform: uppercase;
     -webkit-transition: color .2s ease-out;
@@ -320,7 +320,7 @@ body form .field--widget-boolean-checkbox {
       content: 'o';
       vertical-align: baseline;
       font-size: 20px;
-      font-family: 'OPENY_LILY';
+      font-family: 'YMCA';
     }
   }
 }
@@ -403,7 +403,7 @@ p.legend {
       .modal-close {
         background: none;
         color: #fff;
-        font-family: "Cachet", Arial, sans-serif;
+        font-family: "Cachet", Verdana, Geneva, sans-serif;
         font-weight: bold;
         right: 10px;
         text-decoration: none;
@@ -520,7 +520,7 @@ p.legend {
     background: #92288d;
     border: 0;
     border-radius: 0;
-    font-family: 'Cachet';
+    font-family: "Cachet", Verdana, Geneva, sans-serif;
     position: relative;
     padding: 17px 50px 15px;
     .ui-dialog-title {
@@ -543,7 +543,7 @@ p.legend {
       &::before {
         content: "X";
         color: #fff;
-        font-family: "Cachet", Arial, sans-serif;
+        font-family: "Cachet", Verdana, Geneva, sans-serif;
         font-weight: bold;
         text-decoration: none;
       }
@@ -888,5 +888,4 @@ body .ajax-progress-throbber {
 .internal-template.node--type-article #carousel .even-heights .active.item {
   min-height: 300px;
   max-height: 500px;
-
 }

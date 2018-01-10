@@ -35,17 +35,17 @@
       text-transform: uppercase;
       text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
       font-weight: bold;
-      font-family: 'Cachet', Helvetica, Arial, sans-serif;
+      font-family: "Cachet", Verdana, Geneva, sans-serif;
       line-height: 1.3em;
-      font-size: 63px;
+      font-size: 54px;
       @include breakpoint ($desktop 1350px) {
-        font-size: 56px;
+        font-size: 44px;
       }
       @include breakpoint (0 $desktop) {
-        font-size: 50px;
+        font-size: 44px;
       }
       @include breakpoint (0 $tablet-start) {
-        font-size: 38px;
+        font-size: 32px;
       }
       @include breakpoint (0 767px) {
         display: block;
@@ -54,7 +54,7 @@
         min-height: 0;
         text-align: center;
         text-decoration: none;
-        font-size: 30px;
+        font-size: 26px;
       }
     }
     .find-locations {
@@ -67,7 +67,7 @@
 
       .location-search {
         position: absolute;
-        bottom: 15px;
+        bottom: 8px;
         right: 265px;
         @include breakpoint (0 $desktop) {
           bottom: 5px;
@@ -143,7 +143,7 @@
     .newsletter-link-wrapper a {
       background-color: #0f74c7;
       max-width: 240px;
-      width: 217px;
+      width: 230px;
       display: inline-block;
       transition: background-color .3s;
       -webkit-transition: background-color .3s;
@@ -152,8 +152,8 @@
       margin: 0;
       color: white;
       text-transform: uppercase;
-      font-family: 'Cachet', Helvetica, Arial, sans-serif;
-      font-size: 14px;
+      font-family: "Cachet", Verdana, Geneva, sans-serif;
+      font-size: 13px;
       font-weight: normal;
       line-height: 1.428571429;
       text-align: center;
@@ -171,11 +171,11 @@
     }
     .site-phone {
       color: white;
-      font-size: 24px;
+      font-size: 22px;
       display: block;
       margin-top: 18px;
       position: absolute;
-      right: 20px;
+      right: 40px;
       @include breakpoint ($mobile-tablet-only) {
         font-size: 20px;
       }
@@ -196,7 +196,7 @@
         right: 27px !important;
       }
       .newsletter-link-wrapper {
-        top: 61px;
+        top: 50px;
       }
       .site-phone {
         right: -40px;
