@@ -13,3 +13,9 @@ article.node--type-landing-page {
     background: $grey12;
   }
 }
+
+.paragraph--type--simple-content {
+  iframe {
+    width: 100% !important;
+  }
+}
