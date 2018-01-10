@@ -1,11 +1,12 @@
 .content-banner {
   background: #f8f8f8;
   box-shadow: 0 0 15px #d8d8d8;
-  margin: 0 0 10px;
+  margin: 10px 0;
+  border-top: 2px solid #c6168d;
 }
 @media (min-width: 768px) {
   .content-banner {
-    margin: 0 0 40px;
+    margin: 40px 0;
   }
 }
 .content-banner.page-title:before {
