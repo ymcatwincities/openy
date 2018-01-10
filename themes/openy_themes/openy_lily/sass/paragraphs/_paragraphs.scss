@@ -1,3 +1,11 @@
+.paragraph--column-in-a-grid {
+  .grid-item {
+    @include breakpoint (768px) {
+      margin: 0 0 20px;
+    }
+  }
+}
+
 .paragraph--type--gallery-cta-content {
   position: relative;
   .field-prgf-image {
@@ -15,7 +23,6 @@
         margin: 0 135px;
       }
     }
-
     @include breakpoint (768px) {
       position: absolute;
       max-height: 100%;
@@ -407,7 +414,7 @@
   font-weight: 200;
   line-height: 1.4;
   font-size: 21px;
-  z-index:8;
+  z-index: 8;
   &:before {
     position: absolute;
     top: 0;
@@ -519,7 +526,7 @@
   .landing-content &,
   .landing-footer & {
     .cta-group-wrapper {
-      left:100px;
+      left: 100px;
       @include breakpoint (0 $tablet) {
         margin: 0 -15px;
       }
@@ -541,5 +548,14 @@
 .field-prgf-grid-clm-description {
   table {
     max-width: 100%;
+  }
+}
+.paragraph--type--simple-content {
+  padding-top: 0;
+}
+.subprogram-listing-item {
+  h2 {
+    padding-top: 0;
+    margin-top: 0;
   }
 }

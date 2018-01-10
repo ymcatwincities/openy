@@ -7050,22 +7050,28 @@ article .node--view-mode-flexible-content h2 a span {
 }
 @font-face {
   font-family: 'Cachet';
-  src: url("../fonts/cachetstd-book-webfont.eot");
-  src: url("../fonts/cachetstd-book-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-book-webfont.woff") format("woff"), url("../fonts/cachetstd-book-webfont.svg#cachetstd-book-webfont") format("svg");
+  src: url("../fonts/cachet/cachet-book.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/cachet/cachet-book.eot?#iefix") format("embedded-opentype"), url("../fonts/cachet/cachet-book.woff2") format("woff2"), url("../fonts/cachet/cachet-book.woff") format("woff"), url("../fonts/cachet/cachet-book.svg#cachet-book") format("svg"), url("../fonts/cachet/cachet-book.ttf") format("truetype");
+  /* Safari, Android, iOS */
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Cachet Bold';
-  src: url("../fonts/cachetstd-bold-webfont.eot");
-  src: url("../fonts/cachetstd-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-bold-webfont.woff") format("woff"), url("../fonts/cachetstd-bold-webfont.svg#cachetstd-bold-webfont") format("svg");
+  src: url("../fonts/cachet/cachet-bold.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/cachet/cachet-bold.eot?#iefix") format("embedded-opentype"), url("../fonts/cachet/cachet-bold.woff2") format("woff2"), url("../fonts/cachet/cachet-bold.woff") format("woff"), url("../fonts/cachet/cachet-bold.svg#cachet-bold") format("svg"), url("../fonts/cachet/cachet-bold.ttf") format("truetype");
+  /* Safari, Android, iOS */
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: 'Cachet Medium';
-  src: url("../fonts/cachetstd-medium-webfont.eot");
-  src: url("../fonts/cachetstd-medium-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cachetstd-medium-webfont.woff") format("woff"), url("../fonts/cachetstd-medium-webfont.svg#cachetstd-medium-webfont") format("svg");
+  src: url("../fonts/cachet/cachet-medium.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/cachet/cachet-medium.eot?#iefix") format("embedded-opentype"), url("../fonts/cachet/cachet-medium.woff2") format("woff2"), url("../fonts/cachet/cachet-medium.woff") format("woff"), url("../fonts/cachet/cachet-medium.svg#cachet-medium") format("svg"), url("../fonts/cachet/cachet-medium.ttf") format("truetype");
+  /* Safari, Android, iOS */
   font-weight: 600;
   font-style: normal;
 }
@@ -7407,9 +7413,11 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 }
 #side-area ul li .dropdown-menu {
   min-height: 40px;
+  background: none;
 }
 #side-area ul li .dropdown-menu.open {
   display: block;
+  background: none;
   position: static;
   float: none;
   border: none;
@@ -7420,6 +7428,12 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
 }
 #side-area ul li .dropdown-menu.open li a {
   white-space: pre-wrap;
+}
+#side-area ul li .dropdown-menu.open li a .section-icon {
+  display: none;
+}
+#side-area ul li .dropdown-menu.open li.menu-item-online-store---rewards a {
+  white-space: initial;
 }
 
 .viewport {
@@ -7688,7 +7702,7 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav.row-level-2 li a {
   display: block;
   font-size: 18px;
-  padding: 10px 28px;
+  padding: 10px 24px;
   text-overflow: initial;
   white-space: normal;
   color: #7d7b7b;
@@ -7696,6 +7710,9 @@ header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .n
 header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav.row-level-2 li a:hover {
   background: none;
   color: #7d7b7b;
+}
+header#page-head .top-navs .nav-wrapper .main-nav #block-openy-lily-main-menu .nav.row-level-2 li a .section-icon {
+  display: none;
 }
 @media (min-width: 0) and (max-width: 62em) {
   header#page-head .top-navs #block-anonymoususersmenu--2,
@@ -7788,7 +7805,7 @@ header#page-head #block-openy-lily-branding .ymca-branding-slogan {
   color: #0089d0;
   display: block;
   float: right;
-  font-size: 10px;
+  font-size: 8px;
   line-height: 10px;
   margin-top: 35px;
   -webkit-transition: all 0.2s linear;
@@ -7797,7 +7814,7 @@ header#page-head #block-openy-lily-branding .ymca-branding-slogan {
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-.node--type-camp header#page-head #block-openy-lily-branding .ymca-branding-slogan {
+.is-camp header#page-head #block-openy-lily-branding .ymca-branding-slogan {
   color: #f47820;
 }
 @media (min-width: 0) and (max-width: 62em) {
@@ -7849,7 +7866,7 @@ header#page-head.expanded-search.tiny .main-nav.affix {
 }
 
 .landing-header {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .viewport .nav-level-2.open {
@@ -10180,6 +10197,9 @@ body.path-search #block-mainpagecontent li {
   display: inline;
   position: static !important;
 }
+.program-header.program-header-sub-category .content {
+  min-height: 260px;
+}
 .program-header .description .field-program-description {
   font-size: 14px;
   line-height: 20px;
@@ -10288,7 +10308,13 @@ body.path-search #block-mainpagecontent li {
 }
 
 #schedules-search-listing-wrapper .branch-hours-wrapper .card {
-  background-color: #b92f9e;
+  background-color: #b93f9e;
+}
+
+@media (min-width: 0) and (max-width: 48em) {
+  #schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots {
+    display: none !important;
+  }
 }
 
 .paragraph--type--latest-news-posts-branch .field-prgf-block {
@@ -10300,6 +10326,9 @@ body.path-search #block-mainpagecontent li {
 }
 .news-more-teaser .h1 {
   padding-bottom: 0;
+}
+.news-more-teaser .form-item-combine {
+  padding: 0 0 0 200px !important;
 }
 .news-more-teaser .views-view-grid {
   text-align: center;
@@ -10341,10 +10370,6 @@ body.path-search #block-mainpagecontent li {
   .news-more-teaser .views-exposed-form > div.form-item-field-news-category-target-id {
     display: table-cell;
     padding: 0;
-    width: 50%;
-  }
-  .news-more-teaser .views-exposed-form > div.form-item-combine {
-    padding: 0 0 0 200px;
   }
   .news-more-teaser .views-exposed-form > div.form-item-related-content-titles {
     width: 258px;
@@ -10739,9 +10764,8 @@ body.path-search #block-mainpagecontent li {
   display: block !important;
 }
 
-.node--view-mode-full .sidebar-card_h3 {
-  position: relative;
-  margin-bottom: 0;
+.node--view-mode-full.node--type-facility .sidebar-card h3 {
+  margin-top: 0;
 }
 
 .wysiwyg--button {
@@ -11816,6 +11840,10 @@ a.sports-icon.floor-hockey {
   padding: 13px 25px;
 }
 
+#ajax-ccc-add-family-member-form .col-lg-4, #ajax-ccc-add-family-member-form .col-lg-6, #ajax-ccc-add-family-member-form .col-md-4, #ajax-ccc-add-family-member-form .col-md-6, #ajax-ccc-add-family-member-form .col-xs-12 {
+  padding-left: 0 !important;
+}
+
 .paragraph--type--microsites-menu,
 .paragraph--type--camp-menu {
   margin-bottom: 30px;
@@ -12230,6 +12258,16 @@ a.sports-icon.floor-hockey {
 .node--type-branch .container-fluid.featured-highlights,
 .node--type-camp .container-fluid.featured-highlights {
   padding: 0;
+}
+
+.field-prgf-grid-clm-description table {
+  width: 100% !important;
+}
+
+@media (min-width: 48em) {
+  .paragraph--column-in-a-grid .grid-item {
+    margin: 0 0 20px;
+  }
 }
 
 .paragraph--type--gallery-cta-content {
@@ -12831,6 +12869,15 @@ a.sports-icon.floor-hockey {
 
 .field-prgf-grid-clm-description table {
   max-width: 100%;
+}
+
+.paragraph--type--simple-content {
+  padding-top: 0;
+}
+
+.subprogram-listing-item h2 {
+  padding-top: 0;
+  margin-top: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
