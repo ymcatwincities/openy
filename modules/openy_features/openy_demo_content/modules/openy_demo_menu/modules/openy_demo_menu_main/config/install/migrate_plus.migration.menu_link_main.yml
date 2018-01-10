@@ -11,6 +11,9 @@ label: 'Create demo main menu links'
 migration_dependencies:
   required:
     - openy_demo_menu_main_file
+    - openy_demo_node_program_subcategory
+    - openy_demo_node_program
+    - openy_demo_node_landing
 source:
   plugin: embedded_data
   data_rows:
@@ -27,7 +30,7 @@ source:
       id: 2
       title: 'Programs'
       menu_name: 'main'
-      link: 'openy'
+      link: 'internal:/'
       weight: 2
       parent_id: 0
       expanded: 1
