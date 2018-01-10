@@ -12,38 +12,38 @@
     background-color: #f8f8f8;
     border-top: 2px solid #c6168d;
     box-shadow: 0px 0px 15px #d8d8d8;
-    padding: 30px 25px;
     margin-bottom: 10px;
     width: 100%;
 
     @include breakpoint($screen-tablet) {
       margin: 0 15px 40px;
-      padding: 35px 35px 45px 45px;
     }
 
     h2 {
       text-transform: uppercase;
       font-family: Cachet;
-      margin: 0 0 15px;
+      margin: 0;
       font-size: 20px;
-      @include breakpoint (768px) {
-        font-size: 20px;
+      padding: 30px 25px;
+      color: #0089d0;
+      @include breakpoint($screen-tablet) {
+        padding: 30px 35px 30px 45px;
       }
-      @include breakpoint (1024px) {
-        font-size: 20px;
+      &:after {
+        margin-left: 10px;
+        color: #0089d0;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f138";
       }
-      &.with-icon {
-        padding-left: 28px;
-        @include breakpoint (768px) {
-          padding-left: 32px;
-        }
-        @include breakpoint (1024px) {
-          padding-left: 40px;
-        }
-      }
-      a:after {
-        text-transform: none;
-        margin-left: 3px;
+    }
+    .promo-text {
+      padding: 0 25px 30px;
+      @include breakpoint($screen-tablet) {
+        padding: 0 35px 35px 45px;
       }
     }
 
