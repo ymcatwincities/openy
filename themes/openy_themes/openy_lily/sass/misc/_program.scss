@@ -21,6 +21,10 @@
     }
   }
 
+  &.program-header-sub-category .content {
+    min-height: 260px;
+  }
+
   margin-bottom: 35px;
   .description {
     .field-program-description {
@@ -145,5 +149,12 @@
 }
 
 #schedules-search-listing-wrapper .branch-hours-wrapper .card {
-  background-color: #b92f9e;
+  background-color: #b93f9e;
+}
+
+
+#schedules-search-listing-wrapper .results .schedule-sessions-group-slider .slick-dots {
+  @include breakpoint(0 $tablet) {
+    display: none !important;
+  }
 }

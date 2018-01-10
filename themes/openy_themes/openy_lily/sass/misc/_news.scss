@@ -10,6 +10,9 @@
   .h1 {
     padding-bottom: 0;
   }
+  .form-item-combine {
+    padding: 0 0 0 200px !important
+  }
 
   .views-view-grid {
     text-align: center;
@@ -55,11 +58,6 @@
         &.form-item-field-news-category-target-id {
           display: table-cell;
           padding: 0;
-          width: 50%;
-        }
-
-        &.form-item-combine {
-          padding: 0 0 0 200px;
         }
 
         &.form-item-related-content-titles {

@@ -39,7 +39,12 @@
   }
 }
 
-.node--view-mode-full .sidebar-card_h3 {
-   position: relative;
-   margin-bottom: 0;
+.node--view-mode-full {
+  &.node--type-facility {
+    .sidebar-card {
+      h3 {
+        margin-top: 0;
+      }
+    }
+  }
 }
