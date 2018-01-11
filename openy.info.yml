@@ -94,6 +94,8 @@ dependencies:
   - views_field_formatter
   - ctools
   - lndr
+  - crop
+  - focal_point
   # OpenY features.
   - openy_svg_formatter
   - openy_media_image
@@ -106,6 +108,7 @@ dependencies:
   - openy_block_menu
   - openy_code_block
   - openy_datalayer
+  - openy_font
   - openy_taxonomy
   - openy_txnm_amenities
   - openy_txnm_color
@@ -140,6 +143,7 @@ dependencies:
   - openy_prgf_blog_camp
   - openy_prgf_blog_branch
   - openy_prgf_blog_listing
+  - openy_prgf_block_date
   - openy_prgf_loc_finder
   - openy_prgf_mbrshp_calc
   - openy_prgf_microsites_menu

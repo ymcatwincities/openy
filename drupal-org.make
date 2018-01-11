@@ -3,7 +3,7 @@ api = 2
 defaults[projects][subdir] = contrib
 
 projects[features] = 3.5
-projects[config_update] = 1.4
+projects[config_update] = 1.5
 projects[entity] = 1.0-beta1
 projects[datalayer][subdir] = contrib
 projects[datalayer][version] = 1.x-dev
@@ -65,6 +65,8 @@ projects[custom_formatters] = 3.0-alpha1
 projects[token_filter] = 1.0-beta1
 projects[views_field_formatter] = 1.5
 projects[lndr] = 1.11
+projects[crop] = 1.3
+projects[focal_point] = 1.0-beta5
 libraries[dropzone][type] = library
 libraries[dropzone][download][type] = get
 libraries[dropzone][download][url] = https://github.com/enyo/dropzone/archive/v4.3.0.zip
