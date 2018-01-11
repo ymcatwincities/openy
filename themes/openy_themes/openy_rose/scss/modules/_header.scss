@@ -3,6 +3,7 @@
 
   &__logo {
     display: inline-block;
+    width: 100%;
 
     @include breakpoint($screen-tablet) {
 
@@ -16,12 +17,57 @@
       z-index: 1001;
     }
 
-    img {
+    .logo {
       height: 38px;
       margin: 16px;
 
       @include breakpoint($screen-desktop) {
         height: 70px;
+      }
+    }
+
+    .aof {
+      display: none;
+
+      @include breakpoint($screen-lg-desktop) {
+        display: inline;
+        height: 33px;
+        margin-left: -22px;
+        margin-top: 35px;
+      }
+    }
+
+    .site-logo {
+      @include breakpoint($screen-desktop) {
+        position: absolute;
+      }
+    }
+
+    .site-slogan {
+      color: $lighter-grey;
+      display: block;
+      font-size: 13px;
+      height: 0;
+      left: 0;
+      margin: auto;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      text-transform: uppercase;
+      top: 20px;
+      &:hover {
+        text-decoration: none;
+      }
+      @include breakpoint($screen-tablet) {
+        font-size: 14px;
+      }
+      @include breakpoint($screen-desktop) {
+        top: 10px;
+      }
+
+      span {
+        border-bottom: 1px solid $light-blue;
+        padding: 0 5px 8px 5px;
       }
     }
   }
@@ -111,7 +157,7 @@
 
     a {
       @include cachet();
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 500;
       font-style: normal;
       font-stretch: normal;
@@ -350,6 +396,9 @@
   margin-bottom: 13px;
   margin-top: 13px;
   padding: 9px 6px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .navbar-default {
