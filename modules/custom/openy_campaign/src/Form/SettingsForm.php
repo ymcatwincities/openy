@@ -116,6 +116,15 @@ class SettingsForm extends ConfigFormBase {
         Example: Our records indicate the member ID entered is inactive. Please check your member ID and
         re-enter it, or contact the customer service center at 612-230-9622.'),
     ];
+    $form['error_msg_empty_member_email'] = [
+      '#type' => 'text_format',
+      '#title' => $this->t('Error Message: Empty member email'),
+      '#default_value' => $config->get('error_msg_empty_member_email')['value'],
+      '#format' => $config->get('error_msg_empty_member_email')['format'],
+      '#description' => $this->t('Message to display if the member Email is empty.<br>
+        Example: Our records indicate the member does not have an email address. Please enter one in the
+        optional Membership Email field or contact the customer service center at 612-230-9622.'),
+    ];
     $form['error_msg_target_audience_settings'] = [
       '#type' => 'text_format',
       '#title' => $this->t('Error Message: Member is ineligible due to the Target Audience Setting'),
@@ -232,6 +241,7 @@ class SettingsForm extends ConfigFormBase {
     // General messages
     $config->set('error_msg_membership_id', $form_state->getValue('error_msg_membership_id'));
     $config->set('error_msg_member_is_inactive', $form_state->getValue('error_msg_member_is_inactive'));
+    $config->set('error_msg_empty_member_email', $form_state->getValue('error_msg_empty_member_email'));
     $config->set('error_msg_target_audience_settings', $form_state->getValue('error_msg_target_audience_settings'));
     $config->set('error_msg_default', $form_state->getValue('error_msg_default'));
     $config->set('register_form_text', $form_state->getValue('register_form_text'));
