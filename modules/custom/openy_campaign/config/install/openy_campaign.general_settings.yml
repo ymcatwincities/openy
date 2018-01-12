@@ -22,6 +22,9 @@ error_msg_membership_id:
 error_msg_member_is_inactive:
   value: '<p><strong>Our records indicate the member ID entered is inactive.</strong><br /> Please check your member ID and re-enter it, or contact the customer service center at 612-230-9622.</p>'
   format: full_html
+error_msg_empty_member_email:
+  value: '<p><strong>Our records indicate the member does not have an email address.</strong><br /> Please enter one in the optional Membership Email field or contact the customer service center at 612-230-9622.</p>'
+  format: full_html
 error_msg_target_audience_settings:
   value: '<p>We''re sorry, but you are not eligible to participate in this promotion.<br /> Please check the rules page for details. If you have any questions, please contact our customer service center at 612-230-9622.</p>'
   format: full_html
