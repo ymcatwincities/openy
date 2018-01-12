@@ -38,7 +38,7 @@
       margin: 15px 0;
       position: relative;
       overflow: hidden;
-      height: 315px;
+      //height: 315px;
       @include breakpoint($screen-sm) {
         height: 292px;
       }
