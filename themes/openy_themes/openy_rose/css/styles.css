@@ -4211,17 +4211,17 @@ html.js .branch__updates_queue__button {
 }
 @media (min-width: 48em) {
   .node--type-blog.node--view-mode-teaser .inner-wrapper {
-    height: 292px;
+    height: 288px;
   }
 }
 @media (min-width: 62em) {
   .node--type-blog.node--view-mode-teaser .inner-wrapper {
-    height: 248px;
+    height: 245px;
   }
 }
 @media (min-width: 75em) {
   .node--type-blog.node--view-mode-teaser .inner-wrapper {
-    height: 305px;
+    height: 300px;
   }
 }
 .node--type-blog.node--view-mode-teaser img {

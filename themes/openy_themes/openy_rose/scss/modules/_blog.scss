@@ -39,13 +39,13 @@
       position: relative;
       overflow: hidden;
       @include breakpoint($screen-sm) {
-        height: 292px;
+        height: 288px;
       }
       @include breakpoint($screen-md) {
-        height: 248px;
+        height: 245px;
       }
       @include breakpoint($screen-lg) {
-        height: 305px;
+        height: 300px;
       }
 
     }
