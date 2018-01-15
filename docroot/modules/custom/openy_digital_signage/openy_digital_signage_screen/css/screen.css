@@ -869,6 +869,12 @@ body.node--type-screen-content {
   background-position: center;
   background-size: contain; }
 
+.ds-screen.ds-screen-full-size .screen.screen-active {
+  cursor: none; }
+
+.ds-screen.ds-screen-full-size.user-logged-in .screen.screen-active {
+  cursor: default; }
+
 .screen {
   display: none; }
 
