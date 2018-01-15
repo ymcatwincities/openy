@@ -948,7 +948,7 @@ class SchedulesSearchForm extends FormBase {
     $alerts = self::buildAlerts($parameters);
     $branch_hours = $this->buildBranchHours($form, $parameters);
     $response = new AjaxResponse();
-    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper #edit-selects', $form['selects']));
+    $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .selects-container', $form['selects']));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .filters-container', $filters));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .alerts-wrapper', $alerts));
