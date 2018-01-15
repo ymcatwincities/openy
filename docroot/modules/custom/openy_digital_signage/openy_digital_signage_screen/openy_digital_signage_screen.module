@@ -176,6 +176,20 @@ function openy_digital_signage_screen_preprocess_page__screen(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function openy_digital_signage_screen_preprocess_html__screen(&$variables) {
+  $variables['base_path'] = base_path();
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name == 'entity.openy_digital_signage_screen.canonical') {
+    /** @var \Drupal\Core\Template\Attribute $attributes */
+    $attributes = $variables['attributes'];
+    $attributes->addClass('ds-screen');
+    $attributes->addClass('ds-screen-full-size');
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function openy_digital_signage_screen_preprocess_page__screen_content(&$variables) {
