@@ -106,6 +106,8 @@ class CdnFormFull extends FormBase {
       'departure_date' => isset($query['departure_date']) ? $query['departure_date'] : $default_departure_date,
       'range' => isset($query['range']) ? $query['range'] : 3,
       'capacity' => isset($query['capacity']) ? $query['capacity'] : 'all',
+      'cid' => isset($query['cid']) ? $query['cid'] : '',
+      'show' => isset($query['show']) ? $query['show'] : 'all',
     ];
 
     $this->state = $state;
@@ -162,7 +164,7 @@ class CdnFormFull extends FormBase {
     $form['range'] = [
       '#type' => 'select',
       '#title' => t('Expand date range by'),
-      '#default_value' => !empty($state['range']) ? $state['range'] : 3,
+      '#default_value' => !is_null($state['range']) ? $state['range'] : 3,
       '#options' => [
         0 => '+/- 0 Days',
         3 => '+/- 3 Days',
@@ -337,18 +339,9 @@ class CdnFormFull extends FormBase {
       ->condition('type', 'cdn_prs_product')
       ->condition('field_cdn_prd_cabin_id', $cid)
       ->execute();
-    if (empty($mapping_ids)) {
-      $abu=1;
-    }
     $mapping_id = reset($mapping_ids);
     if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
-      if ($cid == 'N005') {
-        $abu=1;
-      }
       $village_id = !$mapping->field_cdn_prd_village_ref->isEmpty() ? $mapping->field_cdn_prd_village_ref->target_id : '';
-      if (empty($village_id)) {
-        $abu=1;
-      }
     }
     return $village_id;
   }
@@ -404,23 +397,99 @@ class CdnFormFull extends FormBase {
    *   Results render array.
    */
   public function buildResultsLayout(array $cdn_products, $query, $user_input) {
-    $attached = $results = $teasers = [];
+    $cabins_ids = $cabins = $attached = $results = $teasers = [];
     $cache = [
       'max-age' => 0,
     ];
     $default_availability = t('Available');
     if (!empty($cdn_products)) {
+      // Load all the cabins for provided start date.
       foreach ($cdn_products as $product) {
+        $cabins_ids[] = $product->field_cdn_prd_cabin_id->value;
+      }
+      // Load all the info for loaded cabins.
+      $mapping_ids = $this->entityQuery
+        ->get('mapping')
+        ->condition('type', 'cdn_prs_product')
+        ->condition('field_cdn_prd_cabin_id', $cabins_ids, 'IN')
+        ->sort('name')
+        ->execute();
+      if ($mappings = $this->entityTypeManager->getStorage('mapping')->loadMultiple($mapping_ids)) {
+        $total_capacity = $cabin_url = $image = $panorama = $description = '';
+        foreach ($mappings as $mapping) {
+          $cid = $mapping->field_cdn_prd_cabin_id->value;
+          $cabin_url = Url::fromUri('internal:/camps/camp_du_nord/search/form', [
+            'query' => [
+              'cid' => $mapping->field_cdn_prd_cabin_id->value,
+              'show' => 'all',
+            ]
+          ]);
+          $description = !$mapping->field_cdn_prd_cabin_desc->isEmpty() ? $mapping->field_cdn_prd_cabin_desc->view('default') : '';
+          $panorama = !$mapping->field_cdn_prd_panorama->isEmpty() ? $mapping->field_cdn_prd_panorama->view('default') : '';
+          $fid = !$mapping->field_cdn_prd_image->isEmpty() ? $mapping->field_cdn_prd_image->target_id : '';
+          if ($file = $this->entityTypeManager->getStorage('file')->load($fid)) {
+            $image = file_create_url($file->getFileUri());
+          }
+          else {
+            // Provide default image.
+            $image = base_path() . drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin3.png';
+          }
+          // Load a product for additional details.
+          $product_id = $this->entityQuery
+            ->get('cdn_prs_product')
+            ->condition('field_cdn_prd_cabin_id', $cid)
+            ->range(0, 1)
+            ->execute();
+          $product_id = reset($product_id);
+          if ($product = $this->entityTypeManager->getStorage('cdn_prs_product')->load($product_id)) {
+            $total_capacity = !$product->field_cdn_prd_capacity->isEmpty() ? $product->field_cdn_prd_capacity->value : '';
+          }
+          $cabins[$cid] = [
+            'start_product' => $product,
+            'teaser' => [
+              '#theme' => 'cdn_village_teaser',
+              '#title' => $mapping->getName(),
+              '#description' => $description,
+              '#panorama' => $panorama,
+              '#image' => $image,
+              '#availability' => $default_availability,
+              '#capacity' => $total_capacity,
+              '#cabin_url' => $cabin_url,
+              '#cache' => $cache,
+            ],
+          ];
+        }
+      }
+
+      $first = '';
+      foreach ($cabins as $cabin) {
+        $product = $cabin['start_product'];
+        // Fill all the cabins with data.
+        $teasers[$product->field_cdn_prd_cabin_id->value] = [
+          'teaser' => $cabins[$product->field_cdn_prd_cabin_id->value],
+        ];
+        // Use first product if cid is not provided.
+        if (empty($this->state['cid']) && empty($first)) {
+          $first = $product->field_cdn_prd_cabin_id->value;
+        }
+        if (empty($this->state['cid']) && $product->field_cdn_prd_cabin_id->value !== $first) {
+          continue;
+        }
+        // Use chosen cabin.
+        if (!empty($this->state['cid']) && $this->state['cid'] !== 'all' && $product->field_cdn_prd_cabin_id->value !== $this->state['cid']) {
+          continue;
+        }
         $code = $product->field_cdn_prd_code->value;
         $code = substr($code, 0, 14);
         $arrival_date = new \DateTime($query['arrival_date']);
-        $arrival_date->modify('+ 3 days');
+        //$arrival_date->modify('+ 3 days');
         $departure_date = new \DateTime($query['departure_date']);
         if (!empty($query['range'])) {
           for ($i = 0; $i < $query['range']; $i++) {
             // @todo: limit to past dates.
-            $codes[] = $code . $arrival_date->modify('- 1 day')->format('mdy') . '_YHL';
-            $codes[] = $code . $departure_date->modify('+ 1 day')->format('mdy') . '_YHL';
+            $today = new DrupalDateTime();
+            $arrival_date->modify('- 1 day');
+            $departure_date->modify('+ 1 day');
           }
         }
         $period = new \DatePeriod(
@@ -447,40 +516,8 @@ class CdnFormFull extends FormBase {
         }
         $calendar_list_data = $this->buildListCalendarAndFooter($view);
         $calendar = $view->buildRenderable('embed_1', $args);
-        $total_capacity = $product->field_cdn_prd_capacity->value;
-        // Load description from mapping.
-        $image = $panorama = $description = '';
-        if (!empty($product->field_cdn_prd_cabin_id->value)) {
-          $mapping_id = $this->entityQuery
-            ->get('mapping')
-            ->condition('type', 'cdn_prs_product')
-            ->condition('field_cdn_prd_cabin_id', $product->field_cdn_prd_cabin_id->value)
-            ->execute();
-          $mapping_id = reset($mapping_id);
-          if ($mapping = $this->entityTypeManager->getStorage('mapping')->load($mapping_id)) {
-            $description = !$mapping->field_cdn_prd_cabin_desc->isEmpty() ? $mapping->field_cdn_prd_cabin_desc->view('default') : '';
-            $panorama = !$mapping->field_cdn_prd_panorama->isEmpty() ? $mapping->field_cdn_prd_panorama->view('default') : '';
-            $fid = !$mapping->field_cdn_prd_image->isEmpty() ? $mapping->field_cdn_prd_image->target_id : '';
-            if ($file = $this->entityTypeManager->getStorage('file')->load($fid)) {
-              $image = file_create_url($file->getFileUri());
-            }
-            if (empty($image)) {
-              // Provide default image.
-              $image = base_path() . drupal_get_path('module', 'ymca_camp_du_nord') . '/assets/cabin3.png';
-            }
-          }
-        }
-        $teasers[] = [
-          'teaser' => [
-            '#theme' => 'cdn_village_teaser',
-            '#title' => !empty($product->getName()) ? substr($product->getName(), 9) : '',
-            '#description' => $description,
-            '#panorama' => $panorama,
-            '#image' => $image,
-            '#availability' => $default_availability,
-            '#capacity' => $total_capacity,
-            '#cache' => $cache,
-          ],
+
+        $teasers[$product->field_cdn_prd_cabin_id->value] += [
           'calendar' => [
             'list' => $calendar_list_data['list'],
             'calendar' => $calendar
@@ -518,10 +555,12 @@ class CdnFormFull extends FormBase {
     foreach ($view->result as $row) {
       $product_ids[] = !$row->_entity->field_cdn_prd_id->isEmpty() ? $row->_entity->field_cdn_prd_id->value : '';
     }
+    \Drupal\Component\Utility\Timer::start('test1');
     // Check availability for given products.
     if (!empty($product_ids)) {
       $products = \Drupal::service('ymca_cdn_sync.add_to_cart')->checkProductAvailability($product_ids);
     }
+    $value =  \Drupal\Component\Utility\Timer::read('test1');
     foreach ($view->result as $row) {
       $entity = $row->_entity;
       $cid = !$entity->field_cdn_prd_cabin_id->isEmpty() ? $entity->field_cdn_prd_cabin_id->value : '';

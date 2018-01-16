@@ -44,7 +44,7 @@ env:
      # Configure Camp du Nord
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_cdn_sync.settings')->set('data_service_url', 'https://ygtctrain3ebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_cdn_sync.settings')->set('data_service_user', 'FFW17')->save(TRUE);\"" }
-    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_cdn_sync.settings')->set('data_service_password', 'Summer2017')->save(TRUE);\"" }
+    - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_cdn_sync.settings')->set('data_service_password', 'Winter2017')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_camp_du_nord.settings')->set('wsdl', 'https://ygtctrain3ebiz.personifycloud.com/SSO/webservice/service.asmx?wsdl')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_camp_du_nord.settings')->set('url_login', 'https://ygtctrain3ebiz.personifycloud.com/PersonifyEbusiness/Default.aspx?TabID=337')->save(TRUE);\"" }
     - { name: 'php-eval', status: true, arguments: "\"\\Drupal::configFactory()->getEditable('ymca_camp_du_nord.settings')->set('url_account', 'https://ygtctrain3ebiz.personifycloud.com/personifyebusiness/MyY.aspx')->save(TRUE);\"" }
