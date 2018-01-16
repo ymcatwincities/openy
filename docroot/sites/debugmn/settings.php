@@ -705,7 +705,7 @@ $config_directories["staging"] = 'sites/default/config/staging';
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/ymcatwincities/debug-settings.inc';
 }
-$settings["install_profile"] = "minimal";
+$settings["install_profile"] = "openy";
 
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
@@ -731,14 +731,14 @@ if (file_exists('/var/www/site-php')) {
   // Acquia is in the process of upgrading their platform-provided memcache 
   // In the meantime rely on the old $conf vars 
 
-  //if (empty($settings['memcache']['servers'])) {
-  //  $settings['memcache']['servers'] = $conf['memcache_servers'];
-  //  $settings['memcache']['key_prefix'] = $conf['memcache_key_prefix'];
-  //  $settings['memcache']['bins'] = ['default' => 'default'];
-  //} 
+  if (empty($settings['memcache']['servers'])) {
+    $settings['memcache']['servers'] = $conf['memcache_servers'];
+    $settings['memcache']['key_prefix'] = $conf['memcache_key_prefix'];
+    $settings['memcache']['bins'] = ['default' => 'default'];
+  } 
 
   // Use memcache for cache_discovery 
-  // $settings['cache']['bins']['discovery'] = 'cache.backend.memcache'; 
+   $settings['cache']['bins']['discovery'] = 'cache.backend.memcache'; 
   // Use memcache as the default bin 
-  // $settings['cache']['default'] = 'cache.backend.memcache';
+   $settings['cache']['default'] = 'cache.backend.memcache';
 }
