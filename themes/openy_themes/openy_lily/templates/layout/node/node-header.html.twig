@@ -1,0 +1,50 @@
+{% if is_front %}
+  {% set variant = 'front' %}
+{% else %}
+  {% set variant = node.field_header_variant.0.value %}
+{% endif %}
+{% if (variant == 'image' and content.field_header_image[0] is not defined) %}
+  {% set variant = 'none' %}
+{% endif %}
+{% if (variant == 'button' and content.field_header_button[0] is not defined) %}
+  {% set variant = 'none' %}
+{% endif %}
+
+{% if (variant == 'none') %}
+  {% extends '@openy_lily/layout/header/header-without-image.html.twig' %}
+{% elseif variant == 'front' or variant == 'slideshow' %}
+  {% extends '@openy_lily/layout/header/header-page-header.html.twig' %}
+{% else %}
+  {% extends '@openy_lily/layout/header/header-with-image.html.twig' %}
+{% endif %}
+
+{% block label_and_description %}
+  <h1>{{ label }}</h1>
+  {% if content.field_title_description[0] %}
+  <article class="richtext">
+    <p>{{ content.field_title_description }}</p>
+  </article>
+  {% endif %}
+  {% if variant == 'front' and node.field_header_button['title'] %}
+    <br>
+    {{ link(node.field_header_button.title, node.field_header_button.uri, {'class':['btn', 'btn-primary', 'btn-lg']}) }}
+  {% endif %}
+{% endblock %}
+
+{% block content_image %}
+  {% if variant == 'front' %}
+    {{ content.field_header_image }}
+  {% elseif variant == 'image' %}
+    <figure class="text-center image_component">
+      {{ content.field_header_image }}
+    </figure>
+  {% elseif variant == 'button' %}
+    {{ content.field_header_button }}
+  {% endif %}
+{% endblock %}
+
+{% block backgroundimage_url %}
+  {% if variant in ['image', 'front'] %}
+    background-image: url({{ header_image_url }});
+  {% endif %}
+{% endblock %}
