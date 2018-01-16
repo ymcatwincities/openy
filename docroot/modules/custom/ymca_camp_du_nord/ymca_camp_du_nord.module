@@ -41,6 +41,7 @@ function ymca_camp_du_nord_theme($existing, $type, $theme, $path) {
         'availability' => '',
         'capacity' => '',
         'calendar' => '',
+        'cabin_url' => '',
       ],
       'template' => 'cdn-village-teaser',
     ],
