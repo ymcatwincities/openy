@@ -705,7 +705,7 @@ $config_directories["staging"] = 'sites/default/config/staging';
 if (file_exists('/var/www/site-php')) {
   require '/var/www/site-php/ymcatwincities/debug-settings.inc';
 }
-$settings["install_profile"] = "pp";
+$settings["install_profile"] = "minimal";
 
 
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
