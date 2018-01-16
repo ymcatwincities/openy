@@ -738,7 +738,7 @@ if (file_exists('/var/www/site-php')) {
   } 
 
   // Use memcache for cache_discovery 
-  $settings['cache']['bins']['discovery'] = 'cache.backend.memcache'; 
+  // $settings['cache']['bins']['discovery'] = 'cache.backend.memcache'; 
   // Use memcache as the default bin 
-  $settings['cache']['default'] = 'cache.backend.memcache';
+  // $settings['cache']['default'] = 'cache.backend.memcache';
 }
