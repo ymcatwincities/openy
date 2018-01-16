@@ -71,6 +71,10 @@ $custom_sites = array(
     'www.openymca.org',
     'openymca.org',
   ),
+  'debugmn' => array(
+    'debugmn.druler.com',
+    'debug.ymcamn.org',
+  ),
   'ymca_redwing' => array(
     'dev.redwing.getopeny.org',
     'stg.redwing.getopeny.org',
